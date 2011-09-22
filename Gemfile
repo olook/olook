@@ -17,6 +17,7 @@ group :test do
   gem 'database_cleaner', '~> 0.6.7'
   gem 'rspec', '~> 2.6.0'
   gem 'shoulda', '~> 2.11.3'
+  gem 'simplecov', '~> 0.5.3', :require => false
 end
 
 group :production do

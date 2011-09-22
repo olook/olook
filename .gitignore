@@ -1,0 +1,14 @@
+.DS_Store
+.sass-cache/*
+log/*
+tmp/*
+db/*.sqlite3
+config/database.yml
+coverage
+*.swo
+*.swp
+*~
+rerun.txt
+.bundle
+public/uploads
+
