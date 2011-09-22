@@ -11,4 +11,4 @@ coverage
 rerun.txt
 .bundle
 public/uploads
-
+.rvmrc
