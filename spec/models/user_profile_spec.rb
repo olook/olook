@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe UserProfile do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @user = mock_model('User')
+    @profile = mock_model('Profile')
+  end
+
+  it "should create a user profile" do
+    UserProfile.create!(:user_id => @user.id, :profile_id => @profile.id)
+  end
+
 end
