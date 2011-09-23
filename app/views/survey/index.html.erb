@@ -1,0 +1,17 @@
+<h1>Survey#index</h1>
+<p>Find me in app/views/survey/index.html.erb</p>
+
+<%= form_tag({:controller => "survey", :action => "create"}) do %>
+
+  <% @questions.each do |question| %>
+    <h2><%= question.title %></h2>
+
+    <% question.answers.each do |answer| %>
+      <%= radio_button_tag("answer[a#{answer.id}]", answer.id) %> Bleh
+    <% end %>
+
+  <hr/>
+  <% end %>
+
+  <p><%= submit_tag("Enviar")  %></p>
+<% end %>
