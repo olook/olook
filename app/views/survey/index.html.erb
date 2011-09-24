@@ -7,7 +7,7 @@
     <h2><%= question.title %></h2>
 
     <% question.answers.each do |answer| %>
-      <%= radio_button_tag("answer[a#{answer.id}]", answer.id) %> Bleh
+      <%= radio_button_tag("answers[a_#{answer.id}]", answer.id) %> Foobar
     <% end %>
 
   <hr/>
