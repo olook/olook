@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 
 gem 'sqlite3'
-gem 'mysql'
+gem 'mysql2', '~> 0.3.7'
 gem 'jquery-rails', '~> 1.0.14'
 
 group :development, :test do

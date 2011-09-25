@@ -29,12 +29,6 @@ ActiveRecord::Schema.define(:version => 20110923235341) do
     t.datetime "updated_at"
   end
 
-  create_table "products", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "profiles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -43,13 +37,6 @@ ActiveRecord::Schema.define(:version => 20110923235341) do
 
   create_table "questions", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "user_profiles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "profile_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
