@@ -10,4 +10,12 @@ class Profile < ActiveRecord::Base
     end
     profiles
   end
+
+  def self.build_profiles_points(profiles)
+    profile_points = Hash.new
+  	profiles.each do |profile|
+      profile_points[profile.id] = (profile_points[profile.id].nil?) ? 1 : profile_points[profile.id] + 1 
+    end
+    profile_points
+  end
 end
