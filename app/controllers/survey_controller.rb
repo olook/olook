@@ -4,25 +4,9 @@ class SurveyController < ApplicationController
   end
 
   def create
-  	@questions = params[:questions]
-  	
-    
-    @a = []
-
-    @questions.each do |question_name, answer_id|
-      profile = Answer.find(answer_id).profile
-      @a << profile
-    end
-
-    @h = Hash.new
-
-  
-    @a.each do |p|
-      @h[p.id] = (@h[p].nil?) ? 1 : @h[p] + 1 
-    end
-
-    debugger
-    session[:profiles] = @h
+  	questions = params[:questions]
+  	profiles = Profile.profiles_given_questions(questions)
+    profile_points = Profile.build_profiles_points(profiles)     
+    session[:profile_points] = profile_points
   end
-
 end
