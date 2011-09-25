@@ -5,8 +5,12 @@ gem 'rails', '3.1.0'
 gem 'sqlite3'
 gem 'mysql2', '~> 0.3.7'
 gem 'jquery-rails', '~> 1.0.14'
+gem 'devise', '~> 1.4.7'
+gem 'omniauth', '~> 0.3.0'
+gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
 
 group :development, :test do
+  gem 'ruby-debug19'
   gem 'capistrano'
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'factory_girl_rails', '~> 1.2.0'
