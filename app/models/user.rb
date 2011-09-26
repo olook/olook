@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def contabilize_points(session)
+  def counts_and_write_points(session)
     session.each do |profile_id, points|
       self.points.create!(:value => points, :profile_id => profile_id)
     end
