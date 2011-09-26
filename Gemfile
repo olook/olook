@@ -8,6 +8,7 @@ gem 'devise', '~> 1.4.7'
 gem 'omniauth', '~> 0.3.0'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
 gem 'uglifier'
+gem 'therubyracer'
 
 group :development, :test do
   gem 'sqlite3'
