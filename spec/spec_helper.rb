@@ -6,6 +6,13 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 
+OmniAuth.config.test_mode = true
+
+OmniAuth.config.mock_auth[:twitter] = {
+  'provider' => 'facebook',
+  'uid' => '123545'
+}
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
