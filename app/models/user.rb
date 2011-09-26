@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
   has_many :points
   has_many :profiles, :through => :points
 
@@ -12,7 +12,10 @@ class User < ActiveRecord::Base
     if user = User.find_by_email(data["email"])
      user
     else
-      User.create(:email => data["email"], :password => Devise.friendly_token[0,20]) 
+      User.create(:first_name => data["first_name"],
+                  :last_name => data["last_name"],
+                  :email => data["email"],
+                  :password => Devise.friendly_token[0,20]) 
     end
   end
 
