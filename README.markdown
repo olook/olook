@@ -11,3 +11,4 @@ Setup
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
 - rake spec
+- rake db:seed
