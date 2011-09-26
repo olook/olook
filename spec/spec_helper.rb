@@ -8,9 +8,9 @@ require 'capybara/rspec'
 
 OmniAuth.config.test_mode = true
 
-OmniAuth.config.mock_auth[:twitter] = {
+OmniAuth.config.mock_auth[:facebook] = {
   'provider' => 'facebook',
-  'uid' => '123545'
+  'extra' => {"user_hash" => {"email" => "user@mail.com"}}
 }
 
 # Requires supporting ruby files with custom matchers and macros, etc,
