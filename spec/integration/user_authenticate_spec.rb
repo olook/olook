@@ -3,7 +3,7 @@ require 'spec_helper'
 feature "User Authenticate", %q{
   In order to see give a full access
   As a user
-  I want to authenticate
+  I want to authenticate using my Facebook account or a normal register
 } do
 
   before :each do
@@ -19,6 +19,13 @@ feature "User Authenticate", %q{
   end
 
   scenario "User Log in with facebook" do
+    visit root_path
+    click_link "Sign in with Facebook"
+    page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
+  end
+
+  scenario "User Sign up with facebook" do
+    User.delete_all
     visit root_path
     click_link "Sign in with Facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
