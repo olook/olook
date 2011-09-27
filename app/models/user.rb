@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
@@ -6,6 +7,12 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+
+  validates :email, :uniqueness => true
+  validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  validates_format_of :first_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
+  validates_format_of :last_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
+       
 
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['user_hash']
@@ -16,7 +23,7 @@ class User < ActiveRecord::Base
                   :last_name => data["last_name"],
                   :email => data["email"],
                   :password => Devise.friendly_token[0,20]) 
-    end
+    end 
   end
 
   def self.new_with_session(params, session)

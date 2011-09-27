@@ -3,4 +3,5 @@ Factory.define :user do |f|
   f.password_confirmation "123456"
   f.email "user@mail.com"
   f.first_name "User First Name"
+  f.last_name "Last Name"
 end
