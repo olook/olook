@@ -8,6 +8,8 @@ feature "User Authenticate", %q{
 
   before :each do
     @user = Factory(:user)
+    User.any_instance.stub(:counts_and_write_points)
+    @casual = Factory(:casual_profile)
   end
 
   scenario "User Log in" do
@@ -19,15 +21,13 @@ feature "User Authenticate", %q{
   end
 
   scenario "User Log in with facebook" do
-    visit root_path
-    click_link "Sign in with Facebook"
+    visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 
   scenario "User Sign up with facebook" do
     User.delete_all
-    visit root_path
-    click_link "Sign in with Facebook"
+    visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 end
