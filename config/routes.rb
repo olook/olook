@@ -3,10 +3,8 @@ Olook::Application.routes.draw do
 
   resources :survey, :only => [:index, :create]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" } do
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations" } do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
   end
-
-  devise_for :users, :controllers => { :registrations => "registrations" }
 
 end
