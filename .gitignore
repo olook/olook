@@ -12,3 +12,6 @@ rerun.txt
 .bundle
 public/uploads
 .rvmrc
+.rspec
+Gemfile.lock
+

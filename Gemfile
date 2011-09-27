@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
-gem 'mysql', '~> 2.8.1'
+gem 'pg', '~> 0.11.0'
 gem 'jquery-rails', '~> 1.0.14'
 gem 'devise', '~> 1.4.7'
 gem 'omniauth', '~> 0.3.0'
