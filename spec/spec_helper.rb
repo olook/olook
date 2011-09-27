@@ -10,7 +10,7 @@ OmniAuth.config.test_mode = true
 
 OmniAuth.config.mock_auth[:facebook] = {
   'provider' => 'facebook',
-  'extra' => {"user_hash" => {"email" => "user@mail.com"}}
+  'extra' => {"user_hash" => {"email" => "user@mail.com", "first_name" => "First", "last_name" => "Last"}}
 }
 
 # Requires supporting ruby files with custom matchers and macros, etc,
