@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'integration/helpers'
 
 feature "User Authenticate", %q{
   In order to give a full access
@@ -13,11 +14,8 @@ feature "User Authenticate", %q{
     @question = @answer.question
   end
 
-  scenario "User Sign up" do
-    visit root_path
-    click_link "Take the Style Quiz"
-    choose "questions[question_#{@question.id}]" 
-    click_button "Enviar"
+  scenario "User Sign up" do 
+    answer_survey(@question)
     visit new_user_registration_path
     fill_in "user_name", :with => "User Name"
     fill_in "user_email", :with => "fake@mail.com"
@@ -36,20 +34,14 @@ feature "User Authenticate", %q{
   end
 
   scenario "User Log in with facebook" do
-    visit root_path
-    click_link "Take the Style Quiz"
-    choose "questions[question_#{@question.id}]"
-    click_button "Enviar"
+    answer_survey(@question)
     visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 
   scenario "User Sign up with facebook" do
     User.delete_all
-    visit root_path
-    click_link "Take the Style Quiz"
-    choose "questions[question_#{@question.id}]"
-    click_button "Enviar"
+    answer_survey(@question)
     visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
