@@ -7,4 +7,6 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
   end
 
+  devise_for :users, :controllers => { :registrations => "registrations" }
+
 end
