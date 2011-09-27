@@ -13,11 +13,11 @@ describe User do
   it { should_not allow_value("a@b.").for(:email) }
   it { should validate_uniqueness_of(:email) }
 
-  it { should allow_value("José").for(:first_name) }
-  it { should allow_value("José Bar").for(:first_name) }
+  it { should allow_value("José").for(:name) }
+  it { should allow_value("José Bar").for(:name) }
 
-  it { should_not allow_value("José_Bar").for(:first_name) }
-  it { should_not allow_value("123").for(:first_name) }
+  it { should_not allow_value("José_Bar").for(:name) }
+  it { should_not allow_value("123").for(:name) }
 
   it "should counts and write points" do
     hash = {@profile.id => 2}

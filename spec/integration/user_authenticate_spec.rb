@@ -14,8 +14,7 @@ feature "User Authenticate", %q{
 
   scenario "User Sign up" do
     visit new_user_registration_path
-    fill_in "user_first_name", :with => "First Name"
-    fill_in "user_last_name", :with => "Last Name"
+    fill_in "user_name", :with => "User Name"
     fill_in "user_email", :with => "fake@mail.com"
     fill_in "user_password", :with => "123456"
     fill_in "user_password_confirmation", :with => "123456"
