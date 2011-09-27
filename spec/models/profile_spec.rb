@@ -22,7 +22,7 @@ describe Profile do
   
   it "should build an array of profiles given the answers" do 
 	expected = {answer_from_casual_profile.profile.id => 2,
-		        answer_from_sporty_profile.profile.id => 1}                        
+		        answer_from_sporty_profile.profile.id => 1}                         
     Profile.build_profiles_points(profiles).should == expected
   end             
 end
