@@ -2,7 +2,7 @@ Requirements
 ============
 
 - Ruby 1.9.2 or higher
-- PostgreSQL 9.1
+- MySQL 5.1.49
 
 Setup
 ============
@@ -14,26 +14,10 @@ Setup
 - rake spec
 - rake db:seed
 
-Installing Postgres 9.1 on Ubuntu/Debian
+Installing MySQL 5.1.49 on Ubuntu/Debian
 ============
-*References: https://help.ubuntu.com/community/PostgreSQL*
 
-- sudo add-apt-repository ppa:pitti/postgresql
-- sudo apt-get update
-- sudo apt-get install postgresql-9.1
-- sudo -u postgres psql postgres
-
-Type the following commands:
-
-```
-\password postgres
-Enter the new password, it's recommended to use "postgres"
-CTRL+D
-```
-
-To install an admin with GUI:
-
-- sudo apt-get install pgadmin3
+- sudo apt-get install mysql-server-5.1
 
 Optional config files
 ============
