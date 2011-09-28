@@ -6,6 +6,15 @@ set :scm, :git
 
 server "localhost", :web, :app, :db
 
+set :deploy_to, "/srv/olook"
+
+set :user, "deploy"
+set :use_sudo, true
+
+set :keep_releases, 5
+
+ssh_options[:forward_agent] = true
+
 #role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 #role :app, "your app-server here"                          # This may be the same as your `Web` server
 #role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
