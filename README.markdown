@@ -14,6 +14,11 @@ Setup
 - rake spec
 - rake db:seed
 
+Installing MySQL 5.1.49 on Ubuntu/Debian
+============
+
+- sudo apt-get install mysql-server-5.1
+
 Optional config files
 ============
 - .rvmrc
