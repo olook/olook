@@ -1,3 +1,4 @@
+FACEBOOK_CONFIG = YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
@@ -202,7 +203,7 @@ Devise.setup do |config|
   #config.omniauth :facebook, "165636216797497", "788b9d3faa90f5eeb85ae6e52ac03297"
 
   # Stephano's hosted app
-  config.omniauth :facebook, "223535484368456", "cb69ae79d647ed8de4e2a73288c97b3e"
+  config.omniauth :facebook, FACEBOOK_CONFIG["app_id"], FACEBOOK_CONFIG["app_secret"]
 
 
   # ==> Warden configuration
