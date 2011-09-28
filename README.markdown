@@ -2,7 +2,7 @@ Requirements
 ============
 
 - Ruby 1.9.2 or higher
-- MySQL 5.1.49
+- MySQL 5.1.49 on Ubuntu 11.04
 
 Setup
 ============

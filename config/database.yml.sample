@@ -1,19 +1,19 @@
-development:
-  adapter: sqlite3
-  database: db/olook_development.sqlite3
-  pool: 5
-  timeout: 5000
-
-test:
-  adapter: sqlite3
-  database: db/olook_test.sqlite3
-  pool: 5
-  timeout: 5000
-
-production:
+default: &default
   adapter: mysql
   encoding: utf8
-  database: olook_production
-  username: postgres
-  password: postgres
+  pool: 5
+  username: root
+  password: mysql
   host: localhost
+
+development:
+  <<: *default
+  database: olook_development
+
+test:
+  <<: *default
+  database: olook_test
+
+production:
+  <<: *default
+  database: olook_production
