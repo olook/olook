@@ -1,26 +1,19 @@
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: olook_development
+default: &default
+  adapter: mysql
+  encoding: utf8
   pool: 5
-  username: postgres
-  password: postgres
+  username: root
+  password: mysql
   host: localhost
+
+development:
+  <<: *default
+  database: olook_development
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: olook_test
-  pool: 5
-  username: postgres
-  password: postgres
-  host: localhost
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: olook_production
-  pool: 5
-  username: postgres
-  password: postgres
-  host: localhost
