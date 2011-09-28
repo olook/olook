@@ -25,6 +25,8 @@ group :test do
   gem 'shoulda', '~> 2.11.3'
   gem 'simplecov', '~> 0.5.3', :require => false
   gem 'spork', '~> 0.9.0.rc'
+  gem 'guard-rspec'
+  gem 'guard-spork'
 end
 
 group :production do
