@@ -12,3 +12,4 @@ rerun.txt
 .bundle
 public/uploads
 .rvmrc
+config/facebook.yml

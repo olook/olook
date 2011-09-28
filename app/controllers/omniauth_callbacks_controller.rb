@@ -1,4 +1,7 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  before_filter :check_survey_response, :only => [:facebook]
+
   def facebook
     @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
     if @user.persisted?
@@ -13,5 +16,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def passthru
     render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+  end
+
+  private
+
+  def check_survey_response
+    redirect_to survey_index_path if session[:profile_points].nil?
   end
 end
