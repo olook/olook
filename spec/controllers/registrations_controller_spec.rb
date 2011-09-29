@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe RegistrationsController do
 
+  let(:user_attributes) { {:email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :name => "User" } }
+
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -37,7 +39,7 @@ describe RegistrationsController do
      session[:profile_points] = :some_data
      User.any_instance.stub(:counts_and_write_points)
      expect {
-          post :create, :user => { :email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :name => "User" }
+          post :create, :user => user_attributes
         }.to change(SurveyAnswer, :count).by(1)    
     end
   end
