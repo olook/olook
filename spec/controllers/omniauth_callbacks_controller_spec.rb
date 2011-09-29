@@ -20,6 +20,13 @@ describe OmniauthCallbacksController do
       get :facebook
       response.should_not redirect_to(survey_index_path)
     end
+
+    it "should create a SurveyAnswer" do
+     session[:profile_points] = :some_data
+     User.should_receive(:find_for_facebook_oauth).and_return(user = mock_model(User))
+     user.stub(:persisted?).and_return(false)
+     get :facebook   
+    end
   end
    
 end

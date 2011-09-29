@@ -3,7 +3,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :check_survey_response, :only => [:facebook]
 
   def facebook
-    @user = User.find_for_facebook_oauth(env["omniauth.auth"], current_user)
+    survey_answer = SurveyAnswer.new(:answers => session[:questions])
+    @user = User.find_for_facebook_oauth(env["omniauth.auth"], survey_answer)
     if @user.persisted?
       @user.counts_and_write_points(session[:profile_points])
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"

@@ -25,4 +25,12 @@ describe User do
     Point.should have(1).record
   end
 
+  it "should create a SurveyAnswer" do
+    access_token = {"extra" => {"user_hash" => {"email" => "mail@mail.com", "name" => "Name"}}}
+    survey_answer = SurveyAnswer.new(:answers => {:foo => :bar})
+    expect {
+          User.find_for_facebook_oauth(access_token, survey_answer)
+        }.to change(SurveyAnswer, :count).by(1)    
+  end
+
 end
