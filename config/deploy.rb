@@ -1,33 +1,16 @@
-set :application, "olook"
-set :repository,  "git@github.com:olook/olook.git"
+namespace :deploy do
 
-set :scm, :git
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+  desc "Pull repository and checkout to assigned tag"
+  task :pull_and_checkout do
+    run "git pull && git checkout #{ref}"
+  end
 
-server "localhost", :web, :app, :db
+  desc "Generate assets packages"
+  task :generate_assets_packages do
+    run "rake asset:packager:build_all RAILS_ENV=production"
+  end
 
-set :deploy_to, "/srv/olook"
+end
 
-set :user, "deploy"
-set :use_sudo, true
-
-set :keep_releases, 5
-
-ssh_options[:forward_agent] = true
-
-#role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-#role :app, "your app-server here"                          # This may be the same as your `Web` server
-#role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-#role :db,  "your slave db-server here"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+after "deploy:pull_and_checkout", "deploy:migrate"
+after "deploy:migrate", "deploy:generate_assets_packages"
