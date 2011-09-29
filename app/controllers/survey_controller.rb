@@ -1,6 +1,6 @@
 class SurveyController < ApplicationController
   def index
-    @questions = Question.all
+    @questions = Question.includes(:answers)
   end
 
   def create
