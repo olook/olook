@@ -23,6 +23,18 @@ describe RegistrationsController do
   end
 
   describe "POST create " do
+
+    before :each do
+      User.any_instance.stub(:counts_and_write_points)
+    end
+
+    it "should create a User" do
+     session[:profile_points] = :some_data
+     expect {
+          post :create, :user => user_attributes
+        }.to change(User, :count).by(1)    
+    end
+
     it "should redirect if the user dont fill the Survey" do
       session[:profile_points] = nil
       post :create
@@ -37,7 +49,6 @@ describe RegistrationsController do
 
     it "should create a SurveyAnswers" do
      session[:profile_points] = :some_data
-     User.any_instance.stub(:counts_and_write_points)
      expect {
           post :create, :user => user_attributes
         }.to change(SurveyAnswer, :count).by(1)    
