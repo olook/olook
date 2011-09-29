@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   has_many :points
   has_many :profiles, :through => :points
+  has_one :survey_answer
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
@@ -36,8 +37,10 @@ class User < ActiveRecord::Base
   end
 
   def counts_and_write_points(session)
-    session.each do |profile_id, points|
-      self.points.create!(:value => points, :profile_id => profile_id)
+    if self.points.size == 0
+      session.each do |profile_id, points|
+        self.points.create!(:value => points, :profile_id => profile_id)
+      end
     end
   end
 end
