@@ -20,7 +20,7 @@ describe RegistrationsController do
     end
   end
 
-   describe "POST create " do
+  describe "POST create " do
     it "should redirect if the user dont fill the Survey" do
       session[:profile_points] = nil
       post :create
@@ -31,6 +31,14 @@ describe RegistrationsController do
       session[:profile_points] = :some_data
       post :create
       response.should_not redirect_to(survey_index_path)
+    end
+
+    it "should create a SurveyAnswers" do
+     session[:profile_points] = :some_data
+     User.any_instance.stub(:counts_and_write_points)
+     expect {
+          post :create, :user => { :email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :name => "User" }
+        }.to change(SurveyAnswer, :count).by(1)    
     end
   end
 end

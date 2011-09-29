@@ -9,6 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   def after_sign_up_path_for(resource)
+  	SurveyAnswer.create(:answers => session[:questions], :user => resource)
     resource.counts_and_write_points(session[:profile_points])
   end
 end
