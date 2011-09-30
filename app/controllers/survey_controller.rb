@@ -1,6 +1,7 @@
 class SurveyController < ApplicationController
 
   before_filter :check_user_login
+  before_filter :check_questions_params, :only => [:create]
 
   def index
     @questions = Question.includes(:answers).each
@@ -18,5 +19,9 @@ class SurveyController < ApplicationController
 
   def check_user_login
     redirect_to root_path if current_user
+  end
+
+  def check_questions_params
+    redirect_to survey_index_path if params[:questions].nil?
   end
 end

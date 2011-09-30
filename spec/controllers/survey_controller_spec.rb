@@ -27,8 +27,13 @@ describe SurveyController do
     it "should assign profile_points in the session" do
       Profile.stub(:profiles_given_questions).and_return("foo")
       profile_points = Profile.stub(:build_profiles_points).and_return("bar").call
-      post 'create'
+      post 'create', :questions => {:foo => :bar}
       session[:profile_points].should == profile_points
+    end
+
+    it "should redirect to survey_path if params[:questions] is nil" do
+      post 'create'
+      response.should redirect_to survey_index_path
     end
   end
 end
