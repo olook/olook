@@ -45,4 +45,26 @@ feature "User Authenticate", %q{
     visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
+  
+  scenario "Whole sign up, sign out and sign in process" do
+    login = "john@doe.com"
+    pass = "123abc"
+
+    answer_survey(@question)
+    visit new_user_registration_path
+    fill_in "user_name", :with => "Name"
+    fill_in "user_email", :with => login
+    fill_in "user_password", :with => pass
+    fill_in "user_password_confirmation", :with => pass
+    click_on "Sign up"
+    page.should have_content(I18n.t "devise.registrations.signed_up")
+    click_on "Logout"
+    page.should have_content(I18n.t "devise.sessions.signed_out")
+
+    visit new_user_session_path
+    fill_in "user_email", :with => login
+    fill_in "user_password", :with => pass
+    click_button "Sign in"
+    page.should have_content(I18n.t "devise.sessions.signed_in")
+  end
 end
