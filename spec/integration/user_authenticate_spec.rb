@@ -10,12 +10,10 @@ feature "User Authenticate", %q{
   before :each do
     @user = Factory(:user)
     User.any_instance.stub(:counts_and_write_points)
-    @answer = Factory.create(:answer_from_casual_profile)
-    @question = @answer.question
   end
 
   scenario "User Sign up" do 
-    answer_survey(@question)
+    answer_survey
     visit new_user_registration_path
     fill_in "user_name", :with => "User Name"
     fill_in "user_email", :with => "fake@mail.com"
@@ -34,7 +32,7 @@ feature "User Authenticate", %q{
   end
 
   scenario "User Log in with facebook" do
-    answer_survey(@question)
+    answer_survey
     visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end

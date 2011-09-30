@@ -3,7 +3,7 @@ class SurveyController < ApplicationController
   before_filter :check_user_login
 
   def index
-    @questions = Question.includes(:answers)
+    @questions = Question.includes(:answers).each
   end
 
   def create
