@@ -2,7 +2,7 @@
 
 <%= form_tag({:controller => "survey", :action => "create"}) do %>
 
-  <% @questions.each do |question| %>
+  <% question = @questions.next %>
     <h2><%= question.title %></h2>
 
     <% question.answers.each do |answer| %>
@@ -10,7 +10,24 @@
     <% end %>
 
   <hr/>
-  <% end %>
 
+  <% question = @questions.next %>
+    <h2><%= question.title %></h2>
+
+    <% question.answers.each do |answer| %>
+      <%= radio_button_tag("questions[question_#{question.id}]", answer.id) %> <%= answer.title %>
+    <% end %>
+
+  <hr/>
+
+  <% question = @questions.next %>
+    <h2><%= question.title %></h2>
+
+    <% question.answers.each do |answer| %>
+      <%= check_box_tag "questions[question_#{question.id}_#{answer.id}]", answer.id %> <%= answer.title %>
+    <% end %>
+
+  <hr/>
+  
   <p><%= submit_tag("Enviar")  %></p>
 <% end %>
