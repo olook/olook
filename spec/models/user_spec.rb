@@ -34,10 +34,19 @@ describe User do
 
   it "should create a SurveyAnswer" do
     access_token = {"extra" => {"user_hash" => {"email" => "mail@mail.com", "name" => "Name"}}}
+    profile_points = {:foo => :bar}
     survey_answer = SurveyAnswer.new(:answers => {:foo => :bar})
     expect {
-          User.find_for_facebook_oauth(access_token, survey_answer)
+          User.find_for_facebook_oauth(access_token, survey_answer, profile_points)
         }.to change(SurveyAnswer, :count).by(1)    
+  end
+
+  it "should return the user" do
+    access_token = {"extra" => {"user_hash" => {"email" => @user.email, "name" => @user.name}}}
+    profile_points = {:foo => :bar}
+    survey_answer = SurveyAnswer.new(:answers => {:foo => :bar})
+    user = User.find_for_facebook_oauth(access_token, survey_answer, profile_points)[0]
+    user.should == @user    
   end
 
 end

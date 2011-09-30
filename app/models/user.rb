@@ -13,18 +13,22 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   validates_format_of :name, :with => /^[A-ZÀ-ÿ\s-]+$/i
 
-  def self.find_for_facebook_oauth(access_token, survey_answer, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(access_token, survey_answer, profile_points, signed_in_resource=nil)
     data = access_token['extra']['user_hash']
     if user = User.find_by_email(data["email"])
-      user
+      [user, false]
     else
-      user = User.create(:name => data["name"],
+      if profile_points
+        user = User.create(:name => data["name"],
                   :email => data["email"],
                   :password => Devise.friendly_token[0,20])
                   
-      survey_answer.user = user
-      survey_answer.save  
-      user     
+        survey_answer.user = user
+        survey_answer.save  
+        [user, true]
+      else
+        ["", true]
+      end    
     end 
   end
 
