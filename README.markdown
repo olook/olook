@@ -2,6 +2,7 @@ Requirements
 ============
 
 - Ruby 1.9.2 or higher
+- MySQL 5.1.49 on Ubuntu 11.04
 
 Setup
 ============
@@ -13,3 +14,23 @@ Setup
 - rake db:migrate && rake db:migrate RAILS_ENV=test
 - rake spec
 - rake db:seed
+
+Installing MySQL 5.1.49 on Ubuntu/Debian
+============
+
+- sudo apt-get install mysql-server-5.1
+
+Optional config files
+============
+- .rvmrc
+  - run the following command inside the project directory
+  ```
+  rvm --rvmrc --create 1.9.2@olook
+  ```
+
+- .rspec
+  - create a file named .rspec inside the project directory with the following content
+  ```
+  --color
+  --format documentation
+  ```

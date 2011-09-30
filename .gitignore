@@ -13,3 +13,5 @@ rerun.txt
 public/uploads
 .rvmrc
 config/facebook.yml
+.rspec
+Gemfile.lock

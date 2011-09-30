@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
+gem 'rake', '0.8.7'
 
 gem 'mysql', '~> 2.8.1'
 gem 'jquery-rails', '~> 1.0.14'
@@ -24,6 +25,9 @@ group :test do
   gem 'rspec', '~> 2.6.0'
   gem 'shoulda', '~> 2.11.3'
   gem 'simplecov', '~> 0.5.3', :require => false
+  gem 'spork', '~> 0.9.0.rc'
+  gem 'guard-rspec'
+  gem 'guard-spork'
 end
 
 group :production do
