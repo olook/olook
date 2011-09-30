@@ -49,4 +49,11 @@ describe User do
     user.should == @user    
   end
 
+  it "should return the a empty user" do
+    access_token = {"extra" => {"user_hash" => {"email" => "mail@mail.com", "name" => "Name"}}}
+    survey_answer = SurveyAnswer.new(:answers => {:foo => :bar})
+    user = User.find_for_facebook_oauth(access_token, survey_answer, nil)[0]
+    user.should == ""    
+  end
+
 end
