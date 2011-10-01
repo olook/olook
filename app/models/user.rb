@@ -2,6 +2,10 @@
 class User < ActiveRecord::Base
 
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_protected :invite_token
+
+  before_create :generate_invite_token
+
   has_many :points
   has_many :profiles, :through => :points
   has_one :survey_answer
@@ -43,4 +47,22 @@ class User < ActiveRecord::Base
       end
     end
   end
+  
+  def invite_token=(token)
+    if new_record?
+      write_attribute(:invite_token, token)
+    else
+      raise 'Invite token is read only'
+    end
+  end
+  
+  private
+
+  def generate_invite_token
+    loop do
+      write_attribute(:invite_token, Devise.friendly_token)
+      break unless User.find_by_invite_token(self.invite_token)
+    end if self.invite_token.nil?
+  end
+  
 end

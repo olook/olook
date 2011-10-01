@@ -8,6 +8,9 @@ Spork.prefork do
 
   require 'simplecov'
   SimpleCov.start
+
+  require 'ruby-debug' ; Debugger.start
+
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
   
@@ -47,6 +50,8 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
+    
+    config.include Devise::TestHelpers, :type => :controller
   end
 end
 

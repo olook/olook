@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929164020) do
+ActiveRecord::Schema.define(:version => 20110930220513) do
 
   create_table "answers", :force => true do |t|
     t.string   "title"
@@ -66,8 +66,10 @@ ActiveRecord::Schema.define(:version => 20110929164020) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "invite_token"
   end
 
+  add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
 end

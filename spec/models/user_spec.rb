@@ -39,5 +39,31 @@ describe User do
           User.find_for_facebook_oauth(access_token, survey_answer)
         }.to change(SurveyAnswer, :count).by(1)    
   end
+  
+  context "invite token" do
+    subject { FactoryGirl.build(:user, :name => 'Member Jane', :email => 'member.jane@mail.com') }
 
+    it "should be empty when built" do
+      subject.invite_token.should be_nil
+    end
+    
+    it "should be non-empty when saved" do
+      subject.save!
+      subject.invite_token.should_not be_nil
+    end
+
+    it "should keep the same token even saved more than once" do
+      subject.save!
+      original_token = subject.invite_token
+      subject.invite_token.should_not be_nil
+      
+      subject.save!
+      subject.invite_token.should == original_token
+    end
+
+    it "should be read-only" do
+      subject.save!
+      expect { subject.invite_token = "foo" }.to raise_error
+    end
+  end
 end
