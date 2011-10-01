@@ -1,6 +1,6 @@
 <h1>Member</h1>
 
-<p>Token: <%= link_to(accept_invitation_url(:invite_token => @member.invite_token).to_s, accept_invitation_path(:invite_token => @member.invite_token), :id => 'share_invitation') %></p>
+<p>Token: <%= content_tag(:span, accept_invitation_url(:invite_token => @member.invite_token), :id => 'share_invitation') %></p>
 
 <p>Share on Twitter <a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
 

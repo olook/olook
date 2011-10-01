@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => true
   validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   validates_format_of :name, :with => /^[A-ZÀ-ÿ\s-]+$/i
+  
+  InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
 
   def self.find_for_facebook_oauth(access_token, survey_answer, profile_points, signed_in_resource=nil)
     data = access_token['extra']['user_hash']

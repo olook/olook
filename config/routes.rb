@@ -10,6 +10,5 @@ Olook::Application.routes.draw do
   end
   
   get "member/invite" => "member#invite"
-  get "invite/(:invite_token)" => 'member#accept_invitation', :as => "accept_invitation",
-      :invite_token => /[a-zA-Z0-9]{20}/
+  get "invite/(:invite_token)" => 'member#accept_invitation', :as => "accept_invitation"
 end

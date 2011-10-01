@@ -4,5 +4,9 @@ FactoryGirl.define do
     password_confirmation "123456"
     email "user@mail.com"
     name "User First Name"
+    
+    factory :member do
+      invite_token 'OK'*10
+    end
   end
 end

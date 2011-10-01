@@ -41,8 +41,8 @@ feature "Member can send invites", %q{
     end
 
     scenario "copying and pasting a link to invite/*invite_token*" do 
-      share_link = page.find('a#share_invitation')[:href]
-      share_link.should have_content(accept_invitation_path(@member.invite_token))
+      share_link = page.find('span#share_invitation')
+      share_link.should have_content(accept_invitation_path(:invite_token => @member.invite_token))
     end
 
     scenario "tweeting the link" do
@@ -53,6 +53,26 @@ feature "Member can send invites", %q{
     scenario "posting the link on her Facebook wall" do
       facebook_button = page.find('.fb-send')[:"data-href"]
       facebook_button.should have_content("olook.com/invite/#{@member.invite_token}")
+    end
+  end
+
+  describe "When someone visits the accepted invitation url" do
+    scenario "if they have an empty token, they should be redirected to root" do
+      visit accept_invitation_path(:invite_token => '')
+      current_path.should == root_path
+      page.should have_content("Invalid token")
+    end
+
+    scenario "if they have a token with an invalid format, they should be redirected to root" do
+      visit accept_invitation_path(:invite_token => '')
+      current_path.should == root_path
+      page.should have_content("Invalid token")
+    end
+
+    scenario "if they have a token that doesn't exist, they should be redirected to root" do
+      visit accept_invitation_path(:invite_token => 'X'*20)
+      current_path.should == root_path
+      page.should have_content("Invalid token")
     end
   end
 end
