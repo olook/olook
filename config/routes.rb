@@ -9,5 +9,7 @@ Olook::Application.routes.draw do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
   
-  match "member/invite" => "member#invite"
+  get "member/invite" => "member#invite"
+  get "invite/:invite_token" => "member#accept_invitation", :as => "accept_invitation",
+      :invite_token => /[a-zA-Z0-9]{20}/
 end

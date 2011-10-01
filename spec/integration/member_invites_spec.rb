@@ -36,21 +36,23 @@ feature "Member can send invites", %q{
   end
 
   describe "On the invite page, a member can invite people by" do 
-    scenario "copying and pasting a link" do 
+    background do
       visit member_invite_path
-      page.should have_content(@member.invite_token)
+    end
+
+    scenario "copying and pasting a link to invite/*invite_token*" do 
+      share_link = page.find('a#share_invitation')[:href]
+      share_link.should have_content(accept_invitation_path(@member.invite_token))
     end
 
     scenario "tweeting the link" do
-      visit member_invite_path
       tweet_text = page.find('.twitter-share-button')[:"data-text"]
       tweet_text.should have_content("olook.com/invite/#{@member.invite_token}")
     end
 
     scenario "posting the link on her Facebook wall" do
-      visit member_invite_path
-      tweet_text = page.find('.fb-send')[:"data-href"]
-      tweet_text.should have_content("olook.com/invite/#{@member.invite_token}")
+      facebook_button = page.find('.fb-send')[:"data-href"]
+      facebook_button.should have_content("olook.com/invite/#{@member.invite_token}")
     end
   end
 end
