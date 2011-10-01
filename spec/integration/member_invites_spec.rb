@@ -9,9 +9,7 @@ feature "Member can send invites", %q{
 
   background do
     User.any_instance.stub(:counts_and_write_points)
-    @answer = FactoryGirl.create(:answer_from_casual_profile)
-    @question = @answer.question
-    answer_survey(@question)
+    answer_survey
 
     email = "member.jane@doe.com"
     pass = "123abc"

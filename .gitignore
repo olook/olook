@@ -12,6 +12,7 @@ rerun.txt
 .bundle
 public/uploads
 .rvmrc
-config/facebook.yml
 .rspec
 Gemfile.lock
+nohup.out
+config/facebook.yml
