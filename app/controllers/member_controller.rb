@@ -3,7 +3,7 @@ class MemberController < ApplicationController
     @member = current_user
   end
 
-  def accept_invitation(invitation_token)
+  def accept_invitation
     
   end
 end
