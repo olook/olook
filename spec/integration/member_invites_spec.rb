@@ -30,6 +30,11 @@ feature "Member can send invites", %q{
     @member = User.find_by_email(email)
   end  
 
+  scenario "Member can access the invite page through the welcome page" do
+    visit welcome_path
+    page.has_link?("Convide suas amigas", :href => member_invite_path)
+  end
+
   describe "On the invite page, a member can invite people by" do 
     scenario "copying and pasting a link" do 
       visit member_invite_path
