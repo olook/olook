@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_survey_response, :only => [:new, :create]
   
   private
-
+  
   def check_survey_response
   	redirect_to survey_index_path if session[:profile_points].nil?
   end

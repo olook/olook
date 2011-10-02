@@ -29,11 +29,13 @@ describe MemberController do
       end
     end
     
-    describe 'should render the accept invitation page' do
+    describe 'should redirect visitor to signup page with invite information' do
       it "when receiving a valid token" do
-        member = FactoryGirl.create(:member)
-        get :accept_invitation, :invite_token => member.invite_token
-        response.should render_template('accept_invitation')
+        inviting_member = FactoryGirl.create(:member)
+        get :accept_invitation, :invite_token => inviting_member.invite_token
+        response.should redirect_to(new_user_registration_path)
+        session[:invite].should == {:invite_token => inviting_member.invite_token,
+                                    :invited_by => inviting_member.name}
       end
     end
   end
