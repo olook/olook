@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RegistrationsController do
 
-  let(:user_attributes) { {:email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :name => "User" } }
+  let(:user_attributes) { {:email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :first_name => "User Name", :last_name => "Last Name" } }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -32,7 +32,7 @@ describe RegistrationsController do
      session[:profile_points] = :some_data
      expect {
           post :create, :user => user_attributes
-        }.to change(User, :count).by(1)    
+        }.to change(User, :count).by(1)
     end
 
     it "should redirect if the user dont fill the Survey" do
@@ -48,17 +48,10 @@ describe RegistrationsController do
     end
 
     it "should create a SurveyAnswers" do
-      session[:profile_points] = :some_data
-      expect {
-        post :create, :user => user_attributes
-      }.to change(SurveyAnswer, :count).by(1)    
-    end
-
-    it "should accept the invitation when provided" do
-      subject.stub(:check_survey_response).and_return(true)
-      session[:invite] = { :invite_token => :mock_token }
-      User.any_instance.should_receive(:accept_invitation_with_token).with(:mock_token)
-      post :create, :user => user_attributes
+     session[:profile_points] = :some_data
+     expect {
+          post :create, :user => user_attributes
+        }.to change(SurveyAnswer, :count).by(1)
     end
   end
 end

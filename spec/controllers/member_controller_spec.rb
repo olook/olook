@@ -28,14 +28,14 @@ describe MemberController do
         flash[:alert].should == 'Invalid token'
       end
     end
-    
+
     describe 'should redirect visitor to signup page with invite information' do
       it "when receiving a valid token" do
         inviting_member = FactoryGirl.create(:member)
         get :accept_invitation, :invite_token => inviting_member.invite_token
         response.should redirect_to(new_user_registration_path)
         session[:invite].should == {:invite_token => inviting_member.invite_token,
-                                    :invited_by => inviting_member.name}
+                                    :invited_by => inviting_member.first_name}
       end
     end
   end
