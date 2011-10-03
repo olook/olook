@@ -8,5 +8,7 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
-
+  
+  get "member/invite" => "member#invite"
+  get "invite/(:invite_token)" => 'member#accept_invitation', :as => "accept_invitation"
 end

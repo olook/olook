@@ -48,10 +48,17 @@ describe RegistrationsController do
     end
 
     it "should create a SurveyAnswers" do
-     session[:profile_points] = :some_data
-     expect {
-          post :create, :user => user_attributes
-        }.to change(SurveyAnswer, :count).by(1)    
+      session[:profile_points] = :some_data
+      expect {
+        post :create, :user => user_attributes
+      }.to change(SurveyAnswer, :count).by(1)    
+    end
+
+    it "should accept the invitation when provided" do
+      subject.stub(:check_survey_response).and_return(true)
+      session[:invite] = { :invite_token => :mock_token }
+      User.any_instance.should_receive(:accept_invitation_with_token).with(:mock_token)
+      post :create, :user => user_attributes
     end
   end
 end

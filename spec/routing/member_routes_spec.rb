@@ -1,0 +1,12 @@
+require "spec_helper"
+
+describe "The member controller" do
+  it "should include a named route to the member's invite page" do
+    {:get => member_invite_path}.
+      should route_to(:controller => "member", :action => "invite")
+  end
+  it "should include a named route to accept invitations" do
+    {:get => accept_invitation_path}.
+      should route_to(:controller => "member", :action => "accept_invitation")
+  end
+end

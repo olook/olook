@@ -1,1 +1,5 @@
 <h1>Gata, bem-vinda</h1>
+
+<%= link_to "Convide suas amigas", member_invite_path %>
+
+<%= render :partial => 'invites', :locals => {:member => @member} if @member %>
