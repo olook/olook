@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(:version => 20111003170151) do
     t.integer  "profile_id"
   end
 
+  create_table "invites", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "email"
+    t.datetime "accepted_at"
+    t.integer  "invited_member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
+  add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
+
   create_table "points", :force => true do |t|
     t.integer  "value"
     t.integer  "user_id"

@@ -1,33 +1,15 @@
 <h1>Survey</h1>
 
+<%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
+
 <%= form_tag({:controller => "survey", :action => "create"}) do %>
-
-  <% question = @questions.next %>
+  <% @questions.each do |question| %>
+    <% answer_template = question.id.odd? ? 'answers_check_box' : 'answers_radio_button' %>
+  
     <h2><%= question.title %></h2>
-
-    <% question.answers.each do |answer| %>
-      <%= radio_button_tag("questions[question_#{question.id}]", answer.id) %> <%= answer.title %>
-    <% end %>
-
-  <hr/>
-
-  <% question = @questions.next %>
-    <h2><%= question.title %></h2>
-
-    <% question.answers.each do |answer| %>
-      <%= radio_button_tag("questions[question_#{question.id}]", answer.id) %> <%= answer.title %>
-    <% end %>
-
-  <hr/>
-
-  <% question = @questions.next %>
-    <h2><%= question.title %></h2>
-
-    <% question.answers.each do |answer| %>
-      <%= check_box_tag "questions[question_#{question.id}_#{answer.id}]", answer.id %> <%= answer.title %>
-    <% end %>
-
-  <hr/>
+    <%= render :partial => answer_template, :locals => {:question => question} %>
+    <hr/>
+  <% end %>
   
   <p><%= submit_tag("Enviar")  %></p>
 <% end %>

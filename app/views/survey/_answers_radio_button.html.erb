@@ -1,0 +1,4 @@
+<% question.answers.each do |answer| %>
+  <%= radio_button_tag("questions[question_#{question.id}]", answer.id) %> <%= answer.title %>
+<% end %>
+
