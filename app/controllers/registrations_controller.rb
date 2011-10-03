@@ -10,7 +10,8 @@ class RegistrationsController < Devise::RegistrationsController
   
   def after_sign_up_path_for(new_member)
     save_survey_answers(new_member)
-    new_member.accept_invitation_with_token(session[:invite][:invitation_token]) if session[:invite]
+    new_member.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
+    super
   end
   
   def save_survey_answers(new_member)

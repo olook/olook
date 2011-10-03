@@ -56,7 +56,7 @@ describe RegistrationsController do
 
     it "should accept the invitation when provided" do
       subject.stub(:check_survey_response).and_return(true)
-      session[:invite] = { :invitation_token => :mock_token }
+      session[:invite] = { :invite_token => :mock_token }
       User.any_instance.should_receive(:accept_invitation_with_token).with(:mock_token)
       post :create, :user => user_attributes
     end
