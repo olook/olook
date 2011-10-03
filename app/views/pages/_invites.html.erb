@@ -1,0 +1,13 @@
+<h2>Convites</h2>
+
+<% if member.invites.empty? %>
+  <p>Nenhum convite foi enviado ou confirmado até o momento</p>
+<% else %>
+  <p>Foram confirmados convites dos seguintes e-mails:</p>
+  <ul>
+  <% member.invites.each do |invite| %>
+    <li><%= invite.email %></li>
+  <% end %>
+  </ul>
+<% end %>
+
