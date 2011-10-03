@@ -7,11 +7,11 @@ class MemberController < ApplicationController
 
   def accept_invitation
     session[:invite] = {:invite_token => params[:invite_token],
-                        :invited_by => @inviting_member.name}
+                        :invited_by => @inviting_member.first_name}
     redirect_to new_user_registration_path
   end
 
-  private  
+  private
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]
 

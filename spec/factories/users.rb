@@ -3,11 +3,13 @@ FactoryGirl.define do
     password "123456"
     password_confirmation "123456"
     email "user@mail.com"
-    name "User First Name"
-    
+    first_name "User First Name"
+    last_name "User Last Name"
+
     factory :member do
       email "member@mail.com"
-      name "Member Name"
+      first_name "First Name"
+      last_name "Last Name"
 
       after_create do |member|
         member.send(:write_attribute, :invite_token, 'OK'*10)
