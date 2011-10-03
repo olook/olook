@@ -12,11 +12,7 @@ rerun.txt
 .bundle
 public/uploads
 .rvmrc
-<<<<<<< HEAD
 .rspec
 Gemfile.lock
 nohup.out
-
-=======
 config/facebook.yml
->>>>>>> initial_modelling
