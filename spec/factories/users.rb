@@ -6,7 +6,13 @@ FactoryGirl.define do
     name "User First Name"
     
     factory :member do
-      invite_token 'OK'*10
+      email "member@mail.com"
+      name "Member Name"
+
+      after_create do |member|
+        member.send(:write_attribute, :invite_token, 'OK'*10)
+        member.save!
+      end
     end
   end
 end

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :points
   has_many :profiles, :through => :points
   has_one :survey_answer
+  has_many :invites
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
@@ -55,10 +56,21 @@ class User < ActiveRecord::Base
   end
   
   def invite_token=(token)
-    if new_record?
-      write_attribute(:invite_token, token)
-    else
-      raise 'Invite token is read only'
+    raise 'Invite token is read only'
+  end
+  
+  def invite_for(email)
+    self.invites.find_or_create_by_email(:email => email)
+  end
+  
+  def accept_invitation_with_token(token)
+    inviting_member = User.find_by_invite_token(token)
+    raise 'Invalid token' unless inviting_member
+
+    inviting_member.invite_for(email).tap do |invite|
+      invite.invited_member = self
+      invite.accepted_at = Time.now
+      invite.save
     end
   end
   
