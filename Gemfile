@@ -8,8 +8,9 @@ gem 'jquery-rails', '~> 1.0.14'
 gem 'devise', '~> 1.4.7'
 gem 'omniauth', '~> 0.3.0'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
-gem 'uglifier'
-gem 'therubyracer'
+gem 'uglifier', '~> 1.0.3'
+gem 'therubyracer', '~> 0.9.4'
+gem 'resque', '~> 1.19.0'
 
 group :development, :test do
   gem 'sqlite3'
