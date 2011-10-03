@@ -12,10 +12,11 @@ feature "User Authenticate", %q{
     User.any_instance.stub(:counts_and_write_points)
   end
 
-  scenario "User Sign up" do 
+  scenario "User Sign up" do
     answer_survey
     visit new_user_registration_path
-    fill_in "user_name", :with => "User Name"
+    fill_in "user_first_name", :with => "First Name"
+    fill_in "user_last_name", :with => "Last Name"
     fill_in "user_email", :with => "fake@mail.com"
     fill_in "user_password", :with => "123456"
     fill_in "user_password_confirmation", :with => "123456"
@@ -36,14 +37,15 @@ feature "User Authenticate", %q{
     visit "/users/auth/facebook"
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
-  
+
   scenario "Whole sign up, sign out and sign in process" do
     login = "john@doe.com"
     pass = "123abc"
 
     answer_survey
     visit new_user_registration_path
-    fill_in "user_name", :with => "Name"
+    fill_in "user_first_name", :with => "First Name"
+    fill_in "user_last_name", :with => "Last Name"
     fill_in "user_email", :with => login
     fill_in "user_password", :with => pass
     fill_in "user_password_confirmation", :with => pass

@@ -14,7 +14,8 @@ feature "Member can send invites", %q{
     email = "member.jane@doe.com"
     pass = "123abc"
     visit new_user_registration_path
-    fill_in "user_name", :with => "Name"
+    fill_in "user_first_name", :with => "Name"
+    fill_in "user_last_name", :with => "Last"
     fill_in "user_email", :with => email
     fill_in "user_password", :with => pass
     fill_in "user_password_confirmation", :with => pass
@@ -28,10 +29,10 @@ feature "Member can send invites", %q{
     click_button "Sign in"
     page.should have_content(I18n.t "devise.sessions.signed_in")
     @member = User.find_by_email(email)
-  end  
+  end
 
-  describe "On the invite page, a member can invite people by" do 
-    scenario "copying and pasting a link" do 
+  describe "On the invite page, a member can invite people by" do
+    scenario "copying and pasting a link" do
       visit member_invite_path
       page.should have_content(@member.invite_token)
     end
