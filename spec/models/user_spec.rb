@@ -47,7 +47,7 @@ describe User do
     let(:access_token) { {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name"}}} }
 
     it "should find for facebook auth" do
-      User.should_receive(:find_by_email).with(access_token["extra"]["user_hash"]["email"])
+      User.should_receive(:find_by_uid).with(access_token["extra"]["user_hash"]["id"])
       User.find_for_facebook_oauth(access_token)
     end
 

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
-    user = User.find_by_email(data["email"])
+    user = User.find_by_uid(data["id"])
     user
   end
 
