@@ -15,3 +15,12 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <div class="fb-send" data-href=<%= raw(link_to_invitation(@member)) %>></div>
 </p>
+
+<p>
+  <span>Convide suas amigas por e-mail</span>
+  <%= form_tag(member_invite_by_email_path) do %>
+    <%= label_tag(:invite_mail_list, "E-mails:") %>
+    <%= text_field_tag :invite_mail_list %>
+    <%= submit_tag("Enviar convites") %>
+  <% end %>  
+</p>
