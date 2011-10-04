@@ -9,6 +9,11 @@
   <div><%= f.label :last_name %><br />
   <%= f.text_field :last_name %></div>
 
+  <% unless resource.cpf.nil? %>
+    <div><%= f.label :cpf %><br />
+    <%= f.text_field :cpf, :value => "" %></div>
+  <% end %>
+
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 

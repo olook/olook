@@ -1,15 +1,16 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation,
+                  :remember_me, :cpf
   attr_protected :invite_token
-
-  before_create :generate_invite_token
 
   has_many :points
   has_many :profiles, :through => :points
   has_one :survey_answer
   has_many :invites
+
+  before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
@@ -33,6 +34,7 @@ class User < ActiveRecord::Base
         user.email = data["email"]
         user.first_name = data["first_name"]
         user.last_name = data["last_name"]
+        user.cpf = "required" if session[:invite]
       end
     end
   end
