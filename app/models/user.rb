@@ -21,23 +21,10 @@ class User < ActiveRecord::Base
 
   InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
 
-  def self.find_for_facebook_oauth(access_token, survey_answer, profile_points, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
-    if user = User.find_by_email(data["email"])
-      [user, false]
-    else
-      if profile_points
-        user = User.create(:first_name => data["first_name"],
-                  :email => data["email"],
-                  :password => Devise.friendly_token[0,20])
-
-        survey_answer.user = user
-        survey_answer.save
-        [user, true]
-      else
-        ["", true]
-      end
-    end
+    user = User.find_by_email(data["email"])
+    user
   end
 
   def self.new_with_session(params, session)
