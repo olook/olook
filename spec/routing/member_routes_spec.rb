@@ -10,4 +10,8 @@ describe "The member controller" do
     {:get => accept_invitation_path}.
       should route_to(:controller => "member", :action => "accept_invitation")
   end
+  it "should include a named route to send invites by e-mail" do
+    {:post => member_invite_by_email_path}.
+      should route_to(:controller => "member", :action => "invite_by_email")
+  end
 end

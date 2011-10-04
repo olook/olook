@@ -69,7 +69,16 @@ class User < ActiveRecord::Base
   def get_invite_token
     invite_token
   end
-
+  
+  def invite_by_email(emails)
+    valid_emails = emails.reject {|mail| not EmailFormat.match mail }
+    valid_emails.map do |email|
+      invite = invite_for email
+      # send e-mail
+      invite
+    end
+  end
+  
   private
 
   def check_cpf
