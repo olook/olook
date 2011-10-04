@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111003170151) do
+ActiveRecord::Schema.define(:version => 20111004162731) do
 
   create_table "answers", :force => true do |t|
     t.string   "title"
@@ -80,9 +80,12 @@ ActiveRecord::Schema.define(:version => 20111003170151) do
     t.string   "invite_token"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "uid"
+    t.text     "facebook_token"
   end
 
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
+  add_index "users", ["uid"], :name => "index_users_on_uid"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
 end
