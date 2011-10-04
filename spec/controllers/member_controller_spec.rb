@@ -42,14 +42,14 @@ describe MemberController do
   end
 
   it "#invite_by_email" do
-    emails = ['jane@friend.com', 'linda@friend.com', 'mary@friend.com']
+    emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
     member = double(User)
-    member.should_receive(:invite_by_email).with(emails)
+    member.should_receive(:invite_by_email).with(emails).and_return(emails)
     subject.stub(:current_user) { member }
 
     post :invite_by_email, :invite_mail_list => emails.join(', ')
 
     response.should redirect_to(member_invite_path)
-    flash[:notice].should == "Convites enviados com sucesso!"
+    flash[:notice].should match /\d+ convites enviados com sucesso!/
   end
 end
