@@ -2,9 +2,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     if current_user
-      id = env["omniauth.auth"]["extra"]["user_hash"]["id"]
-      token = env["omniauth.auth"]["credentials"]["token"]
-      current_user.update_attributes(:uid => id, :facebook_token => token)
+      set_uid_and_facebook_token(current_user, env["omniauth.auth"])
       redirect_to root_path
     else
       if user = User.find_for_facebook_oauth(env["omniauth.auth"])
@@ -20,6 +18,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def passthru
     render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+  end
+
+  private
+
+  def set_uid_and_facebook_token(current_user, omniauth)
+    id = omniauth["extra"]["user_hash"]["id"]
+    token = omniauth["credentials"]["token"]
+    current_user.update_attributes(:uid => id, :facebook_token => token)
   end
 
 end
