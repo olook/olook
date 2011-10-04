@@ -14,12 +14,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-  validates :email, :uniqueness => true
-  validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-  validates_format_of :name, :with => /^[A-ZÀ-ÿ\s-]+$/i
-  
+  EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
 
+  validates :email, :uniqueness => true
+  validates_format_of :email, :with => EmailFormat
+  validates_format_of :name, :with => /^[A-ZÀ-ÿ\s-]+$/i
+  
   def self.find_for_facebook_oauth(access_token, survey_answer, profile_points, signed_in_resource=nil)
     data = access_token['extra']['user_hash']
     if user = User.find_by_email(data["email"])
@@ -71,6 +72,15 @@ class User < ActiveRecord::Base
       invite.invited_member = self
       invite.accepted_at = Time.now
       invite.save
+    end
+  end
+  
+  def invite_by_email(emails)
+    valid_emails = emails.reject {|mail| not EmailFormat.match mail }
+    valid_emails.map do |email|
+      invite = invite_for email
+      # send e-mail
+      invite
     end
   end
   

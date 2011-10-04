@@ -10,6 +10,12 @@ class MemberController < ApplicationController
                         :invited_by => @inviting_member.name}
     redirect_to new_user_registration_path
   end
+  
+  def invite_by_email
+    parsed_emails = params[:invite_mail_list].split(',').map(&:strip)
+    current_user.invite_by_email(parsed_emails)
+    redirect_to(member_invite_path, :notice => "Convites enviados com sucesso!")
+  end
 
   private  
   def validate_token

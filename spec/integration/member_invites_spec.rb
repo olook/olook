@@ -55,6 +55,19 @@ feature "Members can send invites", %q{
         facebook_button = page.find('.fb-send')[:"data-href"]
         facebook_button.should have_content("olook.com/invite/#{@member.invite_token}")
       end
+
+      scenario "sending an invitation e-mail to a list of people" do
+        emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
+        fill_in "invite_mail_list", :with => emails.join(' , ')
+
+        @member.invites.map(&:email).should_not include(emails)
+
+        click_on "Enviar convites"
+
+        page.should have_content("Convites enviados com sucesso!")
+        @member.reload
+        @member.invites.map(&:email).should =~ ['jane@friend.com', 'mary@friend.com']
+      end
     end
   end
 

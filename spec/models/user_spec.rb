@@ -107,4 +107,28 @@ describe User do
       expect { subject.accept_invitation_with_token('xxxx') }.to raise_error
     end
   end
+
+  describe "#invite_by_email" do
+    it "when receiving a list of e-mails" do
+      emails = ['jane@friend.com', 'linda@friend.com', 'mary@friend.com']
+
+      subject.invites.should be_empty
+      new_invites = subject.invite_by_email emails
+      new_invites.map(&:email).should =~ emails.reverse
+    end
+    it "when receiving a list with invalid e-mails" do
+      emails = ['jane@friend.com', 'invalid email format', 'mary@friend.com']
+
+      subject.invites.should be_empty
+      new_invites = subject.invite_by_email emails
+      new_invites.map(&:email).should =~ ['jane@friend.com', 'mary@friend.com']
+    end
+    it "when receiving an empty list of e-mails" do
+      emails = []
+
+      subject.invites.should be_empty
+      subject.invite_by_email emails
+      subject.invites.should be_empty
+    end
+  end
 end
