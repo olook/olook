@@ -36,7 +36,7 @@ describe MemberController do
         get :accept_invitation, :invite_token => inviting_member.invite_token
         response.should redirect_to(new_user_registration_path)
         session[:invite].should == {:invite_token => inviting_member.invite_token,
-                                    :invited_by => inviting_member.first_name}
+                                    :invited_by => inviting_member.name}
       end
     end
   end

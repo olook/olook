@@ -68,22 +68,39 @@ feature "Member can send invites", %q{
     end
   end
 
-  describe "On the invite page, a member can invite people by" do
-    scenario "copying and pasting a link" do
-      visit member_invite_path
-      page.should have_content(@member.invite_token)
+  describe "When a visitor accepts the invitation and click on the invite link" do
+    background do
+      # Make sure it behaves like a visitor
+      delete destroy_user_session_path
     end
 
-    scenario "tweeting the link" do
-      visit member_invite_path
-      tweet_text = page.find('.twitter-share-button')[:"data-text"]
-      tweet_text.should have_content("olook.com/invite/#{@member.invite_token}")
-    end
+    describe "they should be redirected to the home page" do
+      scenario "if they have an empty token" do
+        visit accept_invitation_path(:invite_token => '')
+        current_path.should == root_path
+        page.should have_content("Invalid token")
+      end
 
-    scenario "posting the link on her Facebook wall" do
-      visit member_invite_path
-      tweet_text = page.find('.fb-send')[:"data-href"]
-      tweet_text.should have_content("olook.com/invite/#{@member.invite_token}")
+      scenario "if they have a token with an invalid format" do
+        visit accept_invitation_path(:invite_token => '')
+        current_path.should == root_path
+        page.should have_content("Invalid token")
+      end
+
+      scenario "if they have a token that doesn't exist" do
+        visit accept_invitation_path(:invite_token => 'X'*20)
+        current_path.should == root_path
+        page.should have_content("Invalid token")
+      end
+    end
+    
+    describe "they should be redirected to the survey page with invite details" do
+      scenario "if they have a valid token" do
+        inviting_member = FactoryGirl.create(:member)
+        visit accept_invitation_path(:invite_token => inviting_member.invite_token)
+        current_path.should == survey_index_path
+        page.should have_content(inviting_member.name)
+      end
     end
   end
 end
