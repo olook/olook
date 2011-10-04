@@ -7,8 +7,14 @@ class MemberController < ApplicationController
 
   def accept_invitation
     session[:invite] = {:invite_token => params[:invite_token],
-                        :invited_by => @inviting_member.first_name}
+                        :invited_by => @inviting_member.name}
     redirect_to new_user_registration_path
+  end
+  
+  def invite_by_email
+    parsed_emails = params[:invite_mail_list].split(',').map(&:strip)
+    current_user.invite_by_email(parsed_emails)
+    redirect_to(member_invite_path, :notice => "Convites enviados com sucesso!")
   end
 
   private

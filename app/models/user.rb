@@ -14,12 +14,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
+
   validates :email, :uniqueness => true
-  validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  validates_format_of :email, :with => EmailFormat
   validates_format_of :first_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
   validates_format_of :last_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
-
-  InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
+  
+  def name
+    "#{first_name} #{last_name}".strip
+  end
 
   def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
@@ -44,13 +49,13 @@ class User < ActiveRecord::Base
   end
 
   def invite_token=(token)
-    if new_record?
-      write_attribute(:invite_token, token)
-    else
-      raise 'Invite token is read only'
-    end
+    raise 'Invite token is read only'
   end
-
+  
+  def invite_for(email)
+    self.invites.find_or_create_by_email(:email => email)
+  end
+  
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token(token)
     raise 'Invalid token' unless inviting_member
@@ -59,6 +64,15 @@ class User < ActiveRecord::Base
       invite.invited_member = self
       invite.accepted_at = Time.now
       invite.save
+    end
+  end
+  
+  def invite_by_email(emails)
+    valid_emails = emails.reject {|mail| not EmailFormat.match mail }
+    valid_emails.map do |email|
+      invite = invite_for email
+      # send e-mail
+      invite
     end
   end
 

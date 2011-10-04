@@ -35,9 +35,20 @@ describe MemberController do
         get :accept_invitation, :invite_token => inviting_member.invite_token
         response.should redirect_to(new_user_registration_path)
         session[:invite].should == {:invite_token => inviting_member.invite_token,
-                                    :invited_by => inviting_member.first_name}
+                                    :invited_by => inviting_member.name}
       end
     end
   end
 
+  it "#invite_by_email" do
+    emails = ['jane@friend.com', 'linda@friend.com', 'mary@friend.com']
+    member = double(User)
+    member.should_receive(:invite_by_email).with(emails)
+    subject.stub(:current_user) { member }
+
+    post :invite_by_email, :invite_mail_list => emails.join(', ')
+
+    response.should redirect_to(member_invite_path)
+    flash[:notice].should == "Convites enviados com sucesso!"
+  end
 end
