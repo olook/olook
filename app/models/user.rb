@@ -62,6 +62,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_facebook?
+    self.uid.present?
+  end
+
   private
 
   def generate_invite_token
