@@ -29,17 +29,34 @@ describe User do
 
   end
 
-  it "should count and write points" do
-    hash = {@profile.id => 2}
-    @user.counts_and_write_points(hash)
-    Point.should have(1).record
+  context "facebook account" do
+
+    it "should not facebook account" do
+      @user.has_facebook?.should == false
+    end
+
+    it "should have facebook account" do
+      @user.update_attributes(:uid => "123")
+      @user.has_facebook?.should == true
+    end
+
   end
 
-  it "should not count and write points when already has points" do
-    @user.stub(:points).and_return(1)
-    hash = {@profile.id => 2}
-    @user.counts_and_write_points(hash)
-    Point.should have(0).record
+  context  "profile points" do
+
+    it "should count and write points" do
+      hash = {@profile.id => 2}
+      @user.counts_and_write_points(hash)
+      Point.should have(1).record
+    end
+
+    it "should not count and write points when already has points" do
+      @user.stub(:points).and_return(1)
+      hash = {@profile.id => 2}
+      @user.counts_and_write_points(hash)
+      Point.should have(0).record
+    end
+
   end
 
   context "survey" do

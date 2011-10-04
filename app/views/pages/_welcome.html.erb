@@ -2,7 +2,9 @@
 
 <ul>
   <li><%= link_to "Convide suas amigas", member_invite_path %></li>
-  <li><%= link_to "Associe sua conta do Facebook", user_omniauth_authorize_path(:facebook) %></li>
+  <% unless current_user.has_facebook? %>
+    <li><%= link_to "Associe sua conta do Facebook", user_omniauth_authorize_path(:facebook) %></li>
+  <% end %>
 </ul>
 
 <%= render :partial => 'invites', :locals => {:member => @member} if @member %>
