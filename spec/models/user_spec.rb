@@ -3,8 +3,9 @@ require 'spec_helper'
 
 describe User do
 
+  subject { Factory.create(:user) }
+
   before :each do
-    @user = Factory.create(:user)
     @profile = mock_model('Profile')
   end
 
@@ -39,11 +40,9 @@ describe User do
       user.save
       user.should be_valid
     end
-
   end
 
   context "facebook account" do
-
     it "should not facebook account" do
       @user.has_facebook?.should == false
     end
@@ -52,7 +51,19 @@ describe User do
       @user.update_attributes(:uid => "123")
       @user.has_facebook?.should == true
     end
+  end
 
+  it "should count and write points" do
+    hash = {@profile.id => 2}
+    subject.counts_and_write_points(hash)
+    Point.should have(1).record
+  end
+
+  it "should not count and write points when already has points" do
+    subject.stub(:points).and_return(1)
+    hash = {@profile.id => 2}
+    subject.counts_and_write_points(hash)
+    Point.should have(0).record
   end
 
   context "survey" do
@@ -92,7 +103,7 @@ describe User do
       expect { subject.invite_token = "foo" }.to raise_error
     end
   end
-  
+
   describe "#create_invite_for" do
     it "with a new e-mail" do
       email = "invited@test.com"

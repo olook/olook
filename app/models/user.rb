@@ -16,11 +16,18 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validate :check_cpf
-  validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+
+  EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
+
+  validates :email, :uniqueness => true
+  validates_format_of :email, :with => EmailFormat
   validates_format_of :first_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
   validates_format_of :last_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
-
-  InviteTokenFormat = /\b[a-zA-Z0-9]{20}\b/
+  
+  def name
+    "#{first_name} #{last_name}".strip
+  end
 
   def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
@@ -40,11 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def invite_token=(token)
-    if new_record?
-      write_attribute(:invite_token, token)
-    else
-      raise 'Invite token is read only'
-    end
+    raise 'Invite token is read only'
   end
 
   def invite_for(email)
@@ -65,7 +68,7 @@ class User < ActiveRecord::Base
   def has_facebook?
     self.uid.present?
   end
-
+  
   def get_invite_token
     invite_token
   end
