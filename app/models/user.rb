@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
         user.email = data["email"]
+        user.first_name = data["first_name"]
+        user.last_name = data["last_name"]
       end
     end
   end
