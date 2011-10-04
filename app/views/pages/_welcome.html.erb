@@ -1,5 +1,8 @@
 <h1>Gata, bem-vinda</h1>
 
-<%= link_to "Convide suas amigas", member_invite_path %>
+<ul>
+  <li><%= link_to "Convide suas amigas", member_invite_path %></li>
+  <li><%= link_to "Associe sua conta do Facebook", user_omniauth_authorize_path(:facebook) %></li>
+</ul>
 
 <%= render :partial => 'invites', :locals => {:member => @member} if @member %>
