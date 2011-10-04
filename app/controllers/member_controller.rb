@@ -18,6 +18,24 @@ class MemberController < ApplicationController
     redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
+  def show_imported_contacts
+    email_provider = params[:email_provider]
+    login = params[:login]
+    password = params[:password]
+  
+    case email_provider.to_i
+      when 1
+        @contacts = Contacts::Gmail.new(login, password).contacts
+      when 2
+        @contacts = Contacts::Yahoo.new(login, password).contacts
+    end
+  end
+
+  def invite_imported_contacts
+    current_user.invite_by_email(params[:email_address])
+    redirect_to(member_import_contacts_path, :notice => "Convites enviados com sucesso!")
+  end
+
   private
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]
