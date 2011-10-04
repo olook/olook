@@ -16,3 +16,4 @@ public/uploads
 Gemfile.lock
 nohup.out
 config/facebook.yml
+config/email.yml

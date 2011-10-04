@@ -65,7 +65,7 @@ feature "Member can send invites", %q{
 
         click_on "Enviar convites"
 
-        page.should have_content("Convites enviados com sucesso!")
+        page.should have_content("2 convites enviados com sucesso!")
         @member.reload
         @member.invites.map(&:email).should =~ ['jane@friend.com', 'mary@friend.com']
       end
