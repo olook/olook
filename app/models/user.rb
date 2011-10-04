@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
     valid_emails = emails.reject {|mail| not EmailFormat.match mail }
     valid_emails.map do |email|
       invite = invite_for email
-      # send e-mail
+      InvitesMailer.invite_email(invite).deliver
       invite
     end
   end
