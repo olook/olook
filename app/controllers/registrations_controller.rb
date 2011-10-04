@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_survey_response, :only => [:new, :create]
 
   def new
-    @user_data = session['devise.facebook_data'] ? session['devise.facebook_data']['extra']['user_hash'] : {}
+    build_resource
     super
   end
 
