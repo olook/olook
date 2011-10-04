@@ -8,6 +8,7 @@ gem 'jquery-rails', '~> 1.0.14'
 gem 'devise', '~> 1.4.7'
 gem 'omniauth', '~> 0.3.0'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
+gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'uglifier'
 gem 'therubyracer'
 
