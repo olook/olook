@@ -13,8 +13,9 @@ class MemberController < ApplicationController
   
   def invite_by_email
     parsed_emails = params[:invite_mail_list].split(',').map(&:strip)
-    current_user.invite_by_email(parsed_emails)
-    redirect_to(member_invite_path, :notice => "Convites enviados com sucesso!")
+
+    invites = current_user.invite_by_email(parsed_emails)
+    redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
   def import_contacts
@@ -38,7 +39,7 @@ class MemberController < ApplicationController
     redirect_to(member_import_contacts_path, :notice => "Convites enviados com sucesso!")
   end
 
-  private  
+  private
 
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]

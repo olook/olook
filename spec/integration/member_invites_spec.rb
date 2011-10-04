@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'integration/helpers'
 
-feature "Members can send invites", %q{
+feature "Member can send invites", %q{
   In order to show my showroom for my girlfriends
   As a member
   I want to invite people to join the site
 } do
-  
+
   describe "When a member" do
     background do
       User.any_instance.stub(:counts_and_write_points)
@@ -15,7 +15,8 @@ feature "Members can send invites", %q{
       email = "member.jane@doe.com"
       pass = "123abc"
       visit new_user_registration_path
-      fill_in "user_name", :with => "Name"
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
       fill_in "user_email", :with => email
       fill_in "user_password", :with => pass
       fill_in "user_password_confirmation", :with => pass
@@ -64,7 +65,7 @@ feature "Members can send invites", %q{
 
         click_on "Enviar convites"
 
-        page.should have_content("Convites enviados com sucesso!")
+        page.should have_content("2 convites enviados com sucesso!")
         @member.reload
         @member.invites.map(&:email).should =~ ['jane@friend.com', 'mary@friend.com']
       end

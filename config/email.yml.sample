@@ -1,0 +1,13 @@
+development:
+  address: 'smtp.gmail.com'
+  port: '587'
+  domain: 'codeminer42.com'
+  user_name: 'do-not-reply@codeminer42.com'
+  password: ''
+  authentication: :plain
+  tls: true
+  enable_starttls_auto: true
+  
+test:
+
+production:

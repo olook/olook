@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111003012419) do
+ActiveRecord::Schema.define(:version => 20111003170151) do
 
   create_table "answers", :force => true do |t|
     t.string   "title"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20111003012419) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -79,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20111003012419) do
     t.datetime "locked_at"
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "invite_token"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"

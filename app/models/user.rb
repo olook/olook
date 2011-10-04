@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me
   attr_protected :invite_token
 
   before_create :generate_invite_token
@@ -19,25 +19,17 @@ class User < ActiveRecord::Base
 
   validates :email, :uniqueness => true
   validates_format_of :email, :with => EmailFormat
-  validates_format_of :name, :with => /^[A-ZÀ-ÿ\s-]+$/i
+  validates_format_of :first_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
+  validates_format_of :last_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
   
-  def self.find_for_facebook_oauth(access_token, survey_answer, profile_points, signed_in_resource=nil)
+  def name
+    "#{first_name} #{last_name}".strip
+  end
+
+  def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
-    if user = User.find_by_email(data["email"])
-      [user, false]
-    else
-      if profile_points
-        user = User.create(:name => data["name"],
-                  :email => data["email"],
-                  :password => Devise.friendly_token[0,20])
-                  
-        survey_answer.user = user
-        survey_answer.save  
-        [user, true]
-      else
-        ["", true]
-      end    
-    end 
+    user = User.find_by_email(data["email"])
+    user
   end
 
   def self.new_with_session(params, session)
@@ -55,7 +47,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def invite_token=(token)
     raise 'Invite token is read only'
   end
@@ -79,11 +71,11 @@ class User < ActiveRecord::Base
     valid_emails = emails.reject {|mail| not EmailFormat.match mail }
     valid_emails.map do |email|
       invite = invite_for email
-      # send e-mail
+      InvitesMailer.invite_email(invite).deliver
       invite
     end
   end
-  
+
   private
 
   def generate_invite_token
@@ -92,5 +84,5 @@ class User < ActiveRecord::Base
       break unless User.find_by_invite_token(self.invite_token)
     end if self.invite_token.nil?
   end
-  
+
 end
