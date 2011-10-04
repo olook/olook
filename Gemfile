@@ -12,6 +12,9 @@ gem 'uglifier', '~> 1.0.3'
 gem 'therubyracer', '~> 0.9.4'
 gem 'resque', '~> 1.19.0'
 gem 'resque_mailer', '~> 2.0.2'
+gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
+gem 'uglifier'
+gem 'therubyracer'
 
 group :development, :test do
   gem 'sqlite3'
