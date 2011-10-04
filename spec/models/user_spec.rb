@@ -45,27 +45,10 @@ describe User do
   context "survey" do
 
     let(:access_token) { {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name"}}} }
-    let(:profile_points) { {:foo => :bar} }
 
-    before :each do
-      @survey_answer = SurveyAnswer.new(:answers => {:foo => :bar})
-    end
-
-    it "should create a SurveyAnswer" do
-      expect {
-            User.find_for_facebook_oauth(access_token, @survey_answer, profile_points)
-          }.to change(SurveyAnswer, :count).by(1)
-    end
-
-    it "should return the user" do
-      access_token = {"extra" => {"user_hash" => {"email" => @user.email, "first_name" => @user.first_name}}}
-      user = User.find_for_facebook_oauth(access_token, @survey_answer, profile_points)[0]
-      user.should == @user
-    end
-
-    it "should return the a empty user" do
-      user = User.find_for_facebook_oauth(access_token, @survey_answer, nil)[0]
-      user.should == ""
+    it "should find for facebook auth" do
+      User.should_receive(:find_by_email).with(access_token["extra"]["user_hash"]["email"])
+      User.find_for_facebook_oauth(access_token)
     end
 
   end
