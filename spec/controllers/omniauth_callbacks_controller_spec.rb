@@ -7,20 +7,17 @@ describe OmniauthCallbacksController do
   end
 
   describe "GET facebook" do
-    it "should redirect if the user dont fill the Survey" do
-      session[:profile_points] = nil
-      User.stub(:find_for_facebook_oauth).and_return(["", true])
+    it "should redirect to welcome page" do
+      User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
+      user.stub(:authenticatable_salt)
       get :facebook
-      response.should redirect_to(survey_index_path)
+      response.should redirect_to(welcome_path)
     end
 
-    it "should not redirect when the user fill the Survey" do
-      session[:profile_points] = :some_data
-      User.stub(:find_for_facebook_oauth).and_return(@user, new_user = mock_model(User), false)
-      @user.stub(:persisted?).and_return(false)
+    it "should redirect to welcome page" do
+      User.stub(:find_for_facebook_oauth).and_return(nil)
       get :facebook
-      response.should_not redirect_to(survey_index_path)
+      response.should redirect_to(new_user_registration_path)
     end
   end
-   
 end
