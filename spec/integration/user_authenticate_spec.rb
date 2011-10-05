@@ -12,6 +12,18 @@ feature "User Authenticate", %q{
     User.any_instance.stub(:counts_and_write_points)
   end
 
+  scenario "User can fill the cpf when invited" do
+    answer_survey
+    visit "/invite/#{@user.get_invite_token}"
+    page.should have_content("Cpf")
+  end
+
+  scenario "User cant't fill the cpf when not invited" do
+    answer_survey
+    visit new_user_registration_path
+    page.should_not have_content("Cpf")
+  end
+
   scenario "User Sign up" do
     answer_survey
     visit new_user_registration_path

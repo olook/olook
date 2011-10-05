@@ -3,8 +3,11 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_survey_response, :only => [:new, :create]
 
   def new
-    build_resource
-    super
+    if session[:invite]
+      build_resource(:cpf => :required)
+    else
+      build_resource
+    end
   end
 
   private
