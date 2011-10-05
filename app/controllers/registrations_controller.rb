@@ -42,6 +42,7 @@ class RegistrationsController < Devise::RegistrationsController
     ProfileBuilder.new(resource).create_user_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
     clean_sessions
+    super resource
   end
 
   def clean_sessions
