@@ -53,5 +53,14 @@ describe RegistrationsController do
           post :create, :user => user_attributes
         }.to change(SurveyAnswer, :count).by(1)
     end
+
+    it "should clean the sessions" do
+     session[:profile_points] = :some_data
+     session[:questions] = :some_data
+     session[:invite] = {:intive_token => Devise.friendly_token}
+     User.any_instance.stub(:accept_invitation_with_token)
+     post :create, :user => user_attributes
+     [:profile_points, :questions, :invite].each {|key| session[key].should == nil}
+    end
   end
 end

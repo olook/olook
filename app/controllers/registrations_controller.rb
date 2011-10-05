@@ -20,5 +20,12 @@ class RegistrationsController < Devise::RegistrationsController
     SurveyAnswer.create(:answers => session[:questions], :user => resource)
     resource.counts_and_write_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
+    clean_sessions
+  end
+
+  def clean_sessions
+    session[:profile_points] = nil
+    session[:questions] = nil
+    session[:invite] = nil
   end
 end
