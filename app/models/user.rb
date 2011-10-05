@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation,
-                  :remember_me, :cpf
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
   attr_protected :invite_token
 
   has_many :points
@@ -55,19 +54,27 @@ class User < ActiveRecord::Base
     end
   end
 
+  def invite_for(email)
+    self.invites.find_or_create_by_email(:email => email)
+  end
+
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token(token)
     raise 'Invalid token' unless inviting_member
 
-    inviting_member.invite_for(email).tap do |invite|
-      invite.invited_member = self
-      invite.accepted_at = Time.now
-      invite.save
-    end
+    #inviting_member.invite_for(email).tap do |invite|
+    #  invite.invited_member = self
+    #  invite.accepted_at = Time.now
+    #  invite.save
+    #end
   end
 
   def has_facebook?
     self.uid.present?
+  end
+
+  def get_invite_token
+    invite_token
   end
 
   private
