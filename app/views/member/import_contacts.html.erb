@@ -1,0 +1,6 @@
+<%= form_tag(member_import_contacts_path) do %>
+  <p><%= select_tag(:email_provider, options_for_select("gmail" => 1, "yahoo" => 2)) %></p>
+  <p>Email login: <%= text_field_tag(:login) %></p>
+  <p>Password: <%= password_field_tag(:password) %></p>
+  <p><%= submit_tag("Get contacts!") %></p>
+<% end %>

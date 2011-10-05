@@ -12,4 +12,8 @@ Olook::Application.routes.draw do
   get "member/invite" => "member#invite"
   get "invite/(:invite_token)" => 'member#accept_invitation', :as => "accept_invitation"
   post "member/invite_by_email" => 'member#invite_by_email'
+
+  get "member/import_contacts" => "member#import_contacts"
+  post "member/import_contacts" => "member#show_imported_contacts"
+  post "member/invite_contacts" => "member#invite_imported_contacts"
 end

@@ -51,4 +51,42 @@ describe MemberController do
     response.should redirect_to(member_invite_path)
     flash[:notice].should match /\d+ convites enviados com sucesso!/
   end
+
+  describe "#import_contacts" do
+    it "should show the import contacts page" do
+      get :import_contacts
+      response.should render_template("import_contacts")
+    end
+  end
+
+  describe "#show_imported_contacts" do
+    it "should import contacts" do
+      email_provider = 1
+      login = "john@doe.com"
+      password = "foobar"
+
+      contacts = double
+      contacts.stub(:contacts)
+      get_contacts = Contacts::Gmail
+      get_contacts.should_receive(:new).with(login, password).and_return(contacts)
+
+      post :show_imported_contacts, :email_provider => email_provider, :login => login, :password => password
+      response.should render_template("show_imported_contacts")
+    end
+  end
+
+  describe "#invite_imported_contacts" do
+    it "should invite users by email" do
+      emails = ['jane@friend.com', 'linda@friend.com', 'mary@friend.com']
+      member = double(User)
+      member.should_receive(:invite_by_email).with(emails)
+      subject.stub(:current_user) { member }
+   
+      post :invite_imported_contacts, :email_address => emails
+   
+      response.should redirect_to(member_import_contacts_path)
+      flash[:notice].should == "Convites enviados com sucesso!"
+    end
+  end
+
 end
