@@ -1,3 +1,14 @@
+<% content_for(:head) do %>
+
+  <script type="text/javascript">
+      if(window.opener) {
+        window.close();
+        window.opener.location = '<%= @redirect_uri %>';
+      }
+  </script>
+
+<% end %>
+
 <h2>Sign up</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
@@ -27,3 +38,4 @@
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
+
