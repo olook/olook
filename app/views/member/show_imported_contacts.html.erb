@@ -1,0 +1,7 @@
+<%= form_tag(member_invite_contacts_path) do %>
+  <%= submit_tag("Send Invites!") %>
+  <% @contacts.each do |contact_name, contact_email| %>
+      <p><%= check_box_tag("email_address[]", contact_email) %><%= contact_name.nil? ? contact_email : "#{contact_name} <#{contact_email}>" %></p>
+  <% end %>
+  <%= submit_tag("Send Invites!") %>
+<% end %>
