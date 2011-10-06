@@ -1,12 +1,15 @@
 class Profile < ActiveRecord::Base
-  has_many :answers
   has_many :points
   has_many :users, :through => :points
+  has_many :weights
+  has_many :answers, :through => :weights
 
   def self.profiles_given_questions(questions)
     profiles = []
     questions.each do |question_name, answer_id|
-      profiles << Answer.find(answer_id).profile
+      Answer.find(answer_id).profiles.each do |profile|
+        profiles << {:profile => profile, :weight => Weight.where(:profile_id => profile.id, :answer_id => answer_id).first.weight}
+      end
     end
     profiles
   end
@@ -14,7 +17,8 @@ class Profile < ActiveRecord::Base
   def self.build_profiles_points(profiles)
     profile_points = Hash.new
     profiles.each do |profile|
-      profile_points[profile.id] = (profile_points[profile.id].nil?) ? 1 : profile_points[profile.id] + 1 
+      weight = profile[:weight]
+      profile_points[profile[:profile].id] = (profile_points[profile[:profile].id].nil?) ? weight : profile_points[profile[:profile].id] + weight
     end
     profile_points
   end

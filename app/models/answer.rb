@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
   belongs_to :question
-  belongs_to :profile
-
+  has_many :weights
+  has_many :profiles, :through => :weights
 end
