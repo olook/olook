@@ -30,7 +30,7 @@ describe User do
 
     it "should validate CPF when required" do
       user = Factory.build(:user)
-      user.require_cpf = true
+      user.is_invited = true
       user.save
       user.should be_invalid
     end

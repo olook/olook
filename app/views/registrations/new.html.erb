@@ -20,7 +20,7 @@
   <div><%= f.label :last_name %><br />
   <%= f.text_field :last_name %></div>
 
- <% unless resource.cpf.nil? %>
+ <% if resource.is_invited %>
     <div><%= f.label :cpf %><br />
     <%= f.text_field :cpf %></div>
   <% end %>

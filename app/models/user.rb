@@ -2,7 +2,6 @@
 class User < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :require_cpf
-  attr_accessor :require_cpf
   attr_protected :invite_token
 
   has_many :points
@@ -41,7 +40,7 @@ class User < ActiveRecord::Base
         user.email = data["email"]
         user.first_name = data["first_name"]
         user.last_name = data["last_name"]
-        user.cpf = "Preencha seu CPF" if session[:invite]
+        user.is_invited = true if session[:invite]
       end
     end
   end
@@ -86,7 +85,7 @@ class User < ActiveRecord::Base
 
   def check_cpf
     current_cpf = Cpf.new(self.cpf)
-    if require_cpf
+    if is_invited
       errors.add(:cpf, "é inválido") unless current_cpf.valido?
     end
   end
