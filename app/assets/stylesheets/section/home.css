@@ -35,12 +35,12 @@
 	width:12px;
 	height:12px;
 	float:left;
-	background: url('../../img/common/sprite-paginacao.gif') no-repeat -18px 0px;
+	background: url('../../assets/common/sprite-paginacao.gif') no-repeat -18px 0px;
 	text-decoration:none;
 }
 
 .holder-resolution .holder-content .holder-middle ul.pagination li a.active {
-	background: url('../../img/common/sprite-paginacao.gif') no-repeat 0px 0;
+	background: url('../../assets/common/sprite-paginacao.gif') no-repeat 0px 0;
 }
 
 .holder-resolution .holder-content .holder-middle .holder-call {
@@ -166,14 +166,14 @@
 }
 
 .holder-resolution .holder-content .holder-middle .holder-social-midia li.facebook {
-	background: url('../../img/common/sprite-midias-sociais.jpg') no-repeat 0px 0;
+	background: url('../../assets/common/sprite-midias-sociais.jpg') no-repeat 0px 0;
 	width:95px;
 	text-indent:-99999px;
 	margin-right:20px;
 }
 
 .holder-resolution .holder-content .holder-middle .holder-social-midia li.twitter {
-	background: url('../../img/common/sprite-midias-sociais.jpg') no-repeat -115px 0;
+	background: url('../../assets/common/sprite-midias-sociais.jpg') no-repeat -115px 0;
 	width:120px;
 	text-indent:-99999px;
 }

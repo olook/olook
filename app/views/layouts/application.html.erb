@@ -25,7 +25,7 @@
 			<!--holder-resolution-->
 			<section class="holder-resolution">
 				<header>
-					<h1>O LOOK</h1>
+          <%= link_to content_tag(:h1, 'O LOOK'), root_path %>
 			
           <% if user_signed_in? %>
             <span><%= link_to "Logout", destroy_user_session_path, :method => :delete %></span>
