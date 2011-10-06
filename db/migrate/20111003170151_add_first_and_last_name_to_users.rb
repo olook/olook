@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddFirstAndLastNameToUsers < ActiveRecord::Migration
   def up
     add_column :users, :first_name, :string

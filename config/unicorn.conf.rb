@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Unicorn configuration file
 
 listen "/tmp/.olook-unicorn.sock"

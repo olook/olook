@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook

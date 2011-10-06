@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MemberController < ApplicationController
   before_filter :validate_token, :only => :accept_invitation
 

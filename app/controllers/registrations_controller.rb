@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
 
   before_filter :check_survey_response, :only => [:new, :create]

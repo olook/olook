@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeUserName < ActiveRecord::Migration
   def up
   	rename_column :users, :first_name, :name

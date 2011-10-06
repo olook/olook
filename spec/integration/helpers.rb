@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 def answer_survey
   begin
     question = FactoryGirl.create(:question)

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
   root :to => "home#index"

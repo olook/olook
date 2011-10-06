@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class InvitesMailer < ActionMailer::Base
   include Resque::Mailer
 
