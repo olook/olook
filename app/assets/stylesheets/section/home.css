@@ -35,7 +35,11 @@
 	width:12px;
 	height:12px;
 	float:left;
+<<<<<<< HEAD
 	background: url('../../assets/common/sprite-paginacao.gif') no-repeat -18px 0px;
+=======
+	background: url('../../img/common/sprite-paginacao.gif') no-repeat -18px 0px;
+>>>>>>> Started to import the new layout
 	text-decoration:none;
 }
 
