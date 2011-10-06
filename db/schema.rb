@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111006141223) do
+ActiveRecord::Schema.define(:version => 20111006203305) do
 
   create_table "answers", :force => true do |t|
     t.string   "title"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20111006141223) do
     t.string   "uid"
     t.text     "facebook_token"
     t.string   "cpf"
+    t.boolean  "is_invited"
   end
 
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"

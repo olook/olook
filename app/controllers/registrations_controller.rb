@@ -4,16 +4,13 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_survey_response, :only => [:new, :create]
 
   def new
-    if session[:invite]
-      build_resource(:cpf => :required)
-    else
-      build_resource
-    end
+    build_resource
+    resource.is_invited = true if session[:invite]
   end
 
   def create
     build_resource
-    resource.require_cpf = true if session[:invite]
+    resource.is_invited = true if session[:invite]
 
     if resource.save
       if resource.active_for_authentication?
