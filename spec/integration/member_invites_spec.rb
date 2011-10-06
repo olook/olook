@@ -11,8 +11,10 @@ feature "Member can send invites", %q{
     background do
       email = "member.jane@doe.com"
       pass = "123abc"
-      visit new_user_registration_path
-      fill_in "user_name", :with => "Name"
+      answer_survey
+      click_on "Sign up"
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
       fill_in "user_email", :with => email
       fill_in "user_password", :with => pass
       fill_in "user_password_confirmation", :with => pass
