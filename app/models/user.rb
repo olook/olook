@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
         user.email = data["email"]
         user.first_name = data["first_name"]
         user.last_name = data["last_name"]
-        user.cpf = "required" if session[:invite]
+        user.cpf = "Preencha seu CPF" if session[:invite]
       end
     end
   end
