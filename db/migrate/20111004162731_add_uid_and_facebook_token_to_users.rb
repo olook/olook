@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddUidAndFacebookTokenToUsers < ActiveRecord::Migration
   def change
     add_column :users, :uid, :string

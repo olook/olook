@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SurveyController < ApplicationController
 
   before_filter :check_user_login

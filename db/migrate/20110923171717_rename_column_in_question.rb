@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameColumnInQuestion < ActiveRecord::Migration
   def up
     rename_column :questions, :name, :title

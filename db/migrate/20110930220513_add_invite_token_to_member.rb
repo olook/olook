@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddInviteTokenToMember < ActiveRecord::Migration
   def change
     add_column :users, :invite_token, :string
