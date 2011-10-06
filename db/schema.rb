@@ -11,14 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111004223338) do
+ActiveRecord::Schema.define(:version => 20111006141223) do
 
   create_table "answers", :force => true do |t|
     t.string   "title"
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "profile_id"
   end
 
   create_table "invites", :force => true do |t|
@@ -88,5 +87,11 @@ ActiveRecord::Schema.define(:version => 20111004223338) do
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
+
+  create_table "weights", :force => true do |t|
+    t.integer "profile_id"
+    t.integer "answer_id"
+    t.integer "weight"
+  end
 
 end
