@@ -10,8 +10,8 @@ class SurveyController < ApplicationController
   def create
     questions = params[:questions]
     session[:questions] = questions
-    profiles = Profile.profiles_given_questions(questions)
-    profile_points = Profile.build_profiles_points(profiles)
+    profiles = ProfileBuilder.profiles_given_questions(questions)
+    profile_points = ProfileBuilder.build_profiles_points(profiles)
     session[:profile_points] = profile_points
   end
 
