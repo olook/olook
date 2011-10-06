@@ -4,6 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_survey_response, :only => [:new, :create]
 
   def new
+    @redirect_uri = new_user_registration_path 
     build_resource
     resource.is_invited = true if session[:invite]
   end
