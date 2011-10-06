@@ -39,15 +39,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def counts_and_write_points(session)
-    user_dont_have_points = self.points.size == 0
-    if user_dont_have_points
-      session.each do |profile_id, points|
-        self.points.create(:value => points, :profile_id => profile_id)
-      end
-    end
-  end
-
   def invite_token=(token)
     if new_record?
       write_attribute(:invite_token, token)

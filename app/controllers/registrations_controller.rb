@@ -38,7 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     SurveyAnswer.create(:answers => session[:questions], :user => resource)
-    resource.counts_and_write_points(session[:profile_points])
+    ProfileBuilder.new(resource).create_user_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
     clean_sessions
   end

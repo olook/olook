@@ -1,5 +1,20 @@
 class ProfileBuilder
 
+  attr_accessor :user
+
+  def initialize(user)
+   @user = user
+  end
+
+  def create_user_points(session)
+    user_dont_have_points = user.points.size == 0
+    if user_dont_have_points
+      session.each do |profile_id, points|
+        user.points.create(:value => points, :profile_id => profile_id)
+      end
+    end
+  end
+
   def self.profiles_given_questions(questions)
     profiles = []
     questions.each do |question_name, answer_id|
