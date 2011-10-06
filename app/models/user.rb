@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :require_cpf
+  attr_accessor :require_cpf
   attr_protected :invite_token
 
   has_many :points
@@ -14,6 +15,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  validate :check_cpf
   validates :email, :uniqueness => true
   validates_format_of :email, :with => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   validates_format_of :first_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
@@ -79,6 +81,13 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def check_cpf
+    current_cpf = Cpf.new(self.cpf)
+    if require_cpf
+      errors.add(:cpf, "é inválido") unless current_cpf.valido?
+    end
+  end
 
   def generate_invite_token
     loop do

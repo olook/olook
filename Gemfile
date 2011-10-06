@@ -12,6 +12,7 @@ gem 'uglifier', '~> 1.0.3'
 gem 'therubyracer', '~> 0.9.4'
 gem 'resque', '~> 1.19.0'
 gem 'resque_mailer', '~> 2.0.2'
+gem 'brcpfcnpj'
 
 group :development, :test do
   gem 'sqlite3'
@@ -35,4 +36,4 @@ end
 
 group :production do
   gem 'unicorn', '~> 4.1.1'
-end	
+end

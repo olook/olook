@@ -59,7 +59,7 @@ describe RegistrationsController do
      session[:questions] = :some_data
      session[:invite] = {:intive_token => Devise.friendly_token}
      User.any_instance.stub(:accept_invitation_with_token)
-     post :create, :user => user_attributes
+     post :create, :user => user_attributes.merge!({:cpf => "11144477735"})
      [:profile_points, :questions, :invite].each {|key| session[key].should == nil}
     end
   end

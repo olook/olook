@@ -27,6 +27,19 @@ describe User do
     it { should_not allow_value("José_Bar").for(:last_name) }
     it { should_not allow_value("123").for(:last_name) }
 
+    it "should validate CPF when required" do
+      user = Factory.build(:user)
+      user.require_cpf = true
+      user.save
+      user.should be_invalid
+    end
+
+    it "should not validate CPF when required" do
+      user = Factory.build(:user)
+      user.save
+      user.should be_valid
+    end
+
   end
 
   context "facebook account" do
