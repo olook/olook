@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 # Unicorn configuration file
 
-listen "/tmp/.olook-unicorn.sock"
+listen 5080
 worker_processes 2
 pid "/var/run/olook-unicorn.pid"
 stderr_path "/var/log/olook-unicorn-error.log"
