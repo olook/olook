@@ -43,6 +43,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def clean_sessions
+    session["devise.facebook_data"] = nil
     session[:profile_points] = nil
     session[:questions] = nil
     session[:invite] = nil
