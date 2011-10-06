@@ -37,6 +37,7 @@ class MemberController < ApplicationController
   end
 
   private
+
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]
 
