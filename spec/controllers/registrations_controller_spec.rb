@@ -25,7 +25,7 @@ describe RegistrationsController do
   describe "POST create " do
 
     before :each do
-      User.any_instance.stub(:counts_and_write_points)
+      ProfileBuilder.any_instance.stub(:create_user_points)
     end
 
     it "should create a User" do

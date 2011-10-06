@@ -55,23 +55,6 @@ describe User do
 
   end
 
-  context  "profile points" do
-
-    it "should count and write points" do
-      hash = {@profile.id => 2}
-      @user.counts_and_write_points(hash)
-      Point.should have(1).record
-    end
-
-    it "should not count and write points when already has points" do
-      @user.stub(:points).and_return(1)
-      hash = {@profile.id => 2}
-      @user.counts_and_write_points(hash)
-      Point.should have(0).record
-    end
-
-  end
-
   context "survey" do
 
     let(:access_token) { {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name"}}} }
