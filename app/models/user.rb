@@ -54,10 +54,6 @@ class User < ActiveRecord::Base
     self.invites.find_or_create_by_email(:email => email)
   end
   
-  def invite_for(email)
-    self.invites.find_or_create_by_email(:email => email)
-  end
-  
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token(token)
     raise 'Invalid token' unless inviting_member
@@ -84,15 +80,6 @@ class User < ActiveRecord::Base
   
   def get_invite_token
     invite_token
-  end
-  
-  def invite_by_email(emails)
-    valid_emails = emails.reject {|mail| not EmailFormat.match mail }
-    valid_emails.map do |email|
-      invite = invite_for email
-      InvitesMailer.invite_email(invite).deliver
-      invite
-    end
   end
   
   private
