@@ -29,10 +29,6 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords(resource)
       respond_with_navigational(resource) { render_with_scope :new }
     end
-
-    @redirect_uri = new_user_registration_path
-    @user_data = session['devise.facebook_data'] ? session['devise.facebook_data']['extra']['user_hash'] : {}
-    super
   end
 
   private
