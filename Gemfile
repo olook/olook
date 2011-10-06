@@ -14,6 +14,7 @@ gem 'resque', '~> 1.19.0'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'brcpfcnpj'
 gem 'hpricot'
+gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 
 group :development, :test do
