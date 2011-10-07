@@ -77,10 +77,6 @@ class User < ActiveRecord::Base
     self.uid.present?
   end
   
-  def get_invite_token
-    invite_token
-  end
-  
   private
 
   def check_cpf
