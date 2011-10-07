@@ -23,7 +23,7 @@ describe RegistrationsController do
     end
   end
 
-  describe "POST create " do
+  describe "POST create with a profile_points fake" do
 
     before :each do
       ProfileBuilder.any_instance.stub(:create_user_points)
@@ -64,6 +64,15 @@ describe RegistrationsController do
      User.stub(:new_with_session).and_return(Factory.build(:user, :cpf => "11144477735"))
      post :create, :user => user_attributes.merge!({:cpf => "11144477735"})
      [:profile_points, :questions, :invite, "devise.facebook_data"].each {|key| session[key].should == nil}
+    end
+  end
+
+  describe "POST create" do
+    it "should create a User" do
+     profile_points = :some_data
+     session[:profile_points] = profile_points
+     ProfileBuilder.any_instance.should_receive(:create_user_points).with(profile_points)
+     post :create, :user => user_attributes
     end
   end
 end
