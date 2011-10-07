@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
         user.email = data["email"]
         user.first_name = data["first_name"]
         user.last_name = data["last_name"]
+        user.uid = data["id"]
         user.is_invited = true if session[:invite]
       end
     end
