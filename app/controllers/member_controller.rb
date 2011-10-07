@@ -14,7 +14,8 @@ class MemberController < ApplicationController
   
   def invite_by_email
     parsed_emails = params[:invite_mail_list].split(',').map(&:strip)
-    invites = current_user.invite_by_email(parsed_emails)
+    invites = current_user.invites_for(parsed_emails)
+    invites.each(&:send_invitation)
     redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
@@ -32,7 +33,8 @@ class MemberController < ApplicationController
   end
 
   def invite_imported_contacts
-    current_user.invite_by_email(params[:email_address])
+    invites = current_user.invites_for(params[:email_address])
+    invites.each(&:send_invitation)
     redirect_to(member_import_contacts_path, :notice => "Convites enviados com sucesso!")
   end
 

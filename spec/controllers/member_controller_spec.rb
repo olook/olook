@@ -43,8 +43,13 @@ describe MemberController do
 
   it "#invite_by_email" do
     emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
+    mock_invites = emails.map do |email|
+      invite = double(Invite)
+      invite.should_receive(:send_invitation)
+      invite
+    end
     member = double(User)
-    member.should_receive(:invite_by_email).with(emails).and_return(emails)
+    member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     subject.stub(:current_user) { member }
 
     post :invite_by_email, :invite_mail_list => emails.join(', ')
@@ -78,11 +83,16 @@ describe MemberController do
 
   describe "#invite_imported_contacts" do
     it "should invite users by email" do
-      emails = ['jane@friend.com', 'linda@friend.com', 'mary@friend.com']
+      emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
+      mock_invites = emails.map do |email|
+        invite = double(Invite)
+        invite.should_receive(:send_invitation)
+        invite
+      end
       member = double(User)
-      member.should_receive(:invite_by_email).with(emails)
+      member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       subject.stub(:current_user) { member }
-   
+
       post :invite_imported_contacts, :email_address => emails
    
       response.should redirect_to(member_import_contacts_path)
