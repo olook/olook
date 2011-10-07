@@ -2,9 +2,9 @@
 require "spec_helper"
 
 describe InvitesMailer do
-  it "should send the invite e-mail given a member" do
+  it "should send the invite e-mail given an invite id" do
     invite = FactoryGirl.create(:invite)
-    sent_email = InvitesMailer.invite_email(invite).deliver
+    sent_email = InvitesMailer.invite_email(invite.id).deliver
     ActionMailer::Base.deliveries.should_not be_empty
 
     sent_email.to.should include(invite.email)

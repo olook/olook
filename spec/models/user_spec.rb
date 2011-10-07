@@ -104,17 +104,43 @@ describe User do
     end
   end
 
-  describe "#create_invite_for" do
-    it "with a new e-mail" do
+  describe "#invite_for" do
+    it "should create a new invite for a new and valid e-mail" do
       email = "invited@test.com"
       invite = subject.invite_for(email)
       invite.email.should == email
     end
-    it "with an existing e-mail" do
+    it "should return the existing invite for an e-mail which already exists" do
       email = "invited@test.com"
       first_invite = subject.invite_for(email)
       second_invite = subject.invite_for(email)
       first_invite.should == second_invite
+    end
+    it "should not create an invite for an invalid e-mail" do
+      email = "invalid email"
+      invite = subject.invite_for(email)
+      invite.should be_nil
+    end
+  end
+
+  describe "#invites_for (plural)" do
+    it "should create new invites for new and valid e-mails" do
+      emails = ["invited@test.com", "invited2@test.com"]
+      new_invites = subject.invites_for(emails)
+      new_invites.map(&:email).should =~ emails
+    end
+    it "should return existing invites for e-mails which already exists" do
+      emails = ["invited@test.com", "invited2@test.com"]
+      first_invites = subject.invites_for(emails)
+      second_invites = subject.invites_for(emails)
+      first_invites.map(&:email).should =~ emails
+      second_invites.should == first_invites
+    end
+    it "should not create invites for invalid e-mails" do
+      emails = ["invalid  email", "invited@test.com"]
+      invites = subject.invites_for(emails)
+      invites.should_not be_nil
+      invites.map(&:email).should == ["invited@test.com"]
     end
   end
 
@@ -127,35 +153,6 @@ describe User do
     end
     it "with an invalid token" do
       expect { subject.accept_invitation_with_token('xxxx') }.to raise_error
-    end
-  end
-
-  describe "#invite_by_email" do
-    def setup_and_send_emails(emails, expected_number_of_emails)
-      # At first, no invite should exist
-      subject.invites.should be_empty
-      # Stub and mock objects to check e-mail sending
-      mock_mail = double(:email)
-      mock_mail.should_receive(:deliver).exactly(expected_number_of_emails).times
-      InvitesMailer.stub(:invite_email).and_return(mock_mail)
-      # Send the e-mail
-      subject.invite_by_email emails
-    end
-
-    it "when receiving a list of e-mails, it should send one e-mail for each" do
-      emails = ['jane@friend.com', 'linda@friend.com', 'mary@friend.com']
-      new_invites = setup_and_send_emails(emails, 3)
-      new_invites.map(&:email).should =~ emails.reverse
-    end
-    it "when receiving a list with invalid e-mails, it should send e-mails only for the valid ones" do
-      emails = ['jane@friend.com', 'invalid email format', 'mary@friend.com']
-      new_invites = setup_and_send_emails(emails, 2)
-      new_invites.map(&:email).should =~ ['jane@friend.com', 'mary@friend.com']
-    end
-
-    it "when receiving an empty list of e-mails it should do nothing" do
-      setup_and_send_emails([], 0)
-      subject.invites.should be_empty
     end
   end
 end
