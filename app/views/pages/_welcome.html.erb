@@ -1,12 +1,5 @@
 <% content_for(:head) do %>
-  <!-- FIXME -->
-  <script type="text/javascript">
-      if(window.opener) {
-        window.close();
-        window.opener.location = '<%= @redirect_uri %>';
-      }
-  </script>
-
+  <%= render "shared/close_popup_js", :redirect_url => @redirect_url  %>
 <% end %>
 
 <h1>Gata, bem-vinda</h1>
