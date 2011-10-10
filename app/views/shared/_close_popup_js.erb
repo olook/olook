@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  if(window.opener) {
+    window.close();
+    window.opener.location = '<%= @redirect_uri %>';
+  }
+</script>
+
