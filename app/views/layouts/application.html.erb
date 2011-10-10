@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-		<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>olook</title>
 
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    "application" %>
 
-		<!--[if lt IE 9]>
-		<%= javascript_include_tag "html5.js" %>
-		<![endif]-->
+    <!--[if lt IE 9]>
+    <%= javascript_include_tag "html5.js" %>
+    <![endif]-->
     <%= javascript_include_tag "application" %>
     <%= favicon_link_tag %>
 
@@ -27,7 +27,7 @@
 			<section class="holder-resolution">
 				<header>
           <%= link_to content_tag(:h1, 'O LOOK'), root_path %>
-			
+
           <% if user_signed_in? %>
             <span><%= link_to "Logout", destroy_user_session_path, :method => :delete %></span>
           <% else %>
@@ -54,10 +54,10 @@
 				<!--holder-content-->
 			</section>
 			<!--holder-resolution-->
-			
+
 		</div>
 		<!--holder-full-->
-		
+
 		<footer>
 			<section>
 				<ul>
@@ -65,25 +65,25 @@
 					<li><a href="#">Coleções</a></li>
 					<li><a href="#">Os estilistas</a></li>
 					<li><a href="#">Como funciona</a></li>
-					<li><a href="#">Conheça nosso blog</a></li>	
+					<li><a href="#">Conheça nosso blog</a></li>
 				</ul>
-				
+
 				<ul>
 					<li><a href="#">Termos & Condições</a></li>
 					<li><a href="#">Política de Privacidade</a></li>
-					<li><a href="#">F.A.Q.</a></li>	
+					<li><a href="#">F.A.Q.</a></li>
 				</ul>
-				
+
 				<ul class="footer-social-midia">
 					<li class="twitter"><a href="#">Siga-nos no twitter</a></li>
 					<li class="facebook"><a href="#">Seja nosso fã no facebook</a></li>
 				</ul>
-				
+
 				<ul class="bandeiras">
 					<li><span>TRABALHAMOS COM:</span></li>
 					<li><%= image_tag "common/ico-bandeiras.png" %></li>
 				</ul>
-				
+
 				<p>© 2011 - olook</p>
 				<p>Todos os direitos reservados</p>
 			</section>

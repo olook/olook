@@ -25,6 +25,12 @@ feature "User Authenticate", %q{
     page.should_not have_content("Cpf")
   end
 
+  scenario "User Log in with facebook" do
+    answer_survey
+    visit "/users/auth/facebook"
+    page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
+  end
+
   scenario "User Sign up" do
     answer_survey
     visit new_user_registration_path
@@ -43,12 +49,6 @@ feature "User Authenticate", %q{
     fill_in "user_password", :with => @user.password
     click_button "Sign in"
     page.should have_content(I18n.t "devise.sessions.signed_in")
-  end
-
-  scenario "User Log in with facebook" do
-    answer_survey
-    visit "/users/auth/facebook"
-    page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 
   scenario "Whole sign up, sign out and sign in process" do

@@ -23,15 +23,16 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => EmailFormat
   validates_format_of :first_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
   validates_format_of :last_name, :with => /^[A-ZÀ-ÿ\s-]+$/i
-  
+
   def name
     "#{first_name} #{last_name}".strip
   end
 
   def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
-    user = User.find_by_uid(data["id"])
-    user
+    t = User.arel_table
+    user = User.where(t[:uid].eq(data["id"]).and(t[:uid].not_eq(nil)))
+    user.first
   end
 
   def self.new_with_session(params, session)
@@ -60,7 +61,7 @@ class User < ActiveRecord::Base
       invite_for email_address
     end.compact
   end
-  
+
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token(token)
     raise 'Invalid token' unless inviting_member
@@ -71,11 +72,11 @@ class User < ActiveRecord::Base
       invite.save
     end
   end
-  
+
   def has_facebook?
     self.uid.present?
   end
-  
+
   private
 
   def check_cpf

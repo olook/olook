@@ -44,22 +44,20 @@ describe User do
 
   context "facebook account" do
     it "should not facebook account" do
+      subject.update_attributes(:uid => nil)
       subject.has_facebook?.should == false
     end
 
     it "should have facebook account" do
-      subject.update_attributes(:uid => "123")
       subject.has_facebook?.should == true
     end
   end
 
   context "survey" do
 
-    let(:access_token) { {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name"}}} }
-
     it "should find for facebook auth" do
-      User.should_receive(:find_by_uid).with(access_token["extra"]["user_hash"]["id"])
-      User.find_for_facebook_oauth(access_token)
+      access_token =  {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name", "id" => subject.uid}}}
+      User.find_for_facebook_oauth(access_token).should == subject
     end
 
   end
