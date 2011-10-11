@@ -1,6 +1,13 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Product do
+  describe "validation" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:description) }
+    it { should have_many(:pictures) }
+  end
+
   describe "category" do
     subject { FactoryGirl.create(:basic_shoe) }
 
@@ -13,8 +20,12 @@ describe Product do
     it "should retrieve :none for a new object" do
       described_class.new.category.should == :none
     end
+    it "should return :none if the categories isn't defined on Categories" do
+      subject.category = :otherstuff
+      subject.category.should == :none
+    end    
   end
-  
+    
   describe "scopes" do
     before :each do
       @shoe  = FactoryGirl.create(:basic_shoe)
