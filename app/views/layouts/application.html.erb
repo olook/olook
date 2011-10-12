@@ -18,65 +18,66 @@
 
   </head>
   <body>
-
-    <div class="holder-full">
-      <section class="holder-resolution">
-        <header>
-          <%= link_to content_tag(:h1, 'O LOOK'), root_path %>
-
+    <header>
+      <div class="content">
+        <%= link_to content_tag(:h1, 'O LOOK'), root_path %>
+        
+        <div id="session">
           <% if user_signed_in? %>
             <span><%= link_to "Logout", destroy_user_session_path, :method => :delete %></span>
           <% else %>
             <span>Já faz parte? <%= link_to "Faça seu login", new_user_session_path %></span>
           <% end %>
+          <div id="sign-in-dropdown">
+            <%= render :partial => "sessions/form" %>
+          </div>
+        </div>
 
-          <%= image_tag "common/img-destaque-header.png", :alt => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL",
-            :title => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL",
-            :class => "observations" %>
-        </header>
+        <%= image_tag "common/img-destaque-header.png", :alt => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL", :title => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL", :class => "observations" %>
+      </div>
+    </header>
 
-        <section class="holder-content">
 
-          <section class="holder-middle">
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
+    <section class="content">
 
-            <%= yield %>
-          </section>
-        </section>
+      <section class="holder-middle">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
+        <%= yield %>
       </section>
+    </section>
+  </div>
 
-    </div>
+  <footer>
+    <section>
+      <ul>
+        <li><a href="#">Sobre olook</a></li>
+        <li><a href="#">Coleções</a></li>
+        <li><a href="#">Os estilistas</a></li>
+        <li><a href="#">Como funciona</a></li>
+        <li><a href="#">Conheça nosso blog</a></li>
+      </ul>
 
-    <footer>
-      <section>
-        <ul>
-          <li><a href="#">Sobre olook</a></li>
-          <li><a href="#">Coleções</a></li>
-          <li><a href="#">Os estilistas</a></li>
-          <li><a href="#">Como funciona</a></li>
-          <li><a href="#">Conheça nosso blog</a></li>
-        </ul>
+      <ul>
+        <li><a href="#">Termos & Condições</a></li>
+        <li><a href="#">Política de Privacidade</a></li>
+        <li><a href="#">F.A.Q.</a></li>
+      </ul>
 
-        <ul>
-          <li><a href="#">Termos & Condições</a></li>
-          <li><a href="#">Política de Privacidade</a></li>
-          <li><a href="#">F.A.Q.</a></li>
-        </ul>
+      <ul class="footer-social-midia">
+        <li class="twitter"><a href="#">Siga-nos no twitter</a></li>
+        <li class="facebook"><a href="#">Seja nosso fã no facebook</a></li>
+      </ul>
 
-        <ul class="footer-social-midia">
-          <li class="twitter"><a href="#">Siga-nos no twitter</a></li>
-          <li class="facebook"><a href="#">Seja nosso fã no facebook</a></li>
-        </ul>
+      <ul class="bandeiras">
+        <li><span>TRABALHAMOS COM:</span></li>
+        <li><%= image_tag "common/ico-bandeiras.png" %></li>
+      </ul>
 
-        <ul class="bandeiras">
-          <li><span>TRABALHAMOS COM:</span></li>
-          <li><%= image_tag "common/ico-bandeiras.png" %></li>
-        </ul>
-
-        <p>© 2011 - olook</p>
-        <p>Todos os direitos reservados</p>
-      </section>
-    </footer>
-  </body>
+      <p>© 2011 - olook</p>
+      <p>Todos os direitos reservados</p>
+    </section>
+  </footer>
+</body>
 </html>
