@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :picture do
     factory :gallery_picture do
       image "aa"
-      display_on :gallery
+      display_on DisplayOn::GALLERY
       association :product, :factory => :basic_shoe
     end
   end
