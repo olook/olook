@@ -8,24 +8,6 @@ describe Product do
     it { should have_many(:pictures) }
   end
 
-  describe "category" do
-    subject { FactoryGirl.create(:basic_shoe) }
-
-    it "should save category in the DB as an integer based on the Categories list" do
-      subject.read_attribute(:category).should == Product::Categories[:shoe]
-    end
-    it "should retrieve category as a symbol based on the Categories list" do
-      subject.category.should == :shoe
-    end
-    it "should retrieve :none for a new object" do
-      described_class.new.category.should == :none
-    end
-    it "should return :none if the categories isn't defined on Categories" do
-      subject.category = :otherstuff
-      subject.category.should == :none
-    end    
-  end
-    
   describe "scopes" do
     before :each do
       @shoe  = FactoryGirl.create(:basic_shoe)
