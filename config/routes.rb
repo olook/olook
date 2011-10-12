@@ -1,9 +1,16 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "index/index"
+
   root :to => "home#index"
   resources :survey, :only => [:index, :create]
   match "/welcome", :to => "pages#welcome", :as => "welcome"
+
+  namespace :admin do
+    #resources :index, :only => [:index]
+    match "/", :to => "index#dashboard"
+  end
 
   devise_for :admins
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
