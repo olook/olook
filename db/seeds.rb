@@ -1,4 +1,8 @@
 # -*- encoding : utf-8 -*-
+
+Admin.delete_all
+Admin.create(:email => "admin@olook.com", :password =>"123456")
+
 Profile.delete_all
 
 casual  = Profile.create(:name => "Casual")
