@@ -3,15 +3,25 @@ require 'spec_helper'
 
 describe SessionsController do
 
-  before :each do
-    request.env['devise.mapping'] = Devise.mappings[:user]
+  context "User login" do
+    describe "Post 'create'" do
+      it "should redirect to welcome page" do
+        request.env['devise.mapping'] = Devise.mappings[:user]
+        user = Factory(:user)
+        post :create, :user => { :email => user.email, :password => user.password }
+        response.should redirect_to(welcome_path)
+      end
+    end
   end
-	
-  describe "Post 'create'" do
-    it "should redirect to welcome page" do
-      user = Factory(:user)	
-      post :create, :user => { :email => user.email, :password => user.password }
-      response.should redirect_to(welcome_url)
+
+  context "Admin login" do
+    describe "Post 'create'" do
+      it "should redirect to admin page" do
+        request.env['devise.mapping'] = Devise.mappings[:admin]
+        admin = Factory(:admin)
+        post :create, :admin => { :email => admin.email, :password => admin.password }
+        response.should redirect_to(admin_path)
+      end
     end
   end
 
