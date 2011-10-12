@@ -2,6 +2,13 @@
 require 'spec_helper'
 
 describe MemberController do
+
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:user]
+    user = Factory :user
+    sign_in user
+  end
+
   describe "#invite" do
     it "should show the member invite page" do
       subject.stub(:current_user) { :user }
@@ -94,7 +101,7 @@ describe MemberController do
       subject.stub(:current_user) { member }
 
       post :invite_imported_contacts, :email_address => emails
-   
+
       response.should redirect_to(member_import_contacts_path)
       flash[:notice].should == "Convites enviados com sucesso!"
     end

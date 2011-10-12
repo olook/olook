@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class MemberController < ApplicationController
+
+  before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :validate_token, :only => :accept_invitation
 
   def invite
@@ -11,7 +13,7 @@ class MemberController < ApplicationController
                         :invited_by => @inviting_member.name}
     redirect_to new_user_registration_path
   end
-  
+
   def invite_by_email
     parsed_emails = params[:invite_mail_list].split(',').map(&:strip)
     invites = current_user.invites_for(parsed_emails)
@@ -23,7 +25,7 @@ class MemberController < ApplicationController
     email_provider = params[:email_provider]
     login = params[:login]
     password = params[:password]
-  
+
     case email_provider.to_i
       when 1
         @contacts = Contacts::Gmail.new(login, password).contacts

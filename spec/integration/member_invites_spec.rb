@@ -7,6 +7,9 @@ feature "Member can send invites", %q{
   As a member
   I want to invite people to join the site
 } do
+
+  let(:user) { FactoryGirl.create(:user) }
+
   describe "When a member" do
     background do
       email = "member.jane@doe.com"
@@ -28,19 +31,19 @@ feature "Member can send invites", %q{
       click_button "Sign in"
       page.should have_content(I18n.t "devise.sessions.signed_in")
       @member = User.find_by_email(email)
-    end  
+    end
 
     scenario "access the welcome page, they should be able to go to the invite page" do
       visit welcome_path
       page.has_link?("Convide suas amigas", :href => member_invite_path)
     end
 
-    describe "access the invite page, they can invite people by" do 
+    describe "access the invite page, they can invite people by" do
       background do
         visit member_invite_path
       end
 
-      scenario "copying and pasting a link to invite/*invite_token*" do 
+      scenario "copying and pasting a link to invite/*invite_token*" do
         share_link = page.find('span#share_invitation')
         share_link.should have_content(accept_invitation_path(:invite_token => @member.invite_token))
       end
@@ -78,24 +81,27 @@ feature "Member can send invites", %q{
 
     describe "they should be redirected to the home page" do
       scenario "if they have an empty token" do
+        do_login!(user)
         visit accept_invitation_path(:invite_token => '')
         current_path.should == root_path
         page.should have_content("Invalid token")
       end
 
       scenario "if they have a token with an invalid format" do
+        do_login!(user)
         visit accept_invitation_path(:invite_token => '')
         current_path.should == root_path
         page.should have_content("Invalid token")
       end
 
       scenario "if they have a token that doesn't exist" do
+        do_login!(user)
         visit accept_invitation_path(:invite_token => 'X'*20)
         current_path.should == root_path
         page.should have_content("Invalid token")
       end
     end
-    
+
     describe "they should be redirected to the survey page with invite details" do
       scenario "if they have a valid token" do
         inviting_member = FactoryGirl.create(:member)
