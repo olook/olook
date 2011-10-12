@@ -17,6 +17,8 @@ gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 
+gem 'enumerate_it'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19'
