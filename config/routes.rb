@@ -8,7 +8,6 @@ Olook::Application.routes.draw do
   match "/welcome", :to => "pages#welcome", :as => "welcome"
 
   namespace :admin do
-    #resources :index, :only => [:index]
     match "/", :to => "index#dashboard"
   end
 
@@ -21,11 +20,11 @@ Olook::Application.routes.draw do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
 
-  get "member/invite" => "member#invite"
-  get "invite/(:invite_token)" => 'member#accept_invitation', :as => "accept_invitation"
-  post "member/invite_by_email" => 'member#invite_by_email'
+  get "member/invite" => "members#invite"
+  get "invite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
+  post "member/invite_by_email" => 'members#invite_by_email'
 
-  get "member/import_contacts" => "member#import_contacts"
-  post "member/import_contacts" => "member#show_imported_contacts"
-  post "member/invite_contacts" => "member#invite_imported_contacts"
+  get "member/import_contacts" => "members#import_contacts"
+  post "member/import_contacts" => "members#show_imported_contacts"
+  post "member/invite_contacts" => "members#invite_imported_contacts"
 end

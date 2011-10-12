@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class MemberController < ApplicationController
+class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :validate_token, :only => :accept_invitation

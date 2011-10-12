@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe MemberController do
+describe MembersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
