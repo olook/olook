@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-
   get "index/index"
+
+  resources :products
 
   root :to => "home#index"
   resources :survey, :only => [:index, :create]
