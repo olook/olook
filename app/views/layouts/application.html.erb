@@ -19,13 +19,11 @@
   </head>
   <body>
 
-		<div class="top-shadow" style=""></div>
-
-		<!--holder-full-->
-		<div class="holder-full">
-			<!--holder-resolution-->
-			<section class="holder-resolution">
-				<header>
+    <!--holder-full-->
+    <div class="holder-full">
+      <!--holder-resolution-->
+      <section class="holder-resolution">
+        <header>
           <%= link_to content_tag(:h1, 'O LOOK'), root_path %>
 
           <% if user_signed_in? %>
@@ -35,58 +33,58 @@
           <% end %>
 
           <%= image_tag "common/img-destaque-header.png", :alt => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL",
-                :title => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL",
-                :class => "observations" %>
-				</header>
+            :title => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL",
+            :class => "observations" %>
+        </header>
 
-				<!--holder-content-->
-				<section class="holder-content">
+        <!--holder-content-->
+        <section class="holder-content">
 
-					<!--holder-middle-->
-					<section class="holder-middle">
+          <!--holder-middle-->
+          <section class="holder-middle">
             <p class="notice"><%= notice %></p>
             <p class="alert"><%= alert %></p>
 
             <%= yield %>
-					</section>
-					<!--holder-middle-->
-				</section>
-				<!--holder-content-->
-			</section>
-			<!--holder-resolution-->
+          </section>
+          <!--holder-middle-->
+        </section>
+        <!--holder-content-->
+      </section>
+      <!--holder-resolution-->
 
-		</div>
-		<!--holder-full-->
+    </div>
+    <!--holder-full-->
 
-		<footer>
-			<section>
-				<ul>
-					<li><a href="#">Sobre olook</a></li>
-					<li><a href="#">Coleções</a></li>
-					<li><a href="#">Os estilistas</a></li>
-					<li><a href="#">Como funciona</a></li>
-					<li><a href="#">Conheça nosso blog</a></li>
-				</ul>
+    <footer>
+      <section>
+        <ul>
+          <li><a href="#">Sobre olook</a></li>
+          <li><a href="#">Coleções</a></li>
+          <li><a href="#">Os estilistas</a></li>
+          <li><a href="#">Como funciona</a></li>
+          <li><a href="#">Conheça nosso blog</a></li>
+        </ul>
 
-				<ul>
-					<li><a href="#">Termos & Condições</a></li>
-					<li><a href="#">Política de Privacidade</a></li>
-					<li><a href="#">F.A.Q.</a></li>
-				</ul>
+        <ul>
+          <li><a href="#">Termos & Condições</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">F.A.Q.</a></li>
+        </ul>
 
-				<ul class="footer-social-midia">
-					<li class="twitter"><a href="#">Siga-nos no twitter</a></li>
-					<li class="facebook"><a href="#">Seja nosso fã no facebook</a></li>
-				</ul>
+        <ul class="footer-social-midia">
+          <li class="twitter"><a href="#">Siga-nos no twitter</a></li>
+          <li class="facebook"><a href="#">Seja nosso fã no facebook</a></li>
+        </ul>
 
-				<ul class="bandeiras">
-					<li><span>TRABALHAMOS COM:</span></li>
-					<li><%= image_tag "common/ico-bandeiras.png" %></li>
-				</ul>
+        <ul class="bandeiras">
+          <li><span>TRABALHAMOS COM:</span></li>
+          <li><%= image_tag "common/ico-bandeiras.png" %></li>
+        </ul>
 
-				<p>© 2011 - olook</p>
-				<p>Todos os direitos reservados</p>
-			</section>
-		</footer>
-	</body>
+        <p>© 2011 - olook</p>
+        <p>Todos os direitos reservados</p>
+      </section>
+    </footer>
+  </body>
 </html>
