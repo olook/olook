@@ -53,9 +53,9 @@ feature "Member can send invites", %q{
         tweet_text.should have_content("olook.com/invite/#{@member.invite_token}")
       end
 
-      scenario "posting the link on her Facebook wall" do
-        facebook_button = page.find('.fb-send')[:"data-href"]
-        facebook_button.should have_content("olook.com/invite/#{@member.invite_token}")
+      scenario "sending a link using Facebook Message dialog" do
+        facebook_button = page.find('#facebook_invite_friends')
+        facebook_button.should have_content("Convide suas amigas")
       end
 
       scenario "sending an invitation e-mail to a list of people" do

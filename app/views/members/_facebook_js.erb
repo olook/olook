@@ -1,0 +1,17 @@
+<script>
+  FB.init({
+    appId  : '<%= facebook_app_id %>',
+    status : true,
+    cookie : true,
+    oauth: true
+  });
+
+  function sendFacebookMessage() {
+    FB.ui({
+      description: 'Olook',
+      method: 'send',
+      name: 'Conheça o Olook',
+      link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+    });
+  }
+</script>
