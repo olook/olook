@@ -5,16 +5,20 @@ describe MembersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    user = Factory :user
-    sign_in user
+    @user = Factory :user
+    sign_in @user
   end
 
   describe "#invite" do
     it "should show the member invite page" do
-      subject.stub(:current_user) { :user }
       get :invite
       response.should render_template("invite")
-      assigns(:member).should eq(:user)
+      assigns(:member).should eq(@user)
+    end
+
+    it "should assign @facebook_app_id" do
+      get :invite
+      assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
     end
   end
 
