@@ -1,0 +1,12 @@
+<p>
+  <b>Display on:</b>
+  <%= @picture.display_on_humanize %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= image_tag @picture.image_url %>
+</p>
+
+<%= link_to 'Edit', edit_product_picture_path(@picture.product) %> |
+<%= link_to 'Back', product_path(@picture.product) %>
