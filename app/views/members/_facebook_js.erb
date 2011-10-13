@@ -14,4 +14,20 @@
       link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
     });
   }
+
+ function postToFacebookFeed() {
+    var obj = {
+      method: 'feed',
+      link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+      picture: 'http://fbrell.com/f8.jpg',
+      name: 'Conheça o Olook',
+      caption: 'www.olook.com.br',
+      description: 'Descriçao de teste'
+    };
+
+    function callback(response) {
+    }
+
+    FB.ui(obj, callback);
+  }
 </script>
