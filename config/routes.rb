@@ -2,7 +2,9 @@
 Olook::Application.routes.draw do
   get "index/index"
 
-  resources :products
+  resources :products do
+    resources :pictures
+  end
 
   root :to => "home#index"
   resources :survey, :only => [:index, :create]

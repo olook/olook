@@ -18,6 +18,7 @@ gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 
 gem 'enumerate_it'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'sqlite3'
