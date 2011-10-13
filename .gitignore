@@ -18,4 +18,3 @@ nohup.out
 config/facebook.yml
 config/email.yml
 *.passwd
-db/schema.rb
