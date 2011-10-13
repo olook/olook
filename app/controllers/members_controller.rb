@@ -6,6 +6,7 @@ class MembersController < ApplicationController
 
   def invite
     @member = current_user
+    @facebook_app_id = "277441592277752"
   end
 
   def accept_invitation
