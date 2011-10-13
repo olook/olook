@@ -50,7 +50,7 @@ feature "Member can send invites", %q{
 
       scenario "tweeting the link" do
         tweet_text = page.find('.twitter-share-button')[:"data-text"]
-        tweet_text.should have_content("olook.com/invite/#{@member.invite_token}")
+        tweet_text.should have_content("http://beta.olook.com.br/invite/#{@member.invite_token}")
       end
 
       scenario "sending a link using Facebook Message dialog" do
