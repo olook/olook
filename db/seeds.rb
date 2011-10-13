@@ -12,7 +12,7 @@ fashion = Profile.create(:name => "Fashion")
 Question.delete_all
 Weight.delete_all
 
-3.times do |i|
+9.times do |i|
   question = Question.create(:title => "Question #{i}")
 
   answer1 = question.answers.create(:title => "Answer for Casual and Sporty #{i}")
