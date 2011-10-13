@@ -1,10 +1,10 @@
 body {
   .content {
-    .holder-middle {
+    .home {
       background: url('/assets/home/bg-middle-home.png') no-repeat;
       overflow:hidden;
 
-      .holder-model {
+      .model {
         margin:0 0 0 -12px;
         float:left;
       }
@@ -51,7 +51,7 @@ body {
         }
       }
 
-      .holder-call {
+      .call {
         width:603px;
         height:160px;
         background: url('../../assets/home/bg-chamada.png') no-repeat 0px 0;

@@ -28,25 +28,18 @@
           <% else %>
             <span>Já faz parte? <%= link_to "Faça seu login", new_user_session_path %></span>
           <% end %>
-          <div id="sign-in-dropdown">
-            <%= render :partial => "sessions/form" %>
+            <div id="sign-in-dropdown">
+            </div>
           </div>
-        </div>
 
         <%= image_tag "common/img-destaque-header.png", :alt => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL", :title => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL", :class => "observations" %>
       </div>
     </header>
 
 
-    <section class="content">
-
-      <section class="holder-middle">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-
-        <%= yield %>
-      </section>
-    </section>
+    <div class="content">
+      <%= yield %>
+    </div>
   </div>
 
   <footer>
