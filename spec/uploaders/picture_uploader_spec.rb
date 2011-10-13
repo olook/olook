@@ -6,19 +6,38 @@ describe PictureUploader do
     described_class.enable_processing = true
   end
 
-  subject do  
-    test_file = File.expand_path(File.dirname( __FILE__), 'test_shoe.jpg')
-    product = FactoryGirl.create(:basic_shoe)
-    uploader = described_class.new(product, :image)
-    uploader.store!(File.open(test_file))
-    uploader
-  end
-
-  after do
+  after :all do
     described_class.enable_processing = false
   end
 
-  it "should make the image readable only to the owner and not executable" do
-    #subject.should have_permissions(0600)
+  let(:test_file_dir) { File.expand_path File.dirname( __FILE__) }
+  let(:valid_image)   { File.join test_file_dir, 'valid_image.jpg' }
+  let(:invalid_image) { File.join test_file_dir, 'invalid_image.txt' }
+  let(:picture)       { FactoryGirl.create :gallery_picture }
+
+  subject { described_class.new(picture, :image) }
+
+  describe "an uploaded image" do
+    before :each do
+      subject.store!(File.open(valid_image))
+    end
+
+    it "should be readable only to the owner and not executable" do
+      subject.should have_permissions(0600)
+    end
+    
+    it "should exist" do
+      File.exist?(subject.path).should be_true
+    end
+
+    it "should have a thumb version" do
+      File.exist?(subject.thumb.path).should be_true
+    end
+  end
+  
+  it "should only allow the uploading of image files" do
+    expect {
+      subject.store!(File.open(invalid_image))
+    }.to raise_error(CarrierWave::IntegrityError)
   end
 end
