@@ -16,7 +16,27 @@
 <div class="fb-send" data-href=<%= raw(link_to_invitation(@member)) %>></div>
 </p>
 
+<p>Share on Orkut
+<!-- Google Orkut Share Element -->
+<div id="orkut_share" style="width:100%;"></div>
+
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+
+  google.load('orkut.share', '1');
+
+  google.setOnLoadCallback(function(){
+    new google.orkut.share.Button({
+      style:'regular',
+      title:'Olook',
+      summary:'<%= invite_message %>',
+      destination:'<%= invitation_link(@member) %>'
+    }).draw('orkut_share');
+  }, true);
+
+</script>
 <p>
+
   <span>Convide suas amigas por e-mail</span>
   <%= form_tag(member_invite_by_email_path) do %>
     <%= label_tag(:invite_mail_list, "E-mails:") %>
