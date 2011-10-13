@@ -16,6 +16,7 @@ gem 'brcpfcnpj'
 gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
+gem 'cancan', '~> 1.6.7'
 
 gem 'enumerate_it'
 gem 'carrierwave'
