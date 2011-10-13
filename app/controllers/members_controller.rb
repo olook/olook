@@ -6,7 +6,7 @@ class MembersController < ApplicationController
 
   def invite
     @member = current_user
-    @facebook_app_id = "277441592277752"
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
 
   def accept_invitation
@@ -45,9 +45,7 @@ class MembersController < ApplicationController
 
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]
-
     @inviting_member = User.find_by_invite_token(params[:invite_token]) if valid_format
-
     redirect_to(:root, :alert => "Invalid token") unless valid_format && @inviting_member
   end
 end
