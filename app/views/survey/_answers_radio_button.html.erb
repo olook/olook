@@ -1,4 +1,10 @@
 <% question.answers.each do |answer| %>
-  <%= radio_button_tag("questions[question_#{question.id}]", answer.id) %> <%= answer.title %>
+   <li>
+     <h3></h3>
+     <label for="<%="questions_question_#{answer.question.id}_#{answer.id}" %>">
+       <%= radio_button_tag("questions[question_#{answer.question.id}]", answer.id) %> 
+      <%= image_tag 'quiz/survey_fake.png' %>
+     </label>
+   </li>
 <% end %>
 

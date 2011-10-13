@@ -1,0 +1,38 @@
+body {
+  #survey {
+    .jcarousel-container {
+      width: 990px;
+      height: 470px;
+    }
+
+    .jcarousel-clip {
+      width: 990px;
+      height: 363px;
+      overflow: hidden;
+    }
+
+    .jcarousel-item {
+      width: 989px;
+      overflow: hidden;
+      float: left;
+    }
+
+    .jcarousel-prev, .jcarousel-next {
+      background: url('/assets/quiz/previous.png') no-repeat;
+      width: 37px;
+      height: 66px;
+    }
+  }
+  ol {
+    &.option {
+      width: 738px;
+      overflow: hidden;
+      margin: 0 auto;
+      li {
+        float: left;
+        width: 206px;
+        margin: 0 20px;
+      }
+    }
+  }
+}

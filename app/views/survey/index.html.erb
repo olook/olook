@@ -1,19 +1,27 @@
 <% content_for(:head) do %>
   <%= render "shared/close_popup_js", :redirect_url => @redirect_url  %>
 <% end %>
-
-<h1>Survey</h1>
-
 <%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
 
-<%= form_tag({:controller => "survey", :action => "create"}) do %>
-  <% @questions.each do |question| %>
-    <% answer_template = question.id.odd? ? 'answers_check_box' : 'answers_radio_button' %>
-
-    <h2><%= question.title %></h2>
-    <%= render :partial => answer_template, :locals => {:question => question} %>
-    <hr/>
-  <% end %>
-
-  <p><%= submit_tag("Enviar")  %></p>
+<div id="survey">
+  <%= form_tag({:controller => "survey", :action => "create"}) do %>
+    <ul class="question">
+      <% question = @questions.next %>
+      <li>
+        <h2><%= question.title %></h2>
+        <ol class="option">
+          <%= render "answers_radio_button", :question => question %>
+        </ol>
+      </li>
+      
+      <% question = @questions.next %>
+      <li>
+        <h2><%= question.title %></h2>
+        <ol class="option">
+          <%= render "answers_radio_button", :question => question %>
+        </ol>
+      </li>
+    </ul>
+    <p><%= submit_tag("Enviar")  %></p>
+  </div>
 <% end %>
