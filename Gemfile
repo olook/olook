@@ -20,6 +20,7 @@ gem 'sass-rails'
 
 gem 'enumerate_it'
 gem 'carrierwave'
+gem 'rmagick'
 
 group :development, :test do
   gem 'sqlite3'
