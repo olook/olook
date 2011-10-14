@@ -20,7 +20,7 @@ gem 'cancan', '~> 1.6.7'
 
 gem 'enumerate_it'
 gem 'carrierwave'
-gem 'rmagick'
+gem 'mini_magick', '~> 3.3'
 
 group :development, :test do
   gem 'sqlite3'
