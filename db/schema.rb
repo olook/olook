@@ -51,10 +51,28 @@ ActiveRecord::Schema.define(:version => 20111013191517) do
   add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
 
+  create_table "pictures", :force => true do |t|
+    t.string   "image"
+    t.integer  "display_on"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pictures", ["product_id"], :name => "index_pictures_on_product_id"
+
   create_table "points", :force => true do |t|
     t.integer  "value"
     t.integer  "user_id"
     t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
