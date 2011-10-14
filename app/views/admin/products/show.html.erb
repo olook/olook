@@ -26,14 +26,14 @@
   <tr>
     <td><%= picture.display_on_humanize %></td>
     <td><%= image_tag picture.image_url(:thumb).to_s %></td>
-    <td><%= link_to 'Show', product_picture_path(picture.product, picture) %></td>
-    <td><%= link_to 'Edit', edit_product_picture_path(picture.product, picture) %></td>
-    <td><%= link_to 'Destroy', product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', admin_product_picture_path(picture.product, picture) %></td>
+    <td><%= link_to 'Edit', edit_admin_product_picture_path(picture.product, picture) %></td>
+    <td><%= link_to 'Destroy', admin_product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 
-<%= link_to 'Add a new picture', new_product_picture_path(@product) %> |
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<%= link_to 'Add a new picture', new_admin_product_picture_path(@product) %> |
+<%= link_to 'Edit', edit_admin_product_path(@product) %> |
+<%= link_to 'Back', admin_products_path %>
