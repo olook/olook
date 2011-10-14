@@ -34,7 +34,7 @@ group :test do
   gem 'capybara', '~> 1.1.1'
   gem 'database_cleaner', '~> 0.6.7'
   gem 'rspec', '~> 2.6.0'
-  gem 'shoulda', '~> 2.11.3'
+  gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.5.3', :require => false
   gem 'spork', '~> 0.9.0.rc'
   gem 'guard-rspec'
