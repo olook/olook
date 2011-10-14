@@ -21,4 +21,18 @@ $(document).ready(function() {
     scroll: 1
   });
 
+  $('.jcarousel-item li').live('change', function(){
+    el = $(this).parents('li').attr('id');
+    if ($(this).parents('li').hasClass('images')) {
+      $('#' + el + ' .options li').removeClass('selected');
+    };
+    $(this).addClass('selected');
+    $('.jcarousel-next').click();
+  });
+
+  words = $('.words input:checked').length
+  if (words >= 3) {
+    $('.jcarousel-next').click();
+  }
+
 });
