@@ -1,35 +1,33 @@
+# -*- encoding : utf-8 -*-
 require "spec_helper"
 
 describe Admin::ProductsController do
-  describe "routing" do
-
-    it "routes to #index" do
-      get("/admin/products").should route_to("admin/products#index")
+  describe "should include a named route to" do
+    it "the product index" do
+      get(admin_products_path).should route_to("admin/products#index")
     end
-
-    it "routes to #new" do
-      get("/admin/products/new").should route_to("admin/products#new")
+    it "show an existing product" do
+      get(admin_product_path(1)).should route_to("admin/products#show", :id => '1')
     end
-
-    it "routes to #show" do
-      get("/admin/products/1").should route_to("admin/products#show", :id => "1")
+    it "create a new product" do
+      get(new_admin_product_path).should route_to("admin/products#new")
     end
-
-    it "routes to #edit" do
-      get("/admin/products/1/edit").should route_to("admin/products#edit", :id => "1")
+    it "edit an existing product" do
+      get(edit_admin_product_path(1)).should route_to("admin/products#edit", :id => '1')
     end
+  end
 
-    it "routes to #create" do
+  describe "should include unnamed route to" do
+    it "#create" do
       post("/admin/products").should route_to("admin/products#create")
     end
 
-    it "routes to #update" do
+    it "#update" do
       put("/admin/products/1").should route_to("admin/products#update", :id => "1")
     end
 
-    it "routes to #destroy" do
+    it "#destroy" do
       delete("/admin/products/1").should route_to("admin/products#destroy", :id => "1")
     end
-
   end
 end
