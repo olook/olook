@@ -43,7 +43,7 @@ describe Admin::PicturesController do
 
       it "redirects to the created picture" do
         post :create, :picture => valid_attributes, :product_id => product.id
-        response.should redirect_to([Picture.last.product, Picture.last])
+        response.should redirect_to([:admin, Picture.last.product, Picture.last])
       end
     end
 
@@ -83,7 +83,7 @@ describe Admin::PicturesController do
 
       it "redirects to the picture" do
         put :update, :id => picture.id, :picture => valid_attributes, :product_id => product.id
-        response.should redirect_to([product, picture])
+        response.should redirect_to([:admin, product, picture])
       end
     end
 
@@ -114,7 +114,7 @@ describe Admin::PicturesController do
 
     it "redirects to the pictures list" do
       delete :destroy, :id => picture.id.to_s, :product_id => product.id
-      response.should redirect_to(product)
+      response.should redirect_to([:admin, product])
     end
   end
 
