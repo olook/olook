@@ -7,15 +7,7 @@
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
     <ul class="questions">
       <% question = @questions.next %>
-      <li class="question images">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_radio_button", :question => question %>
-        </ol>
-      </li>
-      
-      <% question = @questions.next %>
-      <li class="question images">
+      <li id="question_<%= question.id %>" class="images">
         <h2><%= question.title %></h2>
         <ol class="options">
           <%= render "answers_radio_button", :question => question %>
@@ -23,12 +15,21 @@
       </li>
 
       <% question = @questions.next %>
-      <li class="question words">
+      <li id="question_<%= question.id %>" class="images">
+        <h2><%= question.title %></h2>
+        <ol class="options">
+          <%= render "answers_radio_button", :question => question %>
+        </ol>
+      </li>
+
+      <% question = @questions.next %>
+      <li id="question_<%= question.id %>" class="words">
         <h2><%= question.title %></h2>
         <ol class="options">
           <%= render "answers_check_box", :question => question %>
         </ol>
       </li>
+
     </ul>
     <p><%= submit_tag("Enviar")  %></p>
   </div>
