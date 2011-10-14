@@ -5,20 +5,28 @@
 
 <div id="survey">
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
-    <ul class="question">
+    <ul class="questions">
       <% question = @questions.next %>
-      <li>
+      <li class="question images">
         <h2><%= question.title %></h2>
-        <ol class="option">
+        <ol class="options">
           <%= render "answers_radio_button", :question => question %>
         </ol>
       </li>
       
       <% question = @questions.next %>
-      <li>
+      <li class="question images">
         <h2><%= question.title %></h2>
-        <ol class="option">
+        <ol class="options">
           <%= render "answers_radio_button", :question => question %>
+        </ol>
+      </li>
+
+      <% question = @questions.next %>
+      <li class="question words">
+        <h2><%= question.title %></h2>
+        <ol class="options">
+          <%= render "answers_check_box", :question => question %>
         </ol>
       </li>
     </ul>
