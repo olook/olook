@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe PicturesController do
+describe Admin::PicturesController do
   let!(:picture) { FactoryGirl.create(:gallery_picture) }
   let!(:product) { picture.product }
   let!(:valid_attributes) { picture.attributes }

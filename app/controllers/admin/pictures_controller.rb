@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class PicturesController < ApplicationController
+class Admin::PicturesController < ApplicationController
   respond_to :html
   before_filter :load_product
 

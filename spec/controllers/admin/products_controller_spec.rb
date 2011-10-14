@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ProductsController do
+describe Admin::ProductsController do
   let!(:product) { FactoryGirl.create(:basic_shoe) }
   let!(:valid_attributes) { product.attributes }
 
