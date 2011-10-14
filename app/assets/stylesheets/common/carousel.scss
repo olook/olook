@@ -22,6 +22,16 @@ body {
       width: 37px;
       height: 66px;
     }
+
+    .jcarousel-prev {
+      position: absolute;
+      top: 190px;
+      left: 20px;
+
+      &.jcarousel-prev-disabled {
+        display: none !important;
+      }
+    }
   }
 
   ol {
@@ -53,7 +63,7 @@ body {
             width: 825px;
           }
           li {
-            margin: 0 8px;
+            margin: 0 8px 16px;
             label {
               background: rgb(168, 168, 168);
               width: 190px;
