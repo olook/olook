@@ -2,15 +2,18 @@
 Olook::Application.routes.draw do
   get "index/index"
 
-  resources :products do
-    resources :pictures
-  end
-
   root :to => "home#index"
   resources :survey, :only => [:index, :create]
   match "/welcome", :to => "pages#welcome", :as => "welcome"
 
+  resources :products do
+    resources :pictures
+  end
+
   namespace :admin do
+    resources :products do
+      resources :pictures
+    end
     match "/", :to => "index#dashboard"
   end
 
