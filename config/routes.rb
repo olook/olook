@@ -6,10 +6,6 @@ Olook::Application.routes.draw do
   resources :survey, :only => [:index, :create]
   match "/welcome", :to => "pages#welcome", :as => "welcome"
 
-  resources :products do
-    resources :pictures
-  end
-
   namespace :admin do
     resources :products do
       resources :pictures

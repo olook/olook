@@ -48,7 +48,7 @@ describe Admin::ProductsController do
 
       it "redirects to the created product" do
         post :create, :product => valid_attributes
-        response.should redirect_to(Product.last)
+        response.should redirect_to([:admin, Product.last])
       end
     end
 
@@ -88,7 +88,7 @@ describe Admin::ProductsController do
 
       it "redirects to the product" do
         put :update, :id => product.id, :product => valid_attributes
-        response.should redirect_to(product)
+        response.should redirect_to([:admin, product])
       end
     end
 
@@ -119,7 +119,7 @@ describe Admin::ProductsController do
 
     it "redirects to the products list" do
       delete :destroy, :id => product.id.to_s
-      response.should redirect_to(products_url)
+      response.should redirect_to(admin_products_url)
     end
   end
 

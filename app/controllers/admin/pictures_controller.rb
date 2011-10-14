@@ -5,17 +5,17 @@ class Admin::PicturesController < ApplicationController
 
   def show
     @picture = @product.pictures.find(params[:id])
-    respond_with @picture
+    respond_with [:admin, @picture]
   end
 
   def new
     @picture = @product.pictures.build
-    respond_with @product, @picture
+    respond_with [:admin, @product, @picture]
   end
 
   def edit
     @picture = @product.pictures.find(params[:id])
-    respond_with @product, @picture
+    respond_with [:admin, @product, @picture]
   end
 
   def create
@@ -25,7 +25,7 @@ class Admin::PicturesController < ApplicationController
       flash[:notice] = 'Picture was successfully created.'
     end
 
-    respond_with @product, @picture
+    respond_with [:admin, @product, @picture]
   end
 
   def update
@@ -35,13 +35,13 @@ class Admin::PicturesController < ApplicationController
       flash[:notice] = 'Product was successfully updated.'
     end
 
-    respond_with @product, @picture
+    respond_with [:admin, @product, @picture]
   end
 
   def destroy
     @picture = @product.pictures.find(params[:id])
     @picture.destroy
-    respond_with @product
+    respond_with [:admin, @product]
   end
 
   private  
