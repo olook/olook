@@ -23,15 +23,54 @@ body {
       height: 66px;
     }
   }
+
   ol {
-    &.option {
-      width: 738px;
+    &.options {
       overflow: hidden;
       margin: 0 auto;
       li {
         float: left;
-        width: 206px;
-        margin: 0 20px;
+      }
+    }
+  }
+
+  ul.questions {
+    li {
+      &.images {
+        ol {
+          &.options {
+            width: 738px;
+          }
+          li {
+            width: 206px;
+            margin: 0 20px;
+          }
+        }
+      }
+      &.words {
+        ol {
+          &.options {
+            width: 825px;
+          }
+          li {
+            margin: 0 8px;
+            label {
+              background: rgb(168, 168, 168);
+              width: 190px;
+              height: 85px;
+              display: inline-block;
+              text-align: center;
+              color: #FFF;
+              font-family: 'Times New Roman', Times, serif;
+              font-size: 25px;
+              font-style: italic;
+              line-height: 74px;
+            }
+            input[type='checkbox'] {
+              display: none;
+            }
+          }
+        }
       }
     }
   }
