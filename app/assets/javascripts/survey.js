@@ -17,7 +17,7 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.question').jcarousel({
+  $('.questions').jcarousel({
     scroll: 1
   });
 
