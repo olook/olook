@@ -1,4 +1,4 @@
-<%= form_for([@picture.product, @picture]) do |f| %>
+<%= form_for([:admin, @picture.product, @picture]) do |f| %>
   <% if @picture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>

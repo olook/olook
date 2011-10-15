@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Admin::PicturesController do
+  render_views
   let!(:picture) { FactoryGirl.create(:gallery_picture) }
   let!(:product) { picture.product }
   let!(:valid_attributes) { picture.attributes }
