@@ -12,12 +12,50 @@ body {
       font-style: italic;
       margin-bottom: 30px;
     }
+
     ul.questions {
       h3 {
-        font-size: 16px;
+        font-size: 14px;
         font-style: italic;
         text-align: center;
         margin-bottom: 15px;
+      }
+
+      li {
+        &.words {
+          ol.options {
+            li {
+              label {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 25px;
+                font-style: italic;
+                line-height: 74px;
+              }
+            }
+          }
+        }
+
+        &.about {
+          ol.options {
+            li {
+              h3 {
+                font-family: 'Arial', sans-serif;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: bold;
+                text-align: left;
+              }
+              .question {
+                li {
+                  text-align: center;
+                  line-height: 36px;
+                  font-size: 16px;
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
