@@ -44,7 +44,13 @@
         </ol>
       </li>
 
+      <li id="question_<%= question.id %>" class="about-part-two">
+        <h2><%= question.title %></h2>
+        <ol class="options">
+          <%= render "answers_about_you_part_two" %>
+        </ol>
+      </li>
+
     </ul>
-    <p><%= submit_tag("Enviar")  %></p>
   </div>
 <% end %>
