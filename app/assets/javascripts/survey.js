@@ -30,9 +30,4 @@ $(document).ready(function() {
     $('.jcarousel-next').click();
   });
 
-  words = $('.words input:checked').length
-  if (words >= 3) {
-    $('.jcarousel-next').click();
-  }
-
 });
