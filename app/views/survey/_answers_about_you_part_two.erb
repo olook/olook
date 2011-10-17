@@ -1,0 +1,18 @@
+<li>
+  <ul class="all-questions">
+    <% 3.times do %>
+      <li>
+        <h3>Qual o tamanho do seu sapato?</h3>
+        <ul class="reply-options">
+          <% 3.times do %>
+            <li>
+              <label for=""> Lorem ipsum dolor sit amet? </label>
+              <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</li>
+<p><%= submit_tag("Enviar")  %></p>
