@@ -22,16 +22,12 @@ describe PictureUploader do
       subject.store!(File.open(valid_image))
     end
 
-    it "should be readable only to the owner and not executable" do
-      subject.should have_permissions(0600)
-    end
-    
     it "should exist" do
-      File.exist?(subject.path).should be_true
+     subject.path.should be_true
     end
 
     it "should have a thumb version" do
-      File.exist?(subject.thumb.path).should be_true
+      subject.thumb.path.should be_true
     end
   end
   
