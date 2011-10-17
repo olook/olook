@@ -29,6 +29,20 @@
           <%= render "answers_check_box", :question => question %>
         </ol>
       </li>
+      
+      <li id="question_<%= question.id %>" class="about">
+        <h2><%= question.title %></h2>
+        <ol class="options">
+          <%= render "answers_about" %>
+        </ol>
+      </li>
+
+      <li id="question_<%= question.id %>" class="about">
+        <h2><%= question.title %></h2>
+        <ol class="options">
+          <%= render "answers_style" %>
+        </ol>
+      </li>
 
     </ul>
     <p><%= submit_tag("Enviar")  %></p>
