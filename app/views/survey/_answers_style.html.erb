@@ -1,0 +1,36 @@
+<li>
+  <h3>Qual o tamanho do seu sapato?</h3>
+  <ul class="question">
+    <% 8.times do %>
+    <li>
+        <label for=""> 38
+          <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Qual tamanho de vestido você veste?</h3>
+  <ul class="question">
+    <% 5.times do %>
+      <li>
+        <label for=""> 38
+          <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Que tipo de salto prefere?</h3>
+  <ul class="question shoe">
+    <% 3.times do %>
+      <li>
+        <label for="">
+          <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
+          <%= image_tag 'quiz/shoe_fake.png' %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+</li>
+
