@@ -3,8 +3,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     if current_user
-      set_uid_and_facebook_token(current_user, env["omniauth.auth"])
-      redirect_to root_path
+      if already_exist_a_facebook_account(env["omniauth.auth"])
+        message = "Esta conta do Facebook já está em uso"
+      else
+        set_uid_and_facebook_token(current_user, env["omniauth.auth"])
+        message = "Facebook Connect adicionado com sucesso"
+      end
+      redirect_to(root_path, :notice => message)
     else
       user = User.find_for_facebook_oauth(env["omniauth.auth"])
       if user
@@ -23,6 +28,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+
+  def already_exist_a_facebook_account(omniauth)
+    id = omniauth["extra"]["user_hash"]["id"]
+    User.find_by_uid(id)
+  end
 
   def set_uid_and_facebook_token(current_user, omniauth)
     id = omniauth["extra"]["user_hash"]["id"]
