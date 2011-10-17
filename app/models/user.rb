@@ -35,18 +35,6 @@ class User < ActiveRecord::Base
     user.first
   end
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
-        user.email = data["email"]
-        user.first_name = data["first_name"]
-        user.last_name = data["last_name"]
-        user.uid = data["id"]
-        user.is_invited = true if session[:invite]
-      end
-    end
-  end
-
   def invite_token=(token)
     raise 'Invite token is read only'
   end

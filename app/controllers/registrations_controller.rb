@@ -4,14 +4,22 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :check_survey_response, :only => [:new, :create]
 
   def new
-    build_resource
+    if data = user_data_from_session
+      build_resource(:email => data["email"], :first_name => data["first_name"], :last_name => data["last_name"])
+    else
+      build_resource
+    end
     resource.is_invited = true if session[:invite]
   end
 
   def create
     build_resource
+    if data = user_data_from_session
+      resource.uid = data["id"]
+      resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
+    end
+
     resource.is_invited = true if session[:invite]
-    session["#{resource_name}_return_to"] = welcome_path
 
     if resource.save
       if resource.active_for_authentication?
@@ -28,6 +36,10 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords(resource)
       respond_with_navigational(resource) { render_with_scope :new }
     end
+  end
+
+  def user_data_from_session
+    session["devise.facebook_data"]["extra"]["user_hash"] if session["devise.facebook_data"]
   end
 
   private
