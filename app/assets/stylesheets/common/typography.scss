@@ -56,6 +56,21 @@ body {
             }
           }
         }
+
+        &.style {
+          ol {
+            .options {
+              li {
+                label {
+                  font-family: 'Times New Roman', Times, serif;
+                  font-style: italic;
+                  font-size: 16px;
+                  //@include border-radius(5);
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
