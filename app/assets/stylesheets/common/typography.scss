@@ -70,6 +70,22 @@ body {
             }
           }
         }
+
+        &.about-part-two {
+          ol {
+            &.options {
+              li {
+                h3 {
+                  text-align: left;
+                  font-family: 'Arial', sans-serif;
+                  font-style: normal;
+                  font-weight: bold;
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
