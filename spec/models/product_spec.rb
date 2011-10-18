@@ -5,6 +5,7 @@ describe Product do
   describe "validation" do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:model_number) }
     it { should have_many(:pictures) }
   end
 
