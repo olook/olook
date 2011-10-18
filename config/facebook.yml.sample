@@ -1,11 +1,11 @@
 development:
-  app_id: 165636216797497
-  app_secret: 788b9d3faa90f5eeb85ae6e52ac03297 
+  app_id: 205311082875220
+  app_secret: 2d7a372b255649880bd4051bce3b999c
 
 test:
-  app_id: 165636216797497
-  app_secret: 788b9d3faa90f5eeb85ae6e52ac03297
+  app_id: 205311082875220
+  app_secret: 2d7a372b255649880bd4051bce3b999c
 
 production:
-  app_id: 165636216797497
-  app_secret: 788b9d3faa90f5eeb85ae6e52ac03297
+  app_id: 205311082875220
+  app_secret: 2d7a372b255649880bd4051bce3b999c
