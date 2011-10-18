@@ -6,13 +6,44 @@
         <ul class="reply-options">
           <% 3.times do %>
             <li>
-              <label for=""> Lorem ipsum dolor sit amet? </label>
               <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
+              <label for=""> Lorem ipsum dolor sit amet? </label>
             </li>
           <% end %>
         </ul>
       </li>
     <% end %>
   </ul>
+  <fieldset class="select">
+    <legend>Data de nascimento</legend>
+    <select>
+      <option>Dia</option>
+      <% 31.times do |d| %>
+        <option><%= d %></option>
+      <% end %>
+    </select>
+    
+    <select>
+      <option>Mês</option>
+      <% 12.times do |m| %>
+        <option><%= m %></option>
+      <% end %>
+    </select>
+
+    <select>
+      <option>Ano</option>
+      <% 10.times do |a| %>
+        <option><%= a %></option>
+      <% end %>
+    </select>
+  </fieldset>
+  
+  <fieldset class='buttons'>
+    <ol>
+      <li>
+        <%= submit_tag("Enviar")  %>
+      </li>
+    </ol>
+  </fieldset>
+
 </li>
-<p><%= submit_tag("Enviar")  %></p>
