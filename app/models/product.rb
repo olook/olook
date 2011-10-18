@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
   has_enumeration_for :category, :with => Category, :required => true
   
   has_many :pictures, :dependent => :destroy
+  has_many :details, :dependent => :destroy
   
   validates :name, :presence => true
   validates :description, :presence => true

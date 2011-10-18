@@ -1,0 +1,17 @@
+<p>
+  <b>Translation token:</b>
+  <%= @detail.translation_token %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @detail.description %>
+</p>
+
+<p>
+  <b>Display on:</b>
+  <%= @detail.display_on_humanize %>
+</p>
+
+<%= link_to 'Edit', edit_admin_product_picture_path(@detail.product) %> |
+<%= link_to 'Back', admin_product_path(@detail.product) %>
