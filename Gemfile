@@ -17,11 +17,11 @@ gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'cancan', '~> 1.6.7'
-
 gem 'enumerate_it'
 gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick', '~> 3.3'
+gem 'sass-rails'
 
 group :development, :test do
   gem 'sqlite3'

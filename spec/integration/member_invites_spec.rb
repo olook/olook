@@ -104,6 +104,7 @@ feature "Member can send invites", %q{
 
     describe "they should be redirected to the survey page with invite details" do
       scenario "if they have a valid token" do
+        build_survey
         inviting_member = FactoryGirl.create(:member)
         visit accept_invitation_path(:invite_token => inviting_member.invite_token)
         current_path.should == survey_index_path

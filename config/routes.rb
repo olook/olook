@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
   get "index/index"
-
   root :to => "home#index"
   resources :survey, :only => [:index, :create]
   match "/welcome", :to => "pages#welcome", :as => "welcome"
