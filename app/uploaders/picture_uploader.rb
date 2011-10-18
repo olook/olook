@@ -2,7 +2,6 @@
 class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
-  #include CarrierWave::RMagick
   include CarrierWave::MiniMagick
   # include CarrierWave::ImageScience
 
@@ -16,7 +15,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   root_dir = Rails.env.test? ? 'uploads/test/' : 'uploads/'
   #   "#{root_dir}#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   # end
-
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
