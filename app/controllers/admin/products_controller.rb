@@ -1,4 +1,6 @@
+# -*- encoding : utf-8 -*-
 class Admin::ProductsController < ApplicationController
+  layout "admin"
   respond_to :html
 
   def index
