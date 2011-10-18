@@ -1,5 +1,6 @@
 $pink: #F73C89;
-@import 'common/_border-radius';
+@import 'common/border-radius';
+@import 'partials/mixins';
 
 body {
   #survey {
@@ -199,6 +200,20 @@ body {
                         display: inline-block;
                       }
                     }
+                  }
+                }
+              }
+
+              fieldset {
+                &.select {
+                  width: 370px;
+                  border: 1px solid #CFCFCF;
+                  padding: 30px 20px;
+                }
+
+                &.buttons {
+                  input[type='submit'] {
+                    @include pink_button;
                   }
                 }
               }
