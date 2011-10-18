@@ -5,5 +5,6 @@ CarrierWave.configure do |config|
     :aws_access_key_id => 'AKIAJ2WH3XLYA24UTAJQ',
     :aws_secret_access_key => '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',
   }
-  config.fog_directory = 'olook'
+  config.fog_directory = 'cdn.olook.com.br'
+  config.fog_host = 'http://cdn.olook.com.br'
 end

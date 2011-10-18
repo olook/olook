@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require "spec_helper"
+
 describe PictureUploader do
   include CarrierWave::Test::Matchers
 
