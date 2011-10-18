@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Admin::PicturesController < ApplicationController
+  layout "admin"
   respond_to :html
   before_filter :load_product
 
@@ -44,7 +45,7 @@ class Admin::PicturesController < ApplicationController
     respond_with [:admin, @product]
   end
 
-  private  
+  private
   def load_product
     @product = Product.find(params[:product_id])
   end
