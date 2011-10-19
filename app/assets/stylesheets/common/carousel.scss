@@ -137,37 +137,6 @@ body {
           }
         }
 
-        &.style {
-          ol {
-            &.options {
-              width: 680px;
-              margin-right: 99px;
-            }
-            
-            img {
-              display: block;
-              float: left;
-            }
-
-            .options {
-              float: left;
-              margin-top: 20px;
-              margin-left: 99px;
-              
-              li {
-                label {
-                  background: #E8E8E8;
-                  display: block;
-                  padding: 12px 21px;
-                  margin-bottom: 10px;
-                  width: 288px;
-                  @include border-radius(5px);
-                }
-              }
-            }
-          }
-        }
-
         &.about-part-two {
           ol {
             &.options {
