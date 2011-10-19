@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20111013191517) do
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
-    t.integer  "display_on", :limit => 255
+    t.integer  "display_on"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -133,4 +133,3 @@ ActiveRecord::Schema.define(:version => 20111013191517) do
   end
 
 end
-
