@@ -20,6 +20,7 @@ Olook::Application.routes.draw do
     resources :products do
       resources :pictures
       resources :details
+      resources :variants
     end
     match "/", :to => "index#dashboard"
   end

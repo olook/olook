@@ -7,6 +7,8 @@ describe Product do
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:model_number) }
     it { should have_many(:pictures) }
+    it { should have_many(:details) }
+    it { should have_many(:variants) }
   end
 
   describe "scopes" do

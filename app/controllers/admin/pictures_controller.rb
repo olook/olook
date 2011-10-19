@@ -33,7 +33,7 @@ class Admin::PicturesController < ApplicationController
     @picture = @product.pictures.find(params[:id])
 
     if @picture.update_attributes(params[:picture])
-      flash[:notice] = 'Product was successfully updated.'
+      flash[:notice] = 'Picture was successfully updated.'
     end
 
     respond_with :admin, @product, @picture

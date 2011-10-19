@@ -33,7 +33,7 @@ class Admin::DetailsController < ApplicationController
     @detail = @product.details.find(params[:id])
 
     if @detail.update_attributes(params[:detail])
-      flash[:notice] = 'Product was successfully updated.'
+      flash[:notice] = 'Detail was successfully updated.'
     end
 
     respond_with :admin, @product, @detail
