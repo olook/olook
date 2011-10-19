@@ -29,4 +29,32 @@ describe Product do
       described_class.jewels.should == [@jewel]
     end
   end
+  
+  describe 'when working with related products' do
+    subject { FactoryGirl.create(:red_slipper) }
+    let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
+
+    it "#related_products" do
+      FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
+      subject.related_products.should include(silver_slipper)
+    end
+
+    describe "#is_related_to?" do
+      before :each do
+        FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
+      end
+
+      it "should return true when the relationship exists" do
+        subject.is_related_to?(silver_slipper).should be_true
+      end
+      it "should return false when the relationship doesn't exists" do
+        subject.is_related_to?(subject).should be_false
+      end
+    end
+
+    it "#relate_with_product" do
+      subject.relate_with_product(silver_slipper)
+      subject.related_products.should include(silver_slipper)
+    end
+  end
 end
