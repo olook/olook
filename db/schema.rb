@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018195326) do
+ActiveRecord::Schema.define(:version => 20111019161842) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -135,6 +135,19 @@ ActiveRecord::Schema.define(:version => 20111018195326) do
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
+
+  create_table "variants", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "number"
+    t.string   "description"
+    t.string   "display_reference"
+    t.float    "price"
+    t.integer  "inventory"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
 
   create_table "weights", :force => true do |t|
     t.integer "profile_id"
