@@ -13,8 +13,4 @@ class Variant < ActiveRecord::Base
   def sku
     "#{product.model_number}-#{number}"
   end
-  
-  def price=(value)
-    super(
-  end  
 end
