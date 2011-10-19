@@ -29,6 +29,7 @@ group :development, :test do
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 1.2.0'
   gem 'rspec-rails', '~> 2.6.0'
+  gem 'watchr'
 end
 
 group :test do
