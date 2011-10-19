@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019161842) do
+ActiveRecord::Schema.define(:version => 20111019181440) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(:version => 20111019161842) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.float    "price"
+    t.decimal  "price",             :precision => 10, :scale => 2
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
