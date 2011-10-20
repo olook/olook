@@ -33,10 +33,16 @@ describe Product do
   describe 'when working with related products' do
     subject { FactoryGirl.create(:red_slipper) }
     let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
+    let(:unrelated_product) { FactoryGirl.create(:basic_shoe) }
 
     it "#related_products" do
       FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
       subject.related_products.should include(silver_slipper)
+    end
+
+    it "#unrelated_products" do
+      FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject)
+      subject.unrelated_products.should == [unrelated_product]
     end
 
     describe "#is_related_to?" do

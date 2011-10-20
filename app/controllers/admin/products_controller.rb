@@ -10,6 +10,7 @@ class Admin::ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @related_product = RelatedProduct.new
     respond_with :admin, @product
   end
 
@@ -47,5 +48,21 @@ class Admin::ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.destroy
     respond_with :admin, @product
+  end
+  
+  def add_related
+    @product = Product.find(params[:id])
+    product_to_relate = Product.find(params[:related_product][:id])
+    @product.relate_with_product(product_to_relate)
+    
+    redirect_to admin_product_path(@product)
+  end
+
+  def remove_related
+    @product = Product.find(params[:id])
+    related_product = Product.find(params[:related_product_id])
+    @product.unrelate_with_product(related_product)
+    
+    redirect_to admin_product_path(@product)
   end
 end
