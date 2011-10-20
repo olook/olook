@@ -17,17 +17,61 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.questions').jcarousel({
-    scroll: 1
-  });
-
-  $('.jcarousel-item li').live('change', function(){
-    el = $(this).parents('li').attr('id');
-    if ($(this).parents('li').hasClass('images')) {
-      $('#' + el + ' .options li').removeClass('selected');
-    };
-    $(this).addClass('selected');
-    $('.jcarousel-next').click();
-  });
-
+  init.carousel();
+  init.carouselValidates();
 });
+
+init = {
+  carousel : function() {
+               $('.questions').jcarousel({
+                 scroll: 1,
+                 itemFirstInCallback : {
+                   onBeforeAnimation : init.clearSelectedItems,
+                   onAfterAnimation : init.clearSelectedItems
+                 }
+               });
+             },
+
+  carouselValidates : function() {
+                        $('.jcarousel-item li').live('change', function(){
+                          elemtId = $(this).parents('li').attr('id');
+                          carouselItem = $(this).parents('li');
+
+                          if (carouselItem.hasClass('images')) {
+                            $('.jcarousel-next').click();
+                          };
+
+                          if (carouselItem.hasClass('words') && $('#' + elemtId).find(":checkbox:checked").length == 3){
+                            $('.jcarousel-next').click();
+                          }
+
+                          $(this).addClass('selected');
+                        });
+
+                        $('.about ul li').live('click', function() {
+                          $(this).parent('ul').find('li').removeClass('selected');
+                          $(this).addClass('selected');
+                        });
+
+                        $("#about").live("change", function(){
+                          if ($('#about').find(":radio:checked").length == 2 &&
+                              $("#about select[name='day']").val()  != 'Dia' &&
+                              $("#about select[name='month']").val()  != 'Mês' &&
+                              $("#about select[name='year']").val()  != 'Ano'){
+
+                            $("#about .buttons li").removeClass("grey-button");
+                          }else{
+                            $("#about .buttons li").addClass("grey-button");
+                          }
+                        });
+                      },
+
+  clearSelectedItems : function(instance, item, index, state) {
+                         el = $('#' + item.id);
+
+                         if(state == 'prev'){
+                           el.find('li.selected').removeClass('selected');
+                           el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
+                         };
+                       },
+};
