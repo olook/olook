@@ -26,14 +26,18 @@
           <% if user_signed_in? %>
             <span><%= link_to "Logout", destroy_user_session_path, :method => :delete %></span>
           <% else %>
-            <span>Já faz parte? <%= link_to "Faça seu login", new_user_session_path %></span>
+            <span>Já faz parte? <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %></span>
           <% end %>
-            <div id="sign-in-dropdown">
+            <div id="sign-in-dropdown" class="close">
               <%= render "sessions/form" %>
             </div>
           </div>
-
-        <%= image_tag "common/img-destaque-header.png", :alt => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL", :title => "ATÉ 7 DIAS PARA DEVOLVER - ENTREGA E DEVOLUÇÃO GRÁTIS PARA TODO O BRASIL", :class => "observations" %>
+      </div>
+      <div class="info">
+        <p>
+          <strong>FRETE E DEVOLUÇÃO GRÁTIS</strong><br />
+          PARA TODO O BRASIL
+        </p>
       </div>
     </header>
 
