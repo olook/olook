@@ -73,5 +73,9 @@ init = {
                            el.find('li.selected').removeClass('selected');
                            el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
                          };
+
+                         if(index == '1'){
+                           $('.jcarousel-container .jcarousel-next').css('display', 'none');
+                         }
                        },
 };
