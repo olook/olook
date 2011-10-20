@@ -6,6 +6,7 @@
 <div id="survey">
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
     <ul class="questions">
+
       <% question = @questions.next %>
       <li id="question_<%= question.id %>" class="images">
         <h2><%= question.title %></h2>
@@ -30,7 +31,7 @@
         </ol>
       </li>
       
-      <li id="question_<%= question.id %>" class="about">
+      <li id="about" class="about">
         <h2><%= question.title %></h2>
         <ol class="options">
           <%= render "answers_about" %>
