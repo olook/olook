@@ -1,14 +1,30 @@
-<h2>Sign in</h2>
 <%= form_for(:user, :as => :user, :url => session_path(:user)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <fieldset class="inputs">
+    <ol>
+      <li>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </li>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+      <li>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </li>
+    </ol>
+  </fieldset>
 
-  <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  <fieldset class='buttons'>
+    <ol>
+      <li class="remember-me">
+        <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+      </li>
 
-  <%= link_to "Forgot your password?", new_password_path(:user) %><br />
-
-  <div><%= f.submit "Sign in" %></div>
+      <li class="forgot-password">
+        <%= link_to "Forgot your password?", new_password_path(:user) %>
+      </li>
+      <li>
+        <%= f.submit "Sign in" %>
+      </li>
+    </ol>
+  </fieldset>
 <% end %>
