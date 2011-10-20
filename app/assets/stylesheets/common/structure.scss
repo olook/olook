@@ -18,9 +18,74 @@ body {
       margin:14px 0 0 11px;
       float:left;
     }
+    .content {
+      overflow: visible;
 
-    #sign-in-dropdown {
-      display: none;
+      #session {
+        position: relative;
+
+        #sign-in-dropdown {
+          background: #FFF;
+          border: 1px solid #BBB;
+          padding: 12px;
+          position: absolute;
+          right: 0;
+          top: 30px;
+          z-index: 99;
+          
+          form {
+            fieldset {
+              &.inputs {
+                ol {
+                  li {
+                
+                    label {
+                      display: block;
+                      font-size: 11px;
+                      font-weight: bold;
+                      margin: 2px 0;
+                    }
+
+                    input {
+                      &[type='email'], &[type='password'] {
+                        background: url("/assets/common/background-inputs.png") repeat-x;
+                        border: 1px solid #BBB;
+                        padding: 7px 8px;
+                      }
+                    }
+                  }
+                }
+              }
+
+              &.buttons {
+                margin-top: 7px;
+                ol {
+                  li {
+                    font-size: 11px;
+
+                    &.remember-me {
+                      float: left;
+                      width: 100px;
+                    }
+                    
+                    &.forgot-password {
+                      float: left;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.open {
+            display: block;
+          }
+          
+          &.close {
+            display: none;
+          }
+        }
+      }
     }
   }
 }
