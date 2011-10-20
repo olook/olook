@@ -91,6 +91,31 @@
 <% end %>
 </table>
 
+<h2>Related products</h2>
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Model number</th>
+    <th></th>
+  </tr>
+
+<% @product.related_products.each do |related_product| %>
+  <tr>
+    <td><%= related_product.description %></td>
+    <td><%= related_product.model_number %></td>
+    <td><%= link_to 'Destroy', remove_related_admin_product_path(@product, related_product), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= form_for @product, url: add_related_admin_product_path, method: :post, as: :related_product do |f| %>
+  <p>
+    <%= f.label :related_product %><br />
+    <%= f.select :id, options_from_collection_for_select(@product.unrelated_products, :id, :description) %>
+  </p>
+  <p><%= f.submit 'Add related product' %></p>
+<% end %>
+
 <%= link_to 'Add a new picture', new_admin_product_picture_path(@product) %> |
 <%= link_to 'Add a new detail', new_admin_product_detail_path(@product) %> |
 <%= link_to 'Add a new variant', new_admin_product_variant_path(@product) %> |

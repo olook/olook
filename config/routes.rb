@@ -21,6 +21,10 @@ Olook::Application.routes.draw do
       resources :pictures
       resources :details
       resources :variants
+      member do
+        post 'add_related' => "products#add_related", :as => "add_related"
+        delete 'remove_related/:related_product_id' => "products#remove_related", :as => "remove_related"
+      end
     end
     match "/", :to => "index#dashboard"
   end
