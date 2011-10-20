@@ -104,6 +104,9 @@ body {
           ol {
             &.options {
               width: 740px;
+              > li {
+                width: 700px;
+              }
             }
             h3 {
               margin-top: 49px;
@@ -117,8 +120,6 @@ body {
               clear: both;
 
               li {
-                width: 46px;
-                height: 38px;
                 border: 1px solid $pink;
                 color: $pink;
                 margin-left: 19px;
@@ -126,11 +127,38 @@ body {
                 &:first-child {
                   margin-left: 0;
                 }
+                &.selected {
+                  background: $pink;
+                  color: #FFF;
+                }
+                
+                label {
+                  display: block;
+                  width: 46px;
+                  height: 38px;
+                }
               }
               &.shoe {
                 li {
                   width: 73px;
                   height: 67px;
+                }
+              }
+            }
+          }
+
+          fieldset {
+            &.select {
+              width: 370px;
+            }
+
+            &.buttons {
+              float: right;
+              margin-top: 15px;
+              li {
+                @include pink_button;
+                &.grey-button {
+                  @include grey_button(#E1E0E0, #ADADAD);
                 }
               }
             }
@@ -169,20 +197,6 @@ body {
                         display: inline-block;
                       }
                     }
-                  }
-                }
-              }
-
-              fieldset {
-                &.select {
-                  width: 370px;
-                  border: 1px solid #CFCFCF;
-                  padding: 30px 20px;
-                }
-
-                &.buttons {
-                  input[type='submit'] {
-                    @include pink_button;
                   }
                 }
               }
