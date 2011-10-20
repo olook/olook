@@ -1,10 +1,10 @@
 <li>
   <h3>Qual o tamanho do seu sapato?</h3>
   <ul class="question">
-    <% 8.times do %>
+    <% 8.times do |i| %>
     <li>
-        <label for=""> 38
-          <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
+      <label for="<%= "1_10_#{i}" %>"> 38
+        <%= radio_button_tag("1", "10_#{i}") %>
         </label>
       </li>
     <% end %>
@@ -12,24 +12,45 @@
 
   <h3>Qual tamanho de vestido você veste?</h3>
   <ul class="question">
-    <% 5.times do %>
+    <% 5.times do |i| %>
       <li>
-        <label for=""> 38
-          <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
-        </label>
+        <label for="<%= "2_11_#{i}" %>"> 38
+          <%= radio_button_tag("2",  "11_#{i}") %>
+      </label>
       </li>
     <% end %>
   </ul>
+  
+  <h3>Data de Nascimento</h3>
+  <fieldset class="select">
+    <select name='day'>
+      <option>Dia</option>
+      <% 31.times do |d| %>
+        <option value="<%= d %>"><%= d %></option>
+      <% end %>
+    </select>
+    
+    <select name='month'>
+      <option>Mês</option>
+      <% 12.times do |m| %>
+        <option value="<%= m %>"><%= m %></option>
+      <% end %>
+    </select>
 
-  <h3>Que tipo de salto prefere?</h3>
-  <ul class="question shoe">
-    <% 3.times do %>
-      <li>
-        <label for="">
-          <%= radio_button_tag("questions[question_]", "Bla bla bla!!!") %>
-          <%= image_tag 'quiz/shoe_fake.png' %>
-        </label>
+    <select id="birthdate" name='year'>
+      <option>Ano</option>
+      <% 10.times do |a| %>
+        <option value="<%= a %>"><%= a %></option>
+      <% end %>
+    </select>
+  </fieldset>
+
+  <fieldset class='buttons'>
+    <ol>
+      <li class="grey-button">
+        <%= submit_tag("Enviar")  %>
       </li>
-    <% end %>
-  </ul>
+    </ol>
+  </fieldset>
+
 </li>
