@@ -1,0 +1,35 @@
+<h2>Variants</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>SKU</th>
+      <th>Number</th>
+      <th>Description</th>
+      <th>Display Reference</th>
+      <th>Price</th>
+      <th>Inventory</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% product.variants.each do |variant| %>
+    <tr>
+      <td><%= variant.sku %></td>
+      <td><%= variant.number %></td>
+      <td><%= variant.description %></td>
+      <td><%= variant.display_reference %></td>
+      <td><%= variant.price %></td>
+      <td><%= variant.inventory %></td>
+      <td><%= link_to 'Show', admin_product_variant_path(variant.product, variant) %></td>
+      <td><%= link_to 'Edit', edit_admin_product_variant_path(variant.product, variant) %></td>
+      <td><%= link_to 'Destroy', admin_product_variant_path(variant.product, variant), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+  <div class="action-bar wat-cf">
+    <div class="actions">
+      <%= link_to 'Add a new variant', new_admin_product_variant_path(product) %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<h2 class="title">Related products</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Model number</th>
+      <th></th>
+    </tr>
+
+  <% product.related_products.each do |related_product| %>
+    <tr>
+      <td><%= related_product.description %></td>
+      <td><%= related_product.model_number %></td>
+      <td><%= link_to 'Destroy', remove_related_admin_product_path(product, related_product), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <%= form_for product, :url => add_related_admin_product_path, :method => :post, :as => :related_product, :html => {:class => 'form'} do |f| %>
+    <div class="group">
+      <%= f.label :related_product %><br />
+      <%= f.select :id, options_from_collection_for_select(product.unrelated_products, :id, :description) %>
+    </div>
+    <div class="group navform wat-cf">
+      <%= f.submit 'Add related product' %>
+    </div>
+  <% end %>
+</div>
