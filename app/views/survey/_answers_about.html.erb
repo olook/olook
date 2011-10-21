@@ -1,26 +1,7 @@
 <li>
-  <h3>Qual o tamanho do seu sapato?</h3>
-  <ul class="question">
-    <% (33..41).each do |i| %>
-    <li>
-      <label for="<%= "1_10_#{i}" %>"> <%= i %>
-        <%= radio_button_tag("questions[question_foot_#{i}]", "10_#{i}") %>
-        </label>
-      </li>
-    <% end %>
-  </ul>
-
-  <h3>Qual tamanho de vestido você veste?</h3>
-  <ul class="question">
-    <% sizes = %w(PP P M G GG) %>
-    <% 5.times do |i| %>
-      <li>
-        <label for="<%= "2_11_#{i}" %>"> <%= sizes[i] %>
-          <%= radio_button_tag("questions[question_dress_#{i}]",  "11_#{i}") %>
-      </label>
-      </li>
-    <% end %>
-  </ul>
+  <%= render :partial => 'answers_about_shoe_size', :locals => {:question => question_shoe_size} %>
+  
+  <%= render :partial => 'answers_about_dress_size', :locals => {:question => question_dress_size} %>
   
   <h3>Data de Nascimento</h3>
   <fieldset class="select">
@@ -53,5 +34,4 @@
       </li>
     </ol>
   </fieldset>
-
 </li>
