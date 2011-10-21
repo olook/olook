@@ -3,6 +3,8 @@
 <% end %>
 <%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
 
+<span id="next_link"></span>
+
 <div id="survey">
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
     <ul class="questions">
@@ -25,7 +27,7 @@
           </ol>
         </li>
 
-      <% question = @questions[@questions.size - 4]%>
+      <% question = @questions[@questions.size - 3]%>
        <li id="question_<%= question.id %>" class="about">
           <ol class="options">
             <%= render "answers_about", :question => question %>
