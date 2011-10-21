@@ -1,17 +1,22 @@
-<p>
-  <b>Translation token:</b>
-  <%= @detail.translation_token %>
-</p>
+<h2>Detail</h2>
+<div class="inner">
+  <p>
+    <b>Translation token:</b>
+    <%= @detail.translation_token %>
+  </p>
 
-<p>
-  <b>Description:</b>
-  <%= @detail.description %>
-</p>
+  <p>
+    <b>Description:</b>
+    <%= @detail.description %>
+  </p>
 
-<p>
-  <b>Display on:</b>
-  <%= @detail.display_on_humanize %>
-</p>
+  <p>
+    <b>Display on:</b>
+    <%= @detail.display_on_humanize %>
+  </p>
+</div>
 
-<%= link_to 'Edit', edit_admin_product_detail_path(@detail.product, @detail) %> |
-<%= link_to 'Back', admin_product_path(@detail.product) %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_product_detail_path(@detail.product, @detail) %></li>
+  <li><%= link_to 'Back', admin_product_path(@detail.product) %></li>
+<% end %>

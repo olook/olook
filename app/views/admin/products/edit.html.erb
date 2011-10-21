@@ -1,6 +1,10 @@
-<h1>Editing product</h1>
+<h2>Editing product</h2>
 
-<%= render 'form' %>
+<div class="inner">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Show', admin_product_path(@product) %> |
-<%= link_to 'Back', admin_products_path %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_product_path(@product) %></li>
+  <li><%= link_to 'Back', admin_products_path %></li>
+<% end %>

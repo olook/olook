@@ -1,27 +1,31 @@
-<h1>Listing products</h1>
+<h2>Listing products</h2>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Model number</th>
-    <th>Category</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Model number</th>
+      <th>Category</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
 
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= product.model_number %></td>
-    <td><%= product.category_humanize %></td>
-    <td><%= link_to 'Show', admin_product_path(product) %></td>
-    <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
-    <td><%= link_to 'Destroy', admin_product_path(product), confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.model_number %></td>
+      <td><%= product.category_humanize %></td>
+      <td><%= link_to 'Show', admin_product_path(product) %></td>
+      <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+      <td><%= link_to 'Destroy', admin_product_path(product), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New Product', new_admin_product_path %></li>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Product', new_admin_product_path %>
