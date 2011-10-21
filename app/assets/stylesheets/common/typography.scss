@@ -89,4 +89,28 @@ body {
       }
     }
   }
+
+  #sign-up {
+    h2 {
+      font-size: 40px;
+      font-weight: bold;
+      font-style: italic;
+    }
+    
+    p {
+      font-family: 'Times New Roman', Times, sans-serif;
+      font-style: italic;
+      font-size: 20px;
+      color: #000;
+      line-height: 20px;
+      
+      strong {
+        font-weight: bold;
+      }
+    }
+
+    .fb-connect {
+      text-indent: -10000px;
+    }
+  }
 }
