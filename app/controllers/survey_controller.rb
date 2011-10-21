@@ -5,7 +5,7 @@ class SurveyController < ApplicationController
   before_filter :check_questions_params, :only => [:create]
 
   def index
-    @questions = Question.includes(:answers).each
+    @questions = Question.includes(:answers)
   end
 
   def create

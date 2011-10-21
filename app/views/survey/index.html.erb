@@ -7,54 +7,31 @@
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
     <ul class="questions">
 
-      <% question = @questions.next %>
-      <li id="question_<%= question.id %>" class="images">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_radio_button", :question => question %>
-        </ol>
-      </li>
+      <% for question in @questions[0..@questions.size - 5] %>
+        <li id="question_<%= question.id %>" class="images">
+          <h2><%= question.title %></h2>
+          <ol class="options">
+            <%= render "answers_radio_button", :question => question %>
+          </ol>
+        </li>
+      <% end %>
 
-      <% question = @questions.next %>
-      <li id="question_<%= question.id %>" class="images">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_radio_button", :question => question %>
-        </ol>
-      </li>
+      <% question = @questions[@questions.size - 4]%>
+       <li id="question_<%= question.id %>" class="words">
+          <h2><%= question.title %></h2>
+          <ol class="options">
+            <%= render "answers_check_box", :question => question %>
+          </ol>
+        </li>
 
-      <% question = @questions.next %>
-      <li id="question_<%= question.id %>" class="images">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_radio_button", :question => question %>
-        </ol>
-      </li>
+      <% question = @questions[@questions.size - 4]%>
+       <li id="question_<%= question.id %>" class="about">
+          <h2><%= question.title %></h2>
+          <ol class="options">
+            <%= render "answers_about", :question => question %>
+          </ol>
+        </li>
 
-      <% question = @questions.next %>
-      <li id="question_<%= question.id %>" class="words">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_check_box", :question => question %>
-        </ol>
-      </li>
-
-      <% question = @questions.next %>
-      <li id="question_<%= question.id %>" class="images">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_radio_button", :question => question %>
-        </ol>
-      </li>
-
-      <% question = @questions.next %>
-      <li id="question_<%= question.id %>" class="about">
-        <h2><%= question.title %></h2>
-        <ol class="options">
-          <%= render "answers_about", :question => question %>
-        </ol>
-      </li>
-
-    </ul>
-  </div>
+  </ul>
+</div>
 <% end %>
