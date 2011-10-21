@@ -28,8 +28,9 @@ init = {
                  scroll: 1,
                  itemFirstInCallback : {
                    onBeforeAnimation : init.clearSelectedItems,
-                   onAfterAnimation : init.clearSelectedItems
+                   onAfterAnimation : init.showArrow
                  }
+
                });
              },
 
@@ -54,31 +55,39 @@ init = {
                           $(this).addClass('selected');
                         });
 
-                        $("#about").live("change", function(){
-                          if ($('#about').find(":radio:checked").length == 2 &&
-                              $("#about select[name='day']").val()  != 'Dia' &&
-                              $("#about select[name='month']").val()  != 'Mês' &&
-                              $("#about select[name='year']").val()  != 'Ano'){
+                        $(".about").live("change", function(){
+                          if ($('.about').find(":radio:checked").length == 2 &&
+                              $(".about select[name='day']").val()  != 'Dia' &&
+                              $(".about select[name='month']").val()  != 'Mês' &&
+                              $(".about select[name='year']").val()  != 'Ano'){
 
-                            $("#about .buttons li").removeClass("grey-button");
+                            $(".about .buttons li").removeClass("grey-button");
+                            $('.jcarousel-next').click();
+
                           }else{
-                            $("#about .buttons li").addClass("grey-button");
+                            $(".about .buttons li").addClass("grey-button");
                           }
                         });
                       },
 
   clearSelectedItems : function(instance, item, index, state) {
                          el = $('#' + item.id);
+                          s = state
 
                          if(state == 'prev'){
                            el.find('li.selected').removeClass('selected');
                            el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
                          };
 
-                         if(index == '1'){
-                           $('.jcarousel-container .jcarousel-next').css('display', 'none');
-                         }
+                         if(state == 'next'){
+                           $('.jcarousel-prev').css('display', 'none');
+                         };
+
                        },
+
+  showArrow : function() {
+                $('.jcarousel-prev').css('display', 'block');
+              },
 
   dialog : function(){
             $('a.trigger').live('click', function(e){
