@@ -11,6 +11,7 @@ class SurveyController < ApplicationController
 
   def create
     questions = params[:questions]
+    session[:birthday] = {:day => params[:day], :month => params[:month], :year => params[:year]}
     session[:questions] = questions
     profiles = ProfileBuilder.profiles_given_questions(questions)
     profile_points = ProfileBuilder.build_profiles_points(profiles)
