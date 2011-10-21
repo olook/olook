@@ -15,7 +15,7 @@ def answer_survey
 end
 
 def build_survey
-  3.times do
+  6.times do
     @question = FactoryGirl.create(:question)
     @answer = FactoryGirl.create(:answer_from_casual_profile, :question => @question)
   end
