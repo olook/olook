@@ -8,7 +8,16 @@ Spork.prefork do
   # need to restart spork for it take effect.
 
   require 'simplecov'
-  SimpleCov.start
+  SimpleCov.start do
+    add_group "App", "app"
+    add_group "Models", "app/models"
+    add_group "Controllers", "app/controllers"
+    add_group "Lib", "lib"
+    add_group "Long files" do |src_file|
+      src_file.lines.count > 100
+    end
+  end
+
 
   require 'ruby-debug' ; Debugger.start
 
