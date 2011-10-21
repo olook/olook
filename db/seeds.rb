@@ -176,17 +176,14 @@ survey_data[20] = {
                {"Peças diferenciadas toque vintage ou etnico" => {"5" => casual, "10" => trendy}},
                {"Peças grandes e com brilho" => {"3" => elegant, "5" => female, "10" => sexy}}]
 }
+
 survey_data[21] = {
-  :question_title => "Qual a sua nota para estas cartelas de cores?",
-  :answers => ["Neutras", "Metalizadas", "Tons Pastel", "Vivas" ],
-  :weights => []
-}
-survey_data[22] = {
   :question_title => "Qual o tamanho do seu sapatos?",
   :answers => (33..41).to_a,
   :weights => []
 }
-survey_data[23] = {
+
+survey_data[22] = {
   :question_title => "Qual tamanho de vestido que você veste?",
   :answers => %w(PP, P, M, G, GG),
   :weights => []
