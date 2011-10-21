@@ -1,14 +1,1 @@
-<% content_for(:head) do %>
-  <%= render "shared/close_popup_js", :redirect_url => @redirect_url  %>
-<% end %>
-
-<h1>Gata, bem-vinda</h1>
-
-<ul>
-  <li><%= link_to "Convide suas amigas", member_invite_path %></li>
-  <% unless current_user.has_facebook? %>
-    <li><%= link_to "Associe sua conta do Facebook", user_omniauth_authorize_path(:facebook), :class => "fbpopup", :"data-width" => 600, :"data-height" => 400 %></li>
-  <% end %>
-</ul>
-
-<%= render :partial => 'invites', :locals => {:member => @member} if @member %>
+<h2 id="tks">Obrigado por participar do Beta!</h2>
