@@ -1,0 +1,204 @@
+@import 'partials/mixins';
+
+body {
+  .content {
+    width:990px;
+    margin:0 auto 0 auto;
+    overflow:hidden;
+  }
+
+  header {
+    background: url('/assets/common/bg-holder-full.png') no-repeat center bottom;
+    padding-bottom: 20px;
+    height: 76px;
+
+    h1 {
+      background: url('/assets/common/logo.png') no-repeat;
+      width:140px;
+      height:62px;
+      float:left;
+      text-indent:-9999px;
+      margin:14px 0 0 11px;
+      float:left;
+    }
+
+    .info {
+      float: left;
+      margin-top: 20px;
+      margin-left: 68px;
+      p,strong {
+        color: #797979;
+      }
+    }
+
+    .content {
+      overflow: visible;
+
+      #session {
+        position: relative;
+
+        #sign-in-dropdown {
+          background: #FFF;
+          border: 1px solid #BBB;
+          padding: 12px;
+          position: absolute;
+          right: 0;
+          top: 30px;
+          z-index: 99;
+          width: 244px;
+
+          form {
+            fieldset {
+              &.inputs {
+                ol {
+                  li {
+                    label {
+                      display: block;
+                      font-size: 11px;
+                      font-weight: bold;
+                      margin: 2px 0;
+                    }
+
+                    input {
+                      &[type='email'], &[type='password'] {
+                        background: url("/assets/common/background-inputs.png") repeat-x;
+                        border: 1px solid #BBB;
+                        padding: 7px 8px;
+                        width: 92%;
+                      }
+                    }
+                  }
+                }
+              }
+
+              &.buttons {
+                margin-top: 7px;
+                ol {
+                  li {
+                    font-size: 11px;
+
+                    &.remember-me, &.forgot-password {
+                      float: left;
+                      width: 140px;
+                    }
+                    
+                    &.forgot-password {
+                      & + li {
+                        @include pink-button(#FB619E, #DD3178, 12px, 5px, 5px, 10px, 10px, 5px);
+                        float: right;
+                        margin-top: -15px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.close {
+            display: none;
+          }
+
+          &.open {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+.top-shadow{
+  width:100%;
+  height:27px;
+  margin-top:58px;
+  background:url('../../assets/common/bg-holder-full.png') center no-repeat;
+  position:absolute;
+      }
+
+
+
+header a {
+  color:#e05789;
+  text-decoration:underline;
+}
+
+header .observations {
+  margin:20px 0 0 85px;;
+}
+
+header span {
+  float:right;
+  margin:12px 21px 0 0;
+}
+
+.holder-resolution .holder-content {
+  clear:both;
+}
+
+footer {
+  background: url('../../assets/common/bg-footer.jpg') repeat-x;
+  height:300px;
+  clear:both;
+}
+
+footer section {
+  margin:0px auto;
+  width:970px;
+  padding-top:40px;
+}
+
+footer section ul {
+  float:left;
+  margin:0 25px 50px 22px;
+}
+
+footer section ul li {
+  float:left;
+  clear:both;
+  margin-bottom:10px;
+}
+
+footer section ul li a {
+  color:#000;
+  font-size:11px;
+  text-decoration:none;
+}
+
+footer section ul li span {
+  font-size:11px;
+}
+
+footer section ul li a:hover {
+  text-decoration:underline;
+}
+
+footer section ul.footer-social-midia {
+  margin:0 0 0 35px;
+}
+
+footer section ul.footer-social-midia li a {
+  font-weight:bold;
+  padding:4px 0 0 29px;
+  float:left;
+}
+
+footer section ul.footer-social-midia li.twitter {
+  background: url('../../assets/common/ico-midias-socias.png') no-repeat 0px 0;
+  height:22px;
+}
+
+footer section ul.footer-social-midia li.facebook {
+  background: url('../../assets/common/ico-midias-socias.png') no-repeat 0px -26px;
+  height:22px;
+}
+
+footer section ul.bandeiras {
+  margin-left:54px;
+}
+
+footer section  p {
+  color:#767676;
+  font-size:11px;
+  clear:both;
+}

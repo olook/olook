@@ -5,7 +5,7 @@ class SurveyController < ApplicationController
   before_filter :check_questions_params, :only => [:create]
 
   def index
-    @questions = Question.includes(:answers).each
+    @questions = Question.includes(:answers)
   end
 
   def create
@@ -14,6 +14,7 @@ class SurveyController < ApplicationController
     profiles = ProfileBuilder.profiles_given_questions(questions)
     profile_points = ProfileBuilder.build_profiles_points(profiles)
     session[:profile_points] = profile_points
+    redirect_to new_user_registration_path
   end
 
   private

@@ -12,25 +12,8 @@ feature "Member can send invites", %q{
 
   describe "When a member" do
     background do
-      email = "member.jane@doe.com"
-      pass = "123abc"
-      answer_survey
-      click_on "Sign up"
-      fill_in "user_first_name", :with => "First Name"
-      fill_in "user_last_name", :with => "Last Name"
-      fill_in "user_email", :with => email
-      fill_in "user_password", :with => pass
-      fill_in "user_password_confirmation", :with => pass
-      click_on "Sign up"
-      page.should have_content(I18n.t "devise.registrations.signed_up")
-      click_on "Logout"
-      page.should have_content(I18n.t "devise.sessions.signed_out")
-      visit new_user_session_path
-      fill_in "user_email", :with => email
-      fill_in "user_password", :with => pass
-      click_button "Sign in"
-      page.should have_content(I18n.t "devise.sessions.signed_in")
-      @member = User.find_by_email(email)
+      do_login!(user)
+      @member = User.find_by_email(user.email)
     end
 
     scenario "access the welcome page, they should be able to go to the invite page" do
@@ -104,6 +87,7 @@ feature "Member can send invites", %q{
 
     describe "they should be redirected to the survey page with invite details" do
       scenario "if they have a valid token" do
+        build_survey
         inviting_member = FactoryGirl.create(:member)
         visit accept_invitation_path(:invite_token => inviting_member.invite_token)
         current_path.should == survey_index_path

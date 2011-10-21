@@ -32,7 +32,7 @@ describe PictureUploader do
       subject.thumb.path.should be_true
     end
   end
-  
+
   it "should only allow the uploading of image files" do
     expect {
       subject.store!(File.open(invalid_image))

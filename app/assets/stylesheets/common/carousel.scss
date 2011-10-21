@@ -1,0 +1,212 @@
+$pink: #F73C89;
+@import 'partials/mixins';
+
+body {
+  #survey {
+    .jcarousel-container {
+      width: 990px;
+      height: 470px;
+    }
+
+    .jcarousel-clip {
+      width: 990px;
+      height: 454px;
+      overflow: hidden;
+    }
+
+    .jcarousel-item {
+      width: 989px;
+      overflow: hidden;
+      float: left;
+    }
+
+    .jcarousel-prev, .jcarousel-next {
+      background: url('/assets/quiz/previous.png') no-repeat;
+      width: 37px;
+      height: 66px;
+    }
+
+    .jcarousel-prev {
+      position: absolute;
+      top: 190px;
+      left: 20px;
+
+      &.jcarousel-prev-disabled {
+        display: none;
+      }
+    }
+
+    .jcarousel-next {
+      display: none !important;
+    }
+  
+
+    ol {
+      &.options {
+        overflow: hidden;
+        margin: 0 auto;
+        li {
+          float: left;
+        }
+      }
+    }
+
+    ul.questions {
+      li {
+        &.images {
+          ol {
+            &.options {
+              width: 738px;
+            }
+            li {
+              width: 206px;
+              height: 358px;
+              margin: 0 20px;
+              &:hover, &.selected {
+                color: rgb(189, 76, 116);
+                img {
+                  margin: -10px;
+                  border: 10px solid $pink;
+                }
+                h3 {
+                  color: $pink;
+                }
+              }
+            }
+          }
+        }
+        
+        &.words {
+          ol {
+            &.options {
+              width: 825px;
+            }
+            li {
+              margin: 0 8px 16px;
+              label {
+                background: rgb(168, 168, 168);
+                width: 190px;
+                height: 85px;
+                display: inline-block;
+                text-align: center;
+                color: #FFF;
+              }
+              &.selected {
+                label {
+                  background: $pink;
+                }
+              }
+              input[type='checkbox'] {
+                display: none;
+              }
+            }
+          }
+        }
+
+        &.about {
+          ol {
+            &.options {
+              width: 740px;
+              > li {
+                width: 700px;
+              }
+            }
+            h3 {
+              margin-top: 49px;
+
+              &:first-child {
+                margin-top: 0;
+              }
+            }
+            .question {
+              overflow: hidden;
+              clear: both;
+
+              li {
+                border: 1px solid $pink;
+                color: $pink;
+                margin-left: 19px;
+                
+                &:first-child {
+                  margin-left: 0;
+                }
+                &.selected {
+                  background: $pink;
+                  color: #FFF;
+                }
+                
+                label {
+                  display: block;
+                  width: 46px;
+                  height: 38px;
+                }
+              }
+              &.shoe {
+                li {
+                  width: 73px;
+                  height: 67px;
+                }
+              }
+            }
+          }
+
+          fieldset {
+            &.select {
+              width: 370px;
+            }
+
+            &.buttons {
+              float: right;
+              margin-top: 15px;
+              li {
+                @include pink_button;
+                &.grey-button {
+                  @include grey_button(#E1E0E0, #ADADAD);
+                }
+              }
+            }
+          }
+        }
+
+        &.about-part-two {
+          ol {
+            &.options {
+              width: 814px;
+
+              .all-questions {
+                width: 814px;
+                padding: 0 20px 35px;
+                border-bottom: 1px solid #E8E8E8;
+                overflow: hidden;
+                
+                > li {
+                  float: left;
+                  width: 243px;
+                  margin-left: 40px;
+
+                  &:first-child {
+                    margin-left: 0;
+                  }
+
+                  .reply-options {
+                    clear: both;
+
+                    li {
+                      label {
+                        display: inline-block;
+                      }
+
+                      input[type='radio'] {
+                        display: inline-block;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
