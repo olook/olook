@@ -1,0 +1,27 @@
+<h2>Images</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Display On</th>
+      <th>Image</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% product.pictures.each do |picture| %>
+    <tr>
+      <td><%= picture.display_on_humanize %></td>
+      <td><%= image_tag picture.image_url(:thumb).to_s %></td>
+      <td><%= link_to 'Show', admin_product_picture_path(picture.product, picture) %></td>
+      <td><%= link_to 'Edit', edit_admin_product_picture_path(picture.product, picture) %></td>
+      <td><%= link_to 'Destroy', admin_product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+  <div class="action-bar wat-cf">
+    <div class="actions">
+      <%= link_to 'Add a new picture', new_admin_product_picture_path(product) %>
+    </div>
+  </div>
+</div>
