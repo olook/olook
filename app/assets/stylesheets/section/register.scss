@@ -1,0 +1,109 @@
+@import 'partials/mixins';
+
+body {
+  .content {
+    #models {
+      float: left;
+      overflow: visible;
+      width: 540px;
+      height: 573px;
+
+    }
+    
+    #sign-up {
+      float: right;
+      overflow: visible;
+      width: 450px;
+
+      h2, p {
+        margin-left: 60px;
+      }
+
+      .fb-connect {
+        background: url('/assets/common/fb-connect-button.png') no-repeat;
+        display: block;
+        width: 194px;
+        height: 25px;
+        margin: 20px 0 20px 126px;
+      }
+
+      form {
+        fieldset {
+          ol {
+            li {
+              margin-bottom: 5px;
+
+              label {
+                display: inline-block;
+                width: 140px;
+                text-align: right;
+                font-weight: bold;
+              }
+
+              input[type='text'], input[type='email'], input[type='password'] {
+                background: url('/assets/common/bg-inputs.png') repeat-x;
+                width: 266px;
+                border: 1px solid #C1C1C1;
+                padding: 7px 8px;
+                margin-left: 5px;
+              }
+
+              &.cpf {
+                border: 1px solid #C1C1C1;
+                padding: 16px;
+                width: 385px;
+                margin-left: 10px;
+                margin-top: 7px;
+                float: right;
+                
+                span {
+                  font-size: 10px;
+                  color: red;
+                  text-align: center;
+                  font-family: Arial;
+                  font-weight: bold;
+                  margin-bottom: 10px;
+                  display: block;
+                }
+                label {
+                  width: 56px;
+                  margin-left: 35px;
+                }
+              }
+
+              &.terms {
+                p {
+                  font-size: 12px;
+                  text-align: center;
+                  padding-top: 10px;
+                  font-family: arial;
+                  font-weight: bold;
+                  font-style: normal;
+
+                  a {
+                    color: #000;
+                  }
+                }
+              }
+            }
+          }
+
+          &.buttons {
+            width: 300px;
+            margin: 15px 120px 0;
+
+            li {
+              @include pink-button();
+              width: 300px;
+
+              input[type='submit'] {
+                width: 300px;
+                font-family: Futura, Verdana, sans-serif;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
