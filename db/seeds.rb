@@ -181,8 +181,21 @@ survey_data[20] = {
 
 survey_data[21] = {
   :question_title => "Quais palavras você mais gosta? (marque 3 opções)",
-  :answers => ["Esportiva", "Frágil", "Atraente", "Romântica", "Prática", "Chic", "Criativa", "Sofisticada", "Glamourosa", "Moderna", "Conservadora"],
-  :weights => []
+  :answers => ["Esportiva", "Frágil", "Atraente", "Romântica", "Prática", "Chic", "Criativa", "Sofisticada", "Glamourosa", "Moderna", "Conservadora", "Espirituosa"],
+  :weights => [
+                {"Esportiva"    => {"10" => casual, "5" => contemporary, "3" => trendy}},
+                {"Frágil"       => {"3" => casual, "5" => female, "5" => trendy}},
+                {"Atraente"     => {"5" => elegant, "10" => sexy, "3" => contemporary}},
+                {"Romântica"    => {"5" => traditional, "3" => elegant, "10" => female}},
+                {"Prática"      => {"10" => casual, "3" => traditional, "5" => contemporary}},
+                {"Chic"         => {"5" => traditional, "10" => elegant, "3" => contemporary}},
+                {"Criativa"     => {"3" => sexy, "5" => contemporary, "10" => trendy}},
+                {"Sofisticada"  => {"3" => traditional, "10" => elegant, "5" => sexy}},
+                {"Glamourosa"   => {"3" => female, "10" => sexy, "5" => trendy}},
+                {"Moderna"      => {"3" => sexy, "10" => contemporary, "5" => trendy}},
+                {"Conservadora" => {"10" => traditional, "5" => elegant, "3" => female}},
+                {"Espirituosa"  => {"10" => casual, "5" => sexy, "3" => trendy}}
+              ]
 }
 
 survey_data[22] = {
