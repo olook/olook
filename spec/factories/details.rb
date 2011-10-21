@@ -7,5 +7,11 @@ FactoryGirl.define do
       description "High heel"
       translation_token 'heel'
     end
+    factory :invisible_detail do
+      association :product, :factory => :basic_shoe
+      display_on DisplayDetailOn::INVISIBLE
+      description "Meta data used for data mining"
+      translation_token 'meta_data'
+    end
   end
 end

@@ -7,4 +7,7 @@ class Detail < ActiveRecord::Base
   validates :description, :presence => true
 
   has_enumeration_for :display_on, :with => DisplayDetailOn, :required => true
+  
+  scope :visible  , where("display_on <> :visible", :visible => DisplayDetailOn::INVISIBLE)
+  scope :invisible, where(:display_on => DisplayDetailOn::INVISIBLE)
 end
