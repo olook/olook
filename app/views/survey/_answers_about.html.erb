@@ -1,10 +1,10 @@
 <li>
   <h3>Qual o tamanho do seu sapato?</h3>
   <ul class="question">
-    <% 8.times do |i| %>
+    <% (33..41).each do |i| %>
     <li>
-      <label for="<%= "1_10_#{i}" %>"> 38
-        <%= radio_button_tag("1", "10_#{i}") %>
+      <label for="<%= "1_10_#{i}" %>"> <%= i %>
+        <%= radio_button_tag("questions[question_foot_#{i}]", "10_#{i}") %>
         </label>
       </li>
     <% end %>
@@ -12,10 +12,11 @@
 
   <h3>Qual tamanho de vestido você veste?</h3>
   <ul class="question">
+    <% sizes = %w(PP P M G GG) %>
     <% 5.times do |i| %>
       <li>
-        <label for="<%= "2_11_#{i}" %>"> 38
-          <%= radio_button_tag("2",  "11_#{i}") %>
+        <label for="<%= "2_11_#{i}" %>"> <%= sizes[i] %>
+          <%= radio_button_tag("questions[question_dress_#{i}]",  "11_#{i}") %>
       </label>
       </li>
     <% end %>
