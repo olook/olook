@@ -1,0 +1,13 @@
+/* 
+ * This css will include all web-app-theme css you need
+ *
+ *= require admin/base
+ *= require admin/themes/default/style.css
+ *= require_self
+ */
+
+/* Write here your css for overriding the theme's rules */
+
+#main {
+  width: 100%;
+}

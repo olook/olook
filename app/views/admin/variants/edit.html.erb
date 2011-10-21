@@ -1,6 +1,10 @@
-<h1>Editing variant</h1>
+<h2>Editing variant</h2>
 
-<%= render 'form' %>
+<div class="inner">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Show', admin_product_variant_path(@variant.product) %> |
-<%= link_to 'Back', admin_product_path(@variant.product) %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_product_variant_path(@variant.product) %></li>
+  <li><%= link_to 'Back', admin_product_path(@variant.product) %></li>
+<% end %>

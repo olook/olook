@@ -1,32 +1,37 @@
-<p>
-  <b>SKU:</b>
-  <%= @variant.sku %>
-</p>
+<h2>Variant</h2>
+<div class="inner">
+  <p>
+    <b>SKU:</b>
+    <%= @variant.sku %>
+  </p>
 
-<p>
-  <b>Number:</b>
-  <%= @variant.number %>
-</p>
+  <p>
+    <b>Number:</b>
+    <%= @variant.number %>
+  </p>
 
-<p>
-  <b>Description:</b>
-  <%= @variant.description %>
-</p>
+  <p>
+    <b>Description:</b>
+    <%= @variant.description %>
+  </p>
 
-<p>
-  <b>Display reference:</b>
-  <%= @variant.display_reference %>
-</p>
+  <p>
+    <b>Display reference:</b>
+    <%= @variant.display_reference %>
+  </p>
 
-<p>
-  <b>Price:</b>
-  <%= @variant.price %>
-</p>
+  <p>
+    <b>Price:</b>
+    <%= @variant.price %>
+  </p>
 
-<p>
-  <b>Inventory:</b>
-  <%= @variant.inventory %>
-</p>
+  <p>
+    <b>Inventory:</b>
+    <%= @variant.inventory %>
+  </p>
+</div>
 
-<%= link_to 'Edit', edit_admin_product_variant_path(@variant.product, @variant) %> |
-<%= link_to 'Back', admin_product_path(@variant.product) %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_product_variant_path(@variant.product, @variant) %></li>
+  <li><%= link_to 'Back', admin_product_path(@variant.product) %></li>
+<% end %>
