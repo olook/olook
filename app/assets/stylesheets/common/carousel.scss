@@ -5,12 +5,12 @@ body {
   #survey {
     .jcarousel-container {
       width: 990px;
-      height: 470px;
+      height: 500px;
     }
 
     .jcarousel-clip {
       width: 990px;
-      height: 454px;
+      height: 500px;
       overflow: hidden;
     }
 
@@ -60,7 +60,7 @@ body {
             }
             li {
               width: 206px;
-              height: 358px;
+              height: 400px;
               margin: 0 20px;
               &:hover, &.selected {
                 color: rgb(189, 76, 116);
