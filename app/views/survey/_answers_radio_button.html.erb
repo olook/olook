@@ -1,9 +1,10 @@
+<% answer_number = 0 %>
 <% question.answers.each do |answer| %>
   <li>
     <h3><%= answer.title %></h3>
     <label for="<%="questions_question_#{answer.question.id}_#{answer.id}" %>">
       <%= radio_button_tag("questions[question_#{answer.question.id}]", answer.id) %> 
-      <%= image_tag 'quiz/survey_fake.png' %>
+      <%= image_tag "quiz/#{question_number}_#{answer_number += 1}.jpg" %>
     </label>
   </li>
 <% end %>

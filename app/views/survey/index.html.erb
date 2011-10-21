@@ -7,11 +7,12 @@
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
     <ul class="questions">
 
+      <% question_number = 0 %>
       <% for question in @questions[0..@questions.size - 5] %>
         <li id="question_<%= question.id %>" class="images">
           <h2><%= question.title %></h2>
           <ol class="options">
-            <%= render "answers_radio_button", :question => question %>
+            <%= render "answers_radio_button", :question => question, :question_number => (question_number += 1) %>
           </ol>
         </li>
       <% end %>
