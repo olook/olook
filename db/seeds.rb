@@ -212,7 +212,7 @@ survey_data[23] = {
 
 survey_data[24] = {
   :question_title => "Qual tamanho de vestido você usa?",
-  :answers => %w(PP, P, M, G, GG),
+  :answers => %w(PP P M G GG),
   :weights => []
 }
 
