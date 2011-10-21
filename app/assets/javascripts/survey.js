@@ -22,7 +22,7 @@ $(document).ready(function() {
   init.dialog();
   index = parseInt($("#id_first_question").val());
 
-  $('.about ul li').live('click', function() {
+  $('.about .question li').live('click', function() {
     $(this).parent('ul').find('li').removeClass('selected');
     $(this).addClass('selected');
   });
