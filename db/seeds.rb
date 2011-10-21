@@ -162,7 +162,6 @@ survey_data[18] = {
                {"neutros com toque vibrante" => {"5" => elegant, "10" => female, "3" => sexy}},
                {"tudo pode combinar com tudo" => {"5" => female, "3" => sexy, "10" => trendy}}]
 }
-
 survey_data[19] = {
   :question_title => "Como você gosta do caimento das suas roupas?",
   :answers => ["Caimento certo, linhas retas", "Justas, valorizando minha silhueta", "Estruturadas, sem revelar muito as formas" ],
@@ -170,7 +169,6 @@ survey_data[19] = {
                {"Justas, valorizando minha silhueta" => {"5" => female, "10" => sexy, "3" => trendy}},
                {"Estruturadas, sem revelar muito as formas" => {"3" => casual, "5" => traditional, "10" => contemporary}}]
 }
-
 survey_data[20] = {
   :question_title => "Que tipo de acessório mais te agrada?",
   :answers => ["Clássicas e atemporais", "Peças diferenciadas toque vintage ou etnico", "Peças grandes e com brilho" ],
@@ -178,25 +176,21 @@ survey_data[20] = {
                {"Peças diferenciadas toque vintage ou etnico" => {"5" => casual, "10" => trendy}},
                {"Peças grandes e com brilho" => {"3" => elegant, "5" => female, "10" => sexy}}]
 }
-
 survey_data[21] = {
   :question_title => "Qual a sua nota para estas cartelas de cores?",
   :answers => ["Neutras", "Metalizadas", "Tons Pastel", "Vivas" ],
   :weights => []
 }
-
 survey_data[22] = {
   :question_title => "Qual o tamanho do seu sapatos?",
   :answers => (33..41).to_a,
   :weights => []
 }
-
-survey_data[22] = {
+survey_data[23] = {
   :question_title => "Qual tamanho de vestido que você veste?",
   :answers => %w(PP, P, M, G, GG),
   :weights => []
 }
-
 survey_data.each do |item|
   question = Question.create(:title => item[:question_title])
   item[:answers].each do |title|
@@ -212,3 +206,4 @@ survey_data.each do |item|
     end
   end
 end
+
