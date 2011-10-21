@@ -7,6 +7,7 @@
 
 <div id="survey">
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
+    <input type="hidden" id="id_first_question" value="<%= @id_first_question %>" />
     <ul class="questions">
 
       <% question_number = 0 %>
