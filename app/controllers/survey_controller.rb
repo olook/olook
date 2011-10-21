@@ -6,7 +6,7 @@ class SurveyController < ApplicationController
 
   def index
     @questions = Question.includes(:answers)
-    @id_first_question = @questions.first.id
+    @id_first_question = @questions.first.id if @questions.size > 0
   end
 
   def create
