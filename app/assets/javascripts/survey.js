@@ -20,10 +20,9 @@ $(document).ready(function() {
   init.carousel();
   init.bindActions();
   init.dialog();
+  index = parseInt($("#id_first_question").val());
 
 });
-
-index = 1;
 
 init = {
   carousel : function() {
