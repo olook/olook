@@ -4,7 +4,7 @@ class Picture < ActiveRecord::Base
   
   validates :product, :presence => true
 
-  has_enumeration_for :display_on, :with => DisplayOn, :required => true
+  has_enumeration_for :display_on, :with => DisplayPictureOn, :required => true
   
   mount_uploader :image, PictureUploader
 end
