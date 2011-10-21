@@ -22,6 +22,26 @@ $(document).ready(function() {
   init.dialog();
   index = parseInt($("#id_first_question").val());
 
+  $('.about ul li').live('click', function() {
+    $(this).parent('ul').find('li').removeClass('selected');
+    $(this).addClass('selected');
+  });
+
+  $(".about").live("change", function(){
+    if ($('.about').find(":radio:checked").length == 2 &&
+      $(".about select[name='day']").val()  != 'Dia' &&
+      $(".about select[name='month']").val()  != 'Mês' &&
+      $(".about select[name='year']").val()  != 'Ano'){
+
+      $(".about .buttons li").removeClass("grey-button");
+      $('.jcarousel-next').click();
+
+    }else{
+      $(".about .buttons li").addClass("grey-button");
+    }
+  });
+
+
 });
 
 init = {
