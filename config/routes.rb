@@ -15,6 +15,7 @@ Olook::Application.routes.draw do
     post "member/import_contacts" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
     post "member/invite_contacts" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   end
+  get "/product/:id" => "product#index", :as => "product"
 
   namespace :admin do
     resources :products do
