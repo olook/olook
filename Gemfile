@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 gem 'rake', '0.8.7'
 
-gem 'mysql', '~> 2.8.1'
+gem 'mysql2'
 gem 'jquery-rails', '~> 1.0.14'
 gem 'devise', '~> 1.4.7'
 gem 'omniauth', '~> 0.3.0'
@@ -17,11 +17,11 @@ gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'cancan', '~> 1.6.7'
-
 gem 'enumerate_it'
 gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick', '~> 3.3'
+gem 'sass-rails'
 
 group :development, :test do
   gem 'sqlite3'
@@ -29,6 +29,7 @@ group :development, :test do
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 1.2.0'
   gem 'rspec-rails', '~> 2.6.0'
+  gem 'watchr'
 end
 
 group :test do

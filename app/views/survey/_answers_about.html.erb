@@ -1,0 +1,56 @@
+<li>
+  <h3>Qual o tamanho do seu sapato?</h3>
+  <ul class="question">
+    <% 8.times do |i| %>
+    <li>
+      <label for="<%= "1_10_#{i}" %>"> 38
+        <%= radio_button_tag("1", "10_#{i}") %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>Qual tamanho de vestido você veste?</h3>
+  <ul class="question">
+    <% 5.times do |i| %>
+      <li>
+        <label for="<%= "2_11_#{i}" %>"> 38
+          <%= radio_button_tag("2",  "11_#{i}") %>
+      </label>
+      </li>
+    <% end %>
+  </ul>
+  
+  <h3>Data de Nascimento</h3>
+  <fieldset class="select">
+    <select name='day'>
+      <option>Dia</option>
+      <% 31.times do |d| %>
+        <option value="<%= d %>"><%= d %></option>
+      <% end %>
+    </select>
+    
+    <select name='month'>
+      <option>Mês</option>
+      <% 12.times do |m| %>
+        <option value="<%= m %>"><%= m %></option>
+      <% end %>
+    </select>
+
+    <select id="birthdate" name='year'>
+      <option>Ano</option>
+      <% 10.times do |a| %>
+        <option value="<%= a %>"><%= a %></option>
+      <% end %>
+    </select>
+  </fieldset>
+
+  <fieldset class='buttons'>
+    <ol>
+      <li class="grey-button">
+        <%= submit_tag("Enviar")  %>
+      </li>
+    </ol>
+  </fieldset>
+
+</li>

@@ -7,15 +7,16 @@ def do_login!(user)
 end
 
 def answer_survey
-  begin
-    question = FactoryGirl.create(:question)
-  end until question.id.even? #cheating to make choose method work
-
-  answer1 = FactoryGirl.create(:answer_from_casual_profile, :question => question)
-  answer2 = FactoryGirl.create(:answer_from_casual_profile, :question => question)
-  answer3 = FactoryGirl.create(:answer_from_casual_profile, :question => question)
+  build_survey
   visit root_path
   click_link "take_survey"
-  choose "questions[question_#{question.id}]"
+  choose "questions[question_#{Question.first.id}]"
   click_button "Enviar"
+end
+
+def build_survey
+  6.times do
+    @question = FactoryGirl.create(:question)
+    @answer = FactoryGirl.create(:answer_from_casual_profile, :question => @question)
+  end
 end

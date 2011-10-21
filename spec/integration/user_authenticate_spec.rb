@@ -34,12 +34,14 @@ feature "User Authenticate", %q{
   scenario "User Sign up" do
     answer_survey
     visit new_user_registration_path
-    fill_in "user_first_name", :with => "First Name"
-    fill_in "user_last_name", :with => "Last Name"
-    fill_in "user_email", :with => "fake@mail.com"
-    fill_in "user_password", :with => "123456"
-    fill_in "user_password_confirmation", :with => "123456"
-    click_button "Sign up"
+    within("#user_new") do
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
+      fill_in "user_email", :with => "fake@mail.com"
+      fill_in "user_password", :with => "123456"
+      fill_in "user_password_confirmation", :with => "123456"
+      click_button "Sign up"
+    end
     page.should have_content(I18n.t "devise.registrations.signed_up")
   end
 
@@ -57,12 +59,14 @@ feature "User Authenticate", %q{
 
     answer_survey
     visit new_user_registration_path
-    fill_in "user_first_name", :with => "First Name"
-    fill_in "user_last_name", :with => "Last Name"
-    fill_in "user_email", :with => login
-    fill_in "user_password", :with => pass
-    fill_in "user_password_confirmation", :with => pass
-    click_on "Sign up"
+    within("#user_new") do
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
+      fill_in "user_email", :with => login
+      fill_in "user_password", :with => pass
+      fill_in "user_password_confirmation", :with => pass
+      click_on "Sign up"
+    end
     page.should have_content(I18n.t "devise.registrations.signed_up")
     click_on "Logout"
     page.should have_content(I18n.t "devise.sessions.signed_out")

@@ -1,0 +1,78 @@
+@import 'utilities/hacks';
+@import 'common/gradient';
+@import 'common/images';
+@import 'common/border-radius';
+
+@mixin pink_button($top-color: #FB619E, $bottom-color: #DD3178, $font-size: 26px, $padding-top: 15px, $padding-bottom: 15px, $padding-left: 50px, $padding-right: 50px, $radius: 10px) {
+  background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -o-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -moz-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -webkit-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -ms-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+
+  background-image: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0.3, $top-color),
+          color-stop(0.8, $bottom-color)
+  );
+  border: none;
+  @include border-radius($radius);
+
+  input[type='submit'] {
+    @include border-radius($radius);
+    background: transparent;
+    padding-top: $padding-top;
+    padding-bottom: $padding-bottom;
+    padding-left: $padding-left;
+    padding-right: $padding-right;
+    font-size: $font-size;
+    cursor: pointer;
+    border-left: 1px solid #FFA1C4;
+    border-top: 1px solid #FFA1C4;
+    border-bottom: none;
+    border-right: none;
+    color: #FFF;
+    text-shadow: #B32963 1px 2px 2px;
+    margin-top: 1px;
+    margin-left: 1px;
+    text-transform: uppercase;
+  }
+}
+
+@mixin grey_button($top-color: #FB619E, $bottom-color: #DD3178) {
+  background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -o-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -moz-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -webkit-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -ms-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+
+  background-image: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0.3, $top-color),
+          color-stop(0.8, $bottom-color)
+  );
+
+  border: none;
+  @include border-radius(10px);
+
+  input[type='submit'] {
+    @include border-radius(10px);
+    background: transparent;
+    padding: 15px 50px;
+    font-size: 26px;
+    cursor: pointer;
+    border-left: 1px solid #E4E4E4;
+    border-top: 1px solid #E4E4E4;
+    border-bottom: none;
+    border-right: none;
+    color: #FFF;
+    text-shadow: #8D8D8D 1px 2px 2px;
+    margin-top: 1px;
+    margin-left: 1px;
+    text-transform: uppercase;
+  }
+}
