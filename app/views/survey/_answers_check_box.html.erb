@@ -1,7 +1,7 @@
 <% question.answers.each do |answer| %>
   <li>
     <label for="<%="questions_question_#{answer.question.id}_#{answer.id}" %>">
-      <span>apdsoiadoias</span>
+      <span><%= answer.title %></span>
       <%= check_box_tag "questions[question_#{question.id}_#{answer.id}]", answer.id %>
     </label>
   </li>
