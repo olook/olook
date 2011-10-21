@@ -45,7 +45,7 @@ survey_data[3] = {
 }
 
 survey_data[4] = {
-  :question_title => "Quais desses estilo de cabelo mais te agradam?",
+  :question_title => "Quais desses estilos de cabelo mais te agradam?",
   :answers => ["Chanel", "Curtissimo", "Longo tipo Gisele"],
   :weights => [{"Chanel" => {"5" => traditional, "10" => elegant, "3" => female}},
                {"Curtíssimo" => {"10" => contemporary, "3" => trendy, "5" => casual}},
@@ -100,7 +100,7 @@ survey_data[10] = {
 }
 
 survey_data[11] = {
-  :question_title => "Escolha o look que mais te acgrada para o dia a dia.",
+  :question_title => "Escolha o look que mais te agrada para o dia a dia.",
   :answers => ["jeans boyfriend e mocassim", "calca alfaiataria e scarpin", "vestido longo malha e rasteira" ],
   :weights => [{"jeans boyfriend e mocassim" => {"5" => casual, "10" => contemporary, "3" => trendy}},
                {"calca alfaiataria e scarpin" => {"10" => traditional, "5" => elegant, "3" => contemporary}},
@@ -124,7 +124,7 @@ survey_data[13] = {
 }
 
 survey_data[14] = {
-  :question_title => "Qual desses modelos voce usaria para um domigo a tarde?",
+  :question_title => "Qual desses modelos você usaria para um domigo a tarde?",
   :answers => ["gladiadora + bolsa molhinha", "sapatilha + maxibolsa", "sandalia anabela + bolsa box alça longa" ],
   :weights => [{"gladiadora + bolsa molhinha" => {"3" => casual, "5" => contemporary, "10" => trendy}},
                {"sapatilha + maxibolsa" => {"3" => traditional, "10" => elegant, "5" => female}},
@@ -132,7 +132,7 @@ survey_data[14] = {
 }
 
 survey_data[15] = {
-  :question_title => "Qual desses modelos voce usaria em uma festa?",
+  :question_title => "Qual desses modelos você usaria em uma festa?",
   :answers => ["sandalia salto fino + clutch oncinha", "ankle boot salto + clutch pedrarias", "sandalia salto grosso+ bolsa lateral verniz" ],
   :weights => [{"sandalia salto fino + clutch oncinha" => {"3" => elegant, "5" => female, "10" => sexy}},
                {"ankle boot salto + clutch pedrarias" => {"3" => sexy, "5" => contemporary, "10" => trendy}},
@@ -140,7 +140,7 @@ survey_data[15] = {
 }
 
 survey_data[16] = {
-  :question_title => "Quais desses acessórios voce escolheria para  este pretinho basico?",
+  :question_title => "Quais desses acessórios você escolheria para  este pretinho basico?",
   :answers => ["sapatilha/bolsa carteiro/ argola", "scarpin/bolsa dura/colares dourados", "ankle/cluch/ brinco de franja" ],
   :weights => [{"sapatilha/bolsa carteiro/ argola" => {"10" => casual, "5" => traditional, "3" => female}},
                {"scarpin/bolsa dura/colares dourados" => {"3" => traditional, "10" => elegant, "5" => female}},
@@ -148,7 +148,7 @@ survey_data[16] = {
 }
 
 survey_data[17] = {
-  :question_title => "Maquiagem para voce é...",
+  :question_title => "Maquiagem para você é...",
   :answers => ["Indispensavel. Uso tudo todos os dias", "Importante. Rimel e Batom resolvem a questão", "Eventual. Só uso em ocasiões especiais" ],
   :weights => [{"Indispensavel. Uso tudo todos os dias" => {"5" => elegant, "10" => female, "3" => trendy}},
                {"Importante. Rimel e Batom resolvem a questão" => {"3" => traditional, "5" => female, "10" => contemporary}},
@@ -180,18 +180,24 @@ survey_data[20] = {
 }
 
 survey_data[21] = {
+  :question_title => "Quais palavras você mais gosta? (marque 3 opções)",
+  :answers => ["Palavra","Palavra","Palavra","Palavra","Palavra","Palavra","Palavra","Palavra","Palavra","Palavra","Palavra","Palavra"],
+  :weights => []
+}
+
+survey_data[22] = {
   :question_title => "Qual a sua nota para estas cartelas de cores?",
   :answers => ["Neutras", "Metalizadas", "Tons Pastel", "Vivas" ],
   :weights => []
 }
 
-survey_data[22] = {
+survey_data[23] = {
   :question_title => "Qual o tamanho do seu sapatos?",
   :answers => (33..41).to_a,
   :weights => []
 }
 
-survey_data[22] = {
+survey_data[24] = {
   :question_title => "Qual tamanho de vestido que você veste?",
   :answers => %w(PP, P, M, G, GG),
   :weights => []
@@ -212,3 +218,4 @@ survey_data.each do |item|
     end
   end
 end
+
