@@ -16,13 +16,13 @@ feature "User Authenticate", %q{
   scenario "User can fill the cpf when invited" do
     answer_survey
     visit "/invite/#{@user.invite_token}"
-    page.should have_content("Cpf")
+    page.should have_content("CPF")
   end
 
   scenario "User cant't fill the cpf when not invited" do
     answer_survey
     visit new_user_registration_path
-    page.should_not have_content("Cpf")
+    page.should_not have_content("CPF")
   end
 
   scenario "User Log in with facebook" do
@@ -40,7 +40,7 @@ feature "User Authenticate", %q{
       fill_in "user_email", :with => "fake@mail.com"
       fill_in "user_password", :with => "123456"
       fill_in "user_password_confirmation", :with => "123456"
-      click_button "Sign up"
+      click_button "Cadastrar"
     end
     page.should have_content(I18n.t "devise.registrations.signed_up")
   end
@@ -65,7 +65,7 @@ feature "User Authenticate", %q{
       fill_in "user_email", :with => login
       fill_in "user_password", :with => pass
       fill_in "user_password_confirmation", :with => pass
-      click_on "Sign up"
+      click_on "Cadastrar"
     end
     page.should have_content(I18n.t "devise.registrations.signed_up")
     click_on "Logout"
