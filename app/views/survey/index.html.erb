@@ -28,10 +28,12 @@
           </ol>
         </li>
 
-      <% question = @questions[@questions.size - 3]%>
+      <% question_shoe_size = @questions[@questions.size - 2] %>
+      <% question_dress_size = @questions.last %>
        <li id="question_<%= question.id %>" class="about">
           <ol class="options">
-            <%= render "answers_about", :question => question %>
+            <%= render "answers_about", :question_shoe_size => question_shoe_size,
+                  :question_dress_size => question_dress_size %>
           </ol>
         </li>
 
