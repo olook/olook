@@ -27,7 +27,6 @@
 
       <% question = @questions[@questions.size - 4]%>
        <li id="question_<%= question.id %>" class="about">
-          <h2><%= question.title %></h2>
           <ol class="options">
             <%= render "answers_about", :question => question %>
           </ol>
