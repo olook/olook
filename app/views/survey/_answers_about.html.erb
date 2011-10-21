@@ -25,21 +25,21 @@
   <fieldset class="select">
     <select name='day'>
       <option>Dia</option>
-      <% 31.times do |d| %>
-        <option value="<%= d %>"><%= d %></option>
+      <% (1..31).each do |d| %>
+        <option value="<%= d %>"><%= "%02d" % d %></option>
       <% end %>
     </select>
     
     <select name='month'>
       <option>Mês</option>
-      <% 12.times do |m| %>
-        <option value="<%= m %>"><%= m %></option>
+      <% (1..12).each do |m| %>
+        <option value="<%= m %>"><%= "%02d" % m %></option>
       <% end %>
     </select>
 
     <select id="birthdate" name='year'>
       <option>Ano</option>
-      <% 10.times do |a| %>
+      <% Time.now.year.downto(1900) do |a| %>
         <option value="<%= a %>"><%= a %></option>
       <% end %>
     </select>
