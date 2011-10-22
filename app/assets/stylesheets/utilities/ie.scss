@@ -1,0 +1,21 @@
+html {
+  &.ie8 {
+    body {
+      #survey {
+        ul {
+          &.questions {
+            .words {
+              ol {
+                li {
+                  input[type='checkbox'] {
+                    display: block;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
