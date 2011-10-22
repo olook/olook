@@ -27,7 +27,7 @@ $(document).ready(function() {
     $(this).addClass('selected');
   });
 
-  $(".about").live("change", function(){
+  $(".about").live("click", function(){
     if ($('.about').find(":radio:checked").length == 2 &&
       $(".about select[name='day']").val()  != 'Dia' &&
       $(".about select[name='month']").val()  != 'Mês' &&
@@ -48,7 +48,7 @@ init = {
   carousel : function() {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
-                 scroll: 1,
+                 scroll: 1
                });
              },
 
@@ -82,10 +82,17 @@ init = {
   },
 
   bindActions : function() {
-    $('.jcarousel-item li').live('change', function(){
-      $(this).addClass('selected');
-      $("#next_link").click();
-    });
+    if($.browser.webkit == true) {
+      $('.jcarousel-item li').live('change', function(){
+        $(this).addClass('selected');
+        $("#next_link").click();
+      });
+    }else {
+      $('.jcarousel-item li').live('click', function(){
+        $(this).addClass('selected');
+        $("#next_link").click();
+      });
+    }
   },
 
   dialog : function(){
