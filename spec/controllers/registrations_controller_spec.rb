@@ -95,6 +95,21 @@ describe RegistrationsController do
         }.to change(SurveyAnswer, :count).by(1)
     end
 
+    it "should create a SurveyAnswers with questions and birthday" do
+     session[:profile_points] = :some_data
+     session[:questions] = {:foo => :bar}
+     session[:birthday] = {:day => 23}
+     post :create, :user => user_attributes
+     SurveyAnswer.last.answers.should eq({:foo=>:bar, :day=>23})
+    end
+
+    it "should create a SurveyAnswers with just questions" do
+     session[:profile_points] = :some_data
+     session[:questions] = {:foo => :bar}
+     post :create, :user => user_attributes
+     SurveyAnswer.last.answers.should eq({:foo=>:bar})
+    end
+
     it "should clean the sessions" do
      session[:profile_points] = :some_data
      session[:questions] = :some_data
