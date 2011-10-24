@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
 
   def generate_invite_token
     loop do
-      write_attribute(:invite_token, Devise.friendly_token)
+      write_attribute(:invite_token, Devise.friendly_token[0..7])
       break unless User.find_by_invite_token(self.invite_token)
     end if self.invite_token.nil?
   end
