@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+  init.carousel();
+  init.bindActions();
+  init.dialog();
+  index = parseInt($("#id_first_question").val());
+
   function popupCenter(url, width, height, name) {
     var left = (screen.width/2)-(width/2);
     var top = (screen.height/2)-(height/2);
@@ -13,14 +18,8 @@ $(document).ready(function() {
     e.preventDefault();
 
     popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
-
     return false;
   });
-
-  init.carousel();
-  init.bindActions();
-  init.dialog();
-  index = parseInt($("#id_first_question").val());
 
   $('.about .question li').live('click', function() {
     $(this).parent('ul').find('li').removeClass('selected');
@@ -28,7 +27,8 @@ $(document).ready(function() {
   });
 
   $(".about").live("click", function(){
-    if ($('.about').find(":radio:checked").length == 2 &&
+    var limitOfCheckedAnswers = 2;
+    if ($('.about').find(":radio:checked").length == limitOfCheckedAnswers &&
       $(".about select[name='day']").val()  != 'Dia' &&
       $(".about select[name='month']").val()  != 'Mês' &&
       $(".about select[name='year']").val()  != 'Ano'){
@@ -54,14 +54,12 @@ init = {
 
   mycarousel_initCallback : function(carousel) {
     $('#next_link').bind('click', function() {
-
       elemtId = "#question_" + index;
       carouselItem = $("#question_" + index);
 
       if (carouselItem.hasClass('images')) {
         carousel.next();
         index++;
-
       };
 
       if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
