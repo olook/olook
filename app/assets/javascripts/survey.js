@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   init.carousel();
   init.bindActions();
   init.dialog();
@@ -18,15 +17,16 @@ $(document).ready(function() {
     e.preventDefault();
 
     popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
+
     return false;
   });
 
-  $('.about .question li').live('click', function() {
+  $('.about ul li').live('click', function() {
     $(this).parent('ul').find('li').removeClass('selected');
     $(this).addClass('selected');
   });
 
-  $(".about").live("click", function(){
+  $(".about").live("change", function(){
     var limitOfCheckedAnswers = 2;
     if ($('.about').find(":radio:checked").length == limitOfCheckedAnswers &&
       $(".about select[name='day']").val()  != 'Dia' &&
@@ -48,15 +48,15 @@ init = {
   carousel : function() {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
-                 scroll: 1
+                 scroll: 1,
                });
              },
 
   mycarousel_initCallback : function(carousel) {
     $('#next_link').bind('click', function() {
+
       elemtId = "#question_" + index;
       carouselItem = $("#question_" + index);
-
       if (carouselItem.hasClass('images')) {
         carousel.next();
         index++;
@@ -80,17 +80,11 @@ init = {
   },
 
   bindActions : function() {
-    if($.browser.webkit == true) {
-      $('.jcarousel-item li').live('change', function(){
-        $(this).addClass('selected');
-        $("#next_link").click();
-      });
-    }else {
-      $('.jcarousel-item li').live('click', function(){
-        $(this).addClass('selected');
-        $("#next_link").click();
-      });
-    }
+    $('.jcarousel-item li').live('click', function(){
+      $(this).find('input').attr('checked', true);
+      $(this).addClass('selected');
+      $("#next_link").click();
+    });
   },
 
   dialog : function(){
@@ -119,3 +113,4 @@ init = {
            }
 
 };
+

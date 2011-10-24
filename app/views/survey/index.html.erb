@@ -3,7 +3,8 @@
 <% end %>
 <%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
 
-<span id="next_link"></span>
+<span id="next_link">Next</span>
+<span class="prev">prev</span>
 
 <div id="survey">
   <%= form_tag({:controller => "survey", :action => "create"}) do %>
