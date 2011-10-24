@@ -6,7 +6,7 @@
 
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag  "application" %>
 
     <%= yield :head %>
 
@@ -41,7 +41,15 @@
         </p>
       </div>
     </header>
-
+    
+    <% if user_signed_in? %>
+      <nav>
+        <ul class="content">
+          <li><%= link_to 'Convidar amigas', '', :class => 'selected' %></li>
+          <li><%= link_to 'Minhas amigas convidadas', '' %></li>
+        </ul>
+      </nav>
+    <% end %>
 
     <div class="content">
       <p class="notice"><%= notice %></p>

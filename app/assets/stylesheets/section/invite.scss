@@ -1,0 +1,115 @@
+@import 'partials/mixins';
+
+body {
+  .content {
+    #user-info {
+      overflow: hidden;
+      .info {
+        overflow: hidden;
+        float: left;
+        width: 480px;
+
+        #user {
+          margin-top: 31px;
+        }
+
+        > h2 {
+          width: 378px;
+          width: 300px;
+          height: 71px;
+          padding: 25px 50px;
+          border: 1px solid #BBB;
+          margin: 40px auto 0 ;
+        }
+      }
+
+      .banner {
+        width: 446px;
+        height: 334px;
+        float: right;
+        position: relative;
+        padding-top: 30px;
+        z-index: 1;
+
+        > h1 {
+          background: url("/assets/common/banner/bg-banner-pink.png") no-repeat;
+          width: 165px;
+          padding: 6px 0 8px 15px;
+
+          & + h2 {
+            padding: 0;
+            margin: -35px 0 0 0;
+            position: relative;
+            z-index: 4;
+
+            & + h3 {
+              background: url("/assets/common/banner/bg-banner-black.png") no-repeat;
+              display: block;
+              color: #FFF;
+              padding-top: 5px;
+              padding-right: 9px;
+              position: absolute;
+              left: -20px;
+              top: 156px;
+              z-index: 5;
+
+              span {
+                display: block;
+              }
+              > span {
+                margin-left: 20px;
+
+                & + span {
+                  margin-left: 86px;
+                  padding: 5px 0;
+
+                  sup {
+                    position: absolute;
+                  }
+                }
+              }
+            }
+          }
+        }
+        a {
+          display: block;
+          position: relative;
+          margin-top: 35px;
+          margin-left: 170px;
+        }
+
+        img {
+          display: inline-block;
+          position: absolute;
+          right: 8px;
+          top: 0;
+          z-index: 1;
+        }
+      }
+    }
+
+    nav {
+      background: url('/assets/common/bg-menu.png') top no-repeat;
+      position: relative;
+      border: none;
+      padding: 7px 0;
+      margin-top: -85px;
+      z-index: 4;
+
+      ul {
+        li {
+          a {
+            background: url('/assets/common/arrow-down-not-selected.png') right 18px no-repeat;
+            padding: 10px 20px 10px 0;
+            margin: 0 30px;
+
+            &.selected {
+              background: url('/assets/common/arrow-down-selected.png') right 18px no-repeat;
+              color: $pink;
+            }
+          }
+        }
+      }
+    }
+  }
+}
