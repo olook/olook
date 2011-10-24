@@ -5,27 +5,27 @@ describe SurveyController do
 
   include Devise::TestHelpers
 
-  describe "GET 'index'" do
+  describe "GET 'new'" do
     it "should be successful" do
-      get 'index'
+      get 'new'
       response.should be_success
     end
 
     it "should not show the Survey if the user is logged in" do
       user = Factory :user
       sign_in user
-      get 'index'
+      get 'new'
       response.should redirect_to root_path
     end
 
     it "should assigns @id_first_question" do
       question = FactoryGirl.create(:question)
-      get 'index'
+      get 'new'
       assigns(:id_first_question).should eq(question.id)
     end
 
     it "should show the Survey if the user is not logged in" do
-      get 'index'
+      get 'new'
       response.should_not redirect_to root_path
     end
   end
@@ -40,7 +40,7 @@ describe SurveyController do
 
     it "should redirect to survey_path if params[:questions] is nil" do
       post 'create'
-      response.should redirect_to survey_index_path
+      response.should redirect_to new_survey_path
     end
   end
 end
