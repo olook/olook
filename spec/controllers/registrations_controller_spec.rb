@@ -37,7 +37,16 @@ describe RegistrationsController do
     end
   end
 
-  describe "POST create with a profile_points fake" do
+  describe "POST create with profile_points" do
+    it "should create user points" do
+     session[:profile_points] = {1 => 2, 3 => 4}
+     expect {
+          post :create, :user => user_attributes
+        }.to change(Point, :count).by(session[:profile_points].size)
+    end
+  end
+
+  describe "POST create without profile_points" do
 
     before :each do
       ProfileBuilder.any_instance.stub(:create_user_points)
