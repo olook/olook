@@ -38,22 +38,27 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def user_data_from_session
-    session["devise.facebook_data"]["extra"]["user_hash"] if session["devise.facebook_data"]
-  end
-
   private
 
-  def check_survey_response
-    redirect_to survey_index_path if session[:profile_points].nil?
+  def build_answers(session)
+    answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])
+    answers
   end
 
   def after_sign_up_path_for(resource)
-    answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])
+    answers = build_answers(session)
     SurveyAnswer.create(:answers => answers, :user => resource)
     ProfileBuilder.new(resource).create_user_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
     clean_sessions
+  end
+
+  def user_data_from_session
+    session["devise.facebook_data"]["extra"]["user_hash"] if session["devise.facebook_data"]
+  end
+
+  def check_survey_response
+    redirect_to survey_index_path if session[:profile_points].nil?
   end
 
   def clean_sessions
