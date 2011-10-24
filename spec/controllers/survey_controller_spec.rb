@@ -18,6 +18,12 @@ describe SurveyController do
       response.should redirect_to root_path
     end
 
+    it "should assigns @id_first_question" do
+      question = FactoryGirl.create(:question)
+      get 'index'
+      assigns(:id_first_question).should eq(question.id)
+    end
+
     it "should show the Survey if the user is not logged in" do
       get 'index'
       response.should_not redirect_to root_path
