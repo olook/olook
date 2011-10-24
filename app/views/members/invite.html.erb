@@ -3,54 +3,131 @@
   <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 <% end %>
 
-<h1>Member</h1>
+<section id="user-info">
+  <hgroup class='info'>
+    <h1 id="user">Boa Noite, <span><%= current_user.name %></span></h1>
+    <h2>Escolha uma das opções abaixo e comece a convidar</h2>
+  </hgroup>
 
-<p>Token: <%= content_tag(:span, accept_invitation_url(:invite_token => @member.invite_token), :id => 'share_invitation') %></p>
+  <div class="banner">
+    <h1>Quer ganhar</h1>
+    <h2>R$10?</h2>
+    <h3>
+      <span>Convide suas amigas</span>
+      <span>e vocês duas ganham<sup>*</sup></span>
+    </h3>
+    <%= link_to '*veja o regulamento', '' %>
+    <%= image_tag('/assets/common/model-banner.png') %>
+  </div>
+</section>
+
+<nav>
+  <ul>
+    <li><%= link_to 'Link pessoal', '', :class => 'selected' %></li>
+    <li><%= link_to 'Email', '' %></li>
+    <li><%= link_to  'Facebook', '' %></li>
+    <li><%= link_to 'Lista de contatos', '' %></li>
+  </ul>
+</nav>
+
+<section class="share-mail">
+  <hgroup>
+    <h1>Compartilhe seu link pessoal</h1>
+    <h2>Envie seu link pessoal pelo FaceBook, Twitter, MSN, Orkut e por onde mais você quiser</h2>
+  </hgroup>
+
+  <form>
+    <fieldset>
+      <ol>
+        <li>
+          <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>">
+          <ul class="share">
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
+            <li>
+              <div id="orkut_share" style="width:100%;"></div>
+              <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+              <script type="text/javascript">
+                google.load('orkut.share', '1');
+                google.setOnLoadCallback(function(){
+                  new google.orkut.share.Button({
+                    style:'regular',
+                    title:'Olook',
+                    summary:'<%= invite_message %>',
+                    destination:'<%= invitation_link(@member) %>'
+                  }).draw('orkut_share');
+                }, true);
+            </script>
+          </li>
+          <li>
+            <div id="fb-root"></div>
+            <script>
+              (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) {return;}
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=185909824810171";
+              fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+            </script>
+          </li>
+          </ul>
+        </li>
+      </ol>
+    </fieldset>
+  </form>
+</section>
+
+<section class="invite-mail">
+  <hgroup>
+    <h1>Convide suas amigas por email</h1>
+    <h2>Digite o email de suas amigas no campo ao lado separados por vírgula </h2>
+  </hgroup>
+
+  <form>
+    <fieldset>
+      <ol>
+        <li>
+          <textarea></textarea>
+        </li>
+      </ol>
+    </fieldset>
+  </form>
+</section>
+
+<section class="invite-mail">
+  <hgroup>
+    <h1>Importe sua lista de contatos</h1>
+    <h2>Importe sua lista de contatos do Gmail, Yahoo! ou MSN Live</h2>
+  </hgroup>
+
+  <ul class="services">
+    <li><%= link_to 'Gmail' %></li>
+    <li><%= link_to 'Yahoo' %></li>
+    <li><%= link_to 'Msn/Live' %></li>
+  </ul>
+</section>
+
 
 <hr>
 
-<p>Share on Twitter <a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+<p>Share on Twitter </p>
 
-</p>
+  </p>
 
-<hr>
+  <hr>
 
-<p>Share on Facebook
-  <a href="#" id="facebook_invite_friends">Convide suas amigas</a> |
-  <a href="#" id="facebook_post_wall">Poste no seu mural</a>
-</p>
+  <p>Share on Facebook
+    <a href="#" id="facebook_invite_friends">Convide suas amigas</a> |
+    <a href="#" id="facebook_post_wall">Poste no seu mural</a>
+  </p>
 
-<hr>
+        <p>
 
-<p>Share on Orkut
-<!-- Google Orkut Share Element -->
-<div id="orkut_share" style="width:100%;"></div>
-
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-
-  google.load('orkut.share', '1');
-
-  google.setOnLoadCallback(function(){
-    new google.orkut.share.Button({
-      style:'regular',
-      title:'Olook',
-      summary:'<%= invite_message %>',
-      destination:'<%= invitation_link(@member) %>'
-    }).draw('orkut_share');
-  }, true);
-
-</script>
-
-<hr>
-
-<p>
-
-  <span>Convide suas amigas por e-mail</span>
-  <%= form_tag(member_invite_by_email_path) do %>
-    <%= label_tag(:invite_mail_list, "E-mails:") %>
-    <%= text_field_tag :invite_mail_list %>
-    <%= submit_tag("Enviar convites") %>
-  <% end %>
-</p>
+          <span>Convide suas amigas por e-mail</span>
+          <%= form_tag(member_invite_by_email_path) do %>
+            <%= label_tag(:invite_mail_list, "E-mails:") %>
+            <%= text_field_tag :invite_mail_list %>
+            <%= submit_tag("Enviar convites") %>
+          <% end %>
+        </p>
 
