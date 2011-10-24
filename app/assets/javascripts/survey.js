@@ -35,7 +35,6 @@ $(document).ready(function() {
 
       $(".about .buttons li").removeClass("grey-button");
       $('.jcarousel-next').click();
-
     }else{
       $(".about .buttons li").addClass("grey-button");
     }
