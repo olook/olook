@@ -45,6 +45,10 @@ class RegistrationsController < Devise::RegistrationsController
     answers
   end
 
+  def check_survey_response
+    redirect_to new_survey_path if session[:profile_points].nil?
+  end
+
   def after_sign_up_path_for(resource)
     answers = build_answers(session)
     SurveyAnswer.create(:answers => answers, :user => resource)
@@ -58,7 +62,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def check_survey_response
-    redirect_to survey_index_path if session[:profile_points].nil?
+    redirect_to new_survey_path if session[:profile_points].nil?
   end
 
   def clean_sessions

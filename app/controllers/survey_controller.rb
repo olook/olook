@@ -4,7 +4,7 @@ class SurveyController < ApplicationController
   before_filter :check_user_login
   before_filter :check_questions_params, :only => [:create]
 
-  def index
+  def new
     @questions = Question.includes(:answers)
     @id_first_question = @questions.first.id if @questions.size > 0
   end
@@ -26,6 +26,6 @@ class SurveyController < ApplicationController
   end
 
   def check_questions_params
-    redirect_to survey_index_path if params[:questions].nil?
+    redirect_to new_survey_path if params[:questions].nil?
   end
 end

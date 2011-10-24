@@ -13,13 +13,13 @@ describe RegistrationsController do
     it "should redirect if the user dont fill the Survey" do
       session[:profile_points] = nil
       get :new
-      response.should redirect_to(survey_index_path)
+      response.should redirect_to(new_survey_path)
     end
 
     it "should not redirect when the user fill the Survey" do
       session[:profile_points] = :some_data
       get :new
-      response.should_not redirect_to(survey_index_path)
+      response.should_not redirect_to(new_survey_path)
     end
 
     it "should not build the resource using session data" do
@@ -88,13 +88,13 @@ describe RegistrationsController do
     it "should redirect if the user dont fill the Survey" do
       session[:profile_points] = nil
       post :create
-      response.should redirect_to(survey_index_path)
+      response.should redirect_to(new_survey_path)
     end
 
     it "should not redirect when the user fill the Survey" do
       session[:profile_points] = :some_data
       post :create
-      response.should_not redirect_to(survey_index_path)
+      response.should_not redirect_to(new_survey_path)
     end
 
     it "should create a SurveyAnswers" do
