@@ -17,6 +17,7 @@ describe ProfileBuilder do
     @questions = { "question_1" => answer_from_casual_profile.id, "question_2" => answer_from_casual_and_sporty_profile.id }
     @user = Factory.create(:user)
     @profile = mock_model('Profile')
+    @profile2 = mock_model('Profile')
     @profile_builder = ProfileBuilder.new(@user)
   end
 
@@ -44,4 +45,10 @@ describe ProfileBuilder do
     Point.should have(0).record
   end
 
+  it "should save the correct points" do
+    hash = {@profile.id => 2, @profile2.id => 3}
+    @profile_builder.create_user_points(hash)
+    @user.points.first.profile_id.should == @profile.id
+    @user.points.last.profile_id.should  == @profile2.id
+  end
 end
