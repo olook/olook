@@ -11,9 +11,9 @@
     <%= yield :head %>
 
     <!--[if IE]>
-      <%= javascript_include_tag "html5.js" %>
+    <%= javascript_include_tag "html5.js" %>
     <![endif]-->
-    
+
     <%= javascript_include_tag "application" %>
     <%= favicon_link_tag %>
 
@@ -22,26 +22,31 @@
     <header>
       <div class="content">
         <%= link_to content_tag(:h1, 'O LOOK'), root_path %>
-        
+        <div class="info">
+          <p>
+            <strong>FRETE E DEVOLUÇÃO GRÁTIS</strong><br />
+            PARA TODO O BRASIL
+          </p>
+        </div>
+
         <div id="session">
           <% if user_signed_in? %>
             <span><%= link_to "Logout", destroy_user_session_path, :method => :delete %></span>
+
           <% else %>
-            <span>Já faz parte? <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %></span>
+            <span>
+              <p>Já faz parte?</p> 
+              <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %>
+            </span>
           <% end %>
-            <div id="sign-in-dropdown" class="close">
-              <%= render "sessions/form" %>
-            </div>
+
+          <div id="sign-in-dropdown" class="close">
+            <%= render "sessions/form" %>
           </div>
-      </div>
-      <div class="info">
-        <p>
-          <strong>FRETE E DEVOLUÇÃO GRÁTIS</strong><br />
-          PARA TODO O BRASIL
-        </p>
+        </div>
       </div>
     </header>
-    
+
     <% if user_signed_in? %>
       <nav>
         <ul class="content">
