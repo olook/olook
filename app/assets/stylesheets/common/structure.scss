@@ -12,14 +12,20 @@ body {
     padding-bottom: 20px;
     height: 76px;
 
-    h1 {
-      background: url('/assets/common/logo.png') no-repeat;
-      width:140px;
-      height:62px;
-      float:left;
-      text-indent:-9999px;
-      margin:14px 0 0 11px;
-      float:left;
+    a {
+      display: block;
+      overflow: hidden;
+      float: left;
+
+        h1 {
+        background: url('/assets/common/logo.png') no-repeat;
+        width:140px;
+        height:62px;
+        float:left;
+        text-indent:-9999px;
+        margin:14px 0 0 11px;
+        float:left;
+      }
     }
 
     .info {
@@ -60,11 +66,13 @@ body {
                     }
 
                     input {
-                      &[type='email'], &[type='password'] {
-                        background: url("/assets/common/background-inputs.png") repeat-x;
-                        border: 1px solid #BBB;
-                        padding: 7px 8px;
-                        width: 92%;
+                      background: url("/assets/common/background-inputs.png") repeat-x;
+                      border: 1px solid #BBB;
+                      padding: 6px 8px;
+                      width: 92%;
+                      
+                      &:focus {
+                        outline: none;
                       }
                     }
                   }
@@ -150,6 +158,13 @@ header .observations {
 header span {
   float:right;
   margin:12px 21px 0 0;
+  width: 180px;
+  p {
+    float: left;
+  }
+  a {
+    float: right;
+  }
 }
 
 .holder-resolution .holder-content {
