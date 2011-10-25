@@ -1,2 +1,25 @@
-<h1>Registrations#edit</h1>
-<p>Find me in app/views/registrations/edit.html.erb</p>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :first_name %><br />
+  <%= f.text_field :first_name %></div>
+
+  <div><%= f.label :last_name %><br />
+  <%= f.text_field :last_name %></div>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %> <i>(Deixe em branco se não deseja alterar sua senha)</i><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.label :current_password %> <i>(Precisamos da sua senha atual para alterar seus dados)</i><br />
+  <%= f.password_field :current_password %></div>
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+
