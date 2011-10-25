@@ -124,7 +124,7 @@ describe Admin::ProductsController do
       response.should redirect_to(admin_products_url)
     end
   end
-  
+
   describe "related products" do
     let(:related_product_mock) { double(:product) }
 

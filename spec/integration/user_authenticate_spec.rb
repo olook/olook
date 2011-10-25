@@ -46,6 +46,32 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.registrations.signed_up")
   end
 
+  scenario "User update without password" do
+    do_login!(@user)
+    visit edit_user_registration_path
+    within("#user_edit") do
+      fill_in "user_first_name", :with => "New First Name"
+      fill_in "user_last_name", :with => "New Last Name"
+      fill_in "user_email", :with => "fake@mail.com"
+      click_button "Update"
+    end
+    page.should have_content(I18n.t "devise.registrations.updated")
+  end
+
+  scenario "User update with password" do
+    do_login!(@user)
+    visit edit_user_registration_path
+    within("#user_edit") do
+      fill_in "user_first_name", :with => "New First Name"
+      fill_in "user_last_name", :with => "New Last Name"
+      fill_in "user_email", :with => "fake@mail.com"
+      fill_in "user_password", :with => "123456"
+      fill_in "user_password_confirmation", :with => "123456"
+      click_button "Update"
+    end
+    page.should have_content(I18n.t "devise.registrations.updated")
+  end
+
   scenario "User Log in" do
     visit new_user_session_path
     fill_in "user_email", :with => @user.email
