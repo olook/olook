@@ -32,6 +32,8 @@ Olook::Application.routes.draw do
   end
 
   namespace :admin do
+    match "/", :to => "index#dashboard"
+
     resources :products do
       resources :pictures
       resources :details
@@ -41,7 +43,8 @@ Olook::Application.routes.draw do
         delete 'remove_related/:related_product_id' => "products#remove_related", :as => "remove_related"
       end
     end
-    match "/", :to => "index#dashboard"
+
+    resources :users, :except => [:create, :new, :destroy]
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
