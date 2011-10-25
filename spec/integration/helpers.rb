@@ -9,7 +9,7 @@ end
 def answer_survey
   build_survey
   visit root_path
-  click_link "take_survey"
+  click_link "Comece aqui. É grátis"
   choose "questions[question_#{Question.first.id}]"
   click_button "Enviar"
 end
