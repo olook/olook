@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   
+  #TODO: refactor CPF tests into CPFValidator class
+  # http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates
+  # validates :cpf, :presence => { :if => :is_invited? }
+
   def name
     "#{first_name} #{last_name}".strip
   end
