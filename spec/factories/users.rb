@@ -18,7 +18,7 @@ FactoryGirl.define do
       last_name "Last Name"
 
       after_create do |member|
-        member.send(:write_attribute, :invite_token, 'OK'*10)
+        member.send(:write_attribute, :invite_token, 'OK'*4)
         member.save!
       end
     end
