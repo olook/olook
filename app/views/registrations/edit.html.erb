@@ -23,6 +23,16 @@
     </li>
   <% end %>
 
+  <li>
+    <%= f.label :password %> <i>(Deixe em branco se não deseja alterar sua senha)</i><br />
+    <%= f.password_field :password %>
+  </li>
+
+  <li>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </li>
+
   <div><%= f.submit "Update" %></div>
 <% end %>
 

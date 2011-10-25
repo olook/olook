@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
 
-  before_filter :check_survey_response, :only => [:new, :create]
+#  before_filter :check_survey_response, :only => [:new, :create]
 
   def new
     if data = user_data_from_session
@@ -39,9 +39,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation) if
+      params[:user][:password_confirmation].blank?
+    end
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
-    if resource.update_attributes(params[resource_name])
+    if resource.update_attributes(params[:user])
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
       sign_in resource_name, resource, :bypass => true
