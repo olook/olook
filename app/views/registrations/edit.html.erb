@@ -24,6 +24,11 @@
   <% end %>
 
   <li>
+  <%= f.label :birthday, "Data de Nascimento" %><br/>
+  <%= f.date_select :birthday, :start_year => 1900 %>
+  </li>
+
+  <li>
     <%= f.label :password %> <i>(Deixe em branco se não deseja alterar sua senha)</i><br />
     <%= f.password_field :password %>
   </li>
