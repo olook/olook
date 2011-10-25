@@ -3,9 +3,24 @@ Olook::Application.routes.draw do
   get "index/index"
   root :to => "home#index"
 
-  localized do
+  if I18n.locale == :'pt-BR' then
+    match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
+    resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
+
+    get "/produto/:id" => "product#index", :as => "product"
+
+    get "membro/convite" => "members#invite", :as => 'member_invite'
+    get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
+    post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
+
+    get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
+    post "membro/importar_contatos" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
+    post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
+  else
     match "/welcome", :to => "pages#welcome", :as => "welcome"
-    resource :survey, :only => [:new, :create]
+    resource :survey, :only => [:new, :create], :controller => :survey
+
+    get "/product/:id" => "product#index", :as => "product"
 
     get "member/invite" => "members#invite", :as => 'member_invite'
     get "invite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
@@ -15,7 +30,6 @@ Olook::Application.routes.draw do
     post "member/import_contacts" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
     post "member/invite_contacts" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   end
-  get "/product/:id" => "product#index", :as => "product"
 
   namespace :admin do
     resources :products do

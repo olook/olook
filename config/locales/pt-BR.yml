@@ -237,14 +237,3 @@
 
       full_messages:
         format: "%{attribute} %{message}"
-
-  resource:
-    survey: 'quiz'
-  named_routes_path:
-    welcome: 'bem_vinda'
-    member_invite: 'membro/convidar'
-    accept_invitation: 'convite'
-    member_invite_by_email: 'membro/convidar_por_email'
-    member_import_contacts: 'membro/importar_contatos'
-    member_show_imported_contacts: 'membro/importar_contatos'
-    member_invite_imported_contacts: 'membro/convidar_contatos'
