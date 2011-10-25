@@ -1,5 +1,4 @@
 @import 'partials/mixins';
-
 body {
   .content {
     #user-info {
@@ -108,6 +107,16 @@ body {
               color: $pink;
             }
           }
+        }
+      }
+    }
+
+    section {
+      &#share-mail, &#invite-mail, &#import-contacts {
+        hgroup {
+          display: block;
+          float: left;
+          width: 342px;
         }
       }
     }
