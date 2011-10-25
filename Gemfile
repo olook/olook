@@ -22,7 +22,6 @@ gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick', '~> 3.3'
 gem 'sass-rails'
-gem "i18n_routing", :git => 'git://github.com/olook/i18n_routing.git'
 
 group :development, :test do
   gem 'sqlite3'
