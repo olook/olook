@@ -34,20 +34,19 @@ $(document).ready(function() {
       $(".about select[name='year']").val()  != 'Ano'){
 
       $(".about .buttons li").removeClass("grey-button");
+      $(".about .buttons li input").removeAttr("disabled");
       $('.jcarousel-next').click();
     }else{
       $(".about .buttons li").addClass("grey-button");
     }
   });
-
-
 });
 
 init = {
   carousel : function() {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
-                 scroll: 1,
+                 scroll: 1
                });
              },
 
