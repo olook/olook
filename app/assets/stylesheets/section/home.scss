@@ -1,3 +1,5 @@
+@import 'partials/mixins';
+
 body {
   .content {
     .home {
@@ -10,8 +12,15 @@ body {
       }
 
       .start {
+        @include pink-button;
         margin: 110px 0 94px 27px;
         float: left;
+        padding: 25px 28px;
+        border-left: 1px solid #FFA1C4;
+        border-top: 1px solid #FFA1C4;
+        border-bottom: none;
+        border-right: none;
+
       }
 
       ul {
