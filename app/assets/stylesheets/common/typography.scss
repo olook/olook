@@ -14,6 +14,21 @@ body {
         }
       }
     }
+    
+    .home {
+      .start {
+        font-size: 28px;
+        color: #FFF;
+        @include border-radius(10px);
+        background: transparent;
+        cursor: pointer;
+        color: #FFF;
+        text-shadow: #B32963 1px 2px 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+      }
+    }
   }
   @for $i from 1 through 6 {
     h#{$i} {
@@ -128,6 +143,13 @@ body {
 
     .fb-connect {
       text-indent: -10000px;
+      
+      & + span {
+        font-family: 'Times New Roman', Times, sans-serif;
+        font-size: 44px;
+        font-style: italic;
+        color: #000;
+      }
     }
   }
 
