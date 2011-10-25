@@ -40,7 +40,6 @@ $(document).ready(function() {
       $(".about .buttons li").addClass("grey-button");
     }
   });
-  
 
 });
 
@@ -48,13 +47,30 @@ init = {
   carousel : function() {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
+                 itemFirstInCallback : {
+                    onBeforeAnimation : init.hideArrow,
+                    onAfterAnimation : init.showArrow
+                 },
                  scroll: 1
                });
              },
 
-  mycarousel_initCallback : function(carousel) {
-    $('#next_link').bind('click', function() {
+  showArrow : function(instance, item, index, state) {
+        if(index == '1') {
+          $('.jcarousel-prev').css('display', 'none');
+        }else{
+          $('.jcarousel-prev').css('display', 'block');
+        }
+  },
 
+  hideArrow : function() {
+        $('.jcarousel-prev').css('display', 'none');
+  },
+
+  mycarousel_initCallback : function(carousel) {
+    $('.jcarousel-prev').css('display', 'block');
+
+    $('#next_link').bind('click', function() {
       elemtId = "#question_" + index;
       carouselItem = $("#question_" + index);
       if (carouselItem.hasClass('images')) {
@@ -65,7 +81,7 @@ init = {
       if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
         carousel.next();
         index++;
-      }
+      };
     return false;
     });
 
