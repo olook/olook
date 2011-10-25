@@ -25,9 +25,18 @@ body {
         width: 194px;
         height: 25px;
         margin: 20px 0 20px 126px;
+        float: left;
+
+        & + span {
+          display: block;
+          padding: 2px 10px 0;
+          float: left;
+        }
       }
 
       form {
+        clear: both;
+
         fieldset {
           ol {
             li {
