@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
 
-#  before_filter :check_survey_response, :only => [:new, :create]
+  before_filter :check_survey_response, :only => [:new, :create]
 
   def new
     if data = user_data_from_session
@@ -14,12 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
-    if data = user_data_from_session
-      resource.uid = data["id"]
-      resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
-    end
-
-    resource.is_invited = true if session[:invite]
+    set_resource_attributes(resource)
 
     if resource.save
       if resource.active_for_authentication?
@@ -58,6 +53,16 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def set_resource_attributes(resource)
+    if data = user_data_from_session
+      resource.uid = data["id"]
+      resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
+    end
+    bday = session[:birthday]
+    resource.birthday = Date.new(bday[:year].to_i, bday[:month].to_i, bday[:day].to_i)
+    resource.is_invited = true if session[:invite]
+  end
 
   def build_answers(session)
     answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])

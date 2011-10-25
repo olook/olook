@@ -5,6 +5,8 @@ describe RegistrationsController do
 
   let(:user_attributes) { {:email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :first_name => "User Name", :last_name => "Last Name" } }
 
+  let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
+
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -39,8 +41,10 @@ describe RegistrationsController do
 
   describe "POST create with profile_points" do
     it "should create user points" do
-     session[:profile_points] = {1 => 2, 3 => 4}
-     expect {
+      session[:questions] = {:foo => :bar}
+      session[:birthday] = birthday
+      session[:profile_points] = {1 => 2, 3 => 4}
+      expect {
           post :create, :user => user_attributes
         }.to change(Point, :count).by(session[:profile_points].size)
     end
@@ -49,6 +53,8 @@ describe RegistrationsController do
   describe "POST create without profile_points" do
 
     before :each do
+      session[:questions] = {:foo => :bar}
+      session[:birthday] = birthday
       ProfileBuilder.any_instance.stub(:create_user_points)
     end
 
@@ -59,26 +65,36 @@ describe RegistrationsController do
         }.to change(User, :count).by(1)
     end
 
+    it "should assigns user birthday" do
+     session[:profile_points] = :some_data
+     session[:birthday] = birthday
+     post :create, :user => user_attributes
+     user = User.find_by_email(user_attributes[:email])
+     user.birthday.to_s.should == "1987-09-27"
+    end
+
     it "should redirect to welcome page" do
       session[:profile_points] = :some_data
       post :create, :user => user_attributes
       response.should redirect_to(welcome_path)
     end
 
-    it "should redirect not to welcome page" do
+    it "should not redirect to welcome page" do
       session[:profile_points] = :some_data
       resource = double
       resource.stub(:save).and_return(false)
+      controller.stub(:set_resource_attributes)
       controller.stub(:resource).and_return(resource)
       post :create, :user => user_attributes
       response.should_not redirect_to(welcome_path)
     end
 
-    it "should redirect not to welcome page" do
+    it "should not redirect to welcome page" do
       session[:profile_points] = :some_data
       resource = double
       resource.stub(:save).and_return(true)
       resource.stub(:active_for_authentication?).and_return(false)
+      controller.stub(:set_resource_attributes)
       controller.stub(:resource).and_return(resource)
       controller.stub(:inactive_reason)
       post :create, :user => user_attributes
@@ -106,37 +122,18 @@ describe RegistrationsController do
 
     it "should create a SurveyAnswers with questions and birthday" do
      session[:profile_points] = :some_data
-     session[:questions] = {:foo => :bar}
-     session[:birthday] = {:day => 23}
      post :create, :user => user_attributes
-     SurveyAnswer.last.answers.should eq({:foo=>:bar, :day=>23})
-    end
-
-    it "should create a SurveyAnswers with just questions" do
-     session[:profile_points] = :some_data
-     session[:questions] = {:foo => :bar}
-     post :create, :user => user_attributes
-     SurveyAnswer.last.answers.should eq({:foo=>:bar})
+     SurveyAnswer.last.answers.should eq({:foo=>:bar}.merge(birthday))
     end
 
     it "should clean the sessions" do
      session[:profile_points] = :some_data
-     session[:questions] = :some_data
      session[:invite] = {:intive_token => Devise.friendly_token}
      session["devise.facebook_data"] = {"extra" => {"user_hash" => "xyz"}, "credentials" => {"token" => "abc"}}
      User.any_instance.stub(:accept_invitation_with_token)
      User.stub(:new_with_session).and_return(Factory.build(:user, :cpf => "11144477735"))
      post :create, :user => user_attributes.merge!({:cpf => "11144477735"})
      [:profile_points, :questions, :invite, "devise.facebook_data"].each {|key| session[key].should == nil}
-    end
-  end
-
-  describe "POST create" do
-    it "should create a User" do
-     profile_points = :some_data
-     session[:profile_points] = profile_points
-     ProfileBuilder.any_instance.should_receive(:create_user_points).with(profile_points)
-     post :create, :user => user_attributes
     end
   end
 end
