@@ -6,10 +6,11 @@ $pink: #F73C89;
 
 @mixin pink_button($top-color: #FB619E, $bottom-color: #DD3178, $font-size: 26px, $padding-top: 15px, $padding-bottom: 15px, $padding-left: 50px, $padding-right: 50px, $radius: 10px) {
   background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -o-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -moz-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -webkit-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -ms-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -o-linear-gradient(top, $top-color 30%, $bottom-color 60%);
+  background-image: -moz-linear-gradient(top, $top-color 28%, $bottom-color 72%);
+  background-image: -webkit-linear-gradient(top, $top-color 30%, $bottom-color 60%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB619E, endColorstr=#DD3178);
+  -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB619E, endColorstr=#DD3178)';
 
   background-image: -webkit-gradient(
           linear,
@@ -23,7 +24,7 @@ $pink: #F73C89;
 
   input[type='submit'] {
     @include border-radius($radius);
-    background: #FB619E;
+    background: transparent;
     padding-top: $padding-top;
     padding-bottom: $padding-bottom;
     padding-left: $padding-left;
@@ -47,7 +48,8 @@ $pink: #F73C89;
   background-image: -o-linear-gradient(top, $top-color 50%, $bottom-color 60%);
   background-image: -moz-linear-gradient(top, $top-color 50%, $bottom-color 60%);
   background-image: -webkit-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -ms-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E1E0E0, endColorstr=#ADADAD);
+  -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#E1E0E0, endColorstr=#ADADAD)';
 
   background-image: -webkit-gradient(
           linear,
