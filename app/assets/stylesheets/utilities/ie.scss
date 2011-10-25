@@ -1,14 +1,65 @@
 html {
+  &.ie7 {
+    body {
+      .content {
+        .home {
+          .steps {
+            ul {
+              li {
+                width:   100%;
+
+                strong {
+                  width: 50px;
+                }
+                span {
+                  letter-spacing: -2px;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      header {
+        a {
+          margin-left: 5px;
+        }
+
+        #session {
+          #sign-in-dropdown {
+            form {
+              fieldset.buttons {
+                ol {
+                  li.forgot-password {
+                    & + li input[type='submit'] {
+                      border: none;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   &.ie8 {
     body {
-      #survey {
-        ul {
-          &.questions {
-            .words {
-              ol {
-                li {
-                  input[type='checkbox'] {
-                    display: block;
+      header {
+        .content {
+          #session {
+            #sign-in-dropdown {
+              form {
+                fieldset.inputs {
+                  ol {
+                    li {
+                      input {
+                        &[type='email'], &[type='password']  {
+                          padding: 5px 8px;
+                        }
+                      }
+                    }
                   }
                 }
               }
