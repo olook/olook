@@ -40,6 +40,8 @@ $(document).ready(function() {
       $(".about .buttons li").addClass("grey-button");
     }
   });
+  
+
 });
 
 init = {
@@ -75,6 +77,8 @@ init = {
         el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
         return false;
     });
+  
+    $('.content .loading').remove();
   },
 
   bindActions : function() {

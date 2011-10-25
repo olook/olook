@@ -3,36 +3,37 @@
 <% end %>
 <%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
 <span id="next_link"></span>
-<div id="survey">
-  <%= form_tag({:controller => "survey", :action => "create"}) do %>
-    <input type="hidden" id="id_first_question" value="<%= @id_first_question %>" />
-    <ul class="questions">
+<div class="loading"></div>
+  <div id="survey">
+    <%= form_tag({:controller => "survey", :action => "create"}) do %>
+      <input type="hidden" id="id_first_question" value="<%= @id_first_question %>" />
+      <ul class="questions">
 
-      <% question_number = 0 %>
-      <% for question in @questions[0..@questions.size - 5] %>
-        <li id="question_<%= question.id %>" class="images">
-          <h2><%= question.title %></h2>
-          <ol class="options">
-            <%= render "answers_radio_button", :question => question, :question_number => (question_number += 1) %>
-          </ol>
-        </li>
-      <% end %>
+        <% question_number = 0 %>
+        <% for question in @questions[0..@questions.size - 5] %>
+          <li id="question_<%= question.id %>" class="images">
+            <h2><%= question.title %></h2>
+            <ol class="options">
+              <%= render "answers_radio_button", :question => question, :question_number => (question_number += 1) %>
+            </ol>
+          </li>
+        <% end %>
 
-      <% question = @questions[@questions.size - 4]%>
-       <li id="question_<%= question.id %>" class="words">
-          <h2><%= question.title %></h2>
-          <ol class="options">
-            <%= render "answers_check_box", :question => question %>
-          </ol>
-        </li>
+        <% question = @questions[@questions.size - 4]%>
+         <li id="question_<%= question.id %>" class="words">
+            <h2><%= question.title %></h2>
+            <ol class="options">
+              <%= render "answers_check_box", :question => question %>
+            </ol>
+          </li>
 
-      <% question_shoe_size = @questions[@questions.size - 2] %>
-      <% question_dress_size = @questions.last %>
-       <li id="question_<%= question.id %>" class="about">
-          <ol class="options">
-            <%= render "answers_about", :question_shoe_size => question_shoe_size, :question_dress_size => question_dress_size %>
-          </ol>
-        </li>
-  </ul>
-</div>
+        <% question_shoe_size = @questions[@questions.size - 2] %>
+        <% question_dress_size = @questions.last %>
+         <li id="question_<%= question.id %>" class="about">
+            <ol class="options">
+              <%= render "answers_about", :question_shoe_size => question_shoe_size, :question_dress_size => question_dress_size %>
+            </ol>
+          </li>
+    </ul>
+  </div>
 <% end %>

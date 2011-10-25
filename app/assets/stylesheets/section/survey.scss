@@ -1,4 +1,15 @@
 body {
+  .loading {
+    background: url('/assets/common/ajax-loader.gif') #FFF 50% 50% no-repeat;
+    width: 990px;
+    height: 500px;
+    position: absolute;
+    z-index: 10;
+    opacity:0.85;
+    -moz-opacity: 0.85;
+    filter: alpha(opacity=85);
+  }
+
   #survey {
     input[type='radio'] {
       display: none;
