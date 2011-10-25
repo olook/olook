@@ -60,7 +60,7 @@ class RegistrationsController < Devise::RegistrationsController
       resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
     end
     bday = session[:birthday]
-    resource.birthday = Date.new(bday[:year].to_i, bday[:month].to_i, bday[:day].to_i)
+    resource.birthday = Date.new(bday[:year].to_i, bday[:month].to_i, bday[:day].to_i) if bday
     resource.is_invited = true if session[:invite]
   end
 

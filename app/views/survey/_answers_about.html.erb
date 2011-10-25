@@ -1,8 +1,8 @@
 <li>
   <%= render :partial => 'answers_about_shoe_size', :locals => {:question => question_shoe_size} %>
-  
+
   <%= render :partial => 'answers_about_dress_size', :locals => {:question => question_dress_size} %>
-  
+
   <h3>Data de Nascimento</h3>
   <fieldset class="select">
     <select name='day'>
@@ -11,7 +11,7 @@
         <option value="<%= d %>"><%= "%02d" % d %></option>
       <% end %>
     </select>
-    
+
     <select name='month'>
       <option>Mês</option>
       <% (1..12).each do |m| %>
