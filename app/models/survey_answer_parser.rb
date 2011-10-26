@@ -5,7 +5,7 @@ class SurveyAnswerParser
     @answers = answers
   end
 
-  def build_questions_answers
+  def build_survey_answers
     parsed_questions = parse()
     selected_questions = Question.find(get_questions_ids)
     selected_answers = Answer.find(get_answers_ids)
@@ -21,8 +21,10 @@ class SurveyAnswerParser
   def parse
     parsed_questions = []
     answers.each do |question, answer|
-      question = question.to_s.scan(/[0-9]+/).first
-      parsed_questions << {question => answer}
+      unless birthday_question?(question)
+        question = question.to_s.scan(/[0-9]+/).first
+        parsed_questions << {question => answer}
+      end
     end
     parsed_questions
   end
@@ -30,8 +32,10 @@ class SurveyAnswerParser
   def get_questions_ids
     questions_ids = []
     answers.each do |question, answer|
-      question = question.to_s.scan(/[0-9]+/).first
-      questions_ids << question
+      unless birthday_question?(question)
+        question = question.to_s.scan(/[0-9]+/).first
+        questions_ids << question
+      end
     end
     questions_ids
   end
@@ -39,12 +43,18 @@ class SurveyAnswerParser
   def get_answers_ids
     answers_ids = []
     answers.each do |question, answer|
-      answers_ids << answer
+      unless birthday_question?(question)
+        answers_ids << answer
+      end
     end
     answers_ids
   end
 
   private
+
+  def birthday_question?(question)
+    (question == "day" || question == "month" || question == "year")
+  end
 
   def find_question(questions, item)
     questions.select{|q| q.id == item.keys[0].to_i}.first
