@@ -5,6 +5,19 @@ class QuestionParser
     @questions = questions
   end
 
+  def build_questions_answers
+    parsed_questions = parse
+    selected_questions = Question.find(get_questions_ids)
+    selected_answers = Answer.find(get_answers_ids)
+    questions_answers = []
+    parsed_questions.each do |item|
+      q = selected_questions.select{|q| q.id == item.keys[0].to_i}.first
+      a = selected_answers.select{|a| a.id == item.values[0].to_i}.first
+      questions_answers << {:question => q, :answer => a}
+    end
+    questions_answers
+  end
+
   def parse
     parsed_questions = []
     questions.each do |question, answer|
