@@ -26,7 +26,7 @@ class SurveyAnswerParser
         parsed_questions << {question => answer}
       end
     end
-    parsed_questions
+    parsed_questions.compact
   end
 
   def get_questions_ids
@@ -37,7 +37,7 @@ class SurveyAnswerParser
         questions_ids << question
       end
     end
-    questions_ids
+    questions_ids.compact
   end
 
   def get_answers_ids

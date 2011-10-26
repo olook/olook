@@ -2,8 +2,8 @@
   <ul class="question">
     <% question.answers.each do |answer| %>
       <li>
-        <label for="<%= "questions_question_dress_#{answer.id}" %>"> <%= answer.title %>
-          <%= radio_button_tag("questions[question_dress]", "#{answer.id}") %>
+        <label for="<%= "questions_question_#{answer.question.id}_#{answer.id}" %>"> <%= answer.title %>
+          <%= radio_button_tag("questions[question_#{answer.question.id}]", "#{answer.id}") %>
       </label>
       </li>
     <% end %>
