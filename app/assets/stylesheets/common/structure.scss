@@ -2,9 +2,88 @@
 
 body {
   .content {
-    width:990px;
-    margin:0 auto 0 auto;
-    overflow:hidden;
+    width: 990px;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+  
+    #survey {
+      .olookSelect {
+        background: url('/assets/common/select-bg.png') repeat-x;
+        width: 74px;
+        float: left;
+        border: 1px solid #C9C9C9;
+        padding: 10px 0 8px;
+        margin-right: 10px;
+
+        > span {
+          background: url('/assets/common/select-arrow-down.png') 74px no-repeat;
+          display: block;
+          color: $pink;
+          font-weight: bold;
+          padding-left: 10px;
+        }
+
+        &:hover {
+          outline: none;
+        }
+
+        .styleSelect_item {
+          background: #FFF;
+          width: 94px;
+          margin-top: 6px;
+          border: 1px solid #C9C9C9;
+          border-top: none;
+          margin-left: -1px;
+
+          &:hover {
+            outline: none;
+          }
+
+          .styleSelect_item_content {
+            height: 110px;
+
+            .jspContainer {
+              .jspVerticalBar {
+                background: transparent;
+                margin-right: 2px;
+
+                .jspTrack {
+                  .jspDrag {
+                    width: 3px;
+                    background: #CCC;
+                  }
+                }
+                
+                .jspTrack {
+                  background: transparent;
+                }
+              }
+
+              .jspPane {
+                width: 94px !important;
+              }
+            }
+
+            ul {
+              li {
+                display: block;
+                float: none;
+                text-align: center;
+
+                span {
+                  padding: 10px 0;
+
+                  &:hover {
+                    background: #F4F4F4;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   header {
