@@ -12,7 +12,7 @@ def answer_survey
   click_link "Comece aqui. É grátis"
   choose "questions[question_#{Question.first.id}]"
   select('10', :from => 'day')
-  select('10', :from => 'month')
+  select('Setembro', :from => 'month')
   select('1900', :from => 'year')
   click_button "Enviar"
 end
