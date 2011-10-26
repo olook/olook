@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Admin::UsersController do
   render_views
-  let!(:user) { FactoryGirl.create(:member) }
+  let!(:user) { FactoryGirl.create(:user) }
   let!(:valid_attributes) { user.attributes }
 
   describe "GET index" do
@@ -15,6 +15,9 @@ describe Admin::UsersController do
 
   describe "GET show" do
     it "assigns the requested user as @user" do
+      answer = FactoryGirl.create(:answer)
+      question = answer.question
+      user.create_survey_answer(:answers => {"question_#{question.id}" => answer.id})
       get :show, :id => user.id.to_s
       assigns(:user).should eq(user)
     end

@@ -24,6 +24,15 @@
     <b>Created At:</b>
     <%= @user.created_at %>
   </p>
+  <p>
+    <% if @survey_answers.any? %>
+      <ul>
+        <% @survey_answers.each do |item| %>
+          <li><%= item[:question].title %> : <strong> <%= item[:answer].title %> </strong></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </p>
 </div>
 
 <% content_for :secondary_navigation do %>

@@ -8,3 +8,8 @@ Factory.define :answer_from_sporty_profile, :class => Answer do |f|
   f.title "Sporty Answer Title"
   f.association :question, :factory => :question
 end
+
+Factory.define :answer, :class => Answer do |f|
+  f.title "Answer Title"
+  f.association :question, :factory => :question
+end
