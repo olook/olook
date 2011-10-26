@@ -66,6 +66,7 @@ body {
                 img {
                   margin: -10px;
                   border: 10px solid $pink;
+                  cursor: pointer;
                 }
                 h3 {
                   color: $pink;
@@ -89,6 +90,7 @@ body {
                 display: inline-block;
                 text-align: center;
                 color: #FFF;
+                cursor: pointer;
               }
               &.selected {
                 label {
