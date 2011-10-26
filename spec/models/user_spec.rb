@@ -144,4 +144,11 @@ describe User do
       expect { subject.accept_invitation_with_token('xxxx') }.to raise_error
     end
   end
+
+  describe "instance methods" do
+    it "should return user answers" do
+      survey_answers = FactoryGirl.create(:survey_answers, :user => subject)
+      subject.survey_answers.should == survey_answers.answers
+    end
+  end
 end
