@@ -3,10 +3,13 @@ require "spec_helper"
 describe do SurveyAnswerParser
 
   let(:questions) { questions = {
-      question_45:  '151',
-      question_46:  '154',
-      question_47_161: '161',
-      question_47_162: '162'
+      "question_45" => '151',
+      "question_46" =>  '154',
+      "question_47_161" => '161',
+      "question_47_162" => '162',
+      "day" => '5',
+      "month" => '9',
+      "year" => '1984'
     }
   }
 
@@ -43,6 +46,6 @@ describe do SurveyAnswerParser
       {:question => question2, :answer => answer2},
       {:question => question2, :answer => answer1}
     ]
-    parser.build_questions_answers.should == expected
+    parser.build_survey_answers.should == expected
   end
 end
