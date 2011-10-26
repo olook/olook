@@ -19,6 +19,12 @@ html {
           }
         }
       }
+
+      #survey {
+        ul.questions li.about fieldset.buttons li input[type='submit'] {
+          padding: 10px 15px;
+        }
+      }
       
       header {
         a {
