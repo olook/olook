@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-[Admin, Profile, Question, Answer, Weight].map(&:delete_all)
+[Admin, Profile, Question, Answer, Weight, SurveyAnswer].map(&:delete_all)
 
 Admin.create(:email => "admin@olook.com", :password =>"123456")
 
