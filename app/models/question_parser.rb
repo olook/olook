@@ -6,13 +6,13 @@ class QuestionParser
   end
 
   def build_questions_answers
-    parsed_questions = parse
+    parsed_questions = parse()
     selected_questions = Question.find(get_questions_ids)
     selected_answers = Answer.find(get_answers_ids)
     questions_answers = []
     parsed_questions.each do |item|
-      q = selected_questions.select{|q| q.id == item.keys[0].to_i}.first
-      a = selected_answers.select{|a| a.id == item.values[0].to_i}.first
+      q = find_question(selected_questions, item)
+      a = find_answer(selected_answers, item)
       questions_answers << {:question => q, :answer => a}
     end
     questions_answers
@@ -43,4 +43,15 @@ class QuestionParser
     end
     answers_ids
   end
+
+  private
+
+  def find_question(questions, item)
+    questions.select{|q| q.id == item.keys[0].to_i}.first
+  end
+
+  def find_answer(answers, item)
+    answers.select{|a| a.id == item.values[0].to_i}.first
+  end
+
 end
