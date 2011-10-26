@@ -10,7 +10,7 @@
       <ul class="questions">
 
         <% question_number = 0 %>
-        <% for question in @questions[0..@questions.size - 5] %>
+        <% for question in @questions[0..@questions.size - 6] %>
           <li id="question_<%= question.id %>" class="images">
             <h2><%= question.title %></h2>
             <ol class="options">
@@ -19,13 +19,22 @@
           </li>
         <% end %>
 
+        <% question = @questions[@questions.size - 5]%>
+        <li id="question_<%= question.id %>" class="images shoes">
+          <h2><%= question.title %></h2>
+          <ol class="options">
+            <%= render "answers_shoes", :question => question, :question_number => (question_number += 1) %>
+          </ol>
+        </li>
+
         <% question = @questions[@questions.size - 4]%>
-         <li id="question_<%= question.id %>" class="words">
-            <h2><%= question.title %></h2>
-            <ol class="options">
-              <%= render "answers_check_box", :question => question %>
-            </ol>
-          </li>
+        <li id="question_<%= question.id %>" class="words">
+          <h2><%= question.title %></h2>
+          <ol class="options">
+            <%= render "answers_check_box", :question => question %>
+          </ol>
+        </li>
+
 
         <% question_shoe_size = @questions[@questions.size - 2] %>
         <% question_dress_size = @questions.last %>

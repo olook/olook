@@ -81,6 +81,33 @@ body {
               }
             }
           }
+          
+          &.shoes {
+            ol {
+              &.options {
+                width: 884px;
+                padding-left: 50px;
+              }
+              li {
+                width: 201px;
+                height: 285px;
+                margin: 0 10px;
+
+                img {
+                  border: 1px solid #E9E9E9;
+                }
+
+                &:hover, &.selected {
+                  color: rgb(189, 76, 116);
+                  img {
+                    margin: -10px;
+                    border: 11px solid $pink;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
         }
         
         &.words {
