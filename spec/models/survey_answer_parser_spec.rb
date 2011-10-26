@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe do QuestionParser
+describe do SurveyAnswerParser
 
   let(:questions) { questions = {
       question_45:  '151',
@@ -11,18 +11,18 @@ describe do QuestionParser
   }
 
   it "should parse the questions and return just the id as indice" do
-    parser = QuestionParser.new(questions)
+    parser = SurveyAnswerParser.new(questions)
     expected = [{"45" => '151'}, {"46" => '154'}, {"47" => '161'}, {"47" => '162'}]
     parser.parse.should == expected
   end
 
   it "should return questions ids" do
-    parser = QuestionParser.new(questions)
+    parser = SurveyAnswerParser.new(questions)
     parser.get_questions_ids.should == ["45", "46", "47", "47"]
   end
 
   it "should return answers ids" do
-    parser = QuestionParser.new(questions)
+    parser = SurveyAnswerParser.new(questions)
     parser.get_answers_ids.should == ["151", "154", "161", "162"]
   end
 
@@ -37,7 +37,7 @@ describe do QuestionParser
       "question_#{question2.id}_#{answer2.id}" => answer2.id,
       "question_#{question2.id}_#{answer1.id}" => answer1.id,
     }
-    parser = QuestionParser.new(questions)
+    parser = SurveyAnswerParser.new(questions)
     expected = [
       {:question => question1, :answer => answer1},
       {:question => question2, :answer => answer2},

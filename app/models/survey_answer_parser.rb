@@ -1,8 +1,8 @@
-class QuestionParser
-  attr_reader :questions
+class SurveyAnswerParser
+  attr_reader :answers
 
-  def initialize(questions)
-    @questions = questions
+  def initialize(answers)
+    @answers = answers
   end
 
   def build_questions_answers
@@ -20,7 +20,7 @@ class QuestionParser
 
   def parse
     parsed_questions = []
-    questions.each do |question, answer|
+    answers.each do |question, answer|
       question = question.to_s.scan(/[0-9]+/).first
       parsed_questions << {question => answer}
     end
@@ -29,7 +29,7 @@ class QuestionParser
 
   def get_questions_ids
     questions_ids = []
-    questions.each do |question, answer|
+    answers.each do |question, answer|
       question = question.to_s.scan(/[0-9]+/).first
       questions_ids << question
     end
@@ -38,7 +38,7 @@ class QuestionParser
 
   def get_answers_ids
     answers_ids = []
-    questions.each do |question, answer|
+    answers.each do |question, answer|
       answers_ids << answer
     end
     answers_ids
@@ -53,5 +53,4 @@ class QuestionParser
   def find_answer(answers, item)
     answers.select{|a| a.id == item.values[0].to_i}.first
   end
-
 end
