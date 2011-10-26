@@ -15,13 +15,13 @@
     <select name='month'>
       <option>Mês</option>
       <% (1..12).each do |m| %>
-        <option value="<%= m %>"><%= "%02d" % m %></option>
+        <option value="<%= m %>"><%= I18n.t('date.month_names')[m] %></option>
       <% end %>
     </select>
 
     <select id="birthdate" name='year'>
       <option>Ano</option>
-      <% Time.now.year.downto(1900) do |a| %>
+      <% (Time.now.year - 12).downto(1900) do |a| %>
         <option value="<%= a %>"><%= a %></option>
       <% end %>
     </select>
