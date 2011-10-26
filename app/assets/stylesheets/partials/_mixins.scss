@@ -46,7 +46,7 @@ $pink: #F73C89;
 @mixin grey_button($top-color: #FB619E, $bottom-color: #DD3178) {
   background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);
   background-image: -o-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -moz-linear-gradient(top, $top-color 50%, $bottom-color 60%);
+  background-image: -moz-linear-gradient(top, $top-color 28%, $bottom-color 72%);
   background-image: -webkit-linear-gradient(top, $top-color 50%, $bottom-color 60%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E1E0E0, endColorstr=#ADADAD);
   -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#E1E0E0, endColorstr=#ADADAD)';
