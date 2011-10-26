@@ -23,12 +23,17 @@ body {
       background: url('/assets/quiz/previous.png') no-repeat;
       width: 37px;
       height: 66px;
+      cursor: pointer;
     }
 
     .jcarousel-prev {
       position: absolute;
       top: 190px;
       left: 20px;
+
+      &:hover {
+        background: url('/assets/quiz/previous-hover.png') no-repeat;
+      }
 
       &.jcarousel-prev-disabled {
         display: none;
