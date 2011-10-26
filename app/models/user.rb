@@ -23,13 +23,17 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => true, :presence => true, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
-  
+
   #TODO: refactor CPF tests into CPFValidator class
   # http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates
   # validates :cpf, :presence => { :if => :is_invited? }
 
   def name
     "#{first_name} #{last_name}".strip
+  end
+
+  def survey_answers
+    survey_answer.answers
   end
 
   def self.find_for_facebook_oauth(access_token)
