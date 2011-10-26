@@ -10,12 +10,12 @@ body {
     .jcarousel-clip {
       width: 990px;
       height: 500px;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .jcarousel-item {
       width: 989px;
-      overflow: hidden;
+      overflow: visible;
       float: left;
     }
 
@@ -47,7 +47,7 @@ body {
 
     ol {
       &.options {
-        overflow: hidden;
+        overflow: visible;
         margin: 0 auto;
         li {
           float: left;
@@ -56,6 +56,8 @@ body {
     }
 
     ul.questions {
+      overflow: visible !important;
+
       li {
         &.images {
           ol {
@@ -163,7 +165,7 @@ body {
 
             &.buttons {
               float: right;
-              margin-top: 15px;
+              margin-top: -52px;
               li {
                 @include pink_button;
                 &.grey-button {
