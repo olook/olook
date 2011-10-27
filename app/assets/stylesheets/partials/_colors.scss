@@ -1,0 +1,84 @@
+body {
+  ol.colors {
+    li {
+      &.aths-special{
+        background: #EFEAD6;
+      }
+      &.straw {
+        background: #D4B889;
+      }
+
+      &.driftwood {
+        background: #B48456;
+      }
+
+      &.nevada {
+         background: #707173;
+      }
+
+      &.ship-gray {
+        background: #36353A;
+      }
+
+      @each $metal-colors in vis-vis-to-tree-poppy, colonial-white-to-koromiko, alto-to-silver-chalice, dusty-gray-to-boulder, mercury-to-silver {
+        &.#{$metal-colors} {
+          background-image: url('/assets/quiz/metal-colors.png');
+        }
+      }
+
+      &.colonial-white-to-koromiko {
+        background-position: -35px;
+      }
+
+      &.alto-to-silver-chalice {
+        background-position: -72px;
+      }
+
+      &.dusty-gray-to-boulder{
+        background-position: -108px;
+      }
+
+      &.mercury-to-silver {
+        background-position: -144px;
+      }
+
+      &.pink-flare {
+        background: #DBB8CC;
+      }
+      
+      &.peach-yellow{
+        background: #FBDAB1;
+      }
+      
+      &.chalky {
+        background: #EDD496;
+      }
+      
+      &.light-orchid {
+        background: #E3AFCA;
+      }
+      
+      &.vanilla-ice {
+        background: #F2D3E8;
+      }
+
+      &.golden-bell{
+        background: #DD8515;
+      }
+      
+      &.cardinal-pink{
+        background: #7C0769;
+      }
+      
+      &.windsor {
+        background: #470A6D;
+      }
+      &.observatory {
+         background: #048680;
+      }
+      &.black {
+        background: #000;
+      }
+    }
+  }
+}

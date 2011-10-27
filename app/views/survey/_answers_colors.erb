@@ -1,0 +1,29 @@
+<% colors = {
+   'Neutras' => ['aths-special', 'straw', 'driftwood', 'nevada', 'ship-gray'],
+   'Metalizadas' => ['vis-vis-to-tree-poppy', 'colonial-white-to-koromiko', 'alto-to-silver-chalice', 'dusty-gray-to-boulder', 'mercury-to-silver'],
+   'Tons Pastel' => ['pink-flare', 'peach-yellow', 'chalky', 'light-orchid', 'vanilla-ice'],
+   'Vivas' => ['golden-bell', 'cardinal-pink', 'windsor', 'observatory', 'black']
+} %>
+
+<li>
+  <% colors.each do |title, colors| %>
+    <div>
+      <h3><%= title %></h3>
+      <ol class="colors">
+        <% colors.each do |color| %>
+          <li class="<%= color %>"><%= color.gsub("-", " ") %></li>
+        <% end %>
+      </ol>
+
+      <ol class="stars">
+        <% 5.times do |i| %>
+          <li>
+            <label for="<%= "#{i}_#{i}" %>">
+              <%= radio_button_tag("#{i}", "#{i}") %>
+            </label>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  <% end %>
+</li>
