@@ -6,7 +6,7 @@
 
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag  "application" %>
+    <%= stylesheet_application %>
 
     <%= yield :head %>
 
@@ -35,7 +35,7 @@
 
           <% else %>
             <span>
-              <p>Já faz parte?</p> 
+              <p>Já faz parte?</p>
               <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %>
             </span>
           <% end %>
