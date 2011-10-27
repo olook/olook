@@ -32,8 +32,8 @@
 
 <section id="share-mail">
   <hgroup>
-    <h1>Compartilhe seu link pessoal</h1>
-    <h2>Envie seu link pessoal pelo FaceBook, Twitter, MSN, Orkut e por onde mais você quiser</h2>
+    <h1>Compartilhe <br /> seu link pessoal</h1>
+    <h2>Envie seu link pessoal <br /> pelo FaceBook, Twitter, MSN, Orkut e <br /> por onde mais você quiser</h2>
   </hgroup>
 
   <form>
@@ -42,6 +42,7 @@
         <li>
           <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>">
           <ul class="share">
+            <li>Compartilhe:</li>
             <li><a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
             <li>
               <div id="orkut_share" style="width:100%;"></div>
@@ -57,9 +58,6 @@
                   }).draw('orkut_share');
                 }, true);
             </script>
-          </li>
-          <li>
-            <div class="fb-like" data-href="http://localhost:3000/" data-send="false" data-width="200" data-show-faces="false" data-action="recommend" data-font="verdana"></div>
           </li>
           <li>
             <div id="fb-root"></div>
@@ -80,8 +78,8 @@
 
 <section id="invite-mail">
   <hgroup>
-    <h1>Convide suas amigas por email</h1>
-    <h2>Digite o email de suas amigas no campo ao lado separados por vírgula </h2>
+    <h1>Convide suas <br /> amigas por email</h1>
+    <h2>Digite o email de suas amigas <br /> no campo ao lado separados <br /> por vírgula </h2>
   </hgroup>
 
   <form>
@@ -92,13 +90,18 @@
         </li>
       </ol>
     </fieldset>
+    <fieldset class="buttons">
+      <ol>
+        <li><input name="commit" type="submit" value="Convidar"></li>
+      </ol>
+    </fieldset>
   </form>
 </section>
 
 <section id="import-contacts">
   <hgroup>
-    <h1>Importe sua lista de contatos</h1>
-    <h2>Importe sua lista de contatos do Gmail, Yahoo! ou MSN Live</h2>
+    <h1>Importe sua <br /> lista de contatos</h1>
+    <h2>Importe sua lista de contatos <br /> do Gmail, Yahoo! ou MSN Live</h2>
   </hgroup>
 
   <ul class="services">
