@@ -6,7 +6,7 @@ class SurveyController < ApplicationController
 
   def new
     @questions = Question.includes(:answers)
-    @id_first_question = @questions.first.id if @questions.size > 0
+    @presenter = SurveyQuestions.new(@questions)
   end
 
   def create
