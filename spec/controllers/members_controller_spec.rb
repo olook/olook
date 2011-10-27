@@ -77,17 +77,24 @@ describe MembersController do
   end
 
   describe "#show_imported_contacts" do
-    it "should import contacts" do
-      email_provider = 1
-      login = "john@doe.com"
-      password = "foobar"
+    before :each do
+      @email_provider = 1
+      @login = "john@doe.com"
+      @password = "foobar"
 
-      contacts = double
-      contacts.stub(:contacts)
-      get_contacts = Contacts::Gmail
-      get_contacts.should_receive(:new).with(login, password).and_return(contacts)
+      @adapter = double
+      @adapter.stub(:contacts).and_return(@contacts = double)
+    end
 
-      post :show_imported_contacts, :email_provider => email_provider, :login => login, :password => password
+    it "should assign @contacts" do
+      ContactsAdapter.stub(:new).with(@login, @password).and_return(@adapter)
+      post :show_imported_contacts, :email_provider => @email_provider, :login => @login, :password => @password
+      assigns(:contacts).should eq(@contacts)
+    end
+
+    it "should call contacts from contacts adapter" do
+      ContactsAdapter.should_receive(:new).with(@login, @password).and_return(@adapter)
+      post :show_imported_contacts, :email_provider => @email_provider, :login => @login, :password => @password
       response.should render_template("show_imported_contacts")
     end
   end
