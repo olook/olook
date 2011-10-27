@@ -9,13 +9,6 @@
       <input type="hidden" id="id_first_question" value="<%= @presenter.id_first_question %>" />
       <ul class="questions">
 
-        <li id="question" class="colors">
-          <h2>2.Lorem ipsum dolor sit amet</h2>
-          <ol class="options">
-            <%= render "answers_colors" %>
-          </ol>
-        </li>
-
         <% question_number = 0 %>
         <% for question in @presenter.common_questions %>
           <li id="question_<%= question.id %>" class="images">
