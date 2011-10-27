@@ -7,11 +7,13 @@
   width: 970px;
   margin: 0 auto;
 }
-
-h1 {
+#about h1 {
   font-family: Times, “Times New Roman”, Georgia, serif;
   font-style: oblique;
   font-size: 40px;
+  margin: 12px 0px;
+}
+h1 {
   margin: 12px 0px;
 }
 
@@ -26,6 +28,7 @@ h1 {
 }
 
 #main_describe h2 {
+  font-family: sans-serif;
   font-size: 26px;
   line-height: 24px;
   margin: 3px 0px;
@@ -33,7 +36,7 @@ h1 {
 
 #main_describe p {
   font-size: 16px;
-  margin-bottom: 25px;
+  margin: 25px 0;
 }
 
 #main_describe a:link, #main_describe a:visited {
@@ -53,9 +56,11 @@ h1 {
   margin: 35px 0;
 }
 
-
-#function ul {
-  margin-left: -40px;
+#function h1 {
+  font-family: Times, “Times New Roman”, Georgia, serif;
+  font-style: oblique;
+  font-size: 40px;
+  margin: 12px 0px;
 }
 
 #function li {
@@ -76,6 +81,8 @@ h1 {
   font-size: 15px;
   text-transform: uppercase;
   text-align: center;
+  font-family: sans-serif;
+  margin: 15px 0;
 }
 
 .box p {
@@ -101,16 +108,22 @@ h1 {
 
 #terms h1 {
   margin-bottom: 30px;
+  font-family: Times, “Times New Roman”, Georgia, serif;
+  font-style: oblique;
+  font-size: 40px;
+  margin: 12px 0px;
+  
 }
 
 #terms h2 {
   font-size: 16px;
   margin: 20px 0px -5px 0px;
   text-transform: uppercase;
+  font-family: sans-serif;
 }
 
 #terms p {
-  margin-bottom: 20px;
+  margin: 13px 0 20px;
 }
 
 .steps {
