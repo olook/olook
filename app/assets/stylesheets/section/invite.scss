@@ -113,10 +113,66 @@ body {
 
     section {
       &#share-mail, &#invite-mail, &#import-contacts {
+        background: url('/assets/common/division.png') center bottom no-repeat;
+        width: 858px;
+        padding: 40px 50px;
+        overflow: hidden;
+
         hgroup {
           display: block;
           float: left;
-          width: 342px;
+          width: 348px;
+          margin-right: 60px;
+        }
+
+        form {
+          float: left;
+          padding-top: 15px;
+
+          input[type='text'], textarea {
+            background: url('/assets/common/bg-form-invite.png') bottom repeat-x;
+            padding: 12px 8px;
+            border: 1px solid #BBB;
+            width: 430px;
+          }
+
+          textarea {
+            background: url('/assets/common/bg-textarea.png') bottom repeat-x;
+            height: 73px;
+            resize: none;
+          }
+        }
+
+        .buttons {
+          li {
+            @include pink-button();
+            width: 285px;
+            margin: 15px auto 0;
+
+            input[type='submit'] {
+              width: 285px;
+              font-size: 18px;
+            }
+          }
+        }
+
+        .share {
+          margin-top: 20px;
+
+          li {
+            float: left;
+            margin-left: 10px;
+
+            &:first-child {
+              margin-left: 0;
+            }
+          }
+        }
+      }
+
+      &#invite-mail {
+        form {
+          padding-top: 0;
         }
       }
     }
