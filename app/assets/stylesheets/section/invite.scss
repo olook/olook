@@ -168,6 +168,32 @@ body {
             }
           }
         }
+
+        .services {
+          float: left;
+          overflow: hidden;
+
+          li {
+            float: left;
+            margin-top: 30px;
+            margin-left: 70px;
+
+            a {
+              background: url('/assets/common/mail-services-icons.png') no-repeat;
+              display: block;
+              width: 72px;
+              height: 72px;
+              
+              &.gmail {
+                background-position: 0 -76px;
+              }
+
+              &.msn {
+                background-position: 0 -147px;
+              }
+            }
+          }
+        }
       }
 
       &#invite-mail {
