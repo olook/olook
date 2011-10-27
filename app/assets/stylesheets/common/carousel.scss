@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'partials/colors';
 
 body {
   #survey {
@@ -235,6 +236,49 @@ body {
                         display: inline-block;
                       }
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.colors {
+          ol.options {
+            li {
+              div {
+                border: 1px solid #CfCfCf;
+                overflow: hidden;
+                padding: 15px 25px;
+
+                h3 {
+                  float: left;
+                  margin: 0;
+                  padding: 0;
+                  height: auto;
+                  font-family: 'Arial', sans-serif;
+                  font-style: normal;
+                  font-size: 28px;
+                  margin-right: 15px;
+                  width: 200px;
+                  text-align: right;
+                }
+
+                ol {
+                  &.colors {
+                    overflow: hidden;
+
+                    li {
+                      width: 35px;
+                      height: 35px;
+                      margin-right: 1px;
+                      text-indent: -10000px;
+                      font-size: 0;
+                    }
+                  }
+
+                  &.stars {
+                    overflow: hidden;
                   }
                 }
               }
