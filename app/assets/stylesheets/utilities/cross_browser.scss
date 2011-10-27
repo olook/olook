@@ -24,6 +24,13 @@ html {
         ul.questions li.about fieldset.buttons li input[type='submit'] {
           padding: 10px 15px;
         }
+        
+        .about {
+          .jcarousel-prev {
+            right: 1050px;
+          }
+        }
+
         ul.questions {
           li.about {
             fieldset.select {
