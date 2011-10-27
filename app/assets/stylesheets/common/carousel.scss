@@ -189,6 +189,31 @@ body {
           fieldset {
             &.select {
               width: 370px;
+
+              select {
+                padding: 10px;
+                -webkit-appearance: none;
+                appearance: none;
+                -webkit-border-radius: 0;
+                border: 1px solid #BBB;
+                padding: 10px 20px;
+                arrow-color: #ffffff;
+                scrollbar-arrow-color: #12406F;
+                color: $pink;
+                font-weight: bold;
+                
+                &[name='day'], &[name='year'] {
+                  width: 22%;
+                }
+
+                &[name='month'] {
+                  width: 30%;
+                }
+
+                &:focus {
+                  outline: none;
+                }
+              }
             }
 
             &.buttons {
