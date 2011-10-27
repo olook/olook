@@ -14,7 +14,7 @@ body {
         }
       }
     }
-    
+
     .home {
       .start {
         font-size: 28px;
@@ -32,7 +32,6 @@ body {
   }
   @for $i from 1 through 6 {
     h#{$i} {
-      font-weight: normal;
       font-family: 'Times New Roman', Times, serif;
       font-size: 30px - $i * 2;
       color: #000;
@@ -215,6 +214,20 @@ body {
       a {
         color: $pink;
         font-size: 10px;
+      }
+    }
+
+    #about {
+      h1 {
+        font-family: Times, “Times New Roman”, Georgia, serif;
+        font-style: oblique;
+        font-size: 40px;
+      }
+
+      #main_describe {
+        h2 {
+          font-family: sans-serif;
+        }
       }
     }
   }
