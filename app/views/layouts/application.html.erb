@@ -52,7 +52,7 @@
     <% if user_signed_in? %>
       <nav>
         <ul class="content">
-          <li><%= link_to 'Convidar amigas', '', :class => 'selected' %></li>
+          <li><%= link_to 'Convidar amigas', member_invite_path, :class => 'selected' %></li>
           <li><%= link_to 'Minhas amigas convidadas', '' %></li>
         </ul>
       </nav>
