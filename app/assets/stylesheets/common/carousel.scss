@@ -11,12 +11,12 @@ body {
     .jcarousel-clip {
       width: 990px;
       height: 500px;
-      overflow: visible;
+      overflow: hidden;
     }
 
     .jcarousel-item {
       width: 989px;
-      overflow: visible;
+      overflow: hidden;
       float: left;
     }
 
@@ -30,7 +30,6 @@ body {
     .jcarousel-prev {
       position: absolute;
       top: 190px;
-      left: 20px;
 
       &:hover {
         background: url('/assets/quiz/previous-hover.png') no-repeat;
@@ -48,7 +47,7 @@ body {
 
     ol {
       &.options {
-        overflow: visible;
+        overflow: hidden;
         margin: 0 auto;
         li {
           float: left;
@@ -57,8 +56,6 @@ body {
     }
 
     ul.questions {
-      overflow: visible !important;
-
       li {
         &.images {
           ol {
@@ -84,10 +81,13 @@ body {
           }
           
           &.shoes {
+            height: 500px;
+
             ol {
               &.options {
                 width: 884px;
                 padding-left: 50px;
+                height: 500px;
               }
               li {
                 width: 201px;

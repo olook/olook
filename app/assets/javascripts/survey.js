@@ -50,6 +50,7 @@ init = {
                     onBeforeAnimation : init.hideArrow,
                     onAfterAnimation : init.showArrow
                  },
+                 buttonPrevHTML : null,
                  scroll: 1
                });
              },
@@ -60,10 +61,6 @@ init = {
         }else{
           $('.jcarousel-prev').css('display', 'block');
         }
-  },
-
-  hideArrow : function() {
-        $('.jcarousel-prev').css('display', 'none');
   },
 
   mycarousel_initCallback : function(carousel) {
