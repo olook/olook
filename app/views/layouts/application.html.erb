@@ -6,7 +6,7 @@
 
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_application %>
+    <%= stylesheet_link_tag  "application" %>
 
     <%= yield :head %>
 
@@ -37,7 +37,7 @@
 
           <% else %>
             <span>
-              <p>Já faz parte?</p>
+              <p>Já faz parte?</p> 
               <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %>
             </span>
           <% end %>
@@ -68,7 +68,7 @@
   <footer>
     <section>
       <ul>
-        <li><a href="#">Sobre olook</a></li>
+        <li><%= link_to "Sobre o olook", about_path %></li>
         <li><a href="#">Coleções</a></li>
         <li><a href="#">Os estilistas</a></li>
         <li><a href="#">Como funciona</a></li>
@@ -76,7 +76,7 @@
       </ul>
 
       <ul>
-        <li><a href="#">Termos & Condições</a></li>
+        <li><%= link_to "Termos & Condições", terms_path %></li>
         <li><a href="#">Política de Privacidade</a></li>
         <li><a href="#">F.A.Q.</a></li>
       </ul>
