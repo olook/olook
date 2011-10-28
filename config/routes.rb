@@ -21,6 +21,8 @@ Olook::Application.routes.draw do
     get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
     post "membro/importar_contatos" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
     post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
+
+    get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   else
     match "/welcome", :to => "pages#welcome", :as => "welcome"
     match "/about", :to => "pages#about", :as => "about"
@@ -39,6 +41,8 @@ Olook::Application.routes.draw do
     get "member/import_contacts" => "members#import_contacts", :as => 'member_import_contacts'
     post "member/import_contacts" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
     post "member/invite_contacts" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
+
+    get "member/invites" => "members#invite_list", :as => 'member_invite_list'
   end
 
   namespace :admin do
