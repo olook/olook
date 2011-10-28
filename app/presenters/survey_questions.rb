@@ -20,10 +20,10 @@ class SurveyQuestions
   def color_questions
     items = questions[23..26]
     colors = {
-    "#{items[0].title}" => ['aths-special', 'straw', 'driftwood', 'nevada', 'ship-gray'],
-    "#{items[1].title}" => ['vis-vis-to-tree-poppy', 'colonial-white-to-koromiko', 'alto-to-silver-chalice', 'dusty-gray-to-boulder', 'mercury-to-silver'],
-    "#{items[2].title}" => ['pink-flare', 'peach-yellow', 'chalky', 'light-orchid', 'vanilla-ice'],
-    "#{items[3].title}" => ['golden-bell', 'cardinal-pink', 'windsor', 'observatory', 'black']
+    items[0] => ['aths-special', 'straw', 'driftwood', 'nevada', 'ship-gray'],
+    items[1] => ['vis-vis-to-tree-poppy', 'colonial-white-to-koromiko', 'alto-to-silver-chalice', 'dusty-gray-to-boulder', 'mercury-to-silver'],
+    items[2] => ['pink-flare', 'peach-yellow', 'chalky', 'light-orchid', 'vanilla-ice'],
+    items[3] => ['golden-bell', 'cardinal-pink', 'windsor', 'observatory', 'black']
     }
     colors
   end
@@ -31,8 +31,6 @@ class SurveyQuestions
   def first_color_question
     questions[23]
   end
-
-
 
   def shoe_size_question
     questions[27]
