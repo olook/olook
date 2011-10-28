@@ -273,11 +273,21 @@ body {
 
         &.colors {
           ol.options {
-            li {
+            overflow: hidden;
+
+            > li {
+               &:first-child {
+                width: 700px;
+                margin: 28px auto 0;
+                float: none;
+              }
+
               div {
+                width: 700px;
                 border: 1px solid #CfCfCf;
                 overflow: hidden;
                 padding: 15px 25px;
+                margin-bottom: 10px;
 
                 h3 {
                   float: left;
@@ -294,6 +304,7 @@ body {
 
                 ol {
                   &.colors {
+                    display: inline-block;
                     overflow: hidden;
 
                     li {
@@ -306,7 +317,36 @@ body {
                   }
 
                   &.stars {
+                    display: inline-block;
                     overflow: hidden;
+                    margin-left: 53px;
+
+                    li {
+                      background: url('/assets/quiz/sprite-stars.png') no-repeat;
+                      margin-left: 8px;
+                      width: 37px;
+                      height: 34px;
+
+                      &:first-child {
+                        margin-left: 0;
+                      }
+
+                      &.starred {
+                        background: url('/assets/quiz/sprite-stars.png') -37px no-repeat;
+                      }
+                      
+                      label {
+                        display: block;
+                        width: 37px;
+                        height: 54px;
+                        cursor: pointer;
+                      }
+
+                      input[type='radio'] {
+                        display: block;
+                        margin: -20px;
+                      }
+                    }
                   }
                 }
               }

@@ -52,6 +52,16 @@ html {
               }
             }
           }
+
+          li.colors {
+            ol.options {
+              > li div ol {
+                &.stars, &.colors {
+                  float: left;
+                }
+              }
+            }
+          }
         }
       }
       
@@ -163,3 +173,4 @@ html {
     }
   }
 }
+
