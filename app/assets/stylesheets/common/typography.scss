@@ -26,6 +26,7 @@ body {
 
     .home {
       .start {
+        font-family: 'Futura Light';
         font-size: 24px;
         color: #FFF;
         @include border-radius(10px);
@@ -36,8 +37,8 @@ body {
         text-shadow: #B32963 1px 2px 2px;
         text-decoration: none;
         text-transform: uppercase;
-        letter-spacing: -2px;
-        line-height:25px;
+        letter-spacing: -1px;
+        line-height: 26px;
       }
     }
 
