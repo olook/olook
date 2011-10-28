@@ -159,7 +159,7 @@ body {
               }
 
               &.buttons {
-                margin-top: 7px;
+                margin: 20px 0 5px;
                 ol {
                   li {
                     font-size: 11px;
@@ -235,9 +235,10 @@ header .observations {
 }
 
 header span {
+  font-size:14px;
   float:right;
-  margin:12px 21px 0 0;
-  width: 170px;
+  margin:12px 10px 0 0;
+  width: 180px;
   p {
     float: left;
   }
