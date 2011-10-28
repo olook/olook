@@ -36,6 +36,9 @@ class MembersController < ApplicationController
     redirect_to(member_import_contacts_path, :notice => "Convites enviados com sucesso!")
   end
 
+  def invite_list
+  end
+
   private
 
   def validate_token
