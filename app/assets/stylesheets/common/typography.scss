@@ -1,12 +1,11 @@
 @import 'partials/mixins';
-@import 'font-face';
 @import 'fonts';
 
 body {
   header{
     & + nav {
       a {
-        font-family: 'Champagne Bold';
+        font-family: 'Futura Medium';
         font-size: 11px;
       }
     }
@@ -206,8 +205,8 @@ body {
         ul {
           li {
             a {
-              font-family: 'Champagne';
-              font-size: 16px;
+              font-family: 'Futura Light';
+              font-size: 14px;
             }
           }
         }
@@ -280,8 +279,8 @@ body {
     &#share-mail, &#invite-mail, &#import-contacts {
       hgroup {
         h1, h2 {
-          font-family: 'Champagne';
-          font-size: 40px;
+          font-family: 'Futura Medium';
+          font-size: 35px;
           text-transform: uppercase;
           letter-spacing: -1px;
           text-align: right;
