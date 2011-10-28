@@ -1,3 +1,5 @@
+@import 'partials/mixins';
+
 #about h1 {
   font-family: Times, "Times New Roman", Georgia, serif;
   font-style: italic;
@@ -35,15 +37,11 @@ h1 {
   margin: 25px 0;
 }
 
-#main_describe a:link, #main_describe a:visited {
+#main_describe a {
   display: block;
   width: 271px;
   height: 65px;
-  background: url("/assets/about/btn_resp.png") no-repeat;
-}
-
-#main_describe a:hover {
-  background-position: bottom left;
+  @include pink-button();
 }
 
 #function {
