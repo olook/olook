@@ -223,6 +223,14 @@
       even: "deve ser par"
 
   activerecord:
+    models:
+      user: Usuário
+    attributes:
+      user:
+        first_name: Nome
+        last_name: Sobrenome
+        password: Senha
+        email: E-mail
     errors:
       template:
         header:

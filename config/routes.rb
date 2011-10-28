@@ -5,6 +5,9 @@ Olook::Application.routes.draw do
 
   if I18n.locale == :'pt-BR' then
     match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
+    match "/sobre", :to => "pages#about", :as => "about"
+    match "/termos_e_condicoes", :to => "pages#terms", :as => "terms"
+
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
 
     get "/produto/:id" => "product#index", :as => "product"

@@ -1,0 +1,135 @@
+#shadow_contain {
+  width: 1140px;
+  margin: 0 auto;
+}
+
+.container {
+  width: 970px;
+  margin: 0 auto;
+}
+#about h1 {
+  font-family: Times, “Times New Roman”, Georgia, serif;
+  font-style: oblique;
+  font-size: 40px;
+  margin: 12px 0px;
+}
+h1 {
+  margin: 12px 0px;
+}
+
+#main_feature img {
+  float: left;
+  margin-right: 45px;
+}
+
+#main_describe {
+  width: 530px;
+  float: left;
+}
+
+#main_describe h2 {
+  font-family: sans-serif;
+  font-size: 26px;
+  line-height: 24px;
+  margin: 3px 0px;
+}
+
+#main_describe p {
+  font-size: 16px;
+  margin: 25px 0;
+}
+
+#main_describe a:link, #main_describe a:visited {
+  display: block;
+  width: 271px;
+  height: 65px;
+  background: url("/assets/about/btn_resp.png") no-repeat;
+}
+
+#main_describe a:hover {
+  background-position: bottom left;
+}
+
+#function {
+  width: 970px;
+  overflow: hidden;
+  margin: 35px 0;
+}
+
+#function h1 {
+  font-family: Times, “Times New Roman”, Georgia, serif;
+  font-style: oblique;
+  font-size: 40px;
+  margin: 12px 0px;
+}
+
+#function li {
+  float: left;
+  list-style: none;
+  margin-right: 5px;
+}
+
+.box {
+  width: 194px;
+  height: 265px;
+  border: 1px solid #cccccc;
+  padding: 0px 20px;
+}
+
+.box h3 {
+  font-weight: normal;
+  font-size: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: sans-serif;
+  margin: 15px 0;
+}
+
+.box p {
+  font-size: 11px;
+  text-align: center;
+}
+
+#left_box img {
+  margin: 12px 0px 10px 17px;
+}
+
+#left_box_mid img {
+  margin: 6px 0px 10px 10px;
+}
+
+#right_box_mid img {
+  margin: 0px 0px 0px 30px;
+}
+
+#right_box img {
+  margin: 0px 0px 0px 18px;
+}
+
+#terms h1 {
+  margin-bottom: 30px;
+  font-family: Times, “Times New Roman”, Georgia, serif;
+  font-style: oblique;
+  font-size: 40px;
+  margin: 12px 0px;
+  
+}
+
+#terms h2 {
+  font-size: 16px;
+  margin: 20px 0px -5px 0px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+
+#terms p {
+  margin: 13px 0 20px;
+}
+
+.steps {
+  margin-bottom: 35px;
+}
+
+.clear {
+  clear: both;
+}

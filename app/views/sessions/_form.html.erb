@@ -2,12 +2,12 @@
   <fieldset class="inputs">
     <ol>
       <li>
-        <%= f.label :email %>
+        <%= f.label "E-mail" %>
         <%= f.email_field :email %>
       </li>
 
       <li>
-        <%= f.label :password %>
+        <%= f.label "Senha" %>
         <%= f.password_field :password %>
       </li>
     </ol>
@@ -16,14 +16,14 @@
   <fieldset class='buttons'>
     <ol>
       <li class="remember-me">
-        <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+        <%= f.check_box :remember_me %> <%= f.label "Lembrar senha" %>
       </li>
 
       <li class="forgot-password">
-        <%= link_to "Forgot your password?", new_password_path(:user) %>
+        <%= link_to "Esqueceu sua senha?", new_password_path(:user) %>
       </li>
       <li>
-        <%= f.submit "Sign in" %>
+        <%= f.submit "Entrar" %>
       </li>
     </ol>
   </fieldset>

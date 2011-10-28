@@ -26,13 +26,8 @@ class MembersController < ApplicationController
     email_provider = params[:email_provider]
     login = params[:login]
     password = params[:password]
-
-    case email_provider.to_i
-      when 1
-        @contacts = Contacts::Gmail.new(login, password).contacts
-      when 2
-        @contacts = Contacts::Yahoo.new(login, password).contacts
-    end
+    contacts_adapter = ContactsAdapter.new(login, password)
+    @contacts = contacts_adapter.contacts(email_provider)
   end
 
   def invite_imported_contacts

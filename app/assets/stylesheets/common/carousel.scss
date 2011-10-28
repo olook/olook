@@ -1,7 +1,11 @@
 @import 'partials/mixins';
+@import 'partials/colors';
 
 body {
   #survey {
+    height: 550px;
+    overflow: hidden;
+
     .jcarousel-container {
       width: 990px;
       height: 500px;
@@ -10,29 +14,28 @@ body {
     .jcarousel-clip {
       width: 990px;
       height: 500px;
-      overflow: visible;
+      overflow: hidden;
     }
 
     .jcarousel-item {
       width: 989px;
-      overflow: visible;
+      overflow: hidden;
       float: left;
     }
 
     .jcarousel-prev, .jcarousel-next {
-      background: url('/assets/quiz/previous.png') no-repeat;
-      width: 37px;
-      height: 66px;
+      background: url('/assets/quiz/previous_btn.gif') 0 0 no-repeat;
+      width: 40px;
+      height: 65px;
       cursor: pointer;
     }
 
     .jcarousel-prev {
       position: absolute;
       top: 190px;
-      left: 20px;
 
       &:hover {
-        background: url('/assets/quiz/previous-hover.png') no-repeat;
+        background: url('/assets/quiz/previous_btn.gif') -42px 0 no-repeat;
       }
 
       &.jcarousel-prev-disabled {
@@ -47,8 +50,8 @@ body {
 
     ol {
       &.options {
-        overflow: visible;
-        margin: 0 auto;
+        overflow: hidden;
+        margin: 40px auto;
         li {
           float: left;
         }
@@ -56,8 +59,6 @@ body {
     }
 
     ul.questions {
-      overflow: visible !important;
-
       li {
         &.images {
           ol {
@@ -81,11 +82,42 @@ body {
               }
             }
           }
+          
+          &.shoes {
+            height: 500px;
+
+            ol {
+              &.options {
+                width: 884px;
+                padding-left: 50px;
+                height: 500px;
+              }
+              li {
+                width: 201px;
+                height: 285px;
+                margin: 0 10px;
+
+                img {
+                  border: 1px solid #E9E9E9;
+                }
+
+                &:hover, &.selected {
+                  color: rgb(189, 76, 116);
+                  img {
+                    margin: -10px;
+                    border: 11px solid $pink;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
         }
         
         &.words {
           ol {
             &.options {
+              margin-top:50px;
               width: 825px;
             }
             li {
@@ -120,10 +152,10 @@ body {
               }
             }
             h3 {
-              margin-top: 49px;
-
+              margin-top: 45px;
+              margin-bottom:0px;
               &:first-child {
-                margin-top: 0;
+                margin-top: 5px;
               }
             }
             .question {
@@ -161,6 +193,31 @@ body {
           fieldset {
             &.select {
               width: 370px;
+
+              select {
+                padding: 10px;
+                -webkit-appearance: none;
+                appearance: none;
+                -webkit-border-radius: 0;
+                border: 1px solid #BBB;
+                padding: 10px 20px;
+                arrow-color: #ffffff;
+                scrollbar-arrow-color: #12406F;
+                color: $pink;
+                font-weight: bold;
+                
+                &[name='day'], &[name='year'] {
+                  width: 22%;
+                }
+
+                &[name='month'] {
+                  width: 30%;
+                }
+
+                &:focus {
+                  outline: none;
+                }
+              }
             }
 
             &.buttons {
@@ -206,6 +263,89 @@ body {
 
                       input[type='radio'] {
                         display: inline-block;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.colors {
+          ol.options {
+            overflow: hidden;
+
+            > li {
+               &:first-child {
+                width: 700px;
+                margin: 28px auto 0;
+                float: none;
+              }
+
+              div {
+                width: 700px;
+                border: 1px solid #CfCfCf;
+                overflow: hidden;
+                padding: 15px 25px;
+                margin-bottom: 10px;
+
+                h3 {
+                  float: left;
+                  margin: 0;
+                  padding: 0;
+                  height: auto;
+                  font-family: 'Arial', sans-serif;
+                  font-style: normal;
+                  font-size: 28px;
+                  margin-right: 15px;
+                  width: 200px;
+                  text-align: right;
+                }
+
+                ol {
+                  &.colors {
+                    display: inline-block;
+                    overflow: hidden;
+
+                    li {
+                      width: 35px;
+                      height: 35px;
+                      margin-right: 1px;
+                      text-indent: -10000px;
+                      font-size: 0;
+                    }
+                  }
+
+                  &.stars {
+                    display: inline-block;
+                    overflow: hidden;
+                    margin-left: 53px;
+
+                    li {
+                      background: url('/assets/quiz/sprite-stars.png') no-repeat;
+                      margin-left: 8px;
+                      width: 37px;
+                      height: 34px;
+
+                      &:first-child {
+                        margin-left: 0;
+                      }
+
+                      &.starred {
+                        background: url('/assets/quiz/sprite-stars.png') -37px no-repeat;
+                      }
+                      
+                      label {
+                        display: block;
+                        width: 37px;
+                        height: 54px;
+                        cursor: pointer;
+                      }
+
+                      input[type='radio'] {
+                        display: block;
+                        margin: -20px;
                       }
                     }
                   }

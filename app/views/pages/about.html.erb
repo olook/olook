@@ -1,0 +1,26 @@
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag  "about/normalize" %>
+  <%= stylesheet_link_tag  "about/style" %>
+<% end %>
+
+<div id="about">
+  <h1>Sobre olook</h1>
+  <div id="main_feature">
+    <%= image_tag("/assets/about/girl.jpg")%>
+    <div id="main_describe">
+      <h2>A olook mostra seu estilo, e o que combina com ele ..</h2>
+      <p>Curabitur ultrices vehicula pellentesque. Donec vel diam at quam ornare aliquam. Fusce a tortor justo, quis porta est. Vivamus condimentum libero nec libero pulvinar pulvinar.</p>
+      <%= link_to "", "#" %>
+    </div><div class="clear"></div>
+  </div>
+</div>
+
+<div id="function">
+  <h1>Como funciona</h1>
+  <ul>
+    <li class="box" id="left_box"><h3>Responda nosso Style Quiz</h3><%= image_tag("/assets/about/img_leftbox.png") %><p>Ut placerat sodales nunc, sed congue enim congue vitae. Vivamus quis quam vitae dolor consequat tempor a sit amet felis.</p></li>
+    <li class="box" id="left_box_mid"><h3>Nossos Stylists montam sua vitrine</h3><%= image_tag("/assets/about/img_leftmid.png") %><p>Ut placerat sodales nunc, sed congue enim congue vitae. Vivamus quis quam vitae dolor consequat tempor a sit amet felis.</p></li>
+    <li class="box" id="right_box_mid"><h3>Escolha o seu SAPATO, BOLSA OU ACESSÓRIO</h3><%= image_tag("/assets/about/img_rightmid.png") %><p>Ut placerat sodales nunc, sed congue enim congue vitae. Vivamus quis quam vitae dolor consequat tempor a sit amet felis.</p></li>
+    <li class="box" id="right_box"><h3>CONVIDE SUAS AMIGAS E GANHE R$10 CADA UMA</h3><%= image_tag("/assets/about/img_right.png") %><p>Ut placerat sodales nunc, sed congue enim congue vitae. Vivamus quis quam vitae dolor consequat.</p></li>
+  </ul>
+</div>
