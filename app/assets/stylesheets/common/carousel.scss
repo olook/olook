@@ -3,7 +3,7 @@
 
 body {
   #survey {
-    height: 450px;
+    height: 550px;
     overflow: hidden;
 
     .jcarousel-container {
@@ -24,9 +24,9 @@ body {
     }
 
     .jcarousel-prev, .jcarousel-next {
-      background: url('/assets/quiz/previous.png') no-repeat;
-      width: 37px;
-      height: 66px;
+      background: url('/assets/quiz/previous_btn.gif') 0 0 no-repeat;
+      width: 40px;
+      height: 65px;
       cursor: pointer;
     }
 
@@ -35,7 +35,7 @@ body {
       top: 190px;
 
       &:hover {
-        background: url('/assets/quiz/previous-hover.png') no-repeat;
+        background: url('/assets/quiz/previous_btn.gif') -42px 0 no-repeat;
       }
 
       &.jcarousel-prev-disabled {
@@ -51,7 +51,7 @@ body {
     ol {
       &.options {
         overflow: hidden;
-        margin: 0 auto;
+        margin: 40px auto;
         li {
           float: left;
         }
@@ -117,6 +117,7 @@ body {
         &.words {
           ol {
             &.options {
+              margin-top:50px;
               width: 825px;
             }
             li {
@@ -151,10 +152,10 @@ body {
               }
             }
             h3 {
-              margin-top: 49px;
-
+              margin-top: 45px;
+              margin-bottom:0px;
               &:first-child {
-                margin-top: 0;
+                margin-top: 5px;
               }
             }
             .question {
