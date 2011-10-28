@@ -40,6 +40,37 @@ $(document).ready(function() {
     }
   });
 
+  $('.colors .stars label').hover(function() {
+    var elementID = $(this).parents('ol').attr('id');
+    
+    if ($('.colors .stars label').parents('#' + elementID).find('li').hasClass('click_star')) {
+      $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
+    }
+    $(this).parent().addClass('starred').prevAll().addClass('starred');
+
+  }, function() {
+    var elementID = $(this).parents('ol').attr('id');
+
+    if ($('.colors .stars label').parents('#' + elementID).find(':radio:checked').length == 1) {
+        $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
+        $('.colors .stars label').parents('#' + elementID).find('li.click_star').addClass('starred').prevAll().addClass('starred');
+    }else{
+      $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
+    }
+  });
+
+  $('.colors div label').click(function() {
+    var elementID = $(this).parents('ol').attr('id');
+
+    $(this).parents('#' + elementID).find('li').removeClass('click_star')
+    $(this).parent('li').addClass('click_star')
+    $(this).parent().addClass('starred').prevAll().addClass('starred')
+
+    if($('li.colors').find(':radio:checked').length == 4){
+      $('#next_link').click();
+    }
+  });
+
 });
 
 init = {
@@ -94,7 +125,7 @@ init = {
   },
 
   bindActions : function() {
-    $('.jcarousel-item li').live('click', function(){
+    $('.images .options > li').live('click', function(){
       $(this).find('input').attr('checked', true);
       $(this).addClass('selected');
       $("#next_link").click();
