@@ -157,45 +157,6 @@ body {
           margin-left: 16px;
         }
       }
-
-      .social-media {
-        width: 333px;
-        overflow: hidden;
-        margin: 88px 0 0 73px;
-        float: left;
-
-        li {
-          float: left;
-          width: 87px;
-          height: 24px;
-
-          &.facebook {
-            background: url('/assets/common/sprite-midias-sociais.jpg') no-repeat 0px 0;
-            width: 95px;
-            text-indent: -99999px;
-            margin-right: 20px;
-          }
-
-          &.twitter {
-            background: url('/assets/common/sprite-midias-sociais.jpg') no-repeat -115px 0;
-            width:120px;
-            text-indent:-99999px;
-          }
-
-          a {
-            cursor: pointer;
-            display: block;
-          }
-
-          span {
-            font-family: "Times New Roman", Times, serif;
-            font-style: italic;
-            font-size: 14px;
-            margin-top: 3px;
-            float: left;
-          }
-        }
-      }
     }
   }
 }
