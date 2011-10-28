@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe SessionsController do
-
+  render_views
   context "User login" do
     describe "Post 'create'" do
       it "should redirect to the invite people page" do
