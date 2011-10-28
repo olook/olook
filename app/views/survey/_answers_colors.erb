@@ -1,18 +1,18 @@
 <li>
-  <% @colors.each do |title, colors| %>
+  <% @colors.each do |question, colors| %>
     <div>
-      <h3><%= title %></h3>
+      <h3><%= question.title %></h3>
       <ol class="colors">
         <% colors.each do |color| %>
           <li class="<%= color %>"><%= color.gsub("-", " ") %></li>
         <% end %>
       </ol>
-
-      <ol id="<%= title.downcase.gsub(" ", "_") %>" class="stars">
-        <% 5.times do |i| %>
+      <% new_title = question.title.downcase.gsub(" ", "_") %>
+      <ol id="<%= new_title %>" class="stars">
+        <% question.answers.each do |i| %>
           <li>
-            <label for="<%= "#{title.downcase.gsub(" ", "_")}_#{i}" %>">
-              <%= radio_button_tag(title.downcase, i) %>
+            <label for="<%= "questions_#{new_title}_#{question.id}_#{i.id}" %>">
+              <%= radio_button_tag("questions[#{new_title}_#{question.id}]", i.id) %>
             </label>
           </li>
         <% end %>

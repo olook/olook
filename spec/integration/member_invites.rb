@@ -13,6 +13,7 @@ feature "Member can send invites", %q{
   describe "When a member" do
     background do
       do_login!(user)
+      SurveyQuestions.stub(:new).and_return(false)
       @member = User.find_by_email(user.email)
     end
 
