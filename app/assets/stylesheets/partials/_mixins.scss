@@ -2,6 +2,8 @@
 @import 'common/gradient';
 @import 'common/images';
 @import 'common/border-radius';
+@import 'common/fonts';
+
 $pink: #F73C89;
 
 @mixin pink_button($top-color: #FB619E, $bottom-color: #DD3178, $font-size: 26px, $padding-top: 15px, $padding-bottom: 15px, $padding-left: 50px, $padding-right: 50px, $radius: 10px) {
@@ -30,6 +32,7 @@ $pink: #F73C89;
     padding-left: $padding-left;
     padding-right: $padding-right;
     font-size: $font-size;
+    font-family: 'Futura Light';
     cursor: pointer;
     border-left: 1px solid #FFA1C4;
     border-top: 1px solid #FFA1C4;

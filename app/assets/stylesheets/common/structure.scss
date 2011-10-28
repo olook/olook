@@ -3,17 +3,21 @@
 body {
   .content {
     width: 990px;
-    margin: 0 auto 0 auto;
+    margin: -27px auto 0 auto;
     overflow: hidden;
+    z-index: 1;
 
     .sign-in {
-      height: 610px;
+      height: 650px;
       @include sign-in(relative);
 
       h1 {
-        font-family: Times;
+        font-family: 'Times New Roman', Times, serif;
         font-size: 40px;
         font-style: italic;
+        letter-spacing: -2px;
+        font-weight: normal;
+        margin-top: 30px;
       }
 
       .social-media {
@@ -254,6 +258,8 @@ body {
 
     .content {
       overflow: visible;
+      margin-top: 0;
+      padding-top: 0;
 
       #session {
         position: relative;
