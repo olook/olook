@@ -9,6 +9,7 @@ describe RegistrationsController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
+    Resque.stub(:enqueue)
   end
 
   describe "GET new" do
