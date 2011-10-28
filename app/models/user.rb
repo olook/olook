@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def survey_answers
-    survey_answer.answers
+    survey_answer.try(:answers)
   end
 
   def self.find_for_facebook_oauth(access_token)

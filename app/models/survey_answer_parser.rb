@@ -6,10 +6,11 @@ class SurveyAnswerParser
   end
 
   def build_survey_answers
+    questions_answers = []
+    return questions_answers if answers.nil?
     parsed_questions = parse()
     selected_questions = Question.find(get_questions_ids)
     selected_answers = Answer.find(get_answers_ids)
-    questions_answers = []
     parsed_questions.each do |item|
       q = find_question(selected_questions, item)
       a = find_answer(selected_answers, item)
