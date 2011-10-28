@@ -1,6 +1,16 @@
 @import 'partials/mixins';
+@import 'font-face';
+@import 'fonts';
 
 body {
+  header{
+    & + nav {
+      a {
+        font-family: 'Champagne Bold';
+        font-size: 11px;
+      }
+    }
+  }
   .content {
     nav {
       font-size: 15px;
@@ -29,6 +39,19 @@ body {
         text-transform: uppercase;
         letter-spacing: -2px;
         line-height:25px;
+      }
+    }
+
+    #invite_list {
+      h1 {
+        text-align: center;
+        font-style: oblique;
+        font-size: 35px;
+        letter-spacing: -1px;
+
+        span {
+          color: $pink;
+        }
       }
     }
   }
@@ -179,6 +202,16 @@ body {
 
   section {
     &#user-info {
+      & + nav {
+        ul {
+          li {
+            a {
+              font-family: 'Champagne';
+              font-size: 16px;
+            }
+          }
+        }
+      }
       .info {
         > h1 {
           font-weight: bold;
@@ -231,7 +264,7 @@ body {
 
       #about {
         h1 {
-          font-family: Times, “Times New Roman”, Georgia, serif;
+          font-family: Times, "Times New Roman", Georgia, serif;
           font-style: oblique;
           font-size: 40px;
         }
@@ -247,17 +280,21 @@ body {
     &#share-mail, &#invite-mail, &#import-contacts {
       hgroup {
         h1, h2 {
-          font-family: sans-serif;
-          font-size: 35px;
+          font-family: 'Champagne';
+          font-size: 40px;
           text-transform: uppercase;
           letter-spacing: -1px;
           text-align: right;
+          line-height: 35px;
         }
 
         h2 {
           font-size: 16px;
           text-transform: none;
           font-weight: normal;
+          font-family: sans-serif;
+          line-height: normal;
+          margin-top: 15px;
         }
       }
 
