@@ -39,7 +39,7 @@
             </span>
           <% end %>
 
-          <div id="sign-in-dropdown" class="close">
+          <div class="sign-in-dropdown close">
             <%= render "sessions/form" %>
           </div>
         </div>
@@ -51,8 +51,8 @@
     <% if user_signed_in? %>
       <nav>
         <ul class="content">
-          <li><%= link_to 'Convidar amigas', member_invite_path, :class => 'selected' %></li>
-          <li><%= link_to 'Minhas amigas convidadas', '' %></li>
+          <li><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
+          <li><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
         </ul>
       </nav>
     <% end %>
