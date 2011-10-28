@@ -71,7 +71,6 @@ $(document).ready(function() {
     $(this).parent().addClass('starred').prevAll().addClass('starred')
 
     if($('li.colors').find(':radio:checked').length == 4){
-      console.log("fffffffffffff");
       $('#next_link').click();
     }
   });
