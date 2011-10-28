@@ -6,7 +6,9 @@ Olook::Application.routes.draw do
   if I18n.locale == :'pt-BR' then
     match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
     match "/sobre", :to => "pages#about", :as => "about"
-    match "/termos_e_condicoes", :to => "pages#terms", :as => "terms"
+    match "/termos", :to => "pages#terms", :as => "terms"
+    match "/faq", :to => "pages#faq", :as => "faq"
+    match "/privacidade", :to => "pages#privacy", :as => "privacy"
 
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
 
@@ -21,6 +23,11 @@ Olook::Application.routes.draw do
     post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   else
     match "/welcome", :to => "pages#welcome", :as => "welcome"
+    match "/about", :to => "pages#about", :as => "about"
+    match "/terms", :to => "pages#terms", :as => "terms"
+    match "/faq", :to => "pages#faq", :as => "faq"
+    match "/privacy", :to => "pages#privacy", :as => "privacy"
+
     resource :survey, :only => [:new, :create], :controller => :survey
 
     get "/product/:id" => "product#index", :as => "product"
