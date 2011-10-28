@@ -1,12 +1,5 @@
-<% colors = {
-   'Neutras' => ['aths-special', 'straw', 'driftwood', 'nevada', 'ship-gray'],
-   'Metalizadas' => ['vis-vis-to-tree-poppy', 'colonial-white-to-koromiko', 'alto-to-silver-chalice', 'dusty-gray-to-boulder', 'mercury-to-silver'],
-   'Tons Pastel' => ['pink-flare', 'peach-yellow', 'chalky', 'light-orchid', 'vanilla-ice'],
-   'Vivas' => ['golden-bell', 'cardinal-pink', 'windsor', 'observatory', 'black']
-} %>
-
 <li>
-  <% colors.each do |title, colors| %>
+  <% @colors.each do |title, colors| %>
     <div>
       <h3><%= title %></h3>
       <ol class="colors">

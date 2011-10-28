@@ -6,27 +6,40 @@ class SurveyQuestions
   end
 
   def common_questions
-    questions[0..questions.size - 6]
+    questions[0..20]
   end
 
   def shoe_question
-    questions[questions.size - 5]
+    questions[21]
   end
 
   def word_question
-    questions[questions.size - 4]
+    questions[22]
   end
 
-  def star_questions
-    questions[questions.size - 3]
+  def color_questions
+    items = questions[23..26]
+    colors = {
+    "#{items[0].title}" => ['aths-special', 'straw', 'driftwood', 'nevada', 'ship-gray'],
+    "#{items[1].title}" => ['vis-vis-to-tree-poppy', 'colonial-white-to-koromiko', 'alto-to-silver-chalice', 'dusty-gray-to-boulder', 'mercury-to-silver'],
+    "#{items[2].title}" => ['pink-flare', 'peach-yellow', 'chalky', 'light-orchid', 'vanilla-ice'],
+    "#{items[3].title}" => ['golden-bell', 'cardinal-pink', 'windsor', 'observatory', 'black']
+    }
+    colors
   end
+
+  def first_color_question
+    questions[23]
+  end
+
+
 
   def shoe_size_question
-    questions[questions.size - 2]
+    questions[27]
   end
 
   def dress_size_question
-    questions.last
+    questions[28]
   end
 
   def id_first_question

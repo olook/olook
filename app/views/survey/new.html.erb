@@ -38,10 +38,11 @@
           </ol>
         </li>
 
-        <% question = @presenter.star_questions %>
+        <% @colors = @presenter.color_questions %>
+        <% question = @presenter.first_color_question %>
         <li id="question_<%= question.id %>" class="colors">
           <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
-          <h2><%= question.title %></h2>
+          <h2><%#= question.title %></h2>
           <ol class="options">
             <%= render "answers_colors" %>
           </ol>
