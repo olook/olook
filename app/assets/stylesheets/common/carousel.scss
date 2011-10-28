@@ -1,5 +1,6 @@
 @import 'partials/mixins';
 @import 'partials/colors';
+@import 'common/fonts';
 
 body {
   #survey {
@@ -296,12 +297,13 @@ body {
                   margin: 0;
                   padding: 0;
                   height: auto;
-                  font-family: 'Arial', sans-serif;
+                  font-family: 'Futura Medium';
                   font-style: normal;
                   font-size: 28px;
                   margin-right: 15px;
                   width: 200px;
                   text-align: right;
+                  line-height: 29px;
                 }
 
                 ol {
