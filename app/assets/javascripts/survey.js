@@ -127,6 +127,8 @@ init = {
         index--;
         el = $("#question_" + index);
         el.find('li.selected').removeClass('selected');
+        el.find('li.click_star').removeClass();
+        el.find('li.starred').removeClass();
         el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
         return false;
     });
