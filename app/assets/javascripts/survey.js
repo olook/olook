@@ -46,7 +46,7 @@ $(document).ready(function() {
 
   $('.colors .stars label').hover(function() {
     var elementID = $(this).parents('ol').attr('id');
-    
+
     if ($('.colors .stars label').parents('#' + elementID).find('li').hasClass('click_star')) {
       $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
     }
@@ -71,6 +71,7 @@ $(document).ready(function() {
     $(this).parent().addClass('starred').prevAll().addClass('starred')
 
     if($('li.colors').find(':radio:checked').length == 4){
+      console.log("fffffffffffff");
       $('#next_link').click();
     }
   });
@@ -107,12 +108,18 @@ init = {
       if (carouselItem.hasClass('images')) {
         carousel.next();
         index++;
-      };
+      }
 
       if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
         carousel.next();
         index++;
-      };
+      }
+
+      if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
+        carousel.next();
+        index++;
+      }
+
     return false;
     });
 
@@ -124,12 +131,12 @@ init = {
         el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
         return false;
     });
-  
+
     $('.content .loading').remove();
   },
 
   bindActions : function() {
-    $('.images .options > li').live('click', function(){
+    $('.images .options > li, .words .options > li').live('click', function(){
       $(this).find('input').attr('checked', true);
       $(this).addClass('selected');
       $("#next_link").click();
