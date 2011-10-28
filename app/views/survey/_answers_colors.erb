@@ -15,11 +15,11 @@
         <% end %>
       </ol>
 
-      <ol class="stars">
+      <ol id="<%= title.downcase.gsub(" ", "_") %>" class="stars">
         <% 5.times do |i| %>
           <li>
-            <label for="<%= "#{i}_#{i}" %>">
-              <%= radio_button_tag("#{i}", "#{i}") %>
+            <label for="<%= "#{title.downcase.gsub(" ", "_")}_#{i}" %>">
+              <%= radio_button_tag(title.downcase, i) %>
             </label>
           </li>
         <% end %>
