@@ -82,11 +82,11 @@
     <h2>Digite o email de suas amigas <br /> no campo ao lado separados <br /> por vírgula </h2>
   </hgroup>
 
-  <form>
+  <%= form_tag (member_invite_by_email_path) do %>
     <fieldset>
       <ol>
         <li>
-          <textarea></textarea>
+          <%= text_area_tag :invite_mail_list %>
         </li>
       </ol>
     </fieldset>
@@ -95,7 +95,7 @@
         <li><input name="commit" type="submit" value="Convidar"></li>
       </ol>
     </fieldset>
-  </form>
+  <% end %>
 </section>
 
 <section id="import-contacts">
@@ -110,28 +110,3 @@
     <li><%= link_to '', 'Msn/Live', :class => 'msn' %></li>
   </ul>
 </section>
-
-
-<hr>
-
-<p>Share on Twitter </p>
-
-  </p>
-
-  <hr>
-
-  <p>Share on Facebook
-    <a href="#" id="facebook_invite_friends">Convide suas amigas</a> |
-    <a href="#" id="facebook_post_wall">Poste no seu mural</a>
-  </p>
-
-        <p>
-
-          <span>Convide suas amigas por e-mail</span>
-          <%= form_tag(member_invite_by_email_path) do %>
-            <%= label_tag(:invite_mail_list, "E-mails:") %>
-            <%= text_field_tag :invite_mail_list %>
-            <%= submit_tag("Enviar convites") %>
-          <% end %>
-        </p>
-
