@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-[Admin, Profile, Question, Answer, Weight].map(&:delete_all)
+[Admin, Profile, Question, Answer, Weight, SurveyAnswer].map(&:delete_all)
 
 Admin.create(:email => "admin@olook.com", :password =>"123456")
 
@@ -180,7 +180,13 @@ survey_data[20] = {
 }
 
 survey_data[21] = {
-  :question_title => "22. Quais palavras você mais gosta? (marque 3 opções)",
+  :question_title => "22. Que tipo de salto você prefere?",
+  :answers => ["Alto", "Médio", "Baixo", "Rasteirinha"],
+  :weights => []
+}
+
+survey_data[22] = {
+  :question_title => "23. Quais palavras você mais gosta? (marque 3 opções)",
   :answers => ["Esportiva", "Frágil", "Atraente", "Romântica", "Prática", "Chic", "Criativa", "Sofisticada", "Glamourosa", "Moderna", "Conservadora", "Espirituosa"],
   :weights => [
                 {"Esportiva"    => {"10" => casual, "5" => contemporary, "3" => trendy}},
@@ -198,19 +204,19 @@ survey_data[21] = {
               ]
 }
 
-survey_data[22] = {
-  :question_title => "23. Qual a sua nota para estas cartelas de cores?",
+survey_data[23] = {
+  :question_title => "24. Qual a sua nota para estas cartelas de cores?",
   :answers => ["Neutras", "Metalizadas", "Tons Pastel", "Vivas" ],
   :weights => []
 }
 
-survey_data[23] = {
+survey_data[24] = {
   :question_title => "Qual o tamanho do seu sapato?",
   :answers => (33..41).to_a,
   :weights => []
 }
 
-survey_data[24] = {
+survey_data[25] = {
   :question_title => "Qual tamanho de vestido você usa?",
   :answers => %w(PP P M G GG),
   :weights => []

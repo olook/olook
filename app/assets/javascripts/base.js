@@ -7,11 +7,4 @@ $(document).ready(function() {
     postToFacebookFeed();
   });
 
-  var options = {
-    styleClass: 'olookSelect',
-    jScrollPane: 1
-  }
-
-  $('select').styleSelect(options);
-
 });

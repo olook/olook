@@ -7,13 +7,14 @@ body {
       overflow: visible;
       width: 540px;
       height: 573px;
-
+      margin-top:30px;
     }
     
     #sign-up {
       float: right;
       overflow: visible;
       width: 450px;
+      margin-top:30px;
 
       h2, p {
         margin-left: 60px;
@@ -22,7 +23,7 @@ body {
       .fb-connect {
         background: url('/assets/common/fb-connect-button.png') no-repeat;
         display: block;
-        width: 194px;
+        width: 212px;
         height: 25px;
         margin: 20px 0 20px 126px;
         float: left;
@@ -47,6 +48,15 @@ body {
                 width: 140px;
                 text-align: right;
                 font-weight: bold;
+
+                &[for='user_password'] {
+                  span {
+                    display: block;
+                    font-weight: normal;
+                    font-size: 11px;
+                    line-height: 5px;
+                  }
+                }
               }
 
               input[type='text'], input[type='email'], input[type='password'] {

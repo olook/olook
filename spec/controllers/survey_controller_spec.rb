@@ -18,10 +18,10 @@ describe SurveyController do
       response.should redirect_to root_path
     end
 
-    it "should assigns @id_first_question" do
+    it "should instantiate @presenter" do
       question = FactoryGirl.create(:question)
+      SurveyQuestions.should_receive(:new).with([question])
       get 'new'
-      assigns(:id_first_question).should eq(question.id)
     end
 
     it "should show the Survey if the user is not logged in" do

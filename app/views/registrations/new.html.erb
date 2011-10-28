@@ -42,7 +42,9 @@
         </li>
 
         <li>
-          <%= f.label :password, "Senha" %>
+          <label for="user_password">Senha
+            <span class='hint'>mínimo 6 caracteres</span>
+          </label>
           <%= f.password_field :password %>
         </li>
 
