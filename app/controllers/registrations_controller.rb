@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         after_sign_up_path_for(resource)
-        redirect_to welcome_path
+        redirect_to member_invite_path
       else
         set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
         expire_session_data_after_sign_in!

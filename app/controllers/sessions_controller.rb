@@ -4,7 +4,7 @@ class SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(User)
-      welcome_path
+      member_invite_path
     else
       admin_path
     end

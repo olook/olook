@@ -5,11 +5,11 @@ describe SessionsController do
 
   context "User login" do
     describe "Post 'create'" do
-      it "should redirect to welcome page" do
+      it "should redirect to the invite people page" do
         request.env['devise.mapping'] = Devise.mappings[:user]
         user = Factory(:user)
         post :create, :user => { :email => user.email, :password => user.password }
-        response.should redirect_to(welcome_path)
+        response.should redirect_to(member_invite_path)
       end
     end
   end

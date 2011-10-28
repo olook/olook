@@ -12,14 +12,14 @@ describe OmniauthCallbacksController do
       before :each do
         controller.stub!(:current_user).and_return(nil)
       end
-      it "should redirect to welcome page" do
+      it "should redirect to invite people page if authentication is successful" do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
         user.stub(:authenticatable_salt)
         get :facebook
-        response.should redirect_to(welcome_path)
+        response.should redirect_to(member_invite_path)
       end
 
-      it "should redirect to welcome page" do
+      it "should redirect to register new user page if authentication fails" do
         User.stub(:find_for_facebook_oauth).and_return(nil)
         get :facebook
         response.should redirect_to(new_user_registration_path)

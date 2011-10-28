@@ -15,7 +15,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if user
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
         sign_in user
-        redirect_to welcome_path
+        redirect_to member_invite_path
       else
         session["devise.facebook_data"] = env["omniauth.auth"]
         redirect_to new_user_registration_url
