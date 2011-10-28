@@ -17,6 +17,10 @@ class SurveyQuestions
     questions[questions.size - 4]
   end
 
+  def star_questions
+    questions[questions.size - 3]
+  end
+
   def shoe_size_question
     questions[questions.size - 2]
   end
