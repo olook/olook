@@ -12,6 +12,10 @@ $(document).ready(function() {
 
   }
 
+  $('#survey').bind('keydown', 'tab',function (evt) {
+    return false; 
+  });
+
   $("a.fbpopup").click(function(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -136,20 +140,20 @@ init = {
             $('a.trigger').live('click', function(e){
               el = $(this).attr('href');
 
-              $(this).parents('#session').find('#' + el).toggle('open');
+              $(this).parents('#session').find('.' + el).toggle('open');
               $(this).parents('body').addClass('dialog-opened')
 
               e.preventDefault();
 
-              $('#sign-in-dropdown').live('click',function(e) {
+              $('.sign-in-dropdown').live('click',function(e) {
                 if($('body').hasClass('dialog-opened')) {
                   e.stopPropagation();
                 }
               })
 
               $('body.dialog-opened').live('click', function(e){
-                if($('#sign-in-dropdown').is(':visible')){
-                  $('#sign-in-dropdown').toggle();
+                if($('.sign-in-dropdown').is(':visible')){
+                  $('.sign-in-dropdown').toggle();
                   $(this).removeClass('dialog-opened');
                   e.stopPropagation();
                 }
