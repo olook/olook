@@ -13,14 +13,14 @@ body {
 
       .start {
         @include pink-button;
-        margin: 110px 0 94px 27px;
+        width:330px;
+        margin: 100px 0 30px 20px;
         float: left;
-        padding: 25px 28px;
+        padding: 20px 20px;
         border-left: 1px solid #FFA1C4;
         border-top: 1px solid #FFA1C4;
         border-bottom: none;
         border-right: none;
-
       }
 
       ul {

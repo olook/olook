@@ -49,6 +49,8 @@
       </div>
     </header>
 
+    <div class="top-shadow"></div>
+
     <% if user_signed_in? %>
       <nav>
         <ul class="content">
@@ -69,26 +71,21 @@
     <section>
       <ul>
         <li><%= link_to "Sobre o olook", about_path %></li>
-        <li><a href="#">Coleções</a></li>
-        <li><a href="#">Os estilistas</a></li>
-        <li><a href="#">Como funciona</a></li>
-        <li><a href="#">Conheça nosso blog</a></li>
       </ul>
 
       <ul>
         <li><%= link_to "Termos & Condições", terms_path %></li>
         <li><a href="#">Política de Privacidade</a></li>
-        <li><a href="#">F.A.Q.</a></li>
       </ul>
 
       <ul class="footer-social-midia">
-        <li class="twitter"><a href="#">Siga-nos no twitter</a></li>
-        <li class="facebook"><a href="#">Seja nosso fã no facebook</a></li>
+        <li class="twitter"><a href="http://www.twitter.com/olook">Siga-nos no twitter</a></li>
+        <li class="facebook"><a href="http://www.facebook.com/olook">Curta a Olook no Facebook</a></li>
       </ul>
 
       <ul class="bandeiras">
         <li><span>TRABALHAMOS COM:</span></li>
-        <li><%= image_tag "common/ico-bandeiras.png" %></li>
+        <li><%= image_tag("common/ico-bandeiras.png", :alt => "Trabalhamos com Visa, Mastercard, American Express e Dinners") %></li>
       </ul>
 
       <p>© 2011 - olook</p>

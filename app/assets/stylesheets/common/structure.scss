@@ -87,8 +87,7 @@ body {
   }
 
   header {
-    background: url('/assets/common/bg-holder-full.png') no-repeat center bottom;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
     height: 76px;
 
     a {
@@ -219,8 +218,8 @@ body {
 .top-shadow{
   width:100%;
   height:27px;
-  margin-top:58px;
-  background:url('../../assets/common/bg-holder-full.png') center no-repeat;
+  margin-top:0px;
+  background:url('../../assets/common/bg-holder-full.png') center center no-repeat;
   position:absolute;
       }
 
@@ -238,7 +237,7 @@ header .observations {
 header span {
   float:right;
   margin:12px 21px 0 0;
-  width: 180px;
+  width: 160px;
   p {
     float: left;
   }
@@ -301,6 +300,7 @@ footer section ul.footer-social-midia li a {
 footer section ul.footer-social-midia li.twitter {
   background: url('../../assets/common/ico-midias-socias.png') no-repeat 0px 0;
   height:22px;
+  margin-bottom: 2px;
 }
 
 footer section ul.footer-social-midia li.facebook {

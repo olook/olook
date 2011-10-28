@@ -17,16 +17,18 @@ body {
 
     .home {
       .start {
-        font-size: 28px;
+        font-size: 24px;
         color: #FFF;
         @include border-radius(10px);
         background: transparent;
         cursor: pointer;
         color: #FFF;
+        text-align:center;
         text-shadow: #B32963 1px 2px 2px;
         text-decoration: none;
         text-transform: uppercase;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
+        line-height:25px;
       }
     }
   }
@@ -39,17 +41,24 @@ body {
   }
   #survey {
     h2 {
+      font-size:26px;
+      letter-spacing:-1px;
       font-style: italic;
-      margin-bottom: 30px;
+      font-weight:normal;
+      margin: 20px 0px 0px;
+      color:#191919;
     }
 
     ul.questions {
       h3 {
-        font-size: 14px;
+        font-size: 17px;
+        font-weight:normal;
+        letter-spacing:-1px;
+        line-height:15px;
         font-style: italic;
         text-align: center;
         height: 32px;
-        margin-bottom: 15px;
+        margin-bottom:20px;
       }
 
       li {
@@ -58,9 +67,11 @@ body {
             li {
               label {
                 font-family: 'Times New Roman', Times, serif;
-                font-size: 25px;
+                font-size: 22px;
                 font-style: italic;
-                line-height: 74px;
+                line-height: 81px;
+                overflow:hidden;
+                letter-spacing:-1px;
               }
             }
           }
@@ -71,7 +82,7 @@ body {
             li {
               h3 {
                 font-family: 'Arial', sans-serif;
-                font-size: 12px;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: bold;
                 text-align: left;
