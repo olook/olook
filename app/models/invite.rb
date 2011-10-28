@@ -6,6 +6,12 @@ class Invite < ActiveRecord::Base
   validates_presence_of :user, :email
   validates_format_of :email, :with => User::EmailFormat
   
+  scope :unsent, where('sent_at IS NULL')
+  scope :sent, where('sent_at IS NOT NULL')
+
+  delegate :name, :to => :user, :prefix => 'member'
+  delegate :invite_token, :to => :user, :prefix => 'member'
+
   def send_invitation
     InvitesMailer.invite_email(self.id).deliver
   end

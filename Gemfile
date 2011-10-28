@@ -22,6 +22,7 @@ gem 'fog'
 gem 'carrierwave'
 gem 'mini_magick', '~> 3.3'
 gem 'sass-rails'
+gem 'zipruby'
 
 group :development, :test do
   gem 'sqlite3'
