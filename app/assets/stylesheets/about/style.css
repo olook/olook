@@ -1,17 +1,10 @@
-#shadow_contain {
-  width: 1140px;
-  margin: 0 auto;
-}
-
-.container {
-  width: 970px;
-  margin: 0 auto;
-}
 #about h1 {
-  font-family: Times, “Times New Roman”, Georgia, serif;
-  font-style: oblique;
+  font-family: Times, "Times New Roman", Georgia, serif;
+  font-style: italic;
+  font-weight:normal;
+  letter-spacing:-2px;
   font-size: 40px;
-  margin: 12px 0px;
+  margin: 20px 0px 10px;
 }
 h1 {
   margin: 12px 0px;
@@ -28,14 +21,17 @@ h1 {
 }
 
 #main_describe h2 {
-  font-family: sans-serif;
-  font-size: 26px;
+  font-family: Times, "Times New Roman", Georgia, serif;
+  font-style: italic;
+  font-weight:normal;
+  letter-spacing:-2px;
+  font-size: 35px;
   line-height: 24px;
   margin: 3px 0px;
 }
 
 #main_describe p {
-  font-size: 16px;
+  font-size: 14px;
   margin: 25px 0;
 }
 
@@ -53,12 +49,14 @@ h1 {
 #function {
   width: 970px;
   overflow: hidden;
-  margin: 35px 0;
+  margin: 35px 0 130px;
 }
 
 #function h1 {
-  font-family: Times, “Times New Roman”, Georgia, serif;
-  font-style: oblique;
+  font-family: Times, "Times New Roman", Georgia, serif;
+  font-style: italic;
+  font-weight:normal;
+  letter-spacing:-2px;
   font-size: 40px;
   margin: 12px 0px;
 }
@@ -69,6 +67,19 @@ h1 {
   margin-right: 5px;
 }
 
+  #function li .img_left{
+    margin-bottom: 33px;
+  }
+  #function li .img_leftmid{
+    margin-bottom: 28px;
+  }
+  #function li .img_rightmid{
+    margin-bottom: 16px;
+  }
+  #function li .img_right{
+    margin-bottom: 3px;
+  }
+  
 .box {
   width: 194px;
   height: 265px;
@@ -108,7 +119,7 @@ h1 {
 
 #terms h1 {
   margin-bottom: 30px;
-  font-family: Times, “Times New Roman”, Georgia, serif;
+  font-family: Times, "Times New Roman", Georgia, serif;
   font-style: oblique;
   font-size: 40px;
   margin: 12px 0px;

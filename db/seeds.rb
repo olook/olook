@@ -13,15 +13,15 @@ trendy       = Profile.create(:name => "Trendy")
 survey_data = []
 
 survey_data[0] = {
-  :question_title => "1. Com qual destas celebridades brasileiras você se identifica?",
-  :answers => ["Debora Secco", "Grazi Mazzafera", "Carolina Dieckman"],
+  :question_title => "1. Com qual dessas celebridades brasileiras você se identifica mais?",
+  :answers => ["Debora Secco", "Grazi Mazzafera", "Carolina Dieckmann"],
   :weights => [{"Debora Secco" => {"5" => female, "10" => sexy, "3" => trendy}},
                {"Grazi Mazzafera" => {"5" => elegant, "10" => female, "3" => trendy}},
-               {"Carolina Dieckman" => {"3" => casual, "5" => female, "3" => trendy}}]
+               {"Carolina Dieckmann" => {"3" => casual, "5" => female, "3" => trendy}}]
 }
 
 survey_data[1] = {
-  :question_title => "2. Com qual destas celebridades internacionais você se identifica?",
+  :question_title => "2. Com qual dessas celebridades internacionais você se identifica mais?",
   :answers => ["Natalie Portman", "Gwyneth Paltrow", "Angelina Jolie"],
   :weights => [{"Natalie Portman" => {"3" => elegant, "10" => female, "5" => contemporary}},
                {"Gwyneth Paltrow" => {"3" => traditional, "10" => elegant, "5" => contemporary}},
@@ -29,7 +29,7 @@ survey_data[1] = {
 }
 
 survey_data[2] = {
-  :question_title => "3. Qual desses ícones de estilo você gostaria de herdar o guarda-roupa?",
+  :question_title => "3. De qual desses ícones de estilo você gostaria de herdar o guarda-roupa?",
   :answers => ["Sarah Jessica Parker", "Carla Bruni", "Kate Moss"],
   :weights => [{"Sarah Jessica Parker" => {"5" => female, "3" => contemporary, "10" => trendy}},
                {"Carla Bruni" => {"5" => traditional, "10" => elegant, "3" => female}},
@@ -45,7 +45,7 @@ survey_data[3] = {
 }
 
 survey_data[4] = {
-  :question_title => "5. Qual destes estilos de cabelo mais te agradam?",
+  :question_title => "5. Qual desses estilos de cabelo mais te agradam?",
   :answers => ["Chanel Básico", "Curtíssimo repicado", "Longo esvoaçante"],
   :weights => [{"Chanel Básico" => {"5" => traditional, "10" => elegant, "3" => female}},
                {"Curtíssimo repicado" => {"10" => contemporary, "3" => trendy, "5" => casual}},
@@ -53,7 +53,7 @@ survey_data[4] = {
 }
 
 survey_data[5] = {
-  :question_title => "6. Se pudesse voltar no tempo que época da moda você escolheria?",
+  :question_title => "6. Se pudesse voltar no tempo, que época da moda você escolheria?",
   :answers => ["Anos 1950", "Anos 1960", "Anos 1970"],
   :weights => [{"Anos 1950" => {"3" => traditional, "10" => elegant, "5" => female}},
                {"Anos 1960" => {"10" => contemporary, "3" => trendy, "5" => casual}},
@@ -61,7 +61,7 @@ survey_data[5] = {
 }
 
 survey_data[6] = {
-  :question_title => "7. Qual desses roteiros de viagem mais te agradam?",
+  :question_title => "7. Qual desses roteiros de viagem mais te agrada?",
   :answers => ["Europa Cultural", "China e Japão", "Ilhas Gregas"],
   :weights => [{"Europa Cultural" => {"10" => traditional, "5" => elegant, "3" => female}},
                {"China e Japão" => {"5" => casual, "10" => contemporary, "3" => trendy}},
@@ -77,7 +77,7 @@ survey_data[7] = {
 }
 
 survey_data[8] = {
-  :question_title => "9. Qual destas revistas femininas você tem o hábito de ler?",
+  :question_title => "9. Qual dessas revistas femininas você tem o hábito de ler?",
   :answers => ["Elle", "Marie Claire", "Claudia" ],
   :weights => [{"Elle" => {"5" => female, "3" => sexy, "10" => trendy}},
                {"Marie Claire" => {"3" => traditional, "5" => elegant, "10" => contemporary}},
@@ -85,14 +85,14 @@ survey_data[8] = {
 }
 
 survey_data[9] = {
-  :question_title => "10. Com qual destes trajes você costuma dormir?",
-  :answers => ["Camisola de Seda", "Pijama de algodão", "Camisola de rendinha" ],
-  :weights => [{"Camisola de Seda" => {"3" => traditional, "5" => elegant, "10" => sexy}},
+  :question_title => "10. Com qual desses trajes você costuma dormir?",
+  :answers => ["Camisola de seda", "Pijama de algodão", "Camisola de rendinha" ],
+  :weights => [{"Camisola de seda" => {"3" => traditional, "5" => elegant, "10" => sexy}},
                {"Pijama de algodão" => {"10" => casual, "3" => traditional, "5" => contemporary}},
                {"Camisola de rendinha" => {"5" => casual, "10" => female, "3" => sexy}}]
 }
 survey_data[10] = {
-  :question_title => "11. Qual destes modelos de óculos escuros mais combina com você?",
+  :question_title => "11. Qual desses modelos de óculos escuros mais combina com você?",
   :answers => ["Clássicos em acetato", "O bom e velho modelo aviador", "Tipo gatinho" ],
   :weights => [{"Clássicos em acetato" => {"10" => traditional, "5" => elegant, "3" => contemporary}},
                {"O bom e velho modelo aviador" => {"10" => casual, "5" => sexy, "3" => trendy}},
@@ -124,7 +124,7 @@ survey_data[13] = {
 }
 
 survey_data[14] = {
-  :question_title => "15. Quais acessórios você usaria para um domigo a tarde?",
+  :question_title => "15. Quais acessórios você usaria para um domigo à tarde?",
   :answers => ["Gladiadora + Bolsa molhinha", "Sapatilha + Maxibolsa", "Sandália anabela + Bolsa box alça longa" ],
   :weights => [{"Gladiadora + Bolsa molhinha" => {"3" => casual, "5" => contemporary, "10" => trendy}},
                {"Sapatilha + Maxibolsa" => {"3" => traditional, "10" => elegant, "5" => female}},
@@ -186,7 +186,7 @@ survey_data[21] = {
 }
 
 survey_data[22] = {
-  :question_title => "23. Quais palavras você mais gosta? (marque 3 opções)",
+  :question_title => "23. Quais palavras você mais gosta? (Escolha 3 opções)",
   :answers => ["Esportiva", "Frágil", "Atraente", "Romântica", "Prática", "Chic", "Criativa", "Sofisticada", "Glamourosa", "Moderna", "Conservadora", "Espirituosa"],
   :weights => [
                 {"Esportiva"    => {"10" => casual, "5" => contemporary, "3" => trendy}},
