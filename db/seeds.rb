@@ -205,18 +205,36 @@ survey_data[22] = {
 }
 
 survey_data[23] = {
-  :question_title => "24. Qual a sua nota para estas cartelas de cores?",
-  :answers => ["Neutras", "Metalizadas", "Tons Pastel", "Vivas" ],
+  :question_title => "Neutras",
+  :answers => (1..5).to_a,
   :weights => []
 }
 
 survey_data[24] = {
+  :question_title => "Metalizadas",
+  :answers => (1..5).to_a,
+  :weights => []
+}
+
+survey_data[25] = {
+  :question_title => "Tons Pastel",
+  :answers => (1..5).to_a,
+  :weights => []
+}
+
+survey_data[26] = {
+  :question_title => "Vivas",
+  :answers => (1..5).to_a,
+  :weights => []
+}
+
+survey_data[27] = {
   :question_title => "Qual o tamanho do seu sapato?",
   :answers => (33..41).to_a,
   :weights => []
 }
 
-survey_data[25] = {
+survey_data[28] = {
   :question_title => "Qual tamanho de vestido você usa?",
   :answers => %w(PP P M G GG),
   :weights => []
