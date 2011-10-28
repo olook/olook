@@ -79,3 +79,44 @@ $pink: #F73C89;
     text-transform: uppercase;
   }
 }
+
+@mixin table {
+  table#list {
+    width: 856px;
+    margin: 40px auto;
+
+    thead {
+      tr {
+        th {
+          padding: 12px;
+          text-align: center;
+
+          &:first-child {
+            text-align: left;
+            padding-left: 0;
+          }
+
+          a {
+            font-weight: bold;
+            color: $pink;
+          }
+        }
+      }
+    }
+
+    tbody {
+      @extend thead;
+      tr {
+        td {
+          @extend th;
+          border: 1px solid #DBDBDB;
+
+          &:first-child {
+            padding-left: 10px;
+          }
+
+        }
+      }
+    }
+  }
+}
