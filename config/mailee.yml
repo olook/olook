@@ -1,0 +1,28 @@
+development:
+  title: Olook
+  subject: Olook
+  from_name: Olook
+  from_email: convite@olook.com.br
+  template_id: 9481
+  site: http://api.9f01a855c4ef6.olook.mailee.me
+
+test:
+  title: Olook
+  subject: Olook
+  from_name: Olook
+  from_email: convite@olook.com.br
+  template_id: 9481
+  site: http://api.9f01a855c4ef6.olook.mailee.me
+
+production:
+  title: Olook
+  subject: Olook
+  from_name: Olook
+  from_email: convite@olook.com.br
+  template_id: 9481
+  site: http://api.9f01a855c4ef6.olook.mailee.me
+
+
+
+
+

@@ -23,6 +23,7 @@ gem 'carrierwave'
 gem 'mini_magick', '~> 3.3'
 gem 'sass-rails'
 gem 'zipruby'
+gem 'mailee'
 
 group :development, :test do
   gem 'sqlite3'
