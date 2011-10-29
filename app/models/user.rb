@@ -62,15 +62,15 @@ class User < ActiveRecord::Base
     inviting_member = User.find_by_invite_token(token)
     raise 'Invalid token' unless inviting_member
 
-    inviting_member.invite_for(email).tap do |invite|
-      invite.invited_member = self
-      invite.accepted_at = Time.now
-      invite.save
-    end
+    inviting_member.invite_for(email).accept_invitation(self)
   end
 
   def has_facebook?
     self.uid.present?
+  end
+  
+  def invite_bonus
+    self.invites.accepted.count * 10.0
   end
 
   private

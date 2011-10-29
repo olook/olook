@@ -245,3 +245,10 @@
 
       full_messages:
         format: "%{attribute} %{message}"
+
+  interface:
+    member:
+      no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
+      invitation_accepted: 
+        one: '<span>%{count} </span>amiga já se registrou e você ganhou <span class="amount">%{bonus}</span>'
+        other: '<span>%{count} </span>amigas já se registraram e você ganhou <span class="amount">%{bonus}</span>'

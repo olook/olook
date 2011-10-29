@@ -20,4 +20,27 @@ describe MemberHelper do
     helper.invite_message.should be_true
   end
 
+  describe "#invitation_score" do
+    let(:member) { double(User) }
+
+    describe "when no invite was accepted" do
+      it 'should return no_invite_accept message' do
+        member.stub_chain(:invites, :accepted, :count).and_return(0)
+        helper.invitation_score(member).should == I18n.t('interface.member.no_invitation_accepted')
+      end
+    end
+    describe "when some invites were accepted" do
+      before :each do
+        member.stub(:invite_bonus).and_return(100.0)
+      end
+      it 'should return the singular invitation_accepted message when 1 invite was accepted' do
+        member.stub_chain(:invites, :accepted, :count).and_return(1)
+        helper.invitation_score(member).should == I18n.t('interface.member.invitation_accepted', :count => 1, :bonus => number_to_currency(member.invite_bonus))
+      end
+      it 'should return the plural invitation_accepted message when more than 1 invite was accepted' do
+        member.stub_chain(:invites, :accepted, :count).and_return(2)
+        helper.invitation_score(member).should == I18n.t('interface.member.invitation_accepted', :count => 2, :bonus => number_to_currency(member.invite_bonus))
+      end
+    end
+  end
 end

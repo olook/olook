@@ -2,18 +2,18 @@
 require 'spec_helper'
 
 describe MembersController do
+  let(:user) { FactoryGirl.create :user }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    @user = Factory :user
-    sign_in @user
+    sign_in user
   end
 
   describe "#invite" do
     it "should show the member invite page" do
       get :invite
       response.should render_template("invite")
-      assigns(:member).should eq(@user)
+      assigns(:member).should eq(user)
     end
 
     it "should assign @facebook_app_id" do
@@ -115,6 +115,17 @@ describe MembersController do
 
       response.should redirect_to(member_import_contacts_path)
       flash[:notice].should == "Convites enviados com sucesso!"
+    end
+  end
+
+  describe "#invite_list" do
+    let(:invite_a) { FactoryGirl.create(:invite, :user => user, :email => "a@test.com") }
+    let(:invite_b) { FactoryGirl.create(:invite, :user => user, :email => "b@test.com") }
+
+    it "should show all invites the user sent and their statuses" do
+      get :invite_list
+      response.should render_template("invite_list")
+      assigns(:member).should eq(user)
     end
   end
 
