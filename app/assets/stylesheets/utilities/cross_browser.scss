@@ -86,6 +86,16 @@ html {
           }
         }
       }
+
+      nav {
+        ul {
+          overflow: hidden;
+
+          li {
+            float: left;
+          }
+        }
+      }
     }
   }
 
