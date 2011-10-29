@@ -1,0 +1,21 @@
+html {
+  overflow-x: hidden;
+
+  body{
+    .overlay {
+      position: absolute;
+      background: url('/assets/common/overlay.png') repeat;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .content {
+      .dialog {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 200;
+      }
+    }
+  }
+}
