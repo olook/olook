@@ -7,6 +7,12 @@ describe Admin::VariantsController do
   let!(:product) { variant.product }
   let!(:valid_attributes) { variant.attributes }
 
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
+
   describe "GET show" do
     it "assigns the requested variant as @variant" do
       get :show, :id => variant.id.to_s, :product_id => product.id
@@ -32,7 +38,7 @@ describe Admin::VariantsController do
     describe "with valid params" do
       it "creates a new Variant" do
         expect {
-          post :create, :variant => valid_attributes, :product_id => product.id 
+          post :create, :variant => valid_attributes, :product_id => product.id
         }.to change(Variant, :count).by(1)
       end
 
