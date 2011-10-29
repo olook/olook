@@ -1,3 +1,7 @@
+<% unless session[:model_displayed] %>
 <div class="dialog">
   <%= image_tag("/assets/invite_friends/sexy.jpg") %>
 </div>
+<% session[:model_displayed] = true %>
+<% end %>
+
