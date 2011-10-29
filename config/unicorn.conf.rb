@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 # Unicorn configuration file
 
-listen 80
+listen "/tmp/sockets/unicorn.sock", :backlog => 64
 worker_processes 2
 pid "/var/run/olook-unicorn.pid"
 stderr_path "/var/log/olook-unicorn-error.log"
