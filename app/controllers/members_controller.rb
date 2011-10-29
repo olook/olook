@@ -37,6 +37,7 @@ class MembersController < ApplicationController
   end
 
   def invite_list
+    @member = current_user
   end
 
   private
