@@ -6,6 +6,12 @@ describe Admin::UsersController do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:valid_attributes) { user.attributes }
 
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
+
   describe "GET index" do
     it "assigns all users as @users" do
       get :index

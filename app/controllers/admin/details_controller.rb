@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Admin::DetailsController < ApplicationController
+  before_filter :load_product
+  before_filter :authenticate_admin!
+
   layout "admin"
   respond_to :html
-  before_filter :load_product
 
   def show
     @detail = @product.details.find(params[:id])
