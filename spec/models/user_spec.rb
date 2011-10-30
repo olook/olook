@@ -196,4 +196,11 @@ describe User do
       subject.first_visit?.should be_false
     end
   end
+  
+  describe "#create_event" do
+    it "should add an event for the user" do
+      subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
+      subject.events.find_by_type(EventType::SEND_INVITE).should_not be_nil
+    end
+  end
 end

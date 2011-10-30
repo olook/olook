@@ -8,9 +8,10 @@ class EventType < EnumerateIt::Base
     first_visit:            [20, 'First visit'],
 
     send_invite:            [30, 'Send invites'],
-    import_gmail_contacts:  [31, 'Import Gmail contacts'],
-    import_yahoo_contacts:  [32, 'Import Yahoo! contacts'],
-    import_msn_contacts:    [33, 'Import MSN contacts'],
+    send_imported_contacts: [34, 'Send imported contacts'],
+    import_gmail_contacts:  [35, 'Import Gmail contacts'],
+    import_yahoo_contacts:  [36, 'Import Yahoo! contacts'],
+    import_msn_contacts:    [37, 'Import MSN contacts'],
 
     share_on_facebook_wall: [40, 'Share on Facebook wall'],
     send_facebook_message:  [41, 'Send Facebook message'],

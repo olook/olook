@@ -82,7 +82,11 @@ class User < ActiveRecord::Base
   end
 
   def record_first_visit
-    self.events.create(type: EventType::FIRST_VISIT) if first_visit?
+    add_event(EventType::FIRST_VISIT) if first_visit?
+  end
+  
+  def add_event(type, description = '')
+    self.events.create(type: type, description: description)
   end
 
   private

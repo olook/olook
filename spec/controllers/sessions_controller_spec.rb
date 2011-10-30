@@ -39,21 +39,19 @@ describe SessionsController do
   describe "events" do
     context 'for users' do
       let(:user) { mock_model(User) }
-      let(:mock_event_relation) { double(:relation) }
 
       before :each do
         subject.stub(:current_user).and_return( user )
-        mock_event_relation.should_receive(:create)
       end
 
       it "should create a new sign in event" do
-        user.should_receive(:events).and_return( mock_event_relation )
+        user.should_receive(:add_event).with( EventType::SIGNIN )
         subject.send(:create_sign_in_event)
       end
 
       it "should create a new sign out event" do
-        user.should_receive(:events).and_return( mock_event_relation )
-        subject.send(:create_sign_in_event)
+        user.should_receive(:add_event).with( EventType::SIGNOUT )
+        subject.send(:create_sign_out_event)
       end
     end
 
@@ -65,12 +63,12 @@ describe SessionsController do
       end
 
       it "should not create a new sign in event" do
-        admin.should_not_receive(:events)
+        admin.should_not_receive(:add_event)
         subject.send(:create_sign_in_event)
       end
 
       it "should not create a new sign out event" do
-        admin.should_not_receive(:events)
+        admin.should_not_receive(:add_event)
         subject.send(:create_sign_out_event)
       end
     end
