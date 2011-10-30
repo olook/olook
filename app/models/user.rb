@@ -76,6 +76,14 @@ class User < ActiveRecord::Base
   def profile_scores
     self.points.includes(:profile).order('value DESC')
   end
+  
+  def first_visit?
+    self.events.where(:type => EventType::FIRST_VISIT).empty?
+  end
+
+  def record_first_visit
+    self.events.create(type: EventType::FIRST_VISIT) if first_visit?
+  end
 
   private
 
