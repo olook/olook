@@ -56,7 +56,6 @@ describe MembersController do
     emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
     mock_invites = emails.map do |email|
       invite = double(Invite)
-      invite.should_receive(:send_invitation)
       invite
     end
     member = double(User)
@@ -104,7 +103,6 @@ describe MembersController do
       emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
       mock_invites = emails.map do |email|
         invite = double(Invite)
-        invite.should_receive(:send_invitation)
         invite
       end
       member = double(User)
