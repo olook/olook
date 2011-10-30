@@ -119,13 +119,17 @@ describe MembersController do
   end
 
   describe "#invite_list" do
-    let(:invite_a) { FactoryGirl.create(:invite, :user => user, :email => "a@test.com") }
-    let(:invite_b) { FactoryGirl.create(:invite, :user => user, :email => "b@test.com") }
+    before :each do
+      (1..20).each do |i|
+        FactoryGirl.create(:invite, :user => user, :email => "a#{i}@test.com")
+      end
+    end
 
-    it "should show all invites the user sent and their statuses" do
+    it "should return all invites the user sent, paginated with 15 per page" do
       get :invite_list
       response.should render_template("invite_list")
-      assigns(:member).should eq(user)
+      assigns(:member).should == user
+      assigns(:invites).all.should == user.invites[0..14]
     end
   end
 
