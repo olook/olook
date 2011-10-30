@@ -10,7 +10,7 @@
       </tr>
     </thead>
 
-    <% @member.invites.each do |invite| %>
+    <% @invites.each do |invite| %>
       <tbody>
         <tr>
           <td><%= invite.email %></td>
@@ -19,6 +19,7 @@
         </tr>
       </tbody>
     <% end %>
-
   </table>
+  <%= will_paginate @invites %>
+
 </div>

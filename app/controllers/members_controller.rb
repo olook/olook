@@ -38,6 +38,7 @@ class MembersController < ApplicationController
 
   def invite_list
     @member = current_user
+    @invites = @member.invites.page(params[:page]).per_page(15)
   end
 
   private

@@ -24,6 +24,7 @@ gem 'mini_magick', '~> 3.3'
 gem 'sass-rails'
 gem 'zipruby'
 gem 'mailee'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'sqlite3'
