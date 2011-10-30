@@ -3,13 +3,13 @@
 
 Admin.create(:email => "admin@olook.com", :password =>"123456")
 
-casual       = Profile.create(:name => "Casual")
-traditional  = Profile.create(:name => "Tradicional")
-elegant      = Profile.create(:name => "Elegante")
-female       = Profile.create(:name => "Feminina")
-sexy         = Profile.create(:name => "Sexy")
-contemporary = Profile.create(:name => "Contemporanea")
-trendy       = Profile.create(:name => "Trendy")
+casual       = Profile.create(:name => "Casual"       , :first_visit_banner => 'casual')
+traditional  = Profile.create(:name => "Tradicional"  , :first_visit_banner => 'traditional')
+elegant      = Profile.create(:name => "Elegante"     , :first_visit_banner => 'elegant')
+female       = Profile.create(:name => "Feminina"     , :first_visit_banner => 'feminine')
+sexy         = Profile.create(:name => "Sexy"         , :first_visit_banner => 'sexy')
+contemporary = Profile.create(:name => "Contemporanea", :first_visit_banner => 'comtemporary')
+trendy       = Profile.create(:name => "Trendy"       , :first_visit_banner => 'trendy')
 survey_data = []
 
 survey_data[0] = {
