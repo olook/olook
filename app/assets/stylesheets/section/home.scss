@@ -5,7 +5,6 @@ body {
     .home {
       background: url('/assets/home/bg-middle-home.png') no-repeat;
       overflow:hidden;
-
       .model {
         margin:0 0 0px -12px;
         float:left;
@@ -25,7 +24,7 @@ body {
 
       ul {
         &.model {
-          margin:13px 0 0px 0;
+          margin:0px 0 0px 0;
 
           li {
             float: left;
@@ -107,25 +106,39 @@ body {
             float:left;
             clear:both;
             font-style:italic;
-            margin-bottom:7px;
+            margin:0 0 0px 20px;
+            height:110px;
 
             &.one {
               span {
-                width: 177px;
-                padding-right: 10px;
+                width: 187px;
+                letter-spacing:-2px;
               }
             }
 
             &.two {
               span {
                 width: 181px;
-                magin: 13px 0 0 3px;
+                margin: 5px 0 0 3px;
+                letter-spacing:-2px;
+              }
+            }
+            
+            &.three {
+              span {
+                width: 195px;
+                margin:0px;
+                letter-spacing:-2px;
+              }
+              strong{
+              margin-top:-15px;
               }
             }
 
             strong {
               font-size:84px;
               float:left;
+              margin-right:10px
             }
 
             b {
