@@ -43,4 +43,13 @@ describe MemberHelper do
       end
     end
   end
+  
+  describe "#first_visit_banner" do
+    let(:casual_profile) { FactoryGirl.create(:casual_profile) }
+
+    it "should return the banner associated with the user first profile" do
+      helper.stub_chain(:current_user, :profile_scores, :first, :try).and_return(casual_profile)
+      helper.first_visit_banner.should == "/assets/first_visit_banner/casual.jpg"
+    end
+  end
 end

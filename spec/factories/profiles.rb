@@ -1,8 +1,14 @@
 # -*- encoding : utf-8 -*-
-Factory.define :casual_profile, :class => Profile do |f|
-  f.name "Casual Answer Title"
-end
+FactoryGirl.define do
+  factory :profile do
+    factory :casual_profile do
+      name "Casual Profile"
+      first_visit_banner 'casual'
+    end
 
-Factory.define :sporty_profile, :class => Profile do |f|
-  f.name "Profile Answer Title"
+    factory :sporty_profile do
+      name "Sporty Profile"
+      first_visit_banner 'sporty'
+    end
+  end
 end

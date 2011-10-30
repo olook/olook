@@ -20,4 +20,9 @@ module MemberHelper
       raw(I18n.t('views.members.invitation_accepted', :count => accept_invite_count, :bonus => number_to_currency(member.invite_bonus)))
     end
   end
+  
+  def first_visit_banner
+    profile = current_user.profile_scores.first.try(:profile)
+    profile.nil? ? "" : "/assets/first_visit_banner/#{profile.first_visit_banner}.jpg"
+  end
 end
