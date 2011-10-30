@@ -25,7 +25,7 @@ body {
         width: 546px;
         height: 96px;
         float: left;
-        margin-top: 140px;
+        margin-top: 100px;
         margin-left: 50px;
 
         li {
@@ -65,7 +65,7 @@ body {
         padding: 35px;
         width: 345px;
         position: relative;
-        margin: 84px 0 0 83px;
+        margin: 44px 0 0 83px;
         float: left;
 
         .fb-login-button {
@@ -332,6 +332,7 @@ footer {
   background: url('../../assets/common/bg-footer.jpg') repeat-x;
   height:300px;
   clear:both;
+  margin-top:60px;
 }
 
 footer section {

@@ -7,16 +7,16 @@ body {
       overflow:hidden;
 
       .model {
-        margin:0 0 0 -12px;
+        margin:0 0 0px -12px;
         float:left;
       }
 
       .start {
         @include pink-button;
-        width:300px;
-        margin: 100px 0 30px 20px;
+        width:280px;
+        margin: 100px 0 30px 50px;
         float: left;
-        padding: 20px 40px;
+        padding: 20px 30px;
         border-left: 1px solid #FFA1C4;
         border-top: 1px solid #FFA1C4;
         border-bottom: none;
@@ -25,7 +25,7 @@ body {
 
       ul {
         &.model {
-          margin:13px 0 0 0;
+          margin:13px 0 0px 0;
 
           li {
             float: left;
@@ -76,7 +76,7 @@ body {
 
           &.line-one {
             font-size: 44px;
-            margin: -3px 0 0 101px;
+            margin: -3px 0 0 83px;
           }
 
           &.line-two {
@@ -100,7 +100,7 @@ body {
         overflow:hidden;
 
         ul {
-          margin:0 0 90px 30px;
+          margin:0 0 90px 0px;
           float:left;
 
           li {
@@ -118,6 +118,7 @@ body {
 
             &.two {
               span {
+                width: 181px;
                 magin: 13px 0 0 3px;
               }
             }
@@ -136,7 +137,7 @@ body {
               float:left;
               color:#000;
               letter-spacing:-1px;
-              width:181px;
+              width:221px;
               line-height:25px;
               margin:13px 0 0 5px;
             }

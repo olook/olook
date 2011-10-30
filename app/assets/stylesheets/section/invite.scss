@@ -11,16 +11,19 @@ body {
         width: 480px;
 
         #user {
-          margin-top: 31px;
+          margin: 31px 0 0 20px;
         }
 
         > h2 {
           width: 378px;
           width: 300px;
           height: 71px;
-          padding: 25px 50px;
+          padding: 37px 50px 24px;
           border: 1px solid #BBB;
-          margin: 40px auto 0 ;
+          margin: 35px auto 0;
+          font-weight:normal;
+          letter-spacing:-2px;
+          line-height:22px;
         }
       }
 
@@ -102,7 +105,7 @@ body {
           a {
             background: url('/assets/common/arrow-down-not-selected.png') right 16px no-repeat;
             padding: 10px 20px 10px 0;
-            margin: 0 30px;
+            margin: 0 40px 0;
 
             &.selected {
               background: url('/assets/common/arrow-down-selected.png') right 18px no-repeat;
@@ -133,15 +136,19 @@ body {
 
           input[type='text'], textarea {
             background: url('/assets/common/bg-form-invite.png') bottom repeat-x;
-            padding: 12px 8px;
+            padding: 12px 13px;
             border: 1px solid #BBB;
-            width: 430px;
+            width: 415px;
+            font-size:18px;
+            letter-spacing:-1px;
           }
 
           textarea {
             background: url('/assets/common/bg-textarea.png') bottom repeat-x;
             height: 73px;
             resize: none;
+            color:#3c3c3c;
+            font-size:14px;
           }
         }
 
@@ -153,7 +160,8 @@ body {
 
             input[type='submit'] {
               width: 285px;
-              font-size: 18px;
+              font-size: 28px;
+              letter-spacing:-2px;
             }
           }
         }
