@@ -1,0 +1,17 @@
+<h2>Events</h2>
+<table class="table">
+  <tr>
+    <th>Type</th>
+    <th>Description</th>
+    <th>When</th>
+  </tr>
+
+<% user.events.each do |event| %>
+  <tr>
+    <td><%= event.type_humanize %></td>
+    <td><%= event.description %></td>
+    <td><%= event.created_at.to_s(:short) %></td>
+  </tr>
+<% end %>
+</table>
+

@@ -24,37 +24,10 @@
     <b>Created At:</b>
     <%= @user.created_at %>
   </p>
-  <% if @survey_answers.any? %>
-    <h2>Answers</h2>
-    <table class="table">
-      <tr>
-        <th>Question</th>
-        <th>Answer</th>
-      </tr>
-
-    <% @survey_answers.each do |survey_answer| %>
-      <tr>
-        <td><%= survey_answer[:question].title %></td>
-        <td><%= survey_answer[:answer].title %></td>
-      </tr>
-    <% end %>
-    </table>
-
-    <h2>Profiles</h2>
-    <table class="table">
-      <tr>
-        <th>Profile</th>
-        <th>Points</th>
-      </tr>
-
-    <% @user.profile_scores.each do |profile_score| %>
-      <tr>
-        <td><%= profile_score.profile_name %></td>
-        <td><%= profile_score.value %></td>
-      </tr>
-    <% end %>
-    </table>
-  <% end %>
+  
+  <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user }  %>
+  <%= render partial: 'show_events', locals: { user: @user }  %>
+  
 </div>
 
 <% content_for :secondary_navigation do %>

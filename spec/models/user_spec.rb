@@ -40,6 +40,13 @@ describe User do
       user.should be_valid
     end
   end
+  
+  describe 'relationships' do
+    it { should have_many :points }
+    it { should have_one :survey_answer }
+    it { should have_many :invites }
+    it { should have_many :events }
+  end
 
   context "facebook account" do
     it "should not facebook account" do
