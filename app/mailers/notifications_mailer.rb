@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class NotificationsMailer
   attr_accessor :message
 

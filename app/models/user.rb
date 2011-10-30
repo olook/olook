@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :points
   has_one :survey_answer
   has_many :invites
+  has_many :events
   
   before_create :generate_invite_token
 
