@@ -26,7 +26,7 @@ body {
 
     .home {
       .start {
-        font-family: 'Futura Light';
+        font-family: 'Futura Medium';
         font-size: 24px;
         color: #FFF;
         @include border-radius(10px);
@@ -37,7 +37,7 @@ body {
         text-shadow: #B32963 1px 2px 2px;
         text-decoration: none;
         text-transform: uppercase;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
         line-height: 26px;
       }
     }
@@ -45,9 +45,10 @@ body {
     #invite_list {
       h1 {
         text-align: center;
+        font-weight:normal;
         font-style: oblique;
         font-size: 35px;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
 
         span {
           color: $pink;
@@ -57,7 +58,7 @@ body {
 
     #main_describe {
       a {
-        font-family: 'Futura Light';
+        font-family: 'Futura Medium';
         font-size: 20px;
         color: #FFF;
         cursor: pointer;
@@ -68,9 +69,9 @@ body {
         text-transform: uppercase;
         letter-spacing: -1px;
         line-height: 22px;
-        padding-top: 12px;
-        padding-bottom: 0;
+        padding:14px 20px 5px;
         height: 55px;
+        margin-left:10px
       }
     }
   }
@@ -87,7 +88,7 @@ body {
       letter-spacing:-1px;
       font-style: italic;
       font-weight:normal;
-      margin: 20px 0px 0px;
+      margin: 5px 0px 0px;
       color:#191919;
     }
 
@@ -123,11 +124,11 @@ body {
           ol.options {
             li {
               h3 {
-                font-family: 'Arial', sans-serif;
+                font-family: 'Times New Roman', Times, serif;
                 font-size: 16px;
-                font-style: normal;
-                font-weight: bold;
+                font-style: italic;
                 text-align: left;
+                font-size: 22px;
               }
               .question {
                 li {
@@ -179,6 +180,7 @@ body {
       font-size: 40px;
       font-weight: bold;
       font-style: italic;
+      letter-spacing: -2px
     }
     
     p {
@@ -186,7 +188,8 @@ body {
       font-style: italic;
       font-size: 20px;
       color: #000;
-      line-height: 20px;
+      line-height: 18px;
+      letter-spacing: -1px;
       
       strong {
         font-weight: bold;
@@ -233,8 +236,10 @@ body {
       }
       .info {
         > h1 {
-          font-weight: bold;
+          font-weight: normal;
           font-style: italic;
+          letter-spacing:-2px;
+          font-size:35px;
 
           span {
             color: $pink;
@@ -299,12 +304,16 @@ body {
     &#share-mail, &#invite-mail, &#import-contacts {
       hgroup {
         h1, h2 {
-          font-family: 'Futura Medium';
+          font-family: 'Futura Light';
           font-size: 35px;
           text-transform: uppercase;
-          letter-spacing: -1px;
+          letter-spacing: -2px;
           text-align: right;
           line-height: 35px;
+        }
+
+        h1{
+          line-height:30px;
         }
 
         h2 {
@@ -314,6 +323,7 @@ body {
           font-family: sans-serif;
           line-height: normal;
           margin-top: 15px;
+          letter-spacing:-1px;
         }
       }
 

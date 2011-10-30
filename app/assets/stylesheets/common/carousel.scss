@@ -53,7 +53,7 @@ body {
     ol {
       &.options {
         overflow: hidden;
-        margin: 40px auto;
+        margin: 30px auto;
         li {
           float: left;
         }
@@ -299,8 +299,9 @@ body {
                   height: auto;
                   font-family: 'Futura Medium';
                   font-style: normal;
+                  text-transform: uppercase;
                   font-size: 28px;
-                  margin-right: 15px;
+                  margin:4px 15px 0 0;
                   width: 200px;
                   text-align: right;
                   line-height: 29px;
