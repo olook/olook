@@ -1,21 +1,21 @@
 # -*- encoding : utf-8 -*-
-class Event
-  class Type < EnumerateIt::Base
-    associate_values(
-      signup:                 [10, 'Signup'],
-      signin:                 [11, 'Signin'],
-      signout:                [12, 'Signout'],
+class EventType < EnumerateIt::Base
+  associate_values(
+    signup:                 [10, 'Sign up'],
+    signin:                 [11, 'Sign in'],
+    signout:                [12, 'Sign out'],
 
-      send_invite:            [20, 'Send invites'],
-      import_gmail_contacts:  [21, 'Import Gmail contacts'],
-      import_yahoo_contacts:  [22, 'Import Yahoo! contacts'],
-      import_msn_contacts:    [23, 'Import MSN contacts'],
+    first_visit:            [20, 'First visit'],
 
-      share_on_facebook_wall: [30, 'Share on Facebook wall'],
-      send_facebook_message:  [31, 'Send Facebook message'],
+    send_invite:            [30, 'Send invites'],
+    import_gmail_contacts:  [31, 'Import Gmail contacts'],
+    import_yahoo_contacts:  [32, 'Import Yahoo! contacts'],
+    import_msn_contacts:    [33, 'Import MSN contacts'],
 
-      share_on_twitter:       [40, 'Share on Twitter'],
-      share_on_orkut:         [50, 'Share on Orkut']
-    )
-  end  
+    share_on_facebook_wall: [40, 'Share on Facebook wall'],
+    send_facebook_message:  [41, 'Send Facebook message'],
+
+    share_on_twitter:       [50, 'Share on Twitter'],
+    share_on_orkut:         [60, 'Share on Orkut']
+  )
 end
