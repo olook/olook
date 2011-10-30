@@ -4,7 +4,7 @@
 @import 'common/border-radius';
 @import 'common/fonts';
 
-$pink: #F73C89;
+$pink: #d95485;
 
 @mixin pink_button($top-color: #FB619E, $bottom-color: #DD3178, $font-size: 26px, $padding-top: 15px, $padding-bottom: 15px, $padding-left: 50px, $padding-right: 50px, $radius: 10px) {
   background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);

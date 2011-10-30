@@ -9,6 +9,7 @@ body {
 
     .sign-in {
       height: 650px;
+      padding:0 30px;
       @include sign-in(relative);
 
       h1 {
@@ -25,11 +26,11 @@ body {
         width: 546px;
         height: 96px;
         float: left;
-        margin-top: 100px;
-        margin-left: 50px;
+        margin-top: 90px;
+        margin-left: 15px;
 
         li {
-          background: url('/assets/common/sprite-social-media.png') 10px 30px no-repeat;
+          background: url('/assets/common/sprite-social-media.png') 10px 24px no-repeat;
           display: block;
           float: left;
           border-left: 1px solid #CECECE;
@@ -41,11 +42,11 @@ body {
           }
 
           &.twitter {
-            background-position: -167px 30px;
+            background-position: -167px 23px;
           }
 
           &.orkut {
-            background-position: -361px 30px;
+            background-position: -361px 25px;
           }
 
           a {
@@ -133,7 +134,7 @@ body {
       img {
         display: block;
         float: right;
-        margin-right: 50px;
+        margin-right: 5px;
         margin-top: -30px;
       }
     }
@@ -273,8 +274,17 @@ body {
 
   nav {
     background: #000;
-    margin-top: -26px;
+    margin: -26px 0 0px 0;
     border-bottom: 2px solid $pink;
+    
+    a:visited{
+      color:#fff;
+    }
+    
+    a:hover,{
+      color:$pink;
+    }
+    
     ul {
       li {
         display: inline-block;

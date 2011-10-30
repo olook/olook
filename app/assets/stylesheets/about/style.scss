@@ -1,6 +1,10 @@
 @import 'partials/mixins';
 @import 'common/fonts';
 
+#about{
+padding:0 20px;
+}
+
 #about h1 {
   font-family: Times, "Times New Roman", Georgia, serif;
   font-style: italic;
@@ -19,7 +23,7 @@ h1 {
 }
 
 #main_describe {
-  width: 530px;
+  width: 490px;
   float: left;
 }
 
@@ -46,9 +50,9 @@ h1 {
 }
 
 #function {
-  width: 970px;
+  width: 960px;
   overflow: hidden;
-  margin: 35px 0 0px;
+  margin: 35px auto 0px;
 }
 
 #function h1 {
@@ -63,7 +67,7 @@ h1 {
 #function li {
   float: left;
   list-style: none;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
   #function li .img_left{
@@ -80,10 +84,10 @@ h1 {
   }
   
 .box {
-  width: 194px;
+  width: 180px;
   height: 265px;
   border: 1px solid #cccccc;
-  padding: 0px 20px;
+  padding: 0px 20px 5px;
 }
 
 .box h3 {
@@ -118,14 +122,12 @@ h1 {
 }
 
 #terms h1 {
-  margin-bottom: 30px;
   font-family: Times, "Times New Roman", Georgia, serif;
   font-style: italic;
   font-weight:normal;
   font-size:40px;
   letter-spacing:-2px;
-  margin: 20px 0px 10px;
-  
+  margin: 20px 0px 20px 20px;
 }
 
 #terms h2 {
@@ -155,6 +157,7 @@ h1 {
 }
 
 .steps {
+  padding:0 30px;
   margin-bottom: 35px;
 }
 

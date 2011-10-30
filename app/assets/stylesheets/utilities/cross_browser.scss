@@ -6,11 +6,19 @@ html {
           .steps {
             ul {
               li {
-                width:   100%;
+                width: 100%;
+                margin-left:20px;
+
+                &.one {
+                  span {
+                  padding:0 0 10px 0;
+                  }
+                }
 
                 strong {
-                  width: 50px;
+                  width: 40px;
                 }
+                
                 span {
                   letter-spacing: -2px;
                 }
@@ -36,7 +44,7 @@ html {
             fieldset.select {
               select {
                 font-size: 16px;
-                color: #F73C89;
+                color: #d95485;
 
                 &[name='day'], &[name='year'] {
                   width: 28%;
