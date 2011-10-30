@@ -5,12 +5,7 @@ describe User do
 
   subject { Factory.create(:user) }
 
-  before :each do
-    @profile = mock_model('Profile')
-  end
-
   context "attributes validation" do
-
     it { should allow_value("a@b.com").for(:email) }
     it { should_not allow_value("@b.com").for(:email) }
     it { should_not allow_value("a@b.").for(:email) }
@@ -147,7 +142,7 @@ describe User do
 
   describe "instance methods" do
     it "should return user answers" do
-      survey_answers = FactoryGirl.create(:survey_answers, :user => subject)
+      survey_answers = FactoryGirl.create(:survey_answers, user: subject)
       subject.survey_answers.should == survey_answers.answers
     end
   end
@@ -160,12 +155,28 @@ describe User do
     end
 
     describe "when there are accepted invitations, the invite bonus" do
-      let(:accepting_member) { FactoryGirl.create(:member, :first_name => 'Accepting') }
-      let!(:invite) { FactoryGirl.create(:invite, :user => subject).accept_invitation(accepting_member) }
+      let(:accepting_member) { FactoryGirl.create(:member, first_name: 'Accepting') }
+      let!(:invite) { FactoryGirl.create(:invite, user: subject).accept_invitation(accepting_member) }
 
       it "should be equal to the amount of accept invites times 10" do
         subject.invite_bonus.should == 10.0
       end
+    end
+  end
+  
+  describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
+    let(:casual_profile) { FactoryGirl.create(:casual_profile) }
+    let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
+    let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }
+    let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 10) }
+
+    it "should include all profiles which scored points" do
+      subject.profile_scores.map(&:profile).should =~ [sporty_profile, casual_profile]
+    end
+    it "the first profile should be the one with most points" do
+      main_profile = subject.profile_scores.first
+      main_profile.profile.should == casual_profile
+      main_profile.value.should == 30
     end
   end
 end

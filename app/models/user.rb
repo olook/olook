@@ -5,10 +5,9 @@ class User < ActiveRecord::Base
   attr_protected :invite_token
 
   has_many :points
-  has_many :profiles, :through => :points
   has_one :survey_answer
   has_many :invites
-
+  
   before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
@@ -71,6 +70,10 @@ class User < ActiveRecord::Base
   
   def invite_bonus
     self.invites.accepted.count * 10.0
+  end
+
+  def profile_scores
+    self.points.includes(:profile).order('value DESC')
   end
 
   private

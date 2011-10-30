@@ -47,10 +47,10 @@
         <th>Points</th>
       </tr>
 
-    <% @user.points.includes(:profile).order('value DESC').each do |user_profile| %>
+    <% @user.profile_scores.each do |profile_score| %>
       <tr>
-        <td><%= user_profile.profile.name %></td>
-        <td><%= user_profile.value %></td>
+        <td><%= profile_score.profile_name %></td>
+        <td><%= profile_score.value %></td>
       </tr>
     <% end %>
     </table>
