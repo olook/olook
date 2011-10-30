@@ -7,13 +7,13 @@ class SessionsController < Devise::SessionsController
 
   def create_sign_in_event
     if current_user.is_a?(User)
-      current_user.events.create(type: EventType::SIGNIN, description: "Sign in")
+      current_user.events.create(type: EventType::SIGNIN)
     end
   end
 
   def create_sign_out_event
     if current_user.is_a?(User)
-      current_user.events.create(type: EventType::SIGNOUT, description: "Sign out")
+      current_user.events.create(type: EventType::SIGNOUT)
     end
   end
 
