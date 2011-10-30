@@ -13,10 +13,6 @@ class Invite < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => 'member'
   delegate :invite_token, :to => :user, :prefix => 'member'
 
-  def send_invitation
-    InvitesMailer.invite_email(self.id).deliver
-  end
-  
   def accept_invitation(accepting_member)
     self.tap do |invite|
       invite.invited_member = accepting_member

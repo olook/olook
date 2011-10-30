@@ -1,28 +1,23 @@
+default: &default
+  :site: http://api.9f01a855c4ef6.olook.mailee.me
+  :welcome:
+    :title: Olook
+    :subject: Olook
+    :from_name: Olook
+    :from_email: convite@olook.com.br
+    :template_id: 9481
+  :invite:
+    :title: Olook
+    :subject: Olook
+    :from_name: Olook
+    :from_email: convite@olook.com.br
+    :template_id: 9506
+
 development:
-  title: Olook
-  subject: Olook
-  from_name: Olook
-  from_email: convite@olook.com.br
-  template_id: 9481
-  site: http://api.9f01a855c4ef6.olook.mailee.me
+  <<: *default
 
 test:
-  title: Olook
-  subject: Olook
-  from_name: Olook
-  from_email: convite@olook.com.br
-  template_id: 9481
-  site: http://api.9f01a855c4ef6.olook.mailee.me
+  <<: *default
 
 production:
-  title: Olook
-  subject: Olook
-  from_name: Olook
-  from_email: convite@olook.com.br
-  template_id: 9481
-  site: http://api.9f01a855c4ef6.olook.mailee.me
-
-
-
-
-
+  <<: *default
