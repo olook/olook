@@ -186,4 +186,14 @@ describe User do
       main_profile.value.should == 30
     end
   end
+  
+  describe "#first_visit? and #record_first_visit" do
+    it "should return true if there's no FIRST_VISIT event on the user event list" do
+      subject.first_visit?.should be_true
+    end
+    it "should return false if there's a FIRST_VISIT event on the user event list" do
+      subject.record_first_visit
+      subject.first_visit?.should be_false
+    end
+  end
 end

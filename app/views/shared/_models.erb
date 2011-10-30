@@ -1,7 +1,7 @@
-<% unless session[:model_displayed] %>
-<div class="dialog">
-  <%= image_tag("/assets/invite_friends/sexy.jpg") %>
-</div>
-<% session[:model_displayed] = true %>
+<% if current_user.first_visit? %>
+  <div class="dialog">
+    <%= image_tag("/assets/invite_friends/sexy.jpg") %>
+  </div>
+  <% current_user.record_first_visit %>
 <% end %>
 
