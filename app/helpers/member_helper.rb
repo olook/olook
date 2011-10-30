@@ -15,9 +15,9 @@ module MemberHelper
   def invitation_score(member)
     accept_invite_count = member.invites.accepted.count
     if accept_invite_count == 0
-      raw(I18n.t('interface.member.no_invitation_accepted'))
+      raw(I18n.t('views.members.no_invitation_accepted'))
     else
-      raw(I18n.t('interface.member.invitation_accepted', :count => accept_invite_count, :bonus => number_to_currency(member.invite_bonus)))
+      raw(I18n.t('views.members.invitation_accepted', :count => accept_invite_count, :bonus => number_to_currency(member.invite_bonus)))
     end
   end
 end

@@ -4,8 +4,8 @@
 en:
   hello: "Hello world"
   
-  interface:
-    member:
+  views:
+    members:
       no_invitation_accepted: 'None of your friends have registered yet'
       invitation_accepted: 
         one: '<span>%{count} </span>friend have registered and you won <span class="amount">%{bonus}</span>'
