@@ -36,18 +36,13 @@ feature "Member can send invites", %q{
         tweet_text.should have_content("http://beta.olook.com.br/invite/#{@member.invite_token}")
       end
 
-      scenario "sending a link using Facebook Message dialog" do
-        facebook_button = page.find('#facebook_invite_friends')
-        facebook_button.should have_content("Convide suas amigas")
-      end
-
       scenario "sending an invitation e-mail to a list of people" do
         emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
         fill_in "invite_mail_list", :with => emails.join(' , ')
 
         @member.invites.map(&:email).should_not include(emails)
 
-        click_on "Enviar convites"
+        click_on "Convidar"
 
         page.should have_content("2 convites enviados com sucesso!")
         @member.reload
@@ -66,22 +61,19 @@ feature "Member can send invites", %q{
       scenario "if they have an empty token" do
         do_login!(user)
         visit accept_invitation_path(:invite_token => '')
-        current_path.should == root_path
-        page.should have_content("Invalid token")
+        page.should have_content("Convite inválido")
       end
 
       scenario "if they have a token with an invalid format" do
         do_login!(user)
         visit accept_invitation_path(:invite_token => '')
-        current_path.should == root_path
-        page.should have_content("Invalid token")
+        page.should have_content("Convite inválido")
       end
 
       scenario "if they have a token that doesn't exist" do
         do_login!(user)
         visit accept_invitation_path(:invite_token => 'X'*20)
-        current_path.should == root_path
-        page.should have_content("Invalid token")
+        page.should have_content("Convite inválido")
       end
     end
 
