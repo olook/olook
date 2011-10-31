@@ -1,6 +1,14 @@
 @import 'partials/mixins';
 
 body {
+  #error_explanation {
+    margin: 10px 0;
+
+    ul {
+      text-align: center;
+    }
+  }
+
   .content {
     width: 990px;
     margin: -27px auto 0 auto;
