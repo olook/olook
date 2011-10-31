@@ -18,8 +18,6 @@ def answer_survey
 end
 
 def build_survey
-  25.times do
-    @question = FactoryGirl.create(:question)
-    @answer = FactoryGirl.create(:answer_from_casual_profile, :question => @question)
-  end
+  survey = Survey.new(SURVEY_DATA)
+  survey.build
 end
