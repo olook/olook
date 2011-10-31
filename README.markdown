@@ -2,6 +2,7 @@ Requirements
 ============
 
 - Ruby 1.9.2 or higher
+- Redis 2.4.2
 - MySQL 5.1.49 on Ubuntu 11.04
 
 Setup
@@ -12,8 +13,19 @@ Setup
 - copy config/facebook.yml.sample to config/facebook.yml and set your app_id and app_secret
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
-- rake spec
 - rake db:seed
+
+Running the application
+============
+
+- redis-server
+- QUEUE=* bundle exec rake environment resque:work
+- rails server
+
+Running tests
+============
+
+- rspec spec
 
 Installing MySQL 5.1.49 on Ubuntu/Debian
 ============

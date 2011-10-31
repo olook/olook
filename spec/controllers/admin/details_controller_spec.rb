@@ -7,6 +7,12 @@ describe Admin::DetailsController do
   let!(:product) { detail.product }
   let!(:valid_attributes) { detail.attributes }
 
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
+
   describe "GET show" do
     it "assigns the requested detail as @detail" do
       get :show, :id => detail.id.to_s, :product_id => product.id
@@ -32,7 +38,7 @@ describe Admin::DetailsController do
     describe "with valid params" do
       it "creates a new Detail" do
         expect {
-          post :create, :detail => valid_attributes, :product_id => product.id 
+          post :create, :detail => valid_attributes, :product_id => product.id
         }.to change(Detail, :count).by(1)
       end
 

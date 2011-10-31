@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::ProductsController < ApplicationController
+  before_filter :authenticate_admin!
+
   layout "admin"
   respond_to :html
 
@@ -49,12 +51,12 @@ class Admin::ProductsController < ApplicationController
     @product.destroy
     respond_with :admin, @product
   end
-  
+
   def add_related
     @product = Product.find(params[:id])
     product_to_relate = Product.find(params[:related_product][:id])
     @product.relate_with_product(product_to_relate)
-    
+
     redirect_to admin_product_path(@product)
   end
 
@@ -62,7 +64,7 @@ class Admin::ProductsController < ApplicationController
     @product = Product.find(params[:id])
     related_product = Product.find(params[:related_product_id])
     @product.unrelate_with_product(related_product)
-    
+
     redirect_to admin_product_path(@product)
   end
 end
