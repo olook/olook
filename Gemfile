@@ -26,6 +26,7 @@ gem 'zipruby'
 gem 'mailee'
 gem 'will_paginate'
 gem 'airbrake'
+gem 'asset_sync'
 
 group :development, :test do
   gem 'sqlite3'
