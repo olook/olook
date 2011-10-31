@@ -41,14 +41,16 @@ body {
 
         fieldset {
           ol {
-            li {
+            li, .field_with_errors {
               margin-bottom: 5px;
+              overflow: hidden;
 
               label {
                 display: inline-block;
                 width: 140px;
                 text-align: right;
                 font-weight: bold;
+                float: left;
 
                 &[for='user_password'] {
                   span {
@@ -104,6 +106,13 @@ body {
                     color: #000;
                   }
                 }
+              }
+            }
+
+            .field_with_errors {
+              float: left;
+              label {
+                padding-top: 10px;
               }
             }
           }

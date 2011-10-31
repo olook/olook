@@ -1,4 +1,25 @@
 html {
+  &.ie {
+    #survey {
+      .about {
+        overflow: hidden;
+        display: block;
+
+        li {
+          label {
+            display: block;
+            overflow: hidden;
+            input[type='radio'] {
+              position: absolute;
+              top: -50px;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+
   &.ie7 {
     body {
       .top-shadow {
