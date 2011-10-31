@@ -20,3 +20,4 @@ config/email.yml
 *.passwd
 db/schema.rb
 .watchr
+public/assets
