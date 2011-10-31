@@ -46,7 +46,7 @@
     <fieldset>
       <ol>
         <li>
-          <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>">
+          <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>" readonly="readonly">
           <ul class="share">
             <li>Compartilhe:</li>
             <li><a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
