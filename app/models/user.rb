@@ -8,13 +8,13 @@ class User < ActiveRecord::Base
   has_one :survey_answer
   has_many :invites
   has_many :events
-  
+
   before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-  validate :check_cpf
+  #validate :check_cpf
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   InviteTokenFormat = /\b[a-zA-Z0-9]{8}\b/
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   #TODO: refactor CPF tests into CPFValidator class
   # http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates
-  # validates :cpf, :presence => { :if => :is_invited? }
+  validates :cpf, :presence => { :if => :is_invited? }
 
   def name
     "#{first_name} #{last_name}".strip
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   def has_facebook?
     self.uid.present?
   end
-  
+
   def invite_bonus
     self.invites.accepted.count * 10.0
   end
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   def profile_scores
     self.points.includes(:profile).order('value DESC')
   end
-  
+
   def first_visit?
     self.events.where(:type => EventType::FIRST_VISIT).empty?
   end
@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def record_first_visit
     add_event(EventType::FIRST_VISIT) if first_visit?
   end
-  
+
   def add_event(type, description = '')
     self.events.create(type: type, description: description)
   end
@@ -93,9 +93,7 @@ class User < ActiveRecord::Base
 
   def check_cpf
     current_cpf = Cpf.new(self.cpf)
-    if is_invited
-      errors.add(:cpf, "é inválido") unless current_cpf.valido?
-    end
+    errors.add(:cpf, "é inválido") unless current_cpf.valido?
   end
 
   def generate_invite_token
