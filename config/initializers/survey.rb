@@ -11,18 +11,18 @@ survey_data = []
 
 survey_data[0] = {
   :question_title => "1. Com qual dessas celebridades brasileiras você se identifica mais?",
-  :answers => ["Debora Secco", "Grazi Mazzafera", "Carolina Dieckmann"],
+  :answers => ["Debora Secco", "Grazi Mazzafera", "Priscila Fantin"],
   :weights => [{"Debora Secco" => {"5" => feminine, "10" => sexy, "3" => trendy}},
                {"Grazi Mazzafera" => {"5" => elegant, "10" => feminine, "3" => trendy}},
-               {"Carolina Dieckmann" => {"3" => casual, "5" => feminine, "3" => trendy}}]
+               {"Priscila Fantin" => {"10" => casual, "5" => traditional, "3" => trendy}}]
 }
 
 survey_data[1] = {
   :question_title => "2. Com qual dessas celebridades internacionais você se identifica mais?",
-  :answers => ["Natalie Portman", "Gwyneth Paltrow", "Angelina Jolie"],
-  :weights => [{"Natalie Portman" => {"3" => elegant, "10" => feminine, "5" => contemporary}},
-               {"Gwyneth Paltrow" => {"3" => traditional, "10" => elegant, "5" => contemporary}},
-               {"Angelina Jolie" => {"3" => casual, "5" => elegant, "10" => sexy}}]
+  :answers => ["Blake Lively", "Kate Winslet", "Angelina Jolie"],
+  :weights => [{"Blake Lively" => {"10" => trendy}},
+               {"Kate Winslet" => {"10" => feminine, "5" => traditional, "3" => elegant}},
+               {"Angelina Jolie" => {"3" => feminine, "5" => elegant, "10" => sexy}}]
 }
 
 survey_data[2] = {
