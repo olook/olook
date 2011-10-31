@@ -59,7 +59,7 @@ describe MembersController do
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '3 invites sent')
     subject.stub(:current_user) { member }
-    
+
     post :invite_by_email, :invite_mail_list => emails.join(', ')
 
     response.should redirect_to(member_invite_path)
@@ -75,7 +75,7 @@ describe MembersController do
 
   describe "#show_imported_contacts" do
     before :each do
-      @email_provider = 1
+      @email_provider = 'gmail'
       @login = "john@doe.com"
       @password = "foobar"
 
