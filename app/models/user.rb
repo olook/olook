@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
-  validates :cpf, :presence => { :if => :is_invited? }
+  validates_with CpfValidator, :if => :is_invited
 
   def name
     "#{first_name} #{last_name}".strip
@@ -88,7 +88,10 @@ class User < ActiveRecord::Base
 
   def check_cpf
     current_cpf = Cpf.new(self.cpf)
-    errors.add(:cpf, "é inválido") unless current_cpf.valido?
+    #if is_invited
+      errors.add(:cpf, "é inválido") unless current_cpf.valido?
+      errors.add(:cpf, "já está cadastrado") if User.find_by_cpf(self.cpf)
+    #end
   end
 
   def generate_invite_token

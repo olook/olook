@@ -27,20 +27,33 @@ describe User do
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:email) }
 
-    it "should validate CPF when required" do
-      user = Factory.build(:user)
-      user.is_invited = true
-      user.save
-      user.should be_invalid
+    describe "when CPF is required" do
+      it "should validate" do
+        user = Factory.build(:user)
+        user.is_invited = true
+        user.save
+        user.should be_invalid
+      end
+
+      it "should validate uniqueness" do
+        cpf = "19762003691"
+        user  = FactoryGirl.create(:user, :cpf => cpf)
+        user2 = FactoryGirl.build(:user, :cpf => cpf)
+        user2.is_invited = true
+        user2.save
+        user2.should be_invalid
+      end
     end
 
-    it "should not validate CPF when required" do
-      user = Factory.build(:user)
-      user.save
-      user.should be_valid
+    describe "when CPF is not required" do
+      it "should not validate" do
+        user = Factory.build(:user)
+        user.save
+        user.should be_valid
+      end
     end
   end
-  
+
   describe 'relationships' do
     it { should have_many :points }
     it { should have_one :survey_answer }
@@ -153,7 +166,7 @@ describe User do
       subject.survey_answers.should == survey_answers.answers
     end
   end
-  
+
   describe "#invite_bonus" do
     describe "when there are no accepted invitations" do
       it 'the invite bonus should be zero' do
@@ -170,7 +183,7 @@ describe User do
       end
     end
   end
-  
+
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
     let(:casual_profile) { FactoryGirl.create(:casual_profile) }
     let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
@@ -186,7 +199,7 @@ describe User do
       main_profile.value.should == 30
     end
   end
-  
+
   describe "#first_visit? and #record_first_visit" do
     it "should return true if there's no FIRST_VISIT event on the user event list" do
       subject.first_visit?.should be_true
@@ -196,7 +209,7 @@ describe User do
       subject.first_visit?.should be_false
     end
   end
-  
+
   describe "#create_event" do
     it "should add an event for the user" do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
