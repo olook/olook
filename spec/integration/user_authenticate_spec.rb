@@ -11,6 +11,7 @@ feature "User Authenticate", %q{
   before :each do
     @user = Factory(:user)
     User.any_instance.stub(:counts_and_write_points)
+    Resque.stub(:enqueue)
   end
 
   scenario "User can fill the cpf when invited" do
@@ -55,7 +56,9 @@ feature "User Authenticate", %q{
       fill_in "user_email", :with => "fake@mail.com"
       click_button "Update"
     end
-    page.should have_content(I18n.t "devise.registrations.updated")
+    within('#user-info') do
+     page.should have_content("New First Name")
+    end
   end
 
   scenario "User update with password" do
@@ -69,7 +72,9 @@ feature "User Authenticate", %q{
       fill_in "user_password_confirmation", :with => "123456"
       click_button "Update"
     end
-    page.should have_content(I18n.t "devise.registrations.updated")
+    within('#user-info') do
+     page.should have_content("New First Name")
+    end
   end
 
   scenario "User Log in" do
