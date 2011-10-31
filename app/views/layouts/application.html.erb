@@ -48,6 +48,9 @@
       </div>
     </header>
 
+    <div class="top-shadow"></div>
+
+
     <% if user_signed_in? %>
       <nav>
         <ul class="content">
@@ -55,6 +58,10 @@
           <li><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
         </ul>
       </nav>
+      
+    <% else %>
+    
+    
     <% end %>
 
     <div class="content">
