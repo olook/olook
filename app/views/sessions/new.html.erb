@@ -1,7 +1,7 @@
 <div class="home sign-in">
   <h1>Seja bem-vinda! Faça seu login ...</h1>
   <div id="sign-in-box">
-    <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb-login-button' %>
+    <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb-login-button fbpopup' %>
     <%= render :partial => "form" %>
   </div>
   <%= image_tag('/assets/common/model-sign-in.png') %>
@@ -9,4 +9,5 @@
     <li class="fb"><%= link_to 'Curta a olook', '' %></li>
     <li class="twitter"><%= link_to 'Siga-nos', '' %></li>
     <li class="orkut"><%= link_to 'Seja nossa amiga', '' %></li>
+  </ul>
 </div>
