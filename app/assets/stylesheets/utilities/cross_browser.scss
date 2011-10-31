@@ -42,6 +42,17 @@ html {
           .jcarousel-prev {
             right: 1050px;
           }
+          li {
+            label {
+              display: block;
+              overflow: hidden;
+              input[type='radio'] {
+                position: absolute;
+                top: 0;
+                display: block;
+              }
+            }
+          }
         }
 
         ul.questions {
