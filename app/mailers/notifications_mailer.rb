@@ -8,7 +8,11 @@ class NotificationsMailer
 
   def signup(user_id)
     attributes = MAILEE_CONFIG[:welcome]
-    attributes[:emails] = User.find(user_id).email
+    member = User.find(user_id)
+
+    attributes[:subject] = attributes[:subject].gsub /__member_name__/, member.name
+    attributes[:emails] = member.email
+    
     signup_notification = message.create(attributes)
     signup_notification.ready unless Rails.env == "test"
   end
