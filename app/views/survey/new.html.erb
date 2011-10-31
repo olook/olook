@@ -3,7 +3,7 @@
 <% end %>
 <%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
 <span id="next_link"></span>
-<div class="loading"></div>
+  <div id="asynch-load"></div>
   <div id="survey">
     <%= form_tag({:controller => "survey", :action => "create"}) do %>
       <input type="hidden" id="id_first_question" value="<%= @presenter.id_first_question %>" />

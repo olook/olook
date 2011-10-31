@@ -82,7 +82,6 @@ init = {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
                  itemFirstInCallback : {
-                    onBeforeAnimation : init.hideArrow,
                     onAfterAnimation : init.showArrow
                  },
                  buttonPrevHTML : null,
@@ -91,6 +90,7 @@ init = {
              },
 
   showArrow : function(instance, item, index, state) {
+        $('#asynch-load').click();
         if(index == '1') {
           $('.jcarousel-prev').css('display', 'none');
         }else{
@@ -132,8 +132,6 @@ init = {
         el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
         return false;
     });
-
-    $('.content .loading').remove();
   },
 
   bindActions : function() {
