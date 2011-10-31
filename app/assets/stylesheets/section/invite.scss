@@ -214,4 +214,68 @@ body {
       }
     }
   }
+
+  .full-banner {
+    background: #000;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 115px;
+    left: 0;
+    z-index: 99;
+
+    .close {
+      position: absolute;
+      right: 10%;
+      top: 20px;
+    }
+
+    .content {
+      border: 1px solid #1C1C1C;
+      width: 651px;
+      margin: 15px auto;
+      padding: 10px 30px;
+
+      ul {
+        background: #1C1C1C;
+        width: 542px;
+        display: block;
+        margin: 20px auto 5px;
+        padding: 10px;
+        overflow: hidden;
+
+        li {
+          float: left;
+          width: 140px;
+          position: relative;
+          margin: 0 20px;
+
+          &:before {
+            content: "+";
+            display: block;
+            position: absolute;
+            top: 30px;
+            left: -28px;
+          }
+
+          &:first-child {
+            padding-top: 20px;
+            
+            & + li + li {
+              padding-top: 10px;
+            }
+
+            &:before {
+              content: "";
+            }
+          }
+        }
+
+        & + a {
+          display: block;
+          width: auto;
+        }
+      }
+    }
+  }
 }
