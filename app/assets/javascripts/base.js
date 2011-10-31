@@ -26,14 +26,31 @@ $(document).ready(function() {
     imageH = $('.dialog img').height();
 
     $('body').prepend("<div class='overlay'></div>");
-    $(".overlay").width(width).height(height);
+    $('.overlay').width(width).height(height);
+
+    $(".dialog img").animate({
+      width: 'toggle',
+      height: 'toggle'
+    });
     
-    $('body .dialog').css("left", (viewWidth - imageW) / 2);
-    $('body .dialog').css("top", (viewHeight - imageH) / 2);
+    $('body .dialog').css("left", (viewWidth - '930') / 2);
+    $('body .dialog').css("top", (viewHeight - '525') / 2);
+
+    $('.dialog img').fadeIn('slow');
 
     $('.dialog img, .overlay').click(function(){
-      $('.dialog, .overlay').remove();
+      $('.dialog, .overlay').fadeOut('slow', function(){
+        $('.dialog, .overlay').remove();
+      });
     });
   }
+
+  $('.full-banner').fadeIn('slow');
+  $('.full-banner .close').click(function(event){
+    $(this).parent().fadeOut('slow', function(){
+      $(this).remove();
+    });
+    event.preventDefault();
+  });
 
 });
