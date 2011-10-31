@@ -123,6 +123,7 @@ body {
         width: 858px;
         padding: 40px 50px;
         overflow: hidden;
+        position: relative;
 
         hgroup {
           display: block;
@@ -210,6 +211,101 @@ body {
       &#invite-mail {
         form {
           padding-top: 0;
+        }
+      }
+
+      &#import-contacts {
+        height: 124px;
+
+        .import-dropdown {
+          background: #FFF;
+          width: 346px;
+          height: 160px;
+          border: 1px solid #DADADA;
+          overflow: hidden;
+          position: absolute;
+          right: 50px;
+          top: 10px;
+          padding: 15px 50px;
+
+          > span {
+            background: url('/assets/common/mail-services-icons.png') no-repeat;
+            display: block;
+            width: 100px;
+            height: 45px;
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            text-indent: -10000px;
+
+            &.gmail {
+              background-position: 0 -72px;
+            }
+            
+            &.yahoo {
+              background-position: 5px 0;
+            }
+          }
+
+          .close {
+            display: block;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: $pink;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+          }
+
+          form {
+            margin-top: 0;
+            padding-top: 0;
+
+            fieldset {
+              &.inputs {
+                ol {
+                  li{
+                    margin-bottom: 8px;
+                    display: block;
+
+                    input {
+                      &[type='text'], &[type='password'] {
+                        background: url('/assets/common/background-inputs.png') repeat-x;
+                        width: 93%;
+                        padding: 6px 8px;
+                        border: 1px solid #BBB;
+                      }
+                    }
+
+                    & + li + li  + li{
+                      padding: 10px 0;
+                    }
+                  }
+                }
+              }
+
+              &.buttons {
+                position: absolute;
+                display: block;
+                top: 112px;
+                right: 40px;
+                
+                ol {
+                  li {
+                    width: 114px;
+
+                    input[type='submit'] {
+                      width: 110px;
+                      padding: 10px 15px;
+                      font-size: 14px;
+                      letter-spacing: 0px;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

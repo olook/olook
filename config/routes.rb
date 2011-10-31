@@ -3,47 +3,24 @@ Olook::Application.routes.draw do
   get "index/index"
   root :to => "home#index"
 
-  if I18n.locale == :'pt-BR' then
-    match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
-    match "/sobre", :to => "pages#about", :as => "about"
-    match "/termos", :to => "pages#terms", :as => "terms"
-    match "/faq", :to => "pages#faq", :as => "faq"
-    match "/privacidade", :to => "pages#privacy", :as => "privacy"
+  match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
+  match "/sobre", :to => "pages#about", :as => "about"
+  match "/termos", :to => "pages#terms", :as => "terms"
+  match "/faq", :to => "pages#faq", :as => "faq"
+  match "/privacidade", :to => "pages#privacy", :as => "privacy"
 
-    resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
+  resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
 
-    get "/produto/:id" => "product#index", :as => "product"
+  get "/produto/:id" => "product#index", :as => "product"
+  get "membro/convite" => "members#invite", :as => 'member_invite'
+  get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
+  post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
 
-    get "membro/convite" => "members#invite", :as => 'member_invite'
-    get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
-    post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
+  get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
+  post "membro/importar_contatos" => 'members#show_imported_contacts', :as => 'member_show_imported_contacts'
 
-    get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
-    post "membro/importar_contatos" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
-    post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
-
-    get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
-  else
-    match "/welcome", :to => "pages#welcome", :as => "welcome"
-    match "/about", :to => "pages#about", :as => "about"
-    match "/terms", :to => "pages#terms", :as => "terms"
-    match "/faq", :to => "pages#faq", :as => "faq"
-    match "/privacy", :to => "pages#privacy", :as => "privacy"
-
-    resource :survey, :only => [:new, :create], :controller => :survey
-
-    get "/product/:id" => "product#index", :as => "product"
-
-    get "member/invite" => "members#invite", :as => 'member_invite'
-    get "invite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
-    post "member/invite_by_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
-
-    get "member/import_contacts" => "members#import_contacts", :as => 'member_import_contacts'
-    post "member/import_contacts" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
-    post "member/invite_contacts" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
-
-    get "member/invites" => "members#invite_list", :as => 'member_invite_list'
-  end
+  post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
+  get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
 
   namespace :admin do
     match "/", :to => "index#dashboard"

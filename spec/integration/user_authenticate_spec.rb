@@ -100,7 +100,7 @@ feature "User Authenticate", %q{
       click_on "Cadastrar"
     end
     page.should have_content(I18n.t "devise.registrations.signed_up")
-    click_on "Logout"
+    click_on "Sair"
     page.should have_content(I18n.t "devise.sessions.signed_out")
 
     visit new_user_session_path

@@ -22,6 +22,10 @@ class MembersController < ApplicationController
     redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
+  def import_contacts
+    @email_provider = params[:email_provider]
+  end
+
   def show_imported_contacts
     email_provider = params[:email_provider]
     login = params[:login]
@@ -33,7 +37,7 @@ class MembersController < ApplicationController
   def invite_imported_contacts
     invites = current_user.invites_for(params[:email_address])
     current_user.add_event(EventType::SEND_IMPORTED_CONTACTS, "#{invites.length} invites from imported contacts sent")
-    redirect_to(member_import_contacts_path, :notice => "Convites enviados com sucesso!")
+    redirect_to(member_invite_path, :notice => "Convites enviados com sucesso!")
   end
 
   def invite_list

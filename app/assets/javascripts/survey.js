@@ -36,7 +36,7 @@ $(document).ready(function() {
       $(".about select[name='day']").val()  != 'Dia' &&
       $(".about select[name='month']").val()  != 'Mês' &&
       $(".about select[name='year']").val()  != 'Ano'){
-
+      
       $(".about .buttons li").removeClass("grey-button");
       $(".about .buttons li input").removeAttr("disabled");
     }else{

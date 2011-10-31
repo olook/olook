@@ -59,7 +59,7 @@ describe MembersController do
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '3 invites sent')
     subject.stub(:current_user) { member }
-    
+
     post :invite_by_email, :invite_mail_list => emails.join(', ')
 
     response.should redirect_to(member_invite_path)
@@ -67,15 +67,16 @@ describe MembersController do
   end
 
   describe "#import_contacts" do
-    it "should show the import contacts page" do
-      get :import_contacts
+    it "should assign @email_provider" do
+      get :import_contacts, :email_provider => "gmail"
+      assigns(:email_provider).should == "gmail"
       response.should render_template("import_contacts")
     end
   end
 
   describe "#show_imported_contacts" do
     before :each do
-      @email_provider = 1
+      @email_provider = 'gmail'
       @login = "john@doe.com"
       @password = "foobar"
 
@@ -108,9 +109,9 @@ describe MembersController do
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
       subject.stub(:current_user) { member }
 
-      post :invite_imported_contacts, :email_address => emails
+      post :invite_imported_contacts, :email_provider => "gmail", :email_address => emails
 
-      response.should redirect_to(member_import_contacts_path)
+      response.should redirect_to(member_invite_path)
       flash[:notice].should == "Convites enviados com sucesso!"
     end
   end

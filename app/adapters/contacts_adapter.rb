@@ -1,5 +1,5 @@
 class ContactsAdapter
-  TYPE = {gmail: "1", yahoo: "2"}
+  TYPE = {gmail: "gmail", yahoo: "yahoo"}
   attr_accessor :login, :password
 
   def initialize(login, password)
