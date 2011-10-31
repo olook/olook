@@ -1,6 +1,11 @@
 html {
   &.ie7 {
     body {
+      .top-shadow {
+        position: relative;
+        margin-top: -26px;
+        top: 0;
+      }
       .content {
         .home {
           .steps {
