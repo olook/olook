@@ -16,7 +16,6 @@
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
 
-    <%= javascript_include_tag "application" %>
     <%= render "shared/kiss_metrics" %>
     <%= render "shared/google_analytics" %>
     <%= favicon_link_tag %>
@@ -42,11 +41,14 @@
           <% end %>
 
           <div class="sign-in-dropdown close">
-            <%= render "sessions/form" %>
+            <%= render "sessions/form_user" %>
           </div>
         </div>
       </div>
     </header>
+
+    <div class="top-shadow"></div>
+
 
     <% if user_signed_in? %>
       <nav>
@@ -55,6 +57,10 @@
           <li><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
         </ul>
       </nav>
+      
+    <% else %>
+    
+    
     <% end %>
 
     <div class="content">
@@ -77,8 +83,8 @@
       </ul>
 
       <ul class="footer-social-midia">
-        <li class="twitter"><a href="http://www.twitter.com/olook">Siga-nos no twitter</a></li>
-        <li class="facebook"><a href="http://www.facebook.com/olook">Curta a Olook no Facebook</a></li>
+        <li class="twitter"><a href="http://www.twitter.com/olook" target="_blank">Siga-nos no twitter</a></li>
+        <li class="facebook"><a href="http://www.facebook.com/olook" target="_blank">Curta a Olook no Facebook</a></li>
       </ul>
 
       <ul class="bandeiras">
@@ -90,5 +96,7 @@
       <p>Todos os direitos reservados</p>
     </section>
   </footer>
-</body>
+
+  <%= javascript_include_tag "application" %>
+  </body>
 </html>

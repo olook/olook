@@ -4,7 +4,7 @@
     <h3><%= answer.title %></h3>
     <label for="<%="for_questions_question_#{answer.question.id}_#{answer.id}" %>">
       <%= radio_button_tag("questions[question_#{answer.question.id}]", answer.id) %>
-      <%= image_tag "quiz/#{question_number}_#{answer_number += 1}.jpg" %>
+      <%= image_tag "common/ajax-loader.gif", :class => 'asynch-load-image', :'data-href' => "/assets/quiz/#{question_number}_#{answer_number += 1}.jpg" %>
     </label>
   </li>
 <% end %>

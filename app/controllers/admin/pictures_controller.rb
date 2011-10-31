@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Admin::PicturesController < ApplicationController
+  before_filter :authenticate_admin!
+  before_filter :load_product
+
   layout "admin"
   respond_to :html
-  before_filter :load_product
 
   def show
     @picture = @product.pictures.find(params[:id])
