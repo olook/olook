@@ -226,6 +226,41 @@ body {
       }
 
       @include table();
+
+      &.listing {
+        input[type='image'] {
+          display: block;
+          margin: 0 auto;
+        }
+
+        table {
+          &#list {
+            thead {
+              tr {
+                th {
+                  text-align: right;
+
+                  &:first-child {
+                    text-align: center;
+                  }
+                }
+              }
+            }
+
+            tbody {
+              tr {
+                td {
+                  text-align: left;
+
+                  &:first-child {
+                    text-align: center;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
