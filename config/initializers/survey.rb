@@ -59,9 +59,9 @@ survey_data[5] = {
 
 survey_data[6] = {
   :question_title => "7 de 25. Qual desses roteiros de viagem mais te agrada?",
-  :answers => ["Europa Cultural", "China e Japão", "Ilhas Gregas"],
+  :answers => ["Europa Cultural", "Nova Iorque", "Ilhas Gregas"],
   :weights => [{"Europa Cultural" => {"10" => traditional, "5" => elegant, "3" => feminine}},
-               {"China e Japão" => {"5" => casual, "10" => contemporary, "3" => trendy}},
+               {"Nova Iorque" => {"5" => casual, "10" => contemporary, "3" => trendy}},
                {"Ilhas Gregas" => {"3" => casual, "10" => sexy, "10" => trendy}}]
 }
 
