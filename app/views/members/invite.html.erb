@@ -111,8 +111,7 @@
   </hgroup>
 
   <ul class="services">
-    <li><%= link_to '', 'Gmail', :class => 'gmail' %></li>
-    <li><%= link_to '', 'Yahoo', :class => 'yahoo' %></li>
-    <li><%= link_to '', 'Msn/Live', :class => 'msn' %></li>
+    <li><%= link_to '', member_import_contacts_path(:email_provider => 'gmail'), :class => 'gmail' %></li>
+    <li><%= link_to '', member_import_contacts_path(:email_provider => 'yahoo'), :class => 'yahoo' %></li>
   </ul>
 </section>
