@@ -3,12 +3,14 @@ require 'spec_helper'
 
 describe Survey do
   before :each do
+    casual = {:name => "Casual", :banner => "casual" }
+    sporty = {:name => "Sporty", :banner => "sporty" }
     @survey_data = []
     @survey_data[0] = {
       :question_title => "Question one",
       :answers => (1..3).to_a,
-      :weights => [{ 1 => {"10" => "Casual", "5" => "Contemporânea"}},
-                   { 2 => {"5" => "Contemporânea", "10" => "Casual"}}]
+      :weights => [{ 1 => {"10" => casual, "5" => sporty}},
+                   { 2 => {"5" => sporty, "10" => casual}}]
     }
 
     @survey_data[1] = {

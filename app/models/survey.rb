@@ -30,9 +30,9 @@ class Survey
   end
 
   def associate_weights_with_profiles(answer_title, weight_profile)
-    weight_profile.each do |weight_value, profile_name|
+    weight_profile.each do |weight_value, profile|
       answer = Answer.find_by_title(answer_title)
-      profile = Profile.find_or_create_by_name(profile_name)
+      profile = Profile.find_or_create_by_name_and_first_visit_banner(profile[:name], profile[:banner])
       Weight.create(:profile => profile, :answer => answer, :weight => weight_value)
     end
   end
