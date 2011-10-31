@@ -14,18 +14,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
-  #validate :check_cpf
-
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   InviteTokenFormat = /\b[a-zA-Z0-9]{8}\b/
   NameFormat = /^[A-ZÀ-ÿ\s-]+$/i
 
-  validates :email, :presence => true, :format => {:with => EmailFormat}
+  validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
-
-  #TODO: refactor CPF tests into CPFValidator class
-  # http://api.rubyonrails.org/classes/ActiveModel/Validations/ClassMethods.html#method-i-validates
   validates :cpf, :presence => { :if => :is_invited? }
 
   def name
@@ -102,5 +97,4 @@ class User < ActiveRecord::Base
       break unless User.find_by_invite_token(self.invite_token)
     end if self.invite_token.nil?
   end
-
 end
