@@ -1,5 +1,6 @@
 .DS_Store
 .sass-cache/*
+*.rdb
 log/*
 tmp/*
 db/*.sqlite3
