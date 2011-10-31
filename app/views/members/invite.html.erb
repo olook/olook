@@ -115,11 +115,31 @@
     <li><%= link_to '', member_import_contacts_path(:email_provider => 'yahoo'), :class => 'yahoo' %></li>
   </ul>
 
-  <%= form_tag(member_show_imported_contacts_path) do %>
-    <%= hidden_field_tag(:email_provider, '', :id => "email_provider") %>
-    <p>Email login: <%= text_field_tag(:login) %></p>
-    <p>Password: <%= password_field_tag(:password) %></p>
-    <p><%= submit_tag("Get contacts!") %></p>
-  <% end %>
+  <div class="import-dropdown">
+    <%= link_to 'X', '', :class => 'close' %>
+    <span>Service</span>
+
+    <%= form_tag(member_show_imported_contacts_path) do %>
+      <%= hidden_field_tag(:email_provider, '', :id => "email_provider") %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <label for="login">Email:</label> 
+            <%= text_field_tag(:login) %>
+          </li>
+          <li>
+            <label for="password">Senha:</label>
+            <%= password_field_tag(:password) %>
+          </li>
+        <li><span class="hint">A olook não guarda suas informações</span></li>
+    </fieldset>
+
+    <fieldset class="buttons">
+      <ol>
+        <li><%= submit_tag("Importar") %></li>
+      </ol>
+    </fieldset>
+    <% end %>
+  </div>
 
 </section>
