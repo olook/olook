@@ -7,7 +7,7 @@ $(document).ready(function() {
     postToFacebookFeed();
   });
 
-  $(document).bind('keydown', 'esc',function (evt) {
+  $(document).bind('keydown', 'esc',function () {
     $('#sign-in-dropdown').hide();
     $('body').removeClass('dialog-opened');
     return false; 
