@@ -227,7 +227,7 @@ survey_data[26] = {
 
 survey_data[27] = {
   :question_title => "Qual o tamanho do seu sapato?",
-  :answers => (33..41).to_a,
+  :answers => (34..40).to_a,
   :weights => []
 }
 
