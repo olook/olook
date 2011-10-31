@@ -16,7 +16,6 @@
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
 
-    <%= javascript_include_tag "application" %>
     <%= render "shared/kiss_metrics" %>
     <%= render "shared/google_analytics" %>
     <%= favicon_link_tag %>
@@ -97,5 +96,7 @@
       <p>Todos os direitos reservados</p>
     </section>
   </footer>
-</body>
+
+  <%= javascript_include_tag "application" %>
+  </body>
 </html>
