@@ -17,7 +17,9 @@ Olook::Application.routes.draw do
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
 
   get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
-  post "membro/importar_contatos" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
+  #post "membro/importar_contatos" => "members#show_imported_contacts", :as => 'member_show_imported_contacts'
+  post "membro/importar_contatos/:email_provider" => 'members#show_imported_contacts', :as => 'member_show_imported_contacts'
+
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
 
