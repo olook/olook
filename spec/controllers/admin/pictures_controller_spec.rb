@@ -7,6 +7,12 @@ describe Admin::PicturesController do
   let!(:product) { picture.product }
   let!(:valid_attributes) { picture.attributes }
 
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
+
   describe "GET show" do
     it "assigns the requested picture as @picture" do
       get :show, :id => picture.id.to_s, :product_id => product.id
@@ -32,7 +38,7 @@ describe Admin::PicturesController do
     describe "with valid params" do
       it "creates a new Picture" do
         expect {
-          post :create, :picture => valid_attributes, :product_id => product.id 
+          post :create, :picture => valid_attributes, :product_id => product.id
         }.to change(Picture, :count).by(1)
       end
 

@@ -6,6 +6,12 @@ describe Admin::ProductsController do
   let!(:product) { FactoryGirl.create(:basic_shoe) }
   let!(:valid_attributes) { product.attributes }
 
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
+
   describe "GET index" do
     it "assigns all products as @products" do
       get :index
