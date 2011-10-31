@@ -46,7 +46,7 @@
     <fieldset>
       <ol>
         <li>
-          <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>">
+          <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>" readonly="readonly">
           <ul class="share">
             <li>Compartilhe:</li>
             <li><a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
@@ -98,7 +98,7 @@
     </fieldset>
     <fieldset class="buttons">
       <ol>
-        <li><input name="commit" type="submit" value=""><span class="send-button">Convidar</span></input></li>
+        <li><input name="commit" type="submit" value="Convidar"></input></li>
       </ol>
     </fieldset>
   <% end %>
@@ -107,12 +107,39 @@
 <section id="import-contacts" style="background:none;">
   <hgroup>
     <h1>Importe sua<br /> lista de contatos</h1>
-    <h2>Importe sua lista de contatos <br /> do Gmail, Yahoo! ou MSN Live</h2>
+    <h2>Importe sua lista de contatos <br /> do Gmail ou Yahoo!</h2>
   </hgroup>
 
   <ul class="services">
-    <li><%= link_to '', 'Gmail', :class => 'gmail' %></li>
-    <li><%= link_to '', 'Yahoo', :class => 'yahoo' %></li>
-    <li><%= link_to '', 'Msn/Live', :class => 'msn' %></li>
+    <li><%= link_to '', member_import_contacts_path(:email_provider => 'gmail'), :class => 'gmail' %></li>
+    <li><%= link_to '', member_import_contacts_path(:email_provider => 'yahoo'), :class => 'yahoo' %></li>
   </ul>
+
+  <div class="import-dropdown">
+    <%= link_to 'X', '', :class => 'close' %>
+    <span>Service</span>
+
+    <%= form_tag(member_show_imported_contacts_path) do %>
+      <%= hidden_field_tag(:email_provider, '', :id => "email_provider") %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <label for="login">Email:</label> 
+            <%= text_field_tag(:login) %>
+          </li>
+          <li>
+            <label for="password">Senha:</label>
+            <%= password_field_tag(:password) %>
+          </li>
+        <li><span class="hint">A olook não guarda suas informações</span></li>
+    </fieldset>
+
+    <fieldset class="buttons">
+      <ol>
+        <li><%= submit_tag("Importar") %></li>
+      </ol>
+    </fieldset>
+    <% end %>
+  </div>
+
 </section>

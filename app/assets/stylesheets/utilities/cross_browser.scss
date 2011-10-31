@@ -1,6 +1,11 @@
 html {
   &.ie7 {
     body {
+      .top-shadow {
+        position: relative;
+        margin-top: -26px;
+        top: 0;
+      }
       .content {
         .home {
           .steps {
@@ -36,6 +41,17 @@ html {
         .about {
           .jcarousel-prev {
             right: 1050px;
+          }
+          li {
+            label {
+              display: block;
+              overflow: hidden;
+              input[type='radio'] {
+                position: absolute;
+                top: 0;
+                display: block;
+              }
+            }
           }
         }
 
