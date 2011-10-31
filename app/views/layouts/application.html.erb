@@ -29,7 +29,7 @@
 
         <div id="session">
           <% if user_signed_in? %>
-            <span><%= link_to "Logout", destroy_user_session_path, :method => :delete %></span>
+            <span><%= link_to "Sair", destroy_user_session_path, :method => :delete %></span>
 
           <% else %>
             <span>
@@ -55,10 +55,10 @@
           <li><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
         </ul>
       </nav>
-      
+
     <% else %>
-    
-    
+
+
     <% end %>
 
     <div class="content">
