@@ -3,7 +3,11 @@
   <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 <% end %>
 
-<%= render 'shared/models' %>
+<% if current_user.first_visit? %>
+  <%= render 'shared/models' %>
+  <%= render 'shared/banner' %>
+<% current_user.record_first_visit %>
+<% end %>
 
 <section id="user-info">
   <hgroup class='info'>
@@ -94,7 +98,7 @@
     </fieldset>
     <fieldset class="buttons">
       <ol>
-        <li><input name="commit" type="submit" value="Convidar"></li>
+        <li><input name="commit" type="submit" value=""><span class="send-button">Convidar</span></input></li>
       </ol>
     </fieldset>
   <% end %>
