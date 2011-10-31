@@ -1,7 +1,21 @@
-<%= form_tag(member_invite_imported_contacts_path) do %>
-  <%= submit_tag("Send Invites!") %>
-  <% @contacts.each do |contact_name, contact_email| %>
-      <p><%= check_box_tag("email_address[]", contact_email) %><%= contact_name.nil? ? contact_email : "#{contact_name} <#{contact_email}>" %></p>
+<div id="invite_list" class="listing">
+  <%= form_tag(member_invite_imported_contacts_path) do %>
+    <table id='list'>
+      <thead>
+        <tr>
+          <th>Amigos</th>
+          <th><%= image_submit_tag('/assets/common/btn-invite-email.png') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @contacts.each do |contact_name, contact_email| %>
+          <tr>
+            <td><%= check_box_tag("email_address[]", contact_email) %></td>
+            <td><%= contact_name.nil? ? contact_email : "#{contact_name} <#{contact_email}>" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= image_submit_tag('/assets/common/btn-invite-email.png') %>
   <% end %>
-  <%= submit_tag("Send Invites!") %>
-<% end %>
+</div>
