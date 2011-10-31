@@ -1,7 +1,4 @@
-<% if current_user.first_visit? %>
-  <div class="dialog">
-    <%= image_tag(first_visit_banner) %>
-  </div>
-  <% current_user.record_first_visit %>
-<% end %>
+<div class="dialog">
+  <%= image_tag(first_visit_banner) %>
+</div>
 
