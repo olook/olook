@@ -25,6 +25,7 @@ gem 'sass-rails'
 gem 'zipruby'
 gem 'mailee'
 gem 'will_paginate'
+gem 'airbrake'
 
 group :development, :test do
   gem 'sqlite3'
