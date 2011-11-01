@@ -46,7 +46,7 @@ class SurveyQuestions
   end
 
   def title_color_question
-    "24 de 25. Qual a sua nota para estas cartelas de cores?"
+    "24 de 25. Dê uma nota para cada uma das cartelas de cores abaixo."
   end
 
   def title_about_question
