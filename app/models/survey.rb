@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Survey
   attr_accessor :questions, :profiles
 

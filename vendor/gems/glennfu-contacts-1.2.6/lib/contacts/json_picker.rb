@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 if !Object.const_defined?('ActiveSupport')
   require 'json'
 end

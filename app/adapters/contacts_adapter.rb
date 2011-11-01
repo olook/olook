@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ContactsAdapter
   TYPE = {gmail: "gmail", yahoo: "yahoo"}
   attr_accessor :login, :password

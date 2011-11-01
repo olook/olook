@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateVariants < ActiveRecord::Migration
   def change
     create_table :variants do |t|
