@@ -18,6 +18,8 @@ class RegistrationsController < Devise::RegistrationsController
     set_resource_attributes(resource)
 
     if resource.save
+      save_tracking_params resource, session[:tracking_params]
+
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
@@ -90,11 +92,19 @@ class RegistrationsController < Devise::RegistrationsController
   def check_survey_response
     redirect_to new_survey_path if session[:profile_points].nil?
   end
+  
+  def save_tracking_params(resource, tracking_params)
+    tracking_params ||= {}
+    if resource.is_a?(User) &&  !tracking_params.empty?
+      resource.add_event(EventType::TRACKING, tracking_params.to_s)
+    end
+  end
 
   def clean_sessions
     session["devise.facebook_data"] = nil
     session[:profile_points] = nil
     session[:questions] = nil
     session[:invite] = nil
+    session[:tracking_params] = nil
   end
 end
