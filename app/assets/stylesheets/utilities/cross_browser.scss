@@ -1,25 +1,4 @@
 html {
-  &.ie {
-    #survey {
-      .about {
-        overflow: hidden;
-        display: block;
-
-        li {
-          label {
-            display: block;
-            overflow: hidden;
-            input[type='radio'] {
-              position: absolute;
-              top: -50px;
-              display: block;
-            }
-          }
-        }
-      }
-    }
-  }
-
   &.ie7 {
     body {
       .top-shadow {
@@ -63,17 +42,7 @@ html {
           .jcarousel-prev {
             right: 1050px;
           }
-          li {
-            label {
-              display: block;
-              overflow: hidden;
-              input[type='radio'] {
-                position: absolute;
-                top: 0;
-                display: block;
-              }
-            }
-          }
+          
         }
 
         ul.questions {
@@ -94,6 +63,17 @@ html {
                 option {
                   padding: 10px;
                 }
+              }
+            }
+            li {
+              overflow: hidden;
+              position: relative;
+
+              input[type='radio'] {
+                display: block;
+                position: absolute;
+                top: -20px;
+                left: -20px;
               }
             }
           }
@@ -146,6 +126,25 @@ html {
 
   &.ie8 {
     body {
+      #survey {
+        .about {
+          overflow: hidden;
+          display: block;
+
+          li {
+            label {
+              display: block;
+              overflow: hidden;
+              input[type='radio'] {
+                position: absolute;
+                top: -50px;
+                display: block;
+              }
+            }
+          }
+        }
+      }
+
       header {
         .content {
           #session {
