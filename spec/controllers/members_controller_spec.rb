@@ -22,27 +22,27 @@ describe MembersController do
     end
   end
 
-  describe "#accept_invitation" do
-    describe "should redirect to root" do
+  describe "#accept_invitation should redirect to root" do
+    describe "and show error message" do
       it "when receiving a blank token" do
         get :accept_invitation, :invite_token => ''
-        response.should redirect_to(member_invite_path, :alert =>'Convite inválido')
+        response.should redirect_to(root_path, :alert =>'Convite inválido')
       end
       it "when receiving a token with invalid format" do
         get :accept_invitation, :invite_token => 'xx'
-        response.should redirect_to(member_invite_path, :alert =>'Convite inválido')
+        response.should redirect_to(root_path, :alert =>'Convite inválido')
       end
       it "when receiving a token that doesn't exist" do
         get :accept_invitation, :invite_token => 'x'*20
-        response.should redirect_to(member_invite_path, :alert =>'Convite inválido')
+        response.should redirect_to(root_path, :alert =>'Convite inválido')
       end
     end
 
-    describe 'should redirect visitor to signup page with invite information' do
+    describe 'with the inviting member information in the session' do
       it "when receiving a valid token" do
         inviting_member = FactoryGirl.create(:member)
         get :accept_invitation, :invite_token => inviting_member.invite_token
-        response.should redirect_to(new_user_registration_path)
+        response.should redirect_to(root_path)
         session[:invite].should == {:invite_token => inviting_member.invite_token,
                                     :invited_by => inviting_member.name}
       end

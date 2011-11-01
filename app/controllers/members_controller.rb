@@ -12,7 +12,7 @@ class MembersController < ApplicationController
   def accept_invitation
     session[:invite] = {:invite_token => params[:invite_token],
                         :invited_by => @inviting_member.name}
-    redirect_to new_user_registration_path
+    redirect_to root_path
   end
 
   def invite_by_email
@@ -50,6 +50,6 @@ class MembersController < ApplicationController
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]
     @inviting_member = User.find_by_invite_token(params[:invite_token]) if valid_format
-    redirect_to(member_invite_path, :alert => "Convite inválido") unless valid_format && @inviting_member
+    redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
   end
 end
