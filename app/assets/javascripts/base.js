@@ -22,7 +22,7 @@ $(document).ready(function() {
     return false; 
   });
 
-  var items_replace = new Array('.colors h3, .home a, nav a, .send-button, .banner a, #share-mail h1, #import-contacts h1, #invite-mail h1, .full-banner .close, .full-banner li')
+  var items_replace = new Array('.colors h3, .home a, nav a, .send-button, #share-mail h1, #import-contacts h1, .box h3, #invite-mail h1, .full-banner .close, .full-banner li')
   
   Cufon.replace(items_replace);
   
