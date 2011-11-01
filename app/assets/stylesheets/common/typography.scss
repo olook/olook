@@ -88,6 +88,22 @@ body {
         height: 55px;
         margin-left:10px
       }
+      a.logged {
+        font-family: 'Futura Medium';
+        font-size: 20px;
+        color: #FFF;
+        cursor: pointer;
+        color: #FFF;
+        text-align:center;
+        text-shadow: #B32963 1px 2px 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        line-height: 22px;
+        padding:14px 20px 5px;
+        height: 35px;
+        margin-left:10px
+      }
     }
   }
   @for $i from 1 through 6 {
