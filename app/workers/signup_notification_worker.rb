@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class WorkerMailer
+class SignupNotificationWorker
   @queue = :mailer
 
   def self.perform(user_id)
