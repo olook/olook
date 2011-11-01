@@ -31,12 +31,25 @@ describe RegistrationsController do
       controller.resource.email.should eq(nil)
     end
 
+    it "should assigns @signup_with_facebook" do
+      session[:profile_points] = :some_data
+      session["devise.facebook_data"] = {"extra" => {"user_hash" => "xyz"}, "credentials" => {"token" => "abc"}}
+      get :new
+      assigns(:signup_with_facebook).should eq(true)
+    end
+
     it "should build the resource using session data" do
       session[:profile_points] = :some_data
       data = {"email" => "mail@mail.com"}
       controller.stub(:user_data_from_session).and_return(data)
       get :new
       controller.resource.email.should eq("mail@mail.com")
+    end
+  end
+
+  describe "PUT update" do
+    it "should update the user" do
+
     end
   end
 

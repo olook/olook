@@ -86,14 +86,6 @@ class User < ActiveRecord::Base
 
   private
 
-  def check_cpf
-    current_cpf = Cpf.new(self.cpf)
-    #if is_invited
-      errors.add(:cpf, "é inválido") unless current_cpf.valido?
-      errors.add(:cpf, "já está cadastrado") if User.find_by_cpf(self.cpf)
-    #end
-  end
-
   def generate_invite_token
     loop do
       write_attribute(:invite_token, Devise.friendly_token[0..7])
