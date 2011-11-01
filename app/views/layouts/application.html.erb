@@ -20,6 +20,14 @@
 
   </head>
   <body>
+    <div id="error-messages">
+      <p class="notice"><%= notice %></p>
+      <p class="alert">
+        <%= yield :errors %>
+        <%= alert %>
+      </p>
+    </div>
+
     <header>
       <div class="content">
         <%= link_to content_tag(:h1, 'Olook'), root_path %>
@@ -58,13 +66,10 @@
 
     <% else %>
 
-
     <% end %>
 
     <div class="content">
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-       <%= yield %>
+      <%= yield %>
     </div>
   </div>
 
@@ -96,5 +101,5 @@
   </footer>
 
   <%= javascript_include_tag "application" %>
-  </body>
+</body>
 </html>
