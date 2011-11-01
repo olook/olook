@@ -17,15 +17,19 @@
   <%= image_tag('common/models-inscription.png') %>
 </div>
 <div id="sign-up">
-  <h2>Preparada?</h2>
+  <% if @signup_with_facebook %>
+    <h2>Só mais um passo...</h2>
 
-  <p>
-    Agora nossos stylists selecionarão <strong>sapatos, <br />
+    <p class="facebook"> Crie uma senha para acessar nosso site:</p>
+  <% else %>
+    <h2>Preparada?</h2>
+    <p>
+      Agora nossos stylists selecionarão <strong>sapatos, <br />
       bolsas e acessórios</strong> para sua vitrine pessoal.
-  </p>
-
-  <%= render "facebook_connect" %>
-  <span>ou</span>
+    </p>
+    <%= render "facebook_connect" %>
+    <span>ou</span>
+  <% end %>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
     <% if resource.errors.any? %>
@@ -38,24 +42,22 @@
       </div>
     <% end %>
     <fieldset>
-      <% unless @signup_with_facebook %>
-        <ol>
-          <li>
-            <%= f.label :first_name, "Primeiro nome" %>
-            <%= f.text_field :first_name %>
-          </li>
+      <ol class="<%= "facebook" if @signup_with_facebook %>">
+        <li>
+          <%= f.label :first_name, "Primeiro nome" %>
+          <%= f.text_field :first_name %>
+        </li>
 
-          <li>
-            <%= f.label :last_name, "Sobrenome" %>
-            <%= f.text_field :last_name %>
-          </li>
+        <li>
+          <%= f.label :last_name, "Sobrenome" %>
+          <%= f.text_field :last_name %>
+        </li>
 
-          <li>
-            <%= f.label :email, "Email" %>
-            <%= f.email_field :email %>
-          </li>
-        </ol>
-      <% end %>
+        <li>
+          <%= f.label :email, "Email" %>
+          <%= f.email_field :email %>
+        </li>
+      </ol>
       <ol>
         <li>
           <label for="user_password">Senha

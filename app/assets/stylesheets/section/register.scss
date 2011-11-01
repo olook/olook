@@ -9,7 +9,7 @@ body {
       width: 540px;
       height: 573px;
     }
-    
+
     #sign-up {
       float: right;
       overflow: visible;
@@ -17,6 +17,10 @@ body {
 
       h2, p {
         margin-left: 60px;
+      }
+
+      p.facebook {
+        margin-bottom: 20px;
       }
 
       .fb-connect {
@@ -39,6 +43,9 @@ body {
 
         fieldset {
           ol {
+            &.facebook {
+              display: none;
+            }
             li, .field_with_errors {
               margin-bottom: 5px;
               overflow: hidden;
@@ -76,7 +83,7 @@ body {
                 margin-left: 10px;
                 margin-top: 7px;
                 float: right;
-                
+
                 span {
                   font-size: 10px;
                   color: red;
