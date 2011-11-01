@@ -89,10 +89,6 @@ class RegistrationsController < Devise::RegistrationsController
     session["devise.facebook_data"]["extra"]["user_hash"] if session["devise.facebook_data"]
   end
 
-  def check_survey_response
-    redirect_to new_survey_path if session[:profile_points].nil?
-  end
-  
   def save_tracking_params(resource, tracking_params)
     tracking_params ||= {}
     if resource.is_a?(User) &&  !tracking_params.empty?
