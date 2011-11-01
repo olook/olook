@@ -83,10 +83,10 @@ survey_data[8] = {
 
 survey_data[9] = {
   :question_title => "10 de 25. Com qual desses trajes você costuma dormir?",
-  :answers => ["Camisola de seda", "Pijama de algodão", "Camisola de rendinha" ],
+  :answers => ["Camisola de seda", "Pijama de flanela", "Camisola de algodão" ],
   :weights => [{"Camisola de seda" => {"3" => traditional, "5" => elegant, "10" => sexy}},
-               {"Pijama de algodão" => {"10" => casual, "3" => traditional, "5" => contemporary}},
-               {"Camisola de rendinha" => {"5" => casual, "10" => feminine, "3" => sexy}}]
+               {"Pijama de flanela" => {"10" => casual, "3" => traditional, "5" => contemporary}},
+               {"Camisola de algodão" => {"5" => casual, "10" => feminine, "3" => sexy}}]
 }
 survey_data[10] = {
   :question_title => "11 de 25. Qual desses modelos de óculos escuros mais combina com você?",
