@@ -38,22 +38,25 @@
       </div>
     <% end %>
     <fieldset>
+      <% unless @signup_with_facebook %>
+        <ol>
+          <li>
+            <%= f.label :first_name, "Primeiro nome" %>
+            <%= f.text_field :first_name %>
+          </li>
+
+          <li>
+            <%= f.label :last_name, "Sobrenome" %>
+            <%= f.text_field :last_name %>
+          </li>
+
+          <li>
+            <%= f.label :email, "Email" %>
+            <%= f.email_field :email %>
+          </li>
+        </ol>
+      <% end %>
       <ol>
-        <li>
-          <%= f.label :first_name, "Primeiro nome" %>
-          <%= f.text_field :first_name %>
-        </li>
-
-        <li>
-          <%= f.label :last_name, "Sobrenome" %>
-          <%= f.text_field :last_name %>
-        </li>
-
-        <li>
-          <%= f.label :email, "Email" %>
-          <%= f.email_field :email %>
-        </li>
-
         <li>
           <label for="user_password">Senha
             <span class='hint'>mínimo 6 caracteres</span>
@@ -77,7 +80,6 @@
         <li class="terms">
           <p>Concluindo o cadastro você aceita os <a href="#">Termos e Condições</a></p>
         </li>
-
       </ol>
     </fieldset>
 
