@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Contacts
   class Yahoo < Base
     URL                 = "http://mail.yahoo.com/"

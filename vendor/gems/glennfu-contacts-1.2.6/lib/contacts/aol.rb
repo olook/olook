@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Contacts
   require 'hpricot'
   require 'csv'

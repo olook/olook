@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Contacts
   class Hotmail < Base
     URL                 = "https://login.live.com/login.srf?id=2"

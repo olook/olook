@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 AssetSync.configure do |config|
   config.aws_access_key = "AKIAJ2WH3XLYA24UTAJQ"
   config.aws_access_secret = "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"

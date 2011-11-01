@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # If your workers are inactive for a long period of time, they'll lose
 # their MySQL connection.
 #

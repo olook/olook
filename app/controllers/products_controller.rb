@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ProductsController < ApplicationController
   respond_to :html
 

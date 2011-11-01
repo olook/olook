@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 config_file = File.join(Rails.root, 'config', 'email.yml')
 
 if File.exist?(config_file)
