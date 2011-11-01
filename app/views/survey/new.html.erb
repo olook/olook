@@ -1,7 +1,6 @@
 <% content_for(:head) do %>
   <%= render "shared/close_popup_js", :redirect_url => @redirect_url  %>
 <% end %>
-<%= content_tag :h2, "Convidada por #{session[:invite][:invited_by]}" if session[:invite] %>
 <span id="next_link"></span>
   <div id="asynch-load"></div>
   <div id="survey">

@@ -15,9 +15,8 @@ feature "User Authenticate", %q{
   end
 
   scenario "User can fill the cpf when invited" do
-    answer_survey
-    visit accept_invitation_path(@user.invite_token)
     visit accept_invitation_path(:invite_token => @user.invite_token)
+    answer_survey
     page.should have_content("CPF")
   end
 

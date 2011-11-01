@@ -59,19 +59,16 @@ feature "Member can send invites", %q{
 
     describe "they should be redirected to the home page" do
       scenario "if they have an empty token" do
-        do_login!(user)
         visit accept_invitation_path(:invite_token => '')
         page.should have_content("Convite inválido")
       end
 
       scenario "if they have a token with an invalid format" do
-        do_login!(user)
         visit accept_invitation_path(:invite_token => '')
         page.should have_content("Convite inválido")
       end
 
       scenario "if they have a token that doesn't exist" do
-        do_login!(user)
         visit accept_invitation_path(:invite_token => 'X'*20)
         page.should have_content("Convite inválido")
       end
@@ -82,8 +79,7 @@ feature "Member can send invites", %q{
         build_survey
         inviting_member = FactoryGirl.create(:member)
         visit accept_invitation_path(:invite_token => inviting_member.invite_token)
-        current_path.should == new_survey_path
-        page.should have_content(inviting_member.name)
+        current_path.should == root_path
       end
     end
   end
