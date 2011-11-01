@@ -13,7 +13,7 @@
       <p>Com a ajuda de nossos stylists você  receberá todos os meses uma seleção exclusiva de peças desenvolvidas de acordo com as principais tendências de moda. Modelos únicos criados com design próprio em materiais diferenciados para proporcionar conforto e acima de tudo muito estilo.  Afinal, não é todo dia que você pode ter um personal stylist a sua disposição. Aproveite!</p>
       
       <% if user_signed_in? %>
-        <%= link_to 'Confira sua vitrine', '#', :class => "logged" %>
+        <%= link_to 'Em breve você poderá ver sua vitrine', '#', :class => "logged" %>
       <% else %>
         <%= link_to 'Responda nosso quiz e descubra seu estilo', new_survey_path %>
       <% end %>
