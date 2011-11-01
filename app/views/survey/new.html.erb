@@ -43,7 +43,7 @@
         <% question = @presenter.first_color_question %>
         <li id="question_<%= question.id %>" class="colors">
           <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
-          <h2>24 de 25. Qual a sua nota para estas cartelas de cores?</h2>
+          <h2><%= @presenter.title_color_question %></h2>
           <ol class="options">
             <%= render "answers_colors" %>
           </ol>

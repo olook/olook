@@ -43,4 +43,8 @@ class SurveyQuestions
   def id_first_question
     questions.first.id if questions.size > 0
   end
+
+  def title_color_question
+    "24 de 25. Qual a sua nota para estas cartelas de cores?"
+  end
 end

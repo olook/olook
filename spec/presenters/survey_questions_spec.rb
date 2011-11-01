@@ -31,4 +31,8 @@ describe SurveyQuestions do
     questions[0] = question
     subject.id_first_question.should == 1
   end
+
+  it "should return title color question" do
+    subject.title_color_question.should == "24 de 25. Qual a sua nota para estas cartelas de cores?"
+  end
 end
