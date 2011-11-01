@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SurveyQuestions
   attr_reader :questions
 
@@ -46,5 +47,9 @@ class SurveyQuestions
 
   def title_color_question
     "24 de 25. Qual a sua nota para estas cartelas de cores?"
+  end
+
+  def title_about_question
+    "25 de 25. Conte-nos um pouco sobre você:"
   end
 end
