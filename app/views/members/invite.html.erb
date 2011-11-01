@@ -3,6 +3,15 @@
   <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 <% end %>
 
+<% content_for(:head) do %>
+  <script type="text/javascript">
+    if(window.opener) {
+      window.close();
+      window.opener.location = '<%= @redirect_uri %>';
+    }
+  </script>
+<% end %>
+
 <% if current_user.first_visit? %>
   <%= render 'shared/models' %>
   <%= render 'shared/banner' %>
@@ -124,7 +133,7 @@
       <fieldset class="inputs">
         <ol>
           <li>
-            <label for="login">Email:</label> 
+            <label for="login">Email:</label>
             <%= text_field_tag(:login) %>
           </li>
           <li>
