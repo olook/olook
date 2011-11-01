@@ -33,7 +33,8 @@ feature "Member can send invites", %q{
 
       scenario "tweeting the link" do
         tweet_text = page.find('.twitter-share-button')[:"data-text"]
-        tweet_text.should have_content("http://beta.olook.com.br/invite/#{@member.invite_token}")
+        
+        tweet_text.should have_content(accept_invitation_path(:invite_token => @member.invite_token))
       end
 
       scenario "sending an invitation e-mail to a list of people" do
