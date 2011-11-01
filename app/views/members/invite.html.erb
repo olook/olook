@@ -1,5 +1,4 @@
 <% content_for :head do %>
-  <script src="http://connect.facebook.net/en_US/all.js"></script>
   <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 <% end %>
 
@@ -38,10 +37,10 @@
 
 <nav>
   <ul>
-    <li><%= link_to 'Link pessoal', '', :class => 'selected' %></li>
-    <li><%= link_to 'Email', '' %></li>
-    <li><%= link_to  'Facebook', '' %></li>
-    <li><%= link_to 'Lista de contatos', '' %></li>
+    <li><%= link_to 'Link pessoal', '#share-mail', :class => 'selected' %></li>
+    <li><%= link_to 'Email', '#invite-mail' %></li>
+    <li><%= link_to  'Facebook', '#post-to-wall' %></li>
+    <li><%= link_to 'Lista de contatos', '#import-contacts' %></li>
   </ul>
 </nav>
 
@@ -111,6 +110,15 @@
       </ol>
     </fieldset>
   <% end %>
+</section>
+
+<section id="post-to-wall">
+  <hgroup>
+    <h1>Convide amigas do Facebook</h1>
+    <h2>Para convidar, <br /> selecione suas amigas<br />na caixa ao lado
+    </h2>
+  </hgroup>
+  <%= link_to image_tag('/assets/common/bt-face-send-messages.png'), '', :id => 'facebook_invite_friends' %>
 </section>
 
 <section id="import-contacts" style="background:none;">

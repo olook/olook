@@ -118,7 +118,7 @@ body {
     }
 
     section {
-      &#share-mail, &#invite-mail, &#import-contacts {
+      &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
         background: url('/assets/common/division.png') center bottom no-repeat;
         width: 858px;
         padding: 40px 50px;
@@ -205,6 +205,14 @@ body {
               }
             }
           }
+        }
+      }
+
+      &#post-to-wall {
+        a {
+          display: block;
+          float: left;
+          margin-top: 35px;
         }
       }
 
