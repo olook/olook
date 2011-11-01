@@ -1,4 +1,11 @@
 $(document).ready(function() {
+
+  if($('.alert').text() != ''){
+    $('.alert').parent().slideDown('1000', function() {
+      $('.alert').parent().delay(2000).slideUp();
+    })
+  }
+
   $("#facebook_invite_friends").click(function() {
     sendFacebookMessage();
   });
