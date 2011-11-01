@@ -7,6 +7,7 @@ class MembersController < ApplicationController
   def invite
     @member = current_user
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    @redirect_uri = root_path
   end
 
   def accept_invitation

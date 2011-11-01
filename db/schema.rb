@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111030211647) do
+ActiveRecord::Schema.define(:version => 20111101213603) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -123,6 +123,16 @@ ActiveRecord::Schema.define(:version => 20111030211647) do
 
   add_index "related_products", ["product_a_id"], :name => "index_related_products_on_product_a_id"
   add_index "related_products", ["product_b_id"], :name => "index_related_products_on_product_b_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
