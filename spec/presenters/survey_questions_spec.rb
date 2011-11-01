@@ -33,7 +33,7 @@ describe SurveyQuestions do
   end
 
   it "should return title color question" do
-    subject.title_color_question.should == "24 de 25. Qual a sua nota para estas cartelas de cores?"
+    subject.title_color_question.should == "24 de 25. Dê uma nota para cada uma das cartelas de cores abaixo."
   end
 
   it "should return title about question" do
