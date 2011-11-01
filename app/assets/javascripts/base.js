@@ -1,12 +1,14 @@
 $(document).ready(function() {
-
-  if($('.alert').text() != ''){
+  
+  if($('#error-messages').html().length >= '1'){
+    console.log('messages');
     $('.alert').parent().slideDown('1000', function() {
       $('.alert').parent().delay(2000).slideUp();
     })
   }
 
-  $("#facebook_invite_friends").click(function() {
+  $("#facebook_invite_friends").click(function(event) {
+    event.preventDefault();
     sendFacebookMessage();
   });
 
