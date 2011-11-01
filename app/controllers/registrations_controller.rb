@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   def new
     if data = user_data_from_session
       build_resource(:email => data["email"], :first_name => data["first_name"], :last_name => data["last_name"])
+      @signup_with_facebook = true
     else
       build_resource
     end
