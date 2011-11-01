@@ -50,7 +50,7 @@ body {
               background: url("/assets/common/banner/bg-banner-black.png") no-repeat;
               display: block;
               color: #FFF;
-              padding-top: 5px;
+              padding-top: 9px;
               padding-right: 9px;
               position: absolute;
               left: -20px;
@@ -66,7 +66,7 @@ body {
 
                 & + span {
                   margin-left: 86px;
-                  padding: 5px 0;
+                  padding: 3px 0;
 
                   sup {
                     position: absolute;
@@ -252,7 +252,7 @@ body {
             position: absolute;
             top: 10px;
             right: 10px;
-            color: $pink;
+            color: black;
             font-weight: bold;
             text-decoration: none;
             font-size: 14px;
