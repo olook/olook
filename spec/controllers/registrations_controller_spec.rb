@@ -58,6 +58,7 @@ describe RegistrationsController do
       session[:questions] = {:foo => :bar}
       session[:birthday] = birthday
       session[:profile_points] = {1 => 2, 3 => 4}
+      subject.should_receive(:save_tracking_params)
       expect {
           post :create, :user => user_attributes
         }.to change(Point, :count).by(session[:profile_points].size)
@@ -147,7 +148,28 @@ describe RegistrationsController do
      User.any_instance.stub(:accept_invitation_with_token)
      User.stub(:new_with_session).and_return(Factory.build(:user, :cpf => "11144477735"))
      post :create, :user => user_attributes.merge!({:cpf => "11144477735"})
-     [:profile_points, :questions, :invite, "devise.facebook_data"].each {|key| session[key].should == nil}
+     [:profile_points, :questions, :invite, "devise.facebook_data", :tracking_params].each {|key| session[key].should == nil}
+    end
+  end
+  
+  describe '#save_tracking_params' do
+    let(:member) { mock_model(User) }
+
+    it 'should add a new event to the user if there are tracking parameters' do
+      member.should_receive(:add_event).with(EventType::TRACKING, {:tracking => 'stuff'}.to_s)
+      subject.send(:save_tracking_params, member, {:tracking => 'stuff'})
+    end
+
+    describe 'should not add a new event to the user' do
+      it 'if the resource is not a User' do
+        member.should_not_receive(:add_event)
+        subject.send(:save_tracking_params, mock_model(Admin), {:tracking => 'stuff'})
+      end
+
+      it 'if there are no tracking parameters' do
+        member.should_not_receive(:add_event)
+        subject.send(:save_tracking_params, member, nil)
+      end
     end
   end
 end

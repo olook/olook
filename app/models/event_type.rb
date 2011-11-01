@@ -17,6 +17,8 @@ class EventType < EnumerateIt::Base
     send_facebook_message:  [41, 'Send Facebook message'],
 
     share_on_twitter:       [50, 'Share on Twitter'],
-    share_on_orkut:         [60, 'Share on Orkut']
+    share_on_orkut:         [60, 'Share on Orkut'],
+
+    tracking:               [70, 'Tracking parameters']
   )
 end
