@@ -5,7 +5,7 @@ module MemberHelper
   end
 
   def invitation_link(member)
-    link = "http://beta.olook.com.br/invite/#{member.invite_token}"
+    link = accept_invitation_url(member.invite_token) 
   end
 
   def invite_message
