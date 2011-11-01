@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe RegistrationsController do
 
-  let(:user_attributes) { {:email => "mail@mail.com", :password => "123456", :password_confirmation => "123456", :first_name => "User Name", :last_name => "Last Name" } }
+  let(:user_attributes) { {"email" => "mail@mail.com", "password" => "123456", "password_confirmation" => "123456", "first_name" => "User Name", "last_name" => "Last Name" } }
 
   let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
 
@@ -48,8 +48,20 @@ describe RegistrationsController do
   end
 
   describe "PUT update" do
-    it "should update the user" do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      sign_in @user
+    end
 
+    it "should update the user" do
+      User.any_instance.should_receive(:update_attributes).with(user_attributes)
+      put :update, :id => @user.id, :user => user_attributes
+    end
+
+    it "should render the edit template" do
+      User.any_instance.stub(:update_attributes).and_return(false)
+      put :update, :id => @user.id, :user => user_attributes
+      response.should render_template('edit')
     end
   end
 
@@ -84,7 +96,7 @@ describe RegistrationsController do
      session[:profile_points] = :some_data
      session[:birthday] = birthday
      post :create, :user => user_attributes
-     user = User.find_by_email(user_attributes[:email])
+     user = User.find_by_email(user_attributes["email"])
      user.birthday.to_s.should == "1987-09-27"
     end
 
