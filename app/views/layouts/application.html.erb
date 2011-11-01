@@ -7,7 +7,6 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag  "application" %>
-
     <%= yield :head %>
 
     <!--[if IE]>
@@ -22,10 +21,8 @@
   <body>
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
-      <p class="alert">
-        <%= yield :errors %>
-        <%= alert %>
-      </p>
+      <p class="alert"><%= alert %></p>
+      <%= yield :errors %>
     </div>
 
     <header>
