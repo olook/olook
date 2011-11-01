@@ -1,6 +1,6 @@
 $(document).ready(function() {
   
-  if($('#error-messages').html().length >= '70'){
+  if($('#error-messages').html().length >= '73'){
     console.log('messages');
     $('.alert').parent().slideDown('1000', function() {
       $('.alert').parent().delay(2000).slideUp();
