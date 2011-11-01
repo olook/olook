@@ -2,10 +2,35 @@
 
 body {
   #error_explanation {
-    margin: 10px 0;
+    margin: 10px 0 15px 42px;
+    width: 364px;
+    border: 1px solid #DEDEDE;
+    padding: 20px;
 
     ul {
-      text-align: center;
+      text-align: left;
+      font-size: 11px;
+      color: #e20101;
+      font-weight: bold;
+
+      li {
+        padding-bottom: 5px;
+      }
+    }
+  }
+
+  #error-messages {
+    display: none;
+    width: 92%;
+    position: absolute;
+    background: #FFF;
+    padding: 20px 50px;
+    z-index: 99;
+    opacity: 0.8;
+    filter: alpha(opacity = 80);
+    
+    p {
+      background: transparent;
     }
   }
 
