@@ -3,13 +3,13 @@ $(document).ready(function() {
   init.bindActions();
   init.dialog();
   index = parseInt($("#id_first_question").val());
+  init.tracker();
 
   function popupCenter(url, width, height, name) {
     var left = (screen.width/2)-(width/2);
     var top = (screen.height/2)-(height/2);
 
     return window.open(url, name, "menubar=no,toolbar=no,status=no,width=" + width + ",height=" + height + ",toolbar=no,left=" + left + ",top=" + top);
-
   }
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -90,60 +90,68 @@ init = {
              },
 
   showArrow : function(instance, item, index, state) {
-        $('#asynch-load').click();
-        if(index == '1') {
-          $('.jcarousel-prev').css('display', 'none');
-        }else{
-          $('.jcarousel-prev').css('display', 'block');
-        }
+                $('#asynch-load').click();
+
+                var tracker_index = Math.round(index / 2);
+                $("#tracker > li").removeClass('selected');
+                $("#tracker").find('li#' + tracker_index).addClass('selected');
+
+                if(index == '1') {
+                  $('.jcarousel-prev').css('display', 'none');
+                }else{
+                  $('.jcarousel-prev').css('display', 'block');
+                }
   },
 
   mycarousel_initCallback : function(carousel) {
-    $('.jcarousel-prev').css('display', 'block');
+                              $('.jcarousel-prev').css('display', 'block');
+                              $('#next_link').bind('click', function() {
+                                
+                                elemtId = "#question_" + index;
+                                carouselItem = $("#question_" + index);
 
-    $('#next_link').bind('click', function() {
-      elemtId = "#question_" + index;
-      carouselItem = $("#question_" + index);
-      if (carouselItem.hasClass('images')) {
-        carousel.next();
-        index++;
-      }
+                                if (carouselItem.hasClass('images')) {
+                                  carousel.next();
+                                  index++;
+                                }
 
-      if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
-        carousel.next();
-        index++;
-      }
+                                if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
+                                  carousel.next();
+                                  index++;
+                                }
 
-      if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
-        carousel.next();
-        index++;
-      }
+                                if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
+                                  carousel.next();
+                                  index++;
+                                }
+                                
+                                return false;
+                              });
 
-    return false;
-    });
-
-    $('.jcarousel-prev').bind('click', function() {
-        carousel.prev();
-        index--;
-        el = $("#question_" + index);
-        el.find('li.selected').removeClass('selected');
-        el.find('li.click_star').removeClass();
-        el.find('li.starred').removeClass();
-        el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
-        return false;
-    });
-  },
+                              $('.jcarousel-prev').bind('click', function() {
+                                carousel.prev();
+                                index--;
+                                
+                                el = $("#question_" + index);
+                                el.find('li.selected').removeClass('selected');
+                                el.find('li.click_star').removeClass();
+                                el.find('li.starred').removeClass();
+                                el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
+                                
+                                return false;
+                              });
+                            },
 
   bindActions : function() {
-    $('.images .options > li, .words .options > li').live('click', function(){
-      $(this).find('input').attr('checked', true);
-      $(this).addClass('selected');
-      $("#next_link").click();
-    });
+                  $('.images .options > li, .words .options > li').live('click', function(){
+                  $(this).find('input').attr('checked', true);
+                  $(this).addClass('selected');
+                  $("#next_link").click();
+                });
   },
 
   dialog : function(){
-            $('a.trigger').live('click', function(e){
+             $('a.trigger').live('click', function(e){
               el = $(this).attr('href');
 
               $(this).parents('#session').find('.' + el).toggle('open');
@@ -165,7 +173,16 @@ init = {
                 }
               });
             });
-           }
+           },
+
+  tracker : function() {
+              pages = $('.questions > li').length / 2;
+
+              $('#survey').after("<ul id='tracker'>");
+
+              for (var i = 1; i <= pages; i++)
+                $("#tracker").append('<li id=' + i + '>' + i + '</li>');
+            }
 
 };
 
