@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   def new
     if data = user_data_from_session
       build_resource(:email => data["email"], :first_name => data["first_name"], :last_name => data["last_name"])
+      @signup_with_facebook = true
     else
       build_resource
     end
@@ -78,7 +79,7 @@ class RegistrationsController < Devise::RegistrationsController
     SurveyAnswer.create(:answers => answers, :user => resource)
     ProfileBuilder.new(resource).create_user_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
-    Resque.enqueue(WorkerMailer, resource.id)
+    Resque.enqueue(SignupNotificationWorker, resource.id)
     clean_sessions
   end
 

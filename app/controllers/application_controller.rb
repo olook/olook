@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
 
-  protected
+  private
 
   def contact_authentication_failed
     flash[:notice] = "Falha de autenticação na importação de contatos"
