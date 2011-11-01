@@ -2,6 +2,20 @@
 @import 'fonts';
 
 body {
+  #error-messages {
+    p {
+      font-family: 'Times New Roman', 'Times', serif;
+      font-size: 21px;
+      font-weight: bold;
+      font-style: oblique;
+      text-align: center;
+      
+      &.alert {
+        color: #990000;
+      }
+    }
+  }
+
   header{
     & + nav {
       a {
@@ -10,6 +24,7 @@ body {
       }
     }
   }
+
   .content {
     nav {
       font-size: 15px;
