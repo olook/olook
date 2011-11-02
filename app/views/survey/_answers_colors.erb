@@ -1,7 +1,9 @@
 <li>
   <% @colors.each do |question, colors| %>
     <div>
-      <h3><%= question.title %></h3>
+      <h3>
+        <%= image_tag "/assets/common/colors/#{question.title.sub(' ', '_').downcase}.png" %>
+      </h3>
       <ol class="colors">
         <% colors.each do |color| %>
           <li class="<%= color %>"><%= color.gsub("-", " ") %></li>
