@@ -42,9 +42,11 @@ class User < ActiveRecord::Base
     raise 'Invite token is read only'
   end
 
-  def invite_for(email_address)
-    the_invite = invites.find_or_create_by_email(email_address)
-    the_invite.valid? ? the_invite : nil
+  def invite_for(email_address, was_sent_at = nil)
+    the_invite = invites.find_by_email(email_address) || invites.build(:email => email_address)
+    the_invite.sent_at = was_sent_at unless was_sent_at.nil?
+    
+    the_invite.save ? the_invite : nil
   end
 
   def invites_for(email_addresses)
@@ -57,7 +59,7 @@ class User < ActiveRecord::Base
     inviting_member = User.find_by_invite_token(token)
     raise 'Invalid token' unless inviting_member
 
-    inviting_member.invite_for(email).accept_invitation(self)
+    inviting_member.invite_for(email, Time.now).accept_invitation(self)
   end
 
   def has_facebook?
