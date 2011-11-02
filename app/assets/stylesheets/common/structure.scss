@@ -371,15 +371,35 @@ body {
     
     ul {
       li {
-        display: inline-block;
+        display: inline;
+        height: 32px;
+        float: left;
+        
+        &.invite {
+          a {
+            background: url('/assets/common/nav/invite-friends.png') no-repeat;
+            width: 120px;
+            &.selected {
+              background: url('/assets/common/nav/invite-friends-selected.png') no-repeat;
+            }
+          }
+        }
+
+        &.my_friends {
+          a {
+            background: url('/assets/common/nav/my-friends.png') no-repeat;
+            width: 120px;
+            &.selected {
+              background: url('/assets/common/nav/my-friends-selected.png') no-repeat;
+            }
+          }
+        }
 
         a {
-          display: inline-block;
+          text-indent: -9999px;
+          height: 32px;
+          display: block;
           padding: 10px 30px;
-
-          &.selected {
-            background: url('/assets/common/arrow-selected.gif') center bottom no-repeat;
-          }
         }
       }
     }
@@ -392,6 +412,7 @@ body {
   top:69px;
   position:absolute;
   background: url('/assets/common/bg-holder-full.png') center center no-repeat;
+  z-index: -1;
   }
 
 header a {
