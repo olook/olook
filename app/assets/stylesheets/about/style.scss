@@ -58,6 +58,11 @@ h1 {
   width: 960px;
   overflow: hidden;
   margin: 35px auto 0px;
+
+  ul {
+    width: 100%;
+    overflow: auto;
+  }
 }
 
 #function h1 {
@@ -89,10 +94,27 @@ h1 {
   }
   
 .box {
-  width: 180px;
-  height: 265px;
-  border: 1px solid #cccccc;
-  padding: 0px 20px 5px;
+  width: 237px;
+  height: 278px;
+  margin-right: 3px !important;
+  float: left;
+
+  &#left_box {
+    background: url('/assets/about/box-1.png') no-repeat;
+  }
+
+  &#left_box_mid {
+    background: url('/assets/about/box-2.png') no-repeat;
+  }
+
+  &#right_box_mid {
+    background: url('/assets/about/box-3.png') no-repeat;
+  }
+  
+  &#right_box {
+    background: url('/assets/about/box-4.png') no-repeat;
+    margin-right: none !important;
+  }
 }
 
 .box h3 {
@@ -100,31 +122,16 @@ h1 {
   font-size: 16px;
   text-transform: uppercase;
   text-align: center;
+  text-indent: -9999px;
   font-family: 'Futura Medium';
   letter-spacing: -1px;
-  margin: 15px 0;
   width:185px;
 }
 
 .box p {
   font-size: 11px;
   text-align: center;
-}
-
-#left_box img {
-  margin: 12px 0px 10px 17px;
-}
-
-#left_box_mid img {
-  margin: 6px 0px 10px 10px;
-}
-
-#right_box_mid img {
-  margin: 0px 0px 0px 30px;
-}
-
-#right_box img {
-  margin: 0px 0px 0px 18px;
+  text-indent: -9999px;
 }
 
 #terms h1 {
