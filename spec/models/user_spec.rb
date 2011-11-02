@@ -109,21 +109,28 @@ describe User do
   end
 
   describe "#invite_for" do
+    let(:valid_email) { "invited@test.com" }
+
     it "should create a new invite for a new and valid e-mail" do
-      email = "invited@test.com"
-      invite = subject.invite_for(email)
-      invite.email.should == email
+      invite = subject.invite_for(valid_email)
+      invite.email.should == valid_email
     end
+
     it "should return the existing invite for an e-mail which already exists" do
-      email = "invited@test.com"
-      first_invite = subject.invite_for(email)
-      second_invite = subject.invite_for(email)
+      first_invite = subject.invite_for(valid_email)
+      second_invite = subject.invite_for(valid_email)
       first_invite.should == second_invite
     end
+
     it "should not create an invite for an invalid e-mail" do
       email = "invalid email"
       invite = subject.invite_for(email)
       invite.should be_nil
+    end
+
+    it "should create an invite with the sent_at field filled when the param is provided" do
+      invite = subject.invite_for(valid_email, Time.now)
+      invite.sent_at.should_not be_nil
     end
   end
 
