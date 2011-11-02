@@ -23,27 +23,6 @@ $pink: #d95485;
   );
   border: none;
   @include border-radius($radius);
-
-  input[type='submit'] {
-    @include border-radius($radius);
-    background: transparent;
-    padding-top: $padding-top;
-    padding-bottom: $padding-bottom;
-    padding-left: $padding-left;
-    padding-right: $padding-right;
-    font-size: $font-size;
-    font-family: 'Futura Medium';
-    cursor: pointer;
-    border-left: 1px solid #FFA1C4;
-    border-top: 1px solid #FFA1C4;
-    border-bottom: none;
-    border-right: none;
-    color: #FFF;
-    text-shadow: #B32963 1px 2px 2px;
-    margin-top: 1px;
-    margin-left: 1px;
-    text-transform: uppercase;
-  }
 }
 
 @mixin grey_button($top-color: #FB619E, $bottom-color: #DD3178) {
