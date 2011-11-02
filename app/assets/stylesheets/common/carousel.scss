@@ -225,9 +225,22 @@ body {
               float: right;
               margin-top: -52px;
               li {
-                @include pink_button;
+                background: url('/assets/common/finish.png') no-repeat;
+                text-indent: -9999px;
+                width: 217px;
+                height: 71px;
+                display: block;
+                cursor: pointer;
                 &.grey-button {
-                  @include grey_button(#E1E0E0, #ADADAD);
+                  background: url('/assets/common/finish-disabled.png') no-repeat;
+                }
+                input[type=submit] {
+                  background: none;
+                  width: 217px;
+                  height: 71px;
+                  display: block;
+                  border: none;
+                  cursor: pointer;
                 }
               }
             }

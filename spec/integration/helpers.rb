@@ -14,7 +14,7 @@ def answer_survey
   select('10', :from => 'day')
   select('Setembro', :from => 'month')
   select('1900', :from => 'year')
-  click_button "Finalizar"
+  click_button "finish"
 end
 
 def build_survey
