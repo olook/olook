@@ -1,9 +1,9 @@
 default: &default
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   pool: 5
   username: root
-  password: mysql
+  password:
   host: localhost
 
 development:
