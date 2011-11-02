@@ -2,7 +2,7 @@ Requirements
 ============
 
 - Ruby 1.9.2 or higher
-- Redis 2.4.2
+- Redis 2.4.2 (brew install redis (OS X only))
 - MySQL 5.1.49 on Ubuntu 11.04
 
 Setup
