@@ -57,7 +57,7 @@
         <li>
           <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>" readonly="readonly">
           <ul class="share">
-            <li><a href="https://twitter.com/share" class="twitter-share-button" data-text=<%= raw(link_to_invitation(@member)) %> data-count="none" data-via="olook">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@member) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
             <li>
               <div id="orkut_share" style="width:100%;"></div>
               <script src="http://www.google.com/jsapi" type="text/javascript"></script>
