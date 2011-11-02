@@ -8,21 +8,21 @@
 
   function sendFacebookMessage() {
     FB.ui({
-      description: 'Olook',
+      description: 'Oie! Achei um site de moda chamado olook que é a sua cara. Você responde um quiz, descobre o seu estilo e os stylists montam uma vitrine exclusiva para você todo mês. Pelo link do meu convite, <%= accept_invitation_url(:invite_token => member.invite_token) %>, você consegue se cadastrar e ainda ganha R$10 na primeira compra! Beijos!',
       method: 'send',
-      name: 'Conheça o Olook',
+      caption: 'www.olook.com.br',
       link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg'
     });
   }
 
  function postToFacebookFeed() {
     var obj = {
       method: 'feed',
-      link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-      picture: 'http://fbrell.com/f8.jpg',
-      name: 'Conheça o Olook',
       caption: 'www.olook.com.br',
-      description: 'Descriçao de teste'
+      link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg',
+      description: 'Encontrei um site que é a minha cara...Você responde um quiz, eles descobrem o seu estilo e os stylists montam uma vitrine pra você. Adorei! Pelo meu convite, <%= accept_invitation_url(:invite_token => member.invite_token) %>, você se cadastra e ainda ganha R$10 na primeira compra! #ficaadica'
     };
 
     FB.ui(obj);
