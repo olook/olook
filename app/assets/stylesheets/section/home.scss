@@ -11,15 +11,13 @@ body {
       }
 
       .start {
-        @include pink-button;
-        width: 290px;
+        background: url('/assets/home/btn-start-here.png') no-repeat;
+        text-indent: -9999px;
+        width: 346px;
+        height: 84px;
         margin: 100px 0 30px 50px;
+        display: block;
         float: left;
-        padding: 20px 30px;
-        border-left: 1px solid #FFA1C4;
-        border-top: 1px solid #FFA1C4;
-        border-bottom: none;
-        border-right: none;
       }
 
       ul {
