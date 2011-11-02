@@ -222,6 +222,19 @@ body {
       &#invite-mail {
         form {
           padding-top: 0;
+          fieldset.buttons {
+            ol li {
+              input {
+                background: url('/assets/common/invite.png') no-repeat;
+                text-indent: -9999px;
+                width: 283px;
+                height: 51px;
+                display: block;
+                border: none;
+                cursor: pointer;
+              }
+            }
+          }
         }
       }
 
