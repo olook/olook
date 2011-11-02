@@ -10,6 +10,10 @@ FactoryGirl.define do
     first_name "User First Name"
     last_name "User Last Name"
 
+    after_build do |user|
+      Resque.stub(:enqueue)
+    end
+
     factory :member do
       sequence :email do |n|
       "member#{n}@example.com"
