@@ -2,6 +2,14 @@
 require 'spec_helper'
 
 describe MemberHelper do
+
+  it "should return the tweet message" do
+    member = double("member")
+    fake_invite_token = 'XyXyXy'
+    member.stub(:invite_token) { fake_invite_token }
+    helper.link_to_invitation(member).should include(fake_invite_token)
+  end
+
   it '#link_to_invitation should generate a message and a link' do
     member = double("member")
     fake_invite_token = 'XyXyXy'
@@ -43,7 +51,7 @@ describe MemberHelper do
       end
     end
   end
-  
+
   describe "#first_visit_banner" do
     let(:casual_profile) { FactoryGirl.create(:casual_profile) }
 
