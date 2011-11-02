@@ -21,7 +21,7 @@ class MailInviteWorker
   end
   
   def self.accept_invitation_url(token)
-    Rails.application.routes.url_helpers.accept_invitation_url token, :host => 'beta.olook.com.br'
+    Rails.application.routes.url_helpers.accept_invitation_url token, :host => 'olook.com.br'
   end
   
   def self.configuration
