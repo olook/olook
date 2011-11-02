@@ -133,9 +133,13 @@ body {
               width: 300px;
 
               input[type='submit'] {
-                width: 300px;
-                font-family: 'Futura Medium';
-                letter-spacing:-1px;
+                background: url('/assets/common/register.png') no-repeat;
+                text-indent: -9999px;
+                width: 299px;
+                height: 63px;
+                display: block;
+                border: none;
+                cursor: pointer;
               }
             }
           }

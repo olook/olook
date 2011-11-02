@@ -41,7 +41,7 @@ feature "User Authenticate", %q{
       fill_in "user_email", :with => "fake@mail.com"
       fill_in "user_password", :with => "123456"
       fill_in "user_password_confirmation", :with => "123456"
-      click_button "Cadastrar"
+      click_button "register"
     end
     page.should have_content(I18n.t "devise.registrations.signed_up")
   end
@@ -96,7 +96,7 @@ feature "User Authenticate", %q{
       fill_in "user_email", :with => login
       fill_in "user_password", :with => pass
       fill_in "user_password_confirmation", :with => pass
-      click_on "Cadastrar"
+      click_on "register"
     end
     page.should have_content(I18n.t "devise.registrations.signed_up")
     click_on "Sair"
