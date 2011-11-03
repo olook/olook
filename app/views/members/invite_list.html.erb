@@ -15,7 +15,7 @@
         <tr>
           <td><%= invite.email %></td>
           <td><%= invite.created_at.to_s(:short) %></td>
-          <td><%= invite.invited_member.nil? ? 'Não' : raw('<b>Sim</b>') %></td>
+          <td><%= Invite.status_for_user_invite(@member.id, invite) %></td>
         </tr>
       </tbody>
     <% end %>
