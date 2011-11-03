@@ -122,8 +122,8 @@ survey_data[13] = {
 
 survey_data[14] = {
   :question_title => "15. Quais acessórios você usaria para um domigo à tarde?",
-  :answers => ["Gladiadora + Bolsa molhinha", "Sapatilha + Maxibolsa", "Sandália anabela + Bolsa box alça longa" ],
-  :weights => [{"Gladiadora + Bolsa molhinha" => {"3" => casual, "5" => contemporary, "10" => trendy}},
+  :answers => ["Gladiadora + Bolsa molinha", "Sapatilha + Maxibolsa", "Sandália anabela + Bolsa box alça longa" ],
+  :weights => [{"Gladiadora + Bolsa molinha" => {"3" => casual, "5" => contemporary, "10" => trendy}},
                {"Sapatilha + Maxibolsa" => {"3" => traditional, "10" => elegant, "5" => feminine}},
                {"Sandália anabela + Bolsa box alça longa" => {"3" => elegant, "10" => feminine, "5" => sexy}}]
 }
