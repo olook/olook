@@ -151,10 +151,24 @@ body {
                       margin-right: 20px;
 
                       input[type='submit'] {
-                        font-size: 14px;
-                        padding: 10px 18px;
+                        background: url('/assets/common/login2.png') no-repeat;
+                        text-indent: -9999px;
+                        width: 106px;
+                        height: 42px;
+                        display: block;
+                        border: none;
+                        cursor: pointer;
                       }
                     }
+                  }
+                  input[type='submit'] {
+                    background: url('/assets/common/login2.png') no-repeat;
+                    text-indent: -9999px;
+                    width: 106px;
+                    height: 42px;
+                    display: block;
+                    border: none;
+                    cursor: pointer;
                   }
                 }
               }
