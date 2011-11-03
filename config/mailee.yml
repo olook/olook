@@ -6,12 +6,14 @@ default: &default
     :from_name: olook
     :from_email: bemvinda@my.olookmail.com.br
     :template_id: 9481
+    :analytics: false
   :invite:
     :title: Invite
     :subject: __inviter_name__ te convidou para a olook!
     :from_name: olook
     :from_email: vip@o.conviteolook.com.br
     :template_id: 9506
+    :analytics: false
 
 development:
   <<: *default
