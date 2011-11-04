@@ -6,62 +6,6 @@
 
 $pink: #d95485;
 
-@mixin pink_button($top-color: #FB619E, $bottom-color: #DD3178, $font-size: 26px, $padding-top: 15px, $padding-bottom: 15px, $padding-left: 50px, $padding-right: 50px, $radius: 10px) {
-  background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -o-linear-gradient(top, $top-color 30%, $bottom-color 60%);
-  background-image: -moz-linear-gradient(top, $top-color 28%, $bottom-color 72%);
-  background-image: -webkit-linear-gradient(top, $top-color 30%, $bottom-color 60%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB619E, endColorstr=#DD3178);
-  -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#FB619E, endColorstr=#DD3178)';
-
-  background-image: -webkit-gradient(
-          linear,
-          left top,
-          left bottom,
-          color-stop(0.3, $top-color),
-          color-stop(0.8, $bottom-color)
-  );
-  border: none;
-  @include border-radius($radius);
-}
-
-@mixin grey_button($top-color: #FB619E, $bottom-color: #DD3178) {
-  background-image: linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -o-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  background-image: -moz-linear-gradient(top, $top-color 28%, $bottom-color 72%);
-  background-image: -webkit-linear-gradient(top, $top-color 50%, $bottom-color 60%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E1E0E0, endColorstr=#ADADAD);
-  -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#E1E0E0, endColorstr=#ADADAD)';
-
-  background-image: -webkit-gradient(
-          linear,
-          left top,
-          left bottom,
-          color-stop(0.3, $top-color),
-          color-stop(0.8, $bottom-color)
-  );
-
-  border: none;
-  @include border-radius(10px);
-
-  input[type='submit'] {
-    @include border-radius(10px);
-    background: transparent;
-    padding: 15px 50px;
-    font-size: 26px;
-    cursor: pointer;
-    border-left: 1px solid #E4E4E4;
-    border-top: 1px solid #E4E4E4;
-    border-bottom: none;
-    border-right: none;
-    color: #FFF;
-    text-shadow: #8D8D8D 1px 2px 2px;
-    margin-top: 1px;
-    margin-left: 1px;
-    text-transform: uppercase;
-  }
-}
-
 @mixin table {
   table#list {
     width: 856px;
