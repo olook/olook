@@ -249,6 +249,7 @@
   views:
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
+      bonus_for_accepting_invite: 'Você já ganhou <span class="amount">R$ 10,00</span> por ter sido convidada!'
       invitation_accepted: 
         one: '<span>%{count} </span>amiga já se registrou e você ganhou <span class="amount">%{bonus}</span>'
         other: '<span>%{count} </span>amigas já se registraram e você ganhou <span class="amount">%{bonus}</span>'

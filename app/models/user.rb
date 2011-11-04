@@ -67,7 +67,8 @@ class User < ActiveRecord::Base
   end
 
   def invite_bonus
-    self.invites.accepted.count * 10.0
+    bonus = self.invites.accepted.count * 10.0
+    self.is_invited? ? bonus + 10.0 : bonus
   end
 
   def profile_scores
