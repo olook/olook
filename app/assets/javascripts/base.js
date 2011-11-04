@@ -1,7 +1,6 @@
 $(document).ready(function() {
-  
+
   if($('#error-messages').html().length >= '73'){
-    console.log('messages');
     $('.alert').parent().slideDown('1000', function() {
       $('.alert').parent().delay(2000).slideUp();
     })
@@ -19,13 +18,13 @@ $(document).ready(function() {
   $(document).bind('keydown', 'esc',function () {
     $('#sign-in-dropdown').hide();
     $('body').removeClass('dialog-opened');
-    return false; 
+    return false;
   });
 
   var items_replace = new Array('.home > a, nav.invite a, .send-button, #share-mail h1, #import-contacts h1, .box h3, #invite-mail h1, .full-banner .close, .full-banner li')
-  
+
   Cufon.replace(items_replace);
-  
+
   if($('.dialog').length == 1) {
     width = $(document).width();
     height = $(document).width();
@@ -41,7 +40,7 @@ $(document).ready(function() {
       width: 'toggle',
       height: 'toggle'
     });
-    
+
     $('body .dialog').css("left", (viewWidth - '930') / 2);
     $('body .dialog').css("top", (viewHeight - '525') / 2);
 
