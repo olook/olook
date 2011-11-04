@@ -338,26 +338,28 @@ body {
     &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
       hgroup {
         h1, h2 {
-          font-family: 'Futura Light';
           font-size: 35px;
           text-transform: uppercase;
           letter-spacing: -2px;
-          text-align: right;
           line-height: 35px;
+          float: right;
         }
 
         h1{
+          text-indent: -9999px;
           line-height:30px;
+          display: block;
         }
 
         h2 {
           font-size: 16px;
           text-transform: none;
           font-weight: normal;
-          font-family: sans-serif;
+          font-family: Arial, sans-serif;
           line-height: normal;
-          margin-top: 15px;
+          margin-top: 16px;
           letter-spacing:-1px;
+          text-align: right;
         }
       }
 
@@ -376,8 +378,34 @@ body {
         }
       }
     }
-
+    
+    &#share-mail {
+      h1 {
+        background: url('/assets/common/tit-invite-link.png') no-repeat;
+        width: 303px;
+        height: 70px;
+      }
+    }
+    &#invite-mail {
+      h1 {
+        background: url('/assets/common/tit-invite-email.png') no-repeat;
+        width: 329px;
+        height: 69px;
+      }
+    }
+    &#post-to-wall {
+      h1 {
+        background: url('/assets/common/tit-invite-facebook.png') no-repeat;
+        width: 311px;
+        height: 69px;
+      }
+    }
     &#import-contacts {
+      h1 {
+        background: url('/assets/common/tit-invite-contacts.png') no-repeat;
+        width: 330px;
+        height: 70px;
+      }
       form {
         fieldset {
           &.inputs {
