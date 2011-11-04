@@ -1,9 +1,5 @@
 <% content_for :head do %>
   <script src="http://connect.facebook.net/en_US/all.js"></script>
-  <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
-<% end %>
-
-<% content_for(:head) do %>
   <script type="text/javascript">
     if(window.opener) {
       window.close();
@@ -11,6 +7,9 @@
     }
   </script>
 <% end %>
+
+<div id="fb-root"></div>
+<%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 
 <% if current_user.first_visit? %>
   <%= render 'shared/models' %>
