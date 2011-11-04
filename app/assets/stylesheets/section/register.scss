@@ -51,8 +51,10 @@ body {
               overflow: hidden;
 
               label {
+                color: #0f1714;
                 display: inline-block;
                 width: 140px;
+                line-height: 33px;
                 text-align: right;
                 font-weight: bold;
                 float: left;
@@ -112,6 +114,11 @@ body {
                   a {
                     color: #000;
                   }
+                }
+              }
+              &.password {
+                label {
+                  line-height: 22px;
                 }
               }
             }
