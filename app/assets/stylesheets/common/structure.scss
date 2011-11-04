@@ -393,6 +393,7 @@ body {
           a {
             background: url('/assets/common/nav/invite-friends.png') no-repeat;
             width: 120px;
+            display: block;
             &.selected {
               background: url('/assets/common/nav/invite-friends-selected.png') no-repeat;
             }
@@ -403,6 +404,7 @@ body {
           a {
             background: url('/assets/common/nav/my-friends.png') no-repeat;
             width: 120px;
+            display: block;
             &.selected {
               background: url('/assets/common/nav/my-friends-selected.png') no-repeat;
             }
@@ -412,7 +414,6 @@ body {
         a {
           text-indent: -9999px;
           height: 32px;
-          display: block;
           padding: 10px 30px;
         }
       }
