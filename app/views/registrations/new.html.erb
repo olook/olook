@@ -1,7 +1,3 @@
-<% content_for(:head) do %>
-  <% render "shared/close_popup_js", :redirect_url => @redirect_url  %>
-<% end %>
-
 <% content_for (:errors) do %>
   <%=  "#{resource.errors.size} Impediram que você pudesse se cadastrar" if resource.errors.any? %>
 <% end %>
