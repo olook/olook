@@ -216,6 +216,11 @@ describe User do
         end
       end
     end
+    
+    it 'should be limited to R$ 300' do
+      subject.stub_chain(:invites, :accepted, :count).and_return(1000)
+      subject.invite_bonus.should == 300.0
+    end
   end
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
