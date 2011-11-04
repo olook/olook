@@ -30,13 +30,27 @@ describe MemberHelper do
 
   describe "#invitation_score" do
     let(:member) { double(User) }
-
+    
     describe "when no invite was accepted" do
-      it 'should return no_invite_accept message' do
-        member.stub_chain(:invites, :accepted, :count).and_return(0)
-        helper.invitation_score(member).should == I18n.t('views.members.no_invitation_accepted')
+      context "for a member who wasn't invited" do
+        it 'should return no_invite_accept message' do
+          member.stub(:'is_invited?').and_return(false)
+          member.stub(:invite_bonus).and_return(0.0)
+          member.stub_chain(:invites, :accepted, :count).and_return(0)
+          helper.invitation_score(member).should == I18n.t('views.members.no_invitation_accepted')
+        end
+      end
+
+      context "for a member who was invited" do
+        it 'should return bonus_for_accepting_invite message' do
+          member.stub(:'is_invited?').and_return(true)
+          member.stub(:invite_bonus).and_return(100.0)
+          member.stub_chain(:invites, :accepted, :count).and_return(0)
+          helper.invitation_score(member).should == I18n.t('views.members.bonus_for_accepting_invite')
+        end
       end
     end
+
     describe "when some invites were accepted" do
       before :each do
         member.stub(:invite_bonus).and_return(100.0)

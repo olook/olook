@@ -7,6 +7,7 @@ en:
   views:
     members:
       no_invitation_accepted: 'None of your friends have registered yet'
+      bonus_for_accepting_invite: 'You have already won <span class="amount">R$ 10,00</span> for being invited!'
       invitation_accepted: 
         one: '<span>%{count} </span>friend have registered and you won <span class="amount">%{bonus}</span>'
         other: '<span>%{count} </span>friends have registered and you won <span class="amount">%{bonus}</span>'
