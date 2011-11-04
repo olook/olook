@@ -5,23 +5,7 @@ $(document).ready(function() {
   index = parseInt($("#id_first_question").val());
   init.tracker();
 
-  function popupCenter(url, width, height, name) {
-    var left = (screen.width/2)-(width/2);
-    var top = (screen.height/2)-(height/2);
-
-    return window.open(url, name, "menubar=no,toolbar=no,status=no,width=" + width + ",height=" + height + ",toolbar=no,left=" + left + ",top=" + top);
-  }
-
   $('#survey').bind('keydown', 'tab',function (evt) {
-    return false; 
-  });
-
-  $("a.fbpopup").click(function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
-
     return false;
   });
 
@@ -36,7 +20,7 @@ $(document).ready(function() {
       $(".about select[name='day']").val()  != 'Dia' &&
       $(".about select[name='month']").val()  != 'Mês' &&
       $(".about select[name='year']").val()  != 'Ano'){
-      
+
       $(".about .buttons li").removeClass("grey-button");
       $(".about .buttons li input").removeAttr("disabled");
     }else{
@@ -106,7 +90,7 @@ init = {
   mycarousel_initCallback : function(carousel) {
                               $('.jcarousel-prev').css('display', 'block');
                               $('#next_link').bind('click', function() {
-                                
+
                                 elemtId = "#question_" + index;
                                 carouselItem = $("#question_" + index);
 
@@ -124,20 +108,20 @@ init = {
                                   carousel.next();
                                   index++;
                                 }
-                                
+
                                 return false;
                               });
 
                               $('.jcarousel-prev').bind('click', function() {
                                 carousel.prev();
                                 index--;
-                                
+
                                 el = $("#question_" + index);
                                 el.find('li.selected').removeClass('selected');
                                 el.find('li.click_star').removeClass();
                                 el.find('li.starred').removeClass();
                                 el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
-                                
+
                                 return false;
                               });
                             },
