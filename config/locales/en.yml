@@ -11,3 +11,5 @@ en:
       invitation_accepted: 
         one: '<span>%{count} </span>friend have registered and you won <span class="amount">%{bonus}</span>'
         other: '<span>%{count} </span>friends have registered and you won <span class="amount">%{bonus}</span>'
+      member_with_no_invite_bonus: "Choose one of the following options and start inviting your friends"
+      member_with_invite_bonus: 'You have already won <span class="amount">%{bonus}</span>'

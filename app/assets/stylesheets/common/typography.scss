@@ -283,6 +283,13 @@ body {
           font-style: italic;
           font-weight: bold;
           text-align: center;
+          font-size:38px;
+          
+          span.amount {
+            font-weight: bold;
+            color: $pink;
+            line-height: 60px;
+          }
         }
       }
       .banner {
