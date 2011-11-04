@@ -159,14 +159,11 @@ body {
 
         .buttons {
           li {
-            @include pink-button();
             width: 285px;
             margin: 15px auto 0;
 
-            input[type='submit'] {
-              width: 285px;
-              font-size: 28px;
-              letter-spacing:-2px;
+            input[type='image'] {
+              margin-left: 15px;
             }
           }
         }
