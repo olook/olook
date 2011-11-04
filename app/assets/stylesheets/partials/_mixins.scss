@@ -4,7 +4,7 @@
 @import 'common/border-radius';
 @import 'common/fonts';
 
-$pink: #d95485;
+$pink: #D95485;
 
 @mixin table {
   table#list {
@@ -97,7 +97,6 @@ $pink: #d95485;
               
               &.forgot-password {
                 & + li {
-                  @include pink-button(#FB619E, #DD3178, 12px, 5px, 5px, 10px, 10px, 5px);
                   float: right;
                   margin-top: -15px;
                 }
