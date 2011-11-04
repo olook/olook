@@ -15,16 +15,24 @@ module MemberHelper
   def invite_message
     message = "Venha ver minha vitrine na olook! Entre no link."
   end
-
+  
+  def display_member_invite_bonus(member)
+    if member.invite_bonus > 0
+      raw(I18n.t('views.members.member_with_invite_bonus', :bonus => number_to_currency(member.invite_bonus)))
+    else
+      raw(I18n.t('views.members.member_with_no_invite_bonus'))
+    end
+  end
+  
   def invitation_score(member)
     accept_invite_count = member.invites.accepted.count
     invite_bonus = member.invite_bonus
     
     if accept_invite_count == 0
-      if invite_bonus == 0
-        raw(I18n.t('views.members.no_invitation_accepted'))
-      else
+      if invite_bonus > 0
         raw(I18n.t('views.members.bonus_for_accepting_invite'))
+      else
+        raw(I18n.t('views.members.no_invitation_accepted'))
       end
     else
       raw(I18n.t('views.members.invitation_accepted', :count => accept_invite_count, :bonus => number_to_currency(invite_bonus)))

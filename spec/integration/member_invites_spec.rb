@@ -10,16 +10,30 @@ feature "Member can send invites", %q{
 
   let(:user) { FactoryGirl.create(:user) }
 
-  describe "When a member" do
+  context "When a member" do
     background do
       do_login!(user)
       SurveyQuestions.stub(:new).and_return(false)
       @member = User.find_by_email(user.email)
     end
 
-    scenario "access the welcome page, they should be able to go to the invite page" do
-      visit welcome_path
-      page.has_link?("Convide suas amigas", :href => member_invite_path)
+    context "access the invite/welcome page" do
+      scenario "they should be able to go to the invite page" do
+        visit member_invite_path
+        page.has_link?("Convide suas amigas", :href => member_invite_path)
+      end
+
+      scenario "if they don't have any amount of invite_bonus they should see a message to invite friends" do
+        User.any_instance.stub(:invite_bonus).and_return(0.0)
+        visit member_invite_path
+        page.should have_content("Escolha uma das opções abaixo e comece a convidar")
+      end
+
+      scenario "if they have any amount of invite_bonus they should see the ammount they earned" do
+        User.any_instance.stub(:invite_bonus).and_return(13.0)
+        visit member_invite_path
+        page.should have_content('Você já ganhou R$ 13,00')
+      end
     end
 
     describe "access the invite page, they can invite people by" do
@@ -52,7 +66,7 @@ feature "Member can send invites", %q{
     end
   end
 
-  describe "When a visitor accepts the invitation and click on the invite link" do
+  context "When a visitor accepts the invitation and click on the invite link" do
     background do
       # Make sure it behaves like a visitor
       delete destroy_user_session_path

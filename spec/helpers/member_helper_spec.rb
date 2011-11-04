@@ -27,6 +27,20 @@ describe MemberHelper do
   it '#invite_message should return a text string' do
     helper.invite_message.should be_true
   end
+  
+  describe '#display_member_invite_bonus' do
+    let(:member) { double(User) }
+
+    it 'should return member_with_no_invite_bonus when the member invite_bonus is zero' do
+      member.stub(:invite_bonus).and_return(0.0)
+      helper.display_member_invite_bonus(member).should == I18n.t('views.members.member_with_no_invite_bonus')
+    end
+
+    it 'should return member_with_invite_bonus when the member invite_bonus is greater than zero' do
+      member.stub(:invite_bonus).and_return(290.0)
+      helper.display_member_invite_bonus(member).should == I18n.t('views.members.member_with_invite_bonus', :bonus => number_to_currency(member.invite_bonus))
+    end
+  end
 
   describe "#invitation_score" do
     let(:member) { double(User) }
