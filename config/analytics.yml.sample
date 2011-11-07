@@ -1,0 +1,9 @@
+development:
+  analytics_id: UA-26610963-1
+
+test:
+  analytics_id: UA-26593494-2
+
+production:
+  analytics_id: UA-26610963-1
+
