@@ -128,10 +128,17 @@ init = {
 
   bindActions : function() {
                   $('.images .options > li, .words .options > li').live('click', function(){
-                  $(this).find('input').attr('checked', true);
-                  $(this).addClass('selected');
-                  $("#next_link").click();
-                });
+                    
+                    action = $(this).parents('li').attr('jcarouselindex');
+                    step = 'step-' + action
+
+                    $(this).find('input').attr('checked', true);
+                    $(this).addClass('selected');
+                   
+                    _gaq.push(['_trackEvent', 'Survey', 'click', step]);
+
+                    $("#next_link").click();
+                  });
   },
 
   dialog : function(){
