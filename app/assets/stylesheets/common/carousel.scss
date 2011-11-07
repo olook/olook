@@ -378,6 +378,7 @@ body {
     width: 244px;
     overflow: hidden;
     margin: -80px auto 0;
+    clear: both;
 
     li {
       background: url(/assets/common/tracker-bullet.png) left center no-repeat;
@@ -394,6 +395,13 @@ body {
         width: 12px;
         height: 12px;
       }
+    }
+    
+    & + p{
+      display: block;
+      width: 690px;
+      font-size: 11px;
+      margin: 30px auto 0;
     }
   }
 }
