@@ -160,12 +160,15 @@ init = {
            },
 
   tracker : function() {
+              info= '<p>Fotos: Reprodução<br />O uso de imagens de celebridades nesta pesquisa serve o propósito único de identificar o perfil de moda dos respondentes. As celebridades retratadas não estão associadas ou recomendam a Olook.</p>'
               pages = $('.questions > li').length / 2;
 
               $('#survey').after("<ul id='tracker'>");
 
               for (var i = 1; i <= pages; i++)
                 $("#tracker").append('<li id=' + i + '>' + i + '</li>');
+
+              $('#tracker').after(info);
             }
 
 };
