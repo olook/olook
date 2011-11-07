@@ -27,6 +27,10 @@ class MembersController < ApplicationController
     @email_provider = params[:email_provider]
   end
 
+  def how_to
+    @member = current_user
+  end
+
   def show_imported_contacts
     email_provider = params[:email_provider]
     login = params[:login]

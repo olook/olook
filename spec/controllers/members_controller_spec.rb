@@ -22,6 +22,14 @@ describe MembersController do
     end
   end
 
+  describe "#how_to" do
+    it "should show the member how_to page" do
+      get :how_to
+      response.should render_template("how_to")
+      assigns(:member).should eq(user)
+    end
+  end
+
   describe "#accept_invitation should redirect to root" do
     describe "and show error message" do
       it "when receiving a blank token" do
