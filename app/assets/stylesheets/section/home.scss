@@ -156,6 +156,33 @@ body {
         }
       }
 
+      section.like {
+        width: 265px;
+        margin: 0 0 0 65px;
+        padding: 12px 25px;
+        overflow: auto;
+        border: 1px #c7c7c7 solid;
+        float: left;
+
+        p {
+          color: #606060;
+          font-family: 'Times New Roman', Times, serif;
+          font-style: italic;
+          font-size: 22px;
+          width: 155px;
+          float: left;
+
+          span {
+            background: url('/assets/common/facebook-title.png') no-repeat;
+            text-indent: -9999px;
+            width: 124px;
+            height: 25px;
+            margin: 0 0 0 12px;
+            display: block;
+          }
+        }
+      }
+
       .video {
         float: left;
         margin: 21px 0 0 114px;
