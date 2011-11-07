@@ -21,6 +21,7 @@ Olook::Application.routes.draw do
 
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
+  get "membro/como-funciona", :to => "members#how_to", :as => "member_how_to"
 
   namespace :admin do
     match "/", :to => "index#dashboard"

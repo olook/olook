@@ -406,10 +406,21 @@ body {
         &.my_friends {
           a {
             background: url('/assets/common/nav/my-friends.png') no-repeat;
-            width: 120px;
+            width: 178px;
             display: block;
             &.selected {
               background: url('/assets/common/nav/my-friends-selected.png') no-repeat;
+            }
+          }
+        }
+        
+        &.how_to {
+          a {
+            background: url('/assets/common/nav/how-to.png') no-repeat;
+            width: 107px;
+            display: block;
+            &.selected {
+              background: url('/assets/common/nav/how-to-selected.png') no-repeat;
             }
           }
         }
