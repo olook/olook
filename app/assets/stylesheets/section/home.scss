@@ -160,7 +160,7 @@ body {
         width: 265px;
         margin: 0 0 0 65px;
         padding: 12px 25px;
-        overflow: auto;
+        overflow: visible;
         border: 1px #c7c7c7 solid;
         float: left;
 
@@ -180,6 +180,14 @@ body {
             margin: 0 0 0 12px;
             display: block;
           }
+        }
+
+        div.fb-like {
+          float: right;
+          margin: 17px 0 0 0;
+        }
+        .fb_edge_comment_widget {
+          display: none;
         }
       }
 
