@@ -120,7 +120,7 @@ describe MembersController do
       post :invite_imported_contacts, :email_provider => "gmail", :email_address => emails
 
       response.should redirect_to(member_invite_path)
-      flash[:notice].should == "Convites enviados com sucesso!"
+      flash[:notice].should == "3 Convites enviados com sucesso!"
     end
   end
 

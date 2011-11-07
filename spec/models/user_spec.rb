@@ -135,6 +135,12 @@ describe User do
   end
 
   describe "#invites_for (plural)" do
+    it "should create new invites with limit for new and valid e-mails" do
+      emails = ["invited@test.com", "invited2@test.com", "invited2@test.com"]
+      limit, expected_size = 1, 2
+      new_invites = subject.invites_for(emails, limit)
+      new_invites.size.should == expected_size
+    end
     it "should create new invites for new and valid e-mails" do
       emails = ["invited@test.com", "invited2@test.com"]
       new_invites = subject.invites_for(emails)
@@ -216,7 +222,7 @@ describe User do
         end
       end
     end
-    
+
     it 'should be limited to R$ 300' do
       subject.stub_chain(:invites, :accepted, :count).and_return(1000)
       subject.invite_bonus.should == 300.0
