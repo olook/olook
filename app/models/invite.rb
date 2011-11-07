@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Invite < ActiveRecord::Base
   STATUS = {:yes => "Sim", :no => "Não", :accepted => "Sim, mas por outro convite! ):"}
+  LIMIT = 100
+
   belongs_to :user
   belongs_to :invited_member, :class_name => "User"
 

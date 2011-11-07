@@ -45,12 +45,12 @@ class User < ActiveRecord::Base
   def invite_for(email_address, was_sent_at = nil)
     the_invite = invites.find_by_email(email_address) || invites.build(:email => email_address)
     the_invite.sent_at = was_sent_at unless was_sent_at.nil?
-    
+
     the_invite.save ? the_invite : nil
   end
 
-  def invites_for(email_addresses)
-    email_addresses.map do |email_address|
+  def invites_for(email_addresses, limit = Invite::LIMIT)
+    email_addresses[0..limit].map do |email_address|
       invite_for email_address
     end.compact
   end
