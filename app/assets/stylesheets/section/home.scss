@@ -58,24 +58,34 @@ body {
       }
 
       .call {
+        background: url('/assets/home/bg-chamada.png') no-repeat 0px 0px;
         width:603px;
         height:160px;
-        display: block;
         float:left;
         margin:31px 0 0 64px;
 
         p {
-          background: url('../../assets/home/text-call.png') no-repeat;
           color: #FFF;
-          text-indent: -9999px;
           font-style: italic;
           font-family: 'Times New Roman', Times, serif;
           letter-spacing: -2px;
-          width: 603px;
-          height: 159px;
-          display: block;
           margin: 0;
 
+          &.line-one {
+            font-size: 44px;
+            margin: -3px 0 0 83px;
+          }
+
+          &.line-two {
+            font-size: 70px;
+            margin: -20px 0 0 45px;
+          }
+
+          &.line-three {
+            font-size: 62px;
+            float: right;
+            margin: -29px 36px 0 0;
+          }
         }
       }
       .steps {
