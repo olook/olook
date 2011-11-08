@@ -1,10 +1,28 @@
-<h2>Esqueceu sua senha?</h2>
+<section id="forget_password" class="forms">
+  <h1>Esqueceu sua senha?</h1>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+  <div class="form_content">
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div><%= f.label "Informe seu e-mail" %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.submit "Enviar recuperação de senha" %></div>
-<% end %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <%= f.label "Email" %>
+            <%= f.email_field :email %>
+          </li>
+        </ol>
+      </fieldset>
+      <fieldset class="buttons">
+        <ol>
+          <li>
+            <%= f.submit "" %>
+          </li>
+        </ol>
+      </fieldset>
+      <p>Não recebeu o email de instruções? <%= link_to 'Clique aqui', '#' =%></p>
+    <% end %>
+  </div>
+  <%= image_tag '/assets/common/model-sign-in.png', :class => 'model' %>
+  <%= render :partial => "shared/social_links" %>
+</section>
