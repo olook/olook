@@ -110,7 +110,7 @@ body {
             }
           }
           &.buttons {
-          
+            margin-bottom: 20px;
             input[type='submit'] {
               background: url('/assets/common/bt-forget-password.png') no-repeat;
               text-indent: -9999px;
@@ -120,6 +120,15 @@ body {
               display: block;
               border: none;
               cursor: pointer;
+            }
+          }
+        }
+        p {
+          a {
+            color: #6D6E71;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
             }
           }
         }
