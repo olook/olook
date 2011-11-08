@@ -290,8 +290,21 @@ body {
             &.buttons {
               ol {
                 li {
+                  float: right;
                   &.remember-me {
-                    width: 350px;
+                    width: 210px;
+                    float: left;
+                    input[type='checkbox'] {
+                      margin-bottom: 10px;
+                    }
+                    a.forgot_password {
+                      color: #6D6E71;
+                      text-decoration: none;
+                      display: block;
+                      &:hover {
+                        text-decoration: underline;
+                      }
+                    }
                   }
                   &.forgot-password {
                     & + li {
@@ -316,8 +329,6 @@ body {
                     display: block;
                     border: none;
                     cursor: pointer;
-                    float: right;
-                    margin-top: -15px;
                     margin-right: 19px;
                   }
                 }
