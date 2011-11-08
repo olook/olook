@@ -93,19 +93,23 @@ init = {
 
                                 elemtId = "#question_" + index;
                                 carouselItem = $("#question_" + index);
+                                var step = 'step-' + index
 
                                 if (carouselItem.hasClass('images')) {
                                   carousel.next();
+                                 _gaq.push(['_trackEvent', 'Survey', 'click', step]);
                                   index++;
                                 }
 
                                 if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
                                   carousel.next();
+                                  _gaq.push(['_trackEvent', 'Survey', 'click', step]);
                                   index++;
                                 }
 
                                 if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
                                   carousel.next();
+                                  _gaq.push(['_trackEvent', 'Survey', 'click', step]);
                                   index++;
                                 }
 
@@ -128,14 +132,9 @@ init = {
 
   bindActions : function() {
                   $('.images .options > li, .words .options > li').live('click', function(){
-                    
-                    action = $(this).parents('li').attr('jcarouselindex');
-                    step = 'step-' + action
 
                     $(this).find('input').attr('checked', true);
                     $(this).addClass('selected');
-                   
-                    _gaq.push(['_trackEvent', 'Survey', 'click', step]);
 
                     $("#next_link").click();
                   });
