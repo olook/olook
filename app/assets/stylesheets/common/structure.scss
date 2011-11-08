@@ -451,6 +451,7 @@ body {
 
         table {
           &#list {
+            margin-top: 0;
             thead {
               tr {
                 th {
@@ -473,6 +474,29 @@ body {
                   }
                 }
               }
+            }
+          }
+        }
+      }
+
+      fieldset {
+        margin: 40px 0 10px 0;
+        ol {
+          width: 855px;
+          overflow: auto;
+          margin: 0 auto;
+          li {
+            text-align: left;
+            width: 40%;
+            float: left;
+            &.select_all {
+              margin-top: 35px;
+              input[type='checkbox'] {
+                margin-left: 13px;
+              }
+            }
+            input[type=image] {
+              margin: 0 !important;
             }
           }
         }
