@@ -5,6 +5,8 @@ class MailInviteWorker
   def self.perform(invite_id)
     invite = Invite.find(invite_id)
 
+    raise "The invite ID #{invite_id} was already sent" unless invite.sent_at.nil?
+    
     attributes = configuration
 
     template = Mailee::Template.find(attributes[:template_id])
@@ -18,6 +20,9 @@ class MailInviteWorker
 
     invite_email = Mailee::Message.create(attributes)
     invite_email.ready unless Rails.env == "test"
+    
+    invite.sent_at = Time.now
+    invite.save
   end
   
   def self.accept_invitation_url(token)
