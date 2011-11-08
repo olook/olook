@@ -3,6 +3,7 @@ $(document).ready(function() {
   init.bindActions();
   init.dialog();
   index = parseInt($("#id_first_question").val());
+  idFirstQuestion = index - 1;
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -93,23 +94,25 @@ init = {
 
                                 elemtId = "#question_" + index;
                                 carouselItem = $("#question_" + index);
-                                var step = 'step-' + index
+
+                                var stepIndex = index - idFirstQuestion;
+                                var step = '/quiz/' + stepIndex;
 
                                 if (carouselItem.hasClass('images')) {
                                   carousel.next();
-                                 _gaq.push(['_trackEvent', 'Survey', 'click', step]);
+                                  _gaq.push(['_trackPageview', step]);
                                   index++;
                                 }
 
                                 if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
                                   carousel.next();
-                                  _gaq.push(['_trackEvent', 'Survey', 'click', step]);
+                                  _gaq.push(['_trackPageview', step]);
                                   index++;
                                 }
 
                                 if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
                                   carousel.next();
-                                  _gaq.push(['_trackEvent', 'Survey', 'click', step]);
+                                  _gaq.push(['_trackPageview', step]);
                                   index++;
                                 }
 
