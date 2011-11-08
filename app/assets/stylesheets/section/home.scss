@@ -157,34 +157,30 @@ body {
       }
 
       section.like {
-        width: 265px;
-        margin: 0 0 0 65px;
-        padding: 12px 25px 20px;
+        width: 550px;
+        margin: -80px 0 0 340px;
+        padding: 10px 30px 15px;
         overflow: visible;
         border: 1px #c7c7c7 solid;
         float: left;
 
         p {
-          color: #606060;
+          background: url('/assets/common/facebook-title.png') no-repeat;
+          color: #a2a2a2;
           font-family: 'Times New Roman', Times, serif;
           font-style: italic;
           font-size: 22px;
-          width: 155px;
+          width: 300px;
           float: left;
+          margin-top:3px;
+          letter-spacing:-1px;
+          padding: 2px 0 0 160px
 
-          span {
-            background: url('/assets/common/facebook-title.png') no-repeat;
-            text-indent: -9999px;
-            width: 124px;
-            height: 25px;
-            margin: -3px 0 0 15px;
-            display: block;
-          }
         }
 
         div.fb-like {
           float: right;
-          margin: 17px 0 0 0;
+          margin: 10px 0 0 0;
         }
         .fb_edge_comment_widget {
           display: none;
