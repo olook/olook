@@ -6,6 +6,7 @@ class MembersController < ApplicationController
 
   def invite
     @member = current_user
+    @is_the_first_visit = first_visit_for_member?(@member)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @redirect_uri = root_path
   end
@@ -51,6 +52,15 @@ class MembersController < ApplicationController
   end
 
   private
+
+  def first_visit_for_member?(member)
+    if member.first_visit?
+      member.record_first_visit
+      true
+    else
+      false
+    end
+  end
 
   def validate_token
     valid_format = User::InviteTokenFormat.match params[:invite_token]

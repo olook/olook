@@ -124,6 +124,28 @@ describe MembersController do
     end
   end
 
+  describe "first visit" do
+    before :each do
+      user.events.where(:type => EventType::FIRST_VISIT).destroy_all
+    end
+
+    it "should record first visit for member user" do
+      get :invite
+      user.events.where(:type => EventType::FIRST_VISIT).should_not be_empty
+    end
+
+    it "should assign true for @is_the_first_visit" do
+      get :invite
+      assigns(:is_the_first_visit).should eq(true)
+    end
+
+    it "should not assign true for @is_the_first_visit" do
+      user.record_first_visit
+      get :invite
+      assigns(:is_the_first_visit).should_not eq(true)
+    end
+  end
+
   describe "#invite_list" do
     before :each do
       (1..20).each do |i|
