@@ -141,6 +141,18 @@ init = {
 
                     $("#next_link").click();
                   });
+                  
+                  $('.words .options > li').toggle(function(){
+                      $(this).find('input').attr('checked', true);
+                      $(this).addClass('selected');
+                      $("#next_link").click();
+                    },
+                    function() {
+                      $(this).find('input').attr('checked', false);
+                      $(this).removeClass('selected');
+                      $("#next_link").click();
+                    }
+                  );
   },
 
   dialog : function(){
