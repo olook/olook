@@ -511,7 +511,7 @@ body {
 
   header {
     width: 100%;
-    overflow: auto;
+    overflow: visible;
     display: block;
 
     a {
@@ -539,7 +539,7 @@ body {
     }
 
     .content {
-      overflow: auto;
+      overflow: visible;
       margin-top: 0;
       padding-top: 0;
 
