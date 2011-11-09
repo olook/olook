@@ -177,9 +177,10 @@ body {
                 }
                 
                 label {
-                  display: block;
+                  display: inline-block;
                   width: 46px;
                   height: 38px;
+                  cursor: pointer;
                 }
               }
               &.shoe {

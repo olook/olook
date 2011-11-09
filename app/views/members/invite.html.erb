@@ -5,9 +5,8 @@
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 
-<% if current_user.first_visit? %>
+<% if @is_the_first_visit %>
   <%= render 'shared/models' %>
-<% current_user.record_first_visit %>
 <% end %>
 
 <section id="user-info">
@@ -91,7 +90,7 @@
     </fieldset>
     <fieldset class="buttons">
       <ol>
-        <li><input name="commit" type="submit" value="Convidar"></input></li>
+        <li><input name="commit" type="submit" value="" id="invite_email"></input></li>
       </ol>
     </fieldset>
   <% end %>
@@ -143,5 +142,7 @@
     </fieldset>
     <% end %>
   </div>
-
 </section>
+<% if @is_the_first_visit %>
+  <%= render "shared/google_quiz_conversion" %>
+<% end %>

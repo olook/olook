@@ -17,6 +17,8 @@
     <ol>
       <li class="remember-me">
         <%= f.check_box :remember_me %> <%= f.label "Lembrar de mim" %>
+        <p class="forgot_password"><%= link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password" %></p>
+        <p class="register">Não possui cadastro, <%= link_to 'clique aqui', new_survey_path %></p>
       </li>
       <li>
         <%= f.submit "", :id => "login" %>

@@ -1,12 +1,17 @@
 <div id="invite_list" class="listing">
   <%= form_tag(member_invite_imported_contacts_path) do %>
+    <fieldset class="inputs">
+      <ol>
+        <li class="select_all">
+          <%= check_box_tag 'select_all' %>
+          <%= label_tag 'select_all', 'Selecionar todos' %>
+        </li>
+        <li>
+          <%= image_submit_tag('/assets/common/btn-invite-email.png') %>
+        </li>
+      </ol>
+    </fieldset>
     <table id='list'>
-      <thead>
-        <tr>
-          <th>Amigos</th>
-          <th><%= image_submit_tag('/assets/common/btn-invite-email.png') %></th>
-        </tr>
-      </thead>
       <tbody>
         <% @contacts.each do |contact_name, contact_email| %>
           <tr>
