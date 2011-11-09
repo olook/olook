@@ -46,7 +46,7 @@ $(document).ready(function() {
 
     $('.dialog img').fadeIn('slow');
 
-    $('.dialog img, .overlay').click(function(){
+    $('.dialog img, .overlay, .dialog #close_dialog').click(function(){
       $('.dialog, .overlay').fadeOut('slow', function(){
         $('.dialog, .overlay').remove();
       });
