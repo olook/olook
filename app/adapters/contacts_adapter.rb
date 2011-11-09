@@ -5,7 +5,8 @@ class ContactsAdapter
   TYPE = {gmail: "gmail", yahoo: "yahoo"}
 
   def initialize(login=nil, password=nil, oauth_token=nil, oauth_secret=nil, oauth_verifier=nil)
-    @login, @password, @oauth_token, @oauth_secret, @oauth_verifier = login, password, oauth_token, oauth_secret, oauth_verifier
+    @login, @password = login, password
+    @oauth_token, @oauth_secret, @oauth_verifier = oauth_token, oauth_secret, oauth_verifier
   end
 
   def contacts(type)
