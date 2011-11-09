@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('.import-dropdown').hide();
-  $("#import-contacts .gmail, #import-contacts .yahoo").click(function(event){
+  $("#import-contacts .gmail").click(function(event){
     event.preventDefault();
     $(".import-dropdown > span").removeClass();
     $("#import-contacts .import-dropdown").show();
