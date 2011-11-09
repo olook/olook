@@ -1,0 +1,14 @@
+development:
+  api_key: dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--
+  api_secret: ae9ff386cffdf041f85e88b526611574ff49c95a
+  callback_uri: "http://localhost:3000/"
+
+test:
+  api_key: dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--
+  api_secret: ae9ff386cffdf041f85e88b526611574ff49c95a
+  callback_uri: "http://localhost:3000/"
+
+production:
+  api_key: dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--
+  api_secret: ae9ff386cffdf041f85e88b526611574ff49c95a
+  callback_uri: "http://www.olook.com.br/membro/convite"

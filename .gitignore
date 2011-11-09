@@ -19,6 +19,7 @@ nohup.out
 config/facebook.yml
 config/analytics.yml
 config/email.yml
+config/yahoo.yml
 *.passwd
 db/schema.rb
 .watchr

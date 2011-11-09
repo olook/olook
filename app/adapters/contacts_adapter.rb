@@ -1,13 +1,14 @@
 # -*- encoding : utf-8 -*-
 class ContactsAdapter
-  TYPE = {gmail: "gmail", yahoo: "yahoo"}
-  attr_accessor :login, :password
+  attr_accessor :login, :password, :oauth_token, :oauth_secret, :oauth_verifier
 
-  def initialize(login, password)
-    @login, @password = login, password
+  TYPE = {gmail: "gmail", yahoo: "yahoo"}
+
+  def initialize(login=nil, password=nil, oauth_token=nil, oauth_secret=nil, oauth_verifier=nil)
+    @login, @password, @oauth_token, @oauth_secret, @oauth_verifier = login, password, oauth_token, oauth_secret, oauth_verifier
   end
 
   def contacts(type)
-    contacts = (type == TYPE[:gmail]) ? Contacts::Gmail.new(login, password).contacts : Contacts::Yahoo.new(login, password).contacts
+    contacts = (type == TYPE[:gmail]) ? Contacts::Gmail.new(login, password).contacts : OauthImport::Yahoo.new.contacts(oauth_token, oauth_secret, oauth_verifier)
   end
 end

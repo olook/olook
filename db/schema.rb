@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "type",        :null => false
+    t.integer  "type",        :limit => 255, :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
-    t.integer  "display_on"
+    t.integer  "display_on", :limit => 255
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.decimal  "price",             :precision => 10, :scale => 2
+    t.decimal  "price"
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
