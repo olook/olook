@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :require_cpf
   attr_protected :invite_token
 
-  has_many :points
-  has_one :survey_answer
-  has_many :invites
-  has_many :events
+  has_many :points, :dependent => :destroy
+  has_one :survey_answer, :dependent => :destroy
+  has_many :invites, :dependent => :destroy
+  has_many :events, :dependent => :destroy
 
   before_create :generate_invite_token
 
