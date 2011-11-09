@@ -134,7 +134,7 @@ init = {
                             },
 
   bindActions : function() {
-                  $('.images .options > li, .words .options > li').live('click', function(){
+                  $('.images .options > li').live('click', function(){
 
                     $(this).find('input').attr('checked', true);
                     $(this).addClass('selected');
