@@ -3,7 +3,7 @@ $(document).ready(function() {
   init.bindActions();
   init.dialog();
   index = parseInt($("#id_first_question").val());
-  idFirstQuestion = index - 1;
+  idFirstQuestion = index - 2;
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -144,7 +144,7 @@ init = {
 
                     $("#next_link").click();
                   });
-                  
+
                   $('.words .options > li').toggle(function(){
                       $(this).find('input').attr('checked', true);
                       $(this).addClass('selected');
