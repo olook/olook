@@ -22,7 +22,7 @@
       caption: 'www.olook.com.br',
       link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
       picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg',
-      description: 'Encontrei um site que é a minha cara...Você responde um quiz, eles descobrem o seu estilo e os stylists montam uma vitrine pra você. Adorei! Pelo meu convite, <%= accept_invitation_url(:invite_token => member.invite_token) %>, você se cadastra e ainda ganha R$10 na primeira compra! #ficaadica'
+      description: 'Responda o quiz, a olook descobre o seu estilo e os stylists montam uma vitrine nova para você a cada mês! Por este convite <%= accept_invitation_url(:invite_token => member.invite_token) %>, você se cadastra e ainda ganha R$10 na primeira compra! #ficaadica'
     };
 
     FB.ui(obj);
