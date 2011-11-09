@@ -23,8 +23,6 @@ class MailInviteWorker
     
     invite.sent_at = Time.now
     invite.save
-    
-    sleep 1 #avoid API call overflow
   end
   
   def self.accept_invitation_url(token)
