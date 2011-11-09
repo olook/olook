@@ -91,7 +91,6 @@ init = {
   mycarousel_initCallback : function(carousel) {
                               $('.jcarousel-prev').css('display', 'block');
                               $('#next_link').bind('click', function() {
-
                                 elemtId = "#question_" + index;
                                 carouselItem = $("#question_" + index);
 
@@ -121,17 +120,21 @@ init = {
 
                               $('.jcarousel-prev').bind('click', function() {
                                 carousel.prev();
+                                init.clearOptions(index);
                                 index--;
 
-                                el = $("#question_" + index);
-                                el.find('li.selected').removeClass('selected');
-                                el.find('li.click_star').removeClass();
-                                el.find('li.starred').removeClass();
-                                el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
-
+                                init.clearOptions(index);
                                 return false;
                               });
                             },
+
+  clearOptions : function(index) {
+    el = $("#question_" + index);
+    el.find('li.selected').removeClass('selected');
+    el.find('li.click_star').removeClass();
+    el.find('li.starred').removeClass();
+    el.find(':radio, :checkbox').attr('checked', false);
+  },
 
   bindActions : function() {
                   $('.images .options > li').live('click', function(){
