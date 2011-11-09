@@ -55,7 +55,7 @@ $(document).ready(function() {
 
   $('.full-banner').fadeIn('slow');
   $('.full-banner .close').click(function(event){
-    $(this).parent().fadeOut('slow', function(){
+    $(this).parent().fadeOut(2000, function(){
       $(this).remove();
     });
     event.preventDefault();
