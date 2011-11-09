@@ -18,5 +18,9 @@ $(document).ready(function() {
     $('.import-dropdown').hide();
     return false; 
   });
+
+  $('#invite_list input#select_all').click(function() {
+    $(this).parents('form').find('#list :checkbox').attr('checked', this.checked);
+  });
 });
 

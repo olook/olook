@@ -57,7 +57,7 @@ feature "Member can send invites", %q{
 
         @member.invites.map(&:email).should_not include(emails)
 
-        click_on "Convidar"
+        click_on "invite_email"
 
         page.should have_content("2 convites enviados com sucesso!")
         @member.reload

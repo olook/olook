@@ -3,6 +3,7 @@ $(document).ready(function() {
   init.bindActions();
   init.dialog();
   index = parseInt($("#id_first_question").val());
+  idFirstQuestion = index - 1;
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -90,22 +91,27 @@ init = {
   mycarousel_initCallback : function(carousel) {
                               $('.jcarousel-prev').css('display', 'block');
                               $('#next_link').bind('click', function() {
-
                                 elemtId = "#question_" + index;
                                 carouselItem = $("#question_" + index);
 
+                                var stepIndex = index - idFirstQuestion;
+                                var step = '/quiz/' + stepIndex;
+
                                 if (carouselItem.hasClass('images')) {
                                   carousel.next();
+                                  _gaq.push(['_trackPageview', step]);
                                   index++;
                                 }
 
                                 if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
                                   carousel.next();
+                                  _gaq.push(['_trackPageview', step]);
                                   index++;
                                 }
 
                                 if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
                                   carousel.next();
+                                  _gaq.push(['_trackPageview', step]);
                                   index++;
                                 }
 
@@ -114,31 +120,42 @@ init = {
 
                               $('.jcarousel-prev').bind('click', function() {
                                 carousel.prev();
+                                init.clearOptions(index);
                                 index--;
 
-                                el = $("#question_" + index);
-                                el.find('li.selected').removeClass('selected');
-                                el.find('li.click_star').removeClass();
-                                el.find('li.starred').removeClass();
-                                el.find('input[type=radio], input[type=checkbox]').attr('checked', false);
-
+                                init.clearOptions(index);
                                 return false;
                               });
                             },
 
+  clearOptions : function(index) {
+    el = $("#question_" + index);
+    el.find('li.selected').removeClass('selected');
+    el.find('li.click_star').removeClass();
+    el.find('li.starred').removeClass();
+    el.find(':radio, :checkbox').attr('checked', false);
+  },
+
   bindActions : function() {
-                  $('.images .options > li, .words .options > li').live('click', function(){
-                    
-                    action = $(this).parents('li').attr('jcarouselindex');
-                    step = 'step-' + action
+                  $('.images .options > li').live('click', function(){
 
                     $(this).find('input').attr('checked', true);
                     $(this).addClass('selected');
-                   
-                    _gaq.push(['_trackEvent', 'Survey', 'click', step]);
 
                     $("#next_link").click();
                   });
+                  
+                  $('.words .options > li').toggle(function(){
+                      $(this).find('input').attr('checked', true);
+                      $(this).addClass('selected');
+                      $("#next_link").click();
+                    },
+                    function() {
+                      $(this).find('input').attr('checked', false);
+                      $(this).removeClass('selected');
+                      $("#next_link").click();
+                    }
+                  );
   },
 
   dialog : function(){
