@@ -47,30 +47,33 @@ body {
             z-index: 4;
 
             & + h3 {
-              background: url("/assets/common/banner/bg-banner-black.png") no-repeat;
-              display: block;
-              color: #FFF;
-              padding-top: 9px;
-              padding-right: 9px;
               position: absolute;
+              background: url("/assets/common/banner/bg-banner-black.png") no-repeat;
+              width: 320px;
+              height: 69px;
+              display: block;
               left: -20px;
               top: 156px;
               z-index: 5;
-
-              span {
-                display: block;
+              & > p {
+                margin: 6px 0 10px 16px;
+                & + p {
+                  margin-left: 105px;
+                }
               }
-              > span {
-                margin-left: 20px;
-                font-weight: normal;
-
-                & + span {
-                  margin-left: 86px;
-                  padding: 3px 0;
-
-                  sup {
-                    position: absolute;
-                  }
+              & + p {
+                position: absolute;
+                color: #D95485;
+                font-size: 14px;
+                top: 230px;
+                left: 2px;
+              }
+              p {
+                color: #FFF;
+                font-size: 19px;
+                letter-spacing: -1px;
+                span {
+                  font-size: 22px;
                 }
               }
             }
@@ -79,11 +82,10 @@ body {
         a {
           display: block;
           position: relative;
-          margin-top: 35px;
-          margin-left: 10px;
+          margin-top: 60px;
+          margin-left: 150px;
           font-size:14px;
           letter-spacing:-1px;
-          text-decoration:none;
         }
 
         img {
