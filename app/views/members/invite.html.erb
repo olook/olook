@@ -113,8 +113,8 @@
   </hgroup>
 
   <ul class="services">
-    <li><%= link_to '', member_import_contacts_path(:email_provider => 'gmail'), :class => 'gmail' %></li>
-    <li><%= link_to '', member_import_contacts_path(:email_provider => 'yahoo'), :class => 'yahoo' %></li>
+    <li><%= link_to '', member_import_contacts_path, :class => 'gmail' %></li>
+    <li><%= link_to '', @yahoo_oauth_url, :class => 'yahoo' %></li>
   </ul>
 
   <div class="import-dropdown">

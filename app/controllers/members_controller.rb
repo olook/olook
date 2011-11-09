@@ -9,6 +9,10 @@ class MembersController < ApplicationController
     @is_the_first_visit = first_visit_for_member?(@member)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @redirect_uri = root_path
+
+    yahoo_request = OauthImport::Yahoo.new.request
+    @yahoo_oauth_url = yahoo_request.authorize_url
+    session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
   end
 
   def accept_invitation
@@ -25,7 +29,12 @@ class MembersController < ApplicationController
   end
 
   def import_contacts
-    @email_provider = params[:email_provider]
+    email_provider = "yahoo"
+    oauth_token = params[:oauth_token]
+    oauth_secret = session['yahoo_request_secret']
+    oauth_verifier = params[:oauth_verifier]
+    contacts_adapter = ContactsAdapter.new(nil, nil, oauth_token, oauth_secret, oauth_verifier)
+    @contacts = contacts_adapter.contacts(email_provider)
   end
 
   def how_to
