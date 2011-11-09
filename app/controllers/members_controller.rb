@@ -11,8 +11,8 @@ class MembersController < ApplicationController
     @redirect_uri = root_path
 
     yahoo_request = OauthImport::Yahoo.new.request
-    @yahoo_oauth_url = yahoo_request.authorize_url
     session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
+    @yahoo_oauth_url = yahoo_request.authorize_url
   end
 
   def accept_invitation
@@ -28,6 +28,9 @@ class MembersController < ApplicationController
     redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
+  # I know it's a workaround, but our friends at yahoo did us
+  # the favor of GET the allowed app giving params, not POST it.
+  # -zanst
   def import_contacts
     email_provider = "yahoo"
     oauth_token = params[:oauth_token]
