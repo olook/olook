@@ -184,6 +184,13 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "shipping_companies", :force => true do |t|
+    t.string   "name"
+    t.string   "erp_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
     t.text     "answers"
