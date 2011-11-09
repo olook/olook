@@ -180,53 +180,9 @@ describe User do
     end
   end
 
-  describe "#invite_bonus" do
-    context "for a member who wasn't invited" do
-      before :each do
-        subject.stub(:'is_invited?').and_return(false)
-      end
-
-      describe "when there are no accepted invitations" do
-        it 'the invite bonus should be zero' do
-          subject.invite_bonus.should be_zero
-        end
-      end
-
-      describe "when there are accepted invitations, the invite bonus" do
-        let(:accepting_member) { FactoryGirl.create(:member, first_name: 'Accepting') }
-        let!(:invite) { FactoryGirl.create(:invite, user: subject).accept_invitation(accepting_member) }
-
-        it "should be equal to the amount of accept invites times 10" do
-          subject.invite_bonus.should == 10.0
-        end
-      end
-    end
-
-    context "for a member who was invited" do
-      before :each do
-        subject.stub(:'is_invited?').and_return(true)
-      end
-
-      describe "when there are no accepted invitations" do
-        it 'the invite bonus should be equal to 10' do
-          subject.invite_bonus.should == 10.00
-        end
-      end
-
-      describe "when there are accepted invitations, the invite bonus" do
-        let(:accepting_member) { FactoryGirl.create(:member, first_name: 'Accepting') }
-        let!(:invite) { FactoryGirl.create(:invite, user: subject).accept_invitation(accepting_member) }
-
-        it "should be equal to the amount of accept invites times 10 + 10 from accepting an invite" do
-          subject.invite_bonus.should == 20.0
-        end
-      end
-    end
-
-    it 'should be limited to R$ 300' do
-      subject.stub_chain(:invites, :accepted, :count).and_return(1000)
-      subject.invite_bonus.should == 300.0
-    end
+  it "#invite_bonus, should relay on InviteBonus" do
+    InviteBonus.should_receive(:calculate).with(subject).and_return(123.0)
+    subject.invite_bonus.should == 123.0
   end
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
