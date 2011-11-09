@@ -74,14 +74,6 @@ describe MembersController do
     flash[:notice].should match /\d+ convites enviados com sucesso!/
   end
 
-  describe "#import_contacts" do
-    it "should assign @email_provider" do
-      get :import_contacts, :email_provider => "gmail"
-      assigns(:email_provider).should == "gmail"
-      response.should render_template("import_contacts")
-    end
-  end
-
   describe "#show_imported_contacts" do
     before :each do
       @email_provider = 'gmail'
