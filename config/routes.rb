@@ -44,6 +44,7 @@ Olook::Application.routes.draw do
         get 'export' => 'users#export', :as => 'export'
       end
     end
+    resources :shipping_companies
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
