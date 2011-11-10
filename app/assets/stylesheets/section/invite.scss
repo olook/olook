@@ -99,23 +99,64 @@ body {
     }
 
     nav {
-      background: url('/assets/common/bg-menu.png') top no-repeat;
       position: relative;
-      border: none;
-      padding: 7px 0;
+      background: url('/assets/common/bg-menu.png') top no-repeat;
+      width: 100%;
+      height: 50px;
+      overflow: hidden;
       margin-top: -85px;
+      padding: 0;
+      border: none;
+      display: block;
       z-index: 4;
 
       ul {
+        width: 100%;
+        margin: 15px 0 5px 40px;
+        overflow: hidden;
         li {
+          display: inline-block;
           a {
-            background: url('/assets/common/arrow-down-not-selected.png') right 16px no-repeat;
-            padding: 10px 20px 15px 0;
-            margin: 0 40px 0;
-
-            &:hover {
-              background: url('/assets/common/arrow-down-selected.png') right 16px no-repeat;
-              color: $pink;
+            background: url('/assets/common/nav-invite-sprite.png') no-repeat;
+            height: 14px;
+            margin-right: 80px;
+            padding: 7px 0;
+            display: block;
+          }
+          &.personal_link {
+            a {
+              background-position: 0 0;
+              width: 115px;
+              &:hover {
+                background-position: -115px 0;
+              }
+            }
+          }
+          &.invite_mail {
+            a {
+              background-position: -230px 0;
+              width: 60px;
+              &:hover {
+                background-position: -290px 0;
+              }
+            }
+          }
+          &.facebook {
+            a {
+              background-position: -350px 0;
+              width: 99px;
+              &:hover {
+                background-position: -449px 0;
+              }
+            }
+          }
+          &.import_contacts {
+            a {
+              background-position: -548px 0;
+              width: 159px;
+              &:hover {
+                background-position: -707px 0;
+              }
             }
           }
         }
