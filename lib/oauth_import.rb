@@ -26,6 +26,12 @@ module OauthImport
       contacts.to_a
     end
 
+    def request
+      consume.get_request_token(:oauth_callback => @callback_uri)
+    end
+
+    private
+
     def access_contacts(token, secret, verifier)
       request = OAuth::RequestToken.new(consume, token, secret)
       access_token = request.get_access_token(:oauth_verifier => verifier)
@@ -54,10 +60,6 @@ module OauthImport
       contacts_map
     end
   
-    def request
-      consume.get_request_token(:oauth_callback => @callback_uri)
-    end
-
     def consume_calendar
       OAuth::Consumer.new(@key, @secret, {
         :site => 'http://social.yahooapis.com'  
