@@ -74,6 +74,31 @@ describe MembersController do
     flash[:notice].should match /\d+ convites enviados com sucesso!/
   end
 
+  describe "#import_contacts" do
+    before :each do
+      @email_provider = 'yahoo'
+      @oauth_token = "xYxYYxx"
+      @oauth_secret = "xYxYYxx"
+      @oauth_verifier = "xYxYYxx"
+      session['yahoo_request_secret'] = "xYxYYxx"
+
+      @adapter = double
+      @adapter.stub(:contacts).and_return(@contacts = double)
+    end
+
+    it "should assign @contacts" do
+      ContactsAdapter.stub(:new).with(nil, nil, @oauth_token, @oauth_secret, @oauth_verifier).and_return(@adapter)
+      get :import_contacts, :oauth_token => @oauth_token, :oauth_verifier => @oauth_verifier
+      assigns(:contacts).should eq(@contacts)
+    end
+
+    it "should call contacts from contacts adapter" do
+      ContactsAdapter.should_receive(:new).with(nil, nil, @oauth_token, @oauth_secret, @oauth_verifier).and_return(@adapter)
+      get :import_contacts, :oauth_token => @oauth_token, :oauth_verifier => @oauth_verifier
+      response.should render_template("import_contacts")
+    end
+  end
+
   describe "#show_imported_contacts" do
     before :each do
       @email_provider = 'gmail'
