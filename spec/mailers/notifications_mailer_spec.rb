@@ -11,6 +11,9 @@ describe NotificationsMailer do
     user.stub(:name).and_return('stubbed name');
     User.stub(:find).with(user_id).and_return(user)
     Mailee::Message.should_receive(:create)
+    template = double
+    template.stub(:html).and_return('')
+    Mailee::Template.stub(:find).and_return(template)
     mailer.signup(user_id)
   end
 end

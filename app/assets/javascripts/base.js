@@ -21,7 +21,7 @@ $(document).ready(function() {
     return false;
   });
 
-  var items_replace = new Array('.home > a, nav.invite a, .send-button, .box h3, .full-banner .close, .full-banner li')
+  var items_replace = new Array('.home > a, .send-button, .box h3, .full-banner .close, .full-banner li')
 
   Cufon.replace(items_replace);
 
@@ -46,7 +46,7 @@ $(document).ready(function() {
 
     $('.dialog img').fadeIn('slow');
 
-    $('.dialog img, .overlay').click(function(){
+    $('.dialog img, .overlay, .dialog #close_dialog').click(function(){
       $('.dialog, .overlay').fadeOut('slow', function(){
         $('.dialog, .overlay').remove();
       });
@@ -55,7 +55,7 @@ $(document).ready(function() {
 
   $('.full-banner').fadeIn('slow');
   $('.full-banner .close').click(function(event){
-    $(this).parent().fadeOut('slow', function(){
+    $(this).parent().fadeOut(2000, function(){
       $(this).remove();
     });
     event.preventDefault();

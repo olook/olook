@@ -20,6 +20,15 @@ html {
         img {
           display: none;
         }
+        #close_dialog {
+          position: absolute;
+          background: url('/assets/common/close_dialog.png') no-repeat;
+          text-indent: -9999px;
+          width: 30px;
+          height: 30px;
+          top: -22px;
+          right: -22px;
+        }
       }
     }
   }

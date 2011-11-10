@@ -3,7 +3,7 @@ $(document).ready(function() {
   init.bindActions();
   init.dialog();
   index = parseInt($("#id_first_question").val());
-  idFirstQuestion = index - 1;
+  idFirstQuestion = index - 2;
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -60,6 +60,16 @@ $(document).ready(function() {
     }
   });
 
+  if (!$.browser.opera) {
+    $('select.custom_select').each(function(){
+      var title = $(this).attr('title');
+      if( $('option:selected', this).val() != ''  ) title = $('option:selected',this).text();
+      $(this).css({'z-index':10,'opacity':0,'-khtml-appearance':'none'}).after('<span class="select">' + title + '</span>').change(function(){
+        val = $('option:selected',this).text();
+        $(this).next().text(val);
+      })
+    });
+  };
 });
 
 init = {
@@ -144,7 +154,7 @@ init = {
 
                     $("#next_link").click();
                   });
-                  
+
                   $('.words .options > li').toggle(function(){
                       $(this).find('input').attr('checked', true);
                       $(this).addClass('selected');

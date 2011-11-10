@@ -187,7 +187,7 @@ survey_data[22] = {
   :answers => ["Esportiva", "Frágil", "Atraente", "Romântica", "Prática", "Chic", "Criativa", "Sofisticada", "Glamourosa", "Moderna", "Conservadora", "Espirituosa"],
   :weights => [
                 {"Esportiva"    => {"10" => casual, "5" => contemporary, "3" => trendy}},
-                {"Frágil"       => {"3" => casual, "5" => feminine, "5" => trendy}},
+                {"Delicada"       => {"3" => casual, "5" => feminine, "10" => elegant}},
                 {"Atraente"     => {"5" => elegant, "10" => sexy, "3" => contemporary}},
                 {"Romântica"    => {"5" => traditional, "3" => elegant, "10" => feminine}},
                 {"Prática"      => {"10" => casual, "3" => traditional, "5" => contemporary}},

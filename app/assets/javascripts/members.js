@@ -22,5 +22,10 @@ $(document).ready(function() {
   $('#invite_list input#select_all').click(function() {
     $(this).parents('form').find('#list :checkbox').attr('checked', this.checked);
   });
+
+  $('nav.invite ul li a').live('click', function () {
+    cl = $(this).attr('class');
+    $('#'+cl).slideto({ highlight: false });
+  });
 });
 
