@@ -194,8 +194,18 @@ body {
 
           fieldset {
             &.select {
+              position: relative;
               width: 370px;
 
+              span.select {
+                position: absolute;
+                bottom: 0;
+                float: left;
+                height: 34px;
+                line-height: 34px;
+                cursor: default;
+                z-index: 1;
+              }
               select {
                 padding: 10px;
                 -webkit-appearance: none;
@@ -218,6 +228,38 @@ body {
 
                 &:focus {
                   outline: none;
+                }
+                &.custom_select {
+                  position: relative;
+                  line-height: 26px;
+                  height: 34px;
+                  &.day {
+                    width: 74px;
+                    & + span {
+                      background: url('/assets/common/bg-day.png') no-repeat;
+                      width: 74px;
+                      text-indent: 22px;
+                      left: 0;
+                    }
+                  }
+                  &.month {
+                    width: 110px;
+                    & + span {
+                      background: url('/assets/common/bg-month.png') no-repeat;
+                      width: 110px;
+                      text-indent: 15px;
+                      left: 83px;
+                    }
+                  }
+                  &.year {
+                    width: 75px;
+                    & + span {
+                      background: url('/assets/common/bg-year.png') no-repeat;
+                      width: 75px;
+                      text-indent: 16px;
+                      left: 203px;
+                    }
+                  }
                 }
               }
             }
