@@ -21,7 +21,7 @@ $(document).ready(function() {
     return false;
   });
 
-  var items_replace = new Array('.home > a, nav.invite a, .send-button, .box h3, .full-banner .close, .full-banner li')
+  var items_replace = new Array('.home > a, .send-button, .box h3, .full-banner .close, .full-banner li')
 
   Cufon.replace(items_replace);
 
