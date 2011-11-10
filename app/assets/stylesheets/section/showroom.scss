@@ -1,0 +1,45 @@
+#showroom {
+  section#greetings {
+    width: 100%;
+    overflow: auto;
+    div.facebook {
+      width: 640px;
+      float: left;
+      h1, h2 {
+        font-family: Arial, sans-serif;
+        font-size: 26px;
+        font-weight: normal;
+      }
+      h2 {
+        color: #df5a8b;
+        margin-bottom: 5px;
+      }
+      p {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        margin-bottom: 25px;
+        &.connect {
+          width: 100%;
+          margin-bottom: 0;
+          padding: 10px;
+          overflow: auto;
+          border: 1px #dbdbdb solid;
+          a {
+            background: url('/assets/common/fb-connect-button.png') no-repeat;
+            text-indent: -9999px;
+            width: 212px;
+            height: 25px;
+            display: block;
+            margin-right: 50px;
+            float: left;
+          }
+          span {
+            color: #3b5998;
+            font-size: 15px;
+            line-height: 25px;
+          }
+        }
+      }
+    }
+  }
+}
