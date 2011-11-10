@@ -20,14 +20,22 @@ module OauthImport
     end
 
     def contacts(token, secret, verifier)
+      response = access_contacts(token, secret, verifier)
+      json = decode_json(response.body)
+      contacts = parse_json(json)
+      contacts.to_a
+    end
+
+    def access_contacts(token, secret, verifier)
       request = OAuth::RequestToken.new(consume, token, secret)
       access_token = request.get_access_token(:oauth_verifier => verifier)
       access_token.consumer = consume_calendar
       guid = access_token.params[:xoauth_yahoo_guid]
       response = access_token.get("/v1/user/#{guid}/contacts?format=json&count=max")
-      json = ActiveSupport::JSON.decode(response.body)
-      contacts = parse_json(json)
-      contacts.to_a
+    end
+
+    def decode_json(json)
+      ActiveSupport::JSON.decode(json)
     end
 
     def parse_json(json)
