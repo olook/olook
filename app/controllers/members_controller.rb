@@ -48,6 +48,10 @@ class MembersController < ApplicationController
     @member = current_user
   end
 
+  def showroom
+    @member = current_user
+  end
+
   def show_imported_contacts
     email_provider = params[:email_provider]
     login = params[:login]
