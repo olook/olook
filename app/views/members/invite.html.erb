@@ -17,22 +17,23 @@
 
   <div class="banner">
     <h1>Quer ganhar</h1>
-    <h2>R$10?</h2>
+    <h2>R$20?</h2>
     <h3>
-      <span>Convide suas amigas</span>
-      <span>e vocês duas ganham<sup>*</sup></span>
+      <p>Convide <span>5</span> de suas amigas</p>
+      <p>e elas ganham R$10</p>
     </h3>
-    <%= link_to '* Até R$300 para as 1.000 primeiras usuárias', '' %>
+    <p>Válido para as próximas 4.000 usuárias.</p>
+    <%= link_to 'Veja o regulamento', terms_path %>
     <%= image_tag('/assets/common/model-banner.png') %>
   </div>
 </section>
 
 <nav class="invite">
   <ul>
-    <li><%= link_to 'Link pessoal', '#share-mail', :class => 'selected' %></li>
-    <li><%= link_to 'Email', '#invite-mail' %></li>
-    <li><%= link_to  'Facebook', '#post-to-wall' %></li>
-    <li><%= link_to 'Lista de contatos', '#import-contacts' %></li>
+    <li class='personal_link'><%= link_to 'Link pessoal', 'javascript:void(0);', :class => 'share-mail' %></li>
+    <li class='invite_mail'><%= link_to 'Email', 'javascript:void(0);', :class => 'invite-mail' %></li>
+    <li class='facebook'><%= link_to  'Facebook', 'javascript:void(0);', :class => 'post-to-wall' %></li>
+    <li class='import_contacts'><%= link_to 'Lista de contatos', 'javascript:void(0);', :class => 'import-contacts' %></li>
   </ul>
 </nav>
 
@@ -144,5 +145,7 @@
   </div>
 </section>
 <% if @is_the_first_visit %>
-  <%= render "shared/google_quiz_conversion" %>
+  <%= render "shared/metrics/google/google_quiz_conversion" %>
+  <%= render "shared/metrics/google/track_signup_page_view" %>
+  <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
 <% end %>

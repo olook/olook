@@ -5,23 +5,20 @@
   <%= render :partial => 'answers_about_dress_size', :locals => {:question => question_dress_size} %>
 
   <h3>Data de Nascimento</h3>
-  <fieldset class="select">
-    <select name='day'>
-      <option>Dia</option>
+  <fieldset class="select custom_select">
+    <select class="custom_select day" name='day' title='Dia'>
       <% (1..31).each do |d| %>
         <option value="<%= d %>"><%= "%02d" % d %></option>
       <% end %>
     </select>
 
-    <select name='month'>
-      <option>Mês</option>
+    <select class="custom_select month" name='month' title="Mês">
       <% (1..12).each do |m| %>
         <option value="<%= m %>"><%= I18n.t('date.month_names')[m] %></option>
       <% end %>
     </select>
 
-    <select id="birthdate" name='year'>
-      <option>Ano</option>
+    <select class="custom_select year" id="birthdate" name='year' title="Ano">
       <% (Time.now.year - 12).downto(1900) do |a| %>
         <option value="<%= a %>"><%= a %></option>
       <% end %>
