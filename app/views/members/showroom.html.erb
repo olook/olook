@@ -1,14 +1,7 @@
 <div id="showroom">
   <section id="greetings">
-    <div class="facebook">
-      <h1>Boa noite, Peter.</h1>
-      <h2>Está é sua vitrine de Novembro</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <p class="connect">
-        <%= link_to 'Connect with Facebook', 'javascript:void(0);' %>
-        <span>Conecte-se com o Facebook e adicione seus amigos</span>
-      </p>
-    </div>
+    <%= render :partial => "showroom_facebook_connect" %>
+    <%#= render :partial => "showroom_facebook_connected" %>
     <div class="lookbook">
       <h1>Lookbooks</h1>
       <%= image_tag "fake/showroom-lookbook.png" %>
