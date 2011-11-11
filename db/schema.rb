@@ -73,6 +73,20 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
   add_index "events", ["type"], :name => "index_events_on_type"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
+  create_table "freight_prices", :force => true do |t|
+    t.integer  "shipping_company_id"
+    t.string   "zip_start"
+    t.string   "zip_end"
+    t.decimal  "weight_start",        :precision => 8, :scale => 3
+    t.decimal  "weight_end",          :precision => 8, :scale => 3
+    t.integer  "delivery_time"
+    t.decimal  "price",               :precision => 8, :scale => 2
+    t.decimal  "cost",                :precision => 8, :scale => 2
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"

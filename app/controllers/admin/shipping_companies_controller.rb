@@ -12,7 +12,8 @@ class Admin::ShippingCompaniesController < ApplicationController
 
   def show
     @shipping_company = ShippingCompany.find(params[:id])
-    respond_with :admin, @shipping_company
+    @freight_prices = @shipping_company.freight_prices.page(params[:page]).per_page(20)
+    respond_with :admin, @shipping_company, @freight_prices
   end
 
   def new
@@ -27,8 +28,9 @@ class Admin::ShippingCompaniesController < ApplicationController
 
   def create
     @shipping_company = ShippingCompany.new(params[:shipping_company])
-
+    
     if @shipping_company.save
+      upload_freight_prices
       flash[:notice] = 'Shipping company was successfully created.'
     end
 
@@ -39,6 +41,7 @@ class Admin::ShippingCompaniesController < ApplicationController
     @shipping_company = ShippingCompany.find(params[:id])
 
     if @shipping_company.update_attributes(params[:shipping_company])
+      upload_freight_prices
       flash[:notice] = 'Shipping company was successfully updated.'
     end
 
@@ -49,5 +52,15 @@ class Admin::ShippingCompaniesController < ApplicationController
     @shipping_company = ShippingCompany.find(params[:id])
     @shipping_company.destroy
     respond_with :admin, @shipping_company
+  end
+
+protected
+
+  def upload_freight_prices
+    if params[:freight_prices]
+      temp_file_uploader = TempFileUploader.new
+      temp_file_uploader.store!(params[:freight_prices])
+      Resque.enqueue(ImportFreightPricesWorker, params[:id], temp_file_uploader.filename)
+    end
   end
 end
