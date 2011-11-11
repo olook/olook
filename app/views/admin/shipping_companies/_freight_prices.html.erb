@@ -1,0 +1,31 @@
+<h2>Freigth Prices</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>ZIP Start</th>
+      <th>ZIP End</th>
+      <th>Weight Start</th>
+      <th>Weight End</th>
+      <th>Delivery Time</th>
+      <th>Price</th>
+      <th>Cost</th>
+    </tr>
+
+  <% freight_prices.each do |freight_price| %>
+    <tr>
+      <td><%= freight_price.description %></td>
+      <td><%= freight_price.zip_start %></td>
+      <td><%= freight_price.zip_end %></td>
+      <td><%= freight_price.weight_start %></td>
+      <td><%= freight_price.weight_end %></td>
+      <td><%= freight_price.delivery_time %></td>
+      <td><%= freight_price.price %></td>
+      <td><%= freight_price.cost %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+<div class="actions-bar wat-cf">
+  <%= will_paginate freight_prices %>
+</div>
