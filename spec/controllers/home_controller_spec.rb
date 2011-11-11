@@ -34,10 +34,33 @@ describe HomeController do
         subject.session[:tracking_params].should == {:tracking_xyz => 'test_tracking'}
       end
 
-      it 'when the site do not receive extra parameters the tracking params on the session should be empty' do
-        subject.stub(:params).and_return(standard_params)
-        subject.send(:save_tracking_params)
-        subject.session[:tracking_params].should be_empty
+      context 'when the site do not receive extra parameters' do
+        before :each do
+          subject.stub(:params).and_return(standard_params)
+        end
+
+        context 'and the tracking params on the session is empty' do
+          before :each do
+            subject.session[:tracking_params] = nil
+          end
+
+          it 'should remaining empty' do
+            subject.send(:save_tracking_params)
+            subject.session[:tracking_params].should be_nil
+          end
+        end
+
+        context 'and the tracking params on the session is not empty' do
+          let(:old_params) { {:old => 'tracking'} }
+          before :each do
+            subject.session[:tracking_params] = old_params
+          end
+
+          it 'should keep the old parameters' do
+            subject.send(:save_tracking_params)
+            subject.session[:tracking_params].should == old_params
+          end
+        end
       end
     end
   end
