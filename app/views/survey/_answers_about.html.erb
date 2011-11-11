@@ -7,18 +7,21 @@
   <h3>Data de Nascimento</h3>
   <fieldset class="select custom_select">
     <select class="custom_select day" name='day' title='Dia'>
+      <option>Dia</option>
       <% (1..31).each do |d| %>
         <option value="<%= d %>"><%= "%02d" % d %></option>
       <% end %>
     </select>
 
     <select class="custom_select month" name='month' title="Mês">
+      <option>Mês</option>
       <% (1..12).each do |m| %>
         <option value="<%= m %>"><%= I18n.t('date.month_names')[m] %></option>
       <% end %>
     </select>
 
     <select class="custom_select year" id="birthdate" name='year' title="Ano">
+      <option>Ano</option>
       <% (Time.now.year - 12).downto(1900) do |a| %>
         <option value="<%= a %>"><%= a %></option>
       <% end %>
