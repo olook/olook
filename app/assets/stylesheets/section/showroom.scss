@@ -75,4 +75,66 @@
       }
     }
   }
+  section.container_product {
+    background: url('/assets/showroom/border-top-product.png') 170px 26px no-repeat;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: auto;
+    h1 {
+      color: #1F1F1F;
+      font-family: Arial;
+      font-weight: lighter;
+      line-height: 50px;
+      margin-bottom: 20px;
+      padding: 0 20px 0 65px;
+      float: left;
+      span {
+        color: #df5a8b;
+      }
+    }
+    &#shoes {
+      h1 {
+        background: #FFF url('/assets/showroom/icon-shoes.png') top left no-repeat;
+      }
+    }
+    &#purse {
+      h1 {
+        background: #FFF url('/assets/showroom/icon-purse.png') top left no-repeat;
+      }
+    }
+    &#accessories {
+      h1 {
+        background: #FFF url('/assets/showroom/icon-accessories.png') top left no-repeat;
+      }
+    }
+  }
+  div.type_list {
+    width: 100%;
+    overflow: auto;
+    clear: both;
+    div.products_list {
+      position: relative;
+      background: url('/assets/showroom/border-bottom-product.png') 0 100% no-repeat;
+      width: 100%;
+      margin-bottom: 30px;
+      padding: 0 0 45px 0;
+      overflow: visible;
+      clear: both;
+      &.all {
+        background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
+      }
+      a.more {
+        background: #df5a8b;
+        color: #FFF;
+        font-family: Arial;
+        font-size: 12px;
+        font-weight: lighter;
+        text-transform: uppercase;
+        text-decoration: none;
+        margin-top: 27px;
+        padding: 10px 15px;
+        float: right;
+      }
+    }
+  }
 }
