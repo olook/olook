@@ -93,7 +93,7 @@ describe Admin::ShippingCompaniesController do
         put :update, :id => shipping_company.id, :shipping_company => valid_attributes
         assigns(:shipping_company).should eq(shipping_company)
       end
-
+      
       it "redirects to the shipping_company" do
         put :update, :id => shipping_company.id, :shipping_company => valid_attributes
         response.should redirect_to(admin_shipping_company_path(shipping_company))
@@ -129,5 +129,29 @@ describe Admin::ShippingCompaniesController do
       response.should redirect_to(admin_shipping_companies_url)
     end
   end
+  
+  describe "#upload_freight_prices" do
+    context 'when the user provides a file' do
+      it "uploads freight price file when supplied by the user and schedule process" do
+        temp_uploader = double TempFileUploader
+        temp_uploader.stub('filename').and_return('freight_file')
 
+        temp_uploader.should_receive('store!').with('freight_file')
+        Resque.should_receive(:enqueue).with(ImportFreightPricesWorker, shipping_company.id.to_s, 'freight_file')
+
+        TempFileUploader.stub(:new).and_return(temp_uploader)
+
+        subject.stub(:params).and_return(:id => shipping_company.id.to_s, :shipping_company => valid_attributes, :freight_prices => 'freight_file')
+        subject.send :upload_freight_prices
+      end
+    end
+    
+    context "when the user doesn't provide a file" do
+      it "doesn't do anything" do
+        ::TempFileUploader.should_not_receive(:new)
+        subject.stub(:params).and_return(:id => shipping_company.id, :shipping_company => valid_attributes)
+        subject.send :upload_freight_prices
+      end
+    end
+  end
 end
