@@ -1,4 +1,5 @@
 #showroom {
+  padding: 20px 0 0 0;
   section#greetings {
     width: 100%;
     overflow: auto;
@@ -19,7 +20,7 @@
         font-size: 16px;
         margin-bottom: 25px;
         &.connect {
-          width: 100%;
+          width: 600px;
           margin-bottom: 0;
           padding: 10px;
           overflow: auto;
@@ -30,7 +31,7 @@
             width: 212px;
             height: 25px;
             display: block;
-            margin-right: 50px;
+            margin-right: 35px;
             float: left;
           }
           span {
@@ -39,6 +40,18 @@
             line-height: 25px;
           }
         }
+      }
+    }
+    div.lookbook {
+      width: 330px;
+      float: right;
+      h1 {
+        background: url('/assets/showroom/title-lookbooks.png') no-repeat;
+        text-indent: -9999px;
+        width: 144px;
+        height: 21px;
+        margin: 0 0 10px 0;
+        display: block;
       }
     }
   }
