@@ -11,6 +11,10 @@ private
   end
   
   def save_tracking_params
-    session[:tracking_params] = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+    incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+
+    if !incoming_params.empty?
+      session[:tracking_params] = incoming_params
+    end
   end
 end
