@@ -1,5 +1,9 @@
-<h1>New shipping_company</h1>
+<h2>New shipping_company</h2>
 
-<%= render 'form' %>
+<div class="inner">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Back', admin_shipping_companies_path %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_shipping_companies_path %></li>
+<% end %>

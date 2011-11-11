@@ -1,15 +1,20 @@
-<p id="notice"><%= notice %></p>
+<h2>Shipping Company</h2>
+<div class="inner">
+  <p>
+    <b>Name:</b>
+    <%= @shipping_company.name %>
+  </p>
 
-<p>
-  <b>Name:</b>
-  <%= @shipping_company.name %>
-</p>
+  <p>
+    <b>ERP code:</b>
+    <%= @shipping_company.erp_code %>
+  </p>
+  
+  <%= render :partial => 'freight_prices', :locals => {:freight_prices => @freight_prices} %>
+  
+</div>
 
-<p>
-  <b>Erp code:</b>
-  <%= @shipping_company.erp_code %>
-</p>
-
-
-<%= link_to 'Edit', edit_admin_shipping_company_path(@shipping_company) %> |
-<%= link_to 'Back', admin_shipping_companies_path %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_shipping_company_path(@shipping_company) %></li>
+  <li><%= link_to 'Back', admin_shipping_companies_path %></li>
+<% end %>
