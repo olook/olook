@@ -1,0 +1,63 @@
+.box_product {
+  img {
+    margin: 0 0 10px 0;
+    border-bottom: 1px #b2b2b2 solid;
+  }
+  h1 {
+    background: none;
+    color: #716d68;
+    font-family: Arial;
+    font-size: 16px;
+    text-transform: uppercase;
+    line-height: normal;
+    margin: 0 0 10px 0;
+    padding: 0;
+    float: none;
+  }
+  .line {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    ol, img {
+      float: left;
+    }
+    ol {
+      li {
+        margin: 0 5px 0 0;
+        display: inline !important;
+      }
+    }
+    .like, span {
+      float: right;
+    }
+    span {
+      color: #000;
+      font-family: Arial;
+      font-size: 24px;
+    }
+    .like {
+      background: url('/assets/common/ico-heart-off.png') left no-repeat;
+      color: #716d68;
+      font-family: Arial;
+      font-size: 12px;
+      line-height: 16px;
+      text-decoration: none;
+      text-transform: uppercase;
+      padding-left: 20px;
+      &:hover, &.selected {
+        background: url('/assets/common/ico-heart-on.png') left no-repeat;
+        color: #ff7db0;
+      }
+    }
+  }
+}
+#showroom {
+  .box_product {
+  
+  }
+}
+#product {
+  .box_product {
+
+  }
+}

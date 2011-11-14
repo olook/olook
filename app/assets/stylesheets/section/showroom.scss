@@ -1,3 +1,5 @@
+@import "partials/product";
+
 #showroom {
   padding: 20px 0 0 0;
   section#greetings {
@@ -80,7 +82,7 @@
     width: 100%;
     margin-bottom: 20px;
     overflow: auto;
-    h1 {
+    h1.title {
       color: #1F1F1F;
       font-family: Arial;
       font-weight: lighter;
@@ -93,17 +95,17 @@
       }
     }
     &#shoes {
-      h1 {
+      h1.title {
         background: #FFF url('/assets/showroom/icon-shoes.png') top left no-repeat;
       }
     }
     &#purse {
-      h1 {
+      h1.title {
         background: #FFF url('/assets/showroom/icon-purse.png') top left no-repeat;
       }
     }
     &#accessories {
-      h1 {
+      h1.title {
         background: #FFF url('/assets/showroom/icon-accessories.png') top left no-repeat;
       }
     }
@@ -140,8 +142,16 @@
       }
       ul {
         li {
-          margin: 0 11px 2px 11px;
+          width: 175px;
+          margin: 0 0 2px 0;
+          padding: 10px;
+          overflow: auto;
           display: inline-block;
+          &:hover, &.selected {
+            padding: 0 5px;
+            border: 5px #d7d7d7 solid;
+            cursor: pointer;
+          }
         }
       }
     }
