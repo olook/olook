@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_one :survey_answer, :dependent => :destroy
   has_many :invites, :dependent => :destroy
   has_many :events, :dependent => :destroy
+  has_many :address
 
   before_create :generate_invite_token
 
