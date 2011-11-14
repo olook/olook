@@ -7,6 +7,11 @@ describe PaymentBuilder do
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:payment) { FactoryGirl.create(:payment, :order => order) }
   subject { PaymentBuilder.new(order, payment, delivery_address) }
+  let(:payer) { subject.payer }
+
+  before :each do
+    order.stub(:total).and_return(10.50)
+  end
 
   it "should return the payer" do
     expected = {
@@ -26,8 +31,6 @@ describe PaymentBuilder do
   end
 
   it "should return payment data for billet" do
-    order.stub(:total).and_return(10.50)
-    payer = subject.payer
     expected = { :valor => order.total, :id_proprio => order.id,
                 :forma => payment.to_s, :pagador => payer,
                 :razao=> Payment::REASON  }
@@ -36,12 +39,24 @@ describe PaymentBuilder do
   end
 
   it "should return payment data for debit" do
-    order.stub(:total).and_return(10.50)
     subject.payment.payment_type = Payment::TYPE[:debit]
-    payer = subject.payer
     expected = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
                :instituicao => payment.bank, :pagador => payer,
                :razao => Payment::REASON }
+
+    subject.payment_data.should == expected
+  end
+
+  it "should return payment data for credit card" do
+    subject.payment.payment_type = Payment::TYPE[:credit]
+    payer = subject.payer
+    expected = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
+              :instituicao => payment.bank, :numero => payment.credit_card_number,
+              :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
+              :nome => payment.user_name, :identidade => payment.user_identification,
+              :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
+              :parcelas => payment.parts, :recebimento => payment.receipt,
+              :pagador => payer, :razao => Payment::REASON }
 
     subject.payment_data.should == expected
   end
