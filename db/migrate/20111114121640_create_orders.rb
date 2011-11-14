@@ -1,7 +1,8 @@
 class CreateOrders < ActiveRecord::Migration
-  def up
-  end
-
-  def down
+  def change
+    create_table :orders do |t|
+      t.integer :user_id
+      t.timestamps
+    end
   end
 end
