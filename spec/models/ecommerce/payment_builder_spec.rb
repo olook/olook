@@ -40,7 +40,7 @@ describe PaymentBuilder do
     subject.payment.payment_type = Payment::TYPE[:debit]
     payer = subject.payer
     expected = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-               :instituicao => "BancoDoBrasil", :pagador => payer,
+               :instituicao => payment.bank, :pagador => payer,
                :razao => Payment::REASON }
 
     subject.payment_data.should == expected
