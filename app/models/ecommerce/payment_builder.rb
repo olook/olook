@@ -34,7 +34,7 @@ class PaymentBuilder
                 :pagador => payer, :razao => Payment::REASON }
 
      debit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-               :instituicao => "BancoDoBrasil", :pagador => payer,
+               :instituicao => payment.bank, :pagador => payer,
                :razao => Payment::REASON }
 
      data = case payment.payment_type

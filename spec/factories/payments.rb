@@ -4,6 +4,7 @@ FactoryGirl.define do
     url 'www.payment.com'
     payment_type Payment::TYPE[:billet]
     user_name 'User name'
+    bank 'BancoDoBrasil'
     credit_card_number '1234435678964567'
   end
 end
