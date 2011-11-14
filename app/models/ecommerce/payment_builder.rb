@@ -22,20 +22,20 @@ class PaymentBuilder
 
   def payment_data
     billet = { :valor => order.total, :id_proprio => order.id,
-                :forma => "BoletoBancario", :pagador => payer,
-                :razao=> "Pagamento" }
+                :forma => payment.to_s, :pagador => payer,
+                :razao=> Payment::REASON }
 
-    credit = { :valor => order.total, :id_proprio => order.id, :forma => "CartaoCredito",
+    credit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
                 :instituicao => "Visa",:numero => "4220612351354111",
                 :expiracao => "08/11", :codigo_seguranca => "192",
                 :nome => "Rinaldi Fonseca Nascimento", :identidade => "134.277.017.00",
                 :telefone => "(21)9208-0547", :data_nascimento => "25/10/1980",
                 :parcelas => "1", :recebimento => "AVista",
-                :pagador => payer, :razao => "Pagamento" }
+                :pagador => payer, :razao => Payment::REASON }
 
-     debit = { :valor => order.total, :id_proprio => order.id, :forma => "DebitoBancario",
+     debit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
                :instituicao => "BancoDoBrasil", :pagador => payer,
-               :razao => "Pagamento" }
+               :razao => Payment::REASON }
 
      data = case payment.payment_type
        when Payment::TYPE[:billet] then billet
