@@ -19,22 +19,34 @@ body {
         margin-left: 60px;
       }
 
-      p.facebook {
+      p {
         margin-bottom: 20px;
       }
 
-      .fb-connect {
-        background: url('/assets/common/fb-connect-button.png') no-repeat;
-        display: block;
-        width: 212px;
-        height: 25px;
-        margin: 20px 0 20px 126px;
-        float: left;
-
-        & + span {
-          display: block;
-          padding: 2px 10px 0;
+      p.facebook {
+        margin-bottom: 20px;
+      }
+      
+      div.connect {
+        width: 400px;
+        overflow: hidden;
+        margin: 0 0 15px 0;
+        padding: 15px;
+        border: 1px #dedede solid;
+        p {
+          font-size: 16px;
+          line-height: 13px;
+          width: 180px;
+          margin: 0;
           float: left;
+        }
+        .fb-connect {
+          background: url('/assets/common/fb-connect-button.png') no-repeat;
+          display: block;
+          width: 212px;
+          height: 25px;
+          margin: 0;
+          float: right;
         }
       }
 
