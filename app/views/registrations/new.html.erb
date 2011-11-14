@@ -14,10 +14,12 @@
     <h2>Preparada?</h2>
     <p>
       Agora nossos stylists selecionarão <strong>sapatos, <br />
-      bolsas e acessórios</strong> para sua vitrine pessoal.
+      bolsas e acessórios</strong> para sua vitrine particular.
     </p>
-    <%= render "facebook_connect" %>
-    <span>ou</span>
+    <div class="connect">
+      <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
+      <%= render "facebook_connect" %>
+    </div>
   <% end %>
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
