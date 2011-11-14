@@ -1,0 +1,70 @@
+<%= form_for(@payment) do |f| %>
+  <% if @payment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul>
+      <% @payment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  Forma de pagamento:
+  <ul>
+    <li>Boleto Bancário <%= f.radio_button :payment_type, Payment::TYPE[:billet] %></li>
+    <li>Débito em Conta <%= f.radio_button :payment_type,  Payment::TYPE[:debit] %></li>
+    <li>Cartão de Crédito <%= f.radio_button :payment_type,  Payment::TYPE[:credit] %></li>
+  </ul>
+
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :user_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :numero %><br />
+    <%= f.text_field :credit_card_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Código de Segurança" %><br />
+    <%= f.text_field :security_code %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Data de Nascimento" %><br />
+    <%= f.text_field :user_birthday %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Data de Expiraçao" %><br />
+    <%= f.text_field :expiration_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Identidade" %><br />
+    <%= f.text_field :user_identification %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Telefone Fixo" %><br />
+    <%= f.text_field :telephone %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Parcelas" %><br />
+    <%= f.text_field :parts %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Instituiçao" %><br />
+    <%= f.text_field :bank %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
