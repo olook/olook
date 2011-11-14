@@ -75,4 +75,20 @@ describe Admin::UsersController do
       end
     end
   end
+  
+  describe "GET export" do
+    it 'should render the list of all users' do
+      record = [ user.first_name,
+        user.last_name,
+        user.email,
+        user.is_invited? ? 'invited' : 'organic',
+        user.created_at.to_s(:short),
+        user.profile_scores.first.try(:profile).try(:name),
+        accept_invitation_url(:invite_token => user.invite_token),
+        user.events.where(:type => EventType::TRACKING).first.try(:description)
+      ]      
+      get :export
+      assigns(:records).should eq([record])
+    end
+  end
 end

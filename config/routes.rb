@@ -36,7 +36,11 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :users, :except => [:create, :new, :destroy]
+    resources :users, :except => [:create, :new, :destroy] do
+      collection do
+        get 'export' => 'users#export', :as => 'export'
+      end
+    end
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
