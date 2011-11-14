@@ -8,15 +8,27 @@
     </div>
   </section>
   <section class="container_product" id="shoes">
-    <h1>Sapatos de <span>Novembro</span></h1>
+    <h1 class="title">Sapatos de <span>Novembro</span></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
           <% 5.times do %>
             <li>
-              <a href="#">
+              <div class="box_product">
                 <%= image_tag "fake/showroom-product.png" %>
-              </a>
+                <h1>Hawthrone</h1>
+                <div class="line">
+                  <ol>
+                    <li>Black</li>
+                    <li>Red</li>
+                  </ol>
+                  <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
+                </div>
+                <p class="line">
+                  <%= image_tag "fake/like-fb.png" %>
+                  <span>R$129,00</span>
+                </p>
+              </div>
             </li>
           <% end %>
         </ul>
@@ -26,9 +38,21 @@
         <ul>
           <% 5.times do %>
             <li>
-              <a href="#">
+              <div class="box_product">
                 <%= image_tag "fake/showroom-product.png" %>
-              </a>
+                <h1>Hawthrone</h1>
+                <div class="line">
+                  <ol>
+                    <li>Black</li>
+                    <li>Red</li>
+                  </ol>
+                  <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
+                </div>
+                <p class="line">
+                  <%= image_tag "fake/like-fb.png" %>
+                  <span>R$129,00</span>
+                </p>
+              </div>
             </li>
           <% end %>
         </ul>
@@ -38,9 +62,21 @@
         <ul>
           <% 10.times do %>
             <li>
-              <a href="#">
+              <div class="box_product">
                 <%= image_tag "fake/showroom-product.png" %>
-              </a>
+                <h1>Hawthrone</h1>
+                <div class="line">
+                  <ol>
+                    <li>Black</li>
+                    <li>Red</li>
+                  </ol>
+                  <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
+                </div>
+                <p class="line">
+                  <%= image_tag "fake/like-fb.png" %>
+                  <span>R$129,00</span>
+                </p>
+              </div>
             </li>
           <% end %>
         </ul>
@@ -48,7 +84,7 @@
     </div>
   </section>
   <section class="container_product" id="purse">
-    <h1>Bolsas de <span>Novembro</span></h1>
+    <h1 class="title">Bolsas de <span>Novembro</span></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
@@ -88,7 +124,7 @@
     </div>
   </section>
   <section class="container_product" id="accessories">
-    <h1>Acessórios de <span>Novembro</span></h1>
+    <h1 class="title">Acessórios de <span>Novembro</span></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
