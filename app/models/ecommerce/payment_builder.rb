@@ -30,7 +30,7 @@ class PaymentBuilder
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
                 :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
-                :parcelas => payment.parts, :recebimento => payment.receipt,
+                :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
 
      debit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
