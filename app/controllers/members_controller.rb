@@ -32,12 +32,16 @@ class MembersController < ApplicationController
   # the favor of GET the allowed app giving params, not POST it.
   # -zanst
   def import_contacts
-    email_provider = "yahoo"
-    oauth_token = params[:oauth_token]
-    oauth_secret = session['yahoo_request_secret']
-    oauth_verifier = params[:oauth_verifier]
-    contacts_adapter = ContactsAdapter.new(nil, nil, oauth_token, oauth_secret, oauth_verifier)
-    @contacts = contacts_adapter.contacts(email_provider)
+    begin
+      email_provider = "yahoo"
+      oauth_token = params[:oauth_token]
+      oauth_secret = session['yahoo_request_secret']
+      oauth_verifier = params[:oauth_verifier]
+      contacts_adapter = ContactsAdapter.new(nil, nil, oauth_token, oauth_secret, oauth_verifier)
+      @contacts = contacts_adapter.contacts(email_provider)
+    rescue MultiJson::DecodeError
+      redirect_to(member_invite_path, :notice => "Seus contatos não puderam ser importados agora. Por favor tente novamente mais tarde.")
+    end
   end
 
   def how_to
