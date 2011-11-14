@@ -13,23 +13,7 @@
       <div class="products_list best">
         <ul>
           <% 5.times do %>
-            <li>
-              <div class="box_product">
-                <%= image_tag "fake/showroom-product.png" %>
-                <h1>Hawthrone</h1>
-                <div class="line">
-                  <ol>
-                    <li>Black</li>
-                    <li>Red</li>
-                  </ol>
-                  <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
-                </div>
-                <p class="line">
-                  <%= image_tag "fake/like-fb.png" %>
-                  <span>R$129,00</span>
-                </p>
-              </div>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
         <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
@@ -37,23 +21,7 @@
       <div class="products_list almost">
         <ul>
           <% 5.times do %>
-            <li>
-              <div class="box_product">
-                <%= image_tag "fake/showroom-product.png" %>
-                <h1>Hawthrone</h1>
-                <div class="line">
-                  <ol>
-                    <li>Black</li>
-                    <li>Red</li>
-                  </ol>
-                  <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
-                </div>
-                <p class="line">
-                  <%= image_tag "fake/like-fb.png" %>
-                  <span>R$129,00</span>
-                </p>
-              </div>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
         <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
@@ -61,23 +29,7 @@
       <div class="products_list all">
         <ul>
           <% 10.times do %>
-            <li>
-              <div class="box_product">
-                <%= image_tag "fake/showroom-product.png" %>
-                <h1>Hawthrone</h1>
-                <div class="line">
-                  <ol>
-                    <li>Black</li>
-                    <li>Red</li>
-                  </ol>
-                  <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
-                </div>
-                <p class="line">
-                  <%= image_tag "fake/like-fb.png" %>
-                  <span>R$129,00</span>
-                </p>
-              </div>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
       </div>
@@ -89,11 +41,7 @@
       <div class="products_list best">
         <ul>
           <% 5.times do %>
-            <li>
-              <a href="#">
-                <%= image_tag "fake/showroom-product-purse.png" %>
-              </a>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
         <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
@@ -101,11 +49,7 @@
       <div class="products_list almost">
         <ul>
           <% 5.times do %>
-            <li>
-              <a href="#">
-                <%= image_tag "fake/showroom-product-purse.png" %>
-              </a>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
         <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
@@ -113,11 +57,7 @@
       <div class="products_list all">
         <ul>
           <% 10.times do %>
-            <li>
-              <a href="#">
-                <%= image_tag "fake/showroom-product-purse.png" %>
-              </a>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
       </div>
@@ -129,11 +69,7 @@
       <div class="products_list best">
         <ul>
           <% 5.times do %>
-            <li>
-              <a href="#">
-                <%= image_tag "fake/showroom-product-accessories.png" %>
-              </a>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
         <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
@@ -141,11 +77,7 @@
       <div class="products_list almost">
         <ul>
           <% 5.times do %>
-            <li>
-              <a href="#">
-                <%= image_tag "fake/showroom-product-accessories.png" %>
-              </a>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
         <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
@@ -153,11 +85,7 @@
       <div class="products_list all">
         <ul>
           <% 10.times do %>
-            <li>
-              <a href="#">
-                <%= image_tag "fake/showroom-product-accessories.png" %>
-              </a>
-            </li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
       </div>
