@@ -5,7 +5,12 @@ class Admin::UsersController < ApplicationController
   respond_to :html, :text
 
   def index
-    @users = User.page(params[:page]).per_page(15)
+    filter = User.where('')
+    unless params[:search].blank?
+      filter = filter.where('(first_name LIKE :search) OR (last_name LIKE :search) OR (email LIKE :search)',
+                            :search => "%#{params[:search]}%")
+    end
+    @users = filter.page(params[:page]).per_page(15)
     respond_with :admin, @users
   end
 
