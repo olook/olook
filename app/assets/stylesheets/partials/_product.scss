@@ -1,18 +1,21 @@
 .box_product {
-  img {
-    margin: 0 0 10px 0;
-    border-bottom: 1px #b2b2b2 solid;
-  }
-  h1 {
-    background: none;
-    color: #716d68;
-    font-family: Arial;
-    font-size: 16px;
-    text-transform: uppercase;
-    line-height: normal;
-    margin: 0 0 10px 0;
-    padding: 0;
-    float: none;
+  a {
+    text-decoration: none;
+    img {
+      margin: 0 0 10px 0;
+      border-bottom: 1px #b2b2b2 solid;
+    }
+    h1 {
+      background: none;
+      color: #716d68;
+      font-family: Arial;
+      font-size: 16px;
+      text-transform: uppercase;
+      line-height: normal;
+      margin: 0 0 10px 0;
+      padding: 0;
+      float: none;
+    }
   }
   .line {
     width: 100%;
