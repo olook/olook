@@ -26,11 +26,11 @@ class PaymentBuilder
                 :razao=> Payment::REASON }
 
     credit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-                :instituicao => "Visa",:numero => "4220612351354111",
-                :expiracao => "08/11", :codigo_seguranca => "192",
-                :nome => "Rinaldi Fonseca Nascimento", :identidade => "134.277.017.00",
-                :telefone => "(21)9208-0547", :data_nascimento => "25/10/1980",
-                :parcelas => "1", :recebimento => "AVista",
+                :instituicao => payment.bank, :numero => payment.credit_card_number,
+                :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
+                :nome => payment.user_name, :identidade => payment.user_identification,
+                :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
+                :parcelas => payment.parts, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
 
      debit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
