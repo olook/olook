@@ -8,6 +8,12 @@ describe Address do
 
     it { should validate_presence_of(:number) }
     it { should validate_numericality_of(:number) }
+    it { should validate_presence_of(:country) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:street) }
+    it { should validate_presence_of(:zip_code) }
+    it { should validate_presence_of(:neighborhood) }
+    it { should validate_presence_of(:telephone) }
 
     it "should validate the Zip Format" do
       subject.zip_code = "12345-09"
