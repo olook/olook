@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115183132) do
+ActiveRecord::Schema.define(:version => 20111115221405) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -73,6 +73,12 @@ ActiveRecord::Schema.define(:version => 20111115183132) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "freight_prices", ["shipping_company_id"], :name => "index_freight_prices_on_shipping_company_id"
+  add_index "freight_prices", ["weight_end"], :name => "index_freight_prices_on_weight_end"
+  add_index "freight_prices", ["weight_start"], :name => "index_freight_prices_on_weight_start"
+  add_index "freight_prices", ["zip_end"], :name => "index_freight_prices_on_zip_end"
+  add_index "freight_prices", ["zip_start"], :name => "index_freight_prices_on_zip_start"
 
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
