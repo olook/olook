@@ -48,8 +48,8 @@ describe ImportFreightPricesWorker do
 
       freight.should be_persisted
 
-      freight.zip_start.should      == '1001000'
-      freight.zip_end.should        == '1142100'
+      freight.zip_start.should      == 1001000
+      freight.zip_end.should        == 1142100
       freight.weight_start.should   == 0.001
       freight.weight_end.should     == 30.000
       freight.delivery_time.should  == 1
