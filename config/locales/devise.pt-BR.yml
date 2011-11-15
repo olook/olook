@@ -34,6 +34,9 @@ pt-BR:
     unlocks:
       send_instructions: 'Dentro de minutos, você receberá um email com as instruções como desbloquear sua conta.'
       unlocked: 'Sua conta foi desbloqueada com sucesso.'
+    omniauth_callbacks:
+      success: 'Acesso autorizado através do %{kind}.'
+      failure: 'Não foi possível autenticar com o %{kind} porquê "%{reason}".'
     mailer:
       confirmation_instructions:
         subject: 'Instruções de confirmação'
