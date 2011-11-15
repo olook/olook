@@ -6,6 +6,10 @@ class Payment < ActiveRecord::Base
   belongs_to :order
   validates_presence_of :payment_type
 
+  def paid_with_credit_card?
+    payment_type == Payment::TYPE[:credit]
+  end
+
   def to_s
     pay_type = case payment_type
       when Payment::TYPE[:billet] then "BoletoBancario"

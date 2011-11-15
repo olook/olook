@@ -20,4 +20,9 @@ describe Payment do
     payment = FactoryGirl.build(:payment, :payment_type => Payment::TYPE[:credit])
     payment.to_s.should eq("CartaoCredito")
   end
+
+  it "should return true for payment" do
+    payment = FactoryGirl.build(:payment, :payment_type => Payment::TYPE[:credit])
+    payment.paid_with_credit_card?.should == true
+  end
 end
