@@ -87,6 +87,12 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.datetime "updated_at"
   end
 
+  add_index "freight_prices", ["shipping_company_id"], :name => "index_freight_prices_on_shipping_company_id"
+  add_index "freight_prices", ["weight_end"], :name => "index_freight_prices_on_weight_end"
+  add_index "freight_prices", ["weight_start"], :name => "index_freight_prices_on_weight_start"
+  add_index "freight_prices", ["zip_end"], :name => "index_freight_prices_on_zip_end"
+  add_index "freight_prices", ["zip_start"], :name => "index_freight_prices_on_zip_start"
+
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
