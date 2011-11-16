@@ -2,6 +2,8 @@
 class Product < ActiveRecord::Base
   has_enumeration_for :category, :with => Category, :required => true
   
+  after_create :create_master_variant
+  
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
   has_many :variants, :dependent => :destroy
@@ -32,11 +34,9 @@ class Product < ActiveRecord::Base
   end
   
   def relate_with_product(other_product)
-    if is_related_to?(other_product)
-      other_product
-    else
-      RelatedProduct.create(:product_a => self, :product_b => other_product)
-    end
+    return other_product if is_related_to?(other_product)
+
+    RelatedProduct.create(:product_a => self, :product_b => other_product)
   end
 
   def unrelate_with_product(other_product)
@@ -45,5 +45,25 @@ class Product < ActiveRecord::Base
         current_product: self.id, other_product: other_product.id).first
       relationship.destroy
     end
+  end
+  
+  def master_variant
+    @master_variant ||= self.variants.unscoped.where(:is_master => true).first
+  end
+  
+  delegate :price, to: :master_variant
+  delegate :width, to: :master_variant
+  delegate :height, to: :master_variant
+  delegate :length, to: :master_variant
+  delegate :weight, to: :master_variant
+
+private
+
+  def create_master_variant
+    @master_variant = self.variants.unscoped.create( :is_master => true,
+                          :number => 'master', :description => 'master',
+                          :price => 0.0, :inventory => 0,
+                          :width => 0, :height => 0, :length => 0,
+                          :weight => 0.0 )
   end
 end
