@@ -28,6 +28,10 @@ gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync'
 
+group :development do
+  gem 'faker'
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19'
