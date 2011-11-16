@@ -29,6 +29,10 @@ gem 'airbrake'
 gem 'asset_sync', '=0.1.10'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git'
 
+group :development do
+  gem 'faker'
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19'
