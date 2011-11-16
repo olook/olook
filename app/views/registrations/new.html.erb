@@ -1,4 +1,8 @@
-<% content_for (:errors) do %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/register" %>
+<% end %>
+
+<% content_for :errors do %>
   <%=  "#{resource.errors.size} Impediram que você pudesse se cadastrar" if resource.errors.any? %>
 <% end %>
 
