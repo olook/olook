@@ -13,9 +13,20 @@ describe Admin::UsersController do
   end
 
   describe "GET index" do
-    it "assigns all users as @users" do
-      get :index
-      assigns(:users).should eq([user])
+    context 'when no search parameter is provided' do
+      it "assigns all users as @users" do
+        get :index
+        assigns(:users).should eq([user])
+      end
+    end
+    context 'when a search parameter is provided' do
+      let(:searched_user) { FactoryGirl.create(:user, :first_name => 'ZYX') }
+
+      it "should filter the users by by name and e-mail using the parameter" do
+        get :index, :search => searched_user.first_name
+        assigns(:users).should_not include(user)
+        assigns(:users).should include(searched_user)
+      end
     end
   end
 
@@ -73,6 +84,22 @@ describe Admin::UsersController do
         flash[:notice].should be_blank
         #response.should render_template("edit")
       end
+    end
+  end
+  
+  describe "GET export" do
+    it 'should render the list of all users' do
+      record = [ user.first_name,
+        user.last_name,
+        user.email,
+        user.is_invited? ? 'invited' : 'organic',
+        user.created_at.to_s(:short),
+        user.profile_scores.first.try(:profile).try(:name),
+        accept_invitation_url(:invite_token => user.invite_token),
+        user.events.where(:type => EventType::TRACKING).first.try(:description)
+      ]      
+      get :export
+      assigns(:records).should eq([record])
     end
   end
 end
