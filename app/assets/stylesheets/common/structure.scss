@@ -538,12 +538,9 @@ body {
     width: 100%;
     overflow: visible;
     display: block;
-
-    a {
-      display: block;
-      float: left;
-
-        h1 {
+  
+    h1 {
+      a {
         background: url('/assets/common/logo.png') no-repeat;
         width:140px;
         height:54px;
@@ -572,7 +569,59 @@ body {
         position: relative;
         z-index: 10;
         @include sign-in;
-
+        width: 385px;
+        margin-top: 10px;
+        overflow: visible;
+        float: right;
+        h2 {
+          font-family: Arial;
+          font-size: 14px;
+          font-weight: bold;
+          span {
+            color: #df5a8b;
+            width: auto;
+            margin: 0;
+            float: none;
+          }
+        }
+        ul {
+          margin: 5px 0;
+          li {
+            font-size: 12px;
+            text-transform: none;
+            height: auto;
+            display: inline;
+            float: none;
+            a {
+              color: #212121;
+              font-family: Arial;
+              font-size: 12px;
+              text-decoration: none;
+              margin: 0 30px 0 0;
+              &:hover {
+                color: #ff7db0;
+              }
+              &.favorites {
+                background: url('/assets/common/ico-heart-off.png') left no-repeat;
+                padding-left: 20px;
+                &:hover {
+                  background: url('/assets/common/ico-heart-on.png') left no-repeat;
+                }
+              }
+            }
+            p {
+              text-transform: none;
+              a {
+                color: #e05789;
+                text-decoration: underline;
+                margin: 0;
+              }
+            }
+            &.login {
+              float: right;
+            }
+          }
+        }
         .sign-in-dropdown {
           form {
             fieldset.buttons {
