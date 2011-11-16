@@ -24,6 +24,6 @@ class Variant < ActiveRecord::Base
   end
  
   def volume
-    ((self.width * self.height * self.length)/1000000).round 2 # in cubic meters
+    ((self.width * self.height * self.length)/1000000).round 6 # in cubic meters
   end
 end
