@@ -2,13 +2,13 @@
 module FreightCalculator
   VALID_ZIP_FORMAT = /\A(\d{8})\z/
   
-  def self.freight_for_zip(zip_code)
+  def self.freight_for_zip(zip_code, weight, volume)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
 
     freight_price = nil
     ShippingCompany.all.each do |shipping_company|
-      freight_price = shipping_company.find_freight_for_zip(clean_zip_code)
+      freight_price = shipping_company.find_freight_for_zip(clean_zip_code, weight, volume)
 
       break if freight_price
     end
