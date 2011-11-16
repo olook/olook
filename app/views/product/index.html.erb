@@ -1,45 +1,56 @@
-<span>Sua Vitrine</span>
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag "section/product" %>
+<% end %>
 
-<h2><%= @product.name %></h2>
+<div id="product">
+  <div class="box_carrousel">
+    <h1>Sua vitrine de novembro</h1>
+    <div id="carrousel">
+      <%= image_tag "fake/fake-products-carrousel.png" %>
+    </div>
+  </div>
 
-<div><%= @product.description %></div>
+  <h2><%= @product.name %></h2>
 
-<span>R$ 123,45</span>
+  <div><%= @product.description %></div>
 
-<%= image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty? %>
+  <span>R$ 123,45</span>
 
-<div>
-  <h3>Related Products</h3>
+  <%= image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty? %>
+
+  <div>
+    <h3>Related Products</h3>
+    <ul>
+    <% @product.related_products.each do |related_product| %>
+      <li><%= related_product.name %></li>
+    <% end %>
+    </ul>
+
+    <h3>Variants</h3>
+    <ul>
+    <% @product.variants.each do |variant| %>
+      <li><%= variant.display_reference %></li>
+    <% end %>
+    </ul>
+  </div>
+
   <ul>
-  <% @product.related_products.each do |related_product| %>
-    <li><%= related_product.name %></li>
+  <% @product.pictures.each do |picture| %>
+    <li><%= image_tag(picture.image_url(:thumb).to_s) %></li>
   <% end %>
   </ul>
 
-  <h3>Variants</h3>
-  <ul>
-  <% @product.variants.each do |variant| %>
-    <li><%= variant.display_reference %></li>
+  <h3>Details</h3>
+  <table>
+    <tr>
+      <th>Translation token</th>
+      <th>Description</th>
+    </tr>
+  <% @product.details.visible.each do |detail| %>
+    <tr>
+      <td><%= detail.translation_token %></td>
+      <td><%= detail.description %></td>
+    </tr>
   <% end %>
-  </ul>
+  </table>
 </div>
-
-<ul>
-<% @product.pictures.each do |picture| %>
-  <li><%= image_tag(picture.image_url(:thumb).to_s) %></li>
-<% end %>
-</ul>
-
-<h3>Details</h3>
-<table>
-  <tr>
-    <th>Translation token</th>
-    <th>Description</th>
-  </tr>
-<% @product.details.visible.each do |detail| %>
-  <tr>
-    <td><%= detail.translation_token %></td>
-    <td><%= detail.description %></td>
-  </tr>
-<% end %>
-</table>
