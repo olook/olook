@@ -569,8 +569,9 @@ body {
         position: relative;
         z-index: 10;
         @include sign-in;
-        width: 385px;
+        //width: 385px;
         margin-top: 10px;
+        margin-right: 10px;
         overflow: visible;
         float: right;
         h2 {
