@@ -7,11 +7,17 @@ class Payment < ActiveRecord::Base
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
 
   belongs_to :order
+  has_one :payment_response
   validates_presence_of :payment_type
   validates_with CreditCardValidator, :if => :paid_with_credit_card?
 
   def paid_with_credit_card?
     payment_type == Payment::TYPE[:credit]
+  end
+
+  def save_with(payment_url, order)
+    self.url, self.order = payment_url, order
+    save
   end
 
   def to_s

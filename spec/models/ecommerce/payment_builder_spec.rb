@@ -5,12 +5,50 @@ describe PaymentBuilder do
   let(:user) { FactoryGirl.create(:user) }
   let(:delivery_address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:payment) { FactoryGirl.create(:payment, :order => order) }
+  let(:payment) { FactoryGirl.build(:payment, :order => order) }
   subject { PaymentBuilder.new(order, payment, delivery_address) }
   let(:payer) { subject.payer }
 
   before :each do
     order.stub(:total).and_return(10.50)
+  end
+
+  it "should process the payment" do
+    subject.should_receive(:send_payment)
+    subject.should_receive(:create_payment_response)
+    subject.should_receive(:save_payment)
+    subject.process!
+  end
+
+  it "should creates a payment response" do
+    subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
+    payment_response.should_receive(:build_attributes).with(subject.response)
+    payment_response.should_receive(:save)
+    subject.create_payment_response
+  end
+
+  it "should set_url_and_order_to_payment" do
+    subject.stub(:payment_url).and_return('www.fake.com')
+    subject.set_url_and_order_to_payment
+    subject.payment.url.should == 'www.fake.com'
+    subject.payment.order.should == order
+  end
+
+  it "should save payments" do
+    subject.stub(:set_url_and_order_to_payment)
+    subject.save_payment
+    subject.payment.should be_persisted
+  end
+
+  it "should send payments" do
+    MoIP::Client.should_receive(:checkout).with(subject.payment_data)
+    subject.send_payment
+  end
+
+  it "should get the payment_url" do
+    subject.response = {"Token" => "XCV"}
+    MoIP::Client.should_receive(:moip_page).with(subject.response["Token"])
+    subject.payment_url
   end
 
   it "should return the payer" do

@@ -27,6 +27,7 @@ gem 'mailee'
 gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync'
+gem 'moip', :git => 'git://github.com/olook/moip-ruby.git'
 
 group :development, :test do
   gem 'sqlite3'
