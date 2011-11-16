@@ -8,6 +8,8 @@
       <th>Display Reference</th>
       <th>Price</th>
       <th>Inventory</th>
+      <th>Dimensions</th>
+      <th>Weight</th>
       <th></th>
       <th></th>
       <th></th>
@@ -21,6 +23,8 @@
       <td><%= variant.display_reference %></td>
       <td><%= variant.price %></td>
       <td><%= variant.inventory %></td>
+      <td><%= variant.dimensions %></td>
+      <td><%= variant.weight %></td>
       <td><%= link_to 'Show', admin_product_variant_path(variant.product, variant) %></td>
       <td><%= link_to 'Edit', edit_admin_product_variant_path(variant.product, variant) %></td>
       <td><%= link_to 'Destroy', admin_product_variant_path(variant.product, variant), :confirm => 'Are you sure?', :method => :delete %></td>
