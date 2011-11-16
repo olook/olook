@@ -39,7 +39,7 @@ class MembersController < ApplicationController
       oauth_verifier = params[:oauth_verifier]
       contacts_adapter = ContactsAdapter.new(nil, nil, oauth_token, oauth_secret, oauth_verifier)
       @contacts = contacts_adapter.contacts(email_provider)
-    rescue MultiJson::DecodeError
+    rescue MultiJson::DecodeError, Net::HTTPFatalError
       redirect_to(member_invite_path, :notice => "Seus contatos não puderam ser importados agora. Por favor tente novamente mais tarde.")
     end
   end
