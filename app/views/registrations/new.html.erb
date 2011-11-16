@@ -11,11 +11,10 @@
 
     <p class="facebook"> Crie uma senha para acessar nosso site:</p>
   <% else %>
-    <h2>Preparada?</h2>
-    <p>
-      Agora nossos stylists selecionarão <strong>sapatos, <br />
-      bolsas e acessórios</strong> para sua vitrine particular.
-    </p>
+    <div class="not_connected">
+      <h2>Só mais um passo e <span>você verá seu estilo</span></h2>
+      <p>Analisando as suas respostas, nossos stylists passarão <br />a enviar dicas de moda e produtos para completar seu look.</p>
+    </div>
     <div class="connect">
       <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
       <%= render "facebook_connect" %>

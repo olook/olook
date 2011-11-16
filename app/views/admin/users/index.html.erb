@@ -1,6 +1,14 @@
 <h2>Listing users</h2>
 
 <div class="inner">
+  <%= form_tag '', :method => 'get', :class => 'form' do  %>
+    <div class="group">
+      <%= label_tag 'Pesquisa' %>
+      <%= text_field_tag 'search', params[:search] %>
+      <%= submit_tag 'Pesquisar' %>
+    </div>
+  <% end %>
+
   <table class="table">
     <tr>
       <th>First Name</th>
@@ -26,4 +34,10 @@
     </tr>
   <% end %>
   </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @users %>
+    </div>
+  </div>
 </div>

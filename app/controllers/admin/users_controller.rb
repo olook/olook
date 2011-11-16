@@ -2,10 +2,15 @@
 class Admin::UsersController < ApplicationController
   before_filter :authenticate_admin!
   layout "admin"
-  respond_to :html
+  respond_to :html, :text
 
   def index
-    @users = User.all
+    filter = User.where('')
+    unless params[:search].blank?
+      filter = filter.where('(first_name LIKE :search) OR (last_name LIKE :search) OR (email LIKE :search)',
+                            :search => "%#{params[:search]}%")
+    end
+    @users = filter.page(params[:page]).per_page(15)
     respond_with :admin, @users
   end
 
@@ -29,5 +34,20 @@ class Admin::UsersController < ApplicationController
     end
 
     respond_with :admin, @user
+  end
+  
+  def export
+    @records = User.all.map do |user|
+      [ user.first_name,
+        user.last_name,
+        user.email,
+        user.is_invited? ? 'invited' : 'organic',
+        user.created_at.to_s(:short),
+        user.profile_scores.first.try(:profile).try(:name),
+        accept_invitation_url(:invite_token => user.invite_token),
+        user.events.where(:type => EventType::TRACKING).first.try(:description)
+      ]
+    end
+    respond_with :admin, @records
   end
 end
