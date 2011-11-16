@@ -19,6 +19,24 @@ body {
         margin-left: 60px;
       }
 
+      .not_connected {
+        width: 380px;
+        margin: 0 auto 15px auto;
+        h2, p {
+          margin: 0;
+        }
+        h2 {
+          line-height: 30px;
+          margin-bottom: 15px;
+          span {
+            margin: 0 0 0 100px;
+          }
+        }
+        p {
+          font-size: 19px;
+        }
+      }
+
       p {
         margin-bottom: 20px;
       }
@@ -28,7 +46,7 @@ body {
       }
       
       div.connect {
-        width: 400px;
+        width: 415px;
         overflow: hidden;
         margin: 0 0 15px 0;
         padding: 15px;
