@@ -1,0 +1,23 @@
+@import "partials/product";
+
+#product {
+  padding: 20px 0 0 0;
+  div.box_carrousel {
+    margin: 0 0 15px 0;
+    padding: 10px;
+    overflow: auto;
+    border: 1px #e1e1e1 solid;
+    h1 {
+      color: #545454;
+      font-family: Arial;
+      font-size: 20px;
+      font-weight: lighter;
+      line-height: 38px;
+      text-transform: uppercase;
+      float: left;
+    }
+    div#carrousel {
+      float: right;
+    }
+  }
+}
