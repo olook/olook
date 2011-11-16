@@ -63,7 +63,7 @@ describe Variant do
 
     describe "#volume" do
       it "should return the volume in cubic meters" do
-        subject.volume.should == ((10*20*30)/1000000).round(2)
+        subject.volume.should == ((10*20*30)/1000000).round(6)
       end
     end
   end
