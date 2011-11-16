@@ -7,7 +7,6 @@ Resque.redis = YAML.load_file(Rails.root + 'config/resque.yml')[Rails.env]
 
 Resque::Failure::Airbrake.configure do |config|
   config.api_key = 'ea4592991b87980de4f0edfb2a5a78be'
-  config.secure = true
 end
 
 Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Airbrake]
