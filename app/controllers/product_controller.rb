@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ProductController < ApplicationController
   respond_to :html
-
+  before_filter :authenticate_user!
   before_filter :load_user
   before_filter :current_order
 
