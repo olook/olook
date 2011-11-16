@@ -11,12 +11,14 @@
   </div>
   <div class="content">
     <div id="pics_suggestions">
-      <ul>
+      <ul id="thumbs">
         <% @product.pictures.each do |picture| %>
-          <li><%= image_tag(picture.image_url(:thumb).to_s) %></li>
+          <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);" %></li>
         <% end %>
       </ul>
-      <%= image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty? %>
+      <div id="full_pic">
+        <%= link_to((image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty?), "javascript:void(0);") %>
+      </div>
 
       <div>
         <h3>Related Products</h3>
@@ -28,13 +30,13 @@
 
         <h3>Variants</h3>
         <ul>
-        <% @product.variants.each do |variant| %>
-          <li><%= variant.display_reference %></li>
-        <% end %>
+          <% @product.variants.each do |variant| %>
+            <li><%= variant.display_reference %></li>
+          <% end %>
         </ul>
       </div>
-
     </div>
+
     <div id="infos">
       <div class="description">
         <h1><%= @product.name %></h1>

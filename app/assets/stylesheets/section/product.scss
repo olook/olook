@@ -24,6 +24,46 @@
     div#pics_suggestions {
       width: 575px;
       float: left;
+      ul#thumbs {
+        width: 55px;
+        overflow: auto;
+        margin-right: 5px;
+        float: left;
+        li {
+          margin-bottom: 10px;
+          display: block;
+          a {
+            width: 50px;
+            margin: 2px;
+            float: left;
+            img {
+              width: 50px;
+              height: 50px;
+            }
+            &:hover, &.selected {
+              img {
+                margin: -2px;
+                border: 2px #a3a3a3 solid;
+              }
+            }
+          }
+        }
+      }
+      div#full_pic {
+        width: 500px;
+        margin-bottom: 30px;
+        overflow: auto;
+        float: left;
+        border-bottom: 2px #e05f8f solid;
+        a {
+          width: 500px;
+          float: left;
+          img {
+            width: 500px;
+            height: 500px;
+          }
+        }
+      }
     }
     div#infos {
       width: 390px;
