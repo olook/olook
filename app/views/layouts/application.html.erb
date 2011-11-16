@@ -34,7 +34,7 @@
 
         <div id="session">
           <% if user_signed_in? %>
-            <h2>Olá, <span><%= current_user.name %></span></h2>
+            <h2>Olá, <span id="info_user"><%= current_user.name %></span></h2>
           <% end %>
           <ul>
             <% if user_signed_in? %>
