@@ -62,13 +62,13 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
 
   create_table "freight_prices", :force => true do |t|
     t.integer  "shipping_company_id"
-    t.integer  "zip_start"
-    t.integer  "zip_end"
-    t.decimal  "weight_start",        :precision => 8, :scale => 3
-    t.decimal  "weight_end",          :precision => 8, :scale => 3
+    t.integer  "zip_start",           :limit => 255
+    t.integer  "zip_end",             :limit => 255
+    t.decimal  "weight_start"
+    t.decimal  "weight_end"
     t.integer  "delivery_time"
-    t.decimal  "price",               :precision => 8, :scale => 2
-    t.decimal  "cost",                :precision => 8, :scale => 2
+    t.decimal  "price"
+    t.decimal  "cost"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
