@@ -20,7 +20,7 @@ body {
           height: 71px;
           padding: 25px 50px 24px;
           border: 1px solid #BBB;
-          margin: 35px auto 0;
+          margin: 75px auto 0;
           font-weight:normal;
           letter-spacing:-2px;
           line-height:22px;
@@ -98,7 +98,7 @@ body {
       }
     }
 
-    nav {
+    nav.invite {
       position: relative;
       background: url('/assets/common/bg-menu.png') top no-repeat;
       width: 100%;

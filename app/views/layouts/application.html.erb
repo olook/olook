@@ -27,22 +27,24 @@
 
     <header>
       <div class="content">
-        <%= link_to content_tag(:h1, 'Olook'), root_path %>
+        <h1><%= link_to 'Olook', root_path %></h1>
         <div class="info">
           <%= image_tag("common/animacao_topo_site.gif", :alt => "Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolução fácil e gratuita. O cadastro é gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para você.") %>
         </div>
 
         <div id="session">
           <% if user_signed_in? %>
-            <span><%= link_to "Sair", destroy_user_session_path, :method => :delete %></span>
-
-          <% else %>
-            <span>
-              <p>Já faz parte?</p>
-              <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %>
-            </span>
+            <h2>Olá, <span id="info_user"><%= current_user.name %></span></h2>
           <% end %>
-
+          <ul>
+            <% if user_signed_in? %>
+              <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+              <li class="login">
+                <p>Já faz parte? <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %></p>
+              </li>
+            <% end %>
+          </ul>
           <div class="sign-in-dropdown close">
             <%= render "sessions/form_user" %>
           </div>

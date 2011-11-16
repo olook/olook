@@ -1,0 +1,158 @@
+@import "partials/product";
+
+#showroom {
+  padding: 20px 0 0 0;
+  section#greetings {
+    width: 100%;
+    margin-bottom: 50px;
+    overflow: auto;
+    div.facebook {
+      width: 640px;
+      float: left;
+      h1, h2 {
+        font-family: Arial, sans-serif;
+        font-size: 26px;
+        font-weight: normal;
+      }
+      h2 {
+        color: #df5a8b;
+        margin-bottom: 5px;
+      }
+      p {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        margin-bottom: 25px;
+        &.connect {
+          width: 600px;
+          margin-bottom: 0;
+          padding: 10px;
+          overflow: auto;
+          border: 1px #dbdbdb solid;
+          a {
+            background: url('/assets/common/fb-connect-button.png') no-repeat;
+            text-indent: -9999px;
+            width: 212px;
+            height: 25px;
+            display: block;
+            margin-right: 35px;
+            float: left;
+          }
+          span {
+            color: #3b5998;
+            font-size: 15px;
+            line-height: 25px;
+          }
+        }
+      }
+      &.connected {
+        img.avatar {
+          width: 110px;
+          height: 115px;
+          margin: 0 18px 15px 0;
+          border: 5px #101010 solid;
+          float: left;
+        }
+        h2 {
+          color: #000;
+        }
+        h3 {
+          color: #df5a8b;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          margin-bottom: 5px;
+          clear: both;
+        }
+      }
+    }
+    div.lookbook {
+      width: 330px;
+      float: right;
+      h1 {
+        background: url('/assets/showroom/title-lookbooks.png') no-repeat;
+        text-indent: -9999px;
+        width: 144px;
+        height: 21px;
+        margin: 0 0 10px 0;
+        display: block;
+      }
+    }
+  }
+  section.container_product {
+    background: url('/assets/showroom/border-top-product.png') 170px 26px no-repeat;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: auto;
+    h1.title {
+      color: #1F1F1F;
+      font-family: Arial;
+      font-weight: lighter;
+      line-height: 50px;
+      margin-bottom: 20px;
+      padding: 0 20px 0 65px;
+      float: left;
+      span {
+        color: #df5a8b;
+      }
+    }
+    &#shoes {
+      h1.title {
+        background: #FFF url('/assets/showroom/icon-shoes.png') top left no-repeat;
+      }
+    }
+    &#purse {
+      h1.title {
+        background: #FFF url('/assets/showroom/icon-purse.png') top left no-repeat;
+      }
+    }
+    &#accessories {
+      h1.title {
+        background: #FFF url('/assets/showroom/icon-accessories.png') top left no-repeat;
+      }
+    }
+  }
+  div.type_list {
+    width: 100%;
+    overflow: auto;
+    clear: both;
+    div.products_list {
+      position: relative;
+      background: url('/assets/showroom/border-bottom-product.png') 0 100% no-repeat;
+      width: 100%;
+      margin-bottom: 30px;
+      padding: 0 0 45px 0;
+      overflow: visible;
+      clear: both;
+      &.almost, &.all {
+        display: none;
+      }
+      &.all {
+        background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
+      }
+      a.more {
+        background: #df5a8b;
+        color: #FFF;
+        font-family: Arial;
+        font-size: 12px;
+        font-weight: lighter;
+        text-transform: uppercase;
+        text-decoration: none;
+        margin-top: 27px;
+        padding: 10px 15px;
+        float: right;
+      }
+      ul {
+        li.product {
+          width: 175px;
+          margin: 0 0 2px 0;
+          padding: 10px;
+          overflow: auto;
+          display: inline-block;
+          &:hover, &.selected {
+            padding: 0 5px;
+            border: 5px #d7d7d7 solid;
+          }
+        }
+      }
+    }
+  }
+}
