@@ -30,6 +30,14 @@ describe MembersController do
     end
   end
 
+  describe "#showroom" do
+    it "should show the member showroom page" do
+      get :showroom
+      response.should render_template("showroom")
+      assigns(:member).should eq(user)
+    end
+  end
+
   describe "#accept_invitation should redirect to root" do
     describe "and show error message" do
       it "when receiving a blank token" do
