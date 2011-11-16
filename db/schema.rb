@@ -258,6 +258,11 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_master"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "length"
+    t.decimal  "weight",            :precision => 8,  :scale => 2
   end
 
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
