@@ -64,6 +64,45 @@
           }
         }
       }
+      div#related {
+        background: url('/assets/showroom/border-top-product.png') -245px 13px no-repeat;
+        width: 100%;
+        overflow: auto;
+        clear: both;
+        h1 {
+          background: #FFF;
+          color: #545454;
+          font-family: Arial;
+          font-weight: lighter;
+          font-size: 24px;
+          letter-spacing: -1px;
+          text-transform: uppercase;
+          margin: 0 0 15px 0;
+          padding-right: 5px;
+          float: left;
+        }
+        ul {
+          clear: both;
+          li.product {
+            width: 260px;
+            margin: 0 0 2px 0;
+            padding: 10px;
+            overflow: auto;
+            display: inline-block;
+            a {
+              img {
+                width: 260px;
+                height: 260px;
+                border-color: #df5a8b;
+              }
+            }
+            &:hover, &.selected {
+              padding: 5px;
+              border: 5px #d7d7d7 solid;
+            }
+          }
+        }
+      }
     }
     div#infos {
       width: 390px;

@@ -20,11 +20,11 @@
         <%= link_to((image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty?), "javascript:void(0);") %>
       </div>
 
-      <div>
-        <h3>Related Products</h3>
+      <div id="related">
+        <h1>Seus stylists também sugerem</h1>
         <ul>
           <% @product.related_products.each do |related_product| %>
-            <li><%= related_product.name %></li>
+            <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
 
