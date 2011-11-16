@@ -26,19 +26,6 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.string  "telephone"
   end
 
-  create_table "addresses", :force => true do |t|
-    t.integer "user_id"
-    t.string  "country"
-    t.string  "city"
-    t.string  "state"
-    t.string  "complement"
-    t.string  "street"
-    t.integer "number"
-    t.string  "neighborhood"
-    t.string  "zip_code"
-    t.string  "telephone"
-  end
-
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
     t.string   "encrypted_password",  :limit => 128, :default => "", :null => false
@@ -138,6 +125,9 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Added payment response
   create_table "payment_responses", :force => true do |t|
     t.integer  "payment_id"
     t.string   "response_id"
@@ -154,8 +144,11 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
 =======
 >>>>>>> added migration: create_payments; fixed migration create_orders
+=======
+>>>>>>> Added payment response
   create_table "payments", :force => true do |t|
     t.integer  "order_id"
     t.integer  "payment_type"
