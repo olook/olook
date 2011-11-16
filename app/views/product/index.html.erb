@@ -9,48 +9,49 @@
       <%= image_tag "fake/fake-products-carrousel.png" %>
     </div>
   </div>
+  <div class="content">
+    <div id="pics_suggestions">
+      <ul>
+        <% @product.pictures.each do |picture| %>
+          <li><%= image_tag(picture.image_url(:thumb).to_s) %></li>
+        <% end %>
+      </ul>
+      <%= image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty? %>
 
-  <h2><%= @product.name %></h2>
+      <div>
+        <h3>Related Products</h3>
+        <ul>
+          <% @product.related_products.each do |related_product| %>
+            <li><%= related_product.name %></li>
+          <% end %>
+        </ul>
 
-  <div><%= @product.description %></div>
+        <h3>Variants</h3>
+        <ul>
+        <% @product.variants.each do |variant| %>
+          <li><%= variant.display_reference %></li>
+        <% end %>
+        </ul>
+      </div>
 
-  <span>R$ 123,45</span>
-
-  <%= image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty? %>
-
-  <div>
-    <h3>Related Products</h3>
-    <ul>
-    <% @product.related_products.each do |related_product| %>
-      <li><%= related_product.name %></li>
-    <% end %>
-    </ul>
-
-    <h3>Variants</h3>
-    <ul>
-    <% @product.variants.each do |variant| %>
-      <li><%= variant.display_reference %></li>
-    <% end %>
-    </ul>
+    </div>
+    <div id="infos">
+      <h2><%= @product.name %></h2>
+      <div><%= @product.description %></div>
+      <span>R$ 123,45</span>
+    </div>
+      <h3>Details</h3>
+      <table>
+        <tr>
+          <th>Translation token</th>
+          <th>Description</th>
+        </tr>
+      <% @product.details.visible.each do |detail| %>
+        <tr>
+          <td><%= detail.translation_token %></td>
+          <td><%= detail.description %></td>
+        </tr>
+      <% end %>
+      </table>
   </div>
-
-  <ul>
-  <% @product.pictures.each do |picture| %>
-    <li><%= image_tag(picture.image_url(:thumb).to_s) %></li>
-  <% end %>
-  </ul>
-
-  <h3>Details</h3>
-  <table>
-    <tr>
-      <th>Translation token</th>
-      <th>Description</th>
-    </tr>
-  <% @product.details.visible.each do |detail| %>
-    <tr>
-      <td><%= detail.translation_token %></td>
-      <td><%= detail.description %></td>
-    </tr>
-  <% end %>
-  </table>
 </div>
