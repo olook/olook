@@ -63,4 +63,49 @@ describe Product do
       subject.related_products.should include(silver_slipper)
     end
   end
+  
+  describe "#master_variant" do
+    subject { FactoryGirl.build(:basic_shoe) }
+
+    it "should call create_master_variant after_create" do
+      subject.should_receive(:create_master_variant)
+      subject.save
+    end
+
+    it "should be created automaticaly after the product is created" do
+      subject.master_variant.should be_nil
+      subject.save
+      subject.master_variant.should_not be_nil
+      subject.master_variant.description.should == 'master'
+    end
+  end
+  
+  describe "methods delegated to master_variant" do
+    subject { FactoryGirl.create(:basic_shoe) }
+
+    it "#price" do
+      subject.master_variant.should_receive(:price)
+      subject.price
+    end
+
+    it "#width" do
+      subject.master_variant.should_receive(:width)
+      subject.width
+    end
+
+    it "#height" do
+      subject.master_variant.should_receive(:height)
+      subject.height
+    end
+
+    it "#length" do
+      subject.master_variant.should_receive(:length)
+      subject.length
+    end
+
+    it "#weight" do
+      subject.master_variant.should_receive(:weight)
+      subject.weight
+    end
+  end
 end

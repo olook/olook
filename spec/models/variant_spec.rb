@@ -67,4 +67,19 @@ describe Variant do
       end
     end
   end
+  
+  describe "before_save fill is_master" do
+    subject { FactoryGirl.build(:basic_shoe_size_35, :is_master => nil) }
+    
+    it "should call fill_is master" do
+      subject.should_receive(:fill_is_master)
+      subject.save
+    end
+
+    it "should force the value to false" do
+      subject.is_master.should be_nil
+      subject.save
+      subject.is_master.should == false
+    end
+  end
 end
