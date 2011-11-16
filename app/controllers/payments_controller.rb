@@ -17,7 +17,6 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
-    @delivery_address = @delivery_address
   end
 
   def create
