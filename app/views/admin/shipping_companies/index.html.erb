@@ -1,0 +1,29 @@
+<h2>Listing shipping_companies</h2>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>ERP code</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @shipping_companies.each do |shipping_company| %>
+    <tr>
+      <td><%= shipping_company.name %></td>
+      <td><%= shipping_company.erp_code %></td>
+      <td><%= link_to 'Show', admin_shipping_company_path(shipping_company) %></td>
+      <td><%= link_to 'Edit', edit_admin_shipping_company_path(shipping_company) %></td>
+      <td><%= link_to 'Destroy', admin_shipping_company_path(shipping_company), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New Shipping company', new_admin_shipping_company_path %></li>
+<% end %>
