@@ -1,9 +1,38 @@
 # -*- encoding : utf-8 -*-
 class PaymentBuilder
-  attr_accessor :order, :payment, :delivery_address
+  attr_accessor :order, :payment, :delivery_address, :response
 
   def initialize(order, payment, delivery_address)
     @order, @payment, @delivery_address = order, payment, delivery_address
+  end
+
+  def process!
+    send_payment
+    create_payment_response
+    save_payment
+  end
+
+  def save_payment
+    set_url_and_order_to_payment
+    payment.save
+  end
+
+  def set_url_and_order_to_payment
+    payment.url, payment.order = payment_url, order
+  end
+
+  def send_payment
+    @response = MoIP::Client.checkout(payment_data)
+  end
+
+  def payment_url
+    MoIP::Client.moip_page(response["Token"])
+  end
+
+  def create_payment_response
+    payment_response = payment.build_payment_response
+    payment_response.build_attributes response
+    payment_response.save
   end
 
   def payer

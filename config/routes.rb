@@ -10,7 +10,7 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
-  resource :payments, :path => 'pagamento', :controller => :payments
+  resources :payments, :path => 'pagamento', :controller => :payments
 
   get "/produto/:id" => "product#index", :as => "product"
   get "membro/convite" => "members#invite", :as => 'member_invite'
