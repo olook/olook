@@ -36,22 +36,24 @@
 
     </div>
     <div id="infos">
-      <h2><%= @product.name %></h2>
-      <div><%= @product.description %></div>
-      <span>R$ 123,45</span>
-    </div>
+      <div class="description">
+        <h1><%= @product.name %></h1>
+        <p><%= @product.description %></p>
+        <p class="price">R$ 123,45</p>
+      </div>
       <h3>Details</h3>
       <table>
         <tr>
           <th>Translation token</th>
           <th>Description</th>
         </tr>
-      <% @product.details.visible.each do |detail| %>
-        <tr>
-          <td><%= detail.translation_token %></td>
-          <td><%= detail.description %></td>
-        </tr>
-      <% end %>
+        <% @product.details.visible.each do |detail| %>
+          <tr>
+            <td><%= detail.translation_token %></td>
+            <td><%= detail.description %></td>
+          </tr>
+        <% end %>
       </table>
+    </div>
   </div>
 </div>

@@ -28,6 +28,26 @@
     div#infos {
       width: 390px;
       float: right;
+      div.description {
+        font-family: Times;
+        font-style: italic;
+        h1 {
+          font-size: 40px;
+          margin-bottom: 10px;
+          border-bottom: 1px #ebebeb solid;
+        }
+        p {
+          color: #616161;
+          font-size: 16px;
+          margin-bottom: 20px;
+          &.price {
+            color: #e05789;
+            font-size: 50px;
+            letter-spacing: -4px;
+            text-align: center;
+          }
+        }
+      }
     }
   }
 }
