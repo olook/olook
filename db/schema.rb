@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order"
   end
 
   create_table "details", :force => true do |t|
@@ -63,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "type",        :limit => 255, :null => false
+    t.integer  "type",        :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -75,13 +76,13 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
 
   create_table "freight_prices", :force => true do |t|
     t.integer  "shipping_company_id"
-    t.integer  "zip_start",           :limit => 255
-    t.integer  "zip_end",             :limit => 255
-    t.decimal  "weight_start"
-    t.decimal  "weight_end"
+    t.integer  "zip_start"
+    t.integer  "zip_end"
+    t.decimal  "weight_start",        :precision => 8, :scale => 3
+    t.decimal  "weight_end",          :precision => 8, :scale => 3
     t.integer  "delivery_time"
-    t.decimal  "price"
-    t.decimal  "cost"
+    t.decimal  "price",               :precision => 8, :scale => 2
+    t.decimal  "cost",                :precision => 8, :scale => 2
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -146,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
-    t.integer  "display_on", :limit => 255
+    t.integer  "display_on"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -255,7 +256,7 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.decimal  "price"
+    t.decimal  "price",             :precision => 10, :scale => 2
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
