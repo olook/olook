@@ -16,6 +16,7 @@ class AddressesController < ApplicationController
   def create
     @address = @user.addresses.build(params[:address])
     if @address.save
+      session[:delivery_address_id] = @address.id
       redirect_to(new_payment_path, :notice => 'Endereço cadastrado com sucesso')
     else
       respond_with(@address)
