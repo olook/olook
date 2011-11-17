@@ -11,6 +11,7 @@ Olook::Application.routes.draw do
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
+  resources :addresses, :path => 'endereco', :controller => :addresses
 
   get "/produto/:id" => "product#index", :as => "product"
   get "membro/convite" => "members#invite", :as => 'member_invite'
