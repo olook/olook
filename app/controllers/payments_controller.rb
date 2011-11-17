@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class PaymentsController < ApplicationController
   respond_to :html
+  before_filter :authenticate_user!
   before_filter :load_user
   before_filter :check_user_address
 
