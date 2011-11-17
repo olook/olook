@@ -6,8 +6,9 @@ describe PaymentsController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    session[:delivery_address_id] = 123
-    user = Factory :user
+    user = FactoryGirl.create(:user)
+    address = FactoryGirl.create(:address, :user => user)
+    session[:delivery_address_id] = address.id
     sign_in user
   end
 
