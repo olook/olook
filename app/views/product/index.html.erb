@@ -83,16 +83,18 @@
           <li class="tab_1 selected"><p><%= image_tag "fake/photo-facebook.png" %>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p></li>
           <li class="tab_2">
             <table>
-              <tr>
-                <th>Translation token</th>
-                <th>Description</th>
-              </tr>
-              <% @product.details.visible.each do |detail| %>
-                <tr>
-                  <td><%= detail.translation_token %></td>
-                  <td><%= detail.description %></td>
-                </tr>
-              <% end %>
+              <tbody>
+                <% @product.details.visible.each do |detail| %>
+                  <tr>
+                    <td>Translation token</td>
+                    <td><%= detail.translation_token %></td>
+                  </tr>
+                  <tr>
+                    <td>Description</td>
+                    <td><%= detail.description %></td>
+                  </tr>
+                <% end %>
+              </tbody>
             </table>
           </li>
         </ul>
