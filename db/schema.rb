@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111117173037) do
+ActiveRecord::Schema.define(:version => 20111117195603) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -161,6 +161,9 @@ ActiveRecord::Schema.define(:version => 20111117173037) do
     t.string   "erp_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cubic_weight_factor"
+    t.integer  "priority"
+    t.string   "erp_delivery_service"
   end
 
   create_table "survey_answers", :force => true do |t|

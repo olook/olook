@@ -2,15 +2,24 @@
 require 'spec_helper'
 
 describe ShippingCompany do
+  subject { FactoryGirl.create :shipping_company }
+
   describe 'validations' do
     it { should have_many(:freight_prices) }
 
     it { should validate_presence_of(:name) }
+
+    it { should_not allow_value(0).for(:cubic_weight_factor) }
+    it { should_not allow_value(-1).for(:cubic_weight_factor) }
+
+    it { should validate_presence_of(:priority) }
+    it { should_not allow_value(0).for(:priority) }
+    it { should_not allow_value(-1).for(:priority) }
+
+    it { should validate_presence_of(:erp_delivery_service) }
   end
   
   describe '#find_freight_for_zip' do
-    subject { FactoryGirl.create :shipping_company }
-
     let(:zip_code) { '05379020' }
     let(:weight) { 2.1 }
     let(:volume) { 0.019008 } # 11x54x32 cm
@@ -51,7 +60,9 @@ describe ShippingCompany do
   end
   
   describe '#cubic_weight_factor' do
-    it 'should return 167' do
+    subject { FactoryGirl.create :shipping_company }
+
+    it 'should return 167 by default' do
       subject.cubic_weight_factor.should == 167
     end
   end

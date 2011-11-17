@@ -20,17 +20,24 @@ describe FreightCalculator do
         let(:volume) { 0.019008 } # 11x54x32 cm, cubic weight == 3,174336
 
         let(:freight_details) { {:price => 10.0, :cost => 5.0, :delivery_time => 2} }
+        let(:wrong_shipping_company) { FactoryGirl.create :shipping_company, :priority => 1 }
+        let(:shipping_company) { FactoryGirl.create :shipping_company, :priority => 99 }
         
         before :each do
-          FactoryGirl.create  :freight_price,
+          FactoryGirl.create  :freight_price, :shipping_company => wrong_shipping_company,
+                              :zip_start => 5379000, :zip_end => 5379014,
+                              :weight_start => 2.5, :weight_end => 4.5,
+                              :price => 310.0, :cost => 35.0, :delivery_time => 30
+
+          FactoryGirl.create  :freight_price, :shipping_company => shipping_company,
                               :zip_start => 5379016, :zip_end => 5379100,
                               :weight_start => 0.0, :weight_end => 2.5,
                               :price => 7.0, :cost => 3.0, :delivery_time => 1
-          FactoryGirl.create  :freight_price,
+          FactoryGirl.create  :freight_price, :shipping_company => shipping_company,
                               :zip_start => 5379016, :zip_end => 5379100,
                               :weight_start => 2.5, :weight_end => 4.5,
                               :price => 10.0, :cost => 5.0, :delivery_time => 2
-          FactoryGirl.create  :freight_price,
+          FactoryGirl.create  :freight_price, :shipping_company => shipping_company,
                               :zip_start => 5379016, :zip_end => 5379100,
                               :weight_start => 4.5, :weight_end => 1000.0,
                               :price => 20.0, :cost => 15.0, :delivery_time => 3
