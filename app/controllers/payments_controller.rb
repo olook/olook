@@ -20,11 +20,10 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(params[:payment])
-    delivery_address = @user.addresses.create(:country =>'BRA', :city => 'Sao Paulo', :state => 'SP', :complement => 'ap 56' , :street => 'Rua Joao de Castro', :number => '100', :neighborhood => 'Centro', :zip_code => '37713-172', :telephone => '(31)2345-8759')
 
     if @payment.valid?
       order = @user.orders.create
-      payment_builder = PaymentBuilder.new(order, @payment, delivery_address)
+      payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
       payment_builder.process!
       redirect_to(root_path, :notice => "Sucesso")
     else
