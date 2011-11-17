@@ -26,7 +26,7 @@ gem 'zipruby'
 gem 'mailee'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'asset_sync'
+gem 'asset_sync', '=0.1.10'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git'
 
 group :development, :test do
