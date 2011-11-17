@@ -220,6 +220,63 @@
         border: none;
         cursor: pointer;
       }
+      div#box_tabs {
+        ul.tabs {
+          width: 100%;
+          margin-bottom: 25px;
+          overflow: hidden;
+          li {
+            a {
+              color: #a5a5a5;
+              font-family: Times;
+              font-size: 12px;
+              text-decoration: none;
+              text-transform: uppercase;
+              margin-bottom: -3px;
+              padding: 5px 15px 15px 15px;
+              border-bottom: 1px #dddddd solid;
+              float: left;
+              &.selected {
+                color: #545454;
+                font-size: 15px;
+                border-left: 1px #dddddd solid;
+                border-right: 1px #dddddd solid;
+                border-bottom: 1px #fff solid;
+              }
+            }
+            &:first-child {
+              a.selected {
+                border-left: none;
+              }
+            }
+            &:last-child {
+              a.selected {
+                border-right: none;
+              }
+            }
+          }
+        }
+        ul.tabs_content {
+          li {
+            width: 385px;
+            display: none;
+            p {
+              color: #545454;
+              font-family: Times;
+              font-size: 16px;
+              font-style: italic;
+              text-align: right;
+              img {
+                margin-left: 20px;
+                float: right;
+              }
+            }
+            &.selected {
+              display: block;
+            }
+          }
+        }
+      }
     }
   }
 }
