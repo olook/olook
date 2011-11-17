@@ -40,6 +40,6 @@ class PaymentsController < ApplicationController
   def check_user_address
     address_id = session[:delivery_address_id] || params[:delivery_address_id]
     @delivery_address = @user.addresses.where(:id => address_id)
-    redirect_to(new_address_path, :notice => "Informe ou cadastre um endereço") if @delivery_address.empty?
+    redirect_to(addresses_path, :notice => "Informe ou cadastre um endereço") if @delivery_address.empty?
   end
 end
