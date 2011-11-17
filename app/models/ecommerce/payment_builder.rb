@@ -38,6 +38,7 @@ class PaymentBuilder
   def payer
     { :nome => order.user_name,
       :email => order.user_email,
+      :identidade => payment.user_identification,
       :logradouro => delivery_address.street,
       :complemento => delivery_address.complement,
       :numero => delivery_address.number,
@@ -46,7 +47,9 @@ class PaymentBuilder
       :estado => delivery_address.state,
       :pais => delivery_address.country,
       :cep => delivery_address.zip_code,
-      :tel_fixo => delivery_address.telephone }
+      :tel_fixo => delivery_address.telephone,
+      :tel_cel => '(11)9976-8679' #we need check if this field is required
+    }
   end
 
   def payment_data
