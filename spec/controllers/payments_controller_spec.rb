@@ -6,6 +6,7 @@ describe PaymentsController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
+    session[:delivery_address_id] = 123
     user = Factory :user
     sign_in user
   end
@@ -14,6 +15,12 @@ describe PaymentsController do
     it "should assigns @payment" do
       get 'new'
       assigns(:payment).should be_a_new(Payment)
+    end
+
+    it "should redirect to new_payment_path if the delivery_address_id is nil" do
+      session[:delivery_address_id] = nil
+      get 'new'
+      response.should redirect_to(new_address_path)
     end
   end
 
