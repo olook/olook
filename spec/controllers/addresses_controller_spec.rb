@@ -25,4 +25,11 @@ describe AddressesController do
       }.to change(Address, :count).by(1)
     end
   end
+
+  describe "POST create" do
+    it "should assign the address id in the session" do
+      post :create, :address => attributes
+      session[:delivery_address_id].should == Address.all.last.id
+    end
+  end
 end
