@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
-Factory.define :answer_from_casual_profile, :class => Answer do |f|
-  f.title "Casual Answer Title"
-  f.association :question, :factory => :question
-end
+FactoryGirl.define do
+  factory :answer do
+    association :question
+    title "Answer Title"
 
-Factory.define :answer_from_sporty_profile, :class => Answer do |f|
-  f.title "Sporty Answer Title"
-  f.association :question, :factory => :question
-end
+    factory :answer_from_casual_profile do
+      title "Casual Answer Title"
+    end
 
-Factory.define :answer, :class => Answer do |f|
-  f.title "Answer Title"
-  f.association :question, :factory => :question
+    factory :answer_from_sporty_profile do
+      title "Sporty Answer Title"
+    end
+  end
 end

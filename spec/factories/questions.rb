@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
-Factory.define :question do |f|
-  f.title "Question Title"	
+FactoryGirl.define do
+  factory :question do
+    title "Question Title"
+  end
 end
