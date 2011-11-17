@@ -9,9 +9,9 @@ describe FreightCalculator do
       context "for which there isn't a freight price" do
         it "should return a hash with price, delivery time and cost equal to zero" do
           freight = described_class.freight_for_zip(zip_code, 0, 0)
-          freight[:price].should == 0.0
-          freight[:cost].should == 0.0
-          freight[:delivery_time].should == 0
+          freight[:price].should == FreightCalculator::DEFAULT_FREIGHT_PRICE
+          freight[:cost].should == FreightCalculator::DEFAULT_FREIGHT_COST
+          freight[:delivery_time].should == FreightCalculator::DEFAULT_INVENTORY_TIME
         end
       end
 
@@ -19,7 +19,7 @@ describe FreightCalculator do
         let(:weight) { 2.1 }
         let(:volume) { 0.019008 } # 11x54x32 cm, cubic weight == 3,174336
 
-        let(:freight_details) { {:price => 10.0, :cost => 5.0, :delivery_time => 2} }
+        let(:freight_details) { {:price => 10.0, :cost => 5.0, :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME} }
         let(:wrong_shipping_company) { FactoryGirl.create :shipping_company, :priority => 1 }
         let(:shipping_company) { FactoryGirl.create :shipping_company, :priority => 99 }
         
