@@ -43,6 +43,7 @@ Olook::Application.routes.draw do
     resources :users, :except => [:create, :new, :destroy] do
       collection do
         get 'export' => 'users#export', :as => 'export'
+        get 'statistics' => 'users#statistics', :as => 'statistics'
       end
     end
     resources :shipping_companies

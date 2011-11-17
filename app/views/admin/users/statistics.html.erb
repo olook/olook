@@ -1,0 +1,21 @@
+<h2>User Statistics</h2>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_users_path %></li>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Creation Date</th>
+      <th>Daily Total</th>
+    </tr>
+
+  <% @statistics.each do |data| %>
+    <tr>
+      <td><%= data.creation_date %></td>
+      <td><%= data.daily_total %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>

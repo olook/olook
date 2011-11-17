@@ -89,17 +89,19 @@ describe Admin::UsersController do
   
   describe "GET export" do
     it 'should render the list of all users' do
-      record = [ user.first_name,
-        user.last_name,
-        user.email,
-        user.is_invited? ? 'invited' : 'organic',
-        user.created_at.to_s(:short),
-        user.profile_scores.first.try(:profile).try(:name),
-        accept_invitation_url(:invite_token => user.invite_token),
-        user.events.where(:type => EventType::TRACKING).first.try(:description)
-      ]      
+      UserReport.should_receive(:export).and_return([[:result]])
       get :export
-      assigns(:records).should eq([record])
+      assigns(:records).should eq([[:result]])
+    end
+  end
+  
+  describe 'GET statistics' do
+    let(:result) { double(:result, creation_date: Date.civil(2011, 11, 15), daily_total: 10 ) }
+
+    it 'should get the count of created members by date' do
+      UserReport.should_receive(:statistics).and_return([result])
+      get :statistics
+      assigns(:statistics).should eq([result])
     end
   end
 end
