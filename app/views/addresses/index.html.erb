@@ -1,0 +1,12 @@
+<% if @addresses.any? %>
+  <%= form_tag(new_payment_path, :method => :get) do %>
+    <ul>
+      <% @addresses.each do |address| %>
+      <li>
+       <%= radio_button_tag(:delivery_address_id, address.id) %> <%= address.street %>
+      </li>
+    </ul>
+   <% end %>
+   <%= submit_tag('Enviar')  %>
+  <% end %>
+<% end %>

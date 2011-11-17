@@ -5,8 +5,7 @@ class AddressesController < ApplicationController
   before_filter :load_user
 
   def index
-    @user.addresses
-    respond_with(@addresses)
+    @addresses = @user.addresses
   end
 
   def new
