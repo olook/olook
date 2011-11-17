@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class PaymentsController < ApplicationController
   respond_to :html
-  before_filter :check_user_address
+  before_filter :load_user
+  before_filter :check_user_address, :only => [:new]
 
   def index
     @payments = Payment.all
@@ -18,7 +19,6 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @user = current_user
     @payment = Payment.new(params[:payment])
     delivery_address = @user.addresses.create(:country =>'BRA', :city => 'Sao Paulo', :state => 'SP', :complement => 'ap 56' , :street => 'Rua Joao de Castro', :number => '100', :neighborhood => 'Centro', :zip_code => '37713-172', :telephone => '(31)2345-8759')
 
@@ -34,7 +34,13 @@ class PaymentsController < ApplicationController
 
   private
 
+  def load_user
+    @user = current_user
+  end
+
   def check_user_address
-    redirect_to(new_address_path, :notice => "Informe ou cadastre um endereço") if session[:delivery_address_id].nil?
+    address_id = session[:delivery_address_id]
+    @delivery_address = @user.addresses.find(address_id) if address_id
+    redirect_to(new_address_path, :notice => "Informe ou cadastre um endereço") unless @delivery_address
   end
 end
