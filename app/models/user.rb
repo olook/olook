@@ -87,6 +87,10 @@ class User < ActiveRecord::Base
   def add_event(type, description = '')
     self.events.create(type: type, description: description)
   end
+  
+  def invitation_url(host = 'olook.com.br')
+    Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
+  end
 
   private
 
