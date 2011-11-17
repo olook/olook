@@ -37,17 +37,12 @@ class Admin::UsersController < ApplicationController
   end
   
   def export
-    @records = User.all.map do |user|
-      [ user.first_name,
-        user.last_name,
-        user.email,
-        user.is_invited? ? 'invited' : 'organic',
-        user.created_at.to_s(:short),
-        user.profile_scores.first.try(:profile).try(:name),
-        accept_invitation_url(:invite_token => user.invite_token),
-        user.events.where(:type => EventType::TRACKING).first.try(:description)
-      ]
-    end
+    @records = UserReport.export
     respond_with :admin, @records
+  end
+  
+  def statistics
+    @statistics = UserReport.statistics
+    respond_with :admin, @statistics
   end
 end
