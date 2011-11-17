@@ -28,7 +28,7 @@ describe PaymentsController do
     it "should redirect to new_payment_path if the delivery_address_id is nil" do
       session[:delivery_address_id] = nil
       get 'new'
-      response.should redirect_to(new_address_path)
+      response.should redirect_to(addresses_path)
     end
   end
 
