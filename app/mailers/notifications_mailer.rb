@@ -9,6 +9,7 @@ class NotificationsMailer
   def signup(user_id)
     attributes = MAILEE_CONFIG[:welcome]
     member = User.find(user_id)
+    raise "The welcome message for member #{user_id} was already sent" unless member.welcome_sent_at.nil?
 
     template = Mailee::Template.find(attributes[:template_id])
     html = template.html.gsub /__member_name__/, member.name
@@ -20,5 +21,8 @@ class NotificationsMailer
 
     signup_notification = message.create(attributes)
     signup_notification.ready unless Rails.env == "test"
+
+    member.welcome_sent_at = Time.now
+    member.save
   end
 end
