@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class PaymentsController < ApplicationController
   respond_to :html
+  before_filter :check_user_address
 
   def index
     @payments = Payment.all
@@ -29,5 +30,11 @@ class PaymentsController < ApplicationController
     else
       respond_with(@payment)
     end
+  end
+
+  private
+
+  def check_user_address
+    redirect_to(new_address_path, :notice => "Informe ou cadastre um endereço") if session[:delivery_address_id].nil?
   end
 end
