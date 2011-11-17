@@ -1,3 +1,5 @@
+@import 'partials/mixins';
+@import 'partials/colors';
 @import "partials/product";
 
 #product {
@@ -126,6 +128,92 @@
             text-align: center;
           }
         }
+      }
+      div.color_size {
+        width: 368px;
+        padding: 20px 10px;
+        overflow: auto;
+        border: 1px #ebebeb solid;
+        div.line {
+          width: 100%;
+          overflow: auto;
+          &:first-child {
+            margin-bottom: 20px;
+          }
+          p {
+            font-family: Times;
+            font-size: 16px;
+            font-style: italic;
+            text-align: right;
+            line-height: 30px;
+            width: 70px;
+            margin-right: 10px;
+            float: left;
+          }
+          ol {
+            float: left;
+            li {
+              margin-left: 5px;
+              float: left;
+              &:first-child {
+                margin-left: 0;
+              }
+              label {
+                font-family: "Lucida Grande";
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 28px;
+                text-align: center;
+                width: 33px;
+                height: 30px;
+                display: inline-block;
+                cursor: pointer;
+                input[type="radio"] {
+                  display: none;
+                }
+              }
+            }
+          }
+          &.color {
+            &.selected {
+            }
+            label {
+              a {
+                text-indent: -9999px;
+                width: 33px;
+                height: 30px;
+                display: block;
+              }
+            }
+          }
+          &.size {
+            label {
+              color: $pink;
+              border: 1px solid $pink;
+            }
+            &.selected {
+              background: $pink;
+              color: #FFF;
+            }
+            li.unavailable {
+              label {
+                color: #757575;
+                cursor: text;
+                border: 1px #757575 solid;
+              }
+            }
+          }
+        }
+      }
+      input[type="submit"].add_product {
+        background: url('/assets/product/bt-add-product.png') no-repeat;
+        text-indent: -9999px;
+        width: 279px;
+        height: 58px;
+        margin: 25px auto 50px auto;
+        display: block;
+        border: none;
+        cursor: pointer;
       }
     }
   }

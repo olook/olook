@@ -27,13 +27,6 @@
             <%= render :partial => "shared/showroom_product_item" %>
           <% end %>
         </ul>
-
-        <h3>Variants</h3>
-        <ul>
-          <% @product.variants.each do |variant| %>
-            <li><%= variant.display_reference %></li>
-          <% end %>
-        </ul>
       </div>
     </div>
 
@@ -43,6 +36,44 @@
         <p><%= @product.description %></p>
         <p class="price">R$ 123,45</p>
       </div>
+
+      <%= form_tag('#') do %>
+        <div class="color_size">
+          <div class="line color">
+            <p>Cor:</p>
+            <ol class="colors">
+              <li class="straw">
+                <label for="color_1"><%= link_to "straw", "#" %></label>
+              </li>
+              <li class="driftwood">
+                <label for="color_2"><%= link_to "driftwood", "#" %></label>
+              </li>
+            </ul>
+          </div>
+          <div class="line size">
+            <p>Tamanho:</p>
+            <ol>
+              <li class="unavailable">
+                <label for="size_1">33
+                  <%= radio_button_tag("size", "1") %>
+                </label>
+              </li>
+              <li>
+                <label for="size_2">34
+                  <%= radio_button_tag("size", "2") %>
+                </label>
+              </li>
+              <li>
+                <label for="size_3">35
+                  <%= radio_button_tag("size", "3") %>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <%= submit_tag "", :class=>"add_product" %>
+      <% end %>
+
       <h3>Details</h3>
       <table>
         <tr>
