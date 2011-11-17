@@ -2,7 +2,7 @@
 class PaymentsController < ApplicationController
   respond_to :html
   before_filter :load_user
-  before_filter :check_user_address, :only => [:new]
+  before_filter :check_user_address
 
   def index
     @payments = Payment.all
@@ -16,6 +16,7 @@ class PaymentsController < ApplicationController
 
   def new
     @payment = Payment.new
+    @delivery_address = @delivery_address.first
   end
 
   def create
@@ -38,7 +39,7 @@ class PaymentsController < ApplicationController
   end
 
   def check_user_address
-    address_id = session[:delivery_address_id] || params[:delivery_address_id]
+    address_id = params[:delivery_address_id] || session[:delivery_address_id]
     @delivery_address = @user.addresses.where(:id => address_id)
     redirect_to(addresses_path, :notice => "Informe ou cadastre um endereço") if @delivery_address.empty?
   end
