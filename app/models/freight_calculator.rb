@@ -7,7 +7,7 @@ module FreightCalculator
     return {} unless valid_zip?(clean_zip_code)
 
     freight_price = nil
-    ShippingCompany.all.each do |shipping_company|
+    ShippingCompany.order('priority').each do |shipping_company|
       freight_price = shipping_company.find_freight_for_zip(clean_zip_code, weight, volume)
 
       break if freight_price

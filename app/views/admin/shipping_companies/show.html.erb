@@ -6,8 +6,20 @@
   </p>
 
   <p>
-    <b>ERP code:</b>
+    <b>Priority:</b>
+    <%= @shipping_company.priority %>
+  </p>
+  <p>
+    <b>ERP Code:</b>
     <%= @shipping_company.erp_code %>
+  </p>
+  <p>
+    <b>ERP delivery code:</b>
+    <%= @shipping_company.erp_delivery_service %>
+  </p>
+  <p>
+    <b>Cubic weight factor:</b>
+    <%= @shipping_company.cubic_weight_factor %>
   </p>
   
   <%= render :partial => 'freight_prices', :locals => {:freight_prices => @freight_prices} %>

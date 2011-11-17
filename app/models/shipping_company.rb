@@ -1,9 +1,16 @@
 # -*- encoding : utf-8 -*-
 class ShippingCompany < ActiveRecord::Base
+  DEFAULT_CUBIC_WEIGHT_FACTOR = 167
+
   has_many :freight_prices, :dependent => :destroy
+  
+  after_initialize :set_default_cubic_weight_factor
 
   validates :name, :presence => true
-  
+  validates :cubic_weight_factor, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
+  validates :priority, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
+  validates :erp_delivery_service, :presence => true
+
   def find_freight_for_zip(zip_code, weight, volume)
     self.freight_prices.where('(:zip >= zip_start) AND (:zip <= zip_end) AND ' +
                               '(:weight > weight_start) AND (:weight <= weight_end)',
@@ -15,8 +22,10 @@ class ShippingCompany < ActiveRecord::Base
     cubic_weight = volume * cubic_weight_factor
     (weight > cubic_weight) ? weight : cubic_weight
   end
-  
-  def cubic_weight_factor
-    167 # default value for a while
+
+private
+
+  def set_default_cubic_weight_factor
+    self.cubic_weight_factor = DEFAULT_CUBIC_WEIGHT_FACTOR
   end
 end
