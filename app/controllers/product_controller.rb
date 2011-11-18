@@ -12,6 +12,7 @@ class ProductController < ApplicationController
   def add_to_cart
     @variant = Variant.find(params[:variant][:id])
     @order.add_variant(@variant)
+    redirect_to(product_path(@variant.product), :notice => "Produto adicionado com sucesso")
   end
 
   private
