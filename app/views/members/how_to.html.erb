@@ -1,11 +1,11 @@
 <% content_for(:head) do %>
   <%= stylesheet_link_tag  "about/normalize" %>
-  <%= stylesheet_link_tag  "about/style" %>
+  <%= stylesheet_link_tag  "section/how_to" %>
   <%= stylesheet_link_tag  "application" %>
 <% end %>
 
 <div id="function">
-  <h1>Como funciona</h1>
+  <h1>Veja como funciona</h1>
   <ul>
     <li class="box" id="left_box"><h3>Responda nosso Style Quiz</h3><p>Desenvolvemos um divertido style quiz para que você entenda melhor suas preferências e receber no final um painel sobre o seu estilo.</p></li>
     <li class="box" id="left_box_mid"><h3>Nossos Stylists montam sua vitrine</h3><p>Nossa equipe de stylists trabalhará para criar todos os meses os modelos exclusivos que mais combinam com você.</p></li>
@@ -14,19 +14,9 @@
   </ul>
 </div>
 
-<div id="about">
-  <h1>Sobre olook</h1>
-  <div id="main_feature">
-    <%= image_tag("/assets/about/girl.jpg")%>
-    <div id="main_describe">
-      <h2>A Olook identifica o seu estilo pessoal e as peças que te valorizam</h2>
-      <p>Com a ajuda de nossos stylists você  receberá todos os meses uma seleção exclusiva de peças desenvolvidas de acordo com as principais tendências de moda. Modelos únicos criados com design próprio em materiais diferenciados para proporcionar conforto e acima de tudo muito estilo.  Afinal, não é todo dia que você pode ter um personal stylist a sua disposição. Aproveite!</p>
-      
-      <% if user_signed_in? %>
-        <%= link_to 'Em breve você poderá ver sua vitrine', '#', :class => "logged" %>
-      <% else %>
-        <%= link_to 'Responda nosso quiz e descubra seu estilo', new_survey_path %>
-      <% end %>
-    </div><div class="clear"></div>
-  </div>
+<div id="how_to">
+  <h1>Para você, com todoestilo que é só seu!</h1>
+  <p>Sabe o que a gente mais quer? Entender o seu estilo! Por isso o primeiro passo foi preencher nosso super quiz.</p>
+  <p>A partir daí, todo mês, nossos stylists montam uma seleção especial de produtos com a sua cara e que seguem as principais tendências da moda. Ajudamos a montar looks incríveis: você + sua vitrine de bolsas, acessórios e sapatos. Todos exclusivos, com design próprio e os melhores materiais para você ficar linda, confortável e cheia de estilo. Sem contar que os preços são ótimos.</p>
+  <p class="last">Você escolhe e compra os produtos que gostar. Caso queira devolver, não tem problema. A devolução é grátis!</p>
 </div>
