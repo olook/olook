@@ -5,10 +5,6 @@ class ProductController < ApplicationController
   before_filter :load_user
   before_filter :current_order
 
-  def index
-    @product = Product.find(params[:id])
-  end
-
   def show
     @product = Product.find(params[:id])
   end
