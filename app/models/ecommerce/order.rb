@@ -18,8 +18,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  #this should be hard coded now
   def total
-    25.90
+    line_items.inject(0){|result, item| result + item.total_price }
   end
 end
