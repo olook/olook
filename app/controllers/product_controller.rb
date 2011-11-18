@@ -9,9 +9,13 @@ class ProductController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  def show
+    @product = Product.find(params[:id])
+  end
+
   def add_to_cart
     @variant = Variant.find(params[:variant][:id])
-    @order.add_product(@variant)
+    @order.add_variant(@variant)
   end
 
   private
