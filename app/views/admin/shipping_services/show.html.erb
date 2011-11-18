@@ -2,24 +2,24 @@
 <div class="inner">
   <p>
     <b>Name:</b>
-    <%= @shipping_company.name %>
+    <%= @shipping_service.name %>
   </p>
 
   <p>
     <b>Priority:</b>
-    <%= @shipping_company.priority %>
+    <%= @shipping_service.priority %>
   </p>
   <p>
     <b>ERP Code:</b>
-    <%= @shipping_company.erp_code %>
+    <%= @shipping_service.erp_code %>
   </p>
   <p>
     <b>ERP delivery code:</b>
-    <%= @shipping_company.erp_delivery_service %>
+    <%= @shipping_service.erp_delivery_service %>
   </p>
   <p>
     <b>Cubic weight factor:</b>
-    <%= @shipping_company.cubic_weight_factor %>
+    <%= @shipping_service.cubic_weight_factor %>
   </p>
   
   <%= render :partial => 'freight_prices', :locals => {:freight_prices => @freight_prices} %>
@@ -27,6 +27,6 @@
 </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'Edit', edit_admin_shipping_company_path(@shipping_company) %></li>
-  <li><%= link_to 'Back', admin_shipping_companies_path %></li>
+  <li><%= link_to 'Edit', edit_admin_shipping_service_path(@shipping_service) %></li>
+  <li><%= link_to 'Back', admin_shipping_services_path %></li>
 <% end %>

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class FreightPrice < ActiveRecord::Base
-  belongs_to :shipping_company
+  belongs_to :shipping_service
   
   ZIP_VALIDATION      = { :presence => true,
                           :numericality => { :only_integer => true , :greater_than_or_equal_to => 0, :less_than_or_equal_to => 99999999 }
@@ -12,7 +12,7 @@ class FreightPrice < ActiveRecord::Base
                           :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
                         }
 
-  validates :shipping_company, :presence => true
+  validates :shipping_service, :presence => true
   validates :zip_start, ZIP_VALIDATION.clone
   validates :zip_end  , ZIP_VALIDATION.clone
 
