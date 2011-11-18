@@ -55,13 +55,13 @@
         width: 500px;
         height: 500px;
         margin-bottom: 30px;
-        overflow: hidden;
+        overflow: visible;
         float: left;
         border-bottom: 2px #e05f8f solid;
         ul {
           li {
             width: 500px;
-            overflow: auto;
+            overflow: visible;
             display: none;
             &:first-child {
               margin-right: 1000px;
@@ -70,7 +70,7 @@
             a {
               width: 500px;
               float: left;
-              img {
+              img.full {
                 width: 500px;
                 height: 500px;
               }
@@ -126,7 +126,7 @@
         font-style: italic;
         h1 {
           font-size: 40px;
-          letter-spacing: -1px;
+          letter-spacing: -3px;
           margin-bottom: 10px;
           border-bottom: 1px #ebebeb solid;
         }

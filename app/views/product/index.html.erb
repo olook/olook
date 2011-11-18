@@ -1,5 +1,5 @@
 <% content_for(:head) do %>
-  <%= stylesheet_link_tag "section/product" %>
+  <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
 <% end %>
 
 <div id="product">
@@ -19,7 +19,7 @@
       <div id="full_pic">
         <ul>
           <% @product.pictures.each do |picture| %>
-            <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("common/ajax-loader.gif", :class => "load-image-#{picture.id}", :'data-href' => picture.image_url.to_s), "javascript:void(0);") %></li>
+            <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("common/ajax-loader.gif", :class => "full load-image-#{picture.id}", :'data-href' => "#{picture.image_url.to_s}"), "/assets/fake/product2-zoom.png", :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
           <% end %>
         </ul>
       </div>
