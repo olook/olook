@@ -57,19 +57,18 @@
 
 
     <% if user_signed_in? %>
-      <nav>
-        <ul class="content">
-          <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
-          <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
-          <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
-        </ul>
-      </nav>
-
-    <% else %>
-
+      <div id="wrapper_menu">
+        <nav class="menu">
+          <ul class="content">
+            <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
+            <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
+            <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
+          </ul>
+        </nav>
+      </div>
     <% end %>
 
-    <div class="content">
+    <div id="content" class="content">
       <%= yield %>
     </div>
   </div>
