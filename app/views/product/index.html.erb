@@ -13,11 +13,15 @@
     <div id="pics_suggestions">
       <ul id="thumbs">
         <% @product.pictures.each do |picture| %>
-          <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);" %></li>
+          <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
         <% end %>
       </ul>
       <div id="full_pic">
-        <%= link_to((image_tag(@product.pictures.first.image_url.to_s) unless @product.pictures.empty?), "javascript:void(0);") %>
+        <ul>
+          <% @product.pictures.each do |picture| %>
+            <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("common/ajax-loader.gif", :class => "load-image-#{picture.id}", :'data-href' => picture.image_url.to_s), "javascript:void(0);") %></li>
+          <% end %>
+        </ul>
       </div>
 
       <div id="related">

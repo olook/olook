@@ -1,12 +1,18 @@
 $(document).ready(function() {
+  $("div#pics_suggestions ul#thumbs li").each(function() {
+    clazz = $(this).find("a").attr("class");
+    parts = clazz.split("-")
+    $("img.load-image-"+parts[2]).asynchImageLoader({event:'click', selector:'a.load-async-'+parts[2]})
+  });
+
   $("div#pics_suggestions ul#thumbs li a").live("click", function() {
-    thumb_url = $(this).find('img').attr("src").split("thumb_");
-    domain = thumb_url[0];
-    new_image = thumb_url[1];
-    full_image = $("div#pics_suggestions div#full_pic a img");
-    full_image.attr("src", domain+new_image);
+    rel = $(this).attr('rel');
+    $("div#pics_suggestions div#full_pic ul li").hide();
+    $("div#pics_suggestions div#full_pic ul li."+rel).show();
     return false;
   });
+
+  $("div#pics_suggestions ul#thumbs li:first-child a").click();
 
   $("div#box_tabs ul.tabs li a").live("click", function() {
     rel = $(this).attr("rel");
