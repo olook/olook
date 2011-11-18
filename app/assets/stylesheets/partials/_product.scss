@@ -1,6 +1,10 @@
 .box_product {
   a {
     text-decoration: none;
+    text-align: center;
+    width: 100%;
+    overflow: auto;
+    float: left;
     img {
       margin: 0 0 10px 0;
       border-bottom: 1px #b2b2b2 solid;
@@ -46,6 +50,7 @@
       line-height: 16px;
       text-decoration: none;
       text-transform: uppercase;
+      width: auto;
       padding-left: 20px;
       &:hover, &.selected {
         background: url('/assets/common/ico-heart-on.png') left no-repeat;
