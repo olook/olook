@@ -9,7 +9,7 @@ describe ProductController do
 
     describe "GET index" do
       it "should load and display the product" do
-        get :index, :id => product.id
+        get :show, :id => product.id
         assigns(:product).should == product
       end
     end
