@@ -1,4 +1,17 @@
 $(document).ready(function() {
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  if (!msie6 && $('nav.menu').length == 1) {
+    var top = $('nav.menu').offset().top - parseFloat($('nav.menu').css('margin-top').replace(/auto/, 0));
+    $(window).scroll(function (event) {
+      var y = $(this).scrollTop();
+      if (y >= top) {
+        $('nav.menu').addClass('fixed');
+      } else {
+        $('nav.menu').removeClass('fixed');
+      }
+    });
+  } 
+  
 
   if($('#error-messages').html().length >= '73'){
     $('.alert').parent().slideDown('1000', function() {
