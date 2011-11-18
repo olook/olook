@@ -27,6 +27,7 @@ gem 'mailee'
 gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync'
+gem 'curb'
 
 group :development do
   gem 'faker'

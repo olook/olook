@@ -1,0 +1,16 @@
+<h2>Utilities</h2>
+
+<div class="inner">
+    <h3>Resque</h3>
+    <p><%= link_to "Resque-web App1", "http://app1.olook.com.br:5678/" %> |
+       <%= link_to "Resque-web App2", "http://app2.olook.com.br:5678/" %> |
+       <%= link_to "Reiniciar Workers", restart_resque_workers_admin_utilities_path, :method => :post %></p>
+
+    <h3>Cloudfront</h3>
+    <%= form_tag invalidates_cdn_content_admin_utilities_path, :method => :post do %> 
+      <%= label_tag "Caminho para arquivo:" %>
+      <%= text_field_tag :cdn_path %>
+      <%= submit_tag("Invalidar") %>
+    <% end %>
+
+</div>
