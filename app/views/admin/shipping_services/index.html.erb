@@ -1,0 +1,29 @@
+<h2>Listing shipping services</h2>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>ERP code</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @shipping_services.each do |shipping_service| %>
+    <tr>
+      <td><%= shipping_service.name %></td>
+      <td><%= shipping_service.erp_code %></td>
+      <td><%= link_to 'Show', admin_shipping_service_path(shipping_service) %></td>
+      <td><%= link_to 'Edit', edit_admin_shipping_service_path(shipping_service) %></td>
+      <td><%= link_to 'Destroy', admin_shipping_service_path(shipping_service), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New Shipping service', new_admin_shipping_service_path %></li>
+<% end %>
