@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :freight_price do
-    association :shipping_company
+    association :shipping_service
     description 'Test freight price'
 
     zip_start '00000000'

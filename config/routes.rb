@@ -46,7 +46,7 @@ Olook::Application.routes.draw do
         get 'statistics' => 'users#statistics', :as => 'statistics'
       end
     end
-    resources :shipping_companies
+    resources :shipping_services
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
