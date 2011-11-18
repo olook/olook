@@ -163,6 +163,8 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.datetime "updated_at"
   end
 
+  add_index "points", ["user_id"], :name => "index_points_on_user_id"
+
   create_table "products", :force => true do |t|
     t.string   "name"
     t.text     "description"
