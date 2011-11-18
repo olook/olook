@@ -238,6 +238,7 @@
           margin-bottom: 25px;
           overflow: hidden;
           li {
+            display: inline;
             a {
               color: #a5a5a5;
               font-family: Times;
@@ -256,12 +257,12 @@
                 border-bottom: 1px #fff solid;
               }
             }
-            &:first-child {
+            &.first {
               a.selected {
                 border-left: none;
               }
             }
-            &:last-child {
+            &.last {
               a.selected {
                 border-right: none;
               }
@@ -298,6 +299,23 @@
             }
             &.selected {
               display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.ie7 {
+  #product {
+    div#infos {
+      div#box_tabs {
+        ul.tabs {
+          padding-bottom: 4px;
+          li {
+            a.selected {
+              padding-bottom: 13px;
             }
           }
         }
