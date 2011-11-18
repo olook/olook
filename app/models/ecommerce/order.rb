@@ -7,13 +7,15 @@ class Order < ActiveRecord::Base
   delegate :email, :to => :user, :prefix => true
 
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
-    current_item = line_items.select { |item| item.variant == variant }.first
-    if current_item
-      current_item.increment!(:quantity, quantity)
-    else
-      line_items << LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity)
+    if variant.available?
+      current_item = line_items.select { |item| item.variant == variant }.first
+      if current_item
+        current_item.increment!(:quantity, quantity)
+      else
+        line_items << LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity)
+      end
+      current_item
     end
-    current_item
   end
 
   #this should be hard coded now
