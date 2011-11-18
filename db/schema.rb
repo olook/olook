@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111118140608) do
+ActiveRecord::Schema.define(:version => 20111118170846) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(:version => 20111118140608) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "points", ["user_id"], :name => "index_points_on_user_id"
 
   create_table "products", :force => true do |t|
     t.string   "name"
