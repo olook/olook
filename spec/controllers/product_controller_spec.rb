@@ -13,5 +13,17 @@ describe ProductController do
         assigns(:product).should == product
       end
     end
+
+    describe "POST add_to_card" do
+      it "should redirect back to product page" do
+        post :add_to_cart, :variant => {:id => variant.id}
+        response.should redirect_to(product_path(product))
+      end
+
+      it "should add a variant in the order" do
+        Order.any_instance.should_receive(:add_variant).with(variant)
+        post :add_to_cart, :variant => {:id => variant.id}
+      end
+    end
   end
 end
