@@ -4,6 +4,22 @@ describe Order do
   subject { FactoryGirl.create(:order)}
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35) }
 
+  context "when the inventory is zero" do
+    before :each do
+      basic_shoe_35.update_attributes(:inventory => 0)
+    end
+
+    it "should not create line items" do
+      expect {
+        subject.add_variant(basic_shoe_35)
+      }.to change(LineItem, :count).by(0)
+    end
+
+    it "should return a nil line item" do
+      subject.add_variant(basic_shoe_35).should == nil
+    end
+  end
+
   context "when the user try add a new variant" do
     it "should add it in the order" do
       expect {
@@ -18,13 +34,13 @@ describe Order do
       @line_item = subject.line_items.first
     end
 
-    it "should increment the" do
+    it "should increment the quantity" do
       first_quantity = @line_item.quantity
       subject.add_variant(basic_shoe_35)
       @line_item.quantity.should == first_quantity + Order::DEFAULT_QUANTITY
     end
 
-    it "should not add it in the order" do
+    it "should not create line items" do
       expect {
         subject.add_variant(basic_shoe_35)
       }.to change(LineItem, :count).by(0)

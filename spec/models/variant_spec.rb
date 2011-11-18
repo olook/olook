@@ -28,7 +28,7 @@ describe Variant do
     it { should validate_presence_of(:weight) }
     it { should validate_numericality_of(:weight) }
   end
-  
+
   subject { FactoryGirl.create(:basic_shoe_size_35) }
 
   describe "#sku" do
@@ -36,6 +36,17 @@ describe Variant do
       subject.product.model_number = 'ABC-123'
       subject.number = '35A'
       subject.sku.should == 'ABC-123-35A'
+    end
+  end
+
+  describe "variant availability" do
+    it "should return true if inventory > 0" do
+      subject.available?.should eq(true)
+    end
+
+    it "should return true" do
+      subject.update_attributes(:inventory => 0)
+      subject.available?.should_not eq(true)
     end
   end
 
@@ -48,7 +59,7 @@ describe Variant do
     Variant.count.should be_zero
   end
 
-  describe "dimension related methods" do  
+  describe "dimension related methods" do
     before :each do
       subject.stub(:width).and_return(10)
       subject.stub(:height).and_return(20)
@@ -67,10 +78,10 @@ describe Variant do
       end
     end
   end
-  
+
   describe "before_save fill is_master" do
     subject { FactoryGirl.build(:basic_shoe_size_35, :is_master => nil) }
-    
+
     it "should call fill_is master" do
       subject.should_receive(:fill_is_master)
       subject.save
