@@ -9,7 +9,6 @@ FactoryGirl.define do
       display_reference 'size-35'
       price 123.45
       inventory 10
-      
       width 1
       height 1
       length 1
@@ -23,6 +22,10 @@ FactoryGirl.define do
       display_reference 'size-45'
       price 123.45
       inventory 5
+      width 1
+      height 1
+      length 1
+      weight 1.0
     end
   end
 end

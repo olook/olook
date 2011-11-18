@@ -3,6 +3,21 @@ require 'spec_helper'
 describe Order do
   subject { FactoryGirl.create(:order)}
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35) }
+  let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40) }
+
+  context "calculating the total" do
+   it "should return the total" do
+     quantity = 3
+     expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
+     subject.add_variant(basic_shoe_35)
+     quantity.times { subject.add_variant(basic_shoe_40) }
+     subject.total.should == expected
+   end
+
+   it "should return 0" do
+     subject.total.should == 0
+   end
+  end
 
   context "when the inventory is zero" do
     before :each do
