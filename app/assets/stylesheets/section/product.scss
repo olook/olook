@@ -260,6 +260,19 @@
           li {
             width: 385px;
             display: none;
+            table {
+              width: 350px;
+              tr {
+                td {
+                  font-size: 12px;
+                  padding-bottom: 10px;
+                  &:first-child {
+                    font-weight: bold;
+                    width: 115px;
+                  }
+                }
+              }
+            }
             p {
               color: #545454;
               font-family: Times;
