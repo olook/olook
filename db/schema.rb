@@ -109,25 +109,18 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
   add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
 
-<<<<<<< HEAD
   create_table "line_items", :force => true do |t|
     t.integer "variant_id"
     t.integer "order_id"
     t.integer "quantity"
   end
 
-=======
->>>>>>> added migration: create_payments; fixed migration create_orders
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Added payment response
   create_table "payment_responses", :force => true do |t|
     t.integer  "payment_id"
     t.string   "response_id"
@@ -144,11 +137,6 @@ ActiveRecord::Schema.define(:version => 20111118141853) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-=======
->>>>>>> added migration: create_payments; fixed migration create_orders
-=======
->>>>>>> Added payment response
   create_table "payments", :force => true do |t|
     t.integer  "order_id"
     t.integer  "payment_type"
