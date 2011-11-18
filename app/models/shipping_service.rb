@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ShippingCompany < ActiveRecord::Base
+class ShippingService < ActiveRecord::Base
   DEFAULT_CUBIC_WEIGHT_FACTOR = 167
 
   has_many :freight_prices, :dependent => :destroy
