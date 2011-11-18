@@ -46,10 +46,10 @@ class SurveyQuestions
   end
 
   def title_color_question
-    "24. Dê uma nota para cada uma das cartelas de cores abaixo."
+    "23. Dê uma nota para cada uma das cartelas de cores abaixo."
   end
 
   def title_about_question
-    "25. Conte-nos um pouco sobre você:"
+    "24. Conte-nos um pouco sobre você:"
   end
 end
