@@ -53,16 +53,28 @@
       }
       div#full_pic {
         width: 500px;
+        height: 500px;
         margin-bottom: 30px;
-        overflow: auto;
+        overflow: hidden;
         float: left;
         border-bottom: 2px #e05f8f solid;
-        a {
-          width: 500px;
-          float: left;
-          img {
+        ul {
+          li {
             width: 500px;
-            height: 500px;
+            overflow: auto;
+            display: none;
+            &:first-child {
+              margin-right: 1000px;
+              display: block;
+            }
+            a {
+              width: 500px;
+              float: left;
+              img {
+                width: 500px;
+                height: 500px;
+              }
+            }
           }
         }
       }
