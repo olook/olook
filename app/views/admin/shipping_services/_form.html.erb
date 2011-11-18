@@ -1,0 +1,41 @@
+<%= form_for([:admin, @shipping_service], :html => { :multipart => true }) do |f| %>
+  <% if @shipping_service.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shipping_service.errors.count, "error") %> prohibited this shipping_service from being saved:</h2>
+
+      <ul>
+      <% @shipping_service.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :erp_code %><br />
+    <%= f.text_field :erp_code %>
+  </div>
+  <div class="field">
+    <%= f.label :erp_delivery_service %><br />
+    <%= f.text_field :erp_delivery_service %>
+  </div>
+  <div class="field">
+    <%= f.label :cubic_weight_factor %><br />
+    <%= f.text_field :cubic_weight_factor %>
+  </div>
+  <div class="field">
+    <%= f.label "Load freight prices" %><br />
+    <%= file_field_tag :freight_prices %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

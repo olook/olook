@@ -40,6 +40,7 @@ Olook::Application.routes.draw do
     resources :users, :except => [:create, :new, :destroy] do
       collection do
         get 'export' => 'users#export', :as => 'export'
+        get 'statistics' => 'users#statistics', :as => 'statistics'
       end
     end
 
@@ -49,8 +50,7 @@ Olook::Application.routes.draw do
         post 'invalidates_cdn_content' => "utilities#invalidates_cdn_content", :as => "invalidates_cdn_content"
       end
     end
-
-    resources :shipping_companies
+    resources :shipping_services
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do

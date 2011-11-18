@@ -1,0 +1,32 @@
+<h2>Shipping Company</h2>
+<div class="inner">
+  <p>
+    <b>Name:</b>
+    <%= @shipping_service.name %>
+  </p>
+
+  <p>
+    <b>Priority:</b>
+    <%= @shipping_service.priority %>
+  </p>
+  <p>
+    <b>ERP Code:</b>
+    <%= @shipping_service.erp_code %>
+  </p>
+  <p>
+    <b>ERP delivery code:</b>
+    <%= @shipping_service.erp_delivery_service %>
+  </p>
+  <p>
+    <b>Cubic weight factor:</b>
+    <%= @shipping_service.cubic_weight_factor %>
+  </p>
+  
+  <%= render :partial => 'freight_prices', :locals => {:freight_prices => @freight_prices} %>
+  
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_shipping_service_path(@shipping_service) %></li>
+  <li><%= link_to 'Back', admin_shipping_services_path %></li>
+<% end %>
