@@ -217,4 +217,14 @@ describe User do
       subject.events.find_by_type(EventType::SEND_INVITE).should_not be_nil
     end
   end
+  
+  describe "#invitation_url should return a properly formated URL, used when there's no routing context" do
+    it "should return with olook.com.br root as default" do
+      subject.invitation_url.should == "http://olook.com.br/convite/#{subject.invite_token}"
+    end
+
+    it "should accept an alternate root" do
+      subject.invitation_url('localhost').should == "http://localhost/convite/#{subject.invite_token}"
+    end
+  end
 end

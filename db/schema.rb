@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115221405) do
+ActiveRecord::Schema.define(:version => 20111118170846) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order"
   end
 
   create_table "details", :force => true do |t|
@@ -50,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "type",        :limit => 255, :null => false
+    t.integer  "type",        :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -61,20 +62,20 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "freight_prices", :force => true do |t|
-    t.integer  "shipping_company_id"
-    t.integer  "zip_start",           :limit => 255
-    t.integer  "zip_end",             :limit => 255
-    t.decimal  "weight_start"
-    t.decimal  "weight_end"
+    t.integer  "shipping_service_id"
+    t.integer  "zip_start"
+    t.integer  "zip_end"
+    t.decimal  "weight_start",        :precision => 8, :scale => 3
+    t.decimal  "weight_end",          :precision => 8, :scale => 3
     t.integer  "delivery_time"
-    t.decimal  "price"
-    t.decimal  "cost"
+    t.decimal  "price",               :precision => 8, :scale => 2
+    t.decimal  "cost",                :precision => 8, :scale => 2
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "freight_prices", ["shipping_company_id"], :name => "index_freight_prices_on_shipping_company_id"
+  add_index "freight_prices", ["shipping_service_id"], :name => "index_freight_prices_on_shipping_service_id"
   add_index "freight_prices", ["weight_end"], :name => "index_freight_prices_on_weight_end"
   add_index "freight_prices", ["weight_start"], :name => "index_freight_prices_on_weight_start"
   add_index "freight_prices", ["zip_end"], :name => "index_freight_prices_on_zip_end"
@@ -97,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
-    t.integer  "display_on", :limit => 255
+    t.integer  "display_on"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -112,6 +113,8 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "points", ["user_id"], :name => "index_points_on_user_id"
 
   create_table "products", :force => true do |t|
     t.string   "name"
@@ -155,11 +158,14 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "shipping_companies", :force => true do |t|
+  create_table "shipping_services", :force => true do |t|
     t.string   "name"
     t.string   "erp_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cubic_weight_factor"
+    t.integer  "priority"
+    t.string   "erp_delivery_service"
   end
 
   create_table "survey_answers", :force => true do |t|
@@ -194,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
     t.string   "cpf"
     t.boolean  "is_invited"
     t.date     "birthday"
+    t.datetime "welcome_sent_at"
   end
 
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
@@ -205,10 +212,15 @@ ActiveRecord::Schema.define(:version => 20111115221405) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.decimal  "price"
+    t.decimal  "price",             :precision => 10, :scale => 2
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_master"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "length"
+    t.decimal  "weight",            :precision => 8,  :scale => 2
   end
 
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"

@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe FreightPrice do
   describe 'validations' do
-    it { should validate_presence_of(:shipping_company) }
-    it { should belong_to(:shipping_company) }
+    it { should validate_presence_of(:shipping_service) }
+    it { should belong_to(:shipping_service) }
 
     describe 'zip_start' do
       it { should validate_presence_of(:zip_start) }

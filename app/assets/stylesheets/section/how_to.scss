@@ -1,0 +1,101 @@
+@import 'partials/mixins';
+@import 'common/fonts';
+
+#function {
+  width: 960px;
+  overflow: hidden;
+  margin: 35px auto 50px;
+
+  ul {
+    width: 100%;
+    overflow: auto;
+    li {
+      float: left;
+      list-style: none;
+      margin-right: 10px;
+      .img_left{
+        margin-bottom: 33px;
+      }
+      .img_leftmid{
+        margin-bottom: 28px;
+      }
+      .img_rightmid{
+        margin-bottom: 16px;
+      }
+      .img_right{
+        margin-bottom: 3px;
+      }
+    }
+  }
+  h1 {
+    background: url('/assets/how_to/title-how-to.png') no-repeat;
+    text-indent: -9999px;
+    width: 240px;
+    height: 20px;
+    display: block;
+    margin-bottom: 12px;
+  }
+}
+
+  
+.box {
+  width: 237px;
+  height: 278px;
+  margin-right: 3px !important;
+  float: left;
+
+  &#left_box {
+    background: url('/assets/about/box-1.png') no-repeat;
+  }
+
+  &#left_box_mid {
+    background: url('/assets/about/box-2.png') no-repeat;
+  }
+
+  &#right_box_mid {
+    background: url('/assets/about/box-3.png') no-repeat;
+  }
+  
+  &#right_box {
+    background: url('/assets/about/box-4.png') no-repeat;
+    margin-right: none !important;
+  }
+}
+
+.box h3 {
+  font-weight: normal;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: center;
+  text-indent: -9999px;
+  letter-spacing: -1px;
+  width:185px;
+}
+
+.box p {
+  font-size: 11px;
+  text-align: center;
+  text-indent: -9999px;
+}
+
+#how_to{
+  background: url('/assets/how_to/bg-shoes.png') 570px 60px no-repeat;
+  padding:0 20px;
+  h1 {
+    background: url('/assets/how_to/subtitle-how-to.png') no-repeat;
+    text-indent: -9999px;
+    width: 662px;
+    height: 130px;
+    display: block;
+    margin: 0 0 35px;
+  }
+  p {
+    font-size: 14px;
+    width: 515px;
+    margin-bottom: 20px;
+    &.last {
+      color: #df5b8d;
+      font-weight: bold;
+    }
+  }
+}
