@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116021234) do
+ActiveRecord::Schema.define(:version => 20111118141853) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -87,6 +87,12 @@ ActiveRecord::Schema.define(:version => 20111116021234) do
   add_index "invites", ["email"], :name => "index_invites_on_email"
   add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
+
+  create_table "line_items", :force => true do |t|
+    t.integer "variant_id"
+    t.integer "order_id"
+    t.integer "quantity"
+  end
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"

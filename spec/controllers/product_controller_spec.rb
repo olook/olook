@@ -3,7 +3,14 @@ require 'spec_helper'
 
 describe ProductController do
   render_views
-  let(:product) { FactoryGirl.create(:basic_shoe) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
+  let(:product) { variant.product }
+
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:user]
+    sign_in user
+  end
 
   describe "#index" do
     it "should load and display the product" do

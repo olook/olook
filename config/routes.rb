@@ -13,6 +13,7 @@ Olook::Application.routes.draw do
   resources :payments, :path => 'pagamento', :controller => :payments
   resources :addresses, :path => 'endereco', :controller => :addresses
 
+  post "/add_to_cart" => "product#add_to_cart", :as => "add_to_cart"
   get "/produto/:id" => "product#index", :as => "product"
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
