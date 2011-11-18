@@ -2,10 +2,10 @@
 class ImportFreightPricesWorker
   @queue = :import_freight
 
-  def self.perform(shipping_company_id, temp_filename)
-    shipping_company = ShippingCompany.find shipping_company_id
+  def self.perform(shipping_service_id, temp_filename)
+    shipping_service = ShippingService.find shipping_service_id
     
-    shipping_company.freight_prices.destroy_all
+    shipping_service.freight_prices.destroy_all
 
     count = -1
     load_data(temp_filename).each do |line|
@@ -14,7 +14,7 @@ class ImportFreightPricesWorker
 
       data = line.map {|column| column.force_encoding 'utf-8' }
 
-      create_freight(shipping_company, data)
+      create_freight(shipping_service, data)
     end
   end
 
@@ -28,8 +28,8 @@ protected
     CSV.read(temp_file_uploader.file.path)
   end
   
-  def self.create_freight(shipping_company, data)
-    shipping_company.freight_prices.build.tap do |freight|
+  def self.create_freight(shipping_service, data)
+    shipping_service.freight_prices.build.tap do |freight|
       freight.zip_start = data[1]
       freight.zip_end = data[2]
       freight.weight_start = data[5].to_f

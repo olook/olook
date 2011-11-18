@@ -1,0 +1,10 @@
+<h2>Editing shipping service</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_shipping_service_path(@shipping_service) %></li>
+  <li><%= link_to 'Back', admin_shipping_services_path %></li>
+<% end %>

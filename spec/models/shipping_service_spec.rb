@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe ShippingCompany do
-  subject { FactoryGirl.create :shipping_company }
+describe ShippingService do
+  subject { FactoryGirl.create :shipping_service }
 
   describe 'validations' do
     it { should have_many(:freight_prices) }
@@ -25,11 +25,11 @@ describe ShippingCompany do
     let(:volume) { 0.019008 } # 11x54x32 cm
 
 
-    let!(:wrong_freight) { FactoryGirl.create :freight_price, :shipping_company => subject,
+    let!(:wrong_freight) { FactoryGirl.create :freight_price, :shipping_service => subject,
                               :zip_start => 5379016, :zip_end => 5379100,
                               :weight_start => 0.0, :weight_end => 2.5,
                               :price => 9.0, :cost => 4.0, :delivery_time => 1 }
-    let!(:right_freight) { FactoryGirl.create :freight_price, :shipping_company => subject,
+    let!(:right_freight) { FactoryGirl.create :freight_price, :shipping_service => subject,
                               :zip_start => 5379016, :zip_end => 5379100,
                               :weight_start => 2.5, :weight_end => 4.5,
                               :price => 10.0, :cost => 5.0, :delivery_time => 2 }
@@ -60,7 +60,7 @@ describe ShippingCompany do
   end
   
   describe '#cubic_weight_factor' do
-    subject { FactoryGirl.create :shipping_company }
+    subject { FactoryGirl.create :shipping_service }
 
     it 'should return 167 by default' do
       subject.cubic_weight_factor.should == 167

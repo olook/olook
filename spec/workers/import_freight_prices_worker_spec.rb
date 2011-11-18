@@ -2,15 +2,15 @@
 require "spec_helper"
 
 describe ImportFreightPricesWorker do
-  let(:shipping_company) { FactoryGirl.create :shipping_company }
+  let(:shipping_service) { FactoryGirl.create :shipping_service }
   let(:tempfile) { 'abc123.csv' }
 
   describe "#perform" do
-    it 'should assign the shipping company' do
-      ShippingCompany.should_receive(:find).with(shipping_company.id).and_return(shipping_company)
-      shipping_company.freight_prices.should_receive(:destroy_all)
+    it 'should assign the shipping service' do
+      ShippingService.should_receive(:find).with(shipping_service.id).and_return(shipping_service)
+      shipping_service.freight_prices.should_receive(:destroy_all)
       described_class.stub(:load_data).and_return([])
-      described_class.perform(shipping_company.id, tempfile)
+      described_class.perform(shipping_service.id, tempfile)
     end
   end
   
@@ -44,7 +44,7 @@ describe ImportFreightPricesWorker do
   describe '#create_freight' do
     let(:data) { 'TEX,1001000,1142100,SP,SAO PAULO,0.001,30.000,1,9.9,15,Atendida,Capital'.split ',' }
     it 'should properly parse the data from the file' do
-      freight = described_class.create_freight(shipping_company, data)
+      freight = described_class.create_freight(shipping_service, data)
 
       freight.should be_persisted
 
