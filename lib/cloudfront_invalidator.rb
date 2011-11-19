@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require 'curb'
 require 'base64'
 require 'openssl'
