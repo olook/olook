@@ -8,8 +8,8 @@ class CloudfrontInvalidator
   attr_reader :aws_account, :aws_secret, :distribution
 
   def initialize
-    rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/..'
-    rails_env = ENV['RAILS_ENV'] || 'development'
+    rails_root = Rails.root || File.dirname(__FILE__) + '/..'
+    rails_env = Rails.env || 'development'
 
     invalidator_config = YAML.load_file(rails_root + '/config/aws.yml')
     @aws_account = invalidator_config[rails_env]['aws_account']
@@ -27,7 +27,7 @@ class CloudfrontInvalidator
   def post(content)
     Curl::Easy.http_post("https://cloudfront.amazonaws.com/2010-08-01/distribution/#{distribution}/invalidation", content) do |c|
       c.headers["Authorization"] = "AWS #{aws_account}:#{build_digest}"
-      c.headers["Content-Type"] = "text/xml"
+      c.headers["Content-Type"] = 'text/xml'
       c.headers["x-amz-date"] = formatted_date
     end
   end
