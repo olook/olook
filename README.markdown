@@ -10,7 +10,11 @@ Setup
 
 - bundle install
 - copy config/database.yml.sample to config/database.yml
-- copy config/facebook.yml.sample to config/facebook.yml and set your app_id and app_secret
+- copy config/facebook.yml.sample to config/facebook.yml and set your app_id and app_secret.
+- copy config/yahoo.yml.sample to config/yahoo.yml and set your api_key, api_secret and callback_uri.
+- copy config/aws.yml.sample to config/aws.yml and set your aws_account, aws_secret and cdn distribution id.
+- copy config/analytics.yml.sample to config/analytics.yml and set your analytics_id.
+- copy config/email.yml.sample to config/email.yml and set your email account.
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
 - rake db:seed
