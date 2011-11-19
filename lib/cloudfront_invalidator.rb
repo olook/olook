@@ -1,9 +1,10 @@
+require 'curb'
+require 'base64'
 require 'openssl'
 require 'digest/sha1'
-require 'base64'
-require 'curb'
 
 class CloudfrontInvalidator
+  attr_reader :aws_account, :aws_secret, :distribution
 
   def initialize
     rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/..'
@@ -16,15 +17,30 @@ class CloudfrontInvalidator
   end
 
   def invalidate(path)
-    date = Time.now.utc.strftime("%a, %d %b %Y %H:%M:%S %Z")
-    digest = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @aws_secret, date)).strip
+    xml_content = build_xml(path)
+    post(xml_content)
+  end
 
-    request = %Q$<InvalidationBatch><Path>#{path}</Path><CallerReference>CLEANING_OLD_IMAGES_#{Time.now.utc.to_i}</CallerReference></InvalidationBatch>$
+  private
 
-    Curl::Easy.http_post("https://cloudfront.amazonaws.com/2010-08-01/distribution/#{@distribution}/invalidation", request) do |c|
-      c.headers["Authorization"] = "AWS #{@aws_account}:#{digest}"
+  def post(content)
+    Curl::Easy.http_post("https://cloudfront.amazonaws.com/2010-08-01/distribution/#{distribution}/invalidation", content) do |c|
+      c.headers["Authorization"] = "AWS #{aws_account}:#{build_digest}"
       c.headers["Content-Type"] = "text/xml"
-      c.headers["x-amz-date"] = date
+      c.headers["x-amz-date"] = formatted_date
     end
   end
+
+  def build_digest
+    Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), aws_secret, formatted_date)).strip
+  end
+
+  def formatted_date
+    Time.now.utc.strftime("%a, %d %b %Y %H:%M:%S %Z")
+  end
+
+  def build_xml(path)
+    %Q$<InvalidationBatch><Path>#{path}</Path><CallerReference>CLEANING_OLD_IMAGES_#{Time.now.utc.to_i}</CallerReference></InvalidationBatch>$
+  end
 end
+
