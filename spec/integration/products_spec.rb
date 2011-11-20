@@ -5,7 +5,7 @@ require 'integration/helpers'
 feature "Buying products", %q{
   In order to buy products
   As a user
-  I want add products in the shopping cart and buy it
+  I want to build a look
 } do
 
   let(:user) { FactoryGirl.create(:user) }
@@ -18,15 +18,15 @@ feature "Buying products", %q{
    do_login!(user)
   end
 
-    context "products page" do
-      scenario "showing a product" do
+    context "in the products page" do
+      scenario "I want to see product" do
         visit product_path(product)
         page.should have_content(product.name)
       end
     end
 
-    context "shopping cart" do
-      scenario "adding products in the cart" do
+    context "with the shopping cart" do
+      scenario "I want to add a product" do
         visit product_path(product)
         choose variant.number
         click_button "add_product"
