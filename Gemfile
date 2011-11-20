@@ -28,6 +28,7 @@ gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync', '=0.1.10'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git'
+gem 'curb'
 
 group :development do
   gem 'faker'

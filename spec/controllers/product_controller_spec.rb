@@ -27,3 +27,4 @@ describe ProductController do
     end
   end
 end
+
