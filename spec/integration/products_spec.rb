@@ -12,16 +12,26 @@ feature "Buying products", %q{
   let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:product) { variant.product }
 
-  context "shopping cart" do
-    background do
-      do_login!(user)
+  context "buying products" do
+
+  background do
+   do_login!(user)
+  end
+
+    context "products page" do
+      scenario "showing a product" do
+        visit product_path(product)
+        page.should have_content(product.name)
+      end
     end
 
-    scenario "adding products in the cart" do
-      visit product_path(product)
-      choose variant.number
-      click_button "add_product"
-      page.should have_content("Produto adicionado com sucesso")
+    context "shopping cart" do
+      scenario "adding products in the cart" do
+        visit product_path(product)
+        choose variant.number
+        click_button "add_product"
+        page.should have_content("Produto adicionado com sucesso")
+      end
     end
   end
 end

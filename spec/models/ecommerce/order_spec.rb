@@ -41,6 +41,10 @@ describe Order do
         subject.add_variant(basic_shoe_35)
       }.to change(LineItem, :count).by(1)
     end
+
+    it "should return a line item" do
+      subject.add_variant(basic_shoe_35).should be_a(LineItem)
+    end
   end
 
   context "when the variant already exists in the order" do

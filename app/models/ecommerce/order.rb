@@ -12,7 +12,8 @@ class Order < ActiveRecord::Base
       if current_item
         current_item.increment!(:quantity, quantity)
       else
-        line_items << LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity)
+        current_item =  LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity)
+        line_items << current_item
       end
       current_item
     end
