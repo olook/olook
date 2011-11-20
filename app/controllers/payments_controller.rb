@@ -40,7 +40,7 @@ class PaymentsController < ApplicationController
 
   def check_user_address
     address_id = params[:delivery_address_id] || session[:delivery_address_id]
-    @delivery_address = @user.addresses.where(:id => address_id).first
+    @delivery_address = @user.addresses.find_by_id(address_id)
     redirect_to(addresses_path, :notice => "Informe ou cadastre um endereço") unless @delivery_address
   end
 end
