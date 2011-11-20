@@ -22,7 +22,7 @@ class ProductController < ApplicationController
   private
   def check_product_variant
     variant_id = params[:variant][:id] if  params[:variant]
-    @variant = Variant.where(:id => variant_id).first
+    @variant = Variant.find_by_id(variant_id)
     redirect_to(:back, :notice => "Selecione um tamanho") unless @variant
   end
 
