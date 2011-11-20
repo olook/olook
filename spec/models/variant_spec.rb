@@ -39,17 +39,6 @@ describe Variant do
     end
   end
 
-  describe "variant availability" do
-    it "should return true if inventory > 0" do
-      subject.available?.should eq(true)
-    end
-
-    it "should return true" do
-      subject.update_attributes(:inventory => 0)
-      subject.available?.should_not eq(true)
-    end
-  end
-
   it "should destroy the associated variants when the product is destroyed" do
     subject.should be_persisted
     Product.count.should == 1
@@ -94,3 +83,4 @@ describe Variant do
     end
   end
 end
+

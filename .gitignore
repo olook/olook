@@ -20,6 +20,7 @@ config/facebook.yml
 config/analytics.yml
 config/email.yml
 config/yahoo.yml
+config/aws.yml
 *.passwd
 db/schema.rb
 .watchr

@@ -46,6 +46,13 @@ Olook::Application.routes.draw do
         get 'statistics' => 'users#statistics', :as => 'statistics'
       end
     end
+
+    resources :utilities do
+      collection do
+        post 'restart_resque_workers' => "utilities#restart_resque_workers", :as => "restart_resque_workers"
+        post 'invalidates_cdn_content' => "utilities#invalidates_cdn_content", :as => "invalidates_cdn_content"
+      end
+    end
     resources :shipping_services
   end
 
