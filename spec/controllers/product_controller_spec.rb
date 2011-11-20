@@ -20,14 +20,33 @@ describe ProductController do
     end
 
     describe "POST add_to_card" do
-      it "should redirect back to product page" do
-        post :add_to_cart, :variant => {:id => variant.id}
-        response.should redirect_to(product_path(product))
+      before :each do
+        @back = request.env['HTTP_REFERER'] = product_path(product)
       end
 
-      it "should add a variant in the order" do
-        Order.any_instance.should_receive(:add_variant).with(variant)
-        post :add_to_cart, :variant => {:id => variant.id}
+      context "with a valid @variant" do
+        it "should redirect back to product page" do
+          post :add_to_cart, :variant => {:id => variant.id}
+          response.should redirect_to(product_path(product))
+        end
+
+        it "should add a variant in the order" do
+          Order.any_instance.should_receive(:add_variant).with(variant).and_return(true)
+          post :add_to_cart, :variant => {:id => variant.id}
+        end
+      end
+
+      context "with a invalid @variant" do
+        it "should redirect back with a warning if the variant dont exists" do
+          post :add_to_cart, :variant => {:id => ""}
+          response.should redirect_to(@back, :notice => "Selecione um produto")
+        end
+
+        it "should redirect back with a warning if the variant is not available" do
+          Variant.any_instance.stub(:available?).and_return(false)
+          post :add_to_cart, :variant => {:id => ""}
+          response.should redirect_to(@back, :notice => "Produto esgotado")
+        end
       end
     end
   end

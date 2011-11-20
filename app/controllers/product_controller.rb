@@ -3,6 +3,7 @@ class ProductController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :check_product_variant, :only => [:add_to_cart]
   before_filter :current_order
 
   def show
@@ -11,12 +12,19 @@ class ProductController < ApplicationController
   end
 
   def add_to_cart
-    @variant = Variant.find(params[:variant][:id])
-    @order.add_variant(@variant)
-    redirect_to(product_path(@variant.product), :notice => "Produto adicionado com sucesso")
+    if @order.add_variant(@variant)
+      redirect_to(product_path(@variant.product), :notice => "Produto adicionado com sucesso")
+    else
+      redirect_to(:back, :notice => "Produto esgotado")
+    end
   end
 
   private
+  def check_product_variant
+    @variant = Variant.where(:id => params[:variant][:id]).first
+    redirect_to(:back, :notice => "Selecione um tamanho") unless @variant
+  end
+
   def current_order
     @order = (session[:order] ||= @user.orders.create)
   end
