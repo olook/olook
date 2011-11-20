@@ -1,8 +1,3 @@
-<%= form_tag(add_to_cart_path) do %>
-  <%= text_field('variant', 'id', :value => @product.variants.first.id)  %>
- <%= submit_tag('Add')  %>
-<% end %>
-
 <span>Sua Vitrine</span>
 
 <h2><%= @product.name %></h2>
@@ -49,7 +44,7 @@
         <p class="price">R$ 123,45</p>
       </div>
 
-      <%= form_tag('#') do %>
+      <%= form_tag(add_to_cart_path) do %>
         <div class="color_size">
           <div class="line color">
             <p>Cor:</p>
@@ -65,21 +60,13 @@
           <div class="line size">
             <p>Tamanho:</p>
             <ol>
-              <li class="unavailable">
-                <label for="size_1">33
-                  <%= radio_button_tag("size", "1") %>
-                </label>
-              </li>
+              <% @variants.each do |variant| %>
               <li>
-                <label for="size_2">34
-                  <%= radio_button_tag("size", "2") %>
+                <label for="size_1"><%= variant.number %>
+                  <%= radio_button_tag('variant[id]', variant.id) %>
                 </label>
               </li>
-              <li>
-                <label for="size_3">35
-                  <%= radio_button_tag("size", "3") %>
-                </label>
-              </li>
+            <% end %>
             </ul>
           </div>
         </div>
