@@ -61,7 +61,7 @@
             <p>Tamanho:</p>
             <ol>
               <% @variants.each do |variant| %>
-              <li>
+              <li <%= "class='unavailable'" unless variant.available?%>>
                 <label for="size_1"><%= variant.number %>
                   <%= radio_button_tag('variant[id]', variant.id) %>
                 </label>
@@ -70,7 +70,7 @@
             </ul>
           </div>
         </div>
-        <%= submit_tag "", :class=>"add_product" %>
+        <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
       <% end %>
 
       <div id="box_tabs">
