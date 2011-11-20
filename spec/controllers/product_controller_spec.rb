@@ -12,6 +12,11 @@ describe ProductController do
         get :show, :id => product.id
         assigns(:product).should == product
       end
+
+      it "should assigns @variants" do
+        get :show, :id => product.id
+        assigns(:variants).should == product.variants
+      end
     end
 
     describe "POST add_to_card" do
