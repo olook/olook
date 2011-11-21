@@ -3,6 +3,7 @@ class PaymentsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :check_order
   before_filter :check_user_address, :only => [:new, :create]
 
   def index
@@ -23,7 +24,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(params[:payment])
 
     if @payment.valid?
-      order = @user.orders.create
+      order = session[:order]
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
       payment_builder.process!
       redirect_to(root_path, :notice => "Sucesso")
@@ -33,6 +34,10 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def check_order
+    redirect_to(root_path, :notice => "Sua sacola está vazia") unless session[:order]
+  end
 
   def load_user
     @user = current_user
