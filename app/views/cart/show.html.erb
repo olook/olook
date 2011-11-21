@@ -1,0 +1,13 @@
+<% if @order %>
+  <ul>
+    <% @order.line_items.each do |item| %>
+    <li>
+      <%= item.variant.name %> |
+      <%= form_for(cart_path, :method => :put) do %>
+        <%= hidden_field('variant','id', :value => item.variant.id) %>
+        <%= submit_tag('Excluir')  %>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+<% end %>
