@@ -1,8 +1,10 @@
 $(document).ready(function() {
+  init.index = 1;
+  init.locked = false;
+
   init.carousel();
   init.bindActions();
   init.dialog();
-  init.index = 1;
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -77,12 +79,21 @@ init = {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
                  itemFirstInCallback : {
+                    onBeforeAnimation : init.lockScroll,
                     onAfterAnimation : init.showArrow
                  },
                  buttonPrevHTML : null,
                  scroll: 1
                });
              },
+
+  lockScroll: function(instance, item, index, state) {
+    init.locked = true;
+  },
+
+  unlockScroll: function(instance, item, index, state) {
+    init.locked = false;
+  },
 
   showArrow : function(instance, item, index, state) {
                 $('#asynch-load').click();
@@ -96,27 +107,31 @@ init = {
                 }else{
                   $('.jcarousel-prev').css('display', 'block');
                 }
+                init.unlockScroll();
   },
 
   mycarousel_initCallback : function(carousel) {
                               $('.jcarousel-prev').css('display', 'block');
                               $('#next_link').bind('click', function() {
-                                var analytics_step = '/quiz/' + (init.index + 1);
-                                _gaq.push(['_trackPageview', analytics_step]);
+                                if (!init.locked) {
+                                  var analytics_step = '/quiz/' + (init.index + 1);
+                                  _gaq.push(['_trackPageview', analytics_step]);
 
-                                carousel.next();
-                                init.index++;
-
+                                  carousel.next();
+                                  init.index++;
+                                }
                                 return false;
                               });
 
                               $('.jcarousel-prev').bind('click', function() {
-                                init.clearOptions( init.getCurrentPage(carousel) );
+                                if (!init.locked) {
+                                  init.clearOptions( init.getCurrentPage(carousel) );
 
-                                carousel.prev();
-                                init.index--;
+                                  carousel.prev();
+                                  init.index--;
 
-                                init.clearOptions( init.getCurrentPage(carousel) );
+                                  init.clearOptions( init.getCurrentPage(carousel) );
+                                }
 
                                 return false;
                               });
