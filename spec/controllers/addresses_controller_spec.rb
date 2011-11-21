@@ -32,4 +32,17 @@ describe AddressesController do
       session[:delivery_address_id].should == Address.all.last.id
     end
   end
+
+  describe "POST assign_address" do
+    it "should assign the delivery_address_id in the session" do
+      fake_address_id = "1"
+      post :assign_address, :delivery_address_id => fake_address_id
+      session[:delivery_address_id].should == fake_address_id
+    end
+
+    it "should redirect to new payment" do
+      post :assign_address
+      response.should redirect_to(new_payment_path)
+    end
+  end
 end
