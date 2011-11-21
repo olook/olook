@@ -19,6 +19,8 @@ class Variant < ActiveRecord::Base
   validates :length, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
   validates :weight, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
 
+  delegate :name, :to => :product
+
   def sku
     "#{product.model_number}-#{number}"
   end
