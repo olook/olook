@@ -22,6 +22,11 @@ class AddressesController < ApplicationController
     end
   end
 
+  def assign_address
+    session[:delivery_address_id] = params[:delivery_address_id]
+    redirect_to new_payment_path
+  end
+
   private
   def load_user
     @user = current_user

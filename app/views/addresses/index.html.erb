@@ -1,6 +1,6 @@
 <%= link_to "Adicionar Novo Endereço", new_address_path %>
 <% if @addresses.any? %>
-  <%= form_tag(new_payment_path, :method => :get) do %>
+  <%= form_tag(assign_address_path) do %>
     <ul>
       <% @addresses.each do |address| %>
       <li>
