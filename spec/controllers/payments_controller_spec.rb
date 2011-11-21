@@ -24,13 +24,6 @@ describe PaymentsController do
       assigns(:delivery_address).should eq(address)
     end
 
-    it "should assigns @payment given params[:delivery_address_id]" do
-      session[:delivery_address_id] = nil
-      new_address = FactoryGirl.create(:address, :user => user)
-      get 'new', :delivery_address_id => new_address.id
-      assigns(:delivery_address).should eq(new_address)
-    end
-
     it "should redirect to new_payment_path if the delivery_address_id is nil" do
       session[:delivery_address_id] = nil
       get 'new'
