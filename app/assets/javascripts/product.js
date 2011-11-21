@@ -1,4 +1,21 @@
 $(document).ready(function() {
+  $("div#carousel a.arrow").live("click", function () {
+    list = $(this).siblings(".mask").find("ul");
+    atualPosition = parseInt($(list).css("left").split("px")[0]);
+    if($(this).hasClass("next") == true) {
+      $(list).stop().animate({
+        left: atualPosition+(-50)+"px"
+      }, 'fast');
+    } else {
+      if(atualPosition < 0) {
+        $(list).stop().animate({
+          left: atualPosition+(50)+"px"
+        }, 'fast');
+      }
+    }
+    return false;
+  });
+
   $("div#pics_suggestions ul#thumbs li").each(function() {
     clazz = $(this).find("a").attr("class");
     parts = clazz.split("-");
