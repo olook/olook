@@ -12,9 +12,10 @@ Olook::Application.routes.draw do
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
   resources :addresses, :path => 'endereco', :controller => :addresses
+  resource :cart, :only => [:show, :create], :path => 'sacola', :controller => :cart
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
 
-  post "/add_to_cart" => "product#add_to_cart", :as => "add_to_cart"
+  #post "/add_to_cart" => "product#add_to_cart", :as => "add_to_cart"
   get "/produto/:id" => "product#show", :as => "product"
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
