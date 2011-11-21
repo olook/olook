@@ -13,6 +13,12 @@ describe CartController do
       end
 
       context "with a valid @variant" do
+        it "should create a Order" do
+          expect {
+            post :create, :variant => {:id => variant.id}
+          }.to change(Order, :count).by(1)
+        end
+
         it "should redirect back to product page" do
           post :create, :variant => {:id => variant.id}
           response.should redirect_to(product_path(product))
