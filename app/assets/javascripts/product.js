@@ -3,11 +3,15 @@ $(document).ready(function() {
 
   $("div#carousel a.arrow").live("click", function () {
     list = $(this).siblings(".mask").find("ul");
+    listSize = $(list).find("li").size();
+    minWidth = (listSize-9)*(-50);
     atualPosition = parseInt($(list).css("left").split("px")[0]);
     if($(this).hasClass("next") == true) {
-      $(list).stop().animate({
-        left: atualPosition+(-50)+"px"
-      }, 'fast');
+      if(atualPosition > minWidth) {
+        $(list).stop().animate({
+          left: atualPosition+(-50)+"px"
+        }, 'fast');
+      }
     } else {
       if(atualPosition < 0) {
         $(list).stop().animate({
