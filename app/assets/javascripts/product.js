@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  initProduct.updateListSize();
+
   $("div#carousel a.arrow").live("click", function () {
     list = $(this).siblings(".mask").find("ul");
     atualPosition = parseInt($(list).css("left").split("px")[0]);
@@ -55,10 +57,10 @@ $(document).ready(function() {
   });
   
   $("div#pics_suggestions ul#thumbs li:first-child a").click();
-  init_product.zoomImg();
+  initProduct.zoomImg();
 });
 
-init_product = {
+initProduct = {
   zoomImg : function() {
     $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
       zoomType: 'reverse',
@@ -67,5 +69,11 @@ init_product = {
       title: false,
       position: 'right'
     });
+  },
+  
+  updateListSize : function() {
+    list = $("div#carousel ul");
+    listSize = $(list).find("li").size()*50;
+    $(list).width(listSize);
   }
 };
