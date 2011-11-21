@@ -24,6 +24,13 @@ describe CartController do
           session[:order].should == Order.last
         end
 
+        it "should not create a Order when already exists in the session" do
+          post :create, :variant => {:id => variant.id}
+          expect {
+            post :create, :variant => {:id => variant.id}
+          }.to change(Order, :count).by(0)
+        end
+
         it "should redirect back to product page" do
           post :create, :variant => {:id => variant.id}
           response.should redirect_to(product_path(product))
