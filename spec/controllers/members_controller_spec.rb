@@ -66,17 +66,19 @@ describe MembersController do
   end
 
   it "#invite_by_email" do
-    emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
+    emails = ['jane@friend.com', 'invalid email', 'mary@friend.com', 'lily@friend.com', 'rose@friend.com']
+    joined_emails = "#{emails[0]},#{emails[1]}\r#{emails[2]}\t#{emails[3]};#{emails[4]}"
+
     mock_invites = emails.map do |email|
       invite = double(Invite)
       invite
     end
     member = double(User)
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
-    member.should_receive(:add_event).with(EventType::SEND_INVITE, '3 invites sent')
+    member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
     subject.stub(:current_user) { member }
 
-    post :invite_by_email, :invite_mail_list => emails.join(', ')
+    post :invite_by_email, :invite_mail_list => joined_emails
 
     response.should redirect_to(member_invite_path)
     flash[:notice].should match /\d+ convites enviados com sucesso!/
