@@ -10,6 +10,7 @@ class CartController < ApplicationController
   end
 
   def destroy
+    @order.destroy
     session[:order] = nil
     redirect_to cart_path, :notice => "Sua sacola está vazia"
   end

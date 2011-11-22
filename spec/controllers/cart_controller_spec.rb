@@ -13,9 +13,16 @@ describe CartController do
         session[:order].should be(nil)
       end
 
-     it "should redirect to cart_path" do
+      it "should redirect to cart_path" do
         delete :destroy
         response.should redirect_to(cart_path)
+      end
+
+      it "should destroy the Order" do
+        post :create, :variant => {:id => variant.id}
+        expect {
+          delete :destroy
+        }.to change(Order, :count).by(-1)
       end
     end
 
