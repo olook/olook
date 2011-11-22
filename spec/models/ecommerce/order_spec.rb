@@ -5,6 +5,32 @@ describe Order do
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40) }
 
+  context "removing a variant" do
+    before :each do
+      subject.add_variant(basic_shoe_35)
+    end
+
+    describe "with a valid variant" do
+      it "should destroy the variant line item" do
+        expect {
+          subject.remove_variant(basic_shoe_35)
+        }.to change(LineItem, :count).by(-1)
+      end
+    end
+
+    describe "with a invalid variant" do
+      it "should not destroy the variant line item" do
+        expect {
+          subject.remove_variant(basic_shoe_40)
+        }.to change(LineItem, :count).by(0)
+      end
+
+      it "should return a nil item" do
+        subject.remove_variant(basic_shoe_40).should be(nil)
+      end
+    end
+  end
+
   context "calculating the total" do
    it "should return the total" do
      quantity = 3

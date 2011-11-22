@@ -3,17 +3,25 @@ class CartController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_product_variant, :only => [:create]
+  before_filter :check_product_variant, :only => [:create, :edit]
   before_filter :current_order
 
   def show
+  end
+
+  def update
+    if @order.remove_variant(@variant)
+      redirect_to cart_path, :notice => "Produto removido com sucesso"
+    else
+      redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+    end
   end
 
   def create
     if @order.add_variant(@variant)
       redirect_to(product_path(@variant.product), :notice => "Produto adicionado com sucesso")
     else
-      redirect_to(:back, :notice => "Produto esgotado!!")
+      redirect_to(:back, :notice => "Produto esgotado")
     end
   end
 

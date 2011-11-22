@@ -19,6 +19,11 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def remove_variant(variant)
+    current_item = line_items.select { |item| item.variant == variant }.first
+    current_item.destroy if current_item
+  end
+
   def total
     line_items.inject(0){|result, item| result + item.total_price }
   end
