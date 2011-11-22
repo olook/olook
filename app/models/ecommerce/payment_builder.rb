@@ -22,7 +22,6 @@ class PaymentBuilder
   end
 
   def send_payment
-    debugger
     @response = MoIP::Client.checkout(payment_data)
   end
 
