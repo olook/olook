@@ -1,0 +1,20 @@
+table.items_list {
+  thead tr th {
+    text-align: left;
+    padding: 5px 0;
+    &.item {
+      width: 560px;
+    }
+    &.amount {
+      width: 160px;
+    }
+    &.value {
+      width: 270px;
+    }
+  }
+  tbody tr td {
+    &.value {
+      width: 150px;
+    }
+  }
+}
