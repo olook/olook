@@ -27,6 +27,7 @@ class PaymentsController < ApplicationController
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
       payment_builder.process!
+      clean_session_order!
       redirect_to(root_path, :notice => "Sucesso")
     else
       respond_with(@payment)
@@ -34,6 +35,10 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def clean_session_order!
+    session[:order] = nil
+  end
 
   def check_order
     redirect_to(root_path, :notice => "Sua sacola está vazia") unless session[:order]
