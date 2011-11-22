@@ -12,6 +12,11 @@ describe CartController do
         delete :destroy
         session[:order].should be(nil)
       end
+
+     it "should redirect to cart_path" do
+        delete :destroy
+        response.should redirect_to(cart_path)
+      end
     end
 
     describe "PUT update" do
