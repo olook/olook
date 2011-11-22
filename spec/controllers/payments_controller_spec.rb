@@ -57,6 +57,13 @@ describe PaymentsController do
         payment_builder.should_receive(:process!)
         post :create, :payment => attributes
       end
+
+      it "should clean the session order" do
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.should_receive(:process!)
+        post :create, :payment => attributes
+        session[:order].should be(nil)
+      end
     end
 
     describe "with invalid params" do
