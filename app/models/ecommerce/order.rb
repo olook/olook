@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
   belongs_to :user
   has_many :variants, :through => :line_items
-  has_many :line_items
+  has_many :line_items, :dependent => :destroy
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
 
