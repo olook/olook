@@ -9,6 +9,11 @@ class CartController < ApplicationController
   def show
   end
 
+  def destroy
+    session[:order] = nil
+    redirect_to cart_path, :notice => "Sua sacola está vazia"
+  end
+
   def update
     notice = @order.remove_variant(@variant) ? "Produto removido com sucesso" : "Este produto não está na sua sacola"
     redirect_to cart_path, :notice => notice
