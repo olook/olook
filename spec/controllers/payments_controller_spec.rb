@@ -16,7 +16,9 @@ describe PaymentsController do
   describe "GET new" do
     context "with a valid order" do
       before :each do
-        session[:order] = :fake_order
+        order = double
+        order.stub(:reload)
+        session[:order] = order
       end
       it "should assigns @payment" do
         get 'new'
@@ -45,7 +47,9 @@ describe PaymentsController do
 
   describe "POST create" do
     before :each do
-      session[:order] = :fake_order
+      order = double
+      order.stub(:reload)
+      session[:order] = order
     end
     describe "with valid params" do
       it "should process the payment" do
