@@ -1,13 +1,13 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag "checkout" %>
+  <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0" class="items_list">
   <thead>
     <tr>
-      <th>Item</th>
-      <th>Quantidade</th>
-      <th colspan="2">Valor</th>
+      <th class="item">Item</th>
+      <th class="amount">Quantidade</th>
+      <th class="value" colspan="2">Valor</th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +18,7 @@
           <%= item.variant.name %>
         </td>
         <td>1</td>
-        <td>1</td>
+        <td class="value">1</td>
         <td>
           <%= form_for(cart_path, :method => :put) do %>
             <%= hidden_field('variant','id', :value => item.variant.id) %>
