@@ -73,7 +73,7 @@ describe PaymentBuilder do
 
   it "should return payment data for billet" do
     expected = { :valor => order.total, :id_proprio => order.id,
-                :forma => payment.to_s, :pagador => payer,
+                :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON  }
 
     subject.payment_data.should == expected
@@ -82,7 +82,7 @@ describe PaymentBuilder do
   it "should return payment data for debit" do
     subject.payment.payment_type = Payment::TYPE[:debit]
     expected = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-               :instituicao => payment.bank, :pagador => payer,
+               :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
     subject.payment_data.should == expected
