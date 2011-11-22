@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
+  include ::SslRequirement
+
   protect_from_forgery
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
