@@ -32,7 +32,6 @@ class PaymentBuilder
 
   def create_payment_response
     payment_response = payment.build_payment_response
-    debugger
     payment_response.build_attributes response
     payment_response.save
   end
