@@ -7,6 +7,13 @@ describe CartController do
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
 
+    describe "DELETE destroy" do
+      it "should destroy the order in the session" do
+        delete :destroy
+        session[:order].should be(nil)
+      end
+    end
+
     describe "PUT update" do
       describe "with a valid variant" do
         it "should delete a item from the cart" do
