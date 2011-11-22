@@ -5,6 +5,25 @@ describe Order do
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40) }
 
+  context "destroying a Order" do
+    before :each do
+      subject.add_variant(basic_shoe_35)
+      subject.add_variant(basic_shoe_40)
+    end
+
+    it "should destroy the order" do
+      expect {
+        subject.destroy
+      }.to change(Order, :count).by(-1)
+    end
+
+    it "should destroy line items" do
+      expect {
+        subject.destroy
+      }.to change(LineItem, :count).by(-2)
+    end
+  end
+
   context "removing a variant" do
     before :each do
       subject.add_variant(basic_shoe_35)
