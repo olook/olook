@@ -23,8 +23,8 @@
         <td>
           <%= item.variant.name %>
         </td>
-        <td>1</td>
-        <td class="value">1</td>
+        <td><%= item.quantity %></td>
+        <td class="value"><%= item.variant.price %></td>
         <td>
           <%= form_for(cart_path, :method => :put) do %>
             <%= hidden_field('variant','id', :value => item.variant.id) %>
@@ -36,3 +36,8 @@
   <% end %>
   </tbody>
 </table>
+
+<%= form_for(cart_path, :method => :delete) do %>
+  <%= submit_tag('Limpar Sacola')  %>
+<% end %>
+
