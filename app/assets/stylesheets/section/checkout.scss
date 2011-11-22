@@ -1,7 +1,14 @@
 table.items_list {
+  $border-color: #e5e5e5;
+  thead tr th, tfoot tr td {
+    font-family: Times;
+    font-style: italic;
+  }
   thead tr th {
+    font-size: 20px;
     text-align: left;
     padding: 5px 0;
+    border-bottom: 1px $border-color solid;
     &.item {
       width: 560px;
     }
@@ -13,8 +20,15 @@ table.items_list {
     }
   }
   tbody tr td {
+    padding: 20px 0 25px 0;
+    border-bottom: 1px $border-color solid;
     &.value {
       width: 150px;
     }
+  }
+  tfoot tr td {
+    font-size: 24px;
+    padding: 20px 0 25px 0;
+    border-bottom: 1px $border-color solid;
   }
 }
