@@ -12,7 +12,7 @@ Olook::Application.routes.draw do
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
   resources :addresses, :path => 'endereco', :controller => :addresses
-  resource :cart, :only => [:show, :create, :update], :path => 'sacola', :controller => :cart
+  resource :cart, :only => [:show, :create, :update, :destroy], :path => 'sacola', :controller => :cart
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
 
   get "/produto/:id" => "product#show", :as => "product"
