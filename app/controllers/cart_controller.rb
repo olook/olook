@@ -3,7 +3,7 @@ class CartController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_product_variant, :only => [:create, :edit]
+  before_filter :check_product_variant, :only => [:create, :update]
   before_filter :current_order
 
   def show
