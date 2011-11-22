@@ -10,6 +10,12 @@
       <th class="value" colspan="2">Valor</th>
     </tr>
   </thead>
+  <tfoot>
+    <tr>
+      <td colspan="3">Subtotal</td>
+      <td>R$ 397,00</td>
+    </tr>
+  </tfoot>
   <tbody>
   <% if @order %>
     <% @order.line_items.each do |item| %>
