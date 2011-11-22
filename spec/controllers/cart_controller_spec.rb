@@ -7,6 +7,29 @@ describe CartController do
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
 
+    describe "PUT update" do
+      describe "with a valid variant" do
+        it "should delete a item from the cart" do
+          Order.any_instance.should_receive(:remove_variant).with(variant).and_return(true)
+          put :update, :variant => {:id => variant.id}
+        end
+
+        it "should redirect to cart_path" do
+          Order.any_instance.stub(:remove_variant).with(variant).and_return(true)
+          put :update, :variant => {:id => variant.id}
+          response.should redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+        end
+      end
+
+      describe "with a invalid variant" do
+        it "should redirect to root_path" do
+          Order.any_instance.stub(:remove_variant).with(variant).and_return(false)
+          put :update, :variant => {:id => variant.id}
+          response.should redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+        end
+      end
+    end
+
     describe "POST create" do
       before :each do
         @back = request.env['HTTP_REFERER'] = product_path(product)
