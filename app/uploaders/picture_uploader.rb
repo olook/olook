@@ -8,6 +8,10 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   # storage :file
   storage :fog
+  
+  def store_dir
+    "#{self.model.class.name.underscore.pluralize}/#{self.model.product.model_number}/#{self.model.display_on}"
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -28,17 +32,25 @@ class PictureUploader < CarrierWave::Uploader::Base
   # end
 
   version :thumb do
-    process :resize_to_limit => [100, 125]
+    process :resize_to_limit => [50, 50]
   end
+  version :bag do
+    process :resize_to_limit => [70, 70]
+  end
+  version :showroom do
+    process :resize_to_limit => [170, 170]
+  end
+  version :suggestion do
+    process :resize_to_limit => [260, 260]
+  end
+  version :main do
+    process :resize_to_limit => [500, 500]
+  end
+  version :zoom_out do
+    process :resize_to_limit => [1000, 1000]
+  end  
 
   def extension_white_list
     %w(jpg jpeg gif png)
   end
-
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
-
 end
