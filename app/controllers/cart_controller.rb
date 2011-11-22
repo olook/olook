@@ -10,11 +10,8 @@ class CartController < ApplicationController
   end
 
   def update
-    if @order.remove_variant(@variant)
-      redirect_to cart_path, :notice => "Produto removido com sucesso"
-    else
-      redirect_to cart_path, :notice => "Este produto não está na sua sacola"
-    end
+    notice = @order.remove_variant(@variant) ? "Produto removido com sucesso" : "Este produto não está na sua sacola"
+    redirect_to cart_path, :notice => notice
   end
 
   def create
