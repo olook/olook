@@ -20,15 +20,53 @@ table.items_list {
     }
   }
   tbody tr td {
-    padding: 20px 0 25px 0;
+    position: relative;
+    padding: 10px 0;
     border-bottom: 1px $border-color solid;
+    p {
+      margin-bottom: 5px;
+      strong {
+        color: #716d68;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+    &.item {
+      padding-left: 15px;
+      img {
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+        float: left;
+      }
+    }
+    &.amount {
+      select {
+        width: 55px
+      }
+    }
     &.value {
       width: 150px;
+    }
+    &.delete_item {
+      input[type="submit"] {
+        position: absolute;
+        background: url("/assets/cart/delete-item.png") no-repeat;
+        width: 76px;
+        height: 20px;
+        display: block;
+        top: 30px;
+        border: none;
+        cursor: pointer;
+      }
     }
   }
   tfoot tr td {
     font-size: 24px;
-    padding: 20px 0 25px 0;
+    padding: 10px 0 15px 0;
     border-bottom: 1px $border-color solid;
+    &.subtotal {
+      padding-left: 15px;
+    }
   }
 }
