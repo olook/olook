@@ -4,7 +4,7 @@
 
 #product {
   padding: 20px 0 0 0;
-  div.box_carrousel {
+  div.box_carousel {
     margin: 0 0 15px 0;
     padding: 10px;
     overflow: auto;
@@ -18,8 +18,50 @@
       text-transform: uppercase;
       float: left;
     }
-    div#carrousel {
+    div#carousel {
+      width: 495px;
       float: right;
+      .mask {
+        position: relative;
+        width: 445px;
+        height: 50px;
+        overflow: hidden;
+        float: left;
+        ul {
+          position: relative;
+          width: 10000px;
+          left: 0px;
+          overflow: auto;
+          li {
+            margin: 0;
+            padding: 0;
+            display: inline;
+            float: left;
+            a {
+              margin: 0;
+              padding: 0;
+              float: left;
+            }
+          }
+        }
+      }
+      a.arrow {
+        background: url("/assets/common/arrows.png") no-repeat;
+        text-indent: -9999px;
+        width: 5px;
+        height: 10px;
+        margin-top: 20px;
+        display: block;
+        &.prev {
+          background-position: 0 0;
+          margin-right: 22px;
+          float: left;
+        }
+        &.next {
+          background-position: -5px 0;
+          float: right;
+        }
+      }
     }
   }
   div.content {
