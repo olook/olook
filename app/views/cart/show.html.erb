@@ -12,7 +12,7 @@
   </thead>
   <tfoot>
     <tr>
-      <td colspan="3">Subtotal</td>
+      <td class="subtotal" colspan="3">Subtotal</td>
       <td>R$ 397,00</td>
     </tr>
   </tfoot>
@@ -20,15 +20,22 @@
   <% if @order %>
     <% @order.line_items.each do |item| %>
       <tr>
-        <td>
-          <%= item.variant.name %>
+        <td class="item">
+          <%= image_tag "fake/fake-mini-product.png" %>
+          <p><strong><%= item.variant.name %></strong></p>
+          <p>Tamanho: <%= item.variant.number %></p>
+          <p>Cor: </p>
         </td>
-        <td><%= item.quantity %></td>
-        <td class="value"><%= item.variant.price %></td>
-        <td>
+        <td class="amount">
+          <%= form_for(cart_path, :method => :put) do %>
+            <%= select_tag('amount', '<option>1</option>'.html_safe) %>
+          <% end %>
+        </td>
+        <td class="value"><p><strong><%= item.variant.price %></strong></p></td>
+        <td class="delete_item" valign="middle">
           <%= form_for(cart_path, :method => :put) do %>
             <%= hidden_field('variant','id', :value => item.variant.id) %>
-            <%= submit_tag('Excluir')  %>
+            <%= submit_tag('')  %>
           <% end %>
         </td>
       </tr>
@@ -36,8 +43,8 @@
   <% end %>
   </tbody>
 </table>
+<%= link_to "Continuar", addresses_path %>
 
 <%= form_for(cart_path, :method => :delete) do %>
   <%= submit_tag('Limpar Sacola')  %>
 <% end %>
-
