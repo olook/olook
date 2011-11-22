@@ -22,6 +22,7 @@ class PaymentBuilder
   end
 
   def send_payment
+    debugger
     @response = MoIP::Client.checkout(payment_data)
   end
 
@@ -31,6 +32,7 @@ class PaymentBuilder
 
   def create_payment_response
     payment_response = payment.build_payment_response
+    debugger
     payment_response.build_attributes response
     payment_response.save
   end
@@ -54,7 +56,7 @@ class PaymentBuilder
 
   def payment_data
     billet = { :valor => order.total, :id_proprio => order.id,
-                :forma => payment.to_s, :pagador => payer,
+                :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON }
 
     credit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
@@ -66,7 +68,7 @@ class PaymentBuilder
                 :pagador => payer, :razao => Payment::REASON }
 
      debit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-               :instituicao => payment.bank, :pagador => payer,
+               :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
      data = case payment.payment_type

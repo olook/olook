@@ -24,7 +24,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(params[:payment])
 
     if @payment.valid?
-      order = session[:order]
+      order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
       payment_builder.process!
       redirect_to(root_path, :notice => "Sucesso")
