@@ -12,7 +12,7 @@
 
 <section id="user-info">
 <hgroup class='info'>
-    <% if current_user.has_facebook? %>
+    <% unless current_user.has_facebook? %>
       <div class="connect">
         <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
         <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
