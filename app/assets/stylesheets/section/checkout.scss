@@ -1,72 +1,83 @@
-table.items_list {
-  $border-color: #e5e5e5;
-  thead tr th, tfoot tr td {
-    font-family: Times;
-    font-style: italic;
+section#checkout {
+  table.items_list {
+    $border-color: #e5e5e5;
+    margin-bottom: 25px;
+    thead tr th, tfoot tr td {
+      font-family: Times;
+      font-style: italic;
+    }
+    thead tr th {
+      font-size: 20px;
+      text-align: left;
+      padding: 5px 0;
+      border-bottom: 1px $border-color solid;
+      &.item {
+        width: 560px;
+      }
+      &.amount {
+        width: 160px;
+      }
+      &.value {
+        width: 270px;
+      }
+    }
+    tbody tr td {
+      position: relative;
+      padding: 10px 0;
+      border-bottom: 1px $border-color solid;
+      p {
+        margin-bottom: 5px;
+        strong {
+          color: #716d68;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+      }
+      &.item {
+        padding-left: 15px;
+        img {
+          width: 70px;
+          height: 70px;
+          margin-right: 20px;
+          float: left;
+        }
+      }
+      &.amount {
+        select {
+          width: 55px
+        }
+      }
+      &.value {
+        width: 150px;
+      }
+      &.delete_item {
+        input[type="submit"] {
+          position: absolute;
+          background: url("/assets/cart/delete-item.png") no-repeat;
+          width: 76px;
+          height: 20px;
+          display: block;
+          top: 30px;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+    tfoot tr td {
+      font-size: 24px;
+      padding: 10px 0 15px 0;
+      border-bottom: 1px $border-color solid;
+      &.subtotal {
+        padding-left: 15px;
+      }
+    }
   }
-  thead tr th {
-    font-size: 20px;
-    text-align: left;
-    padding: 5px 0;
-    border-bottom: 1px $border-color solid;
-    &.item {
-      width: 560px;
-    }
-    &.amount {
-      width: 160px;
-    }
-    &.value {
-      width: 270px;
-    }
-  }
-  tbody tr td {
-    position: relative;
-    padding: 10px 0;
-    border-bottom: 1px $border-color solid;
-    p {
-      margin-bottom: 5px;
-      strong {
-        color: #716d68;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-    }
-    &.item {
-      padding-left: 15px;
-      img {
-        width: 70px;
-        height: 70px;
-        margin-right: 20px;
-        float: left;
-      }
-    }
-    &.amount {
-      select {
-        width: 55px
-      }
-    }
-    &.value {
-      width: 150px;
-    }
-    &.delete_item {
-      input[type="submit"] {
-        position: absolute;
-        background: url("/assets/cart/delete-item.png") no-repeat;
-        width: 76px;
-        height: 20px;
-        display: block;
-        top: 30px;
-        border: none;
-        cursor: pointer;
-      }
-    }
-  }
-  tfoot tr td {
-    font-size: 24px;
-    padding: 10px 0 15px 0;
-    border-bottom: 1px $border-color solid;
-    &.subtotal {
-      padding-left: 15px;
-    }
+  a.continue {
+    background: url("/assets/cart/continue-big.png") no-repeat;
+    text-indent: -9999px;
+    width: 208px;
+    height: 48px; 
+    display: block;
+    float: right;
   }
 }

@@ -2,49 +2,51 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
-<table cellpadding="0" cellspacing="0" class="items_list">
-  <thead>
-    <tr>
-      <th class="item">Item</th>
-      <th class="amount">Quantidade</th>
-      <th class="value" colspan="2">Valor</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <td class="subtotal" colspan="3">Subtotal</td>
-      <td>R$ 397,00</td>
-    </tr>
-  </tfoot>
-  <tbody>
-  <% if @order %>
-    <% @order.line_items.each do |item| %>
+<section id="checkout">
+  <table cellpadding="0" cellspacing="0" class="items_list">
+    <thead>
       <tr>
-        <td class="item">
-          <%= image_tag "fake/fake-mini-product.png" %>
-          <p><strong><%= item.variant.name %></strong></p>
-          <p>Tamanho: <%= item.variant.number %></p>
-          <p>Cor: </p>
-        </td>
-        <td class="amount">
-          <%= form_for(cart_path, :method => :put) do %>
-            <%= select_tag('amount', '<option>1</option>'.html_safe) %>
-          <% end %>
-        </td>
-        <td class="value"><p><strong><%= item.variant.price %></strong></p></td>
-        <td class="delete_item" valign="middle">
-          <%= form_for(cart_path, :method => :put) do %>
-            <%= hidden_field('variant','id', :value => item.variant.id) %>
-            <%= submit_tag('')  %>
-          <% end %>
-        </td>
+        <th class="item">Item</th>
+        <th class="amount">Quantidade</th>
+        <th class="value" colspan="2">Valor</th>
       </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td class="subtotal" colspan="3">Subtotal</td>
+        <td>R$ 397,00</td>
+      </tr>
+    </tfoot>
+    <tbody>
+    <% if @order %>
+      <% @order.line_items.each do |item| %>
+        <tr>
+          <td class="item">
+            <%= image_tag "fake/fake-mini-product.png" %>
+            <p><strong><%= item.variant.name %></strong></p>
+            <p>Tamanho: <%= item.variant.number %></p>
+            <p>Cor: </p>
+          </td>
+          <td class="amount">
+            <%= form_for(cart_path, :method => :put) do %>
+              <%= select_tag('amount', '<option>1</option>'.html_safe) %>
+            <% end %>
+          </td>
+          <td class="value"><p><strong><%= item.variant.price %></strong></p></td>
+          <td class="delete_item" valign="middle">
+            <%= form_for(cart_path, :method => :put) do %>
+              <%= hidden_field('variant','id', :value => item.variant.id) %>
+              <%= submit_tag('')  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
-  <% end %>
-  </tbody>
-</table>
-<%= link_to "Continuar", addresses_path %>
+    </tbody>
+  </table>
+  <%= link_to "Continuar", addresses_path, :class => "continue" %>
 
-<%= form_for(cart_path, :method => :delete) do %>
-  <%= submit_tag('Limpar Sacola')  %>
-<% end %>
+  <%= form_for(cart_path, :method => :delete) do %>
+    <%= submit_tag('Limpar Sacola')  %>
+  <% end %>
+</section>
