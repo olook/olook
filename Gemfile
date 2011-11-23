@@ -27,6 +27,7 @@ gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync', '=0.1.10'
 gem 'curb'
+gem 'savon'
 
 group :development do
   gem 'faker'
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 1.2.0'
   gem 'rspec-rails', '~> 2.6.0'
   gem 'watchr'
+  gem 'awesome_print'
 end
 
 group :test do
@@ -51,6 +53,8 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
