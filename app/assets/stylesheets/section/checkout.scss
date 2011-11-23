@@ -84,7 +84,7 @@ section#cart {
 
 section#address {
   section.main {
-    ul.addresses {
+    ol.addresses {
       width: 100%;
       padding-left: 35px;
       overflow: auto;
@@ -96,6 +96,9 @@ section#address {
         padding: 15px 30px;
         border: 1px #d6d6d6 solid;
         float: left;
+        &.selected {
+          border-color: #e46d99;
+        }
         ul.links {
           margin: 15px 0 0 0;
           li {
@@ -115,6 +118,7 @@ section#address {
           color: #545353;
           font-size: 14px;
           margin-bottom: 5px;
+          cursor: pointer;
         }
         input[type="radio"] {
           display: none;
