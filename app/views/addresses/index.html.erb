@@ -5,7 +5,7 @@
 <section id="address" class="checkout">
   <section class="main">
     <h1>Endereços cadastrados</h1>
-    <ul class="addresses">
+    <ol class="addresses">
       <% if @addresses.any? %>
         <%= form_tag(assign_address_path) do %>
             <% @addresses.each do |address| %>
@@ -26,7 +26,7 @@
       <li class="address_item add">
         <%= link_to "Adicionar Novo Endereço", new_address_path %>
       </li>
-    </ul>
+    </ol>
   </section>
   <section class="sidebar">
     <%= render :partial => "info_sidebar" %>
