@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def first_visit?
-    self.events.where(:type => EventType::FIRST_VISIT).empty?
+    self.events.where(:event_type => EventType::FIRST_VISIT).empty?
   end
 
   def record_first_visit
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
-    self.events.create(type: type, description: description)
+    self.events.create(event_type: type, description: description)
   end
   
   def invitation_url(host = 'olook.com.br')

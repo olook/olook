@@ -66,17 +66,19 @@ describe MembersController do
   end
 
   it "#invite_by_email" do
-    emails = ['jane@friend.com', 'invalid email', 'mary@friend.com']
+    emails = ['jane@friend.com', 'invalid email', 'mary@friend.com', 'lily@friend.com', 'rose@friend.com']
+    joined_emails = "#{emails[0]},#{emails[1]}\r#{emails[2]}\t#{emails[3]};#{emails[4]}"
+
     mock_invites = emails.map do |email|
       invite = double(Invite)
       invite
     end
     member = double(User)
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
-    member.should_receive(:add_event).with(EventType::SEND_INVITE, '3 invites sent')
+    member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
     subject.stub(:current_user) { member }
 
-    post :invite_by_email, :invite_mail_list => emails.join(', ')
+    post :invite_by_email, :invite_mail_list => joined_emails
 
     response.should redirect_to(member_invite_path)
     flash[:notice].should match /\d+ convites enviados com sucesso!/
@@ -151,12 +153,12 @@ describe MembersController do
 
   describe "first visit" do
     before :each do
-      user.events.where(:type => EventType::FIRST_VISIT).destroy_all
+      user.events.where(:event_type => EventType::FIRST_VISIT).destroy_all
     end
 
     it "should record first visit for member user" do
       get :invite
-      user.events.where(:type => EventType::FIRST_VISIT).should_not be_empty
+      user.events.where(:event_type => EventType::FIRST_VISIT).should_not be_empty
     end
 
     it "should assign true for @is_the_first_visit" do
