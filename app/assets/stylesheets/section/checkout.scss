@@ -143,9 +143,17 @@ section.checkout {
     font-size: 25px;
     font-style: italic;
     font-weight: lighter;
+    letter-spacing: -1px;
     margin-bottom: 15px;
     padding-bottom: 3px;
     border-bottom: 1px #e4e4e4 solid;
+    a {
+      color: #df5a8a;
+      font-family: Arial;
+      font-size: 12px;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
   }
   section.main {
     width: 645px;
