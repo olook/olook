@@ -3,5 +3,5 @@ class Event < ActiveRecord::Base
   belongs_to :user
 
   validates :user, presence: true
-  has_enumeration_for :type, with: EventType, required: true
+  has_enumeration_for :event_type, with: EventType, required: true
 end

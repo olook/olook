@@ -9,7 +9,7 @@ module UserReport
         user.created_at.to_s(:short),
         user.profile_scores.first.try(:profile).try(:name),
         user.invitation_url,
-        user.events.where(:type => EventType::TRACKING).first.try(:description)
+        user.events.where(:event_type => EventType::TRACKING).first.try(:description)
       ]
     end
   end

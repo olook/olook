@@ -153,12 +153,12 @@ describe MembersController do
 
   describe "first visit" do
     before :each do
-      user.events.where(:type => EventType::FIRST_VISIT).destroy_all
+      user.events.where(:event_type => EventType::FIRST_VISIT).destroy_all
     end
 
     it "should record first visit for member user" do
       get :invite
-      user.events.where(:type => EventType::FIRST_VISIT).should_not be_empty
+      user.events.where(:event_type => EventType::FIRST_VISIT).should_not be_empty
     end
 
     it "should assign true for @is_the_first_visit" do
