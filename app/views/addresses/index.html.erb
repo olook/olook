@@ -1,13 +1,48 @@
-<%= link_to "Adicionar Novo Endereço", new_address_path %>
-<% if @addresses.any? %>
-  <%= form_tag(assign_address_path) do %>
-    <ul>
-      <% @addresses.each do |address| %>
-      <li>
-       <%= radio_button_tag(:delivery_address_id, address.id) %> <%= address.street %>
-      </li>
-    </ul>
-   <% end %>
-   <%= submit_tag('Enviar')  %>
-  <% end %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
+
+<section id="address" class="checkout">
+  <section class="main">
+    <h1>Endereços cadastrados</h1>
+    <% if @addresses.any? %>
+      <%= form_tag(assign_address_path) do %>
+        <ul>
+          <% @addresses.each do |address| %>
+          <li>
+           <%= radio_button_tag(:delivery_address_id, address.id) %> <%= address.street %>
+          </li>
+        </ul>
+       <% end %>
+       <%= submit_tag('Enviar')  %>
+      <% end %>
+    <% end %>
+    <%= link_to "Adicionar Novo Endereço", new_address_path %>
+  </section>
+  <section class="sidebar">
+    <div id="request_info">
+      <div class="item">
+        <h1>Meu Pedido</h1>
+        <table cellpadding="0" cellspacing="0">
+          <tfoot>
+            <tr>
+              <td>Total:</td>
+              <td class="value">R$ 397,00</td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr>
+              <td>Sub-total:</td>
+              <td class="value">R$ 397,00</td>
+            </tr>
+            <tr>
+              <td>Frete</td>
+              <td class="value">R$ 0,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <%= link_to "Continuar", "#" %>
+  </section>
+</section>
