@@ -28,8 +28,25 @@ describe PictureUploader do
      subject.path.should be_true
     end
 
-    it "should have a thumb version" do
-      subject.thumb.path.should be_true
+    describe 'should have different sizes' do
+      it "thumb size" do
+        subject.thumb.path.should be_true
+      end
+      it "main size" do
+        subject.main.path.should be_true
+      end
+      it "showroom size" do
+        subject.showroom.path.should be_true
+      end
+      it "suggestion size" do
+        subject.suggestion.path.should be_true
+      end
+      it "bag size" do
+        subject.bag.path.should be_true
+      end
+      it "zoom_out size" do
+        subject.zoom_out.path.should be_true
+      end
     end
   end
 
@@ -37,5 +54,12 @@ describe PictureUploader do
     expect {
       subject.store!(File.open(invalid_image))
     }.to raise_error(CarrierWave::IntegrityError)
+  end
+  
+  it 'should store images on directories with the product model name' do
+    subject.stub_chain(:model, :class, :name, :underscore, :pluralize).and_return('dir')
+    subject.stub_chain(:model, :product, :model_number).and_return('product')
+    subject.stub_chain(:model, :display_on).and_return('display')
+    subject.store_dir.should == "dir/product/display"
   end
 end

@@ -14,7 +14,7 @@ describe UserReport do
         user.created_at.to_s(:short),
         user.profile_scores.first.try(:profile).try(:name),
         user.invitation_url,
-        user.events.where(:type => EventType::TRACKING).first.try(:description)
+        user.events.where(:event_type => EventType::TRACKING).first.try(:description)
       ]
       described_class.export.should == [ expected_result ]
     end
