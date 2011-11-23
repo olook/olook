@@ -8,6 +8,8 @@ feature "Member can send invites", %q{
   I want to invite people to join the site
 } do
 
+  use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
+
   let(:user) { FactoryGirl.create(:user) }
 
   context "When a member" do
