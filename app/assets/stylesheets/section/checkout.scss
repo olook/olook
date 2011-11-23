@@ -81,3 +81,48 @@ section#cart {
     float: right;
   }
 }
+
+section.checkout {
+  h1 {
+    font-family: Times;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: lighter;
+    margin-bottom: 15px;
+    padding-bottom: 3px;
+    border-bottom: 1px #e4e4e4 solid;
+  }
+  section.main {
+    width: 645px;
+    float: left;
+  }
+  section.sidebar {
+    width: 315px;
+    float: right;
+    div#request_info {
+      background: #f2f2f2;
+      padding: 15px 20px 10px;
+      div.item {
+        margin-bottom: 20px;
+        table {
+          width: 100%;
+          color: #252326;
+          td.value {
+            text-align: right;
+            font-weight: bold;
+          }
+          tbody tr td {
+            font-size: 14px;
+            padding: 15px 0;
+          }
+          tfoot tr td {
+            font-size: 14px;
+            width: 50%;
+            padding: 15px 0 0 0;
+            border-top: 1px #e4e4e4 solid;
+          }
+        }
+      }
+    }
+  }
+}
