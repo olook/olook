@@ -43,9 +43,9 @@ class User < ActiveRecord::Base
   end
 
   def invite_for(email_address, was_sent_at = nil)
+    return nil if User.find_by_email(email_address)
     the_invite = invites.find_by_email(email_address) || invites.build(:email => email_address)
     the_invite.sent_at = was_sent_at unless was_sent_at.nil?
-
     the_invite.save ? the_invite : nil
   end
 
