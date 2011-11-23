@@ -101,6 +101,7 @@ section.checkout {
     float: right;
     div#request_info {
       background: #f2f2f2;
+      margin: 0 0 20px 0;
       padding: 15px 20px 10px;
       div.item {
         margin-bottom: 20px;
@@ -123,6 +124,14 @@ section.checkout {
           }
         }
       }
+    }
+    .continue {
+      background: url('/assets/cart/continue.png') no-repeat;
+      text-indent: -9999px;
+      width: 136px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
     }
   }
 }
