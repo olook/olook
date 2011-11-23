@@ -196,7 +196,7 @@ body {
             &.select {
               position: relative;
               width: 370px;
-
+              height: 35px;
               span.select {
                 position: absolute;
                 bottom: 0;
@@ -230,11 +230,14 @@ body {
                   outline: none;
                 }
                 &.custom_select {
-                  position: relative;
+                  position: absolute;
                   line-height: 26px;
                   height: 34px;
+                  top: 0;
                   &.day {
                     width: 74px;
+                    margin-right: 10px;
+                    left: 10px;
                     & + span {
                       background: url('/assets/common/bg-day.png') no-repeat;
                       width: 74px;
@@ -243,7 +246,9 @@ body {
                     }
                   }
                   &.month {
-                    width: 110px;
+                    width: 100px;
+                    margin-right: 15px;
+                    left: 95px;
                     & + span {
                       background: url('/assets/common/bg-month.png') no-repeat;
                       width: 110px;
@@ -253,6 +258,7 @@ body {
                   }
                   &.year {
                     width: 75px;
+                    left: 215px;
                     & + span {
                       background: url('/assets/common/bg-year.png') no-repeat;
                       width: 75px;
@@ -445,6 +451,31 @@ body {
       width: 690px;
       font-size: 11px;
       margin: 30px auto 0;
+    }
+  }
+}
+
+.ie7, .ie8 {
+  #survey {
+    ul.questions {
+      li.about {
+        fieldset.select {
+          select.custom_select {
+            &.day {
+              width: 70px;
+              left: 0px;
+            }
+            &.month {
+              width: 105px;
+              left: 85px;
+            }
+            &.year {
+              width: 75px;
+              left: 200px;
+            }
+          }
+        }
+      }
     }
   }
 }
