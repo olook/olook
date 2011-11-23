@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111118170846) do
+ActiveRecord::Schema.define(:version => 20111123152838) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -64,25 +64,25 @@ ActiveRecord::Schema.define(:version => 20111118170846) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "type",        :null => false
+    t.integer  "event_type",  :limit => 255, :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "events", ["created_at"], :name => "index_events_on_created_at"
-  add_index "events", ["type"], :name => "index_events_on_type"
+  add_index "events", ["event_type"], :name => "index_events_on_event_type"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "freight_prices", :force => true do |t|
     t.integer  "shipping_service_id"
-    t.integer  "zip_start"
-    t.integer  "zip_end"
-    t.decimal  "weight_start",        :precision => 8, :scale => 3
-    t.decimal  "weight_end",          :precision => 8, :scale => 3
+    t.integer  "zip_start",           :limit => 255
+    t.integer  "zip_end",             :limit => 255
+    t.decimal  "weight_start"
+    t.decimal  "weight_end"
     t.integer  "delivery_time"
-    t.decimal  "price",               :precision => 8, :scale => 2
-    t.decimal  "cost",                :precision => 8, :scale => 2
+    t.decimal  "price"
+    t.decimal  "cost"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20111118170846) do
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
-    t.integer  "display_on"
+    t.integer  "display_on", :limit => 255
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -261,7 +261,7 @@ ActiveRecord::Schema.define(:version => 20111118170846) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.decimal  "price",             :precision => 10, :scale => 2
+    t.decimal  "price"
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -269,7 +269,7 @@ ActiveRecord::Schema.define(:version => 20111118170846) do
     t.integer  "width"
     t.integer  "height"
     t.integer  "length"
-    t.decimal  "weight",            :precision => 8,  :scale => 2
+    t.decimal  "weight",            :precision => 8, :scale => 2
   end
 
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"

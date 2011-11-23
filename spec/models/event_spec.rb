@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Event do
   describe 'validations' do
     it { should validate_presence_of :user }
-    it { should validate_presence_of :type }
+    it { should validate_presence_of :event_type }
   end
   
   describe 'relationships' do

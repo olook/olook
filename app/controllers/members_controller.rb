@@ -22,7 +22,7 @@ class MembersController < ApplicationController
   end
 
   def invite_by_email
-    parsed_emails = params[:invite_mail_list].split(',').map(&:strip)
+    parsed_emails = params[:invite_mail_list].split(/,|;|\r|\t/).map(&:strip)
     invites = current_user.invites_for(parsed_emails)
     current_user.add_event(EventType::SEND_INVITE, "#{invites.length} invites sent")
     redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
