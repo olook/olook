@@ -6,8 +6,28 @@
   </p>
 
   <p>
-    <b>Image:</b>
+    <b>Thumb:</b>
     <%= image_tag @picture.image_url(:thumb).to_s %>
+  </p>
+  <p>
+    <b>Bag:</b>
+    <%= image_tag @picture.image_url(:bag).to_s %>
+  </p>
+  <p>
+    <b>Showroom:</b>
+    <%= image_tag @picture.image_url(:showroom).to_s %>
+  </p>
+  <p>
+    <b>Suggestion:</b>
+    <%= image_tag @picture.image_url(:suggestion).to_s %>
+  </p>
+  <p>
+    <b>Main:</b>
+    <%= image_tag @picture.image_url(:main).to_s %>
+  </p>
+  <p>
+    <b>Zoom out:</b>
+    <%= image_tag @picture.image_url(:zoom_out).to_s %>
   </p>
 </div>
 
