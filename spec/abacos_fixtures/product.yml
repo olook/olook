@@ -382,7 +382,7 @@
         str: ! 'DESCRIÇÕES PARA O SITE                            '
         attributes: {}
       :texto: !str
-        str: Casual
+        str: 'Sexy, Casual '
         attributes: {}
       :nr_config_interface: !str
         str: '0'

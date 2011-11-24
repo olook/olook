@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   module Helpers
-    def find_in_descritor_pre_definido(abacos_descritor_pre_definido, query)
-      items = abacos_descritor_pre_definido[:rows][:dados_descritor_pre_definido]
+    def find_in_descritor_pre_definido(data, query)
+      items = data[:rows][:dados_descritor_pre_definido]
       
-      items = [items] if items.is_a? Hash
+      items = [items] unless items.is_a? Array
       
       items.each do |item|
         return item[:descricao].strip if item[:grupo_nome].strip == query

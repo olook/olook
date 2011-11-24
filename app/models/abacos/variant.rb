@@ -3,9 +3,11 @@ module Abacos
   class Variant
     include ::Abacos::Helpers
 
-    attr_reader :model_number, :number, :description
+    attr_reader :integration_protocol,
+                :model_number, :number, :description
 
     def initialize(abacos_product)
+      @integration_protocol = abacos_product[:protocolo_produto]
       @model_number = abacos_product[:codigo_produto_pai]
       @number = abacos_product[:codigo_produto]
       @description = parse_description( abacos_product[:descritor_pre_definido] )
