@@ -6,6 +6,10 @@ describe Abacos::Variant do
   subject { described_class.new downloaded_variant }
   
   describe 'attributes' do
+    it '#integration_protocol' do
+      subject.integration_protocol.should == "7D2D3CB3-ADD1-4144-946B-66A57B2BEA60"
+    end
+
     it '#model_number' do
       subject.model_number.should == "37"
     end
