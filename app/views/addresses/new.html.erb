@@ -18,49 +18,73 @@
         </div>
       <% end %>
 
-      <div class="field">
-        <%= f.label "Rua" %><br />
-        <%= f.text_field :street %>
+      <div class="zip_code">
+        <%= form_tag("#") do %>
+          <fieldset class="inputs">
+            <ol>
+              <li>
+                <%= f.label :zip_code %>
+                <%= f.text_field :zip_code %>
+              </li>
+            </ol>
+          </fieldset>
+          <fieldset class="buttons">
+            <ol>
+              <li>
+                <%= f.submit "" %>
+                <p>Não sabe seu cep? <%= link_to "Clique aqui", "#" %></p>
+              </li>
+            </ol>
+          </fieldset>
+        <% end %>
       </div>
 
-      <div class="field">
-        <%= f.label "Número" %><br />
-        <%= f.text_field :number %>
-      </div>
-
-      <div class="field">
-        <%= f.label "Bairro" %><br />
-        <%= f.text_field :neighborhood %>
-      </div>
-
-      <div class="field">
-        <%= f.label "CEP" %><br />
-        <%= f.text_field :zip_code %>
-      </div>
-
-      <div class="field">
-        <%= f.label "Telefone" %><br />
-        <%= f.text_field :telephone %>
-      </div>
-
-      <div class="field">
-        <%= f.label "Cidade" %><br />
-        <%= f.text_field :city %>
-      </div>
-
-      <div class="field">
-        <%= f.label "Estado" %><br />
-        <%= f.text_field :state %>
-      </div>
-
-      <div class="field">
-        <%= f.label "País" %><br />
-        <%= f.text_field :country %>
+      <div class="address_fields">
+        <fieldset class="inputs desc">
+          <ol>
+            <li>
+              <%= label_tag 'first_name', 'Nome' %>
+              <%= text_field_tag 'first_name' %>
+            </li>
+          </ol>
+        </fieldset>
+        <fieldset class="inputs">
+          <ol>
+            <li>
+              <%= f.label :street %>
+              <%= f.text_field :street %>
+            </li>
+            <li>
+              <%= f.label :number %>
+              <%= f.text_field :number %>
+            </li>
+            <li>
+              <%= f.label :neighborhood %>
+              <%= f.text_field :neighborhood %>
+            </li>
+            <li>
+              <%= f.label :telephone %>
+              <%= f.text_field :telephone %>
+            </li>
+            <li>
+              <%= f.label :city %>
+              <%= f.text_field :city %>
+            </li>
+            <li>
+              <%= f.label :state %>
+              <%= f.text_field :state %>
+            </li>
+            <li>
+              <%= f.label :country %>
+              <%= f.text_field :country %>
+            </li>
+          </ol>
+        </fieldset>
       </div>
     </section>
     <section class="sidebar">
       <%= render :partial => "info_sidebar" %>
-      <%= f.submit '', :class => "continue" %>
+      <%= f.submit '', :disabled => "disabled", :class => "disabled save" %>
     </section>
   <% end %>
 </section>
