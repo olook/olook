@@ -208,6 +208,64 @@ section#address_new {
     div.address_fields {
       padding: 20px 0 0 0;
       border-top: 1px #d6d6d6 solid;
+      fieldset {
+        &.inputs {
+          padding: 30px 25px;
+          border: 1px #d6d6d6 solid;
+          ol {
+            li {
+              margin: 0 10px 10px 0;
+              float: left;
+              label {
+                display: block;
+              }
+              &.street {
+                input {
+                  width: 345px;
+                }
+              }
+              &.number {
+                input {
+                  width: 70px;
+                }
+              }
+              &.complement {
+                input {
+                  width: 70px;
+                }
+              }
+              &.neighborhood {
+                input {
+                  width: 190px;
+                }
+              }
+              &.city {
+                input {
+                  width: 215px;
+                }
+              }
+              &.state {
+                input {
+                  width: 55px;
+                }
+              }
+              &.phone {
+                width: 100%;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px #d6d6d6 solid;
+                input {
+                  width: 220px;
+                }
+              }
+            }
+          }
+          &.desc {
+            padding: 15px 10px;
+            border: none;
+          }
+        }
+      }
     }
   }
 }
