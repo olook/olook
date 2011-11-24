@@ -9,4 +9,21 @@ $(document).ready(function() {
       return false;
     }
   });
+
+  $("form#new_address input[type='text']").live("keyup", function() {
+    var limitOfInputs = 9;
+    var notNullInputs = 0
+    inputs = $("form#new_address input[type='text']");
+    $(inputs).each(function(index) {
+      if($(this).val() != '' && $(this).parent('li').hasClass('complement') == false) {
+        notNullInputs = notNullInputs + 1;
+      }
+    });
+    if(notNullInputs == limitOfInputs) {
+      $("section.sidebar input[type='submit']").removeAttr('disabled').removeClass('disabled');
+    } else {
+      $("section.sidebar input[type='submit']").addClass('disabled')
+      $("section.sidebar input[type='submit']").attr('disabled', 'disabled');
+    }
+  });
 });
