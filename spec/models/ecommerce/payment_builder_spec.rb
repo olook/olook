@@ -5,8 +5,10 @@ describe PaymentBuilder do
   let(:user) { FactoryGirl.create(:user) }
   let(:delivery_address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:payment) { FactoryGirl.build(:payment, :order => order) }
-  subject { PaymentBuilder.new(order, payment, delivery_address) }
+  let(:credit_card) { FactoryGirl.build(:credit_card, :order => order) }
+  let(:billet) { FactoryGirl.build(:billet, :order => order) }
+  let(:debit) { FactoryGirl.build(:debit, :order => order) }
+  subject { PaymentBuilder.new(order, credit_card, delivery_address) }
   let(:payer) { subject.payer }
 
   before :each do
@@ -55,7 +57,7 @@ describe PaymentBuilder do
     expected = {
       :nome => order.user_name,
       :email => order.user_email,
-      :identidade => payment.user_identification,
+      :identidade => credit_card.user_identification,
       :logradouro => delivery_address.street,
       :complemento => delivery_address.complement,
       :numero => delivery_address.number,
@@ -72,31 +74,32 @@ describe PaymentBuilder do
   end
 
   it "should return payment data for billet" do
+    subject.payment = billet
     expected = { :valor => order.total, :id_proprio => order.id,
-                :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
+                :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
                 :razao=> Payment::REASON  }
 
     subject.payment_data.should == expected
   end
 
   it "should return payment data for debit" do
-    subject.payment.payment_type = Payment::TYPE[:debit]
-    expected = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-               :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
+    subject.payment = debit
+    expected = { :valor => order.total, :id_proprio => order.id, :forma => subject.payment.to_s,
+               :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
     subject.payment_data.should == expected
   end
 
   it "should return payment data for credit card" do
-    subject.payment.payment_type = Payment::TYPE[:credit]
+    subject.payment = credit_card
     payer = subject.payer
-    expected = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
-              :instituicao => payment.bank, :numero => payment.credit_card_number,
-              :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
-              :nome => payment.user_name, :identidade => payment.user_identification,
-              :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
-              :parcelas => payment.payments, :recebimento => payment.receipt,
+    expected = { :valor => order.total, :id_proprio => order.id, :forma => subject.payment.to_s,
+              :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
+              :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
+              :nome => credit_card.user_name, :identidade => credit_card.user_identification,
+              :telefone => credit_card.telephone, :data_nascimento => credit_card.user_birthday,
+              :parcelas => credit_card.payments, :recebimento => credit_card.receipt,
               :pagador => payer, :razao => Payment::REASON }
 
     subject.payment_data.should == expected

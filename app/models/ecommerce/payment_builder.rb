@@ -53,26 +53,23 @@ class PaymentBuilder
   end
 
   def payment_data
-    billet = { :valor => order.total, :id_proprio => order.id,
+    if payment.is_a? Billet
+    data = { :valor => order.total, :id_proprio => order.id,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON }
-
-    credit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
+    elsif payment.is_a? CreditCard
+      data = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => payment.credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
                 :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
-
-     debit = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
+    else
+      data = { :valor => order.total, :id_proprio => order.id, :forma => payment.to_s,
                :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
-
-     data = case payment.payment_type
-       when Payment::TYPE[:billet] then billet
-       when Payment::TYPE[:debit]  then debit
-       else credit
-     end
+    end
+    data
   end
 end

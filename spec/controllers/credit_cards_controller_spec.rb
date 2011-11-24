@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe PaymentsController do
-  let(:attributes) {{"payment_type"=>Payment::TYPE[:billet], "user_name"=>"", "credit_card_number"=>"", "security_code"=>"", "user_birthday"=>"", "expiration_date"=>"", "user_identification"=>"", "telephone"=>"", "payments"=>"", "bank"=>"BancoDoBrasil"}}
+describe CreditCardsController do
+  let(:attributes) {{"user_name"=>"Joao", "credit_card_number"=>"1111222233334444", "security_code"=>"456", "user_birthday"=>"27/89/1986", "expiration_date"=>"22/14", "user_identification"=>"067.239.146-51", "telephone"=>"(35)7648-6749", "payments"=>"1", "bank"=>"Visa", "receipt" => "AVista" }}
 
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
@@ -22,7 +22,7 @@ describe PaymentsController do
       end
       it "should assigns @payment" do
         get 'new'
-        assigns(:payment).should be_a_new(Payment)
+        assigns(:payment).should be_a_new(CreditCard)
       end
 
       it "should assigns @delivery_address from the session" do
@@ -55,23 +55,23 @@ describe PaymentsController do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!)
-        post :create, :payment => attributes
+        post :create, :credit_card => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!)
-        post :create, :payment => attributes
+        post :create, :credit_card => attributes
         session[:order].should be(nil)
       end
     end
 
     describe "with invalid params" do
       it "should not create a payment" do
-        Payment.any_instance.stub(:valid?).and_return(false)
+        CreditCard.any_instance.stub(:valid?).and_return(false)
         expect {
-          post :create, :payment => {}
-        }.to change(Payment, :count).by(0)
+          post :create, :credit_card => {}
+        }.to change(CreditCard, :count).by(0)
       end
     end
   end
