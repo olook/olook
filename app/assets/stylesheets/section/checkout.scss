@@ -331,7 +331,7 @@ section.checkout {
       border: none;
     }
     input[type="submit"].save {
-      background: url('/assets/cart/save-continue.png') no-repeat;
+      background: url('/assets/cart/save-continue.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 202px;
       height: 46px;
@@ -340,7 +340,7 @@ section.checkout {
       cursor: pointer;
       border: none;
       &.disabled {
-        background: url('/assets/cart/save-continue-disabled.png') no-repeat;
+        background-position: -202px 0;
       }
     }
   }
