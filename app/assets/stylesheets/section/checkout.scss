@@ -326,6 +326,53 @@ section#address_new {
   }
 }
 
+section#payment {
+  section.main {
+    ul.payment_methods {
+      width: 595px;
+      overflow: auto;
+      padding: 25px;
+      border: 1px #d6d6d6 solid;
+      li {
+        display: inline;
+        margin: 0 30px 0 0;
+        float: left;
+        a {
+          background: url("/assets/cart/ico-payments.png") no-repeat;
+          text-indent: -9999px;
+          height: 21px;
+          padding: 2px;
+          display: block;
+          float: left;
+          &:hover {
+            margin: -2px;
+            border: 2px #df5a8a solid;
+          }
+        }
+        &.billet {
+          margin-left: 80px;
+          a {
+            background-position: 0 0;
+            width: 34px;
+          }
+        }
+        &.debit {
+          a {
+            background-position: -38px 0;
+            width: 158px;
+          }
+        }
+        &.credit_card {
+          a {
+            background-position: -162px 0;
+            width: 155px;
+          }
+        }
+      }
+    }
+  }
+}
+
 section.checkout {
   h1 {
     font-family: Times;
