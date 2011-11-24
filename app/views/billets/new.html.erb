@@ -1,3 +1,22 @@
-<%= link_to("Alterar endereço de entrega", addresses_path)  %>
-Endereço:<%= @delivery_address.street  %>
-<%= render 'form' %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="payment" class="checkout">
+  <section class="main">
+    <h1>Escolha uma forma de pagamento</h1>
+    <ul class="payment_methods">
+      <li class="billet"><%= link_to "Boleto Bancário", new_billet_path, :class => "selected" %></li>
+      <li class="debit"><%= link_to "Débito Bancário", new_debit_path %></li>
+      <li class="credit_card"><%= link_to "Cartão de Crédito", new_credit_card_path %></li>
+    </ul>
+    <%= render 'form' %>
+  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <%= render :partial => "shared/payments/info_address" %>
+    <% end %>
+    <%= render :partial => "shared/payments/info_sidebar" %>
+    <%= submit_tag '', :class => "finish" %>
+  </section>
+</section>
