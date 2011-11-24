@@ -141,6 +141,77 @@ section#address {
   }
 }
 
+section#address_new {
+  section.main {
+    fieldset {
+      ol {
+        li {
+          display: inline;
+          label {
+            font-weight: bold;
+          }
+          input[type="text"] {
+            font-size: 14px;
+            padding: 10px;
+            border: 1px #d6d6d6 solid;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+    div.zip_code {
+      width: 100%;
+      margin: 0 0 20px 0;
+      overflow: auto;
+      fieldset {
+        float: left;
+        ol {
+          li {
+            label {
+              margin-right: 15px;
+            }
+          }
+        }
+        &.inputs {
+          margin-right: 20px;
+        }
+        &.buttons {
+          margin: 5px 0 0 0;
+          input[type="submit"] {
+            background: url("/assets/cart/search-zip-code.png") no-repeat;
+            text-indent: -9999px;
+            width: 94px;
+            height: 32px;
+            margin-right: 20px;
+            display: block;
+            border: none;
+            cursor: pointer;
+            float: left;
+          }
+          p {
+            font-size: 14px;
+            width: 325px;
+            line-height: 30px;
+            a {
+              color: #6D6E71;
+              text-decoration: none;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+    div.address_fields {
+      padding: 20px 0 0 0;
+      border-top: 1px #d6d6d6 solid;
+    }
+  }
+}
+
 section.checkout {
   h1 {
     font-family: Times;
@@ -201,6 +272,19 @@ section.checkout {
       display: block;
       cursor: pointer;
       border: none;
+    }
+    input[type="submit"].save {
+      background: url('/assets/cart/save-continue.png') no-repeat;
+      text-indent: -9999px;
+      width: 202px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+      &.disabled {
+        background: url('/assets/cart/save-continue-disabled.png') no-repeat;
+      }
     }
   }
 }
