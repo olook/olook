@@ -11,12 +11,7 @@
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
-      <div class="item">
-        <h1>Endereço de entrega <%= link_to "alterar", addresses_path %></h1>
-        <p><strong>Raul Souza Lima</strong></p>
-        <p>Rua Surubim, 159 - Brooklin Paulista</p>
-        <p>São Paulo, SP</p>
-      </div>
+      <%= render :partial => "shared/payments/info_address" %>
     <% end %>
     <%= render :partial => "shared/payments/info_sidebar" %>
     <%= submit_tag '', :disabled => "disabled", :class => "disabled save" %>
