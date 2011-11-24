@@ -1,3 +1,24 @@
-<%= link_to "Boleto Bancário", new_billet_path %>
-<%= link_to "Débito Bancário", new_debit_path %>
-<%= link_to "Cartão de Créditp", new_credit_card_path %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="payment" class="checkout">
+  <section class="main">
+    <h1>Escolha uma forma de pagamento</h1>
+    <%= link_to "Boleto Bancário", new_billet_path %>
+    <%= link_to "Débito Bancário", new_debit_path %>
+    <%= link_to "Cartão de Crédito", new_credit_card_path %>
+  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <div class="item">
+        <h1>Endereço de entrega <%= link_to "alterar", addresses_path %></h1>
+        <p><strong>Raul Souza Lima</strong></p>
+        <p>Rua Surubim, 159 - Brooklin Paulista</p>
+        <p>São Paulo, SP</p>
+      </div>
+    <% end %>
+    <%= render :partial => "shared/payments/info_sidebar" %>
+    <%= submit_tag '', :disabled => "disabled", :class => "disabled save" %>
+  </section>
+</section>
