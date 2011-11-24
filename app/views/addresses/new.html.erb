@@ -46,37 +46,41 @@
               <%= label_tag 'first_name', 'Nome' %>
               <%= text_field_tag 'first_name' %>
             </li>
+            <li>
+              <%= label_tag 'last_name', 'Sobrenome' %>
+              <%= text_field_tag 'last_name' %>
+            </li>
           </ol>
         </fieldset>
         <fieldset class="inputs">
           <ol>
-            <li>
+            <li class="street">
               <%= f.label :street %>
               <%= f.text_field :street %>
             </li>
-            <li>
+            <li class="number">
               <%= f.label :number %>
               <%= f.text_field :number %>
             </li>
-            <li>
+            <li class="complement">
+              <%= f.label :complement %>
+              <%= f.text_field :complement %>
+            </li>
+            <li class="neighborhood">
               <%= f.label :neighborhood %>
               <%= f.text_field :neighborhood %>
             </li>
-            <li>
-              <%= f.label :telephone %>
-              <%= f.text_field :telephone %>
-            </li>
-            <li>
+            <li class="city">
               <%= f.label :city %>
               <%= f.text_field :city %>
             </li>
-            <li>
+            <li class="state">
               <%= f.label :state %>
               <%= f.text_field :state %>
             </li>
-            <li>
-              <%= f.label :country %>
-              <%= f.text_field :country %>
+            <li class="phone">
+              <%= f.label :telephone %>
+              <%= f.text_field :telephone %>
             </li>
           </ol>
         </fieldset>
