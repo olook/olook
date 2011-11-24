@@ -21,45 +21,98 @@ section#cart {
         width: 270px;
       }
     }
-    tbody tr td {
-      position: relative;
-      padding: 10px 0;
-      border-bottom: 1px $border-color solid;
-      p {
-        margin-bottom: 5px;
-        strong {
-          color: #716d68;
-          text-transform: uppercase;
-          font-weight: bold;
+    tbody tr {
+      &.discount {
+        td {
+          h1 {
+            position: absolute;
+            font-family: Times;
+            font-style: italic;
+            font-size: 24px;
+            top: 15px;
+            span {
+              color: #df5a8a;
+            }
+          }
+          p {
+            font-size: 13px;
+            text-align: right;
+            display: block;
+            margin: 0 5px 0 0;
+            strong {
+              text-transform: none;
+            }
+          }
+          fieldset ol li {
+            display: inline;
+            input[type="text"] {
+              background: url('/assets/common/bg-inputs.png') repeat-x;
+              font-size: 14px;
+              font-weight: bold;
+              width: 80px;
+              border: 1px solid #C1C1C1;
+              padding: 7px 8px;
+              margin-left: 20px;
+              height:17px;
+              &:focus {
+                outline: none;
+              }
+            }
+            input[type="submit"] {
+              background: url("/assets/cart/bg-update.png") top left no-repeat;
+              color: #df5a8a;
+              font-family: Arial;
+              font-size: 12px;
+              text-decoration: underline;
+              height: 25px;
+              padding: 0 0 0 30px;
+              border: none;
+              cursor: pointer;
+            }
+          }
         }
       }
-      &.item {
-        padding-left: 15px;
-        img {
-          width: 70px;
-          height: 70px;
-          margin-right: 20px;
-          float: left;
+      td {
+        position: relative;
+        padding: 10px 0;
+        border-bottom: 1px $border-color solid;
+        p {
+          margin-bottom: 5px;
+          strong {
+            color: #716d68;
+            text-transform: uppercase;
+            font-weight: bold;
+          }
         }
-      }
-      &.amount {
-        select {
-          width: 55px
+        &.item {
+          padding-left: 15px;
+          img {
+            width: 70px;
+            height: 70px;
+            margin-right: 20px;
+            float: left;
+          }
         }
-      }
-      &.value {
-        width: 150px;
-      }
-      &.delete_item {
-        input[type="submit"] {
-          position: absolute;
-          background: url("/assets/cart/delete-item.png") no-repeat;
-          width: 76px;
-          height: 20px;
-          display: block;
-          top: 30px;
-          border: none;
-          cursor: pointer;
+        &.amount {
+          select {
+            width: 55px
+          }
+        }
+        &.value {
+          width: 60px;
+        }
+        &.delete_item {
+          input[type="submit"] {
+            position: absolute;
+            background: url("/assets/cart/delete-item.png") no-repeat;
+            width: 76px;
+            height: 20px;
+            display: block;
+            top: 30px;
+            right: 15px;
+            border: none;
+            cursor: pointer;
+          }
         }
       }
     }

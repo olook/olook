@@ -41,6 +41,27 @@
           </td>
         </tr>
       <% end %>
+      <tr class="discount">
+        <td class="item"><h1>Você possui <span>R$300,00</span> em crédito</h1></td>
+        <td colspan="2">
+          <p><strong>Quanto deseja usar?</strong></p>
+          <p>Digite o valor no campo ao lado</p>
+        </td>
+        <td>
+          <%= form_tag '#' do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_field_tag 'discount' %>
+                </li>
+                <li>
+                  <%= submit_tag 'Atualizar' %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
     </tbody>
   </table>
