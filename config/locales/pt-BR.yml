@@ -224,8 +224,21 @@
 
   activerecord:
     models:
+      address: Endereço
       user: Usuário
     attributes:
+      address:
+        city: Cidade
+        complement: Complemento
+        country: País
+        first_name: Nome
+        last_name: Sobrenome
+        neighborhood: Bairro
+        number: Número
+        state: Estado
+        street: "Rua, Av., Praça"
+        telephone: Telefone
+        zip_code: CEP
       user:
         first_name: Nome
         last_name: Sobrenome
