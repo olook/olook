@@ -18,6 +18,7 @@ class AddressesController < ApplicationController
       session[:delivery_address_id] = @address.id
       redirect_to(new_payment_path, :notice => 'Endereço cadastrado com sucesso')
     else
+      debugger
       respond_with(@address)
     end
   end

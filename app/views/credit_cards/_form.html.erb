@@ -1,10 +1,10 @@
-<%= form_for("/payments", :url => {:controller => 'payments', :action => 'create'}) do |f| %>
-  <% if @credit_card.errors.any? %>
+<%= form_for(@payment) do |f| %>
+  <% if @payment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@credit_card.errors.count, "error") %> prohibited this payment from being saved:</h2>
+      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
 
       <ul>
-      <% @credit_card.errors.full_messages.each do |msg| %>
+      <% @payment.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

@@ -139,10 +139,10 @@ ActiveRecord::Schema.define(:version => 20111123152838) do
 
   create_table "payments", :force => true do |t|
     t.integer  "order_id"
-    t.integer  "payment_type"
     t.text     "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   create_table "pictures", :force => true do |t|
