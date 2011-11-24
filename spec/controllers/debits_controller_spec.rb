@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe DebitsController do
-  let(:attributes) {{"bank"=>"BancoDoBrasil", "receipt"=>"AVista"}}
+  let(:attributes) {{"bank"=>"BancoDoBrasil"}}
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
 
