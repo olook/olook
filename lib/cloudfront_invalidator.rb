@@ -11,7 +11,7 @@ class CloudfrontInvalidator
     rails_root = Rails.root || File.dirname(__FILE__) + '/..'
     rails_env = Rails.env || 'development'
 
-    invalidator_config = YAML.load_file(rails_root + '/config/aws.yml')
+    invalidator_config = YAML.load_file(rails_root + 'config/aws.yml')
     @aws_account = invalidator_config[rails_env]['aws_account']
     @aws_secret = invalidator_config[rails_env]['aws_secret']
     @distribution = invalidator_config[rails_env]['distribution']
