@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Billet < Payment
-  validates_presence_of :receipt
 
   STATUS = {
     "1" => :authorized,

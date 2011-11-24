@@ -8,8 +8,6 @@ describe Billet do
   let(:completed) { "4" }
   let(:under_review) { "6" }
 
-  it {should validate_presence_of :receipt }
-
   it "should return to_s version" do
     subject.to_s.should == "BoletoBancario"
   end
