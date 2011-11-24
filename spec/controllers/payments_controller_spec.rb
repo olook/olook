@@ -4,11 +4,22 @@ require 'spec_helper'
 describe PaymentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
+  let(:order) { FactoryGirl.create(:order) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
     session[:delivery_address_id] = address.id
     sign_in user
+  end
+
+  describe "POST create" do
+    context "with valid params" do
+      it "should return 200" do
+        billet_printed = "3"
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.id
+        response.status.should == 200
+      end
+    end
   end
 
   describe "GET index" do
