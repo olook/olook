@@ -133,11 +133,6 @@ describe User do
       invite = subject.invite_for(valid_user.email)
       invite.should be_nil
     end
-
-    it "should create an invite with the sent_at field filled when the param is provided" do
-      invite = subject.invite_for(valid_email, Time.now)
-      invite.sent_at.should_not be_nil
-    end
   end
 
   describe "#invites_for (plural)" do
