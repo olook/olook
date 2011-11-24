@@ -42,7 +42,7 @@ describe AddressesController do
 
     it "should redirect to new payment" do
       post :assign_address
-      response.should redirect_to(new_payment_path)
+      response.should redirect_to(payments_path)
     end
   end
 end
