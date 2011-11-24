@@ -13,6 +13,7 @@ Olook::Application.routes.draw do
   resources :payments, :path => 'pagamento', :controller => :payments
   resources :credit_cards, :path => 'credito', :controller => :credit_cards
   resources :debits, :path => 'debito', :controller => :debits
+  resources :billets, :path => 'boleto', :controller => :billets
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :only => [:show, :create, :update, :destroy], :path => 'sacola', :controller => :cart
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
