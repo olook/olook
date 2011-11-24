@@ -25,7 +25,7 @@ class AddressesController < ApplicationController
 
   def assign_address
     session[:delivery_address_id] = params[:delivery_address_id]
-    redirect_to new_payment_path
+    redirect_to payments_path
   end
 
   private
