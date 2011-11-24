@@ -7,5 +7,9 @@ FactoryGirl.define do
     factory :sent_invite do
       sent_at { Time.parse '2011-10-10 18:00' }
     end
+
+    factory :resubmitted_invite do
+      resubmitted { nil }
+    end
   end
 end
