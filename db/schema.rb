@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111123152838) do
+ActiveRecord::Schema.define(:version => 20111124175047) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20111123152838) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "sent_at"
+    t.boolean  "resubmitted"
   end
 
   add_index "invites", ["accepted_at"], :name => "index_invites_on_accepted_at"
