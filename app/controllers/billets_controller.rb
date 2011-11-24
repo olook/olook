@@ -6,6 +6,7 @@ class BilletsController < ApplicationController
   before_filter :load_user
   before_filter :check_order
   before_filter :check_user_address, :only => [:new, :create]
+  before_filter :assign_receipt, :only => [:create]
 
   def new
     @payment = Billet.new
@@ -22,5 +23,11 @@ class BilletsController < ApplicationController
     else
       respond_with(@payment)
     end
+  end
+
+  private
+
+  def assign_receipt
+    params[:billet][:receipt] = Payment::RECEIPT
   end
 end
