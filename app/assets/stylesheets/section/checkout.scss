@@ -123,6 +123,10 @@ section#cart {
       &.subtotal {
         padding-left: 15px;
       }
+      &.total {
+        text-align: right;
+        padding-right: 30px;
+      }
     }
   }
   a.continue {
