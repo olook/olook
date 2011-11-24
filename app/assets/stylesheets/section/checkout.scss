@@ -331,6 +331,7 @@ section#payment {
     ul.payment_methods {
       width: 595px;
       overflow: auto;
+      margin: 0 0 15px 0;
       padding: 25px;
       border: 1px #d6d6d6 solid;
       li {
@@ -344,7 +345,7 @@ section#payment {
           padding: 2px;
           display: block;
           float: left;
-          &:hover {
+          &:hover, &.selected {
             margin: -2px;
             border: 2px #df5a8a solid;
           }
@@ -368,6 +369,20 @@ section#payment {
             width: 155px;
           }
         }
+      }
+    }
+    p.generate_billet {
+      font-size: 14px;
+      input[type="submit"] {
+        background: url("/assets/cart/print-billet.png") no-repeat;
+        text-indent: -9999px;
+        width: 165px;
+        height: 46px;
+        display: block;
+        margin: 0 20px 0 50px;
+        border: none;
+        cursor: pointer;
+        float: right;
       }
     }
   }
@@ -435,6 +450,16 @@ section.checkout {
       background: url('/assets/cart/continue.png') no-repeat;
       text-indent: -9999px;
       width: 136px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+    }
+    input[type="submit"].finish {
+      background: url('/assets/cart/finish.png') no-repeat;
+      text-indent: -9999px;
+      width: 116px;
       height: 46px;
       margin: 0 auto;
       display: block;
