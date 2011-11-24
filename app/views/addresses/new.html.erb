@@ -19,7 +19,6 @@
       <% end %>
 
       <div class="zip_code">
-        <%= form_tag("#") do %>
           <fieldset class="inputs">
             <ol>
               <li>
@@ -31,12 +30,11 @@
           <fieldset class="buttons">
             <ol>
               <li>
-                <%= f.submit "" %>
+                <%= link_to "Buscar CEP", "#", :class => "search" %>
                 <p>Não sabe seu cep? <%= link_to "Clique aqui", "#" %></p>
               </li>
             </ol>
           </fieldset>
-        <% end %>
       </div>
 
       <div class="address_fields">
