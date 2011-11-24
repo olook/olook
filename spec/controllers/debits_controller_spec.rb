@@ -54,13 +54,13 @@ describe DebitsController do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!)
-        post :create, :credit_card => attributes
+        post :create, :debit => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!)
-        post :create, :credit_card => attributes
+        post :create, :debit => attributes
         session[:order].should be(nil)
       end
     end
@@ -69,7 +69,7 @@ describe DebitsController do
       it "should not create a payment" do
         Debit.any_instance.stub(:valid?).and_return(false)
         expect {
-          post :create, :credit_card => {}
+          post :create, :debit => {}
         }.to change(Debit, :count).by(0)
       end
     end
