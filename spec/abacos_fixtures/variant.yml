@@ -1,36 +1,40 @@
 ---
 :protocolo_produto: !str
-  str: B8C3DD94-C8EC-4469-9B58-9698A35D09E7
+  str: 7D2D3CB3-ADD1-4144-946B-66A57B2BEA60
   attributes: {}
 :acao: !str
   str: aieManutencao
   attributes: {}
 :codigo_produto_abacos: !str
-  str: '1'
+  str: '29'
   attributes: {}
 :codigo_produto: !str
-  str: '10'
+  str: '38'
   attributes: {}
-:codigo_produto_pai: !!null 
+:codigo_produto_pai: !str
+  str: '37'
+  attributes: {}
 :codigo_barras: !str
-  str: '0000000000001'
+  str: '1120108103233'
   attributes: {}
 :tipo_produto: !str
   str: tpreProduto
   attributes: {}
 :nome_produto: !str
-  str: Sandália com Flor de couro Coral
+  str: Sapatilha camurça preto com elástico preto
   attributes: {}
 :descricao: !!null 
 :codigo_marca: !str
-  str: '2'
+  str: '3'
   attributes: {}
-:codigo_fabricante: !!null 
+:codigo_fabricante: !str
+  str: '40182'
+  attributes: {}
 :codigo_classe: !str
   str: '2'
   attributes: {}
 :codigo_familia: !str
-  str: '2'
+  str: '3'
   attributes: {}
 :codigo_grupo: !str
   str: '2'
@@ -45,7 +49,7 @@
   str: '29.5'
   attributes: {}
 :largura: !str
-  str: '25'
+  str: '19'
   attributes: {}
 :espessura: !str
   str: '10.5'
@@ -66,7 +70,7 @@
   str: UN
   attributes: {}
 :unidade_medida_quilo: false
-:produto_tem_filhos: true
+:produto_tem_filhos: false
 :prazo_entrega_dias: !str
   str: '0'
   attributes: {}
@@ -151,22 +155,22 @@
   :rows:
     :dados_descritor_simples:
     - :codigo_interno: !str
-        str: '3'
+        str: '31'
         attributes: {}
       :numero: !str
         str: '1'
         attributes: {}
       :descricao: !str
-        str: Natural
+        str: Preto
         attributes: {}
     - :codigo_interno: !str
-        str: '3'
+        str: '31'
         attributes: {}
       :numero: !str
         str: '2'
         attributes: {}
       :descricao: !str
-        str: Palm sint. Ouro light
+        str: Natural
         attributes: {}
 :descritor_pre_definido:
   :versao_web_service: !str
@@ -185,20 +189,35 @@
       attributes: {}
   :rows:
     :dados_descritor_pre_definido:
-      :codigo_interno: !str
-        str: '1'
+    - :codigo_interno: !str
+        str: '4'
         attributes: {}
       :numero: !str
         str: '1'
         attributes: {}
       :descricao: !str
-        str: Couro Gergelim
+        str: Tec Camurça Preto
         attributes: {}
       :grupo_codigo: !str
         str: '1'
         attributes: {}
       :grupo_nome: !str
         str: ! 'COR                                               '
+        attributes: {}
+    - :codigo_interno: !str
+        str: '1'
+        attributes: {}
+      :numero: !str
+        str: '2'
+        attributes: {}
+      :descricao: !str
+        str: '33'
+        attributes: {}
+      :grupo_codigo: !str
+        str: '2'
+        attributes: {}
+      :grupo_nome: !str
+        str: ! 'TAMANHO                                           '
         attributes: {}
 :caracteristicas_complementares:
   :versao_web_service: !str
@@ -218,13 +237,13 @@
   :rows:
     :dados_caracteristicas_complementares:
       :codigo_interno: !str
-        str: '1'
+        str: '29'
         attributes: {}
       :tipo_codigo: !str
         str: '1'
         attributes: {}
       :tipo_nome: !str
-        str: ! 'DESCRIÇÃO LONGA                                   '
+        str: ! 'Dica da Fernanda                                  '
         attributes: {}
       :tipo_grupo_codigo: !str
         str: '1'
@@ -233,7 +252,7 @@
         str: ! 'DESCRIÇÕES PARA O SITE                            '
         attributes: {}
       :texto: !str
-        str: casual
+        str: contemporâneo
         attributes: {}
       :nr_config_interface: !str
         str: '0'
@@ -355,13 +374,13 @@
       :tipo_categoria: !!null 
       :tipo_categoria_nome: !!null 
 :descricao_classe: !str
-  str: ! 'Jóia                                              '
+  str: ! 'Sapato                                            '
   attributes: {}
 :descricao_marca: !str
-  str: ! 'DCM                                               '
+  str: ! 'DEYFER                                            '
   attributes: {}
 :descricao_familia: !str
-  str: ! 'Sandália                                          '
+  str: ! 'Sapatilha                                         '
   attributes: {}
 :descricao_grupo: !str
   str: ! 'baixo                                             '
@@ -373,10 +392,10 @@
   str: '1'
   attributes: {}
 :codigo_classificacao_fiscal: !str
-  str: '1'
+  str: '2'
   attributes: {}
 :classificacao_fiscal: !str
-  str: '6403200   '
+  str: '64041900  '
   attributes: {}
 :dias_garantia: !str
   str: '0'
