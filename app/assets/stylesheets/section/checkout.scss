@@ -454,5 +454,15 @@ section.checkout {
         background-position: -202px 0;
       }
     }
+    input[type="submit"].disabled.continue {
+      background: url('/assets/cart/continue-disabled.png') 0 0 no-repeat;
+      text-indent: -9999px;
+      width: 139px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+    }
   }
 }

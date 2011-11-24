@@ -80,11 +80,11 @@ ActiveRecord::Schema.define(:version => 20111124172321) do
     t.integer  "shipping_service_id"
     t.integer  "zip_start"
     t.integer  "zip_end"
-    t.decimal  "weight_start",        :precision => 10, :scale => 0
-    t.decimal  "weight_end",          :precision => 10, :scale => 0
+    t.decimal  "weight_start",        :precision => 8, :scale => 3
+    t.decimal  "weight_end",          :precision => 8, :scale => 3
     t.integer  "delivery_time"
-    t.decimal  "price",               :precision => 10, :scale => 0
-    t.decimal  "cost",                :precision => 10, :scale => 0
+    t.decimal  "price",               :precision => 8, :scale => 2
+    t.decimal  "cost",                :precision => 8, :scale => 2
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(:version => 20111124172321) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.decimal  "price",             :precision => 10, :scale => 0
+    t.decimal  "price",             :precision => 10, :scale => 2
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
