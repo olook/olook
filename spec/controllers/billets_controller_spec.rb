@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe BilletsController do
-  let(:attributes) {{"receipt"=>"AVista"}}
+  let(:attributes) {{}}
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
 
@@ -54,13 +54,13 @@ describe BilletsController do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!)
-        post :create, :credit_card => attributes
+        post :create, :billet => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!)
-        post :create, :credit_card => attributes
+        post :create, :billet => attributes
         session[:order].should be(nil)
       end
     end
@@ -69,7 +69,7 @@ describe BilletsController do
       it "should not create a payment" do
         Billet.any_instance.stub(:valid?).and_return(false)
         expect {
-          post :create, :credit_card => {}
+          post :create, :billet => {}
         }.to change(Billet, :count).by(0)
       end
     end
