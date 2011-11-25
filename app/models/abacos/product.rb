@@ -39,6 +39,8 @@ module Abacos
       product.description ||= self.name
 
       product.save!
+      
+      Abacos::ProductAPI.confirm_product(self.integration_protocol)
     end
 
   private
