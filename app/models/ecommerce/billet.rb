@@ -33,7 +33,8 @@ class Billet < Payment
   end
 
   def set_state(status)
-    send(STATUS[status])
+    event = STATUS[status]
+    send(event) if event
   end
 
   def to_s
