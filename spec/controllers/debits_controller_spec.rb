@@ -12,6 +12,14 @@ describe DebitsController do
     sign_in user
   end
 
+  describe "GET show" do
+    it "should assign a @payment" do
+      debit = FactoryGirl.create(:debit)
+      order = FactoryGirl.create(:order, :user => user, :payment => debit)
+      get :show, :id => debit.id
+    end
+  end
+
   describe "GET new" do
     context "with a valid order" do
       before :each do
@@ -50,18 +58,26 @@ describe DebitsController do
       order.stub(:reload)
       session[:order] = order
     end
+
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!)
+        payment_builder.should_receive(:process!).and_return(mock_model(Debit))
         post :create, :debit => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!)
+        payment_builder.should_receive(:process!).and_return(mock_model(Debit))
         post :create, :debit => attributes
         session[:order].should be(nil)
+      end
+
+      it "should redirect to debit_path" do
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.should_receive(:process!).and_return(debit = mock_model(Debit))
+        post :create, :debit => attributes
+        response.should redirect_to(debit_path(debit))
       end
     end
 
