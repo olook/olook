@@ -1,3 +1,20 @@
-<%= link_to("Alterar endereço de entrega", addresses_path)  %>
-Endereço:<%= @delivery_address.street  %>
-<%= render 'form' %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="payment" class="payment_new checkout">
+  <%= form_for(@payment) do |f| %>
+    <section class="main">
+      <h1>Escolha uma forma de pagamento</h1>
+      <%= render :partial => "shared/payments/payment_methods" %>
+      <%= render :partial => 'form', :locals => { :f => f, :payment => @payment} %>
+    </section>
+    <section class="sidebar">
+      <% content_for :checkout_sidebar do %>
+        <%= render :partial => "shared/payments/info_address" %>
+      <% end %>
+      <%= render :partial => "shared/payments/info_sidebar" %>
+      <%= f.submit "", :class => "finish" %>
+    </section>
+  <% end %>
+</section>
