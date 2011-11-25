@@ -19,6 +19,12 @@ describe PaymentsController do
         post :create, :status_pagamento => billet_printed, :id_transacao => order.id
         response.status.should == 200
       end
+
+      it "should change the payment status to billet_printed" do
+        billet_printed = "3"
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.id
+        order.payment.reload.billet_printed?.should eq(true)
+      end
     end
   end
 
