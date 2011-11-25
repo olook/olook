@@ -11,18 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label "Pecebimento" %><br />
-    <%= f.text_field :receipt %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Instituiçao" %><br />
-    <%= f.text_field :bank %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="bank_select">
+    <h1>Selecione seu banco:</h1>
+    <fieldset class="inputs">
+      <ol>
+        <% Debit::BANKS_OPTIONS.each do |bank| %>
+          <li class='<%= "#{bank}" %>'>
+            <%= radio_button_tag "debit[bank]", bank, false  %>
+            <%= label_tag "debit_bank_#{bank}", bank %>
+          </li>
+        <% end %>
+      </ol>
+    </fieldset>
+    <fieldset class="buttons">
+      <ol>
+        <li><%= f.submit "" %></li>
+      </ol>
+    </fieldset>
   </div>
 <% end %>
 
