@@ -13,7 +13,7 @@ describe PaymentsController do
   end
 
   describe "POST create" do
-    context "with valid params" do
+    context "with valids params" do
       it "should return 200" do
         billet_printed = "3"
         post :create, :status_pagamento => billet_printed, :id_transacao => order.id
@@ -24,6 +24,14 @@ describe PaymentsController do
         billet_printed = "3"
         post :create, :status_pagamento => billet_printed, :id_transacao => order.id
         order.payment.reload.billet_printed?.should eq(true)
+      end
+    end
+
+    context "with invalids params" do
+      it "should return 500" do
+        invalid_status = "9"
+        post :create, :status_pagamento => invalid_status, :id_transacao => order.id
+        response.status.should == 500
       end
     end
   end
