@@ -128,9 +128,10 @@ describe User do
       invite.should be_nil
     end
 
-    it "should create an invite with the sent_at field filled when the param is provided" do
-      invite = subject.invite_for(valid_email, Time.now)
-      invite.sent_at.should_not be_nil
+    it "should not create an invite for an existing user" do
+      valid_user = FactoryGirl.create(:member)
+      invite = subject.invite_for(valid_user.email)
+      invite.should be_nil
     end
   end
 

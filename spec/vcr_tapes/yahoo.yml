@@ -1,0 +1,28 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.login.yahoo.com:443/oauth/v2/get_request_token?oauth_body_hash=2jmj7l5rSw0yVb/vlWAYkK/YBwk=&oauth_callback=http://localhost:3000/&oauth_consumer_key=dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--&oauth_nonce=BZuFuYWqwcuU3RVI627wMF967dGDp0aCKzytwQ9ViGY&oauth_signature=RG/eML+Q5C5z4rivQ1Gu0ljHg04=&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1322085786&oauth_version=1.0
+    body: !!null 
+    headers:
+      user-agent:
+      - OAuth gem v0.4.5
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Wed, 23 Nov 2011 22:03:08 GMT
+      p3p:
+      - policyref="http://info.yahoo.com/w3c/p3p.xml", CP="CAO DSP COR CUR ADM DEV
+        TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAMi OTRi UNRi PUBi IND PHY
+        ONL UNI PUR FIN COM NAV INT DEM CNT STA POL HEA PRE LOC GOV"
+      transfer-encoding:
+      - chunked
+      content-type:
+      - text/plain; charset=utf-8
+    body: oauth_token=bbxt7ef&oauth_token_secret=44e5f04e7906d7f5d38024770148db86e68ed358&oauth_expires_in=3600&xoauth_request_auth_url=https%3A%2F%2Fapi.login.yahoo.com%2Foauth%2Fv2%2Frequest_auth%3Foauth_token%3Dbbxt7ef&oauth_callback_confirmed=true
+    http_version: '1.1'

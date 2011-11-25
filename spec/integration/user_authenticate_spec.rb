@@ -8,6 +8,8 @@ feature "User Authenticate", %q{
   I want to authenticate using my Facebook account or a normal register
 } do
 
+  use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
+
   before :each do
     @user = Factory(:user)
     User.any_instance.stub(:counts_and_write_points)

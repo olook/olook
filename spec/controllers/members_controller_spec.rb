@@ -10,6 +10,8 @@ describe MembersController do
   end
 
   describe "#invite" do
+    use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
+
     it "should show the member invite page" do
       get :invite
       response.should render_template("invite")
@@ -152,6 +154,8 @@ describe MembersController do
   end
 
   describe "first visit" do
+    use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
+
     before :each do
       user.events.where(:event_type => EventType::FIRST_VISIT).destroy_all
     end
