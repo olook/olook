@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20111124172321) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "sent_at"
+    t.boolean  "resubmitted"
   end
 
   add_index "invites", ["accepted_at"], :name => "index_invites_on_accepted_at"
