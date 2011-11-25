@@ -59,10 +59,16 @@ describe Abacos::Product do
   end
 
   describe '#integrate' do
-    it 'should' do
+    it 'should create a new product' do
+      Abacos::ProductAPI.should_receive(:confirm_product)
       expect {
         subject.integrate
       }.to change(Product, :count).by(1)
+    end
+
+    it 'should call the integration confirmation' do
+      Abacos::ProductAPI.should_receive(:confirm_product).with(subject.integration_protocol)
+      subject.integrate
     end
   end
 
