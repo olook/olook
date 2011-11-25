@@ -394,6 +394,86 @@ section#payment {
       }
     }
   }
+  div.bank_select {
+    h1 {
+      font-family: Times;
+      font-size: 19px;
+      font-style: italic;
+      border: none;
+    }
+    fieldset.buttons {
+      margin: 0 25px 0 0;
+      float: right;
+      ol li {
+        input[type='submit'] {
+          background: url('/assets/cart/bt-make-payment.png') no-repeat;
+          text-indent: -9999px;
+          width: 203px;
+          height: 46px;
+          display: block;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+    fieldset.inputs {
+      width: 350px;
+      overflow: auto;
+      float: left;
+      ol {
+        width: 100%;
+        overflow: auto;
+        li {
+          width: 70px;
+          overflow: auto;
+          margin: 0 5px 5px 0;
+          float: left;
+          label {
+            background: url("/assets/cart/ico-payments.png") no-repeat;
+            text-indent: -9999px;
+            width: 43px;
+            height: 35px;
+            display: block;
+            float: left;
+          }
+          &.BancoDoBrasil {
+            label {
+              background-position: -50px 0;
+            }
+          }
+          &.Bradesco {
+            label {
+              background-position: -92px 0;
+            }
+          }
+          &.Itau {
+            label {
+              background-position: -133px 0;
+            }
+          }
+          &.BancoReal {
+            label {
+              background-position: -175px 0;
+            }
+          }
+          &.Unibanco {
+            label {
+              background-position: -215px 0;
+            }
+          }
+          &.Banrisul {
+            label {
+              background-position: -259px 0;
+            }
+          }
+          input[type="radio"] {
+            margin: 10px 5px 0 5px;
+            float: left;
+          }
+        }
+      }
+    }
+  }
 }
 
 section.checkout {
