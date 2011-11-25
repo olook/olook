@@ -269,9 +269,15 @@ ActiveRecord::Schema.define(:version => 20111124172321) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_master"
+<<<<<<< HEAD
     t.integer  "width"
     t.integer  "height"
     t.integer  "length"
+=======
+    t.decimal  "width",             :precision => 8,  :scale => 2
+    t.decimal  "height",            :precision => 8,  :scale => 2
+    t.decimal  "length",            :precision => 8,  :scale => 2
+>>>>>>> master
     t.decimal  "weight",            :precision => 8,  :scale => 2
   end
 

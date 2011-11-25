@@ -1,0 +1,567 @@
+---
+:protocolo_produto: !str
+  str: F248E8D4-7142-47B2-977E-97B0D0129C64
+  attributes: {}
+:acao: !str
+  str: aieManutencao
+  attributes: {}
+:codigo_produto_abacos: !str
+  str: '136'
+  attributes: {}
+:codigo_produto: !str
+  str: '1'
+  attributes: {}
+:codigo_produto_pai: !!null 
+:codigo_barras: !str
+  str: '1120108101132'
+  attributes: {}
+:tipo_produto: !str
+  str: tpreProduto
+  attributes: {}
+:nome_produto: !str
+  str: Sapatilha Floral  com laço em couro verde
+  attributes: {}
+:descricao: !!null 
+:codigo_marca: !str
+  str: '2'
+  attributes: {}
+:codigo_fabricante: !str
+  str: '41'
+  attributes: {}
+:codigo_classe: !str
+  str: '2'
+  attributes: {}
+:codigo_familia: !str
+  str: '3'
+  attributes: {}
+:codigo_grupo: !str
+  str: '2'
+  attributes: {}
+:codigo_sub_grupo: !str
+  str: '2'
+  attributes: {}
+:peso: !str
+  str: '0.6'
+  attributes: {}
+:comprimento: !str
+  str: '29.9'
+  attributes: {}
+:largura: !str
+  str: '19'
+  attributes: {}
+:espessura: !str
+  str: '10.5'
+  attributes: {}
+:qtde_por_embalagem: !str
+  str: '1'
+  attributes: {}
+:qtde_minima_estoque: !str
+  str: '0'
+  attributes: {}
+:qtde_maxima_estoque: !str
+  str: '0'
+  attributes: {}
+:unidade_medida_nome: !str
+  str: UNIDADE
+  attributes: {}
+:unidade_medida_abrev: !str
+  str: UN
+  attributes: {}
+:unidade_medida_quilo: false
+:produto_tem_filhos: true
+:prazo_entrega_dias: !str
+  str: '0'
+  attributes: {}
+:campo_cfg001: !!null 
+:campo_cfg002: !!null 
+:campo_cfg003: !!null 
+:campo_cfg004: !!null 
+:campo_cfg005: !!null 
+:campo_cfg006: !!null 
+:campo_cfg007: !!null 
+:campo_cfg008: !!null 
+:campo_cfg009: !!null 
+:campo_cfg010: !!null 
+:campo_cfg011: !!null 
+:campo_cfg012: !!null 
+:campo_cfg013: !!null 
+:campo_cfg014: !!null 
+:campo_cfg015: !!null 
+:campo_cfg016: !!null 
+:campo_cfg017: !!null 
+:campo_cfg018: !!null 
+:campo_cfg019: !!null 
+:campo_cfg020: !!null 
+:campo_cfg_int001: !!null 
+:campo_cfg_int002: !!null 
+:campo_cfg_int003: !!null 
+:campo_cfg_int004: !!null 
+:campo_cfg_int005: !!null 
+:campo_cfg_int006: !!null 
+:campo_cfg_int007: !!null 
+:campo_cfg_int008: !!null 
+:campo_cfg_int009: !!null 
+:campo_cfg_int010: !!null 
+:campo_cfg_int011: !!null 
+:campo_cfg_int012: !!null 
+:campo_cfg_int013: !!null 
+:campo_cfg_int014: !!null 
+:campo_cfg_int015: !!null 
+:campo_cfg_int016: !!null 
+:campo_cfg_int017: !!null 
+:campo_cfg_int018: !!null 
+:campo_cfg_int019: !!null 
+:campo_cfg_int020: !!null 
+:campo_cfg_int021: !!null 
+:campo_cfg_int022: !!null 
+:campo_cfg_int023: !!null 
+:campo_cfg_int024: !!null 
+:campo_cfg_int025: !!null 
+:campo_cfg_int026: !!null 
+:campo_cfg_int027: !!null 
+:campo_cfg_int028: !!null 
+:campo_cfg_int029: !!null 
+:campo_cfg_int030: !!null 
+:cfop_nao_contribuinte: !str
+  str: '0'
+  attributes: {}
+:cfop_contribuinte: !str
+  str: '0'
+  attributes: {}
+:unidade_tributavel: !str
+  str: '0'
+  attributes: {}
+:custo_do_produto: !str
+  str: '0'
+  attributes: {}
+:codigo_externo_fornecedor: !!null 
+:descritor_simples:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200001'
+      attributes: {}
+    :descricao: !str
+      str: Operação "Listar os descritores simples associados ao produto" efetuada
+        com sucesso.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucesso
+      attributes: {}
+  :rows:
+    :dados_descritor_simples:
+    - :codigo_interno: !str
+        str: '84'
+        attributes: {}
+      :numero: !str
+        str: '1'
+        attributes: {}
+      :descricao: !str
+        str: Forro Cacharrel Natural
+        attributes: {}
+    - :codigo_interno: !str
+        str: '84'
+        attributes: {}
+      :numero: !str
+        str: '2'
+        attributes: {}
+      :descricao: !str
+        str: Palm sint. Ouro light
+        attributes: {}
+:descritor_pre_definido:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200001'
+      attributes: {}
+    :descricao: !str
+      str: Operação "Listar os descritores pré-definidos associados ao produto" efetuada
+        com sucesso.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucesso
+      attributes: {}
+  :rows:
+    :dados_descritor_pre_definido:
+      :codigo_interno: !str
+        str: '14'
+        attributes: {}
+      :numero: !str
+        str: '1'
+        attributes: {}
+      :descricao: !str
+        str: Floral
+        attributes: {}
+      :grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :grupo_nome: !str
+        str: ! 'COR                                               '
+        attributes: {}
+:caracteristicas_complementares:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200001'
+      attributes: {}
+    :descricao: !str
+      str: Operação "Listar as caracteristicas complementares associadas ao produto"
+        efetuada com sucesso.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucesso
+      attributes: {}
+  :rows:
+    :dados_caracteristicas_complementares:
+    - :codigo_interno: !str
+        str: '163'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Dica da Fernanda                                  '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Sapatilha sensaciona impressionantel!
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '172'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '6'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Altura do salto                                   '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: n/a
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '173'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '9'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Aviamento                                         '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Preto
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '174'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '7'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Categoria                                         '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Sapatilha
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '175'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '2'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Material externo                                  '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Forro Cacharrel Natural
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '176'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '3'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Material interno                                  '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Palm sint. Ouro light
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '177'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '4'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Material sola                                     '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: n/a
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '178'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '8'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Perfil                                            '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Casual
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '179'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '5'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Tipo do salto                                     '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Baixo
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+:produtos_substitutos:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200003'
+      attributes: {}
+    :descricao: !str
+      str: OK, porém não há dados.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucessoSemDados
+      attributes: {}
+  :rows:
+    :dados_produtos_substitutos:
+      :codigo_substituto: !!null 
+:categorias_do_site:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200003'
+      attributes: {}
+    :descricao: !str
+      str: OK, porém não há dados.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucessoSemDados
+      attributes: {}
+  :rows:
+    :dados_categorias_do_site:
+      :codigo_categoria: !str
+        str: '0'
+        attributes: {}
+      :codigo_categoria_pai: !str
+        str: '0'
+        attributes: {}
+:produtos_personalizacao:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200003'
+      attributes: {}
+    :descricao: !str
+      str: OK, porém não há dados.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucessoSemDados
+      attributes: {}
+  :rows:
+    :dados_produtos_personalizacao:
+      :classificacao_personalizacao: !str
+        str: tpceNenhuma
+        attributes: {}
+      :codigo_produto_personalizacao: !!null 
+      :codigo_produto_personalizacao_pai: !!null 
+      :produto_personalizacao_ligacao: !str
+        str: tptleIndefinido
+        attributes: {}
+:componentes_kit:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200003'
+      attributes: {}
+    :descricao: !str
+      str: OK, porém não há dados.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucessoSemDados
+      attributes: {}
+  :rows:
+    :dados_componentes_kit:
+      :codigo_produto_componente: !!null 
+      :quantidade: !str
+        str: '0'
+        attributes: {}
+      :descritor_pre_definido1: !!null 
+      :descritor_pre_definido2: !!null 
+      :descritor_pre_definido3: !!null 
+      :codigo_descritor_pre_definido1: !!null 
+      :codigo_descritor_pre_definido2: !!null 
+      :codigo_descritor_pre_definido3: !!null 
+      :descritor_simples1: !!null 
+      :descritor_simples2: !!null 
+      :descritor_simples3: !!null 
+:produtos_associados:
+  :versao_web_service: !str
+    str: 5.0B.0057
+    attributes: {}
+  :resultado_operacao:
+    :codigo: !str
+      str: '200003'
+      attributes: {}
+    :descricao: !str
+      str: OK, porém não há dados.
+      attributes: {}
+    :tipo: !str
+      str: tdreSucessoSemDados
+      attributes: {}
+  :rows:
+    :dados_produtos_associados:
+      :codigo_produto_abacos: !!null 
+      :codigo_produto: !!null 
+      :codigo_barras: !!null 
+      :ordem_associacao: !!null 
+      :tipo_associacao: !!null 
+      :tipo_associacao_nome: !!null 
+      :tipo_categoria: !!null 
+      :tipo_categoria_nome: !!null 
+:descricao_classe: !str
+  str: ! 'Jóia                                              '
+  attributes: {}
+:descricao_marca: !str
+  str: ! 'DCM                                               '
+  attributes: {}
+:descricao_familia: !str
+  str: ! 'Sapatilha                                         '
+  attributes: {}
+:descricao_grupo: !str
+  str: ! 'baixo                                             '
+  attributes: {}
+:descricao_subgrupo: !str
+  str: ! 'SUB-GRUPO DE PRODUTOS                             '
+  attributes: {}
+:codigo_categoria_fiscal: !str
+  str: '1'
+  attributes: {}
+:codigo_classificacao_fiscal: !str
+  str: '1'
+  attributes: {}
+:classificacao_fiscal: !str
+  str: '6403200   '
+  attributes: {}
+:dias_garantia: !str
+  str: '0'
+  attributes: {}
+:pode_ser_brinde: false
+:tipo_rastreabilidade: !str
+  str: '0'
+  attributes: {}
+:tipo_controle_estoque: !str
+  str: tceeControla
+  attributes: {}
+:produto_kit: false
+:efetuar_check_out: true
+:descricao_nota_fiscal: false
+:classificacao_personalizacao: !str
+  str: tpceNenhuma
+  attributes: {}
+:nao_imprimir_etq_entrada: false

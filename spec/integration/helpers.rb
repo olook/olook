@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 def do_login!(user)
-  visit new_user_session_path
-  fill_in "user_email", :with => user.email
-  fill_in "user_password", :with => user.password
-  click_button "login"
+  VCR.use_cassette('yahoo_login', :match_requests_on => [:host, :path]) do
+    visit new_user_session_path
+    fill_in "user_email", :with => user.email
+    fill_in "user_password", :with => user.password
+    click_button "login"
+  end
 end
 
 def answer_survey

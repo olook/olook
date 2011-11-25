@@ -52,10 +52,15 @@ class Product < ActiveRecord::Base
   end
   
   delegate :price, to: :master_variant
+  delegate :'price=', to: :master_variant
   delegate :width, to: :master_variant
+  delegate :'width=', to: :master_variant
   delegate :height, to: :master_variant
+  delegate :'height=', to: :master_variant
   delegate :length, to: :master_variant
+  delegate :'length=', to: :master_variant
   delegate :weight, to: :master_variant
+  delegate :'weight=', to: :master_variant
 
 private
 
