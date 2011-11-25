@@ -57,7 +57,7 @@ describe Variant do
 
     describe "#dimensions" do
       it "should concatenate all the variant dimensions" do
-        subject.dimensions.should == '10,1x20,1x30,1 cm'
+        subject.dimensions.should == '10.1x20.1x30.1 cm'
       end
     end
 
