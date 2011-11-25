@@ -483,6 +483,7 @@ section#payment {
           display: inline;
           label {
             font-weight: bold;
+            display: block;
           }
           input[type="text"] {
             font-size: 14px;
@@ -490,6 +491,61 @@ section#payment {
             border: 1px #d6d6d6 solid;
             &:focus {
               outline: none;
+            }
+          }
+        }
+      }
+    }
+    div.credit_cart_payment {
+      padding: 20px 0 0 0;
+      fieldset {
+        &.inputs {
+          padding: 30px 25px;
+          border: 1px #d6d6d6 solid;
+          ol {
+            li {
+              margin: 0 10px 10px 0;
+              float: left;
+              label {
+                display: block;
+              }
+              &.user_name {
+                width: 100%;
+                input[type="text"] {
+                  width: 315px;
+                }
+              }
+              &.credit_card_number {
+                input[type="text"] {
+                  width: 270px;
+                }
+              }
+              &.security_code {
+                input[type="text"] {
+                  width: 80px;
+                }
+              }
+              &.expiration_date {
+                width: 100%;
+                margin-bottom: 20px;
+                input[type="text"] {
+                  width: 120px;
+                }
+              }
+              &.user_identification {
+                width: 100%;
+                padding-top: 15px;
+                border-top: 1px #d6d6d6 solid;
+                input[type="text"] {
+                  width: 110px;
+                }
+              }
+              &.user_birthday {
+                width: 100%;
+                input[type="text"] {
+                  width: 120px;
+                }
+              }
             }
           }
         }
