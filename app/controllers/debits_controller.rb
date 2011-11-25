@@ -4,7 +4,7 @@ class DebitsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_order
+  before_filter :check_order, :only => [:new, :create]
   before_filter :check_user_address, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
 
@@ -17,12 +17,16 @@ class DebitsController < ApplicationController
     if @payment.valid?
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
-      payment_builder.process!
+      @payment = payment_builder.process!
       clean_session_order!
-      redirect_to(root_path, :notice => "Sucesso")
+      redirect_to(debit_path(@payment), :notice => "Sucesso")
     else
       respond_with(@payment)
     end
+  end
+
+  def show
+    @payment = @user.payments.find(params[:id])
   end
 
   private

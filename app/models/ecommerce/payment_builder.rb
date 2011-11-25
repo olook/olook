@@ -15,6 +15,7 @@ class PaymentBuilder
   def save_payment
     set_url_and_order_to_payment
     payment.save
+    payment
   end
 
   def set_url_and_order_to_payment
