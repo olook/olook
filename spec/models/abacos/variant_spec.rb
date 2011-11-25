@@ -19,5 +19,26 @@ describe Abacos::Variant do
     it '#description' do
       subject.description.should == "33"
     end
+    it '#display_reference' do
+      subject.display_reference.should == "size-33"
+    end
+  end
+  
+  describe 'helper methods' do
+    it '#parse_description' do
+      subject.should_receive(:find_in_descritor_pre_definido).with({}, 'TAMANHO')
+      subject.send :parse_description, {}
+    end
+
+    describe '#parse_display_reference' do
+      it "should return size-X if it's a shoe" do
+        result = subject.send :parse_display_reference, 'X', Category::SHOE
+        result.should == 'size-X'
+      end
+      it "should return single-size if it isn't a shoe" do
+        result = subject.send :parse_display_reference, 'X', Category::BAG
+        result.should == 'single-size'
+      end
+    end
   end
 end
