@@ -4,12 +4,12 @@ class Debit < Payment
   validates_presence_of :bank, :receipt
 
   state_machine :initial => :started do
-    event :billet_printed do
-      transition :started => :billet_printed
+    event :canceled do
+      transition :started => :canceled
     end
 
     event :authorized do
-      transition :billet_printed => :authorized
+      transition :started => :authorized
     end
 
     event :completed do
@@ -23,6 +23,11 @@ class Debit < Payment
     event :refunded do
       transition :under_review => :refunded
     end
+  end
+
+  def set_state(status)
+    event = STATUS[status]
+    send(event) if event
   end
 
   def to_s
