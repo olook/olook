@@ -17,8 +17,8 @@ describe Abacos::Product do
       subject.name.should == "Sapatilha Floral  com laço em couro verde"
     end
 
-    it '#model_name' do
-      subject.model_name.should == '1'
+    it '#model_number' do
+      subject.model_number.should == '1'
     end
     
     it '#category' do
@@ -58,21 +58,14 @@ describe Abacos::Product do
     end
   end
 
-  describe '#parse_category' do
-    it "should return Category::SHOE when classe is 'Sapato'" do
-      subject.send(:parse_category, 'Sapato').should == Category::SHOE
-    end
-    it "should return Category::BAG when classe is 'Bolsa'" do
-      subject.send(:parse_category, 'Bolsa').should == Category::BAG
-    end
-    it "should return Category::JEWEL when classe is 'Jóia'" do
-      subject.send(:parse_category, 'Jóia').should == Category::JEWEL
-    end
-    it "should return Category::SHOE when classe something else" do
-      subject.send(:parse_category, 'XXX').should == Category::SHOE
+  describe '#integrate' do
+    it 'should' do
+      expect {
+        subject.integrate
+      }.to change(Product, :count).by(1)
     end
   end
-  
+
   describe "#parse_color" do
     it "should return the color name" do
       subject.send(:parse_color, descritor_pre_definido).should == 'Couro Gergelim'
