@@ -1,68 +1,61 @@
-<%= form_for(@payment) do |f| %>
-  <% if @payment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+<% if payment.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
 
-      <ul>
-      <% @payment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :nome %><br />
-    <%= f.text_field :user_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :numero %><br />
-    <%= f.text_field :credit_card_number %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Código de Segurança" %><br />
-    <%= f.text_field :security_code %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Data de Nascimento" %><br />
-    <%= f.text_field :user_birthday %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Data de Expiraçao" %><br />
-    <%= f.text_field :expiration_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Identidade" %><br />
-    <%= f.text_field :user_identification %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Telefone Fixo" %><br />
-    <%= f.text_field :telephone %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Parcelas" %><br />
-    <%= f.text_field :payments %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Pecebimento" %><br />
-    <%= f.text_field :receipt %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Instituiçao" %><br />
-    <%= f.text_field :bank %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+    <ul>
+    <% payment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
   </div>
 <% end %>
 
+<div class="payments">
+  <fieldset class="inputs">
+    <ol>
+      <li>
+        <%= f.label :payments %>
+        <%= f.text_field :payments %>
+      </li>
+    </ol>
+  </fieldset>
+</div>
+
+<div class="credit_cart_payment">
+  <fieldset class="inputs">
+    <ol>
+      <li>
+        <%= f.label :user_name %>
+        <%= f.text_field :user_name %>
+      </li>
+      <li>
+        <%= f.label :credit_card_number %>
+        <%= f.text_field :credit_card_number %>
+      </li>
+      <li>
+        <%= f.label :security_code %>
+        <%= f.text_field :security_code %>
+      </li>
+      <li>
+        <%= f.label :user_birthday %>
+        <%= f.text_field :user_birthday %>
+      </li>
+      <li>
+        <%= f.label :expiration_date %>
+        <%= f.text_field :expiration_date %>
+      </li>
+      <li>
+        <%= f.label :user_identification %>
+        <%= f.text_field :user_identification %>
+      </li>
+      <li>
+        <%= f.label :telephone %>
+        <%= f.text_field :telephone %>
+      </li>
+      <li>
+        <%= f.label :bank %>
+        <%= f.text_field :bank %>
+      </li>
+    </ol>
+  </fieldset>
+</div>
