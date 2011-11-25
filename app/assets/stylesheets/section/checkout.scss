@@ -456,7 +456,7 @@ section.checkout {
       cursor: pointer;
       border: none;
     }
-    input[type="submit"].finish {
+    input[type="submit"].finish, a.finish {
       background: url('/assets/cart/finish.png') no-repeat;
       text-indent: -9999px;
       width: 116px;
