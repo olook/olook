@@ -12,6 +12,14 @@ describe BilletsController do
     sign_in user
   end
 
+  describe "GET show" do
+    it "should assign a @payment" do
+      order = FactoryGirl.create(:order, :user => user)
+      payment = order.payment
+      get :show, :id => payment.id
+    end
+  end
+
   describe "GET new" do
     context "with a valid order" do
       before :each do
