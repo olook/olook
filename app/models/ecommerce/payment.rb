@@ -8,8 +8,12 @@ class Payment < ActiveRecord::Base
     "3" => :billet_printed,
     "4" => :completed,
     "5" => :canceled,
-    "6" => :under_review
+    "6" => :under_analysis,
+    "7" => :reversed,
+    "8" => :under_review,
+    "9" => :refouded
   }
+
   attr_accessor :receipt, :user_identification
   belongs_to :order
   has_one :payment_response

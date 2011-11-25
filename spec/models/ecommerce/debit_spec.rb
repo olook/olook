@@ -6,11 +6,11 @@ describe Debit do
   let(:canceled) { "5" }
   let(:authorized) { "1" }
   let(:completed) { "4" }
-  let(:under_review) { "6" }
+  let(:under_review) { "8" }
 
   context "status" do
     it "should return nil with a invalid status" do
-      invalid_status = '9'
+      invalid_status = '0'
       subject.set_state(invalid_status).should be(nil)
     end
   end

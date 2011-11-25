@@ -29,7 +29,7 @@ describe PaymentsController do
 
     context "with invalids params" do
       it "should return 500" do
-        invalid_status = "9"
+        invalid_status = "0"
         post :create, :status_pagamento => invalid_status, :id_transacao => order.id
         response.status.should == 500
       end
