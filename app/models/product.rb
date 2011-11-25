@@ -2,7 +2,8 @@
 class Product < ActiveRecord::Base
   has_enumeration_for :category, :with => Category, :required => true
   
-  after_create :create_master_variant
+  after_save :save_master_variant
+  after_initialize :build_master_variant
   
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -15,7 +16,7 @@ class Product < ActiveRecord::Base
   scope :shoes , where(:category => Category::SHOE)
   scope :bags  , where(:category => Category::BAG)
   scope :jewels, where(:category => Category::JEWEL)
-
+  
   def related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)
@@ -63,12 +64,19 @@ class Product < ActiveRecord::Base
   delegate :'weight=', to: :master_variant
 
 private
+  def build_master_variant
+    if @master_variant.nil?
+      @master_variant = self.variants.unscoped.build( :is_master => true,
+                            :number => 'master', :description => 'master',
+                            :price => 0.0, :inventory => 0,
+                            :width => 0, :height => 0, :length => 0,
+                            :display_reference => 'master',
+                            :weight => 0.0 )
+    end
+  end
 
-  def create_master_variant
-    @master_variant = self.variants.unscoped.create( :is_master => true,
-                          :number => 'master', :description => 'master',
-                          :price => 0.0, :inventory => 0,
-                          :width => 0, :height => 0, :length => 0,
-                          :weight => 0.0 )
+  def save_master_variant
+    @master_variant.product_id = self.id if @master_variant.product_id.nil?
+    @master_variant.save!
   end
 end

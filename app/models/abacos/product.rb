@@ -4,14 +4,14 @@ module Abacos
     include ::Abacos::Helpers
 
     attr_reader :integration_protocol,
-                :name, :model_name, :category,
+                :name, :model_number, :category,
                 :width, :height, :length, :weight,
                 :color, :details, :profiles
 
     def initialize(abacos_product)
       @integration_protocol = abacos_product[:protocolo_produto]
       @name = abacos_product[:nome_produto]
-      @model_name = abacos_product[:codigo_produto].to_s
+      @model_number = abacos_product[:codigo_produto].to_s
       @category = parse_category(abacos_product[:descricao_classe])
       @width = abacos_product[:largura].to_f
       @height = abacos_product[:espessura].to_f
@@ -21,18 +21,27 @@ module Abacos
       @details = parse_details( abacos_product[:caracteristicas_complementares] )
       @profiles = parse_profiles( abacos_product[:caracteristicas_complementares] )
     end
-
-  private
-    def parse_category(abacos_category)
-      case abacos_category.strip
-        when 'Sapato' then Category::SHOE
-        when 'Bolsa' then Category::BAG
-        when 'Jóia' then Category::JEWEL
-      else
-        Category::SHOE
-      end
+    
+    def basic_attributes
+      { name:         self.name,
+        model_number: self.model_number,
+        category:     self.category,
+        width:        self.width,
+        height:       self.height,
+        length:       self.length,
+        weight:       self.weight }
     end
     
+    def integrate
+      product = ::Product.find_by_model_number(self.model_number) || ::Product.new
+
+      product.update_attributes(self.basic_attributes)
+      product.description ||= self.name
+
+      product.save!
+    end
+
+  private
     def parse_color(data)
       find_in_descritor_pre_definido(data, 'COR')
     end
