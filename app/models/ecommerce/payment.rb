@@ -18,4 +18,9 @@ class Payment < ActiveRecord::Base
     self.url, self.order = payment_url, order
     save
   end
+
+  def set_state(status)
+    event = STATUS[status]
+    send(event) if event
+  end
 end

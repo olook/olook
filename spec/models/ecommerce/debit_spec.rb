@@ -8,6 +8,13 @@ describe Debit do
   let(:completed) { "4" }
   let(:under_review) { "6" }
 
+  context "status" do
+    it "should return nil with a invalid status" do
+      invalid_status = '9'
+      subject.set_state(invalid_status).should be(nil)
+    end
+  end
+
   context "attributes validation" do
     it{ should validate_presence_of :bank }
     it{ should validate_presence_of :receipt }

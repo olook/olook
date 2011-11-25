@@ -25,11 +25,6 @@ class Debit < Payment
     end
   end
 
-  def set_state(status)
-    event = STATUS[status]
-    send(event) if event
-  end
-
   def to_s
     "DebitoBancario"
   end
