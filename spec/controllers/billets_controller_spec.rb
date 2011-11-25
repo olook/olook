@@ -61,15 +61,22 @@ describe BilletsController do
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!)
+        payment_builder.should_receive(:process!).and_return(mock_model(Billet))
         post :create, :billet => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!)
+        payment_builder.should_receive(:process!).and_return(mock_model(Billet))
         post :create, :billet => attributes
         session[:order].should be(nil)
+      end
+
+      it "should redirect to billet_path" do
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.should_receive(:process!).and_return(billet = mock_model(Billet))
+        post :create, :billet => attributes
+        session.should redirect_to(billet_path(billet))
       end
     end
 
