@@ -3,6 +3,13 @@ require "spec_helper"
 describe CreditCard do
   subject { FactoryGirl.build(:credit_card) }
 
+  context "status" do
+    it "should return nil with a invalid status" do
+      invalid_status = '9'
+      subject.set_state(invalid_status).should be(nil)
+    end
+  end
+
   context "attributes validation" do
     it { should be_valid }
 

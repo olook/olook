@@ -8,8 +8,11 @@ describe Billet do
   let(:completed) { "4" }
   let(:under_review) { "6" }
 
-  it "should return to_s version" do
-    subject.to_s.should == "BoletoBancario"
+  context "status" do
+    it "should return nil with a invalid status" do
+      invalid_status = '9'
+      subject.set_state(invalid_status).should be(nil)
+    end
   end
 
   describe "state machine" do
