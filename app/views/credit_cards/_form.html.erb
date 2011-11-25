@@ -11,6 +11,16 @@
 <% end %>
 
 <div class="payments">
+  <fieldset class="banks">
+    <ol>
+      <% CreditCard::BANKS_OPTIONS.each do |bank| %>
+        <li class='<%= "#{bank}" %>'>
+          <%= radio_button_tag "credit_card[bank]", bank, false  %>
+          <%= label_tag "credit_card_bank_#{bank}", bank %>
+        </li>
+      <% end %>
+    </ol>
+  </fieldset>
   <fieldset class="inputs">
     <ol>
       <li>
@@ -24,37 +34,33 @@
 <div class="credit_cart_payment">
   <fieldset class="inputs">
     <ol>
-      <li>
+      <li class="user_name">
         <%= f.label :user_name %>
         <%= f.text_field :user_name %>
       </li>
-      <li>
+      <li class="credit_card_number">
         <%= f.label :credit_card_number %>
         <%= f.text_field :credit_card_number %>
       </li>
-      <li>
+      <li class="security_code">
         <%= f.label :security_code %>
         <%= f.text_field :security_code %>
       </li>
-      <li>
-        <%= f.label :user_birthday %>
-        <%= f.text_field :user_birthday %>
-      </li>
-      <li>
+      <li class="expiration_date">
         <%= f.label :expiration_date %>
         <%= f.text_field :expiration_date %>
       </li>
-      <li>
+      <li class="user_identification">
         <%= f.label :user_identification %>
         <%= f.text_field :user_identification %>
       </li>
-      <li>
+      <li class="user_birthday">
+        <%= f.label :user_birthday %>
+        <%= f.text_field :user_birthday %>
+      </li>
+      <li class="telephone">
         <%= f.label :telephone %>
         <%= f.text_field :telephone %>
-      </li>
-      <li>
-        <%= f.label :bank %>
-        <%= f.text_field :bank %>
       </li>
     </ol>
   </fieldset>
