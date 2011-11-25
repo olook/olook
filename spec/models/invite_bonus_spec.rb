@@ -19,7 +19,7 @@ describe InviteBonus do
     describe "#for_accepted_invites, when a user has 20 invites, 13 of which were accepted" do
       context "for invites accepted before 10th Nov 2011" do
         before :each do
-          build_invites( DateTime.civil(2011, 11, 9, 10, 0, 0) )
+          build_invites( DateTime.civil(2011, 11, 9, 9, 59, 59) )
         end
 
         it "should be R$ 10 for each accepted invitation, in this case R$ 130" do
@@ -56,7 +56,7 @@ private
     # Accepted invites
     13.times do
       accepting_member = FactoryGirl.create(:member, :first_name => 'Accepting member')
-      FactoryGirl.create(:sent_invite, :user => member, :invited_member => accepting_member, :accepted_at => accepted_at)
+      FactoryGirl.create(:sent_invite, :user => member, :invited_member => accepting_member, :accepted_at => accepted_at, :resubmitted => nil)
     end
 
     # Unaccepted invites
