@@ -10,7 +10,7 @@ describe Abacos::IntegrateProducts do
       mock_integrate_variant = double :variant
       mock_integrate_variant.should_receive :integrate
       
-      Abacos::DownloadProducts.should_receive(:download_products).and_return([:product, :variant])
+      Abacos::ProductAPI.should_receive(:download_products).and_return([:product, :variant])
       described_class.should_receive(:parse_abacos_product).with(:product).and_return(mock_integrate_product)
       described_class.should_receive(:parse_abacos_product).with(:variant).and_return(mock_integrate_variant)
 
