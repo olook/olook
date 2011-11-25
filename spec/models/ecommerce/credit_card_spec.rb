@@ -5,7 +5,7 @@ describe CreditCard do
 
   context "status" do
     it "should return nil with a invalid status" do
-      invalid_status = '9'
+      invalid_status = '0'
       subject.set_state(invalid_status).should be(nil)
     end
   end
