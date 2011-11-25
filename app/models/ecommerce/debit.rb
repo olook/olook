@@ -3,16 +3,25 @@ class Debit < Payment
   attr_accessor :bank, :user_identification
   validates_presence_of :bank, :receipt
 
-  state_machine :initial => :aberta do
-    #after_transition  :aberta => :concluida, :do => :notificar_por_email
-    #before_transition :concluida => :disputada, :do => :registrar_log
-
-    event :done do
-      transition :aberta => :done
+  state_machine :initial => :started do
+    event :billet_printed do
+      transition :started => :billet_printed
     end
 
-    event :cancel do
-      transition :aberta => :cancel, :done => :cancel
+    event :authorized do
+      transition :billet_printed => :authorized
+    end
+
+    event :completed do
+      transition :authorized => :completed, :under_review => :completed
+    end
+
+    event :under_review do
+      transition :authorized => :under_review
+    end
+
+    event :refunded do
+      transition :under_review => :refunded
     end
   end
 

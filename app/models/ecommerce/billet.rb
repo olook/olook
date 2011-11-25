@@ -1,15 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Billet < Payment
 
-  STATUS = {
-    "1" => :authorized,
-    "2" => :started,
-    "3" => :billet_printed,
-    "4" => :completed,
-    "5" => :canceled,
-    "6" => :under_review
-  }
-
   state_machine :initial => :started do
     event :billet_printed do
       transition :started => :billet_printed
