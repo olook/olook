@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :addresses
   has_many :orders
+  has_many :payments, :through => :orders
 
   before_create :generate_invite_token
 
@@ -90,7 +91,7 @@ class User < ActiveRecord::Base
   def add_event(type, description = '')
     self.events.create(event_type: type, description: description)
   end
-  
+
   def invitation_url(host = 'olook.com.br')
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
