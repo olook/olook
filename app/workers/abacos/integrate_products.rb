@@ -4,9 +4,7 @@ module Abacos
     @queue = :integrate_products
 
     def self.perform
-      abacos_products = DownloadProducts.download_products
-      
-      abacos_products.each do |abacos_product|
+      DownloadProducts.download_products.each do |abacos_product|
         product = parse_abacos_product(abacos_product)
         product.integrate
       end
