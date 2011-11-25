@@ -3,6 +3,8 @@ class Debit < Payment
   attr_accessor :bank, :user_identification
   validates_presence_of :bank, :receipt
 
+  BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Unibanco", "Banrisul"]
+
   state_machine :initial => :started do
     event :canceled do
       transition :started => :canceled
