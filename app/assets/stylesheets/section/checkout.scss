@@ -477,6 +477,14 @@ section#payment {
     }
   }
   &.payment_new {
+    h1 {
+      font-family: Times;
+      font-size: 19px;
+      font-style: italic;
+      margin-bottom: 5px;
+      padding: 0;
+      border: none;
+    }
     fieldset {
       ol {
         li {
@@ -491,6 +499,64 @@ section#payment {
             border: 1px #d6d6d6 solid;
             &:focus {
               outline: none;
+            }
+          }
+        }
+      }
+      &.banks {
+        width: 100%;
+        margin: 0 0 10px 0;
+        overflow: auto;
+        float: left;
+        ol {
+          width: 100%;
+          overflow: auto;
+          li {
+            width: 70px;
+            overflow: auto;
+            margin: 0 5px 5px 0;
+            float: left;
+            label {
+              background: url("/assets/cart/ico-payments.png") no-repeat;
+              text-indent: -9999px;
+              width: 43px;
+              height: 35px;
+              display: block;
+              float: left;
+            }
+            &.Visa {
+              label {
+                background-position: -305px 0;
+              }
+            }
+            &.Mastercard {
+              label {
+                background-position: -347px 0;
+              }
+            }
+            &.AmericanExpress {
+              label {
+                background-position: -388px 0;
+              }
+            }
+            &.Diners {
+              label {
+                background-position: -430px 0;
+              }
+            }
+            &.Hipercard {
+              label {
+                background-position: -472px 0;
+              }
+            }
+            &.Aura {
+              label {
+                background-position: -516px 0;
+              }
+            }
+            input[type="radio"] {
+              margin: 10px 5px 0 5px;
+              float: left;
             }
           }
         }
