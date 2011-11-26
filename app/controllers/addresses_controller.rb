@@ -3,6 +3,7 @@ class AddressesController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :assign_default_country, :only => [:create]
 
   def index
     @addresses = @user.addresses
@@ -18,7 +19,6 @@ class AddressesController < ApplicationController
       session[:delivery_address_id] = @address.id
       redirect_to(new_payment_path, :notice => 'Endereço cadastrado com sucesso')
     else
-      debugger
       respond_with(@address)
     end
   end
@@ -31,5 +31,9 @@ class AddressesController < ApplicationController
   private
   def load_user
     @user = current_user
+  end
+
+  def assign_default_country
+    params[:address][:country] = 'BRA'
   end
 end

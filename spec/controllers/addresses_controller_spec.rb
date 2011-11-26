@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AddressesController do
 
   let(:user) { FactoryGirl.create :user }
-  let(:attributes) { {:country => 'BRA', :state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
+  let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
