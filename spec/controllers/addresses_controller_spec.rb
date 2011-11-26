@@ -40,7 +40,7 @@ describe AddressesController do
       session[:delivery_address_id].should == fake_address_id
     end
 
-    it "should redirect to new payment" do
+    it "should redirect to payments" do
       post :assign_address
       response.should redirect_to(payments_path)
     end
