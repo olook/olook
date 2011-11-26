@@ -561,6 +561,9 @@ section#payment {
           }
         }
       }
+      &.payments {
+        margin: 0 0 0 20px;
+      }
     }
     div.credit_cart_payment {
       padding: 20px 0 0 0;
