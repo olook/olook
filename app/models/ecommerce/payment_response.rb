@@ -15,4 +15,8 @@ class PaymentResponse < ActiveRecord::Base
       write_attribute(:return_code, response["RespostaPagamentoDireto"]["CodigoAutorizacao"])
     end
   end
+
+  def success?
+    response_status == "Sucesso"
+  end
 end
