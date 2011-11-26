@@ -4,7 +4,10 @@
 
 <section id="payment" class="checkout">
   <section class="main">
-    <p>Status da resposta do pagamento: <%= @payment_response.response_status %></p>
-    <p>Mensagem da resposta do pagamento: <%= @payment_response.message %></p>
+    <% if @payment_response.success? %>
+      <p>Status da resposta do pagamento: <%= @payment_response.status %></p>
+    <% else %>
+      <p>Mensagem da resposta do pagamento: <%= @payment_response.message %></p>
+    <% end %>
  </section>
 </section>
