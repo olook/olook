@@ -22,11 +22,12 @@
       <% end %>
     </ol>
   </fieldset>
-  <fieldset class="inputs">
+  <fieldset class="payments">
     <ol>
       <li>
         <%= f.label :payments %>
-        <%= f.text_field :payments %>
+        <% portions = 1..6 %>
+        <%= f.select :payments, portions.collect {|d| [d.to_s,d.to_s]} %>
       </li>
     </ol>
   </fieldset>
