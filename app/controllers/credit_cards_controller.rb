@@ -23,4 +23,9 @@ class CreditCardsController < ApplicationController
       respond_with(@payment)
     end
   end
+
+  def show
+    @payment = @user.payments.find(params[:id])
+    @payment_response = @payment.payment_response
+  end
 end

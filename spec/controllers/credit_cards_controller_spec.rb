@@ -72,6 +72,13 @@ describe CreditCardsController do
         post :create, :credit_card => attributes
         response.should redirect_to(credit_card_path(credit_card))
       end
+
+      it "should assign @payment" do
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.stub(:process!).and_return(credit_card = mock_model(CreditCard))
+        post :create, :credit_card => attributes
+        assigns(:payment).should eq(credit_card)
+      end
     end
 
     describe "with invalid params" do

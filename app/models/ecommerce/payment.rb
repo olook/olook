@@ -14,6 +14,18 @@ class Payment < ActiveRecord::Base
     "9" => :refouded
   }
 
+  TRANSACTION_STATUS = {
+    "Autorizado" => :authorized,
+    "Iniciado" => :started,
+    "BoletoImpresso" => :billet_printed,
+    "Completo" => :completed,
+    "Cancelado" => :canceled,
+    "EmAnalise" => :under_analysis,
+    "Estornado" => :reversed,
+    "EmRevisao" => :under_review,
+    "Reembolsado" => :refouded
+  }
+
   attr_accessor :receipt, :user_identification
   belongs_to :order
   has_one :payment_response
