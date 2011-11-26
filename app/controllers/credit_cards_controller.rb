@@ -4,8 +4,9 @@ class CreditCardsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_order
+  before_filter :check_order, :only => [:new, :create]
   before_filter :check_user_address, :only => [:new, :create]
+  before_filter :assign_receipt, :only => [:create]
 
   def new
     @payment = CreditCard.new
@@ -27,5 +28,9 @@ class CreditCardsController < ApplicationController
   def show
     @payment = @user.payments.find(params[:id])
     @payment_response = @payment.payment_response
+  end
+
+  def assign_receipt
+    params[:credit_card][:receipt] = Payment::RECEIPT
   end
 end
