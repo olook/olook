@@ -5,8 +5,12 @@ describe AddressesController do
 
   let(:user) { FactoryGirl.create :user }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
+  let(:address) { FactoryGirl.create(:address, :user => user)}
 
   before :each do
+    order = double
+    order.stub(:total).and_return(129.89)
+    session[:order] = order
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
   end
@@ -19,30 +23,68 @@ describe AddressesController do
   end
 
   describe "POST create" do
-    it "should create a address" do
-      expect {
-        post :create, :address => attributes
-      }.to change(Address, :count).by(1)
-    end
-  end
+    context "with valid a address" do
+      it "should create a address" do
+        expect {
+          post :create, :address => attributes
+        }.to change(Address, :count).by(1)
+      end
 
-  describe "POST create" do
-    it "should assign the address id in the session" do
-      post :create, :address => attributes
-      session[:delivery_address_id].should == Address.all.last.id
+      it "should assign the address id in the session" do
+        post :create, :address => attributes
+        session[:delivery_address_id].should == Address.all.last.id
+      end
+
+      it "should assign the address id in the session" do
+        post :create, :address => attributes
+        session[:freight].should_not be(nil)
+      end
+
+      it "should assign the freight in the session" do
+        freight_data = {:price => 12.95, :cost => 2.99, :delivery_time => 1}
+        FreightCalculator.stub(:new_freight_for_zip).and_return(freight_data)
+        post :create, :address => attributes
+        session[:freight].should == freight_data
+      end
     end
   end
 
   describe "POST assign_address" do
-    it "should assign the delivery_address_id in the session" do
-      fake_address_id = "1"
-      post :assign_address, :delivery_address_id => fake_address_id
-      session[:delivery_address_id].should == fake_address_id
+    context "with a valid address" do
+      it "should assign the delivery_address_id in the session" do
+        post :assign_address, :delivery_address_id => address.id
+        session[:delivery_address_id].should == address.id
+      end
+
+      it "should assign the delivery_address_id in the session" do
+        post :assign_address, :delivery_address_id => address.id
+        session[:delivery_address_id].should == address.id
+      end
+
+      it "should assign the delivery_address_id in the session" do
+        post :assign_address, :delivery_address_id => address.id
+        session[:delivery_address_id].should == address.id
+      end
+
+      it "should assign the freight in the session" do
+        freight_data = {:price => 12.95, :cost => 2.99, :delivery_time => 1}
+        FreightCalculator.stub(:new_freight_for_zip).and_return(freight_data)
+        post :assign_address, :delivery_address_id => address.id
+        session[:freight].should == freight_data
+      end
+
+      it "should redirect to payments" do
+        post :assign_address, :delivery_address_id => address.id
+        response.should redirect_to(payments_path)
+      end
     end
 
-    it "should redirect to payments" do
-      post :assign_address
-      response.should redirect_to(payments_path)
+    context "with a valid address" do
+      it "should redirect to address_path" do
+        fake_address_id = "99999"
+        post :assign_address, :delivery_address_id => fake_address_id
+        response.should redirect_to(addresses_path)
+      end
     end
   end
 end

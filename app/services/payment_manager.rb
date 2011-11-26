@@ -11,7 +11,8 @@ module PaymentManager
   end
 
   def check_order
-    redirect_to(root_path, :notice => "Sua sacola está vazia") unless session[:order]
+    @order = session[:order]
+    redirect_to(root_path, :notice => "Sua sacola está vazia") unless @order
   end
 
   def load_user
