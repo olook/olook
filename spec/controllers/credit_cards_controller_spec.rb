@@ -51,18 +51,26 @@ describe CreditCardsController do
       order.stub(:reload)
       session[:order] = order
     end
+
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!)
+        payment_builder.should_receive(:process!).and_return(mock_model(CreditCard))
         post :create, :credit_card => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!)
+        payment_builder.should_receive(:process!).and_return(mock_model(CreditCard))
         post :create, :credit_card => attributes
         session[:order].should be(nil)
+      end
+
+      it "should redirect to credit card path" do
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.stub(:process!).and_return(credit_card = mock_model(CreditCard))
+        post :create, :credit_card => attributes
+        response.should redirect_to(credit_card_path(credit_card))
       end
     end
 

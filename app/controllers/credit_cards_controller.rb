@@ -16,9 +16,9 @@ class CreditCardsController < ApplicationController
     if @payment.valid?
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
-      payment_builder.process!
+      @payment = payment_builder.process!
       clean_session_order!
-      redirect_to(root_path, :notice => "Sucesso")
+      redirect_to(credit_card_path(@payment), :notice => "Sucesso")
     else
       respond_with(@payment)
     end
