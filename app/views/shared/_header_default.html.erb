@@ -1,0 +1,41 @@
+<header>
+  <div class="content">
+    <h1><%= link_to 'Olook', root_path %></h1>
+    <div class="info">
+      <%= image_tag("common/animacao_topo_site.gif", :alt => "Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolução fácil e gratuita. O cadastro é gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para você.") %>
+    </div>
+
+    <div id="session">
+      <% if user_signed_in? %>
+        <h2>Olá, <span id="info_user"><%= current_user.name %></span></h2>
+      <% end %>
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+        <% else %>
+          <li class="login">
+            <p>Já faz parte? <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %></p>
+          </li>
+        <% end %>
+      </ul>
+      <div class="sign-in-dropdown close">
+        <%= render "sessions/form_user" %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="top-shadow"></div>
+
+
+<% if user_signed_in? %>
+  <div id="wrapper_menu">
+    <nav class="menu">
+      <ul class="content">
+        <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
+        <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
+        <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
+      </ul>
+    </nav>
+  </div>
+<% end %>
