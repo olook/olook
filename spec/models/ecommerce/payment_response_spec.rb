@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe PaymentResponse do
-  let (:response){{"ID"=>"2011", "Status"=>"Sucesso", "Token"=>"AXBT"}}
+  let (:response){{"ID"=>"2011", "Status"=>"Sucesso", "Token"=>"AXBT", "RespostaPagamentoDireto" => {"Status" => "EmAnalise"}}}
   subject { PaymentResponse.new }
 
   before :each do
@@ -22,5 +22,9 @@ describe PaymentResponse do
     response = {"ID"=>"2011", "Status"=>"Falha", "Token"=>"AXBT"}
     subject.build_attributes response
     subject.success?.should_not eq(true)
+  end
+
+  it "should return the status" do
+    subject.status.should == Payment::RESPONSE_STATUS["EmAnalise"]
   end
 end
