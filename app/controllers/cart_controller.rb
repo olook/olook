@@ -7,8 +7,15 @@ class CartController < ApplicationController
   before_filter :current_order
 
   def update_bonus
-    @order.update_attributes(:credits => params[:credits][:value])
-    redirect_to cart_path, :notice => "Créditos atualizados com suceso"
+    bonus = InviteBonus.calculate(@user)
+    credits = params[:credits][:value]
+    user_can_use_bonus = bonus > credits.to_i
+    if user_can_use_bonus
+      @order.update_attributes(:credits => credits)
+      redirect_to cart_path, :notice => "Créditos atualizados com suceso"
+    else
+      redirect_to cart_path, :notice => "Você não tem créditos suficientes"
+    end
   end
 
   def show

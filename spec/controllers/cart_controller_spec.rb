@@ -14,11 +14,31 @@ describe CartController do
       end
     end
 
-    describe "GET show" do
-      it "should assign @bonus" do
-        bonus_value = '12.34'
-        put :update_bonus, :credits => {:value => bonus_value}
-        session[:order].credits.to_f.should == bonus_value.to_f
+    describe "PUT update_bonus" do
+      context "when the user has bonus" do
+        before :each do
+          InviteBonus.stub(:calculate).and_return(100)
+        end
+
+        it "should update the order with a new bonus value" do
+          bonus_value = '12.34'
+          Order.any_instance.should_receive(:update_attributes).with(:credits => bonus_value)
+          put :update_bonus, :credits => {:value => bonus_value}
+        end
+
+        it "should redirect to card_path" do
+          bonus_value = '12.34'
+          put :update_bonus, :credits => {:value => bonus_value}
+          response.should redirect_to(cart_path)
+        end
+      end
+
+      context "when the user dont have bonus enougth" do
+        it "should not update the order" do
+          bonus_value = '12.34'
+          Order.any_instance.should_not_receive(:update_attributes).with(:credits => bonus_value)
+          put :update_bonus, :credits => {:value => bonus_value}
+        end
       end
     end
 
