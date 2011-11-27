@@ -14,6 +14,14 @@ describe CartController do
       end
     end
 
+    describe "GET show" do
+      it "should assign @bonus" do
+        bonus_value = '12.34'
+        put :update_bonus, :credits => {:value => bonus_value}
+        session[:order].credits.to_f.should == bonus_value.to_f
+      end
+    end
+
     describe "DELETE destroy" do
       it "should destroy the order in the session" do
         delete :destroy
