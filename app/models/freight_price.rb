@@ -16,8 +16,8 @@ class FreightPrice < ActiveRecord::Base
   validates :zip_start, ZIP_VALIDATION.clone
   validates :zip_end  , ZIP_VALIDATION.clone
 
-  validates :weight_start , VALUE_VALIDATION.clone
-  validates :weight_end   , VALUE_VALIDATION.clone
+  validates :order_value_start , VALUE_VALIDATION.clone
+  validates :order_value_end   , VALUE_VALIDATION.clone
 
   validates :delivery_time, DELIVERY_VALIDATION.clone
 

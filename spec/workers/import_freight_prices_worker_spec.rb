@@ -48,14 +48,14 @@ describe ImportFreightPricesWorker do
 
       freight.should be_persisted
 
-      freight.zip_start.should      == 1001000
-      freight.zip_end.should        == 1142100
-      freight.weight_start.should   == 0.001
-      freight.weight_end.should     == 30.000
-      freight.delivery_time.should  == 1
-      freight.price.should          == 9.9
-      freight.cost.should           == 15.0
-      freight.description.should    == 'TEX - SP - SAO PAULO - Atendida - Capital'
+      freight.zip_start.should          == 1001000
+      freight.zip_end.should            == 1142100
+      freight.order_value_start.should  == 0.001
+      freight.order_value_end.should    == 30.000
+      freight.delivery_time.should      == 1
+      freight.price.should              == 9.9
+      freight.cost.should               == 15.0
+      freight.description.should        == 'TEX - SP - SAO PAULO - Atendida - Capital'
     end
   end
 end
