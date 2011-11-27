@@ -9,15 +9,15 @@
 <div id="order_status">
   <div class="content">
     <ul>
-      <li>
+      <li class="<%= is_current?('cart', 'show') %>">
         <h1>Minha Sacola</h1>
         <p>Confira os produtos do seu carrinho</p>
       </li>
-      <li>
+      <li class="<%= is_current?('addresses', ['index', 'new','edit']) %>">
         <h1>Entrega</h1>
         <p>Onde quer que seu pedido seja entregue</p>
       </li>
-      <li>
+      <li class="<%= is_current?(['payments', 'credit_cards', 'debits', 'billets'], ['index', 'new', 'edit', 'show']) %>">
         <h1>Pagamento</h1>
         <p>Como quer efetuar o pagamento? Selecione uma das opções</p>
       </li>
