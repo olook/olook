@@ -8,6 +8,7 @@ class PaymentsController < ApplicationController
   before_filter :check_user_address, :only => [:index]
 
   def index
+    @freight = session[:freight]
   end
 
   def create
