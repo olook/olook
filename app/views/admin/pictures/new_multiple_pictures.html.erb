@@ -1,0 +1,36 @@
+<h2>Add multiple pictures</h2>
+
+<div class="inner">
+  <%= form_for([:admin, @product], :url => create_multiple_pictures_admin_product_pictures_path(@product), :method => :post) do |f| %>
+    <% if @product.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@product.errors.count, "error") %> prohibited this picture from being saved:</h2>
+
+        <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.fields_for :pictures do |picture_form| %>
+      <fieldset>
+        <div class="field">
+          <%= picture_form.label :display_on, picture_form.object.display_on_humanize %><br />
+          <%= picture_form.hidden_field :display_on %>
+          <%= picture_form.label :image %><br />
+          <%= picture_form.file_field :image %>
+        </div>
+      </fieldset>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_product_path(@product) %></li>
+<% end %>
