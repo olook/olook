@@ -6,6 +6,11 @@ class CartController < ApplicationController
   before_filter :check_product_variant, :only => [:create, :update]
   before_filter :current_order
 
+  def update_bonus
+    @order.update_attributes(:credits => params[:credits][:value])
+    redirect_to cart_path, :notice => "Créditos atualizados com suceso"
+  end
+
   def show
     @bonus = InviteBonus.calculate(@user)
   end
