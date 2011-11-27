@@ -6,20 +6,22 @@ describe CreditCardsController do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
+  let(:freight) {{ "price" => 1.99 }}
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
     session[:delivery_address_id] = address.id
+    session[:freight] = freight
     sign_in user
   end
 
   describe "GET new" do
+    before :each do
+      order = double
+      order.stub(:reload)
+      session[:order] = order
+    end
     context "with a valid order" do
-      before :each do
-        order = double
-        order.stub(:reload)
-        session[:order] = order
-      end
       it "should assigns @payment" do
         get 'new'
         assigns(:payment).should be_a_new(CreditCard)
@@ -39,8 +41,24 @@ describe CreditCardsController do
 
     context "with a invalid order" do
       it "should redirect to root path" do
+        session[:order] = nil
         get 'new'
         response.should redirect_to(root_path)
+      end
+    end
+
+    context "with a valid freight" do
+      it "should assign @freight" do
+        get 'new'
+        assigns(:freight).should == freight
+      end
+    end
+
+    context "with a invalid freight" do
+      it "assign redirect to address_path" do
+        session[:freight] = nil
+        get 'new'
+        response.should redirect_to(addresses_path)
       end
     end
   end
