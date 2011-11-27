@@ -5,7 +5,7 @@ class Variant < ActiveRecord::Base
   before_save :fill_is_master
 
   belongs_to :product
-  
+
   validates :product, :presence => true
   validates :number, :presence => true
   validates :description, :presence => true
@@ -18,22 +18,22 @@ class Variant < ActiveRecord::Base
   validates :height, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   validates :length, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   validates :weight, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
-  
+
   def sku
     "#{product.model_number}-#{number}"
   end
-  
+
   def dimensions
     result = [self.width, self.height, self.length].map do |dimension|
       "%.1f" % dimension
     end.join 'x'
     result.gsub('.', I18n.t('number.format.separator')) + ' cm'
   end
- 
+
   def volume
     ((self.width * self.height * self.length)/1000000).round 6 # in cubic meters
   end
-  
+
   def fill_is_master
     self.is_master = false if self.is_master.nil?
   end
