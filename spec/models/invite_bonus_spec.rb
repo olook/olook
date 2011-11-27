@@ -15,7 +15,7 @@ describe InviteBonus do
         described_class.for_being_invited(member).should == 0.0
       end
     end
-    
+
     describe "#for_accepted_invites, when a user has 20 invites, 13 of which were accepted" do
       context "for invites accepted before 10th Nov 2011" do
         before :each do
@@ -37,13 +37,24 @@ describe InviteBonus do
         end
       end
     end
-    
+
+    describe "#already_used" do
+      it "should return the sum of credits used in the orders" do
+        order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
+        order_2  = FactoryGirl.create(:order, :user => member, :credits => 3.23)
+        order_3  = FactoryGirl.create(:order, :user => member)
+        described_class.already_used(member).should == 26.79
+      end
+    end
+
     describe "#calculate" do
-      it "should be the sum of for_accepted_invites and for_being_invited" do
+      it "should be the sum of for_accepted_invites and for_being_invited minus already_used" do
         described_class.stub(:for_accepted_invites).and_return(123.0)
         described_class.stub(:for_being_invited).and_return(7.0)
-        described_class.calculate(member).should == 130.0
+        described_class.stub(:already_used).and_return(3.12)
+        described_class.calculate(member).should == 126.88
       end
+
       it 'should be limited to R$ 300 no matter how many invites were accepted' do
         described_class.stub(:for_accepted_invites).and_return(10000000.0)
         described_class.calculate(member).should == 300.0
@@ -51,7 +62,7 @@ describe InviteBonus do
     end
   end
 
-private  
+private
   def build_invites(accepted_at)
     # Accepted invites
     13.times do
