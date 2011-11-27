@@ -50,18 +50,30 @@ describe Order do
     end
   end
 
-  context "calculating the total" do
-   it "should return the total" do
-     quantity = 3
-     expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
+  context "total with items" do
+   before :each do
+     @quantity = 3
+     @credits = 1.89
      subject.add_variant(basic_shoe_35)
-     quantity.times { subject.add_variant(basic_shoe_40) }
+     @quantity.times { subject.add_variant(basic_shoe_40) }
+   end
+
+   it "should return the total with credits" do
+     subject.update_attributes(:credits => @credits)
+     expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price) - @credits
      subject.total.should == expected
    end
 
-   it "should return 0" do
-     subject.total.should == 0
+   it "should return the total wihout credits" do
+     expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price)
+     subject.total.should == expected
    end
+  end
+
+  context "total without items" do
+    it "should return 0" do
+     subject.total.should == 0
+    end
   end
 
   context "when the inventory is zero" do
