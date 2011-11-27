@@ -48,11 +48,11 @@
           <p>Digite o valor no campo ao lado</p>
         </td>
         <td>
-          <%= form_tag '#' do %>
+          <%= form_for(update_bonus_cart_path, :url => update_bonus_cart_path, :method => :put) do %>
             <fieldset class="inputs">
               <ol>
                 <li>
-                  <%= text_field_tag 'discount' %>
+                  <%= text_field('credits', 'value') %>
                 </li>
                 <li>
                   <%= submit_tag 'Atualizar' %>

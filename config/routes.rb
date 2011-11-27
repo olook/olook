@@ -15,9 +15,9 @@ Olook::Application.routes.draw do
   resources :debits, :path => 'debito', :controller => :debits
   resources :billets, :path => 'boleto', :controller => :billets
   resources :addresses, :path => 'endereco', :controller => :addresses
-  resource :cart, :only => [:show, :create, :update, :destroy], :path => 'sacola', :controller => :cart do
+  resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do
-      put "update_bonus" => "cart#update_bonus"
+      put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
