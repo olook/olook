@@ -4,11 +4,12 @@ class AddressesController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_order, :except => [:index]
+  before_filter :check_order
   before_filter :assign_default_country, :only => [:create]
 
   def index
     @addresses = @user.addresses
+    @cart = Cart.new(@order)
   end
 
   def new

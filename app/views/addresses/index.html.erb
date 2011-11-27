@@ -28,7 +28,7 @@
       </ol>
     </section>
     <section class="sidebar">
-      <%= render :partial => "shared/payments/info_sidebar" %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
       <%= submit_tag "", :class => "continue" %>
     </section>
   <% end %>
