@@ -26,14 +26,14 @@ describe FreightPrice do
       it { should_not allow_value("100000000").for(:zip_end) }
     end
 
-    describe 'weight_start' do
-      it { should validate_presence_of(:weight_start) }
-      it { should_not allow_value(-0.01).for(:weight_start) }
+    describe 'order_value_start' do
+      it { should validate_presence_of(:order_value_start) }
+      it { should_not allow_value(-0.01).for(:order_value_start) }
     end
 
-    describe 'weight_end' do
-      it { should validate_presence_of(:weight_end) }
-      it { should_not allow_value(-0.01).for(:weight_end) }
+    describe 'order_value_end' do
+      it { should validate_presence_of(:order_value_end) }
+      it { should_not allow_value(-0.01).for(:order_value_end) }
     end
 
     describe 'delivery_time' do
