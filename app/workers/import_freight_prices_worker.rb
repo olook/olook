@@ -32,8 +32,8 @@ protected
     shipping_service.freight_prices.build.tap do |freight|
       freight.zip_start = data[1]
       freight.zip_end = data[2]
-      freight.weight_start = data[5].to_f
-      freight.weight_end = data[6].to_f
+      freight.order_value_start = data[5].to_f
+      freight.order_value_end = data[6].to_f
       freight.delivery_time = data[7]
       freight.price = data[8].to_f
       freight.cost = data[9].to_f

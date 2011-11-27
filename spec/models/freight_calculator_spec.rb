@@ -8,7 +8,7 @@ describe FreightCalculator do
 
       context "for which there isn't a freight price" do
         it "should return a hash with price, delivery time and cost equal to zero" do
-          freight = described_class.freight_for_zip(zip_code, 0, 0)
+          freight = described_class.freight_for_zip(zip_code, 0)
           freight[:price].should == FreightCalculator::DEFAULT_FREIGHT_PRICE
           freight[:cost].should == FreightCalculator::DEFAULT_FREIGHT_COST
           freight[:delivery_time].should == FreightCalculator::DEFAULT_INVENTORY_TIME
@@ -16,8 +16,7 @@ describe FreightCalculator do
       end
 
       context 'for which there is a freight price' do
-        let(:weight) { 2.1 }
-        let(:volume) { 0.019008 } # 11x54x32 cm, cubic weight == 3,174336
+        let(:order_value) { 70.1 }
 
         let(:freight_details) { {:price => 10.0, :cost => 5.0, :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME} }
         let(:wrong_shipping_service) { FactoryGirl.create :shipping_service, :priority => 1 }
@@ -26,25 +25,25 @@ describe FreightCalculator do
         before :each do
           FactoryGirl.create  :freight_price, :shipping_service => wrong_shipping_service,
                               :zip_start => 5379000, :zip_end => 5379014,
-                              :weight_start => 2.5, :weight_end => 4.5,
+                              :order_value_start => 2.5, :order_value_end => 4.5,
                               :price => 310.0, :cost => 35.0, :delivery_time => 30
 
           FactoryGirl.create  :freight_price, :shipping_service => shipping_service,
                               :zip_start => 5379016, :zip_end => 5379100,
-                              :weight_start => 0.0, :weight_end => 2.5,
+                              :order_value_start => 0.0, :order_value_end => 68.99,
                               :price => 7.0, :cost => 3.0, :delivery_time => 1
           FactoryGirl.create  :freight_price, :shipping_service => shipping_service,
                               :zip_start => 5379016, :zip_end => 5379100,
-                              :weight_start => 2.5, :weight_end => 4.5,
+                              :order_value_start => 69.00, :order_value_end => 128.99,
                               :price => 10.0, :cost => 5.0, :delivery_time => 2
           FactoryGirl.create  :freight_price, :shipping_service => shipping_service,
                               :zip_start => 5379016, :zip_end => 5379100,
-                              :weight_start => 4.5, :weight_end => 1000.0,
+                              :order_value_start => 129.0, :order_value_end => 1000.0,
                               :price => 20.0, :cost => 15.0, :delivery_time => 3
         end
         
         it "should return a hash with price, delivery time and cost" do
-          described_class.freight_for_zip(zip_code, weight, volume).should == freight_details
+          described_class.freight_for_zip(zip_code, order_value).should == freight_details
         end
       end
     end
@@ -52,7 +51,7 @@ describe FreightCalculator do
     context 'given an invalid zipcode' do
       it "should return an empty hash " do
         described_class.stub(:'valid_zip?').and_return(false)
-        described_class.freight_for_zip('', 0, 0).should == {}
+        described_class.freight_for_zip('', 0).should == {}
       end
     end
   end
