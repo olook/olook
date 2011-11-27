@@ -5,8 +5,10 @@ class BilletsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_user
   before_filter :check_order, :only => [:new, :create]
+  before_filter :check_freight, :only => [:new, :create]
   before_filter :check_user_address, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
+
 
   def new
     @payment = Billet.new

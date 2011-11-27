@@ -15,6 +15,11 @@ module PaymentManager
     redirect_to(root_path, :notice => "Sua sacola está vazia") unless @order
   end
 
+  def check_freight
+    @freight = session[:freight]
+    redirect_to(addresses_path, :notice => "Informe um endereço") unless @freight
+  end
+
   def load_user
     @user = current_user
   end

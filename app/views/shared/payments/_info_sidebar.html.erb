@@ -20,7 +20,7 @@
         </tr>
         <tr>
           <td>Frete</td>
-          <td class="value">R$ 0,00</td>
+          <td class="value"><%= @freight ? number_to_currency(@freight[:price]) : "-"  %></td>
         </tr>
       </tbody>
     </table>
