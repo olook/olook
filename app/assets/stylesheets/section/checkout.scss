@@ -476,7 +476,7 @@ section#payment {
         width: 100%;
         overflow: auto;
         li {
-          width: 70px;
+          width: 80px;
           overflow: auto;
           margin: 0 5px 5px 0;
           float: left;
@@ -562,7 +562,7 @@ section#payment {
           width: 100%;
           overflow: auto;
           li {
-            width: 70px;
+            width: 80px;
             overflow: auto;
             margin: 0 5px 5px 0;
             float: left;
@@ -613,6 +613,7 @@ section#payment {
       }
       &.payments {
         margin: 0 0 0 20px;
+        clear: both;
       }
     }
     div.credit_cart_payment {
