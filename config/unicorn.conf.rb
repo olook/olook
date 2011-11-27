@@ -4,5 +4,5 @@
 listen "/tmp/sockets/unicorn.sock", :backlog => 64
 worker_processes 4
 pid "/var/run/olook-unicorn.pid"
-stderr_path "/var/log/olook-unicorn-error.log"
-stdout_path "/var/log/olook-unicorn.log"
+stderr_path "/mnt/log/olook-unicorn-error.log"
+stdout_path "/mnt/log/olook-unicorn.log"
