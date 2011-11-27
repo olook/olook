@@ -39,7 +39,7 @@ class AddressesController < ApplicationController
 
   def assign_address_and_freight_in_the_session(address)
     session[:delivery_address_id] = address.id
-    session[:freight] = FreightCalculator.new_freight_for_zip(address.zip_code, @order.total)
+    session[:freight] = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
   end
 
   def assign_default_country
