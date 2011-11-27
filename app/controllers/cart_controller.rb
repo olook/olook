@@ -7,6 +7,7 @@ class CartController < ApplicationController
   before_filter :current_order
 
   def show
+    @bonus = InviteBonus.calculate(@user)
   end
 
   def destroy
