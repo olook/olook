@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe Admin::PicturesController do
   render_views
-  let!(:picture) { FactoryGirl.create(:gallery_picture) }
-  let!(:product) { picture.product }
+  let(:product) { FactoryGirl.create :basic_shoe }
+  let!(:picture) { FactoryGirl.create(:gallery_picture, :product => product) }
   let!(:valid_attributes) { picture.attributes }
 
   before :each do
@@ -124,5 +124,30 @@ describe Admin::PicturesController do
       response.should redirect_to([:admin, product])
     end
   end
+  
+  describe "Multiple upload" do
+    describe "GET new_multiple_upload" do
+      it "should return to product show if it already has associated pictures" do
+        product.stub_chain(:pictures, :'empty?').and_return(false)
+        get :new_multiple_pictures, :product_id => product.id
+        response.should redirect_to([:admin, product])
+        flash[:notice].should == "Product already has pictures"
+      end
+      xit "builds the necessary pictures and return the product" do
+        product.pictures.should_receive(:build).exactly(DisplayPictureOn.list.length).times
+        controller.should_receive(:load_product).and_return(product)
+        
+        get :new_multiple_pictures, :product_id => product.id
+        assigns(:product).should == product
+      end
+    end
 
+    describe "POST create_multiple_upload" do
+      xit "creates all the informed picture at once" do
+        expect {
+          post :create_multiple_pictures, :product_id => product.id, :product => {:picture_attributes => valid_attributes}
+        }.to change(Picture, :count).by(1)
+      end
+    end
+  end
 end

@@ -17,6 +17,8 @@ class Product < ActiveRecord::Base
   scope :bags  , where(:category => Category::BAG)
   scope :jewels, where(:category => Category::JEWEL)
   
+  accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
+  
   def related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)
