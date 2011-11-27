@@ -21,6 +21,8 @@ class Variant < ActiveRecord::Base
 
   delegate :name, :to => :product
 
+  delegate :name, :to => :product
+
   def sku
     "#{product.model_number}-#{number}"
   end
