@@ -22,7 +22,7 @@ module Abacos
       @profiles = parse_profiles( abacos_product[:caracteristicas_complementares] )
     end
     
-    def basic_attributes
+    def attributes
       { name:         self.name,
         model_number: self.model_number,
         category:     self.category,
@@ -35,7 +35,7 @@ module Abacos
     def integrate
       product = ::Product.find_by_model_number(self.model_number) || ::Product.new
 
-      product.update_attributes(self.basic_attributes)
+      product.update_attributes(self.attributes)
       product.description ||= self.name
 
       product.save!

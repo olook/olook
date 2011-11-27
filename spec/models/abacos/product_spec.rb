@@ -57,6 +57,16 @@ describe Abacos::Product do
       subject.profiles.should == ['Sexy','Casual']
     end
   end
+  
+  it '#attributes' do
+    subject.attributes.should == {  name:         subject.name,
+                                    model_number: subject.model_number,
+                                    category:     subject.category,
+                                    width:        subject.width,
+                                    height:       subject.height,
+                                    length:       subject.length,
+                                    weight:       subject.weight }
+  end
 
   describe '#integrate' do
     it 'should create a new product' do
@@ -68,6 +78,19 @@ describe Abacos::Product do
 
     it 'should call the integration confirmation' do
       Abacos::ProductAPI.should_receive(:confirm_product).with(subject.integration_protocol)
+      subject.integrate
+    end
+
+    it 'should merge the imported attributes on the product' do
+      mock_product = mock_model(::Product)
+      mock_product.should_receive(:update_attributes).with(subject.attributes)
+      mock_product.should_receive(:'description')
+      mock_product.should_receive(:'description=')
+      mock_product.should_receive(:'save!')
+      ::Product.stub(:find_by_model_number).and_return(mock_product)
+
+      Abacos::ProductAPI.should_receive(:confirm_product)
+      
       subject.integrate
     end
   end
