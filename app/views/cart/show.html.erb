@@ -42,7 +42,7 @@
         </tr>
       <% end %>
       <tr class="discount">
-        <td class="item"><h1>Você possui <span>R$300,00</span> em crédito</h1></td>
+        <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
         <td colspan="2">
           <p><strong>Quanto deseja usar?</strong></p>
           <p>Digite o valor no campo ao lado</p>

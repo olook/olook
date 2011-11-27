@@ -7,6 +7,13 @@ describe CartController do
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
 
+    describe "GET show" do
+      it "should assign @bonus" do
+        get :show
+        assigns(:bonus).should == InviteBonus.calculate(user)
+      end
+    end
+
     describe "DELETE destroy" do
       it "should destroy the order in the session" do
         delete :destroy
