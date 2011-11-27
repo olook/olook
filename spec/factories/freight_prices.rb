@@ -7,8 +7,8 @@ FactoryGirl.define do
     zip_start '00000000'
     zip_end '10101010'
 
-    weight_start 0.0
-    weight_end 10.0
+    order_value_start 0.0
+    order_value_end 10.0
     
     delivery_time 2
     price 10.23
