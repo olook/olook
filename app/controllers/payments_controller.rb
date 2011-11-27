@@ -5,10 +5,10 @@ class PaymentsController < ApplicationController
   before_filter :authenticate_user!, :only => [:index]
   before_filter :load_user, :only => [:index]
   before_filter :check_order, :only => [:index]
+  before_filter :check_freight, :only => [:index]
   before_filter :check_user_address, :only => [:index]
 
   def index
-    @freight = session[:freight]
   end
 
   def create
