@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124175047) do
+ActiveRecord::Schema.define(:version => 20111127013956) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20111124175047) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "event_type",  :limit => 255, :null => false
+    t.integer  "event_type",  :null => false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -63,21 +63,21 @@ ActiveRecord::Schema.define(:version => 20111124175047) do
 
   create_table "freight_prices", :force => true do |t|
     t.integer  "shipping_service_id"
-    t.integer  "zip_start",           :limit => 255
-    t.integer  "zip_end",             :limit => 255
-    t.decimal  "weight_start"
-    t.decimal  "weight_end"
+    t.integer  "zip_start"
+    t.integer  "zip_end"
+    t.decimal  "order_value_start",   :precision => 8, :scale => 3
+    t.decimal  "order_value_end",     :precision => 8, :scale => 3
     t.integer  "delivery_time"
-    t.decimal  "price"
-    t.decimal  "cost"
+    t.decimal  "price",               :precision => 8, :scale => 2
+    t.decimal  "cost",                :precision => 8, :scale => 2
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "freight_prices", ["order_value_end"], :name => "index_freight_prices_on_order_value_end"
+  add_index "freight_prices", ["order_value_start"], :name => "index_freight_prices_on_order_value_start"
   add_index "freight_prices", ["shipping_service_id"], :name => "index_freight_prices_on_shipping_service_id"
-  add_index "freight_prices", ["weight_end"], :name => "index_freight_prices_on_weight_end"
-  add_index "freight_prices", ["weight_start"], :name => "index_freight_prices_on_weight_start"
   add_index "freight_prices", ["zip_end"], :name => "index_freight_prices_on_zip_end"
   add_index "freight_prices", ["zip_start"], :name => "index_freight_prices_on_zip_start"
 
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20111124175047) do
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
-    t.integer  "display_on", :limit => 255
+    t.integer  "display_on"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -213,15 +213,15 @@ ActiveRecord::Schema.define(:version => 20111124175047) do
     t.string   "number"
     t.string   "description"
     t.string   "display_reference"
-    t.decimal  "price"
+    t.decimal  "price",             :precision => 10, :scale => 2
     t.integer  "inventory"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_master"
-    t.decimal  "width"
-    t.decimal  "height"
-    t.decimal  "length"
-    t.decimal  "weight"
+    t.decimal  "width",             :precision => 8,  :scale => 2
+    t.decimal  "height",            :precision => 8,  :scale => 2
+    t.decimal  "length",            :precision => 8,  :scale => 2
+    t.decimal  "weight",            :precision => 8,  :scale => 2
   end
 
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
