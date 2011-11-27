@@ -42,7 +42,7 @@ describe AddressesController do
 
       it "should assign the freight in the session" do
         freight_data = {:price => 12.95, :cost => 2.99, :delivery_time => 1}
-        FreightCalculator.stub(:new_freight_for_zip).and_return(freight_data)
+        FreightCalculator.stub(:freight_for_zip).and_return(freight_data)
         post :create, :address => attributes
         session[:freight].should == freight_data
       end
@@ -68,7 +68,7 @@ describe AddressesController do
 
       it "should assign the freight in the session" do
         freight_data = {:price => 12.95, :cost => 2.99, :delivery_time => 1}
-        FreightCalculator.stub(:new_freight_for_zip).and_return(freight_data)
+        FreightCalculator.stub(:freight_for_zip).and_return(freight_data)
         post :assign_address, :delivery_address_id => address.id
         session[:freight].should == freight_data
       end
