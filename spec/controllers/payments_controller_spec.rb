@@ -5,10 +5,12 @@ describe PaymentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:order) { FactoryGirl.create(:order) }
+  let(:freight) {{ "price" => 1.99 }}
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
     session[:delivery_address_id] = address.id
+    session[:freight] = freight
     sign_in user
   end
 
@@ -37,12 +39,13 @@ describe PaymentsController do
   end
 
   describe "GET index" do
+    before :each do
+      order = double
+      order.stub(:reload)
+      session[:order] = order
+    end
+
     context "with a valid order" do
-      before :each do
-        order = double
-        order.stub(:reload)
-        session[:order] = order
-      end
       it "should be success" do
         get 'index'
         response.should be_successful
@@ -61,7 +64,22 @@ describe PaymentsController do
       it "should redirect to root path" do
         session[:delivery_address_id] = nil
         get 'index'
-        response.should redirect_to(root_path)
+        response.should redirect_to(addresses_path)
+      end
+    end
+
+    context "with a valid freight" do
+      it "should assign @freight" do
+        get 'index'
+        assigns(:freight).should == freight
+      end
+    end
+
+    context "with a invalid freight" do
+      it "assign redirect to address_path" do
+        session[:freight] = nil
+        get 'index'
+        response.should redirect_to(addresses_path)
       end
     end
   end
