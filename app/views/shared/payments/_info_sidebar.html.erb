@@ -6,21 +6,21 @@
       <tfoot>
         <tr>
           <td>Total:</td>
-          <td class="value">R$ 397,00</td>
+          <td class="value"><%= number_to_currency(cart.total) %></td>
         </tr>
       </tfoot>
       <tbody>
         <tr>
           <td>Sub-total:</td>
-          <td class="value">R$ 397,00</td>
+          <td class="value"><%= number_to_currency(cart.subtotal)  %></td>
         </tr>
         <tr>
           <td>Crédito</td>
-          <td class="value credit">- R$ 300,00</td>
+          <td class="value credit">- <%= number_to_currency(cart.discount) %></td>
         </tr>
         <tr>
           <td>Frete</td>
-          <td class="value"><%= @freight ? number_to_currency(@freight[:price]) : "-"  %></td>
+          <td class="value"><%= number_to_currency(cart.freight_price) %></td>
         </tr>
       </tbody>
     </table>
