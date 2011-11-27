@@ -6,13 +6,13 @@ module FreightCalculator
   DEFAULT_FREIGHT_COST    = 0.0
   DEFAULT_INVENTORY_TIME  = 1
   
-  def self.freight_for_zip(zip_code, weight, volume)
+  def self.freight_for_zip(zip_code, order_value)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
 
     freight_price = nil
     ShippingService.order('priority').each do |shipping_service|
-      freight_price = shipping_service.find_freight_for_zip(clean_zip_code, weight, volume)
+      freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
 
       break if freight_price
     end

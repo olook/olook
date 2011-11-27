@@ -11,11 +11,11 @@ class ShippingService < ActiveRecord::Base
   validates :priority, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
   validates :erp_delivery_service, :presence => true
 
-  def find_freight_for_zip(zip_code, weight, volume)
+  def find_freight_for_zip(zip_code, order_value)
     self.freight_prices.where('(:zip >= zip_start) AND (:zip <= zip_end) AND ' +
-                              '(:weight > weight_start) AND (:weight <= weight_end)',
+                              '(:order_value >= order_value_start) AND (:order_value <= order_value_end)',
                               :zip => zip_code.to_i,
-                              :weight => freight_weight(weight, volume)).first
+                              :order_value => order_value).first
   end
 
   def freight_weight(weight, volume)
