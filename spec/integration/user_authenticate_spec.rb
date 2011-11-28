@@ -55,7 +55,7 @@ feature "User Authenticate", %q{
       fill_in "user_first_name", :with => "New First Name"
       fill_in "user_last_name", :with => "New Last Name"
       fill_in "user_email", :with => "fake@mail.com"
-      click_button "Update"
+      click_button "update_user"
     end
     within('#info_user') do
      page.should have_content("New First Name")
@@ -71,7 +71,7 @@ feature "User Authenticate", %q{
       fill_in "user_email", :with => "fake@mail.com"
       fill_in "user_password", :with => "123456"
       fill_in "user_password_confirmation", :with => "123456"
-      click_button "Update"
+      click_button "update_user"
     end
     within('#info_user') do
      page.should have_content("New First Name")
