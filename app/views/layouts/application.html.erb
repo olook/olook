@@ -30,6 +30,14 @@
       <%= render :partial => "shared/header_checkout" %>
     <% else %>
       <%= render :partial => "shared/header_default" %>
+      <% if params[:controller] == "registrations" && params[:action] == "edit" %>
+        <div id="box_title_my_account">
+          <div class="content">
+            <h1>Minha conta</h1>
+            <h2>Edite suas informações pessoais, altere ou adicione endereços, melhore sua vitrine e acompanhe seus pedidos</h2>
+          </div>
+        </div>
+      <% end %>
     <% end %>
 
     <div id="content" class="content">
