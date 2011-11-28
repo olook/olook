@@ -114,6 +114,11 @@ div#my_account {
           width: 245px;
           height: 28px;
         }
+        &.addresses {
+          background: url("/assets/my_account/title-addresses.png") no-repeat;
+          width: 174px;
+          height: 33px;
+        }
       }
     }
   }
