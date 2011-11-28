@@ -24,6 +24,7 @@ module Abacos
 
     def call_webservice(wsdl, method, params = { "ChaveIdentificacao" => API_KEY })
       client = Savon::Client.new wsdl
+      client.http.read_timeout = 3000
       xml = client.request :abac, method, :body => params
       
       response = xml.to_hash["#{method}_response".to_sym]["#{method}_result".to_sym]

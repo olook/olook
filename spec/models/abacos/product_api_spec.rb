@@ -12,10 +12,12 @@ describe Abacos::ProductAPI do
     let(:protocol) { 'XYZ-ABC-123' }
 
     it 'should return true if the call was sucessfull' do
+      Rails.env.stub(:'production?').and_return(true)
       described_class.should_receive(:call_webservice).with(Abacos::ProductAPI::WSDL, :confirmar_recebimento_resource, {"ProtocoloResource" => 'XYZ-ABC-123'}).and_return({:tipo => 'tdreSucesso'})
       described_class.confirm_integration(:resource, protocol).should be_true
     end
     it 'should raise and error if call failed' do
+      Rails.env.stub(:'production?').and_return(true)
       described_class.should_receive(:call_webservice).and_return({})
       expect {
         described_class.confirm_integration(:resource, protocol)
