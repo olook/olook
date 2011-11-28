@@ -9,15 +9,32 @@ describe Abacos::ProductAPI do
   end
 
   describe '#confirm_integration' do
+    let(:protocol) { 'XYZ-ABC-123' }
+
     it 'should return true if the call was sucessfull' do
       described_class.should_receive(:call_webservice).with(Abacos::ProductAPI::WSDL, :confirmar_recebimento_resource, {"ProtocoloResource" => 'XYZ-ABC-123'}).and_return({:tipo => 'tdreSucesso'})
-      described_class.confirm_integration(:resource, 'XYZ-ABC-123').should be_true
+      described_class.confirm_integration(:resource, protocol).should be_true
     end
-    it 'should return true if the call was sucessfull' do
+    it 'should raise and error if call failed' do
       described_class.should_receive(:call_webservice).and_return({})
       expect {
-        described_class.confirm_integration(:resource, 'XYZ-ABC-123')
+        described_class.confirm_integration(:resource, protocol)
       }.to raise_error
+    end
+    
+    describe 'specific confirmations' do
+      it '#confirm_product' do
+        described_class.should_receive(:confirm_integration).with(:produto, protocol)
+        described_class.confirm_product protocol
+      end
+      it '#confirm_inventory' do
+        described_class.should_receive(:confirm_integration).with(:estoque, protocol)
+        described_class.confirm_inventory protocol
+      end
+      it '#confirm_price' do
+        described_class.should_receive(:confirm_integration).with(:preco, protocol)
+        described_class.confirm_price protocol
+      end
     end
   end
 
