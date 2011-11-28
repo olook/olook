@@ -28,6 +28,7 @@ gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync'
 gem 'curb'
+gem 'rack-ssl', :require => 'rack/ssl'
 
 group :development do
   gem 'faker'
