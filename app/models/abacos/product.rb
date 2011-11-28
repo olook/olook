@@ -66,9 +66,8 @@ module Abacos
     end
     
     def self.parse_details(data)
-      items = data[:rows][:dados_caracteristicas_complementares]
-      items = [items] unless items.is_a? Array
-      
+      items = parse_nested_data(data, :dados_caracteristicas_complementares)
+
       {}.tap do |result|
         items.each do |item|
           next if item[:tipo_nome].strip == 'Perfil'
@@ -78,8 +77,7 @@ module Abacos
     end
 
     def self.parse_profiles(data)
-      items = data[:rows][:dados_caracteristicas_complementares]
-      items = [items] unless items.is_a? Array
+      items = parse_nested_data(data, :dados_caracteristicas_complementares)
 
       result = []
       items.each do |item|
