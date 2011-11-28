@@ -9,6 +9,7 @@ class PaymentsController < ApplicationController
   before_filter :check_user_address, :only => [:index]
 
   def index
+    @cart = Cart.new(@order, @freight)
   end
 
   def create

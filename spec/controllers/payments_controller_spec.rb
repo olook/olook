@@ -73,6 +73,12 @@ describe PaymentsController do
         get 'index'
         assigns(:freight).should == freight
       end
+
+      it "should assign @cart" do
+        order = session[:order] = FactoryGirl.create(:order, :user => user)
+        Cart.should_receive(:new).with(order, freight)
+        get 'index'
+      end
     end
 
     context "with a invalid freight" do
