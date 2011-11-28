@@ -36,16 +36,13 @@ describe Abacos::Variant do
       mock_product = mock_model ::Product
       ::Product.should_receive(:find_by_model_number).with(subject.model_number).and_return(mock_product)
 
-      mock_variants_relation = double :variant
-      mock_product.should_receive(:variants).and_return(mock_variants_relation)
-
       mock_variant = mock_model(::Variant)
       mock_variant.should_receive(:update_attributes).with(subject.attributes)
       mock_variant.should_receive(:'save!')
 
-      mock_variants_relation.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
+      mock_product.stub_chain(:variants, :find_by_number).with(subject.number).and_return(mock_variant)
 
-      Abacos::ProductAPI.should_receive(:confirm_product)
+      Abacos::ProductAPI.should_receive(:confirm_product).with(subject.integration_protocol)
       
       subject.integrate
     end
