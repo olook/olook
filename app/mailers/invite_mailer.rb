@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class InviteMailer < ActionMailer::Base
   default_url_options[:host] = "olook.com.br"
-  default :from => "\"Olook\" <vip@o.conviteolook.com.br>"
+  default :from => "Olook <vip@o.conviteolook.com.br>"
   
   def self.smtp_settings
     {
@@ -18,17 +18,11 @@ class InviteMailer < ActionMailer::Base
  
   def invite_email(invite)
     @invite = invite
-    send_invite(@invite)
+    mail(:to => @invite.email, :subject => "#{@invite.member_name} te convidou para a olook!")
   end
 
   def reinvite_email(invite)
     @invite = invite
-    send_invite(@invite)
-  end
-
-  private
-
-  def send_invite(invite)
-    mail(:to => invite.email, :subject => "#{invite.member_name} te convidou para a olook!")
+    mail(:from => "Olook <vip@re.conviteolook.com.br>", :to => @invite.email, :subject => "Você recebeu um convite de #{@invite.member_name} mas ainda não se cadastrou.")
   end
 end
