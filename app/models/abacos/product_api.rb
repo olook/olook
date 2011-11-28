@@ -27,7 +27,7 @@ module Abacos
       confirm_integration :estoque, protocol
     end
 
-    def self.confirm_prices(protocol)
+    def self.confirm_price(protocol)
       confirm_integration :preco, protocol
     end
   private
