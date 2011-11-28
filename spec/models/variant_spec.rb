@@ -83,4 +83,28 @@ describe Variant do
       subject.is_master.should == false
     end
   end
+  
+  it "#master_variant" do
+    subject.master_variant.should == subject.product.master_variant
+  end
+
+  describe "#copy_master_variant" do
+    it "should call the method when a product_id is assigned" do
+      subject # load the subject before setting the expectation to avoid duplicate calls
+      described_class.any_instance.should_receive(:copy_master_variant)
+      new_variant = subject.product.variants.build
+    end
+
+    it "should copy the master_variant attributes" do
+      new_variant = subject.product.variants.build
+      new_variant.copy_master_variant
+      
+      new_variant.width.should      == new_variant.master_variant.width
+      new_variant.height.should     == new_variant.master_variant.height
+      new_variant.length.should     == new_variant.master_variant.length
+      new_variant.weight.should     == new_variant.master_variant.weight
+      new_variant.price.should      == new_variant.master_variant.price
+      new_variant.inventory.should  == new_variant.master_variant.inventory
+    end
+  end
 end

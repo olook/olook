@@ -27,12 +27,24 @@ module Abacos
     def integrate
       product = ::Product.find_by_model_number(self.model_number) || ::Product.new
 
-      product.update_attributes(self.attributes)
-      product.description ||= self.name
-
+      integrate_attributes(product)
+      integrate_details(product)
       product.save!
       
       Abacos::ProductAPI.confirm_product(self.integration_protocol)
+    end
+    
+    def integrate_attributes(product)
+      product.update_attributes(self.attributes)
+      product.description ||= self.name
+    end
+
+    def integrate_details(product)
+      self.details.each do |key, value|
+        product.details.build(:translation_token => key,
+                              :description => value,
+                              :display_on => DisplayDetailOn::DETAILS )
+      end
     end
 
     def self.parse_abacos_data(abacos_product)
