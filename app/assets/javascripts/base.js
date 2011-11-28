@@ -87,4 +87,11 @@ $(document).ready(function() {
     }
   });
 
+  $("div#wrapper_menu nav.menu ul li a.cart").live("click", function() {
+    $(this).parent("li").find("ul").show();
+  });
+
+  $("div#wrapper_menu nav.menu ul li.cart ul li a.close").live("click", function() {
+    $(this).parents("ul.submenu").hide();
+  });
 });
