@@ -4,7 +4,7 @@ FactoryGirl.define do
     factory :basic_shoe_size_35 do
       association :product, :factory => :basic_shoe
       is_master false
-      number '35A'
+      number { "number#{Random.rand 10000}" }
       description 'size 35'
       display_reference 'size-35'
       price 123.45

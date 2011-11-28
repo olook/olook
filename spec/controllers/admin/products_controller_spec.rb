@@ -4,7 +4,11 @@ require 'spec_helper'
 describe Admin::ProductsController do
   render_views
   let!(:product) { FactoryGirl.create(:basic_shoe) }
-  let!(:valid_attributes) { product.attributes }
+  let(:valid_attributes) do
+    product.attributes.clone.tap do |attributes|
+      attributes[:model_number] = Random.rand(1000).to_s
+    end
+  end
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
