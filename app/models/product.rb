@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :description, :presence => true
-  validates :model_number, :presence => true
+  validates :model_number, :presence => true, :uniqueness => true
   
   scope :shoes , where(:category => Category::SHOE)
   scope :bags  , where(:category => Category::BAG)
@@ -69,7 +69,7 @@ private
   def build_master_variant
     if @master_variant.nil?
       @master_variant = self.variants.unscoped.build( :is_master => true,
-                            :number => 'master', :description => 'master',
+                            :number => "master", :description => 'master',
                             :price => 0.0, :inventory => 0,
                             :width => 0, :height => 0, :length => 0,
                             :display_reference => 'master',
@@ -78,7 +78,10 @@ private
   end
 
   def save_master_variant
-    @master_variant.product_id = self.id if @master_variant.product_id.nil?
+    if @master_variant.product_id.nil?
+      @master_variant.product_id = self.id
+      @master_variant.number += self.model_number
+    end
     @master_variant.save!
   end
 end

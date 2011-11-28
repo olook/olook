@@ -7,7 +7,7 @@ class Variant < ActiveRecord::Base
   belongs_to :product
   
   validates :product, :presence => true
-  validates :number, :presence => true
+  validates :number, :presence => true, :uniqueness => true
   validates :description, :presence => true
   validates :display_reference, :presence => true
 
