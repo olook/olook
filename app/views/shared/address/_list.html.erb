@@ -7,14 +7,14 @@
       <p><%= "#{address.zip_code}" %></p>
       <p><%= "#{address.city}, #{address.state}" %></p>
       <ul class="links">
-        <li><%= link_to "Editar endereço", edit_address_path(address) %></li>
-        <li><%= link_to "Apagar endereço", address_path(address), :method => :delete, :confirm => "Tem certeza?" %></li>
+        <li><%= link_to "Editar endereço", my_account == true ? edit_user_address_path(address) : edit_address_path(address) %></li>
+        <li><%= link_to "Apagar endereço", my_account == true ? user_address_path(address) : address_path(address), :method => :delete, :confirm => "Tem certeza?" %></li>
       </ul>
       <%= radio_button_tag(:delivery_address_id, address.id) %>
     </li>
   <% end %>
 <% end %>
 <li class="address_item add">
-  <%= link_to "Adicionar Novo Endereço", new_address_path %>
+  <%= link_to "Adicionar Novo Endereço", my_account == true ? new_user_address_path : new_address_path %>
 </li>
 </ol>
