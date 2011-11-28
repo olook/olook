@@ -2,7 +2,7 @@
   <div class="content">
     <h1><%= link_to 'Olook', root_path %></h1>
     <% if user_signed_in? %>
-      <%= link_to "Voltar para minha vitrine", "#", :class => "back_showroom" %>
+      <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_showroom" %>
     <% end %>
   </div>
 </header>
