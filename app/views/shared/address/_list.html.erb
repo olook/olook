@@ -10,7 +10,7 @@
         <li><%= link_to "Editar endereço", my_account == true ? edit_user_address_path(address) : edit_address_path(address) %></li>
         <li><%= link_to "Apagar endereço", my_account == true ? user_address_path(address) : address_path(address), :method => :delete, :confirm => "Tem certeza?" %></li>
       </ul>
-      <%= radio_button_tag(:delivery_address_id, address.id) %>
+      <%= radio_button_tag(:delivery_address_id, address.id) unless my_account == true %>
     </li>
   <% end %>
 <% end %>
