@@ -1,6 +1,13 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
+  factory :clean_order, :class => Order do
+    association :payment, :factory => :billet
+  end
   factory :order do
     association :payment, :factory => :billet
+    after_create do |order|
+      order.stub(:total).and_return(100)
+      order.stub(:reload)
+    end
   end
 end

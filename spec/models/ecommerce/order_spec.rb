@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Order do
-  subject { FactoryGirl.create(:order)}
+  subject { FactoryGirl.create(:clean_order)}
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40) }
 
