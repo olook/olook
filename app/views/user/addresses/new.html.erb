@@ -10,7 +10,17 @@
     <div class="box_title">
       <h1 class="addresses">Endereços</h1>
     </div>
-    <section class="main">
-    </section>
+    <%= form_for @address do |f| %>
+      <section class="main">
+        <%= render "shared/address/form", :address => @address, :f => f %>
+        <fieldset class="buttons">
+          <ol>
+            <li>
+              <%= f.submit '', :class => "save" %>
+            </li>
+          </ol>
+        </fieldset>
+      </section>
+    <% end %>
   </div>
 </div>
