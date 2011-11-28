@@ -753,6 +753,13 @@ body {
                 display: block;
                 border-bottom: 1px #dedede solid;
                 float: none;
+                p.freight {
+                  color: #df5a8b;
+                  font-weight: bold;
+                  text-align: center;
+                  text-transform: uppercase;
+                  padding-bottom: 5px;
+                }
                 a {
                   margin: 0;
                 }
