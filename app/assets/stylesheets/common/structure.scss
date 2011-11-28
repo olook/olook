@@ -734,7 +734,7 @@ body {
                 background: #df5a8b;
               }
             }
-            ul {
+            ul.submenu {
               position: absolute;
               background: #FFF;
               width: 235px;
@@ -743,6 +743,7 @@ body {
               right: 0;
               border: 3px #101010 solid;
               border-top: none;
+              display: none;
               li {
                 position: relative;
                 width: 100%;

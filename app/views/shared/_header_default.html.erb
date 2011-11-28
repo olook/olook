@@ -38,7 +38,7 @@
           <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
           <li class="cart">
             <%= link_to "Minha Sacola (0)", "javascript:void(0);", :class => "cart" %>
-            <ul>
+            <ul class="submenu">
               <% 2.times do %>
                 <li>
                   <%= image_tag "fake/fake-mini-product.png" %>
