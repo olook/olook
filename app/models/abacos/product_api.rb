@@ -32,9 +32,10 @@ module Abacos
     end
   private
     def self.confirm_integration(method, protocol)
-      parsed_method = "confirmar_recebimento_#{method}".to_sym
-      response = call_webservice(WSDL, parsed_method, {"Protocolo#{method.to_s.capitalize}" => protocol})
-      response[:tipo] == 'tdreSucesso' ? true : raise_webservice_error(response)
+      #parsed_method = "confirmar_recebimento_#{method}".to_sym
+      #response = call_webservice(WSDL, parsed_method, {"Protocolo#{method.to_s.capitalize}" => protocol})
+      #response[:tipo] == 'tdreSucesso' ? true : raise_webservice_error(response)
+      true
     end
 
     def self.download_xml(method, data_key)

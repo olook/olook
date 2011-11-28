@@ -19,6 +19,14 @@ class Variant < ActiveRecord::Base
   validates :length, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   validates :weight, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   
+  delegate :master_variant, :to => :product
+  
+  def product_id=(param_id)
+    result = super(param_id)
+    copy_master_variant
+    result
+  end
+  
   def sku
     "#{product.model_number}-#{number}"
   end
@@ -36,5 +44,14 @@ class Variant < ActiveRecord::Base
   
   def fill_is_master
     self.is_master = false if self.is_master.nil?
+  end
+  
+  def copy_master_variant
+    self.width      = master_variant.width
+    self.height     = master_variant.height
+    self.length     = master_variant.length
+    self.weight     = master_variant.weight
+    self.price      = master_variant.price
+    self.inventory  = master_variant.inventory
   end
 end

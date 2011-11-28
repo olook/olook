@@ -20,26 +20,54 @@ describe Abacos::Product do
     it 'should create a new product' do
       Abacos::ProductAPI.should_receive(:confirm_product)
       expect {
+        subject.stub(:integrate_details)
         subject.integrate
       }.to change(Product, :count).by(1)
     end
 
     it 'should call the integration confirmation' do
+      subject.stub(:integrate_details)
       Abacos::ProductAPI.should_receive(:confirm_product).with(subject.integration_protocol)
       subject.integrate
     end
 
     it 'should merge the imported attributes on the product' do
       mock_product = mock_model(::Product)
-      mock_product.should_receive(:update_attributes).with(subject.attributes)
-      mock_product.should_receive(:'description')
-      mock_product.should_receive(:'description=')
+
+      subject.should_receive(:integrate_attributes).with(mock_product)
+      subject.should_receive(:integrate_details).with(mock_product)
       mock_product.should_receive(:'save!')
+      
       ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(mock_product)
 
       Abacos::ProductAPI.should_receive(:confirm_product)
       
       subject.integrate
+    end
+
+    describe "helper methods" do
+      it "#integrate_attributes" do
+        mock_product = mock_model(::Product)
+        mock_product.should_receive(:update_attributes).with(subject.attributes)
+        mock_product.should_receive(:'description')
+        mock_product.should_receive(:'description=')
+        subject.integrate_attributes mock_product
+      end
+
+      it "#integrate_details" do
+        mock_details = double :details
+        mock_details.should_receive(:build).
+                      with( :translation_token => 'detail_name',
+                            :description => 'detail_description',
+                            :display_on => DisplayDetailOn::DETAILS)
+      
+        mock_product = mock_model(::Product)
+        mock_product.stub(:details).and_return(mock_details)
+        
+        subject.stub(:details).and_return({'detail_name' => 'detail_description'})
+
+        subject.integrate_details mock_product
+      end
     end
   end
 
