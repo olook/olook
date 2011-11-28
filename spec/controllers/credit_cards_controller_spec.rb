@@ -7,6 +7,7 @@ describe CreditCardsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:freight) {{ "price" => 1.99 }}
+  let(:order) { FactoryGirl.create(:order, :user => user) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -17,8 +18,6 @@ describe CreditCardsController do
 
   describe "GET new" do
     before :each do
-      order = double
-      order.stub(:reload)
       session[:order] = order
     end
     context "with a valid order" do
@@ -40,10 +39,17 @@ describe CreditCardsController do
     end
 
     context "with a invalid order" do
-      it "should redirect to root path" do
+      it "should redirect to root path if the order is nil" do
         session[:order] = nil
         get 'new'
-        response.should redirect_to(root_path)
+        response.should redirect_to(cart_path)
+      end
+
+      it "should redirect to root path if the order is nil" do
+        order.stub(:total).and_return(0)
+        session[:order] = order
+        get 'new'
+        response.should redirect_to(cart_path)
       end
     end
 
@@ -54,7 +60,7 @@ describe CreditCardsController do
       end
 
       it "should assign @cart" do
-        order = session[:order] = FactoryGirl.create(:order, :user => user)
+        session[:order] = order
         Cart.should_receive(:new).with(order, freight)
         get 'new'
       end
@@ -71,8 +77,6 @@ describe CreditCardsController do
 
   describe "POST create" do
     before :each do
-      order = double
-      order.stub(:reload)
       session[:order] = order
     end
 

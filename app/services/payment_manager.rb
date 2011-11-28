@@ -12,7 +12,12 @@ module PaymentManager
 
   def check_order
     @order = session[:order]
-    redirect_to(root_path, :notice => "Sua sacola está vazia") unless @order
+    msg = "Sua sacola está vazia"
+    if @order
+      redirect_to(cart_path, :notice => msg) if @order.total <= 0
+    else
+      redirect_to(cart_path, :notice => msg)
+    end
   end
 
   def check_freight
