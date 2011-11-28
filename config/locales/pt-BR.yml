@@ -251,10 +251,13 @@
         telephone: "Telefone"
         bank: "Bandeira do cartão"
       user:
+        birthday: "Data de nascimento"
+        cpf: CPF
+        email: E-mail
         first_name: Nome
         last_name: Sobrenome
         password: Senha
-        email: E-mail
+        password_confirmation: "Confirmação de senha"
     errors:
       template:
         header:
