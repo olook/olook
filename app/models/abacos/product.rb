@@ -1,27 +1,19 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Product
-    include ::Abacos::Helpers
+    extend ::Abacos::Helpers
 
     attr_reader :integration_protocol,
                 :name, :model_number, :category,
                 :width, :height, :length, :weight,
                 :color, :details, :profiles
 
-    def initialize(abacos_product)
-      @integration_protocol = abacos_product[:protocolo_produto]
-      @name = abacos_product[:nome_produto]
-      @model_number = abacos_product[:codigo_produto].to_s
-      @category = parse_category(abacos_product[:descricao_classe])
-      @width = abacos_product[:largura].to_f
-      @height = abacos_product[:espessura].to_f
-      @length = abacos_product[:comprimento].to_f
-      @weight = abacos_product[:peso].to_f
-      @color = parse_color( abacos_product[:descritor_pre_definido] )
-      @details = parse_details( abacos_product[:caracteristicas_complementares] )
-      @profiles = parse_profiles( abacos_product[:caracteristicas_complementares] )
+    def initialize(parsed_data)
+      parsed_data.each do |key, value|
+        self.instance_variable_set "@#{key}", value
+      end
     end
-    
+
     def attributes
       { name:         self.name,
         model_number: self.model_number,
@@ -43,12 +35,25 @@ module Abacos
       Abacos::ProductAPI.confirm_product(self.integration_protocol)
     end
 
+    def self.parse_abacos_data(abacos_product)
+      { integration_protocol: abacos_product[:protocolo_produto],
+        name:                 abacos_product[:nome_produto],
+        model_number:         abacos_product[:codigo_produto].to_s,
+        category:             parse_category(abacos_product[:descricao_classe]),
+        width:                abacos_product[:largura].to_f,
+        height:               abacos_product[:espessura].to_f,
+        length:               abacos_product[:comprimento].to_f,
+        weight:               abacos_product[:peso].to_f,
+        color:                parse_color( abacos_product[:descritor_pre_definido] ),
+        details:              parse_details( abacos_product[:caracteristicas_complementares] ),
+        profiles:             parse_profiles( abacos_product[:caracteristicas_complementares] ) }
+    end
   private
-    def parse_color(data)
+    def self.parse_color(data)
       find_in_descritor_pre_definido(data, 'COR')
     end
     
-    def parse_details(data)
+    def self.parse_details(data)
       items = data[:rows][:dados_caracteristicas_complementares]
       items = [items] unless items.is_a? Array
       
@@ -60,7 +65,7 @@ module Abacos
       end
     end
 
-    def parse_profiles(data)
+    def self.parse_profiles(data)
       items = data[:rows][:dados_caracteristicas_complementares]
       items = [items] unless items.is_a? Array
 
