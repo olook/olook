@@ -14,6 +14,7 @@ class AddressesController < ApplicationController
 
   def new
     @address = @user.addresses.build
+    @cart = Cart.new(@order)
   end
 
   def create
