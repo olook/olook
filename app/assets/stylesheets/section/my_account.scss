@@ -121,6 +121,11 @@ div#my_account {
         }
       }
     }
+    section.main {
+      width: 670px;
+      padding-top: 25px;
+      overflow: hidden;
+    }
   }
   &.personal_data {
     form {
