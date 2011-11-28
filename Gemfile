@@ -28,7 +28,6 @@ gem 'will_paginate'
 gem 'airbrake'
 gem 'asset_sync'
 gem 'curb'
-gem 'bartt-ssl_requirement', :require => 'ssl_requirement'
 
 group :development do
   gem 'faker'
