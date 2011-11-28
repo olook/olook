@@ -85,7 +85,7 @@
       </div>
     </section>
     <section class="sidebar">
-      <%= render :partial => "shared/payments/info_sidebar" %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
       <%= f.submit '', :disabled => "disabled", :class => "disabled save" %>
     </section>
   <% end %>

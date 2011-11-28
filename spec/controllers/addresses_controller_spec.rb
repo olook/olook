@@ -6,10 +6,10 @@ describe AddressesController do
   let(:user) { FactoryGirl.create :user }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
   let(:address) { FactoryGirl.create(:address, :user => user)}
+  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:freight) {{ "price" => 1.99 }}
 
   before :each do
-    order = double
-    order.stub(:total).and_return(129.89)
     session[:order] = order
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
@@ -19,6 +19,11 @@ describe AddressesController do
     it "should assigns @address" do
       get 'new'
       assigns(:address).should be_a_new(Address)
+    end
+
+    it "should assign @cart" do
+      Cart.should_receive(:new).with(order)
+      get 'new'
     end
   end
 
