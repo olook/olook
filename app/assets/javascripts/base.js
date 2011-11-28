@@ -91,7 +91,11 @@ $(document).ready(function() {
     $(this).parent("li").find("ul").show();
   });
 
-  $("div#wrapper_menu nav.menu ul li.cart ul li a.close").live("click", function() {
+  $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.close").live("click", function() {
     $(this).parents("ul.submenu").hide();
+  });
+
+  $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.delete").live("click", function() {
+    $(this).parent("li").remove();
   });
 });
