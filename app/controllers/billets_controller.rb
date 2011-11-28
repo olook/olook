@@ -11,6 +11,7 @@ class BilletsController < ApplicationController
 
   def new
     @payment = Billet.new
+    @cart = Cart.new(@order, @freight)
   end
 
   def create
