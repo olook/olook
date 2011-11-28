@@ -35,6 +35,12 @@ Olook::Application.routes.draw do
   get "membro/como-funciona", :to => "members#how_to", :as => "member_how_to"
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
 
+  namespace :user do
+    resources :addresses
+    resource :orders, :only => [:show]
+    resource :credits, :only => [:index]
+  end
+
   namespace :admin do
     match "/", :to => "index#dashboard"
 
