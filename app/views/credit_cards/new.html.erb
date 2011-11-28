@@ -11,9 +11,9 @@
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>
-        <%= render "shared/payments/info_address", :cart => @cart %>
+        <%= render "shared/payments/info_address" %>
       <% end %>
-      <%= render :partial => "shared/payments/info_sidebar" %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
       <%= f.submit "", :class => "finish" %>
     </section>
   <% end %>
