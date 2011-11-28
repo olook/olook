@@ -4,13 +4,7 @@
 
 <div id="my_account">
   <div id="box_menu">
-    <ul>
-      <li><%= link_to "Dados Pessoais", "#" %></li>
-      <li><%= link_to "Endereços", "#" %></li>
-      <li><%= link_to "Meus Pedidos", "#" %></li>
-      <li><%= link_to "Meus Créditos", "#" %></li>
-      <li><%= link_to "Minha Vitrine", "#" %></li>
-    </ul>
+    <%= render "shared/my_account/menu" %>
   </div>
   <div id="data">
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
