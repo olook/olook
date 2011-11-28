@@ -1,3 +1,49 @@
+form {
+  width: 605px;
+  margin: 20px 0 0 20px;
+  overflow: auto;
+  fieldset {
+    margin: 0 0 25px 0;
+    ol {
+      li {
+        margin: 0 10px 10px 0;
+        display: inline;
+        float: left;
+        label {
+          font-weight: bold;
+          display: block;
+        }
+        p.warn {
+          font-size: 9px;
+        }
+      }
+    }
+    &.inputs {
+      ol {
+        li {
+          input[type="text"], input[type="email"], input[type="password"] {
+            font-size: 14px;
+            padding: 10px;
+            border: 1px #d6d6d6 solid;
+            &:focus {
+              outline: none;
+            }
+          }
+          &.email {
+            width: 100%;
+            input {
+              width: 280px;
+            }
+          }
+        }
+      }
+    }
+    &.cpf {
+      padding: 25px 35px;
+      border: 1px #d6d6d6 solid;
+    }
+  }
+}
 div#box_title_my_account {
   background: url("/assets/my_account/bg-title-desc.png") repeat-x;
   width: 100%;
@@ -69,6 +115,21 @@ div#my_account {
           height: 28px;
         }
       }
+    }
+  }
+  &.personal_data {
+    form {
+      fieldset.buttons {
+        ol li input[type="submit"] {
+          background: url("/assets/common/bt-save.png") no-repeat;
+          text-indent: -9999px;
+          width: 105px;
+          height: 45px;
+          display: block;
+          border: none;
+          cursor: pointer;
+        }
+      }  
     }
   }
 }
