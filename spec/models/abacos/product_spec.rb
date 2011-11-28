@@ -72,8 +72,8 @@ describe Abacos::Product do
   end
 
   describe "class methods" do
-    let(:descritor_pre_definido)  { {:rows=>{:dados_descritor_pre_definido=>{:descricao=>"Couro Gergelim", :grupo_nome=>"COR  "}}} }
-    let(:caracteristicas_complementares) { {:rows=>{:dados_caracteristicas_complementares=>[{:tipo_nome=>"Dica da Fernanda", :texto=>"Sapatilha sensaciona impressionantel!"}, {:tipo_nome=>"Perfil", :texto=>"Sexy, Casual "}]}} }
+    let(:descritor_pre_definido)  { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_descritor_pre_definido=>{:descricao=>"Couro Gergelim", :grupo_nome=>"COR  "}}} }
+    let(:caracteristicas_complementares) { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_caracteristicas_complementares=>[{:tipo_nome=>"Dica da Fernanda", :texto=>"Sapatilha sensaciona impressionantel!"}, {:tipo_nome=>"Perfil", :texto=>"Sexy, Casual "}]}} }
 
     describe '#parse_abacos_data' do
       it '#integration_protocol' do
@@ -110,10 +110,6 @@ describe Abacos::Product do
       
       it '#weight' do
         subject.weight.should == 0.6
-      end
-      
-      it '#color' do
-        subject.color.should == 'Floral'
       end
       
       it '#details' do

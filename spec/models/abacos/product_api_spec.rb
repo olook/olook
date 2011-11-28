@@ -3,9 +3,9 @@ require "spec_helper"
 
 describe Abacos::ProductAPI do
   it '#download_xml' do
-    ws_result = {:key => 'ws_result'}
-    described_class.should_receive(:call_webservice).with(Abacos::ProductAPI::WSDL, :method).and_return(ws_result)
-    described_class.download_xml(:method, :key).should == ['ws_result']
+    described_class.should_receive(:call_webservice).with(Abacos::ProductAPI::WSDL, :method).and_return(:ws_result)
+    described_class.should_receive(:parse_nested_data).with(:ws_result, :key)
+    described_class.download_xml(:method, :key)
   end
 
   describe '#confirm_integration' do
