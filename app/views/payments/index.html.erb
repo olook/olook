@@ -11,7 +11,7 @@
     <% content_for :checkout_sidebar do %>
       <%= render :partial => "shared/payments/info_address" %>
     <% end %>
-    <%= render :partial => "shared/payments/info_sidebar" %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart %>
     <%= submit_tag '', :disabled => "disabled", :class => "disabled continue" %>
   </section>
 </section>
