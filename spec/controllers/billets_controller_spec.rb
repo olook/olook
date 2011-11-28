@@ -85,7 +85,9 @@ describe BilletsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      session[:freight] = {:price => 12}
     end
+
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
@@ -97,7 +99,9 @@ describe BilletsController do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(mock_model(Billet))
         post :create, :billet => attributes
-        session[:order].should be(nil)
+        session[:order].should be_nil
+        session[:freight].should be_nil
+        session[:delivery_address_id].should be_nil
       end
 
       it "should redirect to billet_path" do

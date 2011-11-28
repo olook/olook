@@ -86,6 +86,7 @@ describe DebitsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      session[:freight] = {:price => 12}
     end
 
     describe "with valid params" do
@@ -99,7 +100,9 @@ describe DebitsController do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(mock_model(Debit))
         post :create, :debit => attributes
-        session[:order].should be(nil)
+        session[:order].should be_nil
+        session[:freight].should be_nil
+        session[:delivery_address_id].should be_nil
       end
 
       it "should redirect to debit_path" do
