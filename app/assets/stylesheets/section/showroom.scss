@@ -75,6 +75,48 @@
         margin: 0 0 10px 0;
         display: block;
       }
+      div#mask_carousel_showroom {
+        position: relative;
+        width: 323px;
+        height: 183px;
+        overflow: hidden;
+        border-bottom: 2px #d05582 solid;
+        a.arrows {
+          position: absolute;
+          background: url("/assets/showroom/arrows.png") no-repeat;
+          text-indent: -9999px;
+          width: 27px;
+          height: 26px;
+          display: block;
+          top: 80px;
+          z-index: 1000;
+          &.left {
+            background-position: 0 0;
+            left: 10px;
+          }
+          &.right {
+            background-position: -27px 0;
+            right: 10px;
+          }
+        }
+        ul {
+          position: relative;
+          left: 0;
+          width: 5000px;
+          overflow: auto;
+          li {
+            margin: 0;
+            padding: 0;
+            display: inline;
+            float: left;
+            a {
+              margin: 0;
+              padding: 0;
+              float: left;
+            }
+          }
+        }
+      }
     }
   }
   section.container_product {
