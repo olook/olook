@@ -31,4 +31,30 @@ describe Abacos::Helpers do
       subject.raise_webservice_error(error_response)
     }.to raise_error(RuntimeError, expected_error_message)
   end
+  
+  describe '#parse_nested_data' do
+    it "should return an empty array if the call was successful but didn't return any data" do
+      without_data = {:resultado_operacao => {:tipo => 'tdreSucessoSemDados'}}
+      result= subject.parse_nested_data(without_data, :some_key)
+      result.should == []
+    end
+    context "if the call was successful and has data" do
+      it "should enclose the data in a array if it isn't already" do
+        with_data_not_array = {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows => {:some_key => :some_value} }
+        result = subject.parse_nested_data(with_data_not_array, :some_key)
+        result.should == [:some_value]
+      end
+      it "should return the data if it is an array" do
+        with_data_array = {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows => {:some_key => [:some_value, nil]} }
+        result = subject.parse_nested_data(with_data_array, :some_key)
+        result.should == [:some_value]
+      end
+    end
+    it "should raise an error if the call wasn't successful" do
+      with_error = {:resultado_operacao => {:tipo => 'tdreErroDataBase'} }
+      expect {
+        subject.parse_nested_data(nested_data_with_error, :some_key)
+      }.to raise_error
+    end
+  end
 end
