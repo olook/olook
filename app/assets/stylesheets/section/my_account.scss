@@ -25,4 +25,18 @@ div#box_title_my_account {
 }
 
 div#my_account {
+  width: 100%;
+  overflow: auto;
+  div#box_menu {
+    width: 200px;
+    height: 515px;
+    display: block;
+    float: left;
+    border-right: 1px #dcdcdc solid;
+  }
+  div#data {
+    width: 775px;
+    overflow: auto;
+    float: left;
+  }
 }
