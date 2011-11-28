@@ -34,6 +34,6 @@ class BilletsController < ApplicationController
   private
 
   def assign_receipt
-    params[:billet][:receipt] = Payment::RECEIPT
+    params[:billet] = {:receipt => Payment::RECEIPT}
   end
 end
