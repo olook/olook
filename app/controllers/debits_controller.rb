@@ -11,6 +11,7 @@ class DebitsController < ApplicationController
 
   def new
     @payment = Debit.new
+    @cart = Cart.new(@order, @freight)
   end
 
   def create
