@@ -11,6 +11,7 @@ class CreditCardsController < ApplicationController
 
   def new
     @payment = CreditCard.new
+    @cart = Cart.new(@order, @freight)
   end
 
   def create
