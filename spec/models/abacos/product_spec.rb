@@ -36,7 +36,6 @@ describe Abacos::Product do
 
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
-      mock_product.should_receive(:'save!')
       
       ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(mock_product)
 
@@ -51,12 +50,13 @@ describe Abacos::Product do
         mock_product.should_receive(:update_attributes).with(subject.attributes)
         mock_product.should_receive(:'description')
         mock_product.should_receive(:'description=')
+        mock_product.should_receive(:'save!')
         subject.integrate_attributes mock_product
       end
 
       it "#integrate_details" do
         mock_details = double :details
-        mock_details.should_receive(:build).
+        mock_details.should_receive(:create).
                       with( :translation_token => 'detail_name',
                             :description => 'detail_description',
                             :display_on => DisplayDetailOn::DETAILS)

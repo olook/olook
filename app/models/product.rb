@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  attr_reader :master_variant
   has_enumeration_for :category, :with => Category, :required => true
   
   after_save :save_master_variant
@@ -50,10 +51,6 @@ class Product < ActiveRecord::Base
     end
   end
   
-  def master_variant
-    @master_variant ||= self.variants.unscoped.where(:is_master => true).first
-  end
-  
   delegate :price, to: :master_variant
   delegate :'price=', to: :master_variant
   delegate :width, to: :master_variant
@@ -67,6 +64,8 @@ class Product < ActiveRecord::Base
 
 private
   def build_master_variant
+    @master_variant ||= self.variants.unscoped.where(:is_master => true).first
+
     if @master_variant.nil?
       @master_variant = self.variants.unscoped.build( :is_master => true,
                             :number => "master", :description => 'master',
