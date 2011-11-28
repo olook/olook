@@ -23,6 +23,40 @@ describe Abacos::Variant do
       subject.display_reference.should == "size-33"
     end
   end
+
+  it '#attributes' do
+    subject.attributes.should == {  number:             subject.number,
+                                    description:        subject.description,
+                                    display_reference:  subject.display_reference,
+                                    is_master:          false }
+  end
+
+  describe '#integrate' do
+    it 'should create, merge the imported attributes on the variant and integrate it' do
+      mock_product = mock_model ::Product
+      ::Product.should_receive(:find_by_model_number).with(subject.model_number).and_return(mock_product)
+
+      mock_variants_relation = double :variant
+      mock_product.should_receive(:variants).and_return(mock_variants_relation)
+
+      mock_variant = mock_model(::Variant)
+      mock_variant.should_receive(:update_attributes).with(subject.attributes)
+      mock_variant.should_receive(:'save!')
+
+      mock_variants_relation.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
+
+      Abacos::ProductAPI.should_receive(:confirm_product)
+      
+      subject.integrate
+    end
+    
+    it "should raise and error if the model_number doesn't exist" do
+      expect {
+        ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(nil)
+        subject.integrate
+      }.to raise_error "Product with model_number #{subject.model_number} is related to variant number #{subject.number} but it doesn't exist"
+    end
+  end
   
   describe 'helper methods' do
     it '#parse_description' do
