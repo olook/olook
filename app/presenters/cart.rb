@@ -13,7 +13,7 @@ class Cart
   end
 
   def discount
-    order.credits
+    order.credits || 0
   end
 
   def freight_price

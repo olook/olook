@@ -20,6 +20,11 @@ describe Cart do
     subject.subtotal.should == order.total + credits
   end
 
+  it "should return the subtotal when the credits is nil" do
+    order.stub(:credits).and_return(nil)
+    subject.subtotal.should == order.total
+  end
+
   it "should return the discount" do
     subject.discount.should == order.credits
   end
