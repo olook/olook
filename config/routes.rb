@@ -37,7 +37,7 @@ Olook::Application.routes.draw do
 
   namespace :user do
     resources :addresses
-    resource :orders, :only => [:show]
+    resources :orders, :only => [:index, :show]
     resources :credits, :only => [:index]
   end
 
