@@ -7,6 +7,7 @@ describe Variant do
     it { should belong_to(:product) }
 
     it { should validate_presence_of(:number) }
+    it { should validate_uniqueness_of(:number) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:display_reference) }
 
