@@ -8,13 +8,13 @@
     <div class="lookbook">
       <h1>Lookbooks</h1>
       <div id="mask_carousel_showroom">
-        <%= link_to "<", "javascript:void(0);", :class => "arrows left" %>
+        <%= link_to "<", "javascript:void(0);", :class => "arrows prev" %>
         <ul>
           <% 5.times do %>
             <li><%= link_to image_tag("fake/fake-lookbook.png"), "#" %></li>
           <% end %>
         </ul>
-        <%= link_to ">", "javascript:void(0);", :class => "arrows right" %>
+        <%= link_to ">", "javascript:void(0);", :class => "arrows next" %>
       </div>
     </div>
   </section>

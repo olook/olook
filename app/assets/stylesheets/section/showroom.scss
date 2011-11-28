@@ -90,11 +90,11 @@
           display: block;
           top: 80px;
           z-index: 1000;
-          &.left {
+          &.prev {
             background-position: 0 0;
             left: 10px;
           }
-          &.right {
+          &.next {
             background-position: -27px 0;
             right: 10px;
           }
