@@ -87,7 +87,7 @@ describe Abacos::Product do
       mock_product.should_receive(:'description')
       mock_product.should_receive(:'description=')
       mock_product.should_receive(:'save!')
-      ::Product.stub(:find_by_model_number).and_return(mock_product)
+      ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(mock_product)
 
       Abacos::ProductAPI.should_receive(:confirm_product)
       
