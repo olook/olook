@@ -715,6 +715,112 @@ body {
       margin: 0;
       top: 0;
       z-index: 1000;
+      div.content {
+        overflow: visible;
+      }
+      ul {
+        li {
+          &.cart {
+            position: relative;
+            float: right;
+            a.cart {
+              color: #FFF;
+              text-decoration: none;
+              text-transform: uppercase;
+              line-height: 35px;
+              margin-right: 0;
+              padding: 8px 10px;
+              &:hover {
+                background: #df5a8b;
+              }
+            }
+            ul {
+              position: absolute;
+              background: #FFF;
+              width: 235px;
+              padding: 15px 10px 5px 10px;
+              top: 34px;
+              right: 0;
+              border: 3px #101010 solid;
+              border-top: none;
+              li {
+                position: relative;
+                width: 100%;
+                height: auto;
+                overflow: auto;
+                margin: 0 0 10px 0;
+                display: block;
+                border-bottom: 1px #dedede solid;
+                float: none;
+                a {
+                  margin: 0;
+                }
+                img {
+                  width: 70px;
+                  height: 70px;
+                  margin-right: 10px;
+                  float: left;
+                }
+                h1 {
+                  color: #716d68;
+                  font-family: Arial;
+                  font-size: 12px;
+                  font-weight: bold;
+                  text-transform: uppercase;
+                }
+                p {
+                  font-family: Arial;
+                  &.price {
+                    color: #000;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                  }
+                  &.size {
+                    color: #df5a8b;
+                    font-size: 14px;
+                    font-weight: bold;
+                  }
+                }
+                a.delete {
+                  position: absolute;
+                  background: url("/assets/common/del-product.png") no-repeat;
+                  text-indent: -9999px;
+                  width: 9px;
+                  height: 10px;
+                  display: block;
+                  top: 25px;
+                  right: 10px;
+                }
+                &.last {
+                  border: none;
+                  a.close {
+                    color: #101010;
+                    font-family: Arial;
+                    font-size: 12px;
+                    text-indent: 0;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    margin: 10px 0 0 0;
+                    height: auto;
+                    float: left;
+                    &:hover {
+                      text-decoration: underline;
+                    }
+                  }
+                  a.finish {
+                    background: url("/assets/common/finish-order.png") no-repeat;
+                    text-indent: -9999px;
+                    width: 137px;
+                    height: 33px;
+                    display: block;
+                    float: right;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       &.fixed {
         position: fixed;
         top: 0;
