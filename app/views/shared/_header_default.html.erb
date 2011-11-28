@@ -37,16 +37,18 @@
           <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
           <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
           <li class="cart">
-            <%= link_to "Minha Sacola (0)", "javascript:void(0);", :class => "cart" %>
+            <%= link_to "Minha Sacola (#{@order ? @order.line_items.count : 0})", "javascript:void(0);", :class => "cart" %>
             <ul class="submenu">
-              <% 2.times do %>
-                <li>
-                  <%= image_tag "fake/fake-mini-product.png" %>
-                  <h1>Hawthrone</h1>
-                  <p class="price">R$ 99,00</p>
-                  <p class="size">33</p>
-                  <%= link_to "X", "#", :class => "delete" %>
-                </li>
+              <% if @order %>
+                <% @order.line_items.each do |item| %>
+                  <li>
+                    <%= image_tag "fake/fake-mini-product.png" %>
+                    <h1><%= item.variant.name %></h1>
+                    <p class="price">R$ <%= item.variant.price %></p>
+                    <p class="size"><%= item.variant.number %></p>
+                    <%= link_to "X", "#", :class => "delete" %>
+                  </li>
+                <% end %>
               <% end %>
               <li class="last">
                 <%= link_to "X Fechar", "javascript:void(0);", :class => "close" %>
