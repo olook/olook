@@ -7,7 +7,15 @@
     <%= render :partial => "showroom_facebook_connected" %>
     <div class="lookbook">
       <h1>Lookbooks</h1>
-      <%= image_tag "fake/showroom-lookbook.png" %>
+      <div id="mask_carousel_showroom">
+        <%= link_to "<", "javascript:void(0);", :class => "arrows left" %>
+        <ul>
+          <% 5.times do %>
+            <li><%= link_to image_tag("fake/fake-lookbook.png"), "#" %></li>
+          <% end %>
+        </ul>
+        <%= link_to ">", "javascript:void(0);", :class => "arrows right" %>
+      </div>
     </div>
   </section>
   <section class="container_product" id="shoes">
