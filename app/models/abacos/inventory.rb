@@ -3,10 +3,10 @@ module Abacos
   class Inventory
     attr_reader :integration_protocol, :number, :inventory
 
-    def initialize(abacos_product)
-      @integration_protocol = abacos_product[:protocolo_estoque]
-      @number = abacos_product[:codigo_produto]
-      @inventory = abacos_product[:saldo_disponivel].to_i
+    def initialize(parsed_data)
+      parsed_data.each do |key, value|
+        self.instance_variable_set "@#{key}", value
+      end
     end
     
     def integrate
@@ -17,6 +17,12 @@ module Abacos
       variant.save!
 
       Abacos::ProductAPI.confirm_inventory(self.integration_protocol)
+    end
+
+    def self.parse_abacos_data(abacos_product)
+      { integration_protocol: abacos_product[:protocolo_estoque],
+        number:               abacos_product[:codigo_produto],
+        inventory:            abacos_product[:saldo_disponivel].to_i }
     end
   end
 end

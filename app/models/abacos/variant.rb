@@ -1,19 +1,15 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Variant
-    include ::Abacos::Helpers
+    extend ::Abacos::Helpers
 
     attr_reader :integration_protocol,
                 :model_number, :number, :description, :display_reference
 
-    def initialize(abacos_product)
-      @integration_protocol = abacos_product[:protocolo_produto]
-      @model_number = abacos_product[:codigo_produto_pai]
-      @number = abacos_product[:codigo_produto]
-      @description = parse_description( abacos_product[:descritor_pre_definido] )
-      
-      category = parse_category(abacos_product[:descricao_classe])
-      @display_reference = parse_display_reference(@description, category)
+    def initialize(parsed_data)
+      parsed_data.each do |key, value|
+        self.instance_variable_set "@#{key}", value
+      end
     end
     
     def attributes
@@ -35,12 +31,23 @@ module Abacos
       Abacos::ProductAPI.confirm_product(self.integration_protocol)
     end
 
+    def self.parse_abacos_data(abacos_product)
+      parsed_description = parse_description( abacos_product[:descritor_pre_definido] )
+      parsed_category = parse_category(abacos_product[:descricao_classe])
+
+      { integration_protocol: abacos_product[:protocolo_produto],
+        model_number:         abacos_product[:codigo_produto_pai],
+        number:               abacos_product[:codigo_produto],
+        description:          parsed_description,
+        display_reference:    parse_display_reference(parsed_description, parsed_category) }
+    end
+
   private
-    def parse_description(abacos_descritor_pre_definido)
+    def self.parse_description(abacos_descritor_pre_definido)
       find_in_descritor_pre_definido(abacos_descritor_pre_definido, 'TAMANHO')
     end
     
-    def parse_display_reference(description, category)
+    def self.parse_display_reference(description, category)
       category == Category::SHOE ? "size-#{description}" : 'single-size'
     end
   end
