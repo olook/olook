@@ -39,9 +39,10 @@
           <li class="cart">
             <%= link_to "Minha Sacola (#{@order ? @order.line_items.count : 0})", "javascript:void(0);", :class => "cart" %>
             <ul class="submenu">
+              <li><p class="freight">Frete grátis acima de R$120,00</p></li>
               <% if @order %>
                 <% @order.line_items.each do |item| %>
-                  <li>
+                  <li class="product">
                     <%= image_tag "fake/fake-mini-product.png" %>
                     <h1><%= item.variant.name %></h1>
                     <p class="price">R$ <%= item.variant.price %></p>
