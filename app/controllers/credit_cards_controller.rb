@@ -8,6 +8,7 @@ class CreditCardsController < ApplicationController
   before_filter :check_user_address, :only => [:new, :create]
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
+  after_filter  :clean_session_order!, :only => [:create]
 
   def new
     @payment = CreditCard.new
@@ -20,7 +21,6 @@ class CreditCardsController < ApplicationController
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
       @payment = payment_builder.process!
-      clean_session_order!
       redirect_to(credit_card_path(@payment), :notice => "Sucesso")
     else
       respond_with(@payment)
