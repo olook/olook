@@ -40,6 +40,7 @@ module Abacos
     end
 
     def integrate_details(product)
+      product.details.destroy_all
       self.details.each do |key, value|
         product.details.create( :translation_token => key,
                                 :description => value,
