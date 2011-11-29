@@ -188,4 +188,64 @@ div#my_account {
       }
     }
   }
+  &.orders {
+    table {
+      width: 760px;
+      margin: 25px 0 30px 10px;
+      thead {
+        tr {
+          th {
+            color: #000;
+            font-family: Times;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: lighter;
+            text-align: left;
+            padding: 10px 0px;
+            border-bottom: 1px #e5e5e5 solid;
+            &.number {
+              width: 100px;
+              padding-left: 10px;
+            }
+            &.date {
+              width: 120px;
+            }
+            &.amount {
+              width: 50px;
+            }
+            &.value, &.freight {
+              width: 75px;
+            }
+            &.payment {
+              width: 90px;
+            }
+            &.status {
+              width: 120px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            padding: 20px 0;
+            border-bottom: 1px #e5e5e5 solid;
+            &.more {
+              position: relative;
+              a {
+                background: url("/assets/my_account/more-informations.png") no-repeat;
+                text-indent: -9999px;
+                width: 114px;
+                height: 20px;
+                display: block;
+              }
+            }
+            &.number {
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
