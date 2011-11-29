@@ -2,7 +2,7 @@
 <% if addresses.any? %>
   <% addresses.each do |address| %>
     <li class="address_item">
-      <p><strong><%= current_user.name %></strong></p>
+      <p><strong><%= address.identification %></strong></p>
       <p><%= "#{address.street}, #{address.number} - #{address.neighborhood}" %></p>
       <p><%= "#{address.zip_code}" %></p>
       <p><%= "#{address.city}, #{address.state}" %></p>
