@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129183456) do
+ActiveRecord::Schema.define(:version => 20111129200655) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(:version => 20111129183456) do
     t.datetime "updated_at"
     t.string   "model_number"
     t.string   "color_name"
-    t.string   "color_code"
+    t.string   "color_sample"
     t.integer  "collection_id"
   end
 
