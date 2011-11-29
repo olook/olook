@@ -3,6 +3,7 @@ class Variant < ActiveRecord::Base
   default_scope where(:is_master => false)
 
   before_save :fill_is_master
+  after_save :replicate_master_changes, :if => :is_master
 
   belongs_to :product
   
@@ -53,5 +54,14 @@ class Variant < ActiveRecord::Base
     self.weight     = master_variant.weight
     self.price      = master_variant.price
     self.inventory  = master_variant.inventory
+  end
+  
+  def replicate_master_changes
+    # I don't know why, but self.product.variants doesn't work
+    master_product = Product.find(self.product.id)
+    master_product.variants.each do |child_variant|
+      child_variant.copy_master_variant
+      child_variant.save!
+    end
   end
 end
