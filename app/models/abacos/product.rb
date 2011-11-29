@@ -6,7 +6,7 @@ module Abacos
     attr_reader :integration_protocol,
                 :name, :model_number, :category,
                 :width, :height, :length, :weight,
-                :color, :details, :profiles
+                :color_name, :details, :profiles
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -18,6 +18,7 @@ module Abacos
       { name:         self.name,
         model_number: self.model_number,
         category:     self.category,
+        color_name:   self.color_name,
         width:        self.width,
         height:       self.height,
         length:       self.length,
@@ -57,7 +58,7 @@ module Abacos
         height:               abacos_product[:espessura].to_f,
         length:               abacos_product[:comprimento].to_f,
         weight:               abacos_product[:peso].to_f,
-        color:                parse_color( abacos_product[:descritor_pre_definido] ),
+        color_name:           parse_color( abacos_product[:descritor_pre_definido] ),
         details:              parse_details( abacos_product[:caracteristicas_complementares] ),
         profiles:             parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
