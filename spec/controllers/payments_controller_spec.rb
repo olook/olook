@@ -36,6 +36,18 @@ describe PaymentsController do
         post :create, :status_pagamento => billet_printed, :id_transacao => order.id
         order.payment.reload.billet_printed?.should eq(true)
       end
+
+      it "should change the order status to completed" do
+        billet_printed = "3"
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.id
+        authorized = "1"
+        post :create, :status_pagamento => authorized, :id_transacao => order.id
+        completed = "4"
+        order.payment.billet_printed
+        order.payment.authorized
+        post :create, :status_pagamento => completed, :id_transacao => order.id
+        Order.find(order.id).completed?.should eq(true)
+      end
     end
 
     context "with invalids params" do
