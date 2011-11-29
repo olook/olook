@@ -1,0 +1,25 @@
+<h2>Products</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Model number</th>
+      <th>Category</th>
+      <th>Color</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= image_tag product.pictures.first.try(:image_url, :thumb) %></td>
+      <td><%= product.model_number %></td>
+      <td><%= product.category_humanize %></td>
+      <td><%= product.color_name %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
