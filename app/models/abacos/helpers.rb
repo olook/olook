@@ -13,10 +13,10 @@ module Abacos
     end
 
     def parse_category(abacos_category)
-      case abacos_category.strip
-        when 'Sapato' then Category::SHOE
-        when 'Bolsa' then Category::BAG
-        when 'Jóia' then Category::JEWEL
+      case abacos_category.strip.downcase
+        when 'sapato' then Category::SHOE
+        when 'bolsa' then Category::BAG
+        when 'jóia' then Category::JEWEL
       else
         Category::SHOE
       end
