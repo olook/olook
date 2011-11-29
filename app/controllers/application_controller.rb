@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
-  include ::SslRequirement
-
   protect_from_forgery
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
@@ -13,4 +11,13 @@ class ApplicationController < ActionController::Base
     flash[:notice] = "Falha de autenticação na importação de contatos"
     redirect_to :back
   end
+
+  protected
+
+  def force_ssl
+    if !request.ssl?
+      redirect_to :protocol => 'https'
+    end
+  end
 end
+
