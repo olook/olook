@@ -56,6 +56,7 @@ describe Abacos::Product do
 
       it "#integrate_details" do
         mock_details = double :details
+        mock_details.should_receive(:destroy_all)
         mock_details.should_receive(:create).
                       with( :translation_token => 'detail_name',
                             :description => 'detail_description',
