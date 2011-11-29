@@ -44,7 +44,9 @@ module Abacos
 
   private
     def self.parse_description(abacos_descritor_pre_definido)
-      find_in_descritor_pre_definido(abacos_descritor_pre_definido, 'TAMANHO')
+      description = find_in_descritor_pre_definido(abacos_descritor_pre_definido, 'TAMANHO')
+      description = 'Tamanho único' if description.blank?
+      description
     end
     
     def self.parse_display_reference(description, category)
