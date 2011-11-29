@@ -2,6 +2,5 @@
   <li><%= link_to "Dados Pessoais", edit_user_registration_path, :class => is_current?("registrations", "edit") %></li>
   <li><%= link_to "Endereços", user_addresses_path, :class => is_current?(["user/addresses"],["index", "new", "edit", "show"]) %></li>
   <li><%= link_to "Meus Pedidos", user_orders_path, :class => is_current?(["user/orders"],["index", "show"]) %></li>
-  <li><%= link_to "Meus Créditos", "#" %></li>
-  <li><%= link_to "Minha Vitrine", "#" %></li>
+  <li><%= link_to "Meus Créditos", user_credits_path, :class => is_current?(["user/credits"],["show"]) %></li>
 </ul>
