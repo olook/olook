@@ -50,20 +50,20 @@ describe Variant do
 
   describe "dimension related methods" do  
     before :each do
-      subject.stub(:width).and_return(10)
-      subject.stub(:height).and_return(20)
-      subject.stub(:length).and_return(30)
+      subject.stub(:width).and_return(10.1)
+      subject.stub(:height).and_return(20.1)
+      subject.stub(:length).and_return(30.1)
     end
 
     describe "#dimensions" do
       it "should concatenate all the variant dimensions" do
-        subject.dimensions.should == '10x20x30 cm'
+        subject.dimensions.should == '10,1x20,1x30,1 cm'
       end
     end
 
     describe "#volume" do
       it "should return the volume in cubic meters" do
-        subject.volume.should == ((10*20*30)/1000000).round(6)
+        subject.volume.should == ((10.1*20.1*30.1)/1000000).round(6)
       end
     end
   end

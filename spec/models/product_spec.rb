@@ -82,30 +82,59 @@ describe Product do
   
   describe "methods delegated to master_variant" do
     subject { FactoryGirl.create(:basic_shoe) }
+    
+    describe 'getter methods' do
+      it "#price" do
+        subject.master_variant.should_receive(:price)
+        subject.price
+      end
 
-    it "#price" do
-      subject.master_variant.should_receive(:price)
-      subject.price
+      it "#width" do
+        subject.master_variant.should_receive(:width)
+        subject.width
+      end
+
+      it "#height" do
+        subject.master_variant.should_receive(:height)
+        subject.height
+      end
+
+      it "#length" do
+        subject.master_variant.should_receive(:length)
+        subject.length
+      end
+
+      it "#weight" do
+        subject.master_variant.should_receive(:weight)
+        subject.weight
+      end
     end
 
-    it "#width" do
-      subject.master_variant.should_receive(:width)
-      subject.width
-    end
+    describe 'setter methods' do
+      it "#price=" do
+        subject.price = 765.0
+        subject.master_variant.price.should == 765.0
+      end
 
-    it "#height" do
-      subject.master_variant.should_receive(:height)
-      subject.height
-    end
+      it "#width=" do
+        subject.width = 55.0
+        subject.master_variant.width.should == 55.0
+      end
 
-    it "#length" do
-      subject.master_variant.should_receive(:length)
-      subject.length
-    end
+      it "#height=" do
+        subject.height = 66.0
+        subject.master_variant.height.should == 66.0
+      end
 
-    it "#weight" do
-      subject.master_variant.should_receive(:weight)
-      subject.weight
+      it "#length=" do
+        subject.length = 77.0
+        subject.master_variant.length.should == 77.0
+      end
+
+      it "#weight=" do
+        subject.weight = 987.0
+        subject.master_variant.weight.should == 987.0
+      end
     end
   end
 end

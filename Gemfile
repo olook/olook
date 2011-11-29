@@ -18,17 +18,17 @@ gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'cancan', '~> 1.6.7'
 gem 'enumerate_it'
-gem 'fog'
-gem 'carrierwave'
+gem 'fog', '~> 1.1.1'
+gem 'carrierwave', '~> 0.5.8'
 gem 'mini_magick', '~> 3.3'
 gem 'sass-rails'
 gem 'zipruby'
-gem 'mailee'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'asset_sync'
+gem 'asset_sync', '=0.1.10'
 gem 'curb'
 gem 'rack-ssl', :require => 'rack/ssl'
+gem 'savon'
 
 group :development do
   gem 'faker'
@@ -41,6 +41,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 1.2.0'
   gem 'rspec-rails', '~> 2.6.0'
   gem 'watchr'
+  gem 'awesome_print'
 end
 
 group :test do
@@ -53,6 +54,8 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

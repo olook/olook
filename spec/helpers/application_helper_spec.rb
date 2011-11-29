@@ -2,8 +2,30 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
-  it "should " do
-    expected = "<link href=\"/assets/application.css\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\" />"
-    helper.stylesheet_application.should eq(expected)
+  describe '#stylesheet_application' do
+    it "should" do
+      expected = "<link href=\"/assets/application.css\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\" />"
+      helper.stylesheet_application.should eq(expected)
+    end
   end
+  
+  describe '#render_google_remessaging_scripts' do
+    context 'for a logged in member' do
+      it 'should render the member script' do
+        helper.stub(:'user_signed_in?').and_return(true)
+        helper.should_receive(:render).with('shared/metrics/google/google_remessaging_member')
+
+        helper.render_google_remessaging_scripts
+      end
+    end
+
+    context 'for a visitor' do
+      it 'should render the visitor script' do
+        helper.stub(:'user_signed_in?').and_return(false)
+        helper.should_receive(:render).with('shared/metrics/google/google_remessaging_visitor')
+
+        helper.render_google_remessaging_scripts
+      end
+    end
+  end  
 end

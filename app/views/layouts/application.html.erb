@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>olook</title>
+    <meta name="Description" content="A olook descobre o seu estilo. Todos os meses o nossos stylists montam uma vitrine personalizada com produtos fabulosos para você. A devolução é grátis.">
 
     <%= csrf_meta_tags %>
 
@@ -13,7 +14,6 @@
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
 
-    <%= render "shared/metrics/kiss_metrics/kiss_metrics" %>
     <%= render "shared/metrics/google/google_analytics" %>
     <%= favicon_link_tag %>
 
@@ -72,34 +72,9 @@
       <%= yield %>
     </div>
   </div>
-
-  <footer>
-    <section>
-      <ul>
-        <li><%= link_to "Sobre a olook", about_path %></li>
-      </ul>
-
-      <ul>
-        <li><%= link_to "Termos de Uso", terms_path %></li>
-        <li><%= link_to "Política de Privacidade", privacy_path %></li>
-        <li><%= link_to "Dúvidas Frequentes", faq_path %></li>
-      </ul>
-
-      <ul class="footer-social-midia">
-        <li class="twitter"><a href="http://www.twitter.com/olook" target="_blank">Siga-nos no twitter</a></li>
-        <li class="facebook"><a href="http://www.facebook.com/olook" target="_blank">Curta a olook no Facebook</a></li>
-      </ul>
-
-      <ul class="bandeiras">
-        <li><span>TRABALHAMOS COM:</span></li>
-        <li><%= image_tag("common/ico-bandeiras.png", :alt => "Trabalhamos com Visa, Mastercard, American Express e Dinners") %></li>
-      </ul>
-
-      <p>© 2011 - olook</p>
-      <p>Todos os direitos reservados</p>
-    </section>
-  </footer>
+  <%= render :partial => "shared/footer" %>
 
   <%= javascript_include_tag "application" %>
+  <%= render_google_remessaging_scripts %>
 </body>
 </html>

@@ -14,9 +14,9 @@ class Variant < ActiveRecord::Base
   validates :price, :presence => true, :numericality => {:greater_than_or_equal_to => 0}
   validates :inventory, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
 
-  validates :width, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
-  validates :height, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
-  validates :length, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
+  validates :width , :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
+  validates :height, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
+  validates :length, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   validates :weight, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   
   def sku
@@ -24,7 +24,10 @@ class Variant < ActiveRecord::Base
   end
   
   def dimensions
-    "#{self.width}x#{self.height}x#{self.length} cm"
+    result = [self.width, self.height, self.length].map do |dimension|
+      "%.1f" % dimension
+    end.join 'x'
+    result.gsub('.', I18n.t('number.format.separator')) + ' cm'
   end
  
   def volume

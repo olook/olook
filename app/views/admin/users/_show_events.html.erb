@@ -8,7 +8,7 @@
 
 <% user.events.each do |event| %>
   <tr>
-    <td><%= event.type_humanize %></td>
+    <td><%= event.event_type_humanize %></td>
     <td><%= event.description %></td>
     <td><%= event.created_at.to_s(:short) %></td>
   </tr>

@@ -1,9 +1,10 @@
 $(document).ready(function() {
+  init.index = 1;
+  init.locked = false;
+
   init.carousel();
   init.bindActions();
   init.dialog();
-  index = parseInt($("#id_first_question").val());
-  idFirstQuestion = index - 2;
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -55,6 +56,7 @@ $(document).ready(function() {
     $(this).parent('li').addClass('click_star')
     $(this).parent().addClass('starred').prevAll().addClass('starred')
 
+
     if($('li.colors').find(':radio:checked').length == 4){
       $('#next_link').click();
     }
@@ -77,12 +79,21 @@ init = {
                $('.questions').jcarousel({
                  initCallback: init.mycarousel_initCallback,
                  itemFirstInCallback : {
+                    onBeforeAnimation : init.lockScroll,
                     onAfterAnimation : init.showArrow
                  },
                  buttonPrevHTML : null,
                  scroll: 1
                });
              },
+
+  lockScroll: function(instance, item, index, state) {
+    init.locked = true;
+  },
+
+  unlockScroll: function(instance, item, index, state) {
+    init.locked = false;
+  },
 
   showArrow : function(instance, item, index, state) {
                 $('#asynch-load').click();
@@ -96,54 +107,46 @@ init = {
                 }else{
                   $('.jcarousel-prev').css('display', 'block');
                 }
+                init.unlockScroll();
   },
 
   mycarousel_initCallback : function(carousel) {
                               $('.jcarousel-prev').css('display', 'block');
                               $('#next_link').bind('click', function() {
-                                elemtId = "#question_" + index;
-                                carouselItem = $("#question_" + index);
+                                if (!init.locked) {
+                                  var analytics_step = '/quiz/' + (init.index + 1);
+                                  _gaq.push(['_trackPageview', analytics_step]);
 
-                                var stepIndex = index - idFirstQuestion;
-                                var step = '/quiz/' + stepIndex;
-
-                                if (carouselItem.hasClass('images')) {
                                   carousel.next();
-                                  _gaq.push(['_trackPageview', step]);
-                                  index++;
+                                  init.index++;
                                 }
-
-                                if (carouselItem.hasClass('words') && $(elemtId).find(":checkbox:checked").length == 3){
-                                  carousel.next();
-                                  _gaq.push(['_trackPageview', step]);
-                                  index++;
-                                }
-
-                                if(carouselItem.hasClass('colors')  &&  $(elemtId).find(":radio:checked").length == 4) {
-                                  carousel.next();
-                                  _gaq.push(['_trackPageview', step]);
-                                  index++;
-                                }
-
                                 return false;
                               });
 
                               $('.jcarousel-prev').bind('click', function() {
-                                carousel.prev();
-                                init.clearOptions(index);
-                                index--;
+                                if (!init.locked) {
+                                  init.clearOptions( init.getCurrentPage(carousel) );
 
-                                init.clearOptions(index);
+                                  carousel.prev();
+                                  init.index--;
+
+                                  init.clearOptions( init.getCurrentPage(carousel) );
+                                }
+
                                 return false;
                               });
                             },
 
-  clearOptions : function(index) {
-    el = $("#question_" + index);
-    el.find('li.selected').removeClass('selected');
-    el.find('li.click_star').removeClass();
-    el.find('li.starred').removeClass();
-    el.find(':radio, :checkbox').attr('checked', false);
+  getCurrentPage : function(carousel) {
+    var page_selector = carousel.get(init.index).selector;
+    return $(page_selector.replace('>',''));
+  },
+
+  clearOptions : function(page) {
+    page.find('li.selected').removeClass('selected');
+    page.find('li.click_star').removeClass();
+    page.find('li.starred').removeClass();
+    page.find(':radio, :checkbox').attr('checked', false);
   },
 
   bindActions : function() {
@@ -154,18 +157,6 @@ init = {
 
                     $("#next_link").click();
                   });
-
-                  $('.words .options > li').toggle(function(){
-                      $(this).find('input').attr('checked', true);
-                      $(this).addClass('selected');
-                      $("#next_link").click();
-                    },
-                    function() {
-                      $(this).find('input').attr('checked', false);
-                      $(this).removeClass('selected');
-                      $("#next_link").click();
-                    }
-                  );
   },
 
   dialog : function(){
@@ -194,8 +185,8 @@ init = {
            },
 
   tracker : function() {
-              info= '<p>Fotos: Reprodução<br />O uso de imagens de celebridades nesta pesquisa serve o propósito único de identificar o perfil de moda dos respondentes. As celebridades retratadas não estão associadas ou recomendam a Olook.</p>'
-              pages = $('.questions > li').length / 2;
+              var info = '<p>Fotos: Reprodução<br />O uso de imagens de celebridades nesta pesquisa serve o propósito único de identificar o perfil de moda dos respondentes. As celebridades retratadas não estão associadas ou recomendam a Olook.</p>'
+              var pages = $('.questions > li').length / 2;
 
               $('#survey').after("<ul id='tracker'>");
 
@@ -204,6 +195,5 @@ init = {
 
               $('#tracker').after(info);
             }
-
 };
 

@@ -18,7 +18,6 @@ Spork.prefork do
     end
   end
 
-
   require 'ruby-debug' ; Debugger.start
 
   # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -63,6 +62,9 @@ Spork.prefork do
     config.use_transactional_fixtures = true
 
     config.include Devise::TestHelpers, :type => :controller
+    config.extend VCR::RSpec::Macros
+
+    config.include Abacos::TestHelpers
   end
 end
 
