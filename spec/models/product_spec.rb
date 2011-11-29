@@ -9,6 +9,7 @@ describe Product do
     it { should have_many(:pictures) }
     it { should have_many(:details) }
     it { should have_many(:variants) }
+    it { should belong_to(:collection) }
   end
 
   describe "scopes" do
