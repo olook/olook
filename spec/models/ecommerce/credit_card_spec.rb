@@ -1,7 +1,9 @@
 require "spec_helper"
 
 describe CreditCard do
-  subject { FactoryGirl.build(:credit_card) }
+
+  let(:order) { FactoryGirl.create(:order) }
+  subject { FactoryGirl.build(:credit_card, :order => order) }
   let(:canceled) { "5" }
   let(:authorized) { "1" }
   let(:completed) { "4" }
@@ -13,6 +15,56 @@ describe CreditCard do
     it "should return nil with a invalid status" do
       invalid_status = '0'
       subject.set_state(invalid_status).should be(nil)
+    end
+  end
+
+  describe "order state machine" do
+    it "should set canceled for order" do
+      subject.canceled
+      subject.order.canceled?.should eq(true)
+    end
+
+    it "should set canceled for order given under_analysis" do
+      subject.under_analysis
+      subject.canceled
+      subject.order.canceled?.should eq(true)
+    end
+
+    it "should set completed for order" do
+      subject.authorized
+      subject.completed
+      subject.order.completed?.should eq(true)
+    end
+
+    it "should set completed for order given under_review" do
+      subject.authorized
+      subject.under_review
+      subject.completed
+      subject.order.completed?.should eq(true)
+    end
+
+    it "should set waiting_payment for order" do
+      subject.authorized
+      subject.order.waiting_payment?.should eq(true)
+    end
+
+    it "should set waiting_payment for order" do
+      subject.authorized
+      subject.under_review
+      subject.order.under_review?.should eq(true)
+    end
+
+    it "should set under_review for order" do
+      subject.authorized
+      subject.under_review
+      subject.order.under_review?.should eq(true)
+    end
+
+   it "should set reversed for order" do
+      subject.authorized
+      subject.under_review
+      subject.reversed
+      subject.order.reversed?.should eq(true)
     end
   end
 
