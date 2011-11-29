@@ -18,10 +18,18 @@ class PaymentsController < ApplicationController
 
   def create
     order = Order.find_by_id(params[:id_transacao])
-    if order.payment.set_state(params[:status_pagamento])
+    if update_order(order)
       render :nothing => true, :status => 200
     else
       render :nothing => true, :status => 500
+    end
+  end
+
+  private
+
+  def update_order(order)
+    if order.total == params[:value].to_f
+      order.payment.set_state(params[:status_pagamento])
     end
   end
 end
