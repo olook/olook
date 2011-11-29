@@ -13,6 +13,11 @@
         </ul>
       </div>
     <% end %>
+    
+    <div class="field">
+      <%= f.label :color_sample %><br />
+      <%= f.file_field :color_sample %>
+    </div>
 
     <%= f.fields_for :pictures do |picture_form| %>
       <fieldset>
