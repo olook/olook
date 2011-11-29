@@ -6,6 +6,7 @@
   <section class="main">
     <% if @payment_response.success? %>
       <p>Status da resposta do pagamento: <%= @payment_response.status %></p>
+      <p><%= link_to "Finalizar", payment_path(@payment) %></p>
     <% else %>
       <p>Mensagem da resposta do pagamento: <%= @payment_response.message %></p>
     <% end %>
