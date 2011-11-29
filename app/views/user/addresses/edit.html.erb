@@ -1,0 +1,26 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/my_account" %>
+<% end %>
+
+<div id="my_account" class="address_new_edit">
+  <div id="box_menu">
+    <%= render "shared/my_account/menu" %>
+  </div>
+  <div id="data">
+    <div class="box_title">
+      <h1 class="addresses">Endereços</h1>
+    </div>
+    <%= form_for @address do |f| %>
+      <section class="main">
+        <%= render "shared/address/form", :address => @address, :f => f %>
+        <fieldset class="buttons">
+          <ol>
+            <li>
+              <%= f.submit '', :class => "save" %>
+            </li>
+          </ol>
+        </fieldset>
+      </section>
+    <% end %>
+  </div>
+</div>
