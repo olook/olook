@@ -16,7 +16,7 @@
   </p>
   <p>
     <b>Color:</b>
-    <%= "#{@product.color_name} - " %><span style="color:<%= @product.color_code %>" ><strong><%= @product.color_code %></strong></span>
+    <%= @product.color_name %> <%= image_tag(@product.color_sample_url) unless @product.color_sample.blank? %>
   </p>
   <p>
     <b>Category:</b>
