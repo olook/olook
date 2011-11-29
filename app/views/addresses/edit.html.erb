@@ -1,0 +1,16 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="address_new" class="checkout">
+  <%= form_for(@address) do |f| %>
+    <section class="main">
+      <h1>Adicione um endereço</h1>
+      <%= render "shared/address/form", :address => @address, :f => f %>
+    </section>
+    <section class="sidebar">
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <%= f.submit '', :disabled => "disabled", :class => "disabled save" %>
+    </section>
+  <% end %>
+</section>
