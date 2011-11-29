@@ -76,5 +76,8 @@
 
   <%= javascript_include_tag "application" %>
   <%= render_google_remessaging_scripts %>
+  <% if content_for? :footer %>
+    <%= yield :footer %>
+  <% end %>
 </body>
 </html>
