@@ -15,6 +15,8 @@ class Product < ActiveRecord::Base
   validates :name, :presence => true
   validates :description, :presence => true
   validates :model_number, :presence => true, :uniqueness => true
+
+  mount_uploader :color_sample, ColorSampleUploader
   
   scope :shoes , where(:category => Category::SHOE)
   scope :bags  , where(:category => Category::BAG)
