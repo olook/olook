@@ -10,5 +10,36 @@
     <div class="box_title">
       <h1 class="orders">Meus Pedidos</h1>
     </div>
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="number">Pedido</th>
+          <th class="date">Data do pedido</th>
+          <th class="amount">Qtde.</th>
+          <th class="value">Valor</th>
+          <th class="freight">Frete</th>
+          <th class="payments">Parcelas</th>
+          <th class="status">Status do pedido</th>
+          <th class="more"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @orders %>
+          <% @orders.each do |order| %>
+            <tr>
+              <td class="number">27563819487</td>
+              <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
+              <td><%= order.line_items.count %></td>
+              <td><%= number_to_currency(order.total) %></td>
+              <td></td>
+              <td>3x</td>
+              <td>Aguardando pagamento</td>
+              <td class="more"><%= link_to "Mais informação", user_order_path(order) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @orders %>
   </div>
 </div>
