@@ -3,13 +3,17 @@ class PaymentsController < ApplicationController
   include PaymentManager
   respond_to :html
   before_filter :authenticate_user!, :only => [:index]
-  before_filter :load_user, :only => [:index]
+  before_filter :load_user
   before_filter :check_order, :only => [:index]
   before_filter :check_freight, :only => [:index]
   before_filter :check_user_address, :only => [:index]
 
   def index
     @cart = Cart.new(@order, @freight)
+  end
+
+  def show
+    @payment = @user.payments.find(params[:id])
   end
 
   def create

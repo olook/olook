@@ -7,12 +7,20 @@ describe PaymentsController do
   let(:order) { FactoryGirl.create(:order) }
   let(:freight) {{ "price" => 1.99 }}
   let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:payment) { FactoryGirl.create(:billet, :order => order) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
     session[:delivery_address_id] = address.id
     session[:freight] = freight
     sign_in user
+  end
+
+  describe "GET show" do
+    it "should assigns @payment" do
+      get :show, :id => payment.id
+      assigns(:payment).should == payment
+    end
   end
 
   describe "POST create" do
