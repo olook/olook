@@ -6,6 +6,12 @@ class Debit < Payment
   BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Unibanco", "Banrisul"]
 
   state_machine :initial => :started do
+    after_transition :started => :canceled, :do => :cancel_order
+    after_transition :authorized => :completed, :do => :complete_order
+    after_transition :under_review => :completed, :do => :complete_order
+    after_transition :authorized => :under_review, :do => :review_order
+    after_transition :under_review => :refunded, :do => :refund_order
+
     event :canceled do
       transition :started => :canceled
     end
@@ -29,5 +35,23 @@ class Debit < Payment
 
   def to_s
     "DebitoBancario"
+  end
+
+  private
+
+  def refund_order
+    order.refunded
+  end
+
+  def review_order
+    order.under_review
+  end
+
+  def cancel_order
+    order.canceled
+  end
+
+  def complete_order
+    order.completed
   end
 end

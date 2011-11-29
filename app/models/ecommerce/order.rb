@@ -7,6 +7,52 @@ class Order < ActiveRecord::Base
   delegate :email, :to => :user, :prefix => true
   has_one :payment
 
+  state_machine :initial => :waiting_payment do
+    event :under_analysis do
+      transition :waiting_payment => :waiting_payment
+    end
+
+    event :authorized do
+      transition :waiting_payment => :waiting_payment
+    end
+
+    event :billet_printed do
+      transition :waiting_payment => :waiting_payment
+    end
+
+    event :started do
+      transition :started => :waiting_payment
+    end
+
+    event :under_analysis do
+      transition :waiting_payment => :waiting_payment
+    end
+
+    event :completed do
+      transition :waiting_payment => :completed
+    end
+
+    event :completed do
+      transition :under_review => :completed
+    end
+
+    event :under_review do
+      transition :waiting_payment => :under_review
+    end
+
+    event :canceled do
+      transition :waiting_payment => :canceled
+    end
+
+    event :reversed do
+      transition :under_review => :reversed
+    end
+
+    event :refunded do
+      transition :under_review => :refunded
+    end
+  end
+
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
     if variant.available?
       current_item = line_items.select { |item| item.variant == variant }.first
