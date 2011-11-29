@@ -89,10 +89,17 @@ describe Variant do
   end
 
   describe "#copy_master_variant" do
-    it "should call the method when a product_id is assigned" do
-      subject # load the subject before setting the expectation to avoid duplicate calls
-      described_class.any_instance.should_receive(:copy_master_variant)
-      new_variant = subject.product.variants.build
+    context "should call the method when a product_id is assigned" do
+      it 'on build' do
+        subject # load the subject before setting the expectation to avoid duplicate calls
+        described_class.any_instance.should_receive(:copy_master_variant)
+        new_variant = subject.product.variants.build
+      end
+      it 'when attributing product_id' do
+        new_variant = FactoryGirl.create(:variant, :product => subject.product)
+        new_variant.should_receive(:copy_master_variant)
+        new_variant.product_id = subject.product.id
+      end
     end
 
     it "should copy the master_variant attributes" do
@@ -105,6 +112,14 @@ describe Variant do
       new_variant.weight.should     == new_variant.master_variant.weight
       new_variant.price.should      == new_variant.master_variant.price
       new_variant.inventory.should  == new_variant.master_variant.inventory
+    end
+    
+    it "should be called on the child variants when the master is updated" do
+      subject.weight.should_not == 42
+      subject.master_variant.weight = 42
+      subject.master_variant.save
+      subject.reload
+      subject.weight.should == 42
     end
   end
 end
