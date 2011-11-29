@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129172654) do
+ActiveRecord::Schema.define(:version => 20111129191348) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -95,6 +95,13 @@ ActiveRecord::Schema.define(:version => 20111129172654) do
   add_index "freight_prices", ["shipping_service_id"], :name => "index_freight_prices_on_shipping_service_id"
   add_index "freight_prices", ["zip_end"], :name => "index_freight_prices_on_zip_end"
   add_index "freight_prices", ["zip_start"], :name => "index_freight_prices_on_zip_start"
+
+  create_table "freights", :force => true do |t|
+    t.decimal "price",         :precision => 8, :scale => 2
+    t.decimal "cost",          :precision => 8, :scale => 2
+    t.integer "delivery_time"
+    t.integer "order_id"
+  end
 
   create_table "invites", :force => true do |t|
     t.integer  "user_id"

@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   has_one :payment
+  has_one :freight
 
   state_machine :initial => :waiting_payment do
     event :under_analysis do
