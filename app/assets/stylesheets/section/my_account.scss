@@ -119,6 +119,11 @@ div#my_account {
           width: 174px;
           height: 33px;
         }
+        &.orders {
+          background: url("/assets/my_account/title-orders.png") no-repeat;
+          width: 212px;
+          height: 26px;
+        }
       }
     }
     section.main {
