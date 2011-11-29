@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129170816) do
+ActiveRecord::Schema.define(:version => 20111129183456) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -39,6 +39,17 @@ ActiveRecord::Schema.define(:version => 20111129170816) do
     t.datetime "updated_at"
     t.integer  "order"
   end
+
+  create_table "collections", :force => true do |t|
+    t.string   "name"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "collections", ["end_date"], :name => "index_collections_on_end_date"
+  add_index "collections", ["start_date"], :name => "index_collections_on_start_date"
 
   create_table "details", :force => true do |t|
     t.integer  "product_id"
@@ -126,7 +137,10 @@ ActiveRecord::Schema.define(:version => 20111129170816) do
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_code"
+    t.integer  "collection_id"
   end
+
+  add_index "products", ["collection_id"], :name => "index_products_on_collection_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"

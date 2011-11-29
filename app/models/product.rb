@@ -10,6 +10,8 @@ class Product < ActiveRecord::Base
   has_many :details, :dependent => :destroy
   has_many :variants, :dependent => :destroy
 
+  belongs_to :collection
+
   validates :name, :presence => true
   validates :description, :presence => true
   validates :model_number, :presence => true, :uniqueness => true
