@@ -10,6 +10,7 @@ describe Abacos::Product do
     subject.attributes.should == {  name:         subject.name,
                                     model_number: subject.model_number,
                                     category:     subject.category,
+                                    color_name:   subject.color_name,
                                     width:        subject.width,
                                     height:       subject.height,
                                     length:       subject.length,
@@ -93,8 +94,8 @@ describe Abacos::Product do
         subject.category.should == Category::JEWEL
       end
       
-      it '#color' do
-        subject.color.should == "Floral"
+      it '#color_name' do
+        subject.color_name.should == "Floral"
       end
 
       it '#width' do

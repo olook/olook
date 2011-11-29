@@ -14,6 +14,14 @@
     <b>Category:</b>
     <%= @product.category_humanize %>
   </p>
+  <p>
+    <b>Color:</b>
+    <%= "#{@product.color_name} - " %><span style="color:<%= @product.color_code %>" ><strong><%= @product.color_code %></strong></span>
+  </p>
+  <p>
+    <b>Category:</b>
+    <%= @product.category_humanize %>
+  </p>
 
   <p>
     <b>Description:</b>
