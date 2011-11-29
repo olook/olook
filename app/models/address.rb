@@ -10,4 +10,8 @@ class Address < ActiveRecord::Base
   validates :zip_code, :format => {:with => ZipCodeFormat}
   validates :telephone, :format => {:with => PhoneFormat}
   validates :state, :format => {:with => StateFormat}
+
+  def identification
+    "#{first_name} #{last_name}"
+  end
 end
