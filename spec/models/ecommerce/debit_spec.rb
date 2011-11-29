@@ -38,9 +38,9 @@ describe Debit do
     end
 
     it "should set completed for order given under_review" do
-      subject.set_state(authorized)
-      subject.set_state(under_review)
-      subject.set_state(completed)
+      subject.authorized
+      subject.under_review
+      subject.completed
       subject.order.completed?.should eq(true)
     end
 
@@ -50,7 +50,7 @@ describe Debit do
     end
 
     it "should set waiting_payment for order" do
-      subject.set_state(authorized)
+      subject.authorized
       subject.under_review
       subject.order.under_review?.should eq(true)
     end
