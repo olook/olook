@@ -1,0 +1,22 @@
+<h2>Invites</h2>
+<table class="table">
+  <tr>
+    <th>E-mail</th>
+    <th>Created at</th>
+    <th>Sent/resent at</th>
+    <th>Resubmitted?</th>
+    <th>Accepted at</th>
+    <th>Accepting user</th>
+  </tr>
+
+<% user.invites.each do |invite| %>
+  <tr>
+    <td><%= invite.email %></td>
+    <td><%= invite.created_at.to_s(:short) %></td>
+    <td><%= invite.sent_at.try :to_s, :short %></td>
+    <td><%= invite.resubmitted ? 'Yes' : 'No' %></td>
+    <td><%= invite.accepted_at.try :to_s, :short %></td>
+    <td><%= invite.invited_member.nil? ? '-' : link_to(invite.invited_member.name, admin_user_path(invite.invited_member)) %></td>
+  </tr>
+<% end %>
+</table>
