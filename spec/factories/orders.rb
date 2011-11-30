@@ -2,6 +2,7 @@
 FactoryGirl.define do
   factory :clean_order, :class => Order do
     association :payment, :factory => :billet
+    association :freight, :factory => :freight
   end
   factory :order do
     association :payment, :factory => :billet
