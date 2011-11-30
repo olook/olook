@@ -7,7 +7,7 @@ describe AddressesController do
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
   let(:address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:freight) {{ "price" => 1.99 }}
+  let(:freight) {{:price => 12.95, :cost => 2.99, :delivery_time => 1}}
 
   before :each do
     session[:order] = order
@@ -46,10 +46,9 @@ describe AddressesController do
       end
 
       it "should assign the freight in the session" do
-        freight_data = {:price => 12.95, :cost => 2.99, :delivery_time => 1}
-        FreightCalculator.stub(:freight_for_zip).and_return(freight_data)
+        FreightCalculator.stub(:freight_for_zip).and_return(freight)
         post :create, :address => attributes
-        session[:freight].should == freight_data
+        session[:freight].should == freight
       end
     end
   end
@@ -72,10 +71,9 @@ describe AddressesController do
       end
 
       it "should assign the freight in the session" do
-        freight_data = {:price => 12.95, :cost => 2.99, :delivery_time => 1}
-        FreightCalculator.stub(:freight_for_zip).and_return(freight_data)
+        FreightCalculator.stub(:freight_for_zip).and_return(freight)
         post :assign_address, :delivery_address_id => address.id
-        session[:freight].should == freight_data
+        session[:freight].should == freight
       end
 
       it "should redirect to payments" do
