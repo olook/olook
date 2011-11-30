@@ -40,9 +40,8 @@ class AddressesController < ApplicationController
   private
 
   def assign_address_and_freight_in_the_session(address)
-    session[:delivery_address_id] = address.id
-    session[:freight] = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
-    freight = session[:freight]
+    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
+    freight.merge!(:address_id => address.id)
     if @order.freight
       @order.freight.update_attributes(freight)
     else
