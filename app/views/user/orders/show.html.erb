@@ -10,5 +10,60 @@
     <div class="box_title">
       <h1 class="orders">Meus Pedidos</h1>
     </div>
+    <div class="order_status">
+      <h1>Número do Pedido: <span>23456698002</span></h1>
+      <h2><strong>Status do seu pedido:</strong> Seu pedido foi feito e estamos aguardando aprovação da operadora de crédito.</h2>
+      <ul id="status" class="class1">
+        <li class="state1">Pedido Efetuado</li>
+        <li class="state2">Pagamento</li>
+        <li class="state3">Separando Pedido</li>
+        <li class="state4">Saiu para Entrega</li>
+      </ul>
+      <div id="description">
+        <ul id="items">
+          <% @order.line_items.each do |item| %>
+            <li>
+              <%= item.variant.name %>
+            </li>
+          <% end %>
+        </ul>
+        <div id="details">
+          <div>
+            <h1>Endereço de entrega</h1>
+            <p><strong>Denis Araujo</strong></p>
+            <p>Rua Surubim, 159 - Brooklin Paulista</p>
+            <p>São Paulo, SP</p>
+          </div>
+          <div>
+            <h1>Data do Pedido</h1>
+            <p><%= @order.created_at.strftime("%d/%m/%Y") %></p>
+          </div>
+          <div>
+            <h1>Quantidade de Produtos</h1>
+            <p><%= @order.line_items.count %></p>
+          </div>
+          <div>
+            <table cellspacing="0" cellpadding="0">
+              <thead>
+                <tr>
+                  <th>Valor</th>
+                  <th>Frete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= number_to_currency(@order.total) %></td>
+                  <td>R$ 12,00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h1>Forma de pagamento</h1>
+            <p>3x no cartão de crédito American Express</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

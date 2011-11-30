@@ -1,0 +1,93 @@
+@mixin order-status {
+  ul#status {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 30px 0;
+    display: block;
+    li {
+      background: url("/assets/my_account/bg-status.png") no-repeat;
+      text-indent: -9999px;
+      height: 100px;
+      display: inline-block;
+      float: left;
+      &.state1 {
+        background-position: 0 0;
+        width: 172px;
+      }
+      &.state2 {
+        background-position: -172px 0;
+        width: 177px;
+      }
+      &.state3 {
+        background-position: -350px 0;
+        width: 177px;
+      }
+      &.state4 {
+        background-position: -527px 0;
+        width: 174px;
+      }
+    }
+    &.class1 {
+      li {
+        &.state1 {
+          background-position: 0 0;
+        }
+        &.state2 {
+          background-position: -172px 0;
+        }
+        &.state3 {
+          background-position: -350px 0;
+        }
+        &.state4 {
+          background-position: -527px 0;
+        }
+      }
+    }
+    &.class2 {
+      li {
+        &.state1 {
+          background-position: 0px -100px;
+        }
+      }
+    }
+    &.class3 {
+      li {
+        &.state1 {
+          background-position: 0px -100px;
+        }
+        &.state2 {
+          background-position: -172px -100px;
+        }
+      }
+    }
+    &.class4 {
+      li {
+        &.state1 {
+          background-position: 0px -100px;
+        }
+        &.state2 {
+          background-position: -172px -100px;
+        }
+        &.state3 {
+          background-position: -350px -100px;
+        }
+      }
+    }
+    &.class5 {
+      li {
+        &.state1 {
+          background-position: 0px -100px;
+        }
+        &.state2 {
+          background-position: -172px -100px;
+        }
+        &.state3 {
+          background-position: -350px -100px;
+        }
+        &.state4 {
+          background-position: -527px -100px;
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+@import "partials/order_status";
+
 form {
   width: 645px;
   margin: 20px 0 0 20px;
@@ -243,6 +245,89 @@ div#my_account {
             &.number {
               color: #df5a8b;
               padding-left: 10px;
+            }
+          }
+        }
+      }
+    }
+    div.order_status {
+      @include order-status;
+      margin: 30px 0 0 35px;
+      h1, h2 {
+        font-family: Arial;
+      }
+      h1 {
+        color: #000;
+        font-size: 16px;
+        margin: 0 0 25px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #e5e5e5 solid;
+        span {
+          color: #df5a8b;
+        }
+      }
+      h2 {
+        color: #7a7a7a;
+        font-size: 12px;
+        text-align: center;
+        margin: 0 0 30px 0;
+        strong {
+          text-transform: uppercase;
+        }
+      }
+      div#description {
+        width: 645px;
+        overflow: auto;
+        padding: 20px 30px;
+        border: 1px #d9d9d9 solid;
+        ul#items {
+          width: 375px;
+          overflow: auto;
+          margin-right: 40px;
+          float: left;
+          border-right: 1px #d9d9d9 solid;
+          li {
+            display: block;
+          }
+        }
+        div#details {
+          width: 225px;
+          float: left;
+          div {
+            font-size: 13px;
+            margin: 0 0 20px 0;
+          }
+          h1 {
+            color: #292929;
+            font-family: Arial;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+            padding: 0;
+            border: none;
+          }
+          p, strong {
+            color: #545353;
+          }
+          table {
+            width: 150px;
+            margin: 0;
+            thead {
+              tr th {
+                font-family: Arial;
+                font-size: 14px;
+                font-weight: bold;
+                font-style: normal;
+                text-transform: uppercase;
+                padding: 0 0 5px 0;
+                border: none;
+              }
+            }
+            tbody {
+              tr td {
+                padding: 0;
+                border: none;
+              }
             }
           }
         }
