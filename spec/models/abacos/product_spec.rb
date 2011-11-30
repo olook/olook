@@ -5,6 +5,7 @@ describe Abacos::Product do
   let(:downloaded_product) { load_abacos_fixture :product }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_product }
   subject { described_class.new parsed_data }
+  let!(:december_collection) { FactoryGirl.create(:collection) }
 
   it '#attributes' do
     subject.attributes.should == {  name:         subject.name,
@@ -51,6 +52,7 @@ describe Abacos::Product do
         mock_product.should_receive(:update_attributes).with(subject.attributes)
         mock_product.should_receive(:'description')
         mock_product.should_receive(:'description=')
+        mock_product.should_receive(:'collection=').with(december_collection)
         mock_product.should_receive(:'save!')
         subject.integrate_attributes mock_product
       end
@@ -113,6 +115,10 @@ describe Abacos::Product do
       it '#weight' do
         subject.weight.should == 0.6
       end
+
+      it '#collection_id' do
+        subject.collection_id.should == december_collection.id
+      end
       
       it '#details' do
         subject.details.should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!", "Altura do salto"=>"n/a", "Aviamento"=>"Preto", "Categoria"=>"Sapatilha", "Material externo"=>"Forro Cacharrel Natural", "Material interno"=>"Palm sint. Ouro light", "Material sola"=>"n/a", "Tipo do salto"=>"Baixo"}
@@ -138,6 +144,41 @@ describe Abacos::Product do
     describe "#parse_profiles" do
       it "should return the profiles from caracteristicas_complementares" do
         described_class.parse_profiles(caracteristicas_complementares).should == ['Sexy', 'Casual']
+      end
+    end
+
+    describe "#parse_collection" do
+      it "should return the id of a valid collection" do
+        described_class.parse_collection('Coleção Dezembro').should == december_collection.id
+      end
+      describe "should return nil" do
+        it "if the format is valid but there's no collection for the period" do
+          described_class.parse_collection('Coleção Janeiro 2010').should be_nil
+        end
+        it "if collection data is empty" do
+          described_class.parse_collection('  ').should be_nil
+        end
+      end
+      it "should raise an error if the format is invalid" do
+        expect {
+          described_class.parse_collection('invalid data')
+        }.to raise_error
+      end
+    end
+
+    describe "#parse_collection_date" do
+      describe "should return the reference date for the collection" do
+        it "with default year 2011 when it's not informed" do
+          described_class.parse_collection_date('Coleção Dezembro').should == Date.civil(2011, 12, 1)
+        end
+        it "with the parsed year when it is informed" do
+          described_class.parse_collection_date('Coleção Abril/ 2010').should == Date.civil(2010, 4, 1)
+        end
+      end
+      it 'should raise an error if it cannot process the collection' do
+        expect {
+          described_class.parse_collection_date('Coleção')
+        }.to raise_error(RuntimeError, "Invalid collection 'Coleção'")
       end
     end
   end
