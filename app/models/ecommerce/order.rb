@@ -73,6 +73,10 @@ class Order < ActiveRecord::Base
     current_item.destroy if current_item
   end
 
+  def total_with_freight
+    total + freight.price
+  end
+
   def total
     total = line_items.inject(0){|result, item| result + item.total_price }
     total = total - credits if credits

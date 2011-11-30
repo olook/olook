@@ -68,6 +68,16 @@ describe Order do
      expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price)
      subject.total.should == expected
    end
+
+   it "should return the total wihout credits" do
+     expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price)
+     subject.total.should == expected
+   end
+
+   it "should return the total with credits" do
+     expected = subject.total + subject.freight.price
+     subject.total_with_freight.should == expected
+   end
   end
 
   context "total without items" do
