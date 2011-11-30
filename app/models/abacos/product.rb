@@ -4,7 +4,7 @@ module Abacos
     extend ::Abacos::Helpers
 
     attr_reader :integration_protocol,
-                :name, :model_number, :category,
+                :name, :description, :model_number, :category,
                 :width, :height, :length, :weight,
                 :color_name, :collection_id, :details, :profiles
 
@@ -16,6 +16,7 @@ module Abacos
 
     def attributes
       { name:         self.name,
+        description:  self.description,
         model_number: self.model_number,
         category:     self.category,
         color_name:   self.color_name,
@@ -39,7 +40,6 @@ module Abacos
     
     def integrate_attributes(product)
       product.update_attributes(self.attributes)
-      product.description ||= self.name
       product.collection = Collection.find(self.collection_id) unless self.collection_id.nil?
       product.save!
     end
@@ -56,7 +56,7 @@ module Abacos
     def integrate_profiles(product)
       product.profiles.destroy_all
       self.profiles.each do |profile_name|
-        profile = Profile.find_by_name(profile_name)
+        profile = Profile.where("lower(name) = :profile_name", :profile_name => profile_name.downcase).first
         raise RuntimeError.new "Attemping to integrate invalid profile '#{profile_name}'" if profile.nil?
         product.profiles << profile
       end
@@ -65,6 +65,7 @@ module Abacos
     def self.parse_abacos_data(abacos_product)
       { integration_protocol: abacos_product[:protocolo_produto],
         name:                 abacos_product[:nome_produto],
+        description:          abacos_product[:descricao],
         model_number:         abacos_product[:codigo_produto].to_s,
         category:             parse_category(abacos_product[:descricao_classe]),
         width:                abacos_product[:largura].to_f,
