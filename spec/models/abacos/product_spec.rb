@@ -164,6 +164,15 @@ describe Abacos::Product do
       end
     end
 
+    describe "#parse_description" do
+      it "should return the name if the description is empty" do
+        described_class.parse_description('name', '').should == 'name'
+      end
+      it "should return the description if it's not empty" do
+        described_class.parse_description('name', 'description').should == 'description'
+      end
+    end
+
     describe "#parse_color" do
       it "should return the color name" do
         described_class.parse_color(descritor_pre_definido).should == 'Couro Gergelim'
