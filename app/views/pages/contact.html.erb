@@ -14,8 +14,23 @@
   <fieldset class="inputs">
     <ol>
       <li>
-        <%= label_tag "name" %>
-        <%= text_field_tag "name" %>
+        <%= label_tag "email" %>
+        <%= email_field_tag "email" %>
+      </li>
+      <li>
+        <%= label_tag "subject", "Assunto" %>
+        <%= select_tag "subject", "<option>Sugestões</option>".html_safe %>
+      </li>
+      <li>
+        <%= label_tag "message", "Mensagem" %>
+        <%= text_area_tag "message" %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="buttons">
+    <ol>
+      <li>
+        <%= submit_tag "" %>
       </li>
     </ol>
   </fieldset>
