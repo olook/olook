@@ -1,5 +1,8 @@
 class Order < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
+  CONSTANT_NUMBER = 1782
+  CONSTANT_FACTOR = 17
+
   belongs_to :user
   has_many :variants, :through => :line_items
   has_many :line_items, :dependent => :destroy
@@ -8,6 +11,7 @@ class Order < ActiveRecord::Base
   delegate :price, :to => :freight, :prefix => true
   has_one :payment
   has_one :freight
+  after_create :generate_number
 
   state_machine :initial => :waiting_payment do
     event :under_analysis do
@@ -81,5 +85,10 @@ class Order < ActiveRecord::Base
     total = line_items.inject(0){|result, item| result + item.total_price }
     total = total - credits if credits
     total
+  end
+
+  def generate_number
+    new_number = (id * CONSTANT_FACTOR) + CONSTANT_NUMBER
+    update_attributes(:number => new_number)
   end
 end
