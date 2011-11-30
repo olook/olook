@@ -1,4 +1,30 @@
+require 'benchmark'
+
 namespace :olook do
+  desc "Recreate profiles for user"
+  task :recreate_user_profile, :user_count, :needs => :environment do |t, args|
+    benchmark = Benchmark.measure do
+      limit = args[:user_count].to_i
+      User.find_each(:batch_size => 50) do |user|
+        next if user.survey_answer.blank?
+
+        user_answers = user.survey_answer.answers.clone
+        user_answers.delete_if {|key, value| ['day', 'month', 'year'].include?(key)}
+
+        profiles_for_questions = ProfileBuilder.profiles_given_questions(user_answers)
+        profile_points = ProfileBuilder.build_profiles_points(profiles_for_questions)
+        profile_builder = ProfileBuilder.new user
+        User.transaction do
+          user.points.delete_all
+          profile_builder.create_user_points profile_points
+          puts "Processed #{user.email}"
+        end
+        break if (limit -= 1) == 0
+      end
+    end
+    puts "Benchmark: #{benchmark}"
+  end
+
   desc "Load and reprocess new weights for the survey"
   task :change_weights, :filename, :needs => :environment do |t, args|
     filename = args[:filename]
