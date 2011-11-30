@@ -65,7 +65,7 @@ module Abacos
     def self.parse_abacos_data(abacos_product)
       { integration_protocol: abacos_product[:protocolo_produto],
         name:                 abacos_product[:nome_produto],
-        description:          abacos_product[:descricao],
+        description:          parse_description(abacos_product[:nome_produto], abacos_product[:descricao]),
         model_number:         abacos_product[:codigo_produto].to_s,
         category:             parse_category(abacos_product[:descricao_classe]),
         width:                abacos_product[:largura].to_f,
@@ -78,6 +78,10 @@ module Abacos
         profiles:             parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
   private
+    def self.parse_description(name, description)
+      description.blank? ? name : description
+    end
+
     def self.parse_color(data)
       find_in_descritor_pre_definido(data, 'COR')
     end
