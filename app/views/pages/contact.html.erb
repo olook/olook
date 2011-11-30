@@ -1,0 +1,22 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/contact" %>
+<% end %>
+
+<div id="contact_content">
+  <h1>Entre em Contato</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel euismod purus. Vivamus ut odio a sem sollicitudin porta at ut metus. Nulla feugiat vulputate nunc, id faucibus nunc adipiscing quis. Nullam non sollicitudin massa. Vivamus nec turpis urna, eget accumsan nisi. Mauris gravida dapibus mollis. Integer nec lacus ac quam venenatis elementum eget nec orci. Nullam sagittis sem et ante laoreet aliquam in in mauris.</p>
+  <ul>
+    <li class="phone">(11) 25791234</li>
+    <li class="mail"><%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %></li>
+  </ul>
+</div>
+<%= form_tag "contact", :method => :post, :id => "contact" do %>
+  <fieldset class="inputs">
+    <ol>
+      <li>
+        <%= label_tag "name" %>
+        <%= text_field_tag "name" %>
+      </li>
+    </ol>
+  </fieldset>
+<% end %>

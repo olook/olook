@@ -1,0 +1,60 @@
+body {
+  background: url("/assets/contact/bg-content.jpg") top center no-repeat;
+  div#contact_content {
+    width: 370px;
+    height: 455px;
+    margin: 0 20px 0 0;
+    float: left;
+    h1 {
+      background: url("/assets/contact/title-get-in-touch.png") no-repeat;
+      text-indent: -9999px;
+      width: 264px;
+      height: 24px;
+      margin: 0 0 15px 0;
+      display: block;
+    }
+    p {
+      font-size: 13px;
+      margin: 0 0 20px 0;
+    }
+    ul {
+      background: #FFF;
+      width: 335px;
+      overflow: hidden;
+      padding: 2px 12px;
+      border: 1px #d2d2d2 solid;
+      li {
+        float: left;
+        &.phone {
+          background: url("/assets/contact/ico-phone.png") left no-repeat;
+          color: #3b3b3b;
+          font-size: 15px;
+          font-weight: bold;
+          margin: 0 15px 0 0;
+          padding: 5px 10px 5px 25px;
+          border-right: 1px #d2d2d2 solid;
+        }
+        &.mail {
+          padding: 5px 0 5px 0;
+          a {
+            background: url("/assets/contact/ico-mail.png") left no-repeat;
+            color: #3b3b3b;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 0 0 25px;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+  form#contact {
+    background: #FFF;
+    width: 525px;
+    float: left;
+    border: 1px #d2d2d2 solid;
+  }
+}
