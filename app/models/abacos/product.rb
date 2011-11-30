@@ -6,7 +6,7 @@ module Abacos
     attr_reader :integration_protocol,
                 :name, :model_number, :category,
                 :width, :height, :length, :weight,
-                :color_name, :details, :profiles
+                :color_name, :collection_id, :details, :profiles
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -37,6 +37,7 @@ module Abacos
     def integrate_attributes(product)
       product.update_attributes(self.attributes)
       product.description ||= self.name
+      product.collection = Collection.find(self.collection_id) unless self.collection_id.nil?
       product.save!
     end
 
@@ -59,6 +60,7 @@ module Abacos
         length:               abacos_product[:comprimento].to_f,
         weight:               abacos_product[:peso].to_f,
         color_name:           parse_color( abacos_product[:descritor_pre_definido] ),
+        collection_id:        parse_collection(abacos_product[:descricao_grupo]),
         details:              parse_details( abacos_product[:caracteristicas_complementares] ),
         profiles:             parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
@@ -88,6 +90,29 @@ module Abacos
         end
       end
       result.map &:strip
+    end
+    
+    def self.parse_collection(data)
+      return nil if data.blank?
+      reference_date = parse_collection_date(data)
+      Collection.for_date(reference_date).try :id
+    end
+    
+    def self.parse_collection_date(data)
+      month_names = I18n.t('date.month_names').compact.map(&:downcase)
+      filter = eval("/#{month_names.join('|')}|\\d{4}/")
+
+      pieces = data.strip.downcase.split(/\s|\//)
+      pieces = pieces.delete_if {|piece| !piece.match(filter) }
+      
+      month_name, year = pieces
+
+      month = month_names.index(month_name)+1
+      year ||= '2011'
+      
+      Date.civil(year.to_i, month, 1)
+    rescue
+      raise RuntimeError.new "Invalid collection '#{data}'"
     end
   end
 end

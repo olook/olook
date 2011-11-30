@@ -534,7 +534,7 @@
   str: ! 'Sapatilha                                         '
   attributes: {}
 :descricao_grupo: !str
-  str: ! 'baixo                                             '
+  str: ! 'Coleção Dezembro 2011                             '
   attributes: {}
 :descricao_subgrupo: !str
   str: ! 'SUB-GRUPO DE PRODUTOS                             '
