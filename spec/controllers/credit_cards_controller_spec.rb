@@ -78,7 +78,7 @@ describe CreditCardsController do
   describe "POST create" do
     before :each do
       session[:order] = order
-      session[:freight] = {:price => 12}
+      session[:freight] = freight
     end
 
     describe "with valid params" do
@@ -110,6 +110,11 @@ describe CreditCardsController do
         post :create, :credit_card => attributes
         assigns(:payment).should eq(credit_card)
       end
+
+      it "should assign @cart" do
+        Cart.should_receive(:new).with(order, freight)
+        post :create, :credit_card => {}
+      end
     end
 
     describe "with invalid params" do
@@ -118,6 +123,11 @@ describe CreditCardsController do
         expect {
           post :create, :credit_card => {}
         }.to change(CreditCard, :count).by(0)
+      end
+
+      it "should assign @cart" do
+        Cart.should_receive(:new).with(order, freight)
+        post :create, :credit_card => {}
       end
     end
   end

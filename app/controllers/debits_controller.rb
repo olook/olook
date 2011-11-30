@@ -8,11 +8,10 @@ class DebitsController < ApplicationController
   before_filter :check_user_address, :only => [:new, :create]
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
-  after_filter  :clean_session_order!, :only => [:create]
+  before_filter :build_cart, :only => [:new, :create]
 
   def new
     @payment = Debit.new
-    @cart = Cart.new(@order, @freight)
   end
 
   def create
@@ -21,6 +20,7 @@ class DebitsController < ApplicationController
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
       @payment = payment_builder.process!
+      clean_session_order!
       redirect_to(debit_path(@payment), :notice => "Sucesso")
     else
       respond_with(@payment)

@@ -6,10 +6,16 @@ module PaymentManager
     payment_builder.process!
   end
 
+  def build_cart
+    @cart = Cart.new(@order, @freight)
+  end
+
   def clean_session_order!
-    session[:order] = nil
-    session[:freight] = nil
-    session[:delivery_address_id] = nil
+    if @payment.persisted?
+      session[:order] = nil
+      session[:freight] = nil
+      session[:delivery_address_id] = nil
+    end
   end
 
   def check_order
