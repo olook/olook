@@ -9,11 +9,11 @@ class CreditCardsController < ApplicationController
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
   before_filter :parse_params, :only => [:create]
+  before_filter :build_cart, :only => [:new, :create]
   after_filter  :clean_session_order!, :only => [:create]
 
   def new
     @payment = CreditCard.new
-    @cart = Cart.new(@order, @freight)
   end
 
   def create

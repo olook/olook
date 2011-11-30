@@ -85,7 +85,7 @@ describe BilletsController do
   describe "POST create" do
     before :each do
       session[:order] = order
-      session[:freight] = {:price => 12}
+      session[:freight] = freight
     end
 
     describe "with valid params" do
@@ -109,6 +109,12 @@ describe BilletsController do
         payment_builder.should_receive(:process!).and_return(billet = mock_model(Billet))
         post :create, :billet => attributes
         session.should redirect_to(billet_path(billet))
+      end
+
+      it "should assign @cart" do
+        session[:order] = order
+        Cart.should_receive(:new).with(order, freight)
+        get 'new'
       end
     end
 
