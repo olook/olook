@@ -35,24 +35,9 @@ describe AddressesController do
         }.to change(Address, :count).by(1)
       end
 
-      it "should assign the address id in the session" do
-        post :create, :address => attributes
-        session[:delivery_address_id].should == Address.all.last.id
-      end
-
-      it "should assign the address id in the session" do
-        post :create, :address => attributes
-        session[:freight].should_not be(nil)
-      end
-
-      it "should assign the freight in the session" do
-        FreightCalculator.stub(:freight_for_zip).and_return(freight)
-        post :create, :address => attributes
-        session[:freight].should == freight
-      end
-
       context "when the order dont have a freight" do
         before :each do
+          freight.merge!(:address_id => address.id)
           FreightCalculator.stub(:freight_for_zip).and_return(freight)
         end
 
@@ -74,19 +59,24 @@ describe AddressesController do
 
   describe "POST assign_address" do
     context "with a valid address" do
-      it "should assign the delivery_address_id in the session" do
-        post :assign_address, :delivery_address_id => address.id
-        session[:delivery_address_id].should == address.id
-      end
+      context "when the order dont have a freight" do
+        before :each do
+          freight.merge!(:address_id => address.id)
+          FreightCalculator.stub(:freight_for_zip).and_return(freight)
+        end
 
-      it "should assign the delivery_address_id in the session" do
-        post :assign_address, :delivery_address_id => address.id
-        session[:delivery_address_id].should == address.id
-      end
+        it "should create a feight" do
+          order.should_receive(:create_freight).with(freight)
+          post :assign_address, :delivery_address_id => address.id
+        end
 
-      it "should assign the delivery_address_id in the session" do
-        post :assign_address, :delivery_address_id => address.id
-        session[:delivery_address_id].should == address.id
+        context "when the order already have a freight" do
+          it "should update the freight" do
+            post :assign_address, :delivery_address_id => address.id
+            order.freight.should_receive(:update_attributes).with(freight)
+            post :assign_address, :delivery_address_id => address.id
+          end
+        end
       end
 
       it "should redirect to payments" do
