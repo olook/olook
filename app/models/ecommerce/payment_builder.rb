@@ -2,8 +2,8 @@
 class PaymentBuilder
   attr_accessor :order, :payment, :delivery_address, :response
 
-  def initialize(order, payment, delivery_address)
-    @order, @payment, @delivery_address = order, payment, delivery_address
+  def initialize(order, payment)
+    @order, @payment = order, payment
   end
 
   def process!
@@ -37,7 +37,9 @@ class PaymentBuilder
   end
 
   def payer
-    { :nome => order.user_name,
+    delivery_address = order.freight.address
+    data = {
+      :nome => order.user_name,
       :email => order.user_email,
       :identidade => payment.user_identification,
       :logradouro => delivery_address.street,
@@ -51,6 +53,7 @@ class PaymentBuilder
       :tel_fixo => delivery_address.telephone,
       :tel_cel => '(11)9976-8679' #we need check if this field is required
     }
+    data
   end
 
   def payment_data

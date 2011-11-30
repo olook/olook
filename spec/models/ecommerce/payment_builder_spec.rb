@@ -3,12 +3,12 @@ require "spec_helper"
 describe PaymentBuilder do
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:delivery_address) { FactoryGirl.create(:address, :user => user)}
+#  let(:delivery_address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:credit_card) { FactoryGirl.build(:credit_card, :order => order) }
   let(:billet) { FactoryGirl.build(:billet, :order => order) }
   let(:debit) { FactoryGirl.build(:debit, :order => order) }
-  subject { PaymentBuilder.new(order, credit_card, delivery_address) }
+  subject { PaymentBuilder.new(order, credit_card) }
   let(:payer) { subject.payer }
 
   before :each do
@@ -54,6 +54,7 @@ describe PaymentBuilder do
   end
 
   it "should return the payer" do
+    delivery_address = order.freight.address
     expected = {
       :nome => order.user_name,
       :email => order.user_email,
