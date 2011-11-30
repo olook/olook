@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
+  delegate :price, :to => :freight, :prefix => true
   has_one :payment
   has_one :freight
 

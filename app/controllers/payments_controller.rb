@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
   before_filter :check_freight, :only => [:index]
 
   def index
-    @cart = Cart.new(@order, @freight)
+    @cart = Cart.new(@order)
   end
 
   def show

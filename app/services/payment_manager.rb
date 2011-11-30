@@ -7,7 +7,7 @@ module PaymentManager
   end
 
   def build_cart
-    @cart = Cart.new(@order, @freight)
+    @cart = Cart.new(@order)
   end
 
   def clean_session_order!

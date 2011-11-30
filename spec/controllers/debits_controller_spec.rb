@@ -54,7 +54,7 @@ describe DebitsController do
       end
 
       it "should assign @cart" do
-        Cart.should_receive(:new).with(order, order.freight)
+        Cart.should_receive(:new).with(order)
         get 'new'
       end
     end
@@ -99,7 +99,7 @@ describe DebitsController do
       it "should assign @cart" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(debit = mock_model(Debit))
-        Cart.should_receive(:new).with(order, order.freight)
+        Cart.should_receive(:new).with(order)
         post :create, :debit => attributes
       end
     end

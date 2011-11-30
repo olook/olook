@@ -1,7 +1,8 @@
 class Cart
-  attr_reader :order, :freight
-  def initialize(order, freight = nil)
-    @order, @freight = order, freight
+  attr_reader :order
+
+  def initialize(order)
+    @order = order
   end
 
   def total
@@ -17,6 +18,6 @@ class Cart
   end
 
   def freight_price
-   freight ? freight[:price] : 0
+   order.freight ? order.freight_price : 0
   end
 end
