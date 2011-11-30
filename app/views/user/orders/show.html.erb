@@ -36,11 +36,11 @@
           </div>
           <div>
             <h1>Data do Pedido</h1>
-            <p>21/10/2011</p>
+            <p><%= @order.created_at.strftime("%d/%m/%Y") %></p>
           </div>
           <div>
             <h1>Quantidade de Produtos</h1>
-            <p>2</p>
+            <p><%= @order.line_items.count %></p>
           </div>
           <div>
             <table cellspacing="0" cellpadding="0">
@@ -52,7 +52,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>R$ 99,00</td>
+                  <td><%= number_to_currency(@order.total) %></td>
                   <td>R$ 12,00</td>
                 </tr>
               </tbody>
