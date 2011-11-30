@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
     flash[:notice] = "Falha de autenticação na importação de contatos"
     redirect_to :back
   end
+
+  protected
+
+  def assign_default_country
+    params[:address][:country] = 'BRA'
+  end
 end
