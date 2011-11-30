@@ -126,6 +126,11 @@ div#my_account {
           width: 212px;
           height: 26px;
         }
+        &.credits {
+          background: url("/assets/my_account/title-my-credits.png") no-repeat;
+          width: 237px;
+          height: 34px;
+        }
       }
     }
     section.main {
