@@ -11,6 +11,7 @@ class Product < ActiveRecord::Base
   has_many :variants, :dependent => :destroy
 
   belongs_to :collection
+  has_and_belongs_to_many :profiles
 
   validates :name, :presence => true
   validates :description, :presence => true

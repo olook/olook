@@ -10,6 +10,8 @@ describe Product do
     it { should have_many(:details) }
     it { should have_many(:variants) }
     it { should belong_to(:collection) }
+
+    it { should have_and_belong_to_many(:profiles) }
   end
 
   describe "scopes" do
