@@ -17,7 +17,7 @@ class BilletsController < ApplicationController
     @payment = Billet.new(params[:billet])
     if @payment.valid?
       order = session[:order].reload
-      payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
+      payment_builder = PaymentBuilder.new(order, @payment)
       @payment = payment_builder.process!
       clean_session_order!
       redirect_to(billet_path(@payment), :notice => "Sucesso")
