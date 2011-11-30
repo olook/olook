@@ -19,6 +19,9 @@ describe Abacos::Product do
   end
 
   describe '#integrate' do
+    let!(:sexy_profile) { FactoryGirl.create(:profile, :name => "Sexy", :first_visit_banner => 'sexy') }
+    let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
+
     it 'should create a new product' do
       Abacos::ProductAPI.should_receive(:confirm_product)
       expect {
@@ -38,6 +41,7 @@ describe Abacos::Product do
 
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
+      subject.should_receive(:integrate_profiles).with(mock_product)
       
       ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(mock_product)
 
@@ -71,6 +75,34 @@ describe Abacos::Product do
         subject.stub(:details).and_return({'detail_name' => 'detail_description'})
 
         subject.integrate_details mock_product
+      end
+      
+      describe "#integrate_profiles" do
+        let(:profile_a) { FactoryGirl.create :casual_profile }
+        let(:profile_b) { FactoryGirl.create :sporty_profile }
+        let(:mock_product) { mock_model(::Product) }
+        let(:mock_product_profiles) { double :products_profiles }
+        
+        before :each do
+          mock_product.stub(:profiles).and_return(mock_product_profiles)
+          mock_product_profiles.should_receive(:destroy_all)
+        end
+
+        it "should iterate through the profiles and related them to the product" do
+          subject.stub(:profiles).and_return([profile_a.name, profile_b.name])
+
+          mock_product_profiles.should_receive(:'<<').with(profile_a)
+          mock_product_profiles.should_receive(:'<<').with(profile_b)
+
+          subject.integrate_profiles mock_product
+        end
+
+        it "should raise an error if any of the provided profiles doesn't exist" do
+          subject.stub(:profiles).and_return(['non-existent-profile'])
+          expect {
+            subject.integrate_profiles mock_product
+          }.to raise_error(RuntimeError, "Attemping to integrate invalid profile 'non-existent-profile'")
+        end
       end
     end
   end
