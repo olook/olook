@@ -2,10 +2,9 @@ require "spec_helper"
 
 describe Cart do
   let(:order) {FactoryGirl.create(:order)}
-  let(:freight) {{:price => 2.39}}
   let(:total) { 45.89 }
   let(:credits) { 1.28 }
-  subject { Cart.new(order, freight)}
+  subject { Cart.new(order)}
 
   before :each do
     order.stub(:total).and_return(total)
@@ -30,10 +29,11 @@ describe Cart do
   end
 
   it "should return the freight price" do
-    subject.freight_price.should == freight[:price]
+    subject.freight_price.should == order.freight_price
   end
 
   it "should return 0 when the freight is nil" do
+    order.stub(:freight).and_return(nil)
     cart = Cart.new(order)
     cart.freight_price.should == 0
   end

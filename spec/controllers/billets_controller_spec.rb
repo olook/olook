@@ -54,7 +54,7 @@ describe BilletsController do
       end
 
       it "should assign @cart" do
-        Cart.should_receive(:new).with(order, order.freight)
+        Cart.should_receive(:new).with(order)
         get 'new'
       end
     end
@@ -98,7 +98,7 @@ describe BilletsController do
 
       it "should assign @cart" do
         session[:order] = order
-        Cart.should_receive(:new).with(order, order.freight)
+        Cart.should_receive(:new).with(order)
         get 'new'
       end
     end
