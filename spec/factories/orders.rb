@@ -5,6 +5,7 @@ FactoryGirl.define do
   end
   factory :order do
     association :payment, :factory => :billet
+    association :freight, :factory => :freight
     after_create do |order|
       order.stub(:total).and_return(100)
       order.stub(:reload)

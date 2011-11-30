@@ -29,7 +29,7 @@ module PaymentManager
   end
 
   def check_freight
-    @freight = session[:freight]
+    @freight = @order.freight
     redirect_to(addresses_path, :notice => "Informe um endereço") unless @freight
   end
 
