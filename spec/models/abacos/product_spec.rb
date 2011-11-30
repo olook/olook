@@ -9,6 +9,7 @@ describe Abacos::Product do
 
   it '#attributes' do
     subject.attributes.should == {  name:         subject.name,
+                                    description:  subject.description,
                                     model_number: subject.model_number,
                                     category:     subject.category,
                                     color_name:   subject.color_name,
@@ -54,8 +55,6 @@ describe Abacos::Product do
       it "#integrate_attributes" do
         mock_product = mock_model(::Product)
         mock_product.should_receive(:update_attributes).with(subject.attributes)
-        mock_product.should_receive(:'description')
-        mock_product.should_receive(:'description=')
         mock_product.should_receive(:'collection=').with(december_collection)
         mock_product.should_receive(:'save!')
         subject.integrate_attributes mock_product
@@ -118,6 +117,10 @@ describe Abacos::Product do
 
       it '#name' do
         subject.name.should == "Sapatilha Floral  com laço em couro verde"
+      end
+
+      it '#description' do
+        subject.description.should == "Descrição da Sapatilha Floral  com laço em couro verde"
       end
 
       it '#model_number' do
