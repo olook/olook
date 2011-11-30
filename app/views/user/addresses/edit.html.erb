@@ -10,7 +10,7 @@
     <div class="box_title">
       <h1 class="addresses">Endereços</h1>
     </div>
-    <%= form_for @address do |f| %>
+    <%= form_for @address, :url => user_address_path, :method => :put do |f| %>
       <section class="main">
         <%= render "shared/address/form", :address => @address, :f => f %>
         <fieldset class="buttons">
