@@ -16,6 +16,7 @@ describe BilletsController do
     it "should assign a @payment" do
       payment = order.payment
       get :show, :id => payment.id
+      assigns(:payment).should == payment
     end
   end
 
