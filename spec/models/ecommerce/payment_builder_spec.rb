@@ -13,6 +13,7 @@ describe PaymentBuilder do
 
   before :each do
     order.stub(:total).and_return(10.50)
+    @order_total = order.total_with_freight
   end
 
   it "should process the payment" do
@@ -76,7 +77,7 @@ describe PaymentBuilder do
 
   it "should return payment data for billet" do
     subject.payment = billet
-    expected = { :valor => order.total, :id_proprio => order.id,
+    expected = { :valor => @order_total, :id_proprio => order.id,
                 :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
                 :razao=> Payment::REASON  }
 
@@ -85,7 +86,7 @@ describe PaymentBuilder do
 
   it "should return payment data for debit" do
     subject.payment = debit
-    expected = { :valor => order.total, :id_proprio => order.id, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => order.id, :forma => subject.payment.to_s,
                :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
@@ -95,7 +96,7 @@ describe PaymentBuilder do
   it "should return payment data for credit card" do
     subject.payment = credit_card
     payer = subject.payer
-    expected = { :valor => order.total, :id_proprio => order.id, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => order.id, :forma => subject.payment.to_s,
               :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
               :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
               :nome => credit_card.user_name, :identidade => credit_card.user_identification,
