@@ -8,6 +8,7 @@ Olook::Application.routes.draw do
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
+  match "/contato", :to => "pages#contact", :as => "contact"
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
 
