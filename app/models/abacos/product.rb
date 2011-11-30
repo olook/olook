@@ -28,10 +28,13 @@ module Abacos
     def integrate
       product = ::Product.find_by_model_number(self.model_number) || ::Product.new
 
-      integrate_attributes(product)
-      integrate_details(product)
+      ::Product.transaction do
+        integrate_attributes(product)
+        integrate_details(product)
+        integrate_profiles(product)
 
-      Abacos::ProductAPI.confirm_product(self.integration_protocol)
+        Abacos::ProductAPI.confirm_product(self.integration_protocol)
+      end
     end
     
     def integrate_attributes(product)
@@ -47,6 +50,15 @@ module Abacos
         product.details.create( :translation_token => key,
                                 :description => value,
                                 :display_on => DisplayDetailOn::DETAILS )
+      end
+    end
+
+    def integrate_profiles(product)
+      product.profiles.destroy_all
+      self.profiles.each do |profile_name|
+        profile = Profile.find_by_name(profile_name)
+        raise RuntimeError.new "Attemping to integrate invalid profile '#{profile_name}'" if profile.nil?
+        product.profiles << profile
       end
     end
 

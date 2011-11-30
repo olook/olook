@@ -29,6 +29,7 @@
   </p>
 </div>
 
+<%= render :partial => 'profiles', :locals => {:product => @product} %>
 <%= render :partial => 'images', :locals => {:product => @product} %>
 <%= render :partial => 'details', :locals => {:product => @product} %>
 <%= render :partial => 'variants', :locals => {:product => @product} %>
