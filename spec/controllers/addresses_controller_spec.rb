@@ -7,7 +7,6 @@ describe AddressesController do
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
   let(:address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:freight) {{:price => 12.95, :cost => 2.99, :delivery_time => 1}}
 
   before :each do
     session[:order] = order
@@ -29,29 +28,31 @@ describe AddressesController do
 
   describe "POST create" do
     context "with valid a address" do
+      before :each do
+        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2}
+        FreightCalculator.stub(:freight_for_zip).and_return(freight)
+      end
+
       it "should create a address" do
         expect {
           post :create, :address => attributes
         }.to change(Address, :count).by(1)
       end
 
+      context "when the order already have a freight" do
+        it "should update the freight" do
+          expect {
+            post :create, :address => attributes
+          }.to change(Freight, :count).by(0)
+        end
+      end
+
       context "when the order dont have a freight" do
-        before :each do
-          freight.merge!(:address_id => address.id)
-          FreightCalculator.stub(:freight_for_zip).and_return(freight)
-        end
-
         it "should create a feight" do
-          order.should_receive(:create_freight).with(freight)
-          post :assign_address, :delivery_address_id => address.id
-        end
-
-        context "when the order already have a freight" do
-          it "should update the freight" do
-            post :assign_address, :delivery_address_id => address.id
-            order.freight.should_receive(:update_attributes).with(freight)
-            post :assign_address, :delivery_address_id => address.id
-          end
+          expect{
+            order.stub(:freight).and_return(nil)
+            post :create, :address => attributes
+          }.to change(Freight, :count).by(1)
         end
       end
     end
@@ -59,23 +60,25 @@ describe AddressesController do
 
   describe "POST assign_address" do
     context "with a valid address" do
+      before :each do
+        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2}
+        FreightCalculator.stub(:freight_for_zip).and_return(freight)
+      end
+
+      context "when the order already have a freight" do
+        it "should update the freight" do
+          expect {
+            post :assign_address, :delivery_address_id => address.id
+          }.to change(Freight, :count).by(0)
+        end
+      end
+
       context "when the order dont have a freight" do
-        before :each do
-          freight.merge!(:address_id => address.id)
-          FreightCalculator.stub(:freight_for_zip).and_return(freight)
-        end
-
         it "should create a feight" do
-          order.should_receive(:create_freight).with(freight)
-          post :assign_address, :delivery_address_id => address.id
-        end
-
-        context "when the order already have a freight" do
-          it "should update the freight" do
+          expect{
+            order.stub(:freight).and_return(nil)
             post :assign_address, :delivery_address_id => address.id
-            order.freight.should_receive(:update_attributes).with(freight)
-            post :assign_address, :delivery_address_id => address.id
-          end
+          }.to change(Freight, :count).by(1)
         end
       end
 

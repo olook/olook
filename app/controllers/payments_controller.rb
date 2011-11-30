@@ -6,7 +6,6 @@ class PaymentsController < ApplicationController
   before_filter :load_user
   before_filter :check_order, :only => [:index]
   before_filter :check_freight, :only => [:index]
-  before_filter :check_user_address, :only => [:index]
 
   def index
     @cart = Cart.new(@order, @freight)
