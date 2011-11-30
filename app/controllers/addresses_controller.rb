@@ -49,8 +49,4 @@ class AddressesController < ApplicationController
       @order.create_freight(freight)
     end
   end
-
-  def assign_default_country
-    params[:address][:country] = 'BRA'
-  end
 end
