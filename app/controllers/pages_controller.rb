@@ -8,4 +8,8 @@ class PagesController < ApplicationController
     @member = current_user
   end
 
+  def contact
+    
+  end
+
 end
