@@ -4,16 +4,12 @@ require 'spec_helper'
 describe PaymentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
-  let(:order) { FactoryGirl.create(:order) }
-  let(:freight) {{ "price" => 1.99 }}
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:payment) { FactoryGirl.create(:billet, :order => order) }
   let(:total) { 99.55 }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    session[:delivery_address_id] = address.id
-    session[:freight] = freight
     sign_in user
   end
 
@@ -88,7 +84,7 @@ describe PaymentsController do
         response.should redirect_to(cart_path)
       end
 
-      it "should redirect to root path if the order is nil" do
+      it "should redirect to cart path if the order total is less then 0" do
         order.stub(:total).and_return(0)
         session[:order] = order
         get 'index'
@@ -96,30 +92,22 @@ describe PaymentsController do
       end
     end
 
-    context "with a empty address" do
-      it "should redirect to root path" do
-        session[:delivery_address_id] = nil
-        get 'index'
-        response.should redirect_to(addresses_path)
-      end
-    end
-
     context "with a valid freight" do
       it "should assign @freight" do
         get 'index'
-        assigns(:freight).should == freight
+        assigns(:freight).should == order.freight
       end
 
       it "should assign @cart" do
         session[:order] = order
-        Cart.should_receive(:new).with(order, freight)
+        Cart.should_receive(:new).with(order, order.freight)
         get 'index'
       end
     end
 
     context "with a invalid freight" do
       it "assign redirect to address_path" do
-        session[:freight] = nil
+        order.stub(:freight).and_return(nil)
         get 'index'
         response.should redirect_to(addresses_path)
       end
