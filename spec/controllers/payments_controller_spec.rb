@@ -28,23 +28,23 @@ describe PaymentsController do
     context "with valids params" do
      it "should return 200" do
         billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.id, :value => total
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
         response.status.should == 200
       end
 
       it "should change the payment status to billet_printed" do
         billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.id, :value => total
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
         order.payment.reload.billet_printed?.should eq(true)
       end
 
       it "should change the order status to completed" do
         billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.id, :value => total
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
         authorized = "1"
-        post :create, :status_pagamento => authorized, :id_transacao => order.id, :value => total
+        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
         completed = "4"
-        post :create, :status_pagamento => completed, :id_transacao => order.id, :value => total
+        post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
         Order.find(order.id).completed?.should eq(true)
       end
     end
@@ -52,14 +52,14 @@ describe PaymentsController do
     context "with invalids params" do
       it "should return 500 with a invalid status" do
         invalid_status = "0"
-        post :create, :status_pagamento => invalid_status, :id_transacao => order.id, :value => total
+        post :create, :status_pagamento => invalid_status, :id_transacao => order.identification_code, :value => total
         response.status.should == 500
       end
 
       it "should return 500 with a invalid value" do
         invalid_total = "9999"
         billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.id, :value => invalid_total
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => invalid_total
         response.status.should == 500
       end
     end
