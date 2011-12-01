@@ -13,7 +13,7 @@ class PaymentBuilder
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)
     rescue Exception => error
       log(error.message)
-      OpenStruct.new(:status => "Falha", :payment => nil)
+      OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
 
   def save_payment

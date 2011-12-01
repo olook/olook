@@ -36,7 +36,7 @@ describe PaymentBuilder do
 
   it "should return a structure with failure status and without a payment" do
     subject.stub(:send_payment).and_raise(Exception)
-    subject.process!.status.should == "Falha"
+    subject.process!.status.should == Payment::FAILURE_STATUS
     subject.process!.payment.should be_nil
   end
 

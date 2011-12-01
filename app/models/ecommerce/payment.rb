@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Payment < ActiveRecord::Base
+  SUCCESSFUL_STATUS = 'Sucesso'
+  FAILURE_STATUS = 'Falha'
   REASON = 'Pagamento'
   RECEIPT = 'AVista'
   STATUS = {
