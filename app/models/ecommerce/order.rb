@@ -13,6 +13,7 @@ class Order < ActiveRecord::Base
   has_one :payment
   has_one :freight
   after_create :generate_number
+  after_create :generate_identification_code
 
   state_machine :initial => :waiting_payment do
     event :under_analysis do
@@ -86,6 +87,16 @@ class Order < ActiveRecord::Base
     total = line_items.inject(0){|result, item| result + item.total_price }
     total = total - credits if credits
     total
+  end
+
+  private
+
+  def generate_identification_code
+    code = SecureRandom.hex(32)
+    while Order.find_by_identification_code(code)
+      code = SecureRandom.hex(32)
+    end
+    update_attributes(:identification_code => code)
   end
 
   def generate_number
