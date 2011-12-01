@@ -16,11 +16,16 @@ body {
     p {
       font-size: 13px;
       margin: 0 0 20px 0;
+      &.time {
+        font-weight: bold;
+        text-align: center;
+      }
     }
     ul {
       background: #FFF;
       width: 340px;
       overflow: hidden;
+      margin: 0 0 10px 0;
       padding: 2px 12px;
       border: 1px #d2d2d2 solid;
       li {
