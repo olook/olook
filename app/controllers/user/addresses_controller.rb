@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class User::AddressesController < ApplicationController
+class ::User::AddressesController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user

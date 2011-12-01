@@ -45,7 +45,12 @@ Olook::Application.routes.draw do
     match "/", :to => "index#dashboard"
 
     resources :products do
-      resources :pictures
+      resources :pictures do
+        collection do
+          get  'multiple_pictures' => 'pictures#new_multiple_pictures', :as => 'new_multiple_pictures'
+          post  'multiple_pictures' => 'pictures#create_multiple_pictures', :as => 'create_multiple_pictures'
+        end
+      end
       resources :details
       resources :variants
       member do
@@ -68,6 +73,7 @@ Olook::Application.routes.draw do
       end
     end
     resources :shipping_services
+    resources :collections
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do

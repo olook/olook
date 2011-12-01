@@ -21,7 +21,9 @@
 :nome_produto: !str
   str: Sapatilha Floral  com laço em couro verde
   attributes: {}
-:descricao: !!null 
+:descricao: !str
+  str: Descrição da Sapatilha Floral  com laço em couro verde
+  attributes: {}
 :codigo_marca: !str
   str: '2'
   attributes: {}
@@ -382,7 +384,7 @@
         str: ! 'DESCRIÇÕES PARA O SITE                            '
         attributes: {}
       :texto: !str
-        str: Casual
+        str: 'Sexy, Casual '
         attributes: {}
       :nr_config_interface: !str
         str: '0'
@@ -534,7 +536,7 @@
   str: ! 'Sapatilha                                         '
   attributes: {}
 :descricao_grupo: !str
-  str: ! 'baixo                                             '
+  str: ! 'Coleção Dezembro 2011                             '
   attributes: {}
 :descricao_subgrupo: !str
   str: ! 'SUB-GRUPO DE PRODUTOS                             '

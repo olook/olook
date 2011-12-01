@@ -5,7 +5,7 @@ FactoryGirl.define do
       name "Chanelle"
       description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
-      model_number 'CHS01'
+      model_number { "CHS01#{Random.rand 10000}" } 
     end
 
     factory :basic_bag do
