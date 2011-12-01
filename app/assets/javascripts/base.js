@@ -99,6 +99,10 @@ $(document).ready(function() {
     $(this).parent("li").remove();
   });
 
+  $("input:text.zip_code").setMask({
+    mask: '99999-999'
+  });
+
   $("input:text.phone").setMask({
     mask: '(99)9999-9999'
   });
