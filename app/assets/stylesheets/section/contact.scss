@@ -19,7 +19,7 @@ body {
     }
     ul {
       background: #FFF;
-      width: 335px;
+      width: 340px;
       overflow: hidden;
       padding: 2px 12px;
       border: 1px #d2d2d2 solid;
@@ -128,6 +128,19 @@ body {
           border: none;
           cursor: pointer;
           float: right;
+        }
+      }
+    }
+  }
+}
+.ie {
+  form#contact {
+    fieldset.inputs {
+      ol {
+        li {
+          select.custom_select {
+            left: 100px;
+          }
         }
       }
     }
