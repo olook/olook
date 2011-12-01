@@ -66,7 +66,7 @@
       </li>
       <li class="state">
         <%= f.label :state %>
-        <%= f.text_field :state %>
+        <%= f.select :state, Address::STATES.collect {|state| state}, {}, {:class => "custom_select"} %>
       </li>
       <li class="phone">
         <%= f.label :telephone %>

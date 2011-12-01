@@ -11,7 +11,7 @@ $(document).ready(function() {
   });
 
   $("form#new_address input[type='text']").live("keyup", function() {
-    var limitOfInputs = 9;
+    var limitOfInputs = 8;
     var notNullInputs = 0
     inputs = $("form#new_address input[type='text']");
     $(inputs).each(function(index) {
