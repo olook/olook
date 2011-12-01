@@ -6,6 +6,8 @@
       <th>Name</th>
       <th>Model number</th>
       <th>Category</th>
+      <th>Color</th>
+      <th>Sample</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,6 +18,8 @@
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
       <td><%= product.category_humanize %></td>
+      <td><%= product.color_name %></td>
+      <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
       <td><%= link_to 'Destroy', admin_product_path(product), confirm: 'Are you sure?', method: :delete %></td>

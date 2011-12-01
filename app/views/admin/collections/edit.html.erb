@@ -1,0 +1,10 @@
+<h2>Editing collection</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_collection_path(@collection) %></li>
+  <li><%= link_to 'Back', admin_collections_path %></li>
+<% end %>

@@ -14,7 +14,6 @@
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
 
-    <%= render "shared/metrics/kiss_metrics/kiss_metrics" %>
     <%= render "shared/metrics/google/google_analytics" %>
     <%= favicon_link_tag %>
 
@@ -30,7 +29,7 @@
       <%= render :partial => "shared/header_checkout" %>
     <% else %>
       <%= render :partial => "shared/header_default" %>
-      <% if ["registrations", "user/addresses", "user/credits", "user/orders"].include? params[:controller] %>
+      <% if ["user/addresses", "user/credits", "user/orders"].include? params[:controller] or (params[:controller] == "registrations" and params[:action] == 'edit') %>
         <div id="box_title_my_account">
           <div class="content">
             <h1>Minha conta</h1>
@@ -48,5 +47,8 @@
 
   <%= javascript_include_tag "application" %>
   <%= render_google_remessaging_scripts %>
+  <% if content_for? :footer %>
+    <%= yield :footer %>
+  <% end %>
 </body>
 </html>
