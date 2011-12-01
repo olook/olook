@@ -976,8 +976,25 @@ section.main {
               }
             }
             &.state {
-              input {
-                width: 55px;
+              position: relative;
+              select.custom_select {
+                position: absolute;
+                line-height: 26px;
+                width: 74px;
+                height: 34px;
+                top: 0;
+                left: 0px;
+              }
+              span.select {
+                position: absolute;
+                background: url('/assets/common/bg-select-state.png') no-repeat;
+                line-height: 34px;
+                width: 74px;
+                height: 34px;
+                text-indent: 15px;
+                top: 16px;
+                left: 0px;
+                z-index: 0;
               }
             }
             &.phone {
