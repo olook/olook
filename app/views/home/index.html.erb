@@ -26,4 +26,8 @@
 
   <%= link_to 'Comece aqui e descubra seu estilo. É grátis!', new_survey_path, :class => "start" %>
   <%= render 'shared/facebook_like_button' %>
+
+  <% content_for :footer do %>
+    <%= render :partial => 'shared/metrics/criteo/homepage_tracker' %>
+  <% end %>
 </div>

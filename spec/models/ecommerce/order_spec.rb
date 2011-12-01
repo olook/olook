@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Order do
   subject { FactoryGirl.create(:clean_order)}
-  let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35) }
-  let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40) }
+  let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+  let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
+  let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
 
   context "creating a Order" do
     it "should generate a number" do
@@ -59,33 +60,34 @@ describe Order do
   end
 
   context "total with items" do
-   before :each do
-     @quantity = 3
-     @credits = 1.89
-     subject.add_variant(basic_shoe_35)
-     @quantity.times { subject.add_variant(basic_shoe_40) }
-   end
+    let(:quantity) { 3 }
+    let(:credits) { 1.89 }
 
-   it "should return the total with credits" do
-     subject.update_attributes(:credits => @credits)
-     expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price) - @credits
-     subject.total.should == expected
-   end
+    before :each do
+      subject.add_variant(basic_shoe_35)
+      quantity.times { subject.add_variant(basic_shoe_40) }
+    end
 
-   it "should return the total wihout credits" do
-     expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price)
-     subject.total.should == expected
-   end
+    it "should return the total with credits" do
+      subject.update_attributes(:credits => credits)
+      expected = basic_shoe_35.price + (quantity * basic_shoe_40.price) - credits
+      subject.total.should == expected
+    end
 
-   it "should return the total wihout credits" do
-     expected = basic_shoe_35.price + (@quantity * basic_shoe_40.price)
-     subject.total.should == expected
-   end
+    it "should return the total wihout credits" do
+      expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
+      subject.total.should == expected
+    end
 
-   it "should return the total with credits" do
-     expected = subject.total + subject.freight.price
-     subject.total_with_freight.should == expected
-   end
+    it "should return the total wihout credits" do
+      expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
+      subject.total.should == expected
+    end
+
+    it "should return the total with credits" do
+      expected = subject.total + subject.freight.price
+      subject.total_with_freight.should == expected
+    end
   end
 
   context "total without items" do

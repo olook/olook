@@ -7,6 +7,7 @@ describe Variant do
     it { should belong_to(:product) }
 
     it { should validate_presence_of(:number) }
+    it { should validate_uniqueness_of(:number) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:display_reference) }
 
@@ -57,7 +58,7 @@ describe Variant do
 
     describe "#dimensions" do
       it "should concatenate all the variant dimensions" do
-        subject.dimensions.should == '10.1x20.1x30.1 cm'
+        subject.dimensions.should == '10,1x20,1x30,1 cm'
       end
     end
 
@@ -80,6 +81,45 @@ describe Variant do
       subject.is_master.should be_nil
       subject.save
       subject.is_master.should == false
+    end
+  end
+  
+  it "#master_variant" do
+    subject.master_variant.should == subject.product.master_variant
+  end
+
+  describe "#copy_master_variant" do
+    context "should call the method when a product_id is assigned" do
+      it 'on build' do
+        subject # load the subject before setting the expectation to avoid duplicate calls
+        described_class.any_instance.should_receive(:copy_master_variant)
+        new_variant = subject.product.variants.build
+      end
+      it 'when attributing product_id' do
+        new_variant = FactoryGirl.create(:variant, :product => subject.product)
+        new_variant.should_receive(:copy_master_variant)
+        new_variant.product_id = subject.product.id
+      end
+    end
+
+    it "should copy the master_variant attributes" do
+      new_variant = subject.product.variants.build
+      new_variant.copy_master_variant
+      
+      new_variant.width.should      == new_variant.master_variant.width
+      new_variant.height.should     == new_variant.master_variant.height
+      new_variant.length.should     == new_variant.master_variant.length
+      new_variant.weight.should     == new_variant.master_variant.weight
+      new_variant.price.should      == new_variant.master_variant.price
+      new_variant.inventory.should  == new_variant.master_variant.inventory
+    end
+    
+    it "should be called on the child variants when the master is updated" do
+      subject.weight.should_not == 42
+      subject.master_variant.weight = 42
+      subject.master_variant.save
+      subject.reload
+      subject.weight.should == 42
     end
   end
 end

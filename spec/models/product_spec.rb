@@ -9,6 +9,9 @@ describe Product do
     it { should have_many(:pictures) }
     it { should have_many(:details) }
     it { should have_many(:variants) }
+    it { should belong_to(:collection) }
+
+    it { should have_and_belong_to_many(:profiles) }
   end
 
   describe "scopes" do
@@ -67,15 +70,20 @@ describe Product do
   describe "#master_variant" do
     subject { FactoryGirl.build(:basic_shoe) }
 
-    it "should call create_master_variant after_create" do
-      subject.should_receive(:create_master_variant)
+    it "newly initialized products should have a non-saved master variant instantiated" do
+      subject.master_variant.should_not be_nil
+      subject.master_variant.should_not be_persisted
+    end
+
+    it "should call save_master_variant after_save" do
+      subject.should_receive(:save_master_variant)
       subject.save
     end
 
     it "should be created automaticaly after the product is created" do
-      subject.master_variant.should be_nil
       subject.save
       subject.master_variant.should_not be_nil
+      subject.master_variant.should be_persisted
       subject.master_variant.description.should == 'master'
     end
   end
@@ -136,5 +144,8 @@ describe Product do
         subject.master_variant.weight.should == 987.0
       end
     end
+  end
+  
+  describe "helpers for master_variant" do
   end
 end

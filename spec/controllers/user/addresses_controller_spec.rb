@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe User::AddressesController do
+describe ::User::AddressesController do
 
   let(:user) { FactoryGirl.create :user }
   let(:attributes) { {:state => 'SP', :street => 'Rua Junes', :number => 123, :zip_code => '37876-197', :neighborhood => 'Centro', :telephone => '(35)3453-9848' } }

@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class AddressesController < ApplicationController
+class ::AddressesController < ApplicationController
   include PaymentManager
   respond_to :html
   before_filter :authenticate_user!
