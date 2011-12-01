@@ -18,8 +18,20 @@ describe PaymentBuilder do
   it "should process the payment" do
     subject.should_receive(:send_payment)
     subject.should_receive(:create_successful_payment_response)
-    subject.should_receive(:save_payment)
+    payment = double
+    payment.stub_chain(:payment_response, :response_status)
+    subject.should_receive(:save_payment).and_return(payment)
     subject.process!
+  end
+
+  it "should return a structure with status and a payment" do
+    subject.stub(:send_payment)
+    subject.stub(:create_successful_payment_response)
+    payment_response = double
+    payment_response.stub(:response_status).and_return(status = "Sucesso")
+    subject.stub_chain(:save_payment, :payment_response).and_return(payment_response)
+    subject.process!.status.should == status
+    subject.process!.payment.should == credit_card
   end
 
   it "should creates a payment response" do

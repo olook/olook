@@ -73,18 +73,19 @@ describe CreditCardsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      @processed_payment = OpenStruct.new(:status => "Sucesso", :payment => mock_model(CreditCard))
     end
 
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(mock_model(CreditCard))
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
         post :create, :credit_card => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(mock_model(CreditCard))
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
         post :create, :credit_card => attributes
         session[:order].should be_nil
         session[:freight].should be_nil
@@ -93,16 +94,16 @@ describe CreditCardsController do
 
       it "should redirect to credit card path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.stub(:process!).and_return(credit_card = mock_model(CreditCard))
+        payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
         post :create, :credit_card => attributes
-        response.should redirect_to(credit_card_path(credit_card))
+        response.should redirect_to(credit_card_path(credit_card.payment))
       end
 
       it "should assign @payment" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.stub(:process!).and_return(credit_card = mock_model(CreditCard))
+        payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
         post :create, :credit_card => attributes
-        assigns(:payment).should eq(credit_card)
+        assigns(:payment).should eq(credit_card.payment)
       end
 
       it "should assign @cart" do
