@@ -7,6 +7,7 @@ namespace :olook do
       limit = args[:user_count].to_i
       User.find_each(:batch_size => 50) do |user|
         next if user.survey_answer.blank?
+        next unless user.points.empty?
 
         user_answers = user.survey_answer.answers.clone
         user_answers.delete_if {|key, value| ['day', 'month', 'year'].include?(key)}
@@ -15,7 +16,6 @@ namespace :olook do
         profile_points = ProfileBuilder.build_profiles_points(profiles_for_questions)
         profile_builder = ProfileBuilder.new user
         User.transaction do
-          user.points.delete_all
           profile_builder.create_user_points profile_points
           puts "Processed #{user.email}"
         end
