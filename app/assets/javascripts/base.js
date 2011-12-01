@@ -118,4 +118,8 @@ $(document).ready(function() {
   $("input:text.date").setMask({
     mask: '99/19/9999'
   });
+
+  $("input:text.credit_card").setMask({
+    mask: '9999999999999999'
+  });
 });
