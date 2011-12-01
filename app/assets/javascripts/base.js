@@ -122,4 +122,8 @@ $(document).ready(function() {
   $("input:text.credit_card").setMask({
     mask: '9999999999999999'
   });
+
+  $("input:text.security_code").setMask({
+    mask: '9999'
+  });
 });
