@@ -5,13 +5,13 @@ describe AddressesController do
 
   let(:user) { FactoryGirl.create :user }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
-  let(:address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
 
   before :each do
     session[:order] = order
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
+    @address = FactoryGirl.create(:address, :user => user)
   end
 
   describe "GET index" do
@@ -75,6 +75,28 @@ describe AddressesController do
     end
   end
 
+  describe "GET edit" do
+    it "should assigns @address" do
+      get 'edit', :id => @address.id
+      assigns(:address).should eq(address)
+    end
+  end
+
+  describe "PUT update" do
+    it "should updates an address" do
+      updated_attr = { :street => 'Rua Jones' }
+      put :update, :id => @address.id, :address => updated_attr
+      Address.find(address.id).street.should eql('Rua Jones')
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "should delete an address"do
+      delete :destroy, :id => @address.id
+      Address.all.empty?.should be_true
+    end
+  end
+
   describe "POST assign_address" do
     context "with a valid address" do
       before :each do
@@ -85,7 +107,7 @@ describe AddressesController do
       context "when the order already have a freight" do
         it "should update the freight" do
           expect {
-            post :assign_address, :delivery_address_id => address.id
+            post :assign_address, :delivery_address_id => @address.id
           }.to change(Freight, :count).by(0)
         end
       end
@@ -94,13 +116,13 @@ describe AddressesController do
         it "should create a feight" do
           expect{
             order.stub(:freight).and_return(nil)
-            post :assign_address, :delivery_address_id => address.id
+            post :assign_address, :delivery_address_id => @address.id
           }.to change(Freight, :count).by(1)
         end
       end
 
       it "should redirect to payments" do
-        post :assign_address, :delivery_address_id => address.id
+        post :assign_address, :delivery_address_id => @address.id
         response.should redirect_to(payments_path)
       end
     end
