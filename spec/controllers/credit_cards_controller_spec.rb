@@ -92,18 +92,11 @@ describe CreditCardsController do
         session[:delivery_address_id].should be_nil
        end
 
-      it "should redirect to credit card path" do
+      it "should redirect to payment path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
         post :create, :credit_card => attributes
-        response.should redirect_to(credit_card_path(credit_card.payment))
-      end
-
-      it "should assign @payment" do
-        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
-        post :create, :credit_card => attributes
-        assigns(:payment).should eq(credit_card.payment)
+        response.should redirect_to(payment_path(credit_card.payment))
       end
 
       it "should assign @cart" do
@@ -113,6 +106,14 @@ describe CreditCardsController do
     end
 
     describe "with invalid params" do
+      it "should render new template" do
+        @processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard))
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
+        post :create, :credit_card => attributes
+        response.should render_template('new')
+      end
+
       it "should not create a payment" do
         CreditCard.any_instance.stub(:valid?).and_return(false)
         expect {
