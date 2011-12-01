@@ -65,14 +65,33 @@ body {
       &.inputs {
         margin-bottom: 15px;
         ol li {
+          position: relative;
           width: 100%;
           margin: 0 0 12px 0;
-          overflow: auto;
+          overflow: hidden;
+          select.custom_select {
+            position: absolute;
+            line-height: 26px;
+            width: 250px;
+            height: 34px;
+            top: 0;
+            left: 106px;
+          }
+          span.select {
+            position: absolute;
+            background: url('/assets/contact/bg-select.png') no-repeat;
+            line-height: 34px;
+            width: 255px;
+            height: 34px;
+            text-indent: 22px;
+            left: 95px;
+            z-index: 0;
+          }
           label {
             font-size: 13px;
             font-weight: bold;
             text-align: right;
-            line-height: 33px;
+            line-height: 35px;
             width: 80px;
             margin-right: 15px;
             float: left;
