@@ -3,7 +3,6 @@ require "spec_helper"
 describe PaymentBuilder do
 
   let(:user) { FactoryGirl.create(:user) }
-#  let(:delivery_address) { FactoryGirl.create(:address, :user => user)}
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:credit_card) { FactoryGirl.build(:credit_card, :order => order) }
   let(:billet) { FactoryGirl.build(:billet, :order => order) }
@@ -77,7 +76,7 @@ describe PaymentBuilder do
 
   it "should return payment data for billet" do
     subject.payment = billet
-    expected = { :valor => @order_total, :id_proprio => order.id,
+    expected = { :valor => @order_total, :id_proprio => order.number,
                 :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
                 :razao=> Payment::REASON  }
 
@@ -86,7 +85,7 @@ describe PaymentBuilder do
 
   it "should return payment data for debit" do
     subject.payment = debit
-    expected = { :valor => @order_total, :id_proprio => order.id, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => order.number, :forma => subject.payment.to_s,
                :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
@@ -96,7 +95,7 @@ describe PaymentBuilder do
   it "should return payment data for credit card" do
     subject.payment = credit_card
     payer = subject.payer
-    expected = { :valor => @order_total, :id_proprio => order.id, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => order.number, :forma => subject.payment.to_s,
               :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
               :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
               :nome => credit_card.user_name, :identidade => credit_card.user_identification,
