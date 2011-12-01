@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe DebitsController do
-  let(:attributes) {{"bank"=>"BancoDoBrasil"}}
+  let(:attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:order) { FactoryGirl.create(:order, :user => user) }
@@ -75,7 +75,7 @@ describe DebitsController do
 
     describe "with valid params" do
       it "should process the payment" do
-        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(mock_model(Debit))
         post :create, :debit => attributes
       end
@@ -108,8 +108,13 @@ describe DebitsController do
       it "should not create a payment" do
         Debit.any_instance.stub(:valid?).and_return(false)
         expect {
-          post :create, :debit => {}
+          post :create
         }.to change(Debit, :count).by(0)
+      end
+
+      it "should render new" do
+        post :create
+        response.should render_template("new")
       end
     end
   end

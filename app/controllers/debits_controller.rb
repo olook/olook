@@ -33,6 +33,10 @@ class DebitsController < ApplicationController
   private
 
   def assign_receipt
-    params[:debit][:receipt] = Payment::RECEIPT
+    if params[:debit]
+      params[:debit][:receipt] = Payment::RECEIPT
+    else
+      params.merge!(:debit => {:receipt => Payment::RECEIPT})
+    end
   end
 end
