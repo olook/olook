@@ -106,6 +106,14 @@ describe DebitsController do
     end
 
     describe "with invalid params" do
+      it "should redirect to debit_path" do
+        @processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit))
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.should_receive(:process!).and_return(debit = @processed_payment)
+        post :create, :debit => attributes
+        response.should render_template('new')
+      end
+
       it "should not create a payment" do
         Debit.any_instance.stub(:valid?).and_return(false)
         expect {

@@ -20,10 +20,16 @@ class DebitsController < ApplicationController
     if @payment.valid?
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment)
-      @payment = payment_builder.process!.payment
-      clean_session_order!
-      redirect_to(debit_path(@payment), :notice => "Sucesso")
-    else
+      response = payment_builder.process!
+
+      if response.status == Payment::SUCCESSFUL_STATUS
+        clean_session_order!
+        redirect_to(debit_path(response.payment), :notice => "Sucesso")
+      else
+        @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+        respond_with(@payment)
+      end
+     else
       respond_with(@payment)
     end
   end
