@@ -18,9 +18,13 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    order = Order.find_by_id(params[:id_transacao])
-    if update_order(order)
-      render :nothing => true, :status => 200
+    order = Order.find_by_identification_code(params[:id_transacao])
+    if order
+      if update_order(order)
+        render :nothing => true, :status => 200
+      else
+        render :nothing => true, :status => 500
+      end
     else
       render :nothing => true, :status => 500
     end
