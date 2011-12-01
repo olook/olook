@@ -7,7 +7,6 @@ class CreditCardsController < ApplicationController
   before_filter :check_order, :only => [:new, :create]
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
-  before_filter :parse_params, :only => [:create]
   before_filter :build_cart, :only => [:new, :create]
   after_filter  :clean_session_order!, :only => [:create]
 
@@ -33,33 +32,9 @@ class CreditCardsController < ApplicationController
     @payment_response = @payment.payment_response
   end
 
-  def assign_receipt
-    params[:credit_card][:receipt] = Payment::RECEIPT
-  end
-
   private
 
-  def parse_params
-    parse_expiration_date_params
-    parse_birthday_params
-  end
-
-  def parse_expiration_date_params
-    year  = params["credit_card"]["expiration_date(1i)"]
-    month = params["credit_card"]["expiration_date(2i)"]
-    params["credit_card"].merge!("expiration_date" => "#{month}/#{year}")
-    1.upto(3) do |i|
-      params["credit_card"].delete("expiration_date(#{i}i)")
-    end
-  end
-
-  def parse_birthday_params
-    year  = params["credit_card"]["user_birthday(1i)"]
-    month = params["credit_card"]["user_birthday(2i)"]
-    day   = params["credit_card"]["user_birthday(3i)"]
-    params["credit_card"].merge!("user_birthday" => "#{day}/#{month}/#{year}")
-    1.upto(3) do |i|
-      params["credit_card"].delete("user_birthday(#{i}i)")
-    end
+  def assign_receipt
+    params[:credit_card][:receipt] = Payment::RECEIPT
   end
 end
