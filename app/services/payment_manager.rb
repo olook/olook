@@ -11,11 +11,9 @@ module PaymentManager
   end
 
   def clean_session_order!
-    if @payment.persisted?
-      session[:order] = nil
-      session[:freight] = nil
-      session[:delivery_address_id] = nil
-    end
+    session[:order] = nil
+    session[:freight] = nil
+    session[:delivery_address_id] = nil
   end
 
   def check_order
