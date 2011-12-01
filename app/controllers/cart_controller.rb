@@ -42,6 +42,7 @@ class CartController < ApplicationController
   end
 
   private
+
   def check_product_variant
     variant_id = params[:variant][:id] if  params[:variant]
     @variant = Variant.find_by_id(variant_id)

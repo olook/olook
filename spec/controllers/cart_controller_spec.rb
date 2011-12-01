@@ -6,6 +6,7 @@ describe CartController do
     render_views
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
+    let(:order) { FactoryGirl.create(:order, :user => user) }
 
     describe "GET show" do
       it "should assign @bonus" do
@@ -21,6 +22,7 @@ describe CartController do
         end
 
         it "should update the order with a new bonus value" do
+          session[:order] = order
           bonus_value = '12.34'
           Order.any_instance.should_receive(:update_attributes).with(:credits => bonus_value)
           put :update_bonus, :credits => {:value => bonus_value}
