@@ -24,7 +24,7 @@ class AddressesController < ApplicationController
     @address = @user.addresses.build(params[:address])
     if @address.save
       assign_address_and_freight_in_the_session(@address)
-      redirect_to(payments_path)
+      redirect_to(addresses_path)
     else
       respond_with(@address)
     end
@@ -34,7 +34,7 @@ class AddressesController < ApplicationController
     @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
       assign_address_and_freight_in_the_session(@address)
-      redirect_to(payments_path)
+      redirect_to(addresses_path)
     else
       respond_with(@address)
     end
@@ -44,7 +44,7 @@ class AddressesController < ApplicationController
     @address = @user.addresses.find(params[:id])
     if @address.destroy
       assign_address_and_freight_in_the_session(@address)
-      redirect_to(payments_path)
+      redirect_to(addresses_path)
     else
       respond_with(@address)
     end
