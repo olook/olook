@@ -11,6 +11,9 @@ class PaymentBuilder
     create_successful_payment_response
     payment_response = save_payment.payment_response
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)
+    rescue Exception => error
+      log(error.message)
+      OpenStruct.new(:status => "Falha", :payment => nil)
   end
 
   def save_payment
@@ -79,6 +82,10 @@ class PaymentBuilder
   end
 
   private
+
+  def log(message, logger = Rails.logger, level = :error)
+    logger.send(level, message)
+  end
 
   def order_total
     order.total_with_freight

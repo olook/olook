@@ -34,6 +34,12 @@ describe PaymentBuilder do
     subject.process!.payment.should == credit_card
   end
 
+  it "should return a structure with failure status and without a payment" do
+    subject.stub(:send_payment).and_raise(Exception)
+    subject.process!.status.should == "Falha"
+    subject.process!.payment.should be_nil
+  end
+
   it "should creates a payment response" do
     subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
     payment_response.should_receive(:build_attributes).with(subject.response)
