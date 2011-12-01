@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
   private
 
   def update_order(order)
-    if order.total == params[:value].to_f
+    if order.total_with_freight == params[:value].to_f
       order.payment.set_state(params[:status_pagamento])
     end
   end
