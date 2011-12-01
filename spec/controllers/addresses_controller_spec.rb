@@ -14,6 +14,18 @@ describe AddressesController do
     sign_in user
   end
 
+  describe "GET index" do
+    it "should assign @cart" do
+      Cart.should_receive(:new).with(order)
+      get :index
+    end
+
+    it "should assign @address" do
+      get :index
+      assigns(:addresses).should eq(user.addresses)
+    end
+  end
+
   describe "GET new" do
     it "should assigns @address" do
       get 'new'
@@ -37,6 +49,11 @@ describe AddressesController do
         expect {
           post :create, :address => attributes
         }.to change(Address, :count).by(1)
+      end
+
+      it "should assign @cart" do
+        Cart.should_receive(:new).with(order)
+        post :create, :address => attributes
       end
 
       context "when the order already have a freight" do
