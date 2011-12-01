@@ -1,0 +1,22 @@
+    <section class="container_product" id="shoes">
+      <h1 class="title">Sapatos de <span><%= showroom_presenter.collection_name %></span></h1>
+      <div class="type_list">
+        <div class="products_list best">
+          <ul>
+            <%= showroom_presenter.display_products (0..4) %>
+          </ul>
+          <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
+        </div>
+        <div class="products_list almost">
+          <ul>
+            <%= showroom_presenter.display_products (5..9) %>
+          </ul>
+          <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
+        </div>
+        <div class="products_list all">
+          <ul>
+            <%= showroom_presenter.display_products 10 %>
+          </ul>
+        </div>
+      </div>
+    </section>

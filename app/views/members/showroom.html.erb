@@ -1,105 +1,26 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag "section/showroom" %>
+<% present @member, ShowroomPresenter do |showroom_presenter| %>
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "section/showroom" %>
+  <% end %>
+  <div id="showroom">
+    <section id="greetings">
+      <%= showroom_presenter.render_identification %>
+
+      <div class="lookbook">
+        <h1>Lookbooks</h1>
+        <div id="mask_carousel_showroom">
+          <%= link_to "<", "javascript:void(0);", :class => "arrows prev" %>
+          <ul>
+            <% 5.times do %>
+              <li><%= link_to image_tag("fake/fake-lookbook.png"), "#" %></li>
+            <% end %>
+          </ul>
+          <%= link_to ">", "javascript:void(0);", :class => "arrows next" %>
+        </div>
+      </div>
+    </section>
+    <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter} %>
+    <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
+    <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter} %>
+  </div>
 <% end %>
-<div id="showroom">
-  <section id="greetings">
-    <%#= render :partial => "showroom_facebook_connect" %>
-    <%= render :partial => "showroom_facebook_connected" %>
-    <div class="lookbook">
-      <h1>Lookbooks</h1>
-      <div id="mask_carousel_showroom">
-        <%= link_to "<", "javascript:void(0);", :class => "arrows prev" %>
-        <ul>
-          <% 5.times do %>
-            <li><%= link_to image_tag("fake/fake-lookbook.png"), "#" %></li>
-          <% end %>
-        </ul>
-        <%= link_to ">", "javascript:void(0);", :class => "arrows next" %>
-      </div>
-    </div>
-  </section>
-  <section class="container_product" id="shoes">
-    <h1 class="title">Sapatos de <span>Novembro</span></h1>
-    <div class="type_list">
-      <div class="products_list best">
-        <ul>
-          <% 5.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-        <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
-      </div>
-      <div class="products_list almost">
-        <ul>
-          <% 5.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-        <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
-      </div>
-      <div class="products_list all">
-        <ul>
-          <% 10.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <section class="container_product" id="purse">
-    <h1 class="title">Bolsas de <span>Novembro</span></h1>
-    <div class="type_list">
-      <div class="products_list best">
-        <ul>
-          <% 5.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-        <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
-      </div>
-      <div class="products_list almost">
-        <ul>
-          <% 5.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-        <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
-      </div>
-      <div class="products_list all">
-        <ul>
-          <% 10.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <section class="container_product" id="accessories">
-    <h1 class="title">Acessórios de <span>Novembro</span></h1>
-    <div class="type_list">
-      <div class="products_list best">
-        <ul>
-          <% 5.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-        <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more", :rel => "almost" %>
-      </div>
-      <div class="products_list almost">
-        <ul>
-          <% 5.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-        <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more", :rel => "all" %>
-      </div>
-      <div class="products_list all">
-        <ul>
-          <% 10.times do %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </section>
-</div>
