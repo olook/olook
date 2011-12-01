@@ -20,7 +20,7 @@ class DebitsController < ApplicationController
     if @payment.valid?
       order = session[:order].reload
       payment_builder = PaymentBuilder.new(order, @payment)
-      @payment = payment_builder.process!
+      @payment = payment_builder.process!.payment
       clean_session_order!
       redirect_to(debit_path(@payment), :notice => "Sucesso")
     else

@@ -71,18 +71,19 @@ describe BilletsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      @processed_payment = OpenStruct.new(:status => "Sucesso", :payment => mock_model(Billet))
     end
 
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(mock_model(Billet))
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
         post :create, :billet => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(mock_model(Billet))
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
         post :create, :billet => attributes
         session[:order].should be_nil
         session[:freight].should be_nil
@@ -91,9 +92,9 @@ describe BilletsController do
 
       it "should redirect to billet_path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(billet = mock_model(Billet))
+        payment_builder.should_receive(:process!).and_return(processed_payment = @processed_payment)
         post :create, :billet => attributes
-        session.should redirect_to(billet_path(billet))
+        session.should redirect_to(billet_path(processed_payment.payment))
       end
 
       it "should assign @cart" do

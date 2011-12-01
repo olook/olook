@@ -9,7 +9,8 @@ class PaymentBuilder
   def process!
     send_payment
     create_successful_payment_response
-    save_payment
+    payment_response = save_payment.payment_response
+    OpenStruct.new(:status => payment_response.response_status, :payment => payment)
   end
 
   def save_payment

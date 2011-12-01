@@ -71,18 +71,19 @@ describe DebitsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      @processed_payment = OpenStruct.new(:status => "Sucesso", :payment => mock_model(Debit))
     end
 
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(mock_model(Debit))
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
         post :create, :debit => attributes
       end
 
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(mock_model(Debit))
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
         post :create, :debit => attributes
         session[:order].should be_nil
         session[:freight].should be_nil
@@ -91,14 +92,14 @@ describe DebitsController do
 
       it "should redirect to debit_path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(debit = mock_model(Debit))
+        payment_builder.should_receive(:process!).and_return(debit = @processed_payment)
         post :create, :debit => attributes
-        response.should redirect_to(debit_path(debit))
+        response.should redirect_to(debit_path(debit.payment))
       end
 
       it "should assign @cart" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(debit = mock_model(Debit))
+        payment_builder.should_receive(:process!).and_return(debit = @processed_payment)
         Cart.should_receive(:new).with(order)
         post :create, :debit => attributes
       end
