@@ -8,7 +8,7 @@ class PaymentBuilder
 
   def process!
     send_payment
-    create_payment_response
+    create_successful_payment_response
     save_payment
   end
 
@@ -30,7 +30,7 @@ class PaymentBuilder
     MoIP::Client.moip_page(response["Token"])
   end
 
-  def create_payment_response
+  def create_successful_payment_response
     payment_response = payment.build_payment_response
     payment_response.build_attributes response
     payment_response.save

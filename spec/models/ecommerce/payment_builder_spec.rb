@@ -17,7 +17,7 @@ describe PaymentBuilder do
 
   it "should process the payment" do
     subject.should_receive(:send_payment)
-    subject.should_receive(:create_payment_response)
+    subject.should_receive(:create_successful_payment_response)
     subject.should_receive(:save_payment)
     subject.process!
   end
@@ -26,7 +26,7 @@ describe PaymentBuilder do
     subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
     payment_response.should_receive(:build_attributes).with(subject.response)
     payment_response.should_receive(:save)
-    subject.create_payment_response
+    subject.create_successful_payment_response
   end
 
   it "should set_url_and_order_to_payment" do
