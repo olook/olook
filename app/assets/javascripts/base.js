@@ -98,4 +98,8 @@ $(document).ready(function() {
   $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.delete").live("click", function() {
     $(this).parent("li").remove();
   });
+
+  $("input:text.phone").setMask({
+    mask: '(99)9999-9999'
+  });
 });
