@@ -105,6 +105,14 @@ describe BilletsController do
     end
 
     describe "with invalid params" do
+      it "should render new template" do
+        @processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Billet))
+        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
+        payment_builder.should_receive(:process!).and_return(processed_payment = @processed_payment)
+        post :create, :billet => attributes
+        response.should render_template('new')
+      end
+
       it "should not create a payment" do
         Billet.any_instance.stub(:valid?).and_return(false)
         expect {
