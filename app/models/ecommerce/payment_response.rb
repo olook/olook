@@ -17,7 +17,7 @@ class PaymentResponse < ActiveRecord::Base
   end
 
   def success?
-    response_status == "Sucesso"
+    response_status == Payment::SUCCESSFUL_STATUS
   end
 
   def status

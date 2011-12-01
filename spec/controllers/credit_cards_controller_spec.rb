@@ -73,7 +73,7 @@ describe CreditCardsController do
   describe "POST create" do
     before :each do
       session[:order] = order
-      @processed_payment = OpenStruct.new(:status => "Sucesso", :payment => mock_model(CreditCard))
+      @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard))
     end
 
     describe "with valid params" do

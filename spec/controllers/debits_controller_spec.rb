@@ -71,7 +71,7 @@ describe DebitsController do
   describe "POST create" do
     before :each do
       session[:order] = order
-      @processed_payment = OpenStruct.new(:status => "Sucesso", :payment => mock_model(Debit))
+      @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Debit))
     end
 
     describe "with valid params" do
