@@ -10,13 +10,12 @@ describe User::AddressesController do
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
-    @address = FactoryGirl.create(:address, :user => user)
   end
 
   describe "GET index" do
     it "should assigns @addresses" do
       get 'index'
-      assigns(:addresses).should eql(Address.all)
+      assigns(:addresses).should eq(user.addresses)
     end
   end
 
@@ -29,8 +28,8 @@ describe User::AddressesController do
 
   describe "GET edit" do
     it "should assigns @address" do
-      get 'edit', :id => @address.id
-      assigns(:address).should eql(@address)
+      get 'edit', :id => address.id
+      assigns(:address).should eq(address)
     end
   end
 
@@ -45,14 +44,14 @@ describe User::AddressesController do
   describe "PUT update" do
     it "should updates an address" do
       updated_attr = { :street => 'Rua Jones' }
-      put :update, :id => @address.id, :address => updated_attr
-      Address.find(@address.id).street.should eql('Rua Jones')
+      put :update, :id => address.id, :address => updated_attr
+      Address.find(address.id).street.should eql('Rua Jones')
     end
   end
 
   describe "DELETE destroy" do
     it "should delete an address"do
-      delete :destroy, :id => @address.id
+      delete :destroy, :id => address.id
       Address.all.empty?.should be_true
     end
   end
