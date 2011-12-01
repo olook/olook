@@ -22,7 +22,7 @@ describe PaymentsController do
 
   describe "POST create" do
     before :each do
-      Order.any_instance.stub(:total).and_return(total)
+      Order.any_instance.stub(:total_with_freight).and_return(total)
     end
 
     context "with valids params" do
