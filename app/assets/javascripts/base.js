@@ -106,4 +106,12 @@ $(document).ready(function() {
   $("input:text.phone").setMask({
     mask: '(99)9999-9999'
   });
+  
+  $("input:text.expiration_date").setMask({
+    mask: '19/99'
+  });
+  
+  $("input:text.user_identification").setMask({
+    mask: '999.999.999-99'
+  });
 });
