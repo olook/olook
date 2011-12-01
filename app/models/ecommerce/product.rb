@@ -1,21 +1,30 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  attr_reader :master_variant
   has_enumeration_for :category, :with => Category, :required => true
   
-  after_create :create_master_variant
+  after_save :save_master_variant
+  after_initialize :build_master_variant
   
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
   has_many :variants, :dependent => :destroy
 
+  belongs_to :collection
+  has_and_belongs_to_many :profiles
+
   validates :name, :presence => true
   validates :description, :presence => true
-  validates :model_number, :presence => true
+  validates :model_number, :presence => true, :uniqueness => true
+
+  mount_uploader :color_sample, ColorSampleUploader
   
   scope :shoes , where(:category => Category::SHOE)
   scope :bags  , where(:category => Category::BAG)
   scope :jewels, where(:category => Category::JEWEL)
-
+  
+  accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
+  
   def related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)
@@ -47,10 +56,6 @@ class Product < ActiveRecord::Base
     end
   end
   
-  def master_variant
-    @master_variant ||= self.variants.unscoped.where(:is_master => true).first
-  end
-  
   delegate :price, to: :master_variant
   delegate :'price=', to: :master_variant
   delegate :width, to: :master_variant
@@ -63,12 +68,24 @@ class Product < ActiveRecord::Base
   delegate :'weight=', to: :master_variant
 
 private
+  def build_master_variant
+    @master_variant ||= self.variants.unscoped.where(:is_master => true).first
 
-  def create_master_variant
-    @master_variant = self.variants.unscoped.create( :is_master => true,
-                          :number => 'master', :description => 'master',
-                          :price => 0.0, :inventory => 0,
-                          :width => 0, :height => 0, :length => 0,
-                          :weight => 0.0 )
+    if @master_variant.nil?
+      @master_variant = self.variants.unscoped.build( :is_master => true,
+                            :number => "master", :description => 'master',
+                            :price => 0.0, :inventory => 0,
+                            :width => 0, :height => 0, :length => 0,
+                            :display_reference => 'master',
+                            :weight => 0.0 )
+    end
+  end
+
+  def save_master_variant
+    if @master_variant.product_id.nil?
+      @master_variant.product_id = self.id
+      @master_variant.number += self.model_number
+    end
+    @master_variant.save!
   end
 end

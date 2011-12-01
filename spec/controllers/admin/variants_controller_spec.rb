@@ -5,7 +5,11 @@ describe Admin::VariantsController do
   render_views
   let!(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
   let!(:product) { variant.product }
-  let!(:valid_attributes) { variant.attributes }
+  let(:valid_attributes) do
+    variant.attributes.clone.tap do |attributes|
+      attributes[:number] = Random.rand(1000).to_s
+    end
+  end
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]

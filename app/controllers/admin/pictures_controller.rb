@@ -46,6 +46,25 @@ class Admin::PicturesController < ApplicationController
     @picture.destroy
     respond_with [:admin, @product]
   end
+  
+  def new_multiple_pictures
+    return redirect_to [:admin, @product], :notice => 'Product already has pictures' unless @product.pictures.empty?
+    DisplayPictureOn.list.each do |display_on|
+      @product.pictures.build :display_on => display_on
+    end
+    respond_with :admin, @product
+  end
+
+  def create_multiple_pictures
+    @product.update_attributes(params[:product])
+    if @product.save
+      flash[:notice] = 'Pictures were successfully created.'
+      redirect_to [:admin, @product]
+    else
+      flash[:notice] = 'Erro'
+      render :new_multiple_pictures
+    end
+  end
 
   private
   def load_product

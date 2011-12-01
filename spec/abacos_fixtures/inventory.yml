@@ -1,0 +1,15 @@
+---
+:protocolo_estoque: !str
+  str: BD48CBE2-B732-46C5-97F8-F49EED9BED20
+  attributes: {}
+:codigo_produto: !str
+  str: '38'
+  attributes: {}
+:saldo_minimo: !str
+  str: '0'
+  attributes: {}
+:saldo_disponivel: !str
+  str: '7'
+  attributes: {}
+:nome_almoxarifado_origem: !!null 
+:identificador_produto: !!null

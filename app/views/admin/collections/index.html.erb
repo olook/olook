@@ -1,0 +1,33 @@
+<h2>Listing collections</h2>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Product Count</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @collections.each do |collection| %>
+    <tr>
+      <td><%= collection.name %></td>
+      <td><%= l collection.start_date %></td>
+      <td><%= l collection.end_date %></td>
+      <td><%= collection.products.count %></td>
+      <td><%= link_to 'Show', admin_collection_path(collection) %></td>
+      <td><%= link_to 'Edit', edit_admin_collection_path(collection) %></td>
+      <td><%= link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New Collection', new_admin_collection_path %></li>
+<% end %>
