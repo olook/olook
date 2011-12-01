@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(:version => 20111130221127) do
     t.integer  "number",     :limit => 8
   end
 
+  add_index "orders", ["number"], :name => "index_orders_on_number", :unique => true
+
   create_table "payment_responses", :force => true do |t|
     t.integer  "payment_id"
     t.string   "response_id"

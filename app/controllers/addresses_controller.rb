@@ -6,15 +6,14 @@ class AddressesController < ApplicationController
   before_filter :load_user
   before_filter :check_order
   before_filter :assign_default_country, :only => [:create]
+  before_filter :build_cart, :except => [:assign_address]
 
   def index
     @addresses = @user.addresses
-    @cart = Cart.new(@order)
   end
 
   def new
     @address = @user.addresses.build
-    @cart = Cart.new(@order)
   end
 
   def create
@@ -38,6 +37,10 @@ class AddressesController < ApplicationController
   end
 
   private
+
+  def build_cart
+    @cart = Cart.new(@order)
+  end
 
   def assign_address_and_freight_in_the_session(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
