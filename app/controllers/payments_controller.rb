@@ -8,6 +8,7 @@ class PaymentsController < ApplicationController
   before_filter :load_user
   before_filter :check_order, :only => [:index]
   before_filter :check_freight, :only => [:index]
+  protect_from_forgery :except => :create
 
   def index
     @cart = Cart.new(@order)
