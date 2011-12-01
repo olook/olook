@@ -58,11 +58,11 @@ class PaymentBuilder
 
   def payment_data
     if payment.is_a? Billet
-    data = { :valor => order_total, :id_proprio => order.id,
+    data = { :valor => order_total, :id_proprio => order.number,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON }
     elsif payment.is_a? CreditCard
-      data = { :valor => order_total, :id_proprio => order.id, :forma => payment.to_s,
+      data = { :valor => order_total, :id_proprio => order.number, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => payment.credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
@@ -70,7 +70,7 @@ class PaymentBuilder
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
-      data = { :valor => order_total, :id_proprio => order.id, :forma => payment.to_s,
+      data = { :valor => order_total, :id_proprio => order.number, :forma => payment.to_s,
                :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
     end
