@@ -663,6 +663,17 @@ body {
         height: 32px;
         float: left;
         
+        &.showroom {
+          a {
+            background: url('/assets/common/nav/my-showroom.png') no-repeat;
+            width: 95px;
+            display: block;
+            &.selected {
+              background: url('/assets/common/nav/my-showroom-selected.png') no-repeat;
+            }
+          }
+        }
+
         &.invite {
           a {
             background: url('/assets/common/nav/invite-friends.png') no-repeat;
@@ -716,9 +727,42 @@ body {
       top: 0;
       z-index: 1000;
       div.content {
+        width: 1110px;
+        padding-right: 115px;
         overflow: visible;
       }
-      ul {
+      ul.product_anchors {
+        width: 115px;
+        float: left;
+        li {
+          a {
+            background: url("/assets/common/nav/product-anchors.png") no-repeat;
+            text-indent: -9999px;
+            width: 38px;
+            height: 32px;
+            margin: 0;
+            display: block;
+          }
+          &.shoes {
+            a {
+              background-position: 0 0;
+            }
+          }
+          &.purse {
+            a {
+              background-position: -38px 0;
+            }
+          }
+          &.accessories {
+            a {
+              background-position: -70px 0;
+            }
+          }
+        }
+      }
+      ul.default {
+        width: 995px;
+        float: right;
         li {
           &.cart {
             position: relative;
@@ -826,6 +870,15 @@ body {
                 }
               }
             }
+          }
+        }
+      }
+      &.smaller {
+        div.content {
+          width: 990px;
+          padding-right: 0;
+          ul.product_anchors {
+            display: none;
           }
         }
       }
