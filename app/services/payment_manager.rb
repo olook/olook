@@ -20,6 +20,7 @@ module PaymentManager
     @order = session[:order]
     msg = "Sua sacola está vazia"
     if @order
+      @order.reload
       redirect_to(cart_path, :notice => msg) if @order.total <= 0
     else
       redirect_to(cart_path, :notice => msg)

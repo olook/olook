@@ -18,8 +18,7 @@ class BilletsController < ApplicationController
   def create
     @payment = Billet.new(params[:billet])
     if @payment.valid?
-      order = session[:order].reload
-      payment_builder = PaymentBuilder.new(order, @payment)
+      payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
