@@ -34,9 +34,9 @@
     <nav class="menu">
       <div class="content">
         <ul class="product_anchors">
-          <li class="shoes"><%= link_to "Sapatos", "javascript:void(0);" %></li>
-          <li class="purse"><%= link_to "Bolsas", "javascript:void(0);" %></li>
-          <li class="accessories"><%= link_to "Acessórios", "javascript:void(0);" %></li>
+          <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
+          <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
+          <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
         </ul>
         <ul class="default">
           <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path %></li>
