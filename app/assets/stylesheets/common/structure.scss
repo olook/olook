@@ -768,14 +768,25 @@ body {
             position: relative;
             float: right;
             a.cart {
+              position: relative;
+              background: url("/assets/common/nav/my-cart.png") no-repeat;
               color: #FFF;
-              text-decoration: none;
-              text-transform: uppercase;
               line-height: 35px;
+              text-decoration: none;
+              width: 128px;
+              height: 32px;
               margin-right: 0;
-              padding: 8px 10px;
+              display: block;
+              span {
+                position: absolute;
+                font-size: 12px;
+                text-indent: 0;
+                line-height: 32px;
+                top: 0;
+                left: 99px;
+              }
               &:hover {
-                background: #df5a8b;
+                background: url("/assets/common/nav/my-cart-selected.png") no-repeat;
               }
             }
             ul.submenu {
