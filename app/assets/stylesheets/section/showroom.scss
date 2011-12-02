@@ -202,7 +202,7 @@
           overflow: auto;
           display: inline-block;
           &:hover, &.selected {
-            padding: 0 5px;
+            padding: 5px;
             border: 5px #d7d7d7 solid;
           }
         }
