@@ -5,9 +5,10 @@ describe ::AddressesController do
 
   let(:user) { FactoryGirl.create :user }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    FactoryGirl.create(:line_item, :order => Order.find(order))
     session[:order] = order
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
@@ -16,7 +17,7 @@ describe ::AddressesController do
 
   describe "GET index" do
     it "should assign @cart" do
-      Cart.should_receive(:new).with(order)
+      Cart.should_receive(:new).with(Order.find(order))
       get :index
     end
 
@@ -33,7 +34,7 @@ describe ::AddressesController do
     end
 
     it "should assign @cart" do
-      Cart.should_receive(:new).with(order)
+      Cart.should_receive(:new).with(Order.find(order))
       get 'new'
     end
   end
@@ -52,7 +53,7 @@ describe ::AddressesController do
       end
 
       it "should assign @cart" do
-        Cart.should_receive(:new).with(order)
+        Cart.should_receive(:new).with(Order.find(order))
         post :create, :address => attributes
       end
 
@@ -66,8 +67,8 @@ describe ::AddressesController do
 
       context "when the order dont have a freight" do
         it "should create a feight" do
+          Order.find(order).freight.destroy
           expect{
-            order.stub(:freight).and_return(nil)
             post :create, :address => attributes
           }.to change(Freight, :count).by(1)
         end
@@ -115,8 +116,8 @@ describe ::AddressesController do
 
       context "when the order dont have a freight" do
         it "should create a feight" do
+          Order.find(order).freight.destroy
           expect{
-            order.stub(:freight).and_return(nil)
             post :assign_address, :delivery_address_id => @address.id
           }.to change(Freight, :count).by(1)
         end

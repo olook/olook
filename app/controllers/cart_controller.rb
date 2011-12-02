@@ -52,8 +52,8 @@ class CartController < ApplicationController
   end
 
   def current_order
-    @order = (session[:order] ||= @user.orders.create)
-    @order.reload
+    order_id = (session[:order] ||= @user.orders.create.id)
+    @order = @user.orders.find(order_id)
   end
 
   def load_user
