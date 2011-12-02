@@ -59,6 +59,18 @@ class Order < ActiveRecord::Base
     event :refunded do
       transition :under_review => :refunded
     end
+
+    event :prepared do
+      transition :completed => :prepared
+    end
+
+    event :delivered do
+      transition :prepared => :delivered
+    end
+
+    event :not_delivered do
+      transition :prepared => :not_delivered
+    end
   end
 
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
