@@ -14,7 +14,7 @@
     <tfoot>
       <tr>
         <td class="subtotal" colspan="3">Subtotal</td>
-        <td class="total">R$ 397,00</td>
+        <td class="total"><%= number_to_currency(@cart.subtotal) %></td>
       </tr>
     </tfoot>
     <tbody>

@@ -22,6 +22,7 @@ class CartController < ApplicationController
 
   def show
     @bonus = InviteBonus.calculate(@user)
+    @cart = Cart.new(@order)
   end
 
   def destroy
