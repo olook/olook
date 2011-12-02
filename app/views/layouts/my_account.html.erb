@@ -1,0 +1,12 @@
+<% content_for :top_my_account do %>
+  <div id="box_title_my_account">
+    <div class="content">
+      <h1>Minha conta</h1>
+      <h2>Edite suas informações pessoais, altere ou adicione endereços, melhore sua vitrine e acompanhe seus pedidos</h2>
+    </div>
+  </div>
+<% end %>
+<% content_for :content do %>
+  <%= content_for?(:news_content) ? yield(:news_content) : yield %>
+<% end %>
+<%= render :template => 'layouts/application' %>
