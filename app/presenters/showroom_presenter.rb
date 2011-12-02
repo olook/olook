@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 class ShowroomPresenter < BasePresenter
   presents :member
+  
+  MORNING   = (0..11)
+  AFTERNOON = (12..18)
+  EVENING   = (19..23)
 
   def render_identification
     if member.has_facebook?
@@ -45,19 +49,15 @@ class ShowroomPresenter < BasePresenter
       h.image_tag picture
     end
   end
-  
+
   def welcome_message(time = Time.now.hour)
-    morning   = (0..11)
-    afternoon = (12..18)
-    evening   = (19..23)
-    
     case
-      when morning.cover?(time) then "Bom dia, #{member.first_name}"
-      when afternoon.cover?(time) then "Boa tarde, #{member.first_name}"
-      when evening.cover?(time) then "Boa noite, #{member.first_name}"
+      when MORNING.cover?(time)   then "Bom dia, #{member.first_name}!"
+      when AFTERNOON.cover?(time) then "Boa tarde, #{member.first_name}!"
+      when EVENING.cover?(time)   then "Boa noite, #{member.first_name}!"
     end
   end
-  
+
 private
   def parse_range(asked_range, array)
     if asked_range.is_a? Range
