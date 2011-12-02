@@ -70,13 +70,12 @@ describe Product do
   describe "#master_variant" do
     subject { FactoryGirl.build(:basic_shoe) }
 
-    it "newly initialized products should have a non-saved master variant instantiated" do
-      subject.master_variant.should_not be_nil
-      subject.master_variant.should_not be_persisted
+    it "newly initialized products should return nil" do
+      subject.master_variant.should be_nil
     end
 
-    it "should call save_master_variant after_save" do
-      subject.should_receive(:save_master_variant)
+    it "should call create_master_variant after_saving a new product" do
+      subject.should_receive(:create_master_variant)
       subject.save
     end
 

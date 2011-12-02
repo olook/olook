@@ -30,7 +30,8 @@ describe Variant do
     it { should validate_numericality_of(:weight) }
   end
 
-  subject { FactoryGirl.create(:basic_shoe_size_35) }
+  let(:product) { FactoryGirl.create(:basic_shoe) }
+  subject { FactoryGirl.create(:basic_shoe_size_35, :product => product) }
 
   describe "#sku" do
     it "should be the combination of product.model_number and the variant number" do

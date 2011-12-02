@@ -1,10 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
-  attr_reader :master_variant
   has_enumeration_for :category, :with => Category, :required => true
-  
-  after_save :save_master_variant
-  after_initialize :build_master_variant
+
+  after_create :create_master_variant
   
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -75,26 +73,21 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
     picture.image_url(:showroom) unless picture.nil?
   end
-
-private
-  def build_master_variant
+  
+  def master_variant
     @master_variant ||= self.variants.unscoped.where(:is_master => true).first
-
-    if @master_variant.nil?
-      @master_variant = self.variants.unscoped.build( :is_master => true,
-                            :number => "master", :description => 'master',
-                            :price => 0.0, :inventory => 0,
-                            :width => 0, :height => 0, :length => 0,
-                            :display_reference => 'master',
-                            :weight => 0.0 )
-    end
   end
 
-  def save_master_variant
-    if @master_variant.product_id.nil?
-      @master_variant.product_id = self.id
-      @master_variant.number += self.model_number
-    end
+private
+  def create_master_variant
+    @master_variant = self.variants.unscoped.build( :is_master => true,
+                          :product => self,
+                          :number => "master#{self.model_number}",
+                          :description => 'master',
+                          :price => 0.0, :inventory => 0,
+                          :width => 0, :height => 0, :length => 0,
+                          :display_reference => 'master',
+                          :weight => 0.0 )
     @master_variant.save!
   end
 end
