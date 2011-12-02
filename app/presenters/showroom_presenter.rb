@@ -57,6 +57,11 @@ class ShowroomPresenter < BasePresenter
       when EVENING.cover?(time)   then "Boa noite, #{member.first_name}!"
     end
   end
+  
+  def facebook_avatar
+    # Visit https://developers.facebook.com/docs/reference/api/ for more info
+    h.image_tag "https://graph.facebook.com/#{member.uid}/picture?type=large", :class => 'avatar'
+  end
 
 private
   def parse_range(asked_range, array)
