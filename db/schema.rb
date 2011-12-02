@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111130125526) do
+ActiveRecord::Schema.define(:version => 20111201224457) do
+
+  create_table "addresses", :force => true do |t|
+    t.integer "user_id"
+    t.string  "country"
+    t.string  "city"
+    t.string  "state"
+    t.string  "complement"
+    t.string  "street"
+    t.integer "number"
+    t.string  "neighborhood"
+    t.string  "zip_code"
+    t.string  "telephone"
+    t.string  "first_name"
+    t.string  "last_name"
+  end
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -50,6 +65,13 @@ ActiveRecord::Schema.define(:version => 20111130125526) do
 
   add_index "collections", ["end_date"], :name => "index_collections_on_end_date"
   add_index "collections", ["start_date"], :name => "index_collections_on_start_date"
+
+  create_table "contact_informations", :force => true do |t|
+    t.string   "title"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "details", :force => true do |t|
     t.integer  "product_id"
@@ -92,6 +114,14 @@ ActiveRecord::Schema.define(:version => 20111130125526) do
   add_index "freight_prices", ["zip_end"], :name => "index_freight_prices_on_zip_end"
   add_index "freight_prices", ["zip_start"], :name => "index_freight_prices_on_zip_start"
 
+  create_table "freights", :force => true do |t|
+    t.decimal "price",         :precision => 8, :scale => 2
+    t.decimal "cost",          :precision => 8, :scale => 2
+    t.integer "delivery_time"
+    t.integer "order_id"
+    t.integer "address_id"
+  end
+
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -107,6 +137,48 @@ ActiveRecord::Schema.define(:version => 20111130125526) do
   add_index "invites", ["email"], :name => "index_invites_on_email"
   add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
+
+  create_table "line_items", :force => true do |t|
+    t.integer "variant_id"
+    t.integer "order_id"
+    t.integer "quantity"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "credits",                 :precision => 8, :scale => 2
+    t.string   "state"
+    t.integer  "number",     :limit => 8
+  end
+
+  add_index "orders", ["number"], :name => "index_orders_on_number", :unique => true
+
+  create_table "payment_responses", :force => true do |t|
+    t.integer  "payment_id"
+    t.string   "response_id"
+    t.string   "response_status"
+    t.text     "token"
+    t.decimal  "total_paid",         :precision => 8, :scale => 2
+    t.decimal  "gateway_fee",        :precision => 8, :scale => 2
+    t.string   "gateway_code"
+    t.string   "transaction_status"
+    t.string   "message"
+    t.string   "transaction_code"
+    t.integer  "return_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "order_id"
+    t.text     "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type"
+    t.string   "state"
+  end
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
