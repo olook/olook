@@ -25,6 +25,7 @@ class BilletsController < ApplicationController
         clean_session_order!
         redirect_to(billet_path(response.payment), :notice => "Sucesso")
       else
+        @order.generate_identification_code
         @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
         respond_with(@payment)
       end
