@@ -44,6 +44,7 @@ class ::AddressesController < ApplicationController
 
   def destroy
     @address = @user.addresses.find(params[:id])
+    remove_freight_from_order(@address)
     @address.destroy
     redirect_to(addresses_path)
   end
@@ -64,9 +65,15 @@ class ::AddressesController < ApplicationController
     @cart = Cart.new(@order)
   end
 
+  def remove_freight_from_order(address)
+    debugger
+    @order.freight.destroy if @order.freight.address == address
+  end
+
   def set_freight_in_the_order(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
     freight.merge!(:address_id => address.id)
+
     if @order.freight
       @order.freight.update_attributes(freight)
     else
