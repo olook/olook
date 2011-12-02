@@ -19,11 +19,20 @@ class ShowroomPresenter < BasePresenter
 
     output = ''
     (products[range] || []).each do |product|
-      output << h.render(:partial => "shared/showroom_product_item", :locals => {:product => product})
+      output << h.render(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => self, :product => product})
     end
     h.raw output
   end
   
+  def product_picture(product)
+    picture = product.showroom_picture
+    if picture.nil?
+      h.image_tag "fake/showroom-product.png"
+    else
+      h.image_tag picture
+    end
+  end
+
 private
   def parse_range(asked_range, array)
     if asked_range.is_a? Range

@@ -29,13 +29,13 @@ describe ShowroomPresenter do
   describe '#display_products, should render the product partial for' do
     let(:fake_products) { Array.new(10, :one_product) }
     it "a given range" do
-      template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:product => :one_product}).exactly(3).times.and_return('')
+      template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => subject, :product => :one_product}).exactly(3).times.and_return('')
       template.should_receive(:raw).with('')
       subject.display_products (0..2), fake_products
     end
     
     it "if it's not a range, return all remaining products staring at the index" do
-      template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:product => :one_product}).exactly(2).times.and_return('')
+      template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => subject, :product => :one_product}).exactly(2).times.and_return('')
       template.should_receive(:raw).with('')
       subject.display_products 8, fake_products
     end
@@ -44,6 +44,20 @@ describe ShowroomPresenter do
       template.should_not_receive(:render)
       template.should_receive(:raw).with('')
       subject.display_products 8, []
+    end
+  end
+  
+  describe '#product_picture' do
+    let(:fake_product) { double :fake_product }
+    it 'should return the product picture when it exists' do
+      fake_product.stub(:showroom_picture).and_return('product_picture')
+      template.should_receive(:image_tag).with('product_picture').and_return(:picture)
+      subject.product_picture(fake_product).should == :picture
+    end
+    it "should return the default picture when it doesn't exist" do
+      fake_product.stub(:showroom_picture).and_return(nil)
+      template.should_receive(:image_tag).with("fake/showroom-product.png").and_return(:default_picture)
+      subject.product_picture(fake_product).should == :default_picture
     end
   end
   

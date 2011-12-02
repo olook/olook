@@ -95,6 +95,8 @@ class User < ActiveRecord::Base
   def invitation_url(host = 'olook.com.br')
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
+  
+  
 
   private
 
