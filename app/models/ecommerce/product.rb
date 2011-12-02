@@ -75,7 +75,7 @@ class Product < ActiveRecord::Base
   end
   
   def master_variant
-    @master_variant ||= self.variants.unscoped.where(:is_master => true).first
+    @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
   end
 
 private

@@ -10,8 +10,8 @@ def create_products
   names = %w(Chanelle Scarpan Charmant Mezzo Viamarte Scala Champions Deluxe SantRo)
   10.times do |p_id|
     current_name = names[rand(names.size)]
+    puts "!!!! #{p_id} - #{current_name}"
     product = Product.create(:name => current_name, :description => "#{current_name} description", :category => Category::SHOE, :model_number => 'CHS#{p_id}')
-    debugger
     4.times do |i|
       product.variants.create(:is_master => false,
                           :number => 35 + i,
@@ -30,6 +30,7 @@ end
 
 def destroy_products
   Product.delete_all
+  Variant.unscoped.delete_all
 end
 
 
