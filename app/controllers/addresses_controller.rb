@@ -66,7 +66,6 @@ class ::AddressesController < ApplicationController
   end
 
   def remove_freight_from_order(address)
-    debugger
     @order.freight.destroy if @order.freight.address == address
   end
 
