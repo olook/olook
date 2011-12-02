@@ -233,7 +233,7 @@ describe User do
     let(:collection) { FactoryGirl.create(:collection) }
     let!(:casual_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
     let!(:casual_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
-    let!(:sporty_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile]) }
+    let!(:sporty_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
     let!(:sporty_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile]) }
 
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
@@ -245,6 +245,10 @@ describe User do
 
     it "should return the products ordered by profiles" do
       subject.showroom.should == [sporty_product_a, sporty_product_b, casual_product_a, casual_product_b]
+    end
+    
+    it 'should return only the bag products' do
+      subject.showroom(Category::BAG).should == [sporty_product_a]
     end
   end
   
