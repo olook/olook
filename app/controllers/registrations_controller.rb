@@ -12,7 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource
     end
     resource.is_invited = true if session[:invite]
-    render :layout => "application"
+    render :layout => "site"
   end
 
   def create
