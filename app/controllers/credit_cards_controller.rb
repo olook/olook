@@ -26,7 +26,8 @@ class CreditCardsController < ApplicationController
         clean_session_order!
         redirect_to(payment_path(response.payment), :notice => "Sucesso")
       else
-        @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+        @order.generate_identification_code
+        @payment.errors.add(:id, "Não foi possível realizar o pagamento")
         respond_with(@payment)
       end
     else

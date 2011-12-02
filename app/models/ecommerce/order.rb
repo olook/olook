@@ -89,8 +89,6 @@ class Order < ActiveRecord::Base
     total
   end
 
-  private
-
   def generate_identification_code
     code = SecureRandom.hex(32)
     while Order.find_by_identification_code(code)
@@ -98,6 +96,8 @@ class Order < ActiveRecord::Base
     end
     update_attributes(:identification_code => code)
   end
+
+  private
 
   def generate_number
     new_number = (id * CONSTANT_FACTOR) + CONSTANT_NUMBER

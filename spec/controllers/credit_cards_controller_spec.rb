@@ -106,12 +106,23 @@ describe CreditCardsController do
     end
 
     describe "with invalid params" do
-      it "should render new template" do
-        @processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard))
-        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
-        post :create, :credit_card => attributes
-        response.should render_template('new')
+      context "when a payment fail" do
+        before :each do
+          processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard))
+          payment_builder = mock
+          payment_builder.stub(:process!).and_return(processed_payment)
+          PaymentBuilder.stub(:new).and_return(payment_builder)
+        end
+
+        it "should render new template" do
+          post :create, :credit_card => attributes
+          response.should render_template('new')
+        end
+
+        it "should " do
+          Order.any_instance.should_receive(:generate_identification_code)
+          post :create, :credit_card => attributes
+        end
       end
 
       it "should not create a payment" do
