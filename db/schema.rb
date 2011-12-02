@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202002718) do
+ActiveRecord::Schema.define(:version => 20111202022524) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20111202002718) do
     t.integer "variant_id"
     t.integer "order_id"
     t.integer "quantity"
+    t.decimal "price",      :precision => 8, :scale => 3
   end
 
   create_table "orders", :force => true do |t|
