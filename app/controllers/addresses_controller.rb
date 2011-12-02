@@ -44,12 +44,8 @@ class ::AddressesController < ApplicationController
 
   def destroy
     @address = @user.addresses.find(params[:id])
-    if @address.destroy
-      assign_address_and_freight_in_the_session(@address)
-      redirect_to(addresses_path)
-    else
-      respond_with(@address)
-    end
+    @address.destroy
+    redirect_to(addresses_path)
   end
 
   def assign_address

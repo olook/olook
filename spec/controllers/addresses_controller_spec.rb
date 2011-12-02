@@ -78,7 +78,7 @@ describe ::AddressesController do
   describe "GET edit" do
     it "should assigns @address" do
       get 'edit', :id => @address.id
-      assigns(:address).should eq(address)
+      assigns(:address).should eq(@address)
     end
   end
 
@@ -86,14 +86,15 @@ describe ::AddressesController do
     it "should updates an address" do
       updated_attr = { :street => 'Rua Jones' }
       put :update, :id => @address.id, :address => updated_attr
-      Address.find(address.id).street.should eql('Rua Jones')
+      Address.find(@address.id).street.should eql('Rua Jones')
     end
   end
 
   describe "DELETE destroy" do
     it "should delete an address"do
-      delete :destroy, :id => @address.id
-      Address.all.empty?.should be_true
+      expect {
+        delete :destroy, :id => @address.id
+      }.to change(Address, :count).by(-1)
     end
   end
 
