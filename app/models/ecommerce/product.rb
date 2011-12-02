@@ -66,6 +66,11 @@ class Product < ActiveRecord::Base
   delegate :'length=', to: :master_variant
   delegate :weight, to: :master_variant
   delegate :'weight=', to: :master_variant
+  
+  def showroom_picture
+    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+    picture.image_url(:showroom) unless picture.nil?
+  end
 
 private
   def build_master_variant
