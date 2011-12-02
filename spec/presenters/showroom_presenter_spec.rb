@@ -102,13 +102,13 @@ describe ShowroomPresenter do
     end
 
     it "should return 'Bom dia, fulana' if it's day" do
-      subject.welcome_message(10).should == 'Bom dia, Fulana'
+      subject.welcome_message(10).should == 'Bom dia, Fulana!'
     end
     it "should return 'Boa tarde, fulana' if it's day" do
-      subject.welcome_message(12).should == 'Boa tarde, Fulana'
+      subject.welcome_message(12).should == 'Boa tarde, Fulana!'
     end
     it "should return 'Boa noite, fulana' if it's night" do
-      subject.welcome_message(19).should == 'Boa noite, Fulana'
+      subject.welcome_message(19).should == 'Boa noite, Fulana!'
     end
   end
 end
