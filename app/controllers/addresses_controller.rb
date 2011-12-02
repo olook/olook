@@ -25,7 +25,7 @@ class ::AddressesController < ApplicationController
   def create
     @address = @user.addresses.build(params[:address])
     if @address.save
-      assign_address_and_freight_in_the_session(@address)
+      set_freight_in_the_order(@address)
       redirect_to(addresses_path)
     else
       respond_with(@address)
@@ -35,7 +35,7 @@ class ::AddressesController < ApplicationController
   def update
     @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
-      assign_address_and_freight_in_the_session(@address)
+      set_freight_in_the_order(@address)
       redirect_to(addresses_path)
     else
       respond_with(@address)
@@ -51,7 +51,7 @@ class ::AddressesController < ApplicationController
   def assign_address
     address = @user.addresses.find_by_id(params[:delivery_address_id])
     if address
-      assign_address_and_freight_in_the_session(address)
+      set_freight_in_the_order(address)
       redirect_to(payments_path)
     else
       redirect_to addresses_path
@@ -64,7 +64,7 @@ class ::AddressesController < ApplicationController
     @cart = Cart.new(@order)
   end
 
-  def assign_address_and_freight_in_the_session(address)
+  def set_freight_in_the_order(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
     freight.merge!(:address_id => address.id)
 
