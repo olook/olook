@@ -1,0 +1,8 @@
+<% content_for :top_my_account do %>
+  <%= render :partial => "shared/header_default" %>
+<% end %>
+
+<% content_for :content do %>
+  <%= content_for?(:news_content) ? yield(:news_content) : yield %>
+<% end %>
+<%= render :template => 'layouts/application' %>
