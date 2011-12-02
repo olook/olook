@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-module PaymentManager
+module Ecommerce
   def build_cart
     @cart = Cart.new(@order)
   end
