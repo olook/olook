@@ -9,10 +9,5 @@ class ProductController < ApplicationController
     @product = Product.find(params[:id])
     @variants = @product.variants
   end
-
-  private
-  def load_user
-    @user = current_user
-  end
 end
 
