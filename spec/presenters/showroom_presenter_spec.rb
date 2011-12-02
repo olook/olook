@@ -111,4 +111,12 @@ describe ShowroomPresenter do
       subject.welcome_message(19).should == 'Boa noite, Fulana!'
     end
   end
+  
+  describe '#facebook_avatar' do
+    it "should return the FB avatar, size normal, which should have 100px width" do
+      subject.member.stub(:uid).and_return('fake_uid')
+      template.should_receive(:image_tag).with("https://graph.facebook.com/fake_uid/picture?type=large", :class => 'avatar').and_return('fb_avatar')
+      subject.facebook_avatar.should == 'fb_avatar'
+    end
+  end
 end
