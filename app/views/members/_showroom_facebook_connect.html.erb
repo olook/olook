@@ -3,7 +3,7 @@
   <h2>Está é sua vitrine de <%= showroom_presenter.collection_name %></h2>
   <p>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
   <p class="connect">
-    <%= link_to 'Connect with Facebook', 'javascript:void(0);' %>
+    <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
     <span>Conecte-se com o Facebook e adicione seus amigos</span>
   </p>
 </div>
