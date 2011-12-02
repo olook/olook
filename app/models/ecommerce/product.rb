@@ -25,7 +25,7 @@ class Product < ActiveRecord::Base
   
   scope :shoes , where(:category => Category::SHOE)
   scope :bags  , where(:category => Category::BAG)
-  scope :jewels, where(:category => Category::JEWEL)
+  scope :accessories, where(:category => Category::ACCESSORY)
   
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
   

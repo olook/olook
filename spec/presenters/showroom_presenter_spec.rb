@@ -63,7 +63,7 @@ describe ShowroomPresenter do
         subject.display_bags(range)
       end
       it "#display_accessories" do
-        subject.should_receive(:display_products).with(range, Category::JEWEL)
+        subject.should_receive(:display_products).with(range, Category::ACCESSORY)
         subject.display_accessories(range)
       end
     end

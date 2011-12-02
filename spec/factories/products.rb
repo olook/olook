@@ -15,10 +15,10 @@ FactoryGirl.define do
       model_number 'BGB01'
     end
 
-    factory :basic_jewel do
+    factory :basic_accessory do
       name "Jewelle"
       description "Elegant jewel for executives"
-      category Category::JEWEL
+      category Category::ACCESSORY
       model_number 'JWJ01'
     end
     

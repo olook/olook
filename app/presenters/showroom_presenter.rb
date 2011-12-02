@@ -38,7 +38,7 @@ class ShowroomPresenter < BasePresenter
   end
 
   def display_accessories(asked_range)
-    display_products(asked_range, Category::JEWEL)
+    display_products(asked_range, Category::ACCESSORY)
   end
 
   def product_picture(product)

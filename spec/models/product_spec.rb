@@ -16,9 +16,9 @@ describe Product do
 
   describe "scopes" do
     before :each do
-      @shoe  = FactoryGirl.create(:basic_shoe)
-      @bag   = FactoryGirl.create(:basic_bag)
-      @jewel = FactoryGirl.create(:basic_jewel)
+      @shoe         = FactoryGirl.create(:basic_shoe)
+      @bag          = FactoryGirl.create(:basic_bag)
+      @accessories  = FactoryGirl.create(:basic_accessory)
       described_class.count.should == 3
     end
 
@@ -28,8 +28,8 @@ describe Product do
     it "the bags scope should return only bags" do
       described_class.bags.should == [@bag]
     end
-    it "the jewels scope should return only jewels" do
-      described_class.jewels.should == [@jewel]
+    it "the accessories scope should return only accessories" do
+      described_class.accessories.should == [@accessories]
     end
   end
   

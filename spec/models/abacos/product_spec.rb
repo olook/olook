@@ -128,7 +128,7 @@ describe Abacos::Product do
       end
       
       it '#category' do
-        subject.category.should == Category::JEWEL
+        subject.category.should == Category::ACCESSORY
       end
       
       it '#color_name' do
