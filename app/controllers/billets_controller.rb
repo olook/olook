@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class BilletsController < ApplicationController
+  layout "checkout"
+
   include PaymentManager
   respond_to :html
   before_filter :authenticate_user!
