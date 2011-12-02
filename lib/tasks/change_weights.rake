@@ -5,9 +5,15 @@ namespace :olook do
   task :recreate_user_profile, :user_count, :needs => :environment do |t, args|
     benchmark = Benchmark.measure do
       limit = args[:user_count].to_i
-      User.find_each(:batch_size => 50) do |user|
-        next if user.survey_answer.blank?
-        next unless user.points.empty?
+      User.includes(:points, :survey_answer).find_each(:batch_size => 10) do |user|
+        if user.survey_answer.blank?
+          puts "User #{user.id} has no answers"
+          next
+        end
+        unless user.points.empty?
+          puts "User #{user.id} has points"
+          next
+        end
 
         user_answers = user.survey_answer.answers.clone
         user_answers.delete_if {|key, value| ['day', 'month', 'year'].include?(key)}
