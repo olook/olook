@@ -37,14 +37,20 @@ describe Abacos::Product do
       subject.integrate
     end
 
-    it 'should merge the imported attributes on the product' do
+    it 'should call the merging methods on the product' do
       mock_product = mock_model(::Product)
 
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
       
-      ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(mock_product)
+      ::Product.stub(:find_or_create_by_model_number).
+                with( subject.model_number,
+                      :name         => subject.name,
+                      :category     => subject.category,
+                      :description  => subject.description
+                ).
+                and_return(mock_product)
 
       Abacos::ProductAPI.should_receive(:confirm_product)
       

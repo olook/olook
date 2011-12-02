@@ -17,8 +17,8 @@ module Abacos
     def attributes
       { name:         self.name,
         description:  self.description,
-        model_number: self.model_number,
         category:     self.category,
+        model_number: self.model_number,
         color_name:   self.color_name,
         width:        self.width,
         height:       self.height,
@@ -27,9 +27,12 @@ module Abacos
     end
     
     def integrate
-      product = ::Product.find_by_model_number(self.model_number) || ::Product.new
-
       ::Product.transaction do
+        product = ::Product.find_or_create_by_model_number(self.model_number, 
+                        :name         => self.name,
+                        :category     => self.category,
+                        :description  => self.description)
+
         integrate_attributes(product)
         integrate_details(product)
         integrate_profiles(product)

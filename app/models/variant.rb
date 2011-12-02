@@ -22,7 +22,7 @@ class Variant < ActiveRecord::Base
 
   delegate :name, :to => :product
   delegate :master_variant, :to => :product
-
+  
   def product_id=(param_id)
     result = super(param_id)
     copy_master_variant
