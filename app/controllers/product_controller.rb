@@ -8,7 +8,7 @@ class ProductController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @variants = @product.variants
-    @order = @user.orders.find(session[:order])
+    @order = @user.orders.find_by_id(session[:order])
   end
 end
 
