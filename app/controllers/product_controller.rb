@@ -8,6 +8,7 @@ class ProductController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @variants = @product.variants
+    @order = @user.orders.find(session[:order])
   end
 end
 
