@@ -11,7 +11,20 @@ $(document).ready(function() {
       }
     });
   } 
-  
+
+  if($(window).width() < "1200") {
+    $("#wrapper_menu .menu").addClass("smaller");
+  }
+
+  $(window).resize(function() {
+    width = $(this).width();
+    menu = $("#wrapper_menu .menu");
+    if(width < "1200") {
+      $(menu).addClass("smaller");
+    } else {
+      $(menu).removeClass("smaller");
+    }
+  });
 
   if($('#error-messages').html().length >= '73'){
     $('.alert').parent().slideDown('1000', function() {

@@ -33,7 +33,13 @@
   <div id="wrapper_menu">
     <nav class="menu">
       <div class="content">
-        <ul>
+        <ul class="product_anchors">
+          <li class="shoes"><%= link_to "Sapatos", "javascript:void(0);" %></li>
+          <li class="purse"><%= link_to "Bolsas", "javascript:void(0);" %></li>
+          <li class="accessories"><%= link_to "Acessórios", "javascript:void(0);" %></li>
+        </ul>
+        <ul class="default">
+          <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path %></li>
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
           <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
           <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
