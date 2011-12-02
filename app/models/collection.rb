@@ -9,4 +9,8 @@ class Collection < ActiveRecord::Base
     Collection.where( '(:date >= start_date) AND (:date <= end_date)',
                       :date => date).first
   end
+  
+  def self.current
+    self.for_date(Date.today)
+  end
 end
