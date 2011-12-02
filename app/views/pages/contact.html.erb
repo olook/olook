@@ -11,28 +11,40 @@
   </ul>
   <p class="time">De segunda a sexta das 9:00 as 18:00</p>
 </div>
-<%= form_tag "contact", :method => :post, :id => "contact" do %>
+<%= form_for(@contact_form, :url => send_contact_path, :html => { :id => "contact" }) do |f| %>
   <fieldset class="inputs">
     <ol>
+      <% if @contact_form.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@contact_form.errors.count, "error") %> prohibited this contact message from being sent:</h2>
+      
+          <ul>
+          <% @contact_form.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
       <li>
-        <%= label_tag "email" %>
-        <%= email_field_tag "email" %>
+        <%= f.label :email %>
+        <%= f.email_field :email %>
       </li>
       <li>
-        <%= label_tag "subject", "Assunto" %>
-        <%= select_tag "subject", "<option>Sugestões</option><option>Reclamação</option>".html_safe, :class => "custom_select" %>
+        <%= f.label :subject, "Assunto" %>
+        <%= f.select(:subject, options_from_collection_for_select(@contact_infos, "id", "title"), {}, {:class => "custom_select"}) %>
       </li>
       <li>
-        <%= label_tag "message", "Mensagem" %>
-        <%= text_area_tag "message" %>
+        <%= f.label :message, "Mensagem" %>
+        <%= f.text_area :message %>
       </li>
     </ol>
   </fieldset>
   <fieldset class="buttons">
     <ol>
       <li>
-        <%= submit_tag "" %>
+        <%= f.submit "" %>
       </li>
     </ol>
   </fieldset>
 <% end %>
+
