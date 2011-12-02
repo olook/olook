@@ -62,6 +62,18 @@
           margin-bottom: 5px;
           clear: both;
         }
+        ul {
+          li {
+            a {
+              margin: 0 5px 0 0;
+              float: left;
+              img {
+                width: 47px;
+                height: 47px;
+              }
+            }
+          }
+        }
       }
     }
     div.lookbook {
