@@ -15,11 +15,11 @@ describe Abacos::Helpers do
     it "should return Category::BAG when classe is 'Bolsa'" do
       subject.parse_category('Bolsa').should == Category::BAG
     end
-    it "should return Category::JEWEL when classe is 'Jóia'" do
-      subject.parse_category('Jóia').should == Category::JEWEL
+    it "should return Category::ACCESSORY when classe is 'Jóia'" do
+      subject.parse_category('Jóia').should == Category::ACCESSORY
     end
-    it "should return Category::SHOE when classe something else" do
-      subject.parse_category('XXX').should == Category::SHOE
+    it "should return Category::ACCESSORY when classe something else" do
+      subject.parse_category('XXX').should == Category::ACCESSORY
     end
   end
   
