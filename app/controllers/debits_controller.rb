@@ -2,7 +2,7 @@
 class DebitsController < ApplicationController
   layout "checkout"
 
-  include PaymentManager
+  include Ecommerce
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
