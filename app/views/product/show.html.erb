@@ -1,109 +1,20 @@
-<% content_for(:head) do %>
-  <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
+<% present @product do |product_presenter| %>
+  <% content_for(:head) do %>
+    <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
+  <% end %>
+
+  <div id="product">
+    <%= product_presenter.member_showroom %>
+    <div class="content">
+      <%= product_presenter.render_related_products %>
+
+      <div id="infos">
+        <%= product_presenter.render_description %>
+
+        <%= product_presenter.render_add_to_cart %>
+
+        <%= product_presenter.render_details %>
+      </div>
+    </div>
+  </div>
 <% end %>
-
-<div id="product">
-  <div class="box_carousel">
-    <h1>Sua vitrine de novembro</h1>
-    <div id="carousel">
-      <%= link_to "prev", "javascript:void(0);", :class => "arrow prev" %>
-      <div class="mask">
-        <ul>
-          <% 10.times do %>
-            <li><%= link_to(image_tag("fake/fake-mini-product.png"), "#") %></li>
-            <li><%= link_to(image_tag("fake/fake-mini-product2.png"), "#") %></li>
-          <% end %>
-        </ul>
-      </div>
-      <%= link_to "next", "javascript:void(0);", :class => "arrow next" %>
-    </div>
-  </div>
-  <div class="content">
-    <div id="pics_suggestions">
-      <ul id="thumbs">
-        <% @product.pictures.each do |picture| %>
-          <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
-        <% end %>
-      </ul>
-      <div id="full_pic">
-        <ul>
-          <% @product.pictures.each do |picture| %>
-            <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("common/ajax-loader.gif", :class => "full load-image-#{picture.id}", :'data-href' => "#{picture.image_url.to_s}"), picture.image_url.to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div id="related">
-        <h1>Seus stylists também sugerem</h1>
-        <ul>
-          <% @product.related_products.each do |related_product| %>
-            <%= render :partial => "shared/showroom_product_item" %>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-
-    <div id="infos">
-      <div class="description">
-        <h1><%= @product.name %></h1>
-        <p><%= @product.description %></p>
-        <p class="price">R$ 123,45</p>
-      </div>
-
-      <%= form_tag(cart_path) do %>
-        <div class="color_size">
-          <div class="line color">
-            <p>Cor:</p>
-            <ol class="colors">
-              <li class="straw">
-                <label for="color_1"><%= link_to "straw", "#" %></label>
-              </li>
-              <li class="driftwood">
-                <label for="color_2"><%= link_to "driftwood", "#" %></label>
-              </li>
-            </ul>
-          </div>
-          <div class="line size">
-            <p>Tamanho:</p>
-            <ol>
-              <% @variants.each do |variant| %>
-              <li <%= "class='unavailable'" unless variant.available?%>>
-                <label for="size_1"><%= variant.number %>
-                  <%= radio_button_tag('variant[id]', variant.id) %>
-                </label>
-              </li>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-        <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
-      <% end %>
-
-      <div id="box_tabs">
-        <ul class="tabs">
-          <li class="first"><%= link_to "Como vestir", "javascript:void(0);", :rel => "tab_1", :class => "selected" %></li>
-          <li class="last"><%= link_to "Informações", "javascript:void(0);", :rel => "tab_2", %></li>
-        </ul>
-        <ul class="tabs_content">
-          <li class="tab_1 selected"><p><%= image_tag "fake/photo-facebook.png" %>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p></li>
-          <li class="tab_2">
-            <table cellpadding="0" cellspacing="0">
-              <tbody>
-                <% @product.details.visible.each do |detail| %>
-                  <tr>
-                    <td>Translation token:</td>
-                    <td><%= detail.translation_token %></td>
-                  </tr>
-                  <tr>
-                    <td>Description:</td>
-                    <td><%= detail.description %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>

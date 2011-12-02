@@ -8,7 +8,11 @@ class Product < ActiveRecord::Base
   
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
-  has_many :variants, :dependent => :destroy
+  has_many :variants, :dependent => :destroy do
+    def sorted_by_description
+      self.sort {|variant_a, variant_b| variant_a.description <=> variant_b.description }
+    end
+  end
 
   belongs_to :collection
   has_and_belongs_to_many :profiles
