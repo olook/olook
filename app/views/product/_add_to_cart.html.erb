@@ -1,0 +1,28 @@
+        <%= form_tag(cart_path) do %>
+          <div class="color_size">
+            <div class="line color">
+              <p>Cor:</p>
+              <ol class="colors">
+                <li class="straw">
+                  <label for="color_1"><%= link_to "straw", "#" %></label>
+                </li>
+                <li class="driftwood">
+                  <label for="color_2"><%= link_to "driftwood", "#" %></label>
+                </li>
+              </ul>
+            </div>
+            <div class="line size">
+              <p>Tamanho:</p>
+              <ol>
+                <% @product.variants.sorted_by_description.each do |variant| %>
+                <li <%= "class='unavailable'" unless variant.available?%>>
+                  <label for="size_1"><%= variant.description %>
+                    <%= radio_button_tag('variant[id]', variant.id) %>
+                  </label>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          </div>
+          <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
+        <% end %>

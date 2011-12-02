@@ -1,0 +1,15 @@
+    <div class="box_carousel">
+      <h1>Sua vitrine de <%= product_presenter.collection_name %></h1>
+      <div id="carousel">
+        <%= link_to "prev", "javascript:void(0);", :class => "arrow prev" %>
+        <div class="mask">
+          <ul>
+            <% 10.times do %>
+              <li><%= link_to(image_tag("fake/fake-mini-product.png"), "#") %></li>
+              <li><%= link_to(image_tag("fake/fake-mini-product2.png"), "#") %></li>
+            <% end %>
+          </ul>
+        </div>
+        <%= link_to "next", "javascript:void(0);", :class => "arrow next" %>
+      </div>
+    </div>

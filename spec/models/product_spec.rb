@@ -160,4 +160,15 @@ describe Product do
       end
     end
   end
+  
+  describe '#variants.sorted_by_description' do
+    subject { FactoryGirl.create(:basic_shoe) }
+    let!(:last_variant) { FactoryGirl.create(:variant, :product => subject, :description => '36') }
+    let!(:first_variant) { FactoryGirl.create(:variant, :product => subject, :description => '35') }
+
+    it 'should return the variants sorted by description' do
+      subject.variants.should == [last_variant, first_variant]
+      subject.variants.sorted_by_description.should == [first_variant, last_variant]
+    end
+  end
 end
