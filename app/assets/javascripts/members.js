@@ -27,5 +27,14 @@ $(document).ready(function() {
     cl = $(this).attr('class');
     $('#'+cl).slideto({ highlight: false });
   });
+
+  if($("#showroom").length > 0) {
+    anchor = window.location.hash;
+    $(anchor+"_container").slideto({ highlight: false });
+  }
+  $('nav.menu ul.product_anchors li a').click(function() {
+    cl = $(this).parent("li").attr("class");
+    $("#"+cl+"_container").slideto({ highlight: false });
+  });
 });
 
