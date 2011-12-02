@@ -119,7 +119,7 @@ describe CreditCardsController do
           response.should render_template('new')
         end
 
-        it "should " do
+        it "should generate a identification code" do
           Order.any_instance.should_receive(:generate_identification_code)
           post :create, :credit_card => attributes
         end
