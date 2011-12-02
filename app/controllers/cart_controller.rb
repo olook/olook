@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CartController < ApplicationController
+  layout "checkout"
+
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
