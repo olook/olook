@@ -7,7 +7,9 @@
     <% end %>
     <div class="line">
       <ol>
-        <li><%= product.color_name %></li>
+        <li>
+          <%= image_tag product.color_sample %>
+        </li>
       </ol>
       <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
     </div>
