@@ -97,6 +97,13 @@ describe ::AddressesController do
         delete :destroy, :id => @address.id
       }.to change(Address, :count).by(-1)
     end
+
+    it "should delete a order freight if it has the destroyed address"do
+      Order.find(order).freight.update_attributes(:address_id => @address.id)
+      expect {
+        delete :destroy, :id => @address.id
+      }.to change(Freight, :count).by(-1)
+    end
   end
 
   describe "POST assign_address" do
