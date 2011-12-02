@@ -146,6 +146,18 @@ describe Product do
     end
   end
   
-  describe "helpers for master_variant" do
+  describe "picture helpers" do
+    describe "#showroom_picture" do
+      it "should return the image if it exists" do
+        mock_image = double :image
+        mock_image.should_receive(:image_url).with(:showroom).and_return(:valid_image)
+        subject.pictures.should_receive(:where).with(:display_on => DisplayPictureOn::GALLERY_1).and_return([mock_image])
+        subject.showroom_picture.should == :valid_image
+      end
+      it "should return nil if it doesn't exist" do
+        subject.pictures.should_receive(:where).with(:display_on => DisplayPictureOn::GALLERY_1).and_return([nil])
+        subject.showroom_picture.should be_nil
+      end
+    end
   end
 end
