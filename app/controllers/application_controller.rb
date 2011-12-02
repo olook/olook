@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def load_user
+    @user = current_user
+  end
+
   def assign_default_country
     params[:address][:country] = 'BRA'
   end
