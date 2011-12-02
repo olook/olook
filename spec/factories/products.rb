@@ -5,7 +5,10 @@ FactoryGirl.define do
       name "Chanelle"
       description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
-      model_number { "CHS01#{Random.rand 10000}" } 
+      model_number { "CHS01#{Random.rand 10000}" }
+      after_create do |product|
+        product.profiles << FactoryGirl.create(:casual_profile)
+      end
     end
 
     factory :basic_bag do
@@ -21,7 +24,7 @@ FactoryGirl.define do
       category Category::ACCESSORY
       model_number 'JWJ01'
     end
-    
+
     factory :red_slipper do
       name "Red Slipper"
       description "Red Slipper with Glitter"
