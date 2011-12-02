@@ -96,7 +96,14 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
   
-  
+  def showroom
+    result = []
+    collection = Collection.current
+    self.profile_scores.each do |profile_score|
+      result += profile_score.profile.products.where(:collection_id => collection).all
+    end
+    result
+  end
 
   private
 

@@ -2,8 +2,10 @@
 require 'spec_helper'
 
 describe User do
-
   subject { Factory.create(:user) }
+
+  let(:casual_profile) { FactoryGirl.create(:casual_profile) }
+  let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
 
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
@@ -187,8 +189,6 @@ describe User do
   end
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
-    let(:casual_profile) { FactoryGirl.create(:casual_profile) }
-    let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 10) }
 
@@ -228,4 +228,24 @@ describe User do
       subject.invitation_url('localhost').should == "http://localhost/convite/#{subject.invite_token}"
     end
   end
+  
+  describe "#showroom" do
+    let(:collection) { FactoryGirl.create(:collection) }
+    let!(:casual_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
+    let!(:casual_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
+    let!(:sporty_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile]) }
+    let!(:sporty_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile]) }
+
+    let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
+    let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
+
+    before :each do
+      Collection.stub(:current).and_return(collection)
+    end
+
+    it "should return the products ordered by profiles" do
+      subject.showroom.should == [sporty_product_a, sporty_product_b, casual_product_a, casual_product_b]
+    end
+  end
+  
 end
