@@ -1,4 +1,18 @@
 .box_product {
+  a.product_link {
+    position: relative;
+    p.know {
+      position: absolute;
+      background: url("/assets/common/product-hover.png") no-repeat;
+      text-indent: -9999px;
+      width: 132px;
+      height: 41px;
+      display: block;
+      top: 50px;
+      left: 20px;
+      display: none;
+    }
+  }
   a {
     text-decoration: none;
     margin: 0 0 0 3px;
@@ -62,6 +76,14 @@
     }
   }
 }
+li.product {
+  &:hover {
+    p.know {
+      display: block;
+    }
+  }
+}
+
 #showroom {
   .box_product {
     a {

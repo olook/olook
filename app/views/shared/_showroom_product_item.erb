@@ -1,8 +1,9 @@
 <li class="product">
   <div class="box_product">
-    <%= link_to product do %>
+    <%= link_to product, :class => "product_link" do %>
       <%= showroom_presenter.product_picture(product) %>
       <h1><%= product.name %></h1>
+      <p class="know">Conheça</p>
     <% end %>
     <div class="line">
       <ol>
