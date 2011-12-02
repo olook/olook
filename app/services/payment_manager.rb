@@ -17,10 +17,9 @@ module PaymentManager
   end
 
   def check_order
-    @order = session[:order]
+    @order = @user.orders.find_by_id(session[:order])
     msg = "Sua sacola está vazia"
     if @order
-      @order.reload
       redirect_to(cart_path, :notice => msg) if @order.total <= 0
     else
       redirect_to(cart_path, :notice => msg)

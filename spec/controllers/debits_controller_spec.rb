@@ -5,16 +5,17 @@ describe DebitsController do
   let(:attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
   end
 
   describe "GET show" do
     it "should assign a @payment" do
-      payment = order.payment
+      payment = Order.find(order).payment
       get :show, :id => payment.id
       assigns(:payment).should == payment
     end
@@ -40,8 +41,7 @@ describe DebitsController do
       end
 
       it "should redirect to cart path if the order total is less then 0" do
-        order.stub(:total).and_return(0)
-        session[:order] = order
+        Order.find(order).line_items.delete_all
         get 'new'
         response.should redirect_to(cart_path)
       end
@@ -50,18 +50,18 @@ describe DebitsController do
     context "with a valid freight" do
       it "should assign @freight" do
         get 'new'
-        assigns(:freight).should == order.freight
+        assigns(:freight).should == Order.find(order).freight
       end
 
       it "should assign @cart" do
-        Cart.should_receive(:new).with(order)
+        Cart.should_receive(:new).with(Order.find(order))
         get 'new'
       end
     end
 
     context "with a invalid freight" do
       it "assign redirect to address_path" do
-        order.stub(:freight).and_return(nil)
+        Order.find(order).freight.destroy
         get 'new'
         response.should redirect_to(addresses_path)
       end
@@ -100,7 +100,7 @@ describe DebitsController do
       it "should assign @cart" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(debit = @processed_payment)
-        Cart.should_receive(:new).with(order)
+        Cart.should_receive(:new).with(Order.find(order))
         post :create, :debit => attributes
       end
     end

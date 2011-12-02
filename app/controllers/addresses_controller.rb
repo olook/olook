@@ -67,7 +67,6 @@ class ::AddressesController < ApplicationController
   def set_freight_in_the_order(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
     freight.merge!(:address_id => address.id)
-
     if @order.freight
       @order.freight.update_attributes(freight)
     else

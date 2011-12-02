@@ -9,6 +9,7 @@ describe PaymentsController do
   let(:total) { 99.55 }
 
   before :each do
+    FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
   end
@@ -85,8 +86,8 @@ describe PaymentsController do
       end
 
       it "should redirect to cart path if the order total is less then 0" do
-        order.stub(:total).and_return(0)
         session[:order] = order
+        Order.find(order).line_items.delete_all
         get 'index'
         response.should redirect_to(cart_path)
       end
@@ -107,7 +108,7 @@ describe PaymentsController do
 
     context "with a invalid freight" do
       it "assign redirect to address_path" do
-        order.stub(:freight).and_return(nil)
+        Order.find(order).freight.destroy
         get 'index'
         response.should redirect_to(addresses_path)
       end

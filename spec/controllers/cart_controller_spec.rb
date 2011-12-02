@@ -100,7 +100,7 @@ describe CartController do
 
         it "should assign a order in the session" do
           post :create, :variant => {:id => variant.id}
-          session[:order].should == Order.last
+          Order.find(session[:order]).should == Order.last
         end
 
         it "should not create a Order when already exists in the session" do
