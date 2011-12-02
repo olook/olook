@@ -44,7 +44,7 @@
           <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
           <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
           <li class="cart">
-            <%= raw link_to "Minha Sacola #{content_tag(:span, @order ? '('+@order.line_items.count+')' : '(0)')}".html_safe, "javascript:void(0);", :class => "cart" %>
+            <%= link_to "Minha Sacola #{content_tag(:span, @order ? '('+@order.line_items.count+')' : '(0)')}".html_safe, "javascript:void(0);", :class => "cart" %>
             <ul class="submenu">
               <li><p class="freight">Frete grátis acima de R$120,00</p></li>
               <% if @order %>
