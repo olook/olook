@@ -1,6 +1,8 @@
 .box_product {
   a {
     text-decoration: none;
+    margin: 0 0 0 3px;
+    float: left;
     img {
       margin: 0 0 10px 0;
       border-bottom: 1px #b2b2b2 solid;
@@ -21,6 +23,9 @@
     width: 100%;
     overflow: hidden;
     margin: 0 0 10px 0;
+    a {
+      float: none;
+    }
     ol, img {
       float: left;
     }
@@ -40,13 +45,16 @@
     }
     .like {
       background: url('/assets/common/ico-heart-off.png') left no-repeat;
+      text-indent: -9999px;
       color: #716d68;
       font-family: Arial;
       font-size: 12px;
       line-height: 16px;
       text-decoration: none;
       text-transform: uppercase;
-      padding-left: 20px;
+      width: 14px;
+      height: 14px;
+      display: block;
       &:hover, &.selected {
         background: url('/assets/common/ico-heart-on.png') left no-repeat;
         color: #ff7db0;
