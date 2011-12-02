@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
+  layout "my_account"
 
   before_filter :check_survey_response, :only => [:new, :create]
 
@@ -11,6 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource
     end
     resource.is_invited = true if session[:invite]
+    render :layout => "application"
   end
 
   def create
