@@ -1,11 +1,5 @@
 # -*- encoding : utf-8 -*-
 module PaymentManager
-  def process_payment
-    order = session[:order].reload
-    payment_builder = PaymentBuilder.new(order, @payment, @delivery_address)
-    payment_builder.process!
-  end
-
   def build_cart
     @cart = Cart.new(@order)
   end
@@ -29,10 +23,6 @@ module PaymentManager
   def check_freight
     @freight = @order.freight
     redirect_to(addresses_path, :notice => "Informe um endereço") unless @freight
-  end
-
-  def load_user
-    @user = current_user
   end
 
   def check_user_address
