@@ -108,7 +108,7 @@ describe DebitsController do
     describe "with invalid params" do
       context "when a payment fail" do
         before :each do
-          processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard))
+          processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit))
           payment_builder = mock
           payment_builder.stub(:process!).and_return(processed_payment)
           PaymentBuilder.stub(:new).and_return(payment_builder)
