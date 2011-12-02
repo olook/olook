@@ -19,8 +19,7 @@ class CreditCardsController < ApplicationController
     @payment = CreditCard.new(params[:credit_card])
 
     if @payment.valid?
-      order = session[:order].reload
-      payment_builder = PaymentBuilder.new(order, @payment)
+      payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS

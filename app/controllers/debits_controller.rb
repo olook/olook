@@ -18,8 +18,7 @@ class DebitsController < ApplicationController
   def create
     @payment = Debit.new(params[:debit])
     if @payment.valid?
-      order = session[:order].reload
-      payment_builder = PaymentBuilder.new(order, @payment)
+      payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
