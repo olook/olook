@@ -93,6 +93,6 @@ private
   end
   
   def update_master_variant
-    @master_variant.save!
+    master_variant.save!
   end
 end

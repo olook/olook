@@ -96,7 +96,28 @@ describe Product do
     describe 'helper methods' do
       xit '#create_master_variant' do
       end
-      xit '#update_master_variant' do
+      describe '#update_master_variant' do
+        before :each do
+          subject.save # create product
+          subject.description = 'a'
+        end
+
+        it 'should trigger the method after_update' do
+          subject.should_receive(:update_master_variant)
+          subject.save # save to trigger the update
+        end
+        
+        it 'should call save on the master variant' do
+          subject.master_variant.should_receive(:'save!')
+          subject.save
+        end
+        
+        it 'fix bug: should not break if @master_variant was not initialized' do
+          loaded_product = Product.find subject.id
+          expect {
+            loaded_product.save
+          }.not_to raise_error
+        end
       end
     end
   end
