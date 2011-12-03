@@ -79,11 +79,25 @@ describe Product do
       subject.save
     end
 
+    it "should call update_master_variant after_saving a change in the product" do
+      subject.save
+      subject.price = 10
+      subject.should_receive(:update_master_variant)
+      subject.save
+    end
+
     it "should be created automaticaly after the product is created" do
       subject.save
       subject.master_variant.should_not be_nil
       subject.master_variant.should be_persisted
       subject.master_variant.description.should == 'master'
+    end
+
+    describe 'helper methods' do
+      xit '#create_master_variant' do
+      end
+      xit '#update_master_variant' do
+      end
     end
   end
   
