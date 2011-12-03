@@ -103,16 +103,31 @@ describe Variant do
       end
     end
 
-    it "should copy the master_variant attributes" do
-      new_variant = subject.product.variants.build
-      new_variant.copy_master_variant
-      
-      new_variant.width.should      == new_variant.master_variant.width
-      new_variant.height.should     == new_variant.master_variant.height
-      new_variant.length.should     == new_variant.master_variant.length
-      new_variant.weight.should     == new_variant.master_variant.weight
-      new_variant.price.should      == new_variant.master_variant.price
-      new_variant.inventory.should  == new_variant.master_variant.inventory
+    describe 'when executing' do
+      let(:new_variant) { subject.product.variants.build }
+
+      it "should copy the master_variant attributes" do
+        new_variant.copy_master_variant
+        
+        new_variant.width.should          == new_variant.master_variant.width
+        new_variant.height.should         == new_variant.master_variant.height
+        new_variant.length.should         == new_variant.master_variant.length
+        new_variant.weight.should         == new_variant.master_variant.weight
+        new_variant.price.should          == new_variant.master_variant.price
+      end
+
+      it "should not override the inventory" do
+        new_variant.master_variant.stub(:inventory).and_return(123)
+        new_variant.inventory = 456
+        new_variant.copy_master_variant
+        new_variant.inventory.should == 456
+      end
+
+      it "should return without doing anything if the variant being changed is the master itself" do
+        subject.stub(:'is_master?').and_return(true)
+        subject.should_not_receive(:'width=')
+        subject.copy_master_variant
+      end
     end
     
     it "should be called on the child variants when the master is updated" do
