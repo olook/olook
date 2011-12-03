@@ -59,7 +59,6 @@ class Variant < ActiveRecord::Base
     self.length     = master_variant.length
     self.weight     = master_variant.weight
     self.price      = master_variant.price
-    self.inventory  = master_variant.inventory
   end
   
   def replicate_master_changes
