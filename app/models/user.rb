@@ -100,10 +100,11 @@ class User < ActiveRecord::Base
     result = []
     collection = Collection.current
     self.profile_scores.each do |profile_score|
-      result += profile_score.profile.products.where(:collection_id => collection).all
+      scope = profile_score.profile.products.where(:collection_id => collection)
+      scope = scope.where(:category => category) if category
+      result += scope.all
     end
-    
-    category.nil? ? result : result.find_all {|product| product.category == category }
+    result
   end
 
   private
