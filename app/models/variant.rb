@@ -53,6 +53,7 @@ class Variant < ActiveRecord::Base
   end
 
   def copy_master_variant
+    return if self.is_master?
     self.width      = master_variant.width
     self.height     = master_variant.height
     self.length     = master_variant.length

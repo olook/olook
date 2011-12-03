@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
+  after_update :update_master_variant
   
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -80,14 +81,18 @@ class Product < ActiveRecord::Base
 
 private
   def create_master_variant
-    @master_variant = self.variants.unscoped.build( :is_master => true,
-                          :product => self,
-                          :number => "master#{self.model_number}",
-                          :description => 'master',
-                          :price => 0.0, :inventory => 0,
-                          :width => 0, :height => 0, :length => 0,
-                          :display_reference => 'master',
-                          :weight => 0.0 )
+    @master_variant = Variant.new(:is_master => true,
+                                  :product => self,
+                                  :number => "master#{self.model_number}",
+                                  :description => 'master',
+                                  :price => 0.0, :inventory => 0,
+                                  :width => 0, :height => 0, :length => 0,
+                                  :display_reference => 'master',
+                                  :weight => 0.0 )
+    @master_variant.save!
+  end
+  
+  def update_master_variant
     @master_variant.save!
   end
 end
