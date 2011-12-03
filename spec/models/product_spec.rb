@@ -94,8 +94,15 @@ describe Product do
     end
 
     describe 'helper methods' do
-      xit '#create_master_variant' do
+      it '#create_master_variant' do
+        new_variant = double :variant
+        new_variant.should_receive(:'save!')
+        Variant.should_receive(:new).and_return(new_variant)
+        subject.instance_variable_get('@master_variant').should be_nil
+        subject.send :create_master_variant
+        subject.instance_variable_get('@master_variant').should == new_variant
       end
+
       describe '#update_master_variant' do
         before :each do
           subject.save # create product
@@ -104,7 +111,7 @@ describe Product do
 
         it 'should trigger the method after_update' do
           subject.should_receive(:update_master_variant)
-          subject.save # save to trigger the update
+          subject.save
         end
         
         it 'should call save on the master variant' do
