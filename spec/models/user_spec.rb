@@ -247,7 +247,7 @@ describe User do
       subject.showroom.should == [sporty_product_a, sporty_product_b, casual_product_a, casual_product_b]
     end
     
-    it 'should return only the bag products' do
+    it 'should return only products of the specified category' do
       subject.showroom(Category::BAG).should == [sporty_product_a]
     end
   end
