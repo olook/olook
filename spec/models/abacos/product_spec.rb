@@ -40,18 +40,11 @@ describe Abacos::Product do
     it 'should call the merging methods on the product' do
       mock_product = mock_model(::Product)
 
+      subject.should_receive(:find_or_initialize_product).and_return(mock_product)
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
       
-      ::Product.stub(:find_or_create_by_model_number).
-                with( subject.model_number,
-                      :name         => subject.name,
-                      :category     => subject.category,
-                      :description  => subject.description
-                ).
-                and_return(mock_product)
-
       Abacos::ProductAPI.should_receive(:confirm_product)
       
       subject.integrate

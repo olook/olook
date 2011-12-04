@@ -1,9 +1,10 @@
             <div class="line color">
               <p>Cor:</p>
               <ol class="colors">
-                <% product_colors.each do |product| %>
+                <li><%= image_tag product.color_sample.url || 'fake/no-color.png', :title => product.name %></li>
+                <% product.colors.each do |related_product| %>
                   <li>
-                    <%= link_to image_tag(product.color_sample), product %>
+                    <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product %>
                   </li>
                 <% end %>
               </ol>

@@ -28,11 +28,7 @@ module Abacos
     
     def integrate
       ::Product.transaction do
-        product = ::Product.find_or_create_by_model_number(self.model_number, 
-                        :name         => self.name,
-                        :category     => self.category,
-                        :description  => self.description)
-
+        product = find_or_initialize_product
         integrate_attributes(product)
         integrate_details(product)
         integrate_profiles(product)
@@ -41,6 +37,19 @@ module Abacos
       end
     end
     
+    def find_or_initialize_product
+      product = ::Product.find_by_model_number(self.model_number)
+      if product.nil?
+        product = ::Product.new(:model_number => self.model_number,
+                                :name         => self.name,
+                                :category     => self.category,
+                                :description  => self.description)
+        product.id = self.model_number.to_i
+        product.save!
+      end
+      product
+    end
+
     def integrate_attributes(product)
       product.update_attributes(self.attributes)
       product.collection = Collection.find(self.collection_id) unless self.collection_id.nil?
