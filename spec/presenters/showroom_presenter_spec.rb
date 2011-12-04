@@ -4,7 +4,7 @@ require "spec_helper"
 describe ShowroomPresenter do
   let(:member) { FactoryGirl.create :member }
   let(:template) { double :template }
-  subject { described_class.new member, template }
+  subject { described_class.new template, :member => member }
 
   describe '#render_identification' do
     it "should render the partial with the FB avatar if the user is FB connected" do

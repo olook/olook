@@ -70,9 +70,16 @@ class Product < ActiveRecord::Base
   delegate :weight, to: :master_variant
   delegate :'weight=', to: :master_variant
   
-  def showroom_picture
+  def main_picture
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
-    picture.image_url(:showroom) unless picture.nil?
+  end
+
+  def showroom_picture
+    main_picture.try(:image_url, :showroom)
+  end
+  
+  def thumb_picture
+    main_picture.try(:image_url, :thumb)
   end
   
   def master_variant

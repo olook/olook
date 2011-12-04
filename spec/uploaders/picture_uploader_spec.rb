@@ -15,7 +15,7 @@ describe PictureUploader do
   let(:test_file_dir) { File.expand_path File.dirname( __FILE__) }
   let(:valid_image)   { File.join test_file_dir, 'valid_image.jpg' }
   let(:invalid_image) { File.join test_file_dir, 'invalid_image.txt' }
-  let(:picture)       { FactoryGirl.create :gallery_picture }
+  let(:picture)       { FactoryGirl.create :main_picture }
 
   subject { described_class.new(picture, :image) }
 

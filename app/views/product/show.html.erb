@@ -1,10 +1,10 @@
-<% present @product do |product_presenter| %>
+<% present 'Product', :product => @product, :member => @user do |product_presenter| %>
   <% content_for(:head) do %>
     <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
   <% end %>
 
   <div id="product">
-    <%= product_presenter.member_showroom %>
+    <%= product_presenter.render_member_showroom %>
     <div class="content">
       <%= product_presenter.render_related_products %>
 
