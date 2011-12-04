@@ -33,7 +33,7 @@
               <%= select_tag('variant[quantity]', options_for_select(Product::QUANTITY_OPTIONS, item.quantity)) %>
             <% end %>
           </td>
-          <td class="value"><p><strong><%= item.variant.price %></strong></p></td>
+          <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
           <td class="delete_item" valign="middle">
             <%= form_for(cart_path, :method => :put) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
