@@ -27,6 +27,11 @@ describe CreditCard do
     it { should_not allow_value("1111 2222 3333 4444").for(:credit_card_number) }
     it { should_not allow_value("1111").for(:credit_card_number) }
 
+    it { should allow_value("3456").for(:security_code) }
+    it { should allow_value("345").for(:security_code) }
+    it { should_not allow_value("34567").for(:security_code) }
+    it { should_not allow_value("1bfj").for(:security_code) }
+
   end
 
   context "status" do

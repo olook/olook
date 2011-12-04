@@ -5,6 +5,7 @@ class CreditCardValidator < ActiveModel::Validator
       validates_presence_of :user_name, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday
       validates_format_of :telephone, :with => CreditCard::PhoneFormat
       validates_format_of :credit_card_number, :with => CreditCard::CreditCardNumberFormat
+      validates_format_of :security_code, :with => CreditCard::SecurityCodeFormat
     end
   end
 end
