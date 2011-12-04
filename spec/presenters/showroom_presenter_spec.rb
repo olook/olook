@@ -30,7 +30,7 @@ describe ShowroomPresenter do
     let(:fake_products) { Array.new(10, :one_product) }
 
     before :each do
-      subject.member.stub(:showroom).with(Category::SHOE).and_return(fake_products)
+      subject.member.stub(:all_profiles_showroom).with(Category::SHOE).and_return(fake_products)
     end
 
     it "a given range" do
@@ -46,7 +46,7 @@ describe ShowroomPresenter do
     end
 
     it "if the range doesn't exist, it should not call it the render" do
-      subject.member.stub(:showroom).and_return([])
+      subject.member.stub(:all_profiles_showroom).and_return([])
       template.should_not_receive(:render)
       template.should_receive(:raw).with('')
       subject.display_products 8, Category::SHOE

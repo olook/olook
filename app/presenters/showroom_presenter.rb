@@ -19,7 +19,7 @@ class ShowroomPresenter < BasePresenter
   end
   
   def display_products(asked_range, category)
-    products = member.showroom(category)
+    products = member.all_profiles_showroom(category)
     range = parse_range(asked_range, products)
 
     output = ''
