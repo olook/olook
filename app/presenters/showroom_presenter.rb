@@ -39,15 +39,6 @@ class ShowroomPresenter < BasePresenter
     display_products(asked_range, Category::ACCESSORY)
   end
 
-  def product_picture(product)
-    picture = product.showroom_picture
-    if picture.nil?
-      h.image_tag "fake/showroom-product.png"
-    else
-      h.image_tag picture
-    end
-  end
-
   def welcome_message(time = Time.now.hour)
     case
       when MORNING.cover?(time)   then "Bom dia, #{member.first_name}!"

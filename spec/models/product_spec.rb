@@ -15,21 +15,22 @@ describe Product do
   end
 
   describe "scopes" do
+    let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
+    let!(:bag)       { FactoryGirl.create(:basic_bag) }
+    let!(:accessory) { FactoryGirl.create(:basic_accessory) }
+
     before :each do
-      @shoe         = FactoryGirl.create(:basic_shoe)
-      @bag          = FactoryGirl.create(:basic_bag)
-      @accessories  = FactoryGirl.create(:basic_accessory)
       described_class.count.should == 3
     end
 
     it "the shoes scope should return only shoes" do
-      described_class.shoes.should == [@shoe]
+      described_class.shoes.should == [shoe]
     end
     it "the bags scope should return only bags" do
-      described_class.bags.should == [@bag]
+      described_class.bags.should == [bag]
     end
     it "the accessories scope should return only accessories" do
-      described_class.accessories.should == [@accessories]
+      described_class.accessories.should == [accessory]
     end
   end
   
@@ -230,6 +231,21 @@ describe Product do
     it 'should return the variants sorted by description' do
       subject.variants.should == [last_variant, first_variant]
       subject.variants.sorted_by_description.should == [first_variant, last_variant]
+    end
+  end
+  
+  describe "#colors" do
+    let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
+    let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
+    let(:black_bag) { FactoryGirl.create(:basic_bag) }
+    
+    before :each do
+      black_shoe.relate_with_product black_bag
+      black_shoe.relate_with_product red_shoe
+    end
+    
+    it 'should return a hash list of related products of the same category of the product' do
+      black_shoe.colors.should == [red_shoe]
     end
   end
 end

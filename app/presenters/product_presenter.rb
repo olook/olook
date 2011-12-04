@@ -29,7 +29,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_colors
-    h.render :partial => 'product/colors', :locals => {:product_presenter => self}
+    h.render :partial => 'product/colors', :locals => {:product_colors => product.colors}
   end
 
   def render_sizes
