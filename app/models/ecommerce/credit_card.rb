@@ -8,6 +8,7 @@ class CreditCard < Payment
   CreditCardNumberFormat = /[0-9]{16}/
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
+  ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
   validates_with CreditCardValidator
 
