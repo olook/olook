@@ -68,20 +68,6 @@ describe ShowroomPresenter do
       end
     end
   end
-
-  describe '#product_picture' do
-    let(:fake_product) { double :fake_product }
-    it 'should return the product picture when it exists' do
-      fake_product.stub(:showroom_picture).and_return('product_picture')
-      template.should_receive(:image_tag).with('product_picture').and_return(:picture)
-      subject.product_picture(fake_product).should == :picture
-    end
-    it "should return the default picture when it doesn't exist" do
-      fake_product.stub(:showroom_picture).and_return(nil)
-      template.should_receive(:image_tag).with("fake/showroom-product.png").and_return(:default_picture)
-      subject.product_picture(fake_product).should == :default_picture
-    end
-  end
   
   describe '#parse_range' do
     let(:array) { Array.new(10, :item) }

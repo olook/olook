@@ -15,9 +15,7 @@
         <div id="related">
           <h1>Seus stylists também sugerem</h1>
           <ul>
-            <% @product.related_products.each do |related_product| %>
-              <%= render :partial => "shared/showroom_product_item" %>
-            <% end %>
+            <%= render :partial => "shared/showroom_product_item", :collection => @product.related_products, :as => :product %>
           </ul>
         </div>
       </div>

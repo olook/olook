@@ -85,6 +85,10 @@ class Product < ActiveRecord::Base
   def master_variant
     @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
   end
+  
+  def colors
+    self.related_products.where(:category => self.category)
+  end
 
 private
   def create_master_variant
