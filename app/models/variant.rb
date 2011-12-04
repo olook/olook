@@ -59,6 +59,7 @@ class Variant < ActiveRecord::Base
     self.length     = master_variant.length
     self.weight     = master_variant.weight
     self.price      = master_variant.price
+    self.inventory  = 0 if self.inventory.nil?
   end
   
   def replicate_master_changes

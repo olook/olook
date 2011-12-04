@@ -109,11 +109,13 @@ describe Variant do
       it "should copy the master_variant attributes" do
         new_variant.copy_master_variant
         
-        new_variant.width.should          == new_variant.master_variant.width
-        new_variant.height.should         == new_variant.master_variant.height
-        new_variant.length.should         == new_variant.master_variant.length
-        new_variant.weight.should         == new_variant.master_variant.weight
-        new_variant.price.should          == new_variant.master_variant.price
+        new_variant.width.should      == new_variant.master_variant.width
+        new_variant.height.should     == new_variant.master_variant.height
+        new_variant.length.should     == new_variant.master_variant.length
+        new_variant.weight.should     == new_variant.master_variant.weight
+        new_variant.price.should      == new_variant.master_variant.price
+        
+        new_variant.inventory.should  == 0
       end
 
       it "should not override the inventory" do

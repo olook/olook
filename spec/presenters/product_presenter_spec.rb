@@ -60,9 +60,7 @@ describe ProductPresenter do
   
   describe '#render_colors' do
     it "should render the partial with the product colors" do
-      colors = [:red, :black]
-      subject.product.stub(:colors).and_return(colors)
-      template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product_colors => colors}).and_return('colors')
+      template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product}).and_return('colors')
       subject.render_colors.should == 'colors'
     end
   end
