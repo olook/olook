@@ -3,16 +3,33 @@ require "spec_helper"
 
 describe ProductPresenter do
   let(:product) { FactoryGirl.create :basic_shoe }
+  let(:member) { double :user }
   let(:template) { double :template }
-  subject { described_class.new product, template }
+  subject { described_class.new template, :product => product, :member => member }
 
-  describe '#member_showroom' do
-    it "should render the partial with the carousel with the member's showroom" do
-      template.should_receive(:render).with(:partial => 'product/member_showroom', :locals => {:product_presenter => subject}).and_return('showroom')
-      subject.member_showroom.should == 'showroom'
+  describe "user showroom methods" do
+    describe '#render_member_showroom' do
+      it "should render the partial with the carousel with the member's showroom" do
+        template.should_receive(:render).with(:partial => 'product/member_showroom', :locals => {:product_presenter => subject}).and_return('showroom')
+        subject.render_member_showroom.should == 'showroom'
+      end
+    end
+    
+    it "#collection_name, should return the current collection name" do
+      Date.stub_chain(:today, :month).and_return(4)
+      subject.collection_name.should == 'Abril'
+    end
+
+    describe "#render_main_profile_showroom" do
+      it "should render a list of product images with links to their pages" do
+        products = [:product_a, :product_b]
+        subject.member.should_receive(:main_profile_showroom).and_return(products)
+        template.should_receive(:render).with(:partial => 'product/showroom_product', :collection => products, :as => :product)
+        subject.render_main_profile_showroom
+      end
     end
   end
-
+  
   describe '#render_related_products' do
     it "should render the partial with product's related products" do
       template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:product_presenter => subject}).and_return('related')

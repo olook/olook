@@ -1,14 +1,12 @@
 # -*- encoding : utf-8 -*-
 class BasePresenter
-  def initialize(object, template)
-    @object = object
-    @template = template
-  end
-  
-  def self.presents(name)
-    define_method(name) do
-      @object
+  def initialize(template, objects)
+    objects.each do |key, value|
+      self.class.send :define_method, key do
+        value
+      end
     end
+    @template = template
   end
   
   def h

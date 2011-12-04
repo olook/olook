@@ -8,7 +8,7 @@ describe Picture do
   end
   
   it "should destroy the associated picture when the product is destroyed" do
-    picture = FactoryGirl.create(:gallery_picture)
+    picture = FactoryGirl.create(:main_picture)
     Product.count.should == 1
     Picture.count.should == 1
     picture.product.destroy

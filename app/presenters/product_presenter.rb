@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
-  presents :product
-  
   def collection_name
     I18n.t('date.month_names')[Date.today.month]
   end
   
-  def member_showroom
+  def render_member_showroom
     h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self}
+  end
+  
+  def render_main_profile_showroom
+    h.render :partial => 'product/showroom_product', :collection => member.main_profile_showroom, :as => :product
   end
   
   def render_related_products
