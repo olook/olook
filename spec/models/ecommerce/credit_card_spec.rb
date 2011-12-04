@@ -19,6 +19,14 @@ describe CreditCard do
     it { should validate_presence_of(:user_identification) }
     it { should validate_presence_of(:telephone) }
     it { should validate_presence_of(:user_birthday) }
+
+    it { should allow_value("(11)1111-1111").for(:telephone) }
+    it { should_not allow_value("2222-2222").for(:telephone) }
+
+    it { should allow_value("1111222233334444").for(:credit_card_number) }
+    it { should_not allow_value("1111 2222 3333 4444").for(:credit_card_number) }
+    it { should_not allow_value("1111").for(:credit_card_number) }
+
   end
 
   context "status" do
