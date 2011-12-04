@@ -32,6 +32,11 @@ describe CreditCard do
     it { should_not allow_value("34567").for(:security_code) }
     it { should_not allow_value("1bfj").for(:security_code) }
 
+
+    it { should allow_value("12/06/1986").for(:user_birthday) }
+    it { should_not allow_value("12/06/19").for(:user_birthday) }
+    it { should_not allow_value("12/6/1990").for(:user_birthday) }
+
   end
 
   context "status" do
