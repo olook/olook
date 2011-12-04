@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   def profile_scores
     self.points.includes(:profile).order('value DESC')
   end
-  
+
   def main_profile
     self.profile_scores.first.try(:profile)
   end
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   def invitation_url(host = 'olook.com.br')
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
-  
+
   def all_profiles_showroom(category = nil)
     result = []
     self.profile_scores.each do |profile_score|
@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
     end
     result
   end
-  
+
   def main_profile_showroom(category = nil)
     profile_showroom(self.main_profile, category) if self.main_profile
   end
@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
     scope = scope.where(:category => category) if category
     scope
   end
-  
+
   private
 
   def generate_invite_token
