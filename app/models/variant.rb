@@ -22,7 +22,7 @@ class Variant < ActiveRecord::Base
 
   delegate :name, :to => :product
   delegate :master_variant, :to => :product
-  
+
   def product_id=(param_id)
     result = super(param_id)
     copy_master_variant
@@ -48,8 +48,8 @@ class Variant < ActiveRecord::Base
     self.is_master = false if self.is_master.nil?
   end
 
-  def available?
-    inventory > 0
+  def available_for_quantity?(quantity = 1)
+    inventory - quantity >= 0
   end
 
   def copy_master_variant
@@ -61,7 +61,7 @@ class Variant < ActiveRecord::Base
     self.price      = master_variant.price
     self.inventory  = 0 if self.inventory.nil?
   end
-  
+
   def replicate_master_changes
     # I don't know why, but self.product.variants doesn't work
     master_product = Product.find(self.product.id)

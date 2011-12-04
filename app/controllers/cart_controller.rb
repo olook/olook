@@ -5,7 +5,7 @@ class CartController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_product_variant, :only => [:create, :update]
+  before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
   before_filter :current_order
 
   def update_bonus
@@ -34,6 +34,14 @@ class CartController < ApplicationController
   def update
     notice = @order.remove_variant(@variant) ? "Produto removido com sucesso" : "Este produto não está na sua sacola"
     redirect_to cart_path, :notice => notice
+  end
+
+  def update_quantity_product
+   if @order.add_variant(@variant, params[:variant][:quantity])
+      redirect_to(cart_path, :notice => "Quantidade atualizada")
+    else
+      redirect_to(:back, :notice => "Produto esgotado")
+    end
   end
 
   def create
