@@ -7,6 +7,7 @@ describe CartController do
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
     let(:order) { FactoryGirl.create(:order, :user => user) }
+    let(:quantity) { 3 }
 
     describe "GET show" do
       it "should assign @bonus" do
@@ -82,6 +83,37 @@ describe CartController do
           Order.any_instance.stub(:remove_variant).with(variant).and_return(false)
           put :update, :variant => {:id => variant.id}
           response.should redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+        end
+      end
+    end
+
+    describe "PUT update_quantity_product" do
+      before :each do
+        @back = request.env['HTTP_REFERER'] = product_path(product)
+      end
+
+      context "with a valid @variant" do
+        it "should redirect back to product page" do
+          put :update_quantity_product, :variant => {:id => variant.id, :quantity => quantity}
+          response.should redirect_to(cart_path)
+        end
+
+        it "should update the variant quantity in the order" do
+          Order.any_instance.should_receive(:add_variant).with(variant, quantity.to_s).and_return(true)
+          put :update_quantity_product, :variant => {:id => variant.id, :quantity => quantity}
+        end
+      end
+
+      context "with a invalid @variant" do
+        it "should redirect back with a warning if the variant dont exists" do
+          put :update_quantity_product, :variant => {:id => "", :quantity => quantity}
+          response.should redirect_to(@back)
+        end
+
+        it "should redirect back with a warning if the variant is not available" do
+          Variant.any_instance.stub(:available_for_quantity?).and_return(false)
+          post :create, :variant => {:id => ""}
+          response.should redirect_to(@back, :notice => "Produto esgotado")
         end
       end
     end

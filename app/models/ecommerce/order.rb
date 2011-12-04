@@ -74,10 +74,11 @@ class Order < ActiveRecord::Base
   end
 
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
-    if variant.available?
+    quantity = quantity.to_i
+    if variant.available_for_quantity?(quantity)
       current_item = line_items.select { |item| item.variant == variant }.first
       if current_item
-        current_item.increment!(:quantity, quantity)
+        current_item.update_attributes(:quantity => quantity)
       else
         current_item =  LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity, :price => variant.price)
         line_items << current_item

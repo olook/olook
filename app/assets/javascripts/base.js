@@ -10,7 +10,7 @@ $(document).ready(function() {
         $('nav.menu').removeClass('fixed');
       }
     });
-  } 
+  }
 
   if($(window).width() < "1200") {
     $("#wrapper_menu .menu").addClass("smaller");
@@ -110,11 +110,11 @@ $(document).ready(function() {
   $("input:text.phone").setMask({
     mask: '(99)9999-9999'
   });
-  
+
   $("input:text.expiration_date").setMask({
     mask: '19/99'
   });
-  
+
   $("input:text.user_identification").setMask({
     mask: '999.999.999-99'
   });
@@ -129,5 +129,9 @@ $(document).ready(function() {
 
   $("input:text.security_code").setMask({
     mask: '9999'
+  });
+
+  $(".form_amount").change(function(){
+    $(this).submit();
   });
 });

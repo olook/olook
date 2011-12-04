@@ -5,6 +5,8 @@ describe Order do
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
+  let(:quantity) { 3 }
+  let(:credits) { 1.89 }
 
   context "creating a Order" do
     it "should generate a number" do
@@ -65,12 +67,9 @@ describe Order do
   end
 
   context "total with items" do
-    let(:quantity) { 3 }
-    let(:credits) { 1.89 }
-
     before :each do
       subject.add_variant(basic_shoe_35)
-      quantity.times { subject.add_variant(basic_shoe_40) }
+      subject.add_variant(basic_shoe_40, quantity)
     end
 
     it "should return the total with credits" do
@@ -84,12 +83,7 @@ describe Order do
       subject.total.should == expected
     end
 
-    it "should return the total wihout credits" do
-      expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
-      subject.total.should == expected
-    end
-
-    it "should return the total with credits" do
+    it "should return the total with freight" do
       expected = subject.total + subject.freight.price
       subject.total_with_freight.should == expected
     end
@@ -101,19 +95,35 @@ describe Order do
     end
   end
 
-  context "when the inventory is zero" do
+  context "when the inventory is not available" do
     before :each do
-      basic_shoe_35.update_attributes(:inventory => 0)
+      basic_shoe_35.update_attributes(:inventory => 10)
     end
 
     it "should not create line items" do
       expect {
-        subject.add_variant(basic_shoe_35)
+        subject.add_variant(basic_shoe_35, 11)
       }.to change(LineItem, :count).by(0)
     end
 
     it "should return a nil line item" do
-      subject.add_variant(basic_shoe_35).should == nil
+      subject.add_variant(basic_shoe_35, 11).should == nil
+    end
+  end
+
+  context "when the inventory is available" do
+    before :each do
+      basic_shoe_35.update_attributes(:inventory => 10)
+    end
+
+    it "should create line items" do
+      expect {
+        subject.add_variant(basic_shoe_35, 10)
+      }.to change(LineItem, :count).by(1)
+    end
+
+    it "should not return a nil line item" do
+      subject.add_variant(basic_shoe_35, 10).should_not == nil
     end
   end
 
@@ -135,10 +145,10 @@ describe Order do
       @line_item = subject.line_items.first
     end
 
-    it "should increment the quantity" do
+    it "should update the quantity" do
       first_quantity = @line_item.quantity
-      subject.add_variant(basic_shoe_35)
-      @line_item.quantity.should == first_quantity + Order::DEFAULT_QUANTITY
+      subject.add_variant(basic_shoe_35, quantity)
+      @line_item.quantity.should == quantity
     end
 
     it "should not create line items" do
