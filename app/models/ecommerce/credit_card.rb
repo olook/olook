@@ -6,6 +6,7 @@ class CreditCard < Payment
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
   CreditCardNumberFormat = /[0-9]{16}/
+  SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
 
   validates_with CreditCardValidator
 
