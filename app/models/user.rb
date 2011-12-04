@@ -79,6 +79,10 @@ class User < ActiveRecord::Base
   def profile_scores
     self.points.includes(:profile).order('value DESC')
   end
+  
+  def main_profile
+    self.profile_scores.first.try(:profile)
+  end
 
   def first_visit?
     self.events.where(:event_type => EventType::FIRST_VISIT).empty?
@@ -96,17 +100,24 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
   
-  def showroom(category = nil)
+  def all_profiles_showroom(category = nil)
     result = []
-    collection = Collection.current
     self.profile_scores.each do |profile_score|
-      scope = profile_score.profile.products.where(:collection_id => collection)
-      scope = scope.where(:category => category) if category
-      result += scope.all
+      result += profile_showroom(profile_score.profile, category).all
     end
     result
   end
+  
+  def main_profile_showroom(category = nil)
+    profile_showroom(self.main_profile, category) if self.main_profile
+  end
 
+  def profile_showroom(profile, category = nil)
+    scope = profile.products.where(:collection_id => Collection.current)
+    scope = scope.where(:category => category) if category
+    scope
+  end
+  
   private
 
   def generate_invite_token

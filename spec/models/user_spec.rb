@@ -228,8 +228,22 @@ describe User do
       subject.invitation_url('localhost').should == "http://localhost/convite/#{subject.invite_token}"
     end
   end
-  
-  describe "#showroom" do
+
+  describe "#main_profile" do
+    let(:mock_point_a) { mock_model Point, :profile => :first_profile }
+    let(:mock_point_b) { mock_model Point, :profile => :second_profile }
+
+    it 'should return the user main profile when it exists' do
+      subject.stub(:profile_scores).and_return([mock_point_a, mock_point_b])
+      subject.main_profile.should == :first_profile
+    end
+    it "should return nil if the doesn't have a profile" do
+      subject.stub(:profile_scores).and_return([])
+      subject.main_profile.should == nil
+    end
+  end
+
+  describe "showroom methods" do
     let(:collection) { FactoryGirl.create(:collection) }
     let!(:casual_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
     let!(:casual_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
@@ -243,12 +257,50 @@ describe User do
       Collection.stub(:current).and_return(collection)
     end
 
-    it "should return the products ordered by profiles" do
-      subject.showroom.should == [sporty_product_a, sporty_product_b, casual_product_a, casual_product_b]
+    describe "#all_profiles_showroom" do
+      it "should return the products ordered by profiles" do
+        subject.all_profiles_showroom.should == [sporty_product_a, sporty_product_b, casual_product_a, casual_product_b]
+      end
+    
+      it 'should return only products of the specified category' do
+        subject.all_profiles_showroom(Category::BAG).should == [sporty_product_a]
+      end
+      
+      it 'should return an array' do
+        subject.all_profiles_showroom.should be_a(Array)
+      end
     end
     
-    it 'should return only products of the specified category' do
-      subject.showroom(Category::BAG).should == [sporty_product_a]
+    describe "#profile_showroom" do
+      it "should return only the products for the given profile" do
+        subject.profile_showroom(sporty_profile).should == [sporty_product_a, sporty_product_b]
+      end
+    
+      it 'should return only the products for the given profile and category' do
+        subject.profile_showroom(sporty_profile, Category::BAG).should == [sporty_product_a]
+      end
+
+      it 'should return a scope' do
+        subject.profile_showroom(sporty_profile).should be_a(ActiveRecord::Relation)
+      end
+    end
+
+    describe "#main_profile_showroom" do
+      before :each do
+        subject.stub(:main_profile).and_return(sporty_profile)
+      end
+
+      it "should return only the products for the main profile" do
+        subject.main_profile_showroom.should == [sporty_product_a, sporty_product_b]
+      end
+    
+      it 'should return only the products of a given category for the main profile' do
+        subject.main_profile_showroom(Category::BAG).should == [sporty_product_a]
+      end
+
+      it 'should return a scope' do
+        subject.main_profile_showroom.should be_a(ActiveRecord::Relation)
+      end
     end
   end
   
