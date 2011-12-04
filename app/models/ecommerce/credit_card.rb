@@ -5,6 +5,7 @@ class CreditCard < Payment
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
+  CreditCardNumberFormat = /[0-9]{16}/
 
   validates_with CreditCardValidator
 
