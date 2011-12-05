@@ -71,4 +71,28 @@ describe ProductPresenter do
       subject.render_sizes.should == 'sizes'
     end
   end
+  
+  describe '#related_products' do
+    context "when the product doesn't have any related products" do
+      it "should return an empty array" do
+        subject.related_products.should be_empty
+      end
+    end
+    
+    context "when the produc has some related products " do
+      let(:related_shoe)  { FactoryGirl.create(:basic_shoe, :name => 'Related shoe') }
+      let(:related_bag)   { FactoryGirl.create(:basic_bag, :name => 'Related bag') }
+
+      it "should return an empty array if all of them are of the same category as the presented product" do
+        product.relate_with_product related_shoe
+        subject.related_products.should == []
+      end
+
+      it "should only the related products of a different category from the presented product" do
+        product.relate_with_product related_shoe
+        product.relate_with_product related_bag
+        subject.related_products.should == [related_bag]
+      end
+    end
+  end
 end
