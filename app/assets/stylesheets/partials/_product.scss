@@ -8,8 +8,6 @@
       width: 132px;
       height: 41px;
       display: block;
-      top: 50px;
-      left: 20px;
       display: none;
     }
   }
@@ -30,6 +28,7 @@
       line-height: normal;
       margin: 0 0 10px 0;
       padding: 0;
+      overflow: hidden;
       float: none;
     }
   }
@@ -59,7 +58,7 @@
       font-size: 24px;
     }
     .like {
-      background: url('/assets/common/ico-heart-off.png') left no-repeat;
+      background: url('/assets/common/ico-heart-off.png') no-repeat;
       text-indent: -9999px;
       color: #716d68;
       font-family: Arial;
@@ -71,7 +70,7 @@
       height: 14px;
       display: block;
       &:hover, &.selected {
-        background: url('/assets/common/ico-heart-on.png') left no-repeat;
+        background: url('/assets/common/ico-heart-on.png') no-repeat;
         color: #ff7db0;
       }
     }
@@ -87,7 +86,11 @@ li.product {
 
 #showroom {
   .box_product {
-    a {
+    a.product_link {
+      p.know {
+        top: 50px;
+        left: 20px;
+      }
       img {
         width: 170px;
         height: 170px;
@@ -95,14 +98,26 @@ li.product {
       h1 {
         width: 175px;
         height: 18px;
-        overflow: hidden;
       }
     }
   }
 }
 #product {
   .box_product {
-
+    a.product_link {
+      p.know {
+        top: 75px;
+        left: 65px;
+      }
+      img {
+        width: 260px;
+        height: 260px;
+      }
+      h1 {
+        width: 255px;
+        height: 30px;
+      }
+    }
   }
 }
 
