@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Billet < Payment
 
+  validates :receipt, :presence => true, :on => :create
+
   state_machine :initial => :started do
     after_transition :authorized => :completed, :do => :complete_order
     after_transition :under_review => :completed, :do => :complete_order
