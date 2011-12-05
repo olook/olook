@@ -9,6 +9,11 @@ describe Billet do
   let(:completed) { "4" }
   let(:under_review) { "8" }
 
+  context "attributes validation" do
+    subject { Billet.new }
+    it{ should validate_presence_of :receipt }
+  end
+
   context "status" do
     it "should return nil with a invalid status" do
       invalid_status = '0'
