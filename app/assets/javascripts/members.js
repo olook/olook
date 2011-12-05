@@ -30,11 +30,26 @@ $(document).ready(function() {
 
   if($("#showroom").length > 0) {
     anchor = window.location.hash;
-    $(anchor+"_container").slideto({ highlight: false });
+    container = $(anchor+"_container");
+    if($(container).length > 0) {
+      container_position = $(container).position().top;
+      position = container_position - 30;
+      $("html, body").animate({
+        scrollTop: position
+      }, 'fast');
+    }
   }
+
   $('nav.menu ul.product_anchors li a').click(function() {
     cl = $(this).parent("li").attr("class");
-    $("#"+cl+"_container").slideto({ highlight: false });
+    container = $("#"+cl+"_container");
+    if(container.length > 0) {
+      container_position = $("#"+cl+"_container").position().top;
+      position = container_position - 30;
+      $('html, body').animate({
+        scrollTop: position
+      }, 'fast');
+    }
   });
 });
 
