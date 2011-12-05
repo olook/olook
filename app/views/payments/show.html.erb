@@ -2,8 +2,17 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
-<section id="payment" class="checkout">
+<section id="payment" class="checkout confirmation">
   <section class="main">
-    <h1>Confirmação</h1>
- </section>
+    <h1>Seu pedido foi efetuado com sucesso!!</h1>
+    <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius velit eget erat condimentum fermentum. Donec id ligula lectus. Duis tempus luctus ipsum, nec tempor leo posuere eu. Quisque eget justo eros. Phasellus quis metus vitae tellus sollicitudin laoreet ac vitae libero. Sed non libero ac enim pulvinar sagittis sed sed lorem. Nullam a quam sit amet lorem cursus ullamcorper quis sed elit.</p>
+    <%= link_to "Voltar para a minha vitrine", member_showroom_path, :class => "back" %>
+  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :order => @payment.order } %>
+    <% end %>
+    <%= render :partial => "shared/payments/info_sidebar", :locals => { :cart => @cart, :order => @payment.order } %>
+    <%= link_to "Imprimir comprovante", "#", :class => "print" %>
+  </section>
 </section>

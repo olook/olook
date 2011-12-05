@@ -511,6 +511,34 @@ section#payment {
       }
     }
   }
+  &.confirmation {
+    section.main {
+      h1 {
+        font-size: 35px;
+        border: none;
+      }
+      p.description {
+        margin: 0 0 20px 0;
+      }
+      a.back {
+        background: url("/assets/my_account/bt-back-showroom.png") no-repeat;
+        text-indent: -9999px;
+        width: 259px;
+        height: 46px;
+        display: block;
+      }
+    }
+    section.sidebar {
+      a.print {
+        background: url("/assets/my_account/bt-print.png") no-repeat;
+        text-indent: -9999px;
+        width: 224px;
+        height: 46px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
 }
 
 section.checkout {
