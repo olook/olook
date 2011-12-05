@@ -11,11 +11,7 @@
           <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product %>
         </li>
       </ol>
-      <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
-    </div>
-    <p class="line">
-      <%= image_tag "fake/like-fb.png" %>
       <span><%= number_to_currency product.price %></span>
-    </p>
+    </div>
   </div>
 </li>
