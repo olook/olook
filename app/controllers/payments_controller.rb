@@ -16,6 +16,7 @@ class PaymentsController < ApplicationController
 
   def show
     @payment = @user.payments.find(params[:id])
+    @cart = Cart.new(@payment.order)
   end
 
   def create
