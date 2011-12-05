@@ -9,7 +9,7 @@ class OrderStatus
     "payment-made-failed"  => ["payment-made", "Falha de comunicação"],
     "order-prepared"       => ["order-prepared", "Seu pedido está sendo separado"],
     "order-delivered"      => ["order-delivered", "Entregue"],
-    "order-not-delivered"  => ["order-not-delivered", "Não entregue"]
+    "order-not-delivered"  => ["order-delivered", "Não entregue"]
   }
 
   def initialize(order)
