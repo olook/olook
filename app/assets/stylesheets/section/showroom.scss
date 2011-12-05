@@ -137,30 +137,30 @@
     margin-bottom: 20px;
     overflow: auto;
     h1.title {
-      color: #1F1F1F;
-      font-family: Arial;
-      font-weight: lighter;
-      line-height: 50px;
+      text-indent: -9999px;
       margin-bottom: 20px;
-      padding: 0 20px 0 65px;
+      display: block;
       float: left;
-      span {
-        color: #df5a8b;
-      }
     }
     &#shoes_container {
       h1.title {
-        background: #FFF url('/assets/showroom/icon-shoes.png') top left no-repeat;
+        background: url('/assets/showroom/title-shoes.png') no-repeat;
+        width: 372px;
+        height: 41px;
       }
     }
     &#purse_container {
       h1.title {
-        background: #FFF url('/assets/showroom/icon-purse.png') top left no-repeat;
+        background: url('/assets/showroom/title-purse.png') no-repeat;
+        width: 353px;
+        height: 41px;
       }
     }
     &#accessories_container {
       h1.title {
-        background: #FFF url('/assets/showroom/icon-accessories.png') top left no-repeat;
+        background: url('/assets/showroom/title-accessories.png') no-repeat;
+        width: 425px;
+        height: 41px;
       }
     }
   }

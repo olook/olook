@@ -33,7 +33,7 @@ $(document).ready(function() {
     container = $(anchor+"_container");
     if($(container).length > 0) {
       container_position = $(container).position().top;
-      position = container_position - 30;
+      position = container_position - 40;
       $("html, body").animate({
         scrollTop: position
       }, 'fast');
@@ -45,7 +45,7 @@ $(document).ready(function() {
     container = $("#"+cl+"_container");
     if(container.length > 0) {
       container_position = $("#"+cl+"_container").position().top;
-      position = container_position - 30;
+      position = container_position - 40;
       $('html, body').animate({
         scrollTop: position
       }, 'fast');
