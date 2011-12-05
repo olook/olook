@@ -4,8 +4,10 @@ module Abacos
     extend Helpers
 
     @queue = :abacos
-    
-    WSDL = "http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
+
+    def self.wsdl
+      "http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
+    end    
 
     def self.download_products
       download_xml :produtos_disponiveis, :dados_produtos
@@ -35,13 +37,8 @@ module Abacos
       return true unless Rails.env.production?
 
       parsed_method = "confirmar_recebimento_#{method}".to_sym
-      response = call_webservice(WSDL, parsed_method, {"Protocolo#{method.to_s.capitalize}" => protocol})
+      response = call_webservice(wsdl, parsed_method, {"Protocolo#{method.to_s.capitalize}" => protocol})
       response[:tipo] == 'tdreSucesso' ? true : raise_webservice_error(response)
-    end
-
-    def self.download_xml(method, data_key)
-      data = call_webservice(WSDL, method)
-      parse_nested_data data, data_key
     end
   end
 end

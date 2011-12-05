@@ -3,6 +3,9 @@ require "spec_helper"
 
 describe Abacos::Helpers do
   class HelperClass
+    def wsdl
+      :fake_wsdl_url
+    end
     include Abacos::Helpers
   end
   
@@ -56,5 +59,11 @@ describe Abacos::Helpers do
         subject.parse_nested_data(nested_data_with_error, :some_key)
       }.to raise_error
     end
+  end
+
+  it '#download_xml' do
+    subject.should_receive(:call_webservice).with(:fake_wsdl_url, :method).and_return(:ws_result)
+    subject.should_receive(:parse_nested_data).with(:ws_result, :key)
+    subject.download_xml(:method, :key)
   end
 end

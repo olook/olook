@@ -2,8 +2,12 @@
 require "spec_helper"
 
 describe Abacos::ProductAPI do
+  it 'should have the WSDL url pointing to the service' do
+    described_class.wsdl.match(/.+AbacosWSProdutos+./).should be_true
+  end
+
   it '#download_xml' do
-    described_class.should_receive(:call_webservice).with(Abacos::ProductAPI::WSDL, :method).and_return(:ws_result)
+    described_class.should_receive(:call_webservice).with(described_class.wsdl, :method).and_return(:ws_result)
     described_class.should_receive(:parse_nested_data).with(:ws_result, :key)
     described_class.download_xml(:method, :key)
   end
@@ -13,7 +17,7 @@ describe Abacos::ProductAPI do
 
     it 'should return true if the call was sucessfull' do
       Rails.env.stub(:'production?').and_return(true)
-      described_class.should_receive(:call_webservice).with(Abacos::ProductAPI::WSDL, :confirmar_recebimento_resource, {"ProtocoloResource" => 'XYZ-ABC-123'}).and_return({:tipo => 'tdreSucesso'})
+      described_class.should_receive(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_resource, {"ProtocoloResource" => 'XYZ-ABC-123'}).and_return({:tipo => 'tdreSucesso'})
       described_class.confirm_integration(:resource, protocol).should be_true
     end
     it 'should raise and error if call failed' do
