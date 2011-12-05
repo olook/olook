@@ -35,4 +35,10 @@ class ProductPresenter < BasePresenter
   def render_sizes
     h.render :partial => 'product/sizes', :locals => {:product_presenter => self}
   end
+  
+  def related_products
+    product.related_products.inject([]) do |result, related_product|
+      related_product.category != product.category ? result << related_product : result
+    end
+  end
 end

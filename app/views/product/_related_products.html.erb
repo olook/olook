@@ -15,7 +15,7 @@
         <div id="related">
           <h1>Seus stylists também sugerem</h1>
           <ul>
-            <%= render :partial => "shared/showroom_product_item", :collection => @product.related_products, :as => :product, :locals => {:image_method => :suggestion_picture} %>
+            <%= render :partial => "shared/showroom_product_item", :collection => product_presenter.related_products, :as => :product, :locals => {:image_method => :suggestion_picture} %>
           </ul>
         </div>
       </div>
