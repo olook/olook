@@ -54,7 +54,10 @@
                     <h1><%= item.variant.name %></h1>
                     <p class="price"><%= number_to_currency(item.variant.price) %></p>
                     <p class="size"><%= number_to_currency(item.variant.number) %></p>
-                    <%= link_to "X", "#", :class => "delete" %>
+                    <%= form_for(item, :url => cart_path, :method => :put, :html => { :class => "delete" }) do %>
+                      <%= hidden_field('variant','id', :value => item.variant.id) %>
+                      <%= submit_tag('')  %>
+                    <% end %>
                   </li>
                 <% end %>
               <% end %>

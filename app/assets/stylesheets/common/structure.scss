@@ -844,15 +844,18 @@ body {
                     font-weight: bold;
                   }
                 }
-                a.delete {
+                form.delete {
                   position: absolute;
-                  background: url("/assets/common/del-product.png") no-repeat;
-                  text-indent: -9999px;
-                  width: 9px;
-                  height: 10px;
-                  display: block;
                   top: 25px;
                   right: 10px;
+                  input[type="submit"] {
+                    background: url("/assets/common/del-product.png") no-repeat;
+                    width: 9px;
+                    height: 10px;
+                    display: block;
+                    border: none;
+                    cursor: pointer;
+                  }
                 }
                 &.last {
                   border: none;
