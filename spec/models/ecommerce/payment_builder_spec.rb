@@ -85,8 +85,7 @@ describe PaymentBuilder do
       :estado => delivery_address.state,
       :pais => delivery_address.country,
       :cep => delivery_address.zip_code,
-      :tel_fixo => delivery_address.telephone,
-      :tel_cel => '(11)9976-8679' #we need check if this field is required
+      :tel_fixo => delivery_address.telephone
     }
 
     subject.payer.should == expected
@@ -94,7 +93,7 @@ describe PaymentBuilder do
 
   it "should return payment data for billet" do
     subject.payment = billet
-    expected = { :valor => @order_total, :id_proprio => order.number,
+    expected = { :valor => @order_total, :id_proprio => order.identification_code,
                 :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
                 :razao=> Payment::REASON  }
 
@@ -103,7 +102,7 @@ describe PaymentBuilder do
 
   it "should return payment data for debit" do
     subject.payment = debit
-    expected = { :valor => @order_total, :id_proprio => order.number, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => order.identification_code, :forma => subject.payment.to_s,
                :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
@@ -113,7 +112,7 @@ describe PaymentBuilder do
   it "should return payment data for credit card" do
     subject.payment = credit_card
     payer = subject.payer
-    expected = { :valor => @order_total, :id_proprio => order.number, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => order.identification_code, :forma => subject.payment.to_s,
               :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
               :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
               :nome => credit_card.user_name, :identidade => credit_card.user_identification,
