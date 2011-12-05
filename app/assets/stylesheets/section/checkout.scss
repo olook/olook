@@ -576,6 +576,10 @@ section.checkout {
       padding: 15px 20px 10px;
       div.item {
         margin-bottom: 20px;
+        h1 {
+          padding-bottom: 5px;
+          border-bottom: 1px #e4e4e4 solid;
+        }
         p {
           margin: 0 0 5px 0;
         }
