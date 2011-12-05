@@ -8,6 +8,7 @@
     <div class="line">
       <ol>
         <li>
+          <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product %>
         </li>
       </ol>
       <%= link_to "Adorei", "javascript:void(0);", :class => "like" %>
