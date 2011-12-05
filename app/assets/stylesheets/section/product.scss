@@ -10,13 +10,12 @@
     overflow: auto;
     border: 1px #e1e1e1 solid;
     h1 {
-      color: #545454;
-      font-family: Arial;
-      font-size: 20px;
-      font-weight: lighter;
-      line-height: 49px;
-      text-transform: uppercase;
-      margin: 0;
+      background: url("/assets/product/title-showroom-december.png") no-repeat;
+      text-indent: -9999px;
+      width: 238px;
+      height: 17px;
+      display: block;
+      margin: 14px 0 0 0;
       float: left;
     }
     div#carousel {
@@ -131,15 +130,12 @@
         overflow: auto;
         clear: both;
         h1 {
-          background: #FFF;
-          color: #545454;
-          font-family: Arial;
-          font-weight: lighter;
-          font-size: 24px;
-          letter-spacing: -1px;
-          text-transform: uppercase;
+          background: url("/assets/product/title-your-stylists.png") no-repeat;
+          text-indent: -9999px;
+          width: 360px;
+          height: 27px;
           margin: 0 0 15px 0;
-          padding-right: 5px;
+          display: block;
           float: left;
         }
         ul {
