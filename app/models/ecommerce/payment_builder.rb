@@ -55,18 +55,17 @@ class PaymentBuilder
       :pais => delivery_address.country,
       :cep => delivery_address.zip_code,
       :tel_fixo => delivery_address.telephone,
-      :tel_cel => '(11)9976-8679' #we need check if this field is required
     }
     data
   end
 
   def payment_data
     if payment.is_a? Billet
-    data = { :valor => order_total, :id_proprio => order.number,
+    data = { :valor => order_total, :id_proprio => order.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON }
     elsif payment.is_a? CreditCard
-      data = { :valor => order_total, :id_proprio => order.number, :forma => payment.to_s,
+      data = { :valor => order_total, :id_proprio => order.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => payment.credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
@@ -74,7 +73,7 @@ class PaymentBuilder
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
-      data = { :valor => order_total, :id_proprio => order.number, :forma => payment.to_s,
+      data = { :valor => order_total, :id_proprio => order.identification_code, :forma => payment.to_s,
                :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
     end
