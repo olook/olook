@@ -487,23 +487,26 @@ section#payment {
               &.expiration_date {
                 width: 100%;
                 margin-bottom: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px #d6d6d6 solid;
                 input[type="text"] {
                   width: 120px;
                 }
               }
               &.user_identification {
-                width: 100%;
-                padding-top: 15px;
-                border-top: 1px #d6d6d6 solid;
+                float: left;
                 input[type="text"] {
                   width: 130px;
                 }
               }
               &.user_birthday {
-                width: 100%;
+                float: left;
                 input[type="text"] {
                   width: 120px;
                 }
+              }
+              &.telephone {
+                float: left;
               }
             }
           }
