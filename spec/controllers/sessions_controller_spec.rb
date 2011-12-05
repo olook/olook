@@ -10,9 +10,9 @@ describe SessionsController do
     let(:user) { FactoryGirl.create(:user) }
 
     describe "Post 'create'" do
-      it "should redirect to the invite people page" do
+      it "should redirect to the showroom user page" do
         post :create, :user => { :email => user.email, :password => user.password }
-        response.should redirect_to(member_invite_path)
+        response.should redirect_to(member_showroom_path)
       end
 
       it "should try to create a sign event for the user" do
