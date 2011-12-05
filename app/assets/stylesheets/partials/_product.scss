@@ -10,15 +10,15 @@
       display: block;
       display: none;
     }
+    img {
+      margin: 0 0 10px 0;
+      border-bottom: 1px #b2b2b2 solid;
+    }
   }
   a {
     text-decoration: none;
     margin: 0 0 0 3px;
     float: left;
-    img {
-      margin: 0 0 10px 0;
-      border-bottom: 1px #b2b2b2 solid;
-    }
     h1 {
       background: none;
       color: #716d68;
@@ -47,6 +47,10 @@
         margin: 0 5px 0 0;
         display: inline !important;
         float: left;
+        img {
+          width: 15px;
+          height: 15px;
+        }
       }
     }
     .like, span {

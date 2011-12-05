@@ -146,7 +146,7 @@
             padding: 10px;
             overflow: auto;
             display: inline-block;
-            a {
+            a.product_link {
               img {
                 width: 260px;
                 height: 260px;
@@ -202,7 +202,6 @@
             font-style: italic;
             line-height: 30px;
             margin-right: 10px;
-            float: left;
           }
           ol {
             float: left;
@@ -229,14 +228,20 @@
             }
           }
           &.color {
-            &.selected {
-            }
             label {
               a {
                 text-indent: -9999px;
                 width: 33px;
                 height: 30px;
                 display: block;
+              }
+            }
+            ol.colors {
+              li {
+                img {
+                  width: 35px;
+                  height: 30px;
+                }
               }
             }
           }
