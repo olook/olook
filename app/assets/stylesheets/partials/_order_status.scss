@@ -27,7 +27,7 @@
         width: 174px;
       }
     }
-    &.class1 {
+    &.not-selected {
       li {
         &.state1 {
           background-position: 0 0;
@@ -43,14 +43,14 @@
         }
       }
     }
-    &.class2 {
+    &.order-requested {
       li {
         &.state1 {
           background-position: 0px -100px;
         }
       }
     }
-    &.class3 {
+    &.payment-made {
       li {
         &.state1 {
           background-position: 0px -100px;
@@ -60,7 +60,7 @@
         }
       }
     }
-    &.class4 {
+    &.order-prepared {
       li {
         &.state1 {
           background-position: 0px -100px;
@@ -73,7 +73,7 @@
         }
       }
     }
-    &.class5 {
+    &.order-delivered {
       li {
         &.state1 {
           background-position: 0px -100px;

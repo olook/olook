@@ -12,6 +12,7 @@ class User::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @order_presenter = OrderStatus.new(@order)
   end
 
   private
