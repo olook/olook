@@ -17,6 +17,7 @@ describe Debit do
   end
 
   context "attributes validation" do
+    subject { Debit.new }
     it{ should validate_presence_of :bank }
     it{ should validate_presence_of :receipt }
   end
