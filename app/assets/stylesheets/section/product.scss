@@ -173,13 +173,17 @@
         font-style: italic;
         h1 {
           font-size: 40px;
+          font-weight: lighter;
           letter-spacing: -3px;
+          line-height: 33px;
           margin-bottom: 10px;
+          padding-bottom: 10px;
           border-bottom: 1px #ebebeb solid;
         }
         p {
-          color: #616161;
+          color: #999;
           font-size: 16px;
+          letter-spacing: -1px;
           margin-bottom: 20px;
           &.price {
             color: #e05789;
