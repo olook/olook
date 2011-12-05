@@ -127,6 +127,29 @@ describe Order do
     end
   end
 
+  context "items availables in the order" do
+    before :each do
+      basic_shoe_35.update_attributes(:inventory => 10)
+      subject.add_variant(basic_shoe_35, 2)
+
+      basic_shoe_40.update_attributes(:inventory => 10)
+      subject.add_variant(basic_shoe_40, 5)
+    end
+
+    context "when all variants are available" do
+      it "should return false for #has_some_unavailable_item" do
+        subject.has_some_unavailable_item?.should == false
+      end
+    end
+
+    context "when at least one variant is unavailable" do
+      it "should return true for #has_some_unavailable_item" do
+        basic_shoe_40.update_attributes(:inventory => 3)
+        subject.has_some_unavailable_item?.should == true
+      end
+    end
+  end
+
   context "when the user try add a new variant" do
     it "should add it in the order" do
       expect {
