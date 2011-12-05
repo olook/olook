@@ -17,11 +17,11 @@
         <h1>Entrega</h1>
         <p>Onde quer que seu pedido seja entregue</p>
       </li>
-      <li class="<%= is_current?(['payments', 'credit_cards', 'debits', 'billets'], ['index', 'new', 'edit', 'show']) %>">
+      <li class="<%= is_current?(['payments', 'credit_cards', 'debits', 'billets'], ['index', 'new', 'edit']) %>">
         <h1>Pagamento</h1>
         <p>Como quer efetuar o pagamento? Selecione uma das opções</p>
       </li>
-      <li class="last">
+      <li class="<%= is_current?(['payments'], ['show']) %> last">
         <h1>Confirmação</h1>
         <p>Confirme seus produtos, endereço de entrega e finalize sua compra</p>
       </li>
