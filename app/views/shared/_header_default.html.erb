@@ -52,8 +52,8 @@
                   <li class="product">
                     <%= image_tag "fake/fake-mini-product.png" %>
                     <h1><%= item.variant.name %></h1>
-                    <p class="price">R$ <%= item.variant.price %></p>
-                    <p class="size"><%= item.variant.number %></p>
+                    <p class="price"><%= number_to_currency(item.variant.price) %></p>
+                    <p class="size"><%= number_to_currency(item.variant.number) %></p>
                     <%= link_to "X", "#", :class => "delete" %>
                   </li>
                 <% end %>
