@@ -10,7 +10,7 @@
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
-      <%= render "shared/payments/info_address" %>
+      <%= render "shared/payments/info_address", :order => @order %>
     <% end %>
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
     <%= link_to "Finalizar", "#", :class => "finish" %>
