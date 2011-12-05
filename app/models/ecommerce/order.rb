@@ -73,6 +73,11 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def has_some_unavailable_item?
+    items = line_items.select {|item| !item.variant.available_for_quantity? item.quantity}
+    items.size > 0
+  end
+
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
     quantity = quantity.to_i
     if variant.available_for_quantity?(quantity)
