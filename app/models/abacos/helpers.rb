@@ -52,5 +52,10 @@ module Abacos
         raise "Nested data \"#{data}\" is invalid"
       end
     end
+
+    def download_xml(method, data_key)
+      data = call_webservice(self.wsdl, method)
+      parse_nested_data data, data_key
+    end
   end
 end
