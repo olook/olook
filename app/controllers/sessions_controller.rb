@@ -23,7 +23,7 @@ class SessionsController < Devise::SessionsController
     if resource_or_scope.is_a?(Admin)
       admin_path
     else
-      member_invite_path
+      member_showroom_path
     end
   end
 
