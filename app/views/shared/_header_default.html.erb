@@ -50,7 +50,7 @@
               <% if @order %>
                 <% @order.line_items.each do |item| %>
                   <li class="product">
-                    <%= image_tag "fake/fake-mini-product.png" %>
+                    <%= image_tag item.variant.product.thumb_picture, :title => item.variant.name %>
                     <h1><%= item.variant.name %></h1>
                     <p class="price"><%= number_to_currency(item.variant.price) %></p>
                     <p class="size"><%= number_to_currency(item.variant.number) %></p>
