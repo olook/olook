@@ -84,6 +84,10 @@ class Product < ActiveRecord::Base
     main_picture.try(:image_url, :thumb)
   end
 
+  def suggestion_picture
+    main_picture.try(:image_url, :suggestion)
+  end
+
   def master_variant
     @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
   end
