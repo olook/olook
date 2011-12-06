@@ -20,6 +20,11 @@ module Ecommerce
     end
   end
 
+  def check_inventory
+    debugger
+    redirect_to(cart_path, :notice => "Produtos com o baixa no estoque foram removidos de sua sacola") if @order.remove_unavailable_items > 0
+  end
+
   def check_freight
     @freight = @order.freight
     redirect_to(addresses_path, :notice => "Informe um endereço") unless @freight
