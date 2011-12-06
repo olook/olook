@@ -171,11 +171,11 @@
     clear: both;
     div.products_list {
       position: relative;
-      background: url('/assets/showroom/border-bottom-product.png') 0 100% no-repeat;
+      background: url('/assets/showroom/border-bottom-product.png') 0 95% no-repeat;
       width: 100%;
       margin-bottom: 30px;
       padding: 0 0 45px 0;
-      overflow: visible;
+      overflow: hidden;
       clear: both;
       &.almost, &.all {
         display: none;
@@ -184,12 +184,13 @@
         background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
       }
       a.more {
+        position: absolute;
         text-indent: -9999px;
         text-decoration: none;
         display: block;
         height: 34px;
-        margin-top: 27px;
-        float: right;
+        bottom: 0;
+        right: 0;
         &.shoes {
           background: url("/assets/showroom/bt-more-shoes.png") no-repeat;
           width: 448px;
