@@ -39,12 +39,10 @@
       </fieldset>
       <fieldset class="inputs cpf">
         <ol>
-          <% if resource.is_invited %>
-            <li>
-              <%= f.label :cpf %>
-              <%= f.text_field :cpf %>
-            </li>
-          <% end %>
+          <li>
+            <%= f.label :cpf %>
+            <%= f.text_field :cpf %>
+          </li>
           <li>
             <%= f.label :birthday %>
             <%= f.date_select :birthday, :start_year => 1900 %>
