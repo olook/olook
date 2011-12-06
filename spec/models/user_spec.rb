@@ -212,13 +212,24 @@ describe User do
     end
   end
 
+  describe "#has_early_access?" do
+    it "should return false if there's no EARLY_ACCESS event on the user event list" do
+      subject.has_early_access?.should be_false
+    end
+
+    it "should return true if there's EARLY_ACCESS event on the user event list" do
+      subject.record_early_access
+      subject.has_early_access?.should be_true
+    end
+  end
+
   describe "#add_event" do
     it "should add an event for the user" do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
       subject.events.find_by_event_type(EventType::SEND_INVITE).should_not be_nil
     end
   end
-  
+
   describe "#invitation_url should return a properly formated URL, used when there's no routing context" do
     it "should return with olook.com.br root as default" do
       subject.invitation_url.should == "http://olook.com.br/convite/#{subject.invite_token}"
@@ -261,21 +272,21 @@ describe User do
       it "should return the products ordered by profiles" do
         subject.all_profiles_showroom.should == [product_c, product_d, product_a, product_b]
       end
-    
+
       it 'should return only products of the specified category' do
         subject.all_profiles_showroom(Category::BAG).should == [product_c]
       end
-      
+
       it 'should return an array' do
         subject.all_profiles_showroom.should be_a(Array)
       end
     end
-    
+
     describe "#profile_showroom" do
       it "should return only the products for the given profile" do
         subject.profile_showroom(sporty_profile).should == [product_c, product_d]
       end
-    
+
       it 'should return only the products for the given profile and category' do
         subject.profile_showroom(sporty_profile, Category::BAG).should == [product_c]
       end
@@ -293,7 +304,7 @@ describe User do
       it "should return only the products for the main profile" do
         subject.main_profile_showroom.should == [product_c, product_d]
       end
-    
+
       it 'should return only the products of a given category for the main profile' do
         subject.main_profile_showroom(Category::BAG).should == [product_c]
       end
@@ -303,5 +314,5 @@ describe User do
       end
     end
   end
-  
+
 end

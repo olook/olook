@@ -88,8 +88,16 @@ class User < ActiveRecord::Base
     self.events.where(:event_type => EventType::FIRST_VISIT).empty?
   end
 
+  def has_early_access?
+    self.events.where(:event_type => EventType::EARLY_ACCESS).any?
+  end
+
   def record_first_visit
     add_event(EventType::FIRST_VISIT) if first_visit?
+  end
+
+  def record_early_access
+    add_event(EventType::EARLY_ACCESS) unless has_early_access?
   end
 
   def add_event(type, description = '')
