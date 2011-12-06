@@ -26,8 +26,8 @@
     <ol>
       <li>
         <%= f.label :payments %>
-        <% portions = 1..6 %>
-        <%= f.select :payments, portions.collect {|d| [d.to_s,d.to_s]} %>
+        <% portions = payment_options(@order.total_with_freight, CreditCard::PAYMENT_QUANTITY) %>
+        <%= select_tag "credit_card[payments]", options_for_select(portions) %>
       </li>
     </ol>
   </fieldset>
