@@ -15,6 +15,7 @@ feature "Member can send invites", %q{
   context "When a member" do
     background do
       do_login!(user)
+      user.record_early_access
       SurveyQuestions.stub(:new).and_return(false)
       @member = User.find_by_email(user.email)
     end
@@ -49,7 +50,7 @@ feature "Member can send invites", %q{
 
       scenario "tweeting the link" do
         tweet_text = page.find('.twitter-share-button')[:"data-text"]
-        
+
         tweet_text.should have_content(accept_invitation_path(:invite_token => @member.invite_token))
       end
 

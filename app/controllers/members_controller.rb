@@ -2,6 +2,7 @@
 class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
+  before_filter :check_early_access, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
 
   def invite

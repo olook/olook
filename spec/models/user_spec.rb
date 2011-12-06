@@ -214,6 +214,7 @@ describe User do
 
   describe "#has_early_access?" do
     it "should return false if there's no EARLY_ACCESS event on the user event list" do
+      subject.events.delete_all
       subject.has_early_access?.should be_false
     end
 

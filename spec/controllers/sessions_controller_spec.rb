@@ -12,7 +12,7 @@ describe SessionsController do
     describe "Post 'create'" do
       it "should redirect to the showroom user page" do
         post :create, :user => { :email => user.email, :password => user.password }
-        response.should redirect_to(member_showroom_path)
+        response.should redirect_to(member_invite_path)
       end
 
       it "should try to create a sign event for the user" do
@@ -35,7 +35,7 @@ describe SessionsController do
       end
     end
   end
-  
+
   describe "events" do
     context 'for users' do
       let(:user) { mock_model(User) }

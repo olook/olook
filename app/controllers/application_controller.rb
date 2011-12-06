@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
 
+  def check_early_access
+    redirect_to member_invite_path unless current_user.has_early_access? if current_user
+  end
+
   def assign_default_country
     params[:address][:country] = 'BRA'
   end
