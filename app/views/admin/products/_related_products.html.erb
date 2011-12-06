@@ -2,15 +2,19 @@
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Description</th>
       <th>Model number</th>
+      <th>Name</th>
+      <th>Color</th>
+      <th>Category</th>
       <th></th>
     </tr>
 
   <% product.related_products.each do |related_product| %>
     <tr>
-      <td><%= related_product.description %></td>
       <td><%= related_product.model_number %></td>
+      <td><%= related_product.name %></td>
+      <td><%= related_product.color_name %></td>
+      <td><%= related_product.category_humanize %></td>
       <td><%= link_to 'Destroy', remove_related_admin_product_path(product, related_product), confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
@@ -19,7 +23,7 @@
   <%= form_for product, :url => add_related_admin_product_path, :method => :post, :as => :related_product, :html => {:class => 'form'} do |f| %>
     <div class="group">
       <%= f.label :related_product %><br />
-      <%= f.select :id, options_from_collection_for_select(product.unrelated_products, :id, :description) %>
+      <%= f.select :id, options_from_collection_for_select(product.unrelated_products, :id, :easy_to_find_description) %>
     </div>
     <div class="group navform wat-cf">
       <%= f.submit 'Add related product' %>
