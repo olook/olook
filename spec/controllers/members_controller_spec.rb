@@ -38,6 +38,12 @@ describe MembersController do
       response.should render_template("showroom")
       assigns(:member).should eq(user)
     end
+
+    it "should redirect the user if dont have early_access event" do
+      user.events.delete_all
+      get :showroom
+      response.should redirect_to(member_invite_path)
+    end
   end
 
   describe "#accept_invitation should redirect to root" do
@@ -78,6 +84,7 @@ describe MembersController do
     member = double(User)
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
+    member.stub(:has_early_access?).and_return(true)
     subject.stub(:current_user) { member }
 
     post :invite_by_email, :invite_mail_list => joined_emails
@@ -144,6 +151,7 @@ describe MembersController do
       member = double(User)
       member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
+      member.stub(:has_early_access?).and_return(true)
       subject.stub(:current_user) { member }
 
       post :invite_imported_contacts, :email_provider => "gmail", :email_address => emails

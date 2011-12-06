@@ -5,6 +5,7 @@ class CartController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :check_early_access
   before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
   before_filter :current_order
 

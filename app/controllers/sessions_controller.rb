@@ -3,7 +3,7 @@ class SessionsController < Devise::SessionsController
   after_filter :create_sign_in_event, :only => :create
   before_filter :create_sign_out_event, :only => :destroy
 
-  protected  
+  protected
 
   def create_sign_in_event
     if current_user.is_a?(User)
@@ -23,7 +23,7 @@ class SessionsController < Devise::SessionsController
     if resource_or_scope.is_a?(Admin)
       admin_path
     else
-      member_showroom_path
+      member_invite_path
     end
   end
 

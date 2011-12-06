@@ -33,16 +33,21 @@
   <div id="wrapper_menu">
     <nav class="menu">
       <div class="content">
+        <% if current_user.has_early_access?  %>
         <ul class="product_anchors">
           <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
           <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
           <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
         </ul>
+      <% end %>
         <ul class="default">
-          <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path %></li>
+          <% if current_user.has_early_access? %>
+            <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path %></li>
+          <% end %>
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
           <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
           <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
+          <% if current_user.has_early_access? %>
           <li class="cart">
             <%= link_to "Minha Sacola #{content_tag(:span, @order ? "(#{@order.line_items.count})" : '(0)')}".html_safe, "javascript:void(0);", :class => "cart" %>
             <ul class="submenu">
@@ -67,6 +72,7 @@
               </li>
             </ul>
           </li>
+        <% end %>
         </ul>
       </div>
     </nav>
