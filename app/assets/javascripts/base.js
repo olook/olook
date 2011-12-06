@@ -32,6 +32,17 @@ $(document).ready(function() {
     })
   }
 
+  $("ol.addresses li.address_item ul.links li a.select_address").live("click", function() {
+    if($(this).parents("li.address_item").hasClass("add") == false) {
+      lists = $(this).parents("ol").find("li");
+      lists.find("input").attr('checked', false);
+      lists.removeClass("selected");
+      $(this).parents("li.address_item").find('input').attr('checked', true);
+      $(this).parents("li.address_item").addClass('selected');
+      return false;
+    }
+  });
+
   $("#facebook_invite_friends").click(function(event) {
     event.preventDefault();
     sendFacebookMessage();

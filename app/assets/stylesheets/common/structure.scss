@@ -929,7 +929,8 @@ section.main {
             color: #e46d99;
             font-size: 12px;
             text-decoration: none;
-            margin-right: 10px;
+            margin: 0 10px 5px 0;
+            float: left;
             &:hover {
               text-decoration: underline;
             }
@@ -940,7 +941,6 @@ section.main {
         color: #545353;
         font-size: 14px;
         margin-bottom: 5px;
-        cursor: pointer;
       }
       input[type="radio"] {
         display: none;
