@@ -110,9 +110,9 @@ class Order < ActiveRecord::Base
   end
 
   def generate_identification_code
-    code = SecureRandom.hex(32)
+    code = SecureRandom.hex(16)
     while Order.find_by_identification_code(code)
-      code = SecureRandom.hex(32)
+      code = SecureRandom.hex(16)
     end
     update_attributes(:identification_code => code)
   end
