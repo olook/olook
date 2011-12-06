@@ -3,14 +3,14 @@
 <% end %>
 
 <section id="address_new" class="checkout">
-  <%= form_for(@address) do |f| %>
+  <%= form_for(@address, :html => { :class => 'address_new_edit' }) do |f| %>
     <section class="main">
       <h1>Editar endereço</h1>
       <%= render "shared/address/form", :address => @address, :f => f %>
     </section>
     <section class="sidebar">
       <%= render "shared/payments/info_sidebar", :cart => @cart %>
-      <%= f.submit '', :disabled => "disabled", :class => "disabled save" %>
+      <%= f.submit '', :class => "save" %>
     </section>
   <% end %>
 </section>

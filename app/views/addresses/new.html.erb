@@ -3,7 +3,7 @@
 <% end %>
 
 <section id="address_new" class="checkout">
-  <%= form_for(@address) do |f| %>
+<%= form_for(@address, :html => { :class => 'address_new_edit' }) do |f| %>
     <section class="main">
       <h1>Adicione um endereço</h1>
       <%= render "shared/address/form", :address => @address, :f => f %>
