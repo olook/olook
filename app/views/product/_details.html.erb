@@ -5,12 +5,12 @@
           </ul>
           <ul class="tabs_content">
             <li class="tab_1 selected">
-              <p>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
+              <p><%= @product.details.only_how_to.first.try(:description) %></p>
             </li>
             <li class="tab_2">
               <table cellpadding="0" cellspacing="0">
                 <tbody>
-                  <% @product.details.visible.each do |detail| %>
+                  <% @product.details.only_specification.each do |detail| %>
                     <tr>
                       <td><%= detail.translation_token %></td>
                       <td><%= detail.description %></td>
