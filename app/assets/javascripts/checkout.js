@@ -1,8 +1,8 @@
 $(document).ready(function() {
-  $("form#new_address input[type='text']").live("keyup", function() {
+  $("form.address_new_edit input[type='text']").live("keyup", function() {
     var limitOfInputs = 8;
     var notNullInputs = 0
-    inputs = $("form#new_address input[type='text']");
+    inputs = $("form.address_new_edit input[type='text']");
     $(inputs).each(function(index) {
       if($(this).val() != '' && $(this).parent('li').hasClass('complement') == false) {
         notNullInputs = notNullInputs + 1;
