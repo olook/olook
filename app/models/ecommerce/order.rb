@@ -73,9 +73,11 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def has_some_unavailable_item?
+  def remove_unavailable_items
     items = line_items.select {|item| !item.variant.available_for_quantity? item.quantity}
-    items.size > 0
+    size_items = items.size
+    items.each {|item| item.destroy}
+    size_items
   end
 
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)

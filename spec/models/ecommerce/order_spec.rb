@@ -137,15 +137,27 @@ describe Order do
     end
 
     context "when all variants are available" do
-      it "should return false for #has_some_unavailable_item" do
-        subject.has_some_unavailable_item?.should == false
+      it "should return 0 for #remove_unavailable_items" do
+        subject.remove_unavailable_items.should == 0
+      end
+
+      it "should has 2 line items" do
+        subject.remove_unavailable_items
+        subject.line_items.count.should == 2
       end
     end
 
     context "when at least one variant is unavailable" do
-      it "should return true for #has_some_unavailable_item" do
+      it "should return 1 for #remove_unavailable_items" do
         basic_shoe_40.update_attributes(:inventory => 3)
-        subject.has_some_unavailable_item?.should == true
+        subject.remove_unavailable_items
+        subject.remove_unavailable_items.should == 1
+      end
+
+      it "should has just 1 line item" do
+        basic_shoe_40.update_attributes(:inventory => 3)
+        subject.remove_unavailable_items
+        subject.line_items.count.should == 1
       end
     end
   end
