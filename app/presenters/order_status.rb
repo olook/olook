@@ -3,7 +3,7 @@ class OrderStatus
   attr_accessor :order
 
   STATUS = {
-    "order-requested"      => ["order-requested", ""],
+    "order-requested"      => ["order-requested", "Seu pedido foi feito e estamos aguardando aprovação do pagamento."],
     "payment-made-approved" => ["payment-made", "Aprovado"],
     "payment-made-denied"  => ["payment-made", "Negado"],
     "payment-made-failed"  => ["payment-made", "Falha de comunicação"],
