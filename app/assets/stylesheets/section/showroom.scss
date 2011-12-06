@@ -183,16 +183,36 @@
         background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
       }
       a.more {
-        background: #df5a8b;
-        color: #FFF;
-        font-family: Arial;
-        font-size: 12px;
-        font-weight: lighter;
-        text-transform: uppercase;
+        text-indent: -9999px;
         text-decoration: none;
+        display: block;
+        height: 34px;
         margin-top: 27px;
-        padding: 10px 15px;
         float: right;
+        &.shoes {
+          background: url("/assets/showroom/bt-more-shoes.png") no-repeat;
+          width: 448px;
+        }
+        &.all_shoes {
+          background: url("/assets/showroom/bt-more-shoes-all.png") no-repeat;
+          width: 180px;
+        }
+        &.purses {
+          background: url("/assets/showroom/bt-more-purses.png") no-repeat;
+          width: 447px;
+        }
+        &.all_purses {
+          background: url("/assets/showroom/bt-more-purses-all.png") no-repeat;
+          width: 182px;
+        }
+        &.accessories {
+          background: url("/assets/showroom/bt-more-accessories.png") no-repeat;
+          width: 478px;
+        }
+        &.all_accessories {
+          background: url("/assets/showroom/bt-more-accessories-all.png") no-repeat;
+          width: 204px;
+        }
       }
       ul {
         li.product {
