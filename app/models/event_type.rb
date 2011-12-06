@@ -6,6 +6,7 @@ class EventType < EnumerateIt::Base
     signout:                [12, 'Sign out'],
 
     first_visit:            [20, 'First visit'],
+    early_access:           [21, 'Early access'],
 
     send_invite:            [30, 'Send invites'],
     send_imported_contacts: [34, 'Send imported contacts'],
