@@ -10,7 +10,7 @@ class CreditCard < Payment
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
-  validates :user_name, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
+  validates :user_name, :bank, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
 
   validates_with CreditCardValidator
 
