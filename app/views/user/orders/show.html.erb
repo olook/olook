@@ -12,7 +12,7 @@
     </div>
     <div class="order_status">
       <h1>Número do Pedido: <span>23456698002</span></h1>
-      <h2><strong>Status do seu pedido:</strong> Seu pedido foi feito e estamos aguardando aprovação da operadora de crédito.</h2>
+      <h2><strong>Status do seu pedido: <%= @order_presenter.status.message %></strong></h2>
       <ul id="status" class="<%= @order_presenter.status.css_class %>">
         <li class="state1">Pedido Efetuado</li>
         <li class="state2">Pagamento</li>
