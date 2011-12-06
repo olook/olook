@@ -245,10 +245,10 @@ describe User do
 
   describe "showroom methods" do
     let(:collection) { FactoryGirl.create(:collection) }
-    let!(:casual_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
-    let!(:casual_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
-    let!(:sporty_product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-    let!(:sporty_product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile]) }
+    let!(:product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
+    let!(:product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
+    let!(:product_c) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile, sporty_profile]) }
 
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
@@ -259,11 +259,11 @@ describe User do
 
     describe "#all_profiles_showroom" do
       it "should return the products ordered by profiles" do
-        subject.all_profiles_showroom.should == [sporty_product_a, sporty_product_b, casual_product_a, casual_product_b]
+        subject.all_profiles_showroom.should == [product_c, product_d, product_a, product_b]
       end
     
       it 'should return only products of the specified category' do
-        subject.all_profiles_showroom(Category::BAG).should == [sporty_product_a]
+        subject.all_profiles_showroom(Category::BAG).should == [product_c]
       end
       
       it 'should return an array' do
@@ -273,11 +273,11 @@ describe User do
     
     describe "#profile_showroom" do
       it "should return only the products for the given profile" do
-        subject.profile_showroom(sporty_profile).should == [sporty_product_a, sporty_product_b]
+        subject.profile_showroom(sporty_profile).should == [product_c, product_d]
       end
     
       it 'should return only the products for the given profile and category' do
-        subject.profile_showroom(sporty_profile, Category::BAG).should == [sporty_product_a]
+        subject.profile_showroom(sporty_profile, Category::BAG).should == [product_c]
       end
 
       it 'should return a scope' do
@@ -291,11 +291,11 @@ describe User do
       end
 
       it "should return only the products for the main profile" do
-        subject.main_profile_showroom.should == [sporty_product_a, sporty_product_b]
+        subject.main_profile_showroom.should == [product_c, product_d]
       end
     
       it 'should return only the products of a given category for the main profile' do
-        subject.main_profile_showroom(Category::BAG).should == [sporty_product_a]
+        subject.main_profile_showroom(Category::BAG).should == [product_c]
       end
 
       it 'should return a scope' do

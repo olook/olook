@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   def all_profiles_showroom(category = nil)
     result = []
     self.profile_scores.each do |profile_score|
-      result += profile_showroom(profile_score.profile, category).all
+      result = result | profile_showroom(profile_score.profile, category).all
     end
     result
   end
