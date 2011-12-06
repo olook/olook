@@ -7,6 +7,7 @@ class CreditCardsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_user
   before_filter :check_order, :only => [:new, :create]
+  before_filter :check_inventory, :only => [:create]
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
   before_filter :build_cart, :only => [:new, :create]
