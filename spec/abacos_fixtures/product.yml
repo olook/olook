@@ -22,7 +22,7 @@
   str: Sapatilha Floral  com laço em couro verde
   attributes: {}
 :descricao: !str
-  str: Descrição da Sapatilha Floral  com laço em couro verde
+  str: Florzinha
   attributes: {}
 :codigo_marca: !str
   str: '2'
@@ -406,6 +406,48 @@
         attributes: {}
       :texto: !str
         str: Baixo
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '180'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '5'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Como vestir                                       '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: Deve-se vestir no pé
+        attributes: {}
+      :nr_config_interface: !str
+        str: '0'
+        attributes: {}
+    - :codigo_interno: !str
+        str: '181'
+        attributes: {}
+      :tipo_codigo: !str
+        str: '5'
+        attributes: {}
+      :tipo_nome: !str
+        str: ! 'Descrição                                         '
+        attributes: {}
+      :tipo_grupo_codigo: !str
+        str: '1'
+        attributes: {}
+      :tipo_grupo_nome: !str
+        str: ! 'DESCRIÇÕES PARA O SITE                            '
+        attributes: {}
+      :texto: !str
+        str: O cetim e o strass formam uma ótima combinação, pronta para ir para uma festa?
         attributes: {}
       :nr_config_interface: !str
         str: '0'
