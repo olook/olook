@@ -63,13 +63,27 @@ describe MembersController do
     end
 
     describe 'with the inviting member information in the session' do
+      let(:inviting_member) { FactoryGirl.create(:member) }
+
       it "when receiving a valid token" do
-        inviting_member = FactoryGirl.create(:member)
         get :accept_invitation, :invite_token => inviting_member.invite_token
         response.should redirect_to(root_path)
         session[:invite].should == {:invite_token => inviting_member.invite_token,
                                     :invited_by => inviting_member.name}
       end
+
+      describe "when passing query string parameters" do
+        it "redirects and pass a generic param" do
+          get :accept_invitation, :invite_token => inviting_member.invite_token, :utm_source => 'olook'
+          response.location.should match(/\?.*utm_source=olook/)
+        end
+
+        it "redirects and does not pass invite_token" do
+          get :accept_invitation, :invite_token => inviting_member.invite_token
+          response.location.should_not match(/\?.*invite_token=w#{inviting_member.invite_token}/)
+        end
+      end
+
     end
   end
 

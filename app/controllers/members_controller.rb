@@ -19,7 +19,8 @@ class MembersController < ApplicationController
   def accept_invitation
     session[:invite] = {:invite_token => params[:invite_token],
                         :invited_by => @inviting_member.name}
-    redirect_to root_path
+
+    redirect_to root_path(incoming_params)
   end
 
   def invite_by_email
@@ -88,4 +89,18 @@ class MembersController < ApplicationController
     @inviting_member = User.find_by_invite_token(params[:invite_token]) if valid_format
     redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
   end
+
+  def utm_params
+    {
+      :utm_source => params[:utm_source],
+      :utm_medium => params[:utm_medium],
+      :utm_campaign => params[:utm_campaign],
+      :utm_content => params[:utm_content]
+    }
+  end
+
+  def incoming_params
+    params.clone.delete_if {|key| ['controller', 'action','invite_token'].include?(key) }
+  end
+
 end
