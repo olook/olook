@@ -74,6 +74,14 @@ describe DebitsController do
       @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Debit))
     end
 
+    describe "with some variant unavailable" do
+      it "redirect to cath path" do
+        Order.any_instance.stub(:remove_unavailable_items).and_return(1)
+        post :create, :debit => attributes
+        response.should redirect_to(cart_path)
+      end
+    end
+
     describe "with valid params" do
       it "should process the payment" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
