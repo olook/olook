@@ -157,6 +157,9 @@ div#my_account {
     ol {
       &.addresses {
         padding-top: 25px;
+        a.select_address {
+          display: none;
+        }
       }
     }
   }
