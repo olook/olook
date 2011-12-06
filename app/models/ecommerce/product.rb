@@ -95,6 +95,10 @@ class Product < ActiveRecord::Base
   def colors
     self.related_products.where(:category => self.category)
   end
+  
+  def easy_to_find_description
+    "#{model_number} - #{name} - #{color_name} - #{category_humanize}"
+  end
 
 private
   def create_master_variant

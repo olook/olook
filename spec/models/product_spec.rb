@@ -259,4 +259,15 @@ describe Product do
       black_shoe.colors.should == [red_shoe]
     end
   end
+  
+  describe "#easy_to_find_description" do
+    subject { FactoryGirl.build(:basic_bag,
+                                :model_number => 'M123', 
+                                :name         => 'Fake product',
+                                :color_name   => 'Black') }
+
+    it 'should return a string with the model_number, name, color and humanized category' do
+      subject.easy_to_find_description.should == 'M123 - Fake product - Black - Bag'
+    end
+  end
 end
