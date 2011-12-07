@@ -54,8 +54,23 @@ $(document).ready(function() {
 
   $(document).bind('keydown', 'esc',function () {
     $('#sign-in-dropdown').hide();
+    $("div#wrapper_menu nav.menu ul li.cart ul.submenu").hide();
     $('body').removeClass('dialog-opened');
     return false;
+  });
+
+  $("div#wrapper_menu nav.menu ul li.cart ul.submenu").live('click', function(e) {
+    if($('body').hasClass('cart_submenu_opened')) {
+      e.stopPropagation();
+    }
+  });
+
+  $('body.cart_submenu_opened').live("click", function(e) {
+    if($("div#wrapper_menu nav.menu ul li.cart ul.submenu").is(':visible')) {
+      $("div#wrapper_menu nav.menu ul li.cart ul.submenu").hide();
+      $(this).removeClass("cart_submenu_opened");
+      e.stopPropagation();
+    }
   });
 
   var items_replace = new Array('.home > a, .send-button, .box h3, .full-banner .close, .full-banner li')
@@ -104,6 +119,7 @@ $(document).ready(function() {
 
   $("div#wrapper_menu nav.menu ul li a.cart").live("click", function() {
     $(this).parent("li").find("ul").show();
+    $("body").addClass('cart_submenu_opened');
   });
 
   $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.close").live("click", function() {
