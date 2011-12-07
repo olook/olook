@@ -52,6 +52,11 @@ describe ::AddressesController do
         }.to change(Address, :count).by(1)
       end
 
+      it "should redirect to payments_path" do
+         post :create, :address => attributes
+         response.should redirect_to(payments_path)
+      end
+
       it "should assign @cart" do
         Cart.should_receive(:new).with(Order.find(order))
         post :create, :address => attributes
