@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
-  delegate :price, :to => :freight, :prefix => true
+  delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   has_one :payment
   has_one :freight
   after_create :generate_number
@@ -100,7 +100,7 @@ class Order < ActiveRecord::Base
   end
 
   def total_with_freight
-    total + (freight.try(:price) || 0)
+    total + (freight_price || 0)
   end
 
   def total
