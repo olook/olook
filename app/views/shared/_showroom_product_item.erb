@@ -3,7 +3,7 @@
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png") %>
       <h1><%= product.name %></h1>
-      <p class="know">Conheça</p>
+      <p class="warn">ESGOTADO</p>
     <% end %>
     <div class="line">
       <ol>

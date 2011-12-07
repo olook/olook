@@ -1,13 +1,12 @@
 .box_product {
   a.product_link {
     position: relative;
-    p.know {
+    p.warn {
       position: absolute;
-      background: url("/assets/common/product-hover.png") no-repeat;
+      background: url("/assets/common/sold_out.png") no-repeat;
       text-indent: -9999px;
       width: 132px;
       height: 41px;
-      display: block;
       display: none;
     }
     img {
@@ -79,6 +78,11 @@
       }
     }
   }
+  &.sold_out {
+    a p.warn {
+      display: block;
+    }
+  }
 }
 li.product {
   &:hover {
@@ -91,7 +95,7 @@ li.product {
 #showroom {
   .box_product {
     a.product_link {
-      p.know {
+      p.warn {
         top: 50px;
         left: 20px;
       }
@@ -109,7 +113,7 @@ li.product {
 #product {
   .box_product {
     a.product_link {
-      p.know {
+      p.warn {
         top: 75px;
         left: 65px;
       }
