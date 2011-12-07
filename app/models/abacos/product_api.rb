@@ -34,7 +34,7 @@ module Abacos
     end
   private
     def self.confirm_integration(method, protocol)
-      return true unless Rails.env.production?
+      return true
 
       parsed_method = "confirmar_recebimento_#{method}".to_sym
       response = call_webservice(wsdl, parsed_method, {"Protocolo#{method.to_s.capitalize}" => protocol})
