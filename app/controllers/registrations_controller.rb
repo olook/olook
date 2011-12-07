@@ -85,7 +85,6 @@ class RegistrationsController < Devise::RegistrationsController
     SurveyAnswer.create(:answers => answers, :user => resource)
     ProfileBuilder.new(resource).create_user_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
-    Resque.enqueue(SignupNotificationWorker, resource.id)
     clean_sessions
   end
 
