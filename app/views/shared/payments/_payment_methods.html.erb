@@ -5,7 +5,7 @@
   </li>
   <li class="debit">
     <p>Transferência bancária</p>
-    <%= link_to "Débito Bancário", new_debit_path %>
+    <%= link_to "Débito Bancário", new_debit_path, :class => is_current?("debits", "new") %>
   </li>
   <li class="credit_card">
     <p>Cartão de crédito</p>
