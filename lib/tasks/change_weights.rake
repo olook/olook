@@ -19,6 +19,46 @@ namespace :olook do
           profile_builder.create_user_points profile_points
           puts "Processed #{user.email}"
         end
+        
+        # Move people around
+        user.reload
+        if user.profile_scores.first.profile.name == 'Trendy'
+          if Random.rand(100) < 33
+            user.profile_scores.each do |point|
+              if point.profile.name == 'Casual'
+                point.value = 1000
+                point.save
+                puts "User #{user.id} #{user.email} moved from Trendy to Casual"
+              end
+            end
+          end
+        else
+          if user.profile_scores.first.profile.name == 'Feminina'
+            if Random.rand(100) < 18
+              user.profile_scores.each do |point|
+                if point.profile.name == 'Elegante'
+                  point.value = 1000
+                  point.save
+                  puts "User #{user.id} #{user.email} moved from Feminina to Elegante"
+                  
+                end
+              end
+            end
+          else 
+            if user.profile_scores.first.profile.name == 'Sexy'
+              if Random.rand(100) < 33
+                user.profile_scores.each do |point|
+                  if point.profile.name == 'Elegante'
+                    point.value = 1000
+                    point.save
+                    puts "User #{user.id} #{user.email} moved from Sexy to Elegante"
+                  end
+                end
+              end
+            end
+          end
+        end
+        
         break if (limit -= 1) == 0
       end
     end
