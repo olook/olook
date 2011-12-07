@@ -1,0 +1,26 @@
+
+            <%= link_to "Minha Sacola #{content_tag(:span, order ? "(#{order.line_items.count})" : '(0)')}".html_safe, "javascript:void(0);", :class => "cart" %>
+            <ul class="submenu">
+              <li><p class="freight">Frete grátis acima de R$120,00</p></li>
+              <% if order %>
+                <% order.line_items.each do |item| %>
+                  <li class="product">
+                    <%= image_tag item.variant.product.thumb_picture, :title => item.variant.name %>
+                    <h1><%= item.variant.name %></h1>
+                    <p class="price"><%= number_to_currency(item.variant.price) %></p>
+                    <p class="size"><%= item.variant.number %></p>
+                    <%= form_for(item, :url => cart_path, :remote => true, :method => :put, :html => { :class => "delete" }) do %>
+                      <%= hidden_field('variant','id', :value => item.variant.id) %>
+                      <%= hidden_field_tag('quantity', item.quantity, :class => 'quantity') %>
+                      <%= submit_tag('')  %>
+                    <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+              <li class="last">
+                <%= link_to "X Fechar", "javascript:void(0);", :class => "close" %>
+                <%= link_to "Finalizar Compra", cart_path, :class => "finish" %>
+              </li>
+            </ul>
+
+

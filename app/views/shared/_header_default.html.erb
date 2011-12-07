@@ -48,31 +48,10 @@
           <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
           <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
           <% if current_user.has_early_access? %>
-          <li class="cart">
-            <%= link_to "Minha Sacola #{content_tag(:span, @order ? "(#{@order.line_items.count})" : '(0)')}".html_safe, "javascript:void(0);", :class => "cart" %>
-            <ul class="submenu">
-              <li><p class="freight">Frete grátis acima de R$120,00</p></li>
-              <% if @order %>
-                <% @order.line_items.each do |item| %>
-                  <li class="product">
-                    <%= image_tag item.variant.product.thumb_picture, :title => item.variant.name %>
-                    <h1><%= item.variant.name %></h1>
-                    <p class="price"><%= number_to_currency(item.variant.price) %></p>
-                    <p class="size"><%= number_to_currency(item.variant.number) %></p>
-                    <%= form_for(item, :url => cart_path, :remote => true, :method => :put, :html => { :class => "delete" }) do %>
-                      <%= hidden_field('variant','id', :value => item.variant.id) %>
-                      <%= submit_tag('')  %>
-                    <% end %>
-                  </li>
-                <% end %>
-              <% end %>
-              <li class="last">
-                <%= link_to "X Fechar", "javascript:void(0);", :class => "close" %>
-                <%= link_to "Finalizar Compra", cart_path, :class => "finish" %>
-              </li>
-            </ul>
-          </li>
-        <% end %>
+            <li class="cart" id="cart">
+              <%= render 'shared/cart', :order => @order %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </nav>
