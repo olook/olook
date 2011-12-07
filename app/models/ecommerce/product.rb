@@ -100,6 +100,10 @@ class Product < ActiveRecord::Base
     "#{model_number} - #{name} - #{color_name} - #{category_humanize}"
   end
 
+  def sold_out?
+    false
+  end
+
 private
   def create_master_variant
     @master_variant = Variant.new(:is_master => true,
