@@ -167,7 +167,9 @@ $(document).ready(function() {
   });
 
   $("ul.submenu li form.delete")
-   .bind("ajax:success", function(evt, xhr, settings){
-     $(this).parent("li.product").remove();
+   .bind("ajax:complete", function(evt, xhr, settings){
+     $("#cart").html(xhr.responseText)
+     //$(this).parent("li.product").remove();
+     //var quantity = $(this).find('input.quantity').val();
   })
 });
