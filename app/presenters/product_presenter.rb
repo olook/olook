@@ -33,7 +33,12 @@ class ProductPresenter < BasePresenter
   end
 
   def render_sizes
-    h.render :partial => 'product/sizes', :locals => {:product_presenter => self}
+    selected_variants = product.variants.sorted_by_description
+    if selected_variants.length == 1
+      h.render :partial => 'product/single_size', :locals => {:variant => selected_variants.first}
+    else
+      h.render :partial => 'product/sizes', :locals => {:variants => selected_variants}
+    end
   end
   
   def related_products
