@@ -8,7 +8,7 @@
                     <%= image_tag item.variant.product.thumb_picture, :title => item.variant.name %>
                     <h1><%= item.variant.name %></h1>
                     <p class="price"><%= number_to_currency(item.variant.price) %></p>
-                    <p class="size"><%= item.variant.number %></p>
+                    <p class="size"><%= item.variant.description %></p>
                     <%= form_for(item, :url => cart_path, :remote => true, :method => :put, :html => { :class => "delete" }) do %>
                       <%= hidden_field('variant','id', :value => item.variant.id) %>
                       <%= hidden_field_tag('quantity', item.quantity, :class => 'quantity') %>
