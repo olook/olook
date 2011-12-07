@@ -1,5 +1,5 @@
 <li class="product">
-  <div class="box_product">
+  <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png") %>
       <h1><%= product.name %></h1>
