@@ -5,6 +5,7 @@
 <section id="payment" class="checkout">
   <section class="main">
     <h1>Escolha uma forma de pagamento</h1>
+    <%= render :partial => "shared/checkout_errors", :locals => { :object => @payment } %>
     <%= render :partial => "shared/payments/payment_methods" %>
     <%= render 'form' %>
   </section>

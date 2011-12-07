@@ -6,6 +6,7 @@
 <%= form_for(@address, :html => { :class => 'address_new_edit' }) do |f| %>
     <section class="main">
       <h1>Adicione um endereço</h1>
+      <%= render :partial => "shared/checkout_errors", :locals => { :object => @address } %>
       <%= render "shared/address/form", :address => @address, :f => f %>
     </section>
     <section class="sidebar">

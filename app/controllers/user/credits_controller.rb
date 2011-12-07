@@ -5,6 +5,7 @@ class User::CreditsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :load_order
 
   def index
     @member = current_user

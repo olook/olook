@@ -50,9 +50,9 @@ describe ::User::AddressesController do
   end
 
   describe "DELETE destroy" do
-    it "should delete an address"do
+    it "should delete an address" do
       delete :destroy, :id => address.id
-      Address.all.empty?.should be_true
+      user.addresses.should == []
     end
   end
 end

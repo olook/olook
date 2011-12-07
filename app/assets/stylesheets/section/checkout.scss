@@ -9,6 +9,15 @@ header {
     display: block;
     float: right;
   }
+  h2.moip {
+    background: url('/assets/common/moip.png') no-repeat;
+    text-indent: -9999px;
+    width: 70px;
+    height: 42px;
+    display: block;
+    margin: 10px 0 0 20px;
+    float: right;
+  }
 }
 div#order_status {
   background: url("/assets/cart/bg-order-status.png") center no-repeat;
