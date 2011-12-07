@@ -120,7 +120,6 @@ class Order < ActiveRecord::Base
   def decrement_inventory_for_each_item
     ActiveRecord::Base.transaction do
       line_items.each do |item|
-
         item.variant.decrement!(:inventory, item.quantity)
       end
     end
