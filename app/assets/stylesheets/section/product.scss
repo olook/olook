@@ -146,6 +146,11 @@
             padding: 10px;
             overflow: auto;
             display: inline-block;
+            float: left;
+            div.box_product {
+              display: inline-block;
+              clear: left;
+            }
             a.product_link {
               img {
                 width: 260px;
