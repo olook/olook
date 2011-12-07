@@ -101,7 +101,7 @@ class Product < ActiveRecord::Base
   end
 
   def sold_out?
-    false
+    self.variants.none? {|variant| variant.available_for_quantity?(1) }
   end
 
 private
