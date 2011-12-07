@@ -13,7 +13,7 @@ class Payment < ActiveRecord::Base
     "6" => :under_analysis,
     "7" => :reversed,
     "8" => :under_review,
-    "9" => :refouded
+    "9" => :refunded
   }
 
   RESPONSE_STATUS = {
