@@ -16,7 +16,11 @@ module Abacos
       variant.inventory = self.inventory
       variant.save!
 
-      Abacos::ProductAPI.confirm_inventory(self.integration_protocol)
+      confirm_inventory
+    end
+    
+    def confirm_inventory
+      Resque.enqueue(Abacos::ConfirmInventory, self.integration_protocol)
     end
 
     def self.parse_abacos_data(abacos_product)

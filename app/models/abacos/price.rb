@@ -16,7 +16,11 @@ module Abacos
       variant.price = self.price
       variant.save!
 
-      Abacos::ProductAPI.confirm_price(self.integration_protocol)
+      confirm_price
+    end
+    
+    def confirm_price
+      Resque.enqueue(Abacos::ConfirmPrice, self.integration_protocol)
     end
 
     def self.parse_abacos_data(abacos_product)
