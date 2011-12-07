@@ -149,4 +149,9 @@ $(document).ready(function() {
   $(".form_amount").change(function(){
     $(this).submit();
   });
+
+  $("ul.submenu li form.delete")
+   .bind("ajax:success", function(evt, xhr, settings){
+     $(this).parent("li.product").remove();
+  })
 });
