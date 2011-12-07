@@ -27,7 +27,7 @@ class CreditCardsController < ApplicationController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_session_order!
-        redirect_to(payment_path(response.payment), :notice => "Sucesso")
+        redirect_to(credit_card_path(response.payment), :notice => "Pagamento realizado com sucesso")
       else
         @order.generate_identification_code
         @payment.errors.add(:id, "Não foi possível realizar o pagamento")
@@ -41,6 +41,7 @@ class CreditCardsController < ApplicationController
   def show
     @payment = @user.payments.find(params[:id])
     @payment_response = @payment.payment_response
+    @order = @payment.order
   end
 
   private

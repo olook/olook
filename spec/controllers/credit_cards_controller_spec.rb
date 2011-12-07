@@ -116,7 +116,7 @@ describe CreditCardsController do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
         post :create, :credit_card => attributes
-        response.should redirect_to(payment_path(credit_card.payment))
+        response.should redirect_to(credit_card_path(credit_card.payment))
       end
 
       it "should assign @cart" do
