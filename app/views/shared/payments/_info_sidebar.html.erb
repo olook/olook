@@ -1,7 +1,7 @@
 <div id="request_info">
   <%= yield :checkout_sidebar %>
   <div class="item">
-    <h1>Meu Pedido <%= link_to "alterar", cart_path %></h1>
+    <h1>Meu Pedido <%= link_to "alterar", cart_path if @order.payment.nil? %></h1>
     <table cellpadding="0" cellspacing="0">
       <tfoot>
         <tr>
