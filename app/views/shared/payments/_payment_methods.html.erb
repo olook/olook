@@ -1,7 +1,7 @@
 <ul class="payment_methods">
   <li class="billet">
     <p>Boleto</p>
-    <%= link_to "Boleto Bancário", new_billet_path %>
+    <%= link_to "Boleto Bancário", new_billet_path, :class => is_current?(['debits'], ['new']) %>
   </li>
   <li class="debit">
     <p>Transferência bancária</p>
