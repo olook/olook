@@ -6,6 +6,7 @@
   <%= form_for(@payment) do |f| %>
     <section class="main">
       <h1>Escolha uma forma de pagamento</h1>
+      <%= render :partial => "shared/checkout_errors", :locals => { :object => @payment } %>
       <%= render :partial => "shared/payments/payment_methods" %>
       <%= render :partial => 'form', :locals => { :f => f, :payment => @payment} %>
     </section>

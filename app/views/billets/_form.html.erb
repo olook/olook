@@ -1,15 +1,4 @@
 <%= form_for(@payment) do |f| %>
-  <% if @payment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
-
-      <ul>
-      <% @payment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <p class="generate_billet"><%= f.submit "" %>Você poderá imprimir o boleto através da sessão Meus Pedidos em sua conta, Também e nviaremos o link para impressão para o seu email.<br />Seu pedido ficará reservado por no máximo XX hrs.</p>
+  <p class="generate_billet"><%= f.submit "" %>Você poderá imprimir o boleto através da sessão Meus Pedidos em sua conta, Também e nviaremos o link para impressão para o seu email.<br />Seu pedido ficará reservado por no máximo XX hrs.</p>
 <% end %>
 

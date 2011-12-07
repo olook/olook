@@ -5,6 +5,7 @@ class User::OrdersController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :load_order
 
   def index
     @orders = @user.orders.page(params[:page]).per_page(8)
