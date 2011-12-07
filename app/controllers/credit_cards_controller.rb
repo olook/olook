@@ -9,11 +9,13 @@ class CreditCardsController < ApplicationController
   before_filter :check_order, :only => [:new, :create]
   before_filter :check_inventory, :only => [:create]
   before_filter :check_freight, :only => [:new, :create]
+  before_filter :check_total_order
   before_filter :assign_receipt, :only => [:create]
   before_filter :build_cart, :only => [:new, :create]
 
   def new
     @payment = CreditCard.new
+    @order_total = @order.total_with_freight
   end
 
   def create
@@ -42,6 +44,10 @@ class CreditCardsController < ApplicationController
   end
 
   private
+
+  def check_total_order
+
+  end
 
   def assign_receipt
     params[:credit_card][:receipt] = Payment::RECEIPT

@@ -43,6 +43,12 @@ describe CreditCard do
 
   end
 
+  context "installments" do
+    it "should calculate the installments numbers" do
+      CreditCard.installments_number_for(89.89).should == 2
+    end
+  end
+
   context "status" do
     it "should return nil with a invalid status" do
       invalid_status = '0'
