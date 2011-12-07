@@ -48,7 +48,7 @@ class CartController < ApplicationController
 
   def create
     if @order.add_variant(@variant)
-      redirect_to(product_path(@variant.product), :notice => "Produto adicionado com sucesso")
+      redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
     else
       redirect_to(:back, :notice => "Produto esgotado")
     end
