@@ -620,7 +620,7 @@ section.checkout {
       border: none;
     }
     input[type="submit"].finish, a.finish {
-      background: url('/assets/cart/finish.png') no-repeat;
+      background: url('/assets/cart/finish.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 116px;
       height: 46px;
@@ -628,6 +628,9 @@ section.checkout {
       display: block;
       cursor: pointer;
       border: none;
+      &.disabled {
+        background-position: -116px 0;
+      }
     }
     input[type="submit"].save {
       background: url('/assets/cart/save-continue.png') 0 0 no-repeat;
