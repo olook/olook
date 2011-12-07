@@ -2,22 +2,23 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
-<% if @user.cpf.nil? %>
-<%= form_for(@user, :as => :user, :url => user_user_path(@user), :html => { :method => :put }) do |f| %>
-      <section class="main">
-        <fieldset class="buttons">
-          <ol>
-            <li>
-              <%= f.text_field :cpf, :value => "" %>
-              <%= f.submit 'Enviar', :class => "save" %>
-            </li>
-          </ol>
-        </fieldset>
-      </section>
-    <% end %>
-<% end %>
-
 <section id="cart">
+  <% if @user.cpf.nil? %>
+    <%= form_for(@user, :as => :user, :url => user_user_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
+      <fieldset class="buttons">
+        <ol>
+          <li>
+            <p>Precisamos de seu CPF para emitir a nota fiscal do seu pedido em seu nome:</p>
+          </li>
+          <li>
+            <%= f.label :cpf %>
+            <%= f.text_field :cpf, :value => "", :class => "cpf" %>
+            <%= f.submit '', :class => "save" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  <% end %>
   <table cellpadding="0" cellspacing="0" class="items_list">
     <thead>
       <tr>

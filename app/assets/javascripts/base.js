@@ -130,6 +130,10 @@ $(document).ready(function() {
     mask: '999.999.999-99'
   });
 
+  $("input:text.cpf").setMask({
+    mask: '99999999999'
+  });
+
   $("input:text.date").setMask({
     mask: '99/19/9999'
   });

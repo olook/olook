@@ -51,6 +51,57 @@ div#order_status {
   }
 }
 section#cart {
+  form.cpf {
+    width: 755px;
+    margin: 0 auto 30px auto;
+    padding: 20px 30px;
+    border: 1px #d2d2d2 solid;
+    fieldset.buttons {
+      ol li {
+        display: inline;
+        float: left;
+        label {
+          font-weight: bold;
+          line-height: 35px;
+          margin: 4px 10px 0 0;
+          float: left;
+        }
+        input[type="text"] {
+          background: url('/assets/common/bg-inputs.png') repeat-x;
+          font-size: 14px;
+          font-weight: bold;
+          width: 260px;
+          border: 1px solid #C1C1C1;
+          padding: 7px 8px;
+          margin: 4px 20px 0 0;
+          height:17px;
+          float: left;
+          &:focus {
+            outline: none;
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/common/bt-save-small.png") top left no-repeat;
+          color: #df5a8a;
+          font-family: Arial;
+          font-size: 12px;
+          text-decoration: underline;
+          width: 76px;
+          height: 38px;
+          border: none;
+          cursor: pointer;
+        }
+        p {
+          color: #808080;
+          font-family: Arial;
+          font-size: 13px;
+          font-weight: bold;
+          width: 265px;
+          margin: 0 50px 0 0;
+        }
+      }
+    }
+  }
   table.items_list {
     $border-color: #e5e5e5;
     margin-bottom: 25px;
