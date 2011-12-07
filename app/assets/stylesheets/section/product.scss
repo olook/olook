@@ -250,6 +250,11 @@
                   width: 35px;
                   height: 30px;
                 }
+                &:first-child {
+                  img {
+                    border: 1px solid #D95485;
+                  }
+                }
               }
             }
           }
