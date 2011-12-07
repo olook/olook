@@ -1,16 +1,4 @@
 <%= form_for(@payment) do |f| %>
-  <% if @payment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
-
-      <ul>
-      <% @payment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="bank_select">
     <h1>Selecione seu banco:</h1>
     <fieldset class="inputs">
@@ -30,4 +18,3 @@
     </fieldset>
   </div>
 <% end %>
-
