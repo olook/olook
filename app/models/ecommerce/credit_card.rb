@@ -4,6 +4,7 @@ class CreditCard < Payment
 
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
   PAYMENT_QUANTITY = 6
+  MINIMUM_PAYMENT = 30
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
   CreditCardNumberFormat = /[0-9]{16}/
@@ -51,6 +52,10 @@ class CreditCard < Payment
 
   def to_s
     "CartaoCredito"
+  end
+
+  def self.installments_number_for(order_total)
+    (order_total / MINIMUM_PAYMENT).to_i
   end
 
   private
