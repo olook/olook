@@ -5,7 +5,14 @@
 
 <section id="payment" class="checkout">
   <section class="main">
-    <%= link_to "Link para o Banco", @payment.url %>
-    <%= link_to "Finalizar", payment_path(@payment) %>
+    <h1>Escolha uma forma de pagamento</h1>
+    <p>Para abrir novamente a janela do seu banco, <%= link_to "clique aqui", @payment.url %>.</p>
  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <%= render "shared/payments/info_address", :order => @order %>
+    <% end %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart %>
+    <%= link_to "Finalizar", payment_path(@payment), :class => "finish" %>
+  </section>
 </section>
