@@ -25,22 +25,27 @@ protected
     temp_file_uploader.retrieve_from_store!(temp_filename)
     temp_file_uploader.cache_stored_file!
 
-    CSV.read(temp_file_uploader.file.path)
+    CSV.read(temp_file_uploader.file.path, {:col_sep => ';'})
   end
   
   def self.create_freight(shipping_service, data)
     shipping_service.freight_prices.build.tap do |freight|
-      freight.zip_start = data[1]
-      freight.zip_end = data[2]
-      freight.order_value_start = data[5].to_f
-      freight.order_value_end = data[6].to_f
-      freight.delivery_time = data[7]
-      freight.price = data[8].to_f
-      freight.cost = data[9].to_f
+      freight.zip_start         = data[1]
+      freight.zip_end           = data[2]
+      freight.order_value_start = parse_float(data[5])
+      freight.order_value_end   = parse_float(data[6])
+      freight.delivery_time     = data[7]
+      freight.price             = parse_float(data[8])
+      freight.cost              = parse_float(data[9])
 
       freight.description = "#{data[0]} - #{data[3]} - #{data[4]} - #{data[10]} - #{data[11]}"
       
       freight.save
     end
+  end
+  
+private
+  def self.parse_float(float_value)
+    BigDecimal.new(float_value.gsub(',','.'), 10)
   end
 end
