@@ -35,9 +35,9 @@
         <div id="details">
           <div>
             <h1>Endereço de entrega</h1>
-            <p><strong>Denis Araujo</strong></p>
-            <p>Rua Surubim, 159 - Brooklin Paulista</p>
-            <p>São Paulo, SP</p>
+            <p><strong><%= @address.identification %></strong></p>
+            <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
+            <p><%= "#{@address.city}, #{@address.state}" %></p>
           </div>
           <div>
             <h1>Data do Pedido</h1>
