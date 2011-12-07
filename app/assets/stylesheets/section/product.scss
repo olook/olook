@@ -206,11 +206,14 @@
             font-style: italic;
             line-height: 30px;
             margin-right: 10px;
+            float: left;
           }
           ol {
+            width: 280px;
             float: left;
             li {
-              margin-left: 5px;
+              margin: 0 5px 5px 0;
+              display: inline-block;
               float: left;
               &:first-child {
                 margin-left: 0;
@@ -241,6 +244,7 @@
               }
             }
             ol.colors {
+              width: 310px;
               li {
                 img {
                   width: 35px;
