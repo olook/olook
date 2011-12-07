@@ -142,9 +142,9 @@ describe CartController do
           }.to change(Order, :count).by(0)
         end
 
-        it "should redirect back to product page" do
+        it "should redirect cart_path" do
           post :create, :variant => {:id => variant.id}
-          response.should redirect_to(product_path(product))
+          response.should redirect_to(cart_path)
         end
 
         it "should add a variant in the order" do
