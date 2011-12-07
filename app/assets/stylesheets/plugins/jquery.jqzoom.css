@@ -70,7 +70,6 @@
 }
 .zoomWrapper{
 	position:relative;
-	border:1px solid #999;
   z-index:110;
 }
 .zoomWrapperTitle{
