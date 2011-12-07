@@ -12,7 +12,13 @@ class CreditCard < Payment
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
-  validates_with CreditCardValidator, :on => :create
+  validates :user_name, :bank, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
+      
+  validates_format_of :telephone, :with => PhoneFormat, :on => :create                                  
+  validates_format_of :credit_card_number, :with => CreditCardNumberFormat, :on => :create              
+  validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create                       
+  validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create                           
+  validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create                   
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
