@@ -117,6 +117,15 @@ class Order < ActiveRecord::Base
     update_attributes(:identification_code => code)
   end
 
+  def decrement_inventory_for_each_item
+    ActiveRecord::Base.transaction do
+      line_items.each do |item|
+
+        item.variant.decrement!(:inventory, item.quantity)
+      end
+    end
+  end
+
   private
 
   def generate_number
