@@ -922,15 +922,23 @@ section.main {
         border-color: #e46d99;
       }
       ul.links {
+        width: auto;
         margin: 15px 0 0 0;
+        overflow: auto;
         li {
-          display: inline;
+          width: auto;
+          margin: 0 0 5px 0;
+          overflow: auto;
+          float: left;
+          &.address {
+            width: 100%;
+            clear: both;
+          }
           a {
             color: #e46d99;
             font-size: 12px;
             text-decoration: none;
             margin: 0 10px 5px 0;
-            float: left;
             &:hover {
               text-decoration: underline;
             }
