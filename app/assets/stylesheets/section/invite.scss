@@ -2,8 +2,12 @@
 body {
   .content {
     #user-info {
-      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 280px;
+      overflow: visible;
       margin-top: 0;
+      z-index: 10;
 
       .info {
         overflow: hidden;
@@ -56,12 +60,15 @@ body {
       }
 
       .banner {
+        position: absolute;
         width: 446px;
-        height: 334px;
+        height: 245px;
         float: right;
-        position: relative;
         padding-top: 30px;
-        z-index: -9999;
+        top: 0;
+        right: 0;
+        overflow: visible;
+        z-index: 10;
 
         > h1 {
           background: url("/assets/common/banner/bg-banner-pink.png") no-repeat;
@@ -132,7 +139,7 @@ body {
       width: 100%;
       height: 50px;
       overflow: hidden;
-      margin-top: -79px;
+      margin-top: 0;
       padding: 0;
       border: none;
       display: block;
