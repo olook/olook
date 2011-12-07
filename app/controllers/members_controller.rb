@@ -90,15 +90,6 @@ class MembersController < ApplicationController
     redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
   end
 
-  def utm_params
-    {
-      :utm_source => params[:utm_source],
-      :utm_medium => params[:utm_medium],
-      :utm_campaign => params[:utm_campaign],
-      :utm_content => params[:utm_content]
-    }
-  end
-
   def incoming_params
     params.clone.delete_if {|key| ['controller', 'action','invite_token'].include?(key) }
   end
