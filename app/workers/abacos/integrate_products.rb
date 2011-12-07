@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class IntegrateProducts
-    @queue = :integrate_products
+    @queue = :abacos_to_front
 
     def self.perform
       process_products

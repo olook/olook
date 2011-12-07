@@ -32,8 +32,7 @@ module Abacos
         integrate_attributes(product)
         integrate_details(product)
         integrate_profiles(product)
-
-        Abacos::ProductAPI.confirm_product(self.integration_protocol)
+        confirm_product
       end
     end
     
@@ -80,6 +79,10 @@ module Abacos
         raise RuntimeError.new "Attemping to integrate invalid profile '#{profile_name}'" if profile.nil?
         product.profiles << profile
       end
+    end
+
+    def confirm_product
+      Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol)
     end
 
     def self.parse_abacos_data(abacos_product)
