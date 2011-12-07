@@ -2,7 +2,7 @@
 class CartController < ApplicationController
   layout "checkout"
 
-  respond_to :html
+  respond_to :html, :js
   before_filter :authenticate_user!
   before_filter :load_user
   before_filter :check_early_access
@@ -34,8 +34,23 @@ class CartController < ApplicationController
   end
 
   def update
-    notice = @order.remove_variant(@variant) ? "Produto removido com sucesso" : "Este produto não está na sua sacola"
-    redirect_to cart_path, :notice => notice
+    respond_with do |format|
+      if @order.remove_variant(@variant)
+        format.html do
+          redirect_to cart_path, :notice => "Produto removido com sucesso"
+        end
+        format.js do
+          head :ok
+        end
+      else
+        format.js do
+          head :not_found
+        end
+        format.html do
+          redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+        end
+      end
+    end
   end
 
   def update_quantity_product
