@@ -5,7 +5,14 @@
 
 <section id="payment" class="checkout">
   <section class="main">
-    <%= link_to "Link para o Boleto", @payment.url %>
-    <%= link_to "Finalizar", payment_path(@payment) %>
- </section>
+    <h1>Escolha uma forma de pagamento</h1>
+    <p>Para gerar novamente o boleto, <%= link_to "clique aqui", @payment.url %>.</p>
+  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
+    <% end %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart %>
+    <%= link_to "Finalizar", payment_path(@payment), :class => "finish" %>
+  </section>
 </section>
