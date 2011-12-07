@@ -20,9 +20,18 @@ describe Abacos::Inventory do
       mock_variant.should_receive(:'save!')
       ::Variant.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
 
-      Abacos::ProductAPI.should_receive(:confirm_inventory).with(subject.integration_protocol)
+      subject.should_receive(:confirm_inventory)
       
       subject.integrate
+    end
+  end
+  
+  describe '#confirm_inventory' do
+    let(:fake_protocol) { 'PROT-123-INV' }
+    it 'should add a task on the queue to integrate' do
+      subject.stub(:integration_protocol).and_return(fake_protocol)
+      Resque.should_receive(:enqueue).with(Abacos::ConfirmInventory, fake_protocol)
+      subject.confirm_inventory
     end
   end
 

@@ -20,12 +20,21 @@ describe Abacos::Price do
       mock_variant.should_receive(:'save!')
       ::Variant.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
 
-      Abacos::ProductAPI.should_receive(:confirm_price).with(subject.integration_protocol)
+      subject.should_receive(:confirm_price)
       
       subject.integrate
     end
   end
   
+  describe "#confirm_price" do
+    let(:fake_protocol) { 'PROT-123-PRICE' }
+    it 'should add a task on the queue to integrate' do
+      subject.stub(:integration_protocol).and_return(fake_protocol)
+      Resque.should_receive(:enqueue).with(Abacos::ConfirmPrice, fake_protocol)
+      subject.confirm_price
+    end
+  end
+
   describe '#parse_abacos_data' do
     it '#integration_protocol' do
       subject.integration_protocol.should == "999D8382-BA36-4AB4-A9FC-5BEFA60F58D7"

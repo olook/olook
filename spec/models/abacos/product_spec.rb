@@ -24,16 +24,17 @@ describe Abacos::Product do
     let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
 
     it 'should create a new product' do
-      Abacos::ProductAPI.should_receive(:confirm_product)
       expect {
         subject.stub(:integrate_details)
+        subject.stub(:integrate_profiles)
+        subject.stub(:confirm_product)
         subject.integrate
       }.to change(Product, :count).by(1)
     end
 
     it 'should call the integration confirmation' do
       subject.stub(:integrate_details)
-      Abacos::ProductAPI.should_receive(:confirm_product).with(subject.integration_protocol)
+      subject.should_receive(:confirm_product)
       subject.integrate
     end
 
@@ -44,8 +45,7 @@ describe Abacos::Product do
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
-      
-      Abacos::ProductAPI.should_receive(:confirm_product)
+      subject.should_receive(:confirm_product)
       
       subject.integrate
     end
@@ -116,6 +116,15 @@ describe Abacos::Product do
           expect {
             subject.integrate_profiles mock_product
           }.to raise_error(RuntimeError, "Attemping to integrate invalid profile 'non-existent-profile'")
+        end
+      end
+      
+      describe "#confirm_product" do
+        let(:fake_protocol) { 'PROT123' }
+        it 'should add a task on the queue to integrate' do
+          subject.stub(:integration_protocol).and_return(fake_protocol)
+          Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol)
+          subject.confirm_product
         end
       end
     end
