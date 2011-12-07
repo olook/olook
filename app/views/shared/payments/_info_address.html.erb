@@ -1,5 +1,5 @@
 <div class="item">
-  <h1>Endereço de entrega <%= link_to "alterar", addresses_path %></h1>
+  <h1>Endereço de entrega <%= link_to "alterar", addresses_path if @order.payment.nil? %></h1>
   <p><strong><%= order.freight.address.identification %></strong></p>
   <p><%= "#{order.freight.address.street}, #{order.freight.address.number} - #{order.freight.address.neighborhood}" %></p>
   <p><%= "#{order.freight.address.zip_code}" %></p>
