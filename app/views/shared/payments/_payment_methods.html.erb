@@ -9,6 +9,6 @@
   </li>
   <li class="credit_card">
     <p>Cartão de crédito</p>
-    <%= link_to "Cartão de Crédito", new_credit_card_path %>
+    <%= link_to "Cartão de Crédito", new_credit_card_path, :class => is_current?("credit_cards", "new") %>
   </li>
 </ul>
