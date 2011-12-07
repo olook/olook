@@ -271,6 +271,11 @@ section#payment {
         }
       }
     }
+    p {
+      a {
+        color: #df5a8a;
+      }
+    }
     p.generate_billet {
       font-size: 14px;
       input[type="submit"] {
