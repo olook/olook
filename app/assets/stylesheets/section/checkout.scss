@@ -138,7 +138,6 @@ section#cart {
         td {
           vertical-align: top;
           h1 {
-            position: absolute;
             font-family: Times;
             font-style: italic;
             font-size: 24px;
@@ -181,6 +180,7 @@ section#cart {
               font-size: 12px;
               text-decoration: underline;
               height: 25px;
+              margin: 5px 0 0 0;
               padding: 0 0 0 30px;
               border: none;
               cursor: pointer;
@@ -218,16 +218,19 @@ section#cart {
           width: 60px;
         }
         &.delete_item {
-          input[type="submit"] {
-            position: absolute;
-            background: url("/assets/cart/delete-item.png") no-repeat;
-            width: 76px;
-            height: 20px;
-            display: block;
-            top: 30px;
-            right: 15px;
-            border: none;
-            cursor: pointer;
+          form {
+            position: relative;
+            input[type="submit"] {
+              position: absolute;
+              background: url("/assets/cart/delete-item.png") no-repeat;
+              width: 76px;
+              height: 20px;
+              display: block;
+              top: 30px;
+              right: 15px;
+              border: none;
+              cursor: pointer;
+            }
           }
         }
       }
@@ -725,14 +728,29 @@ section.checkout {
   }
 }
 
+.mac.gecko {
+  section#cart table.items_list tbody tr td.delete_item form input[type="submit"] {
+    top: 10px;
+  }
+}
+
 .ie7 {
   header {
     height: 68px;
   }
-  section#cart table.items_list tbody tr.discount td {
-    &.item {
-      background: #CCC;
-      border-bottom: 1px #000 solid !important;
+  section#cart table.items_list tbody {
+    tr.discount fieldset ol li {
+      input[type="submit"] {
+        padding: 0 0 0 15px;
+      }
+    }
+  }
+}
+
+.ie8 {
+  section#cart table.items_list tbody {
+    tr td.delete_item form input[type="submit"] {
+      top: 10px;
     }
   }
 }
