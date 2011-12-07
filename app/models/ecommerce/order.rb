@@ -100,7 +100,7 @@ class Order < ActiveRecord::Base
   end
 
   def total_with_freight
-    total + freight.price
+    total + (freight.try(:price) || 0)
   end
 
   def total
