@@ -37,6 +37,8 @@ class BilletsController < ApplicationController
 
   def show
     @payment = @user.payments.find(params[:id])
+    @order = @payment.order
+    @cart = Cart.new(@order)
   end
 
   private
