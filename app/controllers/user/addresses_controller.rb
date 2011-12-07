@@ -39,7 +39,6 @@ class ::User::AddressesController < ApplicationController
   end
 
   def destroy
-    debugger
     @address = @user.addresses.find(params[:id])
     if @address.destroy
       redirect_to(user_addresses_path)
