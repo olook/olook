@@ -95,6 +95,7 @@ class Order < ActiveRecord::Base
   end
 
   def remove_variant(variant)
+    #return true
     current_item = line_items.select { |item| item.variant == variant }.first
     current_item.destroy if current_item
   end
