@@ -270,4 +270,21 @@ describe Product do
       subject.easy_to_find_description.should == 'M123 - Fake product - Black - Bag'
     end
   end
+  
+  describe '#sold_out?' do
+    subject { FactoryGirl.create :basic_shoe }
+    let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => subject }
+    let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => subject }
+
+    it "should return false if any of the variants is available" do
+      basic_shoe_size_35.update_attributes(:inventory => 0)
+      basic_shoe_size_40.update_attributes(:inventory => 1)
+      subject.should_not be_sold_out
+    end
+    it "should return true if none of the variants is available" do
+      basic_shoe_size_35.update_attributes(:inventory => 0)
+      basic_shoe_size_40.update_attributes(:inventory => 0)
+      subject.should be_sold_out
+    end
+  end
 end
