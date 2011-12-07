@@ -192,5 +192,18 @@ describe Order do
       }.to change(LineItem, :count).by(0)
     end
   end
+
+  context "#decrement_inventory_for_each_item" do
+    it "should update the inventory for each item" do
+      quantity = 2
+      basic_shoe_35_inventory = basic_shoe_35.inventory
+      basic_shoe_40_inventory = basic_shoe_40.inventory
+      subject.add_variant(basic_shoe_35, quantity)
+      subject.add_variant(basic_shoe_40, quantity)
+      subject.decrement_inventory_for_each_item
+      basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory - quantity
+      basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
+    end
+  end
 end
 
