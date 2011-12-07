@@ -2,18 +2,18 @@
 
 body {
   #error_explanation {
-    margin: 10px 0 15px 42px;
-    width: 364px;
+    margin: 10px 0 15px 0;
+    width: 100%;
     border: 1px solid #DEDEDE;
-    padding: 20px;
-
     ul {
-      text-align: left;
-      font-size: 11px;
-      color: #e20101;
-      font-weight: bold;
-
+      background: url("/assets/common/error.png") top left no-repeat;
+      padding: 0 0 0 30px;
+      margin: 20px;
       li {
+        color: #e50000;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: left;
         padding-bottom: 5px;
       }
     }
