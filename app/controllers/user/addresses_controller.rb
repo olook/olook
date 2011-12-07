@@ -6,6 +6,7 @@ class ::User::AddressesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_user
   before_filter :assign_default_country, :only => [:create]
+  #before_filter :load_order
 
   def index
     @addresses = @user.addresses
@@ -38,6 +39,7 @@ class ::User::AddressesController < ApplicationController
   end
 
   def destroy
+    debugger
     @address = @user.addresses.find(params[:id])
     if @address.destroy
       redirect_to(user_addresses_path)
