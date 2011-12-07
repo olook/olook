@@ -32,6 +32,12 @@ describe CreditCardsController do
         get 'new'
         assigns(:payment).should be_a_new(CreditCard)
       end
+
+      it "should not redirect to cart_path if the total is greater then minimum" do
+        Order.any_instance.stub(:total_with_freight).and_return(CreditCard::MINIMUM_PAYMENT + 1)
+        get 'new'
+        response.should_not redirect_to(cart_path)
+      end
     end
 
     context "with a invalid order" do
@@ -43,6 +49,12 @@ describe CreditCardsController do
 
       it "should redirect to cart path if the order total is less then 0" do
         Order.find(order).line_items.delete_all
+        get 'new'
+        response.should redirect_to(cart_path)
+      end
+
+      it "should redirect to cart_path if the total is not the minimum" do
+        Order.any_instance.stub(:total_with_freight).and_return(CreditCard::MINIMUM_PAYMENT - 1)
         get 'new'
         response.should redirect_to(cart_path)
       end

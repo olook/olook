@@ -9,7 +9,7 @@ class CreditCardsController < ApplicationController
   before_filter :check_order, :only => [:new, :create]
   before_filter :check_inventory, :only => [:create]
   before_filter :check_freight, :only => [:new, :create]
-  before_filter :check_total_order
+  before_filter :check_total_order, :except => [:show]
   before_filter :assign_receipt, :only => [:create]
   before_filter :build_cart, :only => [:new, :create]
 
@@ -46,7 +46,7 @@ class CreditCardsController < ApplicationController
   private
 
   def check_total_order
-
+    redirect_to(cart_path, :notice => "Para pagamento com cartão de crédito sua compra deve ser de pelo menos #{CreditCard::MINIMUM_PAYMENT} Reais") if @order.total_with_freight < CreditCard::MINIMUM_PAYMENT
   end
 
   def assign_receipt
