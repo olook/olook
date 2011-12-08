@@ -66,9 +66,24 @@ describe ProductPresenter do
   end
 
   describe '#render_sizes' do
-    it "should render the partial with the product sizes" do
-      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:product_presenter => subject}).and_return('sizes')
-      subject.render_sizes.should == 'sizes'
+    context "when there's just one variant, it means the product is single sized" do
+      before :each do
+        subject.product.stub_chain(:variants, :sorted_by_description).and_return([:single_variant])
+      end
+      it "should not render the size options and just create a hidden tag with the variant" do
+        template.should_receive(:render).with(:partial => 'product/single_size', :locals => {:variant => :single_variant}).and_return('single_size')
+        subject.render_sizes.should == 'single_size'
+      end
+    end
+    context "when there's more than one variant" do
+      let(:sizes) { [:size_one, :size_two] }
+      before :each do
+        subject.product.stub_chain(:variants, :sorted_by_description).and_return(sizes)
+      end
+      it "should render the partial with the product sizes" do
+        template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes}).and_return('sizes')
+        subject.render_sizes.should == 'sizes'
+      end
     end
   end
   
