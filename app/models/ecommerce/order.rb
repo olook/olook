@@ -17,6 +17,9 @@ class Order < ActiveRecord::Base
 
   state_machine :initial => :waiting_payment do
 
+    after_transition :waiting_payment => :canceled, :do => :rollback_inventory
+    after_transition :under_review => :reversed, :do => :rollback_inventory
+
     event :under_analysis do
       transition :waiting_payment => :waiting_payment
     end

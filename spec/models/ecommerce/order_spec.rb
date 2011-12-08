@@ -220,6 +220,17 @@ describe Order do
       subject.should_receive(:increment_inventory_for_each_item)
       subject.rollback_inventory
     end
+
+    it "should rollback the inventory when canceled" do
+      subject.should_receive(:increment_inventory_for_each_item)
+      subject.canceled
+    end
+
+    it "should rollback the inventory when canceled" do
+      subject.should_receive(:increment_inventory_for_each_item)
+      subject.under_review
+      subject.reversed
+    end
   end
 end
 
