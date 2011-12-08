@@ -607,8 +607,44 @@ section#payment {
           display: block;
           margin: 0 25px 0 0;
           float: left;
-          &.billet {
+          &.Boleto {
             background-position: -5px -5px;
+          }
+          &.BancoDoBrasil {
+            background-position: -53px -5px;
+          }
+          &.Bradesco {
+            background-position: -94px -5px;
+          }
+          &.Itau {
+            background-position: -136px -5px;
+          }
+          &.BancoReal {
+            background-position: -177px -5px;
+          }
+          &.Unibanco {
+            background-position: -218px -5px;
+          }
+          &.Banrisul {
+            background-position: -260px -5px;
+          }
+          &.Visa {
+            background-position: -308px -5px;
+          }
+          &.Mastercard {
+            background-position: -349px -5px;
+          }
+          &.AmericanExpress {
+            background-position: -391px -5px;
+          }
+          &.Diners {
+            background-position: -433px -5px;
+          }
+          &.Hipercard {
+            background-position: -475px -5px;
+          }
+          &.Aura {
+            background-position: -571px -5px;
           }
         }
         p {
