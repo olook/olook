@@ -19,6 +19,7 @@ class Order < ActiveRecord::Base
 
     after_transition :waiting_payment => :canceled, :do => :rollback_inventory
     after_transition :under_review => :reversed, :do => :rollback_inventory
+    after_transition :under_review => :refunded, :do => :rollback_inventory
 
     event :under_analysis do
       transition :waiting_payment => :waiting_payment
