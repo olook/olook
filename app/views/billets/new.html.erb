@@ -4,15 +4,18 @@
 
 <section id="payment" class="checkout">
   <section class="main">
-    <h1>Escolha uma forma de pagamento</h1>
-    <%= render :partial => "shared/checkout_errors", :locals => { :object => @payment } %>
-    <%= render :partial => "shared/payments/payment_methods" %>
-    <%= render 'form' %>
-  </section>
-  <section class="sidebar">
-    <% content_for :checkout_sidebar do %>
-      <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
+    <%= form_for(@payment) do |f| %>
+      <h1>Escolha uma forma de pagamento</h1>
+      <%= render :partial => "shared/checkout_errors", :locals => { :object => @payment } %>
+      <%= render :partial => "shared/payments/payment_methods" %>
+      <p class="generate_billet">Você poderá imprimir o boleto através da sessão Meus Pedidos em sua conta, Também enviaremos o link para impressão para o seu email.<br />Seu pedido ficará reservado por no máximo XX hrs.</p>
+    </section>
+    <section class="sidebar">
+      <% content_for :checkout_sidebar do %>
+        <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
+      <% end %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <%= f.submit "", :class => "finish" %>
     <% end %>
-    <%= render "shared/payments/info_sidebar", :cart => @cart %>
   </section>
 </section>
