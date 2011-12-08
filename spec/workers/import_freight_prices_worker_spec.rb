@@ -55,7 +55,7 @@ describe ImportFreightPricesWorker do
     # - Custo
     # - Localidade Atendida
     # - Tipo de Localidade Comercial
-    let(:data) { 'TEX;1001000;1142100;SP;SAO PAULO;0,001;30,000;1;9,9;15,0;Atendida;Capital'.split ';' }
+    let(:data) { 'TEX;1001000;1142100;SP;SAO PAULO;0,001;30,000;1;R$ 9,9;R$ 15,0;Atendida;Capital'.split ';' }
 
     it 'should properly parse the data from the file' do
       freight = described_class.create_freight(shipping_service, data)
@@ -70,6 +70,15 @@ describe ImportFreightPricesWorker do
       freight.price.should              be_within(0.001).of(9.9)
       freight.cost.should               be_within(0.001).of(15.0)
       freight.description.should        == 'TEX - SP - SAO PAULO - Atendida - Capital'
+    end
+  end
+  
+  describe '#parse_float, should return a valid BigDecimal given' do
+    it 'R$ 9,123 should return 9.123' do
+      described_class.parse_float('R$ 9,123').should be_within(0.0001).of(9.123)
+    end
+    it 'US$ 9.14 should return 9.14' do
+      described_class.parse_float('US$ 9.14').should be_within(0.0001).of(9.14)
     end
   end
 end
