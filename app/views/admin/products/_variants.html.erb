@@ -12,7 +12,6 @@
       <th>Weight</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
 
   <% product.variants.each do |variant| %>
@@ -27,7 +26,6 @@
       <td><%= variant.weight %></td>
       <td><%= link_to 'Show', admin_product_variant_path(variant.product, variant) %></td>
       <td><%= link_to 'Edit', edit_admin_product_variant_path(variant.product, variant) %></td>
-      <td><%= link_to 'Destroy', admin_product_variant_path(variant.product, variant), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
   </table>
