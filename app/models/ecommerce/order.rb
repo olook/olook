@@ -143,7 +143,7 @@ class Order < ActiveRecord::Base
   end
   
   def installments
-    payment.nil? ? 1 : payment.payments
+    payment.try(:payments) || 1
   end
 
   private

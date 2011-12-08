@@ -23,12 +23,12 @@
         <ul id="items">
           <% @order.line_items.each do |item| %>
             <li>
-              <%= image_tag item.variant.product.main_picture %>
+              <%= image_tag item.variant.showroom_picture %>
               <h1><%= item.variant.name %></h1>
-              <p><strong>Cor:</strong> </p>
+              <p><strong>Cor: <%= item.variant.color_name %></strong> </p>
               <p><strong>Quantidade:</strong> <%= item.quantity %></p>
-              <p><strong>Valor:</strong> <%= number_to_currency(item.variant.price) %></p>
-              <p><strong>Forma de pagamento:</strong> Boleto</p>
+              <p><strong>Preço:</strong> <%= number_to_currency(item.price) %></p>
+              <p><strong>Total:</strong> <%= number_to_currency(item.total_price) %></p>
             </li>
           <% end %>
         </ul>
@@ -37,11 +37,12 @@
             <h1>Endereço de entrega</h1>
             <p><strong><%= @address.identification %></strong></p>
             <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
+            <p><%= "#{@address.zip_code}" %></p>
             <p><%= "#{@address.city}, #{@address.state}" %></p>
           </div>
           <div>
             <h1>Data do Pedido</h1>
-            <p><%= @order.created_at.strftime("%d/%m/%Y") %></p>
+            <p><%= l @order.created_at, :format => :short %></p>
           </div>
           <div>
             <h1>Quantidade de Produtos</h1>
