@@ -2,16 +2,20 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
-<section id="payment" class="checkout">
+<section id="payment" class="checkout confirmation">
   <section class="main">
-    <h1>Escolha uma forma de pagamento</h1>
-    <p>Para gerar novamente o boleto, <%= link_to "clique aqui", @payment.url %>.</p>
+    <h1>Seu pedido foi efetuado com sucesso!!</h1>
+    <div class="payment_link">
+      <%= link_to "banco", @payment.url, :class => "bank_flag billet" %>
+      <p>Você escolheu efetuar o pagamento com boleto. <%= link_to "Clique aqui para imprimir seu boleto", @payment.url %>.
+    </div>
+    <p class="description">Obrigada pela sua compra! Mal podemos esperar para o pedido chegar até você. Não se esqueça de conferir se todos os dados ao lado estão certos. Se tudo confere, é só esperar ansiosamente, não vai demorar muito. Se você tem qualquer dúvida ou precisa solicitar alguma mudança nos dados do seu pedido é só mandar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %> e a nossa equipe vai te ajudar.</p>
+    <%= link_to "Voltar para a minha vitrine", member_showroom_path, :class => "back" %>
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
       <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
     <% end %>
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
-    <%= link_to "Finalizar", payment_path(@payment), :class => "finish" %>
   </section>
 </section>
