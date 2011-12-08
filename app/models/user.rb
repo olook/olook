@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :require_cpf
+  attr_accessor :require_cpf
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
@@ -25,6 +26,7 @@ class User < ActiveRecord::Base
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :if => :is_invited
+  validates_with CpfValidator, :if => :require_cpf
 
   def name
     "#{first_name} #{last_name}".strip
