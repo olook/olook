@@ -28,7 +28,7 @@ module Abacos
 
       variant.save!
       
-      Abacos::ProductAPI.confirm_product(self.integration_protocol)
+      confirm_variant
     end
 
     def self.parse_abacos_data(abacos_product)
@@ -40,6 +40,10 @@ module Abacos
         number:               abacos_product[:codigo_produto],
         description:          parsed_description,
         display_reference:    parse_display_reference(parsed_description, parsed_category) }
+    end
+    
+    def confirm_variant
+      Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol)
     end
 
   private

@@ -238,5 +238,19 @@ describe Order do
       subject.refunded
     end
   end
+  
+  describe '#installments' do
+    context "when there's no payment" do
+      it "should return 1" do
+        subject.stub(:payment).and_return(nil)
+        subject.installments.should == 1
+      end
+    end
+    context "when there's a payment" do
+      it "should return the number of installments of the payment" do
+        subject.payment.stub(:payments).and_return(3)
+        subject.installments.should == 3
+      end
+    end
+  end
 end
-

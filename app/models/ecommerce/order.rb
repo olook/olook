@@ -141,6 +141,10 @@ class Order < ActiveRecord::Base
   def rollback_inventory
     increment_inventory_for_each_item
   end
+  
+  def installments
+    payment.nil? ? 1 : payment.payments
+  end
 
   private
 
