@@ -51,7 +51,7 @@ feature "User Authenticate", %q{
   scenario "User update without password" do
     do_login!(@user)
     visit edit_user_registration_path
-    within("#user_edit") do
+    within("#user_new") do
       fill_in "user_first_name", :with => "New First Name"
       fill_in "user_last_name", :with => "New Last Name"
       fill_in "user_email", :with => "fake@mail.com"
@@ -65,11 +65,12 @@ feature "User Authenticate", %q{
   scenario "User update with password" do
     do_login!(@user)
     visit edit_user_registration_path
-    within("#user_edit") do
+    within("#user_new") do
       fill_in "user_first_name", :with => "New First Name"
       fill_in "user_last_name", :with => "New Last Name"
       fill_in "user_email", :with => "fake@mail.com"
       fill_in "user_password", :with => "123456"
+      fill_in "user_cpf", :with => "19762003601"
       fill_in "user_password_confirmation", :with => "123456"
       click_button "update_user"
     end

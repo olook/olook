@@ -16,6 +16,11 @@ class Order < ActiveRecord::Base
   after_create :generate_identification_code
 
   state_machine :initial => :waiting_payment do
+
+    after_transition :waiting_payment => :canceled, :do => :rollback_inventory
+    after_transition :under_review => :reversed, :do => :rollback_inventory
+    after_transition :under_review => :refunded, :do => :rollback_inventory
+
     event :under_analysis do
       transition :waiting_payment => :waiting_payment
     end
@@ -123,6 +128,18 @@ class Order < ActiveRecord::Base
         item.variant.decrement!(:inventory, item.quantity)
       end
     end
+  end
+
+  def increment_inventory_for_each_item
+    ActiveRecord::Base.transaction do
+      line_items.each do |item|
+        item.variant.increment!(:inventory, item.quantity)
+      end
+    end
+  end
+
+  def rollback_inventory
+    increment_inventory_for_each_item
   end
 
   private

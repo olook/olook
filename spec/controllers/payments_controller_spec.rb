@@ -56,13 +56,6 @@ describe PaymentsController do
         post :create, :status_pagamento => invalid_status, :id_transacao => order.identification_code, :value => total
         response.status.should == 500
       end
-
-      it "should return 500 with a invalid value" do
-        invalid_total = "9999"
-        billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => invalid_total
-        response.status.should == 500
-      end
     end
   end
 
