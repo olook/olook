@@ -46,6 +46,8 @@ protected
   
 private
   def self.parse_float(float_value)
-    BigDecimal.new(float_value.gsub(',','.'), 10)
+    clean_value = float_value.gsub(/[^\d,\.]/, '')
+    clean_value = clean_value.gsub(',','.')
+    BigDecimal.new(clean_value, 10)
   end
 end

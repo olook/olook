@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CreditCard < Payment
-  attr_accessor :user_name, :credit_card_number, :bank, :security_code, :expiration_date, :telephone, :user_birthday, :payments
+  attr_accessor :security_code
 
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
   PAYMENT_QUANTITY = 6
@@ -13,12 +13,14 @@ class CreditCard < Payment
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
   validates :user_name, :bank, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
-      
-  validates_format_of :telephone, :with => PhoneFormat, :on => :create                                  
-  validates_format_of :credit_card_number, :with => CreditCardNumberFormat, :on => :create              
-  validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create                       
-  validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create                           
-  validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create                   
+
+  validates_format_of :telephone, :with => PhoneFormat, :on => :create
+  validates_format_of :credit_card_number, :with => CreditCardNumberFormat, :on => :create
+  validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
+  validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
+  validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
+
+  before_save :encrypt_credit_card
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
@@ -63,6 +65,11 @@ class CreditCard < Payment
   end
 
   private
+
+  def encrypt_credit_card
+    number = self.credit_card_number
+    self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - 4)..number.size]}"
+  end
 
   def reverse_order
     order.reversed

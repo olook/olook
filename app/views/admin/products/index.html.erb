@@ -7,6 +7,7 @@
       <th>Model number</th>
       <th>Category</th>
       <th>Color</th>
+      <th>Picture</th>
       <th>Sample</th>
       <th></th>
       <th></th>
@@ -19,17 +20,13 @@
       <td><%= product.model_number %></td>
       <td><%= product.category_humanize %></td>
       <td><%= product.color_name %></td>
+      <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
-      <td><%= link_to 'Destroy', admin_product_path(product), confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
   </table>
 
   <br />
 </div>
-
-<% content_for :secondary_navigation do %>
-  <li><%= link_to 'New Product', new_admin_product_path %></li>
-<% end %>
