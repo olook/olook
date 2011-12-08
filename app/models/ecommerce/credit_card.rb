@@ -20,7 +20,7 @@ class CreditCard < Payment
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
 
-  before_save :encrypt_credit_card
+  before_create :encrypt_credit_card
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
