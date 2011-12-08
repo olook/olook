@@ -15,12 +15,6 @@ class RegistrationsController < Devise::RegistrationsController
     render :layout => "site"
   end
 
-  def edit
-    build_resource
-    resource.require_cpf = true
-    super
-  end
-
   def create
     build_resource
     set_resource_attributes(resource)
