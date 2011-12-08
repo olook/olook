@@ -8,7 +8,7 @@ class User::OrdersController < ApplicationController
   before_filter :load_order
 
   def index
-    @orders = @user.orders.page(params[:page]).per_page(8)
+    @orders = @user.orders.order('created_at DESC').page(params[:page]).per_page(8)
   end
 
   def show

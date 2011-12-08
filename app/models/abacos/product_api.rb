@@ -36,7 +36,8 @@ module Abacos
     def self.confirm_integration(method, protocol)
       parsed_method = "confirmar_recebimento_#{method}".to_sym
       response = call_webservice(wsdl, parsed_method, {"Protocolo#{method.to_s.capitalize}" => protocol})
-      response[:tipo] == 'tdreSucesso' ? true : raise_webservice_error(response)
+      return true if response[:tipo] == 'tdreSucesso'
+      raise_webservice_error(response)
     end
   end
 end
