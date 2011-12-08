@@ -193,9 +193,8 @@ describe Order do
     end
   end
 
-  context "#decrement_inventory_for_each_item" do
-    it "should update the inventory for each item" do
-      quantity = 2
+  context "inventory update" do
+    it "should decrement the inventory for each item" do
       basic_shoe_35_inventory = basic_shoe_35.inventory
       basic_shoe_40_inventory = basic_shoe_40.inventory
       subject.add_variant(basic_shoe_35, quantity)
@@ -203,6 +202,23 @@ describe Order do
       subject.decrement_inventory_for_each_item
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory - quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
+    end
+
+    it "should increment the inventory for each item" do
+      basic_shoe_35.increment!(:inventory, quantity)
+      basic_shoe_40.increment!(:inventory, quantity)
+      basic_shoe_35_inventory = basic_shoe_35.inventory
+      basic_shoe_40_inventory = basic_shoe_40.inventory
+      subject.add_variant(basic_shoe_35, quantity)
+      subject.add_variant(basic_shoe_40, quantity)
+      subject.increment_inventory_for_each_item
+      basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory + quantity
+      basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory + quantity
+    end
+
+    it "should rollback the inventory" do
+      subject.should_receive(:increment_inventory_for_each_item)
+      subject.rollback_inventory
     end
   end
 end
