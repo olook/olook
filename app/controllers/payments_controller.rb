@@ -20,14 +20,16 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    order = Order.find_by_identification_code(params[:id_transacao])
+    order = Order.find_by_identification_code(params["id_transacao"])
     if order
       if update_order(order)
         render :nothing => true, :status => 200
       else
+        logger.error("Ordem nao encontrada")
         render :nothing => true, :status => 500
       end
     else
+      logger.error("Ordem nao encontrada")
       render :nothing => true, :status => 500
     end
   end
@@ -35,6 +37,6 @@ class PaymentsController < ApplicationController
   private
 
   def update_order(order)
-    order.payment.set_state(params[:status_pagamento])
+    order.payment.set_state(params["status_pagamento"])
   end
 end
