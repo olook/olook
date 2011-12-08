@@ -38,10 +38,10 @@
       <% @order.line_items.each do |item| %>
         <tr>
           <td class="item">
-            <%= image_tag item.variant.product.thumb_picture %>
+            <%= image_tag item.variant.thumb_picture %>
             <p><strong><%= item.variant.name %></strong></p>
             <p>Tamanho: <%= item.variant.description %></p>
-            <p>Cor: </p>
+            <p>Cor: <%= item.variant.color_name %></p>
           </td>
           <td class="amount">
             <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>

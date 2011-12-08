@@ -140,5 +140,32 @@ describe Variant do
       subject.weight.should == 42
     end
   end
+  
+  describe "delegated methods" do
+    describe "#main_picture" do
+      it "should return the product's main picture" do
+        subject.product.stub(:main_picture).and_return(:main)
+        subject.main_picture.should == :main
+      end
+    end
+    describe "#showroom_picture" do
+      it "should return the product's thumb picture" do
+        subject.product.stub(:showroom_picture).and_return(:showroom)
+        subject.showroom_picture.should == :showroom
+      end
+    end
+    describe "#thumb_picture" do
+      it "should return the product's thumb picture" do
+        subject.product.stub(:thumb_picture).and_return(:thumb)
+        subject.thumb_picture.should == :thumb
+      end
+    end
+    describe "#color_name" do
+      it "should return the product's color" do
+        subject.product.stub(:color_name).and_return(:color)
+        subject.color_name.should == :color
+      end
+    end
+  end
 end
 
