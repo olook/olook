@@ -31,23 +31,25 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+  process :quality => 100
+
   version :thumb do
-    process :resize_to_limit => [50, 50]
+    process :resize_to_limit => [50, 50], :quality => 100
   end
   version :bag do
-    process :resize_to_limit => [70, 70]
+    process :resize_to_limit => [70, 70], :quality => 100
   end
   version :showroom do
-    process :resize_to_limit => [170, 170]
+    process :resize_to_limit => [170, 170], :quality => 100
   end
   version :suggestion do
-    process :resize_to_limit => [260, 260]
+    process :resize_to_limit => [260, 260], :quality => 100
   end
   version :main do
-    process :resize_to_limit => [500, 500]
+    process :resize_to_limit => [500, 500], :quality => 100
   end
   version :zoom_out do
-    process :resize_to_limit => [1000, 1000]
+    process :resize_to_limit => [1000, 1000], :quality => 100
   end  
 
   def extension_white_list
