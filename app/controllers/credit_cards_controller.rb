@@ -42,6 +42,7 @@ class CreditCardsController < ApplicationController
     @payment = @user.payments.find(params[:id])
     @payment_response = @payment.payment_response
     @order = @payment.order
+    @cart = Cart.new(@order)
   end
 
   private
