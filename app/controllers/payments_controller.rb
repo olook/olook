@@ -5,7 +5,7 @@ class PaymentsController < ApplicationController
   include Ecommerce
   respond_to :html
   before_filter :authenticate_user!, :only => [:index]
-  before_filter :load_user
+  before_filter :load_user, :only => [:index]
   before_filter :check_order, :only => [:index]
   before_filter :check_freight, :only => [:index]
   protect_from_forgery :except => :create
