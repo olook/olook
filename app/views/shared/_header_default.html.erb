@@ -42,7 +42,7 @@
       <% end %>
         <ul class="default">
           <% if current_user.has_early_access? %>
-            <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path %></li>
+            <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path, :class => is_current?('members', 'showroom') %></li>
           <% end %>
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
           <li class="my_friends"><%= link_to 'Minhas amigas convidadas', member_invite_list_path, :class => is_current?('members', 'invite_list') %></li>
