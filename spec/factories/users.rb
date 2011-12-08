@@ -12,6 +12,7 @@ FactoryGirl.define do
 
     after_build do |user|
       Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
     end
 
     after_create do |user|
@@ -24,6 +25,11 @@ FactoryGirl.define do
       end
       first_name "First Name"
       last_name "Last Name"
+
+      after_build do |user|
+        Resque.stub(:enqueue)
+        Resque.stub(:enqueue_in)
+      end
 
       after_create do |member|
         member.send(:write_attribute, :invite_token, 'OK'*4)
