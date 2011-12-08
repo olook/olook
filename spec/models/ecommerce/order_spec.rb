@@ -226,10 +226,16 @@ describe Order do
       subject.canceled
     end
 
-    it "should rollback the inventory when canceled" do
+    it "should rollback the inventory when reversed" do
       subject.should_receive(:increment_inventory_for_each_item)
       subject.under_review
       subject.reversed
+    end
+
+    it "should rollback the inventory when refunded" do
+      subject.should_receive(:increment_inventory_for_each_item)
+      subject.under_review
+      subject.refunded
     end
   end
 end
