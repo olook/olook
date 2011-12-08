@@ -3,8 +3,8 @@
 <% end %>
 
 <section id="payment" class="checkout">
-  <section class="main">
-    <%= form_for(@payment) do |f| %>
+  <%= form_for(@payment) do |f| %>
+    <section class="main">
       <h1>Escolha uma forma de pagamento</h1>
       <%= render :partial => "shared/checkout_errors", :locals => { :object => @payment } %>
       <%= render :partial => "shared/payments/payment_methods" %>
@@ -16,6 +16,6 @@
       <% end %>
       <%= render "shared/payments/info_sidebar", :cart => @cart %>
       <%= f.submit "", :class => "finish" %>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 </section>
