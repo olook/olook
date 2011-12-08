@@ -5,7 +5,7 @@ class PaymentsController < ApplicationController
   include Ecommerce
   respond_to :html
   before_filter :authenticate_user!, :only => [:index]
-  before_filter :load_user, :only => [:index]
+  before_filter :load_user, :except => [:create]
   before_filter :check_order, :only => [:index]
   before_filter :check_freight, :only => [:index]
   protect_from_forgery :except => :create
@@ -20,7 +20,9 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    order = Order.find_by_identification_code(params["id_transacao"])
+    identification_code = params["id_transacao"]
+    logger.error identification_code
+    order = Order.find_by_identification_code(identification_code)
     if order
       if update_order(order)
         render :nothing => true, :status => 200
@@ -37,6 +39,7 @@ class PaymentsController < ApplicationController
   private
 
   def update_order(order)
+    logger.error params["status_pagamento"]
     order.payment.set_state(params["status_pagamento"])
   end
 end
