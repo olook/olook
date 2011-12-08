@@ -169,7 +169,5 @@ $(document).ready(function() {
   $("ul.submenu li form.delete")
    .bind("ajax:complete", function(evt, xhr, settings){
      $("#cart").html(xhr.responseText)
-     //$(this).parent("li.product").remove();
-     //var quantity = $(this).find('input.quantity').val();
   })
 });
