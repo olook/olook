@@ -7,9 +7,15 @@ describe RegistrationsController do
 
   let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
 
+  before :all do
+    ActiveRecord::Base.observers.disable :all
+  end
+  after :all do
+    ActiveRecord::Base.observers.enable :all
+  end
+
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    Resque.stub(:enqueue)
   end
 
   describe "GET new" do
@@ -51,6 +57,7 @@ describe RegistrationsController do
     before :each do
       @user = FactoryGirl.create(:user)
       sign_in @user
+
     end
 
     it "should update the user" do
@@ -163,7 +170,7 @@ describe RegistrationsController do
      [:profile_points, :questions, :invite, "devise.facebook_data", :tracking_params].each {|key| session[key].should == nil}
     end
   end
-  
+
   describe '#save_tracking_params' do
     let(:member) { mock_model(User) }
 
