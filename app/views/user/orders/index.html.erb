@@ -27,11 +27,11 @@
         <% if @orders %>
           <% @orders.each do |order| %>
             <tr>
-              <td class="number">27563819487</td>
+              <td class="number"><%= order.number %></td>
               <td><%= order.created_at.strftime("%d/%m/%Y") %></td>
               <td><%= order.line_items.count %></td>
-              <td><%= number_to_currency(order.total) %></td>
-              <td></td>
+              <td><%= number_to_currency(order.total_with_freight) %></td>
+              <td><%= number_to_currency(order.freight_price) %></td>
               <td>3x</td>
               <td>Aguardando pagamento</td>
               <td class="more"><%= link_to "Mais informação", user_order_path(order) %></td>

@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
-  delegate :price, :to => :freight, :prefix => true
+  delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   has_one :payment
   has_one :freight
   after_create :generate_number
@@ -95,13 +95,12 @@ class Order < ActiveRecord::Base
   end
 
   def remove_variant(variant)
-    #return true
     current_item = line_items.select { |item| item.variant == variant }.first
     current_item.destroy if current_item
   end
 
   def total_with_freight
-    total + freight.price
+    total + (freight_price || 0)
   end
 
   def total
@@ -116,6 +115,14 @@ class Order < ActiveRecord::Base
       code = SecureRandom.hex(16)
     end
     update_attributes(:identification_code => code)
+  end
+
+  def decrement_inventory_for_each_item
+    ActiveRecord::Base.transaction do
+      line_items.each do |item|
+        item.variant.decrement!(:inventory, item.quantity)
+      end
+    end
   end
 
   private

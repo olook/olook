@@ -15,3 +15,16 @@ CarrierWave.configure do |config|
   config.fog_attributes = { 'Cache-Control' => 'max-age=315576000',
                             'Expires' => 1.year.from_now.httpdate }
 end
+
+# https://github.com/jnicklas/carrierwave/wiki/How-to%3A-Specify-the-image-quality
+module CarrierWave
+  module MiniMagick
+    def quality(percentage)
+      manipulate! do |img|
+        img.quality(percentage)
+        img = yield(img) if block_given?
+        img
+      end
+    end
+  end
+end

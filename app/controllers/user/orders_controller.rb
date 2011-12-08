@@ -13,6 +13,7 @@ class User::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @address = @order.freight.address
     @order_presenter = OrderStatus.new(@order)
   end
 

@@ -11,7 +11,7 @@
       <h1 class="orders">Meus Pedidos</h1>
     </div>
     <div class="order_status">
-      <h1>Número do Pedido: <span>23456698002</span></h1>
+      <h1>Número do Pedido: <span><%= @order.number %></span></h1>
       <h2><strong>Status do seu pedido: <%= @order_presenter.status.message %></strong></h2>
       <ul id="status" class="<%= @order_presenter.status.css_class %>">
         <li class="state1">Pedido Efetuado</li>
@@ -26,7 +26,7 @@
               <%= image_tag item.variant.product.main_picture %>
               <h1><%= item.variant.name %></h1>
               <p><strong>Cor:</strong> </p>
-              <p><strong>Quantidade:</strong> 1</p>
+              <p><strong>Quantidade:</strong> <%= item.quantity %></p>
               <p><strong>Valor:</strong> <%= number_to_currency(item.variant.price) %></p>
               <p><strong>Forma de pagamento:</strong> Boleto</p>
             </li>
@@ -35,9 +35,9 @@
         <div id="details">
           <div>
             <h1>Endereço de entrega</h1>
-            <p><strong>Denis Araujo</strong></p>
-            <p>Rua Surubim, 159 - Brooklin Paulista</p>
-            <p>São Paulo, SP</p>
+            <p><strong><%= @address.identification %></strong></p>
+            <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
+            <p><%= "#{@address.city}, #{@address.state}" %></p>
           </div>
           <div>
             <h1>Data do Pedido</h1>
@@ -57,8 +57,8 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><%= number_to_currency(@order.total) %></td>
-                  <td>R$ 12,00</td>
+                  <td><%= number_to_currency(@order.total_with_freight) %></td>
+                  <td><%= number_to_currency(@order.freight_price)  %></td>
                 </tr>
               </tbody>
             </table>
