@@ -5,8 +5,8 @@ describe ShowroomReadyNotificationWorker do
   let(:member) { FactoryGirl.create(:member) }
   let(:mock_mail) { mock(:mail).as_null_object }
 
-  it "sets the mailer queue to process the job" do
-    ShowroomReadyNotificationWorker.instance_variable_get("@queue").should == :mailer
+  it "sets the showroom_ready_mailer queue to process the job" do
+    ShowroomReadyNotificationWorker.instance_variable_get("@queue").should == :showroom_ready_mailer
   end
 
   context "performing work" do
