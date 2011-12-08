@@ -5,7 +5,14 @@ module ApplicationHelper
   end
   
   def is_current?(controller_name, action_name='index')
-    'selected' if controller_name.include? params[:controller] and action_name.include? params[:action]
+    'selected' if controller_name == params[:controller] and action_name == params[:action]
+  end
+
+  def selected_if_current(controller_action)
+    controller_action.each do |item|
+      subs = item.split("#")
+      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action])
+    end
   end
   
   def render_google_remessaging_scripts
