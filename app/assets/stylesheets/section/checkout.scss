@@ -593,6 +593,35 @@ section#payment {
         font-size: 35px;
         border: none;
       }
+      div.payment_link {
+        width: 600px;
+        margin: 0 0 20px 0;
+        padding: 8px 15px;
+        overflow: auto;
+        border: 1px #d6d6d6 solid;
+        a.bank_flag {
+          background: url("/assets/cart/ico-payments.png") left no-repeat;
+          text-indent: -9999px;
+          width: 38px;
+          height: 25px;
+          display: block;
+          margin: 0 25px 0 0;
+          float: left;
+          &.billet {
+            background-position: -5px -5px;
+          }
+        }
+        p {
+          line-height: 27px;
+          float: left;
+          a {
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
       p.description {
         margin: 0 0 20px 0;
       }
