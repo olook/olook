@@ -15,6 +15,12 @@ class RegistrationsController < Devise::RegistrationsController
     render :layout => "site"
   end
 
+  def edit
+    build_resource
+    resource.require_cpf = true
+    super
+  end
+
   def create
     build_resource
     set_resource_attributes(resource)
@@ -46,6 +52,8 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
+
+    resource.require_cpf = true
     if resource.update_attributes(params[:user])
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
