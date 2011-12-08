@@ -83,6 +83,9 @@ Olook::Application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
+    get '/entrar' => 'sessions#new', :as => :new_user_session
+    post '/entrar' => 'sessions#create', :as => :user_session
+    delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
