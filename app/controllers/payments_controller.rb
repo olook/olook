@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
       if update_order(order)
         render :nothing => true, :status => 200
       else
-        logger.error("Ordem nao encontrada")
+        logger.error("Erro ao mudar status")
         render :nothing => true, :status => 500
       end
     else
