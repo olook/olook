@@ -17,7 +17,6 @@
       <td><%= detail.display_on_humanize %></td>
       <td><%= link_to 'Show', admin_product_detail_path(detail.product, detail) %></td>
       <td><%= link_to 'Edit', edit_admin_product_detail_path(detail.product, detail) %></td>
-      <td><%= link_to 'Destroy', admin_product_detail_path(detail.product, detail), confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
   </table>
