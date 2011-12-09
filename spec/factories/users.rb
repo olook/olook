@@ -9,7 +9,6 @@ FactoryGirl.define do
     end
     first_name "User First Name"
     last_name "User Last Name"
-    cpf "19762003691"
 
     after_build do |user|
       Resque.stub(:enqueue)

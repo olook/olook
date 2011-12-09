@@ -8,6 +8,7 @@ describe ::AddressesController do
   let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    user.update_attributes(:cpf => "19762003691")
     FactoryGirl.create(:line_item, :order => Order.find(order))
     session[:order] = order
     request.env['devise.mapping'] = Devise.mappings[:user]
