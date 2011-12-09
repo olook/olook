@@ -272,4 +272,22 @@ describe Order do
       subject.completed
     end
   end
+  
+  describe '#with_payment' do
+    let!(:order_with_payment) { FactoryGirl.create :order }
+    let!(:order_without_payment) do
+      order = FactoryGirl.create :clean_order
+      order.payment.destroy
+      order
+    end
+    it 'without the scope it should include both orders' do
+      described_class.all.should == [order_with_payment, order_without_payment]
+    end
+    it 'should include the order with the payment' do
+      described_class.with_payment.all.should include(order_with_payment)
+    end
+    it 'should not include the order without the payment' do
+      described_class.with_payment.all.should_not include(order_without_payment)
+    end
+  end
 end

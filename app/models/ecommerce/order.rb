@@ -26,6 +26,8 @@ class Order < ActiveRecord::Base
   has_one :freight, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
+  
+  scope :with_payment, joins(:payment)
 
   state_machine :initial => :waiting_payment do
 
