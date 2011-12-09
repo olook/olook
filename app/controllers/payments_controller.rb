@@ -27,11 +27,15 @@ class PaymentsController < ApplicationController
       if update_order(order)
         render :nothing => true, :status => 200
       else
-        logger.error("Erro ao mudar status")
+        msg = "Erro ao mudar status do pagamento"
+        Airbrake.notify(:error_class => "Payment", :error_message => msg, :parameters => params)
+        logger.error(msg)
         render :nothing => true, :status => 500
       end
     else
-      logger.error("Ordem nao encontrada")
+      msg = "Order não encontrada"
+      Airbrake.notify(:error_class => "Order", :error_message => msg, :parameters => params)
+      logger.error(msg)
       render :nothing => true, :status => 500
     end
   end

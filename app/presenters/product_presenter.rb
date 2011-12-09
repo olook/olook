@@ -32,15 +32,24 @@ class ProductPresenter < BasePresenter
     h.render :partial => 'product/colors', :locals => {:product => product}
   end
 
-  def render_sizes
-    selected_variants = product.variants.sorted_by_description
-    if selected_variants.length == 1
-      h.render :partial => 'product/single_size', :locals => {:variant => selected_variants.first}
-    else
-      h.render :partial => 'product/sizes', :locals => {:variants => selected_variants}
+  def render_form_by_category
+    case product.category
+      when Category::SHOE then h.render :partial => 'product/form_for_shoe', :locals => {:product_presenter => self}
+      when Category::BAG then h.render :partial => 'product/form_for_bag', :locals => {:product_presenter => self}
+      when Category::ACCESSORY then h.render :partial => 'product/form_for_accessory', :locals => {:product_presenter => self}
     end
   end
   
+  def render_single_size
+    variant = product.variants.sorted_by_description.first
+    h.render :partial => 'product/single_size', :locals => {:variant => variant}
+  end
+
+  def render_multiple_sizes
+    variants = product.variants.sorted_by_description
+    h.render :partial => 'product/sizes', :locals => {:variants => variants}
+  end
+
   def related_products
     product.related_products.inject([]) do |result, related_product|
       related_product.category != product.category ? result << related_product : result

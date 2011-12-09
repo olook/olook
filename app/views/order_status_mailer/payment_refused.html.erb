@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Olook</title>
+  </head>
+
+  <body>
+    <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+      <tr>
+        <td align="center" height="30">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="189"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/logo.jpg" alt="olook" border="0" title="olook"></td>
+              <td width="431" align="left"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/frases.gif" alt="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolu&ccedil;&atilde;o f&aacute;cil e gratuita. O cadastro &eacute; gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para voc&ecirc;." border="0" title="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$120 e devolu&ccedil;&atilde;o f&aacute;cil e gratuita. O cadastro &eacute; gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para voc&ecirc;."></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/L1-invite-copy_03.jpg" alt="" width="620" height="24" border="0">
+        </td>
+      </tr>
+      <tr>
+        <td align="center"><br>
+          <div style="font-family:Arial, Helvetica, sans-serif; font-size:14px; width:540px; text-align:left">
+
+            <p style="font-size:16px;">Olá <%= @order.user.first_name %>,</p>
+
+            <p>Infelizmente por algum motivo o seu pagamento não foi concluído com sucesso e o seu pedido nº <span style="color:#E05789"><%= @order.number %></span> teve que ser automaticamente cancelado.</p>
+
+            <p>Para entender o motivo do cancelamento, ou tirar qualquer dúvida, você pode enviar um e-mail para: <a href="mailto:falecom@olook.com.br" style="color:#E05789">falecom@olook.com.br</a> e a nossa equipe irá entrar em contato o mais breve possível.</p>
+
+            <p>Você também pode voltar ao site, realizar novamente o pedido e utilizar outro meio de pagamento.</p>
+
+
+            <center>
+              <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t7_pedido_cancelado1" style="color:#E05789; font-size:14px"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/erp/irparaolook.jpg" border="0" alt="Convide mais amigas, clique aqui"></a>
+            </center>
+
+
+            <br><br>
+            <p>Abraços,<br>
+              Equipe olook<br>
+              <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t7_pedido_cancelado1" style="color:#E05789; font-size:14px">www.olook.com.br</a>
+            </p>
+
+
+
+
+          </div>
+          <br><br></td>
+        <tr>
+          <td>
+            <img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/L1-invite-copy_09.jpg" width="620" height="34" alt="">
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
+

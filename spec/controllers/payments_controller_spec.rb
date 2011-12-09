@@ -9,6 +9,7 @@ describe PaymentsController do
   let(:total) { 99.55 }
 
   before :each do
+    Airbrake.stub(:notify)
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
