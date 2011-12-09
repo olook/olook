@@ -4,6 +4,18 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
 
+  STATUS = {
+    "waiting_payment" => "Aguardando pagamento",
+    "under_review" => "Em revisão",
+    "canceled" => "Cancelado",
+    "reversed" => "Estornado",
+    "refunded" => "Reembolsado",
+    "delivered" => "Entregue",
+    "not_delivered" => "Não entregue",
+    "prepared" => "Preparado",
+    "completed" => "Pagamento autorizado"
+  }
+
   belongs_to :user
   has_many :variants, :through => :line_items, :dependent => :destroy
   has_many :line_items, :dependent => :destroy
