@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Abacos
-  class Price
+  class VariantPrice
     attr_reader :integration_protocol, :number, :price
 
     def initialize(parsed_data)

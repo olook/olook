@@ -674,6 +674,17 @@ body {
           }
         }
 
+        &.lookbooks {
+          a {
+            background: url('/assets/common/nav/lookbooks.png') no-repeat;
+            width: 95px;
+            display: block;
+            &.selected {
+              background: url('/assets/common/nav/lookbooks-selected.png') no-repeat;
+            }
+          }
+        }
+
         &.invite {
           a {
             background: url('/assets/common/nav/invite-friends.png') no-repeat;

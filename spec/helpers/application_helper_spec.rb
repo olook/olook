@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe ApplicationHelper do
   describe '' do
-    it "should return" do
-     expected = "<span><div id=\"cart_items\">0</div></span>"
+    it "should return markup for order total" do
+     expected = "<span>(<div id=\"cart_items\">0</div>)</span>"
      helper.order_total(nil).should eq(expected)
     end
   end

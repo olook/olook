@@ -4,6 +4,18 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
 
+  STATUS = {
+    "waiting_payment" => "Aguardando pagamento",
+    "under_review" => "Em revisão",
+    "canceled" => "Cancelado",
+    "reversed" => "Estornado",
+    "refunded" => "Reembolsado",
+    "delivered" => "Entregue",
+    "not_delivered" => "Não entregue",
+    "prepared" => "Preparado",
+    "completed" => "Pagamento autorizado"
+  }
+
   belongs_to :user
   has_many :variants, :through => :line_items, :dependent => :destroy
   has_many :line_items, :dependent => :destroy
@@ -20,6 +32,9 @@ class Order < ActiveRecord::Base
     after_transition :waiting_payment => :canceled, :do => :rollback_inventory
     after_transition :under_review => :reversed, :do => :rollback_inventory
     after_transition :under_review => :refunded, :do => :rollback_inventory
+
+    after_transition :under_review => :completed, :do => :send_notification
+    after_transition :waiting_payment => :completed, :do => :send_notification
 
     event :under_analysis do
       transition :waiting_payment => :waiting_payment
@@ -76,6 +91,10 @@ class Order < ActiveRecord::Base
     event :not_delivered do
       transition :prepared => :not_delivered
     end
+  end
+
+  def status
+    STATUS[state]
   end
 
   def remove_unavailable_items
@@ -140,6 +159,10 @@ class Order < ActiveRecord::Base
 
   def rollback_inventory
     increment_inventory_for_each_item
+  end
+
+  def send_notification
+    Resque.enqueue(OrderStatusWorker, self.id)
   end
 
   def installments

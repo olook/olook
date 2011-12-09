@@ -1,0 +1,19 @@
+---
+:protocolo_preco: !str
+  str: 999D8382-BA36-4AB4-A9FC-5BEFA60F58D7
+  attributes: {}
+:codigo_produto: !str
+  str: '66'
+  attributes: {}
+:codigo_produto_pai: !!null 
+:nome_lista: !str
+  str: LISTA DE PREÇO
+  attributes: {}
+:preco_tabela: !str
+  str: '69.9'
+  attributes: {}
+:preco_promocional: !str
+  str: '0'
+  attributes: {}
+:data_inicio_promocao: !!null 
+:data_termino_promocao: !!null
