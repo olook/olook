@@ -25,6 +25,17 @@ describe ::AddressesController do
       get :index
       assigns(:addresses).should eq(user.addresses)
     end
+
+    it "should redirect cart_path if the user dont have a cpf" do
+      user.update_attributes(:cpf => nil)
+      get :index
+      response.should redirect_to(cart_path)
+    end
+
+    it "should not redirect cart_path if the user have a cpf" do
+      get :index
+      response.should_not redirect_to(cart_path)
+    end
   end
 
   describe "GET new" do
