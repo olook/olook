@@ -17,6 +17,12 @@ class User::CreditsController < ApplicationController
     redirect_to(user_credits_path, :notice => "Convite enviado com sucesso!")
   end
 
+  def resubmit_all_invites
+    invites = current_user.invites
+    invites.each { |invite| current_user.invite_for(invite.email) }
+    redirect_to(user_credits_path, :notice => "Convites enviados com sucesso!")
+  end
+
   private
 
   def load_user
