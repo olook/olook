@@ -7,6 +7,8 @@ describe PaymentsController do
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:payment) { FactoryGirl.create(:billet, :order => order) }
   let(:total) { 99.55 }
+  let(:billet_printed) { "3" }
+  let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => "123", :tipo_pagamento => "CartaoDeCredito"}}
 
   before :each do
     Airbrake.stub(:notify)
@@ -29,14 +31,12 @@ describe PaymentsController do
 
     context "with valids params" do
      it "should return 200" do
-        billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        post :create, params
         response.status.should == 200
       end
 
       it "should change the payment status to billet_printed" do
-        billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        post :create, params
         order.payment.reload.billet_printed?.should eq(true)
       end
 
