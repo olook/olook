@@ -100,9 +100,13 @@ class Product < ActiveRecord::Base
   def easy_to_find_description
     "#{model_number} - #{name} - #{color_name} - #{category_humanize}"
   end
+  
+  def inventory
+    self.variants.sum(:inventory)
+  end
 
   def sold_out?
-    self.variants.none? {|variant| variant.available_for_quantity?(1) }
+    inventory < 1
   end
 
 private

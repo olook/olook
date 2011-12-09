@@ -28,7 +28,8 @@ module Abacos
       
       response = xml.to_hash["#{method}_response".to_sym]["#{method}_result".to_sym]
       
-      raise_webservice_error(response) if response[:resultado_operacao].nil?
+      # TODO: refactor method to make this response check optional
+      # raise_webservice_error(response) if response[:resultado_operacao].nil?
 
       response
     end

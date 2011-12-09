@@ -770,7 +770,7 @@ body {
             float: right;
             a.cart {
               position: relative;
-              background: url("/assets/common/nav/my-cart.png") no-repeat;
+              background: url("/assets/common/nav/my-cart.png") 0 0 no-repeat;
               color: #FFF;
               line-height: 35px;
               text-decoration: none;
@@ -785,9 +785,12 @@ body {
                 line-height: 32px;
                 top: 0;
                 left: 99px;
+                div {
+                  display: inline;
+                }
               }
               &:hover {
-                background: url("/assets/common/nav/my-cart-selected.png") no-repeat;
+                background-position: -128px 0;
               }
             }
             ul.submenu {

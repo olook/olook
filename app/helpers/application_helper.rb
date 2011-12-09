@@ -32,6 +32,6 @@ module ApplicationHelper
 
   def order_total(order)
     total = order ? order.line_items.try(:count) : 0
-    content_tag(:span,"#{content_tag(:div, "#{total}", :id => "cart_items")}".html_safe)
+    content_tag(:span,"(#{content_tag(:div, "#{total}", :id => "cart_items")})".html_safe)
   end
 end
