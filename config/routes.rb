@@ -37,11 +37,11 @@ Olook::Application.routes.draw do
   get "membro/como-funciona", :to => "members#how_to", :as => "member_how_to"
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
 
-  namespace :user do
+  namespace :user, :path => 'conta' do
     resources :users, :only => [:update]
-    resources :addresses
-    resources :orders, :only => [:index, :show]
-    resources :credits, :only => [:index]
+    resources :addresses, :path => 'enderecos' 
+    resources :orders, :path => 'pedidos', :only => [:index, :show]
+    resources :credits, :path => 'creditos'
   end
 
   namespace :admin do
