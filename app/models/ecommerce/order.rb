@@ -33,6 +33,9 @@ class Order < ActiveRecord::Base
     after_transition :under_review => :reversed, :do => :rollback_inventory
     after_transition :under_review => :refunded, :do => :rollback_inventory
 
+    after_transition :under_review => :completed, :do => :send_notification
+    after_transition :waiting_payment => :completed, :do => :send_notification
+
     event :under_analysis do
       transition :waiting_payment => :waiting_payment
     end
@@ -156,6 +159,10 @@ class Order < ActiveRecord::Base
 
   def rollback_inventory
     increment_inventory_for_each_item
+  end
+
+  def send_notification
+    Resque.enqueue(OrderStatusWorker, self.id)
   end
 
   def installments
