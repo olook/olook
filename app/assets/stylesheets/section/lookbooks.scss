@@ -4,9 +4,61 @@ section#lookbooks {
     position: relative;
     width: 970px;
     height: 182px;
+    margin: 0 auto 15px auto;
     overflow: hidden;
     a.arrows {
       position: absolute;
+      background: url("/assets/showroom/arrows.png") no-repeat;
+      text-indent: -9999px;
+      width: 27px;
+      height: 26px;
+      display: block;
+      top: 75px;
+      z-index: 100;
+      &.prev {
+        background-position: 0 0;
+        left: 10px;
+      }
+      &.next {
+        background-position: -27px 0;
+        right: 10px;
+      }
+    }
+    ul {
+      position: relative;
+      width: 1500px;
+      overflow: auto;
+      left: 0;
+      li {
+        display: inline;
+        margin: 0 8px 0 0;
+        padding: 0;
+        float: left;
+        a {
+          position: relative;
+          text-decoration: none;
+          margin: 0;
+          padding: 0;
+          float: left;
+          img {
+            width: 318px;
+            height: 180px;
+            border-bottom: 2px #D05582 solid;
+          }
+          h1 {
+            position: absolute;
+            background: url("/assets/lookbooks/bg-title.png") repeat;
+            color: #FFF;
+            font-family: Times;
+            font-size: 29px;
+            font-style: italic;
+            width: 298px;
+            padding: 5px 10px;
+            left: 0;
+            bottom: 5px;
+          }
+        }
+      }
     }
   }
 }
