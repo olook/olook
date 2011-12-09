@@ -1,0 +1,153 @@
+body {
+  background: url("/assets/contact/bg-content.jpg") top center no-repeat;
+  div#contact_content {
+    width: 370px;
+    height: 455px;
+    margin: 30px 20px 0 0;
+    float: left;
+    h1 {
+      background: url("/assets/contact/title-get-in-touch.png") no-repeat;
+      text-indent: -9999px;
+      width: 264px;
+      height: 24px;
+      margin: 0 0 15px 0;
+      display: block;
+    }
+    p {
+      font-size: 13px;
+      margin: 0 0 20px 0;
+      &.time {
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+    ul {
+      background: #FFF;
+      width: 340px;
+      overflow: hidden;
+      margin: 0 0 10px 0;
+      padding: 2px 12px;
+      border: 1px #d2d2d2 solid;
+      li {
+        float: left;
+        &.phone {
+          background: url("/assets/contact/ico-phone.png") left no-repeat;
+          color: #3b3b3b;
+          font-size: 15px;
+          font-weight: bold;
+          margin: 0 15px 0 0;
+          padding: 5px 10px 5px 25px;
+          border-right: 1px #d2d2d2 solid;
+        }
+        &.mail {
+          padding: 5px 0 5px 0;
+          a {
+            background: url("/assets/contact/ico-mail.png") left no-repeat;
+            color: #3b3b3b;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0 0 0 25px;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+  form#contact {
+    background: #FFF;
+    width: 525px;
+    padding: 20px 0;
+    margin: 30px 0 0 0;
+    float: right;
+    border: 1px #d2d2d2 solid;
+    fieldset {
+      width: 465px;
+      overflow: auto;
+      margin: 0 auto;
+      &.inputs {
+        margin-bottom: 15px;
+        ol li {
+          position: relative;
+          width: 100%;
+          margin: 0 0 12px 0;
+          overflow: hidden;
+          select.custom_select {
+            position: absolute;
+            line-height: 26px;
+            width: 250px;
+            height: 34px;
+            top: 0;
+            left: 106px;
+          }
+          span.select {
+            position: absolute;
+            background: url('/assets/contact/bg-select.png') no-repeat;
+            line-height: 34px;
+            width: 255px;
+            height: 34px;
+            text-indent: 22px;
+            left: 95px;
+            z-index: 0;
+          }
+          label {
+            font-size: 13px;
+            font-weight: bold;
+            text-align: right;
+            line-height: 35px;
+            width: 80px;
+            margin-right: 15px;
+            float: left;
+          }
+          input[type="text"], input[type="email"] {
+            background: url('/assets/common/bg-inputs.png') repeat-x;
+            width: 266px;
+            border: 1px solid #C1C1C1;
+            padding: 7px 8px;
+            height:17px;
+            &:focus {
+              outline: none;
+            }
+          }
+          textarea {
+            background: #f3f3f3 url('/assets/common/bg-inputs.png') bottom repeat-x;
+            width: 350px;
+            height: 100px;
+            padding: 7px 8px;
+            border: 1px solid #C1C1C1;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+      &.buttons {
+        input[type="submit"] {
+          background: url("/assets/contact/bt-send-message.png") no-repeat;
+          text-indent: -9999px;
+          width: 196px;
+          height: 43px;
+          display: block;
+          border: none;
+          cursor: pointer;
+          float: right;
+        }
+      }
+    }
+  }
+}
+.ie {
+  form#contact {
+    fieldset.inputs {
+      ol {
+        li {
+          select.custom_select {
+            left: 100px;
+          }
+        }
+      }
+    }
+  }
+}

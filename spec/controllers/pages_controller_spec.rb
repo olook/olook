@@ -3,6 +3,8 @@ require 'spec_helper'
 
 describe PagesController do
 
+  let(:contact_information) { FactoryGirl.create(:contact_information)}
+
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
@@ -25,4 +27,18 @@ describe PagesController do
     end
   end
 
+  describe "GET contact" do
+    it "should assigns @contact_form" do
+      get :contact
+      assigns(:contact_form).should be_an_instance_of(ContactForm)
+    end
+  end
+
+  describe "POST send_contact" do
+    it "should send contact message" do
+      form_attrs = { :email => "john@doe.com", :subject => contact_information.id, :message => "Lorem ipsum foo b4z!" }
+      post :send_contact, :contact_form => form_attrs
+      response.code.should == '302'
+    end
+  end
 end

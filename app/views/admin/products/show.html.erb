@@ -32,6 +32,14 @@
     <b>Category:</b>
     <%= @product.category_humanize %>
   </p>
+  <p>
+    <b>Color:</b>
+    <%= @product.color_name %> <%= image_tag(@product.color_sample_url) unless @product.color_sample.blank? %>
+  </p>
+  <p>
+    <b>Category:</b>
+    <%= @product.category_humanize %>
+  </p>
 
   <p>
     <b>Description:</b>
