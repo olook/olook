@@ -18,19 +18,23 @@ describe Product do
     let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
     let!(:bag)       { FactoryGirl.create(:basic_bag) }
     let!(:accessory) { FactoryGirl.create(:basic_accessory) }
+    let!(:invisible_shoe) { FactoryGirl.create(:basic_shoe, :is_visible => false) }
 
     before :each do
-      described_class.count.should == 3
+      described_class.count.should == 4
     end
 
     it "the shoes scope should return only shoes" do
-      described_class.shoes.should == [shoe]
+      described_class.shoes.should == [shoe, invisible_shoe]
     end
     it "the bags scope should return only bags" do
       described_class.bags.should == [bag]
     end
     it "the accessories scope should return only accessories" do
       described_class.accessories.should == [accessory]
+    end
+    it 'the visible scope should not return invisible products' do
+      described_class.only_visible.should == [shoe, bag, accessory]
     end
   end
   

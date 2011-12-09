@@ -24,9 +24,10 @@ class Product < ActiveRecord::Base
 
   mount_uploader :color_sample, ColorSampleUploader
 
-  scope :shoes , where(:category => Category::SHOE)
-  scope :bags  , where(:category => Category::BAG)
-  scope :accessories, where(:category => Category::ACCESSORY)
+  scope :only_visible , where(:is_visible => true)
+  scope :shoes        , where(:category => Category::SHOE)
+  scope :bags         , where(:category => Category::BAG)
+  scope :accessories  , where(:category => Category::ACCESSORY)
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 

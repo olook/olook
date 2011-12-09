@@ -233,7 +233,7 @@ describe User do
 
   describe "#invitation_url should return a properly formated URL, used when there's no routing context" do
     it "should return with olook.com.br root as default" do
-      subject.invitation_url.should == "http://olook.com.br/convite/#{subject.invite_token}"
+      subject.invitation_url.should == "http://www.olook.com.br/convite/#{subject.invite_token}"
     end
 
     it "should accept an alternate root" do
@@ -257,10 +257,12 @@ describe User do
 
   describe "showroom methods" do
     let(:collection) { FactoryGirl.create(:collection) }
-    let!(:product_a) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
-    let!(:product_b) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile]) }
-    let!(:product_c) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-    let!(:product_d) { FactoryGirl.create(:basic_shoe, :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+    let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
+    let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
+    let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+
+    let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
 
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
@@ -270,8 +272,8 @@ describe User do
     end
 
     describe "#all_profiles_showroom" do
-      it "should return the products ordered by profiles" do
-        subject.all_profiles_showroom.should == [product_c, product_d, product_a, product_b]
+      it "should return the products ordered by profiles without duplicate names" do
+        subject.all_profiles_showroom.should == [product_c, product_d, product_b]
       end
 
       it 'should return only products of the specified category' do
@@ -295,6 +297,10 @@ describe User do
       it 'should return a scope' do
         subject.profile_showroom(sporty_profile).should be_a(ActiveRecord::Relation)
       end
+      
+      it 'should not include the invisible product' do
+        subject.profile_showroom(sporty_profile).should_not include(invisible_product)
+      end
     end
 
     describe "#main_profile_showroom" do
@@ -311,7 +317,7 @@ describe User do
       end
 
       it 'should return a scope' do
-        subject.main_profile_showroom.should be_a(ActiveRecord::Relation)
+        subject.main_profile_showroom.should be_a(Array)
       end
     end
   end

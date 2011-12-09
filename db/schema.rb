@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111208000200) do
+ActiveRecord::Schema.define(:version => 20111208230640) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(:version => 20111208000200) do
     t.string   "color_name"
     t.string   "color_sample"
     t.integer  "collection_id"
+    t.boolean  "is_visible"
   end
 
   add_index "products", ["collection_id"], :name => "index_products_on_collection_id"
@@ -273,6 +274,8 @@ ActiveRecord::Schema.define(:version => 20111208000200) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "survey_answers", ["user_id"], :name => "index_survey_answers_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
