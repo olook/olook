@@ -60,6 +60,10 @@ class CreditCard < Payment
     "CartaoCredito"
   end
 
+  def human_to_s
+    "Cartão de Crédito"
+  end
+
   def self.installments_number_for(order_total)
     number = (order_total / MINIMUM_PAYMENT).to_i
     (number == 0) ? 1 : number

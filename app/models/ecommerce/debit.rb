@@ -37,6 +37,10 @@ class Debit < Payment
     "DebitoBancario"
   end
 
+  def human_to_s
+    "Débito Bancário"
+  end
+
   private
 
   def refund_order
