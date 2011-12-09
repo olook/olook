@@ -6,6 +6,8 @@
       <th>Name</th>
       <th>Model number</th>
       <th>Category</th>
+      <th>Price</th>
+      <th>Inventory</th>
       <th>Color</th>
       <th>Picture</th>
       <th>Sample</th>
@@ -19,6 +21,8 @@
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
       <td><%= product.category_humanize %></td>
+      <td><%= number_to_currency product.price %></td>
+      <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
