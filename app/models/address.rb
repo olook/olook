@@ -1,5 +1,6 @@
 class Address < ActiveRecord::Base
   belongs_to :user
+  has_many :freights
 
   STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
 
