@@ -55,4 +55,15 @@ class PictureUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+
+  def filename
+    "image-#{generate_token}.#{file.extension}" if original_filename.present?
+  end
+
+  private
+
+  def generate_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(64/2))
+  end
 end
