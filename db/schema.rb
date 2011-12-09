@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209133048) do
+ActiveRecord::Schema.define(:version => 20111209203338) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -200,6 +200,9 @@ ActiveRecord::Schema.define(:version => 20111209133048) do
     t.string   "telephone"
     t.string   "user_birthday"
     t.integer  "payments"
+    t.integer  "gateway_status"
+    t.string   "gateway_code"
+    t.string   "gateway_type"
   end
 
   add_index "payments", ["order_id"], :name => "index_payments_on_order_id"

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "spec_helper"
 
 describe CreditCard do
@@ -41,6 +42,14 @@ describe CreditCard do
     it { should_not allow_value("1206").for(:expiration_date) }
     it { should_not allow_value("1/6").for(:expiration_date) }
 
+  end
+
+  it "should return to_s version" do
+    subject.to_s.should == "CartaoCredito"
+  end
+
+  it "should return human to_s human version" do
+    subject.human_to_s.should == "Cartão de Crédito"
   end
 
   context "creating a credit_card" do
