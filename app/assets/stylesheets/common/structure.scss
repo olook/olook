@@ -147,6 +147,17 @@ body {
           }
         }
       }
+      &.edit {
+        fieldset.inputs {
+          label {
+            line-height: 20px;
+            margin: 0;
+          }
+          input[type="password"] {
+            float: left;
+          }
+        }
+      }
     }
 
     #forget_password {
