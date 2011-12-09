@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "spec_helper"
 
 describe Debit do
@@ -24,6 +25,10 @@ describe Debit do
 
   it "should return to_s version" do
     subject.to_s.should == "DebitoBancario"
+  end
+
+  it "should return to_s human version" do
+    subject.human_to_s.should == "Débito Bancário"
   end
 
   describe "order state machine" do

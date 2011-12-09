@@ -3,8 +3,8 @@
   <table cellpadding="0" cellspacing="0">
     <tbody>
       <tr>
-        <td>Boleto</td>
-        <td class="value">R$132,23</td>
+        <td><%= @order.payment.human_to_s %></td>
+        <td class="value"><%= number_to_currency(@order.total_with_freight) %></td>
       </tr>
     </tbody>
   </table>

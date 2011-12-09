@@ -13,7 +13,7 @@ class ProductPresenter < BasePresenter
   end
   
   def render_related_products
-    h.render :partial => 'product/related_products', :locals => {:product_presenter => self}
+    h.render :partial => 'product/related_products', :locals => {:related_products => related_products}
   end
 
   def render_description
@@ -52,7 +52,12 @@ class ProductPresenter < BasePresenter
 
   def related_products
     product.related_products.inject([]) do |result, related_product|
-      related_product.category != product.category ? result << related_product : result
+      if (related_product.category != product.category) &&
+         (!related_product.sold_out?)
+        result << related_product
+      else
+        result
+      end
     end
   end
 end

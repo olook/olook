@@ -43,7 +43,7 @@ class PaymentsController < ApplicationController
   private
 
   def update_order(order)
-    logger.error params["status_pagamento"]
+    order.payment.update_attributes(:gateway_code => params["cod_moip"], :gateway_type => params["tipo_pagamento"], :gateway_status => params["status_pagamento"])
     order.payment.set_state(params["status_pagamento"])
   end
 end

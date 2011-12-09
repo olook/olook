@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "spec_helper"
 
 describe Billet do
@@ -8,6 +9,14 @@ describe Billet do
   let(:authorized) { "1" }
   let(:completed) { "4" }
   let(:under_review) { "8" }
+
+  it "should return to_s version" do
+    subject.to_s.should == "DebitoBancario"
+  end
+
+  it "should return human to_s human version" do
+    subject.human_to_s.should == "Boleto Bancário"
+  end
 
   context "attributes validation" do
     subject { Billet.new }

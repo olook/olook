@@ -14,7 +14,7 @@ $(document).ready(function() {
   $("div#carousel a.arrow").live("click", function () {
     list = $(this).siblings(".mask").find("ul");
     listSize = $(list).find("li").size();
-    minWidth = (listSize-11)*(-55);
+    minWidth = (listSize-10)*(-55);
     atualPosition = parseInt($(list).css("left").split("px")[0]);
     if($(this).hasClass("next") == true) {
       if(atualPosition > minWidth) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
 initProduct = {
   updateListSize : function() {
     list = $("div#carousel ul");
-    listSize = $(list).find("li").size()*50;
+    listSize = $(list).find("li").size()*55;
     $(list).width(listSize);
   }
 };
