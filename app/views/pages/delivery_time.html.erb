@@ -10,6 +10,23 @@
     <p class="last">Selecione abaixo seu Estado e confira dentro de qual faixa está o seu CEP.</p>
   </section>
   <section id="areas">
+    <%= form_tag "#" do %>
+      <fieldset>
+        <ol>
+          <li>
+            <label for="region">Selecione sua região:</label>
+            <select id="region" class="">
+              <option value="southeast">Sudeste</option>
+              <option value="south">Sul</option>
+              <option value="midwest">Centro-Oeste</option>
+              <option value="northeast">Nordeste</option>
+              <option value="north">Norte</option>
+            </select>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+    <p>Tabela abaixo representa o prazo médio de entrega para cada região.<br />Confira o prazo para seu CEP no carrinho de compras, pois o prazo pode variar de acordo com o CEP.</p>
     <table cellpadding="0" cellspacing="0">
       <thead>
         <tr>
@@ -21,7 +38,7 @@
       </thead>
       <tbody>
         <tr>
-          <td rowspan="8" valign="middle" class="first">Sudeste</td>
+          <td id="southeast" rowspan="8" valign="middle" class="first">Sudeste</td>
           <td>SP</td>
           <td>Capital</td>
           <td>3 dias úteis</td>
@@ -62,7 +79,7 @@
           <td>4 dias úteis</td>
         </tr>
         <tr class="zebra">
-          <td rowspan="6" valign="middle" class="first">Sul</td>
+          <td id="south" rowspan="6" valign="middle" class="first">Sul</td>
           <td>PR</td>
           <td>Capital</td>
           <td>3 dias úteis</td>
@@ -93,7 +110,7 @@
           <td>4 dias úteis</td>
         </tr>
         <tr>
-          <td rowspan="7" valign="middle" class="first">Centro-Oeste</td>
+          <td id="midwest" rowspan="7" valign="middle" class="first">Centro-Oeste</td>
           <td>DF</td>
           <td>Capital</td>
           <td>3 dias úteis</td>
@@ -129,7 +146,7 @@
           <td>6 dias úteis</td>
         </tr>
         <tr class="zebra">
-          <td rowspan="18" valign="middle" class="first">Nordeste</td>
+          <td id="northeast" rowspan="18" valign="middle" class="first">Nordeste</td>
           <td>AL</td>
           <td>Capital</td>
           <td>4 dias úteis</td>
@@ -220,7 +237,7 @@
           <td>8 dias úteis</td>
         </tr>
         <tr>
-          <td rowspan="14" valign="middle" class="first">Norte</td>
+          <td id="north" rowspan="14" valign="middle" class="first">Norte</td>
           <td>AC</td>
           <td>Capital</td>
           <td>8 dias úteis</td>

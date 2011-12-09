@@ -24,10 +24,24 @@ div#delivery_time {
   }
   section#areas {
     background: url("/assets/delivery/divisor.png") top center no-repeat;
+    width: 100%;
     padding: 20px 0 0 0;
+    overflow: auto;
+    form {
+      margin: 0 30px 40px 0;
+      float: left;
+      label {
+        font-size: 14px;
+      }
+    }
+    p {
+      margin: 0 0 40px 0;
+      float: left;
+    }
     table {
       width: 750px;
       margin: 0 auto;
+      clear: both;
       thead {
         tr {
           th {
