@@ -202,9 +202,6 @@
         div.line {
           width: 100%;
           overflow: auto;
-          &:first-child {
-            margin-bottom: 20px;
-          }
           p {
             font-family: Arial;
             font-size: 16px;
@@ -266,6 +263,7 @@
             }
           }
           &.size {
+            margin-top: 20px;
             label {
               color: $pink;
               border: 1px solid $pink;
