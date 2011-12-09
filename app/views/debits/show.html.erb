@@ -6,12 +6,12 @@
   <section class="main">
     <h1>Seu pedido foi efetuado com sucesso!!</h1>
     <div class="payment_link">
-      <%= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag BancoDoBrasil" %>
-      <p>Você escolheu efetuar o pagamento com débito em conta. <%= link_to "Clique aqui para ir ao seu banco", @payment.url, :target => "_blank" %>.
+      <%= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag Debito" %>
+      <p>Você escolheu efetuar o pagamento com débito em conta.</p>
+      <%= link_to "Clique aqui para ir ao seu banco", @payment.url, :target => "_blank" %>
     </div>
     <p class="description">Obrigada pela sua compra! Mal podemos esperar para o pedido chegar até você. Não se esqueça de conferir se todos os dados ao lado estão certos. Se tudo confere, é só esperar ansiosamente, não vai demorar muito. Se você tem qualquer dúvida ou precisa solicitar alguma mudança nos dados do seu pedido é só mandar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %> e a nossa equipe vai te ajudar.</p>
-    <%= link_to "Voltar para a minha vitrine", member_showroom_path, :class => "back" %>
- </section>
+  </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
       <%= render :partial => "shared/payments/info_payment", :locals => { :order => @order } %>
