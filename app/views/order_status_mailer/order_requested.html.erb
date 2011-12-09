@@ -34,8 +34,8 @@
 <p>Obrigada por comprar na olook.<br>
 Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
 
-<% @order.line_items do |item| %>
-  <p>
+<% @order.line_items.each do |item| %>
+<p>
   - <span style="color:#E05789"><%= item.variant.product.name %></span>;<br>
 </p>
 <% end %>
