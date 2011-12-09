@@ -40,7 +40,7 @@ class CartController < ApplicationController
           redirect_to cart_path, :notice => "Produto removido com sucesso"
         end
         format.js do
-          render :partial => 'shared/cart', :locals => {:order => @order.reload}, :layout => false, :status => 200
+          head :ok
         end
       else
         format.js do

@@ -167,7 +167,10 @@ $(document).ready(function() {
   });
 
   $("ul.submenu li form.delete")
-   .bind("ajax:complete", function(evt, xhr, settings){
-     $("#cart").html(xhr.responseText)
+    .bind("ajax:success", function(evt, xhr, settings){
+     var defaultQuantity = 1;
+     var items = parseInt($("#cart_items").text());
+     $("#cart_items").text(items - defaultQuantity);
+     $(this).parent("li.product").fadeOut("slow");
   })
 });
