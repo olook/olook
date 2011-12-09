@@ -46,7 +46,7 @@ Olook::Application.routes.draw do
     resources :orders, :path => 'pedidos', :only => [:index, :show]
     resources :credits, :path => 'creditos' do
       collection do
-        post 'creditos/reenviar_convite' => 'credits#resubmit_invite', :as => :resubmit_invite
+        post 'creditos/reenviar_convite/:id' => 'credits#resubmit_invite', :as => :resubmit_invite
         post 'creditos/reenviar_todos' => 'credits#resubmit_all_invites', :as => :resubmit_all_invites
       end
     end

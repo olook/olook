@@ -13,13 +13,12 @@ class User::CreditsController < ApplicationController
   end
 
   def resubmit_invite
-    current_user.invite_for(params[:email_address])
+    resend_invite(params[:id])
     redirect_to(user_credits_path, :notice => "Convite enviado com sucesso!")
   end
 
   def resubmit_all_invites
-    invites = current_user.invites
-    invites.each { |invite| current_user.invite_for(invite.email) }
+    current_user.invites.each { |invite| resend_invite(invite.id) }
     redirect_to(user_credits_path, :notice => "Convites enviados com sucesso!")
   end
 
@@ -28,4 +27,9 @@ class User::CreditsController < ApplicationController
   def load_user
     @user = current_user
   end
+
+  def resend_invite(invite_id)
+    InvitesProcessing.new.resend_invite(invite_id)
+  end
 end
+

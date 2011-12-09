@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 class InvitesProcessing
   def catalog
-    invites.each { |invite| resend_invite(invite) }
+    invites.each { |invite| resend_invite(invite.id) }
   end
 
-  def resend_invite(invite)
-    Resque.enqueue(MailReinviteWorker, invite.id)
+  def resend_invite(invite_id)
+    Resque.enqueue(MailReinviteWorker, invite_id)
   end
 
   def invites
