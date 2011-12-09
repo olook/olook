@@ -32,4 +32,13 @@ describe OrderStatusWorker do
     OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
     described_class.perform(order.id)
   end
+
+  it "should send payment_refused when delivered" do
+    order.completed
+    order.prepared
+    order.delivered
+    mock_mail.should_receive(:deliver)
+    OrderStatusMailer.should_receive(:order_delivered).with(order).and_return(mock_mail)
+    described_class.perform(order.id)
+  end
 end

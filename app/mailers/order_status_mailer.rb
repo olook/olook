@@ -31,9 +31,14 @@ class OrderStatusMailer < ActionMailer::Base
     send_mail(@order)
   end
 
+  def order_delivered(order)
+    @order = order
+    send_mail(@order)
+  end
+
   private
 
   def send_mail(order)
-    mail(:to => order.user.email, :subject => "Pedido efetuado")
+    mail(:to => order.user.email, :subject => "Olook - Status do Pedido")
   end
 end
