@@ -9,8 +9,7 @@ class Picture < ActiveRecord::Base
   private
 
   def invalidate_cdn_image
-    path = self.image.url.slice(23..150)
-    CloudfrontInvalidator.new.invalidate(path)
+    CloudfrontInvalidator.new.invalidate(self.image.url.slice(23..150)) unless self.image.url.nil?
   end
 end
 
