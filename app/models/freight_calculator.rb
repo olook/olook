@@ -4,7 +4,7 @@ module FreightCalculator
 
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
-  DEFAULT_INVENTORY_TIME  = 1
+  DEFAULT_INVENTORY_TIME  = 2
 
   def self.freight_for_zip(zip_code, order_value)
     clean_zip_code = clean_zip(zip_code)
