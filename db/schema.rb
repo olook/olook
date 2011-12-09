@@ -68,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20111209133048) do
   add_index "collections", ["end_date"], :name => "index_collections_on_end_date"
   add_index "collections", ["start_date"], :name => "index_collections_on_start_date"
 
+  create_table "contact_informations", :force => true do |t|
+    t.string   "title"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "details", :force => true do |t|
     t.integer  "product_id"
     t.string   "translation_token"
@@ -295,6 +302,8 @@ ActiveRecord::Schema.define(:version => 20111209133048) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "survey_answers", ["user_id"], :name => "index_survey_answers_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
