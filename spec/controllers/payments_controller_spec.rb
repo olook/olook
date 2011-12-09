@@ -44,7 +44,9 @@ describe PaymentsController do
 
       it "should update payment with the params" do
         post :create, params
-        order.payment.should_receive(:update_attributes).with(:gateway_code => cod_moip, :gateway_type => tipo_pagamento, :gateway_status => billet_printed)
+        order.payment.reload.gateway_code.should == cod_moip
+        order.payment.reload.gateway_status.to_s.should == billet_printed
+        order.payment.reload.gateway_type.should == tipo_pagamento
       end
 
       it "should change the order status to completed" do
