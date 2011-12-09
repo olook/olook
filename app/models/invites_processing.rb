@@ -1,9 +1,5 @@
 # -*- encoding : utf-8 -*-
 class InvitesProcessing
-  def initialize
-    catalog
-  end
-
   def catalog
     invites.each { |invite| resend_invite(invite) }
   end
