@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MemberMailer < ActionMailer::Base
-  default :from => "olook <bemvinda@my.olookmail.com.br>"
+  default :from => "olook <avisos@my.olookmail.com.br>"
 
   def self.smtp_settings
     {
@@ -18,6 +18,7 @@ class MemberMailer < ActionMailer::Base
   def welcome_email(member)
     @member = member
     mail( :to => member.email,
+          :from => "olook <bemvinda@my.olookmail.com.br>",
           :subject => "#{member.name}, seja bem vinda! Seu cadastro foi feito com sucesso!"
           )
   end
