@@ -128,7 +128,7 @@ class Order < ActiveRecord::Base
 
   def total
     total = line_items.inject(0){|result, item| result + item.total_price }
-    total = total - credits if credits
+    total = total - credits if(credits && total > 0)
     total
   end
 
