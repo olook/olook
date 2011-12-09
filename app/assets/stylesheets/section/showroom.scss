@@ -238,6 +238,17 @@
           div.box_product {
             display: inline-block;
             clear: left;
+            div.line {
+              width: 170px;
+              margin: 0 auto 10px;
+              ol li {
+                margin: 6px 0 0 0;
+              }
+              span {
+                letter-spacing: -1px;
+                margin-right: 2px;
+              }
+            }
           }
         }
       }

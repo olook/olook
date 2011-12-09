@@ -1,7 +1,7 @@
 <li class="product">
   <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
     <%= link_to product, :class => "product_link" do %>
-      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png") %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn">ESGOTADO</p>
     <% end %>
