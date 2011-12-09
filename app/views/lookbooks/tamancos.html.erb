@@ -1,0 +1,30 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/lookbooks" %>
+<% end %>
+
+<section id="lookbooks">
+  <div id="carousel_lookbooks">
+    <%= link_to "Anterior", "javascript:void(0);", :class => "arrows prev" %>
+    <ul>
+      <li>
+        <%= link_to tamancos_path do %>
+          <%= image_tag "lookbooks/tamancos.png", :alt => "Ta-man-cos" %>
+          <h1>Ta-man-cos</h1>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to girls_night_out_path do %>
+          <%= image_tag "lookbooks/girls-night-out.png", :alt => "Girls night out" %>
+          <h1>Girls night out</h1>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to escritorio_chique_path do %>
+          <%= image_tag "lookbooks/escritorio-chique.png", :alt => "Escritório chiqué" %>
+          <h1>Escritório Chiqué</h1>
+        <% end %>
+      </li>
+    </ul>
+    <%= link_to "Próximo", "javascript:void(0);", :class => "arrows next" %>
+  </div>
+</section>
