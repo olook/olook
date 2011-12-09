@@ -11,7 +11,7 @@ describe Billet do
   let(:under_review) { "8" }
 
   it "should return to_s version" do
-    subject.to_s.should == "DebitoBancario"
+    subject.to_s.should == "BoletoBancario"
   end
 
   it "should return human to_s human version" do
