@@ -267,7 +267,7 @@ describe Order do
     end
 
     it "should send notification when completed given under review" do
-      subject.should_receive(:send_notification)
+      subject.should_receive(:send_notification).at_least(2).times
       subject.under_review
       subject.completed
     end

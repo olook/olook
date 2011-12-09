@@ -3,12 +3,15 @@
 <% end %>
 
 <section id="lookbooks">
+  <h1>Flores</h1>
   <div id="carousel_lookbooks_product">
     <%= link_to "Anterior", "javascript:void(0);", :class => "arrows prev" %>
     <ul>
-      <li>
-        <%= image_tag "lookbooks/1/1.jpg", :alt => "Imagem 1" %>
-      </li>
+      <% 1.upto(4) do |image| %>
+        <li>
+          <%= image_tag "lookbooks/1/#{image}.jpg", :alt => "Imagem 1" %>
+        </li>
+      <% end %>
     </ul>
     <%= link_to "Próximo", "javascript:void(0);", :class => "arrows next" %>
   </div>

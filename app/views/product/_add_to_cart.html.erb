@@ -1,7 +1,4 @@
         <%= form_tag(cart_path) do %>
-          <div class="color_size">
-            <%= product_presenter.render_colors %>
-            <%= product_presenter.render_sizes %>
-          </div>
+          <%= product_presenter.render_form_by_category %>
           <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
         <% end %>

@@ -16,19 +16,16 @@ class OrderStatusMailer < ActionMailer::Base
     }
   end
 
-  def order_requested(order)
-    @order = order
-    send_mail(@order)
-  end
-
-  def payment_confirmed(order)
-    @order = order
-    send_mail(@order)
+  [:order_requested, :payment_confirmed, :payment_refused, :order_delivered].each do |method|
+    define_method method do |order|
+      @order = order
+      send_mail(@order)
+    end
   end
 
   private
 
   def send_mail(order)
-    mail(:to => order.user.email, :subject => "Pedido efetuado")
+    mail(:to => order.user.email, :subject => "Olook - Status do Pedido")
   end
 end

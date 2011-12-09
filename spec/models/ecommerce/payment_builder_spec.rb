@@ -11,6 +11,7 @@ describe PaymentBuilder do
   let(:payer) { subject.payer }
 
   before :each do
+    Airbrake.stub(:notify)
     order.stub(:total).and_return(10.50)
     @order_total = order.total_with_freight
   end

@@ -51,6 +51,24 @@ describe ProductPresenter do
     end
   end
   
+  describe '#render_form_by_category' do
+    it 'should render the group box with color and size for shoes' do
+      subject.product.stub(:category).and_return(Category::SHOE)
+      template.should_receive(:render).with(:partial => 'product/form_for_shoe', :locals => {:product_presenter => subject}).and_return('shoe_form')
+      subject.render_form_by_category.should == 'shoe_form'
+    end
+    it 'should render the group box with color and a hidden field with the variant for bags' do
+      subject.product.stub(:category).and_return(Category::BAG)
+      template.should_receive(:render).with(:partial => 'product/form_for_bag', :locals => {:product_presenter => subject}).and_return('shoe_form')
+      subject.render_form_by_category.should == 'shoe_form'
+    end
+    it 'should render just the hidden field with the variant for accessories' do
+      subject.product.stub(:category).and_return(Category::ACCESSORY)
+      template.should_receive(:render).with(:partial => 'product/form_for_accessory', :locals => {:product_presenter => subject}).and_return('shoe_form')
+      subject.render_form_by_category.should == 'shoe_form'
+    end
+  end
+  
   describe '#render_details' do
     it "should render the partial with the product details" do
       template.should_receive(:render).with(:partial => 'product/details', :locals => {:product_presenter => subject}).and_return('details')
@@ -65,25 +83,24 @@ describe ProductPresenter do
     end
   end
 
-  describe '#render_sizes' do
-    context "when there's just one variant, it means the product is single sized" do
-      before :each do
-        subject.product.stub_chain(:variants, :sorted_by_description).and_return([:single_variant])
-      end
-      it "should not render the size options and just create a hidden tag with the variant" do
-        template.should_receive(:render).with(:partial => 'product/single_size', :locals => {:variant => :single_variant}).and_return('single_size')
-        subject.render_sizes.should == 'single_size'
-      end
+  describe '#render_single_size' do
+    before :each do
+      subject.product.stub_chain(:variants, :sorted_by_description).and_return([:single_variant])
     end
-    context "when there's more than one variant" do
-      let(:sizes) { [:size_one, :size_two] }
-      before :each do
-        subject.product.stub_chain(:variants, :sorted_by_description).and_return(sizes)
-      end
-      it "should render the partial with the product sizes" do
-        template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes}).and_return('sizes')
-        subject.render_sizes.should == 'sizes'
-      end
+    it 'should render just a hidden field with the variant' do
+      template.should_receive(:render).with(:partial => 'product/single_size', :locals => {:variant => :single_variant})
+      subject.render_single_size
+    end
+  end
+
+  describe '#render_multiple_sizes' do
+    let(:sizes) { [:size_one, :size_two] }
+    before :each do
+      subject.product.stub_chain(:variants, :sorted_by_description).and_return(sizes)
+    end
+    it 'should render all variants to select' do
+      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes})
+      subject.render_multiple_sizes
     end
   end
   

@@ -18,6 +18,10 @@ class PaymentBuilder
 
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)
     rescue Exception => error
+      Airbrake.notify(
+        :error_class   => "Moip Request",
+        :error_message => "Moip : #{error.message}"
+      )
       log(error.message)
       OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end

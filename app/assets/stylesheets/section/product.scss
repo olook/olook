@@ -38,7 +38,7 @@
             display: inline;
             float: left;
             a {
-              margin: 0;
+              margin: 0 5px 0 0;
               padding: 0;
               float: left;
               img {
@@ -202,14 +202,13 @@
         div.line {
           width: 100%;
           overflow: auto;
-          &:first-child {
-            margin-bottom: 20px;
-          }
           p {
-            font-family: Times;
+            font-family: Arial;
             font-size: 16px;
             font-style: italic;
             line-height: 30px;
+            text-align: right;
+            width: 70px;
             margin-right: 10px;
             float: left;
           }
@@ -224,7 +223,7 @@
                 margin-left: 0;
               }
               label {
-                font-family: "Lucida Grande";
+                font-family: Arial;
                 font-size: 11px;
                 font-weight: bold;
                 line-height: 28px;
@@ -249,7 +248,7 @@
               }
             }
             ol.colors {
-              width: 310px;
+              width: 280px;
               li {
                 img {
                   width: 35px;
@@ -264,6 +263,7 @@
             }
           }
           &.size {
+            margin-top: 20px;
             label {
               color: $pink;
               border: 1px solid $pink;

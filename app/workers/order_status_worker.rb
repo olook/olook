@@ -9,6 +9,10 @@ class OrderStatusWorker
       mail = OrderStatusMailer.order_requested(order)
     elsif order.completed?
       mail = OrderStatusMailer.payment_confirmed(order)
+    elsif order.canceled? || order.reversed?
+      mail = OrderStatusMailer.payment_refused(order)
+    elsif order.delivered?
+      mail = OrderStatusMailer.order_delivered(order)
     end
     mail.deliver
   end
