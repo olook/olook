@@ -14,18 +14,18 @@ $(document).ready(function() {
   $("div#carousel a.arrow").live("click", function () {
     list = $(this).siblings(".mask").find("ul");
     listSize = $(list).find("li").size();
-    minWidth = (listSize-11)*(-50);
+    minWidth = (listSize-11)*(-55);
     atualPosition = parseInt($(list).css("left").split("px")[0]);
     if($(this).hasClass("next") == true) {
       if(atualPosition > minWidth) {
         $(list).stop().animate({
-          left: atualPosition+(-50)+"px"
+          left: atualPosition+(-55)+"px"
         }, 'fast');
       }
     } else {
       if(atualPosition < 0) {
         $(list).stop().animate({
-          left: atualPosition+(50)+"px"
+          left: atualPosition+(55)+"px"
         }, 'fast');
       }
     }
