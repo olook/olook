@@ -11,10 +11,15 @@ class PaymentBuilder
     create_successful_payment_response
     payment_response = save_payment.payment_response
     order.decrement_inventory_for_each_item if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+    send_order_request_notification
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)
     rescue Exception => error
       log(error.message)
       OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+  end
+
+  def send_order_request_notification
+    Resque.enqueue(OrderStatusWorker, order.id)
   end
 
   def save_payment

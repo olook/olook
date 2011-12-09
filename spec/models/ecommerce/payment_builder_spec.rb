@@ -15,6 +15,11 @@ describe PaymentBuilder do
     @order_total = order.total_with_freight
   end
 
+  it "should send the notification" do
+    Resque.should_receive(:enqueue).with(OrderStatusWorker, order.id)
+    subject.send_order_request_notification
+  end
+
   it "should process the payment" do
     subject.should_receive(:send_payment)
     subject.should_receive(:create_successful_payment_response)
@@ -25,6 +30,7 @@ describe PaymentBuilder do
   end
 
   it "should return a structure with status and a payment" do
+    subject.stub(:send_order_request_notification)
     subject.stub(:send_payment)
     subject.stub(:create_successful_payment_response)
     payment_response = double
@@ -35,6 +41,7 @@ describe PaymentBuilder do
   end
 
   it "should return a structure with failure status and without a payment" do
+    subject.stub(:send_order_request_notification)
     subject.stub(:send_payment).and_raise(Exception)
     subject.process!.status.should == Payment::FAILURE_STATUS
     subject.process!.payment.should be_nil
