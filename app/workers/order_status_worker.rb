@@ -14,6 +14,6 @@ class OrderStatusWorker
     elsif order.delivered?
       mail = OrderStatusMailer.order_delivered(order)
     end
-    mail.deliver
+    mail.deliver if mail
   end
 end

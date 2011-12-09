@@ -8,6 +8,7 @@ describe ::AddressesController do
   let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    user.update_attributes(:cpf => "19762003691")
     FactoryGirl.create(:line_item, :order => Order.find(order))
     session[:order] = order
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -24,6 +25,17 @@ describe ::AddressesController do
     it "should assign @address" do
       get :index
       assigns(:addresses).should eq(user.addresses)
+    end
+
+    it "should redirect cart_path if the user dont have a cpf" do
+      user.update_attributes(:cpf => nil)
+      get :index
+      response.should redirect_to(cart_path)
+    end
+
+    it "should not redirect cart_path if the user have a cpf" do
+      get :index
+      response.should_not redirect_to(cart_path)
     end
   end
 

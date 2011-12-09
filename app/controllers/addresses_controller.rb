@@ -7,6 +7,7 @@ class ::AddressesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_user
   before_filter :check_order
+  before_filter :check_cpf
   before_filter :assign_default_country, :only => [:create]
   before_filter :build_cart, :except => [:assign_address]
 
@@ -60,10 +61,6 @@ class ::AddressesController < ApplicationController
   end
 
   private
-
-  def build_cart
-    @cart = Cart.new(@order)
-  end
 
   def remove_freight_from_order(address)
     @order.freight.destroy if @order.freight.address == address
