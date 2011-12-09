@@ -90,6 +90,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def status
+    STATUS[state]
+  end
+
   def remove_unavailable_items
     items = line_items.select {|item| !item.variant.available_for_quantity? item.quantity}
     size_items = items.size
