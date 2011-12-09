@@ -34,6 +34,10 @@ class Billet < Payment
     "BoletoBancario"
   end
 
+  def human_to_s
+    "Boleto Bancário"
+  end
+
   private
 
   def refund_order
