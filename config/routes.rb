@@ -41,7 +41,11 @@ Olook::Application.routes.draw do
     resources :users, :only => [:update]
     resources :addresses, :path => 'enderecos' 
     resources :orders, :path => 'pedidos', :only => [:index, :show]
-    resources :credits, :path => 'creditos'
+    resources :credits, :path => 'creditos' do
+      collection do
+        post 'creditos/reenviar_convite' => 'credits#resubmit_invite', :as => :resubmit_invite
+      end
+    end
   end
 
   namespace :admin do
