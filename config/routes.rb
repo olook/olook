@@ -9,6 +9,9 @@ Olook::Application.routes.draw do
   match "/faq", :to => "pages#faq", :as => "faq"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
+  match "/lookbooks/tamancos", :to => "lookbooks#tamancos", :as => "tamancos"
+  match "/lookbooks/girls-night-out", :to => "lookbooks#girls_night_out", :as => "girls_night_out"
+  match "/lookbooks/escritorio-chique", :to => "lookbooks#escritorio_chique", :as => "escritorio_chique"
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
