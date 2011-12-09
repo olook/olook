@@ -43,6 +43,58 @@ form {
     &.cpf {
       padding: 25px 35px;
       border: 1px #d6d6d6 solid;
+      li {
+        position: relative;
+        span.select {
+          position: absolute;
+          float: left;
+          height: 34px;
+          line-height: 34px;
+          cursor: default;
+          top: 17px;
+          z-index: 1;
+        }
+        select {
+          &.custom_select {
+            position: absolute;
+            line-height: 26px;
+            height: 34px;
+            top: 0;
+            &#user_birthday_3i {
+              width: 74px;
+              margin-right: 10px;
+              left: 10px;
+              & + span {
+                background: url('/assets/common/bg-day.png') no-repeat;
+                width: 74px;
+                text-indent: 22px;
+                left: 0;
+              }
+            }
+            &#user_birthday_2i {
+              width: 100px;
+              margin-right: 15px;
+              left: 95px;
+              & + span {
+                background: url('/assets/common/bg-month.png') no-repeat;
+                width: 110px;
+                text-indent: 15px;
+                left: 83px;
+              }
+            }
+            &#user_birthday_1i {
+              width: 75px;
+              left: 215px;
+              & + span {
+                background: url('/assets/common/bg-year.png') no-repeat;
+                width: 75px;
+                text-indent: 16px;
+                left: 203px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -398,6 +450,21 @@ div#my_account {
           }
         }
       }
+    }
+  }
+}
+
+.gecko, .ie {
+  form fieldset.cpf li select.custom_select {
+    top: 17px !important;
+    &#user_birthday_3i {
+      left: 0px !important;
+    }
+    &#user_birthday_2i {
+      left: 85px !important;
+    }
+    &#user_birthday_1i {
+      left: 205px !important;
     }
   }
 }
