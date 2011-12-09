@@ -32,7 +32,8 @@ describe ProductPresenter do
   
   describe '#render_related_products' do
     it "should render the partial with product's related products" do
-      template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:product_presenter => subject}).and_return('related')
+      subject.stub(:related_products).and_return(:mock_related_products)
+      template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:related_products => :mock_related_products}).and_return('related')
       subject.render_related_products.should == 'related'
     end
   end
@@ -111,12 +112,22 @@ describe ProductPresenter do
       end
     end
     
-    context "when the produc has some related products " do
-      let(:related_shoe)  { FactoryGirl.create(:basic_shoe, :name => 'Related shoe') }
-      let(:related_bag)   { FactoryGirl.create(:basic_bag, :name => 'Related bag') }
+    context "when the product has some related products " do
+      let(:related_shoe)      { FactoryGirl.create(:basic_shoe) }
+      let(:related_bag)       { FactoryGirl.create(:basic_bag) }
+      let(:out_of_stock_bag)  { FactoryGirl.create(:basic_bag) }
+
+      let!(:v_related_shoe)      { FactoryGirl.create(:basic_shoe_size_35, :product => related_shoe) }
+      let!(:v_related_bag)       { FactoryGirl.create(:variant, :product => related_bag, :inventory => 10) }
+      let!(:v_out_of_stock_bag)  { FactoryGirl.create(:variant, :product => out_of_stock_bag) }
 
       it "should return an empty array if all of them are of the same category as the presented product" do
         product.relate_with_product related_shoe
+        subject.related_products.should == []
+      end
+
+      it "should only included products in stock" do
+        product.relate_with_product out_of_stock_bag
         subject.related_products.should == []
       end
 

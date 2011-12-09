@@ -17,14 +17,14 @@ FactoryGirl.define do
       name "Bagelle"
       description "Elegant black bag for executives"
       category Category::BAG
-      model_number 'BGB01'
+      model_number { "BG01#{Random.rand 10000}" }
     end
 
     factory :basic_accessory do
       name "Jewelle"
       description "Elegant jewel for executives"
       category Category::ACCESSORY
-      model_number 'JWJ01'
+      model_number { "JW01#{Random.rand 10000}" }
     end
 
     factory :red_slipper do
