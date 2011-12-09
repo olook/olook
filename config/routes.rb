@@ -39,7 +39,7 @@ Olook::Application.routes.draw do
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
 
   namespace :user, :path => 'conta' do
-    resources :users, :only => [:update]
+    resources :users, :path => 'editar', :only => [:update]
     resources :addresses, :path => 'enderecos' 
     resources :orders, :path => 'pedidos', :only => [:index, :show]
     resources :credits, :path => 'creditos' do
