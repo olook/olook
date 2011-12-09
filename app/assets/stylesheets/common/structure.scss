@@ -201,6 +201,7 @@ body {
 
 
     .sign-in {
+      background: url("/assets/home/bg-middle-home.jpg") no-repeat;
       height: 575px;
       padding:0 30px;
       @include sign-in(relative);
