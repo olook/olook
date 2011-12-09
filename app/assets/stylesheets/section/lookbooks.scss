@@ -1,3 +1,12 @@
 section#lookbooks {
   padding: 20px 0;
+  div#carousel_lookbooks {
+    position: relative;
+    width: 970px;
+    height: 182px;
+    overflow: hidden;
+    a.arrows {
+      position: absolute;
+    }
+  }
 }
