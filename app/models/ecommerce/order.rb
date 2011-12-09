@@ -5,13 +5,13 @@ class Order < ActiveRecord::Base
   CONSTANT_FACTOR = 17
 
   belongs_to :user
-  has_many :variants, :through => :line_items
+  has_many :variants, :through => :line_items, :dependent => :destroy
   has_many :line_items, :dependent => :destroy
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
-  has_one :payment
-  has_one :freight
+  has_one :payment, :dependent => :destroy
+  has_one :freight, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
 
@@ -141,7 +141,7 @@ class Order < ActiveRecord::Base
   def rollback_inventory
     increment_inventory_for_each_item
   end
-  
+
   def installments
     payment.try(:payments) || 1
   end

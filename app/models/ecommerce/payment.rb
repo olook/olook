@@ -30,7 +30,7 @@ class Payment < ActiveRecord::Base
 
   attr_accessor :receipt, :user_identification
   belongs_to :order
-  has_one :payment_response
+  has_one :payment_response, :dependent => :destroy
 
   def save_with(payment_url, order)
     self.url, self.order = payment_url, order

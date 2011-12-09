@@ -1,0 +1,125 @@
+div#delivery_time {
+  margin: 35px auto 0 auto;
+  section#description {
+    background: url("/assets/delivery/map.png") top left no-repeat;
+    width: 715px;
+    height: 270px;
+    margin: 0 auto;
+    padding: 0 0 0 275px;
+    h1 {
+      background: url("/assets/delivery/title-delivery.png") no-repeat;
+      text-indent: -9999px;
+      width: 665px;
+      height: 39px;
+      display: block;
+      margin: 0 0 25px 0;
+    }
+    p {
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      &.last {
+        color: #df5b8d;
+      }
+    }
+  }
+  section#areas {
+    background: url("/assets/delivery/divisor.png") top center no-repeat;
+    width: 100%;
+    padding: 20px 0 90px 0;
+    overflow: hidden;
+    form {
+      width: 410px;
+      margin: 0 10px 40px 0;
+      overflow: auto;
+      float: left;
+      label {
+        font-size: 14px;
+      }
+      ol li {
+        position: relative;
+        line-height: 34px;
+        margin: 0 10px 0 0;
+        float: left;
+        select {
+          position: absolute;
+          width: 245px;
+          top: 10px;
+          left: 15px;
+          cursor: pointer;
+        }
+        span.select {
+          position: absolute;
+          background: url('/assets/delivery/bg-select.png') no-repeat;
+          line-height: 34px;
+          width: 254px;
+          height: 34px;
+          text-indent: 15px;
+          top: 0px;
+          left: 0px;
+          z-index: 0;
+        }
+      }
+    }
+    p {
+      margin: 0 0 40px 0;
+      float: left;
+    }
+    table {
+      width: 750px;
+      margin: 0 auto;
+      clear: both;
+      thead {
+        tr {
+          th {
+            background: #333;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: normal;
+            text-align: center;
+            padding: 8px 0;
+            &.first {
+              text-align: left;
+              padding-left: 15px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            color: #333;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 0;
+            &.first {
+              text-align: left;
+              vertical-align: middle;
+              padding-left: 15px;
+            }
+          }
+          &.zebra {
+            td {
+              background: #EEE;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.gecko, .ie {
+  div#delivery_time {
+    section#areas {
+      form {
+        ol {
+          li {
+            select {
+              left: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
