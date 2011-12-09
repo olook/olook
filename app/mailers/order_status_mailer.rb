@@ -21,6 +21,11 @@ class OrderStatusMailer < ActionMailer::Base
     send_mail(@order)
   end
 
+  def payment_confirmed(order)
+    @order = order
+    send_mail(@order)
+  end
+
   private
 
   def send_mail(order)
