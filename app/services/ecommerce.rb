@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 module Ecommerce
+  def check_cpf
+    redirect_to cart_path, :notice => "Informe seu CPF" if @user.cpf.nil?
+  end
+
   def build_cart
     @cart = Cart.new(@order)
   end
