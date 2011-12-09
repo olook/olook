@@ -259,4 +259,17 @@ describe Order do
       subject.status.should eq(Order::STATUS[subject.state])
     end
   end
+
+  describe "state machine relations" do
+    it "should send notification when completed given waiting payment" do
+      subject.should_receive(:send_notification)
+      subject.completed
+    end
+
+    it "should send notification when completed given under review" do
+      subject.should_receive(:send_notification)
+      subject.under_review
+      subject.completed
+    end
+  end
 end
