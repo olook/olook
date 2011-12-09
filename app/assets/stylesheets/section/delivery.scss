@@ -1,0 +1,69 @@
+div#delivery_time {
+  margin: 35px auto 0 auto;
+  section#description {
+    background: url("/assets/delivery/map.png") top left no-repeat;
+    width: 715px;
+    height: 270px;
+    margin: 0 auto;
+    padding: 0 0 0 275px;
+    h1 {
+      background: url("/assets/delivery/title-delivery.png") no-repeat;
+      text-indent: -9999px;
+      width: 665px;
+      height: 39px;
+      display: block;
+      margin: 0 0 25px 0;
+    }
+    p {
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      &.last {
+        color: #df5b8d;
+      }
+    }
+  }
+  section#areas {
+    background: url("/assets/delivery/divisor.png") top center no-repeat;
+    padding: 20px 0 0 0;
+    table {
+      width: 750px;
+      margin: 0 auto;
+      thead {
+        tr {
+          th {
+            background: #333;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: normal;
+            text-align: center;
+            padding: 8px 0;
+            &.first {
+              text-align: left;
+              padding-left: 15px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            color: #333;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px 0;
+            &.first {
+              text-align: left;
+              vertical-align: middle;
+              padding-left: 15px;
+            }
+          }
+          &.zebra {
+            td {
+              background: #EEE;
+            }
+          }
+        }
+      }
+    }
+  }
+}
