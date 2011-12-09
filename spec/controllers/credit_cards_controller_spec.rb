@@ -52,12 +52,6 @@ describe CreditCardsController do
         get 'new'
         response.should redirect_to(cart_path)
       end
-
-      it "should redirect to cart_path if the total is not the minimum" do
-        Order.any_instance.stub(:total_with_freight).and_return(CreditCard::MINIMUM_PAYMENT - 1)
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
     end
 
     context "with a valid freight" do

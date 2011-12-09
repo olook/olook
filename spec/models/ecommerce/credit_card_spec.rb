@@ -55,6 +55,10 @@ describe CreditCard do
     it "should calculate the installments numbers" do
       CreditCard.installments_number_for(89.89).should == 2
     end
+
+    it "should calculate the installments numbers" do
+      CreditCard.installments_number_for(3.34).should == 1
+    end
   end
 
   context "status" do
