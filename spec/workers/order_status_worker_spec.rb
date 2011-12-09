@@ -17,4 +17,19 @@ describe OrderStatusWorker do
     OrderStatusMailer.should_receive(:payment_confirmed).with(order).and_return(mock_mail)
     described_class.perform(order.id)
   end
+
+  it "should send payment_refused when canceled" do
+    order.canceled
+    mock_mail.should_receive(:deliver)
+    OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
+    described_class.perform(order.id)
+  end
+
+  it "should send payment_refused when reverted" do
+    order.under_review
+    order.reversed
+    mock_mail.should_receive(:deliver)
+    OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
+    described_class.perform(order.id)
+  end
 end
