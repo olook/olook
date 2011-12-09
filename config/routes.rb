@@ -9,6 +9,7 @@ Olook::Application.routes.draw do
   match "/faq", :to => "pages#faq", :as => "faq"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
+  match "/lookbooks/flores", :to => "lookbooks#flores", :as => "flores"
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments

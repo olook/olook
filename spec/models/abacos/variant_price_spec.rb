@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
-describe Abacos::Price do
-  let(:downloaded_price) { load_abacos_fixture :price }
+describe Abacos::VariantPrice do
+  let(:downloaded_price) { load_abacos_fixture :variant_price }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_price }
   subject { described_class.new parsed_data }
   

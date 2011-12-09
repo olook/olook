@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111208230640) do
+ActiveRecord::Schema.define(:version => 20111209133048) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.string  "first_name"
     t.string  "last_name"
   end
+
+  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
 
   create_table "admins", :force => true do |t|
     t.string   "email",                              :default => "", :null => false
@@ -75,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.datetime "updated_at"
   end
 
+  add_index "details", ["product_id"], :name => "index_details_on_product_id"
+
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.integer  "event_type",  :null => false
@@ -115,6 +119,8 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.integer "address_id"
   end
 
+  add_index "freights", ["order_id"], :name => "index_freights_on_order_id"
+
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -138,6 +144,9 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.decimal "price",      :precision => 8, :scale => 3
   end
 
+  add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
+  add_index "line_items", ["variant_id"], :name => "index_line_items_on_variant_id"
+
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
@@ -150,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
 
   add_index "orders", ["identification_code"], :name => "index_orders_on_identification_code", :unique => true
   add_index "orders", ["number"], :name => "index_orders_on_number", :unique => true
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "payment_responses", :force => true do |t|
     t.integer  "payment_id"
@@ -167,6 +177,8 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.datetime "updated_at"
   end
 
+  add_index "payment_responses", ["payment_id"], :name => "index_payment_responses_on_payment_id"
+
   create_table "payments", :force => true do |t|
     t.integer  "order_id"
     t.text     "url"
@@ -182,6 +194,8 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.string   "user_birthday"
     t.integer  "payments"
   end
+
+  add_index "payments", ["order_id"], :name => "index_payments_on_order_id"
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
@@ -201,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.datetime "updated_at"
   end
 
+  add_index "points", ["profile_id"], :name => "index_points_on_profile_id"
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
 
   create_table "products", :force => true do |t|
@@ -217,6 +232,7 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
   end
 
   add_index "products", ["collection_id"], :name => "index_products_on_collection_id"
+  add_index "products", ["model_number"], :name => "index_products_on_model_number"
 
   create_table "products_profiles", :id => false, :force => true do |t|
     t.integer  "product_id"
@@ -225,12 +241,17 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.datetime "updated_at"
   end
 
+  add_index "products_profiles", ["product_id"], :name => "index_products_profiles_on_product_id"
+  add_index "products_profiles", ["profile_id"], :name => "index_products_profiles_on_profile_id"
+
   create_table "profiles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_visit_banner"
   end
+
+  add_index "profiles", ["name"], :name => "index_profiles_on_name"
 
   create_table "questions", :force => true do |t|
     t.string   "title"
@@ -323,6 +344,7 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.decimal  "weight",            :precision => 8,  :scale => 2
   end
 
+  add_index "variants", ["number"], :name => "index_variants_on_number"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
 
   create_table "weights", :force => true do |t|
@@ -330,5 +352,8 @@ ActiveRecord::Schema.define(:version => 20111208230640) do
     t.integer "answer_id"
     t.integer "weight"
   end
+
+  add_index "weights", ["answer_id"], :name => "index_weights_on_answer_id"
+  add_index "weights", ["profile_id"], :name => "index_weights_on_profile_id"
 
 end

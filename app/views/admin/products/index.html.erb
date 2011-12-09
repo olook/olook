@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Model number</th>
       <th>Category</th>
+      <th>Visible?</th>
       <th>Price</th>
       <th>Inventory</th>
       <th>Color</th>
@@ -21,6 +22,7 @@
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
       <td><%= product.category_humanize %></td>
+      <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>

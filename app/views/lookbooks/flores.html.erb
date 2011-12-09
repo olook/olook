@@ -1,0 +1,39 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/lookbooks" %>
+<% end %>
+
+<section id="lookbooks">
+  <div id="carousel_lookbooks">
+    <%= link_to "Anterior", "javascript:void(0);", :class => "arrows prev" %>
+    <ul>
+      <li>
+        <%= link_to flores_path do %>
+          <%= image_tag "lookbooks/flores.png", :alt => "Flores" %>
+          <h1>Flores</h1>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "#" do %>
+          <%= image_tag "lookbooks/girls-night-out.png", :alt => "Girls night out" %>
+          <h1>Girls night out</h1>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to "#" do %>
+          <%= image_tag "lookbooks/escritorio-chique.png", :alt => "Escritório chiqué" %>
+          <h1>Escritório Chiqué</h1>
+        <% end %>
+      </li>
+    </ul>
+    <%= link_to "Próximo", "javascript:void(0);", :class => "arrows next" %>
+  </div>
+  <div id="carousel_lookbooks_product">
+    <%= link_to "Anterior", "javascript:void(0);", :class => "arrows prev" %>
+    <ul>
+      <li>
+        <%= image_tag "lookbooks/1/1.jpg", :alt => "Imagem 1" %>
+      </li>
+    </ul>
+    <%= link_to "Próximo", "javascript:void(0);", :class => "arrows next" %>
+  </div>
+</section>

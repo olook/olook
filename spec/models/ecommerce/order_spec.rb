@@ -238,7 +238,7 @@ describe Order do
       subject.refunded
     end
   end
-  
+
   describe '#installments' do
     context "when there's no payment" do
       it "should return 1" do
@@ -251,6 +251,25 @@ describe Order do
         subject.payment.stub(:payments).and_return(3)
         subject.installments.should == 3
       end
+    end
+  end
+
+  describe "Order#status" do
+    it "should return the status" do
+      subject.status.should eq(Order::STATUS[subject.state])
+    end
+  end
+
+  describe "state machine relations" do
+    it "should send notification when completed given waiting payment" do
+      subject.should_receive(:send_notification)
+      subject.completed
+    end
+
+    it "should send notification when completed given under review" do
+      subject.should_receive(:send_notification)
+      subject.under_review
+      subject.completed
     end
   end
 end
