@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
     self.events.create(event_type: type, description: description)
   end
 
-  def invitation_url(host = 'olook.com.br')
+  def invitation_url(host = 'www.olook.com.br')
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
 
@@ -115,20 +115,33 @@ class User < ActiveRecord::Base
     self.profile_scores.each do |profile_score|
       result = result | profile_showroom(profile_score.profile, category).all
     end
-    result
+    remove_color_variations result
   end
 
   def main_profile_showroom(category = nil)
-    profile_showroom(self.main_profile, category) if self.main_profile
+    remove_color_variations(profile_showroom(self.main_profile, category)) if self.main_profile
   end
 
   def profile_showroom(profile, category = nil)
-    scope = profile.products.where(:collection_id => Collection.current)
+    scope = profile.products.only_visible.
+            where(:collection_id => Collection.current)
     scope = scope.where(:category => category) if category
     scope
   end
-
+  
   private
+
+  def remove_color_variations(products)
+    already_displayed = []
+    result = []
+    products.each do |product|
+      unless already_displayed.include?(product.name)
+        result << product
+        already_displayed << product.name
+      end
+    end
+    result
+  end
 
   def generate_invite_token
     loop do

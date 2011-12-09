@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :product do
+    is_visible true
+
     factory :basic_shoe do
       name "Chanelle"
       description "Elegant black high-heeled shoe for executives"

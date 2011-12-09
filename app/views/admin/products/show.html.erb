@@ -11,6 +11,11 @@
   </p>
 
   <p>
+    <b>Visible?:</b>
+    <%= @product.is_visible? ? 'Yes' : 'No' %>
+  </p>
+
+  <p>
     <b>Category:</b>
     <%= @product.category_humanize %>
   </p>

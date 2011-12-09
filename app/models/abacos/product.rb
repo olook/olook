@@ -42,7 +42,8 @@ module Abacos
         product = ::Product.new(:model_number => self.model_number,
                                 :name         => self.name,
                                 :category     => self.category,
-                                :description  => self.description)
+                                :description  => self.description,
+                                :is_visible   => false)
         product.id = self.model_number.to_i
         product.save!
       end
