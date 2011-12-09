@@ -16,24 +16,11 @@ class OrderStatusMailer < ActionMailer::Base
     }
   end
 
-  def order_requested(order)
-    @order = order
-    send_mail(@order)
-  end
-
-  def payment_confirmed(order)
-    @order = order
-    send_mail(@order)
-  end
-
-  def payment_refused(order)
-    @order = order
-    send_mail(@order)
-  end
-
-  def order_delivered(order)
-    @order = order
-    send_mail(@order)
+  [:order_requested, :payment_confirmed, :payment_refused, :order_delivered].each do |method|
+    define_method method do |order|
+      @order = order
+      send_mail(@order)
+    end
   end
 
   private
