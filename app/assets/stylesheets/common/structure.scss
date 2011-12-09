@@ -201,6 +201,7 @@ body {
 
 
     .sign-in {
+      background: url("/assets/home/bg-middle-home.jpg") no-repeat;
       height: 575px;
       padding:0 30px;
       @include sign-in(relative);
@@ -590,6 +591,7 @@ body {
           font-family: Arial;
           font-size: 14px;
           font-weight: bold;
+          letter-spacing: -1px;
           span {
             color: #df5a8b;
             width: auto;
