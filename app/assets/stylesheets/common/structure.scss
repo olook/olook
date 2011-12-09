@@ -785,6 +785,9 @@ body {
                 line-height: 32px;
                 top: 0;
                 left: 99px;
+                div {
+                  display: inline;
+                }
               }
               &:hover {
                 background: url("/assets/common/nav/my-cart-selected.png") no-repeat;
