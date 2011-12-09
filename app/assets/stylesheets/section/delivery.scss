@@ -25,13 +25,39 @@ div#delivery_time {
   section#areas {
     background: url("/assets/delivery/divisor.png") top center no-repeat;
     width: 100%;
-    padding: 20px 0 0 0;
-    overflow: auto;
+    padding: 20px 0 90px 0;
+    overflow: hidden;
     form {
-      margin: 0 30px 40px 0;
+      width: 410px;
+      margin: 0 10px 40px 0;
+      overflow: auto;
       float: left;
       label {
         font-size: 14px;
+      }
+      ol li {
+        position: relative;
+        line-height: 34px;
+        margin: 0 10px 0 0;
+        float: left;
+        select {
+          position: absolute;
+          width: 245px;
+          top: 10px;
+          left: 15px;
+          cursor: pointer;
+        }
+        span.select {
+          position: absolute;
+          background: url('/assets/delivery/bg-select.png') no-repeat;
+          line-height: 34px;
+          width: 254px;
+          height: 34px;
+          text-indent: 15px;
+          top: 0px;
+          left: 0px;
+          z-index: 0;
+        }
       }
     }
     p {
@@ -74,6 +100,22 @@ div#delivery_time {
           &.zebra {
             td {
               background: #EEE;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.gecko, .ie {
+  div#delivery_time {
+    section#areas {
+      form {
+        ol {
+          li {
+            select {
+              left: 2px;
             }
           }
         }
