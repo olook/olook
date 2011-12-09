@@ -36,7 +36,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def verifies_creation_date
-    creation_date = current_user.created_at + 2.minute
+    creation_date = current_user.created_at + 2.hours
     if creation_date.strftime("%d/%m/%y %H:%M") <= Time.now.strftime("%d/%m/%y %H:%M")
       current_user.record_early_access
       member_showroom_path
