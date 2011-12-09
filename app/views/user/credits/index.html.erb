@@ -24,10 +24,10 @@
         <tbody>
           <% @invites.each do |invite| %>
             <tr>
-              <td class="email"><%= invite.email %></td>
-              <td><%= invite.created_at.strftime("%d/%m/%Y") %></td>
+              <td class="email" name="email_address"><%= invite.email %></td>
+              <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
               <td><%= Invite.status_for_user_invite(@member.id, invite) %></td>
-              <td><%= link_to "Reenviar convite", "#" %></td>
+              <td><%= link_to "Reenviar convite", resubmit_invite_user_credits_path(:email_address => invite.email), :method => :post  %></td>
             </tr>
           <% end %>
         </tbody>
