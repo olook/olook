@@ -12,6 +12,11 @@ class User::CreditsController < ApplicationController
     @invites = @member.invites.page(params[:page]).per_page(10)
   end
 
+  def resubmit_invite
+    current_user.invite_for(params[:email_address])
+    redirect_to(user_credits_path, :notice => "Convite enviado com sucesso!")
+  end
+
   private
 
   def load_user
