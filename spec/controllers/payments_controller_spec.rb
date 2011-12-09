@@ -8,7 +8,9 @@ describe PaymentsController do
   let(:payment) { FactoryGirl.create(:billet, :order => order) }
   let(:total) { 99.55 }
   let(:billet_printed) { "3" }
-  let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => "123", :tipo_pagamento => "CartaoDeCredito"}}
+  let(:cod_moip) { "3" }
+  let(:tipo_pagamento) { "CartaoDeCredito" }
+  let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento}}
 
   before :each do
     Airbrake.stub(:notify)
@@ -38,6 +40,11 @@ describe PaymentsController do
       it "should change the payment status to billet_printed" do
         post :create, params
         order.payment.reload.billet_printed?.should eq(true)
+      end
+
+      it "should update payment with the params" do
+        post :create, params
+        order.payment.should_receive(:update_attributes).with(:gateway_code => cod_moip, :gateway_type => tipo_pagamento, :gateway_status => billet_printed)
       end
 
       it "should change the order status to completed" do
