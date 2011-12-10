@@ -11,7 +11,7 @@
       <h1 class="orders">Meus Pedidos</h1>
     </div>
     <div class="order_status">
-      <h1>Número do Pedido: <span><%= @order.number %></span></h1>
+      <h1>Número do Pedido: <span><%= @current_order.number %></span></h1>
       <h2><strong>Status do seu pedido: <%= @order_presenter.status.message %></strong></h2>
       <ul id="status" class="<%= @order_presenter.status.css_class %>">
         <li class="state1">Pedido Efetuado</li>
@@ -21,7 +21,7 @@
       </ul>
       <div id="description">
         <ul id="items">
-          <% @order.line_items.each do |item| %>
+          <% @current_order.line_items.each do |item| %>
             <li>
               <%= image_tag item.variant.showroom_picture %>
               <h1><%= item.variant.name %></h1>
@@ -42,11 +42,11 @@
           </div>
           <div>
             <h1>Data do Pedido</h1>
-            <p><%= l @order.created_at, :format => :short %></p>
+            <p><%= l @current_order.created_at, :format => :short %></p>
           </div>
           <div>
             <h1>Quantidade de Produtos</h1>
-            <p><%= @order.line_items.count %></p>
+            <p><%= @current_order.line_items.count %></p>
           </div>
           <div>
             <table cellspacing="0" cellpadding="0">
@@ -58,15 +58,15 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><%= number_to_currency(@order.total_with_freight) %></td>
-                  <td><%= number_to_currency(@order.freight_price)  %></td>
+                  <td><%= number_to_currency(@current_order.total_with_freight) %></td>
+                  <td><%= number_to_currency(@current_order.freight_price)  %></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div>
             <h1>Forma de pagamento</h1>
-            <p><%= @order.payment.human_to_s %></p>
+            <p><%= @current_order.payment.human_to_s %></p>
           </div>
         </div>
       </div>
