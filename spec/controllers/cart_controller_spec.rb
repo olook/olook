@@ -76,6 +76,13 @@ describe CartController do
           put :update, :variant => {:id => variant.id}
           response.should redirect_to cart_path, :notice => "Este produto não está na sua sacola"
         end
+
+        it "should delete the order when the last item is removed" do
+          post :create, :variant => {:id => variant.id}
+          expect {
+            put :update, :variant => {:id => variant.id}
+          }.to change(Order, :count).by(-1)
+        end
       end
 
       describe "with a invalid variant" do
