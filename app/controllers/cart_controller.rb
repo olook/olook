@@ -36,6 +36,10 @@ class CartController < ApplicationController
   def update
     respond_with do |format|
       if @order.remove_variant(@variant)
+        if @order.reload.line_items.empty?
+          @order.destroy
+          session[:order] = nil
+        end
         format.html do
           redirect_to cart_path, :notice => "Produto removido com sucesso"
         end
