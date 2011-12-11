@@ -8,6 +8,7 @@ class CartController < ApplicationController
   before_filter :check_early_access
   before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
   before_filter :current_order
+  before_filter :format_credits_value, :only => [:update_bonus]
 
   def update_bonus
     bonus = InviteBonus.calculate(@user)
@@ -74,6 +75,10 @@ class CartController < ApplicationController
   end
 
   private
+
+  def format_credits_value
+    params[:credits][:value].gsub!(",",".")
+  end
 
   def check_product_variant
     variant_id = params[:variant][:id] if  params[:variant]

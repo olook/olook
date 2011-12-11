@@ -34,6 +34,12 @@ describe CartController do
           put :update_bonus, :credits => {:value => bonus_value}
           response.should redirect_to(cart_path)
         end
+
+        it "should format credits value to use dots" do
+          bonus_value = '12,34'
+          put :update_bonus, :credits => {:value => "12.34"}
+          response.should redirect_to(cart_path)
+        end
       end
 
       context "when the user dont have bonus enougth" do
