@@ -19,7 +19,7 @@ class OrderStatus
   def status
     if order_requested?
       klass, message = STATUS["order-requested"]
-    elsif order.completed?
+    elsif order.completed? || order.authorized?
       klass, message = STATUS["payment-made-approved"]
     elsif order.canceled?
       klass, message = STATUS["payment-made-denied"]

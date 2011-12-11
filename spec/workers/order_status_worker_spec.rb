@@ -12,7 +12,7 @@ describe OrderStatusWorker do
   end
 
   it "should send payment_confirmed" do
-    order.completed
+    order.authorized
     mock_mail.should_receive(:deliver)
     OrderStatusMailer.should_receive(:payment_confirmed).with(order).and_return(mock_mail)
     described_class.perform(order.id)
@@ -26,6 +26,7 @@ describe OrderStatusWorker do
   end
 
   it "should send payment_refused when reverted" do
+    order.authorized
     order.under_review
     order.reversed
     mock_mail.should_receive(:deliver)
@@ -34,6 +35,7 @@ describe OrderStatusWorker do
   end
 
   it "should send payment_refused when delivered" do
+    order.authorized
     order.completed
     order.prepared
     order.delivered

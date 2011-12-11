@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   has_one :freight, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
-  
+
   scope :with_payment, joins(:payment)
 
   state_machine :initial => :waiting_payment do
@@ -38,10 +38,6 @@ class Order < ActiveRecord::Base
     after_transition any => any, :do => :send_notification
 
     event :under_analysis do
-      transition :waiting_payment => :waiting_payment
-    end
-
-    event :authorized do
       transition :waiting_payment => :waiting_payment
     end
 
@@ -57,8 +53,12 @@ class Order < ActiveRecord::Base
       transition :waiting_payment => :waiting_payment
     end
 
+    event :authorized do
+      transition :waiting_payment => :authorized
+    end
+
     event :completed do
-      transition :waiting_payment => :completed
+      transition :authorized => :completed
     end
 
     event :completed do
@@ -66,7 +66,7 @@ class Order < ActiveRecord::Base
     end
 
     event :under_review do
-      transition :waiting_payment => :under_review
+      transition :authorized => :under_review
     end
 
     event :canceled do

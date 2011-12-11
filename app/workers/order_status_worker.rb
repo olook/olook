@@ -7,7 +7,7 @@ class OrderStatusWorker
 
     if order.waiting_payment?
       mail = OrderStatusMailer.order_requested(order)
-    elsif order.completed?
+    elsif order.authorized?
       mail = OrderStatusMailer.payment_confirmed(order)
     elsif order.canceled? || order.reversed?
       mail = OrderStatusMailer.payment_refused(order)

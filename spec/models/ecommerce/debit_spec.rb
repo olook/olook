@@ -37,6 +37,11 @@ describe Debit do
       subject.order.canceled?.should eq(true)
     end
 
+    it "should set authorized for order" do
+      subject.authorized
+      subject.order.authorized?.should eq(true)
+    end
+
     it "should set completed for order" do
       subject.authorized
       subject.completed
@@ -48,11 +53,6 @@ describe Debit do
       subject.under_review
       subject.completed
       subject.order.completed?.should eq(true)
-    end
-
-    it "should set waiting_payment for order" do
-      subject.authorized
-      subject.order.waiting_payment?.should eq(true)
     end
 
     it "should set waiting_payment for order" do

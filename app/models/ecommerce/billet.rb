@@ -5,6 +5,7 @@ class Billet < Payment
 
   state_machine :initial => :started do
     after_transition :authorized => :completed, :do => :complete_order
+    after_transition :billet_printed => :authorized, :do => :authorize_order
     after_transition :under_review => :completed, :do => :complete_order
     after_transition :authorized => :under_review, :do => :review_order
     after_transition :under_review => :refunded, :do => :refund_order
@@ -54,5 +55,9 @@ class Billet < Payment
 
   def complete_order
     order.completed
+  end
+
+  def authorize_order
+    order.authorized
   end
 end
