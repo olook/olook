@@ -15,7 +15,7 @@ class CartController < ApplicationController
     user_can_use_bonus = bonus >= credits.to_i
     if user_can_use_bonus
       @order.update_attributes(:credits => credits)
-      redirect_to cart_path, :notice => "Créditos atualizados com suceso"
+      redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
     end
