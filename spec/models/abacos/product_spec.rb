@@ -132,7 +132,7 @@ describe Abacos::Product do
 
   describe "class methods" do
     let(:descritor_pre_definido)  { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_descritor_pre_definido=>{:descricao=>"Couro Gergelim", :grupo_nome=>"COR  "}}} }
-    let(:caracteristicas_complementares) { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_caracteristicas_complementares=>[{:tipo_nome=>"Dica da Fernanda", :texto=>"Sapatilha sensaciona impressionantel!"}, {:tipo_nome=>"Perfil", :texto=>"Sexy, Casual "}, {:tipo_nome=>"Como vestir", :texto=>"Deve-se vestir no pé"}, {:tipo_nome=>"Descrição", :texto=>"O cetim e o strass formam uma ótima combinação, pronta para ir para uma festa?"}]}} }
+    let(:caracteristicas_complementares) { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_caracteristicas_complementares=>[{:tipo_nome=>"Dica da Fernanda", :texto=>"Sapatilha sensaciona impressionantel!"}, {:tipo_nome=>"Perfil", :texto=>"Sexy, Casual "}, {:tipo_nome=>"Salto", :texto=>"DeFault "}, {:tipo_nome=>"Como vestir", :texto=>"Deve-se vestir no pé"}, {:tipo_nome=>"Descrição", :texto=>"O cetim e o strass formam uma ótima combinação, pronta para ir para uma festa?"}]}} }
 
     describe '#parse_abacos_data' do
       it '#integration_protocol' do
