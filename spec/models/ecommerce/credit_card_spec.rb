@@ -25,9 +25,27 @@ describe CreditCard do
     it { should allow_value("(11)1111-1111").for(:telephone) }
     it { should_not allow_value("2222-2222").for(:telephone) }
 
-    it { should allow_value("1111222233334444").for(:credit_card_number) }
-    it { should_not allow_value("1111 2222 3333 4444").for(:credit_card_number) }
-    it { should_not allow_value("1111").for(:credit_card_number) }
+    describe 'credit card number length' do
+      context 'number too short' do
+        it { should_not allow_value("1111").for(:credit_card_number) }
+        it { should_not allow_value("11112222333344").for(:credit_card_number) }
+      end
+      context 'number too long' do
+        it { should_not allow_value("111122223333444455").for(:credit_card_number) }
+      end
+      context 'regular numbers for Visa and Master' do
+        it { should allow_value("1111222233334444").for(:credit_card_number) }
+        it { should_not allow_value("1111 2222 3333 4444").for(:credit_card_number) }
+      end
+      context 'numbers for Amex and Diners' do
+        it { should allow_value("111122223333444").for(:credit_card_number) }
+        it { should_not allow_value("1111 2222 3333 444").for(:credit_card_number) }
+      end
+      context 'numbers for Hypercard' do
+        it { should allow_value("11112222333344445").for(:credit_card_number) }
+        it { should_not allow_value("1111 2222 3333 4444 5").for(:credit_card_number) }
+      end
+    end
 
     it { should allow_value("3456").for(:security_code) }
     it { should allow_value("345").for(:security_code) }

@@ -7,7 +7,7 @@ class CreditCard < Payment
   MINIMUM_PAYMENT = 30
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
-  CreditCardNumberFormat = /[0-9]{16}/
+  CreditCardNumberFormat = /^[0-9]{15,17}$/
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
