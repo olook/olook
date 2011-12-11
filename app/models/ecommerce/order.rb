@@ -37,36 +37,16 @@ class Order < ActiveRecord::Base
 
     after_transition any => any, :do => :send_notification
 
-    event :under_analysis do
-      transition :waiting_payment => :waiting_payment
-    end
-
-    event :billet_printed do
-      transition :waiting_payment => :waiting_payment
-    end
-
-    event :started do
-      transition :started => :waiting_payment
-    end
-
-    event :under_analysis do
-      transition :waiting_payment => :waiting_payment
-    end
-
     event :authorized do
       transition :waiting_payment => :authorized
     end
 
-    event :completed do
-      transition :authorized => :completed
-    end
-
-    event :completed do
-      transition :under_review => :completed
-    end
-
     event :under_review do
       transition :authorized => :under_review
+    end
+
+    event :completed do
+      transition :authorized => :completed, :under_review => :completed
     end
 
     event :canceled do
