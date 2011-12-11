@@ -38,6 +38,6 @@ class OrderStatus
   private
 
   def order_requested?
-    order.waiting_payment? || order.under_review? || order.started?
+    order.waiting_payment? || order.under_review?
   end
 end
