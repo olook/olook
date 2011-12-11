@@ -85,6 +85,7 @@ Olook::Application.routes.draw do
     end
     resources :shipping_services
     resources :collections
+    resources :orders
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
