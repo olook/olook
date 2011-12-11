@@ -56,8 +56,10 @@ describe InviteBonus do
       end
 
       it 'should be limited to R$ 300 no matter how many invites were accepted' do
-        described_class.stub(:for_accepted_invites).and_return(10000000.0)
-        described_class.calculate(member).should == 300.0
+        described_class.stub(:for_accepted_invites).and_return(100.0)
+        described_class.stub(:for_being_invited).and_return(300.0)
+        described_class.stub(:already_used).and_return(250.0)
+        described_class.calculate(member).should == 50.0
       end
     end
   end
