@@ -131,6 +131,7 @@ module Abacos
       {}.tap do |result|
         items.each do |item|
           next if items_to_skip.include?(item[:tipo_nome].strip)
+          next if item[:texto].strip.downcase == 'default'
           result[ item[:tipo_nome].strip ] = item[:texto].strip
         end
       end
