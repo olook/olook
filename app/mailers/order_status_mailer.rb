@@ -28,7 +28,7 @@ class OrderStatusMailer < ActionMailer::Base
   def build_subject(order)
     if order.waiting_payment?
       subject = "#{order.user.first_name}, recebemos seu pedido."
-    elsif order.completed?
+    elsif order.authorized?
       subject = "Seu pedido n#{order.number} foi confirmado!"
     elsif order.canceled? || order.reversed?
       subject = "Seu pedido n#{order.number} foi cancelado."
