@@ -145,6 +145,12 @@ describe CreditCard do
       subject.canceled?.should eq(true)
     end
 
+   it "should set canceled given under_analysis" do
+      subject.set_state(under_analysis)
+      subject.set_state(canceled)
+      subject.canceled?.should eq(true)
+    end
+
     it "should set authorized" do
       subject.set_state(authorized)
       subject.authorized?.should eq(true)
