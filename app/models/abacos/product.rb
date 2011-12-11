@@ -167,18 +167,6 @@ module Abacos
       Collection.for_date(reference_date).try :id
     end
 
-    def self.parse_profiles(data)
-      items = parse_nested_data(data, :dados_caracteristicas_complementares)
-
-      result = []
-      items.each do |item|
-        if item[:tipo_nome].strip == 'Perfil'
-          result += item[:texto].split(',')
-        end
-      end
-      result.map &:strip
-    end
-    
     def self.parse_collection_date(data)
       month_names = I18n.t('date.month_names').compact.map(&:downcase)
       filter = eval("/#{month_names.join('|')}|\\d{4}/")
