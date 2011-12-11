@@ -6,7 +6,8 @@ describe OrderStatus do
   subject { OrderStatus.new(order) }
 
   context "order.not_delivered?" do
-    it "should return status date for not-order-delivered" do
+    it "should return status data for not-order-delivered" do
+      order.authorized
       order.completed
       order.prepared
       order.not_delivered
@@ -16,7 +17,8 @@ describe OrderStatus do
   end
 
   context "order.delivered?" do
-    it "should return status date for order-delivered" do
+    it "should return status data for order-delivered" do
+      order.authorized
       order.completed
       order.prepared
       order.delivered
@@ -26,7 +28,8 @@ describe OrderStatus do
   end
 
   context "order.prepared?" do
-    it "should return status date for order-prepared" do
+    it "should return status data for order-prepared" do
+      order.authorized
       order.completed
       order.prepared
       subject.status.css_class.should == OrderStatus::STATUS["order-prepared"][0]
@@ -35,7 +38,8 @@ describe OrderStatus do
   end
 
   context "order.reversed?" do
-    it "should return status date for payment-made-failed" do
+    it "should return status data for payment-made-failed" do
+      order.authorized
       order.under_review
       order.reversed
       subject.status.css_class.should == OrderStatus::STATUS["payment-made-failed"][0]
@@ -44,7 +48,8 @@ describe OrderStatus do
   end
 
   context "order.refunded?" do
-    it "should return status date for payment-made-failed" do
+    it "should return status data for payment-made-failed" do
+      order.authorized
       order.under_review
       order.refunded
       subject.status.css_class.should == OrderStatus::STATUS["payment-made-failed"][0]
@@ -53,8 +58,17 @@ describe OrderStatus do
   end
 
   context "order.completed?" do
-    it "should return status date for payment-made-approved" do
+    it "should return status data for payment-made-approved" do
+      order.authorized
       order.completed
+      subject.status.css_class.should == OrderStatus::STATUS["payment-made-approved"][0]
+      subject.status.message.should   == OrderStatus::STATUS["payment-made-approved"][1]
+    end
+  end
+
+  context "order.authorized?" do
+    it "should return status data for payment-made-approved" do
+      order.authorized
       subject.status.css_class.should == OrderStatus::STATUS["payment-made-approved"][0]
       subject.status.message.should   == OrderStatus::STATUS["payment-made-approved"][1]
     end
@@ -75,6 +89,7 @@ describe OrderStatus do
     end
 
     it "should return status date for order-requested when under_review" do
+      order.authorized
       order.under_review
       subject.status.css_class.should == OrderStatus::STATUS["order-requested"][0]
       subject.status.message.should   == OrderStatus::STATUS["order-requested"][1]

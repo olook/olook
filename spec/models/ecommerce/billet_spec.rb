@@ -36,6 +36,12 @@ describe Billet do
       subject.order.waiting_payment?.should eq(true)
     end
 
+    it "should set authorized for order" do
+      subject.billet_printed
+      subject.authorized
+      subject.order.authorized?.should eq(true)
+    end
+
     it "should set completed for order" do
       subject.billet_printed
       subject.authorized
@@ -51,13 +57,7 @@ describe Billet do
       subject.order.completed?.should eq(true)
     end
 
-    it "should set waiting_payment for order" do
-      subject.billet_printed
-      subject.authorized
-      subject.order.waiting_payment?.should eq(true)
-    end
-
-    it "should set waiting_payment for order" do
+   it "should set waiting_payment for order" do
       subject.billet_printed
       subject.authorized
       subject.under_review

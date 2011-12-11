@@ -228,12 +228,14 @@ describe Order do
 
     it "should rollback the inventory when reversed" do
       subject.should_receive(:increment_inventory_for_each_item)
+      subject.authorized
       subject.under_review
       subject.reversed
     end
 
     it "should rollback the inventory when refunded" do
       subject.should_receive(:increment_inventory_for_each_item)
+      subject.authorized
       subject.under_review
       subject.refunded
     end
@@ -262,17 +264,19 @@ describe Order do
 
   describe "state machine relations" do
     it "should send notification when completed given waiting payment" do
-      subject.should_receive(:send_notification)
+      subject.should_receive(:send_notification).at_least(2).times
+      subject.authorized
       subject.completed
     end
 
     it "should send notification when completed given under review" do
       subject.should_receive(:send_notification).at_least(2).times
+      subject.authorized
       subject.under_review
       subject.completed
     end
   end
-  
+
   describe '#with_payment' do
     let!(:order_with_payment) { FactoryGirl.create :order }
     let!(:order_without_payment) do
