@@ -120,7 +120,11 @@
 
   <ul class="services">
     <li><%= link_to '', member_import_contacts_path, :class => 'gmail' %></li>
-    <li><%= link_to '', @yahoo_oauth_url, :class => 'yahoo' %></li>
+    <% if @yahoo_oauth_url %>
+      <li><%= link_to '', @yahoo_oauth_url, :class => 'yahoo' %></li>
+    <% else %>
+      <li>Serviço Yahoo indisponível no momento</li>
+    <% end %>
   </ul>
 
   <div class="import-dropdown">

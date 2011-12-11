@@ -13,8 +13,10 @@ class MembersController < ApplicationController
     @redirect_uri = root_path
 
     yahoo_request = OauthImport::Yahoo.new.request
-    session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
-    @yahoo_oauth_url = yahoo_request.authorize_url
+    if yahoo_request
+      session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
+      @yahoo_oauth_url = yahoo_request.authorize_url
+    end
   end
 
   def accept_invitation
