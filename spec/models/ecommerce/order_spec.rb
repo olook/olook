@@ -256,6 +256,78 @@ describe Order do
     end
   end
 
+  describe "State machine" do
+    it "should has waiting_payment as initial state" do
+      subject.waiting_payment?.should be_true
+    end
+
+    it "should set authorized" do
+      subject.authorized
+      subject.authorized?.should be_true
+    end
+
+    it "should set authorized" do
+      subject.authorized
+      subject.under_review
+      subject.under_review?.should be_true
+    end
+
+    it "should set completed given authorized" do
+      subject.authorized
+      subject.completed
+      subject.completed?.should be_true
+    end
+
+    it "should set completed given under_review" do
+      subject.authorized
+      subject.under_review
+      subject.completed
+      subject.completed?.should be_true
+    end
+
+    it "should set canceled" do
+      subject.canceled
+      subject.canceled?.should be_true
+    end
+
+    it "should set reversed" do
+      subject.authorized
+      subject.under_review
+      subject.reversed
+      subject.reversed?.should be_true
+    end
+
+    it "should set refunded" do
+      subject.authorized
+      subject.under_review
+      subject.refunded
+      subject.refunded?.should be_true
+    end
+
+    it "should set prepared" do
+      subject.authorized
+      subject.completed
+      subject.prepared
+      subject.prepared?.should be_true
+    end
+
+    it "should set delivered" do
+      subject.authorized
+      subject.completed
+      subject.prepared
+      subject.delivered
+      subject.delivered?.should be_true
+    end
+
+    it "should set not_delivered" do
+      subject.authorized
+      subject.completed
+      subject.prepared
+      subject.not_delivered
+      subject.not_delivered?.should be_true
+    end
+  end
+
   describe "Order#status" do
     it "should return the status" do
       subject.status.should eq(Order::STATUS[subject.state])
