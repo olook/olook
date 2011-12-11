@@ -66,7 +66,7 @@
           </div>
           <div>
             <h1>Forma de pagamento</h1>
-            <p><%= @current_order.payment.human_to_s %></p>
+            <p><%= @current_order.payment.human_to_s %> <%= link_to '(imprimir)', @current_order.payment.url if @current_order.payment.is_a? Billet %></p>
           </div>
         </div>
       </div>

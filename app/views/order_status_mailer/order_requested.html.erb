@@ -36,12 +36,13 @@ Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number
 
 <% @order.line_items.each do |item| %>
 <p>
-  - <span style="color:#E05789"><%= item.variant.product.name %></span>;<br>
+  - <span style="color:#E05789"><%= item.variant.name %></span>;<br>
 </p>
 <% end %>
 
-
-<p>Neste momento estamos apenas aguardando a autorização da administradora do seu cartão de crédito/boleto para darmos sequência à sua compra.</p>
+<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.payment.is_a? CreditCard %>
+<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.payment} if @order.payment.is_a? Billet %>
+<%= render :partial => 'order_status_mailer/requested_debit' if @order.payment.is_a? Debit %>
 
 <p>Em breve vamos te enviar um e-mail com o novo status da sua compra.</p>
 
