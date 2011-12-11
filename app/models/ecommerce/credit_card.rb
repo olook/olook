@@ -24,8 +24,9 @@ class CreditCard < Payment
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
-    after_transition :started => :authorized, :do => :authorize_order
     after_transition :under_analysis => :canceled, :do => :cancel_order
+    after_transition :started => :authorized, :do => :authorize_order
+    after_transition :under_analysis => :authorized, :do => :authorize_order
     after_transition :authorized => :completed, :do => :complete_order
     after_transition :under_review => :completed, :do => :complete_order
     after_transition :authorized => :under_review, :do => :review_order
