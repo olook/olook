@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 module InviteBonus
   def self.calculate(member)
-    bonus = for_accepted_invites(member) + for_being_invited(member) - already_used(member)
+    bonus = for_accepted_invites(member) + for_being_invited(member)
     bonus = 300.0 if bonus > 300.0
+    bonus -= already_used(member)
     bonus
   end
 
