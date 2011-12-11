@@ -45,6 +45,10 @@
             <p><%= l @current_order.created_at, :format => :short %></p>
           </div>
           <div>
+            <h1>Prazo de Entrega</h1>
+            <p><%= @current_order.freight.delivery_time %> dias úteis</p>
+          </div>
+          <div>
             <h1>Quantidade de Produtos</h1>
             <p><%= @current_order.line_items.count %></p>
           </div>

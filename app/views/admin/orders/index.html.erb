@@ -1,0 +1,43 @@
+<h2>Listing orders</h2>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Number</th>
+      <th>Client</th>
+      <th>E-mail</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Payment Method</th>
+      <th>Item count</th>
+      <th>Products Total</th>
+      <th>Freight Price</th>
+      <th>Total</th>
+      <th>Installments</th>
+      <th></th>
+    </tr>
+
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.number %></td>
+      <td><%= link_to order.user.name, admin_user_path(order.user) %></td>
+      <td><%= link_to order.user.email, admin_user_path(order.user) %></td>
+      <td><%= l order.created_at, :format => :short %></td>
+      <td><%= order.status  %></td>
+      <td><%= order.payment.human_to_s %></td>
+      <td><%= order.line_items.count %></td>
+      <td><%= number_to_currency(order.total) %></td>
+      <td><%= number_to_currency(order.freight_price) %></td>
+      <td><%= number_to_currency(order.total_with_freight) %></td>
+      <td><%= order.installments %>x</td>
+      <td><%= link_to 'Show', admin_order_path(order) %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @orders %>
+    </div>
+  </div>
+</div>
