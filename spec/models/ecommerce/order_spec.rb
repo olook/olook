@@ -284,9 +284,7 @@ describe Order do
       order.payment.destroy
       order
     end
-    it 'without the scope it should include both orders' do
-      described_class.all.should == [order_with_payment, order_without_payment]
-    end
+
     it 'should include the order with the payment' do
       described_class.with_payment.all.should include(order_with_payment)
     end
