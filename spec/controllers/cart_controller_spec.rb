@@ -29,6 +29,16 @@ describe CartController do
           put :update_bonus, :credits => {:value => bonus_value}
         end
 
+        it "should update the order with a new bonus value" do
+          bonus_value = '12.34'
+          FactoryGirl.create(:freight, :order => order)
+          session[:order] = order.id
+          post :create, :variant => {:id => variant.id}
+          expect {
+            put :update_bonus, :credits => {:value => bonus_value}
+          }.to change(Freight, :count).by(-1)
+        end
+
         it "should redirect to card_path" do
           bonus_value = '12.34'
           put :update_bonus, :credits => {:value => bonus_value}
@@ -77,6 +87,15 @@ describe CartController do
           put :update, :variant => {:id => variant.id}
         end
 
+        it "should delete a item from the cart" do
+          FactoryGirl.create(:freight, :order => order)
+          session[:order] = order.id
+          post :create, :variant => {:id => variant.id}
+          expect {
+            put :update, :variant => {:id => variant.id}
+          }.to change(Freight, :count).by(-1)
+        end
+
         it "should redirect to cart_path" do
           Order.any_instance.stub(:remove_variant).with(variant).and_return(true)
           put :update, :variant => {:id => variant.id}
@@ -111,6 +130,15 @@ describe CartController do
           response.should redirect_to(cart_path)
         end
 
+        it "should destroy order freight" do
+          FactoryGirl.create(:freight, :order => order)
+          session[:order] = order.id
+          post :create, :variant => {:id => variant.id}
+          expect {
+            put :update_quantity_product, :variant => {:id => variant.id, :quantity => quantity}
+          }.to change(Freight, :count).by(-1)
+        end
+
         it "should update the variant quantity in the order" do
           Order.any_instance.should_receive(:add_variant).with(variant, quantity.to_s).and_return(true)
           put :update_quantity_product, :variant => {:id => variant.id, :quantity => quantity}
@@ -137,6 +165,14 @@ describe CartController do
       end
 
       context "with a valid @variant" do
+        it "should create a Order" do
+          FactoryGirl.create(:freight, :order => order)
+          session[:order] = order.id
+          expect {
+            post :create, :variant => {:id => variant.id}
+          }.to change(Freight, :count).by(-1)
+        end
+
         it "should create a Order" do
           expect {
             post :create, :variant => {:id => variant.id}
