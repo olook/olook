@@ -1,14 +1,28 @@
 # -*- encoding : utf-8 -*-
 module InviteBonus
-  def self.calculate(member)
+  def self.calculate(member, current_order = nil)
     bonus = for_accepted_invites(member) + for_being_invited(member)
     bonus = 300.0 if bonus > 300.0
-    bonus -= already_used(member)
+    bonus -= already_used(member, current_order)
     bonus
   end
 
-  def self.already_used(member)
-    member.orders.inject(0) {|result, item| result + (item.credits || 0)}
+  def self.already_used(member, current_order = nil)
+    count = 0
+    member.orders.each do |item|
+      if item.payment
+        credits = item.credits || 0
+        count = count + credits
+      else
+        if current_order
+          if item.id == current_order.id
+            credits = item.credits || 0
+            count = count + credits
+          end
+        end
+      end
+    end
+    count
   end
 
 protected
