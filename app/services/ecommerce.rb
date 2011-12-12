@@ -16,9 +16,9 @@ module Ecommerce
 
   def check_order
     @order = @user.orders.find_by_id(session[:order])
-    msg = "O total de sua compra deve ser maior que R$ 0,01"
+    msg = "O total de sua compra deve ser maior que R$ 5,00"
     if @order
-      redirect_to(cart_path, :notice => msg) if @order.total_with_freight < 0.01
+      redirect_to(cart_path, :notice => msg) if @order.total_with_freight < 5.00
     else
       redirect_to(cart_path, :notice => msg)
     end
