@@ -13,6 +13,7 @@ class Order < ActiveRecord::Base
     "delivered" => "Entregue",
     "not_delivered" => "Não entregue",
     "prepared" => "Preparado",
+    "authorized" => "Pagamento autorizado",
     "completed" => "Pagamento autorizado",
   }
 
