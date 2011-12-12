@@ -66,32 +66,55 @@ describe Order do
     end
   end
 
-  context "total with items" do
+  context 'in a order with items' do
+    let(:items_total) { basic_shoe_35.price + (quantity * basic_shoe_40.price) }
     before :each do
       subject.add_variant(basic_shoe_35)
       subject.add_variant(basic_shoe_40, quantity)
     end
-
-    it "should return the total with credits" do
-      subject.update_attributes(:credits => credits)
-      expected = basic_shoe_35.price + (quantity * basic_shoe_40.price) - credits
-      subject.total.should == expected
+    
+    describe '#line_items_total' do
+      it 'should return the sum of the products' do
+        expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
+        subject.line_items_total.should == expected
+      end
     end
 
-    it "should return the total wihout credits" do
-      expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
-      subject.total.should == expected
-    end
+    describe "#total" do
+      it "should return the total discounting the credits" do
+        subject.stub(:credits).and_return(11.0)
+        subject.total.should be_within(0.001).of(items_total - 11.0)
+      end
 
-    it "should return the total with freight" do
-      expected = subject.total + subject.freight.price
-      subject.total_with_freight.should == expected
+      it "should return the total without discounting credits if it doesn't have any" do
+        subject.total.should be_within(0.001).of(items_total)
+      end
+    end
+    
+    describe '#total_with_freight' do
+      it "should return the total with freight" do
+        subject.stub(:credits).and_return(11.0)
+        subject.stub(:freight_price).and_return(22.0)
+        expected = items_total - 11.0 + 22.0
+        subject.total_with_freight.should be_within(0.001).of(expected)
+      end
+      it "should return the same value as #total if there's no freight" do
+        subject.stub(:credits).and_return(11.0)
+        subject.stub(:freight_price).and_return(0)
+        subject.total_with_freight.should be_within(0.001).of(items_total - 11)
+      end
     end
   end
 
-  context "total without items" do
-    it "should return 0" do
-     subject.total.should == 0
+  context "in an order without items" do
+    it "#line_items_total should be zero" do
+      subject.line_items_total.should == 0
+    end
+    it "#total should be zero" do
+      subject.total.should == 0
+    end
+    it "#total_with_freight should be the value of the freight" do
+      subject.total_with_freight.should == subject.freight.price
     end
   end
 
