@@ -47,8 +47,8 @@ describe CreditCardsController do
         response.should redirect_to(cart_path)
       end
 
-      it "should redirect to cart path if the order total is less then 0,01" do
-        Order.any_instance.stub(:total_with_freight).and_return(0)
+      it "should redirect to cart path if the order total is less then 5,00" do
+        Order.any_instance.stub(:total_with_freight).and_return(4.99)
         get 'new'
         response.should redirect_to(cart_path)
       end
