@@ -258,6 +258,8 @@
         last_name: Sobrenome
         password: Senha
         password_confirmation: "Confirmação de senha"
+        reset_password_token: "Token para resetar senha"
+
     errors:
       template:
         header:
@@ -277,7 +279,7 @@
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
       bonus_for_accepting_invite: 'Você já ganhou <span class="amount">R$ 10,00</span> por ter sido convidada!'
-      invitation_accepted: 
+      invitation_accepted:
         one: '<span>%{count} </span>amiga já se registrou e você ganhou <span class="amount">%{bonus}</span>'
         other: '<span>%{count} </span>amigas já se registraram e você ganhou <span class="amount">%{bonus}</span>'
       member_with_no_invite_bonus: "Escolha uma das opções abaixo e comece a convidar"
