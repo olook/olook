@@ -3,7 +3,7 @@ class Debit < Payment
   attr_accessor :receipt
   validates :bank, :receipt, :presence => true, :on => :create
 
-  BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Unibanco", "Banrisul"]
+  BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Banrisul"]
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
