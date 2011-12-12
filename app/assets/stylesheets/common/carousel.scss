@@ -455,12 +455,13 @@ body {
   }
 }
 
-.ie7, .ie8, .gecko {
+.ie, .gecko {
   #survey {
     ul.questions {
       li.about {
         fieldset.select {
           select.custom_select {
+            height: 34px;
             &.day {
               width: 70px;
               left: 0px;
@@ -472,6 +473,34 @@ body {
             &.year {
               width: 75px;
               left: 200px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.ie9 {
+  #survey {
+    ul.questions {
+      li.about {
+        fieldset.select {
+          select.custom_select {
+            padding: 0;
+            height: 34px;
+            top: -8px;
+            &.day {
+              width: 72px;
+              left: 1px;
+            }
+            &.month {
+              width: 107px;
+              left: 86px;
+            }
+            &.year {
+              width: 77px;
+              left: 201px;
             }
           }
         }
