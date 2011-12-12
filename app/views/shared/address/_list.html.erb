@@ -3,8 +3,8 @@
   <% addresses.each do |address| %>
     <li class="address_item">
       <p><strong><%= address.identification %></strong></p>
-      <p><%= "#{address.street}, #{address.number} - #{address.neighborhood}" %></p>
-      <p><%= "#{address.zip_code}" %></p>
+      <p><%= "#{address.street}, #{address.number}" %><%= address.complement? ? ", #{address.complement}" : "" %></p>
+      <p><%= "#{address.neighborhood} - #{address.zip_code}" %></p>
       <p><%= "#{address.city}, #{address.state}" %></p>
       <ul class="links">
         <li><%= link_to "Editar endereço", my_account == true ? edit_user_address_path(address) : edit_address_path(address) %></li>
