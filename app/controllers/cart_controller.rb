@@ -16,6 +16,7 @@ class CartController < ApplicationController
     user_can_use_bonus = bonus >= credits.to_f
     if user_can_use_bonus
       @order.update_attributes(:credits => credits)
+      destroy_freight(@order)
       redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
@@ -38,6 +39,7 @@ class CartController < ApplicationController
     respond_with do |format|
       if @order.remove_variant(@variant)
         destroy_order_if_the_cart_is_empty(@order)
+        destroy_freight(@order)
         format.html do
           redirect_to cart_path, :notice => "Produto removido com sucesso"
         end
@@ -57,6 +59,7 @@ class CartController < ApplicationController
 
   def update_quantity_product
    if @order.add_variant(@variant, params[:variant][:quantity])
+      destroy_freight(@order)
       redirect_to(cart_path, :notice => "Quantidade atualizada")
     else
       redirect_to(:back, :notice => "Produto esgotado")
@@ -65,6 +68,7 @@ class CartController < ApplicationController
 
   def create
     if @order.add_variant(@variant)
+      destroy_freight(@order)
       redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
     else
       redirect_to(:back, :notice => "Produto esgotado")
@@ -72,6 +76,10 @@ class CartController < ApplicationController
   end
 
   private
+
+  def destroy_freight(order)
+    order.freight.destroy if order.freight
+  end
 
   def destroy_order_if_the_cart_is_empty(order)
     if order.reload.line_items.empty?
