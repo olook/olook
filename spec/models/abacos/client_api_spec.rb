@@ -8,9 +8,15 @@ describe Abacos::ClientAPI do
   
   describe '#export_client' do
     let(:fake_data) { {:fake_data => :client} }
+    let(:fake_client) { double :client, :parsed_data => fake_data }
+    let(:fake_data_with_key) do
+      result = fake_data
+      result["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
+      result
+    end
     it 'should call the cadastrar_cliente web service and return true if it succeeds' do
-      described_class.should_receive(:call_webservice).with(described_class.wsdl, :cadastrar_cliente, fake_data).and_return({:resultado_operacao => {:tipo => 'tdreSucesso'}})
-      described_class.export_client(fake_data).should be_true
+      described_class.should_receive(:call_webservice).with(described_class.wsdl, :cadastrar_cliente, fake_data_with_key).and_return({:resultado_operacao => {:tipo => 'tdreSucesso'}})
+      described_class.export_client(fake_client).should be_true
     end
 
     it 'should raise an error if the call fails' do
