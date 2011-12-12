@@ -20,7 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_early_access
-    redirect_to member_invite_path unless current_user.has_early_access? if current_user
+    if current_user
+      redirect_to member_invite_path unless current_user.has_early_access?
+    end
   end
 
   def load_order

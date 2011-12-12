@@ -39,10 +39,30 @@ describe MembersController do
       assigns(:member).should eq(user)
     end
 
-    it "should redirect the user if dont have early_access event" do
-      user.events.delete_all
-      get :showroom
-      response.should redirect_to(member_invite_path)
+    context 'for users without facebook' do
+      before :each do
+        user.update_attributes(:uid => nil, :facebook_token => nil)
+      end
+      it "should redirect the user if dont have early_access event" do
+        user.events.delete_all
+        get :showroom
+        response.should redirect_to(member_invite_path)
+      end
+      it "should render the showroom if they have early_access" do
+        user.record_early_access
+        get :showroom
+        response.should render_template("showroom")
+      end
+    end
+    context 'for users with facebook' do
+      before :each do
+        user.update_attributes(:uid => 'xxx', :facebook_token => 'xxx')
+      end
+      it "should let them go to the showroom" do
+        user.events.delete_all
+        get :showroom
+        response.should render_template("showroom")
+      end
     end
   end
 
