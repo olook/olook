@@ -23,7 +23,7 @@ class CartController < ApplicationController
   end
 
   def show
-    @bonus = InviteBonus.calculate(@user)
+    @bonus = InviteBonus.calculate(@user, @order)
     @cart = Cart.new(@order)
     @user.is_invited = true
   end
