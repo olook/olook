@@ -1,6 +1,6 @@
 <%= link_to "Minha Sacola #{order_total(order)}".html_safe, "javascript:void(0);", :class => "cart" %>
 <ul class="submenu">
-  <li><p class="freight">Frete grátis acima de R$120,00</p></li>
+  <li><p class="freight">FRETE GRÁTIS PARA SP E RJ, e Acima de r$120,00 para outros estados</p></li>
   <% if order %>
     <% order.line_items.each do |item| %>
       <li class="product">
