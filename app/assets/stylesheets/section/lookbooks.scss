@@ -76,7 +76,7 @@ section#lookbooks {
     height: 551px;
     margin: 0 auto;
     overflow: hidden;
-    a.arrows {
+    .jcarousel-prev, .jcarousel-next {
       position: absolute;
       background: url("/assets/showroom/arrows.png") no-repeat;
       text-indent: -9999px;
@@ -85,14 +85,14 @@ section#lookbooks {
       display: block;
       top: 240px;
       z-index: 100;
-      &.prev {
-        background-position: 0 0;
-        left: 10px;
-      }
-      &.next {
-        background-position: -27px 0;
-        right: 10px;
-      }
+    }
+    .jcarousel-prev {
+      background-position: 0 0;
+      left: 10px;
+    }
+    .jcarousel-next {
+      background-position: -27px 0;
+      right: 10px;
     }
     ul {
       position: relative;

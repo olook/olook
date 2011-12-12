@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  initLookbooks.updateListSize();
+  //initLookbooks.updateListSize();
 
   $("div#carousel_lookbooks a.arrows").live("click", function () {
     list = $(this).siblings("ul");
@@ -22,25 +22,8 @@ $(document).ready(function() {
     return false;
   });
 
-  $("div#carousel_lookbooks_product a.arrows").live("click", function () {
-    list = $(this).siblings("ul");
-    listSize = $(list).find("li").size();
-    minWidth = (listSize-1)*(-970);
-    atualPosition = parseInt($(list).css("left").split("px")[0]);
-    if($(this).hasClass("next") == true) {
-      if(atualPosition > minWidth) {
-        $(list).stop().animate({
-          left: atualPosition+(-970)+"px"
-        }, 'fast');
-      }
-    } else {
-      if(atualPosition < 0) {
-        $(list).stop().animate({
-          left: atualPosition+(970)+"px"
-        }, 'fast');
-      }
-    }
-    return false;
+  $("div#carousel_lookbooks_product ul").jcarousel({
+    scroll: 1
   });
 });
 
