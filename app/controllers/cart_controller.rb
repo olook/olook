@@ -37,10 +37,7 @@ class CartController < ApplicationController
   def update
     respond_with do |format|
       if @order.remove_variant(@variant)
-        if @order.reload.line_items.empty?
-          @order.destroy
-          session[:order] = nil
-        end
+        destroy_order_if_the_cart_is_empty(@order)
         format.html do
           redirect_to cart_path, :notice => "Produto removido com sucesso"
         end
@@ -75,6 +72,13 @@ class CartController < ApplicationController
   end
 
   private
+
+  def destroy_order_if_the_cart_is_empty(order)
+    if order.reload.line_items.empty?
+      order.destroy
+      session[:order] = nil
+    end
+  end
 
   def format_credits_value
     params[:credits][:value].gsub!(",",".")
