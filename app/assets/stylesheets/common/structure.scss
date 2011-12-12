@@ -676,62 +676,6 @@ body {
         display: inline;
         height: 32px;
         float: left;
-        
-        &.showroom {
-          a {
-            background: url('/assets/common/nav/my-showroom.png') no-repeat;
-            width: 95px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/my-showroom-selected.png') no-repeat;
-            }
-          }
-        }
-
-        &.lookbooks {
-          a {
-            background: url('/assets/common/nav/lookbooks.png') no-repeat;
-            width: 95px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/lookbooks-selected.png') no-repeat;
-            }
-          }
-        }
-
-        &.invite {
-          a {
-            background: url('/assets/common/nav/invite-friends.png') no-repeat;
-            width: 120px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/invite-friends-selected.png') no-repeat;
-            }
-          }
-        }
-
-        &.my_friends {
-          a {
-            background: url('/assets/common/nav/my-friends.png') no-repeat;
-            width: 178px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/my-friends-selected.png') no-repeat;
-            }
-          }
-        }
-        
-        &.how_to {
-          a {
-            background: url('/assets/common/nav/how-to.png') no-repeat;
-            width: 107px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/how-to-selected.png') no-repeat;
-            }
-          }
-        }
-
         a {
           text-indent: -9999px;
           height: 32px;
@@ -790,12 +734,54 @@ body {
         width: 995px;
         float: right;
         li {
+          a {
+            background: url("/assets/common/nav/sprite-menu.jpg") no-repeat;
+            text-decoration: -9999px;
+            height: 32px;
+            display: block;
+          }
+          &.showroom {
+            a {
+              background-position: 0 0;
+              width: 95px;
+              &:hover, &.selected {
+                background-position: 0 -32px;
+              }
+            }
+          }
+          &.lookbooks {
+            a {
+              background-position: -95px 0;
+              width: 95px;
+              &:hover, &.selected {
+                background-position: -95px -32px;
+              }
+            }
+          }
+          &.invite {
+            a {
+              background-position: -190px 0;
+              width: 120px;
+              &:hover, &.selected {
+                background-position: -190px -32px;
+              }
+            }
+          }
+          &.how_to {
+            a {
+              background-position: -310px 0;
+              width: 107px;
+              &:hover, &.selected {
+                background-position: -310px -32px;
+              }
+            }
+          }
           &.cart {
             position: relative;
             float: right;
             a.cart {
               position: relative;
-              background: url("/assets/common/nav/my-cart.png") 0 0 no-repeat;
+              background-position: -417px 0;
               color: #FFF;
               line-height: 35px;
               text-decoration: none;
@@ -815,7 +801,7 @@ body {
                 }
               }
               &:hover {
-                background-position: -128px 0;
+                background-position: -417px -32px;
               }
             }
             ul.submenu {
@@ -890,6 +876,7 @@ body {
                 &.last {
                   border: none;
                   a.close {
+                    background: none;
                     color: #101010;
                     font-family: Arial;
                     font-size: 12px;
@@ -904,11 +891,9 @@ body {
                     }
                   }
                   a.finish {
-                    background: url("/assets/common/finish-order.png") no-repeat;
-                    text-indent: -9999px;
+                    background-position: 0 -64px;
                     width: 137px;
                     height: 33px;
-                    display: block;
                     float: right;
                   }
                 }
