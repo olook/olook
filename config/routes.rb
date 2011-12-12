@@ -40,10 +40,12 @@ Olook::Application.routes.draw do
   get "membro/como-funciona", :to => "members#how_to", :as => "member_how_to"
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
 
+  get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
+
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
-    resources :addresses, :path => 'enderecos' 
-    resources :orders, :path => 'pedidos', :only => [:index, :show]
+    resources :addresses, :path => 'enderecos'
+    resources :orders, :path => 'pedidos', :only => [:index]
     resources :credits, :path => 'creditos' do
       collection do
         post 'creditos/reenviar_convite/:id' => 'credits#resubmit_invite', :as => :resubmit_invite

@@ -33,7 +33,7 @@
             <td><%= number_to_currency(order.freight_price) %></td>
             <td><%= order.installments %>x</td>
             <td><%= order.status  %></td>
-            <td class="more"><%= link_to "Mais informação", user_order_path(order) %></td>
+            <td class="more"><%= link_to "Mais informação", user_order_path(order[:number]) %></td>
           </tr>
         <% end %>
       </tbody>
