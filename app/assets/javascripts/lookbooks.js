@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  //initLookbooks.updateListSize();
-
   $("div#carousel_lookbooks a.arrows").live("click", function () {
     list = $(this).siblings("ul");
     listSize = $(list).find("li").size();
@@ -26,14 +24,3 @@ $(document).ready(function() {
     scroll: 1
   });
 });
-
-initLookbooks = {
-  updateListSize :function() {
-    listLookbooks = $("div#carousel_lookbooks ul");
-    listLookbooksSize = $(listLookbooks).find("li").size()*326;
-    $(listLookbooks).width(listLookbooksSize);
-    listLookbookPics = $("div#carousel_lookbooks_product ul");
-    listLookbookPicsSize = $(listLookbookPics).find("li").size()*970;
-    $(listLookbookPics).width(listLookbookPicsSize);
-  }
-}
