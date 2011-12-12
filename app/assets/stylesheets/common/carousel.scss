@@ -461,35 +461,9 @@ body {
       li.about {
         fieldset.select {
           select.custom_select {
-            height: 34px;
-            &.day {
-              width: 70px;
-              left: 0px;
-            }
-            &.month {
-              width: 105px;
-              left: 85px;
-            }
-            &.year {
-              width: 75px;
-              left: 200px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.ie9 {
-  #survey {
-    ul.questions {
-      li.about {
-        fieldset.select {
-          select.custom_select {
             padding: 0;
             height: 34px;
-            top: -8px;
+            top: 0;
             &.day {
               width: 72px;
               left: 1px;
