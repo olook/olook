@@ -191,6 +191,17 @@ describe MembersController do
       get :invite
       assigns(:is_the_first_visit).should_not eq(true)
     end
+
+    it "should assign true for @is_the_first_visit" do
+      get :showroom
+      assigns(:is_the_first_visit).should eq(true)
+    end
+
+    it "should not assign true for @is_the_first_visit" do
+      user.record_first_visit
+      get :showroom
+      assigns(:is_the_first_visit).should_not eq(true)
+    end
   end
 
   describe "#invite_list" do
