@@ -88,9 +88,8 @@ describe PaymentsController do
         response.should redirect_to(cart_path)
       end
 
-      it "should redirect to cart path if the order total is less then 0" do
-        session[:order] = order
-        Order.find(order).line_items.delete_all
+      it "should redirect to cart path if the order total_with_freight is less then 0,01" do
+        Order.any_instance.stub(:total_with_freight).and_return(0)
         get 'index'
         response.should redirect_to(cart_path)
       end
