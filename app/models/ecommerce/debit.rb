@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Debit < Payment
-  attr_accessor :bank, :receipt
+  attr_accessor :receipt
   validates :bank, :receipt, :presence => true, :on => :create
 
   BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Unibanco", "Banrisul"]
