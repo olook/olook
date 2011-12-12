@@ -69,7 +69,7 @@ describe Abacos::Cliente do
         subject.endereco.cep.should == '87656908'
       end
       it '#tipo_local_entrega' do
-        subject.endereco.tipo_local_entrega.should == 'tleeResidencial'
+        subject.endereco.tipo_local_entrega.should == 'tleeDesconhecido'
       end
       it '#pais' do
         subject.endereco.pais.should == 'Brasil'
@@ -106,7 +106,7 @@ describe Abacos::Cliente do
                         'Municipio' => 'Rio de Janeiro',
                         'Estado' => 'RJ',
                         'Cep' => '87656908',
-                        'TipoLocalEntrega' => 'tleeResidencial',
+                        'TipoLocalEntrega' => 'tleeDesconhecido',
                         'Pais' => 'Brasil'
                   }
                 }

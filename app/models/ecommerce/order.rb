@@ -106,13 +106,23 @@ class Order < ActiveRecord::Base
   end
 
   def total_with_freight
-    total + (freight_price || 0)
+    total + (freight_price || 0.0)
+  end
+  
+  def line_items_total
+    line_items.inject(0.0){|result, item| result + item.total_price }
+  end
+  
+  def credits
+    read_attribute :credits || 0.0
   end
 
   def total
-    total = line_items.inject(0){|result, item| result + item.total_price }
-    total = total - credits if(credits && total > 0)
-    total
+    result = line_items_total
+    if result > 0
+      result = result - credits
+    end
+    result
   end
 
   def generate_identification_code

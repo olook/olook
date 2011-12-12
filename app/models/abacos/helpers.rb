@@ -58,5 +58,25 @@ module Abacos
       data = call_webservice(self.wsdl, method)
       parse_nested_data data, data_key
     end
+
+    def parse_cpf(cpf)
+      cpf.gsub(/-|\.|\s/, '')[0..10]
+    end
+    
+    def parse_data(birthday)
+      birthday.strftime "%d%m%Y"
+    end
+    
+    def parse_telefone(telephone)
+      telephone[0..14]
+    end
+    
+    def parse_price(price)
+      "%.2f" % (price || 0)
+    end
+    
+    def parse_endereco(address)
+      Abacos::Endereco.new(address)
+    end
   end
 end
