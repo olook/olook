@@ -10,7 +10,8 @@ module InviteBonus
   def self.already_used(member, current_order = nil)
     count = 0
     member.orders.each do |item|
-      if item.payment
+      available_for_count_credits = (!item.canceled? && !item.refunded? && !item.reversed? && !item.payment.nil?)
+      if available_for_count_credits
         credits = item.credits || 0
         count = count + credits
       else
