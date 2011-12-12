@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def has_early_access?
-    self.events.where(:event_type => EventType::EARLY_ACCESS).any?
+    self.has_facebook? || self.events.where(:event_type => EventType::EARLY_ACCESS).any?
   end
 
   def record_first_visit
