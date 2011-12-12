@@ -213,30 +213,8 @@ describe User do
   end
 
   describe "#has_early_access?" do
-    context 'for users without FB connect' do
-      before :each do
-        subject.stub(:'has_facebook?').and_return(false)
-      end
-
-      it "should return false if there's no EARLY_ACCESS event on the user event list" do
-        subject.events.delete_all
-        subject.has_early_access?.should be_false
-      end
-
-      it "should return true if there's EARLY_ACCESS event on the user event list" do
-        subject.record_early_access
-        subject.has_early_access?.should be_true
-      end
-    end
-    
-    context 'for users with FB connect' do
-      before :each do
-        subject.stub(:'has_facebook?').and_return(true)
-      end
-      it 'should always return true' do
-        subject.events.delete_all
-        subject.has_early_access?.should be_true
-      end
+    it 'should always return true' do
+      subject.has_early_access?.should be_true
     end
   end
 

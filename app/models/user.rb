@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def has_early_access?
-    self.has_facebook? || self.events.where(:event_type => EventType::EARLY_ACCESS).any?
+    true # temporary fix. Should become 1 hour delay
   end
 
   def record_first_visit
