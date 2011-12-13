@@ -6,7 +6,7 @@
   <%= form_for(@payment) do |f| %>
     <section class="main">
       <h1>Escolha uma forma de pagamento</h1>
-      <%= render :partial => "shared/checkout_errors", :locals => { :object => @payment } %>
+      <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
       <%= render :partial => "shared/payments/payment_methods" %>
       <p class="generate_billet">Você poderá imprimir o boleto através da sessão Meus Pedidos em sua conta. Também enviaremos o link de impressão para o seu email.<br /><strong>Seu pedido ficará reservado por no máximo 48 hrs.</strong></p>
     </section>
