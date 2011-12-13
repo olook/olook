@@ -16,7 +16,7 @@ class ::AddressesController < ApplicationController
   end
 
   def new
-    @address = @user.addresses.build
+    @address = @user.addresses.build(:first_name => @user.first_name, :last_name => @user.last_name)
   end
 
   def edit
