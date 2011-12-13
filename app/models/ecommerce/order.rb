@@ -25,12 +25,15 @@ class Order < ActiveRecord::Base
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
+  has_many :order_state_transitions, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
 
   scope :with_payment, joins(:payment)
 
   state_machine :initial => :waiting_payment do
+
+    store_audit_trail
 
     after_transition :waiting_payment => :canceled, :do => :rollback_inventory
     after_transition :under_review => :reversed, :do => :rollback_inventory
