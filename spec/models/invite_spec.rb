@@ -4,6 +4,24 @@ require 'spec_helper'
 describe Invite do
 
   subject { FactoryGirl.create(:invite) }
+  let(:user) {FactoryGirl.create(:user)}
+
+  describe "email uniqueness scope" do
+    it "should build and save a invite" do
+      invite = user.invites.build(:email => "email@mail.com")
+      expect{
+        invite.save
+      }.to change(Invite, :count).by(1)
+    end
+
+    it "should not save a invite if the email already exists for the user context" do
+      user.invites.create(:email => "email@mail.com")
+      invite = user.invites.build(:email => "email@mail.com")
+      expect{
+        invite.save
+      }.to change(Invite, :count).by(0)
+    end
+  end
 
   describe "unsent scope" do
     it "should contain only unsent invites" do
