@@ -1,0 +1,16 @@
+<div class="dialog product_login">
+  <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
+  <div id="login_modal">
+    <div id="register_login">
+      <div class="login">
+        <h1>Já faz parte?</h1>
+        <%= render "sessions/form_user" %>
+      </div>
+      <div class="register">
+        <h1>Faça seu cadastro</h1>
+        <p>Responda nosso quiz, descubra seu estilo, e ainda ganhe uma vitrine montada por renomados stylists, com sapatos, bolsas ou acessórios.</p>
+        <%= link_to "Responda e cadastre-se", new_survey_path %>
+      </div>
+    </div>
+  </div>
+</div>

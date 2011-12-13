@@ -3,15 +3,22 @@
     <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
   <% end %>
 
+  <% unless user_signed_in? %>
+    <%= render "shared/modal_login" %>
+  <% end %>
+
   <div id="product">
-    <%= product_presenter.render_member_showroom %>
+    <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
       <%= product_presenter.render_related_products %>
 
       <div id="infos">
         <%= product_presenter.render_description %>
-
-        <%= product_presenter.render_add_to_cart %>
+        <% if user_signed_in? %>
+          <%= product_presenter.render_add_to_cart %>
+        <% else %>
+          <%= link_to "Adicionar a sacola", "javascript:void(0);", :class => "add_product open_login" %>
+        <% end %>
 
         <%= product_presenter.render_details %>
       </div>

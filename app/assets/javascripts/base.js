@@ -77,16 +77,8 @@ $(document).ready(function() {
 
   Cufon.replace(items_replace);
 
-  if($('.dialog').length == 1) {
-    width = $(document).width();
-    height = $(document).width();
-    viewWidth = $(window).width();
-    viewHeight = $(window).height();
-    imageW = $('.dialog img').width();
-    imageH = $('.dialog img').height();
-
-    $('body').prepend("<div class='overlay'></div>");
-    $('.overlay').width(width).height(height);
+  if($('.dialog.first_visit').length == 1) {
+    initBase.openDialog();
 
     $(".dialog img").animate({
       width: 'toggle',
@@ -97,13 +89,18 @@ $(document).ready(function() {
     $('body .dialog').css("top", (viewHeight - '525') / 2);
 
     $('.dialog img').fadeIn('slow');
-
-    $('.dialog img, .overlay, .dialog #close_dialog').click(function(){
-      $('.dialog, .overlay').fadeOut('slow', function(){
-        $('.dialog, .overlay').remove();
-      });
-    });
+    initBase.closeDialog();
   }
+
+  $("a.open_login").live("click", function() {
+    initBase.openDialog();
+    $('body .dialog').show();
+    $('body .dialog').css("left", (viewWidth - '930') / 2);
+    $('body .dialog').css("top", (viewHeight - '515') / 2);
+    $('body .dialog #login_modal').fadeIn('slow');
+    initBase.closeDialog();
+  });
+
 
   $('.full-banner').fadeIn('slow');
   $('.full-banner .close').click(function(event){
@@ -174,3 +171,25 @@ $(document).ready(function() {
      $(this).parent("li.product").fadeOut("slow");
   })
 });
+
+initBase = {
+  openDialog : function () {
+    width = $(document).width();
+    height = $(document).width();
+    viewWidth = $(window).width();
+    viewHeight = $(window).height();
+    imageW = $('.dialog img').width();
+    imageH = $('.dialog img').height();
+
+    $('body').prepend("<div class='overlay'></div>");
+    $('.overlay').width(width).height(height);
+  },
+
+  closeDialog : function() {
+    $('.dialog img, .overlay, .dialog #close_dialog').click(function(){
+      $('.dialog, .overlay').fadeOut('slow', function(){
+        $('.dialog, .overlay').hide();
+      });
+    });
+  }
+}
