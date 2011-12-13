@@ -40,7 +40,123 @@ body {
     margin: 0px auto 0 auto;
     overflow: hidden;
     z-index: 1;
+    .dialog.product_login {
+      display: none;
+    }
+    div#login_modal {
+      position: relative;
+      background: url("/assets/common/bg-modal-login.jpg") top left no-repeat;
+      width: 950px;
+      height: 515px;
+      display: none;
+      div#register_login {
+        position: absolute;
+        background: #FCFCFC;
+        width: 580px;
+        height: 260px;
+        display: block;
+        top: 105px;
+        left: 340px;
+        border: 1px #d2d2d2 solid;
+        h1 {
+          text-indent: -9999px;
+          height: 27px;
+          display: block;
+        }
+        div.login {
+          width: 259px;
+          height: 240px;
+          padding: 20px 0 0 30px;
+          float: left;
+          border-right: 1px #d2d2d2 solid;
+          h1 {
+            background: url("/assets/common/title-already-part.png") no-repeat;
+            margin: 0 0 25px 0;
+            width: 155px;
+          }
+          form {
+            width: 225px;
+            fieldset {
+              &.inputs {
+                ol {
+                  li {
+                    label {
+                      display: block;
+                      font-size: 11px;
+                      font-weight: bold;
+                      margin: 2px 0;
+                    }
 
+                    input {
+                      background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+                      border: 1px solid #BBB;
+                      padding: 6px 8px;
+                      width: 92%;
+
+                      &:focus {
+                        outline: none;
+                      }
+                    }
+                  }
+                }
+              }
+
+              &.buttons {
+                margin-top: 7px;
+                ol {
+                  li {
+                    font-size: 11px;
+                    input[type="submit"] {
+                      background: url("/assets/common/login.png") no-repeat;
+                      text-indent: -9999px;
+                      width: 74px;
+                      height: 31px;
+                      display: block;
+                      border: none;
+                      cursor: pointer;
+                    }
+                    &.remember-me, &.forgot-password {
+                      float: left;
+                      width: 140px;
+                      a {
+                        color: #0f0c0c;
+                      }
+                    }
+
+                    &.forgot-password {
+                      & + li {
+                        float: right;
+                        margin-top: -15px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        div.register {
+          width: 260px;
+          padding: 20px 0 0 30px;
+          float: right;
+          h1 {
+            background: url("/assets/common/title-register.png") no-repeat;
+            margin: 0 0 15px 0;
+            width: 239px;
+          }
+          p {
+            margin: 0 0 20px 0;
+          }
+          a {
+            background: url("/assets/common/answer-register.png") no-repeat;
+            text-indent: -9999px;
+            width: 215px;
+            height: 37px;
+            display: block;
+          }
+        }
+      }
+    }
     .forms {
       background: url('/assets/home/bg-middle-home.jpg') no-repeat;
       height: 575px;
