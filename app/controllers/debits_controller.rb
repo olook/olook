@@ -24,7 +24,7 @@ class DebitsController < ApplicationController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_session_order!
-        redirect_to(debit_path(response.payment), :notice => "Link de pagamento gerado com sucesso")
+        redirect_to(order_debit_path(:number => @order.number), :notice => "Link de pagamento gerado com sucesso")
       else
         @order.generate_identification_code
         @payment.errors.add(:id, "Não foi possível realizar o pagamento.")

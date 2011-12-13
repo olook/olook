@@ -13,14 +13,6 @@ describe DebitsController do
     sign_in user
   end
 
-  describe "GET show" do
-    it "should assign a @payment" do
-      payment = Order.find(order).payment
-      get :show, :id => payment.id
-      assigns(:payment).should == payment
-    end
-  end
-
   describe "GET new" do
     before :each do
       session[:order] = order
@@ -71,6 +63,7 @@ describe DebitsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      @order = Order.find(order)
       @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Debit))
     end
 
@@ -98,11 +91,11 @@ describe DebitsController do
         session[:delivery_address_id].should be_nil
       end
 
-      it "should redirect to debit_path" do
+      it "should redirect to order_debit_path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(debit = @processed_payment)
         post :create, :debit => attributes
-        response.should redirect_to(debit_path(debit.payment))
+        response.should redirect_to(order_debit_path(:number => @order.number))
       end
 
       it "should assign @cart" do

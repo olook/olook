@@ -13,15 +13,6 @@ describe BilletsController do
     sign_in user
   end
 
-  describe "GET show" do
-    it "should assign a @payment" do
-      current_order = Order.find(order)
-      payment = current_order.payment
-      get :show, :id => payment.id
-      assigns(:payment).should == payment
-    end
-  end
-
   describe "GET new" do
     before :each do
      session[:order] = order
@@ -72,6 +63,7 @@ describe BilletsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      @order = Order.find(order)
       @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Billet))
     end
 
@@ -99,11 +91,11 @@ describe BilletsController do
         session[:delivery_address_id].should be_nil
       end
 
-      it "should redirect to billet_path" do
+      it "should redirect to order_billet_path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(processed_payment = @processed_payment)
         post :create, :billet => attributes
-        session.should redirect_to(billet_path(processed_payment.payment))
+        session.should redirect_to(order_billet_path(:number => @order.number))
       end
 
       it "should assign @cart" do

@@ -24,7 +24,7 @@ class BilletsController < ApplicationController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_session_order!
-        redirect_to(billet_path(response.payment), :notice => "Boleto gerado com sucesso")
+        redirect_to(order_billet_path(:number => @order.number), :notice => "Boleto gerado com sucesso")
       else
         @order.generate_identification_code
         @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
@@ -33,12 +33,6 @@ class BilletsController < ApplicationController
     else
       respond_with(@payment)
     end
-  end
-
-  def show
-    @payment = @user.payments.find(params[:id])
-    @order = @payment.order
-    @cart = Cart.new(@order)
   end
 
   private

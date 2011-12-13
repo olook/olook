@@ -13,11 +13,15 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
+  get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
+  get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
+  get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
+
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
-  resources :credit_cards, :path => 'credito', :controller => :credit_cards
-  resources :debits, :path => 'debito', :controller => :debits
-  resources :billets, :path => 'boleto', :controller => :billets
+  resources :credit_cards, :only => [:new, :create], :path => 'credito', :controller => :credit_cards
+  resources :debits, :only => [:new, :create], :path => 'debito', :controller => :debits
+  resources :billets, :only => [:new, :create], :path => 'boleto', :controller => :billets
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do

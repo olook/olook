@@ -26,7 +26,7 @@ class CreditCardsController < ApplicationController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_session_order!
-        redirect_to(credit_card_path(response.payment), :notice => "Pagamento realizado com sucesso")
+        redirect_to(order_credit_path(:number => @order.number), :notice => "Pagamento realizado com sucesso")
       else
         @order.generate_identification_code
         @payment.errors.add(:id, "Não foi possível realizar o pagamento")

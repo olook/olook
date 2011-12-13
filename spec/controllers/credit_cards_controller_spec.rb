@@ -14,14 +14,6 @@ describe CreditCardsController do
     sign_in user
   end
 
-  describe "GET show" do
-    it "should assign a @payment" do
-      payment = Order.find(order).payment
-      get :show, :id => payment.id
-      assigns(:payment).should == payment
-    end
-  end
-
   describe "GET new" do
     before :each do
       session[:order] = order
@@ -84,6 +76,7 @@ describe CreditCardsController do
   describe "POST create" do
     before :each do
       session[:order] = order
+      @order = Order.find(order)
       @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard))
     end
 
@@ -111,11 +104,11 @@ describe CreditCardsController do
         session[:delivery_address_id].should be_nil
        end
 
-      it "should redirect to payment path" do
+      it "should redirect to payment order_credit_path" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.stub(:process!).and_return(credit_card = @processed_payment)
         post :create, :credit_card => attributes
-        response.should redirect_to(credit_card_path(credit_card.payment))
+        response.should redirect_to(order_credit_path(:number => @order.number))
       end
 
       it "should assign @cart" do
