@@ -107,10 +107,10 @@ describe RegistrationsController do
      user.birthday.to_s.should == "1987-09-27"
     end
 
-    it "should redirect to invite people page" do
+    it "should redirect to member showroom page" do
       session[:profile_points] = :some_data
       post :create, :user => user_attributes
-      response.should redirect_to(member_invite_path)
+      response.should redirect_to(member_showroom_path)
     end
 
     it "should not redirect to welcome page" do
