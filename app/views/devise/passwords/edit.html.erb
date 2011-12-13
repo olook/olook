@@ -3,7 +3,7 @@
 
   <div class="form_content">
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-      <%= render :partial => "shared/checkout_errors", :locals => { :object => resource } %>
+      <%= render :partial => "shared/errors", :locals => { :object => resource } %>
 
       <%= f.hidden_field :reset_password_token %>
 
