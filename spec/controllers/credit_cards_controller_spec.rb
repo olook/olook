@@ -28,6 +28,11 @@ describe CreditCardsController do
     end
 
     context "with a valid order" do
+      it "creates new credit card using user data" do
+        CreditCard.should_receive(:user_data).with(user)
+        get 'new'
+      end
+
       it "should assigns @payment" do
         get 'new'
         assigns(:payment).should be_a_new(CreditCard)
