@@ -36,13 +36,13 @@ class SessionsController < Devise::SessionsController
   end
 
   def verifies_creation_date
-    # This will be on air at Monday, 12/12
+    # This will be on air soon
     #creation_date = current_user.created_at + 2.hours
     #if creation_date.strftime("%d/%m/%y %H:%M") <= Time.now.strftime("%d/%m/%y %H:%M")
     #  current_user.record_early_access
-    #  member_showroom_path
+    member_showroom_path
     #else
-    member_invite_path
+    #  member_invite_path
     #end
   end
 end
