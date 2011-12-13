@@ -129,12 +129,6 @@ describe User do
       invite = subject.invite_for(email)
       invite.should be_nil
     end
-
-    it "should not create an invite for an existing user" do
-      valid_user = FactoryGirl.create(:member)
-      invite = subject.invite_for(valid_user.email)
-      invite.should be_nil
-    end
   end
 
   describe "#invites_for (plural)" do
@@ -291,7 +285,7 @@ describe User do
       it 'should return a scope' do
         subject.profile_showroom(sporty_profile).should be_a(ActiveRecord::Relation)
       end
-      
+
       it 'should not include the invisible product' do
         subject.profile_showroom(sporty_profile).should_not include(invisible_product)
       end

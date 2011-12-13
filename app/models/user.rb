@@ -48,7 +48,6 @@ class User < ActiveRecord::Base
   end
 
   def invite_for(email_address)
-    return nil if User.find_by_email(email_address)
     the_invite = invites.find_by_email(email_address)|| invites.build(:email => email_address)
     the_invite.save ? the_invite : nil
   end
@@ -128,7 +127,7 @@ class User < ActiveRecord::Base
     scope = scope.where(:category => category) if category
     scope
   end
-  
+
   private
 
   def remove_color_variations(products)
