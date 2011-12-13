@@ -47,7 +47,7 @@ describe ProductPresenter do
 
   describe '#render_add_to_cart' do
     it "should render the partial with controls to add the product to the cart" do
-      template.should_receive(:render).with(:partial => 'product/add_to_cart', :locals => {:product_presenter => subject}).and_return('cart')
+      template.should_receive(:render).with(:partial => 'product/add_to_cart', :locals => {:product_presenter => subject, :product => product}).and_return('cart')
       subject.render_add_to_cart.should == 'cart'
     end
   end
