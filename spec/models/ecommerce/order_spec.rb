@@ -387,4 +387,14 @@ describe Order do
       described_class.with_payment.all.should_not include(order_without_payment)
     end
   end
+
+  describe "Audit trail" do
+    it "should audit the transition" do
+      subject.authorized
+      transition = subject.order_state_transitions.last
+      transition.event.should == "authorized"
+      transition.from.should == "waiting_payment"
+      transition.to.should == "authorized"
+    end
+  end
 end

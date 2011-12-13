@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209203338) do
+ActiveRecord::Schema.define(:version => 20111213202536) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -153,6 +153,16 @@ ActiveRecord::Schema.define(:version => 20111209203338) do
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["variant_id"], :name => "index_line_items_on_variant_id"
+
+  create_table "order_state_transitions", :force => true do |t|
+    t.integer  "order_id"
+    t.string   "event"
+    t.string   "from"
+    t.string   "to"
+    t.datetime "created_at"
+  end
+
+  add_index "order_state_transitions", ["order_id"], :name => "index_order_state_transitions_on_order_id"
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"

@@ -30,6 +30,7 @@ gem 'asset_sync', '=0.1.10'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
+gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon'
 
 group :development do
