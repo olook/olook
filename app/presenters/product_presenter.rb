@@ -21,7 +21,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_add_to_cart
-    h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self}
+    h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
   end
 
   def render_details

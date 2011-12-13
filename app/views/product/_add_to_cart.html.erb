@@ -1,4 +1,8 @@
-        <%= form_tag(cart_path) do %>
-          <%= product_presenter.render_form_by_category %>
-          <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
-        <% end %>
+<%= form_tag(cart_path) do %>
+  <%= product_presenter.render_form_by_category %>
+  <% if product.sold_out? %>
+    <%= submit_tag "", :class=>"add_product #{product.sold_out? ? 'disabled' : ''}", :id => "add_product", :disabled => "disabled" %>
+  <% else %>
+    <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
+  <% end %>
+<% end %>

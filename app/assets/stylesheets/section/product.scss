@@ -98,12 +98,24 @@
         }
       }
       div#full_pic {
+        position: relative;
         width: 500px;
         height: 500px;
         margin-bottom: 30px;
         overflow: visible;
         float: left;
         border-bottom: 2px #e05f8f solid;
+        p.warn {
+          position: absolute;
+          background: url("/assets/common/sold_out_big.png") no-repeat;
+          text-indent: -9999px;
+          width: 64px;
+          height: 64px;
+          top: 2px;
+          right: 2px;
+          display: none;
+          z-index: 100;
+        }
         ul {
           li {
             width: 500px;
@@ -121,6 +133,11 @@
                 height: 500px;
               }
             }
+          }
+        }
+        &.sold_out {
+          p.warn {
+            display: block;
           }
         }
       }
@@ -296,6 +313,9 @@
         display: block;
         border: none;
         cursor: pointer;
+        &.disabled {
+          background: url("/assets/product/bt-add-product-disabled.png") no-repeat;
+        }
       }
       div#box_tabs {
         ul.tabs {
