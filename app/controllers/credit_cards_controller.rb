@@ -14,7 +14,7 @@ class CreditCardsController < ApplicationController
   before_filter :order_total, :only => [:new, :create]
 
   def new
-    @payment = CreditCard.new
+    @payment = CreditCard.new(CreditCard.user_data(@user))
   end
 
   def create
