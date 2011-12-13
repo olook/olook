@@ -71,6 +71,14 @@ class CreditCard < Payment
     (number == 0) ? 1 : number
   end
 
+  def self.user_data(user)
+    {
+      :user_name => user.name,
+      :user_identification => user.cpf,
+      :user_birthday => user.birthday
+    }
+  end
+
   private
 
   def encrypt_credit_card

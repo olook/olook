@@ -229,4 +229,14 @@ describe CreditCard do
       end
     end
   end
+
+  describe ".user_data" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "returns a hash with user data used to fill in credit card" do
+      data = { :user_name => user.name, :user_identification => user.cpf, :user_birthday => user.birthday }
+      CreditCard.user_data(user).should == data
+    end
+  end
+
 end
