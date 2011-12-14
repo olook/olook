@@ -3,6 +3,10 @@
     <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
   <% end %>
 
+  <% content_for :footer do %>
+    <%= javascript_include_tag "product" %>
+  <% end %>
+
   <% unless user_signed_in? %>
     <%= render "shared/modal_login" %>
   <% end %>
