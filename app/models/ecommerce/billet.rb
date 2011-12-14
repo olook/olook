@@ -47,10 +47,6 @@ class Billet < Payment
 
   private
 
-  def set_payment_expiration_date
-    update_attributes(:payment_expiration_date => build_payment_expiration_date)
-  end
-
   def refund_order
     order.refunded
   end
