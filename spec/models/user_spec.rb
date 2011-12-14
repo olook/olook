@@ -314,6 +314,37 @@ describe User do
         subject.main_profile_showroom.should be_a(Array)
       end
     end
+    
+    describe '#remove_color_variations' do
+      let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
+      let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
+      let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
+      let(:products)      { [shoe_a_black, shoe_b_green, shoe_a_red] }
+
+      context 'when no product is sold out' do
+        it 'should return only one color for products with the same name' do
+          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+        end
+      end
+
+      context 'when the first product in a color set is sold out' do
+        before :each do
+          shoe_a_black.stub(:'sold_out?').and_return(true)
+        end
+        it 'should return the second color in the place of the sold out one' do
+          subject.send(:remove_color_variations, products).should == [shoe_a_red, shoe_b_green]
+        end
+      end
+
+      context 'when the second product in a color set is sold out' do
+        before :each do
+          shoe_a_red.stub(:'sold_out?').and_return(true)
+        end
+        it 'should return the first color and hide the one sold out' do
+          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+        end
+      end
+    end
   end
 
 end
