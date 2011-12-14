@@ -67,6 +67,10 @@ module Abacos
       birthday.strftime "%d%m%Y"
     end
     
+    def parse_datetime(datetime)
+      datetime.strftime "%d%m%Y %H:%M:%S"
+    end
+
     def parse_telefone(telephone)
       telephone[0..14]
     end

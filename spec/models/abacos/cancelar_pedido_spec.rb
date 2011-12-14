@@ -1,28 +1,28 @@
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
-describe Abacos::ConfirmarPagamento do
-  let(:response) { FactoryGirl.create :authorized_payment }
+describe Abacos::CancelarPedido do
+  let(:response) { FactoryGirl.create :canceled_payment }
   let(:payment) { FactoryGirl.create :credit_card, :payment_response => response }
 
-  context 'when instantiated with a non-authorized payment' do
+  context 'when instantiated with a non-canceld payment' do
     let(:order) do
       result = FactoryGirl.create :clean_order, :payment => payment
-      result.stub(:'authorized?').and_return(false)
+      result.stub(:'canceled?').and_return(false)
       result
     end
     
     it 'should raise and error' do
       expect {
         described_class.new order
-      }.to raise_error "Order number #{order.number} isn't authorized"
+      }.to raise_error "Order number #{order.number} isn't canceled"
     end
   end
   
-  context 'when instantiated with an authorized payment' do
+  context 'when instantiated with a canceled payment' do
     let(:order) do
       result = FactoryGirl.create :clean_order, :payment => payment
-      result.stub(:'authorized?').and_return(true)
+      result.stub(:'canceled?').and_return(true)
       result
     end
     
@@ -39,16 +39,16 @@ describe Abacos::ConfirmarPagamento do
       subject.data.should == '12042012 10:44:55'
     end
     it '#status' do
-      subject.status.should == 'speConfirmado'
+      subject.status.should == 'speRecusado'
     end
     it '#codigo_autorizacao' do
-      subject.codigo_autorizacao.should == '046455'
+      subject.codigo_autorizacao.should == nil
     end
     it '#mensagem_retorno' do
-      subject.mensagem_retorno.should == 'Transação autorizada'
+      subject.mensagem_retorno.should == 'Autorização negada'
     end
     it '#codigo_retorno' do
-      subject.codigo_retorno.should == 46455
+      subject.codigo_retorno.should == nil
     end
     
     describe '#parsed_data' do
@@ -56,10 +56,10 @@ describe Abacos::ConfirmarPagamento do
         {
           'NumeroPedido'            => order.number,
           'DataPagamento'           => '12042012 10:44:55',
-          'StatusPagamento'         => 'speConfirmado',
-          'CartaoCodigoAutorizacao' => '046455',
-          'CartaoMensagemRetorno'   => 'Transação autorizada',
-          'CartaoCodigoRetorno'     => 46455
+          'StatusPagamento'         => 'speRecusado',
+          'CartaoCodigoAutorizacao' => nil,
+          'CartaoMensagemRetorno'   => 'Autorização negada',
+          'CartaoCodigoRetorno'     => nil
         }
       end
 

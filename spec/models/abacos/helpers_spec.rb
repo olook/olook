@@ -66,4 +66,9 @@ describe Abacos::Helpers do
     subject.should_receive(:parse_nested_data).with(:ws_result, :key)
     subject.download_xml(:method, :key)
   end
+  
+  it '#parse_datetime' do
+    datetime = DateTime.civil(2012, 04, 12, 10, 44, 55)
+    subject.parse_datetime(datetime).should == '12042012 10:44:55'
+  end
 end
