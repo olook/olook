@@ -3,6 +3,10 @@
   <script src="http://connect.facebook.net/en_US/all.js"></script>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "members" %>
+<% end %>
+
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 
