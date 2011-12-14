@@ -10,6 +10,12 @@ describe Billet do
   let(:completed) { "4" }
   let(:under_review) { "8" }
 
+  it "should set payment expiration date after create" do
+    Billet.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Billet::EXPIRATION_IN_DAYS.days.from_now)
+    billet = FactoryGirl.create(:billet)
+    billet.payment_expiration_date.should == expiration_date
+  end
+
   it "should return to_s version" do
     subject.to_s.should == "BoletoBancario"
   end

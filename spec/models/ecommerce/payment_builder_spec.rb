@@ -103,7 +103,7 @@ describe PaymentBuilder do
     subject.payment = billet
     expected = { :valor => @order_total, :id_proprio => order.identification_code,
                 :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
-                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_DAYS }
+                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_IN_DAYS }
 
     subject.payment_data.should == expected
   end

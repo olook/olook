@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Billet < Payment
 
-  EXPIRATION_DAYS = 3
+  EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
+  after_create :set_payment_expiration_date
 
   state_machine :initial => :started do
     after_transition :authorized => :completed, :do => :complete_order
@@ -40,7 +41,15 @@ class Billet < Payment
     "Boleto Bancário"
   end
 
+  def build_payment_expiration_date
+    EXPIRATION_IN_DAYS.days.from_now
+  end
+
   private
+
+  def set_payment_expiration_date
+    update_attributes(:payment_expiration_date => build_payment_expiration_date)
+  end
 
   def refund_order
     order.refunded

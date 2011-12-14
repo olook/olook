@@ -77,7 +77,7 @@ class PaymentBuilder
     if payment.is_a? Billet
     data = { :valor => order_total, :id_proprio => order.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
-                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_DAYS }
+                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_IN_DAYS }
     elsif payment.is_a? CreditCard
       data = { :valor => order_total, :id_proprio => order.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => payment.credit_card_number,
