@@ -11,7 +11,7 @@ describe Abacos::Cliente do
   
   describe 'attributes' do
     it '#codigo' do
-      subject.codigo.should == member.id.to_s
+      subject.codigo.should == "F#{member.id}"
     end
     
     it '#tipo_pessoa' do
@@ -89,7 +89,7 @@ describe Abacos::Cliente do
             {
             'ListaDeClientes' => {
               'DadosClientes' => {
-                  'Codigo' => member.id.to_s,
+                  'Codigo' => "F#{member.id}",
                   'TipoPessoa'=> 'tpeFisica',
                   'Sexo' => 'tseFeminino',
                   'CPFouCNPJ' => '98765432198',

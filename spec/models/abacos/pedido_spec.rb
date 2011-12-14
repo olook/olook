@@ -140,22 +140,19 @@ describe Abacos::Pedido do
                   'ValorFrete' => '22.00',
                   'Transportadora' => 'TEX',
 
-                  'Itens' =>  [
+                  'Itens' =>  {
+                    'DadosPedidosItem' => [
                                 {
-                                  'DadosPedidosItem' => {
                                     'CodigoProduto' => variant_a.number,
                                     'QuantidadeProduto' => 2,
                                     'PrecoUnitario' => '20.00'
-                                  }
                                 },
                                 {
-                                  'DadosPedidosItem' => {
                                     'CodigoProduto' => variant_b.number,
                                     'QuantidadeProduto' => 1,
                                     'PrecoUnitario' => '30.00'
-                                  }
                                 }
-                              ],
+                              ] },
                   'FormasDePagamento' =>
                               {
                                 'DadosPedidosFormaPgto' => {

@@ -11,11 +11,9 @@ module Abacos
     
     def parsed_data
       {
-        'DadosPedidosItem' => {
-          'CodigoProduto'     => @codigo,
-          'QuantidadeProduto' => @quantidade,
-          'PrecoUnitario'     => @preco_unitario
-        }
+        'CodigoProduto'     => @codigo,
+        'QuantidadeProduto' => @quantidade,
+        'PrecoUnitario'     => @preco_unitario
       }
     end
   end
