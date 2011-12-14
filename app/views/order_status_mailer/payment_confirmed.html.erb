@@ -47,8 +47,8 @@
 <p>Endereço de Entrega:<br>
   <span style="color:#E05789">
     <p><strong><%= @address.identification %></strong></p>
-    <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
-    <p><%= "#{@address.zip_code}" %></p>
+    <p><%= "#{@address.street}, #{@address.number}" %><% @address.complement? ? ", #{@address.complement}" : '' %></p>
+    <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
     <p><%= "#{@address.city}, #{@address.state}" %></p>
   </span>
 </p>
