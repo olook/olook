@@ -1,5 +1,6 @@
 $(document).ready(function() {
   initBase.dialogLogin();
+  initBase.loadJailImages();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -196,6 +197,9 @@ initBase = {
     });
   },
   
+  loadJailImages : function () {
+    $("img.asynch-load-image").jail({selector: '#asynch-load', event: 'click'});
+  },
 
   openDialog : function () {
     width = $(document).width();
