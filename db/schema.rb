@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213202536) do
+ActiveRecord::Schema.define(:version => 20111214143849) do
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -213,9 +213,11 @@ ActiveRecord::Schema.define(:version => 20111213202536) do
     t.integer  "gateway_status"
     t.string   "gateway_code"
     t.string   "gateway_type"
+    t.datetime "payment_expiration_date"
   end
 
   add_index "payments", ["order_id"], :name => "index_payments_on_order_id"
+  add_index "payments", ["payment_expiration_date"], :name => "index_payments_on_payment_expiration_date"
 
   create_table "pictures", :force => true do |t|
     t.string   "image"
