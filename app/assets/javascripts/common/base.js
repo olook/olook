@@ -110,6 +110,18 @@ $(document).ready(function() {
     event.preventDefault();
   });
 
+  $('nav.menu ul.product_anchors li a').click(function() {
+    cl = $(this).parent("li").attr("class");
+    container = $("#"+cl+"_container");
+    if(container.length > 0) {
+      container_position = $("#"+cl+"_container").position().top;
+      position = container_position - 40;
+      $('html, body').animate({
+        scrollTop: position
+      }, 'fast');
+    }
+  });
+
   $("#sign-up li.cpf input[type='text']").setMask({
     mask: '99999999999'
   });
