@@ -5,6 +5,7 @@ class CreditCard < Payment
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
   PAYMENT_QUANTITY = 6
   MINIMUM_PAYMENT = 30
+  EXPIRATION_IN_MINUTES = 60
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
   CreditCardNumberFormat = /^[0-9]{15,17}$/
@@ -21,6 +22,7 @@ class CreditCard < Payment
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
 
   before_create :encrypt_credit_card
+  after_create :set_payment_expiration_date
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
@@ -64,6 +66,10 @@ class CreditCard < Payment
 
   def human_to_s
     "Cartão de Crédito"
+  end
+
+  def build_payment_expiration_date
+    EXPIRATION_IN_MINUTES.minutes.from_now
   end
 
   def self.installments_number_for(order_total)

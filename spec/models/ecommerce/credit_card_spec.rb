@@ -62,6 +62,14 @@ describe CreditCard do
 
   end
 
+  context "expiration date" do
+    it "should set payment expiration date after create" do
+      CreditCard.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = CreditCard::EXPIRATION_IN_MINUTES.days.from_now)
+      credit_card = FactoryGirl.create(:credit_card)
+      credit_card.payment_expiration_date.should == expiration_date
+    end
+  end
+
   it "should return to_s version" do
     subject.to_s.should == "CartaoCredito"
   end
