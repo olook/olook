@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Billet < Payment
 
+  EXPIRATION_DAYS = 3
   validates :receipt, :presence => true, :on => :create
 
   state_machine :initial => :started do
