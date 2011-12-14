@@ -2,6 +2,10 @@
   <%= stylesheet_link_tag "section/lookbooks" %>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "lookbooks" %>
+<% end %>
+
 <section id="lookbooks">
   <h1>Flores</h1>
   <div id="carousel_lookbooks_product">
