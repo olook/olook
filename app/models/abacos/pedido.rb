@@ -46,7 +46,8 @@ module Abacos
             'ValorFrete'        => @valor_frete,
             'Transportadora'    => @transportadora,
 
-            'Itens'             => @itens.map {|item| item.parsed_data},
+            'Itens'             =>
+              {'DadosPedidosItem' => @itens.map {|item| item.parsed_data} },
             'FormasDePagamento' => @pagamento.parsed_data
           }
         }

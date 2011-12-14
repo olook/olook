@@ -114,7 +114,8 @@ class Order < ActiveRecord::Base
   end
   
   def credits
-    read_attribute :credits || 0.0
+    result = read_attribute :credits
+    result.nil? ? 0.0 : result
   end
 
   def total

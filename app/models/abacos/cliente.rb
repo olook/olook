@@ -8,7 +8,7 @@ module Abacos
                 :endereco, :endereco_cobranca, :endereco_entrega
 
     def initialize(member, address)
-      @codigo             = member.id.to_s
+      @codigo             = "F#{member.id}"
       @tipo_pessoa        = 'tpeFisica'
       @sexo               = 'tseFeminino'
       @cpf                = parse_cpf(member.cpf)
