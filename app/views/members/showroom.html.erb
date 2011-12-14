@@ -2,6 +2,11 @@
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/showroom" %>
   <% end %>
+
+  <% content_for :footer do %>
+    <%= javascript_include_tag "showroom" %>
+  <% end %>
+
   <% if @is_the_first_visit %>
     <%= render 'shared/models' %>
   <% end %>
