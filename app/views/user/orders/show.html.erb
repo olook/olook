@@ -36,7 +36,7 @@
           <div>
             <h1>Endereço de entrega</h1>
             <p><strong><%= @address.identification %></strong></p>
-            <p><%= "#{@address.street}, #{@address.number}" %><% @address.complement? ? ", #{@address.complement}" : '' %></p>
+            <p><%= "#{@address.street}, #{@address.number}" %><%= @address.complement? ? ", #{@address.complement}" : '' %></p>
             <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
             <p><%= "#{@address.city}, #{@address.state}" %></p>
           </div>
