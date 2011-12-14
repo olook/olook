@@ -4,7 +4,6 @@ $(document).ready(function() {
 
   init.carousel();
   init.bindActions();
-  init.dialog();
   init.tracker();
 
   $('#survey').bind('keydown', 'tab',function (evt) {
@@ -158,31 +157,6 @@ init = {
                     $("#next_link").click();
                   });
   },
-
-  dialog : function(){
-             $('a.trigger').live('click', function(e){
-              el = $(this).attr('href');
-
-              $(this).parents('#session').find('.' + el).toggle('open');
-              $(this).parents('body').addClass('dialog-opened')
-
-              e.preventDefault();
-
-              $('.sign-in-dropdown').live('click',function(e) {
-                if($('body').hasClass('dialog-opened')) {
-                  e.stopPropagation();
-                }
-              })
-
-              $('body.dialog-opened').live('click', function(e){
-                if($('.sign-in-dropdown').is(':visible')){
-                  $('.sign-in-dropdown').toggle();
-                  $(this).removeClass('dialog-opened');
-                  e.stopPropagation();
-                }
-              });
-            });
-           },
 
   tracker : function() {
               var info = '<p>Fotos: Reprodução<br />O uso de imagens de celebridades nesta pesquisa serve o propósito único de identificar o perfil de moda dos respondentes. As celebridades retratadas não estão associadas ou recomendam a Olook.</p>'

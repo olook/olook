@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  initBase.dialogLogin();
+
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
     var top = $('nav.menu').offset().top - parseFloat($('nav.menu').css('margin-top').replace(/auto/, 0));
@@ -72,10 +74,6 @@ $(document).ready(function() {
       e.stopPropagation();
     }
   });
-
-  var items_replace = new Array('.home > a, .send-button, .box h3, .full-banner .close, .full-banner li')
-
-  Cufon.replace(items_replace);
 
   if($('.dialog.first_visit').length == 1) {
     initBase.openDialog();
@@ -173,6 +171,32 @@ $(document).ready(function() {
 });
 
 initBase = {
+  dialogLogin : function() {
+    $('a.trigger').live('click', function(e){
+      el = $(this).attr('href');
+
+      $(this).parents('#session').find('.' + el).toggle('open');
+      $(this).parents('body').addClass('dialog-opened');
+
+      e.preventDefault();
+
+      $('.sign-in-dropdown').live('click',function(e) {
+        if($('body').hasClass('dialog-opened')) {
+          e.stopPropagation();
+        }
+      });
+
+      $('body.dialog-opened').live('click', function(e){
+        if($('.sign-in-dropdown').is(':visible')){
+          $('.sign-in-dropdown').toggle();
+          $(this).removeClass('dialog-opened');
+          e.stopPropagation();
+        }
+      });
+    });
+  },
+  
+
   openDialog : function () {
     width = $(document).width();
     height = $(document).width();
