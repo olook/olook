@@ -445,6 +445,9 @@ section#payment {
       padding: 0;
       border: none;
     }
+    div.payments {
+      height: 135px;
+    }
     fieldset {
       ol {
         li {
@@ -522,8 +525,40 @@ section#payment {
         }
       }
       &.payments {
+        height: 70px;
         margin: 0 0 0 20px;
         clear: both;
+        ol {
+          li {
+            position: relative;
+            width: 100%;
+            overflow: auto;
+            span.select {
+              position: absolute;
+              background: url('/assets/cart/bg-select-payments.png') no-repeat;
+              text-indent: 22px;
+              bottom: 0;
+              top: 2px;
+              float: left;
+              width: 359px;
+              height: 36px;
+              line-height: 34px;
+              cursor: default;
+              z-index: 1;
+            }
+            select {
+              &.custom_select {
+                position: absolute;
+                line-height: 26px;
+                width: 359px;
+                height: 36px;
+                margin-right: 10px;
+                top: 0;
+                left: 10px;
+              }
+            }
+          }
+        }
       }
     }
     div.credit_cart_payment {
@@ -826,6 +861,47 @@ section.checkout {
   section#cart table.items_list tbody {
     tr td.delete_item form input[type="submit"] {
       top: 10px;
+    }
+  }
+}
+
+.ie, .gecko {
+  section#payment.payment_new {
+    fieldset.payments {
+      ol {
+        li {
+          select.custom_select {
+            top: 31px;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}
+.gecko, .ie7 {
+  section#payment.payment_new {
+    fieldset.payments {
+      ol {
+        li {
+          span.select {
+            top: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+.ie8, .ie9 {
+  section#payment.payment_new {
+    fieldset.payments {
+      ol {
+        li {
+          span.select {
+            top: 31px;
+          }
+        }
+      }
     }
   }
 }

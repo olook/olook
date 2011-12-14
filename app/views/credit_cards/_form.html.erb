@@ -15,7 +15,7 @@
       <li>
         <%= f.label :payments %>
         <% options = build_installment_options(@order_total, CreditCard.installments_number_for(@order_total)) %>
-        <%= select_tag "credit_card[payments]", options_for_select(options) %>
+        <%= select_tag "credit_card[payments]", options_for_select(options), :class => "custom_select" %>
       </li>
     </ol>
   </fieldset>
