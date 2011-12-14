@@ -10,6 +10,14 @@ describe Debit do
   let(:completed) { "4" }
   let(:under_review) { "8" }
 
+  context "expiration date" do
+    it "should set payment expiration date after create" do
+      Debit.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Debit::EXPIRATION_IN_MINUTES.days.from_now)
+      debit = FactoryGirl.create(:debit)
+      debit.payment_expiration_date.should == expiration_date
+    end
+  end
+
   context "status" do
     it "should return nil with a invalid status" do
       invalid_status = '0'

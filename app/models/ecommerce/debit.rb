@@ -1,9 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Debit < Payment
   attr_accessor :receipt
-  validates :bank, :receipt, :presence => true, :on => :create
 
   BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Banrisul"]
+  EXPIRATION_IN_MINUTES = 60
+
+  validates :bank, :receipt, :presence => true, :on => :create
+  after_create :set_payment_expiration_date
 
   state_machine :initial => :started do
     after_transition :started => :canceled, :do => :cancel_order
@@ -40,6 +43,10 @@ class Debit < Payment
 
   def human_to_s
     "Débito Bancário"
+  end
+
+  def build_payment_expiration_date
+    EXPIRATION_IN_MINUTES.minutes.from_now
   end
 
   private
