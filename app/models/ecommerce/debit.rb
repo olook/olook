@@ -3,7 +3,7 @@ class Debit < Payment
   attr_accessor :receipt
 
   BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Banrisul"]
-  EXPIRATION_IN_MINUTES = 60
+  EXPIRATION_IN_MINUTES = 50
 
   validates :bank, :receipt, :presence => true, :on => :create
   after_create :set_payment_expiration_date
