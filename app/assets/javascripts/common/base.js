@@ -1,6 +1,7 @@
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
+  initBase.customSelect();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -199,6 +200,19 @@ initBase = {
   
   loadJailImages : function () {
     $("img.asynch-load-image").jail({selector: '#asynch-load', event: 'click'});
+  },
+
+  customSelect : function() {
+    if (!$.browser.opera) {
+      $('select.custom_select').each(function(){
+        var title = $(this).attr('title');
+        if( $('option:selected', this).val() != ''  ) title = $('option:selected',this).text();
+        $(this).css({'z-index':10,'opacity':0,'-khtml-appearance':'none'}).after('<span class="select">' + title + '</span>').change(function(){
+          val = $('option:selected',this).text();
+          $(this).next().text(val);
+        })
+      });
+    };
   },
 
   openDialog : function () {
