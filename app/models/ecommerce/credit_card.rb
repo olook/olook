@@ -89,7 +89,8 @@ class CreditCard < Payment
 
   def encrypt_credit_card
     number = self.credit_card_number
-    self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - 4)..number.size]}"
+    last_digits = 4
+    self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
   end
 
   def reverse_order
