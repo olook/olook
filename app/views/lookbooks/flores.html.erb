@@ -7,6 +7,18 @@
 <% end %>
 
 <section id="lookbooks">
+  <div id="carousel_lookbooks">
+    <ul>
+      <% ["flores", "Lookbook 2", "Lookbook 3", "Lookbook 4"].each do |lookbook| %>
+        <li>
+          <%= link_to flores_path do %>
+            <%= image_tag "lookbooks/flores.jpg", :alt => "Flores" %>
+            <h1><%= lookbook %></h1>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
   <h1>Flores</h1>
   <div id="carousel_lookbooks_product">
     <ul>

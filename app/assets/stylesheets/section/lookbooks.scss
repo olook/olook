@@ -14,7 +14,7 @@ section#lookbooks {
     height: 182px;
     margin: 0 auto 15px auto;
     overflow: hidden;
-    a.arrows {
+    .jcarousel-prev, .jcarousel-next {
       position: absolute;
       background: url("/assets/showroom/arrows.png") no-repeat;
       text-indent: -9999px;
@@ -23,14 +23,15 @@ section#lookbooks {
       display: block;
       top: 75px;
       z-index: 100;
-      &.prev {
-        background-position: 0 0;
-        left: 10px;
-      }
-      &.next {
-        background-position: -27px 0;
-        right: 10px;
-      }
+      cursor: pointer;
+    }
+    .jcarousel-prev {
+      background-position: 0 0;
+      left: 10px;
+    }
+    .jcarousel-next {
+      background-position: -27px 0;
+      right: 10px;
     }
     ul {
       position: relative;
@@ -60,7 +61,9 @@ section#lookbooks {
             font-family: Times;
             font-size: 29px;
             font-style: italic;
+            letter-spacing: 0;
             width: 298px;
+            margin: 0;
             padding: 5px 10px;
             left: 0;
             bottom: 5px;
@@ -85,6 +88,7 @@ section#lookbooks {
       display: block;
       top: 240px;
       z-index: 100;
+      cursor: pointer;
     }
     .jcarousel-prev {
       background-position: 0 0;
