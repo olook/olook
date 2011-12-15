@@ -30,8 +30,8 @@ describe PaymentBuilder do
     subject.process!
   end
 
-  it "should return a structure with status and a payment" do
-    subject.stub(:send_order_request_notification)
+  it "should return a structure with status and a payment sending notifications" do
+    subject.should_receive(:send_order_request_notification).at_least(2).times
     subject.stub(:send_payment)
     subject.stub(:create_successful_payment_response)
     payment_response = double
