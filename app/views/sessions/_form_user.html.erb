@@ -28,3 +28,6 @@
     </ol>
   </fieldset>
 <% end %>
+<div class="login_with_facebook">
+  <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb-login-button' %>
+</div>
