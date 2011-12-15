@@ -22,6 +22,9 @@
       </ul>
       <div class="sign-in-dropdown close">
         <%= render "sessions/form_user" %>
+        <div class="login_with_facebook">
+          <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb-login-button' %>
+        </div>
       </div>
     </div>
   </div>

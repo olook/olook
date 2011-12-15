@@ -779,6 +779,19 @@ body {
               }
             }
           }
+          .login_with_facebook {
+            margin: 15px 0 0 0;
+            padding: 10px 0 0 0;
+            border-top: 1px #cfcfcf solid;
+            a.fb-login-button {
+              background: url('/assets/common/fb-loggin-button.png') no-repeat;
+              text-indent: -9999px;
+              width: 194px;
+              height: 25px;
+              margin: 0 auto;
+              display: block;
+            }
+          }
         }
       }
     }
