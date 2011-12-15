@@ -28,7 +28,7 @@ describe CreditCard do
     describe 'credit card number length' do
       context 'number too short' do
         it { should_not allow_value("1111").for(:credit_card_number) }
-        it { should_not allow_value("11112222333344").for(:credit_card_number) }
+        it { should_not allow_value("1111111111111").for(:credit_card_number) }
       end
       context 'number too long' do
         it { should_not allow_value("111122223333444455").for(:credit_card_number) }
@@ -38,7 +38,7 @@ describe CreditCard do
         it { should_not allow_value("1111 2222 3333 4444").for(:credit_card_number) }
       end
       context 'numbers for Amex and Diners' do
-        it { should allow_value("111122223333444").for(:credit_card_number) }
+        it { should allow_value("11122223333444").for(:credit_card_number) }
         it { should_not allow_value("1111 2222 3333 444").for(:credit_card_number) }
       end
       context 'numbers for Hypercard' do

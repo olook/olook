@@ -8,7 +8,7 @@ class CreditCard < Payment
   EXPIRATION_IN_MINUTES = 60
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
-  CreditCardNumberFormat = /^[0-9]{15,17}$/
+  CreditCardNumberFormat = /^[0-9]{14,17}$/
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
