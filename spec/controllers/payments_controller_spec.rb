@@ -32,7 +32,7 @@ describe PaymentsController do
     end
 
     context "with valids params" do
-     it "should return 200" do
+      it "should return 200" do
         post :create, params
         response.status.should == 200
       end
@@ -49,14 +49,22 @@ describe PaymentsController do
         order.payment.reload.gateway_type.should == tipo_pagamento
       end
 
-      it "should change the order status to completed" do
+      it "should change the order status to authorized" do
+        billet_printed = "3"
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        authorized = "1"
+        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
+        Order.find(order.id).authorized?.should eq(true)
+      end
+
+      it "should change not the order status after receiving completed" do
         billet_printed = "3"
         post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
         authorized = "1"
         post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
         completed = "4"
         post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
-        Order.find(order.id).completed?.should eq(true)
+        Order.find(order.id).authorized?.should eq(true)
       end
     end
 

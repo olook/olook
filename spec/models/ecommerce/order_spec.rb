@@ -295,19 +295,6 @@ describe Order do
       subject.under_review?.should be_true
     end
 
-    it "should set completed given authorized" do
-      subject.authorized
-      subject.completed
-      subject.completed?.should be_true
-    end
-
-    it "should set completed given under_review" do
-      subject.authorized
-      subject.under_review
-      subject.completed
-      subject.completed?.should be_true
-    end
-
     it "should set canceled" do
       subject.canceled
       subject.canceled?.should be_true
@@ -327,25 +314,31 @@ describe Order do
       subject.refunded?.should be_true
     end
 
-    it "should set prepared" do
+    it "should set picking" do
       subject.authorized
-      subject.completed
-      subject.prepared
-      subject.prepared?.should be_true
+      subject.picking
+      subject.picking?.should be_true
+    end
+
+    it "should set delivering" do
+      subject.authorized
+      subject.picking
+      subject.delivering
+      subject.delivering?.should be_true
     end
 
     it "should set delivered" do
       subject.authorized
-      subject.completed
-      subject.prepared
+      subject.picking
+      subject.delivering
       subject.delivered
       subject.delivered?.should be_true
     end
 
     it "should set not_delivered" do
       subject.authorized
-      subject.completed
-      subject.prepared
+      subject.picking
+      subject.delivering
       subject.not_delivered
       subject.not_delivered?.should be_true
     end
@@ -358,17 +351,26 @@ describe Order do
   end
 
   describe "state machine relations" do
-    it "should send notification when completed given waiting payment" do
-      subject.should_receive(:send_notification).at_least(2).times
+    it "should send notification when authorized" do
+      subject.should_receive(:send_notification).once
       subject.authorized
-      subject.completed
     end
-
-    it "should send notification when completed given under review" do
-      subject.should_receive(:send_notification).at_least(2).times
+    it "should send notification when canceled" do
+      subject.should_receive(:send_notification).once
+      subject.canceled
+    end
+    it "should send notification when delivering" do
+      subject.should_receive(:send_notification).exactly(3).times
+      subject.authorized
+      subject.picking
+      subject.delivering
+    end
+    it "should send notification when delivering after under review" do
+      subject.should_receive(:send_notification).exactly(4).times
       subject.authorized
       subject.under_review
-      subject.completed
+      subject.picking
+      subject.delivering
     end
   end
 

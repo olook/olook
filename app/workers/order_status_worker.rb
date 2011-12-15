@@ -11,8 +11,8 @@ class OrderStatusWorker
       mail = OrderStatusMailer.payment_confirmed(order)
     elsif order.canceled? || order.reversed?
       mail = OrderStatusMailer.payment_refused(order)
-    elsif order.delivered?
-      mail = OrderStatusMailer.order_delivered(order)
+    elsif order.delivering?
+      mail = OrderStatusMailer.delivering_order(order)
     end
     mail.deliver if mail
   end

@@ -5,35 +5,25 @@ describe OrderStatus do
   let(:order) {  FactoryGirl.create(:order) }
   subject { OrderStatus.new(order) }
 
-  context "order.not_delivered?" do
-    it "should return status data for not-order-delivered" do
+  context "order.requested?" do
+    it "should return status date for order-requested when waiting_payment" do
+      subject.status.css_class.should == OrderStatus::STATUS["order-requested"][0]
+      subject.status.message.should   == OrderStatus::STATUS["order-requested"][1]
+    end
+
+    it "should return status date for order-requested when under_review" do
       order.authorized
-      order.completed
-      order.prepared
-      order.not_delivered
-      subject.status.css_class.should == OrderStatus::STATUS["order-not-delivered"][0]
-      subject.status.message.should   == OrderStatus::STATUS["order-not-delivered"][1]
+      order.under_review
+      subject.status.css_class.should == OrderStatus::STATUS["order-requested"][0]
+      subject.status.message.should   == OrderStatus::STATUS["order-requested"][1]
     end
   end
 
-  context "order.delivered?" do
-    it "should return status data for order-delivered" do
-      order.authorized
-      order.completed
-      order.prepared
-      order.delivered
-      subject.status.css_class.should == OrderStatus::STATUS["order-delivered"][0]
-      subject.status.message.should   == OrderStatus::STATUS["order-delivered"][1]
-    end
-  end
-
-  context "order.prepared?" do
-    it "should return status data for order-prepared" do
-      order.authorized
-      order.completed
-      order.prepared
-      subject.status.css_class.should == OrderStatus::STATUS["order-prepared"][0]
-      subject.status.message.should   == OrderStatus::STATUS["order-prepared"][1]
+  context "order.canceled?" do
+    it "should return status date for payment-made-denied" do
+      order.canceled
+      subject.status.css_class.should == OrderStatus::STATUS["payment-made-denied"][0]
+      subject.status.message.should   == OrderStatus::STATUS["payment-made-denied"][1]
     end
   end
 
@@ -57,42 +47,51 @@ describe OrderStatus do
     end
   end
 
-  context "order.completed?" do
-    it "should return status data for payment-made-approved" do
-      order.authorized
-      order.completed
-      subject.status.css_class.should == OrderStatus::STATUS["payment-made-approved"][0]
-      subject.status.message.should   == OrderStatus::STATUS["payment-made-approved"][1]
-    end
-  end
-
   context "order.authorized?" do
-    it "should return status data for payment-made-approved" do
+    it "should return status data for payment-made-authorized" do
       order.authorized
-      subject.status.css_class.should == OrderStatus::STATUS["payment-made-approved"][0]
-      subject.status.message.should   == OrderStatus::STATUS["payment-made-approved"][1]
+      subject.status.css_class.should == OrderStatus::STATUS["payment-made-authorized"][0]
+      subject.status.message.should   == OrderStatus::STATUS["payment-made-authorized"][1]
     end
   end
 
-  context "order.canceled?" do
-    it "should return status date for payment-made-denied" do
-      order.canceled
-      subject.status.css_class.should == OrderStatus::STATUS["payment-made-denied"][0]
-      subject.status.message.should   == OrderStatus::STATUS["payment-made-denied"][1]
+  context "order.picking?" do
+    it "should return status data for order-picking" do
+      order.authorized
+      order.picking
+      subject.status.css_class.should == OrderStatus::STATUS["order-picking"][0]
+      subject.status.message.should   == OrderStatus::STATUS["order-picking"][1]
     end
   end
 
-  context "order.requested?" do
-    it "should return status date for order-requested when waiting_payment" do
-      subject.status.css_class.should == OrderStatus::STATUS["order-requested"][0]
-      subject.status.message.should   == OrderStatus::STATUS["order-requested"][1]
-    end
-
-    it "should return status date for order-requested when under_review" do
+  context "order.delivering?" do
+    it "should return status data for order-delivering" do
       order.authorized
-      order.under_review
-      subject.status.css_class.should == OrderStatus::STATUS["order-requested"][0]
-      subject.status.message.should   == OrderStatus::STATUS["order-requested"][1]
+      order.picking
+      order.delivering
+      subject.status.css_class.should == OrderStatus::STATUS["order-delivering"][0]
+      subject.status.message.should   == OrderStatus::STATUS["order-delivering"][1]
+    end
+  end
+  context "order.not_delivered?" do
+    it "should return status data for not-order-delivered" do
+      order.authorized
+      order.picking
+      order.delivering
+      order.not_delivered
+      subject.status.css_class.should == OrderStatus::STATUS["order-not-delivered"][0]
+      subject.status.message.should   == OrderStatus::STATUS["order-not-delivered"][1]
+    end
+  end
+
+  context "order.delivered?" do
+    it "should return status data for order-delivered" do
+      order.authorized
+      order.picking
+      order.delivering
+      order.delivered
+      subject.status.css_class.should == OrderStatus::STATUS["order-delivered"][0]
+      subject.status.message.should   == OrderStatus::STATUS["order-delivered"][1]
     end
   end
 end
