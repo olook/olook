@@ -159,25 +159,12 @@
           clear: both;
           li.product {
             width: 265px;
-            margin: 0 0 2px 0;
-            padding: 10px;
-            overflow: auto;
-            display: inline-block;
-            float: left;
-            div.box_product {
-              display: inline-block;
-              clear: left;
-            }
             a.product_link {
               img {
                 width: 260px;
                 height: 260px;
                 border-color: #df5a8b;
               }
-            }
-            &:hover, &.selected {
-              padding: 5px;
-              border: 5px #d7d7d7 solid;
             }
           }
         }
