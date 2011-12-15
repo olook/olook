@@ -15,7 +15,7 @@ class BilletGenerator
           order.generate_identification_code
           billet.payment_response.destroy if billet.payment_response
           payment_builder = builder.new(order, billet)
-          response = payment_builder.process!
+          response = payment_builder.process!(false)
           if response.status == Payment::SUCCESSFUL_STATUS
             billet.set_payment_expiration_date
             count += 1
