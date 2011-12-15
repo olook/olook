@@ -5,7 +5,7 @@ class CreditCard < Payment
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
   PAYMENT_QUANTITY = 6
   MINIMUM_PAYMENT = 30
-  EXPIRATION_IN_MINUTES = 5
+  EXPIRATION_IN_MINUTES = 60
 
   PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
   CreditCardNumberFormat = /^[0-9]{15,17}$/
