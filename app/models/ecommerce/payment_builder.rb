@@ -6,14 +6,14 @@ class PaymentBuilder
     @order, @payment = order, payment
   end
 
-  def process!
+  def process!(send_notification = true)
     send_payment
     create_successful_payment_response
     payment_response = save_payment.payment_response
 
     if payment_response.response_status == Payment::SUCCESSFUL_STATUS
       order.decrement_inventory_for_each_item
-      send_order_request_notification
+      send_order_request_notification if send_notification
     end
 
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)
