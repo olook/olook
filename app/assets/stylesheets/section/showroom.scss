@@ -226,29 +226,9 @@
       }
       ul {
         li.product {
-          width: 175px;
-          margin: 0 0 2px 0;
-          padding: 10px;
-          overflow: auto;
-          display: inline-block;
-          float: left;
-          &:hover, &.selected {
-            padding: 5px;
-            border: 5px #d7d7d7 solid;
-          }
           div.box_product {
-            display: inline-block;
-            clear: left;
             div.line {
               width: 170px;
-              margin: 0 auto 10px;
-              ol li {
-                margin: 6px 0 0 0;
-              }
-              span {
-                letter-spacing: -1px;
-                margin-right: 2px;
-              }
             }
           }
         }
