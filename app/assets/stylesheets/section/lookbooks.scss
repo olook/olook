@@ -1,6 +1,8 @@
+@import "partials/product";
+
 section#lookbooks {
   padding: 20px 0;
-  h1 {
+  h1.lookbook_title {
     font-family: Times, "Times New Roman";
     font-size: 40px;
     font-style: italic;
@@ -77,7 +79,7 @@ section#lookbooks {
     position: relative;
     width: 970px;
     height: 551px;
-    margin: 0 auto;
+    margin: 0 auto 35px auto;
     overflow: hidden;
     .jcarousel-prev, .jcarousel-next {
       position: absolute;

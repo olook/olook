@@ -7,25 +7,20 @@
 <% end %>
 
 <section id="lookbooks">
-  <div id="carousel_lookbooks">
-    <ul>
-      <% ["flores", "Lookbook 2", "Lookbook 3", "Lookbook 4"].each do |lookbook| %>
-        <li>
-          <%= link_to flores_path do %>
-            <%= image_tag "lookbooks/flores.jpg", :alt => "Flores" %>
-            <h1><%= lookbook %></h1>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  <h1>Flores</h1>
+  <h1 class="lookbook_title">Flores</h1>
   <div id="carousel_lookbooks_product">
     <ul>
       <% 1.upto(4) do |image| %>
         <li>
           <%= image_tag "lookbooks/1/#{image}.jpg", :alt => "Imagem 1" %>
         </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="products_list">
+    <ul>
+      <% @products.each do |product| %>
+        <%= render "shared/showroom_product_item", :product => product %>
       <% end %>
     </ul>
   </div>
