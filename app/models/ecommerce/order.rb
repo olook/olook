@@ -12,9 +12,8 @@ class Order < ActiveRecord::Base
     "refunded" => "Reembolsado",
     "delivered" => "Entregue",
     "not_delivered" => "Não entregue",
-    "prepared" => "Preparado",
-    "authorized" => "Pagamento autorizado",
-    "completed" => "Pagamento autorizado",
+    "picking" => "Separando",
+    "authorized" => "Pagamento autorizado"
   }
 
   belongs_to :user
@@ -49,10 +48,6 @@ class Order < ActiveRecord::Base
       transition :authorized => :under_review
     end
 
-    event :completed do
-      transition :authorized => :completed, :under_review => :completed
-    end
-
     event :canceled do
       transition :waiting_payment => :canceled
     end
@@ -65,16 +60,20 @@ class Order < ActiveRecord::Base
       transition :under_review => :refunded
     end
 
-    event :prepared do
-      transition :completed => :prepared
+    event :picking do
+      transition :authorized => :picking, :under_review => :picking
+    end
+
+    event :delivering do
+      transition :picking => :delivering
     end
 
     event :delivered do
-      transition :prepared => :delivered
+      transition :delivering => :delivered
     end
 
     event :not_delivered do
-      transition :prepared => :not_delivered
+      transition :delivering => :not_delivered
     end
   end
 

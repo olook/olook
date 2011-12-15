@@ -34,13 +34,12 @@ describe OrderStatusWorker do
     described_class.perform(order.id)
   end
 
-  it "should send payment_refused when delivered" do
+  it "should send delivering order e-mail when delivering" do
     order.authorized
-    order.completed
-    order.prepared
-    order.delivered
+    order.picking
+    order.delivering
     mock_mail.should_receive(:deliver)
-    OrderStatusMailer.should_receive(:order_delivered).with(order).and_return(mock_mail)
+    OrderStatusMailer.should_receive(:delivering_order).with(order).and_return(mock_mail)
     described_class.perform(order.id)
   end
 end

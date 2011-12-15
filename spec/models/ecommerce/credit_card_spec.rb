@@ -120,17 +120,17 @@ describe CreditCard do
       subject.order.authorized?.should eq(true)
     end
 
-    it "should set completed for order" do
+    it "should not change the order status from authorized when the payment is completed" do
       subject.authorized
       subject.completed
-      subject.order.completed?.should eq(true)
+      subject.order.authorized?.should eq(true)
     end
 
-    it "should set completed for order given under_review" do
+    it "should not change the order status from under review when the payment is completed after under review" do
       subject.authorized
       subject.under_review
       subject.completed
-      subject.order.completed?.should eq(true)
+      subject.order.under_review?.should eq(true)
     end
 
     it "should set under_review for order" do

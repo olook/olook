@@ -29,8 +29,6 @@ class CreditCard < Payment
     after_transition :under_analysis => :canceled, :do => :cancel_order
     after_transition :started => :authorized, :do => :authorize_order
     after_transition :under_analysis => :authorized, :do => :authorize_order
-    after_transition :authorized => :completed, :do => :complete_order
-    after_transition :under_review => :completed, :do => :complete_order
     after_transition :authorized => :under_review, :do => :review_order
     after_transition :under_review => :refunded, :do => :refund_order
     after_transition :under_review => :reversed, :do => :reverse_order
@@ -107,10 +105,6 @@ class CreditCard < Payment
 
   def cancel_order
     order.canceled
-  end
-
-  def complete_order
-    order.completed
   end
 
   def authorize_order
