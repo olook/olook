@@ -94,8 +94,8 @@ describe OrderStatusWorker do
       before :each do
         order.stub(:'authorized?').and_return(true)
       end
-      it "should send tell Abacos it was paid" do
-        Resque.should_receive(:enqueue).with(Abacos::ConfirmPayment, order.number)
+      it "should tell Abacos it was paid, need to wait a couple minutes to avoid errors" do
+        Resque.should_receive(:enqueue_in).with(10.minutes, Abacos::ConfirmPayment, order.number)
         described_class.integrate_with_abacos(order)
       end
     end

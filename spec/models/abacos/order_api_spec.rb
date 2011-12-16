@@ -6,9 +6,6 @@ describe Abacos::OrderAPI do
     described_class.wsdl.match(/.+AbacosWSPedidos+./).should be_true
   end
 
-  describe '#export_order' do
-  end
-  
   describe '#insert_order' do
     let(:fake_data) { {:fake_data => :order} }
     let(:fake_order) { double :order, :parsed_data => fake_data }
@@ -81,6 +78,30 @@ describe Abacos::OrderAPI do
       described_class.should_receive(:call_webservice).with(described_class.wsdl, :confirmar_pagamentos_pedidos, fake_data_with_key).and_return(:resultado_operacao => {:tipo => 'tdreErro'})
       expect {
         described_class.cancel_order(fake_cancelation)
+      }.to raise_error
+    end
+  end
+  
+  describe '#download_orders_statuses' do
+    use_vcr_cassette 'StatusPedidoDisponiveis', :record => :once
+
+    it "should products that are available to integration" do
+      orders = described_class.send :download_orders_statuses
+      orders.should be_kind_of(Array)
+      orders.length.should == 110
+    end
+  end
+  
+  describe '#confirm_order_status should call the ConfirmarRecebimentoStatusPedido API' do
+    let(:fake_protocol) { 'PROT-ORD-123' }
+    it 'and return true when successful' do
+      described_class.should_receive(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => fake_protocol}).and_return({:tipo => 'tdreSucesso'})
+      described_class.confirm_order_status fake_protocol
+    end
+    it 'and raise an error if fails' do
+      described_class.should_receive(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => fake_protocol}).and_raise
+      expect {
+        described_class.confirm_order_status fake_protocol
       }.to raise_error
     end
   end

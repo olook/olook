@@ -25,7 +25,7 @@ class OrderStatusWorker
     if order.waiting_payment? && order.payment
       Resque.enqueue(Abacos::InsertOrder, order.number)
     elsif order.authorized?
-      Resque.enqueue(Abacos::ConfirmPayment, order.number)
+      Resque.enqueue_in(10.minutes, Abacos::ConfirmPayment, order.number)
     end
   end  
 end
