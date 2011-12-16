@@ -7,6 +7,6 @@ class LookbooksController < ApplicationController
   end
 
   def lets_party
-    @products = Product.find(521, 530, 539, 548, 499)
+    @products = Product.find(521, 539, 499)
   end
 end
