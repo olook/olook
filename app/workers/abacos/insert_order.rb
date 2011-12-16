@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class InsertOrder
-    @queue = :orders_and_inventory
+    @queue = :front_to_abacos
 
     def self.perform(order_number)
       order = parse_and_check_order order_number
