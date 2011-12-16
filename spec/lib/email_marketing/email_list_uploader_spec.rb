@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Sendgrid::EmailListUploader do
+describe EmailMarketing::EmailListUploader do
 
   describe "#initialize" do
     it "sets csv to empty string" do
@@ -12,7 +12,7 @@ describe Sendgrid::EmailListUploader do
 
   describe "#generate_invalid_emails_csv" do
     it "calls invalid emails service" do
-      Sendgrid::Client.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
+      EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
 
       subject.generate_invalid_emails_csv
     end
@@ -24,7 +24,7 @@ describe Sendgrid::EmailListUploader do
                       ]
 
       response = double(:response, :parsed_response => response_hash)
-      Sendgrid::Client.stub(:new).with(:invalid_emails).and_return(response)
+      EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails).and_return(response)
 
       subject.generate_invalid_emails_csv.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@hotmai.com\n"
     end
@@ -34,9 +34,9 @@ describe Sendgrid::EmailListUploader do
     let(:connection) { mock(:ftp_connection) }
 
     it "opens new ftp connection using ftp server config" do
-      Net::FTP.should_receive(:new).with(Sendgrid::EmailListUploader::FTP_SERVER[:host],
-                                         Sendgrid::EmailListUploader::FTP_SERVER[:username],
-                                         Sendgrid::EmailListUploader::FTP_SERVER[:password]).and_return(mock.as_null_object)
+      Net::FTP.should_receive(:new).with(EmailMarketing::EmailListUploader::FTP_SERVER[:host],
+                                         EmailMarketing::EmailListUploader::FTP_SERVER[:username],
+                                         EmailMarketing::EmailListUploader::FTP_SERVER[:password]).and_return(mock.as_null_object)
       subject.copy_to_ftp(anything)
     end
 
