@@ -372,6 +372,13 @@ describe Order do
       subject.picking
       subject.delivering
     end
+    
+    describe '#send_notification' do
+      it 'should enqueue an OrderStatus worker' do
+        Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
+        subject.send_notification
+      end
+    end
   end
 
   describe '#with_payment' do
