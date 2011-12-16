@@ -3,8 +3,6 @@ module Abacos
   class ProductAPI
     extend Helpers
 
-    @queue = :abacos
-
     def self.wsdl
       "http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
     end    
