@@ -5,7 +5,7 @@ module Abacos
 
     attr_reader :numero, :codigo_cliente, :cpf, :nome, :email, :telefone,
                 :data_venda, :valor_pedido, :valor_desconto, :valor_frete,
-                :transportadora, :endereco, :itens, :pagamento
+                :transportadora, :tempo_entrega, :endereco, :itens, :pagamento
 
     def initialize(order)
       @numero           = order.number
@@ -23,6 +23,7 @@ module Abacos
       @valor_desconto   = parse_price order.credits
       @valor_frete      = parse_price order.freight_price
       @transportadora   = 'TEX'
+      @tempo_entrega    = order.freight.delivery_time
       
       @endereco         = parse_endereco(order.freight.address)
       @itens            = parse_itens(order.line_items)
@@ -45,6 +46,7 @@ module Abacos
             'ValorDesconto'     => @valor_desconto,
             'ValorFrete'        => @valor_frete,
             'Transportadora'    => @transportadora,
+            'TempoEntregaTransportadora' => @tempo_entrega,
 
             'Itens'             =>
               {'DadosPedidosItem' => @itens.map {|item| item.parsed_data} },
