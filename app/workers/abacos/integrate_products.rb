@@ -5,7 +5,6 @@ module Abacos
 
     def self.perform
       process_products
-      process_inventory
       process_prices
     end
 
@@ -18,13 +17,6 @@ module Abacos
       end
     end
 
-    def self.process_inventory
-      ProductAPI.download_inventory.each do |abacos_inventory|
-        parsed_data = Abacos::Inventory.parse_abacos_data(abacos_inventory)
-        Resque.enqueue(Abacos::Integrate, Abacos::Inventory.to_s, parsed_data)
-      end
-    end
-    
     def self.process_prices
       ProductAPI.download_prices.each do |abacos_price|
         parsed_class = parse_price_class(abacos_price)
