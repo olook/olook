@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class UpdateOrderStatus
-    @queue = :orders_and_inventory
+    @queue = :abacos_to_front
 
     def self.perform
       Abacos::OrderAPI.download_orders_statuses.each do |abacos_order_status|

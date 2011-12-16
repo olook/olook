@@ -210,6 +210,12 @@ describe Abacos::OrderStatus do
       it 'should return a datetime parsing the format of 11042008 17:30:55.458' do
         described_class.parse_datetime('11042008 17:30:55.458').should == DateTime.civil(2008, 04, 11, 17, 30, 55)
       end
+      it 'should return nil if the date is empty' do
+        described_class.parse_datetime(nil).should be_nil
+      end
+      it 'should return nil if the date is an empty string' do
+        described_class.parse_datetime('').should be_nil
+      end
     end
 
     describe 'parse_invoice' do

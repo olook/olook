@@ -47,7 +47,7 @@ module Abacos
     
     def self.parse_datetime(abacos_datetime)
       format = /(\d{2})(\d{2})(\d{4}) (\d{2}):(\d{2}):(\d{2}).\d{3}/
-      parsed = abacos_datetime.match format
+      parsed = abacos_datetime.try :match, format
       if parsed
         DateTime.civil parsed[3].to_i, parsed[2].to_i, parsed[1].to_i, parsed[4].to_i, parsed[5].to_i, parsed[6].to_i
       else

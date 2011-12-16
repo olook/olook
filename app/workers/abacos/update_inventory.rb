@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class UpdateInventory
-    @queue = :orders_and_inventory
+    @queue = :abacos_to_front
 
     def self.perform
       process_inventory
