@@ -5,4 +5,8 @@ class LookbooksController < ApplicationController
   def flores
     @products = Product.find(493, 495, 497, 413, 415, 417, 435, 433, 1, 563, 401, 403, 569)
   end
+
+  def lets_party
+    @products = Product.find(521, 530, 539, 548, 499)
+  end
 end
