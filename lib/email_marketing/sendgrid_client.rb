@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-module Sendgrid
-  class Client
+module EmailMarketing
+  class SendgridClient
 
     BASE_URL = "https://sendgrid.com/api"
     API_USER = "olook"
