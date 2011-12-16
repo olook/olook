@@ -14,25 +14,8 @@ $(document).ready(function() {
     }
   );
 
-  $("div#mask_carousel_showroom a.arrows").live("click", function() {
-    list = $(this).siblings("ul");
-    listSize = $(list).find("li").size();
-    minWidth = (listSize-1)*(-324);
-    atualPosition = parseInt($(list).css("left").split("px")[0]);
-    if($(this).hasClass("next") == true) {
-      if(atualPosition > minWidth) {
-        $(list).stop().animate({
-          left: atualPosition+(-324)+"px"
-        }, 'fast');
-      }
-    } else {
-      if(atualPosition < 0) {
-        $(list).stop().animate({
-          left: atualPosition+(324)+"px"
-        }, 'fast');
-      }
-    }
-    return false;
+  $("div#mask_carousel_showroom ul").jcarousel({
+    scroll: 1
   });
 });
 
