@@ -10,7 +10,7 @@ module Abacos
     def initialize(order)
       @numero           = order.number
 
-      @codigo_cliente   = order.user.id
+      @codigo_cliente   = "F#{order.user.id}"
       @cpf              = parse_cpf(order.user.cpf)
       @nome             = order.user.name
       @email            = order.user.email

@@ -24,7 +24,7 @@ describe Abacos::Pedido do
     end
     
     it '#codigo_cliente' do
-      subject.codigo_cliente.should == member.id
+      subject.codigo_cliente.should == "F#{member.id}"
     end
     
     it '#cpf' do
@@ -128,7 +128,7 @@ describe Abacos::Pedido do
               'ListaDePedidos' => {
                 'DadosPedidos' => {
                   'NumeroDoPedido' => order.number,
-                  'CodigoCliente' => order.user.id,
+                  'CodigoCliente' => "F#{order.user.id}",
                   'CPFouCNPJ' => '98765432198',
                   'DataVenda' => '01122011',
                   'DestNome' => 'Jéssica Maíra',
