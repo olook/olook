@@ -14,6 +14,12 @@ describe LookbooksController do
         sign_in user
       end
 
+      it "assigns @products to found products" do
+        Product.should_receive(:find).and_return(products)
+        get 'flores'
+        assigns(:products).should == products
+      end
+
       it "should be successful" do
         Product.stub(:find).and_return(products)
         get 'flores'
