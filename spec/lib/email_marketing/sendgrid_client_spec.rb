@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe Sendgrid::Client do
-  subject { Sendgrid::Client.new(:invalid_emails) }
+describe EmailMarketing::SendgridClient do
+  subject { EmailMarketing::SendgridClient.new(:invalid_emails) }
 
   describe  "#initialize" do
     let(:request){ double :request }
@@ -13,7 +13,7 @@ describe Sendgrid::Client do
       HTTPI.stub(:get)
 
       HTTPI::Request.should_receive(:new).and_return(request)
-      Sendgrid::Client.new(:invalid_emails)
+      EmailMarketing::SendgridClient.new(:invalid_emails)
     end
 
     it "sets request url using sendgrid domain, user_key, api_key and service name" do
@@ -21,7 +21,7 @@ describe Sendgrid::Client do
       HTTPI.stub(:get)
 
       request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.json?api_user=olook&api_key=olook123abc")
-      Sendgrid::Client.new(:invalid_emails)
+      EmailMarketing::SendgridClient.new(:invalid_emails)
     end
 
     it "makes a get with the created request" do
@@ -29,7 +29,7 @@ describe Sendgrid::Client do
       request.stub(:url=)
 
       HTTPI.should_receive(:get).with(request)
-      Sendgrid::Client.new(:invalid_emails)
+      EmailMarketing::SendgridClient.new(:invalid_emails)
     end
   end
 
@@ -38,24 +38,24 @@ describe Sendgrid::Client do
 
     it "raises invalid error message if service is not supported" do
       expect {
-        Sendgrid::Client.new(:unsupported_service)
+        EmailMarketing::SendgridClient.new(:unsupported_service)
         }.to raise_error(ArgumentError, "Service unsupported_service is not supported")
     end
 
     it "supports invalid_emails as a service" do
-      expect { Sendgrid::Client.new(:invalid_emails) }.to_not raise_error
+      expect { EmailMarketing::SendgridClient.new(:invalid_emails) }.to_not raise_error
     end
 
     it "supports blocks service" do
-      expect { Sendgrid::Client.new(:blocks) }.to_not raise_error
+      expect { EmailMarketing::SendgridClient.new(:blocks) }.to_not raise_error
     end
 
     it "supports spam reports service" do
-      expect { Sendgrid::Client.new(:spam_reports) }.to_not raise_error
+      expect { EmailMarketing::SendgridClient.new(:spam_reports) }.to_not raise_error
     end
 
     it "supports unsubscribes service" do
-      expect { Sendgrid::Client.new(:unsubscribes) }.to_not raise_error
+      expect { EmailMarketing::SendgridClient.new(:unsubscribes) }.to_not raise_error
     end
   end
 

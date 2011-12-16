@@ -2,7 +2,7 @@
 require 'net/ftp'
 require 'tempfile'
 
-module Sendgrid
+module EmailMarketing
   class EmailListUploader
     FTP_SERVER = {
       :host => "hftp.olook.com.br",
@@ -18,7 +18,7 @@ module Sendgrid
     end
 
     def generate_invalid_emails_csv
-      response = Sendgrid::Client.new(:invalid_emails).parsed_response
+      response = SendgridClient.new(:invalid_emails).parsed_response
 
       @csv = CSV.generate do |row|
         row << ["email"]
