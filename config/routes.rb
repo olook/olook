@@ -11,6 +11,7 @@ Olook::Application.routes.draw do
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/lookbooks/flores", :to => "lookbooks#flores", :as => "flores"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
+  match "/lookbooks/golden-grace", :to => "lookbooks#golden_grace", :as => "golden_grace"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
