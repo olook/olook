@@ -30,14 +30,14 @@ describe Sendgrid::EmailListUploader do
     end
   end
 
-  describe "#copy_csv_to_ftp" do
+  describe "#copy_to_ftp" do
     let(:connection) { mock(:ftp_connection) }
 
     it "opens new ftp connection using ftp server config" do
       Net::FTP.should_receive(:new).with(Sendgrid::EmailListUploader::FTP_SERVER[:host],
                                          Sendgrid::EmailListUploader::FTP_SERVER[:username],
                                          Sendgrid::EmailListUploader::FTP_SERVER[:password]).and_return(mock.as_null_object)
-      subject.copy_csv_to_ftp(anything)
+      subject.copy_to_ftp(anything)
     end
 
     it "copies the file with the received filename" do
@@ -46,7 +46,7 @@ describe Sendgrid::EmailListUploader do
       connection.stub(:close)
 
       connection.should_receive(:puttextfile).with(anything, filename)
-      subject.copy_csv_to_ftp(filename)
+      subject.copy_to_ftp(filename)
     end
 
     it "closes the ftp connection" do
@@ -54,7 +54,7 @@ describe Sendgrid::EmailListUploader do
       connection.stub(:puttextfile)
 
       connection.should_receive(:close)
-      subject.copy_csv_to_ftp(anything)
+      subject.copy_to_ftp(anything)
     end
   end
 end
