@@ -7,7 +7,7 @@ describe Abacos::Pedido do
                     :email => 'janedoe@test.com', :first_name => 'Jéssica', :last_name => 'Maíra'
                 }
   let(:payment) { FactoryGirl.create :credit_card }
-  let(:freight) { FactoryGirl.create :freight, :price => 22.0, :cost => 18.0 }
+  let(:freight) { FactoryGirl.create :freight, :price => 22.0, :cost => 18.0, :delivery_time => 5 }
   let(:order) { FactoryGirl.create :clean_order, :user => member, :credits => 11.0, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01) }
   let(:variant_a) { FactoryGirl.create :basic_shoe_size_35 }
   let(:variant_b) { FactoryGirl.create :basic_shoe_size_40 }
@@ -61,6 +61,10 @@ describe Abacos::Pedido do
     
     it '#transportadora' do
       subject.transportadora.should == 'TEX'
+    end
+
+    it '#tempo_entrega' do
+      subject.tempo_entrega.should == 5
     end
     
     describe '#itens' do
@@ -139,6 +143,7 @@ describe Abacos::Pedido do
                   'ValorDesconto' => '11.00',
                   'ValorFrete' => '22.00',
                   'Transportadora' => 'TEX',
+                  'TempoEntregaTransportadora' => 5,
 
                   'Itens' =>  {
                     'DadosPedidosItem' => [
