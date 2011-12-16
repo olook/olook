@@ -19,7 +19,6 @@ class BilletGenerator
           if response.status == Payment::SUCCESSFUL_STATUS
             billet.set_payment_expiration_date
             count += 1
-            puts "Link #{billet.url} - Order: #{order.number} - Nome #{order.user.first_name} Email #{order.user.email}"
           else
             puts "Erro no processamento: Boleto #{billet.id} - Order: #{order.number}"
           end
