@@ -29,8 +29,9 @@ describe Variant do
     it { should validate_presence_of(:weight) }
     it { should validate_numericality_of(:weight) }
   end
-  
-  subject { FactoryGirl.create(:basic_shoe_size_35) }
+
+  let(:product) { FactoryGirl.create(:basic_shoe) }
+  subject { FactoryGirl.create(:basic_shoe_size_35, :product => product) }
 
   describe "#sku" do
     it "should be the combination of product.model_number and the variant number" do
@@ -49,7 +50,7 @@ describe Variant do
     Variant.count.should be_zero
   end
 
-  describe "dimension related methods" do  
+  describe "dimension related methods" do
     before :each do
       subject.stub(:width).and_return(10.1)
       subject.stub(:height).and_return(20.1)
@@ -68,10 +69,10 @@ describe Variant do
       end
     end
   end
-  
+
   describe "before_save fill is_master" do
     subject { FactoryGirl.build(:basic_shoe_size_35, :is_master => nil) }
-    
+
     it "should call fill_is master" do
       subject.should_receive(:fill_is_master)
       subject.save
@@ -102,16 +103,33 @@ describe Variant do
       end
     end
 
-    it "should copy the master_variant attributes" do
-      new_variant = subject.product.variants.build
-      new_variant.copy_master_variant
-      
-      new_variant.width.should      == new_variant.master_variant.width
-      new_variant.height.should     == new_variant.master_variant.height
-      new_variant.length.should     == new_variant.master_variant.length
-      new_variant.weight.should     == new_variant.master_variant.weight
-      new_variant.price.should      == new_variant.master_variant.price
-      new_variant.inventory.should  == new_variant.master_variant.inventory
+    describe 'when executing' do
+      let(:new_variant) { subject.product.variants.build }
+
+      it "should copy the master_variant attributes" do
+        new_variant.copy_master_variant
+        
+        new_variant.width.should      == new_variant.master_variant.width
+        new_variant.height.should     == new_variant.master_variant.height
+        new_variant.length.should     == new_variant.master_variant.length
+        new_variant.weight.should     == new_variant.master_variant.weight
+        new_variant.price.should      == new_variant.master_variant.price
+        
+        new_variant.inventory.should  == 0
+      end
+
+      it "should not override the inventory" do
+        new_variant.master_variant.stub(:inventory).and_return(123)
+        new_variant.inventory = 456
+        new_variant.copy_master_variant
+        new_variant.inventory.should == 456
+      end
+
+      it "should return without doing anything if the variant being changed is the master itself" do
+        subject.stub(:'is_master?').and_return(true)
+        subject.should_not_receive(:'width=')
+        subject.copy_master_variant
+      end
     end
     
     it "should be called on the child variants when the master is updated" do
@@ -122,4 +140,32 @@ describe Variant do
       subject.weight.should == 42
     end
   end
+  
+  describe "delegated methods" do
+    describe "#main_picture" do
+      it "should return the product's main picture" do
+        subject.product.stub(:main_picture).and_return(:main)
+        subject.main_picture.should == :main
+      end
+    end
+    describe "#showroom_picture" do
+      it "should return the product's thumb picture" do
+        subject.product.stub(:showroom_picture).and_return(:showroom)
+        subject.showroom_picture.should == :showroom
+      end
+    end
+    describe "#thumb_picture" do
+      it "should return the product's thumb picture" do
+        subject.product.stub(:thumb_picture).and_return(:thumb)
+        subject.thumb_picture.should == :thumb
+      end
+    end
+    describe "#color_name" do
+      it "should return the product's color" do
+        subject.product.stub(:color_name).and_return(:color)
+        subject.color_name.should == :color
+      end
+    end
+  end
 end
+

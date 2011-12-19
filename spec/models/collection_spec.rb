@@ -23,4 +23,10 @@ describe Collection do
       described_class.for_date(Date.civil( 2010, 12, 10 )).should be_nil
     end
   end
+  
+  it "#current" do
+    Date.stub(:today).and_return(:today)
+    described_class.should_receive(:for_date).with(:today)
+    described_class.current
+  end
 end

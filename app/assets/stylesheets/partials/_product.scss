@@ -1,71 +1,145 @@
-.box_product {
-  a {
-    text-decoration: none;
-    text-align: center;
-    width: 100%;
-    overflow: auto;
-    float: left;
-    img {
-      margin: 0 0 10px 0;
-      border-bottom: 1px #b2b2b2 solid;
+li.product {
+  margin: 0 0 2px 0;
+  padding: 10px;
+  overflow: auto;
+  display: inline-block;
+  float: left;
+  .box_product {
+    display: inline-block;
+    clear: left;
+    a.product_link {
+      position: relative;
+      p.warn {
+        position: absolute;
+        background: url("/assets/common/sold_out.png") no-repeat;
+        text-indent: -9999px;
+        width: 50px;
+        height: 50px;
+        display: none;
+      }
+      img {
+        margin: 0 0 10px 0;
+        border-bottom: 1px #b2b2b2 solid;
+      }
     }
-    h1 {
-      background: none;
-      color: #716d68;
-      font-family: Arial;
-      font-size: 16px;
-      text-transform: uppercase;
-      line-height: normal;
-      margin: 0 0 10px 0;
-      padding: 0;
-      float: none;
+    a {
+      text-decoration: none;
+      margin: 0 0 0 3px;
+      float: left;
+      h1 {
+        background: none;
+        color: #716d68;
+        font-family: Arial;
+        font-size: 16px;
+        text-transform: uppercase;
+        line-height: normal;
+        margin: 0 0 10px 0;
+        padding: 0;
+        overflow: hidden;
+        float: none;
+      }
+    }
+    .line {
+      width: 100%;
+      overflow: hidden;
+      margin: 0 auto 10px;
+      a {
+        float: none;
+      }
+      ol, img {
+        float: left;
+      }
+      ol {
+        li {
+          margin: 6px 0 0 0;
+          display: inline !important;
+          float: left;
+          img {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+      .like, span {
+        float: right;
+      }
+      span {
+        color: #000;
+        font-family: Arial;
+        font-size: 24px;
+        letter-spacing: -1px;
+        margin-right: 2px;
+      }
+      .like {
+        background: url('/assets/common/ico-heart-off.png') no-repeat;
+        text-indent: -9999px;
+        color: #716d68;
+        font-family: Arial;
+        font-size: 12px;
+        line-height: 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        width: 14px;
+        height: 14px;
+        display: block;
+        &:hover, &.selected {
+          background: url('/assets/common/ico-heart-on.png') no-repeat;
+          color: #ff7db0;
+        }
+      }
+    }
+    &.sold_out {
+      a p.warn {
+        display: block;
+      }
     }
   }
-  .line {
-    width: 100%;
-    overflow: hidden;
-    margin: 0 0 10px 0;
-    ol, img {
-      float: left;
-    }
-    ol {
-      li {
-        margin: 0 5px 0 0;
-        display: inline !important;
-      }
-    }
-    .like, span {
-      float: right;
-    }
-    span {
-      color: #000;
-      font-family: Arial;
-      font-size: 24px;
-    }
-    .like {
-      background: url('/assets/common/ico-heart-off.png') left no-repeat;
-      color: #716d68;
-      font-family: Arial;
-      font-size: 12px;
-      line-height: 16px;
-      text-decoration: none;
-      text-transform: uppercase;
-      width: auto;
-      padding-left: 20px;
-      &:hover, &.selected {
-        background: url('/assets/common/ico-heart-on.png') left no-repeat;
-        color: #ff7db0;
-      }
+  &:hover {
+    padding: 5px;
+    border: 5px #d7d7d7 solid;
+    p.know {
+      display: block;
     }
   }
 }
-#showroom {
-  .box_product {
-  
+
+#showroom, #lookbooks {
+  li.product {
+    width: 175px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          right: 2px;
+        }
+        img {
+          width: 170px;
+          height: 170px;
+        }
+        h1 {
+          width: 170px;
+          height: 17px;
+        }
+      }
+    }
   }
 }
 #product {
   .box_product {
-
+    a.product_link {
+      p.warn {
+        top: 2px;
+        right: 2px;
+      }
+      img {
+        width: 260px;
+        height: 260px;
+      }
+      h1 {
+        width: 250px;
+        height: 17px;
+      }
+    }
   }
 }
+

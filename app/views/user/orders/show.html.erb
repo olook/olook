@@ -1,0 +1,79 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/my_account" %>
+<% end %>
+
+<div id="my_account" class="orders">
+  <div id="box_menu">
+    <%= render "shared/my_account/menu" %>
+  </div>
+  <div id="data">
+    <div class="box_title">
+      <h1 class="orders">Meus Pedidos</h1>
+    </div>
+    <div class="order_status">
+      <h1>Número do Pedido: <span><%= @current_order.number %></span></h1>
+      <h2><strong>Status do seu pedido: <%= @order_presenter.status.message %></strong></h2>
+      <ul id="status" class="<%= @order_presenter.status.css_class %>">
+        <li class="state1">Pedido Efetuado</li>
+        <li class="state2">Pagamento</li>
+        <li class="state3">Separando Pedido</li>
+        <li class="state4">Saiu para Entrega</li>
+      </ul>
+      <div id="description">
+        <ul id="items">
+          <% @current_order.line_items.each do |item| %>
+            <li>
+              <%= image_tag item.variant.showroom_picture %>
+              <h1><%= item.variant.name %></h1>
+              <p><strong>Cor: <%= item.variant.color_name %></strong> </p>
+              <p><strong>Quantidade:</strong> <%= item.quantity %></p>
+              <p><strong>Preço:</strong> <%= number_to_currency(item.price) %></p>
+              <p><strong>Total:</strong> <%= number_to_currency(item.total_price) %></p>
+            </li>
+          <% end %>
+        </ul>
+        <div id="details">
+          <div>
+            <h1>Endereço de entrega</h1>
+            <p><strong><%= @address.identification %></strong></p>
+            <p><%= "#{@address.street}, #{@address.number}" %><%= @address.complement? ? ", #{@address.complement}" : '' %></p>
+            <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
+            <p><%= "#{@address.city}, #{@address.state}" %></p>
+          </div>
+          <div>
+            <h1>Data do Pedido</h1>
+            <p><%= l @current_order.created_at, :format => :short %></p>
+          </div>
+          <div>
+            <h1>Prazo de Entrega</h1>
+            <p><%= @current_order.freight.delivery_time %> dias úteis</p>
+          </div>
+          <div>
+            <h1>Quantidade de Produtos</h1>
+            <p><%= @current_order.line_items.count %></p>
+          </div>
+          <div>
+            <table cellspacing="0" cellpadding="0">
+              <thead>
+                <tr>
+                  <th>Valor</th>
+                  <th>Frete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= number_to_currency(@current_order.total_with_freight) %></td>
+                  <td><%= number_to_currency(@current_order.freight_price)  %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h1>Forma de pagamento</h1>
+            <p><%= @current_order.payment.human_to_s %> <%= link_to '(imprimir)', @current_order.payment.url, :target => "_blank" if @current_order.payment.is_a? Billet %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

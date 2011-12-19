@@ -1,0 +1,38 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/my_account" %>
+<% end %>
+
+<div id="my_account" class="my_credits">
+  <div id="box_menu">
+    <%= render "shared/my_account/menu" %>
+  </div>
+  <div id="data">
+    <div class="box_title">
+      <h1 class="credits">Meus Créditos</h1>
+    </div>
+    <div class="invites_list">
+      <h1><span><%= @member.invites.accepted.count %></span> amigas já se registratam e você ganhou <span><%= number_to_currency(@member.invite_bonus) %></span></h1>
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th class="email">Email</th>
+            <th>Convidado em</th>
+            <th>Registrado</th>
+            <th><%= link_to "Reenviar todos", resubmit_all_invites_user_credits_path, :method => :post %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @invites.each do |invite| %>
+            <tr>
+              <td class="email"><%= invite.email %></td>
+              <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
+              <td><%= Invite.status_for_user_invite(@member.id, invite) %></td>
+              <td><%= link_to "Reenviar convite", resubmit_invite_user_credits_path(invite.id), :method => :post  %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= will_paginate @invites %>
+    </div>
+  </div>
+</div>

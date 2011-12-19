@@ -28,7 +28,8 @@
     <b>Invite Bonus:</b>
     <%= number_to_currency @user.invite_bonus %>
   </p>
-  
+
+  <%= render partial: 'show_orders', locals: { user: @user }  %>
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user }  %>
   <%= render partial: 'show_events', locals: { user: @user }  %>

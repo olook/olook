@@ -8,6 +8,7 @@ class Invite < ActiveRecord::Base
 
   validates_presence_of :user, :email
   validates_format_of :email, :with => User::EmailFormat
+  validates_uniqueness_of :email, :scope => :user_id
 
   scope :unsent, where('sent_at IS NULL')
   scope :sent, where('sent_at IS NOT NULL')

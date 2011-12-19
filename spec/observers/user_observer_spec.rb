@@ -2,8 +2,15 @@
 require 'spec_helper'
 
 describe UserObserver do
+
   it "should create a signup event when the user is created" do
-    User.any_instance.should_receive(:add_event).with(EventType::SIGNUP)
+    user = FactoryGirl.create(:member)
+    user.events.where(:event_type => EventType::SIGNUP).any?.should be_true
+  end
+
+  it "enqueues a SignupNotificationWorker in resque" do
+    Resque.should_receive(:enqueue).with(SignupNotificationWorker, anything)
     FactoryGirl.create(:member)
   end
+
 end

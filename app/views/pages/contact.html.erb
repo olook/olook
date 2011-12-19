@@ -1,0 +1,49 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/contact" %>
+<% end %>
+
+<div id="contact_content">
+  <h1>Entre em Contato</h1>
+  <p>A olook tem canais abertos para conversar com você e tornar o nosso relacionamento ainda melhor.</p>
+  <p>Neste campo lateral, você pode nos contar quais são as suas solicitações, dúvidas ou sugestões. Selecione o assunto e não se esqueça de preencher o campo de e-mail para que a gente entre em contato com você.</p>
+  <ul>
+    <li class="phone">(11) 2626-3489</li>
+    <li class="mail"><%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %></li>
+  </ul>
+  <p class="time">De segunda a sexta das 9:00 as 18:00</p>
+</div>
+<%= form_for(@contact_form, :url => send_contact_path, :html => { :id => "contact" }) do |f| %>
+  <fieldset class="inputs">
+    <ol>
+      <% if @contact_form.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @contact_form.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <li>
+        <%= f.label :email, "Seu email" %>
+        <%= f.email_field :email %>
+      </li>
+      <li>
+        <%= f.label :subject, "Assunto" %>
+        <%= f.select(:subject, options_from_collection_for_select(@contact_infos, "id", "title"), {}, {:class => "custom_select"}) %>
+      </li>
+      <li>
+        <%= f.label :message, "Mensagem" %>
+        <%= f.text_area :message %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="buttons">
+    <ol>
+      <li>
+        <%= f.submit "" %>
+      </li>
+    </ol>
+  </fieldset>
+<% end %>
+

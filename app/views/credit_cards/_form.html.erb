@@ -1,0 +1,58 @@
+<div class="payments">
+  <h1>Selecione a bandeira do seu cartão:</h1>
+  <fieldset class="banks">
+    <ol>
+      <% CreditCard::BANKS_OPTIONS.each do |bank| %>
+        <li class='<%= "#{bank}" %>'>
+          <%= radio_button_tag "credit_card[bank]", bank, false  %>
+          <%= label_tag "credit_card_bank_#{bank}", bank %>
+        </li>
+      <% end %>
+    </ol>
+  </fieldset>
+  <fieldset class="payments">
+    <ol>
+      <li>
+        <%= f.label :payments %>
+        <% options = build_installment_options(@order_total, CreditCard.installments_number_for(@order_total)) %>
+        <%= select_tag "credit_card[payments]", options_for_select(options), :class => "custom_select" %>
+      </li>
+    </ol>
+  </fieldset>
+</div>
+
+<div class="credit_cart_payment">
+  <fieldset class="inputs">
+    <ol>
+      <li class="user_name">
+        <%= f.label :user_name %>
+        <%= f.text_field :user_name %>
+      </li>
+      <li class="credit_card_number">
+        <%= f.label :credit_card_number %>
+        <%= f.text_field :credit_card_number, :class => "credit_card" %>
+      </li>
+      <li class="security_code">
+        <%= f.label :security_code %>
+        <%= f.text_field :security_code, :class => "security_code" %>
+      </li>
+      <li class="expiration_date">
+        <%= f.label :expiration_date %>
+        <%= f.text_field :expiration_date, :class => "expiration_date" %>
+      </li>
+      <li class="divisor">&nbsp;</li>
+      <li class="user_identification">
+        <%= f.label :user_identification %>
+        <%= f.text_field :user_identification, :class => "user_identification" %>
+      </li>
+      <li class="user_birthday">
+        <%= f.label :user_birthday %>
+        <%= f.text_field :user_birthday, :class => "date" %>
+      </li>
+      <li class="telephone">
+        <%= f.label :telephone %>
+        <%= f.text_field :telephone, :class => 'phone' %>
+      </li>
+    </ol>
+  </fieldset>
+</div>

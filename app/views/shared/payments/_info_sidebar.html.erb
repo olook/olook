@@ -1,0 +1,28 @@
+<div id="request_info">
+  <%= yield :checkout_sidebar %>
+  <div class="item">
+    <h1>Meu Pedido <%= link_to "alterar", cart_path if @order.payment.nil? %></h1>
+    <table cellpadding="0" cellspacing="0">
+      <tfoot>
+        <tr>
+          <td>Total:</td>
+          <td class="value"><%= number_to_currency(cart.total) %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <td>Sub-total:</td>
+          <td class="value"><%= number_to_currency(cart.subtotal)  %></td>
+        </tr>
+        <tr>
+          <td>Crédito</td>
+          <td class="value credit">- <%= number_to_currency(cart.discount) %></td>
+        </tr>
+        <tr>
+          <td>Frete</td>
+          <td class="value"><%= number_to_currency(cart.freight_price) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

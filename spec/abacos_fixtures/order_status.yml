@@ -1,0 +1,37 @@
+---
+:protocolo_status_pedido: !str
+  str: FD81F3EA-D028-40C0-BC1E-399981A65443
+  attributes: {}
+:numero_pedido: !str
+  str: '8735'
+  attributes: {}
+:codigo_status: !str
+  str: '03'
+  attributes: {}
+:status_pedido: !str
+  str: CANCELADO
+  attributes: {}
+:data_hora: !str
+  str: 14122011 17:12:30.610
+  attributes: {}
+:serie_nota: !str
+  str: '1'
+  attributes: {}
+:numero_nota: !str
+  str: '18'
+  attributes: {}
+:data_emissao_nota: !str
+  str: 14122011 09:12:42.577
+  attributes: {}
+:numero_objeto: !str
+  str: XYZ-CORREIO
+  attributes: {}
+:quantidade_volumes: !str
+  str: 1
+  attributes: {}
+:codigo_motivo_cancelamento: !str
+  str: 55
+  attributes: {}
+:motivo_cancelamento: !str
+  str: 'SOME REASON'
+  attributes: {}

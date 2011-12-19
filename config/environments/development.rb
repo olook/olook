@@ -28,4 +28,10 @@ Olook::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  MoIP.setup do |config|
+    config.uri = "https://desenvolvedor.moip.com.br/sandbox"
+    config.token = "IVT7GMNEQVLIN1R2NJPWEE4ZEHJ2SVNM"
+    config.key = "QKUXNZGBC9KSN5UWVDYXMV8EVSOHD4HDTB6E6HQ5"
+  end
 end

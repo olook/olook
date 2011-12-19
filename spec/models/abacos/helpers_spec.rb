@@ -3,6 +3,9 @@ require "spec_helper"
 
 describe Abacos::Helpers do
   class HelperClass
+    def wsdl
+      :fake_wsdl_url
+    end
     include Abacos::Helpers
   end
   
@@ -15,11 +18,11 @@ describe Abacos::Helpers do
     it "should return Category::BAG when classe is 'Bolsa'" do
       subject.parse_category('Bolsa').should == Category::BAG
     end
-    it "should return Category::JEWEL when classe is 'Jóia'" do
-      subject.parse_category('Jóia').should == Category::JEWEL
+    it "should return Category::ACCESSORY when classe is 'Jóia'" do
+      subject.parse_category('Jóia').should == Category::ACCESSORY
     end
-    it "should return Category::SHOE when classe something else" do
-      subject.parse_category('XXX').should == Category::SHOE
+    it "should return Category::ACCESSORY when classe something else" do
+      subject.parse_category('XXX').should == Category::ACCESSORY
     end
   end
   
@@ -56,5 +59,16 @@ describe Abacos::Helpers do
         subject.parse_nested_data(nested_data_with_error, :some_key)
       }.to raise_error
     end
+  end
+
+  it '#download_xml' do
+    subject.should_receive(:call_webservice).with(:fake_wsdl_url, :method).and_return(:ws_result)
+    subject.should_receive(:parse_nested_data).with(:ws_result, :key)
+    subject.download_xml(:method, :key)
+  end
+  
+  it '#parse_datetime' do
+    datetime = DateTime.civil(2012, 04, 12, 10, 44, 55)
+    subject.parse_datetime(datetime).should == '12042012 10:44:55'
   end
 end

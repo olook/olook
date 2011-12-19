@@ -61,7 +61,7 @@
   time:
     formats:
       default: "%A, %d de %B de %Y, %H:%M h"
-      short: "%d/%m, %H:%M h"
+      short: "%d/%m/%Y %H:%M"
       long: "%A, %d de %B de %Y, %H:%M h"
     am: ''
     pm: ''
@@ -224,13 +224,42 @@
 
   activerecord:
     models:
+      address: Endereço
+      credit_card: Cartão de crédito
       user: Usuário
     attributes:
+      address:
+        city: Cidade
+        complement: Complemento
+        country: País
+        first_name: Nome
+        last_name: Sobrenome
+        neighborhood: Bairro
+        number: Número
+        state: Estado
+        street: "Rua, Av., Praça"
+        telephone: Telefone
+        zip_code: CEP
+      credit_card:
+        credit_card_number: "Número do cartão"
+        expiration_date: "Validade"
+        payments: "Números de parcelas"
+        security_code: "Código de segurança"
+        user_birthday: "Data de nascimento"
+        user_identification: "CPF"
+        user_name: "Nome como aparece no cartão"
+        telephone: "Telefone"
+        bank: "Bandeira do cartão"
       user:
+        birthday: "Data de nascimento"
+        cpf: CPF
+        email: E-mail
         first_name: Nome
         last_name: Sobrenome
         password: Senha
-        email: E-mail
+        password_confirmation: "Confirmação de senha"
+        reset_password_token: "Token para resetar senha"
+
     errors:
       template:
         header:
@@ -250,7 +279,7 @@
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
       bonus_for_accepting_invite: 'Você já ganhou <span class="amount">R$ 10,00</span> por ter sido convidada!'
-      invitation_accepted: 
+      invitation_accepted:
         one: '<span>%{count} </span>amiga já se registrou e você ganhou <span class="amount">%{bonus}</span>'
         other: '<span>%{count} </span>amigas já se registraram e você ganhou <span class="amount">%{bonus}</span>'
       member_with_no_invite_bonus: "Escolha uma das opções abaixo e comece a convidar"

@@ -1,0 +1,12 @@
+<% content_for :footer do %>
+  <%= javascript_include_tag "checkout" %>
+<% end %>
+
+<% content_for :top_my_account do %>
+  <%= render :partial => "shared/header_checkout" %>
+<% end %>
+
+<% content_for :content do %>
+  <%= content_for?(:news_content) ? yield(:news_content) : yield %>
+<% end %>
+<%= render :template => 'layouts/application' %>

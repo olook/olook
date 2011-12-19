@@ -1,0 +1,86 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="cart">
+  <% if @user.cpf.nil? %>
+    <%= form_for(@user, :as => :user, :url => user_user_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
+      <fieldset class="buttons">
+        <ol>
+          <li>
+            <p>Precisamos de seu CPF para emitir a nota fiscal do seu pedido em seu nome:</p>
+          </li>
+          <li>
+            <%= f.label :cpf %>
+            <%= f.text_field :cpf, :value => "", :class => "cpf" %>
+            <%= f.submit '', :class => "save" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  <% end %>
+  <table cellpadding="0" cellspacing="0" class="items_list">
+    <thead>
+      <tr>
+        <th class="item">Item</th>
+        <th class="amount">Quantidade</th>
+        <th class="value" colspan="2">Valor</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td class="subtotal" colspan="3">Subtotal</td>
+        <td class="total"><%= number_to_currency(@cart.total) %></td>
+      </tr>
+    </tfoot>
+    <tbody>
+    <% if @order %>
+      <% @order.line_items.each do |item| %>
+        <tr>
+          <td class="item">
+            <%= image_tag item.variant.thumb_picture %>
+            <p><strong><%= item.variant.name %></strong></p>
+            <p>Tamanho: <%= item.variant.description %></p>
+            <p>Cor: <%= item.variant.color_name %></p>
+          </td>
+          <td class="amount">
+            <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
+              <%= hidden_field('variant','id', :value => item.variant.id) %>
+              <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
+            <% end %>
+          </td>
+          <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
+          <td class="delete_item" valign="middle">
+            <%= form_for(cart_path, :method => :put) do %>
+              <%= hidden_field('variant','id', :value => item.variant.id) %>
+              <%= submit_tag('')  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <tr class="discount">
+        <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
+        <td colspan="2">
+          <p><strong>Quanto deseja usar?</strong></p>
+          <p>Digite o valor no campo ao lado</p>
+        </td>
+        <td>
+          <%= form_for(update_bonus_cart_path, :url => update_bonus_cart_path, :method => :put) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_field('credits', 'value') %>
+                </li>
+                <li>
+                  <%= submit_tag 'Atualizar' %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= link_to "Continuar", addresses_path, :class => "continue" %>
+</section>

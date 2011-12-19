@@ -1,13 +1,13 @@
 pt-BR:
   errors:
     messages:
+      expired: "expirou, peça um novo"
       not_found: 'não encontrado'
       already_confirmed: 'já foi confirmado'
       not_locked: 'não foi bloqueado'
       not_saved:
         one: '1 erro impediu que %{resource} fosse cadastrado:'
         other: '%{count} erros impediram que %{resource} fosse cadastrado:'
-
   devise:
     failure:
       unauthenticated: 'Você precisa estar logado.'

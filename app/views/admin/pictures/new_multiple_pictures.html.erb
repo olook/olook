@@ -1,4 +1,4 @@
-<h2>Add multiple pictures</h2>
+<h2>Add multiple pictures to product <%= @product.easy_to_find_description %></h2>
 
 <div class="inner">
   <%= form_for([:admin, @product], :url => create_multiple_pictures_admin_product_pictures_path(@product), :method => :post) do |f| %>

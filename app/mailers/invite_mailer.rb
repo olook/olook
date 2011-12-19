@@ -18,11 +18,17 @@ class InviteMailer < ActionMailer::Base
  
   def invite_email(invite)
     @invite = invite
-    mail(:to => @invite.email, :subject => "#{@invite.member_name} te convidou para a olook!")
+    send_invite(@invite)
   end
 
   def reinvite_email(invite)
     @invite = invite
-    mail(:from => "olook <vip@re.conviteolook.com.br>", :to => @invite.email, :subject => "Você recebeu um convite de #{@invite.member_name} mas ainda não se cadastrou.")
+    send_invite(@invite)
+  end
+
+  private
+
+  def send_invite(invite)
+    mail(:to => invite.email, :subject => "#{invite.member_name} te convidou para a olook!")
   end
 end

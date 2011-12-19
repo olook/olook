@@ -2,8 +2,10 @@
 require 'spec_helper'
 
 describe User do
-
   subject { Factory.create(:user) }
+
+  let(:casual_profile) { FactoryGirl.create(:casual_profile) }
+  let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
 
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
@@ -127,12 +129,6 @@ describe User do
       invite = subject.invite_for(email)
       invite.should be_nil
     end
-
-    it "should not create an invite for an existing user" do
-      valid_user = FactoryGirl.create(:member)
-      invite = subject.invite_for(valid_user.email)
-      invite.should be_nil
-    end
   end
 
   describe "#invites_for (plural)" do
@@ -187,8 +183,6 @@ describe User do
   end
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
-    let(:casual_profile) { FactoryGirl.create(:casual_profile) }
-    let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 10) }
 
@@ -212,20 +206,139 @@ describe User do
     end
   end
 
+  describe "#has_early_access?" do
+    it 'should always return true' do
+      subject.has_early_access?.should be_true
+    end
+  end
+
   describe "#add_event" do
     it "should add an event for the user" do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
       subject.events.find_by_event_type(EventType::SEND_INVITE).should_not be_nil
     end
   end
-  
+
   describe "#invitation_url should return a properly formated URL, used when there's no routing context" do
     it "should return with olook.com.br root as default" do
-      subject.invitation_url.should == "http://olook.com.br/convite/#{subject.invite_token}"
+      subject.invitation_url.should == "http://www.olook.com.br/convite/#{subject.invite_token}"
     end
 
     it "should accept an alternate root" do
       subject.invitation_url('localhost').should == "http://localhost/convite/#{subject.invite_token}"
     end
   end
+
+  describe "#main_profile" do
+    let(:mock_point_a) { mock_model Point, :profile => :first_profile }
+    let(:mock_point_b) { mock_model Point, :profile => :second_profile }
+
+    it 'should return the user main profile when it exists' do
+      subject.stub(:profile_scores).and_return([mock_point_a, mock_point_b])
+      subject.main_profile.should == :first_profile
+    end
+    it "should return nil if the doesn't have a profile" do
+      subject.stub(:profile_scores).and_return([])
+      subject.main_profile.should == nil
+    end
+  end
+
+  describe "showroom methods" do
+    let(:collection) { FactoryGirl.create(:collection) }
+    let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
+    let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
+    let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+
+    let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
+
+    let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
+    let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
+
+    before :each do
+      Collection.stub(:current).and_return(collection)
+    end
+
+    describe "#all_profiles_showroom" do
+      it "should return the products ordered by profiles without duplicate names" do
+        subject.all_profiles_showroom.should == [product_c, product_d, product_b]
+      end
+
+      it 'should return only products of the specified category' do
+        subject.all_profiles_showroom(Category::BAG).should == [product_c]
+      end
+
+      it 'should return an array' do
+        subject.all_profiles_showroom.should be_a(Array)
+      end
+    end
+
+    describe "#profile_showroom" do
+      it "should return only the products for the given profile" do
+        subject.profile_showroom(sporty_profile).should == [product_c, product_d]
+      end
+
+      it 'should return only the products for the given profile and category' do
+        subject.profile_showroom(sporty_profile, Category::BAG).should == [product_c]
+      end
+
+      it 'should return a scope' do
+        subject.profile_showroom(sporty_profile).should be_a(ActiveRecord::Relation)
+      end
+
+      it 'should not include the invisible product' do
+        subject.profile_showroom(sporty_profile).should_not include(invisible_product)
+      end
+    end
+
+    describe "#main_profile_showroom" do
+      before :each do
+        subject.stub(:main_profile).and_return(sporty_profile)
+      end
+
+      it "should return only the products for the main profile" do
+        subject.main_profile_showroom.should == [product_c, product_d]
+      end
+
+      it 'should return only the products of a given category for the main profile' do
+        subject.main_profile_showroom(Category::BAG).should == [product_c]
+      end
+
+      it 'should return a scope' do
+        subject.main_profile_showroom.should be_a(Array)
+      end
+    end
+    
+    describe '#remove_color_variations' do
+      let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
+      let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
+      let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
+      let(:products)      { [shoe_a_black, shoe_b_green, shoe_a_red] }
+
+      context 'when no product is sold out' do
+        it 'should return only one color for products with the same name' do
+          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+        end
+      end
+
+      context 'when the first product in a color set is sold out' do
+        before :each do
+          shoe_a_black.stub(:'sold_out?').and_return(true)
+        end
+        it 'should return the second color in the place of the sold out one' do
+          subject.send(:remove_color_variations, products).should == [shoe_a_red, shoe_b_green]
+        end
+      end
+
+      context 'when the second product in a color set is sold out' do
+        before :each do
+          shoe_a_red.stub(:'sold_out?').and_return(true)
+        end
+        it 'should return the first color and hide the one sold out' do
+          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+        end
+      end
+    end
+  end
+
 end

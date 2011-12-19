@@ -1,6 +1,11 @@
-<% content_for(:head) do %>
+<% content_for :head do %>
   <%= stylesheet_link_tag "section/survey" %>
 <% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "survey" %>
+<% end %>
+
 <span id="next_link"></span>
   <div id="asynch-load"></div>
   <div id="survey">

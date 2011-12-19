@@ -1,0 +1,12 @@
+            <div class="line size">
+              <p>Tamanho:</p>
+              <ol>
+                <% variants.each do |variant| %>
+                <li <%= "class='unavailable'" unless variant.available_for_quantity?%>>
+                  <label for="size_1"><%= variant.description %>
+                    <%= radio_button_tag('variant[id]', variant.id) %>
+                  </label>
+                </li>
+                <% end %>
+              </ol>
+            </div>

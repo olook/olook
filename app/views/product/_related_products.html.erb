@@ -1,0 +1,22 @@
+<div id="pics_suggestions">
+  <ul id="thumbs">
+    <% @product.pictures.each do |picture| %>
+      <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
+    <% end %>
+  </ul>
+  <div id="full_pic" class="<%= (@product.sold_out? && user_signed_in?) ? 'sold_out' : '' %>">
+    <p class="warn">Esgotado</p>
+    <ul>
+      <% @product.pictures.each do |picture| %>
+        <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("#{picture.image_url(:main).to_s}", :class => "full"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="related">
+    <h1 class="title">Seus stylists também sugerem</h1>
+    <ul>
+      <%= render :partial => "shared/showroom_product_item", :collection => related_products, :as => :product, :locals => {:image_method => :suggestion_picture} %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<li class="product">
+  <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
+    <%= link_to product, :class => "product_link" do %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
+      <h1><%= product.name %></h1>
+      <p class="warn">ESGOTADO</p>
+    <% end %>
+    <div class="line">
+      <ol>
+        <% unless product.color_sample.blank? %>
+        <li>
+          <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product %>
+        </li>
+        <% end %>
+        <% product.colors.each do |related_product| %>
+          <li>
+            <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product %>
+          </li>
+        <% end %>
+      </ol>
+      <span><%= number_to_currency product.price %></span>
+    </div>
+  </div>
+</li>

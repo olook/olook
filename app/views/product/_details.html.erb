@@ -1,0 +1,23 @@
+        <div id="box_tabs">
+          <ul class="tabs">
+            <li class="first"><%= link_to "Como vestir", "javascript:void(0);", :rel => "tab_1", :class => "selected" %></li>
+            <li class="last"><%= link_to "Informações", "javascript:void(0);", :rel => "tab_2", %></li>
+          </ul>
+          <ul class="tabs_content">
+            <li class="tab_1 selected">
+              <p><%= @product.details.only_how_to.first.try(:description) %></p>
+            </li>
+            <li class="tab_2">
+              <table cellpadding="0" cellspacing="0">
+                <tbody>
+                  <% @product.details.only_specification.each do |detail| %>
+                    <tr>
+                      <td><%= detail.translation_token %></td>
+                      <td><%= detail.description %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+        </div>

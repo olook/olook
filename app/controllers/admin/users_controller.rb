@@ -7,8 +7,7 @@ class Admin::UsersController < ApplicationController
   def index
     filter = User.where('')
     unless params[:search].blank?
-      filter = filter.where('(first_name LIKE :search) OR (last_name LIKE :search) OR (email LIKE :search)',
-                            :search => "%#{params[:search].strip}%")
+      filter = filter.where('(first_name LIKE :search) OR (last_name LIKE :search) OR (email LIKE :search)', :search => "%#{params[:search].strip}%")
     end
     @users = filter.page(params[:page]).per_page(15)
     respond_with :admin, @users
@@ -35,12 +34,12 @@ class Admin::UsersController < ApplicationController
 
     respond_with :admin, @user
   end
-  
+
   def export
     @records = UserReport.export
     respond_with :admin, @records
   end
-  
+
   def statistics
     @statistics = UserReport.statistics
     respond_with :admin, @statistics

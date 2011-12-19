@@ -24,29 +24,28 @@ describe Abacos::Product do
     let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
 
     it 'should create a new product' do
-      Abacos::ProductAPI.should_receive(:confirm_product)
       expect {
         subject.stub(:integrate_details)
+        subject.stub(:integrate_profiles)
+        subject.stub(:confirm_product)
         subject.integrate
       }.to change(Product, :count).by(1)
     end
 
     it 'should call the integration confirmation' do
       subject.stub(:integrate_details)
-      Abacos::ProductAPI.should_receive(:confirm_product).with(subject.integration_protocol)
+      subject.should_receive(:confirm_product)
       subject.integrate
     end
 
-    it 'should merge the imported attributes on the product' do
+    it 'should call the merging methods on the product' do
       mock_product = mock_model(::Product)
 
+      subject.should_receive(:find_or_initialize_product).and_return(mock_product)
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
-      
-      ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(mock_product)
-
-      Abacos::ProductAPI.should_receive(:confirm_product)
+      subject.should_receive(:confirm_product)
       
       subject.integrate
     end
@@ -66,14 +65,30 @@ describe Abacos::Product do
         mock_details.should_receive(:create).
                       with( :translation_token => 'detail_name',
                             :description => 'detail_description',
-                            :display_on => DisplayDetailOn::DETAILS)
+                            :display_on => DisplayDetailOn::SPECIFICATION)
+      
+        mock_product = mock_model(::Product)
+        mock_product.stub(:details).and_return(mock_details)
+
+        subject.should_receive(:integrate_how_to).with(mock_product)        
+        subject.stub(:details).and_return({'detail_name' => 'detail_description'})
+
+        subject.integrate_details mock_product
+      end
+      
+      it '#integrate_how_to' do
+        mock_details = double :details
+        mock_details.should_receive(:create).
+                      with( :translation_token => 'Como vestir',
+                            :description => 'how to wear',
+                            :display_on => DisplayDetailOn::HOW_TO)
       
         mock_product = mock_model(::Product)
         mock_product.stub(:details).and_return(mock_details)
         
-        subject.stub(:details).and_return({'detail_name' => 'detail_description'})
+        subject.stub(:how_to).and_return('how to wear')
 
-        subject.integrate_details mock_product
+        subject.integrate_how_to mock_product
       end
       
       describe "#integrate_profiles" do
@@ -103,12 +118,21 @@ describe Abacos::Product do
           }.to raise_error(RuntimeError, "Attemping to integrate invalid profile 'non-existent-profile'")
         end
       end
+      
+      describe "#confirm_product" do
+        let(:fake_protocol) { 'PROT123' }
+        it 'should add a task on the queue to integrate' do
+          subject.stub(:integration_protocol).and_return(fake_protocol)
+          Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol)
+          subject.confirm_product
+        end
+      end
     end
   end
 
   describe "class methods" do
     let(:descritor_pre_definido)  { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_descritor_pre_definido=>{:descricao=>"Couro Gergelim", :grupo_nome=>"COR  "}}} }
-    let(:caracteristicas_complementares) { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_caracteristicas_complementares=>[{:tipo_nome=>"Dica da Fernanda", :texto=>"Sapatilha sensaciona impressionantel!"}, {:tipo_nome=>"Perfil", :texto=>"Sexy, Casual "}]}} }
+    let(:caracteristicas_complementares) { {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_caracteristicas_complementares=>[{:tipo_nome=>"Dica da Fernanda", :texto=>"Sapatilha sensaciona impressionantel!"}, {:tipo_nome=>"Perfil", :texto=>"Sexy, Casual "}, {:tipo_nome=>"Salto", :texto=>"DeFault "}, {:tipo_nome=>"Como vestir", :texto=>"Deve-se vestir no pé"}, {:tipo_nome=>"Descrição", :texto=>"O cetim e o strass formam uma ótima combinação, pronta para ir para uma festa?"}]}} }
 
     describe '#parse_abacos_data' do
       it '#integration_protocol' do
@@ -116,11 +140,11 @@ describe Abacos::Product do
       end
 
       it '#name' do
-        subject.name.should == "Sapatilha Floral  com laço em couro verde"
+        subject.name.should == "Florzinha"
       end
 
       it '#description' do
-        subject.description.should == "Descrição da Sapatilha Floral  com laço em couro verde"
+        subject.description.should == "O cetim e o strass formam uma ótima combinação, pronta para ir para uma festa?"
       end
 
       it '#model_number' do
@@ -128,7 +152,7 @@ describe Abacos::Product do
       end
       
       it '#category' do
-        subject.category.should == Category::JEWEL
+        subject.category.should == Category::ACCESSORY
       end
       
       it '#color_name' do
@@ -158,6 +182,10 @@ describe Abacos::Product do
       it '#details' do
         subject.details.should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!", "Altura do salto"=>"n/a", "Aviamento"=>"Preto", "Categoria"=>"Sapatilha", "Material externo"=>"Forro Cacharrel Natural", "Material interno"=>"Palm sint. Ouro light", "Material sola"=>"n/a", "Tipo do salto"=>"Baixo"}
       end
+
+      it '#how_to' do
+        subject.how_to.should == "Deve-se vestir no pé"
+      end
       
       it '#profiles' do
         subject.profiles.should == ['Sexy','Casual']
@@ -165,11 +193,22 @@ describe Abacos::Product do
     end
 
     describe "#parse_description" do
-      it "should return the name if the description is empty" do
-        described_class.parse_description('name', '').should == 'name'
+      it "should return product description from caracteristicas_complementares" do
+        described_class.parse_description(caracteristicas_complementares, 'Fallback name').should == "O cetim e o strass formam uma ótima combinação, pronta para ir para uma festa?"
       end
-      it "should return the description if it's not empty" do
-        described_class.parse_description('name', 'description').should == 'description'
+
+      it "should return product description from caracteristicas_complementares" do
+        empty_data = {:resultado_operacao => {:tipo => 'tdreSucesso'}, :rows=>{:dados_caracteristicas_complementares=>[]}}
+        described_class.parse_description(empty_data, 'Fallback name').should == "Fallback name"
+      end
+    end
+
+    describe "#parse_name" do
+      it "should return the name when it's not empty" do
+        described_class.parse_name('beach name', 'fallback').should == 'beach name'
+      end
+      it "should return the fallback when the name is empty" do
+        described_class.parse_name('', 'fallback').should == 'fallback'
       end
     end
 
@@ -182,6 +221,12 @@ describe Abacos::Product do
     describe "#parse_details" do
       it "should return product details from caracteristicas_complementares" do
         described_class.parse_details(caracteristicas_complementares).should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!"}
+      end
+    end
+
+    describe "#parse_how_to" do
+      it "should return product how to use text from caracteristicas_complementares" do
+        described_class.parse_how_to(caracteristicas_complementares).should == "Deve-se vestir no pé"
       end
     end
 

@@ -3,6 +3,10 @@
   <script src="http://connect.facebook.net/en_US/all.js"></script>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "members" %>
+<% end %>
+
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
 
@@ -28,7 +32,6 @@
       <p>Convide <span>5</span> de suas amigas</p>
       <p>e elas ganham R$10</p>
     </h3>
-    <p>Válido para as próximas 4.000 usuárias.</p>
     <%= link_to 'Veja o regulamento', terms_path %>
     <%= image_tag('/assets/common/model-banner.png') %>
   </div>
@@ -120,7 +123,11 @@
 
   <ul class="services">
     <li><%= link_to '', member_import_contacts_path, :class => 'gmail' %></li>
-    <li><%= link_to '', @yahoo_oauth_url, :class => 'yahoo' %></li>
+    <% if @yahoo_oauth_url %>
+      <li><%= link_to '', @yahoo_oauth_url, :class => 'yahoo' %></li>
+    <% else %>
+      <li>Serviço Yahoo indisponível no momento</li>
+    <% end %>
   </ul>
 
   <div class="import-dropdown">

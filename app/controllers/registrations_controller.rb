@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
+  layout "my_account"
 
   before_filter :check_survey_response, :only => [:new, :create]
 
@@ -11,6 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource
     end
     resource.is_invited = true if session[:invite]
+    render :layout => "site"
   end
 
   def create
@@ -24,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
         after_sign_up_path_for(resource)
-        redirect_to member_invite_path
+        redirect_to member_showroom_path
       else
         set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
         expire_session_data_after_sign_in!
@@ -44,6 +46,8 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
+
+    resource.require_cpf = true
     if resource.update_attributes(params[:user])
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
@@ -81,7 +85,6 @@ class RegistrationsController < Devise::RegistrationsController
     SurveyAnswer.create(:answers => answers, :user => resource)
     ProfileBuilder.new(resource).create_user_points(session[:profile_points])
     resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
-    Resque.enqueue(SignupNotificationWorker, resource.id)
     clean_sessions
   end
 

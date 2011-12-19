@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Admin::PicturesController do
   render_views
   let(:product) { FactoryGirl.create :basic_shoe }
-  let!(:picture) { FactoryGirl.create(:gallery_picture, :product => product) }
+  let!(:picture) { FactoryGirl.create(:main_picture, :product => product) }
   let!(:valid_attributes) { picture.attributes }
 
   before :each do

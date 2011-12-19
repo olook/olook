@@ -1,0 +1,319 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/delivery" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "delivery" %>
+<% end %>
+
+<div id="delivery_time">
+  <section id="description">
+    <h1>Entregamos para todo o Brasil</h1>
+    <p>Oferecer serviço de qualidade para as nossas clientes é um dos pontos mais importantes para a olook. Pensando nisso, criamos uma Política de Entrega, na qual, a prioridade é buscar parcerias com as melhores transportadoras e garantir que o prazo estabelecido seja cumprido.</p>
+    <p>Não se esqueça de verificar qual é o prazo médio de entrega na sua cidade ou região. Para saber qual é o prazo para o seu endereço.</p>
+    <p class="last">Veja na tabela abaixo o prazo de entrega para o seu estado.</p>
+  </section>
+  <section id="areas">
+    <%= form_tag "#" do %>
+      <fieldset>
+        <ol>
+          <li>
+            <label for="region">Selecione sua região:</label>
+          </li>
+          <li>
+            <select id="region" class="custom_select">
+              <option value="southeast">Sudeste</option>
+              <option value="south">Sul</option>
+              <option value="midwest">Centro-Oeste</option>
+              <option value="northeast">Nordeste</option>
+              <option value="north">Norte</option>
+            </select>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+    <p>Tabela abaixo representa o prazo médio de entrega para cada região.<br />Confira o prazo para seu CEP no carrinho de compras, pois o prazo pode variar de acordo com o CEP.</p>
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="first">Região</th>
+          <th>UF</th>
+          <th>Localidade</th>
+          <th>Prazo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="southeast" rowspan="8" valign="middle" class="first">Sudeste</td>
+          <td>SP</td>
+          <td>Capital</td>
+          <td>3 dias úteis</td>
+        </tr>
+        <tr>
+          <td>SP</td>
+          <td>Interior</td>
+          <td>3 dias úteis</td>
+        </tr>
+        <tr>
+          <td>RJ</td>
+          <td>Capital</td>
+          <td>3 dias úteis</td>
+        </tr>
+        <tr>
+          <td>RJ</td>
+          <td>Interior</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr>
+          <td>MG</td>
+          <td>Capital</td>
+          <td>3 dias úteis</td>
+        </tr>
+        <tr>
+          <td>MG</td>
+          <td>Interior</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr>
+          <td>ES</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr>
+          <td>ES</td>
+          <td>Interior</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td id="south" rowspan="6" valign="middle" class="first">Sul</td>
+          <td>PR</td>
+          <td>Capital</td>
+          <td>3 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PR</td>
+          <td>Interior</td>
+          <td>6 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>SC</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>SC</td>
+          <td>Interior</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>RS</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>RS</td>
+          <td>Interior</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr>
+          <td id="midwest" rowspan="7" valign="middle" class="first">Centro-Oeste</td>
+          <td>DF</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr>
+          <td>GO</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr>
+          <td>GO</td>
+          <td>Interior</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr>
+          <td>MS</td>
+          <td>Capital</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>MS</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>MT</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr>
+          <td>MT</td>
+          <td>Interior</td>
+          <td>7 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td id="northeast" rowspan="18" valign="middle" class="first">Nordeste</td>
+          <td>AL</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>AL</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PB</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PB</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PE</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PE</td>
+          <td>Interior</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PI</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>PI</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>RN</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>RN</td>
+          <td>Interior</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>SE</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>SE</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>BA</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>BA</td>
+          <td>Interior</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>CE</td>
+          <td>Capital</td>
+          <td>4 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>CE</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>MA</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr class="zebra">
+          <td>MA</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td id="north" rowspan="14" valign="middle" class="first">Norte</td>
+          <td>AC</td>
+          <td>Capital</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>AC</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>AM</td>
+          <td>Capital</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>AM</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>AP</td>
+          <td>Capital</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>AP</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>PA</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr>
+          <td>PA</td>
+          <td>Interior</td>
+          <td>7 dias úteis</td>
+        </tr>
+        <tr>
+          <td>RO</td>
+          <td>Capital</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>RO</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>RR</td>
+          <td>Capital</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>RR</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+        <tr>
+          <td>TO</td>
+          <td>Capital</td>
+          <td>5 dias úteis</td>
+        </tr>
+        <tr>
+          <td>TO</td>
+          <td>Interior</td>
+          <td>9 dias úteis</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

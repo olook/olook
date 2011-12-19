@@ -1,0 +1,13 @@
+<div class="bank_select">
+  <h1>Selecione seu banco:</h1>
+  <fieldset class="inputs">
+    <ol>
+      <% Debit::BANKS_OPTIONS.each do |bank| %>
+        <li class='<%= "#{bank}" %>'>
+          <%= radio_button_tag "debit[bank]", bank, false  %>
+          <%= label_tag "debit_bank_#{bank}", bank %>
+        </li>
+      <% end %>
+    </ol>
+  </fieldset>
+</div>
