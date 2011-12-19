@@ -82,24 +82,27 @@ section#lookbooks {
     height: 551px;
     margin: 0 auto 35px auto;
     overflow: hidden;
+    .jcarousel-container {
+      width: 970px;
+      position: relative;
+    }
     .jcarousel-prev, .jcarousel-next {
       position: absolute;
-      background: url("/assets/showroom/arrows.png") no-repeat;
       text-indent: -9999px;
-      width: 38px;
-      height: 38px;
+      width: 470px;
+      height: 551px;
       display: block;
-      top: 235px;
+      top: 0;
       z-index: 100;
       cursor: pointer;
     }
     .jcarousel-prev {
-      background-position: 0 0;
-      left: 10px;
+      background: url("/assets/showroom/arrow-prev.png") 10px 235px no-repeat;
+      left: 0;
     }
     .jcarousel-next {
-      background-position: -38px 0;
-      right: 10px;
+      background: url("/assets/showroom/arrow-next.png") 420px 235px no-repeat;
+      right: 0;
     }
     ul {
       position: relative;
