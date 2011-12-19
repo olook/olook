@@ -36,6 +36,31 @@ describe EmailMarketing::CsvUploader do
 
   describe "#generate_optout" do
 
+    it "calls sendgrid spam_reports, unsubscribes and blocks services" do
+      response = double(:response, :parsed_response => [{"email"=>"teste@teste.com"}])
+
+      EmailMarketing::SendgridClient.should_receive(:new).with(:spam_reports).and_return(response)
+      EmailMarketing::SendgridClient.should_receive(:new).with(:unsubscribes).and_return(response)
+      EmailMarketing::SendgridClient.should_receive(:new).with(:blocks).and_return(response)
+
+      subject.generate_optout
+    end
+
+    it "builds a csv file with emails from spam_reports, unsubscribes and blocks" do
+      spam = [ {"reason"=>"Known bad domain", "email"=>"niceivanice@homail.com"} ]
+      unsubscribes =  [ {"reason"=>"500", "email"=>"william_fi_ude@yahoo.com"} ]
+      blocks =  [ {"reason"=>"Unknown", "email"=>"rinaldi.fonseca@gmail.com"} ]
+
+      spam_response = double(:response, :parsed_response => spam)
+      unsubscribes_response = double(:response, :parsed_response => unsubscribes)
+      blocks_reponse = double(:response, :parsed_response => blocks)
+
+      EmailMarketing::SendgridClient.stub(:new).with(:spam_reports).and_return(spam_response)
+      EmailMarketing::SendgridClient.stub(:new).with(:unsubscribes).and_return(unsubscribes_response)
+      EmailMarketing::SendgridClient.stub(:new).with(:blocks).and_return(blocks_reponse)
+
+      subject.generate_optout.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@yahoo.com\nrinaldi.fonseca@gmail.com\n"
+    end
   end
 
 

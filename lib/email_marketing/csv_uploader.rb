@@ -25,7 +25,7 @@ module EmailMarketing
 
     def generate_optout
       responses = []
-      [:spam_reports, :unsubscribes].each do |list|
+      [:spam_reports, :unsubscribes, :blocks].each do |list|
         responses += SendgridClient.new(list).parsed_response
       end
       @csv = generate_email_csv(responses)
