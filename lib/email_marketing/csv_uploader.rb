@@ -10,7 +10,7 @@ module EmailMarketing
       :password => "allinmail123abc"
     }
 
-    FILE_PATH =  Rails.root.to_s + "public"
+    FILE_PATH =  Rails.root.to_s + "/public"
 
     attr_reader :csv
 
