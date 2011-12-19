@@ -16,7 +16,7 @@
           <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li class="login">
-            <p>Já faz parte? <%= link_to "Faça seu login", "sign-in-dropdown", :class => "trigger" %></p>
+            <p>Já faz parte? <%= link_to "Faça seu login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %></p>
           </li>
         <% end %>
       </ul>

@@ -187,7 +187,7 @@ $(document).ready(function() {
 initBase = {
   dialogLogin : function() {
     $('a.trigger').live('click', function(e){
-      el = $(this).attr('href');
+      el = $(this).attr('rel');
 
       $(this).parents('#session').find('.' + el).toggle('open');
       $(this).parents('body').addClass('dialog-opened');
