@@ -32,7 +32,8 @@ module EmailMarketing
     end
 
 
-    def copy_to_ftp(filename,dir = nil)
+    def copy_to_ftp(filename = nil)
+      filename ||= "emails.csv"
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       Tempfile.open(FILE_PATH, 'w') do |file|
         file.write @csv
