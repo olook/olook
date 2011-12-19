@@ -12,7 +12,7 @@
     </div>
     <div class="order_status">
       <h1>Número do Pedido: <span><%= @current_order.number %></span></h1>
-      <h2><strong>Status do seu pedido: <%= @order_presenter.status.message %></strong></h2>
+      <h2><strong>Status do seu pedido:</strong> <%= @order_presenter.status.message %></h2>
       <ul id="status" class="<%= @order_presenter.status.css_class %>">
         <li class="state1">Pedido Efetuado</li>
         <li class="state2">Pagamento</li>
