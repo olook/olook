@@ -1,5 +1,8 @@
 body {
   background: url("/assets/contact/bg-content.jpg") top center no-repeat;
+  #error_explanation {
+    width: 460px;
+  }
   div#contact_content {
     width: 370px;
     height: 455px;
