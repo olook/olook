@@ -3,12 +3,13 @@ require 'net/ftp'
 require 'tempfile'
 
 module EmailMarketing
-  class EmailListUploader
+  class CsvUploader
     FTP_SERVER = {
       :host => "hftp.olook.com.br",
       :username => "allinmail",
       :password => "allinmail123abc"
     }
+
     FILE_PATH =  Rails.root.to_s + "public"
 
     attr_reader :csv
@@ -17,13 +18,17 @@ module EmailMarketing
       @csv = ""
     end
 
-    def generate_invalid_emails_csv
+    def generate_invalid
       response = SendgridClient.new(:invalid_emails).parsed_response
+      @csv = generate_email_csv(response)
+    end
 
-      @csv = CSV.generate do |row|
-        row << ["email"]
-        response.each { |item| row << [item["email"]] }
+    def generate_optout
+      responses = []
+      [:spam_reports, :unsubscribes].each do |list|
+        responses += SendgridClient.new(list).parsed_response
       end
+      @csv = generate_email_csv(responses)
     end
 
 
@@ -34,6 +39,15 @@ module EmailMarketing
         ftp.puttextfile(file.path,filename)
       end
       ftp.close
+    end
+
+    private
+
+    def generate_email_csv(data)
+      CSV.generate do |row|
+        row << ["email"]
+        data.each { |item| row << [item["email"]] }
+      end
     end
 
   end
