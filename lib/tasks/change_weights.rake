@@ -5,15 +5,9 @@ namespace :olook do
   task :recreate_user_profile, :user_count, :needs => :environment do |t, args|
     benchmark = Benchmark.measure do
       limit = args[:user_count].to_i
-      User.includes(:points, :survey_answer).find_each(:batch_size => 10) do |user|
-        if user.survey_answer.blank?
-          puts "User #{user.id} has no answers"
-          next
-        end
-        unless user.points.empty?
-          puts "User #{user.id} has points"
-          next
-        end
+      User.where('id > 93800').find_each(:batch_size => 100) do |user|
+        next if user.survey_answer.blank?
+        next unless user.points.empty?
 
         user_answers = user.survey_answer.answers.clone
         user_answers.delete_if {|key, value| ['day', 'month', 'year'].include?(key)}
@@ -25,6 +19,52 @@ namespace :olook do
           profile_builder.create_user_points profile_points
           puts "Processed #{user.email}"
         end
+        
+        # Move people around
+        user.reload
+        first_point = user.profile_scores.first
+        
+        if first_point.nil?
+          puts "User #{user.email} has some problems with scores"
+        else
+          if first_point.profile.name == 'Trendy'
+            if Random.rand(100) < 33
+              user.profile_scores.each do |point|
+                if point.profile.name == 'Casual'
+                  point.value = 1000
+                  point.save
+                  puts "User #{user.id} #{user.email} moved from Trendy to Casual"
+                end
+              end
+            end
+          else
+            if first_point.profile.name == 'Feminina'
+              if Random.rand(100) < 18
+                user.profile_scores.each do |point|
+                  if point.profile.name == 'Elegante'
+                    point.value = 1000
+                    point.save
+                    puts "User #{user.id} #{user.email} moved from Feminina to Elegante"
+                    
+                  end
+                end
+              end
+            else 
+              if first_point.profile.name == 'Sexy'
+                if Random.rand(100) < 33
+                  user.profile_scores.each do |point|
+                    if point.profile.name == 'Elegante'
+                      point.value = 1000
+                      point.save
+                      puts "User #{user.id} #{user.email} moved from Sexy to Elegante"
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+
         break if (limit -= 1) == 0
       end
     end

@@ -1,15 +1,33 @@
-<h2>Altere sua senha</h2>
+<section id="forget_password" class="forms edit">
+  <h1>Altere sua senha</h1>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+  <div class="form_content">
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= render :partial => "shared/errors", :locals => { :object => resource } %>
 
-  <div><%= f.label :password, "Nova senha" %><br />
-  <%= f.password_field :password %></div>
+      <%= f.hidden_field :reset_password_token %>
 
-  <div><%= f.label :password_confirmation, "Confirme a nova senha" %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "ALterar" %></div>
-<% end %>
-
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <%= f.label :password, "Nova senha" %>
+            <%= f.password_field :password %>
+          </li>
+          <li>
+            <%= f.label :password_confirmation, "Confirme a nova senha" %>
+            <%= f.password_field :password_confirmation %>
+          </li>
+        </ol>
+      </fieldset>
+      <fieldset class="buttons">
+        <ol>
+          <li>
+            <%= f.submit "" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  </div>
+  <%= image_tag '/assets/common/model-sign-in.png', :class => 'model' %>
+  <%= render :partial => "shared/social_links" %>
+</section>

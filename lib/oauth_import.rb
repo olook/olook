@@ -28,6 +28,7 @@ module OauthImport
 
     def request
       consume.get_request_token(:oauth_callback => @callback_uri)
+      rescue Exception => error
     end
 
     private
@@ -53,16 +54,16 @@ module OauthImport
           name = "#{field['value']['givenName']} #{field['value']['familyName']}" if field['type'] == 'name'
           email = field['value'] if field['type'] == 'email'
         end
-        
+
         name ||= email
         contacts_map[name] = email
       end
       contacts_map
     end
-  
+
     def consume_calendar
       OAuth::Consumer.new(@key, @secret, {
-        :site => 'http://social.yahooapis.com'  
+        :site => 'http://social.yahooapis.com'
       })
     end
 

@@ -3,6 +3,7 @@
 body {
   .content {
     .home {
+      position: relative;
       background: url('/assets/home/bg-middle-home.jpg') no-repeat;
       overflow:hidden;
       .model {
@@ -157,11 +158,13 @@ body {
       }
 
       section.like {
+        position: absolute;
         width: 550px;
-        margin: -80px 0 0 340px;
         padding: 10px 30px 15px;
         overflow: visible;
         border: 1px #c7c7c7 solid;
+        top: 535px;
+        right: 50px;
         float: left;
 
         p {

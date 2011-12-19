@@ -7,9 +7,15 @@ describe RegistrationsController do
 
   let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
 
+  before :all do
+    ActiveRecord::Base.observers.disable :all
+  end
+  after :all do
+    ActiveRecord::Base.observers.enable :all
+  end
+
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    Resque.stub(:enqueue)
   end
 
   describe "GET new" do
@@ -51,6 +57,7 @@ describe RegistrationsController do
     before :each do
       @user = FactoryGirl.create(:user)
       sign_in @user
+
     end
 
     it "should update the user" do
@@ -100,10 +107,10 @@ describe RegistrationsController do
      user.birthday.to_s.should == "1987-09-27"
     end
 
-    it "should redirect to invite people page" do
+    it "should redirect to member showroom page" do
       session[:profile_points] = :some_data
       post :create, :user => user_attributes
-      response.should redirect_to(member_invite_path)
+      response.should redirect_to(member_showroom_path)
     end
 
     it "should not redirect to welcome page" do
@@ -163,7 +170,7 @@ describe RegistrationsController do
      [:profile_points, :questions, :invite, "devise.facebook_data", :tracking_params].each {|key| session[key].should == nil}
     end
   end
-  
+
   describe '#save_tracking_params' do
     let(:member) { mock_model(User) }
 

@@ -57,13 +57,27 @@ describe MembersController do
     end
 
     describe 'with the inviting member information in the session' do
+      let(:inviting_member) { FactoryGirl.create(:member) }
+
       it "when receiving a valid token" do
-        inviting_member = FactoryGirl.create(:member)
         get :accept_invitation, :invite_token => inviting_member.invite_token
         response.should redirect_to(root_path)
         session[:invite].should == {:invite_token => inviting_member.invite_token,
                                     :invited_by => inviting_member.name}
       end
+
+      describe "when passing query string parameters" do
+        it "redirects and pass a generic param" do
+          get :accept_invitation, :invite_token => inviting_member.invite_token, :utm_source => 'olook'
+          response.location.should match(/\?.*utm_source=olook/)
+        end
+
+        it "redirects and does not pass invite_token" do
+          get :accept_invitation, :invite_token => inviting_member.invite_token
+          response.location.should_not match(/\?.*invite_token=w#{inviting_member.invite_token}/)
+        end
+      end
+
     end
   end
 
@@ -78,6 +92,7 @@ describe MembersController do
     member = double(User)
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
+    member.stub(:has_early_access?).and_return(true)
     subject.stub(:current_user) { member }
 
     post :invite_by_email, :invite_mail_list => joined_emails
@@ -144,6 +159,7 @@ describe MembersController do
       member = double(User)
       member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
+      member.stub(:has_early_access?).and_return(true)
       subject.stub(:current_user) { member }
 
       post :invite_imported_contacts, :email_provider => "gmail", :email_address => emails
@@ -173,6 +189,17 @@ describe MembersController do
     it "should not assign true for @is_the_first_visit" do
       user.record_first_visit
       get :invite
+      assigns(:is_the_first_visit).should_not eq(true)
+    end
+
+    it "should assign true for @is_the_first_visit" do
+      get :showroom
+      assigns(:is_the_first_visit).should eq(true)
+    end
+
+    it "should not assign true for @is_the_first_visit" do
+      user.record_first_visit
+      get :showroom
       assigns(:is_the_first_visit).should_not eq(true)
     end
   end

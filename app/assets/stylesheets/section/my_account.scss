@@ -1,0 +1,470 @@
+@import "partials/order_status";
+
+form {
+  width: 645px;
+  margin: 20px 0 0 20px;
+  overflow: hidden;
+  fieldset {
+    margin: 0 0 25px 0;
+    ol {
+      li {
+        margin: 0 10px 10px 0;
+        display: inline;
+        float: left;
+        label {
+          font-weight: bold;
+          display: block;
+        }
+        p.warn {
+          font-size: 9px;
+        }
+      }
+    }
+    &.inputs {
+      ol {
+        li {
+          input[type="text"], input[type="email"], input[type="password"] {
+            font-size: 14px;
+            padding: 10px;
+            border: 1px #d6d6d6 solid;
+            &:focus {
+              outline: none;
+            }
+          }
+          &.email {
+            width: 100%;
+            input {
+              width: 280px;
+            }
+          }
+        }
+      }
+    }
+    &.cpf {
+      padding: 25px 35px;
+      border: 1px #d6d6d6 solid;
+      li {
+        position: relative;
+        span.select {
+          position: absolute;
+          float: left;
+          height: 34px;
+          line-height: 34px;
+          cursor: default;
+          top: 17px;
+          z-index: 1;
+        }
+        select {
+          &.custom_select {
+            position: absolute;
+            line-height: 26px;
+            height: 34px;
+            top: 0;
+            &#user_birthday_3i {
+              width: 74px;
+              margin-right: 10px;
+              left: 10px;
+              & + span {
+                background: url('/assets/common/bg-day.png') no-repeat;
+                width: 74px;
+                text-indent: 22px;
+                left: 0;
+              }
+            }
+            &#user_birthday_2i {
+              width: 100px;
+              margin-right: 15px;
+              left: 95px;
+              & + span {
+                background: url('/assets/common/bg-month.png') no-repeat;
+                width: 110px;
+                text-indent: 15px;
+                left: 83px;
+              }
+            }
+            &#user_birthday_1i {
+              width: 75px;
+              left: 215px;
+              & + span {
+                background: url('/assets/common/bg-year.png') no-repeat;
+                width: 75px;
+                text-indent: 16px;
+                left: 203px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+div#box_title_my_account {
+  background: url("/assets/my_account/bg-title-desc.png") repeat-x;
+  width: 100%;
+  height: 62px;
+  margin: 8px 0 20px 0;
+  display: block;
+  h1, h2 {
+    color: #FFF;
+    text-indent: -9999px;
+    margin-top: 15px;
+    display: block;
+    float: left;
+  }
+  h1 {
+    background: url("/assets/my_account/title-my-account.png") no-repeat;
+    width: 252px;
+    height: 33px;
+    margin-right: 30px;
+  }
+  h2 {
+    background: url("/assets/my_account/subtitle-my-account.png") no-repeat;
+    width: 440px;
+    height: 33px;
+  }
+}
+
+div#my_account {
+  width: 100%;
+  overflow: auto;
+  div#box_menu {
+    width: 200px;
+    height: 515px;
+    display: block;
+    float: left;
+    border-right: 1px #dcdcdc solid;
+    ul {
+      margin: 20px 25px 0 0;
+      float: right;
+      li {
+        text-align: right;
+        margin: 0 0 15px 0;
+        a {
+          background: url("/assets/my_account/arrow.png") right no-repeat;
+          color: #616161;
+          font-size: 18px;
+          text-decoration: none;
+          padding: 0 17px 0 0;
+          &:hover, &.selected {
+            background: url("/assets/my_account/arrow-selected.png") right no-repeat;
+            color: #df5a8b;
+          }
+        }
+      }
+    }
+  }
+  div#data {
+    width: 775px;
+    overflow: auto;
+    float: left;
+    div.box_title {
+      padding: 5px 0 10px 30px;
+      border-bottom: 1px #dcdcdc solid;
+      h1 {
+        text-indent: -9999px;
+        display: block;
+        &.personal_data {
+          background: url("/assets/my_account/title-personal-data.png") no-repeat;
+          width: 245px;
+          height: 28px;
+        }
+        &.addresses {
+          background: url("/assets/my_account/title-addresses.png") no-repeat;
+          width: 174px;
+          height: 33px;
+        }
+        &.orders {
+          background: url("/assets/my_account/title-orders.png") no-repeat;
+          width: 212px;
+          height: 26px;
+        }
+        &.credits {
+          background: url("/assets/my_account/title-my-credits.png") no-repeat;
+          width: 237px;
+          height: 34px;
+        }
+      }
+    }
+    section.main {
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+  &.personal_data {
+    form {
+      fieldset.buttons {
+        ol li input[type="submit"] {
+          background: url("/assets/common/bt-save.png") no-repeat;
+          text-indent: -9999px;
+          width: 92px;
+          height: 46px;
+          display: block;
+          border: none;
+          cursor: pointer;
+        }
+      }  
+    }
+  }
+  &.addresses {
+    ol {
+      &.addresses {
+        padding-top: 25px;
+        a.select_address {
+          display: none;
+        }
+      }
+    }
+  }
+  &.address_new_edit {
+    ol {
+      li {
+        margin-bottom: 0;
+      }
+    }
+    fieldset {
+      &.inputs {
+        margin-bottom: 0;
+      }
+      &.buttons {
+        ol {
+          li {
+            input[type="submit"] {
+              background: url("/assets/common/bt-save.png") no-repeat;
+              text-indent: -9999px;
+              width: 92px;
+              height: 46px;
+              display: block;
+              border: none;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    div.address_fields {
+      margin-bottom: 30px;
+      ol {
+        li {
+          margin-bottom: 10px;  
+        }
+      }
+    }
+  }
+  &.orders {
+    table {
+      width: 760px;
+      margin: 25px 0 30px 10px;
+      thead {
+        tr {
+          th {
+            color: #000;
+            font-family: Times;
+            font-size: 16px;
+            font-style: italic;
+            font-weight: lighter;
+            text-align: left;
+            padding: 10px 0px;
+            border-bottom: 1px #e5e5e5 solid;
+            &.number {
+              width: 100px;
+              padding-left: 10px;
+            }
+            &.date {
+              width: 120px;
+            }
+            &.amount {
+              width: 50px;
+            }
+            &.value, &.freight {
+              width: 75px;
+            }
+            &.payment {
+              width: 90px;
+            }
+            &.status {
+              width: 120px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            padding: 20px 0;
+            border-bottom: 1px #e5e5e5 solid;
+            &.more {
+              position: relative;
+              a {
+                background: url("/assets/my_account/more-informations.png") no-repeat;
+                text-indent: -9999px;
+                width: 114px;
+                height: 20px;
+                display: block;
+              }
+            }
+            &.number {
+              color: #df5a8b;
+              padding-left: 10px;
+            }
+          }
+        }
+      }
+    }
+    div.order_status {
+      @include order-status;
+      margin: 30px 0 0 35px;
+      h1, h2 {
+        font-family: Arial;
+      }
+      h1 {
+        color: #000;
+        font-size: 16px;
+        margin: 0 0 25px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #e5e5e5 solid;
+        span {
+          color: #df5a8b;
+        }
+      }
+      h2 {
+        color: #7a7a7a;
+        font-size: 12px;
+        text-align: center;
+        margin: 0 0 30px 0;
+        strong {
+          text-transform: uppercase;
+        }
+      }
+      div#description {
+        width: 645px;
+        overflow: auto;
+        padding: 20px 30px;
+        border: 1px #d9d9d9 solid;
+        ul#items {
+          width: 375px;
+          overflow: auto;
+          margin-right: 40px;
+          float: left;
+          border-right: 1px #d9d9d9 solid;
+          li {
+            width: 100%;
+            overflow: auto;
+            display: block;
+            img {
+              width: 170px;
+              height: 170px;
+              margin: 0 20px 30px 0;
+              float: left;
+            }
+            h1 {
+              font-size: 15px;
+              text-transform: uppercase;
+              margin: 0 0 10px 0;
+              padding: 0;
+              border: none;
+            }
+            p, strong {
+              color: #6d6d6d;
+              margin: 0 0 5px 0;
+            }
+          }
+        }
+        div#details {
+          width: 225px;
+          float: left;
+          div {
+            font-size: 13px;
+            margin: 0 0 20px 0;
+          }
+          h1 {
+            color: #292929;
+            font-family: Arial;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+            padding: 0;
+            border: none;
+          }
+          p, strong {
+            color: #545353;
+          }
+          table {
+            width: 150px;
+            margin: 0;
+            thead {
+              tr th {
+                font-family: Arial;
+                font-size: 14px;
+                font-weight: bold;
+                font-style: normal;
+                text-transform: uppercase;
+                padding: 0 0 5px 0;
+                border: none;
+              }
+            }
+            tbody {
+              tr td {
+                padding: 0;
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.my_credits {
+    div.invites_list {
+      margin: 30px 0 0 10px;
+      h1 {
+        font-size: 35px;
+        font-style: italic;
+        text-align: center;
+        letter-spacing: -1px;
+        margin: 0 0 20px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #dcdcdc solid;
+        span {
+          color: #e05789;
+        }
+      }
+      table {
+        width: 700px;
+        margin: 0 auto 30px auto;
+        a {
+          color: #df5a8b;
+        }
+        thead tr th {
+          text-align: center;
+          padding: 0 0 15px 0;
+          &.email {
+            text-align: left;
+          }
+        }
+        tbody tr td {
+          text-align: center;
+          padding: 15px 20px;
+          border: 1px #dbdbdb solid;
+          &.email {
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}
+
+.gecko, .ie {
+  form fieldset.cpf li select.custom_select {
+    top: 17px !important;
+    &#user_birthday_3i {
+      left: 0px !important;
+    }
+    &#user_birthday_2i {
+      left: 85px !important;
+    }
+    &#user_birthday_1i {
+      left: 205px !important;
+    }
+  }
+}

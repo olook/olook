@@ -6,8 +6,9 @@ class HomeController < ApplicationController
   end
 
 private
+
   def redirect_logged_user
-    redirect_to member_invite_path if user_signed_in?
+    redirect_to(member_showroom_path) if user_signed_in?
   end
   
   def save_tracking_params

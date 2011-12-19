@@ -16,9 +16,8 @@ module Abacos
       case abacos_category.strip.downcase
         when 'sapato' then Category::SHOE
         when 'bolsa' then Category::BAG
-        when 'jóia' then Category::JEWEL
       else
-        Category::SHOE
+        Category::ACCESSORY
       end
     end
 
@@ -29,7 +28,8 @@ module Abacos
       
       response = xml.to_hash["#{method}_response".to_sym]["#{method}_result".to_sym]
       
-      raise_webservice_error(response) if response[:resultado_operacao].nil?
+      # TODO: refactor method to make this response check optional
+      # raise_webservice_error(response) if response[:resultado_operacao].nil?
 
       response
     end
@@ -52,6 +52,35 @@ module Abacos
       else
         raise "Nested data \"#{data}\" is invalid"
       end
+    end
+
+    def download_xml(method, data_key)
+      data = call_webservice(self.wsdl, method)
+      parse_nested_data data, data_key
+    end
+
+    def parse_cpf(cpf)
+      cpf.gsub(/-|\.|\s/, '')[0..10]
+    end
+    
+    def parse_data(birthday)
+      birthday.strftime "%d%m%Y"
+    end
+    
+    def parse_datetime(datetime)
+      datetime.strftime "%d%m%Y %H:%M:%S"
+    end
+
+    def parse_telefone(telephone)
+      telephone[0..14]
+    end
+    
+    def parse_price(price)
+      "%.2f" % (price || 0)
+    end
+    
+    def parse_endereco(address)
+      Abacos::Endereco.new(address)
     end
   end
 end

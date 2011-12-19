@@ -1,0 +1,16 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="address" class="checkout">
+  <%= form_tag(assign_address_path) do %>
+    <section class="main">
+      <h1>Endereços cadastrados</h1>
+      <%= render "shared/address/list", :addresses => @addresses, :my_account => false %>
+    </section>
+    <section class="sidebar">
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <%= submit_tag "", :class => "continue" %>
+    </section>
+  <% end %>
+</section>

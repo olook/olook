@@ -2,18 +2,18 @@
 
 body {
   #error_explanation {
-    margin: 10px 0 15px 42px;
-    width: 364px;
+    margin: 10px 0 15px 0;
+    width: 100%;
     border: 1px solid #DEDEDE;
-    padding: 20px;
-
     ul {
-      text-align: left;
-      font-size: 11px;
-      color: #e20101;
-      font-weight: bold;
-
+      background: url("/assets/common/error.png") top left no-repeat;
+      padding: 0 0 0 30px;
+      margin: 20px;
       li {
+        color: #e50000;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: left;
         padding-bottom: 5px;
       }
     }
@@ -23,7 +23,7 @@ body {
     display: none;
     width: 100%;
     position: absolute;
-    background: #000;
+    background: #E05789;
     padding: 22px 0;
     z-index: 99;
     opacity: 0.8;
@@ -31,7 +31,7 @@ body {
     
     p {
       background: transparent;
-      color: #FFF;
+      color: #000;
     }
   }
 
@@ -40,10 +40,140 @@ body {
     margin: 0px auto 0 auto;
     overflow: hidden;
     z-index: 1;
+    .dialog.product_login {
+      display: none;
+    }
+    div#login_modal {
+      position: relative;
+      background: url("/assets/common/bg-modal-login.jpg") top left no-repeat;
+      width: 950px;
+      height: 515px;
+      display: none;
+      div#register_login {
+        position: absolute;
+        background: #FCFCFC;
+        width: 580px;
+        height: 270px;
+        display: block;
+        top: 105px;
+        left: 340px;
+        border: 1px #d2d2d2 solid;
+        h1 {
+          text-indent: -9999px;
+          height: 27px;
+          display: block;
+        }
+        div.login {
+          width: 259px;
+          height: 250px;
+          padding: 20px 0 0 30px;
+          float: left;
+          border-right: 1px #d2d2d2 solid;
+          h1 {
+            background: url("/assets/common/title-already-part.png") no-repeat;
+            margin: 0 0 25px 0;
+            width: 155px;
+          }
+          form {
+            margin-bottom: 15px;
+            width: 225px;
+            fieldset {
+              &.inputs {
+                ol {
+                  li {
+                    label {
+                      display: block;
+                      font-size: 11px;
+                      font-weight: bold;
+                      margin: 2px 0;
+                    }
 
+                    input {
+                      background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+                      border: 1px solid #BBB;
+                      padding: 6px 8px;
+                      width: 92%;
+
+                      &:focus {
+                        outline: none;
+                      }
+                    }
+                  }
+                }
+              }
+
+              &.buttons {
+                margin-top: 7px;
+                ol {
+                  li {
+                    font-size: 11px;
+                    input[type="submit"] {
+                      background: url("/assets/common/login.png") no-repeat;
+                      text-indent: -9999px;
+                      width: 74px;
+                      height: 31px;
+                      display: block;
+                      border: none;
+                      cursor: pointer;
+                    }
+                    &.remember-me, &.forgot-password {
+                      float: left;
+                      width: 140px;
+                      a {
+                        color: #0f0c0c;
+                      }
+                    }
+
+                    &.forgot-password {
+                      & + li {
+                        float: right;
+                        margin-top: -15px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .login_with_facebook {
+            width: 225px;
+            padding: 10px 0 0 0;
+            border-top: 1px #cfcfcf solid;
+            a.fb-login-button {
+              background: url('/assets/common/fb-loggin-button.png') no-repeat;
+              text-indent: -9999px;
+              width: 194px;
+              height: 25px;
+              margin: 0 auto;
+              display: block;
+            }
+          }
+        }
+        div.register {
+          width: 260px;
+          padding: 20px 0 0 30px;
+          float: right;
+          h1 {
+            background: url("/assets/common/title-register.png") no-repeat;
+            margin: 0 0 15px 0;
+            width: 239px;
+          }
+          p {
+            margin: 0 0 20px 0;
+          }
+          a {
+            background: url("/assets/common/answer-register.png") no-repeat;
+            text-indent: -9999px;
+            width: 215px;
+            height: 37px;
+            display: block;
+          }
+        }
+      }
+    }
     .forms {
       background: url('/assets/home/bg-middle-home.jpg') no-repeat;
-      height: 650px;
+      height: 575px;
       padding:0 30px;
 
       img.model {
@@ -132,10 +262,10 @@ body {
                   float: left;
                 }
                 input {
-                  background: url('/assets/common/bg-input-sign-in.png') center top repeat-x;
+                  background: #f3f3f3 url('/assets/common/bg-input-sign-in.png') center top repeat-x;
                   padding: 10px;
                   background-position: bottom;
-                  float: left;
+                  float: right;
                   width: 262px;
                   border: 1px #BBB solid;
                   &:focus {
@@ -144,6 +274,18 @@ body {
                 }
               }
             }
+          }
+        }
+      }
+      &.edit {
+        fieldset.inputs {
+          label {
+            line-height: 20px;
+            margin: 0;
+          }
+          input[type="password"] {
+            width: 310px;
+            float: left;
           }
         }
       }
@@ -189,7 +331,8 @@ body {
 
 
     .sign-in {
-      height: 650px;
+      background: url("/assets/home/bg-middle-home.jpg") no-repeat;
+      height: 575px;
       padding:0 30px;
       @include sign-in(relative);
 
@@ -278,7 +421,7 @@ body {
                   }
 
                   input {
-                    background: url('/assets/common/bg-input-sign-in.png') center top repeat-x;
+                    background: #f3f3f3 url('/assets/common/bg-input-sign-in.png') center top repeat-x;
                     padding: 10px;
                     background-position: bottom;
                     float: left;
@@ -441,6 +584,12 @@ body {
       h1 {
         margin-top: 30px;
       }
+      h2 {
+        font-size: 21px;
+        font-style: italic;
+        font-weight: normal;
+        text-align: center;
+      }
 
       @include table();
 
@@ -558,6 +707,10 @@ body {
       p,strong {
         color: #797979;
       }
+      img {
+        width: 212px;
+        height: 47px;
+      }
     }
 
     .content {
@@ -578,6 +731,7 @@ body {
           font-family: Arial;
           font-size: 14px;
           font-weight: bold;
+          letter-spacing: -1px;
           span {
             color: #df5a8b;
             width: auto;
@@ -625,6 +779,7 @@ body {
         }
         .sign-in-dropdown {
           form {
+            margin-bottom: 15px;
             fieldset.buttons {
               ol li {
                 input[type=submit] {
@@ -637,6 +792,18 @@ body {
                   cursor: pointer;
                 }
               }
+            }
+          }
+          .login_with_facebook {
+            padding: 10px 0 0 0;
+            border-top: 1px #cfcfcf solid;
+            a.fb-login-button {
+              background: url('/assets/common/fb-loggin-button.png') no-repeat;
+              text-indent: -9999px;
+              width: 194px;
+              height: 25px;
+              margin: 0 auto;
+              display: block;
             }
           }
         }
@@ -662,45 +829,431 @@ body {
         display: inline;
         height: 32px;
         float: left;
-        
-        &.invite {
-          a {
-            background: url('/assets/common/nav/invite-friends.png') no-repeat;
-            width: 120px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/invite-friends-selected.png') no-repeat;
-            }
-          }
-        }
-
-        &.my_friends {
-          a {
-            background: url('/assets/common/nav/my-friends.png') no-repeat;
-            width: 178px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/my-friends-selected.png') no-repeat;
-            }
-          }
-        }
-        
-        &.how_to {
-          a {
-            background: url('/assets/common/nav/how-to.png') no-repeat;
-            width: 107px;
-            display: block;
-            &.selected {
-              background: url('/assets/common/nav/how-to-selected.png') no-repeat;
-            }
-          }
-        }
-
         a {
           text-indent: -9999px;
           height: 32px;
           margin: 0 30px 0 10px;
           padding: 0;
+        }
+      }
+    }
+  }
+  div#wrapper_menu {
+    position: relative;
+    margin-top: -26px;
+    padding-top: 26px;
+    z-index: 1000;
+    nav.menu {
+      position: absolute;
+      width: 100%;
+      margin: 0;
+      top: 0;
+      z-index: 1000;
+      div.content {
+        width: 1110px;
+        padding-right: 115px;
+        overflow: visible;
+      }
+      ul.product_anchors {
+        width: 115px;
+        float: left;
+        li {
+          a {
+            background: url("/assets/common/nav/product-anchors.png") no-repeat;
+            text-indent: -9999px;
+            width: 38px;
+            height: 32px;
+            margin: 0;
+            display: block;
+          }
+          &.shoes {
+            a {
+              background-position: 0 0;
+            }
+          }
+          &.purse {
+            a {
+              background-position: -38px 0;
+            }
+          }
+          &.accessories {
+            a {
+              background-position: -70px 0;
+            }
+          }
+        }
+      }
+      ul.default {
+        width: 995px;
+        float: right;
+        li {
+          a {
+            background: url("/assets/common/nav/sprite-menu.jpg") no-repeat;
+            text-decoration: -9999px;
+            height: 32px;
+            display: block;
+          }
+          &.showroom {
+            a {
+              background-position: 0 0;
+              width: 95px;
+              &:hover, &.selected {
+                background-position: 0 -32px;
+              }
+            }
+          }
+          &.lookbooks {
+            a {
+              background-position: -95px 0;
+              width: 95px;
+              &:hover, &.selected {
+                background-position: -95px -32px;
+              }
+            }
+          }
+          &.invite {
+            a {
+              background-position: -190px 0;
+              width: 120px;
+              &:hover, &.selected {
+                background-position: -190px -32px;
+              }
+            }
+          }
+          &.how_to {
+            a {
+              background-position: -310px 0;
+              width: 107px;
+              &:hover, &.selected {
+                background-position: -310px -32px;
+              }
+            }
+          }
+          &.cart {
+            position: relative;
+            float: right;
+            a.cart {
+              position: relative;
+              background-position: -417px 0;
+              color: #FFF;
+              line-height: 35px;
+              text-decoration: none;
+              width: 128px;
+              height: 32px;
+              margin-right: 0;
+              display: block;
+              span {
+                position: absolute;
+                font-size: 12px;
+                text-indent: 0;
+                line-height: 32px;
+                top: 0;
+                left: 99px;
+                div {
+                  display: inline;
+                }
+              }
+              &:hover {
+                background-position: -417px -32px;
+              }
+            }
+            ul.submenu {
+              position: absolute;
+              background: #FFF;
+              width: 235px;
+              padding: 15px 10px 5px 10px;
+              top: 34px;
+              right: 0;
+              border: 3px #101010 solid;
+              border-top: none;
+              display: none;
+              li {
+                position: relative;
+                width: 100%;
+                height: auto;
+                overflow: auto;
+                margin: 0 0 10px 0;
+                padding: 0 0 10px 0;
+                display: block;
+                border-bottom: 1px #dedede solid;
+                float: none;
+                p.freight {
+                  color: #df5a8b;
+                  font-weight: bold;
+                  text-align: center;
+                  text-transform: uppercase;
+                  padding-bottom: 5px;
+                }
+                a {
+                  margin: 0;
+                }
+                img {
+                  width: 70px;
+                  height: 70px;
+                  margin-right: 10px;
+                  float: left;
+                }
+                h1 {
+                  color: #716d68;
+                  font-family: Arial;
+                  font-size: 12px;
+                  font-weight: bold;
+                  text-transform: uppercase;
+                }
+                p {
+                  font-family: Arial;
+                  &.price {
+                    color: #000;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                  }
+                  &.size {
+                    color: #df5a8b;
+                    font-size: 14px;
+                    font-weight: bold;
+                  }
+                }
+                form.delete {
+                  position: absolute;
+                  top: 25px;
+                  right: 10px;
+                  input[type="submit"] {
+                    background: url("/assets/common/del-product.png") no-repeat;
+                    width: 9px;
+                    height: 10px;
+                    display: block;
+                    border: none;
+                    cursor: pointer;
+                  }
+                }
+                &.last {
+                  border: none;
+                  a.close {
+                    background: none;
+                    color: #101010;
+                    font-family: Arial;
+                    font-size: 12px;
+                    text-indent: 0;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    margin: 10px 0 0 0;
+                    height: auto;
+                    float: left;
+                    &:hover {
+                      text-decoration: underline;
+                    }
+                  }
+                  a.finish {
+                    background-position: 0 -64px;
+                    width: 137px;
+                    height: 33px;
+                    float: right;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      &.smaller {
+        div.content {
+          width: 990px;
+          padding-right: 0;
+          ul.product_anchors {
+            display: none;
+          }
+        }
+      }
+      &.fixed {
+        position: fixed;
+        top: 0;
+      }
+    }
+  }
+}
+
+section.main {
+  ol.addresses {
+    width: 100%;
+    padding-left: 35px;
+    overflow: auto;
+    li.address_item {
+      width: 215px;
+      height: 140px;
+      overflow: hidden;
+      margin: 0 25px 25px 0;
+      padding: 15px 30px;
+      border: 3px #d6d6d6 solid;
+      float: left;
+      &.selected {
+        border-color: #e46d99;
+      }
+      ul.links {
+        width: auto;
+        margin: 15px 0 0 0;
+        overflow: auto;
+        li {
+          width: auto;
+          margin: 0 0 5px 0;
+          overflow: auto;
+          float: left;
+          &.address {
+            width: 100%;
+            clear: both;
+          }
+          a {
+            color: #e46d99;
+            font-size: 12px;
+            text-decoration: none;
+            margin: 0 10px 5px 0;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      p {
+        color: #545353;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      input[type="radio"] {
+        display: none;
+      }
+      &.add {
+        a {
+          color: #e46d99;
+          font-size: 16px;
+          line-height: 130px;
+          font-weight: bold;
+          text-decoration: none;
+          margin: 0 0 0 8px;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  div.zip_code {
+    width: 100%;
+    margin: 0 0 20px 0;
+    overflow: auto;
+    fieldset {
+      float: left;
+      ol {
+        li {
+          label {
+            margin-right: 15px;
+            display: inline-block;
+          }
+        }
+      }
+      &.inputs {
+        margin-right: 20px;
+      }
+      &.buttons {
+        margin: 5px 0 0 0;
+        a.search {
+          background: url("/assets/cart/search-zip-code.png") no-repeat;
+          text-indent: -9999px;
+          width: 94px;
+          height: 32px;
+          margin-right: 20px;
+          display: block;
+          cursor: pointer;
+          float: left;
+        }
+        p {
+          font-size: 14px;
+          width: 325px;
+          line-height: 30px;
+          a {
+            color: #6D6E71;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+  div.address_fields {
+    padding: 20px 0 0 0;
+    border-top: 1px #d6d6d6 solid;
+    fieldset {
+      &.inputs {
+        padding: 30px 25px;
+        border: 1px #d6d6d6 solid;
+        ol {
+          li {
+            margin: 0 10px 10px 0;
+            float: left;
+            label {
+              display: block;
+            }
+            &.street {
+              input {
+                width: 345px;
+              }
+            }
+            &.number {
+              input {
+                width: 70px;
+              }
+            }
+            &.complement {
+              input {
+                width: 70px;
+              }
+            }
+            &.neighborhood {
+              input {
+                width: 190px;
+              }
+            }
+            &.city {
+              input {
+                width: 215px;
+              }
+            }
+            &.state {
+              position: relative;
+              select.custom_select {
+                position: absolute;
+                line-height: 26px;
+                width: 74px;
+                height: 34px;
+                top: 18px;
+                left: 0px;
+              }
+              span.select {
+                position: absolute;
+                background: url('/assets/common/bg-select-state.png') no-repeat;
+                line-height: 34px;
+                width: 74px;
+                height: 34px;
+                text-indent: 15px;
+                top: 16px;
+                left: 0px;
+                z-index: 0;
+              }
+            }
+            &.phone {
+              width: 100%;
+              margin-top: 15px;
+              padding-top: 15px;
+              border-top: 1px #d6d6d6 solid;
+              input {
+                width: 220px;
+              }
+            }
+          }
+        }
+        &.desc {
+          padding: 15px 10px;
+          border: none;
         }
       }
     }

@@ -13,6 +13,7 @@
         font-family: Arial, sans-serif;
         font-size: 26px;
         font-weight: normal;
+        letter-spacing: -2px;
       }
       h2 {
         color: #df5a8b;
@@ -45,12 +46,16 @@
         }
       }
       &.connected {
-        img.avatar {
+        div.avatar {
           width: 110px;
           height: 115px;
           margin: 0 18px 15px 0;
+          overflow: hidden;
           border: 5px #101010 solid;
           float: left;
+          img.avatar {
+            width: 110px;
+          }
         }
         h2 {
           color: #000;
@@ -61,6 +66,19 @@
           font-size: 14px;
           margin-bottom: 5px;
           clear: both;
+        }
+        ul {
+          li {
+            display: inline;
+            a {
+              margin: 0 5px 0 0;
+              float: left;
+              img {
+                width: 47px;
+                height: 47px;
+              }
+            }
+          }
         }
       }
     }
@@ -75,6 +93,51 @@
         margin: 0 0 10px 0;
         display: block;
       }
+      div#mask_carousel_showroom {
+        position: relative;
+        width: 323px;
+        height: 183px;
+        overflow: hidden;
+        border-bottom: 2px #d05582 solid;
+        .jcarousel-prev, .jcarousel-next {
+          position: absolute;
+          background: url("/assets/showroom/arrows.png") no-repeat;
+          text-indent: -9999px;
+          width: 38px;
+          height: 38px;
+          display: block;
+          top: 75px;
+          z-index: 100;
+        }
+        .jcarousel-prev {
+          background-position: 0 0;
+          left: 10px;
+        }
+        .jcarousel-next {
+          background-position: -38px 0;
+          right: 10px;
+        }
+        ul {
+          position: relative;
+          left: 0;
+          width: 5000px;
+          overflow: auto;
+          li {
+            margin: 0;
+            padding: 0;
+            display: inline;
+            float: left;
+            a {
+              margin: 0;
+              padding: 0;
+              float: left;
+              img {
+                width: 324px;
+              }
+            }
+          }
+        }
+      }
     }
   }
   section.container_product {
@@ -83,30 +146,30 @@
     margin-bottom: 20px;
     overflow: auto;
     h1.title {
-      color: #1F1F1F;
-      font-family: Arial;
-      font-weight: lighter;
-      line-height: 50px;
+      text-indent: -9999px;
       margin-bottom: 20px;
-      padding: 0 20px 0 65px;
+      display: block;
       float: left;
-      span {
-        color: #df5a8b;
+    }
+    &#shoes_container {
+      h1.title {
+        background: url('/assets/showroom/title-shoes.png') no-repeat;
+        width: 372px;
+        height: 41px;
       }
     }
-    &#shoes {
+    &#purse_container {
       h1.title {
-        background: #FFF url('/assets/showroom/icon-shoes.png') top left no-repeat;
+        background: url('/assets/showroom/title-purse.png') no-repeat;
+        width: 353px;
+        height: 41px;
       }
     }
-    &#purse {
+    &#accessories_container {
       h1.title {
-        background: #FFF url('/assets/showroom/icon-purse.png') top left no-repeat;
-      }
-    }
-    &#accessories {
-      h1.title {
-        background: #FFF url('/assets/showroom/icon-accessories.png') top left no-repeat;
+        background: url('/assets/showroom/title-accessories.png') no-repeat;
+        width: 425px;
+        height: 41px;
       }
     }
   }
@@ -116,11 +179,11 @@
     clear: both;
     div.products_list {
       position: relative;
-      background: url('/assets/showroom/border-bottom-product.png') 0 100% no-repeat;
+      background: url('/assets/showroom/border-bottom-product.png') 0 95% no-repeat;
       width: 100%;
       margin-bottom: 30px;
       padding: 0 0 45px 0;
-      overflow: visible;
+      overflow: hidden;
       clear: both;
       &.almost, &.all {
         display: none;
@@ -129,30 +192,48 @@
         background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
       }
       a.more {
-        background: #df5a8b;
-        color: #FFF;
-        font-family: Arial;
-        font-size: 12px;
-        font-weight: lighter;
-        text-transform: uppercase;
+        position: absolute;
+        text-indent: -9999px;
         text-decoration: none;
-        margin-top: 27px;
-        padding: 10px 15px;
-        float: right;
+        display: block;
+        height: 34px;
+        bottom: 0;
+        right: 0;
+        &.shoes {
+          background: url("/assets/showroom/bt-more-shoes.png") no-repeat;
+          width: 448px;
+        }
+        &.all_shoes {
+          background: url("/assets/showroom/bt-more-shoes-all.png") no-repeat;
+          width: 180px;
+        }
+        &.purses {
+          background: url("/assets/showroom/bt-more-purses.png") no-repeat;
+          width: 447px;
+        }
+        &.all_purses {
+          background: url("/assets/showroom/bt-more-purses-all.png") no-repeat;
+          width: 182px;
+        }
+        &.accessories {
+          background: url("/assets/showroom/bt-more-accessories.png") no-repeat;
+          width: 478px;
+        }
+        &.all_accessories {
+          background: url("/assets/showroom/bt-more-accessories-all.png") no-repeat;
+          width: 204px;
+        }
       }
       ul {
         li.product {
-          width: 175px;
-          margin: 0 0 2px 0;
-          padding: 10px;
-          overflow: auto;
-          display: inline-block;
-          &:hover, &.selected {
-            padding: 5px;
-            border: 5px #d7d7d7 solid;
+          div.box_product {
+            div.line {
+              width: 170px;
+            }
           }
         }
       }
     }
   }
 }
+

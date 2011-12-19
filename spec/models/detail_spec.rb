@@ -21,19 +21,24 @@ describe Detail do
   
   describe "scopes" do
     let!(:invisible_detail) { FactoryGirl.create(:invisible_detail) }
-    let!(:visible_detail) { FactoryGirl.create(:heel_detail) }
+    let!(:specification_detail) { FactoryGirl.create(:heel_detail) }
+    let!(:how_to_detail) { FactoryGirl.create(:how_to_detail) }
 
-    describe "visible scope" do
-      it "should return only the details with display_on attribute different from invisible" do
-        described_class.visible.all.should include(visible_detail)
-        described_class.visible.all.should_not include(invisible_detail)
+    describe "only_invisible scope" do
+      it "should return only the details with display_on equal to invisible" do
+        described_class.only_invisible.all.should == [invisible_detail]
       end
     end
 
-    describe "invisible scope" do
-      it "should return only the details with display_on equal to invisible" do
-        described_class.invisible.all.should_not include(subject)
-        described_class.invisible.all.should include(invisible_detail)
+    describe "only_specification scope" do
+      it "should return only the details with display_on equal to specification" do
+        described_class.only_specification.all.should == [specification_detail]
+      end
+    end
+
+    describe "only_how_to scope" do
+      it "should return only the details with display_on equal to how_to" do
+        described_class.only_how_to.all.should == [how_to_detail]
       end
     end
   end

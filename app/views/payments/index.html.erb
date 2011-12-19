@@ -1,0 +1,16 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="payment" class="checkout">
+  <section class="main">
+    <h1>Escolha uma forma de pagamento</h1>
+    <%= render :partial => "shared/payments/payment_methods" %>
+  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
+    <% end %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart %>
+  </section>
+</section>

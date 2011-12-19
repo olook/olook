@@ -14,12 +14,20 @@ FactoryGirl.define do
       Resque.stub(:enqueue)
     end
 
+    after_create do |user|
+      user.record_early_access
+    end
+
     factory :member do
       sequence :email do |n|
       "member#{n}@example.com"
       end
       first_name "First Name"
       last_name "Last Name"
+
+      after_build do |user|
+        Resque.stub(:enqueue)
+      end
 
       after_create do |member|
         member.send(:write_attribute, :invite_token, 'OK'*4)

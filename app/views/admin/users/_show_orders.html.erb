@@ -1,0 +1,28 @@
+<h2>Orders</h2>
+<table class="table">
+  <tr>
+    <th>Number</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Payment Method</th>
+    <th>Item count</th>
+    <th>Products Total</th>
+    <th>Freight Price</th>
+    <th>Total</th>
+    <th>Installments</th>
+  </tr>
+
+<% user.orders.with_payment.order('created_at DESC').each do |order| %>
+  <tr>
+    <td><%= link_to order.number, admin_order_path(order) %></td>
+    <td><%= l order.created_at, :format => :short %></td>
+    <td><%= order.status  %></td>
+    <td><%= order.payment.human_to_s %></td>
+    <td><%= order.line_items.count %></td>
+    <td><%= number_to_currency(order.total) %></td>
+    <td><%= number_to_currency(order.freight_price) %></td>
+    <td><%= number_to_currency(order.total_with_freight) %></td>
+    <td><%= order.installments %>x</td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,907 @@
+header {
+  overflow: auto !important;
+  a.back_showroom {
+    background: url("/assets/cart/bt-back-showroom.jpg") no-repeat;
+    text-indent: -9999px;
+    width: 183px;
+    height: 31px;
+    margin: 20px 10px 0 0;
+    display: block;
+    float: right;
+  }
+  h2.moip {
+    background: url('/assets/common/moip.png') no-repeat;
+    text-indent: -9999px;
+    width: 70px;
+    height: 42px;
+    display: block;
+    margin: 10px 0 0 20px;
+    float: right;
+  }
+}
+div#order_status {
+  background: url("/assets/cart/bg-order-status.png") center no-repeat;
+  width: 100%;
+  height: 113px;
+  overflow:auto;
+  margin: 0 0 20px 0;
+  clear: both;
+  ul {
+    width: 100%;
+    margin: 15px 0 0 0;
+    overflow: auto;
+    li {
+      color: #ccc;
+      font-family: Times;
+      font-style: italic;
+      text-align: center;
+      margin: 0 35px 0 0;
+      float: left;
+      &.last {
+        margin-right: 0;
+      }
+      h1 {
+        color: #ccc;
+        font-size: 35px;
+        font-weight: lighter;
+        letter-spacing: -2px;
+      }
+      p {
+        font-size: 14px;
+        width: 220px;
+      }
+      &.selected {
+        color: #df5a8a;
+        h1 {
+          color: #df5a8a;
+        }
+      }
+    }
+  }
+}
+section#cart {
+  form.cpf {
+    width: 755px;
+    margin: 0 auto 30px auto;
+    padding: 20px 30px;
+    border: 1px #d2d2d2 solid;
+    fieldset.buttons {
+      ol li {
+        display: inline;
+        float: left;
+        label {
+          font-weight: bold;
+          line-height: 35px;
+          margin: 4px 10px 0 0;
+          float: left;
+        }
+        input[type="text"] {
+          background: url('/assets/common/bg-inputs.png') repeat-x;
+          font-size: 14px;
+          font-weight: bold;
+          width: 260px;
+          border: 1px solid #C1C1C1;
+          padding: 7px 8px;
+          margin: 4px 20px 0 0;
+          height:17px;
+          float: left;
+          &:focus {
+            outline: none;
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/common/bt-save-small.png") top left no-repeat;
+          color: #df5a8a;
+          font-family: Arial;
+          font-size: 12px;
+          text-decoration: underline;
+          width: 76px;
+          height: 38px;
+          border: none;
+          cursor: pointer;
+        }
+        p {
+          color: #808080;
+          font-family: Arial;
+          font-size: 13px;
+          font-weight: bold;
+          width: 265px;
+          margin: 0 50px 0 0;
+        }
+      }
+    }
+  }
+  table.items_list {
+    $border-color: #e5e5e5;
+    margin-bottom: 25px;
+    thead tr th, tfoot tr td {
+      font-family: Times;
+      font-style: italic;
+    }
+    thead tr th {
+      font-size: 20px;
+      text-align: left;
+      padding: 5px 0;
+      border-bottom: 1px $border-color solid;
+      &.item {
+        width: 560px;
+      }
+      &.amount {
+        width: 160px;
+      }
+      &.value {
+        width: 270px;
+      }
+    }
+    tbody tr {
+      &.discount {
+        td {
+          vertical-align: top;
+          h1 {
+            font-family: Times;
+            font-style: italic;
+            font-size: 24px;
+            font-weight: lighter;
+            letter-spacing: -1px;
+            top: 15px;
+            span {
+              color: #df5a8a;
+            }
+          }
+          p {
+            font-size: 13px;
+            text-align: right;
+            display: block;
+            margin: 0 5px 0 0;
+            strong {
+              text-transform: none;
+            }
+          }
+          fieldset ol li {
+            display: inline;
+            float: left;
+            input[type="text"] {
+              background: url('/assets/common/bg-inputs.png') repeat-x;
+              font-size: 14px;
+              font-weight: bold;
+              width: 80px;
+              border: 1px solid #C1C1C1;
+              padding: 7px 8px;
+              margin-left: 20px;
+              height:17px;
+              &:focus {
+                outline: none;
+              }
+            }
+            input[type="submit"] {
+              background: url("/assets/cart/bg-update.png") top left no-repeat;
+              color: #df5a8a;
+              font-family: Arial;
+              font-size: 12px;
+              text-decoration: underline;
+              height: 25px;
+              margin: 5px 0 0 0;
+              padding: 0 0 0 30px;
+              border: none;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      td {
+        position: relative;
+        padding: 10px 0;
+        border-bottom: 1px $border-color solid;
+        p {
+          margin-bottom: 5px;
+          strong {
+            color: #716d68;
+            text-transform: uppercase;
+            font-weight: bold;
+          }
+        }
+        &.item {
+          padding-left: 15px;
+          img {
+            width: 70px;
+            height: 70px;
+            margin-right: 20px;
+            float: left;
+          }
+        }
+        &.amount {
+          select {
+            width: 55px
+          }
+        }
+        &.value {
+          width: 60px;
+        }
+        &.delete_item {
+          form {
+            position: relative;
+            input[type="submit"] {
+              position: absolute;
+              background: url("/assets/cart/delete-item.png") no-repeat;
+              width: 76px;
+              height: 20px;
+              display: block;
+              top: 30px;
+              right: 15px;
+              border: none;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    tfoot tr td {
+      font-size: 24px;
+      padding: 10px 0 15px 0;
+      border-bottom: 1px $border-color solid;
+      &.subtotal {
+        padding-left: 15px;
+      }
+      &.total {
+        text-align: right;
+        padding-right: 30px;
+      }
+    }
+  }
+  a.continue {
+    background: url("/assets/cart/continue.png") no-repeat;
+    text-indent: -9999px;
+    width: 153px;
+    height: 54px; 
+    display: block;
+    float: right;
+  }
+}
+
+section#address_new {
+  section.main {
+    fieldset {
+      ol {
+        li {
+          display: inline;
+          label {
+            font-weight: bold;
+          }
+          input[type="text"] {
+            font-size: 14px;
+            padding: 10px;
+            border: 1px #d6d6d6 solid;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+section#payment {
+  section.main {
+    ul.payment_methods {
+      width: 635px;
+      overflow: auto;
+      margin: 0 0 15px 0;
+      padding: 20px 5px;
+      border: 1px #d6d6d6 solid;
+      li {
+        text-align: center;
+        display: inline;
+        margin: 0 35px 0 0;
+        float: left;
+        p {
+          font-size: 14px;
+          font-weight: bold;
+          margin: 0 0 5px 0;
+        }
+        a {
+          background: url("/assets/cart/ico-payments.png") no-repeat;
+          text-indent: -9999px;
+          height: 25px;
+          padding: 5px;
+          display: block;
+          float: left;
+          cursor: pointer;
+          &:hover, &.selected {
+            margin: -5px;
+            border: 5px #df5a8a solid;
+          }
+        }
+        &.billet {
+          margin-right: 0;
+          a {
+            background-position: 0 0;
+            width: 38px;
+          }
+        }
+        &.debit {
+          a {
+            background-position: -47px 0;
+            width: 205px;
+          }
+        }
+        &.credit_card {
+          margin-left: 20px;
+          a {
+            background-position: -261px 0;
+            width: 248px;
+          }
+        }
+      }
+    }
+    p {
+      a {
+        color: #df5a8a;
+      }
+    }
+    p.generate_billet {
+      font-size: 14px;
+      input[type="submit"] {
+        background: url("/assets/cart/print-billet.png") no-repeat;
+        text-indent: -9999px;
+        width: 165px;
+        height: 46px;
+        display: block;
+        margin: 0 20px 0 50px;
+        border: none;
+        cursor: pointer;
+        float: right;
+      }
+    }
+  }
+  div.bank_select {
+    h1 {
+      font-family: Times;
+      font-size: 19px;
+      font-style: italic;
+      margin-bottom: 5px;
+      padding: 0;
+      border: none;
+    }
+    fieldset.buttons {
+      margin: 0 25px 0 0;
+      float: right;
+      ol li {
+        input[type='submit'] {
+          background: url('/assets/cart/bt-make-payment.png') no-repeat;
+          text-indent: -9999px;
+          width: 203px;
+          height: 46px;
+          display: block;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+    fieldset.inputs {
+      width: 100%;
+      overflow: auto;
+      float: left;
+      ol {
+        width: 100%;
+        overflow: auto;
+        li {
+          width: 80px;
+          overflow: auto;
+          margin: 0 5px 5px 0;
+          float: left;
+          label {
+            background: url("/assets/cart/ico-payments.png") no-repeat;
+            text-indent: -9999px;
+            width: 43px;
+            height: 35px;
+            display: block;
+            float: left;
+          }
+          &.BancoDoBrasil {
+            label {
+              background-position: -50px 0;
+            }
+          }
+          &.Bradesco {
+            label {
+              background-position: -92px 0;
+            }
+          }
+          &.Itau {
+            label {
+              background-position: -133px 0;
+            }
+          }
+          &.BancoReal {
+            label {
+              background-position: -175px 0;
+            }
+          }
+          &.Unibanco {
+            label {
+              background-position: -215px 0;
+            }
+          }
+          &.Banrisul {
+            label {
+              background-position: -216px 0;
+            }
+          }
+          input[type="radio"] {
+            margin: 10px 5px 0 5px;
+            float: left;
+          }
+        }
+      }
+    }
+  }
+  &.payment_new {
+    h1 {
+      font-family: Times;
+      font-size: 19px;
+      font-style: italic;
+      margin-bottom: 5px;
+      padding: 0;
+      border: none;
+    }
+    div.payments {
+      height: 135px;
+    }
+    fieldset {
+      ol {
+        li {
+          display: inline;
+          label {
+            font-weight: bold;
+            display: block;
+          }
+          input[type="text"] {
+            font-size: 14px;
+            padding: 10px;
+            border: 1px #d6d6d6 solid;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+      &.banks {
+        width: 100%;
+        margin: 0 0 10px 0;
+        overflow: auto;
+        float: left;
+        ol {
+          width: 100%;
+          overflow: auto;
+          li {
+            width: 80px;
+            overflow: auto;
+            margin: 0 5px 5px 0;
+            float: left;
+            label {
+              background: url("/assets/cart/ico-payments.png") no-repeat;
+              text-indent: -9999px;
+              width: 43px;
+              height: 35px;
+              display: block;
+              float: left;
+            }
+            &.Visa {
+              label {
+                background-position: -264px 0;
+              }
+            }
+            &.Mastercard {
+              label {
+                background-position: -306px 0;
+              }
+            }
+            &.AmericanExpress {
+              label {
+                background-position: -347px 0;
+              }
+            }
+            &.Diners {
+              label {
+                background-position: -389px 0;
+              }
+            }
+            &.Hipercard {
+              label {
+                background-position: -431px 0;
+              }
+            }
+            &.Aura {
+              label {
+                background-position: -475px 0;
+              }
+            }
+            input[type="radio"] {
+              margin: 10px 5px 0 5px;
+              float: left;
+            }
+          }
+        }
+      }
+      &.payments {
+        height: 70px;
+        margin: 0 0 0 20px;
+        clear: both;
+        ol {
+          li {
+            position: relative;
+            width: 100%;
+            overflow: auto;
+            span.select {
+              position: absolute;
+              background: url('/assets/cart/bg-select-payments.png') no-repeat;
+              text-indent: 22px;
+              bottom: 0;
+              top: 2px;
+              float: left;
+              width: 359px;
+              height: 36px;
+              line-height: 34px;
+              cursor: default;
+              z-index: 1;
+            }
+            select {
+              &.custom_select {
+                position: absolute;
+                line-height: 26px;
+                width: 359px;
+                height: 36px;
+                margin-right: 10px;
+                top: 0;
+                left: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    div.credit_cart_payment {
+      padding: 20px 0 0 0;
+      fieldset {
+        &.inputs {
+          padding: 30px 25px;
+          border: 1px #d6d6d6 solid;
+          ol {
+            li {
+              margin: 0 10px 10px 0;
+              float: left;
+              label {
+                display: block;
+              }
+              &.user_name {
+                width: 100%;
+                input[type="text"] {
+                  width: 315px;
+                }
+              }
+              &.credit_card_number {
+                input[type="text"] {
+                  width: 270px;
+                }
+              }
+              &.security_code {
+                input[type="text"] {
+                  width: 80px;
+                }
+              }
+              &.expiration_date {
+                input[type="text"] {
+                  width: 120px;
+                }
+              }
+              &.user_identification {
+                float: left;
+                input[type="text"] {
+                  width: 130px;
+                }
+              }
+              &.user_birthday {
+                float: left;
+                input[type="text"] {
+                  width: 120px;
+                }
+              }
+              &.telephone {
+                float: left;
+              }
+              &.divisor {
+                width: 100%;
+                margin-bottom: 20px;
+                padding-bottom: 0px;
+                border-bottom: 1px #d6d6d6 solid;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.confirmation {
+    section.main {
+      h1 {
+        font-size: 35px;
+        border: none;
+      }
+      div.payment_link {
+        position: relative;
+        width: 600px;
+        margin: 0 0 20px 0;
+        padding: 8px 15px;
+        overflow: auto;
+        border: 1px #d6d6d6 solid;
+        p, a {
+          margin: 0 0 0 55px;
+        }
+        p {
+          margin-bottom: 5px;
+        }
+        a {
+          color: #c64d79;
+          font-size: 18px;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        a.bank_flag {
+          position: absolute;
+          background: url("/assets/cart/ico-payments.png") left no-repeat;
+          text-indent: -9999px;
+          width: 38px;
+          height: 25px;
+          display: block;
+          margin: 0;
+          top: 14px;
+          left: 15px;
+          &.Debito {
+            background: url("/assets/cart/ico-debit.png");
+          }
+          &.Boleto {
+            background-position: -5px -5px;
+          }
+          &.BancoDoBrasil {
+            background-position: -53px -5px;
+          }
+          &.Bradesco {
+            background-position: -94px -5px;
+          }
+          &.Itau {
+            background-position: -136px -5px;
+          }
+          &.BancoReal {
+            background-position: -177px -5px;
+          }
+          &.Unibanco {
+            background-position: -218px -5px;
+          }
+          &.Banrisul {
+            background-position: -260px -5px;
+          }
+          &.Visa {
+            background-position: -308px -5px;
+          }
+          &.Mastercard {
+            background-position: -349px -5px;
+          }
+          &.AmericanExpress {
+            background-position: -391px -5px;
+          }
+          &.Diners {
+            background-position: -433px -5px;
+          }
+          &.Hipercard {
+            background-position: -475px -5px;
+          }
+          &.Aura {
+            background-position: -571px -5px;
+          }
+        }
+      }
+      p.description {
+        margin: 0 0 20px 0;
+      }
+      a.back {
+        background: url("/assets/my_account/bt-back-showroom.png") no-repeat;
+        text-indent: -9999px;
+        width: 259px;
+        height: 46px;
+        display: block;
+      }
+    }
+    section.sidebar {
+      a.print {
+        background: url("/assets/my_account/bt-print.png") no-repeat;
+        text-indent: -9999px;
+        width: 224px;
+        height: 46px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}
+
+section.checkout {
+  h1 {
+    font-family: Times;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: lighter;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+    padding-bottom: 3px;
+    border-bottom: 1px #e4e4e4 solid;
+    a {
+      color: #df5a8a;
+      font-family: Arial;
+      font-size: 12px;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+  }
+  section.main {
+    width: 645px;
+    float: left;
+  }
+  section.sidebar {
+    width: 315px;
+    float: right;
+    div#request_info {
+      background: #f2f2f2;
+      font-size: 14px;
+      margin: 0 0 20px 0;
+      padding: 15px 20px 10px;
+      div.item {
+        margin-bottom: 20px;
+        h1 {
+          padding-bottom: 5px;
+          border-bottom: 1px #e4e4e4 solid;
+        }
+        p {
+          margin: 0 0 5px 0;
+        }
+        table {
+          width: 100%;
+          color: #252326;
+          td.value {
+            text-align: right;
+            font-weight: bold;
+          }
+          td.credit {
+            color: #378a20;
+          }
+          tbody tr td {
+            font-size: 14px;
+            padding: 5px 0;
+          }
+          tfoot tr td {
+            font-size: 14px;
+            width: 50%;
+            padding: 5px 0 0 0;
+            border-top: 1px #e4e4e4 solid;
+          }
+        }
+      }
+    }
+    input[type="submit"].continue {
+      background: url('/assets/cart/continue.png') no-repeat;
+      text-indent: -9999px;
+      width: 153px;
+      height: 54px; 
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+    }
+    input[type="submit"].finish, a.finish {
+      background: url('/assets/cart/finish.png') 0 0 no-repeat;
+      text-indent: -9999px;
+      width: 116px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+      &.disabled {
+        background-position: -116px 0;
+      }
+    }
+    input[type="submit"].save {
+      background: url('/assets/cart/save-continue.png') 0 0 no-repeat;
+      text-indent: -9999px;
+      width: 202px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+      &.disabled {
+        background-position: -202px 0;
+      }
+    }
+    input[type="submit"].disabled.continue {
+      background: url('/assets/cart/continue-disabled.png') 0 0 no-repeat;
+      text-indent: -9999px;
+      width: 139px;
+      height: 46px;
+      margin: 0 auto;
+      display: block;
+      cursor: pointer;
+      border: none;
+    }
+  }
+}
+
+.mac.gecko {
+  section#cart table.items_list tbody tr td.delete_item form input[type="submit"] {
+    top: 10px;
+  }
+}
+
+.ie7 {
+  header {
+    height: 68px;
+  }
+  section#cart table.items_list tbody {
+    tr.discount fieldset ol li {
+      input[type="submit"] {
+        padding: 0 0 0 15px;
+      }
+    }
+  }
+}
+
+.ie8 {
+  section#cart table.items_list tbody {
+    tr td.delete_item form input[type="submit"] {
+      top: 10px;
+    }
+  }
+}
+
+.ie, .gecko {
+  section#payment.payment_new {
+    fieldset.payments {
+      ol {
+        li {
+          select.custom_select {
+            top: 31px;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}
+.gecko, .ie7 {
+  section#payment.payment_new {
+    fieldset.payments {
+      ol {
+        li {
+          span.select {
+            top: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+.ie8, .ie9 {
+  section#payment.payment_new {
+    fieldset.payments {
+      ol {
+        li {
+          span.select {
+            top: 31px;
+          }
+        }
+      }
+    }
+  }
+}

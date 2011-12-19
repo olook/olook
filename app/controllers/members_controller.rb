@@ -2,7 +2,9 @@
 class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
+  before_filter :check_early_access, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
+  before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
 
   def invite
     @member = current_user
@@ -11,14 +13,17 @@ class MembersController < ApplicationController
     @redirect_uri = root_path
 
     yahoo_request = OauthImport::Yahoo.new.request
-    session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
-    @yahoo_oauth_url = yahoo_request.authorize_url
+    if yahoo_request
+      session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
+      @yahoo_oauth_url = yahoo_request.authorize_url
+    end
   end
 
   def accept_invitation
     session[:invite] = {:invite_token => params[:invite_token],
                         :invited_by => @inviting_member.name}
-    redirect_to root_path
+
+    redirect_to root_path(incoming_params)
   end
 
   def invite_by_email
@@ -50,6 +55,7 @@ class MembersController < ApplicationController
 
   def showroom
     @member = current_user
+    @is_the_first_visit = first_visit_for_member?(@member)
   end
 
   def show_imported_contacts
@@ -87,4 +93,9 @@ class MembersController < ApplicationController
     @inviting_member = User.find_by_invite_token(params[:invite_token]) if valid_format
     redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
   end
+
+  def incoming_params
+    params.clone.delete_if {|key| ['controller', 'action','invite_token'].include?(key) }
+  end
+
 end

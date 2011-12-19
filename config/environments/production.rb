@@ -60,4 +60,9 @@ Olook::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  MoIP.setup do |config|
+    config.token = "XUETL1XDVEEN6G3MWD09DSHWV9CGVBOO"
+    config.key = "YGMJX4BKL3CIFEWM3GCYO2RP7EEVPDZNQKIIIERI"
+  end
 end
