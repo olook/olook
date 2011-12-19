@@ -330,8 +330,11 @@ div#my_account {
         color: #7a7a7a;
         font-size: 12px;
         text-align: center;
+        font-weight: normal;
         margin: 0 0 30px 0;
         strong {
+          color: #7a7a7a;
+          font-weight: bold;
           text-transform: uppercase;
         }
       }
