@@ -5,20 +5,18 @@ require 'spec_helper'
 describe EmailMarketing::CsvUploader do
 
   describe "#initialize" do
-    context "when type is invalid" do
-
-    end
-
-    it "sets csv to empty string" do
-      subject.csv.should == ""
+    context "when no type is passed" do
+      it "sets csv to empty string" do
+        subject.csv.should == ""
+      end
     end
   end
 
-  describe "#generate_invalid" do
+  describe "when type is equal to invalid" do
     it "calls sendgrid invalid emails service" do
       EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
 
-      subject.generate_invalid
+      EmailMarketing::CsvUploader.new(:invalid)
     end
 
     it "builds a csv file with invalid emails" do
@@ -30,11 +28,12 @@ describe EmailMarketing::CsvUploader do
       response = double(:response, :parsed_response => response_hash)
       EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails).and_return(response)
 
-      subject.generate_invalid.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@hotmai.com\n"
+      EmailMarketing::CsvUploader.new(:invalid).csv.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@hotmai.com\n"
     end
   end
 
-  describe "#generate_optout" do
+  describe "when type is equal to optout" do
+
 
     it "calls sendgrid spam_reports, unsubscribes and blocks services" do
       response = double(:response, :parsed_response => [{"email"=>"teste@teste.com"}])
@@ -43,7 +42,7 @@ describe EmailMarketing::CsvUploader do
       EmailMarketing::SendgridClient.should_receive(:new).with(:unsubscribes).and_return(response)
       EmailMarketing::SendgridClient.should_receive(:new).with(:blocks).and_return(response)
 
-      subject.generate_optout
+      EmailMarketing::CsvUploader.new(:optout)
     end
 
     it "builds a csv file with emails from spam_reports, unsubscribes and blocks" do
@@ -59,7 +58,7 @@ describe EmailMarketing::CsvUploader do
       EmailMarketing::SendgridClient.stub(:new).with(:unsubscribes).and_return(unsubscribes_response)
       EmailMarketing::SendgridClient.stub(:new).with(:blocks).and_return(blocks_reponse)
 
-      subject.generate_optout.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@yahoo.com\nrinaldi.fonseca@gmail.com\n"
+      EmailMarketing::CsvUploader.new(:optout).csv.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@yahoo.com\nrinaldi.fonseca@gmail.com\n"
     end
   end
 

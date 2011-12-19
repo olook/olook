@@ -14,23 +14,13 @@ module EmailMarketing
 
     attr_reader :csv
 
-    def initialize
-      @csv = ""
-    end
-
-    def generate_invalid
-      @csv = generate_email_csv(SendgridClient.new(:invalid_emails).parsed_response)
-
-    end
-
-    def generate_optout
-      responses = []
-      [:spam_reports, :unsubscribes, :blocks].each do |list|
-        responses += SendgridClient.new(list).parsed_response
+    def initialize(type = nil)
+      if [:invalid, :optout].include? type
+        self.send("generate_#{type}")
+      else
+        @csv = ""
       end
-      @csv = generate_email_csv(responses)
     end
-
 
     def copy_to_ftp(filename = nil)
       filename ||= "emails.csv"
@@ -49,6 +39,18 @@ module EmailMarketing
         row << ["email"]
         data.each { |item| row << [item["email"]] }
       end
+    end
+
+    def generate_invalid
+      @csv = generate_email_csv(SendgridClient.new(:invalid_emails).parsed_response)
+    end
+
+    def generate_optout
+      responses = []
+      [:spam_reports, :unsubscribes, :blocks].each do |list|
+        responses += SendgridClient.new(list).parsed_response
+      end
+      @csv = generate_email_csv(responses)
     end
 
   end
