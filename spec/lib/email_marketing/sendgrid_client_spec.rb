@@ -20,7 +20,7 @@ describe EmailMarketing::SendgridClient do
       HTTPI::Request.stub(:new).and_return(request)
       HTTPI.stub(:get)
 
-      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.json?api_user=olook&api_key=olook123abc")
+      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=olook123abc")
       EmailMarketing::SendgridClient.new(:invalid_emails)
     end
 
@@ -60,11 +60,13 @@ describe EmailMarketing::SendgridClient do
   end
 
   describe "#parsed_response" do
-    it "returns JSON response body as a ruby hash" do
-      json_response_body = "[{\"reason\": \"Known bad domain\", \"email\": \"niceivanice@homail.com\"},{\"reason\":" +
-                      "\"Known bad domain\", \"email\": \"william_fi_ude@hotmai.com\"}]"
-      parsed_response = [ {"reason"=>"Known bad domain", "email"=>"niceivanice@homail.com"},
-                               {"reason"=>"Known bad domain", "email"=>"william_fi_ude@hotmai.com"} ]
+    it "returns XML response body as a ruby array list" do
+      json_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?><invalidemails>" +
+                            "<invalidemail><email>rh@planetamalhas.com.br</email><status>500</status><reason>spam</reason></invalidemail>" +
+                            "<invalidemail><email>naosalvo@gmail.com</email><test>hello</test></invalidemail></invalidemails>"
+
+      parsed_response = [{"email"=>"rh@planetamalhas.com.br", "status"=>"500", "reason"=>"spam"},
+                         {"email"=>"naosalvo@gmail.com", "test" => "hello"}]
       response = double(:response, :body => json_response_body)
       HTTPI.stub(:get).and_return(response)
 
