@@ -1,5 +1,9 @@
 @import "partials/order_status";
-
+body {
+  #error_explanation {
+    width: 640px;
+  }
+}
 form {
   width: 645px;
   margin: 20px 0 0 20px;

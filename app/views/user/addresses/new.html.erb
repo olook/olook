@@ -12,6 +12,7 @@
     </div>
     <%= form_for @address, :url => user_addresses_path do |f| %>
       <section class="main">
+        <%= render "shared/errors", :object => @address %>
         <%= render "shared/address/form", :address => @address, :f => f %>
         <fieldset class="buttons">
           <ol>
