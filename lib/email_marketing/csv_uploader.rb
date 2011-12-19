@@ -19,8 +19,8 @@ module EmailMarketing
     end
 
     def generate_invalid
-      response = SendgridClient.new(:invalid_emails).parsed_response
-      @csv = generate_email_csv(response)
+      @csv = generate_email_csv(SendgridClient.new(:invalid_emails).parsed_response)
+
     end
 
     def generate_optout
