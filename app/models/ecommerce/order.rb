@@ -114,7 +114,7 @@ class Order < ActiveRecord::Base
   end
 
   def line_items_total
-    line_items.inject(0.0){|result, item| result + item.total_price }
+    line_items.inject(0.0){|result, item| result + ((item.gift?) ? 0 : item.total_price)}
   end
 
   def credits
