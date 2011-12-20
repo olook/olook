@@ -49,7 +49,6 @@ module EmailMarketing
 
     def generate_email_csv(data)
       CSV.generate do |row|
-        row << ["email"]
         data.each { |item| row << [item["email"]] }
       end
     end
