@@ -93,11 +93,6 @@ describe OrderStatusWorker do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, order.number)
         described_class.integrate_with_abacos(order)
       end
-      it "should do nothing if it doesn't have an associated payment" do
-        order.stub(:payment).and_return(nil)
-        Resque.should_not_receive(:enqueue).with(Abacos::InsertOrder, order.number)
-        described_class.integrate_with_abacos(order)
-      end
     end
 
     describe 'when the order state is authorized' do
