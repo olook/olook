@@ -362,41 +362,6 @@ describe Order do
     end
   end
 
-  describe "state machine relations" do
-    it "should send notification when authorized" do
-      subject.should_receive(:send_notification).at_least(2).times
-      subject.waiting_payment
-      subject.authorized
-    end
-    it "should send notification when canceled" do
-      subject.should_receive(:send_notification).at_least(2).times
-      subject.waiting_payment
-      subject.canceled
-    end
-    it "should send notification when delivering" do
-      subject.should_receive(:send_notification).exactly(4).times
-      subject.waiting_payment
-      subject.authorized
-      subject.picking
-      subject.delivering
-    end
-    it "should send notification when delivering after under review" do
-      subject.should_receive(:send_notification).exactly(5).times
-      subject.waiting_payment
-      subject.authorized
-      subject.under_review
-      subject.picking
-      subject.delivering
-    end
-
-    describe '#send_notification' do
-      it 'should enqueue an OrderStatus worker' do
-        Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-        subject.send_notification
-      end
-    end
-  end
-
   describe '#with_payment' do
     let!(:order_with_payment) { FactoryGirl.create :order }
     let!(:order_without_payment) do
