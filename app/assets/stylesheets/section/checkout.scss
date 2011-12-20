@@ -292,7 +292,7 @@ section#payment {
       li {
         text-align: center;
         display: inline;
-        margin: 0 35px 0 0;
+        margin: 0 60px 0 0;
         float: left;
         p {
           font-size: 14px;
@@ -321,15 +321,15 @@ section#payment {
         }
         &.debit {
           a {
-            background-position: -47px 0;
-            width: 205px;
+            background-position: -48px 0;
+            width: 162px;
           }
         }
         &.credit_card {
           margin-left: 20px;
           a {
-            background-position: -261px 0;
-            width: 248px;
+            background-position: -220px 0;
+            width: 247px;
           }
         }
       }
@@ -425,7 +425,7 @@ section#payment {
           }
           &.Banrisul {
             label {
-              background-position: -216px 0;
+              background-position: -174px 0;
             }
           }
           input[type="radio"] {
@@ -489,32 +489,32 @@ section#payment {
             }
             &.Visa {
               label {
-                background-position: -264px 0;
+                background-position: -222px 0;
               }
             }
             &.Mastercard {
               label {
-                background-position: -306px 0;
+                background-position: -264px 0;
               }
             }
             &.AmericanExpress {
               label {
-                background-position: -347px 0;
+                background-position: -305px 0;
               }
             }
             &.Diners {
               label {
-                background-position: -389px 0;
+                background-position: -347px 0;
               }
             }
             &.Hipercard {
               label {
-                background-position: -431px 0;
+                background-position: -389px 0;
               }
             }
             &.Aura {
               label {
-                background-position: -475px 0;
+                background-position: -433px 0;
               }
             }
             input[type="radio"] {
