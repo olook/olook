@@ -19,6 +19,8 @@ class CreditCardsController < ApplicationController
 
   def create
     @payment = CreditCard.new(params[:credit_card])
+    @bank = params[:credit_card][:bank]
+    @installments = params[:credit_card][:payments]
 
     if @payment.valid?
       payment_builder = PaymentBuilder.new(@order, @payment)
