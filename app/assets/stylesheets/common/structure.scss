@@ -1147,8 +1147,16 @@ section.main {
       ol {
         li {
           label {
-            margin-right: 15px;
+            line-height: 40px;
             display: inline-block;
+          }
+          em {
+            line-height: 40px;
+            margin-right: 15px;
+          }
+          input[type="text"] {
+            float: left;
+            clear: none;
           }
         }
       }
@@ -1243,13 +1251,23 @@ section.main {
                 z-index: 0;
               }
             }
-            &.phone {
-              width: 100%;
+            &.phone, &.mandatory {
+              width: 50%;
               margin-top: 15px;
+              margin-right: 0;
               padding-top: 15px;
               border-top: 1px #d6d6d6 solid;
+              float: left;
               input {
                 width: 220px;
+              }
+            }
+            &.mandatory {
+              em {
+                float: none;
+              }
+              p {
+                margin: 25px 0 0 0;
               }
             }
           }

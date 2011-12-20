@@ -266,11 +266,22 @@ section#address_new {
           display: inline;
           label {
             font-weight: bold;
+            float: left;
+          }
+          em {
+            color: #F00;
+            font-size: 14px;
+            float: left;
           }
           input[type="text"] {
             font-size: 14px;
             padding: 10px;
             border: 1px #d6d6d6 solid;
+            display: block;
+            clear: both;
+            &.zip_code {
+              clear: none;
+            }
             &:focus {
               outline: none;
             }
