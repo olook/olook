@@ -10,6 +10,10 @@ describe Debit do
   let(:completed) { "4" }
   let(:under_review) { "8" }
 
+  before :each do
+    order.waiting_payment
+  end
+
   context "expiration date" do
     it "should set payment expiration date after create" do
       Debit.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Debit::EXPIRATION_IN_MINUTES.days.from_now)

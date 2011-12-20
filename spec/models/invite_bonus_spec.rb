@@ -58,6 +58,7 @@ describe InviteBonus do
       it "should return the sum of credits used in the orders and not count a canceled order" do
         order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
         order_2  = FactoryGirl.create(:order, :user => member, :credits => 12.90)
+        order_2.waiting_payment
         order_2.canceled
         described_class.already_used(member).to_f.should == 23.56
       end
@@ -65,6 +66,7 @@ describe InviteBonus do
       it "should return the sum of credits used in the orders and not count a reversed order" do
         order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
         order_2  = FactoryGirl.create(:order, :user => member, :credits => 12.90)
+        order_2.waiting_payment
         order_2.authorized
         order_2.under_review
         order_2.reversed
@@ -74,6 +76,7 @@ describe InviteBonus do
       it "should return the sum of credits used in the orders and not count a reversed order" do
         order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
         order_2  = FactoryGirl.create(:order, :user => member, :credits => 12.90)
+        order_2.waiting_payment
         order_2.authorized
         order_2.under_review
         order_2.refunded

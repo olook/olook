@@ -40,7 +40,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the order is in an invalid state' do
-      let(:invalid_order) { FactoryGirl.create :clean_order }      
+      let(:invalid_order) { FactoryGirl.create :clean_order }
       it "should raise an error" do
         subject.stub(:order_number).and_return(invalid_order.number)
         expect {
@@ -67,10 +67,11 @@ describe Abacos::OrderStatus do
 
     context 'when the original order state is authorized' do
       before :each do
+        order.waiting_payment
         order.authorized
         order.authorized?.should be_true
       end
-      
+
       context "and the new state is picking" do
         subject { described_class.new default_order_state.merge(:new_state => :picking) }
         it "should change the state to picking" do
@@ -98,14 +99,15 @@ describe Abacos::OrderStatus do
         end
       end
     end
-    
+
     context 'when the original order state is picking' do
       before :each do
+        order.waiting_payment
         order.authorized
         order.picking
         order.picking?.should be_true
       end
-      
+
       context "and the new state is delivering" do
         subject { described_class.new default_order_state.merge(:new_state => :delivering) }
         it "should change the state to delivering" do
@@ -127,12 +129,13 @@ describe Abacos::OrderStatus do
 
     context 'when the original order state is delivering' do
       before :each do
+        order.waiting_payment
         order.authorized
         order.picking
         order.delivering
         order.delivering?.should be_true
       end
-      
+
       context "and the new state is delivered" do
         subject { described_class.new default_order_state.merge(:new_state => :delivered) }
         it "should change the state to delivered" do
@@ -170,15 +173,15 @@ describe Abacos::OrderStatus do
       it '#datetime' do
         subject.datetime.should == DateTime.civil(2011, 12, 14, 17, 12, 30)
       end
-      
+
       it '#invoice' do
         subject.invoice.should == "SÉRIE 1 - NÚMERO 18"
       end
-      
+
       it '#invoice_datetime' do
         subject.invoice_datetime.should == DateTime.civil(2011, 12, 14, 9, 12, 42)
       end
-      
+
       it '#tracking_code' do
         subject.tracking_code.should == "XYZ-CORREIO"
       end
@@ -187,7 +190,7 @@ describe Abacos::OrderStatus do
         subject.cancelation_reason.should == '55 - SOME REASON'
       end
     end
-    
+
     describe '#parse_status' do
       it "should return :picking when status '01 - EM SEPARACAO'" do
         described_class.parse_status('01').should == :picking

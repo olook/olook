@@ -4,6 +4,11 @@ require "spec_helper"
 describe OrderStatusWorker do
   describe '#perform' do
     let(:order) { FactoryGirl.create(:clean_order) }
+
+    before :each do
+      order.waiting_payment
+    end
+
     it 'should send e-mails' do
       described_class.should_receive(:send_email).with(order)
       described_class.stub(:integrate_with_abacos)
@@ -22,6 +27,7 @@ describe OrderStatusWorker do
 
     describe "send order_requested" do
       it 'should send if the order is wainting_payment and has an associated payment' do
+        order.waiting_payment
         order.stub(:payment).and_return(:some_payment)
         mock_mail.should_receive(:deliver)
         OrderStatusMailer.should_receive(:order_requested).with(order).and_return(mock_mail)
@@ -35,6 +41,7 @@ describe OrderStatusWorker do
     end
 
     it "should send payment_confirmed" do
+      order.waiting_payment
       order.authorized
       mock_mail.should_receive(:deliver)
       OrderStatusMailer.should_receive(:payment_confirmed).with(order).and_return(mock_mail)
@@ -42,6 +49,7 @@ describe OrderStatusWorker do
     end
 
     it "should send payment_refused when canceled" do
+      order.waiting_payment
       order.canceled
       mock_mail.should_receive(:deliver)
       OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
@@ -49,6 +57,7 @@ describe OrderStatusWorker do
     end
 
     it "should send payment_refused when reverted" do
+      order.waiting_payment
       order.authorized
       order.under_review
       order.reversed
@@ -58,6 +67,7 @@ describe OrderStatusWorker do
     end
 
     it "should send delivering order e-mail when delivering" do
+      order.waiting_payment
       order.authorized
       order.picking
       order.delivering
@@ -66,7 +76,7 @@ describe OrderStatusWorker do
       described_class.send_email(order)
     end
   end
-  
+
   describe '#integrate_with_abacos' do
     let(:order) do
       mock_model Order, :number => 456,

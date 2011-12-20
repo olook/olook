@@ -10,6 +10,10 @@ describe Billet do
   let(:completed) { "4" }
   let(:under_review) { "8" }
 
+  before :each do
+    order.waiting_payment
+  end
+
   context "expiration date" do
     it "should set payment expiration date after create" do
       Billet.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Billet::EXPIRATION_IN_DAYS.days.from_now)
@@ -39,11 +43,6 @@ describe Billet do
   end
 
   describe "order state machine" do
-    it "should set waiting_payment for order" do
-      subject.billet_printed
-      subject.order.waiting_payment?.should eq(true)
-    end
-
     it "should set authorized for order" do
       subject.billet_printed
       subject.authorized

@@ -5,6 +5,10 @@ describe OrderStatus do
   let(:order) {  FactoryGirl.create(:order) }
   subject { OrderStatus.new(order) }
 
+  before :each do
+    order.waiting_payment
+  end
+
   context "order.requested?" do
     it "should return status date for order-requested when waiting_payment" do
       subject.status.css_class.should == OrderStatus::STATUS["order-requested"][0]

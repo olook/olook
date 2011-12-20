@@ -16,6 +16,7 @@ describe PaymentsController do
     Airbrake.stub(:notify)
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
+    order.waiting_payment
     sign_in user
   end
 

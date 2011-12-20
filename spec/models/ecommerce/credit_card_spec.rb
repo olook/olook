@@ -12,6 +12,10 @@ describe CreditCard do
   let(:reversed) { "7" }
   let(:under_analysis) { "6" }
 
+  before :each do
+    order.waiting_payment
+  end
+
   context "attributes validation" do
     it { should validate_presence_of(:bank) }
     it { should validate_presence_of(:user_name) }

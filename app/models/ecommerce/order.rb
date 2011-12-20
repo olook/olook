@@ -30,7 +30,7 @@ class Order < ActiveRecord::Base
 
   scope :with_payment, joins(:payment)
 
-  state_machine :initial => :waiting_payment do
+  state_machine :initial => :in_the_cart do
 
     store_audit_trail
 
@@ -39,6 +39,10 @@ class Order < ActiveRecord::Base
     after_transition :under_review => :refunded, :do => :rollback_inventory
 
     after_transition any => any, :do => :send_notification
+
+    event :waiting_payment do
+      transition :in_the_cart => :waiting_payment
+    end
 
     event :authorized do
       transition :waiting_payment => :authorized
@@ -110,11 +114,11 @@ class Order < ActiveRecord::Base
   def total_with_freight
     total + (freight_price || 0.0)
   end
-  
+
   def line_items_total
     line_items.inject(0.0){|result, item| result + item.total_price }
   end
-  
+
   def credits
     result = read_attribute :credits
     result.nil? ? 0.0 : result

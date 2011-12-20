@@ -72,7 +72,7 @@ describe Order do
       subject.add_variant(basic_shoe_35)
       subject.add_variant(basic_shoe_40, quantity)
     end
-    
+
     describe '#line_items_total' do
       it 'should return the sum of the products' do
         expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
@@ -90,7 +90,7 @@ describe Order do
         subject.total.should be_within(0.001).of(items_total)
       end
     end
-    
+
     describe '#total_with_freight' do
       it "should return the total with freight" do
         subject.stub(:credits).and_return(11.0)
@@ -246,11 +246,13 @@ describe Order do
 
     it "should rollback the inventory when canceled" do
       subject.should_receive(:increment_inventory_for_each_item)
+      subject.waiting_payment
       subject.canceled
     end
 
     it "should rollback the inventory when reversed" do
       subject.should_receive(:increment_inventory_for_each_item)
+      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.reversed
@@ -258,6 +260,7 @@ describe Order do
 
     it "should rollback the inventory when refunded" do
       subject.should_receive(:increment_inventory_for_each_item)
+      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.refunded
@@ -280,27 +283,31 @@ describe Order do
   end
 
   describe "State machine" do
-    it "should has waiting_payment as initial state" do
-      subject.waiting_payment?.should be_true
+    it "should has in_the_cart as initial state" do
+      subject.in_the_cart?.should be_true
     end
 
     it "should set authorized" do
+      subject.waiting_payment
       subject.authorized
       subject.authorized?.should be_true
     end
 
     it "should set authorized" do
+      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.under_review?.should be_true
     end
 
     it "should set canceled" do
+      subject.waiting_payment
       subject.canceled
       subject.canceled?.should be_true
     end
 
     it "should set reversed" do
+      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.reversed
@@ -308,6 +315,7 @@ describe Order do
     end
 
     it "should set refunded" do
+      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.refunded
@@ -315,12 +323,14 @@ describe Order do
     end
 
     it "should set picking" do
+      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.picking?.should be_true
     end
 
     it "should set delivering" do
+      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -328,6 +338,7 @@ describe Order do
     end
 
     it "should set delivered" do
+      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -336,6 +347,7 @@ describe Order do
     end
 
     it "should set not_delivered" do
+      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -352,27 +364,31 @@ describe Order do
 
   describe "state machine relations" do
     it "should send notification when authorized" do
-      subject.should_receive(:send_notification).once
+      subject.should_receive(:send_notification).at_least(2).times
+      subject.waiting_payment
       subject.authorized
     end
     it "should send notification when canceled" do
-      subject.should_receive(:send_notification).once
+      subject.should_receive(:send_notification).at_least(2).times
+      subject.waiting_payment
       subject.canceled
     end
     it "should send notification when delivering" do
-      subject.should_receive(:send_notification).exactly(3).times
+      subject.should_receive(:send_notification).exactly(4).times
+      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
     end
     it "should send notification when delivering after under review" do
-      subject.should_receive(:send_notification).exactly(4).times
+      subject.should_receive(:send_notification).exactly(5).times
+      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.picking
       subject.delivering
     end
-    
+
     describe '#send_notification' do
       it 'should enqueue an OrderStatus worker' do
         Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
@@ -399,6 +415,7 @@ describe Order do
 
   describe "Audit trail" do
     it "should audit the transition" do
+      subject.waiting_payment
       subject.authorized
       transition = subject.order_state_transitions.last
       transition.event.should == "authorized"

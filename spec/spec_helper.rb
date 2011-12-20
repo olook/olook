@@ -42,7 +42,7 @@ Spork.prefork do
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-  
+
   HTTPI.log = false
   Savon.log = false
 
@@ -73,4 +73,7 @@ end
 
 Spork.each_run do
   FactoryGirl.reload
+  Dir[File.expand_path("app/controllers/user/*.rb")].each do |file|
+    require file
+  end
 end

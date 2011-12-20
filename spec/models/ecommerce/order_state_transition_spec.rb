@@ -4,6 +4,7 @@ describe OrderStateTransition do
   let(:order) { FactoryGirl.create(:order) }
 
   it "should audit the transition" do
+    order.waiting_payment
     order.authorized
     subject = order.order_state_transitions.last
     subject.event.should == "authorized"
