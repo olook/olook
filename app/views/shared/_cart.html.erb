@@ -3,7 +3,7 @@
   <li><p class="freight">FRETE GRÁTIS PARA SP E RJ, e Acima de r$120,00 para outros estados</p></li>
   <% if order %>
     <% order.line_items.each do |item| %>
-      <li class="product">
+      <li class="product_item">
         <%= image_tag item.variant.product.thumb_picture, :title => item.variant.name %>
         <h1><%= item.variant.name %></h1>
         <p class="price"><%= number_to_currency(item.variant.price) %></p>
