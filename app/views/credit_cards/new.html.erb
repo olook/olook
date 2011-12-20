@@ -8,7 +8,7 @@
       <h1>Escolha uma forma de pagamento</h1>
       <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
       <%= render :partial => "shared/payments/payment_methods" %>
-      <%= render :partial => 'form', :locals => { :f => f, :payment => @payment} %>
+      <%= render :partial => 'form', :locals => { :f => f, :payment => @payment, :bank => @bank, :installments => @installments } %>
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>

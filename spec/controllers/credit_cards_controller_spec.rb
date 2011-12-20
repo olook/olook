@@ -115,6 +115,16 @@ describe CreditCardsController do
         Cart.should_receive(:new).with(Order.find(order))
         post :create, :credit_card => {}
       end
+
+      it "assigns @bank with previously selected bank" do
+        post :create, :credit_card => { :bank => "Bamerindus" }
+        assigns(:bank).should == "Bamerindus"
+      end
+
+      it "assigns @installment with previously selected installment" do
+        post :create, :credit_card => { :payments => "n vezes sem juros" }
+        assigns(:installments).should == "n vezes sem juros"
+      end
     end
 
     describe "with invalid params" do
