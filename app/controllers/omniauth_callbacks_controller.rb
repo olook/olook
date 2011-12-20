@@ -9,13 +9,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         set_uid_and_facebook_token(current_user, env["omniauth.auth"])
         message = "Facebook Connect adicionado com sucesso"
       end
-      redirect_to(member_invite_path, :notice => message)
+      redirect_to(member_showroom_path, :notice => message)
     else
       user = User.find_for_facebook_oauth(env["omniauth.auth"])
       if user
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
         sign_in user
-        redirect_to member_invite_path
+        redirect_to member_showroom_path
       else
         session["devise.facebook_data"] = env["omniauth.auth"]
         redirect_to new_user_registration_url
