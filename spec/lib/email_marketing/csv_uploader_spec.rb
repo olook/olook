@@ -34,7 +34,6 @@ describe EmailMarketing::CsvUploader do
 
   describe "when type is equal to optout" do
 
-
     it "calls sendgrid spam_reports, unsubscribes and blocks services" do
       response = double(:response, :parsed_response => [{"email"=>"teste@teste.com"}])
 
@@ -60,6 +59,22 @@ describe EmailMarketing::CsvUploader do
 
       EmailMarketing::CsvUploader.new(:optout).csv.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@yahoo.com\nrinaldi.fonseca@gmail.com\n"
     end
+  end
+
+  context "when type is equal to userbase" do
+    let(:user_a) { FactoryGirl.create :user }
+    let(:user_b) { FactoryGirl.create :user }
+    let(:user_c) { FactoryGirl.create :user }
+
+    it "builds a csv file containing all user data" do
+      csv_header = "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
+      csv_data = [user_a, user_b, user_c].inject("") do |data,user|
+        data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
+        data
+      end
+      EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header + csv_data
+    end
+
   end
 
 
