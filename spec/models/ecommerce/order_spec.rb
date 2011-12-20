@@ -74,9 +74,19 @@ describe Order do
     end
 
     describe '#line_items_total' do
-      it 'should return the sum of the products' do
-        expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
-        subject.line_items_total.should == expected
+      context "without a gift" do
+        it 'should calculate the total' do
+          expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
+          subject.line_items_total.should == expected
+        end
+      end
+
+      context "with a gift" do
+        it 'should calculate the total' do
+          subject.line_items.first.update_attributes(:gift => true)
+          expected = quantity * basic_shoe_40.price
+          subject.line_items_total.should == expected
+        end
       end
     end
 
