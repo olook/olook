@@ -160,10 +160,6 @@ class Order < ActiveRecord::Base
     increment_inventory_for_each_item
   end
 
-  def send_notification
-    Resque.enqueue(OrderStatusWorker, self.id)
-  end
-
   def installments
     payment.try(:payments) || 1
   end
