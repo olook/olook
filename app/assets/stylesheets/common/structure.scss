@@ -977,6 +977,9 @@ body {
                 display: block;
                 border-bottom: 1px #dedede solid;
                 float: none;
+                &:hover {
+                  padding: 0 0 10px 0;
+                }
                 p.freight {
                   color: #df5a8b;
                   font-weight: bold;
@@ -1048,6 +1051,13 @@ body {
                     width: 137px;
                     height: 33px;
                     float: right;
+                  }
+                }
+                &.product {
+                  &:hover {
+                    padding: 0 0 10px 0;
+                    border: none;
+                    border-bottom: 1px #dedede solid;
                   }
                 }
               }
