@@ -28,7 +28,7 @@ describe EmailMarketing::CsvUploader do
       response = double(:response, :parsed_response => response_hash)
       EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails).and_return(response)
 
-      EmailMarketing::CsvUploader.new(:invalid).csv.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@hotmai.com\n"
+      EmailMarketing::CsvUploader.new(:invalid).csv.should == "niceivanice@homail.com\nwilliam_fi_ude@hotmai.com\n"
     end
   end
 
@@ -57,7 +57,7 @@ describe EmailMarketing::CsvUploader do
       EmailMarketing::SendgridClient.stub(:new).with(:unsubscribes).and_return(unsubscribes_response)
       EmailMarketing::SendgridClient.stub(:new).with(:blocks).and_return(blocks_reponse)
 
-      EmailMarketing::CsvUploader.new(:optout).csv.should == "email\nniceivanice@homail.com\nwilliam_fi_ude@yahoo.com\nrinaldi.fonseca@gmail.com\n"
+      EmailMarketing::CsvUploader.new(:optout).csv.should == "niceivanice@homail.com\nwilliam_fi_ude@yahoo.com\nrinaldi.fonseca@gmail.com\n"
     end
   end
 
