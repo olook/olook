@@ -47,14 +47,13 @@
       }
       &.connected {
         div.avatar {
-          width: 110px;
-          height: 115px;
+          width: 120px;
           margin: 0 18px 15px 0;
           overflow: hidden;
-          border: 5px #101010 solid;
           float: left;
           img.avatar {
             width: 110px;
+            border: 5px #101010 solid;
           }
         }
         h2 {
