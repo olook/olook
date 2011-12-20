@@ -6,9 +6,10 @@ describe LookbooksController do
   describe "GET 'verao_chic'" do
     context "without a logged user" do
       it "assigns @products to found products" do
-        Product.should_receive(:find).and_return(products)
+        Product.should_receive(:find_by_id).and_return(@returned_product)
+        product = [@product_a]
         get 'verao_chic'
-        assigns(:products).should == products
+        assigns(product).should == @returned_product
       end
 
       it "should be succesfull" do
