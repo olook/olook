@@ -2,7 +2,7 @@
 class Debit < Payment
   attr_accessor :receipt
 
-  BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "BancoReal", "Banrisul"]
+  BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "Banrisul"]
   EXPIRATION_IN_MINUTES = 60
 
   validates :bank, :receipt, :presence => true, :on => :create
