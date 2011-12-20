@@ -18,6 +18,12 @@ form {
         label {
           font-weight: bold;
           display: block;
+          float: left;
+        }
+        em {
+          color: #F00;
+          font-size: 14px;
+          float: left;
         }
         p.warn {
           font-size: 9px;
@@ -31,6 +37,8 @@ form {
             font-size: 14px;
             padding: 10px;
             border: 1px #d6d6d6 solid;
+            display: block;
+            clear: both;
             &:focus {
               outline: none;
             }
