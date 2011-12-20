@@ -67,7 +67,7 @@ module EmailMarketing
     end
 
     def delete_csv_fields(string)
-      string.delete!(";,'\"")
+      string.delete(";,'\"")
     end
 
   end
