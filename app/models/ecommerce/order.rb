@@ -38,8 +38,6 @@ class Order < ActiveRecord::Base
     after_transition :under_review => :reversed, :do => :rollback_inventory
     after_transition :under_review => :refunded, :do => :rollback_inventory
 
-    after_transition any => any, :do => :send_notification
-
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
     end
