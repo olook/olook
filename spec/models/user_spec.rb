@@ -310,7 +310,6 @@ describe User do
     end
 
     describe "#birthdate" do
-
       it "returns formatted birthday string" do
         subject.birthday = Date.new(1975,10,3)
         subject.save!
@@ -321,6 +320,12 @@ describe User do
         subject.birthday = nil
         subject.save!
         subject.birthdate.should be_nil
+      end
+    end
+
+    describe "#profile_name" do
+      it "returns english profile symbol name" do
+        subject.profile_name.should == :sporty
       end
     end
 
