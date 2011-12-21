@@ -37,7 +37,7 @@ ShowroomInit = {
       position = container_position - 40;
       $("html, body").animate({
         scrollTop: position
-      }, 'fast');
+      }, 'slow');
     }
   },
 
