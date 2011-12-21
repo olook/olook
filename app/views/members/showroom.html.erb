@@ -13,18 +13,7 @@
   <div id="showroom">
     <section id="greetings">
       <%= showroom_presenter.render_identification %>
-
-      <div class="lookbook">
-        <h1>Lookbooks</h1>
-        <div id="mask_carousel_showroom">
-          <ul>
-            <li><%= link_to image_tag("lookbooks/color-block.jpg"), color_block_path %></li>
-            <li><%= link_to image_tag("lookbooks/golden-grace.jpg"), golden_grace_path %></li>
-            <li><%= link_to image_tag("lookbooks/lets-party.jpg"), lets_party_path %></li>
-            <li><%= link_to image_tag("lookbooks/flores.jpg"), flores_path %></li>
-          </ul>
-        </div>
-      </div>
+      <%= render "members/showroom_lookbooks" %>
     </section>
     <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
