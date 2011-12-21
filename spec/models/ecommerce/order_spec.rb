@@ -101,30 +101,54 @@ describe Order do
     end
 
     describe '#line_items_total' do
-      context "without a gift" do
-        it 'should calculate the total' do
-          expected = basic_shoe_35.price + (quantity * basic_shoe_40.price)
-          subject.line_items_total.should == expected
-        end
+      it 'should calculate the total' do
+        expected = items_total
+        subject.line_items_total.should == expected
       end
 
+      # context "with a gift" do
+      #   it 'should calculate the total' do
+      #     subject.line_items.first.update_attributes(:gift => true)
+      #     expected = quantity * basic_shoe_40.price
+      #     subject.line_items_total.should == expected
+      #   end
+      # end
+    end
+
+    describe "#discount_from_gift" do
       context "with a gift" do
-        it 'should calculate the total' do
-          subject.line_items.first.update_attributes(:gift => true)
-          expected = quantity * basic_shoe_40.price
-          subject.line_items_total.should == expected
+        it "should return a discount" do
+          item_flagged_as_gift = subject.line_items.first
+          item_flagged_as_gift.update_attributes(:gift => true)
+          subject.discount_from_gift.should == item_flagged_as_gift.price
         end
       end
     end
 
     describe "#total" do
-      it "should return the total discounting the credits" do
-        subject.stub(:credits).and_return(11.0)
-        subject.total.should be_within(0.001).of(items_total - 11.0)
+      context "without gifts" do
+        it "should return the total discounting the credits" do
+          credits = 11.09
+          expected = items_total
+          subject.stub(:credits).and_return(credits)
+          subject.total.should == expected - credits
+        end
+
+        it "should return the total without discounting credits if it doesn't have any" do
+          expected = items_total
+          subject.total.should == expected
+        end
       end
 
-      it "should return the total without discounting credits if it doesn't have any" do
-        subject.total.should be_within(0.001).of(items_total)
+      context "with a gift" do
+        it "should return the total discounting the credits and gifts" do
+          credits = 11.09
+          item_flagged_as_gift = subject.line_items.first
+          item_flagged_as_gift.update_attributes(:gift => true)
+          expected = items_total - credits - item_flagged_as_gift.price
+          subject.stub(:credits).and_return(credits)
+          subject.total.should == expected
+        end
       end
     end
 
@@ -135,6 +159,7 @@ describe Order do
         expected = items_total - 11.0 + 22.0
         subject.total_with_freight.should be_within(0.001).of(expected)
       end
+
       it "should return the same value as #total if there's no freight" do
         subject.stub(:credits).and_return(11.0)
         subject.stub(:freight_price).and_return(0)
