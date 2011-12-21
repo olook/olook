@@ -118,7 +118,7 @@ $(document).ready(function() {
       position = container_position - 40;
       $('html, body').animate({
         scrollTop: position
-      }, 'fast');
+      }, 'slow');
     }
   });
 
