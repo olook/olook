@@ -40,6 +40,7 @@ class CartController < ApplicationController
   def update
     respond_with do |format|
       if @order.remove_variant(@variant)
+        @order.clear_gift_in_line_items
         destroy_order_if_the_cart_is_empty(@order)
         destroy_freight(@order)
         format.html do
@@ -61,6 +62,7 @@ class CartController < ApplicationController
 
   def update_quantity_product
    if @order.add_variant(@variant, params[:variant][:quantity])
+      @order.clear_gift_in_line_items
       destroy_freight(@order)
       redirect_to(cart_path, :notice => "Quantidade atualizada")
     else
@@ -70,6 +72,7 @@ class CartController < ApplicationController
 
   def create
     if @order.add_variant(@variant)
+      @order.clear_gift_in_line_items
       destroy_freight(@order)
       redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
     else
@@ -78,6 +81,11 @@ class CartController < ApplicationController
   end
 
   private
+
+  def clear_gifts_in_the_order(order)
+    order.reload
+    order.clear_gift_in_line_items
+  end
 
   def destroy_freight(order)
     order.freight.destroy if order.freight
