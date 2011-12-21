@@ -118,6 +118,7 @@ describe EmailMarketing::CsvUploader do
         filename = "file.csv"
         Net::FTP.stub(:new).and_return(connection)
         connection.stub(:close)
+        connection.stub(:passive=)
 
         connection.should_receive(:puttextfile).with(anything, "emails.csv")
         subject.copy_to_ftp
@@ -127,19 +128,27 @@ describe EmailMarketing::CsvUploader do
         filename = "file.csv"
         Net::FTP.stub(:new).and_return(connection)
         connection.stub(:close)
+        connection.stub(:passive=)
 
         connection.should_receive(:puttextfile).with(anything, filename)
         subject.copy_to_ftp(filename)
       end
     end
 
-    it "copies the ftp " do
+    it "sets connection to passive mode" do
+      filename = "file.csv"
+      Net::FTP.stub(:new).and_return(connection)
+      connection.stub(:close)
+      connection.stub(:puttextfile)
 
+      connection.should_receive(:passive=).with(true)
+      subject.copy_to_ftp(filename)
     end
 
     it "closes the ftp connection" do
       Net::FTP.stub(:new).and_return(connection)
       connection.stub(:puttextfile)
+      connection.stub(:passive=)
 
       connection.should_receive(:close)
       subject.copy_to_ftp(anything)
