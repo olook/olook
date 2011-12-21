@@ -24,3 +24,6 @@
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
   </section>
 </section>
+<% content_for :footer do %>
+  <%= render "shared/metrics/google/google_sale_conversion" %>
+<% end %>
