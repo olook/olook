@@ -83,6 +83,12 @@ describe CartController do
 
     describe "PUT update" do
       describe "with a valid variant" do
+        it "should clear gifts in the order" do
+          post :create, :variant => {:id => variant.id}
+          Order.any_instance.should_receive(:clear_gift_in_line_items)
+          put :update, :variant => {:id => variant.id}
+        end
+
         it "should delete a item from the cart" do
           Order.any_instance.should_receive(:remove_variant).with(variant).and_return(true)
           put :update, :variant => {:id => variant.id}
@@ -131,6 +137,13 @@ describe CartController do
           response.should redirect_to(cart_path)
         end
 
+        it "should clear gifts in the order" do
+          session[:order] = order.id
+          post :create, :variant => {:id => variant.id}
+          Order.any_instance.should_receive(:clear_gift_in_line_items)
+          put :update_quantity_product, :variant => {:id => variant.id, :quantity => quantity}
+        end
+
         it "should destroy order freight" do
           FactoryGirl.create(:freight, :order => order)
           session[:order] = order.id
@@ -166,6 +179,12 @@ describe CartController do
       end
 
       context "with a valid @variant" do
+        it "should clear gifts in the order" do
+          session[:order] = order.id
+          Order.any_instance.should_receive(:clear_gift_in_line_items)
+          post :create, :variant => {:id => variant.id}
+        end
+
         it "should create a Order" do
           FactoryGirl.create(:freight, :order => order)
           session[:order] = order.id

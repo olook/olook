@@ -80,6 +80,7 @@ class Order < ActiveRecord::Base
   end
 
   def clear_gift_in_line_items
+    self.reload
     line_items.each {|item| item.update_attributes(:gift => false)}
   end
 
@@ -92,6 +93,10 @@ class Order < ActiveRecord::Base
   def flag_second_line_item_as_gift
     second_item = line_items.ordered_by_price[1]
     second_item.update_attributes(:gift => true) if second_item
+  end
+
+  def has_one_item_flagged_as_gift?
+    line_items.select {|item| item.gift?}.size == 1
   end
 
   def status
