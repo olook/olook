@@ -48,12 +48,17 @@
       &.connected {
         div.avatar {
           width: 120px;
+          min-height: 60px;
+          max-height: 120px;
           margin: 0 18px 15px 0;
           overflow: hidden;
           float: left;
+          border-bottom: 5px #101010 solid;
           img.avatar {
             width: 110px;
             border: 5px #101010 solid;
+            border-bottom: none;
+            float: left;
           }
         }
         h2 {
