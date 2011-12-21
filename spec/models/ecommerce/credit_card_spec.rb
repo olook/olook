@@ -243,10 +243,10 @@ describe CreditCard do
   end
 
   describe ".user_data" do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, :birthday => Date.new(1983,12,21)) }
 
     it "returns a hash with user data used to fill in credit card" do
-      data = { :user_name => user.name, :user_identification => user.cpf, :user_birthday => user.birthday }
+      data = { :user_name => user.name, :user_identification => user.cpf, :user_birthday => "21/12/1983" }
       CreditCard.user_data(user).should == data
     end
   end

@@ -79,7 +79,7 @@ class CreditCard < Payment
     {
       :user_name => user.name,
       :user_identification => user.cpf,
-      :user_birthday => user.birthday
+      :user_birthday => user.birthdate
     }
   end
 
