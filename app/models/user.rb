@@ -85,6 +85,10 @@ class User < ActiveRecord::Base
     self.profile_scores.first.try(:profile)
   end
 
+  def profile_name
+    main_profile.first_visit_banner.to_sym if main_profile
+  end
+
   def first_visit?
     self.events.where(:event_type => EventType::FIRST_VISIT).empty?
   end
