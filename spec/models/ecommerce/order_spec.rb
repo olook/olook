@@ -4,6 +4,7 @@ describe Order do
   subject { FactoryGirl.create(:clean_order)}
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
+  let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
@@ -18,6 +19,27 @@ describe Order do
     it "should generate a identification code" do
       order = FactoryGirl.create(:order)
       order.identification_code.should_not be_nil
+    end
+  end
+
+  context "line items with gifts" do
+    before :each do
+      subject.add_variant(basic_shoe_35)
+      subject.add_variant(basic_shoe_37)
+      subject.add_variant(basic_shoe_40)
+    end
+
+    it "#line_items_with_flagged_gift" do
+      subject.should_receive(:clear_gift_in_line_items)
+      subject.should_receive(:flag_second_line_item_as_gift)
+      subject.line_items.should_receive(:ordered_by_price)
+      subject.line_items_with_flagged_gift
+    end
+
+    it "#clear_gift_in_line_items" do
+      subject.line_items.first.update_attributes(:gift => true)
+      subject.clear_gift_in_line_items
+      subject.line_items.select{|item| item.gift?}.size.should == 0
     end
   end
 
