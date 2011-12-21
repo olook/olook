@@ -87,6 +87,7 @@ class Order < ActiveRecord::Base
   def line_items_with_flagged_gift
     clear_gift_in_line_items
     flag_second_line_item_as_gift
+    reload
     line_items.ordered_by_price
   end
 
