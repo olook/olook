@@ -79,6 +79,12 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def line_items_with_flagged_gift
+    second_item = line_items.ordered_by_price[1]
+    second_item.update_attributes(:gift => true) if second_item
+    line_items.ordered_by_price
+  end
+
   def status
     STATUS[state]
   end
