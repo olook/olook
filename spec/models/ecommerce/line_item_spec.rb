@@ -19,9 +19,4 @@ describe LineItem do
   it "should return the normal price" do
     @line_item.price.should == @normal_price
   end
-
-  it "should return the gift price" do
-    @line_item.update_attributes(:gift => true)
-    @line_item.price.should == LineItem::PRICE_FOR_GIFT
-  end
 end
