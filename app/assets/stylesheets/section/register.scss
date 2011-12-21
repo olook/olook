@@ -2,6 +2,9 @@
 @import 'common/fonts';
 
 body {
+  #error_explanation {
+    width: 445px;
+  }
   .content {
     #models {
       float: left;

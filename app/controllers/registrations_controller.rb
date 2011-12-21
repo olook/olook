@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class RegistrationsController < Devise::RegistrationsController
-  layout "my_account"
+  layout :layout_by_resource
 
   before_filter :check_survey_response, :only => [:new, :create]
 
@@ -105,5 +105,15 @@ class RegistrationsController < Devise::RegistrationsController
     session[:questions] = nil
     session[:invite] = nil
     session[:tracking_params] = nil
+  end
+
+  protected
+
+  def layout_by_resource
+    if devise_controller? && action_name == "create"
+      "site"
+    else
+      "my_account"
+    end
   end
 end
