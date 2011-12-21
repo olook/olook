@@ -5,7 +5,7 @@
           </ul>
           <ul class="tabs_content">
             <li class="tab_1 selected">
-              <p><%= @product.details.only_how_to.first.try(:description) %></p>
+              <p><%= raw @product.details.only_how_to.first.try(:description) %></p>
             </li>
             <li class="tab_2">
               <table cellpadding="0" cellspacing="0">
