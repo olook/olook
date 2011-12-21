@@ -7,10 +7,6 @@ class LineItem < ActiveRecord::Base
   validates_presence_of :quantity
   scope :ordered_by_price, order('line_items.price DESC')
 
-  def price
-    (self.gift?) ? PRICE_FOR_GIFT : read_attribute(:price)
-  end
-
   def total_price
     price * quantity
   end
