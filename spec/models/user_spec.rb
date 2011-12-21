@@ -308,7 +308,22 @@ describe User do
         subject.main_profile_showroom.should be_a(Array)
       end
     end
-    
+
+    describe "#birthdate" do
+
+      it "returns formatted birthday string" do
+        subject.birthday = Date.new(1975,10,3)
+        subject.save!
+        subject.birthdate.should == "03/10/1975"
+      end
+
+      it "returns nil if no birthday is provided" do
+        subject.birthday = nil
+        subject.save!
+        subject.birthdate.should be_nil
+      end
+    end
+
     describe '#remove_color_variations' do
       let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
       let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
