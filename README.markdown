@@ -37,6 +37,14 @@ Installing MySQL 5.1.49 on Ubuntu/Debian
 
 - sudo apt-get install mysql-server-5.1
 
+
+Cronjobs
+============
+This cron will generate a csv file with the user data to be used for email marketing. It should be run everyday at 5am.
+
+0 5 * * * RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_to_ftp
+
+
 Optional config files
 ============
 - .rvmrc
