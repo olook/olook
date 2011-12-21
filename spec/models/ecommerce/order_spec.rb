@@ -38,7 +38,6 @@ describe Order do
     it "#line_items_with_flagged_gift" do
       subject.should_receive(:clear_gift_in_line_items)
       subject.should_receive(:flag_second_line_item_as_gift)
-      subject.line_items.should_receive(:ordered_by_price)
       subject.line_items_with_flagged_gift
     end
 
