@@ -128,6 +128,10 @@ class User < ActiveRecord::Base
     scope
   end
 
+  def birthdate
+    birthday.strftime("%d/%m/%Y") if birthday
+  end
+
   private
 
   def remove_color_variations(products)
