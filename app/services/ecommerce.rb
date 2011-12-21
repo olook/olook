@@ -19,7 +19,7 @@ module Ecommerce
     msg = "O total de sua compra deve ser maior que R$ 5,00"
     if @order
       @order.reload
-      redirect_to(cart_path, :notice => msg) if @order.total_with_freight < 5.00
+      redirect_to(cart_path, :notice => msg) if @order.total_with_freight < Payment::MINIMUM_VALUE
     else
       redirect_to(cart_path, :notice => msg)
     end
