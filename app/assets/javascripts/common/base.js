@@ -175,14 +175,13 @@ $(document).ready(function() {
     $(this).submit();
   });
 
-  $("ul.submenu li form.delete")
-    .bind("ajax:success", function(evt, xhr, settings){
-     var defaultQuantity = 1;
-     var items = parseInt($("#cart_items").text());
-     $("#cart_items").text(items - defaultQuantity);
-     $(this).parent("li.product_item").fadeOut("slow", function(){
-       $(this).remove();
-     });
+  $("ul.submenu li form.delete").bind("ajax:success", function(evt, xhr, settings){
+    var defaultQuantity = 1;
+    var items = parseInt($("#cart_items").text());
+    $("#cart_items").text(items - defaultQuantity);
+    $(this).parent("li.product_item").fadeOut("slow", function() {
+      $(this).remove();
+    });
   })
 });
 
