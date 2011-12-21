@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   layout :layout_by_resource
 
   before_filter :check_survey_response, :only => [:new, :create]
+  before_filter :load_order, :only => [:edit]
 
   def new
     if data = user_data_from_session
