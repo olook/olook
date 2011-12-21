@@ -156,6 +156,10 @@ class Order < ActiveRecord::Base
     result
   end
 
+  def total_discount
+    credits + discount_from_gift
+  end
+
   def generate_identification_code
     code = SecureRandom.hex(16)
     while Order.find_by_identification_code(code)

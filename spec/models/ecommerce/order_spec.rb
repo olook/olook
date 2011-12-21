@@ -105,14 +105,14 @@ describe Order do
         expected = items_total
         subject.line_items_total.should == expected
       end
+    end
 
-      # context "with a gift" do
-      #   it 'should calculate the total' do
-      #     subject.line_items.first.update_attributes(:gift => true)
-      #     expected = quantity * basic_shoe_40.price
-      #     subject.line_items_total.should == expected
-      #   end
-      # end
+    describe "#total_discount" do
+      it "should return all discounts" do
+        subject.stub(:credits).and_return(credits = 9.09)
+        subject.stub(:discount_from_gift).and_return(gift = 9.09)
+        subject.total_discount.should == credits + gift
+      end
     end
 
     describe "#discount_from_gift" do
