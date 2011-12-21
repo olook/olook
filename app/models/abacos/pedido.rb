@@ -24,12 +24,12 @@ module Abacos
       @valor_frete      = parse_price order.freight_price
       @transportadora   = 'TEX'
       @tempo_entrega    = order.freight.delivery_time
-      
+
       @endereco         = parse_endereco(order.freight.address)
       @itens            = parse_itens(order.line_items)
       @pagamento        = parse_pagamento(order)
     end
-    
+
     def parsed_data
       result = {
         'ListaDePedidos'        => {
@@ -54,7 +54,7 @@ module Abacos
           }
         }
       }
-      
+
       result['ListaDePedidos']['DadosPedidos'].merge! @endereco.parsed_data('Dest')
       result
     end
@@ -64,7 +64,7 @@ module Abacos
         Abacos::Item.new( line_item )
       end
     end
-    
+
     def parse_pagamento(order)
       Abacos::Pagamento.new order
     end
