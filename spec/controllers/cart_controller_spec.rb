@@ -11,6 +11,7 @@ describe CartController do
 
     describe "GET show" do
       it "should assign @bonus" do
+        session[:order] = order.id
         get :show
         assigns(:bonus).should == InviteBonus.calculate(user)
       end
