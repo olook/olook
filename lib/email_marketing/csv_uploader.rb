@@ -41,8 +41,8 @@ module EmailMarketing
         row << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
                    invite_token first_name last_name facebook_token birthday }
         User.find_each do |u|
-          row << [ u.id, u.email, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
-                  u.invite_token, delete_csv_fields(u.first_name), delete_csv_fields(u.last_name), u.facebook_token, u.birthday ]
+          row << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
+                  u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
         end
       end
     end
@@ -63,10 +63,6 @@ module EmailMarketing
         responses += SendgridClient.new(list).parsed_response
       end
       @csv = generate_email_csv(responses)
-    end
-
-    def delete_csv_fields(string)
-      string.delete(";,'\"")
     end
 
   end
