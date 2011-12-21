@@ -37,14 +37,25 @@ module EmailMarketing
     private
 
     def generate_userbase
+      bounced_list = generate_bounced_list
       @csv = CSV.generate do |row|
         row << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
                    invite_token first_name last_name facebook_token birthday }
         User.find_each do |u|
-          row << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
-                  u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
+          unless bounced_list.include?(u.email)
+            row << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
+                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
+          end
         end
       end
+    end
+
+    def generate_bounced_list
+      responses = []
+      [:invalid_emails, :spam_reports, :unsubscribes, :blocks].each do |list|
+        responses += SendgridClient.new(list).parsed_response
+      end
+      responses.map { |item| item["email"] }
     end
 
     def generate_email_csv(data)

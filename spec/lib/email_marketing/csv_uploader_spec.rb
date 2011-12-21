@@ -64,11 +64,36 @@ describe EmailMarketing::CsvUploader do
   context "when type is equal to userbase" do
     let(:user_a) { FactoryGirl.create :user }
     let(:user_b) { FactoryGirl.create :user }
-    let(:user_c) { FactoryGirl.create :user }
+    let(:user_c) { FactoryGirl.create(:user, :email => "a@b.com") }
+    let(:response) { double(:response, :parsed_response => [ {"reason"=>"Unknown", "email"=>"teste@teste.com"} ]) }
 
     it "builds a csv file containing all user data" do
+      [:spam_reports, :unsubscribes, :blocks, :invalid_emails].each do |type|
+        EmailMarketing::SendgridClient.stub(:new).with(type).and_return(response)
+      end
+
       csv_header = "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
       csv_data = [user_a, user_b, user_c].inject("") do |data,user|
+        data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
+        data
+      end
+
+      EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header + csv_data
+    end
+
+    it "does not include a user which email was included in any bounced list (spam reports, unsubscribers, blocks or invalid)" do
+      invalids_response = double(:response, :parsed_response => [ {"reason"=>"500", "email"=>"c@d.com"} ])
+      spam_response = double(:response, :parsed_response => [ {"reason"=>"Known bad domain", "email"=> user_c.email} ])
+      unsubscribes_response = double(:response, :parsed_response => [ {"reason"=>"Unknown", "email"=>"g@h.com"} ])
+      blocks_reponse = double(:response, :parsed_response => [ {"reason"=>"Unknown", "email"=>"e@f.com"} ])
+
+      EmailMarketing::SendgridClient.should_receive(:new).with(:spam_reports).and_return(invalids_response)
+      EmailMarketing::SendgridClient.should_receive(:new).with(:unsubscribes).and_return(spam_response)
+      EmailMarketing::SendgridClient.should_receive(:new).with(:blocks).and_return(unsubscribes_response)
+      EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(blocks_reponse)
+
+      csv_header = "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
+      csv_data = [user_a, user_b].inject("") do |data,user|
         data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
         data
       end
