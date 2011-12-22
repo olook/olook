@@ -434,17 +434,21 @@ div#my_account {
   &.my_credits {
     div.invites_list {
       margin: 30px 0 0 10px;
-      h1 {
+      h1, h2 {
         font-size: 35px;
         font-style: italic;
+        font-weight: normal;
         text-align: center;
-        letter-spacing: -1px;
-        margin: 0 0 20px 0;
-        padding: 0 0 10px 0;
-        border-bottom: 1px #dcdcdc solid;
+        letter-spacing: -2px;
         span {
           color: #e05789;
         }
+      }
+      h2 {
+        font-size: 21px;
+        margin: 0 0 20px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #dcdcdc solid;
       }
       table {
         width: 700px;
