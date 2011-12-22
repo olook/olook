@@ -1,4 +1,18 @@
 @import "partials/product";
+div.dialog.christmas {
+  height: 549px !important;
+  display: none;
+  a.rules {
+    position: absolute;
+    color: #df5a8b;
+    font-family: Arial;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    bottom: 35px;
+    right: 15px;
+  }
+}
 
 #showroom {
   padding: 20px 0 0 0;
