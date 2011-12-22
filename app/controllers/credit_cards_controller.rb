@@ -12,6 +12,7 @@ class CreditCardsController < ApplicationController
   before_filter :assign_receipt, :only => [:create]
   before_filter :build_cart, :only => [:new, :create]
   before_filter :order_total, :only => [:new, :create]
+  before_filter :load_promotion
 
   def new
     @payment = CreditCard.new(CreditCard.user_data(@user))

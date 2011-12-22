@@ -23,5 +23,6 @@ class OrdersController < ApplicationController
     @payment = @order.payment
     @payment_response = @payment.payment_response
     @cart = Cart.new(@order)
+    @promotion = ::ChristmasPromotion.new(@order)
   end
 end
