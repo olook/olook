@@ -20,6 +20,34 @@ $(document).ready(function() {
   $("div#mask_carousel_showroom ul").jcarousel({
     scroll: 1
   });
+
+  $("section#greetings.christmas a.gift").live("click", function() {
+    width = $(document).width();
+    height = $(document).height();
+    viewWidth = $(window).width();
+    viewHeight = $(window).height();
+    imageW = $('.dialog.christmas img').width();
+    imageH = $('.dialog.christmas img').height();
+
+    $('body').prepend("<div class='overlay'></div>");
+    $('.overlay').width(width).height(height);
+    $(".dialog.christmas").show();
+    $(".dialog.christmas img").animate({
+      width: 'toggle',
+      height: 'toggle'
+    });
+
+    $('body .dialog.christmas').css("left", (viewWidth - '800') / 2);
+    $('body .dialog.christmas').css("top", (viewHeight - '600') / 2);
+
+    $('.dialog.christmas img').fadeIn('slow');
+
+    $('.dialog.christmas img, .overlay, .dialog.christmas #close_dialog').click(function(){
+      $('.dialog.christmas, .overlay').fadeOut('slow', function(){
+        $('.dialog.christmas, .dialog.christmas img, .overlay').hide();
+      });
+    });
+  });
 });
 
 ShowroomInit = {
