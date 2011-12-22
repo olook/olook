@@ -29,6 +29,7 @@ class Payment < ActiveRecord::Base
   }
 
   attr_accessor :receipt, :user_identification
+
   belongs_to :order
   has_one :payment_response, :dependent => :destroy
 
@@ -37,7 +38,7 @@ class Payment < ActiveRecord::Base
   end
 
   def expired?
-    Time.now > self.payment_expiration_date
+    Time.now > self.payment_expiration_date if self.payment_expiration_date
   end
 
   def set_payment_expiration_date
@@ -54,3 +55,4 @@ class Payment < ActiveRecord::Base
     send(event) if event
   end
 end
+
