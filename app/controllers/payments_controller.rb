@@ -8,6 +8,7 @@ class PaymentsController < ApplicationController
   before_filter :load_user, :except => [:create]
   before_filter :check_order, :only => [:index]
   before_filter :check_freight, :only => [:index]
+  before_filter :load_promotion
   protect_from_forgery :except => :create
 
   def index
