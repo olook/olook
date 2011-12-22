@@ -23,8 +23,9 @@ describe ChristmasPromotion do
       subject.order_line_items
     end
     context "when the promotion is not active" do
-      it "should return order line items" do
+      it "should return order line items and clear the promotion" do
         DateTime.stub(:now).and_return(ChristmasPromotion::END_AT + 1.minute)
+        subject.order.should_receive(:clear_gift_in_line_items)
         subject.order.should_receive(:line_items)
         subject.order_line_items
       end
