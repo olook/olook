@@ -180,7 +180,9 @@ $(document).ready(function() {
      var defaultQuantity = 1;
      var items = parseInt($("#cart_items").text());
      $("#cart_items").text(items - defaultQuantity);
-     $(this).parent("li.product").fadeOut("slow");
+     $(this).parent("li.product_item").fadeOut("slow", function(){
+       $(this).remove();
+     });
   })
 });
 
@@ -209,7 +211,7 @@ initBase = {
       });
     });
   },
-  
+
   loadJailImages : function () {
     $("img.asynch-load-image").jail({selector: '#asynch-load', event: 'click'});
   },
