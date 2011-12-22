@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PagesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:welcome]
+  before_filter :authenticate_user!, :only => [:welcome, :christmas]
   before_filter :load_order
   before_filter :get_contact_infos, :only => [:contact, :send_contact]
 
