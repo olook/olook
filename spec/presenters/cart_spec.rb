@@ -2,17 +2,19 @@ require "spec_helper"
 
 describe Cart do
   let(:order) {FactoryGirl.create(:order)}
+  let(:total_with_freight) { 48.83 }
   let(:total) { 45.89 }
   let(:credits) { 1.28 }
   subject { Cart.new(order)}
 
   before :each do
+    order.stub(:total_with_freight).and_return(total_with_freight)
     order.stub(:total).and_return(total)
     order.stub(:credits).and_return(credits)
   end
 
   it "should return the total" do
-    subject.total.should == total
+    subject.total.should == total_with_freight
   end
 
   it "should return the subtotal" do
