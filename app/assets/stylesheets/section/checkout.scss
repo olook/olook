@@ -188,6 +188,14 @@ section#cart {
           }
         }
       }
+      &.gift_banner {
+        td {
+          img {
+            margin: 0 0 0 30px;
+            float: left;
+          }
+        }
+      }
       td {
         position: relative;
         padding: 10px 0;
