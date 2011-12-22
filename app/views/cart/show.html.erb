@@ -94,3 +94,6 @@
   </table>
   <%= link_to "Continuar", addresses_path, :class => "continue" %>
 </section>
+<% content_for :footer do %>
+  <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>
+<% end %>
