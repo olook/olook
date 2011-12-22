@@ -210,7 +210,7 @@ initBase = {
       });
     });
   },
-  
+
   loadJailImages : function () {
     $("img.asynch-load-image").jail({selector: '#asynch-load', event: 'click'});
   },
