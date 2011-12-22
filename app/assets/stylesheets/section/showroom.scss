@@ -143,6 +143,41 @@
         }
       }
     }
+    &.christmas {
+      position: relative;
+      background: url("/assets/showroom/bg-christmas.jpg") top right no-repeat;
+      height: 285px;
+      margin-top: -12px;
+      div.facebook {
+        width: 510px;
+        margin: 12px 0 0 0;
+        h1, p {
+          font-family: Times;
+          font-size: 31px;
+          font-style: italic;
+          line-height: 24px;
+          margin: 0 0 5px 0;
+        }
+        p {
+          font-size: 17px;
+          line-height: 15px;
+          &.connect {
+            width: 440px;
+            margin-top: 15px;
+          }
+        }
+      }
+      a.gift {
+        position: absolute;
+        background: url("/assets/showroom/bt-gift.jpg") no-repeat;
+        text-indent: -9999px;
+        width: 310px;
+        height: 46px;
+        display: block;
+        top: 185px;
+        left: 97px;
+      }
+    }
   }
   section.container_product {
     background: url('/assets/showroom/border-top-product.png') 170px 26px no-repeat;
