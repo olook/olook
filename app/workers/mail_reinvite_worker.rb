@@ -4,12 +4,11 @@ class MailReinviteWorker
 
   def self.perform(invite_id)
     invite = Invite.find(invite_id)
-    raise "The invite ID #{invite_id} was already resubmitted" if invite.resubmitted
-    reinvite(invite)
+    reinvite(invite) unless invite.resubmitted
   end
 
   private
-  
+
   def self.reinvite(invite)
     InviteMailer.reinvite_email(invite).deliver
     invite.resubmitted = true
