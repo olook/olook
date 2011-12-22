@@ -11,9 +11,9 @@
     <%= render 'shared/models' %>
   <% end %>
   <div id="showroom">
-    <section id="greetings">
+    <section id="greetings" class="christmas">
       <%= showroom_presenter.render_identification %>
-      <%= render "members/showroom_lookbooks" %>
+      <%= link_to "Clique para ganhar seu presente", "javascript:void(0);", :class => "trigger gift" %>
     </section>
     <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
