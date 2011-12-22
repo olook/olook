@@ -36,12 +36,15 @@
     <tbody>
     <% if @line_items %>
       <% @line_items.each do |item| %>
-        <tr>
+        <tr class="<%= item.gift? ? 'gift' : '' %>">
           <td class="item">
             <%= image_tag item.variant.thumb_picture %>
             <p><strong><%= item.variant.name %></strong></p>
             <p>Tamanho: <%= item.variant.description %></p>
             <p>Cor: <%= item.variant.color_name %></p>
+            <div class="gift">
+              <p>Este é o nosso presente para você</p>
+            </div>
           </td>
           <td class="amount">
             <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
@@ -49,7 +52,7 @@
               <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
             <% end %>
           </td>
-          <td class="value"><p><strong><%= item.gift? ? number_to_currency(0) : number_to_currency(item.variant.price) %></strong></p></td>
+          <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
           <td class="delete_item" valign="middle">
             <%= form_for(cart_path, :method => :put) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
