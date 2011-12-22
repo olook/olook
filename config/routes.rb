@@ -21,6 +21,8 @@ Olook::Application.routes.draw do
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
 
+  resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
+
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
   resources :credit_cards, :only => [:new, :create], :path => 'credito', :controller => :credit_cards
