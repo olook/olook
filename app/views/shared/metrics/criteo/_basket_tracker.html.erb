@@ -2,7 +2,7 @@
 cto_params = [];
 cto_params["t"] = "<%= order.number %>";
 <% order.line_items.each_with_index do |item,i| %>
-cto_params["i<%= i+1 %>"] = "<%= item.id %>";
+cto_params["i<%= i+1 %>"] = "<%= item.variant.product_id %>";
 cto_params["p<%= i+1 %>"] = "<%= item.price.to_s %>";
 cto_params["q<%= i+1 %>"] = "<%= item.quantity.to_s %>";
 <% end %>
