@@ -27,8 +27,8 @@ class CartController < ApplicationController
     @bonus = InviteBonus.calculate(@user, @order)
     @cart = Cart.new(@order)
     @user.is_invited = true
-    promotion = Promotion.new(@user, @order)
-    @line_items = promotion.line_items_for_christmas_promotion
+    promotion = ChristmasPromotion.new(@order)
+    @line_items = promotion.order_line_items
   end
 
   def destroy
