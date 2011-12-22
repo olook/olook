@@ -29,3 +29,6 @@
     </div>
   </div>
 <% end %>
+<% content_for :footer do %>
+  <%= render :partial => "shared/metrics/criteo/product_page_tracker", :locals => { :product_id => @product.id } %>
+<% end %>
