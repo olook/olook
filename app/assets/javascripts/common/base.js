@@ -230,7 +230,7 @@ initBase = {
 
   openDialog : function () {
     width = $(document).width();
-    height = $(document).width();
+    height = $(document).height();
     viewWidth = $(window).width();
     viewHeight = $(window).height();
     imageW = $('.dialog img').width();
