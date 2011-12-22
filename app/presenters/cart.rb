@@ -7,7 +7,7 @@ class Cart
   end
 
   def total
-    order.total
+    order.total_with_freight
   end
 
   def subtotal
