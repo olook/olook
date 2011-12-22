@@ -61,6 +61,13 @@
           </td>
         </tr>
       <% end %>
+      <% if @line_items.count == 1 %>
+        <tr class="gift_banner">
+          <td colspan="4">
+            <%= link_to image_tag("/assets/cart/banner-gift.jpg"), member_showroom_path %>
+          </td>
+        </tr>
+      <% end %>
       <tr class="discount">
         <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
         <td colspan="2">
