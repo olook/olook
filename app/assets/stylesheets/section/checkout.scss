@@ -239,10 +239,13 @@ section#cart {
       }
       &.gift {
         td.item {
+          p {
+            width: 270px;
+          }
           div.gift {
             position: absolute;
             top: 15px;
-            right: 60px;
+            right: 50px;
             display: block;
             p {
               background: url("/assets/cart/ico-gift.jpg") top center no-repeat;
@@ -251,6 +254,7 @@ section#cart {
               font-size: 20px;
               font-style: italic;
               letter-spacing: -1px;
+              width: 100%;
               padding: 35px 0 0 0;
             }
           }
