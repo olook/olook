@@ -17,24 +17,24 @@ describe Abacos::Pedido do
   subject do
     described_class.new order
   end
-  
+
   describe 'attributes' do
     it '#numero' do
       subject.numero.should == order.number
     end
-    
+
     it '#codigo_cliente' do
       subject.codigo_cliente.should == "F#{member.id}"
     end
-    
+
     it '#cpf' do
       subject.cpf.should == '98765432198'
     end
-    
+
     it '#nome' do
       subject.nome.should == 'Jéssica Maíra'
     end
-    
+
     it '#email' do
       subject.email.should == 'janedoe@test.com'
     end
@@ -42,23 +42,23 @@ describe Abacos::Pedido do
     it '#telefone' do
       subject.telefone.should == '(35)3712-3457'
     end
-    
+
     it '#data_venda' do
       subject.data_venda.should == '01122011'
     end
-    
+
     it '#valor_pedido' do
       subject.valor_pedido.should == '70.00'
     end
-    
+
     it '#valor_desconto' do
-      subject.valor_desconto.should == '11.00'
+      subject.valor_desconto.should == "11.00"
     end
 
     it '#valor_frete' do
       subject.valor_frete.should == '22.00'
     end
-    
+
     it '#transportadora' do
       subject.transportadora.should == 'TEX'
     end
@@ -66,7 +66,7 @@ describe Abacos::Pedido do
     it '#tempo_entrega' do
       subject.tempo_entrega.should == 5
     end
-    
+
     describe '#itens' do
       it 'should have two items' do
         subject.itens.length.should == 2
@@ -116,16 +116,16 @@ describe Abacos::Pedido do
         endereco.pais.should == 'Brasil'
       end
     end
-    
+
     describe 'pagamento' do
       let(:pagamento) { subject.pagamento }
-      
+
       it '#valor' do
         pagamento.valor.should == '81.00'
       end
     end
   end
-  
+
   describe '#parsed_data' do
     let(:expected_parsed_data) {
             {

@@ -20,7 +20,7 @@ module Abacos
       @data_venda       = parse_data(order.created_at)
 
       @valor_pedido     = parse_price order.line_items_total
-      @valor_desconto   = parse_price order.credits
+      @valor_desconto   = parse_price order.total_discount
       @valor_frete      = parse_price order.freight_price
       @transportadora   = 'TEX'
       @tempo_entrega    = order.freight.delivery_time
