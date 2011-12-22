@@ -16,17 +16,17 @@
         </tr>
         <tr>
           <td>Crédito</td>
-          <td class="value credit">- <%= number_to_currency(cart.discount) %></td>
+          <td class="value credit">- <%= number_to_currency(cart.credits_discount) %></td>
         </tr>
         <% if @promotion.is_active? %>
           <tr>
             <td>Presente Olook</td>
-            <td class="value credit"><%= number_to_currency(@order.discount_from_gift) %></td>
+            <td class="value credit">- <%= number_to_currency(cart.gift_discount) %></td>
           </tr>
         <% end %>
         <tr>
           <td>Frete</td>
-          <td class="value"><%= number_to_currency(cart.freight_price) %></td>
+          <td class="value">+ <%= number_to_currency(cart.freight_price) %></td>
         </tr>
       </tbody>
     </table>
