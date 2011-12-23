@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 module InviteBonus
+  LIMIT_FOR_EACH_USER = 300.0
+
   def self.calculate(member, current_order = nil)
     bonus = for_accepted_invites(member) + for_being_invited(member)
-    bonus = 300.0 if bonus > 300.0
+    bonus = LIMIT_FOR_EACH_USER if bonus > LIMIT_FOR_EACH_USER
     bonus -= already_used(member, current_order)
     bonus
   end
