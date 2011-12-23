@@ -94,20 +94,4 @@ class CreditCard < Payment
   def reverse_order
     order.reversed
   end
-
-  def refund_order
-    order.refunded
-  end
-
-  def review_order
-    order.under_review
-  end
-
-  def cancel_order
-    order.canceled
-  end
-
-  def authorize_order
-    order.authorized
-  end
 end

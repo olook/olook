@@ -55,5 +55,21 @@ class Payment < ActiveRecord::Base
     event = STATUS[status]
     send(event) if event
   end
+
+  def refund_order
+    order.refunded
+  end
+
+  def review_order
+    order.under_review
+  end
+
+  def cancel_order
+    order.canceled
+  end
+
+  def authorize_order
+    order.authorized
+  end
 end
 
