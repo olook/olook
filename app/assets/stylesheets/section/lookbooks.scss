@@ -16,7 +16,7 @@ section#lookbooks {
     height: 182px;
     margin: 0 auto 15px auto;
     overflow: hidden;
-    .jcarousel-prev, .jcarousel-next {
+    .prev-lookbook, .next-lookbook {
       position: absolute;
       background: url("/assets/showroom/arrows.png") no-repeat;
       text-indent: -9999px;
@@ -27,11 +27,11 @@ section#lookbooks {
       z-index: 1;
       cursor: pointer;
     }
-    .jcarousel-prev {
+    .prev-lookbook {
       background-position: 0 0;
       left: 10px;
     }
-    .jcarousel-next {
+    .next-lookbook {
       background-position: -38px 0;
       right: 10px;
     }
@@ -86,7 +86,7 @@ section#lookbooks {
       width: 970px;
       position: relative;
     }
-    .jcarousel-prev, .jcarousel-next {
+    .prev-pic, .next-pic {
       position: absolute;
       text-indent: -9999px;
       width: 470px;
@@ -96,11 +96,11 @@ section#lookbooks {
       z-index: 100;
       cursor: pointer;
     }
-    .jcarousel-prev {
+    .prev-pic {
       background: url("/assets/showroom/arrow-prev.png") 10px 235px no-repeat;
       left: 0;
     }
-    .jcarousel-next {
+    .next-pic {
       background: url("/assets/showroom/arrow-next.png") 420px 235px no-repeat;
       right: 0;
     }
