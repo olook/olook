@@ -30,8 +30,17 @@ class Payment < ActiveRecord::Base
   }
 
   attr_accessor :receipt, :user_identification
+
   belongs_to :order
   has_one :payment_response, :dependent => :destroy
+
+  def expired_and_waiting_payment_or_started?
+    true if self.expired? && self.state == "started" || self.order.state == "waiting_payment"
+  end
+
+  def expired?
+    Time.now > self.payment_expiration_date if self.payment_expiration_date
+  end
 
   def set_payment_expiration_date
     update_attributes(:payment_expiration_date => build_payment_expiration_date)
@@ -47,3 +56,4 @@ class Payment < ActiveRecord::Base
     send(event) if event
   end
 end
+
