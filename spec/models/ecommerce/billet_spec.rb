@@ -43,6 +43,17 @@ describe Billet do
   end
 
   describe "order state machine" do
+    it "should set canceled for order when started" do
+      subject.canceled
+      subject.order.canceled?.should eq(true)
+    end
+
+    it "should set canceled for order when billet_printed" do
+      subject.billet_printed
+      subject.canceled
+      subject.order.canceled?.should eq(true)
+    end
+
     it "should set authorized for order" do
       subject.billet_printed
       subject.authorized
@@ -81,6 +92,17 @@ describe Billet do
   end
 
   describe "state machine" do
+    it "should set canceled given started" do
+      subject.canceled
+      subject.canceled?.should eq(true)
+    end
+
+    it "should set canceled given billet_printed" do
+      subject.billet_printed
+      subject.canceled
+      subject.canceled?.should eq(true)
+    end
+
     it "should set billet_printed" do
       subject.set_state(billet_printed)
       subject.billet_printed?.should eq(true)
