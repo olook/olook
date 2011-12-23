@@ -16,7 +16,7 @@ class OrderStatusMailer < ActionMailer::Base
     }
   end
 
-  [:order_requested, :payment_confirmed, :payment_refused, :delivering_order].each do |method|
+  [:order_requested, :payment_confirmed, :payment_refused].each do |method|
     define_method method do |order|
       @order = order
       send_mail(@order)
@@ -32,8 +32,6 @@ class OrderStatusMailer < ActionMailer::Base
       subject = "Seu pedido n#{order.number} foi confirmado!"
     elsif order.canceled? || order.reversed?
       subject = "Seu pedido n#{order.number} foi cancelado."
-    elsif order.delivering?
-      subject = "Seu pedido n#{order.number} já saiu do nosso armazém."
     end
   end
 
