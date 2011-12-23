@@ -28,7 +28,7 @@ module EmailMarketing
       filename ||= "emails.csv"
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       ftp.passive = true
-      Tempfile.open(FILE_PATH, 'w') do |file|
+      Tempfile.open(FILE_PATH, 'w', :encoding => 'ISO-8859-1') do |file|
         file.write @csv
         ftp.puttextfile(file.path,filename)
       end
