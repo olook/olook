@@ -65,16 +65,6 @@ describe OrderStatusWorker do
       OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
       described_class.send_email(order)
     end
-
-    it "should send delivering order e-mail when delivering" do
-      order.waiting_payment
-      order.authorized
-      order.picking
-      order.delivering
-      mock_mail.should_receive(:deliver)
-      OrderStatusMailer.should_receive(:delivering_order).with(order).and_return(mock_mail)
-      described_class.send_email(order)
-    end
   end
 
   describe '#integrate_with_abacos' do
