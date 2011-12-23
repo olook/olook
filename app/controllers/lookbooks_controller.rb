@@ -14,4 +14,8 @@ class LookbooksController < ApplicationController
   def color_block
     @products = Product.find(190, 217, 28, 425, 427, 491, 461, 481, 407, 397, 399)
   end
+
+  def glitter
+    @products = Product.find(271, 172)
+  end
 end
