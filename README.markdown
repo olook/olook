@@ -40,9 +40,11 @@ Installing MySQL 5.1.49 on Ubuntu/Debian
 
 Cronjobs
 ============
-This cron will generate a csv file with the user data to be used for email marketing. It should be run everyday at 5am.
+This cron will generate a csv file with the user data to be used for email marketing. It will run everyday at 3 AM.
+Check the log file to verify if any issue happens.
 
-0 5 * * * RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_to_ftp
+0  3    * * *   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_to_ftp >> /var/log/userbase_uploader_rake.log 2>&1
+
 
 
 Optional config files
