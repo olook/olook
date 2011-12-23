@@ -96,11 +96,11 @@ class Product < ActiveRecord::Base
   def colors
     self.related_products.where(:category => self.category)
   end
-  
+
   def easy_to_find_description
     "#{model_number} - #{name} - #{color_name} - #{category_humanize}"
   end
-  
+
   def inventory
     self.variants.sum(:inventory)
   end
@@ -108,6 +108,27 @@ class Product < ActiveRecord::Base
   def sold_out?
     inventory < 1
   end
+
+  def instock
+    sold_out? ? "0" : "1"
+  end
+
+  def to_xml(options = {})
+    xml = options[:builder] ||= ::Builder::XmlMarkup.new(:indent => 2)
+    xml.product(:id => id) do
+      xml.tag!(:name, name)
+      xml.tag!(:smallimage,  thumb_picture)
+      xml.tag!(:bigimage,  showroom_picture)
+      xml.tag!(:producturl,  Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br"))
+      xml.tag!(:description, description)
+      xml.tag!(:price, price)
+      xml.tag!(:retailprice, price)
+      xml.tag!(:recommendable, '1')
+      xml.tag!(:instock, instock)
+      xml.tag!(:category1, category)
+    end
+  end
+
 
 private
   def create_master_variant

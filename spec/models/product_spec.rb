@@ -37,7 +37,7 @@ describe Product do
       described_class.only_visible.should == [shoe, bag, accessory]
     end
   end
-  
+
   describe 'when working with related products' do
     subject { FactoryGirl.create(:red_slipper) }
     let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
@@ -71,7 +71,7 @@ describe Product do
       subject.related_products.should include(silver_slipper)
     end
   end
-  
+
   describe "#master_variant" do
     subject { FactoryGirl.build(:basic_shoe) }
 
@@ -118,12 +118,12 @@ describe Product do
           subject.should_receive(:update_master_variant)
           subject.save
         end
-        
+
         it 'should call save on the master variant' do
           subject.master_variant.should_receive(:'save!')
           subject.save
         end
-        
+
         it 'fix bug: should not break if @master_variant was not initialized' do
           loaded_product = Product.find subject.id
           expect {
@@ -133,10 +133,10 @@ describe Product do
       end
     end
   end
-  
+
   describe "methods delegated to master_variant" do
     subject { FactoryGirl.create(:basic_shoe) }
-    
+
     describe 'getter methods' do
       it "#price" do
         subject.master_variant.should_receive(:price)
@@ -191,14 +191,14 @@ describe Product do
       end
     end
   end
-  
+
   describe "picture helpers" do
     let(:mock_picture) { double :picture }
 
     describe '#main_picture' do
       let!(:some_picture) { FactoryGirl.create(:picture, :product => subject, :display_on => DisplayPictureOn::GALLERY_3) }
       let!(:main_picture) { FactoryGirl.create(:main_picture, :product => subject) }
-    
+
       it 'should return the picture to be displayed as Gallery 1' do
         subject.main_picture.should == main_picture
       end
@@ -214,7 +214,7 @@ describe Product do
         subject.showroom_picture.should be_nil
       end
     end
-    
+
     describe '#thumb_picture' do
       it "should return the thumb sized image if it exists" do
         mock_picture.stub(:image_url).with(:thumb).and_return(:valid_image)
@@ -237,7 +237,7 @@ describe Product do
       end
     end
   end
-  
+
   describe '#variants.sorted_by_description' do
     subject { FactoryGirl.create(:basic_shoe) }
     let!(:last_variant) { FactoryGirl.create(:variant, :product => subject, :description => '36') }
@@ -248,25 +248,25 @@ describe Product do
       subject.variants.sorted_by_description.should == [first_variant, last_variant]
     end
   end
-  
+
   describe "#colors" do
     let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
     let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
     let(:black_bag) { FactoryGirl.create(:basic_bag) }
-    
+
     before :each do
       black_shoe.relate_with_product black_bag
       black_shoe.relate_with_product red_shoe
     end
-    
+
     it 'should return a hash list of related products of the same category of the product' do
       black_shoe.colors.should == [red_shoe]
     end
   end
-  
+
   describe "#easy_to_find_description" do
     subject { FactoryGirl.build(:basic_bag,
-                                :model_number => 'M123', 
+                                :model_number => 'M123',
                                 :name         => 'Fake product',
                                 :color_name   => 'Black') }
 
@@ -275,7 +275,7 @@ describe Product do
     end
   end
 
-  describe 'inventory related methods' do  
+  describe 'inventory related methods' do
     subject { FactoryGirl.create :basic_shoe }
     let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => subject }
     let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => subject }
@@ -287,7 +287,7 @@ describe Product do
         subject.inventory.should == 4
       end
     end
-    
+
     describe '#sold_out?' do
       it "should return false if any of the variants is available" do
         subject.stub(:inventory).and_return(2)
@@ -299,4 +299,42 @@ describe Product do
       end
     end
   end
+
+  describe "#instock" do
+    it "returns 1 when product is in stock" do
+      subject.stub(:inventory).and_return(1)
+      subject.instock.should == "1"
+    end
+
+    it "returns 1 when product is in stock" do
+      subject.stub(:inventory).and_return(0)
+      subject.instock.should == "0"
+    end
+  end
+
+  describe "#to_xml" do
+    subject { FactoryGirl.create(:basic_shoe) }
+
+    let(:xml_body) do
+      <<-END.gsub(/^ {6}/, '')
+      <product id="#{subject.id}">
+        <name>Chanelle</name>
+        <smallimage></smallimage>
+        <bigimage></bigimage>
+        <producturl>http://www.olook.com.br/produto/#{subject.id}</producturl>
+        <description>Elegant black high-heeled shoe for executives</description>
+        <price>0.0</price>
+        <retailprice>0.0</retailprice>
+        <recommendable>1</recommendable>
+        <instock>0</instock>
+        <category1>1</category1>
+      </product>
+      END
+    end
+
+    it "returns xml with all the necessary fields for criteo" do
+      subject.to_xml.should == xml_body
+    end
+  end
+
 end
