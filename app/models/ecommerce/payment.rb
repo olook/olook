@@ -35,7 +35,7 @@ class Payment < ActiveRecord::Base
   has_one :payment_response, :dependent => :destroy
 
   def expired_and_waiting_payment?
-    true if self.expired? && self.order.state == "waiting_payment"
+    (self.expired? && self.order.state == "waiting_payment") ? true : false
   end
 
   def expired?
