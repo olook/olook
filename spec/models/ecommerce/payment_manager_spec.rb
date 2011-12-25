@@ -24,6 +24,15 @@ describe PaymentManager do
     end
   end
 
+  context "status verification" do
+    it "should verify if a payment is expired" do
+      billet.payment_expiration_date = 3.days.ago
+      billet.save
+      billet.reload
+      billet.expired?.should be_true
+    end
+  end
+
   context "expiring payments" do
     it "should expires all expired billet orders" do
       billet.order.waiting_payment
@@ -50,6 +59,15 @@ describe PaymentManager do
       debit.reload
       payment_manager.expires_debit
       debit.order.state.should eq("canceled")
+    end
+
+    it "shouldn't expires not expired yet billets" do
+      billet.order.waiting_payment
+      billet.payment_expiration_date = Time.now + 3.days
+      billet.save
+      billet.reload
+      payment_manager.expires_billet
+      billet.order.state.should eq("waiting_payment")
     end
   end
 end
