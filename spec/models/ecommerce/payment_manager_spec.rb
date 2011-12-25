@@ -25,11 +25,34 @@ describe PaymentManager do
   end
 
   context "status verification" do
-    it "should verify if a payment is expired" do
+    it "should return true if a payment is expired" do
       billet.payment_expiration_date = 3.days.ago
       billet.save
       billet.reload
       billet.expired?.should be_true
+    end
+
+    it "should return false if a payment is not expired" do
+      billet.payment_expiration_date = Time.now + 3.days
+      billet.save
+      billet.reload
+      billet.expired?.should be_false
+    end
+
+    it "should return true if a payment is expired and order has waiting_payment state" do
+      billet.order.waiting_payment
+      billet.payment_expiration_date = 3.days.ago
+      billet.save
+      billet.reload
+      billet.expired_and_waiting_payment?.should be_true
+    end
+
+    it "should return false if a payment is not expired and order has waiting_payment state" do
+      billet.order.waiting_payment
+      billet.payment_expiration_date = Time.now + 3.days
+      billet.save
+      billet.reload
+      billet.expired_and_waiting_payment?.should be_false
     end
   end
 
@@ -61,13 +84,31 @@ describe PaymentManager do
       debit.order.state.should eq("canceled")
     end
 
-    it "shouldn't expires not expired yet billets" do
+    it "shouldn't expires not expired billets" do
       billet.order.waiting_payment
       billet.payment_expiration_date = Time.now + 3.days
       billet.save
       billet.reload
       payment_manager.expires_billet
       billet.order.state.should eq("waiting_payment")
+    end
+
+    it "shouldn't expires not expired credit cards" do
+      credit_card.order.waiting_payment
+      credit_card.payment_expiration_date = Time.now + 3.days
+      credit_card.save
+      credit_card.reload
+      payment_manager.expires_credit_card
+      credit_card.order.state.should eq("waiting_payment")
+    end
+
+    it "shouldn't expires not expired debits" do
+      debit.order.waiting_payment
+      debit.payment_expiration_date = Time.now + 3.days
+      debit.save
+      debit.reload
+      payment_manager.expires_debit
+      debit.order.state.should eq("waiting_payment")
     end
   end
 end
