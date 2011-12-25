@@ -22,12 +22,12 @@ class PaymentManager
 
   def search_and_cancel(payment_type)
     Payment.where(:type => payment_type).find_each do |payment|
-      # Later we need to include #canceled event to billet
-      # payments to avoid workarounds. -zanst
-      if payment.type == @billet
-        payment.order.canceled if payment.expired_and_waiting_payment_or_started?
-      else
-        payment.canceled if payment.expired_and_waiting_payment_or_started?
+      if payment.expired_and_waiting_payment?
+        if payment.type == @billet
+          payment.order.canceled
+        else
+          payment.canceled
+        end
       end
     end
   end
