@@ -34,6 +34,10 @@ class Payment < ActiveRecord::Base
   belongs_to :order
   has_one :payment_response, :dependent => :destroy
 
+  def credit_card?
+    (self.type == "CreditCard") ? true : false
+  end
+
   def expired_and_waiting_payment?
     (self.expired? && self.order.state == "waiting_payment") ? true : false
   end

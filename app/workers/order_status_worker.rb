@@ -14,7 +14,9 @@ class OrderStatusWorker
     elsif order.authorized?
       mail = OrderStatusMailer.payment_confirmed(order)
     elsif order.canceled? || order.reversed?
-      mail = OrderStatusMailer.payment_refused(order)
+      if order.payment.credit_card? 
+        mail = OrderStatusMailer.payment_refused(order)
+      end
     end
     mail.deliver if mail
   end
