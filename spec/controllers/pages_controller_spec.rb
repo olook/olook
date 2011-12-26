@@ -27,24 +27,6 @@ describe PagesController do
     end
   end
 
-  describe "GET 'christmas'" do
-    context "with a logged user" do
-      it "should be successful" do
-        user = Factory :user
-        sign_in user
-        get 'christmas'
-        response.should be_success
-      end
-    end
-
-    context "without a logged user" do
-      it "should be redirected to login" do
-        get 'christmas'
-        response.should redirect_to new_user_session_path
-      end
-    end
-  end
-
   describe "GET contact" do
     it "should assigns @contact_form" do
       get :contact
