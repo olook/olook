@@ -1,4 +1,5 @@
 class FriendsController < ApplicationController
+<<<<<<< HEAD
   before_filter :authenticate_user!
   before_filter :load_user
 
@@ -22,4 +23,6 @@ class FriendsController < ApplicationController
     @friends = []
     7.times { @friends << User.where("id < ?", 100).shuffle.first }
   end
+=======
+>>>>>>> Initial my friends page
 end
