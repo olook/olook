@@ -1,18 +1,4 @@
 @import "partials/product";
-div.dialog.christmas {
-  height: 549px !important;
-  display: none;
-  a.rules {
-    position: absolute;
-    color: #df5a8b;
-    font-family: Arial;
-    font-size: 10px;
-    text-transform: uppercase;
-    text-decoration: underline;
-    bottom: 35px;
-    right: 15px;
-  }
-}
 
 #showroom {
   padding: 20px 0 0 0;
@@ -155,42 +141,6 @@ div.dialog.christmas {
             }
           }
         }
-      }
-    }
-    &.christmas {
-      position: relative;
-      background: url("/assets/showroom/bg-christmas.jpg") top right no-repeat;
-      height: 285px;
-      margin: -12px 0 0 0;
-      float: left;
-      div.facebook {
-        width: 510px;
-        margin: 12px 0 0 0;
-        h1, p {
-          font-family: Times;
-          font-size: 31px;
-          font-style: italic;
-          line-height: 24px;
-          margin: 0 0 5px 0;
-        }
-        p {
-          font-size: 17px;
-          line-height: 15px;
-          &.connect {
-            width: 440px;
-            margin-top: 15px;
-          }
-        }
-      }
-      a.gift {
-        position: absolute;
-        background: url("/assets/showroom/bt-gift.jpg") no-repeat;
-        text-indent: -9999px;
-        width: 310px;
-        height: 46px;
-        display: block;
-        top: 185px;
-        left: 97px;
       }
     }
   }

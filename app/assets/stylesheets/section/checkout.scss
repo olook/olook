@@ -216,9 +216,6 @@ section#cart {
             margin-right: 20px;
             float: left;
           }
-          div.gift {
-            display: none;
-          }
         }
         &.amount {
           select {
@@ -242,34 +239,6 @@ section#cart {
               border: none;
               cursor: pointer;
             }
-          }
-        }
-      }
-      &.gift {
-        td.item {
-          p {
-            width: 270px;
-          }
-          div.gift {
-            position: absolute;
-            top: 15px;
-            right: 50px;
-            display: block;
-            p {
-              background: url("/assets/cart/ico-gift.jpg") top center no-repeat;
-              color: #e15a8b;
-              font-family: Times;
-              font-size: 20px;
-              font-style: italic;
-              letter-spacing: -1px;
-              width: 100%;
-              padding: 35px 0 0 0;
-            }
-          }
-        }
-        td.value {
-          p {
-            text-decoration: line-through;
           }
         }
       }
