@@ -928,6 +928,15 @@ body {
               }
             }
           }
+          &.my_friends {
+            a {
+              background-position: -417px 0;
+              width: 105px;
+              &:hover, &.selected {
+                background-position: -417px -32px;
+              }
+            }
+          }
           &.invite {
             a {
               background-position: -190px 0;
@@ -951,7 +960,7 @@ body {
             float: right;
             a.cart {
               position: relative;
-              background-position: -417px 0;
+              background-position: -522px 0;
               color: #FFF;
               line-height: 35px;
               text-decoration: none;
@@ -971,7 +980,7 @@ body {
                 }
               }
               &:hover {
-                background-position: -417px -32px;
+                background-position: -522px -32px;
               }
             }
             ul.submenu {
