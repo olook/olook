@@ -1,1 +1,37 @@
-
+section#friends {
+  margin: 8px 0 0 0;
+  &.home {
+    background: url("/assets/friends/background.jpg") top center no-repeat;
+    height: 540px;
+    padding: 25px 0 0 0;
+    div.container {
+      background: #FFF;
+      width: 680px;
+      margin: 0 auto;
+      padding: 20px 0;
+      border: 1px #dbdbdb solid;
+      h1 {
+        background: url("/assets/friends/title-home.png") no-repeat;
+        text-indent: -9999px;
+        width: 549px;
+        height: 37px;
+        margin: 0 auto 10px auto;
+        display: block;
+      }
+      p {
+        color: #696969;
+        font-size: 14px;
+        width: 520px;
+        margin: 0 auto 10px auto;
+      }
+      a {
+        background: url("/assets/friends/bt-friends-showroom.png") no-repeat;
+        text-indent: -9999px;
+        width: 250px;
+        height: 25px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}

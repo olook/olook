@@ -1,7 +1,15 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag "friends" %>
+  <%= stylesheet_link_tag "section/friends" %>
 <% end %>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "friends" %>
 <% end %>
+
+<section id="friends" class="home">
+  <div class="container">
+    <h1>Compre com suas amigas</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <%= link_to "Ver a vitrine das minhas amigas", "#", :class => "facebook" %>
+  </div>
+</section>
