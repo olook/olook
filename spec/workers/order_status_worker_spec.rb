@@ -23,6 +23,7 @@ describe OrderStatusWorker do
 
   describe '#send_email' do
     let(:order) { FactoryGirl.create(:clean_order) }
+    let(:order_cc) { FactoryGirl.create(:clean_order_credit_card) }
     let(:mock_mail) { double :mail }
 
     describe "send order_requested" do
@@ -49,21 +50,21 @@ describe OrderStatusWorker do
     end
 
     it "should send payment_refused when canceled" do
-      order.waiting_payment
-      order.canceled
+      order_cc.waiting_payment
+      order_cc.canceled
       mock_mail.should_receive(:deliver)
-      OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
-      described_class.send_email(order)
+      OrderStatusMailer.should_receive(:payment_refused).with(order_cc).and_return(mock_mail)
+      described_class.send_email(order_cc)
     end
 
     it "should send payment_refused when reverted" do
-      order.waiting_payment
-      order.authorized
-      order.under_review
-      order.reversed
+      order_cc.waiting_payment
+      order_cc.authorized
+      order_cc.under_review
+      order_cc.reversed
       mock_mail.should_receive(:deliver)
-      OrderStatusMailer.should_receive(:payment_refused).with(order).and_return(mock_mail)
-      described_class.send_email(order)
+      OrderStatusMailer.should_receive(:payment_refused).with(order_cc).and_return(mock_mail)
+      described_class.send_email(order_cc)
     end
   end
 
