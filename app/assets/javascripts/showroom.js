@@ -17,8 +17,17 @@ $(document).ready(function() {
     }
   });
 
-  $("div#mask_carousel_showroom ul").jcarousel({
-    scroll: 1
+  $("div#mask_carousel_showroom ul").carouFredSel({
+    auto: false,
+    height: 186,
+    prev : {
+      button : ".carousel-prev",
+      key : "left"
+    },
+    next : {
+      button : ".carousel-next",
+      key : "right"
+    }
   });
 });
 
