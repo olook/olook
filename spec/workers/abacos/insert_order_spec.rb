@@ -2,6 +2,10 @@
 require "spec_helper"
 
 describe Abacos::InsertOrder do
+  before :each do
+    described_class.stub(:create_order_event)
+  end
+
   describe "#perform" do
     it 'should parse and check the validity of the order' do
       described_class.should_receive(:parse_and_check_order).with(123)
@@ -33,7 +37,7 @@ describe Abacos::InsertOrder do
       end
     end
   end
-  
+
   describe '#parse_and_check_order' do
     let(:mock_order) { mock_model Order, :payment => nil }
     before :each do
@@ -53,7 +57,7 @@ describe Abacos::InsertOrder do
       }.to raise_error "Order number 123 already exist on Abacos"
     end
   end
-  
+
   describe '#export_client' do
     let(:order) do
       result = mock_model Order
@@ -72,7 +76,7 @@ describe Abacos::InsertOrder do
       described_class.send(:export_client, order)
     end
   end
-  
+
   describe '#insert_order' do
     it 'should create a new pedido' do
       Abacos::Pedido.should_receive(:new).with(:order)
