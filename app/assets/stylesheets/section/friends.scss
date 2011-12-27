@@ -130,6 +130,29 @@ section#friends {
       div#quiz_container {
         background: url("/assets/friends/divisor.png") top left no-repeat;
         padding: 30px 0 30px 30px;
+        div.question {
+          width: 535px;
+          float: left;
+          h1 {
+            background: url("/assets/friends/title-style-quiz.jpg") no-repeat;
+            text-indent: -9999px;
+            width: 127px;
+            height: 22px;
+            margin: 0 0 5px 0;
+            display: block;
+          }
+          h2 {
+            color: #434343;
+            font-family: Times;
+            font-size: 24px;
+            font-style: italic;
+            font-weight: normal;
+            letter-spacing: -1px;
+            span {
+              color: #df5a8b;
+            }
+          }
+        }
       }
     }
   }
