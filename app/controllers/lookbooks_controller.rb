@@ -16,6 +16,6 @@ class LookbooksController < ApplicationController
   end
 
   def glitter
-    @products = Product.find(271, 172)
+    @products = Product.find(271, 181)
   end
 end
