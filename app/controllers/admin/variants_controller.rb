@@ -1,9 +1,6 @@
 # -*- encoding : utf-8 -*-
-class Admin::VariantsController < ApplicationController
-  before_filter :authenticate_admin!
+class Admin::VariantsController < Admin::BaseController
   before_filter :load_product
-
-  layout "admin"
   respond_to :html
 
   def show

@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::ShippingServicesController < ApplicationController
-  before_filter :authenticate_admin!
-
-  layout "admin"
+class Admin::ShippingServicesController < Admin::BaseController
   respond_to :html
 
   def index
@@ -28,7 +25,7 @@ class Admin::ShippingServicesController < ApplicationController
 
   def create
     @shipping_service = ShippingService.new(params[:shipping_service])
-    
+
     if @shipping_service.save
       upload_freight_prices
       flash[:notice] = 'Shipping service was successfully created.'

@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::OrdersController < ApplicationController
-  before_filter :authenticate_admin!
-
-  layout "admin"
+class Admin::OrdersController < Admin::BaseController
   respond_to :html
 
   def index
