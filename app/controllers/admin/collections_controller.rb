@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::CollectionsController < ApplicationController
-  before_filter :authenticate_admin!
-
-  layout "admin"
+class Admin::CollectionsController < Admin::BaseController
   respond_to :html
 
   def index
@@ -27,17 +24,17 @@ class Admin::CollectionsController < ApplicationController
 
   def create
     @collection = Collection.new(params[:collection])
-    	if @collection.save
-      	flash[:notice] = 'Collection was successfully created.'
-    	end
+      if @collection.save
+        flash[:notice] = 'Collection was successfully created.'
+      end
     respond_with :admin, @collection
   end
 
   def update
     @collection = Collection.find(params[:id])
-    	if @collection.update_attributes(params[:collection])
-      	flash[:notice] = 'Collection was successfully updated.'
-			end
+      if @collection.update_attributes(params[:collection])
+        flash[:notice] = 'Collection was successfully updated.'
+      end
     respond_with :admin, @collection
   end
 
