@@ -22,7 +22,8 @@ Olook::Application.routes.draw do
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
 
-  match "/minhas-amigas", :to => "friends#index", :as => "index"
+  match "/minhas-amigas/conectar", :to => "friends#connect", :as => "connect"
+  match "/minhas-amigas/home", :to => "friends#home", :as => "home"
 
   resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
 
