@@ -1,5 +1,7 @@
 section#friends {
   margin: 8px 0 0 0;
+  width: 100%;
+  overflow: auto;
   &.connect {
     background: url("/assets/friends/background.jpg") top center no-repeat;
     height: 540px;
@@ -31,6 +33,42 @@ section#friends {
         height: 25px;
         margin: 0 auto;
         display: block;
+      }
+    }
+  }
+  &.home {
+    background: url("/assets/friends/bg-home.jpg") top right no-repeat;
+    section#user_column {
+      width: 175px;
+      height: 1150px;
+      margin: 25px 0 0 0;
+      padding: 0 10px 0 0;
+      float: left;
+      border-right: 1px #dbdbdb solid;
+      div.avatar {
+        width: 148px;
+        height: 148px;
+        margin: 5px auto 10px auto;
+        img {
+          width: 148px;
+        }
+      }
+      h1 {
+        font-family: Arial, sans-serif;
+        font-size: 20px;
+        letter-spacing: -1px;
+        text-align: center;
+        margin: 0 0 50px 0;
+      }
+      div.friends_list {
+        h2 {
+          background: url("/assets/friends/title-my-friends.jpg") no-repeat;
+          text-indent: -9999px;
+          width: 175px;
+          height: 23px;
+          margin: 0 0 15px 0;
+          display: block;
+        }
       }
     }
   }
