@@ -12,9 +12,6 @@ describe Admin::UsersController do
     it "edit an existing user" do
       {get: edit_admin_user_path(1)}.should route_to("admin/users#edit", id: '1')
     end
-    it "export current user base" do
-      {get: export_admin_users_path}.should route_to("admin/users#export")
-    end
     it "generate statistics about the user base" do
       {get: statistics_admin_users_path}.should route_to("admin/users#statistics")
     end

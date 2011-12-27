@@ -86,15 +86,7 @@ describe Admin::UsersController do
       end
     end
   end
-  
-  describe "GET export" do
-    it 'should render the list of all users' do
-      UserReport.should_receive(:export).and_return([[:result]])
-      get :export
-      assigns(:records).should eq([[:result]])
-    end
-  end
-  
+
   describe 'GET statistics' do
     let(:result) { double(:result, creation_date: Date.civil(2011, 11, 15), daily_total: 10 ) }
 
