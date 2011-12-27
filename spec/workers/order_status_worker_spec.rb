@@ -2,6 +2,10 @@
 require "spec_helper"
 
 describe OrderStatusWorker do
+  before :each do
+    described_class.stub(:create_order_event)
+  end
+
   describe '#perform' do
     let(:order) { FactoryGirl.create(:clean_order) }
 
@@ -79,6 +83,7 @@ describe OrderStatusWorker do
       before :each do
         order.stub(:'waiting_payment?').and_return(true)
       end
+
       it "should send the order to Abacos if it also has an associated payment" do
         order.stub(:payment).and_return(:some_payment)
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, order.number)
@@ -90,6 +95,7 @@ describe OrderStatusWorker do
       before :each do
         order.stub(:'authorized?').and_return(true)
       end
+
       it "should tell Abacos it was paid, need to wait a couple minutes to avoid errors" do
         Resque.should_receive(:enqueue_in).with(10.minutes, Abacos::ConfirmPayment, order.number)
         described_class.integrate_with_abacos(order)

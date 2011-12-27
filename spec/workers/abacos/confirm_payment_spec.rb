@@ -2,6 +2,9 @@
 require "spec_helper"
 
 describe Abacos::ConfirmPayment do
+  before :each do
+    described_class.stub(:create_order_event)
+  end
   describe "#perform" do
     it "should raise an error if the order doesn't exist on Abacos" do
       Abacos::OrderAPI.should_receive(:'order_exists?').with(123).and_return(false)
