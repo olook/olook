@@ -71,5 +71,22 @@ section#friends {
         }
       }
     }
+    section#friends_content {
+      width: 760px;
+      overflow: auto;
+      float: left;
+      h1 {
+        background: url("/assets/friends/title-add-your-friends.png") no-repeat;
+        text-indent: -9999px;
+        width: 384px;
+        height: 167px;
+        margin: 40px 0 85px 25px;
+        display: block;
+      }
+      div#quiz_container {
+        background: url("/assets/friends/divisor.png") top left no-repeat;
+        padding: 30px 0 30px 30px;
+      }
+    }
   }
 }
