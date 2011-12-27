@@ -40,7 +40,7 @@ section#friends {
     background: url("/assets/friends/bg-home.jpg") top right no-repeat;
     section#user_column {
       width: 175px;
-      height: 1150px;
+      min-height: 1150px;
       margin: 25px 0 0 0;
       padding: 0 10px 0 0;
       float: left;
@@ -68,6 +68,50 @@ section#friends {
           height: 23px;
           margin: 0 0 15px 0;
           display: block;
+        }
+        ul {
+          margin: 0 0 10px 0;
+          border-bottom: 1px #dbdbdb solid;
+          li {
+            width: 100%;
+            overflow: auto;
+            margin: 0 0 10px 0;
+            a {
+              color: #000;
+              font-size: 14px;
+              text-decoration: none;
+              display: block;
+              overflow: auto;
+              div.avatar_mask {
+                width: 60px;
+                height: 60px;
+                overflow: hidden;
+                margin: 0 7px 0 0;
+                float: left;
+                img {
+                  width: 60px;
+                }
+              }
+              span {
+                height: 60px;
+                display: table-cell;
+                vertical-align: middle;
+              }
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+        a.update {
+          background: url("/assets/cart/bg-update.png") no-repeat;
+          color: #2b2b2b;
+          text-decoration: none;
+          padding: 0 0 0 30px;
+          float: left;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
