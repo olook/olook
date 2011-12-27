@@ -5,5 +5,16 @@
   <h1><%= @user.name %></h1>
   <div class="friends_list">
     <h2>Minhas Amigas</h2>
+    <ul>
+      <li>
+        <%= link_to "#" do %>
+          <div class="avatar_mask">
+            <%= image_tag "/assets/fake/photo-facebook.png" %>
+          </div>
+          <span><%= @user.name %></span>
+        <% end %>
+      </li>
+    </ul>
+    <%= link_to "Não vê suas amigas? Atualize sua lista.", "javascript:void(0);", :class => "update" %>
   </div>
 </section>
