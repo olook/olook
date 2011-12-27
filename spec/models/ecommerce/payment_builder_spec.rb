@@ -16,6 +16,21 @@ describe PaymentBuilder do
     @order_total = order.total_with_freight
   end
 
+  it "should verify if MoIP uri was properly initialized" do
+    moip_uri = MoIP.uri
+    moip_uri.should be_true
+  end
+
+  it "should verify if MoIP token was properly initialized" do
+    moip_token = MoIP.token
+    moip_token.should be_true
+  end
+
+  it "should verify if MoIP key was properly initialized" do
+    moip_key = MoIP.key
+    moip_key.should be_true
+  end
+
   it "should process the payment" do
     subject.should_receive(:send_payment)
     subject.should_receive(:create_successful_payment_response)
