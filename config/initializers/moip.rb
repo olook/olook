@@ -7,5 +7,5 @@ moip_config = YAML.load_file(moip_config_path)
 MoIP.setup do |config|
   config.uri   = @moip_config['uri'] if true
   config.token = @moip_config['token']
-  config.token = @moip_config['key']
+  config.key = @moip_config['key']
 end
