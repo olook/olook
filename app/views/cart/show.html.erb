@@ -36,15 +36,12 @@
     <tbody>
     <% if @line_items %>
       <% @line_items.each do |item| %>
-        <tr class="<%= item.gift? ? 'gift' : '' %>">
+        <tr>
           <td class="item">
             <%= image_tag item.variant.thumb_picture %>
             <p><strong><%= item.variant.name %></strong></p>
             <p>Tamanho: <%= item.variant.description %></p>
             <p>Cor: <%= item.variant.color_name %></p>
-            <div class="gift">
-              <p>Este é o nosso presente para você</p>
-            </div>
           </td>
           <td class="amount">
             <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
@@ -58,13 +55,6 @@
               <%= hidden_field('variant','id', :value => item.variant.id) %>
               <%= submit_tag('')  %>
             <% end %>
-          </td>
-        </tr>
-      <% end %>
-      <% if @line_items.count == 1 %>
-        <tr class="gift_banner">
-          <td colspan="4">
-            <%= link_to image_tag("/assets/cart/banner-gift.jpg"), member_showroom_path %>
           </td>
         </tr>
       <% end %>

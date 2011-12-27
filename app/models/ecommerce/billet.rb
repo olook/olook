@@ -9,6 +9,8 @@ class Billet < Payment
     after_transition :billet_printed => :authorized, :do => :authorize_order
     after_transition :authorized => :under_review, :do => :review_order
     after_transition :under_review => :refunded, :do => :refund_order
+    after_transition :started => :canceled, :do => :cancel_order
+    after_transition :billet_printed => :canceled, :do => :cancel_order
 
     event :billet_printed do
       transition :started => :billet_printed
@@ -16,6 +18,10 @@ class Billet < Payment
 
     event :authorized do
       transition :billet_printed => :authorized
+    end
+
+    event :canceled do
+      transition :started => :canceled, :billet_printed => :canceled
     end
 
     event :completed do

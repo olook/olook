@@ -31,7 +31,9 @@ class OrderStatusMailer < ActionMailer::Base
     elsif order.authorized?
       subject = "Seu pedido n#{order.number} foi confirmado!"
     elsif order.canceled? || order.reversed?
-      subject = "Seu pedido n#{order.number} foi cancelado."
+      if order.payment.credit_card? 
+        subject = "Seu pedido n#{order.number} foi cancelado."
+      end
     end
   end
 

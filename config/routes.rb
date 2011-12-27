@@ -9,7 +9,6 @@ Olook::Application.routes.draw do
   match "/faq", :to => "pages#faq", :as => "faq"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
-  match "/promocao-de-natal", :to => "pages#christmas", :as => "christmas"
   match "/lookbooks/flores", :to => "lookbooks#flores", :as => "flores"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/golden-grace", :to => "lookbooks#golden_grace", :as => "golden_grace"

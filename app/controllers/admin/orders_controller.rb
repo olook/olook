@@ -6,7 +6,7 @@ class Admin::OrdersController < ApplicationController
   respond_to :html
 
   def index
-    @orders = Order.with_payment.page(params[:page]).per_page(20)
+    @orders = Order.with_payment.page(params[:page]).per_page(20).order('id DESC')
     respond_with :admin, @orders
   end
 
