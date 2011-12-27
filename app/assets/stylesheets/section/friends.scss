@@ -2,6 +2,7 @@
 
 section#friends {
   margin: 8px 0 0 0;
+<<<<<<< HEAD
   width: 100%;
   overflow: auto;
   section#user_column {
@@ -86,6 +87,8 @@ section#friends {
     overflow: auto;
     float: left;
   }
+=======
+>>>>>>> Changes on routes and created friends#home
   &.connect {
     background: url("/assets/friends/background.jpg") top center no-repeat;
     height: 540px;
