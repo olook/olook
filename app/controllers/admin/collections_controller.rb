@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::CollectionsController < ApplicationController
-  before_filter :authenticate_admin!
-
-  layout "admin"
+class Admin::CollectionsController < Admin::BaseController
   respond_to :html
 
   def index
@@ -27,7 +24,7 @@ class Admin::CollectionsController < ApplicationController
 
   def create
     @collection = Collection.new(params[:collection])
-    
+
     if @collection.save
       flash[:notice] = 'Shipping service was successfully created.'
     end

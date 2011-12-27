@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::IndexController < ApplicationController
-  before_filter :authenticate_admin!
-  layout "admin"
-
+class Admin::IndexController < Admin::BaseController
   def dashboard
   end
 end
