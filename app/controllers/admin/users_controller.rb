@@ -36,11 +36,6 @@ class Admin::UsersController < ApplicationController
     respond_with :admin, @user
   end
 
-  def export
-    @records = UserReport.export
-    respond_with :admin, @records
-  end
-
   def statistics
     @statistics = UserReport.statistics
     respond_with :admin, @statistics
