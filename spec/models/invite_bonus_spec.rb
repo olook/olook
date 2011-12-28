@@ -50,49 +50,43 @@ describe InviteBonus do
         end
       end
 
-      it "should return the sum of credits used in the orders that have a payment" do
-        order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
-        order_2  = FactoryGirl.create(:order, :user => member, :credits => 3.23)
-        order_3  = FactoryGirl.create(:order, :user => member)
-        order_4  = FactoryGirl.create(:order_without_payment, :user => member, :credits => 12.90)
-        described_class.already_used(member).should == 26.79
+      context "user has orders" do
+        let!(:order_1) { FactoryGirl.create(:order, :user => member, :credits => 23.56) }
+        let!(:order_2) { FactoryGirl.create(:order, :user => member, :credits => 3.23) }
+        let!(:order_3) { FactoryGirl.create(:order, :user => member) }
+        let!(:order_4) { FactoryGirl.create(:order_without_payment, :user => member, :credits => 12.90) }
+
+        it "should return the sum of credits used in the orders that have a payment" do
+          described_class.already_used(member).should == 26.79
+        end
+
+        it "should return the sum of credits used in the orders that dont have a payment but have a current order" do
+          described_class.already_used(member, order_4).should == 39.69
+        end
+
+        it "should return the sum of credits used in the orders and not count a canceled order" do
+          order_2.waiting_payment
+          order_2.canceled
+          described_class.already_used(member).to_f.should == 23.56
+        end
+
+        it "should return the sum of credits used in the orders and not count a reversed order" do
+          order_2.waiting_payment
+          order_2.authorized
+          order_2.under_review
+          order_2.reversed
+          described_class.already_used(member).to_f.should == 23.56
+        end
+
+        it "should return the sum of credits used in the orders and not count a reversed order" do
+          order_2.waiting_payment
+          order_2.authorized
+          order_2.under_review
+          order_2.refunded
+          described_class.already_used(member).to_f.should == 23.56
+        end
       end
 
-      it "should return the sum of credits used in the orders that dont have a payment but have a current order" do
-        order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
-        order_2  = FactoryGirl.create(:order, :user => member, :credits => 3.23)
-        order_3  = FactoryGirl.create(:order, :user => member)
-        order_4  = FactoryGirl.create(:order_without_payment, :user => member, :credits => 12.90)
-        described_class.already_used(member, order_4).should == 39.69
-      end
-
-      it "should return the sum of credits used in the orders and not count a canceled order" do
-        order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
-        order_2  = FactoryGirl.create(:order, :user => member, :credits => 12.90)
-        order_2.waiting_payment
-        order_2.canceled
-        described_class.already_used(member).to_f.should == 23.56
-      end
-
-      it "should return the sum of credits used in the orders and not count a reversed order" do
-        order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
-        order_2  = FactoryGirl.create(:order, :user => member, :credits => 12.90)
-        order_2.waiting_payment
-        order_2.authorized
-        order_2.under_review
-        order_2.reversed
-        described_class.already_used(member).to_f.should == 23.56
-      end
-
-      it "should return the sum of credits used in the orders and not count a reversed order" do
-        order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
-        order_2  = FactoryGirl.create(:order, :user => member, :credits => 12.90)
-        order_2.waiting_payment
-        order_2.authorized
-        order_2.under_review
-        order_2.refunded
-        described_class.already_used(member).to_f.should == 23.56
-      end
     end
 
     describe "#calculate" do
