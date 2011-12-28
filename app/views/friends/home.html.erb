@@ -17,7 +17,19 @@
           <h2>Qual dessas peças não pode faltar no dia a dia de <span>Jéssika</span>?</h2>
         </div>
         <div class="friend">
-          <p>Teste</p>
+          <fieldset class="buttons">
+            <ul>
+              <li>
+                <div class="pic_mask">
+                  <%= image_tag "/assets/fake/photo-facebook.png" %>
+                </div>
+                <%= link_to "Próxima amiga >", "javascript:void(0);", :class => "next_friend" %>
+              </li>
+              <li>
+                <%= submit_tag "" %>
+              </li>
+            </ul>
+          </fieldset>
         </div>
       <% end %>
     </div>
