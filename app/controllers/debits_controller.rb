@@ -44,7 +44,7 @@ class DebitsController < ApplicationController
   private
 
   def new_payment_with_error
-    @payment = CreditCard.new(params[:credit_card])
+    @payment = Debit.new(params[:debit])
     @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
     @payment
   end
