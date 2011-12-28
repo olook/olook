@@ -24,7 +24,7 @@ describe EmailMarketing::CsvUploader do
     end
   end
 
-  describe "when type is equal to invalid" do
+  describe "when type is invalid" do
     it "calls sendgrid invalid emails service" do
       EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
 
@@ -38,7 +38,7 @@ describe EmailMarketing::CsvUploader do
     end
   end
 
-  describe "when type is equal to optout" do
+  describe "when type is optout" do
     let(:optout_services) { [:spam_reports, :unsubscribes, :blocks] }
 
     it "calls sendgrid spam_reports, unsubscribes and blocks services" do
@@ -54,7 +54,7 @@ describe EmailMarketing::CsvUploader do
     end
   end
 
-  context "when type is equal to userbase" do
+  context "when type is userbase" do
     let(:csv_header) do
       "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
     end
