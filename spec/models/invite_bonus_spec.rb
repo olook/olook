@@ -39,20 +39,31 @@ describe InviteBonus do
     end
 
     describe "#already_used" do
+      context "user has no orders" do
+        let(:user) { FactoryGirl.create :user }
+        it "returns R$ = 0.0" do
+          described_class.already_used(user).should == 0
+        end
+
+        it "returns a float number" do
+          described_class.already_used(user).should be_an_instance_of Float
+        end
+      end
+
       it "should return the sum of credits used in the orders that have a payment" do
         order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
         order_2  = FactoryGirl.create(:order, :user => member, :credits => 3.23)
         order_3  = FactoryGirl.create(:order, :user => member)
         order_4  = FactoryGirl.create(:order_without_payment, :user => member, :credits => 12.90)
-        described_class.already_used(member).to_f.should == 26.79
+        described_class.already_used(member).should == 26.79
       end
 
-      it "should return the sum of credits used in the orders that dont a payment but have a current order" do
+      it "should return the sum of credits used in the orders that dont have a payment but have a current order" do
         order_1  = FactoryGirl.create(:order, :user => member, :credits => 23.56)
         order_2  = FactoryGirl.create(:order, :user => member, :credits => 3.23)
         order_3  = FactoryGirl.create(:order, :user => member)
         order_4  = FactoryGirl.create(:order_without_payment, :user => member, :credits => 12.90)
-        described_class.already_used(member, order_4).to_f.should == 39.69
+        described_class.already_used(member, order_4).should == 39.69
       end
 
       it "should return the sum of credits used in the orders and not count a canceled order" do
