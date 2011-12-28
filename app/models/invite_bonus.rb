@@ -25,7 +25,7 @@ module InviteBonus
         end
       end
     end
-    count
+    count.to_f
   end
 
 protected
