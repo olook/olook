@@ -33,29 +33,29 @@ describe PaymentBuilder do
 
   it "should process the payment" do
     subject.should_receive(:send_payment)
-    subject.should_receive(:create_successful_payment_response)
+    subject.should_receive(:create_payment_response)
     payment = double
     payment.stub_chain(:payment_response, :response_status)
-    subject.should_receive(:save_payment).and_return(payment)
+    subject.should_receive(:set_payment_url).and_return(payment)
     subject.process!
   end
 
   it "should return a structure with status and a payment sending notifications" do
     subject.stub(:send_payment)
-    subject.stub(:create_successful_payment_response)
+    subject.stub(:create_payment_response)
     payment_response = double
     payment_response.stub(:response_status).and_return(status = Payment::SUCCESSFUL_STATUS)
-    subject.stub_chain(:save_payment, :payment_response).and_return(payment_response)
+    subject.stub_chain(:set_payment_url, :payment_response).and_return(payment_response)
     subject.process!.status.should == status
     subject.process!.payment.should == credit_card
   end
 
   it "should return a structure with status and a payment sending notifications" do
     subject.stub(:send_payment)
-    subject.stub(:create_successful_payment_response)
+    subject.stub(:create_payment_response)
     payment_response = double
     payment_response.stub(:response_status).and_return(status = Payment::SUCCESSFUL_STATUS)
-    subject.stub_chain(:save_payment, :payment_response).and_return(payment_response)
+    subject.stub_chain(:set_payment_url, :payment_response).and_return(payment_response)
     subject.order.should_receive(:waiting_payment)
     subject.process!
   end
@@ -70,20 +70,18 @@ describe PaymentBuilder do
     subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
     payment_response.should_receive(:build_attributes).with(subject.response)
     payment_response.should_receive(:save)
-    subject.create_successful_payment_response
+    subject.create_payment_response
   end
 
-  it "should set_url_and_order_to_payment" do
+  it "should set payment url" do
     subject.stub(:payment_url).and_return('www.fake.com')
-    subject.set_url_and_order_to_payment
+    subject.set_payment_url
     subject.payment.url.should == 'www.fake.com'
-    subject.payment.order.should == order
   end
 
-  it "should save payments" do
-    subject.stub(:set_url_and_order_to_payment)
-    subject.save_payment
-    subject.payment.should be_persisted
+  it "should set payment order" do
+    subject.set_payment_order
+    subject.payment.order.should == order
   end
 
   it "should send payments" do
