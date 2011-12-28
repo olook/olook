@@ -24,8 +24,7 @@ module EmailMarketing
       end
     end
 
-    def copy_to_ftp(filename = nil)
-      filename ||= "emails.csv"
+    def copy_to_ftp(filename = "untitled.txt")
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       ftp.passive = true
       Tempfile.open(FILE_PATH, 'w', :encoding => 'ISO-8859-1') do |file|
