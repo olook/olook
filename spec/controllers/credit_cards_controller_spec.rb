@@ -145,6 +145,12 @@ describe CreditCardsController do
           Order.any_instance.should_receive(:generate_identification_code)
           post :create, :credit_card => attributes
         end
+
+        it "should destroy the payment" do
+          expect {
+            post :create, :credit_card => attributes
+          }.to change(Payment, :count).by(-1)
+        end
       end
 
       it "should not create a payment" do
