@@ -22,66 +22,66 @@ describe EmailMarketing::CsvUploader do
         subject.csv.should == ""
       end
     end
-  end
 
-  describe "when type is invalid" do
-    it "calls sendgrid invalid emails service" do
-      EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
+    describe "when type is invalid" do
+      it "calls sendgrid invalid emails service" do
+        EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
 
-      EmailMarketing::CsvUploader.new(:invalid)
-    end
-
-    it "builds a csv file with invalid emails" do
-      EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails).and_return(services[:invalid_emails])
-
-      EmailMarketing::CsvUploader.new(:invalid).csv.should == "c@d.com\n"
-    end
-  end
-
-  describe "when type is optout" do
-    let(:optout_services) { [:spam_reports, :unsubscribes, :blocks] }
-
-    it "calls sendgrid spam_reports, unsubscribes and blocks services" do
-      optout_services.each { |name| EmailMarketing::SendgridClient.should_receive(:new).with(name).and_return(services[name]) }
-
-      EmailMarketing::CsvUploader.new(:optout)
-    end
-
-    it "builds a csv file with emails from spam_reports, unsubscribes and blocks" do
-      optout_services.each { |name| EmailMarketing::SendgridClient.stub(:new).with(name).and_return(services[name]) }
-
-      EmailMarketing::CsvUploader.new(:optout).csv.should == "a@b.com\ng@h.com\ne@f.com\n"
-    end
-  end
-
-  context "when type is userbase" do
-    let(:csv_header) do
-      "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
-    end
-
-    it "builds a csv file containing all user data" do
-      services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
-
-      csv_body = [user_a, user_b, user_c].inject("") do |data, user|
-        data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
-        data
+        EmailMarketing::CsvUploader.new(:invalid)
       end
 
-      EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header + csv_body
+      it "builds a csv file with invalid emails" do
+        EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails).and_return(services[:invalid_emails])
+
+        EmailMarketing::CsvUploader.new(:invalid).csv.should == "c@d.com\n"
+      end
     end
 
-    it "does not include a user which email was included in any bounced list (spam reports, unsubscribers, blocks or invalid)" do
+    describe "when type is optout" do
+      let(:optout_services) { [:spam_reports, :unsubscribes, :blocks] }
 
-      services = {
-        :spam_reports   => double(:s_response, :parsed_response => [ {"reason" => "Any", "email" => user_a.email } ]),
-        :unsubscribes   => double(:u_response, :parsed_response => [ {"reason" => "Unknown", "email" => user_b.email } ]),
-        :blocks         => double(:b_response, :parsed_response => [ {"reason" => "Unknown", "email" => user_c.email } ]),
-        :invalid_emails => double(:i_response, :parsed_response => [ {"reason" => "500", "email" => user_c.email } ])
-      }
+      it "calls sendgrid spam_reports, unsubscribes and blocks services" do
+        optout_services.each { |name| EmailMarketing::SendgridClient.should_receive(:new).with(name).and_return(services[name]) }
 
-      services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+        EmailMarketing::CsvUploader.new(:optout)
+      end
 
-      EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header
+      it "builds a csv file with emails from spam_reports, unsubscribes and blocks" do
+        optout_services.each { |name| EmailMarketing::SendgridClient.stub(:new).with(name).and_return(services[name]) }
+
+        EmailMarketing::CsvUploader.new(:optout).csv.should == "a@b.com\ng@h.com\ne@f.com\n"
+      end
+    end
+
+    context "when type is userbase" do
+      let(:csv_header) do
+        "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
+      end
+
+      it "builds a csv file containing all user data" do
+        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+
+        csv_body = [user_a, user_b, user_c].inject("") do |data, user|
+          data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
+          data
+        end
+
+        EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header + csv_body
+      end
+
+      it "does not include a user which email was included in any bounced list (spam reports, unsubscribers, blocks or invalid)" do
+
+        services = {
+          :spam_reports   => double(:s_response, :parsed_response => [ {"reason" => "Any", "email" => user_a.email } ]),
+          :unsubscribes   => double(:u_response, :parsed_response => [ {"reason" => "Unknown", "email" => user_b.email } ]),
+          :blocks         => double(:b_response, :parsed_response => [ {"reason" => "Unknown", "email" => user_c.email } ]),
+          :invalid_emails => double(:i_response, :parsed_response => [ {"reason" => "500", "email" => user_c.email } ])
+        }
+
+        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+
+        EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header
+      end
     end
   end
 
