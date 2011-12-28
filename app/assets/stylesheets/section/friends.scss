@@ -148,8 +148,33 @@ section#friends {
             font-style: italic;
             font-weight: normal;
             letter-spacing: -1px;
+            margin: 0 0 15px 0;
             span {
               color: #df5a8b;
+            }
+          }
+          fieldset {
+            ul {
+              width: 420px;
+              overflow: auto;
+              margin: 0 auto;
+              li {
+                position: relative;
+                width: 105px;
+                margin: 0 30px 0 0;
+                float: left;
+                border: 2px #e0e0e0 solid;
+                cursor: pointer;
+                input[type="radio"] {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  display: none;
+                }
+                &:hover, &.selected {
+                  border-color: #d25280;
+                }
+              }
             }
           }
         }
