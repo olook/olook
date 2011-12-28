@@ -54,11 +54,6 @@ class CreditCardsController < ApplicationController
     @payment
   end
 
-  def rollback_order
-    @order.generate_identification_code
-    @order.payment.destroy
-  end
-
   def order_total
     @order_total = @order.total_with_freight
   end

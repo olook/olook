@@ -43,11 +43,6 @@ class BilletsController < ApplicationController
     @payment
   end
 
-  def rollback_order
-    @order.generate_identification_code
-    @order.payment.destroy
-  end
-
   def assign_receipt
     params[:billet] = {:receipt => Payment::RECEIPT}
   end

@@ -42,4 +42,9 @@ module Ecommerce
     @delivery_address = @user.addresses.find_by_id(session[:delivery_address_id])
     redirect_to(addresses_path, :notice => "Informe ou cadastre um endereço") unless @delivery_address
   end
+
+  def rollback_order
+    @order.generate_identification_code
+    @order.payment.destroy
+  end
 end
