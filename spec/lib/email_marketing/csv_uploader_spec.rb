@@ -113,23 +113,20 @@ describe EmailMarketing::CsvUploader do
       subject.copy_to_ftp(anything)
     end
 
-    context "setting file name" do
-      it "uses emails.csv as filename when no name is passed" do
-        filename = "file.csv"
+    context "copying the file" do
+      before do
         Net::FTP.stub(:new).and_return(connection)
         connection.stub(:close)
         connection.stub(:passive=)
+      end
 
-        connection.should_receive(:puttextfile).with(anything, "emails.csv")
+      it "uses untitled.txt as filename when no name is passed" do
+        connection.should_receive(:puttextfile).with(anything, "untitled.txt")
         subject.copy_to_ftp
       end
 
       it "uses received name as filename" do
         filename = "file.csv"
-        Net::FTP.stub(:new).and_return(connection)
-        connection.stub(:close)
-        connection.stub(:passive=)
-
         connection.should_receive(:puttextfile).with(anything, filename)
         subject.copy_to_ftp(filename)
       end
