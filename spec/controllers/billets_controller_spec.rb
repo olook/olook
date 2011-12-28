@@ -122,6 +122,12 @@ describe BilletsController do
           Order.any_instance.should_receive(:generate_identification_code)
           post :create, :billet => attributes
         end
+
+        it "should destroy the payment" do
+          expect {
+            post :create, :billet => attributes
+          }.to change(Payment, :count).by(-1)
+        end
       end
 
       it "should not create a payment" do

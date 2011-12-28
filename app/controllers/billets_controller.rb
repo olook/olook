@@ -27,9 +27,8 @@ class BilletsController < ApplicationController
         clean_session_order!
         redirect_to(order_billet_path(:number => @order.number), :notice => "Boleto gerado com sucesso")
       else
-        @order.generate_identification_code
-        @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
-        respond_with(@payment)
+        rollback_order
+        respond_with(new_payment_with_error)
       end
     else
       respond_with(@payment)
@@ -37,6 +36,17 @@ class BilletsController < ApplicationController
   end
 
   private
+
+  def new_payment_with_error
+    @payment = Billet.new(params[:billet])
+    @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+    @payment
+  end
+
+  def rollback_order
+    @order.generate_identification_code
+    @order.payment.destroy
+  end
 
   def assign_receipt
     params[:billet] = {:receipt => Payment::RECEIPT}

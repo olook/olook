@@ -7,9 +7,10 @@ class PaymentBuilder
   end
 
   def process!(send_notification = true)
+    set_payment_order
     send_payment
-    create_successful_payment_response
-    payment_response = save_payment.payment_response
+    create_payment_response
+    payment_response = set_payment_url.payment_response
 
     if payment_response.response_status == Payment::SUCCESSFUL_STATUS
       order.decrement_inventory_for_each_item
@@ -18,22 +19,26 @@ class PaymentBuilder
 
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)
     rescue Exception => error
+      order.payment.destroy
+      error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment ID #{payment.id}"
       Airbrake.notify(
         :error_class   => "Moip Request",
-        :error_message => "Moip : #{error.message}"
+        :error_message => error_message
       )
-      log(error.message)
+      log(error_message)
       OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
 
-  def save_payment
-    set_url_and_order_to_payment
+  def set_payment_order
+    payment.order = order
     payment.save
     payment
   end
 
-  def set_url_and_order_to_payment
-    payment.url, payment.order = payment_url, order
+  def set_payment_url
+    payment.url = payment_url
+    payment.save
+    payment
   end
 
   def send_payment
@@ -44,7 +49,7 @@ class PaymentBuilder
     MoIP::Client.moip_page(response["Token"])
   end
 
-  def create_successful_payment_response
+  def create_payment_response
     payment_response = payment.build_payment_response
     payment_response.build_attributes response
     payment_response.save
