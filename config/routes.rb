@@ -14,6 +14,7 @@ Olook::Application.routes.draw do
   match "/lookbooks/golden-grace", :to => "lookbooks#golden_grace", :as => "golden_grace"
   match "/lookbooks/color-block", :to => "lookbooks#color_block", :as => "color_block"
   match "/lookbooks/glitter", :to => "lookbooks#glitter", :as => "glitter"
+  match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 

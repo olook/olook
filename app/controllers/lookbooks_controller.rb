@@ -18,4 +18,8 @@ class LookbooksController < ApplicationController
   def glitter
     @products = Product.find(271, 181)
   end
+
+  def palha
+    @products = Product.find(1499, 1501, 1453, 1511)
+  end
 end
