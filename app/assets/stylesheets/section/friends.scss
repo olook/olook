@@ -116,7 +116,7 @@ section#friends {
       }
     }
     section#friends_content {
-      width: 760px;
+      width: 800px;
       overflow: auto;
       float: left;
       h1 {
@@ -127,19 +127,21 @@ section#friends {
         margin: 40px 0 85px 25px;
         display: block;
       }
-      div#quiz_container {
+      div#quiz_container, div#invite_friends {
         background: url("/assets/friends/divisor.png") top left no-repeat;
+        width: 770px;
+        overflow: auto;
         padding: 30px 0 30px 30px;
+      }
+      div#quiz_container {
         div.question {
           width: 535px;
           float: left;
           h1 {
             background: url("/assets/friends/title-style-quiz.jpg") no-repeat;
-            text-indent: -9999px;
             width: 127px;
             height: 22px;
             margin: 0 0 5px 0;
-            display: block;
           }
           h2 {
             color: #434343;
@@ -219,6 +221,56 @@ section#friends {
                 }
               }
             }
+          }
+        }
+      }
+      div#invite_friends {
+        h1 {
+          background: url("/assets/friends/title-invite.jpg") no-repeat;
+          width: 527px;
+          height: 22px;
+          margin: 0 0 5px 0;
+          float: left;
+        }
+        a.all_friends {
+          color: #3d3d3d;
+          text-transform: uppercase;
+          text-decoration: none;
+          margin: 4px 0 0 70px;
+          float: left;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        div.list_mask {
+          width: 660px;
+          height: 180px;
+          overflow: hidden;
+          margin: 30px 0 0 30px;
+          clear: both;
+          float: left;
+          ul {
+            li {
+              margin: 0 10px 10px 0;
+              float: left;
+              a {
+                float: left;
+                overflow: hidden;
+                img {
+                  float: left;
+                  overflow: hidden;
+                }
+                &:hover, &.selected {
+                  border: 4px #d25280 solid;
+                  img {
+                    margin: -4px;
+                  }
+                }
+              }
+            }
+          }
+          &.full {
+            height: auto;
           }
         }
       }
