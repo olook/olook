@@ -35,12 +35,6 @@ class DebitsController < ApplicationController
     end
   end
 
-  def show
-    @payment = @user.payments.find(params[:id])
-    @order = @payment.order
-    @cart = Cart.new(@order)
-  end
-
   private
 
   def new_payment_with_error
