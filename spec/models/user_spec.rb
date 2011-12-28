@@ -177,10 +177,20 @@ describe User do
     end
   end
 
-  it "#invite_bonus, should relay on InviteBonus" do
-    InviteBonus.should_receive(:calculate).with(subject).and_return(123.0)
-    subject.invite_bonus.should == 123.0
+  describe "#invite_bonus" do
+    it "calls calculate on InviteBonus and returns the value" do
+      InviteBonus.should_receive(:calculate).with(subject).and_return(123.0)
+      subject.invite_bonus.should == 123.0
+    end
   end
+
+  describe "#used_invite_bonus" do
+    it "calls already_used on InviteBonus and returns the value" do
+      InviteBonus.should_receive(:already_used).with(subject).and_return(13.0)
+      subject.used_invite_bonus.should == 13.0
+    end
+  end
+
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }

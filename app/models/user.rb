@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
     InviteBonus.calculate(self)
   end
 
+  def used_invite_bonus
+    InviteBonus.already_used(self)
+  end
+
   def profile_scores
     self.points.includes(:profile).order('value DESC')
   end
