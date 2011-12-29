@@ -21,6 +21,7 @@ config/analytics.yml
 config/email.yml
 config/yahoo.yml
 config/aws.yml
+config/resque.yml
 *.passwd
 db/schema.rb
 .watchr
