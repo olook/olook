@@ -3,7 +3,7 @@ class Admin::ExportUsersWorker
   @queue = :admin_user_export
 
   def self.perform(email)
-    file_name = UserReport.generate_csv
-    Admin::UserExportMailer.csv_ready(email, file_name).deliver
+    UserReport.generate_csv
+    Admin::UserExportMailer.csv_ready(email).deliver
   end
 end

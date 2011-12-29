@@ -4,8 +4,7 @@ require 'spec_helper'
 describe Admin::UserExportMailer do
   describe "#csv_ready" do
     let(:email) { "user@example.com" }
-    let(:file_name) { "users.csv" }
-    subject { Admin::UserExportMailer.csv_ready(email, file_name) }
+    subject { Admin::UserExportMailer.csv_ready(email) }
 
     it "sets 'from' attribute to Admin Olook <admin@olook.com.br>" do
       subject.from.should include("admin@olook.com.br")
@@ -20,7 +19,7 @@ describe Admin::UserExportMailer do
     end
 
     it "should include the CSV url in e-mails's body" do
-      subject.body.encoded.should match("http://app1.olook.com.br/admin/#{file_name}")
+      subject.body.encoded.should match("http://app1.olook.com.br/admin/users.csv")
     end
   end
 end
