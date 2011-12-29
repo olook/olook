@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Variant < ActiveRecord::Base
+  has_paper_trail
   default_scope where(:is_master => false)
 
   before_save :fill_is_master
