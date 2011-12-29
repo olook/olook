@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module UserReport
   def self.generate_csv
-    attributes = [:first_name, :last_name, :email, :cpf, :is_invited, :created_at]
+    attributes = [:id, :first_name, :last_name, :email, :cpf, :is_invited, :created_at]
     file_name = "users-#{Time.now.strftime("%Y-%m-%d_%H-%M")}.csv"
 
     CSV.open(Rails.root.join("public", "admin", file_name), "w") do |csv|

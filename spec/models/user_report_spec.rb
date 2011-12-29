@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe UserReport do
   describe ".generate_csv" do
-    let(:first_user) { double(:user, FactoryGirl.attributes_for(:user, :cpf => "123456", :is_invited => false, :created_at => Date.today)) }
-    let(:second_user) { double(:user, FactoryGirl.attributes_for(:user, :cpf => "654321", :is_invited => true, :created_at => Date.yesterday)) }
+    let(:first_user) { double(:user, FactoryGirl.attributes_for(:user, :id => 1, :cpf => "123456", :is_invited => false, :created_at => Date.today)) }
+    let(:second_user) { double(:user, FactoryGirl.attributes_for(:user, :id => 2, :cpf => "654321", :is_invited => true, :created_at => Date.yesterday)) }
     let(:formatted_time) { "2011-31-12_00-00" }
     let(:file_name) { "users-#{formatted_time}.csv" }
     let(:file_path) { Rails.root.join("public", "admin", file_name) }
@@ -20,9 +20,9 @@ describe UserReport do
 
     it "should generate a CSV file in public/admin containing all Users in the database" do
       csv_string = <<-CSV.strip_heredoc
-        First Name,Last Name,Email,Cpf,Is Invited,Created At
-        #{first_user.first_name},#{first_user.last_name},#{first_user.email},#{first_user.cpf},#{first_user.is_invited},#{first_user.created_at}
-        #{second_user.first_name},#{second_user.last_name},#{second_user.email},#{second_user.cpf},#{second_user.is_invited},#{second_user.created_at}
+        Id,First Name,Last Name,Email,Cpf,Is Invited,Created At
+        #{first_user.id},#{first_user.first_name},#{first_user.last_name},#{first_user.email},#{first_user.cpf},#{first_user.is_invited},#{first_user.created_at}
+        #{second_user.id},#{second_user.first_name},#{second_user.last_name},#{second_user.email},#{second_user.cpf},#{second_user.is_invited},#{second_user.created_at}
       CSV
 
       UserReport.generate_csv
