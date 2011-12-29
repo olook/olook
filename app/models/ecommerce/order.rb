@@ -172,7 +172,8 @@ class Order < ActiveRecord::Base
   def decrement_inventory_for_each_item
     ActiveRecord::Base.transaction do
       line_items.each do |item|
-        item.variant.decrement!(:inventory, item.quantity)
+        variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
+        variant.decrement!(:inventory, item.quantity)
       end
     end
   end
@@ -180,7 +181,8 @@ class Order < ActiveRecord::Base
   def increment_inventory_for_each_item
     ActiveRecord::Base.transaction do
       line_items.each do |item|
-        item.variant.increment!(:inventory, item.quantity)
+        variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
+        variant.increment!(:inventory, item.quantity)
       end
     end
   end
