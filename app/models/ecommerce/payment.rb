@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Payment < ActiveRecord::Base
+  has_paper_trail
   MINIMUM_VALUE = 5.0
   SUCCESSFUL_STATUS = 'Sucesso'
   FAILURE_STATUS = 'Falha'
