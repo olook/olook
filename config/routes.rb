@@ -24,6 +24,7 @@ Olook::Application.routes.draw do
 
   match "/minhas-amigas/conectar", :to => "friends#connect", :as => "connect"
   match "/minhas-amigas/home", :to => "friends#home", :as => "home"
+  match "/minhas-amigas/vitrine", :to => "friends#showroom", :as => "showroom"
 
   resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
 
