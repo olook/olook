@@ -96,4 +96,12 @@ describe Admin::UsersController do
       assigns(:statistics).should eq([result])
     end
   end
+
+  describe 'GET export' do
+    it 'should create a new job on Resque with current_admin email' do
+      Resque.should_receive(:enqueue).with(Admin::ExportUsersWorker, @admin.email)
+
+      get :export
+    end
+  end
 end
