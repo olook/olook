@@ -127,11 +127,14 @@ section#friends {
         margin: 40px 0 85px 25px;
         display: block;
       }
-      div#quiz_container, div#invite_friends {
+      div#quiz_container, div#invite_friends, div#share_showroom {
         background: url("/assets/friends/divisor.png") top left no-repeat;
         width: 770px;
         overflow: auto;
         padding: 30px 0 30px 30px;
+        h1 {
+          margin: 0 0 5px 0;
+        }
       }
       div#quiz_container {
         div.question {
@@ -141,7 +144,6 @@ section#friends {
             background: url("/assets/friends/title-style-quiz.jpg") no-repeat;
             width: 127px;
             height: 22px;
-            margin: 0 0 5px 0;
           }
           h2 {
             color: #434343;
@@ -229,7 +231,6 @@ section#friends {
           background: url("/assets/friends/title-invite.jpg") no-repeat;
           width: 527px;
           height: 22px;
-          margin: 0 0 5px 0;
           float: left;
         }
         a.all_friends {
@@ -271,6 +272,61 @@ section#friends {
           }
           &.full {
             height: auto;
+          }
+        }
+      }
+      div#share_showroom {
+        h1 {
+          background: url("/assets/friends/title-share-showroom.jpg") no-repeat;
+          width: 482px;
+          height: 22px;
+        }
+        fieldset.inputs {
+          ul {
+            width: 700px;
+            overflow: auto;
+            margin: 30px 0 0 25px;
+            li {
+              height: 147px;
+              float: left;
+              div.pic_mask {
+                width: 60px;
+                height: 60px;
+                display: block;
+                margin: 30px 35px 0 0;
+                overflow: hidden;
+                float: left;
+                img {
+                  width: 60px;
+                }
+              }
+              &.text {
+                background: url("/assets/friends/divisor-share.png") top left no-repeat;
+                width: 545px;
+                padding: 30px 0 0 40px;
+                textarea {
+                  background: #FFF url("/assets/friends/bg-textarea.jpg") bottom repeat-x;
+                  width: 535px;
+                  height: 75px;
+                  margin-bottom: 10px;
+                  border: 1px #cacaca solid;
+                  &:focus {
+                    outline: none;
+                  }
+                }
+                input[type="submit"] {
+                  background: url("/assets/friends/bg-share.jpg") no-repeat;
+                  text-indent: -9999px;
+                  width: 124px;
+                  height: 29px;
+                  display: block;
+                  border: none;
+                  cursor: pointer;
+                  clear: both;
+                  float: right;
+                }
+              }
+            }
           }
         }
       }
