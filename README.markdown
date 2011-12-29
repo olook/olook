@@ -48,6 +48,11 @@ Check the log file to verify if any issue happens.
 
 0  3    * * *   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_to_ftp >> /var/log/userbase_uploader_rake.log 2>&1
 
+This cron will generate a csv file with the user data, credits and orders data. It will run everyday at 1 AM.
+Check the log file to verify if any issue happens.
+
+0  1    * * *   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_orders_to_ftp >> /var/log/userbase_orders_uploader_rake.log 2>&1
+
 
 
 Optional config files
