@@ -5,13 +5,10 @@ describe UserReport do
   describe ".generate_csv" do
     let(:first_user) { double(:user, FactoryGirl.attributes_for(:user, :id => 1, :cpf => "123456", :is_invited => false, :created_at => Date.today)) }
     let(:second_user) { double(:user, FactoryGirl.attributes_for(:user, :id => 2, :cpf => "654321", :is_invited => true, :created_at => Date.yesterday)) }
-    let(:formatted_time) { "2011-31-12_00-00" }
-    let(:file_name) { "users-#{formatted_time}.csv" }
-    let(:file_path) { Rails.root.join("public", "admin", file_name) }
+    let(:file_path) { Rails.root.join("public", "admin", "users.csv") }
 
     before do
       User.stub_chain(:select, :find_each).and_yield(first_user).and_yield(second_user)
-      Time.stub_chain(:now, :strftime).and_return(formatted_time)
     end
 
     after(:all) do
@@ -27,10 +24,6 @@ describe UserReport do
 
       UserReport.generate_csv
       File.read(file_path).should == csv_string
-    end
-
-    it "should return the file name" do
-      UserReport.generate_csv.should == file_name
     end
   end
 
