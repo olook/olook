@@ -38,4 +38,8 @@ class Admin::UsersController < Admin::BaseController
     @statistics = UserReport.statistics
     respond_with :admin, @statistics
   end
+
+  def export
+    Resque.enqueue(Admin::ExportUsersWorker, current_admin.email)
+  end
 end

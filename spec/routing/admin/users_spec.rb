@@ -15,6 +15,10 @@ describe Admin::UsersController do
     it "generate statistics about the user base" do
       {get: statistics_admin_users_path}.should route_to("admin/users#statistics")
     end
+
+    it "export the user base" do
+      {get: export_admin_users_path}.should route_to("admin/users#export")
+    end
   end
 
   describe "should include unnamed route to" do
