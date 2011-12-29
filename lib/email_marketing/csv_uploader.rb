@@ -12,7 +12,7 @@ module EmailMarketing
 
     FILE_PATH =  "/tmp/"
 
-    ACTIONS = [:invalid, :optout, :userbase]
+    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders]
 
     attr_reader :csv
 
@@ -46,6 +46,29 @@ module EmailMarketing
             row << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
                     u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
           end
+        end
+      end
+    end
+
+    def generate_userbase_orders
+      selected_fields = "users.id as id, users.is_invited, users.email as email, users.first_name, users.last_name,
+                         orders.id as order_id, orders.updated_at as updated_at, orders.state as order_state,
+                         line_items.price as item_price, line_items.gift as gift, line_items.quantity, variants.number as variant_number,
+                         products.id as product_id"
+
+      @csv = CSV.generate do |row|
+        row << %w{ id email first_name last_name invite_bonus used_bonus
+                   order_id order_total order_state order_date variant_number product_id item_price gift }
+        User.joins("LEFT OUTER JOIN orders on users.id = orders.user_id")
+            .joins("LEFT OUTER JOIN line_items on orders.id = line_items.order_id")
+            .joins("LEFT OUTER JOIN variants on line_items.variant_id = variants.id")
+            .joins("LEFT OUTER JOIN products on variants.product_id = products.id")
+            .select(selected_fields)
+            .order("id, order_id")
+            .each do |u|
+          order_total = Order.where(:id => u.order_id).first.try(:total)
+          row  << [ u.id, u.email, u.first_name, u.last_name, u.invite_bonus, u.used_invite_bonus,
+                   u.order_id, order_total, u.order_state, u.updated_at , u.variant_number, u.product_id, u.item_price, u.gift ]
         end
       end
     end
