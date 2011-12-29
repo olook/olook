@@ -144,4 +144,24 @@ li.product {
     }
   }
 }
-
+#friends {
+  li.product {
+    width: 160px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          right: 2px;
+        }
+        img {
+          width: 150px;
+          height: 150px;
+        }
+        h1 {
+          width: 150px;
+          height: 17px;
+        }
+      }
+    }
+  }
+}
