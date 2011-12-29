@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  has_paper_trail
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
-
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
