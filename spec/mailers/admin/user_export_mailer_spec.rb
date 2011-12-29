@@ -20,7 +20,7 @@ describe Admin::UserExportMailer do
     end
 
     it "should include the CSV url in e-mails's body" do
-      subject.body.encoded.should match("http://olook.com.br/admin/#{file_name}")
+      subject.body.encoded.should match("http://app1.olook.com.br/admin/#{file_name}")
     end
   end
 end
