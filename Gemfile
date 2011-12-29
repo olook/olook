@@ -33,6 +33,7 @@ gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon'
 gem 'httpi'
+gem 'paper_trail', '~> 2'
 
 group :development do
   gem 'faker'
