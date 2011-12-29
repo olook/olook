@@ -62,7 +62,8 @@ describe EmailMarketing::CsvUploader do
         services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
 
         csv_body = [user_a, user_b, user_c].inject("") do |data, user|
-          data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
+          data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
+          data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
           data
         end
 
@@ -82,6 +83,58 @@ describe EmailMarketing::CsvUploader do
 
         EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header
       end
+    end
+
+    context "when type is userbase_orders" do
+
+      let(:header) do
+        "id,email,first_name,last_name,invite_bonus,used_bonus,order_id,order_total,order_state," +
+        "order_date,variant_number,product_id,item_price,gift\n"
+      end
+
+      it "shows a csv header with user id, email, first and last name, bonus info and orders attributes" do
+        EmailMarketing::CsvUploader.new(:userbase_orders).csv.should == header
+      end
+
+      context "and user has no orders and no bonus" do
+        let!(:user) { FactoryGirl.create(:member) }
+        it "lists user id, first and last_name, email for a user without orders" do
+          user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0,,,,,,,,\n"
+
+          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should == header + user_data
+        end
+      end
+
+      context "and user has bonus credits" do
+        let!(:user) { FactoryGirl.create(:member) }
+        let!(:order) { FactoryGirl.create(:order, :user => user, :credits => 10.00) }
+        before do
+          10.times do
+            accepting_member = FactoryGirl.create(:member, :first_name => 'Accepting member')
+            accepted_at = DateTime.civil(2011, 11, 10, 10, 0, 0)
+            FactoryGirl.create(:sent_invite, :user => user, :invited_member => accepting_member, :accepted_at => accepted_at, :resubmitted => nil)
+          end
+        end
+
+        it "lists user data and used bonus and total bonus" do
+          user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},0.0,#{order.state},#{order.updated_at},,,,\n"
+          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
+        end
+      end
+
+      context "and user has an order with line items" do
+        let!(:user) { FactoryGirl.create(:member) }
+        let!(:order) { FactoryGirl.create(:order, :user => user) }
+        let!(:line_item) { FactoryGirl.create(:line_item, :order => order) }
+
+        it "lists a user data with order details (order total value, products ids, prices and variant numbers)" do
+          user_order_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0," +
+                            "#{order.id},#{order.total},#{order.state},#{order.updated_at},#{line_item.variant.number}" +
+                            "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
+
+        end
+      end
+
     end
   end
 
