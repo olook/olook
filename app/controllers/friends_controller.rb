@@ -4,6 +4,7 @@ class FriendsController < ApplicationController
   before_filter :load_user
 
   def showroom
+<<<<<<< HEAD
     assign_facebook_friends
     @products = []
     15.times { @products << Product.all.shuffle.first }
@@ -25,4 +26,9 @@ class FriendsController < ApplicationController
   end
 =======
 >>>>>>> Initial my friends page
+=======
+    @products = []
+    15.times { @products << Product.all.shuffle.first }
+  end
+>>>>>>> Created my friends showroom page
 end
