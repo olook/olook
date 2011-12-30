@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::BaseController
 
   def index
     @search = User.search(params[:search])
-    @users = @search.relation.page(params[:page]).per_page(15)
+    @users = @search.relation.page(params[:page]).per_page(15).order('created_at desc')
   end
 
   def show
