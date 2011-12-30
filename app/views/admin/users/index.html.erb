@@ -5,23 +5,48 @@
   <li><%= link_to 'Export', export_admin_users_path %></li>
 <% end %>
 
-<div class="inner">
-  <%= form_tag '', :method => 'get', :class => 'form' do  %>
-    <div class="group">
-      <%= label_tag 'Pesquisa' %>
-      <%= text_field_tag 'search', params[:search] %>
-      <%= submit_tag 'Pesquisar' %>
-    </div>
-  <% end %>
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
 
+    <div class="content">
+      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
+        <div class="group">
+          <%= f.label :first_name_contains, :class => "label" %>
+          <%= f.text_field :first_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :last_name_contains, :class => "label" %>
+          <%= f.text_field :last_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :email_contains, :class => "label" %>
+          <%= f.text_field :email_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :created_at_gte, "Created at from", :class => "label"  %>
+          <%= f.date_select :created_at_gte, :include_blank => true %>
+          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.date_select :created_at_lte, :include_blank => true %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Search', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
   <table class="table">
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>E-mail</th>
+      <th><%= sort_link @search, :first_name %></th>
+      <th><%= sort_link @search, :last_name %></th>
+      <th><%= sort_link @search, :email %></th>
       <th>CPF</th>
       <th>Invited ?</th>
-      <th>Created At</th>
+      <th><%= sort_link @search, :created_at %></th>
       <th></th>
       <th></th>
     </tr>
