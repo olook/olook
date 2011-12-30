@@ -3,8 +3,8 @@ class Admin::OrdersController < Admin::BaseController
   respond_to :html
 
   def index
-    @orders = Order.with_payment.page(params[:page]).per_page(20).order('id DESC')
-    respond_with :admin, @orders
+    @search = Order.with_payment.search(params[:search])
+    @orders = @search.relation.page(params[:page]).per_page(20).order('id DESC')
   end
 
   def show

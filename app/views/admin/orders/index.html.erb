@@ -1,14 +1,55 @@
 <h2>Listing orders</h2>
 
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
+        <div class="group">
+          <%= f.label :number_eq, "Number", :class => "label" %>
+          <%= f.text_field :number_eq, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :user_first_name_contains, :class => "label" %>
+          <%= f.text_field :user_first_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :user_email_contains, :class => "label" %>
+          <%= f.text_field :user_email_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :created_at_gte, "Ordered from", :class => "label"  %>
+          <%= f.date_select :created_at_gte, :include_blank => true %>
+          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.date_select :created_at_lte, :include_blank => true %>
+        </div>
+        <div class="group">
+          <%= f.label :state, "Status", :class => "label" %>
+          <%= f.collection_select :state_eq, Order::STATUS.to_a, :first, :last, {:include_blank => true} %>
+        </div>
+        <div class="group">
+          <%= f.label :state, "Payment Method", :class => "label" %>
+          <%= f.select :payment_type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard"} , {:include_blank => true} %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Search', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Number</th>
-      <th>Client</th>
-      <th>E-mail</th>
-      <th>Date</th>
-      <th>Status</th>
-      <th>Payment Method</th>
+      <th><%= sort_link @search, :number %></th>
+      <th><%= sort_link @search, :user_first_name, "Client" %></th>
+      <th><%= sort_link @search, :user_email, "E-mail" %></th>
+      <th><%= sort_link @search, :created_at, "Date" %></th>
+      <th><%= sort_link @search, :state, "Status" %></th>
+      <th><%= sort_link @search, :payment_type, "Payment Method" %></th>
       <th>Item count</th>
       <th>Products Total</th>
       <th>Freight Price</th>
