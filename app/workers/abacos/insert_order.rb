@@ -10,7 +10,7 @@ module Abacos
     end
 
   private
-    def create_order_event(order)
+    def self.create_order_event(order)
       order.order_events.create(:message => "Calling Abacos::InsertOrder")
     end
 
