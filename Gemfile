@@ -34,6 +34,7 @@ gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon'
 gem 'httpi'
 gem 'paper_trail', '~> 2'
+gem 'meta_search'
 
 group :development do
   gem 'faker'

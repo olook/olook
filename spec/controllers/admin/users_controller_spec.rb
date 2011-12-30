@@ -13,20 +13,14 @@ describe Admin::UsersController do
   end
 
   describe "GET index" do
-    context 'when no search parameter is provided' do
-      it "assigns all users as @users" do
-        get :index
-        assigns(:users).should eq([user])
-      end
-    end
-    context 'when a search parameter is provided' do
-      let(:searched_user) { FactoryGirl.create(:user, :first_name => 'ZYX') }
+    let(:searched_user) { FactoryGirl.create(:user, :first_name => 'ZYX') }
+    let(:search_param) { {"first_name_contains" => searched_user.first_name} }
 
-      it "should filter the users by by name and e-mail using the parameter" do
-        get :index, :search => searched_user.first_name
-        assigns(:users).should_not include(user)
-        assigns(:users).should include(searched_user)
-      end
+    it "should search for a user using the search parameter" do
+      get :index, :search => search_param
+
+      assigns(:users).should_not include(user)
+      assigns(:users).should include(searched_user)
     end
   end
 

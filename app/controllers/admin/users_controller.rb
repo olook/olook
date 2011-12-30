@@ -3,13 +3,8 @@ class Admin::UsersController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    @users = User.page(params[:page]).per_page(15)
-
-    if params[:search].present?
-      @users = @users.where('(first_name LIKE :search) OR (last_name LIKE :search) OR (email LIKE :search)', :search => "%#{params[:search].strip}%")
-    end
-
-    respond_with :admin, @users
+    @search = User.search(params[:search])
+    @users = @search.relation.page(params[:page]).per_page(15)
   end
 
   def show
