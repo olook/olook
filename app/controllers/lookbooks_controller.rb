@@ -22,4 +22,8 @@ class LookbooksController < ApplicationController
   def palha
     @products = Product.find(1499, 1501, 1453, 1511)
   end
+
+  def sapatilhas
+    @products = Product.find(1, 28, 181, 208, 19, 163, 199)
+  end
 end
