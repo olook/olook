@@ -368,6 +368,16 @@ describe Order do
       subject.canceled?.should be_true
     end
 
+    it "should set canceled given not_delivered" do
+      subject.waiting_payment
+      subject.authorized
+      subject.picking
+      subject.delivering
+      subject.not_delivered
+      subject.canceled
+      subject.canceled?.should be_true
+    end
+
     it "should set reversed" do
       subject.waiting_payment
       subject.authorized
