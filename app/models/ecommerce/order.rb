@@ -132,16 +132,16 @@ class Order < ActiveRecord::Base
   end
 
   def total_with_freight
-    total + (freight_price || 0.0)
+    total + (freight_price || 0)
   end
 
   def line_items_total
-    line_items.inject(0.0){|result, item| result + item.total_price}
+    line_items.inject(0){|result, item| result + item.total_price}
   end
 
   def credits
     result = read_attribute :credits
-    result.nil? ? 0.0 : result
+    result.nil? ? 0 : result
   end
 
   def discount_from_gift
