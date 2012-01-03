@@ -6,15 +6,8 @@
   <div class="friends_list">
     <h2>Minhas Amigas</h2>
     <ul>
-      <li>
-        <%= link_to "#" do %>
-          <div class="avatar_mask">
-            <%= image_tag "/assets/fake/photo-facebook.png" %>
-          </div>
-          <span><%= @user.name %></span>
-        <% end %>
-      </li>
+      <%= render "friends_list", :friends => friends %>
     </ul>
-    <%= link_to "Não vê suas amigas? Atualize sua lista.", "javascript:void(0);", :class => "update" %>
+    <%= link_to "Não vê suas amigas? Atualize sua lista.", update_friends_list_path, :remote => true, :class => "update" %>
   </div>
 </section>

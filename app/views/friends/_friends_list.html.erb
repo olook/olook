@@ -1,0 +1,10 @@
+<% friends.each do |friend| %>
+  <li>
+    <%= link_to "#" do %>
+      <div class="avatar_mask">
+        <%= image_tag "/assets/fake/photo-facebook.png" %>
+      </div>
+      <span><%= friend.name %></span>
+    <% end %>
+  </li>
+<% end %>

@@ -7,7 +7,7 @@
 <% end %>
 
 <section id="friends" class="home">
-  <%= render "user_column" %>
+  <%= render "user_column", :friends => @friends %>
   <section id="friends_content">
     <h1>Adicione suas amigas e compartilhe sua vitrine</h1>
     <%= render "friend_quiz" %>
