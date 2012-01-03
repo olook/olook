@@ -119,7 +119,7 @@ class Product < ActiveRecord::Base
       xml.tag!(:name, name)
       xml.tag!(:smallimage,  thumb_picture)
       xml.tag!(:bigimage,  showroom_picture)
-      xml.tag!(:producturl,  Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br"))
+      xml.tag!(:producturl, criteo_product_url)
       xml.tag!(:description, description)
       xml.tag!(:price, price)
       xml.tag!(:retailprice, price)
@@ -128,7 +128,6 @@ class Product < ActiveRecord::Base
       xml.tag!(:category1, category)
     end
   end
-
 
 private
   def create_master_variant
@@ -145,5 +144,15 @@ private
 
   def update_master_variant
     master_variant.save!
+  end
+
+  def criteo_product_url
+    #?utm_source=criteo&utm_medium=banner&utm_campaign=remessaging&utm_content=<numero_produto>
+    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
+                                                           :utm_sorce => "criteo",
+                                                           :utm_medium => "banner",
+                                                           :utm_campaign => "remessaging",
+                                                           :utm_content => id
+                                                    )
   end
 end

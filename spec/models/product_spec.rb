@@ -321,7 +321,7 @@ describe Product do
         <name>Chanelle</name>
         <smallimage></smallimage>
         <bigimage></bigimage>
-        <producturl>http://www.olook.com.br/produto/#{subject.id}</producturl>
+        <producturl>http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&amp;utm_content=#{subject.id}&amp;utm_medium=banner&amp;utm_sorce=criteo</producturl>
         <description>Elegant black high-heeled shoe for executives</description>
         <price>0.0</price>
         <retailprice>0.0</retailprice>
