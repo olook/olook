@@ -2,7 +2,7 @@
   <li>
     <%= link_to "#" do %>
       <div class="avatar_mask">
-        <%= image_tag "/assets/fake/photo-facebook.png" %>
+        <%= image_tag user_avatar(friend) %>
       </div>
       <span><%= friend.name %></span>
     <% end %>
