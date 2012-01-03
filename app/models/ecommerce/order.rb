@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
     end
 
     event :canceled do
-      transition :waiting_payment => :canceled
+      transition :waiting_payment => :canceled, :not_delivered => :canceled
     end
 
     event :reversed do
