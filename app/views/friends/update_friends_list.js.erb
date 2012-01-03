@@ -1,0 +1,1 @@
+$("#user_column div.friends_list ul").fadeOut('fast').html("<%= escape_javascript render("friends_list", :friends => @friends ) %>").fadeIn('slow');
