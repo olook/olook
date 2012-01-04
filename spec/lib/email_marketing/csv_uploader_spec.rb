@@ -117,7 +117,7 @@ describe EmailMarketing::CsvUploader do
         end
 
         it "lists user data and used bonus and total bonus" do
-          user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},0.0,#{order.state},#{order.updated_at},,,,\n"
+          user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},0,#{order.state},#{order.updated_at},,,,"
           EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
         end
       end
@@ -129,11 +129,53 @@ describe EmailMarketing::CsvUploader do
 
         it "lists a user data with order details (order total value, products ids, prices and variant numbers)" do
           user_order_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0," +
-                            "#{order.id},#{order.total},#{order.state},#{order.updated_at},#{line_item.variant.number}" +
+                            "#{order.id},359.8,#{order.state},#{order.updated_at},#{line_item.variant.number}," +
                             "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
-
+          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_order_data}/)
         end
       end
+
+    end
+
+    context "when type is userbase_revenue" do
+      let(:header) do
+        "id,email,name,total_bonus,current_bonus,used_bonus,total_revenue,freight\n"
+      end
+
+      it "shows a csv header with user id, email, first and last name, bonus info and orders attributes" do
+        EmailMarketing::CsvUploader.new(:userbase_revenue).csv.should == header
+      end
+
+      context "and user has credits and two orders with completed or authorized payments" do
+        let!(:user) { FactoryGirl.create(:member) }
+        let!(:order_a) { FactoryGirl.create(:clean_order, :user => user) }
+        let!(:order_b) { FactoryGirl.create(:clean_order, :user => user) }
+
+        before do
+          10.times do
+            accepting_member = FactoryGirl.create(:member, :first_name => 'Accepting member')
+            accepted_at = DateTime.civil(2011, 11, 10, 10, 0, 0)
+            FactoryGirl.create(:sent_invite, :user => user, :invited_member => accepting_member, :accepted_at => accepted_at, :resubmitted => nil)
+          end
+          order_a.payment.state = "authorized"
+          order_b.payment.state = "completed"
+          order_a.payment.save!
+          order_b.payment.save!
+        end
+
+        it "lists user data with user bonus, freight and revenue per user" do
+          total_revenue = order_a.total_with_freight + order_b.total_with_freight
+          freight = order_a.freight_price + order_b.freight_price
+
+          user_revenue_data = "#{user.id},#{user.email},#{user.name}," +
+                              "#{user.invite_bonus + user.used_invite_bonus},#{user.invite_bonus},#{user.used_invite_bonus}," +
+                              "#{total_revenue},#{freight}\n"
+
+          EmailMarketing::CsvUploader.new(:userbase_revenue).csv.should == header + user_revenue_data
+        end
+
+      end
+
 
     end
   end
