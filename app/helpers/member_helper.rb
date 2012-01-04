@@ -47,4 +47,8 @@ module MemberHelper
   def domain_url
     "http://www.olook.com.br"
   end
+
+  def first_visit_profile
+    profile = current_user.profile_scores.first.try(:profile).first_visit_banner
+  end
 end

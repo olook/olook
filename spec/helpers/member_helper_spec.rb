@@ -94,4 +94,15 @@ describe MemberHelper do
       helper.domain_url.should == "http://www.olook.com.br"
     end
   end
+
+  require File.expand_path('spec/spec_helper')
+  
+  describe "#first_visit_profile" do
+    let(:casual_profile) { FactoryGirl.create(:casual_profile) }
+
+    it "should return the user first profile" do
+      helper.stub_chain(:current_user, :profile_scores, :first, :try, :first_visit_banner).and_return(casual_profile.first_visit_banner)
+      helper.first_visit_profile.should == "casual"
+    end
+  end
 end
