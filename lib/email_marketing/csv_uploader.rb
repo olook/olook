@@ -38,14 +38,17 @@ module EmailMarketing
 
     def generate_userbase
       bounced_list = generate_bounced_list
-      @csv = CSV.generate do |row|
-        row << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
+      @csv = CSV.generate do |rows|
+        rows << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
                    invite_token first_name last_name facebook_token birthday }
         User.find_each do |u|
           unless bounced_list.include?(u.email)
-            row << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
+            rows << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
                     u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
           end
+        end
+        return_path_emails.each do |email|
+          rows << [ nil, email, nil, nil, nil, nil, nil, 'return path seed list', nil, nil, nil ]
         end
       end
     end
@@ -113,6 +116,10 @@ module EmailMarketing
         responses += SendgridClient.new(list).parsed_response
       end
       @csv = generate_email_csv(responses)
+    end
+
+    def return_path_emails
+      IO.readlines("lib/email_marketing/return_path_emails.txt").map(&:chomp)
     end
 
   end

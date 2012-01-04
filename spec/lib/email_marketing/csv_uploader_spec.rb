@@ -67,7 +67,7 @@ describe EmailMarketing::CsvUploader do
           data
         end
 
-        EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header + csv_body
+        EmailMarketing::CsvUploader.new(:userbase).csv.should match /^#{csv_header}#{csv_body}/
       end
 
       it "does not include a user which email was included in any bounced list (spam reports, unsubscribers, blocks or invalid)" do
@@ -80,8 +80,16 @@ describe EmailMarketing::CsvUploader do
         }
 
         services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+        csv = EmailMarketing::CsvUploader.new(:userbase).csv
+        csv.should_not match user_a.email
+        csv.should_not match user_b.email
+        csv.should_not match user_c.email
+      end
 
-        EmailMarketing::CsvUploader.new(:userbase).csv.should == csv_header
+      it "includes return path seeding email" do
+        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+        csv = EmailMarketing::CsvUploader.new(:userbase).csv
+        csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,return path seed list,,,\n"
       end
     end
 
@@ -101,7 +109,7 @@ describe EmailMarketing::CsvUploader do
         it "lists user id, first and last_name, email for a user without orders" do
           user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0,,,,,,,,\n"
 
-          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should == header + user_data
+          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
         end
       end
 
