@@ -43,4 +43,8 @@ module MemberHelper
     profile = current_user.profile_scores.first.try(:profile)
     profile.nil? ? "" : "/assets/first_visit_banner/#{profile.first_visit_banner}.jpg"
   end
+
+  def domain_url
+    "http://www.olook.com.br"
+  end
 end
