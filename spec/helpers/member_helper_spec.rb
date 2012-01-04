@@ -88,4 +88,10 @@ describe MemberHelper do
       helper.first_visit_banner.should == "/assets/first_visit_banner/casual.jpg"
     end
   end
+
+  describe "#domain_url" do
+    it "should return the domain url" do
+      helper.domain_url.should == "http://www.olook.com.br"
+    end
+  end
 end
