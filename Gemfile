@@ -13,7 +13,7 @@ gem 'therubyracer', '~> 0.9.4'
 gem 'resque', '~> 1.19.0'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler'
-gem 'brcpfcnpj'
+gem 'brcpfcnpj', '= 3.0.4'
 gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
