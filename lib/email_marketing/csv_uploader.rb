@@ -12,7 +12,7 @@ module EmailMarketing
 
     FILE_PATH =  "/tmp/"
 
-    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders]
+    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue]
 
     attr_reader :csv
 
@@ -69,6 +69,22 @@ module EmailMarketing
           order_total = Order.where(:id => u.order_id).first.try(:total)
           row  << [ u.id, u.email, u.first_name, u.last_name, u.invite_bonus, u.used_invite_bonus,
                    u.order_id, order_total, u.order_state, u.updated_at , u.variant_number, u.product_id, u.item_price, u.gift ]
+        end
+      end
+    end
+
+    def generate_userbase_revenue
+      @csv = CSV.generate do |row|
+        row << %w{id email name total_bonus current_bonus used_bonus total_revenue freight}
+        User.joins(:orders).joins("INNER JOIN payments on orders.id = payments.order_id").group('users.id')
+            .where('payments.state IN ("authorized","completed")').each do |u|
+          total, freight_total = 0, 0
+          Order.joins("INNER JOIN payments on orders.id = payments.order_id")
+               .where('payments.state IN ("authorized","completed") and orders.user_id = ?', u.id).all.each do |order|
+            total += order.total_with_freight
+            freight_total += order.freight_price
+          end
+          row << [u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus, u.invite_bonus, u.used_invite_bonus, total, freight_total]
         end
       end
     end
