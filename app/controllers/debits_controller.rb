@@ -38,9 +38,9 @@ class DebitsController < ApplicationController
   private
 
   def new_payment_with_error
-    payment = Debit.new(params[:debit])
-    payment.errors.add(:id, "Não foi possível realizar o pagamento.")
-    payment
+    @payment = Debit.new(params[:debit])
+    @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+    @payment
   end
 
   def assign_receipt
