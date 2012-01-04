@@ -1,9 +1,10 @@
 # -*- encoding : utf-8 -*-
 class PaymentBuilder
-  attr_accessor :order, :payment, :delivery_address, :response
+  attr_accessor :order, :payment, :delivery_address, :response, :credit_card_number
 
   def initialize(order, payment)
     @order, @payment = order, payment
+    @credit_card_number = payment.credit_card_number
   end
 
   def process!(send_notification = true)
@@ -81,7 +82,7 @@ class PaymentBuilder
                 :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_IN_DAYS }
     elsif payment.is_a? CreditCard
       data = { :valor => order_total, :id_proprio => order.identification_code, :forma => payment.to_s,
-                :instituicao => payment.bank, :numero => payment.credit_card_number,
+                :instituicao => payment.bank, :numero => credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
                 :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
