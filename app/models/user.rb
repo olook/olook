@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
-  validates_with CpfValidator, :if => :is_invited
-  validates_with CpfValidator, :if => :require_cpf
+  validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
+  validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
 
   def name
     "#{first_name} #{last_name}".strip
