@@ -8,8 +8,7 @@ class User::CreditsController < ApplicationController
   before_filter :load_order
 
   def index
-    @member = current_user
-    @invites = @member.invites.page(params[:page]).per_page(10)
+    @invites = @user.invites.page(params[:page]).per_page(10)
   end
 
   def resubmit_invite
@@ -23,10 +22,6 @@ class User::CreditsController < ApplicationController
   end
 
   private
-
-  def load_user
-    @user = current_user
-  end
 
   def resend_invite(invite_id)
     InvitesProcessing.new.resend_invite(invite_id)
