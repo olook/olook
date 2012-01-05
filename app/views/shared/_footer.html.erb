@@ -7,14 +7,13 @@
     </ul>
 
     <ul>
-      <li><%= link_to "Prazo de Entrega", delivery_time_path %>
       <li><%= link_to "Termos e Condições", terms_path %></li>
       <li><%= link_to "Política de Privacidade", privacy_path %></li>
       <li><%= link_to "FAQ", faq_path %></li>
     </ul>
 
     <ul class="footer-social-midia">
-      <li class="freight">Frete e Devolução Grátis</li>
+      <li class="freight"><%= link_to "Prazo de Entrega", delivery_time_path %></li>
       <li class="contact">
         <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>
         <p>(11) 2626-3489</p>

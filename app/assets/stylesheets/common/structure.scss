@@ -1396,6 +1396,9 @@ footer section ul.footer-social-midia li.freight {
   line-height: 26px;
   height:26px;
   padding-left: 35px;
+  a {
+    padding: 0;
+  }
 }
 
 footer section ul.footer-social-midia li.contact {
@@ -1411,6 +1414,10 @@ footer section ul.footer-social-midia li.contact {
   a {
     margin-bottom: 5px;
   }
+}
+
+footer section ul.bandeiras {
+  float: right;
 }
 
 footer section  p {
