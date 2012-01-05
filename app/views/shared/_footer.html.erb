@@ -3,10 +3,10 @@
     <ul>
       <li><%= link_to "Sobre a olook", about_path %></li>
       <li><%= link_to "Lookbooks", sapatilhas_path %></li>
+      <li><%= link_to "Contato", contact_path %></li>
     </ul>
 
     <ul>
-      <li><%= link_to "Contato", contact_path %></li>
       <li><%= link_to "Prazo de Entrega", delivery_time_path %>
       <li><%= link_to "Termos e Condições", terms_path %></li>
       <li><%= link_to "Política de Privacidade", privacy_path %></li>
@@ -14,6 +14,11 @@
     </ul>
 
     <ul class="footer-social-midia">
+      <li class="freight">Frete e Devolução Grátis</li>
+      <li class="contact">
+        <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>
+        <p>(11) 2626-3489</p>
+      </li>
       <li class="twitter"><a href="http://www.twitter.com/olook" target="_blank">Siga-nos no twitter</a></li>
       <li class="facebook"><a href="http://www.facebook.com/olook" target="_blank">Curta a olook no Facebook</a></li>
     </ul>

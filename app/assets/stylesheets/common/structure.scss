@@ -1352,22 +1352,30 @@ footer section ul li span {
 }
 
 footer section ul li a:hover {
+  color:#000;
   text-decoration:underline;
 }
 
 footer section ul li a:visited {
-  text-decoration:normal;
   color:#000;
+  text-decoration:normal;
 }
 
 
 footer section ul.footer-social-midia {
+  font-size: 11px;
+  color:#303030;
   margin:0 0 0 35px;
+  overflow: hidden;
+}
+
+footer section ul.footer-social-midia li {
+  width: 100%;
 }
 
 footer section ul.footer-social-midia li a {
   font-weight:bold;
-  padding:4px 0 0 29px;
+  padding:4px 0 0 35px;
   float:left;
 }
 
@@ -1382,8 +1390,27 @@ footer section ul.footer-social-midia li.facebook {
   height:22px;
 }
 
-footer section ul.bandeiras {
-  margin-left:54px;
+footer section ul.footer-social-midia li.freight {
+  background: url('../../assets/common/free-freight.png') left no-repeat;
+  font-weight: bold;
+  line-height: 26px;
+  height:26px;
+  padding-left: 35px;
+}
+
+footer section ul.footer-social-midia li.contact {
+  background: url('../../assets/common/ico-contact.png') top left no-repeat;
+  height: 28px;
+  margin-bottom: 15px;
+  padding: 0 0 10px 35px;
+  border-bottom: 1px #d8d8d8 solid;
+  a, p {
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    margin-bottom: 5px;
+  }
 }
 
 footer section  p {
