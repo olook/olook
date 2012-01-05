@@ -8,7 +8,7 @@
 <% end %>
 
 <div id="fb-root"></div>
-<%= render "facebook_js", :member => @member, :facebook_app_id => @facebook_app_id  %>
+<%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
 
 <% if @is_the_first_visit %>
   <%= render 'shared/models' %>
@@ -56,9 +56,9 @@
     <fieldset>
       <ol>
         <li>
-          <input type="text" value="<%= accept_invitation_url(:invite_token => @member.invite_token) %>" readonly="readonly">
+          <input type="text" value="<%= accept_invitation_url(:invite_token => @user.invite_token) %>" readonly="readonly">
           <ul class="share">
-            <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@member) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
             <li>
               <div id="orkut_share" style="width:100%;"></div>
               <script src="http://www.google.com/jsapi" type="text/javascript"></script>
@@ -69,7 +69,7 @@
                     style:'regular',
                     title:'Olook',
                     summary:'<%= invite_message %>',
-                    destination:'<%= invitation_link(@member) %>'
+                    destination:'<%= invitation_link(@user) %>'
                   }).draw('orkut_share');
                 }, true);
               </script>

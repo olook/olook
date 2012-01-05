@@ -4,11 +4,11 @@ class MembersController < ApplicationController
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :check_early_access, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
+  before_filter :load_user, :only => [:invite, :how_to, :showroom, :invite_list]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
 
   def invite
-    @member = current_user
-    @is_the_first_visit = first_visit_for_member?(@member)
+    @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @redirect_uri = root_path
 
@@ -49,13 +49,8 @@ class MembersController < ApplicationController
     end
   end
 
-  def how_to
-    @member = current_user
-  end
-
   def showroom
-    @member = current_user
-    @is_the_first_visit = first_visit_for_member?(@member)
+    @is_the_first_visit = first_visit_for_member?(@user)
   end
 
   def show_imported_contacts
@@ -73,8 +68,7 @@ class MembersController < ApplicationController
   end
 
   def invite_list
-    @member = current_user
-    @invites = @member.invites.page(params[:page]).per_page(15)
+    @invites = @user.invites.page(params[:page]).per_page(15)
   end
 
   private
