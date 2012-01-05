@@ -15,7 +15,7 @@ describe MembersController do
     it "should show the member invite page" do
       get :invite
       response.should render_template("invite")
-      assigns(:member).should eq(user)
+      assigns(:user).should eq(user)
     end
 
     it "should assign @facebook_app_id" do
@@ -28,7 +28,7 @@ describe MembersController do
     it "should show the member how_to page" do
       get :how_to
       response.should render_template("how_to")
-      assigns(:member).should eq(user)
+      assigns(:user).should eq(user)
     end
   end
 
@@ -36,7 +36,7 @@ describe MembersController do
     it "should show the member showroom page" do
       get :showroom
       response.should render_template("showroom")
-      assigns(:member).should eq(user)
+      assigns(:user).should eq(user)
     end
   end
 
@@ -214,7 +214,7 @@ describe MembersController do
     it "should return all invites the user sent, paginated with 15 per page" do
       get :invite_list
       response.should render_template("invite_list")
-      assigns(:member).should == user
+      assigns(:user).should == user
       assigns(:invites).all.should == user.invites[0..14]
     end
   end
