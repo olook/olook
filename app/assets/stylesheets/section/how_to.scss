@@ -4,8 +4,7 @@
 #function {
   width: 960px;
   overflow: hidden;
-  margin: 35px auto 50px;
-
+  margin: 0 auto;
   ul {
     width: 100%;
     overflow: auto;
@@ -81,6 +80,7 @@
 #how_to{
   background: url('/assets/how_to/bg-shoes.png') 570px 60px no-repeat;
   padding:0 20px;
+  margin: 35px auto 50px;
   h1 {
     background: url('/assets/how_to/subtitle-how-to.png') no-repeat;
     text-indent: -9999px;
