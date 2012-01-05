@@ -9,6 +9,7 @@ Olook::Application.routes.draw do
   match "/faq", :to => "pages#faq", :as => "faq"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
+  match "/como-funciona", :to => "pages#how_to", :as => "how_to"
   match "/lookbooks/flores", :to => "lookbooks#flores", :as => "flores"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/golden-grace", :to => "lookbooks#golden_grace", :as => "golden_grace"
@@ -49,7 +50,6 @@ Olook::Application.routes.draw do
 
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
-  get "membro/como-funciona", :to => "members#how_to", :as => "member_how_to"
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"

@@ -47,7 +47,7 @@
           <% end %>
           <li class="lookbooks"><%= link_to "Lookbooks", sapatilhas_path, :class => selected_if_current(['lookbooks#sapatilhas','lookbooks#palha','lookbooks#glitter','lookbooks#color_block', 'lookbooks#golden_grace', 'lookbooks#lets_party', 'lookbooks#flores']) %></li>
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
-          <li class="how_to"><%= link_to 'Como funciona', member_how_to_path, :class => is_current?('members', 'how_to') %></li>
+          <li class="how_to"><%= link_to 'Como funciona', how_to_path, :class => is_current?('pages', 'how_to') %></li>
           <% if current_user.has_early_access? %>
             <li class="cart" id="cart">
               <%= render 'shared/cart', :order => @order %>

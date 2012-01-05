@@ -24,14 +24,6 @@ describe MembersController do
     end
   end
 
-  describe "#how_to" do
-    it "should show the member how_to page" do
-      get :how_to
-      response.should render_template("how_to")
-      assigns(:user).should eq(user)
-    end
-  end
-
   describe "#showroom" do
     it "should show the member showroom page" do
       get :showroom
