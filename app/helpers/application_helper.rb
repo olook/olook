@@ -17,7 +17,11 @@ module ApplicationHelper
 
   def render_google_remessaging_scripts
     if user_signed_in?
-      render "shared/metrics/google/google_remessaging_member"
+      if controller.controller_name == "orders"
+        render "shared/metrics/google/google_sale_conversion"
+      else
+        render "shared/metrics/google/google_remessaging_member"
+      end
     else
       render "shared/metrics/google/google_remessaging_visitor"
     end

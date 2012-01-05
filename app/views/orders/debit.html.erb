@@ -21,6 +21,5 @@
   </section>
 </section>
 <% content_for :footer do %>
-  <%= render "shared/metrics/google/google_sale_conversion" %>
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
 <% end %>
