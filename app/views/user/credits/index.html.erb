@@ -11,7 +11,7 @@
       <h1 class="credits">Meus Créditos</h1>
     </div>
     <div class="invites_list">
-      <h1><span><%= @member.invites.accepted.count %></span> amigas já se registratam e você ganhou <span><%= number_to_currency(@member.invite_bonus) %></span></h1>
+      <h1><span><%= @user.invites.accepted.count %></span> amigas já se registratam e você ganhou <span><%= number_to_currency(@user.invite_bonus) %></span></h1>
       <h2>A cada 5 amigas convidadas, você ganha R$20, e elas R$10 cada.</h2>
       <table cellpadding="0" cellspacing="0">
         <thead>
@@ -27,7 +27,7 @@
             <tr>
               <td class="email"><%= invite.email %></td>
               <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
-              <td><%= Invite.status_for_user_invite(@member.id, invite) %></td>
+              <td><%= Invite.status_for_user_invite(@user.id, invite) %></td>
               <td><%= link_to "Reenviar convite", resubmit_invite_user_credits_path(invite.id), :method => :post  %></td>
             </tr>
           <% end %>
