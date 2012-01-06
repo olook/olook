@@ -25,8 +25,8 @@ class Order < ActiveRecord::Base
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
-  has_many :order_events
-  has_one :used_coupon
+  has_many :order_events, :dependent => :destroy
+  has_one :used_coupon, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
 
