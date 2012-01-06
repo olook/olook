@@ -2,7 +2,7 @@
 class ::AddressesController < ApplicationController
   layout "checkout"
 
-  include Ecommerce
+  include Checkout
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
@@ -68,7 +68,7 @@ class ::AddressesController < ApplicationController
   end
 
   def set_freight_in_the_order(address)
-    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
+    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.line_items_total)
     freight.merge!(:address_id => address.id)
 
     if @order.freight

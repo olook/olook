@@ -10,6 +10,13 @@ class CartController < ApplicationController
   before_filter :current_order
   before_filter :format_credits_value, :only => [:update_bonus]
 
+  def update_coupon
+    code = params[:coupon][:code]
+    coupon_manager = CouponManager.new(@order, code)
+    response_message = coupon_manager.apply_coupon
+    redirect_to cart_path, :notice => response_message
+  end
+
   def update_bonus
     bonus = InviteBonus.calculate(@user)
     credits = params[:credits][:value]
@@ -27,8 +34,8 @@ class CartController < ApplicationController
     @bonus = InviteBonus.calculate(@user, @order)
     @cart = Cart.new(@order)
     @user.is_invited = true
-    promotion = ChristmasPromotion.new(@order)
-    @line_items = promotion.order_line_items
+    @line_items = @order.line_items
+    @coupon_code = @order.used_coupon.try(:code)
   end
 
   def destroy

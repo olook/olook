@@ -14,8 +14,13 @@ class PaymentBuilder
     payment_response = set_payment_url.payment_response
 
     if payment_response.response_status == Payment::SUCCESSFUL_STATUS
-      order.decrement_inventory_for_each_item
-      order.waiting_payment
+      if payment_response.transaction_status != Payment::CANCELED_STATUS
+        order.decrement_inventory_for_each_item
+        order.waiting_payment
+        order.invalidate_coupon
+      else
+        order.canceled
+      end
     end
 
     OpenStruct.new(:status => payment_response.response_status, :payment => payment)

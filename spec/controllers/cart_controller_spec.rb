@@ -17,6 +17,28 @@ describe CartController do
       end
     end
 
+    describe "PUT update_coupon" do
+      before :each do
+        session[:order] = order
+      end
+
+      it "should apply the coupon" do
+        code = "abc"
+        CouponManager.should_receive(:new).with(order, code).and_return(coupon_manager = mock)
+        coupon_manager.should_receive(:apply_coupon)
+        put :update_coupon, :coupon => {:code => code}
+      end
+
+      it "should redirect to cart_path" do
+        msg = "success"
+        code = "abc"
+        CouponManager.stub(:new).and_return(coupon_manager = double)
+        coupon_manager.stub(:apply_coupon).and_return(msg)
+        put :update_coupon, :coupon => {:code => code}
+        response.should redirect_to(cart_path, :notice => msg)
+      end
+    end
+
     describe "PUT update_bonus" do
       context "when the user has bonus" do
         before :each do

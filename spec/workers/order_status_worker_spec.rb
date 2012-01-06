@@ -101,5 +101,27 @@ describe OrderStatusWorker do
         described_class.integrate_with_abacos(order)
       end
     end
+
+    describe 'when the order state is canceled' do
+      before :each do
+        order.stub(:'canceled?').and_return(true)
+      end
+
+      context "when the order exists on Abacos" do
+        it "should enqueue a Job in order to cancel it" do
+          Abacos::OrderAPI.stub(:order_exists?).and_return(true)
+          Resque.should_receive(:enqueue).with(Abacos::CancelOrder, order.number)
+          described_class.integrate_with_abacos(order)
+        end
+      end
+
+      context "when the order doesn't exists on Abacos" do
+        it "should enqueue a Job in order to insert it" do
+          Abacos::OrderAPI.stub(:order_exists?).and_return(false)
+          Resque.should_receive(:enqueue).with(Abacos::InsertOrder, order.number)
+          described_class.integrate_with_abacos(order)
+        end
+      end
+    end
   end
 end

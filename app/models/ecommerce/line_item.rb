@@ -1,5 +1,4 @@
 class LineItem < ActiveRecord::Base
-  PRICE_FOR_GIFT = 0.01
   belongs_to :variant
   belongs_to :order
   validates_presence_of :variant_id

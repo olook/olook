@@ -59,6 +59,26 @@
         </tr>
       <% end %>
       <tr class="discount">
+        <td class="item"><h1>Possui algum código promocional?</h1></td>
+        <td colspan="2">
+          <p><strong>Digite o seu valor no<br/> campo ao lado</strong></p>
+        </td>
+        <td>
+          <%= form_for(update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_field('coupon', 'code', :value => @coupon_code) %>
+                </li>
+                <li class="cupom">
+                  <%= submit_tag 'Aplicar cupom' %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="discount">
         <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
         <td colspan="2">
           <p><strong>Quanto deseja usar?</strong></p>

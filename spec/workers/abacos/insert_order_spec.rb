@@ -15,23 +15,29 @@ describe Abacos::InsertOrder do
 
     context 'if the order is valid and parsed' do
       before :each do
-        described_class.stub(:parse_and_check_order).with(123).and_return(:order)
+        described_class.stub(:parse_and_check_order).with(123).and_return(@order = double)
       end
       context 'and it can export the client' do
         before :each do
-          described_class.should_receive(:export_client).with(:order).and_return(true)
+          described_class.should_receive(:export_client).with(@order).and_return(true)
         end
         it 'should try to insert the order' do
-          described_class.should_receive(:insert_order).with(:order)
+          described_class.should_receive(:insert_order).with(@order)
+          described_class.perform(123)
+        end
+        it 'should enqueue a Job to cancel the order if the order is canceled' do
+          described_class.stub(:insert_order).and_return(true)
+          @order.stub(:canceled?).and_return(true)
+          Resque.should_receive(:enqueue).with(Abacos::CancelOrder, 123)
           described_class.perform(123)
         end
       end
       context "and it can't export the client" do
         before :each do
-          described_class.should_receive(:export_client).with(:order).and_return(false)
+          described_class.should_receive(:export_client).with(@order).and_return(false)
         end
         it 'should not try to insert the order' do
-          described_class.should_not_receive(:insert_order).with(:order)
+          described_class.should_not_receive(:insert_order).with(@order)
           described_class.perform(123)
         end
       end

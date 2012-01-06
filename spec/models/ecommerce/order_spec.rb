@@ -9,6 +9,28 @@ describe Order do
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
+  it { should have_one(:used_coupon) }
+
+  context "coupons" do
+    it "should decrement a standart coupon" do
+      remaining_amount = 10
+      order = FactoryGirl.create(:order)
+      coupon = FactoryGirl.create(:standard_coupon, :remaining_amount => remaining_amount)
+      order.create_used_coupon(:coupon => coupon)
+      order.invalidate_coupon
+      coupon.reload.remaining_amount.should == remaining_amount - 1
+    end
+
+    it "should not decrement a unlimited coupon" do
+      order = FactoryGirl.create(:order)
+      coupon = FactoryGirl.create(:unlimited_coupon)
+      order.create_used_coupon(:coupon => coupon)
+      remaining_amount = coupon.remaining_amount
+      order.invalidate_coupon
+      coupon.reload.remaining_amount.should == remaining_amount
+    end
+  end
+
   context "creating a Order" do
     it "should generate a number" do
       order = FactoryGirl.create(:order)
@@ -111,7 +133,8 @@ describe Order do
       it "should return all discounts" do
         subject.stub(:credits).and_return(credits = 9.09)
         subject.stub(:discount_from_gift).and_return(gift = 9.09)
-        subject.total_discount.should == credits + gift
+        subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
+        subject.total_discount.should == credits + gift + coupon
       end
     end
 
@@ -125,8 +148,24 @@ describe Order do
       end
     end
 
+    describe "#discount_from_coupon" do
+      context "with a used_coupon" do
+        it "should return the value" do
+          coupon = FactoryGirl.create(:standard_coupon)
+          subject.create_used_coupon(:coupon => coupon)
+          subject.discount_from_coupon.should == coupon.value
+        end
+      end
+
+      context "without a used_coupon" do
+        it "should return 0" do
+          subject.discount_from_coupon.should == 0
+        end
+      end
+    end
+
     describe "#total" do
-      context "without gifts" do
+      context "without coupon" do
         it "should return the total discounting the credits" do
           credits = 11.09
           expected = items_total
@@ -140,12 +179,12 @@ describe Order do
         end
       end
 
-      context "with a gift" do
-        it "should return the total discounting the credits and gifts" do
+      context "with a coupon" do
+        it "should return the total discounting the credits and coupons" do
           credits = 11.09
-          item_flagged_as_gift = subject.line_items.first
-          item_flagged_as_gift.update_attributes(:gift => true)
-          expected = items_total - credits - item_flagged_as_gift.price
+          coupon = FactoryGirl.create(:standard_coupon)
+          subject.create_used_coupon(:coupon => coupon)
+          expected = items_total - credits - coupon.value
           subject.stub(:credits).and_return(credits)
           subject.total.should == expected
         end
@@ -300,33 +339,6 @@ describe Order do
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory + quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory + quantity
     end
-
-    it "should rollback the inventory" do
-      subject.should_receive(:increment_inventory_for_each_item)
-      subject.rollback_inventory
-    end
-
-    it "should rollback the inventory when canceled" do
-      subject.should_receive(:increment_inventory_for_each_item)
-      subject.waiting_payment
-      subject.canceled
-    end
-
-    it "should rollback the inventory when reversed" do
-      subject.should_receive(:increment_inventory_for_each_item)
-      subject.waiting_payment
-      subject.authorized
-      subject.under_review
-      subject.reversed
-    end
-
-    it "should rollback the inventory when refunded" do
-      subject.should_receive(:increment_inventory_for_each_item)
-      subject.waiting_payment
-      subject.authorized
-      subject.under_review
-      subject.refunded
-    end
   end
 
   describe '#installments' do
@@ -374,6 +386,11 @@ describe Order do
       subject.picking
       subject.delivering
       subject.not_delivered
+      subject.canceled
+      subject.canceled?.should be_true
+    end
+
+    it "should set canceled given in_the_cart" do
       subject.canceled
       subject.canceled?.should be_true
     end

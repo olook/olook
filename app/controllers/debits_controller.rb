@@ -2,11 +2,10 @@
 class DebitsController < ApplicationController
   layout "checkout"
 
-  include Ecommerce
+  include Checkout
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_order, :only => [:new, :create]
   before_filter :check_inventory, :only => [:create]
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]

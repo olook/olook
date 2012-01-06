@@ -4,6 +4,7 @@ class Payment < ActiveRecord::Base
   MINIMUM_VALUE = 5.0
   SUCCESSFUL_STATUS = 'Sucesso'
   FAILURE_STATUS = 'Falha'
+  CANCELED_STATUS = 'Cancelado'
   REASON = 'Pagamento'
   RECEIPT = 'AVista'
   STATUS = {

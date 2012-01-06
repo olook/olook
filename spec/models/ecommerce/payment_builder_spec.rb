@@ -40,23 +40,36 @@ describe PaymentBuilder do
     subject.process!
   end
 
-  it "should return a structure with status and a payment sending notifications" do
+  it "should return a structure with status and a payment" do
     subject.stub(:send_payment)
     subject.stub(:create_payment_response)
     payment_response = double
     payment_response.stub(:response_status).and_return(status = Payment::SUCCESSFUL_STATUS)
+    payment_response.stub(:transaction_status).and_return(:success)
     subject.stub_chain(:set_payment_url, :payment_response).and_return(payment_response)
     subject.process!.status.should == status
     subject.process!.payment.should == credit_card
   end
 
-  it "should return a structure with status and a payment sending notifications" do
+  it "should set order.waiting_payment" do
     subject.stub(:send_payment)
     subject.stub(:create_payment_response)
     payment_response = double
     payment_response.stub(:response_status).and_return(status = Payment::SUCCESSFUL_STATUS)
+    payment_response.stub(:transaction_status).and_return(:success)
     subject.stub_chain(:set_payment_url, :payment_response).and_return(payment_response)
     subject.order.should_receive(:waiting_payment)
+    subject.process!
+  end
+
+  it "should invalidate the order coupon" do
+    subject.stub(:send_payment)
+    subject.stub(:create_payment_response)
+    payment_response = double
+    payment_response.stub(:response_status).and_return(status = Payment::SUCCESSFUL_STATUS)
+    payment_response.stub(:transaction_status).and_return(:success)
+    subject.stub_chain(:set_payment_url, :payment_response).and_return(payment_response)
+    subject.order.should_receive(:invalidate_coupon)
     subject.process!
   end
 
