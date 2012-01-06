@@ -14,7 +14,7 @@
   <div id="product">
     <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
-      <%= product_presenter.render_related_products %>
+      <%= render "product_pics" %>
 
       <div id="infos">
         <%= product_presenter.render_description %>
@@ -23,9 +23,10 @@
         <% else %>
           <%= link_to "Adicionar a sacola", "javascript:void(0);", :class => "add_product open_login" %>
         <% end %>
-
         <%= product_presenter.render_details %>
       </div>
+
+      <%= product_presenter.render_related_products %>
     </div>
   </div>
 <% end %>

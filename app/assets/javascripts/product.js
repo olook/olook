@@ -64,6 +64,19 @@ $(document).ready(function() {
     }
   });
   
+  $("div#related ul").carouFredSel({
+    auto: false,
+    width: 860,
+    items: 3,
+    prev : {
+      button : ".carousel-prev",
+      items : 3
+    },
+    next : {
+      button : ".carousel-next",
+      items : 3
+    }
+  });
 });
 
 initProduct = {
