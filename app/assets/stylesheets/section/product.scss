@@ -189,10 +189,10 @@
           color: #999;
           font-size: 16px;
           letter-spacing: -1px;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
           &.price {
             color: #e05789;
-            font-size: 50px;
+            font-size: 45px;
             letter-spacing: -4px;
             text-align: center;
           }
@@ -200,7 +200,7 @@
       }
       div.color_size {
         width: 368px;
-        padding: 20px 10px;
+        padding: 15px 10px;
         overflow: auto;
         border: 1px #ebebeb solid;
         div.line {
@@ -217,10 +217,10 @@
             float: left;
           }
           ol {
-            width: 280px;
+            width: 288px;
             float: left;
             li {
-              margin: 0 5px 5px 0;
+              margin: 0 5px 0 0;
               display: inline-block;
               float: left;
               &:first-child {
@@ -228,12 +228,12 @@
               }
               label {
                 font-family: Arial;
-                font-size: 11px;
-                font-weight: bold;
+                font-size: 12px;
+                font-weight: normal;
                 line-height: 28px;
                 text-align: center;
-                width: 33px;
-                height: 30px;
+                width: 29px;
+                height: 28px;
                 display: inline-block;
                 cursor: pointer;
                 input[type="radio"] {
@@ -255,8 +255,8 @@
               width: 280px;
               li {
                 img {
-                  width: 35px;
-                  height: 30px;
+                  width: 29px;
+                  height: 28px;
                 }
                 &:first-child {
                   img {
@@ -267,7 +267,7 @@
             }
           }
           &.size {
-            margin-top: 20px;
+            margin-top: 10px;
             label {
               color: $pink;
               border: 1px solid $pink;
@@ -296,7 +296,7 @@
         text-indent: -9999px;
         width: 279px;
         height: 58px;
-        margin: 25px auto 50px auto;
+        margin: 17px auto 30px auto;
         display: block;
         border: none;
         cursor: pointer;
