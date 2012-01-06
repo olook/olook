@@ -6,7 +6,11 @@ module Abacos
     def self.perform(order_number)
       order = parse_and_check_order order_number
       create_order_event order
-      insert_order(order) if export_client(order)
+      if export_client(order)
+        if insert_order(order)
+          Resque.enqueue(Abacos::CancelOrder, order_number) if order.canceled?
+        end
+      end
     end
 
   private

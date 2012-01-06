@@ -48,22 +48,4 @@ class Billet < Payment
   def build_payment_expiration_date
     EXPIRATION_IN_DAYS.days.from_now
   end
-
-  private
-
-  def refund_order
-    order.refunded
-  end
-
-  def review_order
-    order.under_review
-  end
-
-  def cancel_order
-    order.canceled
-  end
-
-  def authorize_order
-    order.authorized
-  end
 end

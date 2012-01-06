@@ -26,6 +26,7 @@ class Order < ActiveRecord::Base
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
   has_many :order_events
+  has_one :used_coupon
   after_create :generate_number
   after_create :generate_identification_code
 
@@ -34,10 +35,6 @@ class Order < ActiveRecord::Base
   state_machine :initial => :in_the_cart do
 
     store_audit_trail
-
-    after_transition :waiting_payment => :canceled, :do => :rollback_inventory
-    after_transition :under_review => :reversed, :do => :rollback_inventory
-    after_transition :under_review => :refunded, :do => :rollback_inventory
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -52,7 +49,7 @@ class Order < ActiveRecord::Base
     end
 
     event :canceled do
-      transition :waiting_payment => :canceled, :not_delivered => :canceled
+      transition :waiting_payment => :canceled, :not_delivered => :canceled, :in_the_cart => :canceled
     end
 
     event :reversed do
@@ -77,6 +74,13 @@ class Order < ActiveRecord::Base
 
     event :not_delivered do
       transition :delivering => :not_delivered
+    end
+  end
+
+  def invalidate_coupon
+    coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
+    if coupon
+      coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
     end
   end
 
@@ -144,6 +148,10 @@ class Order < ActiveRecord::Base
     result.nil? ? 0 : result
   end
 
+  def discount_from_coupon
+    used_coupon ? used_coupon.value : 0
+  end
+
   def discount_from_gift
     line_items.where(:gift => true).inject(0){|result, item| item.price}
   end
@@ -153,12 +161,13 @@ class Order < ActiveRecord::Base
     if result > 0
       result = result - credits
       result = result - discount_from_gift
+      result = result - discount_from_coupon
     end
     result
   end
 
   def total_discount
-    credits + discount_from_gift
+    credits + discount_from_coupon + discount_from_gift
   end
 
   def generate_identification_code

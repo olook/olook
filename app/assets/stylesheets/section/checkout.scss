@@ -185,6 +185,13 @@ section#cart {
               border: none;
               cursor: pointer;
             }
+            &.cupom {
+              input[type="submit"] {
+                background: none;
+                margin-left: 5px;
+                padding: 0;
+              }
+            }
           }
         }
       }

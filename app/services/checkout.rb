@@ -1,5 +1,11 @@
 # -*- encoding : utf-8 -*-
-module Ecommerce
+module Checkout
+  extend ActiveSupport::Concern
+
+  included do
+    append_before_filter :check_order
+  end
+
   def load_promotion
     @promotion = ::ChristmasPromotion.new(@order)
   end
@@ -19,7 +25,7 @@ module Ecommerce
   end
 
   def check_order
-    @order = @user.orders.find_by_id(session[:order])
+    @order = current_user.orders.find_by_id(session[:order])
     msg = "O total de sua compra deve ser maior que R$ 5,00"
     if @order
       @order.reload

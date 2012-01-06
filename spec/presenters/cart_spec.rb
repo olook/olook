@@ -6,6 +6,7 @@ describe Cart do
   let(:total) { 45.89 }
   let(:credits) { 1.28 }
   let(:gift_discount) { 23.28 }
+  let(:coupon_discount) { 10.28 }
   subject { Cart.new(order)}
 
   before :each do
@@ -13,6 +14,7 @@ describe Cart do
     order.stub(:total).and_return(total)
     order.stub(:credits).and_return(credits)
     order.stub(:discount_from_gift).and_return(gift_discount)
+    order.stub(:discount_from_coupon).and_return(coupon_discount)
   end
 
   it "should return the total" do
@@ -20,12 +22,12 @@ describe Cart do
   end
 
   it "should return the subtotal" do
-    subject.subtotal.should == order.total + credits + gift_discount
+    subject.subtotal.should == order.total + credits + gift_discount + coupon_discount
   end
 
   it "should return the subtotal when the credits is nil" do
     order.stub(:credits).and_return(nil)
-    subject.subtotal.should == order.total + gift_discount
+    subject.subtotal.should == order.total + gift_discount + coupon_discount
   end
 
   it "should return the credits discount" do
@@ -34,6 +36,10 @@ describe Cart do
 
   it "should return the gift discount" do
     subject.gift_discount.should == order.discount_from_gift
+  end
+
+  it "should return the coupon discount" do
+    subject.coupon_discount.should == order.discount_from_coupon
   end
 
   it "should return the freight price" do

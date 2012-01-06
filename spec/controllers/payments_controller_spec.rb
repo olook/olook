@@ -29,6 +29,7 @@ describe PaymentsController do
 
   describe "POST create" do
     before :each do
+      session[:order] = order.id
       Order.any_instance.stub(:total_with_freight).and_return(total)
     end
 

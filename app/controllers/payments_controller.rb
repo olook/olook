@@ -2,17 +2,17 @@
 class PaymentsController < ApplicationController
   layout "checkout"
 
-  include Ecommerce
+  include Checkout
   respond_to :html
   before_filter :authenticate_user!, :only => [:index]
   before_filter :load_user, :except => [:create]
-  before_filter :check_order, :only => [:index]
+  skip_before_filter :check_order, :only => [:show]
   before_filter :check_freight, :only => [:index]
+  before_filter :build_cart, :only => [:index]
   before_filter :load_promotion
   protect_from_forgery :except => :create
 
   def index
-    @cart = Cart.new(@order)
   end
 
   def show

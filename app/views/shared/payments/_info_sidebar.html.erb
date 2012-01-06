@@ -18,10 +18,10 @@
           <td>Crédito</td>
           <td class="value credit">- <%= number_to_currency(cart.credits_discount) %></td>
         </tr>
-        <% if @promotion.is_active? %>
+        <% if @order.used_coupon %>
           <tr>
-            <td>Presente Olook</td>
-            <td class="value credit">- <%= number_to_currency(cart.gift_discount) %></td>
+            <td>Cupom desconto</td>
+            <td class="value credit">- <%= number_to_currency(cart.coupon_discount) %></td>
           </tr>
         <% end %>
         <tr>
