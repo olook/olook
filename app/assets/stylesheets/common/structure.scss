@@ -1313,6 +1313,25 @@ header span {
   }
 }
 
+header div.contact {
+  width: 100%;
+  overflow: auto;
+  padding: 5px 0;
+  border-bottom: 1px #efefef solid;
+  div.content {
+    ul {
+      float: right;
+      li {
+        color: #848179;
+        display: inline;
+        a {
+          color: #848179;
+        }
+      }
+    }
+  }
+}
+
 .holder-resolution .holder-content {
   clear:both;
 }
