@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class OrderStatusMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
-  default :from => "olook <avisos@o.olook.com.br>"
+  default :from => "olook <avisos@olook.com.br>"
 
   [:order_requested, :payment_confirmed, :payment_refused].each do |method|
     define_method method do |order|
