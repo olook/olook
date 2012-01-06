@@ -238,7 +238,7 @@ describe Abacos::Product do
 
     describe "#parse_collection" do
       it "should return the id of a valid collection" do
-        described_class.parse_collection('Coleção Dezembro').should == december_collection.id
+        described_class.parse_collection('Coleção Dezembro 2011').should == december_collection.id
       end
       describe "should return nil" do
         it "if the format is valid but there's no collection for the period" do
@@ -258,7 +258,7 @@ describe Abacos::Product do
     describe "#parse_collection_date" do
       describe "should return the reference date for the collection" do
         it "with default year 2011 when it's not informed" do
-          described_class.parse_collection_date('Coleção Dezembro').should == Date.civil(2011, 12, 1)
+          described_class.parse_collection_date('Coleção Dezembro 2011').should == Date.civil(2011, 12, 1)
         end
         it "with the parsed year when it is informed" do
           described_class.parse_collection_date('Coleção Abril/ 2010').should == Date.civil(2010, 4, 1)

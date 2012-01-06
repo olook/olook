@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Admin::CollectionsController do
   render_views
 
-  let!(:collection) { FactoryGirl.create(:collection) }
+  let!(:collection) { FactoryGirl.create(:inactive_collection) }
   let!(:valid_attributes) { collection.attributes }
 
   before :each do

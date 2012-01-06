@@ -176,10 +176,8 @@ module Abacos
       pieces = pieces.delete_if {|piece| !piece.match(filter) }
       
       month_name, year = pieces
-
       month = month_names.index(month_name)+1
-      year ||= '2011'
-      
+
       Date.civil(year.to_i, month, 1)
     rescue
       raise RuntimeError.new "Invalid collection '#{data}'"

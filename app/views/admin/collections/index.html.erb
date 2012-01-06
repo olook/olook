@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Start date</th>
       <th>End date</th>
+			<th>Active</th>
       <th>Product Count</th>
       <th></th>
       <th></th>
@@ -17,6 +18,7 @@
       <td><%= collection.name %></td>
       <td><%= l collection.start_date %></td>
       <td><%= l collection.end_date %></td>
+			<td><%= collection.is_active %></td>
       <td><%= collection.products.count %></td>
       <td><%= link_to 'Show', admin_collection_path(collection) %></td>
       <td><%= link_to 'Edit', edit_admin_collection_path(collection) %></td>
