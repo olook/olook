@@ -10,21 +10,5 @@ class User::CreditsController < ApplicationController
   def index
     @invites = @user.invites.page(params[:page]).per_page(10)
   end
-
-  def resubmit_invite
-    resend_invite(params[:id])
-    redirect_to(user_credits_path, :notice => "Convite enviado com sucesso!")
-  end
-
-  def resubmit_all_invites
-    current_user.invites.each { |invite| resend_invite(invite.id) }
-    redirect_to(user_credits_path, :notice => "Convites enviados com sucesso!")
-  end
-
-  private
-
-  def resend_invite(invite_id)
-    InvitesProcessing.new.resend_invite(invite_id)
-  end
 end
 

@@ -19,7 +19,6 @@
             <th class="email">Email</th>
             <th>Convidado em</th>
             <th>Registrado</th>
-            <th><%= link_to "Reenviar todos", resubmit_all_invites_user_credits_path, :method => :post %></th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +27,6 @@
               <td class="email"><%= invite.email %></td>
               <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
               <td><%= Invite.status_for_user_invite(@user.id, invite) %></td>
-              <td><%= link_to "Reenviar convite", resubmit_invite_user_credits_path(invite.id), :method => :post  %></td>
             </tr>
           <% end %>
         </tbody>
