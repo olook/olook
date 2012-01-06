@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
   def profile_showroom(profile, category = nil)
     scope = profile.products.only_visible.
-            where(:collection_id => Collection.current)
+            where(:collection_id => Collection.active)
     scope = scope.where(:category => category) if category
     scope
   end
