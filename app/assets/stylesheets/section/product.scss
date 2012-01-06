@@ -69,6 +69,9 @@
     }
   }
   div.content {
+    div#pics_suggestions, div#infos {
+      margin-bottom: 40px;
+    }
     div#pics_suggestions {
       width: 575px;
       float: left;
@@ -138,34 +141,6 @@
         &.sold_out {
           p.warn {
             display: block;
-          }
-        }
-      }
-      div#related {
-        background: url('/assets/showroom/border-top-product.png') -245px 13px no-repeat;
-        width: 100%;
-        overflow: auto;
-        clear: both;
-        h1.title {
-          background: url("/assets/product/title-your-stylists.png") no-repeat;
-          text-indent: -9999px;
-          width: 360px;
-          height: 27px;
-          margin: 0 0 15px 0;
-          display: block;
-          float: left;
-        }
-        ul {
-          clear: both;
-          li.product {
-            width: 265px;
-            a.product_link {
-              img {
-                width: 260px;
-                height: 260px;
-                border-color: #df5a8b;
-              }
-            }
           }
         }
       }
@@ -371,6 +346,56 @@
             }
             &.selected {
               display: block;
+            }
+          }
+        }
+      }
+    }
+    div#related {
+      position: relative;
+      background: url('/assets/showroom/border-top-product.png') 170px 13px no-repeat;
+      width: 100%;
+      overflow: auto;
+      clear: both;
+      a.carousel-prev, a.carousel-next {
+        position: absolute;
+        text-indent: -9999px;
+        width: 42px;
+        height: 360px;
+        top: 0;
+        display: block;
+      }
+      a.carousel-prev {
+        background: url("/assets/product/prev-product.jpg") 0 no-repeat;
+        left: 0;
+      }
+      a.carousel-next {
+        background: url("/assets/product/next-product.jpg") 0 no-repeat;
+        right: 0;
+      }
+      div.caroufredsel_wrapper {
+        background: url("/assets/product/bg-footer-carousel.png") bottom left no-repeat;
+        margin: 0 auto !important;
+        padding: 0 0 30px 0;
+      }
+      h1.title {
+        background: url("/assets/product/title-your-stylists.png") no-repeat;
+        text-indent: -9999px;
+        width: 360px;
+        height: 27px;
+        margin: 0 0 15px 0;
+        display: block;
+        float: left;
+      }
+      ul {
+        clear: both;
+        li.product {
+          width: 265px;
+          a.product_link {
+            img {
+              width: 260px;
+              height: 260px;
+              border-color: #df5a8b;
             }
           }
         }
