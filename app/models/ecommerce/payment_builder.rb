@@ -18,8 +18,6 @@ class PaymentBuilder
         order.decrement_inventory_for_each_item
         order.waiting_payment
         order.invalidate_coupon
-      else
-        order.canceled
       end
     end
 
