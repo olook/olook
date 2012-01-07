@@ -18,10 +18,14 @@ class PaymentBuilder
         order.decrement_inventory_for_each_item
         order.waiting_payment
         order.invalidate_coupon
+        respond_with_success(payment)
+      else
+        respond_with_failure
       end
+    else
+      respond_with_failure
     end
 
-    OpenStruct.new(:status => payment_response.response_status, :payment => payment)
     rescue Exception => error
       order.payment.destroy
       error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment ID #{payment.id}"
@@ -30,7 +34,7 @@ class PaymentBuilder
         :error_message => error_message
       )
       log(error_message)
-      OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+      respond_with_failure
   end
 
   def set_payment_order
@@ -100,6 +104,14 @@ class PaymentBuilder
   end
 
   private
+
+  def respond_with_failure
+    OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+  end
+
+  def respond_with_success(payment)
+    OpenStruct.new(:status => payment.payment_response.response_status, :payment => payment)
+  end
 
   def log(message, logger = Rails.logger, level = :error)
     logger.send(level, message)
