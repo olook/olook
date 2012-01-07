@@ -101,7 +101,7 @@ Olook::Application.routes.draw do
     resources :shipping_services
     resources :collections
     resources :orders
-    resources :coupons
+    resources :coupons, :except => [:destroy]
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
