@@ -36,14 +36,16 @@ describe OmniauthCallbacksController do
         controller.env["omniauth.auth"] = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}
         @user.should_receive(:update_attributes).with(:uid => "123", :facebook_token => "token")
         get :facebook
-        response.should redirect_to(member_showroom_path, :notice => "Facebook Connect adicionado com sucesso")
+        response.should redirect_to(member_showroom_path)
+        flash[:notice].should eq("Facebook Connect adicionado com sucesso")
       end
 
       it "should not set facebook uid and token when already exist a facebook account" do
         controller.env["omniauth.auth"] = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}
         FactoryGirl.create(:user, :uid => "123")
         get :facebook
-        response.should redirect_to(member_showroom_path, :notice => "Esta conta do Facebook já está em uso")
+        response.should redirect_to(member_showroom_path)
+        flash[:notice].should eq("Esta conta do Facebook já está em uso")
       end
     end
   end
