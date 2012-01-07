@@ -37,15 +37,6 @@ class Admin::CouponsController < ApplicationController
     redirect_to admin_coupons_path
   end
 
-  def destroy
-    if @coupon.destroy
-      flash[:notice] = "The selected coupon was removed from the system!"
-    else
-      flash[:error] = "We can't remove the desired coupon from the system."
-    end
-    redirect_to admin_coupons_path
-  end
-
   private
 
   def load_coupon
