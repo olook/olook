@@ -37,7 +37,7 @@ feature "Buying products", %q{
         scenario "If I don't choose a variant and try to add it to the cart, it should tell me I need to pick a size" do
           visit product_path(shoe)
           click_button "add_product"
-          page.should have_content("Selecione um tamanho")
+          page.should have_content("Produto não disponível para esta quantidade ou inexistente")
         end
       end
 

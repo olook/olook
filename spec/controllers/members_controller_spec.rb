@@ -36,15 +36,15 @@ describe MembersController do
     describe "and show error message" do
       it "when receiving a blank token" do
         get :accept_invitation, :invite_token => ''
-        response.should redirect_to(root_path, :alert =>'Convite inválido')
+        response.should redirect_to(root_path)
       end
       it "when receiving a token with invalid format" do
         get :accept_invitation, :invite_token => 'xx'
-        response.should redirect_to(root_path, :alert =>'Convite inválido')
+        response.should redirect_to(root_path)
       end
       it "when receiving a token that doesn't exist" do
         get :accept_invitation, :invite_token => 'x'*20
-        response.should redirect_to(root_path, :alert =>'Convite inválido')
+        response.should redirect_to(root_path)
       end
     end
 

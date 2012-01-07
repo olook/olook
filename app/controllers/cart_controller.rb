@@ -67,12 +67,8 @@ class CartController < ApplicationController
   end
 
   def update_quantity_product
-   if @order.add_variant(@variant, params[:variant][:quantity])
-      destroy_freight(@order)
-      redirect_to(cart_path, :notice => "Quantidade atualizada")
-    else
-      redirect_to(:back, :notice => "Produto esgotado")
-    end
+   destroy_freight(@order) if @order.add_variant(@variant, params[:variant][:quantity])
+   redirect_to(cart_path, :notice => "Quantidade atualizada")
   end
 
   def create
@@ -109,7 +105,7 @@ class CartController < ApplicationController
   def check_product_variant
     variant_id = params[:variant][:id] if  params[:variant]
     @variant = Variant.find_by_id(variant_id)
-    redirect_to(:back, :notice => "Selecione um tamanho") unless @variant
+    redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") unless @variant.try(:available_for_quantity?)
   end
 
   def current_order

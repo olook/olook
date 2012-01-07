@@ -35,7 +35,8 @@ describe CartController do
         CouponManager.stub(:new).and_return(coupon_manager = double)
         coupon_manager.stub(:apply_coupon).and_return(msg)
         put :update_coupon, :coupon => {:code => code}
-        response.should redirect_to(cart_path, :notice => msg)
+        response.should redirect_to(cart_path)
+        flash[:notice].should eq(msg)
       end
     end
 
@@ -122,7 +123,8 @@ describe CartController do
         it "should redirect to cart_path" do
           Order.any_instance.stub(:remove_variant).with(variant).and_return(true)
           put :update, :variant => {:id => variant.id}
-          response.should redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+          response.should redirect_to cart_path
+          flash[:notice].should eq("Produto removido com sucesso")
         end
 
         it "should delete the order when the last item is removed" do
@@ -137,7 +139,8 @@ describe CartController do
         it "should redirect to root_path" do
           Order.any_instance.stub(:remove_variant).with(variant).and_return(false)
           put :update, :variant => {:id => variant.id}
-          response.should redirect_to cart_path, :notice => "Este produto não está na sua sacola"
+          response.should redirect_to cart_path
+          flash[:notice].should eq("Este produto não está na sua sacola")
         end
       end
     end
@@ -175,9 +178,10 @@ describe CartController do
         end
 
         it "should redirect back with a warning if the variant is not available" do
-          Variant.any_instance.stub(:available_for_quantity?).and_return(false)
-          post :create, :variant => {:id => ""}
-          response.should redirect_to(@back, :notice => "Produto esgotado")
+          variant.update_attributes(:inventory => 0)
+          post :create, :variant => {:id => variant.id}
+          response.should redirect_to(@back)
+          flash[:notice].should eq("Produto não disponível para esta quantidade ou inexistente")
         end
       end
     end
@@ -228,13 +232,15 @@ describe CartController do
       context "with a invalid @variant" do
         it "should redirect back with a warning if the variant dont exists" do
           post :create, :variant => {:id => ""}
-          response.should redirect_to(@back, :notice => "Selecione um produto")
+          response.should redirect_to(@back)
+          flash[:notice].should eq("Produto não disponível para esta quantidade ou inexistente")
         end
 
         it "should redirect back with a warning if the variant is not available" do
-          Variant.any_instance.stub(:available?).and_return(false)
-          post :create, :variant => {:id => ""}
-          response.should redirect_to(@back, :notice => "Produto esgotado")
+          variant.update_attributes(:inventory => 0)
+          post :create, :variant => {:id => variant.id}
+          response.should redirect_to(@back)
+          flash[:notice].should eq("Produto não disponível para esta quantidade ou inexistente")
         end
       end
     end
