@@ -20,65 +20,6 @@ describe PaymentsController do
     sign_in user
   end
 
-  describe "GET show" do
-    it "should assigns @payment" do
-      get :show, :id => payment.id
-      assigns(:payment).should == payment
-    end
-  end
-
-  describe "POST create" do
-    before :each do
-      session[:order] = order.id
-      Order.any_instance.stub(:total_with_freight).and_return(total)
-    end
-
-    context "with valids params" do
-      it "should return 200" do
-        post :create, params
-        response.status.should == 200
-      end
-
-      it "should change the payment status to billet_printed" do
-        post :create, params
-        order.payment.reload.billet_printed?.should eq(true)
-      end
-
-      it "should update payment with the params" do
-        post :create, params
-        order.payment.reload.gateway_code.should == cod_moip
-        order.payment.reload.gateway_status.to_s.should == billet_printed
-        order.payment.reload.gateway_type.should == tipo_pagamento
-      end
-
-      it "should change the order status to authorized" do
-        billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
-        authorized = "1"
-        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
-        Order.find(order.id).authorized?.should eq(true)
-      end
-
-      it "should change not the order status after receiving completed" do
-        billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
-        authorized = "1"
-        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
-        completed = "4"
-        post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
-        Order.find(order.id).authorized?.should eq(true)
-      end
-    end
-
-    context "with invalids params" do
-      it "should return 500 with a invalid status" do
-        invalid_status = "0"
-        post :create, :status_pagamento => invalid_status, :id_transacao => order.identification_code, :value => total
-        response.status.should == 500
-      end
-    end
-  end
-
   describe "GET index" do
     before :each do
       session[:order] = order
@@ -126,4 +67,62 @@ describe PaymentsController do
       end
     end
   end
- end
+
+  describe "GET show" do
+    it "should assigns @payment" do
+      get :show, :id => payment.id
+      assigns(:payment).should == payment
+    end
+  end
+
+  describe "POST create" do
+    before :each do
+      sign_out user
+    end
+
+    context "with valids params" do
+      it "should return 200" do
+        post :create, params
+        response.status.should == 200
+      end
+
+      it "should change the payment status to billet_printed" do
+        post :create, params
+        order.payment.reload.billet_printed?.should eq(true)
+      end
+
+      it "should update payment with the params" do
+        post :create, params
+        order.payment.reload.gateway_code.should == cod_moip
+        order.payment.reload.gateway_status.to_s.should == billet_printed
+        order.payment.reload.gateway_type.should == tipo_pagamento
+      end
+
+      it "should change the order status to authorized" do
+        billet_printed = "3"
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        authorized = "1"
+        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
+        Order.find(order.id).authorized?.should eq(true)
+      end
+
+      it "should change not the order status after receiving completed" do
+        billet_printed = "3"
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        authorized = "1"
+        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
+        completed = "4"
+        post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
+        Order.find(order.id).authorized?.should eq(true)
+      end
+    end
+
+    context "with invalids params" do
+      it "should return 500 with a invalid status" do
+        invalid_status = "0"
+        post :create, :status_pagamento => invalid_status, :id_transacao => order.identification_code, :value => total
+        response.status.should == 500
+      end
+    end
+   end
+  end
