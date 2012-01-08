@@ -33,22 +33,22 @@ describe PaymentBuilder do
 
   context "on success" do
     it "should process the payment" do
-      subject.should_receive(:send_payment)
-      subject.should_receive(:create_payment_response)
+      subject.should_receive(:send_payment!)
+      subject.should_receive(:create_payment_response!)
       payment = double
       payment.stub_chain(:payment_response, :response_status)
-      subject.should_receive(:set_payment_url).and_return(payment)
+      subject.should_receive(:set_payment_url!).and_return(payment)
       subject.process!
     end
 
     context "success actions" do
       before :each do
-        subject.stub(:send_payment)
-        subject.stub(:create_payment_response)
+        subject.stub(:send_payment!)
+        subject.stub(:create_payment_response!)
         payment_response = double
         payment_response.stub(:response_status).and_return(Payment::SUCCESSFUL_STATUS)
         payment_response.stub(:transaction_status).and_return(:success)
-        subject.stub_chain(:set_payment_url, :payment_response).and_return(payment_response)
+        subject.stub_chain(:set_payment_url!, :payment_response).and_return(payment_response)
         credit_card.stub(:payment_response).and_return(payment_response)
       end
 
@@ -71,30 +71,30 @@ describe PaymentBuilder do
 
   context "on failure" do
     before :each do
-      subject.stub(:send_payment)
-      subject.stub(:create_payment_response)
+      subject.stub(:send_payment!)
+      subject.stub(:create_payment_response!)
       @payment_response = double
     end
 
     it "should return a structure with failure status and without a payment when the gateway comunication fail " do
       @payment_response.stub(:response_status).and_return(Payment::FAILURE_STATUS)
-      subject.stub_chain(:set_payment_url, :payment_response).and_return(@payment_response)
+      subject.stub_chain(:set_payment_url!, :payment_response).and_return(@payment_response)
       credit_card.stub(:payment_response).and_return(@payment_response)
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
     end
 
-    it "should return a structure with failure status and without a payment when the payment is canceled" do
+    it "should return a structure with failure status and without a payment" do
       @payment_response.stub(:response_status).and_return(Payment::SUCCESSFUL_STATUS)
       @payment_response.stub(:transaction_status).and_return(Payment::CANCELED_STATUS)
-      subject.stub_chain(:set_payment_url, :payment_response).and_return(@payment_response)
+      subject.stub_chain(:set_payment_url!, :payment_response).and_return(@payment_response)
       credit_card.stub(:payment_response).and_return(@payment_response)
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
     end
 
-    it "should return a structure with failure status and without a payment when some exception is raised" do
-      subject.stub(:send_payment).and_raise(Exception)
+    it "should return a structure with failure status and without a payment" do
+      subject.stub(:send_payment!).and_raise(Exception)
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
     end
@@ -103,24 +103,24 @@ end
   it "should creates a payment response" do
     subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
     payment_response.should_receive(:build_attributes).with(subject.response)
-    payment_response.should_receive(:save)
-    subject.create_payment_response
+    payment_response.should_receive(:save!)
+    subject.create_payment_response!
   end
 
   it "should set payment url" do
     subject.stub(:payment_url).and_return('www.fake.com')
-    subject.set_payment_url
+    subject.set_payment_url!
     subject.payment.url.should == 'www.fake.com'
   end
 
   it "should set payment order" do
-    subject.set_payment_order
+    subject.set_payment_order!
     subject.payment.order.should == order
   end
 
   it "should send payments" do
     MoIP::Client.should_receive(:checkout).with(subject.payment_data)
-    subject.send_payment
+    subject.send_payment!
   end
 
   it "should get the payment_url" do

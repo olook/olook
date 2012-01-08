@@ -8,10 +8,10 @@ class PaymentBuilder
   end
 
   def process!(send_notification = true)
-    set_payment_order
-    send_payment
-    create_payment_response
-    payment_response = set_payment_url.payment_response
+    set_payment_order!
+    send_payment!
+    create_payment_response!
+    payment_response = set_payment_url!.payment_response
 
     if payment_response.response_status == Payment::SUCCESSFUL_STATUS
       if payment_response.transaction_status != Payment::CANCELED_STATUS
@@ -37,19 +37,19 @@ class PaymentBuilder
       respond_with_failure
   end
 
-  def set_payment_order
+  def set_payment_order!
     payment.order = order
-    payment.save
+    payment.save!
     payment
   end
 
-  def set_payment_url
+  def set_payment_url!
     payment.url = payment_url
-    payment.save
+    payment.save!
     payment
   end
 
-  def send_payment
+  def send_payment!
     @response = MoIP::Client.checkout(payment_data)
   end
 
@@ -57,10 +57,10 @@ class PaymentBuilder
     MoIP::Client.moip_page(response["Token"])
   end
 
-  def create_payment_response
+  def create_payment_response!
     payment_response = payment.build_payment_response
     payment_response.build_attributes response
-    payment_response.save
+    payment_response.save!
   end
 
   def payer
