@@ -107,36 +107,11 @@ describe DebitsController do
     end
 
     describe "with invalid params" do
-      context "when a payment fail" do
-        before :each do
-          processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit))
-          payment_builder = mock
-          payment_builder.stub(:process!).and_return(processed_payment)
-          PaymentBuilder.stub(:new).and_return(payment_builder)
-        end
-
-        it "should render new template" do
-          post :create, :debit => attributes
-          response.should render_template('new')
-        end
-
-        it "should generate a identification code" do
-          Order.any_instance.should_receive(:generate_identification_code)
-          post :create, :debit => attributes
-        end
-
-        it "should destroy the payment" do
-          expect {
-            post :create, :debit => attributes
-          }.to change(Payment, :count).by(-1)
-        end
-      end
-
-      it "should not create a payment" do
-        Debit.any_instance.stub(:valid?).and_return(false)
-        expect {
-          post :create
-        }.to change(Debit, :count).by(0)
+      before :each do
+        processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit))
+        payment_builder = mock
+        payment_builder.stub(:process!).and_return(processed_payment)
+        PaymentBuilder.stub(:new).and_return(payment_builder)
       end
 
       it "should render new" do

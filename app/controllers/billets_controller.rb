@@ -26,7 +26,6 @@ class BilletsController < ApplicationController
         clean_session_order!
         redirect_to(order_billet_path(:number => @order.number), :notice => "Boleto gerado com sucesso")
       else
-        rollback_order
         respond_with(new_payment_with_error)
       end
     else

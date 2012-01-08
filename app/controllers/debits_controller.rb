@@ -26,7 +26,6 @@ class DebitsController < ApplicationController
         clean_session_order!
         redirect_to(order_debit_path(:number => @order.number), :notice => "Link de pagamento gerado com sucesso")
       else
-        rollback_order
         respond_with(new_payment_with_error)
       end
      else

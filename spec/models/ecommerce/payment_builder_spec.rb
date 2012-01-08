@@ -53,12 +53,13 @@ describe PaymentBuilder do
       end
 
       it "should return a structure with status and a payment" do
-        subject.process!.status.should == Payment::SUCCESSFUL_STATUS
-        subject.process!.payment.should == credit_card
+        response = subject.process!
+        response.status.should == Payment::SUCCESSFUL_STATUS
+        response.payment.should == credit_card
       end
 
       it "should set the order status to waiting_payment" do
-        subject.order.should_receive(:waiting_payment)
+        subject.order.should_receive(:waiting_payment!)
         subject.process!
       end
 
