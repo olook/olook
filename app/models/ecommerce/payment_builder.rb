@@ -8,26 +8,27 @@ class PaymentBuilder
   end
 
   def process!(send_notification = true)
-    set_payment_order!
-    send_payment!
-    create_payment_response!
-    payment_response = set_payment_url!.payment_response
+    ActiveRecord::Base.transaction do
+      set_payment_order!
+      send_payment!
+      create_payment_response!
+      payment_response = set_payment_url!.payment_response
 
-    if payment_response.response_status == Payment::SUCCESSFUL_STATUS
-      if payment_response.transaction_status != Payment::CANCELED_STATUS
-        order.decrement_inventory_for_each_item
-        order.waiting_payment
-        order.invalidate_coupon
-        respond_with_success(payment)
+      if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+        if payment_response.transaction_status != Payment::CANCELED_STATUS
+          order.decrement_inventory_for_each_item
+          order.waiting_payment!
+          order.invalidate_coupon
+          respond_with_success(payment)
+        else
+          respond_with_failure
+        end
       else
         respond_with_failure
       end
-    else
-      respond_with_failure
     end
 
     rescue Exception => error
-      order.payment.destroy
       error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment ID #{payment.id}"
       Airbrake.notify(
         :error_class   => "Moip Request",
@@ -106,6 +107,8 @@ class PaymentBuilder
   private
 
   def respond_with_failure
+    order.generate_identification_code
+    order.payment.destroy if order.payment
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
 
