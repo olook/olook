@@ -13,7 +13,7 @@
 
   <p>
     <b>Image:</b>
-    <%= @landing_page.page_image %>
+    <%= image_tag @landing_page.page_image.thumb.try(:url) %>
   </p>
 
   <p>
