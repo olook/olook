@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 class LandingPage < ActiveRecord::Base
-  # validates :image, :link_url, :link_title, :presence => true
-  # validates :title_url, :format => { :with => /^\w-_$/}
+  validates :page_image, :page_url, :page_title, :presence => true
+  validates :page_url, :format => { :with => /^[\w-]+$/ }
 end
