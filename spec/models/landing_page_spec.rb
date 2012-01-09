@@ -3,16 +3,14 @@
 require "spec_helper"
 
 describe LandingPage do
-  subject do
-    LandingPage.new(:page_image => "abc.jpg",
-                    :page_title => "My Landing Page",
-                    :page_url => "landing-page")
-  end
+  let!(:landing) { FactoryGirl.create(:landing_page) }
+  subject { FactoryGirl.build(:landing_page) }
 
   context "attributes validation" do
-    it { should validate_presence_of(:page_image) }
     it { should validate_presence_of(:page_title) }
     it { should validate_presence_of(:page_url) }
+    it { should validate_uniqueness_of(:page_title) }
+    it { should validate_uniqueness_of(:page_url) }
 
     context "#link_url" do
       it { should validate_presence_of(:page_url) }
