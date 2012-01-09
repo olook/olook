@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
   def collection_name
-    I18n.t('date.month_names')[Date.today.month]
+    #I18n.t('date.month_names')[Date.today.month]
+		Collection.active.name
   end
   
   def render_member_showroom
