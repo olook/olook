@@ -41,6 +41,13 @@ describe PagesController do
     end
   end
 
+  describe "GET press_release" do
+    it "should be successfull" do
+      get :press_release
+      response.should be_success
+    end
+  end
+
   describe "POST send_contact" do
     it "should send contact message" do
       form_attrs = { :email => "john@doe.com", :subject => contact_information.id, :message => "Lorem ipsum foo b4z!" }

@@ -10,6 +10,7 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
+  match "/imprensa", :to => "pages#press_release", :as => "press_release"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
   get   "/contato" => "pages#contact", :as => "contact"
