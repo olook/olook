@@ -19,7 +19,7 @@ class PaymentBuilder
           order.decrement_inventory_for_each_item
           order.waiting_payment!
           order.invalidate_coupon
-          respond_with_success(payment)
+          respond_with_success
         else
           respond_with_failure
         end
@@ -104,15 +104,19 @@ class PaymentBuilder
     data
   end
 
+  def rollback_order
+    order.generate_identification_code
+    order.payment.destroy if order.payment
+  end
+
   private
 
   def respond_with_failure
-    order.generate_identification_code
-    order.payment.destroy if order.payment
+    rollback_order
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
 
-  def respond_with_success(payment)
+  def respond_with_success
     OpenStruct.new(:status => payment.payment_response.response_status, :payment => payment)
   end
 

@@ -99,7 +99,13 @@ describe PaymentBuilder do
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
     end
-end
+  end
+
+  it "should rollback_order" do
+    subject.order.should_receive(:generate_identification_code)
+    subject.order.payment.should_receive(:destroy)
+    subject.rollback_order
+  end
 
   it "should creates a payment response" do
     subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
