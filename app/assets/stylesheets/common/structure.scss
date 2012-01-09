@@ -28,7 +28,9 @@ body {
     z-index: 99;
     opacity: 0.8;
     filter: alpha(opacity = 80);
-    
+    &.logged {
+      padding: 35px 0;
+    }
     p {
       background: transparent;
       color: #000;
@@ -712,8 +714,8 @@ body {
         height: 47px;
       }
       ul {
-        height: 50px;
-        margin: 5px 0 0 0;
+        height: 35px;
+        margin: 10px 0 0 0;
         overflow: hidden;
         li {
           font-family: Arial, sans-serif;
