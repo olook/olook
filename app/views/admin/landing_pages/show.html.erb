@@ -1,0 +1,51 @@
+<div class="inner">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <b>Title:</b>
+    <%= @landing_page.page_title %>
+  </p>
+
+  <p>
+    <b>URL:</b>
+    <%= @landing_page.page_url %>
+  </p>
+
+  <p>
+    <b>Image:</b>
+    <%= @landing_page.page_image %>
+  </p>
+
+  <p>
+    <b>Button url:</b>
+    <%= @landing_page.button_url %>
+  </p>
+
+  <p>
+    <b>Button alt:</b>
+    <%= @landing_page.button_url %>
+  </p>
+
+  <p>
+    <b>Button image:</b>
+    <%= @landing_page.button_image %>
+  </p>
+
+  <p>
+    <b>Enabled:</b>
+    <%= @landing_page.enabled %>
+  </p>
+
+  <p>
+    <b>Show header:</b>
+    <%= @landing_page.show_header %>
+  </p>
+
+  <p>
+    <b>Show footer:</b>
+    <%= @landing_page.show_footer %>
+  </p>
+
+  <%= link_to 'Edit', edit_admin_landing_page_path(@anding_page) %> |
+  <%= link_to 'Back', admin_landing_pages_path %>
+</div>
