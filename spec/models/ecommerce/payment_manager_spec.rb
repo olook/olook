@@ -24,6 +24,14 @@ describe PaymentManager do
     end
   end
 
+  context "payment generation" do
+    it "should get the URL payment in order to generate the payment" do
+      URI.should_receive(:parse).with(billet.url).and_return(parsed_url = double)
+      Net::HTTP.should_receive(:get).with(parsed_url)
+      PaymentManager.http_get_in_payment_url_to_force_generation(billet)
+    end
+  end
+
   context "status verification" do
     it "should return true if a payment is expired" do
       billet.payment_expiration_date = 3.days.ago
