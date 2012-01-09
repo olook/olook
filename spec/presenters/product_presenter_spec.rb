@@ -14,10 +14,23 @@ describe ProductPresenter do
         subject.render_member_showroom.should == 'showroom'
       end
     end
-    
-    it "#collection_name, should return the current collection name" do
-      Date.stub_chain(:today, :month).and_return(4)
-      subject.collection_name.should == 'Abril'
+
+    describe '#collection_name' do
+      context "when there is an active collection" do
+        let!(:collection) { FactoryGirl.create :collection }
+
+        it 'returns the name of the active collection' do
+          Collection.should_receive(:active).and_return(collection)
+          subject.collection_name.should == collection.name
+        end
+      end
+
+      context "when there is no active collection" do
+        it 'returns the current month name' do
+          Date.stub_chain(:today).and_return(Date.new(2011,04,03))
+          subject.collection_name.should == 'Abril'
+        end
+      end
     end
 
     describe "#render_main_profile_showroom" do
@@ -29,7 +42,7 @@ describe ProductPresenter do
       end
     end
   end
-  
+
   describe '#render_related_products' do
     it "should render the partial with product's related products" do
       subject.stub(:related_products).and_return(:mock_related_products)
@@ -51,7 +64,7 @@ describe ProductPresenter do
       subject.render_add_to_cart.should == 'cart'
     end
   end
-  
+
   describe '#render_form_by_category' do
     it 'should render the group box with color and size for shoes' do
       subject.product.stub(:category).and_return(Category::SHOE)
@@ -69,14 +82,14 @@ describe ProductPresenter do
       subject.render_form_by_category.should == 'shoe_form'
     end
   end
-  
+
   describe '#render_details' do
     it "should render the partial with the product details" do
       template.should_receive(:render).with(:partial => 'product/details', :locals => {:product_presenter => subject}).and_return('details')
       subject.render_details.should == 'details'
     end
   end
-  
+
   describe '#render_colors' do
     it "should render the partial with the product colors" do
       template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product}).and_return('colors')
@@ -104,14 +117,14 @@ describe ProductPresenter do
       subject.render_multiple_sizes
     end
   end
-  
+
   describe '#related_products' do
     context "when the product doesn't have any related products" do
       it "should return an empty array" do
         subject.related_products.should be_empty
       end
     end
-    
+
     context "when the product has some related products " do
       let(:related_shoe)      { FactoryGirl.create(:basic_shoe) }
       let(:related_bag)       { FactoryGirl.create(:basic_bag) }

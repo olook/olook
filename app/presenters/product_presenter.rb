@@ -1,18 +1,17 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
   def collection_name
-    #I18n.t('date.month_names')[Date.today.month]
-		Collection.active.name
+   Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
   end
-  
+
   def render_member_showroom
     h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self}
   end
-  
+
   def render_main_profile_showroom
     h.render :partial => 'product/showroom_product', :collection => member.main_profile_showroom, :as => :product
   end
-  
+
   def render_related_products
     h.render :partial => 'product/related_products', :locals => {:related_products => related_products}
   end
@@ -40,7 +39,7 @@ class ProductPresenter < BasePresenter
       when Category::ACCESSORY then h.render :partial => 'product/form_for_accessory', :locals => {:product_presenter => self}
     end
   end
-  
+
   def render_single_size
     variant = product.variants.sorted_by_description.first
     h.render :partial => 'product/single_size', :locals => {:variant => variant}
