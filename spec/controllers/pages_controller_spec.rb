@@ -35,7 +35,7 @@ describe PagesController do
   end
 
   describe "GET how_to" do
-    it "should be succesul" do
+    it "should be successful" do
       get :how_to
       response.should be_success
     end
