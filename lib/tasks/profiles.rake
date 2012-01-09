@@ -18,7 +18,7 @@ namespace :profiles do
           end
         end
       end
-      puts "#{user.email} was saved.\n"
+      puts "#{user.email} - ID #{user.id} was saved.\n"
       counter = counter + 1
       puts "Total users processed until now: #{counter.to_s}.\n"
     end
