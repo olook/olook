@@ -1,11 +1,16 @@
 require 'spec_helper'
 
-
 describe Admin::LandingPagesController do
 
   let!(:landing_page) { FactoryGirl.create :landing_page }
 
   let(:valid_attributes) { FactoryGirl.attributes_for :landing_page }
+
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
 
   describe "GET index" do
     it "assigns all landing_pages as @landing_pages" do
