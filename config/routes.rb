@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  namespace :admin do resources :landing_pages end
+
   get "index/index"
   root :to => "home#index"
 
