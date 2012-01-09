@@ -13,7 +13,7 @@ class ShowroomPresenter < BasePresenter
   end
   
   def collection_name
-    I18n.t('date.month_names')[Date.today.month]
+   Collection.active.name
   end
   
   def display_products(asked_range, category)
