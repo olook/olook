@@ -37,7 +37,7 @@ class BilletsController < ApplicationController
 
   def new_payment_with_error
     @payment = Billet.new(params[:billet])
-    @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+    @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
     @payment
   end
 
