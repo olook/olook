@@ -6,12 +6,14 @@ describe LookbooksController do
   describe "GET 'sapatilhas'" do
     context "without a logged user" do
       it "assigns @products to found products" do
+        pending
         Product.should_receive(:find).and_return(products)
         get 'sapatilhas'
         assigns(:products).should == products
       end
 
       it "should be succesfull" do
+        pending
         Product.stub(:find).and_return(products)
         get 'sapatilhas'
         response.should be_success
@@ -38,12 +40,14 @@ describe LookbooksController do
   describe "GET 'glitter'" do
     context "without a logged user" do
       it "assigns @products to found products" do
+        pending
         Product.should_receive(:find).and_return(products)
         get 'glitter'
         assigns(:products).should == products
       end
 
       it "should be succesfull" do
+        pending
         Product.stub(:find).and_return(products)
         get 'glitter'
         response.should be_success
@@ -54,12 +58,14 @@ describe LookbooksController do
   describe "GET 'color_block'" do
     context "without a logged user" do
       it "assigns @products to found products" do
+        pending
         Product.should_receive(:find).and_return(products)
         get 'color_block'
         assigns(:products).should == products
       end
 
       it "should be succesfull" do
+        pending
         Product.stub(:find).and_return(products)
         get 'color_block'
         response.should be_success
@@ -70,12 +76,14 @@ describe LookbooksController do
   describe "GET 'golden_grace'" do
     context "without a logged user" do
       it "assigns @products to found products" do
+        pending
         Product.should_receive(:find).and_return(products)
         get 'golden_grace'
         assigns(:products).should == products
       end
 
       it "should be succesfull" do
+        pending
         Product.stub(:find).and_return(products)
         get 'golden_grace'
         response.should be_success
@@ -102,12 +110,14 @@ describe LookbooksController do
   describe "GET 'flores'" do
     context "without a logged user" do
       it "assigns @products to found products" do
+        pending
         Product.should_receive(:find).and_return(products)
         get 'flores'
         assigns(:products).should == products
       end
 
       it "should be succesfull" do
+        pending
         Product.stub(:find).and_return(products)
         get 'flores'
         response.should be_success
