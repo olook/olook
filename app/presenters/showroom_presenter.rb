@@ -11,11 +11,11 @@ class ShowroomPresenter < BasePresenter
       h.render :partial => "showroom_facebook_connect", :locals => {:showroom_presenter => self}
     end
   end
-  
+
   def collection_name
-   Collection.active.name
+   Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
   end
-  
+
   def display_products(asked_range, category)
     products = member.all_profiles_showroom(category)
     range = parse_range(asked_range, products)
@@ -26,7 +26,7 @@ class ShowroomPresenter < BasePresenter
     end
     h.raw output
   end
-  
+
   def display_shoes(asked_range)
     display_products(asked_range, Category::SHOE)
   end
@@ -46,7 +46,7 @@ class ShowroomPresenter < BasePresenter
       when EVENING.cover?(time)   then "Boa noite, #{member.first_name}!"
     end
   end
-  
+
   def facebook_avatar
     # Visit https://developers.facebook.com/docs/reference/api/ for more info
     h.image_tag "https://graph.facebook.com/#{member.uid}/picture?type=large", :class => 'avatar'
