@@ -14,9 +14,9 @@ namespace :olook do
       user.profile_scores.each do |user_profile_point|		
         profile_points.each do |profile,point|
           if user_profile_point.profile_id == profile
-  	    user_profile_point.value = point
-  	    user_profile_point.save
-  	  end
+            user_profile_point.value = point
+            user_profile_point.save
+          end
         end
       end
       puts user.email + " saved"
