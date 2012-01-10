@@ -267,7 +267,7 @@ section#cart {
     background: url("/assets/cart/continue.png") no-repeat;
     text-indent: -9999px;
     width: 153px;
-    height: 54px; 
+    height: 54px;
     display: block;
     float: right;
   }
@@ -700,32 +700,26 @@ section#payment {
           &.Itau {
             background-position: -136px -5px;
           }
-          &.BancoReal {
+          &.Banrisul {
             background-position: -177px -5px;
           }
-          &.Unibanco {
-            background-position: -218px -5px;
-          }
-          &.Banrisul {
-            background-position: -260px -5px;
-          }
           &.Visa {
-            background-position: -308px -5px;
+            background-position: -225px -5px;
           }
           &.Mastercard {
-            background-position: -349px -5px;
+            background-position: -266px -5px;
           }
           &.AmericanExpress {
-            background-position: -391px -5px;
+            background-position: -309px -5px;
           }
           &.Diners {
-            background-position: -433px -5px;
+            background-position: -350px -5px;
           }
           &.Hipercard {
-            background-position: -475px -5px;
+            background-position: -392px -5px;
           }
           &.Aura {
-            background-position: -571px -5px;
+            background-position: -434px -5px;
           }
         }
       }
@@ -819,7 +813,7 @@ section.checkout {
       background: url('/assets/cart/continue.png') no-repeat;
       text-indent: -9999px;
       width: 153px;
-      height: 54px; 
+      height: 54px;
       margin: 0 auto;
       display: block;
       cursor: pointer;
