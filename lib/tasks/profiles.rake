@@ -22,7 +22,6 @@ namespace :profiles do
       end
       puts "#{user.email} - ID #{user.id} was saved.\n"
       counter = counter + 1
-      raise if counter.even?
       puts "Total users processed until now: #{counter.to_s}.\n"
       rescue Exception
         puts "error in #{user.email}"
