@@ -21,6 +21,11 @@ describe LandingPage do
       it { should allow_value("url_with_underscores").for(:page_url) }
     end
 
+    context "#button_url" do
+      it { should allow_value("http://www.olook.com.br/produto/1?utm_source?something&utm_medium?other").for(:button_url) }
+      it { should_not allow_value("spaced text").for(:button_url) }
+    end
+
   end
 
 end
