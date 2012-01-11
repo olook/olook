@@ -6,9 +6,4 @@ class LandingPagesController < ApplicationController
     redirect_to root_path unless @landing_page.enabled?
   end
 
-  private
-
-  def not_found
-    render :file => "#{Rails.root}/public/404.html", :status => :not_found
-  end
 end
