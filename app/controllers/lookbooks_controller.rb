@@ -28,6 +28,6 @@ class LookbooksController < ApplicationController
   end
 
   def safari
-    @products = Product.find(1491, 1539, 1297, 1299, 1301, 1371, 1373, 1375, 1447, 1237, 1564, 787, 1075, 1339, 1564, 760, 696)
+    @products = Product.find(1491, 1539, 1297, 1371, 1447, 1237, 1564, 787, 1075, 1339, 1564, 760, 696)
   end
 end
