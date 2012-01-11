@@ -8,7 +8,7 @@
 
   <p>
     <b>URL:</b>
-    <%= @landing_page.page_url %>
+    <%= link_to @landing_page.page_url,  landing_url(@landing_page.page_url) %>
   </p>
 
   <p>
@@ -23,12 +23,12 @@
 
   <p>
     <b>Button alt:</b>
-    <%= @landing_page.button_url %>
+    <%= @landing_page.button_alt %>
   </p>
 
   <p>
     <b>Button image:</b>
-    <%= @landing_page.button_image %>
+    <%= image_tag @landing_page.button_image.thumb.try(:url) %>
   </p>
 
   <p>
