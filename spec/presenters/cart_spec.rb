@@ -15,6 +15,13 @@ describe Cart do
     order.stub(:credits).and_return(credits)
     order.stub(:discount_from_gift).and_return(gift_discount)
     order.stub(:discount_from_coupon).and_return(coupon_discount)
+    order.stub(:line_items).and_return([:fake_data])
+  end
+
+  it "should return 0 if the order dont have line items" do
+    order.stub(:line_items).and_return([])
+    cart = Cart.new(order)
+    cart.total.should == 0
   end
 
   it "should return the total" do
