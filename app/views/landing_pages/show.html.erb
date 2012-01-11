@@ -1,0 +1,19 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/landing" %>
+<% end %>
+
+<% content_for :top_my_account, render(:partial => "shared/header_default") if @landing_page.show_header? %>
+
+<% content_for :content do %>
+  <%= content_for?(:news_content) ? yield(:news_content) : yield %>
+<% end %>
+
+<section class="landing-content" style="background: url('<%= @landing_page.page_image.try(:url) %>') no-repeat">
+
+  <%= link_to @landing_page.button_url, :class => "action", :title => @landing_page.button_alt do %>
+    <%= image_tag @landing_page.button_image.try(:url), :alt => @landing_page.button_alt %>
+  <% end %>
+
+</section>
+
+<%= content_for :site_footer, render(:partial => "shared/footer") if @landing_page.show_footer? %>

@@ -1,0 +1,29 @@
+<h2>Listing Landing pages</h2>
+
+<div class="inner">
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+      <th>Enabled</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @landing_pages.each do |page| %>
+    <tr>
+      <td><%= page.page_title %></td>
+      <td><%= page.page_url %></td>
+      <td><%= page.enabled %></td>
+      <td><%= link_to 'Show', admin_landing_page_path(page) %></td>
+      <td><%= link_to 'Edit', edit_admin_landing_page_path(page) %></td>
+      <td><%= link_to 'Destroy', admin_landing_page_path(page), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+
+  <%= link_to 'New Landing page', new_admin_landing_page_path %>
+</div>
