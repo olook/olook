@@ -24,14 +24,9 @@ class PaymentManager
     Payment.where(:type => payment_type).find_each do |payment|
       if payment.order
         if payment.expired_and_waiting_payment?
-          if payment.type == @billet
-            payment.order.canceled
-          else
             payment.canceled
-          end
         end
       end
     end
   end
 end
-
