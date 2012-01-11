@@ -5,6 +5,7 @@ describe CouponManager do
   let(:order) { FactoryGirl.create(:order) }
   let(:standard_coupon) { FactoryGirl.create(:standard_coupon) }
   let(:expired_coupon) { FactoryGirl.create(:expired_coupon) }
+  let(:not_available_coupon) { FactoryGirl.create(:not_available_coupon) }
   subject { CouponManager.new(order, standard_coupon.code) }
 
   context "with a valid coupon" do
@@ -33,11 +34,37 @@ describe CouponManager do
   end
 
   context "with a invalid coupon" do
-    it "should not create a used coupon" do
-      coupon_manager = CouponManager.new(order, expired_coupon.code)
-      expect {
-        coupon_manager.apply_coupon
-      }.to change(UsedCoupon, :count).by(0)
+    context "when expired" do
+      it "should not create a used coupon" do
+        coupon_manager = CouponManager.new(order, expired_coupon.code)
+        expect {
+          coupon_manager.apply_coupon
+        }.to change(UsedCoupon, :count).by(0)
+      end
+    end
+
+    context "when not avaialble" do
+      it "should not create a used coupon" do
+        coupon_manager = CouponManager.new(order, not_available_coupon)
+        expect {
+          coupon_manager.apply_coupon
+        }.to change(UsedCoupon, :count).by(0)
+      end
+
+      it "should destroy a used_coupon if it exists" do
+        order.create_used_coupon(:coupon => standard_coupon)
+        coupon_manager = CouponManager.new(order, not_available_coupon)
+        expect {
+          coupon_manager.apply_coupon
+        }.to change(UsedCoupon, :count).by(-1)
+      end
+
+      it "should not destroy a used_coupon if it dont exists" do
+        coupon_manager = CouponManager.new(order, not_available_coupon)
+        expect {
+          coupon_manager.apply_coupon
+        }.to change(UsedCoupon, :count).by(0)
+      end
     end
   end
 end

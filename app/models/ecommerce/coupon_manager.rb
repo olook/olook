@@ -7,7 +7,9 @@ class CouponManager
   end
 
   def apply_coupon
-    if coupon.try(:available?)
+    if coupon.try(:expired?)
+      msg = "Cupom expirado. Informe outro por favor"
+    elsif coupon.try(:available?)
       if order.used_coupon
         order.used_coupon.update_attributes(:coupon => coupon)
       else
@@ -15,6 +17,7 @@ class CouponManager
       end
       msg = "Cupom atualizado com sucesso"
     else
+      order.used_coupon.destroy if order.used_coupon
       msg = "Cupom não existente"
     end
   end
