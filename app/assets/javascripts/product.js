@@ -1,5 +1,11 @@
 $(document).ready(function() {
+  var stringDesc = $("div#infos div.description p").not(".price").text();
   initProduct.updateListSize();
+  initProduct.sliceDesc(stringDesc);
+
+  $("div#infos div.description p[class!='price'] a.more").live("click", function() {
+    $(this).parent().text(stringDesc);
+  });
 
   $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
     zoomType: 'standard',
@@ -84,5 +90,13 @@ initProduct = {
     list = $("div#carousel ul");
     listSize = $(list).find("li").size()*55;
     $(list).width(listSize);
+  },
+
+  sliceDesc : function(string) {
+    if(string.length > 120) {
+      el = $("div#infos div.description p").not(".price");
+      descSliced = el.text(string.slice(0,120)+"...");
+      el.append("<a href='javascript:void(0);' class='more'>Ler tudo</a>");
+    }
   }
 };
