@@ -12,6 +12,6 @@
   <%= content_for?(:news_content) ? yield(:news_content) : yield %>
 <% end %>
 
-<%= content_for :site_footer, render(:partial => "shared/footer") if @landing_page.show_footer? %>
+<%= content_for :site_footer, render(:partial => "shared/footer") %>
 
 <%= render :template => 'layouts/application' %>
