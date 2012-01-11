@@ -374,9 +374,8 @@
         right: 0;
       }
       div.caroufredsel_wrapper {
-        background: url("/assets/product/bg-footer-carousel.png") bottom left no-repeat;
         margin: 0 auto !important;
-        padding: 0 0 30px 0;
+        padding: 0 0 10px 0;
       }
       h1.title {
         background: url("/assets/product/title-your-stylists.png") no-repeat;
@@ -399,6 +398,13 @@
             }
           }
         }
+      }
+      div#related_footer {
+        background: url("/assets/product/bg-footer-carousel.png") top left no-repeat;
+        width: 100%;
+        height: 26px;
+        display: block;
+        clear: both;
       }
     }
   }
