@@ -33,7 +33,7 @@ describe BilletsController do
       end
 
       it "should redirect to cart path if the order total with freight is less then 5.00" do
-        Order.any_instance.stub(:total_with_freight).and_return(4.99)
+        Order.any_instance.stub(:line_items).and_return([])
         get 'new'
         response.should redirect_to(cart_path)
       end
