@@ -51,6 +51,8 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
 
+  get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
+
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
     resources :addresses, :path => 'enderecos'
@@ -98,6 +100,7 @@ Olook::Application.routes.draw do
     resources :collections
     resources :orders
     resources :coupons, :except => [:destroy]
+    resources :landing_pages
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
