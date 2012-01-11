@@ -70,6 +70,14 @@ class CreditCard < Payment
     EXPIRATION_IN_MINUTES.minutes.from_now
   end
 
+  def expired_and_waiting_payment?
+    (self.expired? && self.order.state == "waiting_payment") ? true : false
+  end
+
+  def expired?
+    Time.now > self.payment_expiration_date if self.payment_expiration_date
+  end
+
   def self.installments_number_for(order_total)
     number = (order_total / MINIMUM_PAYMENT).to_i
     (number == 0) ? 1 : number
