@@ -365,6 +365,7 @@
       clear: both;
       a.carousel-prev, a.carousel-next {
         position: absolute;
+        background: url("/assets/product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
         width: 42px;
         height: 360px;
@@ -372,12 +373,18 @@
         display: block;
       }
       a.carousel-prev {
-        background: url("/assets/product/prev-product.jpg") 0 no-repeat;
+        background-position: 0px;
         left: 0;
+        &:hover {
+          background-position: -42px;
+        }
       }
       a.carousel-next {
-        background: url("/assets/product/next-product.jpg") 0 no-repeat;
+        background-position: -126px;
         right: 0;
+        &:hover {
+          background-position: -84px;
+        }
       }
       div.caroufredsel_wrapper {
         margin: 0 auto !important;
