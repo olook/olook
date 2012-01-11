@@ -7,7 +7,7 @@ class Cart
   end
 
   def total
-    order.total_with_freight
+    order.line_items.empty? ? 0 : order.total_with_freight
   end
 
   def subtotal
