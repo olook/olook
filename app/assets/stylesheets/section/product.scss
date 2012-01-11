@@ -10,13 +10,15 @@
     overflow: auto;
     border: 1px #e1e1e1 solid;
     h1 {
-      background: url("/assets/product/title-showroom-january.png") no-repeat;
-      text-indent: -9999px;
-      width: 238px;
-      height: 17px;
-      display: block;
-      margin: 14px 0 0 0;
-      float: left;
+      a {
+        background: url("/assets/product/title-showroom-january.png") no-repeat;
+        text-indent: -9999px;
+        width: 238px;
+        height: 17px;
+        display: block;
+        margin: 14px 0 0 0;
+        float: left;
+      }
     }
     div#carousel {
       width: 595px;
