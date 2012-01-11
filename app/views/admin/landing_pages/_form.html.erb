@@ -20,7 +20,7 @@
     <%= f.text_field :page_url %>
   </div>
   <div class="field">
-    <%= f.label :page_image %>(990x560)<br />
+    <%= f.label :page_image %> (990x560)<br />
     <%= f.file_field :page_image %>
   </div>
   <div class="field">
@@ -34,6 +34,14 @@
   <div class="field">
     <%= f.label :button_url %><br />
     <%= f.text_field :button_url %>
+  </div>
+  <div class="field">
+    <%= f.label :show_header %><br />
+    <%= f.check_box :show_header %>
+  </div>
+  <div class="field">
+    <%= f.label :show_footer %><br />
+    <%= f.check_box :show_footer %>
   </div>
   <div class="field">
     <%= f.label :enabled %><br />
