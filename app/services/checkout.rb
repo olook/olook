@@ -26,10 +26,10 @@ module Checkout
 
   def check_order
     @order = current_user.orders.find_by_id(session[:order])
-    msg = "O total de sua compra deve ser maior que R$ 5,00"
+    msg = "Sua sacola está vazia"
     if @order
       @order.reload
-      redirect_to(cart_path, :notice => msg) if @order.total_with_freight < ::Payment::MINIMUM_VALUE
+      redirect_to(cart_path, :notice => msg) if @order.line_items.empty?
     else
       redirect_to(cart_path, :notice => msg)
     end
