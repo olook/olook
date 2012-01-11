@@ -16,16 +16,24 @@
     <%= f.text_field :page_title %>
   </div>
   <div class="field">
-    <%= f.label :enabled %><br />
-    <%= f.check_box :enabled %>
-  </div>
-  <div class="field">
     <%= f.label :page_url %><br />
     <%= f.text_field :page_url %>
   </div>
   <div class="field">
     <%= f.label :page_image %><br />
     <%= f.file_field :page_image %>
+  </div>
+  <div class="field">
+    <%= f.label :button_image %><br />
+    <%= f.file_field :button_image %>
+  </div>
+  <div class="field">
+    <%= f.label :button_url %><br />
+    <%= f.text_field :button_url %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled %>
   </div>
   <div class="actions">
     <%= f.submit %>
