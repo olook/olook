@@ -3,6 +3,22 @@
 <% end %>
 
 <section id="payment" class="checkout">
+  <% if @user.cpf.nil? %>
+    <%= form_for(@user, :as => :user, :url => user_user_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
+      <fieldset class="buttons">
+        <ol>
+          <li>
+            <p>Precisamos de seu CPF para emitir a nota fiscal do seu pedido em seu nome:</p>
+          </li>
+          <li>
+            <%= f.label :cpf %>
+            <%= f.text_field :cpf, :value => "", :class => "cpf" %>
+            <%= f.submit '', :class => "save" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  <% end %>
   <section class="main">
     <h1>Escolha uma forma de pagamento</h1>
     <%= render :partial => "shared/payments/payment_methods" %>
