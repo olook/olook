@@ -150,10 +150,17 @@ describe Order do
 
     describe "#discount_from_coupon" do
       context "with a used_coupon" do
-        it "should return the value" do
+        it "should return the value in Reais" do
           coupon = FactoryGirl.create(:standard_coupon)
           subject.create_used_coupon(:coupon => coupon)
           subject.discount_from_coupon.should == coupon.value
+        end
+
+        it "should return the value in Percentage" do
+          coupon = FactoryGirl.create(:percentage_coupon)
+          subject.create_used_coupon(:coupon => coupon)
+          percent_value = (coupon.value * subject.line_items_total) / 100
+          subject.discount_from_coupon.should == percent_value
         end
       end
 
@@ -165,36 +172,44 @@ describe Order do
     end
 
     describe "#total" do
-      context "when the total_discount is less then line_items total" do
-        it "it should return the expected value" do
-          subject.stub(:line_items_total).and_return(line_items_total = 89.90)
-          subject.stub(:total_discount).and_return(total_discount = 10.90)
-          expected = line_items_total - total_discount
+      context "without coupon" do
+        it "should return the total discounting the credits" do
+          credits = 11.09
+          expected = items_total
+          subject.stub(:credits).and_return(credits)
+          subject.total.should == expected - credits
+        end
+
+        it "should return the total without discounting credits if it doesn't have any" do
+          expected = items_total
           subject.total.should == expected
         end
       end
 
-      context "when the total_discount is greater then line_items total" do
-        it "it should return a minimum value" do
-          subject.stub(:line_items_total).and_return(line_items_total = 89.90)
-          subject.stub(:total_discount).and_return(total_discount = 90.00)
-          subject.total.should == Payment::MINIMUM_VALUE
+      context "with a coupon" do
+        it "should return the total discounting the credits and coupons" do
+          credits = 11.09
+          coupon = FactoryGirl.create(:standard_coupon)
+          subject.create_used_coupon(:coupon => coupon)
+          expected = items_total - credits - coupon.value
+          subject.stub(:credits).and_return(credits)
+          subject.total.should == expected
         end
       end
     end
 
     describe '#total_with_freight' do
       it "should return the total with freight" do
-        subject.stub(:freight_price).and_return(freight_price = 22.0)
-        subject.stub(:total).and_return(total = 89.90)
-        expected = total + freight_price
-        subject.total_with_freight.should == expected
+        subject.stub(:credits).and_return(11.0)
+        subject.stub(:freight_price).and_return(22.0)
+        expected = items_total - 11.0 + 22.0
+        subject.total_with_freight.should be_within(0.001).of(expected)
       end
 
-      it "should return just the total if there's no freight" do
-        subject.stub(:freight_price).and_return(nil)
-        subject.stub(:total).and_return(total = 89.90)
-        subject.total_with_freight.should == total
+      it "should return the same value as #total if there's no freight" do
+        subject.stub(:credits).and_return(11.0)
+        subject.stub(:freight_price).and_return(0)
+        subject.total_with_freight.should be_within(0.001).of(items_total - 11)
       end
     end
   end
@@ -203,7 +218,7 @@ describe Order do
     it "#line_items_total should be zero" do
       subject.line_items_total.should == 0
     end
-    it "#total should be the minumin value" do
+    it "#total should be zero" do
       subject.total.should == Payment::MINIMUM_VALUE
     end
     it "#total_with_freight should be the value of the freight" do
