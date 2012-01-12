@@ -7,6 +7,7 @@ describe Cart do
   let(:credits) { 1.28 }
   let(:gift_discount) { 23.28 }
   let(:coupon_discount) { 10.28 }
+  let(:line_items_total) { 23.90 }
   subject { Cart.new(order)}
 
   before :each do
@@ -16,6 +17,7 @@ describe Cart do
     order.stub(:discount_from_gift).and_return(gift_discount)
     order.stub(:discount_from_coupon).and_return(coupon_discount)
     order.stub(:line_items).and_return([:fake_data])
+    order.stub(:line_items_total).and_return(line_items_total)
   end
 
   it "should return 0 if the order dont have line items" do
@@ -29,12 +31,7 @@ describe Cart do
   end
 
   it "should return the subtotal" do
-    subject.subtotal.should == order.total + credits + gift_discount + coupon_discount
-  end
-
-  it "should return the subtotal when the credits is nil" do
-    order.stub(:credits).and_return(nil)
-    subject.subtotal.should == order.total + gift_discount + coupon_discount
+    subject.subtotal.should == line_items_total
   end
 
   it "should return the credits discount" do
