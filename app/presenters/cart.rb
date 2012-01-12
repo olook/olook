@@ -11,7 +11,7 @@ class Cart
   end
 
   def subtotal
-    order.total + credits_discount + coupon_discount + gift_discount
+    order.line_items_total
   end
 
   def credits_discount
