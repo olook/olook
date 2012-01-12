@@ -29,7 +29,7 @@
     </thead>
     <tfoot>
       <tr>
-        <td class="subtotal" colspan="3">Subtotal</td>
+        <td class="subtotal" colspan="3">Total</td>
         <td class="total"><%= number_to_currency(@cart.total) %></td>
       </tr>
     </tfoot>
@@ -61,7 +61,7 @@
       <tr class="discount">
         <td class="item"><h1>Possui algum código promocional?</h1></td>
         <td colspan="2">
-          <p><strong>Digite o seu valor no<br/> campo ao lado</strong></p>
+          <p><strong>Digite o código <br/>no campo ao lado</strong></p>
         </td>
         <td>
           <%= form_for(update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put) do %>
