@@ -1,0 +1,12 @@
+<% order.line_items.each do |item| %>
+_gaq.push(['_addTrans',
+   '<%= order.number %>',
+   'olook',
+   '<%= order.total_with_freight %>',
+   '',
+   '<%= order.freight_price.to_s %>',
+   '',
+   '',
+   ''
+ ]);
+<% end %>
