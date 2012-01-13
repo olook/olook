@@ -24,21 +24,11 @@ class CartController < ApplicationController
   end
 
   def remove_bonus
-    if @order.credits
+    if @order.credits > 0
       @order.update_attributes(:credits => nil)
       msg = "Créditos removidos com sucesso"
     else
-      msg = "Você não estáo usando nenhum crédito"
-    end
-    redirect_to cart_path, :notice => msg
-  end
-
-  def remove_bonus
-    if @order.credits
-      @order.update_attributes(:credits => nil)
-      msg = "Créditos removidos com sucesso"
-    else
-      msg = "Você não estáo usando nenhum crédito"
+      msg = "Você não está usando nenhum crédito"
     end
     redirect_to cart_path, :notice => msg
   end
