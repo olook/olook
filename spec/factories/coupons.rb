@@ -10,6 +10,16 @@ FactoryGirl.define do
       active true
     end
 
+    factory :percentage_coupon do
+      code 'FOOBAR000'
+      value 20
+      remaining_amount 1
+      start_date Time.now
+      end_date Time.now + 50.days
+      active true
+      is_percentage true
+    end
+
     factory :expired_coupon do
       code 'FOOBAR010'
       value 50.00

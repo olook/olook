@@ -16,6 +16,10 @@
     <%= f.text_field :code %>
   </div>
   <div class="field">
+    <%= f.label :percentage %><br/>
+    <%= f.check_box :is_percentage %><strong>Mark this field if the coupon is percentage</strong><br />
+  </div>
+  <div class="field">
     <%= f.label :value %><br />
     <%= f.text_field :value %>
   </div>
@@ -29,7 +33,7 @@
   </div>
   <div class="field">
     <%= f.label :number_of_coupons %><br />
-    <%= f.text_field :remaining_amount %> <b>*If you leave this field empty the coupon will be automatically set as unlimited.</b>
+    <%= f.text_field :remaining_amount %> <strong>*If you leave this field empty the coupon will be automatically set as unlimited.</strong>
   </div>
   <div class="field">
     <%= f.label :unlimited? %><br />
