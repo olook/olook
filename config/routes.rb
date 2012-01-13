@@ -34,6 +34,7 @@ Olook::Application.routes.draw do
       put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
       delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
+      put "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
     end
   end
