@@ -61,6 +61,7 @@ describe CartController do
       context "when the user is using credits bonus" do
         it "should sert order credits to nil" do
           session[:order] = order
+          Order.any_instance.stub(:credits).and_return(1)
           Order.any_instance.should_receive(:update_attributes).with(:credits => nil)
           delete :remove_bonus
           response.should redirect_to cart_path
@@ -70,7 +71,7 @@ describe CartController do
       context "when the user is not using credits bonus" do
         it "should not set order credits to nil" do
           session[:order] = order
-          Order.any_instance.stub(:credits).and_return(nil)
+          Order.any_instance.stub(:credits).and_return(0)
           Order.any_instance.should_not_receive(:update_attributes).with(:credits => nil)
           delete :remove_bonus
           response.should redirect_to cart_path
