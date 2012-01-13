@@ -37,7 +37,7 @@
           <td class="delete_item" valign="middle">
             <%= form_for(cart_path, :method => :put) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
-              <%= submit_tag('')  %>
+              <%= submit_tag('', :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id) )  %>
             <% end %>
           </td>
         </tr>
@@ -88,6 +88,9 @@
   </table>
   <%= link_to "Continuar", addresses_path, :class => "continue" %>
 </section>
+<% content_for :ecommerce_tracking do %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
+<% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>
 <% end %>

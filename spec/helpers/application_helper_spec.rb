@@ -35,4 +35,17 @@ describe ApplicationHelper do
       end
     end
   end
+
+  describe "#track_event" do
+    it "returns a track event string with category, action and item" do
+      helper.track_event('category','action','item').should == "_gaq.push(['_trackEvent', 'category', 'action', 'item']);"
+    end
+
+    context "when no item is passed" do
+      it "returns a track event with category and action only" do
+        helper.track_event('category','action').should == "_gaq.push(['_trackEvent', 'category', 'action', '']);"
+      end
+    end
+  end
+
 end

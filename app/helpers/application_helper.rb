@@ -38,4 +38,10 @@ module ApplicationHelper
     total = order ? order.line_items.try(:count) : 0
     content_tag(:span,"(#{content_tag(:div, "#{total}", :id => "cart_items")})".html_safe)
   end
+
+  def track_event(category, action, item = '')
+    "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
+  end
+
+
 end
