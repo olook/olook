@@ -23,6 +23,6 @@ class CouponManager
   end
 
   def remove_coupon
-    order.used_coupon.try(:destroy)
+    msg = order.used_coupon.try(:destroy) ? "Cupom removido com sucesso" : "Você não está usando cupom"
   end
 end
