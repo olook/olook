@@ -18,7 +18,7 @@ class CouponManager
       msg = "Cupom atualizado com sucesso"
     else
       order.used_coupon.try(:destroy)
-      msg = "Cupom não existente"
+      msg = "Cupom inválido"
     end
   end
 
