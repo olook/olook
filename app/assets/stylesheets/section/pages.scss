@@ -73,17 +73,21 @@
     div#press {
       ul {
         li {
-          width: 958px;
+          width: 938px;
           margin: 0 0 10px 0;
           padding: 20px 15px;
+          overflow: auto;
           border: 1px #e7e7e7 solid;
-          div.image {
-            text-align: center;
-            width: 140px;
-            height: 150px;
+          div.fl {
             margin: 0 10px 0 0;
-            display: block;
             float: left;
+            div.image {
+              text-align: center;
+              width: 140px;
+              height: 150px;
+              display: table-cell;
+              vertical-align: middle;
+            }
           }
           p {
             color: #555;
