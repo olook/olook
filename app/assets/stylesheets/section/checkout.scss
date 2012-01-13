@@ -88,7 +88,6 @@ section#cart {
       &.discount {
         td {
           vertical-align: top;
-          width: 205px;
           h1 {
             font-family: Times;
             font-style: italic;
@@ -143,6 +142,13 @@ section#cart {
                 margin-left: 5px;
                 padding: 0;
               }
+            }
+          }
+          &.cupom {
+            text-align: right;
+            min-width: 290px;
+            form {
+              float: right;
             }
           }
         }
