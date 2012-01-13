@@ -3,6 +3,6 @@
   <% if product.sold_out? %>
     <%= submit_tag "", :class=>"add_product #{product.sold_out? ? 'disabled' : ''}", :id => "add_product", :disabled => "disabled" %>
   <% else %>
-    <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
+    <%= submit_tag "", :class=>"add_product", :id => "add_product", :onsubmit => track_event("Shopping", "AddToCart", product.id) %>
   <% end %>
 <% end %>
