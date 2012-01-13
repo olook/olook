@@ -15,7 +15,7 @@
       <tr class="first">
         <td class="titles" colspan="3">Código Promocional</td>
         <td class="value">
-          <p>R$ 40,00</p>
+          <p><%= number_to_currency(@cart.coupon_discount) %> (<%= @cart.coupon_discount_in_percentage %>)</p>
           <%= form_tag "#" do %>
             <fieldset class="inputs">
               <ol>
@@ -30,7 +30,7 @@
       <tr>
         <td class="titles" colspan="3">Crédito</td>
         <td class="value">
-          <p>R$ 20,00</p>
+          <p><%= number_to_currency(@cart.credits_discount) %></p>
           <%= form_tag "#" do %>
             <fieldset class="inputs">
               <ol>
@@ -44,7 +44,7 @@
       </tr>
       <tr class="last">
         <td class="titles" colspan="3">
-          Sub-total
+          Total
           <p>O valor mínimo para finalizar sua compra é de R$ 5,00</p>
         </td>
         <td class="value"><p><%= number_to_currency(@cart.total) %></p></td>
