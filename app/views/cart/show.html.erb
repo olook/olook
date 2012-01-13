@@ -15,8 +15,8 @@
       <tr class="first">
         <td class="titles" colspan="3">Código Promocional</td>
         <td class="value">
-          <p><%= number_to_currency(@cart.coupon_discount) %> (<%= @cart.coupon_discount_in_percentage %>)</p>
-          <%= form_for(remove_bonus_cart_path, :url => remove_bonus_cart_path, :method => :delete) do %>
+          <p><%= number_to_currency(@cart.coupon_discount) %> <%= @cart.coupon_discount_in_percentage %></p>
+          <%= form_for(remove_bonus_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
             <fieldset class="inputs">
               <ol>
                 <li>
