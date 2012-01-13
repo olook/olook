@@ -1,0 +1,23 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/pages" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "press" %>
+<% end %>
+
+<div id="pages" class="press_release">
+  <div id="top_container">
+    <h1>Estão falando por ai</h1>
+    <ul class="tabs">
+      <li><%= link_to "Imprensa", "javascript:void(0);", :rel => "press", :class => "selected" %></li>
+      <li><%= link_to "Press Release", "javascript:void(0);", :rel => "press_release" %></li>
+    </ul>
+  </div>
+  <div id="press" class="content_tabs">
+    <%= render "press_content" %>
+  </div>
+  <div id="press_release" class="content_tabs">
+    <%= render "press_release_content" %>
+  </div>
+</div>
