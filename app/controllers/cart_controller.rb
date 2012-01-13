@@ -17,6 +17,16 @@ class CartController < ApplicationController
     redirect_to cart_path, :notice => response_message
   end
 
+  def remove_bonus
+    if @order.credits
+      @order.update_attributes(:credits => nil)
+      msg = "Créditos removidos com sucesso"
+    else
+      msg = "Você não estáo usando nenhum crédito"
+    end
+    redirect_to cart_path, :notice => msg
+  end
+
   def update_bonus
     bonus = InviteBonus.calculate(@user)
     credits = params[:credits][:value]
