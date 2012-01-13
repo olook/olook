@@ -17,6 +17,22 @@ class CartController < ApplicationController
     redirect_to cart_path, :notice => response_message
   end
 
+  def remove_coupon
+    coupon_manager = CouponManager.new(@order)
+    response_message = coupon_manager.remove_coupon
+    redirect_to cart_path, :notice => response_message
+  end
+
+  def remove_bonus
+    if @order.credits
+      @order.update_attributes(:credits => nil)
+      msg = "Créditos removidos com sucesso"
+    else
+      msg = "Você não estáo usando nenhum crédito"
+    end
+    redirect_to cart_path, :notice => msg
+  end
+
   def remove_bonus
     if @order.credits
       @order.update_attributes(:credits => nil)
