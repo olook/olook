@@ -199,16 +199,49 @@ section#cart {
         }
       }
     }
-    tfoot tr td {
-      font-size: 24px;
-      padding: 10px 0 15px 0;
-      border-bottom: 1px $border-color solid;
-      &.subtotal {
-        padding-left: 15px;
+    tfoot tr {
+      td {
+        font-size: 24px;
+        padding: 2px 0 2px 0;
+        &.titles {
+          padding-left: 15px;
+          p {
+            font-size: 14px;
+          }
+        }
+        &.value {
+          text-align: right;
+          padding-right: 30px;
+          form fieldset ol {
+            li {
+              margin-top: -5px;
+              input[type="submit"] {
+                background: none;
+                color: #df5a8a;
+                font-size: 12px;
+                text-decoration: underline;
+                padding: 0;
+                margin: 0 10px 0 0;
+                border: none;
+                cursor: pointer;
+              }
+            }
+          }
+          p, form {
+            float: right;
+          }
+        }
+        &.first {
+      
+        }
       }
-      &.total {
-        text-align: right;
-        padding-right: 30px;
+      &.first {
+        td {
+          padding-top: 10px;
+        }
+      }
+      &.last {
+        padding-bottom: 10px;
       }
     }
   }
