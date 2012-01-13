@@ -39,6 +39,27 @@ describe CartController do
       end
     end
 
+    describe "DELETE remove_bonus" do
+      context "when the user is using credits bonus" do
+        it "should sert order credits to nil" do
+          session[:order] = order
+          Order.any_instance.should_receive(:update_attributes).with(:credits => nil)
+          delete :remove_bonus
+          response.should redirect_to cart_path
+        end
+      end
+
+      context "when the user is not using credits bonus" do
+        it "should not set order credits to nil" do
+          session[:order] = order
+          Order.any_instance.stub(:credits).and_return(nil)
+          Order.any_instance.should_not_receive(:update_attributes).with(:credits => nil)
+          delete :remove_bonus
+          response.should redirect_to cart_path
+        end
+      end
+    end
+
     describe "PUT update_bonus" do
       context "when the user has bonus" do
         before :each do
