@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class CouponManager
-  attr_reader :order, :coupon
+  attr_accessor :order, :coupon
 
-  def initialize(order, code)
+  def initialize(order, code = nil)
     @order, @coupon = order, Coupon.find_by_code(code)
   end
 
@@ -17,8 +17,12 @@ class CouponManager
       end
       msg = "Cupom atualizado com sucesso"
     else
-      order.used_coupon.destroy if order.used_coupon
+      order.used_coupon.try(:destroy)
       msg = "Cupom não existente"
     end
+  end
+
+  def remove_coupon
+    order.used_coupon.try(:destroy)
   end
 end
