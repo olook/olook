@@ -12,9 +12,42 @@
       </tr>
     </thead>
     <tfoot>
+      <tr class="first">
+        <td class="titles" colspan="3">Código Promocional</td>
+        <td class="value">
+          <p>R$ 40,00</p>
+          <%= form_tag "#" do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= submit_tag "Limpar" %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
       <tr>
-        <td class="subtotal" colspan="3">Total</td>
-        <td class="total"><%= number_to_currency(@cart.total) %></td>
+        <td class="titles" colspan="3">Crédito</td>
+        <td class="value">
+          <p>R$ 20,00</p>
+          <%= form_tag "#" do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= submit_tag "Limpar" %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="last">
+        <td class="titles" colspan="3">
+          Sub-total
+          <p>O valor mínimo para finalizar sua compra é de R$ 5,00</p>
+        </td>
+        <td class="value"><p><%= number_to_currency(@cart.total) %></p></td>
       </tr>
     </tfoot>
     <tbody>
