@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Cart
   attr_reader :order
+  include ActionView::Helpers
 
   def initialize(order)
     @order = order
@@ -24,6 +25,10 @@ class Cart
 
   def coupon_discount
     order.discount_from_coupon
+  end
+
+  def coupon_discount_in_percentage
+    number_to_percentage((order.used_coupon.is_percentage? ? order.used_coupon.value : 0), :precision => 0) if order.used_coupon
   end
 
   def freight_price
