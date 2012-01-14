@@ -3,17 +3,31 @@ require 'spec_helper'
 describe LookbooksController do
   let(:products) { [:product_a, :product_b]}
 
+  describe "GET 'vintage'" do
+    context "without a logged user" do
+      it "assigns @products to found products" do
+        Product.should_receive(:find).and_return(products)
+        get 'vintage'
+        assigns(:products).should == products
+      end
+
+      it "should be succesfull" do
+        Product.stub(:find).and_return(products)
+        get 'vintage'
+        response.should be_success
+      end
+    end
+  end
+
   describe "GET 'safari'" do
     context "without a logged user" do
       it "assigns @products to found products" do
-        pending
         Product.should_receive(:find).and_return(products)
         get 'safari'
         assigns(:products).should == products
       end
 
       it "should be succesfull" do
-        pending
         Product.stub(:find).and_return(products)
         get 'safari'
         response.should be_success
