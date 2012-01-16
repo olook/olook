@@ -7,7 +7,7 @@ class PaymentBuilder
     @credit_card_number = payment.credit_card_number
   end
 
-  def process!(send_notification = true)
+  def process!
     ActiveRecord::Base.transaction do
       set_payment_order!
       send_payment!
