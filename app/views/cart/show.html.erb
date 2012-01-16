@@ -68,9 +68,9 @@
           </td>
           <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
           <td class="delete_item" valign="middle">
-            <%= form_for(cart_path, :method => :put) do %>
+            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
-              <%= submit_tag('', :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id) )  %>
+              <%= submit_tag('')  %>
             <% end %>
           </td>
         </tr>
@@ -123,6 +123,7 @@
 </section>
 <% content_for :ecommerce_tracking do %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :order => @order } %>
 <% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>

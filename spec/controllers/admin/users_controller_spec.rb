@@ -98,4 +98,17 @@ describe Admin::UsersController do
       get :export
     end
   end
+
+  describe "DELETE destroy" do
+    it "destroys the requested user" do
+      expect {
+        delete :destroy, :id => user.id.to_s
+      }.to change(User, :count).by(-1)
+    end
+
+    it "redirects to the user list" do
+      delete :destroy, :id => user.id.to_s
+      response.should redirect_to(admin_users_url)
+    end
+  end
 end
