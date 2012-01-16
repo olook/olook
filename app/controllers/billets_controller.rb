@@ -11,6 +11,7 @@ class BilletsController < ApplicationController
   before_filter :build_cart, :only => [:new, :create]
   before_filter :load_promotion
   before_filter :assign_receipt, :only => [:create]
+  before_filter :check_cpf
 
   def new
     @payment = Billet.new

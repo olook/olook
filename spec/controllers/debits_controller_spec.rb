@@ -8,6 +8,7 @@ describe DebitsController do
   let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    user.update_attributes(:cpf => "19762003691")
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
@@ -22,6 +23,17 @@ describe DebitsController do
      it "should assigns @payment" do
         get 'new'
         assigns(:payment).should be_a_new(Debit)
+      end
+
+      it "should redirect payments_path if the user dont have a cpf" do
+        user.update_attributes(:cpf => nil)
+        get :new
+        response.should redirect_to(payments_path)
+      end
+
+      it "should not redirect payments_path if the user have a cpf" do
+        get :new
+        response.should_not redirect_to(payments_path)
       end
     end
 
