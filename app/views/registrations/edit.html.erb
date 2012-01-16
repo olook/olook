@@ -41,7 +41,7 @@
         <ol>
           <li>
             <%= f.label :cpf %>
-            <%= f.text_field :cpf %>
+            <%= f.text_field :cpf, resource.cpf.nil? ? '' : :disabled => "disabled" %>
           </li>
           <li>
             <%= f.label :birthday %>
