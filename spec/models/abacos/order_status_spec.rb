@@ -38,16 +38,6 @@ describe Abacos::OrderStatus do
         }.to raise_error "Order number 0 doesn't exist"
       end
     end
-
-    context 'when the order is in an invalid state' do
-      let(:invalid_order) { FactoryGirl.create :clean_order }
-      it "should raise an error" do
-        subject.stub(:order_number).and_return(invalid_order.number)
-        expect {
-          subject.send :find_and_check_order, invalid_order.number
-        }.to raise_error "Order number #{invalid_order.number} state is #{invalid_order.state}, which is invalid for integration"
-      end
-    end
   end
 
   describe '#change_order_state' do
@@ -63,6 +53,41 @@ describe Abacos::OrderStatus do
         :tracking_code        => 'TRACKING-CORREIO',
         :cancelation_reason   => ''
       }
+    end
+
+    context 'when the original order state is in_the_cart' do
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
+        it "should change the state to canceled" do
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+      end
+    end
+
+    context 'when the original order state is waiting_payment' do
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
+        it "should change the state to canceled" do
+          order.waiting_payment
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+      end
+    end
+
+    context 'when the original order state is not_delivered' do
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
+        it "should change the state to canceled" do
+          order.not_delivered
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+      end
     end
 
     context 'when the original order state is authorized' do
