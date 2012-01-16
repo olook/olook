@@ -17,8 +17,10 @@ $(document).ready(function() {
   });
 
   $("div#mask_carousel_showroom ul").carouFredSel({
-    auto: false,
     height: 186,
+    auto : {
+      pauseDuration : 15000
+    },
     prev : {
       button : ".carousel-prev",
       key : "left"
