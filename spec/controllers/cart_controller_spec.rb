@@ -17,6 +17,25 @@ describe CartController do
       end
     end
 
+    describe "DELETE remove_coupon" do
+      before :each do
+        session[:order] = order
+      end
+
+      it "should apply the coupon" do
+        CouponManager.should_receive(:new).with(order).and_return(coupon_manager = mock)
+        coupon_manager.should_receive(:remove_coupon)
+        delete :remove_coupon
+      end
+
+      it "should redirect to cart_path" do
+        CouponManager.should_receive(:new).with(order).and_return(coupon_manager = mock)
+        coupon_manager.should_receive(:remove_coupon).and_return(msg = :success)
+        delete :remove_coupon
+        response.should redirect_to(cart_path, :notice => msg)
+      end
+    end
+
     describe "PUT update_coupon" do
       before :each do
         session[:order] = order
@@ -30,13 +49,34 @@ describe CartController do
       end
 
       it "should redirect to cart_path" do
-        msg = "success"
         code = "abc"
         CouponManager.stub(:new).and_return(coupon_manager = double)
-        coupon_manager.stub(:apply_coupon).and_return(msg)
+        coupon_manager.stub(:apply_coupon).and_return(msg = :success)
         put :update_coupon, :coupon => {:code => code}
         response.should redirect_to(cart_path)
         flash[:notice].should eq(msg)
+      end
+    end
+
+    describe "DELETE remove_bonus" do
+      context "when the user is using credits bonus" do
+        it "should sert order credits to nil" do
+          session[:order] = order
+          Order.any_instance.stub(:credits).and_return(1)
+          Order.any_instance.should_receive(:update_attributes).with(:credits => nil)
+          delete :remove_bonus
+          response.should redirect_to cart_path
+        end
+      end
+
+      context "when the user is not using credits bonus" do
+        it "should not set order credits to nil" do
+          session[:order] = order
+          Order.any_instance.stub(:credits).and_return(0)
+          Order.any_instance.should_not_receive(:update_attributes).with(:credits => nil)
+          delete :remove_bonus
+          response.should redirect_to cart_path
+        end
       end
     end
 

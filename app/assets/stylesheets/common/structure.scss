@@ -28,7 +28,6 @@ body {
     z-index: 99;
     opacity: 0.8;
     filter: alpha(opacity = 80);
-    
     p {
       background: transparent;
       color: #000;
@@ -684,7 +683,9 @@ body {
   }
 
   header {
+    background: url("/assets/common/bg-holder-full.png") center bottom no-repeat;
     width: 100%;
+    min-height: 95px;
     overflow: visible;
     display: block;
   
@@ -712,15 +713,15 @@ body {
         height: 47px;
       }
       ul {
-        height: 50px;
-        margin: 5px 0 0 0;
+        height: 35px;
+        margin: 10px 0 0 0;
         overflow: hidden;
         li {
           font-family: Arial, sans-serif;
           font-size: 12px;
           font-weight: normal;
           text-transform: uppercase;
-          width: 215px;
+          width: 230px;
           margin: 0 0 50px 0;
           strong {
             display: block;
@@ -1089,6 +1090,17 @@ body {
         position: fixed;
         top: 0;
       }
+    }
+  }
+  &.logged {
+    div#error-messages {
+      padding: 35px 0;
+    }
+    header {
+      min-height: 120px;
+    }
+    div#content {
+      padding-top: 10px;
     }
   }
 }

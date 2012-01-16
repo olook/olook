@@ -3,67 +3,73 @@
 @import "partials/product";
 
 #product {
-  padding: 20px 0 0 0;
+  padding: 10px 0 0 0;
   div.box_carousel {
     margin: 0 0 15px 0;
     padding: 10px 20px;
     overflow: auto;
     border: 1px #e1e1e1 solid;
     h1 {
-      background: url("/assets/product/title-showroom-december.png") no-repeat;
-      text-indent: -9999px;
-      width: 238px;
-      height: 17px;
-      display: block;
-      margin: 14px 0 0 0;
-      float: left;
+      a {
+        background: url("/assets/product/title-showroom-january.png") no-repeat;
+        text-indent: -9999px;
+        width: 238px;
+        height: 17px;
+        display: block;
+        margin: 18px 0 0 0;
+        float: left;
+      }
     }
     div#carousel {
-      width: 595px;
+      position: relative;
+      width: 660px;
+      height: 53px;
       float: right;
-      .mask {
+      ul {
         position: relative;
-        width: 545px;
-        height: 50px;
+        width: 600px;
+        left: 0px;
         overflow: hidden;
-        float: left;
-        ul {
-          position: relative;
-          width: 10000px;
-          left: 0px;
-          overflow: auto;
-          li {
-            margin: 0;
+        li {
+          margin: 0 5px 0 0 !important;
+          padding: 0;
+          display: inline;
+          float: left;
+          a {
+            margin: 0 5px 0 0;
             padding: 0;
-            display: inline;
             float: left;
-            a {
-              margin: 0 5px 0 0;
-              padding: 0;
-              float: left;
-              img {
-                width: 50px;
-                height: 50px;
-              }
+            img {
+              width: 50px;
+              height: 50px;
             }
           }
         }
       }
+      div.caroufredsel_wrapper {
+        margin: 0 auto !important;
+      }
       a.arrow {
-        background: url("/assets/common/arrows.png") no-repeat;
+        position: absolute;
+        background: url("/assets/product/arrows_products.jpg") 0 no-repeat;
         text-indent: -9999px;
-        width: 5px;
-        height: 10px;
-        margin-top: 20px;
+        width: 20px;
+        height: 53px;
+        top: 0;
         display: block;
-        &.prev {
-          background-position: 0 0;
-          margin-right: 22px;
-          float: left;
+        &.product-prev {
+          background-position: 0;
+          left: 0;
+          &:hover {
+            background-position: -20px;
+          }
         }
-        &.next {
-          background-position: -5px 0;
-          float: right;
+        &.product-next {
+          background-position: -60px;
+          right: 0;
+          &:hover {
+            background-position: -40px;
+          }
         }
       }
     }
@@ -165,6 +171,10 @@
           font-size: 16px;
           letter-spacing: -1px;
           margin-bottom: 10px;
+          a {
+            color: #df5a8a;
+            margin: 0 0 0 5px;
+          }
           &.price {
             color: #e05789;
             font-size: 45px;
@@ -359,6 +369,7 @@
       clear: both;
       a.carousel-prev, a.carousel-next {
         position: absolute;
+        background: url("/assets/product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
         width: 42px;
         height: 360px;
@@ -366,17 +377,22 @@
         display: block;
       }
       a.carousel-prev {
-        background: url("/assets/product/prev-product.jpg") 0 no-repeat;
+        background-position: 0px;
         left: 0;
+        &:hover {
+          background-position: -42px;
+        }
       }
       a.carousel-next {
-        background: url("/assets/product/next-product.jpg") 0 no-repeat;
+        background-position: -126px;
         right: 0;
+        &:hover {
+          background-position: -84px;
+        }
       }
       div.caroufredsel_wrapper {
-        background: url("/assets/product/bg-footer-carousel.png") bottom left no-repeat;
         margin: 0 auto !important;
-        padding: 0 0 30px 0;
+        padding: 0 0 10px 0;
       }
       h1.title {
         background: url("/assets/product/title-your-stylists.png") no-repeat;
@@ -399,6 +415,13 @@
             }
           }
         }
+      }
+      div#related_footer {
+        background: url("/assets/product/bg-footer-carousel.png") top left no-repeat;
+        width: 100%;
+        height: 26px;
+        display: block;
+        clear: both;
       }
     }
   }

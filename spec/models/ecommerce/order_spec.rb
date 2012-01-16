@@ -150,10 +150,17 @@ describe Order do
 
     describe "#discount_from_coupon" do
       context "with a used_coupon" do
-        it "should return the value" do
+        it "should return the value in Reais" do
           coupon = FactoryGirl.create(:standard_coupon)
           subject.create_used_coupon(:coupon => coupon)
           subject.discount_from_coupon.should == coupon.value
+        end
+
+        it "should return the value in Percentage" do
+          coupon = FactoryGirl.create(:percentage_coupon)
+          subject.create_used_coupon(:coupon => coupon)
+          percent_value = (coupon.value * subject.line_items_total) / 100
+          subject.discount_from_coupon.should == percent_value
         end
       end
 
@@ -212,10 +219,10 @@ describe Order do
       subject.line_items_total.should == 0
     end
     it "#total should be zero" do
-      subject.total.should == 0
+      subject.total.should == Payment::MINIMUM_VALUE
     end
     it "#total_with_freight should be the value of the freight" do
-      subject.total_with_freight.should == subject.freight.price
+      subject.total_with_freight.should == subject.freight.price + Payment::MINIMUM_VALUE
     end
   end
 

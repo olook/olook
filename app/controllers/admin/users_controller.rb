@@ -1,16 +1,10 @@
 # -*- encoding : utf-8 -*-
-class Admin::UsersController < ApplicationController
-  before_filter :authenticate_admin!
-  layout "admin"
+class Admin::UsersController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    filter = User.where('')
-    unless params[:search].blank?
-      filter = filter.where('(first_name LIKE :search) OR (last_name LIKE :search) OR (email LIKE :search)', :search => "%#{params[:search].strip}%")
-    end
-    @users = filter.page(params[:page]).per_page(15)
-    respond_with :admin, @users
+    @search = User.search(params[:search])
+    @users = @search.relation.page(params[:page]).per_page(15).order('created_at desc')
   end
 
   def show
@@ -35,13 +29,12 @@ class Admin::UsersController < ApplicationController
     respond_with :admin, @user
   end
 
-  def export
-    @records = UserReport.export
-    respond_with :admin, @records
-  end
-
   def statistics
     @statistics = UserReport.statistics
     respond_with :admin, @statistics
+  end
+
+  def export
+    Resque.enqueue(Admin::ExportUsersWorker, current_admin.email)
   end
 end

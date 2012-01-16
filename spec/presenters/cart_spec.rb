@@ -7,6 +7,7 @@ describe Cart do
   let(:credits) { 1.28 }
   let(:gift_discount) { 23.28 }
   let(:coupon_discount) { 10.28 }
+  let(:line_items_total) { 23.90 }
   subject { Cart.new(order)}
 
   before :each do
@@ -15,6 +16,14 @@ describe Cart do
     order.stub(:credits).and_return(credits)
     order.stub(:discount_from_gift).and_return(gift_discount)
     order.stub(:discount_from_coupon).and_return(coupon_discount)
+    order.stub(:line_items).and_return([:fake_data])
+    order.stub(:line_items_total).and_return(line_items_total)
+  end
+
+  it "should return 0 if the order dont have line items" do
+    order.stub(:line_items).and_return([])
+    cart = Cart.new(order)
+    cart.total.should == 0
   end
 
   it "should return the total" do
@@ -22,12 +31,7 @@ describe Cart do
   end
 
   it "should return the subtotal" do
-    subject.subtotal.should == order.total + credits + gift_discount + coupon_discount
-  end
-
-  it "should return the subtotal when the credits is nil" do
-    order.stub(:credits).and_return(nil)
-    subject.subtotal.should == order.total + gift_discount + coupon_discount
+    subject.subtotal.should == line_items_total
   end
 
   it "should return the credits discount" do
@@ -40,6 +44,13 @@ describe Cart do
 
   it "should return the coupon discount" do
     subject.coupon_discount.should == order.discount_from_coupon
+  end
+
+  it "should return the coupon discount" do
+    order.stub_chain(:used_coupon, :is_percentage?).and_return(true)
+    order.stub_chain(:used_coupon, :value).and_return(percent = 20)
+    expected = "#{percent}%"
+    subject.coupon_discount_in_percentage.should == expected
   end
 
   it "should return the freight price" do

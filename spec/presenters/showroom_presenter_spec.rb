@@ -18,14 +18,25 @@ describe ShowroomPresenter do
       subject.render_identification
     end
   end
-  
+
   describe '#collection_name' do
-    it 'should return the current month name' do
-      Date.stub_chain(:today, :month).and_return(4)
-      subject.collection_name.should == 'Abril'
+    context "when there is an active collection" do
+      let!(:collection) { FactoryGirl.create :collection }
+
+      it 'returns the name of the active collection' do
+        Collection.should_receive(:active).and_return(collection)
+        subject.collection_name.should == collection.name
+      end
+    end
+
+    context "when there is no active collection" do
+      it 'returns the current month name' do
+        Date.stub_chain(:today).and_return(Date.new(2011,04,03))
+        subject.collection_name.should == 'Abril'
+      end
     end
   end
-  
+
   describe '#display_products, should render the product partial for' do
     let(:fake_products) { Array.new(10, :one_product) }
 
@@ -38,7 +49,7 @@ describe ShowroomPresenter do
       template.should_receive(:raw).with('')
       subject.display_products (0..2), Category::SHOE
     end
-    
+
     it "if it's not a range, return all remaining products staring at the index" do
       template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => subject, :product => :one_product}).exactly(2).times.and_return('')
       template.should_receive(:raw).with('')
@@ -68,7 +79,7 @@ describe ShowroomPresenter do
       end
     end
   end
-  
+
   describe '#parse_range' do
     let(:array) { Array.new(10, :item) }
     it "should return the asked range if it's withing limits" do
@@ -81,7 +92,7 @@ describe ShowroomPresenter do
       subject.send(:parse_range, 5, array).should == (5..9)
     end
   end
-  
+
   describe '#welcome_message' do
     before :each do
       subject.member.stub(:first_name).and_return('Fulana')
@@ -97,7 +108,7 @@ describe ShowroomPresenter do
       subject.welcome_message(19).should == 'Boa noite, Fulana!'
     end
   end
-  
+
   describe '#facebook_avatar' do
     it "should return the FB avatar, size normal, which should have 100px width" do
       subject.member.stub(:uid).and_return('fake_uid')

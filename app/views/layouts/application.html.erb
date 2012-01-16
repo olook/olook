@@ -18,7 +18,7 @@
     <%= favicon_link_tag %>
 
   </head>
-  <body>
+  <body class="<%= user_signed_in? ? 'logged' : '' %>">
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -31,7 +31,8 @@
       <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
   </div>
-  <%= render :partial => "shared/footer" %>
+
+  <%= yield :site_footer %>
 
   <%= javascript_include_tag "application" %>
   <%= render_google_remessaging_scripts %>

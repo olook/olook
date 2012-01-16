@@ -13,20 +13,14 @@ describe Admin::UsersController do
   end
 
   describe "GET index" do
-    context 'when no search parameter is provided' do
-      it "assigns all users as @users" do
-        get :index
-        assigns(:users).should eq([user])
-      end
-    end
-    context 'when a search parameter is provided' do
-      let(:searched_user) { FactoryGirl.create(:user, :first_name => 'ZYX') }
+    let(:searched_user) { FactoryGirl.create(:user, :first_name => 'ZYX') }
+    let(:search_param) { {"first_name_contains" => searched_user.first_name} }
 
-      it "should filter the users by by name and e-mail using the parameter" do
-        get :index, :search => searched_user.first_name
-        assigns(:users).should_not include(user)
-        assigns(:users).should include(searched_user)
-      end
+    it "should search for a user using the search parameter" do
+      get :index, :search => search_param
+
+      assigns(:users).should_not include(user)
+      assigns(:users).should include(searched_user)
     end
   end
 
@@ -86,15 +80,7 @@ describe Admin::UsersController do
       end
     end
   end
-  
-  describe "GET export" do
-    it 'should render the list of all users' do
-      UserReport.should_receive(:export).and_return([[:result]])
-      get :export
-      assigns(:records).should eq([[:result]])
-    end
-  end
-  
+
   describe 'GET statistics' do
     let(:result) { double(:result, creation_date: Date.civil(2011, 11, 15), daily_total: 10 ) }
 
@@ -102,6 +88,14 @@ describe Admin::UsersController do
       UserReport.should_receive(:statistics).and_return([result])
       get :statistics
       assigns(:statistics).should eq([result])
+    end
+  end
+
+  describe 'GET export' do
+    it 'should create a new job on Resque with current_admin email' do
+      Resque.should_receive(:enqueue).with(Admin::ExportUsersWorker, @admin.email)
+
+      get :export
     end
   end
 end

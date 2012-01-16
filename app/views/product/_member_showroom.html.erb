@@ -1,12 +1,10 @@
     <div class="box_carousel">
-      <h1>Sua vitrine de <%= product_presenter.collection_name %></h1>
+      <h1><%= link_to "Sua vitrine de #{product_presenter.collection_name}", member_showroom_path %></h1>
       <div id="carousel">
-        <%= link_to "prev", "javascript:void(0);", :class => "arrow prev" %>
-        <div class="mask">
-          <ul>
-            <%= product_presenter.render_main_profile_showroom %>
-          </ul>
-        </div>
-        <%= link_to "next", "javascript:void(0);", :class => "arrow next" %>
+        <ul>
+          <%= product_presenter.render_main_profile_showroom %>
+        </ul>
+        <%= link_to "Anterior", "javascript:void(0);", :class => "arrow product-prev" %>
+        <%= link_to "Próximo", "javascript:void(0);", :class => "arrow product-next" %>
       </div>
     </div>

@@ -2,25 +2,32 @@
 require 'spec_helper'
 
 describe UserReport do
+  describe ".generate_csv" do
+    let(:first_user) { double(:user, FactoryGirl.attributes_for(:user, :id => 1, :cpf => "123456", :is_invited => false, :created_at => Date.today)) }
+    let(:second_user) { double(:user, FactoryGirl.attributes_for(:user, :id => 2, :cpf => "654321", :is_invited => true, :created_at => Date.yesterday)) }
+    let(:file_path) { Rails.root.join("public", "admin", "users.csv") }
 
-  describe '#export' do
-    let!(:user) { FactoryGirl.create(:user) }
+    before do
+      User.stub_chain(:select, :find_each).and_yield(first_user).and_yield(second_user)
+    end
 
-    it 'should generate an array of users suitable to export to text' do
-      expected_result = [ user.first_name,
-        user.last_name,
-        user.email,
-        user.is_invited? ? 'invited' : 'organic',
-        user.created_at.to_s(:short),
-        user.profile_scores.first.try(:profile).try(:name),
-        user.invitation_url,
-        user.events.where(:event_type => EventType::TRACKING).first.try(:description)
-      ]
-      described_class.export.should == [ expected_result ]
+    after(:all) do
+      File.delete file_path
+    end
+
+    it "should generate a CSV file in public/admin containing all Users in the database" do
+      csv_string = <<-CSV.strip_heredoc
+        Id,First Name,Last Name,Email,Cpf,Is Invited,Created At
+        #{first_user.id},#{first_user.first_name},#{first_user.last_name},#{first_user.email},#{first_user.cpf},#{first_user.is_invited},#{first_user.created_at}
+        #{second_user.id},#{second_user.first_name},#{second_user.last_name},#{second_user.email},#{second_user.cpf},#{second_user.is_invited},#{second_user.created_at}
+      CSV
+
+      UserReport.generate_csv
+      File.read(file_path).should == csv_string
     end
   end
 
-  describe '#statistics' do
+  describe '.statistics' do
     let(:result_a) { double(:result, creation_date: Date.civil(2011, 11, 15), daily_total: 10 ) }
     let(:result_b) { double(:result, creation_date: Date.civil(2011, 11, 16), daily_total: 13 ) }
     let(:group_result) { [ result_a, result_b ] }
@@ -33,7 +40,7 @@ describe UserReport do
 
     it "should count the users created grouped by date" do
       User.stub(:select).with("date(created_at) as creation_date, count(id) as daily_total").and_return(select_result)
-      
+
       described_class.statistics.should == group_result
     end
   end

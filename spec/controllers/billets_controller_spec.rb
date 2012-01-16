@@ -8,6 +8,7 @@ describe BilletsController do
   let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    user.update_attributes(:cpf => "19762003691")
     request.env['devise.mapping'] = Devise.mappings[:user]
     FactoryGirl.create(:line_item, :order => Order.find(order))
     sign_in user
@@ -23,6 +24,17 @@ describe BilletsController do
         get 'new'
         assigns(:payment).should be_a_new(Billet)
       end
+
+      it "should redirect payments_path if the user dont have a cpf" do
+        user.update_attributes(:cpf => nil)
+        get :new
+        response.should redirect_to(payments_path)
+      end
+
+      it "should not redirect payments_path if the user have a cpf" do
+        get :new
+        response.should_not redirect_to(payments_path)
+      end
     end
 
     context "with a invalid order" do
@@ -33,7 +45,7 @@ describe BilletsController do
       end
 
       it "should redirect to cart path if the order total with freight is less then 5.00" do
-        Order.any_instance.stub(:total_with_freight).and_return(4.99)
+        Order.any_instance.stub(:line_items).and_return([])
         get 'new'
         response.should redirect_to(cart_path)
       end

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  ShowroomInit.updateListSize();
   ShowroomInit.slideProductAnchor();
 
   $("#showroom div.products_list a.more").live("click", function() {
@@ -32,12 +31,6 @@ $(document).ready(function() {
 });
 
 ShowroomInit = {
-  updateListSize : function() {
-    list = $("div#mask_carousel_showroom ul");
-    listSize = $(list).find("li").size()*324;
-    $(list).width(listSize);
-  },
-
   slideProductAnchor : function() {
     anchor = window.location.hash;
     container = $(anchor+"_container");

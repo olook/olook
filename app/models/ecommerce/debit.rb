@@ -46,4 +46,12 @@ class Debit < Payment
   def build_payment_expiration_date
     EXPIRATION_IN_MINUTES.minutes.from_now
   end
+
+  def expired_and_waiting_payment?
+    (self.expired? && self.order.state == "waiting_payment") ? true : false
+  end
+
+  def expired?
+    Time.now > self.payment_expiration_date if self.payment_expiration_date
+  end
 end

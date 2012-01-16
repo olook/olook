@@ -10,13 +10,11 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
-  match "/lookbooks/flores", :to => "lookbooks#flores", :as => "flores"
+  match "/o-que-estao-falando", :to => "pages#what_are_talking", :as => "what_are_talking"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
-  match "/lookbooks/golden-grace", :to => "lookbooks#golden_grace", :as => "golden_grace"
-  match "/lookbooks/color-block", :to => "lookbooks#color_block", :as => "color_block"
-  match "/lookbooks/glitter", :to => "lookbooks#glitter", :as => "glitter"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
-  match "/lookbooks/sapatilhas", :to => "lookbooks#sapatilhas", :as => "sapatilhas"
+  match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
+  match "/lookbooks/vintage", :to => "lookbooks#vintage", :as => "vintage"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
@@ -35,7 +33,9 @@ Olook::Application.routes.draw do
   resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do
       put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
+      delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
+      delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
     end
   end
@@ -54,6 +54,8 @@ Olook::Application.routes.draw do
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
+
+  get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
 
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
@@ -87,8 +89,8 @@ Olook::Application.routes.draw do
 
     resources :users, :except => [:create, :new, :destroy] do
       collection do
-        get 'export' => 'users#export', :as => 'export'
         get 'statistics' => 'users#statistics', :as => 'statistics'
+        get 'export' => 'users#export', :as => 'export'
       end
     end
 
@@ -101,7 +103,8 @@ Olook::Application.routes.draw do
     resources :shipping_services
     resources :collections
     resources :orders
-    resources :coupons
+    resources :coupons, :except => [:destroy]
+    resources :landing_pages
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do

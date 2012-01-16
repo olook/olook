@@ -1,4 +1,6 @@
 header {
+  background: none !important;
+  min-height: 93px !important;
   overflow: auto !important;
   a.back_showroom {
     background: url("/assets/cart/bt-back-showroom.jpg") no-repeat;
@@ -60,57 +62,6 @@ div#order_status {
   }
 }
 section#cart {
-  form.cpf {
-    width: 755px;
-    margin: 0 auto 30px auto;
-    padding: 20px 30px;
-    border: 1px #d2d2d2 solid;
-    fieldset.buttons {
-      ol li {
-        display: inline;
-        float: left;
-        label {
-          font-weight: bold;
-          line-height: 35px;
-          margin: 4px 10px 0 0;
-          float: left;
-        }
-        input[type="text"] {
-          background: url('/assets/common/bg-inputs.png') repeat-x;
-          font-size: 14px;
-          font-weight: bold;
-          width: 260px;
-          border: 1px solid #C1C1C1;
-          padding: 7px 8px;
-          margin: 4px 20px 0 0;
-          height:17px;
-          float: left;
-          &:focus {
-            outline: none;
-          }
-        }
-        input[type="submit"] {
-          background: url("/assets/common/bt-save-small.png") top left no-repeat;
-          color: #df5a8a;
-          font-family: Arial;
-          font-size: 12px;
-          text-decoration: underline;
-          width: 76px;
-          height: 38px;
-          border: none;
-          cursor: pointer;
-        }
-        p {
-          color: #808080;
-          font-family: Arial;
-          font-size: 13px;
-          font-weight: bold;
-          width: 265px;
-          margin: 0 50px 0 0;
-        }
-      }
-    }
-  }
   table.items_list {
     $border-color: #e5e5e5;
     margin-bottom: 25px;
@@ -193,6 +144,13 @@ section#cart {
               }
             }
           }
+          &.cupom {
+            text-align: right;
+            min-width: 290px;
+            form {
+              float: right;
+            }
+          }
         }
       }
       &.gift_banner {
@@ -250,16 +208,49 @@ section#cart {
         }
       }
     }
-    tfoot tr td {
-      font-size: 24px;
-      padding: 10px 0 15px 0;
-      border-bottom: 1px $border-color solid;
-      &.subtotal {
-        padding-left: 15px;
+    tfoot tr {
+      td {
+        font-size: 24px;
+        padding: 2px 0 2px 0;
+        &.titles {
+          padding-left: 15px;
+          p {
+            font-size: 14px;
+          }
+        }
+        &.value {
+          text-align: right;
+          padding-right: 30px;
+          form fieldset ol {
+            li {
+              margin-top: -5px;
+              input[type="submit"] {
+                background: none;
+                color: #df5a8a;
+                font-size: 12px;
+                text-decoration: underline;
+                padding: 0;
+                margin: 0 10px 0 0;
+                border: none;
+                cursor: pointer;
+              }
+            }
+          }
+          p, form {
+            float: right;
+          }
+        }
+        &.first {
+      
+        }
       }
-      &.total {
-        text-align: right;
-        padding-right: 30px;
+      &.first {
+        td {
+          padding-top: 10px;
+        }
+      }
+      &.last {
+        padding-bottom: 10px;
       }
     }
   }
@@ -267,7 +258,7 @@ section#cart {
     background: url("/assets/cart/continue.png") no-repeat;
     text-indent: -9999px;
     width: 153px;
-    height: 54px; 
+    height: 54px;
     display: block;
     float: right;
   }
@@ -308,6 +299,57 @@ section#address_new {
 }
 
 section#payment {
+  form.cpf {
+    width: 755px;
+    margin: 0 auto 30px auto;
+    padding: 20px 30px;
+    border: 1px #d2d2d2 solid;
+    fieldset.buttons {
+      ol li {
+        display: inline;
+        float: left;
+        label {
+          font-weight: bold;
+          line-height: 35px;
+          margin: 4px 10px 0 0;
+          float: left;
+        }
+        input[type="text"] {
+          background: url('/assets/common/bg-inputs.png') repeat-x;
+          font-size: 14px;
+          font-weight: bold;
+          width: 260px;
+          border: 1px solid #C1C1C1;
+          padding: 7px 8px;
+          margin: 4px 20px 0 0;
+          height:17px;
+          float: left;
+          &:focus {
+            outline: none;
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/common/bt-save-small.png") top left no-repeat;
+          color: #df5a8a;
+          font-family: Arial;
+          font-size: 12px;
+          text-decoration: underline;
+          width: 76px;
+          height: 38px;
+          border: none;
+          cursor: pointer;
+        }
+        p {
+          color: #808080;
+          font-family: Arial;
+          font-size: 13px;
+          font-weight: bold;
+          width: 265px;
+          margin: 0 50px 0 0;
+        }
+      }
+    }
+  }
   section.main {
     ul.payment_methods {
       width: 635px;
@@ -700,32 +742,26 @@ section#payment {
           &.Itau {
             background-position: -136px -5px;
           }
-          &.BancoReal {
+          &.Banrisul {
             background-position: -177px -5px;
           }
-          &.Unibanco {
-            background-position: -218px -5px;
-          }
-          &.Banrisul {
-            background-position: -260px -5px;
-          }
           &.Visa {
-            background-position: -308px -5px;
+            background-position: -225px -5px;
           }
           &.Mastercard {
-            background-position: -349px -5px;
+            background-position: -266px -5px;
           }
           &.AmericanExpress {
-            background-position: -391px -5px;
+            background-position: -309px -5px;
           }
           &.Diners {
-            background-position: -433px -5px;
+            background-position: -350px -5px;
           }
           &.Hipercard {
-            background-position: -475px -5px;
+            background-position: -392px -5px;
           }
           &.Aura {
-            background-position: -571px -5px;
+            background-position: -434px -5px;
           }
         }
       }
@@ -819,7 +855,7 @@ section.checkout {
       background: url('/assets/cart/continue.png') no-repeat;
       text-indent: -9999px;
       width: 153px;
-      height: 54px; 
+      height: 54px;
       margin: 0 auto;
       display: block;
       cursor: pointer;

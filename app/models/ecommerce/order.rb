@@ -149,7 +149,11 @@ class Order < ActiveRecord::Base
   end
 
   def discount_from_coupon
-    used_coupon ? used_coupon.value : 0
+    if used_coupon
+      used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+    else
+      0
+    end
   end
 
   def discount_from_gift
@@ -157,13 +161,9 @@ class Order < ActiveRecord::Base
   end
 
   def total
-    result = line_items_total
-    if result > 0
-      result = result - credits
-      result = result - discount_from_gift
-      result = result - discount_from_coupon
-    end
-    result
+    subtotal = line_items_total - total_discount
+    subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE
+    subtotal
   end
 
   def total_discount

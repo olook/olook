@@ -697,7 +697,7 @@
             //zoomWindow default position
             preloadImages: true,
             //image preload
-            preloadText: 'Loading zoom',
+            preloadText: 'Carregando zoom',
             title: true,
             lens: true,
             imageOpacity: 0.4,

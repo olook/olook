@@ -1,7 +1,4 @@
-class Admin::UtilitiesController < ApplicationController
-  before_filter :authenticate_admin!
-
-  layout "admin"
+class Admin::UtilitiesController < Admin::BaseController
   respond_to :html
 
   def index

@@ -147,9 +147,8 @@ private
   end
 
   def criteo_product_url
-    #?utm_source=criteo&utm_medium=banner&utm_campaign=remessaging&utm_content=<numero_produto>
     Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_sorce => "criteo",
+                                                           :utm_source => "criteo",
                                                            :utm_medium => "banner",
                                                            :utm_campaign => "remessaging",
                                                            :utm_content => id

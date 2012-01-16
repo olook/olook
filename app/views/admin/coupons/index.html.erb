@@ -1,4 +1,4 @@
-<h2>Listing products</h2>
+<h2>Listing coupons</h2>
 <p><%= link_to 'New coupon', new_admin_coupon_path %></p>
 
 <div class="inner">
@@ -8,10 +8,10 @@
       <th>Value</th>
       <th>Start date</th>
       <th>End date</th>
+      <th># of coupons</th>
       <th>Active</th>
       <th>Unlimited</th>
       <th>Expired</th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -20,12 +20,12 @@
     <tr>
       <td><%= coupon.code %></td>
       <td><%= coupon.value %></td>
-      <td><%= coupon.start_date %></td>
-      <td><%= coupon.end_date %></td>
+      <td><%= l(coupon.start_date, :format => :short) %></td>
+      <td><%= l(coupon.end_date, :format => :short) %></td>
+      <td><%= coupon.remaining_amount %></td>
       <td><%= coupon.active ? 'Yes' : 'No' %></td>
       <td><%= coupon.unlimited ? 'Yes' : 'No' %></td>
       <td><%= coupon.expired? ? 'Yes' : 'No' %></td>
-      <td><%= link_to 'Delete', admin_coupon_path(coupon), :method => :delete %></td>
       <td><%= link_to 'Edit', edit_admin_coupon_path(coupon) %></td>
     </tr>
   <% end %>
