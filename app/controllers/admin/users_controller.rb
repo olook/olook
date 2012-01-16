@@ -19,6 +19,12 @@ class Admin::UsersController < Admin::BaseController
     respond_with :admin, @user
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    respond_with :admin, @user
+  end
+
   def update
     @user = User.find(params[:id])
 

@@ -21,7 +21,8 @@ describe Abacos::Pagamento do
           'DadosPedidosFormaPgto' => {
             'Valor'                 => '179.90',
             'CartaoQtdeParcelas'    => 3,
-            'FormaPagamentoCodigo'  => 'VISA'
+            'FormaPagamentoCodigo'  => 'VISA',
+            'BoletoVencimento'  => nil
           }
         }
       end
@@ -32,13 +33,25 @@ describe Abacos::Pagamento do
     end
   end
 
-  describe '#forma' do
+  describe 'diferent payments' do
     context 'for boletos' do
-      let(:billet) { mock_model Billet, :payments => 1 }
-      let(:order) { double :order, :total_with_freight => 179.9, :payment => billet }
+      let!(:expiration_date) { DateTime.civil(2012, 11, 9, 10, 0, 0) }
+      let!(:billet) { mock_model Billet, :payments => 1, :payment_expiration_date => expiration_date }
+      let!(:order) { double :order, :total_with_freight => 179.9, :payment => billet }
       subject { described_class.new order }
+      let(:billet_parsed_data) do
+        {
+         'DadosPedidosFormaPgto' => {
+           'Valor'                 => '179.90',
+           'CartaoQtdeParcelas'    => 1,
+           'FormaPagamentoCodigo'  => 'BOLETO',
+           'BoletoVencimento'  => "09112012"
+        }
+       }
+      end
+
       it '#forma should be BOLETO' do
-        subject.forma.should == 'BOLETO'
+        subject.parsed_data.should == billet_parsed_data
       end
     end
 
