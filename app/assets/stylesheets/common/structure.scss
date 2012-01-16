@@ -28,9 +28,6 @@ body {
     z-index: 99;
     opacity: 0.8;
     filter: alpha(opacity = 80);
-    &.logged {
-      padding: 35px 0;
-    }
     p {
       background: transparent;
       color: #000;
@@ -686,7 +683,9 @@ body {
   }
 
   header {
+    background: url("/assets/common/bg-holder-full.png") center bottom no-repeat;
     width: 100%;
+    min-height: 95px;
     overflow: visible;
     display: block;
   
@@ -1091,6 +1090,17 @@ body {
         position: fixed;
         top: 0;
       }
+    }
+  }
+  &.logged {
+    div#error-messages {
+      padding: 35px 0;
+    }
+    header {
+      min-height: 120px;
+    }
+    div#content {
+      padding-top: 10px;
     }
   }
 }
