@@ -124,7 +124,6 @@
 <% content_for :ecommerce_tracking do %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :order => @order } %>
-
 <% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>
