@@ -35,6 +35,7 @@ gem 'savon'
 gem 'httpi'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'faker'
