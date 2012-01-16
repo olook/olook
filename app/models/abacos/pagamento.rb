@@ -9,7 +9,7 @@ module Abacos
       @valor    = parse_price order.total_with_freight
       @forma    = order.payment.is_a?(Billet) ? 'BOLETO' : order.payment.bank.upcase
       @parcelas = order.payment.payments || 1
-      @boleto_vencimento = order.payment.payment_expiration_date if order.payment.is_a?(Billet)
+      @boleto_vencimento = parse_expiration_date(order.payment.payment_expiration_date) if order.payment.is_a?(Billet)
     end
 
     def parsed_data
@@ -21,6 +21,12 @@ module Abacos
           'BoletoVencimento' => @boleto_vencimento
         }
       }
+    end
+
+    private
+
+    def parse_expiration_date(date)
+      date.strftime("%d%m%Y")
     end
   end
 end
