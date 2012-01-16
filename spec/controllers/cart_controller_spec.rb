@@ -32,7 +32,8 @@ describe CartController do
         CouponManager.should_receive(:new).with(order).and_return(coupon_manager = mock)
         coupon_manager.should_receive(:remove_coupon).and_return(msg = :success)
         delete :remove_coupon
-        response.should redirect_to(cart_path, :notice => msg)
+        response.should redirect_to(cart_path)
+        flash[:notice].should eq(msg)
       end
     end
 
