@@ -3,7 +3,13 @@ $(document).ready(function() {
   initProduct.sliceDesc(stringDesc);
 
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
-    $(this).parent().text(stringDesc);
+    el = $(this).parent();
+    el.text(stringDesc);
+    el.append("<a href='javascript:void(0);' class='less'>Esconder</a>");
+  });
+
+  $("div#infos div.description p[class!='price'] a.less").live("click", function() {
+    initProduct.sliceDesc(stringDesc);
   });
 
   $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
