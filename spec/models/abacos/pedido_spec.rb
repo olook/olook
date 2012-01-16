@@ -163,7 +163,8 @@ describe Abacos::Pedido do
                                 'DadosPedidosFormaPgto' => {
                                   'Valor'                 => '81.00',
                                   'CartaoQtdeParcelas'    => 1,
-                                  'FormaPagamentoCodigo'  => 'VISA'
+                                  'FormaPagamentoCodigo'  => 'VISA',
+                                  'BoletoVencimento'  => nil
                                 }
                               },
 
