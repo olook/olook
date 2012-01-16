@@ -15,12 +15,12 @@ class User::UsersController < ApplicationController
     else
       msg = "Seu CPF já está cadastrado"
     end
-    redirect_to(cart_path, :notice => msg)
+    redirect_to(payments_path, :notice => msg)
   end
 
   private
 
   def check_cpf
-    redirect_to(cart_path, :notice => "CPF inválido") unless Cpf.new(params[:user][:cpf]).valido?
+    redirect_to(payments_path, :notice => "CPF inválido") unless Cpf.new(params[:user][:cpf]).valido?
   end
 end

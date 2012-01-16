@@ -8,7 +8,6 @@ class ::AddressesController < ApplicationController
   before_filter :load_user
   before_filter :check_order
   before_filter :load_promotion
-  before_filter :check_cpf
   before_filter :assign_default_country, :only => [:create]
   before_filter :build_cart, :except => [:assign_address]
 
