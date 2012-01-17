@@ -6,3 +6,4 @@ worker_processes 4
 pid "/var/run/olook-unicorn.pid"
 stderr_path "/mnt/olook-unicorn-error.log"
 stdout_path "/mnt/olook-unicorn.log"
+preload_app true
