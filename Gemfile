@@ -36,6 +36,7 @@ gem 'httpi'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
+gem 'graylog2_exceptions'
 
 group :development do
   gem 'faker'
