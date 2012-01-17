@@ -12,6 +12,7 @@ class MemberMailer < ActionMailer::Base
       :authentication => :plain,
       tls: true,
       enable_starttls_auto: true
+
     }
   end
 
@@ -21,11 +22,13 @@ class MemberMailer < ActionMailer::Base
           :from => "olook <bemvinda@my.olookmail.com.br>",
           :subject => "#{member.name}, seja bem vinda! Seu cadastro foi feito com sucesso!"
           )
+    headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json
   end
 
   def showroom_ready_email(member)
     @member = member
     mail( :to => member.email,
           :subject => "#{member.name}, sua vitrine personalizada já está pronta!")
+    headers["X-SMTPAPI"] = { 'category' => 'showroom_ready_email' }.to_json
   end
 end
