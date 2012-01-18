@@ -7,45 +7,50 @@ class PaymentBuilder
     @credit_card_number = payment.credit_card_number
   end
 
-  def process!(send_notification = true)
-    set_payment_order
-    send_payment
-    create_payment_response
-    payment_response = set_payment_url.payment_response
+  def process!
+    ActiveRecord::Base.transaction do
+      set_payment_order!
+      send_payment!
+      create_payment_response!
+      payment_response = set_payment_url!.payment_response
 
-    if payment_response.response_status == Payment::SUCCESSFUL_STATUS
-      if payment_response.transaction_status != Payment::CANCELED_STATUS
-        order.decrement_inventory_for_each_item
-        order.waiting_payment
-        order.invalidate_coupon
+      if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+        if payment_response.transaction_status != Payment::CANCELED_STATUS
+          order.decrement_inventory_for_each_item
+          order.waiting_payment!
+          order.invalidate_coupon
+          respond_with_success
+        else
+          respond_with_failure
+        end
+      else
+        respond_with_failure
       end
     end
 
-    OpenStruct.new(:status => payment_response.response_status, :payment => payment)
     rescue Exception => error
-      order.payment.destroy
       error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment ID #{payment.id}"
       Airbrake.notify(
         :error_class   => "Moip Request",
         :error_message => error_message
       )
       log(error_message)
-      OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+      respond_with_failure
   end
 
-  def set_payment_order
+  def set_payment_order!
     payment.order = order
-    payment.save
+    payment.save!
     payment
   end
 
-  def set_payment_url
+  def set_payment_url!
     payment.url = payment_url
-    payment.save
+    payment.save!
     payment
   end
 
-  def send_payment
+  def send_payment!
     @response = MoIP::Client.checkout(payment_data)
   end
 
@@ -53,10 +58,10 @@ class PaymentBuilder
     MoIP::Client.moip_page(response["Token"])
   end
 
-  def create_payment_response
+  def create_payment_response!
     payment_response = payment.build_payment_response
     payment_response.build_attributes response
-    payment_response.save
+    payment_response.save!
   end
 
   def payer
@@ -82,7 +87,7 @@ class PaymentBuilder
     if payment.is_a? Billet
     data = { :valor => order_total, :id_proprio => order.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
-                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_IN_DAYS }
+                :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
     elsif payment.is_a? CreditCard
       data = { :valor => order_total, :id_proprio => order.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => credit_card_number,
@@ -99,7 +104,25 @@ class PaymentBuilder
     data
   end
 
+  def rollback_order
+    order.generate_identification_code
+    order.payment.destroy if order.payment
+  end
+
   private
+
+  def billet_expiration_date
+    order.payment.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
+  end
+
+  def respond_with_failure
+    rollback_order
+    OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+  end
+
+  def respond_with_success
+    OpenStruct.new(:status => payment.payment_response.response_status, :payment => payment)
+  end
 
   def log(message, logger = Rails.logger, level = :error)
     logger.send(level, message)

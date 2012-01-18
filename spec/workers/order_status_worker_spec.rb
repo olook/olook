@@ -97,7 +97,7 @@ describe OrderStatusWorker do
       end
 
       it "should tell Abacos it was paid, need to wait a couple minutes to avoid errors" do
-        Resque.should_receive(:enqueue_in).with(10.minutes, Abacos::ConfirmPayment, order.number)
+        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, order.number)
         described_class.integrate_with_abacos(order)
       end
     end
@@ -110,15 +110,7 @@ describe OrderStatusWorker do
       context "when the order exists on Abacos" do
         it "should enqueue a Job in order to cancel it" do
           Abacos::OrderAPI.stub(:order_exists?).and_return(true)
-          Resque.should_receive(:enqueue).with(Abacos::CancelOrder, order.number)
-          described_class.integrate_with_abacos(order)
-        end
-      end
-
-      context "when the order doesn't exists on Abacos" do
-        it "should enqueue a Job in order to insert it" do
-          Abacos::OrderAPI.stub(:order_exists?).and_return(false)
-          Resque.should_receive(:enqueue).with(Abacos::InsertOrder, order.number)
+          Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::CancelOrder, order.number)
           described_class.integrate_with_abacos(order)
         end
       end
