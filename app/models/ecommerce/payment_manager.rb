@@ -18,11 +18,6 @@ class PaymentManager
     search_and_cancel(@debit)
   end
 
-  def self.http_get_in_payment_url_to_force_generation(payment)
-    url = URI.parse payment.url
-    Net::HTTP.get url
-  end
-
   private
 
   def search_and_cancel(payment_type)
