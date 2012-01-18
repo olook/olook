@@ -3,7 +3,7 @@ class OrderStatusMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
   default :from => "olook <avisos@olook.com.br>"
 
-  [:order_requested, :payment_confirmed, :payment_refused].each do |method|
+  [:order_requested, :payment_confirmed, :payment_refused, :order_shipped].each do |method|
     define_method method do |order|
       @order = order
       send_mail(@order)
@@ -17,10 +17,10 @@ class OrderStatusMailer < ActionMailer::Base
       subject = "#{order.user.first_name}, recebemos seu pedido."
     elsif order.authorized?
       subject = "Seu pedido n#{order.number} foi confirmado!"
+    elsif order.delivering?
+      subject = "Seu pedido n#{order.number} foi enviado!"
     elsif order.canceled? || order.reversed?
-      if order.payment.credit_card?
-        subject = "Seu pedido n#{order.number} foi cancelado."
-      end
+      subject = "Seu pedido n#{order.number} foi cancelado."
     end
   end
 

@@ -13,6 +13,8 @@ class OrderStatusWorker
       mail = OrderStatusMailer.order_requested(order)
     elsif order.authorized?
       mail = OrderStatusMailer.payment_confirmed(order)
+    elsif order.delivering?
+      mail = OrderStatusMailer.order_shipped(order)
     elsif order.canceled? || order.reversed?
       if order.payment.credit_card?
         mail = OrderStatusMailer.payment_refused(order)
