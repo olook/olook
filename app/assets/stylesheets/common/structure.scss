@@ -970,7 +970,7 @@ body {
                   display: inline;
                 }
               }
-              &:hover {
+              &.selected, &:hover {
                 background-position: -417px -32px;
               }
             }
@@ -1112,7 +1112,7 @@ section.main {
     overflow: auto;
     li.address_item {
       width: 215px;
-      height: 140px;
+      height: 160px;
       overflow: hidden;
       margin: 0 25px 25px 0;
       padding: 15px 30px;
@@ -1133,6 +1133,7 @@ section.main {
           &.address {
             width: 100%;
             clear: both;
+            margin-top: 10px;
           }
           a {
             color: #e46d99;
@@ -1141,6 +1142,14 @@ section.main {
             margin: 0 10px 5px 0;
             &:hover {
               text-decoration: underline;
+            }
+            &.select_address {
+              background: url("/assets/common/bt-address.jpg") no-repeat;
+              text-indent: -9999px;
+              width: 159px;
+              height: 34px;
+              display: block;
+              margin: 0 auto;
             }
           }
         }
@@ -1157,10 +1166,11 @@ section.main {
         a {
           color: #e46d99;
           font-size: 16px;
-          line-height: 130px;
           font-weight: bold;
           text-decoration: none;
-          margin: 0 0 0 8px;
+          text-align: center;
+          display: block;
+          margin: 55px 0 0 0;
           &:hover {
             text-decoration: underline;
           }
