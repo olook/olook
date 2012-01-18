@@ -21,9 +21,12 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    identification_code = params["id_transacao"]
-    logger.error identification_code
-    order = Order.find_by_identification_code(identification_code)
+    order = Order.find_by_identification_code(params["id_transacao"])
+    MoipCallback.create(:order_id => order.try(:id),
+                        :cod_moip => params["cod_moip"],
+                        :tipo_pagamento => params["tipo_pagamento"],
+                        :status_pagamento => params["status_pagamento"],
+                        :id_transacao => params["id_transacao"])
     if order
       if update_order(order)
         render :nothing => true, :status => 200
@@ -31,12 +34,14 @@ class PaymentsController < ApplicationController
         msg = "Erro ao mudar status do pagamento"
         Airbrake.notify(:error_class => "Payment", :error_message => msg, :parameters => params)
         logger.error(msg)
+        logger.error(params)
         render :nothing => true, :status => 500
       end
     else
       msg = "Order não encontrada"
       Airbrake.notify(:error_class => "Order", :error_message => msg, :parameters => params)
       logger.error(msg)
+      logger.error(params)
       render :nothing => true, :status => 500
     end
   end
