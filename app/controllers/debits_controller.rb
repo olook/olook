@@ -27,7 +27,6 @@ class DebitsController < ApplicationController
         clean_session_order!
         redirect_to(order_debit_path(:number => @order.number), :notice => "Link de pagamento gerado com sucesso")
       else
-        rollback_order
         respond_with(new_payment_with_error)
       end
      else
@@ -39,7 +38,7 @@ class DebitsController < ApplicationController
 
   def new_payment_with_error
     @payment = Debit.new(params[:debit])
-    @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+    @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
     @payment
   end
 

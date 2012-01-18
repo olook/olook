@@ -28,16 +28,11 @@ class OrderStatusWorker
 
     elsif order.authorized?
       create_order_event(order, "Enqueue Abacos::ConfirmPayment")
-      Resque.enqueue_in(10.minutes, Abacos::ConfirmPayment, order.number)
+      Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, order.number)
 
     elsif order.canceled?
-      if Abacos::OrderAPI.order_exists? order.number
-        create_order_event(order, "Enqueue Abacos::CancelOrder")
-        Resque.enqueue(Abacos::CancelOrder, order.number)
-      else
-        create_order_event(order, "Enqueue Abacos::InsertOrder for canceling")
-        Resque.enqueue(Abacos::InsertOrder, order.number)
-      end
+      create_order_event(order, "Enqueue Abacos::CancelOrder")
+      Resque.enqueue_in(15.minutes, Abacos::CancelOrder, order.number)
     end
   end
 

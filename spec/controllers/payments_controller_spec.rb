@@ -115,6 +115,12 @@ describe PaymentsController do
         post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
         Order.find(order.id).authorized?.should eq(true)
       end
+
+      it "should create a MoipCallback" do
+        expect {
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
+        }.to change(MoipCallback, :count).by(1)
+      end
     end
 
     context "with invalids params" do

@@ -45,15 +45,17 @@ class Billet < Payment
     "Boleto Bancário"
   end
 
-  def build_payment_expiration_date
-    EXPIRATION_IN_DAYS.days.from_now
-  end
-
   def expired_and_waiting_payment?
     (self.expired? && self.order.state == "waiting_payment") ? true : false
   end
 
   def expired?
     Time.now > self.payment_expiration_date + 2.days if self.payment_expiration_date
+  end
+
+  private
+
+  def build_payment_expiration_date
+    BilletExpirationDate.expiration_for_two_business_day
   end
 end
