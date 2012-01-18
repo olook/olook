@@ -946,12 +946,21 @@ body {
               }
             }
           }
+          &.stylist {
+            a {
+              background-position: -417px 0;
+              width: 68px;
+              &:hover, &.selected {
+                background-position: -417px -32px;
+              }
+            }
+          }
           &.cart {
             position: relative;
             float: right;
             a.cart {
               position: relative;
-              background-position: -417px 0;
+              background-position: -485px 0;
               color: #FFF;
               line-height: 35px;
               text-decoration: none;
@@ -971,7 +980,7 @@ body {
                 }
               }
               &.selected, &:hover {
-                background-position: -417px -32px;
+                background-position: -485px -32px;
               }
             }
             ul.submenu {
