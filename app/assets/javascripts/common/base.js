@@ -196,6 +196,8 @@ initBase = {
       $(this).parents('#session').find('.' + el).toggle('open');
       $(this).parents('body').addClass('dialog-opened');
 
+      $("div.sign-in-dropdown form input#user_email").focus();
+
       e.preventDefault();
 
       $('.sign-in-dropdown').live('click',function(e) {
