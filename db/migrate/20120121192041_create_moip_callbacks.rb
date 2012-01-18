@@ -1,6 +1,7 @@
 class CreateMoipCallbacks < ActiveRecord::Migration
   def change
-    create_table :moip_callbacks do |t|
+    create_table(:moip_callbacks) do |t|
+      t.integer :order_id
       t.string :id_transacao
       t.string :cod_moip
       t.string :tipo_pagamento
