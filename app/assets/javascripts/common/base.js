@@ -181,10 +181,14 @@ $(document).ready(function() {
   $("ul.submenu li form.delete").bind("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
     var items = parseInt($("#cart_items").text());
-    $("#cart_items").text(items - defaultQuantity);
+    var newItems = items - defaultQuantity;
+    $("#cart_items").text(newItems);
     $(this).parent("li.product_item").fadeOut("slow", function() {
       $(this).remove();
     });
+    if(newItems == 0) {
+      $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
+    }
   })
 });
 
