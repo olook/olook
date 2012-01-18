@@ -1,5 +1,11 @@
 section#stylist {
   padding-top: 15px;
+  h1, h2 {
+    color: #2f2f2f;
+    font-family: Times;
+    font-style: italic;
+    font-weight: normal;
+  }
   div.profile {
     width: 100%;
     margin: 0 0 55px 0;
@@ -9,11 +15,7 @@ section#stylist {
       float: left;
     }
     h1 {
-      color: #2f2f2f;
-      font-family: Times;
       font-size: 60px;
-      font-style: italic;
-      font-weight: normal;
       letter-spacing: -5px;
       margin: 0 0 10px 0;
       float: left;
@@ -38,6 +40,87 @@ section#stylist {
       margin: 35px 0 0 0;
       display: block;
       float: left;
+    }
+  }
+  ul.interview {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 65px 0;
+    li {
+      width: 175px;
+      margin: 0 25px 65px 0;
+      float: left;
+      h1 {
+        font-size: 20px;
+        line-height: 18px;
+        margin: 0 0 10px 0;
+      }
+      p {
+        color: #636363;
+        font-size: 14px;
+        color: #636363;
+      }
+      &.last {
+        margin-right: 0;
+      }
+    }
+  }
+  div#products {
+    background: url("/assets/showroom/border-top-product.png") 170px 18px no-repeat;
+    width: 100%;
+    overflow: auto;
+    h1.title {
+      background: url("/assets/stylist/title-helena-linhares.jpg") no-repeat;
+      text-indent: -9999px;
+      width: 324px;
+      height: 35px;
+      display: block;
+      float: left;
+    }
+    ul {
+      li {
+        background: url("/assets/stylist/product-divisor.jpg") center bottom no-repeat;
+        width: 100%;
+        overflow: auto;
+        display: block;
+        padding: 60px 0;
+        img {
+          float: left;
+          margin: 0 20px 0 0;
+        }
+        h1 {
+          font-size: 55px;
+          line-height: 40px;
+        }
+        h2 {
+          color: #b2b2b2;
+          font-size: 35px;
+          margin: 0 0 15px 0;
+        }
+        p {
+          color: #515151;
+          font-size: 14px;
+          margin: 0 0 20px 0;
+        }
+        a {
+          background: url("/assets/stylist/bt-know.jpg") no-repeat;
+          color: #FFF;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 34px;
+          text-align: center;
+          text-decoration: none;
+          width: 95px;
+          display: block;
+          float: left;
+        }
+        &.right {
+          img {
+            float: right;
+            margin: 0 0 0 20px;
+          }
+        }
+      }
     }
   }
 }
