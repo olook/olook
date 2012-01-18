@@ -1,3 +1,43 @@
 section#stylist {
-
+  padding-top: 15px;
+  div.profile {
+    width: 100%;
+    margin: 0 0 55px 0;
+    overflow: auto;
+    img.picture {
+      margin: 0 25px 0 0;
+      float: left;
+    }
+    h1 {
+      color: #2f2f2f;
+      font-family: Times;
+      font-size: 60px;
+      font-style: italic;
+      font-weight: normal;
+      letter-spacing: -5px;
+      margin: 0 0 10px 0;
+      float: left;
+    }
+    p {
+      color: #101010;
+      font-size: 14px;
+      line-height: 25px;
+      width: 665px;
+      float: left;
+    }
+    a {
+      background: url("/assets/stylist/bt-products.jpg") no-repeat;
+      color: #FFF;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      line-height: 40px;
+      width: 395px;
+      margin: 35px 0 0 0;
+      display: block;
+      float: left;
+    }
+  }
 }
