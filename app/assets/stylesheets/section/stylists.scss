@@ -80,9 +80,10 @@ section#stylist {
     ul {
       li {
         background: url("/assets/stylist/product-divisor.jpg") center bottom no-repeat;
-        width: 100%;
+        width: 830px;
         overflow: auto;
         display: block;
+        margin: 0 auto;
         padding: 60px 0;
         img {
           float: left;
@@ -114,6 +115,9 @@ section#stylist {
           display: block;
           float: left;
         }
+        &.last {
+          background: none;
+        }
         &.right {
           img {
             float: right;
@@ -121,6 +125,13 @@ section#stylist {
           }
         }
       }
+    }
+    div.products_footer {
+      background: url("/assets/product/bg-footer-carousel.png") top left no-repeat;
+      width: 100%;
+      height: 26px;
+      display: block;
+      clear: both;
     }
   }
 }
