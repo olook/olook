@@ -22,6 +22,7 @@ config/email.yml
 config/yahoo.yml
 config/aws.yml
 config/resque.yml
+config/moip.yml
 *.passwd
 db/schema.rb
 .watchr
