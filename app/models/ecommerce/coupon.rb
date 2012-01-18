@@ -1,5 +1,6 @@
 class Coupon < ActiveRecord::Base
   validates_presence_of :code, :value, :start_date, :end_date
+  validates_uniqueness_of :code
 
   before_save :set_limited_or_unlimited
 
