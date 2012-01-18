@@ -1166,10 +1166,11 @@ section.main {
         a {
           color: #e46d99;
           font-size: 16px;
-          line-height: 155px;
           font-weight: bold;
           text-decoration: none;
-          margin: 0 0 0 8px;
+          text-align: center;
+          display: block;
+          margin: 55px 0 0 0;
           &:hover {
             text-decoration: underline;
           }
