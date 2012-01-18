@@ -15,7 +15,7 @@
     <p>Figura que transita entre as varias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
     <%= link_to "Veja minha seleção de produtos desta coleção", "javascript:void(0);", :id => "go_products" %>
   </div>
-  <ul>
+  <ul class="interview">
     <li>
       <h1>1. Como você define seu estilo?</h1>
       <p><strong>H.L.:</strong> Eu sou uma pessoa livre e meu estilo segue esse mesmo principio. Eu amo misturar os estilos e o mais importante é eu me sentir bem e bonita!</p>
@@ -32,9 +32,35 @@
       <h1>4. O que você gosta de fazer no seu free time?</h1>
       <p><strong>H.L.:</strong> Sou uma jardineira de final de semana e também amo cozinhar. tenho uma hortinha de temperos em casa e assim consigo unir essas duas paixões.</p>
     </li>
-    <li>
+    <li class="last">
       <h1>5. Qual a viagem dos seus sonhos?</h1>
       <p><strong>H.L.:</strong> Esse ano eu quero voltar à Grécia.</p>
     </li>
   </ul>
+  <div id="products">
+    <h1 class="title">What's hot por Helena Linhares</h1>
+    <ul>
+      <li>
+        <%= image_tag "/assets/stylist/helena_linhares/venice.jpg", :title => "Venice" %>
+        <h1>Venice</h1>
+        <h2>R$ 99,90</h2>
+        <p>Amo essa sandalha por ser feminina e ter tudo a ver com a tendência color blocking. Fica linda com uma única cor, como na foto ao lado ou misturando tons na cor da sandalia.</p>
+        <%= link_to "Conheça", product_path(1147) %>
+      </li>
+      <li class="right">
+        <%= image_tag "/assets/stylist/helena_linhares/tamarindo.jpg", :title => "Tamarindo" %>
+        <h1>Tamarindo</h1>
+        <h2>R$ 129,90</h2>
+        <p>Essa bolsa é básica mas cheia de charme. Muito versatil, pode ser usada em várias produções. Adorei esse look com jeans skinny.</p>
+        <%= link_to "Conheça", product_path(1383) %>
+      </li>
+      <li>
+        <%= image_tag "/assets/stylist/helena_linhares/porto_rico.jpg", :title => "Porto Rico" %>
+        <h1>Porto Rico</h1>
+        <h2>R$ 129,90</h2>
+        <p>Amo correntes e esse colar fica incrível numa produção mais casual ou com um look noite.</p>
+        <%= link_to "Conheça", product_path(1545) %>
+      </li>
+    </ul>
+  </div>
 </section>
