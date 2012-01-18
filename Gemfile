@@ -37,7 +37,7 @@ gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
 gem 'graylog2_exceptions'
-gem 'SyslogLogger'
+gem 'SyslogLogger', :require => 'syslog_logger'
 
 group :development do
   gem 'faker'
