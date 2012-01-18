@@ -970,7 +970,7 @@ body {
                   display: inline;
                 }
               }
-              &:hover, &.selected {
+              &.selected, &:hover {
                 background-position: -417px -32px;
               }
             }
