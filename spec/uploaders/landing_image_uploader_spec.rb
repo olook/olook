@@ -12,12 +12,11 @@ describe LandingImageUploader do
     described_class.enable_processing = false
   end
 
-  let(:test_file_dir) { File.expand_path File.dirname( __FILE__) }
-  let(:valid_image)   { File.join test_file_dir, 'valid_image.jpg' }
-  let(:invalid_image) { File.join test_file_dir, 'invalid_image.txt' }
-  let(:picture)       { FactoryGirl.create :main_picture }
+  let(:valid_image)   { File.join fixture_path, 'valid_image.jpg' }
+  let(:invalid_image) { File.join fixture_path, 'invalid_image.txt' }
+  let(:landing)       { FactoryGirl.create :landing_page }
 
-  subject { described_class.new(picture, :image) }
+  subject { described_class.new(landing, :landing) }
 
   describe "an uploaded image" do
     before :each do
