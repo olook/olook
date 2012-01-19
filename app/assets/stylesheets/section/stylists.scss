@@ -83,8 +83,8 @@ section#stylist {
         width: 830px;
         overflow: auto;
         display: block;
-        margin: 0 auto;
-        padding: 60px 0;
+        margin: 0 auto 30px;
+        padding: 0 0 40px 0;
         img {
           float: left;
           margin: 0 20px 0 0;
@@ -92,6 +92,7 @@ section#stylist {
         h1 {
           font-size: 55px;
           line-height: 40px;
+          margin: 25px 0 0 0;
         }
         h2 {
           color: #b2b2b2;
@@ -117,6 +118,7 @@ section#stylist {
         }
         &.last {
           background: none;
+          margin-bottom: 0;
         }
         &.right {
           img {
