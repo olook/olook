@@ -29,7 +29,7 @@ class PaymentBuilder
     end
 
     rescue Exception => error
-      error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment ID #{payment.id}"
+      error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment Expiration #{payment.payment_expiration_date}"
       Airbrake.notify(
         :error_class   => "Moip Request",
         :error_message => error_message
