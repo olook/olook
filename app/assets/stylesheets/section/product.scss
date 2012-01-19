@@ -5,43 +5,53 @@
 #product {
   padding: 10px 0 0 0;
   div.box_carousel {
-    margin: 0 0 15px 0;
-    padding: 10px 20px;
+    background: url("/assets/product/border-carousel.jpg") center bottom no-repeat;
+    margin: 0 0 25px 0;
+    padding: 10px 20px 20px;
     overflow: auto;
-    border: 1px #e1e1e1 solid;
-    h1 {
-      a {
-        background: url("/assets/product/title-showroom-january.png") no-repeat;
-        text-indent: -9999px;
-        width: 238px;
-        height: 17px;
-        display: block;
-        margin: 18px 0 0 0;
-        float: left;
+    a.back {
+      color: #df5a8b;
+      font-size: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      float: left;
+      &:hover {
+        text-decoration: underline;
       }
+    }
+    a.open_carousel {
+      background: url("/assets/product/bt-carousel.jpg") no-repeat;
+      color: #505050;
+      font-weight: bold;
+      text-decoration: none;
+      line-height: 31px;
+      width: 175px;
+      padding: 0 0 0 15px;
+      display: block;
+      float: right;
     }
     div#carousel {
       position: relative;
-      width: 660px;
-      height: 53px;
-      float: right;
+      width: 100%;
+      height: 260px;
+      display: block;
+      clear: both;
+      margin: 30px 0 0 0;
+      float: left;
       ul {
         position: relative;
-        width: 600px;
+        width: 5000px;
         left: 0px;
         overflow: hidden;
-        li {
-          margin: 0 5px 0 0 !important;
-          padding: 0;
-          display: inline;
-          float: left;
-          a {
-            margin: 0 5px 0 0;
-            padding: 0;
-            float: left;
-            img {
-              width: 50px;
-              height: 50px;
+        li.product {
+          width: 170px;
+          div.box_product {
+            a.product_link img {
+              width: 165px;
+              height: 165px;
+            }
+            h1 {
+              width: 165px;
             }
           }
         }
@@ -51,24 +61,24 @@
       }
       a.arrow {
         position: absolute;
-        background: url("/assets/product/arrows_products.jpg") 0 no-repeat;
+        background: url("/assets/product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
-        width: 20px;
-        height: 53px;
+        width: 42px;
+        height: 235px;
         top: 0;
         display: block;
         &.product-prev {
           background-position: 0;
           left: 0;
           &:hover {
-            background-position: -20px;
+            background-position: -42px;
           }
         }
         &.product-next {
-          background-position: -60px;
+          background-position: -126px;
           right: 0;
           &:hover {
-            background-position: -40px;
+            background-position: -84px;
           }
         }
       }
