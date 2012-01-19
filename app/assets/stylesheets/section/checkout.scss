@@ -851,15 +851,19 @@ section.checkout {
         }
       }
       div.delivery_time {
-        background: #d9d9d9;
-        width: 75%;
         margin: 20px auto;
-        padding: 10px 25px;
+        padding: 10px 12px;
+        border-top: 1px #d9d9d9 solid;
         p {
+          background: url("/assets/common/pink-arrow.png") 0 4px no-repeat;
+          color: #e05789;
           font-size: 13px;
           font-style: italic;
-          text-align: center;
           margin: 0;
+          padding: 0 0 0 15px;
+          strong {
+            color: #e05789;
+          }
         }
       }
     }
