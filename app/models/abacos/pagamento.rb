@@ -3,7 +3,7 @@ module Abacos
   class Pagamento
     include Helpers
 
-    attr_reader :valor, :forma, :parcelas
+    attr_reader :valor, :forma, :parcelas, :boleto_vencimento
 
     def initialize(order)
       @valor    = parse_price order.total_with_freight
