@@ -63,6 +63,17 @@ describe OrderStatusWorker do
       described_class.send_email(order)
     end
 
+    it "should send order_delivered" do
+      order.waiting_payment
+      order.authorized
+      order.picking
+      order.delivering
+      order.delivered
+      mock_mail.should_receive(:deliver)
+      OrderStatusMailer.should_receive(:order_delivered).with(order).and_return(mock_mail)
+      described_class.send_email(order)
+    end
+
     it "should send payment_refused when canceled" do
       order_cc.waiting_payment
       order_cc.canceled
