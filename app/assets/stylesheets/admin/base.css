@@ -423,3 +423,7 @@ button.button:active, a.button:active {
 .content .hidden_destroy a:hover {
   color: #ff0000;
 }
+
+#sync_products {
+  margin: 20px;
+}
