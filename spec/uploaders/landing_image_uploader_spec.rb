@@ -19,7 +19,7 @@ describe LandingImageUploader do
   subject { described_class.new(landing, :landing) }
 
   describe "an uploaded image" do
-    before :each do
+    before :all do
       subject.store!(File.open(valid_image))
     end
 

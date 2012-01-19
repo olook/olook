@@ -11,7 +11,7 @@ describe ColorSampleUploader do
   subject { described_class.new(product, :color_sample) }
 
   describe "an uploaded image" do
-    before :each do
+    before :all do
       subject.store!(File.open(valid_image))
     end
 
