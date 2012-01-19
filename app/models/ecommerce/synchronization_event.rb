@@ -2,6 +2,7 @@
 class SynchronizationEvent < ActiveRecord::Base
   validates_presence_of :name
   before_save :validates_name
+  after_create :enqueue
 
   LOCK_TIME = 10.minutes
   ALLOWED_NAMES = ["products", "inventory"]
@@ -13,6 +14,10 @@ class SynchronizationEvent < ActiveRecord::Base
   end
 
   private
+
+  def enqueue
+    Resque.enqueue(Abacos::IntegrateProducts) if self.name == 'products'
+  end
 
   def validates_name
     unless ALLOWED_NAMES.include?(self.name)
