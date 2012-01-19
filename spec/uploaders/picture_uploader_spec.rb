@@ -19,7 +19,7 @@ describe PictureUploader do
   subject { described_class.new(picture, :image) }
 
   describe "an uploaded image" do
-    before :each do
+    before :all do
       subject.store!(File.open(valid_image))
     end
 
