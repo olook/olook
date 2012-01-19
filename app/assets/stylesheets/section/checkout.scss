@@ -850,6 +850,18 @@ section.checkout {
           }
         }
       }
+      div.delivery_time {
+        background: #d9d9d9;
+        width: 75%;
+        margin: 20px auto;
+        padding: 10px 25px;
+        p {
+          font-size: 13px;
+          font-style: italic;
+          text-align: center;
+          margin: 0;
+        }
+      }
     }
     input[type="submit"].continue {
       background: url('/assets/cart/continue.png') no-repeat;
