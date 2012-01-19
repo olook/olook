@@ -12,9 +12,8 @@ describe PictureUploader do
     described_class.enable_processing = false
   end
 
-  let(:test_file_dir) { File.expand_path File.dirname( __FILE__) }
-  let(:valid_image)   { File.join test_file_dir, 'valid_image.jpg' }
-  let(:invalid_image) { File.join test_file_dir, 'invalid_image.txt' }
+  let(:valid_image)   { File.join fixture_path, 'valid_image.jpg' }
+  let(:invalid_image) { File.join fixture_path, 'invalid_image.txt' }
   let(:picture)       { FactoryGirl.create :main_picture }
 
   subject { described_class.new(picture, :image) }
@@ -55,7 +54,7 @@ describe PictureUploader do
       subject.store!(File.open(invalid_image))
     }.to raise_error(CarrierWave::IntegrityError)
   end
-  
+
   it 'should store images on directories with the product model name' do
     subject.stub_chain(:model, :class, :name, :underscore, :pluralize).and_return('dir')
     subject.stub_chain(:model, :product, :model_number).and_return('product')
