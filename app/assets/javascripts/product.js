@@ -2,6 +2,19 @@ $(document).ready(function() {
   var stringDesc = $("div#infos div.description p").not(".price").text();
   initProduct.sliceDesc(stringDesc);
 
+  $("#product div.box_carousel a.open_carousel").live("click", function () {
+    word = $(this).find("span");
+    carousel = $(this).parent().find("div#carousel");
+    if($(carousel).is(":visible")) {
+      $(word).text("Abrir");
+      $(carousel).slideUp();
+    } else {
+      $(word).text("Fechar");
+      $(carousel).slideDown();
+    }
+  });
+  $("#product div#carousel").slideUp();
+
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
     el = $(this).parent();
     el.text(stringDesc);
@@ -56,7 +69,7 @@ $(document).ready(function() {
   
   $("div#carousel ul").carouFredSel({
     auto: false,
-    width: 600,
+    width: 760,
     items: 10,
     prev : {
       button : ".product-prev",
