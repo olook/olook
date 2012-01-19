@@ -20,7 +20,7 @@ module Abacos
       @data_venda       = parse_data(order.created_at)
 
       @valor_pedido     = parse_price order.line_items_total
-      @valor_desconto   = parse_price order.total_discount
+      @valor_desconto   = parse_price discount_for(order)
       @valor_frete      = parse_price order.freight_price
       @transportadora   = 'TEX'
       @tempo_entrega    = order.freight.delivery_time
@@ -59,6 +59,16 @@ module Abacos
       result
     end
   private
+
+    def discount_for(order)
+      if (order.line_items_total - order.total_discount) < Payment::MINIMUM_VALUE
+        total_discount = order.line_items_total - Payment::MINIMUM_VALUE
+      else
+        total_discount = order.total_discount
+      end
+      total_discount
+    end
+
     def parse_itens(line_items)
       line_items.map do |line_item|
         Abacos::Item.new( line_item )
