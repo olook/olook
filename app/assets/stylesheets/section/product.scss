@@ -343,16 +343,22 @@
                 }
               }
             }
+            div.picture {
+              width: 140px;
+              height: 140px;
+              overflow: hidden;
+              margin-left: 20px;
+              float: right;
+              img {
+                width: 140px;
+              }
+            }
             p {
               color: #545454;
               font-family: Times;
               font-size: 16px;
               font-style: italic;
               padding: 0 20px;
-              img {
-                margin-left: 20px;
-                float: right;
-              }
             }
             &.selected {
               display: block;
