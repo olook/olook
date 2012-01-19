@@ -5,6 +5,9 @@
           </ul>
           <ul class="tabs_content">
             <li class="tab_1 selected">
+              <div class="picture">
+                <%= image_tag "/assets/stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>
+              </div>
               <p><%= raw @product.details.only_how_to.first.try(:description) %></p>
             </li>
             <li class="tab_2">
