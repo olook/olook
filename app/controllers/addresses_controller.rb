@@ -10,8 +10,10 @@ class ::AddressesController < ApplicationController
   before_filter :load_promotion
   before_filter :assign_default_country, :only => [:create]
   before_filter :build_cart, :except => [:assign_address]
+  before_filter :check_address, :only => [:index]
 
   def index
+    debugger
     @addresses = @user.addresses
   end
 
@@ -61,6 +63,10 @@ class ::AddressesController < ApplicationController
   end
 
   private
+
+  def check_address
+    redirect_to new_address_path unless @user.addresses.any?
+  end
 
   def remove_freight_from_order(address)
     @order.freight.destroy if @order.freight.address == address

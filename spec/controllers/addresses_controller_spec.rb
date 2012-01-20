@@ -26,6 +26,12 @@ describe ::AddressesController do
       get :index
       assigns(:addresses).should eq(user.addresses)
     end
+
+    it "should redirect to new if the user dont have an address" do
+      user.addresses.destroy_all
+      get :index
+      response.should redirect_to(new_address_path)
+    end
   end
 
   describe "GET new" do
