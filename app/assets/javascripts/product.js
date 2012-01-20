@@ -5,16 +5,15 @@ $(document).ready(function() {
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
     carousel = $(this).parent().find("div#carousel");
-    if($(carousel).hasClass("open")) {
-      $(word).text("Fechar");
+    if($(carousel).hasClass("open") == true) {
+      $(word).text("Abrir");
       $(carousel).slideUp('normal', function() {
-        $(this).removeClass("open");
+        $(carousel).removeClass("open");
       });
     } else {
-      $(word).text("Abrir");
-      $(carousel).slideDown('normal', function() {
-        $(this).addClass("open");
-      });
+      $(word).text("Fechar");
+      $(carousel).addClass("open");
+      $(carousel).slideDown();
     }
   });
 
