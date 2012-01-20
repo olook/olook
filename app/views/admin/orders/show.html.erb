@@ -10,6 +10,14 @@
     <%= l @order.created_at, :format => :short %>
   </p>
   <p>
+    <b>Identification Code:</b>
+    <%= @order.identification_code %>
+  </p>
+  <p>
+    <b>Moip ID:</b>
+    <%= @order.payment.payment_response %>
+  </p>
+  <p>
     <b>Status:</b>
     <%= @order.status %>
   </p>
@@ -45,7 +53,7 @@
     <p><%= "#{@address.zip_code}" %></p>
     <p><%= "#{@address.city}, #{@address.state}" %></p>
   </div>
-  
+
   <table class="table">
     <tr>
       <th></th>
