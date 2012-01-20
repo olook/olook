@@ -2,7 +2,7 @@
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', "<%= ANALYTICS_CONFIG['analytics_id'] %>" ]);
   _gaq.push(['_trackPageview']);
-  _gaq.push(['_setCustomVar',1,'Member Type','<%= member_type %>',1]);
+  _gaq.push(['_setCustomVar',1,'Member Type','<%= member_type %>',2]);
   <%= yield :ecommerce_tracking %>
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
