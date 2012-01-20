@@ -13,7 +13,6 @@ class ::AddressesController < ApplicationController
   before_filter :check_address, :only => [:index]
 
   def index
-    debugger
     @addresses = @user.addresses
   end
 
