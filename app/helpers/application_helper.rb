@@ -43,5 +43,8 @@ module ApplicationHelper
     "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
   end
 
+  def member_type
+    user_signed_in? ? 'member' : 'visitor'
+  end
 
 end
