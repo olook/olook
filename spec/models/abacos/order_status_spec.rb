@@ -7,20 +7,34 @@ describe Abacos::OrderStatus do
   subject { described_class.new parsed_data }
 
   describe '#integrate' do
+    before :each do
+      @order = double
+    end
+    it 'should set_invoice_info' do
+      subject.stub(:find_and_check_order).and_return(@order)
+      subject.should_receive(:set_invoice_info)
+      subject.stub(:change_order_state)
+      subject.stub(:confirm_order_status)
+      subject.integrate
+    end
+
     it 'should find_and_check_order' do
-      subject.should_receive(:find_and_check_order)
+      @order.stub(:update_attributes)
+      subject.should_receive(:find_and_check_order).and_return(@order)
       subject.stub(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
     end
     it 'should change_order_state' do
-      subject.stub(:find_and_check_order)
+      @order.stub(:update_attributes)
+      subject.stub(:find_and_check_order).and_return(@order)
       subject.should_receive(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
     end
     it 'should confirm_order_status' do
-      subject.stub(:find_and_check_order)
+      @order.stub(:update_attributes)
+      subject.stub(:find_and_check_order).and_return(@order)
       subject.stub(:change_order_state)
       subject.should_receive(:confirm_order_status)
       subject.integrate
