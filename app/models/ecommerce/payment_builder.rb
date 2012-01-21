@@ -87,7 +87,7 @@ class PaymentBuilder
     if payment.is_a? Billet
     data = { :valor => order_total, :id_proprio => order.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
-                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_IN_DAYS }
+                :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
     elsif payment.is_a? CreditCard
       data = { :valor => order_total, :id_proprio => order.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => credit_card_number,
@@ -110,6 +110,10 @@ class PaymentBuilder
   end
 
   private
+
+  def billet_expiration_date
+    order.payment.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
+  end
 
   def respond_with_failure
     rollback_order
