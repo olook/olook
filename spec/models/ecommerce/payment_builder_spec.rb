@@ -4,9 +4,9 @@ describe PaymentBuilder do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:credit_card) { FactoryGirl.build(:credit_card, :order => order) }
-  let(:billet) { FactoryGirl.build(:billet, :order => order) }
-  let(:debit) { FactoryGirl.build(:debit, :order => order) }
+  let(:credit_card) { FactoryGirl.create(:credit_card, :order => order) }
+  let(:billet) { FactoryGirl.create(:billet, :order => order) }
+  let(:debit) { FactoryGirl.create(:debit, :order => order) }
   subject { PaymentBuilder.new(order, credit_card) }
   let(:payer) { subject.payer }
 
@@ -158,9 +158,10 @@ describe PaymentBuilder do
 
   it "should return payment data for billet" do
     subject.payment = billet
+    expected_expiration_date = billet.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
     expected = { :valor => @order_total, :id_proprio => order.identification_code,
                 :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
-                :razao=> Payment::REASON, :dias_expiracao => Billet::EXPIRATION_IN_DAYS }
+                :razao=> Payment::REASON, :data_vencimento => expected_expiration_date }
 
     subject.payment_data.should == expected
   end
