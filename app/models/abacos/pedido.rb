@@ -5,7 +5,7 @@ module Abacos
 
     attr_reader :numero, :codigo_cliente, :cpf, :nome, :email, :telefone,
                 :data_venda, :valor_pedido, :valor_desconto, :valor_frete,
-                :transportadora, :tempo_entrega, :endereco, :itens, :pagamento
+                :transportadora, :tempo_entrega, :data_entrega, :endereco, :itens, :pagamento
 
     def initialize(order)
       @numero           = order.number
@@ -24,6 +24,7 @@ module Abacos
       @valor_frete      = parse_price order.freight_price
       @transportadora   = 'TEX'
       @tempo_entrega    = order.freight.delivery_time
+      @data_entrega     = parse_data_entrega(order.freight.delivery_time)
 
       @endereco         = parse_endereco(order.freight.address)
       @itens            = parse_itens(order.line_items)
@@ -46,7 +47,8 @@ module Abacos
             'ValorDesconto'     => @valor_desconto,
             'ValorFrete'        => @valor_frete,
             'Transportadora'    => @transportadora,
-            'TempoEntregaTransportadora' => @tempo_entrega,
+            'PrazoEntregaPosPagamento' => @tempo_entrega,
+            'DataPrazoEntregaInicial' => @data_entrega,
 
             'Itens'             =>
               {'DadosPedidosItem' => @itens.map {|item| item.parsed_data} },
@@ -59,6 +61,10 @@ module Abacos
       result
     end
   private
+
+    def parse_data_entrega(delivery_time)
+      "#{delivery_time.days.from_now.strftime("%d%m%Y")} 21:00"
+    end
 
     def discount_for(order)
       if (order.line_items_total - order.total_discount) < Payment::MINIMUM_VALUE

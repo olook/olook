@@ -155,7 +155,8 @@ describe Abacos::Pedido do
                     'ValorDesconto' => '11.00',
                     'ValorFrete' => '22.00',
                     'Transportadora' => 'TEX',
-                    'TempoEntregaTransportadora' => 5,
+                    'PrazoEntregaPosPagamento' => 5,
+                    'DataPrazoEntregaInicial' => "#{5.days.from_now.strftime("%d%m%Y")} 21:00",
 
                     'Itens' =>  {
                       'DadosPedidosItem' => [
