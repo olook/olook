@@ -27,3 +27,7 @@
     </ul>
   </div>
 </section>
+
+<% content_for :footer do %>
+  <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => [760, 787, 1237, 1299, 1375] } %>
+<% end %>
