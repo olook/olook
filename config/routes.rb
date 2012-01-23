@@ -17,6 +17,7 @@ Olook::Application.routes.draw do
   match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
   match "/lookbooks/vintage", :to => "lookbooks#vintage", :as => "vintage"
   match "/lookbooks/fashion", :to => "lookbooks#fashion", :as => "fashion"
+  match "/lookbooks/scarpin-glamour", :to => "lookbooks#scarpin_glamour", :as => "scarpin_glamour"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
