@@ -7,7 +7,7 @@
   div.box_carousel {
     background: url("/assets/product/border-carousel.jpg") center bottom no-repeat;
     margin: 0 0 25px 0;
-    padding: 10px 20px 20px;
+    padding: 10px 20px 10px;
     overflow: hidden;
     a.back {
       color: #df5a8b;
@@ -20,7 +20,7 @@
       }
     }
     a.open_carousel {
-      background: url("/assets/product/bt-carousel.jpg") no-repeat;
+      background: url("/assets/product/bt-carousel.jpg") 0 0 no-repeat;
       color: #505050;
       font-weight: bold;
       text-decoration: none;
@@ -29,6 +29,9 @@
       padding: 0 0 0 15px;
       display: block;
       float: right;
+      &.open {
+        background-position: 0 -31px;
+      }
     }
     div#carousel {
       position: relative;
@@ -36,9 +39,9 @@
       height: 0px;
       display: block;
       clear: both;
-      margin: 0;
+      margin: 20px 0 0 0;
       float: left;
-      visibility: hidden;
+      overflow: hidden;
       ul {
         position: relative;
         width: 5000px;
@@ -58,7 +61,7 @@
         }
       }
       div.caroufredsel_wrapper {
-        margin: 0 auto !important;
+        margin: 20px auto 0 auto !important;
       }
       a.arrow {
         position: absolute;
@@ -82,11 +85,6 @@
             background-position: -84px;
           }
         }
-      }
-      &.open {
-        visibility: visible;
-        height: 260px;
-        margin: 30px 0 0 0;
       }
     }
   }
