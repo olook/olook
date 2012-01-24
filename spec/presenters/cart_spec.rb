@@ -46,10 +46,10 @@ describe Cart do
     subject.coupon_discount.should == order.discount_from_coupon
   end
 
-  it "should return the coupon discount" do
+  it "should return the coupon discount in percentage" do
     order.stub_chain(:used_coupon, :is_percentage?).and_return(true)
     order.stub_chain(:used_coupon, :value).and_return(percent = 20)
-    expected = "#{percent}%"
+    expected = "(#{percent}%)"
     subject.coupon_discount_in_percentage.should == expected
   end
 

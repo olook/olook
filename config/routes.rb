@@ -11,10 +11,13 @@ Olook::Application.routes.draw do
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
   match "/o-que-estao-falando", :to => "pages#what_are_talking", :as => "what_are_talking"
+  match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
   match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
   match "/lookbooks/vintage", :to => "lookbooks#vintage", :as => "vintage"
+  match "/lookbooks/fashion", :to => "lookbooks#fashion", :as => "fashion"
+  match "/lookbooks/scarpin-glamour", :to => "lookbooks#scarpin_glamour", :as => "scarpin_glamour"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 

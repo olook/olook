@@ -13,7 +13,7 @@ describe OrderStatusWorker do
       order.waiting_payment
     end
 
-    it 'should send e-mails' do
+    xit 'should send e-mails' do
       described_class.should_receive(:send_email).with(order)
       described_class.stub(:integrate_with_abacos)
       described_class.perform(order.id)
@@ -50,6 +50,27 @@ describe OrderStatusWorker do
       order.authorized
       mock_mail.should_receive(:deliver)
       OrderStatusMailer.should_receive(:payment_confirmed).with(order).and_return(mock_mail)
+      described_class.send_email(order)
+    end
+
+    it "should send order_shipped" do
+      order.waiting_payment
+      order.authorized
+      order.picking
+      order.delivering
+      mock_mail.should_receive(:deliver)
+      OrderStatusMailer.should_receive(:order_shipped).with(order).and_return(mock_mail)
+      described_class.send_email(order)
+    end
+
+    it "should send order_delivered" do
+      order.waiting_payment
+      order.authorized
+      order.picking
+      order.delivering
+      order.delivered
+      mock_mail.should_receive(:deliver)
+      OrderStatusMailer.should_receive(:order_delivered).with(order).and_return(mock_mail)
       described_class.send_email(order)
     end
 
@@ -97,30 +118,8 @@ describe OrderStatusWorker do
       end
 
       it "should tell Abacos it was paid, need to wait a couple minutes to avoid errors" do
-        Resque.should_receive(:enqueue_in).with(10.minutes, Abacos::ConfirmPayment, order.number)
+        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, order.number)
         described_class.integrate_with_abacos(order)
-      end
-    end
-
-    describe 'when the order state is canceled' do
-      before :each do
-        order.stub(:'canceled?').and_return(true)
-      end
-
-      context "when the order exists on Abacos" do
-        it "should enqueue a Job in order to cancel it" do
-          Abacos::OrderAPI.stub(:order_exists?).and_return(true)
-          Resque.should_receive(:enqueue).with(Abacos::CancelOrder, order.number)
-          described_class.integrate_with_abacos(order)
-        end
-      end
-
-      context "when the order doesn't exists on Abacos" do
-        it "should enqueue a Job in order to insert it" do
-          Abacos::OrderAPI.stub(:order_exists?).and_return(false)
-          Resque.should_receive(:enqueue).with(Abacos::InsertOrder, order.number)
-          described_class.integrate_with_abacos(order)
-        end
       end
     end
   end

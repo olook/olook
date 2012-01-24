@@ -26,6 +26,12 @@ describe ::AddressesController do
       get :index
       assigns(:addresses).should eq(user.addresses)
     end
+
+    it "should redirect to new if the user dont have an address" do
+      user.addresses.destroy_all
+      get :index
+      response.should redirect_to(new_address_path)
+    end
   end
 
   describe "GET new" do
@@ -53,14 +59,24 @@ describe ::AddressesController do
         }.to change(Address, :count).by(1)
       end
 
-      it "should redirect to payments_path" do
-         post :create, :address => attributes
-         response.should redirect_to(payments_path)
-      end
-
       it "should assign @cart" do
         Cart.should_receive(:new).with(Order.find(order))
         post :create, :address => attributes
+      end
+
+      context "when the user already have a cpf" do
+        it "should redirect to new_credit_card_path" do
+          post :create, :address => attributes
+          response.should redirect_to(new_credit_card_path)
+        end
+      end
+
+      context "when the user dont have a cpf" do
+        it "should redirect to payments_path" do
+          user.update_attributes(:cpf => nil)
+          post :create, :address => attributes
+          response.should redirect_to(payments_path)
+        end
       end
 
       context "when the order already have a freight" do
@@ -136,13 +152,23 @@ describe ::AddressesController do
         end
       end
 
-      it "should redirect to payments" do
-        post :assign_address, :delivery_address_id => @address.id
-        response.should redirect_to(payments_path)
+      context "when the user already have a cpf" do
+        it "should redirect to new_credit_card_path" do
+          post :create, :address => attributes
+          response.should redirect_to(new_credit_card_path)
+        end
+      end
+
+      context "when the user dont have a cpf" do
+        it "should redirect to payments_path" do
+          user.update_attributes(:cpf => nil)
+          post :create, :address => attributes
+          response.should redirect_to(payments_path)
+        end
       end
     end
 
-    context "with a valid address" do
+    context "without a valid address" do
       it "should redirect to address_path" do
         fake_address_id = "99999"
         post :assign_address, :delivery_address_id => fake_address_id

@@ -26,7 +26,7 @@ describe Abacos::OrderAPI do
       }.to raise_error
     end
   end
-  
+
   describe '#order_exists?' do
     let(:fake_data) { {:fake_data => :order_number} }
     let(:fake_data_with_key) do
@@ -81,28 +81,37 @@ describe Abacos::OrderAPI do
       }.to raise_error
     end
   end
-  
+
   describe '#download_orders_statuses' do
     use_vcr_cassette 'StatusPedidoDisponiveis', :record => :once
 
-    it "should products that are available to integration" do
+    it "should return products that are available to integration" do
       orders = described_class.send :download_orders_statuses
       orders.should be_kind_of(Array)
       orders.length.should == 110
     end
   end
-  
-  describe '#confirm_order_status should call the ConfirmarRecebimentoStatusPedido API' do
+
+  describe '#confirm_order_status' do
     let(:fake_protocol) { 'PROT-ORD-123' }
-    it 'and return true when successful' do
+
+    it 'calls the ConfirmarRecebimentoStatusPedido API' do
       described_class.should_receive(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => fake_protocol}).and_return({:tipo => 'tdreSucesso'})
       described_class.confirm_order_status fake_protocol
     end
-    it 'and raise an error if fails' do
-      described_class.should_receive(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => fake_protocol}).and_raise
-      expect {
-        described_class.confirm_order_status fake_protocol
-      }.to raise_error
+
+    context "when response type is 'tdreSucesso'" do
+      it "returns true" do
+        described_class.stub(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => fake_protocol}).and_return({:tipo => 'tdreSucesso'})
+        described_class.confirm_order_status(fake_protocol).should be_true
+      end
+    end
+
+    context "when response type is not 'tdreSucesso'" do
+      it 'raises a webservice error' do
+        described_class.stub(:call_webservice).with(described_class.wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => fake_protocol}).and_return({:tipo => 'FAIL'})
+        expect { described_class.confirm_order_status fake_protocol }.to raise_error
+      end
     end
   end
 end
