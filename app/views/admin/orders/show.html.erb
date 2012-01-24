@@ -4,7 +4,11 @@
     <b>Client:</b>
     <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) %>
   </p>
-
+  <p>
+    <button style="padding:5px">
+      <b><%= link_to 'Login', "/admin/users/login/#{@order.user.id}" %><b>
+    </button>
+  </p>
   <p>
     <b>Date:</b>
     <%= l @order.created_at, :format => :short %>
