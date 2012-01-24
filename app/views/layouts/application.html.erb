@@ -8,7 +8,7 @@
       <meta property="og:title" content="olook Style Panel – Sou <%= @qualities %>">
       <meta property="og:url" content="<%= accept_invitation_url(:invite_token => @user.invite_token) %>">
       <meta property="og:description" content="Faça o Style Quiz da olook e descubra também o seu estilo. A cada mês, uma nova vitrine personalizada para você com sapatos, bolsas e acessórios.">
-      <meta property="og:image" content="<%= "#{@url}#{first_visit_banner}" %>">
+      <meta property="og:image" content="<%= "#{@url}/assets/first_visit_banner/#{@profile}" %>">
     <% end %>
 
     <%= csrf_meta_tags %>
