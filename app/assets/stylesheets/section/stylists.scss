@@ -32,7 +32,7 @@ section#stylist {
       color: #FFF;
       font-family: Arial, sans-serif;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: normal;
       text-align: center;
       text-decoration: none;
       line-height: 40px;
@@ -53,6 +53,7 @@ section#stylist {
       h1 {
         font-size: 20px;
         line-height: 18px;
+        letter-spacing: -1px;
         margin: 0 0 10px 0;
       }
       p {
@@ -92,11 +93,13 @@ section#stylist {
         h1 {
           font-size: 55px;
           line-height: 40px;
+          letter-spacing: -5px;
           margin: 25px 0 0 0;
         }
         h2 {
           color: #b2b2b2;
           font-size: 35px;
+          letter-spacing: -2px;
           margin: 0 0 15px 0;
         }
         p {
@@ -108,7 +111,7 @@ section#stylist {
           background: url("/assets/stylist/bt-know.jpg") no-repeat;
           color: #FFF;
           font-size: 14px;
-          font-weight: bold;
+          font-weight: normal;
           line-height: 34px;
           text-align: center;
           text-decoration: none;
