@@ -5,6 +5,11 @@
 </h2>
 <div class="inner">
   <p>
+    <button style="padding:5px">
+      <b><%= link_to 'Login', "/admin/users/login/#{@user.id}" %><b>
+    </button>
+  </p>
+  <p>
     <b>First Name:</b>
     <%= @user.first_name %>
   </p>
