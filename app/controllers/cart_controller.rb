@@ -49,7 +49,6 @@ class CartController < ApplicationController
   def show
     @bonus = InviteBonus.calculate(@user, @order)
     @cart = Cart.new(@order)
-    @user.is_invited = true
     @line_items = @order.line_items
     @coupon_code = @order.used_coupon.try(:code)
   end

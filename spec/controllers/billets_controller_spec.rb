@@ -25,8 +25,8 @@ describe BilletsController do
         assigns(:payment).should be_a_new(Billet)
       end
 
-      it "should redirect payments_path if the user dont have a cpf" do
-        user.update_attributes(:cpf => nil)
+      it "should redirect payments_path if the user dont have a cpf or is invalid" do
+        user.update_attributes(:cpf => "11111111111")
         get :new
         response.should redirect_to(payments_path)
       end
