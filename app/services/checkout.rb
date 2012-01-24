@@ -11,7 +11,7 @@ module Checkout
   end
 
   def check_cpf
-    redirect_to payments_path, :notice => "Informe seu CPF" if @user.cpf.nil?
+    redirect_to payments_path, :notice => "Informe seu CPF" unless Cpf.new(@user.cpf).valido?
   end
 
   def build_cart

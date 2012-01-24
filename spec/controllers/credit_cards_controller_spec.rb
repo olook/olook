@@ -37,8 +37,8 @@ describe CreditCardsController do
         response.should_not redirect_to(cart_path)
       end
 
-      it "should redirect payments_path if the user dont have a cpf" do
-        user.update_attributes(:cpf => nil)
+      it "should redirect payments_path if the user dont have a cpf or is invalid" do
+        user.update_attributes(:cpf => "12312312345")
         get :new
         response.should redirect_to(payments_path)
       end
