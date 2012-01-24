@@ -7,13 +7,12 @@ class User::UsersController < ApplicationController
 
   def update
     if @user.cpf.nil?
+      @user.require_cpf = true
       if @user.update_attributes(:cpf => params[:user][:cpf])
         msg = "CPF cadastrado com sucesso"
       else
-        msg = "Não foi possível cadastrar o CPF"
+        msg = "CPF já cadastrado"
       end
-    else
-      msg = "Seu CPF já está cadastrado"
     end
     redirect_to(payments_path, :notice => msg)
   end
