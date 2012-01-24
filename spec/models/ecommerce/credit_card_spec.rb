@@ -91,12 +91,16 @@ describe CreditCard do
   end
 
   context "installments" do
-    it "should calculate the installments numbers" do
+    it "should return 2 installments" do
       CreditCard.installments_number_for(89.89).should == 2
     end
 
-    it "should calculate the installments numbers" do
+    it "should return 1 installments" do
       CreditCard.installments_number_for(3.34).should == 1
+    end
+
+    it "should return 6 installments" do
+      CreditCard.installments_number_for(500).should == CreditCard::PAYMENT_QUANTITY
     end
   end
 

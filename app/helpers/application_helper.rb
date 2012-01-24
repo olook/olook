@@ -46,4 +46,8 @@ module ApplicationHelper
   def user_avatar(user)
     "https://graph.facebook.com/#{user.uid}/picture?type=large"
   end
+
+  def member_type
+    user_signed_in? ? 'member' : 'visitor'
+  end
 end

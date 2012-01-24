@@ -5,7 +5,7 @@ module Abacos
 
     attr_reader :integration_protocol, :order_number, :new_state,
                 :datetime, :invoice, :invoice_datetime, :tracking_code,
-                :cancelation_reason
+                :cancelation_reason, :invoice_number, :invoice_serie
 
     VALID_STATES = ['authorized', 'picking', 'delivering', 'delivered']
 
@@ -18,6 +18,7 @@ module Abacos
     def integrate
       order = find_and_check_order self.order_number
       change_order_state order
+      set_invoice_info order
       confirm_order_status
     end
 
@@ -29,11 +30,17 @@ module Abacos
         invoice:              parse_invoice(abacos_status[:serie_nota], abacos_status[:numero_nota]),
         invoice_datetime:     parse_datetime(abacos_status[:data_emissao_nota]),
         tracking_code:        abacos_status[:numero_objeto],
-        cancelation_reason:   parse_cancelation(abacos_status[:codigo_motivo_cancelamento], abacos_status[:motivo_cancelamento])
+        cancelation_reason:   parse_cancelation(abacos_status[:codigo_motivo_cancelamento], abacos_status[:motivo_cancelamento]),
+        invoice_number:       abacos_status[:numero_nota],
+        invoice_serie:        abacos_status[:serie_nota]
       }
     end
 
     private
+
+    def set_invoice_info(order)
+      order.update_attributes(:invoice_number => invoice_number, :invoice_serie => invoice_serie)
+    end
 
     def self.parse_status(abacos_status)
       case abacos_status

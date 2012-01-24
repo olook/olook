@@ -394,7 +394,7 @@ section#payment {
           }
         }
         &.credit_card {
-          margin-left: 20px;
+          margin-left: 120px;
           a {
             background-position: -220px 0;
             width: 247px;
@@ -847,6 +847,22 @@ section.checkout {
             width: 50%;
             padding: 5px 0 0 0;
             border-top: 1px #e4e4e4 solid;
+          }
+        }
+      }
+      div.delivery_time {
+        margin: 20px auto;
+        padding: 10px 12px;
+        border-top: 1px #d9d9d9 solid;
+        p {
+          background: url("/assets/common/pink-arrow.png") 0 4px no-repeat;
+          color: #e05789;
+          font-size: 13px;
+          font-style: italic;
+          margin: 0;
+          padding: 0 0 0 15px;
+          strong {
+            color: #e05789;
           }
         }
       }

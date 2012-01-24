@@ -124,29 +124,50 @@ describe Admin::PicturesController do
       response.should redirect_to([:admin, product])
     end
   end
-  
+
   describe "Multiple upload" do
     describe "GET new_multiple_upload" do
-      it "should return to product show if it already has associated pictures" do
-        product.stub_chain(:pictures, :'empty?').and_return(false)
+
+      it "assigns product" do
         get :new_multiple_pictures, :product_id => product.id
-        response.should redirect_to([:admin, product])
-        flash[:notice].should == "Product already has pictures"
+        assigns(:product).should eq(product)
       end
-      xit "builds the necessary pictures and return the product" do
-        product.pictures.should_receive(:build).exactly(DisplayPictureOn.list.length).times
-        controller.should_receive(:load_product).and_return(product)
-        
-        get :new_multiple_pictures, :product_id => product.id
-        assigns(:product).should == product
+
+      context "when product has at least one associated picture" do
+        it "redirects to product show page" do
+          product.stub_chain(:pictures, :'empty?').and_return(false)
+          get :new_multiple_pictures, :product_id => product.id
+          response.should redirect_to([:admin, product])
+          flash[:notice].should == "Product already has pictures"
+        end
+      end
+
+      context "when product has no associated picture" do
+        before do
+          product.pictures = []
+          product.save!
+        end
+        it "builds the necessary pictures for each of the display on values" do
+          get :new_multiple_pictures, :product_id => product.id
+          controller.instance_variable_get(:@product).pictures.map(&:display_on).should == DisplayPictureOn.list
+        end
       end
     end
 
     describe "POST create_multiple_upload" do
-      xit "creates all the informed picture at once" do
+      let!(:image) { Rack::Test::UploadedFile.new(fixture_path + "/red.gif", "image/gif") }
+      let!(:images_attributes) do
+         {
+           0 => {:image => image, :display_on => 1 },
+           1 => {:image => image, :display_on => 2 }
+         }
+      end
+
+      it "creates two uploaded pictures at once and returns succesful message" do
         expect {
-          post :create_multiple_pictures, :product_id => product.id, :product => {:picture_attributes => valid_attributes}
-        }.to change(Picture, :count).by(1)
+          post :create_multiple_pictures, :product_id => product.id, :product => { :pictures_attributes => images_attributes }
+        }.to change(Picture, :count).by(2)
+        flash[:notice].should == 'Pictures were successfully created.'
       end
     end
   end

@@ -80,6 +80,7 @@ class CreditCard < Payment
 
   def self.installments_number_for(order_total)
     number = (order_total / MINIMUM_PAYMENT).to_i
+    number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
     (number == 0) ? 1 : number
   end
 
