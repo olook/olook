@@ -25,8 +25,8 @@ describe DebitsController do
         assigns(:payment).should be_a_new(Debit)
       end
 
-      it "should redirect payments_path if the user dont have a cpf" do
-        user.update_attributes(:cpf => nil)
+      it "should redirect payments_path if the user dont have a cpf or is invalid" do
+        user.update_attributes(:cpf => "12345678912")
         get :new
         response.should redirect_to(payments_path)
       end
