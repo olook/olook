@@ -50,7 +50,7 @@ class MembersController < ApplicationController
   end
 
   def showroom
-    @is_the_first_visit = first_visit_for_member?(@user)
+    @is_the_first_visit = first_visit_for_member?(@user)   
   end
 
   def show_imported_contacts
@@ -69,6 +69,22 @@ class MembersController < ApplicationController
 
   def invite_list
     @invites = @user.invites.page(params[:page]).per_page(15)
+  end
+
+  def share
+    @user = User.find(params[:uid])
+    profile = @user.profile_scores.first.try(:profile).first_visit_banner
+    profiles = {
+                  "casual" => 'Prática, Despojada, Independente, e adoto o lema "menos é mais"',
+                  "conteporanea" => 'Antenada, Criativa, Confiante e AMO moda',
+                  "elegant" => 'Chic, Bem Sucedida, Elegante e Exigente',
+                  "feminine" => 'Vaidosa, Romântica, Alegre e Delicada',
+                  "sexy" => 'Sexy, Extravagante, Segura e Vivaz',
+                  "traditional" => 'Sofisticada, Conservadora, Discreta e Clássica',
+                  "trendy" => 'Segura, Ousada, Sexy e Moderna' 
+                } 
+    @qualities = profiles["#{profile}"]
+    @url = request.protocol + request.host 
   end
 
   private
