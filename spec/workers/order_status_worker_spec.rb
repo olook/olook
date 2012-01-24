@@ -13,11 +13,12 @@ describe OrderStatusWorker do
       order.waiting_payment
     end
 
-    xit 'should send e-mails' do
+    it 'should send e-mails' do
       described_class.should_receive(:send_email).with(order)
       described_class.stub(:integrate_with_abacos)
       described_class.perform(order.id)
     end
+
     it 'should integrate with Abacos' do
       described_class.stub(:send_email)
       described_class.should_receive(:integrate_with_abacos).with(order)

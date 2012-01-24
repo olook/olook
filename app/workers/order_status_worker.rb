@@ -5,7 +5,7 @@ class OrderStatusWorker
   def self.perform(order_id)
     order = Order.find(order_id)
     integrate_with_abacos(order)
-    #send_email(order)
+    send_email(order)
   end
 
   def self.send_email(order)
