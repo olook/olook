@@ -9,4 +9,9 @@ class FacebookAdapter
   def friends
     @adapter.get_connections("me", "friends").to_a
   end
+
+  def post_wall_message(message, *args)
+    options = args.extract_options!
+    @adapter.put_wall_post(message, options[:attachment] || {}, options[:target] || "me", options[:options] || {})
+  end
 end
