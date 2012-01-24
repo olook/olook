@@ -10,9 +10,9 @@
   <%= render "carousel_lookbooks" %>
   <div id="carousel_lookbooks_product">
     <ul>
-      <% 1.upto(4) do |image| %>
+      <% 1.upto(5) do |image| %>
         <li>
-          <%= image_tag "lookbooks/11/#{image}.jpg", :alt => "Imagem 1" %>
+          <%= image_tag "lookbooks/13/#{image}.jpg", :alt => "Imagem 1" %>
         </li>
       <% end %>
     </ul>
@@ -29,5 +29,5 @@
 </section>
 
 <% content_for :footer do %>
-  <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => [1048, 1138, 805, 1383, 1405] } %>
+  <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => [1228, 1165, 787, 967, 1381] } %>
 <% end %>
