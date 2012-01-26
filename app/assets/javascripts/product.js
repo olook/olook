@@ -99,6 +99,23 @@ $(document).ready(function() {
       items : 3
     }
   });
+
+  $("#add_item").submit(function(event) {
+    event.preventDefault();
+
+    var $form = $(this),
+        variant = $form.find('input[name="variant"]').val(),
+        url = $form.attr('action');
+
+    $.post(url, {"variant": variant});
+
+    initBase.openDialog();
+    $('body .dialog').show();
+    $('body .dialog').css("left", (viewWidth - '930') / 2);
+    $('body .dialog').css("top", (viewHeight - '515') / 2);
+    $('body .dialog #login_modal').fadeIn('slow');
+    initBase.closeDialog();
+  });
 });
 
 initProduct = {
