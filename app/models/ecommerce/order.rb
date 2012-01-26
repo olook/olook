@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
     "canceled" => "Cancelado",
     "reversed" => "Estornado",
     "refunded" => "Reembolsado",
+    "delivering" => "Despachado",
     "delivered" => "Entregue",
     "not_delivered" => "Não entregue",
     "picking" => "Separando",

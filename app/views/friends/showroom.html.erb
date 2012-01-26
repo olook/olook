@@ -1,0 +1,27 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/friends" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "friends" %>
+<% end %>
+
+<section id="friends" class="showroom">
+  <%= render "user_column", :friends => @friends %>
+  <section id="friends_content">
+    <div id="friend_info">
+      <div class="avatar_mask">
+        <%= image_tag "/assets/fake/fb-friend.png" %>
+      </div>
+      <h2>Você está vendo a vitrine de:</h2>
+      <h1>Raul Souza Lima</h1>
+    </div>
+    <div class="product_list">
+      <ul>
+        <% @products.each do |product| %>
+          <%= render "shared/showroom_product_item", :product => product %>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+</section> 

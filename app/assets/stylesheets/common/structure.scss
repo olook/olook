@@ -909,6 +909,7 @@ body {
             text-decoration: -9999px;
             height: 32px;
             display: block;
+            margin-right: 15px;
           }
           &.showroom {
             a {
@@ -925,6 +926,15 @@ body {
               width: 95px;
               &:hover, &.selected {
                 background-position: -95px -32px;
+              }
+            }
+          }
+          &.my_friends {
+            a {
+              background-position: -417px 0;
+              width: 105px;
+              &:hover, &.selected {
+                background-position: -417px -32px;
               }
             }
           }
@@ -948,10 +958,10 @@ body {
           }
           &.stylist {
             a {
-              background-position: -417px 0;
+              background-position: -522px 0;
               width: 68px;
               &:hover, &.selected {
-                background-position: -417px -32px;
+                background-position: -522px -32px;
               }
             }
           }
@@ -960,7 +970,7 @@ body {
             float: right;
             a.cart {
               position: relative;
-              background-position: -485px 0;
+              background-position: -590px 0;
               color: #FFF;
               line-height: 35px;
               text-decoration: none;
@@ -980,7 +990,7 @@ body {
                 }
               }
               &.selected, &:hover {
-                background-position: -485px -32px;
+                background-position: -590px -32px;
               }
             }
             ul.submenu {
