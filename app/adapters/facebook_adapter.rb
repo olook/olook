@@ -6,8 +6,12 @@ class FacebookAdapter
     @access_token, @adapter = access_token, adapter.new(access_token)
   end
 
-  def friends
+  def facebook_friends
     @adapter.get_connections("me", "friends").to_a
+  end
+
+  def facebook_friends_ids
+    facebook_friends.collect {|item| item["id"]}
   end
 
   def post_wall_message(message, *args)
