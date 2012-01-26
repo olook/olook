@@ -7,7 +7,8 @@ class FacebookAdapter
   end
 
   def facebook_friends
-    @adapter.get_connections("me", "friends").to_a
+    friends = @adapter.get_connections("me", "friends")
+    friends.collect {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
   end
 
   def facebook_friends_ids
