@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700italic,400,700);
 @import 'partials/mixins';
 
 body {
@@ -873,11 +874,13 @@ body {
       }
       ul.product_anchors {
         width: 115px;
+        margin-top: 2px;
         float: left;
         li {
           a {
-            background: url("/assets/common/nav/product-anchors.png") no-repeat;
+            background: url("/assets/common/nav/product-anchors.jpg") no-repeat;
             text-indent: -9999px;
+            line-height: normal;
             width: 38px;
             height: 32px;
             margin: 0;
@@ -904,55 +907,20 @@ body {
         width: 995px;
         float: right;
         li {
+          height: 37px;
           a {
-            background: url("/assets/common/nav/sprite-menu.jpg") no-repeat;
-            text-decoration: -9999px;
-            height: 32px;
+            color: #FFF;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11px;
+            text-indent: 0;
+            text-decoration: none;
+            line-height: 37px;
+            text-transform: uppercase;
+            height: 37px;
             display: block;
-          }
-          &.showroom {
-            a {
-              background-position: 0 0;
-              width: 95px;
-              &:hover, &.selected {
-                background-position: 0 -32px;
-              }
-            }
-          }
-          &.lookbooks {
-            a {
-              background-position: -95px 0;
-              width: 95px;
-              &:hover, &.selected {
-                background-position: -95px -32px;
-              }
-            }
-          }
-          &.invite {
-            a {
-              background-position: -190px 0;
-              width: 120px;
-              &:hover, &.selected {
-                background-position: -190px -32px;
-              }
-            }
-          }
-          &.how_to {
-            a {
-              background-position: -310px 0;
-              width: 107px;
-              &:hover, &.selected {
-                background-position: -310px -32px;
-              }
-            }
-          }
-          &.stylist {
-            a {
-              background-position: -417px 0;
-              width: 68px;
-              &:hover, &.selected {
-                background-position: -417px -32px;
-              }
+            &:hover, &.selected {
+              background: url("/assets/common/nav/arrow-hover.jpg") bottom center no-repeat;
+              color: #D95485;
             }
           }
           &.cart {
@@ -960,27 +928,23 @@ body {
             float: right;
             a.cart {
               position: relative;
-              background-position: -485px 0;
               color: #FFF;
-              line-height: 35px;
+              line-height: 37px;
               text-decoration: none;
-              width: 128px;
-              height: 32px;
+              height: 37px;
               margin-right: 0;
+              padding: 0 20px;
               display: block;
               span {
-                position: absolute;
                 font-size: 12px;
                 text-indent: 0;
-                line-height: 32px;
-                top: 0;
-                left: 99px;
+                line-height: 37px;
                 div {
                   display: inline;
                 }
               }
               &.selected, &:hover {
-                background-position: -485px -32px;
+                background: #df5a8b;
               }
             }
             ul.submenu {
@@ -988,7 +952,7 @@ body {
               background: #FFF;
               width: 235px;
               padding: 15px 10px 5px 10px;
-              top: 34px;
+              top: 39px;
               right: 0;
               border: 3px #101010 solid;
               border-top: none;
@@ -1014,6 +978,7 @@ body {
                   padding-bottom: 5px;
                 }
                 a {
+                  line-height: normal;
                   margin: 0;
                 }
                 img {
@@ -1075,9 +1040,11 @@ body {
                     }
                   }
                   a.finish {
-                    background-position: 0 -64px;
+                    background: url("/assets/common/nav/product-anchors.jpg") -110px 0 no-repeat;
+                    text-indent: -9999px;
                     width: 137px;
                     height: 33px;
+                    display: block;
                     float: right;
                   }
                 }
