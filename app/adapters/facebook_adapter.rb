@@ -14,6 +14,10 @@ class FacebookAdapter
     facebook_friends.collect {|item| item["id"]}
   end
 
+  def olook_facebook_friends
+    User.find_by_uid facebook_friends_ids
+  end
+
   def post_wall_message(message, *args)
     options = args.extract_options!
     @adapter.put_wall_post(message, options[:attachment] || {}, options[:target] || "me", options[:options] || {})

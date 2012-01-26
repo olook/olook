@@ -15,6 +15,12 @@ describe FacebookAdapter do
     subject.facebook_friends_ids.should == ["1", "2"]
   end
 
+  it "should get the facebook friends registered at olook" do
+    subject.stub(:facebook_friends_ids).and_return(friends_ids = ["1", "2"])
+    User.should_receive(:find_by_uid).with(friends_ids)
+    subject.olook_facebook_friends
+  end
+
   it "should post a message in the wall" do
     message, attachment, target, options = :message, {}, "me", {}
     subject.adapter.should_receive(:put_wall_post).with(message, attachment, target, options)
