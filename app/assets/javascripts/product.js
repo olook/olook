@@ -78,11 +78,11 @@ $(document).ready(function() {
     items: 10,
     prev : {
       button : ".product-prev",
-      items : 1
+      items : 4
     },
     next : {
       button : ".product-next",
-      items : 1
+      items : 4
     }
   });
 
