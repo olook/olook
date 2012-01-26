@@ -4,12 +4,7 @@
     <meta charset="UTF-8">
     <title>olook</title>
     <% if params[:share] %>
-      <meta property="og:title" content="olook Style Panel – Sou <%= @qualities %>">
-      <meta property="og:url" content="<%= "#{@url}/membro/#{params[:share]}/#{params[:uid]}" %>">
-      <meta property="og:description" content="Faça o Style Quiz da olook pelo link: <%= accept_invitation_url(:invite_token => @user.invite_token) %> e descubra também o seu estilo. A cada mês, uma nova vitrine personalizada para você com sapatos, bolsas e acessórios.">
-      <meta property="og:image" content="<%= "#{@url}/assets/first_visit_banner/#{@profile}.jpg" %>">
-      <meta property="og:site_name" content="Olook">
-      <meta property="og:type" content="website">
+      <%= render 'shared/meta_tags' %>
     <% else %>
       <meta name="Description" content="A olook descobre o seu estilo. Todos os meses o nossos stylists montam uma vitrine personalizada com produtos fabulosos para você. A devolução é grátis.">
     <% end %>
