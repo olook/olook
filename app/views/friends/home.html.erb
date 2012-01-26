@@ -11,7 +11,7 @@
   <section id="friends_content">
     <h1>Adicione suas amigas e compartilhe sua vitrine</h1>
     <%= render "friend_quiz" %>
-    <%= render "invite_friends" %>
+    <%= render "invite_friends", :not_registred_friends => @not_registred_friends %>
     <%= render "share_showroom" %>
   </section>
 </section>
