@@ -6,7 +6,13 @@ describe FacebookAdapter do
 
   it "should get the friend list" do
     subject.adapter.should_receive(:get_connections).with("me", "friends")
-    subject.friends
+    subject.facebook_friends
+  end
+
+  it "should get the friends ids list" do
+    friend_list = [{"name"=>"User name 1", "id"=>"1"}, {"name"=>"User name 2", "id"=>"2"}]
+    subject.stub(:facebook_friends).and_return(friend_list)
+    subject.facebook_friends_ids.should == ["1", "2"]
   end
 
   it "should post a message in the wall" do
