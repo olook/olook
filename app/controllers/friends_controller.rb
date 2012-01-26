@@ -9,6 +9,8 @@ class FriendsController < ApplicationController
   end
 
   def home
+    facebook_adapter = FacebookAdapter.new @user.facebook_token
+    @not_registred_friends = facebook_adapter.facebook_friends
     assign_facebook_friends
   end
 
