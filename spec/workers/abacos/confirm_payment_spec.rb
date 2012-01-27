@@ -5,6 +5,7 @@ describe Abacos::ConfirmPayment do
   before :each do
     described_class.stub(:create_confirm_order_event)
     described_class.stub(:create_enqueue_confirm_order_event)
+    described_class.stub(:create_enqueue_insert_order_event)
   end
   describe "#perform" do
     it "should raise an error and enqueue a Abacos::ConfirmPayment if the order doesn't exist on Abacos" do
