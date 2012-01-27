@@ -20,7 +20,13 @@ describe FacebookAdapter do
   it "should get the facebook friends registered at olook" do
     subject.stub(:facebook_friends_ids).and_return(friends_ids = ["1", "2"])
     User.should_receive(:find_all_by_uid).with(friends_ids)
-    subject.olook_facebook_friends
+    subject.facebook_friends_registered_at_olook
+  end
+
+  it "should get the facebook friends not registered at olook" do
+    subject.stub(:facebook_friends_registered_at_olook).and_return([OpenStruct.new(:uid => "1", :name => "User name 1")])
+    subject.stub(:facebook_friends).and_return(formated_friend_list)
+    subject.facebook_friends_not_registered_at_olook.should == [formated_friend_list.last]
   end
 
   it "should post a message in the wall" do
