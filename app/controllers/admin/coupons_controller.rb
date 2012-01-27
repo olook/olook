@@ -6,7 +6,8 @@ class Admin::CouponsController < ApplicationController
   layout 'admin'
 
   def index
-    @coupons = Coupon.page(params[:page]).per_page(20).order('id DESC')
+    @search = Coupon.search(params[:search])
+    @coupons = @search.relation.page(params[:page]).per_page(15).order('created_at desc')
   end
 
   def show
