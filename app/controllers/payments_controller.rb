@@ -32,6 +32,7 @@ class PaymentsController < ApplicationController
         render :nothing => true, :status => 200
       else
         msg = "Erro ao mudar status do pagamento"
+        NewRelic::Agent.add_custom_parameters({:msg => msg, :params => params})
         Airbrake.notify(:error_class => "Payment", :error_message => msg, :parameters => params)
         logger.error(msg)
         logger.error(params)
@@ -39,6 +40,7 @@ class PaymentsController < ApplicationController
       end
     else
       msg = "Order não encontrada"
+      NewRelic::Agent.add_custom_parameters({:msg => msg, :params => params})
       Airbrake.notify(:error_class => "Order", :error_message => msg, :parameters => params)
       logger.error(msg)
       logger.error(params)
