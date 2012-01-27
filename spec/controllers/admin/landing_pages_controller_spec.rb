@@ -3,7 +3,14 @@ require 'spec_helper'
 
 describe Admin::LandingPagesController do
 
-  let!(:landing_page) { FactoryGirl.create :landing_page }
+  before(:all) do
+    LandingPage.destroy_all
+    FactoryGirl.create :landing_page
+  end
+  
+  let!(:landing_page) do
+    LandingPage.first
+  end
 
   let(:valid_attributes) { FactoryGirl.attributes_for :landing_page }
 
