@@ -38,6 +38,9 @@ class Order < ActiveRecord::Base
 
     store_audit_trail
 
+    after_transition :in_the_cart => :waiting_payment, :do => :insert_order
+    after_transition :waiting_payment => :authorized, :do => :confirm_payment
+
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
     end
@@ -77,6 +80,16 @@ class Order < ActiveRecord::Base
     event :not_delivered do
       transition :delivering => :not_delivered
     end
+  end
+
+  def confirm_payment
+    order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
+    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+  end
+
+  def insert_order
+    order_events.create(:message => "Enqueue Abacos::InsertOrder")
+    Resque.enqueue(Abacos::InsertOrder, self.number)
   end
 
   def invalidate_coupon
