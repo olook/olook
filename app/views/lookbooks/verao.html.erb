@@ -1,0 +1,33 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/lookbooks" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "lookbooks" %>
+<% end %>
+
+<section id="lookbooks">
+  <%= render "carousel_lookbooks" %>
+  <div id="carousel_lookbooks_product">
+    <ul>
+      <% 1.upto(3) do |image| %>
+        <li>
+          <%= image_tag "lookbooks/14/#{image}.jpg", :alt => "Imagem 1" %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "Anterior", "javascript:void(0);", :class => "prev-pic" %>
+    <%= link_to "Próximo", "javascript:void(0);", :class => "next-pic" %>
+  </div>
+  <div class="products_list">
+    <ul>
+      <% @products.each do |product| %>
+        <%= render "shared/showroom_product_item", :product => product %>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<% content_for :footer do %>
+  <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => [751, 976, 1219, 1391, 1393] } %>
+<% end %>
