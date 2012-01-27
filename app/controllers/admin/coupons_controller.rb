@@ -1,4 +1,7 @@
 class Admin::CouponsController < ApplicationController
+
+  load_and_authorize_resource
+
   before_filter :authenticate_admin!
   before_filter :load_coupon, :only => [:show, :edit, :update, :destroy]
 

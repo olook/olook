@@ -101,6 +101,12 @@ Olook::Application.routes.draw do
     resources :orders
     resources :coupons, :except => [:destroy]
     resources :landing_pages
+
+     resources :roles do
+      resources :permissions
+     end
+
+    resources :admins
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
