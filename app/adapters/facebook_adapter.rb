@@ -12,11 +12,11 @@ class FacebookAdapter
   end
 
   def facebook_friends_ids
-    facebook_friends.collect {|item| item["id"]}
+    facebook_friends.collect {|item| item.uid}
   end
 
   def olook_facebook_friends
-    User.find_by_uid facebook_friends_ids
+    User.find_all_by_uid facebook_friends_ids
   end
 
   def post_wall_message(message, *args)
