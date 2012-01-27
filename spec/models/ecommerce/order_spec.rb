@@ -363,6 +363,24 @@ describe Order do
     end
   end
 
+  describe "ERP(abacos) integration" do
+    context "when the order is waiting payment" do
+      it "should enqueue a job to insert a order" do
+        Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
+        subject.waiting_payment
+      end
+    end
+
+    context "when the order is authorized" do
+      it "should enqueue a job to confirm a payment" do
+        Resque.stub(:enqueue)
+        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        subject.waiting_payment
+        subject.authorized
+      end
+    end
+  end
+
   describe "State machine" do
     it "should has in_the_cart as initial state" do
       subject.in_the_cart?.should be_true

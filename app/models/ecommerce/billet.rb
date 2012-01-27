@@ -12,6 +12,10 @@ class Billet < Payment
     after_transition :started => :canceled, :do => :cancel_order
     after_transition :billet_printed => :canceled, :do => :cancel_order
 
+    event :started do
+      transition :started => :started
+    end
+
     event :billet_printed do
       transition :started => :billet_printed
     end
