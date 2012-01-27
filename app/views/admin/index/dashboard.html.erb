@@ -1,12 +1,13 @@
 <h2>Dashboard</h2>
 
 <div class="inner">
-  <p><%= link_to "Users", admin_users_path %></p>
-  <p><%= link_to "Collections", admin_collections_path %></p>
-  <p><%= link_to "Products", admin_products_path %></p>
-  <p><%= link_to "Shipping Services", admin_shipping_services_path %></p>
-  <p><%= link_to "Utilities", admin_utilities_path %></p>
-  <p><%= link_to "Orders", admin_orders_path %></p>
-  <p><%= link_to "Coupons", admin_coupons_path %></p>
-  <p><%= link_to "Landing Pages", admin_landing_pages_path %></p>
+  <p><%= access_link("Users") %> </p>
+  <p> <%= access_link("Collections") %> </p>
+  <p> <%= access_link("Products") %> </p>
+  <p> <%= access_link("Shipping Services") %> </p>
+  <p> <%= access_link("Orders") %> </p>
+  <p> <%= access_link("Coupons") %> </p>
+  <p><%= access_link("Landing Pages") %> </p>
+  <p><%= access_link("Products") %></p>
+  <p><%= access_link("Roles") %></p>
 </div>
