@@ -1,3 +1,4 @@
+<%= javascript_include_tag "admin/coupons" %>
 <%= form_for([:admin, @coupon]) do |f| %>
   <% if @coupon.errors.any? %>
     <div id="error_explanation">
@@ -16,8 +17,8 @@
     <%= f.text_field :code %>
   </div>
   <div class="field">
-    <%= f.label :percentage %><br/>
-    <%= f.check_box :is_percentage %><strong>Mark this field if the coupon is percentage</strong><br />
+    <%= f.label :percentage %>: <%= f.check_box :is_percentage %><br />
+    <strong class="info" >Mark this field if the coupon is percentage</strong>
   </div>
   <div class="field">
     <%= f.label :value %><br />
@@ -32,8 +33,9 @@
     <%= f.datetime_select :end_date, :default => Time.now %>
   </div>
   <div class="field">
-    <%= f.label :number_of_coupons %><br />
-    <%= f.text_field :remaining_amount %> <strong>*If you leave this field empty the coupon will be automatically set as unlimited.</strong>
+    <%= f.label :remaining_of_coupons %><br />
+    <strong class="info" >*If you leave this field empty the coupon will be automatically set as unlimited.</strong><br />
+    <%= f.text_field :remaining_amount %> 
   </div>
   <div class="field">
     <%= f.label :unlimited? %><br />
@@ -43,7 +45,7 @@
     <%= f.label :active? %><br />
     <%= f.check_box :active %>
   </div>
-
+  <br />
   <div class="actions">
     <%= f.submit %>
   </div>
