@@ -1,8 +1,8 @@
-<%= form_tag(cart_path, :onsubmit => track_event("Shopping", "AddToCart", product.id)) do %>
+<%= form_tag(create_offline_session_path, :onsubmit => track_event("Shopping", "AddToCart", product.id), :id => 'add_item') do %>
   <%= product_presenter.render_form_by_category %>
   <% if product.sold_out? %>
     <%= submit_tag "", :class=>"add_product #{product.sold_out? ? 'disabled' : ''}", :id => "add_product", :disabled => "disabled" %>
   <% else %>
-    <%= link_to "Adicionar a sacola", "javascript:void(0);", :class => "add_product open_login" %>
+    <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
   <% end %>
 <% end %>
