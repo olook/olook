@@ -10,8 +10,8 @@ class FriendsController < ApplicationController
 
   def home
     facebook_adapter = FacebookAdapter.new @user.facebook_token
-    @not_registred_friends = facebook_adapter.facebook_friends
-    @friends = facebook_adapter.olook_facebook_friends
+    @not_registred_friends = facebook_adapter.facebook_friends_not_registered_at_olook
+    @friends = facebook_adapter.facebook_friends_registered_at_olook
   end
 
   def update_friends_list

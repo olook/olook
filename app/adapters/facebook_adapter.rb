@@ -12,11 +12,16 @@ class FacebookAdapter
   end
 
   def facebook_friends_ids
-    facebook_friends.collect {|item| item.uid}
+    facebook_friends.map(&:uid)
   end
 
-  def olook_facebook_friends
+  def facebook_friends_registered_at_olook
     User.find_all_by_uid facebook_friends_ids
+  end
+
+  def facebook_friends_not_registered_at_olook
+    facebook_friends_registered_at_olook_uids = facebook_friends_registered_at_olook.map(&:uid)
+    facebook_friends.select{|friend| !facebook_friends_registered_at_olook_uids.include?(friend.uid)}
   end
 
   def post_wall_message(message, *args)
