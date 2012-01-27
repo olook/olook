@@ -45,6 +45,7 @@ Olook::Application.routes.draw do
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
 
   get "/produto/:id" => "product#show", :as => "product"
+  post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
