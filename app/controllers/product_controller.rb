@@ -11,5 +11,9 @@ class ProductController < ApplicationController
     @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
   end
+
+  def create_offline_session
+    session[:variant] = params[:variant]
+  end
 end
 
