@@ -922,6 +922,11 @@ body {
               color: #D95485;
             }
           }
+          &.showroom {
+            a {
+              margin-left: 20px;
+            }
+          }
           &.cart {
             position: relative;
             float: right;
