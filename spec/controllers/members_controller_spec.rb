@@ -24,6 +24,14 @@ describe MembersController do
     end
   end
 
+  describe "GET welcome" do
+    it "should show the welcome page" do
+      get :welcome
+      response.should render_template("welcome")
+      assigns(:user).should eq(user)
+    end
+  end
+
   describe "#showroom" do
     it "should show the member showroom page" do
       get :showroom
