@@ -1,0 +1,39 @@
+<%= form_for([:admin, @admin], :html => { :multipart => true }) do |f| %>
+  <% if @admin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin.errors.count, "error") %> prohibited this admin from being saved:</h2>
+
+      <ul>
+      <% @admin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+
+    <div class="field">
+    <%= f.label :password%><br />
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password%><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.fields_for :roles do |r| %>
+    <div class="field">
+    <%= r.label :role_name, "Role : " %><br />
+    <%= r.select :role_name, @roles.collect {|role| role.name} %>
+  </div>
+    <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

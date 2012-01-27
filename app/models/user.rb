@@ -186,4 +186,3 @@ class User < ActiveRecord::Base
     end if self.invite_token.nil?
   end
 end
-

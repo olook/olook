@@ -1,15 +1,17 @@
 # -*- encoding : utf-8 -*-
 class Admin < ActiveRecord::Base
-  ROLES = %w[admin stylist]
+
+   has_and_belongs_to_many :roles
 
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable, :lockable
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  def admin?
-    self.role == "admin"
+  def has_roles?(role_name)
+    self.roles_name.include?(role_name) ? true : false
   end
 
-  def stylist?
-    self.role == "stylist"
+  def roles_name
+    self.roles.collect {|role| role.name.to_sym}
   end
+
 end
