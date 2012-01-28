@@ -6,6 +6,11 @@ describe Abacos::OrderStatus do
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
   subject { described_class.new parsed_data }
 
+  before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   describe '#integrate' do
     before :each do
       @order = double
@@ -106,6 +111,7 @@ describe Abacos::OrderStatus do
 
     context 'when the original order state is authorized' do
       before :each do
+
         order.waiting_payment
         order.authorized
         order.authorized?.should be_true
