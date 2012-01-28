@@ -11,6 +11,8 @@ describe Debit do
   let(:under_review) { "8" }
 
   before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
     order.waiting_payment
   end
 
