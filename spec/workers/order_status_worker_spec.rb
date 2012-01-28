@@ -24,6 +24,11 @@ describe OrderStatusWorker do
     let(:order_cc) { FactoryGirl.create(:clean_order_credit_card) }
     let(:mock_mail) { double :mail }
 
+    before do
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
+
     describe "send order_requested" do
       it 'should send if the order is wainting_payment and has an associated payment' do
         order.waiting_payment
