@@ -13,7 +13,7 @@ class ProductController < ApplicationController
   end
 
   def create_offline_session
-    session[:variant] = params[:variant]
+    session[:offline_variant] = params[:variant]
   end
 end
 
