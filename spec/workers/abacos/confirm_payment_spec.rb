@@ -11,6 +11,7 @@ describe Abacos::ConfirmPayment do
     it "should raise an error and enqueue a Abacos::ConfirmPayment if the order doesn't exist on Abacos" do
       Order.stub(:find_by_number).with(123).and_return(order = double(:number => 111))
       Abacos::OrderAPI.should_receive(:'order_exists?').with(123).and_return(false)
+      Resque.should_receive(:enqueue).with(Abacos::InsertOrder, order.number)
       Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, order.number)
       expect {
         described_class.perform(123)
