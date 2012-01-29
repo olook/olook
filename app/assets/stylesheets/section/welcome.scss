@@ -1,0 +1,19 @@
+@import "partials/product";
+
+section#welcome {
+  margin: 35px auto 0;
+  h1.warn {
+    color: #333;
+    font-size: 35px;
+    font-weight: lighter;
+    font-style: italic;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    width: 860px;
+    margin: 0 auto 40px;
+    span {
+      color: #df5a8b;
+    }
+  }
+}
