@@ -22,6 +22,7 @@ class PagesController < ApplicationController
       render :contact
     end
   end
+
 end
 
 private

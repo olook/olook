@@ -4,4 +4,7 @@
   <p><%= "#{order.freight.address.street}, #{order.freight.address.number}" %><%= order.freight.address.complement? ? ", #{order.freight.address.complement}" : "" %></p>
   <p><%= "#{order.freight.address.neighborhood} - #{order.freight.address.zip_code}" %></p>
   <p><%= "#{order.freight.address.city}, #{order.freight.address.state}" %></p>
+  <div class="delivery_time">
+    <p>O prazo de entrega para este endereço é de <strong><%= order.freight.delivery_time %> dias úteis</strong></p>
+  </div>
 </div>

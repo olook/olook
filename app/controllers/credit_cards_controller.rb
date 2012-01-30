@@ -12,6 +12,7 @@ class CreditCardsController < ApplicationController
   before_filter :build_cart, :only => [:new, :create]
   before_filter :order_total, :only => [:new, :create]
   before_filter :load_promotion
+  before_filter :check_cpf
 
   def new
     @payment = CreditCard.new(CreditCard.user_data(@user))
@@ -30,7 +31,6 @@ class CreditCardsController < ApplicationController
         clean_session_order!
         redirect_to(order_credit_path(:number => @order.number), :notice => "Pagamento realizado com sucesso")
       else
-        rollback_order
         respond_with(new_payment_with_error)
       end
     else
@@ -42,7 +42,7 @@ class CreditCardsController < ApplicationController
 
   def new_payment_with_error
     @payment = CreditCard.new(params[:credit_card])
-    @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+    @payment.errors.add(:id, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
     @payment
   end
 

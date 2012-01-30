@@ -1,0 +1,142 @@
+section#stylist {
+  padding-top: 15px;
+  h1, h2 {
+    color: #2f2f2f;
+    font-family: Times;
+    font-style: italic;
+    font-weight: normal;
+  }
+  div.profile {
+    width: 100%;
+    margin: 0 0 55px 0;
+    overflow: auto;
+    img.picture {
+      margin: 0 25px 0 0;
+      float: left;
+    }
+    h1 {
+      font-size: 60px;
+      letter-spacing: -5px;
+      margin: 0 0 10px 0;
+      float: left;
+    }
+    p {
+      color: #101010;
+      font-size: 14px;
+      line-height: 25px;
+      width: 665px;
+      float: left;
+    }
+    a {
+      background: url("/assets/stylist/bt-products.jpg") no-repeat;
+      color: #FFF;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: normal;
+      text-align: center;
+      text-decoration: none;
+      line-height: 40px;
+      width: 395px;
+      margin: 35px 0 0 0;
+      display: block;
+      float: left;
+    }
+  }
+  ul.interview {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 65px 0;
+    li {
+      width: 175px;
+      margin: 0 25px 65px 0;
+      float: left;
+      h1 {
+        font-size: 20px;
+        line-height: 18px;
+        letter-spacing: -1px;
+        margin: 0 0 10px 0;
+      }
+      p {
+        color: #636363;
+        font-size: 14px;
+        color: #636363;
+      }
+      &.last {
+        margin-right: 0;
+      }
+    }
+  }
+  div#products {
+    background: url("/assets/showroom/border-top-product.png") 170px 18px no-repeat;
+    width: 100%;
+    overflow: auto;
+    h1.title {
+      background: url("/assets/stylist/title-helena-linhares.jpg") no-repeat;
+      text-indent: -9999px;
+      width: 324px;
+      height: 35px;
+      display: block;
+      float: left;
+    }
+    ul {
+      li {
+        background: url("/assets/stylist/product-divisor.jpg") center bottom no-repeat;
+        width: 830px;
+        overflow: auto;
+        display: block;
+        margin: 0 auto 30px;
+        padding: 0 0 40px 0;
+        img {
+          float: left;
+          margin: 0 20px 0 0;
+        }
+        h1 {
+          font-size: 55px;
+          line-height: 40px;
+          letter-spacing: -5px;
+          margin: 25px 0 0 0;
+        }
+        h2 {
+          color: #b2b2b2;
+          font-size: 35px;
+          letter-spacing: -2px;
+          margin: 0 0 15px 0;
+        }
+        p {
+          color: #515151;
+          font-size: 14px;
+          margin: 0 0 20px 0;
+        }
+        a {
+          background: url("/assets/stylist/bt-know.jpg") no-repeat;
+          color: #FFF;
+          font-size: 14px;
+          font-weight: normal;
+          line-height: 34px;
+          text-align: center;
+          text-decoration: none;
+          width: 95px;
+          display: block;
+          float: left;
+        }
+        &.last {
+          background: none;
+          margin-bottom: 0;
+        }
+        &.right {
+          img {
+            float: right;
+            margin: 0 0 0 20px;
+          }
+        }
+      }
+    }
+    div.products_footer {
+      background: url("/assets/stylist/bg-products-footer.png") top left no-repeat;
+      width: 100%;
+      height: 25px;
+      display: block;
+      clear: both;
+    }
+  }
+}

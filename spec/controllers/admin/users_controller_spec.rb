@@ -34,6 +34,13 @@ describe Admin::UsersController do
     end
   end
 
+  describe "GET admin_login" do
+    it "allow admin to login as any user" do
+      get :admin_login, :id => user.id.to_s
+      response.should redirect_to(member_showroom_path)
+    end
+  end
+
   describe "GET edit" do
     it "assigns the requested user as @user" do
       get :edit, :id => user.id.to_s
@@ -96,6 +103,19 @@ describe Admin::UsersController do
       Resque.should_receive(:enqueue).with(Admin::ExportUsersWorker, @admin.email)
 
       get :export
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "destroys the requested user" do
+      expect {
+        delete :destroy, :id => user.id.to_s
+      }.to change(User, :count).by(-1)
+    end
+
+    it "redirects to the user list" do
+      delete :destroy, :id => user.id.to_s
+      response.should redirect_to(admin_users_url)
     end
   end
 end

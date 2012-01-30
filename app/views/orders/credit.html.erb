@@ -24,6 +24,13 @@
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
   </section>
 </section>
+
+<% content_for :ecommerce_tracking do %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :order => @order } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_track_trans", :locals => {:order => @order } %>
+<% end %>
+
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
 <% end %>

@@ -9,7 +9,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_main_profile_showroom
-    h.render :partial => 'product/showroom_product', :collection => member.main_profile_showroom, :as => :product
+    h.render :partial => "shared/showroom_product_item", :collection => member.main_profile_showroom, :as => :product
   end
 
   def render_related_products
@@ -52,8 +52,7 @@ class ProductPresenter < BasePresenter
 
   def related_products
     product.related_products.inject([]) do |result, related_product|
-      if (related_product.category != product.category) &&
-         (!related_product.sold_out?)
+      if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
         result << related_product
       else
         result

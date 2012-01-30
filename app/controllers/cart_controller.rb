@@ -17,6 +17,22 @@ class CartController < ApplicationController
     redirect_to cart_path, :notice => response_message
   end
 
+  def remove_coupon
+    coupon_manager = CouponManager.new(@order)
+    response_message = coupon_manager.remove_coupon
+    redirect_to cart_path, :notice => response_message
+  end
+
+  def remove_bonus
+    if @order.credits > 0
+      @order.update_attributes(:credits => nil)
+      msg = "Créditos removidos com sucesso"
+    else
+      msg = "Você não está usando nenhum crédito"
+    end
+    redirect_to cart_path, :notice => msg
+  end
+
   def update_bonus
     bonus = InviteBonus.calculate(@user)
     credits = params[:credits][:value]
@@ -33,7 +49,6 @@ class CartController < ApplicationController
   def show
     @bonus = InviteBonus.calculate(@user, @order)
     @cart = Cart.new(@order)
-    @user.is_invited = true
     @line_items = @order.line_items
     @coupon_code = @order.used_coupon.try(:code)
   end
@@ -67,12 +82,8 @@ class CartController < ApplicationController
   end
 
   def update_quantity_product
-   if @order.add_variant(@variant, params[:variant][:quantity])
-      destroy_freight(@order)
-      redirect_to(cart_path, :notice => "Quantidade atualizada")
-    else
-      redirect_to(:back, :notice => "Produto esgotado")
-    end
+   destroy_freight(@order) if @order.add_variant(@variant, params[:variant][:quantity])
+   redirect_to(cart_path, :notice => "Quantidade atualizada")
   end
 
   def create
@@ -109,7 +120,7 @@ class CartController < ApplicationController
   def check_product_variant
     variant_id = params[:variant][:id] if  params[:variant]
     @variant = Variant.find_by_id(variant_id)
-    redirect_to(:back, :notice => "Selecione um tamanho") unless @variant
+    redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") unless @variant.try(:available_for_quantity?)
   end
 
   def current_order

@@ -5,12 +5,14 @@ describe Coupon do
   let(:expired_coupon) { FactoryGirl.create(:expired_coupon) }
   let(:unlimited_coupon) { FactoryGirl.create(:unlimited_coupon) }
   let(:limited_coupon) { FactoryGirl.create(:limited_coupon) }
+  subject { FactoryGirl.create(:standard_coupon) }
 
   context 'validations' do
     it {should validate_presence_of(:code)}
     it {should validate_presence_of(:value)}
     it {should validate_presence_of(:start_date)}
     it {should validate_presence_of(:end_date)}
+    it {should validate_uniqueness_of(:code)}
   end
 
   context 'methods' do

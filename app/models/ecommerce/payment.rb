@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Payment < ActiveRecord::Base
   has_paper_trail
-  MINIMUM_VALUE = 5.0
+  MINIMUM_VALUE = BigDecimal.new("5.00")
   SUCCESSFUL_STATUS = 'Sucesso'
   FAILURE_STATUS = 'Falha'
   CANCELED_STATUS = 'Cancelado'
@@ -38,14 +38,6 @@ class Payment < ActiveRecord::Base
 
   def credit_card?
     (self.type == "CreditCard") ? true : false
-  end
-
-  def expired_and_waiting_payment?
-    (self.expired? && self.order.state == "waiting_payment") ? true : false
-  end
-
-  def expired?
-    Time.now > self.payment_expiration_date if self.payment_expiration_date
   end
 
   def set_payment_expiration_date

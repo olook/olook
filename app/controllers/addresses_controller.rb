@@ -8,9 +8,9 @@ class ::AddressesController < ApplicationController
   before_filter :load_user
   before_filter :check_order
   before_filter :load_promotion
-  before_filter :check_cpf
   before_filter :assign_default_country, :only => [:create]
   before_filter :build_cart, :except => [:assign_address]
+  before_filter :check_address, :only => [:index]
 
   def index
     @addresses = @user.addresses
@@ -28,7 +28,7 @@ class ::AddressesController < ApplicationController
     @address = @user.addresses.build(params[:address])
     if @address.save
       set_freight_in_the_order(@address)
-      redirect_to(payments_path)
+      redirect_to(@user.cpf.nil? ? payments_path : new_credit_card_path)
     else
       respond_with(@address)
     end
@@ -55,13 +55,17 @@ class ::AddressesController < ApplicationController
     address = @user.addresses.find_by_id(params[:delivery_address_id])
     if address
       set_freight_in_the_order(address)
-      redirect_to(payments_path)
+      redirect_to(@user.cpf.nil? ? payments_path : new_credit_card_path)
     else
       redirect_to addresses_path, :notice => "Por favor, selecione um endereço"
     end
   end
 
   private
+
+  def check_address
+    redirect_to new_address_path unless @user.addresses.any?
+  end
 
   def remove_freight_from_order(address)
     @order.freight.destroy if @order.freight.address == address

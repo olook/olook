@@ -3,69 +3,87 @@
 @import "partials/product";
 
 #product {
-  padding: 20px 0 0 0;
+  padding: 10px 0 0 0;
   div.box_carousel {
-    margin: 0 0 15px 0;
-    padding: 10px 20px;
-    overflow: auto;
-    border: 1px #e1e1e1 solid;
-    h1 {
-      a {
-        background: url("/assets/product/title-showroom-january.png") no-repeat;
-        text-indent: -9999px;
-        width: 238px;
-        height: 17px;
-        display: block;
-        margin: 14px 0 0 0;
-        float: left;
+    background: url("/assets/product/border-carousel.jpg") center bottom no-repeat;
+    margin: 0 0 25px 0;
+    padding: 10px 20px 10px;
+    overflow: hidden;
+    a.back {
+      color: #df5a8b;
+      font-size: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      float: left;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    a.open_carousel {
+      background: url("/assets/product/bt-carousel.jpg") 0 0 no-repeat;
+      color: #505050;
+      font-weight: bold;
+      text-decoration: none;
+      line-height: 31px;
+      width: 175px;
+      padding: 0 0 0 15px;
+      display: block;
+      float: right;
+      &.open {
+        background-position: 0 -31px;
       }
     }
     div#carousel {
-      width: 595px;
-      float: right;
-      .mask {
+      position: relative;
+      width: 100%;
+      height: 0px;
+      display: block;
+      clear: both;
+      margin: 20px 0 0 0;
+      float: left;
+      overflow: hidden;
+      ul {
         position: relative;
-        width: 545px;
-        height: 50px;
+        width: 5000px;
+        left: 0px;
         overflow: hidden;
-        float: left;
-        ul {
-          position: relative;
-          width: 10000px;
-          left: 0px;
-          overflow: auto;
-          li {
-            margin: 0;
-            padding: 0;
-            display: inline;
-            float: left;
-            a {
-              margin: 0 5px 0 0;
-              padding: 0;
-              float: left;
-              img {
-                width: 50px;
-                height: 50px;
-              }
+        li.product {
+          width: 170px;
+          div.box_product {
+            a.product_link img {
+              width: 165px;
+              height: 165px;
+            }
+            h1 {
+              width: 165px;
             }
           }
         }
       }
+      div.caroufredsel_wrapper {
+        margin: 20px auto 0 auto !important;
+      }
       a.arrow {
-        background: url("/assets/common/arrows.png") no-repeat;
+        position: absolute;
+        background: url("/assets/product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
-        width: 5px;
-        height: 10px;
-        margin-top: 20px;
+        width: 42px;
+        height: 235px;
+        top: 0;
         display: block;
-        &.prev {
-          background-position: 0 0;
-          margin-right: 22px;
-          float: left;
+        &.product-prev {
+          background-position: 0;
+          left: 0;
+          &:hover {
+            background-position: -42px;
+          }
         }
-        &.next {
-          background-position: -5px 0;
-          float: right;
+        &.product-next {
+          background-position: -126px;
+          right: 0;
+          &:hover {
+            background-position: -84px;
+          }
         }
       }
     }
@@ -167,6 +185,10 @@
           font-size: 16px;
           letter-spacing: -1px;
           margin-bottom: 10px;
+          a {
+            color: #df5a8a;
+            margin: 0 0 0 5px;
+          }
           &.price {
             color: #e05789;
             font-size: 45px;
@@ -335,16 +357,22 @@
                 }
               }
             }
+            div.picture {
+              width: 140px;
+              height: 140px;
+              overflow: hidden;
+              margin-left: 20px;
+              float: right;
+              img {
+                width: 140px;
+              }
+            }
             p {
               color: #545454;
               font-family: Times;
               font-size: 16px;
               font-style: italic;
               padding: 0 20px;
-              img {
-                margin-left: 20px;
-                float: right;
-              }
             }
             &.selected {
               display: block;
@@ -361,6 +389,7 @@
       clear: both;
       a.carousel-prev, a.carousel-next {
         position: absolute;
+        background: url("/assets/product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
         width: 42px;
         height: 360px;
@@ -368,12 +397,18 @@
         display: block;
       }
       a.carousel-prev {
-        background: url("/assets/product/prev-product.jpg") 0 no-repeat;
+        background-position: 0px;
         left: 0;
+        &:hover {
+          background-position: -42px;
+        }
       }
       a.carousel-next {
-        background: url("/assets/product/next-product.jpg") 0 no-repeat;
+        background-position: -126px;
         right: 0;
+        &:hover {
+          background-position: -84px;
+        }
       }
       div.caroufredsel_wrapper {
         margin: 0 auto !important;

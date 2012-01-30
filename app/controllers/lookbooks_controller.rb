@@ -26,4 +26,28 @@ class LookbooksController < ApplicationController
   def sapatilhas
     @products = Product.find(1, 28, 181, 208, 19, 163, 199)
   end
+
+  def safari
+    @products = Product.find(1491, 1539, 1297, 1371, 1447, 1237, 1564, 787, 1075, 1339, 1564, 760, 696)
+  end
+
+  def vintage
+    @products = Product.find(1156, 1219, 823, 976, 994, 877, 904, 751, 1395, 1379, 1387, 1481, 1491)
+  end
+
+  def fashion
+    @products = Product.find(1138, 1075, 1048, 1405, 1529, 1385, 1413, 1447, 1477, 1497, 1539, 1545, 1564, 1120, 1066, 805)
+  end
+
+  def scarpin_glamour
+    @products = Product.find(614, 623, 1491, 1543, 1021, 1219, 1433, 1369)
+  end
+
+  def militar
+    @products = Product.find(1228, 778, 1479, 1165, 967, 1084, 787, 1429, 1329, 1387, 1381, 1566, 1495)
+  end
+
+  def verao
+    @products = Product.find(796, 696, 814, 669, 751, 769, 904, 1129)
+  end
 end

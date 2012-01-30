@@ -4,10 +4,22 @@
     <b>Client:</b>
     <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) %>
   </p>
-
+  <p>
+    <button style="padding:5px">
+      <b><%= link_to 'Login', "/admin/users/login/#{@order.user.id}" %><b>
+    </button>
+  </p>
   <p>
     <b>Date:</b>
     <%= l @order.created_at, :format => :short %>
+  </p>
+  <p>
+    <b>Identification Code:</b>
+    <%= @order.identification_code %>
+  </p>
+  <p>
+    <b>Moip ID:</b>
+    <%= @order.payment.payment_response.gateway_code %>
   </p>
   <p>
     <b>Status:</b>
@@ -45,7 +57,7 @@
     <p><%= "#{@address.zip_code}" %></p>
     <p><%= "#{@address.city}, #{@address.state}" %></p>
   </div>
-  
+
   <table class="table">
     <tr>
       <th></th>

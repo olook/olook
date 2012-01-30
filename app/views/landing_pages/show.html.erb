@@ -11,7 +11,9 @@
 <section class="landing-content" style="background: url('<%= @landing_page.page_image.try(:url) %>') no-repeat">
 
   <%= link_to @landing_page.button_url, :class => "action", :title => @landing_page.button_alt do %>
-    <%= image_tag @landing_page.button_image.try(:url), :alt => @landing_page.button_alt %>
+    <%= image_tag @landing_page.button_image.try(:url),
+                  :alt => @landing_page.button_alt,
+                  :style => button_position(@landing_page) %>
   <% end %>
 
 </section>

@@ -8,7 +8,7 @@ class ProductController < ApplicationController
   before_filter :load_order
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
   end
 end

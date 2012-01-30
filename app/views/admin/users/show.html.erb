@@ -1,5 +1,14 @@
-<h2>User</h2>
+<h2>User
+  <span class="hidden_destroy">
+    <%= link_to 'del', admin_user_path(@user), confirm: 'Are you sure do you want to delete this user?', method: :delete %>
+  </span>
+</h2>
 <div class="inner">
+  <p>
+    <button style="padding:5px">
+      <b><%= link_to 'Login', "/admin/users/login/#{@user.id}" %><b>
+    </button>
+  </p>
   <p>
     <b>First Name:</b>
     <%= @user.first_name %>
@@ -33,7 +42,7 @@
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user }  %>
   <%= render partial: 'show_events', locals: { user: @user }  %>
-  
+
 </div>
 
 <% content_for :secondary_navigation do %>

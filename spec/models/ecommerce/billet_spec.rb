@@ -11,14 +11,16 @@ describe Billet do
   let(:under_review) { "8" }
 
   before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
     order.waiting_payment
   end
 
   context "expiration date" do
     it "should set payment expiration date after create" do
-      Billet.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Billet::EXPIRATION_IN_DAYS.days.from_now)
+      BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Date.current)
       billet = FactoryGirl.create(:billet)
-      billet.payment_expiration_date.should == expiration_date
+      billet.payment_expiration_date.to_date.should == current_date.to_date
     end
   end
 
