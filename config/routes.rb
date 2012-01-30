@@ -29,6 +29,7 @@ Olook::Application.routes.draw do
   match "/minhas-amigas/home", :to => "friends#home", :as => "home"
   match "/minhas-amigas/vitrine", :to => "friends#showroom", :as => "showroom"
   get "/minhas-amigas/atualizar-lista-amigas", :to => "friends#update_friends_list", :as => "update_friends_list"
+  post "/postar-no-mural", :to => "friends#post_wall", :as => "post_wall"
 
   resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
 
@@ -126,4 +127,4 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
-end 
+end

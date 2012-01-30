@@ -1,4 +1,5 @@
 class FriendsController < ApplicationController
+  respond_to :html, :js
   before_filter :authenticate_user!
   before_filter :load_user
 
@@ -16,6 +17,11 @@ class FriendsController < ApplicationController
 
   def update_friends_list
     @friends = facebook_adapter.olook_facebook_friends
+  end
+
+  def post_wall
+    facebook_adapter = FacebookAdapter.new @user.facebook_token
+    facebook_adapter.post_wall_message(params[:message]) ? (head :ok) : (head :error)
   end
 
   private
