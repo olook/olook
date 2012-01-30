@@ -148,10 +148,57 @@ section#welcome {
           }
         }
       }
+      div.email {
+        width: 100%;
+        margin: 0 0 15px 0;
+        overflow: auto;
+        form {
+          fieldset {
+            float: left;
+            ol {
+              li {
+                textarea {
+                  background: url("/assets/common/bg-textarea.png") bottom repeat-x;
+                  color: #3C3C3C;
+                  font-size: 14px;
+                  letter-spacing: -1px;
+                  outline: none;
+                  width: 420px;
+                  height: 53px;
+                  resize: none;
+                  margin: 0 20px 0 0;
+                  padding: 12px 13px;
+                  border: 1px solid #BBB;
+                }
+              }
+            }
+            &.buttons {
+              input[type="submit"] {
+                background: url("/assets/welcome/bt-invite.jpg") no-repeat;
+                color: #FFF;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                width: 151px;
+                height: 47px;
+                margin: 15px 0 0 0;
+                display: block;
+                border: none;
+                cursor: pointer;
+                float: left;
+              }
+            }
+          }
+        }
+      }
       a.invite {
+        background: url("/assets/welcome/arrow.png") left no-repeat;
         color: #e05789;
         font-family: Arial, sans-serif;
         font-size: 14px;
+        padding: 0 0 0 13px;
       }
     }
   }
