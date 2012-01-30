@@ -95,7 +95,7 @@ class MembersController < ApplicationController
   end
 
   def load_offline_variant
-    @offline_variant = Variant.find(session[:offline_variant][:id]) if session[:offline_variant]
+    @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
   end
 
   def check_session_and_add_to_cart

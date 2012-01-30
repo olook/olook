@@ -3,6 +3,8 @@ require 'spec_helper'
 
 describe MembersController do
   let(:user) { FactoryGirl.create :user }
+  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -29,6 +31,13 @@ describe MembersController do
       get :showroom
       response.should render_template("showroom")
       assigns(:user).should eq(user)
+    end
+
+    it "should check session and add to cart" do
+      session[:order] = order.id
+      session[:offline_variant] = { "id" => variant.id }
+      get :showroom
+      order.line_items.count.should  be_eql(1)
     end
   end
 
