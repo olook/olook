@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Order do
+  before do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   subject { FactoryGirl.create(:clean_order)}
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
@@ -8,6 +13,7 @@ describe Order do
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
+
 
   it { should have_one(:used_coupon) }
 
