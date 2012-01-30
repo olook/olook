@@ -1,6 +1,8 @@
 class AddFirstNameAndLastNameToAdmin < ActiveRecord::Migration
   def change
-    add_column :admins, :first_name, :string,
-    add_column :admins, :last_name, :string
+  	change_table(:admins) do |admin|
+      admin.column :first_name, :string
+      admin.column :last_name,	:string
+    end
   end
 end
