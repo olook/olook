@@ -18,6 +18,8 @@ Setup
 - copy config/aws.yml.sample to config/aws.yml and set your aws_account, aws_secret and cdn distribution id.
 - copy config/analytics.yml.sample to config/analytics.yml and set your analytics_id.
 - copy config/email.yml.sample to config/email.yml and set your email account.
+- copy config/moip.yml.sample to config/moip.yml and set your uri, token and key.
+- copy config/resque.yml.sample to config/resque.yml and set the redis server routes.
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
 - rake db:seed
