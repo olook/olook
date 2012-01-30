@@ -13,7 +13,7 @@ class ProductController < ApplicationController
   end
 
   def create_offline_session
-    @session = session[:offline_variant] = params[:variant]
+    @session = (session[:offline_variant] = params[:variant])
     respond_to do |format|
       format.json { render :json => @session }
     end
