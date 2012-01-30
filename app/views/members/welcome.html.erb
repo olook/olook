@@ -1,10 +1,14 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/welcome" %>
+  <script src="http://connect.facebook.net/en_US/all.js"></script>
 <% end %>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "welcome" %>
 <% end %>
+
+<div id="fb-root"></div>
+<%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
 
 <section id="welcome">
   <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> e ela ficará pronta nas próximas 24 horas</h1>

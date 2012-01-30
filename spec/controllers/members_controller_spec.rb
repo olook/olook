@@ -30,6 +30,11 @@ describe MembersController do
       response.should render_template("welcome")
       assigns(:user).should eq(user)
     end
+
+    it "should assign @facebook_app_id" do
+      get :invite
+      assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
+    end
   end
 
   describe "#showroom" do

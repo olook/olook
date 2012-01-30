@@ -128,6 +128,26 @@ section#welcome {
         font-size: 15px;
         margin: 0 0 15px;
       }
+      div.personal_link {
+        height: 190px;
+        ul.share {
+          li {
+            margin: 12px 10px 0 0;
+            float: left;
+            input#invite_link {
+              background: url("/assets/common/bg-form-invite.png") bottom repeat-x;
+              font-size: 14px;
+              letter-spacing: -1px;
+              width: 265px;
+              padding: 12px 11px;
+              border: 1px solid #BBB;
+            }
+            &.first {
+              margin: 0 15px 0 0;
+            }
+          }
+        }
+      }
       a.invite {
         color: #e05789;
         font-family: Arial, sans-serif;
