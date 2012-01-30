@@ -10,9 +10,17 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
-  match "/imprensa", :to => "pages#press_release", :as => "press_release"
+  match "/o-que-estao-falando", :to => "pages#what_are_talking", :as => "what_are_talking"
+  match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
+  match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
+  match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
+  match "/lookbooks/vintage", :to => "lookbooks#vintage", :as => "vintage"
+  match "/lookbooks/fashion", :to => "lookbooks#fashion", :as => "fashion"
+  match "/lookbooks/scarpin-glamour", :to => "lookbooks#scarpin_glamour", :as => "scarpin_glamour"
+  match "/lookbooks/militar", :to => "lookbooks#militar", :as => "militar"
+  match "/lookbooks/verao", :to => "lookbooks#verao", :as => "verao"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
@@ -31,7 +39,9 @@ Olook::Application.routes.draw do
   resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do
       put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
+      delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
+      delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
     end
   end
@@ -83,10 +93,11 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :users, :except => [:create, :new, :destroy] do
+    resources :users, :except => [:create, :new] do
       collection do
         get 'statistics' => 'users#statistics', :as => 'statistics'
         get 'export' => 'users#export', :as => 'export'
+        get 'login/:id' => 'users#admin_login'
       end
     end
 

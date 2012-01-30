@@ -19,6 +19,10 @@ describe MemberMailer do
       mail.subject.should == "#{member.name}, seja bem vinda! Seu cadastro foi feito com sucesso!"
     end
 
+    it "sets 'headers' with welcome_email category json" do
+      mail.header.to_s.should match /X-SMTPAPI: {\"category\":\"welcome_email\"}/
+    end
+
   end
 
   describe "#showroom_ready_email" do
@@ -34,6 +38,10 @@ describe MemberMailer do
 
     it "sets 'title' attribute describing that the showroom is ready for the user" do
       mail.subject.should == "#{member.name}, sua vitrine personalizada já está pronta!"
+    end
+
+    it "sets 'headers' with welcome_email category json" do
+      mail.header.to_s.should match /X-SMTPAPI: {\"category\":\"showroom_ready_email\"}/
     end
 
   end

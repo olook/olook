@@ -3,22 +3,6 @@
 <% end %>
 
 <section id="cart">
-  <% if @user.cpf.nil? %>
-    <%= form_for(@user, :as => :user, :url => user_user_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
-      <fieldset class="buttons">
-        <ol>
-          <li>
-            <p>Precisamos de seu CPF para emitir a nota fiscal do seu pedido em seu nome:</p>
-          </li>
-          <li>
-            <%= f.label :cpf %>
-            <%= f.text_field :cpf, :value => "", :class => "cpf" %>
-            <%= f.submit '', :class => "save" %>
-          </li>
-        </ol>
-      </fieldset>
-    <% end %>
-  <% end %>
   <table cellpadding="0" cellspacing="0" class="items_list">
     <thead>
       <tr>
@@ -28,9 +12,42 @@
       </tr>
     </thead>
     <tfoot>
+      <tr class="first">
+        <td class="titles" colspan="3">Código Promocional</td>
+        <td class="value">
+          <p><%= number_to_currency(@cart.coupon_discount) %> <%= @cart.coupon_discount_in_percentage %></p>
+          <%= form_for(remove_bonus_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= submit_tag "Limpar" %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
       <tr>
-        <td class="subtotal" colspan="3">Subtotal</td>
-        <td class="total"><%= number_to_currency(@cart.total) %></td>
+        <td class="titles" colspan="3">Crédito</td>
+        <td class="value">
+          <p><%= number_to_currency(@cart.credits_discount) %></p>
+          <%= form_for(remove_bonus_cart_path, :url => remove_bonus_cart_path, :method => :delete) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= submit_tag "Limpar" %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="last">
+        <td class="titles" colspan="3">
+          Total
+          <p>O valor mínimo para finalizar sua compra é de R$ 5,00</p>
+        </td>
+        <td class="value"><p><%= number_to_currency(@cart.total) %></p></td>
       </tr>
     </tfoot>
     <tbody>
@@ -51,7 +68,7 @@
           </td>
           <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
           <td class="delete_item" valign="middle">
-            <%= form_for(cart_path, :method => :put) do %>
+            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
               <%= submit_tag('')  %>
             <% end %>
@@ -61,9 +78,9 @@
       <tr class="discount">
         <td class="item"><h1>Possui algum código promocional?</h1></td>
         <td colspan="2">
-          <p><strong>Digite o seu valor no<br/> campo ao lado</strong></p>
+          <p><strong>Digite o código <br/>no campo ao lado</strong></p>
         </td>
-        <td>
+        <td class="cupom">
           <%= form_for(update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put) do %>
             <fieldset class="inputs">
               <ol>
@@ -84,7 +101,7 @@
           <p><strong>Quanto deseja usar?</strong></p>
           <p>Digite o valor no campo ao lado</p>
         </td>
-        <td>
+        <td class="cupom">
           <%= form_for(update_bonus_cart_path, :url => update_bonus_cart_path, :method => :put) do %>
             <fieldset class="inputs">
               <ol>
@@ -104,6 +121,10 @@
   </table>
   <%= link_to "Continuar", addresses_path, :class => "continue" %>
 </section>
+<% content_for :ecommerce_tracking do %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :order => @order } %>
+<% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>
 <% end %>

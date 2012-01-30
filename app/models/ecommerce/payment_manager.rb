@@ -21,17 +21,14 @@ class PaymentManager
   private
 
   def search_and_cancel(payment_type)
+    counter = 0
     Payment.where(:type => payment_type).find_each do |payment|
-      if payment.order
-        if payment.expired_and_waiting_payment?
-          if payment.type == @billet
-            payment.order.canceled
-          else
-            payment.canceled
-          end
-        end
+      if payment.order && payment.expired_and_waiting_payment?
+        payment.canceled
+        counter += 1
       end
     end
+    "#{counter} payments was canceled."
   end
 end
 

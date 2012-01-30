@@ -5,6 +5,7 @@ class Admin::UsersController < Admin::BaseController
   load_and_authorize_resource
 
   respond_to :html, :text
+  before_filter :authenticate_admin!
 
   def index
     @search = User.search(params[:search])
@@ -20,6 +21,12 @@ class Admin::UsersController < Admin::BaseController
 
   def edit
     @user = User.find(params[:id])
+    respond_with :admin, @user
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
     respond_with :admin, @user
   end
 
@@ -40,5 +47,11 @@ class Admin::UsersController < Admin::BaseController
 
   def export
     Resque.enqueue(Admin::ExportUsersWorker, current_admin.email)
+  end
+
+  def admin_login
+    if sign_in User.find(params[:id]), :bypass => true
+      redirect_to(member_showroom_path) 
+    end
   end
 end

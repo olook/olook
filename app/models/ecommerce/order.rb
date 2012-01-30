@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
     "canceled" => "Cancelado",
     "reversed" => "Estornado",
     "refunded" => "Reembolsado",
+    "delivering" => "Despachado",
     "delivered" => "Entregue",
     "not_delivered" => "Não entregue",
     "picking" => "Separando",
@@ -27,6 +28,7 @@ class Order < ActiveRecord::Base
   has_many :order_state_transitions, :dependent => :destroy
   has_many :order_events, :dependent => :destroy
   has_one :used_coupon, :dependent => :destroy
+  has_many :moip_callbacks
   after_create :generate_number
   after_create :generate_identification_code
 
@@ -35,6 +37,9 @@ class Order < ActiveRecord::Base
   state_machine :initial => :in_the_cart do
 
     store_audit_trail
+
+    after_transition :in_the_cart => :waiting_payment, :do => :insert_order
+    after_transition :waiting_payment => :authorized, :do => :confirm_payment
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -75,6 +80,16 @@ class Order < ActiveRecord::Base
     event :not_delivered do
       transition :delivering => :not_delivered
     end
+  end
+
+  def confirm_payment
+    order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
+    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+  end
+
+  def insert_order
+    order_events.create(:message => "Enqueue Abacos::InsertOrder")
+    Resque.enqueue(Abacos::InsertOrder, self.number)
   end
 
   def invalidate_coupon
@@ -149,7 +164,11 @@ class Order < ActiveRecord::Base
   end
 
   def discount_from_coupon
-    used_coupon ? used_coupon.value : 0
+    if used_coupon
+      used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+    else
+      0
+    end
   end
 
   def discount_from_gift
@@ -157,13 +176,9 @@ class Order < ActiveRecord::Base
   end
 
   def total
-    result = line_items_total
-    if result > 0
-      result = result - credits
-      result = result - discount_from_gift
-      result = result - discount_from_coupon
-    end
-    result
+    subtotal = line_items_total - total_discount
+    subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE
+    subtotal
   end
 
   def total_discount

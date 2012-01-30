@@ -6,21 +6,40 @@ describe Abacos::OrderStatus do
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
   subject { described_class.new parsed_data }
 
+  before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   describe '#integrate' do
+    before :each do
+      @order = double
+    end
+    it 'should set_invoice_info' do
+      subject.stub(:find_and_check_order).and_return(@order)
+      subject.should_receive(:set_invoice_info)
+      subject.stub(:change_order_state)
+      subject.stub(:confirm_order_status)
+      subject.integrate
+    end
+
     it 'should find_and_check_order' do
-      subject.should_receive(:find_and_check_order)
+      @order.stub(:update_attributes)
+      subject.should_receive(:find_and_check_order).and_return(@order)
       subject.stub(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
     end
     it 'should change_order_state' do
-      subject.stub(:find_and_check_order)
+      @order.stub(:update_attributes)
+      subject.stub(:find_and_check_order).and_return(@order)
       subject.should_receive(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
     end
     it 'should confirm_order_status' do
-      subject.stub(:find_and_check_order)
+      @order.stub(:update_attributes)
+      subject.stub(:find_and_check_order).and_return(@order)
       subject.stub(:change_order_state)
       subject.should_receive(:confirm_order_status)
       subject.integrate
@@ -36,16 +55,6 @@ describe Abacos::OrderStatus do
         expect {
           subject.send :find_and_check_order, 0
         }.to raise_error "Order number 0 doesn't exist"
-      end
-    end
-
-    context 'when the order is in an invalid state' do
-      let(:invalid_order) { FactoryGirl.create :clean_order }
-      it "should raise an error" do
-        subject.stub(:order_number).and_return(invalid_order.number)
-        expect {
-          subject.send :find_and_check_order, invalid_order.number
-        }.to raise_error "Order number #{invalid_order.number} state is #{invalid_order.state}, which is invalid for integration"
       end
     end
   end
@@ -65,8 +74,44 @@ describe Abacos::OrderStatus do
       }
     end
 
+    context 'when the original order state is in_the_cart' do
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
+        it "should change the state to canceled" do
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+      end
+    end
+
+    context 'when the original order state is waiting_payment' do
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
+        it "should change the state to canceled" do
+          order.waiting_payment
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+      end
+    end
+
+    context 'when the original order state is not_delivered' do
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
+        it "should change the state to canceled" do
+          order.not_delivered
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+      end
+    end
+
     context 'when the original order state is authorized' do
       before :each do
+
         order.waiting_payment
         order.authorized
         order.authorized?.should be_true

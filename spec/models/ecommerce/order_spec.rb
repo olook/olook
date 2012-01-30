@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Order do
+  before do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   subject { FactoryGirl.create(:clean_order)}
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
@@ -8,6 +13,7 @@ describe Order do
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
+
 
   it { should have_one(:used_coupon) }
 
@@ -150,10 +156,17 @@ describe Order do
 
     describe "#discount_from_coupon" do
       context "with a used_coupon" do
-        it "should return the value" do
+        it "should return the value in Reais" do
           coupon = FactoryGirl.create(:standard_coupon)
           subject.create_used_coupon(:coupon => coupon)
           subject.discount_from_coupon.should == coupon.value
+        end
+
+        it "should return the value in Percentage" do
+          coupon = FactoryGirl.create(:percentage_coupon)
+          subject.create_used_coupon(:coupon => coupon)
+          percent_value = (coupon.value * subject.line_items_total) / 100
+          subject.discount_from_coupon.should == percent_value
         end
       end
 
@@ -212,10 +225,10 @@ describe Order do
       subject.line_items_total.should == 0
     end
     it "#total should be zero" do
-      subject.total.should == 0
+      subject.total.should == Payment::MINIMUM_VALUE
     end
     it "#total_with_freight should be the value of the freight" do
-      subject.total_with_freight.should == subject.freight.price
+      subject.total_with_freight.should == subject.freight.price + Payment::MINIMUM_VALUE
     end
   end
 
@@ -352,6 +365,24 @@ describe Order do
       it "should return the number of installments of the payment" do
         subject.payment.stub(:payments).and_return(3)
         subject.installments.should == 3
+      end
+    end
+  end
+
+  describe "ERP(abacos) integration" do
+    context "when the order is waiting payment" do
+      it "should enqueue a job to insert a order" do
+        Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
+        subject.waiting_payment
+      end
+    end
+
+    context "when the order is authorized" do
+      it "should enqueue a job to confirm a payment" do
+        Resque.stub(:enqueue)
+        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        subject.waiting_payment
+        subject.authorized
       end
     end
   end

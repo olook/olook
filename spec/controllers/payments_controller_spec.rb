@@ -13,6 +13,8 @@ describe PaymentsController do
   let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento}}
 
   before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
     Airbrake.stub(:notify)
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -40,7 +42,7 @@ describe PaymentsController do
       end
 
       it "should redirect to cart path if the order total_with_freight is less then 5.00" do
-        Order.any_instance.stub(:total_with_freight).and_return(4.99)
+        Order.any_instance.stub(:line_items).and_return([])
         get 'index'
         response.should redirect_to(cart_path)
       end
@@ -114,6 +116,12 @@ describe PaymentsController do
         completed = "4"
         post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
         Order.find(order.id).authorized?.should eq(true)
+      end
+
+      it "should create a MoipCallback" do
+        expect {
+        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
+        }.to change(MoipCallback, :count).by(1)
       end
     end
 

@@ -50,5 +50,7 @@ module Olook
     config.assets.version = '1.0'
 
     config.action_mailer.default_url_options = { :host => 'www.olook.com.br' }
+
+    config.middleware.use "Graylog2Exceptions", { :hostname => '107.21.158.126', :port => '12201', :level => 0 }
   end
 end

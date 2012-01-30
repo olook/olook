@@ -11,6 +11,7 @@ class BilletsController < ApplicationController
   before_filter :build_cart, :only => [:new, :create]
   before_filter :load_promotion
   before_filter :assign_receipt, :only => [:create]
+  before_filter :check_cpf
 
   def new
     @payment = Billet.new
@@ -26,7 +27,6 @@ class BilletsController < ApplicationController
         clean_session_order!
         redirect_to(order_billet_path(:number => @order.number), :notice => "Boleto gerado com sucesso")
       else
-        rollback_order
         respond_with(new_payment_with_error)
       end
     else
@@ -38,7 +38,7 @@ class BilletsController < ApplicationController
 
   def new_payment_with_error
     @payment = Billet.new(params[:billet])
-    @payment.errors.add(:id, "Não foi possível realizar o pagamento.")
+    @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
     @payment
   end
 

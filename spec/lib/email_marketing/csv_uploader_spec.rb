@@ -115,7 +115,7 @@ describe EmailMarketing::CsvUploader do
 
       context "and user has bonus credits" do
         let!(:user) { FactoryGirl.create(:member) }
-        let!(:order) { FactoryGirl.create(:order, :user => user, :credits => 10.00) }
+        let!(:order) { FactoryGirl.create(:clean_order, :user => user, :credits => 10.00) }
         before do
           10.times do
             accepting_member = FactoryGirl.create(:member, :first_name => 'Accepting member')
@@ -125,7 +125,7 @@ describe EmailMarketing::CsvUploader do
         end
 
         it "lists user data and used bonus and total bonus" do
-          user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},0,#{order.state},#{order.updated_at},,,,"
+          user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},#{order.total},#{order.state},#{order.updated_at},,,,"
           EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
         end
       end

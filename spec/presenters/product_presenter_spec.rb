@@ -37,7 +37,7 @@ describe ProductPresenter do
       it "should render a list of product images with links to their pages" do
         products = [:product_a, :product_b]
         subject.member.should_receive(:main_profile_showroom).and_return(products)
-        template.should_receive(:render).with(:partial => 'product/showroom_product', :collection => products, :as => :product)
+        template.should_receive(:render).with(:partial => 'shared/showroom_product_item', :collection => products, :as => :product)
         subject.render_main_profile_showroom
       end
     end

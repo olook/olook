@@ -12,6 +12,10 @@ class Billet < Payment
     after_transition :started => :canceled, :do => :cancel_order
     after_transition :billet_printed => :canceled, :do => :cancel_order
 
+    event :started do
+      transition :started => :started
+    end
+
     event :billet_printed do
       transition :started => :billet_printed
     end
@@ -45,7 +49,17 @@ class Billet < Payment
     "Boleto Bancário"
   end
 
+  def expired_and_waiting_payment?
+    (self.expired? && self.order.waiting_payment?) ? true : false
+  end
+
+  def expired?
+    Time.now > self.payment_expiration_date + 2.days if self.payment_expiration_date
+  end
+
+  private
+
   def build_payment_expiration_date
-    EXPIRATION_IN_DAYS.days.from_now
+    BilletExpirationDate.expiration_for_two_business_day
   end
 end

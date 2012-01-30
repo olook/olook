@@ -8,6 +8,7 @@ describe DebitsController do
   let(:order) { FactoryGirl.create(:order, :user => user).id }
 
   before :each do
+    user.update_attributes(:cpf => "19762003691")
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
@@ -23,6 +24,17 @@ describe DebitsController do
         get 'new'
         assigns(:payment).should be_a_new(Debit)
       end
+
+      it "should redirect payments_path if the user dont have a cpf or is invalid" do
+        user.update_attributes(:cpf => "12345678912")
+        get :new
+        response.should redirect_to(payments_path)
+      end
+
+      it "should not redirect payments_path if the user have a cpf" do
+        get :new
+        response.should_not redirect_to(payments_path)
+      end
     end
 
     context "with a invalid order" do
@@ -32,8 +44,8 @@ describe DebitsController do
         response.should redirect_to(cart_path)
       end
 
-      it "should redirect to cart path if the order total is less then 5.00" do
-        Order.any_instance.stub(:total_with_freight).and_return(4.99)
+      it "should redirect to cart path if the order dont have line items" do
+        Order.any_instance.stub(:line_items).and_return([])
         get 'new'
         response.should redirect_to(cart_path)
       end
@@ -107,36 +119,11 @@ describe DebitsController do
     end
 
     describe "with invalid params" do
-      context "when a payment fail" do
-        before :each do
-          processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit))
-          payment_builder = mock
-          payment_builder.stub(:process!).and_return(processed_payment)
-          PaymentBuilder.stub(:new).and_return(payment_builder)
-        end
-
-        it "should render new template" do
-          post :create, :debit => attributes
-          response.should render_template('new')
-        end
-
-        it "should generate a identification code" do
-          Order.any_instance.should_receive(:generate_identification_code)
-          post :create, :debit => attributes
-        end
-
-        it "should destroy the payment" do
-          expect {
-            post :create, :debit => attributes
-          }.to change(Payment, :count).by(-1)
-        end
-      end
-
-      it "should not create a payment" do
-        Debit.any_instance.stub(:valid?).and_return(false)
-        expect {
-          post :create
-        }.to change(Debit, :count).by(0)
+      before :each do
+        processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit))
+        payment_builder = mock
+        payment_builder.stub(:process!).and_return(processed_payment)
+        PaymentBuilder.stub(:new).and_return(payment_builder)
       end
 
       it "should render new" do
