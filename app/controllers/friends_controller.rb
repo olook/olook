@@ -18,6 +18,12 @@ class FriendsController < ApplicationController
     @question = survey_questions.common_questions.shuffle.first
   end
 
+  def update_survey_question
+    questions = Question.includes(:answers)
+    survey_questions = SurveyQuestions.new(questions)
+    @question = survey_questions.common_questions.shuffle.first
+  end
+
   def update_friends_list
     @friends = facebook_adapter.olook_facebook_friends
   end
