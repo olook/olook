@@ -33,6 +33,22 @@
     <div class="email">
       <h1>Por email</h1>
       <p>Digite o nome das amigas que quer convidar para a olook no campo abaixo, separado por vírgula</p>
+      <%= form_tag (member_invite_by_email_path) do %>
+        <fieldset>
+          <ol>
+            <li>
+              <%= text_area_tag :invite_mail_list %>
+            </li>
+          </ol>
+        </fieldset>
+        <fieldset class="buttons">
+          <ol>
+            <li>
+              <%= submit_tag "Convidar", :id => "invite_email" %>
+            </li>
+          </ol>
+        </fieldset>
+      <% end %>
     </div>
     <%= link_to "Veja outras formas de convidar suas amigas", member_invite_path, :class => "invite" %>
   </div>
