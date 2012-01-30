@@ -8,7 +8,7 @@ describe Admin::UsersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin
+    @admin = Factory :admin_superadministrator
     sign_in @admin
   end
 

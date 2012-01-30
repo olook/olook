@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(admin)
-    if admin.has_roles? :superadministrator
+    if admin.has_role? :superadministrator
       can :manage, :all
     else
       admin.roles.each do |role|
