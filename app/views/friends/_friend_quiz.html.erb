@@ -22,7 +22,7 @@
             <div class="pic_mask">
               <%= image_tag "/assets/fake/photo-facebook.png" %>
             </div>
-            <%= link_to "Próxima amiga >", "javascript:void(0);", :class => "next_friend" %>
+            <%= link_to "Próxima amiga >", update_survey_question_path, :remote => true, :class => "next_friend" %>
           </li>
           <li>
             <%= submit_tag "" %>
