@@ -77,8 +77,10 @@ describe Product do
     end
 
     it "#unrelated_products" do
-      FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject)
-      subject.unrelated_products.should == [unrelated_product]
+      related_product = FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject)
+      subject.unrelated_products.should include unrelated_product
+      subject.unrelated_products.should_not include related_product
+
     end
 
     describe "#is_related_to?" do
