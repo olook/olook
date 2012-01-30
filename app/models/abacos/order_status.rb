@@ -81,15 +81,11 @@ module Abacos
     end
 
     def change_order_state(order)
-      if new_state == :canceled
-        order.canceled
-      else
-        next_index = VALID_STATES.index(order.state) + 1
-        new_index  = VALID_STATES.index(new_state.to_s)
+      next_index = VALID_STATES.index(order.state) + 1
+      new_index  = VALID_STATES.index(new_state.to_s)
 
-        VALID_STATES[next_index..new_index].each do |s|
-          order.send s.to_sym
-        end
+      VALID_STATES[next_index..new_index].each do |s|
+        order.send s.to_sym
       end
     end
   end

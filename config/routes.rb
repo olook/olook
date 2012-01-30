@@ -12,12 +12,15 @@ Olook::Application.routes.draw do
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
   match "/o-que-estao-falando", :to => "pages#what_are_talking", :as => "what_are_talking"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
+  match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
   match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
   match "/lookbooks/vintage", :to => "lookbooks#vintage", :as => "vintage"
   match "/lookbooks/fashion", :to => "lookbooks#fashion", :as => "fashion"
   match "/lookbooks/scarpin-glamour", :to => "lookbooks#scarpin_glamour", :as => "scarpin_glamour"
+  match "/lookbooks/militar", :to => "lookbooks#militar", :as => "militar"
+  match "/lookbooks/verao", :to => "lookbooks#verao", :as => "verao"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
@@ -95,6 +98,7 @@ Olook::Application.routes.draw do
       collection do
         get 'statistics' => 'users#statistics', :as => 'statistics'
         get 'export' => 'users#export', :as => 'export'
+        get 'login/:id' => 'users#admin_login'
       end
     end
 

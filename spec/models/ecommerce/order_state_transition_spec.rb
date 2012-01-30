@@ -3,6 +3,11 @@ require 'spec_helper'
 describe OrderStateTransition do
   let(:order) { FactoryGirl.create(:order) }
 
+  before do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   it "should audit the transition" do
     order.waiting_payment
     order.authorized

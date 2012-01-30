@@ -30,10 +30,12 @@ $(document).ready(function() {
     }
   });
 
-  if($('#error-messages').html().length >= '73'){
-    $('.alert').parent().slideDown('1000', function() {
-      $('.alert').parent().delay(5000).slideUp();
-    })
+  if( error = $('#error-messages').html() ){
+    if( error.length >= '73' ){
+      $('.alert').parent().slideDown('1000', function() {
+        $('.alert').parent().delay(5000).slideUp();
+      })
+    }
   }
 
 

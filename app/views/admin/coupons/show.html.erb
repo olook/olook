@@ -1,0 +1,47 @@
+<h2>Coupon
+  <span class="hidden_destroy">
+    <%= link_to 'del', admin_coupon_path(@coupon), confirm: 'Are you sure do you want to delete this user?', method: :delete %>
+  </span>
+</h2>
+<div class="inner">
+  <p>
+    <b>Code:</b>
+    <%= @coupon.code %>
+  </p>
+  <p>
+    <b>Percentage:</b>
+    <%= @coupon.is_percentage  ? 'Yes' : 'No' %>
+  </p>
+  <p>
+    <b>Unlimited:</b>
+    <%= @coupon.unlimited  ? 'Yes' : 'No' %>
+  </p>
+  <p>
+    <b>Active:</b>
+    <%= @coupon.active  ? 'Yes' : 'No' %>
+  </p>
+  <p>
+    <b>Value:</b>
+    <%= @coupon.value %>
+  </p>
+  <p>
+    <b>Start date:</b>
+    <%= @coupon.start_date %>
+  </p>
+  <p>
+    <b>End date:</b>
+    <%= @coupon.end_date %>
+  </p>
+  <p>
+    <b>Number of cupons:</b>
+    <%= @coupon.remaining_amount %>
+  </p>
+  <p>
+    <b>Used cupons:</b>
+    <%= @coupon.used_amount %>
+  </p>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_coupon_path(@coupon) %></li>
+  <li><%= link_to 'Back', admin_coupons_path %></li>
+<% end %>
