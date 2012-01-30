@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::UsersController < Admin::BaseController
   respond_to :html, :text
+  before_filter :authenticate_admin!
 
   def index
     @search = User.search(params[:search])
@@ -42,5 +43,11 @@ class Admin::UsersController < Admin::BaseController
 
   def export
     Resque.enqueue(Admin::ExportUsersWorker, current_admin.email)
+  end
+
+  def admin_login
+    if sign_in User.find(params[:id]), :bypass => true
+      redirect_to(member_showroom_path) 
+    end
   end
 end

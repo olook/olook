@@ -10,6 +10,7 @@ class Order < ActiveRecord::Base
     "canceled" => "Cancelado",
     "reversed" => "Estornado",
     "refunded" => "Reembolsado",
+    "delivering" => "Despachado",
     "delivered" => "Entregue",
     "not_delivered" => "Não entregue",
     "picking" => "Separando",
@@ -36,6 +37,9 @@ class Order < ActiveRecord::Base
   state_machine :initial => :in_the_cart do
 
     store_audit_trail
+
+    after_transition :in_the_cart => :waiting_payment, :do => :insert_order
+    after_transition :waiting_payment => :authorized, :do => :confirm_payment
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -78,10 +82,21 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def confirm_payment
+    order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
+    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+  end
+
+  def insert_order
+    order_events.create(:message => "Enqueue Abacos::InsertOrder")
+    Resque.enqueue(Abacos::InsertOrder, self.number)
+  end
+
   def invalidate_coupon
     coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
     if coupon
       coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+      coupon.increment!(:used_amount, 1)
     end
   end
 

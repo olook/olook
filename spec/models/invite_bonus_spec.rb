@@ -2,6 +2,11 @@
 require 'spec_helper'
 
 describe InviteBonus do
+  before do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   describe "when calculating the invite bonus" do
     let(:member) { FactoryGirl.create(:member) }
 

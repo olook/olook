@@ -20,6 +20,11 @@ describe Abacos::Product do
   end
 
   describe '#integrate' do
+
+     before :all do
+      Profile.destroy_all
+    end
+
     let!(:sexy_profile) { FactoryGirl.create(:profile, :name => "Sexy", :first_visit_banner => 'sexy') }
     let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
 

@@ -9,16 +9,14 @@ describe Detail do
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:display_on) }
   end
-  
+
   it "should destroy the associated details when the product is destroyed" do
     detail = FactoryGirl.create(:heel_detail)
-    Product.count.should == 1
-    described_class.count.should == 1
-    detail.product.destroy
-    Product.count.should be_zero
-    described_class.count.should be_zero
+    expect {
+      detail.product.destroy
+    }.to change(described_class, :count).by(-1)
   end
-  
+
   describe "scopes" do
     let!(:invisible_detail) { FactoryGirl.create(:invisible_detail) }
     let!(:specification_detail) { FactoryGirl.create(:heel_detail) }
