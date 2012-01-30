@@ -2,6 +2,11 @@
   <%= stylesheet_link_tag "section/welcome" %>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "welcome" %>
+<% end %>
+
 <section id="welcome">
   <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> e ela ficará pronta nas próximas 24 horas</h1>
+  <%= render 'painel' %>
 </section>
