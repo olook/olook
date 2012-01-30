@@ -49,7 +49,8 @@ class MembersController < ApplicationController
     end
   end
 
-  def welcome    
+  def welcome
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
 
   def showroom
