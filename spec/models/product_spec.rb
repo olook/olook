@@ -20,21 +20,49 @@ describe Product do
     let!(:accessory) { FactoryGirl.create(:basic_accessory) }
     let!(:invisible_shoe) { FactoryGirl.create(:basic_shoe, :is_visible => false) }
 
-    before :each do
-      described_class.count.should == 4
+    context "shoes" do
+      it "includes all shoes" do
+        shoes = [shoe, invisible_shoe]
+        (described_class.shoes & shoes).should == shoes
+      end
+
+      it "does not include other kinds of items" do
+        other = [bag, accessory]
+        (described_class.shoes & other).should be_empty
+      end
     end
 
-    it "the shoes scope should return only shoes" do
-      described_class.shoes.should == [shoe, invisible_shoe]
+    context "bags" do
+      it "includes a bag" do
+        described_class.bags.should include bag
+      end
+
+      it "does not include other kinds of items" do
+        other = [shoe, invisible_shoe, accessory]
+        (described_class.bags & other).should be_empty
+      end
     end
-    it "the bags scope should return only bags" do
-      described_class.bags.should == [bag]
+
+    context "acessories" do
+      it "includes an accessory" do
+        described_class.accessories.should include accessory
+      end
+
+      it "does not include other kinds of items" do
+        other = [shoe, invisible_shoe, bag]
+        (described_class.accessories & other).should be_empty
+      end
     end
-    it "the accessories scope should return only accessories" do
-      described_class.accessories.should == [accessory]
-    end
-    it 'the visible scope should not return invisible products' do
-      described_class.only_visible.should == [shoe, bag, accessory]
+
+    context "visible" do
+      it "returns visible products" do
+        visible_products = [shoe, bag, accessory]
+        (described_class.only_visible & visible_products).should == visible_products
+      end
+
+      it "does not return a invisible product" do
+        described_class.accessories.should_not include invisible_shoe
+      end
     end
   end
 
