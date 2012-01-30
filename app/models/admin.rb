@@ -6,7 +6,7 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable, :lockable
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  def has_roles?(role_name)
+  def has_role?(role_name)
     self.roles_name.include?(role_name) ? true : false
   end
 
