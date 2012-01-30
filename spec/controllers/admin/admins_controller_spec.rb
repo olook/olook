@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::CollectionsController do
+describe Admin::AdminsController do
+  
   render_views
 
-  let!(:collection) { FactoryGirl.create(:inactive_collection) }
-  let!(:valid_attributes) { collection.attributes }
+  let!(:admin) { FactoryGirl.create(:admin) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -14,16 +14,16 @@ describe Admin::CollectionsController do
   end
 
   describe "GET index" do
-    it "assigns all collections as @collections" do
+    it "assigns all admins as @admins" do
       get :index
-      assigns(:collections).should eq([collection])
+      assigns(:admins).should eq([admin])
     end
   end
 
   describe "GET show" do
-    it "assigns the requested collection as @collection" do
-      get :show, :id => collection.id.to_s
-      assigns(:collection).should eq(collection)
+    it "assigns the requested admin as @admin" do
+      get :show, :id => admin.id.to_s
+      assigns(:admin).should eq(admin)
     end
   end
 
@@ -64,9 +64,9 @@ describe Admin::CollectionsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved collection as @collection" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Collection.any_instance.stub(:save).and_return(false)
-        post :create, :collection => {}
-        assigns(:collection).should be_a_new(Collection)
+        Admin.any_instance.stub(:save).and_return(false)
+        post :create, :admin => {}
+        assigns(:admin).should be_a_new(Admin)
       end
 
       it "re-renders the 'new' template" do
@@ -93,7 +93,7 @@ describe Admin::CollectionsController do
         put :update, :id => collection.id, :collection => valid_attributes
         assigns(:collection).should eq(collection)
       end
-
+      
       it "redirects to the collection" do
         put :update, :id => collection.id, :collection => valid_attributes
         response.should redirect_to(admin_collection_path(collection))
