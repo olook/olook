@@ -101,14 +101,6 @@ $(document).ready(function() {
   });
 
   $("#add_item").submit(function(event) {
-    event.preventDefault();
-
-    var $form = $(this),
-        variant = $form.find('input[name="variant"]').val(),
-        url = $form.attr('action');
-
-    $.post(url, {"variant": variant});
-
     initBase.openDialog();
     $('body .dialog').show();
     $('body .dialog').css("left", (viewWidth - '930') / 2);

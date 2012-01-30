@@ -1,4 +1,4 @@
-<%= form_tag(create_offline_session_path, :onsubmit => track_event("Shopping", "AddToCart", product.id), :id => 'add_item') do %>
+<%= form_tag(create_offline_session_path, :onsubmit => track_event("Shopping", "AddToCart", product.id), :id => 'add_item', :remote => :true) do %>
   <%= product_presenter.render_form_by_category %>
   <% if product.sold_out? %>
     <%= submit_tag "", :class=>"add_product #{product.sold_out? ? 'disabled' : ''}", :id => "add_product", :disabled => "disabled" %>
@@ -6,3 +6,4 @@
     <%= submit_tag "", :class=>"add_product", :id => "add_product" %>
   <% end %>
 <% end %>
+
