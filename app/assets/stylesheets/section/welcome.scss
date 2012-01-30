@@ -20,6 +20,7 @@ section#welcome {
     position: relative;
     background: url("/assets/welcome/bg-painel-top.png") center top no-repeat;
     width: 970px;
+    margin: 0 0 30px 0;
     padding: 20px 10px 20px;
     overflow: auto;
     a.bt_painel {
@@ -67,6 +68,43 @@ section#welcome {
       display: block;
       left: 0;
       bottom: 0;
+    }
+  }
+  section#share {
+    position: relative;
+    background: url("/assets/welcome/bg-share.png") top no-repeat;
+    width: 960px;
+    height: 640px;
+    display: block;
+    h1.title, h2{
+      color: #333;
+      position: absolute;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 52px;
+      font-weight: normal;
+      font-style: italic;
+      letter-spacing: -3px;
+    }
+    h1.title {
+      width: 540px;
+      line-height: 40px;
+      top: 25px;
+      left: 20px;
+      span {
+        margin: 0 0 0 120px;
+        display: block;
+      }
+    }
+    h2 {
+      font-size: 110px;
+      letter-spacing: -5px;
+      top: 8px;
+      left: 525px;
+      em {
+        font-size: 30px;
+        margin: 20px 0 0 5px;
+        float: right;
+      }
     }
   }
 }
