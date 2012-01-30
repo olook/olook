@@ -1,13 +1,29 @@
 <h2>Dashboard</h2>
 
 <div class="inner">
-  <p><%= access_link("Users") %> </p>
-  <p> <%= access_link("Collections") %> </p>
-  <p> <%= access_link("Products") %> </p>
-  <p> <%= access_link("Shipping Services") %> </p>
-  <p> <%= access_link("Orders") %> </p>
-  <p> <%= access_link("Coupons") %> </p>
-  <p><%= access_link("Landing Pages") %> </p>
-  <p><%= access_link("Products") %></p>
-  <p><%= access_link("Roles") %></p>
+	<fieldset>
+		<legend>Customers</legend>
+		<p><%= access_link("Users") %></p>
+	</fieldset>
+	<fieldset>
+		<legend>Sales</legend>
+		<p><%= access_link("Orders") %></p>
+		<p><%= access_link("Shipping Services") %></p>
+	</fieldset>
+	<fieldset>
+		<legend>Products</legend>
+  		<p><%= access_link("Collections") %></p>
+  		<p><%= access_link("Products") %></p>
+	</fieldset>
+	<fieldset>
+		<legend>Promo</legend>
+  	  <p><%= access_link("Coupons") %></p>
+  		<p><%= access_link("Landing Pages") %></p>
+	</fieldset>
+	<fieldset>
+		<legend>Site Management</legend>
+		<p><%= access_link("Admins") %></p>
+		<p><%= access_link("Roles") %></p>
+		<p></p>
+	</fieldset>
 </div>
