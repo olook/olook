@@ -7,19 +7,16 @@ describe Picture do
     it { should belong_to(:product) }
   end
 
-  before(:each) do
-    @picture = FactoryGirl.create(:main_picture)
-  end
-  
+  let!(:picture) { FactoryGirl.create(:main_picture) }
+
   it "should destroy the associated picture when the product is destroyed" do
-    Product.count.should == 1
-    Picture.count.should == 1
-    @picture.product.destroy
-    Product.count.should be_zero
-    Picture.count.should be_zero
+    expect {
+      picture.product.destroy
+    }.to change(Picture, :count).by(-1)
   end
 
   it "should invalidate the image on Amazon Cloudfront" do
+    pending "Please test me!"
     mock("CloudfrontInvalidator")
   end
 end
