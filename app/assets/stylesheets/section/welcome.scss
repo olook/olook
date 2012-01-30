@@ -106,5 +106,33 @@ section#welcome {
         float: right;
       }
     }
+    div.share_content {
+      position: absolute;
+      width: 675px;
+      height: 400px;
+      display: block;
+      top: 155px;
+      left: 50px;
+      h1 {
+        color: #464646;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 40px;
+        font-weight: normal;
+        letter-spacing: -3px;
+        text-transform: uppercase;
+        margin: 0 0 5px;
+      }
+      p {
+        color: #000;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        margin: 0 0 15px;
+      }
+      a.invite {
+        color: #e05789;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+    }
   }
 }
