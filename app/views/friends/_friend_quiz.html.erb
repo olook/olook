@@ -5,10 +5,11 @@
       <h2>Qual dessas peças não pode faltar no dia a dia de <span>Jéssika</span>?</h2>
       <fieldset class="inputs">
         <ul>
-          <% 3.times do |index| %>
+          <% answer_number = 0 %>
+          <% @question.answers.each do |answer| %>
           <li>
-            <%= radio_button_tag 'question', index %>
-            <%= image_tag "/assets/fake/dress.jpg" %>
+            <%= radio_button_tag 'question', answer.id %>
+            <%= image_tag "/assets/quiz/#{answer.question.id}_#{answer_number += 1}.jpg"  %>
           </li>
           <% end %>
         </ul>
