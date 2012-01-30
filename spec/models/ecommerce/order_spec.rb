@@ -27,6 +27,15 @@ describe Order do
       coupon.reload.remaining_amount.should == remaining_amount - 1
     end
 
+    it "should increment a standart coupon" do
+      remaining_amount = 10
+      order = FactoryGirl.create(:order)
+      coupon = FactoryGirl.create(:standard_coupon, :remaining_amount => remaining_amount)
+      order.create_used_coupon(:coupon => coupon)
+      order.invalidate_coupon
+      coupon.reload.used_amount.should == 1
+    end
+
     it "should not decrement a unlimited coupon" do
       order = FactoryGirl.create(:order)
       coupon = FactoryGirl.create(:unlimited_coupon)
@@ -34,6 +43,15 @@ describe Order do
       remaining_amount = coupon.remaining_amount
       order.invalidate_coupon
       coupon.reload.remaining_amount.should == remaining_amount
+    end
+    
+    it "should increment a unlimited coupon" do
+      order = FactoryGirl.create(:order)
+      coupon = FactoryGirl.create(:unlimited_coupon)
+      order.create_used_coupon(:coupon => coupon)
+      remaining_amount = coupon.remaining_amount
+      order.invalidate_coupon
+      coupon.reload.used_amount.should == 1
     end
   end
 

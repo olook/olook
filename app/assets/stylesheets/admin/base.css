@@ -29,6 +29,21 @@ body {
   font-family: sans-serif;
 }
 
+.field {
+  margin:15px;
+  display: block;
+}
+
+.info {
+  font-size:10px;
+  color:#999;
+  font-family: Arial, Verdana, Tahoma;
+}
+
+.left_aligned {
+  float:left;
+}
+
 #container {
   min-width: 960px;
 }
