@@ -23,28 +23,18 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
 
+  def load_order
+    @order = current_user.orders.find_by_id(session[:order]) if current_user
+  end
+
   def check_early_access
     if current_user
       redirect_to member_invite_path unless current_user.has_early_access?
     end
   end
 
-  def load_order
-    @order = current_user.orders.find_by_id(session[:order]) if current_user
-  end
-
-  def load_offline_variant
-    @offline_variant = Variant.find_by_id(session[:offline_variant][:id]) if session[:offline_variant]
-  end
-
   def assign_default_country
     params[:address][:country] = 'BRA'
-  end
-
-  def check_session_and_add_to_cart
-    unless @offline_variant.nil?
-      @order.add_variant(@offline_variant)
-    end
   end
 end
 
