@@ -6,6 +6,7 @@ class MembersController < ApplicationController
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
+  before_filter :redirect_user_if_new, :only => [:showroom]
 
   def invite
     @is_the_first_visit = first_visit_for_member?(@user)
@@ -94,7 +95,12 @@ class MembersController < ApplicationController
   end
 
   def incoming_params
-    params.clone.delete_if {|key| ['controller', 'action','invite_token'].include?(key) }
+    params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
   end
 
+  def redirect_user_if_new
+    user_creation_date = current_user.created_at + 24.hours
+    redirect_to member_welcome_path if user_creation_date > DateTime.now
+  end
 end
+
