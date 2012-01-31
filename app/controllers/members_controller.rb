@@ -51,6 +51,7 @@ class MembersController < ApplicationController
 
   def welcome
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    @products = Product.find(1156, 1183, 1192, 1210, 687)
   end
 
   def showroom
