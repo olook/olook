@@ -2,7 +2,7 @@
   <%= form_tag "#" do %>
     <div class="question">
       <h1>Style Quiz</h1>
-      <h2>Qual dessas peças não pode faltar no dia a dia de <span>Jéssika</span>?</h2>
+      <h2>Qual dessas peças não pode faltar no dia a dia de <span><%= @friend.name if @friend %></span>?</h2>
       <fieldset class="inputs">
         <ul>
           <% answer_number = 0 %>
@@ -20,7 +20,7 @@
         <ul>
           <li>
             <div class="pic_mask">
-              <%= image_tag "/assets/fake/photo-facebook.png" %>
+              <%= image_tag user_avatar(@friend) if @friend %>
             </div>
             <%= link_to "Próxima amiga >", update_survey_question_path(:format => :js), :remote => true, :class => "next_friend" %>
           </li>
