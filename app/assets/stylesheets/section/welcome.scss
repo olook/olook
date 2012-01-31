@@ -1,5 +1,11 @@
 @import "partials/product";
 
+body {
+  background: url("/assets/welcome/bg.jpg") 0 215px repeat-x;
+  &.bg_changed {
+    background-position: 0 760px;
+  }
+}
 section#welcome {
   margin: 35px auto 0;
   h1.warn {
