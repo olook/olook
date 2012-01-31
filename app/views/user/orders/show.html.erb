@@ -72,6 +72,10 @@
             <h1>Forma de pagamento</h1>
             <p><%= @current_order.payment.human_to_s %> <%= link_to '(imprimir)', @current_order.payment.url, :target => "_blank" if @current_order.payment.is_a? Billet %></p>
           </div>
+          <div>
+            <h1>Tracking de Pedido</h1>
+            <p><%= link_to "Clique aqui", link_to_tracking_code(@current_order) %></p>
+          </div>
         </div>
       </div>
     </div>
