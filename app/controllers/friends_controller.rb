@@ -19,13 +19,17 @@ class FriendsController < ApplicationController
   end
 
   def update_survey_question
+    facebook_adapter = FacebookAdapter.new @user.facebook_token
+    @not_registred_friends = facebook_adapter.facebook_friends_not_registered_at_olook
     questions = Question.includes(:answers)
     survey_questions = SurveyQuestions.new(questions)
     @question = survey_questions.common_questions.shuffle.first
   end
 
   def update_friends_list
-    @friends = facebook_adapter.olook_facebook_friends
+    facebook_adapter = FacebookAdapter.new @user.facebook_token
+    #@friends = facebook_adapter.facebook_friends_registered_at_olook
+    @friends = []
   end
 
   def post_wall

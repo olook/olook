@@ -8,6 +8,6 @@
     <ul>
       <%= render "friends_list", :friends => friends %>
     </ul>
-    <%= link_to "Não vê suas amigas? Atualize sua lista.", update_friends_list_path, :remote => true, :class => "update" %>
+    <%= link_to "Não vê suas amigas? Atualize sua lista.", update_friends_list_path(:format => :js), :remote => true, :class => "update" %>
   </div>
 </section>
