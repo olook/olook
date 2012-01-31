@@ -7,6 +7,11 @@ FactoryGirl.define do
     factory :sac_operator do
       name "sac_operator"
       description "SAC operators"
+      after_create do |sac_operator|
+        sac_operator.permissions = [FactoryGirl.create(:collection_index), 
+          FactoryGirl.create(:collection_show), FactoryGirl.create(:collection_edit)
+        ]
+      end
     end
   end  
 end

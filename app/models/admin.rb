@@ -6,6 +6,7 @@ class Admin < ActiveRecord::Base
 
   belongs_to :role
 
+
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable, :lockable
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role_attributes
 

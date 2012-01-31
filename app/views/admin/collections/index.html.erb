@@ -21,8 +21,6 @@
       <td><%= collection.is_active %></td>
       <td><%= collection.products.count %></td>
       <td><%= link_to 'Show', admin_collection_path(collection) %></td>
-       <td> <%= edit_link (collection) %></td>
-      <td> <%= destroy_link (collection) %></td>
       <td> <%= link_to 'Edit', edit_admin_collection_path(collection) %> </td>
       <td> <%= link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete %> </td>
     </tr>
