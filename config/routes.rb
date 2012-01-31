@@ -60,6 +60,8 @@ Olook::Application.routes.draw do
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
 
+  get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
+
   get "/produto/:id" => "product#show", :as => "product"
   post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
   get "membro/convite" => "members#invite", :as => 'member_invite'

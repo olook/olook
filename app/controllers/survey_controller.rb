@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SurveyController < ApplicationController
+  respond_to :json, :only => :check_date
 
   before_filter :check_user_login
   before_filter :check_questions_params, :only => [:create]
@@ -17,6 +18,15 @@ class SurveyController < ApplicationController
     profile_points = ProfileBuilder.build_profiles_points(profiles)
     session[:profile_points] = profile_points
     redirect_to new_user_registration_path
+  end
+
+  def check_date
+    unless Date.valid_date?(params[:year].to_i,params[:month].to_i,params[:day].to_i)
+      error_message = "A data informada é inválida"
+    end
+    respond_to do |format|
+      format.json { render :json => { :message => error_message } }
+    end
   end
 
   private
