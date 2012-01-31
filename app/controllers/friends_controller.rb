@@ -12,6 +12,7 @@ class FriendsController < ApplicationController
   def home
     facebook_adapter = FacebookAdapter.new @user.facebook_token
     @not_registred_friends = facebook_adapter.facebook_friends_not_registered_at_olook
+    @friend  = @not_registred_friends.shuffle.first
     @friends = facebook_adapter.facebook_friends_registered_at_olook
     questions = Question.includes(:answers)
     survey_questions = SurveyQuestions.new(questions)
@@ -21,6 +22,7 @@ class FriendsController < ApplicationController
   def update_survey_question
     facebook_adapter = FacebookAdapter.new @user.facebook_token
     @not_registred_friends = facebook_adapter.facebook_friends_not_registered_at_olook
+    @friend = @not_registred_friends.shuffle.first
     questions = Question.includes(:answers)
     survey_questions = SurveyQuestions.new(questions)
     @question = survey_questions.common_questions.shuffle.first
@@ -28,8 +30,7 @@ class FriendsController < ApplicationController
 
   def update_friends_list
     facebook_adapter = FacebookAdapter.new @user.facebook_token
-    #@friends = facebook_adapter.facebook_friends_registered_at_olook
-    @friends = []
+    @friends = facebook_adapter.facebook_friends_registered_at_olook
   end
 
   def post_wall
