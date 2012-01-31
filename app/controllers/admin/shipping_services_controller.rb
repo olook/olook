@@ -2,6 +2,8 @@
 class Admin::ShippingServicesController < Admin::BaseController
   respond_to :html
 
+  load_and_authorize_resource
+
   def index
     @shipping_services = ShippingService.all
     respond_with :admin, @shipping_services
