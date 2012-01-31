@@ -22,8 +22,24 @@ $(document).ready(function() {
       $(".about select[name='month']").val()  != 'Mês' &&
       $(".about select[name='year']").val()  != 'Ano'){
 
-      $(".about .buttons li").removeClass("grey-button");
-      $(".about .buttons li input").removeAttr("disabled");
+        var birthdate = {
+          day: $(".about select[name='day']").val(),
+          month: $(".about select[name='month']").val(),
+          year: $(".about select[name='year']").val()
+        }
+        $.get("/survey/check_date.json", birthdate, function(data) {
+          if (data.message != null){
+            $('.alert').html(data.message);
+            $('.alert').parent().slideDown('1000', function() {
+              $('.alert').parent().delay(5000).slideUp();
+            });
+            $(".about .buttons li").addClass("grey-button");
+            $(".about .buttons li input").addAttr("disabled");
+          }else{
+            $(".about .buttons li").removeClass("grey-button");
+            $(".about .buttons li input").removeAttr("disabled");
+          }
+        },"json");
     }else{
       $(".about .buttons li").addClass("grey-button");
     }
