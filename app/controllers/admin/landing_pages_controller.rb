@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Admin::LandingPagesController < ApplicationController
-  before_filter :authenticate_admin!
+  
+  load_and_authorize_resource
+  
+
+  #before_filter :authenticate_admin!
   layout "admin"
   respond_to :html, :text
 

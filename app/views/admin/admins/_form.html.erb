@@ -32,16 +32,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :password%><br />
+    <%= f.label :password%> <br />
     <%= f.password_field :password_confirmation %>
   </div>
+
 
   <%= f.fields_for :role do |r| %>
     <div class="field">
     <%= r.label :id, "Role : " %><br />
     <%= r.select :id, Role.all.collect {|r| [r.name, r.id] },  {:prompt => 'Select Role'}%>
   </div>
-    <% end %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>
