@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class FacebookAdapter
   attr_accessor :access_token, :adapter
+  extend ActiveSupport::Memoizable
 
   def initialize(access_token, adapter = Koala::Facebook::API)
     @access_token, @adapter = access_token, adapter.new(access_token)
@@ -28,4 +29,6 @@ class FacebookAdapter
     options = args.extract_options!
     @adapter.put_wall_post(message, options[:attachment] || {}, options[:target] || "me", options[:options] || {})
   end
+
+  memoize :facebook_friends
 end
