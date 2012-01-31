@@ -48,6 +48,8 @@ Olook::Application.routes.draw do
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
 
+  get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
+
   get "/produto/:id" => "product#show", :as => "product"
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
