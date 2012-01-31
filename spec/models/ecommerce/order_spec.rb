@@ -44,7 +44,7 @@ describe Order do
       order.invalidate_coupon
       coupon.reload.remaining_amount.should == remaining_amount
     end
-    
+
     it "should increment a unlimited coupon" do
       order = FactoryGirl.create(:order)
       coupon = FactoryGirl.create(:unlimited_coupon)
@@ -513,6 +513,13 @@ describe Order do
     end
     it 'should not include the order without the payment' do
       described_class.with_payment.all.should_not include(order_without_payment)
+    end
+  end
+
+  describe "delivery time" do
+    it "should return the delivery time minus the time that the order is on warehouse" do
+      subject.stub(:delivery_time).and_return(delivery_time = 4)
+      subject.delivery_time_for_a_shipped_order.should == subject.delivery_time - Order::WAREHOUSE_TIME
     end
   end
 
