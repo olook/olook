@@ -3,6 +3,7 @@ Olook::Application.routes.draw do
   get "index/index"
   root :to => "home#index"
 
+  match "/home", :to => "home#index"
   match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
   match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
