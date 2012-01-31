@@ -38,6 +38,11 @@ class FriendsController < ApplicationController
     facebook_adapter.post_wall_message(params[:message]) ? (head :ok) : (head :error)
   end
 
+  def post_survey_answer
+    facebook_adapter = FacebookAdapter.new @user.facebook_token
+    facebook_adapter.post_wall_message("", :target => params[:survey][:friend_uid]) ? (head :ok) : (head :error)
+  end
+
   private
 
   def assign_facebook_friends

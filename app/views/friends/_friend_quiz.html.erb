@@ -1,14 +1,15 @@
 <div id="quiz_container">
-  <%= form_tag "#" do %>
+  <%= form_for :survey, :url => post_survey_answer_path, :remote => true do |f| %>
     <div class="question">
       <h1>Style Quiz</h1>
-      <h2>Qual dessas peças não pode faltar no dia a dia de <span><%= @friend.name if @friend %></span>?</h2>
+      <h2>Qual dessas peças não pode faltar no dia a dia de <span><%= @friend.try(:name) %></span>?</h2>
       <fieldset class="inputs">
         <ul>
+          <li><%= f.hidden_field 'friend_uid', :value => @friend.try(:uid) %></li>
           <% answer_number = 0 %>
           <% @question.answers.each do |answer| %>
           <li>
-            <%= radio_button_tag 'question', answer.id %>
+            <%= f.radio_button 'question', answer.id %>
             <%= image_tag "/assets/quiz/#{answer.question.id}_#{answer_number += 1}.jpg"  %>
           </li>
           <% end %>
@@ -25,7 +26,7 @@
             <%= link_to "Próxima amiga >", update_survey_question_path(:format => :js), :remote => true, :class => "next_friend" %>
           </li>
           <li>
-            <%= submit_tag "" %>
+            <%= f.submit "" %>
           </li>
         </ul>
       </fieldset>
