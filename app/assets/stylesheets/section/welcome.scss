@@ -205,7 +205,7 @@ section#welcome {
   section#products {
     background: url("/assets/showroom/border-top-product.png") 170px 26px no-repeat;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     overflow: auto;
     h1.title {
       background: #FFF;
@@ -243,6 +243,29 @@ section#welcome {
             }
           }
         }
+      }
+    }
+  }
+  section#press {
+    h1 {
+      color: #515151;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0 0 5px;
+    }
+    div.press_container {
+      background: #ededed;
+      padding: 20px 0;
+      a {
+        background: url("/assets/welcome/press.jpg") no-repeat;
+        text-indent: -9999px;
+        text-decoration: none;
+        width: 883px;
+        height: 77px;
+        margin: 0 auto;
+        display: block;
       }
     }
   }
