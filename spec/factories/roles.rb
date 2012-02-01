@@ -4,6 +4,10 @@ FactoryGirl.define do
       name "superadministrator"
       description "IT manager and developers"
     end
+    factory :generic_model do
+      name "generic"
+      description "dummy role"
+    end
     factory :sac_operator do
       name "sac_operator"
       description "SAC operators"
