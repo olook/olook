@@ -1,3 +1,5 @@
+<% extend ActionView::Helpers %>
+<% extend OrderHelper %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -35,10 +37,11 @@
             <p>Seu pedido nº <span style="color:#E05789"><%= @order.number %></span> já saiu do nosso armazém e está a caminho da sua casa.
               Em mais <span style="color:#E05789"><%= @order.freight.delivery_time %></span> dias úteis a sua compra deve chegar no endereço escolhido para entrega.</p>
 
+            <p>Para acompanhar a entrega do seu pedido passo a passo, <%= link_to "clique aqui", link_to_tracking_code(@order) %>.</p>
+
             <p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="falecom@olook.com.br" style="color:#E05789">falecom@olook.com.br</a> e a nossa equipe irá te responder o mais rápido possível.</p>
 
             <p>Mais uma vez, muito obrigada por comprar na olook.</p>
-
 
             <center>
               <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t8_pedido_cancelado2 " style="color:#E05789; font-size:14px"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/t9/irparaolook.jpg" border="0" alt="Convide mais amigas, clique aqui"></a>
