@@ -30,5 +30,10 @@ class FacebookAdapter
     @adapter.put_wall_post(message, options[:attachment] || {}, options[:target] || "me", options[:options] || {})
   end
 
+  def friends_structure
+    friends_not_registred = facebook_friends_not_registered_at_olook
+    [friends_not_registred, facebook_friends_registered_at_olook, friends_not_registred.shuffle.first]
+  end
+
   memoize :facebook_friends
 end

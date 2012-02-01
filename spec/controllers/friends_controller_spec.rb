@@ -5,6 +5,19 @@ describe FriendsController do
     render_views
     let(:message) { "my message" }
 
+
+    describe "GET home" do
+      it "should assign @questions" do
+        FacebookAdapter.stub(:new).with(user.facebook_token).and_return(fb_adapter = stub)
+        fb_adapter.stub(:friends_structure).and_return([[],[], ])
+        question = FactoryGirl.create(:question)
+        SurveyQuestions.should_receive(:new).with([question]).and_return(survey_questions = mock)
+        survey_questions.should_receive(:common_questions).and_return([question])
+        get :home
+        assigns(:question).should eq(question)
+      end
+    end
+
     describe "POST post_wall" do
       context "on success" do
         before :each do
