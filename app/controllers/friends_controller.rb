@@ -3,9 +3,8 @@ class FriendsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_user
   before_filter :initialize_facebook_adapter
-  before_filter :load_not_registered_friends, :only => [:home, :update_survey_question]
-  before_filter :load_friend, :only => [:home, :update_survey_question]
-  before_filter :load_friends, :only => [:showroom, :home, :update_friends_list]
+  before_filter :load_friends, :only => [:showroom, :home, :update_friends_list, :update_survey_question]
+  before_filter :load_question, :only => [:home, :update_survey_question]
 
   def showroom
     @products = []
@@ -13,15 +12,9 @@ class FriendsController < ApplicationController
   end
 
   def home
-    questions = Question.includes(:answers)
-    survey_questions = SurveyQuestions.new(questions)
-    @question = survey_questions.common_questions.shuffle.first
   end
 
   def update_survey_question
-    questions = Question.includes(:answers)
-    survey_questions = SurveyQuestions.new(questions)
-    @question = survey_questions.common_questions.shuffle.first
   end
 
   def update_friends_list
@@ -41,16 +34,17 @@ class FriendsController < ApplicationController
 
   private
 
+  def load_question
+    questions = Question.includes(:answers)
+    survey_questions = SurveyQuestions.new(questions)
+    @question = survey_questions.common_questions.shuffle.first
+  end
+
   def load_friends
-    @friends = @facebook_adapter.facebook_friends_registered_at_olook
-  end
-
-  def load_friend
-    @friend = @not_registred_friends.shuffle.first
-  end
-
-  def load_not_registered_friends
-    @not_registred_friends = @facebook_adapter.facebook_friends_not_registered_at_olook
+    @not_registred_friends, @friends, @friend = @facebook_adapter.friends_structure
+    #@not_registred_friends = @facebook_adapter.facebook_friends_not_registered_at_olook
+    #@friends = @facebook_adapter.facebook_friends_registered_at_olook
+    #@friend = @not_registred_friends.shuffle.first
   end
 
   def initialize_facebook_adapter
