@@ -7,8 +7,8 @@ describe MemberMailer do
   describe "#welcome_email" do
     let(:mail) { MemberMailer.welcome_email(member) }
 
-    it "sets 'from' attribute to olook <bemvinda@my.olookmail.com.br>" do
-      mail.from.should include("bemvinda@my.olookmail.com.br")
+    it "sets 'from' attribute to olook <bemvinda@my.olookmail.com>" do
+      mail.from.should include("bemvinda@my.olookmail.com")
     end
 
     it "sets 'to' attribute to passed member's email" do
@@ -28,8 +28,8 @@ describe MemberMailer do
   describe "#showroom_ready_email" do
     let(:mail) { MemberMailer.showroom_ready_email(member) }
 
-    it "sets 'from' attribute to olook <avisos@my.olookmail.com.br>" do
-      mail.from.should include("avisos@my.olookmail.com.br")
+    it "sets 'from' attribute to olook <avisos@my.olookmail.com>" do
+      mail.from.should include("avisos@my.olookmail.com")
     end
 
     it "sets 'to' attribute to passed member's email" do
