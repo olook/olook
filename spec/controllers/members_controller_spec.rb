@@ -36,8 +36,10 @@ describe MembersController do
     it "should check session and add to cart" do
       session[:order] = order.id
       session[:offline_variant] = { "id" => variant.id }
+      session[:offline_first_access] = true
       get :showroom
       order.line_items.count.should  be_eql(1)
+      session[:offline_first_access].should be_nil
     end
   end
 
