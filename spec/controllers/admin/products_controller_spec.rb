@@ -3,6 +3,11 @@ require 'spec_helper'
 
 describe Admin::ProductsController do
   render_views
+
+  before :all do
+    Product.destroy_all
+  end
+
   let!(:product) { FactoryGirl.create(:basic_shoe) }
   let(:valid_attributes) do
     product.attributes.clone.tap do |attributes|

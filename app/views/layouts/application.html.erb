@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>olook</title>
-    <meta name="Description" content="A olook descobre o seu estilo. Todos os meses o nossos stylists montam uma vitrine personalizada com produtos fabulosos para você. A devolução é grátis.">
+    <% if params[:share] %>
+      <%= render 'shared/meta_tags' %>
+    <% else %>
+      <meta name="Description" content="A olook descobre o seu estilo. Todos os meses o nossos stylists montam uma vitrine personalizada com produtos fabulosos para você. A devolução é grátis.">
+    <% end %>
 
     <%= csrf_meta_tags %>
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700italic,400,700' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag  "application" %>
     <%= yield :head %>
 
@@ -35,6 +39,7 @@
   <%= yield :site_footer %>
 
   <%= javascript_include_tag "application" %>
+  <%= render "shared/metrics/vwo/tracking_code" %>
   <%= render_google_remessaging_scripts %>
   <% if content_for? :footer %>
     <%= yield :footer %>

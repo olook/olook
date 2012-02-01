@@ -1,5 +1,6 @@
 <%= form_tag(cart_path, :onsubmit => track_event("Shopping", "AddToCart", product.id)) do %>
   <%= product_presenter.render_form_by_category %>
+  <p class="remaining">Restam apenas <strong><span>0</span> unidades</strong> para o seu tamanho</p>
   <% if product.sold_out? %>
     <%= submit_tag "", :class=>"add_product #{product.sold_out? ? 'disabled' : ''}", :id => "add_product", :disabled => "disabled" %>
   <% else %>

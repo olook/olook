@@ -6,6 +6,8 @@ describe OrderStatus do
   subject { OrderStatus.new(order) }
 
   before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
     order.waiting_payment
   end
 

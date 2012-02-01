@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Order do
+  before do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   subject { FactoryGirl.create(:clean_order)}
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
@@ -8,6 +13,7 @@ describe Order do
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
+
 
   it { should have_one(:used_coupon) }
 
@@ -21,6 +27,15 @@ describe Order do
       coupon.reload.remaining_amount.should == remaining_amount - 1
     end
 
+    it "should increment a standart coupon" do
+      remaining_amount = 10
+      order = FactoryGirl.create(:order)
+      coupon = FactoryGirl.create(:standard_coupon, :remaining_amount => remaining_amount)
+      order.create_used_coupon(:coupon => coupon)
+      order.invalidate_coupon
+      coupon.reload.used_amount.should == 1
+    end
+
     it "should not decrement a unlimited coupon" do
       order = FactoryGirl.create(:order)
       coupon = FactoryGirl.create(:unlimited_coupon)
@@ -28,6 +43,15 @@ describe Order do
       remaining_amount = coupon.remaining_amount
       order.invalidate_coupon
       coupon.reload.remaining_amount.should == remaining_amount
+    end
+
+    it "should increment a unlimited coupon" do
+      order = FactoryGirl.create(:order)
+      coupon = FactoryGirl.create(:unlimited_coupon)
+      order.create_used_coupon(:coupon => coupon)
+      remaining_amount = coupon.remaining_amount
+      order.invalidate_coupon
+      coupon.reload.used_amount.should == 1
     end
   end
 
@@ -363,6 +387,24 @@ describe Order do
     end
   end
 
+  describe "ERP(abacos) integration" do
+    context "when the order is waiting payment" do
+      it "should enqueue a job to insert a order" do
+        Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
+        subject.waiting_payment
+      end
+    end
+
+    context "when the order is authorized" do
+      it "should enqueue a job to confirm a payment" do
+        Resque.stub(:enqueue)
+        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        subject.waiting_payment
+        subject.authorized
+      end
+    end
+  end
+
   describe "State machine" do
     it "should has in_the_cart as initial state" do
       subject.in_the_cart?.should be_true
@@ -471,6 +513,13 @@ describe Order do
     end
     it 'should not include the order without the payment' do
       described_class.with_payment.all.should_not include(order_without_payment)
+    end
+  end
+
+  describe "delivery time" do
+    it "should return the delivery time minus the time that the order is on warehouse" do
+      subject.stub(:delivery_time).and_return(delivery_time = 4)
+      subject.delivery_time_for_a_shipped_order.should == subject.delivery_time - Order::WAREHOUSE_TIME
     end
   end
 
