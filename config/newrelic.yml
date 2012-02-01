@@ -6,7 +6,7 @@ common: &default_settings
   log_level: info
   ssl: false
   apdex_t: 0.5
-  capture_params: false
+  capture_params: true
 
   transaction_tracer:
     enabled: true
@@ -16,14 +16,14 @@ common: &default_settings
 
   error_collector:
     enabled: true
-    capture_source: true    
+    capture_source: true
     ignore_errors: ActionController::RoutingError
 
 development:
   <<: *default_settings
   monitor_mode: false
   developer_mode: true
-  
+
 test:
   <<: *default_settings
   monitor_mode: false

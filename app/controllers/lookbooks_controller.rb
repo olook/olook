@@ -42,4 +42,12 @@ class LookbooksController < ApplicationController
   def scarpin_glamour
     @products = Product.find(614, 623, 1491, 1543, 1021, 1219, 1433, 1369)
   end
+
+  def militar
+    @products = Product.find(1228, 778, 1479, 1165, 967, 1084, 787, 1429, 1329, 1387, 1381, 1566, 1495)
+  end
+
+  def verao
+    @products = Product.find(796, 696, 814, 669, 751, 769, 904, 1129)
+  end
 end

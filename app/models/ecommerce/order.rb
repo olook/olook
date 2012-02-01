@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
+  WAREHOUSE_TIME = 2
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -23,6 +24,7 @@ class Order < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -37,6 +39,9 @@ class Order < ActiveRecord::Base
   state_machine :initial => :in_the_cart do
 
     store_audit_trail
+
+    after_transition :in_the_cart => :waiting_payment, :do => :insert_order
+    after_transition :waiting_payment => :authorized, :do => :confirm_payment
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -79,10 +84,21 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def confirm_payment
+    order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
+    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+  end
+
+  def insert_order
+    order_events.create(:message => "Enqueue Abacos::InsertOrder")
+    Resque.enqueue(Abacos::InsertOrder, self.number)
+  end
+
   def invalidate_coupon
     coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
     if coupon
       coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+      coupon.increment!(:used_amount, 1)
     end
   end
 
@@ -204,6 +220,10 @@ class Order < ActiveRecord::Base
 
   def installments
     payment.try(:payments) || 1
+  end
+
+  def delivery_time_for_a_shipped_order
+    delivery_time - WAREHOUSE_TIME
   end
 
   private

@@ -105,7 +105,7 @@ survey_data[11] = {
 }
 
 survey_data[12] = {
-  :question_title => "13. Escolha o look que mais te agrada para noite.",
+  :question_title => "13. Escolha o look que mais te agrada para a noite.",
   :answers => ["Pretinho basico + Sandália", "Jeans skinny + Saltão", "Vestido longo + Sandália rasteira" ],
   :weights => [{"Pretinho basico + Sandália" => {"10" => sexy, "10" => trendy, "20" => elegant, "10" => casual, "10" => traditional}},
                {"Jeans skinny + Saltão" => {"20" => sexy, "20" => trendy, "10" => elegant, "30" => contemporary}},
@@ -121,7 +121,7 @@ survey_data[13] = {
 }
 
 survey_data[14] = {
-  :question_title => "15. Quais acessórios você usaria para um domigo à tarde?",
+  :question_title => "15. Quais acessórios você usaria para um domingo à tarde?",
   :answers => ["Gladiadora + Bolsa molinha", "Sapatilha + Maxibolsa", "Sandália anabela + Bolsa box alça longa" ],
   :weights => [{"Gladiadora + Bolsa molinha" => {"10" => feminine, "10" => trendy, "20" => casual, "10" => contemporary}},
                {"Sapatilha + Maxibolsa" => {"20" => feminine, "10" => trendy, "10" => elegant, "20" => casual, "10" => traditional}},

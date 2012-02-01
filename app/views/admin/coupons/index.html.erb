@@ -1,5 +1,34 @@
 <h2>Listing coupons</h2>
-<p><%= link_to 'New coupon', new_admin_coupon_path %></p>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New coupon', new_admin_coupon_path %></li>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
+        <div class="group">
+          <%= f.label :code, :class => "label" %>
+          <%= f.text_field :code_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :start_date_gte, "Start date", :class => "label"  %>
+          <%= f.date_select :start_date_gte, :include_blank => true %>
+          <%= f.label :end_date_gte, "to", :class => "label" %>
+          <%= f.date_select :end_date_gte, :include_blank => true %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Search', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>
 
 <div class="inner">
   <table class="table">
@@ -8,10 +37,12 @@
       <th>Value</th>
       <th>Start date</th>
       <th>End date</th>
-      <th># of coupons</th>
+      <th>Remaining coupons</th>
+      <th>Used coupons</th>
       <th>Active</th>
       <th>Unlimited</th>
       <th>Expired</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -23,13 +54,19 @@
       <td><%= l(coupon.start_date, :format => :short) %></td>
       <td><%= l(coupon.end_date, :format => :short) %></td>
       <td><%= coupon.remaining_amount %></td>
+      <td><%= coupon.used_amount %></td>
       <td><%= coupon.active ? 'Yes' : 'No' %></td>
       <td><%= coupon.unlimited ? 'Yes' : 'No' %></td>
       <td><%= coupon.expired? ? 'Yes' : 'No' %></td>
+      <td><%= link_to 'Show', admin_coupon_path(coupon) %></td>
       <td><%= link_to 'Edit', edit_admin_coupon_path(coupon) %></td>
     </tr>
   <% end %>
   </table>
 
-  <br />
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @coupons %>
+    </div>
+  </div>
 </div>

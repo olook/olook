@@ -9,6 +9,17 @@ class Profile < ActiveRecord::Base
 
   validates_presence_of :name, :first_visit_banner
 
+  DESCRIPTION =
+  {
+    "casual" => 'Prática, Despojada, Independente, e adoto o lema "menos é mais"',
+    "conteporanea" => 'Antenada, Criativa, Confiante e AMO moda',
+    "elegant" => 'Chic, Bem Sucedida, Elegante e Exigente',
+    "feminine" => 'Vaidosa, Romântica, Alegre e Delicada',
+    "sexy" => 'Sexy, Extravagante, Segura e Vivaz',
+    "traditional" => 'Sofisticada, Conservadora, Discreta e Clássica',
+    "trendy" => 'Segura, Ousada, Sexy e Moderna' 
+  } 
+
   GOOGLE_CONVERSION_LABEL =
   {
     :casual => "UK1TCKHfyAIQn-uR5QM",

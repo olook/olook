@@ -6,6 +6,11 @@ describe Abacos::OrderStatus do
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
   subject { described_class.new parsed_data }
 
+  before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
+  end
+
   describe '#integrate' do
     before :each do
       @order = double
@@ -69,43 +74,9 @@ describe Abacos::OrderStatus do
       }
     end
 
-    context 'when the original order state is in_the_cart' do
-      context "and the new state is canceled" do
-        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
-        it "should change the state to canceled" do
-          subject.send :change_order_state, order
-          order.reload
-          order.canceled?.should be_true
-        end
-      end
-    end
-
-    context 'when the original order state is waiting_payment' do
-      context "and the new state is canceled" do
-        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
-        it "should change the state to canceled" do
-          order.waiting_payment
-          subject.send :change_order_state, order
-          order.reload
-          order.canceled?.should be_true
-        end
-      end
-    end
-
-    context 'when the original order state is not_delivered' do
-      context "and the new state is canceled" do
-        subject { described_class.new default_order_state.merge(:new_state => :canceled) }
-        it "should change the state to canceled" do
-          order.not_delivered
-          subject.send :change_order_state, order
-          order.reload
-          order.canceled?.should be_true
-        end
-      end
-    end
-
     context 'when the original order state is authorized' do
       before :each do
+
         order.waiting_payment
         order.authorized
         order.authorized?.should be_true

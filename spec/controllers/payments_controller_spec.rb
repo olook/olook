@@ -13,6 +13,8 @@ describe PaymentsController do
   let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento}}
 
   before :each do
+    Resque.stub(:enqueue)
+    Resque.stub(:enqueue_in)
     Airbrake.stub(:notify)
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]

@@ -43,11 +43,10 @@ describe Variant do
 
   it "should destroy the associated variants when the product is destroyed" do
     subject.should be_persisted
-    Product.count.should == 1
-    Variant.count.should == 1
-    subject.product.destroy
-    Product.count.should be_zero
-    Variant.count.should be_zero
+    variants_count = subject.product.variants.count
+    expect {
+      subject.product.destroy
+    }.to change(Variant, :count).by(-variants_count)
   end
 
   describe "dimension related methods" do
@@ -84,7 +83,7 @@ describe Variant do
       subject.is_master.should == false
     end
   end
-  
+
   it "#master_variant" do
     subject.master_variant.should == subject.product.master_variant
   end
@@ -108,13 +107,13 @@ describe Variant do
 
       it "should copy the master_variant attributes" do
         new_variant.copy_master_variant
-        
+
         new_variant.width.should      == new_variant.master_variant.width
         new_variant.height.should     == new_variant.master_variant.height
         new_variant.length.should     == new_variant.master_variant.length
         new_variant.weight.should     == new_variant.master_variant.weight
         new_variant.price.should      == new_variant.master_variant.price
-        
+
         new_variant.inventory.should  == 0
       end
 
@@ -131,7 +130,7 @@ describe Variant do
         subject.copy_master_variant
       end
     end
-    
+
     it "should be called on the child variants when the master is updated" do
       subject.weight.should_not == 42
       subject.master_variant.weight = 42
@@ -140,7 +139,7 @@ describe Variant do
       subject.weight.should == 42
     end
   end
-  
+
   describe "delegated methods" do
     describe "#main_picture" do
       it "should return the product's main picture" do

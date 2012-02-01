@@ -86,10 +86,16 @@ describe EmailMarketing::CsvUploader do
         csv.should_not match user_c.email
       end
 
-      it "includes return path seeding email" do
+      it "includes return path seed email" do
         services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
-        csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,return path seed list,,,\n"
+        csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,\n"
+      end
+
+      it "includes delivery whatch seed email" do
+        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+        csv = EmailMarketing::CsvUploader.new(:userbase).csv
+        csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,\n"
       end
     end
 
