@@ -1,7 +1,7 @@
 <%= form_for :survey, :url => post_survey_answer_path, :remote => true do |f| %>
   <div class="question">
     <h1>Style Quiz</h1>
-    <h2>Qual dessas peças não pode faltar no dia a dia de <span><%= @friend.try(:name) %></span>?</h2>
+    <h2><%= question_title_for_friend(@question.friend_title, @friend.try(:name)) %></span></h2>
     <fieldset class="inputs">
       <ul>
         <li><%= f.hidden_field 'friend_uid', :value => @friend.try(:uid) %></li>
