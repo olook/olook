@@ -9,6 +9,7 @@ class MembersController < ApplicationController
   before_filter :check_session_and_add_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :redirect_user_if_new, :only => [:showroom]
+  before_filter :redirect_user_if_old, :only => [:welcome]
 
   def invite
     @is_the_first_visit = first_visit_for_member?(@user)
@@ -108,8 +109,11 @@ class MembersController < ApplicationController
   end
 
   def redirect_user_if_new
-    user_creation_date = current_user.created_at + 24.hours
-    redirect_to member_welcome_path if user_creation_date > DateTime.now
+    redirect_to member_welcome_path if (current_user.created_at + 24.hours) > DateTime.now
+  end
+
+  def redirect_user_if_old
+    redirect_to member_showroom_path if (current_user.created_at + 24.hours) < DateTime.now
   end
 
   def load_offline_variant
