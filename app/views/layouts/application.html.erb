@@ -19,7 +19,6 @@
     <![endif]-->
 
     <%= render "shared/metrics/google/google_analytics" %>
-    <%= render "shared/metrics/vwo/tracking_code" %>
     <%= favicon_link_tag %>
 
   </head>
@@ -40,6 +39,7 @@
   <%= yield :site_footer %>
 
   <%= javascript_include_tag "application" %>
+  <%= render "shared/metrics/vwo/tracking_code" %>
   <%= render_google_remessaging_scripts %>
   <% if content_for? :footer %>
     <%= yield :footer %>
