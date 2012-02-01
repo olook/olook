@@ -1,1 +1,1 @@
-$("#quiz_container").fadeOut('fast').html("<%= escape_javascript render("friend_quiz", :question => @question, :friend => @friend ) %>").fadeIn('slow');
+$("#quiz_container form").fadeOut('fast').html("<%= escape_javascript render("friend_quiz", :question => @question, :friend => @friend ) %>").fadeIn('slow');
