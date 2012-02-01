@@ -34,6 +34,8 @@ class Order < ActiveRecord::Base
 
   scope :with_payment, joins(:payment)
 
+  scope :purchased , where("state NOT IN ('canceled', 'reversed', 'refunded')")
+
   state_machine :initial => :in_the_cart do
 
     store_audit_trail

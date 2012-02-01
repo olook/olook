@@ -284,6 +284,8 @@
         other: '<span>%{count} </span>amigas já se registraram e você ganhou <span class="amount">%{bonus}</span>'
       member_with_no_invite_bonus: "Escolha uma das opções abaixo e comece a convidar"
       member_with_invite_bonus: 'Você já ganhou <br/><span class="amount">%{bonus}</span>'
+    promotions:
+      title: "Promoções"
 
   will_paginate:
     previous_label: "&#8592; Previous"

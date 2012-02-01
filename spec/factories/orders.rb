@@ -7,7 +7,7 @@ FactoryGirl.define do
       Resque.stub(:enqueue)
     end
   end
-  
+
   factory :clean_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight

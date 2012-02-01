@@ -112,6 +112,7 @@ Olook::Application.routes.draw do
     resources :orders
     resources :coupons, :except => [:destroy]
     resources :landing_pages
+    resources :promotions
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
