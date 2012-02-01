@@ -32,6 +32,7 @@ Olook::Application.routes.draw do
   get "/minhas-amigas/atualizar-quiz", :to => "friends#update_survey_question", :as => "update_survey_question"
   post "/postar-no-mural", :to => "friends#post_wall", :as => "post_wall"
   post "/postar-resposta-quiz", :to => "friends#post_survey_answer", :as => "post_survey_answer"
+  post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
 
