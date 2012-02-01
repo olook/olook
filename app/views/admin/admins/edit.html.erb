@@ -1,0 +1,10 @@
+<h2>Editing admin</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_admin_path(@admin) %></li>
+  <li><%= link_to 'Back', admin_admins_path %></li>
+<% end %>
