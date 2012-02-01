@@ -47,8 +47,8 @@ module EmailMarketing
                     u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
           end
         end
-        return_path_emails.each do |email|
-          rows << [ nil, email, nil, nil, nil, nil, nil, 'return path seed list', nil, nil, nil ]
+        emails_seed_list.each do |email|
+          rows << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil ]
         end
       end
     end
@@ -118,8 +118,8 @@ module EmailMarketing
       @csv = generate_email_csv(responses)
     end
 
-    def return_path_emails
-      IO.readlines("lib/email_marketing/return_path_emails.txt").map(&:chomp)
+    def emails_seed_list
+      IO.readlines("lib/email_marketing/emails_seed_list.csv").map(&:chomp)
     end
 
   end
