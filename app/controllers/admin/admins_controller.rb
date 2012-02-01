@@ -15,7 +15,7 @@ class Admin::AdminsController < Admin::BaseController
 
   def new
     @admin = Admin.new
-    @roles = Role.all
+    @roles.admin.build
     respond_with :admin, @admin
   end
 
