@@ -15,7 +15,7 @@ class Admin::AdminsController < Admin::BaseController
 
   def new
     @admin = Admin.new
-    @roles.admin.build
+    @admin.build_role
     respond_with :admin, @admin
   end
 
@@ -26,7 +26,6 @@ class Admin::AdminsController < Admin::BaseController
 
   def create
     @admin = Admin.new(params[:admin])
-     @admin.roles << Role.find_by_name(params[:admin][:roles][:role_name])
       if @admin.save
         flash[:notice] = 'Admin was successfully created.'
       end
@@ -35,7 +34,7 @@ class Admin::AdminsController < Admin::BaseController
 
   def update
     @admin = Admin.find(params[:id])
-      if @admin.update_attributes(params[:admin])
+      if @admin.update_without_password(params[:admin])
         flash[:notice] = 'Admin was successfully updated.'
       end
     respond_with :admin,@admin
