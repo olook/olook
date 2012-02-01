@@ -7,7 +7,7 @@
       <th>First Name</th>
       <th>Last Name</th>
       <th>Email</th>
-      <th>Roles</th>
+      <th>Role</th>
       <th></th>
     </tr>
 
@@ -17,7 +17,7 @@
       <td><%= admin.first_name%></td>
       <td><%= admin.last_name%></td>
       <td><%= admin.email%></td>
-      <td><%= admin.roles_name %></td>
+      <td><%= admin.role.name %></td>
       <td><%= link_to 'Show', admin_admin_path(admin) %></td>
       <td><%= link_to 'Edit', edit_admin_admin_path(admin) %></td>
       <td><%= link_to 'Destroy', admin_admin_path(admin), confirm: 'Are you sure?', method: :delete %></td>

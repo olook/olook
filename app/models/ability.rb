@@ -5,11 +5,9 @@ class Ability
     if admin.has_role? :superadministrator
       can :manage, :all
     else
-      admin.roles.each do |role|
-        role.permissions.each do |permission|
-          can permission.action_name.to_sym, permission.model_name.constantize
-         end
-       end
+      admin.role.permissions.each do |permission|
+        can permission.action_name.to_sym, permission.model_name.constantize
+      end
     end
   end
 
