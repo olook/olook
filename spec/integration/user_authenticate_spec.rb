@@ -34,19 +34,19 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 
-  scenario "User Sign up" do
-    answer_survey
-    visit new_user_registration_path
-    within("#user_new") do
-      fill_in "user_first_name", :with => "First Name"
-      fill_in "user_last_name", :with => "Last Name"
-      fill_in "user_email", :with => "fake@mail.com"
-      fill_in "user_password", :with => "123456"
-      fill_in "user_password_confirmation", :with => "123456"
-      click_button "register"
-    end
-    page.should have_content(I18n.t "devise.registrations.signed_up")
-  end
+#  scenario "User Sign up" do
+#    answer_survey
+#    visit new_user_registration_path
+#    within("#user_new") do
+#      fill_in "user_first_name", :with => "First Name"
+#      fill_in "user_last_name", :with => "Last Name"
+#      fill_in "user_email", :with => "fake@mail.com"
+#      fill_in "user_password", :with => "123456"
+#      fill_in "user_password_confirmation", :with => "123456"
+#      click_button "register"
+#    end
+#    page.should have_content(I18n.t "devise.registrations.signed_up")
+#  end
 
   scenario "User update without password" do
     do_login!(@user)
@@ -87,28 +87,28 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.sessions.signed_in")
   end
 
-  scenario "Whole sign up, sign out and sign in process" do
-    login = "john@doe.com"
-    pass = "123abc"
-
-    answer_survey
-    visit new_user_registration_path
-    within("#user_new") do
-      fill_in "user_first_name", :with => "First Name"
-      fill_in "user_last_name", :with => "Last Name"
-      fill_in "user_email", :with => login
-      fill_in "user_password", :with => pass
-      fill_in "user_password_confirmation", :with => pass
-      click_on "register"
-    end
-    page.should have_content(I18n.t "devise.registrations.signed_up")
-    click_on "Sair"
-    page.should have_content(I18n.t "devise.sessions.signed_out")
-
-    visit new_user_session_path
-    fill_in "user_email", :with => login
-    fill_in "user_password", :with => pass
-    click_button "login"
-    page.should have_content(I18n.t "devise.sessions.signed_in")
-  end
+#  scenario "Whole sign up, sign out and sign in process" do
+#    login = "john@doe.com"
+#    pass = "123abc"
+#
+#    answer_survey
+#    visit new_user_registration_path
+#    within("#user_new") do
+#      fill_in "user_first_name", :with => "First Name"
+#      fill_in "user_last_name", :with => "Last Name"
+#      fill_in "user_email", :with => login
+#      fill_in "user_password", :with => pass
+#      fill_in "user_password_confirmation", :with => pass
+#      click_on "register"
+#    end
+#    page.should have_content(I18n.t "devise.registrations.signed_up")
+#    click_on "Sair"
+#    page.should have_content(I18n.t "devise.sessions.signed_out")
+#
+#    visit new_user_session_path
+#    fill_in "user_email", :with => login
+#    fill_in "user_password", :with => pass
+#    click_button "login"
+#    page.should have_content(I18n.t "devise.sessions.signed_in")
+#  end
 end
