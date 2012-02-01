@@ -11,7 +11,7 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
-  match "/o-que-estao-falando", :to => "pages#what_are_talking", :as => "what_are_talking"
+  match "/olook-na-imprensa", :to => "pages#press", :as => "press"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
