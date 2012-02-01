@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
+  WAREHOUSE_TIME = 2
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -23,6 +24,7 @@ class Order < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -218,6 +220,10 @@ class Order < ActiveRecord::Base
 
   def installments
     payment.try(:payments) || 1
+  end
+
+  def delivery_time_for_a_shipped_order
+    delivery_time - WAREHOUSE_TIME
   end
 
   private
