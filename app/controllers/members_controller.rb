@@ -6,7 +6,7 @@ class MembersController < ApplicationController
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
   before_filter :load_offline_variant, :only => [:showroom]
-  before_filter :check_session_and_add_to_cart, :only => [:showroom]
+  before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :redirect_user_if_new, :only => [:showroom]
   before_filter :redirect_user_if_old, :only => [:welcome]
@@ -120,11 +120,15 @@ class MembersController < ApplicationController
     @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
   end
 
-  def check_session_and_add_to_cart
+  def check_session_and_send_to_cart
     unless @offline_variant.nil?
       order_id = (session[:order] ||= @user.orders.create.id)
       order = @user.orders.find(order_id)
       order.add_variant(@offline_variant)
+      if session[:offline_first_access]
+        session[:offline_first_access] = nil
+        redirect_to cart_path
+      end
     end
   end
 end
