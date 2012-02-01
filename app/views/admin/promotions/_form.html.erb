@@ -1,0 +1,46 @@
+<%= form_for([:admin, @promotion]) do |f| %>
+  <% if @promotion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this admin_promotion from being saved:</h2>
+      <ul>
+      <% @promotion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :strategy %><br />
+    <%= f.select :strategy, Dir.entries("#{Rails.root}/app/strategies/promotions/").select{|x| x != "." and x != ".."}.map{|x| [x.gsub(".rb", "").humanize, x.sub(".rb", "")]} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :param %><br />
+    <%= f.text_field :param %>
+  </div>
+
+  <div class="field">
+    <%= f.label :discount_percent %><br />
+    <%= f.text_field :discount_percent %>
+  </div>
+
+  <div class="field">
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
