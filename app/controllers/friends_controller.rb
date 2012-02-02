@@ -25,15 +25,17 @@ class FriendsController < ApplicationController
   end
 
   def post_wall
-    @facebook_adapter.post_wall_message(params[:message]) ? (head :ok) : (head :error)
+    @facebook_adapter.post_wall_message(I18n.t('facebook.post_wall', :message => params[:message])) ? (head :ok) : (head :error)
   end
 
   def post_survey_answer
-    @facebook_adapter.post_wall_message("#{rand(10000)} quiz", :target => params[:survey][:friend_uid]) ? (head :ok) : (head :error)
+    @facebook_adapter.post_wall_message(I18n.t('facebook.answer_survey', :link => @user.invitation_url),
+                                                                         :target => params[:survey][:friend_uid]) ? (head :ok) : (head :error)
   end
 
   def post_invite
-    @facebook_adapter.post_wall_message("#{rand(10000)} post invite", :target => params[:friend_uid]) ? (head :ok) : (head :error)
+    @facebook_adapter.post_wall_message(I18n.t('facebook.invite', :name => @user.name, :link => @user.invitation_url),
+                                                                  :target => params[:friend_uid]) ? (head :ok) : (head :error)
   end
 
   private
@@ -46,9 +48,6 @@ class FriendsController < ApplicationController
 
   def load_friends
     @not_registred_friends, @friends, @friend = @facebook_adapter.friends_structure
-    #@not_registred_friends = @facebook_adapter.facebook_friends_not_registered_at_olook
-    #@friends = @facebook_adapter.facebook_friends_registered_at_olook
-    #@friend = @not_registred_friends.shuffle.first
   end
 
   def initialize_facebook_adapter
