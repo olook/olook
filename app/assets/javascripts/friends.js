@@ -23,6 +23,7 @@ $(document).ready(function() {
     lists.removeClass("selected");
     $(this).find("input[type='radio']").attr('checked', true);
     $(this).addClass('selected');
+    $(this).parents("form").find("input[type='submit']").removeAttr("disabled");
     return false;
   });
 });
