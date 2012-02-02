@@ -1,5 +1,8 @@
-<%= stylesheet_link_tag "section/promotion_banner" %>
 <div class="promotion_banner">
-  <h2><span><%= @promotion.discount_percent %>% de desconto</span> na sua primeira compra</h2>
-  <p><%= @promotion.description %></p>
+  <%= image_tag "promotion_banners/tag1.jpg", :class => "left_tag"%>
+  <div class="text_area">
+    <h2><span><%= @promotion.discount_percent %>% de desconto</span> na sua primeira compra</h2>
+    <p><%= @promotion.description %></p>
+  </div>
+  <%= image_tag "promotion_banners/tag2.jpg", :class => "right_tag"%>
 </div>
