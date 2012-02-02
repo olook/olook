@@ -5,8 +5,14 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
+  rescue_from Koala::Facebook::APIError , :with => :facebook_token_expired
 
   private
+
+  def facebook_token_expired
+    flash[:should_request_new_facebook_toke] = true
+    redirect_to facebook_connect_path, :notice => "Sua autenticação como o Facebook expirou. Faça o login novamente por favor"
+  end
 
   def contact_authentication_failed
     flash[:notice] = "Falha de autenticação na importação de contatos"
