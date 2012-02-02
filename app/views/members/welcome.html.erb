@@ -7,6 +7,10 @@
   <%= javascript_include_tag "welcome" %>
 <% end %>
 
+<% if @is_the_first_visit %>
+  <%= render 'shared/models' %>
+<% end %>
+
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
 
