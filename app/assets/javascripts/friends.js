@@ -16,4 +16,13 @@ $(document).ready(function() {
     .success(function() { alert("success"); })
     .error(function() { alert("error"); })
   });
+
+  $("div#quiz_container div.question ul li").live("click", function() {
+    lists = $(this).parent("ul").find("li");
+    lists.find("input[type='radio']").attr("checked", false);
+    lists.removeClass("selected");
+    $(this).find("input[type='radio']").attr('checked', true);
+    $(this).addClass('selected');
+    return false;
+  });
 });
