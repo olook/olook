@@ -1,4 +1,11 @@
 class LookbooksController < ApplicationController
+  def show
+    @lookbook = Lookbook.find_by_name(params[:name])
+    @products = @lookbook.products
+    @products_id = @lookbook.lookbooks_products.map{|item| ( item.criteo ) ? item.id : nil }
+    @lookbooks = Lookbook.find(:all)
+  end
+
   def flores
     @products = Product.find(493, 417, 435, 1, 563, 401, 403, 569)
   end
