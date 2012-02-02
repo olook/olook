@@ -36,7 +36,8 @@ Spork.prefork do
 
   OmniAuth.config.mock_auth[:facebook] = {
     'provider' => 'facebook',
-    'extra' => {"user_hash" => {"email" => "user@mail.com", "first_name" => "User Name", "last_name" => "User L. Name", "id" => "abc"}}
+    'extra' => {"user_hash" => {"email" => "user@mail.com", "first_name" => "User Name", "last_name" => "User L. Name", "id" => "abc"}},
+    'credentials' => {'token' => "AXDV"}
   }
 
   # Requires supporting ruby files with custom matchers and macros, etc,
