@@ -26,4 +26,8 @@ $(document).ready(function() {
     $(this).parents("form").find("input[type='submit']").removeAttr("disabled");
     return false;
   });
+
+  $("form.post_survey_answer").bind("ajax:success", function(evt, xhr, settings) {
+    $("div#quiz_container a.next_friend").click();
+  });
 });
