@@ -3,7 +3,7 @@
 	<span id="share_text">
 		Compartilhe seu estilo com suas amigas:
 	</span>
-	<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=35&amp;appId=123022041127235" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe>
+	<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=123022041127235" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe>
 </div>
   <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
   <%= image_tag(first_visit_banner) %>
