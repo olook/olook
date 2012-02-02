@@ -11,10 +11,6 @@ describe OmniauthCallbacksController do
 
   describe "without a logged user" do
     describe "GET facebook" do
-      before :each do
-        controller.stub!(:current_user).and_return(nil)
-      end
-
       it "should redirect to showroom page if authentication is successful" do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
         user.stub(:set_uid_and_facebook_token).with(omniauth)
@@ -41,7 +37,7 @@ describe OmniauthCallbacksController do
   with_a_logged_user do
     describe "GET facebook" do
       it "should set facebook uid and token" do
-        user.should_receive(:set_uid_and_facebook_token).with(omniauth)
+        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
         get :facebook
         response.should redirect_to(member_showroom_path)
         flash[:notice].should eq("Facebook Connect adicionado com sucesso")
