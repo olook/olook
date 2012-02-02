@@ -224,13 +224,16 @@ section#friends {
                   }
                 }
                 input[type="submit"] {
-                  background: url("/assets/friends/bt-answer-invite.jpg") no-repeat;
+                  background: url("/assets/friends/bt-answer-invite.jpg") 0 -29px no-repeat;
                   text-indent: -9999px;
                   width: 153px;
                   height: 29px;
                   display: block;
                   border: none;
                   cursor: pointer;
+                  &.disabled {
+                    background-position: 0 0;
+                  }
                 }
               }
             }
@@ -335,7 +338,7 @@ section#friends {
                   }
                 }
                 input[type="submit"] {
-                  background: url("/assets/friends/bg-share.jpg") no-repeat;
+                  background: url("/assets/friends/bg-share.jpg") 0 -29px no-repeat;
                   text-indent: -9999px;
                   width: 124px;
                   height: 29px;
@@ -344,6 +347,9 @@ section#friends {
                   cursor: pointer;
                   clear: both;
                   float: right;
+                  &.disabled {
+                    background-position: 0 0;
+                  }
                 }
               }
             }
