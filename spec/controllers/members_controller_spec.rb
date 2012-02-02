@@ -3,6 +3,9 @@ require 'spec_helper'
 
 describe MembersController do
   let(:user) { FactoryGirl.create :user }
+  let(:recent_user) { FactoryGirl.create :recent_user }
+  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -24,11 +27,33 @@ describe MembersController do
     end
   end
 
+  describe "GET welcome" do
+    it "should show the welcome page" do
+      get :welcome
+      assigns(:user).should eq(user)
+    end
+
+    it "should assign @facebook_app_id" do
+      get :invite
+      assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
+    end
+  end
+
   describe "#showroom" do
     it "should show the member showroom page" do
       get :showroom
       response.should render_template("showroom")
       assigns(:user).should eq(user)
+    end
+
+    it "should check session and add to cart" do
+      session[:order] = order.id
+      session[:offline_variant] = { "id" => variant.id }
+      session[:offline_first_access] = true
+      get :showroom
+      order.line_items.count.should  be_eql(1)
+      session[:offline_first_access].should be_nil
+      session[:offline_variant].should be_nil
     end
   end
 

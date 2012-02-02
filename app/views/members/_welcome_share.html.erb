@@ -1,0 +1,55 @@
+<section id="share">
+  <h1 class="title">Enquanto isso, convide <span>suas amigas e ganhe</span></h1>
+  <h2>R$20<em>*</em></h2>
+  <div class="share_content">
+    <div class="personal_link">
+      <h1>Link Pessoal</h1>
+      <p>Convide suas amigas enviando seu link pelo Facebook, Twitter, MSN, etc.</p>
+      <ul class="share">
+        <li class="first">
+          <%= text_field_tag "invite_link", accept_invitation_url(:invite_token => @user.invite_token), :readonly => true %>
+        </li>
+          <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
+          <li>
+            <div id="orkut_share" style="width:100%;"></div>
+            <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+            <script type="text/javascript">
+              google.load('orkut.share', '1');
+              google.setOnLoadCallback(function(){
+                new google.orkut.share.Button({
+                  style:'regular',
+                  title:'Olook',
+                  summary:'<%= invite_message %>',
+                  destination:'<%= invitation_link(@user) %>'
+                }).draw('orkut_share');
+              }, true);
+            </script>
+          </li>
+          <li>
+            <a href="#" id="facebook_post_wall"><%= image_tag 'common/fb-post-to-wall.png' %></a>
+          </li>
+      </ul>
+    </div>
+    <div class="email">
+      <h1>Por email</h1>
+      <p>Digite o nome das amigas que quer convidar para a olook no campo abaixo, separado por vírgula</p>
+      <%= form_tag (new_member_invite_by_email_path) do %>
+        <fieldset>
+          <ol>
+            <li>
+              <%= text_area_tag :invite_mail_list %>
+            </li>
+          </ol>
+        </fieldset>
+        <fieldset class="buttons">
+          <ol>
+            <li>
+              <%= submit_tag "Convidar", :id => "invite_email" %>
+            </li>
+          </ol>
+        </fieldset>
+      <% end %>
+    </div>
+    <%= link_to "Veja outras formas de convidar suas amigas", member_invite_path, :class => "invite" %>
+  </div>
+</section>

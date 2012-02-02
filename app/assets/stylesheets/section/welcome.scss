@@ -1,0 +1,278 @@
+@import "partials/product";
+
+body {
+  background: url("/assets/welcome/bg.jpg") 0 215px repeat-x;
+  &.bg_changed {
+    background-position: 0 760px;
+  }
+}
+section#welcome {
+  margin: 35px auto 0;
+  h1.warn {
+    color: #333;
+    font-size: 35px;
+    font-weight: lighter;
+    font-style: italic;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    width: 860px;
+    margin: 0 auto 40px;
+    span {
+      color: #df5a8b;
+    }
+  }
+  section#painel {
+    position: relative;
+    background: url("/assets/welcome/bg-painel-top.png") center top no-repeat;
+    width: 970px;
+    margin: 0 0 30px 0;
+    padding: 20px 10px 20px;
+    overflow: auto;
+    a.bt_painel {
+      background: #df5a8b;
+      color: #FFF;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin: 0 0 15px 0;
+      padding: 7px 10px;
+      float: left;
+    }
+    div.facebook {
+      width: 420px;
+      margin: 10px 0 0 0;
+      float: right;
+      p {
+        color: #000;
+        font-family: "Times", sans-serif;
+        font-size: 17px;
+        font-style: italic;
+        letter-spacing: -1px;
+        margin: 0 10px 0 0;
+        float: right;
+      }
+      iframe {
+        float: right;
+      }
+    }
+    div.painel_img {
+      text-align: center;
+      width: 970px;
+      clear: both;
+      img {
+        margin: 0 0 15px 0;
+        display: none;
+      }
+    }
+    div.painel_footer {
+      position: absolute;
+      background: url("/assets/welcome/bg-painel-bottom.png") center top no-repeat;
+      width: 990px;
+      height: 25px;
+      display: block;
+      left: 0;
+      bottom: 0;
+    }
+  }
+  section#share {
+    position: relative;
+    background: url("/assets/welcome/bg-share.png") top no-repeat;
+    width: 960px;
+    height: 640px;
+    display: block;
+    h1.title, h2{
+      color: #333;
+      position: absolute;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 52px;
+      font-weight: normal;
+      font-style: italic;
+      letter-spacing: -3px;
+    }
+    h1.title {
+      width: 540px;
+      line-height: 40px;
+      top: 25px;
+      left: 20px;
+      span {
+        margin: 0 0 0 120px;
+        display: block;
+      }
+    }
+    h2 {
+      font-size: 110px;
+      letter-spacing: -5px;
+      top: 8px;
+      left: 525px;
+      em {
+        font-size: 30px;
+        margin: 20px 0 0 5px;
+        float: right;
+      }
+    }
+    div.share_content {
+      position: absolute;
+      width: 675px;
+      height: 400px;
+      display: block;
+      top: 155px;
+      left: 50px;
+      h1 {
+        color: #464646;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 40px;
+        font-weight: normal;
+        letter-spacing: -3px;
+        text-transform: uppercase;
+        margin: 0 0 5px;
+      }
+      p {
+        color: #000;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        margin: 0 0 15px;
+      }
+      div.personal_link {
+        height: 190px;
+        ul.share {
+          li {
+            margin: 12px 10px 0 0;
+            float: left;
+            input#invite_link {
+              background: url("/assets/common/bg-form-invite.png") bottom repeat-x;
+              font-size: 14px;
+              letter-spacing: -1px;
+              width: 265px;
+              padding: 12px 11px;
+              border: 1px solid #BBB;
+            }
+            &.first {
+              margin: 0 15px 0 0;
+            }
+          }
+        }
+      }
+      div.email {
+        width: 100%;
+        margin: 0 0 15px 0;
+        overflow: auto;
+        form {
+          fieldset {
+            float: left;
+            ol {
+              li {
+                textarea {
+                  background: url("/assets/common/bg-textarea.png") bottom repeat-x;
+                  color: #3C3C3C;
+                  font-size: 14px;
+                  letter-spacing: -1px;
+                  outline: none;
+                  width: 420px;
+                  height: 53px;
+                  resize: none;
+                  margin: 0 20px 0 0;
+                  padding: 12px 13px;
+                  border: 1px solid #BBB;
+                }
+              }
+            }
+            &.buttons {
+              input[type="submit"] {
+                background: url("/assets/welcome/bt-invite.jpg") no-repeat;
+                color: #FFF;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 17px;
+                text-align: center;
+                text-decoration: none;
+                text-transform: uppercase;
+                width: 151px;
+                height: 47px;
+                margin: 15px 0 0 0;
+                display: block;
+                border: none;
+                cursor: pointer;
+                float: left;
+              }
+            }
+          }
+        }
+      }
+      a.invite {
+        background: url("/assets/welcome/arrow.png") left no-repeat;
+        color: #e05789;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        padding: 0 0 0 13px;
+      }
+    }
+  }
+  section#products {
+    background: url("/assets/showroom/border-top-product.png") 170px 26px no-repeat;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: auto;
+    h1.title {
+      background: #FFF;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 40px;
+      font-weight: normal;
+      font-style: italic;
+      letter-spacing: -3px;
+      text-transform: uppercase;
+      padding: 0 20px 0 0;
+      float: left;
+    }
+    div.products_list {
+      background: url("/assets/showroom/border-bottom-product.png") bottom left no-repeat;
+      width: 100%;
+      margin: 10px 0;
+      padding: 0 0 20px 0;
+      overflow: auto;
+      clear: both;
+      ul {
+        width: 900px;
+        overflow: auto;
+        margin: 0 auto;
+        li.product {
+          width: 160px;
+          div.box_product {
+            a.product_link {
+              img {
+                width: 155px;
+                height: 155px;
+              }
+              h1 {
+                width: 155px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  section#press {
+    h1 {
+      color: #515151;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0 0 5px;
+    }
+    div.press_container {
+      background: #ededed;
+      padding: 20px 0;
+      a {
+        background: url("/assets/welcome/press.jpg") no-repeat;
+        text-indent: -9999px;
+        text-decoration: none;
+        width: 883px;
+        height: 77px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}
