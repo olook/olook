@@ -2,9 +2,11 @@
 require 'spec_helper'
 
 describe OmniauthCallbacksController do
+  let(:omniauth) {{"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}}
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
+    controller.env["omniauth.auth"] = omniauth
   end
 
   describe "without a logged user" do
@@ -12,11 +14,20 @@ describe OmniauthCallbacksController do
       before :each do
         controller.stub!(:current_user).and_return(nil)
       end
+
       it "should redirect to showroom page if authentication is successful" do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
+        user.stub(:set_uid_and_facebook_token).with(omniauth)
         user.stub(:authenticatable_salt)
         get :facebook
         response.should redirect_to(member_showroom_path)
+      end
+
+      it "should set facebook uid and token" do
+        User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
+        user.should_receive(:set_uid_and_facebook_token).with(omniauth)
+        user.stub(:authenticatable_salt)
+        get :facebook
       end
 
       it "should redirect to register new user page if authentication fails" do
@@ -32,8 +43,8 @@ describe OmniauthCallbacksController do
       before :each do
         controller.stub!(:current_user).and_return(@user = mock_model(User))
       end
+
       it "should set facebook uid and token" do
-        controller.env["omniauth.auth"] = omniauth = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}
         @user.should_receive(:set_uid_and_facebook_token).with(omniauth)
         get :facebook
         response.should redirect_to(member_showroom_path)
@@ -41,7 +52,6 @@ describe OmniauthCallbacksController do
       end
 
       it "should not set facebook uid and token when already exist a facebook account" do
-        controller.env["omniauth.auth"] = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}
         FactoryGirl.create(:user, :uid => "123")
         get :facebook
         response.should redirect_to(member_showroom_path)
