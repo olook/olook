@@ -34,6 +34,7 @@ describe ProductController do
         variant = { "id" => "1234" }
         post :create_offline_session, :variant => variant
         session[:offline_variant].should be_eql(variant)
+        session[:offline_first_access].should be_true
       end
     end
   end
