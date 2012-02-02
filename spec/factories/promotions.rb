@@ -5,7 +5,7 @@ FactoryGirl.define do
     strategy "purchases_amount_strategy"
     priority 1
     discount_percent 30
-    params :amount => 0
+    param '0'
     active true
   end
 end
