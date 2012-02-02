@@ -31,8 +31,17 @@ $(document).ready(function() {
     lists.removeClass("selected");
     $(this).find("input[type='radio']").attr('checked', true);
     $(this).addClass('selected');
-    $(this).parents("form").find("input[type='submit']").removeAttr("disabled");
+    $(this).parents("form").find("input[type='submit']").removeAttr("disabled").removeClass("disabled");
     return false;
+  });
+
+  $("form.form_post_wall textarea").live("keyup", function() {
+    if($(this).val() != '') {
+      $("form.form_post_wall input[type='submit']").removeAttr("disabled").removeClass("disabled");
+    } else {
+      $("form.form_post_wall input[type='submit']").addClass("disabled");
+      $("form.form_post_wall input[type='submit']").attr("disabled", "disabled");
+    }
   });
 
   $("form.post_survey_answer").bind("ajax:success", function(evt, xhr, settings) {
