@@ -1,36 +1,29 @@
-.promotion_banner {
-  margin-top: 2px;
+#promotion_banner {
+  background: url("/assets/promotion_banners/bg-promotion.jpg") 0 5px no-repeat;
   width: 100%;
-  height: 70px;
-  padding: 10px;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  .text_area {
-    float: left;
-    margin-left: 70px;
-    width: 680px;
-    h2 {
-      font-weight: normal;
-      text-transform: uppercase;
-      span {
-        color: #D95485;
-      }
-    }
-    p {
-      color: black;
-      font-weight: bold;
-      font-size: 12px;
+  height: 90px;
+  display: block;
+  margin: 15px 0 10px 0;
+  padding: 0;
+  h1, p {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    text-align: center;
+    width: 755px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 28px;
+    text-transform: uppercase;
+    line-height: 30px;
+    span {
+      color: #D95485;
     }
   }
-
-  .left_tag {
-    float: left;
-    margin-left: 22px;
+  p {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    font-size: 12px;
   }
-
-  .right_tag {
-    float: right;
-    margin-right: 55px;
-  }
-
 }
