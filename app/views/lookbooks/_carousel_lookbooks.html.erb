@@ -1,5 +1,15 @@
 <div id="carousel_lookbooks">
   <ul>
+
+    <% lookbooks.each do |lookbook| %>
+      <li>
+        <%= link_to "/lookbooks/show/#{lookbook.name}" do %>
+          <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
+          <h1><%= lookbook.name %></h1>
+        <% end %>
+      </li>
+    <% end %>
+
     <li>
       <%= link_to verao_path do %>
         <%= image_tag "lookbooks/verao.jpg", :alt => "Verão" %>

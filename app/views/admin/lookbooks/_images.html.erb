@@ -11,7 +11,6 @@
   <% lookbook.images.each do |image| %>
     <tr>
       <td><%= image_tag image.image_url(:thumb).to_s %></td>
-      <td><%= link_to 'Show', admin_lookbook_image_path(image.lookbook, image) %></td>
       <td><%= link_to 'Edit', edit_admin_lookbook_image_path(image.lookbook, image) %></td>
       <td><%= link_to 'Destroy', admin_lookbook_image_path(image.lookbook, image), confirm: 'Are you sure?', method: :delete %></td>
     </tr>
