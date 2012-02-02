@@ -13,11 +13,16 @@ $(document).ready(function() {
   $("form.form_post_wall").bind("ajax:error", function(evt, xhr, settings){
   });
 
-  $(".invite_friend").bind("click", function(event){
+  $("div#invite_friends a.invite_friend").bind("click", function(event){
+    $(this).parent("li").addClass("invited");
     event.preventDefault();
     $.post('/postar-convite', { friend_uid: $(this).attr("rel")})
-    .success(function() { alert("success"); })
-    .error(function() { alert("error"); })
+    .success(function() {
+      $("div#invite_friends ul li.invited").fadeOut("slow", function() {
+        $(this).remove();
+      });
+    })
+    .error(function() { return false; })
   });
 
   $("div#quiz_container div.question ul li").live("click", function() {
