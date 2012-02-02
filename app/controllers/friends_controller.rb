@@ -25,7 +25,7 @@ class FriendsController < ApplicationController
   end
 
   def post_wall
-    @facebook_adapter.post_wall_message(I18n.t('facebook.post_wall', :message => params[:message]), :link => @user.invitation_url) ? (head :ok) : (head :error)
+    @facebook_adapter.post_wall_message(I18n.t('facebook.post_wall', :message => params[:message], :link => @user.invitation_url)) ? (head :ok) : (head :error)
   end
 
   def post_survey_answer
