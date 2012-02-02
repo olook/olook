@@ -3,11 +3,11 @@ $(document).ready(function() {
     $("div#invite_friends div.list_mask").toggleClass("full", "");
   });
 
-  $(".form_post_wall").bind("ajax:success", function(evt, xhr, settings){
+  $("form.form_post_wall").bind("ajax:success", function(evt, xhr, settings){
     $(".form_post_wall textarea").val("");
   });
 
-  $(".form_post_wall").bind("ajax:error", function(evt, xhr, settings){
+  $("form.form_post_wall").bind("ajax:error", function(evt, xhr, settings){
   });
 
   $(".invite_friend").bind("click", function(event){
