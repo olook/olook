@@ -7,8 +7,7 @@ describe PermissionMapBuilder do
   let(:collection_show) { Factory(:collection_show) }
   let(:collection_update) { Factory(:collection_update) }
 
-
-  it "should build a hash with permission id as key and state as value" do
+  it "should receive attributes and map a hash with permission id as key and state as value" do
     pending
   end
 

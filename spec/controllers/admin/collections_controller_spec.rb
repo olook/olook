@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Admin::CollectionsController do
+
   render_views
 
   let!(:collection) { FactoryGirl.create(:inactive_collection) }

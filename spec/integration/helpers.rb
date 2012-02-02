@@ -17,7 +17,6 @@ def do_admin_login!(admin)
   within('form#admin_new') do
     click_button "login"  
   end
-  save_and_open_page 
 end
 
 def answer_survey
