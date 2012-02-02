@@ -1,4 +1,4 @@
-<%= form_for :survey, :url => post_survey_answer_path, :remote => true do |f| %>
+<%= form_for :survey, :url => post_survey_answer_path, :remote => true, :html => {:class => "post_survey_answer"} do |f| %>
   <%= f.hidden_field 'friend_uid', :value => @friend.try(:uid) %>
   <div class="question">
     <h1>Style Quiz</h1>
