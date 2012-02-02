@@ -92,6 +92,8 @@ li.product {
     }
     &.sold_out {
       a p.warn {
+        top: 2px;
+        right: 2px;
         display: block;
       }
     }
