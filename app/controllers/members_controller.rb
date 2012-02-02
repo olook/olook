@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   before_filter :check_early_access, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
-  before_filter :load_offline_variant, :only => [:showroom]
+  before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
   before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :redirect_user_if_new, :only => [:showroom]
@@ -116,8 +116,9 @@ class MembersController < ApplicationController
     redirect_to member_showroom_path if (current_user.created_at + 24.hours) < DateTime.now
   end
 
-  def load_offline_variant
+  def load_offline_variant_and_clean_session
     @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
+    session[:offline_variant] = nil
   end
 
   def check_session_and_send_to_cart

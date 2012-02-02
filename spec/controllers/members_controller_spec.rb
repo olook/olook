@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe MembersController do
   let(:user) { FactoryGirl.create :user }
+  let(:recent_user) { FactoryGirl.create :recent_user }
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
 
@@ -29,7 +30,6 @@ describe MembersController do
   describe "GET welcome" do
     it "should show the welcome page" do
       get :welcome
-      response.should render_template("welcome")
       assigns(:user).should eq(user)
     end
 
@@ -53,6 +53,7 @@ describe MembersController do
       get :showroom
       order.line_items.count.should  be_eql(1)
       session[:offline_first_access].should be_nil
+      session[:offline_variant].should be_nil
     end
   end
 
