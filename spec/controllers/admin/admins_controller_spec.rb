@@ -51,43 +51,6 @@ describe Admin::AdminsController do
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Admin" do
-        expect {
-          post :create, :admin => valid_attributes
-        }.to change(Admin, :count).by(1)
-      end
-
-      it "assigns a newly created Admin as @Admin" do
-        post :create, :admin => valid_attributes
-        assigns(:admin).should be_a(Admin)
-        assigns(:admin).should be_persisted
-      end
-
-      it "redirects to the created Admin" do
-        post :create, :admin => valid_attributes
-        response.should redirect_to(admin_admin_path(Admin.last))
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved Admin as @Admin" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Admin.any_instance.stub(:save).and_return(false)
-        post :create, :admin => {}
-        assigns(:admin).should be_a_new(Admin)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Admin.any_instance.stub(:save).and_return(false)
-        post :create, :admin => {}
-        #response.should render_template("new")
-      end
-    end
-  end
-
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested Admin" do

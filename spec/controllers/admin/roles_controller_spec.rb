@@ -6,6 +6,7 @@ describe Admin::RolesController do
   render_views
 
   let!(:role) { FactoryGirl.create(:sac_operator) }
+
   let(:valid_attributes) do
     role.attributes.clone.tap do |attributes|
       attributes[:name] = "superadmin" 

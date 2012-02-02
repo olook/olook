@@ -3,9 +3,6 @@ FactoryGirl.define do
     factory :superadministrator do
       name "superadministrator"
       description "IT manager and developers"
-      after_create do |superadmin|
-        superadmin.permissions = Permission.all
-      end
     end
 
     factory :generic_model do

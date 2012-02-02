@@ -7,11 +7,5 @@ describe Admin do
       admin = FactoryGirl.create(:admin_superadministrator)
       admin.has_role?(:superadministrator).should eq(true)
     end
-  
-    it "should list all role names" do
-      admin = FactoryGirl.create(:admin_sac_operator)
-      admin.roles << FactoryGirl.create(:superadministrator)
-      admin.roles_name.should == [:sac_operator, :superadministrator]
-    end
   end
 end
