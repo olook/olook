@@ -29,7 +29,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
 
-  match "/minhas-amigas/conectar", :to => "friends#connect", :as => "facebook_connect"
+  match "/minhas-amigas/conectar", :to => "friends#facebook_connect", :as => "facebook_connect"
   match "/minhas-amigas/home", :to => "friends#home", :as => "friends_home"
   match "/minhas-amigas/vitrine/:friend_id", :to => "friends#showroom", :as => "friend_showroom"
   get "/minhas-amigas/atualizar-lista-amigas", :to => "friends#update_friends_list", :as => "update_friends_list"
