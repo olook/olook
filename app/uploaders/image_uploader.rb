@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class LandingImageUploader < CarrierWave::Uploader::Base
+class ImageUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::MiniMagick
 
