@@ -3,6 +3,7 @@ Olook::Application.routes.draw do
   get "index/index"
   root :to => "home#index"
 
+  match "/home", :to => "home#index"
   match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
   match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
@@ -10,7 +11,7 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
-  match "/o-que-estao-falando", :to => "pages#what_are_talking", :as => "what_are_talking"
+  match "/olook-na-imprensa", :to => "pages#press", :as => "press"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
@@ -48,9 +49,11 @@ Olook::Application.routes.draw do
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
 
   get "/produto/:id" => "product#show", :as => "product"
+  post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
+  post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
 
   get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
   post "membro/importar_contatos" => 'members#show_imported_contacts', :as => 'member_show_imported_contacts'
@@ -58,6 +61,7 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
 

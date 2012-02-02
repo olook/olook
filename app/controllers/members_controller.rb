@@ -4,8 +4,12 @@ class MembersController < ApplicationController
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :check_early_access, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
-  before_filter :load_user, :only => [:invite, :showroom, :invite_list]
+  before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
+  before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
+  before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
+  before_filter :redirect_user_if_new, :only => [:showroom]
+  before_filter :redirect_user_if_old, :only => [:welcome]
 
   def invite
     @is_the_first_visit = first_visit_for_member?(@user)
@@ -33,6 +37,13 @@ class MembersController < ApplicationController
     redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
+  def new_member_invite_by_email
+    parsed_emails = params[:invite_mail_list].split(/,|;|\r|\t/).map(&:strip)
+    invites = current_user.invites_for(parsed_emails)
+    current_user.add_event(EventType::SEND_INVITE, "#{invites.length} invites sent")
+    redirect_to(member_welcome_path, :notice => "#{invites.length} convites enviados com sucesso!")
+  end
+
   # I know it's a workaround, but our friends at yahoo did us
   # the favor of GET the allowed app giving params, not POST it.
   # -zanst
@@ -47,6 +58,11 @@ class MembersController < ApplicationController
     rescue MultiJson::DecodeError, Net::HTTPFatalError, OAuth::Problem
       redirect_to(member_invite_path, :notice => "Seus contatos não puderam ser importados agora. Por favor tente novamente mais tarde.")
     end
+  end
+
+  def welcome
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    @products = Product.find(1943, 1983, 605, 46, 1590)
   end
 
   def showroom
@@ -89,7 +105,32 @@ class MembersController < ApplicationController
   end
 
   def incoming_params
-    params.clone.delete_if {|key| ['controller', 'action','invite_token'].include?(key) }
+    params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
   end
 
+  def redirect_user_if_new
+    redirect_to member_welcome_path if (current_user.created_at + 24.hours) > DateTime.now
+  end
+
+  def redirect_user_if_old
+    redirect_to member_showroom_path if (current_user.created_at + 24.hours) < DateTime.now
+  end
+
+  def load_offline_variant_and_clean_session
+    @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
+    session[:offline_variant] = nil
+  end
+
+  def check_session_and_send_to_cart
+    unless @offline_variant.nil?
+      order_id = (session[:order] ||= @user.orders.create.id)
+      order = @user.orders.find(order_id)
+      order.add_variant(@offline_variant)
+      if session[:offline_first_access]
+        session[:offline_first_access] = nil
+        redirect_to cart_path
+      end
+    end
+  end
 end
+

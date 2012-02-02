@@ -9,6 +9,7 @@ FactoryGirl.define do
     end
     first_name "User First Name"
     last_name "User Last Name"
+    created_at 2.days.ago
 
     after_build do |user|
       Resque.stub(:enqueue)
@@ -24,6 +25,7 @@ FactoryGirl.define do
       end
       first_name "First Name"
       last_name "Last Name"
+      created_at 2.days.ago
 
       after_build do |user|
         Resque.stub(:enqueue)

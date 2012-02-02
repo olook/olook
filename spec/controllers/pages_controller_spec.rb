@@ -41,9 +41,9 @@ describe PagesController do
     end
   end
 
-  describe "GET what_are_talking" do
+  describe "GET press" do
     it "should be successfull" do
-      get :what_are_talking
+      get :press
       response.should be_success
     end
   end
