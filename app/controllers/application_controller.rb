@@ -2,9 +2,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
+  before_filter :load_promotion
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
+
+  def load_promotion
+    @promotion = PromotionService.new(current_user).detect_current_promotion if current_user
+  end
 
   private
 
