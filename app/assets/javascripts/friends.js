@@ -4,7 +4,10 @@ $(document).ready(function() {
   });
 
   $("form.form_post_wall").bind("ajax:success", function(evt, xhr, settings){
-    $(".form_post_wall textarea").val("");
+    $(this).fadeOut("slow", function() {
+      $("div#share_showroom").append("<h2>Sua vitrine foi postada com sucesso</h2>");
+      $(this).remove();
+    });
   });
 
   $("form.form_post_wall").bind("ajax:error", function(evt, xhr, settings){
