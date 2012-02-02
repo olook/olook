@@ -6,10 +6,11 @@
       <ul>
         <li><%= f.hidden_field 'friend_uid', :value => @friend.try(:uid) %></li>
         <% answer_number = 0 %>
+        <% question_number = 0 %>
         <% @question.answers.each do |answer| %>
         <li>
           <%= f.radio_button 'question', answer.id %>
-          <%= image_tag "/assets/quiz/#{answer.question.id}_#{answer_number += 1}.jpg"  %>
+          <%= image_tag "/assets/quiz/#{answer.question.id - 29}_#{answer_number += 1}.jpg"  %>
         </li>
         <% end %>
       </ul>
