@@ -12,7 +12,11 @@ class FriendsController < ApplicationController
   end
 
   def facebook_connect
-    redirect_to friends_home_path if @user.has_facebook? && session[:should_request_new_facebook_token].nil?
+    if @user.has_facebook? && session[:should_request_new_facebook_token].nil?
+      redirect_to friends_home_path
+    else
+      session[:should_request_new_facebook_token] = true
+    end
   end
 
   def home
