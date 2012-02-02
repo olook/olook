@@ -13,8 +13,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       user = User.find_for_facebook_oauth(env["omniauth.auth"])
       if user
-        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
+        user.set_uid_and_facebook_token(env["omniauth.auth"])
         sign_in user
+        flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
         redirect_to member_showroom_path
       else
         session["devise.facebook_data"] = env["omniauth.auth"]
@@ -39,5 +40,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     token = omniauth["credentials"]["token"]
     current_user.update_attributes(:uid => id, :facebook_token => token)
   end
-
 end
