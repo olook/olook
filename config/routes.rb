@@ -31,7 +31,7 @@ Olook::Application.routes.draw do
 
   match "/minhas-amigas/conectar", :to => "friends#connect", :as => "connect"
   match "/minhas-amigas/home", :to => "friends#home", :as => "home"
-  match "/minhas-amigas/vitrine", :to => "friends#showroom", :as => "showroom"
+  match "/minhas-amigas/vitrine/:friend_id", :to => "friends#showroom", :as => "friend_showroom"
   get "/minhas-amigas/atualizar-lista-amigas", :to => "friends#update_friends_list", :as => "update_friends_list"
   get "/minhas-amigas/atualizar-quiz", :to => "friends#update_survey_question", :as => "update_survey_question"
   post "/postar-no-mural", :to => "friends#post_wall", :as => "post_wall"
