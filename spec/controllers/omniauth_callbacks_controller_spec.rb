@@ -33,8 +33,8 @@ describe OmniauthCallbacksController do
         controller.stub!(:current_user).and_return(@user = mock_model(User))
       end
       it "should set facebook uid and token" do
-        controller.env["omniauth.auth"] = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}
-        @user.should_receive(:update_attributes).with(:uid => "123", :facebook_token => "token")
+        controller.env["omniauth.auth"] = omniauth = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}
+        @user.should_receive(:set_uid_and_facebook_token).with(omniauth)
         get :facebook
         response.should redirect_to(member_showroom_path)
         flash[:notice].should eq("Facebook Connect adicionado com sucesso")
