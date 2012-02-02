@@ -34,10 +34,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     id = omniauth["extra"]["user_hash"]["id"]
     User.find_by_uid(id)
   end
-
-  def set_uid_and_facebook_token(current_user, omniauth)
-    id = omniauth["extra"]["user_hash"]["id"]
-    token = omniauth["credentials"]["token"]
-    current_user.update_attributes(:uid => id, :facebook_token => token)
-  end
 end
