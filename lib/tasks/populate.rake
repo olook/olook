@@ -37,7 +37,9 @@ def update_friend_questions
    "Quais acessórios __USER_NAME__ usaria para um domingo à tarde?",
    "Quais acessórios __USER_NAME__ usaria em uma festa?",
    "Quais acessórios __USER_NAME__ escolheria para um pretinho básico?",
-   "Maquiagem para você __USER_NAME__..."]
+   "Maquiagem para você __USER_NAME__ é...",
+   "Como __USER_NAME__ costuma combinar as cores?",
+   "Como __USER_NAME__ gosta do caimento das suas roupas?"]
    Question.all.each_with_index do |question, index|
      question.update_attributes(:friend_title => friend_questions[index])
    end
