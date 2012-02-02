@@ -170,16 +170,15 @@ section#friends {
               margin: 0 auto;
               li {
                 position: relative;
-                width: 105px;
-                height: 314px;
+                width: 100px;
+                height: 155px;
                 overflow: hidden;
                 margin: 0 30px 0 0;
                 float: left;
                 border: 2px #e0e0e0 solid;
                 cursor: pointer;
                 img {
-                  height: 314px;
-                  margin: 0 0 0 -50px;
+                  height: 155px;
                 }
                 input[type="radio"] {
                   position: absolute;
