@@ -7,8 +7,8 @@ class FriendsController < ApplicationController
   before_filter :load_question, :only => [:home, :update_survey_question]
 
   def showroom
-    @products = []
-    15.times { @products << Product.all.shuffle.first }
+    @friend = User.find(params[:friend_id])
+    @products = @friend.all_profiles_showroom
   end
 
   def home
