@@ -11,6 +11,10 @@ class FriendsController < ApplicationController
     @products = @friend.all_profiles_showroom
   end
 
+  def facebook_connect
+    redirect_to friends_home_path if @user.has_facebook? && session[:should_request_new_facebook_token].nil?
+  end
+
   def home
   end
 
