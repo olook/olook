@@ -70,8 +70,11 @@ $(document).ready(function() {
       $(this).addClass('selected');
       inventory = $(this).find("input[type='hidden']").val();
       remaining = $("div#infos p.remaining");
-      $(remaining).find("span").text(inventory);
-      $(remaining).show();
+      $(remaining).hide();
+      if(inventory <= 3) {
+        $(remaining).find("span").text(inventory);
+        $(remaining).show();
+      }
       return false;
     }
   });
