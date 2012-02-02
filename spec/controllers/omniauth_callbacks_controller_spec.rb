@@ -39,15 +39,20 @@ describe OmniauthCallbacksController do
       it "should set facebook uid and token" do
         User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
         get :facebook
-        response.should redirect_to(member_showroom_path)
-        flash[:notice].should eq("Facebook Connect adicionado com sucesso")
       end
 
-      it "should not set facebook uid and token when already exist a facebook account" do
-        FactoryGirl.create(:user, :uid => "123")
+      it "should redirect to member showroom" do
+        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
+        session[:should_request_new_facebook_token] = false
         get :facebook
         response.should redirect_to(member_showroom_path)
-        flash[:notice].should eq("Esta conta do Facebook já está em uso")
+      end
+
+      it "should redirect to friend showroom" do
+        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
+        session[:should_request_new_facebook_token] = true
+        get :facebook
+        response.should redirect_to(friends_home_path)
       end
     end
   end
