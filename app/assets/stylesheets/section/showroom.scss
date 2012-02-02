@@ -1,34 +1,5 @@
 @import "partials/product";
 
-#first_visit
-{
-  width:100%; 
-  position:absolute; 
-  background-color: #000;
-
-  #fb_iframe{
-    border:none; 
-    overflow:hidden; 
-    width:350px; 
-    height:35px; 
-    position:relative; 
-    top:5px; 
-    left:20px;
-  }
-
-  #share_text {
-    color: white;
-    font-family: Times;
-    font-size: 22px;
-    font-style: italic;
-    letter-spacing:-1px;
-    position:relative;
-    top:-13px;
-    left:10px;
-  }
-}
-
-
 #showroom {
   padding: 20px 0 0 0;
   section#greetings {
