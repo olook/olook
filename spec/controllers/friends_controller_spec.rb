@@ -4,6 +4,12 @@ describe FriendsController do
   with_a_logged_user do
     render_views
     let(:message) { "my message" }
+    let(:attachment) do
+      {:picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg",
+       :caption => "www.olook.com.br",
+       :description => I18n.t('facebook.post_wall', :link => user.invitation_url),
+       :link => "#{user.invitation_url}" }
+    end
 
 
     describe "GET home" do
@@ -25,12 +31,12 @@ describe FriendsController do
         end
 
         it "should post a message in the facebook wall" do
-          @fb_adapter.should_receive(:post_wall_message).with(message).and_return(true)
+          @fb_adapter.should_receive(:post_wall_message).with(message, :attachment => attachment).and_return(true)
           post :post_wall, :message => message
         end
 
         it "should return a success response" do
-          @fb_adapter.should_receive(:post_wall_message).with(message).and_return(true)
+          @fb_adapter.should_receive(:post_wall_message).with(message, :attachment => attachment).and_return(true)
           post :post_wall, :message => message
           response.should be_success
         end
@@ -39,7 +45,7 @@ describe FriendsController do
      context "on failure" do
        it "should return a failure response" do
          FacebookAdapter.stub(:new).with(user.facebook_token).and_return(fb_adapter = mock)
-         fb_adapter.should_receive(:post_wall_message).with(message).and_return(false)
+         fb_adapter.should_receive(:post_wall_message).with(message, :attachment => attachment).and_return(false)
          post :post_wall, :message => message
          response.should_not be_success
        end
