@@ -3,6 +3,7 @@ class CreateLookbooks < ActiveRecord::Migration
     create_table :lookbooks do |t|
       t.string :name
       t.string :thumb_image
+      t.boolean :active, :default => true
 
       t.timestamps
     end
