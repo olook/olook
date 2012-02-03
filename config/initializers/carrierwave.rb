@@ -8,7 +8,7 @@ CarrierWave.configure do |config|
   if Rails.env.production?
     config.fog_directory = 'cdn.olook.com.br'
   else
-    config.fog_directory = 'testcdn.olook.com.br'
+    config.fog_directory = 'cdn.olook.com.br'
   end
 
   config.fog_host = "http://#{config.fog_directory}"
