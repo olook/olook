@@ -67,14 +67,27 @@ section#stylist {
     }
   }
   div#products {
-    background: url("/assets/showroom/border-top-product.png") 170px 18px no-repeat;
+    background: url("/assets/showroom/border-top-product.png") 170px 30px no-repeat;
     width: 100%;
     overflow: auto;
     h1.title {
+      background: #FFF;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 55px;
+      font-weight: normal;
+      font-style: italic;
+      letter-spacing: -3px;
+      text-transform: uppercase;
+      padding: 0 10px 0 0;
+      margin-bottom: 20px;
+      float: left;
+    }
+    h2.title {
       background: url("/assets/stylist/title-helena-linhares.jpg") no-repeat;
       text-indent: -9999px;
-      width: 324px;
+      width: 147px;
       height: 35px;
+      margin: 15px 0 0 0;
       display: block;
       float: left;
     }
@@ -118,6 +131,52 @@ section#stylist {
           width: 95px;
           display: block;
           float: left;
+        }
+        &#collection_container {
+          position: relative;
+          background: url("/assets/stylist/helena_linhares/bg-collection.jpg") center top no-repeat;
+          width: 100%;
+          height: 910px;
+          display: block;
+          p.desc {
+            position: absolute;
+            font-size: 14px;
+            width: 290px;
+            top: 80px;
+            left: 610px;
+            strong {
+              color: #515151;
+            }
+          }
+          div.product {
+            position: absolute;
+            width: 210px;
+            overflow: auto;
+            top: 0;
+            left: 0;
+            h1 {
+              line-height: 50px;
+            }
+            h2 {
+              margin: 0;
+            }
+            &.first {
+              left: 65px;
+            }
+            &.second {
+              text-align: center;
+              top: 185px;
+              left: 740px;
+              a {
+                margin: 0 auto;
+                float: none;
+              }
+            }
+            &.third {
+              top: 440px;
+              left: 290px;
+            }
+          }
         }
         &.last {
           background: none;
