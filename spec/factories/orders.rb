@@ -35,7 +35,7 @@ FactoryGirl.define do
     end
 
     after_create do |order|
-      order.stub(:total).and_return(100)
+      order.stub(:total).and_return(BigDecimal.new("100"))
       order.stub(:reload)
     end
   end
@@ -45,5 +45,10 @@ FactoryGirl.define do
     association :freight, :factory => :freight
     association :user
     state "delivered"
+
+    after_create do |order|
+      order.stub(:line_items_total).and_return(BigDecimal.new("99.90"))
+      order.stub(:reload)
+    end
   end
 end

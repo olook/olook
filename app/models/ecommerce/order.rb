@@ -161,7 +161,7 @@ class Order < ActiveRecord::Base
   end
 
   def line_items_total
-    line_items.inject(0){|result, item| result + item.total_price}
+    BigDecimal.new(line_items.inject(0){|result, item| result + item.total_price}.to_s)
   end
 
   def credits
