@@ -1,9 +1,11 @@
 <div id="related">
   <h1 class="title">Seus stylists também sugerem</h1>
-  <ul>
+  <ul class="<%= related_products.count > 3 ? 'carousel' : '' %>">
     <%= render :partial => "shared/showroom_product_item", :collection => related_products, :as => :product, :locals => {:image_method => :suggestion_picture} %>
   </ul>
-  <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
-  <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next" %>
+  <% if related_products.count > 3 %>
+    <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
+    <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next" %>
+  <% end %>
   <div id="related_footer"></div>
 </div>
