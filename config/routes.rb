@@ -14,7 +14,7 @@ Olook::Application.routes.draw do
   match "/olook-na-imprensa", :to => "pages#press", :as => "press"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   match "/membro/:share/:uid", :to => "home#index"
-  match "/lookbooks/:name", :to => "lookbooks#show"
+  #match "/lookbooks/:name", :to => "lookbooks#show"
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
