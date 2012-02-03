@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
-describe LandingImageUploader do
+describe ImageUploader do
   include CarrierWave::Test::Matchers
 
   before :all do
