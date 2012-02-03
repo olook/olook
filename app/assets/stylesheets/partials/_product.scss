@@ -67,7 +67,7 @@ li.product {
       span {
         color: #000;
         font-family: Arial;
-        font-size: 20px;
+        font-size: 18px;
         letter-spacing: -1px;
         margin-right: 2px;
         padding: 3px 0 0 0;
@@ -146,4 +146,24 @@ li.product {
     }
   }
 }
-
+#friends {
+  li.product {
+    width: 160px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          right: 2px;
+        }
+        img {
+          width: 150px;
+          height: 150px;
+        }
+        h1 {
+          width: 150px;
+          height: 17px;
+        }
+      }
+    }
+  }
+}

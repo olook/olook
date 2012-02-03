@@ -1,5 +1,17 @@
 <div id="carousel_lookbooks">
   <ul>
+  <%
+    enabled = false 
+    if enabled %>
+    <% lookbooks.each do |lookbook| %>
+      <li>
+        <%= link_to "/lookbooks/show/#{lookbook.name}" do %>
+          <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
+          <h1><%= lookbook.name %></h1>
+        <% end %>
+      </li>
+    <% end %>
+  <% else %>
     <li>
       <%= link_to verao_path do %>
         <%= image_tag "lookbooks/verao.jpg", :alt => "Verão" %>
@@ -48,6 +60,7 @@
         <h1>Let's Party</h1>
       <% end %>
     </li>
+  <% end %>
   </ul>
   <%= link_to "Anterior", "javascript:void(0);", :class => "prev-lookbook" %>
   <%= link_to "Próximo", "javascript:void(0);", :class => "next-lookbook" %>

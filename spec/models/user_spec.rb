@@ -63,13 +63,19 @@ describe User do
     it { should have_many :events }
   end
 
-  context "facebook account" do
-    it "should not facebook account" do
+  context "facebook features" do
+    it "should set uid and facebook token" do
+      omniauth = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "AXYZ"}}
+      subject.should_receive(:update_attributes).with(:uid => "123", :facebook_token => "AXYZ")
+      subject.set_uid_and_facebook_token(omniauth)
+    end
+
+    it "should not have a facebook account" do
       subject.update_attributes(:uid => nil)
       subject.has_facebook?.should == false
     end
 
-    it "should have facebook account" do
+    it "should have a facebook account" do
       subject.has_facebook?.should == true
     end
   end

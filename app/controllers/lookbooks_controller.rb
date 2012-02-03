@@ -1,4 +1,15 @@
 class LookbooksController < ApplicationController
+  def show
+    if params[:name]
+      @lookbook = Lookbook.where("name = '#{params[:name]}' and active = 1")[0]
+    else
+      @lookbook = Lookbook.where("active = 1").order(:created_at).limit(1)[0]
+    end
+    @products = @lookbook.products
+    @products_id = @lookbook.lookbooks_products.map{|item| ( item.criteo ) ? item.product_id : nil }.compact
+    @lookbooks = Lookbook.find(:all)
+  end
+
   def flores
     @products = Product.find(493, 417, 435, 1, 563, 401, 403, 569)
   end
