@@ -20,8 +20,17 @@ class PromotionService
     promo
   end
 
+  def apply_discount promotion
+    (promotion.discount_percent * order.line_items_total) / 100
+  end
+
   def apply_promotion
-    order.create_used_promotion(:promotion => detect_current_promotion) unless order.used_coupon
+    unless order.used_coupon
+      promotion = detect_current_promotion
+      order.create_used_promotion(:promotion => promotion,
+                                  :discount_percent => promotion.discount_percent,
+                                  :discount_value =>  apply_discount(promotion))
+    end
   end
 
   def satisfies_criteria? promotion

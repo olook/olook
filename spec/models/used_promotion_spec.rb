@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe UsedPromotions do
+describe UsedPromotion do
   pending "add some examples to (or delete) #{__FILE__}"
 end
