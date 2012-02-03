@@ -66,7 +66,7 @@ class MembersController < ApplicationController
   end
 
   def showroom
-    @is_the_first_visit = first_visit_for_member?(@user)   
+    @is_the_first_visit = first_visit_for_member?(@user)
   end
 
   def show_imported_contacts

@@ -178,7 +178,11 @@ class Order < ActiveRecord::Base
   end
 
   def discount_from_promotion
-    used_promotion.discount_value
+    if used_promotion
+      used_promotion.discount_value
+    else
+      0
+    end
   end
 
   def total
