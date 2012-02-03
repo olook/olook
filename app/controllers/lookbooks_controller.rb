@@ -50,4 +50,8 @@ class LookbooksController < ApplicationController
   def verao
     @products = Product.find(796, 696, 814, 669, 751, 769, 904, 1129)
   end
+
+  def candy_flavor
+    @products = Product.find(64, 73, 949, 1582, 1616, 1006, 1004, 1598)
+  end
 end
