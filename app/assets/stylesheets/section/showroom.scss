@@ -1,34 +1,5 @@
 @import "partials/product";
 
-#first_visit
-{
-  width:100%; 
-  position:absolute; 
-  background-color: #000;
-
-  #fb_iframe{
-    border:none; 
-    overflow:hidden; 
-    width:350px; 
-    height:35px; 
-    position:relative; 
-    top:5px; 
-    left:20px;
-  }
-
-  #share_text {
-    color: white;
-    font-family: Times;
-    font-size: 22px;
-    font-style: italic;
-    letter-spacing:-1px;
-    position:relative;
-    top:-13px;
-    left:10px;
-  }
-}
-
-
 #showroom {
   padding: 20px 0 0 0;
   section#greetings {
@@ -180,31 +151,16 @@
     margin-bottom: 20px;
     overflow: auto;
     h1.title {
-      text-indent: -9999px;
+      background: #FFF;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 40px;
+      font-weight: normal;
+      font-style: italic;
+      letter-spacing: -3px;
+      text-transform: uppercase;
+      padding: 0 20px 0 0;
       margin-bottom: 20px;
-      display: block;
       float: left;
-    }
-    &#shoes_container {
-      h1.title {
-        background: url('/assets/showroom/title-shoes.png') no-repeat;
-        width: 372px;
-        height: 41px;
-      }
-    }
-    &#purse_container {
-      h1.title {
-        background: url('/assets/showroom/title-purse.png') no-repeat;
-        width: 353px;
-        height: 41px;
-      }
-    }
-    &#accessories_container {
-      h1.title {
-        background: url('/assets/showroom/title-accessories.png') no-repeat;
-        width: 425px;
-        height: 41px;
-      }
     }
   }
   div.type_list {
