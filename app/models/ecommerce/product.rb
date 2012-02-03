@@ -31,6 +31,10 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
+  def self.for_criteo
+    self.only_visible.joins(:variants).where("variants.is_master = 1 AND variants.price > 0.0")
+  end
+
   def related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)
