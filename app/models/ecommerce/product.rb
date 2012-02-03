@@ -127,7 +127,7 @@ class Product < ActiveRecord::Base
       xml.tag!(:retailprice, price)
       xml.tag!(:recommendable, '1')
       xml.tag!(:instock, instock)
-      xml.tag!(:category1, category)
+      xml.tag!(:category, category)
     end
   end
 
