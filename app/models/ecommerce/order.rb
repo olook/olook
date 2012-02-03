@@ -178,7 +178,7 @@ class Order < ActiveRecord::Base
   end
 
   def discount_from_promotion
-    used_promotion ? (self.used_promotion.promotion.discount_percent * line_items_total) / 100 : 0
+    used_promotion.discount_value
   end
 
   def total

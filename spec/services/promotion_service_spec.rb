@@ -11,7 +11,7 @@ describe PromotionService do
 
   describe "should not match any promotion" do
     it "when the user is not a first time buyers" do
-      order = FactoryGirl.create(:order)
+      order = FactoryGirl.create(:delivered_order)
       promotion = FactoryGirl.create(:first_time_buyers)
       PromotionService.new(order.user).detect_current_promotion.should be_nil
     end

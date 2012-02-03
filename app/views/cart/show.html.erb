@@ -22,49 +22,51 @@
             </p>
           </td>
         </tr>
-        <tr>
-          <td class="titles" colspan="3">
-            <p>A utilização de um código promocional invalida esta promoção</p>
+      <% end %>
+      <% if @cart.coupon_discount > 0 %>
+        <tr class="first">
+          <td class="titles" colspan="3">Código Promocional</td>
+          <td class="value">
+            <p><%= number_to_currency(@cart.coupon_discount) %> <%= @cart.coupon_discount_in_percentage %></p>
+            <%= form_for(remove_bonus_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+              <fieldset class="inputs">
+                <ol>
+                  <li>
+                    <%= submit_tag "Limpar" %>
+                  </li>
+                </ol>
+              </fieldset>
+            <% end %>
           </td>
         </tr>
       <% end %>
-      <tr class="first">
-        <td class="titles" colspan="3">Código Promocional</td>
-        <td class="value">
-          <p><%= number_to_currency(@cart.coupon_discount) %> <%= @cart.coupon_discount_in_percentage %></p>
-          <%= form_for(remove_bonus_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= submit_tag "Limpar" %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
       <% if @promotion and @order.used_coupon %>
         <tr>
           <td class="titles" colspan="3">
-            <p>A utilização deste código promocional invalida a promoção <strong><%= @promotion.cart_label %></strong></p>
+            <p>
+              A utilização deste código promocional invalida o <strong><%= @promotion.cart_label %></strong>.<br/>
+              Para voltar a utilizá-lo limpe seu cupom.
+            </p>
           </td>
         </tr>
       <% end %>
-      <tr>
-        <td class="titles" colspan="3">Crédito</td>
-        <td class="value">
-          <p><%= number_to_currency(@cart.credits_discount) %></p>
-          <%= form_for(remove_bonus_cart_path, :url => remove_bonus_cart_path, :method => :delete) do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= submit_tag "Limpar" %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
+      <% if @cart.credits_discount > 0 %>
+        <tr>
+          <td class="titles" colspan="3">Crédito</td>
+          <td class="value">
+            <p><%= number_to_currency(@cart.credits_discount) %></p>
+            <%= form_for(remove_bonus_cart_path, :url => remove_bonus_cart_path, :method => :delete) do %>
+              <fieldset class="inputs">
+                <ol>
+                  <li>
+                    <%= submit_tag "Limpar" %>
+                  </li>
+                </ol>
+              </fieldset>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
       <tr class="last">
         <td class="titles" colspan="3">
           Total

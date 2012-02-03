@@ -156,19 +156,9 @@ describe Order do
     describe "#total_discount" do
       it "should return all discounts" do
         subject.stub(:credits).and_return(credits = 9.09)
-        subject.stub(:discount_from_gift).and_return(gift = 9.09)
+        #subject.stub(:discount_from_gift).and_return(gift = 9.09)
         subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
-        subject.total_discount.should == credits + gift + coupon
-      end
-    end
-
-    describe "#discount_from_gift" do
-      context "with a gift" do
-        it "should return a discount" do
-          item_flagged_as_gift = subject.line_items.first
-          item_flagged_as_gift.update_attributes(:gift => true)
-          subject.discount_from_gift.should == item_flagged_as_gift.price
-        end
+        subject.total_discount.should == credits + coupon
       end
     end
 
