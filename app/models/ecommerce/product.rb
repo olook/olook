@@ -18,6 +18,9 @@ class Product < ActiveRecord::Base
   belongs_to :collection
   has_and_belongs_to_many :profiles
 
+  has_many :lookbooks_products, :dependent => :destroy
+  has_many :lookbooks, :through => :lookbooks_products
+
   validates :name, :presence => true
   validates :description, :presence => true
   validates :model_number, :presence => true, :uniqueness => true

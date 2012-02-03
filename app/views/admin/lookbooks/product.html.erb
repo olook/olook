@@ -1,0 +1,53 @@
+<%= form_for([:admin,@lookbook]) do |f| %>
+  <% if @lookbook.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lookbook.errors.count, "error") %> prohibited this landing page from being saved:</h2>
+
+      <ul>
+      <% @lookbook.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :name %>
+  </div>
+ 	<table class="table">
+    <tr>
+      <th>Product</th>
+      <th style="width:125px">Name</th>
+      <th>Select</th>
+      <th>Criteo</th>
+    </tr>
+
+  <% @products.each do |product|
+
+      related = !product.lookbooks_products.empty?
+      if related
+        if product.lookbooks_products[0].lookbook_id == @lookbook.id
+          related = product.lookbooks_products[0].criteo
+        else
+          related = false
+        end
+      else
+        related = false
+      end
+  %>
+    <tr>
+      <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
+      <td><%= "#{product.name}"%></td>
+      <td><%= check_box_tag( "lookbook[product_list][#{product.id}]", 
+                          "1", 
+                          @lookbook.products.detect{|d| d == product}) %></td>
+      <td><%= check_box_tag( "lookbook[product_criteo][#{product.id}]", 
+                          "1", 
+                          related ) %></td>
+    </tr>
+  <% end %>
+  </table>  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -14,6 +14,8 @@ Olook::Application.routes.draw do
   match "/olook-na-imprensa", :to => "pages#press", :as => "press"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   match "/membro/:share/:uid", :to => "home#index"
+  # match "/lookbooks/:name", :to => "lookbooks#show"
+  # match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
   match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
   match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
   match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
@@ -104,6 +106,13 @@ Olook::Application.routes.draw do
         post 'add_related' => "products#add_related", :as => "add_related"
         delete 'remove_related/:related_product_id' => "products#remove_related", :as => "remove_related"
       end
+    end
+
+    resources :lookbooks do
+      collection do
+        get "product/:id", :to => "lookbooks#product"
+      end
+      resources :images
     end
 
     resources :users, :except => [:create, :new] do
