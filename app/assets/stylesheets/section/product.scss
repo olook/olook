@@ -393,7 +393,7 @@
     }
     div#related {
       position: relative;
-      background: url('/assets/showroom/border-top-product.png') 170px 13px no-repeat;
+      background: url('/assets/showroom/border-top-product.png') 170px 25px no-repeat;
       width: 100%;
       overflow: auto;
       clear: both;
@@ -425,15 +425,19 @@
         padding: 0 0 10px 0;
       }
       h1.title {
-        background: url("/assets/product/title-your-stylists.png") no-repeat;
-        text-indent: -9999px;
-        width: 360px;
-        height: 27px;
-        margin: 0 0 15px 0;
-        display: block;
+        background: #FFF;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 40px;
+        font-weight: normal;
+        font-style: italic;
+        letter-spacing: -3px;
+        text-transform: uppercase;
+        padding: 0 20px 0 0;
+        margin-bottom: 15px;
         float: left;
       }
       ul {
+        padding: 0 0 0 50px;
         clear: both;
         li.product {
           width: 265px;
@@ -444,6 +448,9 @@
               border-color: #df5a8b;
             }
           }
+        }
+        &.carousel {
+          padding: 0;
         }
       }
       div#related_footer {

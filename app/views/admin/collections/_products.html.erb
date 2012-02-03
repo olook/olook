@@ -8,6 +8,7 @@
       <th>Price</th>
       <th>Is Visible?</th>
       <th>Category</th>
+      <th>Inventory</th>
       <th>Color</th>
       <th></th>
       <th></th>
@@ -22,6 +23,7 @@
       <td><%= number_to_currency product.price %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td> 
       <td><%= product.category_humanize %></td>
+      <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>

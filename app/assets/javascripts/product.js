@@ -93,7 +93,7 @@ $(document).ready(function() {
     }
   });
 
-  $("div#related ul").carouFredSel({
+  $("div#related ul.carousel").carouFredSel({
     auto: false,
     width: 860,
     items: 3,
