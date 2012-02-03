@@ -15,18 +15,21 @@ class Lookbook < ActiveRecord::Base
   private 
 
   def update_products
+    
     products.delete_all
 		selected_products = product_list.nil? ? [] : product_list.keys.collect{|id| Product.find_by_id(id)}
     selected_products.each {|os| self.products << os}
     lb = self.lookbooks_products
-  	if !product_criteo.nil?
-      product_criteo.each do |key, val|
-        lb.each do |lookbooks_products|
-          if lookbooks_products.product_id == key.to_i
-      		  lookbooks_products.update_attribute(:criteo, val)
+    lb.each do |lb_product|
+
+      if !product_criteo.nil?
+        product_criteo.each do |key, val|
+          if lb_product.product_id == key.to_i
+            lb_product.update_attribute(:criteo, val)
           end
         end
-    	end
+      end
+
     end
   end
 end
