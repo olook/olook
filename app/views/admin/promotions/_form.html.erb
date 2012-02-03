@@ -21,18 +21,26 @@
   </div>
 
   <div class="field">
+    <%= f.label :banner_label %><br />
+    <strong class="info" >This field will appear on banner</strong><br/>
+    <%= f.text_field :banner_label %>
+  </div>
+
+  <div class="field">
     <%= f.label :my_order_label %><br />
+    <strong class="info" >This field will appear on the "Meu pedido" area</strong><br/>
     <%= f.text_field :my_order_label %>
   </div>
 
   <div class="field">
     <%= f.label :cart_label %><br />
+    <strong class="info" >This field will appear on "sacola" page</strong><br/>
     <%= f.text_field :cart_label %>
   </div>
 
   <div class="field">
     <%= f.label :strategy %><br />
-    <%= f.select :strategy, Dir.entries("#{Rails.root}/app/strategies/promotions/").select{|x| x != "." and x != ".."}.map{|x| [x.gsub(".rb", "").humanize, x.sub(".rb", "")]} %>
+    <%= f.select :strategy, YAML::load_file(Rails.root.to_s + '/config/promotions.yml')["strategies"].map{|x| [x.humanize, x]} %>
   </div>
 
   <div class="field">

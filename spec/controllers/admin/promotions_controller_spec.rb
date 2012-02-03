@@ -8,9 +8,9 @@ describe Admin::PromotionsController do
       Promotion.delete_all
     end
 
-    let(:promotion) { FactoryGirl.create(:first_time_buyers) }
-    let(:valid_attributes) { FactoryGirl.create(:first_time_buyers).attributes }
-    let(:invalid_attributes) { {:name => nil } }
+    let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
+    let!(:valid_attributes) { FactoryGirl.build(:second_time_buyers).attributes }
+    let!(:invalid_attributes) { {:name => nil } }
 
     describe "GET index" do
       it "should find all promotions" do

@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
   rescue_from Koala::Facebook::APIError, :with => :facebook_token_expired
 
   def load_promotion
-    @promotion = PromotionService.new(current_user).detect_current_promotion if current_user
+    if current_user
+      @promotion = PromotionService.new(current_user).detect_current_promotion
+    end
   end
 
   private
