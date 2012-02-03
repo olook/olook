@@ -17,6 +17,32 @@ html {
         height:525px;
         z-index: 20000;
         border:10px solid #000;
+        #first_visit {
+          width:100%;
+          position:absolute;
+          background-color: #000;
+
+          #fb_iframe {
+            border:none;
+            overflow:hidden;
+            width:350px;
+            height:35px;
+            position:relative;
+            top:5px;
+            left:20px;
+          }
+
+          #share_text {
+            color: white;
+            font-family: Times;
+            font-size: 22px;
+            font-style: italic;
+            letter-spacing:-1px;
+            position:relative;
+            top:-13px;
+            left:10px;
+          }
+        }
         img {
           display: none;
         }

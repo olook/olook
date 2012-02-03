@@ -13,6 +13,7 @@ FactoryGirl.define do
 
     after_build do |user|
       Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
     end
 
     after_create do |user|
@@ -28,7 +29,7 @@ FactoryGirl.define do
       created_at 2.days.ago
 
       after_build do |user|
-        Resque.stub(:enqueue)
+        Resque.stub(:enqueue_in)
       end
 
       after_create do |member|
