@@ -21,6 +21,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :my_order_label %><br />
+    <%= f.text_field :my_order_label %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cart_label %><br />
+    <%= f.text_field :cart_label %>
+  </div>
+
+  <div class="field">
     <%= f.label :strategy %><br />
     <%= f.select :strategy, Dir.entries("#{Rails.root}/app/strategies/promotions/").select{|x| x != "." and x != ".."}.map{|x| [x.gsub(".rb", "").humanize, x.sub(".rb", "")]} %>
   </div>

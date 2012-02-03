@@ -29,6 +29,7 @@ FactoryGirl.define do
   factory :order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
+    association :user
 
     after_build do |order|
       Resque.stub(:enqueue)

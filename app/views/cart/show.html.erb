@@ -12,17 +12,22 @@
       </tr>
     </thead>
     <tfoot>
-      <tr>
-        <td class="titles" colspan="3"><%= @promotion.description %></td>
-        <td class="value">
-          <p><%= @promotion.discount_percent %>%</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="titles" colspan="3">
-          <p>A utilização de um código promocional inválida esta promoção</p>
-        </td>
-      </tr>
+      <% if @promotion and not @order.used_coupon %>
+        <tr>
+          <td class="titles" colspan="3"><%= @promotion.cart_label %></td>
+          <td class="value">
+            <p>
+              <%= @promotion.discount_percent %>%
+              -<%= number_to_currency(@cart.promotion_discount) %>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="titles" colspan="3">
+            <p>A utilização de um código promocional invalida esta promoção</p>
+          </td>
+        </tr>
+      <% end %>
       <tr class="first">
         <td class="titles" colspan="3">Código Promocional</td>
         <td class="value">
@@ -38,6 +43,13 @@
           <% end %>
         </td>
       </tr>
+      <% if @promotion and @order.used_coupon %>
+        <tr>
+          <td class="titles" colspan="3">
+            <p>A utilização deste código promocional invalida a promoção <strong><%= @promotion.cart_label %></strong></p>
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td class="titles" colspan="3">Crédito</td>
         <td class="value">

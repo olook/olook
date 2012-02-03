@@ -1,10 +1,12 @@
+# this class is responsible to
 class PromotionService
   attr_reader :user
-  attr_accessor :promotions
+  attr_accessor :promotions, :order
 
-  def initialize(user)
+  def initialize(user, order=nil)
     @user = user
     @promotions = ::Promotion.active.order(:priority)
+    @order = order
   end
 
   def detect_current_promotion
@@ -18,8 +20,12 @@ class PromotionService
     promo
   end
 
+  def apply_promotion
+    order.create_used_promotion(:promotion => detect_current_promotion) unless order.used_coupon
+  end
+
   def satisfies_criteria? promotion
-    true
-    #promotion.apply_strategy user
+     strategy = promotion.load_strategy.new(promotion.param, user)
+     strategy.matches?
   end
 end
