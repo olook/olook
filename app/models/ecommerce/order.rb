@@ -30,11 +30,14 @@ class Order < ActiveRecord::Base
   has_many :order_state_transitions, :dependent => :destroy
   has_many :order_events, :dependent => :destroy
   has_one :used_coupon, :dependent => :destroy
+  has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   after_create :generate_number
   after_create :generate_identification_code
 
   scope :with_payment, joins(:payment)
+
+  scope :purchased , where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
 
   state_machine :initial => :in_the_cart do
 
@@ -158,7 +161,7 @@ class Order < ActiveRecord::Base
   end
 
   def line_items_total
-    line_items.inject(0){|result, item| result + item.total_price}
+    BigDecimal.new(line_items.inject(0){|result, item| result + item.total_price}.to_s)
   end
 
   def credits
@@ -174,8 +177,12 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def discount_from_gift
-    line_items.where(:gift => true).inject(0){|result, item| item.price}
+  def discount_from_promotion
+    if used_promotion
+      used_promotion.discount_value
+    else
+      0
+    end
   end
 
   def total
@@ -185,7 +192,11 @@ class Order < ActiveRecord::Base
   end
 
   def total_discount
-    credits + discount_from_coupon + discount_from_gift
+    if discount_from_coupon > 0
+      credits + discount_from_coupon
+    else
+      credits + discount_from_promotion
+    end
   end
 
   def generate_identification_code

@@ -1,0 +1,34 @@
+<%= form_for :survey, :url => post_survey_answer_path(:format => :js), :remote => true, :html => {:class => "post_survey_answer"} do |f| %>
+  <%= f.hidden_field 'friend_uid', :value => @friend.try(:uid) %>
+  <div class="question">
+    <h1>Style Quiz</h1>
+    <h2><%= question_title_for_friend(@question.friend_title, @friend.try(:name)) %></h2>
+    <fieldset class="inputs">
+      <ul>
+        <% answer_number = 0 %>
+        <% question_number = 0 %>
+        <% @question.answers.each do |answer| %>
+        <li>
+          <%= f.radio_button 'question', answer.id %>
+          <%= image_tag "/assets/quiz/#{answer.question.id - 29}_#{answer_number += 1}.jpg"  %>
+        </li>
+        <% end %>
+      </ul>
+    </fieldset>
+  </div>
+  <div class="friend">
+    <fieldset class="buttons">
+      <ul>
+        <li>
+          <div class="pic_mask">
+            <%= image_tag user_avatar(@friend) if @friend %>
+          </div>
+          <%= link_to "Próxima amiga >", update_survey_question_path(:format => :js), :remote => true, :class => "next_friend" %>
+        </li>
+        <li>
+          <%= f.submit "", :class => "disabled", :disabled => "disabled" %>
+        </li>
+      </ul>
+    </fieldset>
+  </div>
+<% end %>

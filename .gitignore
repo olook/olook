@@ -12,6 +12,7 @@ coverage
 rerun.txt
 .bundle
 public/uploads
+public/admin/*.csv
 .rvmrc
 .rspec
 Gemfile.lock
