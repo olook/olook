@@ -6,10 +6,6 @@ module Checkout
     append_before_filter :check_order
   end
 
-  def load_promotion
-    @promotion = ::ChristmasPromotion.new(@order)
-  end
-
   def check_cpf
     redirect_to payments_path, :notice => "Informe seu CPF" unless Cpf.new(@user.cpf).valido?
   end

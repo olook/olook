@@ -36,6 +36,12 @@ class User < ActiveRecord::Base
     survey_answer.try(:answers)
   end
 
+  def set_uid_and_facebook_token(omniauth)
+    id = omniauth["extra"]["user_hash"]["id"]
+    token = omniauth["credentials"]["token"]
+    update_attributes(:uid => id, :facebook_token => token)
+  end
+
   def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
     t = User.arel_table

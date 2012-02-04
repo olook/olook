@@ -9,5 +9,15 @@ def with_a_logged_user(&block)
     end
 
     instance_eval &block
-  end 
+  end
+end
+
+
+def with_a_logged_admin
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = Factory :admin
+    sign_in @admin
+  end
+  yield if block_given?
 end
