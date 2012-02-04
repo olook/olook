@@ -52,6 +52,6 @@ class LookbooksController < ApplicationController
   end
 
   def candy_flavor
-    @products = Product.find(64, 73, 949, 1582, 1616, 1006, 1004, 1598)
+    @products = Product.find(64, 73, 949, 1582, 1626, 1765, 1598)
   end
 end
