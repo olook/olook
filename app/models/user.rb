@@ -140,6 +140,14 @@ class User < ActiveRecord::Base
     birthday.strftime("%d/%m/%Y") if birthday
   end
 
+  def is_new?
+    (self.created_at + 24.hours) > DateTime.now
+  end
+
+  def is_old?
+    (self.created_at + 24.hours) < DateTime.now
+  end
+
   private
 
   def remove_color_variations(products)
