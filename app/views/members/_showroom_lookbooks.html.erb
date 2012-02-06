@@ -2,9 +2,9 @@
   <h1>Lookbooks</h1>
   <div id="mask_carousel_showroom">
     <ul>
-      <% #Lookbook.find(:all).each do |lookbook| %>
-        <!-- <li><%= link_to image_tag(lookbook.thumb_image.try(:url)), "/lookbooks/#{lookbook.name}" %></li> -->
-      <% #end %>
+<!--       <% Lookbook.find(:all).each do |lookbook| %>
+        <li><%= link_to image_tag(lookbook.thumb_image.try(:url)), "/lookbooks/#{lookbook.name}" %></li>
+      <% end %> -->
       <li><%= link_to image_tag("lookbooks/candy-flavor.jpg"), candy_flavor_path %></li>
       <li><%= link_to image_tag("lookbooks/verao.jpg"), verao_path %></li>
       <li><%= link_to image_tag("lookbooks/militar.jpg"), militar_path %></li>
