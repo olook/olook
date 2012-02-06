@@ -11,8 +11,8 @@ class BilletExpirationDate
     6 => 2
   }
 
-  def self.expiration_for_two_business_day
-    two_days_from_now = Date.current + 2.days
+  def self.expiration_for_two_business_day(base_date = Date.current)
+    two_days_from_now = base_date + 2.days
     two_days_from_now + SHIFT_DATE[two_days_from_now.wday]
   end
 
