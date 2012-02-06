@@ -369,7 +369,7 @@ describe Product do
         <retailprice>#{subject.price}</retailprice>
         <recommendable>1</recommendable>
         <instock>#{subject.instock}</instock>
-        <category>#{subject.categoryb}</category>
+        <category>#{subject.category}</category>
       </product>
       END
     end
