@@ -63,6 +63,19 @@ describe User do
     it { should have_many :events }
   end
 
+  context "check user's creation" do
+    it "should return true if user is new" do
+      new_user = Factory.create(:user)
+      new_user.created_at = DateTime.now
+      new_user.save
+      new_user.is_new?.should be_true
+    end
+
+    it "should return true if user is old" do
+      subject.is_old?.should be_true
+    end
+  end
+
   context "facebook account" do
     it "should not facebook account" do
       subject.update_attributes(:uid => nil)
