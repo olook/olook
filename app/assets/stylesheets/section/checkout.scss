@@ -408,7 +408,14 @@ section#payment {
       }
     }
     p.generate_billet {
-      font-size: 14px;
+      font-size: 12px;
+      width: 580px;
+      margin: 0 0 10px 20px;
+      span {
+        color: #c64d79;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
       input[type="submit"] {
         background: url("/assets/cart/print-billet.png") no-repeat;
         text-indent: -9999px;
