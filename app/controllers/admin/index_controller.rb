@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Admin::IndexController < Admin::BaseController
-#load_and_authorize_resource
 
   def dashboard
     get_version = `dpkg -l | grep olook | awk '{ print $3 }'`.chomp

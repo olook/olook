@@ -5,7 +5,7 @@ feature "Admin user with sac_operator role executing actions on the system", %q{
   As a sac operator I should be able only to perform actions that i am allowed to
 } do
 
-  before :all do
+  before :each do
     @admin = Factory.create(:admin_sac_operator)
     @collection = Factory.create(:inactive_collection)
   end

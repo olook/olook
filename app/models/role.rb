@@ -6,12 +6,12 @@ class Role < ActiveRecord::Base
   
   validates :name, :uniqueness => true
 
-  def permissions_attributes=(attributes)
-    self.permissions = PermissionMapBuilder.new(attributes, self.permissions).permissions
+  def permissions_attributes=(new_permissions_attributes)
+    self.permissions = PermissionMapBuilder.new(new_permissions_attributes, self.permissions).permissions
   end
 
-  def has_permission?(permission)
-    self.permissions.include?(Permission.find(permission)) ? true : false
+  def has_permission?(permission_id)
+    self.permissions.include?(Permission.find(permission_id)) ? true : false
   end
 
 
