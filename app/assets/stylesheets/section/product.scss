@@ -22,15 +22,16 @@
     a.open_carousel {
       background: url("/assets/product/bt-carousel.jpg") 0 0 no-repeat;
       color: #505050;
+      font-size: 11px;
       font-weight: bold;
       text-decoration: none;
-      line-height: 31px;
-      width: 175px;
+      line-height: 28px;
+      width: 102px;
       padding: 0 0 0 15px;
       display: block;
       float: right;
       &.open {
-        background-position: 0 -31px;
+        background-position: 0 -28px;
       }
     }
     div#carousel {
@@ -39,7 +40,7 @@
       height: 0px;
       display: block;
       clear: both;
-      margin: 20px 0 0 0;
+      margin: 10px 0 0 0;
       float: left;
       overflow: hidden;
       ul {
