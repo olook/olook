@@ -5,7 +5,7 @@
     if enabled %>
     <% lookbooks.each do |lookbook| %>
       <li>
-        <%= link_to "/lookbooks/show/#{lookbook.name}" do %>
+        <%= link_to "/lookbooks/#{lookbook.name}" do %>
           <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
           <h1><%= lookbook.name %></h1>
         <% end %>
