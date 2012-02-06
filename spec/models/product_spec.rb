@@ -364,7 +364,7 @@ describe Product do
         <smallimage></smallimage>
         <bigimage></bigimage>
         <producturl>http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&amp;utm_content=#{subject.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
-        <description>Elegant black high-heeled shoe for executives</description>
+        <description>#{subject.description}</description>
         <price>#{subject.price}</price>
         <retailprice>#{subject.price}</retailprice>
         <recommendable>1</recommendable>
