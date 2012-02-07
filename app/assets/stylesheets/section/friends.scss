@@ -29,12 +29,14 @@ section#friends {
     }
     div.friends_list {
       h2 {
-        background: url("/assets/friends/title-my-friends.jpg") no-repeat;
+        background: url("/assets/friends/title-my-friends.jpg") top left no-repeat;
         text-indent: -9999px;
         width: 175px;
-        height: 23px;
+        height: 37px;
         margin: 0 0 15px 0;
+        padding: 0 0 5px 0;
         display: block;
+        border-bottom: 1px #c3c3c3 solid;
       }
       ul {
         margin: 0 0 10px 0;
