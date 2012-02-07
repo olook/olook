@@ -63,14 +63,21 @@ describe User do
     it { should have_many :events }
   end
 
-  context "facebook features" do
-    it "should set uid and facebook token" do
-      omniauth = {"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "AXYZ"}}
-      subject.should_receive(:update_attributes).with(:uid => "123", :facebook_token => "AXYZ")
-      subject.set_uid_and_facebook_token(omniauth)
+  context "check user's creation" do
+    it "should return true if user is new" do
+      new_user = Factory.create(:user)
+      new_user.created_at = DateTime.now
+      new_user.save
+      new_user.is_new?.should be_true
     end
 
-    it "should not have a facebook account" do
+    it "should return true if user is old" do
+      subject.is_old?.should be_true
+    end
+  end
+
+  context "facebook account" do
+    it "should not facebook account" do
       subject.update_attributes(:uid => nil)
       subject.has_facebook?.should == false
     end
@@ -165,14 +172,24 @@ describe User do
   end
 
   describe "#accept_invitation_with_token" do
-    it "with a valid token" do
-      inviting_member = FactoryGirl.create(:member)
-      invite = subject.accept_invitation_with_token(inviting_member.invite_token)
-      invite.invited_member.should == subject
-      invite.accepted_at.should_not be_nil
+    context "with a valid token" do
+      let(:inviting_member) { FactoryGirl.create(:member) }
+      let(:accepted_invite) { subject.accept_invitation_with_token(inviting_member.invite_token) }
+
+      it "sets the current user as the invited member" do
+        accepted_invite.invited_member.should == subject
+      end
+
+      it "sets the accepted at field with the current date" do
+        accepted_invite.accepted_at.should_not be_nil
+      end
+
     end
-    it "with an invalid token" do
-      expect { subject.accept_invitation_with_token('xxxx') }.to raise_error
+
+    context "with an invalid token" do
+      it "raises an error" do
+        expect { subject.accept_invitation_with_token('xxxx') }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 

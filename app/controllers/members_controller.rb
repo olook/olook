@@ -61,6 +61,7 @@ class MembersController < ApplicationController
   end
 
   def welcome
+    @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @products = Product.find(1943, 1983, 605, 46, 1590)
   end
@@ -109,11 +110,11 @@ class MembersController < ApplicationController
   end
 
   def redirect_user_if_new
-    redirect_to member_welcome_path if (current_user.created_at + 24.hours) > DateTime.now
+    redirect_to member_welcome_path if current_user.is_new?
   end
 
   def redirect_user_if_old
-    redirect_to member_showroom_path if (current_user.created_at + 24.hours) < DateTime.now
+    redirect_to member_showroom_path if current_user.is_old?
   end
 
   def load_offline_variant_and_clean_session
