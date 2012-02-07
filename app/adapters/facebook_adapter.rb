@@ -33,7 +33,7 @@ class FacebookAdapter
 
   def friends_structure
     friends_not_registred = facebook_friends_not_registered_at_olook
-    [friends_not_registred, facebook_friends_registered_at_olook.shuffle, friends_not_registred.shuffle.first]
+    [friends_not_registred, facebook_friends_registered_at_olook, friends_not_registred.shuffle.first]
   end
 
   memoize :facebook_friends
