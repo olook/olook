@@ -370,15 +370,15 @@ section#friends {
       border-left: 1px #dbdbdb solid;
       border-bottom: 1px #dbdbdb solid;
       div#friend_info {
-        margin: 15px 0 20px 25px;
+        margin: 15px 0 15px 25px;
         div.avatar_mask {
-          width: 45px;
-          height: 45px;
+          width: 58px;
+          height: 58px;
           overflow: hidden;
           margin: 0 10px 0 0;
           float: left;
           img {
-            width: 45px;
+            width: 58px;
           }
         }
         h2 {
@@ -387,11 +387,22 @@ section#friends {
           width: 161px;
           height: 13px;
           display: block;
-          margin: 0 0 5px 55px;
+          margin: 0 0 5px 67px;
         }
         h1 {
+          font-family: Arial, sans-serif;
           font-size: 18px;
           font-weight: normal;
+          margin: 0 0 5px 0;
+        }
+        a {
+          background: url("/assets/friends/back-arrow.jpg") left no-repeat;
+          color: #df5a8b;
+          text-decoration: none;
+          padding: 0 0 0 10px;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
       div.product_list {
