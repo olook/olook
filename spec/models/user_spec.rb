@@ -172,14 +172,24 @@ describe User do
   end
 
   describe "#accept_invitation_with_token" do
-    it "with a valid token" do
-      inviting_member = FactoryGirl.create(:member)
-      invite = subject.accept_invitation_with_token(inviting_member.invite_token)
-      invite.invited_member.should == subject
-      invite.accepted_at.should_not be_nil
+    context "with a valid token" do
+      let(:inviting_member) { FactoryGirl.create(:member) }
+      let(:accepted_invite) { subject.accept_invitation_with_token(inviting_member.invite_token) }
+
+      it "sets the current user as the invited member" do
+        accepted_invite.invited_member.should == subject
+      end
+
+      it "sets the accepted at field with the current date" do
+        accepted_invite.accepted_at.should_not be_nil
+      end
+
     end
-    it "with an invalid token" do
-      expect { subject.accept_invitation_with_token('xxxx') }.to raise_error
+
+    context "with an invalid token" do
+      it "raises an error" do
+        expect { subject.accept_invitation_with_token('xxxx') }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 
