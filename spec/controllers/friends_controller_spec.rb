@@ -11,6 +11,28 @@ describe FriendsController do
        :link => "#{user.invitation_url}" }
     end
 
+    describe "GET facebook_connect" do
+      it "should redirect to friends page when the user has a facebbok account and a valid token" do
+        user.stub(:has_facebook?).and_return(true)
+        session[:should_request_new_facebook_token] = nil
+        get :facebook_connect
+        response.should redirect_to(friends_home_path)
+      end
+
+      it "should not redirect to friends page when the user dont have a facebook account" do
+        User.any_instance.stub(:has_facebook?).and_return(false)
+        session[:should_request_new_facebook_token] = nil
+        get :facebook_connect
+        response.should_not redirect_to(friends_home_path)
+      end
+
+      it "should not redirect to friends page when the user dont have a valid token" do
+        User.any_instance.stub(:has_facebook?).and_return(false)
+        session[:should_request_new_facebook_token] = true
+        get :facebook_connect
+        response.should_not redirect_to(friends_home_path)
+      end
+    end
 
     describe "GET home" do
       it "should assign @questions" do

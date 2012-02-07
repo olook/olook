@@ -12,7 +12,7 @@ class FriendsController < ApplicationController
   end
 
   def facebook_connect
-    if @user.has_facebook? && session[:should_request_new_facebook_token].nil?
+    if user_can_access_friends_page
       redirect_to friends_home_path
     else
       session[:should_request_new_facebook_token] = true
@@ -48,6 +48,10 @@ class FriendsController < ApplicationController
   end
 
   private
+
+  def user_can_access_friends_page
+    @user.has_facebook? && session[:should_request_new_facebook_token].nil?
+  end
 
   def load_question
     questions = Question.includes(:answers)
