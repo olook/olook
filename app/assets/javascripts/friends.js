@@ -14,13 +14,11 @@ $(document).ready(function() {
   });
 
   $("div#invite_friends a.invite_friend").bind("click", function(event){
-    $(this).parent("li").addClass("invited");
+    $(this).parent("li").addClass("selected");
     event.preventDefault();
     $.post('/postar-convite', { friend_uid: $(this).attr("rel")})
     .success(function() {
-      $("div#invite_friends ul li.invited").fadeOut("slow", function() {
-        $(this).remove();
-      });
+      $("div#invite_friends ul li.selected").addClass("invited");
     })
     .error(function() { return false; })
   });

@@ -268,6 +268,7 @@ section#friends {
           float: left;
           ul {
             li {
+              position: relative;
               margin: 0 10px 10px 0;
               float: left;
               a {
@@ -282,6 +283,29 @@ section#friends {
                   img {
                     margin: -4px;
                   }
+                }
+              }
+              div {
+                position: absolute;
+                background: #000;
+                width: 50px;
+                height: 50px;
+                display: none;
+                top: 0;
+                left: 0;
+                p {
+                  color: #FFF;
+                  font-family: 'Open Sans', sans-serif;
+                  font-size: 13px;
+                  line-height: 14px;
+                  text-transform: uppercase;
+                  text-align: center;
+                  margin: 10px 0 0 0;
+                }
+              }
+              &.invited {
+                div {
+                  display: block;
                 }
               }
             }
