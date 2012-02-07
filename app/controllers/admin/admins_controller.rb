@@ -21,6 +21,7 @@ class Admin::AdminsController < Admin::BaseController
 
   def edit
     @admin = Admin.find(params[:id])
+    @admin.role
     respond_with :admin, @admin
   end
 
@@ -34,9 +35,15 @@ class Admin::AdminsController < Admin::BaseController
 
   def update
     @admin = Admin.find(params[:id])
+    if params[:admin][:password].blank?
       if @admin.update_without_password(params[:admin])
         flash[:notice] = 'Admin was successfully updated.'
       end
+    else
+      if @admin.update_attributes(params[:admin])
+        flash[:notice] = 'Admin was successfully updated.'
+      end
+    end
     respond_with :admin,@admin
   end
 
