@@ -71,11 +71,14 @@ describe Billet do
         Date.stub(:current).and_return(Date.civil(2012, 2, 14))
         subject.expired?.should be_false
       end
+    end
+  end
 
-      it "should set payment expiration date after create" do
-        BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Date.current)
-        subject.payment_expiration_date.to_date.should == current_date.to_date
-      end
+  context "payment expiration date" do
+    it "should set payment expiration date after create" do
+      BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Date.current)
+      billet = FactoryGirl.create(:billet)
+      billet.payment_expiration_date.to_date.should == BilletExpirationDate.expiration_for_two_business_day
     end
   end
 
