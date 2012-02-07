@@ -34,19 +34,21 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 
-#  scenario "User Sign up" do
-#    answer_survey
-#    visit new_user_registration_path
-#    within("#user_new") do
-#      fill_in "user_first_name", :with => "First Name"
-#      fill_in "user_last_name", :with => "Last Name"
-#      fill_in "user_email", :with => "fake@mail.com"
-#      fill_in "user_password", :with => "123456"
-#      fill_in "user_password_confirmation", :with => "123456"
-#      click_button "register"
-#    end
-#    page.should have_content(I18n.t "devise.registrations.signed_up")
-#  end
+ scenario "User Sign up" do
+   answer_survey
+   visit new_user_registration_path
+   within("#user_new") do
+     fill_in "user_first_name", :with => "First Name"
+     fill_in "user_last_name", :with => "Last Name"
+     fill_in "user_email", :with => "fake@mail.com"
+     fill_in "user_password", :with => "123456"
+     fill_in "user_password_confirmation", :with => "123456"
+     click_button "register"
+   end
+   within("#welcome") do
+     page.should have_content("Sua stylist está criando sua vitrine personalizada, e ela ficará pronta nas próximas 24 horas")
+   end
+ end
 
   scenario "User update without password" do
     do_login!(@user)
