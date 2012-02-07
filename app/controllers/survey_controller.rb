@@ -21,8 +21,7 @@ class SurveyController < ApplicationController
   end
 
   def check_date
-      error_message = "A data informada é inválida" if is_date_invalid?(params)
-    end
+    error_message = "A data informada é inválida" if is_date_invalid?(params)
     respond_to do |format|
       format.json { render :json => { :message => error_message } }
     end
@@ -39,6 +38,6 @@ class SurveyController < ApplicationController
   end
 
   def is_date_invalid?(params)
-    !Date.valid_date?(params[:year].to_i,params[:month].to_i,params[:day].to_i))
+    !Date.valid_date?(params[:year].to_i,params[:month].to_i,params[:day].to_i)
   end
 end
