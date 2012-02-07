@@ -14,13 +14,18 @@ $(document).ready(function() {
   });
 
   $("div#invite_friends a.invite_friend").bind("click", function(event){
-    $(this).parent("li").addClass("selected");
+    uid = $(this).attr("rel");
+    $(this).parent("li").addClass("selected_"+uid);
     event.preventDefault();
     $.post('/postar-convite', { friend_uid: $(this).attr("rel")})
     .success(function() {
-      $("div#invite_friends ul li.selected").addClass("invited");
+      $("div#invite_friends ul li.selected_"+uid+" div").hide();
+      $("div#invite_friends ul li.selected_"+uid+" div.success").show();
     })
-    .error(function() { return false; })
+    .error(function() {
+      $("div#invite_friends ul li.selected_"+uid+" div").hide();
+      $("div#invite_friends ul li.selected_"+uid+" div.error").show().delay(2000).fadeOut();
+    })
   });
 
   $("div#quiz_container div.question ul li").live("click", function() {

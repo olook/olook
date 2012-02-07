@@ -302,10 +302,12 @@ section#friends {
                   text-align: center;
                   margin: 10px 0 0 0;
                 }
-              }
-              &.invited {
-                div {
-                  display: block;
+                &.error {
+                  p {
+                    font-size: 12px;
+                    line-height: 11px;
+                    margin: 3px 0 0 0;
+                  }
                 }
               }
             }
