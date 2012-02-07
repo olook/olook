@@ -18,7 +18,6 @@ class PaymentBuilder
         if payment_response.transaction_status != Payment::CANCELED_STATUS
           order.decrement_inventory_for_each_item
           order.waiting_payment!
-          order.invalidate_coupon
           respond_with_success
         else
           respond_with_failure
