@@ -8,6 +8,16 @@ feature "User Authenticate", %q{
   I want to authenticate using my Facebook account or a normal register
 } do
 
+  def showroom_message
+    "Sua stylist está criando sua vitrine personalizada, e ela ficará pronta nas próximas 24 horas"
+  end
+
+  def update_user_to_old_user(login)
+    user = User.find_by_email(login)
+    user.created_at = Time.now - 1.day
+    user.save!
+  end
+
   use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
 
   before :each do
@@ -46,7 +56,7 @@ feature "User Authenticate", %q{
      click_button "register"
    end
    within("#welcome") do
-     page.should have_content("Sua stylist está criando sua vitrine personalizada, e ela ficará pronta nas próximas 24 horas")
+     page.should have_content(showroom_message)
    end
  end
 
@@ -103,14 +113,18 @@ feature "User Authenticate", %q{
      fill_in "user_password_confirmation", :with => pass
      click_on "register"
    end
-   page.should have_content(I18n.t "devise.registrations.signed_up")
+   page.should have_content(showroom_message)
    click_on "Sair"
    page.should have_content(I18n.t "devise.sessions.signed_out")
+
+   update_user_to_old_user(login)
 
    visit new_user_session_path
    fill_in "user_email", :with => login
    fill_in "user_password", :with => pass
    click_button "login"
-   page.should have_content(I18n.t "devise.sessions.signed_in")
+   within(".notice") do
+     page.should have_content(I18n.t "devise.sessions.signed_in")
+   end
  end
 end
