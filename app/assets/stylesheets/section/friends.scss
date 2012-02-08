@@ -211,11 +211,16 @@ section#friends {
                   width: 60px;
                   height: 60px;
                   display: block;
-                  margin: 0 auto 20px auto;
+                  margin: 0 auto 5px auto;
                   overflow: hidden;
                   img {
                     width: 60px;
                   }
+                }
+                p {
+                  color: #434343;
+                  font-weight: bold;
+                  margin: 0 0 20px 0;
                 }
                 a.next_friend {
                   color: #3d3d3d;
