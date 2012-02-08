@@ -6,7 +6,7 @@ class ShowroomPresenter < BasePresenter
 
   def render_identification
     if member.has_facebook?
-      h.render :partial => "showroom_facebook_connected", :locals => {:showroom_presenter => self}
+      h.render :partial => "showroom_facebook_connected", :locals => {:showroom_presenter => self, :friends => friends}
     else
       h.render :partial => "showroom_facebook_connect", :locals => {:showroom_presenter => self}
     end

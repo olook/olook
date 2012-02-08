@@ -5,6 +5,8 @@ class MembersController < ApplicationController
   before_filter :check_early_access, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
+  before_filter :initialize_facebook_adapter
+  before_filter :load_friends, :only => [:showroom]
   before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
   before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
@@ -132,6 +134,14 @@ class MembersController < ApplicationController
         redirect_to cart_path
       end
     end
+  end
+
+  def load_friends
+    @not_registred_friends, @friends, @friend = @facebook_adapter.friends_structure
+  end
+
+  def initialize_facebook_adapter
+    @facebook_adapter = FacebookAdapter.new @user.facebook_token
   end
 end
 
