@@ -97,6 +97,14 @@ class Order < ActiveRecord::Base
     Resque.enqueue(Abacos::InsertOrder, self.number)
   end
 
+  def invalidate_coupon
+    coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
+    if coupon
+      coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+      coupon.increment!(:used_amount, 1)
+    end
+  end
+
   def clear_gift_in_line_items
     self.reload
     line_items.each {|item| item.update_attributes(:gift => false)}
