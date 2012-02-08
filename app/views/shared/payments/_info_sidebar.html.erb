@@ -18,10 +18,16 @@
           <td>Crédito</td>
           <td class="value credit">- <%= number_to_currency(cart.credits_discount) %></td>
         </tr>
+        <tr>
+          <td>Cupom desconto</td>
+          <td class="value credit">- <%= number_to_currency(cart.coupon_discount) %> <%= cart.coupon_discount_in_percentage %></td>
+        </tr>
+        <% if @order.used_promotion %>
           <tr>
-            <td>Cupom desconto</td>
-            <td class="value credit">- <%= number_to_currency(cart.coupon_discount) %> <%= cart.coupon_discount_in_percentage %></td>
+            <td><%= @promotion.my_order_label %></td>
+            <td class="value credit"><%= @promotion.discount_percent %>% - (<%= number_to_currency cart.promotion_discount %>)</td>
           </tr>
+        <% end %>
         <tr>
           <td>Frete</td>
           <td class="value">+ <%= number_to_currency(cart.freight_price) %></td>

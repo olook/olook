@@ -12,9 +12,9 @@ coverage
 rerun.txt
 .bundle
 public/uploads
+public/admin/*.csv
 .rvmrc
 .rspec
-Gemfile.lock
 nohup.out
 config/facebook.yml
 config/analytics.yml

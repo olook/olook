@@ -1,0 +1,19 @@
+<div id="invite_friends">
+  <h1>Envie convites pessoais para suas amigas</h1>
+  <%= link_to "Ver todas amigas", "javascript:void(0);", :class => "all_friends" %>
+  <div class="list_mask">
+    <ul>
+      <% not_registred_friends.each do |friend| %>
+      <li>
+        <div class="success">
+          <p>Convi<br />dada</p>
+        </div>
+        <div class="error">
+          <p>Erro. Tente nova<br />mente</p>
+        </div>
+        <%= link_to image_tag(user_avatar(friend, "square"), :title => friend.name),  "#", :class => "invite_friend", :rel => friend.uid %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
