@@ -29,12 +29,14 @@ section#friends {
     }
     div.friends_list {
       h2 {
-        background: url("/assets/friends/title-my-friends.jpg") no-repeat;
+        background: url("/assets/friends/title-my-friends.jpg") top left no-repeat;
         text-indent: -9999px;
         width: 175px;
-        height: 23px;
+        height: 37px;
         margin: 0 0 15px 0;
+        padding: 0 0 5px 0;
         display: block;
+        border-bottom: 1px #c3c3c3 solid;
       }
       ul {
         margin: 0 0 10px 0;
@@ -266,6 +268,7 @@ section#friends {
           float: left;
           ul {
             li {
+              position: relative;
               margin: 0 10px 10px 0;
               float: left;
               a {
@@ -279,6 +282,31 @@ section#friends {
                   border: 4px #d25280 solid;
                   img {
                     margin: -4px;
+                  }
+                }
+              }
+              div {
+                position: absolute;
+                background: #000;
+                width: 50px;
+                height: 50px;
+                display: none;
+                top: 0;
+                left: 0;
+                p {
+                  color: #FFF;
+                  font-family: 'Open Sans', sans-serif;
+                  font-size: 13px;
+                  line-height: 14px;
+                  text-transform: uppercase;
+                  text-align: center;
+                  margin: 10px 0 0 0;
+                }
+                &.error {
+                  p {
+                    font-size: 12px;
+                    line-height: 11px;
+                    margin: 3px 0 0 0;
                   }
                 }
               }
@@ -368,15 +396,15 @@ section#friends {
       border-left: 1px #dbdbdb solid;
       border-bottom: 1px #dbdbdb solid;
       div#friend_info {
-        margin: 15px 0 20px 25px;
+        margin: 15px 0 15px 25px;
         div.avatar_mask {
-          width: 45px;
-          height: 45px;
+          width: 58px;
+          height: 58px;
           overflow: hidden;
           margin: 0 10px 0 0;
           float: left;
           img {
-            width: 45px;
+            width: 58px;
           }
         }
         h2 {
@@ -385,11 +413,22 @@ section#friends {
           width: 161px;
           height: 13px;
           display: block;
-          margin: 0 0 5px 55px;
+          margin: 0 0 5px 67px;
         }
         h1 {
+          font-family: Arial, sans-serif;
           font-size: 18px;
           font-weight: normal;
+          margin: 0 0 5px 0;
+        }
+        a {
+          background: url("/assets/friends/back-arrow.jpg") left no-repeat;
+          color: #df5a8b;
+          text-decoration: none;
+          padding: 0 0 0 10px;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
       div.product_list {
