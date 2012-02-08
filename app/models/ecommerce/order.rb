@@ -97,10 +97,20 @@ class Order < ActiveRecord::Base
     Resque.enqueue(Abacos::InsertOrder, self.number)
   end
 
+  def get_current_coupon
+    Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
+  end
+
   def invalidate_coupon
-    coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
+    coupon = get_current_coupon
     if coupon
       coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+    end
+  end
+  
+  def use_coupon
+    coupon = get_current_coupon
+    if coupon
       coupon.increment!(:used_amount, 1)
     end
   end
