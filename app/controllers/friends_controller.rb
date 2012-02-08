@@ -43,7 +43,7 @@ class FriendsController < ApplicationController
   end
 
   def post_invite
-    @facebook_adapter.post_wall_message(I18n.t('facebook.invite', :name => @user.name, :link => @user.invitation_url),
+    @facebook_adapter.post_wall_message(I18n.t('facebook.invite', :link => @user.invitation_url),
                                                                   :target => params[:friend_uid]) ? (head :ok) : (head :error)
   end
 
