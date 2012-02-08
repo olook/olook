@@ -107,7 +107,11 @@ module EmailMarketing
     end
 
     def generate_invalid
-      @csv = generate_email_csv(SendgridClient.new(:invalid_emails).parsed_response)
+      responses = []
+      ["olook", "olook2"].each do |user|
+        responses += SendgridClient.new(:invalid_emails, :username => user).parsed_response
+      end
+      @csv = generate_email_csv(responses)
     end
 
     def generate_optout

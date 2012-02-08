@@ -24,16 +24,18 @@ describe EmailMarketing::CsvUploader do
     end
 
     describe "when type is invalid" do
-      it "calls sendgrid invalid emails service" do
-        EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails).and_return(mock.as_null_object)
+      it "calls sendgrid invalid emails service on both sendgrids account" do
+        EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails, :username => "olook").and_return(services[:invalid_emails])
+        EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails, :username => "olook2").and_return(services[:invalid_emails])
 
-        EmailMarketing::CsvUploader.new(:invalid)
+        described_class.new(:invalid)
       end
 
       it "builds a csv file with invalid emails" do
-        EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails).and_return(services[:invalid_emails])
+        EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails, :username => "olook").and_return(services[:invalid_emails])
+        EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails, :username => "olook2").and_return(services[:invalid_emails])
 
-        EmailMarketing::CsvUploader.new(:invalid).csv.should == "c@d.com\n"
+        described_class.new(:invalid).csv.should == "c@d.com\nc@d.com\n"
       end
     end
 
