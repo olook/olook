@@ -62,11 +62,6 @@ describe PaymentBuilder do
         subject.order.should_receive(:waiting_payment!)
         subject.process!
       end
-
-      it "should invalidate the order coupon" do
-        subject.order.should_receive(:invalidate_coupon)
-        subject.process!
-      end
     end
   end
 
