@@ -63,7 +63,8 @@ describe PaymentBuilder do
         subject.process!
       end
 
-      it "should invalidate the order coupon" do
+      it "should invalidate the order coupon when authorized" do
+        subject.order.state = "authorized"
         subject.order.should_receive(:invalidate_coupon)
         subject.process!
       end
