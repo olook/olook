@@ -4,12 +4,13 @@ require "spec_helper"
 describe ShowroomPresenter do
   let(:member) { FactoryGirl.create :member }
   let(:template) { double :template }
-  subject { described_class.new template, :member => member }
+  let(:friends) {[]}
+  subject { described_class.new template, :member => member, :friends => friends }
 
   describe '#render_identification' do
     it "should render the partial with the FB avatar if the user is FB connected" do
       member.stub(:'has_facebook?').and_return(true)
-      template.should_receive(:render).with(:partial => "showroom_facebook_connected", :locals => {:showroom_presenter => subject})
+      template.should_receive(:render).with(:partial => "showroom_facebook_connected", :locals => {:showroom_presenter => subject, :friends => friends})
       subject.render_identification
     end
     it "should render the partial asking for the user to connect his account if he isn't FB connected" do
