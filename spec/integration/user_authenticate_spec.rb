@@ -99,32 +99,45 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.sessions.signed_in")
   end
 
- scenario "Whole sign up, sign out and sign in process" do
-   login = "john@doe.com"
-   pass = "123abc"
+  scenario "Sign up with invalid birthdate" do
+    build_survey
+    visit root_path
+    click_link "Comece aqui e descubra seu estilo. É grátis"
+    choose "questions[question_#{Question.first.id}]"
+    select('30', :from => 'day')
+    select('Fevereiro', :from => 'month')
+    select('1990', :from => 'year')
+    within("#finish") do
+     page.should have_xpath("//input[@disabled='disabled']")
+    end
+  end
 
-   answer_survey
-   visit new_user_registration_path
-   within("#user_new") do
-     fill_in "user_first_name", :with => "First Name"
-     fill_in "user_last_name", :with => "Last Name"
-     fill_in "user_email", :with => login
-     fill_in "user_password", :with => pass
-     fill_in "user_password_confirmation", :with => pass
-     click_on "register"
-   end
-   page.should have_content(showroom_message)
-   click_on "Sair"
-   page.should have_content(I18n.t "devise.sessions.signed_out")
+  scenario "Whole sign up, sign out and sign in process" do
+    login = "john@doe.com"
+    pass = "123abc"
 
-   update_user_to_old_user(login)
+    answer_survey
+    visit new_user_registration_path
+    within("#user_new") do
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
+      fill_in "user_email", :with => login
+      fill_in "user_password", :with => pass
+      fill_in "user_password_confirmation", :with => pass
+      click_on "register"
+    end
+    page.should have_content(showroom_message)
+    click_on "Sair"
+    page.should have_content(I18n.t "devise.sessions.signed_out")
 
-   visit new_user_session_path
-   fill_in "user_email", :with => login
-   fill_in "user_password", :with => pass
-   click_button "login"
-   within(".notice") do
-     page.should have_content(I18n.t "devise.sessions.signed_in")
-   end
- end
+    update_user_to_old_user(login)
+
+    visit new_user_session_path
+    fill_in "user_email", :with => login
+    fill_in "user_password", :with => pass
+    click_button "login"
+    within(".notice") do
+      page.should have_content(I18n.t "devise.sessions.signed_in")
+    end
+  end
 end
