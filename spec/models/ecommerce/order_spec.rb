@@ -32,7 +32,7 @@ describe Order do
       order = FactoryGirl.create(:order)
       coupon = FactoryGirl.create(:standard_coupon, :remaining_amount => remaining_amount)
       order.create_used_coupon(:coupon => coupon)
-      order.invalidate_coupon
+      order.use_coupon
       coupon.reload.used_amount.should == 1
     end
 
@@ -50,7 +50,7 @@ describe Order do
       coupon = FactoryGirl.create(:unlimited_coupon)
       order.create_used_coupon(:coupon => coupon)
       remaining_amount = coupon.remaining_amount
-      order.invalidate_coupon
+      order.use_coupon
       coupon.reload.used_amount.should == 1
     end
   end
