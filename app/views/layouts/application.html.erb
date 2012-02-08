@@ -32,6 +32,7 @@
     <%= yield :top_my_account %>
 
     <div id="content" class="content">
+      <%= render_promotion_banner %>
       <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
   </div>

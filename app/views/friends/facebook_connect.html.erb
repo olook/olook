@@ -1,0 +1,15 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/friends" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "friends" %>
+<% end %>
+
+<section id="friends" class="connect">
+  <div class="container">
+    <h1>Compre com suas amigas</h1>
+    <p>Nada melhor do que pedir a opinião das amigas para fazer comprinhas! Conecte-se, veja a vitrine delas e compartilhe a sua.</p>
+    <%= link_to "Ver a vitrine das minhas amigas", "/users/auth/facebook", :class => "facebook" %>
+  </div>
+</section>

@@ -7,7 +7,7 @@ FactoryGirl.define do
       Resque.stub(:enqueue)
     end
   end
-  
+
   factory :clean_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
@@ -35,7 +35,19 @@ FactoryGirl.define do
     end
 
     after_create do |order|
-      order.stub(:total).and_return(100)
+      order.stub(:total).and_return(BigDecimal.new("100"))
+      order.stub(:reload)
+    end
+  end
+
+  factory :delivered_order, :class => Order do
+    association :payment, :factory => :billet
+    association :freight, :factory => :freight
+    association :user
+    state "delivered"
+
+    after_create do |order|
+      order.stub(:line_items_total).and_return(BigDecimal.new("99.90"))
       order.stub(:reload)
     end
   end

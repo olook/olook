@@ -43,8 +43,11 @@ module ApplicationHelper
     "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
   end
 
+  def user_avatar(user, type = "large")
+    "https://graph.facebook.com/#{user.uid}/picture?type=#{type}"
+  end
+
   def member_type
     user_signed_in? ? 'member' : 'visitor'
   end
-
 end

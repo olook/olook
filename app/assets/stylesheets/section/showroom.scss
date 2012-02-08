@@ -77,9 +77,13 @@
             a {
               margin: 0 5px 0 0;
               float: left;
-              img {
+              div.mask {
                 width: 47px;
                 height: 47px;
+                overflow: hidden;
+              }
+              img {
+                width: 47px;
               }
             }
           }

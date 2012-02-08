@@ -93,7 +93,7 @@ describe Admin::CollectionsController do
         put :update, :id => collection.id, :collection => valid_attributes
         assigns(:collection).should eq(collection)
       end
-      
+
       it "redirects to the collection" do
         put :update, :id => collection.id, :collection => valid_attributes
         response.should redirect_to(admin_collection_path(collection))

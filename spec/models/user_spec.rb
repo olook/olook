@@ -82,7 +82,7 @@ describe User do
       subject.has_facebook?.should == false
     end
 
-    it "should have facebook account" do
+    it "should have a facebook account" do
       subject.has_facebook?.should == true
     end
   end

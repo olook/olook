@@ -1,0 +1,19 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/friends" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "friends" %>
+<% end %>
+
+<section id="friends" class="home">
+  <%= render "user_column", :friends => @friends %>
+  <section id="friends_content">
+    <h1>Adicione suas amigas e compartilhe sua vitrine</h1>
+    <div id="quiz_container">
+      <%= render "friend_quiz" %>
+    </div>
+    <%= render "invite_friends", :not_registred_friends => @not_registred_friends %>
+    <%= render "share_showroom" %>
+  </section>
+</section>

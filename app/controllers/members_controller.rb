@@ -63,11 +63,11 @@ class MembersController < ApplicationController
   def welcome
     @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    @products = Product.find(1943, 1983, 605, 46, 1590)
+    @products = Product.where('id IN (:products)', :products => [1943, 1983, 605, 46, 1590])
   end
 
   def showroom
-    @is_the_first_visit = first_visit_for_member?(@user)   
+    @is_the_first_visit = first_visit_for_member?(@user)
   end
 
   def show_imported_contacts

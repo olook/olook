@@ -1,0 +1,20 @@
+<h2>Lookbook</h2>
+<div class="inner">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <b>Name:</b>
+    <%= @lookbook.name %>
+  </p>
+  <p>
+    <b>Thumb:</b>
+    <%= image_tag @lookbook.thumb_image.try(:url) %>
+  </p>
+
+  <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
+  <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_lookbook_path(@lookbook) %></li>
+  <li><%= link_to 'Back', admin_lookbooks_path %></li>
+<% end %>
+</div>

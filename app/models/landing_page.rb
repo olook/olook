@@ -7,6 +7,6 @@ class LandingPage < ActiveRecord::Base
   validates :button_top, :inclusion => { :in => 0..1000 }, :allow_blank => true
   validates :button_left, :inclusion => { :in => 0..1000 }, :allow_blank => true
 
-  mount_uploader :page_image, LandingImageUploader
-  mount_uploader :button_image, LandingImageUploader
+  mount_uploader :page_image, ImageUploader
+  mount_uploader :button_image, ImageUploader
 end
