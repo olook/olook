@@ -15,12 +15,15 @@ module EmailMarketing
 
     attr_reader :request, :response
 
-    def initialize(name)
+    def initialize(name, options = nil)
       raise ArgumentError, "Service #{name} is not supported" unless SERVICES.include?(name)
-      @service_name = name
-      @request = HTTPI::Request.new
-      @request.url = "#{BASE_URL}/#{SERVICES[name]}?api_user=#{API_USER}&api_key=#{API_KEY}"
-      @response = HTTPI.get(@request)
+
+      @user         = options && options.include?(:username) ? options[:username] : API_USER
+      @password     = options && options.include?(:password) ? options[:password] : API_KEY
+      @service_name = name.to_sym
+      @request      = HTTPI::Request.new
+      @request.url  = "#{BASE_URL}/#{SERVICES[@service_name]}?api_user=#{@user}&api_key=#{@password}"
+      @response     = HTTPI.get(@request)
     end
 
     def parsed_response
