@@ -2,16 +2,18 @@
   <div class="avatar"><%= showroom_presenter.facebook_avatar %></div>
   <h1><%= showroom_presenter.welcome_message %><br />Esta é sua vitrine de <%= showroom_presenter.collection_name %></h1>
   <p>Nossos stylists pensaram em você com muito carinho para montar a seleção de produtos deste mês. Explore as possibilidades e aproveite sem moderação.</p>
-  <h3>Últimas amigas registradas:</h3>
-  <ul>
-    <% friends.each do |friend| %>
-      <li>
-        <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
-          <div class="mask">
-            <%= image_tag user_avatar(friend) %>
-          </div>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <% if friends %>
+    <h3>Últimas amigas registradas:</h3>
+    <ul>
+      <% friends.each do |friend| %>
+        <li>
+          <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
+            <div class="mask">
+              <%= image_tag user_avatar(friend) %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
