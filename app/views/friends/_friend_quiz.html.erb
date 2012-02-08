@@ -23,6 +23,7 @@
           <div class="pic_mask">
             <%= image_tag user_avatar(@friend) if @friend %>
           </div>
+          <p><%= @friend.name if @friend %></p>
           <%= link_to "Próxima amiga >", update_survey_question_path(:format => :js), :remote => true, :class => "next_friend" %>
         </li>
         <li>
