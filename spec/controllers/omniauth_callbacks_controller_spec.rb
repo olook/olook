@@ -48,11 +48,18 @@ describe OmniauthCallbacksController do
         response.should redirect_to(member_showroom_path)
       end
 
-      it "should redirect to friend showroom" do
+      it "should redirect to friends showroom" do
         User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
         session[:should_request_new_facebook_token] = true
         get :facebook
         response.should redirect_to(friends_home_path)
+      end
+
+      it "should redirect to friends showroom" do
+        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
+        session[:should_request_new_facebook_token] = true
+        get :facebook
+        session[:should_request_new_facebook_token].should be_nil
       end
     end
   end

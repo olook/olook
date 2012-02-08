@@ -6,7 +6,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       current_user.set_uid_and_facebook_token(env["omniauth.auth"])
       message = "Facebook Connect adicionado com sucesso"
       if session[:should_request_new_facebook_token]
-        session[:should_request_new_facebook_toke] = nil
+        session[:should_request_new_facebook_token] = nil
         redirect_to(friends_home_path, :notice => message)
       else
         redirect_to(member_showroom_path, :notice => message)

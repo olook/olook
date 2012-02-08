@@ -15,5 +15,4 @@ describe Admin::IndexController do
       response.should be_success
     end
   end
-
 end

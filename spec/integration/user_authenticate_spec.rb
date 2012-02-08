@@ -8,6 +8,16 @@ feature "User Authenticate", %q{
   I want to authenticate using my Facebook account or a normal register
 } do
 
+  def showroom_message
+    "Sua stylist está criando sua vitrine personalizada, e ela ficará pronta nas próximas 24 horas"
+  end
+
+  def update_user_to_old_user(login)
+    user = User.find_by_email(login)
+    user.created_at = Time.now - 1.day
+    user.save!
+  end
+
   use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
 
   before :each do
@@ -34,19 +44,21 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
   end
 
-#  scenario "User Sign up" do
-#    answer_survey
-#    visit new_user_registration_path
-#    within("#user_new") do
-#      fill_in "user_first_name", :with => "First Name"
-#      fill_in "user_last_name", :with => "Last Name"
-#      fill_in "user_email", :with => "fake@mail.com"
-#      fill_in "user_password", :with => "123456"
-#      fill_in "user_password_confirmation", :with => "123456"
-#      click_button "register"
-#    end
-#    page.should have_content(I18n.t "devise.registrations.signed_up")
-#  end
+ scenario "User Sign up" do
+   answer_survey
+   visit new_user_registration_path
+   within("#user_new") do
+     fill_in "user_first_name", :with => "First Name"
+     fill_in "user_last_name", :with => "Last Name"
+     fill_in "user_email", :with => "fake@mail.com"
+     fill_in "user_password", :with => "123456"
+     fill_in "user_password_confirmation", :with => "123456"
+     click_button "register"
+   end
+   within("#welcome") do
+     page.should have_content(showroom_message)
+   end
+ end
 
   scenario "User update without password" do
     do_login!(@user)
@@ -87,28 +99,45 @@ feature "User Authenticate", %q{
     page.should have_content(I18n.t "devise.sessions.signed_in")
   end
 
-#  scenario "Whole sign up, sign out and sign in process" do
-#    login = "john@doe.com"
-#    pass = "123abc"
-#
-#    answer_survey
-#    visit new_user_registration_path
-#    within("#user_new") do
-#      fill_in "user_first_name", :with => "First Name"
-#      fill_in "user_last_name", :with => "Last Name"
-#      fill_in "user_email", :with => login
-#      fill_in "user_password", :with => pass
-#      fill_in "user_password_confirmation", :with => pass
-#      click_on "register"
-#    end
-#    page.should have_content(I18n.t "devise.registrations.signed_up")
-#    click_on "Sair"
-#    page.should have_content(I18n.t "devise.sessions.signed_out")
-#
-#    visit new_user_session_path
-#    fill_in "user_email", :with => login
-#    fill_in "user_password", :with => pass
-#    click_button "login"
-#    page.should have_content(I18n.t "devise.sessions.signed_in")
-#  end
+  scenario "Sign up with invalid birthdate" do
+    build_survey
+    visit root_path
+    click_link "Comece aqui e descubra seu estilo. É grátis"
+    choose "questions[question_#{Question.first.id}]"
+    select('30', :from => 'day')
+    select('Fevereiro', :from => 'month')
+    select('1990', :from => 'year')
+    within("#finish") do
+     page.should have_xpath("//input[@disabled='disabled']")
+    end
+  end
+
+  scenario "Whole sign up, sign out and sign in process" do
+    login = "john@doe.com"
+    pass = "123abc"
+
+    answer_survey
+    visit new_user_registration_path
+    within("#user_new") do
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
+      fill_in "user_email", :with => login
+      fill_in "user_password", :with => pass
+      fill_in "user_password_confirmation", :with => pass
+      click_on "register"
+    end
+    page.should have_content(showroom_message)
+    click_on "Sair"
+    page.should have_content(I18n.t "devise.sessions.signed_out")
+
+    update_user_to_old_user(login)
+
+    visit new_user_session_path
+    fill_in "user_email", :with => login
+    fill_in "user_password", :with => pass
+    click_button "login"
+    within(".notice") do
+      page.should have_content(I18n.t "devise.sessions.signed_in")
+    end
+  end
 end

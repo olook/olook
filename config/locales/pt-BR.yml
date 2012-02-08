@@ -221,6 +221,7 @@
       less_than_or_equal_to: "deve ser menor ou igual a %{count}"
       odd: "deve ser ímpar"
       even: "deve ser par"
+      invalid_date: "a data informada é inválida"
 
   activerecord:
     models:
