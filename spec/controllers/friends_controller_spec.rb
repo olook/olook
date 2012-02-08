@@ -100,7 +100,7 @@ describe FriendsController do
           it "should post a invite" do
             friend_uid = "100"
             @fb_adapter.should_receive(:post_wall_message).
-              with(I18n.t('facebook.invite', :name => user.name, :link => user.invitation_url), :target => friend_uid).and_return(true)
+              with(I18n.t('facebook.invite', :link => user.invitation_url), :target => friend_uid).and_return(true)
             post :post_invite, :friend_uid => friend_uid
           end
 
