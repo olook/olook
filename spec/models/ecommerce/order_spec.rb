@@ -508,8 +508,8 @@ describe Order do
 
   describe "delivery time" do
     it "should return the delivery time minus the time that the order is on warehouse" do
-      subject.stub(:delivery_time).and_return(delivery_time = 4)
-      subject.delivery_time_for_a_shipped_order.should == subject.delivery_time - Order::WAREHOUSE_TIME
+      freight = FactoryGirl.create(:freight, :order => subject)
+      subject.delivery_time_for_a_shipped_order.should == freight.delivery_time - Order::WAREHOUSE_TIME
     end
   end
 
