@@ -14,6 +14,11 @@ describe ProductController do
     end
 
     describe "GET show" do
+      it "should assign @facebook_app_id" do
+        get :show, :id => product.id
+        assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
+      end
+
       it "should assign @url" do
         get :show, :id => product.id
         assigns(:url).should == request.protocol + request.host
