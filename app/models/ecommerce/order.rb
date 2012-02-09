@@ -248,7 +248,7 @@ class Order < ActiveRecord::Base
   end
 
   def delivery_time_for_a_shipped_order
-    delivery_time - WAREHOUSE_TIME
+    freight_delivery_time - WAREHOUSE_TIME
   end
 
   private
