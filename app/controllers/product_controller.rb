@@ -8,6 +8,7 @@ class ProductController < ApplicationController
   before_filter :load_order
 
   def show
+    @url = request.protocol + request.host
     @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
   end
