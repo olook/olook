@@ -42,16 +42,23 @@ describe EmailMarketing::CsvUploader do
     describe "when type is optout" do
       let(:optout_services) { [:spam_reports, :unsubscribes, :blocks] }
 
-      it "calls sendgrid spam_reports, unsubscribes and blocks services" do
-        optout_services.each { |name| EmailMarketing::SendgridClient.should_receive(:new).with(name).and_return(services[name]) }
+      it "calls sendgrid spam_reports, unsubscribes and blocks services on olook and olook2 accounts" do
+        optout_services.each do |name|
+          EmailMarketing::SendgridClient.should_receive(:new).with(name, :username => "olook").and_return(services[name])
+          EmailMarketing::SendgridClient.should_receive(:new).with(name, :username => "olook2").and_return(services[name])
+        end
 
-        EmailMarketing::CsvUploader.new(:optout)
+        described_class.new(:optout)
       end
 
       it "builds a csv file with emails from spam_reports, unsubscribes and blocks" do
-        optout_services.each { |name| EmailMarketing::SendgridClient.stub(:new).with(name).and_return(services[name]) }
+        optout_services.each do |name|
+          EmailMarketing::SendgridClient.stub(:new).with(name, :username => "olook").and_return(services[name])
+          EmailMarketing::SendgridClient.stub(:new).with(name, :username => "olook2").and_return(services[name])
 
-        EmailMarketing::CsvUploader.new(:optout).csv.should == "a@b.com\ng@h.com\ne@f.com\n"
+        end
+
+        described_class.new(:optout).csv.should == "a@b.com\na@b.com\ng@h.com\ng@h.com\ne@f.com\ne@f.com\n"
       end
     end
 

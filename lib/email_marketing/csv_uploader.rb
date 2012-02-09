@@ -117,7 +117,8 @@ module EmailMarketing
     def generate_optout
       responses = []
       [:spam_reports, :unsubscribes, :blocks].each do |list|
-        responses += SendgridClient.new(list).parsed_response
+        responses += SendgridClient.new(list, :username => "olook").parsed_response
+        responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       @csv = generate_email_csv(responses)
     end
