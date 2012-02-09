@@ -50,7 +50,7 @@ class FriendsController < ApplicationController
   private
 
   def user_can_access_friends_page
-    @user.has_facebook? && session[:should_request_new_facebook_token].nil?
+    @user.can_access_facebook_extended_features? && session[:should_request_new_facebook_token].nil?
   end
 
   def load_question

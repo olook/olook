@@ -76,14 +76,23 @@ describe User do
     end
   end
 
-  context "facebook account" do
-    it "should not facebook account" do
+  context "facebook accounts" do
+    it "should not have a facebook account" do
       subject.update_attributes(:uid => nil)
       subject.has_facebook?.should == false
     end
 
     it "should have a facebook account" do
       subject.has_facebook?.should == true
+    end
+
+    it "should access facebook extended features" do
+      subject.update_attributes(:has_facebook_extended_permission => true)
+      subject.has_facebook_extended_permission?.should be_true
+    end
+
+    it "should not access facebook extended features" do
+      subject.has_facebook_extended_permission?.should_not be_true
     end
   end
 
