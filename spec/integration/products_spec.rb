@@ -13,7 +13,8 @@ feature "Buying products", %q{
 
   context "buying products" do
     background do
-     do_login!(user)
+      do_login!(user)
+      FactoryGirl.create(:main_picture, :product => product)
     end
 
     context "in the products page" do
@@ -28,6 +29,11 @@ feature "Buying products", %q{
         let(:shoe) { FactoryGirl.create :basic_shoe }
         let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe) }
         let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_40, :product => shoe) }
+
+        background do
+          FactoryGirl.create(:main_picture, :product => shoe)
+        end
+
         scenario "I need to choose the variant and then add it to the cart" do
           visit product_path(shoe)
           choose shoe_a.number
@@ -45,6 +51,11 @@ feature "Buying products", %q{
         let!(:bag) { FactoryGirl.create(:basic_bag) }
         let!(:bag_a) { FactoryGirl.create(:variant, :product => bag, :inventory => 10) }
         let!(:bag_b) { FactoryGirl.create(:variant, :product => bag, :inventory => 10) }
+
+        background do
+          FactoryGirl.create(:main_picture, :product => bag)
+        end
+
         scenario "just need to click 'add to the cart'" do
           visit product_path(bag)
           click_button "add_product"
@@ -55,6 +66,11 @@ feature "Buying products", %q{
       context "and the product is an accessory" do
         let!(:accessory) { FactoryGirl.create(:basic_accessory) }
         let!(:accessory_a) { FactoryGirl.create(:variant, :product => accessory, :inventory => 10) }
+
+        background do
+          FactoryGirl.create(:main_picture, :product => accessory)
+        end
+
         scenario "just need to click 'add to the cart'" do
           visit product_path(accessory)
           click_button "add_product"
