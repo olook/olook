@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+	<table border="0" align="center" cellpadding="0" cellspacing="0" width="620" bgcolor="#FFFFFF">
+		<tr>
+			<td>
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="189"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/logo.jpg" alt="olook" border="0" title="olook"></td>
+						<td width="431" align="left" bgcolor="#FFFFFF"><a href="http://www.olook.com.br/convite/?utm_source=midiasproprias&utm_medium=email&utm_content=reinvite&utm_campaign=reinvite1"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/frases.gif" alt="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolu&ccedil;&atilde;o f&aacute;cil e gratuita. O cadastro &eacute; gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para voc&ecirc;." border="0" title="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolu&ccedil;&atilde;o f&aacute;cil e gratuita. O cadastro &eacute; gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para voc&ecirc;."></a></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="#"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/sombra_top.jpg" alt="" width="620" height="24" border="0"></a>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top" style="font-family: Arial, Helvetica, sans-serif; text-align:left; font-size:14px;">
+			<p style="font-family:'Times New Roman', Times, serif; font-size:45px; font-style:italic; letter-spacing:-3px; margin:5px 0; text-align:center"><%= @user.first_name %>,</p>
+			<img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/title.gif">
+			
+			<img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/divisoria.jpg" style="margin:20px 0 5px">
+			
+				<div style="margin:0 auto 30px; font-size:16px; width:560px; text-align:center">
+					<p>Obrigada por visitar a olook! Notamos que você iniciou um pedido, mas ele não foi concluído. Podemos te ajudar com alguma coisa? Para finalizar a sua compra em 2 minutos ou menos, <a href="#" style="color:#E05789;">clique aqui para acessar a sua sacola</a>.
+</p>
+				</div>
+				
+				<div style="background-color:#000; font-family:'Times New Roman', Times, serif; font-style:italic; font-size:32px; letter-spacing:-1px; width:560px; height:85px; font-weight:normal; text-align:center; color:#FFF; line-height:25px; margin:0px auto">
+					<p style="padding:13px 15px;">
+					Os produtos têm estoque limitado, corra antes que eles se esgotem!
+					</p>
+				</div>
+				
+				<p style="padding:0px; margin:10px 0 0 0; font-style:italic; letter-spacing:-1px; text-align:center; font-family:'Times New Roman', Times, serif; font-size:20px;">
+					Veja o(s) produto(s) que estavam no seu carrinho:
+				</p>
+				
+				<center><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/sombra_table_top.jpg"></center>
+				<table width="580" align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #cecece; padding-top:20px;">
+				<tr><td>
+
+				<% @products.each do |product| %>
+					
+					<table width="500" align="center" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:30px;">			
+					<tr>
+					<td>
+					<%= image_tag product.variant.showroom_picture %>
+					</td>
+					<td valign="top" style="padding:15px 0 0 15px">
+					<p style="font-style:italic; font-weight:lighter; letter-spacing:-2px; font-family:'Times New Roman', Times, serif; font-size:35px; line-height:25px;"><%= product.variant.name %><br>
+					<span style="font-size:25px; color:#df5a8a;"><%= number_to_currency(product.variant.price) %></span><br>
+					<span style="font-family:Arial, Helvetica, sans-serif; font-style:normal; letter-spacing:0; line-height:15px; font-size:14px; color:#505050;"><%= product.variant.product.description %></span></p>
+					</td>
+					</tr>
+					</table>
+
+					</td>
+					</tr>
+					</table>
+
+				<% end %>
+			
+				<center><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/sombra_table_bottom.jpg"></center>
+				
+				<div style="margin:0 auto 30px; font-size:14px; width:560px; text-align:center">
+				<p>Se tiver qualquer dúvida, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789; font-size:14px">falecom@olook.com.br</a> ou ligue no telefone: (11) 2626-3489. A nossa equipe vai te ajudar no que for preciso!</p>
+				<p>Os produtos ficarão disponíveis por mais <b>24h em sua sacola</b>, enquanto durar o estoque.
+</p>
+				</div>
+				
+			<center>
+				<a href="#"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/btn_finalizar.gif" alt="Finalizar pagamento" border="0"></a>
+			</center>
+		</div>
+		<br><br>
+		</td>
+		<tr>
+		<td>
+		<img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/sombra_bottom.jpg" width="620" height="34" alt="">
+	<br><br><br><br><br>
+	</td>
+	</tr>
+	
+		</table>	
+		</td>
+		</tr>
+	</table>
+
+</body>
+</html>
