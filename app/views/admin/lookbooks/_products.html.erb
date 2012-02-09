@@ -2,6 +2,7 @@
 <div class="inner">
   <table class="table">
     <tr>
+      <th>ID</th>
       <th>Product</th>
       <th>Name</th>
       <th>Criteo</th>
@@ -12,6 +13,7 @@
   <% lookbook.lookbooks_products.each do |lb| 
         product = Product.find(lb.product.id) %>
     <tr>
+    <td><%= product.id %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= product.name %></td>
       <td><%= lb.criteo %></td>
