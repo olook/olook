@@ -95,7 +95,8 @@ module EmailMarketing
     def generate_bounced_list
       responses = []
       [:invalid_emails, :spam_reports, :unsubscribes, :blocks].each do |list|
-        responses += SendgridClient.new(list).parsed_response
+        responses += SendgridClient.new(list, :username => "olook").parsed_response
+        responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       responses.map { |item| item["email"] }
     end

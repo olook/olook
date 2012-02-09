@@ -67,8 +67,15 @@ describe EmailMarketing::CsvUploader do
         "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
       end
 
+      before(:each) do
+        services.each do |service, response|
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+        end
+      end
+
       it "builds a csv file containing all user data" do
-        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+
 
         csv_body = [user_a, user_b, user_c].inject("") do |data, user|
           data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
@@ -88,21 +95,30 @@ describe EmailMarketing::CsvUploader do
           :invalid_emails => double(:i_response, :parsed_response => [ {"reason" => "500", "email" => user_c.email } ])
         }
 
-        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
-        csv = EmailMarketing::CsvUploader.new(:userbase).csv
+        services.each do |service, response|
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+        end
+        csv = described_class.new(:userbase).csv
         csv.should_not match user_a.email
         csv.should_not match user_b.email
         csv.should_not match user_c.email
       end
 
       it "includes return path seed email" do
-        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+        services.each do |service, response|
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+        end
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
         csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,\n"
       end
 
       it "includes delivery whatch seed email" do
-        services.each { |service, response| EmailMarketing::SendgridClient.stub(:new).with(service).and_return(response) }
+        services.each do |service, response|
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+        end
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
         csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,\n"
       end
