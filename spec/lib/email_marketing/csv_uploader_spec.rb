@@ -64,7 +64,7 @@ describe EmailMarketing::CsvUploader do
 
     context "when type is userbase" do
       let(:csv_header) do
-        "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday\n"
+        "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases\n"
       end
 
       before(:each) do
@@ -79,7 +79,7 @@ describe EmailMarketing::CsvUploader do
 
         csv_body = [user_a, user_b, user_c].inject("") do |data, user|
           data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
-          data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday}\n"
+          data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?}\n"
           data
         end
 
@@ -111,7 +111,7 @@ describe EmailMarketing::CsvUploader do
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
-        csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,\n"
+        csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,,\n"
       end
 
       it "includes delivery whatch seed email" do
@@ -120,7 +120,7 @@ describe EmailMarketing::CsvUploader do
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
-        csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,\n"
+        csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,,\n"
       end
     end
 
