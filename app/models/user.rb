@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
     self.uid.present?
   end
 
+  def can_access_facebook_extended_features?
+    has_facebook? && self.has_facebook_extended_permission.present?
+  end
+
   def invite_bonus
     InviteBonus.calculate(self)
   end
