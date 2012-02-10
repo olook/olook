@@ -12,7 +12,7 @@ class Lookbook < ActiveRecord::Base
   attr_accessor :product_criteo
   after_save :update_products
 
-  private 
+  private
 
   def update_products
     
