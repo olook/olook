@@ -8,7 +8,8 @@
       <h1>Escolha uma forma de pagamento</h1>
       <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
       <%= render :partial => "shared/payments/payment_methods" %>
-      <p class="generate_billet">Você poderá imprimir seu boleto após a finalização do pedido, ou na sessão Meus Pedidos, em sua conta. Também enviaremos o link de impressão para seu email. O prazo de entrega é considerado a partir da confirmação do pagamento. Lembramos que pagamentos via boleto podem levar até 48h para serem confirmados.<br /><strong>Seu pedido ficará reservado por 48hrs.</strong></p>
+      <p class="generate_billet">Você poderá imprimir seu boleto após a finalização do pedido, ou na sessão Meus Pedidos, em sua conta. <br />Também enviaremos o link de impressão para seu email.<br /><strong>Seu pedido ficará reservado por 48hrs.</strong></p>
+      <p class="generate_billet"><span>Importante:</span> O prazo de entrega é considerado a partir da confirmação do pagamento. Lembramos que pagamentos via boleto podem levar até 48h para serem confirmados.</p>
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>

@@ -54,7 +54,7 @@ class Billet < Payment
   end
 
   def expired?
-    Time.now > self.payment_expiration_date + 2.days if self.payment_expiration_date
+    Date.current > BilletExpirationDate.expiration_for_two_business_day(self.payment_expiration_date.to_date) if self.payment_expiration_date
   end
 
   private

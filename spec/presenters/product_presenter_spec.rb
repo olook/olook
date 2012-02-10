@@ -10,6 +10,7 @@ describe ProductPresenter do
   describe "user showroom methods" do
     describe '#render_member_showroom' do
       it "should render the partial with the carousel with the member's showroom" do
+        member.should_receive(:is_old?).and_return(true)
         template.should_receive(:render).with(:partial => 'product/member_showroom', :locals => {:product_presenter => subject}).and_return('showroom')
         subject.render_member_showroom.should == 'showroom'
       end

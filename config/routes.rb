@@ -14,21 +14,23 @@ Olook::Application.routes.draw do
   match "/olook-na-imprensa", :to => "pages#press", :as => "press"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   match "/membro/:share/:uid", :to => "home#index"
-  match "/lookbooks/lets-party", :to => "lookbooks#lets_party", :as => "lets_party"
-  match "/lookbooks/palha", :to => "lookbooks#palha", :as => "palha"
-  match "/lookbooks/safari", :to => "lookbooks#safari", :as => "safari"
-  match "/lookbooks/vintage", :to => "lookbooks#vintage", :as => "vintage"
-  match "/lookbooks/fashion", :to => "lookbooks#fashion", :as => "fashion"
-  match "/lookbooks/scarpin-glamour", :to => "lookbooks#scarpin_glamour", :as => "scarpin_glamour"
-  match "/lookbooks/militar", :to => "lookbooks#militar", :as => "militar"
-  match "/lookbooks/verao", :to => "lookbooks#verao", :as => "verao"
-  match "/lookbooks/candy-flavor", :to => "lookbooks#candy_flavor", :as => "candy_flavor"
+  match "/lookbooks/:name", :to => "lookbooks#show"
+  match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
+
+  match "/minhas-amigas/conectar", :to => "friends#facebook_connect", :as => "facebook_connect"
+  match "/minhas-amigas/home", :to => "friends#home", :as => "friends_home"
+  match "/minhas-amigas/vitrine/:friend_id", :to => "friends#showroom", :as => "friend_showroom"
+  get "/minhas-amigas/atualizar-lista-amigas", :to => "friends#update_friends_list", :as => "update_friends_list"
+  get "/minhas-amigas/atualizar-quiz", :to => "friends#update_survey_question", :as => "update_survey_question"
+  post "/postar-no-mural", :to => "friends#post_wall", :as => "post_wall"
+  post "/postar-resposta-quiz", :to => "friends#post_survey_answer", :as => "post_survey_answer"
+  post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
 
@@ -48,6 +50,8 @@ Olook::Application.routes.draw do
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
+
+  get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
 
   get "/produto/:id" => "product#show", :as => "product"
   post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
@@ -98,6 +102,13 @@ Olook::Application.routes.draw do
       end
     end
 
+    resources :lookbooks do
+      collection do
+        get "product/:id", :to => "lookbooks#product"
+      end
+      resources :images
+    end
+
     resources :users, :except => [:create, :new] do
       collection do
         get 'statistics' => 'users#statistics', :as => 'statistics'
@@ -117,6 +128,7 @@ Olook::Application.routes.draw do
     resources :orders
     resources :coupons, :except => [:destroy]
     resources :landing_pages
+    resources :promotions
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do

@@ -28,15 +28,42 @@ describe MembersController do
   end
 
   describe "GET welcome" do
-    it "should show the welcome page" do
-      get :welcome
-      assigns(:user).should eq(user)
+    context "when user is an old one (created 1 day ago)" do
+      let(:user) { FactoryGirl.create :user, :created_at => (Time.now - 1.day) }
+
+      it "redirect to members' showroom page" do
+        get :welcome
+        response.should redirect_to(member_showroom_path)
+      end
     end
 
-    it "should assign @facebook_app_id" do
-      get :invite
-      assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
+    context "when user is a new one (created today)" do
+      let!(:user) { FactoryGirl.create :user, :created_at => Time.now }
+
+      it "assigns and array to products" do
+        get :welcome
+        assigns(:products).should == []
+      end
+
+      it "assigns user object to found user" do
+        get :welcome
+        assigns(:user).should eq(user)
+      end
+
+      it "should assign @facebook_app_id" do
+        get :welcome
+        assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
+      end
+
+      context "and user visit is first" do
+        it "assigns true to is_the_first_visit" do
+          get :welcome
+          assigns(:is_the_first_visit).should == true
+        end
+      end
+
     end
+
   end
 
   describe "#showroom" do

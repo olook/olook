@@ -1,6 +1,6 @@
 <div class="box_carousel">
   <%= link_to "Voltar para a minha vitrine", member_showroom_path, :class => "back" %>
-  <%= link_to content_tag(:span, "Abrir")+" vitrine de #{product_presenter.collection_name}", "javascript:void(0);", :class => "open_carousel" %>
+  <%= link_to content_tag(:span, "Abrir")+" vitrine", "javascript:void(0);", :class => "open_carousel" %>
   <div id="carousel">
     <ul>
       <%= product_presenter.render_main_profile_showroom %>

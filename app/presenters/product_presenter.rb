@@ -5,7 +5,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_member_showroom
-    h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self}
+    h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self} if member.is_old?
   end
 
   def render_main_profile_showroom

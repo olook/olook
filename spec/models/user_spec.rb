@@ -63,13 +63,26 @@ describe User do
     it { should have_many :events }
   end
 
+  context "check user's creation" do
+    it "should return true if user is new" do
+      new_user = Factory.create(:user)
+      new_user.created_at = DateTime.now
+      new_user.save
+      new_user.is_new?.should be_true
+    end
+
+    it "should return true if user is old" do
+      subject.is_old?.should be_true
+    end
+  end
+
   context "facebook account" do
     it "should not facebook account" do
       subject.update_attributes(:uid => nil)
       subject.has_facebook?.should == false
     end
 
-    it "should have facebook account" do
+    it "should have a facebook account" do
       subject.has_facebook?.should == true
     end
   end
@@ -159,14 +172,24 @@ describe User do
   end
 
   describe "#accept_invitation_with_token" do
-    it "with a valid token" do
-      inviting_member = FactoryGirl.create(:member)
-      invite = subject.accept_invitation_with_token(inviting_member.invite_token)
-      invite.invited_member.should == subject
-      invite.accepted_at.should_not be_nil
+    context "with a valid token" do
+      let(:inviting_member) { FactoryGirl.create(:member) }
+      let(:accepted_invite) { subject.accept_invitation_with_token(inviting_member.invite_token) }
+
+      it "sets the current user as the invited member" do
+        accepted_invite.invited_member.should == subject
+      end
+
+      it "sets the accepted at field with the current date" do
+        accepted_invite.accepted_at.should_not be_nil
+      end
+
     end
-    it "with an invalid token" do
-      expect { subject.accept_invitation_with_token('xxxx') }.to raise_error
+
+    context "with an invalid token" do
+      it "raises an error" do
+        expect { subject.accept_invitation_with_token('xxxx') }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 
@@ -367,6 +390,30 @@ describe User do
         it 'should return the first color and hide the one sold out' do
           subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
         end
+      end
+    end
+  end
+
+  describe '#has_purchases?' do
+    context 'when user has no orders' do
+
+      it 'returns false' do
+        subject.has_purchases?.should be_false
+      end
+    end
+
+    context 'when user has one order in the cart' do
+      it 'returns false' do
+        Factory.create(:order_without_payment, :user => subject)
+        subject.has_purchases?.should be_false
+      end
+    end
+
+    context 'when user has one order not in the cart' do
+      it 'returns true' do
+        order = Factory.create(:order, :user => subject)
+        order.waiting_payment
+        subject.has_purchases?.should be_true
       end
     end
   end

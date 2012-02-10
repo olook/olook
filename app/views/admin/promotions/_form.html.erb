@@ -1,0 +1,69 @@
+<%= form_for([:admin, @promotion]) do |f| %>
+  <% if @promotion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this admin_promotion from being saved:</h2>
+      <ul>
+      <% @promotion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :banner_label %><br />
+    <strong class="info" >This field will appear on banner</strong><br/>
+    <%= f.text_field :banner_label %>
+  </div>
+
+  <div class="field">
+    <%= f.label :my_order_label %><br />
+    <strong class="info" >This field will appear on the "Meu pedido" area</strong><br/>
+    <%= f.text_field :my_order_label %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cart_label %><br />
+    <strong class="info" >This field will appear on "sacola" page</strong><br/>
+    <%= f.text_field :cart_label %>
+  </div>
+
+  <div class="field">
+    <%= f.label :strategy %><br />
+    <%= f.select :strategy, YAML::load_file(Rails.root.to_s + '/config/promotions.yml')["strategies"].map{|x| [x.humanize, x]} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :param %><br />
+    <%= f.text_field :param %>
+  </div>
+
+  <div class="field">
+    <%= f.label :discount_percent %><br />
+    <%= f.text_field :discount_percent %>
+  </div>
+
+  <div class="field">
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </div>
+
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.number_field :priority %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

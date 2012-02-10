@@ -64,6 +64,18 @@ describe Product do
         described_class.accessories.should_not include invisible_shoe
       end
     end
+
+    context "for_criteo" do
+      it "does not return a product with price equal to zero" do
+        shoe.master_variant.update_attribute(:price, 0.0)
+        described_class.for_criteo.should_not include(shoe)
+      end
+
+      it "returns a product with price greater than 0.0" do
+        shoe.master_variant.update_attribute(:price, 1.0)
+        described_class.for_criteo.should include(shoe)
+      end
+    end
   end
 
   describe 'when working with related products' do
@@ -352,12 +364,12 @@ describe Product do
         <smallimage></smallimage>
         <bigimage></bigimage>
         <producturl>http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&amp;utm_content=#{subject.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
-        <description>Elegant black high-heeled shoe for executives</description>
-        <price>0.0</price>
-        <retailprice>0.0</retailprice>
+        <description>#{subject.description}</description>
+        <price>#{subject.price}</price>
+        <retailprice>#{subject.price}</retailprice>
         <recommendable>1</recommendable>
-        <instock>0</instock>
-        <category1>1</category1>
+        <instock>#{subject.instock}</instock>
+        <category>#{subject.category}</category>
       </product>
       END
     end

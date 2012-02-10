@@ -8,6 +8,8 @@ class ProductController < ApplicationController
   before_filter :load_order
 
   def show
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    @url = request.protocol + request.host
     @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
   end

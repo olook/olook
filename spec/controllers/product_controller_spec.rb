@@ -10,9 +10,20 @@ describe ProductController do
 
     before :each do
       session[:order] = order
+      FactoryGirl.create(:main_picture, :product => product)
     end
 
-    describe "GET index" do
+    describe "GET show" do
+      it "should assign @facebook_app_id" do
+        get :show, :id => product.id
+        assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
+      end
+
+      it "should assign @url" do
+        get :show, :id => product.id
+        assigns(:url).should == request.protocol + request.host
+      end
+
       it "should load and display the product" do
         get :show, :id => product.id
         assigns(:product).should == product

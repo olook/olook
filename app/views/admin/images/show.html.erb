@@ -1,0 +1,14 @@
+<h2>Picture</h2>
+<div class="inner">
+  
+  <p>
+    <b>Thumb:</b>
+    <%= image_tag @image.image_url(:thumb).to_s %>
+  </p>
+ 
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_lookbook_image_path(@image.lookbook, @image) %></li>
+  <li><%= link_to 'Back', admin_lookbook_path(@image.lookbook) %></li>
+<% end %>

@@ -67,6 +67,12 @@ describe PaymentBuilder do
         subject.order.should_receive(:invalidate_coupon)
         subject.process!
       end
+
+      it "should use the order coupon when authorized" do
+        subject.order.state = "authorized"
+        subject.order.should_receive(:use_coupon)
+        subject.process!
+      end
     end
   end
 

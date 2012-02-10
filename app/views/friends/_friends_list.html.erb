@@ -1,0 +1,10 @@
+<% friends.each do |friend| %>
+  <li>
+    <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
+      <div class="avatar_mask">
+        <%= image_tag user_avatar(friend) %>
+      </div>
+      <span><%= friend.name %></span>
+    <% end %>
+  </li>
+<% end %>

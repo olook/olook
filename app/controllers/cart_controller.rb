@@ -51,6 +51,9 @@ class CartController < ApplicationController
     @cart = Cart.new(@order)
     @line_items = @order.line_items
     @coupon_code = @order.used_coupon.try(:code)
+    unless @coupon_code
+      PromotionService.new(current_user, @order).apply_promotion if @promotion
+    end
   end
 
   def destroy

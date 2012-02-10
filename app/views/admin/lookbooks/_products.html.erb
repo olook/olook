@@ -1,0 +1,30 @@
+<h2>Products</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Product</th>
+      <th>Name</th>
+      <th>Criteo</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% lookbook.lookbooks_products.each do |lb| 
+        product = Product.find(lb.product.id) %>
+    <tr>
+    <td><%= product.id %></td>
+      <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
+      <td><%= product.name %></td>
+      <td><%= lb.criteo %></td>
+      <td><%= link_to 'Show', admin_product_path(product) %></td>
+      <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+    </tr>
+  <% end %>
+  </table>
+  <div class="action-bar wat-cf">
+    <div class="actions">
+      <%= link_to 'Edit products', "product/#{lookbook.id}"%>
+    </div>
+  </div>
+</div>
