@@ -2,6 +2,6 @@
 class Admin::IndexController < Admin::BaseController
   def dashboard
     get_version = `dpkg -l | grep olook | awk '{ print $3 }'`.chomp
-    @app_version = get_version.nil? ? get_version : "We were unable to check app version."
+    @app_version = get_version.nil? ? get_version : "Sorry! We were unable to check the application version."
   end
 end

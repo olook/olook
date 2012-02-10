@@ -43,6 +43,18 @@ li.product {
       width: 100%;
       overflow: hidden;
       margin: 0 auto 10px;
+      .like_mask {
+        width: 60px;
+        height: 24px;
+        display: block;
+        overflow: hidden;
+        float: left;
+      }
+      .fb-like {
+        .fb_edge_comment_widget {
+          display: none;
+         }
+      }
       a {
         float: none;
       }
