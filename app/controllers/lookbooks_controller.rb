@@ -8,6 +8,8 @@ class LookbooksController < ApplicationController
     @products = @lookbook.products
     @products_id = @lookbook.lookbooks_products.map{|item| ( item.criteo ) ? item.product_id : nil }.compact
     @lookbooks = Lookbook.order("created_at DESC")
+    @url = request.protocol + request.host
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
 
   def flores
