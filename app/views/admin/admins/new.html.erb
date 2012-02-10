@@ -1,0 +1,9 @@
+<h2>New Admin</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_admins_path %></li>
+<% end %>
