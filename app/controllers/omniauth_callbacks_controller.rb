@@ -25,7 +25,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def passthru
-    session[:facebook_scopes] = "publish_stream" if session[:should_request_new_facebook_token]
+    session[:facebook_scopes] = session[:should_request_new_facebook_token] ? "publish_stream" : ""
     render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
   end
 
