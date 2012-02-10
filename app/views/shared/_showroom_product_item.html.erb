@@ -9,12 +9,12 @@
       <ol>
         <% unless product.color_sample.blank? %>
         <li>
-          <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product %>
+          <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color"  %>
         </li>
         <% end %>
       <% product.colors.each do |related_product| %>
           <li>
-            <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product %>
+            <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color" %>
           </li>
         <% end %>
       </ol>
