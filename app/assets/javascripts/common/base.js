@@ -194,6 +194,8 @@ $(document).ready(function() {
   });
 
   $("div.box_product div.line ol li a.product_color").mouseenter(function() {
+    $(this).parents("ol").find("li a").removeClass("selected");
+    $(this).addClass("selected");
     newLink = $(this).attr("href");
     newImg = $(this).attr("data-href");
     soldOut = $(this).siblings($("input[type='hidden']")).val();
