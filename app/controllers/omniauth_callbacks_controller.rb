@@ -3,18 +3,17 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     if current_user
-      current_user.set_uid_and_facebook_token(env["omniauth.auth"])
-      message = "Facebook Connect adicionado com sucesso"
+      current_user.set_facebook_data(env["omniauth.auth"], session)
       if session[:should_request_new_facebook_token]
         session[:should_request_new_facebook_token] = nil
-        redirect_to(friends_home_path, :notice => message)
+        redirect_to(friends_home_path, :notice => I18n.t("facebook.connect_success"))
       else
-        redirect_to(member_showroom_path, :notice => message)
+        redirect_to(member_showroom_path, :notice => I18n.t("facebook.connect_success"))
       end
     else
       user = User.find_for_facebook_oauth(env["omniauth.auth"])
       if user
-        user.set_uid_and_facebook_token(env["omniauth.auth"])
+        user.set_facebook_data(env["omniauth.auth"], session)
         sign_in user
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
         redirect_to member_showroom_path

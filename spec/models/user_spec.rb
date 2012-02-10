@@ -76,6 +76,24 @@ describe User do
     end
   end
 
+  context "#facebook_data" do
+    let(:id) {"123"}
+    let(:token) {"ABC"}
+    let(:omniauth) {{"extra" => {"user_hash" => {"id" => id}}, "credentials" => {"token" => token}}}
+
+    it "should set facebook data with a extended permission" do
+      session = {:should_request_new_facebook_token => true}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
+      subject.set_facebook_data(omniauth, session)
+    end
+
+    it "should set facebook data without extended permission" do
+      session = {:should_request_new_facebook_token => nil}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token)
+      subject.set_facebook_data(omniauth, session)
+    end
+  end
+
   context "facebook accounts" do
     it "should not have a facebook account" do
       subject.update_attributes(:uid => nil)
