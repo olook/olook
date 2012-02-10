@@ -1,6 +1,5 @@
-class Admin::CouponsController < ApplicationController
+class Admin::CouponsController < Admin::BaseController
 
-  before_filter :authenticate_admin!
   load_and_authorize_resource
 
   layout 'admin'
