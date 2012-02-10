@@ -143,12 +143,9 @@ describe Admin::ProductsController do
   describe "related products" do
     let(:related_product_mock) { double(:product) }
 
-    before :each do
+    it "#add_related should add a new related product" do
       Product.should_receive(:find).with(product.id.to_s).and_return(product)
       Product.should_receive(:find).with('33').and_return(related_product_mock)
-    end
-
-    it "#add_related should add a new related product" do
       Product.any_instance.should_receive(:relate_with_product).with(related_product_mock)
       post :add_related, :id => product.id.to_s, :related_product => {:id => '33'}
       assigns(:product).should eq(product)
@@ -156,6 +153,8 @@ describe Admin::ProductsController do
     end
 
     it "#remove_related should remove a new related product" do
+      Product.should_receive(:find).with(product.id.to_s).and_return(product)
+      Product.should_receive(:find).with('33').and_return(related_product_mock)
       Product.any_instance.should_receive(:unrelate_with_product).with(related_product_mock)
       delete :remove_related, :id => product.id.to_s, :related_product_id => '33'
       assigns(:product).should eq(product)
