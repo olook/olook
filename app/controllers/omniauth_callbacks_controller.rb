@@ -29,6 +29,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
   end
 
+  def failure
+    redirect_to(member_showroom_path, :alert => I18n.t("facebook.connect_failure"))
+  end
+
   private
 
   def already_exist_a_facebook_account(omniauth)
