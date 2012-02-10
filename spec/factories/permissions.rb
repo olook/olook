@@ -17,5 +17,11 @@ FactoryGirl.define do
     end
     factory :collection_create, :parent => :permission do
       action_name "create"
-    end     
+    end
+    factory :collection_update, :parent => :permission do
+      action_name "update"
+    end
+    factory :permission_map_builder do
+      permissions = []
+    end   
 end
