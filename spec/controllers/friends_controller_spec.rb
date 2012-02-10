@@ -13,7 +13,7 @@ describe FriendsController do
 
     describe "GET facebook_connect" do
       it "should redirect to friends page when the user can access facebook extended permissions and have a valid token" do
-        user.stub(:can_access_facebook_extended_features?).and_return(true)
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(true)
         session[:should_request_new_facebook_token] = nil
         get :facebook_connect
         response.should redirect_to(friends_home_path)
@@ -47,6 +47,20 @@ describe FriendsController do
         @question = FactoryGirl.create(:question)
         SurveyQuestions.stub(:new).with([@question]).and_return(survey_questions = mock)
         survey_questions.stub(:common_questions).and_return([@question])
+        User.any_instance.stub(:can_access_facebook_extended_features).and_return(true)
+        session[:should_request_new_facebook_token] = nil
+      end
+
+      it "should redirect to facebook_connect_path if the user dont have extended permission" do
+        User.any_instance.stub(:can_access_facebook_extended_features).and_return(false)
+        get :home
+        response.should redirect_to(facebook_connect_path)
+      end
+
+      it "should redirect to facebook_connect_path if a new facebook token was requested" do
+        session[:should_request_new_facebook_token] = true
+        get :home
+        response.should redirect_to(facebook_connect_path)
       end
 
       it "should assign @questions" do

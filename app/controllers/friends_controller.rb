@@ -20,6 +20,7 @@ class FriendsController < ApplicationController
   end
 
   def home
+    redirect_to facebook_connect_path unless user_can_access_friends_page
   end
 
   def update_survey_question
