@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
+
   rescue_from Koala::Facebook::APIError, :with => :facebook_token_expired
 
   def load_promotion
@@ -19,7 +20,6 @@ class ApplicationController < ActionController::Base
                               Contact the system administrator"
       redirect_to admin_url
    end
-
 
   private
 

@@ -131,7 +131,7 @@ Olook::Application.routes.draw do
     resources :promotions
     resources :roles do
       resources :permissions
-     end
+    end
     resources :admins
   end
 
