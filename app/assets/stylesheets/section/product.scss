@@ -180,8 +180,17 @@
         }
       }
       div.description {
+        position: relative;
         font-family: Times;
         font-style: italic;
+        div.fb-like {
+          position: absolute;
+          top: 10px;
+          right: 0;
+          .fb_edge_comment_widget {
+            display: none;
+          }
+        }
         h1 {
           font-size: 40px;
           font-weight: lighter;
