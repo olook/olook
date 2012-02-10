@@ -141,23 +141,20 @@ describe Admin::ProductsController do
   end
 
   describe "related products" do
-    let(:related_product_mock) { double(:product) }
+    let!(:related_product) { FactoryGirl.create(:basic_bag) }
 
-    it "#add_related should add a new related product" do
-      Product.should_receive(:find).with(product.id.to_s).and_return(product)
-      Product.should_receive(:find).with('33').and_return(related_product_mock)
-      Product.any_instance.should_receive(:relate_with_product).with(related_product_mock)
-      post :add_related, :id => product.id.to_s, :related_product => {:id => '33'}
+    it "finds the product and assigns to product" do
+      post :add_related, :id => product.id.to_s, :related_product => {:id => related_product.id.to_s }
       assigns(:product).should eq(product)
-      response.should redirect_to([:admin, product])
     end
 
-    it "#remove_related should remove a new related product" do
-      Product.should_receive(:find).with(product.id.to_s).and_return(product)
-      Product.should_receive(:find).with('33').and_return(related_product_mock)
-      Product.any_instance.should_receive(:unrelate_with_product).with(related_product_mock)
-      delete :remove_related, :id => product.id.to_s, :related_product_id => '33'
-      assigns(:product).should eq(product)
+    it "relates the product with the received related product" do
+      Product.any_instance.should_receive(:relate_with_product).with(related_product)
+      post :add_related, :id => product.id.to_s, :related_product => {:id => related_product.id.to_s  }
+    end
+
+    it "redirects to product show page" do
+      post :add_related, :id => product.id.to_s, :related_product => {:id => related_product.id.to_s }
       response.should redirect_to([:admin, product])
     end
   end
