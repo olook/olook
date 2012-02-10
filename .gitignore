@@ -27,3 +27,4 @@ config/moip.yml
 db/schema.rb
 .watchr
 public/assets
+public/admin/users.csv
