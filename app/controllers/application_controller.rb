@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
+
   rescue_from Koala::Facebook::APIError, :with => :facebook_token_expired
 
   def load_promotion
@@ -13,6 +14,12 @@ class ApplicationController < ActionController::Base
       @promotion = PromotionService.new(current_user).detect_current_promotion
     end
   end
+
+  rescue_from CanCan::AccessDenied do  |exception|
+      flash[:error] = "Access Denied! You don't have permission to execute this action.
+                              Contact the system administrator"
+      redirect_to admin_url
+   end
 
   private
 
@@ -49,5 +56,10 @@ class ApplicationController < ActionController::Base
   def assign_default_country
     params[:address][:country] = 'BRA'
   end
+
+  def current_ability
+    @current_ability ||= ::Ability.new(current_admin)
+  end
+
 end
 

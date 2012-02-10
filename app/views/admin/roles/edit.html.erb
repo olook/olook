@@ -1,0 +1,10 @@
+<h2>Editing Roles</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_role_path(@roles) %></li>
+  <li><%= link_to 'Back', admin_roles_path %></li>
+<% end %>
