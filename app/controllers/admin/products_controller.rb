@@ -53,7 +53,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def add_related
-    @product = Product.find(params[:id])
+    @product =  Product.find(params[:id])
     product_to_relate = Product.find(params[:related_product][:id])
     @product.relate_with_product(product_to_relate)
 
