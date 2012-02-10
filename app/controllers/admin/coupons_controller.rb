@@ -1,5 +1,5 @@
 class Admin::CouponsController < Admin::BaseController
-  
+
   load_and_authorize_resource
   respond_to :html
   before_filter :load_coupon, :only => [:show, :edit, :update, :destroy]

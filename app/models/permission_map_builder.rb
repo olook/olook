@@ -3,23 +3,22 @@ class PermissionMapBuilder
   ENABLED = "1"
   DISABLED = "0"
 
-  attr_reader :permissions
+  attr_accessor :permissions
 
-  def initialize(new_permissions, permissions)
+  def initialize(permissions=[])
     @permissions = permissions
-    map(new_permissions).each do |id, status|
-      permission = Permission.find(id)
-      status == ENABLED ? add_permission(permission) : remove_permission(permission)
-    end
   end
 
-  def map(permissions)
-    permissions_map = {}
-    permissions.values.each do |permission|
-      permissions_map[permission.values_at("id").first] = permission.values_at("enabled").first
+  def map(new_permissions)
+    new_permissions.values.each do |permission|
+      id = permission.values_at("id").first
+      status = permission.values_at("enabled").first
+      status == ENABLED ? add_permission(Permission.find(id)) : remove_permission(Permission.find(id))
     end
-    permissions_map
+    @permissions
   end
+
+  private
 
   def add_permission(permission)
     unless @permissions.include?(permission)
