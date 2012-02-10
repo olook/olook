@@ -196,9 +196,11 @@ $(document).ready(function() {
   $("div.box_product div.line ol li a.product_color").mouseenter(function() {
     newLink = $(this).attr("href");
     newImg = $(this).attr("data-href");
+    soldOut = $(this).siblings($("input[type='hidden']")).val();
     productBox = $(this).parents(".box_product");
     $(productBox).find("a.product_link img").attr("src", newImg);
     $(productBox).find("a.product_link").attr("href", newLink);
+    $(productBox).attr("class", soldOut);
   });
 });
 
