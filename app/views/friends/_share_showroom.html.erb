@@ -1,0 +1,18 @@
+<div id="share_showroom">
+  <h1>Compartilhe sua vitrine no facebook</h1>
+  <%= form_for post_wall_path, :url => post_wall_path, :remote => true, :html => {:class => "form_post_wall"} do %>
+    <fieldset class="inputs">
+      <ul>
+        <li>
+          <div class="pic_mask">
+            <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?type=large" %>
+          </div>
+        </li>
+        <li class="text">
+          <%= text_area_tag 'message'%>
+          <%= submit_tag "", :class => "disabled", :disabled => "disabled" %>
+        </li>
+      </ul>
+    </fieldset>
+  <% end %>
+</div>

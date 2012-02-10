@@ -38,6 +38,7 @@ gem 'meta_search'
 gem 'newrelic_rpm'
 gem 'graylog2_exceptions'
 gem 'SyslogLogger', :require => 'syslog_logger'
+gem 'koala', '~> 1.3.0'
 
 group :development do
   gem 'faker'

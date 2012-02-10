@@ -36,6 +36,12 @@ class User < ActiveRecord::Base
     survey_answer.try(:answers)
   end
 
+  def set_uid_and_facebook_token(omniauth)
+    id = omniauth["extra"]["user_hash"]["id"]
+    token = omniauth["credentials"]["token"]
+    update_attributes(:uid => id, :facebook_token => token)
+  end
+
   def self.find_for_facebook_oauth(access_token)
     data = access_token['extra']['user_hash']
     t = User.arel_table
@@ -48,7 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def invite_for(email_address)
-    the_invite = invites.find_by_email(email_address)|| invites.build(:email => email_address)
+    the_invite = invites.find_by_email(email_address) || invites.build(:email => email_address)
     the_invite.save ? the_invite : nil
   end
 
@@ -59,13 +65,8 @@ class User < ActiveRecord::Base
   end
 
   def accept_invitation_with_token(token)
-    inviting_member = User.find_by_invite_token(token)
-    raise 'Invalid token' unless inviting_member
-
-    accepted_invite = inviting_member.invite_for(email)
-    if accepted_invite.nil?
-      accepted_invite = inviting_member.invites.create(:email => email, :sent_at => Time.now)
-    end
+    inviting_member = User.find_by_invite_token!(token)
+    accepted_invite = inviting_member.invite_for(email) || inviting_member.invites.create(:email => email, :sent_at => Time.now)
     accepted_invite.accept_invitation(self)
   end
 
@@ -138,6 +139,18 @@ class User < ActiveRecord::Base
 
   def birthdate
     birthday.strftime("%d/%m/%Y") if birthday
+  end
+
+  def is_new?
+    (self.created_at + 24.hours) > DateTime.now
+  end
+
+  def is_old?
+    (self.created_at + 24.hours) < DateTime.now
+  end
+
+  def has_purchases?
+    self.orders.where("orders.state <> 'in_the_cart'").count > 0 ? true : false
   end
 
   private

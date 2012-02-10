@@ -28,8 +28,9 @@ Running the application
 ============
 
 - redis-server
-- QUEUE=* bundle exec rake environment resque:work
-- bundle exec rake environment resque:scheduler (this will start a queue for the delayed/scheduled jobs)
+- QUEUE=* bundle exec rake environment resque:work RAILS_ENV=development
+To start a queue for the delayed/scheduled jobs:
+- bundle exec rake environment resque:scheduler
 - rails server
 
 Running tests
@@ -57,7 +58,7 @@ This cron will generate a csv file with the user data, bonus credits and revenue
 
 0  2    * * *   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_revenue_to_ftp >> /var/log/userbase_revenue_uploader_rake.log 2>&1
 
-Check the log files to verify in case any issue happens.
+Check the log files to verify if any issue happens.
 
 Optional config files
 ============

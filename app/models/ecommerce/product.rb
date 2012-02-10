@@ -18,6 +18,9 @@ class Product < ActiveRecord::Base
   belongs_to :collection
   has_and_belongs_to_many :profiles
 
+  has_many :lookbooks_products, :dependent => :destroy
+  has_many :lookbooks, :through => :lookbooks_products
+
   validates :name, :presence => true
   validates :description, :presence => true
   validates :model_number, :presence => true, :uniqueness => true
@@ -30,6 +33,10 @@ class Product < ActiveRecord::Base
   scope :accessories  , where(:category => Category::ACCESSORY)
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
+
+  def self.for_criteo
+    self.only_visible.joins(:variants).where("variants.is_master = 1 AND variants.price > 0.0")
+  end
 
   def related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
@@ -127,7 +134,7 @@ class Product < ActiveRecord::Base
       xml.tag!(:retailprice, price)
       xml.tag!(:recommendable, '1')
       xml.tag!(:instock, instock)
-      xml.tag!(:category1, category)
+      xml.tag!(:category, category)
     end
   end
 

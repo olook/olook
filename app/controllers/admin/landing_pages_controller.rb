@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Admin::LandingPagesController < ApplicationController
-  before_filter :authenticate_admin!
-  layout "admin"
+class Admin::LandingPagesController < Admin::BaseController
   respond_to :html, :text
 
   def index

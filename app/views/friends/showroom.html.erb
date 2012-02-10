@@ -1,0 +1,30 @@
+<% present 'Showroom', :member => @friend,  do |showroom_presenter| %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/friends" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "friends" %>
+<% end %>
+
+<section id="friends" class="showroom">
+  <%= render "user_column", :friends => @friends %>
+  <section id="friends_content">
+    <div id="friend_info">
+      <div class="avatar_mask">
+        <%= image_tag user_avatar(@friend) %>
+      </div>
+      <h2>Você está vendo a vitrine de:</h2>
+      <h1><%= @friend.name %></h1>
+      <%= link_to "voltar", friends_home_path %>
+    </div>
+    <div class="product_list">
+      <ul>
+        <%= showroom_presenter.display_shoes (0..4) %>
+        <%= showroom_presenter.display_bags (0..4) %>
+        <%= showroom_presenter.display_accessories (0..4) %>
+      </ul>
+    </div>
+  </section>
+</section>
+<% end %>

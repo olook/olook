@@ -10,7 +10,7 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag  "application" %>
     <%= yield :head %>
 
@@ -32,6 +32,7 @@
     <%= yield :top_my_account %>
 
     <div id="content" class="content">
+      <%= render_promotion_banner %>
       <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
   </div>

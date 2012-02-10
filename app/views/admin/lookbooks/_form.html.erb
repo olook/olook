@@ -1,0 +1,29 @@
+<%= form_for([:admin,@lookbook]) do |f| %>
+  <% if @lookbook.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lookbook.errors.count, "error") %> prohibited this landing page from being saved:</h2>
+
+      <ul>
+      <% @lookbook.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+  <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :thumb_image %><br />
+    <%= f.file_field :thumb_image %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

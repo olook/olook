@@ -1,0 +1,31 @@
+<h1>Listing promotions</h1>
+
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New promotion', new_admin_promotion_path %></li>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Discount percent</th>
+      <th>Active</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @promotions.each do |promotion| %>
+    <tr>
+      <td><%= promotion.name %></td>
+      <td><%= promotion.discount_percent %></td>
+      <td><%= promotion.active %></td>
+      <td><%= link_to 'Show', admin_promotion_path(promotion) %></td>
+      <td><%= link_to 'Edit', edit_admin_promotion_path(promotion) %></td>
+      <td><%= link_to 'Destroy', admin_promotion_path(promotion), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+

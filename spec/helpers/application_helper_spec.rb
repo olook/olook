@@ -48,6 +48,15 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#user_avatar" do
+    it "return the suer avatar given a type" do
+      user = stub(:uid => 123)
+      type = "large"
+      expected = "https://graph.facebook.com/#{user.uid}/picture?type=#{type}"
+      helper.user_avatar(user, type).should == expected
+    end
+  end
+
   describe "#member_type" do
     it "checks if user is signed in" do
       helper.should_receive(:'user_signed_in?')

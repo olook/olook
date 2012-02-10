@@ -26,14 +26,14 @@ describe PaymentManager do
 
   context "status verification" do
     it "should return true if a payment is expired" do
-      billet.payment_expiration_date = 3.days.ago
+      billet.payment_expiration_date = 5.days.ago
       billet.save
       billet.reload
       billet.expired?.should be_true
     end
 
     it "should return false if a payment is not expired" do
-      billet.payment_expiration_date = Time.now + 3.days
+      billet.payment_expiration_date = Time.now + 2.days
       billet.save
       billet.reload
       billet.expired?.should be_false
@@ -41,7 +41,7 @@ describe PaymentManager do
 
     it "should return true if a payment is expired and order has waiting_payment state" do
       billet.order.waiting_payment
-      billet.payment_expiration_date = 3.days.ago
+      billet.payment_expiration_date = 6.days.ago
       billet.save
       billet.reload
       billet.expired_and_waiting_payment?.should be_true
@@ -49,7 +49,7 @@ describe PaymentManager do
 
     it "should return false if a payment is not expired and order has waiting_payment state" do
       billet.order.waiting_payment
-      billet.payment_expiration_date = Time.now + 3.days
+      billet.payment_expiration_date = Time.now + 6.days
       billet.save
       billet.reload
       billet.expired_and_waiting_payment?.should be_false
@@ -59,7 +59,7 @@ describe PaymentManager do
   context "expiring payments" do
     it "should expires all expired billet orders" do
       billet.order.waiting_payment
-      billet.payment_expiration_date = 3.days.ago
+      billet.payment_expiration_date = 6.days.ago
       billet.save
       billet.reload
       payment_manager.expires_billet
