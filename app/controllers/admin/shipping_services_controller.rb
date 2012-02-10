@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Admin::ShippingServicesController < Admin::BaseController
-  respond_to :html
-
+  
   load_and_authorize_resource
+
+  respond_to :html
 
   def index
     @shipping_services = ShippingService.all
