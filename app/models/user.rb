@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
   before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, 
+         :token_authenticatable
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   InviteTokenFormat = /\b[a-zA-Z0-9]{8}\b/
