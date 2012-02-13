@@ -67,6 +67,8 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    @url = request.protocol + request.host
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
   end
 
