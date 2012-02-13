@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.where("orders.state <> 'in_the_cart'").count > 0 ? true : false
+    self.orders.where("orders.state <> 'in_the_cart'").count > 0
   end
 
   private
