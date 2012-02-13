@@ -70,6 +70,11 @@ $(document).ready(function() {
       $(this).addClass('selected');
       inventory = $(this).find("input[type='hidden']").val();
       remaining = $("div#infos p.remaining");
+      if(inventory < 2) {
+        $(remaining).html("Resta apenas <strong><span>0</span> unidade</strong> para o seu tamanho");
+      } else {
+        $(remaining).html("Restam apenas <strong><span>0</span> unidades</strong> para o seu tamanho");
+      }
       $(remaining).hide();
       if(inventory <= 3) {
         $(remaining).find("span").text(inventory);
