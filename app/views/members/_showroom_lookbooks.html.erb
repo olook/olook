@@ -2,7 +2,7 @@
   <h1>Lookbooks</h1>
   <div id="mask_carousel_showroom">
     <ul>
-      <% Lookbook.order("created_at DESC").each do |lookbook| %>
+      <% Lookbook.where("active = 1").order("created_at DESC").each do |lookbook| %>
         <li><%= link_to image_tag(lookbook.thumb_image.try(:url)), "/lookbooks/#{lookbook.name}" %></li>
       <% end %>
     </ul>
