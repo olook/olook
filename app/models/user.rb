@@ -37,19 +37,14 @@ class User < ActiveRecord::Base
   end
 
   def set_facebook_data(omniauth, session)
-    id = omniauth["extra"]["user_hash"]["id"]
-    token = omniauth["credentials"]["token"]
-    if session[:should_request_new_facebook_token]
-      update_attributes(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
-    else
-      update_attributes(:uid => id, :facebook_token => token)
-    end
+    attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
+    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    update_attributes(attributes)
   end
 
   def self.find_for_facebook_oauth(access_token)
-    data = access_token['extra']['user_hash']
     t = User.arel_table
-    user = User.where(t[:uid].eq(data["id"]).and(t[:uid].not_eq(nil)))
+    user = User.where(t[:uid].eq(access_token["uid"]).and(t[:uid].not_eq(nil)))
     user.first
   end
 

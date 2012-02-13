@@ -17,8 +17,8 @@ class ApplicationController < ActionController::Base
   private
 
   def facebook_token_expired
-    session[:should_request_new_facebook_token] = true
-    redirect_to facebook_connect_path, :notice => "Sua autenticação como o Facebook expirou. Faça o login novamente por favor"
+    session[:facebook_scopes] = "publish_stream"
+    head :error
   end
 
   def contact_authentication_failed

@@ -41,7 +41,14 @@ feature "User Authenticate", %q{
   scenario "User Log in with facebook" do
     answer_survey
     visit "/users/auth/facebook"
-    page.should have_content(I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook")
+    within("#user_new") do
+     fill_in "user_password", :with => "123456"
+     fill_in "user_password_confirmation", :with => "123456"
+     click_button "register"
+   end
+   within("#welcome") do
+     page.should have_content(showroom_message)
+   end
   end
 
  scenario "User Sign up" do
