@@ -35,7 +35,7 @@
 
 
             <p>Seu pedido nº <span style="color:#E05789"><%= @order.number %></span> já saiu do nosso armazém e está a caminho da sua casa.
-              Em mais <span style="color:#E05789"><%= @order.freight.delivery_time %></span> dias úteis a sua compra deve chegar no endereço escolhido para entrega.</p>
+              Em mais <span style="color:#E05789"><%= @order.delivery_time_for_a_shipped_order %></span> dias úteis a sua compra deve chegar no endereço escolhido para entrega.</p>
 
             <p>Para acompanhar a entrega do seu pedido passo a passo, <%= link_to "clique aqui", link_to_tracking_code(@order) %>.</p>
 

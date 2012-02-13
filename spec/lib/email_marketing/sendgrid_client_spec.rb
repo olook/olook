@@ -24,6 +24,22 @@ describe EmailMarketing::SendgridClient do
       EmailMarketing::SendgridClient.new(:invalid_emails)
     end
 
+    it "accepts username as optional parameter" do
+      HTTPI::Request.stub(:new).and_return(request)
+      HTTPI.stub(:get)
+
+      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=anon&api_key=olook123abc")
+      EmailMarketing::SendgridClient.new(:invalid_emails, :username => "anon")
+    end
+
+    it "accepts password as optional parameter" do
+      HTTPI::Request.stub(:new).and_return(request)
+      HTTPI.stub(:get)
+
+      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=qwerty")
+      EmailMarketing::SendgridClient.new(:invalid_emails, :password => "qwerty")
+    end
+
     it "makes a get with the created request" do
       HTTPI::Request.stub(:new).and_return(request)
       request.stub(:url=)
