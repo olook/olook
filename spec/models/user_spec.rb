@@ -421,4 +421,28 @@ describe User do
     end
   end
 
+  describe '#has_purchases?' do
+    context 'when user has no orders' do
+
+      it 'returns false' do
+        subject.has_purchases?.should be_false
+      end
+    end
+
+    context 'when user has one order in the cart' do
+      it 'returns false' do
+        Factory.create(:order_without_payment, :user => subject)
+        subject.has_purchases?.should be_false
+      end
+    end
+
+    context 'when user has one order not in the cart' do
+      it 'returns true' do
+        order = Factory.create(:order, :user => subject)
+        order.waiting_payment
+        subject.has_purchases?.should be_true
+      end
+    end
+  end
+
 end

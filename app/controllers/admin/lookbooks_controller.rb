@@ -24,6 +24,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def create
+    generate_slug(params[:lookbook]["name"])
     @lookbook = Lookbook.new(params[:lookbook])
 
     if @lookbook.save
@@ -55,6 +56,12 @@ class Admin::LookbooksController < Admin::BaseController
     @lookbook = Lookbook.find(params[:id])
     get_all_products
     respond_with :admin, @lookbook
+  end
+
+  private
+
+  def generate_slug(name)
+    params[:lookbook]["slug"] = name.gsub(/[^a-z0-9]/i, "")
   end
 
 end
