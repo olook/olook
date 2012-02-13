@@ -1,7 +1,7 @@
 class LookbooksController < ApplicationController
   def show
     if params[:name]
-      @lookbook = Lookbook.where("name = '#{params[:name]}' and active = 1").order("created_at DESC")[0]
+      @lookbook = Lookbook.where("slug = '#{params[:name]}' and active = 1").order("created_at DESC")[0]
     else
       @lookbook = Lookbook.where("active = 1").order("created_at DESC").limit(1)[0]
     end
