@@ -102,16 +102,20 @@ class Order < ActiveRecord::Base
   end
 
   def invalidate_coupon
-    coupon = get_current_coupon
-    if coupon
-      coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+    Coupon.transaction do
+      coupon = get_current_coupon
+      if coupon
+        coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+      end
     end
   end
-  
+
   def use_coupon
-    coupon = get_current_coupon
-    if coupon
-      coupon.increment!(:used_amount, 1)
+    Coupon.transaction do
+      coupon = get_current_coupon
+      if coupon
+        coupon.increment!(:used_amount, 1)
+      end
     end
   end
 
@@ -244,7 +248,7 @@ class Order < ActiveRecord::Base
   end
 
   def delivery_time_for_a_shipped_order
-    delivery_time - WAREHOUSE_TIME
+    freight_delivery_time - WAREHOUSE_TIME
   end
 
   private

@@ -150,6 +150,10 @@ class User < ActiveRecord::Base
     (self.created_at + 24.hours) < DateTime.now
   end
 
+  def has_purchases?
+    self.orders.where("orders.state <> 'in_the_cart'").count > 0
+  end
+
   private
 
   def remove_color_variations(products)

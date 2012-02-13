@@ -40,15 +40,15 @@ module EmailMarketing
       bounced_list = generate_bounced_list
       @csv = CSV.generate do |rows|
         rows << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
-                   invite_token first_name last_name facebook_token birthday }
+                   invite_token first_name last_name facebook_token birthday has_purchases}
         User.find_each do |u|
           unless bounced_list.include?(u.email)
             rows << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
-                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
+                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]
           end
         end
         emails_seed_list.each do |email|
-          rows << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil ]
+          rows << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil ]
         end
       end
     end
@@ -68,7 +68,7 @@ module EmailMarketing
             .joins("LEFT OUTER JOIN products on variants.product_id = products.id")
             .select(selected_fields)
             .order("id, order_id")
-            .each do |u|
+            .find_each do |u|
           order_total = Order.where(:id => u.order_id).first.try(:total)
           row  << [ u.id, u.email, u.first_name, u.last_name, u.invite_bonus, u.used_invite_bonus,
                    u.order_id, order_total, u.order_state, u.updated_at , u.variant_number, u.product_id, u.item_price, u.gift ]
@@ -95,7 +95,8 @@ module EmailMarketing
     def generate_bounced_list
       responses = []
       [:invalid_emails, :spam_reports, :unsubscribes, :blocks].each do |list|
-        responses += SendgridClient.new(list).parsed_response
+        responses += SendgridClient.new(list, :username => "olook").parsed_response
+        responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       responses.map { |item| item["email"] }
     end
@@ -107,13 +108,18 @@ module EmailMarketing
     end
 
     def generate_invalid
-      @csv = generate_email_csv(SendgridClient.new(:invalid_emails).parsed_response)
+      responses = []
+      ["olook", "olook2"].each do |user|
+        responses += SendgridClient.new(:invalid_emails, :username => user).parsed_response
+      end
+      @csv = generate_email_csv(responses)
     end
 
     def generate_optout
       responses = []
       [:spam_reports, :unsubscribes, :blocks].each do |list|
-        responses += SendgridClient.new(list).parsed_response
+        responses += SendgridClient.new(list, :username => "olook").parsed_response
+        responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       @csv = generate_email_csv(responses)
     end
