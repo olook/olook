@@ -79,16 +79,16 @@ describe User do
   context "#facebook_data" do
     let(:id) {"123"}
     let(:token) {"ABC"}
-    let(:omniauth) {{"extra" => {"user_hash" => {"id" => id}}, "credentials" => {"token" => token}}}
+    let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
 
     it "should set facebook data with a extended permission" do
-      session = {:should_request_new_facebook_token => true}
+      session = {:facebook_scopes => "publish_stream"}
       subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
       subject.set_facebook_data(omniauth, session)
     end
 
     it "should set facebook data without extended permission" do
-      session = {:should_request_new_facebook_token => nil}
+      session = {:facebook_scopes => nil}
       subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token)
       subject.set_facebook_data(omniauth, session)
     end
@@ -117,7 +117,7 @@ describe User do
   context "survey" do
 
     it "should find for facebook auth" do
-      access_token =  {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name", "id" => subject.uid}}}
+      access_token =  {"uid" => subject.uid}
       User.find_for_facebook_oauth(access_token).should == subject
     end
 

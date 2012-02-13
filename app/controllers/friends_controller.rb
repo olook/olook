@@ -15,7 +15,7 @@ class FriendsController < ApplicationController
     if user_can_access_friends_page
       redirect_to friends_home_path
     else
-      session[:should_request_new_facebook_token] = true
+      session[:facebook_scopes] = "publish_stream"
     end
   end
 
@@ -51,7 +51,7 @@ class FriendsController < ApplicationController
   private
 
   def user_can_access_friends_page
-    @user.can_access_facebook_extended_features? && session[:should_request_new_facebook_token].nil?
+    @user.can_access_facebook_extended_features? && session[:facebook_scopes].nil?
   end
 
   def load_question
