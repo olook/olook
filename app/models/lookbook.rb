@@ -16,7 +16,6 @@ class Lookbook < ActiveRecord::Base
   private
 
   def update_products
-    
     products.delete_all unless product_list.nil?
     selected_products = product_list.nil? ? [] : product_list.keys.collect{|id| Product.find_by_id(id)}
     selected_products.each {|os| self.products << os}
@@ -34,3 +33,4 @@ class Lookbook < ActiveRecord::Base
     end
   end
 end
+

@@ -191,7 +191,19 @@ $(document).ready(function() {
     if(newItems == 0) {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
-  })
+  });
+
+  $("div.box_product div.line ol li a.product_color").mouseenter(function() {
+    $(this).parents("ol").find("li a").removeClass("selected");
+    $(this).addClass("selected");
+    newLink = $(this).attr("href");
+    newImg = $(this).attr("data-href");
+    soldOut = $(this).siblings($("input[type='hidden']")).val();
+    productBox = $(this).parents(".box_product");
+    $(productBox).find("a.product_link img").attr("src", newImg);
+    $(productBox).find("a.product_link").attr("href", newLink);
+    $(productBox).attr("class", soldOut);
+  });
 });
 
 initBase = {
