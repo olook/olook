@@ -2,6 +2,7 @@ class FriendsController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :check_facebook_extended_permission, :only => [:home]
   before_filter :initialize_facebook_adapter
   before_filter :load_friends, :only => [:showroom, :home, :update_friends_list, :update_survey_question]
   before_filter :load_question, :only => [:home, :update_survey_question]
@@ -20,7 +21,6 @@ class FriendsController < ApplicationController
   end
 
   def home
-    redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure")) unless user_can_access_friends_page
   end
 
   def update_survey_question
@@ -52,6 +52,10 @@ class FriendsController < ApplicationController
 
   def user_can_access_friends_page
     @user.can_access_facebook_extended_features? && session[:facebook_scopes].nil?
+  end
+
+  def check_facebook_extended_permission
+    redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure")) unless user_can_access_friends_page
   end
 
   def load_question
