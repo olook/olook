@@ -4,7 +4,8 @@ class OrderStatusWorker
 
   def self.perform(order_id)
     order = Order.find(order_id)
-    send_email(order)
+    base_date = Date.civil(2012, 2, 13)
+    send_email(order) if Date.current > base_date
   end
 
   def self.send_email(order)
