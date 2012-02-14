@@ -50,8 +50,8 @@ class CartController < ApplicationController
     if params[:order_id] && params[:auth_token]
       @user.authentication_token = nil
       @user.save
-      session[:order] = Order.find(params[:order_id])
-      @order = session[:order]
+      session[:order] = params[:order_id]
+      @order = Order.find(params[:order_id])
       redirect_to root_path unless @order.state == "in_the_cart"
     end
     @bonus = InviteBonus.calculate(@user, @order)
