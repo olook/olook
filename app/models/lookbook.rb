@@ -1,6 +1,5 @@
 class Lookbook < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
-  validates :slug, :presence => true, :uniqueness => true
   has_many :images, :dependent => :destroy
   has_many :lookbooks_products, :dependent => :destroy
   has_many :products, :through => :lookbooks_products
