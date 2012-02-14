@@ -5,11 +5,11 @@ $(document).ready(function() {
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
     if(box.is(":visible") == false) {
-      box.slideDown();
+      box.slideDown(1000);
       container_position = $(box).position().top;
       ShowroomInit.slideToProductsContainer(container_position);
     } else {
-      box.slideUp();
+      box.slideUp(1000);
       topBox = $(this).parent(".products_list");
       container_position = $(topBox).position().top;
       ShowroomInit.slideToProductsContainer(container_position);
