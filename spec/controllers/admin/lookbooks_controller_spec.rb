@@ -35,8 +35,8 @@ describe Admin::LookbooksController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested lookbook" do
-        Lookbook.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => lookbook.id, :lookbook => {'these' => 'params'}
+        Lookbook.any_instance.should_receive(:update_attributes).with({'name' => 'name', 'slug' => 'name'})
+        put :update, :id => lookbook.id, :lookbook => {'name' => 'name', 'slug' => 'name'}
       end
 
       it "assigns the requested lookbook as @lookbook" do
