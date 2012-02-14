@@ -34,6 +34,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def update
+    generate_slug(params[:lookbook]["name"])
     @lookbook = Lookbook.find(params[:id])
 
     if @lookbook.update_attributes(params[:lookbook])
