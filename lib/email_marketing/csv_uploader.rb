@@ -40,15 +40,15 @@ module EmailMarketing
       bounced_list = generate_bounced_list
       @csv = CSV.generate do |rows|
         rows << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
-                   invite_token first_name last_name facebook_token birthday has_purchases}
+                   invite_token first_name last_name facebook_token birthday }
         User.find_each do |u|
           unless bounced_list.include?(u.email)
             rows << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
-                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]
+                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday ]
           end
         end
         emails_seed_list.each do |email|
-          rows << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil ]
+          rows << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil ]
         end
       end
     end
@@ -68,7 +68,7 @@ module EmailMarketing
             .joins("LEFT OUTER JOIN products on variants.product_id = products.id")
             .select(selected_fields)
             .order("id, order_id")
-            .find_each do |u|
+            .each do |u|
           order_total = Order.where(:id => u.order_id).first.try(:total)
           row  << [ u.id, u.email, u.first_name, u.last_name, u.invite_bonus, u.used_invite_bonus,
                    u.order_id, order_total, u.order_state, u.updated_at , u.variant_number, u.product_id, u.item_price, u.gift ]
