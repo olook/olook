@@ -62,7 +62,7 @@ class Admin::LookbooksController < Admin::BaseController
   private
 
   def generate_slug(name)
-    params[:lookbook]["slug"] = name.gsub(/[^a-z0-9]/i, "")
+    params[:lookbook]["slug"] = name.gsub(/[^a-z0-9]/i, "") unless params[:lookbook]["name"].nil?
   end
 
 end
