@@ -13,9 +13,31 @@ describe OrderStatusWorker do
       order.waiting_payment
     end
 
-    it 'should send e-mails' do
-      described_class.should_receive(:send_email).with(order)
-      described_class.perform(order.id)
+    context "with a valid date" do
+      it 'should send e-mails' do
+        Date.stub(:current).and_return(Date.civil(2012, 2, 14))
+        described_class.should_receive(:send_email).with(order)
+        described_class.perform(order.id)
+      end
+      it 'should send e-mails' do
+        Date.stub(:current).and_return(Date.civil(2012, 3, 10))
+        described_class.should_receive(:send_email).with(order)
+        described_class.perform(order.id)
+      end
+    end
+    context "with a invalid date" do
+      it 'should not send e-mails' do
+        Date.stub(:current).and_return(Date.civil(2012, 2, 13))
+        described_class.should_not_receive(:send_email).with(order)
+        described_class.perform(order.id)
+      end
+    end
+    context "with a invalid date" do
+      it 'should not send e-mails' do
+        Date.stub(:current).and_return(Date.civil(2012, 2, 12))
+        described_class.should_not_receive(:send_email).with(order)
+        described_class.perform(order.id)
+      end
     end
   end
 
