@@ -29,12 +29,12 @@ describe Billet do
         subject.expired?.should be_true
       end
 
-      it "should to be expired for 2012, 2, 9" do
+      it "should to be expired for 2012, 2, 10" do
         Date.stub(:current).and_return(Date.civil(2012, 2, 10))
         subject.expired?.should be_true
       end
 
-      it "should to be expired for 2012, 2, 9" do
+      it "should to be expired for 2012, 2, 10" do
         subject.stub(:payment_expiration_date).and_return(Date.civil(2012, 2, 10))
         Date.stub(:current).and_return(Date.civil(2012, 2, 16))
         subject.expired?.should be_true
@@ -46,7 +46,7 @@ describe Billet do
         subject.stub(:payment_expiration_date).and_return(Date.civil(2012, 2, 6))
       end
 
-      it "should not to be expired for 2012, 2, 6" do
+      it "should not to be expired for 2012, 2, 5" do
         Date.stub(:current).and_return(Date.civil(2012, 2, 5))
         subject.expired?.should be_false
       end
@@ -66,7 +66,7 @@ describe Billet do
         subject.expired?.should be_false
       end
 
-      it "should not to be expired for 2012, 2, 8" do
+      it "should not to be expired for 2012, 2, 14" do
         subject.stub(:payment_expiration_date).and_return(Date.civil(2012, 2, 10))
         Date.stub(:current).and_return(Date.civil(2012, 2, 14))
         subject.expired?.should be_false
