@@ -10,7 +10,7 @@ class OrderInventory
     order.rollback_inventory
   end
 
-  def available_for_rollback?
+  def should_rollback?
     order.canceled? || order.reversed? || order.refunded?
   end
 end
