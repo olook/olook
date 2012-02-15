@@ -1,9 +1,14 @@
 <div class="lookbook">
-  <h1>Lookbooks</h1>
+  <h1 class="title">Lookbooks</h1>
   <div id="mask_carousel_showroom">
     <ul>
       <% lookbooks.each do |lookbook| %>
-        <li><%= link_to image_tag(lookbook.thumb_image.try(:url)), "/lookbooks/#{lookbook.slug}" %></li>
+        <li>
+          <%= link_to "/lookbooks/#{lookbook.slug}" do %>
+            <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
+            <h1><%= lookbook.name %></h1>
+          <% end %>
+        </li>
       <% end %>
     </ul>
     <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
