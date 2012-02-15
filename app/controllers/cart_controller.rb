@@ -136,6 +136,7 @@ class CartController < ApplicationController
     else
       order_id = (session[:order] ||= @user.orders.create.id)
       @order = @user.orders.find(order_id)
+      @order.update_attribute( "in_cart_notified", true ) unless !current_admin
     end
   end
 
