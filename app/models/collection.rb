@@ -6,6 +6,10 @@ class Collection < ActiveRecord::Base
   validates :end_date, :presence => true
   validate :any_active_collections?
 
+  def self.from_last_month
+    self.for_date(1.month.ago.to_date)
+  end
+
   def self.for_date(date)
     Collection.where( '(:date >= start_date) AND (:date <= end_date)', :date => date).first
   end
