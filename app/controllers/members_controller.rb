@@ -70,6 +70,7 @@ class MembersController < ApplicationController
     @url = request.protocol + request.host
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
+    @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
   end
 
   def show_imported_contacts
