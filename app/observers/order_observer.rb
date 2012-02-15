@@ -5,7 +5,7 @@ class OrderObserver < ActiveRecord::Observer
      order.use_coupon
     end
     order_inventory = OrderInventory.new(order)
-    order_inventory.rollback if order_inventory.available_for_rollback?
+    order_inventory.rollback if order_inventory.should_rollback?
     Resque.enqueue(OrderStatusWorker, order.id) if order.payment
   end
 end
