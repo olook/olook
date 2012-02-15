@@ -7,7 +7,7 @@ namespace :marketing_uploader do
 
   desc "Uploads a CSV file with all user data (user name, email, etc)"
   task :copy_userbase_to_ftp => :environment do
-    EmailMarketing::CsvUploader.new(:userbase).copy_to_ftp("base_atualizada.csv")
+    EmailMarketing::CsvUploader.new(:userbase).copy_to_ftp("base_atualizada_purchases.csv")
   end
 
   desc "Uploads a CSV with userbase orders"
