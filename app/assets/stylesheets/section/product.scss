@@ -276,10 +276,13 @@
                 img {
                   width: 29px;
                   height: 28px;
+                  border: 1px solid #D95485;
                 }
-                &:first-child {
+                a {
                   img {
-                    border: 1px solid #D95485;
+                    width: 29px;
+                    height: 28px;
+                    border: 1px solid white;
                   }
                 }
               }
