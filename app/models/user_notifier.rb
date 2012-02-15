@@ -14,10 +14,18 @@ class UserNotifier
   end
 
   def self.send_in_cart ( conditions )
-
     Order.find_each(:conditions => conditions) do |order|
       order.user.reset_authentication_token!
-      InCartMailer.send_in_cart_mail( order ).deliver
+      order.update_attribute("in_cart_notified", true)
+
+      products = []
+      order.line_items.each do |product|
+        if product.variant.inventory != 0
+          products << product
+        end
+      end
+
+      InCartMailer.send_in_cart_mail( order, products ).deliver unless products.empty?
     end
     
   end
