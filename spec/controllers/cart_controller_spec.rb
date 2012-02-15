@@ -15,6 +15,11 @@ describe CartController do
         get :show
         assigns(:bonus).should == InviteBonus.calculate(user)
       end
+
+      it "GET show with token and order_id" do
+        get :show, :auth_token => 'RandomToken', :order_id => order.id
+        assigns(:order).should == order
+      end
     end
 
     describe "DELETE remove_coupon" do
