@@ -1,7 +1,11 @@
 # -*- encoding : utf-8 -*-
 class OrderObserver < ActiveRecord::Observer
+  def after_create(order)
+    Resque.enqueue(Abacos::UpdateInventory)
+  end
+
   def after_save(order)
-    if order.state == "authorized"
+    if order.authorized?
      order.use_coupon
     end
     order_inventory = OrderInventory.new(order)
