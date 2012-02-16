@@ -161,9 +161,9 @@ class User < ActiveRecord::Base
      Product.remove_color_variations results
   end
 
-  def profile_showroom(profile, category = nil)
+  def profile_showroom(profile, category = nil, collection = Collection.active)
     scope = profile.products.only_visible.
-            where(:collection_id => Collection.active)
+            where(:collection_id => collection)
     scope = scope.where(:category => category) if category
     scope
   end
