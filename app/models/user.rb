@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :points, :dependent => :destroy
   has_one :survey_answer, :dependent => :destroy
+  has_one :user_info, :dependent => :destroy
   has_many :invites, :dependent => :destroy
   has_many :events, :dependent => :destroy
   has_many :addresses
