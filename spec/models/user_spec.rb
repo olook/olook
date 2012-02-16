@@ -342,14 +342,13 @@ describe User do
   end
 
   describe "showroom methods" do
+    let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
     let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
     let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-
     let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
-
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
 
@@ -372,6 +371,12 @@ describe User do
     end
 
     describe "#profile_showroom" do
+      it "should return only the products for the last collection" do
+        product_a.update_attributes(:collection => last_collection)
+        product_b.update_attributes(:collection => last_collection)
+        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
+      end
+
       it "should return only the products for the given profile" do
         subject.profile_showroom(sporty_profile).should == [product_c, product_d]
       end
