@@ -30,6 +30,13 @@ class UserNotifier
     
   end
 
+  def self.delete_old_orders ( conditions )
+    Order.find_each(:conditions => conditions) do |order|
+      order.destroy
+    end
+    
+  end
+
   private
 
   def self.days_to_s ( days )
