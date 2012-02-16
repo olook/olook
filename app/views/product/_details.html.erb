@@ -17,6 +17,8 @@
                     <tr>
                       <% if detail.translation_token == "Salto/Tamanho" %>
                         <td><%= @product.category == 2 ? 'Tamanho' : 'Salto' %></td>
+                      <% elsif detail.translation_token == "Aviamento" %>
+                        <td>Detalhe</td>
                       <% else %>
                         <td><%= detail.translation_token %></td>
                       <% end %>
