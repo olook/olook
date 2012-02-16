@@ -90,7 +90,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def user_data_from_session
-    session["devise.facebook_data"]["extra"]["user_hash"] if session["devise.facebook_data"]
+    session["devise.facebook_data"]["extra"]["raw_info"] if session["devise.facebook_data"]
   end
 
   def save_tracking_params(resource, tracking_params)

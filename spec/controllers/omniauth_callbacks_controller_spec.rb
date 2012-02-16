@@ -13,7 +13,7 @@ describe OmniauthCallbacksController do
     describe "GET facebook" do
       it "should redirect to showroom page if authentication is successful" do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
-        user.stub(:set_uid_and_facebook_token).with(omniauth)
+        user.stub(:set_facebook_data).with(omniauth, session)
         user.stub(:authenticatable_salt)
         get :facebook
         response.should redirect_to(member_showroom_path)
@@ -21,7 +21,7 @@ describe OmniauthCallbacksController do
 
       it "should set facebook uid and token" do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
-        user.should_receive(:set_uid_and_facebook_token).with(omniauth)
+        user.should_receive(:set_facebook_data).with(omniauth, session)
         user.stub(:authenticatable_salt)
         get :facebook
       end
@@ -36,30 +36,29 @@ describe OmniauthCallbacksController do
 
   with_a_logged_user do
     describe "GET facebook" do
-      it "should set facebook uid and token" do
-        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
+      it "should set facebook data" do
+        User.any_instance.should_receive(:set_facebook_data).with(omniauth, session)
         get :facebook
       end
 
       it "should redirect to member showroom" do
-        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
-        session[:should_request_new_facebook_token] = false
+       User.any_instance.stub(:set_facebook_data)
+        session[:facebook_scopes] = nil
         get :facebook
         response.should redirect_to(member_showroom_path)
       end
 
       it "should redirect to friends showroom" do
-        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
-        session[:should_request_new_facebook_token] = true
+        User.any_instance.stub(:set_facebook_data)
+        session[:facebook_scopes] = true
         get :facebook
         response.should redirect_to(friends_home_path)
       end
 
-      it "should redirect to friends showroom" do
-        User.any_instance.should_receive(:set_uid_and_facebook_token).with(omniauth)
-        session[:should_request_new_facebook_token] = true
+      it "should set nil to facebook_scopes" do
+        session[:facebook_scopes] = true
         get :facebook
-        session[:should_request_new_facebook_token].should be_nil
+        session[:facebook_scopes].should be_nil
       end
     end
   end

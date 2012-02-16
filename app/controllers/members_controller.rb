@@ -112,11 +112,11 @@ class MembersController < ApplicationController
   end
 
   def redirect_user_if_new
-    redirect_to member_welcome_path if current_user.is_new?
+    redirect_to member_welcome_path, :alert => flash[:alert] if current_user.is_new?
   end
 
   def redirect_user_if_old
-    redirect_to member_showroom_path if current_user.is_old?
+    redirect_to member_showroom_path, :alert => flash[:alert] if current_user.is_old?
   end
 
   def load_offline_variant_and_clean_session

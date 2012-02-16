@@ -291,7 +291,7 @@ describe Product do
     end
   end
 
-  describe "#colors" do
+  context "color variations" do
     let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
     let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
     let(:black_bag) { FactoryGirl.create(:basic_bag) }
@@ -301,8 +301,16 @@ describe Product do
       black_shoe.relate_with_product red_shoe
     end
 
-    it 'should return a hash list of related products of the same category of the product' do
-      black_shoe.colors.should == [red_shoe]
+    describe '#colors' do
+      it 'returns a list of related products of the same category of the product' do
+        black_shoe.colors.should == [red_shoe]
+      end
+    end
+
+    describe "#all_colors" do
+      it "returns a list of related products of the same category including the current product and orderd by product id" do
+        black_shoe.all_colors.should == [black_shoe, red_shoe]
+      end
     end
   end
 
@@ -348,7 +356,7 @@ describe Product do
       subject.instock.should == "1"
     end
 
-    it "returns 1 when product is in stock" do
+    it "returns 0 when product is not in stock" do
       subject.stub(:inventory).and_return(0)
       subject.instock.should == "0"
     end
