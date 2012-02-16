@@ -76,8 +76,26 @@ describe User do
     end
   end
 
-  context "facebook account" do
-    it "should not facebook account" do
+  context "#facebook_data" do
+    let(:id) {"123"}
+    let(:token) {"ABC"}
+    let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
+
+    it "should set facebook data with a extended permission" do
+      session = {:facebook_scopes => "publish_stream"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
+      subject.set_facebook_data(omniauth, session)
+    end
+
+    it "should set facebook data without extended permission" do
+      session = {:facebook_scopes => nil}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token)
+      subject.set_facebook_data(omniauth, session)
+    end
+  end
+
+  context "facebook accounts" do
+    it "should not have a facebook account" do
       subject.update_attributes(:uid => nil)
       subject.has_facebook?.should == false
     end
@@ -85,12 +103,21 @@ describe User do
     it "should have a facebook account" do
       subject.has_facebook?.should == true
     end
+
+    it "should access facebook extended features" do
+      subject.update_attributes(:has_facebook_extended_permission => true)
+      subject.has_facebook_extended_permission?.should be_true
+    end
+
+    it "should not access facebook extended features" do
+      subject.has_facebook_extended_permission?.should_not be_true
+    end
   end
 
   context "survey" do
 
     it "should find for facebook auth" do
-      access_token =  {"extra" => {"user_hash" => {"email" => "mail@mail.com", "first_name" => "Name", "id" => subject.uid}}}
+      access_token =  {"uid" => subject.uid}
       User.find_for_facebook_oauth(access_token).should == subject
     end
 

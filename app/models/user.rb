@@ -37,16 +37,15 @@ class User < ActiveRecord::Base
     survey_answer.try(:answers)
   end
 
-  def set_uid_and_facebook_token(omniauth)
-    id = omniauth["extra"]["user_hash"]["id"]
-    token = omniauth["credentials"]["token"]
-    update_attributes(:uid => id, :facebook_token => token)
+  def set_facebook_data(omniauth, session)
+    attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
+    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    update_attributes(attributes)
   end
 
   def self.find_for_facebook_oauth(access_token)
-    data = access_token['extra']['user_hash']
     t = User.arel_table
-    user = User.where(t[:uid].eq(data["id"]).and(t[:uid].not_eq(nil)))
+    user = User.where(t[:uid].eq(access_token["uid"]).and(t[:uid].not_eq(nil)))
     user.first
   end
 
@@ -73,6 +72,10 @@ class User < ActiveRecord::Base
 
   def has_facebook?
     self.uid.present?
+  end
+
+  def can_access_facebook_extended_features?
+    has_facebook? && self.has_facebook_extended_permission.present?
   end
 
   def invite_bonus

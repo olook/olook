@@ -104,7 +104,9 @@ class Product < ActiveRecord::Base
     self.related_products.where(:category => self.category, :name => self.name)
   end
 
-
+  def all_colors
+    ([self] + self.colors).sort_by {|product| product.id }
+  end
 
   def easy_to_find_description
     "#{model_number} - #{name} - #{color_name} - #{category_humanize}"

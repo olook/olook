@@ -4,6 +4,7 @@ describe FriendsController do
   with_a_logged_user do
     render_views
     let(:message) { "my message" }
+    let(:facebook_scopes) { "publish_stream" }
     let(:attachment) do
       {:picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg",
        :caption => "www.olook.com.br",
@@ -12,32 +13,31 @@ describe FriendsController do
     end
 
     describe "GET facebook_connect" do
-      it "should redirect to friends page when the user has a facebbok account and a valid token" do
-        user.stub(:has_facebook?).and_return(true)
-        session[:should_request_new_facebook_token] = nil
+      it "should redirect to friends page when the user can access facebook extended permissions and session[:facebook_scopes] was not setted" do
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(true)
+        session[:facebook_scopes] = nil
         get :facebook_connect
         response.should redirect_to(friends_home_path)
       end
 
-      it "should not redirect to friends page when the user dont have a facebook account" do
-        User.any_instance.stub(:has_facebook?).and_return(false)
-        session[:should_request_new_facebook_token] = nil
+      it "should not redirect to friends page when the user dont have a facebook extended permission" do
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(false)
         get :facebook_connect
         response.should_not redirect_to(friends_home_path)
       end
 
-      it "should not redirect to friends page when the user dont have a valid token" do
-        User.any_instance.stub(:has_facebook?).and_return(false)
-        session[:should_request_new_facebook_token] = true
+      it "should not redirect to friends page when the session[:facebook_scopes] was setted" do
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(true)
+        session[:facebook_scopes] = facebook_scopes
         get :facebook_connect
         response.should_not redirect_to(friends_home_path)
       end
 
       it "should set session :should_request_new_facebook_token to true" do
-        User.any_instance.stub(:has_facebook?).and_return(false)
-        session[:should_request_new_facebook_token] = nil
+        session[:facebook_scopes] = nil
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(false)
         get :facebook_connect
-        session[:should_request_new_facebook_token].should == true
+        session[:facebook_scopes].should == facebook_scopes
       end
     end
 
@@ -48,6 +48,8 @@ describe FriendsController do
         @question = FactoryGirl.create(:question)
         SurveyQuestions.stub(:new).with([@question]).and_return(survey_questions = mock)
         survey_questions.stub(:common_questions).and_return([@question])
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(true)
+        session[:facebook_scopes] = nil
       end
 
       it "should assign @questions" do
@@ -60,6 +62,18 @@ describe FriendsController do
         assigns(:not_registred_friends).should == []
         assigns(:friends).should == []
         assigns(:friend).should be_nil
+      end
+
+      it "should redirect to facebook_connect_path if the user dont have extended permission" do
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(false)
+        get :home
+        response.should redirect_to(facebook_connect_path)
+      end
+
+      it "should redirect to facebook_connect_path if session[:facebook_scopes] was setted" do
+        session[:facebook_scopes] = facebook_scopes
+        get :home
+        response.should redirect_to(facebook_connect_path)
       end
     end
 
