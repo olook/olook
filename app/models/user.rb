@@ -144,10 +144,10 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
 
-  def all_profiles_showroom(category = nil)
+  def all_profiles_showroom(category = nil, collection = Collection.active)
     result = []
     self.profile_scores.each do |profile_score|
-      result = result | profile_showroom(profile_score.profile, category).all
+      result = result | profile_showroom(profile_score.profile, category, collection).all
     end
     Product.remove_color_variations result
   end
