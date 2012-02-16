@@ -38,4 +38,27 @@ describe UserNotifier do
     end
 
   end
+
+  describe ".delete_old_orders" do
+  let(:user) { FactoryGirl.create :user }
+  let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+  let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
+  subject { FactoryGirl.create(:clean_order, :user => user)}
+
+    before :each do
+      ActionMailer::Base.deliveries = []
+      subject.add_variant(basic_shoe_35)
+      subject.update_attribute( "updated_at", Time.now - 24 * 60 * 60 )
+      subject.save!
+      validators = UserNotifier.get_orders( "in_the_cart", 0, 1 )
+      UserNotifier.delete_old_orders( validators.join(" AND ") )
+    end
+
+    it "Should not found the order cause it was deleted" do
+      expect {
+        Order.find(subject.id)
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+  end
 end
