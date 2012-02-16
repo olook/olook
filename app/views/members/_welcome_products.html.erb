@@ -2,7 +2,9 @@
   <h1 class="title">Destaques deste mês</h1>
   <div class="products_list">
     <ul>
-      <%= showroom_presenter.display_shoes (0..4) %>
+      <%= showroom_presenter.display_products(0..4, Category::SHOE, Collection.from_last_month) %>
+      <%= showroom_presenter.display_products(0..4, Category::BAG, Collection.from_last_month) %>
+      <%= showroom_presenter.display_products(0..4, Category::ACCESSORY, Collection.from_last_month) %>
     </ul>
   </div>
 </section>
