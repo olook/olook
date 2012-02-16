@@ -369,7 +369,7 @@ describe User do
         subject.all_profiles_showroom.should be_a(Array)
       end
 
-      it 'should return an array g' do
+      it 'should return producs given a collection' do
         subject.should_receive(:profile_showroom).at_least(2).times.with(anything, Category::BAG, last_collection).and_return(stub(:all => []))
         subject.all_profiles_showroom(Category::BAG, last_collection)
       end
