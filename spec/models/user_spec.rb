@@ -371,12 +371,6 @@ describe User do
     end
 
     describe "#profile_showroom" do
-      it "should return only the products for the last collection" do
-        product_a.update_attributes(:collection => last_collection)
-        product_b.update_attributes(:collection => last_collection)
-        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
-      end
-
       it "should return only the products for the given profile" do
         subject.profile_showroom(sporty_profile).should == [product_c, product_d]
       end
@@ -391,6 +385,12 @@ describe User do
 
       it 'should not include the invisible product' do
         subject.profile_showroom(sporty_profile).should_not include(invisible_product)
+      end
+
+      it "should return only the products for the last collection" do
+        product_a.update_attributes(:collection => last_collection)
+        product_b.update_attributes(:collection => last_collection)
+        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
       end
     end
 
