@@ -173,28 +173,13 @@ div#my_account {
       padding: 5px 0 10px 30px;
       border-bottom: 1px #dcdcdc solid;
       h1 {
-        text-indent: -9999px;
+        color: #4c4c4c;
+        font-family: "Open Sans", sans-serif;
+        font-size: 34px;
+        font-weight: lighter;
+        text-transform: uppercase;
+        letter-spacing: -2px;
         display: block;
-        &.personal_data {
-          background: url("/assets/my_account/title-personal-data.png") no-repeat;
-          width: 245px;
-          height: 28px;
-        }
-        &.addresses {
-          background: url("/assets/my_account/title-addresses.png") no-repeat;
-          width: 174px;
-          height: 33px;
-        }
-        &.orders {
-          background: url("/assets/my_account/title-orders.png") no-repeat;
-          width: 212px;
-          height: 26px;
-        }
-        &.credits {
-          background: url("/assets/my_account/title-my-credits.png") no-repeat;
-          width: 237px;
-          height: 34px;
-        }
       }
     }
     section.main {
@@ -470,6 +455,25 @@ div#my_account {
           &.email {
             text-align: left;
           }
+        }
+      }
+    }
+  }
+  &.facebook {
+    div#data {
+      div.container {
+        margin: 15px 0 0 30px;
+        p {
+          color: #4c4c4c;
+          width: 705px;
+          margin: 0 0 20px 0;
+        }
+        a {
+          background: url("/assets/my_account/desc-face.jpg") no-repeat;
+          text-indent: -9999px;
+          width: 195px;
+          height: 25px;
+          display: block;
         }
       }
     }

@@ -1,0 +1,18 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/my_account" %>
+<% end %>
+
+<div id="my_account" class="facebook">
+  <div id="box_menu">
+    <%= render "shared/my_account/menu" %>
+  </div>
+  <div id="data">
+    <div class="box_title">
+      <h1 class="facebook">Facebook</h1>
+    </div>
+    <div class="container">
+      <p>Ao manter o seu Facebook Connect, você pode ver a vitrine das suas amigas e ter acesso à promoções e novidades exclusivas. Tem certeza que deseja desconectar com Facebook?</p>
+      <%= link_to "Desconectar Facebook", "#", :class => "bt_face" %>
+    </div>
+  </div>
+</div>
