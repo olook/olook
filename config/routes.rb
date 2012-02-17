@@ -82,6 +82,7 @@ Olook::Application.routes.draw do
         post 'creditos/reenviar_todos' => 'credits#resubmit_all_invites', :as => :resubmit_all_invites
       end
     end
+    match 'facebook' => "settings#facebook", :as => "facebook"
   end
 
   namespace :admin do
