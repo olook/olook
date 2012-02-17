@@ -19,6 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource
     set_resource_attributes(resource)
+    resource.user_info = UserInfo.new({ :shoes_size => UserInfo::SHOES_SIZE[session["questions"]["question_57"]] })
 
     if resource.save
       save_tracking_params resource, session[:tracking_params]
