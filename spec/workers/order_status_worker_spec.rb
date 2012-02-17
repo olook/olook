@@ -25,6 +25,7 @@ describe OrderStatusWorker do
         described_class.perform(order.id)
       end
     end
+
     context "with a invalid date" do
       it 'should not send e-mails' do
         Order.any_instance.stub(:created_at).and_return(Date.civil(2012, 2, 13))
@@ -32,7 +33,9 @@ describe OrderStatusWorker do
         described_class.perform(order.id)
       end
     end
+
     context "with a invalid date" do
+      it 'should not send e-mails' do
         Order.any_instance.stub(:created_at).and_return(Date.civil(2012, 2, 12))
         described_class.should_not_receive(:send_email).with(order)
         described_class.perform(order.id)
