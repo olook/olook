@@ -16,7 +16,7 @@
         <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
       <% end %>
       <%= render "shared/payments/info_sidebar", :cart => @cart %>
-      <%= f.submit "", :class => "finish" %>
+      <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
     </section>
   <% end %>
 </section>
