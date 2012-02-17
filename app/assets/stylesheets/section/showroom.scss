@@ -65,9 +65,12 @@
           color: #000;
         }
         h3 {
-          color: #df5a8b;
-          font-family: Arial, sans-serif;
-          font-size: 14px;
+          color: #101010;
+          font-family: "Open Sans", sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: -1px;
           margin-bottom: 5px;
           clear: both;
         }
@@ -84,12 +87,12 @@
               margin: 0 5px 0 0;
               float: left;
               div.mask {
-                width: 47px;
-                height: 47px;
+                width: 33px;
+                height: 33px;
                 overflow: hidden;
               }
               img {
-                width: 47px;
+                height: 33px;
               }
             }
           }

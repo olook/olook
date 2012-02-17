@@ -10,6 +10,8 @@ class MembersController < ApplicationController
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :redirect_user_if_new, :only => [:showroom]
   before_filter :redirect_user_if_old, :only => [:welcome]
+  before_filter :initialize_facebook_adapter
+  before_filter :load_friends, :only => [:showroom]
 
   def invite
     @is_the_first_visit = first_visit_for_member?(@user)
@@ -134,6 +136,14 @@ class MembersController < ApplicationController
         redirect_to cart_path
       end
     end
+  end
+
+  def load_friends
+    @not_registred_friends, @friends, @friend = @facebook_adapter.friends_structure
+  end
+
+  def initialize_facebook_adapter
+    @facebook_adapter = FacebookAdapter.new @user.facebook_token
   end
 end
 
