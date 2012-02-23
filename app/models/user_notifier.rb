@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class UserNotifier
   
-  def self.get_orders ( status, how_long, range, validators )
+  def self.get_orders ( status, how_long, range, validators=[] )
 
     time = Time.now.beginning_of_day
     from = time - days_to_s( how_long + range )
