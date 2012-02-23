@@ -21,6 +21,7 @@ feature "User Authenticate", %q{
   use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
 
   before :each do
+    FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
     @user = Factory(:user)
     User.any_instance.stub(:counts_and_write_points)
     Resque.stub(:enqueue)

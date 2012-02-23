@@ -10,6 +10,7 @@ describe OrderObserver do
     end
 
     it "should use the coupon when authorized" do
+      Resque.stub(:enqueue_in)
       subject.should_receive(:use_coupon)
       subject.waiting_payment
       subject.authorized

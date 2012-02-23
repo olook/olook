@@ -67,6 +67,10 @@ describe MembersController do
   end
 
   describe "#showroom" do
+    before :each do
+      FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook)
+    end
+
     it "should show the member showroom page" do
       get :showroom
       response.should render_template("showroom")
@@ -86,6 +90,12 @@ describe MembersController do
     it "should assign @lookbooks" do
       get :showroom
       assigns(:lookbooks).should eq(Lookbook.where("active = 1").order("created_at DESC"))
+    end
+
+    it "should assign @friends" do
+      FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_return([:fake_friend])
+      get :showroom
+      assigns(:friends).should == [:fake_friend]
     end
   end
 
@@ -223,6 +233,7 @@ describe MembersController do
 
     before :each do
       user.events.where(:event_type => EventType::FIRST_VISIT).destroy_all
+      FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook)
     end
 
     it "should record first visit for member user" do

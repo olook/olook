@@ -13,6 +13,7 @@ feature "Buying products", %q{
 
   context "buying products" do
     background do
+      FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
       do_login!(user)
       FactoryGirl.create(:main_picture, :product => product)
     end
