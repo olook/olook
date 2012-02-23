@@ -5,11 +5,7 @@ class OrderObserver < ActiveRecord::Observer
   end
 
   def after_save(order)
-    if order.authorized?
-     order.use_coupon
-    end
-    order_inventory = OrderInventory.new(order)
-    order_inventory.rollback if order_inventory.should_rollback?
+    order.use_coupon if order.authorized?
     Resque.enqueue(OrderStatusWorker, order.id) if order.payment
   end
 end
