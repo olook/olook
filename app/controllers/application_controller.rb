@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
-  rescue_from Koala::Facebook::APIError, :with => :facebook_token_expired
+  rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def load_promotion
     if current_user
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def facebook_token_expired
+  def facebook_api_error
     session[:facebook_scopes] = "publish_stream"
     head :error
   end

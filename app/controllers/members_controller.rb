@@ -13,6 +13,8 @@ class MembersController < ApplicationController
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
 
+  rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
+
   def invite
     @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
@@ -26,9 +28,7 @@ class MembersController < ApplicationController
   end
 
   def accept_invitation
-    session[:invite] = {:invite_token => params[:invite_token],
-                        :invited_by => @inviting_member.name}
-
+    session[:invite] = {:invite_token => params[:invite_token], :invited_by => @inviting_member.name}
     redirect_to root_path(incoming_params)
   end
 
@@ -94,6 +94,10 @@ class MembersController < ApplicationController
   end
 
   private
+
+  def facebook_api_error
+    redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure"))
+  end
 
   def first_visit_for_member?(member)
     if member.first_visit?
