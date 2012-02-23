@@ -1,11 +1,15 @@
 # -*- encoding : utf-8 -*-
 class OrderObserver < ActiveRecord::Observer
+  def after_create(order)
+    Resque.enqueue(Abacos::UpdateInventory)
+  end
+
   def after_save(order)
-    if order.state == "authorized"
+    if order.authorized?
      order.use_coupon
     end
     order_inventory = OrderInventory.new(order)
-    order_inventory.rollback if order_inventory.available_for_rollback?
+    order_inventory.rollback if order_inventory.should_rollback?
     Resque.enqueue(OrderStatusWorker, order.id) if order.payment
   end
 end

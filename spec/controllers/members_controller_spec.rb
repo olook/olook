@@ -82,6 +82,11 @@ describe MembersController do
       session[:offline_first_access].should be_nil
       session[:offline_variant].should be_nil
     end
+
+    it "should assign @lookbooks" do
+      get :showroom
+      assigns(:lookbooks).should eq(Lookbook.where("active = 1").order("created_at DESC"))
+    end
   end
 
   describe "#accept_invitation should redirect to root" do

@@ -13,7 +13,7 @@ $(document).ready(function() {
       $(word).text("Abrir");
     } else{
       $(carousel).animate({
-        height: '280px'
+        height: '315px'
       }, 'fast');
       $(this).addClass("open");
       $(word).text("Fechar");
