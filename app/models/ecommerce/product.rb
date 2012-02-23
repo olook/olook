@@ -35,7 +35,9 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
   def self.for_criteo
-    self.only_visible.joins(:variants).where("variants.is_master = 1 AND variants.price > 0.0 AND products.id <> 823")
+    excluded_products = [1,127,778,823]
+    only_visible.joins(:variants)
+    .where("variants.is_master = 1 AND variants.price > 0.0 AND products.id NOT IN (:blacklist)", :blacklist => excluded_products)
   end
 
   def related_products
@@ -103,8 +105,6 @@ class Product < ActiveRecord::Base
   def colors
     self.related_products.where(:category => self.category, :name => self.name)
   end
-
-
 
   def easy_to_find_description
     "#{model_number} - #{name} - #{color_name} - #{category_humanize}"
