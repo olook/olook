@@ -3,5 +3,7 @@
   <li><%= link_to "Endereços", user_addresses_path, :class => selected_if_current(["user/addresses#index", "user/addresses#new", "user/addresses#edit"]) %></li>
   <li><%= link_to "Meus Pedidos", user_orders_path, :class => selected_if_current(["user/orders#index", "user/orders#show"]) %></li>
   <li><%= link_to "Meus Créditos", user_credits_path, :class => selected_if_current(["user/credits#index"]) %></li>
-  <li><%= link_to "Facebook", user_facebook_path, :class => selected_if_current(["user/settings#facebook"]) %></li>
+  <% if @user.has_facebook? %>
+    <li><%= link_to "Facebook", user_facebook_path, :class => selected_if_current(["user/settings#facebook"]) %></li>
+  <% end %>
 </ul>

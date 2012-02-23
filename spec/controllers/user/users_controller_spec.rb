@@ -11,6 +11,13 @@ describe User::UsersController do
     sign_in user
   end
 
+  describe "DELETE destroy_facebook_account" do
+    it "should destroy the facebook account removing the user uid and facebook_token" do
+      User.any_instance.should_receive(:update_attributes).with(:facebook_token => nil, :uid => nil, :has_facebook_extended_permission => false)
+      delete :destroy_facebook_account
+    end
+  end
+
   describe "PUT update" do
     it "should updates the CPF" do
       User.any_instance.should_receive(:update_attributes).with(:cpf => cpf)

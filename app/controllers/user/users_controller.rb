@@ -3,7 +3,12 @@ class User::UsersController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_cpf
+  before_filter :check_cpf, :only => [:update]
+
+  def destroy_facebook_account
+    @user.update_attributes(:uid => nil, :facebook_token => nil, :has_facebook_extended_permission => false)
+    redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
+  end
 
   def update
     if @user.cpf.nil?
