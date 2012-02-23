@@ -72,6 +72,8 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
 
+  #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
+
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
     resources :addresses, :path => 'enderecos'
@@ -83,6 +85,7 @@ Olook::Application.routes.draw do
       end
     end
     match 'facebook' => "settings#facebook", :as => "facebook"
+    delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
   namespace :admin do
