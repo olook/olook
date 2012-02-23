@@ -3,15 +3,18 @@
   <h1><%= showroom_presenter.welcome_message %><br />Esta é sua vitrine de <%= showroom_presenter.collection_name %></h1>
   <p>Nossos stylists pensaram em você com muito carinho para montar a seleção de produtos deste mês. Explore as possibilidades e aproveite sem moderação.</p>
   <%= link_to "Editar Configurações", user_facebook_path, :class => "conf" %>
+  <% if @friends.any? %>
   <h3>Últimas amigas que se registraram:</h3>
   <ul>
     <% @friends.each do |friend| %>
       <li>
         <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
           <div class="mask">
-            <%= image_tag user_avatar(friend) %>
+            <%= image_tag user_avatar(friend), :title => friend.name %>
           </div>
         <% end %>
       </li>
     <% end %>
+  </ul>
+  <% end %>
 </div>
