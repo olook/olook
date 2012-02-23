@@ -10,16 +10,10 @@ describe OrderObserver do
     end
 
     it "should use the coupon when authorized" do
+      Resque.stub(:enqueue_in)
       subject.should_receive(:use_coupon)
       subject.waiting_payment
       subject.authorized
-    end
-
-    it "should update the inventory when necessary" do
-      OrderInventory.stub(:new).and_return(order_inventory = mock)
-      order_inventory.stub(:should_rollback?).and_return(true)
-      order_inventory.should_receive(:rollback).at_least(1).times
-      subject.canceled
     end
   end
 
