@@ -17,9 +17,8 @@ namespace :orders do
   end
 
   desc "Update the order status"
-    task :update_status, :needs => :environment do |task, args|
-      Resque.enqueue(Abacos::UpdateOrderStatus)
-    end
+  task :update_status, :needs => :environment do |task, args|
+    Resque.enqueue(Abacos::UpdateOrderStatus)
   end
 end
 
