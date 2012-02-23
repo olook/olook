@@ -32,6 +32,7 @@ FactoryGirl.define do
 
     after_build do |order|
       Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
     end
 
     after_create do |order|
