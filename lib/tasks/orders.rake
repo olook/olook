@@ -15,5 +15,11 @@ namespace :orders do
       f.puts expires_debit
     end
   end
+
+  desc "Update the order status"
+    task :update_status, :needs => :environment do |task, args|
+      Resque.enqueue(Abacos::UpdateOrderStatus)
+    end
+  end
 end
 
