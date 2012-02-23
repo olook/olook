@@ -7,6 +7,8 @@ class FriendsController < ApplicationController
   before_filter :load_friends, :only => [:showroom, :home, :update_friends_list, :update_survey_question]
   before_filter :load_question, :only => [:home, :update_survey_question]
 
+  rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
+
   def showroom
     @friend = User.find(params[:friend_id])
     @products = @friend.all_profiles_showroom
@@ -49,6 +51,11 @@ class FriendsController < ApplicationController
   end
 
   private
+
+  def facebook_api_error
+    session[:facebook_scopes] = "publish_stream"
+    redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure"))
+  end
 
   def user_can_access_friends_page
     @user.can_access_facebook_extended_features? && session[:facebook_scopes].nil?

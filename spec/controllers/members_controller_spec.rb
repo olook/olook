@@ -97,6 +97,17 @@ describe MembersController do
       get :showroom
       assigns(:friends).should == [:fake_friend]
     end
+
+    it "should redirect to facebook_connect_path if the user has a invalid token" do
+      FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_raise(Koala::Facebook::APIError)
+      get :showroom
+      response.should redirect_to(facebook_connect_path)
+    end
+
+    it "should not redirect to facebook_connect_path if the user has a valid token" do
+      get :showroom
+      response.should_not redirect_to(facebook_connect_path)
+    end
   end
 
   describe "#accept_invitation should redirect to root" do
