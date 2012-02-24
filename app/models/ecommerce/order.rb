@@ -45,6 +45,7 @@ class Order < ActiveRecord::Base
 
     after_transition :in_the_cart => :waiting_payment, :do => :insert_order
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
+    after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition any => any, :do => :enqueue_order_status_worker
 
     event :waiting_payment do
