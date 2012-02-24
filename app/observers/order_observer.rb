@@ -6,6 +6,5 @@ class OrderObserver < ActiveRecord::Observer
 
   def after_save(order)
     order.use_coupon if order.authorized?
-    Resque.enqueue(OrderStatusWorker, order.id) if order.payment
   end
 end
