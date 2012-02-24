@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Admin::CouponsController do
-	render_views
+  render_views
   let!(:standard_coupon) { FactoryGirl.create(:standard_coupon) }
   let!(:expired_coupon) { FactoryGirl.create(:expired_coupon) }
   let!(:unlimited_coupon) { FactoryGirl.create(:unlimited_coupon) }
