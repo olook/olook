@@ -132,7 +132,7 @@ class CartController < ApplicationController
       @user.save
       session[:order] = params[:order_id]
       @order = Order.find(params[:order_id])
-      redirect_to root_path unless @order.state == "in_the_cart"
+      redirect_to root_path unless @order.state == "in_the_cart" && @order.disable == false
     else
       order_id = (session[:order] ||= @user.orders.create.id)
       @order = @user.orders.find(order_id)
