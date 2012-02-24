@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Admin::LookbooksController do
-	render_views
+  render_views
   let!(:product)      { FactoryGirl.create(:basic_shoe) }
-  let!(:lookbook)      { FactoryGirl.create(:basic_lookbook, 
-                        :product_list => { "#{product.id}" => "1" }, 
+  let!(:lookbook)      { FactoryGirl.create(:basic_lookbook,
+                        :product_list => { "#{product.id}" => "1" },
                         :product_criteo => { "#{product.id}" => "1" } ) }
 
   before :each do
