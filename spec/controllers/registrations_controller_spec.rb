@@ -58,12 +58,16 @@ describe RegistrationsController do
     before :each do
       @user = FactoryGirl.create(:user)
       sign_in @user
-
     end
 
     it "should update the user" do
       User.any_instance.should_receive(:update_attributes).with(user_attributes)
       put :update, :id => @user.id, :user => user_attributes
+    end
+
+    it "should not update the cpf" do
+      put :update, :id => @user.id, :user => user_attributes.merge("cpf" => "19762003691")
+      @user.reload.cpf.should be_nil
     end
 
     it "should render the edit template" do
