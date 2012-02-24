@@ -493,6 +493,12 @@ describe Order do
       subject.waiting_payment
       subject.authorized
     end
+
+    it "should use coupon when autorized" do
+      subject.should_receive(:use_coupon)
+      subject.waiting_payment
+      subject.authorized
+    end
   end
 
   describe "Order#status" do
