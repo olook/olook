@@ -482,6 +482,17 @@ describe Order do
       subject.not_delivered
       subject.not_delivered?.should be_true
     end
+
+    it "should enqueue a OrderStatusWorker in any transation with a payment" do
+      Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
+      subject.waiting_payment
+    end
+
+    it "should enqueue a OrderStatusWorker in any transation with a payment" do
+      Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
+      subject.waiting_payment
+      subject.authorized
+    end
   end
 
   describe "Order#status" do
