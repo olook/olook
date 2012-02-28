@@ -138,7 +138,7 @@ section#friends {
       div#quiz_container, div#invite_friends, div#share_showroom {
         background: url("/assets/friends/divisor.png") top left no-repeat;
         width: 770px;
-        overflow: auto;
+        overflow: hidden;
         padding: 30px 0 30px 30px;
         h1 {
           margin: 0 0 5px 0;
