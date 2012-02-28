@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-module EmailMarketing
+module MarketingReports
   class SendgridClient
 
     BASE_URL = "https://sendgrid.com/api"
