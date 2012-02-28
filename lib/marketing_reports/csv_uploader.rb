@@ -2,7 +2,7 @@
 require 'net/ftp'
 require 'tempfile'
 
-module EmailMarketing
+module MarketingReports
   class CsvUploader
     FTP_SERVER = {
       :host => "hftp.olook.com.br",
@@ -125,7 +125,7 @@ module EmailMarketing
     end
 
     def emails_seed_list
-      IO.readlines("lib/email_marketing/emails_seed_list.csv").map(&:chomp)
+      IO.readlines(Rails.root + "lib/marketing_reports/emails_seed_list.csv").map(&:chomp)
     end
 
   end

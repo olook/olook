@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe EmailMarketing::CsvUploader do
+describe MarketingReports::CsvUploader do
   let(:user_a) { FactoryGirl.create :user }
   let(:user_b) { FactoryGirl.create :user }
   let(:user_c) { FactoryGirl.create :user }
@@ -25,15 +25,15 @@ describe EmailMarketing::CsvUploader do
 
     describe "when type is invalid" do
       it "calls sendgrid invalid emails service on both sendgrids account" do
-        EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails, :username => "olook").and_return(services[:invalid_emails])
-        EmailMarketing::SendgridClient.should_receive(:new).with(:invalid_emails, :username => "olook2").and_return(services[:invalid_emails])
+        MarketingReports::SendgridClient.should_receive(:new).with(:invalid_emails, :username => "olook").and_return(services[:invalid_emails])
+        MarketingReports::SendgridClient.should_receive(:new).with(:invalid_emails, :username => "olook2").and_return(services[:invalid_emails])
 
         described_class.new(:invalid)
       end
 
       it "builds a csv file with invalid emails" do
-        EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails, :username => "olook").and_return(services[:invalid_emails])
-        EmailMarketing::SendgridClient.stub(:new).with(:invalid_emails, :username => "olook2").and_return(services[:invalid_emails])
+        MarketingReports::SendgridClient.stub(:new).with(:invalid_emails, :username => "olook").and_return(services[:invalid_emails])
+        MarketingReports::SendgridClient.stub(:new).with(:invalid_emails, :username => "olook2").and_return(services[:invalid_emails])
 
         described_class.new(:invalid).csv.should == "c@d.com\nc@d.com\n"
       end
@@ -44,8 +44,8 @@ describe EmailMarketing::CsvUploader do
 
       it "calls sendgrid spam_reports, unsubscribes and blocks services on olook and olook2 accounts" do
         optout_services.each do |name|
-          EmailMarketing::SendgridClient.should_receive(:new).with(name, :username => "olook").and_return(services[name])
-          EmailMarketing::SendgridClient.should_receive(:new).with(name, :username => "olook2").and_return(services[name])
+          MarketingReports::SendgridClient.should_receive(:new).with(name, :username => "olook").and_return(services[name])
+          MarketingReports::SendgridClient.should_receive(:new).with(name, :username => "olook2").and_return(services[name])
         end
 
         described_class.new(:optout)
@@ -53,8 +53,8 @@ describe EmailMarketing::CsvUploader do
 
       it "builds a csv file with emails from spam_reports, unsubscribes and blocks" do
         optout_services.each do |name|
-          EmailMarketing::SendgridClient.stub(:new).with(name, :username => "olook").and_return(services[name])
-          EmailMarketing::SendgridClient.stub(:new).with(name, :username => "olook2").and_return(services[name])
+          MarketingReports::SendgridClient.stub(:new).with(name, :username => "olook").and_return(services[name])
+          MarketingReports::SendgridClient.stub(:new).with(name, :username => "olook2").and_return(services[name])
 
         end
 
@@ -69,8 +69,8 @@ describe EmailMarketing::CsvUploader do
 
       before(:each) do
         services.each do |service, response|
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
       end
 
@@ -83,7 +83,7 @@ describe EmailMarketing::CsvUploader do
           data
         end
 
-        EmailMarketing::CsvUploader.new(:userbase).csv.should match /^#{csv_header}#{csv_body}/
+        described_class.new(:userbase).csv.should match /^#{csv_header}#{csv_body}/
       end
 
       it "does not include a user which email was included in any bounced list (spam reports, unsubscribers, blocks or invalid)" do
@@ -96,8 +96,8 @@ describe EmailMarketing::CsvUploader do
         }
 
         services.each do |service, response|
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
         csv = described_class.new(:userbase).csv
         csv.should_not match user_a.email
@@ -107,19 +107,19 @@ describe EmailMarketing::CsvUploader do
 
       it "includes return path seed email" do
         services.each do |service, response|
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
-        csv = EmailMarketing::CsvUploader.new(:userbase).csv
+        csv = MarketingReports::CsvUploader.new(:userbase).csv
         csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,,\n"
       end
 
       it "includes delivery whatch seed email" do
         services.each do |service, response|
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
-          EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+          MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
-        csv = EmailMarketing::CsvUploader.new(:userbase).csv
+        csv = described_class.new(:userbase).csv
         csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,,\n"
       end
     end
@@ -132,7 +132,7 @@ describe EmailMarketing::CsvUploader do
       end
 
       it "shows a csv header with user id, email, first and last name, bonus info and orders attributes" do
-        EmailMarketing::CsvUploader.new(:userbase_orders).csv.should == header
+        described_class.new(:userbase_orders).csv.should == header
       end
 
       context "and user has no orders and no bonus" do
@@ -140,7 +140,7 @@ describe EmailMarketing::CsvUploader do
         it "lists user id, first and last_name, email for a user without orders" do
           user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0,,,,,,,,\n"
 
-          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
+          described_class.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
         end
       end
 
@@ -157,7 +157,7 @@ describe EmailMarketing::CsvUploader do
 
         it "lists user data and used bonus and total bonus" do
           user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},#{order.total},#{order.state},#{order.updated_at},,,,"
-          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
+          described_class.new(:userbase_orders).csv.should match(/^#{header}#{user_data}/)
         end
       end
 
@@ -170,7 +170,7 @@ describe EmailMarketing::CsvUploader do
           user_order_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0," +
                             "#{order.id},359.8,#{order.state},#{order.updated_at},#{line_item.variant.number}," +
                             "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
-          EmailMarketing::CsvUploader.new(:userbase_orders).csv.should match(/^#{header}#{user_order_data}/)
+          described_class.new(:userbase_orders).csv.should match(/^#{header}#{user_order_data}/)
         end
       end
 
@@ -182,7 +182,7 @@ describe EmailMarketing::CsvUploader do
       end
 
       it "shows a csv header with user id, email, first and last name, bonus info and orders attributes" do
-        EmailMarketing::CsvUploader.new(:userbase_revenue).csv.should == header
+        described_class.new(:userbase_revenue).csv.should == header
       end
 
       context "and user has credits and two orders with completed or authorized payments" do
@@ -210,7 +210,7 @@ describe EmailMarketing::CsvUploader do
                               "#{user.invite_bonus + user.used_invite_bonus},#{user.invite_bonus},#{user.used_invite_bonus}," +
                               "#{total_revenue},#{freight}\n"
 
-          EmailMarketing::CsvUploader.new(:userbase_revenue).csv.should == header + user_revenue_data
+          described_class.new(:userbase_revenue).csv.should == header + user_revenue_data
         end
 
       end
@@ -221,8 +221,8 @@ describe EmailMarketing::CsvUploader do
 
   describe "#copy_to_ftp" do
     before do
-      EmailMarketing::CsvUploader.class_eval { remove_const :FTP_SERVER }
-      EmailMarketing::CsvUploader::FTP_SERVER = {
+      MarketingReports::CsvUploader.class_eval { remove_const :FTP_SERVER }
+      MarketingReports::CsvUploader::FTP_SERVER = {
         :host => "ftp.host.com",
         :username => "username",
         :password => "password"
@@ -231,7 +231,7 @@ describe EmailMarketing::CsvUploader do
 
     let(:connection) { mock(:ftp_connection) }
 
-    it "opens new ftp connection using configuration from EmailMarketing::CsvUploader::FTP_SERVER" do
+    it "opens new ftp connection using configuration from MarketingReports::CsvUploader::FTP_SERVER" do
       Net::FTP.should_receive(:new).with("ftp.host.com","username", "password").and_return(mock.as_null_object)
       subject.copy_to_ftp(anything)
     end
