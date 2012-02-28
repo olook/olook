@@ -75,6 +75,22 @@ describe Product do
         shoe.master_variant.update_attribute(:price, 1.0)
         described_class.for_criteo.should include(shoe)
       end
+
+      describe "blacklisted products" do
+        before do
+          shoe.master_variant.update_attribute(:price, 1.0)
+        end
+
+        it "gets product black list from CRITEO_CONFIG" do
+          CRITEO_CONFIG.should_receive(:[]).with('products_blacklist')
+          described_class.for_criteo
+        end
+
+        it "does not include a blacklisted product" do
+          CRITEO_CONFIG.stub(:[]).with('products_blacklist').and_return([shoe.id])
+          described_class.for_criteo.should_not include(shoe)
+        end
+      end
     end
   end
 
