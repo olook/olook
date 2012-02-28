@@ -12,6 +12,18 @@ describe OrderStatusWorker do
     before :each do
       order.waiting_payment
     end
+
+    it "should send email" do
+      Order.any_instance.stub(:user).and_return(stub(:email => "leinboston@hotmail.com"))
+      described_class.should_receive(:send_email).with(order)
+      described_class.perform(order.id)
+    end
+
+    it "should not send email" do
+      Order.any_instance.stub(:user).and_return(stub(:email => "invalid@hotmail.com"))
+      described_class.should_not_receive(:send_email).with(order)
+      described_class.perform(order.id)
+    end
   end
 
   describe '#send_email' do
