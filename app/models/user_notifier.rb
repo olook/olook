@@ -32,7 +32,7 @@ class UserNotifier
 
   def self.delete_old_orders ( conditions )
     Order.find_each(:conditions => conditions) do |order|
-      order.destroy
+      order.update_attribute("disable", true)
     end
     
   end
