@@ -1,20 +1,11 @@
 # -*- encoding : utf-8 -*-
-require 'net/ftp'
-require 'tempfile'
 
 module MarketingReports
-  class CsvUploader
-    FTP_SERVER = {
-      :host => "hftp.olook.com.br",
-      :username => "allinmail",
-      :password => "allinmail123abc"
-    }
-
-    FILE_PATH =  "/tmp/"
+  class Builder
 
     ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue]
 
-    attr_reader :csv
+    attr_accessor :csv
 
     def initialize(type = nil)
       if ACTIONS.include? type
@@ -24,14 +15,8 @@ module MarketingReports
       end
     end
 
-    def copy_to_ftp(filename = "untitled.txt")
-      ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
-      ftp.passive = true
-      Tempfile.open(FILE_PATH, 'w', :encoding => 'ISO-8859-1') do |file|
-        file.write @csv
-        ftp.puttextfile(file.path,filename)
-      end
-      ftp.close
+    def upload(filename)
+      FileUploader.new(@csv).copy_to_ftp(filename)
     end
 
     private
