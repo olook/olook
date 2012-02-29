@@ -33,6 +33,7 @@ Olook::Application.routes.draw do
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   match "/criteo", :to => "xml#criteo", :as => "criteo_url", :defaults => { :format => 'xml' }
+  match "/mt_perfomance", :to => "xml#mt_perfomance", :as => "mt_perfomance_url", :defaults => { :format => 'xml' }
 
   #resource :xml, :only => [:show], :path => 'criteo', :controller => :xml, :defaults => { :format => 'xml' }
 
