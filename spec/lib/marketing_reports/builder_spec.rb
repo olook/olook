@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe MarketingReports::CsvUploader do
+describe MarketingReports::Builder do
   let(:user_a) { FactoryGirl.create :user }
   let(:user_b) { FactoryGirl.create :user }
   let(:user_c) { FactoryGirl.create :user }
@@ -110,7 +110,7 @@ describe MarketingReports::CsvUploader do
           MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
           MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
-        csv = MarketingReports::CsvUploader.new(:userbase).csv
+        csv = described_class.new(:userbase).csv
         csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,,\n"
       end
 
@@ -219,58 +219,25 @@ describe MarketingReports::CsvUploader do
     end
   end
 
-  describe "#copy_to_ftp" do
+  describe "#upload" do
+    let(:csv) { "a,b,c" }
+    let(:filename) { "filename.csv" }
+    let(:uploader) { double(:uploder) }
+
     before do
-      MarketingReports::CsvUploader.class_eval { remove_const :FTP_SERVER }
-      MarketingReports::CsvUploader::FTP_SERVER = {
-        :host => "ftp.host.com",
-        :username => "username",
-        :password => "password"
-      }
+      subject.csv = csv
     end
 
-    let(:connection) { mock(:ftp_connection) }
-
-    it "opens new ftp connection using configuration from MarketingReports::CsvUploader::FTP_SERVER" do
-      Net::FTP.should_receive(:new).with("ftp.host.com","username", "password").and_return(mock.as_null_object)
-      subject.copy_to_ftp(anything)
+    it "calls FileUploader passing the csv" do
+      MarketingReports::FileUploader.should_receive(:new).with(csv).and_return(mock.as_null_object)
+      subject.upload(filename)
     end
 
-    context "copying the file" do
-      before do
-        Net::FTP.stub(:new).and_return(connection)
-        connection.stub(:close)
-        connection.stub(:passive=)
-      end
-
-      it "uses untitled.txt as filename when no name is passed" do
-        connection.should_receive(:puttextfile).with(anything, "untitled.txt")
-        subject.copy_to_ftp
-      end
-
-      it "uses received name as filename" do
-        filename = "file.csv"
-        connection.should_receive(:puttextfile).with(anything, filename)
-        subject.copy_to_ftp(filename)
-      end
-    end
-
-    it "sets connection to passive mode" do
-      Net::FTP.stub(:new).and_return(connection)
-      connection.stub(:close)
-      connection.stub(:puttextfile)
-
-      connection.should_receive(:passive=).with(true)
-      subject.copy_to_ftp
-    end
-
-    it "closes the ftp connection" do
-      Net::FTP.stub(:new).and_return(connection)
-      connection.stub(:puttextfile)
-      connection.stub(:passive=)
-
-      connection.should_receive(:close)
-      subject.copy_to_ftp
+    it "calls copy_to_ftp on the file uploader with the passed filename" do
+      MarketingReports::FileUploader.stub(:new).and_return(uploader)
+      uploader.should_receive(:copy_to_ftp).with(filename)
+      subject.upload(filename)
     end
   end
+
 end
