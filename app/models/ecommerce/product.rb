@@ -127,7 +127,7 @@ class Product < ActiveRecord::Base
       xml.tag!(:name, name)
       xml.tag!(:smallimage,  thumb_picture)
       xml.tag!(:bigimage,  showroom_picture)
-      xml.tag!(:producturl, criteo_product_url)
+      xml.tag!(:producturl, product_url)
       xml.tag!(:description, description)
       xml.tag!(:price, price)
       xml.tag!(:retailprice, price)
