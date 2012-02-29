@@ -34,8 +34,6 @@ Olook::Application.routes.draw do
 
   match "/criteo", :to => "xml#criteo", :as => "criteo_url", :defaults => { :format => 'xml' }
 
-  #resource :xml, :only => [:show], :path => 'criteo', :controller => :xml, :defaults => { :format => 'xml' }
-
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
   resources :credit_cards, :only => [:new, :create], :path => 'credito', :controller => :credit_cards
