@@ -65,15 +65,15 @@ describe Product do
       end
     end
 
-    context "for_criteo" do
+    context "for_xml" do
       it "does not return a product with price equal to zero" do
         shoe.master_variant.update_attribute(:price, 0.0)
-        described_class.for_criteo.should_not include(shoe)
+        described_class.for_xml.should_not include(shoe)
       end
 
       it "returns a product with price greater than 0.0" do
         shoe.master_variant.update_attribute(:price, 1.0)
-        described_class.for_criteo.should include(shoe)
+        described_class.for_xml.should include(shoe)
       end
 
       describe "blacklisted products" do
@@ -83,12 +83,12 @@ describe Product do
 
         it "gets product black list from CRITEO_CONFIG" do
           CRITEO_CONFIG.should_receive(:[]).with('products_blacklist')
-          described_class.for_criteo
+          described_class.for_xml
         end
 
         it "does not include a blacklisted product" do
           CRITEO_CONFIG.stub(:[]).with('products_blacklist').and_return([shoe.id])
-          described_class.for_criteo.should_not include(shoe)
+          described_class.for_xml.should_not include(shoe)
         end
       end
     end
@@ -363,6 +363,13 @@ describe Product do
         subject.stub(:inventory).and_return(0)
         subject.should be_sold_out
       end
+    end
+  end
+
+  describe '#product_url' do
+    subject { FactoryGirl.create(:basic_shoe) }
+    it "returns valid url with the product id" do
+      subject.product_url.should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&utm_content=#{subject.id}&utm_medium=banner&utm_source=criteo"
     end
   end
 

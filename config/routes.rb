@@ -32,7 +32,9 @@ Olook::Application.routes.draw do
   post "/postar-resposta-quiz", :to => "friends#post_survey_answer", :as => "post_survey_answer"
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
-  resource :xml, :only => [:show], :path => 'criteo', :controller => :xml, :defaults => { :format => 'xml' }
+  match "/criteo", :to => "xml#criteo", :as => "criteo_url", :defaults => { :format => 'xml' }
+
+  #resource :xml, :only => [:show], :path => 'criteo', :controller => :xml, :defaults => { :format => 'xml' }
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
