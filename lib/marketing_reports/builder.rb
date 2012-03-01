@@ -8,18 +8,13 @@ module MarketingReports
     attr_accessor :csv
 
     def initialize(type = nil)
-      if ACTIONS.include? type
-        self.send("generate_#{type}")
-      else
-        @csv = ""
-      end
+      @csv = ""
+      self.send("generate_#{type}") if ACTIONS.include? type
     end
 
     def upload(filename)
       FileUploader.new(@csv).copy_to_ftp(filename)
     end
-
-    private
 
     def generate_userbase
       bounced_list = generate_bounced_list
@@ -77,6 +72,9 @@ module MarketingReports
       end
     end
 
+    def generate_paid_online_marketing
+    end
+
     def generate_bounced_list
       responses = []
       [:invalid_emails, :spam_reports, :unsubscribes, :blocks].each do |list|
@@ -84,12 +82,6 @@ module MarketingReports
         responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       responses.map { |item| item["email"] }
-    end
-
-    def generate_email_csv(data)
-      CSV.generate do |row|
-        data.each { |item| row << [item["email"]] }
-      end
     end
 
     def generate_invalid
@@ -107,6 +99,14 @@ module MarketingReports
         responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       @csv = generate_email_csv(responses)
+    end
+
+    private
+
+    def generate_email_csv(data)
+      CSV.generate do |row|
+        data.each { |item| row << [item["email"]] }
+      end
     end
 
     def emails_seed_list
