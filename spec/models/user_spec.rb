@@ -445,4 +445,60 @@ describe User do
     end
   end
 
+  describe "#tracking_params" do
+
+    let!(:tracking_params) do
+      {
+        "utm_source" => "midiasproprias",
+        "utm_medium" => "facebook",
+        "utm_content" => "infopage",
+        "utm_campaign" => "stylequiz"
+      }
+    end
+
+    context "when the user has no tracking event" do
+      before do
+        subject.events.destroy_all
+      end
+
+      it "returns nil" do
+        subject.tracking_params("utm_source").should be_nil
+      end
+    end
+
+    context "when the user has a tracking event" do
+      before do
+        subject.events.destroy_all
+        subject.add_event(EventType::TRACKING, tracking_params.to_s)
+      end
+
+      context "and the passed param name exists in the tracking data" do
+        it "returns the correct value for the passed param" do
+          tracking_params.each do |param,value|
+            subject.tracking_params(param).should == value
+          end
+        end
+      end
+
+      context "and the passed param name does not exist in the tracking data" do
+        it "returns nil" do
+          subject.tracking_params("invalid").should be_nil
+        end
+      end
+
+    end
+
+    context "when the user has two tracking events" do
+      before do
+        subject.events.destroy_all
+        subject.add_event(EventType::TRACKING, "")
+        subject.add_event(EventType::TRACKING, tracking_params.to_s)
+      end
+
+      it "considers only the data from the first tracking event" do
+        subject.tracking_params("utm_source").should be_nil
+      end
+    end
+
+  end
 end
