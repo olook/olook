@@ -5,12 +5,11 @@ class CreateLiquidationProducts < ActiveRecord::Migration
       t.references :product
       t.integer :category_id
       t.string :subcategory_name
-      t.decimal :original_price
-      t.decimal :retail_price
+      t.decimal :original_price, :precision => 10, :scale => 2
+      t.decimal :retail_price, :precision => 10, :scale => 2
       t.float :discount_percent
       t.integer :shoe_size
       t.float :heel
-
       t.timestamps
     end
     add_index :liquidation_products, :liquidation_id
