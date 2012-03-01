@@ -5,6 +5,7 @@
     <title>Olook Admin</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "admin" %>
+    <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
     <%= javascript_include_tag "application" %>
   </head>
   <body>
@@ -21,7 +22,7 @@
         <div id="main-navigation">
           <ul class="wat-cf"></ul>
         </div>
-      </div>    
+      </div>
       <div id="wrapper" class="wat-cf">
         <div class="flash">
           <% flash.each do |type, message| -%>
@@ -46,7 +47,7 @@
           <div id="footer">
             <div class="block">
               <p>Copyright &copy; <%= Time.now.year %> olook</p>
-            </div>      
+            </div>
           </div>
         </div>
         <% if content_for? :sidebar %>
