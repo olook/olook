@@ -15,6 +15,7 @@
     <td><%= liquidation.name %></td>
     <td><%= liquidation.starts_at %></td>
     <td><%= liquidation.ends_at %></td>
+    <td><%= link_to 'Products', admin_liquidation_products_path(liquidation)%></td>
     <td><%= link_to 'Show', admin_liquidation_path(liquidation) %></td>
     <td><%= link_to 'Edit', edit_admin_liquidation_path(liquidation) %></td>
     <td><%= link_to 'Destroy', admin_liquidation_path(liquidation), confirm: 'Are you sure?', method: :delete %></td>

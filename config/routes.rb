@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "liquidation_products/index"
+
   get "index/index"
   root :to => "home#index"
 
@@ -133,7 +135,9 @@ Olook::Application.routes.draw do
     resources :coupons, :except => [:destroy]
     resources :landing_pages
     resources :promotions
-    resources :liquidations
+    resources :liquidations do
+      resources :liquidation_products, :as => "products"
+    end
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
