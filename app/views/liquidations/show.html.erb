@@ -21,9 +21,14 @@
    </div>
 <% end %>
 
-<div class="content">
-  <div id="products">
-    <%= render "products", :products => @products %>
+<div id="liquidation" class="content">
+  <div id="filters">
+    <p>Filtros</p>
   </div>
-  <%= will_paginate @products %>
+  <div id="products_container">
+    <ul id="products">
+      <%= render "products", :products => @products %>
+    </ul>
+    <%= will_paginate @products %>
+  </div>
 </div>
