@@ -19,6 +19,8 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
+  get "/liquidacao/:id" => "liquidations#show", :as => "liquidations"
+
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
