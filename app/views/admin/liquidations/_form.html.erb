@@ -1,0 +1,52 @@
+<%= form_for([:admin, @liquidation]) do |f| %>
+  <% if @liquidation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@liquidation.errors.count, "error") %> prohibited this admin_liquidation from being saved:</h2>
+
+      <ul>
+      <% @liquidation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :teaser %><br />
+    <%= f.text_field :teaser %>
+  </div>
+
+  <div class="field">
+    <%= f.label :starts_at %><br />
+    <%= f.datetime_select :starts_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ends_at %><br />
+    <%= f.datetime_select :ends_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lightbox_banner %><br />
+    <%= f.file_field :lightbox_banner %>
+  </div>
+
+  <div class="field">
+    <%= f.label :welcome_banner %><br />
+    <%= f.file_field :welcome_banner %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

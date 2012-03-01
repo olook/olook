@@ -1,0 +1,27 @@
+<h1>Listing liquidations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Starts at</th>
+    <th>Ends at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @liquidations.each do |liquidation| %>
+  <tr>
+    <td><%= liquidation.name %></td>
+    <td><%= liquidation.starts_at %></td>
+    <td><%= liquidation.ends_at %></td>
+    <td><%= link_to 'Show', admin_liquidation_path(liquidation) %></td>
+    <td><%= link_to 'Edit', edit_admin_liquidation_path(liquidation) %></td>
+    <td><%= link_to 'Destroy', admin_liquidation_path(liquidation), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Liquidation', new_admin_liquidation_path %>
