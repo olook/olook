@@ -1,5 +1,5 @@
 class LiquidationsController < ApplicationController
-  layout "full"
+  layout "liquidation"
 
   def show
   end
