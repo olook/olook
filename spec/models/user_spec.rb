@@ -61,6 +61,7 @@ describe User do
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
+    it { should have_one :tracking }
   end
 
   context "check user's creation" do
@@ -276,6 +277,13 @@ describe User do
     it "should add an event for the user" do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
       subject.events.find_by_event_type(EventType::SEND_INVITE).should_not be_nil
+    end
+
+    context "when the event is a tracking event" do
+      it "should create a tracking record for the user with the received hash" do
+        subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
+        subject.tracking.gclid.should == 'abc123'
+      end
     end
   end
 

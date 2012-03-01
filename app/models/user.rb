@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :payments, :through => :orders
+  has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
 
@@ -119,6 +120,7 @@ class User < ActiveRecord::Base
 
   def add_event(type, description = '')
     self.events.create(event_type: type, description: description)
+    self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
   def invitation_url(host = 'www.olook.com.br')
