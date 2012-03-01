@@ -1086,6 +1086,13 @@ body {
       padding-top: 10px;
     }
   }
+  div.full_container {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    display: block;
+    margin: 13px 0 20px 0;
+  }
 }
 
 section.main {
