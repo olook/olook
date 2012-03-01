@@ -46,3 +46,22 @@ div.full_container {
     }
   }
 }
+
+div#liquidation {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  div#filters {
+    width: 170px;
+    overflow: auto;
+    float: left;
+  }
+  div#products_container {
+    width: 770px;
+    overflow: auto;
+    float: right;
+    div.pagination {
+      clear: both;
+    }
+  }
+}
