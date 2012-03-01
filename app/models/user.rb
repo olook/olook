@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, 
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
          :token_authenticatable
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
@@ -155,6 +155,14 @@ class User < ActiveRecord::Base
 
   def has_purchases?
     self.orders.where("orders.state <> 'in_the_cart'").count > 0
+  end
+
+  def tracking_params(param_name)
+    first_event = events(:where => EventType::TRACKING).first
+    if first_event
+      match_data = (/\"#{param_name}\"=>\"(\w+)\"/).match(first_event.description)
+      return match_data.captures.first if match_data
+    end
   end
 
   private
