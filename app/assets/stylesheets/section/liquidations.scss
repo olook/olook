@@ -1,3 +1,48 @@
-// Place all the styles related to the liquidations controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "partials/product";
+
+div.full_container {
+  background: #d2d1d6 url("/assets/liquidations/bg-top.jpg") bottom repeat-x;
+  padding: 60px 0 100px 0;
+
+  div.content {
+    position: relative;
+    h1 {
+      color: #000;
+      font-family: "Open Sans", sans-serif;
+      font-size: 78px;
+      line-height: 85px;
+      letter-spacing: -8px;
+      text-transform: uppercase;
+      margin: 0 0 0 70px;
+      float: left;
+    }
+    h2 {
+      background: #df5a8b;
+      color: #FFF;
+      font-family: "Open Sans", sans-serif;
+      font-size: 33px;
+      font-weight: lighter;
+      letter-spacing: -2px;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 25px 45px;
+      padding: 5px 20px;
+      float: left;
+      clear: both;
+    }
+    p {
+      color: #101010;
+      font-family: "Open Sans", sans-serif;
+      font-size: 13px;
+      text-align: center;
+      width: 480px;
+      float: left;
+      clear: both;
+    }
+    div#carousel_container {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
