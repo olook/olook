@@ -1,0 +1,18 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/liquidations" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="content">
+    <h1>Olooket</h1>
+    <h2>Até 70% de desconto</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis leo metus, quis feugiat odio. Quisque adipiscing faucibus ligula, nec fringilla ligula ultricies ut.</p>
+    <div id="carousel_container">
+      <ul>
+        <li><%= image_tag "fake/showroom-product.png" %></li>
+      </ul>
+      <%= link_to "Anterior", "javascript:void(0);", :class => "prev" %>
+      <%= link_to "Próximo", "javascript:void(0);", :class => "next" %>
+    </div>
+  </div>
+<% end %>
