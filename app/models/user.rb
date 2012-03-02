@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
+  has_paper_trail :on => [:update, :destroy]
+
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
   attr_protected :invite_token
@@ -190,4 +192,3 @@ class User < ActiveRecord::Base
     end if self.invite_token.nil?
   end
 end
-

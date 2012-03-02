@@ -1,0 +1,46 @@
+<%= form_for([:admin, @role], :html => { :multipart => true }) do |f| %>
+  <% if @role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+      <ul>
+      <% @role.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+<h1>Permissions</h1>
+<table cellspacing='20'>
+          <th>Model</th>
+          <th>Action</th>
+          <th>Enable</th>
+<% @permissions.each do |permission| %>
+ <%= f.fields_for :permissions, permission do |permission_builder| %>
+          <tr>
+              <td><%= permission_builder.label :model_name, permission.model_name %></td>
+              <td><%= permission_builder.label :action_name, permission.action_name %></td>
+              <% if !@role.has_permission?(permission.id) %>
+              <td><%= permission_builder.check_box "enabled?", :checked => false %></td>
+              <% else %>
+              <td><%= permission_builder.check_box "enabled?", :checked => true %></td>
+              <% end %>
+          <tr>
+  <% end %>
+<% end %>
+</table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
