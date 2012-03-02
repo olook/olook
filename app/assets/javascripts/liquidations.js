@@ -1,4 +1,18 @@
 jQuery(function() {
+  $("div#carousel_container ul").carouFredSel({
+    auto: false,
+    width: 380,
+    items: 1,
+    prev : {
+      button : ".prev",
+      items : 1
+    },
+    next : {
+      button : ".next",
+      items : 1
+    }
+  });
+
   $("form").bind("ajax:beforeSend", function(evt, xhr, settings) {
     return $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow");
