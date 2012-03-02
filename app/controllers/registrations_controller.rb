@@ -45,6 +45,8 @@ class RegistrationsController < Devise::RegistrationsController
       params[:user].delete(:password_confirmation) if
       params[:user][:password_confirmation].blank?
     end
+    params[:user].delete(:cpf) if params[:user][:cpf]
+
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
 

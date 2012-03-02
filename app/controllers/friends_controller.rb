@@ -10,6 +10,7 @@ class FriendsController < ApplicationController
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def showroom
+    @url = request.protocol + request.host
     @friend = User.find(params[:friend_id])
     @products = @friend.all_profiles_showroom
   end
@@ -54,7 +55,10 @@ class FriendsController < ApplicationController
 
   def facebook_api_error
     session[:facebook_scopes] = "publish_stream"
-    redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure"))
+    respond_to do |format|
+      format.html { redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure")) }
+      format.js { head :error }
+    end
   end
 
   def user_can_access_friends_page

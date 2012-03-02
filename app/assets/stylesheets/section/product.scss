@@ -336,16 +336,16 @@
             a {
               color: #a5a5a5;
               font-family: Times;
-              font-size: 12px;
+              font-size: 11px;
               text-decoration: none;
               text-transform: uppercase;
-              margin-bottom: -3px;
+              margin-bottom: -1px;
               padding: 5px 15px 15px 15px;
               border-bottom: 1px #dddddd solid;
               float: left;
               &.selected {
                 color: #545454;
-                font-size: 15px;
+                font-size: 12px;
                 border-left: 1px #dddddd solid;
                 border-right: 1px #dddddd solid;
                 border-bottom: 1px #fff solid;
