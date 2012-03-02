@@ -92,6 +92,35 @@ div#liquidation {
     width: 170px;
     overflow: auto;
     float: left;
+    div.filter {
+      margin: 0 0 10px 0;
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -1px;
+        margin: 0 0 20px 0;
+        padding: 0 0 5px 5px;
+        border-bottom: 1px #dedede solid;
+        &.subtitle {
+          font-size: 14px;
+        }
+      }
+      ol {
+        width: 150px;
+        margin: 0 0 20px 20px;
+        overflow: auto;
+        li {
+          margin: 0 0 10px 0;
+        }
+        &.column {
+          li {
+            margin-right: 25px;
+            float: left;
+          }
+        }
+      }
+    }
   }
   div#products_container {
     width: 770px;
