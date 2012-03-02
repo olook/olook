@@ -138,6 +138,17 @@ div#liquidation {
     width: 770px;
     overflow: auto;
     float: right;
+    div#order_filter {
+      width: 100%;
+      overflow: auto;
+      form {
+        float: right;
+        label {
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+    }
     div.pagination {
       clear: both;
     }
