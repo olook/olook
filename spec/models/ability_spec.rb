@@ -10,7 +10,7 @@ describe Admin do
 				should be_able_to(:manage, :all) 
 			end
 		end
-    context "when a superadmin" do
+    context "when a sac_operator" do
     let(:admin){Factory (:admin_sac_operator)}
       let(:ability){Ability.new(admin)}
       it "should be able to index Collection" do
