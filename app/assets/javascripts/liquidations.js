@@ -14,9 +14,9 @@ jQuery(function() {
   });
 
   $("form").bind("ajax:beforeSend", function(evt, xhr, settings) {
-    return $("#products").fadeOut("slow", function() {
+    $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow");
-      return $(this).html("");
+      $(this).html("");
     });
   });
   if ($('.pagination').length) {
