@@ -100,6 +100,13 @@ describe RegistrationsController do
         }.to change(User, :count).by(1)
     end
 
+    it "should register the user info" do
+      session[:profile_points] = :some_data
+      expect {
+        post :create, :user => user_attributes
+      }.to change(UserInfo, :count).by(1)
+    end
+
     it "should assigns user birthday" do
      session[:profile_points] = :some_data
      session[:birthday] = birthday
@@ -117,6 +124,7 @@ describe RegistrationsController do
     it "should not redirect to welcome page" do
       session[:profile_points] = :some_data
       resource = double
+      resource.stub(:user_info=)
       resource.stub(:save).and_return(false)
       controller.stub(:set_resource_attributes)
       controller.stub(:resource).and_return(resource)
@@ -127,6 +135,7 @@ describe RegistrationsController do
     it "should not redirect to welcome page" do
       session[:profile_points] = :some_data
       resource = double
+      resource.stub(:user_info=)
       resource.stub(:save).and_return(true)
       resource.stub(:active_for_authentication?).and_return(false)
       controller.stub(:set_resource_attributes)
