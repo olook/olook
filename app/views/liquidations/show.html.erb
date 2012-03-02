@@ -16,47 +16,57 @@
 <% end %>
 
 <div id="liquidation" class="content">
-  <div id="filters">
-    <p>Filtros</p>
-    <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
-      <%= select_tag('order_filter', options_for_select({"ab" => 1, "fo" => 2})) %>
-    <% end %>
-
+  <div id="filters_container">
     <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "liquidation_filter"}) do %>
-    <fieldset class="inputs">
-      <ol>
-        <li>
-          <label>0</label>
-          <%= check_box_tag('heels[]', 0) %>
-          <label>6.5</label>
-          <%= check_box_tag('heels[]', 6.5) %>
-        </li>
-      </ol>
-      <ol>
-        <li>
-          <label>33</label>
-          <%= check_box_tag('show_sizes[]', 33) %>
-          <label>34</label>
-          <%= check_box_tag('show_sizes[]', 34) %>
-        </li>
-      </ol>
-      <ol>
-        <li>
-          <label>Subcategoria 1</label>
-          <%= check_box_tag('subcategories[]', 1) %>
-        </li>
-        <li>
-          <label>Subcategoria 2</label>
-          <%= check_box_tag('subcategories[]', 2) %>
-        </li>
-        <li>
-          <%= submit_tag "Buscar" %>
-        </li>
-      </ol>
-    </fieldset>
+      <div class="filter">
+        <h1 class="shoes">Sapatos</h1>
+        <ol>
+          <li>
+            <label>Subcategoria 1</label>
+            <%= check_box_tag('subcategories[]', 1) %>
+          </li>
+          <li>
+            <label>Subcategoria 2</label>
+            <%= check_box_tag('subcategories[]', 2) %>
+          </li>
+        </ol>
+      </div>
+
+      <div class="filter">
+        <h1 class="subtitle">Númeração</h1>
+        <ol class="column">
+          <li>
+            <label>33</label>
+            <%= check_box_tag('show_sizes[]', 33) %>
+          </li>
+          <li>
+            <label>34</label>
+            <%= check_box_tag('show_sizes[]', 34) %>
+          </li>
+        </ol>
+      </div>
+
+      <div class="filter">
+        <h1 class="subtitle">Salto</h1>
+        <ol class="column">
+          <li>
+            <label>0</label>
+            <%= check_box_tag('heels[]', 0) %>
+          </li>
+            <label>6.5</label>
+            <%= check_box_tag('heels[]', 6.5) %>
+          </li>
+        </ol>
+      </div>
+      <%= submit_tag "Buscar" %>
     <% end %>
   </div>
   <div id="products_container">
+    <div id="order_filter">
+      <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
+        <%= select_tag('order_filter', options_for_select({"ab" => 1, "fo" => 2})) %>
+      <% end %>
+    </div>
     <ul id="products">
       <%= render "products", :products => @products %>
     </ul>
