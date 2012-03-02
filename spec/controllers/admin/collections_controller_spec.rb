@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Admin::CollectionsController do
+
   render_views
 
   let!(:collection) { FactoryGirl.create(:inactive_collection) }
@@ -9,7 +10,7 @@ describe Admin::CollectionsController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin
+    @admin = Factory :admin_superadministrator
     sign_in @admin
   end
 
