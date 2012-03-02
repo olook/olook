@@ -35,7 +35,8 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
   def self.for_criteo
-    self.only_visible.joins(:variants).where("variants.is_master = 1 AND variants.price > 0.0 AND products.id <> 823")
+    only_visible.joins(:variants)
+    .where("variants.is_master = 1 AND variants.price > 0.0 AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])
   end
 
   def related_products

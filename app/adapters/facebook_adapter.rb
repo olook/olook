@@ -8,7 +8,7 @@ class FacebookAdapter
   end
 
   def facebook_friends
-    friends = @adapter.get_connections("me", "friends", :fields => "name, gender")
+    friends = adapter.get_connections("me", "friends", :fields => "name, gender")
     male_friends = friends.select{|friend| friend["gender"] == "female"}
     male_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
   end
@@ -28,7 +28,7 @@ class FacebookAdapter
 
   def post_wall_message(message, *args)
     options = args.extract_options!
-    @adapter.put_wall_post(message, options[:attachment] || {}, options[:target] || "me", options[:options] || {})
+    adapter.put_wall_post(message, options[:attachment] || {}, options[:target] || "me", options[:options] || {})
   end
 
   def friends_structure
