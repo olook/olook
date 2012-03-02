@@ -2,7 +2,6 @@
 
 div.full_container {
   background: #d2d1d6 url("/assets/liquidations/bg-top.jpg") bottom repeat-x;
-  padding: 60px 0 100px 0;
 
   div.content {
     position: relative;
@@ -13,7 +12,7 @@ div.full_container {
       line-height: 85px;
       letter-spacing: -8px;
       text-transform: uppercase;
-      margin: 0 0 0 70px;
+      margin: 60px 0 0 70px;
       float: left;
     }
     h2 {
@@ -36,13 +35,51 @@ div.full_container {
       font-size: 13px;
       text-align: center;
       width: 480px;
+      margin: 0 0 80px;
       float: left;
       clear: both;
     }
     div#carousel_container {
       position: absolute;
+      width: 465px;
+      height: 310px;
+      display: block;
       top: 0;
       right: 0;
+      ul {
+        position: relative;
+        width: 5000px;
+        left: 42px;
+        overflow: hidden;
+        li {
+          width: 360px;
+          height: 310px;
+          float: left;
+        }
+      }
+      a.arrow {
+        position: absolute;
+        background: url("/assets/product/arrows.jpg") 0 no-repeat;
+        text-indent: -9999px;
+        width: 42px;
+        height: 235px;
+        top: 0;
+        display: block;
+        &.prev {
+          background-position: 0;
+          left: 0;
+          &:hover {
+            background-position: -42px;
+          }
+        }
+        &.next {
+          background-position: -126px;
+          right: 0;
+          &:hover {
+            background-position: -84px;
+          }
+        }
+      }
     }
   }
 }
