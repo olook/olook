@@ -26,12 +26,28 @@
     <fieldset class="inputs">
       <ol>
         <li>
-          <label>Categoria 1</label>
-          <%= radio_button_tag(:category, 1) %>
+          <label>0</label>
+          <%= check_box_tag('heels[]', 0) %>
+          <label>6.5</label>
+          <%= check_box_tag('heels[]', 6.5) %>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <label>33</label>
+          <%= check_box_tag('show_sizes[]', 33) %>
+          <label>34</label>
+          <%= check_box_tag('show_sizes[]', 34) %>
+        </li>
+      </ol>
+      <ol>
+        <li>
+          <label>Subcategoria 1</label>
+          <%= check_box_tag('subcategories[]', 1) %>
         </li>
         <li>
-          <label>Categoria 2</label>
-          <%= radio_button_tag(:category, 2) %>
+          <label>Subcategoria 2</label>
+          <%= check_box_tag('subcategories[]', 2) %>
         </li>
         <li>
           <%= submit_tag "Buscar" %>
