@@ -92,6 +92,8 @@ section#stylist {
       float: left;
     }
     ul {
+      width: 100%;
+      overflow: auto;
       li {
         background: url("/assets/stylist/product-divisor.jpg") center bottom no-repeat;
         width: 830px;
@@ -110,25 +112,26 @@ section#stylist {
           margin: 25px 0 0 0;
         }
         h2 {
-          color: #b2b2b2;
+          color: #635f5f;
           font-size: 35px;
           letter-spacing: -2px;
           margin: 0 0 15px 0;
         }
         p {
-          color: #515151;
+          color: #6a6666;
           font-size: 14px;
+          font-style: italic;
           margin: 0 0 20px 0;
         }
         a {
           background: url("/assets/stylist/bt-know.jpg") no-repeat;
           color: #FFF;
-          font-size: 14px;
+          font-size: 19px;
           font-weight: normal;
-          line-height: 34px;
+          line-height: 49px;
           text-align: center;
           text-decoration: none;
-          width: 95px;
+          width: 135px;
           display: block;
           float: left;
         }
@@ -136,14 +139,14 @@ section#stylist {
           position: relative;
           background: url("/assets/stylist/helena_linhares/bg-collection.jpg") center top no-repeat;
           width: 100%;
-          height: 910px;
+          height: 485px;
           display: block;
           p.desc {
             position: absolute;
             font-size: 14px;
             width: 290px;
-            top: 80px;
-            left: 610px;
+            top: 15px;
+            left: 80px;
             strong {
               color: #515151;
             }
@@ -161,26 +164,36 @@ section#stylist {
               margin: 0;
             }
             &.first {
-              left: 65px;
+              top: 45px;
+              left: 115px;
             }
             &.second {
               text-align: center;
-              top: 185px;
-              left: 740px;
+              top: 55px;
+              left: 320px;
               a {
                 margin: 0 auto;
                 float: none;
               }
             }
             &.third {
-              top: 440px;
-              left: 290px;
+              top: 135px;
+              left: 560px;
             }
           }
         }
+        &#lazareto_container {
+          h1 {
+            margin-top: 160px;
+          }
+        }
         &.last {
-          background: none;
+          background: url("/assets/stylist/product-divisor.jpg") center top no-repeat;
           margin-bottom: 0;
+          padding-top: 50px;
+          h1 {
+            margin-top: 95px;
+          }
         }
         &.right {
           img {
