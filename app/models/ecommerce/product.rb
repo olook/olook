@@ -20,6 +20,8 @@ class Product < ActiveRecord::Base
 
   has_many :lookbooks_products, :dependent => :destroy
   has_many :lookbooks, :through => :lookbooks_products
+  has_many :liquidation_products
+  has_many :liquidations, :through => :liquidation_products
 
   validates :name, :presence => true
   validates :description, :presence => true
