@@ -27,7 +27,7 @@ describe Admin::AdminsController do
   end
 
   describe "GET index" do
-    it "assigns all admins as @admins" do
+    it "assigns all admins as @admins if has permission do perform it" do
       get :index
       controller.should render_template("index")
       assigns(:admins).should eq([admin, @admin])
@@ -63,17 +63,16 @@ describe Admin::AdminsController do
         }.to change(Admin, :count).by(1)
       end
 
-     # it "assigns a newly created admin as @admin" do
-      #  post :create, :admin => valid_attributes_with_password
-      #  debugger
-      #  assigns(:admin).should be_a(Admin)
-      #  assigns(:admin).should be_persisted
-     # end
+      it "assigns a newly created admin as @admin" do
+        post :create, :admin => valid_attributes_with_password
+        assigns(:admin).should be_a(Admin)
+        assigns(:admin).should be_persisted
+      end
 
-     # it "redirects to the created admin" do
-     #   post :create, :admin => valid_attributes_with_password
-      #  response.should redirect_to(admin_admin_path(Admin.last))
-      #end
+      it "redirects to the created admin" do
+        post :create, :admin => valid_attributes_with_password
+        response.should redirect_to(admin_admin_path(Admin.last))
+      end
     end
 
     describe "with invalid params" do
@@ -167,4 +166,6 @@ describe Admin::AdminsController do
       response.should redirect_to(admin_admins_url)
     end
   end
+
+
 end
