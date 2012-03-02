@@ -18,9 +18,32 @@
 <div id="liquidation" class="content">
   <div id="filters">
     <p>Filtros</p>
+    <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
+      <%= select_tag('order_filter', options_for_select({"ab" => 1, "fo" => 2})) %>
+    <% end %>
+
+    <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "liquidation_filter"}) do %>
+    <fieldset class="inputs">
+      <ol>
+        <li>
+          <label>Categoria 1</label>
+          <%= radio_button_tag(:category, 1) %>
+        </li>
+        <li>
+          <label>Categoria 2</label>
+          <%= radio_button_tag(:category, 2) %>
+        </li>
+        <li>
+          <%= submit_tag "Buscar" %>
+        </li>
+      </ol>
+    </fieldset>
+    <% end %>
   </div>
   <div id="products_container">
     <ul id="products">
       <%= render "products", :products => @products %>
     </ul>
+    <%= will_paginate @products %>
+  </div>
 </div>
