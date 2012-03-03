@@ -413,7 +413,7 @@ DEPENDENCIES
   therubyracer (~> 0.9.4)
   uglifier (~> 1.0.3)
   unicorn (~> 4.1.1)
-  vcr
+  vcr (= 1.11.3)
   watchr
   webmock
   will_paginate
