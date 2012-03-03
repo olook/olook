@@ -9,7 +9,7 @@ class CreateLiquidationProducts < ActiveRecord::Migration
       t.decimal :retail_price, :precision => 10, :scale => 2
       t.float :discount_percent
       t.integer :shoe_size
-      t.float :heel
+      t.string :heel
       t.timestamps
     end
     add_index :liquidation_products, :liquidation_id

@@ -18,5 +18,10 @@ FactoryGirl.define do
       description "How to wear"
       translation_token 'how to'
     end
+    factory :subcategory_name do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Sandalia"
+    end
   end
 end

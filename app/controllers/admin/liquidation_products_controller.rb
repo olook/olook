@@ -5,8 +5,8 @@ class Admin::LiquidationProductsController < Admin::BaseController
     @products = @liquidation.liquidation_products
   end
 
-  def add_or_update_products
-    @product_ids = params[:product_ids]
+  def create
+    #LiquidationProductsService.new(@liquidation.id, params[:products_ids], params[:discount_percent]).process
   end
 
   private
