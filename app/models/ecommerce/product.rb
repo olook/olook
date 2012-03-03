@@ -120,6 +120,14 @@ class Product < ActiveRecord::Base
     inventory < 1
   end
 
+  def quantity ( size )
+    self.variants.each do |variant|
+      if variant.description.to_i == size
+        return variant.inventory
+      end
+    end
+  end
+
   def instock
     sold_out? ? "0" : "1"
   end
