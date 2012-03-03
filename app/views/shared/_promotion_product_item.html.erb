@@ -1,4 +1,4 @@
-<li class="product">
+<li class="product promotion">
   <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
@@ -20,7 +20,10 @@
           </li>
         <% end %>
       </ol>
-      <span><%= number_to_currency product.price %></span>
+    </div>
+    <div class="line">
+      <span class="old">de: R$ 129,90</span>
+      <span>por: <%= number_to_currency product.price %></span>
     </div>
   </div>
 </li>
