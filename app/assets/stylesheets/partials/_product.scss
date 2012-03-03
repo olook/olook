@@ -125,11 +125,32 @@ li.product {
       display: block;
     }
   }
+  &.promotion {
+    .box_product {
+      .line {
+        span {
+          color: #df5a8b;
+          font-size: 15px;
+          font-weight: bold;
+          display: block;
+          float: none;
+          &.old {
+            color: #818181;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 9px;
+            text-decoration: line-through;
+          }
+        }
+      }
+    }
+  }
 }
 
 #showroom, #lookbooks {
   li.product {
     width: 175px;
+    height: 275px;
     .box_product {
       a.product_link {
         p.warn {
@@ -170,6 +191,29 @@ li.product {
   li.product {
     width: 160px;
     height: 253px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          right: 2px;
+        }
+        img {
+          width: 150px;
+          height: 150px;
+        }
+        h1 {
+          width: 150px;
+          height: 17px;
+        }
+      }
+    }
+  }
+}
+
+#liquidation {
+  li.product {
+    width: 160px;
+    height: 270px;
     .box_product {
       a.product_link {
         p.warn {
