@@ -34,16 +34,7 @@ class CartController < ApplicationController
   end
 
   def update_bonus
-    bonus = InviteBonus.calculate(@user)
-    credits = params[:credits][:value]
-    user_can_use_bonus = bonus >= credits.to_f
-    if user_can_use_bonus
-      @order.update_attributes(:credits => credits)
-      destroy_freight(@order)
-      redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
-    else
-      redirect_to cart_path, :notice => "Você não tem créditos suficientes"
-    end
+    redirect_to cart_path, :notice => "Créditos indisponíveis no momento"
   end
 
   def show

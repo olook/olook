@@ -87,47 +87,14 @@ describe CartController do
     end
 
     describe "PUT update_bonus" do
-      context "when the user has bonus" do
-        before :each do
-          InviteBonus.stub(:calculate).and_return(100)
-        end
-
-        it "should update the order with a new bonus value" do
-          session[:order] = order
-          bonus_value = '12.34'
-          Order.any_instance.should_receive(:update_attributes).with(:credits => bonus_value)
-          put :update_bonus, :credits => {:value => bonus_value}
-        end
-
-        it "should update the order with a new bonus value" do
-          bonus_value = '12.34'
-          FactoryGirl.create(:freight, :order => order)
-          session[:order] = order.id
-          post :create, :variant => {:id => variant.id}
-          expect {
-            put :update_bonus, :credits => {:value => bonus_value}
-          }.to change(Freight, :count).by(-1)
-        end
-
-        it "should redirect to card_path" do
-          bonus_value = '12.34'
-          put :update_bonus, :credits => {:value => bonus_value}
-          response.should redirect_to(cart_path)
-        end
-
-        it "should format credits value to use dots" do
-          bonus_value = '12,34'
-          put :update_bonus, :credits => {:value => "12.34"}
-          response.should redirect_to(cart_path)
-        end
+      it "should redirect to cart_path" do
+        put :update_bonus, :credits => {:value => '12.34'}
+        response.should redirect_to(cart_path)
       end
 
-      context "when the user dont have bonus enougth" do
-        it "should not update the order" do
-          bonus_value = '12.34'
-          Order.any_instance.should_not_receive(:update_attributes).with(:credits => bonus_value)
-          put :update_bonus, :credits => {:value => bonus_value}
-        end
+      it "displays notice saying that the credits are unavailable at the momment" do
+        put :update_bonus, :credits => {:value =>  '12.34'}
+        flash[:notice].should eq("Créditos indisponíveis no momento")
       end
     end
 
