@@ -123,9 +123,10 @@ class Product < ActiveRecord::Base
   def quantity ( size )
     self.variants.each do |variant|
       if variant.description.to_i == size
-        return variant.inventory
+        return variant.inventory.to_i
       end
     end
+    return 0
   end
 
   def instock

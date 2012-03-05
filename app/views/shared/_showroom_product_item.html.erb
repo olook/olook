@@ -7,7 +7,7 @@
     <% end %>
     <div class="line">
       <ol>
-        <% unless product.color_sample.blank? %>
+        <% unless product.color_name.blank? %>
         <li>
           <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
             <%= hidden_field_tag "sold_out_#{product.id}", "box_product #{product.sold_out? ? 'sold_out' : ''}" %>
