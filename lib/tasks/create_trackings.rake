@@ -8,6 +8,7 @@ namespace :trackings do
                       :utm_medium => description["utm_medium"],
                       :utm_content => description["utm_content"],
                       :utm_campaign => description["utm_campaign"],
+                      :placement => description["placement"],
                       :gclid => description["gclid"]
                       )
       end
