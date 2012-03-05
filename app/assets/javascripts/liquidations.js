@@ -20,12 +20,6 @@ jQuery(function() {
     });
   });
 
-  $('form').submit(function(){
-    $(':submit', this).click(function() {
-        return false;
-    });
-  });
-
   if ($('.pagination').length) {
     $(window).scroll(function() {
       var url;
