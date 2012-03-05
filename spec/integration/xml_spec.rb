@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'integration/helpers'
 
 feature "Show products on xml format" do
-  let!(:variant) { FactoryGirl.create :variant, :price => 30.55, :id => "20" }
+  let!(:variant) { FactoryGirl.create :variant, :price => 30.55 }
 
   context "in the product xml page" do
     scenario "I want to see products of criteo" do
