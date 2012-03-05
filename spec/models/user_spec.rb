@@ -507,6 +507,77 @@ describe User do
         subject.tracking_params("utm_source").should be_nil
       end
     end
+  end
 
+  describe "#total_revenue" do
+    context "when user has no purchases" do
+      it "returns 0" do
+        subject.total_revenue.should == 0
+      end
+    end
+
+    context "when the user has one purchase in the cart" do
+      before do
+        FactoryGirl.create(:order_without_payment, :user => subject)
+      end
+
+      it "returns 0" do
+        subject.total_revenue.should == 0
+      end
+    end
+
+    context "when the user has one completed order" do
+      let(:order) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      before do
+        order.payment.billet_printed
+        order.payment.authorized
+      end
+
+      it "returns the value of this order" do
+        Order.any_instance.should_receive(:total).and_return(BigDecimal.new("100"))
+        subject.total_revenue.to_s.should == "100.0"
+      end
+    end
+
+    context "when the user has two completed order" do
+      let(:order_one) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      let(:order_two) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      before do
+        order_one.payment.billet_printed
+        order_one.payment.authorized
+        order_two.payment.billet_printed
+        order_two.payment.authorized
+      end
+
+      it "returns the total sum of the orders" do
+        Order.any_instance.stub(:total).and_return(BigDecimal.new("53.34"))
+        subject.total_revenue.to_s.should == "106.68"
+      end
+    end
+
+    context "when called with total_with_freight" do
+      let(:order) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      before do
+        order.payment.billet_printed
+        order.payment.authorized
+      end
+
+      it "calls total_with_freight on the order" do
+        Order.any_instance.should_receive(:total_with_freight).and_return(0)
+        subject.total_revenue(:total_with_freight)
+      end
+    end
   end
 end
