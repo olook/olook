@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <produtos>
 <% for product in @products %>
-    <produto>
-        <id_produto><%= product.id %></id_produto>
-        <link_produto><%= product.product_url %></link_produto>
-        <nome_produto><%= product.name %></nome_produto>
-        <marca>olook</marca>
-        <categoria><%= product.category %></categoria>
-        <cores><cor><%= product.color_name %></cor></cores>
-        <descricao><%= product.description %></descricao>
-        <preco_de><%= number_to_currency(product.price, :unit => "") %></preco_de>
-        <preco_por><%= number_to_currency(product.price, :unit => "") %></preco_por>
-        <parcelamento>1</parcelamento>
-        <imagens>
-          <% for picture in product.pictures %>
-            <imagem><%= picture %></imagem>
-          <% end %>
-        </imagens>
-      </produto>
+<produto>
+<id_produto><%= product.id %></id_produto>
+<link_produto><%= product.product_url %></link_produto>
+<nome_produto><%= product.name %></nome_produto>
+<marca>olook</marca>
+<categoria><%= product.category %></categoria>
+<cores><cor><%= product.color_name %></cor></cores>
+<descricao><%= product.description %></descricao>
+<preco_de><%= number_to_currency(product.price, :unit => "") %></preco_de>
+<preco_por><%= number_to_currency(product.price, :unit => "") %></preco_por>
+<parcelamento>1</parcelamento>
+<imagens>
+<% for picture in product.pictures %>
+<imagem><%= picture %></imagem>
+<% end %>
+</imagens>
+</produto>
 <% end %>
 </produtos>
