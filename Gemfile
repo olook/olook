@@ -64,7 +64,7 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
-  gem 'vcr'
+  gem 'vcr', '1.11.3'
   gem 'webmock'
 end
 
