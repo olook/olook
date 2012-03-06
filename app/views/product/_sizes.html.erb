@@ -2,7 +2,7 @@
               <p>Tamanho:</p>
               <ol>
                 <% variants.each do |variant| %>
-                <li <%= "class='unavailable'" unless variant.available_for_quantity?%>>
+                <li class="<%= variant_classes(variant) %>">
                   <label for="size_1"><%= variant.description %>
                     <%= hidden_field_tag("inventory_#{variant.id}",variant.inventory) %>
                     <%= radio_button_tag('variant[id]', variant.id) %>
