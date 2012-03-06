@@ -12,8 +12,8 @@ module MarketingReports
       self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def upload(filename)
-      FileUploader.new(@csv).copy_to_ftp(filename)
+    def upload(filename, encoding = "ISO-8859-1")
+      FileUploader.new(@csv).copy_to_ftp(filename, encoding)
     end
 
     def generate_userbase
@@ -76,7 +76,7 @@ module MarketingReports
         row << %w{utm_source utm_medium utm_campaign utm_content total_registrations total_orders total_revenue_without_discount total_revenue_with_discount}
         Tracking.google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |tracking|
           row << [
-                  "google", tracking.placement, nil, nil, tracking.total_registrations, tracking.total_orders_for_google,
+                  "google", tracking.placement, nil, nil, tracking.total_registrations, tracking.related_with_complete_payment_for_google.count,
                   tracking.total_revenue_for_google(:line_items_total), tracking.total_revenue_for_google
                  ]
         end
@@ -84,7 +84,7 @@ module MarketingReports
           row <<
           [
             tracking.utm_source, tracking.utm_medium, tracking.utm_campaign, tracking.utm_content, tracking.total_registrations,
-            tracking.related_orders_with_complete_payment.count, tracking.total_revenue(:line_items_total), tracking.total_revenue
+            tracking.related_with_complete_payment.count, tracking.total_revenue(:line_items_total), tracking.total_revenue
           ]
         end
       end

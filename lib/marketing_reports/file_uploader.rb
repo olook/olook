@@ -18,10 +18,10 @@ module MarketingReports
       @file_content = file_content
     end
 
-    def copy_to_ftp(filename = "untitled.txt")
+    def copy_to_ftp(filename = "untitled.txt", encoding = "ISO-8859-1")
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       ftp.passive = true
-      Tempfile.open(TEMP_PATH, 'w', :encoding => 'ISO-8859-1') do |file|
+      Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
         file.write @file_content
         ftp.puttextfile(file.path,filename)
       end

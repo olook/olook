@@ -22,7 +22,7 @@ namespace :marketing_uploader do
 
   desc "Uploads a CSV with the paid online marketing revenue"
   task :copy_paid_marketing_revenue_to_ftp => :environment do
-    MarketingReports::Builder.new(:paid_online_marketing).upload("receita_pom.csv")
+    MarketingReports::Builder.new(:paid_online_marketing).upload("receita_pom.csv","UTF-8")
   end
 
 end
