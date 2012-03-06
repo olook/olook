@@ -65,7 +65,7 @@ describe MarketingReports::Builder do
     end
   end
 
-  context "when type is userbase" do
+  describe "#userbase" do
     let(:csv_header) do
       "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases\n"
     end
@@ -78,7 +78,6 @@ describe MarketingReports::Builder do
     end
 
     it "builds a csv file containing all user data" do
-
 
       csv_body = [user_a, user_b, user_c].inject("") do |data, user|
         data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
@@ -129,7 +128,7 @@ describe MarketingReports::Builder do
     end
   end
 
-  context "#generete_userbase_orders" do
+  describe "#generete_userbase_orders" do
 
     let(:header) do
       "id,email,first_name,last_name,invite_bonus,used_bonus,order_id,order_total,order_state," +
@@ -185,7 +184,7 @@ describe MarketingReports::Builder do
 
   end
 
-  context "#userbase_revenue" do
+  describe "#userbase_revenue" do
     let(:header) do
       "id,email,name,total_bonus,current_bonus,used_bonus,total_revenue,freight\n"
     end
@@ -224,6 +223,72 @@ describe MarketingReports::Builder do
         subject.csv.should == header + user_revenue_data
       end
 
+    end
+  end
+
+  describe "#generate_paid_online_marketing" do
+    let(:header) do
+     "utm_source,utm_medium,utm_campaign,utm_content,total_registrations,total_orders,total_revenue_without_discount,total_revenue_with_discount\n"
+    end
+
+    it "shows a csv header with tracking attributes" do
+      subject.generate_paid_online_marketing
+      subject.csv.should == header
+    end
+
+    context "and there is tracking data from google (with gclid and placement)" do
+      let!(:user_a) { FactoryGirl.create(:member) }
+      let!(:user_b) { FactoryGirl.create(:member) }
+      let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a) }
+      let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b) }
+      let!(:tracking_a) { FactoryGirl.create(:google_tracking, :user => user_a) }
+      let!(:tracking_b) { FactoryGirl.create(:google_tracking, :user => user_b) }
+
+      before do
+        order_a.payment.billet_printed
+        order_a.payment.authorized
+        order_b.payment.billet_printed
+        order_b.payment.authorized
+        Order.any_instance.stub(:total).and_return(BigDecimal.new("100"))
+        Order.any_instance.stub(:line_items_total).and_return(BigDecimal.new("50"))
+      end
+
+      let :tracking_data do
+        "google,#{tracking_a.placement},,,2,2,100.0,200.0"
+      end
+
+      it "includes a row with google total registrations, total orders and revenue grouped by placement" do
+        subject.generate_paid_online_marketing
+        subject.csv.should match(/^#{header}#{tracking_data}/)
+      end
+    end
+
+    context "and there is data from other sources (with utm params)" do
+      let!(:user_c) { FactoryGirl.create(:member) }
+      let!(:user_d) { FactoryGirl.create(:member) }
+      let!(:order_c) { FactoryGirl.create(:clean_order, :user => user_c) }
+      let!(:order_d) { FactoryGirl.create(:clean_order, :user => user_d) }
+      let!(:tracking_c) { FactoryGirl.create(:tracking, :user => user_c) }
+      let!(:tracking_d) { FactoryGirl.create(:tracking, :user => user_d) }
+
+
+      before do
+        order_c.payment.billet_printed
+        order_c.payment.authorized
+        order_d.payment.billet_printed
+        order_d.payment.authorized
+        Order.any_instance.stub(:total).and_return(BigDecimal.new("100"))
+        Order.any_instance.stub(:line_items_total).and_return(BigDecimal.new("50"))
+      end
+
+      let :tracking_data do
+        "#{tracking_c.utm_source},#{tracking_c.utm_medium},#{tracking_c.utm_campaign},#{tracking_c.utm_content},2,2,100.0,200.0"
+      end
+
+      it "includes a row with other sources total registrations, total orders and revenue grouped by utm params" do
+        subject.generate_paid_online_marketing
+        subject.csv.should match(/^#{header}#{tracking_data}/)
+      end
     end
   end
 

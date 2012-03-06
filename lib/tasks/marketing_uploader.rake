@@ -20,4 +20,9 @@ namespace :marketing_uploader do
     MarketingReports::Builder.new(:userbase_revenue).upload("base_receita_atualizada.csv")
   end
 
+  desc "Uploads a CSV with the paid online marketing revenue"
+  task :copy_paid_marketing_revenue_to_ftp => :environment do
+    MarketingReports::Builder.new(:paid_online_marketing).upload("receita_pom.csv")
+  end
+
 end
