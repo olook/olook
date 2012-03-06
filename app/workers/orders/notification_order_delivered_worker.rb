@@ -11,6 +11,7 @@ module Orders
     def self.send_email(order)
       if order.delivered?
         mail = OrderStatusMailer.order_delivered(order)
+        mail.deliver
       end
     end
   end
