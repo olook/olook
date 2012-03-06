@@ -12,6 +12,7 @@ module Orders
       if order.canceled? || order.reversed?
         if order.payment.credit_card?
           mail = OrderStatusMailer.payment_refused(order)
+          mail.deliver
         end
       end
     end
