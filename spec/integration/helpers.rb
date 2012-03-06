@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
-require 'ruby-debug'
 
 def do_login!(user)
+  FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
   VCR.use_cassette('yahoo_login', :match_requests_on => [:host, :path]) do
     visit new_user_session_path
     fill_in "user_email", :with => user.email
