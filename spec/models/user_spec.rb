@@ -61,6 +61,7 @@ describe User do
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
+    it { should have_one :tracking }
   end
 
   context "check user's creation" do
@@ -277,6 +278,13 @@ describe User do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
       subject.events.find_by_event_type(EventType::SEND_INVITE).should_not be_nil
     end
+
+    context "when the event is a tracking event" do
+      it "should create a tracking record for the user with the received hash" do
+        subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
+        subject.tracking.gclid.should == 'abc123'
+      end
+    end
   end
 
   describe "#invitation_url should return a properly formated URL, used when there's no routing context" do
@@ -445,4 +453,131 @@ describe User do
     end
   end
 
+  describe "#tracking_params" do
+
+    let!(:tracking_params) do
+      {
+        "utm_source" => "midiasproprias",
+        "utm_medium" => "facebook",
+        "utm_content" => "infopage",
+        "utm_campaign" => "stylequiz"
+      }
+    end
+
+    context "when the user has no tracking event" do
+      before do
+        subject.events.destroy_all
+      end
+
+      it "returns nil" do
+        subject.tracking_params("utm_source").should be_nil
+      end
+    end
+
+    context "when the user has a tracking event" do
+      before do
+        subject.events.destroy_all
+        subject.add_event(EventType::TRACKING, tracking_params.to_s)
+      end
+
+      context "and the passed param name exists in the tracking data" do
+        it "returns the correct value for the passed param" do
+          tracking_params.each do |param,value|
+            subject.tracking_params(param).should == value
+          end
+        end
+      end
+
+      context "and the passed param name does not exist in the tracking data" do
+        it "returns nil" do
+          subject.tracking_params("invalid").should be_nil
+        end
+      end
+
+    end
+
+    context "when the user has two tracking events" do
+      before do
+        subject.events.destroy_all
+        subject.add_event(EventType::TRACKING, "")
+        subject.add_event(EventType::TRACKING, tracking_params.to_s)
+      end
+
+      it "considers only the data from the first tracking event" do
+        subject.tracking_params("utm_source").should be_nil
+      end
+    end
+  end
+
+  describe "#total_revenue" do
+    context "when user has no purchases" do
+      it "returns 0" do
+        subject.total_revenue.should == 0
+      end
+    end
+
+    context "when the user has one purchase in the cart" do
+      before do
+        FactoryGirl.create(:order_without_payment, :user => subject)
+      end
+
+      it "returns 0" do
+        subject.total_revenue.should == 0
+      end
+    end
+
+    context "when the user has one completed order" do
+      let(:order) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      before do
+        order.payment.billet_printed
+        order.payment.authorized
+      end
+
+      it "returns the value of this order" do
+        Order.any_instance.should_receive(:total).and_return(BigDecimal.new("100"))
+        subject.total_revenue.to_s.should == "100.0"
+      end
+    end
+
+    context "when the user has two completed order" do
+      let(:order_one) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      let(:order_two) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      before do
+        order_one.payment.billet_printed
+        order_one.payment.authorized
+        order_two.payment.billet_printed
+        order_two.payment.authorized
+      end
+
+      it "returns the total sum of the orders" do
+        Order.any_instance.stub(:total).and_return(BigDecimal.new("53.34"))
+        subject.total_revenue.to_s.should == "106.68"
+      end
+    end
+
+    context "when called with total_with_freight" do
+      let(:order) do
+        FactoryGirl.create(:order, :user => subject)
+      end
+
+      before do
+        order.payment.billet_printed
+        order.payment.authorized
+      end
+
+      it "calls total_with_freight on the order" do
+        Order.any_instance.should_receive(:total_with_freight).and_return(0)
+        subject.total_revenue(:total_with_freight)
+      end
+    end
+  end
 end

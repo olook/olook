@@ -1,47 +1,27 @@
 # -*- encoding : utf-8 -*-
-require 'net/ftp'
-require 'tempfile'
 
-module EmailMarketing
-  class CsvUploader
-    FTP_SERVER = {
-      :host => "hftp.olook.com.br",
-      :username => "allinmail",
-      :password => "allinmail123abc"
-    }
+module MarketingReports
+  class Builder
 
-    FILE_PATH =  "/tmp/"
+    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue, :paid_online_marketing]
 
-    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue]
-
-    attr_reader :csv
+    attr_accessor :csv
 
     def initialize(type = nil)
-      if ACTIONS.include? type
-        self.send("generate_#{type}")
-      else
-        @csv = ""
-      end
+      @csv = ""
+      self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def copy_to_ftp(filename = "untitled.txt")
-      ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
-      ftp.passive = true
-      Tempfile.open(FILE_PATH, 'w', :encoding => 'ISO-8859-1') do |file|
-        file.write @csv
-        ftp.puttextfile(file.path,filename)
-      end
-      ftp.close
+    def upload(filename, encoding = "ISO-8859-1")
+      FileUploader.new(@csv).copy_to_ftp(filename, encoding)
     end
-
-    private
 
     def generate_userbase
       bounced_list = generate_bounced_list
       @csv = CSV.generate do |rows|
         rows << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
                    invite_token first_name last_name facebook_token birthday has_purchases}
-        User.limit(1000).find_each do |u|
+        User.find_each do |u|
           unless bounced_list.include?(u.email)
             rows << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
                     u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]
@@ -81,13 +61,31 @@ module EmailMarketing
         row << %w{id email name total_bonus current_bonus used_bonus total_revenue freight}
         User.joins(:orders).joins("INNER JOIN payments on orders.id = payments.order_id").group('users.id')
             .where('payments.state IN ("authorized","completed")').each do |u|
-          total, freight_total = 0, 0
-          Order.joins("INNER JOIN payments on orders.id = payments.order_id")
-               .where('payments.state IN ("authorized","completed") and orders.user_id = ?', u.id).all.each do |order|
-            total += order.total_with_freight
-            freight_total += order.freight_price
-          end
-          row << [u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus, u.invite_bonus, u.used_invite_bonus, total, freight_total]
+          row <<
+          [
+            u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus,
+            u.invite_bonus, u.used_invite_bonus, u.total_revenue(:total_with_freight),
+            u.total_revenue(:freight_price)
+          ]
+        end
+      end
+    end
+
+    def generate_paid_online_marketing
+      @csv = CSV.generate do |row|
+        row << %w{utm_source utm_medium utm_campaign utm_content total_registrations total_orders total_revenue_without_discount total_revenue_with_discount}
+        Tracking.google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |tracking|
+          row << [
+                  "google", tracking.placement, nil, nil, tracking.total_registrations, tracking.related_with_complete_payment_for_google.count,
+                  tracking.total_revenue_for_google(:line_items_total), tracking.total_revenue_for_google
+                 ]
+        end
+        Tracking.campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |tracking|
+          row <<
+          [
+            tracking.utm_source, tracking.utm_medium, tracking.utm_campaign, tracking.utm_content, tracking.total_registrations,
+            tracking.related_with_complete_payment.count, tracking.total_revenue(:line_items_total), tracking.total_revenue
+          ]
         end
       end
     end
@@ -99,12 +97,6 @@ module EmailMarketing
         responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
       responses.map { |item| item["email"] }
-    end
-
-    def generate_email_csv(data)
-      CSV.generate do |row|
-        data.each { |item| row << [item["email"]] }
-      end
     end
 
     def generate_invalid
@@ -124,8 +116,16 @@ module EmailMarketing
       @csv = generate_email_csv(responses)
     end
 
+    private
+
+    def generate_email_csv(data)
+      CSV.generate do |row|
+        data.each { |item| row << [item["email"]] }
+      end
+    end
+
     def emails_seed_list
-      IO.readlines("lib/email_marketing/emails_seed_list.csv").map(&:chomp)
+      IO.readlines(Rails.root + "lib/marketing_reports/emails_seed_list.csv").map(&:chomp)
     end
 
   end
