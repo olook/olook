@@ -168,7 +168,9 @@ class User < ActiveRecord::Base
   end
 
   def total_revenue(total_method = :total)
-    orders.with_complete_payment.inject(0) { |sum,order| sum += order.send(total_method) }
+    self.orders.joins(:payment)
+        .where("payments.state IN ('authorized','completed')")
+        .inject(0) { |sum,order| sum += order.send(total_method) }
   end
 
   private
