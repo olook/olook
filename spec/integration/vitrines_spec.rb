@@ -37,7 +37,7 @@ feature "Accessing my vitrine", "In order to see the products as a user" do
 
       scenario "The quantity for each size must be in a hidden field" do
         within("ol") do
-          page.should have_xpath("//input[@id='quantity#{shoe.id}']")
+          page.should have_xpath("//input[@id='quantity_#{shoe.id}']")
         end
       end
      scenario "The quantity of the product must be 1" do
