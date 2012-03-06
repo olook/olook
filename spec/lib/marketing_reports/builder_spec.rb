@@ -295,6 +295,7 @@ describe MarketingReports::Builder do
   describe "#upload" do
     let(:csv) { "a,b,c" }
     let(:filename) { "filename.csv" }
+    let(:encoding) { "utf-8" }
     let(:uploader) { double(:uploder) }
 
     before do
@@ -306,10 +307,10 @@ describe MarketingReports::Builder do
       subject.upload(filename)
     end
 
-    it "calls copy_to_ftp on the file uploader with the passed filename" do
+    it "calls copy_to_ftp on the file uploader with the passed filename and encoding" do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:copy_to_ftp).with(filename)
-      subject.upload(filename)
+      uploader.should_receive(:copy_to_ftp).with(filename,encoding)
+      subject.upload(filename,encoding)
     end
   end
 
