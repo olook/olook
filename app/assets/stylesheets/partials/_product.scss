@@ -25,6 +25,7 @@ li.product {
           font-size: 10px;
           font-weight: normal;
           text-align: center;
+          text-transform: uppercase;
           line-height: 10px;
           height: 45px;
           padding-top: 5px;
@@ -131,14 +132,14 @@ li.product {
     &.sold_out {
       a p.sold_out {
         top: 2px;
-        right: 2px;
+        left: 2px;
         display: block;
       }
     }
     &.stock_down {
       a p.quantity {
         top: 2px;
-        right: 2px;
+        left: 2px;
         display: block;
       }
     }
