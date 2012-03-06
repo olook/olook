@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe EmailMarketing::SendgridClient do
-  subject { EmailMarketing::SendgridClient.new(:invalid_emails) }
+describe MarketingReports::SendgridClient do
+  subject { described_class.new(:invalid_emails) }
 
   describe  "#initialize" do
     let(:request){ double :request }
@@ -13,7 +13,7 @@ describe EmailMarketing::SendgridClient do
       HTTPI.stub(:get)
 
       HTTPI::Request.should_receive(:new).and_return(request)
-      EmailMarketing::SendgridClient.new(:invalid_emails)
+      described_class.new(:invalid_emails)
     end
 
     it "sets request url using sendgrid domain, user_key, api_key and service name" do
@@ -21,7 +21,7 @@ describe EmailMarketing::SendgridClient do
       HTTPI.stub(:get)
 
       request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=olook123abc")
-      EmailMarketing::SendgridClient.new(:invalid_emails)
+      described_class.new(:invalid_emails)
     end
 
     it "accepts username as optional parameter" do
@@ -29,7 +29,7 @@ describe EmailMarketing::SendgridClient do
       HTTPI.stub(:get)
 
       request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=anon&api_key=olook123abc")
-      EmailMarketing::SendgridClient.new(:invalid_emails, :username => "anon")
+      described_class.new(:invalid_emails, :username => "anon")
     end
 
     it "accepts password as optional parameter" do
@@ -37,7 +37,7 @@ describe EmailMarketing::SendgridClient do
       HTTPI.stub(:get)
 
       request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=qwerty")
-      EmailMarketing::SendgridClient.new(:invalid_emails, :password => "qwerty")
+      described_class.new(:invalid_emails, :password => "qwerty")
     end
 
     it "makes a get with the created request" do
@@ -45,7 +45,7 @@ describe EmailMarketing::SendgridClient do
       request.stub(:url=)
 
       HTTPI.should_receive(:get).with(request)
-      EmailMarketing::SendgridClient.new(:invalid_emails)
+      described_class.new(:invalid_emails)
     end
   end
 
@@ -54,24 +54,24 @@ describe EmailMarketing::SendgridClient do
 
     it "raises invalid error message if service is not supported" do
       expect {
-        EmailMarketing::SendgridClient.new(:unsupported_service)
+        described_class.new(:unsupported_service)
         }.to raise_error(ArgumentError, "Service unsupported_service is not supported")
     end
 
     it "supports invalid_emails as a service" do
-      expect { EmailMarketing::SendgridClient.new(:invalid_emails) }.to_not raise_error
+      expect { described_class.new(:invalid_emails) }.to_not raise_error
     end
 
     it "supports blocks service" do
-      expect { EmailMarketing::SendgridClient.new(:blocks) }.to_not raise_error
+      expect { described_class.new(:blocks) }.to_not raise_error
     end
 
     it "supports spam reports service" do
-      expect { EmailMarketing::SendgridClient.new(:spam_reports) }.to_not raise_error
+      expect { described_class.new(:spam_reports) }.to_not raise_error
     end
 
     it "supports unsubscribes service" do
-      expect { EmailMarketing::SendgridClient.new(:unsubscribes) }.to_not raise_error
+      expect { described_class.new(:unsubscribes) }.to_not raise_error
     end
   end
 
