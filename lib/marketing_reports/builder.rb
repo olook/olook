@@ -3,7 +3,7 @@
 module MarketingReports
   class Builder
 
-    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue]
+    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue, :paid_online_marketing]
 
     attr_accessor :csv
 
@@ -61,18 +61,33 @@ module MarketingReports
         row << %w{id email name total_bonus current_bonus used_bonus total_revenue freight}
         User.joins(:orders).joins("INNER JOIN payments on orders.id = payments.order_id").group('users.id')
             .where('payments.state IN ("authorized","completed")').each do |u|
-          total, freight_total = 0, 0
-          Order.joins("INNER JOIN payments on orders.id = payments.order_id")
-               .where('payments.state IN ("authorized","completed") and orders.user_id = ?', u.id).all.each do |order|
-            total += order.total_with_freight
-            freight_total += order.freight_price
-          end
-          row << [u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus, u.invite_bonus, u.used_invite_bonus, total, freight_total]
+          row <<
+          [
+            u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus,
+            u.invite_bonus, u.used_invite_bonus, u.total_revenue(:total_with_freight),
+            u.total_revenue(:freight_price)
+          ]
         end
       end
     end
 
     def generate_paid_online_marketing
+      @csv = CSV.generate do |row|
+        row << %w{utm_source utm_medium utm_campaign utm_content total_registrations total_orders total_revenue_without_discount total_revenue_with_discount}
+        Tracking.google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |tracking|
+          row << [
+                  "google", tracking.placement, nil, nil, tracking.total_registrations, tracking.total_orders_for_google,
+                  tracking.total_revenue_for_google(:line_items_total), tracking.total_revenue_for_google
+                 ]
+        end
+        Tracking.campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |tracking|
+          row <<
+          [
+            tracking.utm_source, tracking.utm_medium, tracking.utm_campaign, tracking.utm_content, tracking.total_registrations,
+            tracking.related_orders_with_complete_payment.count, tracking.total_revenue(:line_items_total), tracking.total_revenue
+          ]
+        end
+      end
     end
 
     def generate_bounced_list
