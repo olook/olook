@@ -6,7 +6,10 @@ class Admin::LiquidationProductsController < Admin::BaseController
   end
 
   def create
-    #LiquidationProductsService.new(@liquidation.id, params[:products_ids], params[:discount_percent]).process
+    liquidation_service = LiquidationService.new(@liquidation.id)
+    liquidation_service.add(params[:liquidation_products][:products_ids], params[:liquidation_products][:discount_percent])
+    flash[:notice] = "Products added to this liquidation"
+    redirect_to admin_liquidation_products_path(@liquidation.id)
   end
 
   private

@@ -4,16 +4,24 @@
 
   <div class="field">
     <%= f.label :product_ids %>
-    <%= f.text_field :product_ids %>
+    <%= f.text_field :products_ids %>
     <%= f.label :discount_percent %>
     <%= f.text_field :discount_percent %>%
     <%= f.submit "Add" %>
   </div>
 
   <h3>Products</h3>
-
-  <% @products.each do |product| %>
-    <%= product.original_price %>
-  <% end %>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= product.name %>
+        <%= product.original_price %>
+        <%= product.retail_price %>        
+        <%= product.discount_percent %>                
+        <%= link_to "Edit", edit_admin_liquidation_product_path(@liquidation.id, product.id) %>
+        <%= link_to "Remove", admin_liquidation_product_path(@liquidation.id, product.id), :method => :delete %>
+      </li>
+    <% end %>
+  </ul>
 
 <% end %>
