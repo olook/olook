@@ -65,7 +65,7 @@ describe MarketingReports::Builder do
     end
   end
 
-  describe "#userbase" do
+  describe "#generate_userbase" do
     let(:csv_header) do
       "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases\n"
     end
@@ -270,7 +270,6 @@ describe MarketingReports::Builder do
       let!(:order_d) { FactoryGirl.create(:clean_order, :user => user_d) }
       let!(:tracking_c) { FactoryGirl.create(:tracking, :user => user_c) }
       let!(:tracking_d) { FactoryGirl.create(:tracking, :user => user_d) }
-
 
       before do
         order_c.payment.billet_printed
