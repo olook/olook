@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Admin::ProductsController < Admin::BaseController
+  
+  load_and_authorize_resource
+
   respond_to :html
 
   def index
@@ -50,7 +53,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def add_related
-    @product = Product.find(params[:id])
+    @product =  Product.find(params[:id])
     product_to_relate = Product.find(params[:related_product][:id])
     @product.relate_with_product(product_to_relate)
 

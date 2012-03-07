@@ -11,6 +11,10 @@ FactoryGirl.define do
       is_active false
     end
 
+    factory :active_collection do 
+      is_active true
+   	end
+
   end
 
 end
