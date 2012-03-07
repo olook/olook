@@ -54,10 +54,8 @@ describe UserNotifier do
       UserNotifier.delete_old_orders( validators.join(" AND ") )
     end
 
-    it "Should not found the order cause it was deleted" do
-      expect {
-        Order.find(subject.id)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+    it "Thr order should be disabled" do
+      Order.find(subject.id).disable.should == true
     end
 
   end
