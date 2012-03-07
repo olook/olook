@@ -17,7 +17,7 @@ FactoryGirl.define do
 
     factory :basic_shoe_size_35 do
       number '35'
-      description 'size 35'
+      description '35'
       display_reference 'size-35'
       price 123.45
       inventory 10
@@ -25,7 +25,7 @@ FactoryGirl.define do
 
     factory :basic_shoe_size_37 do
       number '37A'
-      description 'size 37'
+      description '37'
       display_reference 'size-37'
       price 124.19
       inventory 5
@@ -33,7 +33,7 @@ FactoryGirl.define do
 
     factory :basic_shoe_size_40 do
       number '40A'
-      description 'size 40'
+      description '40'
       display_reference 'size-45'
       price 125.45
       inventory 5
