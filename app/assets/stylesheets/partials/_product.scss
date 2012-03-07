@@ -18,7 +18,7 @@ li.product {
           background: url("/assets/common/sold_out.png") no-repeat;
           text-indent: -9999px;
         }
-        &.quantity {
+        &.quantity, &.percentage {
           background: url("/assets/common/quantity.png") no-repeat;
           color: #FFF;
           font-family: "Open Sans", sans-serif;
@@ -33,6 +33,15 @@ li.product {
             font-size: 22px;
             line-height: 21px;
             font-weight: 600;
+          }
+        }
+        &.percentage {
+          font-size: 13px;
+          height: 40px;
+          padding-top: 10px;
+          display: block;
+          span {
+            font-size: 20px;
           }
         }
       }
@@ -181,7 +190,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
         }
         img {
           width: 170px;
@@ -200,7 +209,7 @@ li.product {
     a.product_link {
       p.warn {
         top: 2px;
-        right: 2px;
+        left: 2px;
       }
       img {
         width: 260px;
@@ -221,7 +230,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
         }
         img {
           width: 150px;
@@ -244,7 +253,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
         }
         img {
           width: 150px;
