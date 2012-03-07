@@ -36,7 +36,7 @@ $(document).ready(function() {
     zoomHeight: 500,
     imageOpacity: 0.4,
     title: false,
-    preloadImages: true,
+    preloadImages: false,
     fadeoutSpeed: 'fast'
   });
 

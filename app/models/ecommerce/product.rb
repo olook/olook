@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
-  def self.for_criteo
+  def self.for_xml
     only_visible.joins(:variants)
     .where("variants.is_master = 1 AND variants.price > 0.0 AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])
   end
@@ -121,6 +121,15 @@ class Product < ActiveRecord::Base
     inventory < 1
   end
 
+  def quantity ( size )
+    self.variants.each do |variant|
+      if variant.description.to_i == size
+        return variant.inventory.to_i
+      end
+    end
+    return 0
+  end
+
   def instock
     sold_out? ? "0" : "1"
   end
@@ -131,7 +140,7 @@ class Product < ActiveRecord::Base
       xml.tag!(:name, name)
       xml.tag!(:smallimage,  thumb_picture)
       xml.tag!(:bigimage,  showroom_picture)
-      xml.tag!(:producturl, criteo_product_url)
+      xml.tag!(:producturl, product_url)
       xml.tag!(:description, description)
       xml.tag!(:price, price)
       xml.tag!(:retailprice, price)
@@ -139,6 +148,15 @@ class Product < ActiveRecord::Base
       xml.tag!(:instock, instock)
       xml.tag!(:category, category)
     end
+  end
+
+  def product_url
+    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
+                                                           :utm_source => "criteo",
+                                                           :utm_medium => "banner",
+                                                           :utm_campaign => "remessaging",
+                                                           :utm_content => id
+                                                    )
   end
 
 private
@@ -156,14 +174,5 @@ private
 
   def update_master_variant
     master_variant.save!
-  end
-
-  def criteo_product_url
-    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_source => "criteo",
-                                                           :utm_medium => "banner",
-                                                           :utm_campaign => "remessaging",
-                                                           :utm_content => id
-                                                    )
   end
 end

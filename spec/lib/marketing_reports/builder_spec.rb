@@ -65,7 +65,7 @@ describe MarketingReports::Builder do
     end
   end
 
-  describe "#generate_userbase" do
+  describe "#userbase" do
     let(:csv_header) do
       "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases\n"
     end
