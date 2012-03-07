@@ -12,7 +12,7 @@ module EmailMarketing
 
     FILE_PATH =  "/tmp/"
 
-    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue]
+    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue, :userbase_email]
 
     attr_reader :csv
 
@@ -27,7 +27,7 @@ module EmailMarketing
     def copy_to_ftp(filename = "untitled.txt")
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       ftp.passive = true
-      Tempfile.open(FILE_PATH, 'w', :encoding => 'ISO-8859-1') do |file|
+      Tempfile.open(FILE_PATH, 'w') do |file|
         file.write @csv
         ftp.puttextfile(file.path,filename)
       end
@@ -52,6 +52,27 @@ module EmailMarketing
         end
       end
     end
+
+    def generate_userbase_email
+      @csv = CSV.generate do |rows|
+        rows << %w{ email first_name last_name created_at utm }
+        User.where("month(created_at) = 1").each do |u|
+          utm_source = "n/a"
+          unless u.events == nil
+            u.events.each do |event|
+              if event.event_type == 70
+                utm_source = event.description
+              end
+            end
+          end
+          rows << [ u.email, u.first_name, u.last_name, u.created_at, utm_source ]
+        end
+      end
+    end
+
+    #Run methods
+    #EmailMarketing::CsvUploader.new(:method).copy_to_ftp("File.csv")
+    #EmailMarketing::CsvUploader.new(:userbase_email).copy_to_ftp("File.csv")
 
     def generate_userbase_orders
       selected_fields = "users.id as id, users.is_invited, users.email as email, users.first_name, users.last_name,
