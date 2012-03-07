@@ -1,9 +1,12 @@
 <li class="product promotion">
-  <div class="box_product <%= quantity_status(product, current_user) %>">
+  <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGOTADO</p>
+      <% unless product.sold_out? %>
+        <p class="warn percentage"><span>80%</span><br />off</p>
+      <% end %>
     <% end %>
     <div class="line">
       <ol>
