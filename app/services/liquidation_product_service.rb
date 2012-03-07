@@ -23,7 +23,7 @@ class LiquidationProductService
   end
 
   def shoe_sizes
-    @product.variants.map(&:description) if shoe?
+    @product.variants.map{|v| v.description.to_i } if shoe?
   end
 
   def shoe?
@@ -45,8 +45,9 @@ class LiquidationProductService
   end
   
   def create_or_update_product options=nil
-    params = default_params.merge!(options)
-    if existing_product
+    params = default_params
+    params.merge!(options) if options
+    if existing_product(options)
       existing_product.update_attributes!(params)
     else
       LiquidationProduct.create(params)
@@ -65,11 +66,12 @@ class LiquidationProductService
     }
   end
   
-  #TODO: find all by shoe size
-  def existing_product
-    LiquidationProduct.where(
-     :liquidation_id => @liquidation.id,
-     :product_id => @product.id
-    ).first
+  def existing_product options=nil
+    params = {
+      :liquidation_id => @liquidation.id,
+      :product_id => @product.id
+    }
+    params.merge! options if options
+    LiquidationProduct.where(params).first
   end
 end
