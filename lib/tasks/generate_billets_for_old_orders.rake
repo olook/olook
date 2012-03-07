@@ -126,7 +126,8 @@ namespace :olook do
         coupon.increment!(:remaining_amount, 1) unless coupon.unlimited?
       end
       auth_token = order.user.authentication_token
-      link = "http://localhost:3000/sacola?auth_token=#{auth_token}&order_id=#{order_id}"
+      host = Rails.env.development? ? "http://localhost:3000" : "http://www.olook.com.br"
+      link = "#{http}/sacola?auth_token=#{auth_token}&order_id=#{order_id}"
       puts link
     end
   end
