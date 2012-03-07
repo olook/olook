@@ -209,6 +209,13 @@ $(document).ready(function() {
       initBase.checkProductQuantity(productBox, quantityBox, quantity);
     }
   });
+
+  $("li.promotion div.box_product div.line ol li a.product_color").mouseenter(function() {
+    productBox = $(this).parents(".box_product");
+    percentageBox = $(productBox).find("a.product_link").find("p.percentage");
+    percentage = $(this).parent().find("input[type='hidden'].percentage").val();
+    $(percentageBox).find("span").text(percentage);
+  });
 });
 
 initBase = {
