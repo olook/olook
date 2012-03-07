@@ -50,4 +50,16 @@ module ApplicationHelper
   def member_type
     user_signed_in? ? 'member' : 'visitor'
   end
+
+  def quantity_status(product, user)
+    if product.sold_out?
+      'sold_out'
+    else
+      unless user.user_info.nil?
+        if product.quantity(user.user_info.shoes_size) > 0 && product.quantity(user.user_info.shoes_size) < 4
+          'stock_down'
+        end
+      end
+    end
+  end
 end
