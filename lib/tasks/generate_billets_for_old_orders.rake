@@ -8,6 +8,7 @@ namespace :olook do
   end
 
   task :generate_cart_links => :environment  do
+    test = nil
     hash = YAML.load_file('order_ids.yaml')
     orders = hash["order_ids"].split(" ")
     CSV.open("links.csv", "wb") do |csv|
