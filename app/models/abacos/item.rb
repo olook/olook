@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Item
-    attr_reader :codigo, :quantidade, :preco_unitario
+    attr_reader :codigo, :quantidade, :preco_unitario, :preco_unitario_bruto
 
     def initialize(line_item)
       @codigo                 = line_item.variant.number
