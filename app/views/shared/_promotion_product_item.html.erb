@@ -13,14 +13,14 @@
         <% unless product.color_sample.blank? %>
         <li>
           <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
-          <%= hidden_field_tag "sold_out_#{product.id}", "box_product #{product.sold_out? ? 'sold_out' : ''}" %>
+          <%= hidden_field_tag "sold_out_#{product.id}", "#{product.sold_out? ? 'sold_out' : ''}", :class => "sold_out" %>
           <%= hidden_field_tag "percentage_#{product.id}", "20%", :class => "percentage" %>
         </li>
         <% end %>
       <% product.colors.each do |related_product| %>
           <li>
             <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color" %>
-            <%= hidden_field_tag "sold_out_#{related_product.id}", "box_product #{related_product.sold_out? ? 'sold_out' : ''}" %>
+            <%= hidden_field_tag "sold_out_#{related_product.id}", "#{related_product.sold_out? ? 'sold_out' : ''}", :class => "sold_out" %>
             <%= hidden_field_tag "percentage_#{related_product.id}", "20%", :class => "percentage" %>
           </li>
         <% end %>
