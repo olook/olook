@@ -1,17 +1,15 @@
 <div id="filters_container">
   <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "liquidation_filter"}) do %>
-      <%= hidden_field_tag('liquidation_id', liquidation_presenter.liquidation.id)  %>
+      <%= hidden_field_tag('liquidation_id', liquidation_presenter.liquidation.id) %>
       <div class="filter">
         <h1 class="shoes">Sapatos</h1>
         <ol>
+        <% liquidation_presenter.liquidation.resume[:categories][Category::SHOE].each do |key, value| %>
           <li>
-            <%= check_box_tag('subcategories[]', "rasteirinha") %>
-            <label>Subcategoria 1</label>
+            <%= check_box_tag('subcategories[]', key) %>
+            <label><%= value %></label>
           </li>
-          <li>
-            <%= check_box_tag('subcategories[]', "Ação teste") %>
-            <label>Límea</label>
-          </li>
+        <% end %>
         </ol>
       </div>
 
