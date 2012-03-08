@@ -37,7 +37,7 @@ module EmailMarketing
 
     def build_params(options)
       options.map do |k,v|
-        "&#{k}='#{v}'"
+        "&#{k}=#{v}"
       end.join
     end
 
