@@ -18,5 +18,20 @@ FactoryGirl.define do
       description "How to wear"
       translation_token 'how to'
     end
+
+    factory :shoe_subcategory_name do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Sandalia"
+    end
+  end
+
+  factory :bag_detail, :class => Detail do
+    association :product, :factory => :basic_bag
+    factory :bag_subcategory_name do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Bolsa Azul"
+    end
   end
 end

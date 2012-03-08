@@ -1,0 +1,25 @@
+<h2>Editing product</h2>
+
+<%= form_for([:admin, @liquidation_product]) do |f| %>
+  <% if @liquidation_product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@liquidation_product.errors.count, "error") %> prohibited this admin_liquidation from being saved:</h2>
+      <ul>
+      <% @liquidation_product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :discount_percent %><br />
+    <%= f.text_field :discount_percent %>
+  </div>
+  <div class="field">
+    <%= f.label :retail_price %><br />
+    <%= f.text_field :retail_price %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+ <% end %>
