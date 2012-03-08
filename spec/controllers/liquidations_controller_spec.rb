@@ -7,6 +7,13 @@ describe LiquidationsController do
     let(:basic_shoe_size_35) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:basic_shoe_size_37) { FactoryGirl.create(:basic_shoe_size_37) }
     let(:basic_shoe_size_40) { FactoryGirl.create(:basic_shoe_size_40) }
+
+    let(:basic_bag) { FactoryGirl.create(:basic_bag) }
+    let(:basic_accessory) { FactoryGirl.create(:basic_accessory) }
+
+    let(:basic_bag_1) { FactoryGirl.create(:basic_bag_simple, :product => basic_bag) }
+    let(:basic_accessory_1) { FactoryGirl.create(:basic_accessory_simple, :product => basic_accessory) }
+
     let(:liquidation) { FactoryGirl.create(:liquidation) }
 
     it "returns http success" do
@@ -37,6 +44,16 @@ describe LiquidationsController do
         LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa")
         get :show, :id => 2, :heels => ["6.5", "4.5"]
         assigns(:products).should == [basic_shoe_size_35.product, basic_shoe_size_40.product]
+      end
+    end
+
+    context "ordering" do
+      it "should return the order: shoes, bags and acessories" do
+        LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5)
+        LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira")
+        LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa")
+        get :show, :id => 2, :subcategories => ["pulseira", "lisa"], :heels => ["4.5"]
+        assigns(:products).should == [basic_shoe_size_35.product, basic_bag_1.product, basic_accessory_1.product]
       end
     end
 
