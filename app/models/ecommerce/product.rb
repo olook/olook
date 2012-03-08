@@ -150,6 +150,11 @@ class Product < ActiveRecord::Base
     end
   end
 
+  #TODO: verify if the product is part of an active liquidation
+  #def liquidation?
+  #  LiquidationService.active.resume[:products_ids] 
+  #end
+
 private
   def create_master_variant
     @master_variant = Variant.new(:is_master => true,

@@ -1,8 +1,17 @@
 class LiquidationProductService
-  def initialize liquidation, product, discount_percent
+  def initialize liquidation, product, discount_percent=nil, collections=[]
     @liquidation = liquidation
     @product = product
     @discount_percent = discount_percent
+    @collections = collections
+  end
+  
+  def liquidation_name
+    @liquidation.name if included?
+  end
+
+  def included?
+    @liquidation.resume[:products_ids].include? @product.id if @liquidation
   end
 
   def retail_price
@@ -31,6 +40,7 @@ class LiquidationProductService
   end
 
   def save
+    return false if conflicts_collections?
     if shoe? and not shoe_sizes.empty?
       save_shoe_by_size
     else
@@ -74,4 +84,9 @@ class LiquidationProductService
     params.merge! options if options
     LiquidationProduct.where(params).first
   end
+
+  def conflicts_collections?
+    @collections.map{|c| c.id }.include? @product.collection_id
+  end
+
 end
