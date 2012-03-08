@@ -203,6 +203,12 @@ section#welcome {
       }
     }
   }
+  div.banner {
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 55px;
+    background: #000;
+  }
   section#products {
     background: url("/assets/showroom/border-top-product.png") 170px 26px no-repeat;
     width: 100%;
