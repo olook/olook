@@ -9,6 +9,7 @@ class LiquidationsController < ApplicationController
   end
 
   def update
+    @liquidation = Liquidation.find(params[:id])
     liquidation_products = LiquidationProduct.arel_table
 
     @products = Product.joins(:liquidation_products).
