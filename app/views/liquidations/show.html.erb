@@ -1,0 +1,76 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/liquidations" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "liquidations" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="content">
+    <h1>Olooket</h1>
+    <h2>Até 70% de desconto</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis leo metus, quis feugiat odio. Quisque adipiscing faucibus ligula, nec fringilla ligula ultricies ut.</p>
+    <%= render "carousel" %>
+  </div>
+<% end %>
+
+<div id="liquidation" class="content">
+  <div id="filters_container">
+    <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "liquidation_filter"}) do %>
+      <div class="filter">
+        <h1 class="shoes">Sapatos</h1>
+        <ol>
+          <li>
+            <%= check_box_tag('subcategories[]', 1) %>
+            <label>Subcategoria 1</label>
+          </li>
+          <li>
+            <%= check_box_tag('subcategories[]', 2) %>
+            <label>Subcategoria 2</label>
+          </li>
+        </ol>
+      </div>
+
+      <div class="filter">
+        <h1 class="subtitle">Númeração</h1>
+        <ol class="column">
+          <li>
+            <%= check_box_tag('show_sizes[]', 33) %>
+            <label>33</label>
+          </li>
+          <li>
+            <%= check_box_tag('show_sizes[]', 34) %>
+            <label>34</label>
+          </li>
+        </ol>
+      </div>
+
+      <div class="filter">
+        <h1 class="subtitle">Salto</h1>
+        <ol class="column">
+          <li>
+            <%= check_box_tag('heels[]', 0) %>
+            <label>0</label>
+          </li>
+            <%= check_box_tag('heels[]', 6.5) %>
+            <label>6.5</label>
+          </li>
+        </ol>
+      </div>
+      <%= submit_tag "Buscar" %>
+    <% end %>
+  </div>
+  <div id="products_container">
+    <div id="order_filter">
+      <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
+        <%= label_tag "Ordenar por:" %>
+        <%= select_tag('order_filter', options_for_select({"Menor preço" => 1, "Maior preço" => 2})) %>
+      <% end %>
+    </div>
+    <ul id="products">
+      <%= render "products", :products => @products %>
+    </ul>
+    <%= will_paginate @products %>
+  </div>
+</div>

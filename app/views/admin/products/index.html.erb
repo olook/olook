@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Model number</th>
+      <th>Liquidation</th>
       <th>Category</th>
       <th>Visible?</th>
       <th>Price</th>
@@ -21,6 +22,7 @@
     <tr>
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
+      <td><%= LiquidationProductService.new(@liquidation, product).liquidation_name %></td>
       <td><%= product.category_humanize %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= number_to_currency product.price %></td>

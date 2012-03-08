@@ -11,11 +11,39 @@ li.product {
       position: relative;
       p.warn {
         position: absolute;
-        background: url("/assets/common/sold_out.png") no-repeat;
-        text-indent: -9999px;
         width: 50px;
         height: 50px;
         display: none;
+        &.sold_out {
+          background: url("/assets/common/sold_out.png") no-repeat;
+          text-indent: -9999px;
+        }
+        &.quantity, &.percentage {
+          background: url("/assets/common/quantity.png") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 10px;
+          font-weight: normal;
+          text-align: center;
+          text-transform: uppercase;
+          line-height: 10px;
+          height: 45px;
+          padding-top: 5px;
+          span {
+            font-size: 22px;
+            line-height: 21px;
+            font-weight: 600;
+          }
+        }
+        &.percentage {
+          font-size: 13px;
+          height: 40px;
+          padding-top: 10px;
+          display: block;
+          span {
+            font-size: 20px;
+          }
+        }
       }
       img {
         margin: 0 0 10px 0;
@@ -111,9 +139,16 @@ li.product {
       }
     }
     &.sold_out {
-      a p.warn {
+      a p.sold_out {
         top: 2px;
-        right: 2px;
+        left: 2px;
+        display: block;
+      }
+    }
+    &.stock_down {
+      a p.quantity {
+        top: 2px;
+        left: 2px;
         display: block;
       }
     }
@@ -123,6 +158,26 @@ li.product {
     border: 5px #d7d7d7 solid;
     p.know {
       display: block;
+    }
+  }
+  &.promotion {
+    .box_product {
+      .line {
+        span {
+          color: #df5a8b;
+          font-size: 15px;
+          font-weight: bold;
+          display: block;
+          float: none;
+          &.old {
+            color: #818181;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 9px;
+            text-decoration: line-through;
+          }
+        }
+      }
     }
   }
 }
@@ -135,7 +190,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
         }
         img {
           width: 170px;
@@ -154,7 +209,7 @@ li.product {
     a.product_link {
       p.warn {
         top: 2px;
-        right: 2px;
+        left: 2px;
       }
       img {
         width: 260px;
@@ -175,7 +230,30 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
+        }
+        img {
+          width: 150px;
+          height: 150px;
+        }
+        h1 {
+          width: 150px;
+          height: 17px;
+        }
+      }
+    }
+  }
+}
+
+#liquidation {
+  li.product {
+    width: 160px;
+    height: 270px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          left: 2px;
         }
         img {
           width: 150px;

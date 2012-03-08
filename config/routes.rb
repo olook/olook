@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "liquidation_products/index"
+
   get "index/index"
   root :to => "home#index"
 
@@ -18,6 +20,9 @@ Olook::Application.routes.draw do
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
+
+  get "/liquidacao/:id" => "liquidations#show", :as => "liquidations"
+  get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
@@ -134,6 +139,9 @@ Olook::Application.routes.draw do
     resources :coupons, :except => [:destroy]
     resources :landing_pages
     resources :promotions
+    resources :liquidations do
+      resources :liquidation_products, :as => "products"
+    end
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do

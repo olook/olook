@@ -157,6 +157,12 @@ section#stylist {
             overflow: auto;
             top: 0;
             left: 0;
+            a {
+              background: url("/assets/stylist/bt-know2.jpg") no-repeat;
+              font-size: 13px;
+              line-height: 35px;
+              width: 95px;
+            }
             h1 {
               line-height: 50px;
             }
@@ -168,13 +174,8 @@ section#stylist {
               left: 115px;
             }
             &.second {
-              text-align: center;
               top: 55px;
-              left: 320px;
-              a {
-                margin: 0 auto;
-                float: none;
-              }
+              left: 365px;
             }
             &.third {
               top: 135px;
@@ -191,6 +192,12 @@ section#stylist {
           background: url("/assets/stylist/product-divisor.jpg") center top no-repeat;
           margin-bottom: 0;
           padding-top: 50px;
+          a {
+            background: url("/assets/stylist/bt-know2.jpg") no-repeat;
+            font-size: 13px;
+            line-height: 35px;
+            width: 95px;
+          }
           h1 {
             margin-top: 95px;
           }
