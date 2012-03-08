@@ -6,6 +6,8 @@ describe EmailMarketing::CsvUploader do
   let(:user_a) { FactoryGirl.create :user }
   let(:user_b) { FactoryGirl.create :user }
   let(:user_c) { FactoryGirl.create :user }
+  let(:user_d) { FactoryGirl.create :user }
+
   let(:response) { double(:response, :parsed_response => [ {"reason"=>"Unknown", "email"=>"teste@teste.com"} ]) }
   let(:services) do
     {
@@ -14,6 +16,10 @@ describe EmailMarketing::CsvUploader do
       :blocks         => double(:b_response, :parsed_response => [ {"reason"=>"Unknown", "email"=>"e@f.com"} ]),
       :invalid_emails => double(:i_response, :parsed_response => [ {"reason"=>"500", "email"=>"c@d.com"} ]),
     }
+  end
+
+  let(:bounce_response) do
+    double(:bounce_response, :parsed_response => [ {"reason" => "500", "email" => user_d.email } ])
   end
 
   describe "#initialize" do
@@ -72,6 +78,8 @@ describe EmailMarketing::CsvUploader do
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook", :type => "hard").and_return(bounce_response)
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook2", :type => "hard").and_return(bounce_response)
       end
 
       it "builds a csv file containing all user data" do
@@ -99,10 +107,14 @@ describe EmailMarketing::CsvUploader do
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook", :type => "hard").and_return(bounce_response)
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook2", :type => "hard").and_return(bounce_response)
+
         csv = described_class.new(:userbase).csv
         csv.should_not match user_a.email
         csv.should_not match user_b.email
         csv.should_not match user_c.email
+        csv.should_not match user_d.email
       end
 
       it "includes return path seed email" do
@@ -110,6 +122,9 @@ describe EmailMarketing::CsvUploader do
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook", :type => "hard").and_return(bounce_response)
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook2", :type => "hard").and_return(bounce_response)
+
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
         csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,,\n"
       end
@@ -119,6 +134,9 @@ describe EmailMarketing::CsvUploader do
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
           EmailMarketing::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
         end
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook", :type => "hard").and_return(bounce_response)
+        EmailMarketing::SendgridClient.stub(:new).with(:bounces, :username => "olook2", :type => "hard").and_return(bounce_response)
+
         csv = EmailMarketing::CsvUploader.new(:userbase).csv
         csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,,\n"
       end
