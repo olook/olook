@@ -61,6 +61,7 @@ describe User do
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
+    it { should have_many :credits }
   end
 
   context "check user's creation" do
@@ -443,6 +444,33 @@ describe User do
         subject.has_purchases?.should be_true
       end
     end
+  end
+
+  describe "#current_credit" do
+    context "when user has no credits" do
+      it "returns 0" do
+        subject.current_credit.should == 0
+      end
+    end
+
+    context "when user has one credit record" do
+      let!(:credit) { FactoryGirl.create(:credit, :user => subject) }
+
+      it "returns the total of the credit record" do
+        subject.current_credit.should == credit.total
+      end
+    end
+
+    context "when user has more than one credit record" do
+      let!(:credit_one) { FactoryGirl.create(:credit, :total => 43, :user => subject) }
+      let!(:credit_two) { FactoryGirl.create(:credit, :total => 7, :user => subject) }
+
+
+      it "returns the total of the last credit record" do
+        subject.current_credit.should == credit_two.total
+      end
+    end
+
   end
 
 end
