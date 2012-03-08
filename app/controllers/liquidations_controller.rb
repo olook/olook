@@ -3,6 +3,7 @@ class LiquidationsController < ApplicationController
   respond_to :html, :js
 
   def show
+    @liquidation = Liquidation.find(params[:id])
     @products = Product.joins(:liquidation_products).paginate(:page => params[:page], :per_page => 15).order('category asc')
     respond_with @products
   end
