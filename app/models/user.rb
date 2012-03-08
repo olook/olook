@@ -91,6 +91,10 @@ class User < ActiveRecord::Base
     credits.last.try(:total) || 0
   end
 
+  def can_use_credit?(value)
+    current_credit.to_f >= value.to_f
+  end
+
   def profile_scores
     self.points.includes(:profile).order('value DESC')
   end
