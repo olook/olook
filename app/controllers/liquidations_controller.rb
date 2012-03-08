@@ -12,7 +12,7 @@ class LiquidationsController < ApplicationController
     @products = Product.joins(:liquidation_products).
                         where(liquidation_products["subcategory_name"].in(subcategory_names).
                         or(liquidation_products["shoe_size"].in(shoe_sizes).
-                        or(liquidation_products["heel"].in(heels))))
+                        or(liquidation_products["heel"].in(heels)))).order('category asc')
 
     respond_with @products
   end
