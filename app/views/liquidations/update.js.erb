@@ -1,6 +1,6 @@
-$('#products').append('<%= j render "products", :products => @products %>');
-<% if @products.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate(@products) %>');
+$('#products').append('<%= j render "products", :products => @liquidation_products %>');
+<% if @liquidation_products.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@liquidation_products) %>');
 <% else %>
   $('.pagination').remove();
 <% end %>

@@ -1,4 +1,5 @@
 <li class="product promotion">
+  <% product = liquidation_product.product %>
   <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
@@ -27,8 +28,12 @@
       </ol>
     </div>
     <div class="line">
-      <span class="old">de: R$ 129,90 <%= product.liquidation_products.first.subcategory_name %></span>
-      <span>por: <%= number_to_currency product.price %></span>
+      <span class="old">de: <%= number_to_currency liquidation_product.original_price %>
+        <%= liquidation_product.subcategory_name %> -
+        <%= liquidation_product.heel %> -
+        <%= liquidation_product.shoe_size %> -
+      </span>
+      <span>por: <%= number_to_currency liquidation_product.retail_price %></span>
     </div>
   </div>
 </li>
