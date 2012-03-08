@@ -6,31 +6,11 @@
 
       <%= liquidation_presenter.display_shoe_size_filters %>
 
-      <div class="filter">
-        <h1 class="subtitle">Salto</h1>
-        <ol class="column">
-          <li>
-            <%= check_box_tag('heels[]', 0) %>
-            <label>0</label>
-          </li>
-            <%= check_box_tag('heels[]', "6.5") %>
-            <label>6.5</label>
-          </li>
-        </ol>
-      </div>
+      <%= liquidation_presenter.display_heel_filters %>
 
-      <div class="filter">
-        <h1 class="subtitle">Bolsas</h1>
-        <ol class="column">
-          <li>
-            <%= check_box_tag('subcategories[]', "tote") %>
-            <label>Tote</label>
-          </li>
-            <%= check_box_tag('subcategories[]', "bau") %>
-            <label>Bau</label>
-          </li>
-        </ol>
-      </div>
+      <%= liquidation_presenter.display_bag_filters %>
+
+      <%= liquidation_presenter.display_accessory_filters %>
 
       <%= submit_tag "Buscar" %>
     <% end %>
