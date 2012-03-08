@@ -53,11 +53,25 @@
             <%= check_box_tag('heels[]', 0) %>
             <label>0</label>
           </li>
-            <%= check_box_tag('heels[]', 6.5) %>
+            <%= check_box_tag('heels[]', "6.5") %>
             <label>6.5</label>
           </li>
         </ol>
       </div>
+
+      <div class="filter">
+        <h1 class="subtitle">Bolsas</h1>
+        <ol class="column">
+          <li>
+            <%= check_box_tag('subcategories[]', "tote") %>
+            <label>Tote</label>
+          </li>
+            <%= check_box_tag('subcategories[]', "bau") %>
+            <label>Bau</label>
+          </li>
+        </ol>
+      </div>
+
       <%= submit_tag "Buscar" %>
     <% end %>
   </div>
