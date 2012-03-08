@@ -196,28 +196,48 @@ $(document).ready(function() {
   $("div.box_product div.line ol li a.product_color").mouseenter(function() {
     $(this).parents("ol").find("li a").removeClass("selected");
     $(this).addClass("selected");
+    productBox = $(this).parents(".box_product");
+    quantityBox = $(productBox).find("a.product_link").find("p.quantity");
     newLink = $(this).attr("href");
     newImg = $(this).attr("data-href");
     soldOut = $(this).parent().find("input[type='hidden'].sold_out").val();
     quantity = $(this).parent().find("input[type='hidden'].quantity").val();
-    productBox = $(this).parents(".box_product");
-    quantityBox = $(productBox).find("a.product_link").find("p.quantity");
     $(productBox).removeClass("sold_out");
     $(productBox).removeClass("stock_down");
-    $(productBox).find("a.product_link img").attr("src", newImg);
-    $(productBox).find("a.product_link").attr("href", newLink);
-    if(soldOut == "sold_out") {
-      $(productBox).addClass("sold_out");
-    } else {
-      if(quantity > 0 && quantity <= 3) {
-        $(quantityBox).find("span").text(quantity);
-        $(productBox).addClass("stock_down");
-      }
+    initBase.updateProductImage(productBox, newLink, newImg);
+    if(!initBase.isProductSoldOut(productBox, soldOut)) {
+      initBase.checkProductQuantity(productBox, quantityBox, quantity);
     }
+  });
+
+  $("li.promotion div.box_product div.line ol li a.product_color").mouseenter(function() {
+    productBox = $(this).parents(".box_product");
+    percentageBox = $(productBox).find("a.product_link").find("p.percentage");
+    percentage = $(this).parent().find("input[type='hidden'].percentage").val();
+    $(percentageBox).find("span").text(percentage);
   });
 });
 
 initBase = {
+  updateProductImage : function(box, link, img) {
+    $(box).find("a.product_link img").attr("src", img);
+    $(box).find("a.product_link").attr("href", link);
+  },
+
+  isProductSoldOut : function(box, soldOut) {
+    if(soldOut == "sold_out") {
+      $(box).addClass("sold_out");
+      return true;
+    }
+  },
+
+  checkProductQuantity : function(productBox, quantityBox, quantity) {
+    if(quantity > 0 && quantity <= 3) {
+      $(quantityBox).find("span").text(quantity);
+      $(productBox).addClass("stock_down");
+    }
+  },
+
   dialogLogin : function() {
     $('a.trigger').live('click', function(e){
       el = $(this).attr('rel');
