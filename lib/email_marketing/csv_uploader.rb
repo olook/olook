@@ -10,9 +10,9 @@ module EmailMarketing
       :password => "allinmail123abc"
     }
 
-    FILE_PATH =  "/tmp/"
+    FILE_PATH =  "tmp/UsersJaneiro.csv"
 
-    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue, :userbase_email]
+    ACTIONS = [:invalid, :optout, :userbase, :userbase_orders, :userbase_revenue, :userbase_email, :users_profiles_count]
 
     attr_reader :csv
 
@@ -27,7 +27,7 @@ module EmailMarketing
     def copy_to_ftp(filename = "untitled.txt")
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       ftp.passive = true
-      Tempfile.open(FILE_PATH, 'w') do |file|
+      File.open(FILE_PATH, 'w', :encoding => 'UTF-8') do |file|
         file.write @csv
         ftp.puttextfile(file.path,filename)
       end
@@ -147,6 +147,20 @@ module EmailMarketing
 
     def emails_seed_list
       IO.readlines("lib/email_marketing/emails_seed_list.csv").map(&:chomp)
+    end
+
+    def generate_users_profiles_count
+      @users = User.limit(10)
+
+      for user in @users do
+        unless user.points == nil
+          id_profile = []
+          id_porfile = user.points.limit(1).order("value desc")
+          puts id_profile.class
+          @profile = id_porfile[:profile_id]
+          puts @profile
+        end
+      end
     end
 
   end
