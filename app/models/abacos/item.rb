@@ -6,8 +6,9 @@ module Abacos
     def initialize(line_item)
       @codigo                 = line_item.variant.number
       @quantidade             = line_item.quantity
-      @preco_unitario         = "%.2f" % line_item.price
-      @preco_unitario_bruto   = "%.2f" % line_item.retail_price if line_item.liquidation?
+      @preco_unitario         = "%.2f" % ( line_item.liquidation? ) ? line_item.retail_price : line_item.price
+      @preco_unitario_bruto   = "%.2f" % line_item.price
+
     end
     
     def parsed_data
