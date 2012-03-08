@@ -18,6 +18,7 @@
 <div id="liquidation" class="content">
   <div id="filters_container">
     <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "liquidation_filter"}) do %>
+      <%= hidden_field_tag('liquidation_id', @liquidation.id)  %>
       <div class="filter">
         <h1 class="shoes">Sapatos</h1>
         <ol>
@@ -83,8 +84,8 @@
       <% end %>
     </div>
     <ul id="products">
-      <%= render "products", :products => @products %>
+      <%= render "products", :products => @liquidation_products %>
     </ul>
-    <%= will_paginate @products %>
+    <%= will_paginate @liquidation_products %>
   </div>
 </div>
