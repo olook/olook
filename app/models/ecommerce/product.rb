@@ -149,11 +149,11 @@ class Product < ActiveRecord::Base
       xml.tag!(:category, category)
     end
   end
-
-  #TODO: verify if the product is part of an active liquidation
-  #def liquidation?
-  #  LiquidationService.active.resume[:products_ids] 
-  #end
+  
+  def liquidation?
+    active_liquidation = LiquidationService.active
+    active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
+  end
 
 private
   def create_master_variant

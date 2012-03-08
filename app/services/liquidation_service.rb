@@ -1,6 +1,12 @@
 class LiquidationService
   attr_accessor :denied_products_ids
 
+  def self.active
+    Liquidation.all.detect do |liquidation|
+      Time.now >= liquidation.starts_at && Time.now <= liquidation.ends_at
+    end
+  end
+
   def initialize liquidation_id
     @liquidation = Liquidation.find(liquidation_id)
     @denied_products_ids = []
