@@ -132,14 +132,34 @@
         border-bottom: 2px #e05f8f solid;
         p.warn {
           position: absolute;
-          background: url("/assets/common/sold_out_big.png") no-repeat;
-          text-indent: -9999px;
           width: 64px;
           height: 64px;
           top: 2px;
           right: 2px;
           display: none;
           z-index: 100;
+          &.sold_out {
+            background: url("/assets/common/sold_out_big.png") no-repeat;
+            text-indent: -9999px;
+            display: block;
+          }
+          &.percentage {
+            background: url("/assets/common/quantity_big.png") no-repeat;
+            color: #FFF;
+            font-family: "Open Sans", sans-serif;
+            font-size: 17px;
+            font-weight: normal;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 10px;
+            height: 54px;
+            padding-top: 10px;
+            span {
+              font-size: 23px;
+              line-height: 27px;
+              font-weight: 600;
+            }
+          }
         }
         ul {
           li {
@@ -158,11 +178,6 @@
                 height: 500px;
               }
             }
-          }
-        }
-        &.sold_out {
-          p.warn {
-            display: block;
           }
         }
       }
