@@ -473,4 +473,29 @@ describe User do
 
   end
 
+  describe "#can_use_credit?" do
+    before do
+      FactoryGirl.create(:credit, :user => subject, :total => 23)
+    end
+
+    context "when user current credits is less then the received value" do
+      it "returns false" do
+        subject.can_use_credit?(23.01).should be_false
+      end
+    end
+
+    context "when user current credits is equal to the received value" do
+      it "returns true" do
+        subject.can_use_credit?(23.00).should be_true
+      end
+    end
+
+    context "when user current credit is greather than the received value" do
+      it "returns true" do
+        subject.can_use_credit?(21.90).should be_true
+      end
+    end
+
+  end
+
 end
