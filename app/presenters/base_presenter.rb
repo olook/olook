@@ -8,7 +8,7 @@ class BasePresenter
     end
     @template = template
   end
-  
+
   def h
     @template
   end
