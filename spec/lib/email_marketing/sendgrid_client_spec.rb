@@ -44,7 +44,7 @@ describe EmailMarketing::SendgridClient do
       HTTPI::Request.stub(:new).and_return(request)
       HTTPI.stub(:get)
 
-      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=qwerty&param_1='value_1'&param_2='value_2'")
+      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=qwerty&param_1=value_1&param_2=value_2")
       EmailMarketing::SendgridClient.new(:invalid_emails, :password => "qwerty", :param_1 => "value_1", :param_2 => "value_2")
     end
 
