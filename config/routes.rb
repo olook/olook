@@ -140,6 +140,7 @@ Olook::Application.routes.draw do
     resources :landing_pages
     resources :promotions
     resources :liquidations do
+      resources :liquidation_carousels, :as => "carousels"
       resources :liquidation_products, :as => "products"
     end
   end

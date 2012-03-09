@@ -1,0 +1,26 @@
+<%= form_for([:admin,@liquidation_carousel]) do |f| %>
+  <% if @liquidation_carousel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@liquidation_carousel.errors.count, "error") %> prohibited this landing page from being saved:</h2>
+
+      <ul>
+      <% @liquidation_carousel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :liquidation_id, { :value => @liquidation.id }%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Adicionar Imagem" %>
+  </div>
+<% end %>
