@@ -9,6 +9,10 @@ class Tracking < ActiveRecord::Base
                                 .joins("INNER JOIN payments on orders.id = payments.order_id")
                                 .where("payments.state IN ('authorized','completed')")
 
+  def self.from_day(day)
+    self.where('created_at BETWEEN :day AND :next_day',:day => day, :next_day => day + 1.day)
+  end
+
   def total_revenue(total = :total)
     related_with_complete_payment.inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
   end
