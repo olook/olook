@@ -65,17 +65,19 @@ module MarketingReports
       @csv = build_csv(data)
     end
 
-    def generate_paid_online_marketing
+    def generate_paid_online_marketing(from = (Date.today - 1.week) , to = Date.today)
       data = []
-      data << %w{utm_source utm_medium utm_campaign utm_content total_registrations total_orders total_revenue_without_discount total_revenue_with_discount}
-      Tracking.google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |t|
-        data << [ "google", t.placement, nil, nil, t.total_registrations, t.related_with_complete_payment_for_google.count,
-                  t.total_revenue_for_google(:line_items_total), t.total_revenue_for_google ]
-      end
-      Tracking.campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |t|
-        data <<
-        [ t.utm_source, t.utm_medium, t.utm_campaign, t.utm_content, t.total_registrations,
-          t.related_with_complete_payment.count, t.total_revenue(:line_items_total), t.total_revenue ]
+      data << %w{date utm_source utm_medium utm_campaign utm_content total_registrations total_orders total_revenue_without_discount total_revenue_with_discount}
+      (from...to).each do |day|
+        Tracking.from_day(day).google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |t|
+          data << [ day.to_s, "google", t.placement, nil, nil, t.total_registrations, t.related_with_complete_payment_for_google.count,
+                    t.total_revenue_for_google(:line_items_total), t.total_revenue_for_google ]
+        end
+        Tracking.from_day(day).campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |t|
+          data <<
+          [ day.to_s, t.utm_source, t.utm_medium, t.utm_campaign, t.utm_content, t.total_registrations,
+            t.related_with_complete_payment.count, t.total_revenue(:line_items_total), t.total_revenue ]
+        end
       end
       @csv = build_csv(data)
     end
