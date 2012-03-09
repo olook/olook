@@ -3,8 +3,9 @@ require "spec_helper"
 
 describe "The member controller" do
   context "disabled invite paths" do
+
     it "should include a named route to the member's invite page" do
-      {get: member_invite_path}.should route_to("home#index")
+      {get: member_invite_path}.should route_to("members#invite")
     end
     it "should include a named route to accept invitations" do
       {get: accept_invitation_path}.should route_to("home#index")
