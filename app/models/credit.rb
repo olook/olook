@@ -6,6 +6,7 @@ class Credit < ActiveRecord::Base
 
   INVITE_BONUS = BigDecimal.new("10.00")
 
+  # TO DO: Refactor this class and move these methods to CreditService class
 
   def self.add_for_invitee(invitee)
     if invitee.is_invited? && invitee.current_credit == 0
@@ -14,6 +15,7 @@ class Credit < ActiveRecord::Base
   end
 
   def self.add_for_inviter(buyer, order)
+    # TO DO: Double check to see if the credit was already gave for this orer
     inviter = buyer.inviter
     if inviter
       updated_total = inviter.current_credit + INVITE_BONUS
@@ -31,7 +33,7 @@ class Credit < ActiveRecord::Base
   end
 
   def self.add(amount, user, order)
-    # TO DO: Check if value exceeds total
+    # TO DO: Check if value exceeds maximum amount of credit a user can have (300)
     updated_total = user.current_credit + amount
     user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
   end
