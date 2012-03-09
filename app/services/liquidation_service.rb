@@ -1,6 +1,12 @@
 class LiquidationService
   attr_accessor :denied_products_ids
 
+  def self.active
+    Liquidation.all.detect do |liquidation|
+      Time.now >= liquidation.starts_at && Time.now <= liquidation.ends_at
+    end
+  end
+
   def initialize liquidation_id
     @liquidation = Liquidation.find(liquidation_id)
     @denied_products_ids = []
@@ -27,12 +33,12 @@ class LiquidationService
     @liquidation.resume = {
      :products_ids => products_ids,
      :categories => {
-      1 => subcategories_by_category_id(1),
-      2 => subcategories_by_category_id(2),
-      3 => subcategories_by_category_id(3)
+      1 => hasherize(subcategories_by_category_id(1)),
+      2 => hasherize(subcategories_by_category_id(2)),
+      3 => hasherize(subcategories_by_category_id(3))
      },
-     :heels => heels,
-     :shoe_sizes => shoe_sizes
+     :heels => hasherize(heels),
+     :shoe_sizes => hasherize(shoe_sizes)
     }
     @liquidation.save
   end
@@ -87,4 +93,10 @@ class LiquidationService
   def subcategories_by_category_id category_id
     @liquidation.liquidation_products.where(:category_id => category_id).map(&:subcategory_name).uniq
   end
+
+  def hasherize values
+    values.compact!
+    values.to_h values.map{|v| v.to_s.parameterize} if values
+  end
+
 end

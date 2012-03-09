@@ -19,6 +19,7 @@ jQuery(function() {
       $(this).html("");
     });
   });
+
   if ($('.pagination').length) {
     $(window).scroll(function() {
       var url;

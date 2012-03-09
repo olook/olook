@@ -4,8 +4,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def index
     @products = Product.all
-    #TODO: change here to get the current liquidation
-    @liquidation = Liquidation.last
+    @liquidation = LiquidationService.active
     respond_with :admin, @products
   end
 
