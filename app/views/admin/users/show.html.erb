@@ -30,8 +30,8 @@
     <%= @user.created_at %>
   </p>
   <p>
-    <b>Invite Bonus:</b>
-    <%= number_to_currency @user.invite_bonus %>
+    <b>Current credits:</b>
+    <%= number_to_currency @user.current_credit %>
   </p>
 
   <%= render partial: 'show_orders', locals: { user: @user }  %>
