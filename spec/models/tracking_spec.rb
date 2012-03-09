@@ -11,14 +11,14 @@ describe Tracking do
 
     describe "#google" do
       it "includes a tracking with gclid and placement" do
-        Tracking.google.should include(google_tracking)
+        described_class.google.should include(google_tracking)
       end
     end
 
     describe "#google_campaigns" do
       let!(:google_tracking_b) { FactoryGirl.create(:google_tracking) }
       it "groups google trackings by placement" do
-        Tracking.google_campaigns.all.size.should == 1
+        described_class.google_campaigns.all.size.should == 1
       end
     end
 
@@ -26,12 +26,34 @@ describe Tracking do
       let!(:tracking_two) { FactoryGirl.create(:tracking) }
 
       it "includes a tracking with utm_content" do
-        Tracking.campaigns.should include(tracking)
+        described_class.campaigns.should include(tracking)
       end
 
       it "groups two similar trackings in one record" do
-        Tracking.campaigns.all.size.should == 1
+        described_class.campaigns.all.size.should == 1
       end
+    end
+  end
+
+  describe "#from_day" do
+    before do
+      Tracking.destroy_all
+    end
+
+    let(:today) { Date.today }
+    let(:tracking_from_today) { FactoryGirl.create(:tracking, :created_at => today) }
+    let(:tracking_from_day) { FactoryGirl.create(:tracking, :created_at => today + 10.hour) }
+    let(:tracking_from_yesterday) { FactoryGirl.create(:tracking, :created_at => (today - 1.day)) }
+    let(:tracking_from_tomorrow) { FactoryGirl.create(:tracking, :created_at => (today + 1.day)) }
+
+    it "includes the records created in the received day" do
+      described_class.from_day(today).should include(tracking_from_today)
+      described_class.from_day(today).should include(tracking_from_day)
+    end
+
+    it "does not include records from other days" do
+      described_class.from_day(today).should_not include(tracking_from_yesterday)
+      described_class.from_day(today).should_not include(tracking_from_tomorrow)
     end
   end
 
