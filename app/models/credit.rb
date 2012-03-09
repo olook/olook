@@ -21,13 +21,18 @@ class Credit < ActiveRecord::Base
     end
   end
 
-  def self.spend(amount, user, order)
+  def self.decrease(amount, user, order)
     if user.current_credit >= amount
-      remainder = user.current_credit - amount
-      user.credits.create!(:value => amount, :total => remainder, :order => order, :source => "order")
+      updated_total = user.current_credit - amount
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
     else
       false
     end
+  end
+
+  def self.increase(amount, user, order)
+    updated_total = user.current_credit + amount
+    user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
   end
 
 end
