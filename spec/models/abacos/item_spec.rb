@@ -14,13 +14,17 @@ describe Abacos::Item do
   it '#preco_unitario' do
     subject.preco_unitario.should == '179.90'
   end
+  it '#preco_unitario_bruto' do
+    subject.preco_unitario.should == '179.90'
+  end
   
   describe '#parsed_data' do
     let(:expected_data) do
       {
         'CodigoProduto' => line_item.variant.number,
         'QuantidadeProduto' => 2,
-        'PrecoUnitario' => '179.90'
+        'PrecoUnitario' => '179.90',
+        'PrecoUnitarioBruto' => '179.90'
       }
     end
 
