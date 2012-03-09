@@ -438,3 +438,20 @@ button.button:active, a.button:active {
 .content .hidden_destroy a:hover {
   color: #ff0000;
 }
+.admin_carousel_image {
+  position: relative;
+  display: inline;
+  margin: 10px;
+}
+
+.destroy_carousel_image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 17px;
+  font-family: Verdana, Tahoma, Arial;
+  background-color: #800000;
+  color: #fff;
+  text-align: center;
+}

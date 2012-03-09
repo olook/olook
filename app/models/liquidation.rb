@@ -1,5 +1,6 @@
 class Liquidation < ActiveRecord::Base
   has_many :liquidation_products
+  has_many :liquidation_carousels
   serialize :resume
   #validates_presence_of :name, :description
   #validates_length_of :description, :maximum => 100
