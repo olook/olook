@@ -288,7 +288,11 @@ class Order < ActiveRecord::Base
   end
 
   def reimburse_credit
-    Credit.increase(credits, user, self) if credits > 0
+    Credit.add(credits, user, self) if credits > 0
+  end
+
+  def add_credit_to_inviter
+    Credit.add_for_inviter(user, self)
   end
 
   private
