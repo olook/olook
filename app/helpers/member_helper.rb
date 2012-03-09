@@ -26,7 +26,7 @@ module MemberHelper
   
   def invitation_score(member)
     accept_invite_count = member.invites.accepted.count
-    invite_bonus = member.invite_bonus
+    invite_bonus = member.current_credit
     
     if accept_invite_count == 0
       if invite_bonus > 0
