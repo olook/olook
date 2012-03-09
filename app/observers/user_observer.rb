@@ -4,7 +4,7 @@ class UserObserver < ActiveRecord::Observer
     Resque.enqueue(SignupNotificationWorker, user.id)
     Resque.enqueue_in(1.day,ShowroomReadyNotificationWorker, user.id)
     user.add_event(EventType::SIGNUP)
-    Credit.add_invite_bonus_for_invitee(user)
+    Credit.add_for_invitee(user)
   end
 end
 
