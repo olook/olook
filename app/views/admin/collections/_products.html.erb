@@ -21,7 +21,7 @@
       <td><%= image_tag product.pictures.first.try(:image_url, :thumb) %></td>
       <td><%= product.model_number %></td>
       <td><%= number_to_currency product.price %></td>
-      <td><%= product.is_visible? ? 'Yes' : 'No' %></td> 
+      <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= product.category_humanize %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
