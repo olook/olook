@@ -57,7 +57,7 @@ Olook::Application.routes.draw do
   post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
 
   get "membro/convite" => "members#invite", :as => 'member_invite'
-  get "convite/(:invite_token)" => "home#index", :as => "accept_invitation"
+  get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
 
