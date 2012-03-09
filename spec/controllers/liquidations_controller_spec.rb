@@ -62,9 +62,9 @@ describe LiquidationsController do
 
     context "ordering" do
       it "should return the order: shoes, bags and acessories" do
-        lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5)
-        lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira")
-        lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa")
+        lp1 = LiquidationProduct.create(:category_id => Category::SHOE, :liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5)
+        lp2 = LiquidationProduct.create(:category_id => Category::ACCESSORY, :liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira")
+        lp3 = LiquidationProduct.create(:category_id => Category::BAG, :liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa")
         get :update, :format => :js, :id => liquidation.id, :subcategories => ["pulseira", "lisa"], :heels => ["4.5"]
         assigns(:liquidation_products).should == [lp1, lp3, lp2]
       end
