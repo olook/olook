@@ -95,10 +95,10 @@ describe Credit do
 
   end
 
-  describe "spending credit" do
+  describe "decreasing user credit" do
     context "when the user has not enough credit" do
       it "returns false" do
-        described_class.spend(123,user,anything).should be_false
+        described_class.decrease(123,user,anything).should be_false
       end
     end
 
@@ -107,15 +107,15 @@ describe Credit do
       let(:order) { FactoryGirl.create(:order_without_payment) }
       let(:amount) { BigDecimal.new("33.33") }
 
-      it "changes user current_credit by the spent amount" do
+      it "changes user current_credit by the received amount" do
         expect {
-          described_class.spend(amount, user, order)
+          described_class.decrease(amount, user, order)
         }.to change(user, :current_credit).by(-amount)
       end
 
       describe "credit record value" do
         before do
-          described_class.spend(amount, user, order)
+          described_class.decrease(amount, user, order)
         end
 
         it "has its value equal to the spent value" do
@@ -135,6 +135,37 @@ describe Credit do
     end
   end
 
+  describe "increasing user credit" do
+
+    let!(:credit) { FactoryGirl.create(:credit, :total => 100.0, :user => user)}
+    let(:order) { FactoryGirl.create(:order_without_payment) }
+    let(:amount) { BigDecimal.new("33.33") }
+
+    it "increases user current_credit by the received amount" do
+      expect {
+        described_class.increase(amount, user, order)
+      }.to change(user, :current_credit).by(amount)
+    end
+
+    describe "credit record value" do
+      before do
+        described_class.increase(amount, user, order)
+      end
+
+      it "has its value equal to the spent value" do
+        described_class.last.value = amount
+      end
+
+      it "has its order equal to the received order" do
+        described_class.last.order.should == order
+      end
+
+      it "has its source equal to order" do
+        described_class.last.source.should == "order"
+      end
+    end
+
+  end
 
 
 end
