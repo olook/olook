@@ -17,7 +17,7 @@ describe Credit do
 
       it "does not change user credits" do
         expect {
-          described_class.add_invite_bonus_for_invitee(user)
+          described_class.add_for_invitee(user)
         }.to_not change(user, :current_credit)
       end
     end
@@ -34,7 +34,7 @@ describe Credit do
 
         it "does not change user credits" do
           expect {
-            described_class.add_invite_bonus_for_invitee(user)
+            described_class.add_for_invitee(user)
           }.to_not change(user, :current_credit)
         end
       end
@@ -46,12 +46,12 @@ describe Credit do
 
         it "adds 10.00 worth of invite bonus credits to the user" do
           expect {
-            described_class.add_invite_bonus_for_invitee(user)
+            described_class.add_for_invitee(user)
           }.to change(user, :current_credit).by(10)
         end
 
         it "creates a record with invite_bonus source" do
-          described_class.add_invite_bonus_for_invitee(user)
+          described_class.add_for_invitee(user)
           user.credits.last.source.should == "inviter_bonus"
         end
       end
@@ -68,7 +68,7 @@ describe Credit do
       end
 
       it "returns false" do
-        described_class.add_invite_bonus_for_inviter(user, order).should be_false
+        described_class.add_for_inviter(user, order).should be_false
       end
     end
 
@@ -82,12 +82,12 @@ describe Credit do
 
       it "updates his inviter current_credit by 10.00" do
         expect {
-            described_class.add_invite_bonus_for_inviter(user, order)
+            described_class.add_for_inviter(user, order)
           }.to change(inviter, :current_credit).by(10)
       end
 
       it "creates a record with invitee_bonus source" do
-        described_class.add_invite_bonus_for_inviter(user, order)
+        described_class.add_for_inviter(user, order)
         inviter.credits.last.source.should == "invitee_bonus"
       end
 
@@ -95,10 +95,10 @@ describe Credit do
 
   end
 
-  describe "decreasing user credit" do
+  describe "removing user credit" do
     context "when the user has not enough credit" do
       it "returns false" do
-        described_class.decrease(123,user,anything).should be_false
+        described_class.remove(123,user,anything).should be_false
       end
     end
 
@@ -109,13 +109,13 @@ describe Credit do
 
       it "changes user current_credit by the received amount" do
         expect {
-          described_class.decrease(amount, user, order)
+          described_class.remove(amount, user, order)
         }.to change(user, :current_credit).by(-amount)
       end
 
       describe "credit record value" do
         before do
-          described_class.decrease(amount, user, order)
+          described_class.remove(amount, user, order)
         end
 
         it "has its value equal to the spent value" do
@@ -135,7 +135,7 @@ describe Credit do
     end
   end
 
-  describe "increasing user credit" do
+  describe "adding user credit" do
 
     let!(:credit) { FactoryGirl.create(:credit, :total => 100.0, :user => user)}
     let(:order) { FactoryGirl.create(:order_without_payment) }
@@ -143,13 +143,13 @@ describe Credit do
 
     it "increases user current_credit by the received amount" do
       expect {
-        described_class.increase(amount, user, order)
+        described_class.add(amount, user, order)
       }.to change(user, :current_credit).by(amount)
     end
 
     describe "credit record value" do
       before do
-        described_class.increase(amount, user, order)
+        described_class.add(amount, user, order)
       end
 
       it "has its value equal to the spent value" do

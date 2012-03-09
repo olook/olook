@@ -25,7 +25,7 @@ class CartController < ApplicationController
 
   def remove_bonus
     if @order.credits > 0
-      Credit.increase(@order.credits, @user, @order)
+      Credit.add(@order.credits, @user, @order)
       @order.update_attributes(:credits => nil)
       msg = "Créditos removidos com sucesso"
     else
@@ -38,7 +38,7 @@ class CartController < ApplicationController
     credits = BigDecimal.new(params[:credits][:value].to_s)
     if @user.current_credit >= credits && credits > 0
       @order.update_attributes(:credits => credits)
-      Credit.decrease(credits, @user, @order)
+      Credit.remove(credits, @user, @order)
       destroy_freight(@order)
       redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
     else

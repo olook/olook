@@ -7,13 +7,13 @@ class Credit < ActiveRecord::Base
   INVITE_BONUS = BigDecimal.new("10.00")
 
 
-  def self.add_invite_bonus_for_invitee(invitee)
+  def self.add_for_invitee(invitee)
     if invitee.is_invited? && invitee.current_credit == 0
       invitee.credits.create!(:value => INVITE_BONUS, :total => INVITE_BONUS, :source => "inviter_bonus")
     end
   end
 
-  def self.add_invite_bonus_for_inviter(buyer, order)
+  def self.add_for_inviter(buyer, order)
     inviter = buyer.inviter
     if inviter
       updated_total = inviter.current_credit + INVITE_BONUS
@@ -21,7 +21,7 @@ class Credit < ActiveRecord::Base
     end
   end
 
-  def self.decrease(amount, user, order)
+  def self.remove(amount, user, order)
     if user.current_credit >= amount
       updated_total = user.current_credit - amount
       user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
@@ -30,7 +30,8 @@ class Credit < ActiveRecord::Base
     end
   end
 
-  def self.increase(amount, user, order)
+  def self.add(amount, user, order)
+    # TO DO: Check if value exceeds total
     updated_total = user.current_credit + amount
     user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
   end
