@@ -55,6 +55,8 @@ class Order < ActiveRecord::Base
 
     after_transition any => :canceled, :do => :send_notification_payment_refused
     after_transition any => :reversed, :do => :send_notification_payment_refused
+    after_transition any => :canceled, :do => :reimburse_credit
+
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -97,7 +99,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-    def send_notification_payment_refused
+  def send_notification_payment_refused
     Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
   end
 
@@ -283,6 +285,10 @@ class Order < ActiveRecord::Base
 
   def delivery_time_for_a_shipped_order
     freight_delivery_time - WAREHOUSE_TIME
+  end
+
+  def reimburse_credit
+    Credit.increase(credits, user, self) if credits > 0
   end
 
   private
