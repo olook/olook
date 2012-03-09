@@ -20,6 +20,8 @@ class Product < ActiveRecord::Base
 
   has_many :lookbooks_products, :dependent => :destroy
   has_many :lookbooks, :through => :lookbooks_products
+  has_many :liquidation_products
+  has_many :liquidations, :through => :liquidation_products
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -149,11 +151,11 @@ class Product < ActiveRecord::Base
       xml.tag!(:category, category)
     end
   end
-
-  #TODO: verify if the product is part of an active liquidation
-  #def liquidation?
-  #  LiquidationService.active.resume[:products_ids] 
-  #end
+  
+  def liquidation?
+    active_liquidation = LiquidationService.active
+    active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
+  end
 
 private
   def create_master_variant

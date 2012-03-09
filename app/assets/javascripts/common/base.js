@@ -192,8 +192,8 @@ $(document).ready(function() {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
   });
-
-  $("div.box_product div.line ol li a.product_color").mouseenter(function() {
+  
+  $("div.box_product div.line ol li a.product_color").live("mouseenter", function() {
     $(this).parents("ol").find("li a").removeClass("selected");
     $(this).addClass("selected");
     productBox = $(this).parents(".box_product");
@@ -210,7 +210,7 @@ $(document).ready(function() {
     }
   });
 
-  $("li.promotion div.box_product div.line ol li a.product_color").mouseenter(function() {
+  $("li.promotion div.box_product div.line ol li a.product_color").live("mouseenter", function() {
     productBox = $(this).parents(".box_product");
     percentageBox = $(productBox).find("a.product_link").find("p.percentage");
     percentage = $(this).parent().find("input[type='hidden'].percentage").val();
