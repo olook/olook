@@ -8,7 +8,7 @@ describe "The member controller" do
       {get: member_invite_path}.should route_to("members#invite")
     end
     it "should include a named route to accept invitations" do
-      {get: accept_invitation_path}.should route_to("home#index")
+      {get: accept_invitation_path}.should route_to("members#accept_invitation")
     end
   end
 
