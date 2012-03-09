@@ -108,4 +108,25 @@ describe Invite do
       Invite.accepted.should == [subject]
     end
   end
+
+  describe ".find_inviter" do
+    let!(:invitee) { FactoryGirl.create(:user) }
+
+    context "when the invitee has no inviter" do
+      it "returns nil" do
+        described_class.find_inviter(invitee).should be_nil
+      end
+    end
+
+    context "when the invitee has one inviter" do
+      before do
+        subject.accept_invitation(invitee)
+      end
+
+      it "returns its inviter" do
+        described_class.find_inviter(invitee).should == subject.user
+      end
+    end
+  end
+
 end
