@@ -10,19 +10,20 @@ module EmailMarketing
                  :invalid_emails => "invalidemails.get.xml",
                  :spam_reports => "spamreports.get.xml",
                  :unsubscribes => "unsubscribes.get.xml",
-                 :blocks => "blocks.get.xml"
+                 :blocks => "blocks.get.xml",
+                 :bounces => "bounces.get.xml"
                }
 
     attr_reader :request, :response
 
-    def initialize(name, options = nil)
+    def initialize(name, options = {})
       raise ArgumentError, "Service #{name} is not supported" unless SERVICES.include?(name)
-
-      @user         = options && options.include?(:username) ? options[:username] : API_USER
-      @password     = options && options.include?(:password) ? options[:password] : API_KEY
+      user         = options.delete(:username) || API_USER
+      password     = options.delete(:password) || API_KEY
       @service_name = name.to_sym
       @request      = HTTPI::Request.new
-      @request.url  = "#{BASE_URL}/#{SERVICES[@service_name]}?api_user=#{@user}&api_key=#{@password}"
+      params        = build_params(options)
+      @request.url  = "#{BASE_URL}/#{SERVICES[@service_name]}?api_user=#{user}&api_key=#{password}#{params}"
       @response     = HTTPI.get(@request)
     end
 
@@ -31,5 +32,14 @@ module EmailMarketing
       name = @service_name.to_s.delete("_")
       response_hash[name][name.chop] if response_hash
     end
+
+    private
+
+    def build_params(options)
+      options.map do |k,v|
+        "&#{k}=#{v}"
+      end.join
+    end
+
   end
 end

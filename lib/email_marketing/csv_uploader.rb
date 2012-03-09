@@ -119,6 +119,8 @@ module EmailMarketing
         responses += SendgridClient.new(list, :username => "olook").parsed_response
         responses += SendgridClient.new(list, :username => "olook2").parsed_response
       end
+      responses += SendgridClient.new(:bounces, :username => "olook", :type => "hard").parsed_response
+      responses += SendgridClient.new(:bounces, :username => "olook2", :type => "hard").parsed_response
       responses.map { |item| item["email"] }
     end
 

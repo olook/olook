@@ -12,21 +12,6 @@ describe MembersController do
     sign_in user
   end
 
-  describe "#invite" do
-    use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
-
-    it "should show the member invite page" do
-      get :invite
-      response.should render_template("invite")
-      assigns(:user).should eq(user)
-    end
-
-    it "should assign @facebook_app_id" do
-      get :invite
-      assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
-    end
-  end
-
   describe "GET welcome" do
     context "when user is an old one (created 1 day ago)" do
       let(:user) { FactoryGirl.create :user, :created_at => (Time.now - 1.day) }
@@ -107,47 +92,6 @@ describe MembersController do
     it "should not redirect to facebook_connect_path if the user has a valid token" do
       get :showroom
       response.should_not redirect_to(facebook_connect_path)
-    end
-  end
-
-  describe "#accept_invitation should redirect to root" do
-    describe "and show error message" do
-      it "when receiving a blank token" do
-        get :accept_invitation, :invite_token => ''
-        response.should redirect_to(root_path)
-      end
-      it "when receiving a token with invalid format" do
-        get :accept_invitation, :invite_token => 'xx'
-        response.should redirect_to(root_path)
-      end
-      it "when receiving a token that doesn't exist" do
-        get :accept_invitation, :invite_token => 'x'*20
-        response.should redirect_to(root_path)
-      end
-    end
-
-    describe 'with the inviting member information in the session' do
-      let(:inviting_member) { FactoryGirl.create(:member) }
-
-      it "when receiving a valid token" do
-        get :accept_invitation, :invite_token => inviting_member.invite_token
-        response.should redirect_to(root_path)
-        session[:invite].should == {:invite_token => inviting_member.invite_token,
-                                    :invited_by => inviting_member.name}
-      end
-
-      describe "when passing query string parameters" do
-        it "redirects and pass a generic param" do
-          get :accept_invitation, :invite_token => inviting_member.invite_token, :utm_source => 'olook'
-          response.location.should match(/\?.*utm_source=olook/)
-        end
-
-        it "redirects and does not pass invite_token" do
-          get :accept_invitation, :invite_token => inviting_member.invite_token
-          response.location.should_not match(/\?.*invite_token=w#{inviting_member.invite_token}/)
-        end
-      end
-
     end
   end
 
@@ -245,22 +189,6 @@ describe MembersController do
     before :each do
       user.events.where(:event_type => EventType::FIRST_VISIT).destroy_all
       FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook)
-    end
-
-    it "should record first visit for member user" do
-      get :invite
-      user.events.where(:event_type => EventType::FIRST_VISIT).should_not be_empty
-    end
-
-    it "should assign true for @is_the_first_visit" do
-      get :invite
-      assigns(:is_the_first_visit).should eq(true)
-    end
-
-    it "should not assign true for @is_the_first_visit" do
-      user.record_first_visit
-      get :invite
-      assigns(:is_the_first_visit).should_not eq(true)
     end
 
     it "should assign true for @is_the_first_visit" do

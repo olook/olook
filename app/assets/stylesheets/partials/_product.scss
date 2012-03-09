@@ -1,7 +1,7 @@
 li.product {
   margin: 0 0 2px 0;
   padding: 10px;
-  overflow: auto;
+  overflow: hidden;
   display: inline-block;
   float: left;
   .box_product {
@@ -130,6 +130,7 @@ li.product {
 #showroom, #lookbooks {
   li.product {
     width: 175px;
+    height: 275px;
     .box_product {
       a.product_link {
         p.warn {
