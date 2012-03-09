@@ -227,8 +227,10 @@ describe MarketingReports::Builder do
   end
 
   describe "#generate_paid_online_marketing" do
+    let(:date) { Date.today }
+
     let(:header) do
-     "utm_source,utm_medium,utm_campaign,utm_content,total_registrations,total_orders,total_revenue_without_discount,total_revenue_with_discount\n"
+     "date,utm_source,utm_medium,utm_campaign,utm_content,total_registrations,total_orders,total_revenue_without_discount,total_revenue_with_discount\n"
     end
 
     it "shows a csv header with tracking attributes" do
@@ -241,8 +243,8 @@ describe MarketingReports::Builder do
       let!(:user_b) { FactoryGirl.create(:member) }
       let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a) }
       let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b) }
-      let!(:tracking_a) { FactoryGirl.create(:google_tracking, :user => user_a) }
-      let!(:tracking_b) { FactoryGirl.create(:google_tracking, :user => user_b) }
+      let!(:tracking_a) { FactoryGirl.create(:google_tracking, :user => user_a, :created_at => date) }
+      let!(:tracking_b) { FactoryGirl.create(:google_tracking, :user => user_b, :created_at => date) }
 
       before do
         order_a.payment.billet_printed
@@ -254,11 +256,11 @@ describe MarketingReports::Builder do
       end
 
       let :tracking_data do
-        "google,#{tracking_a.placement},,,2,2,100.0,200.0"
+        "#{date},google,#{tracking_a.placement},,,2,2,100.0,200.0"
       end
 
       it "includes a row with google total registrations, total orders and revenue grouped by placement" do
-        subject.generate_paid_online_marketing
+        subject.generate_paid_online_marketing(date, date + 1.day)
         subject.csv.should match(/^#{header}#{tracking_data}/)
       end
     end
@@ -268,8 +270,8 @@ describe MarketingReports::Builder do
       let!(:user_d) { FactoryGirl.create(:member) }
       let!(:order_c) { FactoryGirl.create(:clean_order, :user => user_c) }
       let!(:order_d) { FactoryGirl.create(:clean_order, :user => user_d) }
-      let!(:tracking_c) { FactoryGirl.create(:tracking, :user => user_c) }
-      let!(:tracking_d) { FactoryGirl.create(:tracking, :user => user_d) }
+      let!(:tracking_c) { FactoryGirl.create(:tracking, :user => user_c, :created_at => date) }
+      let!(:tracking_d) { FactoryGirl.create(:tracking, :user => user_d, :created_at => date) }
 
       before do
         order_c.payment.billet_printed
@@ -281,11 +283,11 @@ describe MarketingReports::Builder do
       end
 
       let :tracking_data do
-        "#{tracking_c.utm_source},#{tracking_c.utm_medium},#{tracking_c.utm_campaign},#{tracking_c.utm_content},2,2,100.0,200.0"
+        "#{date},#{tracking_c.utm_source},#{tracking_c.utm_medium},#{tracking_c.utm_campaign},#{tracking_c.utm_content},2,2,100.0,200.0"
       end
 
       it "includes a row with other sources total registrations, total orders and revenue grouped by utm params" do
-        subject.generate_paid_online_marketing
+        subject.generate_paid_online_marketing(date, date + 1.day)
         subject.csv.should match(/^#{header}#{tracking_data}/)
       end
     end
