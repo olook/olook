@@ -25,25 +25,25 @@ describe Invite do
 
   describe "unsent scope" do
     it "should contain only unsent invites" do
-      Invite.unsent.should == [subject]
+      described_class.unsent.should == [subject]
     end
 
     it "should not contain sent invites" do
       subject.sent_at = Time.now
       subject.save
-      Invite.unsent.should be_empty
+      described_class.unsent.should be_empty
     end
   end
 
   describe "sent scope" do
     it "should not contain unsent invites" do
-      Invite.sent.should be_empty
+      described_class.sent.should be_empty
     end
 
     it "should only contain sent invites" do
       subject.sent_at = Time.now
       subject.save
-      Invite.sent.should == [subject]
+      described_class.sent.should == [subject]
     end
   end
 
@@ -56,31 +56,31 @@ describe Invite do
     end
   end
 
-  let(:accepting_member) { FactoryGirl.create(:member, :first_name => 'Accepting') }
+  let(:invitee) { FactoryGirl.create(:member, :first_name => 'Accepting') }
 
   describe "invite status" do
     context "when the user accept the invite" do
       it "should return yes" do
         user = subject.user
-        subject.accept_invitation(accepting_member)
-        Invite.status_for_user_invite(user.id, subject).should eq(Invite::STATUS[:yes])
+        subject.accept_invitation(invitee)
+        described_class.status_for_user_invite(user.id, subject).should eq(Invite::STATUS[:yes])
       end
     end
 
     context "when the user didnt accept the invite" do
       it "should return no" do
         user = subject.user
-        Invite.status_for_user_invite(user.id, subject).should eq(Invite::STATUS[:no])
+        described_class.status_for_user_invite(user.id, subject).should eq(Invite::STATUS[:no])
       end
     end
 
     context "when the user already accepted the invite from another user" do
       it "should return accepted" do
         invite = FactoryGirl.create(:invite, :email => subject.email)
-        accepting_user = FactoryGirl.create(:user)
-        invite.accept_invitation(accepting_user)
-        subject.accept_invitation(accepting_member)
-        Invite.status_for_user_invite(subject.user.id, subject).should eq(Invite::STATUS[:accepted])
+        another_invitee = FactoryGirl.create(:user)
+        invite.accept_invitation(another_invitee)
+        subject.accept_invitation(invitee)
+        described_class.status_for_user_invite(subject.user.id, subject).should eq(Invite::STATUS[:accepted])
       end
     end
   end
@@ -91,21 +91,21 @@ describe Invite do
     it "should store the accepting member" do
       Time.stub(:now).and_return(accepting_datetime)
 
-      subject.accept_invitation(accepting_member)
+      subject.accept_invitation(invitee)
 
-      subject.invited_member.should == accepting_member
+      subject.invited_member.should == invitee
       subject.accepted_at.should == accepting_datetime
     end
   end
 
   describe "accepted scope" do
     it "should not contain unaccepted invites" do
-      Invite.accepted.should be_empty
+      described_class.accepted.should be_empty
     end
 
     it "should only contain accepted invites" do
-      subject.accept_invitation(accepting_member)
-      Invite.accepted.should == [subject]
+      subject.accept_invitation(invitee)
+      described_class.accepted.should == [subject]
     end
   end
 
