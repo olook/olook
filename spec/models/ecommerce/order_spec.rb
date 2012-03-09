@@ -377,6 +377,39 @@ describe Order do
     end
   end
 
+
+  describe "#reimburse_user" do
+    let(:user) { FactoryGirl.create(:member)}
+
+    before do
+      subject.user = user
+      subject.save!
+    end
+
+    context "when order has no credits" do
+      before do
+        subject.update_attribute(:credits, nil)
+      end
+
+      it "does not increase user credit" do
+        Credit.should_not_receive(:increase)
+        subject.reimburse_credit
+      end
+    end
+
+    context "when order has credit" do
+      before do
+        subject.update_attribute(:credits, BigDecimal.new("1.24"))
+      end
+
+      it "does increase user credit by order credits amount" do
+        Credit.should_receive(:increase).with(subject.credits, subject.user, subject)
+        subject.reimburse_credit
+      end
+
+    end
+  end
+
   describe "State machine transitions" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
@@ -427,12 +460,6 @@ describe Order do
     end
 
     context "when the order is refused" do
-      it "should send a notification for payment canceled" do
-        subject.should_receive(:send_notification_payment_refused)
-        subject.waiting_payment
-        subject.canceled
-      end
-
       it "should send a notification for payment refused" do
         subject.should_receive(:send_notification_payment_refused)
         subject.waiting_payment
@@ -441,6 +468,24 @@ describe Order do
         subject.reversed
       end
     end
+
+    context "when the order is canceled" do
+      it "should send a notification for payment canceled" do
+        subject.stub(:reimburse_credit)
+        subject.should_receive(:send_notification_payment_refused)
+        subject.waiting_payment
+        subject.canceled
+      end
+
+      it "should reimburse the used credit" do
+        subject.stub(:send_notification_payment_refused)
+        subject.should_receive(:reimburse_credit)
+        subject.waiting_payment
+        subject.canceled
+      end
+
+    end
+
   end
 
   describe "Notifications mailer" do
@@ -615,4 +660,5 @@ describe Order do
       transition.to.should == "authorized"
     end
   end
+
 end
