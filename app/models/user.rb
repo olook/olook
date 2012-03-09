@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
     end.compact
   end
 
+  def inviter
+    Invite.find_inviter(self) if is_invited?
+  end
+
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token!(token)
     accepted_invite = inviting_member.invite_for(email) || inviting_member.invites.create(:email => email, :sent_at => Time.now)
