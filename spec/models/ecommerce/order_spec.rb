@@ -391,8 +391,8 @@ describe Order do
         subject.update_attribute(:credits, nil)
       end
 
-      it "does not increase user credit" do
-        Credit.should_not_receive(:increase)
+      it "does not add to user credit" do
+        Credit.should_not_receive(:add)
         subject.reimburse_credit
       end
     end
@@ -403,10 +403,24 @@ describe Order do
       end
 
       it "does increase user credit by order credits amount" do
-        Credit.should_receive(:increase).with(subject.credits, subject.user, subject)
+        Credit.should_receive(:add).with(subject.credits, subject.user, subject)
         subject.reimburse_credit
       end
 
+    end
+  end
+
+    describe "#add_credit_to_inviter" do
+    let(:user) { FactoryGirl.create(:member)}
+
+    before do
+      subject.user = user
+      subject.save!
+    end
+
+    it "add credit to the inviter" do
+      Credit.should_receive(:add_for_inviter).with(subject.user, subject)
+      subject.add_credit_to_inviter
     end
   end
 
