@@ -8,7 +8,7 @@ describe Credit do
 
   let(:user) { FactoryGirl.create(:member) }
 
-  describe "adding invite bonus for user" do
+  describe "adding invite bonus for invited user (invitee)" do
 
     context "when user is not invited" do
       before do
@@ -52,10 +52,47 @@ describe Credit do
 
         it "creates a record with invite_bonus source" do
           described_class.add_invite_bonus_for_invitee(user)
-          user.credits.last.source.should == "invite_bonus"
+          user.credits.last.source.should == "inviter_bonus"
         end
       end
     end
+  end
+
+  describe "adding bonus for a inviter after invitee completes an order" do
+    let(:inviter) { FactoryGirl.create(:member) }
+    let(:order) {FactoryGirl.create(:order, :user => user)}
+
+    context "when the user is not invited" do
+      before do
+        user.update_attribute(:is_invited,false)
+      end
+
+      it "returns false" do
+        described_class.add_invite_bonus_for_inviter(user, order).should be_false
+      end
+    end
+
+    context "when the user is invited (accepted and invitation from an inviter)" do
+      let(:invite) { FactoryGirl.create(:invite, :user => inviter)}
+
+      before do
+        invite.accept_invitation(user)
+        user.update_attribute(:is_invited,true)
+      end
+
+      it "updates his inviter current_credit by 10.00" do
+        expect {
+            described_class.add_invite_bonus_for_inviter(user, order)
+          }.to change(inviter, :current_credit).by(10)
+      end
+
+      it "creates a record with invitee_bonus source" do
+        described_class.add_invite_bonus_for_inviter(user, order)
+        inviter.credits.last.source.should == "invitee_bonus"
+      end
+
+    end
+
   end
 
   describe "spending credit" do
@@ -95,9 +132,9 @@ describe Credit do
 
       end
 
-
-
     end
   end
+
+
 
 end
