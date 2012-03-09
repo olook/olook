@@ -199,6 +199,30 @@ describe User do
     end
   end
 
+  describe "#inviter" do
+    context "when user is not invited by anyone" do
+      before do
+        subject.update_attribute(:is_invited, false)
+      end
+
+      it "returns false" do
+        subject.inviter.should be_false
+      end
+    end
+
+    context "when user is invited by another user" do
+      before do
+        subject.update_attribute(:is_invited, true)
+      end
+
+      it "finds his inviter and return it" do
+        inviter = mock(:inviter)
+        Invite.should_receive(:find_inviter).with(subject).and_return(inviter)
+        subject.inviter.should == inviter
+      end
+    end
+  end
+
   describe "#accept_invitation_with_token" do
     context "with a valid token" do
       let(:inviting_member) { FactoryGirl.create(:member) }
@@ -221,7 +245,7 @@ describe User do
     end
   end
 
-  describe "instance methods" do
+  describe "#surver_answers" do
     it "should return user answers" do
       survey_answers = FactoryGirl.create(:survey_answers, user: subject)
       subject.survey_answers.should == survey_answers.answers
