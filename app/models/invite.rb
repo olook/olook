@@ -36,4 +36,8 @@ class Invite < ActiveRecord::Base
       STATUS[:yes]
     end
   end
+
+  def self.find_inviter(invitee)
+    self.find_by_invited_member_id(invitee.id).try(:user)
+  end
 end
