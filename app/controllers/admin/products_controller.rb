@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Admin::ProductsController < Admin::BaseController
-  
-  load_and_authorize_resource
 
+  load_and_authorize_resource
+  before_filter :load_products, :only => [:index, :sync_products]
   respond_to :html
 
   def index
-    @products = Product.all
+    @sync_event = SynchronizationEvent.new
     respond_with :admin, @products
   end
 
@@ -52,6 +52,15 @@ class Admin::ProductsController < Admin::BaseController
     respond_with :admin, @product
   end
 
+  def sync_products
+    @sync_event = SynchronizationEvent.new(:name => 'products')
+    if @sync_event.save
+      redirect_to admin_products_path
+    else
+      render :index
+    end
+  end
+
   def add_related
     @product =  Product.find(params[:id])
     product_to_relate = Product.find(params[:related_product][:id])
@@ -67,4 +76,11 @@ class Admin::ProductsController < Admin::BaseController
 
     redirect_to admin_product_path(@product)
   end
+
+  private
+
+  def load_products
+    @products = Product.all
+  end
 end
+
