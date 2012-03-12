@@ -410,7 +410,6 @@ describe Product do
     end
 
     it "should return the normal price if the product is not part of an active liquidation" do
-      #subject.product.retail_price.should == 100.9
       pending
     end
   end
