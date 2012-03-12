@@ -8,7 +8,6 @@ module Abacos
       @quantidade             = line_item.quantity
       @preco_unitario         = "%.2f" % ( ( line_item.variant.product.liquidation? ) ? line_item.variant.product.retail_price : line_item.price )
       @preco_unitario_bruto   = "%.2f" % line_item.price
-
     end
 
     def parsed_data
