@@ -229,8 +229,18 @@
           &.price {
             color: #e05789;
             font-size: 45px;
+            line-height: 40px;
             letter-spacing: -4px;
             text-align: center;
+            margin-bottom: 20px;
+          }
+          &.price_retail {
+            color: #838383;
+            font-size: 25px;
+            letter-spacing: -2px;
+            text-decoration: line-through;
+            text-align: center;
+            margin-bottom: 0;
           }
         }
       }
