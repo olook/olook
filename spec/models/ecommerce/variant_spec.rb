@@ -146,7 +146,13 @@ describe Variant do
         subject.product.stub(:retail_price).and_return(2.99)
         subject.retail_price.should == 2.99
       end
-   end
+    end
+    describe "#liquidation?" do
+      it "should return the product's liquidation?" do
+        subject.product.stub(:liquidation?).and_return(true)
+        subject.liquidation?.should == true
+      end
+    end
     describe "#main_picture" do
       it "should return the product's main picture" do
         subject.product.stub(:main_picture).and_return(:main)
