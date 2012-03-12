@@ -4,7 +4,12 @@ class Admin::ProductsController < Admin::BaseController
 
   def index
     @products = Product.paginate(:page => params[:page], :per_page => 5)
+
     respond_with :admin, @products
+  end
+
+  def profiles
+    @products = Product.load_products(params[:search])
   end
 
   def show

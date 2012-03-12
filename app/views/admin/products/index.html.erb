@@ -1,5 +1,23 @@
 <h2>Listing products</h2>
 
+<!--
+<%# #content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%# form_tag admin_profiles_path, :method => 'get' do %>
+        <p>
+          <%# text_field_tag :search, params[:search] %>
+          <%# submit_tag "Search", :name => nil %>
+        </p>
+      <%# end %>
+
+    </div>
+  </div>
+<%# end %>
+-->
+
 <div class="inner">
   <table class="table">
     <tr>
@@ -10,6 +28,8 @@
       <th>Price</th>
       <th>Inventory</th>
       <th>Color</th>
+      <th>Color</th>
+      <th>Profile</th>
       <th>Picture</th>
       <th>Sample</th>
       <th></th>
@@ -26,6 +46,7 @@
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
+      <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
@@ -34,8 +55,11 @@
   <% end %>
   </table>
 
-  <%= will_paginate @products %>
-
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @products %>
+    </div>
+  </div>
 
   <br />
 </div>

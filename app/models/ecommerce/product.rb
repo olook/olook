@@ -166,4 +166,14 @@ private
   def update_master_variant
     master_variant.save!
   end
+
+  def self.load_products(search)
+    if search
+      profile = Profile.find_by_name(search).paginate(:page => params[:page], :per_page => 5)
+      profile.products
+    else
+      Product.paginate(:page => params[:page], :per_page => 5)
+    end
+    redirect_to profiles_path
+  end
 end

@@ -17,8 +17,8 @@ class Profile < ActiveRecord::Base
     "feminine" => 'Vaidosa, Romântica, Alegre e Delicada',
     "sexy" => 'Sexy, Extravagante, Segura e Vivaz',
     "traditional" => 'Sofisticada, Conservadora, Discreta e Clássica',
-    "trendy" => 'Segura, Ousada, Sexy e Moderna' 
-  } 
+    "trendy" => 'Segura, Ousada, Sexy e Moderna'
+  }
 
   GOOGLE_CONVERSION_LABEL =
   {
@@ -30,4 +30,5 @@ class Profile < ActiveRecord::Base
     :traditional => "ij-JCPnjyAIQn-uR5QM",
     :trendy => "Ul-eCPHkyAIQn-uR5QM"
   }
+
 end
