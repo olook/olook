@@ -44,7 +44,7 @@ describe InviteBonus do
 
       context "invites accepted after 1st Mar 2012" do
         before :each do
-          build_invites( DateTime.civil(2012, 03, 02, 0, 0, 0) )
+          build_invites( DateTime.civil(2012, 03, 14, 0, 0, 0) )
         end
 
         it "returns 0" do
