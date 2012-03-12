@@ -1,8 +1,10 @@
 ActionMailer::Base.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :user_name            => 'avisos@olook.com.br',
-  :password             => 'olook465Ol',
-  :authentication       => 'plain',
-  :enable_starttls_auto => true
+  :user_name => "olook2",
+  :password => "olook123abc",
+  :domain => "my.olookmail.com",
+  :address => "smtp.sendgrid.net",
+  :port => 587,
+  :authentication => :plain,
+  tls: true,
+  enable_starttls_auto: true
 }
