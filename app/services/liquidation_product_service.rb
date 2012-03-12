@@ -2,8 +2,8 @@ class LiquidationProductService
 
   def self.retail_price product
     price = product.price
-    if liquidation=product.liquidation?
-      liquidation_product = liquidation.liquidation_products.where(:product_id => product.id).first
+    if product.liquidation?
+      liquidation_product = LiquidationService.active.liquidation_products.where(:product_id => product.id).first
       price = liquidation_product.retail_price if liquidation_product
     end
     price
