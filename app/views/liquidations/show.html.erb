@@ -9,9 +9,9 @@
 
   <% content_for :full do %>
     <div class="content">
-      <h1>Olooket</h1>
-      <h2>Até 70% de desconto</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis leo metus, quis feugiat odio. Quisque adipiscing faucibus ligula, nec fringilla ligula ultricies ut.</p>
+      <h1><%= @liquidation.name %></h1>
+      <h2><%= @liquidation.teaser %></h2>
+      <p><%= @liquidation.description %></p>
       <%= render "carousel" %>
     </div>
   <% end %>
