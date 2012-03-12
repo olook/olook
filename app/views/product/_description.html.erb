@@ -4,7 +4,7 @@
   <p class="description"><%= @product.description %></p>
   <% if @product.liquidation? %>
     <p class="price_retail">de: <%= number_to_currency @product.price %></p>
-    <p class="price">por: <%= number_to_currency @product.price %></p>
+    <p class="price">por: <%= number_to_currency @product.retail_price %></p>
   <% else %>
     <p class="price"><%= number_to_currency @product.price %></p>
   <% end %>
