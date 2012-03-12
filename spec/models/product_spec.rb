@@ -403,4 +403,16 @@ describe Product do
     end
   end
 
+  describe "#retail_price" do
+    subject { FactoryGirl.create(:basic_bag_simple, :price => 100.9 ) } #variant
+    it "should return the retail price if the product is part of an active liquidation" do
+      pending
+    end
+
+    it "should return the normal price if the product is not part of an active liquidation" do
+      #subject.product.retail_price.should == 100.9
+      pending
+    end
+  end
+
 end
