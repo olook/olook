@@ -1,0 +1,15 @@
+<div class="filter">
+  <h1 class="shoes">Sapatos</h1>
+  <ol>
+    <% liquidation_presenter.liquidation.resume[:categories][Category::SHOE].each do |key, value| %>
+      <li>
+        <%= check_box_tag('subcategories[]', key) %>
+        <label><%= value %></label>
+      </li>
+    <% end %>
+  </ol>
+</div>
+
+
+
+

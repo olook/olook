@@ -7,6 +7,24 @@ namespace :db do
   task :update_friend_questions => :environment  do
     update_friend_questions
   end
+
+  task :load_fake_liquidation => :environment do
+    LiquidationProduct.delete_all
+    resume =  {:products_ids=>[100, 10], :categories=>{1=>{"sandalia"=>"Sandália", "rasteira"=>"Rasteira"}, 2=>{"tate" => "Tate", "bau" => "Baú"}, 3 => {"joia" => "Jóia", "brinco" => "Brinco"}}, :heels=>{"baixo"=>"Baixo", "medio" => "Médio", "6.5" => "6.5"}, :shoe_sizes=>{"33"=>33, "34"=>34, "35"=>35, "36"=>36, "37"=>37, "38"=>38, "39"=>39, "40"=>40}}
+
+    liquidation = Liquidation.create(:name => "OlookLet", :resume => resume)
+
+    Product.shoes[0..40].each do |product|
+      LiquidationProduct.create(:liquidation_id => liquidation.id,
+                                :product_id => product.id,
+                                :subcategory_name => ["rasteira", "sandalia"].shuffle.first,
+                                :original_price => [99.90, 85.90, 129.90].shuffle.first,
+                                :retail_price => [49.90, 55.90, 89.90].shuffle.first,
+                                :shoe_size => [33, 34, 35, 36, 37, 38, 39, 40],
+                                :heel => ["baixo", "medio"].shuffle.first,
+                                :category_id => Category::SHOE)
+    end
+  end
 end
 
 def create_contact_subjects
