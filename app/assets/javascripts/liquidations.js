@@ -19,6 +19,11 @@ jQuery(function() {
       $(this).html("");
     });
   });
+
+  $('form').find("input[type='checkbox']").click(function() {
+    $(this).parent().submit();
+  });
+
   if ($('.pagination').length) {
     $(window).scroll(function() {
       var url;
