@@ -3,7 +3,7 @@ class Admin::CollectionsController < Admin::BaseController
   respond_to :html
 
   def index
-    @collections = Collection.all.sort.reverse
+    @collections = Collection.order("start_date desc").all
     respond_with :admin, @collections
   end
 
