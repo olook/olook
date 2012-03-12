@@ -70,6 +70,7 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    @lightbox = LiquidationService.active.lightbox_banner_url if !LiquidationService.active.nil?
     @url = request.protocol + request.host
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
