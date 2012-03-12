@@ -1,0 +1,16 @@
+<div class="dialog liquidation">
+  <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
+  <%= image_tag @lightbox %>
+  <div class="check">
+    <%= form_tag "#" do %>
+      <fieldset>
+        <ul>
+          <li>
+            <%= check_box_tag "test" %>
+            <%= label_tag "Não mostrar esse aviso novamente" %>
+          </li>
+        </ul>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

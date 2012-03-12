@@ -46,6 +46,21 @@ html {
         img {
           display: none;
         }
+        &.liquidation {
+          height: auto;
+          img {
+            display: block;
+          }
+          div.check {
+            background: #000;
+            padding: 10px 0 5px 10px;
+            label {
+              color: #fafafa;
+              font-family: "Open Sans", sans-serif;
+              font-size: 13px;
+            }
+          }
+        }
         #close_dialog {
           position: absolute;
           background: url('/assets/common/close_dialog.png') no-repeat;
