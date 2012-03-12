@@ -94,7 +94,14 @@
               <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
             <% end %>
           </td>
-          <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
+          <td class="value">
+            <% if item.variant.product.liquidation? %>
+              <p class="price_retail"><strong>de: <%= number_to_currency(item.variant.price) %></strong></p>
+              <p><strong>por: <%= number_to_currency(item.variant.product.retail_price) %></strong></p>
+            <% else %>
+              <p><strong><%= number_to_currency(item.variant.price) %></strong></p>
+            <% end %>
+          </td>
           <td class="delete_item" valign="middle">
             <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
