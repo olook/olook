@@ -157,6 +157,10 @@ class Product < ActiveRecord::Base
     active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
   end
 
+  def retail_price
+    LiquidationProductService.retail_price(self)
+  end
+
 private
   def create_master_variant
     @master_variant = Variant.new(:is_master => true,

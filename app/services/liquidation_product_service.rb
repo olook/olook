@@ -1,4 +1,14 @@
 class LiquidationProductService
+
+  def self.retail_price product
+    price = product.price
+    if product.liquidation?
+      liquidation_product = LiquidationService.active.liquidation_products.where(:product_id => product.id).first
+      price = liquidation_product.retail_price if liquidation_product
+    end
+    price
+  end
+
   def initialize liquidation, product, discount_percent=nil, collections=[]
     @liquidation = liquidation
     @product = product
