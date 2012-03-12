@@ -2,11 +2,10 @@ class Liquidation < ActiveRecord::Base
   has_many :liquidation_products
   has_many :liquidation_carousels
   serialize :resume
-  #validates_presence_of :name, :description
-  #validates_length_of :description, :maximum => 100
+  validates_presence_of :name, :description, :starts_at, :ends_at
+  validates_length_of :description, :maximum => 100
   mount_uploader :welcome_banner, ImageUploader
   mount_uploader :lightbox_banner, ImageUploader
-
 
   validate :validate_if_change_on_period_conflicts_existing_products
 
