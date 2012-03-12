@@ -7,10 +7,17 @@ class LiquidationsController < ApplicationController
 
   def show
     @liquidation = Liquidation.find(params[:id])
-    @liquidation_products = LiquidationProduct.joins(:product).
-                                               where("liquidation_id = ?", @liquidation.id).
-                                               paginate(:page => params[:page], :per_page => 15).order('category_id asc').
-                                               group("product_id")
+
+    liquidation_products = LiquidationProduct.arel_table
+
+    @liquidation_products = LiquidationProduct.joins(:product)
+                                              .where(liquidation_products[:liquidation_id].eq(@liquidation.id))
+                                              .order('category asc')
+                                              .paginate(:page => params[:page], :per_page => 12).order('category_id asc')
+                                              .group("product_id")
+
+
+
     respond_with @liquidation_products
   end
 
@@ -21,14 +28,18 @@ class LiquidationsController < ApplicationController
     shoe_sizes = params[:shoe_sizes] if params[:shoe_sizes]
     heels = params[:heels] if params[:heels]
 
+    liquidation_products = LiquidationProduct.arel_table
 
-    @liquidation_products = LiquidationProduct.joins(:product).where("liquidation_id = ? AND
-                                                                      (subcategory_name IN (?) OR
-                                                                      shoe_size IN (?) OR
-                                                                      heel IN (?))", params[:id], subcategories, shoe_sizes, heels).
-                                                                      order('category_id asc').
-                                                                      group("product_id").
-                                                                      paginate(:page => params[:page], :per_page => 12)
+    @liquidation_products = LiquidationProduct.joins(:product)
+                                              .where(liquidation_products[:liquidation_id].eq(@liquidation.id)
+                                              .and(liquidation_products[:subcategory_name].in(params[:subcategories])
+                                              .or(liquidation_products[:shoe_size].in(params[:shoe_sizes])
+                                              .or(liquidation_products[:heel].in(params[:heels]))))).order('category asc')
+                                              .group("product_id")
+                                              .paginate(:page => params[:page], :per_page => 12)
+
+
+
     respond_with @liquidation_products
   end
 
