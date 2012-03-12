@@ -188,7 +188,18 @@ section#cart {
           }
         }
         &.value {
-          width: 60px;
+          text-align: center;
+          width: 120px;
+          p {
+            strong {
+              text-transform: none;
+            }
+            &.price_retail {
+              strong {
+                text-decoration: line-through;
+              }
+            }
+          }
         }
         &.delete_item {
           form {
