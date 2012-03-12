@@ -3,7 +3,7 @@ class Admin::ProductsController < Admin::BaseController
   respond_to :html
 
   def index
-    @products = Product.paginate(:page => params[:page], :per_page => 5)
+    @products = Product.paginate(:page => params[:page], :per_page => 50)
 
     respond_with :admin, @products
   end
