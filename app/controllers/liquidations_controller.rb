@@ -23,7 +23,7 @@ class LiquidationsController < ApplicationController
 
   def update
     @liquidation = Liquidation.find(params[:id])
-    @liquidation_products = LiquidationProduct.search_products(params)
+    @liquidation_products = LiquidationSearchService.new(params).search_products
     respond_with @liquidation_products
   end
 
