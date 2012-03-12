@@ -4,7 +4,6 @@ class Admin::CollectionsController < Admin::BaseController
 
   def index
     @collections = Collection.all.sort.reverse
-
     respond_with :admin, @collections
   end
 
