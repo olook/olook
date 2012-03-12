@@ -74,9 +74,13 @@ Olook::Application.routes.draw do
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
 
+  post "user_liquidations", :controller => "user_liquidations", :action => "update"
+
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
+
+
 
   #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
@@ -94,6 +98,7 @@ Olook::Application.routes.draw do
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
+  
   namespace :admin do
     match "/", :to => "index#dashboard"
 
