@@ -23,23 +23,7 @@ class LiquidationsController < ApplicationController
 
   def update
     @liquidation = Liquidation.find(params[:id])
-
-    subcategories = params[:subcategories] if params[:subcategories]
-    shoe_sizes = params[:shoe_sizes] if params[:shoe_sizes]
-    heels = params[:heels] if params[:heels]
-
-    liquidation_products = LiquidationProduct.arel_table
-
-    @liquidation_products = LiquidationProduct.joins(:product)
-                                              .where(liquidation_products[:liquidation_id].eq(@liquidation.id)
-                                              .and(liquidation_products[:subcategory_name].in(params[:subcategories])
-                                              .or(liquidation_products[:shoe_size].in(params[:shoe_sizes])
-                                              .or(liquidation_products[:heel].in(params[:heels]))))).order('category asc')
-                                              .group("product_id")
-                                              .paginate(:page => params[:page], :per_page => 12)
-
-
-
+    @liquidation_products = LiquidationProduct.search_products(params)
     respond_with @liquidation_products
   end
 
