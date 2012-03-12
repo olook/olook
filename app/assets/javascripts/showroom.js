@@ -45,6 +45,11 @@ $(document).ready(function() {
     $('.dialog img').fadeIn('slow');
     initBase.closeDialog();
   }
+
+  $(".dialog.liquidation :checkbox").live("change", function() {
+    checked = $(this).is(":checked");
+    $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
+  });
 });
 
 ShowroomInit = {
