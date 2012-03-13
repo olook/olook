@@ -28,5 +28,10 @@ describe LineItem do
       @line_item.update_attributes(:retail_price => retail_price = 12.90)
       @line_item.total_price.should == @line_item.retail_price * @quantity
     end
+
+    it "should delegate liquidation to variant" do
+      @variant.stub(:liquidation?).and_return(true)
+      @line_item.liquidation?.should be_true
+    end
   end
 end
