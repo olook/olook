@@ -1,5 +1,5 @@
 class LiquidationService
-  attr_accessor :denied_products_ids
+  attr_accessor :denied_products_ids, :nonexisting_products_ids
 
   def self.active
     Liquidation.all.detect do |liquidation|
@@ -9,24 +9,35 @@ class LiquidationService
 
   def initialize liquidation_id
     @liquidation = Liquidation.find(liquidation_id)
-    @denied_products_ids = []
+    @denied_products_ids, @nonexisting_products_ids = [], []
   end
 
   def add products_ids, discount_percent
     products_ids.split(",").each do |product_id|
-      #TODO: verify if the products exists
-      product = Product.find product_id
-      lps = LiquidationProductService.new(
-        @liquidation,
-        product,
-        discount_percent,
-        collections_during_liquidation
-      )
-      unless lps.save
-        @denied_products_ids << product.id
+      if product = find_product(product_id)
+        lps = LiquidationProductService.new(
+          @liquidation,
+          product,
+          discount_percent,
+          collections_during_liquidation
+        )
+        add_to_denied(product.id) unless lps.save
       end
     end
     update_resume
+  end
+
+  def find_product product_id
+    begin
+      product = Product.find(product_id)
+    rescue
+      @nonexisting_products_ids << product_id 
+      nil
+    end
+  end
+
+  def add_to_denied product_id
+    @denied_products_ids << product_id
   end
 
   def update_resume  

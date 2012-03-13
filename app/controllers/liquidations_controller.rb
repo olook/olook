@@ -1,6 +1,9 @@
+# -*- encoding : utf-8 -*-
 class LiquidationsController < ApplicationController
   layout "liquidation"
   respond_to :html, :js
+
+  before_filter :verify_if_active, :only => [:show]
 
   def show
     @liquidation = Liquidation.find(params[:id])
@@ -27,5 +30,14 @@ class LiquidationsController < ApplicationController
                                                                       group("product_id").
                                                                       paginate(:page => params[:page], :per_page => 12)
     respond_with @liquidation_products
+  end
+
+  private
+
+  def verify_if_active
+    if LiquidationService.active.try(:id) != params[:id]
+      flash[:notice] = "A liquidação não está ativa"
+      redirect_to member_showroom_path
+    end
   end
 end

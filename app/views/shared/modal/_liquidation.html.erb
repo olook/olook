@@ -1,8 +1,8 @@
 <div class="dialog liquidation">
   <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
-  <%= image_tag @lightbox %>
+  <%= link_to image_tag(current_liquidation.lightbox_banner_url), liquidations_path(current_liquidation.id) %>
   <div class="check">
-    <%= form_tag "#" do %>
+    <%= form_tag "#", :remote => true do %>
       <fieldset>
         <ul>
           <li>

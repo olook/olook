@@ -12,10 +12,12 @@ class Admin::LiquidationProductsController < Admin::BaseController
       params[:liquidation_products][:discount_percent]
     )
 
-    if @liquidation_service.denied_products_ids.empty?
+    if @liquidation_service.denied_products_ids.empty? && @liquidation_service.nonexisting_products_ids.empty?
       flash[:notice] = "Products added to this liquidation"
     else
-      flash[:warning] = "The following were not added because they are/will be part of a collection during the liquidation period: #{@liquidation_service.denied_products_ids}"
+      flash[:warning] = "The was an error adding some products. <br/>
+       Products that are going to be part of a collection during the liquidation period: #{@liquidation_service.denied_products_ids} <br/>
+       Nonexisting products: #{@liquidation_service.nonexisting_products_ids} ".html_safe
     end
     redirect_to admin_liquidation_products_path(@liquidation.id)
   end
@@ -33,8 +35,11 @@ class Admin::LiquidationProductsController < Admin::BaseController
 
   def destroy
     @liquidation_product = LiquidationProduct.find(params[:id])
-    @liquidation_product.destroy
-    flash[:notice] = "Product removed from liquidation"
+    if @liquidation_product.destroy
+      flash[:notice] = "Product removed from liquidation"
+    else
+      flash[:notice] = "There was an error removing the product"
+    end
     redirect_to admin_liquidation_products_path(@liquidation.id)
   end
 
