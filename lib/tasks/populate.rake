@@ -24,6 +24,26 @@ namespace :db do
                                 :heel => ["baixo", "medio"].shuffle.first,
                                 :category_id => Category::SHOE)
     end
+
+    Product.bags[0..40].each do |product|
+      LiquidationProduct.create(:liquidation_id => liquidation.id,
+                                :product_id => product.id,
+                                :subcategory_name => ["bau", "tate"].shuffle.first,
+                                :original_price => [78.90, 65.90, 89.90].shuffle.first,
+                                :retail_price => [32.90, 34.90, 45.90].shuffle.first,
+                                :category_id => Category::BAG)
+
+    end
+
+    Product.accessories[0..40].each do |product|
+      LiquidationProduct.create(:liquidation_id => liquidation.id,
+                                :product_id => product.id,
+                                :subcategory_name => ["joia", "brinco"].shuffle.first,
+                                :original_price => [68.90, 55.90, 79.90].shuffle.first,
+                                :retail_price => [32.90, 34.90, 45.90].shuffle.first,
+                                :category_id => Category::ACCESSORY)
+
+    end
   end
 end
 
