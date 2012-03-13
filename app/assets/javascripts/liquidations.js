@@ -13,14 +13,19 @@ jQuery(function() {
     }
   });
 
-  $("form").bind("ajax:beforeSend", function(evt, xhr, settings) {
+  $('#liquidation_order_filter').change(function() {
+    $("#liquidation_filter").submit();
+  });
+
+  $('#liquidation_filter').submit(function() {
+    $('#sort_filter').val($("#order_filter").find("option:selected").val());
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow");
       $(this).html("");
     });
   });
 
-  $('form').find("input[type='checkbox']").click(function() {
+  $('#liquidation_filter').find("input[type='checkbox']").click(function() {
     $(this).parent().submit();
   });
 
