@@ -57,31 +57,29 @@ div.full_container {
         overflow: hidden;
         li {
           width: 360px;
-          height: 310px;
+          height: 275px;
+          overflow: hidden;
           float: left;
+          img {
+        
+          }
         }
       }
       a.arrow {
         position: absolute;
-        background: url("/assets/product/arrows.jpg") 0 no-repeat;
+        background: url("/assets/liquidations/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
-        width: 42px;
+        width: 40px;
         height: 235px;
         top: 0;
         display: block;
         &.prev {
           background-position: 0;
           left: 0;
-          &:hover {
-            background-position: -42px;
-          }
         }
         &.next {
-          background-position: -126px;
+          background-position: -40px;
           right: 0;
-          &:hover {
-            background-position: -84px;
-          }
         }
       }
     }
