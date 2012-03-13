@@ -33,7 +33,8 @@ jQuery(function() {
     $(window).scroll(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
-      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 300) {
+      bottomHeight = 500
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) {
         $('.pagination').text("Buscando produtos");
         return $.getScript(url);
       }
