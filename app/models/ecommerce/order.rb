@@ -50,11 +50,11 @@ class Order < ActiveRecord::Base
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
+    after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
+
 
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
-    after_transition :delivering => :delivered, :do => :add_credit_to_inviter
-
 
     after_transition any => :canceled, :do => :send_notification_payment_refused
     after_transition any => :reversed, :do => :send_notification_payment_refused
