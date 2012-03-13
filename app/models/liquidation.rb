@@ -6,7 +6,6 @@ class Liquidation < ActiveRecord::Base
   validates_length_of :description, :maximum => 100
   mount_uploader :welcome_banner, ImageUploader
   mount_uploader :lightbox_banner, ImageUploader
-
   validate :validate_if_change_on_period_conflicts_existing_products
 
   def validate_if_change_on_period_conflicts_existing_products

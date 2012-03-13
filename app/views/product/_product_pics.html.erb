@@ -7,7 +7,7 @@
   <div id="full_pic">
     <p class="warn <%= (@product.sold_out? && user_signed_in?) ? 'sold_out' : '' %>">Esgotado</p>
     <% if @product.liquidation? && !@product.sold_out? %>
-      <p class="warn percentage"><span>80%</span><br />off</p>
+      <p class="warn percentage"><span><%= @product.liquidation_discount_percent.to_i %>%</span><br />off</p>
     <% end %>
     <ul>
       <% @product.pictures.each do |picture| %>

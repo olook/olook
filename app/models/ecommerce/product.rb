@@ -161,6 +161,10 @@ class Product < ActiveRecord::Base
     LiquidationProductService.retail_price(self)
   end
 
+  def liquidation_discount_percent
+    LiquidationProductService.discount_percent(self)
+  end
+
 private
   def create_master_variant
     @master_variant = Variant.new(:is_master => true,
