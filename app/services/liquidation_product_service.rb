@@ -9,6 +9,13 @@ class LiquidationProductService
     price
   end
 
+  def self.discount_percent product
+    if product.liquidation?
+      liquidation_product = LiquidationService.active.liquidation_products.where(:product_id => product.id).first
+      liquidation_product.discount_percent.to_i if liquidation_product
+    end
+  end
+
   def initialize liquidation, product, discount_percent=nil, collections=[]
     @liquidation = liquidation
     @product = product
@@ -99,5 +106,4 @@ class LiquidationProductService
     #@collections.map{|c| c.id }.include? @product.collection_id
     false
   end
-
 end

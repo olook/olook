@@ -1,16 +1,20 @@
-<h2>Liquidação <%= @liquidation.name %></h2>
-
-<%= form_for :liquidation_products do |f| %>
-  <div class="field">
-    <%= f.label :product_ids %>
-    <%= f.text_field :products_ids %>
-    <%= f.label :discount_percent %>
-    <%= f.text_field :discount_percent %>%
-    <%= f.submit "Add" %>
-  </div>
-<% end %>
+<h2><%= link_to "#{@liquidation.name} products", admin_liquidation_path(@liquidation.id) %></h2>
 
 <div class="inner">
+  <%= form_for :liquidation_products do |f| %>
+    <div class="field">
+      <%= f.label :product_ids %>:
+      <%= f.text_field :products_ids, :size => 100 %>
+    </div>
+    <div class="field">
+      <%= f.label :discount_percent %>:
+      <%= f.text_field :discount_percent, :size => 3 %>%
+    </div>
+    <div class="actions">
+      <%= f.submit "Add/update products" %>
+    </div>
+  <% end %>
+  <br/>
   <table class="table">
     <tr>
       <th>Product ID</th>
@@ -26,7 +30,6 @@
       <th></th>
       <th></th>
     </tr>
-
   <% @products.each do |product| %>
     <tr>
       <td><%= product.product_id %></td>
