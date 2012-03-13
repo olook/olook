@@ -1,9 +1,10 @@
 <div id="carousel_container">
   <ul>
-    <li><%= image_tag "fake/showroom-product.png" %></li>
-    <li><%= image_tag "fake/showroom-product.png" %></li>
-    <li><%= image_tag "fake/showroom-product.png" %></li>
-    <li><%= image_tag "fake/showroom-product.png" %></li>
+  	<% params[:carousels].each do |image| %>
+    	<li>
+    	<%= image_tag image.image.try(:url) %>
+    	</li>
+    <% end %>
   </ul>
   <%= link_to "Anterior", "javascript:void(0);", :class => "arrow prev" %>
   <%= link_to "Próximo", "javascript:void(0);", :class => "arrow next" %>

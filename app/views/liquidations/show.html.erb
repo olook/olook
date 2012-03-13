@@ -14,7 +14,7 @@
         <h2><%= @liquidation.teaser %></h2>
         <p><%= @liquidation.description %></p>
       </div>
-      <%= render "carousel" %>
+      <%= render "carousel",  :params => { :carousels => @liquidation.liquidation_carousels } %>
     </div>
   <% end %>
 

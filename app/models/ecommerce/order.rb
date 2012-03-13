@@ -164,7 +164,12 @@ class Order < ActiveRecord::Base
       if current_item
         current_item.update_attributes(:quantity => quantity)
       else
-        current_item =  LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity, :price => variant.price)
+        retail_price = variant.retail_price if variant.liquidation?
+        current_item =  LineItem.new(:order_id => id,
+                                     :variant_id => variant.id,
+                                     :quantity => quantity,
+                                     :price => variant.price,
+                                     :retail_price => retail_price)
         line_items << current_item
       end
       current_item

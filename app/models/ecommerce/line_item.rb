@@ -7,6 +7,6 @@ class LineItem < ActiveRecord::Base
   scope :ordered_by_price, order('line_items.price DESC')
 
   def total_price
-    price * quantity
+    variant.liquidation? ? (retail_price * quantity) : (price * quantity)
   end
 end
