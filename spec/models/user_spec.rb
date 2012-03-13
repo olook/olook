@@ -522,4 +522,69 @@ describe User do
 
   end
 
+  describe "first_buy?" do
+
+    context "when user has no orders" do
+      it "returns false" do
+        subject.first_buy?.should be_false
+      end
+    end
+
+    context "when user has orders" do
+      let(:order) { FactoryGirl.create(:order, :user => subject) }
+
+      context "when user has one order in the cart" do
+        it "returns false" do
+          subject.first_buy?.should be_false
+        end
+      end
+
+      context "when user has one order waiting payment" do
+        it "returns false" do
+          order.waiting_payment
+          subject.first_buy?.should be_false
+        end
+      end
+
+      context "when user has one order authorized" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order being picked" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.picking
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order being delivered" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.picking
+          order.delivering
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has two orders authorized" do
+        let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+
+        it "returns false" do
+          order.waiting_payment
+          order.authorized
+          second_order.waiting_payment
+          second_order.authorized
+          subject.first_buy?.should be_false
+        end
+      end
+    end
+  end
+  
 end

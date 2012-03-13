@@ -36,8 +36,9 @@ class Order < ActiveRecord::Base
   after_create :generate_identification_code
 
   scope :with_payment, joins(:payment)
-
-  scope :purchased , where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
+  scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
+  scope :paid, where("state IN ('picking', 'delivering', 'delivered', 'authorized')")
+  scope :not_in_the_cart, where("state <> 'in_the_cart'")
 
   state_machine :initial => :in_the_cart do
 
