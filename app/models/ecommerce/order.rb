@@ -159,12 +159,18 @@ class Order < ActiveRecord::Base
 
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
     quantity = quantity.to_i
+    debugger
     if variant.available_for_quantity?(quantity)
       current_item = line_items.select { |item| item.variant == variant }.first
       if current_item
         current_item.update_attributes(:quantity => quantity)
       else
-        current_item =  LineItem.new(:order_id => id, :variant_id => variant.id, :quantity => quantity, :price => variant.price)
+        retail_price = variant.retail_price if variant.liquidation?
+        current_item =  LineItem.new(:order_id => id,
+                                     :variant_id => variant.id,
+                                     :quantity => quantity,
+                                     :price => variant.price,
+                                     :retail_price => retail_price)
         line_items << current_item
       end
       current_item

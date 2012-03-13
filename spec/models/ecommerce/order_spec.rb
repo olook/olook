@@ -258,6 +258,21 @@ describe Order do
   context "when the inventory is available" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
+      basic_shoe_40.update_attributes(:inventory => 10)
+    end
+
+    it "should set nil to retail price when the item dont belongs to a liquidation" do
+      subject.add_variant(basic_shoe_40, 1)
+      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
+      line_item.retail_price.should be_nil
+    end
+
+    it "should set the retail price when the item belongs to a liquidation" do
+      basic_shoe_40.stub(:liquidation?).and_return(true)
+      basic_shoe_40.stub(:retail_price).and_return(retail_price = 45.90)
+      subject.add_variant(basic_shoe_40, 1)
+      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
+      line_item.retail_price.should == retail_price
     end
 
     it "should create line items" do
@@ -265,6 +280,7 @@ describe Order do
         subject.add_variant(basic_shoe_35, 10)
       }.to change(LineItem, :count).by(1)
     end
+
 
     it "should not return a nil line item" do
       subject.add_variant(basic_shoe_35, 10).should_not == nil
