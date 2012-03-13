@@ -159,7 +159,6 @@ class Order < ActiveRecord::Base
 
   def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
     quantity = quantity.to_i
-    debugger
     if variant.available_for_quantity?(quantity)
       current_item = line_items.select { |item| item.variant == variant }.first
       if current_item
