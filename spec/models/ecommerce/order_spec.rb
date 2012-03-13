@@ -377,7 +377,6 @@ describe Order do
     end
   end
 
-
   describe "#reimburse_user" do
     let(:user) { FactoryGirl.create(:member)}
 
@@ -464,7 +463,6 @@ describe Order do
 
     context "when the order is delivered" do
       it "should send a notification for payment delivered" do
-        subject.stub(:add_credit_to_inviter)
         subject.should_receive(:send_notification_order_delivered)
         subject.waiting_payment
         subject.authorized
@@ -494,6 +492,14 @@ describe Order do
       end
     end
 
+    context "when the order is refused" do
+      it "should send a notification for payment refused" do
+        subject.should_receive(:send_notification_payment_refused)
+        subject.waiting_payment
+        subject.canceled
+      end
+    end
+
     context "when the order is canceled" do
       it "should send a notification for payment canceled" do
         subject.stub(:reimburse_credit)
@@ -508,7 +514,6 @@ describe Order do
         subject.waiting_payment
         subject.canceled
       end
-
     end
 
   end
@@ -686,5 +691,4 @@ describe Order do
       transition.to.should == "authorized"
     end
   end
-
 end
