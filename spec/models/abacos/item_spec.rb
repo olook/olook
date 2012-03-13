@@ -22,10 +22,10 @@ describe Abacos::Item do
     describe '#parsed_data' do
       let(:expected_data) do
         {
-          'CodigoProduto' => line_item.variant.number,
-          'QuantidadeProduto' => 2,
-          'PrecoUnitario' => '179.90',
-          'PrecoUnitarioBruto' => '179.90'
+          'CodigoProduto' => "#{line_item.variant.number}",
+          'QuantidadeProduto' => line_item.quantity,
+          'PrecoUnitario' => "#{"%.2f" % line_item.price}",
+          'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}"
         }
       end
 
