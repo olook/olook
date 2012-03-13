@@ -167,7 +167,11 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.where("orders.state <> 'in_the_cart'").count > 0
+    self.orders.not_in_the_cart.count > 0
+  end
+
+  def first_buy?
+    self.orders.paid.count == 1
   end
 
   private
