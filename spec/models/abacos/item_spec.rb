@@ -34,4 +34,26 @@ describe Abacos::Item do
       end
     end
   end
+
+  context "with a liquidation" do
+    describe '#parsed_data' do
+      before :each do
+        line_item.variant.stub(:liquidation?).and_return(true)
+        line_item.update_attributes(:retail_price => @retail_price = 12.90)
+      end
+      let(:expected_data) do
+        {
+          'CodigoProduto' => "#{line_item.variant.number}",
+          'QuantidadeProduto' => line_item.quantity,
+          'PrecoUnitario' => "#{"%.2f" % @retail_price}",
+          'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}"
+        }
+      end
+
+      it 'should return a hash properly formed' do
+       subject.parsed_data.should == expected_data
+      end
+    end
+  end
+
 end
