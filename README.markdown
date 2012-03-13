@@ -59,6 +59,8 @@ This cron will generate a csv file with the user data, bonus credits and revenue
 
 0  2    * * *   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_revenue_to_ftp >> /var/log/userbase_revenue_uploader_rake.log 2>&1
 
+0  0    * * 1   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_paid_marketing_revenue_to_ftp >> /var/log/paid_online_marketing_uploader_rake.log 2>&1
+
 Check the log files to verify if any issue happens.
 
 Optional config files

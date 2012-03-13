@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<products>
+<% for product in @products %>
+<product id="<%= product.id %>">
+<name><%= product.name %></name>
+<smallimage><%= product.thumb_picture %></smallimage>
+<bigimage><%= product.showroom_picture %></bigimage>
+<producturl><%= product.product_url %></producturl>
+<description><%= product.description %></description>
+<price><%= product.price %></price>
+<retailprice><%= product.price %></retailprice>
+<recommendable>1</recommendable>
+<instock><%= product.instock %></instock>
+<category><%= product.category %></category>
+</product>
+<% end %>
+</products>
