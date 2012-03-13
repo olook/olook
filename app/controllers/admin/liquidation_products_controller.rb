@@ -35,7 +35,7 @@ class Admin::LiquidationProductsController < Admin::BaseController
 
   def destroy
     @liquidation_product = LiquidationProduct.find(params[:id])
-    if @liquidation_product.destroy
+    if LiquidationProduct.where(:product_id => @liquidation_product.product_id, :liquidation_id => @liquidation.id).delete_all
       flash[:notice] = "Product removed from liquidation"
     else
       flash[:notice] = "There was an error removing the product"
