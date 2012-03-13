@@ -22,12 +22,12 @@
 
 <section id="welcome">
   <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> e ela ficará pronta nas próximas 24 horas</h1>
-  <%= render 'welcome_painel' %>
   <div class="banner">
     <% if @banner %>
       <%= image_tag @banner %>
     <% end %>
   </div>
+  <%= render 'welcome_painel' %>
   <%= render 'welcome_products' %>
   <%= render 'welcome_press' %>
 </section>
