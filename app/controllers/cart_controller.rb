@@ -43,7 +43,6 @@ class CartController < ApplicationController
       redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
-
     end
   end
 

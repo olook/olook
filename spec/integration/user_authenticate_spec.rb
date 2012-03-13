@@ -28,8 +28,8 @@ feature "User Authenticate", %q{
   end
 
   scenario "User must fill the cpf when invited" do
-    visit accept_invitation_path(:invite_token => @user.invite_token)
-    answer_survey
+    visit accept_invitation_path(:invite_token => @user.invite_token) 
+    answer_survey 
     page.should have_content("CPF")
   end
 
@@ -71,7 +71,7 @@ feature "User Authenticate", %q{
   scenario "Invited User Sign up earns R$ 10,00 worth of credit after registration" do
     visit accept_invitation_path(:invite_token => @user.invite_token)
     answer_survey
-
+    visit new_user_registration_path
     within("#user_new") do
       fill_in "user_first_name", :with => "Senhor"
       fill_in "user_last_name", :with => "Madroga"
