@@ -369,7 +369,7 @@ describe Product do
   describe '#product_url' do
     subject { FactoryGirl.create(:basic_shoe) }
     it "returns valid url with the product id" do
-      subject.product_url.should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&utm_content=#{subject.id}&utm_medium=banner&utm_source=criteo"
+      subject.product_url('source').should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&utm_content=#{subject.id}&utm_medium=banner&utm_source=source"
     end
   end
 
