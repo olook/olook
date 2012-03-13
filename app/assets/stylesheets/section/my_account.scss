@@ -172,7 +172,9 @@ div#my_account {
     overflow: auto;
     float: left;
     div.box_title {
+      width: 745px;
       padding: 5px 0 10px 30px;
+      overflow: hidden;
       border-bottom: 1px #dcdcdc solid;
       h1 {
         color: #4c4c4c;
@@ -182,6 +184,18 @@ div#my_account {
         text-transform: uppercase;
         letter-spacing: -2px;
         display: block;
+        float: left;
+      }
+      p.warn {
+        color: #696969;
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        width: 445px;
+        margin-right: 10px;
+        float: right;
+        strong {
+          color: #d95485;
+        }
       }
     }
     section.main {
