@@ -35,7 +35,7 @@ class LiquidationsController < ApplicationController
   private
 
   def verify_if_active
-    if LiquidationService.active.try(:id) != params[:id]
+    if LiquidationService.active.try(:id) != params[:id].to_i
       flash[:notice] = "A liquidação não está ativa"
       redirect_to member_showroom_path
     end
