@@ -24,7 +24,7 @@
   <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> e ela ficará pronta nas próximas 24 horas</h1>
   <div class="banner">
     <% if @banner %>
-      <%= image_tag @banner %>
+      <%= link_to image_tag(@banner, :alt => current_liquidation.name), liquidations_path(current_liquidation.id) %>
     <% end %>
   </div>
   <%= render 'welcome_painel' %>
