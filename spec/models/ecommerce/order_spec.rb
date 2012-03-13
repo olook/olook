@@ -449,6 +449,12 @@ describe Order do
         subject.waiting_payment
         subject.authorized
       end
+
+      it "adds credit to inviter" do
+        subject.should_receive(:add_credit_to_inviter)
+        subject.waiting_payment
+        subject.authorized
+      end
     end
 
     context "when the order is shipped" do
@@ -464,16 +470,6 @@ describe Order do
     context "when the order is delivered" do
       it "should send a notification for payment delivered" do
         subject.should_receive(:send_notification_order_delivered)
-        subject.waiting_payment
-        subject.authorized
-        subject.picking
-        subject.delivering
-        subject.delivered
-      end
-
-      it "should add credit to the inviter" do
-        subject.stub(:send_notification_order_delivered)
-        subject.should_receive(:add_credit_to_inviter)
         subject.waiting_payment
         subject.authorized
         subject.picking
