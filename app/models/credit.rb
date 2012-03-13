@@ -17,7 +17,7 @@ class Credit < ActiveRecord::Base
   def self.add_for_inviter(buyer, order)
     # TO DO: Double check to see if the credit was already gave for this orer
     inviter = buyer.try(:inviter)
-    if inviter
+    if inviter && buyer.first_buy?
       updated_total = inviter.current_credit + INVITE_BONUS
       inviter.credits.create!(:value => INVITE_BONUS, :total => updated_total, :order => order, :source => "invitee_bonus")
     end

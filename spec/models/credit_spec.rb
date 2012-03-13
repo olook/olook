@@ -67,6 +67,12 @@ describe Credit do
         user.update_attribute(:is_invited,false)
       end
 
+      it "does not change user current_credit" do
+        expect {
+            described_class.add_for_inviter(user, order)
+          }.to_not change(inviter, :current_credit)
+      end
+
       it "returns false" do
         described_class.add_for_inviter(user, order).should be_false
       end
@@ -80,19 +86,39 @@ describe Credit do
         user.update_attribute(:is_invited,true)
       end
 
-      it "updates his inviter current_credit by 10.00" do
-        expect {
-            described_class.add_for_inviter(user, order)
-          }.to change(inviter, :current_credit).by(10)
+      context "and user is doing his first buy" do
+        before do
+          user.stub(:first_buy?).and_return(true)
+        end
+
+        it "updates his inviter current_credit by 10.00" do
+          expect {
+              described_class.add_for_inviter(user, order)
+            }.to change(inviter, :current_credit).by(10)
+        end
+
+        it "creates a record with invitee_bonus source" do
+          described_class.add_for_inviter(user, order)
+          inviter.credits.last.source.should == "invitee_bonus"
+        end
       end
 
-      it "creates a record with invitee_bonus source" do
-        described_class.add_for_inviter(user, order)
-        inviter.credits.last.source.should == "invitee_bonus"
-      end
+      context "and user is doing his second buy" do
+        before do
+          user.stub(:first_buy?).and_return(false)
+        end
 
+        it "does not change user current_credit" do
+          expect {
+              described_class.add_for_inviter(user, order)
+            }.to_not change(inviter, :current_credit)
+        end
+
+        it "returns false" do
+          described_class.add_for_inviter(user, order).should be_false
+        end
+      end
     end
-
   end
 
   describe "removing user credit" do
@@ -164,7 +190,6 @@ describe Credit do
         described_class.last.source.should == "order"
       end
     end
-
   end
 
 
