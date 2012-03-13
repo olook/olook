@@ -25,8 +25,12 @@
     <div id="products_container">
       <div id="order_filter">
         <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
-          <%= label_tag "Ordenar por:" %>
-          <%= select_tag('order_filter', options_for_select({"Menor preço" => 0, "Maior preço" => 1})) %>
+          <ol>
+            <li class="select">
+              <%= label_tag "Ordenar por:" %>
+              <%= select_tag('order_filter', options_for_select({"Menor preço" => 0, "Maior preço" => 1}), :class => "custom_select") %>
+            </li>
+          </ol>
         <% end %>
       </div>
       <ul id="products">
