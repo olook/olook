@@ -28,11 +28,11 @@ describe XmlController do
 
     it "gets only products for xml" do
       Product.should_receive(:for_xml)
-      get :mt_perfomance
+      get :mt_performance
     end
 
     it "assigns all produts for xml to @products" do
-      get :mt_perfomance
+      get :mt_performance
       assigns(:products).should include(product)
     end
 

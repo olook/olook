@@ -6,14 +6,13 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
-  def mt_perfomance
+  def mt_performance
     respond_with(@products)
   end
 
   def click_a_porter
     respond_with(@products)
   end
-
 
   private
 
