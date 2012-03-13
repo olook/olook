@@ -14,9 +14,7 @@
   <% end %>
 
   <div id="showroom">
-    <% if @lightbox %>
-      <%= render "shared/modal/liquidation" %>
-    <% end %>
+    <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
     <section id="greetings">
       <%= showroom_presenter.render_identification %>
       <%= render "members/showroom_lookbooks", :lookbooks => @lookbooks %>

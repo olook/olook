@@ -96,7 +96,8 @@ class LiquidationProductService
   end
 
   def conflicts_collections?
-    @collections.map{|c| c.id }.include? @product.collection_id
+    #@collections.map{|c| c.id }.include? @product.collection_id
+    false
   end
 
 end

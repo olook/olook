@@ -6,7 +6,12 @@ class UserLiquidationService
   end
 
   def show?
-    @user_liquidation.dont_want_to_see_again if @user_liquidation 
+    return false unless @liquidation
+    if @user_liquidation 
+      not @user_liquidation.dont_want_to_see_again 
+    else
+      true
+    end
   end
 
   def update boolean
@@ -14,8 +19,13 @@ class UserLiquidationService
       @user_liquidation.dont_want_to_see_again = boolean
       @user_liquidation.save
     else
-      UserLiquidation.create(:user_id => @user.id, :liquidation_id => @liquidation.id, :dont_want_to_see_again => boolean)
+      @user_liquidation = UserLiquidation.create(
+        :user_id => @user.id,
+        :liquidation_id => @liquidation.id,
+        :dont_want_to_see_again => boolean
+      )
     end
+    @user_liquidation
   end
 
   private
