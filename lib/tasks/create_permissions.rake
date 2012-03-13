@@ -17,13 +17,13 @@ namespace :olook do
               if model_name == model
                 begin
                   Permission.create!(:model_name => model_name, :action_name => action)
-                  puts "#{action} and #{model_name}"
+                  puts "Added #{action} action for #{model_name}"
                 rescue Exception => e
-                  puts e.message + ": #{model_name} - #{action}"
+                  puts  "Action #{action} for #{model_name} already exists"
                 end
-              end  
-            end  
-          }    
+              end
+            end
+          }
         end
     end
   end
