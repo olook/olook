@@ -52,6 +52,7 @@
       <th><%= sort_link @search, :payment_type, "Payment Method" %></th>
       <th>Item count</th>
       <th>Products Total</th>
+      <th>Used Credits</th>
       <th>Freight Price</th>
       <th>Total</th>
       <th>x</th>
@@ -68,6 +69,7 @@
       <td><%= order.payment.human_to_s %></td>
       <td><%= order.line_items.count %></td>
       <td><%= number_to_currency(order.total) %></td>
+      <td><%= number_to_currency(order.credits) %></td>
       <td><%= number_to_currency(order.freight_price) %></td>
       <td><%= number_to_currency(order.total_with_freight) %></td>
       <td><%= order.installments %>x</td>
