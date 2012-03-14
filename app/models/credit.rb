@@ -4,6 +4,8 @@ class Credit < ActiveRecord::Base
   belongs_to :order
   validates :value, :presence => true
 
+  LIMIT_FOR_EACH_USER = BigDecimal.new("300.00")
+
   INVITE_BONUS = BigDecimal.new("10.00")
 
   # TO DO: Refactor this class and move these methods to CreditService class
@@ -26,7 +28,7 @@ class Credit < ActiveRecord::Base
   def self.remove(amount, user, order)
     if user.current_credit >= amount
       updated_total = user.current_credit - amount
-      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_debit")
     else
       false
     end
@@ -35,7 +37,6 @@ class Credit < ActiveRecord::Base
   def self.add(amount, user, order)
     # TO DO: Check if value exceeds maximum amount of credit a user can have (300)
     updated_total = user.current_credit + amount
-    user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order")
+    user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit")
   end
-
 end

@@ -153,7 +153,7 @@ describe Credit do
         end
 
         it "has its source equal to order" do
-          described_class.last.source.should == "order"
+          described_class.last.source.should == "order_debit"
         end
 
       end
@@ -187,7 +187,7 @@ describe Credit do
       end
 
       it "has its source equal to order" do
-        described_class.last.source.should == "order"
+        described_class.last.source.should == "order_credit"
       end
     end
   end
