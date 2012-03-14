@@ -95,8 +95,8 @@ class User < ActiveRecord::Base
     credits.last.try(:total) || 0
   end
 
-  def has_exceeded_credit_limit?
-    (used_invite_bonus + current_credit) >= InviteBonus::LIMIT_FOR_EACH_USER
+  def has_not_exceeded_credit_limit?(value = 0)
+    (used_invite_bonus + current_credit + value) <= InviteBonus::LIMIT_FOR_EACH_USER
   end
 
   def can_use_credit?(value)
