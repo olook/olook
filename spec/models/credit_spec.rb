@@ -118,6 +118,23 @@ describe Credit do
           described_class.add_for_inviter(user, order).should be_false
         end
       end
+
+      context "when the inviter credit has exceeded the maximum limit (300)" do
+        before do
+          user.stub(:has_not_exceeded_maximum_limit?).with("10.00").and_return(false)
+        end
+
+        it "does not change user current_credit" do
+          expect {
+              described_class.add_for_inviter(user, order)
+            }.to_not change(inviter, :current_credit)
+        end
+
+        it "returns false" do
+          described_class.add_for_inviter(user, order).should be_false
+        end
+      end
+
     end
   end
 
