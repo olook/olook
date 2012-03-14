@@ -4,7 +4,7 @@ require 'csv'
 namespace :invalid_invites do
   desc "Destroy all invites from users with fake CPF and mark the inviters with fraud flag"
   task :destroy => :environment do
-    File.open(Rails.root + "destroy_invalid_invites.log", "w") do |log|
+    File.open(Rails.root + "log/destroy_invalid_invites.log", "w") do |log|
       log.puts "cpf;\tInviteeEmail;\tInviteeUserId;\tInviteId;\tAcceptedAt;\tInviterEmail\t;InviterId;"
       destroyed = 0
       frauds = 0
