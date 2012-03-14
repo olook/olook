@@ -190,9 +190,19 @@ div#liquidation {
         }
       }
     }
-    div.pagination {
-      visibility: hidden;
+    div.loading {
+      background: url("/assets/common/ajax-loader.gif") center no-repeat;
+      width: 770px;
+      height: 30px;
+      margin: 0 auto;
+      display: none;
       clear: both;
+    }
+    div.pagination {
+      clear: both;
+      a, span, em.current {
+        display: none;
+      }
     }
   }
 }
