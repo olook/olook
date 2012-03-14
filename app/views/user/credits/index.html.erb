@@ -10,12 +10,12 @@
     <div class="box_title">
       <h1 class="credits">Meus Créditos</h1>
       <% if @user.has_fraud %>
-        <p class="warn"><strong>Atenção:</strong> Os créditos que estavam atrelados a convidadas com CPF's inválidos, foram inabilitados.</p>
+        <p class="warn"><strong>Atenção:</strong> Os créditos que estavam atrelados a convidadas com CPFs inválidos, foram inabilitados.</p>
       <% end %>
     </div>
     <div class="invites_list">
-      <h1><span><%= @user.invites.accepted.count %></span> amigas já se registraram e você ganhou <span><%= number_to_currency(@user.current_credit) %></span></h1>
-      <h2>Na primeira compra de suas convidadas, você ganha R$10.</h2>
+      <h1><span><%= @user.invites.accepted.count %></span> amigas já se registraram. Você tem <span><%= number_to_currency(@user.current_credit) %></span> em créditos!</h1>
+      <h2>Na primeira compra de suas convidadas, você ganha mais R$10.</h2>
       <table cellpadding="0" cellspacing="0">
         <thead>
           <tr>
