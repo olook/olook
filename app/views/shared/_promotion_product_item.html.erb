@@ -4,7 +4,7 @@
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
-      <p class="warn sold_out">ESGOTADO</p>
+      <p class="warn sold_out">ESGO<br />TADO</p>
       <% unless product.sold_out? %>
         <p class="warn percentage"><span><%= liquidation_product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
