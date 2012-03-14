@@ -1,6 +1,6 @@
-namespace :consolidate_user_invite_bonus do
+namespace :invite_bonus do
   desc "Consolidate all users invite bonus in credits table (do not run this task twice!)"
-  task :execute => :environment do
+  task :consolidate => :environment do
 	  File.open(Rails.root + "log/users_with_more_than_50_of_invite_bonus.log", "w") do |log|
 	  	file.puts "user_id;email;name;invites;invite_bonus;used_invite_bonus;"
 	    User.find_each do |u|
