@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe SynchronizationEvent do
+  before do
+    Resque.stub(:enqueue)
+  end
+
   context "validations" do
     it { should validate_presence_of(:name) }
 

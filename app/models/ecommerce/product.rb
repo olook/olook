@@ -140,7 +140,7 @@ class Product < ActiveRecord::Base
       xml.tag!(:name, name)
       xml.tag!(:smallimage,  thumb_picture)
       xml.tag!(:bigimage,  showroom_picture)
-      xml.tag!(:producturl, product_url)
+      xml.tag!(:producturl, product_url("criteo"))
       xml.tag!(:description, description)
       xml.tag!(:price, price)
       xml.tag!(:retailprice, price)
@@ -150,9 +150,9 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def product_url
+  def product_url(source)
     Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_source => "criteo",
+                                                           :utm_source => source,
                                                            :utm_medium => "banner",
                                                            :utm_campaign => "remessaging",
                                                            :utm_content => id

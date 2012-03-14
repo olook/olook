@@ -3,7 +3,7 @@
 <% for product in @products %>
     <produto>
         <id_produto><%= product.id %></id_produto>
-        <link_produto><%= product.product_url %></link_produto>
+        <link_produto><%= product.product_url("click_a_porter") %></link_produto>
         <nome_produto><%= product.name %></nome_produto>
         <marca>olook</marca>
         <categoria><%= product.category %></categoria>
@@ -14,7 +14,7 @@
         <parcelamento>1</parcelamento>
         <imagens>
           <% for picture in product.pictures %>
-            <imagem><%= picture %></imagem>
+            <imagem><%= picture.image %></imagem>
           <% end %>
         </imagens>
       </produto>
