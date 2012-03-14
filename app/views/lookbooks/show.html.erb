@@ -31,7 +31,7 @@
   <div class="products_list">
     <ul>
       <% @products.each do |product| %>
-        <%= render "shared/showroom_product_item", :product => product %>
+        <%= get_partial(product) %>
       <% end %>
     </ul>
   </div>
