@@ -71,19 +71,25 @@ div.full_container {
       }
       a.arrow {
         position: absolute;
-        background: url("/assets/liquidations/arrows.jpg") 0 no-repeat;
+        background: url("/assets/liquidations/arrows.png") 0 no-repeat;
         text-indent: -9999px;
         width: 40px;
-        height: 324px;
-        top: 0;
+        height: 46px;
+        top: 130px;
         display: block;
         &.prev {
-          background-position: 0;
+          background-position: 0 -47px;
           left: 0;
+          &:hover {
+            background-position: 0 0;
+          }
         }
         &.next {
-          background-position: -40px;
+          background-position: -40px -47px;
           right: 0;
+          &:hover {
+            background-position: -40px 0;
+          }
         }
       }
     }
