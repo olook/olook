@@ -16,6 +16,6 @@ describe LiquidationService do
     expect {
       subject.add(products_ids, 30.2)
     }.to change(LiquidationProduct, :count).by(3)
-    LiquidationProduct.last.subcategory_name.should == "Bolsa Azul"
+    LiquidationProduct.last.subcategory_name.should == "bolsa-azul"
   end
 end
