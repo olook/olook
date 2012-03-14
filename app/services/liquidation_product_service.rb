@@ -16,13 +16,17 @@ class LiquidationProductService
     end
   end
 
+  def self.liquidation_product product
+    LiquidationService.active.liquidation_products.where(:product_id => product.id).first
+  end
+
   def initialize liquidation, product, discount_percent=nil, collections=[]
     @liquidation = liquidation
     @product = product
     @discount_percent = discount_percent
     @collections = collections
   end
-  
+
   def liquidation_name
     @liquidation.name if included?
   end
@@ -64,13 +68,13 @@ class LiquidationProductService
       create_or_update_product
     end
   end
-  
+
   def save_shoe_by_size
     shoe_sizes.each do |shoe_size|
       create_or_update_product(:shoe_size => shoe_size, :heel => heel)
     end
   end
-  
+
   def create_or_update_product options=nil
     params = default_params
     params.merge!(options) if options
@@ -80,7 +84,7 @@ class LiquidationProductService
       LiquidationProduct.create(params)
     end
   end
-  
+
   def default_params
     {
       :liquidation_id => @liquidation.id,
@@ -92,7 +96,7 @@ class LiquidationProductService
       :discount_percent => @discount_percent
     }
   end
-  
+
   def existing_product options=nil
     params = {
       :liquidation_id => @liquidation.id,

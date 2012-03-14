@@ -88,14 +88,9 @@ describe Admin::LiquidationsController do
         assigns(:liquidation).should eq(liquidation)
       end
 
-      # it "re-renders the 'edit' template" do
-      #   Liquidation.any_instance.stub(:save).and_return(false)
-      #   put :update, {:id => liquidation.to_param, :liquidation => {}}
-      #   response.should render_template("edit")
-      # end
     end
   end
-  
+
   describe "DELETE destroy" do
     it "destroys the requested liquidation" do
       expect {
