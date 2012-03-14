@@ -3,8 +3,8 @@
   <ol>
     <% liquidation_presenter.liquidation.resume[:categories][Category::SHOE].each do |key, value| %>
       <li>
-        <%= check_box_tag('subcategories[]', key) %>
-        <label><%= value %></label>
+        <%= check_box_tag('subcategories[]', key, false, :id => key) %>
+        <%= label_tag(value, nil, :for => key) %>
       </li>
     <% end %>
   </ol>
