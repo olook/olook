@@ -15,6 +15,10 @@ class LiquidationProductService
     end
   end
 
+  def self.liquidation_product product
+    LiquidationService.active.liquidation_products.where(:product_id => product.id).first
+  end
+
   def initialize liquidation, product, discount_percent=nil, collections=[]
     @liquidation = liquidation
     @product = product
