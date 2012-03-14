@@ -28,17 +28,17 @@ describe MemberHelper do
     helper.invite_message.should be_true
   end
   
-  describe '#display_member_invite_bonus' do
+  describe '#display_member_credit' do
     let(:member) { double(User) }
 
     it 'should return member_with_no_invite_bonus when the member invite_bonus is zero' do
-      member.stub(:invite_bonus).and_return(0.0)
-      helper.display_member_invite_bonus(member).should == I18n.t('views.members.member_with_no_invite_bonus')
+      member.stub(:current_credit).and_return(0.0)
+      helper.display_member_credit(member).should == I18n.t('views.members.member_with_no_invite_bonus')
     end
 
     it 'should return member_with_invite_bonus when the member invite_bonus is greater than zero' do
-      member.stub(:invite_bonus).and_return(290.0)
-      helper.display_member_invite_bonus(member).should == I18n.t('views.members.member_with_invite_bonus', :bonus => number_to_currency(member.invite_bonus))
+      member.stub(:current_credit).and_return(290.0)
+      helper.display_member_credit(member).should == I18n.t('views.members.member_with_invite_bonus', :bonus => number_to_currency(member.current_credit))
     end
   end
 
@@ -49,7 +49,7 @@ describe MemberHelper do
       context "for a member who wasn't invited" do
         it 'should return no_invite_accept message' do
           member.stub(:'is_invited?').and_return(false)
-          member.stub(:invite_bonus).and_return(0.0)
+          member.stub(:current_credit).and_return(0.0)
           member.stub_chain(:invites, :accepted, :count).and_return(0)
           helper.invitation_score(member).should == I18n.t('views.members.no_invitation_accepted')
         end
@@ -58,7 +58,7 @@ describe MemberHelper do
       context "for a member who was invited" do
         it 'should return bonus_for_accepting_invite message' do
           member.stub(:'is_invited?').and_return(true)
-          member.stub(:invite_bonus).and_return(100.0)
+          member.stub(:current_credit).and_return(100.0)
           member.stub_chain(:invites, :accepted, :count).and_return(0)
           helper.invitation_score(member).should == I18n.t('views.members.bonus_for_accepting_invite')
         end
@@ -67,15 +67,15 @@ describe MemberHelper do
 
     describe "when some invites were accepted" do
       before :each do
-        member.stub(:invite_bonus).and_return(100.0)
+        member.stub(:current_credit).and_return(100.0)
       end
       it 'should return the singular invitation_accepted message when 1 invite was accepted' do
         member.stub_chain(:invites, :accepted, :count).and_return(1)
-        helper.invitation_score(member).should == I18n.t('views.members.invitation_accepted', :count => 1, :bonus => number_to_currency(member.invite_bonus))
+        helper.invitation_score(member).should == I18n.t('views.members.invitation_accepted', :count => 1, :bonus => number_to_currency(member.current_credit))
       end
       it 'should return the plural invitation_accepted message when more than 1 invite was accepted' do
         member.stub_chain(:invites, :accepted, :count).and_return(2)
-        helper.invitation_score(member).should == I18n.t('views.members.invitation_accepted', :count => 2, :bonus => number_to_currency(member.invite_bonus))
+        helper.invitation_score(member).should == I18n.t('views.members.invitation_accepted', :count => 2, :bonus => number_to_currency(member.current_credit))
       end
     end
   end
