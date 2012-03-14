@@ -33,7 +33,7 @@ Olook::Application.routes.draw do
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
-  match "/mt_perfomance", :to => "xml#mt_perfomance", :as => "mt_perfomance", :defaults => { :format => 'xml' }
+  match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
