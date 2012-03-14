@@ -20,6 +20,7 @@ jQuery(function() {
   $('#liquidation_filter').submit(function() {
     $('#sort_filter').val($("#order_filter").find("option:selected").val());
     $("#products").fadeOut("slow", function() {
+      $(".loading").show();
       $(this).fadeIn("slow");
       $(this).html("");
     });
@@ -35,8 +36,10 @@ jQuery(function() {
       url = $('.pagination .next_page').attr('href');
       var bottomHeight = 750
       if (url && $(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) {
-        $('.pagination').text("Buscando produtos");
-        return $.getScript(url);
+        $('.loading').show();
+        return $.getScript(url).done(function() {
+          $(".loading").hide();
+        });
       }
     });
     return $(window).scroll();

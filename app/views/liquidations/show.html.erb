@@ -36,6 +36,7 @@
       <ul id="products">
         <%= render "products", :products => @liquidation_products %>
       </ul>
+      <div class="loading"></div>
       <%= will_paginate @liquidation_products %>
     </div>
   </div>
