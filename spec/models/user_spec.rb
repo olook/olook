@@ -586,5 +586,31 @@ describe User do
       end
     end
   end
-  
+
+  describe "#has_exceeded_credit_limit?" do
+    let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+
+    context "when user current credit plus user invited_bonus is below 300" do
+      before do
+        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("100.00"))
+        subject.should_receive(:current_credit).and_return(BigDecimal.new("100.00"))
+      end
+
+      it "returns false" do
+        subject.has_exceeded_credit_limit?.should be_false
+      end
+    end
+
+    context "when user current credit plus user invited_bonus is equal or more than 300" do
+      before do
+        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
+        subject.should_receive(:current_credit).and_return(BigDecimal.new("150.00"))
+      end
+
+      it "returns true" do
+        subject.has_exceeded_credit_limit?.should be_true
+      end
+    end
+  end
+
 end
