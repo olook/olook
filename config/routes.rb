@@ -8,6 +8,7 @@ Olook::Application.routes.draw do
   match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
+  match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
