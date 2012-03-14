@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :liquidation do
     name "olooklet"
-    description "description"
+    description "D" * 100
     starts_at Date.yesterday
     ends_at Date.tomorrow
   end
