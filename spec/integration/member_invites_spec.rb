@@ -36,7 +36,7 @@ feature "Member can send invites", %q{
       scenario "if they have any amount of current_credit they should see the amount they earned" do
         User.any_instance.stub(:current_credit).and_return(13.0)
         visit member_invite_path
-        page.should have_content('Você já ganhou R$ 13,00')
+        page.should have_content('Você tem R$ 13,00 em créditos!')
       end
     end
 
