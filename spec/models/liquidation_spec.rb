@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Liquidation do
+  describe "validation" do
+    it { should have_many(:liquidation_products) }
+    it { should have_many(:liquidation_carousels) }
+    it { should validate_presence_of(:name) }
+  end
+
   it "should not update the liquidation if the change on the period conflicts with existing products" do
   	#[:january_2012_collection, :february_2012_collection, :march_2012_collection].each do |collection|
   	#	FactoryGirl.create(collection)
