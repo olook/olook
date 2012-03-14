@@ -4,30 +4,22 @@ class LiquidationsController < ApplicationController
   respond_to :html, :js
 
   before_filter :verify_if_active, :only => [:show]
+  before_filter :load_liquidation_products
 
   def show
-    @liquidation = Liquidation.find(params[:id])
-
-    liquidation_products = LiquidationProduct.arel_table
-
-    @liquidation_products = LiquidationProduct.joins(:product)
-                                              .where(liquidation_products[:liquidation_id].eq(@liquidation.id))
-                                              .order('category asc')
-                                              .paginate(:page => params[:page], :per_page => 12).order('category_id asc')
-                                              .group("product_id")
-
-
-
     respond_with @liquidation_products
   end
 
   def update
-    @liquidation = Liquidation.find(params[:id])
-    @liquidation_products = LiquidationSearchService.new(params).search_products
     respond_with @liquidation_products
   end
 
   private
+
+  def load_liquidation_products
+    @liquidation = Liquidation.find(params[:id])
+    @liquidation_products = LiquidationSearchService.new(params).search_products
+  end
 
   def verify_if_active
     if LiquidationService.active.try(:id) != params[:id].to_i

@@ -4,7 +4,7 @@ class LiquidationSearchService
 
   def initialize(params)
     @l_products = LiquidationProduct.arel_table
-    @query_base = @l_products[:liquidation_id].eq(params[:id])
+    @query_base = @l_products[:liquidation_id].eq(params[:id]).and(@l_products[:inventory].gt(0))
     @params = params
   end
 
