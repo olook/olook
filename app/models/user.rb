@@ -12,11 +12,12 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :payments, :through => :orders
+  has_many :credits
 
   before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, 
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
          :token_authenticatable
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
@@ -64,6 +65,10 @@ class User < ActiveRecord::Base
     end.compact
   end
 
+  def inviter
+    Invite.find_inviter(self) if is_invited?
+  end
+
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token!(token)
     accepted_invite = inviting_member.invite_for(email) || inviting_member.invites.create(:email => email, :sent_at => Time.now)
@@ -84,6 +89,18 @@ class User < ActiveRecord::Base
 
   def used_invite_bonus
     InviteBonus.already_used(self)
+  end
+
+  def current_credit
+    credits.last.try(:total) || 0
+  end
+
+  def has_not_exceeded_credit_limit?(value = 0)
+    (used_invite_bonus + current_credit + value) <= InviteBonus::LIMIT_FOR_EACH_USER
+  end
+
+  def can_use_credit?(value)
+    current_credit.to_f >= value.to_f
   end
 
   def profile_scores
@@ -154,7 +171,11 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.where("orders.state <> 'in_the_cart'").count > 0
+    self.orders.not_in_the_cart.count > 0
+  end
+
+  def first_buy?
+    self.orders.paid.count == 1
   end
 
   private

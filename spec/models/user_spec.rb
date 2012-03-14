@@ -61,6 +61,7 @@ describe User do
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
+    it { should have_many :credits }
   end
 
   context "check user's creation" do
@@ -198,6 +199,30 @@ describe User do
     end
   end
 
+  describe "#inviter" do
+    context "when user is not invited by anyone" do
+      before do
+        subject.update_attribute(:is_invited, false)
+      end
+
+      it "returns false" do
+        subject.inviter.should be_false
+      end
+    end
+
+    context "when user is invited by another user" do
+      before do
+        subject.update_attribute(:is_invited, true)
+      end
+
+      it "finds his inviter and return it" do
+        inviter = mock(:inviter)
+        Invite.should_receive(:find_inviter).with(subject).and_return(inviter)
+        subject.inviter.should == inviter
+      end
+    end
+  end
+
   describe "#accept_invitation_with_token" do
     context "with a valid token" do
       let(:inviting_member) { FactoryGirl.create(:member) }
@@ -220,7 +245,7 @@ describe User do
     end
   end
 
-  describe "instance methods" do
+  describe "#surver_answers" do
     it "should return user answers" do
       survey_answers = FactoryGirl.create(:survey_answers, user: subject)
       subject.survey_answers.should == survey_answers.answers
@@ -443,6 +468,163 @@ describe User do
         subject.has_purchases?.should be_true
       end
     end
+  end
+
+  describe "#current_credit" do
+    context "when user has no credits" do
+      it "returns 0" do
+        subject.current_credit.should == 0
+      end
+    end
+
+    context "when user has one credit record" do
+      let!(:credit) { FactoryGirl.create(:credit, :user => subject) }
+
+      it "returns the total of the credit record" do
+        subject.current_credit.should == credit.total
+      end
+    end
+
+    context "when user has more than one credit record" do
+      let!(:credit_one) { FactoryGirl.create(:credit, :total => 43, :user => subject) }
+      let!(:credit_two) { FactoryGirl.create(:credit, :total => 7, :user => subject) }
+
+
+      it "returns the total of the last credit record" do
+        subject.current_credit.should == credit_two.total
+      end
+    end
+
+  end
+
+  describe "#can_use_credit?" do
+    before do
+      FactoryGirl.create(:credit, :user => subject, :total => 23)
+    end
+
+    context "when user current credits is less then the received value" do
+      it "returns false" do
+        subject.can_use_credit?(23.01).should be_false
+      end
+    end
+
+    context "when user current credits is equal to the received value" do
+      it "returns true" do
+        subject.can_use_credit?(23.00).should be_true
+      end
+    end
+
+    context "when user current credit is greather than the received value" do
+      it "returns true" do
+        subject.can_use_credit?(21.90).should be_true
+      end
+    end
+
+  end
+
+  describe "first_buy?" do
+
+    context "when user has no orders" do
+      it "returns false" do
+        subject.first_buy?.should be_false
+      end
+    end
+
+    context "when user has orders" do
+      let(:order) { FactoryGirl.create(:order, :user => subject) }
+
+      context "when user has one order in the cart" do
+        it "returns false" do
+          subject.first_buy?.should be_false
+        end
+      end
+
+      context "when user has one order waiting payment" do
+        it "returns false" do
+          order.waiting_payment
+          subject.first_buy?.should be_false
+        end
+      end
+
+      context "when user has one order authorized" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order being picked" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.picking
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order being delivered" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.picking
+          order.delivering
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has two orders authorized" do
+        let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+
+        it "returns false" do
+          order.waiting_payment
+          order.authorized
+          second_order.waiting_payment
+          second_order.authorized
+          subject.first_buy?.should be_false
+        end
+      end
+    end
+  end
+
+  describe "#has_not_exceeded_credit_limit?" do
+    let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+
+    context "when user current credit plus user invited_bonus is below 300" do
+      before do
+        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("100.00"))
+        subject.should_receive(:current_credit).and_return(BigDecimal.new("100.00"))
+      end
+
+      it "returns true" do
+        subject.has_not_exceeded_credit_limit?.should be_true
+      end
+    end
+
+    context "when user current credit plus user invited_bonus is more than 300" do
+      before do
+        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
+        subject.should_receive(:current_credit).and_return(BigDecimal.new("151.00"))
+      end
+
+      it "returns false" do
+        subject.has_not_exceeded_credit_limit?.should be_false
+      end
+    end
+
+    context "when a value is passed" do
+      context "and the sum of current credit, invited_bonus and value does not exceeds 300" do
+        before do
+          subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
+          subject.should_receive(:current_credit).and_return(BigDecimal.new("140.00"))
+        end
+
+        it "returns true" do
+          subject.has_not_exceeded_credit_limit?(BigDecimal.new("10.00")).should be_true
+        end
+      end
+    end
+
   end
 
 end

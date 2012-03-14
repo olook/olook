@@ -36,8 +36,9 @@ class Order < ActiveRecord::Base
   after_create :generate_identification_code
 
   scope :with_payment, joins(:payment)
-
-  scope :purchased , where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
+  scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
+  scope :paid, where("state IN ('picking', 'delivering', 'delivered', 'authorized')")
+  scope :not_in_the_cart, where("state <> 'in_the_cart'")
 
   state_machine :initial => :in_the_cart do
 
@@ -49,12 +50,16 @@ class Order < ActiveRecord::Base
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
+    after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
+
 
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
 
     after_transition any => :canceled, :do => :send_notification_payment_refused
     after_transition any => :reversed, :do => :send_notification_payment_refused
+    after_transition any => :canceled, :do => :reimburse_credit
+
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -97,7 +102,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-    def send_notification_payment_refused
+  def send_notification_payment_refused
     Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
   end
 
@@ -283,6 +288,14 @@ class Order < ActiveRecord::Base
 
   def delivery_time_for_a_shipped_order
     freight_delivery_time - WAREHOUSE_TIME
+  end
+
+  def reimburse_credit
+    Credit.add(credits, user, self) if credits > 0
+  end
+
+  def add_credit_to_inviter
+    Credit.add_for_inviter(user, self)
   end
 
   private
