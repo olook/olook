@@ -14,7 +14,7 @@ namespace :db do
 
     resume =  {:products_ids=>[100, 10], :categories=>{1=>{"sandalia"=>"Sandália", "rasteira"=>"Rasteira"}, 2=>{"tate" => "Tate", "bau" => "Baú"}, 3 => {"joia" => "Jóia", "brinco" => "Brinco"}}, :heels=>{"baixo"=>"Baixo", "medio" => "Médio", "6.5" => "6.5"}, :shoe_sizes=>{"33"=>33, "34"=>34, "35"=>35, "36"=>36, "37"=>37, "38"=>38, "39"=>39, "40"=>40}}
 
-    liquidation = Liquidation.create(:name => "OlookLet", :description => "h" * 100, :resume => resume, :starts_at => Date.yesterday, :ends_at => Date.today + 1.year)
+    liquidation = Liquidation.create(:name => "OlookLet", :teaser => "Excepteur sint", :description => "Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam", :resume => resume, :starts_at => Date.yesterday, :ends_at => Date.today + 1.year)
 
     Product.shoes[0..40].each do |product|
       LiquidationProduct.create(:liquidation_id => liquidation.id,
