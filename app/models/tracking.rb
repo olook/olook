@@ -30,4 +30,8 @@ class Tracking < ActiveRecord::Base
                      :utm_medium => utm_medium, :utm_content =>  utm_content).with_complete_payment
   end
 
+  def clean_placement
+    placement.delete(",")
+  end
+
 end
