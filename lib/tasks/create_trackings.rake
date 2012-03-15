@@ -9,7 +9,8 @@ namespace :trackings do
                       :utm_content => description["utm_content"],
                       :utm_campaign => description["utm_campaign"],
                       :placement => description["placement"],
-                      :gclid => description["gclid"]
+                      :gclid => description["gclid"],
+                      :created_at => e.created_at
                       )
       end
     end
