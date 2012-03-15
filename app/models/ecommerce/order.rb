@@ -46,9 +46,17 @@ class Order < ActiveRecord::Base
     store_audit_trail
 
     after_transition :in_the_cart => :waiting_payment, :do => :insert_order
+    after_transition :in_the_cart => :waiting_payment, :do => :send_notification_order_requested
+
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
-    after_transition any => any, :do => :enqueue_order_status_worker
+    after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
+
+    after_transition :picking => :delivering, :do => :send_notification_order_shipped
+    after_transition :delivering => :delivered, :do => :send_notification_order_delivered
+
+    after_transition any => :canceled, :do => :send_notification_payment_refused
+    after_transition any => :reversed, :do => :send_notification_payment_refused
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -89,6 +97,26 @@ class Order < ActiveRecord::Base
     event :not_delivered do
       transition :delivering => :not_delivered
     end
+  end
+
+    def send_notification_payment_refused
+    Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
+  end
+
+  def send_notification_order_delivered
+    Resque.enqueue(Orders::NotificationOrderDeliveredWorker, self.id)
+  end
+
+  def send_notification_order_shipped
+    Resque.enqueue(Orders::NotificationOrderShippedWorker, self.id)
+  end
+
+  def send_notification_payment_confirmed
+    Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, self.id)
+  end
+
+  def send_notification_order_requested
+    Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
   end
 
   def enqueue_order_status_worker
