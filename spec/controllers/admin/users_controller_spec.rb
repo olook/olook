@@ -108,13 +108,15 @@ describe Admin::UsersController do
 
   describe 'GET lock_access' do
     it 'should lock user access' do
-      get :lock_access, :id => user.id.to_s
+      get :lock_access, :id => user.id
+      user.reload
       user.locked_at.should_not be_nil
     end
   end
 
   describe 'GET unlock_access' do
     it 'should unlock user access' do
+      get :lock_access, :id => user.id.to_s
       get :unlock_access, :id => user.id.to_s
       user.locked_at.should be_nil
     end
