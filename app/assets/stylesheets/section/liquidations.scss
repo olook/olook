@@ -20,6 +20,7 @@ div.full_container {
         text-transform: uppercase;
         text-align: center;
         margin: 0 auto;
+        display: table;
       }
       h2 {
         background: #df5a8b;
@@ -33,6 +34,7 @@ div.full_container {
         margin: 0 auto 25px auto;
         padding: 5px 20px;
         clear: both;
+        display: table;
       }
       p {
         color: #101010;
