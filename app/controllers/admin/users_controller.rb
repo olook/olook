@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Admin::UsersController < Admin::BaseController
+
+  load_and_authorize_resource
+
   respond_to :html, :text
-  before_filter :authenticate_admin!
 
   def index
     @search = User.search(params[:search])
@@ -28,11 +30,9 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     @user = User.find(params[:id])
-
     if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
     end
-
     respond_with :admin, @user
   end
 
@@ -50,4 +50,19 @@ class Admin::UsersController < Admin::BaseController
       redirect_to(member_showroom_path) 
     end
   end
+
+  def lock_access
+    @user = User.find(params[:id])
+    @user.lock_access!
+    redirect_to :action => :show
+  end
+
+  def unlock_access
+    @user = User.find(params[:id])
+    if @user.access_locked?
+      @user.unlock_access!
+    end
+    redirect_to :action => :show
+  end
+
 end

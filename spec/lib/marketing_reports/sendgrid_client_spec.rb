@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe EmailMarketing::SendgridClient do
-  subject { EmailMarketing::SendgridClient.new(:invalid_emails) }
+describe MarketingReports::SendgridClient do
+  subject { described_class.new(:invalid_emails) }
 
   describe  "#initialize" do
     let(:request){ double :request }

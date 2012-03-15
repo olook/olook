@@ -2,6 +2,8 @@
 class Admin::CollectionsController < Admin::BaseController
   respond_to :html
 
+  load_and_authorize_resource
+
   def index
     @collections = Collection.all
     respond_with :admin, @collections

@@ -23,6 +23,12 @@ feature "Buying products", %q{
         visit product_path(product)
         page.should have_content(product.name)
       end
+      scenario "I want to have my shoe size already selected" do
+        visit product_path(product)
+        within("ol") do
+          page.should have_xpath("//a[@class='selected']")
+        end
+      end
     end
 
     context "with the shopping cart" do

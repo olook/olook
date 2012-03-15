@@ -23,6 +23,7 @@ Setup
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
 - rake db:seed
+- rake olook:create_permissions RAILS_ENV=test
 
 Running the application
 ============
@@ -57,6 +58,8 @@ This cron will generate a csv file with the user data, credits and orders data. 
 This cron will generate a csv file with the user data, bonus credits and revenues per user (with users with an accepted order) It will run everyday at 2 AM.
 
 0  2    * * *   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_revenue_to_ftp >> /var/log/userbase_revenue_uploader_rake.log 2>&1
+
+0  0    * * 1   root    cd /srv/olook; RAILS_ENV=production bundle exec rake marketing_uploader:copy_paid_marketing_revenue_to_ftp >> /var/log/paid_online_marketing_uploader_rake.log 2>&1
 
 Check the log files to verify if any issue happens.
 
