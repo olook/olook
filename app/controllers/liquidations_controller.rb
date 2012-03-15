@@ -7,6 +7,7 @@ class LiquidationsController < ApplicationController
   before_filter :load_liquidation_products
 
   def show
+    @teaser_banner = LiquidationService.active.teaser_banner_url if !LiquidationService.active.nil?
     respond_with @liquidation_products
   end
 
