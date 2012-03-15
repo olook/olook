@@ -45,7 +45,7 @@ describe MarketingReports::SendgridClient do
       HTTPI.stub(:get)
 
       request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=qwerty&param_1=value_1&param_2=value_2")
-      EmailMarketing::SendgridClient.new(:invalid_emails, :password => "qwerty", :param_1 => "value_1", :param_2 => "value_2")
+      described_class.new(:invalid_emails, :password => "qwerty", :param_1 => "value_1", :param_2 => "value_2")
     end
 
     it "makes a get with the created request" do
@@ -84,7 +84,7 @@ describe MarketingReports::SendgridClient do
     end
 
     it "supports bounces service" do
-      expect { EmailMarketing::SendgridClient.new(:bounces) }.to_not raise_error
+      expect { described_class.new(:bounces) }.to_not raise_error
     end
   end
 
