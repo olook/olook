@@ -56,6 +56,7 @@ class LiquidationProductService
   end
 
   def shoe?
+    #TODO: change this to call the category constant
     @product.category == 1
   end
 
@@ -116,6 +117,7 @@ class LiquidationProductService
 
   def conflicts_collections?
     #@collections.map{|c| c.id }.include? @product.collection_id
+    #TODO: add to an array of conflieted with collections
     false
   end
 end

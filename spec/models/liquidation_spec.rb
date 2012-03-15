@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Liquidation do
+  
+  before :each do
+    Liquidation.delete_all
+    LiquidationProduct.delete_all
+  end
+  
   describe "validation" do
     it { should have_many(:liquidation_products) }
     it { should have_many(:liquidation_carousels) }
@@ -17,6 +23,5 @@ describe Liquidation do
   	#liquidation.starts_at = "01/02/2012"
   	#liquidation.save.should be_false
  	  #liquidation.should have(1).error_on(:starts_at)
-    pending
   end
 end
