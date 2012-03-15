@@ -178,5 +178,45 @@ describe Variant do
       end
     end
   end
+  
+  describe "inventory changes updates the liquidation product" do
+    it "should reflect the changes on shoe that is into a liquidation" do
+      liquidation_product = FactoryGirl.create(:liquidation_product,
+       :product => subject.product,
+       :variant => subject.product.master_variant
+      )
+      variant = product.master_variant
+      variant.id.should == liquidation_product.variant_id
+      variant.inventory = 2
+      variant.save
+      variant.reload.inventory.should == 2
+      liquidation_product.reload.inventory.should == 2
+    end
+    
+    it "should reflect the changes on a BAG that is into a liquidation" do 
+    end
+    
+    it "should reflect all liquidations" do
+      liquidation1 = FactoryGirl.create(:liquidation)
+      liquidation2 = FactoryGirl.create(:liquidation)      
+      liquidation_product1 = FactoryGirl.create(:liquidation_product,
+       :product => subject.product,
+       :variant => subject.product.master_variant,
+       :liquidation => liquidation1
+      )
+      liquidation_product2 = FactoryGirl.create(:liquidation_product,
+       :product => subject.product,
+       :variant => subject.product.master_variant,
+       :liquidation => liquidation2
+      )
+      variant = product.master_variant
+      variant.id.should == liquidation_product1.variant_id
+      variant.id.should == liquidation_product2.variant_id
+      variant.inventory = 2
+      variant.save
+      variant.reload.inventory.should == 2
+      liquidation_product1.reload.inventory.should == 2
+      liquidation_product2.reload.inventory.should == 2  
+    end
+  end
 end
-

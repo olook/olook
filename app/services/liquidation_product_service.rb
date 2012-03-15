@@ -52,7 +52,7 @@ class LiquidationProductService
   end
 
   def shoe_sizes
-    @product.variants.map{|v| {:shoe_size => v.description.to_i, :inventory => v.inventory} } if shoe?
+    @product.variants.map{|v| {:shoe_size => v.description.to_i, :inventory => v.inventory, :id => v.id } } if shoe?
   end
 
   def shoe?
@@ -67,14 +67,16 @@ class LiquidationProductService
       create_or_update_product
     end
   end
+  
 
   def save_shoe_by_size
     shoe_sizes.each do |variant|
       create_or_update_product(:shoe_size => variant[:shoe_size],
-                               #:shoe_size_label => variant[:shoe_size],
                                :heel => heel.try(:parameterize),
                                :heel_label => heel,
-                               :inventory => variant[:inventory])
+                               :inventory => variant[:inventory],
+                               :variant_id => variant[:id]
+                               )
     end
   end
 
@@ -97,7 +99,9 @@ class LiquidationProductService
       :subcategory_name_label => subcategory_name,
       :original_price => @product.price,
       :retail_price => retail_price,
-      :discount_percent => @discount_percent
+      :discount_percent => @discount_percent,
+      :variant_id => @product.master_variant.id,
+      :inventory => @product.master_variant.inventory
     }
   end
 
