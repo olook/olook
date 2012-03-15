@@ -4,5 +4,6 @@ $('#products').append('<%= j render "products", :liquidation_products => @liquid
 <% else %>
   $('.pagination').html("");
 <% end %>
+$('#liquidation_filter').find("input[type='checkbox']").removeAttr("disabled");
 <% sleep 1 %>
 
