@@ -5,6 +5,10 @@ class Admin::LiquidationProductsController < Admin::BaseController
     @products = @liquidation.liquidation_products.group(:product_id)
   end
 
+  def show
+    @liquidation_product = LiquidationProduct.find(params[:id])
+  end
+  
   def create
     @liquidation_service = LiquidationService.new(@liquidation.id)
     @liquidation_service.add(
