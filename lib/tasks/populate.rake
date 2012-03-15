@@ -24,7 +24,8 @@ namespace :db do
                                 :retail_price => [49.90, 55.90, 89.90].shuffle.first,
                                 :shoe_size => [33, 34, 35, 36, 37, 38, 39, 40],
                                 :heel => ["baixo", "medio"].shuffle.first,
-                                :category_id => Category::SHOE)
+                                :category_id => Category::SHOE,
+                                :inventory => 10)
     end
 
     Product.bags[0..40].each do |product|
@@ -33,7 +34,8 @@ namespace :db do
                                 :subcategory_name => ["bau", "tate"].shuffle.first,
                                 :original_price => [78.90, 65.90, 89.90].shuffle.first,
                                 :retail_price => [32.90, 34.90, 45.90].shuffle.first,
-                                :category_id => Category::BAG)
+                                :category_id => Category::BAG,
+                                :inventory => 10)
 
     end
 
@@ -43,7 +45,8 @@ namespace :db do
                                 :subcategory_name => ["joia", "brinco"].shuffle.first,
                                 :original_price => [68.90, 55.90, 79.90].shuffle.first,
                                 :retail_price => [32.90, 34.90, 45.90].shuffle.first,
-                                :category_id => Category::ACCESSORY)
+                                :category_id => Category::ACCESSORY,
+                                :inventory => 10)
 
     end
   end

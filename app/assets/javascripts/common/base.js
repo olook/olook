@@ -192,7 +192,7 @@ $(document).ready(function() {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
   });
-  
+
   $("div.box_product div.line ol li a.product_color").live("mouseenter", function() {
     $(this).parents("ol").find("li a").removeClass("selected");
     $(this).addClass("selected");

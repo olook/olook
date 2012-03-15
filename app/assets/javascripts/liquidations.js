@@ -31,6 +31,7 @@ jQuery(function() {
   });
 
   $('#liquidation_filter').find("input[type='checkbox']").click(function() {
+    $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
     $(this).parent().submit();
   });
 
