@@ -119,7 +119,7 @@ describe Tracking do
     end
   end
 
-  describe "@related_with_complete_payment" do
+  describe "#related_with_complete_payment" do
     let!(:user_a) { FactoryGirl.create(:member) }
     let!(:user_b) { FactoryGirl.create(:member) }
     let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a) }
@@ -136,6 +136,15 @@ describe Tracking do
 
     it "returns all trackings with complete payment from users with " do
       tracking_a.related_with_complete_payment.should == [tracking_a, tracking_b]
+    end
+  end
+
+  describe "#clean_placement" do
+    it "removes all commos to avoid breaking the csv" do
+      subject.placement = "bola,casa"
+      subject.save!
+
+      subject.clean_placement.should == "bolacasa"
     end
   end
 end
