@@ -2,6 +2,8 @@
 
 div.full_container {
   background: #d2d1d6 url("/assets/liquidations/bg-top.jpg") bottom repeat-x;
+  max-height: 380px;
+  overflow: hidden !important;
 
   div.content {
     position: relative;
@@ -35,6 +37,11 @@ div.full_container {
         padding: 5px 20px;
         clear: both;
         display: table;
+      }
+      img {
+        max-width: 470px;
+        max-height: 195px;
+        margin: 0 auto 10px auto;
       }
       p {
         color: #101010;

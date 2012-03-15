@@ -10,8 +10,9 @@
   <% content_for :full do %>
     <div class="content">
       <div class="description">
-        <h1><%= @liquidation.name %></h1>
-        <h2><%= @liquidation.teaser %></h2>
+        <% if @teaser_banner %>
+          <%= image_tag @teaser_banner, :alt => @liquidation.name %>
+        <% end %>
         <p><%= @liquidation.description %></p>
       </div>
       <%= render "carousel",  :params => { :carousels => @liquidation.liquidation_carousels } %>
