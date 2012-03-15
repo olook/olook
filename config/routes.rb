@@ -119,6 +119,8 @@ Olook::Application.routes.draw do
         get 'statistics' => 'users#statistics', :as => 'statistics'
         get 'export' => 'users#export', :as => 'export'
         get 'login/:id' => 'users#admin_login'
+        get 'lock_access/:id' => 'users#lock_access'
+        get 'unlock_access/:id' => 'users#unlock_access'
       end
     end
 
