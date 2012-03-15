@@ -38,11 +38,8 @@ class Admin::LiquidationsController < Admin::BaseController
   # PUT /admin/liquidations/1.json
   def update
     @liquidation = Liquidation.find(params[:id])
-    if @liquidation.update_attributes!(params[:liquidation])
+    if @liquidation.update_attributes(params[:liquidation])
       flash[:notice] = 'Liquidation was successfully updated.'
-    else
-      flash[:notice] = 'Liquidation cannot be saved.'
-      render :edit
     end
     respond_with :admin, @liquidation
   end

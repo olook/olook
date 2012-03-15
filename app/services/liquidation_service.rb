@@ -100,7 +100,7 @@ class LiquidationService
   end
 
   def shoe_sizes
-    @liquidation.liquidation_products.where(:category_id => 1).map(&:shoe_size_label).uniq
+    @liquidation.liquidation_products.where(:category_id => 1).map(&:shoe_size).uniq
   end
 
   def subcategories_by_category_id category_id
