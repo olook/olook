@@ -87,6 +87,7 @@ Olook::Application.routes.draw do
       end
     end
     match 'facebook' => "settings#facebook", :as => "facebook"
+    match 'minha-vitrine' => "settings#showroom", :as => "showroom"
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
 

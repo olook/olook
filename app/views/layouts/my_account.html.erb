@@ -14,4 +14,8 @@
 
 <%= content_for :site_footer, render(:partial => "shared/footer") %>
 
+<%= content_for :footer do %>
+  <%= javascript_include_tag "my_account" %>
+<% end %>
+
 <%= render :template => 'layouts/application' %>
