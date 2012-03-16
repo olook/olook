@@ -111,8 +111,8 @@ module MarketingReports
       responses = [:invalid_emails, :spam_reports, :unsubscribes, :blocks].inject([]) do |sum, service|
         sum += sendgrid_accounts_response(service)
       end
-      responses += SendgridClient.new(:bounces, :type => "soft", :username => "olook").parsed_response
-      responses += SendgridClient.new(:bounces, :type => "soft", :username => "olook2").parsed_response
+      responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook").parsed_response
+      responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook2").parsed_response
       emails(responses)
     end
 
