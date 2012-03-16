@@ -1,6 +1,8 @@
 class UserInfo < ActiveRecord::Base
 	belongs_to :user
 
+    attr_accessible :shoes_size
+
 	SHOES_SIZE =
   {
     "223" => '33',
@@ -11,5 +13,5 @@ class UserInfo < ActiveRecord::Base
     "215" => '38',
     "216" => '39',
     "217" => '40',
-  } 
+  }
 end
