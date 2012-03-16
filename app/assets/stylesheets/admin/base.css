@@ -438,6 +438,7 @@ button.button:active, a.button:active {
 .content .hidden_destroy a:hover {
   color: #ff0000;
 }
+
 .admin_carousel_image {
   position: relative;
   display: inline;
@@ -454,4 +455,8 @@ button.button:active, a.button:active {
   background-color: #800000;
   color: #fff;
   text-align: center;
+}
+
+#sync_products {
+  margin: 20px;
 }
