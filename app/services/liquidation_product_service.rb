@@ -35,7 +35,7 @@ class LiquidationProductService
   end
 
   def retail_price
-    (@product.price * @discount_percent.to_f) / 100
+    (@product.price * (100 - @discount_percent.to_f)) / 100
   end
 
   def subcategory_name
