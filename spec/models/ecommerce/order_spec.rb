@@ -377,10 +377,15 @@ describe Order do
     end
   end
 
-  describe "ERP(abacos) integration" do
+  describe "State machine transitions" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
+        subject.waiting_payment
+      end
+
+      it "should enqueue a Orders::NotificationOrderRequestedWorker" do
+        subject.should_receive(:send_notification_order_requested)
         subject.waiting_payment
       end
     end
@@ -392,6 +397,76 @@ describe Order do
         subject.waiting_payment
         subject.authorized
       end
+
+      it "should send a notification for payment confirmed" do
+        subject.should_receive(:send_notification_payment_confirmed)
+        subject.waiting_payment
+        subject.authorized
+      end
+    end
+
+    context "when the order is shipped" do
+      it "should send a notification for payment shipped" do
+        subject.should_receive(:send_notification_order_shipped)
+        subject.waiting_payment
+        subject.authorized
+        subject.picking
+        subject.delivering
+      end
+    end
+
+    context "when the order is delivered" do
+      it "should send a notification for payment delivered" do
+        subject.should_receive(:send_notification_order_delivered)
+        subject.waiting_payment
+        subject.authorized
+        subject.picking
+        subject.delivering
+        subject.delivered
+      end
+    end
+
+    context "when the order is refused" do
+      it "should send a notification for payment canceled" do
+        subject.should_receive(:send_notification_payment_refused)
+        subject.waiting_payment
+        subject.canceled
+      end
+
+      it "should send a notification for payment refused" do
+        subject.should_receive(:send_notification_payment_refused)
+        subject.waiting_payment
+        subject.authorized
+        subject.under_review
+        subject.reversed
+      end
+    end
+  end
+
+  describe "Notifications mailer" do
+    it "should enqueue a Orders::NotificationOrderDeliveredWorker" do
+      Resque.should_receive(:enqueue).with(Orders::NotificationOrderDeliveredWorker, subject.id)
+      subject.send_notification_order_delivered
+    end
+
+    it "should enqueue a Orders::NotificationOrderShippedWorker" do
+      Resque.should_receive(:enqueue).with(Orders::NotificationOrderShippedWorker, subject.id)
+      subject.send_notification_order_shipped
+    end
+
+    it "should enqueue a Orders::NotificationPaymentConfirmedWorker" do
+      Resque.should_receive(:enqueue).with(Orders::NotificationPaymentConfirmedWorker, subject.id)
+      subject.send_notification_payment_confirmed
+    end
+
+    it "should enqueue a Orders::NotificationOrderRequestedWorker" do
+      Resque.should_receive(:enqueue).with(Orders::NotificationOrderRequestedWorker, subject.id)
+      subject.send_notification_order_requested
+    end
+
+    it "should enqueue a Orders::NotificationPaymentRefusedWorker" do
+      Resque.should_receive(:enqueue).with(Orders::NotificationPaymentRefusedWorker, subject.id)
+      subject.send_notification_payment_refused
     end
   end
 

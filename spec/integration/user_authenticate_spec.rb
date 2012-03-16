@@ -27,12 +27,6 @@ feature "User Authenticate", %q{
     Resque.stub(:enqueue)
   end
 
-  scenario "User can fill the cpf when invited" do
-    visit accept_invitation_path(:invite_token => @user.invite_token)
-    answer_survey
-    page.should have_content("CPF")
-  end
-
   scenario "User cant't fill the cpf when not invited" do
     answer_survey
     visit new_user_registration_path
