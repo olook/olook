@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/my_account" %>
+<% end %>
+
+<div id="my_account" class="showroom">
+  <div id="box_menu">
+    <%= render "shared/my_account/menu" %>
+  </div>
+  <div id="data">
+    <div class="box_title">
+      <h1 class="showroom">Minha Vitrine</h1>
+    </div>
+    <div class="container">
+      <h2>Qual o tamanho do seu sapato?</h2>
+      <%= form_tag "#" do %>
+        <ul class="shoes_size">
+          <li>
+            <label for="size_1_33">
+              33
+              <%= radio_button_tag "size_1", "33" %>
+            </label>
+          </li>
+          <li>
+            <label for="size_1_34">
+              34
+              <%= radio_button_tag "size_1", "34" %>
+            </label>
+          </li>
+        </ul>
+        <%= submit_tag "" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

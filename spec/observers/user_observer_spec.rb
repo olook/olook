@@ -18,4 +18,9 @@ describe UserObserver do
     FactoryGirl.create(:member)
   end
 
+  it "adds credit for the invitee" do
+    Credit.should_receive(:add_for_invitee)
+    FactoryGirl.create(:member)
+  end
+
 end

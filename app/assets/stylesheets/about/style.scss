@@ -146,7 +146,7 @@ padding:20px 20px 0;
   font-family: sans-serif;
 }
 
-#terms p.intro {
+#terms p.intro, #terms .intro {
   border:1px solid #c1c1c1;
   padding:30px;
   font-size:16px;
@@ -155,7 +155,12 @@ padding:20px 20px 0;
 
 #terms p {
   margin: 13px 0 20px;
+  a.arrow {
+    background: url("/assets/about/mini_arrow.png") left no-repeat;
+    padding-left: 13px;
+  }
 }
+
 #terms p.last {
   margin-bottom:100px;
 }
@@ -163,6 +168,52 @@ padding:20px 20px 0;
   color:#E05789;
 }
 
+#terms .intro {
+  p {
+    margin: 0 0 20px;
+  }
+  ul {
+    margin: 0 0 0 60px;
+    li {
+      color: #de5a8d;
+    }
+  }
+}
+
+#terms ul.contact {
+  background: #FFF;
+  width: 340px;
+  overflow: hidden;
+  margin: 0 auto 15px auto;
+  padding: 2px 12px;
+  border: 1px #d2d2d2 solid;
+  li {
+    float: left;
+    &.phone {
+      background: url("/assets/contact/ico-phone.png") left no-repeat;
+      color: #3b3b3b;
+      font-size: 15px;
+      font-weight: bold;
+      margin: 0 15px 0 0;
+      padding: 5px 10px 5px 25px;
+      border-right: 1px #d2d2d2 solid;
+    }
+    &.mail {
+      padding: 5px 0 5px 0;
+      a {
+        background: url("/assets/contact/ico-mail.png") left no-repeat;
+        color: #3b3b3b;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 0 0 0 25px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
 .steps {
   padding:0 30px;
   margin-bottom: 35px;

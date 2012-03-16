@@ -13,7 +13,7 @@
   <% else %>
     <div class="not_connected">
       <h2>Só mais um passo e <span>você verá seu estilo</span></h2>
-      <p>Analisando as suas respostas, nossos stylists passarão <br />a enviar dicas de moda e produtos para completar seu look.</p>
+      <p>Quando o resultado ficar pronto, você receberá diversos e-mails com dicas e produtos da moda com a sua cara.</p>
     </div>
     <div class="connect">
       <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
@@ -63,14 +63,14 @@
 
         <% if resource.is_invited %>
           <li class="cpf">
-            <span class="hint">Para você ganhar R$10 e seu amigo R$20, preencha o CPF.</span>
+            <span class="hint">Para você ganhar R$10, preencha o seu CPF.</span>
             <%= f.label :cpf, "CPF" %>
             <%= f.text_field :cpf %>
           </li>
         <% end %>
 
         <li class="terms">
-          <p>Concluindo o cadastro você aceita os <%= link_to 'Termos de uso', terms_path, :target => "_blank" %></p>
+          <p>Ao concluir o cadastro você aceita os <%= link_to 'Termos de uso', terms_path, :target => "_blank" %> e a nossa <%= link_to "Política de Privacidade", privacy_path %></p>
         </li>
       </ol>
     </fieldset>

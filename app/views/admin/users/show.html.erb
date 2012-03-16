@@ -30,10 +30,23 @@
     <%= @user.created_at %>
   </p>
   <p>
-    <b>Invite Bonus:</b>
-    <%= number_to_currency @user.invite_bonus %>
+    <b>Current credits:</b>
+    <%= number_to_currency @user.current_credit %>
   </p>
-
+  <p>
+    <b>Locked At</b>
+    <%=@user.locked_at %>
+    <% if @user.access_locked? %>
+      <%= link_to 'Unlock Access', "/admin/users/unlock_access/#{@user.id}" %>
+      <%  else  %>
+      <%= link_to 'Lock Access', "/admin/users/lock_access/#{@user.id}" %>
+    <% end %>
+  </p>
+  <p>
+    <button style="padding:5px">
+      <%= link_to 'Destroy', admin_user_path(@user), confirm: 'Are you sure?', method: :delete %>
+    </button>
+  </p>
   <%= render partial: 'show_orders', locals: { user: @user }  %>
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user }  %>

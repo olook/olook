@@ -8,7 +8,7 @@ describe Admin::UsersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin
+    @admin = Factory :admin_superadministrator
     sign_in @admin
   end
 
@@ -106,6 +106,22 @@ describe Admin::UsersController do
     end
   end
 
+  describe 'GET lock_access' do
+    it 'should lock user access' do
+      get :lock_access, :id => user.id
+      user.reload
+      user.locked_at.should_not be_nil
+    end
+  end
+
+  describe 'GET unlock_access' do
+    it 'should unlock user access' do
+      get :lock_access, :id => user.id.to_s
+      get :unlock_access, :id => user.id.to_s
+      user.locked_at.should be_nil
+    end
+  end
+  
   describe "DELETE destroy" do
     it "destroys the requested user" do
       expect {

@@ -1,9 +1,10 @@
-class Admin::CouponsController < ApplicationController
+class Admin::CouponsController < Admin::BaseController
+
+  load_and_authorize_resource
+  
   respond_to :html
-  before_filter :authenticate_admin!
   before_filter :load_coupon, :only => [:show, :edit, :update, :destroy]
 
-  layout 'admin'
 
   def index
     @search = Coupon.search(params[:search])

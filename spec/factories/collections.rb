@@ -31,6 +31,9 @@ FactoryGirl.define do
       start_date Date.civil(2012, 03, 01)
       end_date Date.civil(2012, 03, 31)
     end
-  end
 
+    factory :active_collection do
+      is_active true
+    end
+  end
 end

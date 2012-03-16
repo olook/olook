@@ -281,10 +281,10 @@
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
       bonus_for_accepting_invite: 'Você já ganhou <span class="amount">R$ 10,00</span> por ter sido convidada!'
       invitation_accepted:
-        one: '<span>%{count} </span>amiga já se registrou e você ganhou <span class="amount">%{bonus}</span>'
-        other: '<span>%{count} </span>amigas já se registraram e você ganhou <span class="amount">%{bonus}</span>'
+        one: '<span>%{count} </span>amiga já se registrou. Você tem <span class="amount">%{bonus}</span> em créditos!'
+        other: '<span>%{count} </span>amigas já se registraram. Você tem <span class="amount">%{bonus}</span> em créditos!'
       member_with_no_invite_bonus: "Escolha uma das opções abaixo e comece a convidar"
-      member_with_invite_bonus: 'Você já ganhou <br/><span class="amount">%{bonus}</span>'
+      member_with_invite_bonus: 'Você tem <br/><span class="amount">%{bonus}</span> em créditos!'
     promotions:
       title: "Promoções"
 

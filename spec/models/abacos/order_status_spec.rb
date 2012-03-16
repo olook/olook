@@ -46,19 +46,6 @@ describe Abacos::OrderStatus do
     end
   end
 
-  describe "#find_and_check_order" do
-    context "when the order doesn't exist" do
-      before :each do
-        subject.stub(:order_number).and_return(0)
-      end
-      it "should raise an error" do
-        expect {
-          subject.send :find_and_check_order, 0
-        }.to raise_error "Order number 0 doesn't exist"
-      end
-    end
-  end
-
   describe '#change_order_state' do
     let(:order) { FactoryGirl.create :clean_order }
     let(:default_order_state) do

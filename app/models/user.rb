@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 
+  has_paper_trail :on => [:update, :destroy]
+
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
   attr_protected :invite_token
@@ -13,11 +15,13 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :payments, :through => :orders
+  has_many :credits
+  has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, 
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
          :token_authenticatable
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
@@ -65,6 +69,10 @@ class User < ActiveRecord::Base
     end.compact
   end
 
+  def inviter
+    Invite.find_inviter(self) if is_invited?
+  end
+
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token!(token)
     accepted_invite = inviting_member.invite_for(email) || inviting_member.invites.create(:email => email, :sent_at => Time.now)
@@ -85,6 +93,18 @@ class User < ActiveRecord::Base
 
   def used_invite_bonus
     InviteBonus.already_used(self)
+  end
+
+  def current_credit
+    credits.last.try(:total) || 0
+  end
+
+  def has_not_exceeded_credit_limit?(value = 0)
+    (used_invite_bonus + current_credit + value) <= InviteBonus::LIMIT_FOR_EACH_USER
+  end
+
+  def can_use_credit?(value)
+    current_credit.to_f >= value.to_f
   end
 
   def profile_scores
@@ -117,6 +137,7 @@ class User < ActiveRecord::Base
 
   def add_event(type, description = '')
     self.events.create(event_type: type, description: description)
+    self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
   def invitation_url(host = 'www.olook.com.br')
@@ -155,7 +176,25 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.where("orders.state <> 'in_the_cart'").count > 0
+    self.orders.not_in_the_cart.count > 0
+  end
+
+  def first_buy?
+    self.orders.paid.count == 1
+  end
+
+  def tracking_params(param_name)
+    first_event = events(:where => EventType::TRACKING).first
+    if first_event
+      match_data = (/\"#{param_name}\"=>\"(\w+)\"/).match(first_event.description)
+      return match_data.captures.first if match_data
+    end
+  end
+
+  def total_revenue(total_method = :total)
+    self.orders.joins(:payment)
+        .where("payments.state IN ('authorized','completed')")
+        .inject(0) { |sum,order| sum += order.send(total_method) }
   end
 
   private
@@ -191,4 +230,3 @@ class User < ActiveRecord::Base
     end if self.invite_token.nil?
   end
 end
-
