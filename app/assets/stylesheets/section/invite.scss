@@ -84,16 +84,16 @@ body {
             & + h3 {
               position: absolute;
               background: url("/assets/common/banner/bg-banner-black.png") no-repeat;
-              width: 320px;
+              width: 380px;
               height: 69px;
               display: block;
               left: -20px;
               top: 156px;
               z-index: 5;
               & > p {
-                margin: 6px 0 10px 16px;
+                margin: 9px 0 0 20px;
                 & + p {
-                  margin-left: 105px;
+                  margin-left: 85px;
                 }
               }
               & + p {
@@ -106,6 +106,7 @@ body {
               p {
                 color: #FFF;
                 font-size: 19px;
+                font-weight: normal;
                 letter-spacing: -1px;
                 span {
                   font-size: 22px;
