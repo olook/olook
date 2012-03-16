@@ -34,15 +34,6 @@ $(document).ready(function() {
   if($('.dialog.liquidation').length == 1) {
     initBase.openDialog();
 
-    $(".dialog img").animate({
-      width: 'toggle',
-      height: 'toggle'
-    });
-
-    $('body .dialog.liquidation').css("left", (viewWidth - imageW) / 2);
-    $('body .dialog.liquidation').css("top", (viewHeight - imageH) / 2);
-
-    $('.dialog img').fadeIn('slow');
     initBase.closeDialog();
   }
 

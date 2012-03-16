@@ -290,11 +290,21 @@ initBase = {
     height = $(document).height();
     viewWidth = $(window).width();
     viewHeight = $(window).height();
-    imageW = $('.dialog img').width();
-    imageH = $('.dialog img').height();
 
     $('body').prepend("<div class='overlay'></div>");
     $('.overlay').width(width).height(height);
+
+    $(".dialog").animate({
+      width: 'toggle',
+      height: 'toggle'
+    });
+
+    imageW = $('.dialog img').width();
+    imageH = $('.dialog img').height();
+    $('body .dialog.liquidation').css("left", (viewWidth - imageW) / 2);
+    $('body .dialog.liquidation').css("top", (viewHeight - imageH) / 2);
+
+    $('.dialog img').fadeIn('slow');
   },
 
   closeDialog : function() {
