@@ -82,11 +82,14 @@ class LiquidationService
     Collection.all.each do |collection|
       collections << collection if consider_collection?(collection, starts_at, ends_at)
     end
+    puts collections
     collections
   end
 
   def consider_collection? collection, starts_at, ends_at
-    (starts_at >= collection.start_date) && (collection.end_date.to_datetime <= ends_at)
+    return false if (collection.start_date.to_datetime < starts_at) && (collection.end_date.to_datetime < starts_at)
+    return false if (collection.start_date.to_datetime > ends_at) && (collection.end_date.to_datetime > ends_at)    
+    (collection.start_date.to_datetime >= starts_at) || (collection.end_date.to_datetime <= ends_at)
   end
 
   private

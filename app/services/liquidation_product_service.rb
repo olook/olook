@@ -116,8 +116,6 @@ class LiquidationProductService
   end
 
   def conflicts_collections?
-    #@collections.map{|c| c.id }.include? @product.collection_id
-    #TODO: add to an array of conflieted with collections
-    false
+    @collections.map{|c| c.id }.include? @product.collection_id
   end
 end
