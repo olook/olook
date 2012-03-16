@@ -1,0 +1,66 @@
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag  "about/normalize" %>
+  <%= stylesheet_link_tag  "about/style" %>
+<% end %>
+
+<div id="terms" role="main">
+  <h1>Política de Trocas e Devoluções</h1>
+  <div class="steps">
+    
+    <div class="intro">
+      <p>Oferecer um serviço de qualidade para as nossas clientes é um dos pontos mais importantes para a olook. Queremos que você tenha a melhor experiência de compra possível, por isso, aceitamos trocas ou devoluções de produtos sem qualquer custo. Segue abaixo o que você precisa saber:</p>
+      <ul>
+        <li>- O produto deve estar novo, sem uso.</li>
+        <li>- A partir do dia em que recebeu o produto, você tem:</li>
+        <li>- 30 dias para solicitar uma TROCA.</li>
+        <li>- 7 dias para solicitar uma DEVOLUÇÃO.</li>
+        <li>- Em caso de defeito, você também tem 30 dias após o recebimento para solicitar a devolução.</li>
+      </ul>
+    </div>
+    
+    <h2>1. Solicitação de troca ou devolução</h2>
+    <p>Simples e sem custo. <br />
+      1. Solicite a troca ou devolução informando o número do pedido, produto a ser trocado e motivo da troca a nossa central de atendimento:
+    </p>
+    <ul class="contact">
+      <li class="phone">(11) 2626-3489</li>
+      <li class="mail"><%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %></li>
+    </ul>
+    <p>2. Coloque o produto e todos os acessórios de volta na caixa original.<br />
+      3. Aguarde a orientação das nossas atendentes sobre a coleta do produto.
+    </p>
+    <p>Dependendo do seu endereço, coletaremos na sua residência ou você deverá deixar o produto em uma agência dos correios.</p>
+
+    <h2>2. Prazos para solicitações de Troca ou Devolução</h2>
+    <p><strong>2.1 Arrependimento de compra</strong><br />
+      Você tem até 7 dias corridos, após ter recebido o produto para que seja solicitada a troca ou devolução para a nossa equipe de atendimento. É muito importante que o produto esteja sem uso.
+    </p>
+    <p><strong>2.2 Produto apresentou defeito</strong><br />
+      Os produtos comercializados pela olook possuem 30 dias de garantia. Caso você identifique durante esse período, qualquer sinal de defeito, você deve entrar em contato com a nossa equipe de atendimento.
+    </p>
+    <p><strong>2.3 Erro na entrega, produto ou embalagem avariada</strong><br />
+      Caso você tenha recebido seu pedido com alguma alteração, tal como: embalagem aberta ou violada, produto diferente em relação à compra realizada ou falta de algum acessório, comunique imediatamente nossa equipe. Você tem 3 dias corridos após ter recebido o produto para notificar o problema.
+    </p>
+
+    <h2>3. Opções de troca</h2>
+    <p>É possível trocar pelo mesmo produto sem pagar o frete novamente. Entende-se por "mesmo produto" em caso de troca por numeração diferente – Sujeito à disponibilidade de estoque;<br />Ou receber um cupom em crédito referente ao valor pago para ser utilizado na Olook em até 360 dias após a emissão do cupom.</p>
+
+    <h2>4. Opções de devolução</h2>
+    <p>Reembolso do valor pago, de acordo com a forma de pagamento utilizada no fechamento do pedido.<br />Ou devolver o produto e receber um cupom em crédito referente ao valor pago para ser utilizado na Olook em até 360 dias após a emissão do cupom.</p>
+
+    <h2>5. Condições do produto para troca ou devolução</h2>
+    <p>O produto precisa ser devolvido sem uso, dentro da sua embalagem original, juntamente com a nota fiscal. Os produtos devolvidos passam por uma análise de Controle de Qualidade da Olook no momento em que são recebidos. Esta análise é feita em até 5 dias úteis. Somente será liberado o envio de um novo produto solicitado para troca ou será feita a restituição do valor pago após a aprovação da equipe de Controle de Qualidade. A Olook se reserva no direito de não aceitar a devolução do produto caso seja encontrada qualquer divergência ou violação do produto.  Neste caso, o produto será devolvido ao remetente sem comunicação prévia.</p>
+
+    <h2>6. Formas de devolução</h2>
+    <p>A devolução do seu pedido é feita por meio de postagem paga pela Olook. Ao solicitar a troca, você receberá um link em seu e-mail para que você possa postar o seu pedido em qualquer agência credenciada dos Correios, sem custo algum.<br />Consulte a lista de agências credenciadas:<br />
+      <%= link_to "http://www.correios.com.br/servicos/agencias", "http://www.correios.com.br/servicos/agencias", :class => "arrow" %></p>
+    <p>Outra opção oferecida pela Olook é a coleta domiciliar. Caso prefira, você pode deixar o pedido com alguém no endereço de entrega e nosso transportador irá coletar o produto em até 10 dias sem custo adicional.<br />Importante: o novo item, liberação do cupom em créditos ou a restituição do valor pago somente será realizado após recebimento do retorno do produto ao nosso Centro de Distribuição.</p>
+
+    <h2>7. Prazos para restituição do valor pago</h2>
+    <p>Pagamento feito via Boleto Bancário: o reembolso será feito na conta corrente em que foi feito o pedido em até 5 dias úteis após a conclusão da devolução.<br />Pagamento feito via Cartão de Crédito: o estorno no seu cartão de crédito poderá ser visualizado em até duas faturas após a conclusão da devolução. Importante: este prazo depende da data de vencimento do cartão;</p>
+
+    <h2>8. Saiba mais sobre o Código de Defesa do Consumidor</h2>
+    <p class="last"><%= link_to "http://www.planalto.gov.br/ccivil_03/Leis/L8078compilado.htm", "http://www.planalto.gov.br/ccivil_03/Leis/L8078compilado.htm", :class => "arrow" %></p>
+    
+  </div>
+</div>

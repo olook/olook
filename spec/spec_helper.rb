@@ -72,7 +72,6 @@ Spork.prefork do
 
     config.include Devise::TestHelpers, :type => :controller
     config.extend VCR::RSpec::Macros
-
     config.include Abacos::TestHelpers
   end
 end

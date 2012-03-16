@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
-[Admin, Profile, Question, Answer, Weight, SurveyAnswer].map(&:delete_all)
-
-Admin.create(:email => "admin@olook.com", :password =>"123456")
+admin = Admin.new(:email => "admin@olook.com",
+                  :password =>"DifficultPassword123",
+                  :first_name => "administrator",
+                  :last_name => "olook")
+admin.role = superadmin
+admin.save!
 
 survey = Survey.new(SURVEY_DATA).build
-

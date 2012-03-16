@@ -202,6 +202,7 @@ $(document).ready(function() {
     newImg = $(this).attr("data-href");
     soldOut = $(this).parent().find("input[type='hidden'].sold_out").val();
     quantity = $(this).parent().find("input[type='hidden'].quantity").val();
+<<<<<<< HEAD
     $(productBox).removeClass("sold_out");
     $(productBox).removeClass("stock_down");
     initBase.updateProductImage(productBox, newLink, newImg);
@@ -215,6 +216,22 @@ $(document).ready(function() {
     percentageBox = $(productBox).find("a.product_link").find("p.percentage");
     percentage = $(this).parent().find("input[type='hidden'].percentage").val();
     $(percentageBox).find("span").text(percentage);
+=======
+    productBox = $(this).parents(".box_product");
+    quantityBox = $(productBox).find("a.product_link").find("p.quantity");
+    $(productBox).removeClass("sold_out");
+    $(productBox).removeClass("stock_down");
+    $(productBox).find("a.product_link img").attr("src", newImg);
+    $(productBox).find("a.product_link").attr("href", newLink);
+    if(soldOut == "sold_out") {
+      $(productBox).addClass("sold_out");
+    } else {
+      if(quantity > 0 && quantity <= 3) {
+        $(quantityBox).find("span").text(quantity);
+        $(productBox).addClass("stock_down");
+      }
+    }
+>>>>>>> master
   });
 });
 

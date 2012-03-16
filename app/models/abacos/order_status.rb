@@ -17,8 +17,10 @@ module Abacos
 
     def integrate
       order = find_and_check_order self.order_number
-      change_order_state order
-      set_invoice_info order
+      if order
+        change_order_state order
+        set_invoice_info order
+      end
       confirm_order_status
     end
 
@@ -71,9 +73,7 @@ module Abacos
     end
 
     def find_and_check_order(number)
-      order = Order.find_by_number number
-      raise "Order number #{order_number} doesn't exist" unless order
-      order
+      Order.find_by_number number
     end
 
     def confirm_order_status

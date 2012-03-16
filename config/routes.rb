@@ -10,6 +10,7 @@ Olook::Application.routes.draw do
   match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
+  match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
@@ -37,7 +38,9 @@ Olook::Application.routes.draw do
   post "/postar-resposta-quiz", :to => "friends#post_survey_answer", :as => "post_survey_answer"
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
-  resource :criteo, :only => [:show], :path => 'criteo', :controller => :criteo
+  match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
+  match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
+  match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
@@ -61,8 +64,8 @@ Olook::Application.routes.draw do
   get "/produto/:id" => "product#show", :as => "product"
   post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
 
-  get "membro/convite" => "home#index", :as => "member_invite"
-  get "convite/(:invite_token)" => "home#index", :as => "accept_invitation"
+  get "membro/convite" => "members#invite", :as => 'member_invite'
+  get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
 
@@ -95,18 +98,23 @@ Olook::Application.routes.draw do
       end
     end
     match 'facebook' => "settings#facebook", :as => "facebook"
+    match 'minha-vitrine' => "settings#showroom", :as => "showroom"
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
-  
+
   namespace :admin do
     match "/", :to => "index#dashboard"
 
     resources :products do
+      collection do
+        post 'sync_products' => 'products#sync_products', :as => 'sync_products'
+      end
+
       resources :pictures do
         collection do
           get  'multiple_pictures' => 'pictures#new_multiple_pictures', :as => 'new_multiple_pictures'
-          post  'multiple_pictures' => 'pictures#create_multiple_pictures', :as => 'create_multiple_pictures'
+          post 'multiple_pictures' => 'pictures#create_multiple_pictures', :as => 'create_multiple_pictures'
         end
       end
       resources :details
@@ -129,6 +137,8 @@ Olook::Application.routes.draw do
         get 'statistics' => 'users#statistics', :as => 'statistics'
         get 'export' => 'users#export', :as => 'export'
         get 'login/:id' => 'users#admin_login'
+        get 'lock_access/:id' => 'users#lock_access'
+        get 'unlock_access/:id' => 'users#unlock_access'
       end
     end
 
@@ -148,6 +158,10 @@ Olook::Application.routes.draw do
       resources :liquidation_carousels, :as => "carousels"
       resources :liquidation_products, :as => "products"
     end
+    resources :roles do
+      resources :permissions
+    end
+    resources :admins
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do

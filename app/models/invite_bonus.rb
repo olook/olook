@@ -40,9 +40,12 @@ protected
 
   module SecondPromotion
     START_DATE = FirstPromotion::END_DATE
+    END_DATE = DateTime.civil(2012, 03, 02, 0, 0, 0)
 
     def self.for_accepted_invites(member)
-      accepted_invites_count = member.invites.accepted.where('accepted_at > :start_date', :start_date => START_DATE).count
+      accepted_invites_count = member.invites.accepted
+                                     .where('accepted_at BETWEEN :start_date AND :end_date',
+                                            :start_date => START_DATE, :end_date => END_DATE).count
       (accepted_invites_count / 5) * 20.0
     end
   end

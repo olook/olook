@@ -1,7 +1,7 @@
 li.product {
   margin: 0 0 2px 0;
   padding: 10px;
-  overflow: auto;
+  overflow: hidden;
   display: inline-block;
   float: left;
   .box_product {
@@ -11,6 +11,7 @@ li.product {
       position: relative;
       p.warn {
         position: absolute;
+<<<<<<< HEAD
         color: #FFF;
         font-family: "Open Sans", sans-serif;
         font-size: 10px;
@@ -18,11 +19,14 @@ li.product {
         text-align: center;
         text-transform: uppercase;
         line-height: 10px;
+=======
+>>>>>>> master
         width: 50px;
         height: 50px;
         display: none;
         &.sold_out {
           background: url("/assets/common/sold_out.png") no-repeat;
+<<<<<<< HEAD
           font-size: 14px;
           line-height: 15px;
           height: 40px;
@@ -30,6 +34,18 @@ li.product {
         }
         &.quantity, &.percentage {
           background: url("/assets/common/quantity.png") no-repeat;
+=======
+          text-indent: -9999px;
+        }
+        &.quantity {
+          background: url("/assets/common/quantity.png") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 10px;
+          font-weight: normal;
+          text-align: center;
+          line-height: 10px;
+>>>>>>> master
           height: 45px;
           padding-top: 5px;
           span {
@@ -38,6 +54,7 @@ li.product {
             font-weight: 600;
           }
         }
+<<<<<<< HEAD
         &.percentage {
           font-size: 13px;
           height: 40px;
@@ -47,6 +64,8 @@ li.product {
             font-size: 20px;
           }
         }
+=======
+>>>>>>> master
       }
       img {
         margin: 0 0 10px 0;
@@ -144,7 +163,11 @@ li.product {
     &.sold_out {
       a p.sold_out {
         top: 2px;
+<<<<<<< HEAD
         left: 2px;
+=======
+        right: 2px;
+>>>>>>> master
         display: block;
       }
     }
