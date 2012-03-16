@@ -48,6 +48,7 @@ html {
         }
         &.liquidation {
           height: auto;
+          display: none;
           img {
             display: block;
           }
