@@ -40,6 +40,14 @@ describe MarketingReports::SendgridClient do
       described_class.new(:invalid_emails, :password => "qwerty")
     end
 
+    it "accepts optional params" do
+      HTTPI::Request.stub(:new).and_return(request)
+      HTTPI.stub(:get)
+
+      request.should_receive(:url=).with("https://sendgrid.com/api/invalidemails.get.xml?api_user=olook&api_key=qwerty&param_1=value_1&param_2=value_2")
+      described_class.new(:invalid_emails, :password => "qwerty", :param_1 => "value_1", :param_2 => "value_2")
+    end
+
     it "makes a get with the created request" do
       HTTPI::Request.stub(:new).and_return(request)
       request.stub(:url=)
@@ -47,6 +55,7 @@ describe MarketingReports::SendgridClient do
       HTTPI.should_receive(:get).with(request)
       described_class.new(:invalid_emails)
     end
+
   end
 
   describe "suported services" do
@@ -73,10 +82,14 @@ describe MarketingReports::SendgridClient do
     it "supports unsubscribes service" do
       expect { described_class.new(:unsubscribes) }.to_not raise_error
     end
+
+    it "supports bounces service" do
+      expect { described_class.new(:bounces) }.to_not raise_error
+    end
   end
 
   describe "#parsed_response" do
-    it "returns XML response body as a ruby array list" do
+    it "returns XML response body as hash" do
       json_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?><invalidemails>" +
                             "<invalidemail><email>rh@planetamalhas.com.br</email><status>500</status><reason>spam</reason></invalidemail>" +
                             "<invalidemail><email>naosalvo@gmail.com</email><test>hello</test></invalidemail></invalidemails>"

@@ -4,7 +4,7 @@ class OrderStatusWorker
 
   def self.perform(order_id)
     order = Order.find(order_id)
-    send_email(order) if order.user.email == "leinboston@hotmail.com"
+    send_email(order)
   end
 
   def self.send_email(order)
