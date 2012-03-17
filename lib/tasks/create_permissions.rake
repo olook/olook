@@ -31,7 +31,7 @@ namespace :olook do
 
   task :seed_admin, :needs =>:environment do
     superadmin = Role.create(:name => "superadministrator", :description => "Manages everything in the system")
-    admin = Admin.new(:email => "admin@olook.com.br", :first_name => "Olook", :last_name => "Admin",
+    admin = Admin.new(:email => "superadmin@olook.com.br", :first_name => "Olook", :last_name => "Admin",
                       :password => "KjGyuiBop98")
     admin.role = superadmin
     begin
