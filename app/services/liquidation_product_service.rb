@@ -45,6 +45,10 @@ class LiquidationProductService
   def heel
     detail_by_token "Salto/Tamanho"
   end
+  
+  def last_variant
+    @product.variants.last
+  end
 
   def detail_by_token token
     detail = @product.details.where(:translation_token => token).last
@@ -56,8 +60,7 @@ class LiquidationProductService
   end
 
   def shoe?
-    #TODO: change this to call the category constant
-    @product.category == 1
+    @product.category == Category::SHOE
   end
 
   def save
@@ -101,8 +104,8 @@ class LiquidationProductService
       :original_price => @product.price,
       :retail_price => retail_price,
       :discount_percent => @discount_percent,
-      :variant_id => @product.master_variant.id,
-      :inventory => @product.master_variant.inventory
+      :variant_id => (last_variant.id if last_variant),
+      :inventory => (last_variant.inventory if last_variant)
     }
   end
 
