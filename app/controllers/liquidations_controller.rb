@@ -8,8 +8,13 @@ class LiquidationsController < ApplicationController
   before_filter :load_liquidation_products
 
   def show
-    @teaser_banner = LiquidationService.active.teaser_banner_url if !LiquidationService.active.nil?
-    respond_with @liquidation_products
+    @teaser_banner = current_liquidation.teaser_banner_url if current_liquidation
+    if current_liquidation.resume.nil?
+      flash[:notice] = "A liquidação não possui produtos"
+      redirect_to member_showroom_path 
+    else
+      respond_with @liquidation_products
+    end
   end
 
   def update
