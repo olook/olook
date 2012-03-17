@@ -82,7 +82,6 @@ class LiquidationService
     Collection.all.each do |collection|
       collections << collection if consider_collection?(collection, starts_at, ends_at)
     end
-    puts collections
     collections
   end
 
