@@ -4,6 +4,7 @@ class LiquidationsController < ApplicationController
   respond_to :html, :js
 
   before_filter :verify_if_active, :only => [:show]
+  before_filter :load_order, :only => [:show]
   before_filter :load_liquidation_products
 
   def show
