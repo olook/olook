@@ -106,7 +106,7 @@ class LiquidationService
   end
 
   def subcategories_by_category_id category_id
-    @liquidation.liquidation_products.where(:category_id => category_id).map(&:subcategory_name_label).uniq
+    @liquidation.liquidation_products.where("category_id = ? and inventory > 0", category_id).map(&:subcategory_name_label).uniq
   end
 
   def hasherize values

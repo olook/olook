@@ -22,7 +22,7 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
-  get "/liquidacao/:id" => "liquidations#show", :as => "liquidations"
+  get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
