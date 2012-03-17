@@ -41,6 +41,7 @@ jQuery(function() {
       url = $('.pagination .next_page').attr('href');
       var bottomHeight = 750
       if (url && $(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) {
+        $('.pagination .next_page').remove();
         $('.loading').show();
         return $.getScript(url).done(function() {
           $(".loading").hide();
