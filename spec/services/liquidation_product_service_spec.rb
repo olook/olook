@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe LiquidationProductService do
   let(:liquidation) { FactoryGirl.create(:liquidation) }
+  
+  before :each do
+    Liquidation.delete_all
+    LiquidationProduct.delete_all
+  end
 
   def products_ids
     Product.all.map(&:id).join(",").sav

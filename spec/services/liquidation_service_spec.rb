@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe LiquidationService do
   let(:liquidation) { FactoryGirl.create(:liquidation) }
+  
+  before :each do
+    Liquidation.delete_all
+    LiquidationProduct.delete_all
+  end
 
   subject do
     LiquidationService.new(liquidation.id)
