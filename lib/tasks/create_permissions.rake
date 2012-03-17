@@ -1,5 +1,6 @@
 desc "Create Permissions for Controllers"
 namespace :olook do
+
   task :create_permissions, :needs => :environment do
     controllers = Dir.new("#{Rails.root}/app/controllers/admin").entries
     models_rb_files = File.join("#{Rails.root}/app/models/**", "*.rb")
@@ -19,7 +20,7 @@ namespace :olook do
                   Permission.create!(:model_name => model_name, :action_name => action)
                   puts "Added #{action} action for #{model_name}"
                 rescue Exception => e
-                  puts  "Action #{action} for #{model_name} already exists"
+                  puts "Action #{action} for #{model_name} already exists"
                 end
               end
             end
@@ -27,4 +28,18 @@ namespace :olook do
         end
     end
   end
+
+  task :seed_admin, :needs =>:environment do
+    superadmin = Role.create(:name => "superadministrator", :description => "Manages everything in the system")
+    admin = Admin.new(:email => "admin@olook.com.br", :first_name => "Olook", :last_name => "Admin",
+                      :password => "KjGyuiBop98")
+    admin.role = superadmin
+    begin
+      admin.save!
+      puts "Superadmin added to the system"
+    rescue Exception => e
+      puts "User already exists: #{e}"
+    end
+  end
+
 end
