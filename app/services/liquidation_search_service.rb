@@ -29,6 +29,6 @@ class LiquidationSearchService
   end
 
   def sort_filter
-    params[:sort_filter] == SORT_FILTER[:lowest_price] ? "retail_price asc" : "retail_price desc"
+    params[:sort_filter] == SORT_FILTER[:highest_price] ? "retail_price desc" : "retail_price asc"
   end
 end
