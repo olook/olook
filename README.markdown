@@ -22,7 +22,7 @@ Setup
 - copy config/resque.yml.sample to config/resque.yml and set the redis server routes.
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
-- rake db:seed
+- rake olook:seed_admin RAILS_ENV=test
 - rake olook:create_permissions RAILS_ENV=test
 
 Running the application
