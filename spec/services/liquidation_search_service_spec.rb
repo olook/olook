@@ -39,8 +39,15 @@ describe LiquidationSearchService do
          LiquidationSearchService.new(params).search_products.should == [lp1, lp2]
        end
 
-       it "returns products given some heels" do
+       it "returns 0 products if dont have inventory" do
          lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5, :inventory => 0)
+         params = {:id => liquidation.id, :heels => ["6.5", "4.5"]}
+         LiquidationSearchService.new(params).search_products.should == []
+       end
+
+       it "returns 0 products if the product is not visible" do
+         basic_shoe_size_35.product.update_attributes(:is_visible => false)
+         lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5, :inventory => 1)
          params = {:id => liquidation.id, :heels => ["6.5", "4.5"]}
          LiquidationSearchService.new(params).search_products.should == []
        end
