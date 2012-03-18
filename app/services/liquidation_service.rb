@@ -30,8 +30,6 @@ class LiquidationService
   def find_product product_id
     begin
       product = Product.find(product_id)
-      #TODO: implement to see only visible products
-      #product if product.is_visible
     rescue
       @nonexisting_products_ids << product_id
       nil
@@ -91,18 +89,18 @@ class LiquidationService
     (collection.start_date.to_datetime >= starts_at) || (collection.end_date.to_datetime <= ends_at)
   end
 
-  private
+  #private
 
   def products_ids
     @liquidation.liquidation_products.map(&:product_id).uniq
   end
 
   def heels
-    @liquidation.liquidation_products.where(:category_id => 1).map(&:heel).uniq
+    @liquidation.liquidation_products.where(:category_id => Category::SHOE).map(&:heel_label).uniq
   end
 
   def shoe_sizes
-    @liquidation.liquidation_products.where(:category_id => 1).map(&:shoe_size).uniq
+    @liquidation.liquidation_products.where(:category_id => Category::SHOE).map(&:shoe_size).uniq
   end
 
   def subcategories_by_category_id category_id
