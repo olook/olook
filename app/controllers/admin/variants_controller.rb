@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::VariantsController < Admin::BaseController
 
-  load_and_authorize_resource
+  #load_and_authorize_resource
   
 
   before_filter :load_product
