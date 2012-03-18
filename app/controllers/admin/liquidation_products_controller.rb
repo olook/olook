@@ -45,7 +45,7 @@ class Admin::LiquidationProductsController < Admin::BaseController
   
   def verify_exception_products
     if @liquidation_service.denied_products_ids.empty? && @liquidation_service.nonexisting_products_ids.empty?
-      flash[:notice] = "All the products added to this liquidation"
+      flash[:notice] = "Products added"
     else
       flash[:warning] = "The was an error adding some products. <br/>
        Products that are going to be part of a collection during the liquidation period: #{@liquidation_service.denied_products_ids} <br/>
