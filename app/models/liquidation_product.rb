@@ -10,6 +10,10 @@ class LiquidationProduct < ActiveRecord::Base
   
   after_update :update_liquidation_resume
   
+  def total_of_all_variants_inventory
+    LiquidationProduct.where(:product_id => self.product_id, :liquidation_id => self.liquidation_id).sum(:inventory)
+  end
+  
   private
   
   def update_liquidation_resume

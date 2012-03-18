@@ -89,7 +89,7 @@ class LiquidationService
     (collection.start_date.to_datetime >= starts_at) || (collection.end_date.to_datetime <= ends_at)
   end
 
-  #private
+  private
 
   def products_ids
     @liquidation.liquidation_products.map(&:product_id).uniq
@@ -109,6 +109,7 @@ class LiquidationService
 
   def hasherize values
     values.compact!
+    values = values.sort
     values.to_h values.map{|v| v.to_s.parameterize} if values
   end
 

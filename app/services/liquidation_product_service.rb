@@ -72,7 +72,6 @@ class LiquidationProductService
     end
   end
   
-
   def save_shoe_by_size
     shoe_sizes.each do |variant|
       create_or_update_product(:shoe_size => variant[:shoe_size],
