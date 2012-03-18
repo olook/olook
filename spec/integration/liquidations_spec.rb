@@ -28,5 +28,12 @@ feature "Liquidation", %q{
       check("rasteira")
       page.should have_content(basic_shoe_size_35.product.name)
     end
+    
+    scenario "User can see the liquidation even withouth products" do
+      liquidation1 = FactoryGirl.create(:liquidation, :resume => nil)
+      visit liquidations_path(liquidation1)
+      current_path.should == "/membro/vitrine"
+      page.should have_content("A liquidação não possui produtos")
+    end
   end
 end
