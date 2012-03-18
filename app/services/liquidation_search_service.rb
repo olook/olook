@@ -4,7 +4,7 @@ class LiquidationSearchService
 
   def initialize(params)
     @l_products = LiquidationProduct.arel_table
-    @query_base = @l_products[:liquidation_id].eq(params[:id]).and(@l_products[:inventory].gt(0))
+    @query_base = @l_products[:liquidation_id].eq(params[:id]).and(@l_products[:inventory].gt(0)).and(Product.arel_table[:is_visible].eq(true))
     @params = params
   end
 
@@ -16,6 +16,7 @@ class LiquidationSearchService
     queries = [query_heels,  query_shoe_sizes, query_subcategories]
     query_result = queries.detect{|query| !query.nil?}
     @query_base = query_base.and(query_result) if query_result
+
 
     LiquidationProduct.joins(:product).where(query_base)
                                       .group("product_id")
