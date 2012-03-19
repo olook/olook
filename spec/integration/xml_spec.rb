@@ -63,12 +63,12 @@ feature "Show products on xml format" do
       <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=click_a_porter]]></link_produto>
       <nome_produto><![CDATA[#{product.name}]]></nome_produto>
       <marca><![CDATA[olook]]></marca>
-      <categoria><![CDATA[#{ product.category}]]></categoria>
+      <categoria><![CDATA[#{product.category}]]></categoria>
       <cores><cor><![CDATA[#{ product.color_name}]]></cor></cores>
       <descricao><![CDATA[#{ product.description}]]></descricao>
       <preco_de><![CDATA[#{ ActionController::Base.helpers.number_to_currency(product.price, :unit => "") }]]></preco_de>
       <preco_por><![CDATA[#{ ActionController::Base.helpers.number_to_currency(product.price, :unit => "")}]]></preco_por>
-      <parcelamento><![CDATA[1]]></parcelamento>
+      <parcelamento><![CDATA[um]]></parcelamento>
       <imagens>
       </imagens>
       </produto>
