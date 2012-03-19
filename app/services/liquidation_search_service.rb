@@ -19,7 +19,14 @@ class LiquidationSearchService
 
     query_bags_acessories = params[:bag_accessory_subcategories] ? l_products[:subcategory_name].in(params[:bag_accessory_subcategories]) : nil
 
-    @query_base = @query_base.or(query_bags_acessories) if query_bags_acessories
+
+    if query_bags_acessories
+      if query_result
+        @query_base = @query_base.or(query_bags_acessories)
+      else
+        @query_base = @query_base.and(query_bags_acessories)
+      end
+    end
 
     LiquidationProduct.joins(:product).where(query_base)
                                       .group("product_id")

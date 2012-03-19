@@ -82,9 +82,6 @@ class Variant < ActiveRecord::Base
   end
   
   def update_liquidation_products_inventory
-    #puts "CHANGES: #{self.previous_changes}"
-    if self.previous_changes["inventory"]
-      LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory) 
-    end
+    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory) 
   end
 end
