@@ -1,6 +1,14 @@
 # encoding: UTF-8
 # pt-BR translations for Ruby on Rails
 "pt-BR":
+
+  #traduzindo categorias de produtos
+  enumerations:
+    category:
+      shoe: Sapato
+      bag: Bolsa
+      accesory: Acessório
+
   # formatos de data e hora
   date:
     formats:

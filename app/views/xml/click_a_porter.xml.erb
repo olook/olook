@@ -6,7 +6,7 @@
 <link_produto><![CDATA[<%= product.product_url("click_a_porter") %>]]></link_produto>
 <nome_produto><![CDATA[<%= product.name %>]]></nome_produto>
 <marca><![CDATA[olook]]></marca>
-<categoria><![CDATA[<%= product.category %>]]></categoria>
+<categoria><![CDATA[<%= Category.t(product.category) %>]]></categoria>
 <cores><cor><![CDATA[<%= product.color_name %>]]></cor></cores>
 <descricao><![CDATA[<%= product.description %>]]></descricao>
 <preco_de><![CDATA[<%= number_to_currency(product.price, :unit => "") %>]]></preco_de>
