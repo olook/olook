@@ -9,7 +9,7 @@ feature "User Authenticate", %q{
 } do
 
   def showroom_message
-    "Sua stylist está criando sua vitrine personalizada, e ela ficará pronta nas próximas 24 horas"
+    "Sua stylist está criando sua vitrine personalizada, ela ficará pronta em 24 horas"
   end
 
   def update_user_to_old_user(login)
