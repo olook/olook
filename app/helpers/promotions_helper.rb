@@ -1,6 +1,6 @@
 module PromotionsHelper
   PROMOTION_BANNER_WHITELIST = [
-      {:controller => "members", :actions => ["showroom", "welcome"]},
+      {:controller => "members", :actions => ["showroom"]},
       {:controller => "lookbooks"},
       {:controller => "stylists"},
       {:controller => "friends", :actions => ["showroom"]}
