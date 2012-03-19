@@ -63,12 +63,14 @@ class MembersController < ApplicationController
   end
 
   def welcome
+    @banner = LiquidationService.active.welcome_banner_url if !LiquidationService.active.nil?
     @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @products = Product.where('id IN (:products)', :products => [1943, 1983, 605, 46, 1590])
   end
 
   def showroom
+    @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)

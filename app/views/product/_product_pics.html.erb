@@ -4,8 +4,11 @@
       <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
     <% end %>
   </ul>
-  <div id="full_pic" class="<%= (@product.sold_out? && user_signed_in?) ? 'sold_out' : '' %>">
-    <p class="warn">Esgotado</p>
+  <div id="full_pic">
+    <p class="warn <%= (@product.sold_out? && user_signed_in?) ? 'sold_out' : '' %>">ESGO<br />TADO</p>
+    <% if @product.liquidation? && !@product.sold_out? %>
+      <p class="warn percentage"><span><%= @product.liquidation_discount_percent.to_i %>%</span><br />off</p>
+    <% end %>
     <ul>
       <% @product.pictures.each do |picture| %>
         <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("#{picture.image_url(:main).to_s}", :class => "full"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>

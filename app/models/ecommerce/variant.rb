@@ -7,6 +7,7 @@ class Variant < ActiveRecord::Base
 
   before_save :fill_is_master
   after_save :replicate_master_changes, :if => :is_master
+  after_update :update_liquidation_products_inventory
 
   belongs_to :product
 
@@ -29,6 +30,8 @@ class Variant < ActiveRecord::Base
   delegate :main_picture, :to => :product
   delegate :thumb_picture, :to => :product
   delegate :showroom_picture, :to => :product
+  delegate :retail_price, :to => :product
+  delegate :liquidation?, :to => :product
 
   def product_id=(param_id)
     result = super(param_id)
@@ -76,5 +79,9 @@ class Variant < ActiveRecord::Base
       child_variant.copy_master_variant
       child_variant.save!
     end
+  end
+  
+  def update_liquidation_products_inventory
+    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory) 
   end
 end

@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "liquidation_products/index"
+
   get "index/index"
   root :to => "home#index"
 
@@ -19,6 +21,9 @@ Olook::Application.routes.draw do
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
+
+  get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
+  get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
@@ -72,9 +77,13 @@ Olook::Application.routes.draw do
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
 
+  post "user_liquidations", :controller => "user_liquidations", :action => "update"
+
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
+
+
 
   #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
@@ -92,6 +101,7 @@ Olook::Application.routes.draw do
     match 'minha-vitrine' => "settings#showroom", :as => "showroom"
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
+
 
   namespace :admin do
     match "/", :to => "index#dashboard"
@@ -144,6 +154,10 @@ Olook::Application.routes.draw do
     resources :coupons, :except => [:destroy]
     resources :landing_pages
     resources :promotions
+    resources :liquidations do
+      resources :liquidation_carousels, :as => "carousels"
+      resources :liquidation_products, :as => "products"
+    end
     resources :roles do
       resources :permissions
     end

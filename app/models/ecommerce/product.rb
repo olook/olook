@@ -20,6 +20,8 @@ class Product < ActiveRecord::Base
 
   has_many :lookbooks_products, :dependent => :destroy
   has_many :lookbooks, :through => :lookbooks_products
+  has_many :liquidation_products
+  has_many :liquidations, :through => :liquidation_products
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -148,6 +150,19 @@ class Product < ActiveRecord::Base
       xml.tag!(:instock, instock)
       xml.tag!(:category, category)
     end
+  end
+  
+  def liquidation?
+    active_liquidation = LiquidationService.active
+    active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
+  end
+
+  def retail_price
+    LiquidationProductService.retail_price(self)
+  end
+
+  def liquidation_discount_percent
+    LiquidationProductService.discount_percent(self)
   end
 
   def product_url(source)

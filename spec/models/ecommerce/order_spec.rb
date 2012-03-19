@@ -156,7 +156,6 @@ describe Order do
     describe "#total_discount" do
       it "should return all discounts" do
         subject.stub(:credits).and_return(credits = 9.09)
-        #subject.stub(:discount_from_gift).and_return(gift = 9.09)
         subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
         subject.total_discount.should == credits + coupon
       end
@@ -259,6 +258,21 @@ describe Order do
   context "when the inventory is available" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
+      basic_shoe_40.update_attributes(:inventory => 10)
+    end
+
+    it "should set nil to retail price when the item dont belongs to a liquidation" do
+      subject.add_variant(basic_shoe_40, 1)
+      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
+      line_item.retail_price.should be_nil
+    end
+
+    it "should set the retail price when the item belongs to a liquidation" do
+      basic_shoe_40.stub(:liquidation?).and_return(true)
+      basic_shoe_40.stub(:retail_price).and_return(retail_price = 45.90)
+      subject.add_variant(basic_shoe_40, 1)
+      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
+      line_item.retail_price.should == retail_price
     end
 
     it "should create line items" do
@@ -266,6 +280,7 @@ describe Order do
         subject.add_variant(basic_shoe_35, 10)
       }.to change(LineItem, :count).by(1)
     end
+
 
     it "should not return a nil line item" do
       subject.add_variant(basic_shoe_35, 10).should_not == nil
@@ -377,61 +392,10 @@ describe Order do
     end
   end
 
-  describe "#reimburse_user" do
-    let(:user) { FactoryGirl.create(:member)}
-
-    before do
-      subject.user = user
-      subject.save!
-    end
-
-    context "when order has no credits" do
-      before do
-        subject.update_attribute(:credits, nil)
-      end
-
-      it "does not add to user credit" do
-        Credit.should_not_receive(:add)
-        subject.reimburse_credit
-      end
-    end
-
-    context "when order has credit" do
-      before do
-        subject.update_attribute(:credits, BigDecimal.new("1.24"))
-      end
-
-      it "does increase user credit by order credits amount" do
-        Credit.should_receive(:add).with(subject.credits, subject.user, subject)
-        subject.reimburse_credit
-      end
-
-    end
-  end
-
-    describe "#add_credit_to_inviter" do
-    let(:user) { FactoryGirl.create(:member)}
-
-    before do
-      subject.user = user
-      subject.save!
-    end
-
-    it "add credit to the inviter" do
-      Credit.should_receive(:add_for_inviter).with(subject.user, subject)
-      subject.add_credit_to_inviter
-    end
-  end
-
-  describe "State machine transitions" do
+  describe "ERP(abacos) integration" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
-        subject.waiting_payment
-      end
-
-      it "should enqueue a Orders::NotificationOrderRequestedWorker" do
-        subject.should_receive(:send_notification_order_requested)
         subject.waiting_payment
       end
     end
@@ -443,101 +407,6 @@ describe Order do
         subject.waiting_payment
         subject.authorized
       end
-
-      it "should send a notification for payment confirmed" do
-        subject.should_receive(:send_notification_payment_confirmed)
-        subject.waiting_payment
-        subject.authorized
-      end
-
-      it "adds credit to inviter" do
-        subject.should_receive(:add_credit_to_inviter)
-        subject.waiting_payment
-        subject.authorized
-      end
-    end
-
-    context "when the order is shipped" do
-      it "should send a notification for payment shipped" do
-        subject.should_receive(:send_notification_order_shipped)
-        subject.waiting_payment
-        subject.authorized
-        subject.picking
-        subject.delivering
-      end
-    end
-
-    context "when the order is delivered" do
-      it "should send a notification for payment delivered" do
-        subject.should_receive(:send_notification_order_delivered)
-        subject.waiting_payment
-        subject.authorized
-        subject.picking
-        subject.delivering
-        subject.delivered
-      end
-    end
-
-    context "when the order is refused" do
-      it "should send a notification for payment refused" do
-        subject.should_receive(:send_notification_payment_refused)
-        subject.waiting_payment
-        subject.authorized
-        subject.under_review
-        subject.reversed
-      end
-    end
-
-    context "when the order is refused" do
-      it "should send a notification for payment refused" do
-        subject.should_receive(:send_notification_payment_refused)
-        subject.waiting_payment
-        subject.canceled
-      end
-    end
-
-    context "when the order is canceled" do
-      it "should send a notification for payment canceled" do
-        subject.stub(:reimburse_credit)
-        subject.should_receive(:send_notification_payment_refused)
-        subject.waiting_payment
-        subject.canceled
-      end
-
-      it "should reimburse the used credit" do
-        subject.stub(:send_notification_payment_refused)
-        subject.should_receive(:reimburse_credit)
-        subject.waiting_payment
-        subject.canceled
-      end
-    end
-
-  end
-
-  describe "Notifications mailer" do
-    it "should enqueue a Orders::NotificationOrderDeliveredWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationOrderDeliveredWorker, subject.id)
-      subject.send_notification_order_delivered
-    end
-
-    it "should enqueue a Orders::NotificationOrderShippedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationOrderShippedWorker, subject.id)
-      subject.send_notification_order_shipped
-    end
-
-    it "should enqueue a Orders::NotificationPaymentConfirmedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationPaymentConfirmedWorker, subject.id)
-      subject.send_notification_payment_confirmed
-    end
-
-    it "should enqueue a Orders::NotificationOrderRequestedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationOrderRequestedWorker, subject.id)
-      subject.send_notification_order_requested
-    end
-
-    it "should enqueue a Orders::NotificationPaymentRefusedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationPaymentRefusedWorker, subject.id)
-      subject.send_notification_payment_refused
     end
   end
 
@@ -612,7 +481,6 @@ describe Order do
     end
 
     it "should set delivered" do
-      subject.stub(:add_credit_to_inviter)
       subject.waiting_payment
       subject.authorized
       subject.picking

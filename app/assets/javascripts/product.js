@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var stringDesc = $("div#infos div.description p").not(".price").text();
+  var stringDesc = $("div#infos div.description p.description").text();
   initProduct.sliceDesc(stringDesc);
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
@@ -125,7 +125,7 @@ $(document).ready(function() {
 initProduct = {
   sliceDesc : function(string) {
     if(string.length > 120) {
-      el = $("div#infos div.description p").not(".price");
+      el = $("div#infos div.description p.description");
       descSliced = el.text(string.slice(0,120)+"...");
       el.append("<a href='javascript:void(0);' class='more'>Ler tudo</a>");
     }
