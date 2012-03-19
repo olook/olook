@@ -5,13 +5,23 @@ class Admin::LiquidationCarouselsController < Admin::BaseController
   def index
   end
 
+  def edit
+    @liquidation_carousel = LiquidationCarousel.find(params[:id])
+  end
+
   def create
     @carousel = LiquidationCarousel.new(params[:liquidation_carousel])
     if @carousel.save
-      flash[:notice] = 'Liquidation Carosel was successfully created.'
+      flash[:notice] = 'liquidation carosel was successfully created.'
     else
-      flash[:error] = 'An error appears the product is not related with liquidation'
+      flash[:error] = 'an error appears the product is not related with liquidation'
     end
+    redirect_to :action => index
+  end
+
+  def update
+    @liquidation_carousel = LiquidationCarousel.find(params[:liquidation_carousel][:id])
+    @liquidation_carousel.update_attributes(params[:liquidation_carousel])
     redirect_to :action => index
   end
 
