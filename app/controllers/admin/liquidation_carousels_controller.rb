@@ -9,6 +9,8 @@ class Admin::LiquidationCarouselsController < Admin::BaseController
     @carousel = LiquidationCarousel.new(params[:liquidation_carousel])
     if @carousel.save
       flash[:notice] = 'Liquidation Carosel was successfully created.'
+    else
+      flash[:error] = 'An error appears the product is not related with liquidation'
     end
     redirect_to :action => index
   end
@@ -18,7 +20,7 @@ class Admin::LiquidationCarouselsController < Admin::BaseController
     @carousel.destroy
     redirect_to :action => index
   end
-  
+
   private
 
   def load_liquidation
