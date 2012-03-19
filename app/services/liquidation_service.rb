@@ -48,7 +48,7 @@ class LiquidationService
       2 => hasherize(subcategories_by_category_id(2)),
       3 => hasherize(subcategories_by_category_id(3))
      },
-     :heels => hasherize(heels),
+     :heels => hasherize(sorted_heels,false),
      :shoe_sizes => hasherize(shoe_sizes)
     }
     @liquidation.save
@@ -107,10 +107,20 @@ class LiquidationService
     @liquidation.liquidation_products.where("category_id = ? and inventory > 0", category_id).map(&:subcategory_name_label).uniq
   end
 
-  def hasherize values
-    values.compact!
-    values = values.sort
+  def hasherize values, sort_values=true
+    if sort_values
+      values.compact!
+      values = values.sort if sort_values    
+    end
     values.to_h values.map{|v| v.to_s.parameterize} if values
+  end
+  
+  def sorted_heels
+    if heels 
+      heels.compact!
+      heels.map{|h| {:label => h, :float => (h.split[0].gsub(",", ".") rescue 0)}}.sort_by{|x| x[:float].to_f}.map{|x| x[:label]}
+    end
+    
   end
 
 end
