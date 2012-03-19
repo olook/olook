@@ -155,7 +155,11 @@ Olook::Application.routes.draw do
     resources :landing_pages
     resources :promotions
     resources :liquidations do
-      resources :liquidation_carousels, :as => "carousels"
+      resources :liquidation_carousels, :as => "carousels" do
+        collection do
+          put "/" => "liquidation_carousels#update"
+        end
+      end
       resources :liquidation_products, :as => "products"
     end
     resources :roles do

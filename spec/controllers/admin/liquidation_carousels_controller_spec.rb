@@ -64,6 +64,15 @@ describe Admin::LiquidationCarouselsController do
     end
   end
 
+  describe "PUT update" do
+    let!(:liquidation_carousel) { FactoryGirl.create(:liquidation_carousel, :product_id => product.id) }
+
+    it "should update the liquidation carousel" do
+      put :update, :liquidation_id => liquidation.id, :liquidation_carousel => { :id => liquidation_carousel.id, :product_id => product.id }
+      response.should redirect_to(admin_liquidation_carousels_path(liquidation.id))
+    end
+  end
+
   describe "DELETE destroy" do
     let!(:liquidation_carousel) { FactoryGirl.create(:liquidation_carousel, :product_id => product.id) }
 
