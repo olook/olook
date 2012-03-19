@@ -3,8 +3,8 @@
   <ol class="column">
     <% liquidation_presenter.liquidation.resume[:heels].each do |key, value| %>
       <li>
-        <%= check_box_tag('heels[]', key) %>
-        <label><%= value %></label>
+        <%= check_box_tag('heels[]', key, false, :id => key) %>
+        <%= label_tag(value, nil, :for => key) %>
       </li>
     <% end %>
   </ol>
