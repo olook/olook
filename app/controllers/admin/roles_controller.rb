@@ -27,6 +27,7 @@ class Admin::RolesController < Admin::BaseController
 
   def create
     @role = Role.new(params[:role])
+    @permissions = Permission.all
       if @role.save
         flash[:notice] = 'Role was successfully created.'
       end
@@ -38,7 +39,7 @@ class Admin::RolesController < Admin::BaseController
       if @role.update_attributes(params[:role])
         flash[:notice] = 'Role was successfully updated.'
       end
-    respond_with :admin,@role
+    respond_with :admin, @role
   end
 
   def destroy
