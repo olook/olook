@@ -6,6 +6,7 @@ describe LiquidationService do
   before :each do
     Liquidation.delete_all
     LiquidationProduct.delete_all
+    Product.delete_all
   end
 
   subject do
