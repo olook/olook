@@ -402,7 +402,7 @@ DEPENDENCIES
   rspec (~> 2.8.0)
   rspec-rails (~> 2.8.0)
   ruby-debug19
-  sass-rails
+  sass-rails (= 3.1.5)
   savon
   shoulda-matchers
   simplecov (~> 0.5.3)
