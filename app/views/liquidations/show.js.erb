@@ -1,0 +1,14 @@
+<% if @liquidation_products.any? %>
+  $('#products').append('<%= j render "products", :liquidation_products => @liquidation_products %>');
+<% else %>
+   $("#products").html("Nenhum produto encontrado");
+<% end %>
+
+<% if @liquidation_products.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@liquidation_products) %>');
+<% else %>
+  $('.pagination').html("");
+<% end %>
+$('#liquidation_filter').find("input[type='checkbox']").removeAttr("disabled");
+<% sleep 1 %>
+

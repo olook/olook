@@ -925,6 +925,17 @@ body {
               color: #D95485;
             }
           }
+          &.liquidation {
+            a {
+              background: #ff7a00;
+              color: #FFF;
+              padding: 5px 15px;
+              display: inline;
+              -webkit-border-radius: 3px;
+              -moz-border-radius: 3px;
+              border-radius: 3px;
+            }
+          }
           &.showroom {
             a {
               margin-left: 20px;
@@ -1085,6 +1096,13 @@ body {
     div#content {
       padding-top: 10px;
     }
+  }
+  div.full_container {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    display: block;
+    margin: 13px 0 20px 0;
   }
 }
 

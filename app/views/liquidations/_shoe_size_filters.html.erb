@@ -1,0 +1,13 @@
+<div class="filter">
+  <h1 class="subtitle">Numeração</h1>
+  <ol class="column">
+   <% liquidation_presenter.liquidation.resume[:shoe_sizes].each do |key, value| %>
+      <li>
+        <%= check_box_tag('shoe_sizes[]', key, false, :id => key) %>
+        <%= label_tag(value, nil, :for => key) %>
+      </li>
+    <% end %>
+  </ol>
+</div>
+
+

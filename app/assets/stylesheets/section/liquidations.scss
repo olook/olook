@@ -1,0 +1,280 @@
+@import "partials/product";
+
+div.full_container {
+  background: #d2d1d6 url("/assets/liquidations/bg-top.jpg") bottom repeat-x;
+  max-height: 320px;
+  overflow: hidden !important;
+
+  div.content {
+    position: relative;
+    div.description {
+      position: relative;
+      width: 470px;
+      margin: 25px 0 0 0;
+      overflow: auto;
+      float: left;
+      h1 {
+        color: #000;
+        font-family: "Open Sans", sans-serif;
+        font-size: 78px;
+        line-height: 85px;
+        letter-spacing: -8px;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 0 auto;
+        display: table;
+      }
+      h2 {
+        background: #df5a8b;
+        color: #FFF;
+        font-family: "Open Sans", sans-serif;
+        font-size: 33px;
+        font-weight: lighter;
+        letter-spacing: -2px;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0 auto 25px auto;
+        padding: 5px 20px;
+        clear: both;
+        display: table;
+      }
+      img {
+        max-width: 470px;
+        max-height: 195px;
+        margin: 0 auto 10px auto;
+      }
+      p {
+        color: #101010;
+        font-family: "Open Sans", sans-serif;
+        font-size: 13px;
+        text-align: center;
+        width: 100%;
+        margin: 0 0 20px;
+        clear: both;
+      }
+    }
+    div#carousel_container {
+      position: relative;
+      width: 480px;
+      height: 351px;
+      display: block;
+      top: 0;
+      right: 0;
+      float: right;
+      ul {
+        position: relative;
+        width: 5000px;
+        left: 0;
+        overflow: hidden;
+        li {
+          margin: 0;
+          padding: 0;
+          display: inline;
+          float: left;
+          img {
+            width: 478px;
+            height: 293px;
+          }
+        }
+      }
+      a.arrow {
+        position: absolute;
+        background: url("/assets/liquidations/arrows.png") 0 no-repeat;
+        text-indent: -9999px;
+        width: 40px;
+        height: 46px;
+        top: 130px;
+        display: block;
+        &.prev {
+          background-position: 0 -47px;
+          left: 0;
+          &:hover {
+            background-position: 0 0;
+          }
+        }
+        &.next {
+          background-position: -40px -47px;
+          right: 0;
+          &:hover {
+            background-position: -40px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+div#liquidation {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  div#filters_container {
+    width: 170px;
+    overflow: auto;
+    float: left;
+    div.filter {
+      margin: 0 0 10px 0;
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -1px;
+        margin: 0 0 20px 0;
+        padding: 0 0 5px 5px;
+        border-bottom: 1px #dedede solid;
+        &.shoes {
+          background: url("/assets/liquidations/shoes.png") no-repeat top left;
+          padding-left: 23px;
+        }
+        &.purse {
+          background: url("/assets/liquidations/purse.png") no-repeat top left;
+          padding-left: 23px;
+        }
+        &.acessories {
+          background: url("/assets/liquidations/acessories.png") no-repeat top left;
+          padding-left: 26px;
+        }
+        &.subtitle {
+          font-size: 14px;
+        }
+      }
+      ol {
+        width: 150px;
+        margin: 0 0 20px 20px;
+        overflow: auto;
+        li {
+          margin: 0 0 10px 0;
+        }
+        &.column {
+          li {
+            width: 65px;
+            float: left;
+          }
+        }
+      }
+    }
+  }
+  div#products_container {
+    width: 770px;
+    overflow: auto;
+    float: right;
+    div#order_filter {
+      width: 760px;
+      height: 45px;
+      display: inline-block;
+      form {
+        width: 215px;
+        float: right;
+        ol {
+          li {
+            label {
+              font-size: 12px;
+              font-weight: bold;
+              line-height: 38px;
+              margin-right: 15px;
+              float: left;
+            }
+            &.select {
+              position: relative;
+              width: 250px;
+              overflow: auto;
+              display: inline;
+              span.select {
+                position: absolute;
+                background: url('/assets/liquidations/select.jpg') no-repeat;
+                text-indent: 12px;
+                bottom: 0;
+                top: 2px;
+                float: left;
+                width: 119px;
+                height: 34px;
+                line-height: 32px;
+                cursor: default;
+                z-index: 1;
+              }
+              select {
+                &.custom_select {
+                  position: absolute;
+                  line-height: 26px;
+                  width: 119px;
+                  height: 34px;
+                  margin-right: 10px;
+                  top: 0;
+                  left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    div.loading {
+      background: url("/assets/common/ajax-loader.gif") center no-repeat;
+      width: 770px;
+      height: 30px;
+      margin: 0 auto;
+      display: none;
+      clear: both;
+    }
+    div.pagination {
+      clear: both;
+      a, span, em.current {
+        display: none;
+      }
+    }
+  }
+}
+
+.ie, .gecko {
+  div#order_filter {
+    form {
+      ol {
+        li.select {
+          span.select {
+            top: 31px !important;
+            select.custom_select {
+              top: 15px !important;
+              left: 0 !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.gecko, .ie7 {
+  div#order_filter {
+    form {
+      ol {
+        li.select {
+          span.select {
+            top: 15px !important;
+          }
+          select.custom_select {
+            top: 15px !important;
+            left: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ie8, .ie9 {
+  div#order_filter {
+    form {
+      ol {
+        li.select {
+          span.select {
+            top: 15px !important;
+          }
+          select.custom_select {
+            top: 15px !important;
+            left: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}

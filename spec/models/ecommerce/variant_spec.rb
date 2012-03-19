@@ -141,6 +141,18 @@ describe Variant do
   end
 
   describe "delegated methods" do
+    describe "#retail_price" do
+      it "should return the product's retail price" do
+        subject.product.stub(:retail_price).and_return(2.99)
+        subject.retail_price.should == 2.99
+      end
+    end
+    describe "#liquidation?" do
+      it "should return the product's liquidation?" do
+        subject.product.stub(:liquidation?).and_return(true)
+        subject.liquidation?.should == true
+      end
+    end
     describe "#main_picture" do
       it "should return the product's main picture" do
         subject.product.stub(:main_picture).and_return(:main)
@@ -166,5 +178,28 @@ describe Variant do
       end
     end
   end
+  
+  describe "inventory changes updates the liquidation product" do
+    it "should reflect the changes on shoe that is into a liquidation" do
+      ls = LiquidationService.new(FactoryGirl.create(:liquidation))
+      line_item = FactoryGirl.create(:line_item)
+      ls.add(Product.last.id.to_s, 10)
+      liquidation_product = LiquidationProduct.last
+      line_item.order.decrement_inventory_for_each_item
+      liquidation_product.reload.inventory.should == 8
+    end
+    
+    it "should reflect all liquidations" do  
+      ls1 = LiquidationService.new(FactoryGirl.create(:liquidation))
+      ls2 = LiquidationService.new(FactoryGirl.create(:liquidation))
+      ls1.add(subject.product.id.to_s, 10)   
+      ls2.add(subject.product.id.to_s, 10)         
+      variant = subject
+      variant.inventory = 77
+      variant.save
+      variant.reload.inventory.should == 77
+      LiquidationProduct.all.map{|lp| lp.variant_id}.uniq.should == [variant.id]
+      LiquidationProduct.all.map{|lp| lp.inventory}.should == [77, 77]
+    end
+  end
 end
-

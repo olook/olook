@@ -4,9 +4,16 @@ class ApplicationController < ActionController::Base
   layout "site"
   before_filter :load_promotion
 
+  helper_method :current_liquidation
+
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
+
+
+  def current_liquidation
+    LiquidationService.active
+  end
 
   def load_promotion
     if current_user
@@ -57,7 +64,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    @current_ability ||= ::Ability.new(current_admin)
+    #@current_ability ||= ::Ability.new(current_admin)
   end
 
 end

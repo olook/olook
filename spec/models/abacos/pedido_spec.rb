@@ -163,12 +163,14 @@ describe Abacos::Pedido do
                                   {
                                       'CodigoProduto' => variant_a.number,
                                       'QuantidadeProduto' => 2,
-                                      'PrecoUnitario' => '20.00'
+                                      'PrecoUnitario' => '20.00',
+                                      'PrecoUnitarioBruto' => '20.00'
                                   },
                                   {
                                       'CodigoProduto' => variant_b.number,
                                       'QuantidadeProduto' => 1,
-                                      'PrecoUnitario' => '30.00'
+                                      'PrecoUnitario' => '30.00',
+                                      'PrecoUnitarioBruto' => '30.00'
                                   }
                                 ] },
                     'FormasDePagamento' =>

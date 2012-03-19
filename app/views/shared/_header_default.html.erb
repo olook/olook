@@ -61,7 +61,9 @@
           <li class="stylist"><%= link_to 'Stylist', helena_linhares_path, :class => selected_if_current(['stylists#helena_linhares']) %></li>
           <li class="my_friends"><%= link_to "Minhas Amigas", facebook_connect_path, :class => selected_if_current(['friends#facebook_connect','friends#home','friends#showroom']) %></li>
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
-          <li class="how_to"><%= link_to 'Como funciona', how_to_path, :class => is_current?('pages', 'how_to') %></li>
+          <% if current_liquidation %>
+            <li class="liquidation"><%= link_to current_liquidation.name, liquidations_path(current_liquidation.id), :class => is_current?('liquidations', 'show') %></li>
+          <% end %>
           <% if current_user.has_early_access? %>
             <li class="cart" id="cart">
               <%= render 'shared/cart', :order => @order %>

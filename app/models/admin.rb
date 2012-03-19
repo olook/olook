@@ -21,7 +21,7 @@ class Admin < ActiveRecord::Base
   end  
 
   def has_role?(role_name)
-    self.role.name.to_sym == role_name ? true : false
+    self.role.name.to_sym == role_name if self.role
   end
 
 

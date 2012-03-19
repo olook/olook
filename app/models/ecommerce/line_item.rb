@@ -5,8 +5,9 @@ class LineItem < ActiveRecord::Base
   validates_presence_of :order_id
   validates_presence_of :quantity
   scope :ordered_by_price, order('line_items.price DESC')
+  delegate :liquidation?, :to => :variant
 
   def total_price
-    price * quantity
+    variant.liquidation? ? (retail_price * quantity) : (price * quantity)
   end
 end
