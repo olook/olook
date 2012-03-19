@@ -181,11 +181,10 @@ describe Variant do
   
   describe "inventory changes updates the liquidation product" do
     it "should reflect the changes on shoe that is into a liquidation" do
-      liquidation_product = FactoryGirl.create(:liquidation_product,
-       :product => subject.product,
-       :variant => subject.product.master_variant
-      )
-      variant = product.master_variant
+      ls = LiquidationService.new(FactoryGirl.create(:liquidation))
+      ls.add(subject.product.id.to_s, 10)
+      liquidation_product = LiquidationProduct.last
+      variant = subject
       variant.id.should == liquidation_product.variant_id
       variant.inventory = 2
       variant.save
@@ -196,27 +195,17 @@ describe Variant do
     it "should reflect the changes on a BAG that is into a liquidation" do 
     end
     
-    it "should reflect all liquidations" do
-      liquidation1 = FactoryGirl.create(:liquidation)
-      liquidation2 = FactoryGirl.create(:liquidation)      
-      liquidation_product1 = FactoryGirl.create(:liquidation_product,
-       :product => subject.product,
-       :variant => subject.product.master_variant,
-       :liquidation => liquidation1
-      )
-      liquidation_product2 = FactoryGirl.create(:liquidation_product,
-       :product => subject.product,
-       :variant => subject.product.master_variant,
-       :liquidation => liquidation2
-      )
-      variant = product.master_variant
-      variant.id.should == liquidation_product1.variant_id
-      variant.id.should == liquidation_product2.variant_id
-      variant.inventory = 2
+    it "should reflect all liquidations" do  
+      ls1 = LiquidationService.new(FactoryGirl.create(:liquidation))
+      ls2 = LiquidationService.new(FactoryGirl.create(:liquidation))
+      ls1.add(subject.product.id.to_s, 10)   
+      ls2.add(subject.product.id.to_s, 10)         
+      variant = subject
+      variant.inventory = 77
       variant.save
-      variant.reload.inventory.should == 2
-      liquidation_product1.reload.inventory.should == 2
-      liquidation_product2.reload.inventory.should == 2  
+      variant.reload.inventory.should == 77
+      LiquidationProduct.all.map{|lp| lp.variant_id}.uniq.should == [variant.id]
+      LiquidationProduct.all.map{|lp| lp.inventory}.should == [77, 77]
     end
   end
 end

@@ -31,8 +31,12 @@ jQuery(function() {
   });
 
   $('#liquidation_filter').find("input[type='checkbox']").click(function() {
-    $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
     $(this).parent().submit();
+    $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
+    var topHeight = 400;
+    $("html, body").animate({
+      scrollTop: topHeight
+    }, 'slow');
   });
 
   if ($('.pagination').length) {
