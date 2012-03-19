@@ -22,7 +22,14 @@ jQuery(function() {
   });
 
   $("#liquidation_filter").find("input[type='checkbox'].select_all").live("click", function() {
-      $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked).click();
+      $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
+      setTimeout(function() {
+        $("#liquidation_filter").submit();
+        var topHeight = 400;
+        $("html, body").animate({
+          scrollTop: topHeight
+        }, 'slow');
+      }, 2500);
   });
 
   $('#liquidation_filter').submit(function() {
@@ -53,8 +60,10 @@ jQuery(function() {
       var bottomHeight = 750
       if (url && $(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) {
         $('.pagination .next_page').remove();
+        $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
         $('.loading').show();
         return $.getScript(url).done(function() {
+          $('#liquidation_filter').find("input[type='checkbox']").removeAttr("disabled");
           $(".loading").hide();
         });
       }
