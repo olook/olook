@@ -1,6 +1,10 @@
 <div class="filter">
   <h1 class="acessories">Acessórios</h1>
   <ol>
+    <li>
+      <%= check_box_tag "select_all_accessories", "", false, :class => "select_all" %>
+      <%= label_tag "select_all_accessories", "Todos os acessórios" %>
+    </li>
     <% liquidation_presenter.liquidation.resume[:categories][Category::ACCESSORY].each do |key, value| %>
       <li>
         <%= check_box_tag('bag_accessory_subcategories[]', key, false, :id => key) %>
