@@ -12,6 +12,13 @@ describe LiquidationSearchService do
   let(:basic_accessory_1) { FactoryGirl.create(:basic_accessory_simple, :product => basic_accessory) }
 
   let(:liquidation) { FactoryGirl.create(:liquidation) }
+  
+  before :each do
+    Liquidation.delete_all
+    LiquidationProduct.delete_all
+    Product.delete_all
+    Variant.delete_all
+  end
 
   describe "#search_products" do
     context "isolated filters" do
