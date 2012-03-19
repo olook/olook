@@ -39,7 +39,7 @@
       <td><%= number_to_currency product.retail_price %></td>
       <td><%= product.discount_percent %>%</td>
       <td><%= product.heel %></td>
-      <td><%= product.inventory %></td>
+      <td><%= product.total_of_all_variants_inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= link_to "Edit", edit_admin_liquidation_product_path(@liquidation.id, product.id) %></td>

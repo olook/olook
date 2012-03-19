@@ -22,7 +22,7 @@ namespace :db do
                                 :subcategory_name => ["rasteira", "sandalia"].shuffle.first,
                                 :original_price => [99.90, 85.90, 129.90].shuffle.first,
                                 :retail_price => [49.90, 55.90, 89.90].shuffle.first,
-                                :shoe_size => [33, 34, 35, 36, 37, 38, 39, 40],
+                                :shoe_size => [33, 34, 35, 36, 37, 38, 39, 40].shuffle.first,
                                 :heel => ["baixo", "medio"].shuffle.first,
                                 :category_id => Category::SHOE,
                                 :inventory => 10)

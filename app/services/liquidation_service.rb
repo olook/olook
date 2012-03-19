@@ -30,8 +30,6 @@ class LiquidationService
   def find_product product_id
     begin
       product = Product.find(product_id)
-      #TODO: implement to see only visible products
-      #product if product.is_visible
     rescue
       @nonexisting_products_ids << product_id
       nil
@@ -98,11 +96,11 @@ class LiquidationService
   end
 
   def heels
-    @liquidation.liquidation_products.where(:category_id => 1).map(&:heel).uniq
+    @liquidation.liquidation_products.where(:category_id => Category::SHOE).map(&:heel_label).uniq
   end
 
   def shoe_sizes
-    @liquidation.liquidation_products.where(:category_id => 1).map(&:shoe_size).uniq
+    @liquidation.liquidation_products.where(:category_id => Category::SHOE).map(&:shoe_size).uniq
   end
 
   def subcategories_by_category_id category_id
@@ -111,6 +109,7 @@ class LiquidationService
 
   def hasherize values
     values.compact!
+    values = values.sort
     values.to_h values.map{|v| v.to_s.parameterize} if values
   end
 

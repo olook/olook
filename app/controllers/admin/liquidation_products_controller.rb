@@ -15,14 +15,7 @@ class Admin::LiquidationProductsController < Admin::BaseController
       params[:liquidation_products][:products_ids],
       params[:liquidation_products][:discount_percent]
     )
-
-    if @liquidation_service.denied_products_ids.empty? && @liquidation_service.nonexisting_products_ids.empty?
-      flash[:notice] = "Products added to this liquidation"
-    else
-      flash[:warning] = "The was an error adding some products. <br/>
-       Products that are going to be part of a collection during the liquidation period: #{@liquidation_service.denied_products_ids} <br/>
-       Nonexisting products: #{@liquidation_service.nonexisting_products_ids} ".html_safe
-    end
+    verify_exception_products
     redirect_to admin_liquidation_products_path(@liquidation.id)
   end
 
@@ -32,8 +25,9 @@ class Admin::LiquidationProductsController < Admin::BaseController
 
   def update
     @liquidation_product = LiquidationProduct.find(params[:id])
-    liquidation_service = LiquidationService.new(@liquidation.id)
-    liquidation_service.update(@liquidation_product.product_id, params[:liquidation_product])
+    @liquidation_service = LiquidationService.new(@liquidation.id)
+    @liquidation_service.update(@liquidation_product.product_id, params[:liquidation_product])
+    verify_exception_products
     redirect_to admin_liquidation_products_path(@liquidation.id)
   end
 
@@ -48,6 +42,16 @@ class Admin::LiquidationProductsController < Admin::BaseController
   end
 
   private
+  
+  def verify_exception_products
+    if @liquidation_service.denied_products_ids.empty? && @liquidation_service.nonexisting_products_ids.empty?
+      flash[:notice] = "Products added"
+    else
+      flash[:warning] = "The was an error adding some products. <br/>
+       Products that are going to be part of a collection during the liquidation period: #{@liquidation_service.denied_products_ids} <br/>
+       Nonexisting products: #{@liquidation_service.nonexisting_products_ids} ".html_safe
+    end
+  end
 
   def load_liquidation
     @liquidation = Liquidation.find(params[:liquidation_id])

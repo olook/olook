@@ -7,5 +7,6 @@ FactoryGirl.define do
     discount_percent 10
     retail_price 30
     inventory 3
+    category_id Category::SHOE
   end
 end
