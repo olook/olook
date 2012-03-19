@@ -6,6 +6,7 @@ describe LiquidationProductService do
   before :each do
     Liquidation.delete_all
     LiquidationProduct.delete_all
+    Product.delete_all
   end
 
   def products_ids
