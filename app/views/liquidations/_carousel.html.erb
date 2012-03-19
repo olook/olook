@@ -1,8 +1,10 @@
 <div id="carousel_container">
   <ul>
   	<% params[:carousels].each do |image| %>
-    	<li>
-    	<%= image_tag image.image.try(:url) %>
+      <li>
+        <%= link_to Product.find(image.product_id) do  %>
+          <%= image_tag image.image.try(:url) %>
+        <% end %>
     	</li>
     <% end %>
   </ul>

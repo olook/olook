@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Admin::LiquidationCarouselsController do
   render_views
+  let!(:product)   { FactoryGirl.create(:basic_shoe, :id => 10) }
   let!(:liquidation)   { FactoryGirl.create(:liquidation) }
-  let!(:valid_attributes) { FactoryGirl.build(:liquidation_carousel).attributes }
+  let!(:valid_attributes) { FactoryGirl.build(:liquidation_carousel, :product_id => product.id).attributes }
+  let!(:invalid_attributes) { FactoryGirl.build(:liquidation_carousel, :product_id => 999999).attributes }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -13,7 +15,7 @@ describe Admin::LiquidationCarouselsController do
 
   describe "GET index" do
 
-    context "Verifing the before_filter actions" do 
+    context "Verifing the before_filter actions" do
       before :each do
         get :index, :liquidation_id => liquidation.id
       end
@@ -46,6 +48,12 @@ describe Admin::LiquidationCarouselsController do
         }.to change(LiquidationCarousel, :count).by(1)
       end
 
+      it "should not created a liquidation carousel without a product id present in liquidation" do
+        expect {
+          post :create, :liquidation_id => liquidation.id, :liquidation_carousel => invalid_attributes
+        }.to  change(LiquidationCarousel, :count).by(0)
+      end
+
       it "assigns a newly created carousel as @carousel" do
         assigns(:carousel).should be_a(LiquidationCarousel)
       end
@@ -57,8 +65,8 @@ describe Admin::LiquidationCarouselsController do
   end
 
   describe "DELETE destroy" do
-    let!(:liquidation_carousel) { FactoryGirl.create(:liquidation_carousel) }
-    
+    let!(:liquidation_carousel) { FactoryGirl.create(:liquidation_carousel, :product_id => product.id) }
+
     it "destroys the requested carousel liquidation" do
       expect {
         delete :destroy, :liquidation_id => liquidation.id, :id => liquidation_carousel.id
