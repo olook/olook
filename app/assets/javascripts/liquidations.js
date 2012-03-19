@@ -23,12 +23,12 @@ jQuery(function() {
 
   $("#liquidation_filter").find("input[type='checkbox'].select_all").live("click", function() {
       $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
+      var topHeight = 400;
+      $("html, body").animate({
+          scrollTop: topHeight
+      }, 'slow');
       setTimeout(function() {
         $("#liquidation_filter").submit();
-        var topHeight = 400;
-        $("html, body").animate({
-          scrollTop: topHeight
-        }, 'slow');
       }, 2500);
   });
 
