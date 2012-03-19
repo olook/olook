@@ -43,7 +43,7 @@ jQuery(function() {
     $(window).scroll(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
-      var bottomHeight = 750
+      var bottomHeight = 370
       if (url && $(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) {
         $('.pagination .next_page').remove();
         $('.loading').show();
