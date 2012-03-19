@@ -21,6 +21,10 @@ jQuery(function() {
     $("#liquidation_filter").submit();
   });
 
+  $("#liquidation_filter").find("input[type='checkbox'].select_all").live("click", function() {
+      $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked).click();
+  });
+
   $('#liquidation_filter').submit(function() {
     $('#sort_filter').val($("#order_filter").find("option:selected").val());
     $("#products").fadeOut("slow", function() {
@@ -30,7 +34,10 @@ jQuery(function() {
     });
   });
 
-  $('#liquidation_filter').find("input[type='checkbox']").click(function() {
+  $('#liquidation_filter').find("input[type='checkbox']").not(".select_all").click(function() {
+    if(!$(this).is(":checked")) {
+      $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
+    }
     $(this).parent().submit();
     $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
     var topHeight = 400;
