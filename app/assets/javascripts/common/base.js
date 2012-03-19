@@ -297,14 +297,15 @@ initBase = {
     $(".dialog").animate({
       width: 'toggle',
       height: 'toggle'
+    }, 'normal', function () {
+      imageW = $('.dialog img').width();
+      imageH = $('.dialog img').height();
+      $('body .dialog.liquidation').css("left", (viewWidth - imageW) / 2);
+      $('body .dialog.liquidation').css("top", (viewHeight - imageH) / 2);
+
+      $('.dialog img').fadeIn('slow');
     });
 
-    imageW = $('.dialog img').width();
-    imageH = $('.dialog img').height();
-    $('body .dialog.liquidation').css("left", (viewWidth - imageW) / 2);
-    $('body .dialog.liquidation').css("top", (viewHeight - imageH) / 2);
-
-    $('.dialog img').fadeIn('slow');
   },
 
   closeDialog : function() {
