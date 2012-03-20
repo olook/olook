@@ -1,3 +1,19 @@
+p = [];
+
+$("#products li").each(function(index, element){ p.push(element.id)})
+
+var new_products = [];
+
+<% @liquidation_products.each do |lp| %>
+  new_products.push("<%= lp.product_id %>")
+<% end %>
+
+$.each(new_products, function(index, product){
+  if($.inArray(product, p) != -1){
+    $("#"+product).remove();
+  }
+});
+
 <% if @liquidation_products.any? %>
   $('#products').append('<%= j render "products", :products => @liquidation_products %>');
 <% else %>
@@ -6,6 +22,7 @@
 
 $(".loading").hide();
 
+
 <% if @liquidation_products.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate(@liquidation_products) %>');
 <% else %>
@@ -13,4 +30,8 @@ $(".loading").hide();
 <% end %>
 <% sleep 1 %>
 $('#liquidation_filter').find("input[type='checkbox']").removeAttr("disabled");
+
+
+
+
 
