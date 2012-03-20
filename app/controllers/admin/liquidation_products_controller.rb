@@ -22,7 +22,7 @@ class Admin::LiquidationProductsController < Admin::BaseController
   def edit
     @liquidation_product = LiquidationProduct.find(params[:id])
   end
-
+  
   def update
     @liquidation_product = LiquidationProduct.find(params[:id])
     @liquidation_service = LiquidationService.new(@liquidation.id)
@@ -34,6 +34,7 @@ class Admin::LiquidationProductsController < Admin::BaseController
   def destroy
     @liquidation_product = LiquidationProduct.find(params[:id])
     if LiquidationProduct.where(:product_id => @liquidation_product.product_id, :liquidation_id => @liquidation.id).delete_all
+      @liquidation.update_resume
       flash[:notice] = "Product removed from liquidation"
     else
       flash[:notice] = "There was an error removing the product"

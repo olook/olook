@@ -1,4 +1,5 @@
 class LiquidationProductService
+  
   def self.retail_price product
     price = product.price
     if product.liquidation?
@@ -26,16 +27,101 @@ class LiquidationProductService
     @collections = collections
   end
 
+  def save
+    return false if conflicts_collections?
+    if shoe? and not shoe_sizes.empty?
+      save_shoe_by_size
+    else
+      create_or_update_product
+    end
+  end
+  
+  def fetch_data! 
+    LiquidationProduct.where(:product_id => @product.id).update_all(refresh_params)
+  end
+  
+  def conflicts_collections?
+    @collections.map{|c| c.id }.include? @product.collection_id
+  end
+  
+  def retail_price
+    (@product.price * (100 - @discount_percent.to_f)) / 100
+  end
+  
   def liquidation_name
     @liquidation.name if included?
+  end
+  
+  private
+  
+  def save_shoe_by_size
+    shoe_sizes.each do |variant|
+      create_or_update_product(:shoe_size => variant[:shoe_size],
+                               :heel => heel.try(:parameterize),
+                               :heel_label => heel,
+                               :inventory => variant[:inventory],
+                               :variant_id => variant[:id]
+                               )
+    end
+  end
+  
+  def default_params
+    {
+      :liquidation_id => @liquidation.id,
+      :product_id => @product.id,
+      :category_id => @product.category,
+      :subcategory_name => subcategory_name.try(:parameterize),
+      :subcategory_name_label => subcategory_name,
+      :original_price => @product.price,
+      :retail_price => retail_price,
+      :discount_percent => @discount_percent,
+      :variant_id => (last_variant.id if last_variant),
+      :inventory => (last_variant.inventory if last_variant)
+    }
+  end
+  
+  def refresh_params
+    params = {
+      :liquidation_id => @liquidation.id,
+      :product_id => @product.id,
+      :subcategory_name => subcategory_name.try(:parameterize),
+      :subcategory_name_label => subcategory_name
+    }
+    if shoe?
+      params.merge! ({:heel => heel.try(:parameterize), :heel_label => heel})
+    end
+    params
+  end
+  
+  def existing_product options=nil
+    params = {
+      :liquidation_id => @liquidation.id,
+      :product_id => @product.id
+    }
+    if options
+      options.delete(:inventory)
+      params.merge! options
+    end
+    LiquidationProduct.where(params).first
+  end
+
+  def create_or_update_product options=nil
+    params = default_params
+    params.merge!(options) if options
+    if existing_product(options)
+      massive_update!(params)
+    else
+      LiquidationProduct.create(params)
+    end
+  end
+  
+  def massive_update! params
+    LiquidationProduct.where(:product_id => @product.id).update_all(:discount_percent => @discount_percent,
+    :retail_price => retail_price)
   end
 
   def included?
     @liquidation.resume[:products_ids].include? @product.id if @liquidation
-  end
-
-  def retail_price
-    (@product.price * (100 - @discount_percent.to_f)) / 100
   end
 
   def subcategory_name
@@ -61,63 +147,5 @@ class LiquidationProductService
 
   def shoe?
     @product.category == Category::SHOE
-  end
-
-  def save
-    return false if conflicts_collections?
-    if shoe? and not shoe_sizes.empty?
-      save_shoe_by_size
-    else
-      create_or_update_product
-    end
-  end
-  
-  def save_shoe_by_size
-    shoe_sizes.each do |variant|
-      create_or_update_product(:shoe_size => variant[:shoe_size],
-                               :heel => heel.try(:parameterize),
-                               :heel_label => heel,
-                               :inventory => variant[:inventory],
-                               :variant_id => variant[:id]
-                               )
-    end
-  end
-
-  def create_or_update_product options=nil
-    params = default_params
-    params.merge!(options) if options
-    if existing_product(options)
-      existing_product.update_attributes!(params)
-    else
-      LiquidationProduct.create(params)
-    end
-  end
-
-  def default_params
-    {
-      :liquidation_id => @liquidation.id,
-      :product_id => @product.id,
-      :category_id => @product.category,
-      :subcategory_name => subcategory_name.try(:parameterize),
-      :subcategory_name_label => subcategory_name,
-      :original_price => @product.price,
-      :retail_price => retail_price,
-      :discount_percent => @discount_percent,
-      :variant_id => (last_variant.id if last_variant),
-      :inventory => (last_variant.inventory if last_variant)
-    }
-  end
-
-  def existing_product options=nil
-    params = {
-      :liquidation_id => @liquidation.id,
-      :product_id => @product.id
-    }
-    params.merge! options if options
-    LiquidationProduct.where(params).first
-  end
-
-  def conflicts_collections?
-    @collections.map{|c| c.id }.include? @product.collection_id
   end
 end

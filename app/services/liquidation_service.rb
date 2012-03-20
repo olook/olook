@@ -26,20 +26,14 @@ class LiquidationService
     end
     update_resume
   end
-
-  def find_product product_id
-    begin
-      product = Product.find(product_id)
-    rescue
-      @nonexisting_products_ids << product_id
-      nil
+  
+  def fetch!
+    @liquidation.resume[:products_ids].each do |product_id|
+      LiquidationProductService.new(@liquidation, Product.find(product_id), nil, []).fetch_data!
     end
+    self.update_resume
   end
-
-  def add_to_denied product_id
-    @denied_products_ids << product_id
-  end
-
+  
   def update_resume
     @liquidation.resume = {
      :products_ids => products_ids,
@@ -53,14 +47,7 @@ class LiquidationService
     }
     @liquidation.save
   end
-
-  def update product_id, params
-    LiquidationProduct.where(:product_id => product_id).update_all(
-      :discount_percent => params[:discount_percent],
-      :retail_price => params[:retail_price]
-    )
-  end
-
+  
   def conflicts_existing_products? starts_at=@liquidation.starts_at, ends_at=@liquidation.ends_at
     result = false
     @liquidation.liquidation_products.each do |product|
@@ -73,6 +60,28 @@ class LiquidationService
       end
     end
     result
+  end
+  
+  def update product_id, params
+    LiquidationProduct.where(:product_id => product_id).update_all(
+      :discount_percent => params[:discount_percent],
+      :retail_price => params[:retail_price]
+    )
+  end
+
+  private
+
+  def find_product product_id
+    begin
+      product = Product.find(product_id)
+    rescue
+      @nonexisting_products_ids << product_id
+      nil
+    end
+  end
+
+  def add_to_denied product_id
+    @denied_products_ids << product_id
   end
 
   def collections_during_liquidation starts_at=@liquidation.starts_at, ends_at=@liquidation.ends_at
@@ -88,8 +97,6 @@ class LiquidationService
     return false if (collection.start_date.to_datetime > ends_at) && (collection.end_date.to_datetime > ends_at)    
     (collection.start_date.to_datetime >= starts_at) || (collection.end_date.to_datetime <= ends_at)
   end
-
-  private
 
   def products_ids
     @liquidation.liquidation_products.map(&:product_id).uniq
@@ -120,7 +127,6 @@ class LiquidationService
       heels.compact!
       heels.map{|h| {:label => h, :float => (h.split[0].gsub(",", ".") rescue 0)}}.sort_by{|x| x[:float].to_f}.map{|x| x[:label]}
     end
-    
   end
 
 end

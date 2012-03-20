@@ -50,4 +50,15 @@ describe LiquidationProductService do
     product.stub(:price).and_return 100.90
     LiquidationProductService.new(liquidation, product, 50).retail_price.should == BigDecimal("50.45")
   end
+  
+  describe "update" do
+    it "should update the price for all variants" do
+      FactoryGirl.create(:basic_shoe_size_35)
+      product = Product.last
+      FactoryGirl.create(:basic_shoe_size_37, :product => product)      
+      LiquidationProductService.new(liquidation, product, 10).save
+      LiquidationProduct.all.map{|lp| lp.discount_percent }.should == [10, 10]
+    end
+  end
+
 end
