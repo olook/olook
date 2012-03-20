@@ -1,6 +1,8 @@
 <h2><%= link_to "#{@liquidation.name} products", admin_liquidation_path(@liquidation.id) %></h2>
 
 <div class="inner">
+  <p class="update_liquidation_data"><%# link_to "Fetch and update product data (subcategory, heel, shoe size, etc)", admin_liquidation_fetch_path(@liquidation.id) %></p>
+  
   <%= form_for :liquidation_products do |f| %>
     <div class="field">
       <%= f.label :product_ids %>:

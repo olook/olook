@@ -160,6 +160,8 @@ Olook::Application.routes.draw do
           put "/" => "liquidation_carousels#update"
         end
       end
+      get 'fetch' => "liquidations#fetch", :as => "fetch"
+      resources :liquidation_carousels, :as => "carousels"
       resources :liquidation_products, :as => "products"
     end
     resources :roles do

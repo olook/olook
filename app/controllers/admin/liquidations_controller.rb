@@ -51,4 +51,10 @@ class Admin::LiquidationsController < Admin::BaseController
     @liquidation.destroy
     respond_with :admin, @liquidation
   end
+  
+  def fetch
+    @liquidation = Liquidation.find(params[:liquidation_id])  
+    LiquidationService.new(@liquidation.id).fetch!
+    redirect_to admin_liquidation_path(@liquidation.id)
+  end
 end
