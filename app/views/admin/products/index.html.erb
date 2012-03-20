@@ -1,5 +1,5 @@
 <h2>Listing products</h2>
-<%= form_tag(sync_products_admin_products_path, :id => 'sync_products') do %> 
+<%= form_tag(sync_products_admin_products_path, :id => 'sync_products') do %>
   <% if @sync_event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sync_event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -15,17 +15,36 @@
   <%= submit_tag('Sync products') %>
 <% end %>
 
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for :search, :url => {:controller => "admin/profiles", :action => "index" } ,:method => 'get' do |f| %>
+        <p>
+          Profile: <%= f.text_field params[:search], :id => "search" %>
+        </p>
+        <p>
+          <%= f.submit "Search", :name => nil %>
+        </p>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>
+
 <div class="inner">
   <table class="table">
     <tr>
       <th>Name</th>
       <th>Model number</th>
-      <th>Liquidation</th>
       <th>Category</th>
       <th>Visible?</th>
       <th>Price</th>
       <th>Inventory</th>
       <th>Color</th>
+      <th>Profile</th>
+      <th>Collection</th>
       <th>Picture</th>
       <th>Sample</th>
       <th></th>
@@ -37,19 +56,27 @@
     <tr>
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
-      <td><%= LiquidationProductService.new(@liquidation, product).liquidation_name %></td>
       <td><%= product.category_humanize %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
+      <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
+      <td><%= product.collection.name %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
+      <td><%= link_to "Preview", product_path(product), :target => "_blank" %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
     </tr>
   <% end %>
   </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @products %>
+    </div>
+  </div>
 
   <br />
 </div>
