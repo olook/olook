@@ -337,7 +337,7 @@ describe Product do
                                 :color_name   => 'Black') }
 
     it 'should return a string with the model_number, name, color and humanized category' do
-      subject.easy_to_find_description.should == 'M123 - Fake product - Black - Bag'
+      subject.easy_to_find_description.should == 'M123 - Fake product - Black - Bolsa'
     end
   end
 
