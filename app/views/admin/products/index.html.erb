@@ -15,24 +15,6 @@
   <%= submit_tag('Sync products') %>
 <% end %>
 
-<% content_for :sidebar do %>
-  <div class="block">
-    <h3>Filters</h3>
-
-    <div class="content">
-      <%= form_for :search, :url => {:controller => "admin/profiles", :action => "index" } ,:method => 'get' do |f| %>
-        <p>
-          Profile: <%= f.text_field params[:search], :id => "search" %>
-        </p>
-        <p>
-          <%= f.submit "Search", :name => nil %>
-        </p>
-      <% end %>
-
-    </div>
-  </div>
-<% end %>
-
 <div class="inner">
   <table class="table">
     <tr>
