@@ -6,7 +6,6 @@ class Admin::ProductsController < Admin::BaseController
   respond_to :html
 
   def index
-    @products = Product.all
     @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
     respond_with :admin, @products
@@ -82,7 +81,7 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def load_products
-    @products = Product.all
+    @products = Product.paginate(:page => params[:page], :per_page => 50)
   end
 end
 
