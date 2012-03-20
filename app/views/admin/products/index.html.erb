@@ -44,7 +44,7 @@
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
-      <td><%= product.collection.name %></td>
+      <td><%= product.collection.try(:name) %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
       <td><%= link_to "Preview", product_path(product), :target => "_blank" %></td>
