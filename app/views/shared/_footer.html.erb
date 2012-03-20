@@ -1,9 +1,6 @@
 <footer>
   <section>
 
-    <% if user_signed_in? %>
-      <%= render :partial => "shared/metrics/boobox/members", :locals => {:order => @order } %>
-    <% end %>
     <ul>
       <li><%= link_to "Sobre a olook", about_path %></li>
       <li><%= link_to "Stylist", helena_linhares_path %></li>
