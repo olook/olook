@@ -57,8 +57,9 @@ jQuery(function() {
     $(window).scroll(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
-      var bottomHeight = 370
-      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) {
+      var bottomHeight = 580;
+      var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) && !$('.loading').is(':visible')
+      if (canPaginate) {
         $('.pagination .next_page').remove();
         $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
         $('.loading').show();
