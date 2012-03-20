@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::ShippingServicesController < Admin::BaseController
   
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   respond_to :html
 

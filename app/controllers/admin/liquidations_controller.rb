@@ -1,6 +1,8 @@
 class Admin::LiquidationsController < Admin::BaseController
   respond_to :html
 
+  load_and_authorize_resource
+
   def index
     @liquidations = Liquidation.all
     respond_with :admin, @liquidations
