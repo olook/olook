@@ -1,7 +1,7 @@
 class Admin::LiquidationsController < Admin::BaseController
   respond_to :html
 
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def index
     @liquidations = Liquidation.all
@@ -53,9 +53,9 @@ class Admin::LiquidationsController < Admin::BaseController
     @liquidation.destroy
     respond_with :admin, @liquidation
   end
-  
+
   def fetch
-    @liquidation = Liquidation.find(params[:liquidation_id])  
+    @liquidation = Liquidation.find(params[:liquidation_id])
     LiquidationService.new(@liquidation.id).fetch!
     redirect_to admin_liquidation_path(@liquidation.id)
   end
