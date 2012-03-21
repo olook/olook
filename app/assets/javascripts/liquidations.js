@@ -58,11 +58,12 @@ jQuery(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
       var bottomHeight = 580;
-      var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) && !$('.loading').is(':visible')
+      var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) && !$('.loading').is(':visible');
       if (canPaginate) {
         $('.pagination .next_page').remove();
         $('#liquidation_filter').find("input[type='checkbox']").attr("disabled", "true");
         $('.loading').show();
+
         return $.getScript(url).done(function() {
           $('#liquidation_filter').find("input[type='checkbox']").removeAttr("disabled");
           $(".loading").hide();
