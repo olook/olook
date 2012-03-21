@@ -39,6 +39,7 @@ class Order < ActiveRecord::Base
   scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
   scope :paid, where("state IN ('picking', 'delivering', 'delivered', 'authorized')")
   scope :not_in_the_cart, where("state <> 'in_the_cart'")
+  scope :with_complete_payment, joins(:payment).where("payments.state IN ('authorized','completed')")
 
   state_machine :initial => :in_the_cart do
 

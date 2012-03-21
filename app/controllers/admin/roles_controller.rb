@@ -48,7 +48,4 @@ class Admin::RolesController < Admin::BaseController
     respond_with :admin, @role
   end
 
-
-
-
 end

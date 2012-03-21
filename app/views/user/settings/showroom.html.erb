@@ -12,22 +12,19 @@
     </div>
     <div class="container">
       <h2>Qual o tamanho do seu sapato?</h2>
-      <%= form_tag "#" do %>
+      <%= form_for(current_user.user_info, :as => "user_info", :url => "minha-vitrine/update") do |f| %>
         <ul class="shoes_size">
-          <li>
-            <label for="size_1_33">
-              33
-              <%= radio_button_tag "size_1", "33" %>
+          <% question_shoe_size = @presenter.shoe_size_question
+          question_shoe_size.answers.each do |answer| %>
+          <li class="<%= ( answer.title == current_user.user_info.shoes_size.to_s ) ? 'selected': '' %>" >
+            <label for="user_info_shoes_size_<%= answer.title %>">
+              <%= answer.title %>
+              <%= f.radio_button :shoes_size, answer.title %>
             </label>
           </li>
-          <li>
-            <label for="size_1_34">
-              34
-              <%= radio_button_tag "size_1", "34" %>
-            </label>
-          </li>
+          <% end %>
         </ul>
-        <%= submit_tag "" %>
+        <%= f.submit "" %>
       <% end %>
     </div>
   </div>

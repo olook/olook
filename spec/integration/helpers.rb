@@ -7,6 +7,15 @@ def do_login!(user)
     fill_in "user_email", :with => user.email
     fill_in "user_password", :with => user.password
     click_button "login"
+  end  
+end
+
+def do_admin_login!(admin)
+  visit new_admin_session_path
+  fill_in "admin_email", :with => admin.email
+  fill_in "admin_password", :with => admin.password
+  within('form#admin_new') do
+    click_button "login"  
   end
 end
 
@@ -34,3 +43,5 @@ def build_survey
   survey = Survey.new(SURVEY_DATA)
   survey.build
 end
+
+private

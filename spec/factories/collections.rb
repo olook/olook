@@ -25,7 +25,6 @@ FactoryGirl.define do
       is_active false
     end
 
-
     factory :march_2012_collection do
       name 'Março 2012'
       start_date Date.civil(2012, 03, 01)
