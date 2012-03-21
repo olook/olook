@@ -47,12 +47,12 @@ class Order < ActiveRecord::Base
 
     after_transition :in_the_cart => :waiting_payment, :do => :insert_order
     after_transition :in_the_cart => :waiting_payment, :do => :send_notification_order_requested
+    after_transition :in_the_cart => :waiting_payment, :do => :update_user_credit
 
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
     after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
-
 
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
@@ -302,6 +302,10 @@ class Order < ActiveRecord::Base
 
   def add_credit_to_inviter
     Credit.add_for_inviter(user, self)
+  end
+
+  def update_user_credit
+    Credit.remove(credits, user, self) if credits > 0
   end
 
   private
