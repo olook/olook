@@ -408,10 +408,17 @@ describe Order do
         subject.authorized
       end
     end
+
+    context "when the order is waiting payment" do
+      it "updates user credit" do
+        subject.should_receive(:update_user_credit)
+        subject.waiting_payment
+      end
+    end
   end
 
   describe "State machine" do
-    it "should has in_the_cart as initial state" do
+    it "has in_the_cart as initial state" do
       subject.in_the_cart?.should be_true
     end
 
@@ -509,7 +516,7 @@ describe Order do
       subject.authorized
     end
 
-    it "should use coupon when autorized" do
+    it "should use coupon when authorized" do
       subject.should_receive(:use_coupon)
       subject.waiting_payment
       subject.authorized
@@ -555,4 +562,28 @@ describe Order do
       transition.to.should == "authorized"
     end
   end
+
+  describe "#update_user_credit" do
+    before do
+      subject.user = FactoryGirl.create(:member)
+    end
+
+    context "when a order has an associated credit" do
+      it "removes this credit from the user" do
+        subject.credits = BigDecimal.new("10.30")
+        subject.save!
+
+        Credit.should_receive(:remove).with(subject.credits, subject.user, subject)
+        subject.update_user_credit
+      end
+    end
+
+    context "when the order has no credit" do
+      it "does not remove this credit from the user" do
+        Credit.should_not_receive(:remove)
+        subject.update_user_credit
+      end
+    end
+  end
+
 end

@@ -73,14 +73,6 @@ describe CartController do
           delete :remove_bonus
           response.should redirect_to cart_path
         end
-
-        it "should add to the user credits the amount of the removed credit" do
-          session[:order] = order
-          Order.any_instance.stub(:credits).and_return(2.34)
-          Order.any_instance.stub(:update_attributes).with(:credits => nil)
-          Credit.should_receive(:add).with(2.34, user, order)
-          delete :remove_bonus
-        end
       end
 
       context "when the user is not using credits bonus" do
@@ -115,12 +107,6 @@ describe CartController do
           expect {
             put :update_bonus, :credits => {:value => credits_value}
           }.to change(Freight, :count).by(-1)
-        end
-
-        it "removes the credits value from the user credits" do
-          session[:order] = order
-          Credit.should_receive(:remove).with(BigDecimal.new(credits_value), order.user, order)
-          put :update_bonus, :credits => {:value => credits_value}
         end
 
         it "redirects to cart_path" do
