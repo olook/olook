@@ -31,7 +31,7 @@ class Tracking < ActiveRecord::Base
   end
 
   def clean_placement
-    placement.delete(",")
+    placement.delete(",") if placement
   end
 
 end
