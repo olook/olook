@@ -146,5 +146,12 @@ describe Tracking do
 
       subject.clean_placement.should == "bolacasa"
     end
+
+    it "returns nil if there is no placement" do
+      subject.placement = nil
+      subject.save!
+
+      subject.clean_placement.should be_nil
+    end
   end
 end
