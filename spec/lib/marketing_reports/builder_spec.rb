@@ -15,6 +15,7 @@ describe MarketingReports::Builder do
       :invalid_emails => double(:i_response, :parsed_response => [ {"reason"=>"500", "email"=>"c@d.com"} ]),
     }
   end
+
   let(:bounce_response) do
    double(:bounce_response, :parsed_response => [ {"reason"=>"500", "email"=>"c@d.com"} ])
   end

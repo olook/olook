@@ -174,6 +174,15 @@ class Product < ActiveRecord::Base
                                                     )
   end
 
+  def product_url(source)
+    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
+                                                           :utm_source => source,
+                                                           :utm_medium => "banner",
+                                                           :utm_campaign => "remessaging",
+                                                           :utm_content => id
+                                                    )
+  end
+
 private
   def create_master_variant
     @master_variant = Variant.new(:is_master => true,

@@ -6,6 +6,7 @@ class Role < ActiveRecord::Base
   has_and_belongs_to_many :permissions
   validates :name, :uniqueness => true
   validates :name, :description, :presence => true
+  validates :name, :uniqueness => true
 
   def permissions_attributes=(new_permissions_attributes)
     self.permissions = PermissionMapBuilder.new(self.permissions).map(new_permissions_attributes)

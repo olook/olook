@@ -35,5 +35,4 @@ feature "Admin user with sac_operator role executing actions on the system", %q{
     page.should have_content("Access Denied!")
   end
 
-
 end

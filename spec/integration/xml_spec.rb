@@ -10,7 +10,7 @@ feature "Show products on xml format" do
     product.master_variant.update_attribute(:price, 1.0)
   end
 
-  context "in the product xml page" do
+  context "in the criteo xml page" do
     scenario "I want to see products of criteo" do
       visit criteo_path
       page.source.should == <<-END.gsub(/^ {6}/, '')
@@ -31,7 +31,9 @@ feature "Show products on xml format" do
       </products>
       END
     end
-    context "in the mt_performance xml page" do
+  end
+
+  context "in the mt_performance xml page" do
     scenario "I want to see products of mt_perfomance" do
       visit mt_performance_path
       page.source.should == <<-END.gsub(/^ {6}/, '')
@@ -75,6 +77,5 @@ feature "Show products on xml format" do
       </produtos>
       END
     end
-  end
   end
 end
