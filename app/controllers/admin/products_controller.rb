@@ -81,7 +81,7 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def load_products
-    @products = Product.paginate(:page => params[:page], :per_page => 50)
+    @products = Product.all
   end
 end
 
