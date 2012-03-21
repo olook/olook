@@ -15,17 +15,17 @@ class LiquidationSearchService
 
     queries = [query_heels,  query_shoe_sizes, query_subcategories]
     query_result = queries.detect{|query| !query.nil?}
-    @query_base = query_base.and(query_result) if query_result
 
     query_bags_acessories = params[:bag_accessory_subcategories] ? l_products[:subcategory_name].in(params[:bag_accessory_subcategories]) : nil
 
-
     if query_bags_acessories
       if query_result
-        @query_base = @query_base.or(query_bags_acessories)
+        @query_base = @query_base.and(query_result.or(query_bags_acessories))
       else
         @query_base = @query_base.and(query_bags_acessories)
       end
+    else
+      @query_base = @query_base.and(query_result) if query_result
     end
 
     LiquidationProduct.joins(:product).where(query_base)
