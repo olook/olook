@@ -1,5 +1,5 @@
 class Admin::LookbooksController < Admin::BaseController
-  
+
   load_and_authorize_resource
 
   respond_to :html, :text
@@ -65,7 +65,7 @@ class Admin::LookbooksController < Admin::BaseController
   private
 
   def generate_slug(name)
-    params[:lookbook]["slug"] = name.gsub(/[^a-z0-9]/i, "") unless params[:lookbook]["name"].nil?
+    params[:lookbook]["slug"] = name.parameterize unless params[:lookbook]["name"].nil?
   end
 
 end
