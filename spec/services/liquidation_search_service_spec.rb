@@ -12,7 +12,7 @@ describe LiquidationSearchService do
   let(:basic_accessory_1) { FactoryGirl.create(:basic_accessory_simple, :product => basic_accessory) }
 
   let(:liquidation) { FactoryGirl.create(:liquidation) }
-  
+
   before :each do
     Liquidation.delete_all
     LiquidationProduct.delete_all
@@ -118,6 +118,19 @@ describe LiquidationSearchService do
         lp5 = LiquidationProduct.create(:category_id => Category::ACCESSORY, :liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira", :inventory => 1)
         params = {:id => liquidation.id, :bag_accessory_subcategories => ["lisa", "pulseira"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
         LiquidationSearchService.new(params).search_products.should == [lp1, lp3, lp4, lp5]
+      end
+
+      it "returns products given heels and shoe sizes and bags, acessories and not invisible items" do
+        lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "37", :heel => "5.6")
+        lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "7.6")
+        lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "5.6")
+        lp4 = LiquidationProduct.create(:category_id => Category::BAG, :liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa", :inventory => 1)
+
+        basic_accessory_1.product.update_attributes(:is_visible => false)
+
+        lp5 = LiquidationProduct.create(:category_id => Category::ACCESSORY, :liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira", :inventory => 1)
+        params = {:id => liquidation.id, :bag_accessory_subcategories => ["lisa", "pulseira"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
+        LiquidationSearchService.new(params).search_products.should == [lp1, lp3, lp4]
       end
     end
   end
