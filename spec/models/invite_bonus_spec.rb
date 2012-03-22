@@ -42,7 +42,18 @@ describe InviteBonus do
         end
       end
 
-      context "invites accepted after 1st Mar 2012" do
+
+      context "invites accepted in 3rd Mar 2012" do
+        before :each do
+          build_invites( DateTime.civil(2012, 03, 03, 0, 0, 0) )
+        end
+
+        it "returns 0" do
+          described_class.for_accepted_invites(member).should == 40.0
+        end
+      end
+
+      context "invites accepted after 13th Mar 2012" do
         before :each do
           build_invites( DateTime.civil(2012, 03, 14, 0, 0, 0) )
         end
