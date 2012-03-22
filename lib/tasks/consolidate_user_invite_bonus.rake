@@ -15,4 +15,37 @@ namespace :invite_bonus do
       end
     end
   end
+
+  desc "Consolidate invite bonus for a specific user (receives an user email as argument)"
+  task :consolidate_for_user, [:email] => :environment do |t, args|
+    user = User.find_by_email!(args[:email])
+    if user
+      puts "-------------------------------------------------------"
+      puts "Consolidating credits for #{user.name} (id: #{user.id})"
+      puts "This user has been marked with the fraud flag." if user.has_fraud?
+      puts "This user has #{user.invites.accepted.count} accepted invites."
+      puts "User credits before consolidation: #{user.current_credit}"
+
+      invite_bonus = user.invite_bonus
+      used_invite_bonus = user.used_invite_bonus
+      earned_invite_bonus = invite_bonus + used_invite_bonus
+      new_mgm_invitee_bonus = user.credits.where(:source => "invitee_bonus").sum(:value)
+
+      puts "User spent invite bonus          : #{used_invite_bonus}"
+      puts "User earned invite bonus         : #{earned_invite_bonus}"
+      puts "User bonus from new MGM          : #{new_mgm_invitee_bonus}"
+
+      if invite_bonus > 0
+        credits_after_consolidation = invite_bonus + new_mgm_invitee_bonus
+        credit = user.credits.create!(:value => credits_after_consolidation,
+                            :total => credits_after_consolidation,
+                            :source => "consolidate_invite_bonus",
+                            :multiplier => 1)
+        puts "User credit was consolidated. If you want to revert this action, destroy the credit with id equal to #{credit.id}"
+      else
+        "Can't consolidate this user invite bonus credit. The value is negative."
+      end
+      puts "User credits after consolidation : #{user.current_credit}"
+    end
+  end
 end

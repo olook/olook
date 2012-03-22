@@ -40,7 +40,7 @@ protected
 
   module SecondPromotion
     START_DATE = FirstPromotion::END_DATE
-    END_DATE = DateTime.civil(2012, 03, 02, 0, 0, 0)
+    END_DATE = DateTime.civil(2012, 03, 13, 0, 0, 0)
 
     def self.for_accepted_invites(member)
       accepted_invites_count = member.invites.accepted
