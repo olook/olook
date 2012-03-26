@@ -69,6 +69,7 @@ $(document).ready(function() {
       $(this).find("input[type='radio']").attr('checked', true);
       $(this).addClass('selected');
       inventory = $(this).find("input[type='hidden']").val();
+      badge = $("div#pics_suggestions div#full_pic p.warn.quantity");
       remaining = $("div#infos p.remaining");
       if(inventory < 2) {
         $(remaining).html("Resta apenas <strong><span>0</span> unidade</strong> para o seu tamanho");
@@ -76,9 +77,12 @@ $(document).ready(function() {
         $(remaining).html("Restam apenas <strong><span>0</span> unidades</strong> para o seu tamanho");
       }
       $(remaining).hide();
+      $(badge).hide();
       if(inventory <= 3) {
         $(remaining).find("span").text(inventory);
+        $(badge).find("span").text(inventory);
         $(remaining).show();
+        $(badge).show();
       }
       return false;
     }
