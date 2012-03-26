@@ -9,6 +9,9 @@
     <% if @product.liquidation? && !@product.sold_out? %>
       <p class="warn percentage"><span><%= @product.liquidation_discount_percent.to_i %>%</span><br />off</p>
     <% end %>
+    <% if current_user %>
+      <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.user_info.nil?) ? '' : @product.quantity( current_user.user_info.shoes_size )}" %></span></p>
+    <% end %>
     <ul>
       <% @product.pictures.each do |picture| %>
         <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("#{picture.image_url(:main).to_s}", :class => "full"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
