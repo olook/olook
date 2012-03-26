@@ -80,8 +80,9 @@ describe BilletsController do
     end
 
     describe "with some variant unavailable" do
-      it "redirect to cath path" do
-        Order.any_instance.stub(:remove_unavailable_items).and_return(1)
+      it "redirects to cath path" do
+        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
+        payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
         post :create, :billet => attributes
         response.should redirect_to(cart_path)
       end
