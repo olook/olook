@@ -66,7 +66,7 @@ describe HomeController do
       context "when user is signed in" do
         it "redirects to member showroom" do
           subject.stub(:'user_signed_in?').and_return(true)
-          subject.should_receive(:redirect_to).with(member_showroom_path)
+          subject.should_receive(:redirect_to).with(member_showroom_path)          
           get 'index', :params => standard_params
         end
       end
