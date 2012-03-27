@@ -9,6 +9,7 @@ feature "Buying products", %q{
 } do
 
   let(:user) { FactoryGirl.create(:user) }
+  let!(:user_info) { FactoryGirl.create(:user_info, user: user, shoes_size: nil) }
   let(:product) { FactoryGirl.create :basic_shoe }
 
   context "buying products" do
