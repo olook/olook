@@ -27,13 +27,6 @@ class LiquidationService
     update_resume
   end
   
-  def fetch!
-    @liquidation.resume[:products_ids].each do |product_id|
-      LiquidationProductService.new(@liquidation, Product.find(product_id), nil, []).fetch_data!
-    end
-    self.update_resume
-  end
-  
   def update_resume
     @liquidation.resume = {
      :products_ids => products_ids,
@@ -125,6 +118,7 @@ class LiquidationService
   def sorted_heels
     if heels 
       heels.compact!
+      heels.delete("")
       heels.map{|h| {:label => h, :float => (h.split[0].gsub(",", ".") rescue 0)}}.sort_by{|x| x[:float].to_f}.map{|x| x[:label]}
     end
   end

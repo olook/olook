@@ -56,7 +56,8 @@ class Admin::LiquidationsController < Admin::BaseController
 
   def fetch
     @liquidation = Liquidation.find(params[:liquidation_id])
-    LiquidationService.new(@liquidation.id).fetch!
-    redirect_to admin_liquidation_path(@liquidation.id)
+    LiquidationFetchService.new(@liquidation).fetch!
+    flash[:notice] = "Data fetched and updated"
+    redirect_to admin_liquidation_products_path(@liquidation.id)
   end
 end
