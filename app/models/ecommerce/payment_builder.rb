@@ -127,6 +127,7 @@ class PaymentBuilder
   end
 
   def respond_with_unavailable_items
+    log("ERROR: UNAVAILABLE_ITEMS: ORDER_ID: #{order.id} VARIANTS: #{order.line_items.map{|li| li.variant.id}.join(",")}")
     OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil)
   end
 
