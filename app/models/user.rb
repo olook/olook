@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
     categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
     results = []
     categories.each do |cat|
-      results += all_profiles_showroom(cat)[0..4]
+      results = results | all_profiles_showroom(cat)[0..4]
     end
     remove_color_variations results
   end
