@@ -305,9 +305,14 @@ describe User do
     end
 
     context "when the event is a tracking event" do
-      it "should create a tracking record for the user with the received hash" do
+      it "creates a tracking record for the user with the received hash" do
         subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
         subject.tracking.gclid.should == 'abc123'
+      end
+
+      it "creates a event converting the hash to a string" do
+        subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
+        subject.events.find_by_event_type(EventType::TRACKING).description.should == "{'gclid'=>'abc123'}"
       end
     end
   end

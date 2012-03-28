@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
-    self.events.create(event_type: type, description: description)
+    self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
