@@ -312,7 +312,7 @@ describe User do
 
       it "creates a event converting the hash to a string" do
         subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
-        subject.events.find_by_event_type(EventType::TRACKING).description.should == "{'gclid'=>'abc123'}"
+        subject.events.find_by_event_type(EventType::TRACKING).description.should == "{\"gclid\"=>\"abc123\"}"
       end
     end
   end
