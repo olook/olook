@@ -1,5 +1,5 @@
 namespace :trackings do
-  desc "Create trackings from events table"
+  desc "Create trackings from events table (starting from the given event id)"
   task :create, [:id] => :environment do |t, args|
     starting_id = args[:id] || 0
     Event.where("event_type = :tracking and id > :id", :tracking => EventType::TRACKING, :id => starting_id).find_each do |e|
