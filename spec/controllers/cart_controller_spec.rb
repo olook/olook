@@ -6,14 +6,14 @@ describe CartController do
     render_views
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
-    let(:order) { FactoryGirl.create(:order, :user => user) }
+    let(:order) { FactoryGirl.create(:order, :user => user, :credits => "3.27") }
     let(:quantity) { 3 }
 
     describe "GET show" do
-      it "should assign @bonus" do
+      it "assigns @bonus with the user current credit minus the order credits" do
         session[:order] = order.id
         get :show
-        assigns(:bonus).should == user.current_credit
+        assigns(:bonus).should == user.current_credit - order.credits
       end
 
       it "GET show with token and order_id" do
