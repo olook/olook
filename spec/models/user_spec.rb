@@ -248,7 +248,7 @@ describe User do
 
   describe "#surver_answers" do
     it "should return user answers" do
-      survey_answers = FactoryGirl.create(:survey_answers, user: subject)
+      survey_answers = FactoryGirl.create(:survey_answer, :user => subject)
       subject.survey_answers.should == survey_answers.answers
     end
   end
