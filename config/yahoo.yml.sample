@@ -1,14 +1,14 @@
 development:
-  api_key: dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--
-  api_secret: ae9ff386cffdf041f85e88b526611574ff49c95a
-  callback_uri: "http://localhost:3000/"
+  api_key: dj0yJmk9Y2syWnlkaGI2T3FoJmQ9WVdrOVQxUmhZMXBaTldVbWNHbzlNVE0zT0RZeU5UTTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Mg--
+  api_secret: 8ac9b581b846b0a858540962dd30635117021311
+  callback_uri: "http://localhost:3000/membro/importar_contatos"
 
 test:
   api_key: dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--
   api_secret: ae9ff386cffdf041f85e88b526611574ff49c95a
-  callback_uri: "http://localhost:3000/"
+  callback_uri: "http://localhost:3000/importar_contatos"
 
 production:
-  api_key: dj0yJmk9QlB1ajBkZGVpMUxiJmQ9WVdrOVEwVk9jVkE0TkdjbWNHbzlNVFEwTURFME1UQTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Zg--
-  api_secret: ae9ff386cffdf041f85e88b526611574ff49c95a
-  callback_uri: "http://www.olook.com.br/membro/convite"
+  api_key: dj0yJmk9TGhUWHFzTDRtVElWJmQ9WVdrOVkyWlZabTFrTm0wbWNHbzlNVFF5TlRVNU1qazJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD0wYw--
+  api_secret: ccf93253ddc99ed7d03f05f5ea936ab685bdd877
+  callback_uri: "http://www.olook.com.br/membro/importar_contatos"
