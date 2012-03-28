@@ -185,9 +185,13 @@ class Order < ActiveRecord::Base
   end
 
   def remove_unavailable_items
-    items = line_items.select {|item| !item.variant.available_for_quantity? item.quantity}
-    size_items = items.size
-    items.each {|item| item.destroy}
+    unavailable_items = []
+    line_items.each do |li|
+      item = LineItem.lock("FOR UPDATE").find(li.id)
+      unavailable_items << item unless item.variant.available_for_quantity? item.quantity
+    end
+    size_items = unavailable_items.size
+    unavailable_items.each {|item| item.destroy}
     size_items
   end
 

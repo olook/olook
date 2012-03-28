@@ -21,6 +21,5 @@ class OrderStatusWorker
         mail = OrderStatusMailer.payment_refused(order)
       end
     end
-    mail.deliver if mail
   end
 end

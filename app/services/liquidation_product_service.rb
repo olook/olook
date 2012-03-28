@@ -1,5 +1,6 @@
 class LiquidationProductService
-  
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
+    
   def self.retail_price product
     price = product.price
     if product.liquidation?
@@ -36,10 +37,6 @@ class LiquidationProductService
     end
   end
   
-  def fetch_data! 
-    LiquidationProduct.where(:product_id => @product.id).update_all(refresh_params)
-  end
-  
   def conflicts_collections?
     @collections.map{|c| c.id }.include? @product.collection_id
   end
@@ -50,7 +47,16 @@ class LiquidationProductService
   
   def liquidation_name
     @liquidation.name if included?
+  end  
+  
+  def subcategory_name
+    detail_by_token SUBCATEGORY_TOKEN
   end
+
+  def heel
+    detail_by_token HEEL_TOKEN
+  end
+
   
   private
   
@@ -78,19 +84,6 @@ class LiquidationProductService
       :variant_id => (last_variant.id if last_variant),
       :inventory => (last_variant.inventory if last_variant)
     }
-  end
-  
-  def refresh_params
-    params = {
-      :liquidation_id => @liquidation.id,
-      :product_id => @product.id,
-      :subcategory_name => subcategory_name.try(:parameterize),
-      :subcategory_name_label => subcategory_name
-    }
-    if shoe?
-      params.merge! ({:heel => heel.try(:parameterize), :heel_label => heel})
-    end
-    params
   end
   
   def existing_product options=nil
@@ -124,14 +117,6 @@ class LiquidationProductService
     @liquidation.resume[:products_ids].include? @product.id if @liquidation
   end
 
-  def subcategory_name
-    detail_by_token "Categoria"
-  end
-
-  def heel
-    detail_by_token "Salto/Tamanho"
-  end
-  
   def last_variant
     @product.variants.last
   end
