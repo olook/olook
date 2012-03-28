@@ -15,6 +15,7 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def new
+    debugger
     @admin = Admin.new
     @admin.build_role
     respond_with :admin, @admin
@@ -22,7 +23,7 @@ class Admin::AdminsController < Admin::BaseController
 
   def edit
     @admin = Admin.find(params[:id])
-    @admin.role
+    @admin.build_role
     respond_with :admin, @admin
   end
 

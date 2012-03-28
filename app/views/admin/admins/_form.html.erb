@@ -40,7 +40,8 @@
   <%= f.fields_for :role do |r| %>
     <div class="field">
     <%= r.label :id, "Role : " %><br />
-    <%= r.select :id, Role.all.collect {|r| [r.name, r.id] },  {:prompt => 'Select Role'}%>
+    <%= r.select :id, Role.all.collect {|r| [r.name, r.id] },  
+      {:prompt => @admin.role != nil ? @admin.role.name : 'Select Role'}%>
   </div>
   <% end %>
 

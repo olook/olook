@@ -1,12 +1,16 @@
 # -*- encoding : utf-8 -*-
 class Admin < ActiveRecord::Base
 
+  attr_accessible :role_attributes
+  belongs_to :role
+  accepts_nested_attributes_for :role
+
   has_paper_trail :on => [:update, :destroy]
+
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   NameFormat = /^[A-ZÀ-ÿ\s-]+$/i
 
-  belongs_to :role
 
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable, :lockable
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role_attributes
