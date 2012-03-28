@@ -45,7 +45,7 @@ class CartController < ApplicationController
   end
 
   def show
-    @bonus = @user.current_credit
+    @bonus = @user.current_credit - @order.credits
     @cart = Cart.new(@order)
     @line_items = @order.line_items
     @coupon_code = @order.used_coupon.try(:code)
