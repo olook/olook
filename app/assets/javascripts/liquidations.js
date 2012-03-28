@@ -1,4 +1,10 @@
 jQuery(function() {
+  if($("form#liquidation_filter input").is(":checked")) {
+    setTimeout(function() {
+      $("form#liquidation_filter").submit();
+    }, 4000);
+  }
+
   $("div#carousel_container ul").carouFredSel({
     width: 480,
     items: 1,
