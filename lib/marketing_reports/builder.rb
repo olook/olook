@@ -17,11 +17,12 @@ module MarketingReports
     end
 
     def generate_userbase
+      bounces = bounced_list
       data = []
       data << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
                  invite_token first_name last_name facebook_token birthday has_purchases}
       User.find_each do |u|
-        unless bounced_list.include?(u.email)
+        unless bounces.include?(u.email)
           data << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
                   u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]
         end
@@ -111,7 +112,6 @@ module MarketingReports
       responses = [:invalid_emails, :spam_reports, :unsubscribes, :blocks].inject([]) do |sum, service|
         sum += sendgrid_accounts_response(service)
       end
-      responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook").parsed_response
       responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook2").parsed_response
       emails(responses)
     end
