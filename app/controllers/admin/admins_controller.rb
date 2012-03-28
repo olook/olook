@@ -15,7 +15,6 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def new
-    debugger
     @admin = Admin.new
     @admin.build_role
     respond_with :admin, @admin
