@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
     categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
     results = []
     categories.each do |cat|
-      results = results | all_profiles_showroom(cat)[0..4]
+      results += all_profiles_showroom(cat)[0..4]
     end
      Product.remove_color_variations results
   end
@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
   def total_revenue(total_method = :total)
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
-        .inject(0) { |sum,order| sum += order.send(total_method) }
+        .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
   end
 
   private
