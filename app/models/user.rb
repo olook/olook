@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
-    self.events.create(event_type: type, description: description)
+    self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
@@ -153,7 +153,12 @@ class User < ActiveRecord::Base
   end
 
   def main_profile_showroom(category = nil)
-    Product.remove_color_variations(profile_showroom(self.main_profile, category)) if self.main_profile
+    categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
+    results = []
+    categories.each do |cat|
+      results = results | all_profiles_showroom(cat)[0..4]
+    end
+     Product.remove_color_variations results
   end
 
   def profile_showroom(profile, category = nil)

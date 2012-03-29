@@ -31,7 +31,8 @@ Running the application
 
 - redis-server
 - QUEUE=* bundle exec rake environment resque:work RAILS_ENV=development
-To start a queue for the delayed/scheduled jobs:
+
+- To start a queue for the delayed/scheduled jobs:
 - bundle exec rake environment resque:scheduler
 - rails server
 
