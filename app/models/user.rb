@@ -149,11 +149,11 @@ class User < ActiveRecord::Base
     self.profile_scores.each do |profile_score|
       result = result | profile_showroom(profile_score.profile, category).all
     end
-    remove_color_variations result
+    Product.remove_color_variations result
   end
 
   def main_profile_showroom(category = nil)
-    remove_color_variations(profile_showroom(self.main_profile, category)) if self.main_profile
+    Product.remove_color_variations(profile_showroom(self.main_profile, category)) if self.main_profile
   end
 
   def profile_showroom(profile, category = nil)
@@ -212,30 +212,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  def remove_color_variations(products)
-    result = []
-    already_displayed = []
-    displayed_and_sold_out = {}
-
-    products.each do |product|
-      # Only add to the list the products that aren't already shown
-      unless already_displayed.include?(product.name)
-        result << product
-        already_displayed << product.name
-        displayed_and_sold_out[product.name] = result.length - 1 if product.sold_out?
-      else
-        # If a product of the same color was already displayed but was sold out
-        # and the algorithm find another color that isn't, replace the sold out one
-        # by the one that's not sold out
-        if displayed_and_sold_out[product.name] && !product.sold_out?
-          result[displayed_and_sold_out[product.name]] = product
-          displayed_and_sold_out.delete product.name
-        end
-      end
-    end
-    result
-  end
 
   def generate_invite_token
     loop do

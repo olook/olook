@@ -430,7 +430,7 @@ describe User do
 
       context 'when no product is sold out' do
         it 'should return only one color for products with the same name' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
         end
       end
 
@@ -439,7 +439,7 @@ describe User do
           shoe_a_black.stub(:'sold_out?').and_return(true)
         end
         it 'should return the second color in the place of the sold out one' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_red, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_red, shoe_b_green]
         end
       end
 
@@ -448,7 +448,7 @@ describe User do
           shoe_a_red.stub(:'sold_out?').and_return(true)
         end
         it 'should return the first color and hide the one sold out' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
         end
       end
     end
