@@ -305,9 +305,14 @@ describe User do
     end
 
     context "when the event is a tracking event" do
-      it "should create a tracking record for the user with the received hash" do
+      it "creates a tracking record for the user with the received hash" do
         subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
         subject.tracking.gclid.should == 'abc123'
+      end
+
+      it "creates a event converting the hash to a string" do
+        subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
+        subject.events.find_by_event_type(EventType::TRACKING).description.should == "{\"gclid\"=>\"abc123\"}"
       end
     end
   end
@@ -385,19 +390,15 @@ describe User do
     end
 
     describe "#main_profile_showroom" do
-      before :each do
-        subject.stub(:main_profile).and_return(sporty_profile)
+      it "should return the products ordered by profiles without duplicate names" do
+        subject.main_profile_showroom.should == [product_d, product_b, product_c]
       end
 
-      it "should return only the products for the main profile" do
-        subject.main_profile_showroom.should == [product_c, product_d]
-      end
-
-      it 'should return only the products of a given category for the main profile' do
+      it 'should return only the products of a given category' do
         subject.main_profile_showroom(Category::BAG).should == [product_c]
       end
 
-      it 'should return a scope' do
+      it 'should return an array' do
         subject.main_profile_showroom.should be_a(Array)
       end
     end

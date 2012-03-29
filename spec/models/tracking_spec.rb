@@ -1,6 +1,9 @@
 require "spec_helper"
 
 describe Tracking do
+  let(:another_day) { Date.today + 2.days }
+  let(:day) { Date.today }
+
   describe "relationshios" do
     it { should belong_to :user }
   end
@@ -74,7 +77,7 @@ describe Tracking do
 
     it "returns the total revenue of all users with to the same tracking type" do
       User.any_instance.stub(:total_revenue).with(:total).and_return(BigDecimal.new("100"))
-      tracking_a.total_revenue.should == 200
+      tracking_a.total_revenue(day).should == 200
     end
   end
 
@@ -95,27 +98,33 @@ describe Tracking do
 
     it "gets the total revenue of all users with the same placement" do
       User.any_instance.stub(:total_revenue).with(:total).and_return(BigDecimal.new("100"))
-      tracking_a.total_revenue.should == 200
+      tracking_a.total_revenue_for_google(day,:total).should == 200
     end
   end
 
   describe "#related_with_complete_payment_for_google" do
     let!(:user_a) { FactoryGirl.create(:member) }
     let!(:user_b) { FactoryGirl.create(:member) }
+    let!(:user_c) { FactoryGirl.create(:member) }
     let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a) }
     let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b) }
+    let!(:order_c) { FactoryGirl.create(:clean_order, :user => user_c) }
     let!(:tracking_a) { FactoryGirl.create(:google_tracking, :user => user_a) }
     let!(:tracking_b) { FactoryGirl.create(:google_tracking, :user => user_b) }
+    let!(:tracking_c) { FactoryGirl.create(:google_tracking, :user => user_c, :created_at => :another_day) }
+
 
     before do
       order_a.payment.billet_printed
       order_a.payment.authorized
       order_b.payment.billet_printed
       order_b.payment.authorized
+      order_c.payment.billet_printed
+      order_c.payment.authorized
     end
 
-    it "returns all trackings with complete payment from users with the same placement" do
-      tracking_a.related_with_complete_payment_for_google.should == [tracking_a, tracking_b]
+    it "returns all trackings with complete payment from users with the same placement for the given day" do
+      tracking_a.related_with_complete_payment_for_google(day).should == [tracking_a, tracking_b]
     end
   end
 
@@ -135,7 +144,7 @@ describe Tracking do
     end
 
     it "returns all trackings with complete payment from users with " do
-      tracking_a.related_with_complete_payment.should == [tracking_a, tracking_b]
+      tracking_a.related_with_complete_payment(day).should == [tracking_a, tracking_b]
     end
   end
 

@@ -9,22 +9,26 @@ class PaymentBuilder
 
   def process!
     ActiveRecord::Base.transaction do
-      set_payment_order!
-      send_payment!
-      create_payment_response!
-      payment_response = set_payment_url!.payment_response
+      if order.remove_unavailable_items > 0
+        respond_with_unavailable_items
+      else
+        set_payment_order!
+        send_payment!
+        create_payment_response!
+        payment_response = set_payment_url!.payment_response
 
-      if payment_response.response_status == Payment::SUCCESSFUL_STATUS
-        if payment_response.transaction_status != Payment::CANCELED_STATUS
-          order.decrement_inventory_for_each_item
-          order.waiting_payment!
-          order.invalidate_coupon
-          respond_with_success
+        if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+          if payment_response.transaction_status != Payment::CANCELED_STATUS
+            order.decrement_inventory_for_each_item
+            order.waiting_payment!
+            order.invalidate_coupon
+            respond_with_success
+          else
+            respond_with_failure
+          end
         else
           respond_with_failure
         end
-      else
-        respond_with_failure
       end
     end
 
@@ -120,6 +124,11 @@ class PaymentBuilder
   def respond_with_failure
     rollback_order
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+  end
+
+  def respond_with_unavailable_items
+    log("ERROR: UNAVAILABLE_ITEMS: ORDER_ID: #{order.id} VARIANTS: #{order.line_items.map{|li| li.variant.id}.join(",")}")
+    OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil)
   end
 
   def respond_with_success

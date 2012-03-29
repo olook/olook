@@ -99,7 +99,7 @@ class RegistrationsController < Devise::RegistrationsController
   def save_tracking_params(resource, tracking_params)
     tracking_params ||= {}
     if resource.is_a?(User) && tracking_params.present?
-      resource.add_event(EventType::TRACKING, tracking_params.to_s)
+      resource.add_event(EventType::TRACKING, tracking_params)
     end
   end
 
