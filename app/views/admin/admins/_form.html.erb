@@ -36,14 +36,10 @@
     <%= f.password_field :password_confirmation %>
   </div>
 
-
-  <%= f.fields_for :role do |r| %>
-    <div class="field">
-    <%= r.label :id, "Role : " %><br />
-    <%= r.select :id, Role.all.collect {|r| [r.name, r.id] },  
-      {:prompt => @admin.role != nil ? @admin.role.name : 'Select Role'}%>
+  <div class="field">
+    <%= f.label :role_id, "Role : " %><br />
+    <%= f.select :role_id, Role.all.collect {|rl| [rl.name, rl.id] } %>
   </div>
-  <% end %>
 
   <div class="actions">
     <%= f.submit %>

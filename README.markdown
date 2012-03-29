@@ -40,6 +40,7 @@ Running tests
 ============
 
 - rspec spec
+- If tests brake on Linux due to issues with Database Cleaner, tweaking the my.cnf increasing the size of max_allowed_packet would fix it.
 
 Installing MySQL 5.1.49 on Ubuntu/Debian
 ============
