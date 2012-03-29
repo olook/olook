@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ShowroomPresenter < BasePresenter
+
   MORNING   = (0..11)
   AFTERNOON = (12..18)
   EVENING   = (19..23)
