@@ -3,7 +3,7 @@
 <% for product in @products %>
 <produto>
 <id_produto><![CDATA[<%= product.id %>]]></id_produto>
-<link_produto><![CDATA[<%= raw product.product_url(:utm_source => "click_a_porter") %>]]></link_produto>
+<link_produto><![CDATA[<%= product.product_url(:utm_source => "click_a_porter") %>]]></link_produto>
 <nome_produto><![CDATA[<%= product.name %>]]></nome_produto>
 <marca><![CDATA[olook]]></marca>
 <categoria><![CDATA[<%= Category.t(product.category) %> <%= product.subcategory %>]]></categoria>
