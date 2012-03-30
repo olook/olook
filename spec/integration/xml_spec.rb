@@ -20,10 +20,10 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&utm_content=#{product.id}&utm_medium=banner&utm_source=criteo</producturl>
       <description>#{product.description}</description>
       <price>#{product.price}</price>
-      <retailprice>#{product.price}</retailprice>
+      <retailprice>#{product.retail_price}</retailprice>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category}</category>
@@ -42,12 +42,12 @@ feature "Show products on xml format" do
       <produto>
       <nome>#{product.name}</nome>
       <descricao>#{product.description}</descricao>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=mt_performance</url>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=mt_performance</url>
       <imagem></imagem>
       <marca>olook</marca>
       <preco>#{product.price}</preco>
-      <preco_original>#{product.price}</preco_original>
-      <categoria>#{Category.t(product.category)}</categoria>
+      <preco_original>#{product.retail_price}</preco_original>
+      <categoria>#{Category.t(product.category)} - #{product.subcategory}</categoria>
       </produto>
       </produtos>
       END
@@ -62,10 +62,10 @@ feature "Show products on xml format" do
       <produtos>
       <produto>
       <id_produto><![CDATA[#{product.id}]]></id_produto>
-      <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=click_a_porter]]></link_produto>
+      <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=click_a_porter]]></link_produto>
       <nome_produto><![CDATA[#{product.name}]]></nome_produto>
       <marca><![CDATA[olook]]></marca>
-      <categoria><![CDATA[#{Category.t(product.category)}]]></categoria>
+      <categoria><![CDATA[#{Category.t(product.category)} - #{product.subcategory}]]></categoria>
       <cores><cor><![CDATA[#{ product.color_name}]]></cor></cores>
       <descricao><![CDATA[#{ product.description}]]></descricao>
       <preco_de><![CDATA[#{ ActionController::Base.helpers.number_to_currency(product.price, :unit => "") }]]></preco_de>
