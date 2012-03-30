@@ -20,7 +20,7 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&utm_content=#{product.id}&utm_medium=banner&utm_source=criteo</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
@@ -42,7 +42,7 @@ feature "Show products on xml format" do
       <produto>
       <nome>#{product.name}</nome>
       <descricao>#{product.description}</descricao>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=mt_performance</url>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=mt_performance</url>
       <imagem></imagem>
       <marca>olook</marca>
       <preco>#{product.price}</preco>
@@ -62,7 +62,7 @@ feature "Show products on xml format" do
       <produtos>
       <produto>
       <id_produto><![CDATA[#{product.id}]]></id_produto>
-      <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=click_a_porter]]></link_produto>
+      <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=click_a_porter]]></link_produto>
       <nome_produto><![CDATA[#{product.name}]]></nome_produto>
       <marca><![CDATA[olook]]></marca>
       <categoria><![CDATA[#{Category.t(product.category)} #{product.subcategory}]]></categoria>

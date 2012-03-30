@@ -4,7 +4,7 @@
 <produto>
 <nome><%= product.name %></nome>
 <descricao><%= product.description %></descricao>
-<url><%= raw product.product_url(:utm_source => "mt_performance") %></url>
+<url><%= product.product_url(:utm_source => "mt_performance") %></url>
 <imagem><%= product.main_picture.try(:image) %></imagem>
 <marca>olook</marca>
 <preco><%= product.price %></preco>
