@@ -31,7 +31,8 @@ Running the application
 
 - redis-server
 - QUEUE=* bundle exec rake environment resque:work RAILS_ENV=development
-To start a queue for the delayed/scheduled jobs:
+
+- To start a queue for the delayed/scheduled jobs:
 - bundle exec rake environment resque:scheduler
 - rails server
 
@@ -39,6 +40,7 @@ Running tests
 ============
 
 - rspec spec
+- If tests brake on Linux due to issues with Database Cleaner, tweaking the my.cnf increasing the size of max_allowed_packet would fix it.
 
 Installing MySQL 5.1.49 on Ubuntu/Debian
 ============

@@ -310,7 +310,6 @@ describe Order do
     context "when at least one variant is unavailable" do
       it "should return 1 for #remove_unavailable_items" do
         basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items
         subject.remove_unavailable_items.should == 1
       end
 

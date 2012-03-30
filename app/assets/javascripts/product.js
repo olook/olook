@@ -91,7 +91,9 @@ $(document).ready(function() {
   $("div#carousel ul").carouFredSel({
     auto: false,
     width: 760,
-    items: 10,
+    items: {
+      visible: 4
+      },
     prev : {
       button : ".product-prev",
       items : 4

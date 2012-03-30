@@ -5,7 +5,7 @@
 <name><%= product.name %></name>
 <smallimage><%= product.thumb_picture %></smallimage>
 <bigimage><%= product.showroom_picture %></bigimage>
-<producturl><%= product.product_url("criteo") %></producturl>
+<producturl><%= raw product.product_url(:utm_source => "criteo", :utm_medium => "banner", :utm_campaign => "remessaging") %></producturl>
 <description><%= product.description %></description>
 <price><%= product.price %></price>
 <retailprice><%= product.retail_price %></retailprice>

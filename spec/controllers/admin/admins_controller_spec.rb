@@ -10,7 +10,7 @@ describe Admin::AdminsController do
   let!(:valid_attributes_with_password){
     {:first_name => "Doug", :last_name => "Funny", :password => "123456", 
     :password_confirmation => "123456", :email => "drfunny@olook.com.br", 
-    :role_attributes => {:id => admin.role_id.to_s} } }
+    :role_id => admin.role_id.to_s} }
 
   let!(:valid_attributes_without_password) do
     admin.attributes.clone.tap do |attributes|

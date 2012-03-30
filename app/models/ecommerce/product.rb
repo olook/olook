@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  UNAVAILABLE_ITEMS = :unavailable_items
   has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   has_enumeration_for :category, :with => Category, :required => true
@@ -136,22 +137,6 @@ class Product < ActiveRecord::Base
     sold_out? ? "0" : "1"
   end
 
-  def to_xml(options = {})
-    xml = options[:builder] ||= ::Builder::XmlMarkup.new(:indent => 2)
-    xml.product(:id => id) do
-      xml.tag!(:name, name)
-      xml.tag!(:smallimage,  thumb_picture)
-      xml.tag!(:bigimage,  showroom_picture)
-      xml.tag!(:producturl, product_url("criteo"))
-      xml.tag!(:description, description)
-      xml.tag!(:price, price)
-      xml.tag!(:retailprice, price)
-      xml.tag!(:recommendable, '1')
-      xml.tag!(:instock, instock)
-      xml.tag!(:category, category)
-    end
-  end
-  
   def liquidation?
     active_liquidation = LiquidationService.active
     active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
@@ -165,25 +150,47 @@ class Product < ActiveRecord::Base
     LiquidationProductService.discount_percent(self)
   end
 
-  def product_url(source)
-    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_source => source,
-                                                           :utm_medium => "banner",
-                                                           :utm_campaign => "remessaging",
-                                                           :utm_content => id
-                                                    )
+  def product_url(options = {})
+    params =
+    {
+      :host => "www.olook.com.br",
+      :utm_medium => "vitrine",
+      :utm_campaign => "produtos",
+      :utm_content => id
+    }
+    Rails.application.routes.url_helpers.product_url(self, params.merge!(options))
   end
 
-  def product_url(source)
-    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_source => source,
-                                                           :utm_medium => "banner",
-                                                           :utm_campaign => "remessaging",
-                                                           :utm_content => id
-                                                    )
+  def self.remove_color_variations(products)
+    result = []
+    already_displayed = []
+    displayed_and_sold_out = {}
+
+    products.each do |product|
+      # Only add to the list the products that aren't already shown
+      unless already_displayed.include?(product.name)
+        result << product
+        already_displayed << product.name
+        displayed_and_sold_out[product.name] = result.length - 1 if product.sold_out?
+      else
+        # If a product of the same color was already displayed but was sold out
+        # and the algorithm find another color that isn't, replace the sold out one
+        # by the one that's not sold out
+        if displayed_and_sold_out[product.name] && !product.sold_out?
+          result[displayed_and_sold_out[product.name]] = product
+          displayed_and_sold_out.delete product.name
+        end
+      end
+    end
+    result
+  end
+
+  def subcategory
+    LiquidationProductService.new(nil,self).subcategory_name
   end
 
 private
+
   def create_master_variant
     @master_variant = Variant.new(:is_master => true,
                                   :product => self,
