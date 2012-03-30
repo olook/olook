@@ -276,13 +276,4 @@ describe Abacos::Product do
       end
     end
   end
-
-  describe "#subcategory" do
-    it "gets the subcategory from the product details" do
-      service = mock(:liquidation)
-      LiquidationProductService.should_receive(:new).with(nil,subject).and_return(service)
-      service.should_receive.subcategory_name.and_return("Pulseira")
-      subject.subcategory.should == "Pulseira"
-    end
-  end
 end
