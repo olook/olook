@@ -20,7 +20,7 @@ gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts
 gem 'cancan', '~> 1.6.7'
 gem 'enumerate_it'
 gem 'fog', '~> 1.1.1'
-gem 'carrierwave', '~> 0.5.8'
+gem 'carrierwave', '~> 0.6.0'
 gem 'mini_magick', '= 3.3'
 gem 'sass-rails', "~> 3.2.3"
 gem 'zipruby'
@@ -65,7 +65,7 @@ group :test do
   gem 'guard-spork'
   gem 'launchy'
   gem 'vcr', '1.11.3'
-  gem 'webmock'
+  gem 'webmock', '1.7.0'
 end
 
 group :production do
