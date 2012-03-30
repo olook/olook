@@ -11,7 +11,7 @@ module Orders
     def self.send_email(order)
       if order.waiting_payment?
         mail = OrderStatusMailer.order_requested(order)
-        mail.deliver
+        #mail.deliver
       end
     end
   end
