@@ -1,16 +1,17 @@
 # -*- encoding : utf-8 -*-
 class FacebookAdapter
   attr_accessor :access_token, :adapter
-  extend ActiveSupport::Memoizable
 
   def initialize(access_token, adapter = Koala::Facebook::API)
     @access_token, @adapter = access_token, adapter.new(access_token)
   end
 
   def facebook_friends
-    friends = adapter.get_connections("me", "friends", :fields => "name, gender")
-    male_friends = friends.select{|friend| friend["gender"] == "female"}
-    male_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
+    @result ||= begin
+      friends = adapter.get_connections("me", "friends", :fields => "name, gender")
+      male_friends = friends.select{|friend| friend["gender"] == "female"}
+      male_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
+    end
   end
 
   def facebook_friends_ids
@@ -35,6 +36,4 @@ class FacebookAdapter
     friends_not_registred = facebook_friends_not_registered_at_olook
     [friends_not_registred, facebook_friends_registered_at_olook, friends_not_registred.shuffle.first]
   end
-
-  memoize :facebook_friends
 end
