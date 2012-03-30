@@ -147,6 +147,28 @@ $(document).ready(function() {
   $("input:text.zip_code").setMask({
     mask: '99999-999'
   });
+  $("input#address_zip_code").focusout(function(){
+    $.ajax({
+      url: '/get_address_by_zipcode',
+      dataType: 'json',
+      data: 'zipcode=' + $("input#address_zip_code").val(),
+      success: function(result){
+        if(result['result_type'] == 1){
+          $('form input#address_street').val(result['street']);
+          $('form input#address_neighborhood').val(result['neighborhood']);
+          // $('form input#address_city').val(result['city']);
+          // $('form select#address_state').val(result['state']);
+          // $('span.select').text(result['state']);
+          $('form input#address_number').focus();
+        }
+        if(result['result_type'] >= 1){
+          $('form input#address_city').val(result['city']);
+          $('form select#address_state').val(result['state']);
+          $('span.select').text(result['state']);
+        }
+      }
+    });
+  });
 
   $("input:text.phone").setMask({
     mask: '(99)9999-9999'
