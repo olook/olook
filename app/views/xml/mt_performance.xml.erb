@@ -9,7 +9,7 @@
 <marca>olook</marca>
 <preco><%= product.price %></preco>
 <preco_original><%= product.retail_price %></preco_original>
-<categoria><%= Category.t(product.category) %> - <%= product.subcategory %></categoria>
+<categoria><%= Category.t(product.category) %> <%= product.subcategory %></categoria>
 </produto>
 <% end %>
 </produtos>

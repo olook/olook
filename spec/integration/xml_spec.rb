@@ -47,7 +47,7 @@ feature "Show products on xml format" do
       <marca>olook</marca>
       <preco>#{product.price}</preco>
       <preco_original>#{product.retail_price}</preco_original>
-      <categoria>#{Category.t(product.category)} - #{product.subcategory}</categoria>
+      <categoria>#{Category.t(product.category)} #{product.subcategory}</categoria>
       </produto>
       </produtos>
       END
@@ -65,12 +65,12 @@ feature "Show products on xml format" do
       <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=click_a_porter]]></link_produto>
       <nome_produto><![CDATA[#{product.name}]]></nome_produto>
       <marca><![CDATA[olook]]></marca>
-      <categoria><![CDATA[#{Category.t(product.category)} - #{product.subcategory}]]></categoria>
+      <categoria><![CDATA[#{Category.t(product.category)} #{product.subcategory}]]></categoria>
       <cores><cor><![CDATA[#{ product.color_name}]]></cor></cores>
       <descricao><![CDATA[#{ product.description}]]></descricao>
       <preco_de><![CDATA[#{ ActionController::Base.helpers.number_to_currency(product.price, :unit => "") }]]></preco_de>
       <preco_por><![CDATA[#{ ActionController::Base.helpers.number_to_currency(product.price, :unit => "")}]]></preco_por>
-      <parcelamento><![CDATA[um]]></parcelamento>
+      <parcelamento><![CDATA[1]]></parcelamento>
       <imagens>
       </imagens>
       </produto>
