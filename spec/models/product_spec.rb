@@ -368,9 +368,19 @@ describe Product do
 
   describe '#product_url' do
     subject { FactoryGirl.create(:basic_shoe) }
-    it "returns valid url with the product id" do
-      subject.product_url('source').should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&utm_content=#{subject.id}&utm_medium=banner&utm_source=source"
+
+    context "without params" do
+      it "returns valid url with the product id" do
+        subject.product_url.should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=produtos&utm_content=#{subject.id}&utm_medium=vitrine"
+      end
     end
+
+    context "with params" do
+      it "returns valid url with the product id" do
+        subject.product_url(:utm_source => "criteo", :utm_campaign => "teste").should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=teste&utm_content=#{subject.id}&utm_medium=vitrine&utm_source=criteo"
+      end
+    end
+
   end
 
   describe "#instock" do
@@ -382,31 +392,6 @@ describe Product do
     it "returns 0 when product is not in stock" do
       subject.stub(:inventory).and_return(0)
       subject.instock.should == "0"
-    end
-  end
-
-  describe "#to_xml" do
-    subject { FactoryGirl.create(:basic_shoe) }
-
-    let(:xml_body) do
-      <<-END.gsub(/^ {6}/, '')
-      <product id="#{subject.id}">
-        <name>Chanelle</name>
-        <smallimage></smallimage>
-        <bigimage></bigimage>
-        <producturl>http://www.olook.com.br/produto/#{subject.id}?utm_campaign=remessaging&amp;utm_content=#{subject.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
-        <description>#{subject.description}</description>
-        <price>#{subject.price}</price>
-        <retailprice>#{subject.price}</retailprice>
-        <recommendable>1</recommendable>
-        <instock>#{subject.instock}</instock>
-        <category>#{subject.category}</category>
-      </product>
-      END
-    end
-
-    it "returns xml with all the necessary fields for criteo" do
-      subject.to_xml.should == xml_body
     end
   end
 
