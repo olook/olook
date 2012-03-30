@@ -137,22 +137,6 @@ class Product < ActiveRecord::Base
     sold_out? ? "0" : "1"
   end
 
-  def to_xml(options = {})
-    xml = options[:builder] ||= ::Builder::XmlMarkup.new(:indent => 2)
-    xml.product(:id => id) do
-      xml.tag!(:name, name)
-      xml.tag!(:smallimage,  thumb_picture)
-      xml.tag!(:bigimage,  showroom_picture)
-      xml.tag!(:producturl, product_url("criteo"))
-      xml.tag!(:description, description)
-      xml.tag!(:price, price)
-      xml.tag!(:retailprice, price)
-      xml.tag!(:recommendable, '1')
-      xml.tag!(:instock, instock)
-      xml.tag!(:category, category)
-    end
-  end
-
   def liquidation?
     active_liquidation = LiquidationService.active
     active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
@@ -166,22 +150,15 @@ class Product < ActiveRecord::Base
     LiquidationProductService.discount_percent(self)
   end
 
-  def product_url(source)
-    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_source => source,
-                                                           :utm_medium => "banner",
-                                                           :utm_campaign => "remessaging",
-                                                           :utm_content => id
-                                                    )
-  end
-
-  def product_url(source)
-    Rails.application.routes.url_helpers.product_url(self, :host => "www.olook.com.br",
-                                                           :utm_source => source,
-                                                           :utm_medium => "banner",
-                                                           :utm_campaign => "remessaging",
-                                                           :utm_content => id
-                                                    )
+  def product_url(options = {})
+    params =
+    {
+      :host => "www.olook.com.br",
+      :utm_medium => "vitrine",
+      :utm_campaign => "produtos",
+      :utm_content => id
+    }
+    Rails.application.routes.url_helpers.product_url(self, params.merge!(options))
   end
 
   def self.remove_color_variations(products)
@@ -206,6 +183,10 @@ class Product < ActiveRecord::Base
       end
     end
     result
+  end
+
+  def subcategory
+    LiquidationProductService.new(nil,self).subcategory_name
   end
 
 private
