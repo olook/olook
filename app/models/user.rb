@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
-    self.events.create(event_type: type, description: description)
+    self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
@@ -151,11 +151,16 @@ class User < ActiveRecord::Base
     self.profile_scores.each do |profile_score|
       result = result | profile_showroom(profile_score.profile, category).all
     end
-    remove_color_variations result
+    Product.remove_color_variations result
   end
 
   def main_profile_showroom(category = nil)
-    remove_color_variations(profile_showroom(self.main_profile, category)) if self.main_profile
+    categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
+    results = []
+    categories.each do |cat|
+      results += all_profiles_showroom(cat)[0..4]
+    end
+     Product.remove_color_variations results
   end
 
   def profile_showroom(profile, category = nil)
@@ -210,34 +215,10 @@ class User < ActiveRecord::Base
   def total_revenue(total_method = :total)
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
-        .inject(0) { |sum,order| sum += order.send(total_method) }
+        .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
   end
 
   private
-
-  def remove_color_variations(products)
-    result = []
-    already_displayed = []
-    displayed_and_sold_out = {}
-
-    products.each do |product|
-      # Only add to the list the products that aren't already shown
-      unless already_displayed.include?(product.name)
-        result << product
-        already_displayed << product.name
-        displayed_and_sold_out[product.name] = result.length - 1 if product.sold_out?
-      else
-        # If a product of the same color was already displayed but was sold out
-        # and the algorithm find another color that isn't, replace the sold out one
-        # by the one that's not sold out
-        if displayed_and_sold_out[product.name] && !product.sold_out?
-          result[displayed_and_sold_out[product.name]] = product
-          displayed_and_sold_out.delete product.name
-        end
-      end
-    end
-    result
-  end
 
   def generate_invite_token
     loop do

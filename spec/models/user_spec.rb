@@ -248,7 +248,7 @@ describe User do
 
   describe "#surver_answers" do
     it "should return user answers" do
-      survey_answers = FactoryGirl.create(:survey_answers, user: subject)
+      survey_answers = FactoryGirl.create(:survey_answer, :user => subject)
       subject.survey_answers.should == survey_answers.answers
     end
   end
@@ -305,9 +305,14 @@ describe User do
     end
 
     context "when the event is a tracking event" do
-      it "should create a tracking record for the user with the received hash" do
+      it "creates a tracking record for the user with the received hash" do
         subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
         subject.tracking.gclid.should == 'abc123'
+      end
+
+      it "creates a event converting the hash to a string" do
+        subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
+        subject.events.find_by_event_type(EventType::TRACKING).description.should == "{\"gclid\"=>\"abc123\"}"
       end
     end
   end
@@ -385,19 +390,15 @@ describe User do
     end
 
     describe "#main_profile_showroom" do
-      before :each do
-        subject.stub(:main_profile).and_return(sporty_profile)
+      it "should return the products ordered by profiles without duplicate names" do
+        subject.main_profile_showroom.should == [product_d, product_b, product_c]
       end
 
-      it "should return only the products for the main profile" do
-        subject.main_profile_showroom.should == [product_c, product_d]
-      end
-
-      it 'should return only the products of a given category for the main profile' do
+      it 'should return only the products of a given category' do
         subject.main_profile_showroom(Category::BAG).should == [product_c]
       end
 
-      it 'should return a scope' do
+      it 'should return an array' do
         subject.main_profile_showroom.should be_a(Array)
       end
     end
@@ -430,7 +431,7 @@ describe User do
 
       context 'when no product is sold out' do
         it 'should return only one color for products with the same name' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
         end
       end
 
@@ -439,7 +440,7 @@ describe User do
           shoe_a_black.stub(:'sold_out?').and_return(true)
         end
         it 'should return the second color in the place of the sold out one' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_red, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_red, shoe_b_green]
         end
       end
 
@@ -448,7 +449,7 @@ describe User do
           shoe_a_red.stub(:'sold_out?').and_return(true)
         end
         it 'should return the first color and hide the one sold out' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
         end
       end
     end

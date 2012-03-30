@@ -94,7 +94,8 @@ describe CreditCardsController do
 
     describe "with some variant unavailable" do
       it "redirect to cath path" do
-        Order.any_instance.stub(:remove_unavailable_items).and_return(1)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
+        payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
         post :create, :credit_card => attributes
         response.should redirect_to(cart_path)
       end

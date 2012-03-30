@@ -3,15 +3,15 @@
 <% for product in @products %>
 <produto>
 <id_produto><![CDATA[<%= product.id %>]]></id_produto>
-<link_produto><![CDATA[<%= product.product_url("click_a_porter") %>]]></link_produto>
+<link_produto><![CDATA[<%= raw product.product_url(:utm_source => "click_a_porter") %>]]></link_produto>
 <nome_produto><![CDATA[<%= product.name %>]]></nome_produto>
 <marca><![CDATA[olook]]></marca>
-<categoria><![CDATA[<%= Category.t(product.category) %>]]></categoria>
+<categoria><![CDATA[<%= Category.t(product.category) %> <%= product.subcategory %>]]></categoria>
 <cores><cor><![CDATA[<%= product.color_name %>]]></cor></cores>
 <descricao><![CDATA[<%= product.description %>]]></descricao>
 <preco_de><![CDATA[<%= number_to_currency(product.price, :unit => "") %>]]></preco_de>
-<preco_por><![CDATA[<%= number_to_currency(product.price, :unit => "") %>]]></preco_por>
-<parcelamento><![CDATA[um]]></parcelamento>
+<preco_por><![CDATA[<%= number_to_currency(product.retail_price, :unit => "") %>]]></preco_por>
+<parcelamento><![CDATA[<%= CreditCard.installments_number_for(product.retail_price) %>]]></parcelamento>
 <imagens>
 <% for picture in product.pictures %>
 <imagem><![CDATA[<%= picture.image %>]]></imagem>
