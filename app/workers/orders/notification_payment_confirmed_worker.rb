@@ -11,7 +11,7 @@ module Orders
     def self.send_email(order)
       if order.authorized?
         mail = OrderStatusMailer.payment_confirmed(order)
-        #mail.deliver
+        mail.deliver
       end
     end
   end
