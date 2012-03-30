@@ -4,12 +4,12 @@ class ::AddressesController < ApplicationController
 
   include Checkout
   respond_to :html
-  before_filter :authenticate_user!
-  before_filter :load_user
-  before_filter :check_order
-  before_filter :load_promotion
+  before_filter :authenticate_user!, :except => [:get_address_by_zipcode]
+  before_filter :load_user, :except => [:get_address_by_zipcode]
+  before_filter :check_order, :except => [:get_address_by_zipcode]
+  before_filter :load_promotion, :except => [:get_address_by_zipcode]
   before_filter :assign_default_country, :only => [:create]
-  before_filter :build_cart, :except => [:assign_address]
+  before_filter :build_cart, :except => [:assign_address, :get_address_by_zipcode]
   before_filter :check_address, :only => [:index]
 
   def index
@@ -59,6 +59,11 @@ class ::AddressesController < ApplicationController
     else
       redirect_to addresses_path, :notice => "Por favor, selecione um endereço"
     end
+  end
+  
+  def get_address_by_zipcode
+    result = ZipCodeAdapter.get_address(params[:zipcode])
+    render json: result
   end
 
   private
