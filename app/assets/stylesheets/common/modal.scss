@@ -21,7 +21,6 @@ html {
           width:100%;
           position:absolute;
           background-color: #000;
-
           #fb_iframe {
             border:none;
             overflow:hidden;
@@ -44,6 +43,10 @@ html {
           }
         }
         img {
+          display: none;
+        }
+        &.first_visit {
+          height: auto;
           display: none;
         }
         &.liquidation {
