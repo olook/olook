@@ -169,6 +169,11 @@ Olook::Application.routes.draw do
       resources :permissions
     end
     resources :admins
+    
+    namespace :gift do
+      resources :occasion_types
+      resources :recipient_relations
+    end
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
