@@ -43,19 +43,65 @@ div.full_container {
   }
 }
 
-div#calendar_container {
-  div.title {
-    border-bottom: 1px #949494 solid;
-    h1 {
-      background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
-      color: #101010;
-      font-family: "Open Sans", sans-serif;
-      font-size: 30px;
-      font-weight: 600;
-      letter-spacing: -2px;
-      line-height: 50px;
-      text-transform: uppercase;
-      padding: 5px 0 0 0;
+div.content {
+  div#calendar_container {
+    div.title {
+      margin: 0 0 35px 0;
+      border-bottom: 1px #949494 solid;
+      h1 {
+        background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+        color: #101010;
+        font-family: "Open Sans", sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -2px;
+        line-height: 50px;
+        text-transform: uppercase;
+        padding: 5px 0 0 0;
+      }
     }
+    div#calendar {
+      ul#months {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 20px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #c4c4c4 solid;
+        li {
+          margin: 0 24px;
+          float: left;
+          a {
+            color: #878686;
+            font-family: "Open Sans", sans-serif;
+            font-size: 15px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 5px;
+          }
+          &.first {
+            margin-left: 0;
+          }
+          &.last {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  a#connect_facebook {
+    background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+    color: #FFF;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 41px;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 162px;
+    height: 41px;
+    display: block;
+    margin: 0 auto;
+    padding: 0 0 0 40px;
   }
 }
