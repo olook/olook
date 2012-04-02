@@ -19,6 +19,8 @@ class Collection < ActiveRecord::Base
     Collection.where(:is_active => true).first
   end
 
+  private
+
   def any_active_collections?
     collections = Collection.where(:is_active => true).all
     if self.is_active
@@ -28,12 +30,10 @@ class Collection < ActiveRecord::Base
     end
   end
 
-  private
   def is_current_active?(collections)
     collections.collect! {|col| col.id}
     if collections.include?(self.id)
       true
     end
   end
-
 end
