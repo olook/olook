@@ -1,0 +1,10 @@
+<h3>Meu Calendário</h3>
+<% if @friends.any? %>
+  <ul>
+    <% @friends.each do |friend| %>
+      <li>
+        <%= image_tag user_avatar(friend), :title => friend.name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
