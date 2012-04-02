@@ -1,10 +1,22 @@
-<h3>Meu Calendário</h3>
-<% if @friends.any? %>
-  <ul>
-    <% @friends.each do |friend| %>
-      <li>
-        <%= image_tag user_avatar(friend), :title => friend.name %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<div id="calendar_container">
+  <div class="title">
+    <h1>Meu Calendário</h1>
+  </div>
+  <div id="calendar">
+    <ul id="months">
+      <li><%= link_to "Jan", "#", :rel => "january" %></li>
+      <li><%= link_to "Fev", "#", :rel => "february" %></li>
+      <li><%= link_to "Mar", "#", :rel => "march" %></li>
+      <li><%= link_to "Abr", "#", :rel => "april" %></li>
+      <li><%= link_to "Mai", "#", :rel => "may" %></li>
+      <li><%= link_to "Jun", "#", :rel => "june" %></li>
+      <li><%= link_to "Jul", "#", :rel => "july" %></li>
+      <li><%= link_to "Ago", "#", :rel => "august" %></li>
+      <li><%= link_to "Set", "#", :rel => "september" %></li>
+      <li><%= link_to "Out", "#", :rel => "october" %></li>
+      <li><%= link_to "Nov", "#", :rel => "november" %></li>
+      <li><%= link_to "Dez", "#", :rel => "december" %></li>
+    </ul>
+    <%= render "gift/shared/friends_list", :friends => @friends %>
+  </div>
+</div>
