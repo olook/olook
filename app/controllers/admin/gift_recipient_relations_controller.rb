@@ -1,4 +1,4 @@
-class Admin::Gift::RecipientRelationsController < Admin::BaseController
+class Admin::GiftRecipientRelationsController < Admin::BaseController
   respond_to :html
   def index
     @gift_recipient_relations = GiftRecipientRelation.all

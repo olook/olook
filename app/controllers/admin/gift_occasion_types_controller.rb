@@ -1,4 +1,4 @@
-class Admin::Gift::OccasionTypesController < Admin::BaseController
+class Admin::GiftOccasionTypesController < Admin::BaseController
   respond_to :html
   def index
     @gift_occasion_types = GiftOccasionType.all

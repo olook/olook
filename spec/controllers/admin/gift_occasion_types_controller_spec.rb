@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::Gift::OccasionTypesController do
+describe Admin::GiftOccasionTypesController do
   render_views
   let!(:occasion_type) { FactoryGirl.create(:gift_occasion_type) }
   let!(:valid_attributes) { occasion_type.attributes }
