@@ -152,11 +152,11 @@ class User < ActiveRecord::Base
     Product.remove_color_variations result
   end
 
-  def main_profile_showroom(category = nil)
+  def main_profile_showroom(category = nil, collection = Collection.active)
     categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
     results = []
     categories.each do |cat|
-      results += all_profiles_showroom(cat)[0..4]
+      results += all_profiles_showroom(cat, collection = Collection.active)[0..4]
     end
      Product.remove_color_variations results
   end
