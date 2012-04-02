@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::Gift::RecipientRelationsController do
+describe Admin::GiftRecipientRelationsController do
   render_views
   let!(:relation) { FactoryGirl.create(:gift_recipient_relation) }
   let!(:valid_attributes) { relation.attributes }
