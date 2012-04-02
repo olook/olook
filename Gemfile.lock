@@ -1,6 +1,7 @@
 GIT
-  remote: git@github.com:bezelga/moip-ruby.git
-  revision: 2e559bf541b95a3677b9322d3dc963c4774fe7f7
+  remote: git://github.com/olook/moip-ruby.git
+  revision: 43288a394fb0bace6597e7534f7116553054464a
+  branch: active_support322
   specs:
     moip (1.0.2)
       activesupport (~> 3.2.2)
