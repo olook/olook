@@ -4,7 +4,7 @@
   </div>
   <div id="calendar">
     <ul id="months">
-      <li><%= link_to "Jan", "#", :rel => "january" %></li>
+      <li class="first"><%= link_to "Jan", "#", :rel => "january" %></li>
       <li><%= link_to "Fev", "#", :rel => "february" %></li>
       <li><%= link_to "Mar", "#", :rel => "march" %></li>
       <li><%= link_to "Abr", "#", :rel => "april" %></li>
@@ -15,7 +15,7 @@
       <li><%= link_to "Set", "#", :rel => "september" %></li>
       <li><%= link_to "Out", "#", :rel => "october" %></li>
       <li><%= link_to "Nov", "#", :rel => "november" %></li>
-      <li><%= link_to "Dez", "#", :rel => "december" %></li>
+      <li class="last"><%= link_to "Dez", "#", :rel => "december" %></li>
     </ul>
     <%= render "gift/shared/friends_list", :friends => @friends %>
   </div>
