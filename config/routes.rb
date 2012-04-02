@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "home/index"
+
   get "liquidation_products/index"
 
   get "index/index"
@@ -102,7 +104,10 @@ Olook::Application.routes.draw do
     match 'minha-vitrine/update' => "settings#update_info", :as => "update_user_info"
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
-
+  
+  namespace :gift do
+    root :to => "home#index"
+  end
 
   namespace :admin do
     match "/", :to => "index#dashboard"
