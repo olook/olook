@@ -34,6 +34,10 @@ describe FacebookAdapter do
     subject.adapter.should_receive(:put_wall_post).with(message, attachment, target, options)
     subject.post_wall_message(message, :attachment => attachment, :friend => target, :options => options)
   end
+  
+  it "should get the facebook friends that have birthday" do
+    pending
+  end
 end
 
 

@@ -17,5 +17,8 @@
   <p>
     Teste
   </p>
-  <%= link_to "Crie seu presente. Comece aqui!", new_gift_occasion_path,:id => "new_occasion_link" %>
+  <%= link_to "Crie seu presente. Comece aqui!", new_gift_occasion_path, :id => "new_occasion_link" %>
 </div>
+
+
+<%= render :partial => "/gift/shared/calendar" %>
