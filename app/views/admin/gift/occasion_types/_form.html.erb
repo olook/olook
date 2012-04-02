@@ -1,0 +1,22 @@
+<%= form_for([:admin, @gift_occasion_type]) do |f| %>
+  <% if @gift_occasion_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift_occasion_type.errors.count, "error") %> prohibited this gift_occasion_type from being saved:</h2>
+
+      <ul>
+      <% @gift_occasion_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+	
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
