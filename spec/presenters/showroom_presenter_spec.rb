@@ -41,7 +41,7 @@ describe ShowroomPresenter do
     let(:fake_products) { Array.new(10, :one_product) }
 
     before :each do
-      subject.member.stub(:all_profiles_showroom).with(Category::SHOE).and_return(fake_products)
+      subject.member.stub(:all_profiles_showroom).with(Category::SHOE, Collection.active).and_return(fake_products)
     end
 
     it "a given range" do

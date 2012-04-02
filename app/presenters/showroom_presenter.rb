@@ -17,8 +17,8 @@ class ShowroomPresenter < BasePresenter
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
   end
 
-  def display_products(asked_range, category)
-    products = member.all_profiles_showroom(category)
+  def display_products(asked_range, category, collection = Collection.active)
+    products = member.all_profiles_showroom(category, collection)
     range = parse_range(asked_range, products)
 
     output = ''
