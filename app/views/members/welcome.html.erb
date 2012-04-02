@@ -21,14 +21,21 @@
 <%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
 
 <section id="welcome">
+<<<<<<< HEAD
   <% if @banner %>
     <div class="banner">
       <%= link_to image_tag(@banner, :alt => current_liquidation.name), liquidations_path(current_liquidation.id) %>
     </div>
   <% end %>
   <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> ela ficará pronta em 24 horas</h1>
+=======
+
+<% present 'Showroom', :member => @user do |showroom_presenter| %>
+  <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> e ela ficará pronta nas próximas 24 horas</h1>
+>>>>>>> 00d660f... using a presenter to display products
   <%= render 'welcome_painel' %>
   <%= render 'welcome_share' %>
-  <%= render 'welcome_products' %>
+  <%= render 'welcome_products', :showroom_presenter => showroom_presenter %>
   <%= render 'welcome_press' %>
+<% end %>
 </section>
