@@ -7,8 +7,7 @@ class Collection < ActiveRecord::Base
   validate :any_active_collections?
 
   def self.for_date(date)
-    Collection.where( '(:date >= start_date) AND (:date <= end_date)',
-                      :date => date).first
+    Collection.where( '(:date >= start_date) AND (:date <= end_date)', :date => date).first
   end
 
   def self.current
