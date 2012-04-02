@@ -8,7 +8,24 @@ feature "Gift Project", %q{
   I want to see the liquidation products
   } do
     
+  let!(:user) { Factory.create(:user) }
+    
   describe "Already user" do
+    background do
+      do_login!(user)
+    end
+    
+    scenario "user can see the gift project landing page/home" do
+      visit gift_root_path
+      page.should have_content("Acerte em cheio no presente")
+    end
+    
+    scenario "start the gift creation" do
+      visit gift_root_path
+      click_link "new_occasion_link"
+      page.should have_content("Você está criando um presente")
+    end
+    
   end
 end
 
