@@ -43,7 +43,7 @@ describe Admin::Gift::RecipientRelationsController do
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Relation" do
+      it "creates a new relation" do
         expect {
           post :create, :gift_recipient_relation => valid_attributes
         }.to change(GiftRecipientRelation, :count).by(1)
@@ -51,8 +51,8 @@ describe Admin::Gift::RecipientRelationsController do
 
       it "assigns a newly created relation as @gift_recipient_relation" do
         post :create, :gift_recipient_relation => valid_attributes
-        assigns(:relation).should be_a(GiftRecipientRelation)
-        assigns(:relation).should be_persisted
+        assigns(:gift_recipient_relation).should be_a(GiftRecipientRelation)
+        assigns(:gift_recipient_relation).should be_persisted
       end
 
       it "redirects to the created relation" do
