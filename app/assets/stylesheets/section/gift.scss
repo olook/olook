@@ -1,0 +1,107 @@
+div.full_container {
+  background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
+  padding: 0 0 27px 0;
+  div.content {
+    background: url("/assets/gift/bg-header.jpg") top center no-repeat;
+    font-family: "Open Sans", sans-serif;
+    height: 485px;
+    h1 {
+      font-family: "Open Sans", sans-serif;
+      font-size: 70px;
+      font-weight: 600;
+      letter-spacing: -7px;
+      line-height: 50px;
+      width: 455px;
+      margin: 40px 0 25px 0;
+    }
+    p {
+      color: #343434;
+      font-size: 14px;
+      letter-spacing: -1px;
+      line-height: 17px;
+      width: 405px;
+      margin: 0 0 20px 0;
+    }
+    img {
+      margin: 0 0 20px 0;
+    }
+    a#new_occasion_link {
+      background: url("/assets/gift/bt-start.jpg") no-repeat;
+      color: #FFF;
+      font-family: "Open Sans", sans-serif;
+      font-size: 20px;
+      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
+      line-height: 43px;
+      letter-spacing: -1px;
+      width: 347px;
+      height: 46px;
+      display: block;
+      clear: both;
+    }
+  }
+}
+
+div.content {
+  div#calendar_container {
+    div.title {
+      margin: 0 0 35px 0;
+      border-bottom: 1px #949494 solid;
+      h1 {
+        background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+        color: #101010;
+        font-family: "Open Sans", sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -2px;
+        line-height: 50px;
+        text-transform: uppercase;
+        padding: 5px 0 0 0;
+      }
+    }
+    div#calendar {
+      ul#months {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 20px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #c4c4c4 solid;
+        li {
+          margin: 0 24px;
+          float: left;
+          a {
+            color: #878686;
+            font-family: "Open Sans", sans-serif;
+            font-size: 15px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 5px;
+          }
+          &.first {
+            margin-left: 0;
+          }
+          &.last {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  a#connect_facebook {
+    background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+    color: #FFF;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 41px;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 162px;
+    height: 41px;
+    display: block;
+    margin: 0 auto;
+    padding: 0 0 0 40px;
+  }
+}

@@ -7,10 +7,13 @@ class FacebookAdapter
     @access_token, @adapter = access_token, adapter.new(access_token)
   end
 
-  def facebook_friends
-    friends = adapter.get_connections("me", "friends", :fields => "name, gender")
-    male_friends = friends.select{|friend| friend["gender"] == "female"}
-    male_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
+  def facebook_friends fields="name, gender"
+    friends = adapter.get_connections("me", "friends", :fields => fields)
+    filter_female_friends(friends).map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
+  end
+  
+  def filter_female_friends friends
+    friends.select{|friend| friend["gender"] == "female"}
   end
 
   def facebook_friends_ids
@@ -24,6 +27,12 @@ class FacebookAdapter
   def facebook_friends_not_registered_at_olook
     facebook_friends_registered_at_olook_uids = facebook_friends_registered_at_olook.map(&:uid)
     facebook_friends.select{|friend| !facebook_friends_registered_at_olook_uids.include?(friend.uid)}
+  end
+  
+  def facebook_friends_with_public_birthday
+    friends = facebook_friends("name, gender, birthday").select{|friend| friend["birthday"] }
+    female_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
+    female_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
   end
 
   def post_wall_message(message, *args)

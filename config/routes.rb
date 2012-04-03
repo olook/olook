@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "occasions/new"
+
   get "home/index"
 
   get "liquidation_products/index"
@@ -107,6 +109,7 @@ Olook::Application.routes.draw do
   
   namespace :gift do
     root :to => "home#index"
+    resources :occasions, :only => [:new]
   end
 
   namespace :admin do
@@ -174,6 +177,9 @@ Olook::Application.routes.draw do
       resources :permissions
     end
     resources :admins
+    
+    resources :gift_occasion_types
+    resources :gift_recipient_relations
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
