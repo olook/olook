@@ -1,6 +1,6 @@
 <% content_for :top_my_account do %>
   <%= render "shared/header_default" %>
-  <div class="full_container">
+  <div class="full_container <%= user_signed_in? ? '' : 'offline' %>">
     <%= yield :full %>
   </div>
 <% end %>
