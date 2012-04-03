@@ -79,13 +79,16 @@ div.content {
     }
     div#calendar {
       ul#months {
+        text-align: center;
         width: 100%;
         overflow: hidden;
         margin: 0 0 20px 0;
         padding: 0 0 10px 0;
         border-bottom: 1px #c4c4c4 solid;
         li {
-          margin: 0 24px;
+          width: 80px;
+          margin: 0;
+          padding: 10px 0;
           float: left;
           a {
             color: #878686;
@@ -100,6 +103,24 @@ div.content {
           }
           &.last {
             margin-right: 0;
+          }
+        }
+      }
+      &.connected {
+        ul#months {
+          li {
+            height: 32px;
+            a {
+              background: url("/assets/gift/arrow-pink.png") top center no-repeat;
+              margin-top: 7px;
+              display: block;
+              &:hover, &.selected {
+                background: url("/assets/gift/arrow-black.png") top center no-repeat;
+                color: #080808;
+                font-size: 23px;
+                margin-top: 0;
+              }
+            }
           }
         }
       }

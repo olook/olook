@@ -5,12 +5,12 @@
   <div class="title">
     <h1>Meu Calendário</h1>
   </div>
-  <div id="calendar">
+  <div id="calendar" class="connected">
     <ul id="months">
       <li class="first"><%= link_to "Jan", "#", :rel => "january" %></li>
       <li><%= link_to "Fev", "#", :rel => "february" %></li>
       <li><%= link_to "Mar", "#", :rel => "march" %></li>
-      <li><%= link_to "Abr", "#", :rel => "april" %></li>
+      <li><%= link_to "Abr", "#", :rel => "april", :class => "selected" %></li>
       <li><%= link_to "Mai", "#", :rel => "may" %></li>
       <li><%= link_to "Jun", "#", :rel => "june" %></li>
       <li><%= link_to "Jul", "#", :rel => "july" %></li>
