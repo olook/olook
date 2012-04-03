@@ -5,7 +5,7 @@ module Abacos
 
     attr_reader :numero, :codigo_cliente, :cpf, :nome, :email, :telefone,
                 :data_venda, :valor_pedido, :valor_desconto, :valor_frete,
-                :transportadora, :tempo_entrega, :data_entrega, :endereco, :itens, :pagamento
+                :transportadora, :tempo_entrega, :data_entrega, :endereco, :itens, :pagamento, :nota_simbolica, :valor_embalagem, :anotacao_pedido
 
     def initialize(order)
       @numero           = order.number
@@ -27,8 +27,14 @@ module Abacos
       @data_entrega     = parse_data_entrega(order.freight.delivery_time)
 
       @endereco         = parse_endereco(order.freight.address)
-      @itens            = parse_itens(order.line_items)
+      @itens            = parse_itens(order.line_items, order.gift_wrapped)
       @pagamento        = parse_pagamento(order)
+
+
+      @nota_simbolica   = order.gift_wrapped
+      @valor_embalagem  = ( order.gift_wrapped ) ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
+      @anotacao_pedido  = ( order.gift_wrapped ) ? order.gift_message : false
+
     end
 
     def parsed_data
@@ -49,6 +55,10 @@ module Abacos
             'Transportadora'    => @transportadora,
             'PrazoEntregaPosPagamento' => @tempo_entrega,
             'DataPrazoEntregaInicial' => @data_entrega,
+
+            'EmitirNotaSimbolica'     => @nota_simbolica,
+            'ValorEmbalagemPresente'  => @valor_embalagem,
+            'Anotacao1'               => @anotacao_pedido,
 
             'Itens'             =>
               {'DadosPedidosItem' => @itens.map {|item| item.parsed_data} },
@@ -75,9 +85,9 @@ module Abacos
       total_discount
     end
 
-    def parse_itens(line_items)
+    def parse_itens(line_items, gift)
       line_items.map do |line_item|
-        Abacos::Item.new( line_item )
+        Abacos::Item.new( line_item, gift )
       end
     end
 
