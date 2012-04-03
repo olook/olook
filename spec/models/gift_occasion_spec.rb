@@ -10,4 +10,6 @@ describe GiftOccasion do
     it { should validate_presence_of :month }
   end
   
+  
+  
 end
