@@ -1,3 +1,7 @@
+header {
+  background: none;
+}
+
 div.full_container {
   background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
@@ -40,6 +44,9 @@ div.full_container {
       display: block;
       clear: both;
     }
+  }
+  &.offline {
+    margin-top: -27px;
   }
 }
 
