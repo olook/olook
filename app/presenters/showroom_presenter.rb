@@ -23,7 +23,11 @@ class ShowroomPresenter < BasePresenter
 
     output = ''
     (products[range] || []).each do |product|
-      output << h.render(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => self, :product => product})
+      if product.liquidation?
+        output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
+      else
+      output << h.render("shared/showroom_product_item", :showroom_presenter => self, :product => product)
+      end
     end
     h.raw output
   end

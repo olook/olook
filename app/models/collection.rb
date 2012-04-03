@@ -7,7 +7,7 @@ class Collection < ActiveRecord::Base
   validate :any_active_collections?
 
   def self.from_last_month
-    self.for_date(1.month.ago.to_date)
+    Collection.where('id < ?', Collection.active.try(:id)).order('id desc').first
   end
 
   def self.for_date(date)
