@@ -1,4 +1,7 @@
 <div id="calendar_container">
+  <% unless user_signed_in? %>
+    <div class="opacity"></div>
+  <% end %>
   <div class="title">
     <h1>Meu Calendário</h1>
   </div>
@@ -19,4 +22,5 @@
     </ul>
     <%= render "gift/shared/friends_list", :friends => @friends %>
   </div>
+  <%= link_to "Amigos do Facebook", "#", :id => "connect_facebook" %>
 </div>
