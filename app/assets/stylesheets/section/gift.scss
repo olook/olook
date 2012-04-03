@@ -45,6 +45,16 @@ div.full_container {
 
 div.content {
   div#calendar_container {
+    position: relative;
+    div.opacity {
+      background: url("/assets/gift/opacity.png") repeat;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 990px;
+      height: 185px;
+      display: block;
+    }
     div.title {
       margin: 0 0 35px 0;
       border-bottom: 1px #949494 solid;
@@ -87,21 +97,21 @@ div.content {
         }
       }
     }
-  }
-  a#connect_facebook {
-    background: url("/assets/gift/bt-facebook.jpg") no-repeat;
-    color: #FFF;
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -1px;
-    line-height: 41px;
-    text-decoration: none;
-    text-transform: uppercase;
-    width: 162px;
-    height: 41px;
-    display: block;
-    margin: 0 auto;
-    padding: 0 0 0 40px;
+    a#connect_facebook {
+      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+      color: #FFF;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      line-height: 41px;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 162px;
+      height: 41px;
+      display: block;
+      margin: 0 auto;
+      padding: 0 0 0 40px;
+    }
   }
 }
