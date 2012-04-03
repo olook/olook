@@ -30,8 +30,8 @@ describe Collection do
   end
 
   it "#from_the_last_month" do
-    current_collection = FactoryGirl.create :collection, :is_active => false
-    last_collection    = FactoryGirl.create :collection, :start_date => 1.month.ago, :end_date => 1.month.ago + 20.days
+    last_collection    = FactoryGirl.create :collection, :is_active => false
+    current_collection = FactoryGirl.create :collection, :is_active => true
     described_class.from_last_month.should == last_collection
   end
 end
