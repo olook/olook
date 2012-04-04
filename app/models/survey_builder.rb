@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Survey
+class SurveyBuilder
   attr_accessor :questions
 
   def initialize(questions)
