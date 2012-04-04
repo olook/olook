@@ -52,9 +52,17 @@ class PaymentsController < ApplicationController
 
   def update_order(order)
     if order.payment
-      order.payment.update_attributes(:gateway_code => params["cod_moip"],
-                                    :gateway_type => params["tipo_pagamento"],
-                                    :gateway_status => params["status_pagamento"])
+      order.payment.update_attributes(:gateway_code   => params["cod_moip"],
+                                      :gateway_type   => params["tipo_pagamento"],
+                                      :gateway_status => params["status_pagamento"])
+
+      canceled_status = Payment::STATUS["5"].to_s
+
+      if params["status_pagamento"] == canceled_status
+        cancellation_reason_message = order.payment_response.message if order.payment_response
+        order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:moip], :message => cancellation_reason_message)
+      end
+
       order.payment.set_state(params["status_pagamento"])
     end
   end
