@@ -3,8 +3,8 @@ class Gift::OccasionsController < ApplicationController
     @occasion = GiftOccasion.new
 
     # collections for selects
-    @occasion_types = GiftOccasionTypes.all
-    @recipient_relations = GiftRecipientRelations.all
+    @occasion_types = GiftOccasionType.all
+    @recipient_relations = GiftRecipientRelation.all
   end
 
   def create
