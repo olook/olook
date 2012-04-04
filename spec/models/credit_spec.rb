@@ -121,10 +121,11 @@ describe Credit do
 
       context "when the inviter credit has exceeded the maximum limit (300)" do
         before do
-          user.stub(:has_not_exceeded_maximum_limit?).with("10.00").and_return(false)
+          user.stub(:first_buy?).and_return(true)
+          User.any_instance.stub(:has_not_exceeded_credit_limit?).and_return(false)
         end
 
-        it "does not change user current_credit" do
+        it "does not change the inviter current_credit" do
           expect {
               described_class.add_for_inviter(user, order)
             }.to_not change(inviter, :current_credit)
@@ -205,6 +206,15 @@ describe Credit do
 
       it "has its source equal to order" do
         described_class.last.source.should == "order_credit"
+      end
+    end
+
+    context "when user has earned more than 300 worth of credit" do
+      it "does not increase user current_credit" do
+        User.any_instance.stub(:has_not_exceeded_credit_limit?).and_return(false)
+        expect {
+          described_class.add(amount, user, order)
+        }.to_not change(user, :current_credit).by(amount)
       end
     end
   end
