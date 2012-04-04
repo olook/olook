@@ -166,3 +166,20 @@ div.content {
     }
   }
 }
+
+div#calendar_container {
+  div.title {
+    border-bottom: 1px #949494 solid;
+    h1 {
+      background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+      color: #101010;
+      font-family: "Open Sans", sans-serif;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -2px;
+      line-height: 50px;
+      text-transform: uppercase;
+      padding: 5px 0 0 0;
+    }
+  }
+}
