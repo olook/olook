@@ -26,6 +26,7 @@ class Order < ActiveRecord::Base
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -313,6 +314,8 @@ class Order < ActiveRecord::Base
   def update_user_credit
     Credit.remove(credits, user, self) if credits > 0
   end
+
+
 
   private
 
