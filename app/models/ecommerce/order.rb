@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
+  CANCELLATION_SOURCE = {:moip => 1, :abacos => 2}
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
