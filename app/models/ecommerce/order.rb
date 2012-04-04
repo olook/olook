@@ -33,6 +33,7 @@ class Order < ActiveRecord::Base
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
+  has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
 
