@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Survey do
+describe SurveyBuilder do
   before :each do
     casual = {:name => "Casual", :banner => "casual" }
     sporty = {:name => "Sporty", :banner => "sporty" }
@@ -19,7 +19,7 @@ describe Survey do
       :weights => []
     }
 
-    @survey = Survey.new(@survey_data)
+    @survey = described_class.new(@survey_data)
   end
 
   it "should create questions" do
