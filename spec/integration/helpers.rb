@@ -40,7 +40,7 @@ def answer_survey
 end
 
 def build_survey
-  survey = Survey.new(SURVEY_DATA)
+  survey = SurveyBuilder.new(SURVEY_DATA)
   survey.build
 end
 
