@@ -1,7 +1,8 @@
+# -*- encoding : utf-8 -*-
 class OrderReport < ReportFactory
 
   
-    ACTIONS = [:purchase_profile_matrix]
+  ACTIONS = [:purchase_profile_matrix]
 
 =begin
 This report generates a purchase of profiles matrix
