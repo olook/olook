@@ -87,6 +87,7 @@ GEM
     columnize (0.3.6)
     crack (0.3.1)
     curb (0.8.0)
+    dalli (2.0.2)
     database_cleaner (0.6.7)
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
@@ -370,6 +371,7 @@ DEPENDENCIES
   capybara (~> 1.1.1)
   carrierwave (~> 0.5.8)
   curb
+  dalli (= 2.0.2)
   database_cleaner (~> 0.6.7)
   devise (~> 1.5.3)
   enumerate_it
