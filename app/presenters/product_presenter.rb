@@ -53,7 +53,31 @@ class ProductPresenter < BasePresenter
     variants = product.variants.sorted_by_description
     h.render :partial => 'product/sizes', :locals => {:variants => variants}
   end
-
+  
+  def render_pics
+    h.render :partial => "product_pics", :locals => {:product_presenter => self}
+  end
+  
+  def show_quantity_left?
+    member && quantity_left > 0 && quantity_left < 4
+  end
+  
+  def quantity_left
+    product.quantity(member.shoes_size) 
+  end
+  
+  def quantity_left_text
+    more_than_one_left? ? "Restam apenas" : "Resta apenas"
+  end
+  
+  def unities_left_text
+    more_than_one_left? ? "unidades" : "unidade"
+  end
+  
+  def more_than_one_left?
+    quantity_left > 1
+  end
+  
   def related_products
     product.related_products.inject([]) do |result, related_product|
       if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
