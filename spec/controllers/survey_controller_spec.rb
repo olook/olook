@@ -12,10 +12,15 @@ describe SurveyController do
     end
 
     it "should not show the Survey if the user is logged in" do
-      user = Factory :user
+      user = FactoryGirl.create(:user)
       sign_in user
       get 'new'
       response.should redirect_to root_path
+    end
+
+    it "gets all questions and answers from registration survey" do
+      Question.should_receive(:from_registration_survey)
+      get 'new'
     end
 
     it "should instantiate @presenter" do
