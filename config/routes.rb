@@ -109,6 +109,7 @@ Olook::Application.routes.draw do
   
   namespace :gift do
     root :to => "home#index"
+    get "update_birthdays_by_month/:month" => 'home#update_birthdays_by_month'
     resources :occasions, :only => [:new]
   end
 
