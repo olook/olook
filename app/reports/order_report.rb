@@ -1,12 +1,8 @@
 # -*- encoding : utf-8 -*-
-class OrderReport < ReportFactory
 
-  
+# This report generates a purchase of profiles matrix
+class OrderReport < Report::ReportFactory
   ACTIONS = [:purchase_profile_matrix]
-
-=begin
-This report generates a purchase of profiles matrix
-=end
 
   def generate_purchase_profile_matrix
     report = {:Fashionista => [0,0,0,0,0,0,0,0], :Sexy => [0,0,0,0,0,0,0,0], :Básica => [0,0,0,0,0,0,0,0], 
@@ -39,5 +35,4 @@ This report generates a purchase of profiles matrix
       end
     end
   end
-
 end

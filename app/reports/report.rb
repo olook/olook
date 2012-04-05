@@ -21,7 +21,7 @@ module Report
     end
 
 
-        def copy_to_ftp(filename = "untitled.txt", encoding = "ISO-8859-1")
+    def copy_to_ftp(filename = "untitled.txt", encoding = "ISO-8859-1")
       ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
       ftp.passive = true
       Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
@@ -33,11 +33,11 @@ module Report
 
   end
 
-  class S3Storage < ReportStorage
+  class S3Storage
 
   end
 
-  class FTPStorage < ReportStorage
+  class FTPStorage
 
   end
 
