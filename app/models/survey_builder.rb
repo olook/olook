@@ -3,6 +3,7 @@ class SurveyBuilder
   attr_accessor :questions
 
   def initialize(questions)
+    @survey = Survey.create(:name => "Registration Survey")
     @questions = questions
   end
 
@@ -16,7 +17,7 @@ class SurveyBuilder
   private
 
   def create_questions(current_question)
-    question = Question.create(:title => current_question[:question_title])
+    question = Question.create(:title => current_question[:question_title], :survey => @survey)
       current_question[:answers].each do |title|
         answer = question.answers.create(:title => title)
     end
