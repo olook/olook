@@ -5,7 +5,7 @@ class GiftRecipient < ActiveRecord::Base
   validates_associated :user, :gift_recipient_relation
   
   validates :name, :presence => true, :length => {:minimum => 2}
-  validates :shoe_size, :presence => true, :numericality => true
+  validates :shoe_size, :presence => true, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50}
   
   validates_uniqueness_of :facebook_uid, :scope => :user_id, :allow_nil => true
 end
