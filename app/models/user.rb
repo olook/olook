@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
+  
+  delegate :shoes_size, :to => :user_info, :allow_nil => true
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,

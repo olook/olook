@@ -21,8 +21,7 @@
   <div id="product">
     <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
-      <%= render "product_pics" %>
-
+      <%= product_presenter.render_pics %>
       <div id="infos">
         <%= product_presenter.render_description %>
         <% if user_signed_in? %>
