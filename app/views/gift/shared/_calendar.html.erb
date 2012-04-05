@@ -7,20 +7,13 @@
   </div>
   <div id="calendar" class="connected">
     <ul id="months">
-      <li class="first"><%= link_to "Jan", "#", :rel => "january" %></li>
-      <li><%= link_to "Fev", "#", :rel => "february" %></li>
-      <li><%= link_to "Mar", "#", :rel => "march" %></li>
-      <li><%= link_to "Abr", "#", :rel => "april", :class => "selected" %></li>
-      <li><%= link_to "Mai", "#", :rel => "may" %></li>
-      <li><%= link_to "Jun", "#", :rel => "june" %></li>
-      <li><%= link_to "Jul", "#", :rel => "july" %></li>
-      <li><%= link_to "Ago", "#", :rel => "august" %></li>
-      <li><%= link_to "Set", "#", :rel => "september" %></li>
-      <li><%= link_to "Out", "#", :rel => "october" %></li>
-      <li><%= link_to "Nov", "#", :rel => "november" %></li>
-      <li class="last"><%= link_to "Dez", "#", :rel => "december" %></li>
+      <% ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"].each_with_index do |month, index| %>
+        <% klass = "first" if index == 0 %>
+        <% klass = "last" if index == 11 %>
+        <%= content_tag(:li, link_to(month, "/gift/update_birthdays_by_month/#{index+1}", :remote => true), :class => klass) %>
+      <% end %>
     </ul>
     <%= render "gift/shared/friends_list", :friends => @friends %>
   </div>
-  <%= link_to "Amigos do Facebook", "#", :id => "connect_facebook" %>
+  <%= link_to "Amigos do Facebook", "/users/auth/facebook", :id => "connect_facebook" %>
 </div>

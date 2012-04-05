@@ -112,7 +112,13 @@ div.content {
         li {
           display: inline;
           a {
-            margin: 0 5px 5px 0;
+            color: #7d7d7d;
+            font-family: "Open Sans", sans-serif;
+            font-size: 9px;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            margin: 0 5px 10px 0;
             float: left;
             div.mask {
               width: 50px;

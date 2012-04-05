@@ -1,14 +1,14 @@
-<% if friends.any? %>
-  <ul class="friends_list">
-    <% friends.each do |friend| %>
-      <li>
-        <%= link_to "#" do %>
+<div id="birthdays_list">
+  <% if friends.any? %>
+    <ul>
+      <% friends.each do |friend| %>
+        <li>
           <div class="mask">
-            <%= image_tag user_avatar(friend), :title => friend.name %>
+            <%= image_tag user_avatar(friend, "square"), :title => friend.name %>
+            <p><%= friend.first_name %></p>        
           </div>
-          <p><%= friend.first_name %></p>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
