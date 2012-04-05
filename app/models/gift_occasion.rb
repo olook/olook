@@ -5,9 +5,6 @@ class GiftOccasion < ActiveRecord::Base
   
   validates_associated :user, :gift_recipient, :gift_occasion_type
   
-  # validates_presence_of :day
-  # validates_presence_of :month
-  # validates_numericality_of :day
-  # validates_numericality_of :month
-  validates :day, :month, :presence => true, :numericality => true
+  validates :day, :presence => true, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 32}
+  validates :month, :presence => true, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 13}
 end
