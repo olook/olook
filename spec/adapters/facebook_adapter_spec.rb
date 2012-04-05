@@ -7,7 +7,7 @@ describe FacebookAdapter do
   let(:formated_friend_list) { [OpenStruct.new(:uid => "2", :name => "User name 2")] }
 
   it "should get the friend list" do
-    subject.adapter.should_receive(:get_connections).with("me", "friends", :fields => "name, gender, birthday").and_return(friend_list)
+    subject.adapter.should_receive(:get_connections).with("me", "friends", :fields => "name, gender, birthday, first_name").and_return(friend_list)
     subject.facebook_friends.first.uid.should == "2"
     subject.facebook_friends.first.name.should == "User name 2"
   end
