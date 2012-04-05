@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Survey do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'relationships' do
+    it { should have_many :questions }
+  end
 end
