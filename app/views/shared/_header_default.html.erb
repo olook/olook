@@ -61,6 +61,7 @@
           <li class="stylist"><%= link_to 'Stylist', helena_linhares_path, :class => selected_if_current(['stylists#helena_linhares']) %></li>
           <li class="my_friends"><%= link_to "Minhas Amigas", facebook_connect_path, :class => selected_if_current(['friends#facebook_connect','friends#home','friends#showroom']) %></li>
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
+          <li class="gift"><%= link_to "Presentes", gift_root_path %></li>
           <% if current_liquidation %>
             <li class="liquidation"><%= link_to current_liquidation.name, liquidations_path(current_liquidation.id), :class => is_current?('liquidations', 'show') %></li>
           <% end %>
