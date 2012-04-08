@@ -208,6 +208,9 @@ div.content {
               right: 10px;
             }
           }
+          &:hover > div.actions {
+            display: block;
+          }
         }
       }
       &.connected {
