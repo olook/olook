@@ -13,7 +13,9 @@
         <%= content_tag(:li, link_to(month, "/gift/update_birthdays_by_month/#{index+1}", :remote => true, :class => "#{Time.now.strftime('%-m') == (index + 1).to_s ? 'selected' : ''}"), :class => klass) %>
       <% end %>
     </ul>
-    <%= render "gift/shared/friends_list", :friends => @friends %>
+    <div id="birthdays_list">
+      <%= render "gift/shared/friends_list", :friends => @friends %>
+    </div>
   </div>
   <%= link_to "Amigos do Facebook", "/users/auth/facebook", :id => "connect_facebook" %>
 </div>
