@@ -35,6 +35,15 @@ body {
     }
   }
 
+  div.preloader {
+    background: url("/assets/common/ajax-loader.gif") center no-repeat;
+    width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    display: block;
+    clear: both;
+  }
+
   .content {
     width: 990px;
     margin: 0px auto 0 auto;
