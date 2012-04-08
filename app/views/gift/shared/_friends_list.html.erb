@@ -9,6 +9,16 @@
             </div>
             <p><%= friend.first_name %></p>
           <% end %>
+          <div class="actions">
+            <div class="triangle"></div>
+            <h1><%= friend.name %></h1>
+            <p>Aniversário <br />em <%= friend.birthday %></p>
+            <ul>
+              <li class="birthday"><%= link_to "Adicionar aniversário", "#" %></li>
+              <li class="gift"><%= link_to "Criar presente", "#" %></li>
+            </ul>
+            <%= link_to "X", "#", :class => "close_actions" %>
+          </div>
         </li>
       <% end %>
     </ul>
