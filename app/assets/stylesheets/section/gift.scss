@@ -80,6 +80,7 @@ div.content {
     div#calendar {
       width: 100%;
       overflow: hidden;
+      padding: 0 0 80px 0;
       ul#months {
         text-align: center;
         width: 100%;
@@ -109,8 +110,13 @@ div.content {
         }
       }
       ul.friends_list {
-        li {
-          display: inline;
+        > li {
+          position: relative;
+          width: 50px;
+          overflow: visible;
+          margin: 0 5px 10px 0;
+          display: block;
+          float: left;
           a {
             color: #7d7d7d;
             font-family: "Open Sans", sans-serif;
@@ -118,7 +124,6 @@ div.content {
             text-transform: uppercase;
             text-align: center;
             text-decoration: none;
-            margin: 0 5px 10px 0;
             float: left;
             div.mask {
               width: 50px;
@@ -131,6 +136,76 @@ div.content {
             }
             p {
           
+            }
+          }
+          div.actions {
+            position: absolute;
+            background: #FFF;
+            width: 255px;
+            overflow: visible;
+            padding: 15px;
+            top: 25px;
+            left: 25px;
+            border: 1px #dcdcdc solid;
+            z-index: 1000;
+            display: none;
+            div.triangle {
+              position: absolute;
+              background: url("/assets/gift/triangle-pink.png") no-repeat;
+              width: 13px;
+              height: 13px;
+              display: block;
+              top: -3px;
+              left: -3px;
+            }
+            h1 {
+              color: #343434;
+              font-family: "Open Sans", sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+              margin: 0 0 10px 0;
+              float: left;
+            }
+            p {
+              color: #7d7d7d;
+              font-family: "Open Sans", sans-serif;
+              font-size: 11px;
+              letter-spacing: -1px;
+              float: left;
+              clear: both;
+            }
+            ul {
+              width: 155px;
+              float: right;
+              li {
+                a {
+                  color: #e05789;
+                  font-family: "Open Sans", sans-serif;
+                  font-size: 11px;
+                  font-weight: bold;
+                  letter-spacing: -1px;
+                  text-decoration: none;
+                  margin: 0 0 7px 0;
+                  padding: 0 0 0 20px;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+                &.gift {
+                  a {
+                    background: url("/assets/gift/bg-gift.png") top left no-repeat;
+                  }
+                }
+              }
+            }
+            a.close_actions {
+              position: absolute;
+              color: #c1c1c1;
+              font-family: "Open Sans", sans-serif;
+              font-size: 13px;
+              font-weight: bold;
+              top: 10px;
+              right: 10px;
             }
           }
         }
