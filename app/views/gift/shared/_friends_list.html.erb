@@ -14,7 +14,7 @@
           <p>Aniversário <br />em <%= friend.birthday %></p>
           <ul>
             <li class="birthday"><%= link_to "Adicionar aniversário", "#" %></li>
-            <li class="gift"><%= link_to "Criar presente", "#" %></li>
+            <li class="gift"><%= link_to "Criar presente", new_gift_occasion_path %></li>
           </ul>
           <%= link_to "X", "#", :class => "close_actions" %>
         </div>
