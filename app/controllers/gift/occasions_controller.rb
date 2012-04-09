@@ -12,16 +12,16 @@ class Gift::OccasionsController < ApplicationController
 
   def create
     @recipient = GiftRecipient.new(params[:recipient])
-    
     @occasion = GiftOccasion.new(params[:occasion])
+    
     @occasion.recipient = @recipient
 
-    if @recipient.save && @goccasion.save
+    if @recipient.save && @occasion.save
       # saved
-
+      
     else
       # errors
-
+      
     end
   end
 
