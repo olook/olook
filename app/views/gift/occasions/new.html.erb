@@ -2,7 +2,13 @@
 
 
 <%= form_tag '/gift/occasions/create' do |f| %>
- 	<%= hidden_field :recipient, :facebook_uid %>
+	<%= hidden_field :recipient, :facebook_uid %>
 	
-	<p>Você esta criando um presente de <%= collection_select :occasion, :gift_occasion_type, @occasion_types, :id, :name, :prompt => 'Escolha' %> para <%= text_field :recipient, :name %>, que é minha <%= collection_select :recipient, :gift_recipient_relation, @recipient_relations, :id, :name, :prompt => 'Escolha' %>, no dia <%= select_day Date.today, :field_name => 'day', :prefix => 'occasion', :prompt => 'Dia' %>/<%= select_month Date.today, :field_name => 'month', :prefix => 'occasion', :prompt => 'Mês' %></p>
+	<p>
+		Você esta criando um presente de 
+		<%= collection_select :occasion, :gift_occasion_type, @occasion_types, :id, :name, :prompt => 'Escolha', :selected => params[:type] %> para 
+		<%= text_field :recipient, :name, :value => params[:name] %>, que é minha 
+		<%= collection_select :recipient, :gift_recipient_relation, @recipient_relations, :id, :name, :prompt => 'Escolha', :selected => params[:relation] %>, para o dia 
+		<%= select_day @day, :field_name => 'day', :prefix => 'occasion', :prompt => 'Dia' %>/<%= select_month @month, :field_name => 'month', :prefix => 'occasion', :prompt => 'Mês' %>
+	</p>
 <% end %>
