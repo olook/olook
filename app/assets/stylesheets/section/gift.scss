@@ -47,7 +47,32 @@ div.full_container {
       }
     }
     &#occasion {
-  
+      form {
+        margin: 35px auto;
+        p {
+          color: #383838;
+          font-family: "Open Sans", sans-serif;
+          font-size: 45px;
+          font-weight: lighter;
+          text-align: center;
+          letter-spacing: -2px;
+          width: 825px;
+          margin: 0 auto 20px auto;
+        }
+        input[type="submit"] {
+          background: url("/assets/gift/bt-continue.png") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          width: 133px;
+          line-height: 38px;
+          text-transform: uppercase;
+          margin: 0 auto;
+          display: block;
+          border: none;
+          cursor: pointer;
+        }
+      }
     }
   }
   &.offline {
