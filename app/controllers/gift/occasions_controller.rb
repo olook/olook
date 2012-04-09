@@ -5,6 +5,9 @@ class Gift::OccasionsController < ApplicationController
     # collections for selects
     @occasion_types = GiftOccasionType.all
     @recipient_relations = GiftRecipientRelation.all
+    
+    @day = params[:day] ? params[:day].to_i : Date.today
+    @month = params[:month] ? params[:month].to_i : Date.today
   end
 
   def create
