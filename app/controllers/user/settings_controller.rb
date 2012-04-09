@@ -7,7 +7,7 @@ class User::SettingsController < ApplicationController
   before_filter :load_user
 
   def showroom
-    @questions = Question.includes(:answers)
+    @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
   end
 
