@@ -1,7 +1,5 @@
 class Gift::OccasionsController < ApplicationController
   def new
-    @occasion = GiftOccasion.new
-
     # collections for selects
     @occasion_types = GiftOccasionType.all
     @recipient_relations = GiftRecipientRelation.all
@@ -19,9 +17,11 @@ class Gift::OccasionsController < ApplicationController
       session[:recipient] = @recipient
       session[:occasion] = @occasion
       render json: {:occasion => @occasion, :recipient =>  @recipient}
+      # redirect_to :gift/:quizz/:new
     else
       # errors
       render json: {:occasion => @occasion.errors, :recipient =>  @recipient.errors}
+      # redirect_to :gift/:occasion/:new
     end
   end
 
