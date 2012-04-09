@@ -54,6 +54,7 @@ Olook::Application.routes.draw do
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do
+      put "update_gift_data" => "cart#update_gift_data", :as => "update_gift_data"
       put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
       delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
@@ -106,7 +107,7 @@ Olook::Application.routes.draw do
     match 'minha-vitrine/update' => "settings#update_info", :as => "update_user_info"
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
-  
+
   namespace :gift do
     root :to => "home#index"
     resources :occasions, :only => [:new]
@@ -177,7 +178,7 @@ Olook::Application.routes.draw do
       resources :permissions
     end
     resources :admins
-    
+
     resources :gift_occasion_types
     resources :gift_recipient_relations
   end
