@@ -6,43 +6,73 @@ div.full_container {
   background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
   div.content {
-    background: url("/assets/gift/bg-header.jpg") top center no-repeat;
     font-family: "Open Sans", sans-serif;
-    height: 485px;
-    h1 {
-      font-family: "Open Sans", sans-serif;
-      font-size: 70px;
-      font-weight: 600;
-      letter-spacing: -7px;
-      line-height: 50px;
-      width: 455px;
-      margin: 40px 0 25px 0;
+    &#banner {
+      background: url("/assets/gift/bg-header.jpg") top center no-repeat;
+      height: 485px;
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 70px;
+        font-weight: 600;
+        letter-spacing: -7px;
+        line-height: 50px;
+        width: 455px;
+        margin: 40px 0 25px 0;
+      }
+      p {
+        color: #343434;
+        font-size: 14px;
+        letter-spacing: -1px;
+        line-height: 17px;
+        width: 405px;
+        margin: 0 0 20px 0;
+      }
+      img {
+        margin: 0 0 20px 0;
+      }
+      a#new_occasion_link {
+        background: url("/assets/gift/bt-start.jpg") no-repeat;
+        color: #FFF;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
+        text-transform: uppercase;
+        text-align: center;
+        text-decoration: none;
+        line-height: 43px;
+        letter-spacing: -1px;
+        width: 347px;
+        height: 46px;
+        display: block;
+        clear: both;
+      }
     }
-    p {
-      color: #343434;
-      font-size: 14px;
-      letter-spacing: -1px;
-      line-height: 17px;
-      width: 405px;
-      margin: 0 0 20px 0;
-    }
-    img {
-      margin: 0 0 20px 0;
-    }
-    a#new_occasion_link {
-      background: url("/assets/gift/bt-start.jpg") no-repeat;
-      color: #FFF;
-      font-family: "Open Sans", sans-serif;
-      font-size: 20px;
-      text-transform: uppercase;
-      text-align: center;
-      text-decoration: none;
-      line-height: 43px;
-      letter-spacing: -1px;
-      width: 347px;
-      height: 46px;
-      display: block;
-      clear: both;
+    &#occasion {
+      form {
+        margin: 35px auto;
+        p {
+          color: #383838;
+          font-family: "Open Sans", sans-serif;
+          font-size: 45px;
+          font-weight: lighter;
+          text-align: center;
+          letter-spacing: -2px;
+          width: 825px;
+          margin: 0 auto 20px auto;
+        }
+        input[type="submit"] {
+          background: url("/assets/gift/bt-continue.png") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          width: 133px;
+          line-height: 38px;
+          text-transform: uppercase;
+          margin: 0 auto;
+          display: block;
+          border: none;
+          cursor: pointer;
+        }
+      }
     }
   }
   &.offline {
