@@ -11,17 +11,17 @@ class Gift::OccasionsController < ApplicationController
   end
 
   def create
-    @recipient = GiftRecipient.new(params[:recipient])
-    @occasion = GiftOccasion.new(params[:occasion])
+    @recipient = GiftRecipient.new(params[:recipient].merge(:user_id => current_user ? current_user : nil))
+    @occasion = GiftOccasion.new(params[:occasion].merge(:user_id => current_user ? current_user : nil, :gift_recipient_id => @recipient))
     
-    @occasion.recipient = @recipient
-
     if @recipient.save && @occasion.save
       # saved
-      
+      session[:recipient] = @recipient
+      session[:occasion] = @occasion
+      render json: {:occasion => @occasion, :recipient =>  @recipient}
     else
       # errors
-      
+      render json: {:occasion => @occasion.errors, :recipient =>  @recipient.errors}
     end
   end
 
