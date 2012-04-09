@@ -68,6 +68,42 @@ describe Order do
     end
   end
 
+  context "validating possibility of insert a item in a non gift cart" do
+
+    before :each do
+      subject.add_variant(basic_shoe_35)
+      subject.add_variant(basic_shoe_37)
+      subject.add_variant(basic_shoe_40)
+    end
+
+    it "should return true to add gift and normal products to the same cart" do
+      subject.has_gift.should be_true
+    end
+
+    it "should return false to add normal products to the same cart" do
+      subject.has_gift(true).should be_false
+    end
+
+  end
+
+  context "validating possibility of insert a item in a gift cart" do
+
+    before :each do
+      subject.add_variant(basic_shoe_35, nil, true)
+      subject.add_variant(basic_shoe_37, nil, true)
+      subject.add_variant(basic_shoe_40, nil, true)
+    end
+
+    it "should return false to add gift and normal products to the same cart" do
+      subject.has_gift.should be_false
+    end
+
+    it "should return true to add gifties products to the same cart" do
+      subject.has_gift(true).should be_true
+    end
+
+  end
+
   context "line items with gifts" do
     before :each do
       subject.add_variant(basic_shoe_35)
