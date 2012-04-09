@@ -8,9 +8,12 @@ class Gift::OccasionsController < ApplicationController
   end
 
   def create
+    @recipient = GiftRecipient.new(params[:recipient])
+    
     @occasion = GiftOccasion.new(params[:occasion])
+    @occasion.recipient = @recipient
 
-    if @goccasion.save
+    if @recipient.save && @goccasion.save
       # saved
 
     else
