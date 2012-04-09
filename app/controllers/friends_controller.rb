@@ -70,7 +70,7 @@ class FriendsController < ApplicationController
   end
 
   def load_question
-    questions = Question.includes(:answers)
+    questions = Question.from_registration_survey
     survey_questions = SurveyQuestions.new(questions)
     @question = survey_questions.common_questions.shuffle.first
   end

@@ -42,19 +42,25 @@ describe FriendsController do
     end
 
     describe "GET home" do
+      let!(:question) { FactoryGirl.create(:question) }
+
       before :each do
         FacebookAdapter.stub(:new).with(user.facebook_token).and_return(fb_adapter = stub)
         fb_adapter.stub(:friends_structure).and_return(friends_structure = [[], [], ])
-        @question = FactoryGirl.create(:question)
-        SurveyQuestions.stub(:new).with([@question]).and_return(survey_questions = mock)
-        survey_questions.stub(:common_questions).and_return([@question])
+        SurveyQuestions.stub(:new).with([question]).and_return(survey_questions = mock)
+        survey_questions.stub(:common_questions).and_return([question])
         User.any_instance.stub(:can_access_facebook_extended_features?).and_return(true)
         session[:facebook_scopes] = nil
       end
 
+      it "gets all questions from the registration survey" do
+        Question.should_receive(:from_registration_survey).and_return([question])
+        get :home
+      end
+
       it "should assign @questions" do
         get :home
-        assigns(:question).should eq(@question)
+        assigns(:question).should eq(question)
       end
 
       it "should assign friends structure" do

@@ -9,8 +9,8 @@
     <% if @product.liquidation? && !@product.sold_out? %>
       <p class="warn percentage"><span><%= @product.liquidation_discount_percent.to_i %>%</span><br />off</p>
     <% end %>
-    <% if current_user && @product.quantity(current_user.user_info.shoes_size) > 0 && @product.quantity(current_user.user_info.shoes_size) < 4 %>
-      <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.user_info.nil?) ? '' : @product.quantity( current_user.user_info.shoes_size )}" %></span></p>
+    <% if product_presenter.show_quantity_left? %>
+      <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.user_info.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
     <% end %>
     <ul>
       <% @product.pictures.each do |picture| %>
