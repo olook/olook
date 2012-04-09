@@ -196,6 +196,11 @@ div.content {
                     background: url("/assets/gift/bg-gift.png") top left no-repeat;
                   }
                 }
+                &.birthday {
+                  a {
+                    background: url("/assets/gift/bg-birthday.png") top left no-repeat;
+                  }
+                }
               }
             }
             a.close_actions {
