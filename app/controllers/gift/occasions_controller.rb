@@ -1,4 +1,6 @@
 class Gift::OccasionsController < ApplicationController
+  layout "gift"
+
   def new
     # collections for selects
     @occasion_types = GiftOccasionType.all
