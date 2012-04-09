@@ -10,6 +10,23 @@ class CartController < ApplicationController
   before_filter :current_order
   before_filter :format_credits_value, :only => [:update_bonus]
 
+  def update_gift_data
+    @order.update_attributes(params[:gift])
+    render :json => true
+  end
+
+  def update_coupon
+    code = params[:coupon][:code]
+    coupon_manager = CouponManager.new(@order, code)
+    response_message = coupon_manager.apply_coupon
+    redirect_to cart_path, :notice => response_message
+  end
+
+  def update_message
+    @order.update_attributes(params[:gift])
+    render :json => true
+  end
+
   def update_coupon
     code = params[:coupon][:code]
     coupon_manager = CouponManager.new(@order, code)
@@ -88,11 +105,15 @@ class CartController < ApplicationController
   end
 
   def create
-    if @order.add_variant(@variant)
-      destroy_freight(@order)
-      redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
+    if @order.has_gift( params[:gift] )
+      if @order.add_variant(@variant, params[:gift])
+        destroy_freight(@order)
+        redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
+      else
+        redirect_to(:back, :notice => "Produto esgotado")
+      end
     else
-      redirect_to(:back, :notice => "Produto esgotado")
+      redirect_to(cart_path, :notice => "Produtos de presente não podem ser comprados com produtos da vitrine")
     end
   end
 
