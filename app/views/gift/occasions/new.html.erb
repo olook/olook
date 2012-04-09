@@ -1,15 +1,26 @@
-<h1>Criar um presente</h1>
-
-
-<%= form_tag '/gift/occasions', :method => :post do |f| %>
-	<%= hidden_field :recipient, :facebook_uid %>
-	
-	<p>
-		Você esta criando um presente de 
-		<%= collection_select :occasion, :gift_occasion_type_id, @occasion_types, :id, :name, :prompt => 'Escolha', :selected => params[:type] %> para 
-		<%= text_field :recipient, :name, :value => params[:name] %>, que é minha 
-		<%= collection_select :recipient, :gift_recipient_relation_id, @recipient_relations, :id, :name, :prompt => 'Escolha', :selected => params[:relation] %>, para o dia 
-		<%= select_day @day, :field_name => 'day', :prefix => 'occasion', :prompt => 'Dia' %>/<%= select_month @month, :field_name => 'month', :prefix => 'occasion', :prompt => 'Mês' %>
-		<%= button_tag 'Continuar' %>
-	</p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
 <% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="content" id="occasion">
+    <%= form_tag '/gift/occasions', :method => :post do |f| %>
+      <%= hidden_field :recipient, :facebook_uid %>
+      <p>
+        Você esta criando um presente de 
+        <%= collection_select :occasion, :gift_occasion_type_id, @occasion_types, :id, :name, :prompt => 'Escolha', :selected => params[:type] %> para 
+        <%= text_field :recipient, :name, :value => params[:name] %>, que é minha 
+        <%= collection_select :recipient, :gift_recipient_relation_id, @recipient_relations, :id, :name, :prompt => 'Escolha', :selected => params[:relation] %>, e é comemorado no dia <%= select_day @day, :field_name => 'day', :prefix => 'occasion', :prompt => 'Dia' %> de <%= select_month @month, :field_name => 'month', :prefix => 'occasion', :prompt => 'Mês' %>
+        <%= button_tag 'Continuar' %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="occasion_new" class="content">
+  <%#= render "gift/shared/calendar" %>
+</div>
