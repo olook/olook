@@ -80,11 +80,41 @@ section#cart {
       &.amount {
         width: 160px;
       }
-      &.value {
+      &.value{
         width: 270px;
       }
     }
     tbody tr {
+      &.hidden_row {
+        background-color: #f2f2f2;
+        display:none;
+
+        textarea {
+          height: 120px;
+          width: 260px;
+          margin-right: 10px;
+          background-color: #f2f2f2;
+          border-color: #cacaca
+        }
+
+        td {
+          p {
+            text-align:left !important;
+            padding: 5px 0 0 5px;
+          }
+          .line_bottom {
+            border-bottom:2px #cacaca solid;
+            margin-right: -16px;
+            padding: 5px 20px 5px 5px;
+
+            strong{
+              text-transform: uppercase !important;
+              color: #d05f8a;
+              font-size: 15px;
+            }
+          }
+        }
+      }
       &.discount {
         td {
           vertical-align: top;
@@ -252,7 +282,7 @@ section#cart {
           }
         }
         &.first {
-      
+
         }
       }
       &.first {
