@@ -1,4 +1,6 @@
 class Gift::OccasionsController < ApplicationController
+  layout "gift"
+
   def new
     @occasion = GiftOccasion.new
 
