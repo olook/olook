@@ -8,8 +8,7 @@
   <div id="calendar" class="connected">
     <ul id="months">
       <% ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"].each_with_index do |month, index| %>
-        <% klass = "first" if index == 0 %>
-        <% klass = "last" if index == 11 %>
+        <% klass = "first" if index == 0; klass = "last" if index == 11 %>
         <%= content_tag(:li, link_to(month, "/gift/update_birthdays_by_month/#{index+1}", :remote => true, :class => "#{Time.now.strftime('%-m') == (index + 1).to_s ? 'selected' : ''}"), :class => klass) %>
       <% end %>
     </ul>
