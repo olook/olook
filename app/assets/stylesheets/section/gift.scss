@@ -49,15 +49,27 @@ div.full_container {
     &#occasion {
       form {
         margin: 35px auto;
-        p {
-          color: #383838;
+        p, input[type="text"] {
           font-family: "Open Sans", sans-serif;
           font-size: 45px;
           font-weight: lighter;
-          text-align: center;
           letter-spacing: -2px;
+        }
+        p {
+          color: #383838;
+          text-align: center;
           width: 825px;
           margin: 0 auto 20px auto;
+        }
+        input[type="text"] {
+          background: #FFF;
+          width: 280px;
+          color: #e05789;
+          padding: 0 20px;
+          border: 1px #a4a4a4 dotted;
+          &:focus {
+            outline: none;
+          }
         }
         input[type="submit"] {
           background: url("/assets/gift/bt-continue.png") no-repeat;
