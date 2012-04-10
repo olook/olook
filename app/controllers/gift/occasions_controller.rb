@@ -3,7 +3,7 @@ class Gift::OccasionsController < Gift::BaseController
   before_filter :load_collections_for_selects, :only => [:new, :new_with_data]
 
   def new
-    @day, @month = Date.today
+    @day = @month = Date.today
   end
   
   def new_with_data
@@ -24,8 +24,8 @@ class Gift::OccasionsController < Gift::BaseController
     
     if @recipient.save && @occasion.save
       # saved
-      session[:recipient] = @recipient
-      session[:occasion] = @occasion
+      session[:recipient_id] = @recipient.id
+      session[:occasion_id] = @occasion.id
       render json: {:occasion => @occasion, :recipient =>  @recipient}
       # redirect_to :gift/:quizz/:new
     else
