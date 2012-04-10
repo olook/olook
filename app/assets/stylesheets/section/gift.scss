@@ -49,17 +49,36 @@ div.full_container {
     &#occasion {
       form {
         margin: 35px auto;
-        p, input[type="text"] {
+        div, input[type="text"], select.custom_select {
           font-family: "Open Sans", sans-serif;
           font-size: 45px;
           font-weight: lighter;
           letter-spacing: -2px;
         }
-        p {
+        div {
           color: #383838;
           text-align: center;
-          width: 825px;
+          width: 895px;
           margin: 0 auto 20px auto;
+          p {
+            position: relative;
+            display: inline-block;
+            select.custom_select {
+              position: relative;
+              padding: 0 18px;
+              top: -25px;
+              left: 0;
+            }
+            span.select {
+              position: absolute;
+              background: #FFF;
+              color: #e05789;
+              padding: 0 20px;
+              left: 0;
+              border: 1px #a4a4a4 dotted;
+              z-index: 0;
+            }
+          }
         }
         input[type="text"] {
           background: #FFF;
@@ -83,6 +102,7 @@ div.full_container {
           display: block;
           border: none;
           cursor: pointer;
+          clear: both;
         }
       }
     }
