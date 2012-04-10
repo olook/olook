@@ -240,27 +240,21 @@ div.content {
               width: 155px;
               float: right;
               li {
-                a {
+                input[type="submit"] {
+                  background: url("/assets/gift/bg-birthday.png") top left no-repeat;
                   color: #e05789;
                   font-family: "Open Sans", sans-serif;
                   font-size: 11px;
                   font-weight: bold;
                   letter-spacing: -1px;
                   text-decoration: none;
+                  width: 85px;
                   margin: 0 0 7px 0;
                   padding: 0 0 0 20px;
+                  border: none;
+                  cursor: pointer;
                   &:hover {
                     text-decoration: underline;
-                  }
-                }
-                &.gift {
-                  a {
-                    background: url("/assets/gift/bg-gift.png") top left no-repeat;
-                  }
-                }
-                &.birthday {
-                  a {
-                    background: url("/assets/gift/bg-birthday.png") top left no-repeat;
                   }
                 }
               }
