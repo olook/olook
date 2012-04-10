@@ -3,7 +3,7 @@ class SurveyBuilder
   attr_accessor :questions
 
   def initialize(questions)
-    @survey = Survey.create(:name => "Registration Survey")
+    @survey = Survey.find_or_create_by_name("Registration Survey")
     @questions = questions
   end
 

@@ -3,11 +3,14 @@ require 'spec_helper'
 
 describe ProfileBuilder do
 
-  let(:answer_from_casual_profile) { Factory(:answer_from_casual_profile) }
-  let(:answer_from_casual_and_sporty_profile) { Factory(:answer_from_sporty_profile) }
+  let(:survey) { FactoryGirl.create(:survey) }
+  let(:question) { FactoryGirl.create(:question, :survey => survey) }
 
-  let(:casual_profile) { Factory(:casual_profile) }
-  let(:sporty_profile) { Factory(:sporty_profile) }
+  let!(:answer_from_casual_profile) { FactoryGirl.create(:answer_from_casual_profile, :question => question) }
+  let!(:answer_from_casual_and_sporty_profile) { FactoryGirl.create(:answer_from_sporty_profile, :question => question) }
+
+  let!(:casual_profile) { FactoryGirl.create(:casual_profile) }
+  let!(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
 
   before :each do
     Weight.create(:profile => casual_profile, :answer => answer_from_casual_profile, :weight => 5)
@@ -15,7 +18,7 @@ describe ProfileBuilder do
     Weight.create(:profile => sporty_profile, :answer => answer_from_casual_and_sporty_profile, :weight => 15)
 
     @questions = { "question_1" => answer_from_casual_profile.id, "question_2" => answer_from_casual_and_sporty_profile.id }
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
     @profile = mock_model('Profile')
     @profile2 = mock_model('Profile')
     @profile_builder = ProfileBuilder.new(@user)
