@@ -592,6 +592,15 @@ describe User do
         end
       end
 
+      context "when user has one order under review" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.under_review
+          subject.first_buy?.should be_true
+        end
+      end
+
       context "when user has two orders authorized" do
         let(:second_order) { FactoryGirl.create(:order, :user => subject) }
 
