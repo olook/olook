@@ -37,7 +37,10 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
-
+  
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_PUBLISH_STREAM = "publish_stream"
+  
   def name
     "#{first_name} #{last_name}".strip
   end
@@ -87,6 +90,10 @@ class User < ActiveRecord::Base
 
   def has_facebook?
     self.uid.present?
+  end
+  
+  def has_facebook_friends_birthday?
+    self.facebook_permissions.include? "friends_birthday"
   end
 
   def can_access_facebook_extended_features?
