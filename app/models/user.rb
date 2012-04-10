@@ -2,6 +2,8 @@
 class User < ActiveRecord::Base
 
   has_paper_trail :on => [:update, :destroy]
+  
+  serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
@@ -46,7 +48,9 @@ class User < ActiveRecord::Base
 
   def set_facebook_data(omniauth, session)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
-    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    if session[:facebook_scopes]
+      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")))
+    end
     update_attributes(attributes)
   end
 
