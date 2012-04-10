@@ -8,9 +8,9 @@
 
 <% content_for :full do %>
   <div class="content" id="occasion">
-    <%= form_tag '/gift/occasions/create' do |f| %>
+    <%= form_tag '/gift/occasions' do |f| %>
       <%= hidden_field :recipient, :facebook_uid, :value => params[:facebook_uid] %>
-      <p>Você esta criando um presente de <%= collection_select :occasion, :gift_occasion_type, @occasion_types, :id, :name, {:prompt => 'Escolha', :selected => params[:type]}, {:style => 'border: 3px solid black'} %>, para <%= text_field :recipient, :name, :value => params[:name] %>, que é minha <%= collection_select :recipient, :gift_recipient_relation, @recipient_relations, :id, :name, {:prompt => 'Escolha', :selected => params[:relation]}, {:style => 'border: 3px solid black'} %>, e é comemorado no dia <%= select_day @day, {:field_name => 'day', :prefix => 'occasion', :prompt => 'Dia'}, {:style => 'border: 3px solid black'} %> de <%= select_month @month, {:field_name => 'month', :prefix => 'occasion', :prompt => 'Mês'}, {:style => 'border: 3px solid black'} %>.</p>
+      <p>Você esta criando um presente de <%= collection_select :occasion, :gift_occasion_type_id, @occasion_types, :id, :name, {:prompt => 'Escolha', :selected => params[:occasion_type_id]}, {:style => 'border: 3px solid black'} %>, para <%= text_field :recipient, :name, :value => params[:name] %>, que é minha <%= collection_select :recipient, :gift_recipient_relation_id, @recipient_relations, :id, :name, {:prompt => 'Escolha', :selected => params[:recipient_relation_id]}, {:style => 'border: 3px solid black'} %>, e é comemorado no dia <%= select_day @day, {:field_name => 'day', :prefix => 'occasion', :prompt => 'Dia'}, {:style => 'border: 3px solid black'} %> de <%= select_month @month, {:field_name => 'month', :prefix => 'occasion', :prompt => 'Mês'}, {:style => 'border: 3px solid black'} %>.</p>
       <%= submit_tag "Continuar" %>
     <% end %>
   </div>
