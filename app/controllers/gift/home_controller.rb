@@ -1,7 +1,5 @@
 class Gift::HomeController < ApplicationController
   layout "gift"
-  FACEBOOK_BIRTHDAY_SCOPE = "friends_birthday"
-  
   before_filter :check_facebook_permissions, :load_facebook_adapter
   
   def index
@@ -19,10 +17,10 @@ class Gift::HomeController < ApplicationController
   end
   
   def check_facebook_permissions
-    session[:facebook_scopes] = FACEBOOK_BIRTHDAY_SCOPE
+    session[:facebook_scopes] = User::FACEBOOK_FRIENDS_BIRTHDAY
   end  
 
   def load_facebook_adapter
-    @facebook_adapter = FacebookAdapter.new current_user.facebook_token if current_user
+    @facebook_adapter = FacebookAdapter.new current_user.facebook_token if current_user and current_user.has_facebook?
   end
 end

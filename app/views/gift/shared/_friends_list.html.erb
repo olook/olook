@@ -1,13 +1,35 @@
-<div id="birthdays_list">
-  <% if friends and friends.any? %>
-    <ul>
-      <% friends.each do |friend| %>
-        <li>
+<% if friends and friends.any? %>
+  <ul class="friends_list">
+    <% friends.each do |friend| %>
+      <% birthday = Date.strptime(friend.birthday, "%m/%d/%Y") %>
+      <li>
+        <%= link_to "#" do %>
           <div class="mask">
             <%= image_tag user_avatar(friend, "square"), :title => friend.name %>
           </div>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+          <p><%= friend.first_name %></p>
+        <% end %>
+        <div class="actions">
+          <div class="triangle"></div>
+          <h1><%= friend.name %></h1>
+          <p>Aniversário <br />em <%= birthday.day %> de <%= birthday.strftime("%B") %></p>
+          <ul>
+            <!--<li class="birthday"><%# link_to "Adicionar aniversário", "#" %></li>-->
+            <li class="gift">
+              <%= form_for :occasion, :url => new_with_data_gift_occasions_path do |f| %>
+                <%= f.hidden_field :facebook_uid, :value => friend.uid %>
+                <%= f.hidden_field :day, :value => birthday.day %>
+                <%= f.hidden_field :month, :value => birthday.month %>                
+                <%= f.hidden_field :name, :value => friend.name %>                
+                <%= f.hidden_field :occasion_type_id, :value => 1 %>                
+                <%= f.submit "Criar presente"%>
+              <% end %>
+            </li>
+          </ul>
+          <%= link_to "X", "#", :class => "close_actions" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
