@@ -42,7 +42,7 @@ survey_data[3] = {
 }
 
 survey_data[4] = {
-  :question_title => "22. Que tipo de salto sua presenteada prefere?",
+  :question_title => "5. Que tipo de salto sua presenteada prefere?",
   :answers => ["Alto", "Médio", "Baixo", "Rasteirinha"],
   :weights => []
 }
