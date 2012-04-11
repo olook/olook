@@ -1,7 +1,7 @@
 class Gift::OccasionsController < Gift::BaseController
   layout "gift"
   before_filter :load_collections_for_selects, :only => [:new, :new_with_data]
-
+  
   def new
     @day = @month = Date.today
   end
@@ -15,7 +15,7 @@ class Gift::OccasionsController < Gift::BaseController
       @occasion_type_id = occasion[:occasion_type_id]
       @recipient_relation_id = occasion[:recipient_relation_id]
     end
-    render "new"
+    render :new
   end
 
   def create
@@ -26,12 +26,12 @@ class Gift::OccasionsController < Gift::BaseController
       # saved
       session[:recipient_id] = @recipient.id
       session[:occasion_id] = @occasion.id
+      
       render json: {:occasion => @occasion, :recipient =>  @recipient}
-      # redirect_to :gift/:quizz/:new
+      # redirect_to [:gift,:quizz,:new]
     else
       # errors
-      render json: {:occasion => @occasion.errors, :recipient =>  @recipient.errors}
-      # redirect_to :gift/:occasion/:new
+      redirect_to request.referer
     end
   end
   
