@@ -10,7 +10,7 @@ class Gift::OccasionsController < Gift::BaseController
   def new_with_data
     if occasion = params[:occasion]
       @name = occasion[:name]
-      @day = occasion[:day].to_i 
+      @day = occasion[:day].to_i
       @month = occasion[:month].to_i
       @facebook_uid = occasion[:facebook_uid]
       @occasion_type_id = occasion[:occasion_type_id]
@@ -31,9 +31,7 @@ class Gift::OccasionsController < Gift::BaseController
       redirect_to new_gift_survey_path
     else
       # errors
-      if @occasion.errors.any?
-        flash[:notice] = "Não foi possível criar seu presente"
-      end
+      flash[:notice] = "Não foi possível iniciar a criação do seu presente" if @occasion.errors.any?
       redirect_to request.referer
     end
   end
