@@ -110,6 +110,7 @@ Olook::Application.routes.draw do
   namespace :gift do
     root :to => "home#index"
     get "update_birthdays_by_month/:month" => 'home#update_birthdays_by_month'
+    resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :occasions, :only => [:new, :create] do
       collection do
         post "new_with_data" => "occasions#new_with_data"
