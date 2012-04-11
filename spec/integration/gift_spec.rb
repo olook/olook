@@ -8,24 +8,43 @@ feature "Gift Project", %q{
   I want to be able to use the gift project
   } do
     
-  #let!(:user) { Factory.create(:user) }
+  let!(:user) { Factory.create(:user) }
     
-  #describe "Already user" do
-  #  background do
-  #    do_login!(user)
-  #  end
+  describe "Already user" do
+    background do
+      do_login!(user)
+    end
     
-  #  scenario "user can see the gift project landing page/home" do
-  #    visit gift_root_path
-  #    page.should have_content("Acerte em cheio no presente")
-  #  end
+    scenario "user can see the gift project landing page/home" do
+      visit gift_root_path
+      page.should have_content("Acerte em cheio no presente")
+    end
     
-  #  scenario "start the gift creation" do
-  #    visit gift_root_path
-  #    click_link "new_occasion_link"
-  #    page.should have_content("Você está criando um presente")
-  #  end
+    scenario "start the gift creation" do
+      visit gift_root_path
+      click_link "new_occasion_link"
+      page.should have_content("Você está criando um presente")
+    end
+      
+    describe "with facebook" do
+      scenario "create gift for a facebook friend" do
+        pending
+      end
+    end
     
-  #end
+    describe "log to facebook" do
+      pending
+    end
+  end
+  
+  describe "logged out" do
+    scenario "should see the landing page with disabled calendar" do
+      visit gift_root_path
+      page.should have_content("Acerte em cheio no presente")
+      page.has_css?('.opacity')
+    end
+  end
+  
+
 end
 
