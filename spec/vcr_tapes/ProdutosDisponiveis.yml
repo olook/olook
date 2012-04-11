@@ -2,9 +2,9 @@
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
     method: :get
-    uri: http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl
-    body: !!null 
-    headers: !!null 
+    uri: http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl
+    body: !!null
+    headers: !!null
   response: !ruby/struct:VCR::Response
     status: !ruby/struct:VCR::ResponseStatus
       code: 200
@@ -1899,8 +1899,8 @@
   request: !ruby/struct:VCR::Request
     method: :get
     uri: http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl
-    body: !!null 
-    headers: !!null 
+    body: !!null
+    headers: !!null
   response: !ruby/struct:VCR::Response
     status: !ruby/struct:VCR::ResponseStatus
       code: 200
