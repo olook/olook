@@ -7,6 +7,7 @@ Requirements
 - libmysqlclient-dev
 - libcurl3-gnutls
 - ImageMagick
+- Memcached 1.4.5
 
 Setup
 ============
@@ -20,6 +21,7 @@ Setup
 - copy config/email.yml.sample to config/email.yml and set your email account.
 - copy config/moip.yml.sample to config/moip.yml and set your uri, token and key.
 - copy config/resque.yml.sample to config/resque.yml and set the redis server routes.
+- copy config/abacos.yml.sample to config/abacos.yml
 - rake db:create && rake db:create RAILS_ENV=test
 - rake db:migrate && rake db:migrate RAILS_ENV=test
 - rake olook:seed_admin RAILS_ENV=test
