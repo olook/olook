@@ -236,6 +236,10 @@
       address: Endereço
       credit_card: Cartão de crédito
       user: Usuário
+      gift_recipient: presenteado
+      gift_occasion: "ocasião"
+      gift_occasion_type: "tipo de ocasião"
+      gift_recipient_relation: "relacionamento"
     attributes:
       address:
         city: Cidade
