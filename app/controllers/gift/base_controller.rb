@@ -11,7 +11,9 @@ class Gift::BaseController < ApplicationController
   end  
 
   def load_facebook_adapter
-    @facebook_adapter = FacebookAdapter.new current_user.facebook_token if current_user and current_user.has_facebook?
+    if current_user && current_user.has_facebook_friends_birthday?
+      @facebook_adapter = FacebookAdapter.new current_user.facebook_token 
+    end
   end
   
   def load_friends 

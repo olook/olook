@@ -12,7 +12,7 @@
         <div class="actions">
           <div class="triangle"></div>
           <h1><%= friend.name %></h1>
-          <p>Aniversário <br />em <%= birthday.day %> de <%= birthday.strftime("%B") %></p>
+          <p>Aniversário <br />em <%= birthday.day %> de <%= l(birthday, :format => "%B") %></p>
           <ul>
             <!--<li class="birthday"><%# link_to "Adicionar aniversário", "#" %></li>-->
             <li class="gift">
@@ -22,6 +22,7 @@
                 <%= f.hidden_field :month, :value => birthday.month %>                
                 <%= f.hidden_field :name, :value => friend.name %>                
                 <%= f.hidden_field :occasion_type_id, :value => 1 %>                
+                <%= f.hidden_field :recipient_relation_id, :value => 1 %>
                 <%= f.submit "Criar presente"%>
               <% end %>
             </li>
