@@ -34,7 +34,10 @@ class ProfileBuilder
     end
     profile_points
   end
-
+  
+  # TO DO:
+  # - add some checks to avoid nil errors
+  # - check weights creation (on SurveyBuilder)
   def self.first_profile_given_questions(questions)
     profiles = self.profiles_given_questions(questions)
     profiles_points = self.build_profiles_points(profiles)
