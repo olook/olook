@@ -5,10 +5,19 @@ describe FacebookAdapter do
   subject { FacebookAdapter.new(:fake_access_token) }
   let(:friend_list) { [{"id" => "1", "name" => "User name 1", "gender" => "male"}, {"id" => "2", "name" => "User name 2", "gender" => "female"}] }
   let(:formated_friend_list) { [OpenStruct.new(:uid => "2", :name => "User name 2")] }
+  let(:fields) { "name, gender, birthday, first_name" }
 
-  it "should get the friend list" do
-    subject.adapter.should_receive(:get_connections).with("me", "friends", :fields => "name, gender, birthday, first_name").and_return(friend_list)
-    subject.facebook_friends
+  context "cached friend list" do
+    it "should not get the friend list from cache when invalid" do
+      Rails.cache.clear
+      subject.adapter.should_receive(:get_connections).with("me", "friends", :fields => fields).and_return(friend_list)
+      subject.facebook_friends
+    end
+
+    it "should get the friend list from cache when valid" do
+      subject.adapter.should_not_receive(:get_connections).with("me", "friends", :fields => fields).and_return(friend_list)
+      subject.facebook_friends
+    end
   end
 
   it "should get the friends ids list" do
