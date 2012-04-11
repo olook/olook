@@ -1,11 +1,8 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-  get "occasions/new"
 
   get "home/index"
-
   get "liquidation_products/index"
-
   get "index/index"
   root :to => "home#index"
 
@@ -86,10 +83,6 @@ Olook::Application.routes.draw do
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
-
-
-
-  #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
