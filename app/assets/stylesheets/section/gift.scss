@@ -3,7 +3,7 @@ header {
 }
 
 div.full_container {
-  background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
+  background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
   div.shadow {
     position: absolute;
@@ -14,6 +14,11 @@ div.full_container {
     margin-left: -562px;
     top: 0;
     left: 50%;
+  }
+  div.full_bg {
+    background: url("/assets/gift/bg.jpg") repeat;
+    width: 100%;
+    overflow: hidden;
   }
   div.content {
     font-family: "Open Sans", sans-serif;
