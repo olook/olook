@@ -44,11 +44,18 @@ describe Gift::SurveyController do
         session[:questions].should == questions
       end
 
-      it "assigns recipient profile with the first profile given the questions" do
+      it "keeps the recipient profile in the session" do
         ProfileBuilder.should_receive(:first_profile_given_questions).and_return("Elegante")
 
         post 'create', :questions => questions
-        assigns(:recipient_profile).should eq "Elegante"
+        session[:recipient_profile].should == "Elegante"
+      end
+      
+      it "redirects to new recipient path" do
+        ProfileBuilder.stub(:first_profile_given_questions).and_return("Elegante")
+        
+        post 'create', :questions => questions
+        response.should redirect_to new_gift_recipient_path
       end
     end
   end

@@ -9,8 +9,8 @@ class Gift::SurveyController < ApplicationController
     questions = params[:questions]
     if questions.present?
       session[:questions] = questions
-      @recipient_profile = ProfileBuilder.first_profile_given_questions(questions)
-      # redirect_to new_recipient_path
+      session[:recipient_profile] = ProfileBuilder.first_profile_given_questions(questions)
+      redirect_to new_gift_recipient_path
     else
       redirect_to new_gift_survey_path
     end
