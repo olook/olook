@@ -9,16 +9,16 @@ describe Gift::RecipientsController do
     end
   end
 
-  describe "GET 'create'" do
-    it "returns http success" do
-      get 'create'
-      response.should be_success
+  describe "POST 'create'" do
+    it "redirects_to gift_root_path" do
+      post 'create'
+      response.should redirect_to gift_root_path
     end
   end
 
-  describe "GET 'update'" do
+  describe "POST 'update'" do
     it "returns http success" do
-      get 'update'
+      post 'update'
       response.should be_success
     end
   end

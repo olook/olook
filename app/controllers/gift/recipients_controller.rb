@@ -9,6 +9,7 @@ class Gift::RecipientsController < ApplicationController
   end
 
   def create
+    redirect_to gift_root_path
   end
 
   def update
