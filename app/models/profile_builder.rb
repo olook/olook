@@ -35,4 +35,10 @@ class ProfileBuilder
     profile_points
   end
 
+  def self.first_profile_given_questions(questions)
+    profiles = self.profiles_given_questions(questions)
+    profiles_points = self.build_profiles_points(profiles)
+    profile_with_highest_score = profiles_points.sort{|a,b| a[1] <=> b[1]}.last
+    Profile.find(profile_with_highest_score.first).try(:name)
+  end
 end
