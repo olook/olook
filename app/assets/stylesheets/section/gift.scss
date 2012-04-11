@@ -5,6 +5,16 @@ header {
 div.full_container {
   background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
+  div.shadow {
+    position: absolute;
+    background: url("/assets/gift/shadow-signed-out.png") top center no-repeat;
+    width: 1124px;
+    height: 26px;
+    display: block;
+    margin-left: -562px;
+    top: 0;
+    left: 50%;
+  }
   div.content {
     font-family: "Open Sans", sans-serif;
     &#banner {
