@@ -2,6 +2,10 @@ header {
   background: none;
 }
 
+body #tracker + p {
+  display: none;
+}
+
 div.full_container {
   background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
