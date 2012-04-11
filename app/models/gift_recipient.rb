@@ -1,6 +1,7 @@
 class GiftRecipient < ActiveRecord::Base
   belongs_to :user
   belongs_to :gift_recipient_relation
+  has_many :occasions
   
   validates_associated :user, :gift_recipient_relation
   

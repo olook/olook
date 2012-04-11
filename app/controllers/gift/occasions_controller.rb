@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Gift::OccasionsController < Gift::BaseController
   layout "gift"
   before_filter :load_collections_for_selects, :only => [:new, :new_with_data]
@@ -19,18 +20,20 @@ class Gift::OccasionsController < Gift::BaseController
   end
 
   def create
-    @recipient = GiftRecipient.new(params[:recipient].merge(:user_id => current_user ? current_user : nil))
-    @occasion = GiftOccasion.new(params[:occasion].merge(:user_id => current_user ? current_user : nil, :gift_recipient_id => @recipient))
+    @occasion = GiftOccasion.new(params[:occasion].merge(:user_id => current_user ? current_user : nil))
+    @occasion.build_gift_recipient(params[:recipient].merge(:user_id => current_user ? current_user : nil))
     
-    if @recipient.save && @occasion.save
+    if @occasion.save
       # saved
-      session[:recipient_id] = @recipient.id
       session[:occasion_id] = @occasion.id
+      session[:recipient_id] = @occasion.gift_recipient.id
       
-      render json: {:occasion => @occasion, :recipient =>  @recipient}
-      # redirect_to [:gift,:quizz,:new]
+      redirect_to new_gift_survey_path
     else
       # errors
+      if @occasion.errors.any?
+        flash[:notice] = "Não foi possível criar seu presente"
+      end
       redirect_to request.referer
     end
   end

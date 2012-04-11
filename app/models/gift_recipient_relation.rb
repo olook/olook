@@ -1,4 +1,4 @@
 class GiftRecipientRelation < ActiveRecord::Base
   has_many :gift_recipients
-  validates :name, :presence => true
+  validates :name, :presence => true, :length => {:minimum => 2}
 end
