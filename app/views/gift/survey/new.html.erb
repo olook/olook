@@ -1,0 +1,52 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/survey" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift/survey" %>
+<% end %>
+
+<span id="next_link"></span>
+  <div id="asynch-load"></div>
+  <div id="survey">
+    <%= form_tag({:controller => "gift/survey", :action => "create"}) do %>
+      <input type="hidden" id="id_first_question" value="<%= @presenter.id_first_question %>" />
+
+      <ul class="questions">
+        <% question_number = 0 %>
+        <% for question in @presenter.common_questions %>
+          <li id="question_<%= question.id %>" class="images">
+            <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
+            <h2><%= question.title %></h2>
+            <ol class="options">
+              <%= render "survey/answers_radio_button", :question => question, :question_number => (question_number += 1) %>
+            </ol>
+          </li>
+        <% end %>
+
+        <% question = @presenter.heel_height_question %>
+        <li id="question_<%= question.id %>" class="images shoes">
+            <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
+          <h2><%= question.title %></h2>
+          <ol class="options">
+            <%= render "survey/answers_shoes", :question => @presenter.heel_height_question, :question_number => @presenter.heel_height_question_number %>
+          </ol>
+        </li>
+
+        <% question_shoe_size = @presenter.shoe_size_question %>
+        <li id="question_<%= question_shoe_size.id %>" class="about">
+          <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
+          <ol class="options">
+            <%= render "survey/answers_about_something", :question => question_shoe_size %>
+          </ol>
+		  <fieldset class='buttons'>
+		    <ol>
+		      <li class="button">
+		        <%= submit_tag("", :id => "finish")   %>
+		      </li>
+		    </ol>
+		  </fieldset>
+        </li>
+    </ul>
+  </div>
+<% end %>

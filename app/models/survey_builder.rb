@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class SurveyBuilder
-  attr_accessor :questions
+  attr_accessor :questions, :survey
 
-  def initialize(questions)
-    @survey = Survey.create(:name => "Registration Survey")
+  def initialize(questions, survey_name)
+    @survey = Survey.find_or_create_by_name(survey_name)
     @questions = questions
   end
 

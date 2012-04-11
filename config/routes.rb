@@ -1,11 +1,8 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-  get "occasions/new"
 
   get "home/index"
-
   get "liquidation_products/index"
-
   get "index/index"
   root :to => "home#index"
 
@@ -88,10 +85,6 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
 
-
-
-  #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
-
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
     resources :addresses, :path => 'enderecos'
@@ -111,7 +104,13 @@ Olook::Application.routes.draw do
   namespace :gift do
     root :to => "home#index"
     get "update_birthdays_by_month/:month" => 'home#update_birthdays_by_month'
-    resources :occasions, :only => [:new,:create]
+    resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
+    resources :recipients, :only => [:new, :create, :edit, :update]
+    resources :occasions, :only => [:new, :create] do
+      collection do
+        post "new_with_data" => "occasions#new_with_data"
+      end
+    end
   end
 
   namespace :admin do
