@@ -6,43 +6,105 @@ div.full_container {
   background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
   div.content {
-    background: url("/assets/gift/bg-header.jpg") top center no-repeat;
     font-family: "Open Sans", sans-serif;
-    height: 485px;
-    h1 {
-      font-family: "Open Sans", sans-serif;
-      font-size: 70px;
-      font-weight: 600;
-      letter-spacing: -7px;
-      line-height: 50px;
-      width: 455px;
-      margin: 40px 0 25px 0;
+    &#banner {
+      background: url("/assets/gift/bg-header.jpg") top center no-repeat;
+      height: 485px;
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 70px;
+        font-weight: 600;
+        letter-spacing: -7px;
+        line-height: 50px;
+        width: 455px;
+        margin: 40px 0 25px 0;
+      }
+      p {
+        color: #343434;
+        font-size: 14px;
+        letter-spacing: -1px;
+        line-height: 17px;
+        width: 405px;
+        margin: 0 0 20px 0;
+      }
+      img {
+        margin: 0 0 20px 0;
+      }
+      a#new_occasion_link {
+        background: url("/assets/gift/bt-start.jpg") no-repeat;
+        color: #FFF;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
+        text-transform: uppercase;
+        text-align: center;
+        text-decoration: none;
+        line-height: 43px;
+        letter-spacing: -1px;
+        width: 347px;
+        height: 46px;
+        display: block;
+        clear: both;
+      }
     }
-    p {
-      color: #343434;
-      font-size: 14px;
-      letter-spacing: -1px;
-      line-height: 17px;
-      width: 405px;
-      margin: 0 0 20px 0;
-    }
-    img {
-      margin: 0 0 20px 0;
-    }
-    a#new_occasion_link {
-      background: url("/assets/gift/bt-start.jpg") no-repeat;
-      color: #FFF;
-      font-family: "Open Sans", sans-serif;
-      font-size: 20px;
-      text-transform: uppercase;
-      text-align: center;
-      text-decoration: none;
-      line-height: 43px;
-      letter-spacing: -1px;
-      width: 347px;
-      height: 46px;
-      display: block;
-      clear: both;
+    &#occasion {
+      form {
+        margin: 35px auto;
+        div, input[type="text"], select.custom_select {
+          font-family: "Open Sans", sans-serif;
+          font-size: 45px;
+          font-weight: lighter;
+          letter-spacing: -2px;
+        }
+        div {
+          color: #383838;
+          text-align: center;
+          width: 895px;
+          margin: 0 auto 20px auto;
+          p {
+            position: relative;
+            display: inline-block;
+            select.custom_select {
+              position: relative;
+              padding: 0 18px;
+              top: -25px;
+              left: 0;
+            }
+            span.select {
+              position: absolute;
+              background: #FFF;
+              color: #e05789;
+              padding: 0 20px;
+              left: 0;
+              border: 1px #a4a4a4 dotted;
+              z-index: 0;
+            }
+          }
+        }
+        input[type="text"] {
+          background: #FFF;
+          width: 280px;
+          color: #e05789;
+          padding: 0 20px;
+          border: 1px #a4a4a4 dotted;
+          &:focus {
+            outline: none;
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/gift/bt-continue.png") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          width: 133px;
+          line-height: 38px;
+          text-transform: uppercase;
+          margin: 0 auto;
+          display: block;
+          border: none;
+          cursor: pointer;
+          clear: both;
+        }
+      }
     }
   }
   &.offline {
@@ -178,27 +240,21 @@ div.content {
               width: 155px;
               float: right;
               li {
-                a {
+                input[type="submit"] {
+                  background: url("/assets/gift/bg-birthday.png") top left no-repeat;
                   color: #e05789;
                   font-family: "Open Sans", sans-serif;
                   font-size: 11px;
                   font-weight: bold;
                   letter-spacing: -1px;
                   text-decoration: none;
+                  width: 85px;
                   margin: 0 0 7px 0;
                   padding: 0 0 0 20px;
+                  border: none;
+                  cursor: pointer;
                   &:hover {
                     text-decoration: underline;
-                  }
-                }
-                &.gift {
-                  a {
-                    background: url("/assets/gift/bg-gift.png") top left no-repeat;
-                  }
-                }
-                &.birthday {
-                  a {
-                    background: url("/assets/gift/bg-birthday.png") top left no-repeat;
                   }
                 }
               }

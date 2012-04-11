@@ -9,10 +9,13 @@ class FacebookAdapter
   def facebook_friends fields="name, gender, birthday, first_name"
     Rails.cache.fetch(access_token, :expires_in => 15.minutes) do
       friends = adapter.get_connections("me", "friends", :fields => fields)
-      filter_female_friends(friends).map {|friend| OpenStruct.new(:uid => friend["id"],
-                                                                :name => friend["name"],
-                                                                :birthday => friend["birthday"],
-                                                                :first_name => friend["first_name"])}
+      filter_female_friends(friends).map do |friend|
+        OpenStruct.new(:uid => friend["id"],
+         :name => friend["name"],
+         :first_name => friend["first_name"],
+         :birthday => friend["birthday"]
+        )
+      end  
     end
   end
 
@@ -23,8 +26,8 @@ class FacebookAdapter
   def facebook_friends_ids
     facebook_friends.map(&:uid)
   end
-
-  def facebook_friends_with_birthday month=nil
+  
+  def facebook_friends_with_birthday month
     friends = []
     facebook_friends.select{|friend| friend.birthday }.each do |friend|
       begin
@@ -34,7 +37,11 @@ class FacebookAdapter
       rescue
       end
     end
-    friends.sort_by{|f| f.birthday}
+    if friends.empty?
+      friends
+    else
+      friends.sort_by{|f| f.birthday}
+    end
   end
 
   def facebook_friends_registered_at_olook

@@ -4,5 +4,6 @@ class Question < ActiveRecord::Base
   belongs_to :survey
 
   scope :from_registration_survey, joins(:survey).where("surveys.name = 'Registration Survey'").includes(:answers)
+  scope :from_gift_survey, joins(:survey).where("surveys.name = 'Gift Survey'").includes(:answers)
 
 end

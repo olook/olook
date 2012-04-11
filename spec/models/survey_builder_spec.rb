@@ -19,33 +19,41 @@ describe SurveyBuilder do
       :weights => []
     }
 
-    @survey = described_class.new(@survey_data)
   end
 
-  it "should create questions" do
+  subject { described_class.new(@survey_data, "Registration Survey") }
+
+  it "finds or creates a new survey with the received name" do
+    name = "Survey name"
+    Survey.should_receive(:find_or_create_by_name).with(name)
+
+    described_class.new(@survey_data, name)
+  end
+
+  it "creates the survey questions" do
     expect {
-      @survey.build
-    }.to change(Question, :count).by(@survey_data.size)
+      subject.build
+    }.to change { subject.survey.questions.count }.by(@survey_data.size)
   end
 
-  it "should create answers" do
+  it "creates the survey answers for each question" do
     total_of_answers = 8
     expect {
-      @survey.build
-    }.to change(Answer, :count).by(total_of_answers)
+      subject.build
+    }.to change { Answer.count }.by(total_of_answers)
   end
 
-  it "should create weights" do
+  it "create the weights for then answers" do
     total_of_weights = 4
     expect {
-      @survey.build
-    }.to change(Weight, :count).by(total_of_weights)
+      subject.build
+    }.to change { Weight.count }.by(total_of_weights)
   end
 
-  it "should create profiles" do
+  it "creates the profiles associated with the weights" do
     total_of_profiles = 2
     expect {
-      @survey.build
-    }.to change(Profile, :count).by(total_of_profiles)
+      subject.build
+    }.to change { Profile.count }.by(total_of_profiles)
   end
 end

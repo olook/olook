@@ -2,6 +2,8 @@
 class User < ActiveRecord::Base
 
   has_paper_trail :on => [:update, :destroy]
+  
+  serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
@@ -35,7 +37,10 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
-
+  
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_PUBLISH_STREAM = "publish_stream"
+  
   def name
     "#{first_name} #{last_name}".strip
   end
@@ -46,7 +51,9 @@ class User < ActiveRecord::Base
 
   def set_facebook_data(omniauth, session)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
-    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    if session[:facebook_scopes]
+      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")))
+    end
     update_attributes(attributes)
   end
 
@@ -83,6 +90,10 @@ class User < ActiveRecord::Base
 
   def has_facebook?
     self.uid.present?
+  end
+  
+  def has_facebook_friends_birthday?
+    self.facebook_permissions.include? "friends_birthday"
   end
 
   def can_access_facebook_extended_features?
