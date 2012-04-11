@@ -54,4 +54,32 @@ describe ProfileBuilder do
     @user.points.first.profile_id.should == @profile.id
     @user.points.last.profile_id.should  == @profile2.id
   end
+
+  context "#first_profile_given_questions" do
+    let(:profile_questions) { [{:profile => casual_profile, :weight => 5}] }
+    let(:profile_points) { { 1 => 20, 2 => 13, 10 => 210, 4 => 215, 7 => 94} }
+
+    it "gets profiles_given_questions" do
+      Profile.stub(:find)
+      described_class.should_receive(:profiles_given_questions).with(@questions).and_return(profile_questions)
+      described_class.first_profile_given_questions(@questions)
+    end
+
+    it "gets profiles points" do
+      Profile.stub(:find)
+      described_class.stub(:profiles_given_questions).and_return(profile_questions)
+      described_class.should_receive(:build_profiles_points).with(profile_questions).and_return(profile_points)
+      described_class.first_profile_given_questions(@questions)
+    end
+
+    it "tries to get the profile name with the highest score" do
+      profile = double(:profile)
+      described_class.stub(:profiles_given_questions)
+      described_class.stub(:build_profiles_points).and_return(profile_points)
+
+      Profile.should_receive(:find).with(4).and_return(profile)
+      profile.should_receive(:try).with(:name).and_return("Fashion")
+      described_class.first_profile_given_questions(@questions).should == "Fashion"
+    end
+  end
 end
