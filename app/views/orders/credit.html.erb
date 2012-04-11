@@ -34,4 +34,5 @@
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
   <%= render "shared/metrics/boobox/buy" %>
+  <%= render "shared/metrics/google/buy_done" %>
 <% end %>
