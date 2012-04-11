@@ -1,4 +1,4 @@
-class Gift::RecipientsController < ApplicationController
+class Gift::RecipientsController < Gift::BaseController
   # TO DO:
   # - check if user is logged in (we need an user_id to create the GiftRecipient)
   # - get shoe size (new and edit)

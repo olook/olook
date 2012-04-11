@@ -1,4 +1,4 @@
-class Gift::SurveyController < ApplicationController
+class Gift::SurveyController < Gift::BaseController
   layout "gift"
   def new
     @questions = Question.from_gift_survey
