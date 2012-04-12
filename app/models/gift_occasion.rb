@@ -1,7 +1,7 @@
 class GiftOccasion < ActiveRecord::Base
   belongs_to :user
-  belongs_to :gift_recipient
   belongs_to :gift_occasion_type
+  belongs_to :gift_recipient
   
   validates_associated :user, :gift_recipient, :gift_occasion_type
   

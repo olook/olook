@@ -1,5 +1,6 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/gift" %>
+  <%= stylesheet_link_tag "section/gift_home" %>
 <% end %>
 
 <% content_for :footer do %>
@@ -7,6 +8,9 @@
 <% end %>
 
 <% content_for :full do %>
+  <% unless user_signed_in? %>
+    <div class="shadow"></div>
+  <% end %>
   <div class="content" id="banner">
     <h1>Acerte em cheio no presente</h1>
     <p>Sed eu felis non ante vehicula mattis. Sed eu dui magna. Fusce at mi et justo sollicitudin vulputate. Nunc sed eros et eros aliquam iaculis. Quisque lacus libero, pharetra nec pretium sed, faucibus ac risus.</p>
