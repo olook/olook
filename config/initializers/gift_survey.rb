@@ -21,7 +21,7 @@ survey_data[0] = {
 }
 
 survey_data[1] = {
-  :question_title => "2. Qual dessas bolsas combina mais com o estilo da sua presenteado?",
+  :question_title => "2. Qual dessas bolsas combina mais com o estilo da sua presenteada?",
   :answers => ["Bolsa 1" ,"Bolsa 2" , "Bolsa 3"],
   :weights => [{"Bolsa 1" => {"2" => elegant, "1" => traditional}},
                {"Bolsa 2" => {"2" => sexy, "1" => trendy}},
