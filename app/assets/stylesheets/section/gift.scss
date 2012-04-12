@@ -125,9 +125,14 @@ div.full_container {
         }
       }
       #survey {
-        height: 515px !important;
+        height: 460px !important;
         h2 {
           margin: 0;
+        }
+        ul.questions {
+          h3 {
+            display: none;
+          }
         }
       }
 
