@@ -1,6 +1,4 @@
-class Gift::HomeController < Gift::BaseController
-  layout "gift"
-  
+class Gift::HomeController < Gift::BaseController  
   def index
   end
   

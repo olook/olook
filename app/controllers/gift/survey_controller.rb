@@ -1,5 +1,4 @@
 class Gift::SurveyController < Gift::BaseController
-  layout "gift"
   def new
     @questions = Question.from_gift_survey
     @presenter = GiftSurveyQuestions.new(@questions)
