@@ -55,6 +55,10 @@ body {
         margin: 30px auto;
         li {
           float: left;
+          img {
+            position: relative;
+            z-index: 100;
+          }
         }
       }
     }
@@ -70,15 +74,35 @@ body {
               width: 206px;
               height: 400px;
               margin: 0 20px;
+              label {
+                position: relative;
+                width: 206px;
+                height: 314px;
+                display: block;
+                div.shadow {
+                  position: absolute;
+                  background: #c6c6c6;
+                  width: 206px;
+                  height: 315px;
+                  display: block;
+                  margin: 0;
+                  top: 5px;
+                  left: 5px;
+                  z-index: 0;
+                }
+              }
               &:hover, &.selected {
                 color: rgb(189, 76, 116);
                 img {
-                  margin: -10px;
-                  border: 10px solid $pink;
                   cursor: pointer;
                 }
                 h3 {
                   color: $pink;
+                }
+                label {
+                  div.shadow {
+                    background: $pink;
+                  }
                 }
               }
             }
@@ -97,7 +121,22 @@ body {
                 width: 201px;
                 height: 285px;
                 margin: 0 10px;
-
+                label {
+                  position: relative;
+                  width: 204px;
+                  height: 276px;
+                  display: block;
+                  div.shadow {
+                    position: absolute;
+                    background: #c6c6c6;
+                    width: 204px;
+                    height: 276px;
+                    display: block;
+                    top: 5px;
+                    left: 5px;
+                    z-index: 0;
+                  }
+                }
                 img {
                   border: 1px solid #E9E9E9;
                 }
@@ -105,9 +144,12 @@ body {
                 &:hover, &.selected {
                   color: rgb(189, 76, 116);
                   img {
-                    margin: -10px;
-                    border: 11px solid $pink;
                     cursor: pointer;
+                  }
+                  label {
+                    div.shadow {
+                      background: $pink;
+                    }
                   }
                 }
               }
