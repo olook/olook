@@ -36,12 +36,11 @@ class ProfileBuilder
   end
   
   # TO DO:
-  # - add some checks to avoid nil errors
   # - check weights creation (on SurveyBuilder)
-  def self.first_profile_given_questions(questions)
-    profiles = self.profiles_given_questions(questions)
+  # Returns a list of profiles ids according to the user answers
+  def self.ordered_profiles(questions_and_answers)
+    profiles = self.profiles_given_questions(questions_and_answers)
     profiles_points = self.build_profiles_points(profiles)
-    profile_with_highest_score = profiles_points.sort{|a,b| a[1] <=> b[1]}.last
-    Profile.find(profile_with_highest_score.first).try(:name)
+    profiles_points.sort_by{ |profile_id,points| points }.map(&:first).reverse if profiles_points.present?
   end
 end
