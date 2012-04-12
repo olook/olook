@@ -27,7 +27,7 @@ module Abacos
       @data_entrega     = parse_data_entrega(order.freight.delivery_time)
 
       @endereco         = parse_endereco(order.freight.address)
-      @itens            = parse_itens(order.line_items, order.gift_wrapped)
+      @itens            = parse_itens(order.line_items)
       @pagamento        = parse_pagamento(order)
 
 
@@ -85,9 +85,9 @@ module Abacos
       total_discount
     end
 
-    def parse_itens(line_items, gift)
+    def parse_itens(line_items)
       line_items.map do |line_item|
-        Abacos::Item.new( line_item, gift )
+        Abacos::Item.new( line_item )
       end
     end
 
