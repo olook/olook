@@ -60,26 +60,36 @@ describe ProfileBuilder do
     let(:profile_points) { { 1 => 20, 2 => 13, 10 => 210, 4 => 215, 7 => 94} }
 
     it "gets profiles_given_questions" do
-      Profile.stub(:find)
       described_class.should_receive(:profiles_given_questions).with(@questions).and_return(profile_questions)
-      described_class.first_profile_given_questions(@questions)
+      described_class.ordered_profiles(@questions)
+    end
+
+    context "when no profile given questions is returned" do
+      it "returns nil" do
+        described_class.should_receive(:profiles_given_questions).with(@questions).and_return([])
+        described_class.ordered_profiles(@questions).should be_nil
+      end
     end
 
     it "gets profiles points" do
-      Profile.stub(:find)
       described_class.stub(:profiles_given_questions).and_return(profile_questions)
       described_class.should_receive(:build_profiles_points).with(profile_questions).and_return(profile_points)
-      described_class.first_profile_given_questions(@questions)
+      described_class.ordered_profiles(@questions)
     end
 
-    it "tries to get the profile name with the highest score" do
-      profile = double(:profile)
+    context "when no profile point is returned" do
+      it "returns nil" do
+        described_class.stub(:profiles_given_questions).and_return(profile_questions)
+        described_class.should_receive(:build_profiles_points).with(profile_questions).and_return({})
+        described_class.ordered_profiles(@questions)
+      end
+    end
+
+    it "returns the profile ids sorted by the profile points order" do
       described_class.stub(:profiles_given_questions)
       described_class.stub(:build_profiles_points).and_return(profile_points)
 
-      Profile.should_receive(:find).with(4).and_return(profile)
-      profile.should_receive(:try).with(:name).and_return("Fashion")
-      described_class.first_profile_given_questions(@questions).should == "Fashion"
+      described_class.ordered_profiles(@questions).should == [4,10,7,1,2]
     end
   end
 end
