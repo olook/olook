@@ -108,7 +108,7 @@ describe MembersController do
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
     member.stub(:has_early_access?).and_return(true)
     subject.stub(:current_user) { member }
-
+    
     post :invite_by_email, :invite_mail_list => joined_emails
 
     response.should redirect_to(member_invite_path)

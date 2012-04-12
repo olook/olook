@@ -2,6 +2,10 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "carts" %>
+<% end %>
+
 <section id="cart">
   <table cellpadding="0" cellspacing="0" class="items_list">
     <thead>
@@ -151,10 +155,49 @@
           <% end %>
         </td>
       </tr>
+      <tr class="discount">
+        <td class="item"><h1>Embrulhar pedido para presente</h1></td>
+        <td colspan="2">
+          <p><strong>Selecione a caixa ao lado</strong></p>
+          <p>Para embrulhar seu pedido para presente</p>
+        </td>
+        <td class="cupom">
+          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrapped" } ) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= check_box('gift', 'gift_wrapped') %>
+                </li>
+                <li>
+                  <p>R$ 5,00</p>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="discount hidden_row">
+        <td class="item"></td>
+        <td colspan="2">
+          <p class="line_bottom"><strong>Mensagem para presente</strong></p>
+          <p>Para embrulhar seu pedido para presente</p>
+        </td>
+        <td class="cupom">
+          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_message" } ) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_area('gift', 'gift_message') %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
     </tbody>
   </table>
-  <%= link_to "Continuar", addresses_path, :class => "continue" %>
+  <%= link_to "Continuar", addresses_path, :class => "continue"  %>
 </section>
 <% content_for :ecommerce_tracking do %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>

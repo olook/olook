@@ -195,7 +195,8 @@ class Order < ActiveRecord::Base
     size_items
   end
 
-  def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
+  def add_variant(variant, quantity=nil, is_gift=false)
+    quantity ||= Order::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
     if variant.available_for_quantity?(quantity)
       current_item = line_items.select { |item| item.variant == variant }.first
@@ -207,11 +208,21 @@ class Order < ActiveRecord::Base
                                      :variant_id => variant.id,
                                      :quantity => quantity,
                                      :price => variant.price,
-                                     :retail_price => retail_price)
+                                     :retail_price => retail_price,
+                                     :is_gift => is_gift)
         line_items << current_item
       end
       current_item
     end
+  end
+
+  def has_gift( gift=false )
+    self.line_items.each do |item|
+      if item.is_gift == true && gift == false || item.is_gift == false && gift == true
+        return false
+      end
+    end
+    return true
   end
 
   def remove_variant(variant)
