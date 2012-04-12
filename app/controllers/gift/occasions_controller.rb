@@ -1,6 +1,5 @@
 # encoding: UTF-8
 class Gift::OccasionsController < Gift::BaseController
-  layout "gift"
   before_filter :load_collections_for_selects, :only => [:new, :new_with_data]
   
   def new

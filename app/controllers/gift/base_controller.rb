@@ -1,5 +1,5 @@
 class Gift::BaseController < ApplicationController
-  
+  layout "gift"
   before_filter :check_facebook_permissions, :load_facebook_adapter, :load_friends
   
   def current_month
