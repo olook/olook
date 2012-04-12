@@ -74,7 +74,7 @@ div.full_container {
           font-weight: lighter;
           letter-spacing: -2px;
         }
-        div {
+        div.phrase_container {
           color: #383838;
           text-align: center;
           width: 895px;
@@ -123,6 +123,16 @@ div.full_container {
           cursor: pointer;
           clear: both;
         }
+      }
+      #survey {
+        height: 515px !important;
+        h2 {
+          margin: 0;
+        }
+      }
+
+      ul#tracker {
+        margin: 0 auto 30px;
       }
     }
   }
@@ -347,3 +357,5 @@ div#calendar_container {
     }
   }
 }
+
+
