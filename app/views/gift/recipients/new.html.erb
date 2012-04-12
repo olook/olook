@@ -1,4 +1,19 @@
-<h1>O perfil da sua presenteada é</h1>
-<p>
-  <%= image_tag "/assets/first_visit_banner/#{@profiles.first.first_visit_banner}.jpg"  %>
-</p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="full_bg">
+    <div class="content" id="profile">
+      <%= image_tag "/assets/first_visit_banner/#{@profiles.first.first_visit_banner}.jpg"  %>
+    </div>
+  </div>
+<% end %>
+
+<div id="occasion_new" class="content">
+  <%= render "gift/shared/calendar", :friends => @friends %>
+</div>
