@@ -1,7 +1,9 @@
+# -*- encoding : utf-8 -*-
 class Gift::SurveyController < Gift::BaseController
   def new
     @questions = Question.from_gift_survey
     @presenter = GiftSurveyQuestions.new(@questions)
+    # get gift recipient relation (amiga, mãe, namorada, etc) to use on questions (and create a helper)
   end
 
   def create

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateSurveysRecords < ActiveRecord::Migration
   def up
     survey = Survey.find_or_create_by_name("Registration Survey")
