@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RecreateGiftSurveyQuestions < ActiveRecord::Migration
   def up
 	  survey = Survey.find_by_name("Gift Survey")

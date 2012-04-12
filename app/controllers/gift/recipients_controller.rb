@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Gift::RecipientsController < Gift::BaseController
   # TO DO:
   # - check if user is logged in

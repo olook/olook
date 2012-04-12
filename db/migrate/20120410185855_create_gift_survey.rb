@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateGiftSurvey < ActiveRecord::Migration
   def up
      SurveyBuilder.new(GIFT_SURVEY_DATA, "Gift Survey").build
