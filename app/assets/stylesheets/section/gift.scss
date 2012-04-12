@@ -140,6 +140,21 @@ div.full_container {
         margin: 0 auto 30px;
       }
     }
+    &#profile {
+      h1 {
+        background: url("/assets/gift/line.png") bottom center no-repeat;
+        font-family: "Open Sans", sans-serif;
+        font-size: 52px;
+        font-weight: lighter;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+        margin: 25px 0 40px;
+        span {
+          color: #e05789;
+        }
+      }
+    }
   }
   &.offline {
     margin-top: -27px;
