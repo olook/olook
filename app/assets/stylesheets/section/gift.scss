@@ -124,6 +124,16 @@ div.full_container {
           clear: both;
         }
       }
+      #survey {
+        height: 515px !important;
+        h2 {
+          margin: 0;
+        }
+      }
+
+      ul#tracker {
+        margin: 0 auto 30px;
+      }
     }
   }
   &.offline {
@@ -348,9 +358,4 @@ div#calendar_container {
   }
 }
 
-#survey {
-  h2 {
-    margin: 0;
-  }
-}
 
