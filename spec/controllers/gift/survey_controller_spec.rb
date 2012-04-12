@@ -28,6 +28,8 @@ describe Gift::SurveyController do
 
   describe "POST 'create'" do
     let(:questions) {  [{"foo" => "bar"}, {"baz" => "bar"}]  }
+    let(:ordered_profiles) { [3,2,1] }
+    let(:recipient) { FactoryGirl.create(:gift_recipient) }
 
     context "when no questions param is received" do
       it "redirects to new_survey" do
@@ -37,26 +39,41 @@ describe Gift::SurveyController do
     end
 
     context "when questions param is received" do
-      it "keeps the questions and answers in the session" do
-        ProfileBuilder.stub(:first_profile_given_questions).and_return("Elegante")
 
-        post 'create', :questions => questions
-        session[:questions].should == questions
+      context "when no gift recipient is found in the session" do
+        it "redirects to new_survey" do
+          post 'create', :questions => questions
+          response.should redirect_to new_gift_survey_path
+        end
       end
 
-      it "keeps the recipient profile in the session" do
-        ProfileBuilder.should_receive(:first_profile_given_questions).and_return("Elegante")
+      context "when an existing gift recipient is found in the session" do
+        before do
+          session[:recipient_id] = recipient.id
+        end
 
-        post 'create', :questions => questions
-        session[:recipient_profile].should == "Elegante"
+        it "keeps the questions and answers in the session" do
+          ProfileBuilder.stub(:ordered_profiles).and_return(ordered_profiles)
+
+          post 'create', :questions => questions
+          session[:questions].should == questions
+        end
+
+        it "keeps the recipient profile in the session" do
+          ProfileBuilder.should_receive(:ordered_profiles).and_return(ordered_profiles)
+
+          post 'create', :questions => questions
+          session[:recipient_profiles].should == ordered_profiles
+        end
+
+        it "redirects to new recipient path" do
+          ProfileBuilder.stub(:ordered_profiles).and_return(ordered_profiles)
+
+          post 'create', :questions => questions
+          response.should redirect_to new_gift_recipient_path
+        end
       end
       
-      it "redirects to new recipient path" do
-        ProfileBuilder.stub(:first_profile_given_questions).and_return("Elegante")
-        
-        post 'create', :questions => questions
-        response.should redirect_to new_gift_recipient_path
-      end
     end
   end
 

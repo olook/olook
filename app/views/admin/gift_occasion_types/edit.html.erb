@@ -1,6 +1,11 @@
-<h1>Editing gift occasion type</h1>
+<h2>Editing gift occasion type</h2>
 
-<%= render 'form' %>
+<div class="inner">
+  <%= render 'form' %>
+</div>
 
-<%= link_to 'Show', admin_gift_occasion_type_path(@gift_occasion_type) %> |
-<%= link_to 'Back', admin_gift_occasion_types_path %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_gift_occasion_type_path(@gift_occasion_type) %></li>
+  <li><%= link_to 'Back', admin_gift_occasion_types_path %></li>
+<% end %>
+

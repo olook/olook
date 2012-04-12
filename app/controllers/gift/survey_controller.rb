@@ -7,9 +7,11 @@ class Gift::SurveyController < Gift::BaseController
 
   def create
     questions = params[:questions]
-    if questions.present?
+    recipient_id = session[:recipient_id]
+    recipient = GiftRecipient.find(recipient_id) if recipient_id
+    if questions.present? && recipient.present?
       session[:questions] = questions
-      session[:recipient_profile] = ProfileBuilder.first_profile_given_questions(questions)
+      session[:recipient_profiles] = ProfileBuilder.ordered_profiles(questions)
       redirect_to new_gift_recipient_path
     else
       redirect_to new_gift_survey_path

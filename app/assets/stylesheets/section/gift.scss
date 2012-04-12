@@ -2,9 +2,28 @@ header {
   background: none;
 }
 
+body #tracker + p {
+  display: none;
+}
+
 div.full_container {
-  background: #edf0f7 url("/assets/gift/shadow-header.jpg") bottom repeat-x;
+  background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
+  div.shadow {
+    position: absolute;
+    background: url("/assets/gift/shadow-signed-out.png") top center no-repeat;
+    width: 1124px;
+    height: 26px;
+    display: block;
+    margin-left: -562px;
+    top: 0;
+    left: 50%;
+  }
+  div.full_bg {
+    background: url("/assets/gift/bg.jpg") repeat;
+    width: 100%;
+    overflow: hidden;
+  }
   div.content {
     font-family: "Open Sans", sans-serif;
     &#banner {
@@ -55,7 +74,7 @@ div.full_container {
           font-weight: lighter;
           letter-spacing: -2px;
         }
-        div {
+        div.phrase_container {
           color: #383838;
           text-align: center;
           width: 895px;
@@ -105,6 +124,16 @@ div.full_container {
           clear: both;
         }
       }
+      #survey {
+        height: 515px !important;
+        h2 {
+          margin: 0;
+        }
+      }
+
+      ul#tracker {
+        margin: 0 auto 30px;
+      }
     }
   }
   &.offline {
@@ -121,7 +150,7 @@ div.content {
       top: 0;
       left: 0;
       width: 990px;
-      height: 185px;
+      height: 100%;
       display: block;
     }
     div.title {
@@ -328,3 +357,5 @@ div#calendar_container {
     }
   }
 }
+
+

@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   end
   
   def has_facebook_friends_birthday?
-    self.facebook_permissions.include? "friends_birthday"
+    has_facebook? && self.facebook_permissions.include?("friends_birthday")
   end
 
   def can_access_facebook_extended_features?

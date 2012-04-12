@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 
-<%= link_to 'Edit', edit_admin_gift_recipient_relation_path(@gift_recipient_relation) %> |
-<%= link_to 'Back', admin_gift_recipient_relations_path %>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Edit', edit_admin_gift_recipient_relation_path(@gift_recipient_relation) %></li>
+  <li><%= link_to 'Back', admin_gift_recipient_relations_path %></li>
+<% end %>
+
