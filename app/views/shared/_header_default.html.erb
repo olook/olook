@@ -55,15 +55,7 @@
       <% end %>
         <ul class="default">
           <% present 'Menu', :user => current_user do |menu_presenter| %>
-            <%= menu_presenter.showroom %>
-            <%= menu_presenter.lookbooks %>
-            <%= menu_presenter.stylist %>
-            <%= menu_presenter.my_friends %>
-            <%= menu_presenter.invite %>
-            <%= menu_presenter.gift %>
-            <%= menu_presenter.liquidation %>
-            <%= menu_presenter.blog %>
-            <%= menu_presenter.cart %>
+            <%= menu_presenter.render_menu %>
           <% end %>
         </ul>
       </div>
