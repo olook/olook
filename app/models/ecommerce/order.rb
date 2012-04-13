@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
+  CANCELLATION_SOURCE = {:moip => 1, :abacos => 2}
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -25,6 +26,7 @@ class Order < ActiveRecord::Base
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -32,12 +34,13 @@ class Order < ActiveRecord::Base
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
+  has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
 
   scope :with_payment, joins(:payment)
   scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
-  scope :paid, where("state IN ('picking', 'delivering', 'delivered', 'authorized')")
+  scope :paid, where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
   scope :not_in_the_cart, where("state <> 'in_the_cart'")
   scope :with_complete_payment, joins(:payment).where("payments.state IN ('authorized','completed')")
 
@@ -322,6 +325,8 @@ class Order < ActiveRecord::Base
   def update_user_credit
     Credit.remove(credits, user, self) if credits > 0
   end
+
+
 
   private
 
