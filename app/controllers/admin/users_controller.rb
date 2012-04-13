@@ -73,7 +73,7 @@ class Admin::UsersController < Admin::BaseController
     elsif params[:value].to_i < 0
       Credit.remove(params[:value].to_i.abs ,@user, nil, "Removed by #{current_admin.name}", params[:reason])
     end
-    redirect_to :action => :show
+    redirect_to (admin_user_path(@user))
   end
 
 end
