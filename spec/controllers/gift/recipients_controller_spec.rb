@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Gift::RecipientsController do
@@ -22,9 +23,9 @@ describe Gift::RecipientsController do
     end
 
     context "when no profile_id list is found in the session" do
-      it "redirect to gift home path" do
+      it "gets all profiles" do
+        Profile.should_receive(:all).and_return(profiles)
         get 'edit', :id => id
-        response.should redirect_to gift_root_path
       end
     end
 
@@ -79,14 +80,22 @@ describe Gift::RecipientsController do
       assigns(:gift_recipient).should == recipient
     end
 
-    it "redirects to edit_gift_recipient_path" do
-      post 'update', :id => id
+    it "redirects to gift_root_path" do
+      post 'update', :id => id, :gift_recipient => { :shoe_size => "39"}
       response.should redirect_to gift_root_path
     end
 
     it "updates gift recipient shoe size and profile id only" do
       GiftRecipient.any_instance.should_receive(:update_attributes!).with("shoe_size" => "39", "profile_id" => "9")
       post 'update', :id => id, :gift_recipient => { :shoe_size => "39", :profile_id => "9", :user_id => "47"}
+    end
+
+    context "when no shoe size is selected" do
+      it "redirects to edit recipient and shows message" do
+        post 'update', :id => id, :gift_recipient => { :shoe_size => nil }
+        response.should redirect_to edit_gift_recipient_path(recipient)
+        flash[:notice].should == "Por favor, escolha o número de sapato da sua presenteada."
+      end
     end
 
   end
