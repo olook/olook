@@ -23,7 +23,11 @@ class SessionsController < Devise::SessionsController
     if resource_or_scope.is_a?(Admin)
       admin_path
     else
-      member_showroom_path
+      if current_user.half_user
+        gift_root_path
+      else
+        member_showroom_path
+      end
     end
   end
 end

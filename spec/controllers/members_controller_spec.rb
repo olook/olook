@@ -107,6 +107,7 @@ describe MembersController do
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
     member.stub(:has_early_access?).and_return(true)
+    member.stub(:half_user).and_return(false)
     subject.stub(:current_user) { member }
     
     post :invite_by_email, :invite_mail_list => joined_emails
@@ -174,6 +175,7 @@ describe MembersController do
       member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
       member.stub(:has_early_access?).and_return(true)
+      member.stub(:half_user).and_return(false)
       subject.stub(:current_user) { member }
 
       post :invite_imported_contacts, :email_provider => "gmail", :email_address => emails
