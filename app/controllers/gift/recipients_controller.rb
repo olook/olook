@@ -16,7 +16,10 @@ class Gift::RecipientsController < Gift::BaseController
   end
 
   def create
-    #update profile and shoe size
+    # profile = Profile.find(params[:gift_recipient][:profile])
+    # shoe_size = params[:gift_recipient][:shoe_size]
+    # GiftRecipient.update_profile_and_shoe_size(session[:recipient_id], profile)
+    #flash[:notice] = "As informações do seu presenteado foram atualizadas com sucesso"
     redirect_to gift_root_path
   end
 
