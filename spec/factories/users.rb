@@ -10,6 +10,7 @@ FactoryGirl.define do
     end
     first_name "User First Name"
     last_name "User Last Name"
+    half_user false
   end
 
   factory :user do
@@ -22,6 +23,7 @@ FactoryGirl.define do
     first_name "User First Name"
     last_name "User Last Name"
     facebook_permissions []
+    half_user false
     created_at 2.days.ago
 
     after_build do |user|
@@ -50,4 +52,5 @@ FactoryGirl.define do
       end
     end
   end
+
 end

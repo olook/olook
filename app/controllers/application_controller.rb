@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_promotion
-    if current_user && current_user.half_user
+    if current_user and not current_user.half_user
       @promotion = PromotionService.new(current_user).detect_current_promotion
     end
   end
