@@ -16,10 +16,10 @@
         <ul class="shoes">
           <% (36..40).each do |size| %>
             <li>
-              <label for="shoes_size">
+              <%= label_tag "gift_recipient_shoe_size_#{size}" do %>
                 <%= size %>
                 <%= f.radio_button :shoe_size, size %>
-              </label>
+              <% end %>
             </li>
           <% end %>
         </ul>

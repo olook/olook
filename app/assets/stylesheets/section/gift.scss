@@ -159,6 +159,49 @@ div.full_container {
         height: 226px;
         margin: 0 auto 55px;
       }
+      form {
+        > h1 {
+          color: #101010;
+          font-family: "Open Sans", sans-serif;
+          font-size: 22px;
+          font-weight: lighter;
+          text-align: center;
+          text-transform: lowercase;
+          margin: 0 auto 20px;
+        }
+        ul.shoes {
+          width: 340px;
+          overflow: hidden;
+          margin: 0 auto 60px;
+          display: block;
+          li {
+            background: #FFF;
+            color: #D95485;
+            line-height: 36px;
+            margin-right: 19px;
+            display: block;
+            border: 1px solid #D95485;
+            float: left;
+            label {
+              font-family: "Lucida Grande";
+              font-size: 14px;
+              font-weight: bold;
+              text-align: center;
+              display: block;
+              width: 46px;
+              height: 38px;
+              cursor: pointer;
+              input {
+                display: none;
+              }
+            }
+            &.selected {
+              background: #D95485;
+              color: white;
+            }
+          }
+        }
+      }
     }
   }
   &.offline {
