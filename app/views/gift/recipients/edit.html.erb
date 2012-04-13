@@ -1,2 +1,46 @@
-<h1>Gift::Recipients#edit</h1>
-<p>Find me in app/views/gift/recipients/edit.html.erb</p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="full_bg">
+    <div class="content" id="profile">
+      <h1><span><%= @gift_recipient.name %></span> é</h1>
+      <%= image_tag "/assets/first_visit_banner/#{@gift_recipient.profile.first_visit_banner}.jpg"  %>
+    </div>
+
+		<%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
+		<h3>Qual o tamanho de sapato da sua presenteada?</h3>
+	  <ul>
+	    <% (36..40).each do |size| %>
+	      <li>
+	        <label for="shoes_size"> <%= size %>
+		        <%= f.radio_button :shoe_size, size %>
+		</label>
+	      </li>
+	    <% end %>
+
+		  <% @profiles[0..2].each do |profile| %>
+	      <li>
+	        <label for="profile_id"> <%= profile.name %>
+	          <%= f.radio_button :profile_id, profile.id %>
+		</label>
+	      </li>
+	    <% end %>
+
+	    <li class="button">
+	<%= submit_tag("Continuar", :id => "finish")   %>
+      </li>
+	  </ul>
+		<% end %>
+
+  </div>
+<% end %>
+
+<div id="occasion_new" class="content">
+  <%= render "gift/shared/calendar", :friends => @friends %>
+</div>
