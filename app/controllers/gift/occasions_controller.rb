@@ -30,8 +30,8 @@ class Gift::OccasionsController < Gift::BaseController
       redirect_to new_gift_survey_path
     else
       # errors
-      flash[:notice] = "Não foi possível iniciar a criação do seu presente, verifique os dados e tente novamente." if @occasion.errors.any?
-      redirect_to request.referer
+      flash[:notice] = "Não foi possível criar o seu presente, verifique os dados e tente novamente." if @occasion.errors.any?
+      redirect_to :back
     end
   end
   

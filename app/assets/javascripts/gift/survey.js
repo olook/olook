@@ -10,30 +10,6 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.about ul li').live('click', function() {
-    $(this).parent('ul').find('li').removeClass('selected');
-    $(this).addClass('selected');
-  });
-
-  $('.colors .stars label').hover(function() {
-    var elementID = $(this).parents('ol').attr('id');
-
-    if ($('.colors .stars label').parents('#' + elementID).find('li').hasClass('click_star')) {
-      $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
-    }
-    $(this).parent().addClass('starred').prevAll().addClass('starred');
-
-  }, function() {
-    var elementID = $(this).parents('ol').attr('id');
-
-    if ($('.colors .stars label').parents('#' + elementID).find(':radio:checked').length == 1) {
-        $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
-        $('.colors .stars label').parents('#' + elementID).find('li.click_star').addClass('starred').prevAll().addClass('starred');
-    }else{
-      $('.colors .stars label').parents('#' + elementID).find('li').removeClass('starred');
-    }
-  });
-
   $('.colors div label').click(function() {
     var elementID = $(this).parents('ol').attr('id');
 
