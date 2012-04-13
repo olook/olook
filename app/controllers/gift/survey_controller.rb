@@ -16,7 +16,7 @@ class Gift::SurveyController < Gift::BaseController
     if questions.present? && @recipient
       session[:questions] = questions
       session[:recipient_profiles] = ProfileBuilder.ordered_profiles(questions)
-      redirect_to new_gift_recipient_path
+      redirect_to edit_gift_recipient_path(@recipient)
     else
       redirect_to new_gift_survey_path
     end
