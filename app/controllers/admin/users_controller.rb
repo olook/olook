@@ -65,4 +65,15 @@ class Admin::UsersController < Admin::BaseController
     redirect_to :action => :show
   end
 
+  # TO DO - Change transaction validation to CreditService class / This is not a model validation
+  def create_credit_transaction
+    @user = User.find(params[:id])
+    if params[:value].to_i > 0
+      Credit.add(params[:value].to_i, @user, nil, "Added by #{current_admin.name}", params[:reason])
+    elsif params[:value].to_i < 0
+      Credit.remove(params[:value].to_i.abs ,@user, nil, "Removed by #{current_admin.name}", params[:reason])
+    end
+    redirect_to :action => :show
+  end
+
 end

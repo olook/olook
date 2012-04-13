@@ -140,6 +140,7 @@ Olook::Application.routes.draw do
         get 'login/:id' => 'users#admin_login'
         get 'lock_access/:id' => 'users#lock_access'
         get 'unlock_access/:id' => 'users#unlock_access'
+        post 'create_credit_transaction' => 'users#create_credit_transaction'
       end
     end
 
