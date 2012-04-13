@@ -23,19 +23,23 @@
             </li>
           <% end %>
         </ul>
-        <ul class="profiles">
-          <% @profiles[0..2].each do |profile| %>
-            <li>
-              <label for="profile_id">
-                <%= profile.name %>
-                <%= f.radio_button :profile_id, profile.id %>
-              </label>
-            </li>
-          <% end %>
-          <li class="button">
-            <%= submit_tag("Continuar", :id => "finish")   %>
-          </li>
-        </ul>
+
+        <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
+
+        <p>Não faz o estilo dela? <%= link_to "Clique aqui", "#", :class => "select_profile" %>
+
+        <div class="profiles">
+          <ul>
+            <% @profiles[0..2].each do |profile| %>
+              <li>
+                <label for="profile_id">
+                  <%= profile.name %>
+                  <%= f.radio_button :profile_id, profile.id %>
+                </label>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
     </div>
   </div>
