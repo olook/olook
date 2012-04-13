@@ -8,19 +8,7 @@ describe GiftSurveyQuestions do
 
   describe "#common_questions" do
     it "returns the common questions" do
-      subject.common_questions.should == questions[0..3]
-    end
-  end
-
-  describe "#heel_height_question" do
-    it "returns heel height question" do
-      subject.heel_height_question.should == questions[4]
-    end
-  end
-
-  describe "#shoe_size_question" do
-    it "returns shoe size question" do
-      subject.shoe_size_question.should == questions[5]
+      subject.common_questions.should == questions[0..6]
     end
   end
 
