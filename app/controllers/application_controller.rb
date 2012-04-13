@@ -54,9 +54,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_early_access
-    if current_user
-      redirect_to member_invite_path unless current_user.has_early_access?
-    end
+    redirect_to member_invite_path if current_user && !current_user.has_early_access?
   end
 
   def assign_default_country

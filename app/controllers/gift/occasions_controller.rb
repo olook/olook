@@ -23,15 +23,12 @@ class Gift::OccasionsController < Gift::BaseController
     @occasion.build_gift_recipient(params[:recipient].merge(:user_id => current_user ? current_user : nil))
     
     if @occasion.save
-      # saved
       session[:occasion_id] = @occasion.id
       session[:recipient_id] = @occasion.gift_recipient.id
       
       redirect_to new_gift_survey_path
     else
-      # errors
-      flash[:notice] = "Não foi possível criar o seu presente, verifique os dados e tente novamente." if @occasion.errors.any?
-      redirect_to :back
+      redirect_to :back, :notice => "Não foi possível criar o seu presente, verifique os dados e tente novamente."
     end
   end
   

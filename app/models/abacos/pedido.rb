@@ -32,9 +32,8 @@ module Abacos
 
 
       @nota_simbolica   = order.gift_wrapped
-      @valor_embalagem  = ( order.gift_wrapped ) ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
-      @anotacao_pedido  = ( order.gift_wrapped ) ? order.gift_message : false
-
+      @valor_embalagem  = order.gift_wrapped ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
+      @anotacao_pedido  = order.gift_wrapped ? order.gift_message : false
     end
 
     def parsed_data
@@ -87,7 +86,7 @@ module Abacos
 
     def parse_itens(line_items)
       line_items.map do |line_item|
-        Abacos::Item.new( line_item )
+        Abacos::Item.new(line_item)
       end
     end
 
