@@ -10,34 +10,34 @@
   <div class="full_bg">
     <div class="content" id="profile">
       <h1><span><%= @gift_recipient.name %></span> é</h1>
-      <%= image_tag "/assets/first_visit_banner/#{@gift_recipient.profile.first_visit_banner}.jpg"  %>
+      <%= image_tag "/assets/first_visit_banner/#{@profiles.first.first_visit_banner}.jpg", :title => "#{@profiles.first.name}", :class => "profile" %>
+      <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
+        <h1>e o tamanho do sapato é:</h1>
+        <ul class="shoes">
+          <% (36..40).each do |size| %>
+            <li>
+              <label for="shoes_size">
+                <%= size %>
+                <%= f.radio_button :shoe_size, size %>
+              </label>
+            </li>
+          <% end %>
+        </ul>
+        <ul class="profiles">
+          <% @profiles[0..2].each do |profile| %>
+            <li>
+              <label for="profile_id">
+                <%= profile.name %>
+                <%= f.radio_button :profile_id, profile.id %>
+              </label>
+            </li>
+          <% end %>
+          <li class="button">
+            <%= submit_tag("Continuar", :id => "finish")   %>
+          </li>
+        </ul>
+      <% end %>
     </div>
-
-		<%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
-		<h3>Qual o tamanho de sapato da sua presenteada?</h3>
-	  <ul>
-	    <% (36..40).each do |size| %>
-	      <li>
-	        <label for="shoes_size"> <%= size %>
-		        <%= f.radio_button :shoe_size, size %>
-		</label>
-	      </li>
-	    <% end %>
-
-		  <% @profiles[0..2].each do |profile| %>
-	      <li>
-	        <label for="profile_id"> <%= profile.name %>
-	          <%= f.radio_button :profile_id, profile.id %>
-		</label>
-	      </li>
-	    <% end %>
-
-	    <li class="button">
-	<%= submit_tag("Continuar", :id => "finish")   %>
-      </li>
-	  </ul>
-		<% end %>
-
   </div>
 <% end %>
 
