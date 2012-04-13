@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Gift::RecipientsController < Gift::BaseController
   # TO DO:
-  # - check if current_user.id is equal to gift_recipient.user_id
+  # - check if current_user.id is equal to gift_recipient.user_id (if user is loged in)
+  # - hide recipient id (in session or via post)
   before_filter :load_recipient
 
   def edit
@@ -10,14 +11,19 @@ class Gift::RecipientsController < Gift::BaseController
       @profiles = Profile.find(*profiles)
       @gift_recipient.update_attributes!(:profile => @profiles.first) unless @gift_recipient.profile
     else
-      redirect_to gift_root_path
+      @profiles = Profile.all
     end
   end
 
   def update
-    shoe_size_and_profile = params[:gift_recipient].slice(:shoe_size, :profile_id) if params[:gift_recipient].present?
-    @gift_recipient.update_attributes!(shoe_size_and_profile) if shoe_size_and_profile
-    redirect_to gift_root_path
+    both_params = params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
+    if both_params && both_params[:shoe_size].present?
+      @gift_recipient.update_attributes!(both_params)
+      redirect_to gift_root_path
+    else
+      flash[:notice] = "Por favor, escolha o número de sapato da sua presenteada."
+      redirect_to edit_gift_recipient_path(@gift_recipient)
+    end
   end
 
   private
