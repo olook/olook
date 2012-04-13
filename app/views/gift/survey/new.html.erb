@@ -21,7 +21,7 @@
             <% for question in @presenter.common_questions %>
               <li id="question_<%= question.id %>" class="images">
                 <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
-                <h2><%= question.title %></h2>
+                <h2><%= question_title_for_recipient(question.title, @recipient.relation_name) %></h2>
                 <ol class="options">
                   <%= render "survey/answers_radio_button", :question => question, :question_number => (question_number += 1) %>
                 </ol>

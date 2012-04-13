@@ -8,7 +8,9 @@ class GiftRecipient < ActiveRecord::Base
   
   validates :name, :presence => true, :length => {:minimum => 2}
   validates :shoe_size, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50}, :allow_nil => true
-
+  
+  delegate :name, :to => :gift_recipient_relation, :allow_nil => true, :prefix => :relation
+  
   def self.update_profile_and_shoe_size(recipient_id, profile, shoe_size = nil)
     if recipient_id
       recipient = GiftRecipient.find_by_id(recipient_id)
