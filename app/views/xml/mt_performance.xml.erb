@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
 <% for product in @products %>
+<% unless product.sold_out? %>
 <produto>
 <nome><![CDATA[<%= product.name %>]]></nome>
 <descricao><![CDATA[<%= product.description %>]]></descricao>
@@ -11,5 +12,6 @@
 <preco_original><%= number_with_precision(product.price, :precision => 2) %></preco_original>
 <categoria><%= full_category(product) %></categoria>
 </produto>
+<% end %>
 <% end %>
 </produtos>
