@@ -1,22 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <produtos>
 <% for product in @products %>
+<% unless product.sold_out? %>
 <produto>
 <id_produto><![CDATA[<%= product.id %>]]></id_produto>
 <link_produto><![CDATA[<%= product.product_url(:utm_source => "click_a_porter") %>]]></link_produto>
 <nome_produto><![CDATA[<%= product.name %>]]></nome_produto>
 <marca><![CDATA[olook]]></marca>
-<categoria><![CDATA[<%= Category.t(product.category) %> <%= product.subcategory %>]]></categoria>
+<categoria><![CDATA[<%= full_category(product) %>]]></categoria>
 <cores><cor><![CDATA[<%= product.color_name %>]]></cor></cores>
 <descricao><![CDATA[<%= product.description %>]]></descricao>
-<preco_de><![CDATA[<%= number_to_currency(product.price, :unit => "") %>]]></preco_de>
-<preco_por><![CDATA[<%= number_to_currency(product.retail_price, :unit => "") %>]]></preco_por>
-<parcelamento><![CDATA[<%= CreditCard.installments_number_for(product.retail_price) %>]]></parcelamento>
+<preco_de><![CDATA[<%= number_with_precision(product.price, :precision => 2) %>]]></preco_de>
+<preco_por><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2) %>]]></preco_por>
+<parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
 <imagens>
 <% for picture in product.pictures %>
 <imagem><![CDATA[<%= picture.image %>]]></imagem>
 <% end %>
 </imagens>
 </produto>
+<% end %>
 <% end %>
 </produtos>

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   module Helpers
-    API_KEY = "D0D9B9D4-827B-47B5-9CA2-475E13DCBA64"
+    API_KEY = ABACOS_CONFIG["key"]
 
     def find_in_descritor_pre_definido(data, query)
       items = parse_nested_data(data, :dados_descritor_pre_definido)
@@ -25,23 +25,23 @@ module Abacos
       client = Savon::Client.new wsdl
       client.http.read_timeout = 3000
       xml = client.request :abac, method, :body => params
-      
+
       response = xml.to_hash["#{method}_response".to_sym]["#{method}_result".to_sym]
-      
+
       # TODO: refactor method to make this response check optional
       # raise_webservice_error(response) if response[:resultado_operacao].nil?
 
       response
     end
-    
+
     def raise_webservice_error(response)
       raise "Error calling webservice #{response[:method]}: (#{response[:codigo]}) #{response[:tipo]} - #{response[:descricao]} - #{response[:exception_message]}"
     end
-    
+
     # The Abacos API may return invalid nested data inside a valid response
     def parse_nested_data(data, key)
       call_response = data[:resultado_operacao][:tipo]
-      
+
       case call_response
         when 'tdreSucesso'
           parsed_data = data[:rows][key]
@@ -62,11 +62,11 @@ module Abacos
     def parse_cpf(cpf)
       cpf.gsub(/-|\.|\s/, '')[0..10]
     end
-    
+
     def parse_data(birthday)
       birthday.strftime "%d%m%Y"
     end
-    
+
     def parse_datetime(datetime)
       datetime.strftime "%d%m%Y %H:%M:%S"
     end
@@ -74,11 +74,11 @@ module Abacos
     def parse_telefone(telephone)
       telephone[0..14]
     end
-    
+
     def parse_price(price)
       "%.2f" % (price || 0)
     end
-    
+
     def parse_endereco(address)
       Abacos::Endereco.new(address)
     end

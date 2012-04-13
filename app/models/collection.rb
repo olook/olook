@@ -6,9 +6,12 @@ class Collection < ActiveRecord::Base
   validates :end_date, :presence => true
   validate :any_active_collections?
 
+  def self.from_last_month
+    Collection.where('id < ?', Collection.active.try(:id)).order('id desc').first
+  end
+
   def self.for_date(date)
-    Collection.where( '(:date >= start_date) AND (:date <= end_date)',
-                      :date => date).first
+    Collection.where( '(:date >= start_date) AND (:date <= end_date)', :date => date).first
   end
 
   def self.current
@@ -19,6 +22,8 @@ class Collection < ActiveRecord::Base
     Collection.where(:is_active => true).first
   end
 
+  private
+
   def any_active_collections?
     collections = Collection.where(:is_active => true).all
     if self.is_active
@@ -28,12 +33,10 @@ class Collection < ActiveRecord::Base
     end
   end
 
-  private
   def is_current_active?(collections)
     collections.collect! {|col| col.id}
     if collections.include?(self.id)
       true
     end
   end
-
 end
