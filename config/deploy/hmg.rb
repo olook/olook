@@ -7,7 +7,10 @@ role :app, "107.22.8.210"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, 'homolog'
+#set :branch, 'homolog'
+if not variables.include?(:branch)
+  set :branch, 'homolog'
+end
 
 # tasks
 namespace :deploy do
