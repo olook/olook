@@ -97,11 +97,11 @@ describe Gift::SurveyController do
           session[:recipient_profiles].should == ordered_profiles
         end
 
-        it "redirects to new recipient path" do
+        it "redirects to edit recipient path" do
           ProfileBuilder.stub(:ordered_profiles).and_return(ordered_profiles)
 
           post 'create', :questions => questions
-          response.should redirect_to new_gift_recipient_path
+          response.should redirect_to edit_gift_recipient_path(recipient.id)
         end
       end
       

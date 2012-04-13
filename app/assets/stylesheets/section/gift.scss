@@ -141,7 +141,7 @@ div.full_container {
       }
     }
     &#profile {
-      h1 {
+      > h1 {
         background: url("/assets/gift/line.png") bottom center no-repeat;
         font-family: "Open Sans", sans-serif;
         font-size: 52px;
@@ -153,6 +153,11 @@ div.full_container {
         span {
           color: #e05789;
         }
+      }
+      img.profile {
+        width: 930px;
+        height: 226px;
+        margin: 0 auto 55px;
       }
     }
   }
