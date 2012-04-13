@@ -1,0 +1,20 @@
+<%= form_tag 'create_credit_transaction' do %>
+  <%= hidden_field_tag "id", user.id %>
+  <%= number_field_tag "value", :in => -150..150 %>
+  <%= select_tag "reason", "<option>Produto Errado</option>
+                            <option>Atraso de Entrega</option>
+                            <option>Atraso de Atendimento</option>
+                            <option>Erro Técnico</option>
+                            <option>Erro Humano</option>
+                            <option>Erro Completa</option>
+                            <option>Erro Transportadora</option>
+                            <option>Reembolso - Cancelamento do pedido</option>
+                            <option>Reembolso - Devolução</option> 
+                            <option>Presente</option>
+                            <option>Falta de estoque/Stock out</option>
+                            <option>Erro do operador</option>
+                            <option>Créditos Expirados</option>
+                            <option>Fraude</option>".html_safe %>
+  <%= submit_tag "Create Credit Transaction" %>
+<% end %>
+

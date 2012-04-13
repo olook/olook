@@ -1,0 +1,22 @@
+<h2>Credits Transactions</h2>
+<%= render partial: 'form_credits', locals: { user: user }  %>
+<br />
+<table class="table">
+  <tr>
+    <th>Credit Source</th>
+    <th>Credit Reason</th>
+    <th>Value</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+  </tr>
+<% user.credits.each do |credit| %>
+  <tr>
+    <td><%= credit.source %></td>
+    <td><%= credit.reason %></td>
+    <%= credit.is_debit == true ? "<td style='color:red'>-#{credit.value}</td>".html_safe : "<td style='color:green'>#{credit.value}</td>".html_safe %>
+    <td><%= credit.created_at.to_s(:short) %></td>
+    <td><%= credit.updated_at.to_s(:short) %></td>
+  </tr>
+<% end %>
+<tr><td>Total</td><td></td><td></td><td><%= user.current_credit %></td></tr></table></tr>
+</table>
