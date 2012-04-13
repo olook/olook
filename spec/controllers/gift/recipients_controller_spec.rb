@@ -1,62 +1,94 @@
 require 'spec_helper'
 
 describe Gift::RecipientsController do
+  let!(:recipient) { FactoryGirl.create(:gift_recipient) }
+  let!(:id) { recipient.id.to_s }
+  let!(:first_profile) { FactoryGirl.create(:casual_profile) }
+  let!(:second_profile) { FactoryGirl.create(:sporty_profile) }
+  let(:profiles) { [first_profile, second_profile] }
+  let!(:profile_ids) { [first_profile.id, second_profile.id] }
 
-  describe "GET 'new'" do
-    let(:profiles) { double(:profiles, :first => 'first') }
+  describe "GET 'edit'" do
+
+    it "load and assigns @gift_recipient" do
+      GiftRecipient.should_receive(:find).with(id)
+      post 'edit', :id => id
+    end
+
+    it "assigns gift recipient to @gift_recipint" do
+      GiftRecipient.stub(:find).and_return(recipient)
+      post 'edit', :id => id
+      assigns(:gift_recipient).should == recipient
+    end
 
     context "when no profile_id list is found in the session" do
       it "redirect to gift home path" do
-        get 'new'
+        get 'edit', :id => id
         response.should redirect_to gift_root_path
       end
     end
 
     context "when a profile_id list is found in the session" do
-      let(:profile_ids) { [1,2,3] }
 
       before do
         session[:recipient_profiles] = profile_ids
-        session[:recipient_id] = 5
       end
 
       it "finds the profiles in the session and assigns @profiles" do
-        GiftRecipient.stub(:update_profile_and_shoe_size)
-        Profile.should_receive(:find).with(1,2,3).and_return(profiles)
-        get 'new'
+        Profile.should_receive(:find).with(*profile_ids).and_return(profiles)
+        get 'edit', :id => id
         assigns(:profiles).should == profiles
       end
 
-      it "updates the gift_recipient found in the session and assigns @gift_recipient" do
-        gift_recipient = double(:gift_recipient)
-        Profile.stub(:find).and_return(profiles)
-        GiftRecipient.should_receive(:update_profile_and_shoe_size).with(5,"first").and_return(gift_recipient)
-        get 'new'
-        assigns(:gift_recipient).should == gift_recipient
+      context "when the gift_recipient has no profile assigned" do
+        before do
+          GiftRecipient.any_instance.stub(:profile).and_return(nil)
+        end
+
+        it "updates the gift_recipient profile attribute with the first profile" do
+          GiftRecipient.any_instance.should_receive(:update_attributes!).with(:profile => first_profile)
+          get 'edit', :id => id
+        end
       end
 
-    end
-  end
-
-  describe "POST 'create'" do
-    it "redirects_to gift_root_path" do
-      post 'create'
-      response.should redirect_to gift_root_path
+      context "when the user already has a profile" do
+        before do
+          GiftRecipient.any_instance.stub(:profile).and_return(anything)
+        end
+        it "does not update the gift_recipient profile" do
+          Profile.stub(:find).and_return(profiles)
+          GiftRecipient.any_instance.should_not_receive(:update_attributes!)
+          get 'edit', :id => id
+        end
+      end
     end
   end
 
   describe "POST 'update'" do
-    it "returns http success" do
-      post 'update'
-      response.should be_success
-    end
-  end
 
-  describe "GET 'edit'" do
-    it "returns http success" do
-      get 'edit'
-      response.should be_success
+    let(:params) { {:gift_recipient => {} } }
+
+    it "load and assigns @gift_recipient" do
+      GiftRecipient.should_receive(:find).with(id)
+      post 'update', :id => id
     end
+
+    it "assigns gift recipient to @gift_recipint" do
+      GiftRecipient.stub(:find).and_return(recipient)
+      post 'update', :id => id
+      assigns(:gift_recipient).should == recipient
+    end
+
+    it "redirects to edit_gift_recipient_path" do
+      post 'update', :id => id
+      response.should redirect_to gift_root_path
+    end
+
+    it "updates gift recipient shoe size and profile id only" do
+      GiftRecipient.any_instance.should_receive(:update_attributes!).with("shoe_size" => "39", "profile_id" => "9")
+      post 'update', :id => id, :gift_recipient => { :shoe_size => "39", :profile_id => "9", :user_id => "47"}
+    end
+
   end
 
 end
