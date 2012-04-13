@@ -362,14 +362,13 @@ describe User do
   end
 
   describe "showroom methods" do
+    let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
     let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
     let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-
     let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
-
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
 
@@ -389,6 +388,11 @@ describe User do
       it 'should return an array' do
         subject.all_profiles_showroom.should be_a(Array)
       end
+
+      it 'should return producs given a collection' do
+        subject.should_receive(:profile_showroom).at_least(2).times.with(anything, Category::BAG, last_collection).and_return(stub(:all => []))
+        subject.all_profiles_showroom(Category::BAG, last_collection)
+      end
     end
 
     describe "#profile_showroom" do
@@ -406,6 +410,12 @@ describe User do
 
       it 'should not include the invisible product' do
         subject.profile_showroom(sporty_profile).should_not include(invisible_product)
+      end
+
+      it "should return only the products for the last collection" do
+        product_a.update_attributes(:collection => last_collection)
+        product_b.update_attributes(:collection => last_collection)
+        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
       end
     end
 
@@ -598,6 +608,15 @@ describe User do
           order.authorized
           order.picking
           order.delivering
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order under review" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.under_review
           subject.first_buy?.should be_true
         end
       end
