@@ -38,9 +38,17 @@ class MenuPresenter < BasePresenter
     render_item("Convidar amigas", h.member_invite_path, "invite", ["members#invite"])
   end
   
-  #TODO: highlight gift
   def gift
-    render_item("Presentes", h.gift_root_path, "gift", [])
+    render_item("Presentes", h.gift_root_path, "gift",
+     [
+      "gift/home#index",
+      "gift/occasions#new",
+      "gift/occasions#new_with_data",
+      "gift/survey#new",
+      "gift/recipients#edit",
+      "gift/suggestions#index"
+     ]
+    )
   end
   
   def liquidation
