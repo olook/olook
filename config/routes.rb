@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-
   get "home/index"
   get "liquidation_products/index"
   get "index/index"
@@ -110,6 +109,8 @@ Olook::Application.routes.draw do
       collection do
         post "new_with_data" => "occasions#new_with_data"
       end
+    end
+    resources :suggestions, :only => [:index] do  
     end
   end
 
