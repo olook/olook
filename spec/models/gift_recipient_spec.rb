@@ -3,6 +3,15 @@ require 'spec_helper'
 
 describe GiftRecipient do
   
+  it "should return the first name" do
+    gift_recipient = FactoryGirl.create(:gift_recipient, :name => "John Travolta")
+    gift_recipient.first_name.should == "John"
+    gift_recipient.name = "Fry"
+    gift_recipient.first_name.should == "Fry"  
+    gift_recipient.name = ""
+    gift_recipient.first_name.should be_nil    
+  end
+  
   context "validation" do
     # it { should validate_presence_of :user }
     it { should belong_to :user }
