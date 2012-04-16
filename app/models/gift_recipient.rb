@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GiftRecipient < ActiveRecord::Base
   belongs_to :user
   belongs_to :gift_recipient_relation
@@ -13,6 +14,7 @@ class GiftRecipient < ActiveRecord::Base
   
   def first_name
     self.name.split[0] if self.name
+  end
 
   def belongs_to_user?(user)
     user_id == user.try(:id)
