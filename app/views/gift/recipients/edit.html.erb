@@ -10,9 +10,11 @@
   <div class="full_bg">
     <div class="content" id="profile">
       <h1><span><%= @gift_recipient.name %></span> é</h1>
-      <%= image_tag "/assets/first_visit_banner/#{@profiles.first.first_visit_banner}.jpg", :title => "#{@profiles.first.name}", :class => "profile" %>
+      <%= image_tag "/assets/gift/panel_#{@profiles.first.name.downcase}.png", :title => "#{@profiles.first.name}", :class => "profile" %>
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
         <h1>e o tamanho do sapato é:</h1>
+
+        <%= hidden_field_tag "gift_recipient[profile_id]", "#{@profiles.first.id}"%>
         <ul class="shoes">
           <% (36..40).each do |size| %>
             <li>
@@ -25,17 +27,18 @@
         </ul>
 
         <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
-
         <p>Não faz o estilo dela? <%= link_to "Clique aqui", "#", :class => "select_profile" %>
+      <% end %>
 
+      <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :html => { :class => "edit_profile" } do |f| %>
         <div class="profiles">
+          <h1>Quais das palavras abaixo<br /> definem melhor <span><%= @gift_recipient.first_name %></span> ?</h1>
           <ul>
-            <% @profiles[0..2].each do |profile| %>
-              <li>
-                <label for="profile_id">
-                  <%= profile.name %>
+            <% @profiles[1..3].each do |profile| %>
+              <li class="<%= profile.name.downcase %>">
+                <%= label_tag "gift_recipient_profile_id_#{profile.id}" do %>
                   <%= f.radio_button :profile_id, profile.id %>
-                </label>
+                <% end %>
               </li>
             <% end %>
           </ul>

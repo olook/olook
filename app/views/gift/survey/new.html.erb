@@ -9,7 +9,7 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <div class="content" id="survey">
+    <div class="content" id="quiz">
       <span id="next_link"></span>
       <div id="asynch-load"></div>
       <div id="survey">
@@ -20,7 +20,7 @@
             <% @presenter.common_questions.each_with_index do |question,question_number| %>
               <li id="question_<%= question.id %>" class="images">
                 <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
-                <h2><%= question_title_for_recipient(question.title, @recipient.relation_name) %></h2>
+                <h2><%= question_title_for_recipient(question.title, @gift_recipient.relation_name) %></h2>
                 <ol class="options">
                   <%= render "answers_radio_button", :question => question, :question_number => (question_number+1) %>
                 </ol>
