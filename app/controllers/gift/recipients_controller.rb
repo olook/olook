@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Gift::RecipientsController < Gift::BaseController
   # TO DO:
-  # - check if current_user.id is equal to gift_recipient.user_id (if user is loged in)
   # - hide recipient id (in session or via post)
   before_filter :load_recipient
 
