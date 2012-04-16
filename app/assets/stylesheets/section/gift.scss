@@ -148,7 +148,7 @@ div.full_container {
         font-weight: lighter;
         text-align: center;
         text-transform: uppercase;
-        letter-spacing: -2px;
+        letter-spacing: -5px;
         margin: 25px 0 40px;
         span {
           color: #e05789;
@@ -156,8 +156,9 @@ div.full_container {
       }
       img.profile {
         width: 930px;
-        height: 226px;
+        height: 247px;
         margin: 0 auto 55px;
+        display: block;
       }
       form {
         > h1 {
@@ -231,7 +232,116 @@ div.full_container {
           }
         }
         div.profiles {
+          background: url("/assets/gift/line.png") top center no-repeat;
+          width: 100%;
+          padding: 10px 0 20px 0;
+          overflow: hidden;
           display: none;
+          > h1 {
+            font-family: "Open Sans", sans-serif;
+            font-size: 45px;
+            font-weight: lighter;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: -5px;
+            line-height: 50px;
+            margin: 25px 0 40px;
+            span {
+              color: #e05789;
+            }
+          }
+          ul {
+            margin: 0 0 0 25px;
+            li {
+              display: inline;
+              label {
+                position: relative;
+                background: url("/assets/gift/options_profile.png") no-repeat;
+                width: 292px;
+                height: 350px;
+                margin: 0 10px 10px;
+                display: block;
+                float: left;
+                cursor: pointer;
+                input[type="radio"] {
+                  position: absolute;
+                  display: none;
+                  top: 0;
+                  left: 0;
+                }
+              }
+              &.casual {
+                label {
+                  background-position: -2px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -2px -350px;
+                  }
+                }
+              }
+              &.contemporanea {
+                label {
+                  background-position: -302px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -302px -350px;
+                  }
+                }
+              }
+              &.elegante {
+                label {
+                  background-position: -599px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -599px -350px;
+                  }
+                }
+              }
+              &.feminina {
+                label {
+                  background-position: -896px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -896px -350px;
+                  }
+                }
+              }
+              &.sexy {
+                label {
+                  background-position: -1193px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -1193px -350px;
+                  }
+                }
+              }
+              &.tradicional {
+                label {
+                  background-position: -1490px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -1490px -350px;
+                  }
+                }
+              }
+              &.trendy {
+                label {
+                  background-position: -1787px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -1787px -350px;
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
