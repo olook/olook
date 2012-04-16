@@ -7,7 +7,10 @@ role :app, "50.16.43.154"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, 'development'
+#set :branch, 'development'
+if not variables.include?(:branch)
+  set :branch, 'development'
+end
 
 # tasks
 namespace :deploy do
