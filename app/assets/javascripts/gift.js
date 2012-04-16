@@ -23,6 +23,10 @@ $(function () {
     });
     event.preventDefault();
   });
+
+  $("form.edit_profile input").change(function() {
+    $("form.edit_profile").submit();
+  });
 });
 
 InitGift = {
