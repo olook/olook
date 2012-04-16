@@ -80,9 +80,9 @@ describe Gift::RecipientsController do
       assigns(:gift_recipient).should == recipient
     end
 
-    it "redirects to gift_root_path" do
+    it "redirects to gift suggestions path" do
       post 'update', :id => id, :gift_recipient => { :shoe_size => "39"}
-      response.should redirect_to gift_root_path
+      response.should redirect_to gift_suggestions_path
     end
 
     it "updates gift recipient shoe size and profile id only" do
