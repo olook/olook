@@ -4,6 +4,7 @@ class GiftRecipient < ActiveRecord::Base
   belongs_to :gift_recipient_relation
   has_many :occasions
   belongs_to :profile
+  serialize :ranked_profile_ids, Array
   
   validates_associated :user, :gift_recipient_relation
   
@@ -18,5 +19,12 @@ class GiftRecipient < ActiveRecord::Base
 
   def belongs_to_user?(user)
     user_id == user.try(:id)
+  end
+
+  def ranked_profiles(first_profile = nil)
+    if ranked_profile_ids.present?
+      profile_ids = ([ first_profile ] + ranked_profile_ids).uniq.compact
+      Profile.find(*profile_ids)
+    end
   end
 end

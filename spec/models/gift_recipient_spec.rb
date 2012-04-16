@@ -10,9 +10,9 @@ describe GiftRecipient do
     gift_recipient = FactoryGirl.create(:gift_recipient, :name => "John Travolta")
     gift_recipient.first_name.should == "John"
     gift_recipient.name = "Fry"
-    gift_recipient.first_name.should == "Fry"  
+    gift_recipient.first_name.should == "Fry"
     gift_recipient.name = ""
-    gift_recipient.first_name.should be_nil    
+    gift_recipient.first_name.should be_nil
   end
 
   context "validations" do
@@ -70,6 +70,41 @@ describe GiftRecipient do
         subject.belongs_to_user?(nil).should be_true
       end
     end
+  end
+
+  context "#ranked_profiles" do
+    let(:profiles) { double(:profiles) }
+
+    context "when ranked profile ids list is empty" do
+      before do
+        subject.ranked_profile_ids = nil
+        subject.save!
+      end
+
+      it "returns nil" do
+        subject.ranked_profiles.should be_nil
+      end
+    end
+
+    context "when ranked profile_ids list includes ids 4,1,3,2" do
+      before do
+        subject.ranked_profile_ids = [4,1,3,2]
+        subject.save!
+      end
+
+      it "finds the profiles with these ids" do
+        Profile.should_receive(:find).with(4,1,3,2).and_return(profiles)
+        subject.ranked_profiles.should == profiles
+      end
+
+      context "when first_profile is passed" do
+        it "finds the profiles with the first_profile as the first" do
+          Profile.should_receive(:find).with(3,4,1,2).and_return(profiles)
+          subject.ranked_profiles(3).should == profiles
+        end
+      end
+    end
+
   end
 
 end
