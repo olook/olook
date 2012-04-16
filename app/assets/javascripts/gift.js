@@ -12,6 +12,17 @@ $(function () {
       $(this).addClass("selected");
     }
   });
+
+  $("div#profile a.select_profile").live("click", function(event) {
+    $("div#profile div.profiles").slideDown('normal', function() {
+      container_position = $(this).position().top;
+      position = container_position - 40;
+      $('html, body').animate({
+        scrollTop: position
+      }, 'slow');
+    });
+    event.preventDefault();
+  });
 });
 
 InitGift = {
