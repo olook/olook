@@ -52,7 +52,7 @@ survey_data[4] = {
                {"Salto 3" => {"2" => feminine, "1" => sexy}}]
 }
 survey_data[5] = {
-  :question_title => "Qual dessas sapatilhas tem mais a cara da sua presenteada?",
+  :question_title => "6. Qual dessas sapatilhas tem mais a cara da sua presenteada?",
   :answers => ["Sapatilha 1" ,"Sapatilha 2" , "Sapatilha 3"],
   :weights => [{"Sapatilha 1" => {"1" => basic, "2" => traditional}},
                {"Sapatilha 2" => {"2" => fashionista, "1" => trendy}},
@@ -60,7 +60,7 @@ survey_data[5] = {
 }
 
 survey_data[6] = {
-  :question_title => "Qual dessas peças de roupa você vê mais a sua presenteada usando?",
+  :question_title => "7. Qual dessas peças de roupa você vê mais a sua presenteada usando?",
   :answers => ["Peça de roupa 1" ,"Peça de roupa 2" , "Peça de roupa 3"],
   :weights => [{"Peça de roupa 1" => {"2" => basic, "1" => traditional}},
                {"Peça de roupa 2" => {"1" => basic, "1" => traditional}},
