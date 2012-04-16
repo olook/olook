@@ -5,13 +5,8 @@ class Gift::RecipientsController < Gift::BaseController
   before_filter :load_recipient
 
   def edit
-    profiles = session[:recipient_profiles]
-    if profiles.present?
-      @profiles = Profile.find(*profiles)
-      @gift_recipient.update_attributes!(:profile => @profiles.first) unless @gift_recipient.profile
-    else
-      @profiles = Profile.all
-    end
+    profile_id = params[:gift_recipient][:profile_id] if params.include?(:gift_recipient)
+    @profiles = @gift_recipient.ranked_profiles(profile_id)
   end
 
   def update
