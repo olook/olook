@@ -13,5 +13,8 @@ class GiftRecipient < ActiveRecord::Base
   
   def first_name
     self.name.split[0] if self.name
+
+  def belongs_to_user?(user)
+    user_id == user.try(:id)
   end
 end

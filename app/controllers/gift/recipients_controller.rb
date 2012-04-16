@@ -16,9 +16,9 @@ class Gift::RecipientsController < Gift::BaseController
   end
 
   def update
-    both_params = params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
-    if both_params && both_params[:shoe_size].present?
-      @gift_recipient.update_attributes!(both_params)
+    profile_and_shoe = params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
+    if profile_and_shoe && profile_and_shoe[:shoe_size].present?
+      @gift_recipient.update_attributes!(profile_and_shoe) if @gift_recipient.belongs_to_user?(current_user)
       redirect_to gift_suggestions_path
     else
       flash[:notice] = "Por favor, escolha o número de sapato da sua presenteada."
