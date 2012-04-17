@@ -65,7 +65,7 @@ class Admin::UsersController < Admin::BaseController
     redirect_to :action => :show
   end
 
-  # TO DO - Change transaction validation to CreditService class / This is not a model validation
+  # TO DO - Change transaction validation to CreditService class / Should move this validation to CreditService Class
   def create_credit_transaction
     @user = User.find(params[:id])
     if params[:value].to_i > 0
