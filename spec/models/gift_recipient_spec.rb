@@ -7,8 +7,8 @@ describe GiftRecipient do
     FactoryGirl.create(:gift_recipient)
   end
   
-  let(:profile_one) { FactoryGirl.create(:casual_profile) }
-  let(:profile_two) { FactoryGirl.create(:sporty_profile) }
+  let!(:profile_one) { FactoryGirl.create(:casual_profile) }
+  let!(:profile_two) { FactoryGirl.create(:sporty_profile) }
 
   it "should return the first name" do
     gift_recipient = FactoryGirl.create(:gift_recipient, :name => "John Travolta")
@@ -80,12 +80,12 @@ describe GiftRecipient do
 
     context "when ranked profile ids list is empty" do
       before do
-        subject.ranked_profile_ids = nil
+        subject.ranked_profile_ids = []
         subject.save!
       end
 
-      it "returns nil" do
-        subject.ranked_profiles.should be_nil
+      it "returns all profiles" do
+        subject.ranked_profiles.should == [profile_one, profile_two]
       end
     end
 
