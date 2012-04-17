@@ -6,6 +6,12 @@ $(document).ready(function() {
   init.bindActions();
   init.tracker();
 
+  lastQuestion = $('#survey .jcarousel-item').size() - 2;
+  question = $('#survey .jcarousel-item')[lastQuestion];
+  $(question).find("ol.options > li").click(function() {
+    $(this).parents("form").submit();
+  });
+
   $('#survey').bind('keydown', 'tab',function (evt) {
     return false;
   });
