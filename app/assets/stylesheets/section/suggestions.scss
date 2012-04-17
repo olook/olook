@@ -1,5 +1,50 @@
 div.full_container {
   div.full_bg {
     background: #FFF;
+    div#suggestion {
+      div#card {
+        position: relative;
+        background: url("/assets/gift/bg-card.png") top left no-repeat;
+        width: 515px;
+        height: 195px;
+        display: block;
+        float: left;
+        table {
+          position: absolute;
+          border-collapse: separate;
+          border-spacing: 10px;
+          top: 45px;
+          left: 80px;
+          tbody {
+            tr {
+              td {
+                padding: 0 10px;
+                h1, p {
+                  font-family: "Open Sans", sans-serif;
+                  font-size: 12px;
+                  font-weight: 600;
+                }
+                h1 {
+                  color: #8b8b8b;
+                }
+                p {
+                  color: #383838;
+                  a {
+                    color: #df5b8c;
+                    font-size: 10px;
+                    margin: 0 0 0 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      div#profile {
+        width: 460px;
+        margin: 10px 0 0 0;
+        float: right;
+      }
+    }
   }
 }

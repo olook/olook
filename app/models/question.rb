@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Question < ActiveRecord::Base
-  has_many :answers, :order => '`question_id`, `order`, `id`'
+  has_many :answers, :order => '`question_id`, `order`, `id`', :dependent => :destroy
   belongs_to :survey, :dependent => :destroy
 
   scope :from_registration_survey, joins(:survey).where("surveys.name = 'Registration Survey'").includes(:answers)
