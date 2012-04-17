@@ -12,6 +12,7 @@ class ProductController < ApplicationController
     @url = request.protocol + request.host
     @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
+    respond_to :js, :html
   end
 
   def create_offline_session
