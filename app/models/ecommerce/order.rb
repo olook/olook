@@ -161,10 +161,19 @@ class Order < ActiveRecord::Base
       end
     end
   end
-
+  
+  def is_gift?
+    gift_wrapped
+  end
+  
   def clear_gift_in_line_items
-    self.reload
-    line_items.each {|item| item.update_attributes(:gift => false)}
+    reload
+    line_items.each {|item| item.update_attributes(:gift => false, :is_gift => false)}
+  end
+
+  def set_gift_in_line_items
+    reload
+    line_items.each {|item| item.update_attributes(:gift => true, :is_gift => true)}
   end
 
   def line_items_with_flagged_gift
@@ -221,9 +230,7 @@ class Order < ActiveRecord::Base
 
   def has_gift( gift=false )
     self.line_items.each do |item|
-      if item.is_gift == true && gift == false || item.is_gift == false && gift == true
-        return false
-      end
+      return false if item.is_gift && !gift || !item.is_gift && gift
     end
     return true
   end
@@ -265,6 +272,8 @@ class Order < ActiveRecord::Base
   def total
     subtotal = line_items_total - total_discount
     subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE
+    # gift wrapping price
+    subtotal += YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] if gift_wrapped
     subtotal
   end
 
