@@ -45,6 +45,49 @@ div.full_container {
         margin: 10px 0 0 0;
         float: right;
       }
+      section#products {
+        position: relative;
+        width: 855px;
+        margin: 0 auto 40px;
+        padding: 65px 0 0 0;
+        overflow: hidden;
+        clear: both;
+        p.discount {
+          position: absolute;
+          text-indent: -9999px;
+          display: block;
+          top: 0;
+          z-index: 1000;
+          &.off20 {
+            background: url("/assets/gift/label-20off.png") no-repeat;
+            width: 226px;
+            height: 80px;
+            left: 160px;
+          }
+          &.off40 {
+            background: url("/assets/gift/label-40off.png") no-repeat;
+            width: 227px;
+            height: 82px;
+            left: 470px;
+          }
+        }
+        div.product_container {
+          position: relative;
+          background: url("/assets/gift/box-products.jpg") no-repeat;
+          width: 235px;
+          height: 355px;
+          margin: 0 75px 0 0;
+          display: block;
+          float: left;
+          &.second {
+            background-position: -235px 0;
+          }
+          &.third {
+            background-position: -470px 0;
+            margin-right: 0;
+          }
+        }
+      }
     }
   }
 }
