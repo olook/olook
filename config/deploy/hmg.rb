@@ -7,10 +7,7 @@ role :app, "107.22.8.210"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-#set :branch, 'homolog'
-if not variables.include?(:branch)
-  set :branch, 'homolog'
-end
+set :branch, 'homolog'
 
 # tasks
 namespace :deploy do
@@ -24,7 +21,8 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    # run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    run "cd #{path_app} && #{bundle} install"    
   end
 
   desc 'Run migrations, clean assets'
