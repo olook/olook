@@ -5,6 +5,15 @@ class ProductFinderService
     @user = user
   end
 
+  def showroom_products(category = nil, description = nil)
+    categories = category.nil? ? Category.array_of_all_categories : [category]
+    results = []
+    categories.each do |cat|
+      results += products_from_all_profiles(cat, description)[0..4]
+    end
+    Product.remove_color_variations results
+  end
+
   def products_from_all_profiles(category = nil, description = nil)
     result = []
     user.profile_scores.each do |profile_score|
