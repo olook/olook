@@ -23,7 +23,7 @@ class MenuPresenter < BasePresenter
   end
   
   def lookbooks
-    render_item("Lookbooks", h.lookbooks_path, "lookbooks", [])
+    render_item("Lookbooks", h.lookbooks_path, "lookbooks", ["lookbooks#show"])
   end
   
   def stylist

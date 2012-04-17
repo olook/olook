@@ -18,10 +18,10 @@ describe Gift::SurveyController do
       end
     end
     
-    it "find the recipient by id and assigns to @recipient" do
+    it "find the gift recipient by id and assigns to @recipient" do
       GiftRecipient.should_receive(:find).with(session[:recipient_id]).and_return(recipient)
       get 'new'
-      assigns(:recipient).should == recipient 
+      assigns(:gift_recipient).should == recipient
     end
     
     context "with the recipient found" do
@@ -80,21 +80,13 @@ describe Gift::SurveyController do
           
           GiftRecipient.should_receive(:find).with(session[:recipient_id]).and_return(recipient)
           post 'create', :questions => questions
-          assigns(:recipient).should == recipient 
+          assigns(:gift_recipient).should == recipient
         end
 
-        it "keeps the questions and answers in the session" do
+        it "updates the gift recipient ranked_profile_ids" do
           ProfileBuilder.stub(:ordered_profiles).and_return(ordered_profiles)
-
+          GiftRecipient.any_instance.should_receive(:update_attributes!).with(:ranked_profile_ids => ordered_profiles)
           post 'create', :questions => questions
-          session[:questions].should == questions
-        end
-
-        it "keeps the recipient profiles in the session" do
-          ProfileBuilder.should_receive(:ordered_profiles).and_return(ordered_profiles)
-
-          post 'create', :questions => questions
-          session[:recipient_profiles].should == ordered_profiles
         end
 
         it "redirects to edit recipient path" do

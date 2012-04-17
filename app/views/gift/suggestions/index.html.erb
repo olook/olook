@@ -1,4 +1,21 @@
-<h1>Gift::Suggestions#index</h1>
-<p>Find me in app/views/gift/suggestions/index.html.erb</p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
+  <%= stylesheet_link_tag "section/suggestions" %>
+<% end %>
 
-<%# button_to "Continuar" %>
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift/suggestions" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="full_bg">
+    <div class="content" id="suggestion">
+      <div id="card">
+        <%= render "card" %>
+      </div>
+      <div id="profile">
+      </div>
+    </div>
+  </div>
+<% end %>
+

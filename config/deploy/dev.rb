@@ -7,7 +7,10 @@ role :app, "50.16.43.154"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, 'development'
+#set :branch, 'development'
+if not variables.include?(:branch)
+  set :branch, 'development'
+end
 
 # tasks
 namespace :deploy do
@@ -21,7 +24,8 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    #run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    run "cd #{path_app} && #{bundle} install"    
   end
 
   desc 'Run migrations, clean assets'
