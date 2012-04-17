@@ -88,6 +88,39 @@ div.full_container {
           }
         }
       }
+      ul.product_actions {
+        width: 525px;
+        margin: 0 auto 70px;
+        overflow: hidden;
+        li {
+          a {
+            color: #FFF;
+            font-family: "Open Sans", sans-serif;
+            font-size: 13px;
+            font-weight: 600px;
+            line-height: 42px;
+            letter-spacing: -1px;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            display: block;
+            float: left;
+          }
+          &:first-child {
+            a {
+              background: url("/assets/gift/bt-action-1.jpg") no-repeat;
+              width: 263px;
+              margin-right: 24px;
+            }
+          }
+          &:last-child {
+            a {
+              background: url("/assets/gift/bt-action-2.jpg") no-repeat;
+              width: 238px;
+            }
+          }
+        }
+      }
     }
   }
 }
