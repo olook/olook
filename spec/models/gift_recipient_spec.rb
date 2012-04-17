@@ -2,10 +2,14 @@
 require 'spec_helper'
 
 describe GiftRecipient do
+
   subject do
     FactoryGirl.create(:gift_recipient)
   end
   
+  let(:profile_one) { FactoryGirl.create(:casual_profile) }
+  let(:profile_two) { FactoryGirl.create(:sporty_profile) }
+
   it "should return the first name" do
     gift_recipient = FactoryGirl.create(:gift_recipient, :name => "John Travolta")
     gift_recipient.first_name.should == "John"
@@ -73,7 +77,6 @@ describe GiftRecipient do
   end
 
   context "#ranked_profiles" do
-    let(:profiles) { double(:profiles) }
 
     context "when ranked profile ids list is empty" do
       before do
@@ -88,21 +91,26 @@ describe GiftRecipient do
 
     context "when ranked profile_ids list includes ids 4,1,3,2" do
       before do
-        subject.ranked_profile_ids = [4,1,3,2]
+        subject.ranked_profile_ids = [profile_two.id, profile_one.id]
         subject.save!
       end
 
       it "finds the profiles with these ids" do
-        Profile.should_receive(:find).with(4,1,3,2).and_return(profiles)
-        subject.ranked_profiles.should == profiles
+        subject.ranked_profiles.should == [profile_two, profile_one]
       end
 
-      context "when first_profile is passed" do
-        it "finds the profiles with the first_profile as the first" do
-          Profile.should_receive(:find).with(3,4,1,2).and_return(profiles)
-          subject.ranked_profiles(3).should == profiles
+      context "when first_profile is equal to the profile one" do
+        it "returns the profiles with the profile one as the first result" do
+          subject.ranked_profiles(profile_one.id.to_s).should == [profile_one, profile_two]
         end
       end
+
+      context "when first_profile is equal to the profile two" do
+        it "finds the profiles with the profile two as the first result" do
+          subject.ranked_profiles(profile_two.id.to_s).should == [profile_two, profile_one]
+        end
+      end
+
     end
 
   end
