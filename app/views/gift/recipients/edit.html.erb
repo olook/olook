@@ -30,7 +30,7 @@
         <p>Não faz o estilo dela? <%= link_to "Clique aqui", "#", :class => "select_profile" %>
       <% end %>
 
-      <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :method => :get, :html => { :class => "edit_profile" } do |f| %>
+      <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :html => { :class => "edit_profile" } do |f| %>
         <div class="profiles">
           <h1>Quais das palavras abaixo<br /> definem melhor <span><%= @gift_recipient.first_name %></span> ?</h1>
           <ul>
