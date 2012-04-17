@@ -1,4 +1,17 @@
-<h1>Aqui vai a tela de sugestões de presentes!</h1>
-<p>Fim do primeiro sprint do Projeto Presente.</p>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
+  <%= stylesheet_link_tag "section/suggestions" %>
+<% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift/suggestions" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="full_bg">
+    <div class="content" id="suggestion">
+      <p>Teste</p>
+    </div>
+  </div>
+<% end %>
 
