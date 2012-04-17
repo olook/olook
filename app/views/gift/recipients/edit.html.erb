@@ -35,7 +35,7 @@
           <h1>Quais das palavras abaixo<br /> definem melhor <span><%= @gift_recipient.first_name %></span> ?</h1>
           <ul>
             <% @profiles[1..3].each do |profile| %>
-              <li class="<%= profile.name.downcase %>">
+              <li class="<%= profile.name.parameterize %>">
                 <%= label_tag "gift_recipient_profile_id_#{profile.id}" do %>
                   <%= f.radio_button :profile_id, profile.id %>
                 <% end %>
