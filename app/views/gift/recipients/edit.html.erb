@@ -17,7 +17,7 @@
         <%= hidden_field_tag "gift_recipient[profile_id]", "#{@profiles.first.id}"%>
         <ul class="shoes">
           <% (36..40).each do |size| %>
-            <li>
+            <li class="<%= ( size == @gift_recipient.shoe_size) ? 'selected': '' %>">
               <%= label_tag "gift_recipient_shoe_size_#{size}" do %>
                 <%= size %>
                 <%= f.radio_button :shoe_size, size %>
@@ -30,7 +30,7 @@
         <p>Não faz o estilo dela? <%= link_to "Clique aqui", "#", :class => "select_profile" %>
       <% end %>
 
-      <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :html => { :class => "edit_profile" } do |f| %>
+      <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :method => :get, :html => { :class => "edit_profile" } do |f| %>
         <div class="profiles">
           <h1>Quais das palavras abaixo<br /> definem melhor <span><%= @gift_recipient.first_name %></span> ?</h1>
           <ul>
