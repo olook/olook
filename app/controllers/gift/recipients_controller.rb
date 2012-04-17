@@ -2,6 +2,7 @@
 class Gift::RecipientsController < Gift::BaseController
   # TO DO:
   # - hide recipient id (in session or via post)
+  # - make route to post to edit action
   before_filter :load_recipient
 
   def edit
