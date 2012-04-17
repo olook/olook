@@ -22,9 +22,8 @@ class GiftRecipient < ActiveRecord::Base
   end
 
   def ranked_profiles(first_profile = nil)
-    if ranked_profile_ids.present?
-      profile_ids = first_profile ? ([first_profile.to_i] + ranked_profile_ids).uniq.compact : ranked_profile_ids
-      profile_ids.map { |id| Profile.find(id) }
-    end
+    all_profile_ids = ranked_profile_ids.empty? ? Profile.all.map(&:id) : ranked_profile_ids
+    profile_ids = first_profile ? ([first_profile.to_i] + all_profile_ids).uniq.compact : all_profile_ids
+    profile_ids.map { |id| Profile.find(id) }
   end
 end
