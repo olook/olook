@@ -49,6 +49,12 @@ Installing MySQL 5.1.49 on Ubuntu/Debian
 
 - sudo apt-get install mysql-server-5.1
 
+Deploy with Capistrano
+============
+
+-Deploy Development
+-Default branch set to development
+cap --set-before branch=YOUR_BRNCH_NAME dev deploy
 
 Cronjobs
 ============
