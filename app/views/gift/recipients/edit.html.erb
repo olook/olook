@@ -10,7 +10,7 @@
   <div class="full_bg">
     <div class="content" id="profile">
       <h1><span><%= @gift_recipient.name %></span> é</h1>
-      <%= image_tag "/assets/gift/panel_#{@profiles.first.name.downcase}.png", :title => "#{@profiles.first.name}", :class => "profile" %>
+      <%= image_tag "/assets/gift/panel_#{@profiles.first.name.parameterize}.png", :title => "#{@profiles.first.name}", :class => "profile" %>
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
         <h1>e o tamanho do sapato é:</h1>
 
