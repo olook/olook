@@ -12,11 +12,11 @@
       <h1><span><%= @gift_recipient.name %></span> é</h1>
       <%= image_tag "/assets/gift/panel_#{@profiles.first.name.parameterize}.png", :title => "#{@profiles.first.name}", :class => "profile" %>
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
-        <h1>e o tamanho do sapato é:</h1>
+        <h1>e o tamanho do sapato da sua <%= @gift_recipient.relation_name %> é:</h1>
 
         <%= hidden_field_tag "gift_recipient[profile_id]", "#{@profiles.first.id}"%>
         <ul class="shoes">
-          <% (36..40).each do |size| %>
+          <% (33..40).each do |size| %>
             <li class="<%= ( size == @gift_recipient.shoe_size) ? 'selected': '' %>">
               <%= label_tag "gift_recipient_shoe_size_#{size}" do %>
                 <%= size %>
