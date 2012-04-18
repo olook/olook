@@ -121,6 +121,27 @@ div.full_container {
           }
         }
       }
+      section#suggestions_container {
+        position: relative;
+        background: url("/assets/gift/bg-suggestions-container.jpg") 2px 20px no-repeat;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 50px;
+        h1 {
+          background: #FFF;
+          color: #343434;
+          font-family: "Times", sans-serif;
+          font-size: 40px;
+          font-style: italic;
+          font-weight: lighter;
+          letter-spacing: -3px;
+          text-transform: uppercase;
+          text-align: center;
+          width: 385px;
+          margin: 0 0 30px 295px;
+          float: left;
+        }
+      }
     }
   }
 }
