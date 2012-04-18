@@ -162,18 +162,14 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def is_gift?
-    gift_wrapped
-  end
-  
   def clear_gift_in_line_items
     reload
-    line_items.each {|item| item.update_attributes(:gift => false, :is_gift => false)}
+    line_items.each {|item| item.update_attributes(:gift => false)}
   end
 
   def set_gift_in_line_items
     reload
-    line_items.each {|item| item.update_attributes(:gift => true, :is_gift => true)}
+    line_items.each {|item| item.update_attributes(:gift => true)}
   end
 
   def line_items_with_flagged_gift
@@ -207,7 +203,7 @@ class Order < ActiveRecord::Base
     size_items
   end
 
-  def add_variant(variant, quantity=nil, is_gift=false)
+  def add_variant(variant, quantity=nil, gift=false)
     quantity ||= Order::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
     if variant.available_for_quantity?(quantity)
@@ -221,16 +217,16 @@ class Order < ActiveRecord::Base
                                      :quantity => quantity,
                                      :price => variant.price,
                                      :retail_price => retail_price,
-                                     :is_gift => is_gift)
+                                     :gift => gift)
         line_items << current_item
       end
       current_item
     end
   end
 
-  def has_gift( gift=false )
+  def has_gift(gift=false)
     self.line_items.each do |item|
-      return false if item.is_gift && !gift || !item.is_gift && gift
+      return false if item.gift? && !gift || !item.gift? && gift
     end
     return true
   end
