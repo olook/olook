@@ -20,6 +20,9 @@
         <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
         <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
         <div class="product_container first">
+          <ul>
+            <%= render "shared/suggestive_product", :product => Product.last %>
+          </ul>
         </div>
         <div class="product_container second">
         </div>

@@ -79,6 +79,39 @@ div.full_container {
           margin: 0 75px 0 0;
           display: block;
           float: left;
+          ul {
+            li.product {
+              position: absolute;
+              background: #FFF;
+              top: 13px;
+              left: 20px;
+              .box_product {
+                a.product_link {
+                  margin-bottom: 20px;
+                }
+                .line {
+                  span {
+                    font-family: "Times", sans-serif;
+                    font-size: 30px;
+                    font-style: italic;
+                    text-align: center;
+                    display: block;
+                    float: none;
+                    &.old {
+                      font-size: 20px;
+                      font-weight: normal;
+                      line-height: 9px;
+                      text-decoration: line-through;
+                    }
+                  }
+                }
+              }
+              &:hover {
+                padding: 10px;
+                border: none;
+              }
+            }
+          }
           &.second {
             background-position: -235px 0;
           }
