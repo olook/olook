@@ -181,6 +181,6 @@ Olook::Application.routes.draw do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
 
-  # TO-DO remove after mothers day
+  # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
   get ":page_url", :to => "landing_pages#show"
 end
