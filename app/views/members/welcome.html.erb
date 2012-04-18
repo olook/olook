@@ -22,7 +22,7 @@
 <%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
 
 <section id="welcome">
-  <%= link_to(image_tag("promotion_banners/banner_site.jpg", :class => "banner_mothers_day"), "http://www.olook.com.br/lookbooks/?utm_source=olook&utm_medium=banner_site&utm_campaign=maes12&utm_content=lookbookmaes" ) %>
+  <%= link_to(image_tag("promotion_banners/banner_site.jpg", :class => "banner_mothers_day"), "/lookbooks/?utm_source=olook&utm_medium=banner_site&utm_campaign=maes12&utm_content=lookbookmaes" ) %>
   <% if @banner %>
     <div class="banner">
       <%= link_to image_tag(@banner, :alt => current_liquidation.name), liquidations_path(current_liquidation.id) %>
