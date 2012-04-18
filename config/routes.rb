@@ -82,8 +82,6 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
-  # TO-DO remove after mothers day
-  get ":page_url", :to => "landing_pages#show"
   
   #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
@@ -182,4 +180,7 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
+
+  # TO-DO remove after mothers day
+  get ":page_url", :to => "landing_pages#show"
 end
