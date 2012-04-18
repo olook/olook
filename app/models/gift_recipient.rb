@@ -5,14 +5,14 @@ class GiftRecipient < ActiveRecord::Base
   has_many :occasions
   belongs_to :profile
   serialize :ranked_profile_ids, Array
-  
+
   validates_associated :user, :gift_recipient_relation
-  
+
   validates :name, :presence => true, :length => {:minimum => 2}
   validates :shoe_size, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50}, :allow_nil => true
-  
+
   delegate :name, :to => :gift_recipient_relation, :allow_nil => true, :prefix => :relation
-  
+
   def first_name
     self.name.split[0] if self.name
   end
@@ -25,5 +25,10 @@ class GiftRecipient < ActiveRecord::Base
     all_profile_ids = ranked_profile_ids.empty? ? Profile.all.map(&:id) : ranked_profile_ids
     profile_ids = first_profile ? ([first_profile.to_i] + all_profile_ids).uniq.compact : all_profile_ids
     profile_ids.map { |id| Profile.find(id) }
+  end
+
+  def profile_scores
+    profile_struct = Struct.new(:profile)
+    [profile_struct.new(profile)]
   end
 end

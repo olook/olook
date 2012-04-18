@@ -6,7 +6,7 @@ describe GiftRecipient do
   subject do
     FactoryGirl.create(:gift_recipient)
   end
-  
+
   let!(:profile_one) { FactoryGirl.create(:casual_profile) }
   let!(:profile_two) { FactoryGirl.create(:sporty_profile) }
 
@@ -22,7 +22,7 @@ describe GiftRecipient do
   context "validations" do
     # it { should validate_presence_of :user }
     it { should belong_to :user }
-    
+
     # it { should validate_presence_of :gift_recipient_relation }
     it { should belong_to :gift_recipient_relation }
 
@@ -34,13 +34,19 @@ describe GiftRecipient do
       it { should_not allow_value("A").for(:name) }
       it { should_not allow_value("  ").for(:name) }
     end
-    
+
     describe "shoe size" do
       # it { should validate_presence_of :shoe_size }
       it { should allow_value(35).for(:shoe_size) }
       it { should_not allow_value(0).for(:shoe_size) }
       it { should_not allow_value(-1).for(:shoe_size) }
       it { should_not allow_value("aa").for(:shoe_size) }
+    end
+  end
+
+  describe "#profile_scores" do
+    it "returns the profile scores with just one item that responds to #profile method" do
+      subject.profile_scores[0].profile.should == subject.profile
     end
   end
 
@@ -77,7 +83,6 @@ describe GiftRecipient do
   end
 
   context "#ranked_profiles" do
-
     context "when ranked profile ids list is empty" do
       before do
         subject.ranked_profile_ids = []
@@ -110,9 +115,6 @@ describe GiftRecipient do
           subject.ranked_profiles(profile_two.id.to_s).should == [profile_two, profile_one]
         end
       end
-
     end
-
   end
-
 end
