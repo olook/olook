@@ -105,6 +105,7 @@ Olook::Application.routes.draw do
     get "update_birthdays_by_month/:month" => 'home#update_birthdays_by_month'
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
+      resources :suggestions, :only => [:index]
       member do
         get :edit
         put :edit
@@ -115,8 +116,6 @@ Olook::Application.routes.draw do
       collection do
         post "new_with_data" => "occasions#new_with_data"
       end
-    end
-    resources :suggestions, :only => [:index] do  
     end
   end
 

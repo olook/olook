@@ -60,7 +60,7 @@ describe Gift::RecipientsController do
 
     it "redirects to gift suggestions path" do
       post 'update', :id => id, :gift_recipient => { :shoe_size => "39"}
-      response.should redirect_to gift_suggestions_path
+      response.should redirect_to gift_recipient_suggestions_path(recipient)
     end
 
     context "when the gift recipient belongs to the current user" do
