@@ -126,7 +126,8 @@ div.full_container {
         margin: 0 auto 70px;
         overflow: hidden;
         li {
-          a {
+          a, input[type="submit"] {
+            background: url("/assets/gift/bt-action-1.jpg") no-repeat;
             color: #FFF;
             font-family: "Open Sans", sans-serif;
             font-size: 13px;
@@ -136,21 +137,18 @@ div.full_container {
             text-align: center;
             text-decoration: none;
             text-transform: uppercase;
+            width: 263px;
+            margin-right: 24px;
             display: block;
             float: left;
           }
-          &:first-child {
-            a {
-              background: url("/assets/gift/bt-action-1.jpg") no-repeat;
-              width: 263px;
-              margin-right: 24px;
-            }
-          }
-          &:last-child {
-            a {
-              background: url("/assets/gift/bt-action-2.jpg") no-repeat;
-              width: 238px;
-            }
+          input[type="submit"] {
+            background: url("/assets/gift/bt-action-2.jpg") no-repeat;
+            line-height: 41px;
+            width: 238px;
+            margin: 0;
+            border: none;
+            cursor: pointer;
           }
         }
       }
