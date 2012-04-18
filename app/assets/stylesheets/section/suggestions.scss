@@ -1,3 +1,5 @@
+@import "partials/product";
+
 div.full_container {
   div.full_bg {
     background: #FFF;
@@ -169,8 +171,35 @@ div.full_container {
           text-transform: uppercase;
           text-align: center;
           width: 385px;
-          margin: 0 0 30px 295px;
+          margin: 0 0 0 295px;
           float: left;
+        }
+        ul {
+          width: 975px;
+          overflow: hidden;
+          margin: 0 auto;
+          li.product {
+            .box_product {
+              width: 175px;
+              a.product_link {
+                p.warn {
+                  top: 2px;
+                  left: 2px;
+                }
+                img {
+                  width: 170px;
+                  height: 170px;
+                }
+                h1 {
+                  width: 170px;
+                  height: 17px;
+                }
+              }
+              div.line {
+                width: 170px;
+              }
+            }
+          }
         }
       }
     }
