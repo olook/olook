@@ -9,13 +9,7 @@
         </div>
         <div class="products_list almost">
           <ul>
-            <%= showroom_presenter.display_accessories (5..9) %>
-          </ul>
-          <%= link_to "Veja mais acessórios", "javascript:void(0);", :class => "more all_accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "all" %>
-        </div>
-        <div class="products_list all">
-          <ul>
-            <%= showroom_presenter.display_accessories (10..100) %>
+            <%= showroom_presenter.display_accessories (5..100) %>
           </ul>
         </div>
       </div>
