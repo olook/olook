@@ -30,7 +30,6 @@ module Abacos
       @itens            = parse_itens(order.line_items)
       @pagamento        = parse_pagamento(order)
 
-
       @nota_simbolica   = order.gift_wrapped
       @valor_embalagem  = order.gift_wrapped ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
       @anotacao_pedido  = order.gift_wrapped ? order.gift_message : false
@@ -38,30 +37,31 @@ module Abacos
 
     def parsed_data
       result = {
-        'ListaDePedidos'        => {
-          'DadosPedidos'        => {
-            'NumeroDoPedido'    => @numero,
-            'CodigoCliente'     => @codigo_cliente,
-            'CPFouCNPJ'         => @cpf,
-            'DataVenda'         => @data_venda,
-            'DestNome'          => @nome,
-            'DestEmail'         => @email,
-            'DestTelefone'      => @telefone,
+        'ListaDePedidos' => {
+          'DadosPedidos' => {
+            'NumeroDoPedido'           => @numero,
+            'CodigoCliente'            => @codigo_cliente,
+            'CPFouCNPJ'                => @cpf,
+            'DataVenda'                => @data_venda,
+            'DestNome'                 => @nome,
+            'DestEmail'                => @email,
+            'DestTelefone'             => @telefone,
 
-            'ValorPedido'       => @valor_pedido,
-            'ValorDesconto'     => @valor_desconto,
-            'ValorFrete'        => @valor_frete,
-            'Transportadora'    => @transportadora,
+            'ValorPedido'              => @valor_pedido,
+            'ValorDesconto'            => @valor_desconto,
+            'ValorFrete'               => @valor_frete,
+            'Transportadora'           => @transportadora,
             'PrazoEntregaPosPagamento' => @tempo_entrega,
-            'DataPrazoEntregaInicial' => @data_entrega,
+            'DataPrazoEntregaInicial'  => @data_entrega,
 
-            'EmitirNotaSimbolica'     => @nota_simbolica,
-            'ValorEmbalagemPresente'  => @valor_embalagem,
-            'Anotacao1'               => @anotacao_pedido,
+            'EmitirNotaSimbolica'      => @nota_simbolica,
+            'ValorEmbalagemPresente'   => @valor_embalagem,
+            'Anotacao1'                => @anotacao_pedido,
 
-            'Itens'             =>
-              {'DadosPedidosItem' => @itens.map {|item| item.parsed_data} },
-            'FormasDePagamento' => @pagamento.parsed_data
+            'Itens' => {
+              'DadosPedidosItem'       => @itens.map {|item| item.parsed_data}
+            },
+            'FormasDePagamento'        => @pagamento.parsed_data
           }
         }
       }
