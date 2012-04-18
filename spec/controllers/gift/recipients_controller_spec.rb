@@ -63,24 +63,16 @@ describe Gift::RecipientsController do
       response.should redirect_to gift_recipient_suggestions_path(recipient)
     end
 
-    context "when the gift recipient belongs to the current user" do
-      before do
-        sign_in recipient.user
-        request.env['devise.mapping'] = Devise.mappings[:user]
-        GiftRecipient.any_instance.stub(:belongs_to_user?).with(recipient.user).and_return(true)
-      end
-
-      it "updates gift recipient shoe size and profile id only" do
-        GiftRecipient.any_instance.should_receive(:update_attributes!).with("shoe_size" => "39", "profile_id" => "9")
-        post 'update', :id => id, :gift_recipient => { :shoe_size => "39", :profile_id => "9", :user_id => "47"}
-      end
-    end
-
     context "when the gift recipient does not belong to the user" do
       before do
         sign_in recipient.user
         request.env['devise.mapping'] = Devise.mappings[:user]
         GiftRecipient.any_instance.stub(:belongs_to_user?).with(recipient.user).and_return(false)
+      end
+      
+      it "updates gift recipient shoe size and profile id only" do
+        GiftRecipient.any_instance.should_receive(:update_attributes!).with("shoe_size" => "39", "profile_id" => "9")
+        post 'update', :id => id, :gift_recipient => { :shoe_size => "39", :profile_id => "9", :user_id => "47"}
       end
 
       it "updates gift recipient shoe size and profile id only" do
