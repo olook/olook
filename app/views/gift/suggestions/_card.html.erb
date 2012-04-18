@@ -3,25 +3,25 @@
     <tr>
       <td>
         <h1>Para:</h1>
-        <p>Maria Cecília</p>
+        <p><%= @gift_recipient.name %></p>
       </td>
       <td>
         <h1>Presente de:</h1>
-        <p>Rodolfo</p>
+        <p><%= current_user.name %></p>
       </td>
       <td>
         <h1>Data:</h1>
-        <p>31 de Dezembro</p>
+        <p><%= I18n.l(Date.new(Date.today.year, @occasion.month, @occasion.day), :format => :short) %></p>
       </td>
     </tr>
     <tr>
       <td>
         <h1>Tamanho do sapato:</h1>
-        <p>36 <%= link_to "Alterar", "#" %></p>
+        <p><%= @gift_recipient.shoe_size %> <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %></p>
       </td>
       <td>
-        <h1>Que é:</h1>
-        <p>Minha namorada</p>
+        <h1>Que é sua:</h1>
+        <p><%= @gift_recipient.relation_name %></p>
       </td>
     </tr>
   </tbody>
