@@ -50,6 +50,18 @@ namespace :db do
 
     end
   end
+  
+  task :load_gift_occasion_types => :environment do
+    ['aniversário','dia dos nomorados','aniversário de casamento'].each do |name|
+      GiftOccasionType.create :name => name
+    end
+  end
+  
+  task :load_gift_recipient_relations => :environment do
+    ['avó','tia','irmã','namorada'].each do |name|
+      GiftRecipientRelation.create :name => name
+    end
+  end
 end
 
 def create_contact_subjects
