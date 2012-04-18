@@ -167,7 +167,7 @@ class Order < ActiveRecord::Base
     line_items.each {|item| item.update_attributes(:gift => false)}
   end
 
-  def set_gift_in_line_items
+  def mark_line_items_as_gift
     reload
     line_items.each {|item| item.update_attributes(:gift => true)}
   end
