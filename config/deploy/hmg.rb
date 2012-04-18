@@ -27,9 +27,9 @@ namespace :deploy do
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
   end
 
   desc 'Create symlinks'
