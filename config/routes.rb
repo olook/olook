@@ -19,6 +19,7 @@ Olook::Application.routes.draw do
   match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/:name", :to => "lookbooks#show"
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
+
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
@@ -80,11 +81,10 @@ Olook::Application.routes.draw do
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
-
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
-
-
-
+  # TO-DO remove after mothers day
+  get ":page_url", :to => "landing_pages#show"
+  
   #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
   namespace :user, :path => 'conta' do
