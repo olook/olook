@@ -11,7 +11,7 @@ class ProductFinderService
     categories.each do |cat|
       results += products_from_all_profiles(cat, description)[0..4]
     end
-    Product.remove_color_variations results
+    remove_color_variations results
   end
 
   def products_from_all_profiles(category = nil, description = nil)
@@ -19,7 +19,7 @@ class ProductFinderService
     user.profile_scores.each do |profile_score|
       result = result | profile_products(profile_score.profile, category, description)
     end
-    Product.remove_color_variations result
+    remove_color_variations result
   end
 
   def profile_products(profile, category = nil, description = nil)
