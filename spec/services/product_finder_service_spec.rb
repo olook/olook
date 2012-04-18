@@ -78,6 +78,12 @@ describe ProductFinderService do
     end
   end
 
+  describe '#suggested_products_for' do
+    it "should return the suggested products in the order: shoe, bag and accessory" do
+      subject.suggested_products_for(sporty_profile, "37").should == [product_f, product_c, product_g]
+    end
+  end
+
   describe '#remove_color_variations' do
     let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
     let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }

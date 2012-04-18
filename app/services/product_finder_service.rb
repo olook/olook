@@ -33,6 +33,12 @@ class ProductFinderService
     scope.all
   end
 
+  def suggested_products_for profile, description
+    [profile_products(profile, Category::SHOE, description).first,
+     profile_products(profile, Category::BAG).first,
+     profile_products(profile, Category::ACCESSORY).first]
+  end
+
   def remove_color_variations(products)
     result = []
     already_displayed = []
