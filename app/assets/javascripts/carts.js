@@ -6,8 +6,8 @@ $( ".continue" ).click( function() {
     $( "form#gift_message" ).submit();
 })
 
-$( "#gift_gift_wrapped" ).change( function() {
-    $( "#gift_wrapped" ).submit();
+$( "#gift_gift_wrap" ).change( function() {
+    $( "#gift_wrap" ).submit();
     if ( $(this).attr('checked') == 'checked' ) {
         $('.hidden_row').slideDown("slow");
     }

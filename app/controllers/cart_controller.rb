@@ -12,7 +12,7 @@ class CartController < ApplicationController
 
   def update_gift_data
     @order.update_attributes(params[:gift])
-    if @order.gift_wrapped?
+    if @order.gift_wrap?
       @order.mark_line_items_as_gift
     else
       @order.clear_gift_in_line_items
@@ -124,6 +124,7 @@ class CartController < ApplicationController
   
   def add_products_to_gift_cart
     if params[:products] && @order
+      @order.update_attributes :restricted => true
       # add products to cart
       params[:products].each_pair do |position, variant_id|
         if variant = Variant.find_by_id(variant_id)
