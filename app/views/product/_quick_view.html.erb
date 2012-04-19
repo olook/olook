@@ -1,0 +1,16 @@
+<% present 'Product', :product => product, :member => @user do |product_presenter| %>
+  <div id="product">
+    <div class="content">
+      <%= product_presenter.render_pics %>
+      <div id="infos">
+        <%= product_presenter.render_description %>
+        <% if user_signed_in? %>
+          <%= product_presenter.render_add_to_cart %>
+        <% else %>
+          <%= product_presenter.render_offline_add_to_cart %>
+        <% end %>
+        <%= product_presenter.render_details %>
+      </div>
+    </div>
+  </div>
+<% end %>
