@@ -80,7 +80,7 @@ describe ProductFinderService do
 
   describe '#suggested_products_for' do
     it "should return the suggested products in the order: shoe, bag and accessory" do
-      subject.suggested_products_for(sporty_profile, "37").should == [:shoe => product_f, :bag => product_c, :accessory => product_g]
+      subject.suggested_products_for(sporty_profile, "37").should == {:shoe => product_f, :bag => product_c, :accessory => product_g}
     end
   end
 
