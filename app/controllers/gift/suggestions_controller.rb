@@ -8,9 +8,5 @@ class Gift::SuggestionsController < Gift::BaseController
 
   def select_gift
     @product = Product.find(params[:product_id])
-    # params[:position]
-    # @product =
-    # @discount_price
-    # @total_price =
   end
 end
