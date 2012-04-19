@@ -5,7 +5,7 @@ class GiftDiscountService
   end
 
   def self.price_for_product(product, position = 0)
-    (product.retail_price * percents[position]) if product
+    (product.retail_price * percents[position.to_i]) if product
   end
   
   # Percent of the price to be considered according to the product position

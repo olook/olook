@@ -128,7 +128,7 @@ class CartController < ApplicationController
       params[:products].each_pair do |position, variant_id|
         if variant = Variant.find_by_id(variant_id)
           line_item = @order.add_variant(variant)
-          line_item.update_attributes :retail_price => GiftDiscountService.price_for_product(variant.product.id, position.to_i)
+          line_item.update_attributes :retail_price => GiftDiscountService.price_for_product(variant.product, position)
         end
       end
       
