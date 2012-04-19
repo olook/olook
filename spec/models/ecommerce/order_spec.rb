@@ -67,7 +67,8 @@ describe Order do
       order.identification_code.should_not be_nil
     end
   end
-
+  
+  #FIXME: remove this tests after confirming how this is going to work
   context "validating possibility of insert a item in a non gift cart" do
 
     before :each do
@@ -103,7 +104,8 @@ describe Order do
     end
 
   end
-
+  
+  #FIXME: remove this tests after confirming how this is going to work
   context "line items with gifts" do
     before :each do
       subject.add_variant(basic_shoe_35)
