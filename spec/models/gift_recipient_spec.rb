@@ -46,7 +46,9 @@ describe GiftRecipient do
 
   describe "#profile_scores" do
     it "returns the profile scores with just one item that responds to #profile method" do
-      subject.profile_scores[0].profile.should == subject.profile
+      expected = [Struct.new(:profile).new(subject.ranked_profiles[0]), Struct.new(:profile).new(subject.ranked_profiles[1])]
+      subject.profile_scores[0].profile.should == expected[0].profile
+      subject.profile_scores[1].profile.should == expected[1].profile
     end
   end
 

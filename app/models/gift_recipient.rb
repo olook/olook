@@ -28,7 +28,11 @@ class GiftRecipient < ActiveRecord::Base
   end
 
   def profile_scores
-    profile_struct = Struct.new(:profile)
-    [profile_struct.new(profile)]
+    scores = []
+    ranked_profiles.each do |profile|
+      profile_struct = Struct.new(:profile)
+        scores << profile_struct.new(profile)
+    end
+    scores
   end
 end
