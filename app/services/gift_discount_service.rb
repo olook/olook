@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class GiftDiscountService
   def self.total_price_for_products(products)
-    products.collect.with_index { |product,index| price_for_product(product,index) }.sum
+    products.map.with_index { |product,index| price_for_product(product,index) }.sum
   end
 
   def self.price_for_product(product, position = 0)
