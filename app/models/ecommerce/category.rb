@@ -6,7 +6,7 @@ class Category < EnumerateIt::Base
     :accessory  => 3
   )
 
-  def self.array_of_all_categories
+  def self.list_of_all_categories
     [Category::SHOE,Category::BAG,Category::ACCESSORY]
   end
 end
