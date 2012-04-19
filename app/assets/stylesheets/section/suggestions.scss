@@ -1,4 +1,5 @@
 @import "partials/product";
+@import "partials/mixins";
 
 div.full_container {
   div.full_bg {
@@ -174,11 +175,39 @@ div.full_container {
           margin: 0 0 0 295px;
           float: left;
         }
-        ul {
+        & > ul {
           width: 975px;
           overflow: hidden;
           margin: 0 auto;
           li.product {
+            div.hover_suggestive {
+              position: absolute;
+              background: url("/assets/common/bg-opacity-product.png") repeat;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              display: none;
+              z-index: 10;
+              ul {
+                margin: 75px 0 0 0;
+                li {
+                  text-align: center;
+                  margin: 0 0 20px 0;
+                  a {
+                    @include border-radius(3px);
+                    background: #e05789;
+                    color: #FFF;
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 10px;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    padding: 5px 10px;
+                  }
+                }
+              }
+            }
             .box_product {
               width: 175px;
               a.product_link {
@@ -197,6 +226,11 @@ div.full_container {
               }
               div.line {
                 width: 170px;
+              }
+            }
+            &:hover {
+              div.hover_suggestive {
+                display: block;
               }
             }
           }
