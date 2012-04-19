@@ -12,8 +12,8 @@ class CartController < ApplicationController
 
   def update_gift_data
     @order.update_attributes(params[:gift])
-    if @order.is_gift?
-      @order.set_gift_in_line_items
+    if @order.gift_wrapped?
+      @order.mark_line_items_as_gift
     else
       @order.clear_gift_in_line_items
     end

@@ -19,8 +19,8 @@ class Gift::OccasionsController < Gift::BaseController
   end
 
   def create
-    @occasion = GiftOccasion.new(params[:occasion].merge(:user_id => current_user ? current_user : nil))
-    @occasion.build_gift_recipient(params[:recipient].merge(:user_id => current_user ? current_user : nil))
+    @occasion = GiftOccasion.new(params[:occasion].merge(:user_id => current_user.try(:id)))
+    @occasion.build_gift_recipient(params[:recipient].merge(:user_id => current_user.try(:id)))
     
     if @occasion.save
       session[:occasion_id] = @occasion.id
