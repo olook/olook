@@ -3,7 +3,7 @@
     <div class="hover_suggestive">
       <ul>
         <li class="spy"><%= link_to "Espiar", "#", :rel => "#{product.id}" %></li>
-        <li class="add"><%= link_to "Adicionar às sugestões", "#", :rel => "#{product.id}" %></li>
+        <li class="add"><%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}" %></li>
       </ul>
     </div>
   <% end %>

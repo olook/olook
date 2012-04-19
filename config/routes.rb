@@ -103,10 +103,11 @@ Olook::Application.routes.draw do
 
   namespace :gift do
     root :to => "home#index"
-    get "update_birthdays_by_month/:month" => 'home#update_birthdays_by_month'
+    get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
       resources :suggestions, :only => [:index]
+      get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
       member do
         get :edit
         put :edit
