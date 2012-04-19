@@ -13,9 +13,9 @@ class CartController < ApplicationController
   def update_gift_data
     @order.update_attributes(params[:gift])
     if @order.gift_wrap?
-      @order.mark_line_items_as_gift
+      @order.gift_wrap_all_line_items
     else
-      @order.clear_gift_in_line_items
+      @order.clear_line_items_gift_wrapping
     end
     render :json => true
   end
@@ -110,8 +110,8 @@ class CartController < ApplicationController
   end
 
   def create
-    if @order.has_gift( params[:gift] )
-      if @order.add_variant(@variant)
+    unless @order.restricted?
+      if @order.add_variant(@variant, nil)
         destroy_freight(@order)
         redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
       else
