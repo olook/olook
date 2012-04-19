@@ -21,7 +21,7 @@ InitSuggestion = {
 
   slideToSuggestive : function() {
     container_position = $("section#suggestions_container").position().top;
-    position = container_position - 40;
+    position = container_position + 60;
     $('html, body').animate({
       scrollTop: position
     }, 'slow');
