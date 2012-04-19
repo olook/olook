@@ -49,8 +49,8 @@ describe CartController do
       end
 
       it "should enable wrapped option" do
-        put :update_gift_data, :gift => { :gift_wrapped => true }
-        Order.last.gift_wrapped.should == true
+        put :update_gift_data, :gift => { :gift_wrap => true }
+        Order.last.gift_wrap?.should == true
       end
 
       it "should write gift message option" do
