@@ -405,6 +405,13 @@ describe Product do
       pending
     end
   end
+  
+  describe "#gift_price" do
+    it "calls GiftDiscountService passing the product, the position and returns it" do
+      GiftDiscountService.should_receive(:price_for_product).with(subject,1).and_return(69.90)
+      subject.gift_price(1).should == 69.90
+    end
+  end
 
   describe "#subcategory" do
     it "gets the subcategory from the product details" do
