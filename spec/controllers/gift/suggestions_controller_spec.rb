@@ -9,6 +9,7 @@ describe Gift::SuggestionsController do
     before do
       session[:occasion_id] = occasion.id
       ProductFinderService.stub_chain(:new, :suggested_products_for)
+      ProductFinderService.stub_chain(:new, :showroom_products)
     end
 
     context "gift_recipient" do
