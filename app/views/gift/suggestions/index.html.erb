@@ -17,20 +17,23 @@
         <p>Panel</p>
       </div>
       <%= form_tag "/sacola/add_products_to_gift_cart" do %>
-        <%= hidden_field_tag "products[0]", "4728" %>
-        <%= hidden_field_tag "products[1]", "4658" %>
-        <%= hidden_field_tag "products[2]", "2339" %>
         <section id="products">
           <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
           <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
           <div class="product_container first">
             <ul>
-              <%= render "shared/suggestive_product", :product => Product.find(641) %>
+              <%= render "shared/suggestive_product", :position => 1, :product => Product.find(641) %>
             </ul>
           </div>
           <div class="product_container second">
+            <ul>
+              <%= render "shared/suggestive_product", :position => 2, :product => Product.find(641) %>
+            </ul>
           </div>
           <div class="product_container third">
+            <ul>
+              <%= render "shared/suggestive_product", :position => 3, :product => Product.find(641) %>
+            </ul>
           </div>
         </section>
         <ul class="product_actions">
