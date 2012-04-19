@@ -42,7 +42,7 @@
         <h1>Outras sugestões</h1>
         <ul>
           <% 20.times do %>
-            <%= render "shared/showroom_product_item", :product => Product.find(641) %>
+            <%= render "shared/showroom_product_item", :product => Product.find(641), :suggestion => true %>
           <% end %>
         </ul>
       </section>

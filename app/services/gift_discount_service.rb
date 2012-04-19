@@ -1,11 +1,10 @@
-
+# -*- encoding : utf-8 -*-
 class GiftDiscountService
-  def self.total_price_for_products(product_ids)
-    product_ids.collect.with_index { |product_id,index| price_for_product(product_id,index) }.sum
+  def self.total_price_for_products(products)
+    products.map.with_index { |product,index| price_for_product(product,index) }.sum
   end
 
-  def self.price_for_product(product_id, position = 0)
-    product = Product.find(product_id)
+  def self.price_for_product(product, position = 0)
     (product.retail_price * percents[position]) if product
   end
   
