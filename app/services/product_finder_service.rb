@@ -34,9 +34,9 @@ class ProductFinderService
   end
 
   def suggested_products_for profile, description
-    [:shoe => profile_products(profile, Category::SHOE, description).first,
+    {:shoe => profile_products(profile, Category::SHOE, description).first,
      :bag => profile_products(profile, Category::BAG).first,
-     :accessory => profile_products(profile, Category::ACCESSORY).first]
+     :accessory => profile_products(profile, Category::ACCESSORY).first}
   end
 
   def remove_color_variations(products)
