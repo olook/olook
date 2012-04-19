@@ -111,7 +111,7 @@ class CartController < ApplicationController
 
   def create
     if @order.has_gift( params[:gift] )
-      if @order.add_variant(@variant, params[:gift])
+      if @order.add_variant(@variant)
         destroy_freight(@order)
         redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
       else
@@ -119,6 +119,22 @@ class CartController < ApplicationController
       end
     else
       redirect_to(cart_path, :notice => "Produtos de presente não podem ser comprados com produtos da vitrine")
+    end
+  end
+  
+  def add_products_to_gift_cart
+    if params[:products] && @order
+      # add products to cart
+      params[:products].each_pair do |position, variant_id|
+        if variant = Variant.find_by_id(variant_id)
+          line_item = @order.add_variant(variant)
+          line_item.update_attributes :retail_price => GiftDiscountService.price_for_product(variant.product.id, position.to_i)
+        end
+      end
+      
+      redirect_to(cart_path, :notice => "Produtos adicionados com sucesso")
+    else
+      redirect_to(:back, :notice => "Produtos não foram encontrados")
     end
   end
 

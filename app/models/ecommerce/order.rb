@@ -202,7 +202,8 @@ class Order < ActiveRecord::Base
     unavailable_items.each {|item| item.destroy}
     size_items
   end
-
+  
+  #TODO: refactor this to include price as a parameter
   def add_variant(variant, quantity=nil, gift=false)
     quantity ||= Order::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
