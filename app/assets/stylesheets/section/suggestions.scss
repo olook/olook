@@ -1,3 +1,5 @@
+@import "partials/product";
+
 div.full_container {
   div.full_bg {
     background: #FFF;
@@ -79,6 +81,39 @@ div.full_container {
           margin: 0 75px 0 0;
           display: block;
           float: left;
+          ul {
+            li.product {
+              position: absolute;
+              background: #FFF;
+              top: 13px;
+              left: 20px;
+              .box_product {
+                a.product_link {
+                  margin-bottom: 20px;
+                }
+                .line {
+                  span {
+                    font-family: "Times", sans-serif;
+                    font-size: 30px;
+                    font-style: italic;
+                    text-align: center;
+                    display: block;
+                    float: none;
+                    &.old {
+                      font-size: 20px;
+                      font-weight: normal;
+                      line-height: 9px;
+                      text-decoration: line-through;
+                    }
+                  }
+                }
+              }
+              &:hover {
+                padding: 10px;
+                border: none;
+              }
+            }
+          }
           &.second {
             background-position: -235px 0;
           }
@@ -93,7 +128,8 @@ div.full_container {
         margin: 0 auto 70px;
         overflow: hidden;
         li {
-          a {
+          a, input[type="submit"] {
+            background: url("/assets/gift/bt-action-1.jpg") no-repeat;
             color: #FFF;
             font-family: "Open Sans", sans-serif;
             font-size: 13px;
@@ -103,21 +139,18 @@ div.full_container {
             text-align: center;
             text-decoration: none;
             text-transform: uppercase;
+            width: 263px;
+            margin-right: 24px;
             display: block;
             float: left;
           }
-          &:first-child {
-            a {
-              background: url("/assets/gift/bt-action-1.jpg") no-repeat;
-              width: 263px;
-              margin-right: 24px;
-            }
-          }
-          &:last-child {
-            a {
-              background: url("/assets/gift/bt-action-2.jpg") no-repeat;
-              width: 238px;
-            }
+          input[type="submit"] {
+            background: url("/assets/gift/bt-action-2.jpg") no-repeat;
+            line-height: 41px;
+            width: 238px;
+            margin: 0;
+            border: none;
+            cursor: pointer;
           }
         }
       }
@@ -138,8 +171,35 @@ div.full_container {
           text-transform: uppercase;
           text-align: center;
           width: 385px;
-          margin: 0 0 30px 295px;
+          margin: 0 0 0 295px;
           float: left;
+        }
+        ul {
+          width: 975px;
+          overflow: hidden;
+          margin: 0 auto;
+          li.product {
+            .box_product {
+              width: 175px;
+              a.product_link {
+                p.warn {
+                  top: 2px;
+                  left: 2px;
+                }
+                img {
+                  width: 170px;
+                  height: 170px;
+                }
+                h1 {
+                  width: 170px;
+                  height: 17px;
+                }
+              }
+              div.line {
+                width: 170px;
+              }
+            }
+          }
         }
       }
     }

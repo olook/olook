@@ -16,22 +16,32 @@
       <div id="profile">
         <p>Panel</p>
       </div>
-      <section id="products">
-        <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
-        <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
-        <div class="product_container first">
-        </div>
-        <div class="product_container second">
-        </div>
-        <div class="product_container third">
-        </div>
-      </section>
-      <ul class="product_actions">
-        <li><%= link_to "Quero escolher outros produtos", "#" %></li>
-        <li><%= link_to "Adicionar presente(s) à sacola", "#" %></li>
-      </uL>
+      <%= form_tag "#" do %>
+        <section id="products">
+          <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
+          <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
+          <div class="product_container first">
+            <ul>
+              <%= render "shared/suggestive_product", :product => Product.find(641) %>
+            </ul>
+          </div>
+          <div class="product_container second">
+          </div>
+          <div class="product_container third">
+          </div>
+        </section>
+        <ul class="product_actions">
+          <li><%= link_to "Quero escolher outros produtos", "#" %></li>
+          <li><%= submit_tag "Adicionar presente(s) à sacola" %></li>
+        </uL>
+      <% end %>
       <section id="suggestions_container">
         <h1>Outras sugestões</h1>
+        <ul>
+          <% 20.times do %>
+            <%= render "shared/showroom_product_item", :product => Product.find(641) %>
+          <% end %>
+        </ul>
       </section>
     </div>
   </div>
