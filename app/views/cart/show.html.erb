@@ -102,6 +102,9 @@
             <% if item.variant.product.liquidation? %>
               <p class="price_retail"><strong>de: <%= number_to_currency(item.variant.price) %></strong></p>
               <p><strong>por: <%= number_to_currency(item.variant.product.retail_price) %></strong></p>
+            <% elsif item.retail_price != item.price && !item.retail_price.nil? %>
+            <p class="price_retail"><strong>de: <%= number_to_currency(item.price) %></strong></p>
+            <p><strong>por: <%= number_to_currency(item.retail_price) %></strong></p>
             <% else %>
               <p><strong><%= number_to_currency(item.variant.price) %></strong></p>
             <% end %>
