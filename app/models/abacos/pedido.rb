@@ -30,9 +30,9 @@ module Abacos
       @itens            = parse_itens(order.line_items)
       @pagamento        = parse_pagamento(order)
 
-      @nota_simbolica   = order.gift_wrapped
-      @valor_embalagem  = order.gift_wrapped ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
-      @anotacao_pedido  = order.gift_wrapped ? order.gift_message : false
+      @nota_simbolica   = order.gift_wrap?
+      @valor_embalagem  = order.gift_wrap? ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
+      @anotacao_pedido  = order.gift_wrap? ? order.gift_message : false
     end
 
     def parsed_data

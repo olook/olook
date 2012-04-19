@@ -165,11 +165,11 @@
           <p>Para embrulhar seu pedido para presente</p>
         </td>
         <td class="cupom">
-          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrapped" } ) do %>
+          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
             <fieldset class="inputs">
               <ol>
                 <li>
-                  <%= check_box('gift', 'gift_wrapped') %>
+                  <%= check_box('gift', 'gift_wrap') %>
                 </li>
                 <li>
                   <p>R$ 5,00</p>

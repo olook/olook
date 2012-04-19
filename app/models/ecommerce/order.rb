@@ -270,7 +270,7 @@ class Order < ActiveRecord::Base
     subtotal = line_items_total - total_discount
     subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE
     # gift wrapping price
-    subtotal += YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] if gift_wrapped
+    subtotal += YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] if gift_wrap?
     subtotal
   end
 
