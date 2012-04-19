@@ -56,6 +56,7 @@ Olook::Application.routes.draw do
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
       delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
+      post "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
