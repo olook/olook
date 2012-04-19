@@ -6,7 +6,7 @@ class ProductFinderService
   end
 
   def showroom_products(category = nil, description = nil)
-    categories = category.nil? ? Category.array_of_all_categories : [category]
+    categories = category.nil? ? Category.list_of_all_categories : [category]
     results = []
     categories.each do |cat|
       results += products_from_all_profiles(cat, description)[0..4]
