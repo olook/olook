@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'integration/helpers'
 
-feature "Gift Project", %q{
-  In order to buy products for a special person
+feature "Buying Gifts", %q{
+  In order to buy a gift for a special person
   As a user
-  I want to be able to use the gift project
+  I want to be able to choose and buy the correct product
   } do
     
   let!(:user) { Factory.create(:user) }
@@ -15,15 +15,31 @@ feature "Gift Project", %q{
       do_login!(user)
     end
     
-    scenario "user can see the gift project landing page/home" do
+    scenario "visiting the gift project landing page/home" do
       visit gift_root_path
       page.should have_content("Acerte em cheio no presente")
     end
     
-    scenario "start the gift creation" do
+    scenario "choosing my recipient name, the occasion and the special date" do
       visit gift_root_path
       click_link "new_occasion_link"
       page.should have_content("Você está criando um presente")
+    end
+    
+    scenario "answering the quiz for my recipient" do
+      pending
+    end
+    
+    scenario "viewing my recipient profile and choosing her shoe size" do
+      pending
+    end
+    
+    scenario "choosing some products for my recipient" do
+      pending
+    end
+    
+    scenario "checking out" do
+      pending
     end
       
     describe "with facebook" do
