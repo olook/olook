@@ -13,7 +13,11 @@
       <% end %>
     </ul>
     <div id="birthdays_list">
-      <%= render "gift/shared/friends_list", :friends => @friends %>
+      <% if @frinds.present? %>
+        <%= render "gift/shared/friends_list", :friends => @friends %>
+      <% else %>
+        <p>Não há aniversariantes neste mês</p>
+      <% end %>
     </div>
   </div>
   <%= link_to "Amigos do Facebook", "/users/auth/facebook", :id => "connect_facebook" if not current_user or not current_user.has_facebook_friends_birthday? %>

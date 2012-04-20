@@ -243,12 +243,12 @@ div.full_container {
 #quick_view {
   background-color: #fff;
   border: 10px solid #000;
-  width:800px;
-  height:510px;
+  width:960px;
+  height:650px;
   position:fixed;
   top:50%;
   left:50%;
-  margin: -255px 0 0 -400px;
+  margin: -335px 0 0 -480px;
   display:none;
   z-index:1000;
 
@@ -256,7 +256,7 @@ div.full_container {
     cursor: pointer;
     font-size: 20px;
     position:absolute;
-    top:0;
-    right:0;
+    top:5px;
+    right:10px;
   }
 }
