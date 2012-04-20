@@ -85,6 +85,7 @@ class CartController < ApplicationController
   def update
     respond_with do |format|
       if @order.remove_variant(@variant)
+        calculate_gift_prices(@order)
         destroy_freight(@order)
         destroy_order_if_the_cart_is_empty(@order)
         format.html do
@@ -110,7 +111,7 @@ class CartController < ApplicationController
   end
 
   def create
-    unless @order.restricted?
+    if !@order.restricted? # gift cart
       if @order.add_variant(@variant, nil)
         destroy_freight(@order)
         redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
@@ -126,16 +127,25 @@ class CartController < ApplicationController
     if params[:products] && @order
       @order.update_attributes :restricted => true
       # add products to cart
-      params[:products].each_pair do |position, variant_id|
-        if variant = Variant.find_by_id(variant_id)
-          line_item = @order.add_variant(variant)
-          line_item.update_attributes :retail_price => GiftDiscountService.price_for_product(variant.product, position)
-        end
+      params[:products].each_pair do |k, variant_id|
+        variant = Variant.find_by_id(variant_id)
+        line_item = @order.add_variant(variant)
       end
+      calculate_gift_prices(@order)
       
       redirect_to(cart_path, :notice => "Produtos adicionados com sucesso")
     else
       redirect_to(:back, :notice => "Produtos não foram encontrados")
+    end
+  end
+  
+  # needs testing
+  def calculate_gift_prices order
+    return if !order.restricted?
+    position = 0
+    order.line_items.each do |line_item|
+      line_item.update_attributes :retail_price => line_item.variant.gift_price(position)
+      position += 1
     end
   end
 

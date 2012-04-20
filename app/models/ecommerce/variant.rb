@@ -32,6 +32,7 @@ class Variant < ActiveRecord::Base
   delegate :showroom_picture, :to => :product
   delegate :retail_price, :to => :product
   delegate :liquidation?, :to => :product
+  delegate :gift_price, :to => :product
 
   def product_id=(param_id)
     result = super(param_id)
