@@ -1,1 +1,2 @@
-$("#products.product_container.first").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :product => @product) %>");
+$("#products .product_container.first ul").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :locals => {:product => @product, :position => 0}) %>");
+$("#products .product_container.first ul").show();
