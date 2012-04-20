@@ -1,4 +1,5 @@
-class Gift::HomeController < Gift::BaseController  
+# -*- encoding : utf-8 -*-
+class Gift::HomeController < Gift::BaseController
   def index
   end
   
