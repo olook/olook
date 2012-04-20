@@ -1,10 +1,12 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/gift" %>
   <%= stylesheet_link_tag "section/suggestions" %>
+  <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
 <% end %>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "gift/suggestions" %>
+  <%= javascript_include_tag "product" %>
 <% end %>
 
 <% content_for :full do %>
