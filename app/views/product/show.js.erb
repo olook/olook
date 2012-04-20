@@ -1,6 +1,5 @@
-alert('aaa');
-$('#quick_view').append("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
+$('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
 $('#quick_view').fadeIn(300);
 $('#close_quick_view').click(function(){
-	$('#quick_view').fadeOut(300);
+  $('#quick_view').fadeOut(300);
 })
