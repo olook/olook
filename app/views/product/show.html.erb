@@ -1,4 +1,4 @@
-<% present 'Product', :product => @product, :member => @user do |product_presenter| %>
+<% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id do |product_presenter| %>
   <% content_for(:head) do %>
     <meta property="og:title" content="Olook – <%= @product.name %>">
     <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>">
@@ -21,7 +21,10 @@
   <div id="product">
     <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
-      <%= product_presenter.render_pics %>
+      <div id="pics_suggestions">
+        <%= product_presenter.render_pics %>
+        <%= product_presenter.render_facebook_comments %>
+      </div>
       <div id="infos">
         <%= product_presenter.render_description %>
         <% if user_signed_in? %>
