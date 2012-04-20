@@ -1,4 +1,4 @@
-@import "partials/product";
+@import "section/product";
 @import "partials/mixins";
 
 div.full_container {
@@ -243,7 +243,7 @@ div.full_container {
 #quick_view {
   background-color: #fff;
   border: 10px solid #000;
-  width:960px;
+  width:1000px;
   height:650px;
   position:fixed;
   top:50%;
