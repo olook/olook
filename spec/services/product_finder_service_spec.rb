@@ -7,7 +7,8 @@ describe ProductFinderService do
 
   let!(:casual_profile) { FactoryGirl.create(:casual_profile) }
   let!(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
-  let(:collection) { FactoryGirl.create(:collection) }
+  let!(:collection) { FactoryGirl.create(:collection) }
+  let!(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
   let!(:product_a) { FactoryGirl.create(:blue_slipper, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
   let!(:product_b) { FactoryGirl.create(:blue_slipper, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
   let!(:product_c) { FactoryGirl.create(:blue_slipper, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
@@ -63,6 +64,11 @@ describe ProductFinderService do
   describe "#profile_products" do
     it "should return only the products for the given profile" do
       subject.profile_products(sporty_profile).should == [product_c, product_d, product_e, product_f, product_g]
+    end
+
+    it "should return only the products for the given profile" do
+      product_c.update_attributes(:collection => last_collection)
+      subject.profile_products(sporty_profile, nil, nil, last_collection).should == [product_c]
     end
 
     it "should return only the products for the given profile" do

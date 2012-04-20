@@ -5,25 +5,25 @@ class ProductFinderService
     @user = user
   end
 
-  def showroom_products(category = nil, description = nil)
+  def showroom_products(category = nil, description = nil, collection = Collection.active)
     categories = category.nil? ? Category.list_of_all_categories : [category]
     results = []
     categories.each do |cat|
-      results += products_from_all_profiles(cat, description)[0..4]
+      results += products_from_all_profiles(cat, description, collection)[0..4]
     end
     remove_color_variations results
   end
 
-  def products_from_all_profiles(category = nil, description = nil)
+  def products_from_all_profiles(category = nil, description = nil, collection = Collection.active)
     result = []
     user.profile_scores.each do |profile_score|
-      result = result | profile_products(profile_score.profile, category, description)
+      result = result | profile_products(profile_score.profile, category,  description, collection)
     end
     remove_color_variations result
   end
 
-  def profile_products(profile, category = nil, description = nil)
-    scope = profile.products.joins(:variants).group("id").only_visible.where(:collection_id => Collection.active)
+  def profile_products(profile, category = nil, description = nil, collection = Collection.active)
+    scope = profile.products.joins(:variants).group("id").only_visible.where(:collection_id => collection)
     scope = scope.where(:category => category) if category
     if description
       vt = Variant.arel_table
