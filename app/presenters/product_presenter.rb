@@ -36,6 +36,10 @@ class ProductPresenter < BasePresenter
     h.render :partial => 'product/colors', :locals => {:product => product}
   end
 
+  def render_facebook_comments
+    h.render :partial => 'product/facebook_comments', :locals => {:product => product, :facebook_app_id => facebook_app_id}
+  end
+
   def render_form_by_category
     case product.category
       when Category::SHOE then h.render :partial => 'product/form_for_shoe', :locals => {:product_presenter => self}

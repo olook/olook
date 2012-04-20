@@ -1,8 +1,10 @@
 <div id="close_quick_view">x</div>
-<% present 'Product', :product => product, :member => @user do |product_presenter| %>
+<% present 'Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id  do |product_presenter| %>
   <div id="product">
     <div class="content">
-      <%= product_presenter.render_pics %>
+      <div id="pics_suggestions">
+        <%= product_presenter.render_pics %>
+      </div>
       <div id="infos">
         <%= product_presenter.render_description %>
         <% if user_signed_in? %>
