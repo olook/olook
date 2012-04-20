@@ -2,7 +2,7 @@
   <h1><%= @product.name %></h1>
   <div class="fb-like" data-href="http://<%= request.host %>/produto/<%= @product.id %>" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false"></div>
   <p class="description"><%= @product.description %></p>
-  <% if @product.liquidation? %>
+  <% if @product.liquidation? && @product.liquidation_discount_percent.to_i != 0 %>
     <p class="price_retail">de: <%= number_to_currency @product.price %></p>
     <p class="price">por: <%= number_to_currency @product.retail_price %></p>
   <% else %>
