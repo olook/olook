@@ -18,7 +18,7 @@ namespace :facebook do
   end
 
   desc "Set all users uid to nil"
-  task :store_facebook_info, :filename, :needs => :environment do
+  task :set_users_facebook_uid_to_nil, :needs => :environment do
   	conn = ActiveRecord::Base.connection
     conn.execute("update users set uid = NULL where uid IS NOT NULL")
   end
