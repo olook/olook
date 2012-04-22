@@ -7,6 +7,7 @@ $("#products .product_container").each(function(index) {
         break;
       case "2" :
         $(this).find("ul").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :locals => {:product => @product, :position => 2}) %>").fadeIn();
+        InitSuggestion.hideSuggestiveProducts();
         break;
       default :
         $(this).find("ul").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :locals => {:product => @product, :position => 0}) %>").fadeIn();

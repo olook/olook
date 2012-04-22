@@ -23,6 +23,10 @@ InitSuggestion = {
     });
   },
 
+  hideSuggestiveProducts : function() {
+    $("section#suggestions_container").slideUp();
+  },
+
   slideTo : function(local) {
     container_position = $(local).position().top;
     position = container_position + 60;
