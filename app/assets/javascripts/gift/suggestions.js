@@ -5,6 +5,7 @@ $(function() {
   });
 
   $("section#suggestions_container ul li.product div.hover_suggestive ul li.add a").live("click", function(event) {
+    $(this).parent().fadeOut();
     event.preventDefault();
   });
 });
@@ -18,6 +19,7 @@ InitSuggestion = {
   },
 
   showSuggestiveProducts : function() {
+    InitSuggestion.showLinksToAdd();
     $("section#suggestions_container").slideDown("normal", function() {
       InitSuggestion.slideTo(this);
     });
@@ -25,6 +27,10 @@ InitSuggestion = {
 
   hideSuggestiveProducts : function() {
     $("section#suggestions_container").slideUp();
+  },
+
+  showLinksToAdd : function() {
+    $("section#suggestions_container ul li.product div.hover_suggestive ul li.add").show();
   },
 
   slideTo : function(local) {
