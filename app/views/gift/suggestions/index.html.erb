@@ -24,17 +24,17 @@
           <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
           <div class="product_container first">
             <ul>
-              <%= render "shared/suggestive_product", :position => 1, :product => Product.find(641) %>
+              <%= render "shared/suggestive_product", :position => 0, :product => @suggested_products[:shoe] %>
             </ul>
           </div>
           <div class="product_container second">
             <ul>
-              <%= render "shared/suggestive_product", :position => 2, :product => Product.find(641) %>
+              <%= render "shared/suggestive_product", :position => 1, :product => @suggested_products[:bag] %>
             </ul>
           </div>
           <div class="product_container third">
             <ul>
-              <%= render "shared/suggestive_product", :position => 3, :product => Product.find(641) %>
+              <%= render "shared/suggestive_product", :position => 2, :product => @suggested_products[:accessory] %>
             </ul>
           </div>
         </section>
@@ -46,8 +46,8 @@
       <section id="suggestions_container">
         <h1>Outras sugestões</h1>
         <ul>
-          <% 20.times do %>
-            <%= render "shared/showroom_product_item", :product => Product.find(641), :suggestion => true %>
+          <% @products.each do |product| %>
+            <%= render "shared/showroom_product_item", :product => product, :suggestion => true %>
           <% end %>
         </ul>
       </section>
