@@ -1,4 +1,4 @@
-<li class="product suggestion" id="">
+<li class="product suggestion">
   <%= hidden_field_tag "products[#{position}]", "#{product.id}" %>
   <div class="box_product">
     <%= link_to product, :class => "product_link" do %>
@@ -7,7 +7,9 @@
       <p class="warn percentage"><span>%</span><br />off</p>
     <% end %>
     <div class="line">
-      <span class="old">de: R$129,90</span>
+      <% unless position == 0 %>
+        <span class="old">de: R$129,90</span>
+      <% end %>
       <span>por: R$99,90</span>
     </div>
   </div>

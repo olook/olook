@@ -162,7 +162,7 @@ div.full_container {
         overflow: hidden;
         margin: 0 0 50px;
         display: none;
-        h1 {
+        & > h1 {
           background: #FFF;
           color: #343434;
           font-family: "Times", sans-serif;
@@ -210,7 +210,6 @@ div.full_container {
               }
             }
             .box_product {
-              width: 175px;
               a.product_link {
                 p.warn {
                   top: 2px;
@@ -220,13 +219,6 @@ div.full_container {
                   width: 170px;
                   height: 170px;
                 }
-                h1 {
-                  width: 170px;
-                  height: 17px;
-                }
-              }
-              div.line {
-                width: 170px;
               }
             }
             &:hover {

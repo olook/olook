@@ -3,6 +3,10 @@ $(function() {
     InitSuggestion.clearSuggestions();
     event.preventDefault();
   });
+
+  $("section#suggestions_container ul li.product div.hover_suggestive ul li.add a").live("click", function(event) {
+    event.preventDefault();
+  });
 });
 
 InitSuggestion = {
@@ -15,12 +19,12 @@ InitSuggestion = {
 
   showSuggestiveProducts : function() {
     $("section#suggestions_container").slideDown("normal", function() {
-      InitSuggestion.slideToSuggestive();
+      InitSuggestion.slideTo(this);
     });
   },
 
-  slideToSuggestive : function() {
-    container_position = $("section#suggestions_container").position().top;
+  slideTo : function(local) {
+    container_position = $(local).position().top;
     position = container_position + 60;
     $('html, body').animate({
       scrollTop: position
