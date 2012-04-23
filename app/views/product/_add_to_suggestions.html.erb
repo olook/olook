@@ -6,5 +6,5 @@
   <% if product.sold_out? %>
     
   <% else %>
-    <%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}" %>
+    <%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}", :class => "add_product_to_suggestions" %>
   <% end %>

@@ -365,6 +365,19 @@
           background: url("/assets/product/bt-add-product-disabled.png") no-repeat;
         }
       }
+      a.add_product_to_suggestions {
+        background: url('/assets/product/bt-add-product-to-suggestions.png') no-repeat;
+        text-indent: -9999px;
+        width: 298px;
+        height: 57px;
+        margin: 17px auto 30px auto;
+        display: block;
+        border: none;
+        cursor: pointer;
+        &.disabled {
+          background: url("/assets/product/bt-add-product-to-suggestions-disabled.png") no-repeat;
+        }
+      }
       div#box_tabs {
         ul.tabs {
           width: 100%;
