@@ -106,10 +106,10 @@ describe ProductPresenter do
     end
   end
   
-  describe '#render_add_to_gift_list' do
+  describe '#render_add_to_suggestions' do
     it "should render the partial with controls to add the product to gift_list" do
-      template.should_receive(:render).with(:partial => 'product/add_to_gift_list', :locals => {:product_presenter => subject, :product => product}).and_return('gift list')
-      subject.render_add_to_gift_list.should == 'gift list'
+      template.should_receive(:render).with(:partial => 'product/add_to_suggestions', :locals => {:product_presenter => subject, :product => product}).and_return('gift list')
+      subject.render_add_to_suggestions.should == 'gift list'
     end
   end
 
