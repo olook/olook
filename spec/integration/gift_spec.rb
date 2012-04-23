@@ -20,10 +20,20 @@ feature "Buying Gifts", %q{
       page.should have_content("Acerte em cheio no presente")
     end
     
-    scenario "choosing my recipient name, the occasion and the special date" do
-      visit gift_root_path
-      click_link "new_occasion_link"
-      page.should have_content("Você está criando um presente")
+    describe "choosing my recipient name, the occasion and the special date" do
+      before :each do 
+        visit gift_root_path
+        click_link "new_occasion_link"
+      end
+
+      scenario "starting the process of creating a gift" do
+        page.should have_content("Você está criando um presente")
+      end
+
+      scenario "filling data and being redirect to quiz page" do
+        fill_in 'recipient_name', :with => 'Jonh Doe'
+        click_button "Continuar"
+      end
     end
     
     scenario "answering the quiz for my recipient" do
