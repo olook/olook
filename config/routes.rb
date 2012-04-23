@@ -207,5 +207,6 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
+    post '/gift/entrar' => "gift/sessions#create", :as => :gift_user_session
   end
 end
