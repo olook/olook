@@ -191,10 +191,6 @@ Olook::Application.routes.draw do
     resources :gift_occasion_types
     resources :gift_recipient_relations
   end
-
-  #devise_for :gift_users, :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
-  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
-  #end
   
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
@@ -207,6 +203,7 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
+    post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
     post '/gift/entrar' => "gift/sessions#create", :as => :gift_user_session
   end
 end
