@@ -126,10 +126,11 @@ class CartController < ApplicationController
   def add_products_to_gift_cart
     if params[:products] && @order
       @order.update_attributes :restricted => true
-      # add products to cart
+      
       params[:products].each_pair do |k, variant_id|
-        variant = Variant.find_by_id(variant_id)
-        line_item = @order.add_variant(variant)
+        if variant = Variant.find_by_id(variant_id)
+          line_item = @order.add_variant(variant)
+        end
       end
       calculate_gift_prices(@order)
       
@@ -141,7 +142,7 @@ class CartController < ApplicationController
   
   # needs testing
   def calculate_gift_prices order
-    return if !order.restricted?
+    return if !order.restricted? || order.line_items.empty?
     position = 0
     order.line_items.each do |line_item|
       line_item.update_attributes :retail_price => line_item.variant.gift_price(position)
