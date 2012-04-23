@@ -1,5 +1,10 @@
+body {
+  background: url("/assets/common/bg-content-half-user.jpg") top center no-repeat;
+}
 section#half_user {
   width: 100%;
+  min-height: 520px;
+  padding: 25px 0 0 0;
   overflow: hidden;
   div#description {
     width: 350px;
