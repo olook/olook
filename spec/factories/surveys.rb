@@ -5,7 +5,7 @@ FactoryGirl.define do
     name "Registration Survey"
   end
 
-  factory :gift_survey do
+  factory :gift_survey, :class => Survey do
     name "Gift Survey"
   end
 end

@@ -59,8 +59,27 @@ feature "Buying Gifts", %q{
       page.should have_content("Acerte em cheio no presente")
       page.has_css?('.opacity')
     end
+    
+    scenario "should start the gift creation" do
+      visit gift_root_path
+      click_link "new_occasion_link"
+      page.should have_content("Você está criando um presente")
+    end
+    
+    scenario "should see the suggestions for a gift recipient" do
+      FactoryGirl.create(:gift_occasion_type)
+      FactoryGirl.create(:gift_recipient_relation)    
+      question = FactoryGirl.create(:gift_question)  
+      FactoryGirl.create(:answer, :question => question)
+      visit gift_root_path
+      click_link "new_occasion_link"
+      fill_in "recipient_name", :with => "Jane Joe"
+      select "funeral", :from => "occasion_gift_occasion_type_id"
+      select "Avó", :from => "recipient_gift_recipient_relation_id"
+      click_button "Continuar"
+      #choose "questions_question_1_1"
+      pending
+    end
   end
-  
-
 end
 

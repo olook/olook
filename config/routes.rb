@@ -57,6 +57,7 @@ Olook::Application.routes.draw do
       delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
       post "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
+      get "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"  
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
@@ -191,6 +192,10 @@ Olook::Application.routes.draw do
     resources :gift_recipient_relations
   end
 
+  #devise_for :gift_users, :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
+  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+  #end
+  
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
@@ -201,5 +206,6 @@ Olook::Application.routes.draw do
     delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
   end
 end
