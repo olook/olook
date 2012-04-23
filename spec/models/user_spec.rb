@@ -55,6 +55,24 @@ describe User do
       end
     end
   end
+  
+  describe "when gender is required" do
+    it "should validate" do
+      user = Factory.build(:user)
+      user.half_user = true
+      user.save
+      user.should be_invalid
+    end
+  end
+  
+  describe "when gender is not required" do
+    it "should not validate" do
+      user = Factory.build(:user)
+      user.half_user = false
+      user.save
+      user.should be_valid
+    end
+  end
 
   describe 'relationships' do
     it { should have_many :points }

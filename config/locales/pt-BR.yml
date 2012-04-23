@@ -272,6 +272,7 @@
         password: Senha
         password_confirmation: "Confirmação de senha"
         reset_password_token: "Token para resetar senha"
+        gender: Sexo
       gift_recipient:
         name: nome
       gift_occasion:
