@@ -1,4 +1,5 @@
 $("#products .product_container").each(function(index) {
+  $("#quick_view").is(":visible") && $('#quick_view').fadeOut(100);
   if($(this).find("ul").html() == "") {
     InitSuggestion.slideTo("#products");
     switch(index) {
