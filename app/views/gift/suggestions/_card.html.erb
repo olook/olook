@@ -7,7 +7,7 @@
       </td>
       <td>
         <h1>Presente de:</h1>
-        <p></p>
+        <p><%= @occasion.type_name.capitalize %></p>
       </td>
       <td>
         <h1>Data:</h1>
@@ -21,7 +21,7 @@
       </td>
       <td>
         <h1>Que é sua:</h1>
-        <p><%= @gift_recipient.relation_name %></p>
+        <p><%= @gift_recipient.relation_name.capitalize %></p>
       </td>
     </tr>
   </tbody>
