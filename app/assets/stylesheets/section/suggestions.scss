@@ -235,19 +235,24 @@ div.full_container {
   background-color: #fff;
   border: 10px solid #000;
   width:1000px;
-  height:650px;
+  height:620px;
   position:fixed;
   top:50%;
   left:50%;
-  margin: -335px 0 0 -480px;
+  margin: -325px 0 0 -480px;
   display:none;
   z-index:1000;
 
   #close_quick_view{
     cursor: pointer;
     font-size: 20px;
-    position:absolute;
-    top:5px;
-    right:10px;
+    position: absolute;
+    background: url('/assets/common/close_dialog.png') no-repeat;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    top: -17px;
+    right: -17px;
+    z-index: 100;
   }
 }
