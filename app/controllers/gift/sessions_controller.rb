@@ -20,10 +20,7 @@ class Gift::SessionsController < Devise::SessionsController
   private
 
   def after_sign_in_path_for(resource_or_scope)
-    #"products"=>{"0"=>"2078",
-    #"1"=>"1865",
-    #"2"=>"2761"}
-    add_products_to_gift_cart_cart_path
+    add_products_to_gift_cart_cart_path(:products => session[:gift_products])
   end
 end
 

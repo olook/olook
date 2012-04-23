@@ -127,7 +127,7 @@ class CartController < ApplicationController
   def add_products_to_gift_cart
     if params[:products] && @order
       @order.update_attributes :restricted => true
-      
+      # add products to cart
       params[:products].each_pair do |k, variant_id|
         if variant = Variant.find_by_id(variant_id)
           line_item = @order.add_variant(variant)
@@ -204,6 +204,7 @@ class CartController < ApplicationController
   
   def verify_login
     if not current_user and params[:products]
+      session[:gift_products] = params[:products]
       redirect_to new_gift_user_session_path
     end
   end
