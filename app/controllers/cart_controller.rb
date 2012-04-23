@@ -132,7 +132,7 @@ class CartController < ApplicationController
       # add products to cart      
       params[:products].each_pair do |k, variant_id|
         if variant = Variant.find_by_id(variant_id)
-          line_item = @order.add_variant(variant)
+          line_item = @order.add_variant(variant, nil, @order.gift_wrap?)
         end
       end
       calculate_gift_prices(@order)

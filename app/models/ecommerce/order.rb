@@ -210,7 +210,7 @@ class Order < ActiveRecord::Base
   end
   
   #TODO: refactor this to include price as a parameter
-  def add_variant(variant, quantity=nil, gift=false)
+  def add_variant(variant, quantity=nil, gift_wrap=false)
     quantity ||= Order::DEFAULT_QUANTITY
     quantity = quantity.to_i
     if variant.available_for_quantity?(quantity)
@@ -224,7 +224,7 @@ class Order < ActiveRecord::Base
                                      :quantity => quantity,
                                      :price => variant.price,
                                      :retail_price => retail_price,
-                                     :gift_wrap => gift)
+                                     :gift_wrap => gift_wrap)
         line_items << current_item
       end
       current_item
