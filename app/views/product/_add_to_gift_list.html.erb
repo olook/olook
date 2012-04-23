@@ -1,0 +1,10 @@
+
+  <%= product_presenter.render_form_by_category %>
+  <% if product_presenter.show_quantity_left? %>
+      <p class="remaining"><%= product_presenter.quantity_left_text %><strong><span><%= product_presenter.quantity_left %></span> <%= product_presenter.unities_left_text %></strong> para o seu tamanho</p>
+  <% end %>
+  <% if product.sold_out? %>
+    
+  <% else %>
+    <%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}" %>
+  <% end %>
