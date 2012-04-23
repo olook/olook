@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
-
+  
   has_paper_trail :on => [:update, :destroy]
   
   serialize :facebook_permissions, Array
@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
   
   FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"
+  
+  Gender = {:female => 0, :male => 1}
   
   def name
     "#{first_name} #{last_name}".strip

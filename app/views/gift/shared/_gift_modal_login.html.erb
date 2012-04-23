@@ -1,0 +1,39 @@
+<div class="dialog gift_login">
+  <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
+    <div id="gift_login_modal">
+    <%= form_for(:user, :as => :user, :url => gift_user_session_path(:user)) do |f| %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <%= f.label "E-mail" %>
+            <%= f.email_field :email %>
+          </li>
+
+          <li>
+            <%= f.label "Senha" %>
+            <%= f.password_field :password %>
+          </li>
+        </ol>
+      </fieldset>
+
+      <fieldset class='buttons'>
+        <ol>
+          <li>
+            <%= f.submit "Entrar", :id => "login" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+    
+    <hr/>
+    
+    <%= render :partial => "/gift/shared/half_user" %>
+  </div>
+</div>
+
+
+
+
+
+
+

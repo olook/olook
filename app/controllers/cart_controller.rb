@@ -3,7 +3,8 @@ class CartController < ApplicationController
   layout "checkout"
 
   respond_to :html, :js
-  before_filter :authenticate_user!
+  before_filter :verify_login, :only => [:add_products_to_gift_cart]
+  before_filter :authenticate_user!, :except => [:add_products_to_gift_cart]
   before_filter :load_user
   before_filter :check_early_access
   before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
@@ -132,7 +133,6 @@ class CartController < ApplicationController
         line_item = @order.add_variant(variant)
       end
       calculate_gift_prices(@order)
-      
       redirect_to(cart_path, :notice => "Produtos adicionados com sucesso")
     else
       redirect_to(:back, :notice => "Produtos não foram encontrados")
@@ -199,6 +199,12 @@ class CartController < ApplicationController
 
   def load_user
     @user = current_user
+  end
+  
+  def verify_login
+    if not current_user and params[:products]
+      redirect_to new_gift_user_session_path
+    end
   end
 end
 

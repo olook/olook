@@ -4,9 +4,19 @@ $(function() {
     event.preventDefault();
   });
 
+<<<<<<< Updated upstream
   $("section#suggestions_container ul li.product div.hover_suggestive ul li.add a").live("click", function(event) {
     $(this).parent().fadeOut();
     event.preventDefault();
+=======
+  $("#add_item").click(function(event) {
+    initBase.openDialog();
+    $('body .dialog').show();
+    $('body .dialog').css("left", (viewWidth - '930') / 2);
+    $('body .dialog').css("top", (viewHeight - '515') / 2);
+    $('body .dialog #gift_login_modal').fadeIn('slow');
+    initBase.closeDialog();
+>>>>>>> Stashed changes
   });
 });
 

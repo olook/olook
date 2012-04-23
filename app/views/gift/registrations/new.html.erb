@@ -1,0 +1,34 @@
+<div>
+  <%= form_for(resource, :as => resource_name, :url => gift_user_session_path(resource)) do |f| %>
+    <fieldset class="inputs">
+      <ol>
+        <li>
+          <%= f.label "E-mail" %>
+          <%= f.email_field :email %>
+        </li>
+
+        <li>
+          <%= f.label "Senha" %>
+          <%= f.password_field :password %>
+        </li>
+      </ol>
+    </fieldset>
+
+    <fieldset class='buttons'>
+      <ol>
+        <li>
+          <%= f.submit "Entrar", :id => "login" %>
+        </li>
+      </ol>
+    </fieldset>
+  <% end %>
+  <hr/>
+  <%= render :partial => "/gift/shared/half_user" %>
+</div>
+
+
+
+
+
+
+
