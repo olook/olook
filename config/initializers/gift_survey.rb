@@ -1,11 +1,9 @@
-# -*- encoding : utf-8 -*-
-casual       = {:name => "Casual", :banner => "casual" }
+# -*- encoding : utf-8 -*-P
 traditional  = {:name => "Tradicional", :banner => "traditional" }
 elegant      = {:name => "Elegante", :banner => "elegant" }
 feminine     = {:name => "Feminina", :banner => "feminine" }
 sexy         = {:name => "Sexy", :banner => "sexy" }
 fashionista  = {:name => "Fashionista", :banner => "contemporary" }
-contemporary = {:name => "Contemporanea", :banner => "contemporary" }
 trendy       = {:name => "Trendy", :banner => "trendy" }
 basic        = {:name => "Básica", :banner => "casual" }
 
