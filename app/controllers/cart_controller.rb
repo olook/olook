@@ -126,17 +126,21 @@ class CartController < ApplicationController
   
   def add_products_to_gift_cart
     if params[:products] && @order
-      @order.update_attributes :restricted => true
-      # add products to cart
+      @order.update_attributes :restricted => true if !@order.restricted?
+      products = @order.line_items.size
+      
+      # add products to cart      
       params[:products].each_pair do |k, variant_id|
         if variant = Variant.find_by_id(variant_id)
           line_item = @order.add_variant(variant)
         end
       end
       calculate_gift_prices(@order)
-      redirect_to(cart_path, :notice => "Produtos adicionados com sucesso")
+      
+      total_products = @order.line_items.size
+      redirect_to(cart_path, :notice => total_products > products ? "Produtos adicionados com sucesso" : nil)
     else
-      redirect_to(:back, :notice => "Produtos não foram encontrados")
+      redirect_to(:back, :notice => "Produtos não foram adicionados")
     end
   end
   

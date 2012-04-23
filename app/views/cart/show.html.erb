@@ -169,7 +169,7 @@
             <fieldset class="inputs">
               <ol>
                 <li>
-                  <%= check_box('gift', 'gift_wrap') %>
+                  <%= check_box('gift', 'gift_wrap', :checked => @order.gift_wrap?) %>
                 </li>
                 <li>
                   <p>R$ 5,00</p>
@@ -179,7 +179,7 @@
           <% end %>
         </td>
       </tr>
-      <tr class="discount hidden_row">
+      <tr class="discount message_row <%= 'hidden_row' if !@order.gift_wrap? %>">
         <td class="item"></td>
         <td colspan="2">
           <p class="line_bottom"><strong>Mensagem para presente</strong></p>
@@ -190,7 +190,7 @@
             <fieldset class="inputs">
               <ol>
                 <li>
-                  <%= text_area('gift', 'gift_message') %>
+                  <%= text_area('gift', 'gift_message', :value => @order.gift_message) %>
                 </li>
               </ol>
             </fieldset>

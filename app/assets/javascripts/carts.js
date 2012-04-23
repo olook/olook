@@ -9,9 +9,9 @@ $( ".continue" ).click( function() {
 $( "#gift_gift_wrap" ).change( function() {
     $( "#gift_wrap" ).submit();
     if ( $(this).attr('checked') == 'checked' ) {
-        $('.hidden_row').slideDown("slow");
+        $('.message_row').slideDown("slow");
     }
     else {
-        $('.hidden_row').slideUp("slow");
+        $('.message_row').slideUp("slow");
     }
 });
