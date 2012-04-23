@@ -7,4 +7,6 @@ class GiftOccasion < ActiveRecord::Base
   
   validates :day, :presence => true, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 32}
   validates :month, :presence => true, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 13}
+  
+  delegate :name, :to => :gift_occasion_type, :allow_nil => true, :prefix => :type
 end
