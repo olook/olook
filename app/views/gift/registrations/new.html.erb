@@ -1,34 +1,40 @@
-<div>
-  <%= form_for(resource, :as => resource_name, :url => gift_user_session_path(resource)) do |f| %>
-    <fieldset class="inputs">
-      <ol>
-        <li>
-          <%= f.label "E-mail" %>
-          <%= f.email_field :email %>
-        </li>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/half_user" %>
+<% end %>
 
-        <li>
-          <%= f.label "Senha" %>
-          <%= f.password_field :password %>
-        </li>
-      </ol>
-    </fieldset>
+<% content_for :footer do %>
+  <%= javascript_include_tag "half_user" %>
+<% end %>
 
-    <fieldset class='buttons'>
-      <ol>
-        <li>
-          <%= f.submit "Entrar", :id => "login" %>
-        </li>
-      </ol>
-    </fieldset>
-  <% end %>
-  <hr/>
-  <%= render :partial => "/gift/shared/half_user" %>
-</div>
+<section id="half_user">
+  <div id="description">
+    <h1>Falta só mais um passo</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+  </div>
+  <div id="container_forms">
+    <%= render :partial => "/gift/shared/half_user" %>
+    <%= form_for(resource, :as => resource_name, :url => gift_user_session_path(resource)) do |f| %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <%= f.label "E-mail" %>
+            <%= f.email_field :email %>
+          </li>
 
+          <li>
+            <%= f.label "Senha" %>
+            <%= f.password_field :password %>
+          </li>
+        </ol>
+      </fieldset>
 
-
-
-
-
-
+      <fieldset class='buttons'>
+        <ol>
+          <li>
+            <%= f.submit "Entrar", :id => "login" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+  </div>
+</section>
