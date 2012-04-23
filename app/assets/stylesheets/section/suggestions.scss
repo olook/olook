@@ -184,8 +184,9 @@ div.full_container {
             div.hover_suggestive {
               position: absolute;
               background: none;
+              width: 100%;
               top: 0;
-              left: 20px;
+              left: 0;
               display: none;
               z-index: 10;
               ul {
