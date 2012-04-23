@@ -23,7 +23,7 @@ class ProductFinderService
   end
 
   def profile_products(profile, category = nil, description = nil, collection = Collection.active)
-    scope = profile.products.joins(:variants).group("id").only_visible.where(:collection_id => collection)
+    scope = profile.products.joins(:variants).group("id").only_visible.where(:collection_id => collection).order("id")
     scope = scope.where(:category => category) if category
     if description
       vt = Variant.arel_table
