@@ -4,7 +4,7 @@
       <p class="remaining"><%= product_presenter.quantity_left_text %><strong><span><%= product_presenter.quantity_left %></span> <%= product_presenter.unities_left_text %></strong> para o seu tamanho</p>
   <% end %>
   <% if product.sold_out? %>
-    
+    <%= link_to "Adicionar às sugestões", "#", :rel => "#{product.id}", :class => "add_product_to_suggestions disabled" %>
   <% else %>
     <%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}", :class => "add_product_to_suggestions" %>
   <% end %>
