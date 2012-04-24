@@ -5,6 +5,7 @@ class GiftDiscountService
   end
 
   def self.price_for_product(product, position = 0)
+    position = 0 if ![0,1,2].include?(position)
     (product.retail_price * percents[position.to_i]) if product
   end
   
