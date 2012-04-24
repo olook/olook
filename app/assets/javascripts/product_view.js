@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   initProduct.sliceDesc(stringDesc);
+  initProduct.productZoom();
 
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
     el = $(this).parent();
@@ -10,16 +11,6 @@ $(document).ready(function() {
 
   $("div#infos div.description p[class!='price'] a.less").live("click", function() {
     initProduct.sliceDesc(stringDesc);
-  });
-
-  $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
-    zoomType: 'standard',
-    zoomWidth: 415,
-    zoomHeight: 500,
-    imageOpacity: 0.4,
-    title: false,
-    preloadImages: false,
-    fadeoutSpeed: 'fast'
   });
 
   $("div#pics_suggestions ul#thumbs li a").live("click", function() {
@@ -87,5 +78,17 @@ initProduct = {
       descSliced = el.text(string.slice(0,120)+"...");
       el.append("<a href='javascript:void(0);' class='more'>Ler tudo</a>");
     }
+  },
+
+  productZoom : function() {
+    $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
+      zoomType: 'standard',
+      zoomWidth: 415,
+      zoomHeight: 500,
+      imageOpacity: 0.4,
+      title: false,
+      preloadImages: false,
+      fadeoutSpeed: 'fast'
+    });
   }
 };
