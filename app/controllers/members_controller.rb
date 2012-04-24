@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :check_early_access, :only => [:showroom]
-  before_filter :check_full_user, :only => [:showroom]  
+  before_filter :redirect_if_half_user, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
   before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
@@ -13,6 +13,7 @@ class MembersController < ApplicationController
   before_filter :redirect_user_if_old, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
+  
 
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
@@ -158,11 +159,6 @@ class MembersController < ApplicationController
     @user.has_facebook?
   end
   
-  def check_full_user
-    if current_user.half_user
-      flash[:notice] = "Você não tem acesso à vitrine"
-      redirect_to gift_root_path 
-    end
-  end
+
 end
 

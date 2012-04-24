@@ -40,6 +40,13 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  
+  def redirect_if_half_user
+    if current_user.half_user
+      flash[:notice] = "Você não tem acesso à essa página"
+      redirect_to gift_root_path 
+    end
+  end
 
   def user_for_paper_trail
     user_signed_in? ? current_user : current_admin
