@@ -243,9 +243,9 @@ div.full_container {
   position:fixed;
   top:50%;
   left:50%;
-  margin: -325px 0 0 -480px;
+  margin: -300px 0 0 -480px;
   display:none;
-  z-index:1000;
+  z-index:10000;
 
   #close_quick_view{
     cursor: pointer;
