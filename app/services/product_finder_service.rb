@@ -38,12 +38,12 @@ class ProductFinderService
     scope = options[:profile].products.joins(:variants).group("id").only_visible.where(:collection_id => options[:collection]).order("id")
     scope = scope.where(:category => options[:category]) if options[:category]
 
-    if options[:description]
-      vt = Variant.arel_table
-      query = vt[:inventory].gt(0).and(vt[:description].eq(options[:description]))
-      scope = scope.where(query)
-    end
+    vt = Variant.arel_table
 
+    query = vt[:inventory].gt(0) if options[:not_allow_sold_out_products]
+    query = vt[:inventory].gt(0).and(vt[:description].eq(options[:description])) if options[:description]
+
+    scope = scope.where(query)
     scope.all
   end
 
