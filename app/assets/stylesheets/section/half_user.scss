@@ -35,5 +35,43 @@ section#half_user {
     padding: 30px 35px;
     border: 1px #d2d2d2 solid;
     float: right;
+    form.new_user {
+      margin: 0 0 30px;
+      padding: 0 0 15px;
+      border-bottom: 1px #d2d2d2 solid;
+      fieldset {
+        ol {
+          li {
+            width: 100%;
+            margin: 0 0 12px;
+            overflow: hidden;
+            &.gender p, label {
+              font-size: 13px;
+              font-weight: bold;
+              line-height: 35px;
+              text-align: right;
+              margin-right: 35px;
+              width: 110px;
+              float: left;
+            }
+            input[type="text"], input[type="email"], input[type="password"] {
+              background: url("/assets/common/bg-inputs.png") repeat-x;
+              width: 260px;
+              border: 1px solid #C1C1C1;
+              padding: 7px 8px;
+              height: 17px;
+              &:focus {
+                outline: none;
+              }
+            }
+            &.gender {
+              label {
+                float: none;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
