@@ -10,12 +10,4 @@ $('#close_quick_view, div.overlay').click(function(){
 });
 $('#quick_view ol.colors li a').attr('data-remote', true);
 
-$("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
-  zoomType: 'standard',
-  zoomWidth: 415,
-  zoomHeight: 500,
-  imageOpacity: 0.4,
-  title: false,
-  preloadImages: false,
-  fadeoutSpeed: 'fast'
-});
+initProduct.productZoom();
