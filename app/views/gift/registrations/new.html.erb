@@ -12,5 +12,28 @@
   </div>
   <div id="container_forms">
     <%= render :partial => "/gift/shared/half_user" %>
-    <%= render :partial => "/sessions/form_user"%>
+    <%= form_for(:user, :as => :user, :url => session_path(:user)) do |f| %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <%= f.label "E-mail" %>
+            <%= f.email_field :email %>
+          </li>
+
+          <li>
+            <%= f.label "Senha" %>
+            <%= f.password_field :password %>
+          </li>
+        </ol>
+      </fieldset>
+
+      <fieldset class='buttons'>
+        <ol>
+          <li>
+            <%= f.submit "Entrar", :id => "login" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+
 </section>
