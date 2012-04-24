@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class Gift::OccasionsController < Gift::BaseController
-  before_filter :load_collections_for_selects, :only => [:new, :new_with_data]
+  before_filter :load_params, :only => [:create]
+  before_filter :load_collections_for_selects, :only => [:new, :new_with_data, :create]
   
   def new
     @day = @month = Date.today
@@ -28,7 +29,8 @@ class Gift::OccasionsController < Gift::BaseController
       
       redirect_to new_gift_survey_path
     else
-      redirect_to :back, :notice => "Não foi possível criar o seu presente, verifique os dados e tente novamente."
+      flash[:notice] = "Não foi possível criar o seu presente, verifique os dados e tente novamente."
+      render :new
     end
   end
   
@@ -37,6 +39,15 @@ class Gift::OccasionsController < Gift::BaseController
   def load_collections_for_selects
     @occasion_types = GiftOccasionType.all
     @recipient_relations = GiftRecipientRelation.all
+  end
+  
+  def load_params
+    @name = params[:recipient][:name]
+    @day = params[:occasion][:day].to_i
+    @month = params[:occasion][:month].to_i
+    @facebook_uid = params[:recipient][:facebook_uid]
+    @occasion_type_id = params[:occasion][:gift_occasion_type_id]
+    @recipient_relation_id = params[:recipient][:gift_recipient_relation_id]
   end
 
 end
