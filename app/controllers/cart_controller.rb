@@ -139,7 +139,7 @@ class CartController < ApplicationController
       calculate_gift_prices(@order)
       
       total_products = @order.line_items.size
-      redirect_to(cart_path, :notice => total_products > products ? "Produtos adicionados com sucesso" : nil)
+      redirect_to(cart_path, :notice => total_products > products ? "Produtos adicionados com sucesso" : "Produtos selecionados não estão disponíveis")
     else
       redirect_to(:back, :notice => "Produtos não foram adicionados")
     end
