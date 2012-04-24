@@ -4,3 +4,15 @@ $('#close_quick_view').click(function(){
   $('#quick_view').fadeOut(300);
 })
 $('#quick_view ol.colors li a').attr('data-remote', true);
+
+$('footer').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
+
+$("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
+  zoomType: 'standard',
+  zoomWidth: 415,
+  zoomHeight: 500,
+  imageOpacity: 0.4,
+  title: false,
+  preloadImages: false,
+  fadeoutSpeed: 'fast'
+});
