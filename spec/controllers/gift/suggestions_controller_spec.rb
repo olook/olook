@@ -54,7 +54,7 @@ describe Gift::SuggestionsController do
       it "assigns @products" do
         product_finder_service.stub(:suggested_products_for)
         ProductFinderService.should_receive(:new).with(recipient).and_return(product_finder_service)
-        product_finder_service.should_receive(:showroom_products).and_return(:showroom_products)
+        product_finder_service.should_receive(:showroom_products).with(:description => recipient.shoe_size).and_return(:showroom_products)
         get 'index', :recipient_id => recipient.id
         assigns(:products).should == :showroom_products
       end
