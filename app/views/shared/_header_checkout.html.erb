@@ -11,7 +11,11 @@
     <h1><%= link_to 'Olook', root_path %></h1>
     <% if user_signed_in? %>
       <h2 class="moip">Pagamento: Moip</h2>
-      <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_showroom" %>
+      <% if @order.restricted? %>
+        <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back_suggestion" %>
+      <% else %>
+        <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_showroom" %>
+      <% end %>
     <% end %>
   </div>
 </header>
