@@ -5,38 +5,52 @@ class ProductFinderService
     @user = user
   end
 
-  def showroom_products(category = nil, description = nil, collection = Collection.active)
-    categories = category.nil? ? Category.list_of_all_categories : [category]
+  def showroom_products(*args)
+    options = args.extract_options!
+    options[:collection] = Collection.active unless options[:collection]
+
+    categories = options[:category].nil? ? Category.list_of_all_categories : [options[:category]]
     results = []
     categories.each do |cat|
-      results += products_from_all_profiles(cat, description, collection)[0..4]
+      results += products_from_all_profiles(:category => cat, :description => options[:description], :collection => options[:collection])[0..4]
     end
     remove_color_variations results
   end
 
-  def products_from_all_profiles(category = nil, description = nil, collection = Collection.active)
+  def products_from_all_profiles(*args)
+    options = args.extract_options!
+    options[:collection] = Collection.active unless options[:collection]
+
     result = []
     user.profile_scores.each do |profile_score|
-      result = result | profile_products(profile_score.profile, category,  description, collection)
+      result = result | profile_products(:profile => profile_score.profile,
+                                         :category => options[:category],
+                                         :description => options[:description],
+                                         :collection => options[:collection])
     end
     remove_color_variations result
   end
 
-  def profile_products(profile, category = nil, description = nil, collection = Collection.active)
-    scope = profile.products.joins(:variants).group("id").only_visible.where(:collection_id => collection).order("id")
-    scope = scope.where(:category => category) if category
-    if description
-      vt = Variant.arel_table
-      query = vt[:inventory].gt(0).and(vt[:description].eq(description))
-      scope = scope.where(query)
-    end
+  def profile_products(*args)
+    options = args.extract_options!
+    options[:collection] = Collection.active unless options[:collection]
+
+    scope = options[:profile].products.joins(:variants).group("id").only_visible.where(:collection_id => options[:collection]).order("id")
+    scope = scope.where(:category => options[:category]) if options[:category]
+
+    vt = Variant.arel_table
+
+    query = vt[:inventory].gt(0) if options[:not_allow_sold_out_products]
+    query = vt[:inventory].gt(0).and(vt[:description].eq(options[:description])) if options[:description]
+
+    scope = scope.where(query)
     scope.all
   end
 
   def suggested_products_for profile, description
-    {:shoe => profile_products(profile, Category::SHOE, description).first,
-     :bag => profile_products(profile, Category::BAG).first,
-     :accessory => profile_products(profile, Category::ACCESSORY).first}
+    {:shoe => profile_products(:profile => profile, :category => Category::SHOE, :description => description).first,
+     :bag => profile_products(:profile => profile, :category => Category::BAG).first,
+     :accessory => profile_products(:profile => profile, :category => Category::ACCESSORY).first}
   end
 
   def remove_color_variations(products)
