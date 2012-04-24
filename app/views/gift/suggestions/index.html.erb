@@ -16,7 +16,8 @@
         <%= render "card" %>
       </div>
       <div id="profile">
-          <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
+        <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
+        <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %>
       </div>
       <%= form_tag "/sacola/add_products_to_gift_cart" do %>
         <section id="products">
