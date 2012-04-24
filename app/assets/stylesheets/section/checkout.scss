@@ -11,6 +11,15 @@ header {
     display: block;
     float: right;
   }
+  a.back_suggestion {
+    background: url("/assets/cart/bt-back-suggestions.jpg") no-repeat;
+    text-indent: -9999px;
+    width: 183px;
+    height: 31px;
+    margin: 20px 10px 0 0;
+    display: block;
+    float: right;
+  }
   h2.moip {
     background: url('/assets/common/moip.png') no-repeat;
     text-indent: -9999px;
