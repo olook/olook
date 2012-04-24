@@ -144,26 +144,26 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
 
-  def all_profiles_showroom(category = nil)
+  def all_profiles_showroom(category = nil, collection = Collection.active)
     result = []
     self.profile_scores.each do |profile_score|
-      result = result | profile_showroom(profile_score.profile, category).all
+      result = result | profile_showroom(profile_score.profile, category, collection).all
     end
     Product.remove_color_variations result
   end
 
-  def main_profile_showroom(category = nil)
+  def main_profile_showroom(category = nil, collection = Collection.active)
     categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
     results = []
     categories.each do |cat|
-      results += all_profiles_showroom(cat)[0..4]
+      results += all_profiles_showroom(cat, collection = Collection.active)[0..4]
     end
      Product.remove_color_variations results
   end
 
-  def profile_showroom(profile, category = nil)
+  def profile_showroom(profile, category = nil, collection = Collection.active)
     scope = profile.products.only_visible.
-            where(:collection_id => Collection.active)
+            where(:collection_id => collection)
     scope = scope.where(:category => category) if category
     scope
   end
