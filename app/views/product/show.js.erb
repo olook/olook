@@ -1,11 +1,14 @@
 $('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
 $('#quick_view').fadeIn(300);
-$('#close_quick_view').click(function(){
+width = $(document).width();
+height = $(document).height();
+$('body').prepend("<div class='overlay'></div>");
+$('.overlay').width(width).height(height);
+$('#close_quick_view, div.overlay').click(function(){
   $('#quick_view').fadeOut(300);
-})
+  $("div.overlay").remove();
+});
 $('#quick_view ol.colors li a').attr('data-remote', true);
-
-$('footer').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
 
 $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
   zoomType: 'standard',
