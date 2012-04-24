@@ -12,7 +12,12 @@ class ProductFinderService
     categories = options[:category].nil? ? Category.list_of_all_categories : [options[:category]]
     results = []
     categories.each do |cat|
-      results += products_from_all_profiles(:category => cat, :description => options[:description], :collection => options[:collection])[0..4]
+      if cat == Category::SHOE
+        params = {:category => cat, :description => options[:description], :collection => options[:collection]}
+      else
+        params = {:category => cat, :not_allow_sold_out_products => options[:not_allow_sold_out_products], :collection => options[:collection]}
+      end
+      results += products_from_all_profiles(params)[0..4]
     end
     remove_color_variations results
   end
@@ -26,6 +31,7 @@ class ProductFinderService
       result = result | profile_products(:profile => profile_score.profile,
                                          :category => options[:category],
                                          :description => options[:description],
+                                         :not_allow_sold_out_products => options[:not_allow_sold_out_products],
                                          :collection => options[:collection])
     end
     remove_color_variations result
