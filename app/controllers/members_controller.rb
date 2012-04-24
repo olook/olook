@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :check_early_access, :only => [:showroom]
+  before_filter :check_full_user, :only => [:showroom]  
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
   before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
@@ -155,6 +156,13 @@ class MembersController < ApplicationController
 
   def user_has_facebook_account?
     @user.has_facebook?
+  end
+  
+  def check_full_user
+    if current_user.half_user
+      flash[:notice] = "Você não tem acesso à vitrine"
+      redirect_to gift_root_path 
+    end
   end
 end
 
