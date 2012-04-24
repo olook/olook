@@ -5,6 +5,7 @@ class User::SettingsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
+  before_filter :redirect_if_half_user, :only => [:showroom]
 
   def showroom
     @questions = Question.from_registration_survey
