@@ -45,8 +45,12 @@ div.full_container {
       }
       div#profile {
         width: 460px;
-        margin: 10px 0 0 0;
+        margin: 16px 0 0 0;
         float: right;
+        a {
+          color: #df5b8c;
+          font-size: 10px;
+        }
       }
       section#products {
         position: relative;
