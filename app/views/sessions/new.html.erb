@@ -1,7 +1,9 @@
 <div class="home sign-in">
   <h1>Seja bem-vinda! Faça seu login ...</h1>
   <div id="sign-in-box">
-    <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb-login-button' %>
+  	<!-- TODO: Commented out due to facebook problem 
+    <%#= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb-login-button' %>
+    -->
     <%= render :partial => "form" %>
   </div>
   <%= image_tag('/assets/common/model-sign-in.png') %>

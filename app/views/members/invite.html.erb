@@ -13,10 +13,12 @@
 <section id="user-info">
 <hgroup class='info'>
     <% unless current_user.has_facebook? %>
+    <!-- TODO: Commented out due to facebook problem 
       <div class="connect">
         <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
-        <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
+        <%#= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
       </div>
+      -->
     <% end %>
     <h2><%= display_member_credit(current_user) %></h2>
   </hgroup>
@@ -37,7 +39,9 @@
   <ul>
     <li class='personal_link'><%= link_to 'Link pessoal', 'javascript:void(0);', :class => 'share-mail' %></li>
     <li class='invite_mail'><%= link_to 'Email', 'javascript:void(0);', :class => 'invite-mail' %></li>
-    <li class='facebook'><%= link_to  'Facebook', 'javascript:void(0);', :class => 'post-to-wall' %></li>
+    <!-- TODO: Commented out due to facebook problem 
+    <li class='facebook'><%#= link_to  'Facebook', 'javascript:void(0);', :class => 'post-to-wall' %></li>
+  -->
     <li class='import_contacts'><%= link_to 'Lista de contatos', 'javascript:void(0);', :class => 'import-contacts' %></li>
   </ul>
 </nav>
@@ -70,9 +74,11 @@
                 }, true);
               </script>
             </li>
+            <!-- TODO: Commented out due to facebook problem 
             <li>
-              <a href="#" id="facebook_post_wall"><%= image_tag 'common/fb-post-to-wall.png' %></a>
+              <a href="#" id="facebook_post_wall"><%#= image_tag 'common/fb-post-to-wall.png' %></a>
             </li>
+          -->
           </ul>
         </li>
       </ol>
@@ -101,16 +107,16 @@
     </fieldset>
   <% end %>
 </section>
-
+<!-- TODO: Commented out due to facebook problem 
 <section id="post-to-wall">
   <hgroup>
     <h1>Convide amigas do Facebook</h1>
     <h2>Para convidar, <br /> selecione suas amigas<br />na caixa ao lado
     </h2>
   </hgroup>
-  <%= link_to image_tag('/assets/common/bt-face-send-messages.png'), '', :id => 'facebook_invite_friends' %>
+  <%#= link_to image_tag('/assets/common/bt-face-send-messages.png'), '', :id => 'facebook_invite_friends' %>
 </section>
-
+-->
 <section id="import-contacts" style="background:none;">
   <hgroup>
     <h1>Importe sua lista de contatos</h1>

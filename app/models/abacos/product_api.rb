@@ -4,8 +4,8 @@ module Abacos
     extend Helpers
 
     def self.wsdl
-      "http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
-    end    
+      ABACOS_CONFIG["wsdl_product_api"]
+    end
 
     def self.download_products
       download_xml :produtos_disponiveis, :dados_produtos
@@ -18,7 +18,7 @@ module Abacos
     def self.download_prices
       download_xml :precos_disponiveis, :dados_preco
     end
-    
+
     def self.confirm_product(protocol)
       confirm_integration :produto, protocol
     end

@@ -4,9 +4,9 @@ module Abacos
     extend Helpers
 
     def self.wsdl
-      "http://erp-db.olook.com.br:8043/AbacosWebSvc/AbacosWSPedidos.asmx?wsdl"
+      ABACOS_CONFIG["wsdl_order_api"]
     end
-    
+
     def self.insert_order(order)
       payload = order.parsed_data
       payload["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
@@ -18,7 +18,7 @@ module Abacos
         raise_webservice_error error_container
       end
     end
-    
+
     def self.confirm_order_status(protocol)
       response = call_webservice(wsdl, :confirmar_recebimento_status_pedido, {"ProtocoloStatusPedido" => protocol})
       if response[:tipo] == 'tdreSucesso'
@@ -27,7 +27,7 @@ module Abacos
         raise_webservice_error(response)
       end
     end
-    
+
     def self.download_orders_statuses
       download_xml :status_pedido_disponiveis, :dados_status_pedido
     end

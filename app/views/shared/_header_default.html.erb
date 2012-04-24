@@ -59,11 +59,14 @@
           <% end %>
           <li class="lookbooks"><%= link_to "Lookbooks", lookbooks_path %></li>
           <li class="stylist"><%= link_to 'Stylist', helena_linhares_path, :class => selected_if_current(['stylists#helena_linhares']) %></li>
-          <li class="my_friends"><%= link_to "Minhas Amigas", facebook_connect_path, :class => selected_if_current(['friends#facebook_connect','friends#home','friends#showroom']) %></li>
+          <!-- TODO: Commented out due to facebook problem 
+          <li class="my_friends"><%#= link_to "Minhas Amigas", facebook_connect_path, :class => selected_if_current(['friends#facebook_connect','friends#home','friends#showroom']) %></li>
+        -->
           <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
           <% if current_liquidation %>
             <li class="liquidation"><%= link_to current_liquidation.name, liquidations_path(current_liquidation.id), :class => is_current?('liquidations', 'show') %></li>
           <% end %>
+          <li class="blog"><%= link_to "Blog", "http://blog.olook.com.br", :target => "_blank" %></li>
           <% if current_user.has_early_access? %>
             <li class="cart" id="cart">
               <%= render 'shared/cart', :order => @order %>

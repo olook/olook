@@ -19,9 +19,11 @@ class Credit < ActiveRecord::Base
   def self.add_for_inviter(buyer, order)
     # TO DO: Double check to see if the credit was already gave for this order
     inviter = buyer.try(:inviter)
-    if inviter && buyer.first_buy? && buyer.has_not_exceeded_credit_limit?(INVITE_BONUS)
+    if inviter && buyer.first_buy? && inviter.has_not_exceeded_credit_limit?(INVITE_BONUS)
       updated_total = inviter.current_credit + INVITE_BONUS
       inviter.credits.create!(:value => INVITE_BONUS, :total => updated_total, :order => order, :source => "invitee_bonus")
+    else
+      false
     end
   end
 
@@ -35,7 +37,9 @@ class Credit < ActiveRecord::Base
   end
 
   def self.add(amount, user, order)
-    updated_total = user.current_credit + amount
-    user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit")
+    if user.has_not_exceeded_credit_limit?(INVITE_BONUS)
+      updated_total = user.current_credit + amount
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit")
+    end
   end
 end

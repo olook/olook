@@ -17,13 +17,17 @@ class ShowroomPresenter < BasePresenter
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
   end
 
-  def display_products(asked_range, category)
-    products = member.all_profiles_showroom(category)
+  def display_products(asked_range, category, collection = Collection.active)
+    products = member.all_profiles_showroom(category, collection)
     range = parse_range(asked_range, products)
 
     output = ''
     (products[range] || []).each do |product|
-      output << h.render(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => self, :product => product})
+      if product.liquidation?
+        output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
+      else
+      output << h.render("shared/showroom_product_item", :showroom_presenter => self, :product => product)
+      end
     end
     h.raw output
   end
