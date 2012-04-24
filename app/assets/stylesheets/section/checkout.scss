@@ -2,20 +2,18 @@ header {
   background: none !important;
   min-height: 93px !important;
   overflow: auto !important;
-  a.back_showroom {
-    background: url("/assets/cart/bt-back-showroom.jpg") no-repeat;
-    text-indent: -9999px;
-    width: 183px;
-    height: 31px;
-    margin: 20px 10px 0 0;
-    display: block;
-    float: right;
-  }
-  a.back_suggestion {
-    background: url("/assets/cart/bt-back-suggestions.jpg") no-repeat;
-    text-indent: -9999px;
-    width: 183px;
-    height: 31px;
+  a.back {
+    background: url("/assets/cart/bt-back.jpg") no-repeat;
+    color: #FFF;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    line-height: 29px;
+    letter-spacing: -1px;
+    width: 171px;
+    height: 29px;
     margin: 20px 10px 0 0;
     display: block;
     float: right;

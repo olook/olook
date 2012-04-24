@@ -12,9 +12,9 @@
     <% if user_signed_in? %>
       <h2 class="moip">Pagamento: Moip</h2>
       <% if @order.restricted? %>
-        <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back_suggestion" %>
+        <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back" %>
       <% else %>
-        <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_showroom" %>
+        <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
       <% end %>
     <% end %>
   </div>
