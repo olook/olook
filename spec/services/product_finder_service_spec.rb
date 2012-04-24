@@ -35,7 +35,7 @@ describe ProductFinderService do
     end
 
     it 'should return only the products of a given category' do
-      subject.showroom_products(Category::BAG).should == [product_c]
+      subject.showroom_products(:category => Category::BAG).should == [product_c]
     end
 
     it 'should return an array' do
@@ -45,42 +45,42 @@ describe ProductFinderService do
 
   describe "#products_from_all_profiles" do
     it "should return the products ordered by profiles without duplicate names" do
-      subject.products_from_all_profiles(nil).should == [product_c, product_d, product_e, product_f, product_g, product_a, product_b]
+      subject.products_from_all_profiles.should == [product_c, product_d, product_e, product_f, product_g, product_a, product_b]
     end
 
     it "should return the products ordered by profiles without duplicate names" do
-      subject.products_from_all_profiles(nil, "37").should == [product_f]
+      subject.products_from_all_profiles(:description => "37").should == [product_f]
     end
 
     it 'should return only products of the specified category' do
-      subject.products_from_all_profiles(Category::BAG).should == [product_c]
+      subject.products_from_all_profiles(:category => Category::BAG).should == [product_c]
     end
 
     it 'should return an array' do
-      subject.products_from_all_profiles(nil).should be_a(Array)
+      subject.products_from_all_profiles.should be_a(Array)
     end
   end
 
   describe "#profile_products" do
     it "should return only the products for the given profile" do
-      subject.profile_products(sporty_profile).should == [product_c, product_d, product_e, product_f, product_g]
+      subject.profile_products(:profile => sporty_profile).should == [product_c, product_d, product_e, product_f, product_g]
     end
 
     it "should return only the products for the given profile" do
       product_c.update_attributes(:collection => last_collection)
-      subject.profile_products(sporty_profile, nil, nil, last_collection).should == [product_c]
+      subject.profile_products(:profile => sporty_profile, :collection => last_collection).should == [product_c]
     end
 
     it "should return only the products for the given profile" do
-      subject.profile_products(sporty_profile, nil, "37").should == [product_f]
+      subject.profile_products(:profile => sporty_profile, :description => "37").should == [product_f]
     end
 
     it 'should return only the products for the given profile and category' do
-      subject.profile_products(sporty_profile, Category::BAG).should == [product_c]
+      subject.profile_products(:profile => sporty_profile, :category => Category::BAG).should == [product_c]
     end
 
     it 'should not include the invisible product' do
-      subject.profile_products(sporty_profile).should_not include(invisible_product)
+      subject.profile_products(:profile => sporty_profile).should_not include(invisible_product)
     end
   end
 
