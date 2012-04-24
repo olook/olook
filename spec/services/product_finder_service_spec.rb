@@ -31,7 +31,7 @@ describe ProductFinderService do
 
   describe "#showroom_products" do
     it "should return the products ordered by profiles without duplicate names" do
-      subject.showroom_products.should == [product_d, product_e, product_f, product_a, product_b, product_c, product_g]
+      subject.showroom_products(:not_allow_sold_out_products => true).should == [product_d, product_e, product_f, product_a, product_b]
     end
 
     it 'should return only the products of a given category' do
