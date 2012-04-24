@@ -195,6 +195,11 @@ Olook::Application.routes.draw do
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
+  
+  #TODO: implement gift routes with something as bellow
+  #devise_for :gift, :class_name => "User", :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
+  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+  #end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
     get '/entrar' => 'sessions#new', :as => :new_user_session
@@ -202,8 +207,8 @@ Olook::Application.routes.draw do
     delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    #gift
     get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
     post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
-    post '/gift/entrar' => "gift/sessions#create", :as => :gift_user_session
   end
 end

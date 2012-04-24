@@ -1,4 +1,4 @@
-class Gift::RegistrationsController < Devise::RegistrationsController
+class Gift::RegistrationsController < Devise::RegistrationsController  
   
   def create
     build_resource
@@ -6,6 +6,8 @@ class Gift::RegistrationsController < Devise::RegistrationsController
     if resource.save
       if resource.active_for_authentication?
         sign_in(resource_name, resource)
+        GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id)
+        GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id)
         redirect_to add_products_to_gift_cart_cart_path(:products => session[:gift_products])
       else
         set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
