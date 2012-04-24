@@ -79,6 +79,17 @@ describe ProductFinderService do
       subject.profile_products(:profile => sporty_profile, :category => Category::BAG).should == [product_c]
     end
 
+    it 'should not return sold out products' do
+      FactoryGirl.create(:basic_bag_simple, :product => product_c, :inventory => 0)
+      subject.profile_products(:profile => sporty_profile, :category => Category::BAG, :not_allow_sold_out_products => true).should_not == [product_c]
+    end
+
+    it 'should return a product if at least one variant has inventory grater than 0' do
+      FactoryGirl.create(:basic_bag_simple, :product => product_c, :inventory => 0)
+      FactoryGirl.create(:basic_bag_normal, :product => product_c, :inventory => 1)
+      subject.profile_products(:profile => sporty_profile, :category => Category::BAG, :not_allow_sold_out_products => true).should == [product_c]
+    end
+
     it 'should not include the invisible product' do
       subject.profile_products(:profile => sporty_profile).should_not include(invisible_product)
     end
