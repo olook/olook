@@ -128,7 +128,7 @@ class CartController < ApplicationController
     session[:gift_products] = params[:products]
     if session[:gift_products] && @order
       @order.update_attributes :restricted => true if !@order.restricted?
-      @order.line_items.destroy
+      @order.line_items.destroy_all
       
       # to get shoe size
       @gift_recipient = GiftRecipient.find(session[:recipient_id])
