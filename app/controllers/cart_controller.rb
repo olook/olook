@@ -125,12 +125,13 @@ class CartController < ApplicationController
   end
   
   def add_products_to_gift_cart
-    if params[:products] && @order
+    session[:gift_products] = params[:products]
+    if session[:gift_products] && @order
       @order.update_attributes :restricted => true if !@order.restricted?
       products = @order.line_items.size
       
       # add products to cart      
-      params[:products].each_pair do |k, variant_id|
+      session[:gift_products].each_pair do |k, variant_id|
         if variant = Variant.find_by_id(variant_id)
           line_item = @order.add_variant(variant, nil, @order.gift_wrap?)
         end
@@ -138,7 +139,6 @@ class CartController < ApplicationController
       calculate_gift_prices(@order)
       
       total_products = @order.line_items.size
-      session[:gift_products] = params[:products]
       redirect_to(cart_path, :notice => total_products > products ? "Produtos adicionados com sucesso" : nil)
     else
       redirect_to(:back, :notice => "Produtos não foram adicionados")
