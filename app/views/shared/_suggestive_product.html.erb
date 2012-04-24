@@ -4,7 +4,9 @@
     <%= link_to product, :class => "product_link" do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
-      <p class="warn percentage"><span>%</span><br />off</p>
+      <% unless position == 0 %>
+        <p class="warn percentage"><span><%= "#{(position * 2)}0"%>%</span><br />off</p>
+      <% end %>
     <% end %>
     <div class="line">
       <% unless position == 0 %>
