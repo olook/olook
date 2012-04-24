@@ -86,9 +86,9 @@ class CartController < ApplicationController
   def update
     respond_with do |format|
       if @order.remove_variant(@variant)
-        calculate_gift_prices(@order)
         destroy_freight(@order)
         destroy_order_if_the_cart_is_empty(@order)
+        calculate_gift_prices(@order)
         format.html do
           redirect_to cart_path, :notice => "Produto removido com sucesso"
         end
@@ -128,18 +128,35 @@ class CartController < ApplicationController
     session[:gift_products] = params[:products]
     if session[:gift_products] && @order
       @order.update_attributes :restricted => true if !@order.restricted?
-      products = @order.line_items.size
+      @order.line_items.destroy
       
-      # add products to cart      
-      session[:gift_products].each_pair do |k, variant_id|
-        if variant = Variant.find_by_id(variant_id)
-          line_item = @order.add_variant(variant, nil, @order.gift_wrap?)
+      # to get shoe size
+      @gift_recipient = GiftRecipient.find(session[:recipient_id])
+      
+      # add products to cart
+      session[:gift_products].each_pair do |k, id|
+        product = Product.find(id)
+        if product
+          variant = case product.category
+            when Category::SHOE then
+              product.variants.where(:display_reference => "size-#{@gift_recipient.shoe_size}").first
+            # when Category::BAG then
+            #   product.variants.last
+            # when Category::ACCESSORY then
+            #   product.variants.last
+            else
+              product.variants.last
+          end
+        else
+          variant = Variant.find(id)
         end
+        
+        line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
       end
       calculate_gift_prices(@order)
       
       total_products = @order.line_items.size
-      redirect_to(cart_path, :notice => total_products > products ? "Produtos adicionados com sucesso" : "Produtos selecionados não estão disponíveis")
+      redirect_to(cart_path, :notice => total_products > 0 ? "Produtos adicionados com sucesso" : "Um ou mais produtos selecionados não estão disponíveis")
     else
       redirect_to(:back, :notice => "Produtos não foram adicionados")
     end
@@ -149,6 +166,7 @@ class CartController < ApplicationController
   def calculate_gift_prices order
     return if !order.restricted? || order.line_items.empty?
     position = 0
+    order.reload
     order.line_items.each do |line_item|
       line_item.update_attributes :retail_price => line_item.variant.gift_price(position)
       position += 1
