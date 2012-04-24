@@ -37,7 +37,7 @@ section#half_user {
     float: right;
     form.new_user {
       margin: 0 0 30px;
-      padding: 0 0 15px;
+      padding: 0 0 10px;
       border-bottom: 1px #d2d2d2 solid;
       fieldset {
         ol {
@@ -64,9 +64,45 @@ section#half_user {
                 outline: none;
               }
             }
+            input[type="submit"] {
+              float: right;
+            }
             &.gender {
               label {
                 float: none;
+              }
+            }
+            &.terms {
+              width: auto;
+              float: left;
+              p {
+                color: #0f1714;
+                font-size: 11px;
+                font-weight: bold;
+                width: 170px;
+                margin: 10px 0 0 20px;
+                float: left;
+                a {
+                  color: #0f1714;
+                }
+              }
+            }
+            &.buttons {
+              width: auto;
+              float: right;
+              input[type="submit"] {
+                background: url("/assets/half_user/register.jpg") no-repeat;
+                color: #FFF;
+                font-family: "Open Sans", sans-serif;
+                font-size: 20px;
+                letter-spacing: -1px;
+                text-transform: uppercase;
+                width: 158px;
+                height: 45px;
+                display: block;
+                margin: 0 20px 0 0;
+                border: none;
+                cursor: pointer;
               }
             }
           }
