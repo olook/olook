@@ -109,5 +109,51 @@ section#half_user {
         }
       }
     }
+    form.login {
+      fieldset {
+        ol {
+          li {
+            width: 165px;
+            margin: 0 5px 0 0;
+            float: left;
+            label {
+              font-size: 13px;
+              font-weight: bold;
+              margin: 0 0 3px 0;
+              float: left;
+            }
+            input[type="email"], input[type="password"] {
+              background: url("/assets/common/bg-inputs.png") repeat-x;
+              width: 140px;
+              border: 1px solid #C1C1C1;
+              padding: 7px 8px;
+              height: 17px;
+              &:focus {
+                outline: none;
+              }
+            }
+            input[type="submit"] {
+              background: url("/assets/half_user/login.jpg") no-repeat;
+              color: #FFF;
+              font-family: "Open Sans", sans-serif;
+              font-size: 12px;
+              letter-spacing: -1px;
+              text-transform: uppercase;
+              width: 75px;
+              height: 26px;
+              margin: 20px 0 0;
+              display: block;
+              border: none;
+              cursor: pointer;
+              float: right;
+            }
+            &.buttons {
+              width: auto;
+              float: right;
+            }
+          }
+        }
+      }
+    }
   }
 }
