@@ -92,7 +92,9 @@ div.full_container {
               position: absolute;
               background: #FFF;
               color: #e05789;
-              padding: 0 20px;
+              width: 95%;
+              margin: 0;
+              padding: 0;
               left: 0;
               border: 1px #a4a4a4 dotted;
               z-index: 0;
@@ -102,6 +104,7 @@ div.full_container {
         input[type="text"] {
           background: #FFF;
           width: 280px;
+          margin: 0 10px;
           color: #e05789;
           padding: 0 20px;
           border: 1px #a4a4a4 dotted;
