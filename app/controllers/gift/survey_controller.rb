@@ -7,7 +7,7 @@ class Gift::SurveyController < Gift::BaseController
       @questions = Question.from_gift_survey
       @presenter = GiftSurveyQuestions.new(@questions)
     else
-      redirect_to new_gift_survey_path
+      redirect_to gift_root_path
     end
   end
 

@@ -142,6 +142,7 @@ div.full_container {
       }
 
       ul#tracker {
+        width: 84px;
         margin: 0 auto 30px;
       }
     }
@@ -451,8 +452,8 @@ div.content {
             width: 255px;
             overflow: visible;
             padding: 15px;
-            top: 25px;
-            left: 25px;
+            top: 51px;
+            left: 51px;
             border: 1px #dcdcdc solid;
             z-index: 1000;
             display: none;

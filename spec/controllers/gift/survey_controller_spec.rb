@@ -14,7 +14,7 @@ describe Gift::SurveyController do
       it "redirects to new_survey" do
         session[:recipient_id] = nil
         post 'new'
-        response.should redirect_to new_gift_survey_path
+        response.should redirect_to gift_root_path
       end
     end
     
