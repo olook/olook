@@ -11,7 +11,7 @@
       </td>
       <td>
         <h1>Data:</h1>
-        <p><%= I18n.l(Date.new(Date.today.year, @occasion.month, @occasion.day), :format => :short) %></p>
+        <p><%= l(Date.new(Date.today.year, @occasion.month, @occasion.day), :format => :short) %></p>
       </td>
     </tr>
     <tr>

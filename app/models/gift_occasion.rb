@@ -10,4 +10,11 @@ class GiftOccasion < ActiveRecord::Base
   validates :gift_occasion_type, :presence => true
   
   delegate :name, :to => :gift_occasion_type, :allow_nil => true, :prefix => :type
+  
+  attr_accessor :date
+  validates :date, :with => :validate_day_and_month_as_date
+  
+  def validate_day_and_month_as_date
+    Date.new(Date.today.year,month,day) rescue errors.add :date
+  end
 end
