@@ -51,7 +51,8 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    run "/sbin/restart unicorn"
+    #run "/sbin/restart unicorn"
+    run "cd #{path_app} && kill -9 `pidof unicorn_rails` && RAILS_ENV=production #{bundle} exec unicorn_rails -c config/unicorn.conf.rb -D"
   end
 
 # desc "Make sure local git is in sync with remote."
