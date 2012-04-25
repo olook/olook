@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
-  validates_presence_of :gender, :if => Proc.new{|user| user.half_user}
+  validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}
   
   FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"

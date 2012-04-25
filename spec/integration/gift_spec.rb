@@ -30,7 +30,7 @@ feature "Buying Gifts", %q{
       end
 
       scenario "starting the process of creating a gift" do
-        page.should have_content("Estou escolhendo um presente de")
+        page.should have_content("Estou escolhendo um presente")
       end
 
       scenario "filling data and being redirect to quiz page" do
@@ -80,7 +80,7 @@ feature "Buying Gifts", %q{
     scenario "should start the gift creation" do
       visit gift_root_path
       click_link "new_occasion_link"
-      page.should have_content("Estou escolhendo um presente de")
+      page.should have_content("Estou escolhendo um presente")
     end
     
     scenario "should see the suggestions for a gift recipient" do
