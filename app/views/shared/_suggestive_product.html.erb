@@ -1,3 +1,4 @@
+<% if product %>
 <li class="product suggestion">
   <%= hidden_field_tag "products[#{position}]", "#{product.id}" %>
   <div class="box_product">
@@ -16,3 +17,4 @@
     </div>
   </div>
 </li>
+<% end %>
