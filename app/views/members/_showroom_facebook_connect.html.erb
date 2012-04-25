@@ -1,10 +1,8 @@
 <div class="facebook">
   <h1><%= showroom_presenter.welcome_message %><br />Esta é sua vitrine de <%= showroom_presenter.collection_name %></h1>
   <p>Nossos stylists pensaram em você com muito carinho para montar a seleção de produtos deste mês. Explore as possibilidades e aproveite sem moderação.</p>
-  <!-- TODO: Commented out due to facebook problem 
   <p class="connect">
-    <%#= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
+    <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
     <span>Conecte-se com o Facebook e adicione suas amigas</span>
   </p>
--->
 </div>
