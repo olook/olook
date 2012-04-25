@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Gift::SuggestionsController do
 
   let!(:recipient) { FactoryGirl.create(:gift_recipient) }
-  let!(:occasion) { FactoryGirl.create(:gift_occasion) }
+  let!(:occasion) { FactoryGirl.create(:gift_occasion, :gift_recipient => recipient) }
   let!(:product) { FactoryGirl.create(:basic_bag) }
 
   describe "GET 'index'" do
@@ -26,15 +26,22 @@ describe Gift::SuggestionsController do
     end
 
     context "occasion" do
-      it "finds the occasion from the session" do
-        session[:occasion_id] = "456"
-        GiftOccasion.should_receive(:find).with("456").and_return(occasion)
-        get 'index', :recipient_id => recipient.id
+      before do
+        GiftRecipient.stub(:find).with("123").and_return(recipient)
       end
 
-      it "assigns @occasion to the found occasion" do
-        GiftOccasion.stub(:find).and_return(occasion)
-        get 'index', :recipient_id => recipient.id
+      it "gets the occasions from the gift recipient" do
+        occasions = [ occasion ]
+        recipient.should_receive(:gift_occasions).and_return(occasions)
+        get 'index', :recipient_id => "123"
+      end
+
+      it "assigns @occasion to the last occasion" do
+        occasions = double(:occcasions)
+        recipient.stub(:gift_occasions).and_return(occasions)
+        occasions.should_receive(:last).and_return(occasion)
+
+        get 'index', :recipient_id => "123"
         assigns(:occasion).should == occasion
       end
     end
