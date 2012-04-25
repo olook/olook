@@ -30,6 +30,9 @@ div.full_container {
                 h1 {
                   color: #8b8b8b;
                 }
+                .occasion, .relation {
+                  text-transform: capitalize;
+                }
                 p {
                   color: #383838;
                   a {
