@@ -11,6 +11,8 @@
     <div class="content" id="profile">
       <h1><span><%= @gift_recipient.name %></span> é</h1>
       <%= image_tag "/assets/gift/panel_#{@profiles.first.name.parameterize}.png", :title => "#{@profiles.first.name}", :class => "profile" %>
+      <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %>
+      
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
         <h1>e o tamanho do sapato é:</h1>
 
@@ -27,7 +29,6 @@
         </ul>
 
         <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
-        <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %>
       <% end %>
 
       <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :html => { :class => "edit_profile" } do |f| %>

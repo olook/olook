@@ -162,8 +162,23 @@ div.full_container {
       img.profile {
         width: 930px;
         height: 247px;
-        margin: 0 auto 55px;
+        margin: 0 auto 20px;
         display: block;
+      }
+      p.change_profile {
+        color: #101010;
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        text-align: center;
+        letter-spacing: -1px;
+        margin: 0 0 40px 0;
+        a {
+          color: #e05789;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
       form {
         > h1 {
@@ -221,21 +236,6 @@ div.full_container {
           margin: 0 auto 15px;
           border: none;
           cursor: pointer;
-          & + p {
-            color: #101010;
-            font-family: "Open Sans", sans-serif;
-            font-size: 15px;
-            text-align: center;
-            letter-spacing: -1px;
-            margin: 0 0 30px 0;
-            a {
-              color: #e05789;
-              text-decoration: none;
-              &:hover {
-                text-decoration: underline;
-              }
-            }
-          }
         }
         div.profiles {
           background: url("/assets/gift/line.png") top center no-repeat;
