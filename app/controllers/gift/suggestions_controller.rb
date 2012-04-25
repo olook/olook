@@ -2,6 +2,7 @@
 class Gift::SuggestionsController < Gift::BaseController
   def index
     @gift_recipient = GiftRecipient.find(params[:recipient_id])
+    session[:recipient_id] = @gift_recipient.id
     @profile = @gift_recipient.profile
     @occasion = @gift_recipient.gift_occasions.last
     product_finder_service = ProductFinderService.new(@gift_recipient)

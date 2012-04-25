@@ -23,6 +23,11 @@ describe Gift::SuggestionsController do
         get 'index', :recipient_id => recipient.id.to_s
         assigns(:gift_recipient).should == recipient
       end
+      
+      it "sets recipiend_id in the session with the gift_recipient id" do
+        get 'index', :recipient_id => recipient.id.to_s
+        session[:recipient_id].should == recipient.id
+      end
     end
 
     context "occasion" do
