@@ -1,2 +1,27 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+$(function() {
+  initOccasion.fixSelects();
+
+  $('select.custom_select').change(function() {
+    p = $(this).parent();
+    customSelect = $(this).siblings("span.select");
+
+    selectWidth = $(customSelect).width();
+    selectHeight = $(customSelect).height();
+    $(p).css("width", selectWidth + 40);
+    $(this).css("width", "100%");
+  });
+});
+
+initOccasion = {
+  fixSelects : function() {
+    $('select.custom_select').each(function() {
+      p = $(this).parent();
+      customSelect = $(this).siblings("span.select");
+
+      selectWidth = $(customSelect).width();
+      selectHeight = $(customSelect).height();
+      $(p).css("width", selectWidth + 40);
+      $(this).css("width", "100%");
+    });
+  }
+}
