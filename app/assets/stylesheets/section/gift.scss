@@ -49,20 +49,31 @@ div.full_container {
       img {
         margin: 0 0 20px 0;
       }
-      a#new_occasion_link {
-        background: url("/assets/gift/bt-start.jpg") no-repeat;
+      a {
         color: #FFF;
         font-family: "Open Sans", sans-serif;
-        font-size: 20px;
         text-transform: uppercase;
-        text-align: center;
         text-decoration: none;
-        line-height: 43px;
         letter-spacing: -1px;
-        width: 347px;
-        height: 46px;
         display: block;
         clear: both;
+        &#new_occasion_link {
+          background: url("/assets/gift/bt-start.jpg") no-repeat;
+          font-size: 20px;
+          text-align: center;
+          line-height: 43px;
+          width: 347px;
+          height: 46px;
+          margin: 0 0 10px 0;
+        }
+        &.facebook {
+          background: url("/assets/gift/bt-facebook.png") no-repeat;
+          font-size: 14px;
+          line-height: 41px;
+          width: 285px;
+          height: 41px;
+          padding: 0 0 0 50px;
+        }
       }
     }
     &#occasion {
