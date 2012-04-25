@@ -27,7 +27,7 @@
         </ul>
 
         <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
-        <p>Não faz o estilo dela? <%= link_to "Clique aqui", "#", :class => "select_profile" %>
+        <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %>
       <% end %>
 
       <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :html => { :class => "edit_profile" } do |f| %>
