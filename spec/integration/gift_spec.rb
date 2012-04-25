@@ -9,6 +9,9 @@ feature "Buying Gifts", %q{
   } do
     
   let!(:user) { Factory.create(:user) }
+  let!(:occasion_type) { Factory.create(:gift_occasion_type) }
+  let!(:recipient_relation) { Factory.create(:gift_recipient_relation) }
+  let!(:gift_survey) { Factory.create(:gift_question) }
     
   describe "Already user" do
     background do
@@ -32,8 +35,12 @@ feature "Buying Gifts", %q{
 
       scenario "filling data and being redirect to quiz page" do
         fill_in 'recipient_name', :with => 'Jonh Doe'
+        select occasion_type.name, :from => 'occasion_gift_occasion_type_id'
+        select recipient_relation.name, :from => 'recipient_gift_recipient_relation_id'
         click_button "Continuar"
+        page.should have_content( gift_survey.title )
       end
+
     end
     
     scenario "answering the quiz for my recipient" do
@@ -78,9 +85,8 @@ feature "Buying Gifts", %q{
     
     scenario "should see the suggestions for a gift recipient" do
       FactoryGirl.create(:gift_occasion_type)
-      FactoryGirl.create(:gift_recipient_relation)    
-      question = FactoryGirl.create(:gift_question)  
-      FactoryGirl.create(:answer, :question => question)
+      FactoryGirl.create(:gift_recipient_relation)
+      FactoryGirl.create(:answer, :question => gift_survey)
       visit gift_root_path
       click_link "new_occasion_link"
       fill_in "recipient_name", :with => "Jane Joe"
