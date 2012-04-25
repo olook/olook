@@ -97,6 +97,8 @@ describe ProductFinderService do
 
   describe '#suggested_products_for' do
     it "should return the suggested products in the order: shoe, bag and accessory" do
+      FactoryGirl.create(:basic_bag_simple, :product => product_c, :inventory => 1)
+      FactoryGirl.create(:basic_accessory_simple, :product => product_g, :inventory => 1)
       subject.suggested_products_for(sporty_profile, "37").should == {:shoe => product_f, :bag => product_c, :accessory => product_g}
     end
   end
