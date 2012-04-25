@@ -37,7 +37,9 @@ class Order < ActiveRecord::Base
   has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
-
+  
+  validates :gift_message, :length => {:minimum => 2, :maximum => 140}
+  
   scope :with_payment, joins(:payment)
   scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
   scope :paid, where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
