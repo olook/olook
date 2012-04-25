@@ -2,7 +2,7 @@
 class GiftRecipient < ActiveRecord::Base
   belongs_to :user
   belongs_to :gift_recipient_relation
-  has_many :occasions
+  has_many :gift_occasions
   belongs_to :profile
   serialize :ranked_profile_ids, Array
 

@@ -28,6 +28,8 @@ describe GiftRecipient do
 
     it { should belong_to :profile }
 
+    it { should have_many :gift_occasions }
+
     describe "name" do
       it { should validate_presence_of :name }
       it { should allow_value("Jane doe").for(:name) }
