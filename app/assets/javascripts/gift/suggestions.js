@@ -25,6 +25,7 @@ InitSuggestion = {
       $(this).html("");
       InitSuggestion.showSuggestiveProducts();
     });
+    $('li a.product_color').attr('data-remote', true);
   },
 
   showSuggestiveProducts : function() {
