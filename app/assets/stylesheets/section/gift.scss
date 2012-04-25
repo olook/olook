@@ -103,19 +103,17 @@ div.full_container {
               position: absolute;
               background: #FFF;
               color: #e05789;
-              width: 95%;
-              margin: 0;
-              padding: 0;
+              padding: 0 20px;
               left: 0;
               border: 1px #a4a4a4 dotted;
               z-index: 0;
+              white-space: nowrap;
             }
           }
         }
         input[type="text"] {
           background: #FFF;
           width: 280px;
-          margin: 0 10px;
           color: #e05789;
           padding: 0 20px;
           border: 1px #a4a4a4 dotted;
