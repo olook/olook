@@ -38,7 +38,7 @@ class Order < ActiveRecord::Base
   after_create :generate_number
   after_create :generate_identification_code
   
-  validates :gift_message, :length => {:minimum => 2, :maximum => 140}
+  validates :gift_message, :length => {:maximum => 140}, :allow_nil => true
   
   scope :with_payment, joins(:payment)
   scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
