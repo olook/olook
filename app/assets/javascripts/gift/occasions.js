@@ -1,6 +1,12 @@
 $(function() {
   initOccasion.fixSelects();
 
+  $("input#recipient_name").autoGrowInput({
+    comfortZone: 10,
+    minWidth: 320,
+    maxWidth: 650
+  });
+
   $('select.custom_select').change(function() {
     p = $(this).parent();
     customSelect = $(this).siblings("span.select");

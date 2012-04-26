@@ -3,6 +3,7 @@
 <% end %>
 
 <% content_for :footer do %>
+  <%= javascript_include_tag "plugins/auto-grow-input" %>
   <%= javascript_include_tag "gift" %>
   <%= javascript_include_tag "gift/occasions" %>
 <% end %>
@@ -25,7 +26,7 @@
           <p>
             <%= select_month @month, {:field_name => 'month', :prefix => 'occasion', :prompt => 'Mês'}, { :class => "custom_select month", :title => "mês" } %>
           </p>)
-          ,para a <%= text_field :recipient, :name, :value => @name %>, que é minha
+          ,para a <%= text_field :recipient, :name, :value => @name, :maxlength => 40 %>, que é minha
           <p>
             <%= collection_select :recipient, :gift_recipient_relation_id, @recipient_relations, :id, :name, {:prompt => 'Escolha', :selected => @recipient_relation_id}, { :class => "custom_select relation", :title => "escolha" } %>
           </p>
