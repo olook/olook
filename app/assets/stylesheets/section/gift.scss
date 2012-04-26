@@ -43,7 +43,7 @@ div.full_container {
         font-size: 14px;
         letter-spacing: -1px;
         line-height: 17px;
-        width: 405px;
+        width: 410px;
         margin: 0 0 20px 0;
       }
       img {
@@ -73,6 +73,11 @@ div.full_container {
           width: 285px;
           height: 41px;
           padding: 0 0 0 50px;
+          &.disabled {
+            opacity: .5;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+            filter: alpha(opacity=50);
+          }
         }
       }
     }
