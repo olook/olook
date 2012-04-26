@@ -6,13 +6,39 @@ $( ".continue" ).click( function() {
   $( "form#gift_message" ).submit();
 })
 
+function change_value( wrap ) {
+
+    wrap_value = $("form#gift_wrap .inputs li p").text().match(/[0-9,]+/);
+    wrap_value = parseFloat( wrap_value[0].replace( ",", "." ) );
+
+    actual_value = $('#cart .last .value').text().match(/[0-9,]+/);
+    actual_value = parseFloat( actual_value[0].replace( ",", "." ) );
+
+    if (wrap) {
+
+      new_value = "R$ " + ( ( actual_value + wrap_value ).toString().replace( ".", "," ) )
+
+    }
+    else{
+
+      new_value = "R$ " + ( ( actual_value - wrap_value ).toString().replace( ".", "," ) )
+
+    }
+
+    $('#cart .last .value').text( new_value )
+
+}
+
+
 $( "#gift_gift_wrap" ).change( function() {
   $( "#gift_wrap" ).submit();
   if ( $(this).attr('checked') == 'checked' ) {
     $('.message_row').slideDown("slow");
+    change_value (true);
   }
   else {
     $('.message_row').slideUp("slow");
+    change_value (false);
   }
 });
 
