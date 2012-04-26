@@ -87,7 +87,7 @@ class CartController < ApplicationController
     respond_with do |format|
       if @order.remove_variant(@variant)
         destroy_freight(@order)
-        destroy_order_if_the_cart_is_empty(@order)
+        destroy_order_if_the_cart_is_empty(@order) if !@order.restricted?
         calculate_gift_prices(@order)
         format.html do
           redirect_to cart_path, :notice => "Produto removido com sucesso"
