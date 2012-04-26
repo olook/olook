@@ -20,7 +20,7 @@
   <% if current_user && !current_user.has_facebook_friends_birthday? %>
     <%= link_to "Importar meus contatos do Facebook", "/users/auth/facebook", :class => "facebook" %>
   <% elsif !current_user %>
-    <%= link_to "Importar meus contatos do Facebook", "javascript:void(0);", :class => "facebook disabled" %>
+    <%= link_to "Importar meus contatos do Facebook", "javascript:void(0);", :class => "facebook disabled", :alt => "Para importar seus contatos do facebook faça seu login", :title => "Para importar seus contatos do facebook faça seu login" %>
   <% end %>
   </div>
 <% end %>
