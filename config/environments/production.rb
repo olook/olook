@@ -47,7 +47,8 @@ Olook::Application.configure do
   #end
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( section/*.css about/*.css admin/*.css common/*.css plugins/*.css utilities/*.css )
+  config.assets.precompile += %w( *.js *.css ../*.css ../*.js section/*.css about/*.css admin/*.css common/*.css plugins/*.css utilities/*.css admin/*.js common/*.js gift/*.js plugins/*.js )
+
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
