@@ -111,6 +111,7 @@ Olook::Application.routes.draw do
       get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
       member do
         get :edit
+        put :edit
         put :update
       end
     end
