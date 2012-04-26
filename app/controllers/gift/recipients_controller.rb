@@ -5,7 +5,7 @@ class Gift::RecipientsController < Gift::BaseController
   def edit
     profile_id = params[:gift_recipient][:profile_id] if params.include?(:gift_recipient)
     @profiles = @gift_recipient.ranked_profiles(profile_id)
-    @main_profile = profile_id ? @profiles.first : @gift_recipient.try(:profile)
+    @main_profile = profile_id ? @profiles.first : (@gift_recipient.try(:profile) || @profiles.first)
   end
 
   def update
