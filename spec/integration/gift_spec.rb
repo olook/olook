@@ -23,7 +23,8 @@ feature "Buying Gifts", %q{
       page.should have_content("Acerte em cheio no presente")
     end
     
-    describe "choosing my recipient name, the occasion and the special date" do
+    describe "going through all gift process" do
+      
       before :each do 
         visit gift_root_path
         click_link "new_occasion_link"
@@ -41,10 +42,9 @@ feature "Buying Gifts", %q{
         page.should have_content( gift_survey.title )
       end
 
-    end
-    
-    scenario "answering the quiz for my recipient" do
-      pending
+      scenario "answering the quiz for my recipient" do
+      end
+
     end
     
     scenario "viewing my recipient profile and choosing her shoe size" do
