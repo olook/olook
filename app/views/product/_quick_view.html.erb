@@ -1,6 +1,6 @@
 <div id="close_quick_view">x</div>
 <% present 'Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id  do |product_presenter| %>
-  <div id="product">
+  <div id="product" class="product_<%= product.id %>">
     <div class="content">
       <div id="pics_suggestions">
         <%= product_presenter.render_pics %>
