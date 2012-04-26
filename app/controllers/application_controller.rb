@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
   before_filter :load_promotion
+  before_filter :clean_token
 
   helper_method :current_liquidation
 
@@ -13,6 +14,13 @@ class ApplicationController < ActionController::Base
 
   def current_liquidation
     LiquidationService.active
+  end
+
+  def clean_token
+    if params[:auth_token] && current_user
+      current_user.authentication_token = nil
+      current_user.save
+    end
   end
 
   def load_promotion
