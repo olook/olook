@@ -18,7 +18,9 @@ class ShowroomPresenter < BasePresenter
   end
 
   def display_products(asked_range, category, collection = Collection.active)
-    products = member.all_profiles_showroom(category, collection)
+    product_finder_service = ProductFinderService.new member
+    products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection)
+
     range = parse_range(asked_range, products)
 
     output = ''

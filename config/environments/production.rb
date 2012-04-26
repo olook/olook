@@ -16,7 +16,7 @@ Olook::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -47,7 +47,8 @@ Olook::Application.configure do
   #end
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( *.js *.css ../*.css ../*.js section/*.css about/*.css admin/*.css common/*.css plugins/*.css utilities/*.css admin/*.js common/*.js gift/*.js plugins/*.js )
+
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
@@ -61,5 +62,4 @@ Olook::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
 end
