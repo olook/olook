@@ -3,8 +3,8 @@ $(function() {
 
   $("input#recipient_name").autoGrowInput({
     comfortZone: 10,
-    minWidth: 322,
-    maxWidth: 600
+    minWidth: 320,
+    maxWidth: 650
   });
 
   $('select.custom_select').change(function() {
