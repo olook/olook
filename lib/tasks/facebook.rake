@@ -20,11 +20,8 @@ namespace :facebook do
   desc "Restore facebook info from csv file with columns ['user_id', 'uid', 'facebook_token', 'has_facebook_extended_permission']"
   task :restore_facebook_info, :filename, :needs => :environment do |t, args|
     CSV.foreach(args[:filename], :headers => true) do |row| 
-      puts row
-      user = User.find(row[0])
-      user.uid = row[1]
-      user.facebook_token = row[2]
-      user.save
+      user = User.find(:first, :conditions => {:id => row[0]})
+      user.update_attributes(:uid => row[1], :facebook_token => row[2]) unless user.nil?
     end
   end
 
