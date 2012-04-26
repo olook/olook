@@ -11,6 +11,7 @@ class GiftRecipient < ActiveRecord::Base
   validates :name, :presence => true, :length => {:minimum => 2}
   validates :shoe_size, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50}, :allow_nil => true
   validates :gift_recipient_relation, :presence => true
+  validates :shoe_size, :presence => true, :unless => "profile_id.nil?"
   
   delegate :name, :to => :gift_recipient_relation, :allow_nil => true, :prefix => :relation
 
