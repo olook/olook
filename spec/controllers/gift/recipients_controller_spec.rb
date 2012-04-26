@@ -38,6 +38,12 @@ describe Gift::RecipientsController do
           GiftRecipient.any_instance.should_receive(:ranked_profiles).with("3").and_return(profiles)
           get 'edit', :id => id, :gift_recipient => { :profile_id => "3" }
         end
+
+        it "assigns @main_profile to the first profile " do
+          GiftRecipient.any_instance.stub(:ranked_profiles).with("3").and_return(profiles)
+          get 'edit', :id => id, :gift_recipient => { :profile_id => "3" }
+          assigns(:main_profile).should == profiles.first
+        end
       end
 
     end
