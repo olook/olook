@@ -11,7 +11,7 @@ $(function() {
   });
 
   $("div#suggestion ul.product_actions li a.more_suggestions").live("click", function(event) {
-    InitSuggestion.clearSuggestions();
+    initSuggestion.clearSuggestions();
     event.preventDefault();
   });
 
@@ -30,19 +30,19 @@ $(function() {
   });
 });
 
-InitSuggestion = {
+initSuggestion = {
   clearSuggestions : function() {
     $("section#products div.product_container ul").fadeOut("normal", function() {
       $(this).html("");
-      InitSuggestion.showSuggestiveProducts();
+      initSuggestion.showSuggestiveProducts();
     });
     $('li a.product_color').attr('data-remote', true);
   },
 
   showSuggestiveProducts : function() {
-    InitSuggestion.showLinksToAdd();
+    initSuggestion.showLinksToAdd();
     $("section#suggestions_container").slideDown("normal", function() {
-      InitSuggestion.slideTo(this);
+      initSuggestion.slideTo(this);
     });
   },
 

@@ -1,14 +1,14 @@
 $("#products .product_container").each(function(index) {
   $("#quick_view").is(":visible") && $('#quick_view').fadeOut(100);
   if($(this).find("ul").html() == "") {
-    InitSuggestion.slideTo("#products");
+    initSuggestion.slideTo("#products");
     switch(index) {
       case 1 :
         $(this).find("ul").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :locals => {:product => @product, :position => 1}) %>").fadeIn();
         break;
       case 2 :
         $(this).find("ul").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :locals => {:product => @product, :position => 2}) %>").fadeIn();
-        InitSuggestion.hideSuggestiveProducts();
+        initSuggestion.hideSuggestiveProducts();
         break;
       default :
         $(this).find("ul").html("<%= escape_javascript(render :partial => 'shared/suggestive_product', :locals => {:product => @product, :position => 0}) %>").fadeIn();
