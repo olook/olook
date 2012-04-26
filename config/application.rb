@@ -54,6 +54,6 @@ module Olook
 
     config.middleware.use "Graylog2Exceptions", { :hostname => '107.21.158.126', :port => '12201', :level => 0 }
 
-
+    config.middleware.delete Rack::Cache
   end
 end
