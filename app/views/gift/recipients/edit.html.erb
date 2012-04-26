@@ -16,7 +16,7 @@
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
         <h1>Ela calça:</h1>
 
-        <%= hidden_field_tag "gift_recipient[profile_id]", "#{@profiles.first.id}"%>
+        <%= hidden_field_tag "gift_recipient[profile_id]", "#{@main_profile.id}"%>
         <ul class="shoes">
           <% (33..40).each do |size| %>
             <li class="<%= 'selected' if size == @gift_recipient.shoe_size %>">

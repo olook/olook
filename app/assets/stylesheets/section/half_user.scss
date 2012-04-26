@@ -109,7 +109,17 @@ section#half_user {
         }
       }
     }
+    & > p {
+      color: #0f1714;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      a {
+        color: #e05789;
+      }
+    }
     form.login {
+      display: none;
       fieldset {
         ol {
           li {

@@ -1,20 +1,15 @@
 # -*- encoding : utf-8 -*-
 class Gift::RecipientsController < Gift::BaseController
-  # TO DO:
-  # - hide recipient id (in session or via post)
   before_filter :load_recipient
 
   def edit
     profile_id = params[:gift_recipient][:profile_id] if params.include?(:gift_recipient)
     @profiles = @gift_recipient.ranked_profiles(profile_id)
-    @main_profile = @gift_recipient.try(:profile)
-    @main_profile = @profiles.first if profile_id || @main_profile.nil?
+    @main_profile = profile_id ? @profiles.first : (@gift_recipient.try(:profile) || @profiles.first)
   end
 
   def update
-    profile_and_shoe = params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
-    if profile_and_shoe && profile_and_shoe[:shoe_size].present?
-      @gift_recipient.update_attributes!(profile_and_shoe)
+    if @gift_recipient.update_attributes(profile_and_shoe)
       redirect_to gift_recipient_suggestions_path(@gift_recipient)
     else
       flash[:notice] = "Por favor, escolha o número de sapato da sua presenteada."
@@ -27,4 +22,9 @@ class Gift::RecipientsController < Gift::BaseController
   def load_recipient
     @gift_recipient = GiftRecipient.find(params[:id])
   end
+
+  def profile_and_shoe
+    params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
+  end
+
 end
