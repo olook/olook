@@ -35,6 +35,7 @@ describe GiftRecipient do
       it { should allow_value("Jane doe").for(:name) }
       it { should_not allow_value("A").for(:name) }
       it { should_not allow_value("  ").for(:name) }
+      it { should_not allow_value("José Francisco Xavier de Paula Domingos António Agostinho Anastácio de Bragança").for(:name) }
     end
 
     describe "shoe size" do
