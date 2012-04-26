@@ -1,4 +1,15 @@
 $(function() {
+  $('#close_quick_view, div.overlay, a.add_product_to_suggestions').live("click", function() {
+    $('#quick_view').fadeOut(300);
+    $("div.overlay").remove();
+  });
+
+  $("a.add_product_to_suggestions").live("click", function() {
+    relId = $(this).attr("rel");
+    clazz = "a.add_suggestion_"+relId;
+    $("a.add_suggestion_"+relId).parent().hide();
+  });
+
   $("div#suggestion ul.product_actions li a.more_suggestions").live("click", function(event) {
     InitSuggestion.clearSuggestions();
     event.preventDefault();
