@@ -38,12 +38,27 @@ describe GiftRecipient do
     end
 
     describe "shoe size" do
-      # it { should validate_presence_of :shoe_size }
       it { should allow_value(35).for(:shoe_size) }
       it { should_not allow_value(0).for(:shoe_size) }
       it { should_not allow_value(-1).for(:shoe_size) }
       it { should_not allow_value("aa").for(:shoe_size) }
     end
+
+    context "shoe size conditional validation" do
+      context "when the gift recipient has no profile_id" do
+        it "does not validates the presence of shoe size" do
+          subject.update_attributes(:profile_id => nil, :shoe_size => nil).should be_true
+        end
+      end
+
+      context "when the recipient has a profile id" do
+        it "validates the presence of shoe size" do
+          subject.update_attributes(:profile_id => 3, :shoe_size => nil).should be_false
+        end
+      end
+
+    end
+
   end
 
   describe "#profile_scores" do
