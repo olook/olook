@@ -1,5 +1,5 @@
 #role :web, "domainname"
-role :app, "107.22.8.210"
+role :app, "ec2-23-20-146-64.compute-1.amazonaws.com"
 #role :app, "10.123.61.122"
 #role :db,  "domainname", :primary => true
  
