@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Gift::RecipientsController < Gift::BaseController
   # TO DO:
-  # - hide recipient id (in session or via post)
+  # - change recipient_id to not be and incremental number
   before_filter :load_recipient
 
   def edit
@@ -12,9 +12,7 @@ class Gift::RecipientsController < Gift::BaseController
   end
 
   def update
-    profile_and_shoe = params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
-    if profile_and_shoe && profile_and_shoe[:shoe_size].present?
-      @gift_recipient.update_attributes!(profile_and_shoe)
+    if @gift_recipient.update_attributes(profile_and_shoe)
       redirect_to gift_recipient_suggestions_path(@gift_recipient)
     else
       flash[:notice] = "Por favor, escolha o número de sapato da sua presenteada."
@@ -27,4 +25,9 @@ class Gift::RecipientsController < Gift::BaseController
   def load_recipient
     @gift_recipient = GiftRecipient.find(params[:id])
   end
+
+  def profile_and_shoe
+    params[:gift_recipient].slice(:shoe_size, :profile_id) if params.include?(:gift_recipient)
+  end
+
 end
