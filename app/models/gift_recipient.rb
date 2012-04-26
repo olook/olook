@@ -8,7 +8,7 @@ class GiftRecipient < ActiveRecord::Base
 
   validates_associated :user, :gift_recipient_relation
 
-  validates :name, :presence => true, :length => {:minimum => 2, :maximum => 35}
+  validates :name, :presence => true, :length => {:minimum => 2, :maximum => 40}
   validates :shoe_size, :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50}, :allow_nil => true
   validates :gift_recipient_relation, :presence => true
   validates :shoe_size, :presence => true, :unless => "profile_id.nil?"
