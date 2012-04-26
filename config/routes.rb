@@ -19,6 +19,7 @@ Olook::Application.routes.draw do
   match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/:name", :to => "lookbooks#show"
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
+
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
@@ -28,7 +29,6 @@ Olook::Application.routes.draw do
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
-
   match "/minhas-amigas/conectar", :to => "friends#facebook_connect", :as => "facebook_connect"
   match "/minhas-amigas/home", :to => "friends#home", :as => "friends_home"
   match "/minhas-amigas/vitrine/:friend_id", :to => "friends#showroom", :as => "friend_showroom"
@@ -83,7 +83,6 @@ Olook::Application.routes.draw do
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
-
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
 
   namespace :user, :path => 'conta' do
@@ -211,4 +210,7 @@ Olook::Application.routes.draw do
     get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
     post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
   end
+
+  # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
+  get ":page_url", :to => "landing_pages#show"
 end

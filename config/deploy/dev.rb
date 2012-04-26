@@ -30,7 +30,10 @@ namespace :deploy do
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
+    #run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:precompile #{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -51,7 +54,8 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    run "/sbin/restart unicorn"
+    #run "/sbin/restart unicorn"
+    run "cd #{path_app} && kill -9 `pidof unicorn_rails` && RAILS_ENV=production #{bundle} exec unicorn_rails -c config/unicorn.conf.rb -D"
   end
 
 # desc "Make sure local git is in sync with remote."
