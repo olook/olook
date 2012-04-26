@@ -91,7 +91,7 @@ describe MembersController do
       get :showroom
       assigns(:friends).should == [:fake_friend]
     end
-=begin Commented out due to facebook problem (should have no tokens now)
+
     it "should redirect to facebook_connect_path if the user has a invalid token" do
       FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_raise(Koala::Facebook::APIError)
       get :showroom
@@ -102,7 +102,7 @@ describe MembersController do
       get :showroom
       response.should_not redirect_to(facebook_connect_path)
     end
-=end    
+   
   end
 
   it "#invite_by_email" do

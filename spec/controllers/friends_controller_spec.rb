@@ -1,4 +1,3 @@
-=begin TODO Commented out due to facebook problem
 require 'spec_helper'
 
 describe FriendsController do
@@ -163,4 +162,3 @@ describe FriendsController do
     end
   end
 end
-=end
