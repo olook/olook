@@ -60,5 +60,19 @@ InitSuggestion = {
     $('html, body').animate({
       scrollTop: position
     }, 'slow');
+  },
+
+  checkIfProductIsAlreadySelected : function() {
+    productBox = $("div#quick_view").find("div#product");
+    productId = $(productBox).attr("class").split("_")[1];
+    $("section#products div.product_container").each(function() {
+      boxProductId = $(this).find("ul").find("li").find("input[type='hidden']").val();
+      if(productId == boxProductId) {
+        link = $(productBox).find("a.add_product_to_suggestions");
+        $(link).addClass("disabled");
+        $(link).bind('click', false);
+        return false;
+      }
+    });
   }
 }
