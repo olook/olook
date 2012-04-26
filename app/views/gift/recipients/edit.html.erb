@@ -10,7 +10,7 @@
   <div class="full_bg">
     <div class="content" id="profile">
       <h1><span><%= @gift_recipient.name %></span> é</h1>
-      <%= image_tag "/assets/gift/panel_#{@profiles.first.name.parameterize}.png", :title => "#{@profiles.first.name}", :class => "profile" %>
+      <%= image_tag "/assets/gift/panel_#{@main_profile.name.parameterize}.png", :title => "#{@main_profile.name}", :class => "profile" %>
       <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %>
       
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
@@ -19,7 +19,7 @@
         <%= hidden_field_tag "gift_recipient[profile_id]", "#{@profiles.first.id}"%>
         <ul class="shoes">
           <% (33..40).each do |size| %>
-            <li class="<%= ( size == @gift_recipient.shoe_size) ? 'selected': '' %>">
+            <li class="<%= 'selected' if size == @gift_recipient.shoe_size %>">
               <%= label_tag "gift_recipient_shoe_size_#{size}" do %>
                 <%= size %>
                 <%= f.radio_button :shoe_size, size %>
@@ -38,7 +38,7 @@
             <% @profiles[1..3].each do |profile| %>
               <li class="<%= profile.name.parameterize %>">
                 <%= label_tag "gift_recipient_profile_id_#{profile.id}" do %>
-                  <%= f.radio_button :profile_id, profile.id %>
+                  <%= f.radio_button :profile_id, profile.id, :checked => false %>
                 <% end %>
               </li>
             <% end %>
