@@ -1,6 +1,6 @@
 #role :web, "domainname"
 #role :app, "10.210.183.105" 
-role :app, "50.16.43.154"
+role :app, "development.olook.com.br"
 #role :db,  "domainname", :primary => true
  
 # server details
@@ -54,8 +54,7 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    #run "/sbin/restart unicorn"
-    run "cd #{path_app} && kill -9 `pidof unicorn_rails` && RAILS_ENV=production #{bundle} exec unicorn_rails -c config/unicorn.conf.rb -D"
+    run "/sbin/restart unicorn"
   end
 
 # desc "Make sure local git is in sync with remote."
