@@ -161,7 +161,7 @@ div.full_container {
       }
     }
     &#profile {
-      > h1 {
+      h1.title_name {
         background: url("/assets/gift/line.png") bottom center no-repeat;
         font-family: "Open Sans", sans-serif;
         font-size: 52px;
@@ -195,8 +195,8 @@ div.full_container {
           }
         }
       }
-      form {
-        > h1 {
+      form.edit_gift_recipient {
+        h1 {
           color: #101010;
           font-family: "Open Sans", sans-serif;
           font-size: 22px;
@@ -204,6 +204,7 @@ div.full_container {
           text-align: center;
           text-transform: lowercase;
           margin: 0 auto 20px;
+          display: block;
         }
         ul.shoes {
           width: 550px;
@@ -216,7 +217,7 @@ div.full_container {
             line-height: 36px;
             margin-right: 10px;
             margin-left: 10px;
-            display: block;
+            display: inline-block;
             border: 1px solid #D95485;
             float: left;
             label {
@@ -252,13 +253,15 @@ div.full_container {
           border: none;
           cursor: pointer;
         }
+      }
+      form.edit_profile {
         div.profiles {
           background: url("/assets/gift/line.png") top center no-repeat;
           width: 100%;
           padding: 10px 0 20px 0;
           overflow: hidden;
           display: none;
-          > h1 {
+          h1 {
             font-family: "Open Sans", sans-serif;
             font-size: 45px;
             font-weight: lighter;
@@ -588,5 +591,3 @@ div#calendar_container {
     }
   }
 }
-
-
