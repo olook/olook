@@ -54,7 +54,7 @@ namespace :db do
   
   desc "Creates some gift occasions"
   task :load_gift_occasion_types => :environment do
-    ['aniversário','dia dos nomorados','aniversário de casamento'].each do |name|
+    ['aniversário','dia dos namorados','aniversário de casamento'].each do |name|
       GiftOccasionType.create :name => name
     end
   end
