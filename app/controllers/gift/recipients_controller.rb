@@ -9,14 +9,14 @@ class Gift::RecipientsController < Gift::BaseController
   end
 
   def update
-    if @gift_recipient.update_attributes(profile_and_shoe)
+    if @gift_recipient.update_shoe_size_and_profile_info(params[:gift_recipient])
       redirect_to gift_recipient_suggestions_path(@gift_recipient)
     else
       flash[:notice] = "Por favor, escolha o número de sapato da sua presenteada."
       redirect_to edit_gift_recipient_path(@gift_recipient)
     end
   end
-  
+
   private
 
   def load_recipient

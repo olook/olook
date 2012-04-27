@@ -69,7 +69,7 @@ initSuggestion = {
       boxProductId = $(this).find("ul").find("li").find("input[type='hidden']").val();
       if(productId == boxProductId) {
         link = $(productBox).find("a.add_product_to_suggestions");
-        $(link).addClass("disabled");
+        $(link).css('visibility','hidden');
         $(link).bind('click', false);
         return false;
       }

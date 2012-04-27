@@ -1,6 +1,6 @@
 #role :web, "domainname"
 #role :app, "10.62.18.252" 
-role :app, "50.16.73.208"
+role :app, "showroom.olook.com.br"
 #role :db,  "domainname", :primary => true
  
 # server details

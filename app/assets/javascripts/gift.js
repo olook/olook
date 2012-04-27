@@ -8,6 +8,8 @@ $(function () {
 
   $("div#profile form ul.shoes li").live("click", function() {
     $("div#profile form ul.shoes li").removeClass("selected");
+    $("div#profile form ul.shoes li label input[type='radio']").removeAttr("checked");
+    $(this).find("label").find("input[type='radio']").attr("checked", "checked");
     if($(this).find("label").find("input[type='radio']").is(":checked")) {
       $(this).addClass("selected");
     }
@@ -24,8 +26,11 @@ $(function () {
     event.preventDefault();
   });
 
-  $("form.edit_profile input").change(function() {
-    $("form.edit_profile").submit();
+  $("form.edit_profile ul li").click(function() {
+    $(this).find("label").find("input[type='radio']").attr("checked", "checked");
+    if($(this).find("label").find("input[type='radio']").is(":checked")) {
+      $("form.edit_profile").submit();
+    }
   });
 });
 

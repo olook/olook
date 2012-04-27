@@ -14,7 +14,7 @@ function change_value(wrap) {
   actual_value = parseFloat(actual_value[0].replace( ",", "." ));
 
   new_value = actual_value + ((wrap) ? wrap_value : - wrap_value);
-  $('#cart .last .value').text("R$ " + new_value.toString().replace( ".", "," ));
+  $('#cart .last .value').text("R$ " + new_value.toFixed(2).toString().replace( ".", "," ));
 }
 
 
