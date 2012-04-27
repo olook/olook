@@ -8,6 +8,8 @@ $(function () {
 
   $("div#profile form ul.shoes li").live("click", function() {
     $("div#profile form ul.shoes li").removeClass("selected");
+    $("div#profile form ul.shoes li label input[type='radio']").removeAttr("checked");
+    $(this).find("label").find("input[type='radio']").attr("checked", "checked");
     if($(this).find("label").find("input[type='radio']").is(":checked")) {
       $(this).addClass("selected");
     }
