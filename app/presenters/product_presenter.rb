@@ -75,7 +75,7 @@ class ProductPresenter < BasePresenter
   end
   
   def quantity_left_text
-    more_than_one_left? ? "Restam apenas" : "Resta apenas"
+    more_than_one_left? ? "Restam apenas " : "Resta apenas "
   end
   
   def unities_left_text

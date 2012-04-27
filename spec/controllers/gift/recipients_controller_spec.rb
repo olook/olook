@@ -53,6 +53,10 @@ describe Gift::RecipientsController do
 
     let(:params) { {:gift_recipient => {} } }
 
+    before :each do
+      GiftRecipient.any_instance.stub(:update_shoe_size_and_profile_info).and_return(true)
+    end
+
     it "finds @gift_recipient" do
       GiftRecipient.should_receive(:find).with(id).and_return(recipient)
       post 'update', :id => id
@@ -68,14 +72,16 @@ describe Gift::RecipientsController do
       post 'update', :id => id, :gift_recipient => { :shoe_size => "39"}
       response.should redirect_to gift_recipient_suggestions_path(recipient)
     end
-      
+
     it "updates gift recipient shoe size and profile id only" do
-      GiftRecipient.any_instance.should_receive(:update_attributes).with("shoe_size" => "39", "profile_id" => "9")
-      post 'update', :id => id, :gift_recipient => { :shoe_size => "39", :profile_id => "9", :user_id => "47"}
+      params = { "shoe_size" => "39", "profile_id" => "9", "user_id" => "47"}
+      GiftRecipient.any_instance.should_receive(:update_shoe_size_and_profile_info).with(params)
+      post 'update', :id => id, :gift_recipient => params
     end
 
     context "when no shoe size is selected" do
       it "redirects to edit recipient and shows message" do
+        GiftRecipient.any_instance.stub(:update_shoe_size_and_profile_info).and_return(false)
         post 'update', :id => id, :gift_recipient => { :profile_id => "9", :shoe_size => nil }
         response.should redirect_to edit_gift_recipient_path(recipient)
         flash[:notice].should == "Por favor, escolha o número de sapato da sua presenteada."
