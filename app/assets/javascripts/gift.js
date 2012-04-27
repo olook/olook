@@ -26,8 +26,11 @@ $(function () {
     event.preventDefault();
   });
 
-  $("form.edit_profile input").change(function() {
-    $("form.edit_profile").submit();
+  $("form.edit_profile ul li").click(function() {
+    $(this).find("label").find("input[type='radio']").attr("checked", "checked");
+    if($(this).find("label").find("input[type='radio']").is(":checked")) {
+      $("form.edit_profile").submit();
+    }
   });
 });
 
