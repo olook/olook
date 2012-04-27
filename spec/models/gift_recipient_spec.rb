@@ -70,6 +70,15 @@ describe GiftRecipient do
     end
   end
 
+  describe "#update_shoe_size_and_profile_info" do
+    it "updates the gift recipient profile_id, shoe_size and ranked profile" do
+      params = {:profile_id => "3", :shoe_size => "2"}
+      subject.ranked_profile_ids = [1, 2, 3]
+      subject.should_receive(:update_attributes).with(:profile_id => "3", :shoe_size => "2", :ranked_profile_ids => [3, 1, 2])
+      subject.update_shoe_size_and_profile_info(params)
+    end
+  end
+
   describe "#belongs_to_user?" do
     context "when no user is passed" do
       it "returns nil" do
