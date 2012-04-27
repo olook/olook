@@ -23,7 +23,7 @@ describe Gift::SuggestionsController do
         get 'index', :recipient_id => recipient.id.to_s
         assigns(:gift_recipient).should == recipient
       end
-      
+
       it "sets recipiend_id in the session with the gift_recipient id" do
         get 'index', :recipient_id => recipient.id.to_s
         session[:recipient_id].should == recipient.id
@@ -66,7 +66,7 @@ describe Gift::SuggestionsController do
       it "assigns @products" do
         product_finder_service.stub(:suggested_products_for)
         ProductFinderService.should_receive(:new).with(recipient).and_return(product_finder_service)
-        product_finder_service.should_receive(:showroom_products).with(:description => recipient.shoe_size).and_return(:showroom_products)
+        product_finder_service.should_receive(:showroom_products).with(:description => recipient.shoe_size, :not_allow_sold_out_products => true).and_return(:showroom_products)
         get 'index', :recipient_id => recipient.id
         assigns(:products).should == :showroom_products
       end
