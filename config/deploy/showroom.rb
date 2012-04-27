@@ -1,6 +1,6 @@
 #role :web, "domainname"
 #role :app, "10.62.18.252" 
-role :app, "ec2-50-19-19-151.compute-1.amazonaws.com"
+role :app, "showroom.olook.com.br"
 #role :db,  "domainname", :primary => true
  
 # server details
