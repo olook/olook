@@ -13,6 +13,8 @@
       <h2 class="moip">Pagamento: Moip</h2>
       <% if @order.restricted? %>
         <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back" %>
+      <% elsif current_user.half_user? %>
+        <%= link_to "Voltar para lookbooks", lookbooks_path, :class => "back" %>
       <% else %>
         <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
       <% end %>
