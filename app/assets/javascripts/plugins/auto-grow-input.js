@@ -48,7 +48,7 @@
 
             testSubject.insertAfter(input);
 
-            $(this).bind('keyup keydown blur update', check);
+            $(this).bind('keyup keydown blur focus update', check);
 
         });
 

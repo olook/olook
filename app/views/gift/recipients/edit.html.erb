@@ -9,9 +9,9 @@
 <% content_for :full do %>
   <div class="full_bg">
     <div class="content" id="profile">
-      <h1><span><%= @gift_recipient.name %></span> é</h1>
+      <h1 class="title_name"><span><%= @gift_recipient.name %></span> é</h1>
       <%= image_tag "/assets/gift/panel_#{@main_profile.name.parameterize}.png", :title => "#{@main_profile.name}", :class => "profile" %>
-      <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %>
+      <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %></p>
       
       <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
         <h1>Ela calça:</h1>

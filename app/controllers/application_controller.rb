@@ -51,8 +51,7 @@ class ApplicationController < ActionController::Base
   
   def redirect_if_half_user
     if current_user.half_user
-      flash[:notice] = "Você não tem acesso à essa página"
-      redirect_to gift_root_path 
+      redirect_to lookbooks_path 
     end
   end
 

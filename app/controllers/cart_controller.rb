@@ -112,7 +112,9 @@ class CartController < ApplicationController
   end
 
   def create
-    if !@order.restricted? # gift cart
+    @order.update_attributes :restricted => false if @order.restricted? && @order.line_items.empty?
+
+    if !@order.restricted?  # gift cart
       if @order.add_variant(@variant, nil)
         destroy_freight(@order)
         redirect_to(cart_path, :notice => "Produto adicionado com sucesso")

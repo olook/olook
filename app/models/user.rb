@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
-class User < ActiveRecord::Base
-  
-  has_paper_trail :on => [:update, :destroy]
-  
+class User < ActiveRecord::Base  
   serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
