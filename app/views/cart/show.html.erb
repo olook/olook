@@ -90,7 +90,7 @@
             <%= image_tag item.variant.thumb_picture %>
             <p><strong><%= item.variant.name %></strong></p>
             <p>Tamanho: <%= item.variant.description %></p>
-            <p>Cor: <%= item.variant.color_name %></p>
+            <p>Cor/Material: <%= item.variant.color_name %></p>
           </td>
           <td class="amount">
             <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
