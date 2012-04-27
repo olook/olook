@@ -15,7 +15,6 @@
       <ul>
         <li>Todos os meses uma <strong>coleção nova para você</strong></li>
         <li>O cadastro é gratuito <strong>e leva menos de 2 minutos</strong></li>
-        <li>Todos os produtos por <strong>R$69,90, R$99,90 e R$129,90</strong></li>
         <li>Frete grátis para SP e RJ e acima <strong>de R$120,00 para outros estados</strong></li>
       </ul>
     </div>
@@ -46,13 +45,13 @@
   <div id="wrapper_menu">
     <nav class="menu">
       <div class="content">
-        <% if current_user.has_early_access?  %>
+        <% if current_user.has_early_access?  && !current_user.half_user? %>
         <ul class="product_anchors">
           <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
           <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
           <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
         </ul>
-      <% end %>
+        <% end %>
         <ul class="default">
           <% present 'Menu', :user => current_user do |menu_presenter| %>
             <%= menu_presenter.render_menu %>
