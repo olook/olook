@@ -50,7 +50,7 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    run "/sbin/restart unicorn"
+    #run "/sbin/restart unicorn"
   end
 
 # desc "Make sure local git is in sync with remote."
