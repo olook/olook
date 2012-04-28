@@ -37,8 +37,8 @@ class Gift::OccasionsController < Gift::BaseController
   private
   
   def load_collections_for_selects
-    @occasion_types = GiftOccasionType.all
-    @recipient_relations = GiftRecipientRelation.all
+    @occasion_types = GiftOccasionType.ordered_by_name
+    @recipient_relations = GiftRecipientRelation.ordered_by_name
   end
   
   def load_params
