@@ -1,7 +1,7 @@
 <% if friends and friends.any? %>
   <ul class="friends_list">
     <% friends.each do |friend| %>
-      <% birthday = Date.strptime(friend.birthday, "%m/%d/%Y") %>
+      <% birthday = Date.strptime(friend.birthday, "%m/%d") %>
       <li>
         <%= link_to "#" do %>
           <div class="mask">
