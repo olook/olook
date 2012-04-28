@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   def set_facebook_data(omniauth, session)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
     if session[:facebook_scopes]
-      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")))
+      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")).uniq)
     end
     update_attributes(attributes)
   end
@@ -93,11 +93,11 @@ class User < ActiveRecord::Base
   end
   
   def has_facebook_friends_birthday?
-    has_facebook? && self.facebook_permissions.include?("friends_birthday")
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_FRIENDS_BIRTHDAY)
   end
 
   def can_access_facebook_extended_features?
-    has_facebook? && self.has_facebook_extended_permission.present?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
 
   def invite_bonus

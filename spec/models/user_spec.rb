@@ -126,6 +126,14 @@ describe User do
       subject.set_facebook_data(omniauth, session)
       subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
     end
+    
+    it "should not duplicate permissions" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "publish_stream"}
+      subject.set_facebook_data(omniauth, session)
+      subject.facebook_permissions.should == ["publish_stream"]
+    end
 
     it "should set facebook data without extended permission" do
       session = {:facebook_scopes => nil}
