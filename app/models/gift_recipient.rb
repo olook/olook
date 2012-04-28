@@ -14,7 +14,9 @@ class GiftRecipient < ActiveRecord::Base
   validates :shoe_size, :presence => true, :unless => "profile_id.nil?"
 
   delegate :name, :to => :gift_recipient_relation, :allow_nil => true, :prefix => :relation
-
+  
+  default_scope :order => 'name ASC'
+  
   def update_shoe_size_and_profile_info(params)
     profile_id = params[:profile_id]
     shoe_size  = params[:shoe_size]
