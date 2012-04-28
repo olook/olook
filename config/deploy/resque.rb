@@ -8,7 +8,9 @@ role :app, "q1.olook.com.br", "q2.olook.com.br"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, 'master'
+if not variables.include?(:branch)
+  set :branch, 'master'
+end
 
 # tasks
 namespace :deploy do
