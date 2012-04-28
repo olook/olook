@@ -57,7 +57,7 @@ describe Admin::GiftRecipientRelationsController do
 
       it "redirects to the created relation" do
         post :create, :gift_recipient_relation => valid_attributes
-        response.should redirect_to(admin_gift_recipient_relation_path(GiftRecipientRelation.last))
+        response.should redirect_to(admin_gift_recipient_relation_path(GiftRecipientRelation.unscoped.last))
       end
     end
 

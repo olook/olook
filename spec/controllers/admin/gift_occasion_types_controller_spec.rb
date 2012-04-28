@@ -56,7 +56,7 @@ describe Admin::GiftOccasionTypesController do
 
       it "redirects to the created occasion type" do
         post :create, :gift_occasion_type => valid_attributes
-        response.should redirect_to(admin_gift_occasion_type_path(GiftOccasionType.last))
+        response.should redirect_to(admin_gift_occasion_type_path(GiftOccasionType.unscoped.last))
       end
     end
 
