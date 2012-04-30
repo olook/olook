@@ -18,44 +18,7 @@ describe Abacos::Pedido do
   let!(:line_item_4) { FactoryGirl.create :line_item, :order => gift_order, :gift_wrap => true , :variant => variant_b, :quantity => 1, :price => 30.0 }
 
 
-  context "creating a gift order" do
-
-    describe "should have correct abacos gifties attributes" do
-      let(:nota_simbolica) { true }
-      let(:valor_embalagem) { YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] }
-      let(:anotacao_pedido) { 'Mensagem para presente' }
-
-      subject do
-        described_class.new gift_order
-      end
-
-      it "should pass true to nota_simbolica" do
-        subject.nota_simbolica.should == nota_simbolica
-      end
-
-      it "should enable EmitirNotaSimbolica" do
-        subject.parsed_data['ListaDePedidos']['DadosPedidos']['EmitirNotaSimbolica'].should == nota_simbolica
-      end
-
-      it "should pass true to valor_embalagem" do
-        subject.valor_embalagem.should == valor_embalagem
-      end
-
-      it "should enable ValorEmbalagemPresente" do
-        subject.parsed_data['ListaDePedidos']['DadosPedidos']['ValorEmbalagemPresente'].should == valor_embalagem
-      end
-
-      it "should pass true to anotacao_pedido" do
-        subject.anotacao_pedido.should == anotacao_pedido
-      end
-
-      it "should enable Anotacao1" do
-        subject.parsed_data['ListaDePedidos']['DadosPedidos']['Anotacao1'].should == anotacao_pedido
-      end
-
-    end
-
-  end
+  
 
   context "when the order discount(coupom or credits) is greater then order total" do
     it "it should decrement the discount" do
@@ -199,11 +162,6 @@ describe Abacos::Pedido do
                     'Transportadora' => 'TEX',
                     'PrazoEntregaPosPagamento' => 5,
                     'DataPrazoEntregaInicial' => "#{5.days.from_now.strftime("%d%m%Y")} 21:00",
-
-                    'EmitirNotaSimbolica'     => false,
-                    'ValorEmbalagemPresente'  => false,
-                    'Anotacao1'               => false,
-
                     'Itens' =>  {
                       'DadosPedidosItem' => [
                                   {
