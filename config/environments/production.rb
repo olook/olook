@@ -39,7 +39,7 @@ Olook::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-#  config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 15.minutes, :compress => true }
+  config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 15.minutes, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = Proc.new do |source, request|

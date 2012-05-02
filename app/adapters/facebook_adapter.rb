@@ -7,7 +7,7 @@ class FacebookAdapter
   end
 
   def facebook_friends fields="name, gender, birthday, first_name"
-    #Rails.cache.fetch(access_token, :expires_in => 15.minutes) do
+    Rails.cache.fetch(access_token, :expires_in => 15.minutes) do
       friends = adapter.get_connections("me", "friends", :fields => fields)
       filter_female_friends(friends).map do |friend|
         OpenStruct.new(:uid => friend["id"],
@@ -16,7 +16,7 @@ class FacebookAdapter
          :birthday => friend["birthday"]
         )
       end
-    #end
+    end
   end
 
   def filter_female_friends friends
