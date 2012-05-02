@@ -1,15 +1,12 @@
-#role :web, "domainname"
-#role :app, "107.21.138.152", "107.22.78.95" cap
-#role :app, "10.38.218.148"
 role :app, "app3.olook.com.br"
-#role :app, "67.202.44.232" 
-#role :db,  "domainname", :primary => true
  
 # server details
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, 'master'
+if not variables.include?(:branch)
+  set :branch, 'master'
+end
 
 # tasks
 namespace :deploy do
@@ -53,7 +50,10 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    run "/sbin/restart unicorn"
+    #run "/sbin/restart unicorn"
+    run "/sbin/stop unicorn"
+    run "sleep 60"
+    run "/sbin/start unicorn"
   end
 
 # desc "Make sure local git is in sync with remote."

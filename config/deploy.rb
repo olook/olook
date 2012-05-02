@@ -1,7 +1,7 @@
 require 'capistrano/ext/multistage'
 require "bundler/capistrano"
 
-set :stages, %w(prod1 prod2 prod3 hmg dev resque showroom new_machine)
+set :stages, %w(prod1 prod2 prod3 prod4 hmg dev resque showroom new_machine)
 #set :default_stage, "dev"
 
 # app details
