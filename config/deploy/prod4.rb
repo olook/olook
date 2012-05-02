@@ -1,8 +1,4 @@
-#role :web, "domainname"
-#role :app, "107.22.152.215", "174.129.178.80"
-#role :app, "10.6.155.26", "10.204.138.26"
-role :app, "q1.olook.com.br", "q2.olook.com.br"
-#role :db,  "domainname", :primary => true
+role :app, "app4.olook.com.br"
  
 # server details
 set :rails_env, "RAILS_ENV=production"
@@ -19,7 +15,7 @@ namespace :deploy do
     yml_links
     bundle_install
     rake_tasks
-    # restart
+    restart
   end
 
   desc 'Install gems'
@@ -54,13 +50,26 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-  #  run "/sbin/restart unicorn"
+    #run "/sbin/restart unicorn"
+    run "/sbin/stop unicorn"
+    run "sleep 60"
+    run "/sbin/start unicorn"
   end
 
-  desc 'Task to restart resque'
-  task :resque_restart, :app => :app do
-    run '/etc/init.d/worker_todos.sh restart'
-  end
+# desc "Make sure local git is in sync with remote."
+# task :check_revision, roles: :web do
+#   unless `git rev-parse HEAD` == `git rev-parse origin/master`
+#     puts "WARNING: HEAD is not the same as origin/master"
+#     puts "Run `git push` to sync changes."
+#     exit
+#   end
+# end
+#
+# before "deploy", "deploy:check_revision"
 
+#Ao utilizar o callback after dessa forma, o Unicorn será reiniciado 2x, 1X pela task default do deploy e 1x pelo callback
+  #after 'deploy', 'deploy:yml_links'
+  #after 'deploy:yml_links', 'deploy:bundle_install'
+  #after 'deploy:bundle_install', 'deploy:restart'
   after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end
