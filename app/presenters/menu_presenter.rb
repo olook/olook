@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*
 class MenuPresenter < BasePresenter
   
   def render_item label, path, css_klass, hightlight_when
@@ -23,7 +24,7 @@ class MenuPresenter < BasePresenter
   end
   
   def lookbooks
-    render_item("Lookbooks", h.lookbooks_path, "lookbooks", ["lookbooks#show"])
+    render_item("Tendências", h.lookbooks_path, "lookbooks", ["lookbooks#show"])
   end
   
   def stylist
