@@ -11,8 +11,7 @@ class InviteMailer < ActionMailer::Base
       :address => "smtp.sendgrid.net",
       :port => 587,
       :authentication => :plain,
-      tls: true,
-      enable_starttls_auto: true
+      :enable_starttls_auto => true
     }
   end
 
