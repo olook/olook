@@ -1,0 +1,19 @@
+<div class="filter">
+  <h1 class="shoes">Sapatos</h1>
+  <ol>
+    <li>
+      <%= check_box_tag "select_all_shoes", "", false, :class => "select_all" %>
+      <%= label_tag "select_all_shoes", "Todos os sapatos" %>
+    </li>
+    <% liquidation_presenter.liquidation.resume[:categories][Category::SHOE].each do |key, value| %>
+      <li>
+        <%= check_box_tag('shoe_subcategories[]', key, false, :id => key) %>
+        <%= label_tag(value, nil, :for => key) %>
+      </li>
+    <% end %>
+  </ol>
+</div>
+
+
+
+

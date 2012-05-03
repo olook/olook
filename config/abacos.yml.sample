@@ -1,0 +1,17 @@
+development:
+  wsdl_product_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
+  wsdl_order_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSPedidos.asmx?wsdl"
+  wsdl_client_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSClientes.asmx?wsdl"
+  key: "D0D9B9D4-827B-47B5-9CA2-475E13DCBA64"
+
+test:
+  wsdl_product_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
+  wsdl_order_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSPedidos.asmx?wsdl"
+  wsdl_client_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSClientes.asmx?wsdl"
+  key: "D0D9B9D4-827B-47B5-9CA2-475E13DCBA64"
+
+production:
+  wsdl_product_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSProdutos.asmx?wsdl"
+  wsdl_order_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSPedidos.asmx?wsdl"
+  wsdl_client_api: "http://abacos-homolog.olook.com.br:8043/AbacosWebSvc/AbacosWSClientes.asmx?wsdl"
+  key: "D0D9B9D4-827B-47B5-9CA2-475E13DCBA64"

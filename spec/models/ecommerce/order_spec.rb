@@ -67,7 +67,7 @@ describe Order do
       order.identification_code.should_not be_nil
     end
   end
-
+  
   context "line items with gifts" do
     before :each do
       subject.add_variant(basic_shoe_35)
@@ -156,7 +156,6 @@ describe Order do
     describe "#total_discount" do
       it "should return all discounts" do
         subject.stub(:credits).and_return(credits = 9.09)
-        #subject.stub(:discount_from_gift).and_return(gift = 9.09)
         subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
         subject.total_discount.should == credits + coupon
       end
@@ -259,6 +258,21 @@ describe Order do
   context "when the inventory is available" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
+      basic_shoe_40.update_attributes(:inventory => 10)
+    end
+
+    it "should set nil to retail price when the item dont belongs to a liquidation" do
+      subject.add_variant(basic_shoe_40, 1)
+      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
+      line_item.retail_price.should be_nil
+    end
+
+    it "should set the retail price when the item belongs to a liquidation" do
+      basic_shoe_40.stub(:liquidation?).and_return(true)
+      basic_shoe_40.stub(:retail_price).and_return(retail_price = 45.90)
+      subject.add_variant(basic_shoe_40, 1)
+      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
+      line_item.retail_price.should == retail_price
     end
 
     it "should create line items" do
@@ -266,6 +280,7 @@ describe Order do
         subject.add_variant(basic_shoe_35, 10)
       }.to change(LineItem, :count).by(1)
     end
+
 
     it "should not return a nil line item" do
       subject.add_variant(basic_shoe_35, 10).should_not == nil
@@ -295,7 +310,6 @@ describe Order do
     context "when at least one variant is unavailable" do
       it "should return 1 for #remove_unavailable_items" do
         basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items
         subject.remove_unavailable_items.should == 1
       end
 
@@ -377,15 +391,10 @@ describe Order do
     end
   end
 
-  describe "State machine transitions" do
+  describe "ERP(abacos) integration" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
-        subject.waiting_payment
-      end
-
-      it "should enqueue a Orders::NotificationOrderRequestedWorker" do
-        subject.should_receive(:send_notification_order_requested)
         subject.waiting_payment
       end
     end
@@ -397,81 +406,18 @@ describe Order do
         subject.waiting_payment
         subject.authorized
       end
+    end
 
-      it "should send a notification for payment confirmed" do
-        subject.should_receive(:send_notification_payment_confirmed)
+    context "when the order is waiting payment" do
+      it "updates user credit" do
+        subject.should_receive(:update_user_credit)
         subject.waiting_payment
-        subject.authorized
       end
-    end
-
-    context "when the order is shipped" do
-      it "should send a notification for payment shipped" do
-        subject.should_receive(:send_notification_order_shipped)
-        subject.waiting_payment
-        subject.authorized
-        subject.picking
-        subject.delivering
-      end
-    end
-
-    context "when the order is delivered" do
-      it "should send a notification for payment delivered" do
-        subject.should_receive(:send_notification_order_delivered)
-        subject.waiting_payment
-        subject.authorized
-        subject.picking
-        subject.delivering
-        subject.delivered
-      end
-    end
-
-    context "when the order is refused" do
-      it "should send a notification for payment canceled" do
-        subject.should_receive(:send_notification_payment_refused)
-        subject.waiting_payment
-        subject.canceled
-      end
-
-      it "should send a notification for payment refused" do
-        subject.should_receive(:send_notification_payment_refused)
-        subject.waiting_payment
-        subject.authorized
-        subject.under_review
-        subject.reversed
-      end
-    end
-  end
-
-  describe "Notifications mailer" do
-    it "should enqueue a Orders::NotificationOrderDeliveredWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationOrderDeliveredWorker, subject.id)
-      subject.send_notification_order_delivered
-    end
-
-    it "should enqueue a Orders::NotificationOrderShippedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationOrderShippedWorker, subject.id)
-      subject.send_notification_order_shipped
-    end
-
-    it "should enqueue a Orders::NotificationPaymentConfirmedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationPaymentConfirmedWorker, subject.id)
-      subject.send_notification_payment_confirmed
-    end
-
-    it "should enqueue a Orders::NotificationOrderRequestedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationOrderRequestedWorker, subject.id)
-      subject.send_notification_order_requested
-    end
-
-    it "should enqueue a Orders::NotificationPaymentRefusedWorker" do
-      Resque.should_receive(:enqueue).with(Orders::NotificationPaymentRefusedWorker, subject.id)
-      subject.send_notification_payment_refused
     end
   end
 
   describe "State machine" do
-    it "should has in_the_cart as initial state" do
+    it "has in_the_cart as initial state" do
       subject.in_the_cart?.should be_true
     end
 
@@ -569,7 +515,7 @@ describe Order do
       subject.authorized
     end
 
-    it "should use coupon when autorized" do
+    it "should use coupon when authorized" do
       subject.should_receive(:use_coupon)
       subject.waiting_payment
       subject.authorized
@@ -615,4 +561,44 @@ describe Order do
       transition.to.should == "authorized"
     end
   end
+
+  describe "#update_user_credit" do
+    before do
+      subject.user = FactoryGirl.create(:member)
+    end
+
+    context "when a order has an associated credit" do
+      it "removes this credit from the user" do
+        subject.credits = BigDecimal.new("10.30")
+        subject.save!
+
+        Credit.should_receive(:remove).with(subject.credits, subject.user, subject)
+        subject.update_user_credit
+      end
+    end
+
+    context "when the order has no credit" do
+      it "does not remove this credit from the user" do
+        Credit.should_not_receive(:remove)
+        subject.update_user_credit
+      end
+    end
+  end
+
+  describe "unrestricted order should accept products from vitrine" do
+    subject { FactoryGirl.create(:clean_order)}
+    
+    it "should return true to add gift and normal products to the same cart" do
+      subject.restricted?.should be_false
+    end
+  end
+  
+  describe "restricted order should accept products from vitrine" do
+    subject { FactoryGirl.create(:restricted_order)}
+    
+    it "should be marked as restricted" do
+      subject.restricted?.should be_true
+    end
+  end
+  
 end

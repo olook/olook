@@ -189,7 +189,7 @@ describe RegistrationsController do
     let(:member) { mock_model(User) }
 
     it 'should add a new event to the user if there are tracking parameters' do
-      member.should_receive(:add_event).with(EventType::TRACKING, {:tracking => 'stuff'}.to_s)
+      member.should_receive(:add_event).with(EventType::TRACKING, {:tracking => 'stuff'})
       subject.send(:save_tracking_params, member, {:tracking => 'stuff'})
     end
 

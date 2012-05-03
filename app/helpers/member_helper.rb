@@ -16,9 +16,9 @@ module MemberHelper
     message = "Venha ver minha vitrine na olook! Entre no link."
   end
   
-  def display_member_invite_bonus(member)
-    if member.invite_bonus > 0
-      raw(I18n.t('views.members.member_with_invite_bonus', :bonus => number_to_currency(member.invite_bonus)))
+  def display_member_credit(member)
+    if member.current_credit > 0
+      raw(I18n.t('views.members.member_with_invite_bonus', :bonus => number_to_currency(member.current_credit)))
     else
       raw(I18n.t('views.members.member_with_no_invite_bonus'))
     end
@@ -26,7 +26,7 @@ module MemberHelper
   
   def invitation_score(member)
     accept_invite_count = member.invites.accepted.count
-    invite_bonus = member.invite_bonus
+    invite_bonus = member.current_credit
     
     if accept_invite_count == 0
       if invite_bonus > 0

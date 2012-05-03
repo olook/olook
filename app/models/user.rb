@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
-class User < ActiveRecord::Base
-
-  has_paper_trail :on => [:update, :destroy]
+class User < ActiveRecord::Base  
+  serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
@@ -15,9 +14,12 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :payments, :through => :orders
+  has_many :credits
   has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
+  
+  delegate :shoes_size, :to => :user_info, :allow_nil => true
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
@@ -32,7 +34,13 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
-
+  validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}
+  
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_PUBLISH_STREAM = "publish_stream"
+  
+  Gender = {:female => 0, :male => 1}
+  
   def name
     "#{first_name} #{last_name}".strip
   end
@@ -43,7 +51,9 @@ class User < ActiveRecord::Base
 
   def set_facebook_data(omniauth, session)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
-    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    if session[:facebook_scopes]
+      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")).uniq)
+    end
     update_attributes(attributes)
   end
 
@@ -68,6 +78,10 @@ class User < ActiveRecord::Base
     end.compact
   end
 
+  def inviter
+    Invite.find_inviter(self) if is_invited?
+  end
+
   def accept_invitation_with_token(token)
     inviting_member = User.find_by_invite_token!(token)
     accepted_invite = inviting_member.invite_for(email) || inviting_member.invites.create(:email => email, :sent_at => Time.now)
@@ -77,9 +91,13 @@ class User < ActiveRecord::Base
   def has_facebook?
     self.uid.present?
   end
+  
+  def has_facebook_friends_birthday?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_FRIENDS_BIRTHDAY)
+  end
 
   def can_access_facebook_extended_features?
-    has_facebook? && self.has_facebook_extended_permission.present?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
 
   def invite_bonus
@@ -88,6 +106,18 @@ class User < ActiveRecord::Base
 
   def used_invite_bonus
     InviteBonus.already_used(self)
+  end
+
+  def current_credit
+    credits.last.try(:total) || 0
+  end
+
+  def has_not_exceeded_credit_limit?(value = 0)
+    (used_invite_bonus + current_credit + value) <= InviteBonus::LIMIT_FOR_EACH_USER
+  end
+
+  def can_use_credit?(value)
+    current_credit.to_f >= value.to_f
   end
 
   def profile_scores
@@ -119,7 +149,7 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
-    self.events.create(event_type: type, description: description)
+    self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
@@ -127,21 +157,26 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
 
-  def all_profiles_showroom(category = nil)
+  def all_profiles_showroom(category = nil, collection = Collection.active)
     result = []
     self.profile_scores.each do |profile_score|
-      result = result | profile_showroom(profile_score.profile, category).all
+      result = result | profile_showroom(profile_score.profile, category, collection).all
     end
-    remove_color_variations result
+    Product.remove_color_variations result
   end
 
-  def main_profile_showroom(category = nil)
-    remove_color_variations(profile_showroom(self.main_profile, category)) if self.main_profile
+  def main_profile_showroom(category = nil, collection = Collection.active)
+    categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
+    results = []
+    categories.each do |cat|
+      results += all_profiles_showroom(cat, collection = Collection.active)[0..4]
+    end
+     Product.remove_color_variations results
   end
 
-  def profile_showroom(profile, category = nil)
+  def profile_showroom(profile, category = nil, collection = Collection.active)
     scope = profile.products.only_visible.
-            where(:collection_id => Collection.active)
+            where(:collection_id => collection)
     scope = scope.where(:category => category) if category
     scope
   end
@@ -159,7 +194,11 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.where("orders.state <> 'in_the_cart'").count > 0
+    self.orders.not_in_the_cart.count > 0
+  end
+
+  def first_buy?
+    self.orders.paid.count == 1
   end
 
   def tracking_params(param_name)
@@ -176,31 +215,21 @@ class User < ActiveRecord::Base
         .inject(0) { |sum,order| sum += order.send(total_method) }
   end
 
-  private
-
-  def remove_color_variations(products)
-    result = []
-    already_displayed = []
-    displayed_and_sold_out = {}
-
-    products.each do |product|
-      # Only add to the list the products that aren't already shown
-      unless already_displayed.include?(product.name)
-        result << product
-        already_displayed << product.name
-        displayed_and_sold_out[product.name] = result.length - 1 if product.sold_out?
-      else
-        # If a product of the same color was already displayed but was sold out
-        # and the algorithm find another color that isn't, replace the sold out one
-        # by the one that's not sold out
-        if displayed_and_sold_out[product.name] && !product.sold_out?
-          result[displayed_and_sold_out[product.name]] = product
-          displayed_and_sold_out.delete product.name
-        end
-      end
+  def tracking_params(param_name)
+    first_event = events(:where => EventType::TRACKING).first
+    if first_event
+      match_data = (/\"#{param_name}\"=>\"(\w+)\"/).match(first_event.description)
+      return match_data.captures.first if match_data
     end
-    result
   end
+
+  def total_revenue(total_method = :total)
+    self.orders.joins(:payment)
+        .where("payments.state IN ('authorized','completed')")
+        .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
+  end
+
+  private
 
   def generate_invite_token
     loop do

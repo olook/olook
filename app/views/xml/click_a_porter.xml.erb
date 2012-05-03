@@ -1,22 +1,24 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <produtos>
 <% for product in @products %>
-    <produto>
-        <id_produto><%= product.id %></id_produto>
-        <link_produto><%= product.product_url("click_a_porter") %></link_produto>
-        <nome_produto><%= product.name %></nome_produto>
-        <marca>olook</marca>
-        <categoria><%= product.category %></categoria>
-        <cores><cor><%= product.color_name %></cor></cores>
-        <descricao><%= product.description %></descricao>
-        <preco_de><%= number_to_currency(product.price, :unit => "") %></preco_de>
-        <preco_por><%= number_to_currency(product.price, :unit => "") %></preco_por>
-        <parcelamento>1</parcelamento>
-        <imagens>
-          <% for picture in product.pictures %>
-            <imagem><%= picture.image %></imagem>
-          <% end %>
-        </imagens>
-      </produto>
+<% unless product.sold_out? %>
+<produto>
+<id_produto><![CDATA[<%= product.id %>]]></id_produto>
+<link_produto><![CDATA[<%= product.product_url(:utm_source => "click_a_porter") %>]]></link_produto>
+<nome_produto><![CDATA[<%= product.name %>]]></nome_produto>
+<marca><![CDATA[olook]]></marca>
+<categoria><![CDATA[<%= full_category(product) %>]]></categoria>
+<cores><cor><![CDATA[<%= product.color_name %>]]></cor></cores>
+<descricao><![CDATA[<%= product.description %>]]></descricao>
+<preco_de><![CDATA[<%= number_with_precision(product.price, :precision => 2) %>]]></preco_de>
+<preco_por><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2) %>]]></preco_por>
+<parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
+<imagens>
+<% for picture in product.pictures %>
+<imagem><![CDATA[<%= picture.image %>]]></imagem>
+<% end %>
+</imagens>
+</produto>
+<% end %>
 <% end %>
 </produtos>

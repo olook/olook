@@ -1,14 +1,14 @@
-            <div class="line size">
-              <p>Tamanho:</p>
-              <ol>
-                <% variants.each do |variant| %>
-                <% classes = variant_classes(variant) %>
-                <li class="<%= classes %>">
-                  <label for="size_1"><%= variant.description %>
-                    <%= hidden_field_tag("inventory_#{variant.id}",variant.inventory) %>
-                    <%= radio_button_tag('variant[id]', variant.id, ( classes.include? 'selected' ) ? true : false ) %>
-                  </label>
-                </li>
-                <% end %>
-              </ol>
-            </div>
+<div class="line size">
+  <p>Tamanho:</p>
+  <ol>
+    <% variants.each do |variant| %>
+      <% classes = variant_classes(variant) %>
+      <li class="<%= classes %>">
+        <label for="size_1"><%= variant.description %>
+        <%= hidden_field_tag("inventory_#{variant.id}",variant.inventory) %>
+        <%= radio_button_tag('variant[id]', variant.id, ( classes.include? 'selected' ) ? true : false ) %>
+      </label>
+    </li>
+  <% end %>
+  </ol>
+</div>

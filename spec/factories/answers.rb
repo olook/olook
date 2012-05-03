@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :answer do
-    association :question
+    association :question, :factory => :question
     title "Answer Title"
 
     factory :answer_from_casual_profile do

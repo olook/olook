@@ -10,28 +10,28 @@ class Tracking < ActiveRecord::Base
                                 .where("payments.state IN ('authorized','completed')")
 
   def self.from_day(day)
-    self.where('created_at BETWEEN :day AND :next_day',:day => day, :next_day => day + 1.day)
+    self.where('trackings.created_at BETWEEN :day AND :next_day',:day => day, :next_day => day + 1.day)
   end
 
-  def total_revenue(total = :total)
-    related_with_complete_payment.inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
+  def total_revenue(day, total = :total)
+    related_with_complete_payment(day).inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
   end
 
-  def total_revenue_for_google(total = :total)
-    related_with_complete_payment_for_google.inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
+  def total_revenue_for_google(day, total = :total)
+    related_with_complete_payment_for_google(day).inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
   end
 
-  def related_with_complete_payment_for_google
-    self.class.google.with_complete_payment.where(:placement => placement)
+  def related_with_complete_payment_for_google(day)
+    self.class.from_day(day).google.with_complete_payment.where(:placement => placement)
   end
 
-  def related_with_complete_payment
-    self.class.where(:utm_source => utm_source, :utm_campaign => utm_campaign,
+  def related_with_complete_payment(day)
+    self.class.from_day(day).where(:utm_source => utm_source, :utm_campaign => utm_campaign,
                      :utm_medium => utm_medium, :utm_content =>  utm_content).with_complete_payment
   end
 
   def clean_placement
-    placement.delete(",")
+    placement.delete(",") if placement
   end
 
 end

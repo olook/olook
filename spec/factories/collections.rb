@@ -11,10 +11,28 @@ FactoryGirl.define do
       is_active false
     end
 
-    factory :active_collection do 
+    factory :january_2012_collection do
+      name 'Janeiro 2012'
+      start_date Date.civil(2012, 01, 01)
+      end_date Date.civil(2012, 01, 31)
+      is_active false
+    end
+
+    factory :february_2012_collection do
+      name 'Fevereiro 2012'
+      start_date Date.civil(2012, 02, 01)
+      end_date Date.civil(2012, 02, 29)
+      is_active false
+    end
+
+    factory :march_2012_collection do
+      name 'Março 2012'
+      start_date Date.civil(2012, 03, 01)
+      end_date Date.civil(2012, 03, 31)
+    end
+
+    factory :active_collection do
       is_active true
-   	end
-
+    end
   end
-
 end

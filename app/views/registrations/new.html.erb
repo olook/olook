@@ -13,7 +13,7 @@
   <% else %>
     <div class="not_connected">
       <h2>Só mais um passo e <span>você verá seu estilo</span></h2>
-      <p>Analisando as suas respostas, nossos stylists passarão <br />a enviar dicas de moda e produtos para completar seu look.</p>
+      <p>Quando o resultado ficar pronto, você receberá diversos e-mails com dicas e produtos da moda com a sua cara.</p>
     </div>
     <div class="connect">
       <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
@@ -21,65 +21,6 @@
     </div>
   <% end %>
 
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-    <% if resource.errors.any? %>
-      <div id="error_explanation">
-        <ul>
-        <% resource.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <fieldset>
-      <ol class="<%= "facebook" if @signup_with_facebook %>">
-        <li>
-          <%= f.label :first_name, "Primeiro nome" %>
-          <%= f.text_field :first_name %>
-        </li>
-
-        <li>
-          <%= f.label :last_name, "Sobrenome" %>
-          <%= f.text_field :last_name %>
-        </li>
-
-        <li>
-          <%= f.label :email, "Email" %>
-          <%= f.email_field :email %>
-        </li>
-      </ol>
-      <ol>
-        <li class="password">
-          <label for="user_password">Senha
-            <span class='hint'>mínimo 6 caracteres</span>
-          </label>
-          <%= f.password_field :password %>
-        </li>
-
-        <li>
-          <%= f.label :password_confirmation, "Confirmar senha" %>
-          <%= f.password_field :password_confirmation %>
-        </li>
-
-        <% if resource.is_invited %>
-          <li class="cpf">
-            <span class="hint">Para você ganhar R$10 e seu amigo R$20, preencha o CPF.</span>
-            <%= f.label :cpf, "CPF" %>
-            <%= f.text_field :cpf %>
-          </li>
-        <% end %>
-
-        <li class="terms">
-          <p>Concluindo o cadastro você aceita os <%= link_to 'Termos de uso', terms_path, :target => "_blank" %></p>
-        </li>
-      </ol>
-    </fieldset>
-
-    <fieldset class="buttons">
-      <ol>
-        <li><%= f.submit "", :id => "register" %></li>
-      </ol>
-    </fieldset>
-  <% end %>
+  <%= render :partial => "form" %>
 </div>
 

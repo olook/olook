@@ -41,39 +41,35 @@
     <h1 class="title">AMO!</h1>
     <h2 class="title">por Helena Linhares</h2>
     <ul>
-      <li id="lazareto_container">
-        <%= image_tag "/assets/stylist/helena_linhares/1.jpg", :title => "Lazareto" %>
-        <h1>Lazareto</h1>
-        <h2>R$ 129,90</h2>
-        <p>"Esse mocassim é um charme e AMO! a mistura de cores"</p>
-        <%= link_to "Conheça", product_path(2411) %>
+      <li id="guaiba_container">
+        <%= image_tag "/assets/stylist/helena_linhares/1.jpg", :title => "Colorado" %>
+        <h1>Colorado</h1>
+        <p>O sliper é a nova sapatilha e essa de pelo estampado de oncinha é um must have da coleção AMO!<br /> Ela é muito versátil, combina com  vestido como na foto ao lado, com uma calça skinny e até com um shorts de alfaiataria. Aproveite!!!</p>
+        <%= link_to "Conheça", product_path(3805) %>
       </li>
-      <li id="collection_container">
-        <p class="desc">"Esse mês escolhi destacar as bolsas vermelhas, que dão um "up" nas mais variadas produções."</p>
-        <div class="product first">
-          <h1>Bombinhas</h1>
-          <h2>R$ 129,90</h2>
-          <%= link_to "Conheça", product_path(2629) %>
+      <li class="set">
+        <%= image_tag "/assets/stylist/helena_linhares/2.jpg", :title => "Ortigueira e Ourizona" %>
+        <p>AMO! essa pegada rock&roll das<br /> caveiras. Adoro usar vários anéis ao mesmo tempo e as pulseiras de caveira combinando com calça de couro e uma camiseta básica meio "poderinha", sabe?</p>
+        <div class="product1">
+          <h1>Ortigueira</h1>
+          <%= link_to "Conheça", product_path(4344) %>
         </div>
-        <div class="product second">
-          <h1>Barra da Guaratiba</h1>
-          <h2>R$ 129,90</h2>
-          <%= link_to "Conheça", product_path(2591) %>
-        </div>
-        <div class="product third">
-          <h1>Abraão</h1>
-          <h2>R$ 129,90</h2>
-          <%= link_to "Conheça", product_path(2677) %>
+        <div class="product2">
+          <h1>Ourizona</h1>
+          <%= link_to "Conheça", product_path(4340) %>
         </div>
       </li>
-      <li id="tamarindo_container" class="last">
-        <%= image_tag "/assets/stylist/helena_linhares/2.jpg", :title => "Olho Grego" %>
-        <h1>Olho Grego</h1>
-        <h2>R$ 99,90</h2>
-        <p>"Minha família é de origem grega e desde pequenininha eu aprendi que esse olho nos protege de coisas ruins. Preferito, né?"</p>
-        <%= link_to "Conheça", product_path(2785) %>
+      <li class="right last">
+        <%= image_tag "/assets/stylist/helena_linhares/3.jpg", :title => "Janiópolis" %>
+        <h1>Janiópolis</h1>
+        <p>A bolsa baú é uma tendência que vem com tudo!  Essa colorida fica incrível para dar um toque de modernidade em produções mais tradicionais.<br /><span>#ficaAdica</span><br />=)</p>
+        <%= link_to "Conheça", product_path(4233) %>
       </li>
     </ul>
     <div class="products_footer"></div>
+    <%# TODO Remove banner mothers day %>
+    <br />
+    <br />
+    <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
   </div>
 </section>

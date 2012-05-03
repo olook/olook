@@ -10,7 +10,7 @@ class SurveyQuestions
     questions[0..20]
   end
 
-  def shoe_question
+  def heel_height_question
     questions[21]
   end
 

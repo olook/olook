@@ -10,6 +10,7 @@
     <%= render "shared/metrics/google/track_signup_page_view" %>
     <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
     <%= render "shared/metrics/adlead/adlead" %>
+    <%= render "shared/metrics/boobox/welcome" %>
   <% end %>
 <% end %>
 
@@ -19,10 +20,23 @@
 
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
-
+<%= render "shared/metrics/boobox/members" %>
 <section id="welcome">
-  <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> e ela ficará pronta nas próximas 24 horas</h1>
+  <% if @banner %>
+    <div class="banner">
+      <%= link_to image_tag(@banner, :alt => current_liquidation.name), liquidations_path(current_liquidation.id) %>
+    </div>
+  <% end %>
+
+<% present 'Showroom', :member => @user do |showroom_presenter| %>
+  <h1 class="warn">Sua stylist está criando sua <span>vitrine personalizada,</span> ela ficará pronta em 24 horas</h1>
   <%= render 'welcome_painel' %>
-  <%= render 'welcome_products' %>
+  <%= render 'welcome_share' %>
+  <%= render 'welcome_products', :showroom_presenter => showroom_presenter %>
   <%= render 'welcome_press' %>
+<% end %>
+  <%# TODO Remove banner mothers day %>
+  <br />
+  <br />
+  <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
 </section>

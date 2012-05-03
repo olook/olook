@@ -10,9 +10,7 @@ module Admin::IndexHelper
   end
 
   def edit_link(object, content = "Edit")
-    #pp "edit_admin_#{object.class.name.downcase}_path(#{object.class.name.downcase})"
     link_to(content, "edit_admin_#{object.class.name.downcase}_path(#{object.class.name.downcase})".to_sym) if can?(:update, object)
-
   end
 
   def destroy_link(object, content = "Destroy")

@@ -1,20 +1,47 @@
 # -*- encoding : utf-8 -*-
 class FacebookAdapter
   attr_accessor :access_token, :adapter
-  extend ActiveSupport::Memoizable
 
   def initialize(access_token, adapter = Koala::Facebook::API)
     @access_token, @adapter = access_token, adapter.new(access_token)
   end
 
-  def facebook_friends
-    friends = adapter.get_connections("me", "friends", :fields => "name, gender")
-    male_friends = friends.select{|friend| friend["gender"] == "female"}
-    male_friends.map {|friend| OpenStruct.new(:uid => friend["id"], :name => friend["name"])}
+  def facebook_friends fields="name, gender, birthday, first_name"
+    Rails.cache.fetch(access_token, :expires_in => 15.minutes) do
+      friends = adapter.get_connections("me", "friends", :fields => fields)
+      filter_female_friends(friends).map do |friend|
+        OpenStruct.new(:uid => friend["id"],
+         :name => friend["name"],
+         :first_name => friend["first_name"],
+         :birthday => friend["birthday"]
+        )
+      end
+    end
+  end
+
+  def filter_female_friends friends
+    friends.select{|friend| friend["gender"] == "female"}
   end
 
   def facebook_friends_ids
     facebook_friends.map(&:uid)
+  end
+
+  def facebook_friends_with_birthday month
+    friends = []
+    facebook_friends.select{|friend| friend.birthday }.each do |friend|
+      begin
+        if Date.strptime(friend.birthday, "%m/%d").month.to_s == month.to_s
+          friends << friend
+        end
+      rescue
+      end
+    end
+    if friends.empty?
+      friends
+    else
+      friends.sort_by{|f| f.birthday}
+    end
   end
 
   def facebook_friends_registered_at_olook
@@ -35,6 +62,4 @@ class FacebookAdapter
     friends_not_registred = facebook_friends_not_registered_at_olook
     [friends_not_registred, facebook_friends_registered_at_olook, friends_not_registred.shuffle.first]
   end
-
-  memoize :facebook_friends
 end

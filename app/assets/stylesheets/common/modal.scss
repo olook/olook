@@ -21,7 +21,6 @@ html {
           width:100%;
           position:absolute;
           background-color: #000;
-
           #fb_iframe {
             border:none;
             overflow:hidden;
@@ -45,6 +44,30 @@ html {
         }
         img {
           display: none;
+        }
+        &.first_visit {
+          height: auto;
+          display: none;
+        }
+				&.gift_login {
+					height: auto;
+        	display: none;
+				}
+        &.liquidation {
+          height: auto;
+          display: none;
+          img {
+            display: block;
+          }
+          div.check {
+            background: #000;
+            padding: 10px 0 5px 10px;
+            label {
+              color: #fafafa;
+              font-family: "Open Sans", sans-serif;
+              font-size: 13px;
+            }
+          }
         }
         #close_dialog {
           position: absolute;

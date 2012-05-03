@@ -1,4 +1,5 @@
 li.product {
+  position: relative;
   margin: 0 0 2px 0;
   padding: 10px;
   overflow: hidden;
@@ -11,27 +12,40 @@ li.product {
       position: relative;
       p.warn {
         position: absolute;
+        color: #FFF;
+        font-family: "Open Sans", sans-serif;
+        font-size: 10px;
+        font-weight: normal;
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 10px;
         width: 50px;
         height: 50px;
         display: none;
         &.sold_out {
           background: url("/assets/common/sold_out.png") no-repeat;
-          text-indent: -9999px;
+          font-size: 14px;
+          line-height: 15px;
+          height: 40px;
+          padding-top: 10px;
         }
-        &.quantity {
+        &.quantity, &.percentage {
           background: url("/assets/common/quantity.png") no-repeat;
-          color: #FFF;
-          font-family: "Open Sans", sans-serif;
-          font-size: 10px;
-          font-weight: normal;
-          text-align: center;
-          line-height: 10px;
           height: 45px;
           padding-top: 5px;
           span {
             font-size: 22px;
             line-height: 21px;
             font-weight: 600;
+          }
+        }
+        &.percentage {
+          font-size: 13px;
+          height: 40px;
+          padding-top: 10px;
+          display: block;
+          span {
+            font-size: 20px;
           }
         }
       }
@@ -131,28 +145,48 @@ li.product {
     &.sold_out {
       a p.sold_out {
         top: 2px;
-        right: 2px;
+        left: 2px;
         display: block;
       }
     }
     &.stock_down {
       a p.quantity {
         top: 2px;
-        right: 2px;
+        left: 2px;
         display: block;
       }
     }
   }
   &:hover {
     padding: 5px;
-    border: 5px #d7d7d7 solid;
+    border: 5px #F4F4F4 solid;
     p.know {
       display: block;
     }
   }
+  &.promotion {
+    .box_product {
+      .line {
+        span {
+          color: #df5a8b;
+          font-size: 15px;
+          font-weight: bold;
+          display: block;
+          float: none;
+          &.old {
+            color: #818181;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 9px;
+            text-decoration: line-through;
+          }
+        }
+      }
+    }
+  }
 }
 
-#showroom, #lookbooks {
+#showroom, #lookbooks, #welcome {
   li.product {
     width: 175px;
     height: 275px;
@@ -160,7 +194,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
         }
         img {
           width: 170px;
@@ -179,7 +213,7 @@ li.product {
     a.product_link {
       p.warn {
         top: 2px;
-        right: 2px;
+        left: 2px;
       }
       img {
         width: 260px;
@@ -200,7 +234,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          right: 2px;
+          left: 2px;
         }
         img {
           width: 150px;
@@ -208,6 +242,57 @@ li.product {
         }
         h1 {
           width: 150px;
+          height: 17px;
+        }
+      }
+    }
+  }
+}
+
+#liquidation {
+  li.product {
+    width: 160px;
+    height: 225px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          left: 2px;
+        }
+        img {
+          width: 150px;
+          height: 150px;
+        }
+        h1 {
+          width: 150px;
+          height: 17px;
+        }
+      }
+      div.line {
+        span {
+          margin: 0 0 0 3px;
+        }
+      }
+    }
+  }
+}
+
+#suggestion {
+  li.product {
+    width: 175px;
+    height: 275px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          left: 2px;
+        }
+        img {
+          width: 170px;
+          height: 170px;
+        }
+        h1 {
+          width: 170px;
           height: 17px;
         }
       }

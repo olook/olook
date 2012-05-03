@@ -16,6 +16,10 @@ describe MarketingReports::Builder do
     }
   end
 
+  let(:bounce_response) do
+   double(:bounce_response, :parsed_response => [ {"reason"=>"500", "email"=>"c@d.com"} ])
+  end
+
   describe "#initialize" do
     context "when no type is passed" do
       it "sets csv to empty string" do
@@ -75,6 +79,7 @@ describe MarketingReports::Builder do
         MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
         MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
       end
+      MarketingReports::SendgridClient.stub(:new).with(:bounces, :type => "hard", :username => "olook2").and_return(bounce_response)
     end
 
     it "builds a csv file containing all user data" do

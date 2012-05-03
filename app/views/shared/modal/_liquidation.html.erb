@@ -1,0 +1,16 @@
+<div class="dialog liquidation">
+  <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
+  <%= link_to image_tag(current_liquidation.lightbox_banner_url), liquidations_path(current_liquidation.id) %>
+  <div class="check">
+    <%= form_tag "#", :remote => true do %>
+      <fieldset>
+        <ul>
+          <li>
+            <%= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
+            <%= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
+          </li>
+        </ul>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

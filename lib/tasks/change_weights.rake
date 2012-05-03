@@ -2,7 +2,7 @@ require 'benchmark'
 
 namespace :olook do
   desc "Recreate profiles for user"
-  task :recreate_user_profile, :user_count, :needs => :environment do |t, args|
+  task :recreate_user_profile, [:user_count] => :environment do |t, args|
     benchmark = Benchmark.measure do
       limit = args[:user_count].to_i
       User.where('id > 93800').find_each(:batch_size => 100) do |user|
@@ -72,7 +72,7 @@ namespace :olook do
   end
 
   desc "Load and reprocess new weights for the survey"
-  task :change_weights, :filename, :needs => :environment do |t, args|
+  task :change_weights, [:filename] => :environment do |t, args|
     filename = args[:filename]
     unless File.exists? filename
       puts "File #{filename} doesn't exist"

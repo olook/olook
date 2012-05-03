@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Admin::ProductsController < Admin::BaseController
-
   load_and_authorize_resource
+
   before_filter :load_products, :only => [:index, :sync_products]
   respond_to :html
 
   def index
+    @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
     respond_with :admin, @products
   end

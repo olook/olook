@@ -6,14 +6,14 @@ describe CartController do
     render_views
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
-    let(:order) { FactoryGirl.create(:order, :user => user) }
+    let(:order) { FactoryGirl.create(:order, :user => user, :credits => "3.27") }
     let(:quantity) { 3 }
 
     describe "GET show" do
-      it "should assign @bonus" do
+      it "assigns @bonus with the user current credit minus the order credits" do
         session[:order] = order.id
         get :show
-        assigns(:bonus).should == InviteBonus.calculate(user)
+        assigns(:bonus).should == user.current_credit - order.credits
       end
 
       it "GET show with token and order_id" do
@@ -42,6 +42,24 @@ describe CartController do
       end
     end
 
+    describe "PUT update_gift_data" do
+      let(:msg) { "gift_message" }
+      before :each do
+        session[:order] = order
+      end
+
+      it "should enable wrapped option" do
+        put :update_gift_data, :gift => { :gift_wrap => true }
+        Order.last.gift_wrap?.should == true
+      end
+
+      it "should write gift message option" do
+        put :update_gift_data, :gift => { :gift_message => msg }
+        Order.last.gift_message.should == msg
+      end
+
+    end
+
     describe "PUT update_coupon" do
       before :each do
         session[:order] = order
@@ -66,7 +84,7 @@ describe CartController do
 
     describe "DELETE remove_bonus" do
       context "when the user is using credits bonus" do
-        it "should sert order credits to nil" do
+        it "should set order credits to nil" do
           session[:order] = order
           Order.any_instance.stub(:credits).and_return(1)
           Order.any_instance.should_receive(:update_attributes).with(:credits => nil)
@@ -87,15 +105,71 @@ describe CartController do
     end
 
     describe "PUT update_bonus" do
-      it "should redirect to cart_path" do
-        put :update_bonus, :credits => {:value => '12.34'}
-        response.should redirect_to(cart_path)
+      let(:credits_value) { "12.34" }
+
+      context "when the user has enough credits" do
+        before do
+          User.any_instance.stub(:current_credit).and_return(BigDecimal.new("123.34"))
+        end
+
+        it "updates the order with a new credits value" do
+          session[:order] = order
+          Order.any_instance.should_receive(:update_attributes).with(:credits => BigDecimal.new(credits_value))
+          put :update_bonus, :credits => {:value => credits_value}
+        end
+
+        it "removes the order current freight" do
+          session[:order] = order
+          FactoryGirl.create(:freight, :order => order)
+          post :create, :variant => {:id => variant.id}
+          expect {
+            put :update_bonus, :credits => {:value => credits_value}
+          }.to change(Freight, :count).by(-1)
+        end
+
+        it "redirects to cart_path" do
+          put :update_bonus, :credits => {:value => credits_value}
+          response.should redirect_to(cart_path)
+        end
+
+        it "displays notice saying that the credits were updated successfully" do
+          put :update_bonus, :credits => {:value =>  credits_value}
+          flash[:notice].should eq("Créditos atualizados com sucesso")
+        end
+
       end
 
-      it "displays notice saying that the credits are unavailable at the momment" do
-        put :update_bonus, :credits => {:value =>  '12.34'}
-        flash[:notice].should eq("Créditos indisponíveis no momento")
+      context "when the user not enough credits" do
+        before do
+          User.any_instance.stub(:current_credit).and_return(BigDecimal.new("1.34"))
+        end
+
+        it "redirects to cart_path" do
+          put :update_bonus, :credits => {:value => credits_value}
+          response.should redirect_to(cart_path)
+        end
+
+        it "displays notice saying that the user does not have enough credits" do
+          put :update_bonus, :credits => {:value =>  credits_value}
+          flash[:notice].should eq("Você não tem créditos suficientes")
+        end
+
       end
+
+      context "when the credits value is negative" do
+        let(:credits_value) { "-12.34" }
+
+        it "redirects to cart_path" do
+          put :update_bonus, :credits => {:value => credits_value}
+          response.should redirect_to(cart_path)
+        end
+
+        it "displays notice saying that the user does not have enough credits" do
+          put :update_bonus, :credits => {:value =>  credits_value}
+          flash[:notice].should eq("Você não tem créditos suficientes")
+        end
+      end
+
     end
 
     describe "DELETE destroy" do
@@ -237,7 +311,7 @@ describe CartController do
         end
 
         it "should add a variant in the order" do
-          Order.any_instance.should_receive(:add_variant).with(variant).and_return(true)
+          Order.any_instance.should_receive(:add_variant).with(variant, nil).and_return(true)
           post :create, :variant => {:id => variant.id}
         end
       end

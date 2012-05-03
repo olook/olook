@@ -46,19 +46,6 @@ describe Abacos::OrderStatus do
     end
   end
 
-  describe "#find_and_check_order" do
-    context "when the order doesn't exist" do
-      before :each do
-        subject.stub(:order_number).and_return(0)
-      end
-      it "should raise an error" do
-        expect {
-          subject.send :find_and_check_order, 0
-        }.to raise_error "Order number 0 doesn't exist"
-      end
-    end
-  end
-
   describe '#change_order_state' do
     let(:order) { FactoryGirl.create :clean_order }
     let(:default_order_state) do
@@ -74,9 +61,29 @@ describe Abacos::OrderStatus do
       }
     end
 
+    context 'when the original order state is waiting payment' do
+      before :each do
+        order.waiting_payment
+      end
+
+      context "and the new state is canceled" do
+        subject { described_class.new default_order_state.merge(:new_state => 'canceled') }
+        it "should change the state to canceled" do
+          subject.send :change_order_state, order
+          order.reload
+          order.canceled?.should be_true
+        end
+
+        it "should create a cancellation reason" do
+          expect {
+            subject.send :change_order_state, order
+          }.to change(CancellationReason, :count).by(1)
+        end
+      end
+    end
+
     context 'when the original order state is authorized' do
       before :each do
-
         order.waiting_payment
         order.authorized
         order.authorized?.should be_true

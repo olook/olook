@@ -1,0 +1,22 @@
+<% product = liquidation_product.product %>
+<li class="product promotion" id="<%= product.id %>">
+  <div class="box_product <%= product.sold_out? ? 'sold_out' : '' %>">
+    <%= link_to product, :class => "product_link" do %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
+      <h1><%= product.name %></h1>
+      <p class="warn sold_out">ESGO<br />TADO</p>
+      <% unless product.sold_out? || product.liquidation_discount_percent.to_i == 0 %>
+        <p class="warn percentage"><span><%= liquidation_product.discount_percent.to_i %>%</span><br />off</p>
+      <% end %>
+    <% end %>
+      <div class="line">
+        <% if product.liquidation_discount_percent.to_i != 0 %>
+          <span class="old">de: <%= number_to_currency liquidation_product.original_price %>
+          </span>
+          <span>por: <%= number_to_currency liquidation_product.retail_price %></span>    
+        <% else %>
+          <span><%= number_to_currency liquidation_product.retail_price %></span>
+        <% end %>
+      </div>
+  </div>
+</li>

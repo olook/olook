@@ -1,0 +1,48 @@
+<h2>Liquidation</h2>
+
+
+<div class="inner">
+  <p><%= link_to 'Liquidation Products', admin_liquidation_products_path(@liquidation)%></p>
+
+  <p>
+    <b>Name:</b>
+    <%= @liquidation.name %>
+  </p>
+
+  <p>
+    <b>Description:</b>
+    <%= @liquidation.description %>
+  </p>
+
+  <p>
+    <b>Teaser:</b>
+    <%= image_tag @liquidation.teaser_banner_url %>
+  </p>
+
+  <p>
+    <b>Starts at:</b>
+    <%= @liquidation.starts_at.strftime("%d/%m/%Y %H:%M") %>
+  </p>
+
+  <p>
+    <b>Ends at:</b>
+    <%= @liquidation.ends_at.strftime("%d/%m/%Y %H:%M") %>
+  </p>
+
+
+
+  <p>
+    <b>Lightbox banner:</b>
+    <%= image_tag @liquidation.lightbox_banner_url %>
+  </p>
+
+  <p>
+    <b>Welcome banner:</b>
+    <%= image_tag @liquidation.welcome_banner_url %>
+  </p>
+
+
+  <%= link_to 'Edit', edit_admin_liquidation_path(@admin_liquidation) %> |
+  <%= link_to 'Back', admin_liquidations_path %>
+
+</div>

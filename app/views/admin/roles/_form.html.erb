@@ -2,7 +2,6 @@
   <% if @role.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
-
       <ul>
       <% @role.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -21,11 +20,11 @@
   </div>
 
 <h1>Permissions</h1>
-<table cellspacing='20'>
-          <th>Model</th>
-          <th>Action</th>
-          <th>Enable</th>
-<% @permissions.each do |permission| %>
+<table cellspacing='5'>
+          <th align="left">Model</th>
+          <th align="left">Action</th>
+          <th align="left">Enable</th>
+<% @permissions.sort_by{|p| p.model_name}.each do |permission| %>
  <%= f.fields_for :permissions, permission do |permission_builder| %>
           <tr>
               <td><%= permission_builder.label :model_name, permission.model_name %></td>

@@ -10,8 +10,7 @@ class MemberMailer < ActionMailer::Base
       :address => "smtp.sendgrid.net",
       :port => 587,
       :authentication => :plain,
-      tls: true,
-      enable_starttls_auto: true
+      :enable_starttls_auto => true
 
     }
   end
@@ -19,7 +18,7 @@ class MemberMailer < ActionMailer::Base
   def welcome_email(member)
     @member = member
     mail( :to => member.email,
-          :from => "olook <bemvinda@my.olookmail.com>",
+          :from => "olook <bemvinda@olook1.com.br>",
           :subject => "#{member.name}, seja bem vinda! Seu cadastro foi feito com sucesso!"
           )
     headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json

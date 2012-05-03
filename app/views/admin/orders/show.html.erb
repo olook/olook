@@ -34,6 +34,14 @@
     <%= number_to_currency(@order.total) %>
   </p>
   <p>
+    <b>Used credits:</b>
+    <%= number_to_currency(@order.credits) %>
+  </p>
+  <p>
+    <b>Discount from coupon:</b>
+    <%= number_to_currency(@order.discount_from_coupon) %>
+  </p>
+  <p>
     <b>Freight Total:</b>
     <%= number_to_currency(@order.freight_price) %>
   </p>

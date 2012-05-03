@@ -5,17 +5,11 @@
           <ul>
             <%= showroom_presenter.display_shoes (0..4) %>
           </ul>
-          <%= link_to "Veja os sapatos que quase entraram para sua vitrine", "javascript:void(0);", :class => "more shoes", :onclick => track_event("Showroom", "SeeAlmost", "Shoes"), :rel => "almost" %>
+          <%= link_to "Clique e veja mais sapatos", "javascript:void(0);", :class => "more shoes", :onclick => track_event("Showroom", "SeeAlmost", "Shoes"), :rel => "almost" %>
         </div>
         <div class="products_list almost">
           <ul>
-            <%= showroom_presenter.display_shoes (5..9) %>
-          </ul>
-          <%= link_to "Veja mais sapatos", "javascript:void(0);", :class => "more all_shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "all" %>
-        </div>
-        <div class="products_list all">
-          <ul>
-            <%= showroom_presenter.display_shoes (10..100) %>
+            <%= showroom_presenter.display_shoes (5..100) %>
           </ul>
         </div>
       </div>

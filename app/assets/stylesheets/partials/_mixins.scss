@@ -1,7 +1,6 @@
 @import 'utilities/hacks';
 @import 'common/gradient';
 @import 'common/images';
-@import 'common/border-radius';
 @import 'common/fonts';
 
 $pink: #D95485;
@@ -119,4 +118,10 @@ $pink: #D95485;
   #sign-in-box {
     @extend .sign-in-dropdown;
   }
+}
+
+@mixin border-radius($size) {
+  -webkit-border-radius: $size;
+  -moz-border-radius: $size;
+  border-radius: $size;
 }

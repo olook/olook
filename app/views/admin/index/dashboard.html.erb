@@ -18,6 +18,7 @@
   <fieldset>
     <legend>Promo</legend>
       <p><%= access_link("Promotions")%></p>
+      <p><%= access_link("Liquidations")%></p>
       <p><%= access_link("Coupons") %></p>
       <p><%= access_link("Landing Pages") %></p>
       <p><%= access_link("Lookbooks") %></p>
@@ -26,8 +27,12 @@
     <legend>Site Management</legend>
     <p><%= access_link("Admins") %></p>
     <p><%= access_link("Roles") %></p>
-    <p></p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Gift</legend>
+    <p><%= access_link("Gift Occasion Types") %></p>
+    <p><%= access_link("Gift Recipient Relations") %></p>
   </fieldset>
   <p>Current app version: <%= @app_version %></p>
-  <p></p>
 </div>

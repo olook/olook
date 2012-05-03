@@ -17,9 +17,9 @@ class Invite < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => 'member'
   delegate :invite_token, :to => :user, :prefix => 'member'
 
-  def accept_invitation(accepting_member)
+  def accept_invitation(invitee)
     self.tap do |invite|
-      invite.invited_member = accepting_member
+      invite.invited_member = invitee
       invite.accepted_at = Time.now
       invite.save
     end
@@ -35,5 +35,9 @@ class Invite < ActiveRecord::Base
     else
       STATUS[:yes]
     end
+  end
+
+  def self.find_inviter(invitee)
+    self.find_by_invited_member_id(invitee.id).try(:user)
   end
 end

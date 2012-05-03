@@ -66,7 +66,7 @@ describe Abacos::InsertOrder do
 
   describe '#export_client' do
     let(:order) do
-      result = mock_model Order
+      result = mock_model Order, :gift_wrap? => false
       result.stub(:user).and_return(:user)
       result.stub_chain(:freight, :address).and_return(:address)
       result
@@ -84,15 +84,41 @@ describe Abacos::InsertOrder do
   end
 
   describe '#insert_order' do
-    it 'should create a new pedido' do
-      Abacos::Pedido.should_receive(:new).with(:order)
-      Abacos::OrderAPI.stub(:insert_order)
-      described_class.send(:insert_order, :order)
+    context "when not wrapped as gift" do 
+      let(:order) do
+        result = mock_model Order, :gift_wrap? => false
+        result.stub(:user).and_return(:user)
+        result.stub_chain(:freight, :address).and_return(:address)
+        result
+      end
+      it 'should create a new pedido' do
+        Abacos::Pedido.should_receive(:new).with(order)
+        Abacos::OrderAPI.stub(:insert_order)
+        described_class.send(:insert_order, order)
+      end
+      it 'should call the insert order API' do
+        Abacos::Pedido.stub(:new).with(order).and_return(order)
+        Abacos::OrderAPI.should_receive(:insert_order).with(order)
+        described_class.send(:insert_order, order)
+      end
     end
-    it 'should call the insert order API' do
-      Abacos::Pedido.stub(:new).with(:order).and_return(:order)
-      Abacos::OrderAPI.should_receive(:insert_order).with(:order)
-      described_class.send(:insert_order, :order)
+    context "when wrapped as gift" do 
+      let(:order) do
+        result = mock_model Order, :gift_wrap? => true
+        result.stub(:user).and_return(:user)
+        result.stub_chain(:freight, :address).and_return(:address)
+        result
+      end
+      it 'should create a new pedido presente' do
+        Abacos::PedidoPresente.should_receive(:new).with(order)
+        Abacos::OrderAPI.stub(:insert_order)
+        described_class.send(:insert_order, order)
+      end
+      it 'should call the insert order API' do
+        Abacos::PedidoPresente.stub(:new).with(order).and_return(order)
+        Abacos::OrderAPI.should_receive(:insert_order).with(order)
+        described_class.send(:insert_order, order)
+      end
     end
   end
 end

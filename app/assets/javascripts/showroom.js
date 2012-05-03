@@ -30,6 +30,17 @@ $(document).ready(function() {
       key : "right"
     }
   });
+
+  if($('.dialog.liquidation').length == 1) {
+    initBase.openDialog();
+
+    initBase.closeDialog();
+  }
+
+  $(".dialog.liquidation :checkbox").live("change", function() {
+    checked = $(this).is(":checked");
+    $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
+  });
 });
 
 ShowroomInit = {

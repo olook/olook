@@ -1,0 +1,44 @@
+<% present 'Liquidation', :liquidation => @liquidation do |liquidation_presenter| %>
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "section/liquidations" %>
+  <% end %>
+
+  <% content_for :footer do %>
+    <%= javascript_include_tag "liquidations" %>
+  <% end %>
+
+  <% content_for :full do %>
+    <div class="content">
+      <div class="description">
+        <% if @teaser_banner %>
+          <%= image_tag @teaser_banner, :alt => @liquidation.name %>
+        <% end %>
+        <p><%= @liquidation.description %></p>
+      </div>
+      <%= render "carousel",  :params => { :carousels => @liquidation.liquidation_carousels } %>
+    </div>
+  <% end %>
+
+  <div id="liquidation" class="content">
+
+    <%= liquidation_presenter.render_search_form %>
+
+    <div id="products_container">
+      <div id="order_filter">
+        <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
+          <ol>
+            <li class="select">
+              <%= label_tag "Ordenar por:" %>
+              <%= select_tag('order_filter', options_for_select({"Menor preço" => 0, "Maior preço" => 1}), :class => "custom_select") %>
+            </li>
+          </ol>
+        <% end %>
+      </div>
+      <ul id="products">
+        <%= render "products", :products => @liquidation_products %>
+      </ul>
+      <div class="loading"></div>
+      <%= will_paginate @liquidation_products %>
+    </div>
+  </div>
+  <% end %>

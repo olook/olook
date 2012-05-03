@@ -2,6 +2,10 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "carts" %>
+<% end %>
+
 <section id="cart">
   <table cellpadding="0" cellspacing="0" class="items_list">
     <thead>
@@ -86,7 +90,7 @@
             <%= image_tag item.variant.thumb_picture %>
             <p><strong><%= item.variant.name %></strong></p>
             <p>Tamanho: <%= item.variant.description %></p>
-            <p>Cor: <%= item.variant.color_name %></p>
+            <p>Cor/Material: <%= item.variant.color_name %></p>
           </td>
           <td class="amount">
             <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
@@ -94,7 +98,17 @@
               <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
             <% end %>
           </td>
-          <td class="value"><p><strong><%= number_to_currency(item.variant.price) %></strong></p></td>
+          <td class="value">
+            <% if item.variant.product.liquidation? %>
+              <p class="price_retail"><strong>de: <%= number_to_currency(item.variant.price) %></strong></p>
+              <p><strong>por: <%= number_to_currency(item.variant.product.retail_price) %></strong></p>
+            <% elsif item.retail_price != item.price && !item.retail_price.nil? %>
+            <p class="price_retail"><strong>de: <%= number_to_currency(item.price) %></strong></p>
+            <p><strong>por: <%= number_to_currency(item.retail_price) %></strong></p>
+            <% else %>
+              <p><strong><%= number_to_currency(item.variant.price) %></strong></p>
+            <% end %>
+          </td>
           <td class="delete_item" valign="middle">
             <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
@@ -144,10 +158,52 @@
           <% end %>
         </td>
       </tr>
+      <tr class="discount">
+        <td class="item"><h1>Embrulhar pedido para presente</h1></td>
+        <td colspan="2">
+          <p><strong>Selecione a caixa ao lado</strong></p>
+          <p>Para embrulhar seu pedido para presente</p>
+        </td>
+        <td class="cupom">
+          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= check_box('gift', 'gift_wrap', :checked => @order.gift_wrap?) %>
+                </li>
+                <li>
+                  <p>R$ 5,00</p>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+      <tr class="discount message_row hidden_row">
+        <td class="item"></td>
+        <td colspan="2">
+          <p class="line_bottom"><strong>Mensagem para presente</strong></p>
+          <p>Para embrulhar seu pedido para presente</p>
+        </td>
+        <td class="cupom">
+          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_message" } ) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_area('gift', 'gift_message', :value => @order.gift_message, :maxlength => 140) %>
+                </li>
+                <li>
+                  <p><span>0</span> caracteres</p>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
     </tbody>
   </table>
-  <%= link_to "Continuar", addresses_path, :class => "continue" %>
+  <%= link_to "Continuar", addresses_path, :class => "continue"  %>
 </section>
 <% content_for :ecommerce_tracking do %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
@@ -155,4 +211,5 @@
 <% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>
+  <%= render "shared/metrics/google/cart" %>
 <% end %>

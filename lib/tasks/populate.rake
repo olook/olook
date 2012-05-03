@@ -7,6 +7,64 @@ namespace :db do
   task :update_friend_questions => :environment  do
     update_friend_questions
   end
+
+  desc "Deletes all liquidations and creates a fake liquidations for testing puporses"
+  task :load_fake_liquidation => :environment do
+    LiquidationProduct.delete_all
+    Liquidation.delete_all
+
+    resume =  {:products_ids=>[100, 10], :categories=>{1=>{"sandalia"=>"Sandália", "rasteira"=>"Rasteira"}, 2=>{"tate" => "Tate", "bau" => "Baú"}, 3 => {"joia" => "Jóia", "brinco" => "Brinco"}}, :heels=>{"baixo"=>"Baixo", "medio" => "Médio", "6.5" => "6.5"}, :shoe_sizes=>{"33"=>33, "34"=>34, "35"=>35, "36"=>36, "37"=>37, "38"=>38, "39"=>39, "40"=>40}}
+
+    liquidation = Liquidation.create(:name => "OlookLet", :teaser => "Excepteur sint", :description => "Lorem ipsum dolor sit amet, consectetur magna aliqua. Ut enim ad minim veniam", :resume => resume, :starts_at => Date.yesterday, :ends_at => Date.today + 1.year)
+
+    Product.shoes[0..40].each do |product|
+      LiquidationProduct.create(:liquidation_id => liquidation.id,
+                                :product_id => product.id,
+                                :subcategory_name => ["rasteira", "sandalia"].shuffle.first,
+                                :original_price => [99.90, 85.90, 129.90].shuffle.first,
+                                :retail_price => [49.90, 55.90, 89.90].shuffle.first,
+                                :shoe_size => [33, 34, 35, 36, 37, 38, 39, 40].shuffle.first,
+                                :heel => ["baixo", "medio"].shuffle.first,
+                                :category_id => Category::SHOE,
+                                :inventory => 10)
+    end
+
+    Product.bags[0..40].each do |product|
+      LiquidationProduct.create(:liquidation_id => liquidation.id,
+                                :product_id => product.id,
+                                :subcategory_name => ["bau", "tate"].shuffle.first,
+                                :original_price => [78.90, 65.90, 89.90].shuffle.first,
+                                :retail_price => [32.90, 34.90, 45.90].shuffle.first,
+                                :category_id => Category::BAG,
+                                :inventory => 10)
+
+    end
+
+    Product.accessories[0..40].each do |product|
+      LiquidationProduct.create(:liquidation_id => liquidation.id,
+                                :product_id => product.id,
+                                :subcategory_name => ["joia", "brinco"].shuffle.first,
+                                :original_price => [68.90, 55.90, 79.90].shuffle.first,
+                                :retail_price => [32.90, 34.90, 45.90].shuffle.first,
+                                :category_id => Category::ACCESSORY,
+                                :inventory => 10)
+
+    end
+  end
+  
+  desc "Creates some gift occasions"
+  task :load_gift_occasion_types => :environment do
+    ['aniversário','dia dos namorados','aniversário de casamento'].each do |name|
+      GiftOccasionType.create :name => name
+    end
+  end
+  
+  desc "Creates some gift recipients relations"
+  task :load_gift_recipient_relations => :environment do
+    ['avó','tia','irmã','namorada'].each do |name|
+      GiftRecipientRelation.create :name => name
+    end
+  end
 end
 
 def create_contact_subjects

@@ -1,8 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Category < EnumerateIt::Base
   associate_values(
-    :shoe       => [1, 'Shoe'],
-    :bag        => [2, 'Bag'],
-    :accessory  => [3, 'Accessory']
+    :shoe       => 1,
+    :bag        => 2,
+    :accessory  => 3
   )
+
+  def self.list_of_all_categories
+    [Category::SHOE,Category::BAG,Category::ACCESSORY]
+  end
 end
