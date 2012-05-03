@@ -74,6 +74,7 @@ class MembersController < ApplicationController
   def showroom
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
+    @url += ":" + request.port.to_s if request.port != 80
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
