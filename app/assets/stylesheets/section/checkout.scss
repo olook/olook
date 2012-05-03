@@ -2,11 +2,18 @@ header {
   background: none !important;
   min-height: 93px !important;
   overflow: auto !important;
-  a.back_showroom {
-    background: url("/assets/cart/bt-back-showroom.jpg") no-repeat;
-    text-indent: -9999px;
-    width: 183px;
-    height: 31px;
+  a.back {
+    background: url("/assets/cart/bt-back.jpg") no-repeat;
+    color: #FFF;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    line-height: 29px;
+    letter-spacing: -1px;
+    width: 171px;
+    height: 29px;
     margin: 20px 10px 0 0;
     display: block;
     float: right;
@@ -80,11 +87,43 @@ section#cart {
       &.amount {
         width: 160px;
       }
-      &.value {
+      &.value{
         width: 270px;
       }
     }
     tbody tr {
+      &.hidden_row {
+        display:none;
+      }
+      &.message_row {
+        background-color: #f2f2f2;
+
+        textarea {
+          height: 120px;
+          width: 260px;
+          margin-right: 10px;
+          background-color: #f2f2f2;
+          border-color: #cacaca
+        }
+
+        td {
+          p {
+            text-align:left !important;
+            padding: 5px 0 0 5px;
+          }
+          .line_bottom {
+            border-bottom:2px #cacaca solid;
+            margin-right: -16px;
+            padding: 5px 20px 5px 5px;
+
+            strong{
+              text-transform: uppercase !important;
+              color: #d05f8a;
+              font-size: 15px;
+            }
+          }
+        }
+      }
       &.discount {
         td {
           vertical-align: top;
@@ -188,7 +227,18 @@ section#cart {
           }
         }
         &.value {
-          width: 60px;
+          text-align: center;
+          width: 120px;
+          p {
+            strong {
+              text-transform: none;
+            }
+            &.price_retail {
+              strong {
+                text-decoration: line-through;
+              }
+            }
+          }
         }
         &.delete_item {
           form {
@@ -241,7 +291,7 @@ section#cart {
           }
         }
         &.first {
-      
+
         }
       }
       &.first {

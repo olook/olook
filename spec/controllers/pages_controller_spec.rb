@@ -55,4 +55,11 @@ describe PagesController do
       response.code.should == '302'
     end
   end
+
+  describe "GET return_policy" do
+    it "should be successful" do
+      get :return_policy
+      response.should be_success
+    end
+  end
 end

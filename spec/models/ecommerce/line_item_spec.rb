@@ -12,11 +12,32 @@ describe LineItem do
     @normal_price = @line_item.price
   end
 
-  it "should return the total_price" do
-    @line_item.total_price.should == @variant.price * @quantity
+  context "without a liquidation" do
+    it "should return the total_price" do
+      @line_item.total_price.should == @variant.price * @quantity
+    end
+
+    it "should return the normal price" do
+      @line_item.price.should == @normal_price
+    end
   end
 
-  it "should return the normal price" do
-    @line_item.price.should == @normal_price
+  context "with a liquidation" do
+    it "should return the total_price with the retail price" do
+      Variant.any_instance.stub(:liquidation?).and_return(true)
+      @line_item.update_attributes(:retail_price => retail_price = 12.90)
+      @line_item.total_price.should == @line_item.retail_price * @quantity
+    end
+
+    it "should return the total_price with the real price if retail price is nil" do
+      Variant.any_instance.stub(:liquidation?).and_return(true)
+      @line_item.update_attributes(:retail_price => retail_price = nil)
+      @line_item.total_price.should == @line_item.price * @quantity
+    end
+
+    it "should delegate liquidation to variant" do
+      @variant.stub(:liquidation?).and_return(true)
+      @line_item.liquidation?.should be_true
+    end
   end
 end

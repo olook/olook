@@ -17,17 +17,18 @@ module MarketingReports
     end
 
     def generate_userbase
-      data = []
-      data << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
-                 invite_token first_name last_name facebook_token birthday has_purchases}
-      User.find_each do |u|
-        unless bounced_list.include?(u.email)
-          data << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
-                  u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]
+      bounces = bounced_list
+      @csv = CSV.generate do |csv|
+        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
+                   invite_token first_name last_name facebook_token birthday has_purchases}
+        User.find_each do |u|
+          unless bounces.include?(u.email)
+            csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
+                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]
+          end
         end
+        emails_seed_list.each { |email| csv << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil ] }
       end
-      emails_seed_list.each { |email| data << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil ] }
-      @csv = build_csv(data)
     end
 
     def generate_userbase_orders
@@ -70,13 +71,13 @@ module MarketingReports
       data << %w{date utm_source utm_medium utm_campaign utm_content total_registrations total_orders total_revenue_without_discount total_revenue_with_discount}
       (from...to).each do |day|
         Tracking.from_day(day).google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |t|
-          data << [ day.to_s, "google", t.clean_placement, nil, nil, t.total_registrations, t.related_with_complete_payment_for_google.count,
-                    t.total_revenue_for_google(:line_items_total), t.total_revenue_for_google ]
+          data << [ day.to_s, "google", t.clean_placement, nil, nil, t.total_registrations, t.related_with_complete_payment_for_google(day).count,
+                    t.total_revenue_for_google(day,:line_items_total), t.total_revenue_for_google(day) ]
         end
         Tracking.from_day(day).campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |t|
           data <<
           [ day.to_s, t.utm_source, t.utm_medium, t.utm_campaign, t.utm_content, t.total_registrations,
-            t.related_with_complete_payment.count, t.total_revenue(:line_items_total), t.total_revenue ]
+            t.related_with_complete_payment(day).count, t.total_revenue(day,:line_items_total), t.total_revenue(day) ]
         end
       end
       @csv = build_csv(data)
@@ -111,6 +112,7 @@ module MarketingReports
       responses = [:invalid_emails, :spam_reports, :unsubscribes, :blocks].inject([]) do |sum, service|
         sum += sendgrid_accounts_response(service)
       end
+      responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook2").parsed_response
       emails(responses)
     end
 

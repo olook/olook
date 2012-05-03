@@ -3,6 +3,7 @@
  *
  *= require admin/base
  *= require admin/themes/default/style.css
+ *= require admin/liquidation_products.css
  *= require_self
  */
 

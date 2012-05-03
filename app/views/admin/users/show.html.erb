@@ -30,8 +30,8 @@
     <%= @user.created_at %>
   </p>
   <p>
-    <b>Invite Bonus:</b>
-    <%= number_to_currency @user.invite_bonus %>
+    <b>Current credits:</b>
+    <%= number_to_currency @user.current_credit %>
   </p>
   <p>
     <b>Locked At</b>
@@ -51,7 +51,6 @@
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user }  %>
   <%= render partial: 'show_events', locals: { user: @user }  %>
-
 </div>
 
 <% content_for :secondary_navigation do %>

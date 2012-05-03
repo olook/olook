@@ -39,7 +39,6 @@ body {
       .start {
         font-size: 24px;
         color: #FFF;
-        @include border-radius(10px);
         background: transparent;
         cursor: pointer;
         color: #FFF;
@@ -106,9 +105,10 @@ body {
   }
   #survey {
     h2 {
+      color: #191919;
+      font-family: "Open Sans", sans-serif;
       font-size:26px;
       letter-spacing:-1px;
-      font-style: italic;
       font-weight:normal;
       margin: 5px 0px 0px 25px;
       color:#191919;
@@ -117,11 +117,12 @@ body {
 
     ul.questions {
       h3 {
-        font-size: 17px;
+        color: #191919;
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
         font-weight:normal;
         letter-spacing:-1px;
         line-height:15px;
-        font-style: italic;
         text-align: center;
         height: 32px;
         margin-bottom:20px;

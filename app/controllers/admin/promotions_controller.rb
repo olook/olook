@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Admin::PromotionsController < Admin::BaseController
-  
   load_and_authorize_resource
 
   respond_to :html

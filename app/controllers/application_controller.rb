@@ -3,13 +3,28 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
   before_filter :load_promotion
+  before_filter :clean_token
+
+  helper_method :current_liquidation
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
+
+  def current_liquidation
+    LiquidationService.active
+  end
+
+  def clean_token
+    if params[:auth_token] && current_user
+      current_user.authentication_token = nil
+      current_user.save
+    end
+  end
+
   def load_promotion
-    if current_user
+    if current_user and not current_user.half_user
       @promotion = PromotionService.new(current_user).detect_current_promotion
     end
   end
@@ -33,6 +48,12 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  
+  def redirect_if_half_user
+    if current_user.half_user
+      redirect_to lookbooks_path 
+    end
+  end
 
   def user_for_paper_trail
     user_signed_in? ? current_user : current_admin
@@ -47,9 +68,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_early_access
-    if current_user
-      redirect_to member_invite_path unless current_user.has_early_access?
-    end
+    redirect_to member_invite_path if current_user && !current_user.has_early_access?
   end
 
   def assign_default_country

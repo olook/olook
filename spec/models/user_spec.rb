@@ -55,12 +55,31 @@ describe User do
       end
     end
   end
+  
+  describe "when gender is required" do
+    it "should validate" do
+      user = Factory.build(:user)
+      user.half_user = true
+      user.save
+      user.should be_invalid
+    end
+  end
+  
+  describe "when gender is not required" do
+    it "should not validate" do
+      user = Factory.build(:user)
+      user.half_user = false
+      user.save
+      user.should be_valid
+    end
+  end
 
   describe 'relationships' do
     it { should have_many :points }
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
+    it { should have_many :credits }
     it { should have_one :tracking }
   end
 
@@ -82,10 +101,38 @@ describe User do
     let(:token) {"ABC"}
     let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
 
-    it "should set facebook data with a extended permission" do
+    it "should set facebook data with publish stream permission" do
       session = {:facebook_scopes => "publish_stream"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["publish_stream"])
       subject.set_facebook_data(omniauth, session)
+    end
+    
+    it "should set facebook data with friends birthday permission" do
+      session = {:facebook_scopes => "friends_birthday"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday"])
+      subject.set_facebook_data(omniauth, session)
+    end
+    
+    it "should set facebook data with friends birthday and publish stream permissions" do
+      session = {:facebook_scopes => "publish_stream, friends_birthday"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["publish_stream", "friends_birthday"])
+      subject.set_facebook_data(omniauth, session)
+    end
+    
+    it "should add permissions and not remove the old ones" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "friends_birthday"}
+      subject.set_facebook_data(omniauth, session)
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
+    end
+    
+    it "should not duplicate permissions" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "publish_stream"}
+      subject.set_facebook_data(omniauth, session)
+      subject.facebook_permissions.should == ["publish_stream"]
     end
 
     it "should set facebook data without extended permission" do
@@ -199,6 +246,30 @@ describe User do
     end
   end
 
+  describe "#inviter" do
+    context "when user is not invited by anyone" do
+      before do
+        subject.update_attribute(:is_invited, false)
+      end
+
+      it "returns false" do
+        subject.inviter.should be_false
+      end
+    end
+
+    context "when user is invited by another user" do
+      before do
+        subject.update_attribute(:is_invited, true)
+      end
+
+      it "finds his inviter and return it" do
+        inviter = mock(:inviter)
+        Invite.should_receive(:find_inviter).with(subject).and_return(inviter)
+        subject.inviter.should == inviter
+      end
+    end
+  end
+
   describe "#accept_invitation_with_token" do
     context "with a valid token" do
       let(:inviting_member) { FactoryGirl.create(:member) }
@@ -221,9 +292,9 @@ describe User do
     end
   end
 
-  describe "instance methods" do
+  describe "#surver_answers" do
     it "should return user answers" do
-      survey_answers = FactoryGirl.create(:survey_answers, user: subject)
+      survey_answers = FactoryGirl.create(:survey_answer, :user => subject)
       subject.survey_answers.should == survey_answers.answers
     end
   end
@@ -280,9 +351,14 @@ describe User do
     end
 
     context "when the event is a tracking event" do
-      it "should create a tracking record for the user with the received hash" do
+      it "creates a tracking record for the user with the received hash" do
         subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
         subject.tracking.gclid.should == 'abc123'
+      end
+
+      it "creates a event converting the hash to a string" do
+        subject.add_event(EventType::TRACKING, 'gclid' => 'abc123')
+        subject.events.find_by_event_type(EventType::TRACKING).description.should == "{\"gclid\"=>\"abc123\"}"
       end
     end
   end
@@ -312,14 +388,13 @@ describe User do
   end
 
   describe "showroom methods" do
+    let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
     let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
     let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-
     let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
-
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
 
@@ -339,6 +414,11 @@ describe User do
       it 'should return an array' do
         subject.all_profiles_showroom.should be_a(Array)
       end
+
+      it 'should return producs given a collection' do
+        subject.should_receive(:profile_showroom).at_least(2).times.with(anything, Category::BAG, last_collection).and_return(stub(:all => []))
+        subject.all_profiles_showroom(Category::BAG, last_collection)
+      end
     end
 
     describe "#profile_showroom" do
@@ -357,22 +437,24 @@ describe User do
       it 'should not include the invisible product' do
         subject.profile_showroom(sporty_profile).should_not include(invisible_product)
       end
+
+      it "should return only the products for the last collection" do
+        product_a.update_attributes(:collection => last_collection)
+        product_b.update_attributes(:collection => last_collection)
+        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
+      end
     end
 
     describe "#main_profile_showroom" do
-      before :each do
-        subject.stub(:main_profile).and_return(sporty_profile)
+      it "should return the products ordered by profiles without duplicate names" do
+        subject.main_profile_showroom.should == [product_d, product_b, product_c]
       end
 
-      it "should return only the products for the main profile" do
-        subject.main_profile_showroom.should == [product_c, product_d]
-      end
-
-      it 'should return only the products of a given category for the main profile' do
+      it 'should return only the products of a given category' do
         subject.main_profile_showroom(Category::BAG).should == [product_c]
       end
 
-      it 'should return a scope' do
+      it 'should return an array' do
         subject.main_profile_showroom.should be_a(Array)
       end
     end
@@ -405,7 +487,7 @@ describe User do
 
       context 'when no product is sold out' do
         it 'should return only one color for products with the same name' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
         end
       end
 
@@ -414,7 +496,7 @@ describe User do
           shoe_a_black.stub(:'sold_out?').and_return(true)
         end
         it 'should return the second color in the place of the sold out one' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_red, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_red, shoe_b_green]
         end
       end
 
@@ -423,7 +505,7 @@ describe User do
           shoe_a_red.stub(:'sold_out?').and_return(true)
         end
         it 'should return the first color and hide the one sold out' do
-          subject.send(:remove_color_variations, products).should == [shoe_a_black, shoe_b_green]
+          Product.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
         end
       end
     end
@@ -451,6 +533,172 @@ describe User do
         subject.has_purchases?.should be_true
       end
     end
+  end
+
+  describe "#current_credit" do
+    context "when user has no credits" do
+      it "returns 0" do
+        subject.current_credit.should == 0
+      end
+    end
+
+    context "when user has one credit record" do
+      let!(:credit) { FactoryGirl.create(:credit, :user => subject) }
+
+      it "returns the total of the credit record" do
+        subject.current_credit.should == credit.total
+      end
+    end
+
+    context "when user has more than one credit record" do
+      let!(:credit_one) { FactoryGirl.create(:credit, :total => 43, :user => subject) }
+      let!(:credit_two) { FactoryGirl.create(:credit, :total => 7, :user => subject) }
+
+
+      it "returns the total of the last credit record" do
+        subject.current_credit.should == credit_two.total
+      end
+    end
+
+  end
+
+  describe "#can_use_credit?" do
+    before do
+      FactoryGirl.create(:credit, :user => subject, :total => 23)
+    end
+
+    context "when user current credits is less then the received value" do
+      it "returns false" do
+        subject.can_use_credit?(23.01).should be_false
+      end
+    end
+
+    context "when user current credits is equal to the received value" do
+      it "returns true" do
+        subject.can_use_credit?(23.00).should be_true
+      end
+    end
+
+    context "when user current credit is greather than the received value" do
+      it "returns true" do
+        subject.can_use_credit?(21.90).should be_true
+      end
+    end
+
+  end
+
+  describe "first_buy?" do
+
+    context "when user has no orders" do
+      it "returns false" do
+        subject.first_buy?.should be_false
+      end
+    end
+
+    context "when user has orders" do
+      let(:order) { FactoryGirl.create(:order, :user => subject) }
+
+      context "when user has one order in the cart" do
+        it "returns false" do
+          subject.first_buy?.should be_false
+        end
+      end
+
+      context "when user has one order waiting payment" do
+        it "returns false" do
+          order.waiting_payment
+          subject.first_buy?.should be_false
+        end
+      end
+
+      context "when user has one order authorized" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order being picked" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.picking
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order being delivered" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.picking
+          order.delivering
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order under review" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.under_review
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has two orders authorized" do
+        let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+
+        it "returns false" do
+          order.waiting_payment
+          order.authorized
+          second_order.waiting_payment
+          second_order.authorized
+          subject.first_buy?.should be_false
+        end
+      end
+    end
+  end
+
+  describe "#has_not_exceeded_credit_limit?" do
+    let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+
+    context "when user current credit plus user invited_bonus is below 300" do
+      before do
+        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("100.00"))
+        subject.should_receive(:current_credit).and_return(BigDecimal.new("100.00"))
+      end
+
+      it "returns true" do
+        subject.has_not_exceeded_credit_limit?.should be_true
+      end
+    end
+
+    context "when user current credit plus user invited_bonus is more than 300" do
+      before do
+        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
+        subject.should_receive(:current_credit).and_return(BigDecimal.new("151.00"))
+      end
+
+      it "returns false" do
+        subject.has_not_exceeded_credit_limit?.should be_false
+      end
+    end
+
+    context "when a value is passed" do
+      context "and the sum of current credit, invited_bonus and value does not exceeds 300" do
+        before do
+          subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
+          subject.should_receive(:current_credit).and_return(BigDecimal.new("140.00"))
+        end
+
+        it "returns true" do
+          subject.has_not_exceeded_credit_limit?(BigDecimal.new("10.00")).should be_true
+        end
+      end
+    end
+
   end
 
   describe "#tracking_params" do

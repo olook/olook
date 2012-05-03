@@ -6,6 +6,7 @@ describe ProductController do
     render_views
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
+    let!(:user_info) { FactoryGirl.create(:user_info, :user => user) }
     let(:order) { FactoryGirl.create(:order, :user => user).id }
 
     before :each do

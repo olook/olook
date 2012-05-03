@@ -6,7 +6,6 @@ class CreditCardsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
   before_filter :load_user
-  before_filter :check_inventory, :only => [:create]
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
   before_filter :build_cart, :only => [:new, :create]
@@ -27,7 +26,9 @@ class CreditCardsController < ApplicationController
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
-      if response.status == Payment::SUCCESSFUL_STATUS
+      if response.status == Product::UNAVAILABLE_ITEMS
+        redirect_to(cart_path, :notice => "Produtos com o baixa no estoque foram removidos de sua sacola")
+      elsif response.status == Payment::SUCCESSFUL_STATUS
         clean_session_order!
         redirect_to(order_credit_path(:number => @order.number), :notice => "Pagamento realizado com sucesso")
       else

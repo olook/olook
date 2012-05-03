@@ -1,0 +1,20 @@
+<% if product %>
+<li class="product suggestion">
+  <%= hidden_field_tag "products[#{position}]", "#{product.id}" %>
+  <div class="box_product">
+    <%= link_to product, :remote => true, :class => "product_link" do %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
+      <h1><%= product.name %></h1>
+      <% unless position == 0 %>
+        <p class="warn percentage"><span><%= "#{(position * 2)}0"%>%</span><br />off</p>
+      <% end %>
+    <% end %>
+    <div class="line">
+      <% unless position == 0 %>
+        <span class="old">de: <%= number_to_currency(product.price) %></span>
+      <% end %>
+      <span>por: <%= number_to_currency(product.gift_price(position)) %> </span>
+    </div>
+  </div>
+</li>
+<% end %>

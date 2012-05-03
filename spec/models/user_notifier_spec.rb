@@ -15,28 +15,20 @@ describe UserNotifier do
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   subject { FactoryGirl.create(:clean_order, :user => user)}
+  let(:mailer) { double(:mailer)}
 
-    before :each do
-      ActionMailer::Base.deliveries = []
+    before do
       subject.add_variant(basic_shoe_35)
       subject.update_attribute( "updated_at", Time.now - 24 * 60 * 60 )
       subject.save!
-      validators = UserNotifier.get_orders( "in_the_cart", 0, 1, [ "in_cart_notified = 0" ] )
-      UserNotifier.send_in_cart( validators.join(" AND ") )
     end
 
     it "should send the order email" do
-      ActionMailer::Base.deliveries.should_not == []
+      validators = UserNotifier.get_orders( "in_the_cart", 0, 1, [ "in_cart_notified = 0" ] )
+      InCartMailer.should_receive(:send_in_cart_mail).with(subject, subject.line_items).and_return(mailer)
+      mailer.should_receive(:deliver)
+      UserNotifier.send_in_cart( validators.join(" AND ") )
     end
-
-    it "the email should be related to the user" do
-      ActionMailer::Base.deliveries[0].to[0].should == user.email
-    end
-
-    it "the user authentication token should be reseted" do
-      User.find(user.id).authentication_token.should_not == nil
-    end
-
   end
 
   describe ".delete_old_orders" do
@@ -46,7 +38,6 @@ describe UserNotifier do
   subject { FactoryGirl.create(:clean_order, :user => user)}
 
     before :each do
-      ActionMailer::Base.deliveries = []
       subject.add_variant(basic_shoe_35)
       subject.update_attribute( "updated_at", Time.now - 24 * 60 * 60 )
       subject.save!

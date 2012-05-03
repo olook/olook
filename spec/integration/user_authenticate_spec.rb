@@ -9,7 +9,7 @@ feature "User Authenticate", %q{
 } do
 
   def showroom_message
-    "Sua stylist está criando sua vitrine personalizada, e ela ficará pronta nas próximas 24 horas"
+    "Sua stylist está criando sua vitrine personalizada, ela ficará pronta em 24 horas"
   end
 
   def update_user_to_old_user(login)
@@ -27,7 +27,13 @@ feature "User Authenticate", %q{
     Resque.stub(:enqueue)
   end
 
-  scenario "User cant't fill the cpf when not invited" do
+  scenario "User must fill the cpf when invited" do
+    visit accept_invitation_path(:invite_token => @user.invite_token) 
+    answer_survey 
+    page.should have_content("CPF")
+  end
+
+  scenario "User can't fill the cpf when not invited" do
     answer_survey
     visit new_user_registration_path
     page.should_not have_content("CPF")
@@ -36,7 +42,7 @@ feature "User Authenticate", %q{
   scenario "User Log in with facebook" do
     answer_survey
     visit "/users/auth/facebook"
-    within("#user_new") do
+    within("#new_user") do
      fill_in "user_password", :with => "123456"
      fill_in "user_password_confirmation", :with => "123456"
      click_button "register"
@@ -46,26 +52,47 @@ feature "User Authenticate", %q{
    end
   end
 
- scenario "User Sign up" do
-   answer_survey
-   visit new_user_registration_path
-   within("#user_new") do
-     fill_in "user_first_name", :with => "First Name"
-     fill_in "user_last_name", :with => "Last Name"
-     fill_in "user_email", :with => "fake@mail.com"
-     fill_in "user_password", :with => "123456"
-     fill_in "user_password_confirmation", :with => "123456"
-     click_button "register"
-   end
-   within("#welcome") do
-     page.should have_content(showroom_message)
-   end
- end
+  scenario "User Sign up" do
+    answer_survey
+    visit new_user_registration_path
+    within("#new_user") do
+      fill_in "user_first_name", :with => "First Name"
+      fill_in "user_last_name", :with => "Last Name"
+      fill_in "user_email", :with => "fake@mail.com"
+      fill_in "user_password", :with => "123456"
+      fill_in "user_password_confirmation", :with => "123456"
+      click_button "register"
+    end
+    within("#welcome") do
+       page.should have_content(showroom_message)
+    end
+  end
+
+  scenario "Invited User Sign up earns R$ 10,00 worth of credit after registration" do
+    visit accept_invitation_path(:invite_token => @user.invite_token)
+    answer_survey
+    visit new_user_registration_path
+    within("#new_user") do
+      fill_in "user_first_name", :with => "Senhor"
+      fill_in "user_last_name", :with => "Madroga"
+      fill_in "user_email", :with => "madruguinha@mail.com"
+      fill_in "user_password", :with => "123456bola"
+      fill_in "user_password_confirmation", :with => "123456bola"
+      fill_in "user_cpf", :with => "214.872.785-00"
+
+      click_button "register"
+      visit(member_invite_path)
+    end
+
+    within(".amount") do
+      page.should have_content("R$ 10,00")
+    end
+  end
 
   scenario "User update without password" do
     do_login!(@user)
     visit edit_user_registration_path
-    within("#user_edit") do
+    within("#edit_user") do
       fill_in "user_first_name", :with => "New First Name"
       fill_in "user_last_name", :with => "New Last Name"
       fill_in "user_email", :with => "fake@mail.com"
@@ -79,7 +106,7 @@ feature "User Authenticate", %q{
   scenario "User update with password" do
     do_login!(@user)
     visit edit_user_registration_path
-    within("#user_edit") do
+    within("#edit_user") do
       fill_in "user_first_name", :with => "New First Name"
       fill_in "user_last_name", :with => "New Last Name"
       fill_in "user_email", :with => "fake@mail.com"
@@ -120,7 +147,7 @@ feature "User Authenticate", %q{
 
     answer_survey
     visit new_user_registration_path
-    within("#user_new") do
+    within("#new_user") do
       fill_in "user_first_name", :with => "First Name"
       fill_in "user_last_name", :with => "Last Name"
       fill_in "user_email", :with => login

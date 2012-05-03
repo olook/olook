@@ -84,7 +84,7 @@
           li {
             display: inline;
             a {
-              margin: 0 5px 0 0;
+              margin: 0 5px 5px 0;
               float: left;
               div.mask {
                 width: 40px;
@@ -103,10 +103,10 @@
       width: 330px;
       float: right;
       h1.title {
-        background: url('/assets/showroom/title-lookbooks.png') no-repeat;
+        background: url('/assets/showroom/title-tendencies.jpg') no-repeat;
         text-indent: -9999px;
         width: 144px;
-        height: 21px;
+        height: 25px;
         margin: 0 0 10px 0;
         display: block;
       }
@@ -213,36 +213,17 @@
       }
       a.more {
         position: absolute;
-        text-indent: -9999px;
+        background: #df5a8b;
+        color: #FFF;
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
         text-decoration: none;
+        text-transform: uppercase;
+        line-height: 34px;
+        padding: 0 20px;
         display: block;
-        height: 34px;
         bottom: 0;
         right: 0;
-        &.shoes {
-          background: url("/assets/showroom/bt-more-shoes.png") no-repeat;
-          width: 448px;
-        }
-        &.all_shoes {
-          background: url("/assets/showroom/bt-more-shoes-all.png") no-repeat;
-          width: 180px;
-        }
-        &.purses {
-          background: url("/assets/showroom/bt-more-purses.png") no-repeat;
-          width: 447px;
-        }
-        &.all_purses {
-          background: url("/assets/showroom/bt-more-purses-all.png") no-repeat;
-          width: 182px;
-        }
-        &.accessories {
-          background: url("/assets/showroom/bt-more-accessories.png") no-repeat;
-          width: 478px;
-        }
-        &.all_accessories {
-          background: url("/assets/showroom/bt-more-accessories-all.png") no-repeat;
-          width: 204px;
-        }
       }
       ul {
         li.product {

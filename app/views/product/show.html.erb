@@ -1,4 +1,4 @@
-<% present 'Product', :product => @product, :member => @user do |product_presenter| %>
+<% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id do |product_presenter| %>
   <% content_for(:head) do %>
     <meta property="og:title" content="Olook – <%= @product.name %>">
     <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>">
@@ -12,17 +12,20 @@
 
   <% content_for :footer do %>
     <%= javascript_include_tag "product" %>
+    <%= javascript_include_tag "product_view" %>
   <% end %>
 
   <% unless user_signed_in? %>
-    <%= render "shared/modal_login" %>
+    <%= render "shared/modal_login" %>  
   <% end %>
 
   <div id="product">
     <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
-      <%= render "product_pics" %>
-
+      <div id="pics_suggestions">
+        <%= product_presenter.render_pics %>
+        <%= product_presenter.render_facebook_comments %>
+      </div>
       <div id="infos">
         <%= product_presenter.render_description %>
         <% if user_signed_in? %>
@@ -35,8 +38,13 @@
 
       <%= product_presenter.render_related_products %>
     </div>
+    <%# TODO Remove banner mothers day %>
+      <br />
+      <br />
+      <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
   </div>
 <% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/product_page_tracker", :locals => { :product_id => @product.id } %>
+  <%= render "shared/metrics/google/product" %>
 <% end %>

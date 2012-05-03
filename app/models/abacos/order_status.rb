@@ -17,8 +17,10 @@ module Abacos
 
     def integrate
       order = find_and_check_order self.order_number
-      change_order_state order
-      set_invoice_info order
+      if order
+        change_order_state order
+        set_invoice_info order
+      end
       confirm_order_status
     end
 
@@ -71,9 +73,7 @@ module Abacos
     end
 
     def find_and_check_order(number)
-      order = Order.find_by_number number
-      raise "Order number #{order_number} doesn't exist" unless order
-      order
+      Order.find_by_number number
     end
 
     def confirm_order_status
@@ -81,7 +81,12 @@ module Abacos
     end
 
     def change_order_state(order)
+      if new_state == 'canceled'
+        order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:abacos], :message => cancelation_reason) if order.canceled
+      end
+
       valid_state = VALID_STATES.index(order.state)
+
       if valid_state
         next_index = valid_state + 1
         new_index  = VALID_STATES.index(new_state.to_s)

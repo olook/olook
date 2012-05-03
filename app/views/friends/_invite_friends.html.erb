@@ -5,13 +5,16 @@
     <ul>
       <% not_registred_friends.each do |friend| %>
       <li>
+          <%= image_tag(user_avatar(friend, "square"), :title => friend.name) %>
         <div class="success">
           <p>Convi<br />dada</p>
         </div>
         <div class="error">
           <p>Erro. Tente nova<br />mente</p>
         </div>
-        <%= link_to image_tag(user_avatar(friend, "square"), :title => friend.name),  "#", :class => "invite_friend", :rel => friend.uid %>
+        <%= link_to "#", :class => "invite_friend", :rel => friend.uid do %>
+          <p>Convi<br />dar</p>
+        <% end %>
       </li>
       <% end %>
     </ul>

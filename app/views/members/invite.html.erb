@@ -18,15 +18,15 @@
         <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
       </div>
     <% end %>
-    <h2><%= display_member_invite_bonus(current_user) %></h2>
+    <h2><%= display_member_credit(current_user) %></h2>
   </hgroup>
 
   <div class="banner">
     <h1>Quer ganhar</h1>
-    <h2>R$20?</h2>
+    <h2>R$10?</h2>
     <h3>
-      <p>Convide <span>5</span> de suas amigas</p>
-      <p>e elas ganham R$10</p>
+      <p>Convide suas amigas e ganhe R$10</p>
+      <p>Quando elas fizerem a 1ª compra.</p>
     </h3>
     <%= link_to 'Veja o regulamento', terms_path %>
     <%= image_tag('/assets/common/model-banner.png') %>
@@ -101,7 +101,6 @@
     </fieldset>
   <% end %>
 </section>
-
 <section id="post-to-wall">
   <hgroup>
     <h1>Convide amigas do Facebook</h1>
