@@ -304,7 +304,7 @@ class Order < ActiveRecord::Base
   end
 
   def reimburse_credit
-    Credit.add(credits, user, self) if credits > 0
+    Credit.add(credits, user, self, "order_credit", "Order #{self.number} received" ) if credits > 0
   end
 
   def add_credit_to_inviter
@@ -312,10 +312,8 @@ class Order < ActiveRecord::Base
   end
 
   def update_user_credit
-    Credit.remove(credits, user, self) if credits > 0
+    Credit.remove(credits, user, self, "order_debit", "Order #{self.number} canceled") if credits > 0
   end
-
-
 
   private
 

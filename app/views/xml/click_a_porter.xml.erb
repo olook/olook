@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
 <% for product in @products %>
+<% unless product.sold_out? %>
 <produto>
 <id_produto><![CDATA[<%= product.id %>]]></id_produto>
 <link_produto><![CDATA[<%= product.product_url(:utm_source => "click_a_porter") %>]]></link_produto>
@@ -18,5 +19,6 @@
 <% end %>
 </imagens>
 </produto>
+<% end %>
 <% end %>
 </produtos>

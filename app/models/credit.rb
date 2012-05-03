@@ -28,7 +28,8 @@ class Credit < ActiveRecord::Base
     end
   end
 
-  def self.remove(amount, user, order=nil, source='order_debit', reason)
+  # TO DO Needs refactor 
+  def self.remove(amount, user, order, source, reason)
     if user.current_credit >= amount
       updated_total = user.current_credit - amount
       user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => source, 
@@ -38,10 +39,12 @@ class Credit < ActiveRecord::Base
     end
   end
 
-  def self.add(amount, user, order=nil, source='order_credit', reason)
+  # TO DO Needs refactor
+  def self.add(amount, user, order, source, reason)
     if user.has_not_exceeded_credit_limit?(INVITE_BONUS)
       updated_total = user.current_credit + amount
-      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => source, :reason => reason)
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, 
+        :source => source, :reason => reason)
     end
   end
 end
