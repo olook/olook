@@ -4,9 +4,15 @@ namespace :olook do
   task :populate_debit_operations, :needs => :environment do
   	Credit.find_each do |credit|
   		if credit.source.include?("debit")
+        reason = Order.find(credit.order_id).number unless credit.order_id == nil    
   			credit.is_debit = true
+        credit.reason = "Order #{reason} received"
   			credit.save
-  		end
+  		elsif credit.source.include?("credit")
+        reason = Order.find(credit.order_id).number unless credit.order_id == nil  
+        credit.reason = "Order #{reason} canceled"
+        credit.save
+      end
   	end
   end
 
