@@ -20,7 +20,6 @@
   <% end %>
 
   <div id="product">
-    <%= link_to(image_tag("promotion_banners/banner_site.jpg", :class => "banner_mothers_day"), "/lookbooks/?utm_source=olook&utm_medium=banner_site&utm_campaign=maes12&utm_content=lookbookmaes" ) %>
     <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
       <div id="pics_suggestions">
@@ -39,6 +38,10 @@
 
       <%= product_presenter.render_related_products %>
     </div>
+    <%# TODO Remove banner mothers day %>
+      <br />
+      <br />
+      <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
   </div>
 <% end %>
 <% content_for :footer do %>
