@@ -396,13 +396,14 @@ describe Product do
   end
 
   describe "#retail_price" do
-    subject { FactoryGirl.create(:basic_bag_simple, :price => 100.9 ) } #variant
-    it "should return the retail price if the product is part of an active liquidation" do
-      pending
+    it "gets the retail price from liquidation product service" do
+      LiquidationProductService.should_receive(:retail_price).with(subject)
+      subject.retail_price
     end
 
-    it "should return the normal price if the product is not part of an active liquidation" do
-      pending
+    it "returns the retail price got from liquidation product service" do
+      LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
+      subject.retail_price.should == 1.99
     end
   end
   
