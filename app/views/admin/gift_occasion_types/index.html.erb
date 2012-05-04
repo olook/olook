@@ -4,6 +4,8 @@
   <table class="table">
     <tr>
       <th>Name</th>
+      <th>Date</th>      
+      <th>Recipient Relation</th>      
       <th></th>
       <th></th>
       <th></th>
@@ -12,6 +14,8 @@
   <% @gift_occasion_types.each do |type| %>
     <tr>
       <td><%= type.name %></td>
+      <td><%= type.date %></td>      
+      <td><%= type.gift_recipient_relation_name %></td>            
       <td><%= link_to 'Show', admin_gift_occasion_type_path(type) %></td>
       <td><%= link_to 'Edit', edit_admin_gift_occasion_type_path(type) %></td>
       <td><%= link_to 'Destroy', admin_gift_occasion_type_path(type), confirm: 'Are you sure?', method: :delete %></td>
