@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_promotion
-    if current_user
+    if current_user and not current_user.half_user
       @promotion = PromotionService.new(current_user).detect_current_promotion
     end
   end
@@ -48,6 +48,12 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  
+  def redirect_if_half_user
+    if current_user.half_user
+      redirect_to lookbooks_path 
+    end
+  end
 
   def user_for_paper_trail
     user_signed_in? ? current_user : current_admin
@@ -62,9 +68,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_early_access
-    if current_user
-      redirect_to member_invite_path unless current_user.has_early_access?
-    end
+    redirect_to member_invite_path if current_user && !current_user.has_early_access?
   end
 
   def assign_default_country

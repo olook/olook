@@ -1,0 +1,12 @@
+$('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
+$('#quick_view').fadeIn(300);
+width = $(document).width();
+height = $(document).height();
+$('body').prepend("<div class='overlay'></div>");
+$('.overlay').width(width).height(height);
+
+$('#quick_view ol.colors li a').attr('data-remote', true);
+$(".size").hide();
+
+initSuggestion.checkIfProductIsAlreadySelected();
+initProduct.productZoom();

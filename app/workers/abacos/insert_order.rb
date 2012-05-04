@@ -31,7 +31,7 @@ module Abacos
     end
 
     def self.insert_order(order)
-      pedido = Abacos::Pedido.new order
+      pedido = !order.gift_wrap? ? Abacos::Pedido.new(order) : Abacos::PedidoPresente.new(order)
       Abacos::OrderAPI.insert_order pedido
     end
   end

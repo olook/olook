@@ -1,0 +1,12 @@
+<h2>Editing gift recipient relation</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_gift_recipient_relation_path(@gift_recipient_relation) %></li>
+  <li><%= link_to 'Back', admin_gift_recipient_relations_path %></li>
+<% end %>
+
