@@ -36,3 +36,4 @@ public/admin/users.csv
 links.csv
 order_ids.yaml
 config/abacos.yml
+*.csv
