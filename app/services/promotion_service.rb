@@ -34,7 +34,7 @@ class PromotionService
   end
 
   def satisfies_criteria? promotion
-     strategy = promotion.load_strategy.new(promotion.param, user)
-     strategy.matches?
+    strategy = promotion.load_strategy.new(promotion.param, user)
+    strategy.matches?
   end
 end

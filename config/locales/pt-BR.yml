@@ -236,6 +236,10 @@
       address: Endereço
       credit_card: Cartão de crédito
       user: Usuário
+      gift_recipient: presenteado
+      gift_occasion: "ocasião"
+      gift_occasion_type: "tipo de ocasião"
+      gift_recipient_relation: "relacionamento"
     attributes:
       address:
         city: Cidade
@@ -268,6 +272,16 @@
         password: Senha
         password_confirmation: "Confirmação de senha"
         reset_password_token: "Token para resetar senha"
+        gender: Sexo
+      gift_recipient:
+        name: nome
+      gift_occasion:
+        day: dia
+        month: "mês"
+      gift_occasion_type:
+        name: nome
+      gift_recipient_relation:
+        name: nome
 
     errors:
       template:

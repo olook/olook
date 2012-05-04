@@ -50,13 +50,20 @@ describe OmniauthCallbacksController do
 
       it "should redirect to friends showroom" do
         User.any_instance.stub(:set_facebook_data)
-        session[:facebook_scopes] = true
+        session[:facebook_scopes] = "publish_stream"
         get :facebook
         response.should redirect_to(friends_home_path)
       end
+      
+      it "should redirect to gift" do
+        User.any_instance.stub(:set_facebook_data)
+        session[:facebook_scopes] = "friends_birthday"
+        get :facebook
+        response.should redirect_to(gift_root_path)
+      end
 
       it "should set nil to facebook_scopes" do
-        session[:facebook_scopes] = true
+        session[:facebook_scopes] = "hello_permission"
         get :facebook
         session[:facebook_scopes].should be_nil
       end
