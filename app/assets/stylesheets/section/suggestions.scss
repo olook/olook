@@ -116,6 +116,12 @@ div.full_container {
                   }
                 }
               }
+              a.delete {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1;
+              }
               &:hover {
                 padding: 10px;
                 border: none;
