@@ -222,6 +222,10 @@ initBase = {
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);
+    old_link = $(box).find(".like_mask div.fb-like").attr("data-href");
+    $(box).find(".like_mask div.fb-like").attr("data-href", old_link.replace(/\/produto\/\d+/, link));
+    iframe_src = $(box).find("iframe").attr("src");
+    $(box).find("iframe").attr("src", iframe_src.replace(/%2Fproduto%2F\d+/, link.replace(/\//g, "%2F")));
   },
 
   isProductSoldOut : function(box, soldOut) {
