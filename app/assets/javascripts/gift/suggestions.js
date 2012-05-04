@@ -28,6 +28,13 @@ $(function() {
     $(hoverBox).find("li.spy a").attr("href", spyLink.replace(/\d+$/, productId));
     $(hoverBox).find("li.add a").attr("href", addLink.replace(/\d+$/, productId));
   });
+
+  $("div.product_container ul li.product a.delete").live("click", function(e) {
+    $(this).parent("li.product").fadeOut("normal", function() {
+      $(this).remove();
+    });
+    e.preventDefault();
+  });
 });
 
 initSuggestion = {
