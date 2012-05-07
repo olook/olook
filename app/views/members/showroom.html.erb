@@ -19,7 +19,6 @@ js = d.createElement(s); js.id = id;
 js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
 fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<% end %>
   <% end %>
 
   <div id="showroom">
@@ -38,3 +37,4 @@ fjs.parentNode.insertBefore(js, fjs);
     <br />
     <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
   </div>
+<% end %>
