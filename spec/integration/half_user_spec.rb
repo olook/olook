@@ -7,7 +7,7 @@ feature "Half user", %q{
   I want to be able to use olook
   } do
     
-  let!(:half_user) { Factory.create(:user, :half_user => true, :gender => 1) }
+  let!(:half_user) { FactoryGirl.create(:user, :half_user => true, :gender => 1) }
     
   scenario "acessing as a half user must redirect to its root path" do
     do_login!(half_user)
