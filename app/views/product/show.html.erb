@@ -35,13 +35,13 @@
         <% end %>
         <%= product_presenter.render_details %>
       </div>
-
+      
       <%= product_presenter.render_related_products %>
     </div>
     <%# TODO Remove banner mothers day %>
-      <br />
-      <br />
-      <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
+    <br />
+    <br />
+    <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes") %>
   </div>
 <% end %>
 <% content_for :footer do %>
