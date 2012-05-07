@@ -23,6 +23,8 @@ class Product < ActiveRecord::Base
   has_many :lookbooks, :through => :lookbooks_products
   has_many :liquidation_products
   has_many :liquidations, :through => :liquidation_products
+  has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
+  has_many :catalogs, :through => :catalog_products
 
   validates :name, :presence => true
   validates :description, :presence => true
