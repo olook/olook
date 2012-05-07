@@ -16,6 +16,17 @@ $(function() {
     $(p).css("width", selectWidth + 40);
     $(this).css("width", "100%");
   });
+
+  $('#occasion_gift_occasion_type_id').change(function() {
+    index = $('#occasion_gift_occasion_type_id').val();
+    var occasion = $.grep(occasions, function(n, i){
+      return n.id == parseInt(index);
+    });
+    occasionObj = occasion[0];
+    $("#occasion_day").val(occasionObj.day).change();
+    $("#occasion_month").val(occasionObj.month).change();
+    $("#recipient_gift_recipient_relation_id").val(occasionObj.gift_recipient_relation_id).change();
+  });
 });
 
 initOccasion = {
