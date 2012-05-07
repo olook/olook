@@ -2,7 +2,7 @@ def with_a_logged_user(&block)
   include Devise::TestHelpers
 
   context "with a logged user" do
-    let(:user) { FactoryGirl.create :user }
+    let(:user) { FactoryGirl.create(:user) }
 
     before :each do
       sign_in user
@@ -16,7 +16,7 @@ end
 def with_a_logged_admin
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin_superadministrator
+    @admin = FactoryGirl.create(:admin_superadministrator)
     sign_in @admin
   end
   yield if block_given?
