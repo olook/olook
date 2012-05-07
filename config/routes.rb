@@ -150,6 +150,8 @@ Olook::Application.routes.draw do
       resources :images
     end
 
+    resources :moments
+
     resources :users, :except => [:create, :new] do
       collection do
         get 'statistics' => 'users#statistics', :as => 'statistics'
