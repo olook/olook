@@ -2,11 +2,12 @@
   <% content_for(:head) do %>
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
     <meta property="og:title" content="Olook – <%= @product.name %>" />
-    <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
     <meta property="og:description" content="<%= @product.description %>" />
     <meta property="og:image" content="<%= @product.pictures.first.image_url(:suggestion).to_s %>" />
+    <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
     <meta property="og:site_name" content="Olook" />
     <meta property="og:type" content="website" />
+
     <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
   <% end %>
 
@@ -35,7 +36,7 @@
         <% end %>
         <%= product_presenter.render_details %>
       </div>
-      
+
       <%= product_presenter.render_related_products %>
     </div>
     <%# TODO Remove banner mothers day %>
