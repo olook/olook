@@ -1,4 +1,4 @@
-$('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product, :url => @url, :facebook_app_id => @facebook_app_id })) %>");
+$('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product })) %>");
 $('#quick_view').fadeIn(300);
 width = $(document).width();
 height = $(document).height();
