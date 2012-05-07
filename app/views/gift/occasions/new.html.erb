@@ -6,6 +6,9 @@
   <%= javascript_include_tag "plugins/auto-grow-input" %>
   <%= javascript_include_tag "gift" %>
   <%= javascript_include_tag "gift/occasions" %>
+  <script>
+    var occasions = <%= raw @occasion_types.to_json %>;
+  </script>
 <% end %>
 
 <% content_for :full do %>
