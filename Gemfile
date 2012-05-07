@@ -50,7 +50,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19'
   gem 'capistrano'
-  gem 'factory_girl_rails', '~> 1.2.0'
+  gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.10.1'
   gem 'watchr'
   gem 'awesome_print'
@@ -62,7 +62,7 @@ group :test do
   gem 'rspec', '~> 2.10.0'
   gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.5.3', :require => false
-  gem 'spork', '~> 0.9.0.rc'
+  gem 'spork', '~> 0.9.1'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
