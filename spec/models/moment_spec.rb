@@ -9,4 +9,8 @@ describe Moment do
     it { should validate_presence_of(:slug) }
     it { moment.should validate_uniqueness_of(:slug) }
   end
+  
+  describe "default" do
+    it { Moment.new.active.should be_false }
+  end
 end
