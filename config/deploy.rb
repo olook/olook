@@ -2,7 +2,6 @@ require 'capistrano/ext/multistage'
 # require "bundler/capistrano"
 
 set :stages, %w(prod1 prod2 prod3 prod4 hmg dev resque showroom new_machine)
-#set :default_stage, "dev"
 
 # app details
 set :application, 'olook'
@@ -21,7 +20,7 @@ set :rake, '/usr/local/ruby/bin/rake'
 set :scm, :git
 set :repository, 'git@github.com:olook/olook.git'
 set :git_enable_submodules, 1
- 
+
 default_run_options[:pty] = true
 ssh_options[:port] = 13630
 ssh_options[:forward_agent] = true
