@@ -1,3 +1,11 @@
+<meta property="fb:app_id" content="<%= @facebook_app_id %>" />
+<meta property="og:title" content="Olook – <%= @product.name %>" />
+<meta property="og:description" content="<%= @product.description %>" />
+<meta property="og:image" content="<%= @product.pictures.first.image_url(:suggestion).to_s %>" />
+<meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
+<meta property="og:site_name" content="Olook" />
+<meta property="og:type" content="website" />
+
 <div id="close_quick_view">x</div>
 <% present 'Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id  do |product_presenter| %>
   <div id="product" class="product_<%= product.id %>">
