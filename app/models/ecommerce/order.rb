@@ -132,7 +132,7 @@ class Order < ActiveRecord::Base
 
   def confirm_payment
     order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
-    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+    Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
 
   def insert_order
