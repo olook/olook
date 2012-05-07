@@ -30,8 +30,21 @@ $(function() {
   });
 
   $("div.product_container ul li.product a.delete").live("click", function(e) {
+    productContainer = $(this).parents("div.product_container");
+    
     $(this).parent("li.product").fadeOut("normal", function() {
       $(this).remove();
+    });
+ 
+    $(productContainer).nextAll().each(function() {
+      $(this).find("ul").find("li.product").fadeOut("normal", function() {
+        productId = $(this).find("input[type='hidden']").val();
+        $.ajax({
+          type: "GET",
+          dataType: 'script',
+          url: "/gift/recipients/31/suggestions/select_gift/"+productId,
+        });
+      });
     });
     e.preventDefault();
   });
