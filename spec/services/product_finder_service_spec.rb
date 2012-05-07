@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe ProductFinderService do
 
-  let!(:user) { Factory.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
   subject { ProductFinderService.new user}
 
   let!(:casual_profile) { FactoryGirl.create(:casual_profile) }

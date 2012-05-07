@@ -7,13 +7,13 @@ describe Admin::VariantsController do
   let!(:product) { variant.product }
   let(:valid_attributes) do
     variant.attributes.clone.tap do |attributes|
-      attributes[:number] = Random.rand(1000).to_s
+      attributes[:number] = 45
     end
   end
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin_superadministrator
+    @admin = FactoryGirl.create(:admin_superadministrator)
     sign_in @admin
   end
 

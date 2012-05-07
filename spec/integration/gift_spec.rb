@@ -8,10 +8,10 @@ feature "Buying Gifts", %q{
   I want to be able to choose and buy the correct product
   } do
     
-  let!(:user) { Factory.create(:user) }
-  let!(:occasion_type) { Factory.create(:gift_occasion_type) }
-  let!(:recipient_relation) { Factory.create(:gift_recipient_relation) }
-  let!(:gift_survey) { Factory.create(:gift_question) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:occasion_type) { FactoryGirl.create(:gift_occasion_type) }
+  let!(:recipient_relation) { FactoryGirl.create(:gift_recipient_relation) }
+  let!(:gift_survey) { FactoryGirl.create(:gift_question) }
     
   describe "Already user" do
     background do
