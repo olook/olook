@@ -3,7 +3,7 @@
     <meta property="og:title" content="Olook – <%= @product.name %>">
     <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>">
     <meta property="og:description" content="<%= @product.description %>">
-    <meta property="og:image" content="<%= @product.pictures.first.image_url(:suggestion).to_s %>">
+    <meta property="og:image:url" content="<%= @product.pictures.first.image_url(:suggestion).to_s %>">
     <meta property="og:site_name" content="Olook">
     <meta property="og:type" content="website">
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
