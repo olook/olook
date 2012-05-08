@@ -5,8 +5,8 @@ class Admin < ActiveRecord::Base
                   :role_id
   belongs_to :role
 
-
-  has_paper_trail :on => [:update, :destroy]
+  # TODO: Temporarily disabling paper_trail for app analysis
+  # has_paper_trail :on => [:update, :destroy]
 
 
   EmailFormat = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
