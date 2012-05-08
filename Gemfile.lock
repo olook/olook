@@ -398,10 +398,10 @@ DEPENDENCIES
   omniauth (= 1.0.3)
   omniauth-facebook
   paper_trail (~> 2)
-  resque (~> 1.20.0)
-  resque-scheduler (~> 2.0.0)
   rails (= 3.2.2)
   rake (= 0.9.2)
+  resque (~> 1.20.0)
+  resque-scheduler (~> 2.0.0)
   resque_mailer (~> 2.0.2)
   rspec (~> 2.10.0)
   rspec-rails (~> 2.10.1)
