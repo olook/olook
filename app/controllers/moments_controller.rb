@@ -3,9 +3,8 @@ class CatalogsController < ApplicationController
   layout "liquidation"
   respond_to :html, :js
 
-  before_filter :verify_if_active, :only => [:show]
   before_filter :load_order, :only => [:show]
-  before_filter :load_liquidation_products
+  before_filter :load_catalog_products
 
   def show
     @teaser_banner = current_liquidation.teaser_banner_url if current_liquidation
@@ -24,14 +23,8 @@ class CatalogsController < ApplicationController
   private
 
   def load_catalog_products
-    @catalog = Catalog.find(params[:id])
+    @catalog = Catalog::Catalog.find(params[:id])
     @catalog_products = CatalogSearchService.new(params).search_products
   end
 
-  def verify_if_active
-    if LiquidationService.active.try(:id) != params[:id].to_i
-      flash[:notice] = "O catalogo não está ativa"
-      redirect_to member_showroom_path
-    end
-  end
 end
