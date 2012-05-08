@@ -23,6 +23,7 @@ config/yahoo.yml
 config/aws.yml
 config/resque.yml
 config/moip.yml
+config/resque-web.rb
 *.passwd
 db/schema.rb
 .watchr
