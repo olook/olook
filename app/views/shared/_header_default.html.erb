@@ -45,29 +45,16 @@
   <div id="wrapper_menu">
     <nav class="menu">
       <div class="content">
-        <% if current_user.has_early_access?  %>
+        <% if current_user.has_early_access?  && !current_user.half_user? %>
         <ul class="product_anchors">
           <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
           <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
           <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
         </ul>
-      <% end %>
+        <% end %>
         <ul class="default">
-          <% if current_user.has_early_access? %>
-            <li class="showroom"><%= link_to "Minha Vitrine", member_showroom_path, :class => is_current?('members', 'showroom') %></li>
-          <% end %>
-          <li class="lookbooks"><%= link_to "Lookbooks", lookbooks_path %></li>
-          <li class="stylist"><%= link_to 'Stylist', helena_linhares_path, :class => selected_if_current(['stylists#helena_linhares']) %></li>
-          <li class="my_friends"><%= link_to "Minhas Amigas", facebook_connect_path, :class => selected_if_current(['friends#facebook_connect','friends#home','friends#showroom']) %></li>
-          <li class="invite"><%= link_to 'Convidar amigas', member_invite_path, :class => is_current?('members', 'invite') %></li>
-          <% if current_liquidation %>
-            <li class="liquidation"><%= link_to current_liquidation.name, liquidations_path(current_liquidation.id), :class => is_current?('liquidations', 'show') %></li>
-          <% end %>
-          <li class="blog"><%= link_to "Blog", "http://blog.olook.com.br", :target => "_blank" %></li>
-          <% if current_user.has_early_access? %>
-            <li class="cart" id="cart">
-              <%= render 'shared/cart', :order => @order %>
-            </li>
+          <% present 'Menu', :user => current_user do |menu_presenter| %>
+            <%= menu_presenter.render_menu %>
           <% end %>
         </ul>
       </div>

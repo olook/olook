@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base  
+  serialize :facebook_permissions, Array
+
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
   attr_protected :invite_token
@@ -16,6 +18,8 @@ class User < ActiveRecord::Base
   has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
+  
+  delegate :shoes_size, :to => :user_info, :allow_nil => true
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
@@ -30,7 +34,13 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
-
+  validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}
+  
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_PUBLISH_STREAM = "publish_stream"
+  
+  Gender = {:female => 0, :male => 1}
+  
   def name
     "#{first_name} #{last_name}".strip
   end
@@ -41,7 +51,9 @@ class User < ActiveRecord::Base
 
   def set_facebook_data(omniauth, session)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
-    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    if session[:facebook_scopes]
+      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")).uniq)
+    end
     update_attributes(attributes)
   end
 
@@ -79,9 +91,13 @@ class User < ActiveRecord::Base
   def has_facebook?
     self.uid.present?
   end
+  
+  def has_facebook_friends_birthday?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_FRIENDS_BIRTHDAY)
+  end
 
   def can_access_facebook_extended_features?
-    has_facebook? && self.has_facebook_extended_permission.present?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
 
   def invite_bonus

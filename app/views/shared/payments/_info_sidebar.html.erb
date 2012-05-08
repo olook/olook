@@ -14,6 +14,12 @@
           <td>Sub-total:</td>
           <td class="value"><%= number_to_currency(cart.subtotal)  %></td>
         </tr>
+      <% if @order.gift_wrap? %>
+        <tr>
+          <td>Embalagem de presente</td>
+          <td class="value">+ R$ 5,00</td>
+        </tr>
+      <% end %>
         <tr>
           <td>Crédito</td>
           <td class="value credit">- <%= number_to_currency(cart.credits_discount) %></td>

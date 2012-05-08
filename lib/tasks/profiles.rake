@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 namespace :profiles do
   desc 'Recreates profiles for users'
-  task :recreate, :first_id, :last_id, :needs => :environment do |task, args|
+  task :recreate, [:first_id, :last_id] => :environment do |task, args|
     puts "Processing from ID #{args[:first_id]} to ID #{args[:last_id]}.\n"
     counter = 0
     User.where('id >= :first AND id <= :last', :first => args[:first_id], :last => args[:last_id]).find_each do |user|

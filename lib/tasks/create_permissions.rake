@@ -1,6 +1,6 @@
 desc "Create Permissions for Controllers"
 namespace :olook do
-  task :create_permissions, :needs => :environment do
+  task :create_permissions => :environment do
     controllers = Dir.new("#{Rails.root}/app/controllers/admin").entries
     models_rb_files = File.join("#{Rails.root}/app/models/**", "*.rb")
     models = Dir.glob(models_rb_files)
@@ -29,7 +29,7 @@ namespace :olook do
     end
   end
 
-  task :seed_admin, :needs =>:environment do
+  task :seed_admin =>:environment do
     Role.destroy_all
     Admin.destroy_all
     superadmin = Role.create(:name => "superadministrator", :description => "Manages everything in the system")

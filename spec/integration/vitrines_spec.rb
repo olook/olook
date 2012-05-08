@@ -5,8 +5,8 @@ require 'integration/helpers'
 feature "Accessing my vitrine", "In order to see the products as a user" do
   include CarrierWave::Test::Matchers
 
-  let!(:user) { Factory.create(:user) }
-  let!(:user_info) { Factory.create(:user_info, user: user) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user_info) { FactoryGirl.create(:user_info, user: user) }
   let(:casual_profile) { FactoryGirl.create(:casual_profile) }
   let!(:casual_points) { FactoryGirl.create(:point, user: user, profile: casual_profile, value: 50) }
 

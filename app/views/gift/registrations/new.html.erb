@@ -1,0 +1,33 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/half_user" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "half_user" %>
+<% end %>
+
+<section id="half_user">
+  <div id="description">
+    <h1>Falta só mais um passo</h1>
+  </div>
+  <div id="container_forms">
+    <%= render :partial => "/gift/shared/half_user" %>
+    <p>Já faz parte da olook? <%= link_to "Clique aqui e faça seu login", "#" %></p>
+    <%= form_for(:user, :as => :user, :url => session_path(:user), :html => { :class => "login" }) do |f| %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <%= f.label "E-mail" %>
+            <%= f.email_field :email %>
+          </li>
+          <li>
+            <%= f.label "Senha" %>
+            <%= f.password_field :password %>
+          </li>
+          <li class="buttons">
+            <%= f.submit "Entrar", :id => "login" %>
+          </li>
+        </ol>
+      </fieldset>
+    <% end %>
+</section>

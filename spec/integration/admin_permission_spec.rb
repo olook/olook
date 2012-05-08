@@ -6,8 +6,8 @@ feature "Admin user with sac_operator role executing actions on the system", %q{
 } do
 
   before :each do
-    @admin = Factory.create(:admin_sac_operator)
-    @collection = Factory.create(:inactive_collection)
+    @admin = FactoryGirl.create(:admin_sac_operator)
+    @collection = FactoryGirl.create(:inactive_collection)
   end
 
   scenario "As a sac_operator I shouldnt be able to list all roles in the system" do
