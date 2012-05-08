@@ -402,7 +402,7 @@ describe Order do
     context "when the order is authorized" do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
         subject.waiting_payment
         subject.authorized
       end
