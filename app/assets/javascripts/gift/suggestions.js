@@ -31,26 +31,43 @@ $(function() {
 
   $("div.product_container ul li.product a.delete").live("click", function(e) {
     productContainer = $(this).parents("div.product_container");
-    
+    nextContainer = $(productContainer).next();
+
     $(this).parent("li.product").fadeOut("normal", function() {
-      $(this).remove();
+      $(productContainer).find("ul").html("");
     });
- 
-    $(productContainer).nextAll().each(function() {
-      $(this).find("ul").find("li.product").fadeOut("normal", function() {
-        productId = $(this).find("input[type='hidden']").val();
-        $.ajax({
-          type: "GET",
-          dataType: 'script',
-          url: "/gift/recipients/31/suggestions/select_gift/"+productId,
-        });
-      });
-    });
+
+    initSuggestion.checkProductOnContainer(nextContainer);
     e.preventDefault();
   });
 });
 
 initSuggestion = {
+  checkProductOnContainer : function(container) {
+    if($(container).find("ul").html() != "") {
+      initSuggestion.repositionProduct(container);
+    } else {
+      return false;
+    }
+  },
+
+  repositionProduct : function(container) {
+    nextContainer = $(container).next();
+    $(container).find("ul").find("li.product").fadeOut("normal", function() {
+      productId = $(this).find("input[type='hidden']").val();
+      $.ajax({
+        type: "GET",
+        dataType: 'script',
+//        url: window.location.pathname + "/" + productId
+        url: "/gift/recipients/31/suggestions/select_gift/"+productId
+      }).done(function(data) {
+        setTimeout(function() {
+          initSuggestion.checkProductOnContainer(nextContainer);
+        }, 2000);
+      });
+    });
+  },
+
   clearSuggestions : function() {
     $("section#products div.product_container ul").fadeOut("normal", function() {
       $(this).html("");
