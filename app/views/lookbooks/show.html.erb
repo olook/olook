@@ -16,7 +16,6 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <section id="lookbooks">
-  <%= link_to(image_tag("promotion_banners/banner_site.jpg", :class => "banner_mothers_day"), "/lookbooks/?utm_source=olook&utm_medium=banner_site&utm_campaign=maes12&utm_content=lookbookmaes" ) %>
   <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
   <div id="carousel_lookbooks_product">
     <ul>
@@ -36,8 +35,11 @@
       <% end %>
     </ul>
   </div>
+  <%# TODO Remove banner mothers day %>
+  <br />
+  <br />
+  <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
 </section>
-
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
 <% end %>

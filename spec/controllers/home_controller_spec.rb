@@ -55,7 +55,7 @@ describe HomeController do
           subject.session[:tracking_params] = old_params
         end
 
-        it "does not subscribe the old params" do
+        it "does not overwrite the old params" do
           get 'index', standard_params
           subject.session[:tracking_params].should == old_params
         end
@@ -66,8 +66,8 @@ describe HomeController do
       context "when user is signed in" do
         it "redirects to member showroom" do
           subject.stub(:'user_signed_in?').and_return(true)
-          subject.should_receive(:redirect_to).with(member_showroom_path)
-          get 'index', :params => standard_params
+          subject.should_receive(:redirect_to).with(member_showroom_path(tracked_params))          
+          get 'index', standard_params
         end
       end
 

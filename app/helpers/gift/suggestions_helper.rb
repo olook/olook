@@ -1,0 +1,2 @@
+module Gift::SuggestionsHelper
+end

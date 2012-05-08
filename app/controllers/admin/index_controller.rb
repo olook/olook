@@ -2,7 +2,7 @@
 class Admin::IndexController < Admin::BaseController
 
   def dashboard
-    get_version = `dpkg -l | grep olook | awk '{ print $3 }'`.chomp
+    get_version = `dpkg -l | grep olook | awk '{ print $3 }'`.chomp unless Rails.env.test?
     @app_version = get_version ? get_version : "Sorry! We were unable to check the application version."
   end
 end

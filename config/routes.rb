@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "home/index"
   get "liquidation_products/index"
-
   get "index/index"
   root :to => "home#index"
 
@@ -50,11 +50,14 @@ Olook::Application.routes.draw do
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do
+      put "update_gift_data" => "cart#update_gift_data", :as => "update_gift_data"
       put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
       delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
       delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
+      post "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
+      get "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"  
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
@@ -81,8 +84,6 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
-  
-  #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
@@ -100,6 +101,25 @@ Olook::Application.routes.draw do
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
+  namespace :gift do
+    root :to => "home#index"
+    get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
+    resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
+    resources :recipients do
+      resources :suggestions, :only => [:index]
+      get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
+      member do
+        get :edit
+        put :edit
+        put :update
+      end
+    end
+    resources :occasions, :only => [:new, :create] do
+      collection do
+        post "new_with_data" => "occasions#new_with_data"
+      end
+    end
+  end
 
   namespace :admin do
     match "/", :to => "index#dashboard"
@@ -166,11 +186,19 @@ Olook::Application.routes.draw do
       resources :permissions
     end
     resources :admins
-  end
 
+    resources :gift_occasion_types
+    resources :gift_recipient_relations
+  end
+  
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
+  
+  #TODO: implement gift routes with something as bellow
+  #devise_for :gift, :class_name => "User", :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
+  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+  #end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
     get '/entrar' => 'sessions#new', :as => :new_user_session
@@ -178,6 +206,9 @@ Olook::Application.routes.draw do
     delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    #gift
+    get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
+    post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
   end
 
   # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages

@@ -145,6 +145,10 @@ class Product < ActiveRecord::Base
   def retail_price
     LiquidationProductService.retail_price(self)
   end
+  
+  def gift_price(position = 0)
+    GiftDiscountService.price_for_product(self,position)
+  end
 
   def liquidation_discount_percent
     LiquidationProductService.discount_percent(self)
