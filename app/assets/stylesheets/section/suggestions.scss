@@ -118,8 +118,12 @@ div.full_container {
               }
               a.delete {
                 position: absolute;
-                top: 0;
-                right: 0;
+                background: url("/assets/cart/delete-item.png") no-repeat;
+                text-indent: -9999px;
+                width: 76px;
+                height: 20px;
+                top: 170px;
+                right: 60px;
                 z-index: 1;
               }
               &:hover {
