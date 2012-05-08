@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe OmniauthCallbacksController do
   let(:omniauth) {{"extra" => {"user_hash" => {"id" => "123"}}, "credentials" => {"token" => "token"}}}
+  let(:facebook_scopes) { "friends_birthday,publish_stream" }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -43,21 +44,24 @@ describe OmniauthCallbacksController do
 
       it "should redirect to member showroom" do
        User.any_instance.stub(:set_facebook_data)
-        session[:facebook_scopes] = nil
+        session[:facebook_scopes] = facebook_scopes
+        session[:facebook_redirect_paths] = "showroom"        
         get :facebook
         response.should redirect_to(member_showroom_path)
       end
 
       it "should redirect to friends showroom" do
         User.any_instance.stub(:set_facebook_data)
-        session[:facebook_scopes] = "publish_stream"
+        session[:facebook_scopes] = facebook_scopes
+        session[:facebook_redirect_paths] = "friends"        
         get :facebook
         response.should redirect_to(friends_home_path)
       end
       
       it "should redirect to gift" do
         User.any_instance.stub(:set_facebook_data)
-        session[:facebook_scopes] = "friends_birthday"
+        session[:facebook_scopes] = facebook_scopes
+        session[:facebook_redirect_paths] = "gift"
         get :facebook
         response.should redirect_to(gift_root_path)
       end

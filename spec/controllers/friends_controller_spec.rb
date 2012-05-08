@@ -4,7 +4,7 @@ describe FriendsController do
   with_a_logged_user do
     render_views
     let(:message) { "my message" }
-    let(:facebook_scopes) { "publish_stream" }
+    let(:facebook_scopes) { "friends_birthday,publish_stream" }
     let(:attachment) do
       {:picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg",
        :caption => "www.olook.com.br",

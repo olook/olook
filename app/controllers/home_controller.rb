@@ -9,6 +9,7 @@ class HomeController < ApplicationController
       @url = request.protocol + request.host 
     end
     incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+    session[:facebook_scopes] = User::ALL_FACEBOOK_PERMISSIONS
     session[:tracking_params] ||= incoming_params
     redirect_to member_showroom_path(incoming_params) if user_signed_in?
   end

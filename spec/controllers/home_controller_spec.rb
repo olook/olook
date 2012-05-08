@@ -6,12 +6,22 @@ describe HomeController do
   describe "GET 'index'" do
     let(:standard_params) { {'controller' => 'home_controller', 'action' => 'index', 'tracking_xyz' => 'test'} }
     let(:tracked_params) { {'tracking_xyz' => 'test'} }
+    let(:facebook_scopes) { "friends_birthday,publish_stream" }
+    
 
     it "should be successful" do
       get 'index'
       response.should be_success
     end
-
+    
+    describe "facebook connect" do
+      it "should set session to request friends birthday and publish stream" do
+        session[:facebook_scopes] = nil
+        User.any_instance.stub(:can_access_facebook_extended_features?).and_return(false)
+        get :index
+        session[:facebook_scopes].should == facebook_scopes
+      end
+    end
 
     context "User facebook sharing" do
       let(:point) { FactoryGirl.create(:point) }
