@@ -35,10 +35,6 @@
       <% end %>
     </ul>
   </div>
-  <%# TODO Remove banner mothers day %>
-  <br />
-  <br />
-  <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
 </section>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>

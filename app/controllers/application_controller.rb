@@ -54,10 +54,11 @@ class ApplicationController < ActionController::Base
       redirect_to lookbooks_path 
     end
   end
-
-  def user_for_paper_trail
-    user_signed_in? ? current_user : current_admin
-  end
+  
+  # TODO: Temporarily disabling paper_trail for app analysis
+  #def user_for_paper_trail
+   # user_signed_in? ? current_user : current_admin
+  #end
 
   def load_user
     @user = current_user

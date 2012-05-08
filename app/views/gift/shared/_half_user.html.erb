@@ -44,7 +44,7 @@
         <%= label_tag 'user_gender_0', 'Feminino' %>
       </li>
 
-      <li class="terms"><p>Concluindo o cadastro você aceita os <%= link_to 'Termos e Condições', terms_path, :target => "_blank" %></p></li>
+      <li class="terms"><p>Concluindo o cadastro você aceita os <%= link_to 'Termos e Condições', terms_path, :target => "_blank" %> e a nossa <%= link_to "Política de Privacidade", privacy_path, :target => "_blank" %> </p></li>
       <li class="buttons"><%= f.submit "Cadastrar", :id => "register" %></li>
     </ol>
   </fieldset>

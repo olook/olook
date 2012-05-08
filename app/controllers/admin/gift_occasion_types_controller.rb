@@ -1,5 +1,7 @@
 class Admin::GiftOccasionTypesController < Admin::BaseController
   respond_to :html
+  before_filter :load_gift_recipient_relations
+  
   def index
     @gift_occasion_types = GiftOccasionType.all
     respond_with :admin, @gift_occasion_types
@@ -45,4 +47,10 @@ class Admin::GiftOccasionTypesController < Admin::BaseController
     @gift_occasion_type.destroy
     respond_with :admin, @gift_occasion_type
   end  
+  
+  private
+  
+  def load_gift_recipient_relations
+    @gift_recipient_relations = GiftRecipientRelation.order(:name)
+  end
 end

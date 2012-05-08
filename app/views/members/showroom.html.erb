@@ -32,9 +32,5 @@ fjs.parentNode.insertBefore(js, fjs);
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render "shared/metrics/boobox/members" %>
-    <%# TODO Remove banner mothers day %>
-    <br />
-    <br />
-    <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes") %>
   </div>
 <% end %>
