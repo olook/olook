@@ -1,6 +1,7 @@
 class Role < ActiveRecord::Base
 
-  has_paper_trail :on => [:update, :destroy]
+  # TODO: Temporarily disabling paper_trail for app analysis
+  #has_paper_trail :on => [:update, :destroy]
 
   has_many :admins
   has_and_belongs_to_many :permissions
