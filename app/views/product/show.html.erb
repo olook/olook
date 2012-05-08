@@ -1,12 +1,13 @@
 <% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id do |product_presenter| %>
   <% content_for(:head) do %>
-    <meta property="og:title" content="Olook – <%= @product.name %>">
-    <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>">
-    <meta property="og:description" content="<%= @product.description %>">
-    <meta property="og:image" content="<%= @product.pictures.first.image_url(:bag).to_s %>">
-    <meta property="og:site_name" content="Olook">
-    <meta property="og:type" content="website">
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
+    <meta property="og:title" content="Olook – <%= @product.name %>" />
+    <meta property="og:description" content="<%= @product.description %>" />
+    <meta property="og:image" content="<%= @product.pictures.first.image_url(:suggestion).to_s %>" />
+    <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
+    <meta property="og:site_name" content="Olook" />
+    <meta property="og:type" content="website" />
+
     <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
   <% end %>
 
@@ -38,10 +39,6 @@
 
       <%= product_presenter.render_related_products %>
     </div>
-    <%# TODO Remove banner mothers day %>
-      <br />
-      <br />
-      <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
   </div>
 <% end %>
 <% content_for :footer do %>

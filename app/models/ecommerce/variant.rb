@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Variant < ActiveRecord::Base
 
-  has_paper_trail
+  # TODO: Temporarily disabling paper_trail for app analysis
+  #has_paper_trail
   
   default_scope where(:is_master => false)
 
