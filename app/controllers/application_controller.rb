@@ -11,9 +11,12 @@ class ApplicationController < ActionController::Base
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
-
   def current_liquidation
     LiquidationService.active
+  end
+  
+  def facebook_redirect_paths
+    {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
   end
 
   def clean_token

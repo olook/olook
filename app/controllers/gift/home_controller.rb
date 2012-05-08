@@ -17,7 +17,8 @@ class Gift::HomeController < Gift::BaseController
     if @user && @user.has_facebook_friends_birthday?
       session[:facebook_scopes] = nil
     else
-      session[:facebook_scopes] = User::FACEBOOK_FRIENDS_BIRTHDAY 
+      session[:facebook_redirect_paths] = "gift"      
+      session[:facebook_scopes] = User::ALL_FACEBOOK_PERMISSIONS
     end
   end  
 
