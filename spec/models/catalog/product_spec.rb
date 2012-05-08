@@ -11,6 +11,6 @@ describe Catalog::Product do
   it { should belong_to(:catalog) }
   it { should belong_to(:product) }
   it { should belong_to(:variant) }
-  it { product.should validate_uniqueness_of(:catalog_id).scoped_to(:product_id) }
+  it { product.should validate_uniqueness_of(:catalog_id).scoped_to([:product_id, :variant_id]) }
   
 end
