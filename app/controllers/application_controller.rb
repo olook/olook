@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_moment
   def current_moment
-    Catalog::Moment.active
+    Moment.active.first
   end
 
   def clean_token

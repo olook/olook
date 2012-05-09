@@ -5,12 +5,12 @@
       <%= check_box_tag "select_all_shoes", "", false, :class => "select_all" %>
       <%= label_tag "select_all_shoes", "Todos os sapatos" %>
     </li>
-    <% moment_presenter.moment.catalog.products.where(category_id: Category::SHOE).map{ |p| p.subcategory_name }.uniq.compact.sort { |a,b| a <=> b }.each do |subcategory| %>
-      <li>
-        <%= check_box_tag('shoe_subcategories[]', subcategory, false, :id => subcategory) %>
-        <%= label_tag(subcategory, nil, :for => subcategory) %>
-      </li>
-    <% end %>
+  <% moment_presenter.moment.catalog.subcategories(Category::SHOE).each do |subcategory| %>
+    <li>
+      <%= check_box_tag('shoe_subcategories[]', subcategory, false, :id => subcategory) %>
+      <%= label_tag(subcategory, nil, :for => subcategory) %>
+    </li>
+  <% end %>
   </ol>
 </div>
 

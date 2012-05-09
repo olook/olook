@@ -28,7 +28,6 @@ class MomentsController < ApplicationController
   def load_catalog_products
     @moment = Moment.active.first
     @catalog_products = CatalogSearchService.new(params).search_products
-    # @catalog_products = @moment.catalog.products.paginate(:page => params[:page], :per_page => 12)
   end
 
 end
