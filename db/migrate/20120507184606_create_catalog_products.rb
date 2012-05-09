@@ -5,16 +5,17 @@ class CreateCatalogProducts < ActiveRecord::Migration
       t.references :product
       t.integer :category_id
       t.string  :subcategory_name
+      t.string  :subcategory_name_label
+      t.integer :shoe_size
+      t.string  :shoe_size_label
+      t.string  :heel
+      t.string  :heel_label
       t.decimal :original_price, :precision => 10, :scale => 2
       t.decimal :retail_price, :precision => 10, :scale => 2
       t.float   :discount_percent
-      t.integer :shoe_size
-      t.string  :heel
       t.integer :variant_id
       t.integer :inventory
-      t.string  :shoe_size_label
-      t.string  :heel_label
-      t.string  :subcategory_name_label
+      
       t.timestamps
     end
     
