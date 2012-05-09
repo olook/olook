@@ -30,6 +30,9 @@ $(function() {
   });
 
   $("div.product_container ul li.product a.delete").live("click", function(e) {
+    if($("section#suggestions_container").is(":hidden")) {
+      $("section#suggestions_container").slideDown();
+    }
     productContainer = $(this).parents("div.product_container");
     nextContainer = $(productContainer).next();
 
@@ -65,6 +68,8 @@ initSuggestion = {
           initSuggestion.checkProductOnContainer(nextContainer);
         }, 2000);
       });
+      $(this).remove();
+      $(this).parent().html("");
     });
   },
 
