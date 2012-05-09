@@ -1,4 +1,6 @@
 $(function() {
+  initSuggestion.disableDefaultProducts();
+
   $('#close_quick_view, div.overlay, a.add_product_to_suggestions').live("click", function() {
     $('#quick_view').fadeOut(300);
     $("div.overlay").remove();
@@ -48,6 +50,13 @@ $(function() {
 });
 
 initSuggestion = {
+  disableDefaultProducts : function() {
+    $("div.product_container").each(function() {
+      id = $(this).find("ul li input[type='hidden']").val();
+      $("a.add_suggestion_"+id).parent().hide();
+    });
+  },
+
   unblockProduct : function(id) {
     $("a.add_suggestion_"+id).parent().show();
   },
