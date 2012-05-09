@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
   UNAVAILABLE_ITEMS = :unavailable_items
   has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
@@ -194,6 +195,15 @@ class Product < ActiveRecord::Base
   def subcategory
     LiquidationProductService.new(nil,self).subcategory_name
   end
+  
+  def subcategory_name
+    detail_by_token SUBCATEGORY_TOKEN
+  end
+
+  def heel
+    detail_by_token HEEL_TOKEN
+  end
+  
 
 private
 
@@ -212,4 +222,10 @@ private
   def update_master_variant
     master_variant.save!
   end
+  
+  def detail_by_token token
+    detail = self.details.where(:translation_token => token).last
+    detail.description if detail
+  end
+  
 end
