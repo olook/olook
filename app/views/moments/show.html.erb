@@ -1,0 +1,40 @@
+<% present 'Moment', :moment => @moment do |moment_presenter| %>
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "section/liquidations" %>
+  <% end %>
+
+  <% content_for :footer do %>
+    <%= javascript_include_tag "moments" %>
+  <% end %>
+
+  <% content_for :full do %>
+    <div class="content">
+      <div class="description">
+        <p><%= @moment.name %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="moments" class="content">
+
+    <%= moment_presenter.render_search_form %>
+
+    <div id="products_container">
+      <div id="order_filter">
+        <%= form_for("", :html => {:id => "moment_order_filter"}) do %>
+          <ol>
+            <li class="select">
+              <%= label_tag "Ordenar por:" %>
+              <%= select_tag('order_filter', options_for_select({"Menor preço" => 0, "Maior preço" => 1}), :class => "custom_select") %>
+            </li>
+          </ol>
+        <% end %>
+      </div>
+      <ul id="products">
+        <%= render "products", :products => @catalog_products %>
+      </ul>
+      <div class="loading"></div>
+      <%= will_paginate @catalog_products %>
+    </div>
+  </div>
+<% end %>
