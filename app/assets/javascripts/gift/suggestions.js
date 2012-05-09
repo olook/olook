@@ -30,22 +30,28 @@ $(function() {
   });
 
   $("div.product_container ul li.product a.delete").live("click", function(e) {
+    e.preventDefault();
     if($("section#suggestions_container").is(":hidden")) {
       $("section#suggestions_container").slideDown();
     }
     productContainer = $(this).parents("div.product_container");
     nextContainer = $(productContainer).next();
+    productId = $(this).parent().find("input[type='hidden']").val();
 
+    initSuggestion.unblockProduct(productId);
     $(this).parent("li.product").fadeOut("normal", function() {
       $(productContainer).find("ul").html("");
     });
 
     initSuggestion.checkProductOnContainer(nextContainer);
-    e.preventDefault();
   });
 });
 
 initSuggestion = {
+  unblockProduct : function(id) {
+    $("a.add_suggestion_"+id).parent().show();
+  },
+
   checkProductOnContainer : function(container) {
     if($(container).find("ul").html() != "") {
       initSuggestion.repositionProduct(container);
@@ -57,6 +63,8 @@ initSuggestion = {
   repositionProduct : function(container) {
     nextContainer = $(container).next();
     $(container).find("ul").find("li.product").fadeOut("normal", function() {
+      $(this).parent().html("");
+
       productId = $(this).find("input[type='hidden']").val();
       $.ajax({
         type: "GET",
@@ -64,12 +72,8 @@ initSuggestion = {
 //        url: window.location.pathname + "/" + productId
         url: "/gift/recipients/31/suggestions/select_gift/"+productId
       }).done(function(data) {
-        setTimeout(function() {
-          initSuggestion.checkProductOnContainer(nextContainer);
-        }, 2000);
+        initSuggestion.checkProductOnContainer(nextContainer);
       });
-      $(this).remove();
-      $(this).parent().html("");
     });
   },
 
