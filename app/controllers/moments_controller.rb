@@ -3,7 +3,7 @@ class MomentsController < ApplicationController
   layout "moment"
   respond_to :html, :js
 
-  before_filter :load_order, :only => [:show]
+  before_filter :load_order, only: [:show]
   before_filter :load_catalog_products
 
   def index
@@ -12,7 +12,7 @@ class MomentsController < ApplicationController
 
   def show
     if current_moment.resume.nil?
-      flash[:notice] = "A liquidação não possui produtos"
+      flash[:notice] = "O momento não possui produtos"
       redirect_to member_showroom_path 
     else
       respond_with @catalog_products

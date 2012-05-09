@@ -25,9 +25,9 @@ class CatalogSearchService
     end
 
     Catalog::Catalog.joins(:product).where(query_base)
-                                      .group("product_id")
-                                      .order("category_id asc, #{sort_filter}")
-                                      .paginate(:page => params[:page], :per_page => 12)
+                                    .group("product_id")
+                                    .order("category_id asc, #{sort_filter}")
+                                    .paginate(:page => params[:page], :per_page => 12)
   end
 
   def build_sub_query(current_query, sub_query)
