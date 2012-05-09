@@ -1,14 +1,14 @@
 class Moment < ActiveRecord::Base
-  validates :name, :presence => true, :uniqueness => true
-  validates :slug, :presence => true, :uniqueness => true
+  validates :name, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: true
 
   mount_uploader :header_image, ImageUploader
   
-  has_one :catalog, :class_name => "Catalog::Moment", :foreign_key => "association_id"
+  has_one :catalog, class_name: "Catalog::Moment", foreign_key: "association_id"
 
   after_create :generate_catalog
 
-  scope :active, where(:active => true)
+  scope :active, where(active: true)
   
   private
   
