@@ -69,8 +69,7 @@ initSuggestion = {
       $.ajax({
         type: "GET",
         dataType: 'script',
-//        url: window.location.pathname + "/" + productId
-        url: "/gift/recipients/31/suggestions/select_gift/"+productId
+        url: window.location.pathname + "/select_gift/" + productId
       }).done(function(data) {
         initSuggestion.checkProductOnContainer(nextContainer);
       });
