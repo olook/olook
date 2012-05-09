@@ -1,12 +1,12 @@
 <div class="filter">
   <h1 class="subtitle">Numeração</h1>
   <ol class="column">
-   <% moment_presenter.moment.catalog.products.map { |p| p.shoe_size }.uniq.compact.sort { |a,b| a <=> b }.each do |shoe_size| %>
-      <li>
-        <%= check_box_tag('shoe_sizes[]', shoe_size, false, :id => shoe_size) %>
-        <%= label_tag(shoe_size, nil, :for => shoe_size) %>
-      </li>
-    <% end %>
+ <% moment_presenter.moment.catalog.shoe_sizes.each do |shoe_size| %>
+    <li>
+      <%= check_box_tag('shoe_sizes[]', shoe_size, false, :id => shoe_size) %>
+      <%= label_tag(shoe_size, nil, :for => shoe_size) %>
+    </li>
+  <% end %>
   </ol>
 </div>
 
