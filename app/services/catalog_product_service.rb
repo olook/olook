@@ -1,13 +1,14 @@
-class CatalogService
+class CatalogProductService
   
-  def initialize product, options = {}
+  def initialize catalog, product, options = {}
+    @catalog = catalog
     @product = product
     @options = options
-    @options[:moments] ||= []
-    @options[:discount] ||= 0
+    @options[:discount_percentage] ||= 0
+    @options[:update_price] ||= false
   end
 
-  def save
+  def save!
     if shoe? and not shoe_sizes.empty?
       save_shoe_by_size
     else
@@ -16,7 +17,7 @@ class CatalogService
   end
   
   def retail_price
-    (@product.price * (100 - @options[:discount].to_f)) / 100
+    (@product.price * (100 - @options[:discount_percentage].to_f)) / 100
   end
 
   private
@@ -40,7 +41,7 @@ class CatalogService
       :subcategory_name_label => @product.subcategory_name,
       :original_price => @product.price,
       :retail_price => retail_price,
-      :discount_percent => @options[:discount],
+      :discount_percent => @options[:discount_percentage],
       :variant_id => (last_variant.id if last_variant),
       :inventory => (last_variant.inventory if last_variant)
     }
@@ -69,7 +70,7 @@ class CatalogService
   end
   
   def massive_update! params
-    Catalog::Product.where(:product_id => @product.id, :catalog_id => @catalog.id).update_all(:discount_percent => @options[:discount], :retail_price => retail_price)
+    @catalog.products.where(:product_id => @product.id).update_all(:discount_percent => @options[:discount_percentage], :retail_price => retail_price)
   end
 
   def last_variant

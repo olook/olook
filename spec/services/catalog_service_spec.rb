@@ -10,29 +10,14 @@ describe CatalogService do
     product = Factory.create :basic_shoe
     Catalog::Product.create :catalog => moment.catalog, :product => product
   }
-  
-  before :each do
-    Liquidation.delete_all
-    Catalog::Product.delete_all
-    Product.delete_all
+
+  describe "add product to catalog" do
+    it "should insert in one catalog" do
+    end
+    
+    it "should"
   end
 
-  def products_ids
-    Product.all.map(&:id).join(",").sav
-  end
-
-  def mock_variant size
-    variant = mock Variant
-    variant.stub(:description).and_return(size)
-    variant
-  end
-
-  def mock_detail token
-    detail = mock Detail
-    detail.stub(:translation_token).and_return(token)
-    detail
-  end
-  
   describe "number of rows" do
     it "should insert one row per shoe size for the same shoe" do
       FactoryGirl.create(:basic_shoe_size_40)
@@ -40,14 +25,14 @@ describe CatalogService do
       Variant.count.should == 2
       Product.count.should == 1
       expect {
-        CatalogService.new(catalog, Product.last, :discount => 50).save
+        CatalogService.new(Product.last, :discount => 50, :moments => [catalog]).save
       }.to change(Catalog::Product, :count).by(2)
     end
     
     it "should insert only 1 row for products that are not shoes" do
       product = FactoryGirl.create(:basic_bag)
       expect {
-         CatalogService.new(catalog, product, :discount => 50).save
+         CatalogService.new(product, :discount => 50, :moments => [catalog]).save
       }.to change(Catalog::Product, :count).by(1)
     end
   end
@@ -56,7 +41,7 @@ describe CatalogService do
   it "should calculate the retail price based on the discount percent" do
     product = mock Product
     product.stub(:price).and_return 100.90
-    CatalogService.new(catalog, product, :discount => 50).retail_price.should == BigDecimal("50.45")
+    CatalogService.new(product, :discount => 50, :moments => [catalog]).retail_price.should == BigDecimal("50.45")
   end
   
   describe "update" do
@@ -64,7 +49,7 @@ describe CatalogService do
       FactoryGirl.create(:basic_shoe_size_35)
       product = Product.last
       FactoryGirl.create(:basic_shoe_size_37, :product => product)
-      CatalogService.new(catalog, product, :discount => 10).save
+      CatalogService.new(product, :discount => 10, :moments => [catalog]).save
       Catalog::Product.all.map{|lp| lp.discount_percent }.should == [10, 10]
     end
   end
