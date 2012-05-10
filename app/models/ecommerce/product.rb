@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
@@ -39,6 +40,11 @@ class Product < ActiveRecord::Base
   scope :accessories  , where(:category => Category::ACCESSORY)
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
+
+  # FIXME - after the catalog::product behavior is defined and ready, remove this method.
+  def product_id
+    id
+  end
 
   def self.for_xml
     only_visible.joins(:variants)
@@ -193,7 +199,19 @@ class Product < ActiveRecord::Base
   end
 
   def subcategory
-    LiquidationProductService.new(nil,self).subcategory_name
+    subcategory_name
+  end
+  
+  def subcategory_name
+    detail_by_token SUBCATEGORY_TOKEN
+  end
+
+  def heel
+    detail_by_token HEEL_TOKEN
+  end
+  
+  def shoe?
+    self.category == Category::SHOE
   end
 
 private
@@ -213,4 +231,10 @@ private
   def update_master_variant
     master_variant.save!
   end
+  
+  def detail_by_token token
+    detail = self.details.where(:translation_token => token).last
+    detail.description if detail
+  end
+  
 end

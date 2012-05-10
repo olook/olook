@@ -5,6 +5,6 @@ class Catalog::Product < ActiveRecord::Base
   belongs_to :product
   belongs_to :variant
   
-  validates :catalog_id, :uniqueness => {:scope => [:product_id, :variant_id]}
+  validates :product_id, :uniqueness => {:scope => [:catalog_id, :variant_id]}
   
 end
