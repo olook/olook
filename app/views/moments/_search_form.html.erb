@@ -1,6 +1,6 @@
 <div id="filters_container">
   <%= form_for(update_moment_path, :url => update_moment_path, :method => :get, :remote => true, :html => {:id => "moment_filter"}) do %>
-      <%= hidden_field_tag('id', moment_presenter.moment ? moment_presenter.moment.id : nil) %>
+      <%= hidden_field_tag('id', @moment ? @moment.id : nil) %>
 
       <%= hidden_field_tag('sort_filter') %>
 

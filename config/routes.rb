@@ -28,7 +28,7 @@ Olook::Application.routes.draw do
 
   get '/moments', to: "moments#index"
   get '/moments/:id', to: "moments#show"
-  get '/moments/update', to: "moments#update", as: "update_moment"
+  get '/update_moment', to: "moments#update", as: "update_moment"
 
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"

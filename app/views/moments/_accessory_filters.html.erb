@@ -5,12 +5,12 @@
       <%= check_box_tag "select_all_accessories", "", false, :class => "select_all" %>
       <%= label_tag "select_all_accessories", "Todos os acessórios" %>
     </li>
-    <% moment_presenter.moment.resume[:categories][Category::ACCESSORY].each do |key, value| %>
-      <li>
-        <%= check_box_tag('bag_accessory_subcategories[]', key, false, :id => key) %>
-        <%= label_tag(value, nil, :for => key) %>
-      </li>
-    <% end %>
+<% moment_presenter.moment.catalog.subcategories(Category::ACCESSORY).each do |subcategory| %>
+    <li>
+      <%= check_box_tag('bag_accessory_subcategories[]', subcategory, false, :id => subcategory) %>
+      <%= label_tag(subcategory, nil, :for => subcategory) %>
+    </li>
+<% end %>
   </ol>
 </div>
 
