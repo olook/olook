@@ -193,7 +193,7 @@ class Product < ActiveRecord::Base
   end
 
   def subcategory
-    LiquidationProductService.new(nil,self).subcategory_name
+    subcategory_name
   end
   
   def subcategory_name
