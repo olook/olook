@@ -39,6 +39,11 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
+  # FIXME - after the catalog::product behavior is defined and ready, remove this method.
+  def product_id
+    id
+  end
+
   def self.for_xml
     only_visible.joins(:variants)
     .where("variants.is_master = 1 AND variants.price > 0.0 AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])
