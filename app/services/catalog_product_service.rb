@@ -9,10 +9,10 @@ class CatalogProductService
   end
 
   def save!
-    if shoe? and not shoe_sizes.empty?
-      save_shoe_by_size
+    if @product.shoe?
+      create_or_update_shoes
     else
-      create_or_update_product
+      create_or_update
     end
   end
   
@@ -21,20 +21,9 @@ class CatalogProductService
   end
 
   private
-  def save_shoe_by_size
-    shoe_sizes.inject([]) do |products, variant|
-      products << create_or_update_product(
-        :shoe_size => variant[:shoe_size],
-        :shoe_size_label => variant[:shoe_size].to_s,
-        :heel => @product.heel.try(:parameterize),
-        :heel_label => @product.heel,
-        :inventory => variant[:inventory],
-        :variant_id => variant[:id]
-      )
-    end
-  end
-  
   def default_params
+    last_variant = @product.variants.last
+    
     {
       :catalog_id => @catalog.id,
       :product_id => @product.id,
@@ -49,41 +38,44 @@ class CatalogProductService
     }
   end
   
-  def existing_product options=nil
-    params = {
-      :catalog_id => @catalog.id,
-      :product_id => @product.id
-    }
-    if options
-      options.delete(:inventory)
-      params.merge! options
-    end
-    Catalog::Product.where(params).first
+  def existing_product? options
+    @catalog.products.where(
+      :product_id => @product.id, 
+      :variant_id => options[:variant_id]
+    ).first
   end
 
-  def create_or_update_product options=nil
+  def create_or_update options=nil
     params = default_params
     params.merge!(options) if options
-    if existing_product(options)
-       massive_update!(params)
+    if (product = existing_product?(params))
+      unless @options[:update_price]
+        params.delete(:original_price)
+        params.delete(:retail_price)
+        params.delete(:discount_percent)
+      end
+      
+      product.update_attributes!(params)
+      product.reload
     else
-      Catalog::Product.create(params)
+      @catalog.products.create!(params)
     end
   end
   
-  def massive_update! params
-    @catalog.products.where(:product_id => @product.id).update_all(:discount_percent => @options[:discount_percentage], :retail_price => retail_price)
-  end
-
-  def last_variant
-    @product.variants.last
-  end
-
   def shoe_sizes
-    @product.variants.map{|v| {:shoe_size => v.description.to_i, :inventory => v.inventory, :id => v.id } } if shoe?
+    @product.variants.map{|v| {:shoe_size => v.description.to_i, :inventory => v.inventory, :id => v.id } }
   end
-
-  def shoe?
-    @product.category == Category::SHOE
+  
+  def create_or_update_shoes
+    shoe_sizes.inject([]) do |products, variant|
+      products << create_or_update(
+        :shoe_size => variant[:shoe_size],
+        :shoe_size_label => variant[:shoe_size].to_s,
+        :heel => @product.heel.try(:parameterize),
+        :heel_label => @product.heel,
+        :inventory => variant[:inventory],
+        :variant_id => variant[:id]
+      )
+    end
   end
 end

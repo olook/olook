@@ -204,6 +204,9 @@ class Product < ActiveRecord::Base
     detail_by_token HEEL_TOKEN
   end
   
+  def shoe?
+    self.category == Category::SHOE
+  end
 
 private
 
