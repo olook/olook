@@ -22,13 +22,15 @@ class CatalogProductService
 
   private
   def save_shoe_by_size
-    shoe_sizes.each do |variant|
-      create_or_update_product(:shoe_size => variant[:shoe_size],
-                               :heel => @product.heel.try(:parameterize),
-                               :heel_label => @product.heel,
-                               :inventory => variant[:inventory],
-                               :variant_id => variant[:id]
-                               )
+    shoe_sizes.inject([]) do |products, variant|
+      products << create_or_update_product(
+        :shoe_size => variant[:shoe_size],
+        :shoe_size_label => variant[:shoe_size].to_s,
+        :heel => @product.heel.try(:parameterize),
+        :heel_label => @product.heel,
+        :inventory => variant[:inventory],
+        :variant_id => variant[:id]
+      )
     end
   end
   
