@@ -11,7 +11,7 @@ class MomentsController < ApplicationController
   end
 
   def show
-    if current_moment.resume.nil?
+    if current_moment.catalog.products.nil?
       flash[:notice] = "O momento não possui produtos"
       redirect_to member_showroom_path 
     else

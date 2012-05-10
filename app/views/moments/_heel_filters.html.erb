@@ -1,12 +1,12 @@
 <div class="filter">
   <h1 class="subtitle">Salto</h1>
   <ol class="column">
-    <% moment_presenter.moment.resume[:heels].each do |key, value| %>
-      <li>
-        <%= check_box_tag('heels[]', key, false, :id => key) %>
-        <%= label_tag(value, nil, :for => key) %>
-      </li>
-    <% end %>
+  <% moment_presenter.moment.catalog.heels.each do |heel, label| %>
+    <li>
+      <%= check_box_tag('heels[]', heel, false, :id => heel) %>
+      <%= label_tag(label ? label : heel, nil, :for => heel) %>
+    </li>
+  <% end %>
   </ol>
 </div>
 

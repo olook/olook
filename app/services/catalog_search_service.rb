@@ -3,8 +3,8 @@ class CatalogSearchService
   attr_reader :query_base, :params, :l_products
 
   def initialize(params)
-    @l_products = Catalog::Catalog.arel_table
-    @query_base = @l_products[:liquidation_id].eq(params[:id]).and(@l_products[:inventory].gt(0)).and(Catalog::Catalog.arel_table[:is_visible].eq(true))
+    @l_products = Catalog::Product.arel_table
+    @query_base = @l_products[:catalog_id].eq(params[:id]).and(@l_products[:inventory].gt(0))
     @params = params
   end
 
@@ -24,10 +24,10 @@ class CatalogSearchService
       @query_base.and(query_result) if query_result
     end
 
-    Catalog::Catalog.joins(:product).where(query_base)
-                                    .group("product_id")
-                                    .order("category_id asc, #{sort_filter}")
-                                    .paginate(:page => params[:page], :per_page => 12)
+    Catalog::Product.where(@query_base)
+                    .group("product_id")
+                    .order("category_id asc, #{sort_filter}")
+                    .paginate(:page => params[:page], :per_page => 12)
   end
 
   def build_sub_query(current_query, sub_query)
