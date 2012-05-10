@@ -5,15 +5,19 @@ class ApplicationController < ActionController::Base
   before_filter :load_promotion
   before_filter :clean_token
 
-  helper_method :current_liquidation
-
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
 
+  helper_method :current_liquidation
   def current_liquidation
     LiquidationService.active
+  end
+
+  helper_method :current_moment
+  def current_moment
+    Moment.active.first
   end
 
   def clean_token

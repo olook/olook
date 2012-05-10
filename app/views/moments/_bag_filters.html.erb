@@ -1,0 +1,17 @@
+<div class="filter">
+  <h1 class="purse">Bolsas</h1>
+  <ol>
+    <li>
+      <%= check_box_tag "select_all_bags", "", false, :class => "select_all" %>
+      <%= label_tag "select_all_bags", "Todas as bolsas" %>
+    </li>
+<% moment_presenter.moment.catalog.subcategories(Category::BAG).each do |subcategory| %>
+    <li>
+      <%= check_box_tag('bag_accessory_subcategories[]', subcategory, false, :id => subcategory) %>
+      <%= label_tag(subcategory, nil, :for => subcategory) %>
+    </li>
+<% end %>
+  </ol>
+</div>
+
+
