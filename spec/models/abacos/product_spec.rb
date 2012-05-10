@@ -32,6 +32,7 @@ describe Abacos::Product do
       expect {
         subject.stub(:integrate_details)
         subject.stub(:integrate_profiles)
+        subject.stub(:integrate_catalogs)
         subject.stub(:confirm_product)
         subject.integrate
       }.to change(Product, :count).by(1)
@@ -50,6 +51,7 @@ describe Abacos::Product do
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
+      subject.stub(:integrate_catalogs).with(mock_product)
       subject.should_receive(:confirm_product)
       
       subject.integrate
@@ -62,6 +64,11 @@ describe Abacos::Product do
         mock_product.should_receive(:'collection=').with(december_collection)
         mock_product.should_receive(:'save!')
         subject.integrate_attributes mock_product
+      end
+
+      it "#integrate_catalogs" do
+        mock_product = mock_model(::Product)
+        subject.integrate_catalogs mock_product
       end
 
       it "#integrate_details" do
