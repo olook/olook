@@ -9,9 +9,12 @@
 
   <% content_for :full do %>
     <div class="content">
+      <%  @moments.each do |moment| %>
+      <h1><%= moment.name %></h1>
       <div class="description">
-        <p><%= @moment.name if @moment %></p>
+
       </div>
+      <% end %>
     </div>
   <% end %>
 
