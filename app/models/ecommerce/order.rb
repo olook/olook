@@ -138,6 +138,7 @@ class Order < ActiveRecord::Base
   end
 
   def insert_order
+    self.update_attribute(:purchased_at, Time.now)
     order_events.create(:message => "Enqueue Abacos::InsertOrder")
     Resque.enqueue(Abacos::InsertOrder, self.number)
   end
