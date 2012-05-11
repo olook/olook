@@ -15,7 +15,7 @@ module Abacos
       
       variant.price = self.price
       if variant.save!
-        CatalogService.new( variant.product, :update_price => true ).save
+        CatalogService.save_product variant.product, :update_price => true
       end
 
       Abacos::ProductAPI.confirm_price(self.integration_protocol)
