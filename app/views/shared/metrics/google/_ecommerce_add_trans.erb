@@ -5,8 +5,8 @@ _gaq.push(['_addTrans',
    '<%= order.total_with_freight %>',
    '',
    '<%= order.freight_price.to_s %>',
-   '<%= order.freight.address.city %>',
-   '<%= order.freight.address.state %>',
+   '<%= order.freight_city %>',
+   '<%= order.freight_state %>',
    'Brasil'
  ]);
 <% end %>
