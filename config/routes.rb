@@ -143,7 +143,7 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :lookbooks do
+    resources :lookbooks, :only => [:show] do
       collection do
         get "product/:id", :to => "lookbooks#product"
       end
