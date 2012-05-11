@@ -14,7 +14,9 @@ module Abacos
       raise RuntimeError.new "Price is related with Variant number #{self.number}, but it doesn't exist" if variant.nil?
       
       variant.price = self.price
-      variant.save!
+      if variant.save!
+        CatalogService.new( variant.product, :update_price => true ).save
+      end
 
       Abacos::ProductAPI.confirm_price(self.integration_protocol)
     end
