@@ -5,25 +5,25 @@ describe CatalogProductService do
     moment  = Factory.create :moment
     moment.catalog
   end
-  
+
   let(:basic_bag) do
     product = (Factory.create :bag_subcategory_name).product
     product.master_variant.price = 100.00
     product.master_variant.save!
-    
+
     Factory.create :basic_bag_simple, :product => product
 
     product
   end
 
   let(:basic_shoes) do
-    
+
     product = (Factory.create :shoe_subcategory_name).product
-    
+
     Factory.create :shoe_heel, :product => product
     Factory.create :basic_shoe_size_35, :product => product, :inventory => 7
     Factory.create :basic_shoe_size_37, :product => product, :inventory => 5
-    
+
     product.master_variant.price = 100.00
     product.master_variant.save!
 
@@ -39,8 +39,8 @@ describe CatalogProductService do
   describe "insert a product" do
     it "should insert without discount for bag product" do
       expect {
-         ct_product = CatalogProductService.new(catalog, basic_bag).save!         
-         
+         ct_product = CatalogProductService.new(catalog, basic_bag).save!
+
          ct_product.catalog_id.should       eq catalog.id
          ct_product.product_id.should       eq basic_bag.id
          ct_product.category_id.should      eq basic_bag.category
@@ -57,11 +57,11 @@ describe CatalogProductService do
          ct_product.subcategory_name_label.should eq "Bolsa Azul"
       }.to change(catalog.products, :count).by(1)
     end
-    
+
     it "should insert with discount" do
       expect {
-         ct_product = CatalogProductService.new(catalog, basic_bag, :discount_percentage => 50).save!         
-         
+         ct_product = CatalogProductService.new(catalog, basic_bag, :discount_percentage => 50).save!
+
          ct_product.catalog_id.should         eq catalog.id
          ct_product.product_id.should         eq basic_bag.id
          ct_product.category_id.should        eq basic_bag.category
@@ -78,11 +78,11 @@ describe CatalogProductService do
          ct_product.subcategory_name_label.should eq "Bolsa Azul"
       }.to change(catalog.products, :count).by(1)
     end
-    
+
     it "should insert one row per variant of shoe" do
       expect {
-        ct_products = CatalogProductService.new(catalog, basic_shoes).save!         
-        
+        ct_products = CatalogProductService.new(catalog, basic_shoes).save!
+
         ct_products[0].catalog_id.should        eq catalog.id
         ct_products[0].product_id.should        eq basic_shoes.id
         ct_products[0].category_id.should       eq basic_shoes.category
@@ -97,7 +97,7 @@ describe CatalogProductService do
         ct_products[0].shoe_size_label.should   eq '35'
         ct_products[0].heel_label.should        eq "0,5 cm"
         ct_products[0].subcategory_name_label.should eq "Sandalia"
-        
+
         ct_products[1].catalog_id.should        eq catalog.id
         ct_products[1].product_id.should        eq basic_shoes.id
         ct_products[1].category_id.should       eq basic_shoes.category
@@ -121,10 +121,10 @@ describe CatalogProductService do
     it "should update info" do
       ct_product = CatalogProductService.new(catalog, basic_bag).save!
       ct_product_id = ct_product.id
-      
+
       detail_subcategory = basic_bag.details.where(:translation_token => Product::SUBCATEGORY_TOKEN).first
       detail_subcategory.update_attributes!(:description => "Nova Categoria")
-      
+
       basic_bag.master_variant.update_attributes!(:price => 50.00)
       basic_bag.variants.first.update_attributes!(:inventory => 5)
 
@@ -142,20 +142,20 @@ describe CatalogProductService do
       ct_product.heel_label.should       be_nil
       ct_product.subcategory_name_label.should eq "Nova Categoria"
     end
-    
+
     it "should update info one row per variant of shoe" do
-      ct_products = CatalogProductService.new(catalog, basic_shoes).save!         
+      ct_products = CatalogProductService.new(catalog, basic_shoes).save!
       ct_products_id = [ct_products[0].id, ct_products[1].id]
-      
+
       detail_subcategory = basic_shoes.details.where(:translation_token => Product::SUBCATEGORY_TOKEN).first
       detail_subcategory.update_attributes!(:description => "Nova Categoria")
-      
+
       basic_shoes.master_variant.update_attributes!(:price => 50.00)
       basic_shoes.variants.first.update_attributes!(:inventory => 5)
       basic_shoes.variants.last.update_attributes!(:inventory => 2)
 
       ct_products = CatalogProductService.new(catalog, basic_shoes, :discount_percentage => 50).save!
-      
+
       ct_products[0].id.should                eq ct_products_id[0]
       ct_products[0].subcategory_name.should  eq "nova-categoria"
       ct_products[0].original_price.should    eq 100.0
@@ -168,7 +168,7 @@ describe CatalogProductService do
       ct_products[0].shoe_size_label.should   eq '35'
       ct_products[0].heel_label.should        eq "0,5 cm"
       ct_products[0].subcategory_name_label.should eq "Nova Categoria"
-      
+
       ct_products[1].id.should               eq ct_products_id[1]
       ct_products[1].subcategory_name.should eq "nova-categoria"
       ct_products[1].original_price.should   eq 100.0
@@ -182,7 +182,7 @@ describe CatalogProductService do
       ct_products[1].heel_label.should        eq "0,5 cm"
       ct_products[1].subcategory_name_label.should eq "Nova Categoria"
     end
-    
+
     describe "when update price" do
       it "should update for product" do
         ct_product = CatalogProductService.new(catalog, basic_bag).save!
@@ -210,7 +210,7 @@ describe CatalogProductService do
       end
 
       it "should update one row per variant of shoe" do
-        ct_products = CatalogProductService.new(catalog, basic_shoes).save!         
+        ct_products = CatalogProductService.new(catalog, basic_shoes).save!
         ct_products_id = [ct_products[0].id, ct_products[1].id]
 
         detail_subcategory = basic_shoes.details.where(:translation_token => Product::SUBCATEGORY_TOKEN).first
@@ -248,6 +248,23 @@ describe CatalogProductService do
         ct_products[1].heel_label.should        eq "0,5 cm"
         ct_products[1].subcategory_name_label.should eq "Nova Categoria"
       end
+    end
+  end
+
+  describe "destroy" do
+    it "should destroy a bag" do
+      ct_product = CatalogProductService.new(catalog, basic_bag)
+      ct_product.save!
+      expect {
+        ct_product.destroy
+      }.to change{catalog.products.count}.by(-1)
+    end
+    it "should destroy a shoe and its variants" do
+      ct_product = CatalogProductService.new(catalog, basic_shoes)
+      ct_product.save!
+      expect {
+        ct_product.destroy
+      }.to change{catalog.products.count}.by(-2)
     end
   end
 end
