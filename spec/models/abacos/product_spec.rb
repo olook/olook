@@ -23,10 +23,12 @@ describe Abacos::Product do
 
      before :all do
       Profile.destroy_all
+      Moment.destroy_all
     end
 
     let!(:sexy_profile) { FactoryGirl.create(:profile, :name => "Sexy", :first_visit_banner => 'sexy') }
     let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
+    let!(:moment) { Factory.create(:moment, :id => 1) }
 
     it 'should create a new product' do
       expect {
@@ -46,12 +48,11 @@ describe Abacos::Product do
 
     it 'should call the merging methods on the product' do
       mock_product = mock_model(::Product)
-
       subject.should_receive(:find_or_initialize_product).and_return(mock_product)
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
-      subject.stub(:integrate_catalogs).with(mock_product)
+      subject.should_receive(:integrate_catalogs).with(mock_product)
       subject.should_receive(:confirm_product)
       
       subject.integrate
