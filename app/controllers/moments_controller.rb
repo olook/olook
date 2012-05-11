@@ -27,7 +27,7 @@ class MomentsController < ApplicationController
 
   def load_catalog_products
     @moments = Moment.active.all
-    @moment = Moment.find_by_id(params[:id]) || @moments.first
+    @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.first
 
     @catalog_products = CatalogSearchService.new(params).search_products
     @catalog_products_products = CatalogSearchService.remove_color_variations(@catalog_products.map{ |cp| Product.find(cp.product_id) })
