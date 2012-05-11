@@ -5,4 +5,14 @@ FactoryGirl.define do
     slug "dia-a-dia"
     active true
   end
+  
+  factory :moments, :class => Moment do
+    sequence :name do |n|
+      "moment#{n}"
+    end
+    sequence :slug do |n|
+      "moment#{n}"
+    end
+    active true
+  end
 end
