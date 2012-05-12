@@ -52,7 +52,8 @@ module Abacos
     end
 
     def integrate_catalogs(product)
-      moments = self.moments.split(",").map{|item| Moment.find!( item.to_i ) }
+      moments = self.moments.split(",").map{|item| Moment.find( item.to_i ) if !item.nil? }
+      CatalogService.save_product product, :moments => moments
     end
 
     def integrate_attributes(product)

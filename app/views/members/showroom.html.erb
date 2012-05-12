@@ -11,6 +11,14 @@
       <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
       <%= render "shared/metrics/adlead/adlead" %>
     <% end %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
   <% end %>
 
   <div id="showroom">
@@ -24,18 +32,5 @@
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render "shared/metrics/boobox/members" %>
-    <%# TODO Remove banner mothers day %>
-    <br />
-    <br />
-    <%= link_to(image_tag("promotion_banners/banner_maes.jpg", :class => "banner_mothers_day"), "/maes" ) %>
   </div>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) return;
-js = d.createElement(s); js.id = id;
-js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 <% end %>

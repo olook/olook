@@ -21,7 +21,7 @@ module MarketingReports
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at
                    invite_token first_name last_name facebook_token birthday has_purchases}
-        User.find_each do |u|
+        User.where('half_user IS NOT TRUE').find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
                     u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?]

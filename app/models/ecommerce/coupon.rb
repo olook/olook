@@ -1,6 +1,6 @@
 class Coupon < ActiveRecord::Base
-  
-  has_paper_trail :on => [:update, :destroy]
+  # TODO: Temporarily disabling paper_trail for app analysis
+  #has_paper_trail :on => [:update, :destroy]
 
   validates_presence_of :code, :value, :start_date, :end_date
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }

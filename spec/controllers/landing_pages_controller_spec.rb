@@ -4,7 +4,7 @@ require 'spec_helper'
 describe LandingPagesController do
   describe "GET show" do
 
-    let!(:landing_page) { Factory.create :landing_page }
+    let!(:landing_page) { FactoryGirl.create(:landing_page) }
 
     it "gets page by url" do
       LandingPage.should_receive(:find_by_page_url!).with(landing_page.page_url).and_return(landing_page)

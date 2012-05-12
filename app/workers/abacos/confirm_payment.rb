@@ -14,7 +14,7 @@ module Abacos
         Resque.enqueue(Abacos::InsertOrder, order.number)
 
         create_enqueue_confirm_order_event order
-        Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, order.number)
+        Resque.enqueue_in_with_queue(:delayed_payment, 15.minutes, Abacos::ConfirmPayment, order.number)
         raise "Order number #{order_number} doesn't exist on Abacos"
       end
     end
