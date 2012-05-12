@@ -4,6 +4,7 @@ require "spec_helper"
 describe Abacos::ProductPrice do
   let(:downloaded_price) { load_abacos_fixture :product_price }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_price }
+
   subject { described_class.new parsed_data }
   
   describe '#integrate' do

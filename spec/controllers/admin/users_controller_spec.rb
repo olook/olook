@@ -8,7 +8,7 @@ describe Admin::UsersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin_superadministrator
+    @admin = FactoryGirl.create(:admin_superadministrator)
     sign_in @admin
   end
 
@@ -132,6 +132,17 @@ describe Admin::UsersController do
     it "redirects to the user list" do
       delete :destroy, :id => user.id.to_s
       response.should redirect_to(admin_users_url)
+    end
+  end
+
+  describe "Create Credit Transaction" do
+    let(:value) { 10 }
+    it "should add credit to user if value >= 0" do
+      Credit.stub(:add).with(value, user.id, nil, )
+    end
+
+    it "should remove credit from user if value =< 0" do
+      pending
     end
   end
 end

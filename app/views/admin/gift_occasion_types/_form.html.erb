@@ -15,7 +15,22 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+  
+  <div class="field">
+    <%= f.label :gift_recipient_relation_id %><br />
+    <%= f.select :gift_recipient_relation_id, @gift_recipient_relations.map{|grp| [grp.name, grp.id]} %>
+  </div>
 	
+  <div class="field">
+    <%= f.label :day %><br />
+    <%= f.select :day, (1..31) %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :month %><br />
+    <%= f.select :month, (1..12) %>
+  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
