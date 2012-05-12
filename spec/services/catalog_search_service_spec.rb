@@ -128,36 +128,14 @@ describe CatalogSearchService do
       end
     end
 
-    # context "combined filters" do
-    #   it "returns products given subcategories, shoe sizes and heels" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "45", :heel => "5.6")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "45", :heel => "5.6")
-    #     params = {:id => catalog.id, :shoe_subcategories => ["rasteirinha"], :shoe_sizes => ["45"], :heels => ["5.6"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp2]
-    #   end
-
-    #   it "returns products given subcategories and shoe sizes" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "45")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "45")
-    #     lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "39")
-    #     params = {:id => catalog.id, :shoe_subcategories => ["rasteirinha"], :shoe_sizes => ["45"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp2]
-    #   end
-
-    #   it "returns products given subcategories and heels" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :heel => "5.6")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :heel => "5.9")
-    #     params = {:id => catalog.id, :shoe_subcategories => ["rasteirinha"], :heels => ["5.6", "5.9"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp2]
-    #   end
-
-    #   it "returns products given heels and shoe sizes" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "7.6")
-    #     lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     params = {:id => catalog.id, :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp3]
-    #   end
+    context "combined filters" do
+      it "returns products given subcategories, shoe sizes and heels" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
+        cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        params = {:id => catalog.id, :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm"]}
+        CatalogSearchService.new(params).search_products.should == [cp1, cp2]
+      end
 
     #   it "returns products given heels and shoe sizes and bags" do
     #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "37", :heel => "5.6")
@@ -190,6 +168,6 @@ describe CatalogSearchService do
     #     params = {:id => catalog.id, :bag_accessory_subcategories => ["lisa", "pulseira"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
     #     CatalogSearchService.new(params).search_products.should == [lp1, lp3, lp4]
     #   end
-    # end
+    end
   end
 end
