@@ -2,53 +2,63 @@ require "spec_helper"
 
 describe CatalogSearchService do
   let(:catalog) do
-    moment  = Factory.create :moment
+    moment  = FactoryGirl.create :moment
     moment.catalog
   end
   
   let(:basic_bag) do
-    product = (Factory.create :bag_subcategory_name).product
-    
-    Factory.create :basic_bag_simple, product: product
-
+    product = (FactoryGirl.create :bag_subcategory_name).product
+    FactoryGirl.create :basic_bag_simple, product: product
     product
   end
 
   let(:basic_accessory) do
-    product = (Factory.create :bag_subcategory_name).product
-    
-    Factory.create :basic_bag_simple, product: product
-
+    product = (FactoryGirl.create :accessory_subcategory_name).product
+    FactoryGirl.create :basic_accessory_simple, product: product
     product
   end
 
   let(:basic_shoe) do
-    product = (Factory.create :shoe_subcategory_name).product
-    Factory.create :shoe_heel, :product => product
-    Factory.create :basic_shoe_size_35, :product => product, :inventory => 7
+    product = (FactoryGirl.create :shoe_subcategory_name).product
+    FactoryGirl.create :shoe_heel, :product => product
+    FactoryGirl.create :basic_shoe_size_35, :product => product, :inventory => 7
     product.master_variant.price = 100.00
     product.master_variant.save!
     product
   end
 
   let(:basic_shoe_2) do
-    product = (Factory.create :shoe_subcategory_name, description: "Melissa").product
+    product = (FactoryGirl.create :shoe_subcategory_name, description: "Melissa").product
     product.master_variant.price = 100.00
     product.master_variant.save!
-    Factory.create :basic_shoe_size_40, :product => product, :inventory => 8
+    FactoryGirl.create :basic_shoe_size_40, :product => product, :inventory => 8
     product
   end
 
   let(:basic_shoe_3) do
-    product = (Factory.create :shoe_subcategory_name, description: "Bota").product
+    product = (FactoryGirl.create :shoe_subcategory_name, description: "Bota").product
     product.master_variant.price = 100.00
     product.master_variant.save!
-    Factory.create :basic_shoe_size_37, :product => product, :inventory => 5
+    FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 5
     product
   end
   
-  let(:basic_bag_1) { FactoryGirl.create(:basic_bag_simple, product: basic_bag) }
-  let(:basic_accessory_1) { FactoryGirl.create(:basic_accessory_simple, product: basic_accessory) }
+  let(:basic_sold_out_shoe) do
+    product = (FactoryGirl.create :shoe_subcategory_name, description: "Galocha").product
+    product.master_variant.price = 50.00
+    product.master_variant.save!
+    FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 0
+    product
+  end
+
+  let(:basic_hidden_shoe) do
+    product = (FactoryGirl.create :shoe_subcategory_name, description: "Invisivel").product
+    product.master_variant.price = 50.00
+    product.master_variant.save!
+    product.update_attributes! is_visible: false
+    FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 1
+    product
+  end
 
   before :each do
     # LiquidationProduct.delete_all
@@ -86,7 +96,7 @@ describe CatalogSearchService do
         CatalogSearchService.new(params).search_products.should == [cp1, cp2]
       end
 
-      it "returns products given some shoe sizes" do
+      it "returns products given some heels" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
@@ -95,37 +105,28 @@ describe CatalogSearchService do
         CatalogSearchService.new(params).search_products.should == [cp1]
       end
 
-    #    it "returns products given some heels" do
-    #      lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5, :inventory => 1)
-    #      lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :heel => 6.5, :inventory => 1)
-    #      lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1)
-    #      params = {:id => catalog.id, :heels => ["6.5", "4.5"]}
-    #      CatalogSearchService.new(params).search_products.should == [lp1, lp2]
-    #    end
+       it "returns 0 products if dont have inventory" do
+         cp1 = CatalogProductService.new(catalog, basic_sold_out_shoe).save!.first
+         params = {:id => catalog.id}
+         CatalogSearchService.new(params).search_products.should == []
+       end
 
-    #    it "returns 0 products if dont have inventory" do
-    #      lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5, :inventory => 0)
-    #      params = {:id => catalog.id, :heels => ["6.5", "4.5"]}
-    #      CatalogSearchService.new(params).search_products.should == []
-    #    end
+       it "returns 0 products if the product is not visible" do
+        cp1 = CatalogProductService.new(catalog, basic_hidden_shoe).save!.first
+         params = {:id => catalog.id}
+         CatalogSearchService.new(params).search_products.should == []
+       end
+     end
 
-    #    it "returns 0 products if the product is not visible" do
-    #      basic_shoe_size_35.product.update_attributes(:is_visible => false)
-    #      lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5, :inventory => 1)
-    #      params = {:id => catalog.id, :heels => ["6.5", "4.5"]}
-    #      CatalogSearchService.new(params).search_products.should == []
-    #    end
-    #  end
-
-    #  context "ordering" do
-    #   it "should return the order: shoes, bags and acessories" do
-    #     lp1 = LiquidationProduct.create(:category_id => Category::SHOE, :liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :heel => 4.5, :inventory => 1)
-    #     lp2 = LiquidationProduct.create(:category_id => Category::ACCESSORY, :liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira", :inventory => 1)
-    #     lp3 = LiquidationProduct.create(:category_id => Category::BAG, :liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa", :inventory => 1)
-    #     params = {:id => catalog.id, :bag_accessory_subcategories => ["pulseira", "lisa"], :heels => ["4.5"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp3, lp2]
-    #   end
-    # end
+     context "ordering" do
+      it "should return the order: shoes, bags and acessories" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_accessory).save!
+        cp3 = CatalogProductService.new(catalog, basic_bag).save!
+        params = {:id => catalog.id}
+        CatalogSearchService.new(params).search_products.should == [cp1, cp3, cp2]
+      end
+    end
 
     # context "combined filters" do
     #   it "returns products given subcategories, shoe sizes and heels" do
@@ -189,6 +190,6 @@ describe CatalogSearchService do
     #     params = {:id => catalog.id, :bag_accessory_subcategories => ["lisa", "pulseira"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
     #     CatalogSearchService.new(params).search_products.should == [lp1, lp3, lp4]
     #   end
-    end
+    # end
   end
 end
