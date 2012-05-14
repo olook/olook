@@ -1,12 +1,61 @@
 @import "partials/product";
 
 div.full_container {
-  background: #d2d1d6 url("/assets/moments/bg-top.jpg") bottom repeat-x;
-  max-height: 320px;
-  overflow: hidden !important;
+  background: #000 url("/assets/moments/bg-top.jpg") bottom repeat-x;
+  height: 412px;
+  overflow: visible !important;
+  margin-bottom: 55px !important;
 
+  div#banner {
+    width: 100%;
+    height: 385px;
+    display: block;
+    &.party {
+      background: url("/assets/moments/bg-party.jpg") center top no-repeat;
+    }
+  }
   div.content {
-    position: relative;
+    position: absolute;
+    height: 100px;
+    overflow: visible;
+    margin: 0 0 0 -495px;
+    left: 50%;
+    bottom: -30px;
+    nav {
+      background: none;
+      margin: 0;
+      border: none;
+      ul {
+        li {
+          display: inline-block;
+          height: auto;
+          float: none;
+          a {
+            background: #000;
+            color: #DF5A8B;
+            font-family: Arial, sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+            text-indent: 0;
+            width: 150px;
+            height: auto;
+            margin: 0;
+            padding: 25px 15px;
+            display: block;
+            float: left;
+            span {
+              font-size: 16px;
+              font-weight: lighter;
+              display: block;
+            }
+            &.selected {
+              background: #DF5A8B;
+              color: #FFF;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
