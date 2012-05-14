@@ -1,4 +1,4 @@
-<li class="product">
+<li class="product <%= " promotion" if product.promotion? %>">
   <% if defined? suggestion %>
     <div class="hover_suggestive">
       <ul>
@@ -20,7 +20,12 @@
       <div class="like_mask">
         <div class="fb-like" data-href="<%= @url %>/produto/<%= product.id %>" data-send="false" data-layout="button_count" data-width="65" data-show-faces="false"></div>
       </div>
+    <% if product.promotion? %>
+      <span class="old">de: <%= number_to_currency product.price %></span>
+      <span>por: <%= number_to_currency product.retail_price %></span>
+    <% else %>
       <span><%= number_to_currency product.price %></span>
+    <% end %>
     </div>
   </div>
 </li>
