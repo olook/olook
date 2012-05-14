@@ -41,14 +41,13 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
-  # FIXME - after the catalog::product behavior is defined and ready, remove this method.
-  def product_id
-    id
-  end
-
   def self.for_xml
     only_visible.joins(:variants)
     .where("variants.is_master = 1 AND variants.price > 0.0 AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])
+  end
+
+  def product_id
+    id
   end
 
   def related_products
@@ -151,8 +150,12 @@ class Product < ActiveRecord::Base
     active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
   end
 
+  def promotion?
+    price > catalog_products.last.retail_price
+  end
+
   def retail_price
-    LiquidationProductService.retail_price(self)
+    liquidation? ? LiquidationProductService.retail_price(self) : catalog_products.last.retail_price
   end
   
   def gift_price(position = 0)
