@@ -9,19 +9,18 @@
 
   <% content_for :full do %>
     <div class="content">
-      <%  @moments.each do |moment| %>
-      <h1><%= moment.name %></h1>
-      <div class="description">
-
-      </div>
-      <% end %>
+      <nav>
+        <ul>
+          <% @moments.each do |moment| %>
+            <li><%= link_to moment.name, "#", :class => "selected" %></li>
+          <% end %>
+        </ul>
+      </nav>
     </div>
   <% end %>
 
   <div id="moments" class="content">
-
     <%= moment_presenter.render_search_form %>
-
     <div id="products_container">
       <div id="order_filter">
         <%= form_for("", :html => {:id => "moment_order_filter"}) do %>
