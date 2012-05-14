@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe CatalogService do
   let(:basic_bag) do
-    product = (Factory.create :bag_subcategory_name).product
+    product = (FactoryGirl.create :bag_subcategory_name).product
     product.master_variant.price = 100.00
     product.master_variant.save!
 
-    Factory.create :basic_bag_simple, :product => product
+    FactoryGirl.create :basic_bag_simple, :product => product
 
     product
   end
