@@ -28,7 +28,7 @@ describe Abacos::Product do
 
     let!(:sexy_profile) { FactoryGirl.create(:profile, :name => "Sexy", :first_visit_banner => 'sexy') }
     let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
-    let!(:moment) { Factory.create(:moment, :id => 1) }
+    let!(:moment) { FactoryGirl.create(:moment, :id => 1) }
 
     it 'should create a new product' do
       expect {
