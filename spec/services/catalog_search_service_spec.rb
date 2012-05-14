@@ -64,7 +64,8 @@ describe CatalogSearchService do
   let(:liquidation) { FactoryGirl.create(:liquidation) }
 
   before :each do
-    # LiquidationProduct.delete_all
+    Liquidation.delete_all
+    LiquidationProduct.delete_all
     Product.delete_all
     Variant.delete_all
     Catalog::Product.delete_all
