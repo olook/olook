@@ -122,7 +122,7 @@ describe CatalogSearchService do
 
        it "returns 0 products if the product is in the liquidation" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
-        lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_2.id, :subcategory_name => "rasteirinha", :inventory => 1)
+        lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe.id, :subcategory_name => "rasteirinha", :inventory => 1)
         params = {:id => catalog.id}
         CatalogSearchService.new(params).search_products.should == []
        end
@@ -147,37 +147,24 @@ describe CatalogSearchService do
         CatalogSearchService.new(params).search_products.should == [cp1, cp2]
       end
 
-    #   it "returns products given heels and shoe sizes and bags" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "7.6")
-    #     lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp4 = LiquidationProduct.create(:category_id => Category::BAG, :liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa", :inventory => 1)
-    #     params = {:id => catalog.id, :bag_accessory_subcategories => ["lisa"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp3, lp4]
-    #   end
+      it "returns products given subcategories, shoe sizes and heels and bags" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
+        cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        cp4 = CatalogProductService.new(catalog, basic_bag).save!
+        params = {:id => catalog.id, :bag_accessory_subcategories => ["bolsa-azul"], :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
+        CatalogSearchService.new(params).search_products.should == [cp1, cp2, cp4]
+      end
 
-    #   it "returns products given heels and shoe sizes and bags and acessories" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "7.6")
-    #     lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp4 = LiquidationProduct.create(:category_id => Category::BAG, :liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa", :inventory => 1)
-    #     lp5 = LiquidationProduct.create(:category_id => Category::ACCESSORY, :liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira", :inventory => 1)
-    #     params = {:id => catalog.id, :bag_accessory_subcategories => ["lisa", "pulseira"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp3, lp4, lp5]
-    #   end
-
-    #   it "returns products given heels and shoe sizes and bags, acessories and not invisible items" do
-    #     lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "7.6")
-    #     lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "5.6")
-    #     lp4 = LiquidationProduct.create(:category_id => Category::BAG, :liquidation => liquidation, :product_id => basic_bag_1.product.id, :subcategory_name => "lisa", :inventory => 1)
-
-    #     basic_accessory_1.product.update_attributes(:is_visible => false)
-
-    #     lp5 = LiquidationProduct.create(:category_id => Category::ACCESSORY, :liquidation => liquidation, :product_id => basic_accessory_1.product.id, :subcategory_name => "pulseira", :inventory => 1)
-    #     params = {:id => catalog.id, :bag_accessory_subcategories => ["lisa", "pulseira"], :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
-    #     CatalogSearchService.new(params).search_products.should == [lp1, lp3, lp4]
-    #   end
+      it "returns products given heels and shoe sizes and bags and acessories" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
+        cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        cp4 = CatalogProductService.new(catalog, basic_bag).save!
+        cp5 = CatalogProductService.new(catalog, basic_accessory).save!
+        params = {:id => catalog.id, :bag_accessory_subcategories => ["bolsa-azul","Colar"], :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
+        CatalogSearchService.new(params).search_products.should == [cp1, cp2, cp4, cp5]
+      end
     end
   end
 end
