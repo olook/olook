@@ -1,20 +1,9 @@
-<%= form_tag 'create_credit_transaction' do %>
+<%= javascript_include_tag "admin/credit", "admin/jquery.validate.min" %>
+<%= form_tag 'create_credit_transaction', :id => 'create_credit_transaction' do %>
   <%= hidden_field_tag "id", user.id %>
-  <%= number_field_tag "value", :in => -150..150 %>
-  <%= select_tag "reason", "<option>Produto Errado</option>
-                            <option>Atraso de Entrega</option>
-                            <option>Atraso de Atendimento</option>
-                            <option>Erro Técnico</option>
-                            <option>Erro Humano</option>
-                            <option>Erro Completa</option>
-                            <option>Erro Transportadora</option>
-                            <option>Reembolso - Cancelamento do pedido</option>
-                            <option>Reembolso - Devolução</option> 
-                            <option>Presente</option>
-                            <option>Falta de estoque/Stock out</option>
-                            <option>Erro do operador</option>
-                            <option>Créditos Expirados</option>
-                            <option>Fraude</option>".html_safe %>
+  <%= text_field_tag "value", '0.00',%>
+  <%= select_tag "operation", grouped_options_for_select({"Adicionar Créditos" => CreditService::CREDIT_CONFIG['admin_credit_service']['credit_reason'], "Remover Créditos" => CreditService::CREDIT_CONFIG['admin_credit_service']['debit_reason']}) %>
   <%= submit_tag "Create Credit Transaction" %>
 <% end %>
 
+  
