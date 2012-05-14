@@ -2,27 +2,27 @@ require 'spec_helper'
 
 describe CatalogProductService do
   let(:catalog) do
-    moment  = Factory.create :moment
+    moment  = FactoryGirl.create :moment
     moment.catalog
   end
 
   let(:basic_bag) do
-    product = (Factory.create :bag_subcategory_name).product
+    product = (FactoryGirl.create :bag_subcategory_name).product
     product.master_variant.price = 100.00
     product.master_variant.save!
 
-    Factory.create :basic_bag_simple, :product => product
+    FactoryGirl.create :basic_bag_simple, :product => product
 
     product
   end
 
   let(:basic_shoes) do
 
-    product = (Factory.create :shoe_subcategory_name).product
+    product = (FactoryGirl.create :shoe_subcategory_name).product
 
-    Factory.create :shoe_heel, :product => product
-    Factory.create :basic_shoe_size_35, :product => product, :inventory => 7
-    Factory.create :basic_shoe_size_37, :product => product, :inventory => 5
+    FactoryGirl.create :shoe_heel, :product => product
+    FactoryGirl.create :basic_shoe_size_35, :product => product, :inventory => 7
+    FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 5
 
     product.master_variant.price = 100.00
     product.master_variant.save!

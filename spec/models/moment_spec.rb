@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Moment do
-  let(:moment) { Factory.create(:moment) }
-  let(:day_by_day) { Factory.build(:moment) }
+  let(:moment) { FactoryGirl.create(:moment) }
+  let(:day_by_day) { FactoryGirl.build(:moment) }
   
   describe "validation" do
     it { should validate_presence_of(:name) }
