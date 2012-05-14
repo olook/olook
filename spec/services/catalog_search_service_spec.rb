@@ -156,7 +156,7 @@ describe CatalogSearchService do
         CatalogSearchService.new(params).search_products.should == [cp1, cp2, cp4]
       end
 
-      it "returns products given heels and shoe sizes and bags and acessories" do
+      it "returns products given subcategories, heels and shoe sizes and bags and acessories" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
