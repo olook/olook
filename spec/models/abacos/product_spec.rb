@@ -69,6 +69,9 @@ describe Abacos::Product do
 
       it "#integrate_catalogs" do
         mock_product = mock_model(::Product)
+        CatalogService.should_receive(:save_product)
+                      .with(mock_product, :moments => [moment])
+                      
         subject.integrate_catalogs mock_product
       end
 
