@@ -134,4 +134,19 @@ describe Admin::UsersController do
       response.should redirect_to(admin_users_url)
     end
   end
+
+  describe "create credit transaction" do
+    let(:transaction_param) { {:id => user.id, :value => "10", :operation => "add_credit:Presente"} }
+    it "should create a credit transaction with specified value and reason" do
+      expect{
+        put :create_credit_transaction, transaction_param
+        User.stub(:find).with(transaction_param[:id]) {user}
+        @operation = transaction_param[:operation].split(":")
+        CreditService.should_receive(:new).once.with(AdminCreditService.stub(:new).once.with(@admin)).and_return(creditservice = mock)
+        #CreditService.should_receive(:create_credit_transaction).with(transaction_param[:value], operation[0], operation[1], user)
+      }.to change(Credit, :count).by(1)
+    end
+
+  end
+
 end
