@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Catalog::Product do
   
   let(:product) do
-    moment  = Factory.create :moment
-    product = Factory.create :basic_shoe
+    moment  = FactoryGirl.create :moment
+    product = FactoryGirl.create :basic_shoe
     Catalog::Product.create :catalog => moment.catalog, :product => product
   end
   
