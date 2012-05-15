@@ -9,8 +9,9 @@ describe Moment do
     it { moment.should validate_uniqueness_of(:name) }
     it { should validate_presence_of(:slug) }
     it { moment.should validate_uniqueness_of(:slug) }
+
     it { should validate_presence_of(:article) }
-    it { should validate_presence_of(:position) }
+    it { should validate_numericality_of(:position) }
     it { should have_one(:catalog) }
   end
   
