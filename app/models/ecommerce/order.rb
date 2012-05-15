@@ -25,6 +25,8 @@ class Order < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
   delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
@@ -138,6 +140,7 @@ class Order < ActiveRecord::Base
   end
 
   def insert_order
+    self.update_attribute(:purchased_at, Time.now)
     order_events.create(:message => "Enqueue Abacos::InsertOrder")
     Resque.enqueue(Abacos::InsertOrder, self.number)
   end

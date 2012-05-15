@@ -135,14 +135,4 @@ describe Admin::UsersController do
     end
   end
 
-  describe "Create Credit Transaction" do
-    let(:value) { 10 }
-    it "should add credit to user if value >= 0" do
-      Credit.stub(:add).with(value, user.id, nil, )
-    end
-
-    it "should remove credit from user if value =< 0" do
-      pending
-    end
-  end
 end
