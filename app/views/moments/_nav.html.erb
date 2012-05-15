@@ -1,0 +1,17 @@
+<nav>
+  <ul>
+    <% moments.each do |moment| %>
+      <li>
+        <%= link_to "#", :class => "selected" do %>
+          <span>Para o</span>
+          <%= moment.name %>
+        <% end %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to "#" do %>
+        <span>Para o</span> Trabalho
+      <% end %>
+    </li>
+  </ul>
+</nav>
