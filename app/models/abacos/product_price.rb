@@ -14,7 +14,9 @@ module Abacos
       raise RuntimeError.new "Price is related with Product model number #{self.model_number}, but it doesn't exist" if product.nil?
       
       product.price = self.price
-      product.save!
+      if product.save!
+        CatalogService.save_product product, :update_price => true
+      end
 
       confirm_price
     end

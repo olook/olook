@@ -141,12 +141,6 @@ describe Variant do
   end
 
   describe "delegated methods" do
-    describe "#retail_price" do
-      it "should return the product's retail price" do
-        subject.product.stub(:retail_price).and_return(2.99)
-        subject.retail_price.should == 2.99
-      end
-    end
     describe "#liquidation?" do
       it "should return the product's liquidation?" do
         subject.product.stub(:liquidation?).and_return(true)
@@ -200,6 +194,26 @@ describe Variant do
       variant.reload.inventory.should == 77
       LiquidationProduct.all.map{|lp| lp.variant_id}.uniq.should == [variant.id]
       LiquidationProduct.all.map{|lp| lp.inventory}.should == [77, 77]
+    end
+  end
+  
+  describe "consolidate discount percent when has retail_price" do
+    it "should round discount percent to 19" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 123.45
+      variant.retail_price = 99.38
+      variant.save!
+      variant.discount_percent.should eq(19)
+    end
+
+    it "should round discount percent to 20" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 123.45
+      variant.retail_price = 99.37
+      variant.save!
+      variant.discount_percent.should eq(20)
     end
   end
 end
