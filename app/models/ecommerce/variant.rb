@@ -86,6 +86,22 @@ class Variant < ActiveRecord::Base
     LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory)
   end
 
+  def retail_price
+    if liquidation?
+      LiquidationProductService.retail_price(self)
+    else
+      retail_price_logic
+    end
+  end
+
+  private
+
+  def retail_price_logic
+    rp = self.read_attribute(:retail_price)
+    return self.price if (rp.blank? || rp.zero?)
+    return rp
+  end
+
   def calculate_discount_percent
     return unless self.retail_price.respond_to? :>
     return unless self.price.respond_to? :>

@@ -200,7 +200,6 @@ describe Variant do
   describe "consolidate discount percent when has retail_price" do
     it "should round discount percent to 19" do
       variant = subject
-      variant.discount_percent.should be_blank
       variant.price = 123.45
       variant.retail_price = 99.38
       variant.save!
@@ -209,7 +208,6 @@ describe Variant do
 
     it "should round discount percent to 20" do
       variant = subject
-      variant.discount_percent.should be_blank
       variant.price = 123.45
       variant.retail_price = 99.37
       variant.save!
@@ -218,29 +216,52 @@ describe Variant do
 
     it "should handle when price is 0" do
       variant = subject
-      variant.discount_percent.should be_blank
       variant.price = 0
       variant.retail_price = 99.99
       variant.save!
-      variant.discount_percent.should eq(nil)
+      variant.discount_percent.should eq(0)
     end
 
     it "should handle when retail price is 0" do
       variant = subject
-      variant.discount_percent.should be_blank
       variant.price = 100
       variant.retail_price = 0
       variant.save!
-      variant.discount_percent.should eq(nil)
+      variant.discount_percent.should eq(0)
     end
 
     it "should handle when retail price is nil" do
       variant = subject
-      variant.discount_percent.should be_blank
       variant.price = 100
       variant.retail_price = nil
       variant.save!
-      variant.discount_percent.should eq(nil)
+      variant.discount_percent.should eq(0)
+    end
+  end
+
+  describe "#retail_price" do
+    it "should return the retail price" do
+      subject.retail_price = 99.99
+      subject.save!
+      subject.retail_price.should == 99.99
+    end
+
+    it "should return the retail price for a liquidation" do
+      subject.stub(:liquidation?).and_return(true)
+      LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
+      subject.retail_price.should == 1.99
+    end
+
+    it "should return the original when the retail price is 0" do
+      subject.retail_price = 0
+      subject.save!
+      subject.retail_price.should == 123.45
+    end
+
+    it "should return the original when the retail price is nil" do
+      subject.retail_price = nil
+      subject.save!
+      subject.retail_price.should == 123.45
     end
   end
 end
