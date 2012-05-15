@@ -27,7 +27,7 @@ Olook::Application.routes.draw do
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   get '/moments', to: "moments#index", as: "moments"
-  get '/moments/:id', to: "moments#show"
+  get '/moments/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
 
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
@@ -61,7 +61,7 @@ Olook::Application.routes.draw do
       delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
       post "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
-      get "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"  
+      get "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
@@ -197,11 +197,11 @@ Olook::Application.routes.draw do
     resources :gift_occasion_types
     resources :gift_recipient_relations
   end
-  
+
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
-  
+
   #TODO: implement gift routes with something as bellow
   #devise_for :gift, :class_name => "User", :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
   #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"

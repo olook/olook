@@ -8,14 +8,9 @@
   <% end %>
 
   <% content_for :full do %>
+    <div id="banner" style="background-image: url('<%= @moment.header_image %>');"></div>
     <div class="content">
-      <nav>
-        <ul>
-          <% @moments.each do |moment| %>
-            <li><%= link_to moment.name, "#", :class => "selected" %></li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= render "nav", :moments => @moments %>
     </div>
   <% end %>
 
