@@ -3,6 +3,8 @@ FactoryGirl.define do
   factory :moment do
     name "dia-a-dia"
     slug "dia-a-dia"
+    article "a"
+    position "1"
     active true
   end
   
