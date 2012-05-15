@@ -141,12 +141,6 @@ describe Variant do
   end
 
   describe "delegated methods" do
-    describe "#retail_price" do
-      it "should return the product's retail price" do
-        subject.product.stub(:retail_price).and_return(2.99)
-        subject.retail_price.should == 2.99
-      end
-    end
     describe "#liquidation?" do
       it "should return the product's liquidation?" do
         subject.product.stub(:liquidation?).and_return(true)
