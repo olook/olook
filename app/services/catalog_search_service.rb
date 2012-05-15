@@ -34,6 +34,7 @@ class CatalogSearchService
                     .group("catalog_products.product_id")
                     .order("category_id asc, #{sort_filter}")
                     .paginate(:page => params[:page], :per_page => 12)
+                    .includes(:product => [:variants, :pictures])
   end
 
   def build_sub_query(current_query, sub_query)
