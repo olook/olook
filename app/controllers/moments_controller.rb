@@ -29,7 +29,7 @@ class MomentsController < ApplicationController
     @moments = Moment.active.all
     @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.first
 
-    @catalog_products = CatalogSearchService.new(params.merge({id: @moment.id})).search_products
+    @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
   end
 
 end
