@@ -1,4 +1,4 @@
-<%= link_to "Minha Sacola #{@order_total(order)}".html_safe, "javascript:void(0);", :class => "cart #{'selected' if @order}" %>
+<%= link_to "Minha Sacola #{order_total(@order)}".html_safe, "javascript:void(0);", :class => "cart #{'selected' if @order}" %>
 <ul class="submenu">
   <li><p class="freight">FRETE GRÁTIS PARA SP E RJ, e Acima de r$120,00 para outros estados</p></li>
   <% if @order %>
