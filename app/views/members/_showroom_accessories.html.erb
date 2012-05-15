@@ -1,16 +1,16 @@
-    <section class="container_product" id="accessories_container">
-      <h1 class="title">Acessórios de <%= showroom_presenter.collection_name %></h1>
-      <div class="type_list">
-        <div class="products_list best">
-          <ul>
-            <%= showroom_presenter.display_accessories (0..4) %>
-          </ul>
-          <%= link_to "Clique e veja mais acessórios", "javascript:void(0);", :class => "more accessories", :onclick => track_event("Showroom", "SeeAlmost", "Acessories") ,:rel => "almost" %>
-        </div>
-        <div class="products_list almost">
-          <ul>
-            <%= showroom_presenter.display_accessories (5..100) %>
-          </ul>
-        </div>
-      </div>
-    </section>
+<section class="container_product" id="accessories_container">
+  <h1 class="title">Seus acessórios de <%= showroom_presenter.collection_name %></h1>
+  <div class="type_list">
+    <div class="products_list best">
+      <ul>
+        <%= showroom_presenter.display_accessories (0..4) %>
+      </ul>
+      <%= link_to "Clique e veja mais acessórios", "javascript:void(0);", :class => "more accessories", :onclick => track_event("Showroom", "SeeAlmost", "Acessories") ,:rel => "almost" %>
+    </div>
+    <div class="products_list almost">
+      <ul>
+        <%= showroom_presenter.display_accessories (5..100) %>
+      </ul>
+    </div>
+  </div>
+</section>
