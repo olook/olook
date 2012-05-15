@@ -24,6 +24,7 @@
     <tr>
       <th>Name</th>
       <th>Active</th>
+      <th>Position</th>
       <th></th>
       <th></th>
       <th></th>
@@ -33,6 +34,7 @@
     <tr>
       <td><%= moment.name %></td>
       <td><%= moment.active %></td>
+      <td><%= moment.position %></td>
       <td><%= link_to 'Show', admin_moment_path(moment) %></td>
       <td><%= link_to 'Edit', edit_admin_moment_path(moment) %></td>
       <td><%= link_to 'Destroy', admin_moment_path(moment), confirm: 'Are you sure?', method: :delete %></td>
