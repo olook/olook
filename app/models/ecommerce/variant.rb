@@ -3,7 +3,7 @@ class Variant < ActiveRecord::Base
 
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail
-  
+
   default_scope where(:is_master => false)
 
   before_save :fill_is_master, :calculate_discount_percent
@@ -81,13 +81,15 @@ class Variant < ActiveRecord::Base
       child_variant.save!
     end
   end
-  
+
   def update_liquidation_products_inventory
-    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory) 
+    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory)
   end
-  
+
   def calculate_discount_percent
-    unless self.retail_price.blank?
+    return unless self.retail_price.respond_to? :>
+    return unless self.price.respond_to? :>
+    if self.retail_price > 0 && self.price > 0
       percent = ((self.retail_price * 100) / self.price).round
       self.discount_percent = 100 - percent
     end
