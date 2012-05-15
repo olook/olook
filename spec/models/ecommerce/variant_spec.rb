@@ -202,4 +202,24 @@ describe Variant do
       LiquidationProduct.all.map{|lp| lp.inventory}.should == [77, 77]
     end
   end
+  
+  describe "consolidate discount percent when has retail_price" do
+    it "should round discount percent to 19" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 123.45
+      variant.retail_price = 99.38
+      variant.save!
+      variant.discount_percent.should eq(19)
+    end
+
+    it "should round discount percent to 20" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 123.45
+      variant.retail_price = 99.37
+      variant.save!
+      variant.discount_percent.should eq(20)
+    end
+  end
 end
