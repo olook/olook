@@ -18,10 +18,10 @@ class Product < ActiveRecord::Base
       self.sort {|variant_a, variant_b| variant_a.description <=> variant_b.description }
     end
   end
-  
+
   # has_one :master_variant, :class_name => "Variant", :conditions => {:is_master => true}, :foreign_key => "product_id"
   # has_one :main_picture, :class_name => "Picture", :conditions => {:display_on => DisplayPictureOn::GALLERY_1}, :foreign_key => "product_id"
-  
+
   belongs_to :collection
   has_and_belongs_to_many :profiles
 
@@ -87,6 +87,7 @@ class Product < ActiveRecord::Base
 
   delegate :price, to: :master_variant
   delegate :'price=', to: :master_variant
+  delegate :'retail_price=', to: :master_variant
   delegate :width, to: :master_variant
   delegate :'width=', to: :master_variant
   delegate :height, to: :master_variant
@@ -159,9 +160,13 @@ class Product < ActiveRecord::Base
   end
 
   def retail_price
-    liquidation? ? LiquidationProductService.retail_price(self) : catalog_products.last.retail_price
+    if liquidation?
+      LiquidationProductService.retail_price(self)
+    else
+      self.master_variant.retail_price
+    end
   end
-  
+
   def gift_price(position = 0)
     GiftDiscountService.price_for_product(self,position)
   end
@@ -208,7 +213,7 @@ class Product < ActiveRecord::Base
   def subcategory
     subcategory_name
   end
-  
+
   def subcategory_name
     detail_by_token SUBCATEGORY_TOKEN
   end
@@ -216,7 +221,7 @@ class Product < ActiveRecord::Base
   def heel
     detail_by_token HEEL_TOKEN
   end
-  
+
   def shoe?
     self.category == Category::SHOE
   end
@@ -238,10 +243,10 @@ private
   def update_master_variant
     master_variant.save!
   end
-  
+
   def detail_by_token token
     detail = self.details.where(:translation_token => token).last
     detail.description if detail
   end
-  
+
 end
