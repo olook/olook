@@ -6,7 +6,7 @@ class Variant < ActiveRecord::Base
   
   default_scope where(:is_master => false)
 
-  before_save :fill_is_master
+  before_save :fill_is_master, :calculate_discount_percent
   after_save :replicate_master_changes, :if => :is_master
   after_update :update_liquidation_products_inventory
 
@@ -31,7 +31,6 @@ class Variant < ActiveRecord::Base
   delegate :main_picture, :to => :product
   delegate :thumb_picture, :to => :product
   delegate :showroom_picture, :to => :product
-  delegate :retail_price, :to => :product
   delegate :liquidation?, :to => :product
   delegate :gift_price, :to => :product
 
@@ -85,5 +84,12 @@ class Variant < ActiveRecord::Base
   
   def update_liquidation_products_inventory
     LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory) 
+  end
+  
+  def calculate_discount_percent
+    unless self.retail_price.blank?
+      percent = ((self.retail_price * 100) / self.price).round
+      self.discount_percent = 100 - percent
+    end
   end
 end
