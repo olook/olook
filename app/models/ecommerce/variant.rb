@@ -88,7 +88,8 @@ class Variant < ActiveRecord::Base
   
   def calculate_discount_percent
     unless self.retail_price.blank?
-      self.discount_percent = 20
+      percent = ((self.retail_price * 100) / self.price).round
+      self.discount_percent = 100 - percent
     end
   end
 end
