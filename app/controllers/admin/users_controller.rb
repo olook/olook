@@ -68,8 +68,8 @@ class Admin::UsersController < Admin::BaseController
   def create_credit_transaction
     @user = User.find(params[:id])
     operation = params[:operation].split(":")
-    credit = CreditService.new(AdminCreditService.new(current_admin))
-    credit.create_transaction(params[:value], operation[0], operation[1], @user)
+    credit_service = CreditService.new(AdminCreditService.new(current_admin))
+    credit_service.create_transaction(params[:value], operation[0], operation[1], @user)
     redirect_to (admin_user_path(@user))
   end
 
