@@ -30,6 +30,7 @@ class CatalogSearchService
       @query_base = @query_base.and(query_result) if query_result
     end
 
+    #TODO: ADD in includes: master_variant, main_picture
     Catalog::Product.joins('inner join products on products.id = catalog_products.product_id left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id').where(@query_base)
                     .group("catalog_products.product_id")
                     .order("category_id asc, #{sort_filter}")

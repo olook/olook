@@ -18,7 +18,7 @@ class Product < ActiveRecord::Base
       self.sort {|variant_a, variant_b| variant_a.description <=> variant_b.description }
     end
   end
-
+  
   # has_one :master_variant, :class_name => "Variant", :conditions => {:is_master => true}, :foreign_key => "product_id"
   # has_one :main_picture, :class_name => "Picture", :conditions => {:display_on => DisplayPictureOn::GALLERY_1}, :foreign_key => "product_id"
   
