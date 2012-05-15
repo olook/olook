@@ -4,7 +4,7 @@ FactoryGirl.define do
     name "dia-a-dia"
     slug "dia-a-dia"
     article "a"
-    position "1"
+    position 1
     active true
   end
   
@@ -16,5 +16,7 @@ FactoryGirl.define do
       "moment#{n}"
     end
     active true
+    article "a"
+    position 2
   end
 end
