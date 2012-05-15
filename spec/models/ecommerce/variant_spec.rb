@@ -172,7 +172,7 @@ describe Variant do
       end
     end
   end
-  
+
   describe "inventory changes updates the liquidation product" do
     it "should reflect the changes on shoe that is into a liquidation" do
       ls = LiquidationService.new(FactoryGirl.create(:liquidation))
@@ -182,12 +182,12 @@ describe Variant do
       line_item.order.decrement_inventory_for_each_item
       liquidation_product.reload.inventory.should == 8
     end
-    
-    it "should reflect all liquidations" do  
+
+    it "should reflect all liquidations" do
       ls1 = LiquidationService.new(FactoryGirl.create(:liquidation))
       ls2 = LiquidationService.new(FactoryGirl.create(:liquidation))
-      ls1.add(subject.product.id.to_s, 10)   
-      ls2.add(subject.product.id.to_s, 10)         
+      ls1.add(subject.product.id.to_s, 10)
+      ls2.add(subject.product.id.to_s, 10)
       variant = subject
       variant.inventory = 77
       variant.save
@@ -196,7 +196,7 @@ describe Variant do
       LiquidationProduct.all.map{|lp| lp.inventory}.should == [77, 77]
     end
   end
-  
+
   describe "consolidate discount percent when has retail_price" do
     it "should round discount percent to 19" do
       variant = subject
@@ -214,6 +214,33 @@ describe Variant do
       variant.retail_price = 99.37
       variant.save!
       variant.discount_percent.should eq(20)
+    end
+
+    it "should handle when price is 0" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 0
+      variant.retail_price = 99.99
+      variant.save!
+      variant.discount_percent.should eq(nil)
+    end
+
+    it "should handle when retail price is 0" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 100
+      variant.retail_price = 0
+      variant.save!
+      variant.discount_percent.should eq(nil)
+    end
+
+    it "should handle when retail price is nil" do
+      variant = subject
+      variant.discount_percent.should be_blank
+      variant.price = 100
+      variant.retail_price = nil
+      variant.save!
+      variant.discount_percent.should eq(nil)
     end
   end
 end

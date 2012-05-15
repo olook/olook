@@ -54,7 +54,7 @@ describe Abacos::Product do
       subject.should_receive(:integrate_profiles).with(mock_product)
       subject.should_receive(:integrate_catalogs).with(mock_product)
       subject.should_receive(:confirm_product)
-      
+
       subject.integrate
     end
 
@@ -71,7 +71,7 @@ describe Abacos::Product do
         mock_product = mock_model(::Product)
         CatalogService.should_receive(:save_product)
                       .with(mock_product, :moments => [moment])
-                      
+
         subject.integrate_catalogs mock_product
       end
 
@@ -82,37 +82,37 @@ describe Abacos::Product do
                       with( :translation_token => 'detail_name',
                             :description => 'detail_description',
                             :display_on => DisplayDetailOn::SPECIFICATION)
-      
+
         mock_product = mock_model(::Product)
         mock_product.stub(:details).and_return(mock_details)
 
-        subject.should_receive(:integrate_how_to).with(mock_product)        
+        subject.should_receive(:integrate_how_to).with(mock_product)
         subject.stub(:details).and_return({'detail_name' => 'detail_description'})
 
         subject.integrate_details mock_product
       end
-      
+
       it '#integrate_how_to' do
         mock_details = double :details
         mock_details.should_receive(:create).
                       with( :translation_token => 'Como vestir',
                             :description => 'how to wear',
                             :display_on => DisplayDetailOn::HOW_TO)
-      
+
         mock_product = mock_model(::Product)
         mock_product.stub(:details).and_return(mock_details)
-        
+
         subject.stub(:how_to).and_return('how to wear')
 
         subject.integrate_how_to mock_product
       end
-      
+
       describe "#integrate_profiles" do
         let(:profile_a) { FactoryGirl.create :casual_profile }
         let(:profile_b) { FactoryGirl.create :sporty_profile }
         let(:mock_product) { mock_model(::Product) }
         let(:mock_product_profiles) { double :products_profiles }
-        
+
         before :each do
           mock_product.stub(:profiles).and_return(mock_product_profiles)
           mock_product_profiles.should_receive(:destroy_all)
@@ -134,7 +134,7 @@ describe Abacos::Product do
           }.to raise_error(RuntimeError, "Attemping to integrate invalid profile 'non-existent-profile'")
         end
       end
-      
+
       describe "#confirm_product" do
         let(:fake_protocol) { 'PROT123' }
         it 'should add a task on the queue to integrate' do
@@ -166,11 +166,11 @@ describe Abacos::Product do
       it '#model_number' do
         subject.model_number.should == '1'
       end
-      
+
       it '#category' do
         subject.category.should == Category::ACCESSORY
       end
-      
+
       it '#color_name' do
         subject.color_name.should == "Floral"
       end
@@ -178,15 +178,15 @@ describe Abacos::Product do
       it '#width' do
         subject.width.should == 19.0
       end
-      
+
       it '#height' do
         subject.height.should == 10.5
       end
-      
+
       it '#length' do
         subject.length.should == 29.9
       end
-      
+
       it '#weight' do
         subject.weight.should == 0.6
       end
@@ -194,7 +194,7 @@ describe Abacos::Product do
       it '#collection_id' do
         subject.collection_id.should == december_collection.id
       end
-      
+
       it '#details' do
         subject.details.should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!", "Altura do salto"=>"n/a", "Aviamento"=>"Preto", "Categoria"=>"Sapatilha", "Material externo"=>"Forro Cacharrel Natural", "Material interno"=>"Palm sint. Ouro light", "Material sola"=>"n/a", "Tipo do salto"=>"Baixo"}
       end
@@ -202,7 +202,7 @@ describe Abacos::Product do
       it '#how_to' do
         subject.how_to.should == "Deve-se vestir no pé"
       end
-      
+
       it '#profiles' do
         subject.profiles.should == ['Sexy','Casual']
       end
@@ -287,4 +287,5 @@ describe Abacos::Product do
       end
     end
   end
+
 end

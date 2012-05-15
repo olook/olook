@@ -230,6 +230,11 @@ describe Product do
         subject.master_variant.price.should == 765.0
       end
 
+      it "#retail_price=" do
+        subject.retail_price = 99.0
+        subject.master_variant.retail_price.should == 99.0
+      end
+
       it "#width=" do
         subject.width = 55.0
         subject.master_variant.width.should == 55.0
@@ -398,17 +403,25 @@ describe Product do
   end
 
   describe "#retail_price" do
-    it "gets the retail price from liquidation product service" do
-      LiquidationProductService.should_receive(:retail_price).with(subject)
-      subject.retail_price
+    let(:shoe) do
+      product = FactoryGirl.create(:basic_shoe)
+      product.retail_price = 99.99
+      product.save!
+      product
     end
 
-    it "returns the retail price got from liquidation product service" do
+    it "should return the retail price" do
+      shoe.master_variant.should_receive(:retail_price)
+      shoe.retail_price
+    end
+
+    it "should return the retail price for a liquidation" do
+      subject.stub(:liquidation?).and_return(true)
       LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
       subject.retail_price.should == 1.99
     end
   end
-  
+
   describe "#gift_price" do
     it "calls GiftDiscountService passing the product, the position and returns it" do
       GiftDiscountService.should_receive(:price_for_product).with(subject,1).and_return(69.90)
