@@ -203,6 +203,11 @@ describe Product do
         subject.price
       end
 
+      it "#retail_price" do
+        subject.master_variant.should_receive(:retail_price)
+        subject.retail_price
+      end
+
       it "#width" do
         subject.master_variant.should_receive(:width)
         subject.width
@@ -399,26 +404,6 @@ describe Product do
     it "returns 0 when product is not in stock" do
       subject.stub(:inventory).and_return(0)
       subject.instock.should == "0"
-    end
-  end
-
-  describe "#retail_price" do
-    let(:shoe) do
-      product = FactoryGirl.create(:basic_shoe)
-      product.retail_price = 99.99
-      product.save!
-      product
-    end
-
-    it "should return the retail price" do
-      shoe.master_variant.should_receive(:retail_price)
-      shoe.retail_price
-    end
-
-    it "should return the retail price for a liquidation" do
-      subject.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
-      subject.retail_price.should == 1.99
     end
   end
 

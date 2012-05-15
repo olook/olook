@@ -87,6 +87,7 @@ class Product < ActiveRecord::Base
 
   delegate :price, to: :master_variant
   delegate :'price=', to: :master_variant
+  delegate :retail_price, to: :master_variant
   delegate :'retail_price=', to: :master_variant
   delegate :width, to: :master_variant
   delegate :'width=', to: :master_variant
@@ -157,14 +158,6 @@ class Product < ActiveRecord::Base
 
   def promotion?
     price > catalog_products.last.retail_price
-  end
-
-  def retail_price
-    if liquidation?
-      LiquidationProductService.retail_price(self)
-    else
-      self.master_variant.retail_price
-    end
   end
 
   def gift_price(position = 0)
