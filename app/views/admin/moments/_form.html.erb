@@ -12,12 +12,20 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :article %><br />
+    <%= f.text_field :article, limit: 10, default: "a" %>
+  </div>
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
   <%= f.label :active %><br />
     <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.number_field :position,   %>
   </div>
   <div class="field">
     <%= f.label :header_image %><br />

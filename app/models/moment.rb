@@ -1,6 +1,8 @@
 class Moment < ActiveRecord::Base
+  validates :article, presence: true
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
+  validates :position, numericality: true
 
   mount_uploader :header_image, ImageUploader
   
