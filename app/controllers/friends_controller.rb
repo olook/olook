@@ -19,8 +19,7 @@ class FriendsController < ApplicationController
     if user_can_access_friends_page
       redirect_to friends_home_path
     else
-      session[:facebook_redirect_paths] = "friends"        
-      session[:facebook_scopes] = User::ALL_FACEBOOK_PERMISSIONS
+      session[:facebook_redirect_paths] = "friends"
     end
   end
 
