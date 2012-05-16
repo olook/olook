@@ -1,12 +1,11 @@
 role :app, "app2.olook.com.br"
  
 # server details
-set :rails_env, "RAILS_ENV=production"
+set :rails_env, 'RAILS_ENV=production'
+set :env, 'production'
 
 # repo details
-if not variables.include?(:branch)
-  set :branch, 'master'
-end
+set :branch, fetch(:branch, 'master')
 
 # tasks
 namespace :deploy do
@@ -20,8 +19,7 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    # run "cd #{path_app} && #{bundle} update && #{bundle} install"
-    run "cd #{path_app} && #{bundle} install"    
+    run "cd #{path_app} && #{bundle} --without=development test install"    
   end
 
   desc 'Run migrations, clean assets'
@@ -48,28 +46,20 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
   end
 
+  desc 'Stop webserver'
+  task :stop_unicorn, :roles => :app do
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -TERM $pid; fi"
+  end 
+
+  desc 'Start webserver'
+  task :start_unicorn, :roles => :app do
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+  end 
+
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    #run "/sbin/restart unicorn"
-    run "/sbin/stop unicorn"
-    run "sleep 60"
-    run "/sbin/start unicorn"
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
   end
 
-# desc "Make sure local git is in sync with remote."
-# task :check_revision, roles: :web do
-#   unless `git rev-parse HEAD` == `git rev-parse origin/master`
-#     puts "WARNING: HEAD is not the same as origin/master"
-#     puts "Run `git push` to sync changes."
-#     exit
-#   end
-# end
-#
-# before "deploy", "deploy:check_revision"
-
-#Ao utilizar o callback after dessa forma, o Unicorn será reiniciado 2x, 1X pela task default do deploy e 1x pelo callback
-  #after 'deploy', 'deploy:yml_links'
-  #after 'deploy:yml_links', 'deploy:bundle_install'
-  #after 'deploy:bundle_install', 'deploy:restart'
   after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end

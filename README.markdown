@@ -92,7 +92,7 @@ production app2:
 cap prod2 deploy
 
 If you need to deploy a different branch:
-cap --set-before branch=<your_branch_name> dev deploy
+cap -S branch=<your_branch_name> SERVER deploy
 
 Optional config files
 ============

@@ -8,7 +8,7 @@ describe Admin::UsersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin_superadministrator
+    @admin = FactoryGirl.create(:admin_superadministrator)
     sign_in @admin
   end
 
@@ -134,4 +134,5 @@ describe Admin::UsersController do
       response.should redirect_to(admin_users_url)
     end
   end
+
 end

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
   <head>
     <meta charset="UTF-8">
     <title>olook</title>
@@ -12,13 +12,13 @@
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag  "application" %>
+    <meta property="fb:page_id" content="157293541026960" />
+    <meta property="fb:admins" content="100002490760020" />
     <%= yield :head %>
 
     <!--[if IE]>
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
-    <meta property="fb:page_id" content="157293541026960" />
-    <meta property="fb:admins" content="100002490760020"/>
     <%= render "shared/metrics/google/google_analytics" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
     <%= render "shared/metrics/vwo/tracking_code" %>
@@ -41,11 +41,12 @@
   </div>
 
   <%= yield :site_footer %>
-
+  <%= render "shared/metrics/adroll/adroll" %>
   <%= javascript_include_tag "application" %>
   <%= render_google_remessaging_scripts %>
   <% if content_for? :footer %>
     <%= yield :footer %>
   <% end %>
+
 </body>
 </html>

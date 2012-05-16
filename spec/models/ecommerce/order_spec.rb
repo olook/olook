@@ -397,12 +397,19 @@ describe Order do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
         subject.waiting_payment
       end
+
+      it "updates order purchased_at with the current time" do
+        time = DateTime.new(2012,5,10,23,59,59)
+        Time.stub(:now).and_return(time)
+        subject.should_receive(:update_attribute).with(:purchased_at, time)
+        subject.waiting_payment
+      end
     end
 
     context "when the order is authorized" do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
         subject.waiting_payment
         subject.authorized
       end
