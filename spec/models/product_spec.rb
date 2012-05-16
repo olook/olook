@@ -208,6 +208,11 @@ describe Product do
         subject.retail_price
       end
 
+      it "#discount_percent" do
+        subject.master_variant.should_receive(:discount_percent)
+        subject.discount_percent
+      end
+
       it "#width" do
         subject.master_variant.should_receive(:width)
         subject.width
@@ -238,6 +243,11 @@ describe Product do
       it "#retail_price=" do
         subject.retail_price = 99.0
         subject.master_variant.retail_price.should == 99.0
+      end
+      
+      it "#discount_percent=" do
+        subject.discount_percent = 99.0
+        subject.master_variant.discount_percent.should == 99.0
       end
 
       it "#width=" do
