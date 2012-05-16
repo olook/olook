@@ -430,5 +430,8 @@ describe Product do
       subject.subcategory.should == "Pulseira"
     end
   end
-
+  
+  pending "promotion?" do
+  end
+  
 end
