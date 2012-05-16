@@ -4,7 +4,7 @@ class Catalog::Catalog < ActiveRecord::Base
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
 
   def subcategories(category)
-    products.where(category_id: category).group(:subcategory_name).order("subcategory_name asc").map { |p| p.subcategory_name }
+    products.where(category_id: category).group(:subcategory_name).order("subcategory_name asc").map { |p| p.subcategory_name }.compact
   end
 
   def shoe_sizes
