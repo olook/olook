@@ -16,8 +16,8 @@ module Catalogs
     end
 
     def destroy
-      catalogs = Catalog::Product.where(:product_id => @product.id).group(:catalog_id).map{|cp| cp.catalog.moment}
-      (catalogs - @moments).each do |moment|
+      moments = Catalog::Product.where(:product_id => @product.id).group(:catalog_id).map{|cp| cp.catalog.moment}
+      (moments - @moments).each do |moment|
         ct_product_service = CatalogProductService.new moment.catalog, @product, @options
         ct_product_service.destroy
       end
