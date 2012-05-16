@@ -10,7 +10,10 @@ class HomeController < ApplicationController
     end
     incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
     session[:tracking_params] ||= incoming_params
-    redirect_to member_showroom_path(incoming_params) if user_signed_in?
+    if user_signed_in?
+      redirect_to member_showroom_path(incoming_params)
+      flash[:notice] = flash[:notice]
+    end
   end
 
 end
