@@ -12,11 +12,11 @@
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGO<br />TADO</p>
-      <% unless product.sold_out? || product.discount_percent.to_i == 0 %>
-        <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
-      <% end %>
       <% if current_user %>
         <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></span></p>
+      <% end %>
+      <% unless product.sold_out? || product.discount_percent.to_i == 0 %>
+        <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
     <% end %>
     <div class="line">
