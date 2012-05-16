@@ -8,7 +8,7 @@ feature "Liquidation", %q{
   I want to see the liquidation products
   } do
 
-  let!(:user) { Factory.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
   let(:basic_shoe_size_35) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:liquidation) { FactoryGirl.create(:liquidation) }
 

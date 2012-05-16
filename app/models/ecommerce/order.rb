@@ -25,6 +25,8 @@ class Order < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
   delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
@@ -134,10 +136,11 @@ class Order < ActiveRecord::Base
 
   def confirm_payment
     order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
-    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+    Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
 
   def insert_order
+    self.update_attribute(:purchased_at, Time.now)
     order_events.create(:message => "Enqueue Abacos::InsertOrder")
     Resque.enqueue(Abacos::InsertOrder, self.number)
   end

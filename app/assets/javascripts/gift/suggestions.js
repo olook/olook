@@ -1,4 +1,6 @@
 $(function() {
+  initSuggestion.disableDefaultProducts();
+
   $('#close_quick_view, div.overlay, a.add_product_to_suggestions').live("click", function() {
     $('#quick_view').fadeOut(300);
     $("div.overlay").remove();
@@ -28,9 +30,61 @@ $(function() {
     $(hoverBox).find("li.spy a").attr("href", spyLink.replace(/\d+$/, productId));
     $(hoverBox).find("li.add a").attr("href", addLink.replace(/\d+$/, productId));
   });
+
+  $("div.product_container ul li.product a.delete").live("click", function(e) {
+    e.preventDefault();
+    if($("section#suggestions_container").is(":hidden")) {
+      $("section#suggestions_container").slideDown();
+    }
+    productContainer = $(this).parents("div.product_container");
+    nextContainer = $(productContainer).next();
+    productId = $(this).parent().find("input[type='hidden']").val();
+
+    initSuggestion.unblockProduct(productId);
+    $(this).parent("li.product").fadeOut("normal", function() {
+      $(productContainer).find("ul").html("");
+    });
+
+    initSuggestion.checkProductOnContainer(nextContainer);
+  });
 });
 
 initSuggestion = {
+  disableDefaultProducts : function() {
+    $("div.product_container").each(function() {
+      id = $(this).find("ul li input[type='hidden']").val();
+      $("a.add_suggestion_"+id).parent().hide();
+    });
+  },
+
+  unblockProduct : function(id) {
+    $("a.add_suggestion_"+id).parent().show();
+  },
+
+  checkProductOnContainer : function(container) {
+    if($(container).find("ul").html() != "") {
+      initSuggestion.repositionProduct(container);
+    } else {
+      return false;
+    }
+  },
+
+  repositionProduct : function(container) {
+    nextContainer = $(container).next();
+    $(container).find("ul").find("li.product").fadeOut("normal", function() {
+      $(this).parent().html("");
+
+      productId = $(this).find("input[type='hidden']").val();
+      $.ajax({
+        type: "GET",
+        dataType: 'script',
+        url: window.location.pathname + "/select_gift/" + productId
+      }).done(function(data) {
+        initSuggestion.checkProductOnContainer(nextContainer);
+      });
+    });
+  },
+
   clearSuggestions : function() {
     $("section#products div.product_container ul").fadeOut("normal", function() {
       $(this).html("");

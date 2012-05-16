@@ -8,7 +8,7 @@
     </div>
   <% end %>
   <div class="box_product <%= ( current_user ) ? quantity_status(product, current_user) : '' %>">
-    <%= link_to product, :class => "product_link" do %>
+    <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGO<br />TADO</p>
@@ -41,6 +41,9 @@
       </ol>
     </div>
     <div class="line">
+      <div class="like_mask">
+        <div class="fb-like" data-href="<%= @url %>/produto/<%= product.id %>" data-send="false" data-layout="button_count" data-width="65" data-show-faces="false"></div>
+      </div>
       <span><%= number_to_currency product.price %></span>
     </div>
   </div>

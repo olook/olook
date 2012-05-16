@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
   UNAVAILABLE_ITEMS = :unavailable_items
-  has_paper_trail :skip => [:pictures_attributes, :color_sample]
+  # TODO: Temporarily disabling paper_trail for app analysis
+  #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   has_enumeration_for :category, :with => Category, :required => true
 

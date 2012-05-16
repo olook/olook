@@ -22,7 +22,7 @@ feature "User Authenticate", %q{
 
   before :each do
     FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
     User.any_instance.stub(:counts_and_write_points)
     Resque.stub(:enqueue)
   end

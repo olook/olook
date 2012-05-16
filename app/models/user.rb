@@ -185,6 +185,16 @@ class User < ActiveRecord::Base
     birthday.strftime("%d/%m/%Y") if birthday
   end
 
+  def age
+    return @age if @age
+    if birthday
+      today = Date.today
+      age = today.year - birthday.year
+      age -= 1 if(today.yday < birthday.yday)
+      @age = age
+    end
+  end
+
   def is_new?
     (self.created_at + 24.hours) > DateTime.now
   end

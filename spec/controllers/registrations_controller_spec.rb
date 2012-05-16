@@ -179,7 +179,7 @@ describe RegistrationsController do
      session[:invite] = {:intive_token => Devise.friendly_token}
      session["devise.facebook_data"] = facebook_data
      User.any_instance.stub(:accept_invitation_with_token)
-     User.stub(:new_with_session).and_return(Factory.build(:user, :cpf => "11144477735"))
+     User.stub(:new_with_session).and_return(FactoryGirl.build(:user, :cpf => "11144477735"))
      post :create, :user => user_attributes.merge!({:cpf => "11144477735"})
      [:profile_points, :questions, :invite, "devise.facebook_data", :tracking_params].each {|key| session[key].should == nil}
     end
