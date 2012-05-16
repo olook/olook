@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe Catalogs::MomentStrategy do
   let(:basic_bag) do
-    product = (Factory.create :bag_subcategory_name).product
+    product = (FactoryGirl.create :bag_subcategory_name).product
     product.master_variant.price = 100.00
     product.master_variant.save!
 
-    Factory.create :basic_bag_simple, :product => product
+    FactoryGirl.create :basic_bag_simple, :product => product
 
     product
   end
 
-  let(:moment1) { Factory.create :moments }
-  let(:moment2) { Factory.create :moments }
-  let(:moment3) { Factory.create :moments }
+  let(:moment1) { FactoryGirl.create :moments }
+  let(:moment2) { FactoryGirl.create :moments }
+  let(:moment3) { FactoryGirl.create :moments }
 
   describe "save product in catalog" do
     it "should insert without moments" do
@@ -51,11 +51,19 @@ describe Catalogs::MomentStrategy do
 
   end
 
-  it "should see and destroy" do
-    moment_strategy = Catalogs::MomentStrategy.new(basic_bag)
-    moment_strategy.should_receive(:save)
-    moment_strategy.should_receive(:destroy)
-    moment_strategy.seek_and_destroy!
+  describe "seek and destroy" do
+    it "should create a new row in the database" do
+      moment_strategy = Catalogs::MomentStrategy.new(basic_bag, :moments => [moment1])
+      expect {
+      moment_strategy.seek_and_destroy!}.to change{moment1.catalog.products.count}.by(1)
+    end
+
+    it "should call the right methods" do
+      moment_strategy = Catalogs::MomentStrategy.new(basic_bag)
+      moment_strategy.should_receive(:save)
+      moment_strategy.should_receive(:destroy)
+      moment_strategy.seek_and_destroy!
+    end
   end
 end
 
