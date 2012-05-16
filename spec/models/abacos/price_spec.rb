@@ -16,12 +16,17 @@ describe Abacos::Price do
 
     it 'should update the variant price and integrate it' do
       mock_variant = mock_model(::Variant)
+      mock_product = mock_model(::Product)
       mock_variant.should_receive(:'price=').with(subject.price)
       mock_variant.should_receive(:'retail_price=').with(subject.retail_price)
-      mock_variant.should_receive(:'save!')
+      mock_variant.should_receive(:'save!').and_return(true)
+      mock_variant.stub(:product).and_return(mock_product)
+      
       ::Variant.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
 
       Abacos::ProductAPI.should_receive(:confirm_price).with(subject.integration_protocol)
+      
+      CatalogService.should_receive(:save_product).with(mock_product, :update_price => true)
       
       subject.integrate
     end
