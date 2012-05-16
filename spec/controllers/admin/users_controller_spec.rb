@@ -136,17 +136,18 @@ describe Admin::UsersController do
   end
 
   describe "POST create_credit_transaction" do
+
     let(:transaction_param) { {:id => user.id.to_s, :value => "10", :operation => "add_credit:Presente"} }
-    it "should create a credit transaction with specified value and reason" do
+
+    it "should create a credit transaction, given value, valid operation and reason" do
       User.stub(:find).with(transaction_param[:id]).and_return(user)
       operation = transaction_param[:operation].split(":")
       AdminCreditService.should_receive(:new).with(@admin).and_return(admin_credit_service = mock)
       CreditService.should_receive(:new).with(admin_credit_service).and_return(credit_service = mock)
       credit_service.should_receive(:create_transaction).with(transaction_param[:value], operation[0], operation[1], user)
      # expect{  
-        post :create_credit_transaction, transaction_param
+      #  post :create_credit_transaction, transaction_param
       #}.to change(Credit, :count).by(1)
-      
     end
 
     it "should redirect to the user" do
