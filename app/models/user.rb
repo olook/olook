@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class User < ActiveRecord::Base  
+class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
-  
+
   delegate :shoes_size, :to => :user_info, :allow_nil => true
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
@@ -35,13 +35,13 @@ class User < ActiveRecord::Base
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
   validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}
-  
+
   FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"
   ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM].join(",")
-  
+
   Gender = {:female => 0, :male => 1}
-  
+
   def name
     "#{first_name} #{last_name}".strip
   end
@@ -50,12 +50,15 @@ class User < ActiveRecord::Base
     survey_answer.try(:answers)
   end
 
-  def set_facebook_data(omniauth, session)
+  def set_facebook_data(omniauth)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
-    if session[:facebook_scopes]
-      attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat session[:facebook_scopes].gsub(" ", "").split(",")).uniq)
-    end
+    attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat ALL_FACEBOOK_PERMISSIONS.gsub(" ", "").split(",")).uniq)
     update_attributes(attributes)
+  end
+
+  def remove_facebook_permissions!
+    self.facebook_permissions = []
+    self.save
   end
 
   def self.find_for_facebook_oauth(access_token)
@@ -92,7 +95,7 @@ class User < ActiveRecord::Base
   def has_facebook?
     self.uid.present?
   end
-  
+
   def has_facebook_friends_birthday?
     has_facebook? && self.facebook_permissions.include?(FACEBOOK_FRIENDS_BIRTHDAY)
   end

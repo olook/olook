@@ -54,7 +54,7 @@ class FriendsController < ApplicationController
   private
 
   def facebook_api_error
-    session[:facebook_scopes] = "publish_stream"
+    current_user.remove_facebook_permissions!
     respond_to do |format|
       format.html { redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure")) }
       format.js { head :error }
