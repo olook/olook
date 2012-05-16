@@ -97,6 +97,8 @@ class Product < ActiveRecord::Base
   delegate :'length=', to: :master_variant
   delegate :weight, to: :master_variant
   delegate :'weight=', to: :master_variant
+  delegate :discount_percent, to: :master_variant
+  delegate :'discount_percent=', to: :master_variant
 
   def main_picture
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
@@ -162,10 +164,6 @@ class Product < ActiveRecord::Base
 
   def gift_price(position = 0)
     GiftDiscountService.price_for_product(self,position)
-  end
-
-  def liquidation_discount_percent
-    LiquidationProductService.discount_percent(self)
   end
 
   def product_url(options = {})

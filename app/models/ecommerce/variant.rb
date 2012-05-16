@@ -93,6 +93,17 @@ class Variant < ActiveRecord::Base
       retail_price_logic
     end
   end
+  
+  def discount_percent
+    discount = if liquidation?
+       LiquidationProductService.discount_percent(self)
+    else
+      read_attribute(:discount_percent)
+    end
+    
+    return 0 if (discount.blank? || discount.zero?)
+    return discount
+  end
 
   private
 

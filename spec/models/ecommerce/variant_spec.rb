@@ -264,4 +264,42 @@ describe Variant do
       subject.retail_price.should == 123.45
     end
   end
+  
+  describe "#discount_percent" do
+    it "should return 0 when has no retail_price" do
+      variant = Variant.new
+      variant.stub(:liquidation?).and_return(false)
+      variant.discount_percent.should == 0
+    end
+
+    it "should return the discount_percent when has retail_price" do
+      subject.retail_price = 99.99
+      subject.save!
+      subject.discount_percent.should == 19
+    end
+
+    it "should return the discount_percent for a liquidation" do
+      subject.stub(:liquidation?).and_return(true)
+      LiquidationProductService.stub(:discount_percent).with(subject).and_return(20)
+      subject.discount_percent.should == 20
+    end
+
+    it "should return 0 when discount_percent for a liquidation is nil" do
+      subject.stub(:liquidation?).and_return(true)
+      LiquidationProductService.stub(:discount_percent).with(subject).and_return(nil)
+      subject.discount_percent.should == 0
+    end
+
+    it "should return 0 when the retail_price price is 0" do
+      subject.retail_price = 0
+      subject.save!
+      subject.discount_percent.should == 0
+    end
+
+    it "should return 0 when the retail_price is nil" do
+      subject.retail_price = nil
+      subject.save!
+      subject.discount_percent.should == 0
+    end
+  end
 end
