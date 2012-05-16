@@ -3,7 +3,7 @@
     <% moments.each do |moment| %>
       <li>
         <%= link_to moment_path(moment), :class => moment.id == @moment.id ? "selected" : nil do %>
-          <span>Para <%= moment.article %></span>
+          <span><%= moment.article %></span>
           <%= moment.name %>
         <% end %>
       </li>

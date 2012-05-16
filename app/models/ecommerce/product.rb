@@ -214,7 +214,7 @@ class Product < ActiveRecord::Base
   end
 
   def shoe?
-    self.category == Category::SHOE
+    self.category == ::Category::SHOE
   end
 
 private
