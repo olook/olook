@@ -9,12 +9,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
-  rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def current_liquidation
     LiquidationService.active
   end
-  
+
   def facebook_redirect_paths
     {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
   end
@@ -40,24 +39,19 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def facebook_api_error
-    session[:facebook_scopes] = "publish_stream"
-    head :error
-  end
-
   def contact_authentication_failed
     flash[:notice] = "Falha de autenticação na importação de contatos"
     redirect_to :back
   end
 
   protected
-  
+
   def redirect_if_half_user
     if current_user.half_user
-      redirect_to lookbooks_path 
+      redirect_to lookbooks_path
     end
   end
-  
+
   # TODO: Temporarily disabling paper_trail for app analysis
   #def user_for_paper_trail
    # user_signed_in? ? current_user : current_admin

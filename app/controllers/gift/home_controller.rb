@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Gift::HomeController < Gift::BaseController
   before_filter :load_user, :check_facebook_permissions, :load_facebook_adapter, :load_friends
+  rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def index
   end
@@ -29,6 +30,15 @@ class Gift::HomeController < Gift::BaseController
 
   def load_friends
     @friends = @facebook_adapter.facebook_friends_with_birthday(current_month) if @facebook_adapter
+  end
+
+  private
+
+  def facebook_api_error
+    respond_to do |format|
+      format.html { redirect_to(gift_root_path, :alert => I18n.t("facebook.connect_failure")) }
+      format.js { head :error }
+    end
   end
 
 end

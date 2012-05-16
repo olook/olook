@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 describe Gift::HomeController do
-  
+
   let(:user) { FactoryGirl.create :user }
   let(:facebook_scopes) { "friends_birthday,publish_stream" }
-  
+
   describe "GET 'index'" do
     it "returns http success" do
       sign_in user
@@ -13,13 +13,12 @@ describe Gift::HomeController do
       response.should be_success
     end
   end
-  
+
   describe "facebook connect" do
-    it "should set session to request friends birthday and publish stream" do
-      session[:facebook_scopes] = nil
-      User.any_instance.stub(:can_access_facebook_extended_features?).and_return(false)
+    it "should set session to redirect after facebook connect" do
+      session[:facebook_redirect_paths] = nil
       get :index
-      session[:facebook_scopes].should == facebook_scopes
+      session[:facebook_redirect_paths].should == "gift"
     end
   end
 
