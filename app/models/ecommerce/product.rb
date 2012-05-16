@@ -155,11 +155,11 @@ class Product < ActiveRecord::Base
 
   def liquidation?
     active_liquidation = LiquidationService.active
-    active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
+     active_liquidation.has_product?(self) if active_liquidation
   end
 
   def promotion?
-    price > catalog_products.last.retail_price
+    price != retail_price
   end
 
   def gift_price(position = 0)

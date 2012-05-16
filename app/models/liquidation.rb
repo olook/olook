@@ -18,4 +18,9 @@ class Liquidation < ActiveRecord::Base
       false
     end
   end
+  
+  def has_product?(product)
+    return false unless resume.respond_to?(:fetch)
+    resume.fetch(:products_ids, []).include?(product.id)
+  end
 end

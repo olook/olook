@@ -250,6 +250,8 @@ describe CatalogProductService do
       end
     end
   end
+  
+  pending "read retail_price and discount_percent from product"
 
   describe "destroy" do
     it "should destroy a bag" do
