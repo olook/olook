@@ -473,6 +473,42 @@ describe User do
       end
     end
 
+    describe "#age" do
+      context "when user birthday is not defined" do
+        it "returns nil" do
+          subject.stub(:age).and_return(nil)
+          subject.age.should be_nil
+        end
+      end
+
+      context "when user birthday is defined and today is 2013-07-13" do
+        before do
+          Date.should_receive(:today).and_return(Date.new(2013,7,13))
+        end
+
+        context "and user birthday is 1983-07-18" do
+          it "returns 29" do
+            subject.stub(:birthday).and_return(Date.new(1983,7,18))
+            subject.age.should == 29
+          end
+        end
+
+        context "and user birthday is 1983-07-13" do
+          it "returns 30" do
+            subject.stub(:birthday).and_return(Date.new(1983,7,13))
+            subject.age.should == 30
+          end
+        end
+
+        context "and user birthday is 2013-10-13" do
+          it "returns 30" do
+            subject.stub(:birthday).and_return(Date.new(1983,5,13))
+            subject.age.should == 30
+          end
+        end
+      end
+    end
+
     describe "#profile_name" do
       it "returns english profile symbol name" do
         subject.profile_name.should == :sporty

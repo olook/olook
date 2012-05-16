@@ -108,6 +108,7 @@ Olook::Application.routes.draw do
     resources :recipients do
       resources :suggestions, :only => [:index]
       get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
+      post "suggestions/select_gift/" => "suggestions#select_gift"
       member do
         get :edit
         put :edit
