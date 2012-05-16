@@ -161,7 +161,7 @@
         str: '1'
         attributes: {}
       :descricao: !str
-        str: Forro Cacharrel Natural
+        str: '1'
         attributes: {}
     - :codigo_interno: !str
         str: '84'
