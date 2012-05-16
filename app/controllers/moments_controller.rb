@@ -11,7 +11,6 @@ class MomentsController < ApplicationController
   end
 
   def show
-    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     if current_moment.catalog.products.nil?
       flash[:notice] = "O momento não possui produtos"
       redirect_to member_showroom_path
