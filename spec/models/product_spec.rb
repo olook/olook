@@ -431,7 +431,18 @@ describe Product do
     end
   end
   
-  pending "promotion?" do
+  describe "#promotion?" do
+    it "return false when price is same of retail price" do
+      subject.stub(:price => 123.45)
+      subject.stub(:retail_price => 123.45)
+      subject.promotion?.should be_false
+    end
+    
+    it "return true when price has difference of retail price" do
+      subject.stub(:price => 123.45)
+      subject.stub(:retail_price => 100.45)
+      subject.promotion?.should be_true
+    end
   end
   
 end

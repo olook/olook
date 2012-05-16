@@ -16,15 +16,27 @@ class CatalogProductService
     end
   end
 
-  def retail_price
-    (@product.price * (100 - @options[:discount_percentage].to_f)) / 100
-  end
-
   def destroy
     @catalog.products.where(:product_id => @product.id).delete_all
   end
 
   private
+  def retail_price
+    if @options[:discount_percentage] > 0
+      (@product.price * (100 - @options[:discount_percentage].to_f)) / 100
+    else
+      @product.retail_price
+    end
+  end
+
+  def discount_percentage
+    if @options[:discount_percentage] > 0
+      @options[:discount_percentage]
+    else
+      @product.discount_percent
+    end
+  end
+
   def default_params
     last_variant = @product.variants.last
 
@@ -36,7 +48,7 @@ class CatalogProductService
       :subcategory_name_label => @product.subcategory_name,
       :original_price => @product.price,
       :retail_price => retail_price,
-      :discount_percent => @options[:discount_percentage],
+      :discount_percent => discount_percentage,
       :variant_id => (last_variant.id if last_variant),
       :inventory => (last_variant.inventory if last_variant)
     }

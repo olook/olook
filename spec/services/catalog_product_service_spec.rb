@@ -16,8 +16,19 @@ describe CatalogProductService do
     product
   end
 
-  let(:basic_shoes) do
+  let(:basic_bag_with_discount) do
+    product = (FactoryGirl.create :bag_subcategory_name).product
+    product.master_variant.price = 100.00
+    product.master_variant.retail_price = 85.00
+    product.master_variant.save!
 
+    FactoryGirl.create :basic_bag_simple, :product => product
+
+    product
+  end
+
+
+  let(:basic_shoes) do
     product = (FactoryGirl.create :shoe_subcategory_name).product
 
     FactoryGirl.create :shoe_heel, :product => product
@@ -29,15 +40,9 @@ describe CatalogProductService do
 
     product
   end
-
-  it "should calculate the retail price based on the discount percent" do
-    product = mock Product
-    product.stub(:price).and_return 100.90
-    CatalogProductService.new(catalog, product, :discount_percentage => 50).retail_price.should == BigDecimal("50.45")
-  end
-
+  
   describe "insert a product" do
-    it "should insert without discount for bag product" do
+    it "should insert bag without any discount" do
       expect {
          ct_product = CatalogProductService.new(catalog, basic_bag).save!
 
@@ -58,7 +63,28 @@ describe CatalogProductService do
       }.to change(catalog.products, :count).by(1)
     end
 
-    it "should insert with discount" do
+    it "should insert bag with discount by master_variant" do
+      expect {
+         ct_product = CatalogProductService.new(catalog, basic_bag_with_discount).save!
+
+         ct_product.catalog_id.should         eq catalog.id
+         ct_product.product_id.should         eq basic_bag_with_discount.id
+         ct_product.category_id.should        eq basic_bag_with_discount.category
+         ct_product.subcategory_name.should   eq "bolsa-azul"
+         ct_product.original_price.should     eq 100.0
+         ct_product.retail_price.should       eq 85.0
+         ct_product.discount_percent.should   eq 15
+         ct_product.shoe_size.should          be_nil
+         ct_product.heel.should               be_nil
+         ct_product.variant_id.should         eq basic_bag_with_discount.variants.first.id
+         ct_product.inventory.should          eq 10
+         ct_product.shoe_size_label.should    be_nil
+         ct_product.heel_label.should         be_nil
+         ct_product.subcategory_name_label.should eq "Bolsa Azul"
+      }.to change(catalog.products, :count).by(1)
+    end
+    
+    it "should insert bag with discount by service" do
       expect {
          ct_product = CatalogProductService.new(catalog, basic_bag, :discount_percentage => 50).save!
 
@@ -251,8 +277,6 @@ describe CatalogProductService do
     end
   end
   
-  pending "read retail_price and discount_percent from product"
-
   describe "destroy" do
     it "should destroy a bag" do
       ct_product = CatalogProductService.new(catalog, basic_bag)
