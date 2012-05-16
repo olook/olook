@@ -17,6 +17,7 @@ describe Abacos::VariantPrice do
     it 'should update the variant price and integrate it' do
       mock_variant = mock_model(::Variant)
       mock_variant.should_receive(:'price=').with(subject.price)
+      mock_variant.should_receive(:'retail_price=').with(subject.retail_price)
       mock_variant.should_receive(:'save!')
       ::Variant.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
 
@@ -44,6 +45,9 @@ describe Abacos::VariantPrice do
     end
     it '#price' do
       subject.price.should == 69.9
+    end
+    it '#retail_price' do
+      subject.retail_price.should == 0.0
     end
   end
 end

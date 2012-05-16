@@ -18,6 +18,7 @@ describe Abacos::ProductPrice do
     it 'should update the product price and integrate it' do
       mock_product = mock_model(::Product)
       mock_product.should_receive(:'price=').with(subject.price)
+      mock_product.should_receive(:'retail_price=').with(subject.retail_price)
       mock_product.should_receive(:'save!')
       ::Product.should_receive(:find_by_model_number).with(subject.model_number).and_return(mock_product)
 
@@ -45,6 +46,9 @@ describe Abacos::ProductPrice do
     end
     it '#price' do
       subject.price.should == 69.9
+    end
+    it '#retail_price' do
+      subject.retail_price.should == 0.0
     end
   end
 end
