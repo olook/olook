@@ -13,7 +13,7 @@ class MomentsController < ApplicationController
   def show
     if current_moment.catalog.products.nil?
       flash[:notice] = "O momento não possui produtos"
-      redirect_to member_showroom_path 
+      redirect_to member_showroom_path
     else
       respond_with @catalog_products
     end
@@ -29,7 +29,12 @@ class MomentsController < ApplicationController
     @moments = Moment.active.order(:position)
     @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.first
 
-    @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
+    if @moment
+      @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
+    else
+      redirect_to root_path
+      flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
+    end
   end
 
 end
