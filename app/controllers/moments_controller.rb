@@ -7,7 +7,7 @@ class MomentsController < ApplicationController
   before_filter :load_catalog_products
 
   def index
-    respond_with @catalog_products
+    render :show, id: @moment.id
   end
 
   def show
