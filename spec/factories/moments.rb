@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :moment do
     name "dia-a-dia"
     slug "dia-a-dia"
-    article "a"
+    article "Para a"
     position 1
     active true
   end
@@ -16,7 +16,7 @@ FactoryGirl.define do
       "moment#{n}"
     end
     active true
-    article "a"
+    article "Para a"
     position 2
   end
 end
