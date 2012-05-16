@@ -156,6 +156,9 @@ section#stylist {
             top: 55px;
             right: 15px;
             width: 305px;
+            span {
+              text-transform: uppercase;
+            }
           }
           div.product1 {
             position: absolute;
