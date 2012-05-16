@@ -4,6 +4,7 @@ require "spec_helper"
 describe Abacos::ProductPrice do
   let(:downloaded_price) { load_abacos_fixture :product_price }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_price }
+
   subject { described_class.new parsed_data }
   
   describe '#integrate' do
@@ -17,8 +18,10 @@ describe Abacos::ProductPrice do
     it 'should update the product price and integrate it' do
       mock_product = mock_model(::Product)
       mock_product.should_receive(:'price=').with(subject.price)
-      mock_product.should_receive(:'save!')
+      mock_product.should_receive(:'retail_price=').with(subject.retail_price)
+      mock_product.should_receive(:'save!').and_return(true)
       ::Product.should_receive(:find_by_model_number).with(subject.model_number).and_return(mock_product)
+      CatalogService.should_receive(:save_product).with(mock_product, :update_price => true)
 
       subject.should_receive(:confirm_price)
       
@@ -44,6 +47,9 @@ describe Abacos::ProductPrice do
     end
     it '#price' do
       subject.price.should == 69.9
+    end
+    it '#retail_price' do
+      subject.retail_price.should == 0.0
     end
   end
 end

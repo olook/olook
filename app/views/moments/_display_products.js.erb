@@ -1,0 +1,34 @@
+window.products = [];
+
+$("#products li").each(function(index, element){
+  products.push(element.id)
+});
+
+var new_products = [];
+
+<% @catalog_products.each do |cp| %>
+new_products.push("<%= cp.product_id %>");
+<% end %>
+
+$.each(new_products, function(index, product){
+  if($.inArray(product, products) != -1){
+    $("#"+product).remove();
+  }
+});
+
+<% if @catalog_products.any? %>
+  $('#products').append('<%= j render "products", :catalog_products => @catalog_products %>');
+<% else %>
+  $("#products").html("Nenhum produto encontrado");
+<% end %>
+
+$(".loading").hide();
+$('#moment_filter').find("input[type='checkbox']").removeAttr("disabled");
+
+<% if @catalog_products.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@catalog_products) %>');
+<% else %>
+  $('.pagination').html("");
+<% end %>
+
+<% sleep 1 %>

@@ -1,0 +1,28 @@
+<li class="product <%= " promotion" if product.promotion? %>">
+  <% if defined? suggestion %>
+    <div class="hover_suggestive">
+      <ul>
+        <li class="spy"><%= link_to "Espiar", product_path(product), :rel => "#{product.id}", :remote => true %></li>
+        <li class="add"><%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}", :class => "add_suggestion_#{product.id}" %></li>
+      </ul>
+    </div>
+  <% end %>
+  <div class="box_product <%= ( current_user ) ? quantity_status(product, current_user) : '' %>">
+    <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
+      <h1><%= product.name %></h1>
+      <p class="warn sold_out">ESGO<br />TADO</p>
+      <% if current_user %>
+        <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></span></p>
+      <% end %>
+    <% end %>
+    <div class="line">
+      <% if product.promotion? %>
+        <span class="old">de: <%= number_to_currency product.price %></span>
+        <span>por: <%= number_to_currency product.retail_price %></span>
+      <% else %>
+        <span><%= number_to_currency product.price %></span>
+      <% end %>
+    </div>
+  </div>
+</li>

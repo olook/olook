@@ -3,10 +3,10 @@ class Variant < ActiveRecord::Base
 
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail
-  
+
   default_scope where(:is_master => false)
 
-  before_save :fill_is_master
+  before_save :fill_is_master, :calculate_discount_percent
   after_save :replicate_master_changes, :if => :is_master
   after_update :update_liquidation_products_inventory
 
@@ -31,7 +31,6 @@ class Variant < ActiveRecord::Base
   delegate :main_picture, :to => :product
   delegate :thumb_picture, :to => :product
   delegate :showroom_picture, :to => :product
-  delegate :retail_price, :to => :product
   delegate :liquidation?, :to => :product
   delegate :gift_price, :to => :product
 
@@ -82,8 +81,44 @@ class Variant < ActiveRecord::Base
       child_variant.save!
     end
   end
-  
+
   def update_liquidation_products_inventory
-    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory) 
+    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory)
+  end
+
+  def retail_price
+    if liquidation?
+      LiquidationProductService.retail_price(self)
+    else
+      retail_price_logic
+    end
+  end
+  
+  def discount_percent
+    discount = if liquidation?
+       LiquidationProductService.discount_percent(self)
+    else
+      read_attribute(:discount_percent)
+    end
+    
+    return 0 if (discount.blank? || discount.zero?)
+    return discount
+  end
+
+  private
+
+  def retail_price_logic
+    rp = self.read_attribute(:retail_price)
+    return self.price if (rp.blank? || rp.zero?)
+    return rp
+  end
+
+  def calculate_discount_percent
+    return unless self.retail_price.respond_to? :>
+    return unless self.price.respond_to? :>
+    if self.retail_price > 0 && self.price > 0
+      percent = ((self.retail_price * 100) / self.price).round
+      self.discount_percent = 100 - percent
+    end
   end
 end
