@@ -28,23 +28,22 @@ class Credit < ActiveRecord::Base
     end
   end
 
-  # TO DO Needs refactor 
-  def self.remove(amount, user, order, source, reason)
+  def self.remove(amount, user, order)
     if user.current_credit >= amount
       updated_total = user.current_credit - amount
-      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => source, 
-                          :reason => reason, :is_debit => true)
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_debit", 
+      :reason => "Order #{self.number} received")
     else
       false
     end
   end
 
-  # TO DO Needs refactor
-  def self.add(amount, user, order, source, reason)
+  def self.add(amount, user, order)
     if user.has_not_exceeded_credit_limit?(INVITE_BONUS)
       updated_total = user.current_credit + amount
-      user.credits.create!(:value => amount, :total => updated_total, :order => order, 
-        :source => source, :reason => reason)
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit",
+      :reason => "Order #{self.number} canceled")
     end
   end
+
 end
