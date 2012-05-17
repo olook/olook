@@ -32,7 +32,7 @@ class Credit < ActiveRecord::Base
     if user.current_credit >= amount
       updated_total = user.current_credit - amount
       user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_debit", 
-      :reason => "Order #{self.number} received")
+      :reason => "Order #{order.number} received", :is_debit => true)
     else
       false
     end
@@ -42,7 +42,7 @@ class Credit < ActiveRecord::Base
     if user.has_not_exceeded_credit_limit?(INVITE_BONUS)
       updated_total = user.current_credit + amount
       user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit",
-      :reason => "Order #{self.number} canceled")
+      :reason => "Order #{order.number} canceled")
     end
   end
 
