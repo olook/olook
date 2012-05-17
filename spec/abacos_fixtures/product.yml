@@ -485,8 +485,14 @@
       attributes: {}
   :rows:
     :dados_categorias_do_site:
-      :codigo_categoria: !str
+    - :codigo_categoria: !str
+        str: '1'
+        attributes: {}
+      :codigo_categoria_pai: !str
         str: '0'
+        attributes: {}
+    - :codigo_categoria: !str
+        str: '2'
         attributes: {}
       :codigo_categoria_pai: !str
         str: '0'
