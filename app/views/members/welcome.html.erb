@@ -20,7 +20,7 @@
 
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
-
+<%= render "shared/metrics/boobox/members" %>
 <section id="welcome">
   <% if @banner %>
     <div class="banner">

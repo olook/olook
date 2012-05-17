@@ -1,0 +1,60 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
+  <%= stylesheet_link_tag "section/suggestions" %>
+  <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift/suggestions" %>
+  <%= javascript_include_tag "product_view" %>
+<% end %>
+
+<% content_for :full do %>
+  <div class="full_bg">
+    <div class="content" id="suggestion">
+      <div id="card">
+        <%= render "card" %>
+      </div>
+      <div id="profile">
+        <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
+        <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %>
+      </div>
+      <%= form_tag "/sacola/add_products_to_gift_cart" do %>
+        <section id="products">
+          <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
+          <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
+          <div class="product_container first">
+            <ul>
+              <%= render "shared/suggestive_product", :position => 0, :product => @suggested_products[0] %>
+            </ul>
+          </div>
+          <div class="product_container second">
+            <ul>
+              <%= render "shared/suggestive_product", :position => 1, :product => @suggested_products[1] %>
+            </ul>
+          </div>
+          <div class="product_container third">
+            <ul>
+              <%= render "shared/suggestive_product", :position => 2, :product => @suggested_products[2] %>
+            </ul>
+          </div>
+        </section>
+        <ul class="product_actions">
+          <li><%= link_to "Quero escolher outros produtos", "#", :class => "more_suggestions" %></li>
+          <li><%= submit_tag "Adicionar presente(s) à sacola" %></li>
+        </uL>
+      <% end %>
+      <section id="suggestions_container">
+        <h1>Outras sugestões</h1>
+        <ul>
+          <% @products.each do |product| %>
+            <%= render "shared/showroom_product_item", :product => product, :suggestion => true %>
+          <% end %>
+        </ul>
+      </section>
+    </div>
+  </div>
+<% end %>
+
+<div id="quick_view">
+</div>

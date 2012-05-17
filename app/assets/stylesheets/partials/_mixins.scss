@@ -119,3 +119,9 @@ $pink: #D95485;
     @extend .sign-in-dropdown;
   }
 }
+
+@mixin border-radius($size) {
+  -webkit-border-radius: $size;
+  -moz-border-radius: $size;
+  border-radius: $size;
+}

@@ -8,7 +8,9 @@ role :app, "q1.olook.com.br", "q2.olook.com.br"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, 'master'
+if not variables.include?(:branch)
+  set :branch, 'master'
+end
 
 # tasks
 namespace :deploy do
@@ -22,12 +24,16 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    # run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    run "cd #{path_app} && #{bundle} install"    
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
+    # run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:precompile #{rails_env}"
   end
 
   desc 'Create symlinks'

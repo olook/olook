@@ -1,0 +1,590 @@
+header {
+  background: none;
+}
+
+body #tracker + p {
+  display: none;
+}
+
+div.full_container {
+  background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
+  padding: 0 0 27px 0;
+  div.shadow {
+    position: absolute;
+    background: url("/assets/gift/shadow-signed-out.png") top center no-repeat;
+    width: 1124px;
+    height: 26px;
+    display: block;
+    margin-left: -562px;
+    top: 0;
+    left: 50%;
+  }
+  div.full_bg {
+    background: url("/assets/gift/bg.jpg") repeat;
+    width: 100%;
+    overflow: hidden;
+  }
+  div.content {
+    font-family: "Open Sans", sans-serif;
+    &#banner {
+      background: url("/assets/gift/bg-header.jpg") top center no-repeat;
+      height: 485px;
+      h1 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 70px;
+        font-weight: 600;
+        letter-spacing: -7px;
+        line-height: 50px;
+        width: 455px;
+        margin: 40px 0 25px 0;
+      }
+      p {
+        color: #343434;
+        font-size: 14px;
+        letter-spacing: -1px;
+        line-height: 17px;
+        width: 410px;
+        margin: 0 0 20px 0;
+      }
+      img {
+        margin: 0 0 20px 0;
+      }
+      a {
+        color: #FFF;
+        font-family: "Open Sans", sans-serif;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: -1px;
+        display: block;
+        clear: both;
+        &#new_occasion_link {
+          background: url("/assets/gift/bt-start.jpg") no-repeat;
+          font-size: 20px;
+          text-align: center;
+          line-height: 43px;
+          width: 347px;
+          height: 46px;
+          margin: 0 0 10px 0;
+        }
+        &.facebook {
+          background: url("/assets/gift/bt-facebook.png") no-repeat;
+          font-size: 14px;
+          line-height: 41px;
+          width: 285px;
+          height: 41px;
+          padding: 0 0 0 50px;
+          &.disabled {
+            opacity: .5;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+            filter: alpha(opacity=50);
+          }
+        }
+      }
+    }
+    &#occasion {
+      form {
+        margin: 35px auto;
+        div, input[type="text"], select.custom_select {
+          font-family: "Open Sans", sans-serif;
+          font-size: 45px;
+          font-weight: lighter;
+          letter-spacing: -2px;
+        }
+        div.phrase_container {
+          color: #383838;
+          text-align: center;
+          width: 895px;
+          margin: 0 auto 20px auto;
+          p {
+            position: relative;
+            display: inline-block;
+            select.custom_select {
+              position: relative;
+              padding: 0 18px;
+              top: 0;
+              left: 0;
+            }
+            span.select {
+              position: absolute;
+              background: #FFF;
+              color: #e05789;
+              padding: 0 20px;
+              left: 0;
+              border: 1px #a4a4a4 dotted;
+              z-index: 0;
+              white-space: nowrap;
+            }
+          }
+        }
+        input[type="text"] {
+          background: #FFF;
+          width: 280px;
+          color: #e05789;
+          padding: 0 20px;
+          border: 1px #a4a4a4 dotted;
+          &:focus {
+            outline: none;
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/gift/bt-continue.png") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          width: 133px;
+          line-height: 38px;
+          text-transform: uppercase;
+          margin: 0 auto;
+          display: block;
+          border: none;
+          cursor: pointer;
+          clear: both;
+        }
+      }
+    }
+    &#quiz {
+      #survey {
+        height: 460px !important;
+        h2 {
+          margin: 20px 0 0 0;
+        }
+        ul.questions {
+          h3 {
+            display: none;
+          }
+        }
+      }
+
+      ul#tracker {
+        width: 84px;
+        margin: 0 auto 30px;
+      }
+    }
+    &#profile {
+      h1.title_name {
+        background: url("/assets/gift/line.png") bottom center no-repeat;
+        font-family: "Open Sans", sans-serif;
+        font-size: 52px;
+        font-weight: lighter;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: -5px;
+        margin: 25px 0 40px;
+        span {
+          color: #e05789;
+        }
+      }
+      img.profile {
+        width: 930px;
+        height: 247px;
+        margin: 0 auto 20px;
+        display: block;
+      }
+      p.change_profile {
+        color: #101010;
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        text-align: center;
+        letter-spacing: -1px;
+        margin: 0 0 40px 0;
+        a {
+          color: #e05789;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      form.edit_gift_recipient {
+        h1 {
+          color: #101010;
+          font-family: "Open Sans", sans-serif;
+          font-size: 22px;
+          font-weight: lighter;
+          text-align: center;
+          text-transform: lowercase;
+          margin: 0 auto 20px;
+          display: block;
+        }
+        ul.shoes {
+          width: 550px;
+          overflow: hidden;
+          margin: 0 auto 60px;
+          display: block;
+          li {
+            background: #FFF;
+            color: #D95485;
+            line-height: 36px;
+            margin-right: 10px;
+            margin-left: 10px;
+            display: inline-block;
+            border: 1px solid #D95485;
+            float: left;
+            label {
+              font-family: "Lucida Grande";
+              font-size: 14px;
+              font-weight: bold;
+              text-align: center;
+              display: block;
+              width: 46px;
+              height: 38px;
+              cursor: pointer;
+              input {
+                display: none;
+              }
+            }
+            &.selected {
+              background: #D95485;
+              color: white;
+            }
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/gift/bt-recipient.jpg") no-repeat;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          line-height: 39px;
+          letter-spacing: -1px;
+          text-transform: uppercase;
+          width: 233px;
+          display: block;
+          margin: 0 auto 15px;
+          border: none;
+          cursor: pointer;
+        }
+      }
+      form.edit_profile {
+        div.profiles {
+          background: url("/assets/gift/line.png") top center no-repeat;
+          width: 100%;
+          padding: 10px 0 20px 0;
+          overflow: hidden;
+          display: none;
+          h1 {
+            font-family: "Open Sans", sans-serif;
+            font-size: 45px;
+            font-weight: lighter;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 50px;
+            margin: 25px 0 40px;
+            span {
+              color: #e05789;
+            }
+          }
+          ul {
+            margin: 0 0 0 25px;
+            li {
+              display: inline;
+              label {
+                position: relative;
+                background: url("/assets/gift/options_profile.png") no-repeat;
+                width: 292px;
+                height: 350px;
+                margin: 0 10px 10px;
+                display: block;
+                float: left;
+                cursor: pointer;
+                input[type="radio"] {
+                  position: absolute;
+                  display: none;
+                  top: 0;
+                  left: 0;
+                }
+              }
+              &.basica {
+                label {
+                  background-position: -2px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -2px -350px;
+                  }
+                }
+              }
+              &.fashionista {
+                label {
+                  background-position: -302px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -302px -350px;
+                  }
+                }
+              }
+              &.elegante {
+                label {
+                  background-position: -599px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -599px -350px;
+                  }
+                }
+              }
+              &.feminina {
+                label {
+                  background-position: -896px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -896px -350px;
+                  }
+                }
+              }
+              &.sexy {
+                label {
+                  background-position: -1193px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -1193px -350px;
+                  }
+                }
+              }
+              &.tradicional {
+                label {
+                  background-position: -1490px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -1490px -350px;
+                  }
+                }
+              }
+              &.trendy {
+                label {
+                  background-position: -1787px 0px;
+                }
+                &:hover {
+                  label {
+                    background-position: -1787px -350px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.offline {
+    margin-top: -27px;
+  }
+}
+
+div.content {
+  div#calendar_container {
+    position: relative;
+    div.opacity {
+      background: url("/assets/gift/opacity.png") repeat;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 990px;
+      height: 100%;
+      display: block;
+    }
+    div.title {
+      margin: 0 0 35px 0;
+      border-bottom: 1px #949494 solid;
+      h1 {
+        background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+        color: #101010;
+        font-family: "Open Sans", sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -2px;
+        line-height: 50px;
+        text-transform: uppercase;
+        padding: 5px 0 0 0;
+      }
+    }
+    div#calendar {
+      width: 100%;
+      overflow: hidden;
+      padding: 0 0 80px 0;
+      ul#months {
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 20px 0;
+        padding: 0 0 10px 0;
+        border-bottom: 1px #c4c4c4 solid;
+        li {
+          width: 80px;
+          margin: 0;
+          padding: 10px 0;
+          float: left;
+          a {
+            color: #878686;
+            font-family: "Open Sans", sans-serif;
+            font-size: 15px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 5px;
+          }
+          &.first {
+            margin-left: 0;
+          }
+          &.last {
+            margin-right: 0;
+          }
+        }
+      }
+      ul.friends_list {
+        > li {
+          position: relative;
+          width: 50px;
+          overflow: visible;
+          margin: 0 5px 10px 0;
+          display: block;
+          float: left;
+          a {
+            color: #7d7d7d;
+            font-family: "Open Sans", sans-serif;
+            font-size: 9px;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: none;
+            float: left;
+            div.mask {
+              width: 50px;
+              height: 50px;
+              margin: 0 0 2px 0;
+              overflow: hidden;
+              img {
+                height: 60px;
+              }
+            }
+          }
+          div.actions {
+            position: absolute;
+            background: #FFF;
+            width: 255px;
+            overflow: visible;
+            padding: 15px;
+            top: 40px;
+            left: 40px;
+            border: 1px #dcdcdc solid;
+            z-index: 1000;
+            display: none;
+            div.triangle {
+              position: absolute;
+              background: url("/assets/gift/triangle-pink.png") no-repeat;
+              width: 13px;
+              height: 13px;
+              display: block;
+              top: -3px;
+              left: -3px;
+            }
+            h1 {
+              color: #343434;
+              font-family: "Open Sans", sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+              margin: 0 0 10px 0;
+              float: left;
+            }
+            p {
+              color: #7d7d7d;
+              font-family: "Open Sans", sans-serif;
+              font-size: 11px;
+              letter-spacing: -1px;
+              float: left;
+              clear: both;
+            }
+            ul {
+              width: 155px;
+              float: right;
+              li {
+                input[type="submit"] {
+                  background: url("/assets/gift/bg-birthday.png") top left no-repeat;
+                  color: #e05789;
+                  font-family: "Open Sans", sans-serif;
+                  font-size: 11px;
+                  font-weight: bold;
+                  letter-spacing: -1px;
+                  text-decoration: none;
+                  width: 113px;
+                  margin: 0 0 7px 0;
+                  padding: 0 0 0 20px;
+                  border: none;
+                  cursor: pointer;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+              }
+            }
+            a.close_actions {
+              position: absolute;
+              color: #c1c1c1;
+              font-family: "Open Sans", sans-serif;
+              font-size: 13px;
+              font-weight: bold;
+              top: 10px;
+              right: 10px;
+            }
+          }
+          &:hover > div.actions {
+            display: block;
+          }
+        }
+      }
+      &.connected {
+        ul#months {
+          li {
+            height: 32px;
+            a {
+              background: url("/assets/gift/arrow-pink.png") top center no-repeat;
+              margin-top: 7px;
+              display: block;
+              &:hover, &.selected {
+                background: url("/assets/gift/arrow-black.png") top center no-repeat;
+                color: #080808;
+                font-size: 23px;
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    a#connect_facebook {
+      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+      color: #FFF;
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      line-height: 41px;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 162px;
+      height: 41px;
+      display: block;
+      margin: 0 auto;
+      padding: 0 0 0 40px;
+    }
+  }
+}
+
+div#calendar_container {
+  div.title {
+    border-bottom: 1px #949494 solid;
+    h1 {
+      background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+      color: #101010;
+      font-family: "Open Sans", sans-serif;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -2px;
+      line-height: 50px;
+      text-transform: uppercase;
+      padding: 5px 0 0 0;
+    }
+  }
+}

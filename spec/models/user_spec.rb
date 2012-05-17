@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe User do
-  subject { Factory.create(:user) }
+  subject { FactoryGirl.create(:user) }
 
   let(:casual_profile) { FactoryGirl.create(:casual_profile) }
   let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
@@ -31,7 +31,7 @@ describe User do
 
     describe "when CPF is required" do
       it "should validate" do
-        user = Factory.build(:user)
+        user = FactoryGirl.build(:user)
         user.is_invited = true
         user.save
         user.should be_invalid
@@ -49,10 +49,28 @@ describe User do
 
     describe "when CPF is not required" do
       it "should not validate" do
-        user = Factory.build(:user)
+        user = FactoryGirl.build(:user)
         user.save
         user.should be_valid
       end
+    end
+  end
+  
+  describe "when gender is required" do
+    it "should validate" do
+      user = FactoryGirl.build(:user)
+      user.half_user = true
+      user.save
+      user.should be_invalid
+    end
+  end
+  
+  describe "when gender is not required" do
+    it "should not validate" do
+      user = FactoryGirl.build(:user)
+      user.half_user = false
+      user.save
+      user.should be_valid
     end
   end
 
@@ -67,7 +85,7 @@ describe User do
 
   context "check user's creation" do
     it "should return true if user is new" do
-      new_user = Factory.create(:user)
+      new_user = FactoryGirl.create(:user)
       new_user.created_at = DateTime.now
       new_user.save
       new_user.is_new?.should be_true
@@ -83,10 +101,38 @@ describe User do
     let(:token) {"ABC"}
     let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
 
-    it "should set facebook data with a extended permission" do
+    it "should set facebook data with publish stream permission" do
       session = {:facebook_scopes => "publish_stream"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["publish_stream"])
       subject.set_facebook_data(omniauth, session)
+    end
+    
+    it "should set facebook data with friends birthday permission" do
+      session = {:facebook_scopes => "friends_birthday"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday"])
+      subject.set_facebook_data(omniauth, session)
+    end
+    
+    it "should set facebook data with friends birthday and publish stream permissions" do
+      session = {:facebook_scopes => "publish_stream, friends_birthday"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["publish_stream", "friends_birthday"])
+      subject.set_facebook_data(omniauth, session)
+    end
+    
+    it "should add permissions and not remove the old ones" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "friends_birthday"}
+      subject.set_facebook_data(omniauth, session)
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
+    end
+    
+    it "should not duplicate permissions" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "publish_stream"}
+      subject.set_facebook_data(omniauth, session)
+      subject.facebook_permissions.should == ["publish_stream"]
     end
 
     it "should set facebook data without extended permission" do
@@ -427,6 +473,42 @@ describe User do
       end
     end
 
+    describe "#age" do
+      context "when user birthday is not defined" do
+        it "returns nil" do
+          subject.stub(:age).and_return(nil)
+          subject.age.should be_nil
+        end
+      end
+
+      context "when user birthday is defined and today is 2013-07-13" do
+        before do
+          Date.should_receive(:today).and_return(Date.new(2013,7,13))
+        end
+
+        context "and user birthday is 1983-07-18" do
+          it "returns 29" do
+            subject.stub(:birthday).and_return(Date.new(1983,7,18))
+            subject.age.should == 29
+          end
+        end
+
+        context "and user birthday is 1983-07-13" do
+          it "returns 30" do
+            subject.stub(:birthday).and_return(Date.new(1983,7,13))
+            subject.age.should == 30
+          end
+        end
+
+        context "and user birthday is 2013-10-13" do
+          it "returns 30" do
+            subject.stub(:birthday).and_return(Date.new(1983,5,13))
+            subject.age.should == 30
+          end
+        end
+      end
+    end
+
     describe "#profile_name" do
       it "returns english profile symbol name" do
         subject.profile_name.should == :sporty
@@ -475,14 +557,14 @@ describe User do
 
     context 'when user has one order in the cart' do
       it 'returns false' do
-        Factory.create(:order_without_payment, :user => subject)
+        FactoryGirl.create(:order_without_payment, :user => subject)
         subject.has_purchases?.should be_false
       end
     end
 
     context 'when user has one order not in the cart' do
       it 'returns true' do
-        order = Factory.create(:order, :user => subject)
+        order = FactoryGirl.create(:order, :user => subject)
         order.waiting_payment
         subject.has_purchases?.should be_true
       end

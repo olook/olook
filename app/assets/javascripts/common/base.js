@@ -205,6 +205,7 @@ $(document).ready(function() {
     $(productBox).removeClass("sold_out");
     $(productBox).removeClass("stock_down");
     initBase.updateProductImage(productBox, newLink, newImg);
+    initBase.updateProductFacebookLike(productBox, newLink);
     if(!initBase.isProductSoldOut(productBox, soldOut)) {
       initBase.checkProductQuantity(productBox, quantityBox, quantity);
     }
@@ -222,6 +223,15 @@ initBase = {
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);
+  },
+
+  updateProductFacebookLike : function(box, link) {
+    $(box).find(".like_mask div.fb-like").attr("data-href", function(i,val){
+      return val.replace(/\/produto\/\d+/, link);
+    });
+    $(box).find("iframe").attr("src", function(i, val){
+      return val.replace(/%2Fproduto%2F\d+/, link.replace(/\//g, "%2F"));
+    });
   },
 
   isProductSoldOut : function(box, soldOut) {
