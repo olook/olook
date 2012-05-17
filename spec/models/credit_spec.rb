@@ -7,6 +7,7 @@ describe Credit do
   it { should validate_presence_of(:value) }
 
   let(:user) { FactoryGirl.create(:member) }
+  let(:invite) { FactoryGirl.create(:invite, :user => user ) }
 
   describe "adding invite bonus for invited user (invitee)" do
 
@@ -25,6 +26,7 @@ describe Credit do
     context "and user is invited" do
       before do
         user.update_attribute(:is_invited,true)
+        invite.update_attribute(:invited_member_id,user.id)
       end
 
       context "when user has already some credit" do
@@ -42,6 +44,7 @@ describe Credit do
       context "when user has no credits" do
         before do
           user.credits.destroy_all
+          inviter = Factory :invite
         end
 
         it "adds 10.00 worth of invite bonus credits to the user" do
