@@ -45,7 +45,7 @@ jQuery(function() {
     $(window).scroll(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
-      var bottomHeight = 580;
+      var bottomHeight = 1300;
       var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) && !$('.loading').is(':visible');
       if (canPaginate) {
         $('.pagination .next_page').remove();
