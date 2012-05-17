@@ -34,5 +34,13 @@ class ProfileBuilder
     end
     profile_points
   end
-
+  
+  # TO DO:
+  # - check weights creation (on SurveyBuilder)
+  # Returns a list of profiles ids according to the user answers
+  def self.ordered_profiles(questions_and_answers)
+    profiles = self.profiles_given_questions(questions_and_answers)
+    profiles_points = self.build_profiles_points(profiles)
+    profiles_points.sort_by{ |profile_id,points| points }.map(&:first).reverse if profiles_points.present?
+  end
 end

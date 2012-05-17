@@ -67,7 +67,7 @@ describe Order do
       order.identification_code.should_not be_nil
     end
   end
-
+  
   context "line items with gifts" do
     before :each do
       subject.add_variant(basic_shoe_35)
@@ -397,12 +397,19 @@ describe Order do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
         subject.waiting_payment
       end
+
+      it "updates order purchased_at with the current time" do
+        time = DateTime.new(2012,5,10,23,59,59)
+        Time.stub(:now).and_return(time)
+        subject.should_receive(:update_attribute).with(:purchased_at, time)
+        subject.waiting_payment
+      end
     end
 
     context "when the order is authorized" do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
         subject.waiting_payment
         subject.authorized
       end
@@ -585,4 +592,20 @@ describe Order do
     end
   end
 
+  describe "unrestricted order should accept products from vitrine" do
+    subject { FactoryGirl.create(:clean_order)}
+    
+    it "should return true to add gift and normal products to the same cart" do
+      subject.restricted?.should be_false
+    end
+  end
+  
+  describe "restricted order should accept products from vitrine" do
+    subject { FactoryGirl.create(:restricted_order)}
+    
+    it "should be marked as restricted" do
+      subject.restricted?.should be_true
+    end
+  end
+  
 end

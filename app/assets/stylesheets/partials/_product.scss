@@ -1,4 +1,5 @@
 li.product {
+  position: relative;
   margin: 0 0 2px 0;
   padding: 10px;
   overflow: hidden;
@@ -270,6 +271,29 @@ li.product {
       div.line {
         span {
           margin: 0 0 0 3px;
+        }
+      }
+    }
+  }
+}
+
+#suggestion {
+  li.product {
+    width: 175px;
+    height: 275px;
+    .box_product {
+      a.product_link {
+        p.warn {
+          top: 2px;
+          left: 2px;
+        }
+        img {
+          width: 170px;
+          height: 170px;
+        }
+        h1 {
+          width: 170px;
+          height: 17px;
         }
       }
     }

@@ -14,11 +14,20 @@ describe MembersController do
 
   describe "GET welcome" do
     context "when user is an old one (created 1 day ago)" do
-      let(:user) { FactoryGirl.create :user, :created_at => (Time.now - 1.day) }
+      let(:user) { FactoryGirl.create :user, :created_at => (Time.now - 1.day), :authentication_token => "RandomToken" }
 
       it "redirect to members' showroom page" do
         get :welcome
         response.should redirect_to(member_showroom_path)
+      end
+
+      context "login using auth token" do
+
+        it "should login the user and set the token to nil" do
+          get :welcome, :auth_token => 'RandomToken'
+          User.find(user.id).authentication_token.should == nil
+
+        end
       end
     end
 
@@ -93,6 +102,7 @@ describe MembersController do
       get :showroom
       response.should_not redirect_to(facebook_connect_path)
     end
+   
   end
 
   it "#invite_by_email" do
@@ -107,8 +117,9 @@ describe MembersController do
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
     member.stub(:has_early_access?).and_return(true)
+    member.stub(:half_user).and_return(false)
     subject.stub(:current_user) { member }
-
+    
     post :invite_by_email, :invite_mail_list => joined_emails
 
     response.should redirect_to(member_invite_path)
@@ -174,6 +185,7 @@ describe MembersController do
       member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
       member.stub(:has_early_access?).and_return(true)
+      member.stub(:half_user).and_return(false)
       subject.stub(:current_user) { member }
 
       post :invite_imported_contacts, :email_provider => "gmail", :email_address => emails

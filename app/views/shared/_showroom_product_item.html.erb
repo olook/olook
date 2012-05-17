@@ -1,6 +1,14 @@
 <li class="product">
+  <% if defined? suggestion %>
+    <div class="hover_suggestive">
+      <ul>
+        <li class="spy"><%= link_to "Espiar", product_path(product), :rel => "#{product.id}", :remote => true %></li>
+        <li class="add"><%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}", :class => "add_suggestion_#{product.id}" %></li>
+      </ul>
+    </div>
+  <% end %>
   <div class="box_product <%= ( current_user ) ? quantity_status(product, current_user) : '' %>">
-    <%= link_to product, :class => "product_link" do %>
+    <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGO<br />TADO</p>
@@ -13,6 +21,7 @@
         <% unless product.color_name.blank? %>
         <li>
           <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
+          <%= hidden_field_tag "product_id_#{product.id}", product.id, :class => "product_id" %>
           <%= hidden_field_tag "sold_out_#{product.id}", "#{product.sold_out? ? 'sold_out' : ''}", :class => "sold_out" %>
           <% if current_user %>
             <%= hidden_field_tag "quantity_#{product.id}", "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}", :class => "quantity" %>
@@ -22,6 +31,7 @@
       <% product.colors.each do |related_product| %>
           <li>
             <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color" %>
+            <%= hidden_field_tag "product_id_#{related_product.id}", related_product.id, :class => "product_id" %>
             <%= hidden_field_tag "sold_out_#{related_product.id}", "#{related_product.sold_out? ? 'sold_out' : ''}", :class => "sold_out" %>
             <% if current_user %>
               <%= hidden_field_tag "quantity_#{related_product.id}", "#{(current_user.user_info.nil?) ? '' : related_product.quantity( current_user.user_info.shoes_size )}", :class => "quantity" %>
@@ -31,6 +41,9 @@
       </ol>
     </div>
     <div class="line">
+      <div class="like_mask">
+        <div class="fb-like" data-href="<%= @url %>/produto/<%= product.id %>" data-send="false" data-layout="button_count" data-width="65" data-show-faces="false"></div>
+      </div>
       <span><%= number_to_currency product.price %></span>
     </div>
   </div>

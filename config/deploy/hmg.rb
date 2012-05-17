@@ -1,13 +1,14 @@
-#role :web, "domainname"
-role :app, "107.22.8.210"
-#role :app, "10.123.61.122"
-#role :db,  "domainname", :primary => true
+role :app, "homolog.olook.com.br"
  
 # server details
 set :rails_env, "RAILS_ENV=production"
+set :env, 'production'
 
 # repo details
-set :branch, 'homolog'
+set :branch, fetch(:branch, 'homolog')
+#if not variables.include?(:branch)
+#  set :branch, 'master'
+#end
 
 # tasks
 namespace :deploy do
@@ -21,14 +22,14 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} update && #{bundle} install"
+    run "cd #{path_app} && #{bundle} --without=development test install"    
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:precompile #{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -47,9 +48,19 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
   end
 
+  desc 'Stop webserver'
+  task :stop_unicorn, :roles => :app do
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -TERM $pid; fi"
+  end
+
+  desc 'Start webserver'
+  task :start_unicorn, :roles => :app do
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+  end
+
   desc 'Restart webserver'
   task :restart, :roles => :app do
-    run "/sbin/restart unicorn"
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
   end
 
 # desc "Make sure local git is in sync with remote."

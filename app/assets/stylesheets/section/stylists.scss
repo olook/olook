@@ -121,6 +121,10 @@ section#stylist {
           color: #6a6666;
           font-size: 14px;
           margin: 0 0 20px 0;
+          span {
+            color: #e36694;
+            text-transform: uppercase;
+          }
         }
         a {
           background: url("/assets/stylist/bt-know.jpg") no-repeat;
@@ -137,6 +141,37 @@ section#stylist {
         &#guaiba_container {
           h1 {
             margin-top: 65px;
+          }
+        }
+        &.set {
+          position: relative;
+          height: 840px;
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+          p {
+            position: absolute;
+            top: 55px;
+            right: 15px;
+            width: 305px;
+            span {
+              text-transform: uppercase;
+            }
+          }
+          div.product1 {
+            position: absolute;
+            top: 200px;
+            right: 55px;
+            a {
+              float: right;
+            }
+          }
+          div.product2 {
+            position: absolute;
+            top: 630px;
+            left: 0;
           }
         }
         &.last {

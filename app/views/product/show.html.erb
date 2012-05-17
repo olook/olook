@@ -1,17 +1,19 @@
-<% present 'Product', :product => @product, :member => @user do |product_presenter| %>
+<% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id do |product_presenter| %>
   <% content_for(:head) do %>
-    <meta property="og:title" content="Olook – <%= @product.name %>">
-    <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>">
-    <meta property="og:description" content="<%= @product.description %>">
-    <meta property="og:image" content="<%= @product.pictures.first.image_url(:bag).to_s %>">
-    <meta property="og:site_name" content="Olook">
-    <meta property="og:type" content="website">
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
+    <meta property="og:title" content="Olook – <%= @product.name %>" />
+    <meta property="og:description" content="<%= @product.description %>" />
+    <meta property="og:image" content="<%= @product.pictures.first.image_url(:suggestion).to_s %>" />
+    <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
+    <meta property="og:site_name" content="Olook" />
+    <meta property="og:type" content="website" />
+
     <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
   <% end %>
 
   <% content_for :footer do %>
     <%= javascript_include_tag "product" %>
+    <%= javascript_include_tag "product_view" %>
   <% end %>
 
   <% unless user_signed_in? %>
@@ -21,8 +23,10 @@
   <div id="product">
     <%= product_presenter.render_member_showroom if user_signed_in? %>
     <div class="content">
-      <%= render "product_pics" %>
-
+      <div id="pics_suggestions">
+        <%= product_presenter.render_pics %>
+        <%= product_presenter.render_facebook_comments %>
+      </div>
       <div id="infos">
         <%= product_presenter.render_description %>
         <% if user_signed_in? %>

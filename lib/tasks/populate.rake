@@ -8,6 +8,7 @@ namespace :db do
     update_friend_questions
   end
 
+  desc "Deletes all liquidations and creates a fake liquidations for testing puporses"
   task :load_fake_liquidation => :environment do
     LiquidationProduct.delete_all
     Liquidation.delete_all
@@ -48,6 +49,20 @@ namespace :db do
                                 :category_id => Category::ACCESSORY,
                                 :inventory => 10)
 
+    end
+  end
+  
+  desc "Creates some gift occasions"
+  task :load_gift_occasion_types => :environment do
+    ['aniversário','dia dos namorados','aniversário de casamento'].each do |name|
+      GiftOccasionType.create :name => name
+    end
+  end
+  
+  desc "Creates some gift recipients relations"
+  task :load_gift_recipient_relations => :environment do
+    ['avó','tia','irmã','namorada'].each do |name|
+      GiftRecipientRelation.create :name => name
     end
   end
 end

@@ -21,6 +21,12 @@ FactoryGirl.define do
       inventory 10
     end
 
+    factory :basic_bag_normal do
+      description 'bag'
+      price 100.45
+      inventory 1
+    end
+
     factory :basic_accessory_simple do
       description 'acessory'
       price 123.45

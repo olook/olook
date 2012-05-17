@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :check_early_access, :only => [:showroom]
+  before_filter :redirect_if_half_user, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
   before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
@@ -12,6 +13,7 @@ class MembersController < ApplicationController
   before_filter :redirect_user_if_old, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
+  
 
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
@@ -72,6 +74,7 @@ class MembersController < ApplicationController
   def showroom
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
+    @url += ":" + request.port.to_s if request.port != 80
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
@@ -156,5 +159,7 @@ class MembersController < ApplicationController
   def user_has_facebook_account?
     @user.has_facebook?
   end
+  
+
 end
 
