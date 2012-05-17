@@ -145,9 +145,7 @@ describe Admin::UsersController do
       AdminCreditService.should_receive(:new).with(@admin).and_return(admin_credit_service = mock)
       CreditService.should_receive(:new).with(admin_credit_service).and_return(credit_service = mock)
       credit_service.should_receive(:create_transaction).with(transaction_param[:value], operation[0], operation[1], user)
-     # expect{  
-      #  post :create_credit_transaction, transaction_param
-      #}.to change(Credit, :count).by(1)
+      post :create_credit_transaction, transaction_param
     end
 
     it "should redirect to the user" do
