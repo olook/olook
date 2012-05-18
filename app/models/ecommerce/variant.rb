@@ -8,7 +8,7 @@ class Variant < ActiveRecord::Base
 
   before_save :fill_is_master, :calculate_discount_percent
   after_save :replicate_master_changes, :if => :is_master
-  after_update :update_liquidation_products_inventory
+  after_update :update_liquidation_products_inventory, :update_catalog_products_inventory
 
   belongs_to :product
 
@@ -86,7 +86,10 @@ class Variant < ActiveRecord::Base
     LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory)
   end
 
-  # FIXME this doesn't really work properly, since it doesn't bring the master_variant's retail_price
+  def update_catalog_products_inventory
+    Catalog::Product.where(:variant_id => self.id).update_all(:inventory => self.inventory)
+  end
+
   def retail_price
     if liquidation?
       LiquidationProductService.retail_price(self)
@@ -94,7 +97,7 @@ class Variant < ActiveRecord::Base
       retail_price_logic
     end
   end
-  
+
   def discount_percent
     discount = if liquidation?
        LiquidationProductService.discount_percent(self)
