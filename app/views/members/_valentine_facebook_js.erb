@@ -1,0 +1,19 @@
+<script>
+  FB.init({
+    appId  : '<%= facebook_app_id %>',
+    status : true,
+    cookie : true,
+    oauth: true
+  });
+
+  function sendFacebookMessage() {
+    FB.ui({
+      description: 'Que tal esse site para comprar meu presente de Dia dos Namorados? Eles ajudam a escolher o presente de acordo com meu estilo.',
+      method: 'send',
+      caption: 'www.olook.com.br',
+      link: 'http://www.olook.com.br/presente_namorado',
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg'
+    });
+  }
+
+</script>
