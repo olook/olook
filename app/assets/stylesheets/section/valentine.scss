@@ -96,6 +96,13 @@ body {
       &#post-to-wall {
         background: none;
         padding-bottom: 0;
+        hgroup {
+          h1 {
+            background: url("/assets/valentine/invite-fb.jpg") no-repeat;
+            width: 313px;
+            height: 108px;
+          }
+        }
         a {
           display: block;
           float: left;
@@ -124,6 +131,13 @@ body {
         }
       }
       &#invite-mail {
+        hgroup {
+          h1 {
+            background: url("/assets/valentine/invite-mail.jpg") no-repeat;
+            width: 297px;
+            height: 113px;
+          }
+        }
         form {
           padding-top: 0;
           fieldset.buttons {
