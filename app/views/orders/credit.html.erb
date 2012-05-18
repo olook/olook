@@ -20,6 +20,7 @@
     <% content_for :checkout_sidebar do %>
       <%= render :partial => "shared/payments/info_payment", :locals => { :order => @order } %>
       <%= render "shared/payments/info_address", :order => @order %>
+      <%= render "shared/metrics/yahoo/buy_and_register" %>
     <% end %>
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
   </section>
