@@ -197,6 +197,14 @@ describe Variant do
     end
   end
 
+  describe "inventory changes updates the catalog product" do
+    pending "should reflect the changes on shoe that is into a catalog" do
+    end
+
+    pending "should reflect all catalogs" do
+    end
+  end
+
   describe "consolidate discount percent when has retail_price" do
     it "should round discount percent to 19" do
       variant = subject
@@ -264,7 +272,7 @@ describe Variant do
       subject.retail_price.should == 123.45
     end
   end
-  
+
   describe "#discount_percent" do
     it "should return 0 when has no retail_price" do
       variant = Variant.new

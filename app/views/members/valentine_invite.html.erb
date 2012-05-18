@@ -1,0 +1,43 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/invite" %>
+  <script src="http://connect.facebook.net/en_US/all.js"></script>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "members" %>
+<% end %>
+
+<div id="fb-root"></div>
+<%= render "valentine_facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
+
+<section id="invite-mail">
+  <hgroup>
+    <h1>Convide seu namorado por e-mail</h1>
+    <h2>Digite o email do seu namorado <br /> no campo ao lado <br /> para mandar um convite para ele </h2>
+  </hgroup>
+
+  <%= form_tag (member_valentine_invite_by_email_path) do %>
+    <fieldset>
+      <ol>
+        <li>
+          <%= text_field_tag :valentine_invite_mail %>
+        </li>
+      </ol>
+    </fieldset>
+    <fieldset class="buttons">
+      <ol>
+        <li><input name="commit" type="submit" value="" id="invite_email"></input></li>
+      </ol>
+    </fieldset>
+  <% end %>
+</section>
+
+<section id="post-to-wall">
+  <hgroup>
+    <h1>Convide seu namorado pelo Facebook</h1>
+    <h2>Clique no botão ao lado <br /> e selecione o nome do seu namorado<br />na busca
+    </h2>
+  </hgroup>
+  <%= link_to image_tag('/assets/common/bt-face-send-messages.png'), '', :id => 'facebook_invite_friends' %>
+</section>
+
