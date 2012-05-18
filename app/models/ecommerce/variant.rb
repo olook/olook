@@ -100,17 +100,14 @@ class Variant < ActiveRecord::Base
     else
       read_attribute(:discount_percent)
     end
-    
-    return 0 if (discount.blank? || discount.zero?)
-    return discount
+    (discount.blank? || discount.zero?) ? 0 : discount
   end
 
   private
 
   def retail_price_logic
     rp = self.read_attribute(:retail_price)
-    return self.price if (rp.blank? || rp.zero?)
-    return rp
+    (rp.blank? || rp.zero?) ? self.price : rp
   end
 
   def calculate_discount_percent
