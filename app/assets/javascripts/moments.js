@@ -35,17 +35,28 @@ jQuery(function() {
     }
     $(this).parent().submit();
     $('#moment_filter').find("input[type='checkbox']").attr("disabled", "true");
-    var topHeight = 400;
-    $("html, body").animate({
-      scrollTop: topHeight
-    }, 'slow');
+    initMoment.scrollToList();
+  });
+
+  $("form#moment_filter div.filter.main h1 a").live("click", function(e) {
+    list = $(this).parent().parent().find("ol");
+    if($(list).is(":hidden")) {
+      $("form#moment_filter div.filter.main h1 a").removeClass("opened");
+      $("form#moment_filter div.filter.main ol, form#moment_filter div.filter.sub").hide();
+      $(this).addClass("opened");
+      $(list).slideDown("normal", function() {
+        $(this).parent("div.filter.main").nextAll().show();
+      });
+    }
+    initMoment.scrollToList();
+    e.preventDefault();
   });
 
   if ($('.pagination').length) {
     $(window).scroll(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
-      var bottomHeight = 580;
+      var bottomHeight = 1300;
       var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) && !$('.loading').is(':visible');
       if (canPaginate) {
         $('.pagination .next_page').remove();
@@ -61,4 +72,13 @@ jQuery(function() {
     return $(window).scroll();
   }
 });
+
+initMoment = {
+  scrollToList : function() {
+    var topHeight = 400;
+    $("html, body").animate({
+      scrollTop: topHeight
+    }, 'slow');
+  }
+}
 

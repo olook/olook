@@ -76,6 +76,15 @@ div#moments {
         margin: 0 0 20px 0;
         padding: 0 0 5px 5px;
         border-bottom: 1px #dedede solid;
+        a {
+          background: url("/assets/moments/arrow-down.png") right no-repeat;
+          color: #000;
+          text-decoration: none;
+          display: block;
+          &.opened {
+            background: url("/assets/moments/arrow-up.png") right no-repeat;
+          }
+        }
         &.shoes {
           background: url("/assets/moments/shoes.png") no-repeat top left;
           padding-left: 23px;
@@ -105,6 +114,14 @@ div#moments {
             float: left;
           }
         }
+      }
+      &.main {
+        ol {
+          display: none;
+        }
+      }
+      &.sub {
+        display: none;
       }
     }
   }
