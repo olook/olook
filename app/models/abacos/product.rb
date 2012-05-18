@@ -52,8 +52,12 @@ module Abacos
     end
 
     def integrate_catalogs(product)
-      moments = self.moments.split(",").map{|item| Moment.find( item.to_i ) if !item.nil? }
-      CatalogService.save_product product, :moments => moments
+      moments = self.moments.each.map do |item|
+        if item && item[:codigo_categoria]
+          Moment.where(:id => item[:codigo_categoria].to_i).first
+        end
+      end
+      CatalogService.save_product product, :moments => moments.compact
     end
 
     def integrate_attributes(product)
@@ -106,7 +110,7 @@ module Abacos
         :collection_id        => parse_collection(abacos_product[:descricao_grupo]),
         :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        :moments              => abacos_product[:descritor_simples][:rows][:dados_descritor_simples][0][:descricao],
+        :moments              => abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site],
         :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
   private
