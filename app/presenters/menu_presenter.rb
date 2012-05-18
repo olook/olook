@@ -10,11 +10,11 @@ class MenuPresenter < BasePresenter
   end
   
   def render_default_menu
-    [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, blog, cart, valentine_invite].join.html_safe
+    [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, valentine_invite, blog, cart].join.html_safe
   end
   
   def render_half_user_menu
-    [lookbooks, stylist, my_friends, invite, gift, liquidation, blog, cart].join.html_safe
+    [lookbooks, stylist, my_friends, invite, gift, liquidation, valentine_invite, blog, cart].join.html_safe
   end
   
   private
