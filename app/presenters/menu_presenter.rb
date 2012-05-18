@@ -10,7 +10,7 @@ class MenuPresenter < BasePresenter
   end
   
   def render_default_menu
-    [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, blog, cart].join.html_safe
+    [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, blog, cart, valentine_invite].join.html_safe
   end
   
   def render_half_user_menu
@@ -62,5 +62,9 @@ class MenuPresenter < BasePresenter
   
   def blog
     h.content_tag :li, h.link_to("Blog", "http://blog.olook.com.br", :target => "_blank"), :class => "blog" 
+  end
+
+  def valentine_invite
+    render_item("Convidar namorado", h.member_valentine_invite_path, "valentine_invite", ["members#valentine_invite"])
   end
 end
