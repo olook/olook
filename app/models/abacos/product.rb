@@ -52,12 +52,14 @@ module Abacos
     end
 
     def integrate_catalogs(product)
-      moments = self.moments.each.map do |item|
-        if item && item[:codigo_categoria]
-          Moment.where(:id => item[:codigo_categoria].to_i).first
+      moments_in_catalog = self.moments.each.map do |item|
+        begin
+          Moment.find_by_id!(item.to_i)
+        rescue ActiveRecord::RecordNotFound => e
+          #todo: tratar
         end
       end
-      CatalogService.save_product product, :moments => moments.compact
+      CatalogService.save_product product, :moments => moments_in_catalog.compact
     end
 
     def integrate_attributes(product)
@@ -110,10 +112,16 @@ module Abacos
         :collection_id        => parse_collection(abacos_product[:descricao_grupo]),
         :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        :moments              => abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site],
+        :moments              => parse_moments(abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
   private
+    def self.parse_moments(moments)
+      moments.each.map { |item|
+        item[:codigo_categoria] if item && item[:codigo_categoria]
+      }.compact
+    end
+  
     def self.parse_description(data, fallback_description)
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
 
