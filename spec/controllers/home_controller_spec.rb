@@ -6,12 +6,13 @@ describe HomeController do
   describe "GET 'index'" do
     let(:standard_params) { {'controller' => 'home_controller', 'action' => 'index', 'tracking_xyz' => 'test'} }
     let(:tracked_params) { {'tracking_xyz' => 'test'} }
+    let(:facebook_scopes) { "friends_birthday,publish_stream" }
+
 
     it "should be successful" do
       get 'index'
       response.should be_success
     end
-
 
     context "User facebook sharing" do
       let(:point) { FactoryGirl.create(:point) }
@@ -66,7 +67,7 @@ describe HomeController do
       context "when user is signed in" do
         it "redirects to member showroom" do
           subject.stub(:'user_signed_in?').and_return(true)
-          subject.should_receive(:redirect_to).with(member_showroom_path(tracked_params))          
+          subject.should_receive(:redirect_to).with(member_showroom_path(tracked_params))
           get 'index', standard_params
         end
       end
