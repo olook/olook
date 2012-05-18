@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   layout "site"
   before_filter :load_promotion
   before_filter :clean_token
+  before_filter :save_referer
+  before_filter :current_referer
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
@@ -58,9 +60,9 @@ class ApplicationController < ActionController::Base
   end
 
   # TODO: Temporarily disabling paper_trail for app analysis
-  #def user_for_paper_trail
-   # user_signed_in? ? current_user : current_admin
-  #end
+  # def user_for_paper_trail
+  #   user_signed_in? ? current_user : current_admin
+  # end
 
   def load_user
     @user = current_user
@@ -80,6 +82,26 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= ::Ability.new(current_admin)
+  end
+
+  def save_referer
+    session[:return_to] = case request.referer
+      when /produto|sacola/ then
+        session[:return_to] ? session[:return_to] : nil
+      when /moments/ then
+        { text: "Voltar para ocasiões", url: moments_path }
+      when /suggestions/ then
+        session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil
+      when /gift/ then
+        { text: "Voltar para presentes", url: gift_root_path }
+      else
+        nil
+    end
+    session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
+  end
+
+  def current_referer
+    @referer = session[:return_to]
   end
 
 end
