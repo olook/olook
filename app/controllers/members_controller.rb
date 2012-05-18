@@ -5,7 +5,8 @@ class MembersController < ApplicationController
   before_filter :check_early_access, :only => [:showroom]
   before_filter :redirect_if_half_user, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
-  before_filter :load_user, :only => [:invite, :showroom, :invite_list, :welcome]
+  # TODO: Added for valentine invite page
+  before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
   before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
   before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
@@ -27,6 +28,19 @@ class MembersController < ApplicationController
       session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
       @yahoo_oauth_url = yahoo_request.authorize_url
     end
+  end
+  # TODO: Added for valentine invite page / Remove after
+  def valentine_invite
+    @is_the_first_visit = first_visit_for_member?(@user)
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    @redirect_uri = root_path
+  end
+  # TODO: Added for valentine invite page / Remove after
+  def valentine_invite_by_email
+    email = params[:valentine_invite_mail]
+    Resque.enqueue(MailInviteWorker, email)
+    current_user.add_event(EventType::SEND_INVITE, "Valentine invite sent to #{email}")
+    redirect_to(member_valentine_invite_path, :notice => "Convite para #{email} enviado com sucesso")
   end
 
   def accept_invitation
