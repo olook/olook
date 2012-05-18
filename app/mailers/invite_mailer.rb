@@ -25,6 +25,12 @@ class InviteMailer < ActionMailer::Base
     send_invite(@invite)
   end
 
+  def valentine_invite_email(user_name, to)
+    @user_name = user_name
+    mail(:to => to, :subject => "#{user_name} te convidou para a olook!")
+    headers["X-SMTPAPI"] = { 'category' => 'valentine_invite_email' }.to_json
+  end
+
   private
 
   def send_invite(invite)
