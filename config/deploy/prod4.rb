@@ -19,15 +19,14 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :web do
-    run "cd #{path_app} && #{bundle} install --without=development test"    
+    run "cd #{path_app} && #{bundle} install --without development test"
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :web do
-    # run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
     run "cd #{path_app} && bundle exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
     run "cd #{path_app} && bundle exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env} RAILS_GROUPS=assets"
   end
 
   desc 'Create symlinks'
