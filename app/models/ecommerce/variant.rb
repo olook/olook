@@ -86,6 +86,7 @@ class Variant < ActiveRecord::Base
     LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory)
   end
 
+  # FIXME this doesn't really work properly, since it doesn't bring the master_variant's retail_price
   def retail_price
     if liquidation?
       LiquidationProductService.retail_price(self)
@@ -104,10 +105,11 @@ class Variant < ActiveRecord::Base
   end
 
   private
-
+  
+  # FIXME this doesn't really work properly, since it doesn't bring the master_variant's retail_price
   def retail_price_logic
-    rp = self.read_attribute(:retail_price)
-    (rp.blank? || rp.zero?) ? self.price : rp
+    rp = read_attribute(:retail_price)
+    (rp.nil? || rp.blank? || rp.zero?) ? price : rp
   end
 
   def calculate_discount_percent
