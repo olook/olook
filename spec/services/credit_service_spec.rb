@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 describe CreditService do
 
-  let(:admin) {Factory :admin_superadministrator}
-  let(:user)  {Factory :user}
+  let(:admin) {Factory.create :admin_superadministrator}
+  let(:user)  {Factory.create :user}
   let(:service) {mock 'service'}
   
   subject{described_class.new(service)}
