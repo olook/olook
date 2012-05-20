@@ -26,7 +26,6 @@ describe Credit do
     context "and user is invited" do
       before do
         user.update_attribute(:is_invited,true)
-        invite.update_attribute(:invited_member_id,user.id)
       end
 
       context "when user has already some credit" do
