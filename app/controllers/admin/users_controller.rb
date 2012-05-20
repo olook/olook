@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::BaseController
 
   load_and_authorize_resource
 
-  respond_to :html, :text
+  respond_to :html, :js, :text
 
   def index
     @search = User.search(params[:search])
@@ -63,6 +63,14 @@ class Admin::UsersController < Admin::BaseController
       @user.unlock_access!
     end
     redirect_to :action => :show
+  end
+
+  def create_credit_transaction
+    @user = User.find(params[:id])
+    operation = params[:operation].split(":")
+    credit_service = CreditService.new(AdminCreditService.new(current_admin))
+    credit_service.create_transaction(params[:value], operation[0], operation[1], @user)
+    redirect_to (admin_user_path(@user))
   end
 
 end
