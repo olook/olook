@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 describe AdminCreditService do
 
-  let(:admin) {Factory :admin_superadministrator}
+  let(:admin) {Factory.create :admin_superadministrator}
   subject {described_class.new(admin)}
 
     before(:each) do
