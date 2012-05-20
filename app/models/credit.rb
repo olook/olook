@@ -13,7 +13,7 @@ class Credit < ActiveRecord::Base
 
   def self.add_for_invitee(invitee)
     if invitee.is_invited? && invitee.current_credit == 0
-      invitee.credits.create!(:value => INVITE_BONUS, :total => INVITE_BONUS, :source => "inviter_bonus", :reason => "Accepted invite from #{invitee.inviter.name}")
+      invitee.credits.create!(:value => INVITE_BONUS, :total => INVITE_BONUS, :source => "inviter_bonus")
     end
   end
 
