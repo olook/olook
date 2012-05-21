@@ -4,30 +4,30 @@ namespace :moments do
 	desc "generate basic moments"
 	task :generate, [:file] => :environment do |task, args|   
 		
-		Moment.new( { :name => "Todas", 
-									:article => "",
+		Moment.new( { :name => "Ocasiões",
+									:article => "para todas as",
 									:slug => "todas",
-									:position => 1 } ).save!
-
-		Moment.new( { :name => "Trabalho", 
-									:article => "Para o", 
-									:slug => "trabalho",
-									:position => 2 } ).save!
-
-		Moment.new( { :name => "Dia-a-dia", 
-									:article => "Para o", 
-									:slug => "dia-a-dia",
-									:position => 3 } ).save!
-
-		Moment.new( { :name => "Noite", 
-									:article => "Para a", 
-									:slug => "noite",
-									:position => 4 } ).save!
+									:position => 5 } ).save!
 
 		Moment.new( { :name => "Passeio", 
 									:article => "Para um", 
 									:slug => "passeio",
-									:position => 5 } ).save!
+									:position => 4 } ).save!
+
+		Moment.new( { :name => "Noite", 
+									:article => "Para a", 
+									:slug => "noite",
+									:position => 3 } ).save!
+
+		Moment.new( { :name => "Executivo", 
+									:article => "Para o dia-a-dia", 
+									:slug => "executivo",
+									:position => 2 } ).save!
+
+		Moment.new( { :name => "Casual", 
+									:article => "Para o dia-a-dia", 
+									:slug => "casual",
+									:position => 1 } ).save!
 		
 	end
 
