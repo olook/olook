@@ -11,6 +11,7 @@ describe Order do
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
+ 
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
@@ -94,7 +95,7 @@ describe Order do
     end
   end
 
-  context "destroying a Order" do
+  context "destroying an Order" do
     before :each do
       subject.add_variant(basic_shoe_35)
       subject.add_variant(basic_shoe_40)
@@ -142,6 +143,10 @@ describe Order do
   context 'in a order with items' do
     let(:items_total) { basic_shoe_35.price + (quantity * basic_shoe_40.price) }
     before :each do
+      # FIXME after the variant.retail_price issue is fixed, remove this workaround to have a product.retail_price with the proper value
+      basic_shoe_35.product.stub(:retail_price).and_return(123.45)
+      basic_shoe_37.product.stub(:retail_price).and_return(124.19)
+      basic_shoe_40.product.stub(:retail_price).and_return(125.45)
       subject.add_variant(basic_shoe_35)
       subject.add_variant(basic_shoe_40, quantity)
     end
@@ -188,9 +193,9 @@ describe Order do
       context "without coupon" do
         it "should return the total discounting the credits" do
           credits = 11.09
-          expected = items_total
           subject.stub(:credits).and_return(credits)
-          subject.total.should == expected - credits
+          expected = items_total - credits
+          subject.total.should == expected
         end
 
         it "should return the total without discounting credits if it doesn't have any" do
@@ -261,15 +266,15 @@ describe Order do
       basic_shoe_40.update_attributes(:inventory => 10)
     end
 
-    it "should set nil to retail price when the item dont belongs to a liquidation" do
+    it "should set product's retail price to retail price when the item doesn't belongs to a liquidation" do
       subject.add_variant(basic_shoe_40, 1)
       line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
-      line_item.retail_price.should be_nil
+      line_item.retail_price.should == basic_shoe_40.product.retail_price
     end
 
-    it "should set the retail price when the item belongs to a liquidation" do
+    it "should always set the retail price even when the item belongs to a liquidation" do
       basic_shoe_40.stub(:liquidation?).and_return(true)
-      basic_shoe_40.stub(:retail_price).and_return(retail_price = 45.90)
+      basic_shoe_40.product.stub(:retail_price).and_return(retail_price = 45.90)
       subject.add_variant(basic_shoe_40, 1)
       line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
       line_item.retail_price.should == retail_price
