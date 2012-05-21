@@ -917,7 +917,23 @@ body {
         width: 995px;
         float: right;
         li {
+          position: relative;
           height: 37px;
+          span.label {
+            position: absolute;
+            background: url("/assets/common/bg-label-menu.png") no-repeat;
+            color: #FFF;
+            font-family: "Futura Light";
+            font-size: 10px;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 35px;
+            width: 35px;
+            height: 35px;
+            display: block;
+            top: -25px;
+            left: 45px;
+          }
           a {
             color: #FFF;
             font-family: 'Open Sans', sans-serif;
