@@ -7,9 +7,11 @@ class CatalogSearchService
     @query_base = @l_products[:catalog_id].eq(params[:id])
                   .and(@l_products[:inventory].gt(0))
                   .and(Product.arel_table[:is_visible].eq(true))
-                  .and(LiquidationProduct.arel_table[:product_id].eq(nil))
-    @liquidation = LiquidationService.active
-    @query_base = @query_base.and(LiquidationProduct.arel_table[:liquidation_id].eq(@liquidation.id)) if @liquidation
+                  
+    if @liquidation = LiquidationService.active
+      @query_base = @query_base.and(LiquidationProduct.arel_table[:liquidation_id].eq(@liquidation.id))
+                    .and(LiquidationProduct.arel_table[:product_id].eq(nil))
+    end
 
     @params = params
   end
@@ -31,11 +33,15 @@ class CatalogSearchService
     end
 
     #TODO: ADD in includes: master_variant, main_picture
-    Catalog::Product.joins('inner join products on products.id = catalog_products.product_id left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id').where(@query_base)
-                    .group("catalog_products.product_id")
-                    .order("category_id asc, #{sort_filter}")
-                    .paginate(:page => params[:page], :per_page => 12)
-                    .includes(:product => [:variants, :pictures])
+    @query = Catalog::Product.joins(:product)
+    if @liquidation
+      @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
+    end
+    @query.where(@query_base)
+          .order("category_id asc, #{sort_filter}")
+          .group("catalog_products.product_id")
+          .paginate(page: params[:page], per_page: 12)
+          .includes(product: :variants)
   end
 
   def build_sub_query(current_query, sub_query)
@@ -44,18 +50,5 @@ class CatalogSearchService
 
   def sort_filter
     params[:sort_filter] == SORT_FILTER[:highest_price] ? "retail_price desc" : "retail_price asc"
-  end
-
-  def self.remove_color_variations(products)
-    result = []
-    already_displayed = []
-
-    products.each do |product|
-      unless already_displayed.include?(product.name)
-        result << product
-        already_displayed << product.name
-      end
-    end
-    result
   end
 end
