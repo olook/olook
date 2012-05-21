@@ -11,10 +11,12 @@ class MenuPresenter < BasePresenter
 
   def render_default_menu
     [showroom, moments, lookbooks, stylist, my_friends, gift, liquidation, valentine_invite, blog, cart].join.html_safe
+    [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, valentine_invite, blog, cart].join.html_safe
   end
 
   def render_half_user_menu
     [lookbooks, moments, stylist, my_friends, gift, liquidation, valentine_invite, blog, cart].join.html_safe
+    [lookbooks, stylist, my_friends, invite, gift, liquidation, valentine_invite, blog, cart].join.html_safe
   end
 
   private
@@ -69,6 +71,6 @@ class MenuPresenter < BasePresenter
   end
 
   def valentine_invite
-    render_item("Convidar namorado", h.member_valentine_invite_path, "valentine_invite", ["members#valentine_invite"])
+    render_item("Dia dos namorados", h.member_valentine_invite_path, "valentine_invite", ["members#valentine_invite"])
   end
 end

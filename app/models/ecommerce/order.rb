@@ -335,8 +335,6 @@ class Order < ActiveRecord::Base
     Credit.remove(credits, user, self) if credits > 0
   end
 
-
-
   private
 
   def generate_number

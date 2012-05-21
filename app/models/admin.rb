@@ -20,6 +20,11 @@ class Admin < ActiveRecord::Base
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
 
+
+  def name
+    "#{first_name} #{last_name}".strip
+  end
+
   def has_role?(role_name)
     self.role.name.to_sym == role_name if self.role
   end
