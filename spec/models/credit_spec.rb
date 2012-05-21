@@ -43,7 +43,7 @@ describe Credit do
       context "when user has no credits" do
         before do
           user.credits.destroy_all
-          inviter = Factory :invite
+          inviter = FactoryGirl.create :invite
         end
 
         it "adds 10.00 worth of invite bonus credits to the user" do
