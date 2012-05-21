@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 describe AdminCreditService do
 
-  let(:admin) {Factory.create :admin_superadministrator}
+  let(:admin) {FactoryGirl.create :admin_superadministrator}
   subject {described_class.new(admin)}
 
     before(:each) do
-      @user = Factory :user
+      @user = FactoryGirl.create :user
     end
 
 
