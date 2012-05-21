@@ -1,0 +1,9 @@
+<%= javascript_include_tag "admin/credit", "admin/jquery.validate.min" %>
+<%= form_tag 'create_credit_transaction', :id => 'create_credit_transaction' do %>
+  <%= hidden_field_tag "id", user.id %>
+  <%= text_field_tag "value", '0.00',%>
+  <%= select_tag "operation", grouped_options_for_select({"Adicionar Créditos" => CreditService::CREDIT_CONFIG['admin_credit_service']['credit_reason'], "Remover Créditos" => CreditService::CREDIT_CONFIG['admin_credit_service']['debit_reason']}) %>
+  <%= submit_tag "Create Credit Transaction" %>
+<% end %>
+
+  
