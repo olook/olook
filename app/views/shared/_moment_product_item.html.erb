@@ -1,4 +1,4 @@
-<li class="product <%= " promotion" if product.promotion? %>">
+<li class="product <%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
   <% if defined? suggestion %>
     <div class="hover_suggestive">
       <ul>
