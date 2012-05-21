@@ -38,9 +38,13 @@ class MembersController < ApplicationController
   # TODO: Added for valentine invite page / Remove after
   def valentine_invite_by_email
     to = params[:valentine_invite_mail]
-    Resque.enqueue(ValentineInviteWorker, "#{current_user.first_name} #{current_user.last_name}", to)
-    current_user.add_event(EventType::SEND_INVITE, "Valentine invite sent to #{to}")
-    redirect_to(member_valentine_invite_path, :notice => "Convite para #{to} enviado com sucesso")
+    if to.match /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+      Resque.enqueue(ValentineInviteWorker, "#{current_user.first_name} #{current_user.last_name}", to)
+      current_user.add_event(EventType::SEND_INVITE, "Valentine invite sent to #{to}")
+      redirect_to(member_valentine_invite_path, :notice => "Convite para #{to} enviado com sucesso")
+    else
+      redirect_to(member_valentine_invite_path, :notice => "#{to} não é um e-mail válido")
+    end
   end
 
   def accept_invitation
