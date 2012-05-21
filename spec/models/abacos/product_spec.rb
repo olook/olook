@@ -144,6 +144,23 @@ describe Abacos::Product do
         end
       end
     end
+    
+    describe "parser moments" do
+      describe "when has many moments" do
+        it "should return moments" do
+          parsed_data[:moments].should == ["1", "2"]
+        end
+      end
+      
+      describe "when has only one moment" do
+        let(:downloaded_product) { load_abacos_fixture :product_one_category }
+        let(:parsed_data) { described_class.parse_abacos_data downloaded_product }
+        
+        it "should return moment" do
+          parsed_data[:moments].should == ["1"]
+        end
+      end
+    end
   end
 
   describe "class methods" do
