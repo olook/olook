@@ -7,6 +7,7 @@ class CatalogSearchService
     @query_base = @l_products[:catalog_id].eq(params[:id])
                   .and(@l_products[:inventory].gt(0))
                   .and(Product.arel_table[:is_visible].eq(true))
+                  .and(Variant.arel_table[:inventory].gt(0))
                   .and(LiquidationProduct.arel_table[:product_id].eq(nil))
     @liquidation = LiquidationService.active
     @query_base = @query_base.and(LiquidationProduct.arel_table[:liquidation_id].eq(@liquidation.id)) if @liquidation
@@ -31,7 +32,7 @@ class CatalogSearchService
     end
 
     #TODO: ADD in includes: master_variant, main_picture
-    Catalog::Product.joins('inner join products on products.id = catalog_products.product_id left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id').where(@query_base)
+    Catalog::Product.joins('inner join products on products.id = catalog_products.product_id inner join variants on catalog_products.product_id = variants.product_id left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id').where(@query_base)
                     .group("catalog_products.product_id")
                     .order("category_id asc, #{sort_filter}")
                     .paginate(:page => params[:page], :per_page => 12)
