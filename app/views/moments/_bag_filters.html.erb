@@ -5,7 +5,7 @@
       <%= check_box_tag "select_all_bags", "", false, :class => "select_all" %>
       <%= label_tag "select_all_bags", "Todas as bolsas" %>
     </li>
-<% moment_presenter.moment.catalog.subcategories(Category::BAG).each do |subcategory| %>
+<% moment_presenter.moment.catalog.bags.each do |subcategory| %>
     <li>
       <%= check_box_tag('bag_accessory_subcategories[]', subcategory, false, :id => subcategory) %>
       <%= label_tag(subcategory, nil, :for => subcategory) %>
