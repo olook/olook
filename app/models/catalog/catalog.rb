@@ -3,15 +3,31 @@ class Catalog::Catalog < ActiveRecord::Base
   
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
 
-  def subcategories(category)
-    products.where(category_id: category).group(:subcategory_name).order("subcategory_name asc").map { |p| p.subcategory_name }.compact
+  def in_category(category_id)
+    products.joins(:product).where(category_id: category_id).where("inventory > 0").where('products.is_visible = 1')
+  end
+
+  def subcategories(category_id)
+    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| p.subcategory_name }.compact
+  end
+
+  def shoes
+    subcategories(Category::SHOE)
+  end
+
+  def bags
+    subcategories(Category::BAG)
+  end
+
+  def accessories
+    subcategories(Category::ACCESSORY)
   end
 
   def shoe_sizes
-    products.where(category_id: Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
+    in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
   end
 
   def heels
-    products.where(category_id: Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact
+    in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact
   end
 end
