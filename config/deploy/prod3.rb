@@ -19,15 +19,15 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without=development test install"    
+    run "cd #{path_app} && #{bundle} --without development test install"    
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    # run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
   end
 
   desc 'Create symlinks'

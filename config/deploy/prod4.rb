@@ -1,7 +1,7 @@
-role :web, "app4.olook.com.br"
- 
+role :app, 'app4.olook.com.br'
+
 # server details
-set :rails_env, "production"
+set :rails_env, 'RAILS_ENV=production'
 set :env, 'production'
 
 # repo details
@@ -34,6 +34,7 @@ namespace :deploy do
   end
 
   desc 'Install gems'
+<<<<<<< HEAD
   task :bundle_install, :roles => :web do
     run "cd #{path_app} && #{bundle} install --without development test"
   end
@@ -43,6 +44,18 @@ namespace :deploy do
     run "cd #{path_app} && bundle exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
     run "cd #{path_app} && bundle exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
     run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env} RAILS_GROUPS=assets"
+=======
+  task :bundle_install, :roles => :app do
+    run "cd #{path_app} && #{bundle} --without development test install"
+  end
+
+  desc 'Run migrations, clean assets'
+  task :rake_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
+>>>>>>> favicon link tag removed to solve landing page problem
   end
 
   desc 'Create symlinks'
