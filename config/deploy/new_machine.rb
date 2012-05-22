@@ -51,7 +51,7 @@ namespace :deploy do
       wget http://nginx.org/download/nginx-1.1.6.tar.gz
       tar -zxvf nginx-1.1.6.tar.gz
       cd nginx-1.1.6/
-      ./configure --with-http_ssl_module --prefix=/usr/local/nginx
+      ./configure --with-http_ssl_module --prefix=/usr/local/nginx --with-http_gzip_static_module
       make && make install
 
       puts "Configurando upstart do Nginx e Unicorn"
