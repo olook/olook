@@ -1,18 +1,18 @@
 window.products = [];
 
 $("#products li").each(function(index, element){
-  products.push(element.id)
+  products.push($(element).data('id'));
 });
 
 var new_products = [];
 
 <% @catalog_products.each do |cp| %>
-new_products.push("<%= cp.product_id %>");
+new_products.push(<%= cp.product_id %>);
 <% end %>
 
-$.each(new_products, function(index, product){
-  if($.inArray(product, products) != -1){
-    $("#"+product).remove();
+$.each(new_products, function(index, id){
+  if($.inArray(id, products) >= 0){
+    $('#products li[data-id="'+id+'"]').remove();
   }
 });
 
