@@ -1,5 +1,5 @@
 role :app, "q1.olook.com.br", "q2.olook.com.br"
- 
+
 # server details
 set :rails_env, "RAILS_ENV=production"
 
@@ -19,7 +19,7 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without development test install"    
+    run "cd #{path_app} && #{bundle} --without development test install"
   end
 
   desc 'Run migrations, clean assets'
