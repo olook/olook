@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class ConfirmPayment
-    @queue = :front_to_abacos
-
+    @queue = :order
+    
     def self.perform(order_number)
       order = Order.find_by_number order_number
       if Abacos::OrderAPI.order_exists?(order_number)

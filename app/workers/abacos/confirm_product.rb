@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class ConfirmProduct
-    @queue = :front_to_abacos
+    @queue = :product_acknowledgment
 
     def self.perform(protocol)
       Abacos::ProductAPI.confirm_product protocol
