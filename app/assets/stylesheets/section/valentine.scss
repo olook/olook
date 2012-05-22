@@ -1,0 +1,325 @@
+@import 'partials/mixins';
+body {
+  .content {
+
+    section {
+      &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
+        background: url('/assets/common/division.png') center bottom no-repeat;
+        width: 858px;
+        padding: 40px 50px;
+        overflow: hidden;
+        position: relative;
+
+        hgroup {
+          display: block;
+          float: left;
+          width: 348px;
+          margin-right: 60px;
+          h2 {
+             width: 230px;
+          }
+        }
+
+        form {
+          float: left;
+          padding-top: 15px;
+
+          input[type='text'], textarea {
+            background: url('/assets/common/bg-form-invite.png') bottom repeat-x;
+            padding: 12px 13px;
+            border: 1px solid #BBB;
+            width: 415px;
+            font-size:18px;
+            letter-spacing:-1px;
+          }
+
+          textarea {
+            background: url('/assets/common/bg-textarea.png') bottom repeat-x;
+            height: 73px;
+            resize: none;
+            color:#3c3c3c;
+            font-size:14px;
+          }
+        }
+
+        .buttons {
+          li {
+            width: 285px;
+            margin: 15px auto 0;
+
+            input[type='image'] {
+              margin-left: 15px;
+            }
+          }
+        }
+
+        .share {
+          margin-top: 20px;
+
+          li {
+            float: left;
+            margin-left: 10px;
+
+            &:first-child {
+              margin-left: 0;
+            }
+          }
+        }
+
+        .services {
+          float: left;
+          overflow: hidden;
+
+          li {
+            float: left;
+            margin-top: 30px;
+            margin-left: 70px;
+
+            a {
+              background: url('/assets/common/mail-services-icons.png') no-repeat;
+              display: block;
+              width: 72px;
+              height: 72px;
+
+              &.gmail {
+                background-position: 0 -76px;
+              }
+
+              &.msn {
+                background-position: 0 -147px;
+              }
+            }
+          }
+        }
+      }
+
+      &#post-to-wall {
+        background: none;
+        padding-bottom: 0;
+        hgroup {
+          h1 {
+            background: url("/assets/valentine/invite-fb.jpg") no-repeat;
+            width: 313px;
+            height: 108px;
+          }
+        }
+        a {
+          display: block;
+          float: left;
+          margin-top: 35px;
+        }
+      }
+
+      &#banner {
+        background: url('/assets/valentine/bg-banner.jpg') center top no-repeat;
+        width: 960px;
+        height: 540px;
+        display: block;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+        h1 {
+          position: absolute;
+          font-family: "Futura Light";
+          font-size: 36px;
+          letter-spacing: -3px;
+          line-height: 35px;
+          font-weight: lighter;
+          top: 275px;
+          left: 50px;
+          width: 320px;
+        }
+      }
+      &#invite-mail {
+        hgroup {
+          h1 {
+            background: url("/assets/valentine/invite-mail.jpg") no-repeat;
+            width: 297px;
+            height: 113px;
+          }
+        }
+        form {
+          padding-top: 0;
+          fieldset.buttons {
+            ol li {
+              input {
+                background: url('/assets/common/invite.png') no-repeat;
+                text-indent: -9999px;
+                width: 283px;
+                height: 51px;
+                display: block;
+                border: none;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+
+      &#import-contacts {
+        height: 124px;
+
+        .import-dropdown {
+          background: #FFF;
+          width: 346px;
+          height: 160px;
+          border: 1px solid #DADADA;
+          overflow: hidden;
+          position: absolute;
+          right: 50px;
+          top: 10px;
+          padding: 15px 50px;
+
+          > span {
+            background: url('/assets/common/mail-services-icons.png') no-repeat;
+            display: block;
+            width: 100px;
+            height: 45px;
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            text-indent: -10000px;
+
+            &.gmail {
+              background-position: 0 -72px;
+            }
+
+            &.yahoo {
+              background-position: 5px 0;
+            }
+          }
+
+          .close {
+            display: block;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+          }
+
+          form {
+            margin-top: 0;
+            padding-top: 0;
+            width: 210px;
+
+            fieldset {
+              &.inputs {
+                ol {
+                  li{
+                    margin-bottom: 8px;
+                    display: block;
+
+                    input {
+                      &[type='text'], &[type='password'] {
+                        background: url('/assets/common/background-inputs.png') repeat-x;
+                        width: 93%;
+                        padding: 6px 8px;
+                        border: 1px solid #BBB;
+                      }
+                    }
+
+                    & + li + li  + li{
+                      padding: 10px 0;
+                    }
+                  }
+                  .hint {
+                    display: block;
+                    padding: 18px 0;
+                  }
+                }
+              }
+
+              &.buttons {
+                position: absolute;
+                display: block;
+                top: 112px;
+                right: 40px;
+                width: 115px;
+
+                ol {
+                  li {
+                    width: 114px;
+
+                    input[type='submit'] {
+                      width: 110px;
+                      padding: 10px 15px;
+                      font-size: 14px;
+                      letter-spacing: 0px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .full-banner {
+    background: #000;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 115px;
+    left: 0;
+    z-index: 99;
+
+    .close {
+      position: absolute;
+      right: 10%;
+      top: 20px;
+    }
+
+    .content {
+      border: 1px solid #1C1C1C;
+      width: 651px;
+      margin: 15px auto;
+      padding: 10px 30px;
+
+      ul {
+        background: #1C1C1C;
+        width: 542px;
+        display: block;
+        margin: 20px auto 5px;
+        padding: 10px;
+        overflow: hidden;
+
+        li {
+          float: left;
+          width: 140px;
+          position: relative;
+          margin: 0 20px;
+
+          &:before {
+            content: "+";
+            display: block;
+            position: absolute;
+            top: 30px;
+            left: -28px;
+          }
+
+          &:first-child {
+            padding-top: 20px;
+
+            & + li + li {
+              padding-top: 10px;
+            }
+
+            &:before {
+              content: "";
+            }
+          }
+        }
+
+        & + a {
+          display: block;
+          width: auto;
+        }
+      }
+    }
+  }
+}

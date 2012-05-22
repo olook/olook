@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Integrate
-    @queue = :abacos_to_front
+    @queue = :product
 
     def self.perform(klass, parsed_data)
       entity = klass.constantize.new parsed_data

@@ -68,7 +68,11 @@ Olook::Application.routes.draw do
   post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
 
   get "membro/convite" => "members#invite", :as => 'member_invite'
+  # TODO: Remove later namorado
+  get "membro/convite_namorado" => "members#valentine_invite", :as => 'member_valentine_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
+  # TODO: Remove later namorado
+  post "membro/convite_namorado_por_email" => 'members#valentine_invite_by_email', :as => 'member_valentine_invite_by_email'
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
 
@@ -158,6 +162,7 @@ Olook::Application.routes.draw do
         get 'login/:id' => 'users#admin_login'
         get 'lock_access/:id' => 'users#lock_access'
         get 'unlock_access/:id' => 'users#unlock_access'
+        post 'create_credit_transaction' => 'users#create_credit_transaction'
       end
     end
 
