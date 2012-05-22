@@ -9,15 +9,40 @@ jQuery(function() {
     $("#moment_filter").submit();
   });
 
-  $("#moment_filter").find("input[type='checkbox'].select_all").live("click", function() {
+  $("#moment_filter").find("input[type='checkbox'].select_all").each(function(i){
+    if(this.checked){
       $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
-      var topHeight = 400;
-      $("html, body").animate({
-          scrollTop: topHeight
-      }, 'slow');
-      setTimeout(function() {
-        $("#moment_filter").submit();
-      }, 2500);
+    }
+  });
+
+  filters = {
+    select_all_accessories: 0,
+    select_all_bags: 0,
+    select_all_shoes: 0
+  }
+
+  $("#moment_filter").find("input[type='checkbox'].select_all").live("click", function() {
+    checkbox = this
+    $('div.content nav li a').each(function(i,nav){
+      href = $(nav).attr('href');
+      if(checkbox.checked){
+        href += (!href.match(/\?/)) ? '?' : '&';
+        if(!href.match(/checkbox.name/ig)){
+          href += checkbox.name + '=1';
+        }
+      } else {
+        href = href.replace(checkbox.name+'=1', '').replace(/&+/g,'&');
+      }
+      $(nav).attr('href', href.replace(/(?:&|\?)$/,''));
+    });
+    $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
+    var topHeight = 400;
+    $("html, body").animate({
+        scrollTop: topHeight
+    }, 'slow');
+    setTimeout(function() {
+      $("#moment_filter").submit();
+    }, 2500);
   });
 
   $('#moment_filter').submit(function() {
