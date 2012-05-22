@@ -1,0 +1,17 @@
+admin_credit_service:
+  transaction_limit: 150.00
+  credit_reason:
+    - ["Presente", "add_credit:Presente"]
+    - ["Atraso de Entrega", "add_credit:Atraso de Entrega"]
+    - ["Atraso de Atendimento", "add_credit:Atraso de Atendimento"]
+    - ["Erro Técnico", "add_credit:Erro Técnico"]
+    - ["Erro Humano", "add_credit:Erro Humano"]
+    - ["Erro Completa", "add_credit:Erro Completa"]
+    - ["Erro Transportadora", "add_credit:Erro Transportadora"]
+    - ["Reembolso - Cancelamento do pedido", "add_credit:Reembolso - Cancelamento do pedido"]
+    - ["Reembolso - Devolução", "add_credit:Reembolso - Devolução"]
+    - ["Falta de estoque/Stock out", "add_credit:Falta de estoque/Stock out"]
+  debit_reason:
+    - ["Erro do Operador", "remove_credit:Erro do Operador"]
+    - ["Creditos Expirados", "remove_credit:Creditos Expirados"]
+    - ["Fraude", "remove_credit:Fraude"]
