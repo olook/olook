@@ -5,6 +5,13 @@ class MenuPresenter < BasePresenter
     h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)), :class => css_klass)
   end
 
+  def render_item_with_label label, path, css_klass, hightlight_when
+    h.content_tag :li, :class => css_klass do
+      h.content_tag(:span, "Novo", :class => "label") +
+      h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+    end
+  end
+
   def render_menu
     user.half_user ? render_half_user_menu : render_default_menu
   end
@@ -40,7 +47,7 @@ class MenuPresenter < BasePresenter
   end
 
   def moments
-    render_item("Ocasiões", h.moments_path, "moments", ["moments#index"])
+    render_item_with_label("Ocasiões", h.moments_path, "moments", ["moments#index"])
   end
 
   def gift
