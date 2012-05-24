@@ -15,12 +15,6 @@ jQuery(function() {
     }
   });
 
-  filters = {
-    select_all_accessories: 0,
-    select_all_bags: 0,
-    select_all_shoes: 0
-  }
-
   $("#moment_filter").find("input[type='checkbox'].select_all").live("click", function() {
     checkbox = this
     $('div.content nav li a').each(function(i,nav){
