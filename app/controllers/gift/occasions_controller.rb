@@ -1,10 +1,10 @@
 # encoding: UTF-8
 class Gift::OccasionsController < Gift::BaseController
-  before_filter :load_params, :only => [:create]
+  before_filter :load_params, :only => [:new, :create]
   before_filter :load_collections_for_selects, :only => [:new, :new_with_data, :create]
   
   def new
-    @day = @month = Date.today
+    @day ||= @month ||= Date.today
   end
   
   def new_with_data
@@ -42,12 +42,17 @@ class Gift::OccasionsController < Gift::BaseController
   end
   
   def load_params
-    @name = params[:recipient][:name]
-    @day = params[:occasion][:day].to_i
-    @month = params[:occasion][:month].to_i
-    @facebook_uid = params[:recipient][:facebook_uid]
-    @occasion_type_id = params[:occasion][:gift_occasion_type_id]
-    @recipient_relation_id = params[:recipient][:gift_recipient_relation_id]
+    recipient, occasion = params[:recipient], params[:occasion]
+    if occasion
+      @day = occasion[:day].to_i
+      @month = occasion[:month].to_i
+      @occasion_type_id = occasion[:gift_occasion_type_id]
+    end
+    if recipient
+      @name = recipient[:name]
+      @facebook_uid = recipient[:facebook_uid]
+      @recipient_relation_id = recipient[:gift_recipient_relation_id]
+    end
   end
 
 end
