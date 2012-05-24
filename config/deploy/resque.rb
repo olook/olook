@@ -1,5 +1,4 @@
-#role :app, "q1.olook.com.br", "q2.olook.com.br"
-role :app, "q1.olook.com.br"
+role :app, "q1.olook.com.br", "q2.olook.com.br"
  
 # server details
 set :rails_env, "RAILS_ENV=production"
@@ -15,7 +14,7 @@ namespace :deploy do
     bundle_install
     #rake_tasks
     # restart
-    resque_restart
+    #resque_restart
   end
 
   desc 'Install gems'
@@ -55,7 +54,7 @@ namespace :deploy do
 
   desc 'Task to restart resque'
   task :resque_restart, :app => :app do
-    run '/etc/init.d/worker_todos.sh restart'
+    #run '/etc/init.d/worker_todos.sh restart'
   end
 
   after "deploy", "deploy:cleanup" # keep only the last 5 releases
