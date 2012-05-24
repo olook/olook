@@ -34,17 +34,6 @@ namespace :deploy do
   end
 
   desc 'Install gems'
-<<<<<<< HEAD
-  task :bundle_install, :roles => :web do
-    run "cd #{path_app} && #{bundle} install --without development test"
-  end
-
-  desc 'Run migrations, clean assets'
-  task :rake_tasks, :role => :web do
-    run "cd #{path_app} && bundle exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env} RAILS_GROUPS=assets"
-=======
   task :bundle_install, :roles => :app do
     run "cd #{path_app} && #{bundle} --without development test install"
   end
@@ -55,7 +44,6 @@ namespace :deploy do
     run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
     run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
     run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
->>>>>>> favicon link tag removed to solve landing page problem
   end
 
   desc 'Create symlinks'
@@ -80,7 +68,7 @@ namespace :deploy do
   end
 
   desc 'Start unicorn'
-  task :start_unicorn, :roles => :web do
+  task :start_unicorn, :roles => :app do
     run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
   end
 
