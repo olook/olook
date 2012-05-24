@@ -59,3 +59,4 @@ namespace :deploy do
 
   after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end
+
