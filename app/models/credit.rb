@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# TO DO: Model should be named CreditTransaction
 class Credit < ActiveRecord::Base
   belongs_to :user
   belongs_to :order
@@ -21,7 +22,7 @@ class Credit < ActiveRecord::Base
     inviter = buyer.try(:inviter)
     if inviter && buyer.first_buy? && inviter.has_not_exceeded_credit_limit?(INVITE_BONUS)
       updated_total = inviter.current_credit + INVITE_BONUS
-      inviter.credits.create!(:value => INVITE_BONUS, :total => updated_total, :order => order, :source => "invitee_bonus")
+      inviter.credits.create!(:value => INVITE_BONUS, :total => updated_total, :order => order, :source => "invitee_bonus", :reason => "#{buyer.name} first buy")
     else
       false
     end
@@ -30,7 +31,8 @@ class Credit < ActiveRecord::Base
   def self.remove(amount, user, order)
     if user.current_credit >= amount
       updated_total = user.current_credit - amount
-      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_debit")
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_debit", 
+      :reason => "Order #{order.number} received", :is_debit => true)
     else
       false
     end
@@ -39,7 +41,9 @@ class Credit < ActiveRecord::Base
   def self.add(amount, user, order)
     if user.has_not_exceeded_credit_limit?(INVITE_BONUS)
       updated_total = user.current_credit + amount
-      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit")
+      user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit",
+      :reason => "Order #{order.number} canceled")
     end
   end
+
 end

@@ -112,14 +112,19 @@ module Abacos
         :collection_id        => parse_collection(abacos_product[:descricao_grupo]),
         :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        :moments              => parse_moments(abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
   private
     def self.parse_moments(moments)
-      moments.each.map { |item|
-        item[:codigo_categoria] if item && item[:codigo_categoria]
-      }.compact
+      moments_array = if moments.kind_of?(Array)
+        moments.each.map { |item|
+          item.fetch(:codigo_categoria)
+        }
+      else
+        [moments.fetch(:codigo_categoria)]
+      end
+      moments_array.compact
     end
   
     def self.parse_description(data, fallback_description)

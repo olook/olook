@@ -6,7 +6,7 @@ class Admin::AdminsController < Admin::BaseController
   respond_to :html
 
   def index
-    @admins = Admin.all
+    @admins = Admin.find(:all, :order => 'role_id ASC')
   end
 
   def show
