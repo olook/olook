@@ -5,16 +5,23 @@ class MenuPresenter < BasePresenter
     h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)), :class => css_klass)
   end
 
+  def render_item_with_label label, path, css_klass, hightlight_when
+    h.content_tag :li, :class => css_klass do
+      h.content_tag(:span, "Novo", :class => "label") +
+      h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+    end
+  end
+
   def render_menu
     user.half_user ? render_half_user_menu : render_default_menu
   end
 
   def render_default_menu
-    [showroom, moments, lookbooks, stylist, my_friends, gift, liquidation, valentine_invite, blog, cart].join.html_safe
+    [showroom, lookbooks, moments, stylist, my_friends, gift, liquidation, blog, valentine_invite, cart].join.html_safe
   end
 
   def render_half_user_menu
-    [lookbooks, moments, stylist, my_friends, gift, liquidation, valentine_invite, blog, cart].join.html_safe
+    [lookbooks, stylist, moments,  my_friends, gift, liquidation, blog, valentine_invite, cart].join.html_safe
   end
 
   private
@@ -40,7 +47,7 @@ class MenuPresenter < BasePresenter
   end
 
   def moments
-    render_item("Ocasiões", h.moments_path, "moments", ["moments#index"])
+    render_item_with_label("Ocasiões", h.moments_path, "moments", ["moments#index"])
   end
 
   def gift
@@ -69,6 +76,6 @@ class MenuPresenter < BasePresenter
   end
 
   def valentine_invite
-    render_item("Convidar namorado", h.member_valentine_invite_path, "valentine_invite", ["members#valentine_invite"])
+    render_item("Dia dos namorados", h.member_valentine_invite_path, "valentine_invite", ["members#valentine_invite"])
   end
 end

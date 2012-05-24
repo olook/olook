@@ -5,8 +5,8 @@ class ShowroomPresenter < BasePresenter
   AFTERNOON = (12..18)
   EVENING   = (19..23)
 
-  def render_identification
-    if member.has_facebook?
+  def render_identification friends
+    if member.has_facebook? && friends.any?
       h.render :partial => "showroom_facebook_connected", :locals => {:showroom_presenter => self}
     else
       h.render :partial => "showroom_facebook_connect", :locals => {:showroom_presenter => self}
