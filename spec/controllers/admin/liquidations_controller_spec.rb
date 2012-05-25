@@ -6,7 +6,7 @@ describe Admin::LiquidationsController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin
+    @admin = FactoryGirl.create(:admin)
     sign_in @admin
   end
 

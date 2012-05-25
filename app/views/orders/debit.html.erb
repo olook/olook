@@ -18,6 +18,7 @@
       <%= render "shared/payments/info_address", :order => @order %>
     <% end %>
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
+    <%= render "shared/metrics/yahoo/buy_and_register" %>
   </section>
 </section>
 
@@ -29,4 +30,6 @@
 
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
+  <%= render "shared/metrics/google/buy_done" %>
+  <%= render "shared/metrics/boobox/buy" %>
 <% end %>

@@ -1,0 +1,3 @@
+$("#birthdays_list div.preloader").remove();
+$("#birthdays_list").html("<%= escape_javascript(render :partial => '/gift/shared/friends_list', :locals => {:friends => @friends}) %>");
+

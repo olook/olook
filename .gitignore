@@ -23,6 +23,11 @@ config/yahoo.yml
 config/aws.yml
 config/resque.yml
 config/moip.yml
+<<<<<<< HEAD
+config/resque-web.rb
+=======
+config/abacos.yml
+>>>>>>> 99cba890dcb75910a8890fd62d4d6df70fc25573
 *.passwd
 db/schema.rb
 .watchr
@@ -30,3 +35,5 @@ public/assets
 public/admin/users.csv
 links.csv
 order_ids.yaml
+config/abacos.yml
+*.csv

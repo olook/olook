@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe PagesController do
 
-  let(:contact_information) { FactoryGirl.create(:contact_information)}
+  let(:contact_information) { FactoryGirl.create(:contact_information) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -12,7 +12,7 @@ describe PagesController do
   describe "GET 'welcome'" do
     context "with a logged user" do
       it "should be successful" do
-        user = Factory :user
+        user = FactoryGirl.create(:user)
         sign_in user
         get 'welcome'
         response.should be_success

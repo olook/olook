@@ -6,7 +6,7 @@ class SurveyController < ApplicationController
   before_filter :check_questions_params, :only => [:create]
 
   def new
-    @questions = Question.includes(:answers)
+    @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
   end
 

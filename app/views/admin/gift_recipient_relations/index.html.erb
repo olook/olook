@@ -1,0 +1,27 @@
+<h2>Listing Gift Recipient Relations</h2>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @gift_recipient_relations.each do |relation| %>
+    <tr>
+      <td><%= relation.name %></td>
+      <td><%= link_to 'Show', admin_gift_recipient_relation_path(relation) %></td>
+      <td><%= link_to 'Edit', edit_admin_gift_recipient_relation_path(relation) %></td>
+      <td><%= link_to 'Destroy', admin_gift_recipient_relation_path(relation), confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New Recipient Relation', new_admin_gift_recipient_relation_path %></li>
+<% end %>

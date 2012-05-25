@@ -2,6 +2,11 @@
 require 'spec_helper'
 
 describe Question do
+  describe "relationships" do
+    it { should belong_to :survey }
+    it { should have_many :answers }
+  end
+
   it "should create a question" do
     Question.create!(:title => "Foo Question")
   end

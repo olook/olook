@@ -7,13 +7,13 @@ class SynchronizationEvent < ActiveRecord::Base
 
   after_create :enqueue
 
-  LOCK_TIME = 10.minutes
+  LOCK_TIME = 1.minutes
 
   private
 
   def check_if_its_locked
     if locked?
-      errors.add(:name, 'You need to wait at least 10 minutes to create a new event.')
+      errors.add(:name, 'You need to wait at least 1 minutes to create a new event.')
     end
   end
 

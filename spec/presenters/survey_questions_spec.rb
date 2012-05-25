@@ -14,8 +14,8 @@ describe SurveyQuestions do
     subject.word_question.should == questions[22]
   end
 
-  it "should return show question" do
-    subject.shoe_question.should == questions[21]
+  it "should return heel height question" do
+    subject.heel_height_question.should == questions[21]
   end
 
   it "should return shoe size question" do

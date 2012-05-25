@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 namespace :orders do
   desc "Cancel already expired billet payments."
-  task :expires_billet, :output_file_path, :needs => :environment do |task, args|
+  task :expires_billet, [:output_file_path] => :environment do |task, args|
     expires_billet = PaymentManager.new.expires_billet
     File.open("#{args[:output_file_path]}", 'w') do |f|
       f.puts expires_billet
@@ -9,7 +9,7 @@ namespace :orders do
   end
 
   desc "Cancel already expired debit payments."
-  task :expires_debit, :output_file_path, :needs => :environment do |task, args|
+  task :expires_debit, [:output_file_path] => :environment do |task, args|
     expires_debit = PaymentManager.new.expires_debit
     File.open("#{args[:output_file_path]}", 'w') do |f|
       f.puts expires_debit
@@ -17,7 +17,7 @@ namespace :orders do
   end
 
   desc "Update the order status"
-  task :update_status, :needs => :environment do |task, args|
+  task :update_status => :environment do |task, args|
     Resque.enqueue(Abacos::UpdateOrderStatus)
   end
 end

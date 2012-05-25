@@ -5,7 +5,7 @@ module Abacos
 
     attr_reader :numero, :codigo_cliente, :cpf, :nome, :email, :telefone,
                 :data_venda, :valor_pedido, :valor_desconto, :valor_frete,
-                :transportadora, :tempo_entrega, :data_entrega, :endereco, :itens, :pagamento
+                :transportadora, :tempo_entrega, :data_entrega, :endereco, :itens, :pagamento, :nota_simbolica, :valor_embalagem, :anotacao_pedido
 
     def initialize(order)
       @numero           = order.number
@@ -33,26 +33,25 @@ module Abacos
 
     def parsed_data
       result = {
-        'ListaDePedidos'        => {
-          'DadosPedidos'        => {
-            'NumeroDoPedido'    => @numero,
-            'CodigoCliente'     => @codigo_cliente,
-            'CPFouCNPJ'         => @cpf,
-            'DataVenda'         => @data_venda,
-            'DestNome'          => @nome,
-            'DestEmail'         => @email,
-            'DestTelefone'      => @telefone,
-
-            'ValorPedido'       => @valor_pedido,
-            'ValorDesconto'     => @valor_desconto,
-            'ValorFrete'        => @valor_frete,
-            'Transportadora'    => @transportadora,
+        'ListaDePedidos' => {
+          'DadosPedidos' => {
+            'NumeroDoPedido'           => @numero,
+            'CodigoCliente'            => @codigo_cliente,
+            'CPFouCNPJ'                => @cpf,
+            'DataVenda'                => @data_venda,
+            'DestNome'                 => @nome,
+            'DestEmail'                => @email,
+            'DestTelefone'             => @telefone,
+            'ValorPedido'              => @valor_pedido,
+            'ValorDesconto'            => @valor_desconto,
+            'ValorFrete'               => @valor_frete,
+            'Transportadora'           => @transportadora,
             'PrazoEntregaPosPagamento' => @tempo_entrega,
-            'DataPrazoEntregaInicial' => @data_entrega,
-
-            'Itens'             =>
-              {'DadosPedidosItem' => @itens.map {|item| item.parsed_data} },
-            'FormasDePagamento' => @pagamento.parsed_data
+            'DataPrazoEntregaInicial'  => @data_entrega,
+            'Itens' => {
+              'DadosPedidosItem'       => @itens.map {|item| item.parsed_data}
+            },
+            'FormasDePagamento'        => @pagamento.parsed_data
           }
         }
       }
@@ -77,7 +76,7 @@ module Abacos
 
     def parse_itens(line_items)
       line_items.map do |line_item|
-        Abacos::Item.new( line_item )
+        Abacos::Item.new(line_item)
       end
     end
 

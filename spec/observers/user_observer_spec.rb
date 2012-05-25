@@ -15,7 +15,12 @@ describe UserObserver do
 
   it "enqueues a ShowroomReadyNotificationWorker in Resque after 1 day" do
     Resque.should_receive(:enqueue_in).with(1.day, ShowroomReadyNotificationWorker, anything)
-    FactoryGirl.create(:member)
+    FactoryGirl.create(:member, :half_user => false)
+  end
+  
+  it "enqueues a ShowroomReadyNotificationWorker in Resque after 1 day" do
+    Resque.should_not_receive(:enqueue_in).with(1.day, ShowroomReadyNotificationWorker, anything)
+    FactoryGirl.create(:member, :half_user => true, :gender => 0)
   end
 
   it "adds credit for the invitee" do

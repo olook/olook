@@ -34,7 +34,7 @@ describe Address do
 
   describe "#identification" do
     it "should return the first name + the last name" do
-      Factory.build(:address, :first_name => "My", :last_name => "Home").identification.should eql("My Home")
+      FactoryGirl.build(:address, :first_name => "My", :last_name => "Home").identification.should eql("My Home")
     end
   end
 end

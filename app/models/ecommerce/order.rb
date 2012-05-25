@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
+  CANCELLATION_SOURCE = {:moip => 1, :abacos => 2}
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -24,7 +25,10 @@ class Order < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -32,12 +36,15 @@ class Order < ActiveRecord::Base
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
+  has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
-
+  
+  validates :gift_message, :length => {:maximum => 140}, :allow_nil => true
+  
   scope :with_payment, joins(:payment)
   scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
-  scope :paid, where("state IN ('picking', 'delivering', 'delivered', 'authorized')")
+  scope :paid, where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
   scope :not_in_the_cart, where("state <> 'in_the_cart'")
   scope :with_complete_payment, joins(:payment).where("payments.state IN ('authorized','completed')")
 
@@ -129,10 +136,11 @@ class Order < ActiveRecord::Base
 
   def confirm_payment
     order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
-    Resque.enqueue_in(15.minutes, Abacos::ConfirmPayment, self.number)
+    Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
 
   def insert_order
+    self.update_attribute(:purchased_at, Time.now)
     order_events.create(:message => "Enqueue Abacos::InsertOrder")
     Resque.enqueue(Abacos::InsertOrder, self.number)
   end
@@ -158,9 +166,9 @@ class Order < ActiveRecord::Base
       end
     end
   end
-
+  
   def clear_gift_in_line_items
-    self.reload
+    reload
     line_items.each {|item| item.update_attributes(:gift => false)}
   end
 
@@ -180,6 +188,17 @@ class Order < ActiveRecord::Base
     line_items.select {|item| item.gift?}.size == 1
   end
 
+  # gift wrapping
+  def gift_wrap_all_line_items
+    reload
+    line_items.each {|item| item.update_attributes(:gift_wrap => true)}
+  end
+  
+  def clear_line_items_gift_wrapping
+    reload
+    line_items.each {|item| item.update_attributes(:gift_wrap => false)}
+  end
+
   def status
     STATUS[state]
   end
@@ -194,20 +213,22 @@ class Order < ActiveRecord::Base
     unavailable_items.each {|item| item.destroy}
     size_items
   end
-
-  def add_variant(variant, quantity = Order::DEFAULT_QUANTITY)
+  
+  #TODO: refactor this to include price as a parameter
+  def add_variant(variant, quantity=nil, gift_wrap=false)
+    quantity ||= Order::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
     if variant.available_for_quantity?(quantity)
       current_item = line_items.select { |item| item.variant == variant }.first
       if current_item
         current_item.update_attributes(:quantity => quantity)
       else
-        retail_price = variant.retail_price if variant.liquidation?
         current_item =  LineItem.new(:order_id => id,
                                      :variant_id => variant.id,
                                      :quantity => quantity,
                                      :price => variant.price,
-                                     :retail_price => retail_price)
+                                     :retail_price => variant.product.retail_price,
+                                     :gift_wrap => gift_wrap)
         line_items << current_item
       end
       current_item
@@ -251,6 +272,8 @@ class Order < ActiveRecord::Base
   def total
     subtotal = line_items_total - total_discount
     subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE
+    # gift wrapping price
+    subtotal += YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] if gift_wrap?
     subtotal
   end
 

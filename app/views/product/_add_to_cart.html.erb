@@ -1,11 +1,7 @@
 <%= form_tag(cart_path, :onsubmit => track_event("Shopping", "AddToCart", product.id)) do %>
   <%= product_presenter.render_form_by_category %>
-  <% if !current_user.nil? && product.quantity(current_user.user_info.shoes_size) > 0 && product.quantity(current_user.user_info.shoes_size) < 4 %>
-    <% if product.quantity(current_user.user_info.shoes_size) < 2 %>
-      <p class="remaining">Resta apenas <strong><span><%= product.quantity(current_user.user_info.shoes_size) %></span> unidade</strong> para o seu tamanho</p>
-    <% else %>
-      <p class="remaining">Restam apenas <strong><span><%= product.quantity(current_user.user_info.shoes_size) %></span> unidades</strong> para o seu tamanho</p>
-    <% end %>
+  <% if product_presenter.show_quantity_left? %>
+      <p class="remaining"><%= product_presenter.quantity_left_text %><strong><span><%= product_presenter.quantity_left %></span> <%= product_presenter.unities_left_text %></strong> para o seu tamanho</p>
   <% end %>
   <% if product.sold_out? %>
     <%= submit_tag "", :class=>"add_product #{product.sold_out? ? 'disabled' : ''}", :id => "add_product", :disabled => "disabled" %>

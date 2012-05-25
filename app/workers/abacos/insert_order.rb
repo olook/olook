@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class InsertOrder
-    @queue = :front_to_abacos
+    @queue = :order
 
     def self.perform(order_number)
       order = parse_and_check_order order_number
@@ -31,7 +31,7 @@ module Abacos
     end
 
     def self.insert_order(order)
-      pedido = Abacos::Pedido.new order
+      pedido = !order.gift_wrap? ? Abacos::Pedido.new(order) : Abacos::PedidoPresente.new(order)
       Abacos::OrderAPI.insert_order pedido
     end
   end

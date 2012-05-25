@@ -1,6 +1,6 @@
 namespace :olook do
   desc "Recreate profiles for user"
-  task :recreate_user_profile_1, :user_count, :needs => :environment do |t, args|
+  task :recreate_user_profile_1, [:user_count] => :environment do |t, args|
     limit = args[:user_count].to_i
     puts "Processando"
     puts limit

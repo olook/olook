@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
-
-  has_paper_trail :on => [:update, :destroy]
+  serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
@@ -20,6 +19,8 @@ class User < ActiveRecord::Base
 
   before_create :generate_invite_token
 
+  delegate :shoes_size, :to => :user_info, :allow_nil => true
+
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
          :token_authenticatable
@@ -33,6 +34,13 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
+  validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}
+
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_PUBLISH_STREAM = "publish_stream"
+  ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM].join(",")
+
+  Gender = {:female => 0, :male => 1}
 
   def name
     "#{first_name} #{last_name}".strip
@@ -42,10 +50,15 @@ class User < ActiveRecord::Base
     survey_answer.try(:answers)
   end
 
-  def set_facebook_data(omniauth, session)
+  def set_facebook_data(omniauth)
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
-    attributes.merge!(:has_facebook_extended_permission => true) if session[:facebook_scopes]
+    attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat ALL_FACEBOOK_PERMISSIONS.gsub(" ", "").split(",")).uniq)
     update_attributes(attributes)
+  end
+
+  def remove_facebook_permissions!
+    self.facebook_permissions = []
+    self.save
   end
 
   def self.find_for_facebook_oauth(access_token)
@@ -83,8 +96,12 @@ class User < ActiveRecord::Base
     self.uid.present?
   end
 
+  def has_facebook_friends_birthday?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_FRIENDS_BIRTHDAY)
+  end
+
   def can_access_facebook_extended_features?
-    has_facebook? && self.has_facebook_extended_permission.present?
+    has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
 
   def invite_bonus
@@ -144,32 +161,42 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
 
-  def all_profiles_showroom(category = nil)
+  def all_profiles_showroom(category = nil, collection = Collection.active)
     result = []
     self.profile_scores.each do |profile_score|
-      result = result | profile_showroom(profile_score.profile, category).all
+      result = result | profile_showroom(profile_score.profile, category, collection).all
     end
     Product.remove_color_variations result
   end
 
-  def main_profile_showroom(category = nil)
+  def main_profile_showroom(category = nil, collection = Collection.active)
     categories = category.nil? ? [Category::SHOE,Category::BAG,Category::ACCESSORY] : [category]
     results = []
     categories.each do |cat|
-      results += all_profiles_showroom(cat)[0..4]
+      results += all_profiles_showroom(cat, collection = Collection.active)[0..4]
     end
      Product.remove_color_variations results
   end
 
-  def profile_showroom(profile, category = nil)
+  def profile_showroom(profile, category = nil, collection = Collection.active)
     scope = profile.products.only_visible.
-            where(:collection_id => Collection.active)
+            where(:collection_id => collection)
     scope = scope.where(:category => category) if category
     scope
   end
 
   def birthdate
     birthday.strftime("%d/%m/%Y") if birthday
+  end
+
+  def age
+    return @age if @age
+    if birthday
+      today = Date.today
+      age = today.year - birthday.year
+      age -= 1 if(today.yday < birthday.yday)
+      @age = age
+    end
   end
 
   def is_new?

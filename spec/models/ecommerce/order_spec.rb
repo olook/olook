@@ -11,6 +11,7 @@ describe Order do
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
+ 
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
@@ -67,7 +68,7 @@ describe Order do
       order.identification_code.should_not be_nil
     end
   end
-
+  
   context "line items with gifts" do
     before :each do
       subject.add_variant(basic_shoe_35)
@@ -94,7 +95,7 @@ describe Order do
     end
   end
 
-  context "destroying a Order" do
+  context "destroying an Order" do
     before :each do
       subject.add_variant(basic_shoe_35)
       subject.add_variant(basic_shoe_40)
@@ -142,6 +143,10 @@ describe Order do
   context 'in a order with items' do
     let(:items_total) { basic_shoe_35.price + (quantity * basic_shoe_40.price) }
     before :each do
+      # FIXME after the variant.retail_price issue is fixed, remove this workaround to have a product.retail_price with the proper value
+      basic_shoe_35.product.stub(:retail_price).and_return(123.45)
+      basic_shoe_37.product.stub(:retail_price).and_return(124.19)
+      basic_shoe_40.product.stub(:retail_price).and_return(125.45)
       subject.add_variant(basic_shoe_35)
       subject.add_variant(basic_shoe_40, quantity)
     end
@@ -188,9 +193,9 @@ describe Order do
       context "without coupon" do
         it "should return the total discounting the credits" do
           credits = 11.09
-          expected = items_total
           subject.stub(:credits).and_return(credits)
-          subject.total.should == expected - credits
+          expected = items_total - credits
+          subject.total.should == expected
         end
 
         it "should return the total without discounting credits if it doesn't have any" do
@@ -261,15 +266,15 @@ describe Order do
       basic_shoe_40.update_attributes(:inventory => 10)
     end
 
-    it "should set nil to retail price when the item dont belongs to a liquidation" do
+    it "should set product's retail price to retail price when the item doesn't belongs to a liquidation" do
       subject.add_variant(basic_shoe_40, 1)
       line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
-      line_item.retail_price.should be_nil
+      line_item.retail_price.should == basic_shoe_40.product.retail_price
     end
 
-    it "should set the retail price when the item belongs to a liquidation" do
+    it "should always set the retail price even when the item belongs to a liquidation" do
       basic_shoe_40.stub(:liquidation?).and_return(true)
-      basic_shoe_40.stub(:retail_price).and_return(retail_price = 45.90)
+      basic_shoe_40.product.stub(:retail_price).and_return(retail_price = 45.90)
       subject.add_variant(basic_shoe_40, 1)
       line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
       line_item.retail_price.should == retail_price
@@ -397,12 +402,19 @@ describe Order do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
         subject.waiting_payment
       end
+
+      it "updates order purchased_at with the current time" do
+        time = DateTime.new(2012,5,10,23,59,59)
+        Time.stub(:now).and_return(time)
+        subject.should_receive(:update_attribute).with(:purchased_at, time)
+        subject.waiting_payment
+      end
     end
 
     context "when the order is authorized" do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(15.minutes, Abacos::ConfirmPayment, subject.number)
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
         subject.waiting_payment
         subject.authorized
       end
@@ -585,4 +597,20 @@ describe Order do
     end
   end
 
+  describe "unrestricted order should accept products from vitrine" do
+    subject { FactoryGirl.create(:clean_order)}
+    
+    it "should return true to add gift and normal products to the same cart" do
+      subject.restricted?.should be_false
+    end
+  end
+  
+  describe "restricted order should accept products from vitrine" do
+    subject { FactoryGirl.create(:restricted_order)}
+    
+    it "should be marked as restricted" do
+      subject.restricted?.should be_true
+    end
+  end
+  
 end

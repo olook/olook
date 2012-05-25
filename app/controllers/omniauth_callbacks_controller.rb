@@ -3,17 +3,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     if current_user
-      current_user.set_facebook_data(env["omniauth.auth"], session)
-      if session[:facebook_scopes]
-        session[:facebook_scopes] = nil
-        redirect_to(friends_home_path, :notice => I18n.t("facebook.connect_success"))
-      else
-        redirect_to(member_showroom_path, :notice => I18n.t("facebook.connect_success"))
-      end
+      current_user.set_facebook_data(env["omniauth.auth"])
+      session[:facebook_scopes] = nil if session[:facebook_scopes]
+      path_key = session[:facebook_redirect_paths] || :showroom
+      redirect_path = facebook_redirect_paths[path_key.to_sym]
+      redirect_to(redirect_path, :notice => I18n.t("facebook.connect_success"))
     else
       user = User.find_for_facebook_oauth(env["omniauth.auth"])
       if user
-        user.set_facebook_data(env["omniauth.auth"], session)
+        user.set_facebook_data(env["omniauth.auth"])
         sign_in user
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
         redirect_to member_showroom_path

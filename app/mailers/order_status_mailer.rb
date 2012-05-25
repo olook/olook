@@ -10,8 +10,7 @@ class OrderStatusMailer < ActionMailer::Base
       :address => "email-smtp.us-east-1.amazonaws.com",
       :port => 587,
       :authentication => :plain,
-      tls: true,
-      enable_starttls_auto: true
+      :enable_starttls_auto => true
     }
   end
 

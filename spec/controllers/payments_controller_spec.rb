@@ -13,12 +13,14 @@ describe PaymentsController do
   let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento}}
 
   before :each do
+
     Resque.stub(:enqueue)
     Resque.stub(:enqueue_in)
     Airbrake.stub(:notify)
     FactoryGirl.create(:line_item, :order => Order.find(order))
     request.env['devise.mapping'] = Devise.mappings[:user]
     order.waiting_payment
+
     sign_in user
   end
 
@@ -120,8 +122,22 @@ describe PaymentsController do
 
       it "should create a MoipCallback" do
         expect {
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
+        post :create, :status_pagamento => billet_printed,
+                      :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
         }.to change(MoipCallback, :count).by(1)
+      end
+
+      it "should create a cancelation reason" do
+        order.payment.create_payment_response(:message => 'payment_response_message')
+        canceled_status = Payment::STATUS["5"]
+
+        expect {
+        post :create, :status_pagamento => canceled_status,
+                      :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
+        }.to change(CancellationReason, :count).by(1)
+
+        order.cancellation_reason.message.should == 'payment_response_message'
+        order.cancellation_reason.source.should == Order::CANCELLATION_SOURCE[:moip]
       end
     end
 
@@ -132,5 +148,5 @@ describe PaymentsController do
         response.status.should == 500
       end
     end
-   end
   end
+end

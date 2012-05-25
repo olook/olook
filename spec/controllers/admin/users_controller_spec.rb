@@ -8,7 +8,7 @@ describe Admin::UsersController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin_superadministrator
+    @admin = FactoryGirl.create(:admin_superadministrator)
     sign_in @admin
   end
 
@@ -134,4 +134,26 @@ describe Admin::UsersController do
       response.should redirect_to(admin_users_url)
     end
   end
+
+  describe "POST create_credit_transaction" do
+
+    let(:transaction_param) { {:id => user.id.to_s, :value => "10", :operation => "add_credit:Presente"} }
+
+    it "should create a credit transaction, given value, valid operation and reason" do
+      User.stub(:find).with(transaction_param[:id]).and_return(user)
+      operation = transaction_param[:operation].split(":")
+      AdminCreditService.should_receive(:new).with(@admin).and_return(admin_credit_service = mock)
+      CreditService.should_receive(:new).with(admin_credit_service).and_return(credit_service = mock)
+      credit_service.should_receive(:create_transaction).with(transaction_param[:value], operation[0], operation[1], user)
+      post :create_credit_transaction, transaction_param
+    end
+
+    it "should redirect to the user" do
+      post :create_credit_transaction, transaction_param
+      response.should redirect_to(admin_user_path(user))
+    end
+
+  end
+
 end
+

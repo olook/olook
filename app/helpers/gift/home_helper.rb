@@ -1,0 +1,2 @@
+module Gift::HomeHelper
+end

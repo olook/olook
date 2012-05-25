@@ -46,5 +46,14 @@ FactoryGirl.define do
       category Category::SHOE
       model_number 'SL-SL'
     end
+
+    factory :blue_slipper do
+      name "Red Slipper"
+      description "Red Slipper with Glitter"
+      category Category::SHOE
+      sequence :model_number do |n|
+        "CSH01#{n}"
+      end
+    end
   end
 end

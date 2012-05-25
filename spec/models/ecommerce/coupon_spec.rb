@@ -16,7 +16,7 @@ describe Coupon do
     it {should validate_presence_of(:remaining_amount)}
 
     it "should be invalid if coupon if limited and dont have a remaining_amount" do
-      coupon = Factory.build(:standard_coupon)
+      coupon = FactoryGirl.build(:standard_coupon)
       coupon.remaining_amount = ''
       coupon.should_not be_valid
     end

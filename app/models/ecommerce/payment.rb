@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Payment < ActiveRecord::Base
-  has_paper_trail
+  # TODO: Temporarily disabling paper_trail for app analysis
+  #has_paper_trail
   MINIMUM_VALUE = BigDecimal.new("5.00")
   SUCCESSFUL_STATUS = 'Sucesso'
   FAILURE_STATUS = 'Falha'

@@ -1,10 +1,10 @@
 <section id="products">
-  <h1 class="title">Destaques deste mês</h1>
+  <h1 class="title">Seleção especial para primeira compra</h1>
   <div class="products_list">
     <ul>
-      <% @products.each do |product| %>
-        <%= render "shared/showroom_product_item", :product => product %>
-      <% end %>
+      <%= showroom_presenter.display_products(0..4, Category::SHOE, Collection.from_last_month) %>
+      <%= showroom_presenter.display_products(0..4, Category::BAG, Collection.from_last_month) %>
+      <%= showroom_presenter.display_products(0..4, Category::ACCESSORY, Collection.from_last_month) %>
     </ul>
   </div>
 </section>

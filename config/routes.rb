@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "home/index"
   get "liquidation_products/index"
-
   get "index/index"
   root :to => "home#index"
 
@@ -19,16 +19,20 @@ Olook::Application.routes.draw do
   match "/membro/:share/:uid", :to => "home#index"
   match "/lookbooks/:name", :to => "lookbooks#show"
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
+
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
 
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
+  get '/moments', to: "moments#index", as: "moments"
+  get '/moments/:id', to: "moments#show", as: "moment"
+  get '/update_moment', to: "moments#update", as: "update_moment"
+
   get '/pedido/:number/boleto', :to =>'orders#billet', :as => "order_billet"
   get '/pedido/:number/credito', :to =>'orders#credit', :as => "order_credit"
   get '/pedido/:number/debito', :to =>'orders#debit', :as => "order_debit"
-
   match "/minhas-amigas/conectar", :to => "friends#facebook_connect", :as => "facebook_connect"
   match "/minhas-amigas/home", :to => "friends#home", :as => "friends_home"
   match "/minhas-amigas/vitrine/:friend_id", :to => "friends#showroom", :as => "friend_showroom"
@@ -50,11 +54,14 @@ Olook::Application.routes.draw do
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
     collection do
+      put "update_gift_data" => "cart#update_gift_data", :as => "update_gift_data"
       put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
       delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
       put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
       delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
       put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
+      post "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
+      get "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
     end
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
@@ -66,7 +73,11 @@ Olook::Application.routes.draw do
   post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
 
   get "membro/convite" => "members#invite", :as => 'member_invite'
+  # TODO: Remove later namorado
+  get "membro/convite_namorado" => "members#valentine_invite", :as => 'member_valentine_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
+  # TODO: Remove later namorado
+  post "membro/convite_namorado_por_email" => 'members#valentine_invite_by_email', :as => 'member_valentine_invite_by_email'
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
 
@@ -81,12 +92,7 @@ Olook::Application.routes.draw do
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
 
   get '/conta/pedidos/:number', :controller =>'user/orders', :action => 'show' , :as => "user_order"
-
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
-
-
-
-  #  delete '/users/destroy_facebook_account', :controller => 'user/users', :action => "destroy_facebook_account", :as => :destroy_facebook_account
 
   namespace :user, :path => 'conta' do
     resources :users, :path => 'editar', :only => [:update]
@@ -104,6 +110,26 @@ Olook::Application.routes.draw do
     delete 'remover_facebook' => 'users#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
+  namespace :gift do
+    root :to => "home#index"
+    get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
+    resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
+    resources :recipients do
+      resources :suggestions, :only => [:index]
+      get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
+      post "suggestions/select_gift/" => "suggestions#select_gift"
+      member do
+        get :edit
+        put :edit
+        put :update
+      end
+    end
+    resources :occasions, :only => [:new, :create] do
+      collection do
+        post "new_with_data" => "occasions#new_with_data"
+      end
+    end
+  end
 
   namespace :admin do
     match "/", :to => "index#dashboard"
@@ -134,6 +160,8 @@ Olook::Application.routes.draw do
       resources :images
     end
 
+    resources :moments
+
     resources :users, :except => [:create, :new] do
       collection do
         get 'statistics' => 'users#statistics', :as => 'statistics'
@@ -141,6 +169,7 @@ Olook::Application.routes.draw do
         get 'login/:id' => 'users#admin_login'
         get 'lock_access/:id' => 'users#lock_access'
         get 'unlock_access/:id' => 'users#unlock_access'
+        post 'create_credit_transaction' => 'users#create_credit_transaction'
       end
     end
 
@@ -170,11 +199,19 @@ Olook::Application.routes.draw do
       resources :permissions
     end
     resources :admins
+
+    resources :gift_occasion_types
+    resources :gift_recipient_relations
   end
 
   devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
+
+  #TODO: implement gift routes with something as bellow
+  #devise_for :gift, :class_name => "User", :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
+  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+  #end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
     get '/entrar' => 'sessions#new', :as => :new_user_session
@@ -182,5 +219,11 @@ Olook::Application.routes.draw do
     delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    #gift
+    get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
+    post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
   end
+
+  # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
+  get ":page_url", :to => "landing_pages#show"
 end
