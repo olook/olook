@@ -3,6 +3,7 @@ class Lookbook < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   has_many :lookbooks_products, :dependent => :destroy
   has_many :products, :through => :lookbooks_products
+  has_many :videos, :as => :video_relation
 
   scope :active, where('active = 1').order("created_at DESC")
 
