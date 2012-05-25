@@ -152,6 +152,8 @@ $(document).ready(function() {
       url: '/get_address_by_zipcode',
       dataType: 'json',
       data: 'zipcode=' + $("input#address_zip_code").val(),
+      beforeSend: function(){$("input#address_zip_code").parent('li').append('<div class="preloader"></div>');},
+      complete: function(){$(".main li div.preloader").remove();},
       success: function(result){
         if(result['result_type'] == 1){
           $('form input#address_street').val(result['street']);
