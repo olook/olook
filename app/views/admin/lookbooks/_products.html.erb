@@ -5,6 +5,9 @@
       <th>ID</th>
       <th>Product</th>
       <th>Name</th>
+      <th>Collection</th>
+      <th>Profile</th>
+      <th>Inventory</th>
       <th>Criteo</th>
       <th></th>
       <th></th>
@@ -16,6 +19,9 @@
     <td><%= product.id %></td>
       <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
       <td><%= product.name %></td>
+      <td><%= product.collection.name if product.collection %></td>
+      <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
+      <td><%= product.inventory %></td>
       <td><%= lb.criteo %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
