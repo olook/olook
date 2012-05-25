@@ -10,12 +10,12 @@ describe ShowroomPresenter do
     it "should render the partial with the FB avatar if the user is FB connected" do
       member.stub(:'has_facebook?').and_return(true)
       template.should_receive(:render).with(:partial => "showroom_facebook_connected", :locals => {:showroom_presenter => subject})
-      subject.render_identification
+      subject.render_identification([:hey])
     end
     it "should render the partial asking for the user to connect his account if he isn't FB connected" do
       member.stub(:'has_facebook?').and_return(false)
       template.should_receive(:render).with(:partial => "showroom_facebook_connect", :locals => {:showroom_presenter => subject})
-      subject.render_identification
+      subject.render_identification([])
     end
   end
 
@@ -38,26 +38,27 @@ describe ShowroomPresenter do
   end
 
   describe '#display_products, should render the product partial for' do
-    let(:fake_products) { Array.new(10, :one_product) }
+    let(:one_product) { stub(:liquidation? => false) }
+    let(:fake_products) { Array.new(10, one_product) }
 
     before :each do
-      subject.member.stub(:all_profiles_showroom).with(Category::SHOE).and_return(fake_products)
+      ProductFinderService.any_instance.stub(:products_from_all_profiles).and_return(fake_products)
     end
 
     it "a given range" do
-      template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => subject, :product => :one_product}).exactly(3).times.and_return('')
+      template.should_receive(:render).with("shared/showroom_product_item", :showroom_presenter => subject, :product => one_product).exactly(3).times.and_return('')
       template.should_receive(:raw).with('')
       subject.display_products (0..2), Category::SHOE
     end
 
     it "if it's not a range, return all remaining products staring at the index" do
-      template.should_receive(:render).with(:partial => "shared/showroom_product_item", :locals => {:showroom_presenter => subject, :product => :one_product}).exactly(2).times.and_return('')
+      template.should_receive(:render).with("shared/showroom_product_item", :showroom_presenter => subject, :product => one_product).exactly(2).times.and_return('')
       template.should_receive(:raw).with('')
       subject.display_products 8, Category::SHOE
     end
 
     it "if the range doesn't exist, it should not call it the render" do
-      subject.member.stub(:all_profiles_showroom).and_return([])
+      ProductFinderService.any_instance.stub(:products_from_all_profiles).and_return([])
       template.should_not_receive(:render)
       template.should_receive(:raw).with('')
       subject.display_products 8, Category::SHOE

@@ -11,8 +11,7 @@ class InviteMailer < ActionMailer::Base
       :address => "smtp.sendgrid.net",
       :port => 587,
       :authentication => :plain,
-      tls: true,
-      enable_starttls_auto: true
+      :enable_starttls_auto => true
     }
   end
 
@@ -24,6 +23,12 @@ class InviteMailer < ActionMailer::Base
   def reinvite_email(invite)
     @invite = invite
     send_invite(@invite)
+  end
+
+  def valentine_invite_email(user_name, to)
+    @user_name = user_name
+    mail(:to => to, :subject => "#{user_name} te convidou para a olook!")
+    headers["X-SMTPAPI"] = { 'category' => 'valentine_invite_email' }.to_json
   end
 
   private

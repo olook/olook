@@ -6,7 +6,7 @@ class User::UsersController < ApplicationController
   before_filter :check_cpf, :only => [:update]
 
   def destroy_facebook_account
-    @user.update_attributes(:uid => nil, :facebook_token => nil, :has_facebook_extended_permission => false)
+    @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
     redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
   end
 

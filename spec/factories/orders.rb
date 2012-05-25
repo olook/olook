@@ -16,6 +16,16 @@ FactoryGirl.define do
       Resque.stub(:enqueue)
     end
   end
+  
+  factory :restricted_order, :class => Order do
+    association :payment, :factory => :billet
+    association :freight, :factory => :freight
+    restricted true
+    
+    after_build do |order|
+      Resque.stub(:enqueue)
+    end
+  end
 
   factory :clean_order_credit_card, :class => Order do
     association :payment, :factory => :credit_card

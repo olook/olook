@@ -4,8 +4,9 @@ require "spec_helper"
 describe ProductPresenter do
   let(:product) { FactoryGirl.create :basic_shoe }
   let(:member) { double :user }
+  let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
-  subject { described_class.new template, :product => product, :member => member }
+  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id }
 
   describe "user showroom methods" do
     describe '#render_member_showroom' do
@@ -95,6 +96,20 @@ describe ProductPresenter do
     it "should render the partial with the product colors" do
       template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product}).and_return('colors')
       subject.render_colors.should == 'colors'
+    end
+  end
+
+  describe '#render_facebook_comments' do
+    it "should render the partial with the product colors" do
+      template.should_receive(:render).with(:partial => 'product/facebook_comments',  :locals => {:product => subject.product, :facebook_app_id => subject.facebook_app_id}).and_return('facebook_comments')
+      subject.render_facebook_comments.should == 'facebook_comments'
+    end
+  end
+  
+  describe '#render_add_to_suggestions' do
+    it "should render the partial with controls to add the product to gift_list" do
+      template.should_receive(:render).with(:partial => 'product/add_to_suggestions', :locals => {:product_presenter => subject, :product => product}).and_return('gift list')
+      subject.render_add_to_suggestions.should == 'gift list'
     end
   end
 

@@ -8,4 +8,4 @@ admin = Admin.new(:email => "admin@olook.com",
 admin.role = superadmin
 admin.save!
 
-survey = Survey.new(SURVEY_DATA).build
+survey = SurveyBuilder.new(SURVEY_DATA, "Registration Survey").build

@@ -130,3 +130,7 @@
   @if $experimental-support-for-svg          and prefixed(-svg,    $value) { content:    -svg($value); }
                                                                              content:         $value ;
 }
+
+.banner_mothers_day {
+  margin-bottom: 10px;
+}

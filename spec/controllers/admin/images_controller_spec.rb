@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Admin::ImagesController do
   render_views
-  let(:lookbook) { FactoryGirl.create :basic_lookbook }
+  let(:lookbook) { FactoryGirl.create(:basic_lookbook) }
   let!(:image) { FactoryGirl.create(:image, :lookbook => lookbook) }
   let!(:valid_attributes) { image.attributes }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
-    @admin = Factory :admin
+    @admin = FactoryGirl.create(:admin)
     sign_in @admin
   end
 

@@ -31,10 +31,11 @@ describe do SurveyAnswerParser
   end
 
   it "should build questions objects mapped with answers objects" do
-    answer1   = FactoryGirl.create(:answer_from_casual_profile)
-    answer2   = FactoryGirl.create(:answer_from_sporty_profile)
-    question1 = answer1.question
-    question2 = answer2.question
+    survey    = FactoryGirl.create(:survey)
+    question1 = FactoryGirl.create(:question, :survey => survey)
+    question2 = FactoryGirl.create(:question, :survey => survey)
+    answer1   = FactoryGirl.create(:answer_from_casual_profile, :question => question1)
+    answer2   = FactoryGirl.create(:answer_from_sporty_profile, :question => question2)
 
     questions = {
       "question_#{question1.id}_#{answer1.id}" => answer1.id,

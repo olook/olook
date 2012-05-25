@@ -1,0 +1,37 @@
+<%= form_for([:admin, @gift_occasion_type]) do |f| %>
+  <% if @gift_occasion_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift_occasion_type.errors.count, "error") %> prohibited this gift_occasion_type from being saved:</h2>
+
+      <ul>
+      <% @gift_occasion_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :gift_recipient_relation_id %><br />
+    <%= f.select :gift_recipient_relation_id, @gift_recipient_relations.map{|grp| [grp.name, grp.id]} %>
+  </div>
+	
+  <div class="field">
+    <%= f.label :day %><br />
+    <%= f.select :day, (1..31) %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :month %><br />
+    <%= f.select :month, (1..12) %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,51 @@
+<%= form_for(resource, :as => resource_name, :url => gift_user_registration_path(resource)) do |f| %>
+  <% if resource.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset>
+    <ol class="<%= "facebook" if @signup_with_facebook %>">
+      <li>
+        <%= f.label :first_name, "Primeiro nome" %>
+        <%= f.text_field :first_name %>
+      </li>
+
+      <li>
+        <%= f.label :last_name, "Sobrenome" %>
+        <%= f.text_field :last_name %>
+      </li>
+      <li>
+        <%= f.label :email, "Email" %>
+        <%= f.email_field :email %>
+      </li>
+    </ol>
+    
+    <ol>
+      <li class="password">
+        <label for="user_password">Senha</label>
+        <%= f.password_field :password %>
+      </li>
+
+      <li>
+        <%= f.label :password_confirmation, "Confirmar senha" %>
+        <%= f.password_field :password_confirmation %>
+      </li>
+      
+      <li class="gender">
+        <p>Sexo</p>
+        <%= f.radio_button :gender, User::Gender[:male] %>
+        <%= label_tag 'user_gender_1', 'Masculino' %>
+        <%= f.radio_button :gender, User::Gender[:female] %>
+        <%= label_tag 'user_gender_0', 'Feminino' %>
+      </li>
+
+      <li class="terms"><p>Concluindo o cadastro você aceita os <%= link_to 'Termos e Condições', terms_path, :target => "_blank" %> e a nossa <%= link_to "Política de Privacidade", privacy_path, :target => "_blank" %> </p></li>
+      <li class="buttons"><%= f.submit "Cadastrar", :id => "register" %></li>
+    </ol>
+  </fieldset>
+<% end %>

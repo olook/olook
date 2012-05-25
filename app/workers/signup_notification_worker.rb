@@ -6,11 +6,13 @@ class SignupNotificationWorker
     member = User.find(user_id)
     raise "The welcome message for member #{user_id} was already sent" unless member.welcome_sent_at.nil?
 
-    mail = MemberMailer.welcome_email(member)
+    if not member.half_user
+      mail = MemberMailer.welcome_email(member)
 
-    mail.deliver
+      mail.deliver
     
-    member.welcome_sent_at = Time.now
-    member.save
+      member.welcome_sent_at = Time.now
+      member.save
+    end
   end
 end

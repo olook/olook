@@ -1,7 +1,11 @@
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', "<%= ANALYTICS_CONFIG['analytics_id'] %>" ]);
-  _gaq.push(['_setCustomVar',1,'Member Type','<%= member_type %>',2]);
+  _gaq.push(['_setCustomVar',1,'Member Type','<%= member_type %>',1]);
+  <% if user_signed_in? %>
+    _gaq.push(['_setCustomVar',2,'Age','<%= current_user.age %>',1]);
+    _gaq.push(['_setCustomVar',3,'Profile','<%= current_user.profile_name %>',1]);
+  <% end %>
   _gaq.push(['_trackPageview']);
   <%= yield :ecommerce_tracking %>
   (function() {

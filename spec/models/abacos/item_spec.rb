@@ -17,15 +17,19 @@ describe Abacos::Item do
   it '#preco_unitario_bruto' do
     subject.preco_unitario.should == '179.90'
   end
+  it '#embalagem_presente' do
+    subject.embalagem_presente.should == false
+  end
 
-  context "without a liquidation" do
+  context "a clean item, without liquidation and gift option" do
     describe '#parsed_data' do
       let(:expected_data) do
         {
           'CodigoProduto' => "#{line_item.variant.number}",
           'QuantidadeProduto' => line_item.quantity,
           'PrecoUnitario' => "#{"%.2f" % line_item.price}",
-          'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}"
+          'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}",
+          'EmbalagemPresente' => false
         }
       end
 
@@ -46,7 +50,8 @@ describe Abacos::Item do
           'CodigoProduto' => "#{line_item.variant.number}",
           'QuantidadeProduto' => line_item.quantity,
           'PrecoUnitario' => "#{"%.2f" % @retail_price}",
-          'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}"
+          'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}",
+          'EmbalagemPresente' => false
         }
       end
 
@@ -55,5 +60,4 @@ describe Abacos::Item do
       end
     end
   end
-
 end

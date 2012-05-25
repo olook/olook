@@ -16,6 +16,7 @@
     <% content_for :checkout_sidebar do %>
       <%= render :partial => "shared/payments/info_payment", :locals => { :order => @order } %>
       <%= render :partial => "shared/payments/info_address", :locals => { :order => @order } %>
+      <%= render "shared/metrics/yahoo/buy_and_register" %>
     <% end %>
     <%= render "shared/payments/info_sidebar", :cart => @cart %>
   </section>
@@ -29,4 +30,6 @@
 
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
+  <%= render "shared/metrics/google/buy_done" %>
+  <%= render "shared/metrics/boobox/buy" %>
 <% end %>

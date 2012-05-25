@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe User do
-  subject { Factory.create(:user) }
+  subject { FactoryGirl.create(:user) }
 
   let(:casual_profile) { FactoryGirl.create(:casual_profile) }
   let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
@@ -31,7 +31,7 @@ describe User do
 
     describe "when CPF is required" do
       it "should validate" do
-        user = Factory.build(:user)
+        user = FactoryGirl.build(:user)
         user.is_invited = true
         user.save
         user.should be_invalid
@@ -49,10 +49,28 @@ describe User do
 
     describe "when CPF is not required" do
       it "should not validate" do
-        user = Factory.build(:user)
+        user = FactoryGirl.build(:user)
         user.save
         user.should be_valid
       end
+    end
+  end
+
+  describe "when gender is required" do
+    it "should validate" do
+      user = FactoryGirl.build(:user)
+      user.half_user = true
+      user.save
+      user.should be_invalid
+    end
+  end
+
+  describe "when gender is not required" do
+    it "should not validate" do
+      user = FactoryGirl.build(:user)
+      user.half_user = false
+      user.save
+      user.should be_valid
     end
   end
 
@@ -67,7 +85,7 @@ describe User do
 
   context "check user's creation" do
     it "should return true if user is new" do
-      new_user = Factory.create(:user)
+      new_user = FactoryGirl.create(:user)
       new_user.created_at = DateTime.now
       new_user.save
       new_user.is_new?.should be_true
@@ -83,17 +101,45 @@ describe User do
     let(:token) {"ABC"}
     let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
 
-    it "should set facebook data with a extended permission" do
-      session = {:facebook_scopes => "publish_stream"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :has_facebook_extended_permission => true)
-      subject.set_facebook_data(omniauth, session)
+    it "should always set all facebook permissions" do
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
     end
 
-    it "should set facebook data without extended permission" do
-      session = {:facebook_scopes => nil}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token)
-      subject.set_facebook_data(omniauth, session)
+    it "should set all facebook permissions when user has publish stream permission" do
+      session = {:facebook_scopes => "publish_stream"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
     end
+
+    it "should set facebook data with friends birthday permission" do
+      session = {:facebook_scopes => "friends_birthday"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
+    end
+
+    it "should set facebook data with friends birthday and publish stream permissions" do
+      session = {:facebook_scopes => "publish_stream, friends_birthday"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
+    end
+
+    it "should add permissions and not remove the old ones" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "friends_birthday"}
+      subject.set_facebook_data(omniauth)
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
+    end
+
+    it "should not duplicate permissions" do
+      subject.facebook_permissions << "publish_stream"
+      subject.save
+      session = {:facebook_scopes => "publish_stream"}
+      subject.set_facebook_data(omniauth)
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
+    end
+
   end
 
   context "facebook accounts" do
@@ -342,14 +388,13 @@ describe User do
   end
 
   describe "showroom methods" do
+    let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
     let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
     let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
     let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-
     let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
-
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
 
@@ -369,6 +414,11 @@ describe User do
       it 'should return an array' do
         subject.all_profiles_showroom.should be_a(Array)
       end
+
+      it 'should return producs given a collection' do
+        subject.should_receive(:profile_showroom).at_least(2).times.with(anything, Category::BAG, last_collection).and_return(stub(:all => []))
+        subject.all_profiles_showroom(Category::BAG, last_collection)
+      end
     end
 
     describe "#profile_showroom" do
@@ -386,6 +436,12 @@ describe User do
 
       it 'should not include the invisible product' do
         subject.profile_showroom(sporty_profile).should_not include(invisible_product)
+      end
+
+      it "should return only the products for the last collection" do
+        product_a.update_attributes(:collection => last_collection)
+        product_b.update_attributes(:collection => last_collection)
+        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
       end
     end
 
@@ -414,6 +470,42 @@ describe User do
         subject.birthday = nil
         subject.save!
         subject.birthdate.should be_nil
+      end
+    end
+
+    describe "#age" do
+      context "when user birthday is not defined" do
+        it "returns nil" do
+          subject.stub(:age).and_return(nil)
+          subject.age.should be_nil
+        end
+      end
+
+      context "when user birthday is defined and today is 2013-07-13" do
+        before do
+          Date.should_receive(:today).and_return(Date.new(2013,7,13))
+        end
+
+        context "and user birthday is 1983-07-18" do
+          it "returns 29" do
+            subject.stub(:birthday).and_return(Date.new(1983,7,18))
+            subject.age.should == 29
+          end
+        end
+
+        context "and user birthday is 1983-07-13" do
+          it "returns 30" do
+            subject.stub(:birthday).and_return(Date.new(1983,7,13))
+            subject.age.should == 30
+          end
+        end
+
+        context "and user birthday is 2013-10-13" do
+          it "returns 30" do
+            subject.stub(:birthday).and_return(Date.new(1983,5,13))
+            subject.age.should == 30
+          end
+        end
       end
     end
 
@@ -465,14 +557,14 @@ describe User do
 
     context 'when user has one order in the cart' do
       it 'returns false' do
-        Factory.create(:order_without_payment, :user => subject)
+        FactoryGirl.create(:order_without_payment, :user => subject)
         subject.has_purchases?.should be_false
       end
     end
 
     context 'when user has one order not in the cart' do
       it 'returns true' do
-        order = Factory.create(:order, :user => subject)
+        order = FactoryGirl.create(:order, :user => subject)
         order.waiting_payment
         subject.has_purchases?.should be_true
       end
@@ -578,6 +670,15 @@ describe User do
           order.authorized
           order.picking
           order.delivering
+          subject.first_buy?.should be_true
+        end
+      end
+
+      context "when user has one order under review" do
+        it "returns true" do
+          order.waiting_payment
+          order.authorized
+          order.under_review
           subject.first_buy?.should be_true
         end
       end
