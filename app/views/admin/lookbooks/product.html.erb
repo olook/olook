@@ -17,35 +17,34 @@
  	<table class="table">
     <tr>
       <th>Product</th>
+      <th>Collection</th>
+      <th>ID</th>
+      <th>Profile</th>
       <th style="width:125px">Name</th>
       <th>Select</th>
+      <th>Inventory</th>
       <th>Criteo</th>
     </tr>
-
-  <% @products.each do |product|
-
-      related = !product.lookbooks_products.empty?
-      if related
-        if product.lookbooks_products[0].lookbook_id == @lookbook.id
-          related = product.lookbooks_products[0].criteo
-        else
-          related = false
-        end
-      else
-        related = false
-      end
-  %>
+<%
+@products.each do |product|
+  related = !product.lookbooks_products.empty?
+  if related
+    related = product.lookbooks_products[0].lookbook_id == @lookbook.id ? product.lookbooks_products[0].criteo : false
+  else
+    related = false
+  end
+-%>
     <tr>
-      <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
-      <td><%= "#{product.name}"%></td>
-      <td><%= check_box_tag( "lookbook[product_list][#{product.id}]", 
-                          "1", 
-                          @lookbook.products.detect{|d| d == product}) %></td>
-      <td><%= check_box_tag( "lookbook[product_criteo][#{product.id}]", 
-                          "1", 
-                          related ) %></td>
+      <td><%= image_tag(product.thumb_picture, :size => '50x50') if product.thumb_picture %></td>
+      <td><%= product.collection.name if product.collection %></td>
+      <td><%= product.id %></td>
+      <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
+      <td><%= product.name %></td>
+      <td><%= check_box_tag "lookbook[product_list][#{product.id}]", "1", @lookbook.products.detect{ |d| d == product } %></td>
+      <td><%= product.inventory %></td>
+      <td><%= check_box_tag "lookbook[product_criteo][#{product.id}]", "1", related %></td>
     </tr>
-  <% end %>
+<% end %>
   </table>  
   <div class="actions">
     <%= f.submit %>
