@@ -53,7 +53,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def get_all_products
-    @products = Product.find(:all, :order => 'name')
+    @products = Product.order(:name)
   end
 
   def product
