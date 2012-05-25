@@ -17,10 +17,10 @@
  	<table class="table">
     <tr>
       <th>Product</th>
-      <th>Collection</th>
-      <th>ID</th>
-      <th>Profile</th>
       <th style="width:125px">Name</th>
+      <th>ID</th>
+      <th>Collection</th>
+      <th>Profile</th>
       <th>Select</th>
       <th>Inventory</th>
       <th>Criteo</th>
@@ -36,10 +36,10 @@
 -%>
     <tr>
       <td><%= image_tag(product.thumb_picture, :size => '50x50') if product.thumb_picture %></td>
-      <td><%= product.collection.name if product.collection %></td>
-      <td><%= product.id %></td>
-      <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
       <td><%= product.name %></td>
+      <td><%= product.id %></td>
+      <td><%= product.collection.name if product.collection %></td>
+      <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
       <td><%= check_box_tag "lookbook[product_list][#{product.id}]", "1", @lookbook.products.detect{ |d| d == product } %></td>
       <td><%= product.inventory %></td>
       <td><%= check_box_tag "lookbook[product_criteo][#{product.id}]", "1", related %></td>
