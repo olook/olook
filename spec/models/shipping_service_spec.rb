@@ -6,8 +6,10 @@ describe ShippingService do
 
   describe 'validations' do
     it { should have_many(:freight_prices) }
+    it { should have_many(:freights) }
 
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:erp_code) }
 
     it { should_not allow_value(0).for(:cubic_weight_factor) }
     it { should_not allow_value(-1).for(:cubic_weight_factor) }
