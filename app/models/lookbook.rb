@@ -39,4 +39,3 @@ class Lookbook < ActiveRecord::Base
     end
   end
 end
-
