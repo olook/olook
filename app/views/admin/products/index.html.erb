@@ -2,10 +2,10 @@
 <div class="search">
 <%= form_tag(admin_products_path, id: 'search', method: :get) do %>
   <%= text_field_tag :q, params[:q], {placeholder: 'Busca'} %>
-  <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), include_blank: true %>
-  <%= select_tag :cat, options_for_select(@categories, params[:cat]), include_blank: true %>
-  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), include_blank: true %>
-  <%= submit_tag 'Search' %>
+  <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
+  <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
+  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
+  <%= submit_tag 'Search', name: nil %>
 <% end %>
 </div>
 <%= form_tag(sync_products_admin_products_path, :id => 'sync_products') do %>
