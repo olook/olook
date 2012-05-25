@@ -17,22 +17,22 @@ class ZipCodeAdapter
     case result['resultado'].to_i
       when 1 then
         {
-          :result_type => result['resultado'],
-          # :address_type => result['tipo_logradouro'],
-          :street => result['logradouro'],
-          :neighborhood => result['bairro'],
-          :city => result['cidade'],
-          :state => result['uf']
+          result_type: result['resultado'],
+          # address_type: result['tipo_logradouro'],
+          street: result['logradouro'],
+          neighborhood: result['bairro'],
+          city: result['cidade'],
+          state: result['uf']
         }
       when 2 then
         {
-          :result_type => result['resultado'],
-          :city => result['cidade'],
-          :state => result['uf']
+          result_type: result['resultado'],
+          city: result['cidade'],
+          state: result['uf']
         }
       else
         {
-          :result_type => result['resultado'],
+          result_type: result['resultado'],
         }
     end
   end
