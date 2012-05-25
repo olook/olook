@@ -158,9 +158,6 @@ $(document).ready(function() {
         if(result['result_type'] == 1){
           $('form input#address_street').val(result['street']);
           $('form input#address_neighborhood').val(result['neighborhood']);
-          // $('form input#address_city').val(result['city']);
-          // $('form select#address_state').val(result['state']);
-          // $('span.select').text(result['state']);
           $('form input#address_number').focus();
         }
         if(result['result_type'] >= 1){
