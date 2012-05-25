@@ -43,6 +43,14 @@ class Product < ActiveRecord::Base
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
 
+  scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
+  scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
+  scope :with_name_like, lambda { |value| { :conditions => ([ "name like ?", "%#{value}%" ] unless value.blank? || value.nil?) } }
+
+  def self.in_profile profile
+    !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
+  end
+
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
   def self.for_xml
