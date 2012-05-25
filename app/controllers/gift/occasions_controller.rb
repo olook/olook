@@ -44,7 +44,6 @@ class Gift::OccasionsController < Gift::BaseController
   def load_params
     if occasion_type = params[:ot]
       occasion = GiftOccasionType.find(occasion_type)
-      @name = occasion.name
       @day = occasion.day
       @month = occasion.month
       @occasion_type_id = occasion.id
