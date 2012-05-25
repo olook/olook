@@ -117,7 +117,6 @@ describe LiquidationSearchService do
         lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "7.6")
         lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :inventory => 1, :shoe_size => "37", :heel => "5.6")
         params = {:id => liquidation.id, :shoe_subcategories => ["melissa", "rasteirinha"], :shoe_sizes => ["37"], :heels => ["5.6"]}
-        LiquidationSearchService.new(params).search_products.should == [lp1, lp3]
         products = LiquidationSearchService.new(params).search_products
         products.should include(lp1)
         products.should include(lp3)
