@@ -8,6 +8,11 @@ class Admin::ProductsController < Admin::BaseController
   def index
     @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
+    # search params
+    @collections = Collection.order(:name)
+    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
+    @profiles = Profile.all
+
     respond_with :admin, @products
   end
 
@@ -81,7 +86,13 @@ class Admin::ProductsController < Admin::BaseController
   private
 
   def load_products
-    @products = Product.all
+    @products = Product.with_name_like(params[:q])
+                       .in_category(params[:cat])
+                       .in_collection(params[:col])
+                       .in_profile(params[:p])
+                       .order(:name)
+                       .paginate(page: params[:page], per_page: 12)
+    # @products.select([:id, 'count(products.id) total']).order('total desc').map{|p| p.attributes}
   end
 end
 
