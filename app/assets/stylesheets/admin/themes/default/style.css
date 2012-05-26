@@ -26,13 +26,13 @@
 body {
   color: #111111;
   background: #c4c4c4 url("images/bgd.jpg");
-  font-family: "MuseoSans500", helvetica, arial, sans-serif;
+  font-family: helvetica, arial, sans-serif;
 }
 
 h1, h2, h3 {
   color: #111111;
   font-weight: normal;
-  font-family: "Museo700", helvetica, arial, sans-serif;
+  font-family: helvetica, arial, sans-serif;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -259,7 +259,7 @@ hr {
   margin-top: 11px;
 }
 
-.pagination a, .pagination span {
+.pagination a, .pagination span, .pagination em {
   border: 1px solid #c3c4ba;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -278,7 +278,7 @@ hr {
   -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
-.pagination span.current {
+.pagination span.current, .pagination em {
   background: #261f1f;
   color: white;
   border: 1px solid #261f1f;
