@@ -227,6 +227,17 @@ body {
 .table th.last {
   width: 200px;
 }
+.table th .current {
+  background-repeat:no-repeat;
+  background-position:right center;
+  padding-right:12px;
+}
+.table th .asc {
+  background-image: url("/assets/admin/up_arrow.gif");
+}
+.table th .desc {
+  background-image: url("/assets/admin/down_arrow.gif");
+}
 
 .table .checkbox {
   margin-left: 10px;
@@ -460,10 +471,11 @@ button.button:active, a.button:active {
 #sync_products {
   margin: 20px;
 }
+
 .search {
-  background:#EEE;
+  background:#ededed;
   padding:10px;
-  margin:15px 15px 0;
+  margin:15px 15px 5px 15px;
 }
 .search h3 {
   font-size:125%;
