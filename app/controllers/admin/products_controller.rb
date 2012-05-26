@@ -2,7 +2,6 @@
 class Admin::ProductsController < Admin::BaseController
   load_and_authorize_resource
 
-  before_filter :load_products, :only => [:index, :sync_products]
   respond_to :html
 
   def index
@@ -12,6 +11,13 @@ class Admin::ProductsController < Admin::BaseController
     @collections = Collection.order(:name)
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
     @profiles = Profile.all
+
+    @products = Product.search(params[:q])
+                       .in_category(params[:cat])
+                       .in_collection(params[:col])
+                       .in_profile(params[:p])
+                       .order(sort_column + " " + sort_direction)
+                       .paginate(page: params[:page], per_page: 10)
 
     respond_with :admin, @products
   end
@@ -59,6 +65,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def sync_products
+    @products = Product.all
     @sync_event = SynchronizationEvent.new(:name => 'products')
     if @sync_event.save
       redirect_to admin_products_path
@@ -84,15 +91,13 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   private
-
-  def load_products
-    @products = Product.with_name_like(params[:q])
-                       .in_category(params[:cat])
-                       .in_collection(params[:col])
-                       .in_profile(params[:p])
-                       .order(:name)
-                       .paginate(page: params[:page], per_page: 12)
-    # @products.select([:id, 'count(products.id) total']).order('total desc').map{|p| p.attributes}
+  helper_method :sort_column, :sort_direction
+  def sort_column
+    Product.column_names.include?(params[:s]) ? params[:s] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:d]) ? params[:d] : "asc"
   end
 end
 

@@ -18,7 +18,7 @@
 <div class="search">
   <h3>Search options:</h3>
 <%= form_tag(admin_products_path, method: :get) do %>
-  <%= text_field_tag :q, params[:q], {placeholder: 'Busca'} %>
+  <%= search_field_tag :q, params[:q], {placeholder: 'Busca'} %>
   <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
   <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
@@ -30,16 +30,16 @@
   <%= will_paginate @products %>
   <table class="table">
     <tr>
-      <th>Name</th>
+      <th><%= sortable('name') %></th>
       <th>Model number</th>
       <th>Liquidation</th>
-      <th>Category</th>
+      <th><%= sortable('category') %></th>
       <th>Visible?</th>
       <th>Price</th>
       <th>Inventory</th>
       <th>Color</th>
       <th>Profile</th>
-      <th>Collection</th>
+      <th><%= sortable('collection_id', 'Collection') %></th>
       <th>Picture</th>
       <th>Sample</th>
       <th></th>
@@ -60,7 +60,7 @@
       <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
       <td><%= product.collection.try(:name) %></td>
       <td><%= image_tag(product.thumb_picture, size: '50x50') if product.thumb_picture %></td>
-      <td><%= image_tag(product.color_sample_url) unless product.color_sample.blank? %></td>
+      <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
       <td><%= link_to "Preview", product_path(product), :target => "_blank" %></td>
       <td><%= link_to 'Show', admin_product_path(product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
