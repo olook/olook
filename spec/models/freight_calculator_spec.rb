@@ -12,6 +12,7 @@ describe FreightCalculator do
           freight[:price].should == FreightCalculator::DEFAULT_FREIGHT_PRICE
           freight[:cost].should == FreightCalculator::DEFAULT_FREIGHT_COST
           freight[:delivery_time].should == FreightCalculator::DEFAULT_INVENTORY_TIME
+          freight[:shipping_service_id].should == FreightCalculator::DEFAULT_FREIGHT_SERVICE
         end
       end
 
