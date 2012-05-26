@@ -1,13 +1,4 @@
 <h2>Listing products</h2>
-<div class="search">
-<%= form_tag(admin_products_path, id: 'search', method: :get) do %>
-  <%= text_field_tag :q, params[:q], {placeholder: 'Busca'} %>
-  <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
-  <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
-  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
-  <%= submit_tag 'Search', name: nil %>
-<% end %>
-</div>
 <%= form_tag(sync_products_admin_products_path, :id => 'sync_products') do %>
   <% if @sync_event.errors.any? %>
     <div id="error_explanation">
@@ -23,6 +14,17 @@
 
   <%= submit_tag('Sync products') %>
 <% end %>
+
+<div class="search">
+  <h3>Search options:</h3>
+<%= form_tag(admin_products_path, method: :get) do %>
+  <%= text_field_tag :q, params[:q], {placeholder: 'Busca'} %>
+  <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
+  <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
+  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
+  <%= submit_tag 'Search', name: nil %>
+<% end %>
+</div>
 
 <div class="inner">
   <%= will_paginate @products %>
