@@ -18,7 +18,9 @@
 <div class="search">
   <h3>Search options:</h3>
 <%= form_tag(admin_products_path, method: :get) do %>
-  <%= search_field_tag :q, params[:q], {placeholder: 'Busca'} %>
+  <%= hidden_field_tag :s, params[:s] %>
+  <%= hidden_field_tag :d, params[:d] %>
+  <%= search_field_tag :q, params[:q], {placeholder: 'Name or Model number'} %>
   <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
   <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
