@@ -49,24 +49,22 @@ class Admin::CollectionsController < Admin::BaseController
   def mark_all_products_as_visible
     @collection = Collection.find(params[:collection_id])
     update_products = Product.update_all({:is_visible => true}, {collection_id: @collection.id})
-    if update_products.errors
-      flash[:notice] = "Could not execute your request!"
-      redirect_to admin_collection_path
+    if !update_products
+      flash[:error] = "Could not execute your request!"
     else
       flash[:notice] = "Marked all products as visible."
-      redirect_to admin_collection_path(@collection)
     end
+    redirect_to admin_collection_path(@collection)
   end
 
-  def mark_all_products_as_hidden
+  def mark_all_products_as_invisible
     @collection = Collection.find(params[:collection_id])
     update_products = Product.update_all({:is_visible => false}, {collection_id: @collection.id})
-    if update_products.errors
-      flash[:notice] = "Could not execute your request!"
-      redirect_to admin_collection_path
+    if !update_products
+      flash[:error] = "Could not execute your request!"
     else
-      flash[:notice] = "Marked all products as not visible."
-      redirect_to admin_collection_path(@collection)
+      flash[:notice] = "Marked all products as invisible."
     end
+    redirect_to admin_collection_path(@collection)
   end
 end

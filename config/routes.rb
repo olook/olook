@@ -181,7 +181,7 @@ Olook::Application.routes.draw do
     resources :shipping_services
     resources :collections do
       get 'mark_all_products_as_visible' => 'collections#mark_all_products_as_visible', as: 'display_products'
-      get 'mark_all_products_as_hidden' => 'collections#mark_all_products_as_hidden', as: 'hide_products'
+      get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
     end
     resources :orders
     resources :coupons, :except => [:destroy]
