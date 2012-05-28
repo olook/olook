@@ -29,7 +29,11 @@
 </div>
 
 <div class="inner">
-  <%= will_paginate @products %>
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @products %>
+    </div>
+  </div>
   <table class="table">
     <tr>
       <th><%= sortable('name') %></th>
@@ -70,5 +74,10 @@
   <% end %>
   </table>
   <br />
-  <%= will_paginate @products %>
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @products %>
+    </div>
+  </div>
+  <br class="clear" />
 </div>
