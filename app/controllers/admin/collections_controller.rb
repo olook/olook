@@ -26,17 +26,17 @@ class Admin::CollectionsController < Admin::BaseController
 
   def create
     @collection = Collection.new(params[:collection])
-      if @collection.save
-        flash[:notice] = 'Collection was successfully created.'
-      end
+    if @collection.save
+      flash[:notice] = 'Collection was successfully created.'
+    end
     respond_with :admin, @collection
   end
 
   def update
     @collection = Collection.find(params[:id])
-      if @collection.update_attributes(params[:collection])
-        flash[:notice] = 'Collection was successfully updated.'
-      end
+    if @collection.update_attributes(params[:collection])
+      flash[:notice] = 'Collection was successfully updated.'
+    end
     respond_with :admin, @collection
   end
 
@@ -44,5 +44,29 @@ class Admin::CollectionsController < Admin::BaseController
     @collection = Collection.find(params[:id])
     @collection.destroy
     respond_with :admin, @collection
+  end
+
+  def mark_all_products_as_visible
+    @collection = Collection.find(params[:collection_id])
+    update_products = Product.update_all({:is_visible => true}, {collection_id: @collection.id})
+    if update_products.errors
+      flash[:notice] = "Could not execute your request!"
+      redirect_to admin_collection_path
+    else
+      flash[:notice] = "Marked all products as visible."
+      redirect_to admin_collection_path(@collection)
+    end
+  end
+
+  def mark_all_products_as_hidden
+    @collection = Collection.find(params[:collection_id])
+    update_products = Product.update_all({:is_visible => false}, {collection_id: @collection.id})
+    if update_products.errors
+      flash[:notice] = "Could not execute your request!"
+      redirect_to admin_collection_path
+    else
+      flash[:notice] = "Marked all products as not visible."
+      redirect_to admin_collection_path(@collection)
+    end
   end
 end
