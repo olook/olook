@@ -2,8 +2,9 @@
 <div class="inner">
   <table class="table">
     <tr>
+      <th>ID</th>
       <th>Name</th>
-      <th>Image</th>
+      <th style="width:150px">Product</th>
       <th>Model number</th>
       <th>Price</th>
       <th>Is Visible?</th>
@@ -17,8 +18,9 @@
 
   <% products.each do |product| %>
     <tr>
+      <td><%= product.id %></td>
       <td><%= product.name %></td>
-      <td><%= image_tag product.pictures.first.try(:image_url, :thumb) %></td>
+      <td><%= image_tag(product.showroom_picture, size: '150x150') if product.showroom_picture %></td>
       <td><%= product.model_number %></td>
       <td><%= number_to_currency product.price %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td> 
