@@ -18,6 +18,7 @@ class Admin::ProductsController < Admin::BaseController
                        .in_collection(params[:col])
                        .in_profile(params[:p])
                        .order(sort_column + " " + sort_direction)
+                       .order(:name)
                        .paginate(page: params[:page], per_page: 10)
 
     respond_with :admin, @products
