@@ -94,11 +94,11 @@ class Admin::ProductsController < Admin::BaseController
   private
   helper_method :sort_column, :sort_direction
   def sort_column
-    Product.column_names.include?(params[:s]) ? params[:s] : "name"
+    Product.column_names.include?(params[:s]) ? params[:s] : "collection_id"
   end
   
   def sort_direction
-    %w[asc desc].include?(params[:d]) ? params[:d] : "asc"
+    %w[asc desc].include?(params[:d]) ? params[:d] : "desc"
   end
 end
 
