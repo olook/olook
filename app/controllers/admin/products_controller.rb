@@ -12,7 +12,8 @@ class Admin::ProductsController < Admin::BaseController
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
     @profiles = Profile.all
 
-    @products = Product.search(params[:q])
+    @products = Product.includes(:profiles).includes(:collection)
+                       .search(params[:q])
                        .in_category(params[:cat])
                        .in_collection(params[:col])
                        .in_profile(params[:p])

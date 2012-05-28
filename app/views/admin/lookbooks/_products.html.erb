@@ -2,29 +2,28 @@
 <div class="inner">
   <table class="table">
     <tr>
-      <th>ID</th>
       <th>Product</th>
-      <th>Name</th>
       <th>Collection</th>
+      <th>ID</th>
       <th>Profile</th>
+      <th>Name</th>
       <th>Inventory</th>
       <th>Criteo</th>
       <th></th>
       <th></th>
     </tr>
 
-  <% lookbook.lookbooks_products.each do |lb| 
-        product = Product.find(lb.product.id) %>
+  <% @lookbook_products.each do |lb| %>
     <tr>
-    <td><%= product.id %></td>
-      <td><%= image_tag(product.thumb_picture) if product.thumb_picture %></td>
-      <td><%= product.name %></td>
-      <td><%= product.collection.name if product.collection %></td>
-      <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
-      <td><%= product.inventory %></td>
+      <td><%= image_tag(lb.product.thumb_picture) if lb.product.thumb_picture %></td>
+      <td><%= lb.product.collection.name if lb.product.collection %></td>
+      <td><%= lb.product.id %></td>
+      <td><%= lb.product.profiles.first.name if lb.product.profiles.size > 0 %></td>
+      <td><%= lb.product.name %></td>
+      <td><%= lb.product.inventory %></td>
       <td><%= lb.criteo %></td>
-      <td><%= link_to 'Show', admin_product_path(product) %></td>
-      <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+      <td><%= link_to 'Show', admin_product_path(lb.product) %></td>
+      <td><%= link_to 'Edit', edit_admin_product_path(lb.product) %></td>
     </tr>
   <% end %>
   </table>
