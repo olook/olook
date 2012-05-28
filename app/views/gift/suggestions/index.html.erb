@@ -7,6 +7,8 @@
 <% content_for :footer do %>
   <%= javascript_include_tag "gift/suggestions" %>
   <%= javascript_include_tag "product_view" %>
+  <%= render "shared/metrics/metaffiliation/action", :email => current_user ? current_user.email : 1 %>
+  <%= render "shared/metrics/adlead/adlead_gift", :email => current_user ? current_user.email : 1%>
 <% end %>
 
 <% content_for :full do %>
