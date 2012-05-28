@@ -467,19 +467,17 @@ button.button:active, a.button:active {
   text-align: center;
 }
 
-#sync_products {
-  margin: 20px;
-}
-
 .search {
   background:#ededed;
   padding:10px;
   margin:15px 15px 5px 15px;
 }
 .search h3 {
-  font-size:125%;
+  font-size:140%;
   margin:3px 0;
 }
-.search input[type=search],.search input[type=text]{
-  width:175px;
-}
+.search input[type=search],.search input[type=text]{width:175px;}
+fieldset {border:1px solid #ddd; padding:5px 10px; margin-bottom:10px;}
+fieldset legend {font-size:140%;}
+
+#sync_products {margin: 20px;}
