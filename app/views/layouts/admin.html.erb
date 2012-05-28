@@ -32,9 +32,9 @@
             </div>
           <% end -%>
         </div>
-        <div id="main">
+        <div id="main" class="<%= content_for?(:sidebar) ? 'sidebar' : 'nosidebar' %>">
           <div class="block">
-            <% if content_for? :secondary_navigation %>
+            <% if content_for?(:secondary_navigation) %>
             <div class="secondary-navigation">
               <ul class="wat-cf">
                 <%= yield :secondary_navigation %>
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <% if content_for? :sidebar %>
+        <% if content_for?(:sidebar) %>
         <div id="sidebar">
           <%= yield :sidebar %>
         </div>
