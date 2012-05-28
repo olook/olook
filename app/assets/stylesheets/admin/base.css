@@ -67,10 +67,9 @@ body {
   text-decoration: none;
 }
 
-#main {
-  width: 70%;
-  float: left;
-}
+#main {float: left;}
+#main.sidebar {width:77%;}
+#main.nosidebar {width:100%;}
 
 .actions-bar {
   padding: 10px 1px;
