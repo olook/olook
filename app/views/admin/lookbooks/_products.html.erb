@@ -15,7 +15,7 @@
 
   <% @lookbook_products.each do |lb| %>
     <tr>
-      <td><%= image_tag(lb.product.thumb_picture) if lb.product.thumb_picture %></td>
+      <td><%= image_tag(lb.product.showroom_picture, size: '150x150') if lb.product.thumb_picture %></td>
       <td><%= lb.product.collection.name if lb.product.collection %></td>
       <td><%= lb.product.id %></td>
       <td><%= lb.product.profiles.first.name if lb.product.profiles.size > 0 %></td>

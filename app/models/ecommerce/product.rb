@@ -112,20 +112,20 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
-  def showroom_picture
-    main_picture.try(:image_url, :showroom)
-  end
-
   def thumb_picture
-    main_picture.try(:image_url, :thumb)
+    main_picture.try(:image_url, :thumb) # 50x50
   end
 
   def bag_picture
-    main_picture.try(:image_url, :bag)
+    main_picture.try(:image_url, :bag) # 70x70
+  end
+
+  def showroom_picture
+    main_picture.try(:image_url, :showroom) # 170x170
   end
 
   def suggestion_picture
-    main_picture.try(:image_url, :suggestion)
+    main_picture.try(:image_url, :suggestion) # 260x260
   end
 
   def master_variant
