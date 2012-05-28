@@ -120,6 +120,10 @@ class Product < ActiveRecord::Base
     main_picture.try(:image_url, :thumb)
   end
 
+  def bag_picture
+    main_picture.try(:image_url, :bag)
+  end
+
   def suggestion_picture
     main_picture.try(:image_url, :suggestion)
   end
