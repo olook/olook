@@ -38,6 +38,16 @@ $(document).ready(function() {
     }
   }
 
+  $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
+    if($("div#quick_view").size() == 0) {
+      $("body").prepend("<div id='quick_view'></div>");
+    }
+  });
+
+  $('#close_quick_view, div.overlay').live("click", function() {
+    $('#quick_view').fadeOut(300);
+    $("div.overlay").remove();
+  });
 
   $("header .info ul").fadeTransition();
 
@@ -204,6 +214,7 @@ $(document).ready(function() {
     quantity = $(this).parent().find("input[type='hidden'].quantity").val();
     $(productBox).removeClass("sold_out");
     $(productBox).removeClass("stock_down");
+    initBase.spyLinkId($(this));
     initBase.updateProductImage(productBox, newLink, newImg);
     initBase.updateProductFacebookLike(productBox, newLink);
     if(!initBase.isProductSoldOut(productBox, soldOut)) {
@@ -220,6 +231,13 @@ $(document).ready(function() {
 });
 
 initBase = {
+  spyLinkId : function(color) {
+    productId = $(color).siblings(".product_id").val();
+    hoverBox = $(color).parents("li.product").find(".hover_suggestive");
+    spyLink = $(hoverBox).find("li.spy a").attr("href");
+    $(hoverBox).find("li.spy a").attr("href", spyLink.replace(/\d+$/, productId));
+  },
+
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);

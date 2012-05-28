@@ -1,3 +1,5 @@
+@import "partials/mixins";
+
 li.product {
   position: relative;
   margin: 0 0 2px 0;
@@ -5,6 +7,33 @@ li.product {
   overflow: hidden;
   display: inline-block;
   float: left;
+  div.hover_suggestive {
+    position: absolute;
+    background: none;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 10;
+    ul {
+      margin: 75px 0 0 0;
+      li {
+        text-align: center;
+        margin: 0 0 20px 0;
+        a {
+          @include border-radius(3px);
+          background: #e05789;
+          color: #FFF;
+          font-family: "Open Sans", sans-serif;
+          font-size: 10px;
+          text-decoration: none;
+          text-transform: uppercase;
+          font-weight: 600;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
   .box_product {
     display: inline-block;
     clear: left;
@@ -160,6 +189,9 @@ li.product {
   &:hover {
     padding: 5px;
     border: 5px #F4F4F4 solid;
+    div.hover_suggestive {
+      display: block;
+    }
     p.know {
       display: block;
     }

@@ -1,7 +1,7 @@
 $(function() {
   initSuggestion.disableDefaultProducts();
 
-  $('#close_quick_view, div.overlay, a.add_product_to_suggestions').live("click", function() {
+  $('a.add_product_to_suggestions').live("click", function() {
     $('#quick_view').fadeOut(300);
     $("div.overlay").remove();
   });
@@ -25,9 +25,7 @@ $(function() {
   $("div.box_product div.line ol li a.product_color").live("mouseenter", function() {
     productId = $(this).siblings(".product_id").val();
     hoverBox = $(this).parents("li.product").find(".hover_suggestive");
-    spyLink = $(hoverBox).find("li.spy a").attr("href");
     addLink = $(hoverBox).find("li.add a").attr("href");
-    $(hoverBox).find("li.spy a").attr("href", spyLink.replace(/\d+$/, productId));
     $(hoverBox).find("li.add a").attr("href", addLink.replace(/\d+$/, productId));
   });
 
