@@ -21,7 +21,46 @@
           </ul>
         </div>
         <div id="main-navigation">
-          <ul class="wat-cf"></ul>
+          <ul class="wat-cf">
+            <li class="submenu<%= ' active' if params[:controller] =~ /users/ %>">
+              <span>Customers</span>
+              <ul>
+                <li><%= access_link("Users") %></li>
+              </ul>
+            </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /orders|shipping/ %>">
+              <span>Sales</span>
+              <ul>
+                <li><%= access_link("Orders") %></li>
+                <li><%= access_link("Shipping Services") %></li>
+              </ul>
+            </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /collections|moments|products/ %>">
+              <span>Products</span>
+              <ul>
+                <li><%= access_link("Collections") %></li>
+                <li><%= access_link("Moments") %></li>
+                <li><%= access_link("Products") %></li>
+              </ul>
+            </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /promotions|liquidations|coupons|landing|lookbooks/ %>">
+              <span>Promo</span>
+              <ul>
+                <li><%= access_link("Promotions")%></li>
+                <li><%= access_link("Liquidations")%></li>
+                <li><%= access_link("Coupons") %></li>
+                <li><%= access_link("Landing Pages") %></li>
+                <li><%= access_link("Lookbooks") %></li>
+              </ul>
+            </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles/ %>">
+              <span>Site Management</span>
+              <ul>
+                <li><%= access_link("Admins") %></li>
+                <li><%= access_link("Roles") %></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
       <div id="wrapper" class="wat-cf">
