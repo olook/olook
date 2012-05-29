@@ -95,6 +95,13 @@ div.full_container {
               height: 300px;
               top: 13px;
               left: 20px;
+              div.hover_suggestive {
+                ul {
+                  li.add {
+                    display: block;
+                  }
+                }
+              }
               .box_product {
                 a.product_link {
                   margin-bottom: 20px;
