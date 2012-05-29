@@ -50,7 +50,7 @@ class Admin::ShippingServicesController < Admin::BaseController
 
   def destroy
     @shipping_service = ShippingService.find(params[:id])
-    @shipping_service.destroy
+    FreightPrice.where(:shipping_service_id => @shipping_service.id).delete_all
     respond_with :admin, @shipping_service
   end
 
@@ -60,7 +60,7 @@ protected
     if params[:freight_prices]
       temp_file_uploader = TempFileUploader.new
       temp_file_uploader.store!(params[:freight_prices])
-      Resque.enqueue(ImportFreightPricesWorker, params[:id], temp_file_uploader.filename)
+      Resque.enqueue(ImportFreightPricesWorker, @shipping_service.id, temp_file_uploader.filename)
     end
   end
 end
