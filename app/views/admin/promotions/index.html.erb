@@ -21,9 +21,9 @@
       <td><%= promotion.name %></td>
       <td><%= promotion.discount_percent %></td>
       <td><%= promotion.active %></td>
-      <td><%= link_to 'Show', admin_promotion_path(promotion) %></td>
-      <td><%= link_to 'Edit', edit_admin_promotion_path(promotion) %></td>
-      <td><%= link_to 'Destroy', admin_promotion_path(promotion), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_promotion_path(promotion), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_promotion_path(promotion), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_promotion_path(promotion), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>

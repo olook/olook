@@ -27,8 +27,8 @@
       <td><%= product.category_humanize %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
-      <td><%= link_to 'Show', admin_product_path(product) %></td>
-      <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+      <td><%= link_to 'Show', admin_product_path(product), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_product_path(product), :class => 'button' %></td>
     </tr>
   <% end %>
   </table>

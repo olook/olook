@@ -44,11 +44,12 @@
       <td><%= product.total_of_all_variants_inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
-      <td><%= link_to "Edit", edit_admin_liquidation_product_path(@liquidation.id, product.id) %></td>
+      <td><%= link_to "Edit", edit_admin_liquidation_product_path(@liquidation.id, product.id), :class => 'button' %></td>
       <td>
         <%= link_to "Remove",
          admin_liquidation_product_path(@liquidation.id, product.id),
-         :method => :delete, :confirm => "Are you sure you want to remove this product from this liquidation?"
+         :method => :delete, :confirm => "Are you sure you want to remove this product from this liquidation?",
+         :class => 'button warn'
         %>
       </td>
     </tr>
