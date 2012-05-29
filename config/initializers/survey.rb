@@ -120,14 +120,6 @@ survey_data[13] = {
                {"Scarpin salto quadrado + Bolsa hit da estação" => {"10" => feminine, "10" => sexy, "10" => trendy, "20" => elegant, "10" => casual, "20" => traditional, "10" => contemporary}}]
 }
 
-survey_data[14] = {
-  :question_title => "15. Quais acessórios você usaria para um domingo à tarde?",
-  :answers => ["Gladiadora + Bolsa molinha", "Sapatilha + Maxibolsa", "Sandália anabela + Bolsa box alça longa" ],
-  :weights => [{"Gladiadora + Bolsa molinha" => {"10" => feminine, "10" => trendy, "20" => casual, "10" => contemporary}},
-               {"Sapatilha + Maxibolsa" => {"20" => feminine, "10" => trendy, "10" => elegant, "20" => casual, "10" => traditional}},
-               {"Sandália anabela + Bolsa box alça longa" => {"20" => feminine, "10" => trendy, "20" => casual, "10" => traditional, "10" => contemporary}}]
-}
-
 survey_data[15] = {
   :question_title => "16. Quais acessórios você usaria em uma festa?",
   :answers => ["Sandália salto fino + Clutch oncinha", "Ankle boot salto + Clutch pedrarias", "Scarpin verniz + Clutch neutra" ],
@@ -142,14 +134,6 @@ survey_data[16] = {
   :weights => [{"Sapatilha + Bolsa alçinha + Brinco básico" => {"10" => feminine, "10" => sexy, "10" => trendy, "20" => elegant, "20" => casual, "10" => traditional}},
                {"Scarpin + Bolsa estruturada + Colares importantes" => {"30" => elegant, "20" => traditional}},
                {"Ankle boot + Clutch + Brincão" => {"30" => sexy, "10" => trendy, "10" => elegant, "20" => contemporary}}]
-}
-
-survey_data[17] = {
-  :question_title => "18. Maquiagem para você é...",
-  :answers => ["Indispensável. Uso tudo todos os dias", "Importante. Rimel e Batom resolvem a questão", "Eventual. Só uso em ocasiões especiais" ],
-  :weights => [{"Indispensável. Uso tudo todos os dias" => {"20" => sexy, "10" => trendy, "10" => elegant, "10" => casual, "10" => traditional, "10" => contemporary}},
-               {"Importante. Rimel e Batom resolvem a questão" => {"10" => feminine, "10" => sexy, "10" => trendy, "10" => elegant, "20" => casual, "10" => traditional, "10" => contemporary}},
-               {"Eventual. Só uso em ocasiões especiais" => {"10" => feminine, "10" => sexy, "10" => trendy, "10" => elegant, "20" => casual, "10" => traditional, "10" => contemporary}}]
 }
 
 survey_data[18] = {
