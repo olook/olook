@@ -15,9 +15,17 @@
   </p>
 
   <p>
-    <%= link_to 'Make all products visible', admin_collection_display_products_path(@collection), confirm: 'Are you sure you want to make all products visible?' %> | 
-    <%= link_to 'Make all products invisible', admin_collection_hide_products_path(@collection), confirm: 'Are you sure you want to make all products invisible?' %>
+    <%= link_to 'Make all products visible', admin_collection_display_products_path(@collection),
+      confirm: 'Are you sure you want to make all products visible?',
+      :class => 'button warn'
+    %>
+    <%= link_to 'Make all products invisible', admin_collection_hide_products_path(@collection),
+      confirm: 'Are you sure you want to make all products invisible?',
+      :class => 'button warn'
+    %>
   </p>
+  <br>
+  <br class="wat-cf"/>
 
   <%= render :partial => 'products', :locals => {:products => @collection.products.order(:category, :name)} %>
   

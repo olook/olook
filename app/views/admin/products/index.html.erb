@@ -24,7 +24,7 @@
   <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
   <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
-  <%= submit_tag 'Search', name: nil %>
+  <%= button_tag 'Search', name: nil, type: 'submit', :class => 'button' %>
 <% end %>
 </div>
 
@@ -68,8 +68,8 @@
       <td><%= image_tag(product.showroom_picture, :size => '100x100') if product.showroom_picture %></td>
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
       <td><%= link_to "Preview", product_path(product), :target => "_blank" %></td>
-      <td><%= link_to 'Show', admin_product_path(product) %></td>
-      <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+      <td><%= link_to 'Show', admin_product_path(product), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_product_path(product), :class => 'button' %></td>
     </tr>
   <% end %>
   </table>
