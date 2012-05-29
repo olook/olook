@@ -84,11 +84,18 @@ div.full_container {
     &#occasion {
       form {
         margin: 35px auto;
+        div {
+          font-size: 45px;
+        }
         div, input[type="text"], select.custom_select {
           font-family: "Open Sans", sans-serif;
           font-size: 45px;
           font-weight: lighter;
           letter-spacing: -2px;
+        }
+        select.custom_select {
+          font-size: 28px;
+          margin-bottom: 10px;
         }
         div.phrase_container {
           color: #383838;
@@ -98,6 +105,9 @@ div.full_container {
           p {
             position: relative;
             display: inline-block;
+            input[type="text"] {
+              font-size: 28px;
+            }
             select.custom_select {
               position: relative;
               padding: 0 18px;
@@ -120,6 +130,7 @@ div.full_container {
           background: #FFF;
           width: 280px;
           color: #e05789;
+          margin-bottom: 10px;
           padding: 0 20px;
           border: 1px #a4a4a4 dotted;
           &:focus {
