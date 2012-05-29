@@ -17,6 +17,7 @@ li.product {
     z-index: 10;
     ul {
       margin: 75px 0 0 0;
+      padding: 0 !important;
       li {
         text-align: center;
         margin: 0 0 20px 0;
@@ -30,6 +31,9 @@ li.product {
           text-transform: uppercase;
           font-weight: 600;
           padding: 5px 10px;
+        }
+        &.add {
+          display: none;
         }
       }
     }
