@@ -60,7 +60,7 @@ protected
     if params[:freight_prices]
       temp_file_uploader = TempFileUploader.new
       temp_file_uploader.store!(params[:freight_prices])
-      Resque.enqueue(ImportFreightPricesWorker, @shipping_service.id, temp_file_uploader.filename)
+      Resque.enqueue(ImportFreightPricesWorker, @shipping_service.id.to_s, temp_file_uploader.filename)
     end
   end
 end
