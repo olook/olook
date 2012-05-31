@@ -31,6 +31,10 @@ $(document).ready(function() {
     }
   });
 
+  $("div#mask_carousel_showroom ul li a.video_link").live("click", function(e) {
+    e.preventDefault();
+  });
+
   if($('.dialog.liquidation').length == 1) {
     initBase.openDialog();
 
