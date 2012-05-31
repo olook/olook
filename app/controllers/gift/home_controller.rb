@@ -35,6 +35,7 @@ class Gift::HomeController < Gift::BaseController
   private
 
   def facebook_api_error
+    current_user.remove_facebook_permissions!
     respond_to do |format|
       format.html { redirect_to(gift_root_path, :alert => I18n.t("facebook.connect_failure")) }
       format.js { head :error }
