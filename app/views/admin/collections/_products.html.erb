@@ -2,9 +2,10 @@
 <div class="inner">
   <table class="table">
     <tr>
+      <th>ID</th>
       <th>Name</th>
-      <th>Image</th>
-      <th>Model number</th>
+      <th style="width:100px">Product</th>
+      <th>Model #</th>
       <th>Price</th>
       <th>Is Visible?</th>
       <th>Category</th>
@@ -17,16 +18,17 @@
 
   <% products.each do |product| %>
     <tr>
+      <td><%= product.id %></td>
       <td><%= product.name %></td>
-      <td><%= image_tag product.pictures.first.try(:image_url, :thumb) %></td>
+      <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
       <td><%= product.model_number %></td>
       <td><%= number_to_currency product.price %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td> 
       <td><%= product.category_humanize %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
-      <td><%= link_to 'Show', admin_product_path(product) %></td>
-      <td><%= link_to 'Edit', edit_admin_product_path(product) %></td>
+      <td><%= link_to 'Show', admin_product_path(product), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_product_path(product), :class => 'button' %></td>
     </tr>
   <% end %>
   </table>
