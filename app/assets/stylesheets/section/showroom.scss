@@ -140,11 +140,29 @@
           width: 5000px;
           overflow: auto;
           li {
+            position: relative;
             margin: 0;
             padding: 0;
             display: inline;
             float: left;
-            a {
+            a.video_link {
+              position: absolute;
+              background: image-url("common/label-lookbook-video.jpg") no-repeat;
+              color: #FFF;
+              font-family: "Futura Light";
+              font-size: 12px;
+              line-height: 34px;
+              text-decoration: none;
+              text-transform: uppercase;
+              width: 115px;
+              height: 33px;
+              padding: 0 0 0 35px;
+              display: block;
+              top: 10px;
+              right: 0;
+              z-index: 100;
+            }
+            a.item {
               position: relative;
               text-decoration: none;
               margin: 0;
