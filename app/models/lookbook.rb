@@ -15,6 +15,10 @@ class Lookbook < ActiveRecord::Base
   attr_accessor :product_criteo
   after_save :update_products
 
+  def has_video?
+    self.video.nil? == false
+  end
+
   private
 
   def update_products
