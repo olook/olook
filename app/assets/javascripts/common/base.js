@@ -154,31 +154,31 @@ $(document).ready(function() {
       data: 'zipcode=' + $("input#address_zip_code").val(),
       beforeSend: function(){
         $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
-        $('form input#address_street').attr('disabled','disabled');
-        $('form input#address_neighborhood').attr('disabled','disabled');
-        $('form input#address_number').attr('disabled','disabled');
-        $('form input#address_city').attr('disabled','disabled');
-        $('form select#address_state').attr('disabled','disabled');
+        $('form div.address_fields input').attr('disabled','disabled');
+        $('form div.address_fields select').attr('disabled','disabled');
       },
       complete: function(){
+        $('form div.address_fields input').removeAttr('disabled');
+        $('form div.address_fields select').removeAttr('disabled');
         $(".main div.preloader").remove();
-        $('form input#address_street').removeAttr('disabled');
-        $('form input#address_neighborhood').removeAttr('disabled');
-        $('form input#address_number').removeAttr('disabled');
-        $('form input#address_city').removeAttr('disabled');
-        $('form select#address_state').removeAttr('disabled');
       },
-      success: function(result){
-        if(result['result_type'] == 1){
-          $('form input#address_street').val(result['street']);
-          $('form input#address_neighborhood').val(result['neighborhood']);
-          $('form input#address_number').focus();
+      success: function(rs){
+        if(rs['result_type'] >= 1){
+          $('form input#address_city').val(rs['city']);
+          $('form select#address_state').val(rs['state']);
+          $('span.select').text(rs['state']);
         }
-        if(result['result_type'] >= 1){
-          $('form input#address_city').val(result['city']);
-          $('form select#address_state').val(result['state']);
-          $('span.select').text(result['state']);
+        if(rs['result_type'] == 1){
+          $('form #address_street').val(rs['street']);
+          $('form #address_neighborhood').val(rs['neighborhood']);
+          $('form #address_number').removeAttr('disabled').focus();
+        }else{
+          $('form #address_street').removeAttr('disabled').focus();
         }
+      },
+      error: function(){
+        $(".main div.preloader").remove();
+        $('form #address_street').removeAttr('disabled').focus();
       }
     });
   });
