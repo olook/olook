@@ -5,7 +5,7 @@ describe CatalogSearchService do
     moment  = FactoryGirl.create :moment
     moment.catalog
   end
-  
+
   let(:basic_bag) do
     product = (FactoryGirl.create :bag_subcategory_name).product
     FactoryGirl.create :basic_bag_simple, product: product
@@ -43,7 +43,7 @@ describe CatalogSearchService do
     product.master_variant.save!
     product
   end
-  
+
   let(:sold_out_shoe) do
     product = (FactoryGirl.create :shoe_subcategory_name, description: "Galocha").product
     FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 0
@@ -77,9 +77,11 @@ describe CatalogSearchService do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
-
         params = {id: catalog.id}
-        CatalogSearchService.new(params).search_products.should == [cp1, cp2, cp3]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should include(cp2)
+        products.should include(cp3)
       end
 
       it "returns products given some subcategories" do
@@ -88,7 +90,10 @@ describe CatalogSearchService do
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
 
         params = {id: catalog.id, shoe_subcategories: ["Sandalia"]}
-        CatalogSearchService.new(params).search_products.should == [cp1]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should_not include(cp2)
+        products.should_not include(cp3)
       end
 
       it "returns products given some shoe sizes" do
@@ -97,7 +102,10 @@ describe CatalogSearchService do
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
 
         params = {:id => catalog.id, :shoe_sizes => ["40", "35"]}
-        CatalogSearchService.new(params).search_products.should == [cp1, cp2]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should include(cp2)
+        products.should_not include(cp3)
       end
 
       it "returns products given some heels" do
@@ -106,7 +114,10 @@ describe CatalogSearchService do
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
 
         params = {:id => catalog.id, :heels => ["0-5-cm"]}
-        CatalogSearchService.new(params).search_products.should == [cp1]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should_not include(cp2)
+        products.should_not include(cp3)
       end
 
        it "returns 0 products if dont have inventory" do
@@ -135,7 +146,10 @@ describe CatalogSearchService do
         cp2 = CatalogProductService.new(catalog, basic_accessory).save!
         cp3 = CatalogProductService.new(catalog, basic_bag).save!
         params = {:id => catalog.id}
-        CatalogSearchService.new(params).search_products.should == [cp1, cp3, cp2]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should include(cp2)
+        products.should include(cp3)
       end
     end
 
@@ -145,7 +159,10 @@ describe CatalogSearchService do
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
         params = {:id => catalog.id, :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
-        CatalogSearchService.new(params).search_products.should == [cp1, cp2]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should include(cp2)
+        products.should_not include(cp3)
       end
 
       it "returns products given subcategories, shoe sizes and heels and bags" do
@@ -154,7 +171,11 @@ describe CatalogSearchService do
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
         cp4 = CatalogProductService.new(catalog, basic_bag).save!
         params = {:id => catalog.id, :bag_accessory_subcategories => ["bolsa-azul"], :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
-        CatalogSearchService.new(params).search_products.should == [cp1, cp2, cp4]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should include(cp2)
+        products.should include(cp4)
+        products.should_not include(cp3)
       end
 
       it "returns products given subcategories, heels and shoe sizes and bags and acessories" do
@@ -164,7 +185,12 @@ describe CatalogSearchService do
         cp4 = CatalogProductService.new(catalog, basic_bag).save!
         cp5 = CatalogProductService.new(catalog, basic_accessory).save!
         params = {:id => catalog.id, :bag_accessory_subcategories => ["bolsa-azul","Colar"], :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
-        CatalogSearchService.new(params).search_products.should == [cp1, cp2, cp4, cp5]
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should include(cp2)
+        products.should include(cp4)
+        products.should include(cp5)
+        products.should_not include(cp3)
       end
     end
   end
