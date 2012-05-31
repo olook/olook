@@ -152,8 +152,22 @@ $(document).ready(function() {
       url: '/get_address_by_zipcode',
       dataType: 'json',
       data: 'zipcode=' + $("input#address_zip_code").val(),
-      beforeSend: function(){$("input#address_zip_code").parents('.main').prepend('<div class="preloader" style="position:fixed;left:0"></div>');},
-      complete: function(){$(".main div.preloader").remove();},
+      beforeSend: function(){
+        $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
+        $('form input#address_street').attr('disabled','disabled');
+        $('form input#address_neighborhood').attr('disabled','disabled');
+        $('form input#address_number').attr('disabled','disabled');
+        $('form input#address_city').attr('disabled','disabled');
+        $('form select#address_state').attr('disabled','disabled');
+      },
+      complete: function(){
+        $(".main div.preloader").remove();
+        $('form input#address_street').removeAttr('disabled');
+        $('form input#address_neighborhood').removeAttr('disabled');
+        $('form input#address_number').removeAttr('disabled');
+        $('form input#address_city').removeAttr('disabled');
+        $('form select#address_state').removeAttr('disabled');
+      },
       success: function(result){
         if(result['result_type'] == 1){
           $('form input#address_street').val(result['street']);
