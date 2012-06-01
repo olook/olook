@@ -67,10 +67,9 @@ body {
   text-decoration: none;
 }
 
-#main {
-  width: 70%;
-  float: left;
-}
+#main {float: left;}
+#main.sidebar {width:77%;}
+#main.nosidebar {width:100%;}
 
 .actions-bar {
   padding: 10px 1px;
@@ -192,7 +191,7 @@ body {
 
 .pagination a, .pagination span, .pagination em {
   padding: 2px 5px;
-  margin-right: 5px;
+  margin: 5px 5px 5px 0;
   display: block;
   float: left;
   border-style: solid;
@@ -226,6 +225,17 @@ body {
 
 .table th.last {
   width: 200px;
+}
+.table th .current {
+  background-repeat:no-repeat;
+  background-position:right center;
+  padding-right:12px;
+}
+.table th .asc {
+  background-image: url("/assets/admin/up_arrow.gif");
+}
+.table th .desc {
+  background-image: url("/assets/admin/down_arrow.gif");
 }
 
 .table .checkbox {
@@ -365,7 +375,6 @@ ul.list li .item .avatar {
 }
 
 /*  Inspired by http://particletree.com/features/rediscovering-the-button-element */
-
 a.button:link, a.button:visited, a.button:hover, a.button:active, button.button {
   color: #222;
   display:block;
@@ -457,6 +466,17 @@ button.button:active, a.button:active {
   text-align: center;
 }
 
-#sync_products {
-  margin: 20px;
+.search {
+  background:#ededed;
+  padding:10px;
+  margin:15px 15px 5px 15px;
 }
+.search h3 {
+  font-size:140%;
+  margin:3px 0;
+}
+.search input[type=search],.search input[type=text]{width:175px;}
+fieldset {border:1px solid #ddd; padding:5px 10px; margin-bottom:10px;}
+fieldset legend {font-size:140%;}
+
+#sync_products {margin: 20px;}

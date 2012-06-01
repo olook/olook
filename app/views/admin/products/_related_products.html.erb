@@ -2,8 +2,9 @@
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Model number</th>
+      <th>Model #</th>
       <th>Name</th>
+      <th>Image</th>
       <th>Color</th>
       <th>Category</th>
       <th></th>
@@ -13,6 +14,7 @@
     <tr>
       <td><%= related_product.model_number %></td>
       <td><%= related_product.name %></td>
+      <td><%= image_tag(related_product.showroom_picture, :size => '100x100') if related_product.showroom_picture %></td>
       <td><%= related_product.color_name %></td>
       <td><%= related_product.category_humanize %></td>
       <td><%= link_to 'Destroy', remove_related_admin_product_path(product, related_product), confirm: 'Are you sure?', method: :delete %></td>

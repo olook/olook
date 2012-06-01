@@ -42,16 +42,24 @@ class Gift::OccasionsController < Gift::BaseController
   end
   
   def load_params
-    recipient, occasion = params[:recipient], params[:occasion]
-    if occasion
-      @day = occasion[:day].to_i
-      @month = occasion[:month].to_i
-      @occasion_type_id = occasion[:gift_occasion_type_id]
-    end
-    if recipient
-      @name = recipient[:name]
-      @facebook_uid = recipient[:facebook_uid]
-      @recipient_relation_id = recipient[:gift_recipient_relation_id]
+    if occasion_type = params[:ot]
+      occasion = GiftOccasionType.find(occasion_type)
+      @day = occasion.day
+      @month = occasion.month
+      @occasion_type_id = occasion.id
+      @recipient_relation_id = occasion.gift_recipient_relation_id
+    else
+      recipient, occasion = params[:recipient], params[:occasion]
+      if occasion
+        @day = occasion[:day].to_i
+        @month = occasion[:month].to_i
+        @occasion_type_id = occasion[:gift_occasion_type_id]
+      end
+      if recipient
+        @name = recipient[:name]
+        @facebook_uid = recipient[:facebook_uid]
+        @recipient_relation_id = recipient[:gift_recipient_relation_id]
+      end      
     end
   end
 

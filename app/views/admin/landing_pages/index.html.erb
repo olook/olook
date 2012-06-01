@@ -16,9 +16,9 @@
       <td><%= page.page_title %></td>
       <td><%= link_to page.page_url,  landing_url(page.page_url) %></td>
       <td><%= page.enabled %></td>
-      <td><%= link_to 'Show', admin_landing_page_path(page) %></td>
-      <td><%= link_to 'Edit', edit_admin_landing_page_path(page) %></td>
-      <td><%= link_to 'Destroy', admin_landing_page_path(page), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_landing_page_path(page), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_landing_page_path(page), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_landing_page_path(page), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
