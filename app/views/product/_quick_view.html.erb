@@ -1,5 +1,5 @@
 <div id="close_quick_view">x</div>
-<% present('Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id, :logged? => user_signed_in?, :gift? => @gift)  do |product_presenter| %>
+<% present('Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id, :logged? => user_signed_in?, :gift? => @gift, :shoe_size => @shoe_size)  do |product_presenter| %>
 
   <div id="product" class="product_<%= product.id %>">
     <div class="content">

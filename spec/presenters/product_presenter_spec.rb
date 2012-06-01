@@ -6,7 +6,7 @@ describe ProductPresenter do
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
-  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id }
+  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35 }
 
   describe "user showroom methods" do
     describe '#render_member_showroom' do
@@ -144,7 +144,7 @@ describe ProductPresenter do
       subject.product.stub_chain(:variants, :sorted_by_description).and_return(sizes)
     end
     it 'should render all variants to select' do
-      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes})
+      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes, :shoe_size => 35})
       subject.render_multiple_sizes
     end
   end

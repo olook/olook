@@ -13,6 +13,7 @@ class ProductController < ApplicationController
     @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
     @gift = (params[:gift] == "true")
+    @shoe_size = params[:shoe_size].to_i
     respond_to :html, :js
   end
 

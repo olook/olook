@@ -48,7 +48,7 @@
         <h1>Outras sugestões</h1>
         <ul>
           <% @products.each do |product| %>
-            <%= render "shared/showroom_product_item", :product => product, :gift => true %>
+            <%= render "shared/showroom_product_item", :product => product, :gift => true, :shoe_size => @gift_recipient.shoe_size %>
           <% end %>
         </ul>
       </section>
