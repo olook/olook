@@ -148,6 +148,9 @@ $(document).ready(function() {
     mask: '99999-999'
   });
   $("input#address_zip_code").focusout(function(){
+    if ($("input#address_zip_code").val().length < 9) {
+      return true;
+    }
     $.ajax({
       url: '/get_address_by_zipcode',
       dataType: 'json',
@@ -175,10 +178,6 @@ $(document).ready(function() {
         }else{
           $('form #address_street').removeAttr('disabled').focus();
         }
-      },
-      error: function(){
-        $(".main div.preloader").remove();
-        $('form #address_street').removeAttr('disabled').focus();
       }
     });
   });
