@@ -19,10 +19,10 @@
       <td><%= liquidation.starts_at.strftime("%d/%m/%Y %H:%M") %></td>
       <td><%= liquidation.ends_at.strftime("%d/%m/%Y %H:%M") %></td>
       <td><%= link_to 'Products', admin_liquidation_products_path(liquidation)%></td>
-      <td><%= link_to 'Show', admin_liquidation_path(liquidation) %></td>
       <td><%= link_to 'Carosel', admin_liquidation_carousels_path(liquidation) %></td>
-      <td><%= link_to 'Edit', edit_admin_liquidation_path(liquidation) %></td>
-      <td><%= link_to 'Destroy', admin_liquidation_path(liquidation), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_liquidation_path(liquidation), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_liquidation_path(liquidation), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_liquidation_path(liquidation), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
