@@ -2,7 +2,10 @@
 class Debit < Payment
   attr_accessor :receipt
 
-  BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "Banrisul"]
+  #TODO All the other banks except Itau, were disabled.
+  #BANKS_OPTIONS = ["BancoDoBrasil", "Bradesco", "Itau", "Banrisul"]
+
+  BANKS_OPTIONS = ["Itau"]
   EXPIRATION_IN_MINUTES = 60
 
   validates :bank, :receipt, :presence => true, :on => :create
