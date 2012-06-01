@@ -218,7 +218,7 @@ div#my_account {
           border: none;
           cursor: pointer;
         }
-      }  
+      }
     }
   }
   &.addresses {
@@ -261,7 +261,7 @@ div#my_account {
       margin-bottom: 30px;
       ol {
         li {
-          margin-bottom: 10px;  
+          margin-bottom: 10px;
         }
       }
     }
@@ -340,6 +340,11 @@ div#my_account {
         border-bottom: 1px #e5e5e5 solid;
         span {
           color: #df5a8b;
+        }
+        a {
+          color: #DF5A8A;
+          margin: 0 20px 0 0;
+          float: right;
         }
       }
       h2 {

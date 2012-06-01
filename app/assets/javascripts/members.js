@@ -16,7 +16,7 @@ $(document).ready(function() {
 
   $(document).bind('keydown', 'esc',function () {
     $('.import-dropdown').hide();
-    return false; 
+    return false;
   });
 
   $('#invite_list input#select_all').click(function() {
@@ -26,6 +26,12 @@ $(document).ready(function() {
   $('nav.invite ul li a').live('click', function () {
     cl = $(this).attr('class');
     $('#'+cl).slideto({ highlight: false });
+  });
+
+  $("section#post-to-wall a").live("click", function() {
+    $("html, body").animate({
+      scrollTop: 0
+    }, 'slow');
   });
 });
 
