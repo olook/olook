@@ -5,13 +5,13 @@
       <th>ID</th>
       <th>Name</th>
       <th style="width:100px">Product</th>
+      <th>Profile</th>
       <th>Model #</th>
       <th>Price</th>
       <th>Is Visible?</th>
       <th>Category</th>
       <th>Inventory</th>
       <th>Color</th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -21,6 +21,7 @@
       <td><%= product.id %></td>
       <td><%= product.name %></td>
       <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
+      <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
       <td><%= product.model_number %></td>
       <td><%= number_to_currency product.price %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td> 
