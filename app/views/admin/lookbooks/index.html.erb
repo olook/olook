@@ -31,9 +31,9 @@
   <% @lookbooks.each do |lookbook| %>
     <tr>
       <td><%= lookbook.name %></td>
-      <td><%= link_to 'Show', admin_lookbook_path(lookbook) %></td>
-      <td><%= link_to 'Edit', edit_admin_lookbook_path(lookbook) %></td>
-      <td><%= link_to 'Destroy', admin_lookbook_path(lookbook), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_lookbook_path(lookbook), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_lookbook_path(lookbook), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_lookbook_path(lookbook), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>

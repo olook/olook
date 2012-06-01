@@ -16,9 +16,9 @@
       <td><%= type.name %></td>
       <td><%= type.date %></td>      
       <td><%= type.gift_recipient_relation_name %></td>            
-      <td><%= link_to 'Show', admin_gift_occasion_type_path(type) %></td>
-      <td><%= link_to 'Edit', edit_admin_gift_occasion_type_path(type) %></td>
-      <td><%= link_to 'Destroy', admin_gift_occasion_type_path(type), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_gift_occasion_type_path(type), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_gift_occasion_type_path(type), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_gift_occasion_type_path(type), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>

@@ -4,7 +4,7 @@ class Lookbook < ActiveRecord::Base
   has_many :lookbooks_products, :dependent => :destroy
   has_many :products, :through => :lookbooks_products
 
-  scope :active, where('active = 1').order("created_at DESC")
+  scope :active, where(active: 1).order("created_at DESC")
 
   accepts_nested_attributes_for :images, :reject_if => lambda{|p| p[:image].blank?}
 
