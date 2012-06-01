@@ -148,22 +148,35 @@ $(document).ready(function() {
     mask: '99999-999'
   });
   $("input#address_zip_code").focusout(function(){
+    if ($("input#address_zip_code").val().length < 9) {
+      return true;
+    }
     $.ajax({
       url: '/get_address_by_zipcode',
       dataType: 'json',
       data: 'zipcode=' + $("input#address_zip_code").val(),
-      beforeSend: function(){$("input#address_zip_code").parents('.main').prepend('<div class="preloader" style="position:fixed;left:0"></div>');},
-      complete: function(){$(".main div.preloader").remove();},
-      success: function(result){
-        if(result['result_type'] == 1){
-          $('form input#address_street').val(result['street']);
-          $('form input#address_neighborhood').val(result['neighborhood']);
-          $('form input#address_number').focus();
+      beforeSend: function(){
+        $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
+        $('form div.address_fields input').attr('disabled','disabled');
+        $('form div.address_fields select').attr('disabled','disabled');
+      },
+      complete: function(){
+        $('form div.address_fields input').removeAttr('disabled');
+        $('form div.address_fields select').removeAttr('disabled');
+        $(".main div.preloader").remove();
+      },
+      success: function(rs){
+        if(rs['result_type'] >= 1){
+          $('form input#address_city').val(rs['city']);
+          $('form select#address_state').val(rs['state']);
+          $('span.select').text(rs['state']);
         }
-        if(result['result_type'] >= 1){
-          $('form input#address_city').val(result['city']);
-          $('form select#address_state').val(result['state']);
-          $('span.select').text(result['state']);
+        if(rs['result_type'] == 1){
+          $('form #address_street').val(rs['street']);
+          $('form #address_neighborhood').val(rs['neighborhood']);
+          $('form #address_number').removeAttr('disabled').focus();
+        }else{
+          $('form #address_street').removeAttr('disabled').focus();
         }
       }
     });
