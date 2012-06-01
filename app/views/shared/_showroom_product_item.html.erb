@@ -1,5 +1,5 @@
 <li class="product">
-  <%= render "shared/product_hover", :product => product %>
+  <%= render "shared/product_hover", :product => product, :gift => (gift ||= false) %>
   <div class="box_product <%= ( current_user ) ? quantity_status(product, current_user) : '' %>">
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
