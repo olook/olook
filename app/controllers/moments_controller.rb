@@ -27,7 +27,7 @@ class MomentsController < ApplicationController
 
   def load_catalog_products
     @moments = Moment.active.order(:position)
-    @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.first
+    @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.last
 
     if @moment
       @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
