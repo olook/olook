@@ -11,6 +11,7 @@ class Admin::LookbooksController < Admin::BaseController
 
   def show
     @lookbook = Lookbook.find(params[:id])
+    @lookbook_products = @lookbook.lookbooks_products.joins(:product).includes(:product).order("collection_id desc, category, name")
     respond_with :admin, @lookbook
   end
 
@@ -53,7 +54,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def get_all_products
-    @products = Product.order(:name)
+    @products = Product.order("collection_id desc, category, name")
   end
 
   def product
