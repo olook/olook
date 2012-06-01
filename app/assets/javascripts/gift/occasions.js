@@ -1,6 +1,5 @@
 $(function() {
   initOccasion.fixSelects();
-
   $("input#recipient_name").autoGrowInput({
     comfortZone: 10,
     minWidth: 320,
@@ -27,6 +26,9 @@ $(function() {
     $("#occasion_month").val(occasionObj.month).change();
     $("#recipient_gift_recipient_relation_id").val(occasionObj.gift_recipient_relation_id).change();
   });
+  setTimeout(function() {
+    initOccasion.fixSelects();
+  }, 1500);
 });
 
 initOccasion = {
