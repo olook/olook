@@ -5,7 +5,7 @@ class Admin::CollectionsController < Admin::BaseController
   load_and_authorize_resource
 
   def index
-    @collections = Collection.all
+    @collections = Collection.order('start_date desc')
     respond_with :admin, @collections
   end
 
