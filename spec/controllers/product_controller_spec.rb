@@ -15,6 +15,16 @@ describe ProductController do
     end
 
     describe "GET show" do
+      it "should assign @gift" do
+        get :show, :id => product.id
+        assigns(:gift).should eq(false)
+      end
+
+      it "should assign @gift when has gift" do
+        get :show, :id => product.id, :gift => "true"
+        assigns(:gift).should eq(true)
+      end
+      
       it "should assign @facebook_app_id" do
         get :show, :id => product.id
         assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
