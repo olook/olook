@@ -4,6 +4,9 @@ role :app, "development.olook.com.br"
 set :rails_env, "RAILS_ENV=production"
 set :env, 'production'
 
+
+# current_path : /srv/olook/current/
+
 # repo details
 set :branch, fetch(:branch, 'development')
 # if not variables.include?(:branch)
@@ -56,7 +59,7 @@ namespace :deploy do
 
   desc 'Start webserver'
   task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
   end
 
   desc 'Restart webserver'
