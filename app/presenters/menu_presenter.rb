@@ -75,10 +75,6 @@ class MenuPresenter < BasePresenter
     render_item_with_label("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", "spfw", [])
   end
 
-  def spfw_blog
-    render_item_with_label("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", "spfw", [])
-  end
-
   def blog
     h.content_tag :li, h.link_to("Blog", "http://blog.olook.com.br", :target => "_blank"), :class => "blog"
   end
