@@ -27,7 +27,7 @@ class MenuPresenter < BasePresenter
   private
 
   def showroom
-    render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"]) if user.has_early_access?
+    render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
   end
 
   def lookbooks
@@ -68,7 +68,7 @@ class MenuPresenter < BasePresenter
   end
 
   def cart
-    h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart" if user.has_early_access?
+    h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart"
   end
 
   def blog
