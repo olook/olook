@@ -220,6 +220,35 @@ $(document).ready(function() {
 });
 
 initBase = {
+  youtubeParser : function(url) {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if(match&&match[7].length==11) {
+        return match[7];
+    } else {
+      return false;
+    }
+  },
+
+  youtubePlayer : function(yt_id) {
+    return "<iframe width='785' height='589' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0' frameborder='0' allowfullscreen></iframe>";
+  },
+
+  modal : function(content) {
+    if($("div#modal").size() == 0) {
+      $("body").prepend("<div id='modal'></div>");
+    } else {
+      $("div#modal").html("");
+    }
+
+    $("div#modal").prepend(content);
+
+    $("div#modal").dialog({
+      width: 'auto',
+      modal: true
+    });
+  },
+
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);

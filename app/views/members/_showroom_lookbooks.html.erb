@@ -5,7 +5,7 @@
       <% lookbooks.each do |lookbook| %>
         <li>
           <% if lookbook.has_video? %>
-            <%= link_to "Assista ao vídeo", "#", :class => "video_link" %>
+            <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{lookbook.video.url}" %>
           <% end %>
           <%= link_to "/lookbooks/#{lookbook.slug}", :class => "item" do %>
             <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
