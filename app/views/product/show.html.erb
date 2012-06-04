@@ -1,4 +1,4 @@
-<% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id do |product_presenter| %>
+<% present 'Product', product: @product, member: @user, facebook_app_id: @facebook_app_id do |product_presenter| %>
   <% content_for(:head) do %>
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
     <meta property="og:title" content="Olook – <%= @product.name %>" />
@@ -46,6 +46,6 @@
   </div>
 <% end %>
 <% content_for :footer do %>
-  <%= render :partial => "shared/metrics/criteo/product_page_tracker", :locals => { :product_id => @product.id } %>
+  <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render "shared/metrics/google/product" %>
 <% end %>

@@ -127,21 +127,21 @@ $(document).ready(function() {
     }
   });
 
-  $("#sign-up li.cpf input[type='text']").setMask({
-    mask: '99999999999'
-  });
+  // $("div#wrapper_menu nav.menu ul li a.cart").live("hover", function() {
+  //   $(this).parent("li").find("ul").show();
+  //   $("body").addClass('cart_submenu_opened');
+  // });
 
-  $("div#wrapper_menu nav.menu ul li a.cart").live("click", function() {
-    $(this).parent("li").find("ul").show();
-    $("body").addClass('cart_submenu_opened');
-  });
-
-  $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.close").live("click", function() {
-    $(this).parents("ul.submenu").hide();
-  });
+  // $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.close").live("click", function() {
+  //   $(this).parents("ul.submenu").hide();
+  // });
 
   $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.delete").live("click", function() {
     $(this).parent("li").remove();
+  });
+
+  $("#sign-up li.cpf input[type='text']").setMask({
+    mask: '99999999999'
   });
 
   $("input:text.zip_code").setMask({
