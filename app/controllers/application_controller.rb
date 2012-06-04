@@ -72,10 +72,6 @@ class ApplicationController < ActionController::Base
     @order = current_user.orders.find_by_id(session[:order]) if current_user
   end
 
-  def check_early_access
-    redirect_to member_invite_path if current_user && !current_user.has_early_access?
-  end
-
   def assign_default_country
     params[:address][:country] = 'BRA'
   end
