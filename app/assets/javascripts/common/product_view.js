@@ -61,17 +61,22 @@ $(document).ready(function() {
     }
   });
   
-  $("#add_item").submit(function(event) {
+  $("#add_item").live('submit', function(event) {
+    if(initProduct.inQuickView) {
+      $("#close_quick_view").trigger('click');
+    }
+
     initBase.openDialog();
     $('body .dialog').show();
-    $('body .dialog').css("left", (viewWidth - '930') / 2);
-    $('body .dialog').css("top", (viewHeight - '515') / 2);
+    $('body .dialog').css("left", ((viewWidth  - '930') / 2) + $('body').scrollLeft() );
+    $('body .dialog').css("top", ((viewHeight  - '515') / 2) + $('body').scrollTop() );
     $('body .dialog #login_modal').fadeIn('slow');
     initBase.closeDialog();
   });
 });
 
 initProduct = {
+  inQuickView : false,
   sliceDesc : function(string) {
     if(string.length > 120) {
       el = $("div#infos div.description p.description");
