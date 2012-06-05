@@ -110,14 +110,19 @@ class CartController < ApplicationController
       if !@order.restricted?  # gift cart
         if @order.add_variant(@variant, nil)
           destroy_freight(@order)
-          format.js { render }
-          format.html { redirect_to(cart_path, :notice => "Produto adicionado com sucesso") }
+          format.html do
+            if request.xhr?
+              render :partial => "shared/cart_line_item", :locals => { :item => @order.line_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, :status => :created
+            else
+              redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
+            end
+          end
         else
-          format.js { head :forbidden }
+          format.js { head :not_found, status: :unprocessable_entity }
           format.html { redirect_to(:back, :notice => "Produto esgotado") }
         end
       else
-        format.js { head :forbidden }
+        format.js { head :forbidden, status: :unprocessable_entity }
         format.html { redirect_to(cart_path, :notice => "Produtos de presente não podem ser comprados com produtos da vitrine") }
       end
     end
