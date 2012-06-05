@@ -7,4 +7,8 @@
     <p>Boleto</p>
     <%= link_to "Boleto Bancário", new_billet_path, :class => selected_if_current(["billets#new"]) %>
   </li>
+  <li class="debit">
+    <p>Debito</p>
+    <%= link_to "Débito Bancário", new_debit_path, :class => selected_if_current(["debits#new"]) %>
+  </li>
 </ul>
