@@ -11,9 +11,13 @@
     <%= image_tag "stylist/helena_linhares/models.jpg", :class => "models" %>
     <div class="description">
       <h1>Helena <span>Linhares</span></h1>
-      <p><%= image_tag "stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.<br /><br />Comunicativa, dita tendência e tem credibilidade, é referência quando o tema é moda. Colabora com veículos importantes como Vogue,RG, Elle e sites de comportamento como Glamurama e RG Site.<br /><br />Morou em Paris onde trabalhou na Maison de Cuture Ungaro e em Nova Iorque onde trabalhou na W Magazine. No Brasil, teve a marca Pelu por 8 anos, antes trabalhou no Mappin/Mesbla na área de marketing de moda e foi gerente de marketing da Iodice.<br /><br />Estudou administração de empresas na PUC, fashion marketing e visual merchandising no FIT – NY e estilismo na ESMOD Paris.<br /><br />Figura que transita entre as várias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
+      <p>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.</p>
+      <p>Comunicativa, dita tendência e tem credibilidade, é referência quando o tema é moda. Colabora com veículos importantes como Vogue,RG, Elle e sites de comportamento como Glamurama e RG Site.</p>
+      <p>Morou em Paris onde trabalhou na Maison de Cuture Ungaro e em Nova Iorque onde trabalhou na W Magazine. No Brasil, teve a marca Pelu por 8 anos, antes trabalhou no Mappin/Mesbla na área de marketing de moda e foi gerente de marketing da Iodice.</p>
+      <p>Estudou administração de empresas na PUC, fashion marketing e visual merchandising no FIT – NY e estilismo na ESMOD Paris. Figura que transita entre as várias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
     </div>
     <div class="products">
+      <h1>Amo!</h1>
       <%= link_to product_path(4733), :class => "product", :id => "santa_maria" do %>
         <p>Santa Maria</p>
         <p class="price">R$ 179,90</p>
@@ -36,22 +40,96 @@
       <% end %>
     </div>
   </div>
-  <div class="profile" id="helena">
-    <%= image_tag "stylist/helena_linhares/models.jpg", :class => "models" %>
+  <div class="profile" id="mica_rocha">
+    <h1 class="stylist">Stylist Convidada</h1>
+    <%= image_tag "stylist/mica_rocha/models.jpg", :class => "models" %>
     <div class="description">
-      <h1>Helena <span>Linhares</span></h1>
-      <p><%= image_tag "stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.<br /><br />Comunicativa, dita tendência e tem credibilidade, é referência quando o tema é moda. Colabora com veículos importantes como Vogue,RG, Elle e sites de comportamento como Glamurama e RG Site.<br /><br />Morou em Paris onde trabalhou na Maison de Cuture Ungaro e em Nova Iorque onde trabalhou na W Magazine. No Brasil, teve a marca Pelu por 8 anos, antes trabalhou no Mappin/Mesbla na área de marketing de moda e foi gerente de marketing da Iodice.<br /><br />Estudou administração de empresas na PUC, fashion marketing e visual merchandising no FIT – NY e estilismo na ESMOD Paris.<br /><br />Figura que transita entre as várias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
+      <h1>Mica Rocha</h1>
+      <h2>Apresentadora Band</h2>
+      <h2>Empresária We Pick</h2>
+      <p>Mica sempre amou apresentar, iniciou seus vídeos para o Blog da Lelê e logo montou o site Mica Rocha, com um conteúdo voltado para vídeos.</p>
+      <p>Em pouco tempo seu site estava entre um dos mais acessados do meio da moda e com a repercussão na
+        internet veio o convite para trabalhar na BAND, onde trabalhou no Claquete com Otávio Mesquita e hoje faz o quadro "Intimidade", no MUITO +, apresentado por Adriane Galisteu, mas isto jamais a deixaria longe dos internautas, foi aí que montou o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %> com sua amiga e sócia Lelê Saddi.</p>
+      <h3>1. Como você define seu estilo?</h3>
+      <p>Meu estilo varia bastante conforme o meu humor, acho que moda é estado de espírito. Um dia eu quero ser mais moderninha, outro mais menininha, mas digo que sempre tenho uma pegada mais rock’n roll.</p>
+      <h3>2. Qual a melhor maneira de transformar um look?</h3>
+      <p>Pelos acessórios. Durante o dia pode ser uma flat e a noite é só mudar para aquele saltão poderoso, já a bolsa tem que ser bem grande durante o dia e a noite trocar por uma clutch.</p>
+      <h3>3. Uma dica de moda?</h3>
+      <p>Só vestir o que lhe cai bem, nunca seja vítima da moda, isso é cafona.</p>
+      <h3>4. Moda é...</h3>
+      <p>Um estado de espírito.</p>
+      <h3>5. Quem é um ícone de estilo para vc?</h3>
+      <p>Sienna Miller e Kate Bosworth.</p>
+      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
+      <p>Botas no inverno, echarpes para compor os looks e no verão vestidos, muuuitos vestidos!</p>
     </div>
     <div class="products">
+      <h1>Minhas escolhas do mês</h1>
+      <%= link_to product_path(5520), :class => "product", :id => "ourinhos" do %>
+        <p>Ourinhos</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(5442), :class => "product", :id => "cotia" do %>
+        <p>Cotia</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5516), :class => "product", :id => "olimpia" do %>
+        <p>Olímpia</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5506), :class => "product", :id => "mirassol" do %>
+        <p>Mirassol</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(5274), :class => "product", :id => "bertioga" do %>
+        <p>Bertioga</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
     </div>
   </div>
-  <div class="profile" id="helena">
-    <%= image_tag "stylist/helena_linhares/models.jpg", :class => "models" %>
+  <div class="profile" id="lele_saddi">
+    <h1 class="stylist">Stylist Convidada</h1>
+    <%= image_tag "stylist/lele_saddi/models.jpg", :class => "models" %>
     <div class="description">
-      <h1>Helena <span>Linhares</span></h1>
-      <p><%= image_tag "stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.<br /><br />Comunicativa, dita tendência e tem credibilidade, é referência quando o tema é moda. Colabora com veículos importantes como Vogue,RG, Elle e sites de comportamento como Glamurama e RG Site.<br /><br />Morou em Paris onde trabalhou na Maison de Cuture Ungaro e em Nova Iorque onde trabalhou na W Magazine. No Brasil, teve a marca Pelu por 8 anos, antes trabalhou no Mappin/Mesbla na área de marketing de moda e foi gerente de marketing da Iodice.<br /><br />Estudou administração de empresas na PUC, fashion marketing e visual merchandising no FIT – NY e estilismo na ESMOD Paris.<br /><br />Figura que transita entre as várias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
+      <h1>Lelê Saddi</h1>
+      <h2>Empresária Hi Brand e We Pick</h2>
+      <p>Lelê Saddi foi uma das primeiras a apostar no mundo virtual e criou o BLOG da Lelê, que ficou no ar durante cinco anos. Apostou em conteúdo de qualidade com novidades daqui e do mundo afora, onde conquistou seguidores fiéis. Além do blog, abriu uma consultoria de branding, a Hi-Brand, voltada ao mercado de luxo.</p>
+      <p>Sempre antenada em novidades, viu que seu blog e o site MICA ROCHA  se completavam em conteúdo, seja escrito ou vídeo, das ideias e conhecimentos de ambas surgiu o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %>.</p>
+      <h3>1. Como você define seu estilo?</h3>
+      <p>Sou mais básica e gosto de misturar roupas clássicas com acessórios modernos.</p>
+      <h3>2. Qual a melhor maneira de transformar um look?</h3>
+      <p>Acessórios mudam tudo! Bolsas, sapatos, bijoux!</p>
+      <h3>3. Uma dica de moda?</h3>
+      <p>Se vista de acordo com a sua personalidade, e não de acordo com o que todo mundo usa!</p>
+      <h3>4. Moda é...</h3>
+      <p>Você transparecer sua personalidade!</p>
+      <h3>5. Quem é um ícone de estilo para você?</h3>
+      <p>Não tenho ícone de estilo...</p>
+      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
+      <p>Camisas!!</p>
     </div>
     <div class="products">
+      <h1>Minhas escolhas do mês</h1>
+      <%= link_to product_path(4494), :class => "product", :id => "mage" do %>
+        <p>Mage</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5476), :class => "product", :id => "ibitinga" do %>
+        <p>Ibitinga</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5472), :class => "product", :id => "holambra" do %>
+        <p>Holambra</p>
+        <p class="price">R$ 69,90</p>
+      <% end %>
+      <%= link_to product_path(5468), :class => "product", :id => "fernao" do %>
+        <p>Fernão</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(5470), :class => "product", :id => "guaraci" do %>
+        <p>Guaraci</p>
+        <p class="price">R$ 69,90</p>
+      <% end %>
     </div>
   </div>
 </section>
