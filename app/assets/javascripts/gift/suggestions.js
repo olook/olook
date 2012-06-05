@@ -1,12 +1,12 @@
 $(function() {
   initSuggestion.disableDefaultProducts();
 
-  $('a.add_product_to_suggestions').live("click", function() {
+  $('.add_product_to_suggestions').live("click", function() {
     $('#quick_view').fadeOut(300);
     $("div.overlay").remove();
   });
 
-  $("a.add_product_to_suggestions").live("click", function() {
+  $(".add_product_to_suggestions").live("click", function() {
     relId = $(this).attr("rel");
     clazz = "a.add_suggestion_"+relId;
     $("a.add_suggestion_"+relId).parent().hide();
