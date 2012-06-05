@@ -217,6 +217,16 @@ $(document).ready(function() {
     percentage = $(this).parent().find("input[type='hidden'].percentage").val();
     $(percentageBox).find("span").text(percentage);
   });
+
+  $("div#mask_carousel_showroom ul li a.video_link").live("click", function(e) {
+    var url = $(this).attr("rel");
+    var title = $("<div>").append($(this).siblings(".video_description")).remove().html();
+    var youtube_id = initBase.youtubeParser(url);
+    content = initBase.youtubePlayer(youtube_id);
+    content += title;
+    initBase.modal(content);
+    e.preventDefault();
+  });
 });
 
 initBase = {
@@ -231,7 +241,7 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<iframe width='785' height='589' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0' frameborder='0' allowfullscreen></iframe>";
+    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0' frameborder='0' allowfullscreen></iframe>";
   },
 
   modal : function(content) {
