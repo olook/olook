@@ -6,6 +6,7 @@ $(document).ready(function() {
   }
   
   $("#cart_items").text(<%= @order.line_items.count %>);
+  $("nav.menu ul li.cart a.cart").addClass("selected");
   // setTimeout(function(){
   //   $("#cart_summary").fadeOut('slow');
   // }, 3000);
