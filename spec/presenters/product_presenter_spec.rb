@@ -105,7 +105,7 @@ describe ProductPresenter do
       subject.render_facebook_comments.should == 'facebook_comments'
     end
   end
-  
+
   describe '#render_add_to_suggestions' do
     it "should render the partial with controls to add the product to gift_list" do
       template.should_receive(:render).with(:partial => 'product/add_to_suggestions', :locals => {:product_presenter => subject, :product => product}).and_return('gift list')
@@ -166,5 +166,21 @@ describe ProductPresenter do
         subject.related_products.should == [related_bag]
       end
     end
+  end
+
+  describe "#price" do
+    it "should delegate to product" do
+      product.stub(:discount_percent).and_return(0)
+      subject.product.should_receive(:price)
+      subject.price
+    end
+
+    it "should return the retail price when the discount percent is higher then zero" do
+      product.stub(:discount_percent).and_return(30)
+      subject.product.should_receive(:retail_price)
+      subject.price
+    end
+
+    it "should show the 30% off discounted price added to the retail price"
   end
 end

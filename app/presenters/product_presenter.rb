@@ -39,7 +39,7 @@ class ProductPresenter < BasePresenter
   def render_facebook_comments
     h.render :partial => 'product/facebook_comments', :locals => {:product => product, :facebook_app_id => facebook_app_id}
   end
-  
+
   def render_add_to_suggestions
     h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
   end
@@ -61,31 +61,31 @@ class ProductPresenter < BasePresenter
     variants = product.variants.sorted_by_description
     h.render :partial => 'product/sizes', :locals => {:variants => variants}
   end
-  
+
   def render_pics
     h.render :partial => "product_pics", :locals => {:product_presenter => self}
   end
-  
+
   def show_quantity_left?
     member && quantity_left > 0 && quantity_left < 4
   end
-  
+
   def quantity_left
-    product.quantity(member.shoes_size) 
+    product.quantity(member.shoes_size)
   end
-  
+
   def quantity_left_text
     more_than_one_left? ? "Restam apenas " : "Resta apenas "
   end
-  
+
   def unities_left_text
     more_than_one_left? ? "unidades" : "unidade"
   end
-  
+
   def more_than_one_left?
     quantity_left > 1
   end
-  
+
   def related_products
     product.related_products.inject([]) do |result, related_product|
       if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
@@ -94,5 +94,35 @@ class ProductPresenter < BasePresenter
         result
       end
     end
+  end
+
+  def price
+    if product.discount_percent.to_i == 0
+      product.price
+    else
+      product.retail_price
+    end
+  end
+
+  def markdown_price
+    render_price {"de:"}
+    render_retail_price {"por:"}
+  end
+
+  def normal_price
+    render_price
+  end
+
+  private
+
+  def render_price
+    content_tag(:p,
+                number_to_currency(product.price),
+                :class => "price"
+               )
+  end
+
+  def render_retail_price
+    content_tag(:p, number_to_currency(product.retail_price), :class => "retail_price")
   end
 end
