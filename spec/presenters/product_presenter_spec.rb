@@ -6,7 +6,8 @@ describe ProductPresenter do
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
-  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35 }
+  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35, :only_view? => false }
+  let(:only_view) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35, :only_view? => true }
 
   describe "user showroom methods" do
     describe '#render_member_showroom' do
@@ -61,10 +62,14 @@ describe ProductPresenter do
   end
 
   describe '#render_add_to_cart' do
-    let(:online) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => true, :gift? => false }
-    let(:online_gift) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => true, :gift? => true }
-    let(:offline) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => false, :gift? => false }
-    let(:offline_gift) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => false, :gift? => true }
+    let(:online) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => true, :gift? => false, :only_view? => false }
+    let(:online_gift) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => true, :gift? => true, :only_view? => false }
+    let(:offline) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => false, :gift? => false, :only_view? => false }
+    let(:offline_gift) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => false, :gift? => true, :only_view? => false }
+    
+    it "should return empty when is only view" do
+      only_view.render_add_to_cart.should == ''
+    end
     
     context "when is gift" do
       it "and user is offline should render the partial with controls to add the product to gift_list" do
@@ -115,8 +120,12 @@ describe ProductPresenter do
   end
 
   describe '#render_colors' do
+    it "should return empty when is only view" do
+      only_view.render_colors.should == ''
+    end
+    
     it "should render the partial with the product colors" do
-      template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product}).and_return('colors')
+      template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product, :gift => true, :shoe_size => 35}).and_return('colors')
       subject.render_colors.should == 'colors'
     end
   end

@@ -15,7 +15,17 @@ describe ProductController do
     end
 
     describe "GET show" do
-      it "should assign @gift" do
+      it "should assign @only_view" do
+        get :show, :id => product.id
+        assigns(:only_view).should eq(false)
+      end
+
+      it "should assign @only_view when is only view" do
+        get :show, :id => product.id, :only_view => "true"
+        assigns(:only_view).should eq(true)
+      end
+
+      it "should assign @only_view" do
         get :show, :id => product.id
         assigns(:gift).should eq(false)
       end
@@ -24,6 +34,7 @@ describe ProductController do
         get :show, :id => product.id, :gift => "true"
         assigns(:gift).should eq(true)
       end
+
       
       it "should assign @shoe_size" do
         get :show, :id => product.id, :shoe_size => "37"
