@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :clean_token
   before_filter :save_referer
   before_filter :current_referer
+  before_filter :load_order
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
