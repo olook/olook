@@ -276,7 +276,7 @@
           background: url("/assets/product/bt-add-product-disabled.png") no-repeat;
         }
       }
-      a.add_product_to_suggestions {
+      input[type="submit"].add_product_to_suggestions {
         background: url('/assets/product/bt-add-product-to-suggestions.png') no-repeat;
         text-indent: -9999px;
         width: 298px;

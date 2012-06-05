@@ -137,22 +137,7 @@ class CartController < ApplicationController
       
       # add products to cart
       session[:gift_products].each_pair do |k, id|
-        product = Product.find(id)
-        if product
-          variant = case product.category
-            when Category::SHOE then
-              product.variants.where(:display_reference => "size-#{@gift_recipient.shoe_size}").first
-            # when Category::BAG then
-            #   product.variants.last
-            # when Category::ACCESSORY then
-            #   product.variants.last
-            else
-              product.variants.last
-          end
-        else
-          variant = Variant.find(id)
-        end
-        
+        variant = Variant.find(id)
         line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
       end
       calculate_gift_prices(@order)
