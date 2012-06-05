@@ -17,11 +17,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, valentine_invite, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   def render_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, valentine_invite, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   private
@@ -47,7 +47,7 @@ class MenuPresenter < BasePresenter
   end
 
   def moments
-    render_item_with_label("Ocasiões", h.moments_path, "moments", ["moments#index"])
+    render_item("Ocasiões", h.moments_path, "moments", ["moments#index"])
   end
 
   def gift

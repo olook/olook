@@ -43,6 +43,14 @@ class Product < ActiveRecord::Base
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
 
+  scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
+  scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
+  scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+
+  def self.in_profile profile
+    !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
+  end
+
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
   def self.for_xml
@@ -104,16 +112,20 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
-  def showroom_picture
-    main_picture.try(:image_url, :showroom)
+  def thumb_picture
+    main_picture.try(:image_url, :thumb) # 50x50
   end
 
-  def thumb_picture
-    main_picture.try(:image_url, :thumb)
+  def bag_picture
+    main_picture.try(:image_url, :bag) # 70x70
+  end
+
+  def showroom_picture
+    main_picture.try(:image_url, :showroom) # 170x170
   end
 
   def suggestion_picture
-    main_picture.try(:image_url, :suggestion)
+    main_picture.try(:image_url, :suggestion) # 260x260
   end
 
   def master_variant

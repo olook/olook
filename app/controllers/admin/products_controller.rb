@@ -2,12 +2,25 @@
 class Admin::ProductsController < Admin::BaseController
   load_and_authorize_resource
 
-  before_filter :load_products, :only => [:index, :sync_products]
   respond_to :html
 
   def index
     @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
+    # search params
+    @collections = Collection.order(:name)
+    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
+    @profiles = Profile.all
+
+    @products = Product.includes(:profiles).includes(:collection)
+                       .search(params[:q])
+                       .in_category(params[:cat])
+                       .in_collection(params[:col])
+                       .in_profile(params[:p])
+                       .order(sort_column + " " + sort_direction)
+                       .order("collection_id desc, category, name")
+                       .paginate(page: params[:page], per_page: 10)
+
     respond_with :admin, @products
   end
 
@@ -54,6 +67,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def sync_products
+    @products = Product.all
     @sync_event = SynchronizationEvent.new(:name => 'products')
     if @sync_event.save
       redirect_to admin_products_path
@@ -79,9 +93,13 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   private
-
-  def load_products
-    @products = Product.all
+  helper_method :sort_column, :sort_direction
+  def sort_column
+    Product.column_names.include?(params[:s]) ? params[:s] : "collection_id"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:d]) ? params[:d] : "desc"
   end
 end
 
