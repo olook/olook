@@ -3,7 +3,7 @@
   <%= hidden_field_tag "products[#{position}]", "#{product.id}" %>
   <%= link_to "deletar", "#", :class => "delete" %>
   <div class="box_product">
-    <%= link_to product, :remote => true, :class => "product_link" do %>
+    <%= link_to product, :remote => true, :class => "product_link", :data => {:params => {:only_view =>  true}} do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <% unless position == 0 %>
