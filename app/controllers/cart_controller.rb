@@ -89,19 +89,11 @@ class CartController < ApplicationController
         destroy_freight(@order)
         destroy_order_if_the_cart_is_empty(@order) if !@order.restricted?
         calculate_gift_prices(@order)
-        format.html do
-          redirect_to cart_path, :notice => "Produto removido com sucesso"
-        end
-        format.js do
-          head :ok
-        end
+        format.html { redirect_to cart_path, :notice => "Produto removido com sucesso" }
+        format.js { head :ok }
       else
-        format.js do
-          head :not_found
-        end
-        format.html do
-          redirect_to cart_path, :notice => "Este produto não está na sua sacola"
-        end
+        format.js { head :not_found }
+        format.html { redirect_to cart_path, :notice => "Este produto não está na sua sacola" }
       end
     end
   end
@@ -114,22 +106,17 @@ class CartController < ApplicationController
   def create
     @order.update_attributes :restricted => false if @order.restricted? && @order.line_items.empty?
 
-    if !@order.restricted?  # gift cart
-      if @order.add_variant(@variant, nil)
-        destroy_freight(@order)
-        
-        respond_with(@order) do |format|
+    respond_with(@order) do |format|
+      if !@order.restricted?  # gift cart
+        if @order.add_variant(@variant, nil)
+          destroy_freight(@order)
           format.js { render }
           format.html { redirect_to(cart_path, :notice => "Produto adicionado com sucesso") }
-        end
-      else
-        respond_with do |format|
-          format.js { head :not_found }
+        else
+          format.js { head :forbidden }
           format.html { redirect_to(:back, :notice => "Produto esgotado") }
         end
-      end
-    else
-      respond_with do |format|
+      else
         format.js { head :forbidden }
         format.html { redirect_to(cart_path, :notice => "Produtos de presente não podem ser comprados com produtos da vitrine") }
       end
