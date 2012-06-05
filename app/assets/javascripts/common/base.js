@@ -38,7 +38,6 @@ $(document).ready(function() {
     }
   }
 
-
   $("header .info ul").fadeTransition();
 
   $("ol.addresses li.address_item ul.links li a.select_address").live("click", function() {
@@ -127,10 +126,6 @@ $(document).ready(function() {
     }
   });
 
-  $("#cart_summary li a.delete").live("click", function() {
-    $(this).parent("li").remove();
-  });
-
   $("#sign-up li.cpf input[type='text']").setMask({
     mask: '99999999999'
   });
@@ -171,17 +166,41 @@ $(document).ready(function() {
     $(this).submit();
   });
 
-  $("ul.submenu li form.delete").bind("ajax:success", function(evt, xhr, settings){
+  $("div#wrapper_menu nav.menu ul li a.cart, ul.submenu").live("mouseenter", function() {
+    $(this).parent("li").find("ul").show();
+    $("body").addClass('cart_submenu_opened');
+  }).live("mouseleave", function() {
+    $(this).parent("li").find("ul").hide();
+    $("body").removeClass('cart_submenu_opened');
+  });
+
+  // $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.delete").live("click", function() {
+  //   $(this).parent("li").remove();
+  // });
+
+  $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
     var items = parseInt($("#cart_items").text());
     var newItems = items - defaultQuantity;
-    $("#cart_items").text(newItems);
+    $("#cart_items").text(newItems <= 0 ? 0 : newItems);
     $(this).parent("li.product_item").fadeOut("slow", function() {
       $(this).remove();
     });
     if(newItems <= 0) {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
+  });
+  
+  $("#product_add_to_cart").bind("ajax:success", function(evt, xhr, settings){
+    $("#cart_summary").show();
+    $("#cart_summary li.last").before(xhr.responseText);
+    $("#cart_summary li.product_item:last").fadeIn('slow');
+
+    $("nav.menu ul li.cart a.cart").addClass("selected");
+    $("#cart_items").text(parseInt($("#cart_summary li.product_item").length))    
+    setTimeout(function(){
+      $("#cart_summary").fadeOut('slow');
+    }, 2000);
   });
 
   $("div.box_product div.line ol li a.product_color").live("mouseenter", function() {
