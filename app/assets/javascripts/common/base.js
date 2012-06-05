@@ -127,16 +127,7 @@ $(document).ready(function() {
     }
   });
 
-  // $("div#wrapper_menu nav.menu ul li a.cart").live("hover", function() {
-  //   $(this).parent("li").find("ul").show();
-  //   $("body").addClass('cart_submenu_opened');
-  // });
-
-  // $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.close").live("click", function() {
-  //   $(this).parents("ul.submenu").hide();
-  // });
-
-  $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.delete").live("click", function() {
+  $("#cart_summary li a.delete").live("click", function() {
     $(this).parent("li").remove();
   });
 
@@ -188,7 +179,7 @@ $(document).ready(function() {
     $(this).parent("li.product_item").fadeOut("slow", function() {
       $(this).remove();
     });
-    if(newItems == 0) {
+    if(newItems <= 0) {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
   });

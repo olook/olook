@@ -2,4 +2,5 @@ $(document).ready(function() {
   $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @order.line_items.last, hidden: true} ) %>");
   $("#cart_summary").show();
   $("#cart_summary li.product_item:last").fadeIn('slow')
+  $("#cart_items").text(<%= @order.line_items.count %>)
 });
