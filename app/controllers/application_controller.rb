@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
 
 
   helper_method :current_liquidation
@@ -102,6 +103,10 @@ class ApplicationController < ActionController::Base
 
   def current_referer
     @referer = session[:return_to]
+  end
+
+  def render_not_found(exception)
+    render :template => "/errors/404.html.erb", :layout => 'site', :status => 404
   end
 
 end
