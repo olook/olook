@@ -1375,6 +1375,13 @@ div#modal {
       font-size: 20px;
       line-height: 45px;
       float: right;
+      &.home {
+        background: url("/assets/common/bt-lightbox-quiz.jpg") no-repeat;
+        text-indent: -9999px;
+        width: 233px;
+        height: 57px;
+        display: block;
+      }
       &:focus {
         outline: none;
       }
