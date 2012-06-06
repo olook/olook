@@ -105,28 +105,27 @@ class CartController < ApplicationController
 
   def create
     @order.update_attributes :restricted => false if @order.restricted? && @order.line_items.empty?
-    if !@order.restricted?  # gift cart
-      if @order.add_variant(@variant, nil)
-        destroy_freight(@order)
-        respond_with do |format|
-          format.html do
-            if request.xhr?
-              render partial: "shared/cart_line_item", locals: { item: @order.line_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, status: :created
-            else
-              redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
-            end
+    if @order.restricted?  # gift cart
+      respond_with do |format|
+        format.js { head :forbidden, status: :unprocessable_entity, notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }
+        format.html { redirect_to(cart_path, notice: "Produtos de presente não podem ser comprados com produtos da vitrine") }
+      end
+    end
+    if @order.add_variant(@variant, nil)
+      destroy_freight(@order)
+      respond_with do |format|
+        format.html do
+          if request.xhr?
+            render partial: "shared/cart_line_item", locals: { item: @order.line_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, status: :created
+          else
+            redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
           end
-        end
-      else
-        respond_with do |format|
-          format.js { head :not_found, status: :unprocessable_entity }
-          format.html { redirect_to(:back, :notice => "Produto esgotado") }
         end
       end
     else
       respond_with do |format|
-        format.js { head :forbidden, status: :unprocessable_entity }
-        format.html { redirect_to(cart_path, :notice => "Produtos de presente não podem ser comprados com produtos da vitrine") }
+        format.js { head :not_found, status: :unprocessable_entity }
+        format.html { redirect_to(:back, :notice => "Produto esgotado") }
       end
     end
   end
