@@ -5,7 +5,11 @@
       <% lookbooks.each do |lookbook| %>
         <li>
           <% if lookbook.has_video? %>
-            <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{lookbook.video.url}" %>
+            <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{lookbook.video.url}", :title => "#{lookbook.video.title}" %>
+            <div class="video_description">
+              <h1><%= lookbook.video.title %></h1>
+              <%= link_to "Saiba tudo sobre essa tendência", "/lookbooks/#{lookbook.slug}" %>
+            </div>
           <% end %>
           <%= link_to "/lookbooks/#{lookbook.slug}", :class => "item" do %>
             <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>

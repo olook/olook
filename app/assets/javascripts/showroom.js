@@ -32,14 +32,6 @@ $(document).ready(function() {
     }
   });
 
-  $("div#mask_carousel_showroom ul li a.video_link").live("click", function(e) {
-    var url = $(this).attr("rel");
-    var youtube_id = initBase.youtubeParser(url);
-    content = initBase.youtubePlayer(youtube_id);
-    initBase.modal(content);
-    e.preventDefault();
-  });
-
   if($('.dialog.liquidation').length == 1) {
     initBase.openDialog();
 

@@ -145,6 +145,9 @@
             padding: 0;
             display: inline;
             float: left;
+            div.video_description {
+              display: none;
+            }
             a.video_link {
               position: absolute;
               background: image-url("common/label-lookbook-video.jpg") no-repeat;

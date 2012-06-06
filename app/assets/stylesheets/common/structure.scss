@@ -1354,6 +1354,34 @@ section.main {
   }
 }
 
+div#modal {
+  background: #FFF;
+  padding: 0;
+  border: 5px #000 solid;
+  div.video_description {
+    background: #FFF;
+    overflow: auto;
+    padding: 30px;
+    h1 {
+      font-family: "Times New Roman", sans-serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: lighter;
+      letter-spacing: -1px;
+      float: left;
+    }
+    a {
+      color: #e0457e;
+      font-size: 20px;
+      line-height: 45px;
+      float: right;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
 .top-shadow{
   width:100%;
   height:27px;

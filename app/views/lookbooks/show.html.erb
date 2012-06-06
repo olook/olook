@@ -18,6 +18,13 @@
 <section id="lookbooks">
   <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
   <div id="carousel_lookbooks_product">
+    <% if @lookbook.has_video? %>
+      <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{@lookbook.video.url}", :title => "#{@lookbook.video.title}" %>
+      <div class="video_description">
+        <h1><%= @lookbook.video.title %></h1>
+        <%= link_to "Saiba tudo sobre essa tendência", "#" %>
+      </div>
+    <% end %>
     <ul>
       <% 0.upto(@lookbook.images.count - 1) do |image| %>
         <li>
