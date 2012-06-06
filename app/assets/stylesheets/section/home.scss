@@ -191,18 +191,42 @@ body {
           display: none;
         }
       }
-
-      .video {
-        float: left;
-        margin: 21px 0 0 114px;
-
-        a {
-          clear: both;
+      .making_of {
+        position: absolute;
+        background: url("/assets/common/shadow_video.png") bottom left no-repeat;
+        width: 335px;
+        overflow: auto;
+        padding: 0 0 20px 0;
+        top: 260px;
+        right: 35px;
+        div.video_description {
+          display: none;
+          a {
+          }
+        }
+        a.open_making_of {
+          background: url("/assets/common/thumb_video.png") no-repeat;
+          text-indent: -9999px;
+          width: 126px;
+          height: 78px;
+          margin: 0 0 0 20px;
+          display: block;
           float: left;
         }
-
-        .thumb-video {
-          margin-left: 16px;
+        p {
+          color: #a0395f;
+          font-family: "Times New Roman", sans-serif;
+          font-size: 24px;
+          font-style: italic;
+          letter-spacing: -1px;
+          line-height: 20px;
+          width: 170px;
+          margin: 18px 0 0 0;
+          float: right;
+          span {
+            color: #666;
+            font-size: 18px;
+          }
         }
       }
     }
