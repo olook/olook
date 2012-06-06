@@ -438,9 +438,10 @@ section#payment {
           }
         }
         &.debit {
+          margin-left: 44px;
           a {
-            background-position: -48px 0;
-            width: 162px;
+            background-position: -132px 0;
+            width: 33px;
           }
         }
         &.credit_card {
