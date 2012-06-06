@@ -12,13 +12,14 @@ body {
       }
 
       .start {
+        position: absolute;
         background: url('/assets/home/btn-start-here.png') no-repeat;
         text-indent: -9999px;
         width: 346px;
         height: 84px;
-        margin: 100px 0 30px 50px;
+        top: 410px;
+        right: 40px;
         display: block;
-        float: left;
       }
 
       ul {
@@ -122,7 +123,7 @@ body {
                 letter-spacing:-2px;
               }
             }
-            
+
             &.three {
               span {
                 width: 195px;
