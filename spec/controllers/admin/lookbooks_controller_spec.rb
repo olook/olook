@@ -6,6 +6,14 @@ describe Admin::LookbooksController do
   let!(:lookbook)      { FactoryGirl.create(:basic_lookbook,
                         :product_list => { "#{product.id}" => "1" },
                         :product_criteo => { "#{product.id}" => "1" } ) }
+  let!(:lookbook_whitout_video)      { FactoryGirl.create(:basic_lookbook,
+                        :name => "name_two",
+                        :slug => "slug_two",
+                        :product_list => { "#{product.id}" => "1" },
+                        :product_criteo => { "#{product.id}" => "1" } ) }
+  let!(:video)      { FactoryGirl.create(:video,
+                        :video_relation_id => lookbook.id,
+                        :video_relation_type => "Lookbook" ) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -35,13 +43,18 @@ describe Admin::LookbooksController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested lookbook" do
-        Lookbook.any_instance.should_receive(:update_attributes).with({'name' => 'name', 'slug' => 'name'})
-        put :update, :id => lookbook.id, :lookbook => {'name' => 'name', 'slug' => 'name'}
+        Lookbook.any_instance.should_receive(:update_attributes).with({'name' => 'name', 'slug' => 'name', 'video' => { 'title' => 'test', 'url' => 'url/test' } } )
+        put :update, :id => lookbook.id, :lookbook => {'name' => 'name', 'slug' => 'name', 'video' => { 'title' => 'test', 'url' => 'url/test' } }
       end
 
       it "assigns the requested lookbook as @lookbook" do
         put :update, :id => lookbook.id, :lookbook => lookbook.attributes
         assigns(:lookbook).should eq(lookbook)
+      end
+
+      it "assigns the requested lookbook new video as @video" do
+        put :update, :id => lookbook_whitout_video.id, :lookbook => {'name' => 'name_two', 'slug' => 'name_two'}, :video => { 'title' => 'test_two', 'url' => 'url/test_two' }
+        assigns(:video).should eq(Video.last)
       end
 
       it "redirects to the lookbook" do
