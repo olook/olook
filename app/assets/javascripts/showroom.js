@@ -1,6 +1,18 @@
 $(document).ready(function() {
   ShowroomInit.slideProductAnchor();
 
+  $("section#greetings div.facebook h1 a").hover(function() {
+    $("section#greetings div.facebook div.profile").show();
+  }, function() {
+    $("section#greetings div.facebook div.profile").hide();
+  });
+
+  $("section#greetings div.facebook div.profile").hover(function() {
+    $("section#greetings div.facebook div.profile").show();
+  }, function() {
+    $("section#greetings div.facebook div.profile").hide();
+  });
+
   $("#showroom div.products_list a.more").live("click", function() {
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
@@ -18,10 +30,9 @@ $(document).ready(function() {
 
   $("div#mask_carousel_showroom ul").carouFredSel({
     height: 186,
-    auto : false,
-//    auto : {
-//      pauseDuration : 15000
-//    },
+    auto : {
+      pauseDuration : 15000
+    },
     prev : {
       button : ".carousel-prev",
       key : "left"
