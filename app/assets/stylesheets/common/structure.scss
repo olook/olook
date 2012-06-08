@@ -1422,28 +1422,13 @@ div#modal {
 }
 
 div.contact_fields {
+  padding: 0 0 0 0 !important;
+  
   h1 {
     color:#999;
   }
   .inputs {
-    li.name {
-      margin-top:28px!important;
-    }
-    input#address_first_name, input#address_last_name {
-      float:left!important;
-    }
-    input#address_first_name {
-      clear:left!important;
-      border-right:none!important;
-      margin-right:0!important;
-      width:110px;
-    }
-    input#address_last_name {
-      clear:none!important;
-      border-left:none!important;
-      margin-left:0!important;
-      width:130px;
-    }
+    padding: 15px 5px !important;
   }
 }
 

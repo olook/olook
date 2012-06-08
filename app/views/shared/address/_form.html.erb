@@ -44,12 +44,12 @@
   <fieldset class="inputs desc">
     <ol>
       <li class="name">
-        <%= f.label :first_name, "Nome e sobrenome" %><em>*</em>
-        <%= f.text_field :first_name, :placeholder => 'Nome' %><%= f.text_field :last_name, :placeholder => 'Sobrenome' %>
-<!--       </li>
-      <li> -->
-        <!-- <%= f.label :last_name %><em>*</em> -->
-        <!-- <%= f.text_field :last_name, :placeholder => 'Sobrenome' %> -->
+        <%= f.label :first_name, "Nome" %><em>*</em>
+        <%= f.text_field :first_name, :placeholder => 'Nome' %>
+      </li>
+      <li class="lastname">
+        <%= f.label :last_name %><em>*</em>
+        <%= f.text_field :last_name, :placeholder => 'Sobrenome' %>
       </li>
       <li class="phone">
         <%= f.label :telephone %><em>*</em>
