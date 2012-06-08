@@ -228,7 +228,8 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(".ui-widget-overlay").live("click", function() {
+  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
+    $("div#modal").html("");
     $("div#modal").dialog("close");
   });
 });
@@ -245,7 +246,7 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0' frameborder='0' allowfullscreen></iframe>";
+    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
 
   modal : function(content) {
