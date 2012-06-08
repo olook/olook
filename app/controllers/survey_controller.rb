@@ -2,7 +2,7 @@
 class SurveyController < ApplicationController
   respond_to :json, :only => :check_date
 
-  before_filter :check_user_login
+  before_filter :check_user_login, :except => [:create, :new, :check_date]
   before_filter :check_questions_params, :only => [:create]
 
   def new
@@ -17,7 +17,16 @@ class SurveyController < ApplicationController
     profiles = ProfileBuilder.profiles_given_questions(questions)
     profile_points = ProfileBuilder.build_profiles_points(profiles)
     session[:profile_points] = profile_points
-    redirect_to new_user_registration_path
+    if current_user
+      current_user.points.delete_all if current_user.points
+      current_user.survey_answer.delete if current_user.survey_answer
+      answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])
+      SurveyAnswer.create(:answers => answers, :user => current_user)
+      ProfileBuilder.new(current_user).create_user_points(session[:profile_points])
+      redirect_to root_path
+    else
+      redirect_to new_user_registration_path
+    end
   end
 
   def check_date

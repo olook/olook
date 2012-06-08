@@ -68,6 +68,8 @@ group :test do
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'webmock', '1.7.0'
+  gem 'selenium-webdriver', '2.21.1'
+  gem 'webmock-disabler'
 end
 
 group :production do

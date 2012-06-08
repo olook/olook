@@ -23,11 +23,4 @@ class MemberMailer < ActionMailer::Base
           )
     headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json
   end
-
-  def showroom_ready_email(member)
-    @member = member
-    mail( :to => member.email,
-          :subject => "#{member.name}, sua vitrine personalizada já está pronta!")
-    headers["X-SMTPAPI"] = { 'category' => 'showroom_ready_email' }.to_json
-  end
 end
