@@ -17,11 +17,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, spfw_blog, blog, cart].join.html_safe
   end
 
   def render_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, spfw_blog, blog, cart].join.html_safe
   end
 
   private
@@ -69,6 +69,10 @@ class MenuPresenter < BasePresenter
 
   def cart
     h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart"
+  end
+
+  def spfw_blog
+    h.content_tag :li, h.link_to("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", :target => "_blank"), :class => "blog"
   end
 
   def blog
