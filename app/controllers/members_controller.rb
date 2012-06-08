@@ -2,7 +2,6 @@
 class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
-  before_filter :check_early_access, :only => [:showroom]
   before_filter :redirect_if_half_user, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   # TODO: Added for valentine invite page
@@ -10,8 +9,8 @@ class MembersController < ApplicationController
   before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
   before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
-  before_filter :redirect_user_if_new, :only => [:showroom]
-  before_filter :redirect_user_if_old, :only => [:welcome]
+  before_filter :redirect_user_if_first, :only => [:showroom]
+  before_filter :redirect_user_if_is_not_first, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
 
@@ -35,7 +34,7 @@ class MembersController < ApplicationController
   # TODO: Added for valentine invite page / Remove after
   def valentine_invite_by_email
     to = params[:valentine_invite_mail]
-    if to.match /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+    if to.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
       Resque.enqueue(ValentineInviteWorker, "#{current_user.first_name} #{current_user.last_name}", to)
       current_user.add_event(EventType::SEND_INVITE, "Valentine invite sent to #{to}")
       redirect_to(member_valentine_invite_path, :notice => "Convite para #{to} enviado com sucesso")
@@ -80,10 +79,13 @@ class MembersController < ApplicationController
   end
 
   def welcome
-    @banner = LiquidationService.active.welcome_banner_url if !LiquidationService.active.nil?
-    @is_the_first_visit = first_visit_for_member?(@user)
+    session[:facebook_redirect_paths] = "showroom"
+    @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
+    @url = request.protocol + request.host
+    @url += ":" + request.port.to_s if request.port != 80
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    @products = Product.where('id IN (:products)', :products => [1943, 1983, 605, 46, 1590])
+    @is_the_first_visit = first_visit_for_member?(@user)
+    @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
   end
 
   def showroom
@@ -135,12 +137,12 @@ class MembersController < ApplicationController
     params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
   end
 
-  def redirect_user_if_new
-    redirect_to member_welcome_path, :alert => flash[:alert] if current_user.is_new?
+  def redirect_user_if_first 
+    redirect_to member_welcome_path, :alert => flash[:notice] if current_user.first_visit?
   end
 
-  def redirect_user_if_old
-    redirect_to member_showroom_path, :alert => flash[:alert] if current_user.is_old?
+  def redirect_user_if_is_not_first
+    redirect_to member_showroom_path, :alert => flash[:notice] if !current_user.first_visit?
   end
 
   def load_offline_variant_and_clean_session
