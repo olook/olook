@@ -1,12 +1,7 @@
 <div class="facebook connected">
   <div class="avatar"><%= showroom_presenter.facebook_avatar %></div>
   <h1><%= showroom_presenter.welcome_message %><br />Esta é <%= link_to "sua vitrine", "#" %> de <%= showroom_presenter.collection_name %></h1>
-  <div class="profile">
-    <%= link_to "#" do %>
-      <span>Veja seu estilo novamente</span>
-      <%= image_tag "fake/mini_profile.jpg" %>
-    <% end %>
-  </div>
+  <%= render "shared/mini_profile", :user => @user %>
   <% if @friends && @friends.any? %>
   <h3>Últimas amigas que se registraram:</h3>
   <ul>
