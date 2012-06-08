@@ -45,6 +45,7 @@ Olook::Application.routes.draw do
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
+  match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
 
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   resources :payments, :path => 'pagamento', :controller => :payments
