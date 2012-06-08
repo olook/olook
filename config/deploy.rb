@@ -1,7 +1,8 @@
+require 'new_relic/recipes'
 require 'capistrano/ext/multistage'
 # require "bundler/capistrano"
 
-set :stages, %w(prod1 prod2 prod3 prod4 hmg dev resque showroom new_machine)
+set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_todos hmg dev resque showroom new_machine)
 
 # app details
 set :application, 'olook'
@@ -15,7 +16,10 @@ set :use_sudo, false
 set :version_path, '/srv/olook/current'
 set :bundle, '/usr/local/ruby/bin/bundle'
 set :rake, '/usr/local/ruby/bin/rake'
+
 set :path_log, '/mnt/debug'
+set :rails_env, "RAILS_ENV=production"
+set :env, 'production'
 
 # repo details
 set :scm, :git
@@ -25,3 +29,6 @@ set :git_enable_submodules, 1
 default_run_options[:pty] = true
 ssh_options[:port] = 13630
 ssh_options[:forward_agent] = true
+
+after 'deploy:update', 'newrelic:notice_deployment'
+after 'deploy', 'deploy:cleanup' # keep only the last 5 releases

@@ -1,8 +1,4 @@
 role :app, "development.olook.com.br"
- 
-# server details
-set :rails_env, "RAILS_ENV=production"
-set :env, 'production'
 
 
 # current_path : /srv/olook/current/
@@ -82,5 +78,4 @@ namespace :deploy do
   #         run "cd #{current_release};  rake db:migrate RAILS_ENV=#{rails_env} VERSION=`grep \\":version =>\\" #{previous_release}/db/schema.rb | sed -e 's/[a-z A-Z = \\> \\: \\. \\( \\)]//g'`"
   #       end
   #       after "deploy:rollback","deploy:rollback:migrations"
-        after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end

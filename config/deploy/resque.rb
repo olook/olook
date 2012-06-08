@@ -4,7 +4,7 @@ role :app, "q1.olook.com.br", "q2.olook.com.br"
 set :rails_env, "RAILS_ENV=production"
 
 # repo details
-set :branch, fetch(:branch, 'development')
+set :branch, fetch(:branch, 'master')
 
 # tasks
 namespace :deploy do
