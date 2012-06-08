@@ -6,7 +6,7 @@
 <div id="full_pic">
   <p class="warn <%= (@product.sold_out? && user_signed_in?) ? 'sold_out' : '' %>">ESGO<br />TADO</p>
   <% if @product.liquidation? && !@product.sold_out? %>
-    <p class="warn percentage"><span><%= @product.liquidation_discount_percent.to_i %>%</span><br />off</p>
+    <p class="warn percentage"><span><%= @product.discount_percent.to_i %>%</span><br />off</p>
   <% end %>
   <% if product_presenter.show_quantity_left? %>
     <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.user_info.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>

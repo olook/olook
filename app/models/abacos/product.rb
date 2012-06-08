@@ -6,7 +6,7 @@ module Abacos
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight,
-                :color_name, :collection_id, :how_to, :details, :profiles
+                :color_name, :collection_id, :how_to, :moments, :details, :profiles
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -15,15 +15,15 @@ module Abacos
     end
 
     def attributes
-      { name:         self.name,
-        description:  self.description,
-        category:     self.category,
-        model_number: self.model_number,
-        color_name:   self.color_name,
-        width:        self.width,
-        height:       self.height,
-        length:       self.length,
-        weight:       self.weight }
+      { :name         =>  self.name,
+        :description  =>  self.description,
+        :category     =>  self.category,
+        :model_number =>  self.model_number,
+        :color_name   =>  self.color_name,
+        :width        =>  self.width,
+        :height       =>  self.height,
+        :length       =>  self.length,
+        :weight       =>  self.weight }
     end
     
     def integrate
@@ -32,6 +32,7 @@ module Abacos
         integrate_attributes(product)
         integrate_details(product)
         integrate_profiles(product)
+        integrate_catalogs(product)
         confirm_product
       end
     end
@@ -48,6 +49,17 @@ module Abacos
         product.save!
       end
       product
+    end
+
+    def integrate_catalogs(product)
+      moments_in_catalog = self.moments.each.map do |item|
+        begin
+          Moment.find_by_id!(item.to_i)
+        rescue ActiveRecord::RecordNotFound => e
+          #todo: tratar
+        end
+      end
+      CatalogService.save_product product, :moments => moments_in_catalog.compact
     end
 
     def integrate_attributes(product)
@@ -87,22 +99,34 @@ module Abacos
     end
 
     def self.parse_abacos_data(abacos_product)
-      { integration_protocol: abacos_product[:protocolo_produto],
-        name:                 parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
-        description:          parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
-        model_number:         abacos_product[:codigo_produto].to_s,
-        category:             parse_category(abacos_product[:descricao_classe]),
-        width:                abacos_product[:largura].to_f,
-        height:               abacos_product[:espessura].to_f,
-        length:               abacos_product[:comprimento].to_f,
-        weight:               abacos_product[:peso].to_f,
-        color_name:           parse_color( abacos_product[:descritor_pre_definido] ),
-        collection_id:        parse_collection(abacos_product[:descricao_grupo]),
-        details:              parse_details( abacos_product[:caracteristicas_complementares] ),
-        how_to:               parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        profiles:             parse_profiles( abacos_product[:caracteristicas_complementares] ) }
+      { :integration_protocol => abacos_product[:protocolo_produto],
+        :name                 => parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
+        :description          => parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
+        :model_number         => abacos_product[:codigo_produto].to_s,
+        :category             => parse_category(abacos_product[:descricao_classe]),
+        :width                => abacos_product[:largura].to_f,
+        :height               => abacos_product[:espessura].to_f,
+        :length               => abacos_product[:comprimento].to_f,
+        :weight               => abacos_product[:peso].to_f,
+        :color_name           => parse_color( abacos_product[:descritor_pre_definido] ),
+        :collection_id        => parse_collection(abacos_product[:descricao_grupo]),
+        :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
+        :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
+        :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ) }
     end
   private
+    def self.parse_moments(moments)
+      moments_array = if moments.kind_of?(Array)
+        moments.each.map { |item|
+          item.fetch(:codigo_categoria)
+        }
+      else
+        [moments.fetch(:codigo_categoria)]
+      end
+      moments_array.compact
+    end
+  
     def self.parse_description(data, fallback_description)
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
 

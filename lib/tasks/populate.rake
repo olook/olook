@@ -51,19 +51,22 @@ namespace :db do
 
     end
   end
-  
+
   desc "Creates some gift occasions"
   task :load_gift_occasion_types => :environment do
     ['aniversário','dia dos namorados','aniversário de casamento'].each do |name|
       GiftOccasionType.create :name => name
     end
   end
-  
+
   desc "Creates some gift recipients relations"
   task :load_gift_recipient_relations => :environment do
     ['avó','tia','irmã','namorada'].each do |name|
       GiftRecipientRelation.create :name => name
     end
+  end
+  desc "Create Moments and load products to them" do
+
   end
 end
 

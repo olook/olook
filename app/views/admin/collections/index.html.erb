@@ -11,6 +11,8 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
     </tr>
 
   <% @collections.each do |collection| %>
@@ -20,9 +22,21 @@
       <td><%= l collection.end_date %></td>
       <td><%= collection.is_active %></td>
       <td><%= collection.products.count %></td>
-      <td><%= link_to 'Show', admin_collection_path(collection) %></td>
-      <td> <%= link_to 'Edit', edit_admin_collection_path(collection) %> </td>
-      <td> <%= link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete %> </td>
+      <td>
+        <%= link_to 'Make all products visible', admin_collection_display_products_path(collection),
+          confirm: 'Are you sure you want to make all products visible?',
+          :class => 'button warn'
+        %>
+      </td>
+      <td>
+        <%= link_to 'Make all products invisible', admin_collection_hide_products_path(collection),
+          confirm: 'Are you sure you want to make all products invisible?',
+          :class => 'button warn'
+        %>
+      </td>
+      <td><%= link_to 'Show', admin_collection_path(collection), :class => 'button' %></td>
+      <td> <%= link_to 'Edit', edit_admin_collection_path(collection), :class => 'button' %> </td>
+      <td> <%= link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %> </td>
     </tr>
   <% end %>
   </table>

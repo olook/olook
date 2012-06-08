@@ -12,9 +12,9 @@
   <% @gift_recipient_relations.each do |relation| %>
     <tr>
       <td><%= relation.name %></td>
-      <td><%= link_to 'Show', admin_gift_recipient_relation_path(relation) %></td>
-      <td><%= link_to 'Edit', edit_admin_gift_recipient_relation_path(relation) %></td>
-      <td><%= link_to 'Destroy', admin_gift_recipient_relation_path(relation), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_gift_recipient_relation_path(relation), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_gift_recipient_relation_path(relation), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_gift_recipient_relation_path(relation), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>

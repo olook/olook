@@ -15,6 +15,7 @@ describe Lookbook do
     it { should have_many(:images) }
     it { should have_many(:lookbooks_products) }
     it { should have_many(:products) }
+    it { should have_one(:video) }
   end
 
   describe "update lookbook products" do

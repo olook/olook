@@ -6,11 +6,14 @@ class HomeController < ApplicationController
       @user = User.find(params[:uid])
       @profile = @user.profile_scores.first.try(:profile).first_visit_banner
       @qualities = Profile::DESCRIPTION["#{@profile}"]
-      @url = request.protocol + request.host 
+      @url = request.protocol + request.host
     end
     incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
     session[:tracking_params] ||= incoming_params
-    redirect_to member_showroom_path(incoming_params) if user_signed_in?
+    if user_signed_in?
+      redirect_to member_showroom_path(incoming_params)
+      flash[:notice] = flash[:notice]
+    end
   end
 
 end

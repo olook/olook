@@ -14,9 +14,6 @@ class MembersController < ApplicationController
   before_filter :redirect_user_if_old, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
-  
-
-  rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def invite
     @is_the_first_visit = first_visit_for_member?(@user)
@@ -90,6 +87,7 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    session[:facebook_redirect_paths] = "showroom"
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
@@ -117,10 +115,6 @@ class MembersController < ApplicationController
   end
 
   private
-
-  def facebook_api_error
-    redirect_to(facebook_connect_path, :alert => I18n.t("facebook.connect_failure"))
-  end
 
   def first_visit_for_member?(member)
     if member.first_visit?
@@ -167,7 +161,7 @@ class MembersController < ApplicationController
   end
 
   def load_friends
-    @friends = @facebook_adapter.facebook_friends_registered_at_olook
+    @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
   end
 
   def initialize_facebook_adapter
@@ -177,7 +171,7 @@ class MembersController < ApplicationController
   def user_has_facebook_account?
     @user.has_facebook?
   end
-  
+
 
 end
 

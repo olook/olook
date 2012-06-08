@@ -55,7 +55,7 @@ describe User do
       end
     end
   end
-  
+
   describe "when gender is required" do
     it "should validate" do
       user = FactoryGirl.build(:user)
@@ -64,7 +64,7 @@ describe User do
       user.should be_invalid
     end
   end
-  
+
   describe "when gender is not required" do
     it "should not validate" do
       user = FactoryGirl.build(:user)
@@ -101,45 +101,45 @@ describe User do
     let(:token) {"ABC"}
     let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
 
-    it "should set facebook data with publish stream permission" do
-      session = {:facebook_scopes => "publish_stream"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["publish_stream"])
-      subject.set_facebook_data(omniauth, session)
+    it "should always set all facebook permissions" do
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
     end
-    
+
+    it "should set all facebook permissions when user has publish stream permission" do
+      session = {:facebook_scopes => "publish_stream"}
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
+    end
+
     it "should set facebook data with friends birthday permission" do
       session = {:facebook_scopes => "friends_birthday"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday"])
-      subject.set_facebook_data(omniauth, session)
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
     end
-    
+
     it "should set facebook data with friends birthday and publish stream permissions" do
       session = {:facebook_scopes => "publish_stream, friends_birthday"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["publish_stream", "friends_birthday"])
-      subject.set_facebook_data(omniauth, session)
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.set_facebook_data(omniauth)
     end
-    
+
     it "should add permissions and not remove the old ones" do
       subject.facebook_permissions << "publish_stream"
       subject.save
       session = {:facebook_scopes => "friends_birthday"}
-      subject.set_facebook_data(omniauth, session)
+      subject.set_facebook_data(omniauth)
       subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
     end
-    
+
     it "should not duplicate permissions" do
       subject.facebook_permissions << "publish_stream"
       subject.save
       session = {:facebook_scopes => "publish_stream"}
-      subject.set_facebook_data(omniauth, session)
-      subject.facebook_permissions.should == ["publish_stream"]
+      subject.set_facebook_data(omniauth)
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
     end
 
-    it "should set facebook data without extended permission" do
-      session = {:facebook_scopes => nil}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token)
-      subject.set_facebook_data(omniauth, session)
-    end
   end
 
   context "facebook accounts" do

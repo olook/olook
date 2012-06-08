@@ -10,12 +10,12 @@ describe ShowroomPresenter do
     it "should render the partial with the FB avatar if the user is FB connected" do
       member.stub(:'has_facebook?').and_return(true)
       template.should_receive(:render).with(:partial => "showroom_facebook_connected", :locals => {:showroom_presenter => subject})
-      subject.render_identification
+      subject.render_identification([:hey])
     end
     it "should render the partial asking for the user to connect his account if he isn't FB connected" do
       member.stub(:'has_facebook?').and_return(false)
       template.should_receive(:render).with(:partial => "showroom_facebook_connect", :locals => {:showroom_presenter => subject})
-      subject.render_identification
+      subject.render_identification([])
     end
   end
 

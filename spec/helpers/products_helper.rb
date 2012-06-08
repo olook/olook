@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ProductsHelper do
   with_a_logged_user do
-    let!(:user_info) { Factory.create(:user_info, user: user) }
+    let!(:user_info) { FactoryGirl.create(:user_info, user: user) }
     let(:not_size_variant) { FactoryGirl.create(:basic_shoe_size_37) }
     let(:sold_out_variant) { FactoryGirl.create(:basic_shoe_size_35, :inventory => 0) }
     let(:normal_variant) { FactoryGirl.create(:basic_shoe_size_35 ) }

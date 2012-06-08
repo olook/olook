@@ -917,7 +917,23 @@ body {
         width: 995px;
         float: right;
         li {
+          position: relative;
           height: 37px;
+          span.label {
+            position: absolute;
+            background: url("/assets/common/bg-label-menu.png") no-repeat;
+            color: #FFF;
+            font-family: "Futura Light";
+            font-size: 10px;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 35px;
+            width: 35px;
+            height: 35px;
+            display: block;
+            top: -25px;
+            left: 45px;
+          }
           a {
             color: #FFF;
             font-family: 'Open Sans', sans-serif;
@@ -945,9 +961,16 @@ body {
               border-radius: 3px;
             }
           }
+          &.valentine_invite {
+            a {
+              background: url("/assets/common/bg-link-valentine.png") left no-repeat;
+              padding-left: 15px;
+              margin-left: 25px;
+            }
+          }
           &.showroom {
             a {
-              margin-left: 20px;
+              margin-left: 3px;
             }
           }
           &.cart {
@@ -1326,6 +1349,41 @@ section.main {
           padding: 15px 10px;
           border: none;
         }
+      }
+    }
+  }
+}
+
+div#modal {
+  background: #FFF;
+  padding: 0;
+  border: 5px #000 solid;
+  div.video_description {
+    background: #FFF;
+    overflow: auto;
+    padding: 30px;
+    h1 {
+      font-family: "Times New Roman", sans-serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: lighter;
+      letter-spacing: -1px;
+      float: left;
+    }
+    a {
+      color: #e0457e;
+      font-size: 20px;
+      line-height: 45px;
+      float: right;
+      &.home {
+        background: url("/assets/common/bt-lightbox-quiz.jpg") no-repeat;
+        text-indent: -9999px;
+        width: 233px;
+        height: 57px;
+        display: block;
+      }
+      &:focus {
+        outline: none;
       }
     }
   }

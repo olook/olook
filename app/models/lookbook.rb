@@ -3,8 +3,9 @@ class Lookbook < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   has_many :lookbooks_products, :dependent => :destroy
   has_many :products, :through => :lookbooks_products
+  has_one :video, :as => :video_relation, :dependent => :destroy
 
-  scope :active, where('active = 1').order("created_at DESC")
+  scope :active, where(active: 1).order("created_at DESC")
 
   accepts_nested_attributes_for :images, :reject_if => lambda{|p| p[:image].blank?}
 
@@ -13,6 +14,10 @@ class Lookbook < ActiveRecord::Base
   attr_accessor :product_list
   attr_accessor :product_criteo
   after_save :update_products
+
+  def has_video?
+    self.video.nil? == false
+  end
 
   private
 
@@ -34,4 +39,3 @@ class Lookbook < ActiveRecord::Base
     end
   end
 end
-
