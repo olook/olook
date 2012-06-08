@@ -61,5 +61,5 @@ namespace :deploy do
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
   end
 
-  after "deploy", "deploy:cleanup" # keep only the last 5 releases
+  #after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end
