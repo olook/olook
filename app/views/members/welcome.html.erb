@@ -11,7 +11,7 @@
     <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
     <%= render "shared/metrics/adlead/adlead" %>
     <%= render "shared/metrics/boobox/welcome" %>
-    <%= render "shared/metrics/yahoo/buy_and_register" %>
+    <%= render "shared/metrics/yahoo/register" %>
   <% end %>
 <% end %>
 
@@ -36,8 +36,4 @@
   <%= render 'welcome_products', :showroom_presenter => showroom_presenter %>
   <%= render 'welcome_press' %>
 <% end %>
-  <%# Banner placeholder %>
-  <br />
-  <br />
-  <%= link_to(image_tag("promotion_banners/banner_valentines_day.jpg", :class => "banner_mothers_day"), "/membro/convite_namorado" ) %>
 </section>

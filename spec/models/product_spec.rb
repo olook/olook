@@ -9,6 +9,8 @@ describe Product do
     it { should have_many(:pictures) }
     it { should have_many(:details) }
     it { should have_many(:variants) }
+    it { should have_many(:catalog_products) }
+    it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
 
     it { should have_and_belong_to_many(:profiles) }
@@ -201,6 +203,16 @@ describe Product do
         subject.price
       end
 
+      it "#retail_price" do
+        subject.master_variant.should_receive(:retail_price)
+        subject.retail_price
+      end
+
+      it "#discount_percent" do
+        subject.master_variant.should_receive(:discount_percent)
+        subject.discount_percent
+      end
+
       it "#width" do
         subject.master_variant.should_receive(:width)
         subject.width
@@ -226,6 +238,16 @@ describe Product do
       it "#price=" do
         subject.price = 765.0
         subject.master_variant.price.should == 765.0
+      end
+
+      it "#retail_price=" do
+        subject.retail_price = 99.0
+        subject.master_variant.retail_price.should == 99.0
+      end
+      
+      it "#discount_percent=" do
+        subject.discount_percent = 99.0
+        subject.master_variant.discount_percent.should == 99.0
       end
 
       it "#width=" do
@@ -395,18 +417,6 @@ describe Product do
     end
   end
 
-  describe "#retail_price" do
-    it "gets the retail price from liquidation product service" do
-      LiquidationProductService.should_receive(:retail_price).with(subject)
-      subject.retail_price
-    end
-
-    it "returns the retail price got from liquidation product service" do
-      LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
-      subject.retail_price.should == 1.99
-    end
-  end
-  
   describe "#gift_price" do
     it "calls GiftDiscountService passing the product, the position and returns it" do
       GiftDiscountService.should_receive(:price_for_product).with(subject,1).and_return(69.90)
@@ -416,11 +426,23 @@ describe Product do
 
   describe "#subcategory" do
     it "gets the subcategory from the product details" do
-      service = mock(:liquidation)
-      LiquidationProductService.should_receive(:new).with(nil,subject).and_return(service)
-      service.should_receive(:subcategory_name).and_return("Pulseira")
+      subject.should_receive(:subcategory_name).and_return("Pulseira")
       subject.subcategory.should == "Pulseira"
     end
   end
-
+  
+  describe "#promotion?" do
+    it "return false when price is same of retail price" do
+      subject.stub(:price => 123.45)
+      subject.stub(:retail_price => 123.45)
+      subject.promotion?.should be_false
+    end
+    
+    it "return true when price has difference of retail price" do
+      subject.stub(:price => 123.45)
+      subject.stub(:retail_price => 100.45)
+      subject.promotion?.should be_true
+    end
+  end
+  
 end

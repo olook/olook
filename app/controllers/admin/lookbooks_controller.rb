@@ -11,6 +11,7 @@ class Admin::LookbooksController < Admin::BaseController
 
   def show
     @lookbook = Lookbook.find(params[:id])
+    @lookbook_products = @lookbook.lookbooks_products.joins(:product).includes(:product).order("collection_id desc, category, name")
     respond_with :admin, @lookbook
   end
 
@@ -22,15 +23,18 @@ class Admin::LookbooksController < Admin::BaseController
 
   def edit
     @lookbook = Lookbook.find(params[:id])
+    @video = @lookbook.video
     get_all_products
     respond_with :admin, @lookbook
   end
 
   def create
     generate_slug(params[:lookbook]["name"])
-    @lookbook = Lookbook.new(params[:lookbook])
+    @lookbook       = Lookbook.new(params[:lookbook])
+    @video          = Video.new(params[:video])
+    @lookbook.video =  @video
 
-    if @lookbook.save
+    if @lookbook.save && @video.save
       flash[:notice] = 'Lookbook page was successfully created.'
     end
     respond_with :admin, @lookbook
@@ -38,7 +42,14 @@ class Admin::LookbooksController < Admin::BaseController
 
   def update
     generate_slug(params[:lookbook]["name"])
-    @lookbook = Lookbook.find(params[:id])
+    @lookbook       = Lookbook.find(params[:id])
+    @video          = Video.new(params[:video]) if @lookbook.video.nil?
+    if @video
+      @video.save
+      @lookbook.video = @video
+    else
+      @lookbook.video.update_attributes(params[:video])
+    end
 
     if @lookbook.update_attributes(params[:lookbook])
       flash[:notice] = 'Lookbook page was successfully updated.'
@@ -53,7 +64,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def get_all_products
-    @products = Product.find(:all, :order => 'name')
+    @products = Product.order("collection_id desc, category, name")
   end
 
   def product

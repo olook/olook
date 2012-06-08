@@ -41,4 +41,13 @@ FactoryGirl.define do
       description "Bolsa Azul"
     end
   end
+
+  factory :accessory_detail, :class => Detail do
+    association :product, :factory => :basic_accessory
+    factory :accessory_subcategory_name do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Colar"
+    end
+  end
 end

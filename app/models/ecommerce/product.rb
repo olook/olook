@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
@@ -11,11 +12,15 @@ class Product < ActiveRecord::Base
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
+  # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
       self.sort {|variant_a, variant_b| variant_a.description <=> variant_b.description }
     end
   end
+
+  # has_one :master_variant, :class_name => "Variant", :conditions => {:is_master => true}, :foreign_key => "product_id"
+  # has_one :main_picture, :class_name => "Picture", :conditions => {:display_on => DisplayPictureOn::GALLERY_1}, :foreign_key => "product_id"
 
   belongs_to :collection
   has_and_belongs_to_many :profiles
@@ -24,6 +29,8 @@ class Product < ActiveRecord::Base
   has_many :lookbooks, :through => :lookbooks_products
   has_many :liquidation_products
   has_many :liquidations, :through => :liquidation_products
+  has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
+  has_many :catalogs, :through => :catalog_products
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -36,11 +43,23 @@ class Product < ActiveRecord::Base
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
 
+  scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
+  scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
+  scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+
+  def self.in_profile profile
+    !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
+  end
+
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
   def self.for_xml
     only_visible.joins(:variants)
     .where("variants.is_master = 1 AND variants.price > 0.0 AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])
+  end
+
+  def product_id
+    id
   end
 
   def related_products
@@ -76,6 +95,8 @@ class Product < ActiveRecord::Base
 
   delegate :price, to: :master_variant
   delegate :'price=', to: :master_variant
+  delegate :retail_price, to: :master_variant
+  delegate :'retail_price=', to: :master_variant
   delegate :width, to: :master_variant
   delegate :'width=', to: :master_variant
   delegate :height, to: :master_variant
@@ -84,21 +105,27 @@ class Product < ActiveRecord::Base
   delegate :'length=', to: :master_variant
   delegate :weight, to: :master_variant
   delegate :'weight=', to: :master_variant
+  delegate :discount_percent, to: :master_variant
+  delegate :'discount_percent=', to: :master_variant
 
   def main_picture
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
-  def showroom_picture
-    main_picture.try(:image_url, :showroom)
+  def thumb_picture
+    main_picture.try(:image_url, :thumb) # 50x50
   end
 
-  def thumb_picture
-    main_picture.try(:image_url, :thumb)
+  def bag_picture
+    main_picture.try(:image_url, :bag) # 70x70
+  end
+
+  def showroom_picture
+    main_picture.try(:image_url, :showroom) # 170x170
   end
 
   def suggestion_picture
-    main_picture.try(:image_url, :suggestion)
+    main_picture.try(:image_url, :suggestion) # 260x260
   end
 
   def master_variant
@@ -140,19 +167,15 @@ class Product < ActiveRecord::Base
 
   def liquidation?
     active_liquidation = LiquidationService.active
-    active_liquidation.resume[:products_ids].include?(self.id) if active_liquidation
+     active_liquidation.has_product?(self) if active_liquidation
   end
 
-  def retail_price
-    LiquidationProductService.retail_price(self)
+  def promotion?
+    price != retail_price
   end
-  
+
   def gift_price(position = 0)
     GiftDiscountService.price_for_product(self,position)
-  end
-
-  def liquidation_discount_percent
-    LiquidationProductService.discount_percent(self)
   end
 
   def product_url(options = {})
@@ -191,7 +214,19 @@ class Product < ActiveRecord::Base
   end
 
   def subcategory
-    LiquidationProductService.new(nil,self).subcategory_name
+    subcategory_name
+  end
+
+  def subcategory_name
+    detail_by_token SUBCATEGORY_TOKEN
+  end
+
+  def heel
+    detail_by_token HEEL_TOKEN
+  end
+
+  def shoe?
+    self.category == ::Category::SHOE
   end
 
 private
@@ -211,4 +246,10 @@ private
   def update_master_variant
     master_variant.save!
   end
+
+  def detail_by_token token
+    detail = self.details.where(:translation_token => token).last
+    detail.description if detail
+  end
+
 end

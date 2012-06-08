@@ -1,4 +1,4 @@
-<h1>Listing coupons</h1>
+<h2>Listing coupons</h2>
 
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'New coupon', new_admin_coupon_path %></li>
@@ -58,8 +58,8 @@
       <td><%= coupon.active ? 'Yes' : 'No' %></td>
       <td><%= coupon.unlimited ? 'Yes' : 'No' %></td>
       <td><%= coupon.expired? ? 'Yes' : 'No' %></td>
-      <td><%= link_to 'Show', admin_coupon_path(coupon) %></td>
-      <td><%= link_to 'Edit', edit_admin_coupon_path(coupon) %></td>
+      <td><%= link_to 'Show', admin_coupon_path(coupon), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_coupon_path(coupon), :class => 'button' %></td>
     </tr>
   <% end %>
   </table>

@@ -5,18 +5,23 @@ class MenuPresenter < BasePresenter
     h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)), :class => css_klass)
   end
 
+  def render_item_with_label label, path, css_klass, hightlight_when
+    h.content_tag :li, :class => css_klass do
+      h.content_tag(:span, "Novo", :class => "label") +
+      h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+    end
+  end
+
   def render_menu
     user.half_user ? render_half_user_menu : render_default_menu
   end
 
   def render_default_menu
-    [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, blog, cart].join.html_safe
-   # [showroom, lookbooks, stylist, my_friends, invite, gift, liquidation, valentine_invite, blog, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   def render_half_user_menu
-    [lookbooks, stylist, my_friends, invite, gift, liquidation, blog, cart].join.html_safe
-   # [lookbooks, stylist, my_friends, invite, gift, liquidation, valentine_invite, blog, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   private
@@ -39,6 +44,10 @@ class MenuPresenter < BasePresenter
 
   def invite
     render_item("Convidar amigas", h.member_invite_path, "invite", ["members#invite"])
+  end
+
+  def moments
+    render_item("Ocasiões", h.moments_path, "moments", ["moments#index"])
   end
 
   def gift

@@ -7,70 +7,130 @@
 <% end %>
 
 <section id="stylist">
-  <div class="profile">
-    <%= image_tag "/assets/stylist/helena_linhares/foto.jpg", :title => "Helena Linhares", :class => "picture" %>
-    <h1>Helena Linhares ...</h1>
-    <p>... transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto. Comunicativa, dita tendência e tem credibilidade.  É  referência quando o tema é moda, colabora com veículos importantes como  Vogue, RG, Elle, e sites de comportamento, Glamurama e RG Site.</p>
-    <p>Morou em Paris onde trabalhou na Maison de Cuture Ungaro e em Nova Iorque, trabalhou na W Magazine. No Brasil trabalhou no Mappin/ Mesbla na área de marketing de moda e foi gerente de marketing da Iodice. Estudou administração de empresas na PUC, fashion marketing e visual merchandising no FIT – NY e estilismo na ESMOD Paris.</p>
-    <p>Figura que transita entre as varias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
-    <%= link_to "Veja minha seleção de produtos desta coleção", "javascript:void(0);", :id => "go_products" %>
+  <div class="profile" id="helena">
+    <%= image_tag "stylist/helena_linhares/models.jpg", :class => "models" %>
+    <div class="description">
+      <h1>Helena <span>Linhares</span></h1>
+      <p>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.</p>
+      <p>Comunicativa, dita tendência e tem credibilidade, é referência quando o tema é moda. Colabora com veículos importantes como Vogue,RG, Elle e sites de comportamento como Glamurama e RG Site.</p>
+      <p>Morou em Paris onde trabalhou na Maison de Cuture Ungaro e em Nova Iorque onde trabalhou na W Magazine. No Brasil, teve a marca Pelu por 8 anos, antes trabalhou no Mappin/Mesbla na área de marketing de moda e foi gerente de marketing da Iodice.</p>
+      <p>Estudou administração de empresas na PUC, fashion marketing e visual merchandising no FIT – NY e estilismo na ESMOD Paris. Figura que transita entre as várias tribos, Helena pode ser vista numa partida de polo ou na noite fervida das maiores metrópoles do mundo.</p>
+    </div>
+    <div class="products">
+      <h1>Amo!</h1>
+      <%= link_to product_path(4733), :class => "product", :id => "santa_maria" do %>
+        <p>Santa Maria</p>
+        <p class="price">R$ 179,90</p>
+      <% end %>
+      <%= link_to product_path(4458), :class => "product", :id => "cabo_frio" do %>
+        <p>Cabo Frio</p>
+        <p class="price">R$ 179,90</p>
+      <% end %>
+      <%= link_to product_path(5125), :class => "product", :id => "atibaia" do %>
+        <p>Atibaia</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(4821), :class => "product", :id => "sumidouro" do %>
+        <p>Sumidouro</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5035), :class => "product", :id => "aparecida" do %>
+        <p>Aparecida</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+    </div>
   </div>
-  <ul class="interview">
-    <li>
-      <h1>1. Como você define seu estilo?</h1>
-      <p><strong>H.L.:</strong> Eu sou uma pessoa livre e meu estilo segue esse mesmo principio. Eu amo misturar os estilos e o mais importante é eu me sentir bem e bonita!</p>
-    </li>
-    <li>
-      <h1>2. Qual a melhor maneira de tranformar um look?</h1>
-      <p><strong>H.L.:</strong> Acessórios, muitos acessórios!</p>
-    </li>
-    <li>
-      <h1>3. Uma dica de moda?</h1>
-      <p><strong>H.L.:</strong> A cada troca de estação eu revejo meu closet. Separo as peças que não uso e abro espaço para as novas compras. Armário abarrotado é o pior inimigo de quem gosta de se produzir.</p>
-    </li>
-    <li>
-      <h1>4. O que você gosta de fazer no seu free time?</h1>
-      <p><strong>H.L.:</strong> Sou uma jardineira de final de semana e também amo cozinhar. tenho uma hortinha de temperos em casa e assim consigo unir essas duas paixões.</p>
-    </li>
-    <li class="last">
-      <h1>5. Qual a viagem dos seus sonhos?</h1>
-      <p><strong>H.L.:</strong> Esse ano eu quero voltar à Grécia.</p>
-    </li>
-  </ul>
-  <div id="products">
-    <h1 class="title">AMO!</h1>
-    <h2 class="title">por Helena Linhares</h2>
-    <ul>
-      <li id="guaiba_container">
-        <%= image_tag "/assets/stylist/helena_linhares/1.jpg", :title => "Colorado" %>
-        <h1>Colorado</h1>
-        <p>O sliper é a nova sapatilha e essa de pelo estampado de oncinha é um must have da coleção AMO!<br /> Ela é muito versátil, combina com  vestido como na foto ao lado, com uma calça skinny e até com um shorts de alfaiataria. Aproveite!!!</p>
-        <%= link_to "Conheça", product_path(3805) %>
-      </li>
-      <li class="set">
-        <%= image_tag "/assets/stylist/helena_linhares/2.jpg", :title => "Ortigueira e Ourizona" %>
-        <p>AMO! essa pegada <span>rock&roll</span> das<br /> caveiras. Adoro usar vários anéis ao mesmo tempo e as pulseiras de caveira combinando com calça de couro e uma camiseta básica meio "poderinha", sabe?</p>
-        <div class="product1">
-          <h1>Vila Alta</h1>
-          <%= link_to "Conheça", product_path(4344) %>
-        </div>
-        <div class="product2">
-          <h1>Ourizona</h1>
-          <%= link_to "Conheça", product_path(4340) %>
-        </div>
-      </li>
-      <li class="right last">
-        <%= image_tag "/assets/stylist/helena_linhares/3.jpg", :title => "Janiópolis" %>
-        <h1>Rebouças</h1>
-        <p>A bolsa baú é uma tendência que vem com tudo!  Essa colorida fica incrível para dar um toque de modernidade em produções mais tradicionais.<br /><span>#ficaAdica</span><br />=)</p>
-        <%= link_to "Conheça", product_path(4233) %>
-      </li>
-    </ul>
-    <%# Banner placeholder %>
-    <br />
-    <br />
-    <%= link_to(image_tag("promotion_banners/banner_valentines_day.jpg", :class => "banner_mothers_day"), "/membro/convite_namorado" ) %>
-    <div class="products_footer"></div>
+  <div class="profile" id="mica_rocha">
+    <h1 class="stylist">Stylist Convidada</h1>
+    <%= image_tag "stylist/mica_rocha/models.jpg", :class => "models" %>
+    <div class="description">
+      <h1>Mica Rocha</h1>
+      <h2>Apresentadora Band</h2>
+      <h2>Empresária We Pick</h2>
+      <p>Mica sempre amou apresentar, iniciou seus vídeos para o Blog da Lelê e logo montou o site Mica Rocha, com um conteúdo voltado para vídeos.</p>
+      <p>Em pouco tempo seu site estava entre um dos mais acessados do meio da moda e com a repercussão na
+        internet veio o convite para trabalhar na BAND, onde trabalhou no Claquete com Otávio Mesquita e hoje faz o quadro "Intimidade", no MUITO +, apresentado por Adriane Galisteu, mas isto jamais a deixaria longe dos internautas, foi aí que montou o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %> com sua amiga e sócia Lelê Saddi.</p>
+      <h3>1. Como você define seu estilo?</h3>
+      <p>Meu estilo varia bastante conforme o meu humor, acho que moda é estado de espírito. Um dia eu quero ser mais moderninha, outro mais menininha, mas digo que sempre tenho uma pegada mais rock’n roll.</p>
+      <h3>2. Qual a melhor maneira de transformar um look?</h3>
+      <p>Pelos acessórios. Durante o dia pode ser uma flat e a noite é só mudar para aquele saltão poderoso, já a bolsa tem que ser bem grande durante o dia e a noite trocar por uma clutch.</p>
+      <h3>3. Uma dica de moda?</h3>
+      <p>Só vestir o que lhe cai bem, nunca seja vítima da moda, isso é cafona.</p>
+      <h3>4. Moda é...</h3>
+      <p>Um estado de espírito.</p>
+      <h3>5. Quem é um ícone de estilo para vc?</h3>
+      <p>Sienna Miller e Kate Bosworth.</p>
+      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
+      <p>Botas no inverno, echarpes para compor os looks e no verão vestidos, muuuitos vestidos!</p>
+    </div>
+    <div class="products">
+      <h1>Minhas escolhas do mês</h1>
+      <%= link_to product_path(5520), :class => "product", :id => "ourinhos" do %>
+        <p>Ourinhos</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(5442), :class => "product", :id => "cotia" do %>
+        <p>Cotia</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5516), :class => "product", :id => "olimpia" do %>
+        <p>Olímpia</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5506), :class => "product", :id => "mirassol" do %>
+        <p>Mirassol</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(5274), :class => "product", :id => "bertioga" do %>
+        <p>Bertioga</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+    </div>
+  </div>
+  <div class="profile" id="lele_saddi">
+    <h1 class="stylist">Stylist Convidada</h1>
+    <%= image_tag "stylist/lele_saddi/models.jpg", :class => "models" %>
+    <div class="description">
+      <h1>Lelê Saddi</h1>
+      <h2>Empresária Hi Brand e We Pick</h2>
+      <p>Lelê Saddi foi uma das primeiras a apostar no mundo virtual e criou o BLOG da Lelê, que ficou no ar durante cinco anos. Apostou em conteúdo de qualidade com novidades daqui e do mundo afora, onde conquistou seguidores fiéis. Além do blog, abriu uma consultoria de branding, a Hi-Brand, voltada ao mercado de luxo.</p>
+      <p>Sempre antenada em novidades, viu que seu blog e o site MICA ROCHA  se completavam em conteúdo, seja escrito ou vídeo, das ideias e conhecimentos de ambas surgiu o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %>.</p>
+      <h3>1. Como você define seu estilo?</h3>
+      <p>Sou mais básica e gosto de misturar roupas clássicas com acessórios modernos.</p>
+      <h3>2. Qual a melhor maneira de transformar um look?</h3>
+      <p>Acessórios mudam tudo! Bolsas, sapatos, bijoux!</p>
+      <h3>3. Uma dica de moda?</h3>
+      <p>Se vista de acordo com a sua personalidade, e não de acordo com o que todo mundo usa!</p>
+      <h3>4. Moda é...</h3>
+      <p>Você transparecer sua personalidade!</p>
+      <h3>5. Quem é um ícone de estilo para você?</h3>
+      <p>Não tenho ícone de estilo...</p>
+      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
+      <p>Camisas!!</p>
+    </div>
+    <div class="products">
+      <h1>Minhas escolhas do mês</h1>
+      <%= link_to product_path(4494), :class => "product", :id => "mage" do %>
+        <p>Mage</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5476), :class => "product", :id => "ibitinga" do %>
+        <p>Ibitinga</p>
+        <p class="price">R$ 129,90</p>
+      <% end %>
+      <%= link_to product_path(5472), :class => "product", :id => "holambra" do %>
+        <p>Holambra</p>
+        <p class="price">R$ 69,90</p>
+      <% end %>
+      <%= link_to product_path(5468), :class => "product", :id => "fernao" do %>
+        <p>Fernão</p>
+        <p class="price">R$ 99,90</p>
+      <% end %>
+      <%= link_to product_path(5470), :class => "product", :id => "guaraci" do %>
+        <p>Guaraci</p>
+        <p class="price">R$ 69,90</p>
+      <% end %>
+    </div>
   </div>
 </section>
 

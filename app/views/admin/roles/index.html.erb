@@ -14,9 +14,9 @@
     <tr>
       <td><%= role.name %></td>
       <td><%= role.description %></td>
-      <td><%= link_to 'Show', admin_role_path(role) %></td>
-      <td><%= link_to 'Edit', edit_admin_role_path(role) %></td>
-      <td><%= link_to 'Destroy', admin_role_path(role), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Show', admin_role_path(role), :class => 'button' %></td>
+      <td><%= link_to 'Edit', edit_admin_role_path(role), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_role_path(role), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
