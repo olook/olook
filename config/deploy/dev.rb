@@ -1,8 +1,4 @@
 role :app, "development.olook.com.br"
- 
-# server details
-set :rails_env, "RAILS_ENV=production"
-set :env, 'production'
 
 # repo details
 set :branch, fetch(:branch, 'development')
@@ -56,7 +52,7 @@ namespace :deploy do
 
   desc 'Start webserver'
   task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
   end
 
   desc 'Restart webserver'
@@ -79,5 +75,4 @@ namespace :deploy do
   #         run "cd #{current_release};  rake db:migrate RAILS_ENV=#{rails_env} VERSION=`grep \\":version =>\\" #{previous_release}/db/schema.rb | sed -e 's/[a-z A-Z = \\> \\: \\. \\( \\)]//g'`"
   #       end
   #       after "deploy:rollback","deploy:rollback:migrations"
-        after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end
