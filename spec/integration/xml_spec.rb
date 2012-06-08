@@ -39,7 +39,7 @@ feature "Show products on xml format" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(false)
       end
-      
+
       scenario "I want to see products of mt_perfomance" do
         visit mt_performance_path
         page.source.should == <<-END.gsub(/^ {8}/, '')
@@ -59,12 +59,12 @@ feature "Show products on xml format" do
         END
       end
     end
-    
+
     context "when product is out of stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(true)
       end
-      
+
       scenario "I see an empty XML" do
         visit mt_performance_path
         page.source.should == <<-END.gsub(/^ {8}/, '')
@@ -78,12 +78,12 @@ feature "Show products on xml format" do
   end
 
   context "in the click a porter xml page" do
-    
+
     context "when product is in stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(false)
       end
-      
+
       scenario "I want to see products of click a porter" do
         visit click_a_porter_path
         page.source.should == <<-END.gsub(/^ {8}/, '')
@@ -107,12 +107,36 @@ feature "Show products on xml format" do
         END
       end
     end
-    
+
+
+  context "in the adroll xml page" do
+    scenario "I want to see products of criteo" do
+      visit adroll_path
+      page.source.should == <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <products>
+      <product id="#{product.id}">
+      <name>#{product.name}</name>
+      <smallimage></smallimage>
+      <bigimage></bigimage>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=adroll</producturl>
+      <description>#{product.description}</description>
+      <price>#{product.price}</price>
+      <retailprice>#{product.retail_price}</retailprice>
+      <recommendable>1</recommendable>
+      <instock>#{product.instock}</instock>
+      <category>#{product.category}</category>
+      </product>
+      </products>
+      END
+    end
+  end
+
     context "when product is out of stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(true)
       end
-      
+
       scenario "I see an empty XML" do
         visit click_a_porter_path
         page.source.should == <<-END.gsub(/^ {8}/, '')
@@ -122,6 +146,6 @@ feature "Show products on xml format" do
         END
       end
     end
-    
+
   end
 end
