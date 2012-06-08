@@ -83,3 +83,4 @@ class MenuPresenter < BasePresenter
     render_item("Dia dos namorados", h.member_valentine_invite_path, "valentine_invite", ["members#valentine_invite"])
   end
 end
+
