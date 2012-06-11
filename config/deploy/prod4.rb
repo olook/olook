@@ -7,6 +7,22 @@ set :env, 'production'
 # repo details
 set :branch, fetch(:branch, 'master')
 
+trap("INT") {
+  print "\n\n"
+  exit 42
+}
+
+namespace :log do
+  desc "Tail all application log files"
+  task :tail, :roles => :web do
+
+    run "tail -f #{path_log}" do |channel, stream, data|
+      puts "\033[0;33m#{stage}:\033[0m #{data}"
+      break if stream == :err
+    end
+  end
+end
+
 # tasks
 namespace :deploy do
   task :default, :role => :app do
