@@ -22,14 +22,15 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without=development test install"    
+    run "cd #{path_app} && #{bundle} --without development test install"
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && bundle exec #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -55,7 +56,7 @@ namespace :deploy do
 
   desc 'Start webserver'
   task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
   end
 
   desc 'Restart webserver'
@@ -78,5 +79,21 @@ namespace :deploy do
   #after 'deploy', 'deploy:yml_links'
   #after 'deploy:yml_links', 'deploy:bundle_install'
   #after 'deploy:bundle_install', 'deploy:restart'
-  after "deploy", "deploy:cleanup" # keep only the last 5 releases
+
+#ROLL BACK de migration
+  # configuration = Capistrano::Configuration.respond_to?(:instance) ?
+  #   Capistrano::Configuration.instance(:must_exist) :
+  #   Capistrano.configuration(:must_exist)
+
+  # configuration.load do
+  #   namespace :deploy do    
+  #     namespace :rollback do
+  #       desc <<-DESC
+  #                         Rolls back the migration to the version found in schema.rb file of the previous release path.\\
+  #                               Uses sed command to read the version from schema.rb file.
+  #       DESC
+  #       task :migrations do
+  #         run "cd #{current_release};  rake db:migrate RAILS_ENV=#{rails_env} VERSION=`grep \\":version =>\\" #{previous_release}/db/schema.rb | sed -e 's/[a-z A-Z = \\> \\: \\. \\( \\)]//g'`"
+  #       end
+  #       after "deploy:rollback","deploy:rollback:migrations"
 end

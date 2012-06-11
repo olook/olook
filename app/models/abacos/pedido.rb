@@ -22,7 +22,7 @@ module Abacos
       @valor_pedido     = parse_price order.line_items_total
       @valor_desconto   = parse_price discount_for(order)
       @valor_frete      = parse_price order.freight_price
-      @transportadora   = 'TEX'
+      @transportadora   = order.freight.shipping_service.erp_code
       @tempo_entrega    = order.freight.delivery_time
       @data_entrega     = parse_data_entrega(order.freight.delivery_time)
 
