@@ -228,9 +228,16 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
+  $("section#greetings div.facebook div.profile a").live("click", function(e) {
+    content = $("<div>").append($("div#profile_quiz").clone().addClass("clone")).remove().html();
+    initBase.modal(content);
+    e.preventDefault();
+  });
+
+  $(".ui-dialog-titlebar-close, .ui-widget-overlay, div#profile_quiz ul li a.close").live("click", function(e) {
     $("div#modal").html("");
     $("div#modal").dialog("close");
+    e.preventDefault();
   });
 });
 

@@ -1,6 +1,10 @@
 $(document).ready(function() {
   ShowroomInit.slideProductAnchor();
 
+  $("section#greetings div.facebook h1 a").live("click", function(e) {
+    e.preventDefault();
+  });
+
   $("section#greetings div.facebook h1 a").hover(function() {
     $("section#greetings div.facebook div.profile").show();
   }, function() {
