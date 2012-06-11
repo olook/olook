@@ -82,6 +82,26 @@ section#lookbooks {
     height: 551px;
     margin: 0 auto 35px auto;
     overflow: hidden;
+    a.video_link {
+      position: absolute;
+      background: image-url("lookbooks/label_video.jpg") no-repeat;
+      color: #FFF;
+      font-family: "Futura Light";
+      font-size: 14px;
+      line-height: 38px;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 132px;
+      height: 38px;
+      padding: 0 0 0 43px;
+      display: block;
+      top: 10px;
+      right: 0;
+      z-index: 1000;
+    }
+    div.video_description {
+      display: none;
+    }
     .jcarousel-container {
       width: 970px;
       position: relative;
