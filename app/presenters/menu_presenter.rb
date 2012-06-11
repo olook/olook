@@ -21,7 +21,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, spfw_blog, blog, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, spfw_blog, cart].join.html_safe
   end
 
   private
