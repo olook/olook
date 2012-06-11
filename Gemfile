@@ -9,7 +9,6 @@ gem 'devise', '~> 1.5.3'
 gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
-gem 'uglifier', '~> 1.0.3'
 gem 'therubyracer', '~> 0.9.4'
 gem 'resque', '~> 1.20.0'
 gem 'resque_mailer', '~> 2.0.2'
@@ -23,7 +22,6 @@ gem 'enumerate_it'
 gem 'fog', '~> 1.1.1'
 gem 'carrierwave', '~> 0.6.0'
 gem 'mini_magick', '= 3.3'
-gem 'sass-rails', "~> 3.2.3"
 gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
@@ -41,6 +39,12 @@ gem 'graylog2_exceptions'
 gem 'SyslogLogger', :require => 'syslog_logger'
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
+
+group :assets do
+  gem 'sass-rails', "~> 3.2.3"
+  gem 'coffee-rails', "~> 3.2"
+  gem 'uglifier', '~> 1.0.3'
+end
 
 group :development do
   gem 'faker'

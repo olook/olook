@@ -5,6 +5,7 @@ module FreightCalculator
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
   DEFAULT_INVENTORY_TIME  = 2
+  DEFAULT_FREIGHT_SERVICE = 1
 
   def self.freight_for_zip(zip_code, order_value)
     clean_zip_code = clean_zip(zip_code)
@@ -19,7 +20,9 @@ module FreightCalculator
 
     { :price          => freight_price.try(:price)  || DEFAULT_FREIGHT_PRICE,
       :cost           => freight_price.try(:cost)   || DEFAULT_FREIGHT_COST,
-      :delivery_time  => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME }
+      :delivery_time  => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
+      :shipping_service_id => freight_price.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE
+    }
   end
 
   def self.valid_zip?(zip_code)

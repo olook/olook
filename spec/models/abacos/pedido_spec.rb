@@ -77,7 +77,7 @@ describe Abacos::Pedido do
       end
 
       it '#transportadora' do
-        subject.transportadora.should == 'TEX'
+        subject.transportadora.should == 'Test'
       end
 
       it '#tempo_entrega' do
@@ -159,7 +159,7 @@ describe Abacos::Pedido do
                     'ValorPedido' => '70.00',
                     'ValorDesconto' => '11.00',
                     'ValorFrete' => '22.00',
-                    'Transportadora' => 'TEX',
+                    'Transportadora' => 'Test',
                     'PrazoEntregaPosPagamento' => 5,
                     'DataPrazoEntregaInicial' => "#{5.days.from_now.strftime("%d%m%Y")} 21:00",
                     'Itens' =>  {

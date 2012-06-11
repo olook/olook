@@ -12,18 +12,6 @@
 <div class="address_fields">
   <fieldset class="inputs desc">
     <ol>
-      <li>
-        <%= f.label :first_name %><em>*</em>
-        <%= f.text_field :first_name %>
-      </li>
-      <li>
-        <%= f.label :last_name %><em>*</em>
-        <%= f.text_field :last_name %>
-      </li>
-    </ol>
-  </fieldset>
-  <fieldset class="inputs">
-    <ol>
       <li class="street">
         <%= f.label :street %><em>*</em>
         <%= f.text_field :street %>
@@ -48,12 +36,29 @@
         <%= f.label :state %><em>*</em>
         <%= f.select :state, Address::STATES.collect {|state| state}, {}, {:class => "custom_select"} %>
       </li>
+    </ol>
+  </fieldset>
+</div>
+<div class="contact_fields">
+  <h1>Contato no local</h1>
+  <fieldset class="inputs desc">
+    <ol>
+      <li class="name">
+        <%= f.label :first_name, "Nome" %><em>*</em>
+        <%= f.text_field :first_name, :placeholder => 'Nome' %>
+      </li>
+      <li class="lastname">
+        <%= f.label :last_name %><em>*</em>
+        <%= f.text_field :last_name, :placeholder => 'Sobrenome' %>
+      </li>
       <li class="phone">
         <%= f.label :telephone %><em>*</em>
         <%= f.text_field :telephone, :class => "phone" %>
       </li>
       <li class="mandatory">
-        <p><em>*</em> Campos obrigatórios</p>
+        <p>
+          <em>*</em> <span>Campos obrigatórios</span>
+        </p>
       </li>
     </ol>
   </fieldset>

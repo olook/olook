@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>ERP code</th>
+      <th>Freights</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,9 +15,10 @@
     <tr>
       <td><%= shipping_service.name %></td>
       <td><%= shipping_service.erp_code %></td>
+      <td><%= shipping_service.freight_prices.count %></td>
       <td><%= link_to 'Show', admin_shipping_service_path(shipping_service), :class => 'button' %></td>
       <td><%= link_to 'Edit', edit_admin_shipping_service_path(shipping_service), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_shipping_service_path(shipping_service), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Remove all freight prices', admin_shipping_service_path(shipping_service), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>

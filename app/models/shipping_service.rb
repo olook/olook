@@ -3,10 +3,12 @@ class ShippingService < ActiveRecord::Base
   DEFAULT_CUBIC_WEIGHT_FACTOR = 167
 
   has_many :freight_prices, :dependent => :destroy
+  has_many :freights
   
   after_initialize :set_default_cubic_weight_factor
 
   validates :name, :presence => true
+  validates :erp_code, :presence => true
   validates :cubic_weight_factor, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
   validates :priority, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
   validates :erp_delivery_service, :presence => true

@@ -1263,9 +1263,9 @@ section.main {
       }
     }
   }
-  div.address_fields {
+  div.address_fields, div.contact_fields {
     padding: 20px 0 0 0;
-    border-top: 1px #d6d6d6 solid;
+    /*border-top: 1px #d6d6d6 solid;*/
     fieldset {
       &.inputs {
         padding: 30px 25px;
@@ -1329,18 +1329,19 @@ section.main {
               margin-top: 15px;
               margin-right: 0;
               padding-top: 15px;
-              border-top: 1px #d6d6d6 solid;
+              border-top: 0;
               float: left;
               input {
-                width: 220px;
+                width: 210px;
               }
             }
             &.mandatory {
               em {
                 float: none;
+                margin-right:5px;
               }
               p {
-                margin: 25px 0 0 0;
+                margin:20px 0 0 0;
               }
             }
           }
@@ -1349,6 +1350,52 @@ section.main {
           padding: 15px 10px;
           border: none;
         }
+      }
+    }
+  }
+}
+
+div.contact_fields {
+  padding: 0 0 0 0 !important;
+  
+  h1 {
+    color:#999;
+  }
+  .inputs {
+    padding: 15px 5px !important;
+  }
+}
+
+div#modal {
+  background: #FFF;
+  padding: 0;
+  border: 5px #000 solid;
+  div.video_description {
+    background: #FFF;
+    overflow: auto;
+    padding: 30px;
+    h1 {
+      font-family: "Times New Roman", sans-serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: lighter;
+      letter-spacing: -1px;
+      float: left;
+    }
+    a {
+      color: #e0457e;
+      font-size: 20px;
+      line-height: 45px;
+      float: right;
+      &.home {
+        background: url("/assets/common/bt-lightbox-quiz.jpg") no-repeat;
+        text-indent: -9999px;
+        width: 233px;
+        height: 57px;
+        display: block;
+      }
+      &:focus {
+        outline: none;
       }
     }
   }

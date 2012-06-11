@@ -19,15 +19,15 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without=development test install"    
+    run "cd #{path_app} && #{bundle} --without development test install"    
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    # run "cd #{path_app} && #{rake} db:migrate assets:clean assets:precompile #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -53,7 +53,7 @@ namespace :deploy do
 
   desc 'Start unicorn'
   task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
   end
 
   desc 'Restart unicorn'
@@ -61,5 +61,5 @@ namespace :deploy do
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
   end
 
-  after "deploy", "deploy:cleanup" # keep only the last 5 releases
+  #after "deploy", "deploy:cleanup" # keep only the last 5 releases
 end
