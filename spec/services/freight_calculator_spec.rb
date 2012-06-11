@@ -12,13 +12,14 @@ describe FreightCalculator do
           freight[:price].should == FreightCalculator::DEFAULT_FREIGHT_PRICE
           freight[:cost].should == FreightCalculator::DEFAULT_FREIGHT_COST
           freight[:delivery_time].should == FreightCalculator::DEFAULT_INVENTORY_TIME
+          freight[:shipping_service_id].should == FreightCalculator::DEFAULT_FREIGHT_SERVICE
         end
       end
 
       context 'for which there is a freight price' do
         let(:order_value) { 70.1 }
 
-        let(:freight_details) { {:price => 10.0, :cost => 5.0, :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME} }
+        let(:freight_details) { {:price => 10.0, :cost => 5.0, :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service.id} }
         let(:wrong_shipping_service) { FactoryGirl.create :shipping_service, :priority => 1 }
         let(:shipping_service) { FactoryGirl.create :shipping_service, :priority => 99 }
         
