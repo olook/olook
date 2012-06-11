@@ -251,9 +251,53 @@ $(document).ready(function() {
     percentage = $(this).parent().find("input[type='hidden'].percentage").val();
     $(percentageBox).find("span").text(percentage);
   });
+
+  $("div#mask_carousel_showroom ul li a.video_link, div#carousel_lookbooks_product a.video_link").live("click", function(e) {
+    var url = $(this).attr("rel");
+    var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
+    var youtube_id = initBase.youtubeParser(url);
+    content = initBase.youtubePlayer(youtube_id);
+    content += title;
+    initBase.modal(content);
+    e.preventDefault();
+  });
+
+  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
+    $("div#modal").html("");
+    $("div#modal").dialog("close");
+  });
 });
 
 initBase = {
+  youtubeParser : function(url) {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if(match&&match[7].length==11) {
+        return match[7];
+    } else {
+      return false;
+    }
+  },
+
+  youtubePlayer : function(yt_id) {
+    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
+  },
+
+  modal : function(content) {
+    if($("div#modal").size() == 0) {
+      $("body").prepend("<div id='modal'></div>");
+    } else {
+      $("div#modal").html("");
+    }
+
+    $("div#modal").prepend(content);
+
+    $("div#modal").dialog({
+      width: 'auto',
+      modal: true
+    });
+  },
+
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);

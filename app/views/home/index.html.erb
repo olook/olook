@@ -1,6 +1,11 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/home" %>
 <% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "home" %>
+<% end %>
+
 <div class="home">
   <section class="model">
     <ul class="model">
@@ -21,9 +26,16 @@
       <li class="two"><strong>2</strong> <span>Nossos stylists montam sua vitrine</span></li>
       <li class="three"><strong>3</strong> <span>Você escolhe seu <b>sapato, bolsa ou acessório</b></span></li>
     </ul>
-
   </section>
 
+  <section class="making_of">
+    <%= link_to "Video", "#", :rel => "http://youtu.be/edo-jggwD-4", :class => "open_making_of" %>
+    <div class="video_description">
+      <h1>Making of - Coleção de junho</h1>
+      <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
+    </div>
+    <p>Coleção de maio <span>Confira o making of</span></p>
+  </section>
   <%= link_to 'Comece aqui e descubra seu estilo. É grátis!', new_survey_path, :class => "start" %>
   <%= render 'shared/facebook_like_button' %>
 
