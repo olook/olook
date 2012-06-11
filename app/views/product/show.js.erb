@@ -10,5 +10,11 @@ $('.overlay').width(width).height(height);
 
 $('#quick_view ol.colors li a').attr('data-remote', true);
 
-initSuggestion.checkIfProductIsAlreadySelected();
+if (typeof initSuggestion != 'undefined') {
+  initSuggestion.checkIfProductIsAlreadySelected();
+}
 initProduct.productZoom();
+
+try{
+  FB.XFBML.parse(); 
+}catch(ex){}

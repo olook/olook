@@ -9,6 +9,15 @@
   <%= render "shared/metrics/adlead/adlead_gift", :email => current_user ? current_user.email : 1%>
 <% end %>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <% content_for :full do %>
   <div class="full_bg">
     <div class="content" id="suggestion">
