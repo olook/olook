@@ -1455,11 +1455,11 @@ header div.contact {
   background-color: #fff;
   border: 10px solid #000;
   width:1000px;
-  height:620px;
-  position:fixed;
-  top:50%;
+  # height:620px;
+  position: absolute;
+  top:100px;
   left:50%;
-  margin: -300px 0 0 -480px;
+  margin: 0 0 0 -480px;
   display:none;
   z-index:10000;
 
