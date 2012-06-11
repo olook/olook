@@ -8,7 +8,7 @@ class MenuPresenter < BasePresenter
   def render_item_with_label label, path, css_klass, hightlight_when
     h.content_tag :li, :class => css_klass do
       h.content_tag(:span, "Novo", :class => "label") +
-      h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+      h.link_to(label, path, :class => h.selected_if_current(hightlight_when), :target => "_blank")
     end
   end
 
@@ -72,7 +72,7 @@ class MenuPresenter < BasePresenter
   end
 
   def spfw_blog
-    h.content_tag :li, h.link_to("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", :target => "_blank"), :class => "blog"
+    render_item_with_label("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", "spfw", [])
   end
 
   def blog
