@@ -1,200 +1,297 @@
 section#stylist {
-  padding-top: 15px;
-  h1, h2 {
-    color: #2f2f2f;
-    font-family: Times;
-    font-style: italic;
-    font-weight: normal;
-  }
+  padding-top: 60px;
+
   div.profile {
     width: 100%;
-    margin: 0 0 55px 0;
     overflow: auto;
-    img.picture {
-      margin: 0 25px 0 0;
-      float: left;
-    }
-    h1 {
-      font-size: 60px;
-      letter-spacing: -5px;
-      margin: 0 0 10px 0;
-      float: left;
-    }
-    p {
-      color: #101010;
-      font-size: 14px;
-      line-height: 25px;
-      width: 665px;
-      float: left;
-    }
-    a {
-      background: url("/assets/stylist/bt-products.jpg") no-repeat;
-      color: #FFF;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      font-weight: normal;
-      text-align: center;
-      text-decoration: none;
-      line-height: 40px;
-      width: 395px;
-      margin: 35px 0 0 0;
+    margin: 0 0 60px;
+    h1.stylist {
+      background: url("/assets/stylist/stylist.jpg") top center no-repeat;
+      text-indent: -9999px;
+      width: 990px;
+      height: 75px;
+      margin: 0 0 40px 0;
       display: block;
-      float: left;
     }
-  }
-  ul.interview {
-    width: 100%;
-    overflow: auto;
-    margin: 0;
-    li {
-      width: 175px;
-      margin: 0 25px 65px 0;
+    img.models {
       float: left;
+      margin: 0 30px 0 0;
+    }
+    div.description {
+      font-size: 14px;
+      width: 380px;
+      margin: 0 20px 0 0;
+      overflow: auto;
+      float: left;
+      h1, h2 {
+        font-family: Times, "sans-serif";
+        font-weight: lighter;
+        letter-spacing: -2px;
+        width: 215px;
+        float: left;
+      }
       h1 {
+        font-size: 52px;
+        line-height: 45px;
+        margin: 50px 0 10px 0;
+        span {
+          font-size: 65px;
+          font-style: italic;
+        }
+      }
+      h2 {
         font-size: 20px;
-        line-height: 18px;
-        letter-spacing: -1px;
-        margin: 0 0 10px 0;
+        clear: both;
+        &+h2 {
+          margin: 0 0 30px 0;
+        }
+      }
+      h3 {
+        font-size: 14px;
+        font-weight: bold;
+        &+p {
+          font-style: italic;
+        }
       }
       p {
-        color: #636363;
-        font-size: 14px;
-        color: #636363;
-      }
-      &.last {
-        margin-right: 0;
-      }
-    }
-  }
-  div#products {
-    background: url("/assets/showroom/border-top-product.png") 170px 30px no-repeat;
-    width: 100%;
-    overflow: auto;
-    h1.title {
-      background: #FFF;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 55px;
-      font-weight: normal;
-      font-style: italic;
-      letter-spacing: -3px;
-      text-transform: uppercase;
-      padding: 0 10px 0 0;
-      margin-bottom: 20px;
-      float: left;
-    }
-    h2.title {
-      background: url("/assets/stylist/title-helena-linhares.jpg") no-repeat;
-      text-indent: -9999px;
-      width: 147px;
-      height: 35px;
-      margin: 15px 0 0 0;
-      display: block;
-      float: left;
-    }
-    ul {
-      width: 100%;
-      overflow: auto;
-      li {
-        background: url("/assets/stylist/product-divisor.jpg") center bottom no-repeat;
-        width: 830px;
-        overflow: auto;
-        display: block;
-        margin: 0 auto 30px;
-        padding: 0 0 40px 0;
-        img {
-          float: left;
-          margin: 0 20px 0 0;
+        margin: 0 0 15px 0;
+        clear: both;
+        a {
+          color: #000;
+          font-weight: bold;
         }
+      }
+    }
+    div.products {
+      position: relative;
+      overflow: visible;
+      display: block;
+      float: right;
+      h1 {
+        position: absolute;
+        text-indent: -9999px;
+        display: block;
+        z-index: 1;
+      }
+      a.product {
+        position: absolute;
+        color: #000;
+        text-decoration: none;
+        letter-spacing: -2px;
+        display: block;
+        p {
+          font-family: Times, "sans-serif";
+          font-size: 20px;
+          font-style: italic;
+          &.price {
+            font-style: normal;
+          }
+        }
+      }
+    }
+    &#helena {
+      div.description {
+        background: url("/assets/stylist/helena_linhares/foto.jpg") top right no-repeat;
         h1 {
-          font-size: 55px;
-          line-height: 40px;
-          letter-spacing: -5px;
-          margin: 25px 0 10px 0;
+          margin: 60px 0 20px 0;
+          &+p {
+            width: 215px;
+          }
+        }
+      }
+      div.products {
+        background: url("/assets/stylist/helena_linhares/box_products.jpg") no-repeat;
+        width: 392px;
+        height: 508px;
+        h1 {
+          background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
+          width: 150px;
+          height: 50px;
+          top: 265px;
+          left: 35px;
+        }
+        a#santa_maria {
+          background: url("/assets/stylist/helena_linhares/santa_maria.jpg") bottom center no-repeat;
+          width: 156px;
+          height: 160px;
+          top: 65px;
+          padding: 5px 0 35px 17px;
+        }
+        a#cabo_frio {
+          background: url("/assets/stylist/helena_linhares/cabo_frio.jpg") center left no-repeat;
+          width: 80px;
+          height: 130px;
+          top: 10px;
+          right: 10px;
+          padding: 60px 0 35px 80px;
+        }
+        a#atibaia {
+          background: url("/assets/stylist/helena_linhares/atibaia.jpg") bottom center no-repeat;
+          text-align: right;
+          width: 120px;
+          height: 80px;
+          top: 240px;
+          right: 7px;
+          padding: 0 60px 50px 0;
+        }
+        a#sumidouro {
+          background: url("/assets/stylist/helena_linhares/sumidouro.png") bottom center no-repeat;
+          width: 136px;
+          height: 163px;
+          bottom: 0px;
+          left: 0;
+          padding: 0 0 0 40px;
+        }
+        a#aparecida {
+          background: url("/assets/stylist/helena_linhares/aparecida.jpg") bottom center no-repeat;
+          text-align: right;
+          width: 170px;
+          height: 80px;
+          bottom: 15px;
+          right: 15px;
+          padding: 0 10px 35px 0;
+        }
+      }
+    }
+    &#mica_rocha {
+      div.description {
+        background: url("/assets/stylist/mica_rocha/foto.jpg") top right no-repeat;
+        width: 350px;
+        h1 {
+          font-size: 50px;
+          width: 235px;
+          margin: 60px 0 10px 0;
         }
         h2 {
-          color: #635f5f;
-          font-size: 35px;
-          letter-spacing: -2px;
-          margin: 0 0 15px 0;
-        }
-        p {
-          color: #6a6666;
-          font-size: 14px;
-          margin: 0 0 20px 0;
-          span {
-            color: #e36694;
-            text-transform: uppercase;
-          }
-        }
-        a {
-          background: url("/assets/stylist/bt-know.jpg") no-repeat;
-          color: #FFF;
-          font-size: 14px;
-          font-weight: normal;
-          line-height: 34px;
-          text-align: center;
-          text-decoration: none;
-          width: 95px;
-          display: block;
-          float: left;
-        }
-        &#guaiba_container {
-          h1 {
-            margin-top: 65px;
-          }
-        }
-        &.set {
-          position: relative;
-          height: 840px;
-          img {
-            position: absolute;
-            top: 0;
-            left: 0;
-          }
-          p {
-            position: absolute;
-            top: 55px;
-            right: 15px;
-            width: 305px;
-            span {
-              text-transform: uppercase;
-            }
-          }
-          div.product1 {
-            position: absolute;
-            top: 200px;
-            right: 55px;
-            a {
-              float: right;
-            }
-          }
-          div.product2 {
-            position: absolute;
-            top: 630px;
-            left: 0;
-          }
-        }
-        &.last {
-          background: none;
-          margin-bottom: 0;
-          h1 {
-            margin-top: 130px;
-          }
-        }
-        &.right {
-          img {
-            float: right;
-            margin: 0 0 0 20px;
+          &+p {
+            width: 205px;
           }
         }
       }
+      div.products {
+        background: url("/assets/stylist/mica_rocha/box_products.jpg") top no-repeat;
+        width: 453px;
+        height: 740px;
+        h1 {
+          background: url("/assets/stylist/mica_rocha/minhas-escolhas-do-mes.jpg") no-repeat;
+          width: 166px;
+          height: 80px;
+          top: 450px;
+          left: 35px;
+        }
+        a#ourinhos {
+          background: url("/assets/stylist/mica_rocha/ourinhos.jpg") top left no-repeat;
+          width: 65px;
+          height: 158px;
+          top: 40px;
+          left: 0px;
+          padding: 0 0 0 200px;
+        }
+        a#cotia {
+          background: url("/assets/stylist/mica_rocha/cotia.jpg") bottom left no-repeat;
+          text-align: right;
+          width: 194px;
+          height: 147px;
+          top: 75px;
+          right: 23px;
+          padding: 0 0 70px;
+        }
+        a#olimpia {
+          background: url("/assets/stylist/mica_rocha/olimpia.jpg") top left no-repeat;
+          width: 70px;
+          height: 113px;
+          top: 310px;
+          left: 40px;
+          padding: 0 0 0 180px;
+        }
+        a#mirassol {
+          background: url("/assets/stylist/mica_rocha/mirassol.jpg") bottom left no-repeat;
+          text-align: right;
+          width: 177px;
+          height: 166px;
+          top: 375px;
+          right: 40px;
+          padding: 0 30px 0 0;
+        }
+        a#bertioga {
+          background: url("/assets/stylist/mica_rocha/bertioga.jpg") top right no-repeat;
+          width: 275px;
+          height: 130px;
+          bottom: 0;
+          right: 100px;
+          padding: 70px 0 0 0;
+        }
+      }
     }
-    div.products_footer {
-      background: url("/assets/stylist/bg-products-footer.png") top left no-repeat;
-      width: 100%;
-      height: 25px;
-      display: block;
-      clear: both;
+    &#lele_saddi {
+      div.description {
+        background: url("/assets/stylist/lele_saddi/foto.jpg") top right no-repeat;
+        width: 355px;
+        h1 {
+          font-size: 50px;
+          width: 235px;
+          margin: 40px 0 10px 0;
+        }
+        h2 {
+          margin: 0 0 10px 0;
+          &+p {
+            width: 205px;
+          }
+        }
+      }
+      div.products {
+        background: url("/assets/stylist/lele_saddi/box_products.jpg") top no-repeat;
+        width: 453px;
+        height: 629px;
+        h1 {
+          background: url("/assets/stylist/lele_saddi/minhas-escolhas-do-mes.jpg") no-repeat;
+          width: 166px;
+          height: 80px;
+          top: 220px;
+          left: 80px;
+        }
+        a#mage {
+          background: url("/assets/stylist/lele_saddi/mage.jpg") top left no-repeat;
+          width: 70px;
+          height: 153px;
+          top: 30px;
+          left: 35px;
+          padding: 0 0 0 145px;
+        }
+        a#ibitinga {
+          background: url("/assets/stylist/lele_saddi/ibitinga.jpg") top left no-repeat;
+          width: 115px;
+          height: 316px;
+          top: 11px;
+          right: 20px;
+          padding: 0 0 0 40px;
+        }
+        a#holambra {
+          background: url("/assets/stylist/lele_saddi/holambra.jpg") top left no-repeat;
+          width: 70px;
+          height: 70px;
+          top: 355px;
+          left: 135px;
+          padding: 10px 0 0 135px;
+          z-index: 1;
+        }
+        a#fernao {
+          background: url("/assets/stylist/lele_saddi/fernao.jpg") top right no-repeat;
+          width: 118px;
+          height: 98px;
+          bottom: 30px;
+          right: 40px;
+          padding: 20px 75px 0 0;
+        }
+        a#guaraci {
+          background: url("/assets/stylist/lele_saddi/guaraci.jpg") top left no-repeat;
+          width: 172px;
+          height: 75px;
+          bottom: 0px;
+          left: 16px;
+          padding: 260px 0 0 10px;
+        }
+      }
     }
   }
 }

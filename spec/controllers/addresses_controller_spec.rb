@@ -6,6 +6,7 @@ describe ::AddressesController do
   let(:user) { FactoryGirl.create :user }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :city => 'São Paulo', :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
   let(:order) { FactoryGirl.create(:order, :user => user).id }
+  let(:shipping_service) { FactoryGirl.create :shipping_service }
 
   before :each do
     user.update_attributes(:cpf => "19762003691")
@@ -49,7 +50,7 @@ describe ::AddressesController do
   describe "POST create" do
     context "with valid a address" do
       before :each do
-        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2}
+        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id}
         FreightCalculator.stub(:freight_for_zip).and_return(freight)
       end
 
@@ -131,7 +132,7 @@ describe ::AddressesController do
   describe "POST assign_address" do
     context "with a valid address" do
       before :each do
-        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2}
+        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id}
         FreightCalculator.stub(:freight_for_zip).and_return(freight)
       end
 

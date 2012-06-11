@@ -8,7 +8,7 @@ class MenuPresenter < BasePresenter
   def render_item_with_label label, path, css_klass, hightlight_when
     h.content_tag :li, :class => css_klass do
       h.content_tag(:span, "Novo", :class => "label") +
-      h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+      h.link_to(label, path, :class => h.selected_if_current(hightlight_when), :target => "_blank")
     end
   end
 
@@ -17,11 +17,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, valentine_invite, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, spfw_blog, cart].join.html_safe
   end
 
   def render_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, valentine_invite, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, spfw_blog, cart].join.html_safe
   end
 
   private
@@ -47,7 +47,7 @@ class MenuPresenter < BasePresenter
   end
 
   def moments
-    render_item_with_label("Ocasiões", h.moments_path, "moments", ["moments#index"])
+    render_item("Ocasiões", h.moments_path, "moments", ["moments#index"])
   end
 
   def gift
@@ -69,6 +69,10 @@ class MenuPresenter < BasePresenter
 
   def cart
     h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart" if user.has_early_access?
+  end
+
+  def spfw_blog
+    render_item_with_label("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", "spfw", [])
   end
 
   def blog

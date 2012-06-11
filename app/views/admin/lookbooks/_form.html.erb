@@ -23,6 +23,14 @@
     <%= f.label :thumb_image %><br />
     <%= f.file_field :thumb_image %>
   </div>
+    <div class="field">
+    <%= f.label :video_title %><br />
+    <%= text_field :video, :title %>
+  </div>
+    <div class="field">
+    <%= f.label :video_url %><br />
+    <%= text_field :video, :url %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

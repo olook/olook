@@ -133,6 +133,40 @@ $(document).ready(function() {
   $("input:text.zip_code").setMask({
     mask: '99999-999'
   });
+  $("input#address_zip_code").focusout(function(){
+    if ($("input#address_zip_code").val().length < 9) {
+      return true;
+    }
+    $.ajax({
+      url: '/get_address_by_zipcode',
+      dataType: 'json',
+      data: 'zipcode=' + $("input#address_zip_code").val(),
+      beforeSend: function(){
+        $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
+        $('form div.address_fields input').attr('disabled','disabled');
+        $('form div.address_fields select').attr('disabled','disabled');
+      },
+      complete: function(){
+        $('form div.address_fields input').removeAttr('disabled');
+        $('form div.address_fields select').removeAttr('disabled');
+        $(".main div.preloader").remove();
+      },
+      success: function(rs){
+        if(rs['result_type'] >= 1){
+          $('form input#address_city').val(rs['city']);
+          $('form select#address_state').val(rs['state']);
+          $('span.select').text(rs['state']);
+        }
+        if(rs['result_type'] == 1){
+          $('form #address_street').val(rs['street']);
+          $('form #address_neighborhood').val(rs['neighborhood']);
+          $('form #address_number').removeAttr('disabled').focus();
+        }else{
+          $('form #address_street').removeAttr('disabled').focus();
+        }
+      }
+    });
+  });
 
   $("input:text.phone").setMask({
     mask: '(99)9999-9999'
@@ -227,9 +261,53 @@ $(document).ready(function() {
     percentage = $(this).parent().find("input[type='hidden'].percentage").val();
     $(percentageBox).find("span").text(percentage);
   });
+
+  $("div#mask_carousel_showroom ul li a.video_link, div#carousel_lookbooks_product a.video_link").live("click", function(e) {
+    var url = $(this).attr("rel");
+    var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
+    var youtube_id = initBase.youtubeParser(url);
+    content = initBase.youtubePlayer(youtube_id);
+    content += title;
+    initBase.modal(content);
+    e.preventDefault();
+  });
+
+  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
+    $("div#modal").html("");
+    $("div#modal").dialog("close");
+  });
 });
 
 initBase = {
+  youtubeParser : function(url) {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if(match&&match[7].length==11) {
+        return match[7];
+    } else {
+      return false;
+    }
+  },
+
+  youtubePlayer : function(yt_id) {
+    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
+  },
+
+  modal : function(content) {
+    if($("div#modal").size() == 0) {
+      $("body").prepend("<div id='modal'></div>");
+    } else {
+      $("div#modal").html("");
+    }
+
+    $("div#modal").prepend(content);
+
+    $("div#modal").dialog({
+      width: 'auto',
+      modal: true
+    });
+  },
+
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);
