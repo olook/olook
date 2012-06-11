@@ -1,5 +1,8 @@
 role :app, "development.olook.com.br"
 
+
+# current_path : /srv/olook/current/
+
 # repo details
 set :branch, fetch(:branch, 'development')
 # if not variables.include?(:branch)

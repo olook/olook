@@ -16,6 +16,8 @@ set :use_sudo, false
 set :version_path, '/srv/olook/current'
 set :bundle, '/usr/local/ruby/bin/bundle'
 set :rake, '/usr/local/ruby/bin/rake'
+
+set :path_log, '/mnt/debug'
 set :rails_env, "RAILS_ENV=production"
 set :env, 'production'
 
