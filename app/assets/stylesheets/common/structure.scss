@@ -44,6 +44,37 @@ body {
     clear: both;
   }
 
+  div#profile_quiz {
+    background: #FFF;
+    display: none;
+    ul {
+      li {
+        width: 445px;
+        overflow: auto;
+        margin: 20px 20px 20px 0;
+        float: left;
+        a {
+          text-indent: -9999px;
+          display: block;
+          &.close {
+            background: url("/assets/common/essa-sou-eu.png") no-repeat;
+            width: 174px;
+            height: 59px;
+            float: right;
+          }
+          &.new_survey {
+            background: url("/assets/common/quero-tentar-de-novo.png") no-repeat;
+            width: 284px;
+            height: 59px;
+          }
+        }
+      }
+    }
+    &.clone {
+      display: block;
+    }
+  }
+
   .content {
     width: 990px;
     margin: 0px auto 0 auto;

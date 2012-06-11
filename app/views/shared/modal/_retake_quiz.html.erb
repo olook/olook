@@ -1,0 +1,7 @@
+<div id="profile_quiz">
+  <%= image_tag "first_visit_banner/#{user.profile_name.to_s}.jpg" %>
+  <ul>
+    <li><%= link_to "Essa sou eu", "#", :class => "close" %></li>
+    <li><%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %></li>
+  </ul>
+</div>
