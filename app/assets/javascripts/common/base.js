@@ -267,6 +267,8 @@ initBase = {
 
     $("div#modal").dialog({
       width: 'auto',
+      resizable: false,
+      draggable: false,
       modal: true
     });
   },
