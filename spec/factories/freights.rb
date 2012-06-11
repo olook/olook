@@ -5,5 +5,6 @@ FactoryGirl.define do
     price 10.23
     cost 5.67
     association :address, :factory => :address
+    association :shipping_service, :factory => :shipping_service
   end
 end

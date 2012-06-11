@@ -5,6 +5,7 @@ describe Admin::ShippingServicesController do
   render_views
 
   let!(:shipping_service) { FactoryGirl.create(:shipping_service) }
+  let!(:freight_price) { FactoryGirl.create(:freight_price, :shipping_service => shipping_service) }
   let!(:valid_attributes) { shipping_service.attributes }
 
   before :each do
@@ -118,15 +119,15 @@ describe Admin::ShippingServicesController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested shipping_service" do
+    it "destroys the freight_prices requested shipping_service" do
       expect {
         delete :destroy, :id => shipping_service.id.to_s
-      }.to change(ShippingService, :count).by(-1)
+      }.to change(FreightPrice, :count).by(-1)
     end
 
-    it "redirects to the shipping_services list" do
+    it "redirects to the shipping_service show" do
       delete :destroy, :id => shipping_service.id.to_s
-      response.should redirect_to(admin_shipping_services_url)
+      response.should redirect_to(admin_shipping_service_path(shipping_service))
     end
   end
   
@@ -142,6 +143,8 @@ describe Admin::ShippingServicesController do
         TempFileUploader.stub(:new).and_return(temp_uploader)
 
         subject.stub(:params).and_return(:id => shipping_service.id.to_s, :shipping_service => valid_attributes, :freight_prices => 'freight_file')
+        
+        subject.instance_variable_set(:@shipping_service, shipping_service)
         subject.send :upload_freight_prices
       end
     end

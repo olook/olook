@@ -1,4 +1,8 @@
 $(document).ready(function() {
+  $("div#modal div.video_description a").live("click", function(e) {
+    $("div#modal").dialog("close");
+    e.preventDefault();
+  })
   $("div#carousel_lookbooks ul").carouFredSel({
     auto: false,
     width: 970,

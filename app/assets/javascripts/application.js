@@ -7,3 +7,7 @@
 //= require jquery_ujs
 //= require_tree ./plugins
 //= require_tree ./common
+//= require ./ui/jquery.ui.core.min
+//= require ./ui/jquery.ui.position.min
+//= require ./ui/jquery.ui.widget.min
+//= require ./ui/jquery.ui.dialog.min
