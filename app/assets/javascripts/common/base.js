@@ -38,6 +38,17 @@ $(document).ready(function() {
     }
   }
 
+  $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
+    if($("div#quick_view").size() == 0) {
+      $("body").prepend("<div id='quick_view'></div>");
+    }
+  });
+
+  $('#close_quick_view, div.overlay').live("click", function() {
+    $('#quick_view').fadeOut(300);
+    $("div.overlay").remove();
+  });
+
   $("header .info ul").fadeTransition();
 
   $("ol.addresses li.address_item ul.links li a.select_address").live("click", function() {
@@ -248,6 +259,7 @@ $(document).ready(function() {
     quantity = $(this).parent().find("input[type='hidden'].quantity").val();
     $(productBox).removeClass("sold_out");
     $(productBox).removeClass("stock_down");
+    initBase.spyLinkId($(this));
     initBase.updateProductImage(productBox, newLink, newImg);
     initBase.updateProductFacebookLike(productBox, newLink);
     if(!initBase.isProductSoldOut(productBox, soldOut)) {
@@ -279,6 +291,13 @@ $(document).ready(function() {
 });
 
 initBase = {
+  spyLinkId : function(color) {
+    productId = $(color).siblings(".product_id").val();
+    hoverBox = $(color).parents("li.product").find(".hover_suggestive");
+    spyLink = $(hoverBox).find("li.spy a").attr("href");
+    $(hoverBox).find("li.spy a").attr("href", spyLink.replace(/\d+$/, productId));
+  },
+
   youtubeParser : function(url) {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);

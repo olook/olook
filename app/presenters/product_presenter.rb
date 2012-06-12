@@ -21,11 +21,17 @@ class ProductPresenter < BasePresenter
   end
 
   def render_add_to_cart
-    h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
-  end
+    return '' if only_view?
 
-  def render_offline_add_to_cart
-    h.render :partial => 'product/offline_add_to_cart', :locals => {:product_presenter => self, :product => product}
+    if gift?
+      h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
+    else
+      if logged?
+        h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
+      else
+        h.render :partial => 'product/offline_add_to_cart', :locals => {:product_presenter => self, :product => product}
+      end
+    end
   end
 
   def render_details
@@ -33,15 +39,12 @@ class ProductPresenter < BasePresenter
   end
 
   def render_colors
-    h.render :partial => 'product/colors', :locals => {:product => product}
+    return '' if only_view?
+    h.render :partial => 'product/colors', :locals => {:product => product, :gift => gift?, :shoe_size => shoe_size}
   end
 
   def render_facebook_comments
     h.render :partial => 'product/facebook_comments', :locals => {:product => product, :facebook_app_id => facebook_app_id}
-  end
-  
-  def render_add_to_suggestions
-    h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
   end
 
   def render_form_by_category
@@ -59,7 +62,7 @@ class ProductPresenter < BasePresenter
 
   def render_multiple_sizes
     variants = product.variants.sorted_by_description
-    h.render :partial => 'product/sizes', :locals => {:variants => variants}
+    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size}
   end
   
   def render_pics
