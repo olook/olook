@@ -49,6 +49,27 @@
           </li>
         </ol>
       </fieldset>
+      <fieldset class="shoe_size">
+        <%= fields_for current_user.user_info do |ui| %>
+        <h2>Qual o tamanho do seu sapato?</h2>
+          <ul class="shoes_size">
+            <% question_shoe_size = @presenter.shoe_size_question
+            question_shoe_size.answers.each do |answer| %>
+            <li class="<%= ( answer.title == current_user.user_info.shoes_size.to_s ) ? 'selected': '' %>" >
+              <label for="user_info_shoes_size_<%= answer.title %>">
+                <%= answer.title %>
+                <%= ui.radio_button :shoes_size, answer.title %>
+              </label>
+            </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </fieldset>
+      <fieldset class="facebook">
+        <h2>Conta do Facebook utilizada</h2>
+        <p>Ao manter o seu Facebook Connect, você pode ver a vitrine das suas amigas e ter acesso às promoções e novidades exclusivas. Tem certeza que deseja desconectar com Facebook?</p>
+        <%= link_to "Desconectar Facebook", user_destroy_facebook_account_path, :class => "bt_face", :method => :delete %>
+      </fieldset>
       <fieldset class="buttons">
         <ol>
           <li><%= f.submit "", :id => "update_user" %></li>
