@@ -5,7 +5,7 @@ class PromotionService
 
   def self.by_product product
     promotion = Promotion.purchases_amount
-    apply_discount_for_product(promotion, product)
+    ((100 - promotion.discount_percent) * product.retail_price) / 100
   end
 
   def self.apply_discount_for_product promotion, product

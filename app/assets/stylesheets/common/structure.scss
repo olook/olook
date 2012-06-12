@@ -1263,9 +1263,9 @@ section.main {
       }
     }
   }
-  div.address_fields {
+  div.address_fields, div.contact_fields {
     padding: 20px 0 0 0;
-    border-top: 1px #d6d6d6 solid;
+    /*border-top: 1px #d6d6d6 solid;*/
     fieldset {
       &.inputs {
         padding: 30px 25px;
@@ -1329,18 +1329,19 @@ section.main {
               margin-top: 15px;
               margin-right: 0;
               padding-top: 15px;
-              border-top: 1px #d6d6d6 solid;
+              border-top: 0;
               float: left;
               input {
-                width: 220px;
+                width: 210px;
               }
             }
             &.mandatory {
               em {
                 float: none;
+                margin-right:5px;
               }
               p {
-                margin: 25px 0 0 0;
+                margin:20px 0 0 0;
               }
             }
           }
@@ -1351,6 +1352,17 @@ section.main {
         }
       }
     }
+  }
+}
+
+div.contact_fields {
+  padding: 0 0 0 0 !important;
+  
+  h1 {
+    color:#999;
+  }
+  .inputs {
+    padding: 15px 5px !important;
   }
 }
 
@@ -1436,6 +1448,32 @@ header div.contact {
         }
       }
     }
+  }
+}
+
+#quick_view {
+  background-color: #fff;
+  border: 10px solid #000;
+  width:1000px;
+  # height:620px;
+  position: absolute;
+  top:100px;
+  left:50%;
+  margin: 0 0 0 -480px;
+  display:none;
+  z-index:10000;
+
+  #close_quick_view{
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    background: url('/assets/common/close_dialog.png') no-repeat;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    top: -17px;
+    right: -17px;
+    z-index: 100;
   }
 }
 

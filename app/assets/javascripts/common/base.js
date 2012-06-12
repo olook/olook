@@ -38,6 +38,16 @@ $(document).ready(function() {
     }
   }
 
+  $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
+    if($("div#quick_view").size() == 0) {
+      $("body").prepend("<div id='quick_view'></div>");
+    }
+  });
+
+  $('#close_quick_view, div.overlay').live("click", function() {
+    $('#quick_view').fadeOut(300);
+    $("div.overlay").remove();
+  });
 
   $("header .info ul").fadeTransition();
 
@@ -147,6 +157,40 @@ $(document).ready(function() {
   $("input:text.zip_code").setMask({
     mask: '99999-999'
   });
+  $("input#address_zip_code").focusout(function(){
+    if ($("input#address_zip_code").val().length < 9) {
+      return true;
+    }
+    $.ajax({
+      url: '/get_address_by_zipcode',
+      dataType: 'json',
+      data: 'zipcode=' + $("input#address_zip_code").val(),
+      beforeSend: function(){
+        $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
+        $('form div.address_fields input').attr('disabled','disabled');
+        $('form div.address_fields select').attr('disabled','disabled');
+      },
+      complete: function(){
+        $('form div.address_fields input').removeAttr('disabled');
+        $('form div.address_fields select').removeAttr('disabled');
+        $(".main div.preloader").remove();
+      },
+      success: function(rs){
+        if(rs['result_type'] >= 1){
+          $('form input#address_city').val(rs['city']);
+          $('form select#address_state').val(rs['state']);
+          $('span.select').text(rs['state']);
+        }
+        if(rs['result_type'] == 1){
+          $('form #address_street').val(rs['street']);
+          $('form #address_neighborhood').val(rs['neighborhood']);
+          $('form #address_number').removeAttr('disabled').focus();
+        }else{
+          $('form #address_street').removeAttr('disabled').focus();
+        }
+      }
+    });
+  });
 
   $("input:text.phone").setMask({
     mask: '(99)9999-9999'
@@ -204,6 +248,7 @@ $(document).ready(function() {
     quantity = $(this).parent().find("input[type='hidden'].quantity").val();
     $(productBox).removeClass("sold_out");
     $(productBox).removeClass("stock_down");
+    initBase.spyLinkId($(this));
     initBase.updateProductImage(productBox, newLink, newImg);
     initBase.updateProductFacebookLike(productBox, newLink);
     if(!initBase.isProductSoldOut(productBox, soldOut)) {
@@ -228,12 +273,20 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(".ui-widget-overlay").live("click", function() {
+  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
+    $("div#modal").html("");
     $("div#modal").dialog("close");
   });
 });
 
 initBase = {
+  spyLinkId : function(color) {
+    productId = $(color).siblings(".product_id").val();
+    hoverBox = $(color).parents("li.product").find(".hover_suggestive");
+    spyLink = $(hoverBox).find("li.spy a").attr("href");
+    $(hoverBox).find("li.spy a").attr("href", spyLink.replace(/\d+$/, productId));
+  },
+
   youtubeParser : function(url) {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     var match = url.match(regExp);
@@ -245,7 +298,7 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0' frameborder='0' allowfullscreen></iframe>";
+    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
 
   modal : function(content) {

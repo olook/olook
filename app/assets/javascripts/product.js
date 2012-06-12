@@ -17,7 +17,7 @@ $(document).ready(function() {
     }
   });
 
-  $("div#carousel ul").carouFredSel({
+  $("div#carousel ul.products_list").carouFredSel({
     auto: false,
     width: 760,
     items: {

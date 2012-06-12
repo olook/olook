@@ -1,15 +1,22 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/gift" %>
   <%= stylesheet_link_tag "section/suggestions" %>
-  <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
 <% end %>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "gift/suggestions" %>
-  <%= javascript_include_tag "product_view" %>
   <%= render "shared/metrics/metaffiliation/action", :email => current_user ? current_user.email : 1 %>
   <%= render "shared/metrics/adlead/adlead_gift", :email => current_user ? current_user.email : 1%>
 <% end %>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <% content_for :full do %>
   <div class="full_bg">
@@ -27,17 +34,17 @@
           <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
           <div class="product_container first">
             <ul>
-              <%= render "shared/suggestive_product", :position => 0, :product => @suggested_products[0] %>
+              <%= render "shared/suggestive_product", :position => 0, :variant => @suggested_variants[0] %>
             </ul>
           </div>
           <div class="product_container second">
             <ul>
-              <%= render "shared/suggestive_product", :position => 1, :product => @suggested_products[1] %>
+              <%= render "shared/suggestive_product", :position => 1, :variant => @suggested_variants[1] %>
             </ul>
           </div>
           <div class="product_container third">
             <ul>
-              <%= render "shared/suggestive_product", :position => 2, :product => @suggested_products[2] %>
+              <%= render "shared/suggestive_product", :position => 2, :variant => @suggested_variants[2] %>
             </ul>
           </div>
         </section>
@@ -50,7 +57,7 @@
         <h1>Outras sugestões</h1>
         <ul>
           <% @products.each do |product| %>
-            <%= render "shared/showroom_product_item", :product => product, :suggestion => true %>
+            <%= render "shared/showroom_product_item", :product => product, :gift => true, :shoe_size => @gift_recipient.shoe_size %>
           <% end %>
         </ul>
       </section>
