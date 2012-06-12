@@ -1,4 +1,12 @@
-<% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id, :logged? => user_signed_in?, :gift? => false, :shoe_size => @shoe_size, :only_view? => @only_view do |product_presenter| %>
+<% present 'Product',
+           product: @product,
+           member: @user,
+           facebook_app_id: @facebook_app_id,
+           shoe_size: @shoe_size,
+           :logged? => user_signed_in?,
+           :gift? => false,
+           :only_view? => @only_view do |product_presenter|
+%>
   <% content_for(:head) do %>
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
     <meta property="og:title" content="Olook – <%= @product.name %>" />
