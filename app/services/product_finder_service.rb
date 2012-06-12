@@ -53,10 +53,10 @@ class ProductFinderService
     scope.all
   end
 
-  def suggested_products_for profile, description
-    [profile_products(:profile => profile, :category => Category::SHOE, :description => description).first,
-     profile_products(:profile => profile, :category => Category::BAG, :not_allow_sold_out_products => true).first,
-     profile_products(:profile => profile, :category => Category::ACCESSORY, :not_allow_sold_out_products => true).first].compact
+  def suggested_variants_for profile, description
+    [profile_products(:profile => profile, :category => Category::SHOE, :description => description).first.variant_by_size(description),
+     profile_products(:profile => profile, :category => Category::BAG, :not_allow_sold_out_products => true).first.variant_by_size(description),
+     profile_products(:profile => profile, :category => Category::ACCESSORY, :not_allow_sold_out_products => true).first.variant_by_size(description)].compact
   end
 
   def remove_color_variations(products)
