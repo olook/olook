@@ -65,11 +65,13 @@
           </ul>
         <% end %>
       </fieldset>
-      <fieldset class="facebook">
-        <h2>Conta do Facebook utilizada</h2>
-        <p>Ao manter o seu Facebook Connect, você pode ver a vitrine das suas amigas e ter acesso às promoções e novidades exclusivas. Tem certeza que deseja desconectar com Facebook?</p>
-        <%= link_to "Desconectar Facebook", user_destroy_facebook_account_path, :class => "bt_face", :method => :delete %>
-      </fieldset>
+      <% if current_user.has_facebook? %>
+        <fieldset class="facebook">
+          <h2>Conta do Facebook utilizada</h2>
+          <p>Ao manter o seu Facebook Connect, você pode ver a vitrine das suas amigas e ter acesso às promoções e novidades exclusivas. Tem certeza que deseja desconectar com Facebook?</p>
+          <%= link_to "Desconectar Facebook", user_destroy_facebook_account_path, :class => "bt_face", :method => :delete %>
+        </fieldset>
+      <% end %>
       <fieldset class="buttons">
         <ol>
           <li><%= f.submit "", :id => "update_user" %></li>
