@@ -7,7 +7,8 @@ describe ProductPresenter do
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
-  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id }
+  subject { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35, :only_view? => false }
+  let(:only_view) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35, :only_view? => true }
 
   describe "user showroom methods" do
     describe '#render_member_showroom' do
@@ -62,9 +63,35 @@ describe ProductPresenter do
   end
 
   describe '#render_add_to_cart' do
-    it "should render the partial with controls to add the product to the cart" do
-      template.should_receive(:render).with(:partial => 'product/add_to_cart', :locals => {:product_presenter => subject, :product => product}).and_return('cart')
-      subject.render_add_to_cart.should == 'cart'
+    let(:online) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => true, :gift? => false, :only_view? => false }
+    let(:online_gift) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => true, :gift? => true, :only_view? => false }
+    let(:offline) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => false, :gift? => false, :only_view? => false }
+    let(:offline_gift) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :logged? => false, :gift? => true, :only_view? => false }
+    
+    it "should return empty when is only view" do
+      only_view.render_add_to_cart.should == ''
+    end
+    
+    context "when is gift" do
+      it "and user is offline should render the partial with controls to add the product to gift_list" do
+        template.should_receive(:render).with(:partial => 'product/add_to_suggestions', :locals => {:product_presenter => offline_gift, :product => product}).and_return('gift list')
+        offline_gift.render_add_to_cart.should == 'gift list'
+      end
+
+      it "and user is online should render the partial with controls to add the product to gift_list" do
+        template.should_receive(:render).with(:partial => 'product/add_to_suggestions', :locals => {:product_presenter => online_gift, :product => product}).and_return('gift list')
+        online_gift.render_add_to_cart.should == 'gift list'
+      end
+    end
+    
+    it "should render the partial with controls to add the product to the cart when online" do
+      template.should_receive(:render).with(:partial => 'product/add_to_cart', :locals => {:product_presenter => online, :product => product}).and_return('cart')
+      online.render_add_to_cart.should == 'cart'
+    end
+    
+    it "should render the partial with controls to add the product to the cart when offline" do
+      template.should_receive(:render).with(:partial => 'product/offline_add_to_cart', :locals => {:product_presenter => offline, :product => product}).and_return('cart')
+      offline.render_add_to_cart.should == 'cart'
     end
   end
 
@@ -94,8 +121,12 @@ describe ProductPresenter do
   end
 
   describe '#render_colors' do
+    it "should return empty when is only view" do
+      only_view.render_colors.should == ''
+    end
+    
     it "should render the partial with the product colors" do
-      template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product}).and_return('colors')
+      template.should_receive(:render).with(:partial => 'product/colors',  :locals => {:product => subject.product, :gift => true, :shoe_size => 35}).and_return('colors')
       subject.render_colors.should == 'colors'
     end
   end
@@ -104,13 +135,6 @@ describe ProductPresenter do
     it "should render the partial with the product colors" do
       template.should_receive(:render).with(:partial => 'product/facebook_comments',  :locals => {:product => subject.product, :facebook_app_id => subject.facebook_app_id}).and_return('facebook_comments')
       subject.render_facebook_comments.should == 'facebook_comments'
-    end
-  end
-
-  describe '#render_add_to_suggestions' do
-    it "should render the partial with controls to add the product to gift_list" do
-      template.should_receive(:render).with(:partial => 'product/add_to_suggestions', :locals => {:product_presenter => subject, :product => product}).and_return('gift list')
-      subject.render_add_to_suggestions.should == 'gift list'
     end
   end
 
@@ -130,7 +154,7 @@ describe ProductPresenter do
       subject.product.stub_chain(:variants, :sorted_by_description).and_return(sizes)
     end
     it 'should render all variants to select' do
-      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes})
+      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes, :shoe_size => 35})
       subject.render_multiple_sizes
     end
   end

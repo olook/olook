@@ -2,7 +2,7 @@
   <p>Tamanho:</p>
   <ol>
     <% variants.each do |variant| %>
-      <% classes = variant_classes(variant) %>
+      <% classes = variant_classes(variant, shoe_size) %>
       <li class="<%= classes %>">
         <label for="size_1"><%= variant.description %>
         <%= hidden_field_tag("inventory_#{variant.id}",variant.inventory) %>

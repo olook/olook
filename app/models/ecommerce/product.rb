@@ -232,6 +232,15 @@ class Product < ActiveRecord::Base
   def shoe?
     self.category == ::Category::SHOE
   end
+  
+  def variant_by_size(size)
+    case self.category
+    when Category::SHOE then
+      self.variants.where(:display_reference => "size-#{size}").first
+    else
+      self.variants.last
+    end
+  end
 
 private
 

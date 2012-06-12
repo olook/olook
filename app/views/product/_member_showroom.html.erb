@@ -2,7 +2,7 @@
   <%= link_to @referer[:text], @referer[:url], :class => "back" %>
   <%= link_to content_tag(:span, "Abrir")+" vitrine", "javascript:void(0);", :class => "open_carousel" %>
   <div id="carousel">
-    <ul>
+    <ul class="products_list">
       <%= product_presenter.render_main_profile_showroom %>
     </ul>
     <%= link_to "Anterior", "javascript:void(0);", :class => "arrow product-prev" %>

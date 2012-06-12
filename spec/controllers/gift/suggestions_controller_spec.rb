@@ -4,12 +4,20 @@ describe Gift::SuggestionsController do
 
   let!(:recipient) { FactoryGirl.create(:gift_recipient) }
   let!(:occasion) { FactoryGirl.create(:gift_occasion, :gift_recipient => recipient) }
-  let!(:product) { FactoryGirl.create(:basic_bag) }
+  let!(:product) do
+    product = (FactoryGirl.create :bag_subcategory_name).product
+    product.master_variant.price = 100.00
+    product.master_variant.save!
+
+    FactoryGirl.create :basic_bag_simple, :product => product
+
+    product
+  end
 
   describe "GET 'index'" do
     before do
       session[:occasion_id] = occasion.id
-      ProductFinderService.stub_chain(:new, :suggested_products_for)
+      ProductFinderService.stub_chain(:new, :suggested_variants_for)
       ProductFinderService.stub_chain(:new, :showroom_products)
     end
 
@@ -54,17 +62,17 @@ describe Gift::SuggestionsController do
     context "suggested products" do
       let(:product_finder_service) { mock }
 
-      it "assigns @suggested_products as a list of suggested products" do
+      it "assigns @suggested_variants_for as a list of suggested products" do
         product_finder_service.stub(:showroom_products)
         ProductFinderService.should_receive(:new).with(recipient).and_return(product_finder_service)
-        product_finder_service.should_receive(:suggested_products_for).
-          with(recipient.profile, recipient.shoe_size).and_return(:suggested_products)
+        product_finder_service.should_receive(:suggested_variants_for).
+          with(recipient.profile, recipient.shoe_size).and_return(:suggested_variants)
         get 'index', :recipient_id => recipient.id
-        assigns(:suggested_products).should == :suggested_products
+        assigns(:suggested_variants).should == :suggested_variants
       end
 
       it "assigns @products" do
-        product_finder_service.stub(:suggested_products_for)
+        product_finder_service.stub(:suggested_variants_for)
         ProductFinderService.should_receive(:new).with(recipient).and_return(product_finder_service)
         product_finder_service.should_receive(:showroom_products).with(:description => recipient.shoe_size, :not_allow_sold_out_products => true).and_return(:showroom_products)
         get 'index', :recipient_id => recipient.id
@@ -74,14 +82,19 @@ describe Gift::SuggestionsController do
   end
 
   context "GET 'select_gift'" do
-    it "finds product with product id" do
-      Product.should_receive(:find).with("123").and_return(product)
-      xhr :get, 'select_gift', :product_id => "123"
+    it "finds product with variant id" do
+      Variant.should_receive(:find).with("123").and_return(product.variants.last)
+      xhr :get, 'select_gift', :variant => {:id => "123"}
+    end
+    
+    it "assigns @variant when variant_id is send" do
+      xhr :get, 'select_gift', :variant => {:id => product.variants.last.id}
+      assigns(:variant).should == product.variants.last
     end
 
-    it "assigns @product to the product found" do
-      xhr :get, 'select_gift', :product_id => product.id
-      assigns(:product).should == product
+    it "assigns @variant when product_id is send" do
+      xhr :get, 'select_gift', :product_id => product.id, :recipient_id => recipient.id
+      assigns(:variant).should == product.variants.last
    end
   end
 end
