@@ -2,6 +2,7 @@
 require "spec_helper"
 
 describe ProductPresenter do
+  include ActionView::TestCase::Behavior
   let(:product) { FactoryGirl.create :basic_shoe }
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
@@ -169,16 +170,33 @@ describe ProductPresenter do
   end
 
   describe "#price" do
-    it "should delegate to product" do
-      product.stub(:discount_percent).and_return(0)
-      subject.product.should_receive(:price)
-      subject.price
+    subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
+    let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
+
+    it "should render the price when no discount" do
     end
 
-    it "should return the retail price when the discount percent is higher then zero" do
-      product.stub(:discount_percent).and_return(30)
-      subject.product.should_receive(:retail_price)
-      subject.price
+    it "should render the price with markdown when for first time buyers" do
+      member.stub(:first_time_buyer?).and_return(true)
+      subject.render_price.should include("de:")
+      subject.render_price.should include("por:")
+      subject.render_price.should include("em sua primeira compra")
+    end
+
+    it "should render the price with markdown when discount is detected" do
+      product.stub(:retail_price).and_return(49.99)
+      member.stub(:first_time_buyer?).and_return(false)
+      subject.render_price.should include("de:")
+      subject.render_price.should include("por:")
+      subject.render_price.should_not include("em sua primeira compra")
+    end
+
+    it "should show 30% off for guests" do
+      #subject.stub(:retail_price).and_return(49.99)
+      #member = nil
+      #subject.render_price.should include("de:")
+      #subject.render_price.should include("por:")
+      #subject.render_price.should include("em sua primeira compra")
     end
 
     it "should show the 30% off discounted price added to the retail price"
