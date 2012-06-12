@@ -96,33 +96,27 @@ class ProductPresenter < BasePresenter
     end
   end
 
-  def price
-    if product.discount_percent.to_i == 0
-      product.price
+  def render_price
+    if !member || (member && member.first_time_buyer?)
+      price_markup(product.price, "price_retail", "de:") +
+      price_markup(product.promotion_price, "price", "por:") +
+      promotion_explanation
+    elsif product.promotion? #discount
+      price_markup(product.price, "price_retail", "de:") + price_markup(product.promotion_price, "price", "por:")
     else
-      product.retail_price
+      price_markup(product.price, "price")
     end
-  end
-
-  def markdown_price
-    render_price {"de:"}
-    render_retail_price {"por:"}
-  end
-
-  def normal_price
-    render_price
   end
 
   private
 
-  def render_price
-    content_tag(:p,
-                number_to_currency(product.price),
-                :class => "price"
-               )
+  def price_markup price, css_class, prefix=nil
+    content = h.number_to_currency(price)
+    content = prefix + content if prefix
+    h.content_tag(:p, content ,:class => css_class)
   end
 
-  def render_retail_price
-    content_tag(:p, number_to_currency(product.retail_price), :class => "retail_price")
+  def promotion_explanation
+    h.content_tag(:p, "em sua primeira compra", :style => "text-align:center")
   end
 end
