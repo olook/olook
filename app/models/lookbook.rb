@@ -5,6 +5,8 @@ class Lookbook < ActiveRecord::Base
   has_many :products, :through => :lookbooks_products
   has_one :video, :as => :video_relation, :dependent => :destroy
 
+  has_many :lookbook_image_maps
+
   scope :active, where(active: 1).order("created_at DESC")
 
   accepts_nested_attributes_for :images, :reject_if => lambda{|p| p[:image].blank?}
