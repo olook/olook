@@ -112,8 +112,8 @@ class ProductPresenter < BasePresenter
   private
 
   def price_markdown discount_method
-    price_markup(product.price, "price_retail", "de:") +
-    price_markup(product.send(discount_method), "price", "por:")
+    price_markup(product.price, "price_retail", "de: ") +
+    price_markup(product.send(discount_method), "price", "por: ")
   end
 
   def price_markup price, css_class, prefix=nil
@@ -123,6 +123,6 @@ class ProductPresenter < BasePresenter
   end
 
   def promotion_explanation
-    h.content_tag(:p, "em sua primeira compra", :style => "text-align:center")
+    h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation")
   end
 end
