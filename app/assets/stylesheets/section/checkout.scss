@@ -304,6 +304,11 @@ section#cart {
       }
     }
   }
+
+  table#coupon_form {
+    display: none;
+  }
+
   a.continue {
     background: url("/assets/cart/continue.png") no-repeat;
     text-indent: -9999px;

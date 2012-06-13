@@ -119,26 +119,6 @@
           </td>
         </tr>
       <% end %>
-      <tr class="discount">
-        <td class="item"><h1>Possui algum código promocional?</h1></td>
-        <td colspan="2">
-          <p><strong>Digite o código <br/>no campo ao lado</strong></p>
-        </td>
-        <td class="cupom">
-          <%= form_for(update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put) do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= text_field('coupon', 'code', :value => @coupon_code) %>
-                </li>
-                <li class="cupom">
-                  <%= submit_tag 'Aplicar cupom' %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
       <% if @bonus > 0 %>
         <tr class="discount">
           <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
@@ -207,6 +187,29 @@
     <% end %>
     </tbody>
   </table>
+
+  <a href="#" id="show_coupon_field">Quero usar um c&oacute;digo promocional</a>
+  <table id="coupon_form" cellpadding="0" cellspacing="0" class="items_list">
+    <tbody>
+      <tr class="discount">
+        <td class="item">
+          <%= form_for(update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_field('coupon', 'code', :value => @coupon_code) %>
+                </li>
+                <li class="cupom">
+                  <%= submit_tag 'Aplicar cupom' %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <%= link_to "Continuar", addresses_path, :class => "continue"  %>
 </section>
 <% content_for :ecommerce_tracking do %>
