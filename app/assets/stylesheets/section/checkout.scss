@@ -305,8 +305,33 @@ section#cart {
     }
   }
 
-  table#coupon_form {
-    display: none;
+  table#coupon {
+    tr {
+      td {
+        width: 495px;
+        border: none;
+        a#show_coupon_field {
+          color: #DF5A8A;
+          font-size: 16px;
+          line-height: 55px;
+        }
+        form {
+          display: none;
+          margin: 15px 0 0 0;
+          input[type="text"] {
+            background: none;
+            color: #999;
+            font-weight: lighter;
+            font-style: italic;
+            margin-right: 10px;
+            width: 220px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+          }
+        }
+      }
+    }
   }
 
   a.continue {
