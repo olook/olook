@@ -6,9 +6,9 @@ $(".continue").click(function() {
   $("form#gift_message").submit();
 })
 
-$("#show_coupon_field").click(function(e) {
-  $("#show_coupon_field").hide();
-  $("#coupon_form").show();
+$("table#coupon a#show_coupon_field").live("click", function(e) {
+  $(this).hide();
+  $(this).siblings("form").show();
   e.preventDefault();
 });
 
