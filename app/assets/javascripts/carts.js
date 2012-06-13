@@ -6,6 +6,12 @@ $(".continue").click(function() {
   $("form#gift_message").submit();
 })
 
+$("#show_coupon_field").click(function(e) {
+  $("#show_coupon_field").hide();
+  $("#coupon_form").show();
+  e.preventDefault();
+});
+
 function change_value(wrap) {
   wrap_value = $("form#gift_wrap .inputs li p").text().match(/[0-9,]+/);
   wrap_value = parseFloat(wrap_value[0].replace( ",", "." ));
