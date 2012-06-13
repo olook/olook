@@ -13,7 +13,7 @@
   <%= render "shared/metrics/yahoo/register" %>
 <% end %>
 
-<%= render 'shared/models' %>
+<%#= render 'shared/models' %>
 
 <div id="fb-root"></div>
 <%= render "facebook_js", :member => @user, :facebook_app_id => @facebook_app_id  %>
@@ -25,7 +25,5 @@
     </div>
   <% end %>
 
-<% present 'Showroom', :member => @user do |showroom_presenter| %>
-
-<% end %>
+  <%= render "shared/modal/retake_quiz", :user => @user %>
 </section>
