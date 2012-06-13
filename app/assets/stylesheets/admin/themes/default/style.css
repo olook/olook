@@ -246,7 +246,7 @@ hr {
 }
 #sidebar .block h4 {
   font-weight: normal;
-  font-family: "Museo700", helvetica, arial, sans-serif;
+  font-family: helvetica, arial, sans-serif;
 }
 #sidebar .notice {
   color: white;
@@ -354,7 +354,7 @@ hr {
 }
 
 .form label.label {
-  font-family: "MuseoSans500", helvetica, arial, sans-serif;
+  font-family: helvetica, arial, sans-serif;
   font-weight: normal;
   color: #666666;
 }
