@@ -155,7 +155,6 @@
             line-height: 40px;
             letter-spacing: -4px;
             text-align: center;
-            margin-bottom: 20px;
           }
           &.price_retail {
             color: #838383;
@@ -164,6 +163,11 @@
             text-decoration: line-through;
             text-align: center;
             margin-bottom: 0;
+          }
+          &.promotion_explanation {
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 20px;
           }
         }
       }

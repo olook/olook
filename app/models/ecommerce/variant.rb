@@ -108,7 +108,7 @@ class Variant < ActiveRecord::Base
   end
 
   private
-  
+
   # FIXME this doesn't really work properly, since it doesn't bring the master_variant's retail_price
   def retail_price_logic
     rp = read_attribute(:retail_price)
