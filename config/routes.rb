@@ -131,7 +131,9 @@ Olook::Application.routes.draw do
       end
     end
   end
-
+  
+  devise_for :admins
+  
   namespace :admin do
     match "/", :to => "index#dashboard"
 
@@ -206,10 +208,6 @@ Olook::Application.routes.draw do
 
     resources :gift_occasion_types
     resources :gift_recipient_relations
-  end
-
-  devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
-    post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
   end
 
   #TODO: implement gift routes with something as bellow
