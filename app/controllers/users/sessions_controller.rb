@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class SessionsController < Devise::SessionsController
+class Users::SessionsController < Devise::SessionsController
   after_filter :create_sign_in_event, :only => :create
   before_filter :create_sign_out_event, :only => :destroy
     

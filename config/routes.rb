@@ -210,21 +210,20 @@ Olook::Application.routes.draw do
     resources :gift_recipient_relations
   end
 
-  #TODO: implement gift routes with something as bellow
-  #devise_for :gift, :class_name => "User", :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
-  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
-  #end
-
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
-    get '/entrar' => 'sessions#new', :as => :new_user_session
-    post '/entrar' => 'sessions#create', :as => :user_session
-    delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions" } do
+    get '/entrar' => 'users/sessions#new', :as => :new_user_session
+    post '/entrar' => 'users/sessions#create', :as => :user_session
+    delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
-    post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     #gift
     get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
     post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
   end
+  
+  # devise_for :half_users, :controllers => {:registrations => "registrations", :sessions => "sessions" } do
+  # end
+  
 
   # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
   get ":page_url", :to => "landing_pages#show"
