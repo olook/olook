@@ -263,13 +263,14 @@ $(document).ready(function() {
   });
 
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
-    content = $("<div>").append($("div#profile_quiz").clone().addClass("clone")).remove().html();
+    clone = $("div#profile_quiz").clone().addClass("clone");
+    content = clone[0].outerHTML;
     initBase.modal(content);
+    $(".ui-dialog").css("top", "30px");
     e.preventDefault();
   });
 
-  $(".ui-dialog-titlebar-close, .ui-widget-overlay, div#profile_quiz ul li a.close").live("click", function(e) {
-    $("div#modal").html("");
+  $(".ui-widget-overlay, div#profile_quiz ul li a.close").live("click", function(e) {
     $("div#modal").dialog("close");
     e.preventDefault();
   });
@@ -291,11 +292,7 @@ initBase = {
   },
 
   modal : function(content) {
-    if($("div#modal").size() == 0) {
-      $("body").prepend("<div id='modal'></div>");
-    } else {
-      $("div#modal").html("");
-    }
+    $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
@@ -303,7 +300,11 @@ initBase = {
       width: 'auto',
       resizable: false,
       draggable: false,
-      modal: true
+      modal: true,
+      close: function(event) {
+        $("div#modal").html("");
+        $("div#modal").hide();
+      }
     });
   },
 
