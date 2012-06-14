@@ -175,6 +175,10 @@ class Product < ActiveRecord::Base
     price != retail_price
   end
 
+  def promotion_price
+    PromotionService.by_product(self)
+  end
+
   def gift_price(position = 0)
     GiftDiscountService.price_for_product(self,position)
   end
