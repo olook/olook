@@ -1,4 +1,4 @@
-<%= form_for([:admin,@lookbook]) do |f| %>
+<%= form_for([:admin,@lookbook], html: {multipart: true}) do |f| %>
   <% if @lookbook.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lookbook.errors.count, "error") %> prohibited this landing page from being saved:</h2>
@@ -23,14 +23,27 @@
     <%= f.label :thumb_image %><br />
     <%= f.file_field :thumb_image %>
   </div>
+
+  <%= fields_for :video do |v| %>
     <div class="field">
-    <%= f.label :video_title %><br />
-    <%= text_field :video, :title %>
-  </div>
+      <%= v.label :title, 'Video title' %><br />
+      <%= v.text_field :title %>
+    </div>
     <div class="field">
-    <%= f.label :video_url %><br />
-    <%= text_field :video, :url %>
+      <%= v.label :url, 'Video url' %><br />
+      <%= v.text_field :url %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :icon %><br />
+    <%= f.file_field :icon %>
   </div>
+  <div class="field">
+    <%= f.label :icon_over %><br />
+    <%= f.file_field :icon_over %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -1,5 +1,6 @@
 class Admin::ImagesController < Admin::BaseController
   before_filter :load_lookbook
+  before_filter :save_image_maps, only: [:create, :update]
   respond_to :html
 
    def show
@@ -62,6 +63,13 @@ class Admin::ImagesController < Admin::BaseController
   private
   def load_lookbook
     @lookbook = Lookbook.find(params[:lookbook_id])
+  end
+
+  def save_image_maps
+    if params[:lookbook_image_map]
+      image_map = LookbookImageMap.new(params[:lookbook_image_map])
+      image_map.save
+    end
   end
 
 end
