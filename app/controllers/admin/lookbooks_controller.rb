@@ -42,13 +42,16 @@ class Admin::LookbooksController < Admin::BaseController
 
   def update
     generate_slug(params[:lookbook]["name"])
-    @lookbook       = Lookbook.find(params[:id])
-    @video          = Video.new(params[:video]) if @lookbook.video.nil?
-    if @video
-      @video.save
-      @lookbook.video = @video
-    else
-      @lookbook.video.update_attributes(params[:video])
+    @lookbook = Lookbook.find(params[:id])
+
+    if params[:video] && !params[:video]['title'].blank? && !params[:video]['url'].blank?
+      if !@lookbook.video.nil?
+        @lookbook.video.update_attributes(params[:video])
+      else
+        @video = Video.new(params[:video])
+        @video.save
+        @lookbook.video = @video
+      end
     end
 
     if @lookbook.update_attributes(params[:lookbook])
