@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>olook</title>
+    <% error = nil unless error %>
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
@@ -33,11 +34,10 @@
     </div>
 
     <%= yield :top_my_account %>
-
-    <div id="content" class="content">
-      <%= render_promotion_banner %>
+      <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
+      <%= render_promotion_banner unless error %>   
       <%= content_for?(:content) ? yield(:content) : yield %>
-    </div>
+      </div>
   </div>
 
   <%= yield :site_footer %>

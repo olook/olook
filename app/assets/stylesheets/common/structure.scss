@@ -692,6 +692,13 @@ body {
     }
   }
 
+  .error_content{
+    background-color: #784534;
+    overflow: hidden;
+    z-index: 1;
+    text-align: center;
+  }
+
   header {
     background: url("/assets/common/bg-holder-full.png") center bottom no-repeat;
     width: 100%;
