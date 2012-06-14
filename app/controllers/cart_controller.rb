@@ -61,6 +61,7 @@ class CartController < ApplicationController
     if @user.current_credit >= credits && credits > 0
       @order.update_attributes(:credits => credits)
       destroy_freight(@order)
+      # TODO: Check if use_credits activated the flag credits_exceeded_buy_value
       redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
@@ -129,30 +130,30 @@ class CartController < ApplicationController
       end
     end
   end
-  
+
   def add_products_to_gift_cart
     session[:gift_products] = params[:products]
     if session[:gift_products] && @order
       @order.update_attributes :restricted => true if !@order.restricted?
       @order.line_items.destroy_all
-      
+
       # to get shoe size
       @gift_recipient = GiftRecipient.find(session[:recipient_id])
-      
+
       # add products to cart
       session[:gift_products].each_pair do |k, id|
         variant = Variant.find(id)
         line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
       end
       calculate_gift_prices(@order)
-      
+
       total_products = @order.line_items.size
       redirect_to(cart_path, :notice => total_products > 0 ? "Produtos adicionados com sucesso" : "Um ou mais produtos selecionados não estão disponíveis")
     else
       redirect_to(:back, :notice => "Produtos não foram adicionados")
     end
   end
-  
+
   # needs testing
   def calculate_gift_prices order
     return if !order.restricted? || order.line_items.empty?
@@ -215,7 +216,7 @@ class CartController < ApplicationController
   def load_user
     @user = current_user
   end
-  
+
   def verify_login
     if not current_user and params[:products]
       session[:gift_products] = params[:products]

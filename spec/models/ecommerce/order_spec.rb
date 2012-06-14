@@ -11,7 +11,7 @@ describe Order do
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }
- 
+
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
@@ -68,7 +68,7 @@ describe Order do
       order.identification_code.should_not be_nil
     end
   end
-  
+
   context "line items with gifts" do
     before :each do
       subject.add_variant(basic_shoe_35)
@@ -163,6 +163,50 @@ describe Order do
         subject.stub(:credits).and_return(credits = 9.09)
         subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
         subject.total_discount.should == credits + coupon
+      end
+    end
+
+    describe "#max_credit_value" do
+      context "when using coupons should ignore the promotion" do
+        it "should return the order total deducted the minimum value and the promotion discount." do
+          subject.stub(:line_items_total).and_return(total = 100.00)
+          subject.stub(:discount_from_coupon).and_return(coupon = 10.00)
+          subject.stub(:discount_from_promotion).and_return(promo = 20.00)
+          subject.max_credit_value.should == total - Payment::MINIMUM_VALUE - coupon
+
+        end
+      end
+
+      context "when using coupons should ignore the promotion" do
+        it "should return the order total deducted the minimum value and the coupon discount." do
+          subject.stub(:line_items_total).and_return(total = 100.00)
+          subject.stub(:discount_from_coupon).and_return(coupon = 0.00)
+          subject.stub(:discount_from_promotion).and_return(promo = 20.00)
+          subject.max_credit_value.should == total - Payment::MINIMUM_VALUE - promo
+        end
+      end
+    end
+
+    describe "#credits" do
+      context "when the credit is smaller than the max allowed" do
+        it "should return the credit amount asked by the user" do
+          subject.should_receive(:read_attribute).with(:credits).and_returns(100.00)
+          subject.stub!(:max_credit_value).and_return(150.00)
+          subject.credits.should == 100.00
+        end
+      end
+
+      context "when the credit is bigger than the max allowed" do
+        it "should return the max credit amount" do
+          subject.should_receive(:read_attribute).with(:credits).and_returns(100.00)
+          subject.stub!(:max_credit_value).and_return(50.00)
+          subject.credits.should == 50.00
+        end
+      end
+
+      it 'should return 0 if credits is nil' do
+        subject.should_receive(:read_attribute).with(:credits).and_returns(nil)
+        subject.credits.should == 0
       end
     end
 
@@ -599,18 +643,18 @@ describe Order do
 
   describe "unrestricted order should accept products from vitrine" do
     subject { FactoryGirl.create(:clean_order)}
-    
+
     it "should return true to add gift and normal products to the same cart" do
       subject.restricted?.should be_false
     end
   end
-  
+
   describe "restricted order should accept products from vitrine" do
     subject { FactoryGirl.create(:restricted_order)}
-    
+
     it "should be marked as restricted" do
       subject.restricted?.should be_true
     end
   end
-  
+
 end
