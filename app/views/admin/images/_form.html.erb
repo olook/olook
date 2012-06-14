@@ -11,10 +11,52 @@
     </div>
   <% end %>
 
+  <p>
+    <b>Current image:</b><br />
+    <%= image_tag @image.image.to_s %>
+  </p>
+
   <div class="field">
     <%= f.label :image %><br />
     <%= f.file_field :image %>
   </div>
+
+<table class="table">
+  <tr>
+    <th>Product</th>
+    <th>Coordinates</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @image.lookbook_image_maps.each do |lim| %>
+  <tr>
+    <td><%= lim.product.name %></td>
+    <td><%= lim.coord_x %>x<%= lim.coord_y %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  <tr>
+<% end %>
+</table>
+  
+<%= fields_for :lookbook_image_map do |lim| %>
+  <ul class="">
+    <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
+    <li>
+      <%= lim.label :product_id %>
+      <%= lim.text_field :product_id %>
+    </li>
+    <li>
+      <%= lim.label :cord_x %>
+      <%= lim.text_field :cord_x %>
+    </li>
+    <li>
+      <%= lim.label :cord_y %>
+      <%= lim.text_field :cord_y %>
+    </li>
+  </ul>
+<% end %>
   
   <div class="actions">
     <%= f.submit %>

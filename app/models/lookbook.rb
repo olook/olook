@@ -5,13 +5,16 @@ class Lookbook < ActiveRecord::Base
   has_many :products, :through => :lookbooks_products
   has_one :video, :as => :video_relation, :dependent => :destroy
 
-  has_many :lookbook_image_maps
+  has_many :lookbook_image_maps, :dependent => :destroy
 
   scope :active, where(active: 1).order("created_at DESC")
 
   accepts_nested_attributes_for :images, :reject_if => lambda{|p| p[:image].blank?}
 
   mount_uploader :thumb_image, ImageUploader
+
+  mount_uploader :icon, ImageUploader
+  mount_uploader :icon_over, ImageUploader
 
   attr_accessor :product_list
   attr_accessor :product_criteo

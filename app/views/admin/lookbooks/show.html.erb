@@ -11,8 +11,18 @@
     <%= image_tag @lookbook.thumb_image.try(:url) %>
   </p>
 
+  <p>
+    <b>Icon:</b>
+    <%= image_tag @lookbook.icon.try(:url) %>
+  </p>
+  <p>
+    <b>Icon Over:</b>
+    <%= image_tag @lookbook.icon_over.try(:url) %>
+  </p>
+
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
   <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>
+  
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'Edit', edit_admin_lookbook_path(@lookbook) %></li>
   <li><%= link_to 'Back', admin_lookbooks_path %></li>
