@@ -9,7 +9,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  rescue_from ActionController::UnknownController, :with => :render_404
+  rescue_from ::AbstractController::ActionNotFound, :with => :render_404
+  rescue_from CanCan::AccessDenied do  |exception|
+      flash[:error] = "Access Denied! You don't have permission to execute this action.
+                              Contact the system administrator"
+      redirect_to admin_url
+  end
+  rescue_from Exception, :with => :render_500
 
 
   helper_method :current_liquidation
@@ -38,12 +46,6 @@ class ApplicationController < ActionController::Base
       @promotion = PromotionService.new(current_user).detect_current_promotion
     end
   end
-
-  rescue_from CanCan::AccessDenied do  |exception|
-      flash[:error] = "Access Denied! You don't have permission to execute this action.
-                              Contact the system administrator"
-      redirect_to admin_url
-   end
 
   private
 
@@ -105,8 +107,12 @@ class ApplicationController < ActionController::Base
     @referer = session[:return_to]
   end
 
-  def render_not_found(exception)
-    render :template => "/errors/404.html.erb", :layout => 'site', :status => 404
+  def render_404(exception)
+    render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
+  end
+
+  def render_500(exception)
+    render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
   end
 
 end
