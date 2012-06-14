@@ -1390,6 +1390,7 @@ div#modal {
   background: #FFF;
   padding: 0;
   border: 5px #000 solid;
+  display: none;
   div.video_description {
     background: #FFF;
     overflow: auto;
@@ -1423,7 +1424,7 @@ div#modal {
 
 div.contact_fields {
   padding: 0 0 0 0 !important;
-  
+
   h1 {
     color:#999;
   }
