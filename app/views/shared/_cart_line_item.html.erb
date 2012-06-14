@@ -1,0 +1,6 @@
+      <li class="product_item" style="<%= 'display:none;' if hidden %>" data-id="<%= item.variant.id %>">
+        <%= image_tag item.variant.product.thumb_picture, :title => item.variant.name %>
+        <h1><%= item.variant.name %></h1>
+        <p class="price"><%= number_to_currency(item.variant.price) %></p>
+        <p class="size"><%= item.variant.description %></p>
+      </li>

@@ -64,31 +64,31 @@ class ProductPresenter < BasePresenter
     variants = product.variants.sorted_by_description
     h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size}
   end
-  
+
   def render_pics
     h.render :partial => "product_pics", :locals => {:product_presenter => self}
   end
-  
+
   def show_quantity_left?
     member && quantity_left > 0 && quantity_left < 4
   end
-  
+
   def quantity_left
-    product.quantity(member.shoes_size) 
+    product.quantity(member.shoes_size)
   end
-  
+
   def quantity_left_text
     more_than_one_left? ? "Restam apenas " : "Resta apenas "
   end
-  
+
   def unities_left_text
     more_than_one_left? ? "unidades" : "unidade"
   end
-  
+
   def more_than_one_left?
     quantity_left > 1
   end
-  
+
   def related_products
     product.related_products.inject([]) do |result, related_product|
       if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
@@ -97,5 +97,32 @@ class ProductPresenter < BasePresenter
         result
       end
     end
+  end
+
+  def render_price
+    if !member || (member && member.first_time_buyer?)
+      price_markdown(:promotion_price) + promotion_explanation
+    elsif product.promotion? #discount
+      price_markdown(:retail_price)
+    else
+      price_markup(product.price, "price")
+    end
+  end
+
+  private
+
+  def price_markdown discount_method
+    price_markup(product.price, "price_retail", "de: ") +
+    price_markup(product.send(discount_method), "price", "por: ")
+  end
+
+  def price_markup price, css_class, prefix=nil
+    content = h.number_to_currency(price)
+    content = prefix + content if prefix
+    h.content_tag(:p, content ,:class => css_class)
+  end
+
+  def promotion_explanation
+    h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation")
   end
 end
