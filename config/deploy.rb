@@ -9,7 +9,7 @@ set :application, 'olook'
 set :path_app, '/srv/olook/current'
 set :deploy_to, '/srv/olook'
 set :deploy_via, :remote_cache
-
+ 
 # server details
 set :user, 'root'
 set :use_sudo, false

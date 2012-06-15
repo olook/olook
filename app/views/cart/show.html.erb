@@ -119,26 +119,6 @@
           </td>
         </tr>
       <% end %>
-      <tr class="discount">
-        <td class="item"><h1>Possui algum código promocional?</h1></td>
-        <td colspan="2">
-          <p><strong>Digite o código <br/>no campo ao lado</strong></p>
-        </td>
-        <td class="cupom">
-          <%= form_for(update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put) do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= text_field('coupon', 'code', :value => @coupon_code) %>
-                </li>
-                <li class="cupom">
-                  <%= submit_tag 'Aplicar cupom' %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
       <% if @bonus > 0 %>
         <tr class="discount">
           <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
@@ -207,7 +187,32 @@
     <% end %>
     </tbody>
   </table>
-  <%= link_to "Continuar", addresses_path, :class => "continue"  %>
+
+  <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
+    <tbody>
+      <tr class="discount">
+        <td>
+          <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
+          <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                </li>
+                <li class="cupom">
+                  <%= submit_tag 'Aplicar cupom' %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "Continuar", addresses_path, :class => "continue"  %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </section>
 <% content_for :ecommerce_tracking do %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>

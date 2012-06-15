@@ -88,19 +88,11 @@ class CartController < ApplicationController
         destroy_freight(@order)
         destroy_order_if_the_cart_is_empty(@order) if !@order.restricted?
         calculate_gift_prices(@order)
-        format.html do
-          redirect_to cart_path, :notice => "Produto removido com sucesso"
-        end
-        format.js do
-          head :ok
-        end
+        format.html { redirect_to cart_path, :notice => "Produto removido com sucesso" }
+        format.js { head :ok }
       else
-        format.js do
-          head :not_found
-        end
-        format.html do
-          redirect_to cart_path, :notice => "Este produto não está na sua sacola"
-        end
+        format.js { head :not_found }
+        format.html { redirect_to cart_path, :notice => "Este produto não está na sua sacola" }
       end
     end
   end
@@ -112,16 +104,28 @@ class CartController < ApplicationController
 
   def create
     @order.update_attributes :restricted => false if @order.restricted? && @order.line_items.empty?
-
-    if !@order.restricted?  # gift cart
-      if @order.add_variant(@variant, nil)
-        destroy_freight(@order)
-        redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
-      else
-        redirect_to(:back, :notice => "Produto esgotado")
+    if @order.restricted?  # gift cart
+      respond_with do |format|
+        format.js { head :forbidden, status: :unprocessable_entity, notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }
+        format.html { redirect_to(cart_path, notice: "Produtos de presente não podem ser comprados com produtos da vitrine") }
+      end
+    end
+    if @order.add_variant(@variant, nil)
+      destroy_freight(@order)
+      respond_with do |format|
+        format.html do
+          if request.xhr?
+            render partial: "shared/cart_line_item", locals: { item: @order.line_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, status: :created
+          else
+            redirect_to(cart_path, :notice => "Produto adicionado com sucesso")
+          end
+        end
       end
     else
-      redirect_to(cart_path, :notice => "Produtos de presente não podem ser comprados com produtos da vitrine")
+      respond_with do |format|
+        format.js { head :not_found, status: :unprocessable_entity }
+        format.html { redirect_to(:back, :notice => "Produto esgotado") }
+      end
     end
   end
   
@@ -136,22 +140,7 @@ class CartController < ApplicationController
       
       # add products to cart
       session[:gift_products].each_pair do |k, id|
-        product = Product.find(id)
-        if product
-          variant = case product.category
-            when Category::SHOE then
-              product.variants.where(:display_reference => "size-#{@gift_recipient.shoe_size}").first
-            # when Category::BAG then
-            #   product.variants.last
-            # when Category::ACCESSORY then
-            #   product.variants.last
-            else
-              product.variants.last
-          end
-        else
-          variant = Variant.find(id)
-        end
-        
+        variant = Variant.find(id)
         line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
       end
       calculate_gift_prices(@order)

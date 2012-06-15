@@ -235,6 +235,10 @@ class User < ActiveRecord::Base
         .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
   end
 
+  def first_time_buyer?
+    PromotionService.user_applies_for_this_promotion?(self, Promotion.purchases_amount)
+  end
+
   private
 
   def generate_invite_token
