@@ -15,7 +15,7 @@
         Número do Pedido:
         <span><%= @current_order.number %></span>
         <% if @current_order.invoice_number %>
-          <%= link_to "Clique aqui para rastrear seu pedido", link_to_tracking_code(@current_order) %>
+          <%= link_to "Clique aqui para rastrear seu pedido", link_to_tracking_code(@current_order), :target => "_blank" %>
         <% end %>
       </h1>
       <h2><strong>Status do seu pedido:</strong> <%= @order_presenter.status.message %></h2>
