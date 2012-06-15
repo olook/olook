@@ -22,7 +22,7 @@ fjs.parentNode.insertBefore(js, fjs);
   <% end %>
 
   <div id="showroom">
-    <%= render "shared/modal/retake_quiz", :user => @user %>
+    <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
     <section id="greetings">
       <%= showroom_presenter.render_identification(@friends) %>
