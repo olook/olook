@@ -1,20 +1,20 @@
-<% if product %>
+<% if variant.product %>
 <li class="product suggestion">
-  <%= hidden_field_tag "products[#{position}]", "#{product.id}" %>
+  <%= hidden_field_tag "products[#{position}]", "#{variant.id}" %>
   <%= link_to "deletar", "#", :class => "delete" %>
   <div class="box_product">
-    <%= link_to product, :remote => true, :class => "product_link" do %>
-      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
-      <h1><%= product.name %></h1>
+    <%= link_to variant.product, :remote => true, :class => "product_link", :data => {:params => {:only_view =>  true}} do %>
+      <%= image_tag(variant.product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => variant.product.name) %>
+      <h1><%= variant.product.name %></h1>
       <% unless position == 0 %>
         <p class="warn percentage"><span><%= "#{(position * 2)}0"%>%</span><br />off</p>
       <% end %>
     <% end %>
     <div class="line">
       <% unless position == 0 %>
-        <span class="old">de: <%= number_to_currency(product.price) %></span>
+        <span class="old">de: <%= number_to_currency(variant.product.price) %></span>
       <% end %>
-      <span>por: <%= number_to_currency(product.gift_price(position)) %> </span>
+      <span>por: <%= number_to_currency(variant.product.gift_price(position)) %> </span>
     </div>
   </div>
 </li>

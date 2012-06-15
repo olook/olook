@@ -1,4 +1,12 @@
-<% present 'Product', :product => @product, :member => @user, :facebook_app_id => @facebook_app_id do |product_presenter| %>
+<% present 'Product',
+           product: @product,
+           member: @user,
+           facebook_app_id: @facebook_app_id,
+           shoe_size: @shoe_size,
+           :logged? => user_signed_in?,
+           :gift? => false,
+           :only_view? => @only_view do |product_presenter|
+%>
   <% content_for(:head) do %>
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
     <meta property="og:title" content="Olook – <%= @product.name %>" />
@@ -8,12 +16,11 @@
     <meta property="og:site_name" content="Olook" />
     <meta property="og:type" content="website" />
 
-    <%= stylesheet_link_tag "section/product", "plugins/jquery.jqzoom" %>
+    <%= stylesheet_link_tag "section/product" %>
   <% end %>
 
   <% content_for :footer do %>
     <%= javascript_include_tag "product" %>
-    <%= javascript_include_tag "product_view" %>
   <% end %>
 
   <% unless user_signed_in? %>
@@ -29,11 +36,7 @@
       </div>
       <div id="infos">
         <%= product_presenter.render_description %>
-        <% if user_signed_in? %>
-          <%= product_presenter.render_add_to_cart %>
-        <% else %>
-          <%= product_presenter.render_offline_add_to_cart %>
-        <% end %>
+        <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
 
@@ -43,6 +46,6 @@
   </div>
 <% end %>
 <% content_for :footer do %>
-  <%= render :partial => "shared/metrics/criteo/product_page_tracker", :locals => { :product_id => @product.id } %>
+  <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render "shared/metrics/google/product" %>
 <% end %>

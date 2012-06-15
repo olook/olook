@@ -1031,12 +1031,12 @@ body {
             ul.submenu {
               position: absolute;
               background: #FFF;
-              width: 235px;
+              width: 275px;
               padding: 15px 10px 5px 10px;
-              top: 39px;
+              top: 37px;
               right: 0;
               border: 3px #101010 solid;
-              border-top: none;
+              border-top: 2px #df5a8b solid;
               display: none;
               li {
                 position: relative;
@@ -1386,6 +1386,17 @@ section.main {
   }
 }
 
+div.contact_fields {
+  padding: 0 0 0 0 !important;
+  
+  h1 {
+    color:#999;
+  }
+  .inputs {
+    padding: 15px 5px !important;
+  }
+}
+
 div#modal {
   background: #FFF;
   padding: 0;
@@ -1480,6 +1491,32 @@ header div.contact {
         }
       }
     }
+  }
+}
+
+#quick_view {
+  background-color: #fff;
+  border: 10px solid #000;
+  width:1000px;
+  # height:620px;
+  position: absolute;
+  top:100px;
+  left:50%;
+  margin: 0 0 0 -480px;
+  display:none;
+  z-index:10000;
+
+  #close_quick_view{
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    background: url('/assets/common/close_dialog.png') no-repeat;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    top: -17px;
+    right: -17px;
+    z-index: 100;
   }
 }
 

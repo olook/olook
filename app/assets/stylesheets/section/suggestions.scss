@@ -1,5 +1,4 @@
 @import "section/product";
-@import "partials/mixins";
 
 div.full_container {
   div.full_bg {
@@ -96,6 +95,13 @@ div.full_container {
               height: 300px;
               top: 13px;
               left: 20px;
+              div.hover_suggestive {
+                ul {
+                  li.add {
+                    display: block;
+                  }
+                }
+              }
               .box_product {
                 a.product_link {
                   margin-bottom: 20px;
@@ -199,33 +205,6 @@ div.full_container {
           overflow: hidden;
           margin: 0 auto;
           li.product {
-            div.hover_suggestive {
-              position: absolute;
-              background: none;
-              width: 100%;
-              top: 0;
-              left: 0;
-              display: none;
-              z-index: 10;
-              ul {
-                margin: 75px 0 0 0;
-                li {
-                  text-align: center;
-                  margin: 0 0 20px 0;
-                  a {
-                    @include border-radius(3px);
-                    background: #e05789;
-                    color: #FFF;
-                    font-family: "Open Sans", sans-serif;
-                    font-size: 10px;
-                    text-decoration: none;
-                    text-transform: uppercase;
-                    font-weight: 600;
-                    padding: 5px 10px;
-                  }
-                }
-              }
-            }
             .box_product {
               a.product_link {
                 p.warn {
@@ -238,39 +217,9 @@ div.full_container {
                 }
               }
             }
-            &:hover {
-              div.hover_suggestive {
-                display: block;
-              }
-            }
           }
         }
       }
     }
-  }
-}
-#quick_view {
-  background-color: #fff;
-  border: 10px solid #000;
-  width:1000px;
-  height:620px;
-  position:fixed;
-  top:50%;
-  left:50%;
-  margin: -300px 0 0 -480px;
-  display:none;
-  z-index:10000;
-
-  #close_quick_view{
-    cursor: pointer;
-    font-size: 20px;
-    position: absolute;
-    background: url('/assets/common/close_dialog.png') no-repeat;
-    text-indent: -9999px;
-    width: 30px;
-    height: 30px;
-    top: -17px;
-    right: -17px;
-    z-index: 100;
   }
 }

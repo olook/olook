@@ -15,6 +15,42 @@ describe ProductController do
     end
 
     describe "GET show" do
+      it "should assign @only_view" do
+        get :show, :id => product.id
+        assigns(:only_view).should eq(false)
+      end
+
+      it "should assign @only_view when is only view" do
+        get :show, :id => product.id, :only_view => "true"
+        assigns(:only_view).should eq(true)
+      end
+
+      it "should assign @only_view" do
+        get :show, :id => product.id
+        assigns(:gift).should eq(false)
+      end
+
+      it "should assign @gift when has gift" do
+        get :show, :id => product.id, :gift => "true"
+        assigns(:gift).should eq(true)
+      end
+
+      
+      it "should assign @shoe_size" do
+        get :show, :id => product.id, :shoe_size => "37"
+        assigns(:shoe_size).should eq(37)
+      end
+      
+      it "should assign @shoe_size when has invalid integer" do
+        get :show, :id => product.id, :shoe_size => "null"
+        assigns(:shoe_size).should eq(0)
+      end
+
+      it "should assign @shoe_size when has empty params" do
+        get :show, :id => product.id
+        assigns(:shoe_size).should eq(0)
+      end
+      
       it "should assign @facebook_app_id" do
         get :show, :id => product.id
         assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])

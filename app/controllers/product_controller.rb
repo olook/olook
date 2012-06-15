@@ -11,6 +11,9 @@ class ProductController < ApplicationController
     @url = request.protocol + request.host
     @product = Product.only_visible.find(params[:id])
     @variants = @product.variants
+    @gift = (params[:gift] == "true")
+    @only_view = (params[:only_view] == "true")
+    @shoe_size = params[:shoe_size].to_i
     respond_to :html, :js
   end
 
