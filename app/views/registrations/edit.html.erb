@@ -49,12 +49,12 @@
           </li>
         </ol>
       </fieldset>
+      <% if @presenter.try(:shoe_size_question) %>
       <fieldset class="shoe_size">
-        <%= fields_for current_user.user_info do |ui| %>
+        <%= fields_for 'user_info' do |ui| %>
         <h2>Qual o tamanho do seu sapato?</h2>
           <ul class="shoes_size">
-            <% question_shoe_size = @presenter.shoe_size_question
-            question_shoe_size.answers.each do |answer| %>
+            <% @presenter.shoe_size_question.answers.each do |answer| %>
             <li class="<%= ( answer.title == current_user.user_info.shoes_size.to_s ) ? 'selected': '' %>" >
               <label for="user_info_shoes_size_<%= answer.title %>">
                 <%= answer.title %>
@@ -65,6 +65,7 @@
           </ul>
         <% end %>
       </fieldset>
+      <% end %>
       <% if current_user.has_facebook? %>
         <fieldset class="facebook">
           <h2>Conta do Facebook utilizada</h2>
