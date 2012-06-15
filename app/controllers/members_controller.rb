@@ -3,13 +3,11 @@ class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :check_early_access, :only => [:showroom]
-  before_filter :redirect_if_half_user, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   # TODO: Added for valentine invite page
   before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
-  before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
-  before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
+  before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :redirect_user_if_new, :only => [:showroom]
   before_filter :redirect_user_if_old, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
@@ -143,21 +141,22 @@ class MembersController < ApplicationController
     redirect_to member_showroom_path, :alert => flash[:alert] if current_user.is_old?
   end
 
-  def load_offline_variant_and_clean_session
+  def check_session_and_send_to_cart
     @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
     session[:offline_variant] = nil
-  end
 
-  def check_session_and_send_to_cart
     unless @offline_variant.nil?
       order_id = (session[:order] ||= @user.orders.create.id)
       order = @user.orders.find(order_id)
       order.add_variant(@offline_variant)
       if session[:offline_first_access]
         session[:offline_first_access] = nil
-        redirect_to cart_path
+        return redirect_to cart_path
       end
     end
+    
+    #check if user is half_user
+    self.redirect_if_half_user
   end
 
   def load_friends

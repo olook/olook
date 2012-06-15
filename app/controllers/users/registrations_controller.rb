@@ -2,7 +2,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   layout :layout_by_resource
 
-  before_filter :check_survey_response, :only => [:new, :create]
+  before_filter :check_survey_response, :only => [:new]
   before_filter :load_order, :only => [:edit]
 
   def new
@@ -20,40 +20,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
     self.new
   end
   
-  def create_half
-    build_resource
-    resource.half_user = true
-    if resource.save
-      if resource.active_for_authentication?
-        sign_in(resource_name, resource)
-        GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id)
-        GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id)
-        redirect_to add_products_to_gift_cart_cart_path(:products => session[:gift_products])
-      else
-        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-        expire_session_data_after_sign_in!
-        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-      end
-    else
-      clean_up_passwords resource
-      respond_with resource do |format|
-         format.html { render :new_half }
-      end
-    end
-  end
-
   def create
     build_resource
     set_resource_attributes(resource)
-    resource.user_info = UserInfo.new({ :shoes_size => UserInfo::SHOES_SIZE[session["questions"]["question_57"]] })
-
+    
+    if session[:profile_points].nil?
+      resource.half_user = true
+    else
+      resource.user_info = UserInfo.new({ :shoes_size => UserInfo::SHOES_SIZE[session["questions"]["question_57"]] })
+    end
+    
     if resource.save
       save_tracking_params resource, session[:tracking_params]
-
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)
-        after_sign_up_path_for(resource)
+        
+        if session[:gift_products]
+          GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id)
+          GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id)
+          return redirect_to add_products_to_gift_cart_cart_path(:products => session[:gift_products])
+        end
+        
+        after_sign_up_path_for(resource) unless resource.half_user
+        
         redirect_to member_showroom_path
       else
         set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
@@ -62,7 +52,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords(resource)
-      respond_with_navigational(resource) { render_with_scope :new }
+      respond_with_navigational(resource) { 
+        if resource.half_user
+          render_with_scope :new_half
+        else
+          render_with_scope :new
+        end
+      }
     end
   end
 

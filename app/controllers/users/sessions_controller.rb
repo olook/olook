@@ -36,11 +36,12 @@ class Users::SessionsController < Devise::SessionsController
     elsif session[:gift_products]
       add_products_to_gift_cart_cart_path(:products => session[:gift_products])
     else
-      if current_user.half_user
-        gift_root_path
-      else
-        member_showroom_path
-      end
+      # if current_user.half_user
+      #   gift_root_path
+      # else
+      #   member_showroom_path
+      # end
+      member_showroom_path
     end
   end
 end
