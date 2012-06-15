@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe SessionsController do
+describe Users::SessionsController do
   render_views
   context "User login" do
     before :each do
