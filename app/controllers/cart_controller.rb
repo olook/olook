@@ -33,13 +33,6 @@ class CartController < ApplicationController
     render :json => true
   end
 
-  def update_coupon
-    code = params[:coupon][:code]
-    coupon_manager = CouponManager.new(@order, code)
-    response_message = coupon_manager.apply_coupon
-    redirect_to cart_path, :notice => response_message
-  end
-
   def remove_coupon
     coupon_manager = CouponManager.new(@order)
     response_message = coupon_manager.remove_coupon
