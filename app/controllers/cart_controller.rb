@@ -3,7 +3,7 @@ class CartController < ApplicationController
   layout "checkout"
 
   respond_to :html, :js
-  before_filter :verify_login, :only => [:add_products_to_gift_cart]
+  before_filter :verify_login_gift, :only => [:add_products_to_gift_cart]
   before_filter :authenticate_user!, :except => [:add_products_to_gift_cart]
   before_filter :load_user
   before_filter :check_early_access
@@ -216,10 +216,10 @@ class CartController < ApplicationController
     @user = current_user
   end
   
-  def verify_login
+  def verify_login_gift
     if not current_user and params[:products]
       session[:gift_products] = params[:products]
-      redirect_to new_gift_user_session_path
+      redirect_to new_half_user_session_path
     end
   end
 end

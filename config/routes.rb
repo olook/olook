@@ -217,12 +217,9 @@ Olook::Application.routes.draw do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     #gift
-    get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
-    post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
+    get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
+    post '/registrar' => "users/registrations#create_half", :as => :half_user_registration
   end
-  
-  # devise_for :half_users, :controllers => {:registrations => "registrations", :sessions => "sessions" } do
-  # end
   
 
   # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
