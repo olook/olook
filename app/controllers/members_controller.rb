@@ -7,6 +7,8 @@ class MembersController < ApplicationController
   before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :check_session_and_send_to_cart, :only => [:showroom]
+  before_filter :redirect_user_if_first, :only => [:showroom]
+  #before_filter :redirect_user_if_is_not_first, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
 
