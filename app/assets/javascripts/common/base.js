@@ -284,9 +284,17 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
-    $("div#modal").html("");
+  $("section#greetings div.facebook div.profile a").live("click", function(e) {
+    clone = $("div#profile_quiz").clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
+    $(".ui-dialog").css("top", "30px");
+    e.preventDefault();
+  });
+
+  $(".ui-widget-overlay, div#profile_quiz ul li a.close").live("click", function(e) {
     $("div#modal").dialog("close");
+    e.preventDefault();
   });
 });
 
@@ -313,17 +321,19 @@ initBase = {
   },
 
   modal : function(content) {
-    if($("div#modal").size() == 0) {
-      $("body").prepend("<div id='modal'></div>");
-    } else {
-      $("div#modal").html("");
-    }
+    $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
       width: 'auto',
-      modal: true
+      resizable: false,
+      draggable: false,
+      modal: true,
+      close: function(event) {
+        $("div#modal").html("");
+        $("div#modal").hide();
+      }
     });
   },
 

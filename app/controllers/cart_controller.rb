@@ -6,7 +6,6 @@ class CartController < ApplicationController
   before_filter :verify_login_gift, :only => [:add_products_to_gift_cart]
   before_filter :authenticate_user!, :except => [:add_products_to_gift_cart]
   before_filter :load_user
-  before_filter :check_early_access
   before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
   before_filter :current_order
   before_filter :format_credits_value, :only => [:update_bonus]

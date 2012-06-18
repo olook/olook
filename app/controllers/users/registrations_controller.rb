@@ -62,7 +62,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def edit
+    @questions = Question.from_registration_survey
+    @presenter = SurveyQuestions.new(@questions)
+  end
+
   def update
+    @questions = Question.from_registration_survey
+    @presenter = SurveyQuestions.new(@questions)
     if params[:user][:password].blank?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation) if
@@ -73,12 +80,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
 
-    resource.require_cpf = true
+    #resource.require_cpf = true
     if resource.update_attributes(params[:user])
+      resource.user_info.update_attributes(params[:user_info]) if params[:user_info]
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
       sign_in resource_name, resource, :bypass => true
-      redirect_to after_update_path_for(resource)
+      render_with_scope :edit
     else
       clean_up_passwords(resource)
       render_with_scope :edit

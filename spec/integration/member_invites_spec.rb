@@ -16,7 +16,6 @@ feature "Member can send invites", %q{
     background do
       FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
       do_login!(user)
-      user.record_early_access
       SurveyQuestions.stub(:new).and_return(false)
       @member = User.find_by_email(user.email)
     end
