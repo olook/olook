@@ -4,7 +4,9 @@ Olook::Application.routes.draw do
   get "liquidation_products/index"
   get "index/index"
   root :to => "home#index"
-
+ 
+  match '/404', :to => "application#render_public_exception"
+  match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
   match "/bem_vinda", :to => "pages#welcome", :as => "welcome"
   match "/sobre", :to => "pages#about", :as => "about"
@@ -225,4 +227,5 @@ Olook::Application.routes.draw do
 
   # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
   get ":page_url", :to => "landing_pages#show"
+  
 end
