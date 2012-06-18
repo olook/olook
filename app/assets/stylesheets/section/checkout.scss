@@ -811,6 +811,12 @@ section#payment {
           cursor: pointer;
         }
       }
+      div#rules {
+        display: none;
+        &.clone {
+          display: block;
+        }
+      }
     }
   }
   &.confirmation {
@@ -1036,6 +1042,32 @@ section.checkout {
       display: block;
       cursor: pointer;
       border: none;
+    }
+  }
+}
+
+div#modal {
+  div#rules {
+    width: 640px;
+    padding: 20px;
+    h1 {
+      font-family: Times, "Times New Roman", Georgia, serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: normal;
+      letter-spacing: -2px;
+      margin: 0 0 15px;
+    }
+    h2 {
+      color: #E05789;
+      font-family: sans-serif;
+      letter-spacing: -1px;
+      font-size: 16px;
+      margin: 15px 0;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 13px;
     }
   }
 }
