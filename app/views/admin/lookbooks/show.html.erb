@@ -19,6 +19,14 @@
     <b>Icon Over:</b>
     <%= image_tag @lookbook.icon_over.try(:url) %>
   </p>
+  <p>
+    <b>Foreground Color:</b>
+    <%= @lookbook.fg_color %>
+  </p>
+  <p>
+    <b>Background Color:</b>
+    <%= @lookbook.bg_color %>
+  </p>
 
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
   <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>
