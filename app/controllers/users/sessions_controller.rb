@@ -2,7 +2,7 @@
 class Users::SessionsController < Devise::SessionsController
   after_filter :create_sign_in_event, :only => :create
   before_filter :create_sign_out_event, :only => :destroy
-    
+
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     set_flash_message(:notice, :signed_in) if is_navigational_format?
@@ -36,11 +36,18 @@ class Users::SessionsController < Devise::SessionsController
     elsif session[:gift_products]
       add_products_to_gift_cart_cart_path(:products => session[:gift_products])
     else
-      # if current_user.half_user
-      #   gift_root_path
-      # else
-      #   member_showroom_path
-      # end
+       if current_user.half_user
+         half_user_redirect_logic
+       else
+         member_showroom_path
+       end
+    end
+  end
+
+  def half_user_redirect_logic
+    if current_user.male?
+      gift_root_path
+    else
       member_showroom_path
     end
   end
