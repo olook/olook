@@ -12,9 +12,8 @@
       <div id="container_marcos">
         <p>Finalize sua compra e tenha a chance de ter um dia incrível no salão <br />do Marcos Proença, com direito a uma transformação total.</p>
         <p>
-          <%#= check_box :campaing, :sign_campaing, {}, 'marcos_proenca', false %>
-          <%= f.check_box :user_name, {}, 'marcos_proenca', false %>
-          <%= f.label :user_name, "aceito receber novidades do Marcos Proença" %>
+          <%= check_box :campaing, :sign_campaing, {}, 'marcos_proenca', false %>
+          <%= label_tag "campaing_sign_campaing", "aceito receber novidades do Marcos Proença" %>
         </p>
         <p>
           <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
