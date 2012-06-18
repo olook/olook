@@ -77,10 +77,11 @@ describe InviteBonus do
       end
 
       context "user has orders" do
-        let!(:order_1) { FactoryGirl.create(:order, :user => member, :credits => 23.56) }
-        let!(:order_2) { FactoryGirl.create(:order, :user => member, :credits => 3.23) }
-        let!(:order_3) { FactoryGirl.create(:order, :user => member) }
-        let!(:order_4) { FactoryGirl.create(:order_without_payment, :user => member, :credits => 12.90) }
+        let!(:line_item) { [ FactoryGirl.create(:line_item, :price => 100.0) ] }
+        let!(:order_1) { FactoryGirl.create(:order, :user => member, :line_items => line_item, :credits => 23.56 ) }
+        let!(:order_2) { FactoryGirl.create(:order, :user => member, :line_items => line_item, :credits => 3.23 ) }
+        let!(:order_3) { FactoryGirl.create(:order, :user => member, :line_items => line_item) }
+        let!(:order_4) { FactoryGirl.create(:order_without_payment, :user => member, :line_items => line_item, :credits => 12.90 ) }
 
         it "should return the sum of credits used in the orders that have a payment" do
           described_class.already_used(member).should == 26.79

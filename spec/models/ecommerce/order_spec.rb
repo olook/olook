@@ -187,25 +187,36 @@ describe Order do
       end
     end
 
+    describe "#update_credits!" do
+      it "should update the credits if a discount or promotion changed the maximal value." do
+          subject.stub!(:max_credit_value).and_return(50.00)
+          subject.credits = 100.00
+          subject.credits.should == 50.00
+          subject.stub!(:max_credit_value).and_return(30.00)
+          subject.update_credits!
+          subject.credits.should == 30.00
+      end
+    end
+
     describe "#credits" do
       context "when the credit is smaller than the max allowed" do
         it "should return the credit amount asked by the user" do
-          subject.should_receive(:read_attribute).with(:credits).and_returns(100.00)
           subject.stub!(:max_credit_value).and_return(150.00)
+          subject.credits = 100.00
           subject.credits.should == 100.00
         end
       end
 
       context "when the credit is bigger than the max allowed" do
         it "should return the max credit amount" do
-          subject.should_receive(:read_attribute).with(:credits).and_returns(100.00)
           subject.stub!(:max_credit_value).and_return(50.00)
+          subject.credits = 100.00
           subject.credits.should == 50.00
         end
       end
 
       it 'should return 0 if credits is nil' do
-        subject.should_receive(:read_attribute).with(:credits).and_returns(nil)
+        subject.credits = nil
         subject.credits.should == 0
       end
     end
@@ -625,6 +636,7 @@ describe Order do
 
     context "when a order has an associated credit" do
       it "removes this credit from the user" do
+        subject.stub(:line_items_total).and_return(50.00)
         subject.credits = BigDecimal.new("10.30")
         subject.save!
 
