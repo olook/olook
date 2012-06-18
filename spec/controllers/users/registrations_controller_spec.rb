@@ -119,10 +119,10 @@ describe Users::RegistrationsController do
      user.birthday.to_s.should == "1987-09-27"
     end
 
-    it "should redirect to member showroom page" do
+    it "should redirect to member welcome page" do
       session[:profile_points] = :some_data
       post :create, :user => user_attributes
-      response.should redirect_to(member_showroom_path)
+      response.should redirect_to(member_welcome_path)
     end
 
     it "should not redirect to welcome page" do
@@ -134,7 +134,7 @@ describe Users::RegistrationsController do
       controller.stub(:set_resource_attributes)
       controller.stub(:resource).and_return(resource)
       post :create, :user => user_attributes
-      response.should_not redirect_to(welcome_path)
+      response.should_not redirect_to(member_welcome_path)
     end
 
     it "should not redirect to welcome page" do
@@ -148,7 +148,7 @@ describe Users::RegistrationsController do
       controller.stub(:resource).and_return(resource)
       controller.stub(:inactive_reason)
       post :create, :user => user_attributes
-      response.should_not redirect_to(welcome_path)
+      response.should_not redirect_to(member_welcome_path)
     end
 
     it "should redirect if the user dont fill the Survey" do
