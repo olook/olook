@@ -24,6 +24,7 @@ class MembersController < ApplicationController
       session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
       @yahoo_oauth_url = yahoo_request.authorize_url
     end
+    respond_to :html, :js
   end
   # TODO: Added for valentine invite page / Remove after
   def valentine_invite
@@ -137,7 +138,7 @@ class MembersController < ApplicationController
     params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
   end
 
-  def redirect_user_if_first 
+  def redirect_user_if_first
     redirect_to member_welcome_path, :alert => flash[:notice] if current_user.first_visit?
   end
 
