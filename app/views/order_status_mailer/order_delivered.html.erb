@@ -14,7 +14,7 @@
             <table cellpadding="0" cellspacing="0">
               <tr>
                 <td width="189"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/logo.jpg" alt="olook" border="0" title="olook"></td>
-                <td width="431" align="left"><a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=t12_entrega_realizada" target="_blank"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/frases.gif" alt="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolução fácil e gratuita. O cadastro é gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para você." border="0" title="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$120 e devolução fácil e gratuita. O cadastro é gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para você."></a></td>
+                <td width="431" align="left"><a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=t12_entrega_realizada" target="_blank"><img src="http://cdn.olook.com.br/assets/emailmkt/topo_barra/frases_corrigido.gif" alt="Todos os meses uma coleção nova para você." border="0" title="Todos os meses uma coleção nova para você."></a></td>
               </tr>
             </table>
           </td>
@@ -28,24 +28,21 @@
             <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;width:540px;text-align:left">
 
 
-              <p style="font-size:16px">Olá <%= @order.user.first_name %>,</p>
+              <p style="font-size:16px">Olá <b><%= @order.user.first_name %></b>,</p>
 
 
-              <p>Temos uma ótima notícia! Seu pedido nº <span style="color:#e05789"><%= @order.number %></span> foi entregue para você!</p>
+              <p>Temos uma ótima notícia!
+			  <br>O pedido nº<span style="color:#e05789"><%= @order.number %></span> foi entregue para você!</p>
 
-              <p>Esperamos que a sua experiência na olook tenha sido ótima.</p>
+              <p>Esperamos que a sua experiência de compra tenha sido ótima.</p>
 
-              <p>Agora é aproveitar e arrasar no seu look! Tire uma foto para nós, usando a sua comprinha, poste no <a href="http://www.facebook.com.br/olook" style="color:#e05789" target="_blank">Facebook</a> e tag a olook! ;)</p>
-
-              <p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#e05789" target="_blank">falecom@olook.com.br</a> e a nossa equipe irá te responder o mais rápido possível.</p>
-
-
-              <br><br>
-              <p>Até mais,<br>
+              <p>Agora é aproveitar e arrasar no seu look! Tire uma foto usando a sua comprinha, poste no <a href="http://www.facebook.com.br/olook" style="color:#e05789" target="_blank">Facebook</a> e tag a olook! ;)</p>
+			  
+			  <p>Não serviu ou não gostou? Solicite a troca ou devolução em até 30 dias, sem custo. Envie um e-mail para <a "falecom@olook.com.br" style="color:#e05789" target="_blank">falecom@olook.com.br</a> e a nossa equipe vai te ajudar.<p>
+              <br>Até mais,<br>
                 Equipe olook<br>
                 <a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=t12_entrega_realizada" style="color:#e05789;font-size:14px" target="_blank">www.olook.com.br</a>
-              </p>
-
+              
 
             </div>
             <br><br></td>
