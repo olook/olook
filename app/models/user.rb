@@ -247,6 +247,14 @@ class User < ActiveRecord::Base
     PromotionService.user_applies_for_this_promotion?(self, Promotion.purchases_amount)
   end
 
+  def male?
+    self.gender == Gender[:male]
+  end
+
+  def female?
+    self.gender == Gender[:female]
+  end
+
   private
 
   def generate_invite_token
