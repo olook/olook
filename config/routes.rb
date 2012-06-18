@@ -227,7 +227,6 @@ Olook::Application.routes.draw do
     get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
     post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
   end
-
-  # TO-DO Could be removed after mothers day or leave as default route for special events with landing pages
+  
   get ":page_url", :to => "landing_pages#show"
 end
