@@ -42,6 +42,12 @@ gem 'dalli', '2.0.2'
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 
+group :assets do
+  gem 'sass-rails', "~> 3.2.3"
+  gem 'coffee-rails', "~> 3.2"
+  gem 'uglifier', '~> 1.0.3'
+end
+
 group :development do
   gem 'faker'
 end
@@ -68,6 +74,8 @@ group :test do
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'webmock', '1.7.0'
+  gem 'selenium-webdriver', '2.21.1'
+  gem 'webmock-disabler'
 end
 
 group :production do

@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe MarketingReports::Builder do
+  before :all do
+    User.delete_all
+  end
   let(:user_a) { FactoryGirl.create :user }
   let(:user_b) { FactoryGirl.create :user }
   let(:user_c) { FactoryGirl.create :user }
@@ -85,7 +88,7 @@ describe MarketingReports::Builder do
     it "builds a csv file containing all user data" do
 
       csv_body = [user_a, user_b, user_c].inject("") do |data, user|
-        data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
+        data += "#{user.id},#{user.email.chomp},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
         data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?}\n"
         data
       end

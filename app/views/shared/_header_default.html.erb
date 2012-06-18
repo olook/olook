@@ -45,7 +45,7 @@
   <div id="wrapper_menu">
     <nav class="menu">
       <div class="content">
-        <% if current_user.has_early_access?  && !current_user.half_user? %>
+        <% if !current_user.half_user? %>
         <ul class="product_anchors">
           <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
           <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>

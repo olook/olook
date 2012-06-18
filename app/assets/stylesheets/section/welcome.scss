@@ -16,6 +16,9 @@ section#welcome {
       color: #df5a8b;
     }
   }
+  div#profile_quiz {
+    display: block;
+  }
   section#painel {
     position: relative;
     background: url("/assets/welcome/bg-painel-top.png") center top no-repeat;

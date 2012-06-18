@@ -338,12 +338,6 @@ describe User do
     end
   end
 
-  describe "#has_early_access?" do
-    it 'should always return true' do
-      subject.has_early_access?.should be_true
-    end
-  end
-
   describe "#add_event" do
     it "should add an event for the user" do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
