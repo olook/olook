@@ -11,9 +11,17 @@
       <%= render :partial => 'form', :locals => { :f => f, :payment => @payment, :bank => @bank, :installments => @installments } %>
       <div id="container_marcos">
         <p>Finalize sua compra e tenha a chance de ter um dia incrível no salão <br />do Marcos Proença, com direito a uma transformação total.</p>
-        <%= f.check_box :sign_campaing, {}, 'marcos_proenca', false %>
-        <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
-        <%= link_to "confira o regulamento", "#" %>
+        <p>
+          <%#= check_box :campaing, :sign_campaing, {}, 'marcos_proenca', false %>
+          <%= f.check_box :user_name, {}, 'marcos_proenca', false %>
+          <%= f.label :user_name, "aceito receber novidades do Marcos Proença" %>
+        </p>
+        <p>
+          <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
+        </p>
+        <p>
+          <%= link_to "confira o regulamento", "#" %>
+        </p>
       </div>
     </section>
     <section class="sidebar">
