@@ -22,13 +22,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def create
     build_resource
-    set_resource_attributes(resource)
-    
-    if session[:profile_points].nil?
-      resource.half_user = true
-    else
+    unless resource.half_user
+      return redirect_to new_survey_path if session[:profile_points].nil?
+      
       resource.user_info = UserInfo.new({ :shoes_size => UserInfo::SHOES_SIZE[session["questions"]["question_57"]] })
     end
+
+    set_resource_attributes(resource)
     
     if resource.save
       save_tracking_params resource, session[:tracking_params]
