@@ -22,14 +22,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
-    set_resource_attributes(resource)
-
-    if session[:profile_points].nil?
-      resource.half_user = true
-    else
+    unless resource.half_user
+      return redirect_to new_survey_path if session[:profile_points].nil?
+      
       resource.user_info = UserInfo.new({ :shoes_size => UserInfo::SHOES_SIZE[session["questions"]["question_57"]] })
     end
 
+    set_resource_attributes(resource)
+    
     if resource.save
       save_tracking_params resource, session[:tracking_params]
       if resource.active_for_authentication?
@@ -44,7 +44,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         after_sign_up_path_for(resource) unless resource.half_user
 
-        redirect_to member_showroom_path
+        redirect_to member_welcome_path
       else
         set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
         expire_session_data_after_sign_in!
