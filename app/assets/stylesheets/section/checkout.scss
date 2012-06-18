@@ -718,6 +718,7 @@ section#payment {
       }
     }
     div.credit_cart_payment {
+      margin: 0 0 30px 0;
       padding: 20px 0 0 0;
       fieldset {
         &.inputs {
@@ -774,6 +775,40 @@ section#payment {
               }
             }
           }
+        }
+      }
+    }
+    div#container_marcos {
+      background: url("/assets/cart/bg-marcos-proenca.jpg") top center no-repeat;
+      width: 645px;
+      height: 421px;
+      padding: 25px 0 0 0;
+      p {
+        color: #231f20;
+        font-family: "Futura Light", sans-serif;
+        font-size: 18px;
+        text-align: center;
+        line-height: 28px;
+        width: 535px;
+        margin: 0 auto 5px;
+        label {
+          font-size: 16px;
+        }
+        a {
+          color: #043093;
+          font-size: 13px;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        input[type="submit"] {
+          background: url("/assets/cart/bt-finish.jpg") no-repeat;
+          width: 154px;
+          height: 55px;
+          display: inline-block;
+          border: none;
+          cursor: pointer;
         }
       }
     }
