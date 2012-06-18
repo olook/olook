@@ -247,6 +247,13 @@ class User < ActiveRecord::Base
     self.gender == Gender[:female]
   end
 
+  def upgrade_to_full_user!
+    if self.half_user
+      self.half_user = false
+      self.save
+    end
+  end
+
   private
 
   def generate_invite_token

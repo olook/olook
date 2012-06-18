@@ -7,8 +7,6 @@ class MembersController < ApplicationController
   before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :check_session_and_send_to_cart, :only => [:showroom]
-  before_filter :redirect_user_if_first, :only => [:showroom]
-  before_filter :redirect_user_if_is_not_first, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
 
@@ -94,6 +92,7 @@ class MembersController < ApplicationController
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
+    render "/home/index" if @user.half_user and @user.female?
   end
 
   def show_imported_contacts
