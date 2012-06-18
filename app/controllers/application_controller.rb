@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def redirect_if_half_user
-    if current_user.half_user
+    if current_user.half_user && current_user.male?
       redirect_to lookbooks_path
     end
   end
