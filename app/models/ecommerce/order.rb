@@ -256,25 +256,34 @@ class Order < ActiveRecord::Base
     else
       max_credit_possible -= discount_from_promotion
     end
+
+    max_credit_possible > 0 ? max_credit_possible : 0
+  end
+
+  def credits=(credits_customer_want_to_use)
+    super(credits_customer_want_to_use)
+    self.credits = max_credit_value if credits > max_credit_value
   end
 
   def credits
-    credits_customer_want_to_use = read_attribute :credits
-    if credits_customer_want_to_use > max_credit_value
-      max_credit_value
-    elsif !credits_customer_want_to_use.nil?
-      credits_customer_want_to_use
-    else
-      0
-    end
+    credits_to_use = read_attribute :credits
+    credits_to_use.nil? ? 0 : credits_to_use
   end
 
   def discount_from_coupon
     if used_coupon
-      used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+      max_discount = line_items_total - Payment::MINIMUM_VALUE
+      discount_value = used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+      discount_value = max_discount if discount_value > max_discount
+      discount_value
     else
       0
     end
+  end
+
+  def update_credits!
+    self.credits = read_attribute :credits
+    self.save
   end
 
   def discount_from_promotion

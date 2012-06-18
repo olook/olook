@@ -59,10 +59,14 @@ class CartController < ApplicationController
   def update_bonus
     credits = BigDecimal.new(params[:credits][:value].to_s)
     if @user.current_credit >= credits && credits > 0
-      @order.update_attributes(:credits => credits)
+      @order.credits = credits
+      @order.save
       destroy_freight(@order)
-      # TODO: Check if use_credits activated the flag credits_exceeded_buy_value
-      redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
+      if credits > @order.max_credit_value
+        redirect_to cart_path, :notice => "Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido."
+      else
+        redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
+      end
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
     end
