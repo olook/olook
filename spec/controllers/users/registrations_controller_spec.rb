@@ -119,38 +119,43 @@ describe Users::RegistrationsController do
      user.birthday.to_s.should == "1987-09-27"
     end
 
-    it "should redirect to member showroom page" do
+    it "should redirect to member welcome page" do
       session[:profile_points] = :some_data
       post :create, :user => user_attributes
-      response.should redirect_to(member_showroom_path)
+      response.should redirect_to(member_welcome_path)
     end
 
     it "should not redirect to welcome page" do
       session[:profile_points] = :some_data
       resource = double
       resource.stub(:user_info=)
+      resource.stub(:half_user).and_return(false)
       resource.stub(:save).and_return(false)
       controller.stub(:set_resource_attributes)
       controller.stub(:resource).and_return(resource)
       post :create, :user => user_attributes
-      response.should_not redirect_to(welcome_path)
+      response.should_not redirect_to(member_welcome_path)
     end
 
     it "should not redirect to welcome page" do
       session[:profile_points] = :some_data
       resource = double
       resource.stub(:user_info=)
+      resource.stub(:half_user).and_return(false)
       resource.stub(:save).and_return(true)
       resource.stub(:active_for_authentication?).and_return(false)
       controller.stub(:set_resource_attributes)
       controller.stub(:resource).and_return(resource)
       controller.stub(:inactive_reason)
       post :create, :user => user_attributes
-      response.should_not redirect_to(welcome_path)
+      response.should_not redirect_to(member_welcome_path)
     end
 
     it "should redirect if the user dont fill the Survey" do
       session[:profile_points] = nil
+      resource = double
+      resource.stub(:half_user).and_return(false)
+      controller.stub(:resource).and_return(resource)
       post :create
       response.should redirect_to(new_survey_path)
     end
