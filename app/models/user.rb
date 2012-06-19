@@ -254,6 +254,10 @@ class User < ActiveRecord::Base
       self.save
     end
   end
+  
+  def resgistered_via? register_type
+    self.registered_via == ResgisteredVia[register_type]
+  end
 
   private
 

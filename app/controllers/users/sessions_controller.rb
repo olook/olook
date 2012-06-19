@@ -17,23 +17,17 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def create_sign_in_event
-    if current_user.is_a?(User)
-      current_user.add_event(EventType::SIGNIN)
-    end
+    current_user.add_event(EventType::SIGNIN)
   end
 
   def create_sign_out_event
-    if current_user.is_a?(User)
-      current_user.add_event(EventType::SIGNOUT)
-    end
+    current_user.add_event(EventType::SIGNOUT)
   end
 
   private
 
   def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.is_a?(Admin)
-      admin_path
-    elsif session[:gift_products]
+    if session[:gift_products]
       add_products_to_gift_cart_cart_path(:products => session[:gift_products])
     else
        if current_user.half_user
@@ -45,10 +39,10 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def half_user_redirect_logic
-    if current_user.male?
+    if current_user.resgistered_via? :gift
       gift_root_path
     else
-      member_showroom_path
+      lookbooks_path
     end
   end
 end
