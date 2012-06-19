@@ -12,6 +12,23 @@
   <% end %>
 
   <p>
+<% if @image.lookbook_image_maps.size > 0 %>
+<style>
+.product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+.product-map {background-image:url(<%= @image.lookbook.icon_url %>);}
+.product-map:hover {background-image:url(<%= @image.lookbook.icon_over.url %>);}
+.product-map span {visibility:hidden; padding:5px; background-color:<%= @image.lookbook.bg_color %>;}
+.product-map a {color:<%= @image.lookbook.fg_color %>;}
+.product-map:hover span {visibility:visible;}
+
+<% @image.lookbook_image_maps.each do |lim| %>
+  #pm<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
+<% end %>
+</style>
+  <% @image.lookbook_image_maps.each do |lim| %>
+    <div class="product-map" id="pm<%= lim.id %>"><span><%= link_to lim.product.name, product_path(lim.product.id) %></span></div>
+  <% end %>
+<% end %>
     <b>Current image:</b><br />
     <%= image_tag @image.image.to_s %>
   </p>

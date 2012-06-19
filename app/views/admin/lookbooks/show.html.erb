@@ -1,3 +1,12 @@
+<style>
+.product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+.product-map {background-image:url(<%= @lookbook.icon_url %>);}
+.product-map:hover {background-image:url(<%= @lookbook.icon_over.url %>);}
+.product-map span {visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
+.product-map a {color:<%= @lookbook.fg_color %>;}
+.product-map:hover span {visibility:visible;}
+</style>
+
 <h2>Lookbook</h2>
 <div class="inner">
   <p id="notice"><%= notice %></p>
