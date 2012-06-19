@@ -39,9 +39,9 @@ class Order < ActiveRecord::Base
   has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
-  
+
   validates :gift_message, :length => {:maximum => 140}, :allow_nil => true
-  
+
   scope :with_payment, joins(:payment)
   scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
   scope :paid, where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
@@ -166,7 +166,7 @@ class Order < ActiveRecord::Base
       end
     end
   end
-  
+
   def clear_gift_in_line_items
     reload
     line_items.each {|item| item.update_attributes(:gift => false)}
@@ -193,7 +193,7 @@ class Order < ActiveRecord::Base
     reload
     line_items.each {|item| item.update_attributes(:gift_wrap => true)}
   end
-  
+
   def clear_line_items_gift_wrapping
     reload
     line_items.each {|item| item.update_attributes(:gift_wrap => false)}
@@ -213,7 +213,7 @@ class Order < ActiveRecord::Base
     unavailable_items.each {|item| item.destroy}
     size_items
   end
-  
+
   #TODO: refactor this to include price as a parameter
   def add_variant(variant, quantity=nil, gift_wrap=false)
     quantity ||= Order::DEFAULT_QUANTITY.to_i
@@ -248,17 +248,42 @@ class Order < ActiveRecord::Base
     BigDecimal.new(line_items.inject(0){|result, item| result + item.total_price}.to_s)
   end
 
+  def max_credit_value
+    max_credit_possible = line_items_total
+    max_credit_possible -= Payment::MINIMUM_VALUE
+    if discount_from_coupon > 0
+      max_credit_possible -= discount_from_coupon
+    else
+      max_credit_possible -= discount_from_promotion
+    end
+
+    max_credit_possible > 0 ? max_credit_possible : 0
+  end
+
+  def credits=(credits_customer_want_to_use)
+    super(credits_customer_want_to_use)
+    self.credits = max_credit_value if credits > max_credit_value
+  end
+
   def credits
-    result = read_attribute :credits
-    result.nil? ? 0 : result
+    credits_to_use = read_attribute :credits
+    credits_to_use.nil? ? 0 : credits_to_use
   end
 
   def discount_from_coupon
     if used_coupon
-      used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+      max_discount = line_items_total - Payment::MINIMUM_VALUE
+      discount_value = used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+      discount_value = max_discount if discount_value > max_discount
+      discount_value
     else
       0
     end
+  end
+
+  def update_credits!
+    self.credits = read_attribute :credits
+    self.save
   end
 
   def discount_from_promotion

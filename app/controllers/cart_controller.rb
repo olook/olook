@@ -32,13 +32,6 @@ class CartController < ApplicationController
     render :json => true
   end
 
-  def update_coupon
-    code = params[:coupon][:code]
-    coupon_manager = CouponManager.new(@order, code)
-    response_message = coupon_manager.apply_coupon
-    redirect_to cart_path, :notice => response_message
-  end
-
   def remove_coupon
     coupon_manager = CouponManager.new(@order)
     response_message = coupon_manager.remove_coupon
@@ -58,9 +51,14 @@ class CartController < ApplicationController
   def update_bonus
     credits = BigDecimal.new(params[:credits][:value].to_s)
     if @user.current_credit >= credits && credits > 0
-      @order.update_attributes(:credits => credits)
+      @order.credits = credits
+      @order.save
       destroy_freight(@order)
-      redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
+      if credits > @order.max_credit_value
+        redirect_to cart_path, :notice => "Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido."
+      else
+        redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
+      end
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
     end
@@ -128,30 +126,30 @@ class CartController < ApplicationController
       end
     end
   end
-  
+
   def add_products_to_gift_cart
     session[:gift_products] = params[:products]
     if session[:gift_products] && @order
       @order.update_attributes :restricted => true if !@order.restricted?
       @order.line_items.destroy_all
-      
+
       # to get shoe size
       @gift_recipient = GiftRecipient.find(session[:recipient_id])
-      
+
       # add products to cart
       session[:gift_products].each_pair do |k, id|
         variant = Variant.find(id)
         line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
       end
       calculate_gift_prices(@order)
-      
+
       total_products = @order.line_items.size
       redirect_to(cart_path, :notice => total_products > 0 ? "Produtos adicionados com sucesso" : "Um ou mais produtos selecionados não estão disponíveis")
     else
       redirect_to(:back, :notice => "Produtos não foram adicionados")
     end
   end
-  
+
   # needs testing
   def calculate_gift_prices order
     return if !order.restricted? || order.line_items.empty?
@@ -214,7 +212,7 @@ class CartController < ApplicationController
   def load_user
     @user = current_user
   end
-  
+
   def verify_login
     if not current_user and params[:products]
       session[:gift_products] = params[:products]
