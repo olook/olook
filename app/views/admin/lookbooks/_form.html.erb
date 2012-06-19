@@ -46,11 +46,11 @@
 
   <div class="field">
     <%= f.label :fg_color %><br />
-    <%= f.text_field :fg_color %>
+    <%= f.text_field :fg_color, class: 'color-picker miniColors', size: 6, maxlength: 7, autocomplete: 'off' %>
   </div>
   <div class="field">
     <%= f.label :bg_color %><br />
-    <%= f.text_field :bg_color %>
+    <%= f.text_field :bg_color, class: 'color-picker miniColors', size: 6, maxlength: 7, autocomplete: 'off' %>
   </div>
 
   <div class="actions">
