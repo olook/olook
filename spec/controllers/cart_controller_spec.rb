@@ -114,7 +114,8 @@ describe CartController do
 
         it "updates the order with a new credits value" do
           session[:order] = order
-          Order.any_instance.should_receive(:update_attributes).with(:credits => BigDecimal.new(credits_value))
+          Order.any_instance.should_receive(:credits=).with(BigDecimal.new(credits_value))
+          Order.any_instance.should_receive(:save)
           put :update_bonus, :credits => {:value => credits_value}
         end
 
@@ -133,10 +134,17 @@ describe CartController do
         end
 
         it "displays notice saying that the credits were updated successfully" do
-          put :update_bonus, :credits => {:value =>  credits_value}
+          Order.any_instance.stub(:max_credit_value).and_return(50.00)
+          put :update_bonus, :credits => {:value => credits_value }
           flash[:notice].should eq("Créditos atualizados com sucesso")
         end
 
+        it "displays notice saying that the credits were higher than allowed and updated to the limit" do
+          session[:order] = order.id
+          Order.any_instance.stub(:max_credit_value).and_return(50.00)
+          put :update_bonus, :credits => { :value => '70.00' }
+          flash[:notice].should eq("Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido.")
+        end
       end
 
       context "when the user not enough credits" do
