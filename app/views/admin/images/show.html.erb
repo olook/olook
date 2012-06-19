@@ -1,10 +1,42 @@
 <h2>Picture</h2>
+<style>
+.product-map {z-index:1; position:relative; background-image:url(<%= @image.lookbook.icon_url %>); background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+.product-map:hover {background-image:url(<%= @image.lookbook.icon_over.url %>);}
+.product-map span {visibility:hidden;}
+.product-map:hover span {visibility:visible; background-color:<%= @image.lookbook.bg_color %>; color:<%= @image.lookbook.fg_color %>; padding:5px;}
+
+<% @image.lookbook_image_maps.each do |lim| %>
+  .pm-<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
+<% end %>
+</style>
 <div class="inner">
-  
+
   <p>
-    <b>Thumb:</b>
+  <% @image.lookbook_image_maps.each do |lim| %>
+    <div class="product-map pm-<%= lim.id %>"><span><%= link_to lim.product.name, product_path(lim.product.id) %></span></div>
+  <% end %>
+    <b>Thumb:</b><br />
     <%= image_tag @image.image_url(:thumb).to_s %>
   </p>
+
+<table class="table">
+  <tr>
+    <th>Product</th>
+    <th>Coordinates</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @image.lookbook_image_maps.each do |lim| %>
+  <tr>
+    <td><%= lim.product.name %></td>
+    <td>X:<%= lim.coord_x %> Y:<%= lim.coord_y %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  <tr>
+<% end %>
+</table>
  
 </div>
 
