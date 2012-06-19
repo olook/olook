@@ -23,6 +23,7 @@ class CreditCardsController < ApplicationController
     @installments = params[:credit_card][:payments]
 
     if @payment.valid?
+      insert_user_in_campaing(params[:campaing][:sign_campaing]) if params[:campaing]
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
