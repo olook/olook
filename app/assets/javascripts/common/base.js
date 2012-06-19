@@ -235,14 +235,14 @@ $(document).ready(function() {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
   });
-  
+
   // $("#product_add_to_cart").bind("ajax:success", function(evt, xhr, settings){
   //   $("#cart_summary").show();
   //   $("#cart_summary li.last").before(xhr.responseText);
   //   $("#cart_summary li.product_item:last").fadeIn('slow');
-  // 
+  //
   //   $("nav.menu ul li.cart a.cart").addClass("selected");
-  //   $("#cart_items").text(parseInt($("#cart_summary li.product_item").length))    
+  //   $("#cart_items").text(parseInt($("#cart_summary li.product_item").length))
   //   setTimeout(function(){
   //     $("#cart_summary").fadeOut('slow');
   //   }, 2000);
@@ -285,10 +285,7 @@ $(document).ready(function() {
   });
 
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
-    clone = $("div#profile_quiz").clone().addClass("clone");
-    content = clone[0].outerHTML;
-    initBase.modal(content);
-    $(".ui-dialog").css("top", "30px");
+    initBase.showProfileLightbox();
     e.preventDefault();
   });
 
@@ -299,6 +296,13 @@ $(document).ready(function() {
 });
 
 initBase = {
+  showProfileLightbox : function() {
+    clone = $("div#profile_quiz").clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
+    $(".ui-dialog").css("top", "30px");
+  },
+
   spyLinkId : function(color) {
     productId = $(color).siblings(".product_id").val();
     hoverBox = $(color).parents("li.product").find(".hover_suggestive");
