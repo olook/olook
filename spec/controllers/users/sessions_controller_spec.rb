@@ -2,76 +2,75 @@
 require 'spec_helper'
 
 describe Users::SessionsController do
+
   render_views
-  context "User login" do
-    before :each do
-      request.env['devise.mapping'] = Devise.mappings[:user]
-    end
-    let(:user) { FactoryGirl.create(:user) }
-
-    describe "Post 'create'" do
-      it "should redirect to the showroom user page" do
-        post :create, :user => { :email => user.email, :password => user.password }
-        response.should redirect_to(member_showroom_path)
-      end
-
-      it "should try to create a sign event for the user" do
-        subject.should_receive(:create_sign_in_event)
-        post :create, :user => { :email => user.email, :password => user.password }
-      end
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:user]
+  end
+  let(:user) { FactoryGirl.create(:user) }
+  let(:user_params) {{ :email => user.email, :password => user.password }}
+  let(:gift_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::ResgisteredVia[:gift]) }
+  let(:gift_user_params) {{ :email => gift_user.email, :password => gift_user.password }}
+  let(:thin_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::ResgisteredVia[:thin]) }
+  let(:thin_user_params) {{ :email => thin_user.email, :password => thin_user.password }}
+  
+  describe "sign out" do
+    it "should add event of sign out" do
+      controller.stub(:current_user).and_return(user)
+      user.should_receive(:add_event).with(EventType::SIGNOUT)
+      post :destroy
     end
   end
-
-  context "Admin login" do
-    before :each do
-      request.env['devise.mapping'] = Devise.mappings[:admin]
+  
+  describe "sign in" do
+    xit "should add event of sign in" do
+      controller.stub(:current_user).and_return(user)
+      user.should_receive(:add_event).with(EventType::SIGNIN)
+      post :create, user_params
     end
-    let(:admin) { FactoryGirl.create(:admin) }
-
-    describe "Post 'create'" do
-      it "should redirect to admin page" do
-        post :create, :admin => { :email => admin.email, :password => admin.password }
-        response.should redirect_to(admin_path)
-      end
-    end
-  end
-
-  describe "events" do
-    context 'for users' do
-      let(:user) { mock_model(User) }
-
+    
+    context "when has gift product in session" do
       before :each do
-        subject.stub(:current_user).and_return( user )
       end
 
-      it "should create a new sign in event" do
-        user.should_receive(:add_event).with( EventType::SIGNIN )
-        subject.send(:create_sign_in_event)
+      it "should assign gift products to user" do
+        post :create, :user => user_params
+        
       end
 
-      it "should create a new sign out event" do
-        user.should_receive(:add_event).with( EventType::SIGNOUT )
-        subject.send(:create_sign_out_event)
+      it "should add products to cart" do
+        post :create, :user => user_params
+      end
+
+      it "should redirect to cart page" do
+        post :create, :user => user_params
       end
     end
 
-    context 'for admins' do
-      let(:admin) { mock_model(Admin) }
+    context "when has offline product in session" do
+       it "should add products to cart"
+       it "should redirect to cart page"
+    end
 
-      before :each do
-        subject.stub(:current_user).and_return( admin )
-      end
+    context "when is as full user" do
+       it "should redirect to showroom page" do
+         post :create, :user => user_params
+         response.should redirect_to(member_showroom_path)
+       end
+    end
 
-      it "should not create a new sign in event" do
-        admin.should_not_receive(:add_event)
-        subject.send(:create_sign_in_event)
-      end
+    context "when is as half user and registered via gift" do
+       it "should redirect to gift page" do
+         post :create, :user => gift_user_params
+         response.should redirect_to(gift_root_path)
+       end
+    end
 
-      it "should not create a new sign out event" do
-        admin.should_not_receive(:add_event)
-        subject.send(:create_sign_out_event)
-      end
+    context "when is as half user and registered via thin" do
+       it "should redirect to look book page" do
+         post :create, :user => thin_user_params
+         response.should redirect_to(lookbooks_path)
+       end
     end
   end
-
 end
