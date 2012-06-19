@@ -31,18 +31,25 @@ describe Users::SessionsController do
     
     context "when has gift product in session" do
       before :each do
+        session[:gift_products] = mock
+      end
+      
+      after :each do
+        session[:gift_products] = nil
       end
 
       it "should assign gift products to user" do
+        controller.should_receive(:assign_gift)
         post :create, :user => user_params
-        
       end
 
       it "should add products to cart" do
+        controller.should_receive(:assign_gift)
         post :create, :user => user_params
       end
 
       it "should redirect to cart page" do
+        controller.should_receive(:assign_gift)
         post :create, :user => user_params
       end
     end
