@@ -6,15 +6,17 @@ class Users::SessionsController < Devise::SessionsController
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     set_flash_message(:notice, :signed_in) if is_navigational_format?
+    assign_gift if session[:gift_products]
     sign_in(resource_name, resource)
-    if session[:gift_products]
-      GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id)
-      GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id)
-    end
     respond_with resource, :location => after_sign_in_path_for(resource)
   end
 
   protected
+  
+  def assign_gift
+    GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id)
+    GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id)
+  end
 
   def create_sign_in_event
     current_user.add_event(EventType::SIGNIN)
