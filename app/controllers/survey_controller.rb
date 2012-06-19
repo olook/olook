@@ -23,6 +23,8 @@ class SurveyController < ApplicationController
       answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])
       SurveyAnswer.create(:answers => answers, :user => current_user)
       ProfileBuilder.new(current_user).create_user_points(session[:profile_points])
+      cookies.delete :show_profile, :domain => :all
+      cookies[:show_profile] = { :value => "1", :domain => :all }
       redirect_to root_path
     else
       redirect_to new_user_registration_path
