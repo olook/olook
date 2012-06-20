@@ -1167,6 +1167,47 @@ body {
     display: block;
     margin: 13px 0 20px 0;
   }
+  div#box_invite {
+    width: 815px;
+    padding: 20px 40px;
+    overflow: auto;
+    display: none;
+    & > h1 {
+      font-size: 40px;
+      font-style: italic;
+      font-weight: lighter;
+      letter-spacing: -1px;
+      margin: 0 0 10px 0;
+      &+p {
+        color: #666;
+        font-size: 15px;
+        margin: 0 0 35px;
+        strong {
+          color: #666;
+        }
+      }
+    }
+    div#social {
+      width: 485px;
+      overflow: auto;
+      float: left;
+    }
+    div#link_mail {
+      width: 325px;
+      overflow: auto;
+      float: right;
+      h2 {
+        font-size: 18px;
+        font-style: italic;
+        font-weight: lighter;
+        letter-spacing: -1px;
+        margin: 0 0 10px;
+      }
+    }
+    &.clone {
+      display: block;
+    }
+  }
 }
 
 section.main {
