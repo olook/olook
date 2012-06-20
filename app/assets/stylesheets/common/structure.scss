@@ -1167,7 +1167,7 @@ body {
     display: block;
     margin: 13px 0 20px 0;
   }
-  div#box_invite {
+  div.box_invite {
     width: 815px;
     padding: 20px 40px;
     overflow: auto;
@@ -1187,12 +1187,12 @@ body {
         }
       }
     }
-    div#social {
+    div.social {
       width: 485px;
       overflow: auto;
       float: left;
     }
-    div#link_mail {
+    div.link_mail {
       width: 325px;
       overflow: auto;
       float: right;
@@ -1202,6 +1202,25 @@ body {
         font-weight: lighter;
         letter-spacing: -1px;
         margin: 0 0 10px;
+      }
+      ul {
+        li {
+          input[type="text"] {
+            color: #666;
+            font-size: 13px;
+            width: 265px;
+            margin: 0 0 10px 0;
+            padding: 5px 10px;
+            border: 1px #CCC solid;
+          }
+          a {
+            background: url("/assets/common/copy-link.jpg") no-repeat;
+            text-indent: -9999px;
+            width: 116px;
+            height: 32px;
+            display: block;
+          }
+        }
       }
     }
     &.clone {
