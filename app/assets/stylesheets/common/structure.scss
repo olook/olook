@@ -1234,7 +1234,23 @@ body {
         }
       }
       form {
+        background: #e4e4e4;
+        padding: 20px 15px;
         clear: both;
+        p {
+          color: #000;
+          font-size: 17px;
+          margin: 0 0 10px;
+        }
+        textarea {
+          background: #FFF url("/assets/common/bg-textarea-emails.jpg") bottom repeat-x;
+          width: 425px;
+          height: 100px;
+          padding: 7px 8px;
+          resize: none;
+          outline: none;
+          border: 1px solid #C1C1C1;
+        }
       }
     }
     div.link_mail {
