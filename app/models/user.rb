@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM].join(",")
 
   Gender = {:female => 0, :male => 1}
-  ResgisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
+  RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
   def name
     "#{first_name} #{last_name}".strip
