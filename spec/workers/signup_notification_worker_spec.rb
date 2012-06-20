@@ -17,47 +17,49 @@ describe SignupNotificationWorker do
     member.welcome_sent_at.should_not be_nil
   end
 
-  context "gift" do
-    it "should send a welcome e-mail if male half user" do
-      half_user = FactoryGirl.create(:member, :half_user => true, :gender => User::Gender[:male], :registered_via => User::RegisteredVia[:gift])
-      MemberMailer.should_receive(:welcome_gift_half_male_user_email).with(half_user).and_return(mock_mail)
+  describe "gift" do
+    let (:male_half_user) { FactoryGirl.create(:member, :id => 1, :half_user => true, :gender => User::Gender[:male], :registered_via => User::RegisteredVia[:gift]) }
+    let (:female_half_user) { FactoryGirl.create(:member, :id => 3, :half_user => true, :gender => User::Gender[:female], :registered_via => User::RegisteredVia[:gift]) }
+
+    it "should send a welcome e-mail if gift male half user" do
+      MemberMailer.should_receive(:welcome_gift_half_male_user_email).with(male_half_user).and_return(mock_mail)
       mock_mail.should_receive(:deliver)
-      half_user.welcome_sent_at.should be_nil
-      described_class.perform(half_user.id)
-      half_user.reload
-      half_user.welcome_sent_at.should_not be_nil
+      male_half_user.welcome_sent_at.should be_nil
+      described_class.perform(male_half_user.id)
+      male_half_user.reload
+      male_half_user.welcome_sent_at.should_not be_nil
     end
 
-    it "should send a welcome e-mail if male half user" do
-      half_user = FactoryGirl.create(:member, :half_user => true, :gender => User::Gender[:female], :registered_via => User::RegisteredVia[:gift])
-      MemberMailer.should_receive(:welcome_gift_half_female_user_email).with(half_user).and_return(mock_mail)
+    it "should send a welcome e-mail if gift female half user" do
+      MemberMailer.should_receive(:welcome_gift_half_female_user_email).with(female_half_user).and_return(mock_mail)
       mock_mail.should_receive(:deliver)
-      half_user.welcome_sent_at.should be_nil
-      described_class.perform(half_user.id)
-      half_user.reload
-      half_user.welcome_sent_at.should_not be_nil
+      female_half_user.welcome_sent_at.should be_nil
+      described_class.perform(female_half_user.id)
+      female_half_user.reload
+      female_half_user.welcome_sent_at.should_not be_nil
     end
   end
 
-  context "thin" do
-    it "should send a welcome e-mail if male half user" do
-      half_user = FactoryGirl.create(:member, :half_user => true, :gender => User::Gender[:male], :registered_via => User::RegisteredVia[:thin])
-      MemberMailer.should_receive(:welcome_thin_half_male_user_email).with(half_user).and_return(mock_mail)
+  describe "thin" do
+    let (:male_half_user) { FactoryGirl.create(:member, :id => 1, :half_user => true, :gender => User::Gender[:male], :registered_via => User::RegisteredVia[:thin]) }
+    let (:female_half_user) { FactoryGirl.create(:member, :id => 3, :half_user => true, :gender => User::Gender[:female], :registered_via => User::RegisteredVia[:thin]) }
+
+    it "should send a welcome e-mail if thin male half user" do
+      MemberMailer.should_receive(:welcome_thin_half_male_user_email).with(male_half_user).and_return(mock_mail)
       mock_mail.should_receive(:deliver)
-      half_user.welcome_sent_at.should be_nil
-      described_class.perform(half_user.id)
-      half_user.reload
-      half_user.welcome_sent_at.should_not be_nil
+      male_half_user.welcome_sent_at.should be_nil
+      described_class.perform(male_half_user.id)
+      male_half_user.reload
+      male_half_user.welcome_sent_at.should_not be_nil
     end
 
-    it "should send a welcome e-mail if male half user" do
-      half_user = FactoryGirl.create(:member, :half_user => true, :gender => User::Gender[:female], :registered_via => User::RegisteredVia[:thin])
-      MemberMailer.should_receive(:welcome_thin_half_female_user_email).with(half_user).and_return(mock_mail)
+    it "should send a welcome e-mail if thin female half user" do
+      MemberMailer.should_receive(:welcome_thin_half_female_user_email).with(female_half_user).and_return(mock_mail)
       mock_mail.should_receive(:deliver)
-      half_user.welcome_sent_at.should be_nil
-      described_class.perform(half_user.id)
-      half_user.reload
-      half_user.welcome_sent_at.should_not be_nil
+      female_half_user.welcome_sent_at.should be_nil
+      described_class.perform(female_half_user.id)
+      female_half_user.reload
+      female_half_user.welcome_sent_at.should_not be_nil
     end
   end
 
