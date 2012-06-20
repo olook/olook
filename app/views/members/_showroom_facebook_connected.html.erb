@@ -1,7 +1,8 @@
 <div class="facebook connected">
   <div class="avatar"><%= showroom_presenter.facebook_avatar %></div>
-  <h1><%= showroom_presenter.welcome_message %><br />Esta é sua vitrine de <%= showroom_presenter.collection_name %></h1>
+  <h1><%= showroom_presenter.welcome_message %><br />Esta é <%= link_to "sua vitrine", "#" %> de <%= showroom_presenter.collection_name %></h1>
   <p>Nossos stylists pensaram em você com muito carinho para montar a seleção de produtos deste mês. Explore as possibilidades e aproveite sem moderação.</p>
+  <%= render "shared/mini_profile", :user => @user %>
   <% if @friends && @friends.any? %>
   <h3>Últimas amigas que se registraram:</h3>
   <ul>

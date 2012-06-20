@@ -95,6 +95,14 @@ describe BilletsController do
         post :create, :billet => attributes
       end
 
+      it "should add the user for a campaing if requested" do
+        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
+        payment_builder.should_receive(:process!).and_return(@processed_payment)
+        expect {
+          post :create, :billet => attributes , :campaing => {:sign_campaing => 'foobar'}
+        }.to change(user.campaing_participants, :count).by(1)
+      end
+
       it "should clean the session order" do
         PaymentBuilder.stub(:new).and_return(payment_builder = mock)
         payment_builder.should_receive(:process!).and_return(@processed_payment)

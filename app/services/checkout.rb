@@ -20,6 +20,10 @@ module Checkout
     session[:delivery_address_id] = nil
   end
 
+  def insert_user_in_campaing(campaing)
+      CampaingParticipant.new(:user_id => current_user.id, :campaing => campaing).save if campaing
+  end
+
   def check_order
     @order = current_user.orders.find_by_id(session[:order])
     msg = "Sua sacola está vazia"

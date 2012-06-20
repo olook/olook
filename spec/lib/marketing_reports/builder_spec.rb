@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe MarketingReports::Builder do
+  before :all do
+    User.delete_all
+  end
   let(:user_a) { FactoryGirl.create :user }
   let(:user_b) { FactoryGirl.create :user }
   let(:user_c) { FactoryGirl.create :user }
@@ -85,7 +88,7 @@ describe MarketingReports::Builder do
     it "builds a csv file containing all user data" do
 
       csv_body = [user_a, user_b, user_c].inject("") do |data, user|
-        data += "#{user.id},#{user.email},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
+        data += "#{user.id},#{user.email.chomp},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
         data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?}\n"
         data
       end
@@ -157,7 +160,13 @@ describe MarketingReports::Builder do
 
     context "and user has bonus credits" do
       let!(:user) { FactoryGirl.create(:member) }
-      let!(:order) { FactoryGirl.create(:clean_order, :user => user, :credits => 10.00) }
+      let!(:order) {
+        FactoryGirl.create(:clean_order, :user => user) do |current_order|
+        current_order.line_items = [ FactoryGirl.create(:line_item, :price => 100, :order => current_order) ]
+        current_order.credits = 10.00
+        current_order.save
+        end
+      }
       before do
         10.times do
           accepting_member = FactoryGirl.create(:member, :first_name => 'Accepting member')
@@ -167,7 +176,10 @@ describe MarketingReports::Builder do
       end
 
       it "lists user data and used bonus and total bonus" do
-        user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},#{order.total},#{order.state},#{order.updated_at},,,,"
+        line_item = order.line_items.first
+        variant = line_item.variant
+        product = variant.product
+        user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},#{order.total},#{order.state},#{order.updated_at},#{variant.number},#{product.id},#{line_item.price},"
         subject.generate_userbase_orders
         subject.csv.should match(/^#{header}#{user_data}/)
       end
@@ -180,8 +192,8 @@ describe MarketingReports::Builder do
 
       it "lists a user data with order details (order total value, products ids, prices and variant numbers)" do
         user_order_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0," +
-                          "#{order.id},359.8,#{order.state},#{order.updated_at},#{line_item.variant.number}," +
-                          "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
+        "#{order.id},359.8,#{order.state},#{order.updated_at},#{line_item.variant.number}," +
+        "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
         subject.generate_userbase_orders
         subject.csv.should match(/^#{header}#{user_order_data}/)
       end
@@ -221,8 +233,8 @@ describe MarketingReports::Builder do
         freight = order_a.freight_price + order_b.freight_price
 
         user_revenue_data = "#{user.id},#{user.email},#{user.name}," +
-                            "#{user.invite_bonus + user.used_invite_bonus},#{user.invite_bonus},#{user.used_invite_bonus}," +
-                            "#{total_revenue},#{freight}\n"
+        "#{user.invite_bonus + user.used_invite_bonus},#{user.invite_bonus},#{user.used_invite_bonus}," +
+        "#{total_revenue},#{freight}\n"
 
         subject.generate_userbase_revenue
         subject.csv.should == header + user_revenue_data
@@ -235,7 +247,7 @@ describe MarketingReports::Builder do
     let(:date) { Date.today }
 
     let(:header) do
-     "date,utm_source,utm_medium,utm_campaign,utm_content,total_registrations,total_orders,total_revenue_without_discount,total_revenue_with_discount\n"
+      "date,utm_source,utm_medium,utm_campaign,utm_content,total_registrations,total_orders,total_revenue_without_discount,total_revenue_with_discount\n"
     end
 
     it "shows a csv header with tracking attributes" do

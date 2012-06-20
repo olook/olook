@@ -11,17 +11,26 @@
       <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
       <%= render "shared/metrics/adlead/adlead" %>
     <% end %>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) return;
-js = d.createElement(s); js.id = id;
-js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    <script type="text/javascript">
+      if($.cookie('show_profile') == 1) {
+        setTimeout(function() {
+          initBase.showProfileLightbox();
+        }, 2000);
+        $.cookie('show_profile', '2');
+      }
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
   <% end %>
 
   <div id="showroom">
+    <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
     <section id="greetings">
       <%= showroom_presenter.render_identification(@friends) %>
@@ -31,6 +40,7 @@ fjs.parentNode.insertBefore(js, fjs);
     <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter} %>
+    <%= image_tag "showroom/banner_marcos_proenca.jpg", :class => "banner" %>
     <%= render "shared/metrics/boobox/members" %>
   </div>
 <% end %>
