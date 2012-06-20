@@ -1,0 +1,23 @@
+<div id="box_invite">
+  <h1>Convide suas amigas e ganhe créditos</h1>
+  <p>Você ganhará <strong>R$10</strong> na primeira compra de cada amiga que se cadastrar usando seu convite. <strong>Mande para todo mundo!</strong></p>
+  <div id="social">
+    <ul>
+      <li class="twitter"><%= link_to "Tweetar", "#" %></li>
+      <li class="facebook"><%= link_to "Postar no meu mural", "#" %></li>
+      <li class="orkut"><%= link_to "Compartilhar no orkut", "#" %></li>
+      <li class="email"><%= link_to "Enviar por e-mail", "#" %></li>
+    </ul>
+    <%= form_tag "#" do %>
+      <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
+      <%= text_area_tag 'email' %>
+    <% end %>
+  </div>
+  <div id="link_mail">
+    <h2>Envie o link abaixo por e-mail ou MSN:</h2>
+    <ul>
+      <li><%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
+      <li><%= link_to "Copiar link", "#" %></li>
+    </ul>
+  </div>
+</div>
