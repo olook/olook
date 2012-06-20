@@ -174,7 +174,7 @@
               position: absolute;
               background: image-url("common/label-lookbook-video.jpg") no-repeat;
               color: #FFF;
-              font-family: "Futura Light";
+              font-family: "Pontano Sans", sans-serif;
               font-size: 12px;
               line-height: 34px;
               text-decoration: none;
@@ -278,6 +278,10 @@
         }
       }
     }
+  }
+  img.banner {
+    margin: 0 auto;
+    display: block;
   }
 }
 
