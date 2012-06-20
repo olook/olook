@@ -1,5 +1,4 @@
 class CatalogSearchService
-  SORT_FILTER = {:lowest_price => "0", :highest_price => "1"}
   attr_reader :query_base, :params, :l_products
 
   def initialize(params)
@@ -38,7 +37,7 @@ class CatalogSearchService
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
     end
     @query.where(@query_base)
-          .order("category_id asc, #{sort_filter}")
+          .order(sort_filter)
           .group("catalog_products.product_id")
           .paginate(page: params[:page], per_page: 12)
           .includes(product: :variants)
@@ -49,6 +48,10 @@ class CatalogSearchService
   end
 
   def sort_filter
-    params[:sort_filter] == SORT_FILTER[:highest_price] ? "retail_price desc" : "retail_price asc"
+    case params[:sort_filter]
+      when "1" then "retail_price asc"
+      when "2" then "retail_price desc"
+      else "category_id asc"
+    end
   end
 end
