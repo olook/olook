@@ -508,6 +508,9 @@ section#payment {
         cursor: pointer;
         float: right;
       }
+      &.last {
+        margin-bottom: 30px;
+      }
     }
   }
   div.bank_select {
@@ -718,6 +721,7 @@ section#payment {
       }
     }
     div.credit_cart_payment {
+      margin: 0 0 30px 0;
       padding: 20px 0 0 0;
       fieldset {
         &.inputs {
@@ -1001,6 +1005,74 @@ section.checkout {
       display: block;
       cursor: pointer;
       border: none;
+    }
+  }
+}
+
+div#container_marcos {
+  background: url("/assets/cart/bg-marcos-proenca.jpg") top center no-repeat;
+  width: 645px;
+  height: 421px;
+  padding: 25px 0 0 0;
+  clear: both;
+  p {
+    color: #231f20;
+    font-family: "Pontano Sans", sans-serif;
+    font-size: 18px;
+    text-align: center;
+    line-height: 28px;
+    width: 535px;
+    margin: 0 auto 5px;
+    label {
+      font-size: 16px;
+    }
+    a {
+      color: #043093 !important;
+      font-size: 13px;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    input[type="submit"] {
+      background: url("/assets/cart/bt-finish.jpg") no-repeat;
+      width: 154px;
+      height: 55px;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+  }
+  div#rules {
+    display: none;
+    &.clone {
+      display: block;
+    }
+  }
+}
+
+div#modal {
+  div#rules {
+    width: 640px;
+    padding: 20px;
+    h1 {
+      font-family: Times, "Times New Roman", Georgia, serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: normal;
+      letter-spacing: -2px;
+      margin: 0 0 15px;
+    }
+    h2 {
+      color: #E05789;
+      font-family: sans-serif;
+      letter-spacing: -1px;
+      font-size: 16px;
+      margin: 15px 0;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 13px;
     }
   }
 }
