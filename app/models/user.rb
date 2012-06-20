@@ -254,9 +254,17 @@ class User < ActiveRecord::Base
       self.save
     end
   end
-  
-  def resgistered_via? register_type
-    self.registered_via == ResgisteredVia[register_type]
+
+  def registered_via? register_type
+    self.registered_via == RegisteredVia[register_type]
+  end
+
+  def registered_via_string
+    RegisteredVia.select{|k,v| v == self.registered_via}.key(self.registered_via).to_s
+  end
+
+  def gender_string
+    Gender.select{|k,v| v == self.gender}.key(self.gender).to_s
   end
 
   private
