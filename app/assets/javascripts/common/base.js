@@ -39,30 +39,9 @@ $(document).ready(function() {
   }
 
   $("header .content #session ul li a.invite").live("click", function(e) {
-    var url = $(this).attr("href");
-    var content = "<p>"+url+"</p>";
-    var dialog = $("div#modal");
-    // load remote content
-    $.get(url, function() {
-      $("div#modal").html("");
-      dialog.dialog({
-        width: 'auto',
-        resizable: false,
-        draggable: false,
-        modal: true,
-        close: function(event) {
-          $("div#modal").html("");
-          $("div#modal").hide();
-        }
-      });
-    });
-//    dialog.load(
-//      url,
-//      {},
-//      function(responseText, textStatus, XMLHttpRequest) {
-//      }
-//    );
-    //initBase.modal(content);
+    clone = $("div#box_invite").clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
     e.preventDefault();
   });
 
