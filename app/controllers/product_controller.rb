@@ -3,7 +3,6 @@ class ProductController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!, :except => [:show, :create_offline_session]
   before_filter :load_user
-  before_filter :check_early_access
   before_filter :check_product_variant, :only => [:add_to_cart]
   before_filter :load_order
 

@@ -235,14 +235,14 @@ $(document).ready(function() {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
   });
-  
+
   // $("#product_add_to_cart").bind("ajax:success", function(evt, xhr, settings){
   //   $("#cart_summary").show();
   //   $("#cart_summary li.last").before(xhr.responseText);
   //   $("#cart_summary li.product_item:last").fadeIn('slow');
-  // 
+  //
   //   $("nav.menu ul li.cart a.cart").addClass("selected");
-  //   $("#cart_items").text(parseInt($("#cart_summary li.product_item").length))    
+  //   $("#cart_items").text(parseInt($("#cart_summary li.product_item").length))
   //   setTimeout(function(){
   //     $("#cart_summary").fadeOut('slow');
   //   }, 2000);
@@ -284,13 +284,25 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(".ui-dialog-titlebar-close, .ui-widget-overlay").live("click", function() {
-    $("div#modal").html("");
+  $("section#greetings div.facebook div.profile a").live("click", function(e) {
+    initBase.showProfileLightbox();
+    e.preventDefault();
+  });
+
+  $(".ui-widget-overlay, div#profile_quiz ul li a.close").live("click", function(e) {
     $("div#modal").dialog("close");
+    e.preventDefault();
   });
 });
 
 initBase = {
+  showProfileLightbox : function() {
+    clone = $("div#profile_quiz").clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
+    $(".ui-dialog").css("top", "30px");
+  },
+
   spyLinkId : function(color) {
     productId = $(color).siblings(".product_id").val();
     hoverBox = $(color).parents("li.product").find(".hover_suggestive");
@@ -313,17 +325,19 @@ initBase = {
   },
 
   modal : function(content) {
-    if($("div#modal").size() == 0) {
-      $("body").prepend("<div id='modal'></div>");
-    } else {
-      $("div#modal").html("");
-    }
+    $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
       width: 'auto',
-      modal: true
+      resizable: false,
+      draggable: false,
+      modal: true,
+      close: function(event) {
+        $("div#modal").html("");
+        $("div#modal").hide();
+      }
     });
   },
 

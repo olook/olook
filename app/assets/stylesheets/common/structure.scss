@@ -44,9 +44,40 @@ body {
     clear: both;
   }
 
+  div#profile_quiz {
+    background: #FFF;
+    display: none;
+    ul {
+      li {
+        width: 445px;
+        overflow: auto;
+        margin: 20px 20px 20px 0;
+        float: left;
+        a {
+          text-indent: -9999px;
+          display: block;
+          &.me {
+            background: url("/assets/common/essa-sou-eu.png") no-repeat;
+            width: 174px;
+            height: 59px;
+            float: right;
+          }
+          &.new_survey {
+            background: url("/assets/common/quero-tentar-de-novo.png") no-repeat;
+            width: 284px;
+            height: 59px;
+          }
+        }
+      }
+    }
+    &.clone {
+      display: block;
+    }
+  }
+
   .content {
     width: 990px;
-    margin: 0px auto 0 auto;
+    margin: 0 auto;
     overflow: hidden;
     z-index: 1;
     .dialog.product_login {
@@ -923,11 +954,11 @@ body {
             position: absolute;
             background: url("/assets/common/bg-label-menu.png") no-repeat;
             color: #FFF;
-            font-family: "Futura Light";
-            font-size: 10px;
+            font-family: "Pontano Sans", sans-serif;
+            font-size: 11px;
             text-transform: uppercase;
             text-align: center;
-            line-height: 35px;
+            line-height: 36px;
             width: 35px;
             height: 35px;
             display: block;
@@ -1357,7 +1388,7 @@ section.main {
 
 div.contact_fields {
   padding: 0 0 0 0 !important;
-  
+
   h1 {
     color:#999;
   }
@@ -1370,6 +1401,7 @@ div#modal {
   background: #FFF;
   padding: 0;
   border: 5px #000 solid;
+  display: none;
   div.video_description {
     background: #FFF;
     overflow: auto;
@@ -1398,6 +1430,17 @@ div#modal {
         outline: none;
       }
     }
+  }
+}
+
+div.contact_fields {
+  padding: 0 0 0 0 !important;
+
+  h1 {
+    color:#999;
+  }
+  .inputs {
+    padding: 15px 5px !important;
   }
 }
 

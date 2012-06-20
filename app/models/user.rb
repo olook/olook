@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :addresses
   has_many :orders
+  has_many :campaing_participants
   has_many :payments, :through => :orders
   has_many :credits
   has_one :tracking, :dependent => :destroy
@@ -140,16 +141,8 @@ class User < ActiveRecord::Base
     self.events.where(:event_type => EventType::FIRST_VISIT).empty?
   end
 
-  def has_early_access?
-    true # temporary fix. Should become 1 hour delay
-  end
-
   def record_first_visit
     add_event(EventType::FIRST_VISIT) if first_visit?
-  end
-
-  def record_early_access
-    add_event(EventType::EARLY_ACCESS) unless has_early_access?
   end
 
   def add_event(type, description = '')

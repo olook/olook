@@ -13,8 +13,11 @@ describe MembersController do
   end
 
   describe "GET welcome" do
-    context "when user is an old one (created 1 day ago)" do
-      let(:user) { FactoryGirl.create :user, :created_at => (Time.now - 1.day), :authentication_token => "RandomToken" }
+    context "when user have alredy logged in one time" do
+      let(:user) { FactoryGirl.create :user, :authentication_token => "RandomToken" }
+      before :all do
+        user.add_event(EventType::FIRST_VISIT)
+      end
 
       it "redirect to members' showroom page" do
         get :welcome
@@ -31,36 +34,13 @@ describe MembersController do
       end
     end
 
-    context "when user is a new one (created today)" do
-      let!(:user) { FactoryGirl.create :user, :created_at => Time.now }
-
-      it "assigns and array to products" do
-        get :welcome
-        assigns(:products).should == []
-      end
-
-      it "assigns user object to found user" do
-        get :welcome
-        assigns(:user).should eq(user)
-      end
-
-      it "should assign @facebook_app_id" do
-        get :welcome
-        assigns(:facebook_app_id).should eq(FACEBOOK_CONFIG["app_id"])
-      end
-
-      context "and user visit is first" do
-        it "assigns true to is_the_first_visit" do
-          get :welcome
-          assigns(:is_the_first_visit).should == true
-        end
-      end
-
-    end
-
   end
 
   describe "#showroom" do
+    before :all do
+      user.add_event(EventType::FIRST_VISIT)
+    end
+
     before :each do
       FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook)
     end
@@ -116,7 +96,6 @@ describe MembersController do
     member = double(User)
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
-    member.stub(:has_early_access?).and_return(true)
     member.stub(:half_user).and_return(false)
     subject.stub(:current_user) { member }
 
@@ -184,7 +163,6 @@ describe MembersController do
       member = double(User)
       member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
-      member.stub(:has_early_access?).and_return(true)
       member.stub(:half_user).and_return(false)
       subject.stub(:current_user) { member }
 
@@ -192,26 +170,6 @@ describe MembersController do
 
       response.should redirect_to(member_invite_path)
       flash[:notice].should == "3 Convites enviados com sucesso!"
-    end
-  end
-
-  describe "first visit" do
-    use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
-
-    before :each do
-      user.events.where(:event_type => EventType::FIRST_VISIT).destroy_all
-      FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook)
-    end
-
-    it "should assign true for @is_the_first_visit" do
-      get :showroom
-      assigns(:is_the_first_visit).should eq(true)
-    end
-
-    it "should not assign true for @is_the_first_visit" do
-      user.record_first_visit
-      get :showroom
-      assigns(:is_the_first_visit).should_not eq(true)
     end
   end
 

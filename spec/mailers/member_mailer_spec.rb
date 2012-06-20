@@ -24,25 +24,4 @@ describe MemberMailer do
     end
 
   end
-
-  describe "#showroom_ready_email" do
-    let(:mail) { MemberMailer.showroom_ready_email(member) }
-
-    it "sets 'from' attribute to olook <avisos@my.olookmail.com>" do
-      mail.from.should include("avisos@my.olookmail.com")
-    end
-
-    it "sets 'to' attribute to passed member's email" do
-      mail.to.should include(member.email)
-    end
-
-    it "sets 'title' attribute describing that the showroom is ready for the user" do
-      mail.subject.should == "#{member.name}, sua vitrine personalizada já está pronta!"
-    end
-
-    it "sets 'headers' with welcome_email category json" do
-      mail.header.to_s.should match /X-SMTPAPI: {\"category\":\"showroom_ready_email\"}/
-    end
-
-  end
 end
