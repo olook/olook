@@ -18,7 +18,9 @@ class BilletsController < ApplicationController
 
   def create
     @payment = Billet.new(params[:billet])
+
     if @payment.valid?
+      insert_user_in_campaing(params[:campaing][:sign_campaing]) if params[:campaing]
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
