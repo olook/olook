@@ -39,6 +39,9 @@
       <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
 
+    <% if user_signed_in? %>
+      <%= render "shared/invite", :user => current_user %>
+    <% end %>
   <%= yield :site_footer %>
   <%= render "shared/metrics/adroll/adroll" %>
   <%= javascript_include_tag "application" %>
