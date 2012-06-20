@@ -39,9 +39,10 @@ $(document).ready(function() {
   }
 
   $("header .content #session ul li a.invite").live("click", function(e) {
-    clone = $("div#box_invite").clone().addClass("clone");
+    clone = $("div.box_invite").clone().addClass("clone");
     content = clone[0].outerHTML;
     initBase.modal(content);
+    initBase.copyInviteLink();
     e.preventDefault();
   });
 
@@ -417,6 +418,16 @@ initBase = {
         });
       });
     };
+  },
+
+  copyInviteLink : function() {
+    $("div.box_invite.clone div.link_mail ul li a").zclip({
+      path: "/assets/ZeroClipboard.swf",
+      copy: $("div.box_invite.clone div.link_mail ul li input").val(),
+      afterCopy: function(){
+        alert("copiado");
+      }
+    });
   },
 
   openDialog : function () {
