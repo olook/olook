@@ -17,10 +17,10 @@ class MemberMailer < ActionMailer::Base
 
   def welcome_email(member)
     @member = member
-    mail( :to => member.email,
-          :from => "olook <bemvinda@olook1.com.br>",
-          :subject => "#{member.name}, seja bem vinda! Seu cadastro foi feito com sucesso!"
-          )
+    mail(:to => member.email,
+         :from => "olook <bemvinda@olook1.com.br>",
+         :subject => "#{member.name}, use agora mesmo seus 30% de desconto!"
+    )
     headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json
   end
 end
