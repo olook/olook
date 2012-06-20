@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM].join(",")
 
   Gender = {:female => 0, :male => 1}
-  ResgisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
+  RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
   def name
     "#{first_name} #{last_name}".strip
@@ -255,9 +255,17 @@ class User < ActiveRecord::Base
       self.save
     end
   end
-  
-  def resgistered_via? register_type
-    self.registered_via == ResgisteredVia[register_type]
+
+  def registered_via? register_type
+    self.registered_via == RegisteredVia[register_type]
+  end
+
+  def registered_via_string
+    RegisteredVia.select{|k,v| v == self.registered_via}.key(self.registered_via).to_s
+  end
+
+  def gender_string
+    Gender.select{|k,v| v == self.gender}.key(self.gender).to_s
   end
 
   private
