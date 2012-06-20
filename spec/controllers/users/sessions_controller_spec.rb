@@ -23,7 +23,8 @@ describe Users::SessionsController do
   end
   
   describe "sign in" do
-    xit "should add event of sign in" do
+    it "should add event of sign in" do
+      controller.stub(:create)
       controller.stub(:current_user).and_return(user)
       user.should_receive(:add_event).with(EventType::SIGNIN)
       post :create, user_params
