@@ -7,27 +7,35 @@ describe Users::SessionsController do
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
-  let(:user) { FactoryGirl.create(:user) }
+  
+  let!(:user) { FactoryGirl.create(:user) }
   let(:user_params) {{ :email => user.email, :password => user.password }}
-  let(:man_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::ResgisteredVia[:gift]) }
+  let!(:man_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::ResgisteredVia[:gift]) }
   let(:man_user_params) {{ :email => man_user.email, :password => man_user.password }}
-  let(:woman_user) { FactoryGirl.create(:user, :gender => User::Gender[:female], :half_user => true, :registered_via => User::ResgisteredVia[:thin]) }
+  let!(:woman_user) { FactoryGirl.create(:user, :gender => User::Gender[:female], :half_user => true, :registered_via => User::ResgisteredVia[:thin]) }
   let(:woman_user_params) {{ :email => woman_user.email, :password => woman_user.password }}
   
   describe "sign out" do
     it "should add event of sign out" do
-      controller.stub(:current_user).and_return(user)
-      user.should_receive(:add_event).with(EventType::SIGNOUT)
-      post :destroy
+      post :create, :user => user_params
+      expect {
+        post :destroy
+        last_event = Event.last
+        last_event.user_id.should be(user.id)
+        last_event.event_type.should be(EventType::SIGNOUT)
+      }.to change{Event.count}.by(1)
+      
     end
   end
   
   describe "sign in" do
     it "should add event of sign in" do
-      controller.stub(:create)
-      controller.stub(:current_user).and_return(user)
-      user.should_receive(:add_event).with(EventType::SIGNIN)
-      post :create, user_params
+      expect {
+        post :create, :user => user_params
+        last_event = Event.last
+        last_event.user_id.should be(user.id)
+        last_event.event_type.should be(EventType::SIGNIN)
+      }.to change{Event.count}.by(1)
     end
     
     context "when has gift product in session" do
