@@ -1191,6 +1191,51 @@ body {
       width: 485px;
       overflow: auto;
       float: left;
+      ul {
+        width: 100%;
+        padding: 0 0 15px 0;
+        overflow: auto;
+        li {
+          a {
+            color: #5a5a5b;
+            font-family: "Times New Roman", sans-serif;
+            font-size: 16px;
+            font-style: italic;
+            text-align: center;
+            text-decoration: none;
+            line-height: 15px;
+            outline: none;
+            width: 105px;
+            display: block;
+            margin: 0 15px 0 0;
+            padding: 95px 0 0 0;
+            float: left;
+          }
+          &.twitter {
+            a {
+              background: url("/assets/common/bt-twitter.jpg") top center no-repeat;
+            }
+          }
+          &.facebook {
+            a {
+              background: url("/assets/common/bt-facebook.jpg") top center no-repeat;
+            }
+          }
+          &.orkut {
+            a {
+              background: url("/assets/common/bt-orkut.jpg") top center no-repeat;
+            }
+          }
+          &.email {
+            a {
+              background: url("/assets/common/bt-email.jpg") top center no-repeat;
+            }
+          }
+        }
+      }
+      form {
+        clear: both;
+      }
     }
     div.link_mail {
       width: 325px;
