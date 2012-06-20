@@ -1,7 +1,24 @@
 @import "partials/product";
 
+header {
+  div.contact {
+    display: none;
+  }
+  div#session {
+    display: none;
+  }
+}
+
+div#wrapper_menu {
+  display: none;
+}
+
+div#promotion_banner {
+  display: none !important;
+}
+
 section#welcome {
-  margin: 35px auto 0;
+  margin: 0 auto;
   h1.warn {
     color: #333;
     font-size: 35px;

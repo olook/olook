@@ -1,0 +1,36 @@
+<div id="container_marcos">
+  <p>Finalize sua compra e tenha a chance de ter um dia incrível no salão <br />do Marcos Proença, com direito a uma transformação total.</p>
+  <p>
+    <%= check_box :campaing, :sign_campaing, {checked: 'checked'}, 'marcos_proenca', false %>
+    <%= label_tag "campaing_sign_campaing", "aceito receber novidades do Marcos Proença" %>
+  </p>
+  <p>
+    <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
+  </p>
+  <p>
+    <%= link_to "confira o regulamento", "#" %>
+  </p>
+  <div id="rules">
+    <h1>REGULAMENTO</h1>
+    <h2>1. Vigência da ação:</h2>
+    <p>1.1. Terá a chance de ser escolhida para o Beauty Day no salão Marcos Proença as clientes do sexo feminino que realizarem ao menos uma compra entre 01/06/2012 e 30/06/2012.</p>
+    <p>1.2. A olook se reserva no direito de interromper a ação a qualquer momento se julgar necessário, sem aviso prévio.</p>
+    <p>1.3. Caso as compradoras nesse período não quiserem participar, elas podem solicitar a exclusão a qualquer momento enviando um e-mail para: falecom@olook.com.br.</p>
+    <h2>2. Premiação:</h2>
+    <p>2.1. Um dia no salão Marcos Proença, localizado na Rua Prof. Artur Ramos, 395 - Pinheiros - São Paulo, 01454-011. Neste dia, será oferecida uma mudança completa para a ganhadora, com corte de cabelo, tingimento, reflexo, manicure (fazer pés e mãos), e maquiagem. Todos esses benefícios ficam à critério da ganhadora para realizar ou não.</p>
+    <p>2.2. O prêmio é individual, intransferível e não poderá ser trocado por outro prêmio ou convertido em dinheiro.</p>
+    <p>2.3. O dia no salão acontecerá no mês de julho de 2012, data a ser definida junto com a cliente escolhida.</p>
+    <p>2.4. A cliente escolhida para ter o dia no salão será comunicada via telefone ou e-mail. Caso não seja possível o contato, a olook poderá selecionar outra pessoa para receber o Beauty Day no salão Marcos Proença.</p>
+    <p>2.5. A olook se reserva no direito de escolher uma nova compradora caso a primeira escolhida não tenha disponibilidade ou não queira participar no dia do salão.</p>
+    <h2>3. Disposições Gerais:</h2>
+    <p>3.1. A escolha da ganhadora Beauty Day no salão Marcos Proença será a critério da olook.</p>
+    <p>3.2. Somente serão aceitas as clientes com compras confirmadas e com pagamento confirmado dentro do período da ação (Entre 01 e 30 de junho de 2012).</p>
+    <p>3.3. Ao participar da ação, a cliente concorda com todos os termos do regulamento, podendo este ser alterado sem aviso prévio.</p>
+    <p>3.4. Os participantes serão automaticamente excluídos desta ação, no caso de fraude ou má fé comprovada, respondendo civil e criminalmente por seus atos.</p>
+    <p>3.5. As participantes que aceitarem receber as novidades do Marcos Proença estarão automaticamente cadastradas na lista de mailing do Marcos Proença, podendo se cadastrar a qualquer momento, inclusive no momento de finalização de compra na olook.</p>
+    <p>3.6. Em casos confirmados de violação, apontados no item 4.5, será escolhida uma nova compradora para participar do Beauty Day no salão Marcos Proença.</p>
+    <p>3.7. A olook e o salão Marcos Proença não se responsabilizam por nenhuma falha técnica como problemas de acesso à internet ou qualquer caso fortuito ou de força maior que possam impedir a participação da cliente.</p>
+    <p>3.8. Todas as despesas com deslocamento, alimentação, acomodação, estacionamento ou outras despesas serão de responsabilidade da cliente.</p>
+    <p>3.9. A escolhida tem a liberdade de optar por não querer receber o prêmio.</p>
+  </div>
+</div>
