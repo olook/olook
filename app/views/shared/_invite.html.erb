@@ -8,9 +8,9 @@
       <li class="orkut"><%= link_to "Compartilhar no orkut", "#" %></li>
       <li class="email"><%= link_to "#" do %>Enviar <br />por e-mail<% end %></li>
     </ul>
-    <%= form_tag "#" do %>
+    <%= form_tag member_invite_by_email_path do %>
       <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
-      <%= text_area_tag 'email' %>
+      <%= text_area_tag :invite_mail_list %>
       <%= submit_tag "" %>
     <% end %>
   </div>
