@@ -46,14 +46,14 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $("div.box_invite div.social ul li a").live("click", function(e) {
+  $("div.box_invite.clone div.social ul li a").live("click", function(e) {
     type = $(this).parent().attr("class");
     if(type != "email") {
-      $("div.box_invite div.social ul li a").removeClass("selected");
-      $("div.box_invite div.social form").slideUp();
+      $("div.box_invite.clone div.social ul li a").removeClass("selected");
+      $("div.box_invite.clone div.social form").slideUp();
     } else {
       $(this).addClass("selected");
-      $("div.box_invite div.social form").slideDown();
+      $("div.box_invite.clone div.social form").slideDown();
     }
     e.preventDefault();
   });
