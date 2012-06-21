@@ -220,6 +220,7 @@ Olook::Application.routes.draw do
     post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     #gift
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
+    post '/registrar' => "users/registrations#create_half", :as => :half_user_registration
   end
   
   get ":page_url", :to => "landing_pages#show"
