@@ -163,6 +163,7 @@ Olook::Application.routes.draw do
       end
       resources :images do
         get :autocomplete_product_name, :on => :collection
+        resources :lookbook_product_map
       end
     end
 

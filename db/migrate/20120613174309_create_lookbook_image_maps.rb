@@ -1,6 +1,6 @@
 class CreateLookbookImageMaps < ActiveRecord::Migration
   def change
-    create_table :lookbook_image_maps do |t|
+    create_table :lookbook_image_maps, force: true do |t|
       t.references :lookbook
       t.references :image
       t.references :product
