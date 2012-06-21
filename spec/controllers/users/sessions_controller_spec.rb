@@ -3,16 +3,15 @@ require 'spec_helper'
 
 describe Users::SessionsController do
 
-  render_views
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
   
   let!(:user) { FactoryGirl.create(:user) }
   let(:user_params) {{ :email => user.email, :password => user.password }}
-  let!(:man_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::ResgisteredVia[:gift]) }
+  let!(:man_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::RegisteredVia[:gift]) }
   let(:man_user_params) {{ :email => man_user.email, :password => man_user.password }}
-  let!(:woman_user) { FactoryGirl.create(:user, :gender => User::Gender[:female], :half_user => true, :registered_via => User::ResgisteredVia[:thin]) }
+  let!(:woman_user) { FactoryGirl.create(:user, :gender => User::Gender[:female], :half_user => true, :registered_via => User::RegisteredVia[:thin]) }
   let(:woman_user_params) {{ :email => woman_user.email, :password => woman_user.password }}
   
   describe "sign out" do
