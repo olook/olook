@@ -4,9 +4,12 @@ require 'spec_helper'
 describe Users::RegistrationsController do
 
   let(:user_attributes) { {"email" => "mail@mail.com", "password" => "123456", "password_confirmation" => "123456", "first_name" => "User Name", "last_name" => "Last Name" } }
+  let(:user_attributes_invalid) { {"email" => "mail@mail.com", "password" => "12345", "password_confirmation" => "123456", "first_name" => "User Name", "last_name" => "Last Name" } }
 
   let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
   let(:facebook_data) { {"extra" => {"raw_info" => "xyz"}, "credentials" => {"token" => "abc"}} }
+
+  render_views
 
   before :all do
     ActiveRecord::Base.observers.disable :all
@@ -20,37 +23,49 @@ describe Users::RegistrationsController do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
+  after :each do
+    session[:profile_questions] = nil
+    session[:profile_birthday] = nil
+  end
+
+
   describe "registration form" do
     context "when is full user" do
-      after :each do
-        session[:profile_questions] = nil
-      end
-
       it "should redirect if the user dont fill the Survey" do
+        session[:profile_questions] = nil
+        session[:profile_birthday] = :some_data
         get :new
         response.should redirect_to(new_survey_path)
       end
 
-      it "should not redirect when the user fill the Survey" do
+      it "should redirect if the user dont fill the birthday" do
         session[:profile_questions] = :some_data
+        session[:profile_birthday] = nil
         get :new
-        response.should_not redirect_to(new_survey_path)
+        response.should redirect_to(new_survey_path)
       end
 
-      it "should not build the resource using session data" do
+      xit "should render new when user fill the Survey" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = :some_data
+        get :new
+        response.should render_template ["layouts/site", "new"]
+      end
+
+      xit "should not build the resource using session data" do
         session[:profile_questions] = :some_data
         get :new
         controller.resource.email.should eq(nil)
       end
 
-      it "should assigns @signup_with_facebook" do
+      xit "should assigns @signup_with_facebook" do
         session[:profile_questions] = :some_data
         session["devise.facebook_data"] = facebook_data
         get :new
         assigns(:signup_with_facebook).should eq(true)
       end
 
-      it "should build the resource using session data" do
+      xit "should build the resource using session data" do
         session[:profile_questions] = :some_data
         data = {"email" => "mail@mail.com"}
         controller.stub(:user_data_from_session).and_return(data)
@@ -60,26 +75,25 @@ describe Users::RegistrationsController do
     end
     
     context "when is half user" do
-      it "should not redirect when the user fill the Survey" do
-        session[:profile_questions] = :some_data
+      it "should render new_half" do
         get :new_half
-        response.should_not redirect_to(new_survey_path)
+        response.should render_template ["layouts/site", "new_half"]
       end
 
-      it "should not build the resource using session data" do
+      xit "should not build the resource using session data" do
         session[:profile_questions] = nil
         get :new_half
         controller.resource.email.should eq(nil)
       end
 
-      it "should assigns @signup_with_facebook" do
+      xit "should assigns @signup_with_facebook" do
         session[:profile_questions] = :some_data
         session["devise.facebook_data"] = facebook_data
         get :new_half
         assigns(:signup_with_facebook).should eq(true)
       end
 
-      it "should build the resource using session data" do
+      xit "should build the resource using session data" do
         session[:profile_questions] = :some_data
         data = {"email" => "mail@mail.com"}
         controller.stub(:user_data_from_session).and_return(data)
@@ -91,31 +105,84 @@ describe Users::RegistrationsController do
   
   describe "sign up" do
     it "should save tracking"
-    it "should save facebook"
-    it "should save birthday"
+    it "should clear tracking session"
     it "should save invite"
+    it "should clear invite session"
+    it "should save facebook"
+    it "should clear facebook session"
     
     context "when is full user" do
-      context "with questions in session" do
-        it "should save user"
-        it "should save questions"
-        it "should redirect to welcome"
+      it "should redirect if the user dont fill the Survey" do
+        session[:profile_questions] = nil
+        session[:profile_birthday] = :some_data
+        post :create, :user => user_attributes
+        response.should redirect_to(new_survey_path)
+      end
+
+      it "should redirect if the user dont fill the birthday" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = nil
+        post :create, :user => user_attributes
+        response.should redirect_to(new_survey_path)
+      end
+
+      xit "should save user" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = :some_data
+        expect {
+          post :create, :user => user_attributes
+        }.to change(User, :count).by(1)
       end
       
-      context "without questions in session" do
-        it "should redirect to survey" do
-        end
+      xit "should response error when invalid attributes" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = :some_data
+        expect {
+          post :create, :user => user_attributes_invalid
+          response.should render_template ["layouts/site", "new"]
+        }.to_not change(User, :count)
       end
+
+      it "should save birthday"
+      it "should clear birthday session"
+      it "should save questions"
+      it "should clear questions in session"
+      it "should redirect to welcome"
     end
     
     context "when is half user" do
       context "with gift product in session" do
-        it "should save user"
+        xit "should save user" do
+          expect {
+            post :create_half, :user => user_attributes
+          }.to change(User, :count).by(1)
+        end
+        
+        it "should response error when invalid attributes" do
+          expect {
+            post :create_half, :user => user_attributes_invalid
+            response.should render_template ["layouts/site", "new_half"]
+          }.to_not change(User, :count)
+        end
+        
         it "should invoke CartBuilder to add Products"
         it "should redirect to cart page"
       end
+
       context "with has offline product in session" do
-        it "should save user"
+        xit "should save user" do
+          expect {
+            post :create_half, :user => user_attributes
+          }.to change(User, :count).by(1)
+        end
+        
+        it "should response error when invalid attributes" do
+          expect {
+            post :create_half, :user => user_attributes_invalid
+            response.should render_template ["layouts/site", "new_half"]
+          }.to_not change(User, :count)
+        end
+        
         it "should invoke CartBuilder to add Products"
         it "should redirect to cart page"
       end
@@ -132,17 +199,19 @@ describe Users::RegistrationsController do
     it "should update the user" do
       User.any_instance.should_receive(:update_attributes).with(user_attributes)
       put :update, :id => @user.id, :user => user_attributes
+      response.should render_template ["layouts/my_account", "edit"]
     end
 
     it "should not update the cpf" do
       put :update, :id => @user.id, :user => user_attributes.merge("cpf" => "19762003691")
       @user.reload.cpf.should be_nil
+      response.should render_template ["layouts/my_account", "edit"]
     end
 
     it "should render the edit template" do
       User.any_instance.stub(:update_attributes).and_return(false)
       put :update, :id => @user.id, :user => user_attributes
-      response.should render_template('edit')
+      response.should render_template ["layouts/my_account", "edit"]
     end
   end
 
