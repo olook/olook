@@ -54,6 +54,9 @@ $(document).ready(function() {
     } else {
       $(this).addClass("selected");
       $("div.box_invite.clone div.social form").slideDown();
+      $("html, body").animate({
+        scrollTop: "200px"
+      }, 'slow');
       return false;
     }
   });
