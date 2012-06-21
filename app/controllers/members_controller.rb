@@ -144,14 +144,13 @@ class MembersController < ApplicationController
     redirect_to member_showroom_path, :alert => flash[:notice] if !current_user.first_visit?
   end
 
+  #TODO: remove this method
   def check_session_and_send_to_cart
     @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
     session[:offline_variant] = nil
 
     unless @offline_variant.nil?
-      order_id = (session[:order] ||= @user.orders.create.id)
-      order = @user.orders.find(order_id)
-      order.add_variant(@offline_variant)
+      current_order.add_variant(@offline_variant)
       if session[:offline_first_access]
         session[:offline_first_access] = nil
         return redirect_to cart_path

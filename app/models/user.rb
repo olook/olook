@@ -268,6 +268,11 @@ class User < ActiveRecord::Base
     Gender.select{|k,v| v == self.gender}.key(self.gender).to_s
   end
 
+  def clean_auth_token
+    self.authentication_token = nil
+    self.save
+  end
+
   private
 
   def generate_invite_token

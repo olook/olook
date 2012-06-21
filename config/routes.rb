@@ -4,7 +4,7 @@ Olook::Application.routes.draw do
   get "liquidation_products/index"
   get "index/index"
   root :to => "home#index"
- 
+
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
@@ -119,6 +119,7 @@ Olook::Application.routes.draw do
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
       resources :suggestions, :only => [:index]
+      post "suggestions/add_to_cart" => "suggestions#add_to_cart", :as => :add_suggestions_to_cart
       get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
       post "suggestions/select_gift/" => "suggestions#select_gift"
       member do
@@ -133,9 +134,9 @@ Olook::Application.routes.draw do
       end
     end
   end
-  
+
   devise_for :admins
-  
+
   namespace :admin do
     match "/", :to => "index#dashboard"
 
@@ -221,6 +222,6 @@ Olook::Application.routes.draw do
     #gift
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
   end
-  
+
   get ":page_url", :to => "landing_pages#show"
 end
