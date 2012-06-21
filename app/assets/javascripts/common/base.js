@@ -46,6 +46,18 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
+  $("div.box_invite div.social ul li a").live("click", function(e) {
+    type = $(this).parent().attr("class");
+    if(type != "email") {
+      $("div.box_invite div.social ul li a").removeClass("selected");
+      $("div.box_invite div.social form").slideUp();
+    } else {
+      $(this).addClass("selected");
+      $("div.box_invite div.social form").slideDown();
+    }
+    e.preventDefault();
+  });
+
   $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
     if($("div#quick_view").size() == 0) {
       $("body").prepend("<div id='quick_view'></div>");
