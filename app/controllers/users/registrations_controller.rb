@@ -2,64 +2,21 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   layout :layout_by_resource
 
-  before_filter :check_survey_response, :only => [:new]
+  before_filter :check_survey_response, :only => [:new, :create]
   before_filter :load_order, :only => [:edit]
 
   def new
-    if data = user_data_from_session
-      build_resource(:email => data["email"], :first_name => data["first_name"], :last_name => data["last_name"])
-      @signup_with_facebook = true
-    else
-      build_resource
-    end
-    resource.is_invited = true if session[:invite]
-    render :layout => "site"
+    resource = build_resource({:half_user => false})
+    respond_with resource
   end
 
   def new_half
-    self.new
+    resource = build_resource({:half_user => true})
+    respond_with resource
   end
-
-  def create
-    build_resource
-    unless resource.half_user
-      return redirect_to new_survey_path if session[:profile_points].nil?
-      
-      resource.user_info = UserInfo.new({ :shoes_size => UserInfo::SHOES_SIZE[session["questions"]["question_57"]] })
-    end
-
-    set_resource_attributes(resource)
-    
-    if resource.save
-      save_tracking_params resource, session[:tracking_params]
-      if resource.active_for_authentication?
-        set_flash_message :notice, :signed_up if is_navigational_format?
-        sign_in(resource_name, resource)
-
-        if session[:gift_products]
-          GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id)
-          GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id)
-          return redirect_to add_products_to_gift_cart_cart_path(:products => session[:gift_products])
-        end
-
-        after_sign_up_path_for(resource) unless resource.half_user
-
-        redirect_to member_welcome_path
-      else
-        set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
-        expire_session_data_after_sign_in!
-        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-      end
-    else
-      clean_up_passwords(resource)
-      respond_with_navigational(resource) {
-        if resource.half_user
-          render_with_scope :new_half
-        else
-          render_with_scope :new
-        end
-      }
-    end
+  
+  def create_half
+    self.create
   end
 
   def edit
@@ -93,61 +50,86 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  private
-
-  def set_resource_attributes(resource)
-    if data = user_data_from_session
-      resource.uid = data["id"]
-      resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
-    end
-    bday = session[:birthday]
-    resource.birthday = Date.new(bday[:year].to_i, bday[:month].to_i, bday[:day].to_i) if bday
-    resource.is_invited = true if session[:invite]
-  end
-
-  def build_answers(session)
-    answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])
-    answers
-  end
-
-  def check_survey_response
-    redirect_to new_survey_path if session[:profile_questions].nil?
-  end
-
-  def after_sign_up_path_for(resource)
-    answers = build_answers(session)
-    SurveyAnswer.create(:answers => answers, :user => resource)
-    ProfileBuilder.new(resource).create_user_points(session[:profile_points])
-    resource.accept_invitation_with_token(session[:invite][:invite_token]) if session[:invite]
-    clean_sessions
-  end
-
-  def user_data_from_session
-    session["devise.facebook_data"]["extra"]["raw_info"] if session["devise.facebook_data"]
-  end
-
-  def save_tracking_params(resource, tracking_params)
-    tracking_params ||= {}
-    if resource.is_a?(User) && tracking_params.present?
-      resource.add_event(EventType::TRACKING, tracking_params)
-    end
-  end
-
-  def clean_sessions
-    session["devise.facebook_data"] = nil
-    session[:profile_points] = nil
-    session[:questions] = nil
-    session[:invite] = nil
-    session[:tracking_params] = nil
-  end
-
   protected
+  def build_resource(params = nil)
+    resource = super(params)
+    
+    if data_face = user_data_from_facebook
+      # resource.email = data_face["email"]
+      resource.first_name = data_face["first_name"]
+      resource.last_name = data_face["last_name"]
+      resource.uid = data_face["id"]
+      resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
+      @signup_with_facebook = true
+    end
+
+    if session[:profile_questions]
+      resource.user_info = UserInfo.new(
+        { :shoes_size => 
+            UserInfo::SHOES_SIZE[session["profile_questions"]["question_57"]]
+        }
+      )
+    end
+    
+    if bday = session[:profile_birthday]
+      resource.birthday = Date.new(
+        bday[:year].to_i,
+        bday[:month].to_i,
+        bday[:day].to_i)
+    end
+    
+    if session[:invite]
+      resource.is_invited = true
+    end
+    
+    #TODO: FLAGEAR O USUARIO CONFORME O TIPO
+    
+    resource
+  end
+
+  def after_sign_up_path_for(resource_or_scope)
+    unless resource_or_scope.half_user
+      ProfileBuilder.factory(session[:profile_birthday], session[:profile_questions], resource_or_scope)
+      session[:profile_birthday] = nil
+      session[:profile_questions] = nil
+    end
+    
+    session[:tracking_params] ||= {}
+    if session[:tracking_params].present?
+      resource.add_event(EventType::TRACKING, session[:tracking_params])
+    end
+
+    session[:tracking_params] = nil
+    session["devise.facebook_data"] = nil
+    session[:invite] = nil
+    
+    if session[:gift_products]
+      CartBuilder.gift(self, resource_or_scope)
+    elsif session[:offline_variant]
+      CartBuilder.offline(self, resource_or_scope)    
+    elsif current_user.half_user && current_user.male?
+      gift_root_path
+    else
+      member_welcome_path
+    end
+  end
+  
+
+  def user_data_from_facebook
+    if session["devise.facebook_data"]
+      session["devise.facebook_data"]["extra"]["raw_info"] 
+    end
+  end
+  
+  def check_survey_response
+    if session[:profile_questions].nil? || session[:profile_birthday].nil?
+      redirect_to new_survey_path
+    end
+  end
 
   def layout_by_resource
-    if devise_controller? && action_name == "create"
-      "site"
-    else
-      "my_account"
-    end
+    return "my_account" if action_name == "edit"
+    return "my_account" if action_name == "update"
+    return "site"
   end
 end
