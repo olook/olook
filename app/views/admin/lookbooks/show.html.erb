@@ -16,25 +16,21 @@
     <%= @lookbook.name %>
   </p>
   <p>
-    <b>Thumb:</b>
-    <%= image_tag @lookbook.thumb_image.try(:url) %>
+    <b>Thumb:</b><br/>
+    <%= image_tag @lookbook.thumb_image.try(:url) if @lookbook.thumb_image %>
   </p>
 
   <p>
-    <b>Icon:</b>
-    <%= image_tag @lookbook.icon.try(:url) %>
+    <b>Icon:</b><br/>
+    <%= image_tag @lookbook.icon.try(:url) if !@lookbook.icon.blank? %>
   </p>
   <p>
-    <b>Icon Over:</b>
-    <%= image_tag @lookbook.icon_over.try(:url) %>
+    <b>Icon Over:</b><br/>
+    <%= image_tag @lookbook.icon_over.try(:url) if !@lookbook.icon_over.blank? %>
   </p>
   <p>
-    <b>Foreground Color:</b>
-    <%= @lookbook.fg_color %>
-  </p>
-  <p>
-    <b>Background Color:</b>
-    <%= @lookbook.bg_color %>
+    <b>Foreground and background colors:</b>
+    <div style="padding:5px; color:<%= @lookbook.fg_color %>; background-color:<%= @lookbook.bg_color %>">Texto de exemplo</div>
   </p>
 
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
