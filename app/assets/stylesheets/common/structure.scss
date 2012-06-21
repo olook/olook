@@ -1255,7 +1255,18 @@ body {
           padding: 7px 8px;
           resize: none;
           outline: none;
+          margin: 0 0 20px;
           border: 1px solid #C1C1C1;
+        }
+        input[type="submit"] {
+          background: url("/assets/common/invite.png") no-repeat;
+          text-indent: -9999px;
+          width: 283px;
+          height: 52px;
+          display: block;
+          margin: 0 auto;
+          border: none;
+          cursor: pointer;
         }
       }
     }
