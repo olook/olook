@@ -40,6 +40,7 @@ $(document).ready(function() {
 
   $("header .content #session ul li a.invite").live("click", function(e) {
     clone = $("div.box_invite").clone().addClass("clone");
+    $(clone).find("li.facebook a").attr("id", "facebook_post_wall");
     content = clone[0].outerHTML;
     initBase.modal(content);
     initBase.copyInviteLink();
@@ -106,8 +107,9 @@ $(document).ready(function() {
     sendFacebookMessage();
   });
 
-  $("#facebook_post_wall").click(function() {
+  $("#facebook_post_wall").live("click", function() {
     postToFacebookFeed();
+    return false;
   });
 
   $(document).bind('keydown', 'esc',function () {
