@@ -111,7 +111,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_survey_response
-    redirect_to new_survey_path if session[:profile_points].nil?
+    redirect_to new_survey_path if session[:profile_questions].nil?
   end
 
   def after_sign_up_path_for(resource)
