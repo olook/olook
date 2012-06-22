@@ -41,9 +41,11 @@ $(document).ready(function() {
   $("header .content #session ul li a.invite").live("click", function(e) {
     clone = $("div.box_invite").clone().addClass("clone");
     $(clone).find("li.facebook a").attr("id", "facebook_post_wall");
+    $(clone).find("li.orkut #orkut_share").remove();
     content = clone[0].outerHTML;
     initBase.modal(content);
     initBase.copyInviteLink();
+    initBase.createOrkutShareButton();
     e.preventDefault();
   });
 
@@ -491,5 +493,10 @@ initBase = {
         $('.dialog, .overlay').hide();
       });
     });
+  },
+
+  createOrkutShareButton : function() {
+    orkutButton = $("#orkut_share").find("img").first();
+    $("div.box_invite.clone div.social ul li.orkut").append(orkutButton);
   }
 }
