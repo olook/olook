@@ -27,11 +27,15 @@ class MemberMailer < ActionMailer::Base
   private
 
   def default_welcome_email
-    mail(:to => @member.email, :subject => subject_by_gender)
+    mail(:to => @member.email, :subject => subject_by_gender_and_kind)
     headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json
   end
 
-  def subject_by_gender
-    "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}, use agora mesmo seus 30% de desconto!"
+  def subject_by_gender_and_kind
+    if @member.half_user
+      "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}! Seu cadastro foi feito com sucesso!"
+    else
+      "#{@member.name}, use agora mesmo seus 30% de desconto!"
+    end
   end
 end
