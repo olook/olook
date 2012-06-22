@@ -32,6 +32,6 @@ class MemberMailer < ActionMailer::Base
   end
 
   def subject_by_gender
-    "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}! Seu cadastro foi feito com sucesso!"
+    "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}, use agora mesmo seus 30% de desconto!"
   end
 end
