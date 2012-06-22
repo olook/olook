@@ -1196,6 +1196,10 @@ body {
         padding: 0 0;
         overflow: auto;
         li {
+          position: relative;
+          width: 105px;
+          margin: 0 15px 0 0;
+          float: left;
           a {
             color: #5a5a5b;
             font-family: "Times New Roman", sans-serif;
@@ -1224,6 +1228,15 @@ body {
           &.orkut {
             a {
               background: url("/assets/common/bt-orkut.jpg") center 10px no-repeat;
+            }
+            img {
+              position: absolute;
+              width: 105px;
+              height: 150px;
+              left: 0;
+              opacity: 0;
+              -moz-opacity: 0;
+              filter: alpha(opacity=0);
             }
           }
           &.email {
