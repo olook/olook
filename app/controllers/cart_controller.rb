@@ -127,12 +127,6 @@ class CartController < ApplicationController
   end
 
   private
-
-  def clear_gifts_in_the_order(order)
-    order.reload
-    order.clear_gift_in_line_items
-  end
-
   def destroy_freight(order)
     order.freight.destroy if order.freight
   end

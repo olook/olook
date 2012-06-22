@@ -82,7 +82,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.is_invited = true
     end
     
-    #TODO: FLAGEAR O USUARIO CONFORME O TIPO
+    if !resource.half_user
+      resource.registered_via = User::RegisteredVia[:quiz]
+    else
+      if session[:gift_products]
+        resource.registered_via = User::RegisteredVia[:gift]
+      else
+        resource.registered_via = User::RegisteredVia[:thin]
+      end
+    end
     
     resource
   end
