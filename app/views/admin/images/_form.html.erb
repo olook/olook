@@ -22,11 +22,14 @@
 .product-map:hover span {visibility:visible;}
 
 <% @image.lookbook_image_maps.each do |lim| %>
-  #pm<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
+  #lb<%= @image.lookbook.id %>-pm<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
 <% end %>
 </style>
   <% @image.lookbook_image_maps.each do |lim| %>
-    <div class="product-map" id="pm<%= lim.id %>"><span><%= link_to lim.product.name, product_path(lim.product.id) %></span></div>
+    <div class="product-map draggable" id="lb<%= @image.lookbook.id %>-pm<%= lim.id %>">
+      <span><%= link_to lim.product.name, product_path(lim.product.id) %></span>
+      <%= link_to 'X', admin_lookbook_image_map_path(lookbook), confirm: 'Are you sure?', remote: true, method: :delete, :class => 'button danger' %>
+    </div>
   <% end %>
 <% end %>
     <b>Current image:</b><br />
@@ -37,43 +40,25 @@
     <%= f.label :image %><br />
     <%= f.file_field :image %>
   </div>
-
-<table class="table">
-  <tr>
-    <th>Product</th>
-    <th>Coordinates</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @image.lookbook_image_maps.each do |lim| %>
-  <tr>
-    <td><%= lim.product.name %></td>
-    <td><%= lim.coord_x %>x<%= lim.coord_y %></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  <tr>
-<% end %>
-</table>
   
 <%= fields_for :lookbook_image_map do |lim| %>
   <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
-  <%= lim.hidden_field :product_id %>
   <%= lim.hidden_field :image_id, value: @image.id %>
-  <ul class="inline">
-    <li>
-      <%= lim.autocomplete_field :product_name, autocomplete_product_name_admin_lookbook_images_path, update_elements: {id: '#lookbook_image_map_product_id'}, extra_data: [:thumb_picture, :model_number] %>
-    </li>
-    <li>
+  <%= lim.hidden_field :product_id %>
+  <div class="map-form">
+    <p>
+      <%= lim.label :product_name %>
+      <%= lim.text_field :product_id %>
+    </p>
+    <p>
       <%= lim.label :coord_x %>
-      <%= lim.text_field :coord_x %>
-    </li>
-    <li>
+      <%= lim.number_field :coord_x, value: 0 %>
+    </p>
+    <p>
       <%= lim.label :coord_y %>
-      <%= lim.text_field :coord_y %>
-    </li>
-  </ul>
+      <%= lim.number_field :coord_y, value: 0 %>
+    </p>
+  </div>
 <% end %>
   
   <div class="actions">
