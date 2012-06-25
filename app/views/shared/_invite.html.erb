@@ -34,5 +34,9 @@
       <li><%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
       <li><%= link_to "Copiar link", "#" %></li>
     </ul>
+    <div class="box_copy">
+      <p><strong>Link copiado</strong></p>
+      <p>Aperte CTRL + V para colar.</p>
+    </div>
   </div>
 </div>
