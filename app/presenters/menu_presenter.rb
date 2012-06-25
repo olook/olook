@@ -72,7 +72,7 @@ class MenuPresenter < BasePresenter
   end
 
   def olook_tv
-    h.content_tag :li, h.link_to("olook TV", "http://blog.olook.com.br/category/spfw-2/", :target => "_blank"), :class => "olooktv"
+    h.content_tag :li, h.link_to("olook TV", "http://blog.olook.com.br/category/olook-tv/", :target => "_blank"), :class => "olooktv"
   end
 
   def blog
