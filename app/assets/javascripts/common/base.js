@@ -458,9 +458,9 @@ initBase = {
   copyInviteLink : function() {
     $("div.box_invite.clone div.link_mail ul li a").zclip({
       path: "/assets/ZeroClipboard.swf",
-      copy: $("div.box_invite.clone div.link_mail ul li input").val(),
+      copy: function() { return $("div.box_invite.clone div.link_mail ul li input").val(); },
       afterCopy: function(){
-        alert("copiado");
+        $("div.box_invite.clone div.link_mail div.box_copy").fadeIn().delay(2000).fadeOut();
       }
     });
   },

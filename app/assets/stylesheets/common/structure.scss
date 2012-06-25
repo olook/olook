@@ -1284,8 +1284,11 @@ body {
       }
     }
     div.link_mail {
-      width: 325px;
+      position: relative;
+      width: 295px;
+      height: 150px;
       overflow: auto;
+      padding: 0 0 0 30px;
       float: right;
       h2 {
         font-size: 18px;
@@ -1295,7 +1298,9 @@ body {
         margin: 0 0 10px;
       }
       ul {
+        overflow: hidden;
         li {
+          position: relative;
           input[type="text"] {
             color: #666;
             font-size: 13px;
@@ -1310,6 +1315,27 @@ body {
             width: 116px;
             height: 32px;
             display: block;
+          }
+          div.zclip {
+            z-index: 10000 !important;
+          }
+        }
+      }
+      div.box_copy {
+        position: absolute;
+        background: url("/assets/common/copy.png") top center no-repeat;
+        width: 166px;
+        height: 38px;
+        padding: 17px 0 0 0;
+        display: none;
+        top: 93px;
+        left: 5px;
+        p {
+          color: #666;
+          font-size: 12px;
+          text-align: center;
+          strong {
+            color: #666;
           }
         }
       }
