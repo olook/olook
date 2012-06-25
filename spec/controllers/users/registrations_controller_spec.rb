@@ -239,13 +239,61 @@ describe Users::RegistrationsController do
       end
     end
     
-    it "should save tracking"
-    it "should clear tracking session"
-    it "should save invite"
-    it "should clear invite session"
-    it "should save facebook"
-    it "should clear facebook session"
+    it "should save tracking" do
+      session[:profile_questions] = :some_data
+      session[:profile_birthday] = birthday
+      session[:tracking_params] = "bla"
+      ProfileBuilder.stub(:factory)
+      expect {
+        post :create, :user => user_attributes
+        
+        last_event = Event.last
+        last_event.user_id.should be(controller.current_user.id)
+        last_event.event_type.should be(EventType::TRACKING)
+        last_event.description.should be("bla")
+      }.to change{Event.count}.by(1)
+    end
+
+    it "should clear tracking session" do
+      session[:profile_questions] = :some_data
+      session[:profile_birthday] = birthday
+      session[:tracking_params] = mock
+      ProfileBuilder.stub(:factory)
+      post :create, :user => user_attributes
+      session[:tracking_params].should be_nil
+    end
     
+    it "should save invite" do
+      session[:profile_questions] = :some_data
+      session[:profile_birthday] = birthday
+      session[:invite] = {:intive_token => Devise.friendly_token}
+      ProfileBuilder.stub(:factory)
+      post :create, :user => user_attributes
+    end
+    
+    it "should clear invite session" do
+      session[:profile_questions] = :some_data
+      session[:profile_birthday] = birthday
+      session[:invite] = {:intive_token => Devise.friendly_token}
+      ProfileBuilder.stub(:factory)
+      post :create, :user => user_attributes
+      controller.current_user.is_invited.should be_true
+      session[:invite].should be_nil
+    end
+    
+    xit "should save facebook" do
+      session[:profile_questions] = :some_data
+      session[:profile_birthday] = birthday
+      ProfileBuilder.stub(:factory)
+      post :create, :user => user_attributes
+    end
+    
+    xit "should clear facebook session" do
+      session[:profile_questions] = :some_data
+      session[:profile_birthday] = birthday
+      ProfileBuilder.stub(:factory)
+      post :create, :user => user_attributes
+    end
   end
 
   describe "PUT update" do

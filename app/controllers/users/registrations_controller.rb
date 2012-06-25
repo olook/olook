@@ -106,6 +106,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if session[:tracking_params].present?
       resource.add_event(EventType::TRACKING, session[:tracking_params])
     end
+    
+    if session[:invite]
+      resource.accept_invitation_with_token(session[:invite][:invite_token])
+    end
 
     session[:tracking_params] = nil
     session["devise.facebook_data"] = nil
