@@ -11,7 +11,8 @@ describe Users::RegistrationsController do
 
   let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
   let(:birthday_date) { Date.new(1987, 9, 27) }
-  let(:facebook_data) { {"extra" => {"raw_info" => {"first_name" => "XPTO"}}, "credentials" => {"token" => "abc"}} }
+  let(:facebook_data) { {"extra" => {"raw_info" => {"first_name" => "Maria", "last_name" => "Alencar", "id" => "12876556"}}, "credentials" => {"token" => "abc"}} }
+  let(:inviting_member) { FactoryGirl.create(:member) }
 
   render_views
 
@@ -79,7 +80,10 @@ describe Users::RegistrationsController do
         session[:profile_birthday] = birthday
         session["devise.facebook_data"] = facebook_data
         get :new
-        controller.resource.first_name.should eq("XPTO")
+        controller.resource.uid.should eq("12876556")
+        controller.resource.first_name.should eq("Maria")
+        controller.resource.last_name.should eq("Alencar")
+        controller.resource.facebook_token.should eq("abc")
       end
     end
     
@@ -250,7 +254,7 @@ describe Users::RegistrationsController do
         last_event = Event.last
         last_event.user_id.should be(controller.current_user.id)
         last_event.event_type.should be(EventType::TRACKING)
-        last_event.description.should be("bla")
+        last_event.description.should eq("bla")
       }.to change{Event.count}.by(1)
     end
 
@@ -266,33 +270,40 @@ describe Users::RegistrationsController do
     it "should save invite" do
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
-      session[:invite] = {:intive_token => Devise.friendly_token}
+      session[:invite] = {:invite_token => inviting_member.invite_token}
       ProfileBuilder.stub(:factory)
-      post :create, :user => user_attributes
+      post :create, :user => user_attributes.merge("cpf" => "44827455619")
+      controller.current_user.is_invited.should be_true
     end
     
     it "should clear invite session" do
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
-      session[:invite] = {:intive_token => Devise.friendly_token}
+      session[:invite] = {:invite_token => inviting_member.invite_token}
       ProfileBuilder.stub(:factory)
-      post :create, :user => user_attributes
-      controller.current_user.is_invited.should be_true
+      post :create, :user => user_attributes.merge("cpf" => "44827455619")
       session[:invite].should be_nil
     end
     
-    xit "should save facebook" do
+    it "should save facebook" do
+      session["devise.facebook_data"] = facebook_data
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
       ProfileBuilder.stub(:factory)
       post :create, :user => user_attributes
+      controller.current_user.uid.should eq("12876556")
+      controller.current_user.first_name.should eq("Maria")
+      controller.current_user.last_name.should eq("Alencar")
+      controller.current_user.facebook_token.should eq("abc")
     end
     
-    xit "should clear facebook session" do
+    it "should clear facebook session" do
+      session["devise.facebook_data"] = facebook_data
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
       ProfileBuilder.stub(:factory)
       post :create, :user => user_attributes
+      session["devise.facebook_data"].should be_nil
     end
   end
 

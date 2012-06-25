@@ -62,14 +62,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
       @signup_with_facebook = true
     end
-
-    if session[:profile_questions]
-      resource.user_info = UserInfo.new(
-        { :shoes_size => 
-            UserInfo::SHOES_SIZE[session["profile_questions"]["question_57"]]
-        }
-      )
-    end
     
     if bday = session[:profile_birthday]
       resource.birthday = Date.new(
@@ -98,6 +90,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource_or_scope)
     unless resource_or_scope.half_user
       ProfileBuilder.factory(session[:profile_birthday], session[:profile_questions], resource_or_scope)
+      resource.create_user_info(
+        { :shoes_size => 
+            UserInfo::SHOES_SIZE[session["profile_questions"]["question_57"]]
+        }
+      )
       session[:profile_birthday] = nil
       session[:profile_questions] = nil
     end
