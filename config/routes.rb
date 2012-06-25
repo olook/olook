@@ -162,7 +162,6 @@ Olook::Application.routes.draw do
         get "product/:id", :to => "lookbooks#product"
       end
       resources :images do
-        get :autocomplete_product_name, :on => :collection
         resources :lookbook_product_map
       end
     end

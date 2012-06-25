@@ -2,9 +2,10 @@
 .product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
 .product-map {background-image:url(<%= @lookbook.icon_url %>);}
 .product-map:hover {background-image:url(<%= @lookbook.icon_over.url %>);}
-.product-map span {visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
-.product-map a {color:<%= @lookbook.fg_color %>;}
-.product-map:hover span {visibility:visible;}
+.product-map span, .product-map-example {visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
+.product-map a, .product-map-example {color:<%= @lookbook.fg_color %>; text-shadow:none;}
+.product-map:hover span, .product-map-example {visibility:visible;}
+.product-map-example {width:auto; display:inline-block;}
 </style>
 
 <h2>Lookbook</h2>
@@ -30,7 +31,7 @@
   </p>
   <p>
     <b>Foreground and background colors:</b>
-    <div style="padding:5px; color:<%= @lookbook.fg_color %>; background-color:<%= @lookbook.bg_color %>">Texto de exemplo</div>
+    <div class="product-map-example">Texto de exemplo</div>
   </p>
 
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>

@@ -1,11 +1,9 @@
 class Admin::ImagesController < Admin::BaseController
-  before_filter :load_lookbook
+  before_filter :load_lookbook, except: [:autocomplete_product_name]
   before_filter :save_image_maps, only: [:create, :update]
   respond_to :html
 
-  autocomplete :product, :name, full: true, :extra_data => [:model_number]
-
-   def show
+  def show
     @image = @lookbook.images.find(params[:id])
     respond_with :admin, @image
   end

@@ -10,8 +10,5 @@
 //= require_tree ./plugins
 //= require_tree ./common
 //= require_tree ./admin
-//= require ./ui/jquery.ui.core.min
-//= require ./ui/jquery.ui.position.min
-//= require ./ui/jquery.ui.widget.min
-//= require ./ui/jquery.ui.dialog.min
+//= require_tree ./ui
 //= require autocomplete-rails
