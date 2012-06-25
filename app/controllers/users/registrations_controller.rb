@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create_half
     self.create
   end
-
+  
   def edit
     @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
@@ -112,16 +112,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session[:invite] = nil
     
     if session[:gift_products]
-      CartBuilder.gift(self, resource_or_scope)
+      CartBuilder.gift(self)
     elsif session[:offline_variant]
-      CartBuilder.offline(self, resource_or_scope)    
-    elsif current_user.half_user && current_user.male?
+      CartBuilder.offline(self)    
+    elsif resource_or_scope.half_user && resource_or_scope.male?
       gift_root_path
     else
       member_welcome_path
     end
   end
-  
 
   def user_data_from_facebook
     if session["devise.facebook_data"]

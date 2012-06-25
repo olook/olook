@@ -7,6 +7,7 @@ describe Users::RegistrationsController do
   let(:user_attributes_invalid) { {"email" => "mail@mail.com", "password" => "12345", "password_confirmation" => "123456", "first_name" => "User Name", "last_name" => "Last Name" } }
 
   let(:birthday) { {:day => "27", :month => "9", :year => "1987"} }
+  let(:birthday_date) { Date.new(1987, 9, 27) }
   let(:facebook_data) { {"extra" => {"raw_info" => "xyz"}, "credentials" => {"token" => "abc"}} }
 
   render_views
@@ -26,8 +27,10 @@ describe Users::RegistrationsController do
   after :each do
     session[:profile_questions] = nil
     session[:profile_birthday] = nil
+    session[:tracking_params] = nil
+    session["devise.facebook_data"] = nil
+    session[:invite] = nil
   end
-
 
   describe "registration form" do
     context "when is full user" do
@@ -112,42 +115,76 @@ describe Users::RegistrationsController do
     it "should clear facebook session"
     
     context "when is full user" do
-      it "should redirect if the user dont fill the Survey" do
+      it "should redirect if the user don't fill the Survey" do
         session[:profile_questions] = nil
         session[:profile_birthday] = :some_data
         post :create, :user => user_attributes
         response.should redirect_to(new_survey_path)
       end
 
-      it "should redirect if the user dont fill the birthday" do
+      it "should redirect if the user don't fill the birthday" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = nil
         post :create, :user => user_attributes
         response.should redirect_to(new_survey_path)
       end
 
-      xit "should save user" do
+      it "should save user" do
         session[:profile_questions] = :some_data
-        session[:profile_birthday] = :some_data
+        session[:profile_birthday] = birthday
+        ProfileBuilder.stub(:factory)
         expect {
           post :create, :user => user_attributes
         }.to change(User, :count).by(1)
       end
       
-      xit "should response error when invalid attributes" do
+      it "should response error when invalid attributes" do
         session[:profile_questions] = :some_data
-        session[:profile_birthday] = :some_data
+        session[:profile_birthday] = birthday
         expect {
           post :create, :user => user_attributes_invalid
           response.should render_template ["layouts/site", "new"]
         }.to_not change(User, :count)
       end
 
-      it "should save birthday"
-      it "should clear birthday session"
-      it "should save questions"
-      it "should clear questions in session"
-      it "should redirect to welcome"
+      it "should save birthday" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = birthday
+        ProfileBuilder.stub(:factory)
+        post :create, :user => user_attributes
+        controller.current_user.birthday.should eq(birthday_date)
+      end
+      
+      it "should clear birthday session" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = birthday
+        ProfileBuilder.stub(:factory)
+        post :create, :user => user_attributes
+        session[:profile_birthday].should be_nil
+      end
+      
+      it "should save questions" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = birthday
+        ProfileBuilder.should_receive(:factory)
+        post :create, :user => user_attributes
+      end
+
+      it "should clear questions in session" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = birthday
+        ProfileBuilder.stub(:factory)
+        post :create, :user => user_attributes
+        session[:profile_questions].should be_nil
+      end
+
+      it "should redirect to welcome" do
+        session[:profile_questions] = :some_data
+        session[:profile_birthday] = birthday
+        ProfileBuilder.stub(:factory)
+        post :create, :user => user_attributes
+        response.should redirect_to(member_welcome_path)
+      end
     end
     
     context "when is half user" do

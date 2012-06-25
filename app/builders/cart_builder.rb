@@ -1,14 +1,24 @@
 # -*- encoding : utf-8 -*-
 class CartBuilder
   def self.gift(controller)
-    GiftCartBuilder.new(controller, controller.current_user).build
+    GiftCartBuilder.new(controller).build
   end
 
-  def self.offline(controller, resource)
-    #session[:offline_variant]
-    cart_path
-  end
+  #TODO: EXTRACT TO CLASS
+  def self.offline(controller)
+    if controller.session[:offline_variant]
+      offline_variant = Variant.find(controller.session[:offline_variant]["id"])
+      controller.session[:offline_variant] = nil
+    end
 
+    unless offline_variant.nil?
+      controller.current_order.add_variant(offline_variant)
+    end
+
+    return controller.cart_path
+  end
+  
+  #TODO: EXTRACT TO CLASS
   class GiftCartBuilder
     def self.calculate_gift_prices order
       return if !order.restricted? || order.line_items.empty?
@@ -24,6 +34,7 @@ class CartBuilder
       @controller = controller
       @gift_products = controller.session[:gift_products]
       @order = controller.current_order
+      @user = controller.current_user
     end
 
     def build
@@ -34,7 +45,7 @@ class CartBuilder
         GiftCartBuilder.calculate_gift_prices(@order)
         clear_gift_products_session
         set_flash_notice
-        cart_path
+        @controller.cart_path
       else
         redirect_back
       end
@@ -51,11 +62,11 @@ class CartBuilder
     end
 
     def set_occasion
-      GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => user.id) if controller.session[:occasion_id]
+      GiftOccasion.find(@controller.session[:occasion_id]).update_attributes(:user_id => @user.id) if @controller.session[:occasion_id]
     end
 
     def set_recipient
-      GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => user.id) if controller.session[:recipient_id]
+      GiftRecipient.find(@controller.session[:recipient_id]).update_attributes(:user_id => @user.id) if @controller.session[:recipient_id]
     end
 
     def set_as_restricted
@@ -71,7 +82,7 @@ class CartBuilder
     end
 
     def set_flash_notice
-      @controller.flash[:notice] = if order.line_items.size > 0
+      @controller.flash[:notice] = if @order.line_items.size > 0
         "Produtos adicionados com sucesso"
       else
         "Um ou mais produtos selecionados não estão disponíveis"

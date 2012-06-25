@@ -23,9 +23,9 @@ class Gift::SuggestionsController < Gift::BaseController
   def add_to_cart
     session[:gift_products] = params[:products]
     if current_user
-      CartBuilder.gift(self)
+      redirect_to CartBuilder.gift(self)
     else
-      redirect_to :new_half_user_session_path
+      redirect_to new_half_user_session_path
     end
   end
 end
