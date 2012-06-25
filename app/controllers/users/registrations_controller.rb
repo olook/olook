@@ -115,7 +115,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       CartBuilder.gift(self)
     elsif session[:offline_variant]
       CartBuilder.offline(self)    
-    elsif resource_or_scope.half_user && resource_or_scope.male?
+    elsif resource.half_user && resource.male?
       gift_root_path
     else
       member_welcome_path
