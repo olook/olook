@@ -218,10 +218,10 @@ Olook::Application.routes.draw do
     post '/entrar' => 'users/sessions#create', :as => :user_session
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
-    post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    # post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     #gift
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
-    post '/registrar' => "users/registrations#create_half", :as => :half_user_registration
+    post '/registrar' => "users/registrations#create_half", :as => :create_half_user
   end
 
   get ":page_url", :to => "landing_pages#show"

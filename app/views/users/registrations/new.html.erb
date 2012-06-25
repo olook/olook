@@ -1,26 +1,5 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag "section/register" %>
+<% if resource.half_user %>
+  <%= render :partial => "half_user" %>
+<% else %>
+  <%= render :partial => "full_user" %>
 <% end %>
-
-<div id="models">
-  <%= image_tag('common/models-inscription.png') %>
-</div>
-<div id="sign-up">
-  <% if @signup_with_facebook %>
-    <h2>Só mais um passo...</h2>
-
-    <p class="facebook"> Crie uma senha para acessar nosso site:</p>
-  <% else %>
-    <div class="not_connected">
-      <h2>Só mais um passo e <span>você verá seu estilo</span></h2>
-      <p>Quando o resultado ficar pronto, você receberá diversos e-mails com dicas e produtos da moda com a sua cara.</p>
-    </div>
-    <div class="connect">
-      <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
-      <%= render "facebook_connect" %>
-    </div>
-  <% end %>
-
-  <%= render :partial => "form" %>
-</div>
-

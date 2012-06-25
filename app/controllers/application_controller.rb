@@ -20,14 +20,12 @@ class ApplicationController < ActionController::Base
   end
   #rescue_from Exception, :with => :render_500
 
-
   helper_method :current_liquidation
   def current_liquidation
     LiquidationService.active
   end
 
   helper_method :current_order
-
   def current_order
     session[:order] = params[:order_id] if params[:order_id]
     order_id = (session[:order] ||= current_user.orders.create.id)
@@ -81,12 +79,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def redirect_if_half_user
-    if current_user.half_user && current_user.male?
-      redirect_to lookbooks_path
-    end
-  end
 
   # TODO: Temporarily disabling paper_trail for app analysis
   # def user_for_paper_trail

@@ -14,9 +14,9 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource_or_scope)
     if session[:gift_products]
-      CartBuilder.gift(self, resource_or_scope)
+      CartBuilder.gift(self)
     elsif session[:offline_variant]
-      CartBuilder.offline(self, resource_or_scope)
+      CartBuilder.offline(self)
     elsif current_user.half_user && current_user.male?
       gift_root_path
     else
