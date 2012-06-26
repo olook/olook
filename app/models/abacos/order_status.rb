@@ -20,6 +20,7 @@ module Abacos
       if order
         change_order_state order
         set_invoice_info order
+        set_tracking_code_info order.freight unless tracking_code.nil?
       end
       confirm_order_status
     end
@@ -42,6 +43,10 @@ module Abacos
 
     def set_invoice_info(order)
       order.update_attributes(:invoice_number => invoice_number, :invoice_serie => invoice_serie)
+    end
+
+    def set_tracking_code_info(freight)
+      freight.update_attributes(:tracking_code => tracking_code)
     end
 
     def self.parse_status(abacos_status)
