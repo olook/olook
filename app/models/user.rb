@@ -251,6 +251,7 @@ class User < ActiveRecord::Base
 
   def upgrade_to_full_user!
     if self.half_user
+      self.add_event(EventType::UPGRADE_TO_FULL_USER)
       self.half_user = false
       self.save
     end
