@@ -14,18 +14,10 @@ feature "Half user", %q{
     page.should_not have_content("Minha Vitrine")
   end
 
-  scenario "acessing as a woman half user and is not first access must redirect to its root path" do
-    half_user = FactoryGirl.create(:user, :half_user => true, :gender => User::Gender[:female])
-    half_user.add_event(EventType::FIRST_VISIT)
-    do_login!(half_user)
-    current_path.should =~ /vitrine/
-    page.should have_content("Minha Vitrine")
-  end
-
   scenario "acessing as a woman half user must redirect to its root path" do
     half_user = FactoryGirl.create(:user, :half_user => true, :gender => User::Gender[:female])
     do_login!(half_user)
-    current_path.should =~ /membro\/bem\-vinda/
+    current_path.should =~ /vitrine/
     page.should have_content("Minha Vitrine")
   end
 end
