@@ -42,10 +42,10 @@ describe MembersController do
     end
 
     it "should set retake logic" do
-      session[:retake] = true
+      session[:profile_retake] = true
       get :showroom
       assigns(:is_retake).should be_true
-      session[:retake].should be_false
+      session[:profile_retake].should be_false
     end
 
     it "should assign @friends" do
