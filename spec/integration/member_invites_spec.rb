@@ -72,6 +72,7 @@ feature "Member can send invites", %q{
   context "When a visitor accepts the invitation and click on the invite link" do
     background do
       # Make sure it behaves like a visitor
+      do_login!(user)
       delete destroy_user_session_path
     end
 
