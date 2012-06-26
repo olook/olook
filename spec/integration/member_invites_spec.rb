@@ -70,12 +70,6 @@ feature "Member can send invites", %q{
   end
 
   context "When a visitor accepts the invitation and click on the invite link" do
-    background do
-      # Make sure it behaves like a visitor
-      do_login!(user)
-      delete destroy_user_session_path
-    end
-
     describe "they should be redirected to the home page" do
       scenario "if they have an empty token" do
         visit accept_invitation_path(:invite_token => '')
