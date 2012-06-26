@@ -41,7 +41,6 @@
     </div>
 
     <% if user_signed_in? %>
-      <%= render "shared/invite", :user => current_user %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
     <% end %>
   <%= yield :site_footer %>
