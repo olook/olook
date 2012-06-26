@@ -95,8 +95,8 @@ class MembersController < ApplicationController
     end
 
     session[:facebook_redirect_paths] = "showroom"
-    @is_retake = session[:retake] ? true : false
-    session[:retake] = false
+    @is_retake = session[:profile_retake] ? true : false
+    session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
