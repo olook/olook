@@ -6,8 +6,6 @@ class MembersController < ApplicationController
   # TODO: Added for valentine invite page
   before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
-  before_filter :redirect_if_half_user_male, :only => [:showroom]
-  before_filter :redirect_if_first_view, :only => [:showroom]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
 
@@ -84,6 +82,18 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    if @user.half_user
+      if @user.female?
+        return render "/home/index"
+      else
+        return redirect_to lookbooks_path, :alert => flash[:notice]
+      end
+    else
+      if @user.first_visit?
+        return redirect_to member_welcome_path, :alert => flash[:notice]
+      end
+    end
+
     session[:facebook_redirect_paths] = "showroom"
     @is_retake = session[:retake] ? true : false
     session[:retake] = false
@@ -93,7 +103,6 @@ class MembersController < ApplicationController
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
-    render "/home/index" if @user.half_user and @user.female?
   end
 
   def show_imported_contacts
@@ -133,16 +142,6 @@ class MembersController < ApplicationController
 
   def incoming_params
     params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
-  end
-
-  def redirect_if_first_view
-    redirect_to member_welcome_path, :alert => flash[:notice] if current_user.first_visit?
-  end
-
-  def redirect_if_half_user_male
-    if current_user.half_user && current_user.male?
-      redirect_to lookbooks_path
-    end
   end
 
   def load_friends
