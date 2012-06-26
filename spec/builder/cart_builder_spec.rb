@@ -4,7 +4,7 @@ require 'spec_helper'
 describe CartBuilder do
   let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
 
-  xit "should build gift session"
+  pending "build gift product"
 
   context "build offline session" do
     it "should return cart_path" do
