@@ -41,6 +41,13 @@ describe MembersController do
       assigns(:lookbooks).should eq(Lookbook.where("active = 1").order("created_at DESC"))
     end
 
+    it "should set retake logic" do
+      session[:retake] = true
+      get :showroom
+      assigns(:is_retake).should be_true
+      session[:retake].should be_false
+    end
+
     it "should assign @friends" do
       FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_return([:fake_friend])
       get :showroom
