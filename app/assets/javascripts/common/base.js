@@ -38,17 +38,6 @@ $(document).ready(function() {
     }
   }
 
-  $("header .content #session ul li a.invite").live("click", function(e) {
-    clone = $("div.box_invite").clone().addClass("clone");
-    $(clone).find("li.facebook a").attr("id", "facebook_post_wall");
-    $(clone).find("li.orkut #orkut_share").remove();
-    content = clone[0].outerHTML;
-    initBase.modal(content);
-    initBase.copyInviteLink();
-    initBase.createOrkutShareButton();
-    e.preventDefault();
-  });
-
   $("div.box_invite.clone div.social ul li a").live("click", function() {
     type = $(this).parent().attr("class");
     if(type != "email") {
@@ -455,16 +444,6 @@ initBase = {
     };
   },
 
-  copyInviteLink : function() {
-    $("div.box_invite.clone div.link_mail ul li a").zclip({
-      path: "/assets/ZeroClipboard.swf",
-      copy: function() { return $("div.box_invite.clone div.link_mail ul li input").val(); },
-      afterCopy: function(){
-        $("div.box_invite.clone div.link_mail div.box_copy").fadeIn().delay(2000).fadeOut();
-      }
-    });
-  },
-
   openDialog : function () {
     width = $(document).width();
     height = $(document).height();
@@ -493,10 +472,5 @@ initBase = {
         $('.dialog, .overlay').hide();
       });
     });
-  },
-
-  createOrkutShareButton : function() {
-    orkutButton = $("#orkut_share").find("img").first();
-    $("div.box_invite.clone div.social ul li.orkut").append(orkutButton);
   }
 }

@@ -24,7 +24,6 @@ class MembersController < ApplicationController
       session['yahoo_request_token'], session['yahoo_request_secret'] = yahoo_request.token, yahoo_request.secret
       @yahoo_oauth_url = yahoo_request.authorize_url
     end
-    respond_to :html, :js
   end
   # TODO: Added for valentine invite page / Remove after
   def valentine_invite
