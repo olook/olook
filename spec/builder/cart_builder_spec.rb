@@ -4,6 +4,9 @@ require 'spec_helper'
 describe CartBuilder do
   
   let(:user) { FactoryGirl.create(:user) }
+  let(:gift_recipient) { FactoryGirl.create(:gift_recipient, :user => nil) }
+  let(:gift_occasion) { FactoryGirl.create(:gift_occasion, :user => nil, :gift_recipient => gift_recipient) }
+  let(:user) { FactoryGirl.create(:user) }
   let(:variant_35) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:variant_37) { FactoryGirl.create(:basic_shoe_size_37) }
   let(:variant_40) { FactoryGirl.create(:basic_shoe_size_40) }
@@ -15,6 +18,7 @@ describe CartBuilder do
       FactoryGirl.create(:line_item, :order => restricted_order, :variant => variant_40)
     ]
   end
+  let(:controller) { double(Users::RegistrationsController) }
 
   context "build gift product" do
     context "calculate gift prices" do
@@ -46,16 +50,93 @@ describe CartBuilder do
       end
     end
     
-    it "should redirect back when no has products in session"
-    it "should redirect back when fail to get order"
+    it "should redirect back when no has products in session" do
+      flash = {}
+      controller.stub(:session).and_return({})
+      controller.stub(:flash).and_return(flash)
+      controller.stub(:current_order)
+      controller.stub(:current_user)
+      CartBuilder.gift(controller).should be(:back)
+      flash[:notice].should eq("Produtos não foram adicionados")
+    end
+
+    it "should redirect back when fail to get order" do
+      flash = {}
+      controller.stub(:session).and_return({:gift_products => mock})
+      controller.stub(:flash).and_return(flash)
+      controller.stub(:current_order)
+      controller.stub(:current_user)
+      CartBuilder.gift(controller).should be(:back)
+      flash[:notice].should eq("Produtos não foram adicionados")
+    end
     
-    it "should set order to restricted"
-    it "should destroy all line items"
+    it "should set order to restricted" do
+      order = Factory(:order)
+      controller.stub(:session).and_return({:gift_products => mock})
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(order)
+      controller.stub(:current_user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+      
+      order.restricted.should be_true
+    end
+
+    it "should destroy all line items" do
+      order = line_items[0].order
+      
+      controller.stub(:session).and_return({:gift_products => mock})
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(order)
+      controller.stub(:current_user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+
+      order.line_items.count.should eq(0)
+    end
     
-    it "should set user in occasion session"
-    it "should set user in occasion recipient"
+    it "should set user in occasion session" do
+      gift_occasion.user.should be_nil
+
+      controller.stub(:session).and_return({
+        :gift_products => mock,
+        :occasion_id => gift_occasion.id
+      })
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+      gift_occasion.reload.user_id.should eq(user.id)
+    end
     
-    it "should add products to order"
+    it "should set user in occasion recipient" do
+      gift_recipient.user.should be_nil
+
+      controller.stub(:session).and_return({
+        :gift_products => mock,
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      })
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+      gift_recipient.reload.user_id.should eq(user.id)
+    end
+    
+    it "should add products to order" do
+      
+    end
     
     it "should execute calculate gift prices"
     
@@ -69,7 +150,6 @@ describe CartBuilder do
 
   context "build offline session" do
     it "should return cart_path" do
-      controller = double(Users::RegistrationsController)
       path = mock
       controller.stub(:session).and_return({})
       controller.stub(:cart_path).and_return(path)
@@ -77,8 +157,6 @@ describe CartBuilder do
     end
     
     it "should add variant to order" do
-      controller = double(Users::RegistrationsController)
-
       hash_session = {:offline_variant => { "id" => variant_35.id } }
       
       controller.stub(:session).and_return(hash_session)
