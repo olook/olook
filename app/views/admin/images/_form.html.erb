@@ -14,6 +14,7 @@
   <p>
 <% if @image.lookbook_image_maps.size > 0 %>
 <style>
+.ui-autocomplete-loading { background: white url('/assets/ui-anim_basic_16x16.gif') right center no-repeat; }
 .product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
 .product-map {background-image:url(<%= @image.lookbook.icon_url %>);}
 .product-map:hover {background-image:url(<%= @image.lookbook.icon_over.url %>);}
@@ -27,8 +28,8 @@
 </style>
   <% @image.lookbook_image_maps.each do |lim| %>
     <div class="product-map draggable" id="lb<%= @image.lookbook.id %>-pm<%= lim.id %>">
-      <span><%= link_to lim.product.name, product_path(lim.product.id) %></span>
-      <%= link_to 'X', admin_lookbook_image_map_path(lookbook), confirm: 'Are you sure?', remote: true, method: :delete, :class => 'button danger' %>
+      <span><%= link_to lim.product.name, product_path(lim.product.id) %></span>`
+      <%= link_to 'X', admin_lookbook_image_map_path(lookbook), confirm: 'Are you sure?', remote: true, method: :delete, class: 'button danger' %>
     </div>
   <% end %>
 <% end %>
@@ -40,26 +41,6 @@
     <%= f.label :image %><br />
     <%= f.file_field :image %>
   </div>
-  
-<%= fields_for :lookbook_image_map do |lim| %>
-  <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
-  <%= lim.hidden_field :image_id, value: @image.id %>
-  <%= lim.hidden_field :product_id %>
-  <div class="map-form">
-    <p>
-      <%= lim.label :product_name %>
-      <%= lim.text_field :product_id %>
-    </p>
-    <p>
-      <%= lim.label :coord_x %>
-      <%= lim.number_field :coord_x, value: 0 %>
-    </p>
-    <p>
-      <%= lim.label :coord_y %>
-      <%= lim.number_field :coord_y, value: 0 %>
-    </p>
-  </div>
-<% end %>
   
   <div class="actions">
     <%= f.submit %>

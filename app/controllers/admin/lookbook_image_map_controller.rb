@@ -24,7 +24,7 @@ class Admin::LookbookImageMapController < ApplicationController
   def create
     @lookbook_image_map = LookbookImageMap.new(params[:lookbook_image_map])
     if @lookbook_image_map.save
-      flash[:notice] = 'Lookbook Product Map was successfully created.'
+      flash[:notice] = 'Lookbook Image Map was successfully created.'
     end
     respond_with :admin, @lookbook_image_map
   end
@@ -32,7 +32,7 @@ class Admin::LookbookImageMapController < ApplicationController
   def update
     @lookbook_image_map = LookbookImageMap.find(params[:id])
     if @lookbook_image_map.update_attributes(params[:lookbook_image_map])
-      flash[:notice] = 'Lookbook Product Map was successfully updated.'
+      flash[:notice] = 'Lookbook Image Map was successfully updated.'
     end
     respond_with :admin, @lookbook_image_map
   end

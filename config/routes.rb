@@ -137,8 +137,8 @@ Olook::Application.routes.draw do
   namespace :admin do
     match "/", :to => "index#dashboard"
 
+    get 'product_autocomplete' => 'product#autocomplete_information'
     resources :products do
-
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
       end

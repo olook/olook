@@ -1,3 +1,22 @@
+<script>
+$(function() {
+  function log( message ) {
+    $( "<div/>" ).text( message ).prependTo( "#log" );
+    $( "#log" ).scrollTop( 0 );
+  }
+
+  $("#product_name").autocomplete({
+    source: '<%= admin_product_autocomplete_url %>',
+    minLength: 2,
+    select: function( event, ui ) {
+      log( ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value );
+    }
+  }).data( "autocomplete" )._renderItem = function( ul, item ) {
+    return $("<li></li>").data("item.autocomplete", item).append( "<a><img src='" + item.thumbnail + "'/> " + item.label + "</a>").appendTo(ul);
+  }
+}
+</script>
+
 <h2>Picture</h2>
 <div class="inner">
 
@@ -14,6 +33,7 @@
   #pm<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
 <% end %>
 </style>
+
   <% @image.lookbook_image_maps.each do |lim| %>
     <div class="product-map" id="pm<%= lim.id %>"><span><%= link_to lim.product.name, product_path(lim.product.id) %></span></div>
   <% end %>
@@ -21,6 +41,21 @@
     <b>Thumb:</b><br />
     <%= image_tag @image.image_url(:thumb).to_s %>
   </p>
+
+<%= form_for :lookbook_image_map, remote: true, html: {class: 'form'} do |lim| %>
+  <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
+  <%= lim.hidden_field :image_id, value: @image.id %>
+  <%= lim.hidden_field :product_id %>
+  <div class="ui-widget">
+    <%= text_field_tag :q, '', id: 'product_name' %>
+    <%= lim.submit %>
+  </div>
+<% end %>
+
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+  Result:
+  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
 
 <table class="table">
   <tr>
