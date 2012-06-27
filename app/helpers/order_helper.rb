@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module OrderHelper
   def link_to_tracking_code(order)
-  	case order.freight.shipping_service.name
+  	case order.freight.shipping_service.erp_code
       when "TEX"
         "http://tracking.totalexpress.com.br/poupup_track.php?reid=1537&pedido=#{order.number}&nfiscal=#{order.invoice_number}"
       when "PAC"
