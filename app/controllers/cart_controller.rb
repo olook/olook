@@ -101,12 +101,14 @@ class CartController < ApplicationController
 
   def create
     @order.update_attributes :restricted => false if @order.restricted? && @order.line_items.empty?
+
     if @order.restricted?  # gift cart
-      respond_with do |format|
+      return respond_with do |format|
         format.js { head :forbidden, status: :unprocessable_entity, notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }
         format.html { redirect_to(cart_path, notice: "Produtos de presente não podem ser comprados com produtos da vitrine") }
       end
     end
+
     if @order.add_variant(@variant, nil)
       destroy_freight(@order)
       respond_with do |format|
