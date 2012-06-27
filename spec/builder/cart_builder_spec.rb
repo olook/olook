@@ -71,7 +71,7 @@ describe CartBuilder do
     end
     
     it "should set order to restricted" do
-      order = Factory(:order)
+      order = FactoryGirl.create(:order)
       controller.stub(:session).and_return({:gift_products => mock})
       controller.stub(:flash).and_return({})
       controller.stub(:current_order).and_return(order)
@@ -135,16 +135,132 @@ describe CartBuilder do
     end
     
     it "should add products to order" do
+      controller.stub(:session).and_return({
+        :gift_products => {
+          "0" => variant_35,
+          "1" => variant_37,
+          "2" => variant_40,
+        },
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      })
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
       
+      restricted_order.line_items[0].variant_id.should eq(variant_35.id)
+      restricted_order.line_items[1].variant_id.should eq(variant_37.id)
+      restricted_order.line_items[2].variant_id.should eq(variant_40.id)
     end
     
-    it "should execute calculate gift prices"
+    it "should execute calculate gift prices" do
+      controller.stub(:session).and_return({
+        :gift_products => {
+          "0" => variant_35,
+          "1" => variant_37,
+          "2" => variant_40,
+        },
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      })
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+      CartBuilder::GiftCartBuilder.should_receive(:calculate_gift_prices)
+                                  .with(restricted_order)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+    end
     
-    it "should clear gift products"
-    it "should set success flash when add more than one product in cart"
-    it "should set error flash when no has products in cart"
+    it "should clear gift products" do
+      session = {
+        :gift_products => {
+          "0" => variant_35,
+          "1" => variant_37,
+          "2" => variant_40,
+        },
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      }
+      controller.stub(:session).and_return(session)
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+      
+      session[:gift_products].should be_nil
+    end
     
-    it "should return cart_path"
+    it "should set success flash when add more than one product in cart" do
+      flash = {}
+      controller.stub(:session).and_return({
+        :gift_products => {
+          "0" => variant_35,
+          "1" => variant_37,
+          "2" => variant_40,
+        },
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      })
+      controller.stub(:flash).and_return(flash)
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+      
+      flash[:notice].should eq("Produtos adicionados com sucesso")
+    end
+    
+    it "should set error flash when no has products in cart" do
+      flash = {}
+      restricted_order.stub(:add_variant)
+      controller.stub(:session).and_return({
+        :gift_products => {
+          "0" => variant_35
+        },
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      })
+      controller.stub(:flash).and_return(flash)
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+
+      expect {
+        CartBuilder.gift(controller)
+      }.to raise_error
+      
+      flash[:notice].should eq("Um ou mais produtos selecionados não estão disponíveis")
+    end
+    
+    it "should return cart_path" do
+      controller.stub(:session).and_return({
+        :gift_products => {
+          "0" => variant_35,
+          "1" => variant_37,
+          "2" => variant_40,
+        },
+        :occasion_id => gift_occasion.id,
+        :recipient_id => gift_recipient.id
+      })
+      controller.stub(:flash).and_return({})
+      controller.stub(:current_order).and_return(restricted_order)
+      controller.stub(:current_user).and_return(user)
+      path = mock
+      controller.stub(:cart_path).and_return(path)
+
+      CartBuilder.gift(controller).should be(path)
+    end
     
   end
 
