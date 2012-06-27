@@ -11,4 +11,3 @@
 //= require_tree ./common
 //= require_tree ./admin
 //= require_tree ./ui
-//= require autocomplete-rails

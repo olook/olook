@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 class ProductController < ApplicationController
   respond_to :html
-  before_filter :authenticate_user!, :except => [:show, :create_offline_session]
-  before_filter :load_user
-  before_filter :check_product_variant, :only => [:add_to_cart]
-  before_filter :load_order
+  before_filter :authenticate_user!, except: [:show, :create_offline_session, :autocomplete_product]
+  before_filter :load_user, except: [:autocomplete_product]
+  before_filter :check_product_variant, only: [:add_to_cart]
+  before_filter :load_order, except: [:autocomplete_product]
 
   def show
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
@@ -23,6 +23,18 @@ class ProductController < ApplicationController
     respond_to do |format|
       format.json { render :json => @offline_variant_session }
     end
+  end
+
+  def autocomplete_information
+    if params[:q] =~ /\A[A-Za-z]+/
+      @products = Product.where "name like ?", "%#{params[:q]}%"
+    elsif params[:q] =~ /\A[0-9]+/
+      @products = Product.where "model_number like ?", "%#{params[:q]}%"
+    else
+      @products = []
+    end
+
+    @products
   end
 end
 
