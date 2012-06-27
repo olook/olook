@@ -147,7 +147,12 @@ class CartController < ApplicationController
   def check_product_variant
     variant_id = params[:variant][:id] if params[:variant]
     @variant = Variant.find_by_id(variant_id)
-    redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") unless @variant.try(:available_for_quantity?)
+    unless @variant.try(:available_for_quantity?)
+      respond_with do |format|
+        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
+        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
+      end
+    end
   end
 
   def load_user
