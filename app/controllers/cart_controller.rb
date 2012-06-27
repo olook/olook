@@ -104,7 +104,7 @@ class CartController < ApplicationController
 
     if @order.restricted?  # gift cart
       return respond_with do |format|
-        format.js { head :forbidden, status: :unprocessable_entity, notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }
+        format.js { render :error, :locals => { notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }}
         format.html { redirect_to(cart_path, notice: "Produtos de presente não podem ser comprados com produtos da vitrine") }
       end
     end
