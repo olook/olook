@@ -1,14 +1,23 @@
-var submit_moments_form;
 jQuery(function() {
+  var submit_moments_form;
+  var url;
+
+  $('#moment_filter').submit(function() {
+    $('.loading').show();
+    $('#sort_filter').val($("#order_filter").find("option:selected").val());
+    $("#products").fadeOut("slow", function() {
+      $(this).fadeIn("slow");
+      $(this).html("");
+    });
+    initMoment.scrollToList();
+  });
+
   if($("form#moment_filter input").is(":checked")) {
-    clearTimeout(submit_moments_form);
-    submit_moments_form = setTimeout(function() {
-      $("form#moment_filter").submit();
-    }, 4000);
+    $("form#moment_filter").submit();
   }
 
   $('#moment_order_filter').change(function() {
-    $("#moment_filter").submit();
+    $("form#moment_filter").submit();
   });
 
   $("#moment_filter").find("input[type='checkbox'].select_all").each(function(i){
@@ -32,52 +41,30 @@ jQuery(function() {
       $(nav).attr('href', href.replace(/(?:&|\?)$/,''));
     });
     $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
-    var topHeight = 400;
-    $("html, body").animate({
-        scrollTop: topHeight
-    }, 'slow');
     clearTimeout(submit_moments_form);
-    submit_moments_form = setTimeout(function() {
-      $("#moment_filter").submit();
-    }, 2500);
-  });
-
-  $('#moment_filter').submit(function() {
-    $('#sort_filter').val($("#order_filter").find("option:selected").val());
-    $("#products").fadeOut("slow", function() {
-      $(".loading").show();
-      $(this).fadeIn("slow");
-      $(this).html("");
-    });
+    $("form#moment_filter").submit();
   });
 
   $('#moment_filter').find("input[type='checkbox']").not(".select_all").click(function() {
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
     }
+    // $(".loading").show();
     $(this).parent().submit();
     $('#moment_filter').find("input[type='checkbox']").attr("disabled", "true");
-    initMoment.scrollToList();
   });
 
-  if ($('.pagination').length > 1) {
+  if ($('.pagination').length) {
     $(window).scroll(function() {
-      var url;
       url = $('.pagination .next_page').attr('href');
-      var bottomHeight = 1300;
-      var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - bottomHeight) && !$('.loading').is(':visible');
+      var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 800)) && !$('.loading').is(':visible');
       if (canPaginate) {
+        $('.loading').show();
         $('.pagination .next_page').remove();
         $('#moment_filter').find("input[type='checkbox']").attr("disabled", "true");
-        $('.loading').show();
-
-        return $.getScript(url).done(function() {
-          $('#moment_filter').find("input[type='checkbox']").removeAttr("disabled");
-          $(".loading").hide();
-        });
+        return $.getScript(url);
       }
     });
-    return $(window).scroll();
   }
 });
 
