@@ -1,6 +1,8 @@
+var submit_moments_form;
 jQuery(function() {
   if($("form#moment_filter input").is(":checked")) {
-    setTimeout(function() {
+    clearTimeout(submit_moments_form);
+    submit_moments_form = setTimeout(function() {
       $("form#moment_filter").submit();
     }, 4000);
   }
@@ -34,7 +36,8 @@ jQuery(function() {
     $("html, body").animate({
         scrollTop: topHeight
     }, 'slow');
-    setTimeout(function() {
+    clearTimeout(submit_moments_form);
+    submit_moments_form = setTimeout(function() {
       $("#moment_filter").submit();
     }, 2500);
   });
@@ -57,7 +60,7 @@ jQuery(function() {
     initMoment.scrollToList();
   });
 
-  if ($('.pagination').length) {
+  if ($('.pagination').length > 1) {
     $(window).scroll(function() {
       var url;
       url = $('.pagination .next_page').attr('href');
