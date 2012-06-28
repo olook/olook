@@ -1,33 +1,36 @@
 <script>
 $(function() {
+  $('#product_result').hide();
   function log( message ) {
-    $( "<div/>" ).text( message ).prependTo( "#log" );
-    $( "#log" ).scrollTop( 0 );
+    $("<div/>").text( message ).prependTo("#log");
+    $("#log").scrollTop(0);
   }
 
   $("#product_name").autocomplete({
     source: '<%= admin_product_autocomplete_url %>',
     minLength: 2,
-    select: function( event, ui ) {
-      log( ui.item ? "Selected: " + ui.item.value + " aka " + ui.item.id : "Nothing selected, input was " + this.value );
+    select: function(event, ui) {
+      log(ui.item ? "Selected: " + ui.item.name + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
+      $(this).value = ui.item.name;
+      $('#lookbook_image_map_product_id').val(ui.item.id);
+      $('#product_result img').attr('src', ui.item.image);
+      $('#product_result span').text(ui.item.name);
+      $('#product_result').show();
     }
-  }).data( "autocomplete" )._renderItem = function( ul, item ) {
-    return $("<li></li>").data("item.autocomplete", item).append( "<a><img src='" + item.thumbnail + "'/> " + item.label + "</a>").appendTo(ul);
+  }).data( "autocomplete" )._renderItem = function(ul, item) {
+    return $("<li></li>").data("item.autocomplete", item).append( "<a id='prod_" + item.id + "'><img src='" + item.image + "' width='50' height='50'/> " + item.name + "</a>").appendTo(ul);
   }
-}
+});
 </script>
 
 <h2>Picture</h2>
 <div class="inner">
-
   <p>
 <% if @image.lookbook_image_maps.size > 0 %>
 <style>
-.product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
 .product-map {background-image:url(<%= @image.lookbook.icon_url %>);}
 .product-map:hover {background-image:url(<%= @image.lookbook.icon_over.url %>);}
-.product-map span {visibility:hidden; padding:5px; background-color:<%= @image.lookbook.bg_color %>; color:<%= @image.lookbook.fg_color %>;}
-.product-map:hover span {visibility:visible;}
+.product-map span {background-color:<%= @image.lookbook.bg_color %>; color:<%= @image.lookbook.fg_color %>;}
 
 <% @image.lookbook_image_maps.each do |lim| %>
   #pm<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
@@ -46,35 +49,37 @@ $(function() {
   <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
   <%= lim.hidden_field :image_id, value: @image.id %>
   <%= lim.hidden_field :product_id %>
+  <%= lim.hidden_field :coord_x, value: 0 %>
+  <%= lim.hidden_field :coord_y, value: 0 %>
   <div class="ui-widget">
-    <%= text_field_tag :q, '', id: 'product_name' %>
-    <%= lim.submit %>
+    <%= text_field_tag :q, '', id: 'product_name', class: 'ui-autocomplete-input', autocomplete: 'off', 'aria-autocomplete' => 'list', 'aria-haspopup' => true, role: 'textbox' %>
   </div>
+  <div id="product_result"><img src="" width="50" height="50" /><span></span><%= lim.submit %></div>
 <% end %>
 
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-  Result:
-  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>
+  <div class="ui-widget" style="margin-top:2em;">
+    Result:
+    <div id="log" style="height:200px; width:300px; overflow:auto;" class="ui-widget-content"></div>
+  </div>
 
-<table class="table">
-  <tr>
-    <th>Product</th>
-    <th>Left</th>
-    <th>Top</th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @image.lookbook_image_maps.each do |lim| %>
-  <tr>
-    <td><%= lim.product.name %></td>
-    <td>X:<%= lim.coord_x %></td>
-    <td>Y:<%= lim.coord_y %></td>
-    <td><a href="#">Edit</a></td>
-    <td><a href="#">Delete</a></td>
-  <tr>
-<% end %>
-</table>
+  <table class="table">
+    <tr>
+      <th>Product</th>
+      <th>Left</th>
+      <th>Top</th>
+      <th></th>
+      <th></th>
+    </tr>
+  <% @image.lookbook_image_maps.each do |lim| %>
+    <tr>
+      <td><%= lim.product.name %></td>
+      <td>X:<%= lim.coord_x %></td>
+      <td>Y:<%= lim.coord_y %></td>
+      <td><a href="#">Edit</a></td>
+      <td><a href="#">Delete</a></td>
+    <tr>
+  <% end %>
+  </table>
  
 </div>
 
