@@ -20,11 +20,21 @@ $(document).ready(function() {
   $("#showroom div.products_list a.more").live("click", function() {
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
+    var url = $(this).data('url');
     if(box.is(":visible") == false) {
-      box.slideDown(1000);
-      container_position = $(box).position().top;
-      ShowroomInit.slideToProductsContainer(container_position);
-    } else {
+      if (!el.loaded) {
+        $.getScript(url).done(function() {
+          el.loaded = true;
+          box.slideDown(1000);
+          container_position = $(box).position().top;
+          ShowroomInit.slideToProductsContainer(container_position);
+        });
+      } else {
+        box.slideDown(1000);
+        container_position = $(box).position().top;
+        ShowroomInit.slideToProductsContainer(container_position);
+      }
+  } else {
       box.slideUp(1000);
       topBox = $(this).parent(".products_list");
       container_position = $(topBox).position().top;
