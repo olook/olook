@@ -191,8 +191,6 @@ class CartController < ApplicationController
 
   def current_order
     if params[:order_id] && params[:auth_token]
-      @user.authentication_token = nil
-      @user.save
       session[:order] = params[:order_id]
       @order = Order.find(params[:order_id])
       if @order.user != @user

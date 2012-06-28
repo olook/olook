@@ -15,7 +15,6 @@ class UserNotifier
 
   def self.send_in_cart ( conditions )
     Order.find_each(:conditions => conditions) do |order|
-      order.user.reset_authentication_token!
       order.update_attribute("in_cart_notified", true)
 
       products = []
