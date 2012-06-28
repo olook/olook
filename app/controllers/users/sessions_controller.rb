@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def create_sign_out_event
-    current_user.add_event(EventType::SIGNOUT)
+    current_user.add_event(EventType::SIGNOUT) if current_user
   end
 
   def after_sign_in_path_for(resource_or_scope)
