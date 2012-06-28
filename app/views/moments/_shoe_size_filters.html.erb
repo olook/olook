@@ -3,7 +3,7 @@
   <ol class="column">
  <% moment_presenter.moment.catalog.shoe_sizes.each do |shoe_size| %>
     <li>
-      <%= check_box_tag('shoe_sizes[]', shoe_size, false, :id => shoe_size) %>
+      <%= check_box_tag('shoe_sizes[]', shoe_size, params[:shoe_sizes] && params[:shoe_sizes].include?(shoe_size.to_s) , :id => shoe_size) %>
       <%= label_tag(shoe_size, nil, :for => shoe_size) %>
     </li>
   <% end %>
