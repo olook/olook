@@ -26,7 +26,7 @@ class PaymentsController < ApplicationController
                         :cod_moip => params["cod_moip"],
                         :tipo_pagamento => params["tipo_pagamento"],
                         :status_pagamento => params["status_pagamento"],
-                        :id_transacao => params["id_transacao"]
+                        :id_transacao => params["id_transacao"],
                         :classificacao => params["classificacao"])
     if order
       if update_order(order)
