@@ -90,6 +90,9 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "membro/vitrine_shoes", :to => "members#showroom_shoes", :as => "member_showroom_shoes"
+  get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
+  get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
 
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
