@@ -17,7 +17,19 @@ describe Abacos::OrderStatus do
     end
     it 'should set_invoice_info' do
       subject.stub(:find_and_check_order).and_return(@order)
+      @order.stub(:freight)
       subject.should_receive(:set_invoice_info)
+      subject.stub(:set_tracking_code_info)
+      subject.stub(:change_order_state)
+      subject.stub(:confirm_order_status)
+      subject.integrate
+    end
+    it "should set_tracking_code_info" do
+      subject.stub(:find_and_check_order).and_return(@order)
+      @order.stub(:freight).and_return(@freight = double)
+      @freight.stub(:update_attributes)
+      subject.stub(:set_invoice_info)
+      subject.should_receive(:set_tracking_code_info).with(@freight)
       subject.stub(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
@@ -26,6 +38,8 @@ describe Abacos::OrderStatus do
     it 'should find_and_check_order' do
       @order.stub(:update_attributes)
       subject.should_receive(:find_and_check_order).and_return(@order)
+      @order.stub(:freight)
+      subject.stub(:set_tracking_code_info)      
       subject.stub(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
@@ -33,6 +47,8 @@ describe Abacos::OrderStatus do
     it 'should change_order_state' do
       @order.stub(:update_attributes)
       subject.stub(:find_and_check_order).and_return(@order)
+      @order.stub(:freight).and_return(nil)    
+      subject.stub(:set_tracking_code_info)
       subject.should_receive(:change_order_state)
       subject.stub(:confirm_order_status)
       subject.integrate
@@ -40,10 +56,13 @@ describe Abacos::OrderStatus do
     it 'should confirm_order_status' do
       @order.stub(:update_attributes)
       subject.stub(:find_and_check_order).and_return(@order)
+      @order.stub(:freight).and_return(nil)
+      subject.stub(:set_tracking_code_info)
       subject.stub(:change_order_state)
       subject.should_receive(:confirm_order_status)
       subject.integrate
     end
+
   end
 
   describe '#change_order_state' do

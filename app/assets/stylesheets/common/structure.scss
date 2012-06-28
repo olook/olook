@@ -82,6 +82,7 @@ body {
     z-index: 1;
     .dialog.product_login {
       display: none;
+      height: auto !important;
     }
     div#login_modal {
       position: relative;
@@ -202,9 +203,9 @@ body {
             margin: 0 0 20px 0;
           }
           a {
-            background: url("/assets/common/answer-register.png") no-repeat;
+            background: url("/assets/common/registration.png") no-repeat;
             text-indent: -9999px;
-            width: 215px;
+            width: 126px;
             height: 37px;
             display: block;
           }

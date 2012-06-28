@@ -19,10 +19,21 @@ class ApplicationController < ActionController::Base
   end
   #rescue_from Exception, :with => :render_500
 
-
   helper_method :current_liquidation
   def current_liquidation
     LiquidationService.active
+  end
+
+  helper_method :current_order
+  def current_order
+    session[:order] = params[:order_id] if params[:order_id]
+    order_id = (session[:order] ||= current_user.orders.create.id)
+    order = current_user.orders.find(order_id)
+    #not sending email in the case of a buy made from an admin
+    if current_admin
+      order.update_attribute("in_cart_notified", true)
+    end
+    order
   end
 
   helper_method :current_moment
@@ -60,12 +71,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def redirect_if_half_user
-    if current_user.half_user
-      redirect_to lookbooks_path
-    end
-  end
 
   # TODO: Temporarily disabling paper_trail for app analysis
   # def user_for_paper_trail
