@@ -11,14 +11,13 @@
       <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
       <%= render "shared/metrics/adlead/adlead" %>
     <% end %>
-    <script type="text/javascript">
-      if($.cookie('show_profile') == 1) {
-        setTimeout(function() {
-          initBase.showProfileLightbox();
-        }, 2000);
-        $.cookie('show_profile', '2');
-      }
-    </script>
+    <% if @is_retake %>
+      <script type="text/javascript">
+      setTimeout(function() {
+        initBase.showProfileLightbox();
+      }, 2000);
+      </script>
+    <% end %>
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];

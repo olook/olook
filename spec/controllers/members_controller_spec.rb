@@ -13,27 +13,12 @@ describe MembersController do
   end
 
   describe "GET welcome" do
-    context "when user have alredy logged in one time" do
-      let(:user) { FactoryGirl.create :user, :authentication_token => "RandomToken" }
-      before :all do
-        user.add_event(EventType::FIRST_VISIT)
-      end
+    let(:user) { FactoryGirl.create :user, :authentication_token => "RandomToken" }
 
-      it "redirect to members' showroom page" do
-        get :welcome
-        response.should redirect_to(member_showroom_path)
-      end
-
-      context "login using auth token" do
-
-        it "should login the user and set the token to nil" do
-          get :welcome, :auth_token => 'RandomToken'
-          User.find(user.id).authentication_token.should == nil
-
-        end
-      end
+    it "should login the user and set the token to nil" do
+      get :welcome, :auth_token => 'RandomToken'
+      User.find(user.id).authentication_token.should == nil
     end
-
   end
 
   describe "#showroom" do
@@ -51,19 +36,16 @@ describe MembersController do
       assigns(:user).should eq(user)
     end
 
-    it "should check session and add to cart" do
-      session[:order] = order.id
-      session[:offline_variant] = { "id" => variant.id }
-      session[:offline_first_access] = true
-      get :showroom
-      order.line_items.count.should  be_eql(1)
-      session[:offline_first_access].should be_nil
-      session[:offline_variant].should be_nil
-    end
-
     it "should assign @lookbooks" do
       get :showroom
       assigns(:lookbooks).should eq(Lookbook.where("active = 1").order("created_at DESC"))
+    end
+
+    it "should set retake logic" do
+      session[:profile_retake] = true
+      get :showroom
+      assigns(:is_retake).should be_true
+      session[:profile_retake].should be_false
     end
 
     it "should assign @friends" do
@@ -187,5 +169,4 @@ describe MembersController do
       assigns(:invites).all.should == user.invites[0..14]
     end
   end
-
 end

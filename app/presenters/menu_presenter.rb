@@ -21,6 +21,18 @@ class MenuPresenter < BasePresenter
   end
 
   def render_half_user_menu
+    if user.female?
+      render_woman_half_user_menu
+    else
+      render_man_half_user_menu
+    end
+  end
+
+  def render_woman_half_user_menu
+    render_default_menu
+  end
+
+  def render_man_half_user_menu
     [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
