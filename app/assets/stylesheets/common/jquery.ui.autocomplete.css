@@ -27,6 +27,7 @@
   margin: 0;
   display:block;
   float: left;
+  background:white;
 }
 .ui-menu .ui-menu {
   margin-top: -3px;

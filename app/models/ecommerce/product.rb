@@ -63,10 +63,6 @@ class Product < ActiveRecord::Base
     id
   end
 
-  def autocomplete_display_value
-    "image_tag(#{self.thumb_picture}) + #{self.name}"
-  end
-
   def related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)

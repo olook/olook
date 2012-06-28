@@ -26,15 +26,21 @@ class ProductController < ApplicationController
   end
 
   def autocomplete_information
-    if params[:q] =~ /\A[A-Za-z]+/
-      @products = Product.where "name like ?", "%#{params[:q]}%"
-    elsif params[:q] =~ /\A[0-9]+/
-      @products = Product.where "model_number like ?", "%#{params[:q]}%"
+    if params[:term] =~ /\A[A-Za-z]+/
+      @products = Product.only_visible.where("name like ?", "%#{params[:term]}%").limit(10)
+    elsif params[:term] =~ /\A[0-9]+/
+      @products = Product.only_visible.where("model_number like ?", "%#{params[:term]}%").limit(10)
     else
       @products = []
     end
 
-    @products
+    render json: @products.map { |prod|
+      {
+        id: prod.id,
+        image: prod.thumb_picture,
+        name: prod.name
+      }
+    }
   end
 end
 

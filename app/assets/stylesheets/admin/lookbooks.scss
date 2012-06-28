@@ -63,3 +63,12 @@
   height: 3px;
   background: url(/assets/admin/colorpicker/line.gif) center no-repeat;
 }
+
+
+#product_result {border:1px solid black; padding:15px; vertical-align:middle; width:auto; display:inline-block; margin:10px;}
+#product_result img {vertical-align:middle; margin-right:10px;}
+#product_result span {text-transform:uppercase;}
+
+.product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+.product-map:hover span {visibility:visible;}
+.product-map span {visibility:hidden; padding:5px;}
