@@ -4,7 +4,7 @@ class MembersController < ApplicationController
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :validate_token, :only => :accept_invitation
   # TODO: Added for valentine invite page
-  before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome, :showroom_shoes]
+  before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome, :showroom_shoes, :showroom_accessories, :showroom_bags]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
@@ -106,6 +106,14 @@ class MembersController < ApplicationController
   end
 
   def showroom_shoes
+    
+  end
+
+  def showroom_bags
+    
+  end
+
+  def showroom_accessories
     
   end
 
