@@ -70,6 +70,7 @@ describe MembersController do
   it "#invite_by_email" do
     emails = ['jane@friend.com', 'invalid email', 'mary@friend.com', 'lily@friend.com', 'rose@friend.com']
     joined_emails = "#{emails[0]},#{emails[1]}\r#{emails[2]}\t#{emails[3]};#{emails[4]}"
+    request.env["HTTP_REFERER"] = "where_i_came_from"
 
     mock_invites = emails.map do |email|
       invite = double(Invite)
@@ -83,7 +84,7 @@ describe MembersController do
 
     post :invite_by_email, :invite_mail_list => joined_emails
 
-    response.should redirect_to(member_invite_path)
+    response.should redirect_to "where_i_came_from"
     flash[:notice].should match /\d+ convites enviados com sucesso!/
   end
 

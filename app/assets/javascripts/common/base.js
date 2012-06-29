@@ -38,6 +38,37 @@ $(document).ready(function() {
     }
   }
 
+  $("div.box_invite.clone div.social ul li a").live("click", function() {
+    type = $(this).parent().attr("class");
+    if(type != "email") {
+      $("div.box_invite.clone div.social ul li a").removeClass("selected");
+      $("div.box_invite.clone div.social form").slideUp();
+    } else {
+      $(this).addClass("selected");
+      $("div.box_invite.clone div.social form").slideDown();
+      $("html, body").animate({
+        scrollTop: "200px"
+      }, 'slow');
+      return false;
+    }
+  });
+
+  $("div.box_invite.clone div.social ul li.twitter a").live("click", function(e) {
+    var width  = 575,
+        height = 400,
+        left   = ($(window).width()  - width)  / 2,
+        top    = ($(window).height() - height) / 2,
+        url    = this.href,
+        opts   = 'status=1' +
+                 ',width='  + width  +
+                 ',height=' + height +
+                 ',top='    + top    +
+                 ',left='   + left;
+
+    window.open(url, 'twitter', opts);
+    e.preventDefault();
+  });
+
   $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
     if($("div#quick_view").size() == 0) {
       $("body").prepend("<div id='quick_view'></div>");
@@ -67,8 +98,9 @@ $(document).ready(function() {
     sendFacebookMessage();
   });
 
-  $("#facebook_post_wall").click(function() {
+  $("#facebook_post_wall").live("click", function() {
     postToFacebookFeed();
+    return false;
   });
 
   $(document).bind('keydown', 'esc',function () {
