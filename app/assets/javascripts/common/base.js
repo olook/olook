@@ -317,10 +317,7 @@ $(document).ready(function() {
   });
 
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
-    clone = $("div#profile_quiz").clone().addClass("clone");
-    content = clone[0].outerHTML;
-    initBase.modal(content);
-    $(".ui-dialog").css("top", "30px");
+    initBase.showProfileLightbox();
     e.preventDefault();
   });
 
@@ -331,6 +328,13 @@ $(document).ready(function() {
 });
 
 initBase = {
+  showProfileLightbox : function() {
+    clone = $("div#profile_quiz").clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
+    $(".ui-dialog").css("top", "30px");
+  },
+
   spyLinkId : function(color) {
     productId = $(color).siblings(".product_id").val();
     hoverBox = $(color).parents("li.product").find(".hover_suggestive");

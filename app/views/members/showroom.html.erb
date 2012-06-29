@@ -12,14 +12,21 @@
       <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
       <%= render "shared/metrics/adlead/adlead" %>
     <% end %>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) return;
-js = d.createElement(s); js.id = id;
-js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    <% if @is_retake %>
+      <script type="text/javascript">
+      setTimeout(function() {
+        initBase.showProfileLightbox();
+      }, 2000);
+      </script>
+    <% end %>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
   <% end %>
 
   <div id="showroom">
@@ -33,6 +40,7 @@ fjs.parentNode.insertBefore(js, fjs);
     <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
     <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter} %>
+    <%= image_tag "showroom/banner_marcos_proenca.jpg", :class => "banner" %>
     <%= render "shared/metrics/boobox/members" %>
   </div>
   <% if user_signed_in? %>

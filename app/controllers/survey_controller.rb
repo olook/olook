@@ -2,7 +2,6 @@
 class SurveyController < ApplicationController
   respond_to :json, :only => :check_date
 
-  before_filter :check_user_login, :except => [:create, :new, :check_date]
   before_filter :check_questions_params, :only => [:create]
 
   def new
@@ -12,20 +11,26 @@ class SurveyController < ApplicationController
 
   def create
     questions = params[:questions]
-    session[:birthday] = {:day => params[:day], :month => params[:month], :year => params[:year]}
-    session[:questions] = questions
-    profiles = ProfileBuilder.profiles_given_questions(questions)
-    profile_points = ProfileBuilder.build_profiles_points(profiles)
-    session[:profile_points] = profile_points
-    if current_user
-      current_user.points.delete_all if current_user.points
-      current_user.survey_answer.delete if current_user.survey_answer
-      answers = (session[:birthday].nil?) ? session[:questions] : session[:questions].merge(session[:birthday])
-      SurveyAnswer.create(:answers => answers, :user => current_user)
-      ProfileBuilder.new(current_user).create_user_points(session[:profile_points])
-      redirect_to root_path
-    else
+    birthday = {:day => params[:day], :month => params[:month], :year => params[:year]}
+
+    if !current_user
+      session[:profile_questions] = questions
+      session[:profile_birthday] = birthday
       redirect_to new_user_registration_path
+    else
+      session[:profile_retake] = ((current_user.points.count > 0) || current_user.survey_answer)
+
+      current_user.points.delete_all if current_user.points.count > 0
+      current_user.survey_answer.delete if current_user.survey_answer
+
+      ProfileBuilder.factory(birthday, questions, current_user)
+      current_user.upgrade_to_full_user!
+      
+      if session[:profile_retake]
+        redirect_to member_showroom_path
+      else
+        redirect_to member_welcome_path
+      end
     end
   end
 
@@ -37,10 +42,6 @@ class SurveyController < ApplicationController
   end
 
   private
-
-  def check_user_login
-    redirect_to root_path if current_user
-  end
 
   def check_questions_params
     redirect_to new_survey_path if (params[:questions].nil? || is_date_invalid?(params))

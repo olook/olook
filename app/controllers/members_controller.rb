@@ -2,20 +2,14 @@
 class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
-  before_filter :redirect_if_half_user, :only => [:showroom]
   before_filter :validate_token, :only => :accept_invitation
   # TODO: Added for valentine invite page
   before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
-  before_filter :load_offline_variant_and_clean_session, :only => [:showroom]
-  before_filter :check_session_and_send_to_cart, :only => [:showroom]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
-  before_filter :redirect_user_if_first, :only => [:showroom]
-  before_filter :redirect_user_if_is_not_first, :only => [:welcome]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
 
   def invite
-    @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @redirect_uri = root_path
 
@@ -27,7 +21,6 @@ class MembersController < ApplicationController
   end
   # TODO: Added for valentine invite page / Remove after
   def valentine_invite
-    @is_the_first_visit = first_visit_for_member?(@user)
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @redirect_uri = root_path
   end
@@ -80,16 +73,30 @@ class MembersController < ApplicationController
 
   def welcome
     session[:facebook_redirect_paths] = "showroom"
+    @is_the_first_visit = first_visit_for_member?(@user)
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    @is_the_first_visit = first_visit_for_member?(@user)
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
   end
 
   def showroom
+    if @user.half_user
+      if @user.female?
+        return render "/home/index"
+      else
+        return redirect_to lookbooks_path, :alert => flash[:notice]
+      end
+    else
+      if @user.first_visit?
+        return redirect_to member_welcome_path, :alert => flash[:notice]
+      end
+    end
+
     session[:facebook_redirect_paths] = "showroom"
+    @is_retake = session[:profile_retake] ? true : false
+    session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
@@ -135,31 +142,6 @@ class MembersController < ApplicationController
 
   def incoming_params
     params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
-  end
-
-  def redirect_user_if_first
-    redirect_to member_welcome_path, :alert => flash[:notice] if current_user.first_visit?
-  end
-
-  def redirect_user_if_is_not_first
-    redirect_to member_showroom_path, :alert => flash[:notice] if !current_user.first_visit?
-  end
-
-  def load_offline_variant_and_clean_session
-    @offline_variant = Variant.find(session[:offline_variant]["id"]) if session[:offline_variant]
-    session[:offline_variant] = nil
-  end
-
-  def check_session_and_send_to_cart
-    unless @offline_variant.nil?
-      order_id = (session[:order] ||= @user.orders.create.id)
-      order = @user.orders.find(order_id)
-      order.add_variant(@offline_variant)
-      if session[:offline_first_access]
-        session[:offline_first_access] = nil
-        redirect_to cart_path
-      end
-    end
   end
 
   def load_friends

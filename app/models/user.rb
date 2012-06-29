@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :addresses
   has_many :orders
+  has_many :campaing_participants
   has_many :payments, :through => :orders
   has_many :credits
   has_one :tracking, :dependent => :destroy
@@ -41,6 +42,7 @@ class User < ActiveRecord::Base
   ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM].join(",")
 
   Gender = {:female => 0, :male => 1}
+  RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
   def name
     "#{first_name} #{last_name}".strip
@@ -237,6 +239,39 @@ class User < ActiveRecord::Base
 
   def first_time_buyer?
     PromotionService.user_applies_for_this_promotion?(self, Promotion.purchases_amount)
+  end
+
+  def male?
+    self.gender == Gender[:male]
+  end
+
+  def female?
+    self.gender == Gender[:female]
+  end
+
+  def upgrade_to_full_user!
+    if self.half_user
+      self.add_event(EventType::UPGRADE_TO_FULL_USER)
+      self.half_user = false
+      self.save
+    end
+  end
+
+  def registered_via? register_type
+    self.registered_via == RegisteredVia[register_type]
+  end
+
+  def registered_via_string
+    RegisteredVia.select{|k,v| v == self.registered_via}.key(self.registered_via).to_s
+  end
+
+  def gender_string
+    Gender.select{|k,v| v == self.gender}.key(self.gender).to_s
+  end
+
+  def clean_auth_token
+    self.authentication_token = nil
+    self.save
   end
 
   private

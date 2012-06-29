@@ -8,17 +8,15 @@ describe Abacos::Pedido do
                 }
   let(:payment) { FactoryGirl.create :credit_card }
   let(:freight) { FactoryGirl.create :freight, :price => 22.0, :cost => 18.0, :delivery_time => 5 }
-  let(:order) { FactoryGirl.create :clean_order, :user => member, :credits => 11.0, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01) }
+  let(:order) { FactoryGirl.create :clean_order, :user => member, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01), :line_items => [line_item_1, line_item_2], :credits => 11.0}
   let(:gift_order) { FactoryGirl.create :clean_order, :user => member, :credits => 11.0, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01), :restricted => true, :gift_wrap => true, :gift_message => 'Mensagem para presente'  }
   let(:variant_a) { FactoryGirl.create :basic_shoe_size_35 }
   let(:variant_b) { FactoryGirl.create :basic_shoe_size_40 }
-  let!(:line_item_1) { FactoryGirl.create :line_item, :order => order, :variant => variant_a, :quantity => 2, :price => 20.0 }
-  let!(:line_item_2) { FactoryGirl.create :line_item, :order => order, :variant => variant_b, :quantity => 1, :price => 30.0 }
+  let!(:line_item_1) { FactoryGirl.create :line_item, :variant => variant_a, :quantity => 2, :price => 20.0 }
+  let!(:line_item_2) { FactoryGirl.create :line_item, :variant => variant_b, :quantity => 1, :price => 30.0 }
   let!(:line_item_3) { FactoryGirl.create :line_item, :order => gift_order, :gift_wrap => true , :variant => variant_a, :quantity => 2, :price => 20.0 }
   let!(:line_item_4) { FactoryGirl.create :line_item, :order => gift_order, :gift_wrap => true , :variant => variant_b, :quantity => 1, :price => 30.0 }
 
-
-  
 
   context "when the order discount(coupom or credits) is greater then order total" do
     it "it should decrement the discount" do
@@ -77,7 +75,7 @@ describe Abacos::Pedido do
       end
 
       it '#transportadora' do
-        subject.transportadora.should == 'Test'
+        subject.transportadora.should == 'TEX'
       end
 
       it '#tempo_entrega' do
@@ -89,7 +87,7 @@ describe Abacos::Pedido do
           subject.itens.length.should == 2
         end
         describe 'first item' do
-          let(:first_item) { subject.itens.first }
+         let(:first_item) { subject.itens.first }
 
           it '#codigo' do
             first_item.codigo.should == variant_a.number
@@ -159,7 +157,7 @@ describe Abacos::Pedido do
                     'ValorPedido' => '70.00',
                     'ValorDesconto' => '11.00',
                     'ValorFrete' => '22.00',
-                    'Transportadora' => 'Test',
+                    'Transportadora' => 'TEX',
                     'PrazoEntregaPosPagamento' => 5,
                     'DataPrazoEntregaInicial' => "#{5.days.from_now.strftime("%d%m%Y")} 21:00",
                     'Itens' =>  {

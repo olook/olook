@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MemberMailer < ActionMailer::Base
-  default :from => "olook <avisos@my.olookmail.com>"
+  default :from => "olook <bemvinda@olook1.com.br>"
 
   def self.smtp_settings
     {
@@ -11,16 +11,31 @@ class MemberMailer < ActionMailer::Base
       :port => 587,
       :authentication => :plain,
       :enable_starttls_auto => true
-
     }
   end
 
   def welcome_email(member)
     @member = member
-    mail( :to => member.email,
-          :from => "olook <bemvinda@olook1.com.br>",
-          :subject => "#{member.name}, seja bem vinda! Seu cadastro foi feito com sucesso!"
-          )
+    default_welcome_email
+  end
+
+  alias :welcome_gift_half_male_user_email :welcome_email
+  alias :welcome_thin_half_male_user_email :welcome_email
+  alias :welcome_gift_half_female_user_email :welcome_email
+  alias :welcome_thin_half_female_user_email :welcome_email
+
+  private
+
+  def default_welcome_email
+    mail(:to => @member.email, :subject => subject_by_gender_and_kind)
     headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json
+  end
+
+  def subject_by_gender_and_kind
+    if @member.half_user
+      "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}! Seu cadastro foi feito com sucesso!"
+    else
+      "#{@member.name}, use agora mesmo seus 30% de desconto!"
+    end
   end
 end
