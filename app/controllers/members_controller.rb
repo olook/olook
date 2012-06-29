@@ -73,7 +73,6 @@ class MembersController < ApplicationController
 
   def welcome
     session[:facebook_redirect_paths] = "showroom"
-    @is_the_first_visit = first_visit_for_member?(@user)
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
@@ -87,10 +86,6 @@ class MembersController < ApplicationController
         return render "/home/index"
       else
         return redirect_to lookbooks_path, :alert => flash[:notice]
-      end
-    else
-      if @user.first_visit?
-        return redirect_to member_welcome_path, :alert => flash[:notice]
       end
     end
 
