@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :save_referer
   before_filter :current_referer
   before_filter :load_order
+  before_filter :load_facebook_api
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
@@ -76,6 +77,10 @@ class ApplicationController < ActionController::Base
   # def user_for_paper_trail
   #   user_signed_in? ? current_user : current_admin
   # end
+
+  def load_facebook_api
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+  end
 
   def load_user
     @user = current_user
