@@ -22,7 +22,7 @@ namespace :users do
   desc "generate_token token for all users"
   task :generate_all_users_token => :environment do |task, args|
     
-    User.find_each( :authentication_token => nil ) do |user|
+    User.where(:authentication_token => nil).find_each do |user|
       user.reset_authentication_token!
     end
 
