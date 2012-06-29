@@ -17,4 +17,12 @@ class User::SettingsController < ApplicationController
     redirect_to "/conta/minha-vitrine"
   end
 
+  protected
+  def redirect_if_half_user
+    if current_user.half_user
+      redirect_to lookbooks_path
+    end
+  end
+  
+
 end

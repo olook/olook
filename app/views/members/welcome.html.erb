@@ -16,11 +16,5 @@
 
 <%= render "shared/metrics/boobox/members" %>
 <section id="welcome">
-  <% if @banner %>
-    <div class="banner">
-      <%= link_to image_tag(@banner, :alt => current_liquidation.name), liquidations_path(current_liquidation.id) %>
-    </div>
-  <% end %>
-
   <%= render "shared/modal/retake_quiz", :user => @user, :link => member_showroom_path %>
 </section>

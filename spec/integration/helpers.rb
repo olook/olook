@@ -14,17 +14,8 @@ def do_admin_login!(admin)
   visit new_admin_session_path
   fill_in "admin_email", :with => admin.email
   fill_in "admin_password", :with => admin.password
-  within('form#admin_new') do
-    click_button "login"
-  end
-end
-
-def do_admin_login!(admin)
-  visit new_admin_session_path
-  fill_in "admin_email", :with => admin.email
-  fill_in "admin_password", :with => admin.password
   within('form#new_admin') do
-    click_button "login"
+    click_button "Sign in"
   end
 end
 

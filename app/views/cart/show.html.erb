@@ -75,13 +75,15 @@
         </tr>
       <% end %>
       <tr class="last">
-        <td class="titles" colspan="3">
+        <td class="titles" colspan="1">
           Total
-          <% if @cart.total < 5.0 %>
-            <p>O valor mínimo para finalizar sua compra é de R$ 5,00</p>
+        </td>
+        <td class="value" colspan="3">
+          <p><%= number_to_currency(@cart.total) %></p>
+          <% if @cart.total <= 5.0 %>
+            <p class="limit">R$5,00 é o valor mínimo para processamento da compra</p>
           <% end %>
         </td>
-        <td class="value"><p><%= number_to_currency(@cart.total) %></p></td>
       </tr>
     </tfoot>
     <tbody>

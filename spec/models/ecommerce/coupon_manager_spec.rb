@@ -50,6 +50,11 @@ describe CouponManager do
           order.used_coupon.should_receive(:update_attributes).with(:coupon => standard_coupon)
           subject.apply_coupon
         end
+
+        it "should update the credits of an order" do
+          order.should_receive(:update_credits!)
+          subject.apply_coupon
+        end
       end
     end
 

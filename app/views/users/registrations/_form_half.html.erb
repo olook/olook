@@ -1,4 +1,6 @@
-<%= form_for(resource, :as => resource_name, :url => gift_user_registration_path(resource)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => create_half_user_path) do |f| %>
+<%= f.hidden_field :half_user, :value => "true" %>
+
   <% if resource.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -24,7 +26,7 @@
         <%= f.email_field :email %>
       </li>
     </ol>
-    
+
     <ol>
       <li class="password">
         <label for="user_password">Senha</label>
@@ -35,7 +37,7 @@
         <%= f.label :password_confirmation, "Confirmar senha" %>
         <%= f.password_field :password_confirmation %>
       </li>
-      
+
       <li class="gender">
         <p>Sexo</p>
         <%= f.radio_button :gender, User::Gender[:male] %>
