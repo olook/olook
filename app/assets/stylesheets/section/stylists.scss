@@ -265,49 +265,51 @@ section#stylist {
           background: url("/assets/stylist/lele_saddi/minhas-escolhas-do-mes.jpg") no-repeat;
           width: 166px;
           height: 80px;
-          top: 220px;
+          top: 240px;
           left: 80px;
         }
-        a#mage {
-          background: url("/assets/stylist/lele_saddi/mage.jpg") top left no-repeat;
-          width: 70px;
-          height: 153px;
-          top: 30px;
-          left: 35px;
-          padding: 0 0 0 145px;
-        }
-        a#ibitinga {
-          background: url("/assets/stylist/lele_saddi/ibitinga.jpg") top left no-repeat;
-          width: 115px;
-          height: 316px;
+        a#santana {
+          background: url("/assets/stylist/lele_saddi/santana.jpg") top left no-repeat;
+          text-align: right;
+          width: 129px;
+          height: 120px;
           top: 11px;
-          right: 20px;
-          padding: 0 0 0 40px;
+          left: 35px;
+          padding: 90px 0 0 20px;
         }
-        a#holambra {
-          background: url("/assets/stylist/lele_saddi/holambra.jpg") top left no-repeat;
-          width: 70px;
-          height: 70px;
-          top: 355px;
-          left: 135px;
-          padding: 10px 0 0 135px;
-          z-index: 1;
+        a#xique_xique {
+          background: url("/assets/stylist/lele_saddi/xique-xique.jpg") top center no-repeat;
+          text-align: center;
+          width: 120px;
+          height: 215px;
+          top: 15px;
+          right: 30px;
+          padding: 50px 0 0 0;
         }
-        a#fernao {
-          background: url("/assets/stylist/lele_saddi/fernao.jpg") top right no-repeat;
-          width: 118px;
-          height: 98px;
-          bottom: 30px;
+        a#valenca {
+          background: url("/assets/stylist/lele_saddi/valenca.jpg") bottom left no-repeat;
+          text-align: right;
+          width: 205px;
+          height: 105px;
+          top: 310px;
           right: 40px;
-          padding: 20px 75px 0 0;
+          padding: 0 5px 40px 0;
         }
-        a#guaraci {
-          background: url("/assets/stylist/lele_saddi/guaraci.jpg") top left no-repeat;
-          width: 172px;
-          height: 75px;
-          bottom: 0px;
-          left: 16px;
-          padding: 260px 0 0 10px;
+        a#saubara {
+          background: url("/assets/stylist/lele_saddi/saubara.png") top right no-repeat;
+          width: 195px;
+          height: 120px;
+          bottom: 5px;
+          right: 30px;
+          padding: 35px 0 0 0;
+        }
+        a#varzedo {
+          background: url("/assets/stylist/lele_saddi/varzedo.jpg") bottom right no-repeat;
+          width: 132px;
+          height: 185px;
+          bottom: 35px;
+          left: 30px;
+          padding: 0 0 45px 20px;
         }
       }
     }
