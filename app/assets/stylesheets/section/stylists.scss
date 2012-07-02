@@ -107,49 +107,64 @@ section#stylist {
           background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
           width: 150px;
           height: 50px;
-          top: 265px;
-          left: 35px;
+          top: 290px;
+          left: 130px;
         }
-        a#santa_maria {
-          background: url("/assets/stylist/helena_linhares/santa_maria.jpg") bottom center no-repeat;
-          width: 156px;
-          height: 160px;
-          top: 65px;
-          padding: 5px 0 35px 17px;
-        }
-        a#cabo_frio {
-          background: url("/assets/stylist/helena_linhares/cabo_frio.jpg") center left no-repeat;
-          width: 80px;
-          height: 130px;
-          top: 10px;
-          right: 10px;
-          padding: 60px 0 35px 80px;
-        }
-        a#atibaia {
-          background: url("/assets/stylist/helena_linhares/atibaia.jpg") bottom center no-repeat;
+        a#catu {
+          background: url("/assets/stylist/helena_linhares/catu.jpg") bottom center no-repeat;
           text-align: right;
-          width: 120px;
-          height: 80px;
-          top: 240px;
+          width: 75px;
+          height: 125px;
+          top: 15px;
+          left: 10px;
+          padding: 20px 100px 15px 0px;
+        }
+        a#cajati {
+          background: url("/assets/stylist/helena_linhares/cajati.jpg") center left no-repeat;
+          width: 70px;
+          height: 100px;
+          top: 15px;
+          right: 15px;
+          padding: 40px 0 35px 115px;
+        }
+        a#filadelfia {
+          background: url("/assets/stylist/helena_linhares/filadelfia.jpg") bottom center no-repeat;
+          text-align: right;
+          width: 155px;
+          height: 90px;
+          top: 180px;
           right: 7px;
-          padding: 0 60px 50px 0;
+          padding: 0 5px 43px 0;
         }
-        a#sumidouro {
-          background: url("/assets/stylist/helena_linhares/sumidouro.png") bottom center no-repeat;
-          width: 136px;
-          height: 163px;
-          bottom: 0px;
-          left: 0;
-          padding: 0 0 0 40px;
-        }
-        a#aparecida {
-          background: url("/assets/stylist/helena_linhares/aparecida.jpg") bottom center no-repeat;
+        a#barreiras {
+          background: url("/assets/stylist/helena_linhares/barreiras.png") bottom left no-repeat;
           text-align: right;
           width: 170px;
-          height: 80px;
+          height: 90px;
           bottom: 15px;
-          right: 15px;
-          padding: 0 10px 35px 0;
+          right: 30px;
+          padding: 20px 10px 35px 0;
+          z-index: 2;
+        }
+        a#lindoia {
+          background: url("/assets/stylist/helena_linhares/lindoia.jpg") bottom right no-repeat;
+          text-align: right;
+          width: 65px;
+          height: 145px;
+          bottom: 15px;
+          left: 40px;
+          padding: 5px 65px 0 15px;
+          z-index: 1;
+        }
+        a#andorinha {
+          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
+          text-align: right;
+          width: 90px;
+          height: 120px;
+          top: 170px;
+          left: 8px;
+          padding: 10px 20px 15px 40px;
+          z-index: 1;
         }
       }
     }
