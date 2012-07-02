@@ -27,9 +27,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_order
   def current_order
-    session[:order] = params[:order_id] if params[:order_id]
-    order_id = (session[:order] ||= current_user.orders.create.id)
-    order = current_user.orders.find(order_id)
+    order_id = params[:order_id] || session[:order]
+    order = current_user.orders.find_by_id(order_id)
+    order ||= current_user.orders.create
+    
+    session[:order] = order.id
     #not sending email in the case of a buy made from an admin
     if current_admin
       order.update_attribute("in_cart_notified", true)

@@ -2,6 +2,7 @@ $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
   initBase.customSelect();
+  initBase.showErrorMessages();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -29,14 +30,6 @@ $(document).ready(function() {
       $(menu).removeClass("smaller");
     }
   });
-
-  if( error = $('#error-messages').html() ){
-    if( error.length >= '73' ){
-      $('.alert').parent().slideDown('1000', function() {
-        $('.alert').parent().delay(5000).slideUp();
-      })
-    }
-  }
 
   $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
     if($("div#quick_view").size() == 0) {
@@ -296,6 +289,16 @@ $(document).ready(function() {
 });
 
 initBase = {
+  showErrorMessages : function() {
+    if( error = $('#error-messages').html() ){
+      if( error.length >= '73' ){
+        $('.alert').parent().slideDown('1000', function() {
+          $('.alert').parent().delay(5000).slideUp();
+        })
+      }
+    }
+  },
+
   showProfileLightbox : function() {
     clone = $("div#profile_quiz").clone().addClass("clone");
     content = clone[0].outerHTML;
