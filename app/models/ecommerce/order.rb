@@ -272,7 +272,7 @@ class Order < ActiveRecord::Base
 
   def discount_from_coupon
     if used_coupon
-      max_discount = line_items_total - Payment::MINIMUM_VALUE
+      max_discount = line_items_total - (!freight_price.nil? && freight_price > Payment::MINIMUM_VALUE ? 0 : Payment::MINIMUM_VALUE)
       discount_value = used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
       discount_value = max_discount if discount_value > max_discount
       discount_value
@@ -296,7 +296,7 @@ class Order < ActiveRecord::Base
 
   def total
     subtotal = line_items_total - total_discount
-    subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE
+    subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE && (freight_price.nil? || freight_price < Payment::MINIMUM_VALUE)
     # gift wrapping price
     subtotal += YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] if gift_wrap?
     subtotal
