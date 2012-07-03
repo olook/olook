@@ -11,7 +11,7 @@ module Checkout
   end
 
   def build_cart
-    @cart = Cart.new(@order)
+    @cart = CartPresenter.new(@order)
   end
 
   def clean_session_order!

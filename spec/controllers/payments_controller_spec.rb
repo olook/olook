@@ -58,7 +58,7 @@ describe PaymentsController do
 
       it "should assign @cart" do
         session[:order] = order
-        Cart.should_receive(:new).with(order)
+        CartPresenter.should_receive(:new).with(order)
         get 'index'
       end
     end
