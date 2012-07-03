@@ -291,13 +291,29 @@ describe Order do
     it "#line_items_total should be zero" do
       subject.line_items_total.should == 0
     end
-    it "#total should be zero" do
-      subject.total.should == Payment::MINIMUM_VALUE
+
+    context 'with free freight' do
+      before(:each) do
+        subject.stub(:freight_price).and_return(0)
+      end
+      it "#total should be zero" do
+        subject.total.should == Payment::MINIMUM_VALUE
+      end
+      it "#total_with_freight should be the value of the freight" do
+        subject.total_with_freight.should == Payment::MINIMUM_VALUE
+      end
     end
-    it "#total_with_freight should be the value of the freight" do
-      subject.total_with_freight.should == subject.freight.price + Payment::MINIMUM_VALUE
+
+    context 'without free freight' do
+      it "#total should be zero" do
+        subject.total.should == 0
+      end
+      it "#total_with_freight should be the value of the freight" do
+        subject.total_with_freight.should == subject.freight.price
+      end
     end
   end
+
 
   context "when the inventory is not available" do
     before :each do
