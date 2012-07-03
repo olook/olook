@@ -77,7 +77,7 @@ class CartBuilder
     def add_products_to_cart
       @gift_products.each_pair do |k, id|
         variant = Variant.find(id)
-        line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
+        line_item = @order.add_variant(variant, nil) if variant
       end
     end
 

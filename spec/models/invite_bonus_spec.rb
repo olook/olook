@@ -92,13 +92,11 @@ describe InviteBonus do
         end
 
         it "should return the sum of credits used in the orders and not count a canceled order" do
-          order_2.waiting_payment
           order_2.canceled
           described_class.already_used(member).to_f.should == 23.56
         end
 
         it "should return the sum of credits used in the orders and not count a reversed order" do
-          order_2.waiting_payment
           order_2.authorized
           order_2.under_review
           order_2.reversed
@@ -106,7 +104,6 @@ describe InviteBonus do
         end
 
         it "should return the sum of credits used in the orders and not count a reversed order" do
-          order_2.waiting_payment
           order_2.authorized
           order_2.under_review
           order_2.refunded

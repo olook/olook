@@ -42,24 +42,6 @@ describe CartController do
       end
     end
 
-    describe "PUT update_gift_data" do
-      let(:msg) { "gift_message" }
-      before :each do
-        session[:order] = order
-      end
-
-      it "should enable wrapped option" do
-        put :update_gift_data, :gift => { :gift_wrap => true }
-        Order.last.gift_wrap?.should == true
-      end
-
-      it "should write gift message option" do
-        put :update_gift_data, :gift => { :gift_message => msg }
-        Order.last.gift_message.should == msg
-      end
-
-    end
-
     describe "PUT update_coupon" do
       before :each do
         session[:order] = order

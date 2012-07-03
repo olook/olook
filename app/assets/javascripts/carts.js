@@ -1,11 +1,3 @@
-$("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
-  document.location = $("a.continue").attr("href");
-});
-
-$(".continue").click(function() {
-  $("form#gift_message").submit();
-})
-
 $("table#coupon a#show_coupon_field").live("click", function(e) {
   $(this).hide();
   $(this).siblings("form").show();
@@ -36,11 +28,4 @@ $( "#gift_gift_wrap" ).change(function() {
   }
 });
 
-
-// $(document).ready(function(){
-//   $("#gift_message li p span").text($("#gift_gift_message").attr('maxlength'));
-// });
-// $("#gift_gift_message").keyup(function(){
-//   $("#gift_message li p span").text($(this).attr('maxlength') - $(this).val().length);
-// });
 
