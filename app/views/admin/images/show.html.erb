@@ -1,40 +1,38 @@
 <% content_for :head do %>
   <%= javascript_include_tag "admin/lookbook_autocomplete" %>
+  <style type="text/css">
+    .product-map { background: url(<%= @image.lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>); }
+    .product-map:hover { background: url(<%= @image.lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>); }
+    .product-map p a { background: <%= @image.lookbook.bg_color || "#000" %>; color: <%= @image.lookbook.fg_color || "#FFF" %>; }
+  </style>
 <% end %>
 
 <h2>Picture</h2>
 <div class="inner">
-  <p>
-<% if @image.lookbook_image_maps.size > 0 %>
-<style>
-.product-map {background-image:url(<%= @image.lookbook.icon_url %>);}
-.product-map:hover {background-image:url(<%= @image.lookbook.icon_over.url %>);}
-.product-map span {background-color:<%= @image.lookbook.bg_color %>; color:<%= @image.lookbook.fg_color %>;}
-
-<% @image.lookbook_image_maps.each do |lim| %>
-  #pm<%= lim.id %> {top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;}
-<% end %>
-</style>
-
-  <% @image.lookbook_image_maps.each do |lim| %>
-    <div class="product-map" id="pm<%= lim.id %>"><span><%= link_to lim.product.name, product_path(lim.product.id) %></span></div>
-  <% end %>
-<% end %>
-    <b>Thumb:</b><br />
-    <%= image_tag @image.image_url(:thumb).to_s %>
-  </p>
-
-<%= form_for :lookbook_image_map, remote: true, html: {class: 'form'} do |lim| %>
-  <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
-  <%= lim.hidden_field :image_id, value: @image.id %>
-  <%= lim.hidden_field :product_id %>
-  <%= lim.hidden_field :coord_x, value: 0 %>
-  <%= lim.hidden_field :coord_y, value: 0 %>
-  <div class="ui-widget">
-    <%= text_field_tag :q, '', id: 'product_name', class: 'ui-autocomplete-input', autocomplete: 'off', 'aria-autocomplete' => 'list', 'aria-haspopup' => true, role: 'textbox' %>
+  <p><strong>Thumb:</strong></p>
+  <div id="container_picture">
+    <%= image_tag @image.image_url(:thumb).to_s, :class => "full_pic" %>
+    <div class="product-map">
+      <p><%= link_to "Esperança", "#" %></p>
+    </div>
+    <% @image.lookbook_image_maps.each do |lim| %>
+      <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
+        <p><%= link_to lim.product.name, product_path(lim.product.id) %></p>
+      </div>
+    <% end %>
   </div>
-  <div id="product_result"><img src="" width="50" height="50" /><span></span><%= lim.submit %></div>
-<% end %>
+
+  <%= form_for :lookbook_image_map, remote: true, html: {class: 'form'} do |lim| %>
+    <%= lim.hidden_field :lookbook_id, value: @image.lookbook.id %>
+    <%= lim.hidden_field :image_id, value: @image.id %>
+    <%= lim.hidden_field :product_id %>
+    <%= lim.hidden_field :coord_x, value: 0 %>
+    <%= lim.hidden_field :coord_y, value: 0 %>
+    <div class="ui-widget">
+      <%= text_field_tag :q, '', id: 'product_name', class: 'ui-autocomplete-input', autocomplete: 'off', 'aria-autocomplete' => 'list', 'aria-haspopup' => true, role: 'textbox' %>
+    </div>
+    <div id="product_result"><img src="" width="50" height="50" /><span></span><%= lim.submit %></div>
+  <% end %>
 
   <div class="ui-widget" style="margin-top:2em;">
     Result:
@@ -59,7 +57,6 @@
     <tr>
   <% end %>
   </table>
-
 </div>
 
 <% content_for :secondary_navigation do %>

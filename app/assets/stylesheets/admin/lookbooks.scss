@@ -69,6 +69,40 @@
 #product_result img {vertical-align:middle; margin-right:10px;}
 #product_result span {text-transform:uppercase;}
 
-.product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
-.product-map:hover span {visibility:visible;}
-.product-map span {visibility:hidden; padding:5px;}
+div#container_picture {
+  position: relative;
+  width: 970px;
+  height: 550px;
+  display: block;
+  overflow: hidden;
+  margin: 0 0 20px 0;
+  img.full_pic {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .product-map {
+    background-repeat:no-repeat;
+    width:auto;
+    display:inline-block;
+    padding:5px 0px 5px 30px;
+    height:auto;
+    min-height:20px;
+    z-index: 1;
+    p {
+      margin: 0;
+      visibility: hidden;
+      a {
+        text-shadow: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 5px 10px;
+      }
+    }
+    &:hover {
+      p {
+        visibility: visible;
+      }
+    }
+  }
+}
