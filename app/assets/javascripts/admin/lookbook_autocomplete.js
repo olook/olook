@@ -1,4 +1,11 @@
 $(function() {
+  $("div#container_picture .product-map").draggable({
+    stop: function() {
+      var topPosition = $(this).css("top");
+      var leftPosition = $(this).css("left");
+    }
+  });
+
   $('#product_result').hide();
   function log( message ) {
     $("<div/>").text( message ).prependTo("#log");

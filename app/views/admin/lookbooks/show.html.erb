@@ -1,12 +1,13 @@
-<style>
-.product-map {z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
-.product-map {background-image:url(<%= @lookbook.icon_url %>);}
-.product-map:hover {background-image:url(<%= @lookbook.icon_over.url %>);}
-.product-map span, .product-map-example {visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
-.product-map a, .product-map-example {color:<%= @lookbook.fg_color %>; text-shadow:none;}
-.product-map:hover span, .product-map-example {visibility:visible;}
-.product-map-example {width:auto; display:inline-block;}
-</style>
+<% content_for :head do %>
+  <style type="text/css">
+    .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>); z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+    .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>); }
+    .product-map p, .product-map-example { visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
+    .product-map p, .product-map-example { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; text-shadow:none; text-transform: uppercase; font-weight: bold; padding: 5px 10px; }
+    .product-map:hover p, .product-map-example {visibility:visible;}
+    .product-map-example {width:auto; display:inline-block;}
+  </style>
+<% end %>
 
 <h2>Lookbook</h2>
 <div class="inner">
@@ -36,7 +37,7 @@
 
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
   <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>
-  
+
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'Edit', edit_admin_lookbook_path(@lookbook) %></li>
   <li><%= link_to 'Back', admin_lookbooks_path %></li>
