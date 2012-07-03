@@ -15,6 +15,8 @@ describe Order do
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
+  it { should belong_to(:user) }
+  it { should belong_to(:cart) }
 
   it { should have_one(:used_coupon) }
 
