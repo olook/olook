@@ -1,5 +1,10 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/lookbooks" %>
+  <style type="text/css">
+    .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>) no-repeat; }
+    .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>) no-repeat; }
+    .product-map p a { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
+  </style>
 <% end %>
 
 <% content_for :footer do %>
@@ -29,6 +34,9 @@
       <% 0.upto(@lookbook.images.count - 1) do |image| %>
         <li>
           <%= image_tag @lookbook.images[image].image.try(:url), :alt => "Imagem #{image}" %>
+          <div class="product-map" style="top: 100px; left: 300px;">
+            <p><%= link_to "Esperança", "#" %></p>
+          </div>
         </li>
       <% end %>
     </ul>
