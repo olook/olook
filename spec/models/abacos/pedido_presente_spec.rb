@@ -9,20 +9,20 @@ describe Abacos::PedidoPresente do
   let(:payment) { FactoryGirl.create :credit_card }
   let(:freight) { FactoryGirl.create :freight, :price => 22.0, :cost => 18.0, :delivery_time => 5 }
   let(:order) { FactoryGirl.create :clean_order, :user => member, :credits => 11.0, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01) }
-  let(:gift_order) { FactoryGirl.create :clean_order, :user => member, :credits => 11.0, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01), :restricted => true, :gift_wrap => true, :gift_message => 'Mensagem para presente'  }
+  let(:gift_order) { FactoryGirl.create :clean_order, :user => member, :credits => 11.0, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01), :restricted => true, :gift_wrap => true  }
   let(:variant_a) { FactoryGirl.create :basic_shoe_size_35 }
   let(:variant_b) { FactoryGirl.create :basic_shoe_size_40 }
   let!(:line_item_1) { FactoryGirl.create :line_item, :order => order, :variant => variant_a, :quantity => 2, :price => 20.0 }
   let!(:line_item_2) { FactoryGirl.create :line_item, :order => order, :variant => variant_b, :quantity => 1, :price => 30.0 }
-  let!(:line_item_3) { FactoryGirl.create :line_item, :order => gift_order, :gift_wrap => true , :variant => variant_a, :quantity => 2, :price => 20.0 }
-  let!(:line_item_4) { FactoryGirl.create :line_item, :order => gift_order, :gift_wrap => true , :variant => variant_b, :quantity => 1, :price => 30.0 }
+  let!(:line_item_3) { FactoryGirl.create :line_item, :order => gift_order, :variant => variant_a, :quantity => 2, :price => 20.0 }
+  let!(:line_item_4) { FactoryGirl.create :line_item, :order => gift_order, :variant => variant_b, :quantity => 1, :price => 30.0 }
 
 
   context "creating a gift order" do
     describe "should have correct abacos gifties attributes" do
       let(:nota_simbolica) { true }
       let(:valor_embalagem) { YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] }
-      let(:anotacao_pedido) { 'Mensagem para presente' }
+      let(:anotacao_pedido) { '' }
 
       subject do
         described_class.new gift_order

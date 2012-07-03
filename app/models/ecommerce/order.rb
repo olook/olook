@@ -21,15 +21,9 @@ class Order < ActiveRecord::Base
 
   belongs_to :cart
   belongs_to :user
+  
   has_many :variants, :through => :line_items
   has_many :line_items, :dependent => :destroy
-  delegate :name, :to => :user, :prefix => true
-  delegate :email, :to => :user, :prefix => true
-  delegate :price, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -41,21 +35,35 @@ class Order < ActiveRecord::Base
   after_create :generate_number
   after_create :generate_identification_code
 
-  validates :gift_message, :length => {:maximum => 140}, :allow_nil => true
+  delegate :name, :to => :user, :prefix => true
+  delegate :email, :to => :user, :prefix => true
+  delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :payment_response, :to => :payment, :allow_nil => true
 
-  scope :with_payment, joins(:payment)
-  scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
-  scope :paid, where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
-  scope :not_in_the_cart, where("state <> 'in_the_cart'")
-  scope :with_complete_payment, joins(:payment).where("payments.state IN ('authorized','completed')")
-
-  state_machine :initial => :in_the_cart do
+  def with_payment 
+    joins(:payment)
+  end
+  
+  def purchased
+    where("state NOT IN ('canceled', 'reversed', 'refunded')")
+  end
+  
+  def paid
+     where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
+  end
+  
+  def with_complete_payment
+    joins(:payment).where("payments.state IN ('authorized','completed')")
+  end
+  
+  after_create :initialize_order
+  
+  state_machine :initial => :waiting_payment do
 
     store_audit_trail
-
-    after_transition :in_the_cart => :waiting_payment, :do => :insert_order
-    after_transition :in_the_cart => :waiting_payment, :do => :send_notification_order_requested
-    after_transition :in_the_cart => :waiting_payment, :do => :update_user_credit
 
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
@@ -69,11 +77,6 @@ class Order < ActiveRecord::Base
     after_transition any => :reversed, :do => :send_notification_payment_refused
     after_transition any => :canceled, :do => :reimburse_credit
 
-
-    event :waiting_payment do
-      transition :in_the_cart => :waiting_payment
-    end
-
     event :authorized do
       transition :waiting_payment => :authorized
     end
@@ -83,7 +86,7 @@ class Order < ActiveRecord::Base
     end
 
     event :canceled do
-      transition :waiting_payment => :canceled, :not_delivered => :canceled, :in_the_cart => :canceled
+      transition :waiting_payment => :canceled, :not_delivered => :canceled
     end
 
     event :reversed do
@@ -189,16 +192,6 @@ class Order < ActiveRecord::Base
     line_items.select {|item| item.gift?}.size == 1
   end
 
-  # gift wrapping
-  def gift_wrap_all_line_items
-    reload
-    line_items.each {|item| item.update_attributes(:gift_wrap => true)}
-  end
-
-  def clear_line_items_gift_wrapping
-    reload
-    line_items.each {|item| item.update_attributes(:gift_wrap => false)}
-  end
 
   def status
     STATUS[state]
@@ -216,7 +209,7 @@ class Order < ActiveRecord::Base
   end
 
   #TODO: refactor this to include price as a parameter
-  def add_variant(variant, quantity=nil, gift_wrap=false)
+  def add_variant(variant, quantity=nil)
     quantity ||= Order::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
     if variant.available_for_quantity?(quantity)
@@ -228,8 +221,8 @@ class Order < ActiveRecord::Base
                                      :variant_id => variant.id,
                                      :quantity => quantity,
                                      :price => variant.price,
-                                     :retail_price => variant.product.retail_price,
-                                     :gift_wrap => gift_wrap)
+                                     :retail_price => variant.product.retail_price
+                                     )
         line_items << current_item
       end
       current_item
@@ -362,6 +355,12 @@ class Order < ActiveRecord::Base
   end
 
   private
+
+  def initialize_order
+    self.insert_order
+    self.send_notification_order_requested
+    self.update_user_credit
+  end
 
   def generate_number
     new_number = (id * CONSTANT_FACTOR) + CONSTANT_NUMBER

@@ -473,14 +473,12 @@ describe Order do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
-        subject.waiting_payment
       end
 
       it "updates order purchased_at with the current time" do
         time = DateTime.new(2012,5,10,23,59,59)
         Time.stub(:now).and_return(time)
         subject.should_receive(:update_attribute).with(:purchased_at, time)
-        subject.waiting_payment
       end
     end
 
@@ -488,7 +486,6 @@ describe Order do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
         Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
-        subject.waiting_payment
         subject.authorized
       end
     end
@@ -496,7 +493,6 @@ describe Order do
     context "when the order is waiting payment" do
       it "updates user credit" do
         subject.should_receive(:update_user_credit)
-        subject.waiting_payment
       end
     end
   end
@@ -507,26 +503,22 @@ describe Order do
     end
 
     it "should set authorized" do
-      subject.waiting_payment
       subject.authorized
       subject.authorized?.should be_true
     end
 
     it "should set authorized" do
-      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.under_review?.should be_true
     end
 
     it "should set canceled" do
-      subject.waiting_payment
       subject.canceled
       subject.canceled?.should be_true
     end
 
     it "should set canceled given not_delivered" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -541,7 +533,6 @@ describe Order do
     end
 
     it "should set reversed" do
-      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.reversed
@@ -549,7 +540,6 @@ describe Order do
     end
 
     it "should set refunded" do
-      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.refunded
@@ -557,14 +547,12 @@ describe Order do
     end
 
     it "should set picking" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.picking?.should be_true
     end
 
     it "should set delivering" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -572,7 +560,6 @@ describe Order do
     end
 
     it "should set delivered" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -581,7 +568,6 @@ describe Order do
     end
 
     it "should set not_delivered" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -591,18 +577,16 @@ describe Order do
 
     it "should enqueue a OrderStatusWorker in any transation with a payment" do
       Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-      subject.waiting_payment
+      subject.waiting_payment?
     end
 
     it "should enqueue a OrderStatusWorker in any transation with a payment" do
       Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-      subject.waiting_payment
       subject.authorized
     end
 
     it "should use coupon when authorized" do
       subject.should_receive(:use_coupon)
-      subject.waiting_payment
       subject.authorized
     end
   end
@@ -638,7 +622,6 @@ describe Order do
 
   describe "Audit trail" do
     it "should audit the transition" do
-      subject.waiting_payment
       subject.authorized
       transition = subject.order_state_transitions.last
       transition.event.should == "authorized"

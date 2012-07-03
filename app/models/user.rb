@@ -203,7 +203,7 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.not_in_the_cart.count > 0
+    self.orders.count > 0
   end
 
   def first_buy?

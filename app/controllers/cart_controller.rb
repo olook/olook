@@ -6,16 +6,10 @@ class CartController < ApplicationController
   before_filter :load_user
   before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
   before_filter :load_order
-  before_filter :verify_order_with_auth_token
   before_filter :format_credits_value, :only => [:update_bonus]
 
   def update_gift_data
     @order.update_attributes(params[:gift])
-    if @order.gift_wrap?
-      @order.gift_wrap_all_line_items
-    else
-      @order.clear_line_items_gift_wrapping
-    end
     render :json => true
   end
 
@@ -157,18 +151,6 @@ class CartController < ApplicationController
 
   def load_user
     @user = current_user
-  end
-
-  def verify_order_with_auth_token
-    if params[:order_id] && params[:auth_token]
-      @user.clean_auth_token
-      if @order && !(@order.state == "in_the_cart" && !@order.disable)
-        redirect_to root_path
-      elsif @order.nil?
-        session[:order] = nil
-        redirect_to root_path
-      end
-    end
   end
 
   def load_order

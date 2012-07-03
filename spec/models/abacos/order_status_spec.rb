@@ -81,10 +81,6 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is waiting payment' do
-      before :each do
-        order.waiting_payment
-      end
-
       context "and the new state is canceled" do
         subject { described_class.new default_order_state.merge(:new_state => 'canceled') }
         it "should change the state to canceled" do
@@ -103,7 +99,6 @@ describe Abacos::OrderStatus do
 
     context 'when the original order state is authorized' do
       before :each do
-        order.waiting_payment
         order.authorized
         order.authorized?.should be_true
       end
@@ -138,7 +133,6 @@ describe Abacos::OrderStatus do
 
     context 'when the original order state is picking' do
       before :each do
-        order.waiting_payment
         order.authorized
         order.picking
         order.picking?.should be_true
@@ -165,7 +159,6 @@ describe Abacos::OrderStatus do
 
     context 'when the original order state is delivering' do
       before :each do
-        order.waiting_payment
         order.authorized
         order.picking
         order.delivering

@@ -559,7 +559,6 @@ describe User do
     context 'when user has one order not in the cart' do
       it 'returns true' do
         order = FactoryGirl.create(:order, :user => subject)
-        order.waiting_payment
         subject.has_purchases?.should be_true
       end
     end
@@ -636,14 +635,12 @@ describe User do
 
       context "when user has one order waiting payment" do
         it "returns false" do
-          order.waiting_payment
           subject.first_buy?.should be_false
         end
       end
 
       context "when user has one order authorized" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           subject.first_buy?.should be_true
         end
@@ -651,7 +648,6 @@ describe User do
 
       context "when user has one order being picked" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           order.picking
           subject.first_buy?.should be_true
@@ -660,7 +656,6 @@ describe User do
 
       context "when user has one order being delivered" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           order.picking
           order.delivering
@@ -670,7 +665,6 @@ describe User do
 
       context "when user has one order under review" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           order.under_review
           subject.first_buy?.should be_true
@@ -681,9 +675,7 @@ describe User do
         let(:second_order) { FactoryGirl.create(:order, :user => subject) }
 
         it "returns false" do
-          order.waiting_payment
           order.authorized
-          second_order.waiting_payment
           second_order.authorized
           subject.first_buy?.should be_false
         end

@@ -40,7 +40,6 @@ describe PaymentManager do
     end
 
     it "should return true if a payment is expired and order has waiting_payment state" do
-      billet.order.waiting_payment
       billet.payment_expiration_date = 6.days.ago
       billet.save
       billet.reload
@@ -48,7 +47,6 @@ describe PaymentManager do
     end
 
     it "should return false if a payment is not expired and order has waiting_payment state" do
-      billet.order.waiting_payment
       billet.payment_expiration_date = Time.now + 6.days
       billet.save
       billet.reload
@@ -58,7 +56,6 @@ describe PaymentManager do
 
   context "expiring payments" do
     it "should expires all expired billet orders" do
-      billet.order.waiting_payment
       billet.payment_expiration_date = 6.days.ago
       billet.save
       billet.reload
@@ -67,7 +64,6 @@ describe PaymentManager do
     end
 
     it "should expires all expired credit card orders" do
-      credit_card.order.waiting_payment
       credit_card.payment_expiration_date = 3.days.ago
       credit_card.save
       credit_card.reload
@@ -76,7 +72,6 @@ describe PaymentManager do
     end
 
     it "should expires all expired debits" do
-      debit.order.waiting_payment
       debit.payment_expiration_date = 3.days.ago
       debit.save
       debit.reload
@@ -85,7 +80,6 @@ describe PaymentManager do
     end
 
     it "shouldn't expires not expired billets" do
-      billet.order.waiting_payment
       billet.payment_expiration_date = Time.now + 3.days
       billet.save
       billet.reload
@@ -94,7 +88,6 @@ describe PaymentManager do
     end
 
     it "shouldn't expires not expired credit cards" do
-      credit_card.order.waiting_payment
       credit_card.payment_expiration_date = Time.now + 3.days
       credit_card.save
       credit_card.reload
@@ -103,7 +96,6 @@ describe PaymentManager do
     end
 
     it "shouldn't expires not expired debits" do
-      debit.order.waiting_payment
       debit.payment_expiration_date = Time.now + 3.days
       debit.save
       debit.reload
