@@ -71,7 +71,7 @@ describe CreditCardsController do
 
       it "should assign @cart" do
         session[:order] = order
-        Cart.should_receive(:new).with(Order.find(order))
+        CartPresenter.should_receive(:new).with(Order.find(order))
         get 'new'
       end
     end
@@ -133,7 +133,7 @@ describe CreditCardsController do
       end
 
       it "should assign @cart" do
-        Cart.should_receive(:new).with(Order.find(order))
+        CartPresenter.should_receive(:new).with(Order.find(order))
         post :create, :credit_card => {}
       end
 
@@ -169,7 +169,7 @@ describe CreditCardsController do
       end
 
       it "should assign @cart" do
-        Cart.should_receive(:new).with(Order.find(order))
+        CartPresenter.should_receive(:new).with(Order.find(order))
         post :create, :credit_card => {}
       end
     end
