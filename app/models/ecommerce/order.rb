@@ -19,6 +19,7 @@ class Order < ActiveRecord::Base
     "authorized" => "Pagamento autorizado"
   }
 
+  belongs_to :cart
   belongs_to :user
   has_many :variants, :through => :line_items
   has_many :line_items, :dependent => :destroy
