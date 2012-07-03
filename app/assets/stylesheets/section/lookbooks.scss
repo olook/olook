@@ -1,4 +1,5 @@
 @import "partials/product";
+@import "partials/product_map";
 
 section#lookbooks {
   padding: 20px 0;
@@ -130,11 +131,11 @@ section#lookbooks {
       overflow: auto;
       left: 0;
       li {
-      position: relative;
-      display: inline;
-      margin: 0;
-      padding: 0;
-      float: left;
+        position: relative;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        float: left;
         img {
           width: 970px;
           height: 549px;

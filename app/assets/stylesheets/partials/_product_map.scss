@@ -1,0 +1,28 @@
+div.product-map {
+  position: absolute;
+  background-repeat: no-repeat;
+  width: auto;
+  padding: 5px 0px 5px 30px;
+  height: auto;
+  min-height: 20px;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  p {
+    margin: 0;
+    visibility: hidden;
+    a {
+      text-shadow: none;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+    }
+  }
+  &:hover {
+    p {
+      visibility: visible;
+    }
+  }
+}

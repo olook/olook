@@ -1,3 +1,5 @@
+@import "partials/product_map";
+
 .miniColors-trigger {
   height: 22px;
   width: 22px;
@@ -80,29 +82,5 @@ div#container_picture {
     position: absolute;
     top: 0;
     left: 0;
-  }
-  .product-map {
-    background-repeat:no-repeat;
-    width:auto;
-    display:inline-block;
-    padding:5px 0px 5px 30px;
-    height:auto;
-    min-height:20px;
-    z-index: 1;
-    p {
-      margin: 0;
-      visibility: hidden;
-      a {
-        text-shadow: none;
-        text-transform: uppercase;
-        font-weight: bold;
-        padding: 5px 10px;
-      }
-    }
-    &:hover {
-      p {
-        visibility: visible;
-      }
-    }
   }
 }
