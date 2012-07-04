@@ -57,15 +57,6 @@ class PaymentsController < ApplicationController
                                       :gateway_type   => params["tipo_pagamento"],
                                       :gateway_status => params["status_pagamento"],
                                       :gateway_status_reason => params["classificacao"])
-
-      canceled_status = Payment::STATUS["5"].to_s
-
-      if params["status_pagamento"] == canceled_status
-        #cancellation_reason_message = order.payment_response.message if order.payment_response
-        #cancellation_reason_message = order.payment.gateway_status_reason
-        order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:moip], :message => order.payment.gateway_status_reason)
-      end
-
       order.payment.set_state(params["status_pagamento"])
     end
   end
