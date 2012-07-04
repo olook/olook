@@ -5,7 +5,6 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
-  CANCELLATION_SOURCE = {:moip => 1, :abacos => 2}
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -63,13 +62,14 @@ class Order < ActiveRecord::Base
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
     after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
 
+    after_transition :authorized => :picking, :do => :send_notification_order_picking
+
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
 
     after_transition any => :canceled, :do => :send_notification_payment_refused
     after_transition any => :reversed, :do => :send_notification_payment_refused
     after_transition any => :canceled, :do => :reimburse_credit
-
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment
@@ -112,24 +112,32 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def send_notification_order_picking
+    ::OrderTimeline::Notifier.notify_event(self)
+  end
+
   def send_notification_payment_refused
     Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
   end
 
   def send_notification_order_delivered
     Resque.enqueue(Orders::NotificationOrderDeliveredWorker, self.id)
+    ::OrderTimeline::Notifier.notify_event(self)
   end
 
   def send_notification_order_shipped
     Resque.enqueue(Orders::NotificationOrderShippedWorker, self.id)
+    ::OrderTimeline::Notifier.notify_event(self)
   end
 
   def send_notification_payment_confirmed
     Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, self.id)
+    ::OrderTimeline::Notifier.notify_event(self)
   end
 
   def send_notification_order_requested
     Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
+    ::OrderTimeline::Notifier.notify_event(self)
   end
 
   def enqueue_order_status_worker
