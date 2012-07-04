@@ -1,70 +1,76 @@
-<h2>Order <%= @order.number %></h2>
-<div class="inner">
-  <p>
-    <b>Client:</b>
-    <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) %>
-  </p>
-  <p>
-    <button style="padding:5px">
-      <b><%= link_to 'Login', "/admin/users/login/#{@order.user.id}" %><b>
-    </button>
-  </p>
-  <p>
-    <b>Date:</b>
-    <%= l @order.created_at, :format => :short %>
-  </p>
-  <p>
-    <b>Identification Code:</b>
-    <%= @order.identification_code %>
-  </p>
-  <p>
-    <b>Moip ID:</b>
-    <%= @order.payment.payment_response.gateway_code %>
-  </p>
-  <p>
-    <b>Status:</b>
-    <%= @order.status %>
-  </p>
-  <p>
-    <b>Payment method:</b>
-    <%= @order.payment.human_to_s %> <%= "- #{@order.payment.bank}" if @order.payment.is_a? CreditCard %>
-  </p>
-  <p>
-    <b>Products Total:</b>
-    <%= number_to_currency(@order.total) %>
-  </p>
-  <p>
-    <b>Used credits:</b>
-    <%= number_to_currency(@order.credits) %>
-  </p>
-  <p>
-    <b>Discount from coupon:</b>
-    <%= number_to_currency(@order.discount_from_coupon) %>
-  </p>
-  <p>
-    <b>Freight Total:</b>
-    <%= number_to_currency(@order.freight_price) %>
-  </p>
-  <p>
-    <b>Total:</b>
-    <%= number_to_currency(@order.total_with_freight) %>
-  </p>
-  <p>
-    <b>Installments:</b>
-    <%= @order.installments %>x
-  </p>
-  <p>
-    <b>Estimated delivery:</b>
-    <%= @order.freight.delivery_time %> work days
-  </p>
+<h2>Order <b><%= @order.number %></b></h2>
 
-  <div>
-    <h3>Endereço de entrega</h1>
-    <p><%= @address.identification %></p>
-    <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
-    <p><%= "#{@address.zip_code}" %></p>
-    <p><%= "#{@address.city}, #{@address.state}" %></p>
+<%#= render :partial => 'order_timeline' %>
+
+<div class="inner">
+  <div class="inner_info" style='float:left;width:20%;'>
+    <p>
+      <b>Client:</b>
+      <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) %>
+    </p>
+    <p>
+      <button style="padding:5px">
+        <b><%= link_to 'Login', "/admin/users/login/#{@order.user.id}" %><b>
+      </button>
+    </p>
+    <p>
+      <b>Date:</b>
+      <%= l @order.created_at, :format => :short %>
+    </p>
+    <p>
+      <b>Identification Code:</b>
+      <%= @order.identification_code %>
+    </p>
+    <p>
+      <b>Moip ID:</b>
+      <%= @order.payment.payment_response.gateway_code %>
+    </p>
+    <p>
+      <b>Status:</b>
+      <%= @order.status %>
+    </p>
+    <p>
+      <b>Payment method:</b>
+      <%= @order.payment.human_to_s %> <%= "- #{@order.payment.bank}" if @order.payment.is_a? CreditCard %>
+    </p>
+    <p>
+      <b>Products Total:</b>
+      <%= number_to_currency(@order.total) %>
+    </p>
+    <p>
+      <b>Used credits:</b>
+      <%= number_to_currency(@order.credits) %>
+    </p>
+    <p>
+      <b>Discount from coupon:</b>
+      <%= number_to_currency(@order.discount_from_coupon) %>
+    </p>
+    <p>
+      <b>Freight Total:</b>
+      <%= number_to_currency(@order.freight_price) %>
+    </p>
+    <p>
+      <b>Total:</b>
+      <%= number_to_currency(@order.total_with_freight) %>
+    </p>
+    <p>
+      <b>Installments:</b>
+      <%= @order.installments %>x
+    </p>
+    <p>
+      <b>Estimated delivery:</b>
+      <%= @order.freight.delivery_time %> work days
+    </p>
+    <div>
+      <h3>Endereço de entrega</h1>
+      <p><%= @address.identification %></p>
+      <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
+      <p><%= "#{@address.zip_code}" %></p>
+      <p><%= "#{@address.city}, #{@address.state}" %></p>
+    </div>
   </div>
+  
+  <%= render :partial => 'order_timeline' %>
 
   <table class="table">
     <tr>
@@ -92,3 +98,4 @@
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'Back', admin_orders_path %></li>
 <% end %>
+
