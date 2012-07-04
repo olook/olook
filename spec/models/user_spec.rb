@@ -551,7 +551,7 @@ describe User do
 
     context 'when user has one order in the cart' do
       it 'returns false' do
-        FactoryGirl.create(:order_without_payment, :user => subject)
+        FactoryGirl.create(:cart_with_items, :user => subject)
         subject.has_purchases?.should be_false
       end
     end
@@ -788,7 +788,7 @@ describe User do
 
     context "when the user has one purchase in the cart" do
       before do
-        FactoryGirl.create(:order_without_payment, :user => subject)
+        FactoryGirl.create(:cart_with_items, :user => subject)
       end
 
       it "returns 0" do

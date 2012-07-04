@@ -7,7 +7,7 @@ feature "Show products on xml format" do
   let!(:product) { FactoryGirl.create :basic_shoe }
 
   background do
-    product.master_variant.update_attribute(:price, 99.90)
+    product.master_variant.update_attribute(:price, "99.90")
     product.master_variant.update_attribute(:inventory, 1)
   end
 
