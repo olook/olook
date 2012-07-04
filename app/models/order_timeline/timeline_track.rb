@@ -14,11 +14,11 @@ module OrderTimeline
 
     def unserialize_as_timeline_object
       timeline = Timeline.new
-      timeline.start_date = self.timeline_track[:timeline][:startDate]
-      timeline.text = self.timeline_track[:timeline][:text]
-      timeline.headline = self.timeline_track[:timeline][:headline]
-      timeline.type = self.timeline_track[:timeline][:type]
-      self.timeline_track[:timeline][:date].each do |event|
+      timeline.start_date = self.timeline[:timeline][:startDate]
+      timeline.text = self.timeline[:timeline][:text]
+      timeline.headline = self.timeline[:timeline][:headline]
+      timeline.type = self.timeline[:timeline][:type]
+      self.timeline[:timeline][:date].each do |event|
         timeline.events << Event.new(event[:startDate], event[:headline], event[:text])
       end
       timeline
