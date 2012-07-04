@@ -87,7 +87,8 @@ module Abacos
 
     def change_order_state(order)
       if new_state == 'canceled'
-        order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:abacos], :message => cancelation_reason) if order.canceled
+        #order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:abacos], :message => cancelation_reason) if order.cancele
+        order.update_attributes(:state_reason => cancelation_reason) if order.canceled
       end
 
       valid_state = VALID_STATES.index(order.state)
