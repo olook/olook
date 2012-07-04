@@ -298,9 +298,11 @@ describe Order do
       before(:each) do
         subject.stub(:freight_price).and_return(0)
       end
+
       it "#total should be zero" do
         subject.total.should == Payment::MINIMUM_VALUE
       end
+
       it "#total_with_freight should be the value of the freight" do
         subject.total_with_freight.should == Payment::MINIMUM_VALUE
       end
@@ -498,8 +500,8 @@ describe Order do
   end
 
   describe "State machine" do
-    it "has in_the_cart as initial state" do
-      subject.in_the_cart?.should be_true
+    it "has waiting_payment as initial state" do
+      subject.waiting_payment?.should be_true
     end
 
     it "should set authorized" do

@@ -1,13 +1,5 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  factory :order_without_payment, :class => Order do
-    association :freight, :factory => :freight
-
-    after_build do |order|
-      Resque.stub(:enqueue)
-    end
-  end
-
   factory :clean_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
@@ -16,12 +8,12 @@ FactoryGirl.define do
       Resque.stub(:enqueue)
     end
   end
-  
+
   factory :restricted_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
     restricted true
-    
+
     after_build do |order|
       Resque.stub(:enqueue)
     end

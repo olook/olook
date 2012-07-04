@@ -21,7 +21,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :cart
   belongs_to :user
-  
+
   has_many :variants, :through => :line_items
   has_many :line_items, :dependent => :destroy
   has_one :payment, :dependent => :destroy
@@ -43,24 +43,24 @@ class Order < ActiveRecord::Base
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
   delegate :payment_response, :to => :payment, :allow_nil => true
 
-  def with_payment 
+  def self.with_payment
     joins(:payment)
   end
-  
-  def purchased
+
+  def self.purchased
     where("state NOT IN ('canceled', 'reversed', 'refunded')")
   end
-  
-  def paid
+
+  def self.paid
      where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
   end
-  
-  def with_complete_payment
+
+  def self.with_complete_payment
     joins(:payment).where("payments.state IN ('authorized','completed')")
   end
-  
+
   after_create :initialize_order
-  
+
   state_machine :initial => :waiting_payment do
 
     store_audit_trail
