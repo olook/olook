@@ -1,15 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require "ruby-debug"
 describe Admin::AdminsController do
-  
+
   render_views
 
   let!(:admin) { FactoryGirl.create(:admin_sac_operator) }
 
   let!(:valid_attributes_with_password){
-    {:first_name => "Doug", :last_name => "Funny", :password => "123456", 
-    :password_confirmation => "123456", :email => "drfunny@olook.com.br", 
+    {:first_name => "Doug", :last_name => "Funny", :password => "123456",
+    :password_confirmation => "123456", :email => "drfunny@olook.com.br",
     :role_id => admin.role_id.to_s} }
 
   let!(:valid_attributes_without_password) do
@@ -107,7 +106,7 @@ describe Admin::AdminsController do
         put :update, :id => admin.id, :admin => valid_attributes_with_password
         assigns(:admin).should eq(admin)
       end
-      
+
       it "redirects to the admin" do
         put :update, :id => admin.id, :admin => valid_attributes_with_password
         response.should redirect_to(admin_admin_path(admin))
@@ -128,7 +127,7 @@ describe Admin::AdminsController do
         put :update, :id => admin.id, :admin => valid_attributes_without_password
         assigns(:admin).should eq(admin)
       end
-      
+
       it "redirects to the admin" do
         put :update, :id => admin.id, :admin => valid_attributes_without_password
         response.should redirect_to(admin_admin_path(admin))
