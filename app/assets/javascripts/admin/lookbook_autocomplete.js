@@ -1,6 +1,6 @@
 $(function() {
   $("div#container_picture .product-map").draggable({
-    handler: 'div',
+    cancel: 'p',
     containment: "parent",
     stop: function() {
       $.ajax({
