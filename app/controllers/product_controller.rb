@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 class ProductController < ApplicationController
   respond_to :html
-  before_filter :authenticate_user!, except: [:show, :create_offline_session, :autocomplete_product]
-  before_filter :load_user, except: [:autocomplete_product]
+  before_filter :authenticate_user!, except: [:show, :create_offline_session, :autocomplete_information]
+  before_filter :load_user, except: [:autocomplete_information]
   before_filter :check_product_variant, only: [:add_to_cart]
-  before_filter :load_order, except: [:autocomplete_product]
+  before_filter :load_order, except: [:autocomplete_information]
 
   def show
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
