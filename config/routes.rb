@@ -4,7 +4,7 @@ Olook::Application.routes.draw do
   get "liquidation_products/index"
   get "index/index"
   root :to => "home#index"
- 
+
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
@@ -119,6 +119,7 @@ Olook::Application.routes.draw do
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
       resources :suggestions, :only => [:index]
+      post "suggestions/add_to_cart" => "suggestions#add_to_cart", :as => :add_suggestions_to_cart
       get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
       post "suggestions/select_gift/" => "suggestions#select_gift"
       member do
@@ -133,6 +134,8 @@ Olook::Application.routes.draw do
       end
     end
   end
+
+  devise_for :admins
 
   namespace :admin do
     match "/", :to => "index#dashboard"
@@ -213,26 +216,16 @@ Olook::Application.routes.draw do
     resources :gift_recipient_relations
   end
 
-  devise_for :admins, :controllers => { :registrations => "registrations", :sessions => "sessions" } do
-    post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
-  end
-
-  #TODO: implement gift routes with something as bellow
-  #devise_for :gift, :class_name => "User", :controllers => { :registrations => "gift/registrations", :sessions => "gift/sessions" } do
-  #  post "after_sign_in_path_for", :to => "gift/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
-  #end
-
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "registrations", :sessions => "sessions" } do
-    get '/entrar' => 'sessions#new', :as => :new_user_session
-    post '/entrar' => 'sessions#create', :as => :user_session
-    delete '/logout' => 'sessions#destroy', :as => :destroy_user_session
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions" } do
+    get '/entrar' => 'users/sessions#new', :as => :new_user_session
+    post '/entrar' => 'users/sessions#create', :as => :user_session
+    delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
-    post "after_sign_in_path_for", :to => "sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
+    # post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
     #gift
-    get '/gift/entrar' => "gift/registrations#new", :as => :new_gift_user_session
-    post '/gift/registrar' => "gift/registrations#create", :as => :gift_user_registration
+    get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
+    post '/registrar' => "users/registrations#create_half", :as => :create_half_user
   end
-  
+
   get ":page_url", :to => "landing_pages#show"
-  
 end

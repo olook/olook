@@ -17,11 +17,23 @@ class MenuPresenter < BasePresenter
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, spfw_blog, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
   def render_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, spfw_blog, cart].join.html_safe
+    if user.female?
+      render_woman_half_user_menu
+    else
+      render_man_half_user_menu
+    end
+  end
+
+  def render_woman_half_user_menu
+    render_default_menu
+  end
+
+  def render_man_half_user_menu
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
   private
@@ -71,8 +83,8 @@ class MenuPresenter < BasePresenter
     h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart"
   end
 
-  def spfw_blog
-    render_item_with_label("Cobertura SPFW", "http://blog.olook.com.br/category/spfw-2/", "spfw", [])
+  def olook_tv
+    h.content_tag :li, h.link_to("olook TV", "http://blog.olook.com.br/category/olook-tv/", :target => "_blank"), :class => "olooktv"
   end
 
   def blog

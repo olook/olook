@@ -72,6 +72,7 @@ section#cart {
   table.items_list {
     $border-color: #e5e5e5;
     margin-bottom: 25px;
+    table-layout: fixed;
     thead tr th, tfoot tr td {
       font-family: Times;
       font-style: italic;
@@ -213,6 +214,7 @@ section#cart {
           }
         }
         &.item {
+          width: 440px;
           padding-left: 15px;
           img {
             width: 70px;
@@ -222,6 +224,7 @@ section#cart {
           }
         }
         &.amount {
+          width: 145px;
           select {
             width: 55px
           }
@@ -241,6 +244,7 @@ section#cart {
           }
         }
         &.delete_item {
+          width: 270px;
           form {
             position: relative;
             input[type="submit"] {
@@ -289,9 +293,17 @@ section#cart {
           p, form {
             float: right;
           }
-        }
-        &.first {
-
+          p {
+            padding-top: 10px;
+          }
+          p.limit {
+            background: #f2f2f2;
+            width: 295px;
+            font-size: 12px;
+            text-align: center;
+            margin: 12px 20px 0 0;
+            padding: 5px 0;
+          }
         }
       }
       &.first {
@@ -301,6 +313,8 @@ section#cart {
       }
       &.last {
         padding-bottom: 10px;
+        td.value {
+        }
       }
     }
   }
