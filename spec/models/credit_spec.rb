@@ -150,7 +150,7 @@ describe Credit do
 
     context "when the user has enough credit" do
       let!(:credit) { FactoryGirl.create(:credit, :total => 100.0, :user => user)}
-      let(:order) { FactoryGirl.create(:order_without_payment) }
+      let(:order) { FactoryGirl.create(:clean_order) }
       let(:amount) { BigDecimal.new("33.33") }
 
       it "changes user current_credit by the received amount" do
@@ -184,7 +184,7 @@ describe Credit do
   describe "adding user credit" do
 
     let!(:credit) { FactoryGirl.create(:credit, :total => 100.0, :user => user)}
-    let(:order) { FactoryGirl.create(:order_without_payment) }
+    let(:order) { FactoryGirl.create(:clean_order) }
     let(:amount) { BigDecimal.new("33.33") }
 
     it "increases user current_credit by the received amount" do

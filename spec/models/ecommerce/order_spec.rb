@@ -601,7 +601,7 @@ describe Order do
 
   describe '#with_payment' do
     let!(:order_with_payment) { FactoryGirl.create :order }
-    let!(:order_without_payment) do
+    let!(:clean_order) do
       order = FactoryGirl.create :clean_order
       order.payment.destroy
       order
@@ -611,7 +611,7 @@ describe Order do
       described_class.with_payment.all.should include(order_with_payment)
     end
     it 'should not include the order without the payment' do
-      described_class.with_payment.all.should_not include(order_without_payment)
+      described_class.with_payment.all.should_not include(clean_order)
     end
   end
 
