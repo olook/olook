@@ -165,7 +165,7 @@ Olook::Application.routes.draw do
         get "product/:id", :to => "lookbooks#product"
       end
       resources :images do
-        resources :lookbook_product_map
+        resources :lookbook_image_maps
       end
     end
 
