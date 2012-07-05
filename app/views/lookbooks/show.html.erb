@@ -34,9 +34,11 @@
       <% 0.upto(@lookbook.images.count - 1) do |image| %>
         <li>
           <%= image_tag @lookbook.images[image].image.try(:url), :alt => "Imagem #{image}" %>
-          <div class="product-map" style="top: 100px; left: 300px;">
-            <p><%= link_to "Esperança", "#" %></p>
-          </div>
+          <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
+            <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
+              <p class="spy"><%= link_to lim.product.name, product_path(lim.product.id), data: { params: { gift:  false, shoe_size: nil } }, rel: "#{lim.product.id}", remote: true %></p>
+            </div>
+          <% end %>
         </li>
       <% end %>
     </ul>

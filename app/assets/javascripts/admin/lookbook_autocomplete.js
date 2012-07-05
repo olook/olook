@@ -3,6 +3,20 @@ $(function() {
     stop: function() {
       var topPosition = $(this).css("top");
       var leftPosition = $(this).css("left");
+
+      // /admin/lookbooks/:lookbook_id/images/:image_id/lookbook_image_maps/:id
+
+      $.ajax({
+        type: 'PUT',
+        url: '/admin/lookbooks/' + $(this).data('lookbook_id') + '/images/' + $(this).data('image_id') + '/lookbook_image_maps/' + $(this).data('id'),
+        data: {
+          lookbook_image_map: {
+            coord_y: topPosition,
+            coord_x: leftPosition
+          }
+        },
+        success: function(data){}
+      });
     }
   });
 
@@ -26,4 +40,8 @@ $(function() {
   }).data( "autocomplete" )._renderItem = function(ul, item) {
     return $("<li></li>").data("item.autocomplete", item).append( "<a id='prod_" + item.id + "'><img src='" + item.image + "' width='50' height='50'/> " + item.name + "</a>").appendTo(ul);
   }
+
+  $(document).on('ajax:success', '.delete-map', function() {
+    $(this).parent('tr').remove();
+  });
 });
