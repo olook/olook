@@ -480,7 +480,8 @@ describe Order do
       it "updates order purchased_at with the current time" do
         time = DateTime.new(2012,5,10,23,59,59)
         Time.stub(:now).and_return(time)
-        subject.should_receive(:update_attribute).with(:purchased_at, time)
+        order = FactoryGirl.create(:clean_order)
+        order.purchased_at.should eq(time)
       end
     end
 
@@ -494,7 +495,9 @@ describe Order do
 
     context "when the order is waiting payment" do
       it "updates user credit" do
-        subject.should_receive(:update_user_credit)
+        order = FactoryGirl.build(:clean_order)
+        order.should_receive(:update_user_credit)
+        order.save
       end
     end
   end
