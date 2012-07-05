@@ -16,8 +16,8 @@ describe MembersController do
     let(:user) { FactoryGirl.create :user, :authentication_token => "RandomToken" }
 
     it "should login the user and set the token to nil" do
-      get :welcome, :auth_token => 'RandomToken'
-      User.find(user.id).authentication_token.should == nil
+      get :welcome, :auth_token => user.authentication_token
+      User.find(user.id).authentication_token.should == user.authentication_token
     end
   end
 
