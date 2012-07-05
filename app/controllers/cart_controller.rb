@@ -3,11 +3,10 @@ class CartController < ApplicationController
   layout "checkout"
 
   respond_to :html, :js
-  before_filter :verify_login, :only => [:add_products_to_gift_cart]
-  before_filter :authenticate_user!, :except => [:add_products_to_gift_cart]
   before_filter :load_user
   before_filter :check_product_variant, :only => [:create, :update, :update_quantity_product]
-  before_filter :current_order
+  before_filter :load_order
+  before_filter :verify_order_with_auth_token
   before_filter :format_credits_value, :only => [:update_bonus]
 
   def update_gift_data
@@ -85,7 +84,7 @@ class CartController < ApplicationController
       if @order.remove_variant(@variant)
         destroy_freight(@order)
         destroy_order_if_the_cart_is_empty(@order) if !@order.restricted?
-        calculate_gift_prices(@order)
+        CartBuilder::GiftCartBuilder.calculate_gift_prices(@order)
         format.html { redirect_to cart_path, :notice => "Produto removido com sucesso" }
         format.js { head :ok }
       else
@@ -102,12 +101,14 @@ class CartController < ApplicationController
 
   def create
     @order.update_attributes :restricted => false if @order.restricted? && @order.line_items.empty?
+
     if @order.restricted?  # gift cart
-      respond_with do |format|
-        format.js { head :forbidden, status: :unprocessable_entity, notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }
+      return respond_with do |format|
+        format.js { render :error, :locals => { notice: "Produtos de presente não podem ser comprados com produtos da vitrine" }}
         format.html { redirect_to(cart_path, notice: "Produtos de presente não podem ser comprados com produtos da vitrine") }
       end
     end
+
     if @order.add_variant(@variant, nil)
       destroy_freight(@order)
       respond_with do |format|
@@ -127,47 +128,7 @@ class CartController < ApplicationController
     end
   end
 
-  def add_products_to_gift_cart
-    session[:gift_products] = params[:products]
-    if session[:gift_products] && @order
-      @order.update_attributes :restricted => true if !@order.restricted?
-      @order.line_items.destroy_all
-
-      # to get shoe size
-      @gift_recipient = GiftRecipient.find(session[:recipient_id])
-
-      # add products to cart
-      session[:gift_products].each_pair do |k, id|
-        variant = Variant.find(id)
-        line_item = @order.add_variant(variant, nil, @order.gift_wrap?) if variant
-      end
-      calculate_gift_prices(@order)
-
-      total_products = @order.line_items.size
-      redirect_to(cart_path, :notice => total_products > 0 ? "Produtos adicionados com sucesso" : "Um ou mais produtos selecionados não estão disponíveis")
-    else
-      redirect_to(:back, :notice => "Produtos não foram adicionados")
-    end
-  end
-
-  # needs testing
-  def calculate_gift_prices order
-    return if !order.restricted? || order.line_items.empty?
-    position = 0
-    order.reload
-    order.line_items.each do |line_item|
-      line_item.update_attributes :retail_price => line_item.variant.gift_price(position)
-      position += 1
-    end
-  end
-
   private
-
-  def clear_gifts_in_the_order(order)
-    order.reload
-    order.clear_gift_in_line_items
-  end
-
   def destroy_freight(order)
     order.freight.destroy if order.freight
   end
@@ -186,26 +147,11 @@ class CartController < ApplicationController
   def check_product_variant
     variant_id = params[:variant][:id] if params[:variant]
     @variant = Variant.find_by_id(variant_id)
-    redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") unless @variant.try(:available_for_quantity?)
-  end
-
-  def current_order
-    if params[:order_id] && params[:auth_token]
-      @user.authentication_token = nil
-      @user.save
-      session[:order] = params[:order_id]
-      @order = Order.find(params[:order_id])
-      if @order.user != @user
-        session[:order] = nil
-        @order = nil
-        redirect_to root_path
-      else
-        redirect_to root_path unless @order.state == "in_the_cart" && @order.disable == false
+    unless @variant.try(:available_for_quantity?)
+      respond_with do |format|
+        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
+        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
-    else
-      order_id = (session[:order] ||= @user.orders.create.id)
-      @order = @user.orders.find(order_id)
-      @order.update_attribute( "in_cart_notified", true ) unless !current_admin
     end
   end
 
@@ -213,11 +159,20 @@ class CartController < ApplicationController
     @user = current_user
   end
 
-  def verify_login
-    if not current_user and params[:products]
-      session[:gift_products] = params[:products]
-      redirect_to new_gift_user_session_path
+  def verify_order_with_auth_token
+    if params[:order_id] && params[:auth_token]
+      @user.clean_auth_token
+      if @order && !(@order.state == "in_the_cart" && !@order.disable)
+        redirect_to root_path
+      elsif @order.nil?
+        session[:order] = nil
+        redirect_to root_path
+      end
     end
+  end
+
+  def load_order
+    @order = current_order
   end
 end
 

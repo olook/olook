@@ -35,6 +35,13 @@ class ProfileBuilder
     profile_points
   end
   
+  def self.factory(birthday, questions, user)
+    profiles = ProfileBuilder.profiles_given_questions(questions)
+    profile_points = ProfileBuilder.build_profiles_points(profiles)
+    SurveyAnswer.create(:answers => questions.merge(birthday), :user => user)
+    ProfileBuilder.new(user).create_user_points(profile_points)
+  end
+  
   # TO DO:
   # - check weights creation (on SurveyBuilder)
   # Returns a list of profiles ids according to the user answers

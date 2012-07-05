@@ -1,37 +1,37 @@
 <li>
   
-  <%= render :partial => 'answers_about_something', :locals => {:question => question_shoe_size} %>
+  <%= render partial: 'answers_about_something', locals: {question: question_shoe_size, checked: current_user.try(:survey_answer) ? current_user.survey_answers["question_#{question_shoe_size.id}"].to_i : nil} %>
 
-  <%= render :partial => 'answers_about_something', :locals => {:question => question_dress_size} %>
+  <%= render partial: 'answers_about_something', locals: {question: question_dress_size, checked: current_user.try(:survey_answer) ? current_user.survey_answers["question_#{question_dress_size.id}"].to_i : nil} %>
 
   <h3>Data de Nascimento</h3>
   <fieldset class="select custom_select">
     <select class="custom_select day" name='day' title='Dia'>
       <option>Dia</option>
       <% (1..31).each do |d| %>
-        <option value="<%= d %>"><%= "%02d" % d %></option>
+        <option value="<%= d %>"<%= ' selected="selected"' if current_user.try(:birthday).try(:day) == d %>><%= "%02d" % d %></option>
       <% end %>
     </select>
 
     <select class="custom_select month" name='month' title="Mês">
       <option>Mês</option>
       <% (1..12).each do |m| %>
-        <option value="<%= m %>"><%= I18n.t('date.month_names')[m] %></option>
+        <option value="<%= m %>"<%= ' selected="selected"' if current_user.try(:birthday).try(:month) == m %>><%= I18n.t('date.month_names')[m] %></option>
       <% end %>
     </select>
 
     <select class="custom_select year" id="birthdate" name='year' title="Ano">
       <option>Ano</option>
       <% (Time.now.year - 12).downto(1900) do |a| %>
-        <option value="<%= a %>"><%= a %></option>
+        <option value="<%= a %>"<%= ' selected="selected"' if current_user.try(:birthday).try(:year) == a %>><%= a %></option>
       <% end %>
     </select>
   </fieldset>
 
   <fieldset class='buttons'>
     <ol>
-      <li class="grey-button">
-        <%= submit_tag("", :disabled => 'disabled', :id => "finish")   %>
+      <li class="<%= 'grey-button' if !current_user %>">
+        <%= submit_tag("", :disabled => current_user ? nil : 'disabled', :id => "finish") %>
       </li>
     </ol>
   </fieldset>

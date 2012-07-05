@@ -28,7 +28,7 @@
         <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
         <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %>
       </div>
-      <%= form_tag "/sacola/add_products_to_gift_cart" do %>
+      <%= form_tag gift_recipient_add_suggestions_to_cart_path(@gift_recipient.id) do %>
         <section id="products">
           <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
           <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
