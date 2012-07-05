@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe OrderStatusMailer do
   let(:user) { FactoryGirl.create(:user) }
-  let(:order) { FactoryGirl.create(:order_without_payment, :user => user) }
+  let(:order) { FactoryGirl.create(:order, :user => user) }
 
   describe "#order_requested" do
 
