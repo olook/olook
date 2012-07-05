@@ -1,36 +1,30 @@
 $(function() {
   $("div#container_picture .product-map").draggable({
+    handler: 'div',
+    containment: "parent",
     stop: function() {
-      var topPosition = $(this).css("top");
-      var leftPosition = $(this).css("left");
-
-      // /admin/lookbooks/:lookbook_id/images/:image_id/lookbook_image_maps/:id
-
       $.ajax({
         type: 'PUT',
         url: '/admin/lookbooks/' + $(this).data('lookbook_id') + '/images/' + $(this).data('image_id') + '/lookbook_image_maps/' + $(this).data('id'),
         data: {
           lookbook_image_map: {
-            coord_y: topPosition,
-            coord_x: leftPosition
+            coord_y: $(this).css("top"),
+            coord_x: $(this).css("left")
           }
         },
-        success: function(data){}
+        success: function(data){
+          $(this).fadeIn();
+        }
       });
     }
   });
 
   $('#product_result').hide();
-  function log( message ) {
-    $("<div/>").text( message ).prependTo("#log");
-    $("#log").scrollTop(0);
-  }
 
   $("#product_name").autocomplete({
     source: '/admin/product_autocomplete',
     minLength: 2,
     select: function(event, ui) {
-      log(ui.item ? "Selected: " + ui.item.name + " aka " + ui.item.id : "Nothing selected, input was " + this.value);
       $(this).value = ui.item.name;
       $('#lookbook_image_map_product_id').val(ui.item.id);
       $('#product_result img').attr('src', ui.item.image);
@@ -42,6 +36,12 @@ $(function() {
   }
 
   $(document).on('ajax:success', '.delete-map', function() {
-    $(this).parent('tr').remove();
+    $(this).closest('tr').fadeOut(); 
   });
+
+   $("#new_lookbook_image_map").bind("ajax:success", function(event, data, status, xhr) {
+      $("#container_picture").append(data);
+    }).bind("submit", function(event, data, status, xhr){
+      $('#product_result').hide();
+    });
 });
