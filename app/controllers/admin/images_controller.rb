@@ -5,6 +5,7 @@ class Admin::ImagesController < Admin::BaseController
 
   def show
     @image = @lookbook.images.find(params[:id])
+    @lookbook_image_map = LookbookImageMap.new
     respond_with :admin, @image
   end
 
