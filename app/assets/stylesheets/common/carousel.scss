@@ -6,6 +6,7 @@ body {
   #survey {
     height: 550px;
     overflow: hidden;
+    margin: 10px 0 0 0;
 
     .jcarousel-container {
       width: 990px;
@@ -47,7 +48,7 @@ body {
     .jcarousel-next {
       display: none !important;
     }
-  
+
 
     ol {
       &.options {
@@ -107,7 +108,7 @@ body {
               }
             }
           }
-          
+
           &.shoes {
             height: 500px;
 
@@ -156,7 +157,7 @@ body {
             }
           }
         }
-        
+
         &.words {
           ol {
             &.options {
@@ -209,7 +210,7 @@ body {
                 border: 1px solid $pink;
                 color: $pink;
                 margin-left: 19px;
-                
+
                 &:first-child {
                   margin-left: 0;
                 }
@@ -217,7 +218,7 @@ body {
                   background: $pink;
                   color: #FFF;
                 }
-                
+
                 label {
                   display: block;
                   width: 46px;
@@ -259,7 +260,7 @@ body {
                 scrollbar-arrow-color: #12406F;
                 color: $pink;
                 font-weight: bold;
-                
+
                 &[name='day'], &[name='year'] {
                   width: 22%;
                 }
@@ -348,7 +349,7 @@ body {
                 padding: 0 20px 35px;
                 border-bottom: 1px solid #E8E8E8;
                 overflow: hidden;
-                
+
                 > li {
                   float: left;
                   width: 243px;
@@ -441,7 +442,7 @@ body {
                       &.starred {
                         background: url('/assets/quiz/sprite-stars.png') -37px no-repeat;
                       }
-                      
+
                       label {
                         display: block;
                         width: 37px;
@@ -487,7 +488,7 @@ body {
         height: 12px;
       }
     }
-    
+
     & + p{
       display: block;
       width: 690px;

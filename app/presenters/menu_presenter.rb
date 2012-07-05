@@ -13,7 +13,15 @@ class MenuPresenter < BasePresenter
   end
 
   def render_menu
-    user.half_user ? render_half_user_menu : render_default_menu
+    if user
+      user.half_user ? render_half_user_menu : render_default_menu
+    else
+      render_offline_menu
+    end
+  end
+
+  def render_offline_menu
+    [lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
   def render_default_menu
