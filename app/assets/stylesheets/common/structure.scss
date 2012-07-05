@@ -75,6 +75,10 @@ body {
     }
   }
 
+  div#content {
+    padding-top: 10px;
+  }
+
   .content {
     width: 990px;
     margin: 0 auto;
@@ -780,7 +784,7 @@ body {
 
       #session {
         position: relative;
-        z-index: 10;
+        z-index: 10000;
         @include sign-in;
         //width: 385px;
         margin-top: 10px;
@@ -1156,9 +1160,6 @@ body {
     }
     header {
       min-height: 120px;
-    }
-    div#content {
-      padding-top: 10px;
     }
   }
   div.full_container {
