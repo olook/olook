@@ -161,7 +161,6 @@ class CartController < ApplicationController
 
   def verify_order_with_auth_token
     if params[:order_id] && params[:auth_token]
-      @user.clean_auth_token
       if @order && !(@order.state == "in_the_cart" && !@order.disable)
         redirect_to root_path
       elsif @order.nil?
