@@ -1,4 +1,4 @@
-class Admin::LookbookImageMapController < ApplicationController
+class Admin::LookbookImageMapsController < ApplicationController
   respond_to :js, :html
   
   def index
