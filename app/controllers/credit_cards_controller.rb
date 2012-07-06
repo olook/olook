@@ -45,6 +45,7 @@ class CreditCardsController < ApplicationController
   def new_payment_with_error
     @payment = CreditCard.new(params[:credit_card])
     @payment.errors.add(:id, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+    SAC::Notifier.notify(SAC::Alert.new("Erro no pagamento", params), SAC::ErrorNotification.new)
     @payment
   end
 
