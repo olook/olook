@@ -127,6 +127,7 @@ class Order < ActiveRecord::Base
 
   def send_notification_order_requested
     Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
+    SAC::Notifier.notify(SAC::Alert.new("Análise de Fraude", self.id, "mmm"), SAC::FraudAnalysisNotification.new)
   end
 
   def enqueue_order_status_worker
