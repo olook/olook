@@ -11,6 +11,7 @@ class Cart < ActiveRecord::Base
   attr_accessor :used_promotion
   attr_accessor :freight
   attr_accessor :address
+  attr_accessor :credits
   attr_accessor :gift
   
   #TODO: refactor this to include price as a parameter
@@ -51,5 +52,9 @@ class Cart < ActiveRecord::Base
   
   def total
     PriceModificator.new(self).final_price
+  end
+  
+  def freight_price
+    0
   end
 end
