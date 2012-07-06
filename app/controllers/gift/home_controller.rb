@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Gift::HomeController < Gift::BaseController
-  before_filter :load_user, :check_facebook_permissions, :load_facebook_adapter, :load_friends
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def index
