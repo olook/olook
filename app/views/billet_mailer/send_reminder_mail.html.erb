@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+ </tr>
+ <tr>
+ <td align="center" height="30">
+ </td>
+ </tr>
+ <tr>
+ <td>
+ <table cellpadding="0" cellspacing="0">
+ <tr>
+ <td width="189"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/logo.jpg" alt="olook" border="0" title="olook"></td>
+ <td width="431" align="left"><a href="http://www.olook.com.br/convite/?utm_source=midiasproprias&utm_medium=email&utm_content=reinvite&utm_campaign=reinvite1"><img src="http://cdn.olook.com.br/assets/emailmkt/topo_barra/frases_corrigido.gif" alt="Todos os produtos por R$69,90 R$99,90, R$129,90 ou R$ 179,90. Frete gratuito a partir de R$100 e devolução fácil e gratuita. O cadastro é gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para você." border="0" title="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$120 e devolução fácil e gratuita. O cadastro é gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para você."></a></td>
+ </tr>
+ </table>
+ </td>
+ </tr>
+ <tr>
+ <td><a href="#"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/L1-invite-copy_03.jpg" alt="" width="620" height="24" border="0"></a>
+ </td>
+ </tr>
+ <tr>
+ <td align="center"><br>
+<div style="font-family:Arial, Helvetica, sans-serif; font-size:14px; width:540px; text-align:left">
+
+
+<p style="font-size:16px;">Olá <%= @user.first_name %>,</p>
+
+
+<p>Identificamos que o seu pedido na olook foi feito via boleto.</p>
+
+<p><%= @payday_name %>, dia <span style="color:#E05789"><%= l @billet.payment_expiration_date.to_date %></span>, é o <b>último dia</b> para você pagar o seu boleto e garantir a sua compra!</p>
+
+<p>Para imprimir o seu boleto, <a href="<%= @billet.url %>" style="color:#E05789;">clique aqui</a>.</p>
+
+<p>Não se preocupe, seus produtos continuam reservados na sua sacola e assim que o pagamento for realizado, o pedido será entregue.</p>
+
+<p>Se você já pagou o boleto, por favor, desconsidere esta mensagem.</p>
+<p>Mande um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789;">falecom@olook.com.br</a> em caso de dúvidas.</p>
+<p>Mais uma vez, obrigada por comprar na olook <span style="color:#E05789"><%= @user.first_name %></span>.</p>
+
+<br>
+<p>Abraços,<br>
+Equipe olook<br>
+</p>
+
+
+</div>
+ <br><br></td>
+ <tr>
+ <td>
+ <img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/L1-invite-copy_09.jpg" width="620" height="34" alt="">
+ </td>
+ </tr>
+
+ </table>
+ </td>
+ </tr>
+</table>
+
+</body>
+</html>

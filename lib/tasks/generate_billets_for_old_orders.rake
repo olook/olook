@@ -21,7 +21,6 @@ namespace :olook do
           order.payment.destroy if order.payment
           order.update_attributes!(:state => "in_the_cart")
           order.generate_identification_code
-          order.user.reset_authentication_token!
           order.update_attributes!(:in_cart_notified => true)
           coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(order.used_coupon.try(:coupon_id))
           if coupon

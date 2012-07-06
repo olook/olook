@@ -331,6 +331,11 @@ describe CartController do
           flash[:notice].should eq("Produto não disponível para esta quantidade ou inexistente")
         end
 
+        it 'should remember the user of selecting the products attributes when using through ajax' do
+          post :create, :variant => {:id => ""}, :format => :js
+          response.body.should include('Por favor, selecione os atributos do produto.')
+        end
+
         it "should redirect back with a warning if the variant is not available" do
           variant.update_attributes(:inventory => 0)
           post :create, :variant => {:id => variant.id}
