@@ -14,7 +14,7 @@ class PriceModificator
 
   def increments
     {
-      :gift_wrap => { :wrapped => @cart.gift_wrap? },
+      :gift_wrap => { :wrapped => cart.gift_wrap?, :value => gift_price },
       :freight => { :value => freight_price }
     }
   end
