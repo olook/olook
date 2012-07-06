@@ -63,5 +63,13 @@ class CartController < ApplicationController
     #   end
     # end
   end
+  
+  def update_gift_wrap
+    
+  end
+  
+  def update_coupon
+    
+  end
 end
 
