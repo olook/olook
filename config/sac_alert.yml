@@ -1,0 +1,28 @@
+settings:
+  beginning_working_hour: "08:00:00"
+  end_working_hour: "20:00:00"
+  purchase_amount_threshold: 20
+  total_discount_threshold_percent: 50
+billet:
+  triggers:   
+    business_hours: true
+    business_days: true
+    purchase_amount: true       
+  subscribers:
+    - felipe.japm@gmail.com
+error:
+  triggers:
+    business_hours: false
+    business_days: false
+    purchase_amount: false
+  subscribers:
+    - felipe.japm@gmail.com
+fraud_analysis:
+  triggers:
+    business_hours: false
+    business_days: false
+    purchase_amount: true
+    discount: true
+  subscribers:
+    - felipe.japm@gmail.com
+
