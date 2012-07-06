@@ -71,32 +71,6 @@ describe Order do
     end
   end
 
-  context "line items with gifts" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-      subject.add_variant(basic_shoe_37)
-      subject.add_variant(basic_shoe_40)
-    end
-
-    it "#has_one_item_flagged_as_gift?" do
-      subject.line_items_with_flagged_gift
-      subject.line_items.reload
-      subject.has_one_item_flagged_as_gift?.should be_true
-    end
-
-    it "#line_items_with_flagged_gift" do
-      subject.should_receive(:clear_gift_in_line_items)
-      subject.should_receive(:flag_second_line_item_as_gift)
-      subject.line_items_with_flagged_gift
-    end
-
-    it "#clear_gift_in_line_items" do
-      subject.line_items.first.update_attributes(:gift => true)
-      subject.clear_gift_in_line_items
-      subject.line_items.select{|item| item.gift?}.size.should == 0
-    end
-  end
-
   context "destroying an Order" do
     before :each do
       subject.add_variant(basic_shoe_35)
