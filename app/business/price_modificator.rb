@@ -64,7 +64,7 @@ class PriceModificator
   end
 
   def freight_price
-    cart.try(:freight_price)
+    cart.freight_price
   end
 
   #Calculators
@@ -99,7 +99,7 @@ class PriceModificator
   end
 
   def increment_from_gift
-    gift_wrap? ? gift_price : 0
+    cart.gift_wrap? ? gift_price : 0
   end
 
   def increment_from_freight
