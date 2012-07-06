@@ -35,7 +35,7 @@ class PriceModificator
   end
 
   def items
-    cart.line_items
+    cart.cart_items
   end
 
   def items_price
@@ -64,7 +64,7 @@ class PriceModificator
   end
 
   def freight_price
-    cart.freight_price
+    cart.try(:freight_price)
   end
 
   #Calculators
@@ -123,6 +123,9 @@ class PriceModificator
     end
   end
 
+  def total_increment
+    increment_from_freight + increment_from_gift
+  end
 
   #Limiters
   def max_discount

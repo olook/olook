@@ -13,6 +13,10 @@ class CartItem < ActiveRecord::Base
     price != retail_price
   end
   
+  def total_price
+    price * quantity
+  end
+  
   def total_retail_price
     retail_price * quantity
   end

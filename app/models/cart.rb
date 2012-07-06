@@ -11,6 +11,7 @@ class Cart < ActiveRecord::Base
   attr_accessor :used_promotion
   attr_accessor :freight
   attr_accessor :address
+  attr_accessor :gift
   
   #TODO: refactor this to include price as a parameter
   def add_variant(variant, quantity=nil)
@@ -48,4 +49,7 @@ class Cart < ActiveRecord::Base
     gift_wrap == "1" ? true : false
   end
   
+  def total
+    PriceModificator.new(self).final_price
+  end
 end
