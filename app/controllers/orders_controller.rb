@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
 
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :load_user
   before_filter :load_resources
 
   def billet

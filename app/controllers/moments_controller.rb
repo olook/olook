@@ -3,7 +3,6 @@ class MomentsController < ApplicationController
   layout "moment"
   respond_to :html, :js
 
-  before_filter :load_order, only: [:index, :show]
   before_filter :load_catalog_products
 
   def index
