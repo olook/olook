@@ -8,6 +8,6 @@ $(document).ready(function() {
     $("#cart_summary li.product_item:last").fadeIn('slow');
   }
   
-  $("#cart_items").text(<%= @order.line_items.count %>);
+  $("#cart_items").text(<%= @cart.cart_items_total %>);
   $("nav.menu ul li.cart a.cart").addClass("selected");
 });
