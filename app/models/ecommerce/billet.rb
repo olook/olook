@@ -3,7 +3,7 @@ class Billet < Payment
 
   EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
-  after_create :set_payment_expiration_date
+  after_create :set_payment_expiration_date, :notify_sac
 
   state_machine :initial => :started do
     after_transition :billet_printed => :authorized, :do => :authorize_order
@@ -39,6 +39,10 @@ class Billet < Payment
     event :refunded do
       transition :under_review => :refunded
     end
+  end
+
+  def notify_sac
+    SAC::Notifier.notify(SAC::Alert.new("Boleto", self.id, "mmm"), SAC::BilletNotification.new)
   end
 
   def to_s
