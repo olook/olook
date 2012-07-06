@@ -55,17 +55,14 @@ Olook::Application.routes.draw do
   resources :debits, :only => [:new, :create], :path => 'debito', :controller => :debits
   resources :billets, :only => [:new, :create], :path => 'boleto', :controller => :billets
   resources :addresses, :path => 'endereco', :controller => :addresses
-  resource :cart, :only => [:show, :create, :update, :destroy, :update_status], :path => 'sacola', :controller => :cart do
-    collection do
-      put "update_gift_data" => "cart#update_gift_data", :as => "update_gift_data"
-      put "update_bonus" => "cart#update_bonus", :as => "update_bonus"
-      delete "remove_bonus" => "cart#remove_bonus", :as => "remove_bonus"
-      put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
-      delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
-      put "update_quantity_product" => "cart#update_quantity_product", :as => "update_quantity_product"
-      post "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
-      get "add_products_to_gift_cart" => "cart#add_products_to_gift_cart", :as => "add_products_to_gift_cart"
-    end
+  resource :cart, :path => 'sacola', :controller => :cart do
+    get "update_status" => "cart#update_status", :as => "update_status"
+    put "update_product" => "cart#update_product", :as => "update_product"
+    put "update_gift_wrap" => "cart#update_gift_wrap", :as => "update_gift_wrap"
+    put "update_credits" => "cart#update_credits", :as => "update_credits"
+    delete "remove_credits" => "cart#remove_credits", :as => "remove_credits"
+    put "update_coupon" => "cart#update_coupon", :as => "update_coupon"
+    delete "remove_coupon" => "cart#remove_coupon", :as => "remove_coupon"
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
   get "/get_address_by_zipcode", :to => "addresses#get_address_by_zipcode"
@@ -73,7 +70,6 @@ Olook::Application.routes.draw do
   get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
 
   get "/produto/:id" => "product#show", :as => "product"
-  post "/produto/create_offline_session" => "product#create_offline_session", :as => "create_offline_session"
 
   get "membro/convite" => "members#invite", :as => 'member_invite'
   # TODO: Remove later namorado

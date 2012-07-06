@@ -28,16 +28,18 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_cart
   def current_cart
-    order_id = params[:order_id] || session[:order]
+    #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
+    cart_id = params[:order_id] || session[:cart]
+    cart = Cart.find_by_id(cart_id)
     # order = current_user.orders.find_by_id(order_id)
-    # order ||= current_user.orders.create
-    # 
-    # session[:order] = order.id
-    # #not sending email in the case of a buy made from an admin
-    # if current_admin
-    #   order.update_attribute("in_cart_notified", true)
-    # end
-    # order
+    cart ||= Cart.create(user: @user)
+    
+    session[:cart] = cart.id
+    #not sending email in the case of a buy made from an admin
+    if current_admin
+      cart.update_attribute("in_cart_notified", true)
+    end
+    cart
   end
 
   helper_method :current_moment
@@ -82,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_cart
-    @order = current_cart
+    @cart = current_cart
   end
 
   def load_promotion

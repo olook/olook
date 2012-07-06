@@ -6,6 +6,15 @@ class CartItem < ActiveRecord::Base
   delegate :product, :to => :variant, :prefix => false
   delegate :name, :to => :variant, :prefix => false
   delegate :description, :to => :variant, :prefix => false
+  delegate :thumb_picture, :to => :variant, :prefix => false
+  delegate :color_name, :to => :variant, :prefix => false
   
+  def promotion?
+    price != retail_price
+  end
+  
+  def total_retail_price
+    retail_price * quantity
+  end
   
 end

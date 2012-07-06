@@ -1,9 +1,15 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
-
+<% content_for :ecommerce_tracking do %>
+  <%#TODO: ARRUMAR !! %>
+  <%#= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @cart } %>
+  <%#= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart } %>
+<% end %>
 <% content_for :footer do %>
   <%= javascript_include_tag "carts" %>
+  <%#= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart } %>
+  <%= render "shared/metrics/google/cart" %>
 <% end %>
 
 <section id="cart">
@@ -16,134 +22,52 @@
       </tr>
     </thead>
     <tfoot>
-      <% if @promotion and not @order.used_coupon %>
-        <tr>
-          <td class="titles" colspan="3"><%= @promotion.cart_label %></td>
-          <td class="value">
-            <p>
-              <%= number_to_currency(@cart.promotion_discount) %>
-              (<%= @promotion.discount_percent %>%)
-            </p>
-          </td>
-        </tr>
-      <% end %>
-      <% if @cart.coupon_discount > 0 %>
-        <tr class="first">
-          <td class="titles" colspan="3">Código Promocional</td>
-          <td class="value">
-            <p>
-              <%= number_to_currency(@cart.coupon_discount) %>
-              <%= @cart.coupon_discount_in_percentage %>
-            </p>
-            <%= form_for(remove_bonus_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= submit_tag "Limpar" %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      <% if @promotion and @order.used_coupon %>
-        <tr>
-          <td class="titles" colspan="3">
-            <p>
-              A utilização deste código promocional invalida o <strong><%= @promotion.cart_label %></strong>.<br/>
-              Para voltar a utilizá-lo limpe seu cupom.
-            </p>
-          </td>
-        </tr>
-      <% end %>
-      <% if @cart.credits_discount > 0 %>
-        <tr>
-          <td class="titles" colspan="3">Crédito</td>
-          <td class="value">
-            <p><%= number_to_currency(@cart.credits_discount) %></p>
-            <%= form_for(remove_bonus_cart_path, :url => remove_bonus_cart_path, :method => :delete) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= submit_tag "Limpar" %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+
       <tr class="last">
         <td class="titles" colspan="1">
           Total
         </td>
         <td class="value" colspan="3">
-          <p><%= number_to_currency(@cart.total) %></p>
-          <% if @cart.total <= 5.0 %>
+          <p><%= number_to_currency(@cart.amount) %></p>
+          <% if @cart.amount <= 5.0 %>
             <p class="limit">R$5,00 é o valor mínimo para processamento da compra</p>
           <% end %>
         </td>
       </tr>
     </tfoot>
     <tbody>
-    <% if @line_items %>
-      <% @line_items.each do |item| %>
+    <% if @cart.cart_items %>
+      <% @cart.cart_items.each do |item| %>
         <tr>
           <td class="item">
-            <%= image_tag item.variant.thumb_picture %>
-            <p><strong><%= item.variant.name %></strong></p>
-            <p>Tamanho: <%= item.variant.description %></p>
-            <p>Cor/Material: <%= item.variant.color_name %></p>
+            <%= image_tag item.thumb_picture %>
+            <p><strong><%= item.name %></strong></p>
+            <p>Tamanho: <%= item.description %></p>
+            <p>Cor/Material: <%= item.color_name %></p>
           </td>
           <td class="amount">
-            <%= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
+            <%= form_for(update_product_cart_path, :url => update_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
               <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
             <% end %>
           </td>
           <td class="value">
-            <% if item.variant.product.liquidation? %>
-              <p class="price_retail"><strong>de: <%= number_to_currency(item.variant.price) %></strong></p>
-              <p><strong>por: <%= number_to_currency(item.variant.product.retail_price) %></strong></p>
-            <% elsif item.retail_price != item.price && !item.retail_price.nil? %>
-            <p class="price_retail"><strong>de: <%= number_to_currency(item.price) %></strong></p>
-            <p><strong>por: <%= number_to_currency(item.retail_price) %></strong></p>
+            <% if item.promotion? %>
+              <p class="price_retail"><strong>de: <%= number_to_currency(item.price) %></strong></p>
+              <p><strong>por: <%= number_to_currency(item.retail_price) %></strong></p>
             <% else %>
-              <p><strong><%= number_to_currency(item.variant.price) %></strong></p>
+              <p><strong><%= number_to_currency(item.retail_price) %></strong></p>
             <% end %>
           </td>
           <td class="delete_item" valign="middle">
-            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
+            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.product.id.to_s) }) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
               <%= submit_tag('')  %>
             <% end %>
           </td>
         </tr>
       <% end %>
-      <% if @bonus > 0 %>
-        <tr class="discount">
-          <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
-          <td colspan="2">
-            <p><strong>Quanto deseja usar?</strong></p>
-            <p>Digite o valor no campo ao lado</p>
-          </td>
-          <td class="cupom">
-            <%= form_for(update_bonus_cart_path, :url => update_bonus_cart_path, :method => :put) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= text_field('credits', 'value') %>
-                  </li>
-                  <li>
-                    <%= submit_tag 'Atualizar' %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+
       <tr class="discount">
         <td class="item"><h1>Embrulhar pedido para presente</h1></td>
         <td colspan="2">
@@ -151,11 +75,11 @@
           <p>Para embrulhar seu pedido para presente</p>
         </td>
         <td class="cupom">
-          <%= form_for(update_gift_data_cart_path, :url => update_gift_data_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
+          <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
             <fieldset class="inputs">
               <ol>
                 <li>
-                  <%= check_box('gift', 'gift_wrap', :checked => @order.gift_wrap?) %>
+                  <%= check_box('gift', 'gift_wrap', :checked => @cart.gift_wrap?) %>
                 </li>
                 <li>
                   <p>R$ 5,00</p>
@@ -195,11 +119,3 @@
   </table>
 
 </section>
-<% content_for :ecommerce_tracking do %>
-  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :order => @order } %>
-  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :order => @order } %>
-<% end %>
-<% content_for :footer do %>
-  <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:order => @order } %>
-  <%= render "shared/metrics/google/cart" %>
-<% end %>
