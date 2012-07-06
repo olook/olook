@@ -2,10 +2,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
+  before_filter :load_user
+  before_filter :load_cart
   before_filter :load_promotion
   before_filter :save_referer
   before_filter :current_referer
-  before_filter :load_order
   before_filter :load_facebook_api
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
@@ -25,18 +26,18 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
-  helper_method :current_order
-  def current_order
+  helper_method :current_cart
+  def current_cart
     order_id = params[:order_id] || session[:order]
-    order = current_user.orders.find_by_id(order_id)
-    order ||= current_user.orders.create
-    
-    session[:order] = order.id
-    #not sending email in the case of a buy made from an admin
-    if current_admin
-      order.update_attribute("in_cart_notified", true)
-    end
-    order
+    # order = current_user.orders.find_by_id(order_id)
+    # order ||= current_user.orders.create
+    # 
+    # session[:order] = order.id
+    # #not sending email in the case of a buy made from an admin
+    # if current_admin
+    #   order.update_attribute("in_cart_notified", true)
+    # end
+    # order
   end
 
   helper_method :current_moment
@@ -46,14 +47,6 @@ class ApplicationController < ActionController::Base
 
   def facebook_redirect_paths
     {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
-  end
-
-  def load_promotion
-    if current_user and not current_user.half_user
-      @promotion = PromotionService.new(current_user).detect_current_promotion
-    elsif !current_user
-      @promotion = Promotion.purchases_amount
-    end
   end
 
   def render_public_exception
@@ -88,8 +81,16 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
 
-  def load_order
-    @order = current_user.orders.find_by_id(session[:order]) if current_user
+  def load_cart
+    @order = current_cart
+  end
+
+  def load_promotion
+    if @user and not @user.half_user
+      @promotion = PromotionService.new(@user).detect_current_promotion
+    elsif !@user
+      @promotion = Promotion.purchases_amount
+    end
   end
 
   def assign_default_country
