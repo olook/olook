@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Order < ActiveRecord::Base
-  DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2

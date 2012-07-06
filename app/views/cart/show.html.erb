@@ -46,10 +46,10 @@
             <p>Cor/Material: <%= item.color_name %></p>
           </td>
           <td class="amount">
-            <%= form_for(update_product_cart_path, :url => update_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
-              <%= hidden_field('variant','id', :value => item.variant.id) %>
+            <%#= form_for(update_product_cart_path, :url => update_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
+              <%#= hidden_field('variant','id', :value => item.variant.id) %>
               <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
-            <% end %>
+            <%# end %>
           </td>
           <td class="value">
             <% if item.promotion? %>
@@ -112,7 +112,11 @@
           <% end %>
         </td>
         <td>
-          <%= link_to "Continuar", addresses_path, :class => "continue"  %>
+          <% if @user %>
+            <%= link_to "Continuar", addresses_path, :class => "continue"  %>
+          <% else %>
+            <%= link_to "Continuar", new_half_user_session_path, :class => "continue"  %>
+          <% end %>
         </td>
       </tr>
     </tbody>

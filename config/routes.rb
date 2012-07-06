@@ -57,7 +57,7 @@ Olook::Application.routes.draw do
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :path => 'sacola', :controller => :cart do
     get "update_status" => "cart#update_status", :as => "update_status"
-    put "update_product" => "cart#update_product", :as => "update_product"
+    # put "update_product" => "cart#update_product", :as => "update_product"
     put "update_gift_wrap" => "cart#update_gift_wrap", :as => "update_gift_wrap"
     put "update_credits" => "cart#update_credits", :as => "update_credits"
     delete "remove_credits" => "cart#remove_credits", :as => "remove_credits"

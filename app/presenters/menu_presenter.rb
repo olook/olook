@@ -88,7 +88,7 @@ class MenuPresenter < BasePresenter
   end
 
   def cart
-    h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart"
+    h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
   end
 
   def olook_tv
