@@ -11,7 +11,7 @@
     <h1><%= link_to 'Olook', root_path %></h1>
     <% if user_signed_in? %>
       <h2 class="moip">Pagamento: Moip</h2>
-      <% if @order.restricted? %>
+      <% if @cart.gift %>
         <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back" %>
       <% elsif current_user.half_user? %>
         <%= link_to "Voltar para tendências", lookbooks_path, :class => "back" %>
