@@ -39,6 +39,12 @@ class ApplicationController < ActionController::Base
     if current_admin
       cart.update_attribute("in_cart_notified", true)
     end
+    
+    #inject sessions states
+    
+    cart.gift_wrap = session[:gift_wrap]
+    cart.used_coupon = session[:session_coupon]
+    
     cart
   end
 
@@ -69,11 +75,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  # TODO: Temporarily disabling paper_trail for app analysis
-  # def user_for_paper_trail
-  #   user_signed_in? ? current_user : current_admin
-  # end
 
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]

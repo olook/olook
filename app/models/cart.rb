@@ -6,6 +6,12 @@ class Cart < ActiveRecord::Base
   has_one :order
   has_many :cart_items
   
+  attr_accessor :gift_wrap
+  attr_accessor :used_coupon
+  attr_accessor :used_promotion
+  attr_accessor :freight
+  attr_accessor :address
+  
   #TODO: refactor this to include price as a parameter
   def add_variant(variant, quantity=nil)
     quantity ||= Cart::DEFAULT_QUANTITY.to_i
@@ -36,6 +42,10 @@ class Cart < ActiveRecord::Base
   
   def cart_items_total
     cart_items.sum(:quantity)
+  end
+  
+  def gift_wrap?
+    gift_wrap == "1" ? true : false
   end
   
 end

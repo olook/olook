@@ -52,12 +52,57 @@ class CartController < ApplicationController
   end
   
   def update_gift_wrap
-    @cart.update_attributes(gift_wrap: params[:gift][:gift_wrap]) if params[:gift] && params[:gift][:gift_wrap]
+    session[:gift_wrap] = params[:gift][:gift_wrap] if params[:gift] && params[:gift][:gift_wrap]
     render :json => true
   end
   
   def update_coupon
+    code = params[:coupon][:code]
+    coupon = Coupon.find_by_code(code)
     
+    response_message = if coupon.try(:expired?)
+      "Cupom expirado. Informe outro por favor"
+    elsif coupon.try(:available?)
+      session[:session_coupon] = coupon
+      "Cupom atualizado com sucesso"
+    else
+      session[:session_coupon] = nil
+      "Cupom inválido"
+    end
+    
+    redirect_to cart_path, :notice => response_message
+  end
+
+  def remove_coupon
+    response_message = controller.session[:session_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
+    session[:session_coupon] = nil
+    redirect_to cart_path, :notice => response_message
+  end
+
+  def remove_credit
+    # if @order.credits > 0
+    #   @order.update_attributes(:credits => nil)
+    #   msg = "Créditos removidos com sucesso"
+    # else
+    #   msg = "Você não está usando nenhum crédito"
+    # end
+    # redirect_to cart_path, :notice => msg
+  end
+
+  def update_credit
+    # credits = BigDecimal.new(params[:credits][:value].to_s)
+    # if @user.current_credit >= credits && credits > 0
+    #   @order.credits = credits
+    #   @order.save
+    #   destroy_freight(@order)
+    #   if credits > @order.max_credit_value
+    #     redirect_to cart_path, :notice => "Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido."
+    #   else
+    #     redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
+    #   end
+    # else
+    #   redirect_to cart_path, :notice => "Você não tem créditos suficientes"
+    # end
   end
   
   private
