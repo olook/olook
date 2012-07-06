@@ -32,6 +32,7 @@ class Variant < ActiveRecord::Base
   delegate :thumb_picture, :to => :product
   delegate :showroom_picture, :to => :product
   delegate :liquidation?, :to => :product
+  delegate :promotion?, :to => :product
   delegate :gift_price, :to => :product
 
   def product_id=(param_id)

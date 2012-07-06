@@ -2,10 +2,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
+  before_filter :load_user
+  before_filter :load_cart
   before_filter :load_promotion
   before_filter :save_referer
   before_filter :current_referer
-  before_filter :load_order
   before_filter :load_facebook_api
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
@@ -25,18 +26,26 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
-  helper_method :current_order
-  def current_order
-    order_id = params[:order_id] || session[:order]
-    order = current_user.orders.find_by_id(order_id)
-    order ||= current_user.orders.create
+  helper_method :current_cart
+  def current_cart
+    #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
+    cart_id = params[:order_id] || session[:cart_id]
+    cart = Cart.find_by_id(cart_id)
+    # order = current_user.orders.find_by_id(order_id)
+    cart ||= Cart.create(user: @user)
     
-    session[:order] = order.id
+    session[:cart_id] = cart.id
     #not sending email in the case of a buy made from an admin
     if current_admin
-      order.update_attribute("in_cart_notified", true)
+      cart.update_attribute("in_cart_notified", true)
     end
-    order
+    
+    #inject sessions states
+    
+    cart.gift_wrap = session[:gift_wrap]
+    cart.used_coupon = session[:session_coupon]
+    
+    cart
   end
 
   helper_method :current_moment
@@ -46,14 +55,6 @@ class ApplicationController < ActionController::Base
 
   def facebook_redirect_paths
     {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
-  end
-
-  def load_promotion
-    if current_user and not current_user.half_user
-      @promotion = PromotionService.new(current_user).detect_current_promotion
-    elsif !current_user
-      @promotion = Promotion.purchases_amount
-    end
   end
 
   def render_public_exception
@@ -75,11 +76,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # TODO: Temporarily disabling paper_trail for app analysis
-  # def user_for_paper_trail
-  #   user_signed_in? ? current_user : current_admin
-  # end
-
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
@@ -88,8 +84,16 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
 
-  def load_order
-    @order = current_user.orders.find_by_id(session[:order]) if current_user
+  def load_cart
+    @cart = current_cart
+  end
+
+  def load_promotion
+    if @user and not @user.half_user
+      @promotion = PromotionService.new(@user).detect_current_promotion
+    elsif !@user
+      @promotion = Promotion.purchases_amount
+    end
   end
 
   def assign_default_country

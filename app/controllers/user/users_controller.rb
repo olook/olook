@@ -2,7 +2,6 @@
 class User::UsersController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :load_user
   before_filter :check_cpf, :only => [:update]
 
   def destroy_facebook_account

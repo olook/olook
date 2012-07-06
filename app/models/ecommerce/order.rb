@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Order < ActiveRecord::Base
-  DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
@@ -171,28 +170,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def clear_gift_in_line_items
-    reload
-    line_items.each {|item| item.update_attributes(:gift => false)}
-  end
-
-  def line_items_with_flagged_gift
-    clear_gift_in_line_items
-    flag_second_line_item_as_gift
-    reload
-    line_items.ordered_by_price
-  end
-
-  def flag_second_line_item_as_gift
-    second_item = line_items.ordered_by_price[1]
-    second_item.update_attributes(:gift => true) if second_item
-  end
-
-  def has_one_item_flagged_as_gift?
-    line_items.select {|item| item.gift?}.size == 1
-  end
-
-
   def status
     STATUS[state]
   end
@@ -207,33 +184,6 @@ class Order < ActiveRecord::Base
     unavailable_items.each {|item| item.destroy}
     size_items
   end
-
-  #TODO: refactor this to include price as a parameter
-  def add_variant(variant, quantity=nil)
-    quantity ||= Order::DEFAULT_QUANTITY.to_i
-    quantity = quantity.to_i
-    if variant.available_for_quantity?(quantity)
-      current_item = line_items.select { |item| item.variant == variant }.first
-      if current_item
-        current_item.update_attributes(:quantity => quantity)
-      else
-        current_item =  LineItem.new(:order_id => id,
-                                     :variant_id => variant.id,
-                                     :quantity => quantity,
-                                     :price => variant.price,
-                                     :retail_price => variant.product.retail_price
-                                     )
-        line_items << current_item
-      end
-      current_item
-    end
-  end
-
-  def remove_variant(variant)
-    current_item = line_items.select { |item| item.variant == variant }.first
-    current_item.destroy if current_item
-  end
-
 
   def generate_identification_code
     code = SecureRandom.hex(16)

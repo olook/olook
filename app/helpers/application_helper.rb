@@ -34,9 +34,8 @@ module ApplicationHelper
     presenter
   end
 
-  def order_total(order)
-    total = order ? order.line_items.try(:count) : 0
-    content_tag(:span,"(#{content_tag(:div, "#{total}", :id => "cart_items")})".html_safe)
+  def cart_total(cart)
+    content_tag(:span,"(#{content_tag(:div, "#{cart.cart_items_total}", :id => "cart_items")})".html_safe)
   end
 
   def track_event(category, action, item = '')
