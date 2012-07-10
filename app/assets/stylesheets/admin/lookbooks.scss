@@ -87,6 +87,16 @@ div#container_picture {
 
 div.product-map {cursor:move;}
 div.product-map p {cursor:default;}
+div.product-map p.confirm {
+  background: #98BF21;
+  color: #FFF;
+  text-shadow: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold !important;
+  padding: 5px 10px;
+  visibility: visible;
+}
 
 #product_name {
   width:300px;

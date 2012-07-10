@@ -4,6 +4,7 @@ $(function() {
     containment: "parent",
     stop: function() {
       $.ajax({
+        context: this,
         type: 'PUT',
         url: '/admin/lookbooks/' + $(this).data('lookbook_id') + '/images/' + $(this).data('image_id') + '/lookbook_image_maps/' + $(this).data('id'),
         data: {
@@ -11,10 +12,16 @@ $(function() {
             coord_y: $(this).css("top"),
             coord_x: $(this).css("left")
           }
-        },
-        success: function(data){
-          $(this).fadeIn();
         }
+      }).done(function() {
+        $(this).find("p:not('.confirm')").hide();
+        $(this).append("<p class='confirm'>Salvo</p>");
+        $(this).find("p.confirm").stop().animate({
+          opacity: 0
+        }, 3000, function() {
+          $(this).remove();
+          $(".product-map p").show();
+        });
       });
     }
   });
@@ -36,7 +43,7 @@ $(function() {
   }
 
   $(document).on('ajax:success', '.delete-map', function() {
-    $(this).closest('tr').fadeOut(); 
+    $(this).closest('tr').fadeOut();
   });
 
    $("#new_lookbook_image_map").bind("ajax:success", function(event, data, status, xhr) {
