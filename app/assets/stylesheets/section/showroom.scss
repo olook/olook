@@ -251,7 +251,7 @@
       &.almost, &.all {
         display: none;
       }
-      &.all {
+      &.all, &.almost {
         background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
       }
       a.more {
