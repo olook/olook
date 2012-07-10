@@ -47,7 +47,10 @@ class ApplicationController < ActionController::Base
       cart.used_promotion = PromotionService.new(@user).detect_current_promotion
     end
     
-    #TODO: CREDITS, FREIGHT, ADDRESS, GIFT
+    session[:credits] = 0 unless session[:credits]
+    cart.credits = session[:credits]
+    
+    #TODO: FREIGHT, ADDRESS, GIFT PROJETCT
     
     cart
   end
