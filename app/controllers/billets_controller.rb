@@ -7,7 +7,6 @@ class BilletsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :check_freight, :only => [:new, :create]
   before_filter :build_cart, :only => [:new, :create]
-  before_filter :load_promotion
   before_filter :assign_receipt, :only => [:create]
   before_filter :check_cpf
 

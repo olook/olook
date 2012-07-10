@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   layout "site"
   before_filter :load_user
   before_filter :load_cart
-  before_filter :load_promotion
   before_filter :save_referer
   before_filter :current_referer
   before_filter :load_facebook_api
@@ -41,9 +40,14 @@ class ApplicationController < ActionController::Base
     end
     
     #inject sessions states
-    
     cart.gift_wrap = session[:gift_wrap]
     cart.used_coupon = session[:session_coupon]
+    
+    if @user
+      cart.used_promotion = PromotionService.new(@user).detect_current_promotion
+    end
+    
+    #TODO: CREDITS, FREIGHT, ADDRESS, GIFT
     
     cart
   end
@@ -86,14 +90,6 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = current_cart
-  end
-
-  def load_promotion
-    if @user and not @user.half_user
-      @promotion = PromotionService.new(@user).detect_current_promotion
-    elsif !@user
-      @promotion = Promotion.purchases_amount
-    end
   end
 
   def assign_default_country
