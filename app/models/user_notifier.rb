@@ -1,39 +1,31 @@
 # -*- encoding : utf-8 -*-
 class UserNotifier
-  
-  def self.get_orders ( status, how_long, range, validators=[] )
+
+  def self.get_carts ( how_long, range, validators=[] )
 
     time = Time.now.beginning_of_day
     from = time - days_to_s( how_long + range )
     to = time - days_to_s( how_long )
 
-    validators << "state = '#{status}'"
-    validators << "updated_at >= '#{from}'"
-    validators << "updated_at <= '#{to}'"
-
+    validators << "carts.updated_at >= '#{from}'"
+    validators << "carts.updated_at <= '#{to}'"
+    validators << "carts.user_id is not null"
   end
 
   def self.send_in_cart ( conditions )
-    Order.find_each(:conditions => conditions) do |order|
-      order.update_attribute("in_cart_notified", true)
+     Cart.includes(:order).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
+      cart.update_attribute("notified", true)
 
       products = []
-      order.line_items.each do |product|
+      cart.items.each do |product|
         if product.variant.inventory != 0
           products << product
         end
       end
 
-      InCartMailer.send_in_cart_mail( order, products ).deliver unless products.empty?
+      InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
     end
-    
-  end
 
-  def self.delete_old_orders ( conditions )
-    Order.find_each(:conditions => conditions) do |order|
-      order.update_attribute("disable", true)
-    end
-    
   end
 
   private
