@@ -8,7 +8,6 @@ class PaymentsController < ApplicationController
   skip_before_filter :check_order, :only => [:show, :create]
   before_filter :check_freight, :only => [:index]
   before_filter :build_cart, :only => [:index]
-  before_filter :load_promotion
   protect_from_forgery :except => :create
 
   def index

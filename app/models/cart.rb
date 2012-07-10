@@ -57,4 +57,20 @@ class Cart < ActiveRecord::Base
   def freight_price
     0
   end
+  
+  def coupon_discount
+    0
+  end
+  
+  def credits_discount
+    0
+  end
+  
+  def promotion_discount
+    0
+  end
+  
+  def coupon_discount_in_percentage
+    0
+  end
 end

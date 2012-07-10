@@ -7,10 +7,8 @@ class CartController < ApplicationController
   before_filter :format_credits_value, :only => [:update_bonus]
 
   def show
+    @bonus = 0
     # @bonus = @user.current_credit - @order.credits
-    # @cart = CartPresenter.new(@order)
-    # @line_items = @order.line_items
-    # @coupon_code = @order.used_coupon.try(:code)
     # unless @coupon_code
     #   PromotionService.new(current_user, @order).apply_promotion if @promotion
     # end
@@ -19,17 +17,17 @@ class CartController < ApplicationController
   def destroy
     @cart.destroy
     session[:cart_id] = nil
-    redirect_to cart_path, :notice => "Sua sacola está vazia"
+    redirect_to cart_path, notice: "Sua sacola está vazia"
   end
 
   def update
     respond_with do |format|
       if @cart.remove_variant(@variant)
-        format.html { redirect_to cart_path, :notice => "Produto removido com sucesso" }
+        format.html { redirect_to cart_path, notice: "Produto removido com sucesso" }
         format.js { head :ok }
       else
         format.js { head :not_found }
-        format.html { redirect_to cart_path, :notice => "Este produto não está na sua sacola" }
+        format.html { redirect_to cart_path, notice: "Este produto não está na sua sacola" }
       end
     end
   end
@@ -38,15 +36,15 @@ class CartController < ApplicationController
     if @cart.add_variant(@variant)
       respond_with do |format|
         format.js do
-          render partial: "shared/cart_line_item", locals: { item: @order.line_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, status: :created
+          render partial: "shared/cart_line_item", locals: { item: @cart.cart_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, status: :created
         end
-        format.html { redirect_to(cart_path, :notice => "Produto adicionado com sucesso") }
+        format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
       end
     else
       respond_with(@cart) do |format|
         notice_response = @cart.restricted? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
-        format.js { render :error, :locals => { notice: notice_response } }
-        format.html { redirect_to(cart_path, :notice => notice_response) }
+        format.js { render :error, locals: { notice: notice_response } }
+        format.html { redirect_to(cart_path, notice: notice_response) }
       end
     end
   end
@@ -74,7 +72,7 @@ class CartController < ApplicationController
   end
 
   def remove_coupon
-    response_message = controller.session[:session_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
+    response_message = session[:session_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
     session[:session_coupon] = nil
     redirect_to cart_path, :notice => response_message
   end

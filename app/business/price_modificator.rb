@@ -91,7 +91,7 @@ class PriceModificator
   end
 
   def discount_from_promotion
-    used_promotion ? used_promotion.discount_value : 0
+    used_promotion ? PromotionService.apply_discount_for_price(used_promotion, items_retail_price) : 0
   end
 
   def discount_from_items
