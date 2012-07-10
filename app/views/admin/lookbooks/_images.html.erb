@@ -19,10 +19,8 @@
     <tr>
       <td>
         <div id="im<%= image.id %>">
-          <% image.lookbook_image_maps.each do |lim| %>
-          <div class="product-map" id="pm<%= lim.id %>"><span><%= link_to lim.product.name, product_path(lim.product.id) %></span></div>
-          <% end %>
           <%= image_tag image.image_url(:thumb).to_s %>
+          <% render partial: image.lookbook_image_maps %>
         </div>
       </td>
       <td><%= link_to 'Show', admin_lookbook_image_path(image.lookbook, image), class: 'button' %></td>
