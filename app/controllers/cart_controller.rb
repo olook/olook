@@ -34,9 +34,6 @@ class CartController < ApplicationController
   def create
     if @cart.add_variant(@variant)
       respond_with do |format|
-        format.js do
-          render partial: "shared/cart_line_item", locals: { item: @cart.cart_items.detect { |li| li.variant_id == @variant.id }, hidden: true }, :layout => false, status: :created
-        end
         format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
       end
     else
