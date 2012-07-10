@@ -59,18 +59,14 @@ class Cart < ActiveRecord::Base
   end
   
   def coupon_discount
-    0
+    PriceModificator.new(self).discounts[:coupon][:value]
   end
   
   def credits_discount
-    0
+    PriceModificator.new(self).discounts[:credits][:value]
   end
   
   def promotion_discount
-    0
-  end
-  
-  def coupon_discount_in_percentage
-    0
+    PriceModificator.new(self).discounts[:promotion][:value]
   end
 end

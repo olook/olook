@@ -38,6 +38,12 @@ module ApplicationHelper
     content_tag(:span,"(#{content_tag(:div, "#{cart.cart_items_total}", :id => "cart_items")})".html_safe)
   end
 
+  def discount_percentage(value)
+    if value > 0
+      "(#{number_to_percentage(value, :precision => 0)})"
+    end
+  end
+
   def track_event(category, action, item = '')
     "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
   end

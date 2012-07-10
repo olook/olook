@@ -16,6 +16,10 @@ class Coupon < ActiveRecord::Base
     true unless self.start_date < Time.now && self.end_date > Time.now
   end
 
+  def discount_percent
+    self.is_percentage? ? self.value : 0
+  end
+
   private
 
   def active_and_not_expired?

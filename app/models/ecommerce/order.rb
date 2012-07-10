@@ -234,7 +234,19 @@ class Order < ActiveRecord::Base
   def update_user_credit
     Credit.remove(credits, user, self) if credits > 0
   end
-
+  
+  def total
+    0
+  end
+  
+  def freight_price
+    0
+  end
+  
+  def total_with_freight
+    0
+  end
+  
   private
 
   def initialize_order
