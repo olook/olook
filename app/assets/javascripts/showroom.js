@@ -22,12 +22,14 @@ $(document).ready(function() {
     box = $(this).parents('.type_list').find("."+el);
     var url = $(this).data('url');
     if(box.is(":visible") == false) {
+      $("<div class='loading'></div>").insertBefore($(this));
       if (!el.loaded) {
         $.getScript(url).done(function() {
           el.loaded = true;
           box.slideDown(1000);
           container_position = $(box).position().top;
           ShowroomInit.slideToProductsContainer(container_position);
+          $("div.loading").remove();
         });
       } else {
         box.slideDown(1000);
