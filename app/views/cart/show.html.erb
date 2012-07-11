@@ -92,8 +92,8 @@
       </tr>
     </tfoot>
     <tbody>
-    <% if @cart.cart_items %>
-      <% @cart.cart_items.each do |item| %>
+    <% if @cart.items %>
+      <% @cart.items.each do |item| %>
         <tr>
           <td class="item">
             <%= image_tag item.variant.thumb_picture %>

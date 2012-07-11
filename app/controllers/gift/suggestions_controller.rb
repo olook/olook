@@ -31,7 +31,7 @@ class Gift::SuggestionsController < Gift::BaseController
       position += 1
     end
     
-    msg = if @cart.cart_items.size > 0
+    msg = if @cart.items.size > 0
       'Produtos adicionados com sucesso'
     else
       'Um ou mais produtos selecionados não estão disponíveis'

@@ -4,10 +4,10 @@ $(document).ready(function() {
 
   $("#cart_summary").show();
   if ($("#cart_summary li.product_item[data-id=<%= @variant.id %>]").length == 0) {
-    $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @cart.cart_items.last, hidden: true}) %>"); 
+    $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @cart.items.last, hidden: true}) %>"); 
     $("#cart_summary li.product_item:last").fadeIn('slow');
   }
   
-  $("#cart_items").text(<%= @cart.cart_items_total %>);
+  $("#cart_items").text(<%= @cart.items_total %>);
   $("nav.menu ul li.cart a.cart").addClass("selected");
 });
