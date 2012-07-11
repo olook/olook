@@ -14,6 +14,7 @@ class Cart < ActiveRecord::Base
   attr_accessor :credits
   attr_accessor :gift
   
+  
   #TODO: refactor this to include price as a parameter
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
