@@ -5,6 +5,10 @@ describe Cart do
   it { should have_one(:order) }
   it { should have_many(:items) }
   
+  let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+  let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
+  let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
+  
   let(:price_mock) do
     price = mock
     price.stub(final_price: 100)
@@ -17,7 +21,12 @@ describe Cart do
   end
   
   context "when add item" do
-    it "should return nil when has gift product in cart and is not gift"
+    it "should return nil when has gift product in cart and is not gift" do
+      cart = subject
+      cart.stub(has_gift_items?: true)
+      cart.add_variant(basic_shoe_35).and_return(nil)
+    end
+    
     it "should return nil when no has available for quantity"
     it "should update quantity when product exist in cart item"
     it "should add item"
