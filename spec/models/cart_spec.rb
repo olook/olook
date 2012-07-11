@@ -24,13 +24,22 @@ describe Cart do
     it "should return nil when has gift product in cart and is not gift" do
       cart = subject
       cart.stub(has_gift_items?: true)
-      cart.add_variant(basic_shoe_35).and_return(nil)
+      cart.add_item(basic_shoe_35).should eq(nil)
     end
     
-    it "should return nil when no has available for quantity"
-    it "should update quantity when product exist in cart item"
-    it "should add item"
+    it "should return nil when no has available for quantity" do
+      basic_shoe_35.stub(available_for_quantity?: false)
+      subject.add_item(basic_shoe_35).should eq(nil)
+    end
+    
+    it "should add item" do
+      expect {
+      }.to change(CartItem.count).by(1)
+    end
+    
     it "should add item with gift discount"
+
+    it "should update quantity when product exist in cart item"
   end
   
   context "when remove item" do
