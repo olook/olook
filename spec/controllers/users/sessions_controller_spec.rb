@@ -7,6 +7,13 @@ describe Users::SessionsController do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
   
+  after :each do
+    session[:cart_id] = nil
+    session[:recipient_id] = nil
+    session[:occasion_id] = nil
+  end
+  
+  
   let!(:user) { FactoryGirl.create(:user) }
   let(:user_params) {{ :email => user.email, :password => user.password }}
   let!(:man_user) { FactoryGirl.create(:user, :gender => User::Gender[:male], :half_user => true, :registered_via => User::RegisteredVia[:gift]) }
@@ -37,45 +44,65 @@ describe Users::SessionsController do
       }.to change{Event.count}.by(1)
     end
     
-    context "when has gift product in session" do
-      before :each do
-        session[:gift_products] = mock
+    context "with cart for gift in session" do
+      let (:recipient) { FactoryGirl.create(:gift_recipient, :user => nil) }
+      let (:occasion) { FactoryGirl.create(:gift_occasion, :user => nil, :gift_recipient => recipient) }
+      let (:cart) { FactoryGirl.create(:cart_with_gift) }
+
+      before  :each do
+        session[:recipient_id] = recipient.id
+        session[:occasion_id] = occasion.id
+        session[:cart_id] = cart.id
       end
       
-      after :each do
-        session[:gift_products] = nil
-      end
-
-      it "should invoke CartBuilder to add Products" do
-        CartBuilder.should_receive(:gift).and_return(cart_path)
+      it "should update gift occassion with user" do
         post :create, :user => user_params
+        occasion.reload.user_id.should be(controller.current_user.id)
       end
 
-      it "should redirect to cart page" do
-        CartBuilder.should_receive(:gift).and_return(cart_path)
+      it "should update gift recipient with user" do
+        post :create, :user => user_params
+        recipient.reload.user_id.should be(controller.current_user.id)
+      end
+      
+      it "should update cart with user" do
+        post :create, :user => user_params
+        cart.reload.user_id.should be(controller.current_user.id)
+      end
+
+      it "should redirect to cart page when user has credits" do
+        user.credits.create!(total: 50, value: 50)
         post :create, :user => user_params
         response.should redirect_to(cart_path)
+      end
+
+      it "should redirect to address page" do
+        post :create, :user => user_params
+        response.should redirect_to(addresses_path)
       end
     end
 
-    context "when has offline product in session" do
-      before :each do
-        session[:offline_variant] = mock
-      end
-      
-      after :each do
-        session[:offline_variant] = nil
-      end
-      
-      it "should invoke CartBuilder to add Products" do
-        CartBuilder.should_receive(:offline).and_return(cart_path)
-        post :create, :user => user_params
-      end
+    context "with cart in session" do
+      let (:cart) { FactoryGirl.create(:cart_with_items) }
 
-      it "should redirect to cart page" do
-        CartBuilder.should_receive(:offline).and_return(cart_path)
+      before  :each do
+        session[:cart_id] = cart.id
+      end
+      
+      it "should update cart with user" do
+        post :create, :user => user_params
+        cart.reload.user_id.should be(controller.current_user.id)
+      end
+      
+      it "should redirect to cart page when user has credits" do
+        user.credits.create!(total: 50, value: 50)
         post :create, :user => user_params
         response.should redirect_to(cart_path)
+      end
+
+      it "should redirect to address page" do
+        post :create, :user => user_params
+        response.should redirect_to(addresses_path)
       end
     end
 
