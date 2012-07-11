@@ -3,182 +3,73 @@ require 'spec_helper'
 describe Cart do
   it { should belong_to(:user) }
   it { should have_one(:order) }
-  it { should have_many(:cart_items) }
-
-
-  context "when the inventory is not available" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-    end
-
-    it "should not create line items" do
-      expect {
-        subject.add_variant(basic_shoe_35, 11)
-      }.to change(LineItem, :count).by(0)
-    end
-
-    it "should return a nil line item" do
-      subject.add_variant(basic_shoe_35, 11).should == nil
-    end
-  end
-
-  context "when the inventory is available" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-      basic_shoe_40.update_attributes(:inventory => 10)
-    end
-
-    it "should set product's retail price to retail price when the item doesn't belongs to a liquidation" do
-      subject.add_variant(basic_shoe_40, 1)
-      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
-      line_item.retail_price.should == basic_shoe_40.product.retail_price
-    end
-
-    it "should always set the retail price even when the item belongs to a liquidation" do
-      basic_shoe_40.stub(:liquidation?).and_return(true)
-      basic_shoe_40.product.stub(:retail_price).and_return(retail_price = 45.90)
-      subject.add_variant(basic_shoe_40, 1)
-      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
-      line_item.retail_price.should == retail_price
-    end
-
-    it "should create line items" do
-      expect {
-        subject.add_variant(basic_shoe_35, 10)
-      }.to change(LineItem, :count).by(1)
-    end
-
-
-    it "should not return a nil line item" do
-      subject.add_variant(basic_shoe_35, 10).should_not == nil
-    end
-  end
-
-  context "items availables in the order" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-      subject.add_variant(basic_shoe_35, 2)
-
-      basic_shoe_40.update_attributes(:inventory => 10)
-      subject.add_variant(basic_shoe_40, 5)
-    end
-
-    context "when all variants are available" do
-      it "should return 0 for #remove_unavailable_items" do
-        subject.remove_unavailable_items.should == 0
-      end
-
-      it "should has 2 line items" do
-        subject.remove_unavailable_items
-        subject.line_items.count.should == 2
-      end
-    end
-
-    context "when at least one variant is unavailable" do
-      it "should return 1 for #remove_unavailable_items" do
-        basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items.should == 1
-      end
-
-      it "should has just 1 line item" do
-        basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items
-        subject.line_items.count.should == 1
-      end
-    end
-  end
-
-  context "when the user try add a new variant" do
-    it "should add it in the order" do
-      expect {
-        subject.add_variant(basic_shoe_35)
-      }.to change(LineItem, :count).by(1)
-    end
-
-    it "should return a line item" do
-      subject.add_variant(basic_shoe_35).should be_a(LineItem)
-    end
-  end
-
-  context "when the variant already exists in the order" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-      @line_item = subject.line_items.first
-    end
-
-    it "should update the quantity" do
-      first_quantity = @line_item.quantity
-      subject.add_variant(basic_shoe_35, quantity)
-      @line_item.quantity.should == quantity
-    end
-
-    it "should not create line items" do
-      expect {
-        subject.add_variant(basic_shoe_35)
-      }.to change(LineItem, :count).by(0)
-    end
-  end
-
-  context "removing a variant" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-    end
-
-    describe "with a valid variant" do
-      it "should destroy the variant line item" do
-        expect {
-          subject.remove_variant(basic_shoe_35)
-        }.to change(LineItem, :count).by(-1)
-      end
-    end
-
-    describe "with a invalid variant" do
-      it "should not destroy the variant line item" do
-        expect {
-          subject.remove_variant(basic_shoe_40)
-        }.to change(LineItem, :count).by(0)
-      end
-
-      it "should return a nil item" do
-        subject.remove_variant(basic_shoe_40).should be(nil)
-      end
-    end
-  end  
-
-
-  context "destroying an Order" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-      subject.add_variant(basic_shoe_40)
-    end
-
-    it "should destroy the order" do
-      expect {
-        subject.destroy
-      }.to change(Order, :count).by(-1)
-    end
-
-    it "should destroy line items" do
-      expect {
-        subject.destroy
-      }.to change(LineItem, :count).by(-2)
-    end
+  it { should have_many(:items) }
+  
+  let(:price_mock) do
+    price = mock
+    price.stub(final_price: 100)
+    price.stub(discounts: {
+      coupon:    {value: 25},
+      credits:   {value: 30},
+      promotion: {value: 40}
+    })
+    price
   end
   
-  describe "unrestricted order should accept products from vitrine" do
-    subject { FactoryGirl.create(:clean_order)}
-
-    it "should return true to add gift and normal products to the same cart" do
-      subject.restricted?.should be_false
-    end
+  context "when add item" do
+    it "should return nil when has gift product in cart and is not gift"
+    it "should return nil when no has available for quantity"
+    it "should update quantity when product exist in cart item"
+    it "should add item"
+    it "should add item with gift discount"
+  end
+  
+  context "when remove item" do
+    "should remove when variant exists in cart"
+    "should not raise error when variant not exists in cart"
+  end
+  
+  it "should sum quantity of cart items" do
+    
   end
 
-  describe "restricted order should accept products from vitrine" do
-    subject { FactoryGirl.create(:restricted_order)}
-
-    it "should be marked as restricted" do
-      subject.restricted?.should be_true
-    end
+  it "should return true for gift_wrap? when gift_wrap is nil" do
+    subject.gift_wrap?.should eq(false)
   end
 
+  it "should return true when gift_wrap is '1'" do
+    cart = subject
+    cart.gift_wrap = '1'
+    cart.gift_wrap?.should eq(true)
+  end
+  
+  it "should clear all cart items"
+
+  it "should return true when at least one gift item"
+
+  it "should return false when no has gift item"
+
+  it "should return total price" do
+    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
+    subject.total.should eq(100)
+  end
+
+  it "should return freight price" do
+    subject.freight_price.should eq(0)
+  end
+
+  it "should return coupon discount" do
+    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
+    subject.coupon_discount.should eq(25)
+  end
+
+  it "should return credits discount" do
+    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
+    subject.credits_discount.should eq(30)
+  end
+
+  it "should return promotion discount" do
+    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
+    subject.promotion_discount.should eq(40)
+  end
 end
