@@ -37,6 +37,7 @@ describe Cart do
     end
     
     it "should add item" do
+      basic_shoe_35.should_not_receive(:gift_price)
       expect {
         item = cart.add_item(basic_shoe_35, 2)
         item.should be_kind_of(CartItem)
@@ -52,15 +53,18 @@ describe Cart do
     end
     
     it "should add item with gift discount" do
+      gift_retail_price = 100
+      gift_position = 2
+      basic_shoe_35.should_receive(:gift_price).with(gift_position).and_return(gift_retail_price)
       expect {
-        item = cart.add_item(basic_shoe_35, 1, 1, true)
+        item = cart.add_item(basic_shoe_35, 1, gift_position, true)
         item.should be_kind_of(CartItem)
         item.cart_id.should eq(cart.id)
         item.variant_id.should eq(basic_shoe_35.id)
         item.quantity.should eq(1)
         item.price.should eq(basic_shoe_35.product.price)
-        item.retail_price.should eq(basic_shoe_35.product.retail_price)
-        item.gift_position.should eq(1)
+        item.retail_price.should eq(gift_retail_price)
+        item.gift_position.should eq(gift_position)
         item.gift.should eq(true)
         item.discount_source.should eq(:legacy)
       }.to change{CartItem.count}.by(1)
