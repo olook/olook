@@ -22,7 +22,6 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   has_many :variants, :through => :line_items
-  has_many :line_items, :dependent => :destroy
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -31,6 +30,9 @@ class Order < ActiveRecord::Base
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   has_one :cancellation_reason, :dependent => :destroy
+  has_many :line_items, :dependent => :destroy
+  alias :items :line_items
+
   after_create :generate_number
   after_create :generate_identification_code
 
@@ -223,6 +225,11 @@ class Order < ActiveRecord::Base
     freight_delivery_time - WAREHOUSE_TIME
   end
 
+  def credits
+    credit = read_attribute :credits
+    credit.nil? ? 0 : credit
+  end
+
   def reimburse_credit
     Credit.add(credits, user, self) if credits > 0
   end
@@ -234,19 +241,19 @@ class Order < ActiveRecord::Base
   def update_user_credit
     Credit.remove(credits, user, self) if credits > 0
   end
-  
+
   def total
-    0
+    PriceModificator.new(self).final_price
   end
-  
+
   def freight_price
     0
   end
-  
+
   def total_with_freight
     0
   end
-  
+
   private
 
   def initialize_order
