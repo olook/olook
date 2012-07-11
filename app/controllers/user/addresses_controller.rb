@@ -4,9 +4,7 @@ class ::User::AddressesController < ApplicationController
 
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :load_user
   before_filter :assign_default_country, :only => [:create]
-  before_filter :load_order
 
   def index
     @addresses = @user.addresses

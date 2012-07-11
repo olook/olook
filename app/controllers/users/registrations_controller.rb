@@ -3,7 +3,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout :layout_by_resource
 
   before_filter :check_survey_response, :only => [:new, :create]
-  before_filter :load_order, :only => [:edit]
 
   def new
     resource = build_resource({:half_user => false})
