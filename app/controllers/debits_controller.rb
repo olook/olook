@@ -18,6 +18,7 @@ class DebitsController < ApplicationController
     @payment = Debit.new(params[:debit])
 
     if @payment.valid?
+      @order = @cart.generate_order(@payment)
       insert_user_in_campaing(params[:campaing][:sign_campaing]) if params[:campaing]
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!

@@ -6,7 +6,7 @@ class PriceModificator
   def discounts
     {
       :promotion => { :value => discount_from_promotion },
-      :coupon => { :value => discount_from_coupon },
+      :coupon => { :value => discount_from_coupon, :code => cart.used_coupon.try(:coupon_code) },
       :product_discount => { :value => discount_from_items },
       :credits => { :value => discount_from_credits }
     }
