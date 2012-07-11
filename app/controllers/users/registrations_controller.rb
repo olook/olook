@@ -111,12 +111,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session[:tracking_params] = nil
     session["devise.facebook_data"] = nil
     session[:invite] = nil
-    
-    if session[:gift_products]
-      CartBuilder.gift(self)
-    elsif session[:offline_variant]
-      CartBuilder.offline(self)    
-    elsif resource.half_user && resource.male?
+
+    # GiftOccasion.find(@controller.session[:occasion_id]).update_attributes(:user_id => @user.id) if @controller.session[:occasion_id]
+    # GiftRecipient.find(@controller.session[:recipient_id]).update_attributes(:user_id => @user.id) if @controller.session[:recipient_id]
+
+    # if session[:gift_products]
+    #   CartBuilder.gift(self)
+    # elsif session[:offline_variant]
+    #   CartBuilder.offline(self)    
+    # els
+    if resource.half_user && resource.male?
       gift_root_path
     else
       member_welcome_path
