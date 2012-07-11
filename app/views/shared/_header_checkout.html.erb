@@ -11,15 +11,11 @@
     <h1><%= link_to 'Olook', root_path %></h1>
     <% if user_signed_in? %>
       <h2 class="moip">Pagamento: Moip</h2>
-      <% if @cart.gift %>
-        <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back" %>
-      <% elsif current_user.half_user? %>
-        <%= link_to "Voltar para tendências", lookbooks_path, :class => "back" %>
-      <% elsif @referer %>
-        <%= link_to @referer[:text], @referer[:url], :class => "back" %>
-      <% else %>
-        <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
-      <% end %>
+    <% end %>
+    <% if @referer %>
+      <%= link_to @referer[:text], @referer[:url], :class => "back" %>
+    <% else %>
+      <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
     <% end %>
   </div>
 </header>

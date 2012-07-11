@@ -21,11 +21,22 @@ class Gift::SuggestionsController < Gift::BaseController
   end
 
   def add_to_cart
-    session[:gift_products] = params[:products]
-    if current_user
-      redirect_to CartBuilder.gift(self)
-    else
-      redirect_to new_half_user_session_path
+    return redirect_to :back unless params[:products]
+    
+    @cart.clear
+    position = 0
+    params[:products].each_pair do |k, id|
+      variant = Variant.find(id)
+      @cart.add_variant(variant, 1, position, true) if variant
+      position += 1
     end
+    
+    msg = if @cart.cart_items.size > 0
+      "Produtos adicionados com sucesso"
+    else
+      "Um ou mais produtos selecionados não estão disponíveis"
+    end
+    
+    redirect_to cart_path, notice: msg
   end
 end

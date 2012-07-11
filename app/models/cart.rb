@@ -15,26 +15,40 @@ class Cart < ActiveRecord::Base
   attr_accessor :gift
   
   #TODO: refactor this to include price as a parameter
-  def add_variant(variant, quantity=nil)
+  def add_variant(variant, quantity=nil, gift_position=0, gift=false)
+    #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
+    return nil if self.has_gift_items? && !gift
+
     quantity ||= Cart::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
-    if variant.available_for_quantity?(quantity)
-      current_item = cart_items.select { |item| item.variant == variant }.first
-      if current_item
-        current_item.update_attributes(:quantity => quantity)
+    
+    return nil unless variant.available_for_quantity?(quantity)
+    
+    current_item = cart_items.select { |item| item.variant == variant }.first
+    if current_item
+      current_item.update_attributes(:quantity => quantity)
+    else
+      #ACCESS PRODUCT IN PRICES TO ACCESS MASTER VARIANT
+      
+      retail_price = if gift
+         variant.gift_price(gift_position)
       else
-        #ACCESS PRODUCT IN PRICES TO ACCESS MASTER VARIANT
-        current_item =  CartItem.new(:cart_id => id,
-                                     :variant_id => variant.id,
-                                     :quantity => quantity,
-                                     :price => variant.product.price,
-                                     :retail_price => variant.product.retail_price,
-                                     :discount_source => :legacy
-                                     )
-        cart_items << current_item
+        variant.product.retail_price
       end
-      current_item
+      
+      current_item =  CartItem.new(:cart_id => id,
+                                   :variant_id => variant.id,
+                                   :quantity => quantity,
+                                   :price => variant.product.price,
+                                   :retail_price => retail_price,
+                                   :discount_source => :legacy,
+                                   :gift_position => gift_position,
+                                   :gift => gift
+                                   )
+      cart_items << current_item
     end
+    
+    current_item
   end
 
   def remove_variant(variant)
@@ -48,6 +62,14 @@ class Cart < ActiveRecord::Base
   
   def gift_wrap?
     gift_wrap == "1" ? true : false
+  end
+  
+  def clear
+    cart_items.destroy_all
+  end
+  
+  def has_gift_items?
+    cart_items.where(:gift => true).count > 0
   end
   
   def total

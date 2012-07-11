@@ -3,20 +3,6 @@ class CartBuilder
   def self.gift(controller)
     GiftCartBuilder.new(controller).build
   end
-
-  #TODO: EXTRACT TO CLASS
-  def self.offline(controller)
-    if controller.session[:offline_variant]
-      offline_variant = Variant.find(controller.session[:offline_variant]["id"])
-      controller.session[:offline_variant] = nil
-    end
-
-    unless offline_variant.nil?
-      controller.current_order.add_variant(offline_variant)
-    end
-
-    return controller.cart_path
-  end
   
   #TODO: EXTRACT TO CLASS
   class GiftCartBuilder
