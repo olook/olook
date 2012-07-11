@@ -1,5 +1,4 @@
 class LiquidationSearchService
-  SORT_FILTER = {:lowest_price => "0", :highest_price => "1"}
   attr_reader :query_base, :params, :l_products
 
   def initialize(params)
@@ -30,7 +29,7 @@ class LiquidationSearchService
 
     LiquidationProduct.joins(:product).where(query_base)
                                       .group("product_id")
-                                      .order("category_id asc, #{sort_filter}")
+                                      .order(sort_filter)
                                       .paginate(:page => params[:page], :per_page => 12)
   end
 
@@ -39,6 +38,10 @@ class LiquidationSearchService
   end
 
   def sort_filter
-    params[:sort_filter] == SORT_FILTER[:highest_price] ? "retail_price desc" : "retail_price asc"
+    case params[:sort_filter]
+      when "1" then "retail_price asc"
+      when "2" then "retail_price desc"
+      else "category_id asc"
+    end
   end
 end
