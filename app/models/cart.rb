@@ -102,7 +102,7 @@ class Cart < ActiveRecord::Base
       :payment => payment,
       :credits => credits_discount,
       :user_id => user.id,
-      :restricted => gift.nil?,
+      :restricted => has_gift_items?,
       :gift_wrap => gift_wrap?
     )
 
