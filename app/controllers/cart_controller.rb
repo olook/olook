@@ -38,7 +38,7 @@ class CartController < ApplicationController
       end
     else
       respond_with(@cart) do |format|
-        notice_response = @cart.restricted? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
+        notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
         format.js { render :error, locals: { notice: notice_response } }
         format.html { redirect_to(cart_path, notice: notice_response) }
       end
