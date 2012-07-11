@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def cart_total(cart)
-    content_tag(:span,"(#{content_tag(:div, "#{cart.cart_items_total}", :id => "cart_items")})".html_safe)
+    content_tag(:span,"(#{content_tag(:div, "#{cart.items_total}", :id => "cart_items")})".html_safe)
   end
 
   def discount_percentage(value)
