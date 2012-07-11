@@ -32,7 +32,7 @@ class CartController < ApplicationController
   end
 
   def create
-    if @cart.add_variant(@variant)
+    if @cart.add_item(@variant)
       respond_with do |format|
         format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
       end
