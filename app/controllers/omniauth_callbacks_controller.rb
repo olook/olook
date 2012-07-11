@@ -24,7 +24,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def passthru
     session[:facebook_scopes] = session[:should_request_new_facebook_token] ? "publish_stream" : ""
-    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    render :template => "/errors/404", :layout => 'error', :status => 404, :handlers => [:erb]
   end
 
   def failure
