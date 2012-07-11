@@ -4,7 +4,7 @@ class Cart < ActiveRecord::Base
   
   belongs_to :user
   has_one :order
-  has_many :cart_items
+  has_many :items, :class_name => "CartItem"
   
   attr_accessor :gift_wrap
   attr_accessor :used_coupon
@@ -15,7 +15,7 @@ class Cart < ActiveRecord::Base
   attr_accessor :gift
   
   #TODO: refactor this to include price as a parameter
-  def add_variant(variant, quantity=nil, gift_position=0, gift=false)
+  def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
 
@@ -24,14 +24,14 @@ class Cart < ActiveRecord::Base
     
     return nil unless variant.available_for_quantity?(quantity)
     
-    current_item = cart_items.select { |item| item.variant == variant }.first
+    current_item = items.select { |item| item.variant == variant }.first
     if current_item
       current_item.update_attributes(:quantity => quantity)
     else
       #ACCESS PRODUCT IN PRICES TO ACCESS MASTER VARIANT
       
       retail_price = if gift
-         variant.gift_price(gift_position)
+        variant.gift_price(gift_position)
       else
         variant.product.retail_price
       end
@@ -45,19 +45,19 @@ class Cart < ActiveRecord::Base
                                    :gift_position => gift_position,
                                    :gift => gift
                                    )
-      cart_items << current_item
+      items << current_item
     end
     
     current_item
   end
 
-  def remove_variant(variant)
-    current_item = cart_items.select { |item| item.variant == variant }.first
+  def remove_item(variant)
+    current_item = items.select { |item| item.variant == variant }.first
     current_item.destroy if current_item
   end
   
-  def cart_items_total
-    cart_items.sum(:quantity)
+  def items_total
+    items.sum(:quantity)
   end
   
   def gift_wrap?
@@ -65,11 +65,11 @@ class Cart < ActiveRecord::Base
   end
   
   def clear
-    cart_items.destroy_all
+    items.destroy_all
   end
   
   def has_gift_items?
-    cart_items.where(:gift => true).count > 0
+    items.where(:gift => true).count > 0
   end
   
   def total
