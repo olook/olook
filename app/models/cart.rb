@@ -12,13 +12,12 @@ class Cart < ActiveRecord::Base
   attr_accessor :freight
   attr_accessor :address
   attr_accessor :credits
-  attr_accessor :gift
   
   
   #TODO: refactor this to include price as a parameter
-  def add_item(variant, quantity=nil, gift_position=0, gift=false)
+  def add_item(variant, quantity=nil, gift_position=0, gift_sell=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
-    return nil if self.has_gift_items? && !gift
+    return nil if self.has_gift_items? && !gift_sell
 
     quantity ||= Cart::DEFAULT_QUANTITY.to_i
     quantity = quantity.to_i
@@ -31,7 +30,7 @@ class Cart < ActiveRecord::Base
     else
       #ACCESS PRODUCT IN PRICES TO ACCESS MASTER VARIANT
       
-      retail_price = if gift
+      retail_price = if gift_sell
         variant.gift_price(gift_position)
       else
         variant.product.retail_price
@@ -44,7 +43,7 @@ class Cart < ActiveRecord::Base
                                    :retail_price => retail_price,
                                    :discount_source => :legacy,
                                    :gift_position => gift_position,
-                                   :gift => gift
+                                   :gift => gift_sell
                                    )
       items << current_item
     end
