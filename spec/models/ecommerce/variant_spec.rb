@@ -256,7 +256,7 @@ describe Variant do
 
     it "should return the retail price for a liquidation" do
       subject.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
+      LiquidationProductService.stub(:retail_price).with(subject.product).and_return(1.99)
       subject.retail_price.should == 1.99
     end
 
