@@ -1,20 +1,22 @@
 require 'lightweight_spec_helper'
 
+require './app/services/promotion_service'
 require './app/business/price_modificator'
 
-module Payment
-  MINIMUM_VALUE = 5
-end
 
 describe PriceModificator do
   let(:cart) {
     stub(:cart,
-         :line_items => [ stub(:item, :total_price => 10), stub(:item, :total_price => 20) ],
-         :credits => 100
+         :items => [ stub(:item, :retail_price => 10 , :total_price => 10), stub(:item, :retail_price => 20, :total_price => 20) ],
+         :credits => 10
         )
   }
 
   subject { PriceModificator.new(cart)}
+
+  before do
+    subject.stub!(:minimum_value).and_return(5)
+  end
 
   describe 'public interface' do
     subject { PriceModificator.new(stub)  }
@@ -96,8 +98,10 @@ describe PriceModificator do
         ignore_coupon
         ignore_credits
         ignore_item_discount
-
-        subject.stub(:used_promotion).and_return(stub(:promotion, :discount_value => 100))
+        promotion = mock
+        subject.stub(:used_promotion).and_return(promotion)
+        subject.stub(:items_retail_price).and_return(30)
+        PromotionService.should_receive(:apply_discount_for_price).with(promotion, 30).and_return(100)
         subject.discounts[:promotion][:value].should == 100
       end
     end

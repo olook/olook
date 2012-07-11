@@ -35,7 +35,7 @@ class PriceModificator
   end
 
   def items
-    cart.cart_items
+    cart.items
   end
 
   def items_price
@@ -110,9 +110,13 @@ class PriceModificator
     items_price
   end
 
+  def minimum_value
+    Payment::MINIMUM_VALUE
+  end
+
   def total
     total = subtotal + total_increment - total_discount
-    total > Payment::MINIMUM_VALUE ? total : Payment::MINIMUM_VALUE
+    total > minimum_value ? total : minimum_value
   end
 
   def total_discount
@@ -129,7 +133,7 @@ class PriceModificator
 
   #Limiters
   def max_discount
-    items_price - Payment::MINIMUM_VALUE
+    items_price - minimum_value
   end
 
   def max_credit_value
