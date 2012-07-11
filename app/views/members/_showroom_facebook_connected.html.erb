@@ -4,17 +4,21 @@
   <p>Nossos stylists pensaram em você com muito carinho para montar a seleção de produtos deste mês. Explore as possibilidades e aproveite sem moderação.</p>
   <%= render "shared/mini_profile", :user => @user %>
   <% if @friends && @friends.any? %>
-  <h3>Últimas amigas que se registraram:</h3>
-  <ul>
-    <% @friends.each do |friend| %>
-      <li>
-        <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
-          <div class="mask">
-            <%= image_tag user_avatar(friend), :title => friend.name %>
-          </div>
+    <h3>Últimas amigas que se registraram:</h3>
+    <div id="mask_carousel_facebook">
+      <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb" %>
+      <ul>
+        <% @friends.each do |friend| %>
+          <li>
+            <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
+              <div class="mask">
+                <%= image_tag user_avatar(friend), :title => friend.name %>
+              </div>
+            <% end %>
+          </li>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
+      </ul>
+      <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb" %>
+    </div>
   <% end %>
 </div>
