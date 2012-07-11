@@ -51,14 +51,27 @@ describe Cart do
       }.to change{CartItem.count}.by(1)
     end
     
-    it "should add item with gift discount"
+    it "should add item with gift discount" do
+      expect {
+        item = cart.add_item(basic_shoe_35, 1, 1, true)
+        item.should be_kind_of(CartItem)
+        item.cart_id.should eq(cart.id)
+        item.variant_id.should eq(basic_shoe_35.id)
+        item.quantity.should eq(1)
+        item.price.should eq(basic_shoe_35.product.price)
+        item.retail_price.should eq(basic_shoe_35.product.retail_price)
+        item.gift_position.should eq(1)
+        item.gift.should eq(true)
+        item.discount_source.should eq(:legacy)
+      }.to change{CartItem.count}.by(1)
+    end
 
     it "should update quantity when product exist in cart item"
   end
   
   context "when remove item" do
-    "should remove when variant exists in cart"
-    "should not raise error when variant not exists in cart"
+    it "should remove when variant exists in cart"
+    it "should not raise error when variant not exists in cart"
   end
   
   it "should sum quantity of cart items" do
