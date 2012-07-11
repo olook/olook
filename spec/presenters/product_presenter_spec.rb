@@ -88,11 +88,6 @@ describe ProductPresenter do
       template.should_receive(:render).with(:partial => 'product/add_to_cart', :locals => {:product_presenter => online, :product => product}).and_return('cart')
       online.render_add_to_cart.should == 'cart'
     end
-
-    it "should render the partial with controls to add the product to the cart when offline" do
-      template.should_receive(:render).with(:partial => 'product/offline_add_to_cart', :locals => {:product_presenter => offline, :product => product}).and_return('cart')
-      offline.render_add_to_cart.should == 'cart'
-    end
   end
 
   describe '#render_form_by_category' do
