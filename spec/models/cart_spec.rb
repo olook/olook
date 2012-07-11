@@ -70,7 +70,12 @@ describe Cart do
       }.to change{CartItem.count}.by(1)
     end
 
-    it "should update quantity when product exist in cart item"
+    it "should update quantity when product exist in cart item" do
+      cart.add_item(basic_shoe_35, 1)
+      variant = cart.items.first
+      cart.add_item(basic_shoe_35, 10)
+      variant.reload.quantity.should eq(10)
+    end
   end
   
   context "when remove item" do
