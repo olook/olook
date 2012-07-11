@@ -21,7 +21,7 @@ class Gift::SuggestionsController < Gift::BaseController
   end
 
   def add_to_cart
-    return redirect_to :back unless params[:products]
+    return redirect_to :back, :notice => 'Produtos não foram adicionados' unless params[:products]
     
     @cart.clear
     position = 0
@@ -32,9 +32,9 @@ class Gift::SuggestionsController < Gift::BaseController
     end
     
     msg = if @cart.cart_items.size > 0
-      "Produtos adicionados com sucesso"
+      'Produtos adicionados com sucesso'
     else
-      "Um ou mais produtos selecionados não estão disponíveis"
+      'Um ou mais produtos selecionados não estão disponíveis'
     end
     
     redirect_to cart_path, notice: msg

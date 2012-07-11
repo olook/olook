@@ -13,11 +13,16 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    if session[:gift_products]
-      CartBuilder.gift(self)
-    elsif session[:offline_variant]
-      CartBuilder.offline(self)
-    elsif current_user.half_user && current_user.male?
+
+    # GiftOccasion.find(@controller.session[:occasion_id]).update_attributes(:user_id => @user.id) if @controller.session[:occasion_id]
+    # GiftRecipient.find(@controller.session[:recipient_id]).update_attributes(:user_id => @user.id) if @controller.session[:recipient_id]
+
+    # if session[:gift_products]
+    #   CartBuilder.gift(self)
+    # elsif session[:offline_variant]
+    #   CartBuilder.offline(self)
+    # els
+    if current_user.half_user && current_user.male?
       gift_root_path
     else
       member_showroom_path
