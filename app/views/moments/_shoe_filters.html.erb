@@ -5,15 +5,7 @@
       <%= check_box_tag "select_all_shoes", 1, params[:select_all_shoes], :class => "select_all" %>
       <%= label_tag "select_all_shoes", "Todos os sapatos" %>
     </li>
-    <%
-      p "==============================================================="
-      p moment_presenter.moment
-      p "--------------------------------------------------------------"
-      p moment_presenter.moment.catalog
-      p "--------------------------------------------------------------"
-      p moment_presenter.moment.catalog.subcategories(Category::SHOE)
-      p "==============================================================="
-    %>
+
   <% moment_presenter.moment.catalog.subcategories(Category::SHOE).each do |subcategory| %>
     <li>
       <%= check_box_tag('shoe_subcategories[]', subcategory, params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory), :id => subcategory) %>
