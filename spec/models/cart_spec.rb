@@ -8,6 +8,10 @@ describe Cart do
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
+
+  let(:cart) { FactoryGirl.create(:clean_cart) }
+  let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
+  let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
   
   let(:price_mock) do
     price = mock
@@ -34,7 +38,17 @@ describe Cart do
     
     it "should add item" do
       expect {
-      }.to change(CartItem.count).by(1)
+        item = cart.add_item(basic_shoe_35, 2)
+        item.should be_kind_of(CartItem)
+        item.cart_id.should eq(cart.id)
+        item.variant_id.should eq(basic_shoe_35.id)
+        item.quantity.should eq(2)
+        item.price.should eq(basic_shoe_35.product.price)
+        item.retail_price.should eq(basic_shoe_35.product.retail_price)
+        item.gift_position.should eq(0)
+        item.gift.should eq(false)
+        item.discount_source.should eq(:legacy)
+      }.to change{CartItem.count}.by(1)
     end
     
     it "should add item with gift discount"
@@ -48,7 +62,7 @@ describe Cart do
   end
   
   it "should sum quantity of cart items" do
-    
+    cart_with_items.items_total.should eq(2)
   end
 
   it "should return true for gift_wrap? when gift_wrap is nil" do
@@ -61,11 +75,20 @@ describe Cart do
     cart.gift_wrap?.should eq(true)
   end
   
-  it "should clear all cart items"
+  it "should clear all cart items" do
+    cart = cart_with_items
+    expect {
+      cart_with_items.clear
+    }.to change{CartItem.count}.by(-1)
+  end
 
-  it "should return true when at least one gift item"
+  it "should return true when at least one gift item" do
+    cart_with_gift.has_gift_items?.should be(true)
+  end
 
-  it "should return false when no has gift item"
+  it "should return false when no has gift item" do
+    cart_with_items.has_gift_items?.should be(false)
+  end
 
   it "should return total price" do
     PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
