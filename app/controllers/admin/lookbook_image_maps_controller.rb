@@ -45,6 +45,10 @@ class Admin::LookbookImageMapsController < ApplicationController
     render :nothing => true
   end
 
+  private
   def load_promotion
+  end
+
+  def load_order
   end
 end
