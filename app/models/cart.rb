@@ -54,9 +54,9 @@ class Cart < ActiveRecord::Base
     current_item.destroy if current_item
   end
   
-   def items_total
-     items.sum(:quantity)
-   end
+  def items_total
+   items.sum(:quantity)
+  end
 
   def gift_wrap?
     gift_wrap == "1" ? true : false
