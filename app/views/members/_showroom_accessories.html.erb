@@ -5,11 +5,11 @@
       <ul>
         <%= showroom_presenter.display_accessories (0..4) %>
       </ul>
-      <%= link_to "Clique e veja mais acessórios", "javascript:void(0);", :class => "more accessories", :onclick => track_event("Showroom", "SeeAlmost", "Acessories") ,:rel => "almost" %>
+      <%= link_to "Clique e veja mais acessórios", "javascript:void(0);", :class => "more accessories", :onclick => track_event("Showroom", "SeeAlmost", "Acessories") ,:rel => "almost", :data => {:url => member_showroom_accessories_path } %>
     </div>
     <div class="products_list almost">
-      <ul>
-        <%= showroom_presenter.display_accessories (5..100) %>
+      <ul id="accessories_product">
+        <%#= showroom_presenter.display_accessories (5..100) %>
       </ul>
     </div>
   </div>
