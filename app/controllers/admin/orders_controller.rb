@@ -17,8 +17,7 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def generate_purchase_timeline
-    timeline = ::OrderTimeline::TimelineTrack.find_by_order_id(params[:id])
-    respond_with timeline.timeline_track
+   @order = Order.find(params[:id])
   end
 
 end
