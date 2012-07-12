@@ -1,0 +1,25 @@
+<% self.formats = ["html"] %>
+{
+  "startDate":"<%= to_timeline_date_format(event.created_at) %>",
+  "endDate":"",
+  "headline":"Pagamento autorizado",
+  "text":<%= render(:partial => "admin/orders/timeline/#{event.to}/#{event.to}", :locals => {:order => order, :event =>  event}).to_json.html_safe %>,
+  "asset":
+  {
+    "media":"",
+    "credit":"Credit Name Goes Here",
+    "caption":"Caption text goes here"
+  }
+},
+{
+  "startDate":"<%= timeline_delivered_date(event.created_at, order.freight.delivery_time) %>",
+  "endDate":"",
+  "headline":"Data estimada de entrega",
+  "text":"Data estimada de entrega",
+  "asset":
+  {
+    "media":"",
+    "credit":"",
+    "caption":""
+  }
+}
