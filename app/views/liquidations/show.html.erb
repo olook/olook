@@ -24,6 +24,20 @@
     <%= liquidation_presenter.render_search_form %>
 
     <div id="products_container">
+      <div id="shoe_size_filter">
+        <%= label_tag "Mostrar números:" %>
+        <span><%= current_user.user_info.shoes_size %></span>
+        <div class="sizes">
+          <ul>
+            <% liquidation_presenter.liquidation.resume[:shoe_sizes].each do |key, value| %>
+              <li>
+                <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
+                <%= label_tag(value, nil, :for => "size_#{key}") %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
       <div id="order_filter">
         <%= form_for("", :html => {:id => "liquidation_order_filter"}) do %>
           <ol>

@@ -5,6 +5,15 @@ jQuery(function() {
     }, 4000);
   }
 
+  $("html").live("click", function() {
+    $("div#products_container div#shoe_size_filter div.sizes").hide();
+  });
+
+  $("div#products_container div#shoe_size_filter span").live("click", function(e) {
+    $(this).siblings(".sizes").toggle();
+    e.stopPropagation();
+  });
+
   $("div#carousel_container ul").carouFredSel({
     width: 480,
     items: 1,
