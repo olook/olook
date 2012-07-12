@@ -2,6 +2,7 @@
   <h2 style='margin-left:190px'>Histórico</h2>
     <div id="timeline-embed"></div>
       <script type="text/javascript">
+        
         var timeline_config = {
             source: "/admin/orders/timeline/<%= params[:id] %>.json", 
             css:  '/assets/admin/order_timeline/timeline.css',
@@ -10,9 +11,10 @@
       </script>
   <script type="text/javascript" src="/assets/timeline-embed.js"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).load(function(){
       var timeline = new VMM.Timeline();
       timeline.init("/admin/orders/timeline/<%= params[:id] %>.json");
     });
   </script>
 </div>
+<div style='clear:both'>
