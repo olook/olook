@@ -31,7 +31,7 @@
           <ul>
             <% liquidation_presenter.liquidation.resume[:shoe_sizes].each do |key, value| %>
               <li>
-                <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
+                <%= check_box_tag('shoe_sizes_filter[]', key, (key == current_user.user_info.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
                 <%= label_tag(value, nil, :for => "size_#{key}") %>
               </li>
             <% end %>

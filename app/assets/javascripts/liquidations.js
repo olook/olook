@@ -14,6 +14,18 @@ jQuery(function() {
     e.stopPropagation();
   });
 
+  $("div#products_container div#shoe_size_filter div.sizes input").change(function(e) {
+    checked = $(this).is(":checked");
+    val = $(this).val();
+    size = $("#liquidation_filter div.filter #"+val);
+    if(checked == true) {
+      $(size).attr("checked", true);
+    } else {
+      $(size).attr("checked", false);
+    }
+    $(size).click();
+  })
+
   $("div#carousel_container ul").carouFredSel({
     width: 480,
     items: 1,
