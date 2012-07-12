@@ -2,13 +2,11 @@
 class ::AddressesController < ApplicationController
   layout "checkout"
 
-  include Checkout
   respond_to :html
   before_filter :authenticate_user!, :except => [:get_address_by_zipcode]
   before_filter :check_order, :except => [:get_address_by_zipcode]
-  before_filter :assign_default_country, :only => [:create]
-  before_filter :build_cart, :except => [:assign_address, :get_address_by_zipcode]
   before_filter :check_address, :only => [:index]
+  before_filter :erase_freight
 
   def index
     @addresses = @user.addresses
@@ -23,6 +21,7 @@ class ::AddressesController < ApplicationController
   end
 
   def create
+    params[:address][:country] = 'BRA'
     @address = @user.addresses.build(params[:address])
     if @address.save
       set_freight_in_the_order(@address)
@@ -44,7 +43,7 @@ class ::AddressesController < ApplicationController
 
   def destroy
     @address = @user.addresses.find(params[:id])
-    remove_freight_from_order(@address)
+    session[:freight] = nil
     @address.destroy
     redirect_to(addresses_path)
   end
@@ -65,23 +64,21 @@ class ::AddressesController < ApplicationController
   end
 
   private
+  def erase_freight
+    @cart.freight = nil
+  end
 
   def check_address
     redirect_to new_address_path unless @user.addresses.any?
   end
 
-  def remove_freight_from_order(address)
-    @order.freight.destroy if @order.freight.address == address
-  end
-
   def set_freight_in_the_order(address)
-    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.line_items_total)
+    freight = FreightCalculator.freight_for_zip(address.zip_code, @cart.total)
     freight.merge!(:address_id => address.id)
-
-    if @order.freight
-      @order.freight.update_attributes(freight)
-    else
-      @order.create_freight(freight)
-    end
+    session[:freight] = Freight.new(freight)
+  end
+  
+  def check_order
+    redirect_to(cart_path, :notice => "Sua sacola está vazia") if @cart.items_total <= 0
   end
 end

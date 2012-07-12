@@ -254,7 +254,7 @@ class Order < ActiveRecord::Base
 
   #TODO: MOVE TO ORDER
   def total_with_freight
-    0
+    line_items_total
   end
   
   #TODO: MOVE TO ORDER

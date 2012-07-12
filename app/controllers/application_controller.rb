@@ -43,12 +43,13 @@ class ApplicationController < ActionController::Base
     cart.used_coupon = session[:session_coupon]
     
     if @user
+      cart.update_attribute("user_id", @user.id) if cart.user.nil?
       cart.used_promotion = PromotionService.new(@user).detect_current_promotion
     end
     
     session[:credits] = 0 unless session[:credits]
     cart.credits = session[:credits]
-    
+    cart.freight = session[:freight]
     #TODO: FREIGHT, ADDRESS, GIFT PROJETCT
     
     cart
@@ -104,8 +105,6 @@ class ApplicationController < ActionController::Base
     redirect_to :back
   end
 
-  protected
-
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
@@ -116,10 +115,6 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = current_cart
-  end
-
-  def assign_default_country
-    params[:address][:country] = 'BRA'
   end
 
   def current_ability

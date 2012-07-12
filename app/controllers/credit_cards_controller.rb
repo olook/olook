@@ -2,14 +2,10 @@
 class CreditCardsController < ApplicationController
   layout "checkout"
 
-  include Checkout
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :load_user
   before_filter :check_freight, :only => [:new, :create]
   before_filter :assign_receipt, :only => [:create]
-  before_filter :build_cart, :only => [:new, :create]
-  before_filter :order_total, :only => [:new, :create]
   before_filter :check_cpf
 
   def new
@@ -48,11 +44,29 @@ class CreditCardsController < ApplicationController
     @payment
   end
 
-  def order_total
-    @order_total = @order.total_with_freight
-  end
+  # def order_total
+  #   @order_total = @order.total_with_freight
+  # end
 
   def assign_receipt
     params[:credit_card][:receipt] = Payment::RECEIPT
+  end
+  
+  def check_freight
+    redirect_to addresses_path, :notice => "Escolha seu endereço" if @cart.freight.nil?
+  end
+  
+  def check_cpf
+    redirect_to payments_path, :notice => "Informe seu CPF" unless Cpf.new(@user.cpf).valido?
+  end
+  
+  def clean_session_order!
+    session[:order] = nil
+    session[:freight] = nil
+    session[:delivery_address_id] = nil
+  end
+
+  def insert_user_in_campaing(campaing)
+      CampaingParticipant.new(:user_id => current_user.id, :campaing => campaing).save if campaing
   end
 end

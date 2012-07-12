@@ -1,7 +1,7 @@
 <div id="request_info">
   <%= yield :checkout_sidebar %>
   <div class="item">
-    <h1>Meu Pedido <%= link_to "alterar", cart_path if @order.payment.nil? %></h1>
+    <h1>Meu Pedido <%= link_to "alterar", cart_path unless cart.has_payment? %></h1>
     <table cellpadding="0" cellspacing="0">
       <tfoot>
         <tr>
@@ -14,30 +14,36 @@
           <td>Sub-total:</td>
           <td class="value"><%= number_to_currency(cart.subtotal)  %></td>
         </tr>
-      <% if @order.gift_wrap? %>
+      <% if cart.gift_wrap? %>
         <tr>
           <td>Embalagem de presente</td>
           <td class="value">+ R$ 5,00</td>
         </tr>
       <% end %>
+        <% if cart.credits_discount > 0 %>
         <tr>
           <td>Crédito</td>
           <td class="value credit">- <%= number_to_currency(cart.credits_discount) %></td>
-        </tr>
+        </tr
+        <% end %>
+        <% if cart.coupon_discount > 0 %>
         <tr>
           <td>Cupom desconto</td>
-          <td class="value credit">- <%= number_to_currency(cart.coupon_discount) %> <%= cart.coupon_discount_in_percentage %></td>
+          <td class="value credit">- <%= number_to_currency(cart.coupon_discount) %> <%= cart.used_coupon.discount_percent %></td>
         </tr>
-        <% if @order.used_promotion %>
+        <% end %>
+        <% if cart.promotion_discount > 0 %>
           <tr>
-            <td><%= @promotion.my_order_label %></td>
-            <td class="value credit"><%= @promotion.discount_percent %>% - (<%= number_to_currency cart.promotion_discount %>)</td>
+            <td><%= cart.used_promotion.my_order_label %></td>
+            <td class="value credit"><%= cart.used_promotion.discount_percent %>% - (<%= number_to_currency cart.promotion_discount %>)</td>
           </tr>
         <% end %>
+        <% if cart.freight_price > 0%>
         <tr>
           <td>Frete</td>
           <td class="value">+ <%= number_to_currency(cart.freight_price) %></td>
         </tr>
+        <% end %>
       </tbody>
     </table>
   </div>

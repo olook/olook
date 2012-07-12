@@ -16,7 +16,7 @@
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>
-        <%= render "shared/payments/info_address", :order => @order %>
+        <%= render "shared/payments/info_address", :cart => @cart %>
       <% end %>
       <%= render "shared/payments/info_sidebar", :cart => @cart %>
       <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
