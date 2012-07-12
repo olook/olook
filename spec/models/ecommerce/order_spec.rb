@@ -78,8 +78,8 @@ describe Order do
       basic_shoe_35.product.stub(:retail_price).and_return(123.45)
       basic_shoe_37.product.stub(:retail_price).and_return(124.19)
       basic_shoe_40.product.stub(:retail_price).and_return(125.45)
-      subject.add_variant(basic_shoe_35)
-      subject.add_variant(basic_shoe_40, quantity)
+      # subject.add_variant(basic_shoe_35)
+      # subject.add_variant(basic_shoe_40, quantity)
     end
 
     describe '#line_items_total' do
