@@ -262,8 +262,16 @@ class Order < ActiveRecord::Base
     BigDecimal.new(line_items.inject(0){|result, item| result + item.total_price}.to_s)
   end
   
+  def discount_from_coupon
+    0
+  end
+  
   #TODO: MOVE TO ORDER
   def total_discount
+    0
+  end
+  
+  def max_credit_value
     0
   end
 
