@@ -4,7 +4,6 @@ class ::User::AddressesController < ApplicationController
 
   respond_to :html
   before_filter :authenticate_user!
-  before_filter :assign_default_country, :only => [:create]
 
   def index
     @addresses = @user.addresses
@@ -19,6 +18,8 @@ class ::User::AddressesController < ApplicationController
   end
 
   def create
+    params[:address][:country] = 'BRA'
+    
     @address = @user.addresses.build(params[:address])
     if @address.save
       redirect_to(user_addresses_path)

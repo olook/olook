@@ -2,12 +2,9 @@
 class PaymentsController < ApplicationController
   layout "checkout"
 
-  include Checkout
   respond_to :html
   before_filter :authenticate_user!, :only => [:index]
-  skip_before_filter :check_order, :only => [:show, :create]
   before_filter :check_freight, :only => [:index]
-  before_filter :build_cart, :only => [:index]
   protect_from_forgery :except => :create
 
   def index
@@ -15,7 +12,7 @@ class PaymentsController < ApplicationController
 
   def show
     @payment = @user.payments.find(params[:id])
-    @cart = CartPresenter.new(@payment.order)
+    # @cart = CartPresenter.new(@payment.order)
   end
 
   def create
@@ -63,5 +60,9 @@ class PaymentsController < ApplicationController
 
       order.payment.set_state(params["status_pagamento"])
     end
+  end
+  
+  def check_freight
+    redirect_to addresses_path, :notice => "Escolha seu endereço" if @cart.freight.nil?
   end
 end

@@ -10,7 +10,6 @@ class Cart < ActiveRecord::Base
   attr_accessor :used_coupon
   attr_accessor :used_promotion
   attr_accessor :freight
-  attr_accessor :address
   attr_accessor :credits
 
   #TODO: refactor this to include price as a parameter
@@ -75,7 +74,7 @@ class Cart < ActiveRecord::Base
   end
 
   def freight_price
-    0
+    price_modificator.increments[:freight][:value]
   end
 
   def coupon_discount
@@ -117,9 +116,17 @@ class Cart < ActiveRecord::Base
     PromotionService.new(user, order).apply_promotion if promotion_discount > 0
 
     # Creates UsedCoupon
-    CouponManager.new(user, price_modificator.discounts[:coupon][:code]).apply_coupon if coupon_discount > 0
+    CouponManager.new(order, price_modificator.discounts[:coupon][:code]).apply_coupon if coupon_discount > 0
 
     order.save
     order
+  end
+  
+  def has_payment?
+    false
+  end
+  
+  def subtotal
+    price_modificator.original_price
   end
 end

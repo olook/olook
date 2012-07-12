@@ -10,7 +10,7 @@
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
-      <%= render :partial => "shared/payments/info_address", :locals => { :order => @payment.order } %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @cart } %>
     <% end %>
     <%= render :partial => "shared/payments/info_sidebar", :locals => { :cart => @cart, :order => @payment.order } %>
   </section>

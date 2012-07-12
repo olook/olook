@@ -6,7 +6,7 @@ class PriceModificator
   def discounts
     {
       :promotion => { :value => discount_from_promotion },
-      :coupon => { :value => discount_from_coupon, :code => cart.used_coupon.try(:coupon_code) },
+      :coupon => { :value => discount_from_coupon, :code => cart.used_coupon.try(:code) },
       :product_discount => { :value => discount_from_items },
       :credits => { :value => discount_from_credits }
     }
@@ -64,7 +64,7 @@ class PriceModificator
   end
 
   def freight_price
-    cart.freight_price
+    cart.try(:freight).try(:price) || 0
   end
 
   #Calculators
@@ -91,7 +91,7 @@ class PriceModificator
   end
 
   def discount_from_promotion
-    used_promotion ? PromotionService.apply_discount_for_price(used_promotion, items_retail_price) : 0
+    used_promotion && discount_from_coupon <= 0 ? PromotionService.apply_discount_for_price(used_promotion, items_retail_price) : 0
   end
 
   def discount_from_items
@@ -111,6 +111,7 @@ class PriceModificator
   end
 
   def minimum_value
+    return 0 if freight_price > Payment::MINIMUM_VALUE
     Payment::MINIMUM_VALUE
   end
 
@@ -120,11 +121,7 @@ class PriceModificator
   end
 
   def total_discount
-    if discount_from_coupon > 0
-      credits + discount_from_coupon
-    else
-      credits + discount_from_promotion
-    end
+    credits + discount_from_coupon + discount_from_promotion
   end
 
   def total_increment

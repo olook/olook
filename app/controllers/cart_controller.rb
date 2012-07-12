@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class CartController < ApplicationController
   layout "checkout"
+  
+  before_filter :erase_freight
 
   respond_to :html, :js
 
@@ -33,15 +35,15 @@ class CartController < ApplicationController
 
   def create
     variant_id = params[:variant][:id] if params[:variant]
-    variant = Variant.find_by_id(variant_id)
+    @variant = Variant.find_by_id(variant_id)
     
-    if variant.nil?
+    if @variant.nil?
       respond_with do |format|
         format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
         format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     else
-      if @cart.add_item(variant)
+      if @cart.add_item(@variant)
         respond_with do |format|
           format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
         end
@@ -108,6 +110,11 @@ class CartController < ApplicationController
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
     end
+  end
+  
+  private
+  def erase_freight
+    @cart.freight = nil
   end
 end
 

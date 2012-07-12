@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
     @order = @user.orders.find_by_number!(params[:number])
     @payment = @order.payment
     @payment_response = @payment.payment_response
-    @cart = CartPresenter.new(@order)
+    # @cart = CartPresenter.new(@order)
     @promotion = @order.used_promotion.promotion if @order.used_promotion
   end
 end
