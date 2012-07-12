@@ -1,0 +1,3 @@
+<% present 'Showroom', :member => @user  do |showroom_presenter| %>
+  $('#accessories_product').html('<%= j showroom_presenter.display_accessories (5..100) %>');
+<% end %>
