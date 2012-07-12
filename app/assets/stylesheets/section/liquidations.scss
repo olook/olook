@@ -165,6 +165,7 @@ div#liquidation {
       position: relative;
       width: 380px;
       display: inline-block;
+      float: left;
       label {
         font-size: 12px;
         font-weight: bold;
@@ -176,7 +177,7 @@ div#liquidation {
         background: url("/assets/common/pink_arrow.jpg") center right no-repeat;
         text-indent: 12px;
         line-height: 32px;
-        height: 34px;
+        height: 32px;
         padding: 0 35px 0 0;
         bottom: 0;
         top: 2px;
@@ -190,7 +191,7 @@ div#liquidation {
         width: 110px;
         overflow: auto;
         padding: 0 10px;
-        top: 35px;
+        top: 33px;
         left: 118px;
         border: 1px #BBB solid;
         z-index: 10;

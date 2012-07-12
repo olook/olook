@@ -17,14 +17,28 @@ jQuery(function() {
   $("div#products_container div#shoe_size_filter div.sizes input").change(function(e) {
     checked = $(this).is(":checked");
     val = $(this).val();
-    size = $("#liquidation_filter div.filter #"+val);
+    filterSize = $("#liquidation_filter div.filter #"+val);
+    textSize = "";
     if(checked == true) {
-      $(size).attr("checked", true);
+      $(filterSize).attr("checked", true);
     } else {
-      $(size).attr("checked", false);
+      $(filterSize).attr("checked", false);
     }
-    $(size).click();
-  })
+    checkedSize = $("div#shoe_size_filter div.sizes input:checked").size();
+    $("div#shoe_size_filter div.sizes input:checked").each(function(index) {
+      if(checkedSize == 1) {
+        $("div#products_container div#shoe_size_filter span").text($(this).val());
+      } else {
+        if(index == 0) {
+          textSize = $(this).val();
+        } else {
+          textSize = textSize + ", " + $(this).val();
+        }
+        $("div#products_container div#shoe_size_filter span").text(textSize);
+      }
+    });
+    $(filterSize).click();
+  });
 
   $("div#carousel_container ul").carouFredSel({
     width: 480,
