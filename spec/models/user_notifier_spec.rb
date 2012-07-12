@@ -24,7 +24,7 @@ describe UserNotifier do
     let(:mailer) { double(:mailer)}
 
     before do
-      subject.add_variant(basic_shoe_35)
+      subject.add_item(basic_shoe_35)
       subject.update_attribute( "updated_at", Time.now - 24 * 60 * 60 )
       subject.save!
     end

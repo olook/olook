@@ -242,15 +242,28 @@ class Order < ActiveRecord::Base
     Credit.remove(credits, user, self) if credits > 0
   end
 
+  #TODO: MOVE TO ORDER
   def total
     PriceModificator.new(self).final_price
   end
 
+  #TODO: MOVE TO ORDER
   def freight_price
     0
   end
 
+  #TODO: MOVE TO ORDER
   def total_with_freight
+    0
+  end
+  
+  #TODO: MOVE TO ORDER
+  def line_items_total
+    BigDecimal.new(line_items.inject(0){|result, item| result + item.total_price}.to_s)
+  end
+  
+  #TODO: MOVE TO ORDER
+  def total_discount
     0
   end
 

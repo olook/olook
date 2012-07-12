@@ -3,8 +3,6 @@ class CartController < ApplicationController
   layout "checkout"
 
   respond_to :html, :js
-  before_filter :check_product_variant, :only => [:create, :update]
-  before_filter :format_credits_value, :only => [:update_bonus]
 
   def show
     @bonus = 0
@@ -20,8 +18,10 @@ class CartController < ApplicationController
   end
 
   def update
+    variant_id = params[:variant][:id] if params[:variant]
+
     respond_with do |format|
-      if @cart.remove_variant(@variant)
+      if @cart.remove_item(Variant.find_by_id(variant_id))
         format.html { redirect_to cart_path, notice: "Produto removido com sucesso" }
         format.js { head :ok }
       else
@@ -32,15 +32,25 @@ class CartController < ApplicationController
   end
 
   def create
-    if @cart.add_item(@variant)
+    variant_id = params[:variant][:id] if params[:variant]
+    variant = Variant.find_by_id(variant_id)
+    
+    if variant.nil?
       respond_with do |format|
-        format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
+        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
+        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     else
-      respond_with(@cart) do |format|
-        notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
-        format.js { render :error, locals: { notice: notice_response } }
-        format.html { redirect_to(cart_path, notice: notice_response) }
+      if @cart.add_item(variant)
+        respond_with do |format|
+          format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
+        end
+      else
+        respond_with(@cart) do |format|
+          notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
+          format.js { render :error, locals: { notice: notice_response } }
+          format.html { redirect_to(cart_path, notice: notice_response) }
+        end
       end
     end
   end
@@ -84,6 +94,8 @@ class CartController < ApplicationController
   end
 
   def update_credits
+    params[:credits][:value].gsub!(",",".")
+    
     credits = BigDecimal.new(params[:credits][:value].to_s)
     if @user.current_credit >= credits && credits > 0
       @cart.credits = credits
@@ -95,23 +107,6 @@ class CartController < ApplicationController
       end
     else
       redirect_to cart_path, :notice => "Você não tem créditos suficientes"
-    end
-  end
-  
-  private
-  def format_credits_value
-    params[:credits][:value].gsub!(",",".")
-  end
-
-
-  def check_product_variant
-    variant_id = params[:variant][:id] if params[:variant]
-    @variant = Variant.find_by_id(variant_id)
-    unless @variant.try(:available_for_quantity?)
-      respond_with do |format|
-        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
-        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
-      end
     end
   end
 end
