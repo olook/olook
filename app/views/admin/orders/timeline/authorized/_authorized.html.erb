@@ -1,0 +1,10 @@
+<h4>Atualização recebida as <b><%= format_time(event.created_at) %></b></h4>
+  <img src='/assets/order_timeline/moip.png' width='75px'>
+  <ul style='font-size:14px'>
+    <li>Situação: <b><%= order.payment.payment_response.status %></b></li>
+    <li>Classificação: <b><%= order.payment.gateway_status_reason %></b></li>
+  </ul>
+  <img src='/assets/order_timeline/<%= shipping_service_art(order) %>' width='75px'>      
+  <ul style='font-size:14px'>
+    <li>Data estimada de entrega: <b><%= calculate_delivered_date(event.created_at, order.freight.delivery_time) %></b></li>
+  </ul>
