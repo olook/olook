@@ -66,6 +66,19 @@ class ::AddressesController < ApplicationController
     render json: result
   end
 
+  def get_price_by_zipcode
+    @order.freight_price_override = 0
+    freight = FreightCalculator.freight_for_zip(params[:zipcode], @order.total + @order.credits)
+    @order.freight_price_override = BigDecimal.new(freight[:price],2)
+    cart = Cart.new(@order)
+
+    render json: freight.merge(
+      'total' => @order.total_with_freight,
+      'coupon_discount' => cart.coupon_discount,
+      'coupon_percentage' => cart.coupon_discount_in_percentage || ''
+    )
+  end
+
   private
 
   def check_address
@@ -77,7 +90,7 @@ class ::AddressesController < ApplicationController
   end
 
   def set_freight_in_the_order(address)
-    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
+    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total - @order.credits)
     freight.merge!(:address_id => address.id)
 
     if @order.freight
