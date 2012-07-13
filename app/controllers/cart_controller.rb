@@ -64,6 +64,7 @@ class CartController < ApplicationController
   end
 
   def show
+    destroy_freight(@order)
     @bonus = @user.current_credit - @order.credits
     @cart = Cart.new(@order)
     @line_items = @order.line_items
