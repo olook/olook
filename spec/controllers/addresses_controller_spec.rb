@@ -129,6 +129,19 @@ describe ::AddressesController do
     end
   end
 
+  describe "GET get_price_by_zipcode" do
+    let(:freight){{:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => 10 }}
+
+    before :each do
+        FreightCalculator.stub(:freight_for_zip).and_return(freight)
+    end
+
+    it 'should return a preview value based on the order value' do
+      get :get_price_by_zipcode , :zipcode => '12345789'
+      response.body.should == freight.to_json
+    end
+  end
+
   describe "POST assign_address" do
     context "with a valid address" do
       before :each do
