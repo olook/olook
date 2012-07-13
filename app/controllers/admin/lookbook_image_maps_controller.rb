@@ -26,7 +26,7 @@ class Admin::LookbookImageMapsController < ApplicationController
     if @lookbook_image_map.save
       flash[:notice] = 'Lookbook Image Map was successfully created.'
     end
-    render 'container_picture', partial: @lookbook_image_map
+    respond_with :admin, @lookbook_image_map
   end
 
   def update

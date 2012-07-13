@@ -15,7 +15,7 @@
     <%= render partial: @image.lookbook_image_maps %>
   </div>
 
-  <%= form_for [:admin, @image.lookbook, @image, @lookbook_image_map], remote: true do |f| %>
+  <%= form_for [:admin, @image.lookbook, @image, @lookbook_image_map], remote: true, class: 'form' do |f| %>
     <%= f.hidden_field :lookbook_id, value: @image.lookbook.id %>
     <%= f.hidden_field :image_id, value: @image.id %>
     <%= f.hidden_field :product_id %>
@@ -26,13 +26,13 @@
     </div>
     <div id="product_result"><img src="" width="50" height="50" />
       <span></span>
-      <%= f.submit %>
+      <%= f.submit 'Add product', class: 'button' %>
     </div>
   <% end %>
 
   <br />
 
-  <table class="table">
+  <!-- table class="table">
     <tr>
       <th>ID</th>
       <th>Product</th>
@@ -50,7 +50,7 @@
       <td><%= link_to 'Destroy', admin_lookbook_image_lookbook_image_map_path(@image.lookbook, @image, lim.id), confirm: 'Are you sure?', method: :delete, remote: true, class: 'button danger delete-map' %></td>
     <tr>
   <% end %>
-  </table>
+  </table -->
 </div>
 
 <% content_for :secondary_navigation do %>
