@@ -92,6 +92,24 @@ class Admin::ProductsController < Admin::BaseController
     redirect_to admin_product_path(@product)
   end
 
+  def autocomplete_information
+    if params[:term] =~ /\A[A-Za-z]+/
+      @products = Product.only_visible.where("name like ?", "%#{params[:term]}%").limit(10)
+    elsif params[:term] =~ /\A[0-9]+/
+      @products = Product.only_visible.where("model_number like ?", "%#{params[:term]}%").limit(10)
+    else
+      @products = []
+    end
+
+    render json: @products.map { |prod|
+      {
+        id: prod.id,
+        image: prod.thumb_picture,
+        name: prod.name
+      }
+    }
+  end
+
   private
   helper_method :sort_column, :sort_direction
   def sort_column
