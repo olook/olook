@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   def used_invite_bonus
     InviteBonus.already_used(self)
   end
-
+  
   def current_credit
     credits.last.try(:total) || 0
   end
@@ -125,6 +125,10 @@ class User < ActiveRecord::Base
 
   def can_use_credit?(value)
     current_credit.to_f >= value.to_f
+  end
+  
+  def credits_for?(value)
+    self.current_credit - value
   end
 
   def profile_scores

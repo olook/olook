@@ -7,15 +7,16 @@ class CartController < ApplicationController
   respond_to :html, :js
 
   def show
-    @bonus = 0
-    if @user
-      @bonus = @user.current_credit - @cart.credits
-    end
+    @bonus = @user ? @user.credits_for?(@cart.credits) : 0
   end
 
   def destroy
     @cart.destroy
     session[:cart_id] = nil
+    session[:gift_wrap] = nil
+    session[:session_coupon] = nil
+    session[:credits] = nil
+    session[:freight] = nil
     redirect_to cart_path, notice: "Sua sacola está vazia"
   end
 
@@ -67,6 +68,7 @@ class CartController < ApplicationController
     coupon = Coupon.find_by_code(code)
     
     response_message = if coupon.try(:expired?)
+      session[:session_coupon] = nil
       "Cupom expirado. Informe outro por favor"
     elsif coupon.try(:available?)
       session[:session_coupon] = coupon
@@ -86,30 +88,35 @@ class CartController < ApplicationController
   end
 
   def remove_credits
+    msg = "Você não está usando nenhum crédito"
     if @cart.credits > 0
       session[:credits] = nil
       msg = "Créditos removidos com sucesso"
-    else
-      msg = "Você não está usando nenhum crédito"
     end
     redirect_to cart_path, :notice => msg
   end
 
   def update_credits
-    params[:credits][:value].gsub!(",",".")
+    credits = if params[:credits]
+      params[:credits][:value].gsub!(",",".")
+      BigDecimal.new(params[:credits][:value].to_s)
+    end
     
-    credits = BigDecimal.new(params[:credits][:value].to_s)
-    if @user.current_credit >= credits && credits > 0
+    credits ||= 0
+    
+    if @user.can_use_credit?(credits)
       @cart.credits = credits
       session[:credits] = @cart.credits_discount
       if credits > session[:credits]
-        redirect_to cart_path, :notice => "Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido."
+        msg = "Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido."
       else
-        redirect_to cart_path, :notice => "Créditos atualizados com sucesso"
+        msg = "Créditos atualizados com sucesso"
       end
     else
-      redirect_to cart_path, :notice => "Você não tem créditos suficientes"
+      msg = "Você não tem créditos suficientes"
     end
+
+    redirect_to cart_path, :notice => msg
   end
   
   private
