@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Order < ActiveRecord::Base
+  attr_accessor :freight_price_override
   DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
@@ -201,6 +202,10 @@ class Order < ActiveRecord::Base
 
   def status
     STATUS[state]
+  end
+
+  def freight_price
+    freight_price_override || freight.try(:price)
   end
 
   def remove_unavailable_items
