@@ -114,7 +114,7 @@ class LiquidationProductService
   end
 
   def included?
-    @liquidation.resume[:products_ids].include? @product.id if @liquidation
+    @liquidation.resume[:products_ids].include? @product.id if @liquidation && @liquidation.resume
   end
 
   def last_variant

@@ -152,14 +152,62 @@ div#liquidation {
           }
         }
       }
+      &.shoe_size {
+        display: none;
+      }
     }
   }
   div#products_container {
     width: 770px;
-    overflow: auto;
+    overflow: visible;
     float: right;
+    div#shoe_size_filter {
+      position: relative;
+      width: 380px;
+      display: inline-block;
+      float: left;
+      label {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 38px;
+        margin-right: 15px;
+        float: left;
+      }
+      span {
+        background: url("/assets/common/pink_arrow.jpg") center right no-repeat;
+        text-indent: 12px;
+        line-height: 32px;
+        height: 32px;
+        padding: 0 35px 0 0;
+        bottom: 0;
+        top: 2px;
+        border: 1px #BBB solid;
+        cursor: pointer;
+        float: left;
+      }
+      div.sizes {
+        position: absolute;
+        background: #FFF;
+        width: 110px;
+        overflow: auto;
+        padding: 0 10px;
+        top: 33px;
+        left: 118px;
+        border: 1px #BBB solid;
+        z-index: 10;
+        display: none;
+        ul {
+          li {
+            float: left;
+            label {
+              float: none;
+            }
+          }
+        }
+      }
+    }
     div#order_filter {
-      width: 760px;
+      width: 380px;
       height: 45px;
       display: inline-block;
       form {

@@ -8,8 +8,7 @@ class CatalogSearchService
                   .and(Product.arel_table[:is_visible].eq(true))
                   
     if @liquidation = LiquidationService.active
-      @query_base = @query_base.and(LiquidationProduct.arel_table[:liquidation_id].eq(@liquidation.id))
-                    .and(LiquidationProduct.arel_table[:product_id].eq(nil))
+      @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil)) # .and(LiquidationProduct.arel_table[:liquidation_id].eq(@liquidation.id))
     end
 
     @params = params

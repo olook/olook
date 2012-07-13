@@ -92,7 +92,7 @@ class Variant < ActiveRecord::Base
 
   def retail_price
     if liquidation?
-      LiquidationProductService.retail_price(self)
+      LiquidationProductService.retail_price(self.product)
     else
       retail_price_logic
     end
@@ -100,7 +100,7 @@ class Variant < ActiveRecord::Base
 
   def discount_percent
     discount = if liquidation?
-       LiquidationProductService.discount_percent(self)
+       LiquidationProductService.discount_percent(self.product)
     else
       read_attribute(:discount_percent)
     end
