@@ -18,13 +18,27 @@ $(document).ready(function() {
   });
 
   $("#showroom div.products_list a.more").live("click", function() {
+    click = $(this);
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
+    var url = $(this).data('url');
     if(box.is(":visible") == false) {
-      box.slideDown(1000);
-      container_position = $(box).position().top;
-      ShowroomInit.slideToProductsContainer(container_position);
-    } else {
+      $("<div class='loading'></div>").insertBefore($(this));
+      if ($(this).hasClass("loaded") == false) {
+        $.getScript(url).done(function() {
+          box.slideDown(1000);
+          container_position = $(box).position().top;
+          ShowroomInit.slideToProductsContainer(container_position);
+          $("div.loading").remove();
+          $(click).addClass("loaded");
+        });
+      } else {
+        box.slideDown(1000);
+        container_position = $(box).position().top;
+        ShowroomInit.slideToProductsContainer(container_position);
+        $("div.loading").remove();
+      }
+  } else {
       box.slideUp(1000);
       topBox = $(this).parent(".products_list");
       container_position = $(topBox).position().top;

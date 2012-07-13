@@ -39,6 +39,7 @@ gem 'graylog2_exceptions'
 gem 'SyslogLogger', :require => 'syslog_logger'
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
+
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 

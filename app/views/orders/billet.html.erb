@@ -11,7 +11,7 @@
       <%= link_to "Clique aqui para imprimir seu boleto", @payment.url, :target => "_blank", :class => "link" %>
     </div>
     <p class="description">Obrigada pela sua compra! Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados ao lado estão corretos. Se você tiver qualquer dúvida ou precisar solicitar alguma alteração nos dados do seu pedido, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.</p>
-<%= render "shared/ebit/seal" %>
+<%= render "shared/ebit/seal_order" %>
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>

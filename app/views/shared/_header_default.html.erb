@@ -14,7 +14,7 @@
     <div class="info">
       <ul>
         <li>Todos os meses uma <strong>coleção nova para você</strong></li>
-        <li>O cadastro é gratuito <strong>e leva menos de 2 minutos</strong></li>
+        <li>Troca ou devolução <strong>em até 30 dias</strong></li>
         <li>Frete grátis para SP e RJ e acima <strong>de R$120,00 para outros estados</strong></li>
       </ul>
     </div>
@@ -26,7 +26,7 @@
       <ul>
         <% if user_signed_in? %>
           <li><%= link_to "Minha conta", user_orders_path %></li>
-          <li><%= link_to "Convidar amigas", member_invite_path %></li>
+          <li><%= link_to "Convidar amigas", member_invite_path, :class => "invite" %></li>
           <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li class="login">

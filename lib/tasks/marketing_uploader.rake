@@ -10,6 +10,11 @@ namespace :marketing_uploader do
     MarketingReports::Builder.new(:userbase).upload("base_atualizada_purchases.csv")
   end
 
+  desc "Uploads a CSV file with all user data (user name, email, etc) and auth token"
+  task :copy_userbase_to_ftp_auth_token => :environment do
+    MarketingReports::Builder.new(:userbase_with_auth_token).upload("base_atualizada_purchases_auth_token.csv")
+  end
+
   desc "Uploads a CSV with userbase orders"
   task :copy_userbase_orders_to_ftp => :environment do
     MarketingReports::Builder.new(:userbase_orders).upload("base_pedidos_atualizada.csv")

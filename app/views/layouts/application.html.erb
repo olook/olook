@@ -24,6 +24,7 @@
     <%= render "shared/metrics/google/google_analytics" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
     <%= render "shared/metrics/vwo/tracking_code" %>
+    <script src="https://connect.facebook.net/en_US/all.js"></script>
 
   </head>
   <body class="<%= user_signed_in? ? 'logged' : '' %>">
@@ -35,12 +36,14 @@
     </div>
 
     <%= yield :top_my_account %>
-      <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
-      <%= render_promotion_banner unless error %>
-      <%= content_for?(:content) ? yield(:content) : yield %>
-      </div>
-  </div>
+    <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
+    <%= render_promotion_banner unless error %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+    </div>
 
+    <% if user_signed_in? %>
+      <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+    <% end %>
   <%= yield :site_footer %>
   <%= render "shared/metrics/adroll/adroll" %>
   <%= javascript_include_tag "application" %>

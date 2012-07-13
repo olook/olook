@@ -6,7 +6,7 @@
       <li><%= link_to "Tendências", lookbooks_path %></li>
       <li><%= link_to "Como funciona", how_to_path %></li>
       <li><%= link_to "Contato", contact_path %></li>
-      <li><%= link_to "Criar presente", gift_root_path %></li>      
+      <li><%= link_to "Criar presente", gift_root_path %></li>
     </ul>
 
     <ul>
@@ -31,8 +31,11 @@
     <ul class="bandeiras">
       <li><span>TRABALHAMOS COM:</span></li>
       <li><%= image_tag("common/ico_bandeiras.png", :alt => "Trabalhamos com Visa, Mastercard, American Express e Dinners") %></li>
+      </ul>
+      <ul>
       <li><span>SITE SEGURO:</span></li>
       <li><%= link_to image_tag("common/ico_security.png"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", :target => '_blank' %></li>
+      <li><%= render "shared/ebit/seal_footer" %></li>
     </ul>
 
     <p>© <%= Time.now.year %> - olook</p>

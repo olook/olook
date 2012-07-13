@@ -1,0 +1,38 @@
+<% content_for :footer do %>
+<script>
+$(function(){
+  FB.init({
+    appId: '<%= facebook_app_id %>',
+    status: true,
+    cookie: true,
+    oauth: true
+  });
+
+  try {
+    FB.XFBML.parse();
+  } catch(ex){}
+});
+
+function sendFacebookMessage() {
+  FB.ui({
+    description: 'Oie! Achei um site de moda chamado olook que é a sua cara. Você responde um quiz, descobre o seu estilo e os stylists montam uma vitrine exclusiva para você todo mês. Pelo link do meu convite, <%= accept_invitation_url(:invite_token => member.invite_token) %>, você consegue se cadastrar e ainda ganha R$10 na primeira compra! Beijos!',
+    method: 'send',
+    caption: 'www.olook.com.br',
+    link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg'
+  });
+}
+
+function postToFacebookFeed() {
+  var obj = {
+    method: 'feed',
+    caption: 'www.olook.com.br',
+    link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg',
+    description: 'Responda o quiz, a olook descobre o seu estilo e os stylists montam uma vitrine nova para você a cada mês! Por este convite <%= accept_invitation_url(:invite_token => member.invite_token) %>, você se cadastra e ainda ganha R$10 na primeira compra! #ficaadica'
+  };
+
+  FB.ui(obj);
+}
+</script>
+<% end %>
