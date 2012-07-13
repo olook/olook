@@ -255,9 +255,9 @@ describe Variant do
     end
 
     it "should return the retail price for a liquidation" do
-      subject.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:retail_price).with(subject).and_return(1.99)
-      subject.retail_price.should == 1.99
+      subject.product.stub(:liquidation?).and_return(true)
+      LiquidationProductService.stub(:retail_price).with(subject.product).and_return(1.99)
+      subject.product.retail_price.should == 1.99
     end
 
     it "should return the original when the retail price is 0" do
@@ -287,15 +287,15 @@ describe Variant do
     end
 
     it "should return the discount_percent for a liquidation" do
-      subject.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:discount_percent).with(subject).and_return(20)
-      subject.discount_percent.should == 20
+      subject.product.stub(:liquidation?).and_return(true)
+      LiquidationProductService.stub(:discount_percent).with(subject.product).and_return(20)
+      subject.product.discount_percent.should == 20
     end
 
     it "should return 0 when discount_percent for a liquidation is nil" do
       subject.stub(:liquidation?).and_return(true)
       LiquidationProductService.stub(:discount_percent).with(subject).and_return(nil)
-      subject.discount_percent.should == 0
+      subject.product.discount_percent.should == 0
     end
 
     it "should return 0 when the retail_price price is 0" do
