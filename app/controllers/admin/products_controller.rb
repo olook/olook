@@ -93,12 +93,12 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def autocomplete_information
-    if params[:term] =~ /\A[A-Za-z]+/
-      @products = Product.only_visible.where("name like ?", "%#{params[:term]}%").limit(10)
+    @products =  if params[:term] =~ /\A[A-Za-z]+/
+      Product.only_visible.where("name like ?", "%#{params[:term]}%").limit(10)
     elsif params[:term] =~ /\A[0-9]+/
-      @products = Product.only_visible.where("model_number like ?", "%#{params[:term]}%").limit(10)
+      Product.only_visible.where("model_number like ?", "%#{params[:term]}%").limit(10)
     else
-      @products = []
+      []
     end
 
     render json: @products.map { |prod|
