@@ -64,6 +64,7 @@ module Abacos
     end
 
     def parse_data(birthday)
+      return "01011900"  if birthday.nil? # TODO: Emergency fix , should be replaced!
       birthday.strftime "%d%m%Y"
     end
 

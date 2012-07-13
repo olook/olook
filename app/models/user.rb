@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_one :tracking, :dependent => :destroy
 
   before_create :generate_invite_token
+  after_create :generate_auth_token
 
   delegate :shoes_size, :to => :user_info, :allow_nil => true
 
@@ -281,5 +282,9 @@ class User < ActiveRecord::Base
       write_attribute(:invite_token, Devise.friendly_token[0..7])
       break unless User.find_by_invite_token(self.invite_token)
     end if self.invite_token.nil?
+  end
+
+  def generate_auth_token
+    self.reset_authentication_token!
   end
 end

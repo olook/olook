@@ -4,7 +4,7 @@ class MembersController < ApplicationController
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :validate_token, :only => :accept_invitation
   # TODO: Added for valentine invite page
-  before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome]
+  before_filter :load_user, :only => [:invite, :valentine_invite, :showroom, :invite_list, :welcome, :showroom_shoes, :showroom_accessories, :showroom_bags]
   before_filter :load_order, :except => [:invite_by_email, :invite_imported_contacts]
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
@@ -45,7 +45,7 @@ class MembersController < ApplicationController
     parsed_emails = params[:invite_mail_list].split(/,|;|\r|\t/).map(&:strip)
     invites = current_user.invites_for(parsed_emails)
     current_user.add_event(EventType::SEND_INVITE, "#{invites.length} invites sent")
-    redirect_to(member_invite_path, :notice => "#{invites.length} convites enviados com sucesso!")
+    redirect_to(:back, :notice => "#{invites.length} convites enviados com sucesso!")
   end
 
   def new_member_invite_by_email
@@ -73,7 +73,6 @@ class MembersController < ApplicationController
 
   def welcome
     session[:facebook_redirect_paths] = "showroom"
-    @is_the_first_visit = first_visit_for_member?(@user)
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
@@ -88,10 +87,6 @@ class MembersController < ApplicationController
       else
         return redirect_to lookbooks_path, :alert => flash[:notice]
       end
-    else
-      if @user.first_visit?
-        return redirect_to member_welcome_path, :alert => flash[:notice]
-      end
     end
 
     session[:facebook_redirect_paths] = "showroom"
@@ -103,6 +98,18 @@ class MembersController < ApplicationController
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @is_the_first_visit = first_visit_for_member?(@user)
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
+  end
+
+  def showroom_shoes
+    
+  end
+
+  def showroom_bags
+    
+  end
+
+  def showroom_accessories
+    
   end
 
   def show_imported_contacts

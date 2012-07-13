@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
   before_filter :load_promotion
-  before_filter :clean_token
   before_filter :save_referer
   before_filter :current_referer
   before_filter :load_order
+  before_filter :load_facebook_api
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
@@ -48,13 +48,6 @@ class ApplicationController < ActionController::Base
     {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
   end
 
-  def clean_token
-    if params[:auth_token] && current_user
-      current_user.authentication_token = nil
-      current_user.save
-    end
-  end
-
   def load_promotion
     if current_user and not current_user.half_user
       @promotion = PromotionService.new(current_user).detect_current_promotion
@@ -86,6 +79,10 @@ class ApplicationController < ActionController::Base
   # def user_for_paper_trail
   #   user_signed_in? ? current_user : current_admin
   # end
+
+  def load_facebook_api
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+  end
 
   def load_user
     @user = current_user

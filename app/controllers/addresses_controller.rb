@@ -60,7 +60,7 @@ class ::AddressesController < ApplicationController
       redirect_to addresses_path, :notice => "Por favor, selecione um endereço"
     end
   end
-  
+
   def get_address_by_zipcode
     result = ZipCodeAdapter.get_address(params[:zipcode])
     render json: result
@@ -77,7 +77,7 @@ class ::AddressesController < ApplicationController
   end
 
   def set_freight_in_the_order(address)
-    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.line_items_total)
+    freight = FreightCalculator.freight_for_zip(address.zip_code, @order.total)
     freight.merge!(:address_id => address.id)
 
     if @order.freight
