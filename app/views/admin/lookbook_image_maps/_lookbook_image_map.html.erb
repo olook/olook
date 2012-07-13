@@ -1,6 +1,7 @@
 <div class="product-map" id="pm<%= lookbook_image_map.id %>" style="top:<%= lookbook_image_map.coord_y %>px; left:<%= lookbook_image_map.coord_x %>px;" data-id="<%= lookbook_image_map.id %>" data-lookbook_id="<%= lookbook_image_map.lookbook.id %>" data-image_id="<%= lookbook_image_map.image.id %>">
 	<p>
+<%= link_to 'X', admin_lookbook_image_lookbook_image_map_path(lookbook_image_map.lookbook, lookbook_image_map.image, lookbook_image_map.id), confirm: 'Are you sure?', method: :delete, remote: true, class: 'button danger delete-map' %>
 		<%= link_to lookbook_image_map.product.name, '#' %>
 	</p>
-	<% link_to 'X', admin_lookbook_image_lookbook_image_map_path(lookbook_image_map.lookbook, lookbook_image_map.image, lookbook_image_map.id), confirm: 'Are you sure?', method: :delete, remote: true, :class => 'button danger delete-map' %>
+	
 </div>

@@ -43,7 +43,7 @@ $(function() {
   }
 
   $(document).on('ajax:success', '.delete-map', function() {
-    $(this).closest('tr').fadeOut();
+    $(this).closest('div.product-map').fadeOut();
   });
 
    $("#new_lookbook_image_map").bind("ajax:success", function(event, data, status, xhr) {
