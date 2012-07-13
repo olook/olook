@@ -65,6 +65,7 @@ describe CartController do
         it "should set flash notice"
         it "should set flash notice with gift items"
       end
+    end
   end
   
   
