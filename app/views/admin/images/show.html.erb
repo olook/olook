@@ -21,12 +21,13 @@
     <%= f.hidden_field :product_id %>
     <%= f.hidden_field :coord_x, value: 0 %>
     <%= f.hidden_field :coord_y, value: 0 %>
-    <div class="ui-widget">
-      <%= text_field_tag :q, '', id: 'product_name', class: 'ui-autocomplete-input', placeholder: 'Product name or model number', autocomplete: 'off', 'aria-autocomplete' => 'list', 'aria-haspopup' => true, role: 'textbox' %>
-    </div>
     <div id="product_result"><img src="" width="50" height="50" />
       <span></span>
       <%= f.submit 'Add product', class: 'button' %>
+    </div>
+    <div class="ui-widget">
+      <h4>Add image map</h4>
+      <%= text_field_tag :q, '', id: 'product_name', class: 'ui-autocomplete-input', placeholder: 'Product name or model number', autocomplete: 'off', 'aria-autocomplete' => 'list', 'aria-haspopup' => true, role: 'textbox' %>
     </div>
   <% end %>
 
