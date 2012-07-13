@@ -32,26 +32,6 @@
   <% end %>
 
   <br />
-
-  <!-- table class="table">
-    <tr>
-      <th>ID</th>
-      <th>Product</th>
-      <th>Left</th>
-      <th>Top</th>
-      <th></th>
-      <th></th>
-    </tr>
-  <% @image.lookbook_image_maps.each do |lim| %>
-    <tr>
-      <td><%= lim.id %></td>
-      <td><%= lim.product.name %></td>
-      <td>X:<%= lim.coord_x %></td>
-      <td>Y:<%= lim.coord_y %></td>
-      <td><%= link_to 'Destroy', admin_lookbook_image_lookbook_image_map_path(@image.lookbook, @image, lim.id), confirm: 'Are you sure?', method: :delete, remote: true, class: 'button danger delete-map' %></td>
-    <tr>
-  <% end %>
-  </table -->
 </div>
 
 <% content_for :secondary_navigation do %>
