@@ -50,7 +50,6 @@ class ApplicationController < ActionController::Base
     session[:credits] = 0 unless session[:credits]
     cart.credits = session[:credits]
     cart.freight = session[:freight]
-    #TODO: FREIGHT, ADDRESS, GIFT PROJETCT
     
     cart
   end
