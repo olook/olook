@@ -85,8 +85,9 @@ body {
               display: none;
             }
             li, .field_with_errors {
+              width: 450px;
               margin-bottom: 5px;
-              overflow: hidden;
+              overflow: auto;
 
               label {
                 color: #0f1714;
@@ -97,14 +98,17 @@ body {
                 font-weight: bold;
                 float: left;
 
-                &[for='user_password'] {
-                  span {
-                    display: block;
-                    font-weight: normal;
-                    font-size: 11px;
-                    line-height: 5px;
-                  }
-                }
+              }
+              p.hint {
+                color: #878787;
+                font-family: "Arial", sans-serif;
+                display: block;
+                font-weight: normal;
+                font-style: normal;
+                font-size: 11px;
+                line-height: 5px;
+                letter-spacing: normal;
+                margin: 10px 0 5px 145px;
               }
 
               input[type='text'], input[type='email'], input[type='password'] {
