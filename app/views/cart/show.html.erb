@@ -91,8 +91,10 @@
             <% end %>
           </td>
           <td class="discount">
-            <p class='discount_origin'><%= @order.get_retail_price_for_line_item(item)[0] %></p>
-            <p class='discount_percent'><%= @cart.item_discount_percent(item) %></p>
+            <%= link_to @cart.item_discount_percent(item), "#", :class => 'discount_percent' %>
+            <div class='discount_origin'>
+              <p><%= @order.get_retail_price_for_line_item(item)[0] %></p>
+            </div>
           </td>
           <td class="value">
             <% if item.retail_price != item.price && !item.retail_price.nil? %>

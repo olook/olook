@@ -1,16 +1,37 @@
-$("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
-  document.location = $("a.continue").attr("href");
+$(function() {
+  $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
+    document.location = $("a.continue").attr("href");
+  });
+
+  $(".continue").click(function() {
+    $("form#gift_message").submit();
+  })
+
+  $("td.discount a.discount_percent").hover(function() {
+    $(this).siblings('.discount_origin').css('display', 'table');
+  }, function() {
+    $(this).siblings('.discount_origin').hide();
+  });
+
+  $("table#coupon a#show_coupon_field").live("click", function(e) {
+    $(this).hide();
+    $(this).siblings("form").show();
+    e.preventDefault();
+  });
+
+  $( "#gift_gift_wrap" ).change(function() {
+    $( "#gift_wrap" ).submit();
+    if ( $(this).attr('checked') == 'checked' ) {
+      // $('.message_row').slideDown("slow");
+      change_value (true);
+    }
+    else {
+      // $('.message_row').slideUp("slow");
+      change_value (false);
+    }
+  });
 });
 
-$(".continue").click(function() {
-  $("form#gift_message").submit();
-})
-
-$("table#coupon a#show_coupon_field").live("click", function(e) {
-  $(this).hide();
-  $(this).siblings("form").show();
-  e.preventDefault();
-});
 
 function change_value(wrap) {
   wrap_value = $("form#gift_wrap .inputs li p").text().match(/[0-9,]+/);
@@ -24,17 +45,6 @@ function change_value(wrap) {
 }
 
 
-$( "#gift_gift_wrap" ).change(function() {
-  $( "#gift_wrap" ).submit();
-  if ( $(this).attr('checked') == 'checked' ) {
-    // $('.message_row').slideDown("slow");
-    change_value (true);
-  }
-  else {
-    // $('.message_row').slideUp("slow");
-    change_value (false);
-  }
-});
 
 
 // $(document).ready(function(){
