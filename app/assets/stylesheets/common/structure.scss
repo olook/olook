@@ -372,7 +372,7 @@ body {
 
 
     .sign-in {
-      background: url("/assets/home/bg-middle-home.jpg") no-repeat;
+      background: url("/assets/home/bg-middle-home.jpg") top right no-repeat;
       height: 575px;
       padding:0 30px;
       @include sign-in(relative);
