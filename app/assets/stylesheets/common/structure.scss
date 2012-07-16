@@ -234,7 +234,7 @@ body {
         height: 96px;
         float: left;
         margin-top: 90px;
-        margin-left: 15px;
+        margin-left: 100px;
 
         li {
           background: url('/assets/common/sprite-social-media.png') 10px 24px no-repeat;
@@ -377,7 +377,7 @@ body {
 
 
     .sign-in {
-      background: url("/assets/home/bg-middle-home.jpg") no-repeat;
+      background: url("/assets/home/bg-middle-home.jpg") top right no-repeat;
       height: 575px;
       padding:0 30px;
       @include sign-in(relative);
@@ -396,7 +396,7 @@ body {
         height: 96px;
         float: left;
         margin-top: 90px;
-        margin-left: 15px;
+        margin-left: 100px;
 
         li {
           background: url('/assets/common/sprite-social-media.png') 10px 24px no-repeat;
