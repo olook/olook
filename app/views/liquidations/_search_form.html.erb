@@ -1,5 +1,5 @@
 <div id="filters_container">
-  <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "liquidation_filter"}) do %>
+  <%= form_for(update_liquidation_path, :url => update_liquidation_path, :method => :get, :remote => true, :html => {:id => "filter"}) do %>
       <%= hidden_field_tag('id', liquidation_presenter.liquidation.id) %>
 
       <%= hidden_field_tag('sort_filter') %>
