@@ -84,6 +84,11 @@ body {
       display: none;
       height: auto !important;
     }
+    a.liquidation_banner {
+      width: 970px;
+      display: block;
+      margin: 0 auto 20px;
+    }
     div#login_modal {
       position: relative;
       background: url("/assets/common/bg-modal-login.jpg") top left no-repeat;
