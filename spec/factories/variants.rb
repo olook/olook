@@ -13,23 +13,27 @@ FactoryGirl.define do
     weight 1.0
 
     price 0.0
+    retail_price 0.0
     inventory 0
 
     factory :basic_bag_simple do
       description 'bag'
       price 123.45
+      retail_price 123.45
       inventory 10
     end
 
     factory :basic_bag_normal do
       description 'bag'
       price 100.45
+      retail_price 100.45
       inventory 1
     end
 
     factory :basic_accessory_simple do
       description 'acessory'
       price 123.45
+      retail_price 123.45
       inventory 10
     end
 
@@ -38,6 +42,7 @@ FactoryGirl.define do
       description '35'
       display_reference 'size-35'
       price 123.45
+      retail_price 123.45
       inventory 10
     end
 
@@ -46,6 +51,7 @@ FactoryGirl.define do
       description '37'
       display_reference 'size-37'
       price 124.19
+      retail_price 124.19
       inventory 5
     end
 
@@ -54,6 +60,7 @@ FactoryGirl.define do
       description '40'
       display_reference 'size-45'
       price 125.45
+      retail_price 125.45
       inventory 5
     end
   end

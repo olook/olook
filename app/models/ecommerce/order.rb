@@ -257,12 +257,7 @@ class Order < ActiveRecord::Base
   def max_credit_value
     max_credit_possible = line_items_total
     max_credit_possible -= Payment::MINIMUM_VALUE
-    max_credit_possible -= discount_from_coupon if discount_from_coupon > 0
-    # if discount_from_coupon > 0
-    # else
-    #   max_credit_possible -= discount_from_promotion
-    # end
-
+    max_credit_possible -= discount_from_coupon
     max_credit_possible > 0 ? max_credit_possible : 0
   end
 
@@ -312,9 +307,6 @@ class Order < ActiveRecord::Base
 
   def total_discount
     credits + discount_from_coupon
-    # else
-    #   credits + discount_from_promotion
-    # end
   end
 
   def generate_identification_code
@@ -393,7 +385,18 @@ class Order < ActiveRecord::Base
     if state == "in_the_cart" && !restricted?
 
       line_items.each do |item|
-        origin, final_retail_price = get_retail_price_for_line_item(item)
+        final_retail_price = item.variant.product.retail_price
+
+        if used_coupon && used_coupon.is_percentage?
+          coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
+          final_retail_price = coupon_value if coupon_value < final_retail_price
+        end
+
+        if used_promotion && (!used_coupon || (used_coupon && used_coupon.is_percentage?))
+          promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
+          final_retail_price = promotion_value if promotion_value < final_retail_price
+        end
+
         item.update_attribute(:retail_price, final_retail_price)
       end
     end
