@@ -257,12 +257,7 @@ class Order < ActiveRecord::Base
   def max_credit_value
     max_credit_possible = line_items_total
     max_credit_possible -= Payment::MINIMUM_VALUE
-    max_credit_possible -= discount_from_coupon if discount_from_coupon > 0
-    # if discount_from_coupon > 0
-    # else
-    #   max_credit_possible -= discount_from_promotion
-    # end
-
+    max_credit_possible -= discount_from_coupon 
     max_credit_possible > 0 ? max_credit_possible : 0
   end
 
@@ -312,9 +307,6 @@ class Order < ActiveRecord::Base
 
   def total_discount
     credits + discount_from_coupon
-    # else
-    #   credits + discount_from_promotion
-    # end
   end
 
   def generate_identification_code
@@ -378,6 +370,7 @@ class Order < ActiveRecord::Base
     if state == "in_the_cart" && !restricted?
 
       line_items.each do |item|
+        
         final_retail_price = item.variant.product.retail_price
         
         if used_coupon && used_coupon.is_percentage?
