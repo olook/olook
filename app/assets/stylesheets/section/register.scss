@@ -1,5 +1,4 @@
 @import 'partials/mixins';
-@import 'common/fonts';
 
 body {
   #error_explanation {
@@ -11,12 +10,14 @@ body {
       overflow: visible;
       width: 540px;
       height: 573px;
+      margin: 20px 0 0 0;
     }
 
     #sign-up {
       float: right;
       overflow: visible;
       width: 450px;
+      margin: 10px 0 0 0;
 
       h2, p {
         margin-left: 60px;
@@ -37,6 +38,9 @@ body {
         }
         p {
           font-size: 19px;
+          text-align: center;
+          width: 285px;
+          margin: 0 auto;
         }
       }
 
@@ -47,7 +51,7 @@ body {
       p.facebook {
         margin-bottom: 20px;
       }
-      
+
       div.connect {
         width: 415px;
         overflow: hidden;
@@ -55,6 +59,7 @@ body {
         padding: 15px;
         border: 1px #dedede solid;
         p {
+          color: #696969;
           font-size: 16px;
           line-height: 13px;
           width: 180px;
