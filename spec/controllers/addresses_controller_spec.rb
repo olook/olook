@@ -130,7 +130,7 @@ describe ::AddressesController do
   end
 
   describe "GET get_price_by_zipcode" do
-    let(:freight){{:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => 10 }}
+    let(:freight){{:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => 10, :total => 372.14, :coupon_discount => 0, :coupon_percentage => '' }}
 
     before :each do
         FreightCalculator.stub(:freight_for_zip).and_return(freight)
