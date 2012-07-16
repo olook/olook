@@ -71,6 +71,7 @@ div#order_status {
 section#cart {
   table.items_list {
     $border-color: #e5e5e5;
+    width: 990px;
     margin-bottom: 25px;
     table-layout: fixed;
     thead tr th, tfoot tr td {
@@ -83,13 +84,21 @@ section#cart {
       padding: 5px 0;
       border-bottom: 1px $border-color solid;
       &.item {
-        width: 560px;
+        width: 400px;
       }
       &.amount {
-        width: 160px;
+        width: 100px;
       }
-      &.value{
-        width: 270px;
+      &.delete_item {
+        width: 120px;
+      }
+      &.discount {
+        width: 220px;
+      }
+      &.value {
+        text-align: right;
+        width: 80px;
+        padding-right: 70px;
       }
     }
     tbody tr {
@@ -129,7 +138,7 @@ section#cart {
         td {
           vertical-align: top;
           h1 {
-            font-family: Times;
+            font-family: Times, 'Times New Roman', sans-serif;
             font-style: italic;
             font-size: 24px;
             font-weight: lighter;
@@ -214,7 +223,6 @@ section#cart {
           }
         }
         &.item {
-          width: 440px;
           padding-left: 15px;
           img {
             width: 70px;
@@ -224,14 +232,13 @@ section#cart {
           }
         }
         &.amount {
-          width: 145px;
           select {
             width: 55px
           }
         }
         &.value {
-          text-align: center;
-          width: 120px;
+          text-align: right;
+          padding-right: 30px;
           p {
             strong {
               text-transform: none;
@@ -243,8 +250,38 @@ section#cart {
             }
           }
         }
+        &.discount {
+          div.discount_origin {
+            position: absolute;
+            background: url('/assets/cart/tooltip-discount.png') top center no-repeat;
+            width: 151px;
+            height: 64px;
+            top: 12px;
+            right: 47px;
+            display: none;
+            p {
+              color: #656464;
+              font-weight: bold;
+              text-align: center;
+              display: table-cell;
+              vertical-align: middle;
+            }
+          }
+          a.discount_percent {
+            background: url('/assets/cart/label_discount.jpg') top center no-repeat;
+            color: #FFF;
+            font-size: 11px;
+            text-align: center;
+            text-decoration: none;
+            width: 38px;
+            height: 25px;
+            margin: 15px 0 0 0;
+            padding: 13px 0 0 0;
+            display: block;
+            float: right;
+          }
+        }
         &.delete_item {
-          width: 270px;
           form {
             position: relative;
             input[type="submit"] {
@@ -254,7 +291,7 @@ section#cart {
               height: 20px;
               display: block;
               top: 30px;
-              right: 15px;
+              right: 25px;
               border: none;
               cursor: pointer;
             }
