@@ -71,6 +71,7 @@ class CartController < ApplicationController
     @coupon_code = @order.used_coupon.try(:code)
     # unless @coupon_code
     PromotionService.new(current_user, @order).apply_promotion if @promotion
+    @order.update_retail_price
     # end
   end
 
