@@ -69,6 +69,30 @@ div#order_status {
   }
 }
 section#cart {
+  div.banner {
+    background: url('/assets/cart/banner_discount.jpg') top center no-repeat;
+    width: 965px;
+    height: 85px;
+    margin: 0 auto 30px;
+    padding: 35px 0 0;
+    display: block;
+    h1 {
+      color: #df5787;
+      font-family: Times, 'Times New Roman', sans-serif;
+      font-size: 21px;
+      font-weight: normal;
+      font-style: italic;
+      margin: 0 0 5px 180px;
+    }
+    p {
+      color: #716d68;
+      font-size: 12px;
+      margin: 0 0 0 180px;
+      span {
+        color: #df5787;
+      }
+    }
+  }
   table.items_list {
     $border-color: #e5e5e5;
     width: 990px;
