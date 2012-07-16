@@ -37,7 +37,7 @@ class Cart
       "(#{percent})"
     end
   end
-  
+
   def coupon_percent
     if order.used_coupon && order.used_coupon.is_percentage?
       order.used_coupon.value
@@ -48,5 +48,11 @@ class Cart
 
   def freight_price
    order.freight ? order.freight_price : 0
+  end
+
+  def item_discount_percent(item)
+    return 0 if order.get_retail_price_for_line_item(item)[1] == 0
+    percent = (item.variant.product.price % order.get_retail_price_for_line_item(item)[1]).ceil
+    percent != 0 ? number_to_percentage(percent, :precision => 0) : ''
   end
 end
