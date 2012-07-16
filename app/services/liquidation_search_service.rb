@@ -18,13 +18,9 @@ class LiquidationSearchService
     query_bags_acessories = params[:bag_accessory_subcategories] ? l_products[:subcategory_name].in(params[:bag_accessory_subcategories]) : nil
 
     if query_bags_acessories
-      if query_result
-        @query_base = @query_base.and(query_result.or(query_bags_acessories))
-      else
-        @query_base = @query_base.and(query_bags_acessories)
-      end
+      @query_base = query_result ? @query_base.and(query_result.or(query_bags_acessories)) : @query_base.and(query_bags_acessories)
     else
-      @query_base = @query_base.and(query_result) if query_result
+      @query_base = @query_base.and(query_result.or(l_products[:category_id].in([Category::BAG, Category::ACCESSORY]))) if query_result
     end
 
     LiquidationProduct.joins(:product).where(query_base)
