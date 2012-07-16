@@ -37,6 +37,14 @@ class Cart
       "(#{percent})"
     end
   end
+  
+  def coupon_percent
+    if order.used_coupon && order.used_coupon.is_percentage?
+      order.used_coupon.value
+    else
+      0
+    end
+  end
 
   def freight_price
    order.freight ? order.freight_price : 0

@@ -16,7 +16,8 @@
       </tr>
     </thead>
     <tfoot>
-      <% if @promotion and not @order.used_coupon %>
+      <% 
+      if @order.used_promotion && @order.used_promotion.promotion.discount_percent > @cart.coupon_percent %>
         <tr>
           <td class="titles" colspan="3"><%= @promotion.cart_label %></td>
           <td class="value">
@@ -26,8 +27,7 @@
             </p>
           </td>
         </tr>
-      <% end %>
-      <% if @cart.coupon_discount > 0 %>
+      <% elsif @order.used_coupon %>
         <tr class="first">
           <td class="titles" colspan="3">Código Promocional</td>
           <td class="value">
@@ -44,16 +44,6 @@
                 </ol>
               </fieldset>
             <% end %>
-          </td>
-        </tr>
-      <% end %>
-      <% if @promotion and @order.used_coupon %>
-        <tr>
-          <td class="titles" colspan="3">
-            <p>
-              A utilização deste código promocional invalida o <strong><%= @promotion.cart_label %></strong>.<br/>
-              Para voltar a utilizá-lo limpe seu cupom.
-            </p>
           </td>
         </tr>
       <% end %>
@@ -103,10 +93,7 @@
             <% end %>
           </td>
           <td class="value">
-            <% if item.variant.product.liquidation? %>
-              <p class="price_retail"><strong>de: <%= number_to_currency(item.variant.price) %></strong></p>
-              <p><strong>por: <%= number_to_currency(item.variant.product.retail_price) %></strong></p>
-            <% elsif item.retail_price != item.price && !item.retail_price.nil? %>
+            <% if item.retail_price != item.price && !item.retail_price.nil? %>
             <p class="price_retail"><strong>de: <%= number_to_currency(item.price) %></strong></p>
             <p><strong>por: <%= number_to_currency(item.retail_price) %></strong></p>
             <% else %>
