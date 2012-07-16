@@ -3,7 +3,11 @@
   <ol class="column">
    <% liquidation_presenter.liquidation.resume[:shoe_sizes].each do |key, value| %>
       <li>
-        <%= check_box_tag('shoe_sizes[]', key, (key == current_user.user_info.shoes_size.to_s ? true : false), :id => key) %>
+      	<% if current_user && current_user.user_info %>
+        	<%= check_box_tag('shoe_sizes[]', key, (key == current_user.user_info.shoes_size.to_s ? true : false), :id => key) %>
+        <% else %>
+        	<%= check_box_tag('shoe_sizes[]', key, false, :id => key) %>
+        <% end %>
         <%= label_tag(value, nil, :for => key) %>
       </li>
     <% end %>
