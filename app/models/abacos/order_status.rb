@@ -33,7 +33,6 @@ module Abacos
         invoice:              parse_invoice(abacos_status[:serie_nota], abacos_status[:numero_nota]),
         invoice_datetime:     parse_datetime(abacos_status[:data_emissao_nota]),
         tracking_code:        abacos_status[:numero_objeto],
-        cancelation_reason:   parse_cancelation(abacos_status[:codigo_motivo_cancelamento], abacos_status[:motivo_cancelamento]),
         invoice_number:       abacos_status[:numero_nota],
         invoice_serie:        abacos_status[:serie_nota]
       }
@@ -86,11 +85,6 @@ module Abacos
     end
 
     def change_order_state(order)
-      if new_state == 'canceled'
-        #order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:abacos], :message => cancelation_reason) if order.cancele
-        order.update_attributes(:state_reason => cancelation_reason) if order.canceled
-      end
-
       valid_state = VALID_STATES.index(order.state)
 
       if valid_state
