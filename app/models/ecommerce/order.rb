@@ -111,22 +111,16 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def send_notification_order_picking
-  #  ::PurchaseTimeline::Notifier.notify_event(self)
-  end
-
   def send_notification_payment_refused
     Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
   end
 
   def send_notification_order_delivered
     Resque.enqueue(Orders::NotificationOrderDeliveredWorker, self.id)
-   # ::PurchaseTimeline::Notifier.notify_event(self)
   end
 
   def send_notification_order_shipped
     Resque.enqueue(Orders::NotificationOrderShippedWorker, self.id)
-    #::PurchaseTimeline::Notifier.notify_event(self)
   end
 
   def send_notification_payment_confirmed
@@ -135,7 +129,6 @@ class Order < ActiveRecord::Base
 
   def send_notification_order_requested
     Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
-    #::PurchaseTimeline::Notifier.notify_event(self)
   end
 
   def enqueue_order_status_worker
