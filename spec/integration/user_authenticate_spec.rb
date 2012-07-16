@@ -28,8 +28,8 @@ feature "User Authenticate", %q{
   end
 
   scenario "User must fill the cpf when invited" do
-    visit accept_invitation_path(:invite_token => @user.invite_token) 
-    answer_survey 
+    visit accept_invitation_path(:invite_token => @user.invite_token)
+    answer_survey
     page.should have_content("CPF")
   end
 
@@ -131,7 +131,7 @@ feature "User Authenticate", %q{
   scenario "Sign up with invalid birthdate" do
     build_survey
     visit root_path
-    click_link "Comece aqui e descubra seu estilo. É grátis"
+    click_link "Comece aqui. É grátis!"
     choose "questions[question_#{Question.first.id}]"
     select('30', :from => 'day')
     select('Fevereiro', :from => 'month')
