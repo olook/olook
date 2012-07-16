@@ -367,31 +367,43 @@ class Order < ActiveRecord::Base
     Credit.remove(credits, user, self) if credits > 0
   end
 
+  def get_retail_price_for_line_item(item)
+    origin, final_retail_price = 'Desconto Olooklet', item.variant.product.retail_price
+
+    if used_coupon && used_coupon.is_percentage?
+      coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
+      if coupon_value < final_retail_price
+        final_retail_price = coupon_value
+        origin = 'Desconto de '+used_coupon.value.to_s+' do cupom '+used_coupon.code
+      end
+    end
+
+    if used_promotion && (!used_coupon || (used_coupon && used_coupon.is_percentage?))
+      promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
+      if promotion_value < final_retail_price
+        final_retail_price =  promotion_value
+        origin = 'Desconto de '+used_promotion.promotion.discount_percent.to_s+'% '+used_promotion.promotion.banner_label
+      end
+    end
+
+    [origin, final_retail_price]
+  end
+
+  def update_retail_price
+    if state == "in_the_cart" && !restricted?
+
+      line_items.each do |item|
+        origin, final_retail_price = get_retail_price_for_line_item(item)
+        item.update_attribute(:retail_price, final_retail_price)
+      end
+    end
+  end
+
   private
 
   def generate_number
     new_number = (id * CONSTANT_FACTOR) + CONSTANT_NUMBER
     update_attributes(:number => new_number)
   end
-  
-  def update_retail_price
-    if state == "in_the_cart" && !restricted?
 
-      line_items.each do |item|
-        final_retail_price = item.variant.product.retail_price
-        
-        if used_coupon && used_coupon.is_percentage?
-          coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
-          final_retail_price = coupon_value if coupon_value < final_retail_price
-        end
-
-        if used_promotion && (!used_coupon || (used_coupon && used_coupon.is_percentage?))
-          promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
-          final_retail_price = promotion_value if promotion_value < final_retail_price
-        end
-      
-        item.update_attribute(:retail_price, final_retail_price)
-      end
-    end
-  end
 end
