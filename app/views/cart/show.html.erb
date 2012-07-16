@@ -19,17 +19,6 @@
     </thead>
     <tfoot>
 
-      <% if @order.used_promotion && @order.used_promotion.promotion.discount_percent > @cart.coupon_percent %>
-        <tr>
-          <td class="titles" colspan="4"><%= @promotion.cart_label %></td>
-          <td class="value">
-            <p>
-              (<%= @promotion.discount_percent %>%)
-            </p>
-          </td>
-        </tr>
-      <% end %>
-
       <% if @order.used_coupon %>
         <tr class="first">
           <td class="titles" colspan="4">Código Promocional</td>
@@ -103,7 +92,7 @@
           </td>
           <td class="discount">
             <p class='discount_origin'><%= @order.get_retail_price_for_line_item(item)[0] %></p>
-            <p class='discount_percent'><%= number_to_percentage((item.price % @order.get_retail_price_for_line_item(item)[1]).ceil, :precision => 0) %></p>
+            <p class='discount_percent'><%= @cart.item_discount_percent(item) %></p>
           </td>
           <td class="value">
             <% if item.retail_price != item.price && !item.retail_price.nil? %>
