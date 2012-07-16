@@ -42,11 +42,12 @@ class PromotionService
   end
 
   def apply_promotion
-    unless order.used_coupon
+    if order.used_promotion.nil?
       promotion = detect_current_promotion
       order.create_used_promotion(:promotion => promotion,
                                   :discount_percent => promotion.discount_percent,
                                   :discount_value =>  apply_discount(promotion))
+      order.save
     end
   end
 

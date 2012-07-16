@@ -8,10 +8,11 @@ class LineItem < ActiveRecord::Base
   delegate :liquidation?, :to => :variant
 
   def total_price
-    if variant.liquidation? || (!retail_price.nil? && price > retail_price)
-      retail_price.nil? ? (price * quantity) : (retail_price * quantity)
-    else
-      (price * quantity)
-    end
+    # if variant.liquidation? || (!retail_price.nil? && price > retail_price)
+    #   retail_price.nil? ? (price * quantity) : (retail_price * quantity)
+    # else
+    #   (price * quantity)
+    # end
+    retail_price * quantity
   end
 end
