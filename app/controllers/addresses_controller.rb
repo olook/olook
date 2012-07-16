@@ -69,7 +69,7 @@ class ::AddressesController < ApplicationController
   def get_price_by_zipcode
     @order.freight_price_override = 0
     freight = FreightCalculator.freight_for_zip(params[:zipcode], @order.total + @order.credits)
-    @order.freight_price_override = BigDecimal.new(freight[:price],2)
+    @order.freight_price_override = freight[:price]
     cart = Cart.new(@order)
 
     render json: freight.merge(
