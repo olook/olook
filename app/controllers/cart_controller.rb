@@ -112,6 +112,8 @@ class CartController < ApplicationController
     end
 
     if @order.add_variant(@variant, nil)
+      PromotionService.new(current_user, @order).apply_promotion if @promotion
+      @order.update_retail_price
       destroy_freight(@order)
       respond_with do |format|
         format.html do
