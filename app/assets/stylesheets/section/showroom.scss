@@ -251,7 +251,7 @@
       &.almost, &.all {
         display: none;
       }
-      &.all {
+      &.all, &.almost {
         background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
       }
       a.more {
@@ -269,6 +269,8 @@
         right: 0;
       }
       ul {
+        width: 100%;
+        overflow: auto;
         li.product {
           div.box_product {
             div.line {
@@ -276,6 +278,12 @@
             }
           }
         }
+      }
+      div.loading {
+        background: url("/assets/common/ajax-loader.gif") center center no-repeat;
+        width: 100%;
+        height: 30px;
+        display: block;
       }
     }
   }

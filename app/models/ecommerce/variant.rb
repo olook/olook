@@ -101,7 +101,7 @@ class Variant < ActiveRecord::Base
 
   def discount_percent
     discount = if liquidation?
-       LiquidationProductService.discount_percent(self)
+       LiquidationProductService.discount_percent(self.product)
     else
       read_attribute(:discount_percent)
     end
