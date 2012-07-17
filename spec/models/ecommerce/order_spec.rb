@@ -145,6 +145,7 @@ describe Order do
     let(:items_total) {123.45 + (123.45 * quantity)}
     before :each do
       basic_shoe_35.product.master_variant.update_attribute(:retail_price, price)
+      basic_shoe_35.product.master_variant.update_attribute(:price, price)
       subject.line_items << (FactoryGirl.build :line_item, :variant => basic_shoe_35, :quantity => 1)
       subject.line_items << (FactoryGirl.build :line_item, :variant => basic_shoe_40, :quantity => quantity)
       subject.save
