@@ -369,7 +369,7 @@ class Order < ActiveRecord::Base
 
   def get_retail_price_for_line_item(item)
     outlet_discount =  (1 - (item.variant.product.retail_price / item.variant.product.price) )* 100
-    origin, final_retail_price = 'Olooklet: '+outlet_discount.to_s+'% de desconto', item.variant.product.retail_price
+    origin, final_retail_price = 'Olooklet: '+outlet_discount.ceil.to_s+'% de desconto', item.variant.product.retail_price
 
     origin = '' if item.variant.product.price == item.variant.product.retail_price
 
@@ -377,7 +377,7 @@ class Order < ActiveRecord::Base
       coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
       if coupon_value < final_retail_price
         final_retail_price = coupon_value
-        origin = 'Desconto de '+used_coupon.value.to_s+' do cupom '+used_coupon.code
+        origin = 'Desconto de '+used_coupon.value.ceil.to_s+'% do cupom '+used_coupon.code
       end
     end
 
@@ -385,7 +385,7 @@ class Order < ActiveRecord::Base
       promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
         final_retail_price =  promotion_value
-        origin = 'Desconto de '+used_promotion.promotion.discount_percent.to_s+'% '+used_promotion.promotion.banner_label
+        origin = 'Desconto de '+used_promotion.promotion.discount_percent.ceil.to_s+'% '+used_promotion.promotion.banner_label
       end
     end
 
