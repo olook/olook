@@ -16,10 +16,10 @@ class CatalogSearchService
 
   def search_products
     query_subcategories = params[:shoe_subcategories] ? l_products[:subcategory_name].in(params[:shoe_subcategories]) : nil
-    query_shoe_sizes = params[:shoe_sizes] ? build_sub_query((query_subcategories || query_base),l_products[:shoe_size].in(params[:shoe_sizes])) : nil
-    query_heels =  params[:heels] ? build_sub_query((query_shoe_sizes || query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
-
-    queries = [query_heels,  query_shoe_sizes, query_subcategories]
+    query_heels =  params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
+    query_shoe_sizes = (query_subcategories || query_heels) && params[:shoe_sizes] ? build_sub_query((query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
+    
+    queries = [query_shoe_sizes, query_heels, query_subcategories]
     query_result = queries.detect{|query| !query.nil?}
 
     query_bags_acessories = params[:bag_accessory_subcategories] ? l_products[:subcategory_name].in(params[:bag_accessory_subcategories]) : nil
