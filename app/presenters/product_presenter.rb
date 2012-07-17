@@ -5,7 +5,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_member_showroom
-    h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self} if member.is_old?
+    h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self}
   end
 
   def render_main_profile_showroom
@@ -100,9 +100,9 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price
-   if !member || (member && member.first_time_buyer?)
-     price_markdown(:promotion_price) + promotion_explanation
-   elsif product.promotion? #discount
+    if !member || (member && member.first_time_buyer?) && (product.retail_price > (product.price * 0.7))
+      price_markdown(:promotion_price) + promotion_explanation
+    elsif product.promotion? #discount
       price_markdown(:retail_price)
     else
       price_markup(product.price, "price")

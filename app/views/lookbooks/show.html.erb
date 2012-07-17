@@ -21,6 +21,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <section id="lookbooks">
+  <%= render 'shared/banners/olooklet' %>
   <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
   <div id="carousel_lookbooks_product">
     <% if @lookbook.has_video? %>

@@ -6,25 +6,21 @@
   <%= javascript_include_tag "home" %>
 <% end %>
 
-<div class="home">
-  <section class="model">
-    <ul class="model">
-      <li><img src="/assets/home/model-um.gif" alt=""></li>
-    </ul>
+<section class="model">
+  <div class="label">
+    <p><strong>30%</strong> <span>de desconto</span> na sua primeira<br /> compra</p>
+  </div>
+</section>
 
-  </section>
-
-  <section class="call">
-    <p class="line-one">Encontraremos o</p>
-    <p class="line-two">estilo perfeito</p>
-    <p class="line-three">para você.</p>
-  </section>
+<section class="description">
+  <h1>Seu estilo está aqui</h1>
+  <h2>Receba todos os meses uma seleção de sapatos, bolsas e acessórios criada pelas nossas stylist</h2>
 
   <section class="steps">
     <ul>
-      <li class="one"><strong>1</strong> <span>Conte-nos sobre seus gostos e preferências</span></li>
-      <li class="two"><strong>2</strong> <span>Nossos stylists montam sua vitrine</span></li>
-      <li class="three"><strong>3</strong> <span>Você escolhe seu <b>sapato, bolsa ou acessório</b></span></li>
+      <li><span>1</span> Responda o Style Quiz em menos de 2 minutos.</li>
+      <li><span>2</span> Apresentamos sua vitrine personalizada.</li>
+      <li><span>3</span> Compre os<br /> seus produtos favoritos.</li>
     </ul>
   </section>
 
@@ -37,8 +33,7 @@
     <p>Coleção de junho <span>Confira o making of</span></p>
   </section>
   -->
-  <%= link_to 'Comece aqui e descubra seu estilo. É grátis!', new_survey_path, :class => "start" %>
-  <%= render 'shared/facebook_like_button' %>
-  
+  <%= link_to 'Comece aqui. É grátis!', new_survey_path, :class => "start" %>
+</section>
 
-</div>
+<%= render 'shared/facebook_like_button' %>

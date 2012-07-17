@@ -69,9 +69,10 @@ class CartController < ApplicationController
     @cart = Cart.new(@order)
     @line_items = @order.line_items
     @coupon_code = @order.used_coupon.try(:code)
-    unless @coupon_code
-      PromotionService.new(current_user, @order).apply_promotion if @promotion
-    end
+    # unless @coupon_code
+    PromotionService.new(current_user, @order).apply_promotion if @promotion
+    @order.update_retail_price
+    # end
   end
 
   def destroy
@@ -111,6 +112,8 @@ class CartController < ApplicationController
     end
 
     if @order.add_variant(@variant, nil)
+      PromotionService.new(current_user, @order).apply_promotion if @promotion
+      @order.update_retail_price
       destroy_freight(@order)
       respond_with do |format|
         format.html do

@@ -3,6 +3,7 @@ class MomentsController < ApplicationController
   layout "moment"
   respond_to :html, :js
 
+  before_filter :load_products_of_user_size, only: [:show]
   before_filter :load_order, only: [:index, :show]
   before_filter :load_catalog_products
 
@@ -24,6 +25,12 @@ class MomentsController < ApplicationController
   end
 
   private
+
+  def load_products_of_user_size
+    # To show just the shoes of the user size at the 
+    # first time that the liquidations page is rendered
+    params[:shoe_sizes] = current_user.user_info.shoes_size.to_s if current_user && current_user.user_info
+  end
 
   def load_catalog_products
     @moments = Moment.active.order(:position)

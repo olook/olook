@@ -96,15 +96,15 @@ describe CatalogSearchService do
         products.should_not include(cp3)
       end
 
-      it "returns products given some shoe sizes" do
+      it "returns products given some shoe sizes and subcategory" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
 
-        params = {:id => catalog.id, :shoe_sizes => ["40", "35"]}
+        params = {:id => catalog.id, shoe_subcategories: ["Sandalia"], :shoe_sizes => ["40", "35"]}
         products = CatalogSearchService.new(params).search_products
         products.should include(cp1)
-        products.should include(cp2)
+        products.should_not include(cp2)
         products.should_not include(cp3)
       end
 
