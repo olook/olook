@@ -392,6 +392,13 @@ class Order < ActiveRecord::Base
     [origin, final_retail_price]
   end
 
+  def has_more_than_one_discount?
+    [used_coupon,
+     used_promotion,
+     line_items.select{|line| line.variant.product.price != line.variant.product.retail_price }.any?
+    ].select{|x| x}.size > 1
+  end
+
   def update_retail_price
     if state == "in_the_cart" && !restricted?
 
