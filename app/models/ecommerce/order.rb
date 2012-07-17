@@ -416,7 +416,7 @@ class Order < ActiveRecord::Base
     discounts = []
     discounts.push 'cupom' if used_coupon
     discounts.push 'Olooklet' if has_olooklet?
-    discounts.push '30% na primeira compra' if used_coupon
+    discounts.push '30% na primeira compra' if used_promotion
     discounts.uniq
   end
 
