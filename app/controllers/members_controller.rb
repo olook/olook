@@ -98,6 +98,18 @@ class MembersController < ApplicationController
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
   end
 
+  def showroom_shoes
+    
+  end
+
+  def showroom_bags
+    
+  end
+
+  def showroom_accessories
+    
+  end
+
   def show_imported_contacts
     email_provider = params[:email_provider]
     login = params[:login]

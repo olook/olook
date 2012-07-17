@@ -57,7 +57,6 @@ Olook::Application.routes.draw do
   resources :addresses, :path => 'endereco', :controller => :addresses
   resource :cart, :path => 'sacola', :controller => :cart do
     get "update_status" => "cart#update_status", :as => "update_status"
-    # put "update_product" => "cart#update_product", :as => "update_product"
     put "update_gift_wrap" => "cart#update_gift_wrap", :as => "update_gift_wrap"
     put "update_credits" => "cart#update_credits", :as => "update_credits"
     delete "remove_credits" => "cart#remove_credits", :as => "remove_credits"
@@ -86,6 +85,9 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "membro/vitrine_shoes", :to => "members#showroom_shoes", :as => "member_showroom_shoes"
+  get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
+  get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
 
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
@@ -214,8 +216,6 @@ Olook::Application.routes.draw do
     post '/entrar' => 'users/sessions#create', :as => :user_session
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
-    # post "after_sign_in_path_for", :to => "users/sessions#after_sign_in_path_for", :as => "after_sign_in_path_for_session"
-    #gift
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
     post '/registrar' => "users/registrations#create_half", :as => :create_half_user
   end

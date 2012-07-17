@@ -175,8 +175,13 @@ describe Variant do
 
   describe "inventory changes updates the liquidation product" do
     it "should reflect the changes on shoe that is into a liquidation" do
+      order = FactoryGirl.create :clean_order
       ls = LiquidationService.new(FactoryGirl.create(:liquidation))
-      line_item = FactoryGirl.create(:line_item)
+      line_item = FactoryGirl.build( :line_item, { :order => nil } )
+      order.line_items << line_item
+      line_item.stub_chain(:variant, :product, :retail_price).and_return(1.0)
+      line_item.stub_chain(:variant, :product, :price).and_return(1.0)
+      order.save
       ls.add(Product.last.id.to_s, 10)
       liquidation_product = LiquidationProduct.last
       line_item.order.decrement_inventory_for_each_item
@@ -255,9 +260,9 @@ describe Variant do
     end
 
     it "should return the retail price for a liquidation" do
-      subject.stub(:liquidation?).and_return(true)
+      subject.product.stub(:liquidation?).and_return(true)
       LiquidationProductService.stub(:retail_price).with(subject.product).and_return(1.99)
-      subject.retail_price.should == 1.99
+      subject.product.retail_price.should == 1.99
     end
 
     it "should return the original when the retail price is 0" do
@@ -287,15 +292,15 @@ describe Variant do
     end
 
     it "should return the discount_percent for a liquidation" do
-      subject.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:discount_percent).with(subject).and_return(20)
-      subject.discount_percent.should == 20
+      subject.product.stub(:liquidation?).and_return(true)
+      LiquidationProductService.stub(:discount_percent).with(subject.product).and_return(20)
+      subject.product.discount_percent.should == 20
     end
 
     it "should return 0 when discount_percent for a liquidation is nil" do
       subject.stub(:liquidation?).and_return(true)
       LiquidationProductService.stub(:discount_percent).with(subject).and_return(nil)
-      subject.discount_percent.should == 0
+      subject.product.discount_percent.should == 0
     end
 
     it "should return 0 when the retail_price price is 0" do
