@@ -5,5 +5,6 @@ FactoryGirl.define do
     association :order, :factory => :order
     quantity 2
     price 179.90
+    retail_price 179.90
   end
 end

@@ -88,6 +88,7 @@ $(document).ready(function() {
       lists = $(this).parents("ol").find("li");
       lists.find("input").attr('checked', false);
       lists.removeClass("selected");
+      set_price_for_zipcode($(this).attr('data'));
       $(this).parents("li.address_item").find('input').attr('checked', true);
       $(this).parents("li.address_item").addClass('selected');
       return false;
@@ -177,6 +178,32 @@ $(document).ready(function() {
   $("input:text.zip_code").setMask({
     mask: '99999-999'
   });
+
+  var set_price_for_zipcode = function(zipcode){
+    if (zipcode.length < 9) {
+      return true;
+    }
+    $.ajax({
+      url: '/get_price_by_zipcode',
+      dataType: 'json',
+      data: 'zipcode=' + zipcode,
+      success: function(rs){
+        var price = parseFloat(rs['price']).toFixed(2).toString().replace( ".", "," );
+        $('.freight .value').html('+ R$ '+price);
+
+        var total = parseFloat(rs['total']).toFixed(2).toString().replace( ".", "," );
+        $('.total .value').html(' R$ '+total);
+
+        var coupon_discount = parseFloat(rs['coupon_discount']).toFixed(2).toString().replace( ".", "," );
+        $('.discount .value').html('- R$ '+coupon_discount+' '+rs['coupon_percentage']);
+      }
+    });
+  };
+
+  $("input#address_zip_code").focusout(function(){
+    set_price_for_zipcode($("input#address_zip_code").val());
+  });
+
   $("input#address_zip_code").focusout(function(){
     if ($("input#address_zip_code").val().length < 9) {
       return true;

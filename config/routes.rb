@@ -69,6 +69,7 @@ Olook::Application.routes.draw do
   end
   post "/assign_address", :to => "addresses#assign_address", :as => "assign_address"
   get "/get_address_by_zipcode", :to => "addresses#get_address_by_zipcode"
+  get "/get_price_by_zipcode", :to => "addresses#get_price_by_zipcode"
 
   get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
 

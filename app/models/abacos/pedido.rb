@@ -18,7 +18,8 @@ module Abacos
       @telefone         = parse_telefone(order.freight.address.telephone)
 
       @data_venda       = parse_data(order.created_at)
-
+      
+      #TODO USAR VALOR CORRETO
       @valor_pedido     = parse_price order.line_items_total
       @valor_desconto   = parse_price discount_for(order)
       @valor_frete      = parse_price order.freight_price
