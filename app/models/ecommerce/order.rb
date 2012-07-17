@@ -368,10 +368,13 @@ class Order < ActiveRecord::Base
   end
 
   def get_retail_price_for_line_item(item)
-    outlet_discount =  (1 - (item.variant.product.retail_price / item.variant.product.price) )* 100
-    origin, final_retail_price = 'Olooklet: '+outlet_discount.ceil.to_s+'% de desconto', item.variant.product.retail_price
+    origin = ''
+    final_retail_price = item.variant.product.retail_price
 
-    origin = '' if item.variant.product.price == item.variant.product.retail_price
+    if item.variant.product.price != final_retail_price
+      outlet_discount =  (1 - (final_retail_price / item.variant.product.price) )* 100
+      origin = 'Olooklet: '+outlet_discount.ceil.to_s+'% de desconto'
+    end
 
     if used_coupon && used_coupon.is_percentage?
       coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
