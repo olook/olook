@@ -395,11 +395,21 @@ class Order < ActiveRecord::Base
     [origin, final_retail_price]
   end
 
+  def has_olooklet?
+    line_items.select{|line| line.variant.product.price != line.variant.product.retail_price }.any?
+  end
+
   def has_more_than_one_discount?
-    [used_coupon,
-     used_promotion,
-     line_items.select{|line| line.variant.product.price != line.variant.product.retail_price }.any?
-    ].select{|x| x}.size > 1
+    size = active_discounts.size
+    size > 1 ? size : false
+  end
+
+  def active_discounts
+    discounts = []
+    discounts.push 'cupom' if used_coupon
+    discounts.push 'Olooklet' if has_olooklet?
+    discounts.push '30% na primeira compra' if used_coupon
+    discounts.uniq
   end
 
   def update_retail_price
