@@ -52,7 +52,7 @@ class Cart
 
   def item_discount_percent(item)
     return 0 if order.get_retail_price_for_line_item(item)[1] == 0
-    percent = (1 - ( order.get_retail_price_for_line_item(item)[1]).ceil/item.variant.product.price) * 100
+    percent = (1 - ( order.get_retail_price_for_line_item(item)[1])/item.variant.product.price) * 100
     percent != 0 ? number_to_percentage(percent.ceil, :precision => 0) : ''
   end
 end
