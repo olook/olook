@@ -11,7 +11,7 @@
   <div class="banner">
     <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
     <p>Selecionamos o maior desconto possível para você em cada produto:
-      <% if discounts = @order.active_discounts  && !discounts.empty? %>
+      <% if (discounts = @order.active_discounts) && !discounts.empty? %>
         <% if discounts.size == 3 %>
           <span>30% na primeira compra</span>, <span>cupom </span> ou <span>Olooklet</span>.
         <% else %>
