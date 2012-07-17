@@ -180,6 +180,7 @@ describe Variant do
       line_item = FactoryGirl.build( :line_item, { :order => nil } )
       order.line_items << line_item
       line_item.stub_chain(:variant, :product, :retail_price).and_return(1.0)
+      line_item.stub_chain(:variant, :product, :price).and_return(1.0)
       order.save
       ls.add(Product.last.id.to_s, 10)
       liquidation_product = LiquidationProduct.last
