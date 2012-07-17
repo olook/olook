@@ -8,16 +8,18 @@ describe Abacos::Pedido do
                 }
   let(:payment) { FactoryGirl.create :credit_card }
   let(:freight) { FactoryGirl.create :freight, :price => 22.0, :cost => 18.0, :delivery_time => 5 }
-  
+
   let(:variant_a) { FactoryGirl.create :basic_shoe_size_35, :retail_price => 20.0 }
   let(:variant_b) { FactoryGirl.create :basic_shoe_size_40, :retail_price => 30.0 }
-  
-  let(:order) { 
+
+  let(:order) {
     order = (FactoryGirl.create :clean_order, :user => member, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01))
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_a, :quantity => 2, :price => 20.0, :retail_price => 20.0)
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_b, :quantity => 1, :price => 30.0, :retail_price => 30.0)
     variant_a.stub_chain(:product, :retail_price).and_return(20.0)
     variant_b.stub_chain(:product, :retail_price).and_return(30.0)
+    variant_a.stub_chain(:product, :price).and_return(20.0)
+    variant_b.stub_chain(:product, :price).and_return(30.0)
     order.credits = 11
     order.save
     order

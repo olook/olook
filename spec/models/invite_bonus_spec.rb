@@ -82,6 +82,7 @@ describe InviteBonus do
           order = (FactoryGirl.create :order, :user => member)
           order.line_items << line_item
           order.line_items[0].variant.stub_chain(:product, :retail_price).and_return(order.line_items[0].retail_price)
+          order.line_items[0].variant.stub_chain(:product, :price).and_return(order.line_items[0].price)
           order.credits = 23.56
           order.save
           order
@@ -91,6 +92,8 @@ describe InviteBonus do
           order = (FactoryGirl.create :order, :user => member)
           order.line_items << line_item
           order.line_items[0].variant.stub_chain(:product, :retail_price).and_return(order.line_items[0].retail_price)
+          order.line_items[0].variant.stub_chain(:product, :price).and_return(order.line_items[0].price)
+          order.credits = 23.56
           order.credits = 3.23
           order.save
           order
