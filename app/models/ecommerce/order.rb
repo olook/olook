@@ -274,6 +274,11 @@ class Order < ActiveRecord::Base
   def max_credit_value
     0
   end
+  
+  #TODO: REMOVE ITS JOB OF COUPON MANAGER
+  def update_credits!
+    
+  end
 
   private
 
