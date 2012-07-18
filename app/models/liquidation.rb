@@ -23,4 +23,36 @@ class Liquidation < ActiveRecord::Base
     return false unless resume.respond_to?(:fetch)
     resume.fetch(:products_ids, []).include?(product.id)
   end
+
+  def in_category(category_id)
+    @liquidation = LiquidationService.active
+    @query = liquidation_products.joins(:product)
+    @query = @query.where(category_id: category_id, products: {is_visible: 1}).where("liquidation_products.inventory > 0")
+
+    @query
+  end
+
+  def subcategories(category_id)
+    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label] }.compact
+  end
+
+  def shoes
+    subcategories(Category::SHOE)
+  end
+
+  def bags
+    subcategories(Category::BAG)
+  end
+
+  def accessories
+    subcategories(Category::ACCESSORY)
+  end
+
+  def shoe_sizes
+    in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
+  end
+
+  def heels
+    in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact
+  end
 end
