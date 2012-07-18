@@ -6,6 +6,8 @@ class MembersController < ApplicationController
   # TODO: Added for valentine invite page
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
+  rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
+  rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
 
   def invite
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
@@ -159,6 +161,11 @@ class MembersController < ApplicationController
 
   def user_has_facebook_account?
     @user.has_facebook?
+  end
+
+  def contact_authentication_failed
+    flash[:notice] = "Falha de autenticação na importação de contatos"
+    redirect_to :back
   end
 
 

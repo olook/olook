@@ -32,6 +32,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+  def facebook_redirect_paths
+    {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
+  end
 
   def already_exist_a_facebook_account(omniauth)
     id = omniauth["extra"]["user_hash"]["id"]
