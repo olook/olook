@@ -1,7 +1,9 @@
 @import "partials/product";
 
 section#lookbooks {
-  padding: 10px 0;
+  width: 100%;
+  padding: 20px 0;
+  overflow: auto;
   h1.lookbook_title {
     font-family: Times, "Times New Roman";
     font-size: 40px;
