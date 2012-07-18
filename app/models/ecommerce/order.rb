@@ -275,11 +275,6 @@ class Order < ActiveRecord::Base
     0
   end
   
-  #TODO: REMOVE ITS JOB OF COUPON MANAGER
-  def update_credits!
-    
-  end
-
   private
 
   def initialize_order

@@ -250,12 +250,12 @@ describe MarketingReports::Builder do
     end
 
     context "and user has an order with line items" do
-      pending "Neet Order Total Correct From Price Modificator or In Order Sum"
       let!(:user) { FactoryGirl.create(:member) }
       let!(:order) { FactoryGirl.create(:order, :user => user) }
       let!(:line_item) { FactoryGirl.create(:line_item, :order => order) }
 
       it "lists a user data with order details (order total value, products ids, prices and variant numbers)" do
+        pending "Neet Order Total Correct From Price Modificator or In Order Sum"
         user_order_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0," +
         "#{order.id},359.8,#{order.state},#{order.updated_at},#{line_item.variant.number}," +
         "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
