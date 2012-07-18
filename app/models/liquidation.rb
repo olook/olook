@@ -25,11 +25,7 @@ class Liquidation < ActiveRecord::Base
   end
 
   def in_category(category_id)
-    @liquidation = LiquidationService.active
-    @query = liquidation_products.joins(:product)
-    @query = @query.where(category_id: category_id, products: {is_visible: 1}).where("liquidation_products.inventory > 0")
-
-    @query
+    liquidation_products.joins(:product).where(category_id: category_id, products: {is_visible: 1}).where("liquidation_products.inventory > 0")
   end
 
   def subcategories(category_id)
@@ -49,10 +45,10 @@ class Liquidation < ActiveRecord::Base
   end
 
   def shoe_sizes
-    in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
+    in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map(&:shoe_size).compact
   end
 
   def heels
-    in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact
+    in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact.sort{ |a,b| a[0].to_i <=> b[0].to_i }
   end
 end
