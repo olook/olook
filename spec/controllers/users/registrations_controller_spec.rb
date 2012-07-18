@@ -350,6 +350,8 @@ describe Users::RegistrationsController do
   
   describe "DELETE destroy_facebook_account" do
     it "should destroy the facebook account removing the user uid and facebook_token" do
+      user = FactoryGirl.create(:user)
+      sign_in user
       User.any_instance.should_receive(:update_attributes).with(:facebook_token => nil, :uid => nil, :facebook_permissions => [])
       delete :destroy_facebook_account
     end
