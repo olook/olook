@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Gift::HomeController < Gift::BaseController
+  before_filter :check_facebook_permissions
+  before_filter :load_facebook_adapter
+  before_filter :load_friends
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def index
@@ -12,7 +15,7 @@ class Gift::HomeController < Gift::BaseController
   def current_month
     Time.now.month
   end
-
+  
   def check_facebook_permissions
     if @user && @user.has_facebook_friends_birthday?
       session[:facebook_scopes] = nil
@@ -40,5 +43,4 @@ class Gift::HomeController < Gift::BaseController
       format.js { head :error }
     end
   end
-
 end

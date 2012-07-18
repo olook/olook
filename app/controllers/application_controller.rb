@@ -7,17 +7,11 @@ class ApplicationController < ActionController::Base
   before_filter :load_referer
   before_filter :load_facebook_api
 
-  rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
-  rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
-  #rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-  #rescue_from ActionController::UnknownController, :with => :render_404
-  #rescue_from ::AbstractController::ActionNotFound, :with => :render_404
   rescue_from CanCan::AccessDenied do  |exception|
       flash[:error] = "Access Denied! You don't have permission to execute this action.
                               Contact the system administrator"
       redirect_to admin_url
   end
-  #rescue_from Exception, :with => :render_500
 
   helper_method :current_liquidation
   def current_liquidation
@@ -83,10 +77,6 @@ class ApplicationController < ActionController::Base
     Moment.active.first
   end
 
-  def facebook_redirect_paths
-    {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
-  end
-
   def render_public_exception
     case env["action_dispatch.exception"]
       when ActiveRecord::RecordNotFound, ActionController::UnknownController,
@@ -98,12 +88,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def contact_authentication_failed
-    flash[:notice] = "Falha de autenticação na importação de contatos"
-    redirect_to :back
-  end
-
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
