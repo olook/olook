@@ -369,18 +369,20 @@ class Order < ActiveRecord::Base
 
   def get_retail_price_for_line_item(item)
     origin = ''
+    percent = 0
     final_retail_price = item.variant.product.retail_price
 
     if item.variant.product.price != final_retail_price
-      outlet_discount =  (1 - (final_retail_price / item.variant.product.price) )* 100
-      origin = 'Olooklet: '+outlet_discount.ceil.to_s+'% de desconto'
+      percent =  (1 - (final_retail_price / item.variant.product.price) )* 100
+      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
     end
 
     if used_coupon && used_coupon.is_percentage?
       coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
       if coupon_value < final_retail_price
+        percent = used_coupon.value
         final_retail_price = coupon_value
-        origin = 'Desconto de '+used_coupon.value.ceil.to_s+'% do cupom '+used_coupon.code
+        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+used_coupon.code
       end
     end
 
@@ -388,11 +390,17 @@ class Order < ActiveRecord::Base
       promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
         final_retail_price =  promotion_value
-        origin = 'Desconto de '+used_promotion.promotion.discount_percent.ceil.to_s+'% '+used_promotion.promotion.banner_label
+        percent = used_promotion.promotion.discount_percent
+        origin = 'Desconto de '+percent.ceil.to_s+'% '+used_promotion.promotion.banner_label
       end
     end
 
-    [origin, final_retail_price]
+    if restricted?
+      final_retail_price = item.retail_price
+      percent =  (1 - (final_retail_price / item.price) )* 100
+      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
+    end
+    [origin, final_retail_price, percent]
   end
 
   def has_olooklet?
@@ -408,7 +416,7 @@ class Order < ActiveRecord::Base
     discounts = []
     discounts.push 'cupom' if used_coupon
     discounts.push 'Olooklet' if has_olooklet?
-    discounts.push '30% na primeira compra' if used_coupon
+    discounts.push '30% na primeira compra' if used_promotion
     discounts.uniq
   end
 
