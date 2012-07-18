@@ -11,6 +11,61 @@
       <%= link_to "Clique aqui para imprimir seu boleto", @payment.url, :target => "_blank", :class => "link" %>
     </div>
     <p class="description">Obrigada pela sua compra! Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados ao lado estão corretos. Se você tiver qualquer dúvida ou precisar solicitar alguma alteração nos dados do seu pedido, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.</p>
+    <div id="boleto_info">
+      <div id="info_title">Se não quiser imprimir, você pode pagar seu boleto online:</div>
+      <br />
+      <ul>
+        <li>
+          <div class="step_number">
+            1
+          </div>
+          <div class="step_description"><a href="lol">Abra seu boleto;</a></div>
+        </li><br />
+        <li>
+          <div class="step_number">
+            2
+          </div>
+          <div class="step_description">Em outra janela, acesse o site do seu banco e informe seus dados de identificação;</div>
+        </li><br />
+        <li>
+          <div class="step_number">
+            3
+          </div>
+          <div class="step_description">Entre na opção de pagamentos;</div>
+        </li><br />
+        <li>
+          <div class="step_number">
+            4
+          </div>
+          <div class="step_description">Selecione a opção de BOLETO BANCÁRIO;</div>
+        </li><br />
+        <li>
+          <div class="step_number">
+            5
+          </div>
+          <div class="step_description">Insira o número de código de barras identificado no seu boleto. São os número
+destacados no exemplo abaixo:</div>
+        </li><br />
+        <li>
+          <%= image_tag 'cart/boleto_simulation.jpg' %>
+        </li><br />
+        <li>
+          <div class="step_number">
+            6
+          </div>
+          <div class="step_description">Insira as informações que seu banco exige. Caso precise infomormar os dados
+do favorecido, coloque MOIP;</div>
+        </li><br />
+        <li>
+          <div class="step_number">
+            7
+          </div>
+          <div class="step_description">Confirme o pagamento;</div>
+        </li><br /><br />
+        <div id="final_info">Pronto, seu pedido foi pago. Aguarde a confirmação do pagamento por e-mail.</div>
+      </ul>
+    </div>
+    <br />
 <%= render "shared/ebit/seal_order" %>
   </section>
   <section class="sidebar">
