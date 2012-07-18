@@ -19,7 +19,9 @@
           <div class="step_number">
             1
           </div>
-          <div class="step_description"><a href="lol">Abra seu boleto;</a></div>
+          <div class="step_description">
+            <%= link_to "Abra seu boleto;", @payment.url, :target => "_blank" %>
+          </div>
         </li><br />
         <li>
           <div class="step_number">
