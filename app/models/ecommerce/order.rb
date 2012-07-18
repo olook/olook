@@ -274,7 +274,7 @@ class Order < ActiveRecord::Base
   def max_credit_value
     0
   end
-
+  
   private
 
   def initialize_order
