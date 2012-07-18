@@ -61,28 +61,27 @@ li.product {
           width: 72px;
           height: 30px;
         }
-        &.quantity, &.percentage {
+        &.quantity {
           background: url("/assets/common/quantity.png") no-repeat;
           width: 50px;
           height: 45px;
           padding-top: 5px;
-          span {
-            font-size: 22px;
-            line-height: 21px;
-            font-weight: 600;
-          }
         }
         &.percentage {
+          background: url("/assets/common/percentage.png") no-repeat;
           font-family: "Open Sans", sans-serif;
           font-size: 13px;
           font-weight: normal;
           font-style: normal;
           line-height: 10px;
+          width: 50px;
           height: 40px;
           padding-top: 10px;
           display: block;
           span {
             font-size: 20px;
+            line-height: 21px;
+            font-weight: 600;
           }
         }
       }
