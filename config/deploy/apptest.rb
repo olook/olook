@@ -1,5 +1,6 @@
-role :app, 'app5.olook.com.br', 'app6.olook.com.br'
- 
+role :app, 'apptest.olook.com.br'
+role :web, 'apptest.olook.com.br'
+
 # server details
 set :rails_env, 'RAILS_ENV=production'
 set :env, 'production'
@@ -26,6 +27,7 @@ end
 # tasks
 namespace :deploy do
   task :default, :role => :app do
+    #configuring_server
     update #capistrano internal default task
     yml_links
     bundle_install
@@ -33,9 +35,17 @@ namespace :deploy do
     restart
   end
 
+  desc 'Seting Up'
+  task :configuring_server, :roles => :app do
+    run "mkdir /srv/olook/#{branch}"
+    set :path_app, "/srv/olook/#{branch}"
+    setup
+    cold
+  end
+
   desc 'Install gems'
   task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without development test install"    
+    run "cd #{path_app} && #{bundle} --without development test install"
   end
 
   desc 'Run migrations, clean assets'
