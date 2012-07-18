@@ -100,7 +100,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price
-    if !member || (member && member.first_time_buyer?) && (product.retail_price > (product.price * 0.7))
+    if (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.7))
       price_markdown(:promotion_price) + promotion_explanation
     elsif product.promotion? #discount
       price_markdown(:retail_price)
