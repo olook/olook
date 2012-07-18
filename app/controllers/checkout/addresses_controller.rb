@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ::AddressesController < ApplicationController
+class Checkout::AddressesController < ApplicationController
   layout "checkout"
 
   respond_to :html

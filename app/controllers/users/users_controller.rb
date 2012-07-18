@@ -1,13 +1,9 @@
 # -*- encoding : utf-8 -*-
-class User::UsersController < ApplicationController
+class Users::UsersController < ApplicationController
   respond_to :html
-  before_filter :authenticate_user!
+
   before_filter :check_cpf, :only => [:update]
 
-  def destroy_facebook_account
-    @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
-    redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
-  end
 
   def update
     if @user.cpf.nil?

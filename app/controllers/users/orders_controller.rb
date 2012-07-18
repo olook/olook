@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class User::OrdersController < ApplicationController
+class Users::OrdersController < ApplicationController
   layout "my_account"
 
   respond_to :html

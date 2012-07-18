@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ::User::AddressesController < ApplicationController
+class Users::AddressesController < ApplicationController
   layout "my_account"
 
   respond_to :html

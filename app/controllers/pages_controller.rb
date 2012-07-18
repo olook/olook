@@ -1,12 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PagesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:welcome]
   before_filter :get_contact_infos, :only => [:contact, :send_contact]
-
-  def welcome
-    @redirect_uri = welcome_path
-    @member = current_user
-  end
 
   def contact
     @contact_form = ContactForm.new

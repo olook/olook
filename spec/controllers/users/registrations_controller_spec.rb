@@ -347,5 +347,11 @@ describe Users::RegistrationsController do
       response.should render_template ["layouts/my_account", "edit"]
     end
   end
-
+  
+  describe "DELETE destroy_facebook_account" do
+    it "should destroy the facebook account removing the user uid and facebook_token" do
+      User.any_instance.should_receive(:update_attributes).with(:facebook_token => nil, :uid => nil, :facebook_permissions => [])
+      delete :destroy_facebook_account
+    end
+  end
 end

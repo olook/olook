@@ -54,7 +54,6 @@ GEM
       builder
     akami (1.0.0)
       gyoku (>= 0.4.0)
-    archive-tar-minitar (0.5.2)
     arel (3.0.2)
     asset_sync (0.1.10)
       activemodel
@@ -84,7 +83,6 @@ GEM
       activesupport (>= 3.2.0)
     childprocess (0.3.2)
       ffi (~> 1.0.6)
-    columnize (0.3.6)
     crack (0.3.1)
     curb (0.8.0)
     dalli (2.0.2)

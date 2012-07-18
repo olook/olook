@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout :layout_by_resource
 
   before_filter :check_survey_response, :only => [:new, :create]
+  before_filter :authenticate_user!, :only => [:destroy_facebook_account, :edit, :update]
 
   def new
     resource = build_resource({:half_user => false})
@@ -47,6 +48,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       clean_up_passwords(resource)
       render_with_scope :edit
     end
+  end
+  
+  def destroy_facebook_account
+    @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
+    redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
   end
 
   protected
