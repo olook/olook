@@ -1,4 +1,5 @@
-role :app, 'app5.olook.com.br', 'app6.olook.com.br'
+role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br', 'app4.olook.com.br', 'app5.olook.com.br', 'app6.olook.com.br'
+role :db, 'app1.olook.com.br'
  
 # server details
 set :rails_env, 'RAILS_ENV=production'
@@ -25,12 +26,15 @@ end
 
 # tasks
 namespace :deploy do
-  task :default, :role => :app do
+  task :default, :role => [:app, :db] do
     update #capistrano internal default task
     yml_links
     bundle_install
     rake_tasks
+    assets_tasks
     restart
+  # end
+  # task :default, :role => :rake do
   end
 
   desc 'Install gems'
@@ -38,12 +42,16 @@ namespace :deploy do
     run "cd #{path_app} && #{bundle} --without development test install"    
   end
 
-  desc 'Run migrations, clean assets'
-  task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
+  desc 'Run migrations'
+  task :rake_tasks, :role => :db do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}", :roles => :db
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}", :roles => :db
+  end
+
+  desc 'Run assets precompile'
+  task :assets_tasks, :role => :app do
     run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
     run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
   end
 
   desc 'Create symlinks'
