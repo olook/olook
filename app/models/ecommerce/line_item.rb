@@ -10,6 +10,7 @@ class LineItem < ActiveRecord::Base
   def retail_price
     retail = read_attribute(:retail_price)
     retail ||= price
+    retail
   end
 
   def total_price
