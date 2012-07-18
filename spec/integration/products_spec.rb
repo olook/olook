@@ -32,7 +32,7 @@ feature "Buying products", %q{
       end
     end
 
-    context "with the shopping cart" do
+    pending "with the shopping cart" do
       context "and the product is a shoe" do
         let(:shoe) { FactoryGirl.create :basic_shoe }
         let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe) }
