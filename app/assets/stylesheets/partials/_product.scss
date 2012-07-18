@@ -57,15 +57,20 @@ li.product {
         &.sold_out {
           background: url("/assets/common/sold_out.png") no-repeat;
           color: #999;
-          line-height: 24px;
           width: 72px;
           height: 30px;
         }
         &.quantity {
           background: url("/assets/common/quantity.png") no-repeat;
-          width: 50px;
-          height: 45px;
-          padding-top: 5px;
+          word-spacing: -1px;
+          width: 62px;
+          height: 30px;
+        }
+        &.shoe_size {
+          background: url("/assets/common/number.png") no-repeat;
+          word-spacing: -1px;
+          width: 51px;
+          height: 30px;
         }
         &.percentage {
           background: url("/assets/common/percentage.png") no-repeat;
@@ -191,6 +196,10 @@ li.product {
         left: 2px;
         display: block;
       }
+      a p.shoe_size {
+        left: 53px !important;
+        display: block;
+      }
     }
   }
   &:hover {
@@ -233,7 +242,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: -8px;
+          left: -9px;
         }
         img {
           width: 170px;
@@ -252,7 +261,7 @@ li.product {
     a.product_link {
       p.warn {
         top: 2px;
-        left: -8px;
+        left: -9px;
       }
       img {
         width: 260px;
@@ -273,7 +282,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: -8px;
+          left: -9px;
         }
         img {
           width: 150px;
@@ -296,7 +305,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: -8px;
+          left: -9px;
           &.percentage {
             left: 2px;
           }
@@ -327,7 +336,7 @@ li.product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: -8px;
+          left: -9px;
         }
         img {
           width: 170px;
