@@ -5,22 +5,46 @@ class PriceModificator
 
   def discounts
     {
-      :promotion => { :value => discount_from_promotion },
-      :coupon => { :value => discount_from_coupon, :code => cart.used_coupon.try(:code) },
-      :product_discount => { :value => discount_from_items },
+      :product_discount => items_discount,
+      :money_coupon => { :value => discount_from_money_coupon, :code => cart.used_coupon.try(:code) },
       :credits => { :value => discount_from_credits }
     }
   end
 
   def increments
     {
-      :gift_wrap => { :wrapped => cart.gift_wrap?, :value => gift_price },
-      :freight => { :value => freight_price }
+      :gift_wrap => { :wrapped => cart.gift_wrap?, :value => increment_from_gift },
+      :freight => { :value => increment_from_freight }
     }
   end
 
+  def items_discounts_total
+    items_discount.values.map(&:value).inject(&:+)
+  end
+
+  def items_discount_conflict
+    conflicted_discounts = items.map{|item| item_discounts_conflict(item)}.flatten.select{|item_discount| !item_discount.nil?}
+    conflicted_discounts.group_by(&:item)
+  end
+
+  def items_discount_conflict?
+    items.select{|item| item_discounts_conflict?(item) }.any?
+  end
+
+  def items_discount
+    cart_items = Hash.new
+    items.map do |item|
+      cart_items[item] = discount_for_item(item)
+    end
+    cart_items
+  end
+
   def original_price
-    items_price
+    items.map(&:original_price).inject(&:+)
+  end
+
+  def discounted_price
+    original_price - items_discounts_total
   end
 
   def final_price
@@ -39,11 +63,11 @@ class PriceModificator
   end
 
   def items_price
-    BigDecimal.new(items.inject(0){|result, item| result + item.total_price}.to_s)
+    items.map(&:price).inject(&:+)
   end
 
   def items_retail_price
-    BigDecimal.new(items.inject(0){|result, item| result + item.total_retail_price}.to_s)
+    items.map(&:retail_price).inject(&:+)
   end
 
   def used_coupon
@@ -69,17 +93,50 @@ class PriceModificator
 
   #Calculators
 
-  def total_with_freight
-    total + (freight_price || 0)
+  def discount_for_item(item)
+    item_discounts(item).max_by(&:value)
   end
 
-  def discount_from_coupon
-    if used_coupon
-      discount_value = used_coupon.is_percentage? ? (used_coupon.value * items_price) / 100 : used_coupon.value
-      discount_value > max_discount ? max_discount : discount_value
+  def item_discounts_conflict(item)
+    item_discounts(item).select{|x| x.value > 0}
+  end
+
+  def item_discounts_conflict?(item)
+    item_discounts_conflict(item).size > 1
+  end
+
+  def item_discounts(item)
+    [item_olooklet_discount(item), item_coupon_discount(item), item_promotion_discount(item)]
+  end
+
+  def item_olooklet_discount(item)
+    value = item.original_price - item.variant.product.retail_price
+    Discount.new(:origin => :olooklet, :item => item, :value => value )
+  end
+
+  def item_coupon_discount(item)
+    coupon = used_coupon
+    if coupon && coupon.is_percentage?
+      Discount.new(:origin => :coupon, :item => item, :percentage => coupon.value)
+    else
+      Discount.new(:origin => :coupon, :item => item)
+    end
+  end
+
+  def discount_from_money_coupon
+    unless !used_coupon || used_coupon.is_percentage?
+      used_coupon.value
     else
       0
     end
+  end
+
+  def item_promotion_discount(item)
+    Discount.new(:origin => :promotion , :item => item , :percentage => used_promotion.try(:discount_percent))
+  end
+
+  def total_with_freight
+    total + (freight_price || 0)
   end
 
   def discount_from_credits
@@ -90,14 +147,6 @@ class PriceModificator
     end
   end
 
-  def discount_from_promotion
-    used_promotion && discount_from_coupon <= 0 ? PromotionService.apply_discount_for_price(used_promotion, items_retail_price) : 0
-  end
-
-  def discount_from_items
-    items_price - items_retail_price
-  end
-
   def increment_from_gift
     cart.gift_wrap? ? gift_price : 0
   end
@@ -106,22 +155,18 @@ class PriceModificator
     freight_price || 0
   end
 
-  def subtotal
-    items_price
-  end
-
   def minimum_value
     return 0 if freight_price > Payment::MINIMUM_VALUE
     Payment::MINIMUM_VALUE
   end
 
   def total
-    total = subtotal + total_increment - total_discount
+    total = original_price + total_increment - total_discount
     total > minimum_value ? total : minimum_value
   end
 
   def total_discount
-    credits + discount_from_coupon + discount_from_promotion
+    credits + discount_from_money_coupon + items_discounts_total
   end
 
   def total_increment
@@ -134,17 +179,9 @@ class PriceModificator
   end
 
   def max_credit_value
-    max_credit_possible = max_discount
+    max_credit_possible = max_discount - items_discounts_total
 
-    if discount_from_coupon > 0
-      max_credit_possible -= discount_from_coupon
-    else
-      max_credit_possible -= discount_from_promotion
-    end
-
-    max_credit_possible > 0 ? max_credit_possible : 0
+    [max_credit_possible , 0].max
   end
-
 end
-
 
