@@ -17,7 +17,7 @@ feature "User Authenticate", %q{
     user.created_at = Time.now - 1.day
     user.record_first_visit
   end
-
+  
   use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
 
   before :each do
@@ -41,12 +41,12 @@ feature "User Authenticate", %q{
 
   scenario "User Log in with facebook" do
     answer_survey
-    visit "/users/auth/facebook"
+    click_on 'Sign in with Facebook'
     within("#new_user") do
-     fill_in "user_password", :with => "123456"
-     fill_in "user_password_confirmation", :with => "123456"
-     click_button "register"
-   end
+      fill_in "user_password", :with => "123456"
+      fill_in "user_password_confirmation", :with => "123456"
+      click_button "register"
+    end
    # within("#welcome") do
    #   page.should have_content(showroom_message)
    # end

@@ -179,13 +179,15 @@ Olook::Application.routes.draw do
   end
   
   #USER / SIGN IN
+  
   devise_for :users, :path => 'conta', :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions" } do
     get '/entrar' => 'users/sessions#new', :as => :new_user_session
     post '/entrar' => 'users/sessions#create', :as => :user_session
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
-    get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
     post '/registrar' => "users/registrations#create_half", :as => :create_half_user
+    get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
+    delete '/conta/remover_facebook' => 'users/registrations#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
   namespace :users, :path => 'conta', :as => "user" do
@@ -198,7 +200,6 @@ Olook::Application.routes.draw do
         post 'creditos/reenviar_todos' => 'credits#resubmit_all_invites', :as => :resubmit_all_invites
       end
     end
-    delete 'remover_facebook' => 'registrations#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
   #CHECKOUT
