@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CartController < ApplicationController
+class Checkout::CartController < ApplicationController
   layout "checkout"
   
   before_filter :erase_freight

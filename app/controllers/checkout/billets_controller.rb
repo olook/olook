@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class BilletsController < ApplicationController
+class Checkout::BilletsController < ApplicationController
   layout "checkout"
 
   respond_to :html

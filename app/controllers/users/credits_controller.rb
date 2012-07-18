@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class User::CreditsController < ApplicationController
+class Users::CreditsController < ApplicationController
   layout "my_account"
 
   respond_to :html
