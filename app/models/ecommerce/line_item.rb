@@ -6,12 +6,14 @@ class LineItem < ActiveRecord::Base
   validates_presence_of :quantity
   scope :ordered_by_price, order('line_items.price DESC')
   delegate :liquidation?, :to => :variant
+  
+  def retail_price
+    retail = read_attribute(:retail_price)
+    retail ||= price
+    retail
+  end
 
   def total_price
-    if variant.liquidation? || (!retail_price.nil? && price > retail_price)
-      retail_price.nil? ? (price * quantity) : (retail_price * quantity)
-    else
-      (price * quantity)
-    end
+    retail_price * quantity
   end
 end

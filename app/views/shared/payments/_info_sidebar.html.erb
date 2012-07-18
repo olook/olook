@@ -4,7 +4,7 @@
     <h1>Meu Pedido <%= link_to "alterar", cart_path if @order.payment.nil? %></h1>
     <table cellpadding="0" cellspacing="0">
       <tfoot>
-        <tr>
+        <tr class='total'>
           <td>Total:</td>
           <td class="value"><%= number_to_currency(cart.total) %></td>
         </tr>
@@ -24,17 +24,11 @@
           <td>Crédito</td>
           <td class="value credit">- <%= number_to_currency(cart.credits_discount) %></td>
         </tr>
-        <tr>
+        <tr class='discount'>
           <td>Cupom desconto</td>
           <td class="value credit">- <%= number_to_currency(cart.coupon_discount) %> <%= cart.coupon_discount_in_percentage %></td>
         </tr>
-        <% if @order.used_promotion %>
-          <tr>
-            <td><%= @promotion.my_order_label %></td>
-            <td class="value credit"><%= @promotion.discount_percent %>% - (<%= number_to_currency cart.promotion_discount %>)</td>
-          </tr>
-        <% end %>
-        <tr>
+        <tr class="freight">
           <td>Frete</td>
           <td class="value">+ <%= number_to_currency(cart.freight_price) %></td>
         </tr>

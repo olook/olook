@@ -38,7 +38,20 @@ class Cart
     end
   end
 
+  def coupon_percent
+    if order.used_coupon && order.used_coupon.is_percentage?
+      order.used_coupon.value
+    else
+      0
+    end
+  end
+
   def freight_price
    order.freight ? order.freight_price : 0
+  end
+
+  def item_discount_percent(item)
+    percent = order.get_retail_price_for_line_item(item)[2]
+    percent != 0 ? number_to_percentage(percent.ceil, :precision => 0) : false
   end
 end

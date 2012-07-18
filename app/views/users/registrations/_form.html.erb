@@ -24,12 +24,12 @@
       <li>
         <%= f.label :email, "Email" %>
         <%= f.email_field :email %>
+        <!--p class='hint'>Coloque um email válido para receber seu resultado</p-->
       </li>
       <li class="password">
-        <label for="user_password">Senha
-          <span class='hint'>mínimo 6 caracteres</span>
-        </label>
+        <%= f.label :password, "Senha" %>
         <%= f.password_field :password %>
+        <p class='hint'>mínimo 6 caracteres</p>
       </li>
 
       <li>
@@ -44,7 +44,7 @@
           <%= f.text_field :cpf %>
         </li>
       <% end %>
-      
+
       <li class="terms">
         <p>Ao concluir o cadastro você aceita os <%= link_to 'Termos de uso', terms_path, :target => "_blank" %> e a nossa <%= link_to "Política de Privacidade", privacy_path %></p>
       </li>

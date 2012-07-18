@@ -17,16 +17,25 @@
   <div id="moments" class="content">
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
-      <div id="order_filter">
-        <%= form_for("", :html => {:id => "moment_order_filter"}) do %>
-          <ol>
-            <li class="select">
-              <%= label_tag "Ordenar por:" %>
-              <%= select_tag('order_filter', options_for_select({"Categoria" => 0, "Menor preço" => 1, "Maior preço" => 2}), :class => "custom_select") %>
-            </li>
-          </ol>
-        <% end %>
+      <div id="shoe_size_filter">
+        <%= label_tag "Mostrar números:" %>
+        <span><%= current_user.user_info.shoes_size if current_user && current_user.user_info %></span>
+        <div class="sizes">
+          <ul>
+            <% moment_presenter.moment.catalog.shoe_sizes.each do |key, value| %>
+              <li>
+                <% if current_user && current_user.user_info %>
+                  <%= check_box_tag('shoe_sizes_filter[]', key, (key.to_s == current_user.user_info.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
+                <% else %>
+                  <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
+                <% end %>
+                <%= label_tag(key, nil, :for => "size_#{key}") %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
+      <%= render "shared/filters/order" %>
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
       </ul>

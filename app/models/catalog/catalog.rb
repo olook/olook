@@ -7,9 +7,9 @@ class Catalog::Catalog < ActiveRecord::Base
     @liquidation = LiquidationService.active
     @query = products.joins(:product)
     @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
-    
-    @query = @query.where(category_id: category_id).where("inventory > 0").where('products.is_visible = 1')
-    @query = @query.and(LiquidationProduct.arel_table[:liquidation_id].eq(@liquidation.id)).and(LiquidationProduct.arel_table[:product_id].eq(nil)) if @liquidation
+    @query = @query.where(category_id: category_id, products: {is_visible: 1}).where("catalog_products.inventory > 0")
+
+    @query = @query.where(liquidation_products: {product_id: nil}) if @liquidation
     @query
   end
 
