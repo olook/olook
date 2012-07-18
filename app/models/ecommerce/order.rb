@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Order < ActiveRecord::Base
+  attr_accessor :freight_price_override
   DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
@@ -39,6 +40,7 @@ class Order < ActiveRecord::Base
   has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
+  after_save :update_retail_price
 
   validates :gift_message, :length => {:maximum => 140}, :allow_nil => true
 
@@ -203,6 +205,10 @@ class Order < ActiveRecord::Base
     STATUS[state]
   end
 
+  def freight_price
+    freight_price_override || freight.try(:price)
+  end
+
   def remove_unavailable_items
     unavailable_items = []
     line_items.each do |li|
@@ -251,11 +257,11 @@ class Order < ActiveRecord::Base
   def max_credit_value
     max_credit_possible = line_items_total
     max_credit_possible -= Payment::MINIMUM_VALUE
-    if discount_from_coupon > 0
-      max_credit_possible -= discount_from_coupon
-    else
-      max_credit_possible -= discount_from_promotion
-    end
+    max_credit_possible -= discount_from_coupon if discount_from_coupon > 0
+    # if discount_from_coupon > 0
+    # else
+    #   max_credit_possible -= discount_from_promotion
+    # end
 
     max_credit_possible > 0 ? max_credit_possible : 0
   end
@@ -271,9 +277,10 @@ class Order < ActiveRecord::Base
   end
 
   def discount_from_coupon
-    if used_coupon
+    if used_coupon && !used_coupon.is_percentage?
       max_discount = line_items_total - (!freight_price.nil? && freight_price > Payment::MINIMUM_VALUE ? 0 : Payment::MINIMUM_VALUE)
-      discount_value = used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+      # discount_value = used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
+      discount_value = used_coupon.value
       discount_value = max_discount if discount_value > max_discount
       discount_value
     else
@@ -287,11 +294,12 @@ class Order < ActiveRecord::Base
   end
 
   def discount_from_promotion
-    if used_promotion
-      used_promotion.discount_value
-    else
-      0
-    end
+    # if used_promotion
+    #   used_promotion.discount_value
+    # else
+    #   0
+    # end
+    0
   end
 
   def total
@@ -303,11 +311,10 @@ class Order < ActiveRecord::Base
   end
 
   def total_discount
-    if discount_from_coupon > 0
-      credits + discount_from_coupon
-    else
-      credits + discount_from_promotion
-    end
+    credits + discount_from_coupon
+    # else
+    #   credits + discount_from_promotion
+    # end
   end
 
   def generate_identification_code
@@ -360,10 +367,74 @@ class Order < ActiveRecord::Base
     Credit.remove(credits, user, self) if credits > 0
   end
 
+  def get_retail_price_for_line_item(item)
+    origin = ''
+    percent = 0
+    final_retail_price = item.variant.product.retail_price
+
+    if item.variant.product.price != final_retail_price
+      percent =  (1 - (final_retail_price / item.variant.product.price) )* 100
+      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
+    end
+
+    if used_coupon && used_coupon.is_percentage?
+      coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
+      if coupon_value < final_retail_price
+        percent = used_coupon.value
+        final_retail_price = coupon_value
+        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+used_coupon.code
+      end
+    end
+
+    if used_promotion && (!used_coupon || (used_coupon && used_coupon.is_percentage?))
+      promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
+      if promotion_value < final_retail_price
+        final_retail_price =  promotion_value
+        percent = used_promotion.promotion.discount_percent
+        origin = 'Desconto de '+percent.ceil.to_s+'% '+used_promotion.promotion.banner_label
+      end
+    end
+
+    if restricted?
+      final_retail_price = item.retail_price
+      percent =  (1 - (final_retail_price / item.price) )* 100
+      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
+    end
+    [origin, final_retail_price, percent]
+  end
+
+  def has_olooklet?
+    line_items.select{|line| line.variant.product.price != line.variant.product.retail_price }.any?
+  end
+
+  def has_more_than_one_discount?
+    size = active_discounts.size
+    size > 1 ? size : false
+  end
+
+  def active_discounts
+    discounts = []
+    discounts.push 'cupom' if used_coupon
+    discounts.push 'Olooklet' if has_olooklet?
+    discounts.push '30% na primeira compra' if used_promotion
+    discounts.uniq
+  end
+
+  def update_retail_price
+    if state == "in_the_cart" && !restricted?
+
+      line_items.each do |item|
+        origin, final_retail_price = get_retail_price_for_line_item(item)
+        item.update_attribute(:retail_price, final_retail_price)
+      end
+    end
+  end
+
   private
 
   def generate_number
     new_number = (id * CONSTANT_FACTOR) + CONSTANT_NUMBER
     update_attributes(:number => new_number)
   end
+
 end

@@ -141,20 +141,19 @@ describe Order do
   end
 
   context 'in a order with items' do
-    let(:items_total) { basic_shoe_35.price + (quantity * basic_shoe_40.price) }
+    let(:price) { 123.45 }
+    let(:items_total) {123.45 + (123.45 * quantity)}
     before :each do
-      # FIXME after the variant.retail_price issue is fixed, remove this workaround to have a product.retail_price with the proper value
-      basic_shoe_35.product.stub(:retail_price).and_return(123.45)
-      basic_shoe_37.product.stub(:retail_price).and_return(124.19)
-      basic_shoe_40.product.stub(:retail_price).and_return(125.45)
-      subject.add_variant(basic_shoe_35)
-      subject.add_variant(basic_shoe_40, quantity)
+      basic_shoe_35.product.master_variant.update_attribute(:retail_price, price)
+      basic_shoe_35.product.master_variant.update_attribute(:price, price)
+      subject.line_items << (FactoryGirl.build :line_item, :variant => basic_shoe_35, :quantity => 1)
+      subject.line_items << (FactoryGirl.build :line_item, :variant => basic_shoe_40, :quantity => quantity)
+      subject.save
     end
 
     describe '#line_items_total' do
       it 'should calculate the total' do
-        expected = items_total
-        subject.line_items_total.should == expected
+        subject.line_items_total.should == items_total
       end
     end
 
@@ -167,23 +166,18 @@ describe Order do
     end
 
     describe "#max_credit_value" do
-      context "when using coupons should ignore the promotion" do
-        it "should return the order total deducted the minimum value and the promotion discount." do
-          subject.stub(:line_items_total).and_return(total = 100.00)
-          subject.stub(:discount_from_coupon).and_return(coupon = 10.00)
-          subject.stub(:discount_from_promotion).and_return(promo = 20.00)
-          subject.max_credit_value.should == total - Payment::MINIMUM_VALUE - coupon
-
-        end
+      it "should return the total amount minus mininum value" do
+        subject.max_credit_value.should eq(items_total - Payment::MINIMUM_VALUE)
       end
-
-      context "when using coupons should ignore the promotion" do
-        it "should return the order total deducted the minimum value and the coupon discount." do
-          subject.stub(:line_items_total).and_return(total = 100.00)
-          subject.stub(:discount_from_coupon).and_return(coupon = 0.00)
-          subject.stub(:discount_from_promotion).and_return(promo = 20.00)
-          subject.max_credit_value.should == total - Payment::MINIMUM_VALUE - promo
-        end
+      
+      it "should return the total amount minus discount_from_coupon" do
+        subject.stub(:discount_from_coupon).and_return(10)
+        subject.max_credit_value.should eq(items_total - Payment::MINIMUM_VALUE - 10)
+      end
+      
+      it "should return zero when discount from coupon is superior of items total" do
+        subject.stub(:discount_from_coupon).and_return(items_total + 10)
+        subject.max_credit_value.should eq(0)
       end
     end
 
@@ -232,8 +226,8 @@ describe Order do
         it "should return the value in Percentage" do
           coupon = FactoryGirl.create(:percentage_coupon)
           subject.create_used_coupon(:coupon => coupon)
-          percent_value = (coupon.value * subject.line_items_total) / 100
-          subject.discount_from_coupon.should == percent_value
+          #ALWAYS ZERO BECAUSE IS APPLIED IN LINE ITEM
+          subject.discount_from_coupon.should == 0
         end
       end
 

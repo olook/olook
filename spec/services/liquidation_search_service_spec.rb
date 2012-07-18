@@ -33,11 +33,11 @@ describe LiquidationSearchService do
          products.should_not include(lp3)
        end
 
-       it "returns products given some shoe sizes" do
-         lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :shoe_size => 45, :inventory => 1)
-         lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :shoe_size => 35, :inventory => 1)
+       it "returns products given some shoe sizes and subcategories" do
+         lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_35.product.id, :subcategory_name => "rasteirinha", :shoe_size => 45, :inventory => 1)
+         lp2 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_40.product.id, :subcategory_name => "melissa", :shoe_size => 35, :inventory => 1)
          lp3 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe_size_37.product.id, :heel => 5.6, :inventory => 1)
-         params = {:id => liquidation.id, :shoe_sizes => ["45", "35"]}
+         params = {:id => liquidation.id, :shoe_subcategories => ["rasteirinha", "melissa"], :shoe_sizes => ["45", "35"]}
          products = LiquidationSearchService.new(params).search_products
          products.should include(lp1)
          products.should include(lp2)

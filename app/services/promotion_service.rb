@@ -5,7 +5,7 @@ class PromotionService
 
   def self.by_product product
     promotion = Promotion.purchases_amount
-    ((100 - promotion.discount_percent) * product.retail_price) / 100
+    ((100 - promotion.discount_percent) * product.price) / 100
   end
 
   def self.apply_discount_for_product promotion, product
@@ -42,11 +42,12 @@ class PromotionService
   end
 
   def apply_promotion
-    unless order.used_coupon
+    if order.used_promotion.nil?
       promotion = detect_current_promotion
       order.create_used_promotion(:promotion => promotion,
                                   :discount_percent => promotion.discount_percent,
                                   :discount_value =>  apply_discount(promotion))
+      order.save
     end
   end
 

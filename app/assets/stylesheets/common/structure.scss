@@ -84,6 +84,11 @@ body {
       display: none;
       height: auto !important;
     }
+    a.liquidation_banner {
+      width: 970px;
+      display: block;
+      margin: 0 auto 20px;
+    }
     div#login_modal {
       position: relative;
       background: url("/assets/common/bg-modal-login.jpg") top left no-repeat;
@@ -229,7 +234,7 @@ body {
         height: 96px;
         float: left;
         margin-top: 90px;
-        margin-left: 15px;
+        margin-left: 100px;
 
         li {
           background: url('/assets/common/sprite-social-media.png') 10px 24px no-repeat;
@@ -372,7 +377,7 @@ body {
 
 
     .sign-in {
-      background: url("/assets/home/bg-middle-home.jpg") no-repeat;
+      background: url("/assets/home/bg-middle-home.jpg") top right no-repeat;
       height: 575px;
       padding:0 30px;
       @include sign-in(relative);
@@ -391,7 +396,7 @@ body {
         height: 96px;
         float: left;
         margin-top: 90px;
-        margin-left: 15px;
+        margin-left: 100px;
 
         li {
           background: url('/assets/common/sprite-social-media.png') 10px 24px no-repeat;
