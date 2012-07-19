@@ -86,9 +86,14 @@ class PriceModificator
   def gift_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
   end
+  #TODO: If it's gift should not change retail_price.
 
   def freight_price
-    cart.try(:freight).try(:price) || 0
+    if cart.freight && cart.freight.price
+      cart.freight.price
+    else
+      0
+    end
   end
 
   #Calculators
@@ -110,7 +115,7 @@ class PriceModificator
   end
 
   def item_olooklet_discount(item)
-    value = item.original_price - item.variant.product.retail_price
+    value = item.original_price - item.original_retail_price
     Discount.new(:origin => :olooklet, :item => item, :value => value )
   end
 
