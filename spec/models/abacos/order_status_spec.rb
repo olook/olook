@@ -217,9 +217,6 @@ describe Abacos::OrderStatus do
         subject.tracking_code.should == "XYZ-CORREIO"
       end
 
-      it '#cancelation_reason' do
-        subject.cancelation_reason.should == '55 - SOME REASON'
-      end
     end
 
     describe '#parse_status' do
