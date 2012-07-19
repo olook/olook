@@ -13,6 +13,9 @@ describe Checkout::CartController do
   
   after :each do
     session[:cart_id] = nil
+    session[:gift_wrap] = nil
+    session[:session_coupon] = nil
+    session[:credits] = nil
     session[:freight] = nil
   end
   
@@ -44,7 +47,18 @@ describe Checkout::CartController do
   end
   
   context "when destroy" do
-    it "should remove cart in database"
+    it "should remove cart in database" do
+      Cart.any_instance.should_receive(:destroy)
+      delete :destroy
+      session[:cart_id].should be_nil
+      session[:gift_wrap].should be_nil
+      session[:session_coupon].should be_nil
+      session[:credits].should be_nil
+      session[:freight].should be_nil
+      response.should redirect_to(cart_path)
+      flash[:notice].should eql("Sua sacola está vazia")
+    end
+    
     it "should reset session params"
     it "should set flash notice"
     it "should redirect to cart"
