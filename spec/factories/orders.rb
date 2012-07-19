@@ -39,7 +39,21 @@ FactoryGirl.define do
   factory :order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
+    after_build do |order|
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
 
+    after_create do |order|
+      order.stub(:total).and_return(BigDecimal.new("100"))
+      order.stub(:reload)
+    end
+  end
+
+  factory :authorized_order, :class => Order do
+    association :payment, :factory => :credit_card_with_response
+    association :freight, :factory => :freight
+    state "authorized"
     after_build do |order|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)
