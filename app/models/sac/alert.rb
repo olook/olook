@@ -8,7 +8,6 @@ module SAC
       @header, @order_id, @message = set_header(header), order_id, message
     end
 
-    
     private
 
     def set_header(header)
@@ -18,7 +17,6 @@ module SAC
     def set_time_format
       @time = Time.now.strftime("%d, %B %Y as %H:%M:%S")
     end
-
 
   end
 end
