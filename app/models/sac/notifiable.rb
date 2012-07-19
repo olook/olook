@@ -1,5 +1,6 @@
 module SAC
   module Notifiable
+    include ActionSupport
 
     CONFIG = YAML.load_file("#{Rails.root.to_s}/config/sac_alert.yml")
 
@@ -22,7 +23,8 @@ module SAC
     end
 
     def validate_business_hours
-      (Time.now > Time.parse(settings['beginning_working_hour']) && Time.now < Time.parse(settings['end_working_hour'])) ? true : false
+      (Time.now > Time.parse(settings['beginning_working_hour']) && 
+        Time.now < Time.parse(settings['end_working_hour'])) ? true : false
     end
 
     def validate_purchase_amount
