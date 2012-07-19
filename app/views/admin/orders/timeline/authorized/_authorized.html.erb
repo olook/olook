@@ -1,10 +1,15 @@
-<h4>Atualização recebida as <b><%= format_time(event.created_at) %></b></h4>
-  <img src='/assets/order_timeline/moip.png' width='75px'>
-  <ul style='font-size:14px'>
-    <li>Situação: <b><%= order.payment.payment_response.status %></b></li>
-    <li>Classificação: <b><%= order.payment.gateway_status_reason %></b></li>
+<div id='timeline_content_column1'>
+	<img src='/assets/purchase_timeline/moip.png' width='75px'>
+	<ul>
+		<li>Situação: <b><%= order.payment.payment_response.status %></b></li>
+		<li>Classificação: <b><%= order.payment.gateway_status_reason %></b></li>
+	</ul>
+</div>
+<div id='timeline_content_column2'>
+  <%= shipping_service_art(order) %>
+  <ul>
+    <li>Data estimada de entrega:
+      <b><%= headline_delivered_date_format(event.created_at, order.freight.delivery_time) %></b>
+    </li>
   </ul>
-  <img src='/assets/order_timeline/<%= shipping_service_art(order) %>' width='75px'>      
-  <ul style='font-size:14px'>
-    <li>Data estimada de entrega: <b><%= calculate_delivered_date(event.created_at, order.freight.delivery_time) %></b></li>
-  </ul>
+</div>
