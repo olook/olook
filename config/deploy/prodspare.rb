@@ -1,4 +1,4 @@
-role :app, 'app5.olook.com.br'
+role :app, 'app5.olook.com.br', 'app6.olook.com.br'
  
 # server details
 set :rails_env, 'RAILS_ENV=production'
@@ -60,6 +60,7 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/yahoo.yml #{version_path}/config/yahoo.yml"
     run "ln -nfs #{deploy_to}/shared/facebook.yml #{version_path}/config/facebook.yml"
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
+    run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
   desc 'Stop unicorn'

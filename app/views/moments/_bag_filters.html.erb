@@ -5,10 +5,10 @@
       <%= check_box_tag "select_all_bags", 1, params[:select_all_bags], :class => "select_all" %>
       <%= label_tag "select_all_bags", "Todas as bolsas" %>
     </li>
-<% moment_presenter.moment.catalog.bags.each do |subcategory| %>
+<% moment_presenter.moment.catalog.bags.each do |subcategory,label| %>
     <li>
       <%= check_box_tag('bag_accessory_subcategories[]', subcategory, params[:bag_accessory_subcategories] && params[:bag_accessory_subcategories].include?(subcategory), :id => subcategory) %>
-      <%= label_tag(subcategory, nil, :for => subcategory) %>
+      <%= label_tag(label, nil, :for => subcategory) %>
     </li>
 <% end %>
   </ol>

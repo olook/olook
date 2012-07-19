@@ -3,7 +3,6 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
-  CANCELLATION_SOURCE = {:moip => 1, :abacos => 2}
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -29,7 +28,6 @@ class Order < ActiveRecord::Base
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
-  has_one :cancellation_reason, :dependent => :destroy
   has_many :line_items, :dependent => :destroy
   alias :items :line_items
 

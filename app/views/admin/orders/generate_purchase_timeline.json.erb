@@ -1,0 +1,18 @@
+<% self.formats = ["json"] %>
+{
+    "timeline":
+    {
+      "headline":"Order <%= @order.number %>",
+      "type":"default",
+      "startDate":"<%= timeline_date_format(@order.created_at) %>",
+      "text":"",
+      "date":[
+        <% @order.order_state_transitions.each_with_index do |event, idx| %>
+          <% if event.to != "in_the_cart" %>
+            <%= render(:partial => "admin/orders/timeline/#{event.to}", :formats => [:json], :content_type => 'application/json', :locals => {:order => @order, :event =>  event}) %>
+          <%= "," unless idx == @order.order_state_transitions.length - 1 %>
+          <% end %>
+        <% end %>
+        ]
+    }
+}

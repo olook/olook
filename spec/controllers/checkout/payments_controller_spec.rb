@@ -126,18 +126,6 @@ describe Checkout::PaymentsController do
         }.to change(MoipCallback, :count).by(1)
       end
 
-      it "should create a cancelation reason" do
-        order.payment.create_payment_response(:message => 'payment_response_message')
-        canceled_status = Payment::STATUS["5"]
-
-        expect {
-        post :create, :status_pagamento => canceled_status,
-                      :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
-        }.to change(CancellationReason, :count).by(1)
-
-        order.cancellation_reason.message.should == 'payment_response_message'
-        order.cancellation_reason.source.should == Order::CANCELLATION_SOURCE[:moip]
-      end
     end
 
     context "with invalids params" do
