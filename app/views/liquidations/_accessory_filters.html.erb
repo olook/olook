@@ -5,12 +5,12 @@
       <%= check_box_tag "select_all_accessories", "", false, :class => "select_all" %>
       <%= label_tag "select_all_accessories", "Todos os acessórios" %>
     </li>
-    <% liquidation_presenter.liquidation.resume[:categories][Category::ACCESSORY].each do |key, value| %>
-      <li>
-        <%= check_box_tag('bag_accessory_subcategories[]', key, false, :id => key) %>
-        <%= label_tag(value, nil, :for => key) %>
-      </li>
-    <% end %>
+<% liquidation_presenter.liquidation.accessories.each do |accessory, label| %>
+    <li>
+      <%= check_box_tag('bag_accessory_subcategories[]', accessory, params[:bag_accessory_subcategories] && params[:bag_accessory_subcategories].include?(accessory), :id => accessory) %>
+      <%= label_tag(label, nil, :for => accessory) %>
+    </li>
+<% end %>
   </ol>
 </div>
 
