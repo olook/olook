@@ -26,7 +26,8 @@ class PaymentsController < ApplicationController
                         :cod_moip => params["cod_moip"],
                         :tipo_pagamento => params["tipo_pagamento"],
                         :status_pagamento => params["status_pagamento"],
-                        :id_transacao => params["id_transacao"])
+                        :id_transacao => params["id_transacao"],
+                        :classificacao => params["classificacao"])
     if order
       if update_order(order)
         render :nothing => true, :status => 200
@@ -54,15 +55,8 @@ class PaymentsController < ApplicationController
     if order.payment
       order.payment.update_attributes(:gateway_code   => params["cod_moip"],
                                       :gateway_type   => params["tipo_pagamento"],
-                                      :gateway_status => params["status_pagamento"])
-
-      canceled_status = Payment::STATUS["5"].to_s
-
-      if params["status_pagamento"] == canceled_status
-        cancellation_reason_message = order.payment_response.message if order.payment_response
-        order.create_cancellation_reason(:source => Order::CANCELLATION_SOURCE[:moip], :message => cancellation_reason_message)
-      end
-
+                                      :gateway_status => params["status_pagamento"],
+                                      :gateway_status_reason => params["classificacao"])
       order.payment.set_state(params["status_pagamento"])
     end
   end
