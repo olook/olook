@@ -1,15 +1,15 @@
 <div class="filter shoe_size">
   <h1 class="subtitle">Numeração</h1>
   <ol class="column">
-   <% liquidation_presenter.liquidation.resume[:shoe_sizes].each do |key, value| %>
-      <li>
-      	<% if current_user && current_user.user_info %>
-        	<%= check_box_tag('shoe_sizes[]', key, (key == current_user.user_info.shoes_size.to_s ? true : false), :id => key) %>
-        <% else %>
-        	<%= check_box_tag('shoe_sizes[]', key, false, :id => key) %>
-        <% end %>
-        <%= label_tag(value, nil, :for => key) %>
-      </li>
+   <% liquidation_presenter.liquidation.shoe_sizes.each do |shoe_size| %>
+    <li>
+      <% if current_user && current_user.user_info %>
+        <%= check_box_tag('shoe_sizes[]', shoe_size, (shoe_size.to_s == current_user.user_info.shoes_size.to_s ? true : false) , :id => shoe_size) %>
+      <% else %>
+        <%= check_box_tag('shoe_sizes[]', shoe_size, false , :id => shoe_size) %>
+      <% end %>
+      <%= label_tag(shoe_size, nil, :for => shoe_size) %>
+    </li>
     <% end %>
   </ol>
 </div>

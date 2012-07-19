@@ -64,6 +64,9 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     builder (3.0.0)
+    business_time (0.6.1)
+      activesupport (>= 3.1.0)
+      tzinfo (~> 0.3.31)
     cancan (1.6.7)
     capistrano (2.12.0)
       highline
@@ -355,6 +358,7 @@ DEPENDENCIES
   asset_sync (= 0.1.10)
   awesome_print
   brcpfcnpj (= 3.0.4)
+  business_time
   cancan (~> 1.6.7)
   capistrano
   capybara (~> 1.1.1)
