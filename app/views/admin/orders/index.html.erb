@@ -49,10 +49,13 @@
       <th><%= sort_link @search, :user_email, "E-mail" %></th>
       <th><%= sort_link @search, :created_at, "Date" %></th>
       <th><%= sort_link @search, :state, "Status" %></th>
+      <th>Status Reason</th>
       <th><%= sort_link @search, :payment_type, "Payment Method" %></th>
+      <th>Payment Status Reason</th>
       <th>Item count</th>
       <th>Products Total</th>
       <th>Used Credits</th>
+      <th>Used Coupons</th>
       <th>Freight Price</th>
       <th>Total</th>
       <th>x</th>
@@ -65,8 +68,10 @@
       <td><%= link_to order.user.name, admin_user_path(order.user) %></td>
       <td><%= link_to order.user.email, admin_user_path(order.user) %></td>
       <td><%= l order.created_at, :format => :short %></td>
-      <td><%= order.status  %></td>
+      <td><%= order.status %></td>
+      <td><%= order.state_reason %></td>
       <td><%= order.payment.human_to_s %></td>
+      <td><%= order.payment.gateway_status_reason.to_s %></td>
       <td><%= order.line_items.count %></td>
       <td><%= number_to_currency(order.total) %></td>
       <td><%= number_to_currency(order.credits) %></td>
