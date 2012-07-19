@@ -7,7 +7,7 @@ class Discount
     end
 
     if @value
-      percentage_factor = (@value / item.original_price)
+      self.percentage_factor = (@value / item.original_price)
     elsif @percentage
       @value = item.original_price * percentage_factor
     else
