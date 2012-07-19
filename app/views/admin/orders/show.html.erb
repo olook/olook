@@ -68,7 +68,7 @@
     </div>
   </div>
   
-  <%= render :partial => 'order_timeline' %>
+  <%= render :partial => 'purchase_timeline', :locals => {:order => @order} %>
 
   <table class="table">
     <tr>

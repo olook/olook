@@ -1,53 +1,40 @@
-<h4>Atualização recebida as <%= format_time(event.created_at) %></h4>
-<img src='/assets/order_timeline/moip.png' width='75px' />
-<ul style='font-size:14px'>
- <li>
-  Envio da transação: <b><%= event.payment_response_status %></b>
- </li>
- <li>
-  Situação: <b><%= event.payment_response %></b>
- </li>
- <li>
-  Código Moip: <b><%= event.payment_response_status %></b>
- </li>
- <li>
-  Gateway Fee: <b><%= order.payment.payment_response.gateway_fee.to_s %></b>
- </li>
- <li>
-  Código de identificação:
-  <b>
-   <%= order.identification_code %>
-  </b>
- </li>
- <li>
-  Final do cartão:
-  <b>
-   <%= order.payment.credit_card_number if order.payment.type == 'CreditCard' %>
-  </b>
- </li>
- <li>
-  Telefone do cliente: <b><%= order.payment.telephone %></b>
- </li>
- <li>
-  CPF:
-  <b>
-   <%= order.user.cpf %>
-  </b>
- </li>
-</ul>
-<br />
-<img src='/assets/order_timeline/<%= shipping_service_art(order) %>' width='75px'>
-<ul style='font-size:14px'>
- <li>
-  Custo do frete:
-  <b>
-   R$ <%= order.freight.cost.to_s %>
-  </b>
- </li>
- <li>
-  Receita de frete:
-  <b>
-   R$ <%= order.freight.price.to_s %>
-  </b>
- </li>
-</ul>
+<div id='timeline_content_column1'>
+  <img src='/assets/purchase_timeline/moip.png' width='75px' />
+  <ul>
+    <li>
+      Envio da transação: <b><%=  event.payment_response %></b>
+    </li>
+    <li>
+      Situação: <b><%= event.payment_transaction_status %></b>
+    </li>
+    <li>
+    Código Moip: <b><%= order.payment.payment_response.gateway_code %></b>
+   </li>
+   <li>
+    Gateway Fee: <b><%= number_to_currency(order.payment.payment_response.gateway_fee) %></b>
+   </li>
+   <li>
+    Código de identificação: <b><%= order.identification_code %></b>
+   </li>
+   <li>
+    Final do cartão: <b><%= order.payment.credit_card_number if order.payment.type == 'CreditCard' %></b>
+   </li>
+   <li>
+    Telefone do cliente: <b><%= order.payment.telephone %></b>
+   </li>
+   <li>
+    CPF: <b><%= order.user.cpf %></b>
+   </li>
+  </ul>
+</div>
+<div id="timeline_content_column2">
+  <%= shipping_service_art(order) %>
+  <ul style='font-size:14px'>
+   <li>
+    Custo do frete: <b><%= number_to_currency(order.freight.cost) %></b>
+   </li>
+   <li>
+    Receita de frete: <b><%= number_to_currency(order.freight.price) %></b>
+   </li>
+  </ul>
+</div>
