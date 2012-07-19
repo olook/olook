@@ -5,7 +5,6 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
-  CANCELLATION_SOURCE = {:moip => 1, :abacos => 2}
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -37,7 +36,6 @@ class Order < ActiveRecord::Base
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
-  has_one :cancellation_reason, :dependent => :destroy
   after_create :generate_number
   after_create :generate_identification_code
   after_save :update_retail_price
@@ -62,14 +60,13 @@ class Order < ActiveRecord::Base
     after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
     after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
-
+    
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
 
     after_transition any => :canceled, :do => :send_notification_payment_refused
     after_transition any => :reversed, :do => :send_notification_payment_refused
     after_transition any => :canceled, :do => :reimburse_credit
-
 
     event :waiting_payment do
       transition :in_the_cart => :waiting_payment

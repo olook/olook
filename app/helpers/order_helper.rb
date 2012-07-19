@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 module OrderHelper
+include ::PurchaseTimeline::Helper
+
   def link_to_tracking_code(order)
   	case order.freight.shipping_service.erp_code
       when "TEX"
