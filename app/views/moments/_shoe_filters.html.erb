@@ -6,10 +6,10 @@
       <%= label_tag "select_all_shoes", "Todos os sapatos" %>
     </li>
 
-  <% moment_presenter.moment.catalog.subcategories(Category::SHOE).each do |subcategory| %>
+  <% moment_presenter.moment.catalog.subcategories(Category::SHOE).each do |subcategory,label| %>
     <li>
       <%= check_box_tag('shoe_subcategories[]', subcategory, params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory), :id => subcategory) %>
-      <%= label_tag(subcategory, nil, :for => subcategory) %>
+      <%= label_tag(label, nil, :for => subcategory) %>
     </li>
   <% end %>
   </ol>
