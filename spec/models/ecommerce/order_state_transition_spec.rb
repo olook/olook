@@ -28,7 +28,6 @@ describe OrderStateTransition do
   end
 
   it "should have nil transaction attributes with no associated payment" do
-    order.waiting_payment
     subject = order.order_state_transitions.last
     subject.to.should == "waiting_payment"
     subject.payment_response.should be_nil
