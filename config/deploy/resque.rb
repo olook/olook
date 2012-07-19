@@ -14,7 +14,7 @@ namespace :deploy do
     bundle_install
     #rake_tasks
     # restart
-    #resque_restart
+    resque_restart
   end
 
   desc 'Install gems'
@@ -44,17 +44,18 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/yahoo.yml #{version_path}/config/yahoo.yml"
     run "ln -nfs #{deploy_to}/shared/facebook.yml #{version_path}/config/facebook.yml"
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
+    run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
-  #  run "/sbin/restart unicorn"
-  #  run '/etc/init.d/workers_todos.sh restart'
+    # run "/sbin/restart unicorn"
+    # run '/etc/init.d/workers_todos.sh restart'
   end
 
   desc 'Task to restart resque'
   task :resque_restart, :app => :app do
-    #run '/etc/init.d/worker_todos.sh restart'
+    run '/etc/init.d/worker_todos.sh restart'
   end
 
   after "deploy", "deploy:cleanup" # keep only the last 5 releases

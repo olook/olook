@@ -1,8 +1,9 @@
+#load 'deploy/assets'
 require 'new_relic/recipes'
 require 'capistrano/ext/multistage'
 # require "bundler/capistrano"
 
-set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_todos hmg dev resque showroom new_machine)
+set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_todos hmg dev resque showroom new_machine apptest prod_todas)
 
 # app details
 set :application, 'olook'
@@ -30,5 +31,5 @@ default_run_options[:pty] = true
 ssh_options[:port] = 13630
 ssh_options[:forward_agent] = true
 
-after 'deploy:update', 'newrelic:notice_deployment'
+#after 'deploy:update', 'newrelic:notice_deployment'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
