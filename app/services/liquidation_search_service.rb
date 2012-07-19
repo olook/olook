@@ -20,14 +20,13 @@ class LiquidationSearchService
     if query_bags_acessories
       @query_base = query_result ? @query_base.and(query_result.or(query_bags_acessories)) : @query_base.and(query_bags_acessories)
     else
-      # @query_base = @query_base.and(query_result.or(l_products[:category_id].in([Category::BAG, Category::ACCESSORY]))) if query_result
       @query_base = @query_base.and(query_result) if query_result
     end
 
     LiquidationProduct.joins(:product).where(query_base)
-                                      .group("product_id")
                                       .order(sort_filter)
-                                      .paginate(:page => params[:page], :per_page => 12)
+                                      .group("product_id")
+                                      .paginate(page: params[:page], per_page: 12)
   end
 
   def build_sub_query(current_query, sub_query)
