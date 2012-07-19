@@ -49,9 +49,10 @@ body {
       float: left;
       h1 {
         color: #58595b;
-        font-family: Times, sans-serif;
+        font-family: "Times", "Times New Roman", serif;
         font-size: 75px;
         font-style: italic;
+        font-weight: normal;
         letter-spacing: -5px;
         text-align: center;
         margin: 0 0 20px 0;
@@ -61,7 +62,7 @@ body {
         font-family: 'QuicksandRegular', sans-serif;
         font-size: 21px;
         font-weight: normal;
-        letter-spacing: -1px;
+        letter-spacing: -2px;
         text-align: center;
         margin: 0 0 45px;
       }

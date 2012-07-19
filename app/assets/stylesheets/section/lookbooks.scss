@@ -2,7 +2,9 @@
 @import "partials/product_map";
 
 section#lookbooks {
+  width: 100%;
   padding: 20px 0;
+  overflow: auto;
   h1.lookbook_title {
     font-family: Times, "Times New Roman";
     font-size: 40px;
