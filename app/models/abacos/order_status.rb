@@ -80,6 +80,10 @@ module Abacos
     end
 
     def change_order_state(order)
+      if new_state == 'canceled'
+        order.canceled
+      end
+
       valid_state = VALID_STATES.index(order.state)
 
       if valid_state
