@@ -1,8 +1,8 @@
 <% self.formats = ["html"] %>
 {
-  "startDate":"<%= to_timeline_date_format(event.created_at) %>",
+  "startDate":"<%= timeline_date_format(event.created_at) %>",
   "endDate":"",
-  "headline":"Separando",
+  "headline":"Separando | atualizado as <%= headline_time_format(event.created_at) %>",
   "text":<%= render(:partial => "admin/orders/timeline/#{event.to}/#{event.to}", :locals => {:order => order, :event =>  event}).to_json.html_safe %>,
   "asset":
   {
