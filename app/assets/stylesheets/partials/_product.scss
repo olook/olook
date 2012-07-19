@@ -47,6 +47,7 @@ li.product {
           }
         }
         &.add {
+          display: none;
           a {
             @include border-radius(3px);
             background: #e05789;
@@ -56,8 +57,9 @@ li.product {
             text-decoration: none;
             text-transform: uppercase;
             font-weight: 600;
-            padding: 5px 10px;
-            display: none;
+            width: 120px;
+            margin: -120px auto 0;
+            padding: 0 10px;
           }
         }
       }
