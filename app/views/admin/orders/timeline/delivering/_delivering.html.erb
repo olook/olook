@@ -1,5 +1,5 @@
-<h4>Atualização recebida as <b><%= format_time(event.created_at) %></b></h4>
-	<img src='/assets/order_timeline/<%= shipping_service_art(order) %>' width='75px'> 
+<h4>Atualização recebida as <b><%= headline_time_format(event.created_at) %></b></h4>
+	<%= shipping_service_art(order) %> 
           <ul style='font-size:13px'>
             <li>Tracking code: <%= link_to_tracking_code(order) %></li>
           </ul>

@@ -1,9 +1,10 @@
+<% self.formats = ["json"] %>
 {
     "timeline":
     {
       "headline":"Order <%= @order.number %>",
       "type":"default",
-      "startDate":"<%= to_timeline_date_format(@order.created_at) %>",
+      "startDate":"<%= timeline_date_format(@order.created_at) %>",
       "text":"",
       "date":[
         <% @order.order_state_transitions.each_with_index do |event, idx| %>
