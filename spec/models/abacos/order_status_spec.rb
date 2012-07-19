@@ -74,11 +74,6 @@ describe Abacos::OrderStatus do
           order.canceled?.should be_true
         end
 
-        it "should create a cancellation reason" do
-          expect {
-            subject.send :change_order_state, order
-          }.to change(CancellationReason, :count).by(1)
-        end
       end
     end
 
