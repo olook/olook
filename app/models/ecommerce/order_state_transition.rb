@@ -3,13 +3,15 @@ class OrderStateTransition < ActiveRecord::Base
   belongs_to :order
   
   before_create :snapshot
-  
+
+  private
+
   def snapshot
-    order = self.order
-    if order.state != "in_the_cart"
-      self.payment_response = order.payment.payment_response.status
-      self.payment_response_status = order.payment.payment_response.response_status
-      self.gateway_status_reason = order.payment.gateway_status_reason
+    payment = self.order.try(:payment)
+    if payment && payment.payment_response
+      self.payment_response = payment.payment_response.response_status
+      self.payment_transaction_status = payment.payment_response.transaction_status
+      self.gateway_status_reason = payment.gateway_status_reason
     end
   end
 
