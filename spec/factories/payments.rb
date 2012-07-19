@@ -27,5 +27,10 @@ FactoryGirl.define do
   factory :payment do
     url 'www.payment.com'
   end
+
+  factory :credit_card_with_response, :parent => :credit_card do
+    association :payment_response, :factory => :authorized_response
+  end
+
 end
 
