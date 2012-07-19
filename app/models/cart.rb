@@ -11,8 +11,9 @@ class Cart < ActiveRecord::Base
   attr_accessor :used_promotion
   attr_accessor :freight
   attr_accessor :credits
-
-  #TODO: refactor this to include price as a parameter
+  
+  before_save :update_invetory
+  
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
@@ -128,5 +129,10 @@ class Cart < ActiveRecord::Base
   
   def subtotal
     price_modificator.original_price
+  end
+  
+  private
+  def update_invetory
+    Resque.enqueue(Abacos::UpdateInventory) if user_id_changed?
   end
 end
