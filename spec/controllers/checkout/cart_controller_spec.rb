@@ -2,16 +2,63 @@
 require 'spec_helper'
 
 describe Checkout::CartController do
-  it "should erase freight when call any action"
+  let(:cart) { FactoryGirl.create(:clean_cart) }
+  let(:user) { FactoryGirl.create(:user) }
+  
+  before :each do
+    session[:cart_id] = cart.id
+    session[:freight] = mock
+    request.env['devise.mapping'] = Devise.mappings[:user]
+  end
+  
+  after :each do
+    session[:cart_id] = nil
+    session[:gift_wrap] = nil
+    session[:session_coupon] = nil
+    session[:credits] = nil
+    session[:freight] = nil
+  end
+  
+  it "should erase freight when call any action" do
+    session[:cart_id] = cart.id
+    session[:freight] = mock
+    get :show
+    assigns(:cart).freight.should be_nil
+  end
   
   context "when show" do
-    it "should assign default bonus value"
-    it "should assign bonus value for user"
-    it "should render show view"
+    it "should assign default bonus value" do
+      get :show
+      assigns(:bonus).should eq(0)
+    end
+    
+    it "should assign bonus value for user" do
+      session[:credits] = 10
+      User.any_instance.should_receive(:credits_for?).with(10).and_return(100)
+      sign_in user
+      get :show
+      assigns(:bonus).should eq(100)
+    end
+
+    it "should render show view" do
+      get :show
+      response.should render_template ["layouts/site", "show"]
+    end
   end
   
   context "when destroy" do
-    it "should remove cart in database"
+    it "should remove cart in database" do
+      Cart.any_instance.should_receive(:destroy)
+      delete :destroy
+      session[:cart_id].should be_nil
+      session[:gift_wrap].should be_nil
+      session[:session_coupon].should be_nil
+      session[:credits].should be_nil
+      session[:freight].should be_nil
+      response.should redirect_to(cart_path)
+      flash[:notice].should eql("Sua sacola está vazia")
+    end
+    
     it "should reset session params"
     it "should set flash notice"
     it "should redirect to cart"
