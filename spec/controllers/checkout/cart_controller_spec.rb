@@ -375,13 +375,41 @@ describe Checkout::CartController do
   end
   
   context "when update credits" do
-    it "should redirect to cart"
-    it "should set flash when user no has sufficient credit"
+    before :each do
+      Cart.any_instance.stub(:credits_discount).and_return(100)
+      sign_in user
+    end
+    
+    it "should redirect to cart" do
+      post :update_credits
+      response.should redirect_to(cart_path)
+    end
+    
+    it "should set flash when user no has sufficient credit" do
+      User.any_instance.stub(:can_use_credit?).and_return(false)
+      post :update_credits, {credits: {value: 100}}
+      flash[:notice].should eq("Você não tem créditos suficientes")
+    end
     
     context "and has sufficient credit" do
-      it "should set session"
-      it "should set flash"
-      it "should set flash for max value"
+      before :each do
+        User.any_instance.stub(:can_use_credit?).and_return(true)
+      end
+
+      it "should set session" do
+        post :update_credits, {credits: {value: 100}}
+        session[:credits].should eq(100)
+      end
+      
+      it "should set flash" do
+        post :update_credits, {credits: {value: 100}}
+        flash[:notice].should eq("Créditos atualizados com sucesso")
+      end
+      
+      it "should set flash for max value" do
+        post :update_credits, {credits: {value: 110}}
+        flash[:notice].should eq("Você tentou utilizar mais que o permitido para esta compra, utilizamos o máximo permitido.")
+      end
     end
   end
 end
