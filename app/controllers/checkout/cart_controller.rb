@@ -36,24 +36,24 @@ class Checkout::CartController < ApplicationController
 
   def create
     variant_id = params[:variant][:id] if params[:variant]
-    @variant = Variant.find_by_id(variant_id)
     
-    if @variant.nil?
-      respond_with do |format|
-        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
-        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
-      end
-    else
+    
+    if @variant = Variant.find_by_id(variant_id)
       if @cart.add_item(@variant)
         respond_with do |format|
           format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
         end
       else
         respond_with(@cart) do |format|
-          notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
+          notice_response = "Produto esgotado"
           format.js { render :error, locals: { notice: notice_response } }
           format.html { redirect_to(cart_path, notice: notice_response) }
         end
+      end
+    else
+      respond_with do |format|
+        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
+        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     end
   end
