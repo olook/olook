@@ -4,7 +4,8 @@ require 'spec_helper'
 describe Checkout::CartController do
   let(:cart) { FactoryGirl.create(:clean_cart) }
   let(:user) { FactoryGirl.create(:user) }
-  
+  let(:basic_bag) { FactoryGirl.create(:basic_bag_simple) }
+    
   before :each do
     session[:cart_id] = cart.id
     session[:freight] = mock
@@ -50,75 +51,209 @@ describe Checkout::CartController do
     it "should remove cart in database" do
       Cart.any_instance.should_receive(:destroy)
       delete :destroy
+      response.should redirect_to(cart_path)
+      flash[:notice].should eql("Sua sacola está vazia")
+    end
+    
+    it "should reset session params" do
+      delete :destroy
       session[:cart_id].should be_nil
       session[:gift_wrap].should be_nil
       session[:session_coupon].should be_nil
       session[:credits].should be_nil
       session[:freight].should be_nil
-      response.should redirect_to(cart_path)
+    end
+
+    it "should set flash notice" do
+      delete :destroy
       flash[:notice].should eql("Sua sacola está vazia")
     end
     
-    it "should reset session params"
-    it "should set flash notice"
-    it "should redirect to cart"
+    it "should redirect to cart" do
+      delete :destroy
+      response.should redirect_to(cart_path)
+    end
   end
 
   context "when update" do
-    it "should remove item"
+    it "should remove item" do
+      Cart.any_instance
+          .should_receive(:remove_item)
+          .with(basic_bag)
+          .and_return(true)
+      post :update, {variant: {id: basic_bag.id}}
+    end
     
     context "when item removed and respond for html" do
-      it "should redirect to cart"
-      it "should set flash notice"
+      before :each do
+        Cart.any_instance
+            .stub(:remove_item)
+            .with(basic_bag)
+            .and_return(true)
+      end
+
+      it "should redirect to cart" do
+        post :update, {variant: {id: basic_bag.id}}
+        response.should redirect_to(cart_path)
+      end
+  
+      it "should set flash notice" do
+        post :update, {variant: {id: basic_bag.id}}
+        flash[:notice].should eql("Produto removido com sucesso")
+      end
     end
     
-    it "should head is ok when item removed and respond for js"
-
-    context "when item is not removed and respond for html" do
-      it "should redirect to cart"
-      it "should set flash notice"
+    it "should head is ok when item removed and respond for js" do
+      Cart.any_instance
+          .stub(:remove_item)
+          .with(basic_bag)
+          .and_return(true)
+      
+      request.env['HTTP_ACCEPT'] = "text/javascript"
+      post :update, {variant: {id: basic_bag.id}}, :format=> :js
+      response.code.should eq("200")
+      response.body.should be_blank
     end
 
-    it "should head is not when item is not removed and respond for js"
+    context "when item is not removed and respond for html" do
+      before :each do
+        Cart.any_instance
+            .stub(:remove_item)
+            .with(basic_bag)
+            .and_return(false)
+      end
+
+      it "should redirect to cart" do
+        post :update, {variant: {id: basic_bag.id}}
+        response.should redirect_to(cart_path)
+      end
+  
+      it "should set flash notice" do
+        post :update, {variant: {id: basic_bag.id}}
+        flash[:notice].should eql("Este produto não está na sua sacola")
+      end
+    end
+
+    it "should head is not when item is not removed and respond for js" do
+      Cart.any_instance
+          .stub(:remove_item)
+          .with(basic_bag)
+          .and_return(false)
+
+      request.env['HTTP_ACCEPT'] = "text/javascript"
+      post :update, {variant: {id: basic_bag.id}}, :format=> :js
+      response.code.should eq("404")
+      response.body.should be_blank
+    end
   end
 
   context "when add item" do
-    it "should assign variant"
+    it "should assign variant" do
+      post :create, {variant: {id: basic_bag.id}}
+      assigns(:variant).should eq(basic_bag)
+    end
     
     context "when no has valid variant" do
-      it "should render error in response for js"
-      it "should render back in response for html"
-      it "shoudl set flash notice in response for html"
+      it "should render error in response for js" do
+        request.env['HTTP_ACCEPT'] = "text/javascript"
+        post :create, :format=> :js
+        response.should render_template ["error"]
+      end
+
+      it "should redirect to back in response for html" do
+        request.env['HTTP_REFERER'] = "http://back.page"
+        post :create
+        response.should redirect_to("http://back.page")
+      end
+      it "shoudl set flash notice in response for html" do
+        request.env['HTTP_REFERER'] = "http://back.page"
+        post :create
+        flash[:notice].should eql("Produto não disponível para esta quantidade ou inexistente")
+      end
     end
     
     context "when has valid variant" do
-      it "should add item"
-
-      context "when item added and respond for html" do
-        it "should redirect to cart"
-        it "should set flash notice"
+      it "should add item" do
+        Cart.any_instance
+            .should_receive(:add_item)
+            .with(basic_bag)
+            .and_return(true)
+        post :create, {variant: {id: basic_bag.id}}
       end
 
-      it "should render create when item added and respond for js"
+      context "when item added and respond for html" do
+        before :each do
+          Cart.any_instance
+              .stub(:add_item)
+              .with(basic_bag)
+              .and_return(true)
+        end
+        
+        it "should redirect to cart" do
+          post :create, {variant: {id: basic_bag.id}}
+          response.should redirect_to(cart_path)
+        end
+        
+        it "should set flash notice" do
+          post :create, {variant: {id: basic_bag.id}}
+          flash[:notice].should eql("Produto adicionado com sucesso")
+        end
+      end
+
+      it "should render create when item added and respond for js" do
+        request.env['HTTP_ACCEPT'] = "text/javascript"
+        post :create, {variant: {id: basic_bag.id}}, :format=> :js
+        response.should render_template ["create"]
+      end
 
       context "when item is not added and respond for html" do
-        it "should redirect to cart"
-        it "should set flash notice"
-        it "should set flash notice with gift items"
+        before :each do
+          Cart.any_instance
+              .stub(:add_item)
+              .with(basic_bag)
+              .and_return(false)
+        end
+
+        it "should redirect to cart" do
+          post :create, {variant: {id: basic_bag.id}}
+          response.should redirect_to(cart_path)
+          
+        end
+
+        it "should set flash notice" do
+          post :create, {variant: {id: basic_bag.id}}
+          flash[:notice].should eql("Produto esgotado")
+        end
       end
 
       context "when item is not added and respond for js" do
-        it "should render error"
-        it "should set flash notice"
-        it "should set flash notice with gift items"
+        before :each do
+          Cart.any_instance
+              .stub(:add_item)
+              .with(basic_bag)
+              .and_return(false)
+          request.env['HTTP_ACCEPT'] = "text/javascript"
+        end
+
+        it "should render error" do
+          post :create, {variant: {id: basic_bag.id}}, :format=> :js
+          response.should render_template ["error"]
+        end
       end
     end
   end
   
   
   context "when update gift wrap" do
-    it "should update session"
-    it "should response true for json"
+    it "should update session" do
+      post :update_gift_wrap, {gift: {gift_wrap: "true"}}
+      session[:gift_wrap].should eq("true")
+    end
+    
+    it "should response true for json" do
+      post :update_gift_wrap, {gift: {gift_wrap: "true"}}
+      response.body.should eq("true")
+    end
   end
 
   context "when update coupon" do
