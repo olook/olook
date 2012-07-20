@@ -4,11 +4,13 @@ class PriceModificator
   end
 
   def discounts
-    {
-      :product_discount => items_discount,
-      :money_coupon => { :value => discount_from_money_coupon, :code => cart.used_coupon.try(:code) },
-      :credits => { :value => discount_from_credits }
-    }
+    if items_discounts_total > discount_from_money_coupon
+      bigger_discount = { :product_discount => items_discount }
+    else
+      bigger_discount = { :money_coupon => { :value => discount_from_money_coupon, :code => cart.used_coupon.try(:code) }}
+    end
+
+    bigger_discount.merge({ :credits => { :value => discount_from_credits } })
   end
 
   def increments
@@ -40,7 +42,7 @@ class PriceModificator
   end
 
   def original_price
-    items.map(&:original_price).inject(&:+)
+    items_price
   end
 
   def discounted_price
@@ -63,11 +65,11 @@ class PriceModificator
   end
 
   def items_price
-    items.map(&:price).inject(&:+)
+    items.map(&:total_price).inject(&:+)
   end
 
   def items_retail_price
-    items.map(&:retail_price).inject(&:+)
+    items.map(&:total_retail_price).inject(&:+)
   end
 
   def used_coupon
@@ -130,7 +132,7 @@ class PriceModificator
 
   def discount_from_money_coupon
     unless !used_coupon || used_coupon.is_percentage?
-      used_coupon.value
+      [used_coupon.value, max_discount].min
     else
       0
     end
@@ -171,7 +173,7 @@ class PriceModificator
   end
 
   def total_discount
-    credits + discount_from_money_coupon + items_discounts_total
+    [discount_from_money_coupon, items_discounts_total].max + credits
   end
 
   def total_increment
@@ -184,7 +186,7 @@ class PriceModificator
   end
 
   def max_credit_value
-    max_credit_possible = max_discount - items_discounts_total
+    max_credit_possible = max_discount - items_discounts_total + discount_from_money_coupon
 
     [max_credit_possible , 0].max
   end

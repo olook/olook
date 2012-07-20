@@ -10,24 +10,21 @@ describe PriceModificator do
     price = 10
 
     stub(:cart,
-         :items => [ double('cart_item', :price => price, :retail_price => price, :original_price => price, :original_retail_price => price),
-                     double('cart_item', :price => 20   , :retail_price => price, :original_price => 20   , :original_retail_price => price)],
-         :used_coupon => double(:coupon, :is_percentage? => true , :value => 30, :try => 'foobar'),
-         :used_promotion => double(:promo, :try => 20),
+         :items => [ double('cart_item', :price => price, :total_price => 3*price, :retail_price => price, :original_price => price, :original_retail_price => price),
+                     double('cart_item', :price => 20   , :total_price => 20, :retail_price => price, :original_price => 20   , :original_retail_price => price)],
+         :used_coupon => double(:coupon, :is_percentage? => true , :value => 25, :try => 'foobar'),
+         :used_promotion => double(:promo, :try => 30),
          :gift_wrap? => true,
-         :credits => 10,
+         :credits => 15,
          :freight => double(:price => 15)
         )
   }
 
-  subject {
-    ret_cart = PriceModificator.new(cart)
-    ret_cart.stub(:increment_from_gift => 5)
-    ret_cart
-  }
+  subject { PriceModificator.new(cart) }
 
   before do
-    subject.stub!(:minimum_value).and_return(5)
+    described_class.any_instance.stub(:minimum_value).and_return(5)
+    described_class.any_instance.stub(:increment_from_gift).and_return(5)
   end
 
   describe 'public interface' do
@@ -56,23 +53,27 @@ describe PriceModificator do
   end
 
   describe '.discounts' do
-    it 'should return the discount list' do
-      subject.discounts.keys.should == [:product_discount , :money_coupon , :credits]
+    it 'should limit credits based on credits based on total and discounts' do
+      subject.discounts[:credits][:value].should == 15
     end
 
-    context 'when the maximal discount is 20' do
-      before(:each) do
-        subject.stub(:max_discount).and_return(20)
-      end
+    it 'product_discounts keys should be the cart items' do
+      subject.discounts[:product_discount].keys.should == cart.items
+    end
 
-      it 'should limit credits based on credits based on total and discounts' do
-        pending
-      end
+    it 'product_discounts values should be Discounts of the items' do
+      subject.discounts[:product_discount].values.map(&:item).should == cart.items
+    end
 
-      it 'should limit coupon value' do
-        pending
-      end
+    it 'should show only money_coupon or the products discounts depending on who is bigger' do
+      subject.discounts.keys == [:product_discount, :credits]
+      subject.stub( :used_coupon => double(:coupon, :is_percentage? => false, :value => 150, :try => 'foobar'))
+      subject.discounts.keys == [:money_coupon, :credits]
+    end
 
+    it 'should limit coupon value' do
+      subject.stub( :used_coupon => double(:coupon, :is_percentage? => false, :value => 150, :try => 'foobar'))
+      subject.discounts[:money_coupon][:value].should == 45
     end
   end
 
@@ -86,8 +87,7 @@ describe PriceModificator do
 
   describe '.original_price' do
     it 'should return the sum of cart items prices' do
-        pending
-      subject.original_price
+      subject.original_price.should == 50
     end
   end
 
