@@ -30,6 +30,11 @@ module Checkout
     if @order
       @order.reload
       redirect_to(cart_path, :notice => msg) if @order.line_items.empty?
+      coupon = @order.used_coupon.try(:coupon)
+      if coupon.try(:expired?) || @order.used_coupon && !coupon.try(:available?)
+        @order.used_coupon.try(:destroy)
+        redirect_to cart_path, :notice => "Cupom expirado. Informe outro por favor"
+      end
     else
       redirect_to(cart_path, :notice => msg)
     end
