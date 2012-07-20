@@ -10,8 +10,8 @@ describe PriceModificator do
     price = 10
 
     stub(:cart,
-         :items => [ double('cart_item', :price => price, :total_price => 3*price, :retail_price => price, :original_price => price, :original_retail_price => price),
-                     double('cart_item', :price => 20   , :total_price => 20, :retail_price => price, :original_price => 20   , :original_retail_price => price)],
+         :items => [ double('cart_item', :price => price, :total_price => 3*price, :retail_price => price, :original_price => price, :original_retail_price => price, :gift => false),
+                     double('cart_item', :price => 20   , :total_price => 20, :retail_price => price, :original_price => 20   , :original_retail_price => price, :gift => false)],
          :used_coupon => double(:coupon, :is_percentage? => true , :value => 25, :try => 'foobar'),
          :used_promotion => double(:promo, :try => 30),
          :gift_wrap? => true,
@@ -74,6 +74,18 @@ describe PriceModificator do
     it 'should limit coupon value' do
       subject.stub( :used_coupon => double(:coupon, :is_percentage? => false, :value => 150, :try => 'foobar'))
       subject.discounts[:money_coupon][:value].should == 45
+    end
+
+    it 'should only apply gift discounts if item is gift' do
+      gift_item = double('cart_item', :price => 25.0, :total_price => 30.0, :retail_price => 10.0, :original_price => 25.0, :original_retail_price => 10.0, :gift => true)
+      subject.stub( :used_coupon => double(:coupon, :is_percentage? => false, :value => 150, :try => 'foobar'))
+      subject.stub(:items => [ gift_item ])
+
+      subject.discounts.keys.should == [:product_discount, :credits]
+      subject.discounts[:product_discount][gift_item].origin.should == :gift
+      subject.discounts[:product_discount][gift_item].value.should == 15.0
+      subject.discounts[:product_discount][gift_item].percentage.should == 40.0
+      subject.discounts[:product_discount][gift_item].item.should == gift_item
     end
   end
 

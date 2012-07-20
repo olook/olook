@@ -4,7 +4,7 @@ class PriceModificator
   end
 
   def discounts
-    if items_discounts_total > discount_from_money_coupon
+    if items_are_gift? || (items_discounts_total > discount_from_money_coupon)
       bigger_discount = { :product_discount => items_discount }
     else
       bigger_discount = { :money_coupon => { :value => discount_from_money_coupon, :code => cart.used_coupon.try(:code) }}
@@ -88,7 +88,6 @@ class PriceModificator
   def gift_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
   end
-  #TODO: If it's gift should not change retail_price.
 
   def freight_price
     if cart.freight && cart.freight.price
@@ -99,9 +98,17 @@ class PriceModificator
   end
 
   #Calculators
+  def items_are_gift?
+    items.select(&:gift).any?
+  end
 
   def discount_for_item(item)
-    item_discounts(item).max_by(&:value)
+    if item.gift
+      value = item.original_price - item.original_retail_price
+      Discount.new(:origin => :gift, :value => value , :item => item)
+    else
+      item_discounts(item).max_by(&:value)
+    end
   end
 
   def item_discounts_conflict(item)
