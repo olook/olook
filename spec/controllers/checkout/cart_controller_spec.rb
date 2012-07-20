@@ -352,10 +352,26 @@ describe Checkout::CartController do
   end
 
   context "when remove credits" do
-    it "should redirect to cart"
-    it "should set flash when has invalid credits in cart"
-    it "should set session when has credits in cart"
-    it "should set flash when has credits in cart"
+    it "should redirect to cart" do
+      post :remove_credits
+      response.should redirect_to(cart_path)
+    end
+
+    it "should set flash when has invalid credits in cart" do
+      post :remove_credits
+      flash[:notice].should eq("Você não está usando nenhum crédito")
+    end
+
+    it "should set session when has credits in cart" do
+      post :remove_credits
+      session[:credits].should be_nil
+    end
+    
+    it "should set flash when has credits in cart" do
+      Cart.any_instance.stub(:credits).and_return(100)
+      post :remove_credits
+      flash[:notice].should eq("Créditos removidos com sucesso")
+    end
   end
   
   context "when update credits" do

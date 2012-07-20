@@ -89,10 +89,8 @@ class Checkout::CartController < ApplicationController
 
   def remove_credits
     msg = "Você não está usando nenhum crédito"
-    if @cart.credits > 0
-      session[:credits] = nil
-      msg = "Créditos removidos com sucesso"
-    end
+    msg = "Créditos removidos com sucesso" if @cart.credits > 0
+    session[:credits] = nil
     redirect_to cart_path, :notice => msg
   end
 
