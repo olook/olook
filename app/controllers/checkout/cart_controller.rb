@@ -95,7 +95,7 @@ class Checkout::CartController < ApplicationController
   end
 
   def update_credits
-    credits = if params[:credits]
+    credits = if params[:credits] && params[:credits][:value]
       params[:credits][:value].gsub!(",",".")
       BigDecimal.new(params[:credits][:value].to_s)
     end
@@ -106,7 +106,7 @@ class Checkout::CartController < ApplicationController
       @cart.credits = credits
       session[:credits] = @cart.credits_discount
       if credits > session[:credits]
-        msg = "Você tentou utilizar mais que o permitido para esta compra , utilizamos o máximo permitido."
+        msg = "Você tentou utilizar mais que o permitido para esta compra, utilizamos o máximo permitido."
       else
         msg = "Créditos atualizados com sucesso"
       end
