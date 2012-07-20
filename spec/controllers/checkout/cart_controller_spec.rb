@@ -217,7 +217,6 @@ describe Checkout::CartController do
         it "should redirect to cart" do
           post :create, {variant: {id: basic_bag.id}}
           response.should redirect_to(cart_path)
-          
         end
 
         it "should set flash notice" do
@@ -257,26 +256,99 @@ describe Checkout::CartController do
   end
 
   context "when update coupon" do
-    it "should redirect to cart"
+    it "should redirect to cart" do
+      post :update_coupon
+      response.should redirect_to(cart_path)
+    end
+    
     context "when has valid coupon" do
-      it "should set flash"
-      it "should set session"
+      let(:coupon) do
+        coupon = double(Coupon)
+        coupon.stub(:expired?).and_return(false)
+        coupon.stub(:available?).and_return(true)
+        coupon
+      end
+      
+      before :each do
+        Coupon.should_receive(:find_by_code).with("CODE").and_return(coupon)
+        post :update_coupon, {coupon: {code: "CODE"}}
+      end
+      
+      it "should set flash" do
+        flash[:notice].should eql("Cupom atualizado com sucesso")
+      end
+
+      it "should set session" do
+        session[:session_coupon].should be(coupon)
+      end
     end
+    
     context "when has invalid coupon" do
-      it "should set flash"
-      it "should set session"
+      let(:coupon) do
+        coupon = double(Coupon)
+        coupon.stub(:expired?).and_return(false)
+        coupon.stub(:available?).and_return(false)
+        coupon
+      end
+      
+      before :each do
+        Coupon.should_receive(:find_by_code).with("CODE").and_return(coupon)
+        post :update_coupon, {coupon: {code: "CODE"}}
+      end
+      
+      it "should set flash" do
+        flash[:notice].should eql("Cupom inválido")
+      end
+      
+      it "should set session" do
+        session[:session_coupon].should be_nil
+      end
     end
+
     context "when has expired coupon" do
-      it "should set flash"
-      it "should set session"
+      let(:coupon) do
+        coupon = double(Coupon)
+        coupon.stub(:expired?).and_return(true)
+        coupon
+      end
+      
+      before :each do
+        Coupon.should_receive(:find_by_code).with("CODE").and_return(coupon)
+        post :update_coupon, {coupon: {code: "CODE"}}
+      end
+      
+      it "should set flash" do
+        flash[:notice].should eql("Cupom expirado. Informe outro por favor")
+      end
+      
+      it "should set session" do
+        session[:session_coupon].should be_nil
+      end
     end
   end
   
   context "when remove coupon" do
-    it "should redirect to cart"
-    it "should set session"
-    it "should set flash when has valid coupon in session"
-    it "should set flash when has invalid coupon in session"
+    it "should redirect to cart" do
+      post :remove_coupon
+      response.should redirect_to(cart_path)
+    end
+    
+    it "should set session" do
+      session[:session_coupon] = mock
+      post :remove_coupon
+      session[:session_coupon].should be_nil
+    end
+    
+    it "should set flash when has valid coupon in session" do
+      session[:session_coupon] = mock
+      post :remove_coupon
+      flash[:notice].should eq("Cupom removido com sucesso")
+    end
+    
+    it "should set flash when has invalid coupon in session" do
+      post :remove_coupon
+      flash[:notice].should eq("Você não está usando cupom")
+    end
   end
 
   context "when remove credits" do
