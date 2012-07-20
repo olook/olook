@@ -64,7 +64,7 @@ class Checkout::CartController < ApplicationController
   end
   
   def update_coupon
-    code = params[:coupon][:code]
+    code = params[:coupon][:code] if params[:coupon]
     coupon = Coupon.find_by_code(code)
     
     response_message = if coupon.try(:expired?)
