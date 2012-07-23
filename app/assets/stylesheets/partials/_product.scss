@@ -215,6 +215,10 @@ li.product {
         top: 2px;
         left: 2px;
         display: block;
+        & + p.shoe_size {
+          left: 61px !important;
+          display: block;
+        }
       }
     }
     &.stock_down {
@@ -222,10 +226,10 @@ li.product {
         top: 2px;
         left: 2px;
         display: block;
-      }
-      a p.shoe_size {
-        left: 53px !important;
-        display: block;
+        & + p.shoe_size {
+          left: 53px !important;
+          display: block;
+        }
       }
     }
   }
