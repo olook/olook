@@ -22,19 +22,19 @@
 <div id="order_status">
   <div class="content">
     <ul>
-      <li class="<%= selected_if_current(["cart#show"]) %>">
+      <li class="<%= selected_if_current(["checkout/cart#show"]) %>">
         <h1>Minha Sacola</h1>
         <p>Confira os produtos do seu carrinho</p>
       </li>
-      <li class="<%= selected_if_current(["addresses#index", "addresses#new", "addresses#edit"]) %>">
+      <li class="<%= selected_if_current(["checkout/addresses#index", "checkout/addresses#new", "checkout/addresses#edit"]) %>">
         <h1>Entrega</h1>
         <p>Onde quer que seu pedido seja entregue</p>
       </li>
-      <li class="<%= selected_if_current(["billets#new", "credit_cards#new", "debits#new", "payments#index"]) %>">
+      <li class="<%= selected_if_current(["checkout/billets#new", "checkout/credit_cards#new", "checkout/debits#new", "checkout/payments#index"]) %>">
         <h1>Pagamento</h1>
         <p>Como quer efetuar o pagamento? Selecione uma das opções</p>
       </li>
-      <li class="<%= selected_if_current(["billets#show", "credit_cards#show", "debits#show"]) %> last">
+      <li class="<%= selected_if_current(["checkout/billets#show", "checkout/credit_cards#show", "checkout/debits#show"]) %> last">
         <h1>Confirmação</h1>
         <p>Confirme seus produtos, endereço de entrega e finalize sua compra</p>
       </li>

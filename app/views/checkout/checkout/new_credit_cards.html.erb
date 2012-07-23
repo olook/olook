@@ -1,0 +1,25 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "checkout" %>
+<% end %>
+
+<section id="payment" class="payment_new checkout">
+  <%= form_for(@payment) do |f| %>
+    <section class="main">
+      <h1>Escolha uma forma de pagamento</h1>
+      <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
+      <%= render :partial => "payment_methods" %>
+      <%= render :partial => 'form', :locals => { :f => f, :payment => @payment, :bank => @bank, :installments => @installments } %>
+    </section>
+    <section class="sidebar">
+      <% content_for :checkout_sidebar do %>
+        <%= render "shared/payments/info_address", :cart => @cart %>
+      <% end %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
+    </section>
+  <% end %>
+</section>

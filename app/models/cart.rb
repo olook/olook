@@ -71,7 +71,8 @@ class Cart < ActiveRecord::Base
   end
 
   def total
-    price_modificator.final_price
+    # price_modificator.final_price
+    0
   end
 
   def freight_price
@@ -79,15 +80,18 @@ class Cart < ActiveRecord::Base
   end
 
   def coupon_discount
-    price_modificator.discounts[:coupon][:value]
+    #price_modificator.discounts[:coupon][:value]
+    0
   end
 
   def credits_discount
-    price_modificator.discounts[:credits][:value]
+    # price_modificator.discounts[:credits][:value]
+    0
   end
 
   def promotion_discount
-    price_modificator.discounts[:promotion][:value]
+    #price_modificator.discounts[:promotion][:value]
+    0
   end
 
   def price_modificator
@@ -129,6 +133,10 @@ class Cart < ActiveRecord::Base
   
   def subtotal
     price_modificator.original_price
+  end
+  
+  def has_more_than_one_discount?
+    false
   end
   
   private

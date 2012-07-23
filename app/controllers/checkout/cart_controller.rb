@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Checkout::CartController < ApplicationController
-  layout "checkout"
-  
+class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
   respond_to :html, :js
@@ -115,11 +113,6 @@ class Checkout::CartController < ApplicationController
     end
 
     redirect_to cart_path, :notice => msg
-  end
-  
-  private
-  def erase_freight
-    @cart.freight = nil
   end
 end
 

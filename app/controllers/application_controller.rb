@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   layout "site"
   before_filter :load_user
   before_filter :load_cart
-  before_filter :load_referer
   before_filter :load_facebook_api
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -47,30 +46,6 @@ class ApplicationController < ActionController::Base
     
     cart
   end
-  
-  helper_method :current_referer
-  def current_referer
-    session[:return_to] = case request.referer
-      when /produto|sacola/ then
-        session[:return_to] ? session[:return_to] : nil
-      when /moments/ then
-        { text: "Voltar para ocasiões", url: moments_path }
-      when /suggestions/ then
-        session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil
-      when /gift/ then
-        { text: "Voltar para presentes", url: gift_root_path }
-      else
-        nil
-    end
-    
-    if @cart.has_gift_items?
-      session[:return_to] ||= { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) }
-    elsif @user && !@user.half_user?
-      session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
-    else
-      session[:return_to] ||= { text: "Voltar para tendências", url: lookbooks_path }
-    end
-  end
 
   helper_method :current_moment
   def current_moment
@@ -103,10 +78,5 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= ::Ability.new(current_admin)
   end
-
-  def load_referer
-    @referer = current_referer
-  end
-
 end
 

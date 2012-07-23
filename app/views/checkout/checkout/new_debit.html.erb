@@ -6,13 +6,13 @@
   <%= javascript_include_tag "checkout" %>
 <% end %>
 
-<section id="payment" class="payment_new checkout">
+<section id="payment" class="checkout">
   <%= form_for(@payment) do |f| %>
     <section class="main">
       <h1>Escolha uma forma de pagamento</h1>
       <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
-      <%= render :partial => "shared/payments/payment_methods" %>
-      <%= render :partial => 'form', :locals => { :f => f, :payment => @payment, :bank => @bank, :installments => @installments } %>
+      <%= render :partial => "payment_methods" %>
+      <%= render 'form' %>
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>

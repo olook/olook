@@ -19,11 +19,9 @@ function change_value(wrap) {
 $( "#gift_gift_wrap" ).change(function() {
   $( "#gift_wrap" ).submit();
   if ( $(this).attr('checked') == 'checked' ) {
-    // $('.message_row').slideDown("slow");
     change_value (true);
   }
   else {
-    // $('.message_row').slideUp("slow");
     change_value (false);
   }
 });
