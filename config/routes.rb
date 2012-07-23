@@ -207,24 +207,27 @@ Olook::Application.routes.draw do
   end
 
   #CHECKOUT
-  get '/pedido/:number/boleto', :to =>'checkout/orders#billet', :as => "order_billet"
-  get '/pedido/:number/credito', :to =>'checkout/orders#credit', :as => "order_credit"
-  get '/pedido/:number/debito', :to =>'checkout/orders#debit', :as => "order_debit"
-  resources :payments, :path => 'pagamento', :controller => "checkout/payments"
-  resources :credit_cards, :only => [:new, :create], :path => 'credito', :controller => "checkout/credit_cards"
-  resources :debits, :only => [:new, :create], :path => 'debito', :controller => "checkout/debits"
-  resources :billets, :only => [:new, :create], :path => 'boleto', :controller => "checkout/billets"
-  resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
   resource :cart, :path => 'sacola', :controller => "checkout/cart" do
-    get "update_status" => "checkout/cart#update_status", :as => "update_status"
-    put "update_gift_wrap" => "checkout/cart#update_gift_wrap", :as => "update_gift_wrap"
-    put "update_credits" => "checkout/cart#update_credits", :as => "update_credits"
-    delete "remove_credits" => "checkout/cart#remove_credits", :as => "remove_credits"
-    put "update_coupon" => "checkout/cart#update_coupon", :as => "update_coupon"
-    delete "remove_coupon" => "checkout/cart#remove_coupon", :as => "remove_coupon"
+    get "update_status" => "checkout/cart#update_status", :as => :update_status
+    put "update_gift_wrap" => "checkout/cart#update_gift_wrap", :as => :update_gift_wrap
+    put "update_credits" => "checkout/cart#update_credits", :as => :update_credits
+    delete "remove_credits" => "checkout/cart#remove_credits", :as => :remove_credits
+    put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
+    delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
+    
+    resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
+      resources :addresses, :path => 'endereco', :controller => "checkout/addresses" do
+        get "assign_address", :to => "checkout/addresses#assign_address", :as => :assign_address
+      end
+    end
   end
-  post "/assign_address", :to => "checkout/addresses#assign_address", :as => "assign_address"
-  get "/get_address_by_zipcode", :to => "checkout/addresses#get_address_by_zipcode"
+  
+  #FINISH
+  get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
+
+  #MOIP-CALLBACK
+  post '/pagamento', :to => 'checkout/payments#create', :as => :payment
+  
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"

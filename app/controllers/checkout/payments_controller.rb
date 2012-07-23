@@ -1,19 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Checkout::PaymentsController < ApplicationController
-  layout "checkout"
-
-  respond_to :html
-  before_filter :authenticate_user!, :only => [:index]
-  before_filter :check_freight, :only => [:index]
   protect_from_forgery :except => :create
-
-  def index
-  end
-
-  def show
-    @payment = @user.payments.find(params[:id])
-    # @cart = CartPresenter.new(@payment.order)
-  end
 
   def create
     order = Order.find_by_identification_code(params["id_transacao"])
@@ -54,9 +41,5 @@ class Checkout::PaymentsController < ApplicationController
                                       :gateway_status_reason => params["classificacao"])
       order.payment.set_state(params["status_pagamento"])
     end
-  end
-  
-  def check_freight
-    redirect_to addresses_path, :notice => "Escolha seu endereço" if @cart.freight.nil?
   end
 end

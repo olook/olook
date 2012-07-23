@@ -4,7 +4,7 @@
 
 <section id="payment" class="checkout">
   <% if @user.cpf.nil? %>
-    <%= form_for(@user, :as => :user, :url => user_user_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
+    <%= form_for(@user, :as => :user, :url => payment_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
       <fieldset class="buttons">
         <ol>
           <li>
@@ -21,7 +21,7 @@
   <% end %>
   <section class="main">
     <h1>Escolha uma forma de pagamento</h1>
-    <%= render :partial => "shared/payments/payment_methods" %>
+    <%= render :partial => "payment_methods" %>
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>

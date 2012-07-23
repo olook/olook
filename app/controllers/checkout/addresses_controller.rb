@@ -1,14 +1,12 @@
 # -*- encoding : utf-8 -*-
-class Checkout::AddressesController < ApplicationController
-  layout "checkout"
+class Checkout::AddressesController < Checkout::BaseController
 
-  respond_to :html
-  before_filter :authenticate_user!, :except => [:get_address_by_zipcode]
-  before_filter :check_order, :except => [:get_address_by_zipcode]
-  before_filter :check_address, :only => [:index]
+  before_filter :authenticate_user!
   before_filter :erase_freight
 
   def index
+    redirect_to new_cart_checkout_address_path unless @user.addresses.any?
+    
     @addresses = @user.addresses
   end
 
@@ -35,7 +33,7 @@ class Checkout::AddressesController < ApplicationController
     @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
       set_freight_in_the_order(@address)
-      redirect_to(addresses_path)
+      redirect_to(cart_checkout_addresses_path)
     else
       respond_with(@address)
     end
@@ -45,16 +43,17 @@ class Checkout::AddressesController < ApplicationController
     @address = @user.addresses.find(params[:id])
     session[:freight] = nil
     @address.destroy
-    redirect_to(addresses_path)
+    redirect_to(cart_checkout_addresses_path)
   end
 
   def assign_address
-    address = @user.addresses.find_by_id(params[:delivery_address_id])
+    address = @user.addresses.find_by_id(params[:address_id])
     if address
       set_freight_in_the_order(address)
-      redirect_to(@user.cpf.nil? ? payments_path : new_credit_card_path)
+      # redirect_to(@user.cpf.nil? ? payments_path : new_credit_card_path)
+      redirect_to new_cart_checkout_path
     else
-      redirect_to addresses_path, :notice => "Por favor, selecione um endereço"
+      redirect_to cart_checkout_addresses_path, :notice => "Por favor, selecione um endereço"
     end
   end
   
@@ -64,21 +63,9 @@ class Checkout::AddressesController < ApplicationController
   end
 
   private
-  def erase_freight
-    @cart.freight = nil
-  end
-
-  def check_address
-    redirect_to new_address_path unless @user.addresses.any?
-  end
-
   def set_freight_in_the_order(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @cart.total)
     freight.merge!(:address_id => address.id)
     session[:freight] = Freight.new(freight)
-  end
-  
-  def check_order
-    redirect_to(cart_path, :notice => "Sua sacola está vazia") if @cart.items_total <= 0
   end
 end
