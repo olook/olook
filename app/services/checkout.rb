@@ -35,6 +35,11 @@ module Checkout
         @order.used_coupon.try(:destroy)
         redirect_to cart_path, :notice => "Cupom expirado. Informe outro por favor"
       end
+      if @order.user.current_credit < @order.credits
+        @order.credits = 0
+        @order.save
+        redirect_to cart_path, :notice => "Você não tem créditos suficientes"
+      end
     else
       redirect_to(cart_path, :notice => msg)
     end
