@@ -455,6 +455,49 @@ section#address_new {
 }
 
 section#payment {
+  #boleto_info {
+    background-color: #f2f2f2;
+    padding: 20px 30px 20px 30px;
+    font-family:"Times New Roman, Times, Sans-serif";
+    color: #000;
+
+    #info_title {
+      font-size: 23px;
+      font-style: italic;
+      margin-left:15px;
+    }
+    ul li {
+      display:block;
+      a {
+        font-weight:bold;
+        color:#d1457c;
+      }
+    }
+    #final_info {
+      font-family: "Arial";
+      font-weight:bold;
+      font-size: 14px;
+      text-align:center;
+    }
+    .step_number {
+      font-weight:bold;
+      font-size: 16px;
+      font-style: italic;
+      background: url('/assets/cart/number_background.png') no-repeat;
+      text-align: center;
+      padding-top: 6px;
+      width: 30px;
+      height:30px;
+      margin-right: 10px;
+      float:left;
+    }
+    .step_description {
+      font-family:"Arial";
+      font-size: 14px;
+      color:#666666;
+      padding-top: 7px;
+    }
+  }
   form.cpf {
     width: 755px;
     margin: 0 auto 30px auto;
