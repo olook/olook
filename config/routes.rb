@@ -219,6 +219,13 @@ Olook::Application.routes.draw do
       resources :addresses, :path => 'endereco', :controller => "checkout/addresses" do
         get "assign_address", :to => "checkout/addresses#assign_address", :as => :assign_address
       end
+
+      get "boleto", :to => "checkout/checkout#new_billet", :as => :new_billet
+      post "boleto", :to => "checkout/checkout#create_billet", :as => :billet
+      get "credito", :to => "checkout/checkout#new_credit_card", :as => :new_credit_card
+      post "credito", :to => "checkout/checkout#create_credit_card", :as => :credit_card
+      get "debito", :to => "checkout/checkout#new_debit", :as => :new_debit
+      post "debito", :to => "checkout/checkout#create_debit", :as => :debit
     end
   end
   

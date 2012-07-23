@@ -2,6 +2,7 @@
 class Checkout::AddressesController < Checkout::BaseController
 
   before_filter :authenticate_user!
+  before_filter :check_order
   before_filter :erase_freight
 
   def index
@@ -50,7 +51,6 @@ class Checkout::AddressesController < Checkout::BaseController
     address = @user.addresses.find_by_id(params[:address_id])
     if address
       set_freight_in_the_order(address)
-      # redirect_to(@user.cpf.nil? ? payments_path : new_credit_card_path)
       redirect_to new_cart_checkout_path
     else
       redirect_to cart_checkout_addresses_path, :notice => "Por favor, selecione um endereço"

@@ -7,12 +7,12 @@
 <% end %>
 
 <section id="payment" class="checkout">
-  <%= form_for(@payment) do |f| %>
+  <%= form_for(@payment, :url => debit_cart_checkout_path) do |f| %>
     <section class="main">
       <h1>Escolha uma forma de pagamento</h1>
       <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
       <%= render :partial => "payment_methods" %>
-      <%= render 'form' %>
+      <%= render 'form_debits' %>
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>

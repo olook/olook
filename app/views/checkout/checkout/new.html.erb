@@ -4,7 +4,7 @@
 
 <section id="payment" class="checkout">
   <% if @user.cpf.nil? %>
-    <%= form_for(@user, :as => :user, :url => payment_path(@user), :html => { :method => :put, :class => 'cpf' }) do |f| %>
+    <%= form_for(@user, :as => :user, :url => cart_checkout_path, :html => { :method => :put, :class => 'cpf' }) do |f| %>
       <fieldset class="buttons">
         <ol>
           <li>
