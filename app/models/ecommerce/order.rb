@@ -60,7 +60,7 @@ class Order < ActiveRecord::Base
     after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
     after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
-
+    
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
 
