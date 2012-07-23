@@ -25,6 +25,7 @@ feature "Show products on xml format" do
       <description>#{product.description}</description>
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
+      <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category}</category>
