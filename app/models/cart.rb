@@ -103,6 +103,7 @@ class Cart < ActiveRecord::Base
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if user.nil?
 
     order = Order.create!(
+      :cart_id => self.id,
       :payment => payment,
       :credits => credits_discount,
       :user_id => user.id,
@@ -138,6 +139,18 @@ class Cart < ActiveRecord::Base
   def has_more_than_one_discount?
     false
   end
+  
+  def remove_unavailable_items
+    unavailable_items = []
+    items.each do |li|
+      item = CartItem.lock("FOR UPDATE").find(li.id)
+      unavailable_items << item unless item.variant.available_for_quantity? item.quantity
+    end
+    size_items = unavailable_items.size
+    unavailable_items.each {|item| item.destroy}
+    size_items
+  end
+  
   
   private
   def update_invetory

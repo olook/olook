@@ -10,11 +10,7 @@ class Checkout::CartController < Checkout::BaseController
 
   def destroy
     @cart.destroy
-    session[:cart_id] = nil
-    session[:gift_wrap] = nil
-    session[:session_coupon] = nil
-    session[:credits] = nil
-    session[:freight] = nil
+    clean_cart!
     redirect_to cart_path, notice: "Sua sacola está vazia"
   end
 
