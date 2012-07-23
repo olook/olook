@@ -5,6 +5,7 @@
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGOTADO</p>
+      <p class="warn shoe_size">Tam. <%= current_user.user_info.shoes_size %></p>
       <% if current_user && product.promotion? == false %>
         <p class="warn quantity">Só mais <%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></p>
         <p class="warn shoe_size">Tam. <%= current_user.user_info.shoes_size %></p>
