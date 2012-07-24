@@ -7,8 +7,9 @@
 <bigimage><%= product.main_picture.try(:image) %></bigimage>
 <producturl><%= product.product_url(:utm_source => "criteo", :utm_medium => "banner", :utm_campaign => "remessaging") %></producturl>
 <description><%= product.description %></description>
-<price><%= product.price %></price>
-<retailprice><%= product.retail_price %></retailprice>
+<price><%= product.retail_price %></price>
+<retailprice><%= product.price %></retailprice>
+<discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
 <category><%= product.category %></category>
