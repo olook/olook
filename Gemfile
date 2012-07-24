@@ -51,6 +51,7 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'ruby-debug19'
+  gem 'debugger', :require => 'ruby-debug'
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.10.1'

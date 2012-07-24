@@ -6,7 +6,7 @@
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGOTADO</p>
       <% if product.shoe? %>
-        <p class="warn shoe_size">Tam. <%= current_user.user_info.shoes_size %></p>
+        <p class="warn shoe_size">Tam. <%= "#{(current_user.user_info.nil?) ? '' : current_user.user_info.shoes_size}" %></p>
       <% end %>
       <% if current_user && product.promotion? == false %>
         <p class="warn quantity">Só mais <span><%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></span></p>
