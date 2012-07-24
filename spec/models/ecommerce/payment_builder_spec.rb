@@ -13,7 +13,7 @@ describe PaymentBuilder do
   before :each do
     Airbrake.stub(:notify)
     order.stub(:total).and_return(10.50)
-    @order_total = order.total_with_freight
+    @order_total = order.amount_paid
   end
 
   it "should verify if MoIP uri was properly initialized" do

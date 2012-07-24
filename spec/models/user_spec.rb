@@ -834,7 +834,7 @@ describe User do
       end
     end
 
-    context "when called with total_with_freight" do
+    context "when called with amount_paid" do
       let(:order) do
         FactoryGirl.create(:order, :user => subject)
       end
@@ -844,9 +844,9 @@ describe User do
         order.payment.authorized
       end
 
-      it "calls total_with_freight on the order" do
-        Order.any_instance.should_receive(:total_with_freight).and_return(0)
-        subject.total_revenue(:total_with_freight)
+      it "calls amount_paid on the order" do
+        Order.any_instance.should_receive(:amount_paid).and_return(0)
+        subject.total_revenue(:amount_paid)
       end
     end
   end

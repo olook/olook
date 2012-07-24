@@ -68,7 +68,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><%= number_to_currency(@current_order.total_with_freight) %></td>
+                  <td><%= number_to_currency(@current_order.amount_paid) %></td>
                   <td><%= number_to_currency(@current_order.freight_price)  %></td>
                 </tr>
               </tbody>

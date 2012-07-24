@@ -203,7 +203,7 @@ describe Checkout::CheckoutController do
       end
 
       it "should not redirect to cart_path if the total is greater then minimum" do
-        Order.any_instance.stub(:total_with_freight).and_return(CreditCard::MINIMUM_PAYMENT + 1)
+        Order.any_instance.stub(:amount_paid).and_return(CreditCard::MINIMUM_PAYMENT + 1)
         get 'new'
         response.should_not redirect_to(cart_path)
       end

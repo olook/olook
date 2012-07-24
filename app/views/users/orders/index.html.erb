@@ -29,7 +29,7 @@
             <td class="number"><%= order.number %></td>
             <td><%= l order.created_at, :format => :short %></td>
             <td><%= order.line_items.count %></td>
-            <td><%= number_to_currency(order.total_with_freight) %></td>
+            <td><%= number_to_currency(order.amount_paid) %></td>
             <td><%= number_to_currency(order.freight_price) %></td>
             <td><%= order.installments %>x</td>
             <td><%= order.status  %></td>

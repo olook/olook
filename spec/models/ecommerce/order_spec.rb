@@ -215,20 +215,7 @@ describe Order do
       end
     end
 
-    describe '#total_with_freight' do
-      it "should return the total with freight" do
-        subject.stub(:credits).and_return(11.0)
-        subject.stub(:freight_price).and_return(22.0)
-        expected = items_total - 11.0 + 22.0
-        subject.total_with_freight.should be_within(0.001).of(expected)
-      end
-
-      it "should return the same value as #total if there's no freight" do
-        subject.stub(:credits).and_return(11.0)
-        subject.stub(:freight_price).and_return(0)
-        subject.total_with_freight.should be_within(0.001).of(items_total - 11)
-      end
-    end
+    
   end
 
   pending "in an order without items" do
@@ -243,17 +230,11 @@ describe Order do
       it "#total should be zero" do
         subject.total.should == Payment::MINIMUM_VALUE
       end
-      it "#total_with_freight should be the value of the freight" do
-        subject.total_with_freight.should == Payment::MINIMUM_VALUE
-      end
     end
 
     context 'without free freight' do
       it "#total should be zero" do
         subject.total.should == 0
-      end
-      it "#total_with_freight should be the value of the freight" do
-        subject.total_with_freight.should == subject.freight.price
       end
     end
   end
