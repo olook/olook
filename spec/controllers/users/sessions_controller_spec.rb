@@ -78,7 +78,7 @@ describe Users::SessionsController do
 
       it "should redirect to address page" do
         post :create, :user => user_params
-        response.should redirect_to(addresses_path)
+        response.should redirect_to(cart_checkout_addresses_path)
       end
     end
 
@@ -102,7 +102,7 @@ describe Users::SessionsController do
 
       it "should redirect to address page" do
         post :create, :user => user_params
-        response.should redirect_to(addresses_path)
+        response.should redirect_to(cart_checkout_addresses_path)
       end
     end
 
