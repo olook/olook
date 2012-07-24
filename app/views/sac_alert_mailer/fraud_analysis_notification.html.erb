@@ -60,7 +60,10 @@ You are receiving this email because your are registered on the fraud analysis m
         <th>Credits</th>
       </tr>
       <tr style="padding: 9px 8px 0px 8px;">
-        <td style='color:#FF0000'><%= %></td>
+        <td style='color:#FF0000'><% unless @order.used_coupon.nil? %>
+        <%= @order.used_coupon.coupon.code + " - " + @order.used_coupon.coupon.value.to_s %>
+        <%= "%" if @order.used_coupon.coupon.is_percentage == true %>
+        <% end %></td>
         <td style='color:#FF0000'><%= number_to_currency(@order.credits) %></td>
       </tr>
     </table>
