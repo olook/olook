@@ -11,7 +11,22 @@
       <%= link_to "Clique aqui para imprimir seu boleto", @payment.url, :target => "_blank", :class => "link" %>
     </div>
     <p class="description">Obrigada pela sua compra! Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados ao lado estão corretos. Se você tiver qualquer dúvida ou precisar solicitar alguma alteração nos dados do seu pedido, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.</p>
-<%= render "shared/ebit/seal_order" %>
+    <div id="billet_info">
+      <h1>Se não quiser imprimir, você pode pagar seu boleto online:</h1>
+      <ul>
+        <li><span>1</span><%= link_to "Abra seu boleto;", @payment.url, :target => "_blank" %></li>
+        <li><span>2</span>Em outra janela, acesse o site do seu banco e informe seus dados de identificação;</li>
+        <li><span>3</span>Entre na opção de pagamentos;</li>
+        <li><span>4</span>Selecione a opção de BOLETO BANCÁRIO;</li>
+        <li><span>5</span>Insira o número de código de barras identificado no seu boleto. São os número
+destacados no exemplo abaixo:</li>
+        <li><%= image_tag 'cart/boleto_simulation.jpg' %></li>
+        <li><span>6</span>Insira as informações que seu banco exige. Caso precise infomormar os dados do favorecido, coloque MOIP;</li>
+        <li><span>7</span>Confirme o pagamento;</li>
+      </ul>
+      <h2>Pronto, seu pedido foi pago. Aguarde a confirmação do pagamento por e-mail.</h2>
+    </div>
+    <%= render "shared/ebit/seal_order" %>
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
