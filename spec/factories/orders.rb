@@ -64,7 +64,7 @@ FactoryGirl.define do
     state "delivered"
 
     after_create do |order|
-      order.stub(:line_items_total).and_return(BigDecimal.new("99.90"))
+      order.stub(:total).and_return(BigDecimal.new("99.90"))
       order.stub(:reload)
     end
   end

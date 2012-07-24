@@ -27,7 +27,7 @@ describe Abacos::Pedido do
 
   context "when the order discount(coupom or credits) is greater then order total" do
     it "it should decrement the discount" do
-     order.stub(:line_items_total).and_return BigDecimal.new("129.90")
+     order.stub(:amount).and_return BigDecimal.new("129.90")
      order.stub(:total_discount).and_return BigDecimal.new("130.0")
      pedido = described_class.new order
      pedido.valor_desconto.should == "124.90"
