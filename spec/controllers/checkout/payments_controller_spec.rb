@@ -18,71 +18,11 @@ describe Checkout::PaymentsController do
     Resque.stub(:enqueue_in)
     Airbrake.stub(:notify)
     FactoryGirl.create(:line_item, :order => Order.find(order))
-    request.env['devise.mapping'] = Devise.mappings[:user]
-
-    sign_in user
   end
 
-  pending "GET index" do
-    before :each do
-      session[:order] = order
-    end
-
-    context "with a valid order" do
-      it "should be success" do
-        get 'index'
-        response.should be_successful
-      end
-    end
-
-    context "with a invalid order" do
-      it "should redirect to root path if the order is nil" do
-        session[:order] = nil
-        get 'index'
-        response.should redirect_to(cart_path)
-      end
-
-      it "should redirect to cart path if the order total_with_freight is less then 5.00" do
-        Order.any_instance.stub(:line_items).and_return([])
-        get 'index'
-        response.should redirect_to(cart_path)
-      end
-    end
-
-    context "with a valid freight" do
-      it "should assign @freight" do
-        get 'index'
-        assigns(:freight).should == order.freight
-      end
-
-      it "should assign @cart" do
-        session[:order] = order
-        # CartPresenter.should_receive(:new).with(order)
-        get 'index'
-      end
-    end
-
-    context "with a invalid freight" do
-      it "assign redirect to address_path" do
-        Order.find(order).freight.destroy
-        get 'index'
-        response.should redirect_to(addresses_path)
-      end
-    end
-  end
-
-  pending "GET show" do
-    it "should assigns @payment" do
-      get :show, :id => payment.id
-      assigns(:payment).should == payment
-    end
-  end
+ 
 
   pending "POST create" do
-    before :each do
-      sign_out user
-    end
-
     context "with valids params" do
       it "should return 200" do
         post :create, params
