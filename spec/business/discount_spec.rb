@@ -1,7 +1,7 @@
 require 'lightweight_spec_helper'
 require './app/business/discount'
 describe Discount do
-  let(:item) { stub(:item, :original_price => BigDecimal.new(100,2)) }
+  let(:item) { stub(:item, :original_price => BigDecimal.new("100",2)) }
 
   describe '#initialize' do
     it 'should set the item value if passing a percentage' do
