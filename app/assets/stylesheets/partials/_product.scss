@@ -216,6 +216,7 @@ li.product {
         left: 2px;
         display: block;
         & + p.shoe_size {
+          background: url('/assets/common/number-sold-out.png') no-repeat;
           left: 61px !important;
           display: block;
         }
