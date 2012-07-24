@@ -1,7 +1,7 @@
 class OrderStateTransition < ActiveRecord::Base
-  
+
   belongs_to :order
-  
+
   before_create :snapshot
 
   private
