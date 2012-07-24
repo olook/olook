@@ -18,6 +18,7 @@ describe Product do
 
   describe "scopes" do
     let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
+    let!(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
     let!(:bag)       { FactoryGirl.create(:basic_bag) }
     let!(:accessory) { FactoryGirl.create(:basic_accessory) }
     let!(:invisible_shoe) { FactoryGirl.create(:basic_shoe, :is_visible => false) }
@@ -76,6 +77,12 @@ describe Product do
       it "returns a product with price greater than 0.0" do
         shoe.master_variant.update_attribute(:price, 1.0)
         described_class.for_xml.should include(shoe)
+      end
+
+      it "valid_for_xml" do
+          shoe_for_xml.master_variant.update_attribute(:price, 1.0)
+          described_class.valid_for_xml.should include(shoe_for_xml)
+          described_class.valid_for_xml.should_not include(shoe)
       end
 
       describe "blacklisted products" do
@@ -244,7 +251,7 @@ describe Product do
         subject.retail_price = 99.0
         subject.master_variant.retail_price.should == 99.0
       end
-      
+
       it "#discount_percent=" do
         subject.discount_percent = 99.0
         subject.master_variant.discount_percent.should == 99.0
@@ -430,19 +437,19 @@ describe Product do
       subject.subcategory.should == "Pulseira"
     end
   end
-  
+
   describe "#promotion?" do
     it "return false when price is same of retail price" do
       subject.stub(:price => 123.45)
       subject.stub(:retail_price => 123.45)
       subject.promotion?.should be_false
     end
-    
+
     it "return true when price has difference of retail price" do
       subject.stub(:price => 123.45)
       subject.stub(:retail_price => 100.45)
       subject.promotion?.should be_true
     end
   end
-  
+
 end

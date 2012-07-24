@@ -40,8 +40,8 @@ class Product < ActiveRecord::Base
 
   mount_uploader :color_sample, ColorSampleUploader
 
-  scope :valid_for_xml, lambda{ joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", count(id) AS \"sum_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND x.sum_variants > #{MINIMUM_VARIANTS_FOR_XML} AND products.is_visible = 1 AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])}
   scope :only_visible , where(:is_visible => true)
+  scope :valid_for_xml, lambda{ only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", count(id) AS \"sum_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND x.sum_variants > #{MINIMUM_VARIANTS_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"])}
   scope :shoes        , where(:category => Category::SHOE)
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
