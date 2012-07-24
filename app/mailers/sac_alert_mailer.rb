@@ -1,7 +1,7 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class SACAlertMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
-  default :from => "olook <avisos@olook.com.br>"
+  default :from => "sac notifications <sac.notifications@olook.com.br>"
 
   def self.smtp_settings
     {
@@ -14,26 +14,10 @@ class SACAlertMailer < ActionMailer::Base
     }
   end
 
-  def send_billet_alert(alert, subscribers)
-    @order = subject_under_analysis(alert)
-    mail(:to => subscribers[0], :cc => subscribers[1..subscribers.length-1],  :subject => alert['header'])
-  end
-
-  def send_error_alert(alert, subscribers)
-    @alert = alert
-    subject_under_analysis(alert) unless alert["order_id"].nil?
-    mail(:to => subscribers[0] , :cc => subscribers,  :subject => alert['header'])
-  end
-
-  def send_fraud_analysis_alert(alert, subscribers)
-    @order = subject_under_analysis(alert)
-    mail(:to => subscribers[0] , :cc => subscribers,  :subject => alert['header'])
-  end
-
-  private
-
-  def subject_under_analysis(alert)
-   Order.find_by_id(alert["order_id"])
+  def send_notification(alert)
+    @order, @alert = Order.find(alert['order']['id']), alert
+    mail(:to => alert['subscribers'].first, :cc => alert['subscribers'] - [alert['subscribers'].first], 
+    :subject => alert['subject'], :template_name => "#{alert['type']}_notification")
   end
 
 end
