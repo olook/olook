@@ -9,7 +9,7 @@
         <p class="warn shoe_size">Tam. <%= current_user.user_info.shoes_size %></p>
       <% end %>
       <% if current_user && product.promotion? == false %>
-        <p class="warn quantity">Só mais <%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></p>
+        <p class="warn quantity">Só mais <span><%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></span></p>
         <% if product.shoe? %>
           <p class="warn shoe_size">Tam. <%= current_user.user_info.shoes_size %></p>
         <% end %>
