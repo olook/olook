@@ -1,22 +1,25 @@
+# Using mail groups is better than personal emails, however Amazon may return
+# SMTP error (address blacklisted) for mail groups
 settings:
   beginning_working_hour: "08:00:00"
   end_working_hour: "20:00:00"
-  purchase_amount_threshold: 20
+  purchase_amount_threshold: 30
   total_discount_threshold_percent: 50
 billet:
   triggers:   
-    business_hours: true
-    business_days: true
+    business_hours: false
+    business_days: false
     purchase_amount: true       
   subscribers:
-    - felipe.japm@gmail.com
-error:
+    - joel.silva@olook.com.br
+    - regina.souza@olook.com.br
+payment_failure:
   triggers:
     business_hours: false
     business_days: false
-    purchase_amount: false
   subscribers:
-    - felipe.japm@gmail.com
+    - joel.silva@olook.com.br
+    - regina.souza@olook.com.br
 fraud_analysis:
   triggers:
     business_hours: false
@@ -24,5 +27,6 @@ fraud_analysis:
     purchase_amount: true
     discount: true
   subscribers:
-    - felipe.japm@gmail.com
+    - marcelo.azevedo@olook.com.br
+    - joel.silva@olook.com.br
 
