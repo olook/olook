@@ -14,9 +14,8 @@ describe 'rake order:send_billet_reminder' do
     user = FactoryGirl.create(:user)
     order = FactoryGirl.create(:order, :user => user)
     billet = FactoryGirl.create(:billet, :order => order, :created_at => Date.yesterday)
-
-    ActionMailer::Base.deliveries.count.should == 0
+    delivered_emails = ActionMailer::Base.deliveries.count
     @rake['order:send_billet_reminder'].invoke
-    ActionMailer::Base.deliveries.count.should == 1
+    ActionMailer::Base.deliveries.count.should == delivered_emails + 1
   end
 end
