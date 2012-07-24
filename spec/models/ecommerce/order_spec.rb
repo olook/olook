@@ -101,30 +101,6 @@ describe Order do
       subject.save
     end
 
-    describe "#total_discount" do
-      it "should return all discounts" do
-        subject.stub(:credits).and_return(credits = 9.09)
-        subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
-        subject.total_discount.should == credits + coupon
-      end
-    end
-
-    describe "#max_credit_value" do
-      it "should return the total amount minus mininum value" do
-        subject.max_credit_value.should eq(items_total - Payment::MINIMUM_VALUE)
-      end
-      
-      it "should return the total amount minus discount_from_coupon" do
-        subject.stub(:discount_from_coupon).and_return(10)
-        subject.max_credit_value.should eq(items_total - Payment::MINIMUM_VALUE - 10)
-      end
-      
-      it "should return zero when discount from coupon is superior of items total" do
-        subject.stub(:discount_from_coupon).and_return(items_total + 10)
-        subject.max_credit_value.should eq(0)
-      end
-    end
-
     describe "#update_credits!" do
       it "should update the credits if a discount or promotion changed the maximal value." do
           subject.stub!(:max_credit_value).and_return(50.00)
