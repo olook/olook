@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 module SAC
 	class AlertWorker
-	  @queue = :sac
+	  @queue = :SAC_notifications
 
-	  def self.perform(alert, type, subscribers)  
-	    mail = SACAlertMailer.send("send_#{type}_alert", alert, subscribers)
+	  def self.perform(alert)
+	    mail = SACAlertMailer.send_notification(alert)
 	    mail.deliver
 	  end
 	end
