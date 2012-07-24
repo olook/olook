@@ -101,12 +101,6 @@ describe Order do
       subject.save
     end
 
-    describe '#line_items_total' do
-      it 'should calculate the total' do
-        subject.line_items_total.should == items_total
-      end
-    end
-
     describe "#total_discount" do
       it "should return all discounts" do
         subject.stub(:credits).and_return(credits = 9.09)

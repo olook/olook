@@ -89,12 +89,12 @@ module MarketingReports
       (from...to).each do |day|
         Tracking.from_day(day).google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |t|
           data << [ day.to_s, "google", t.clean_placement, nil, nil, t.total_registrations, t.related_with_complete_payment_for_google(day).count,
-                    t.total_revenue_for_google(day,:line_items_total), t.total_revenue_for_google(day) ]
+                    t.total_revenue_for_google(day,:amount), t.total_revenue_for_google(day) ]
         end
         Tracking.from_day(day).campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |t|
           data <<
           [ day.to_s, t.utm_source, t.utm_medium, t.utm_campaign, t.utm_content, t.total_registrations,
-            t.related_with_complete_payment(day).count, t.total_revenue(day,:line_items_total), t.total_revenue(day) ]
+            t.related_with_complete_payment(day).count, t.total_revenue(day,:amount), t.total_revenue(day) ]
         end
       end
       @csv = build_csv(data)

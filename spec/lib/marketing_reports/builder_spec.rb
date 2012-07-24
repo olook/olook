@@ -334,7 +334,7 @@ describe MarketingReports::Builder do
         order_b.payment.billet_printed
         order_b.payment.authorized
         Order.any_instance.stub(:total).and_return(BigDecimal.new("100"))
-        Order.any_instance.stub(:line_items_total).and_return(BigDecimal.new("50"))
+        Order.any_instance.stub(:amount).and_return(BigDecimal.new("50"))
       end
 
       let :tracking_data do
@@ -361,7 +361,7 @@ describe MarketingReports::Builder do
         order_d.payment.billet_printed
         order_d.payment.authorized
         Order.any_instance.stub(:total).and_return(BigDecimal.new("100"))
-        Order.any_instance.stub(:line_items_total).and_return(BigDecimal.new("50"))
+        Order.any_instance.stub(:amount).and_return(BigDecimal.new("50"))
       end
 
       let :tracking_data do

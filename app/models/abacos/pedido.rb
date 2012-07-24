@@ -20,8 +20,8 @@ module Abacos
       @data_venda       = parse_data(order.created_at)
       
       #TODO USAR VALOR CORRETO
-      @valor_pedido     = parse_price order.line_items_total
-      @valor_desconto   = parse_price discount_for(order)
+      @valor_pedido     = parse_price order.amount
+      @valor_desconto   = parse_price order.amount_discount
       @valor_frete      = parse_price order.freight_price
       @transportadora   = order.freight.shipping_service.erp_code
       @tempo_entrega    = order.freight.delivery_time
@@ -64,15 +64,6 @@ module Abacos
 
     def parse_data_entrega(delivery_time)
       "#{delivery_time.days.from_now.strftime("%d%m%Y")} 21:00"
-    end
-
-    def discount_for(order)
-      if (order.line_items_total - order.total_discount) < Payment::MINIMUM_VALUE
-        total_discount = order.line_items_total - Payment::MINIMUM_VALUE
-      else
-        total_discount = order.total_discount
-      end
-      total_discount
     end
 
     def parse_itens(line_items)

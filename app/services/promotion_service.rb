@@ -38,7 +38,7 @@ class PromotionService
   end
 
   def apply_discount promotion
-    apply_discount_for promotion, order.line_items_total
+    apply_discount_for promotion, order.amount
   end
 
   def apply_discount_for promotion, value
