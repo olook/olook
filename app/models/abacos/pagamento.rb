@@ -6,7 +6,7 @@ module Abacos
     attr_reader :valor, :forma, :parcelas, :boleto_vencimento
 
     def initialize(order)
-      @valor             = parse_price order.total_with_freight
+      @valor             = parse_price order.amount_paid
       @forma             = order.payment.is_a?(Billet) ? 'BOLETO' : order.payment.bank.upcase
       @parcelas          = order.payment.payments || 1
       @boleto_vencimento = parse_expiration_date(order.payment.payment_expiration_date) if order.payment.is_a?(Billet)

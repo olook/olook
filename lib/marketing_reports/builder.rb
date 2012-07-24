@@ -78,7 +78,7 @@ module MarketingReports
       User.joins(:orders).joins("INNER JOIN payments on orders.id = payments.order_id").group('users.id')
           .where('payments.state IN ("authorized","completed")').each do |u|
         data << [ u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus, u.invite_bonus, u.used_invite_bonus,
-                  u.total_revenue(:total_with_freight), u.total_revenue(:freight_price) ]
+                  u.total_revenue(:amount_paid), u.total_revenue(:freight_price) ]
         end
       @csv = build_csv(data)
     end

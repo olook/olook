@@ -294,7 +294,7 @@ describe MarketingReports::Builder do
       end
 
       it "lists user data with user bonus, freight and revenue per user" do
-        total_revenue = order_a.total_with_freight + order_b.total_with_freight
+        total_revenue = order_a.amount_paid + order_b.amount_paid
         freight = order_a.freight_price + order_b.freight_price
 
         user_revenue_data = "#{user.id},#{user.email},#{user.name}," +
