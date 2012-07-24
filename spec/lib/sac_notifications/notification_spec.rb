@@ -1,10 +1,11 @@
 describe SAC::Notification do 
   
   subject do 
-    sac_notification = SAC::Notification.new(:fraud_analysis, 'order')
+    sac_notification = SAC::Notification.new(:fraud_analysis, 'Hail to the King', 'order')
   end
 
   its(:type) {should == :fraud_analysis}
+  its(:subject){should == 'Hail to the King'}
   its(:active) {should be_true}
   its(:settings) {should == SAC::Notification::SETTINGS}
   its(:triggers) {should == SAC::Notification::CONFIG['fraud_analysis']['triggers']}
@@ -65,14 +66,14 @@ describe SAC::Notification do
 
   context "when validating discount" do
     it "should return true if total discount is equal or higher than threshold percentage" do
-      subject.order.should_receive(:total_with_freight).and_return(100)
+      subject.order.should_receive(:line_items_total).and_return(100)
       subject.order.should_receive(:discount_from_coupon).and_return(subject.settings['total_discount_threshold_percent'])
       subject.order.should_receive(:credits)
       subject.validate_discount.should == true
     end
 
     it "should return false if total discount is below the threshold percentage" do
-      subject.order.should_receive(:total_with_freight).and_return(100)
+      subject.order.should_receive(:line_items_total).and_return(100)
       subject.order.should_receive(:discount_from_coupon).and_return(subject.settings['total_discount_threshold_percent'] - 1)
       subject.order.should_receive(:credits)
       subject.validate_discount.should == false
