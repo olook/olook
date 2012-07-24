@@ -455,22 +455,41 @@ section#address_new {
 }
 
 section#payment {
-  #boleto_info {
-    background-color: #f2f2f2;
-    padding: 20px 30px 20px 30px;
-    font-family:"Times New Roman, Times, Sans-serif";
+  #billet_info {
+    background: #f2f2f2;
     color: #000;
+    font-family: "Times New Roman", Times, sans-serif;
+    margin: 0 0 20px;
+    padding: 20px 30px;
 
-    #info_title {
+    h1 {
       font-size: 23px;
       font-style: italic;
-      margin-left:15px;
+      margin: 0 0 10px;
     }
-    ul li {
-      display:block;
-      a {
-        font-weight:bold;
-        color:#d1457c;
+    h2 {
+      font-family: "Arial";
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+    }
+    ul {
+      margin: 0 0 20px 0;
+      li {
+        font-family:"Arial";
+        font-size: 14px;
+        color:#666666;
+        line-height: 30px;
+        margin: 0 0 5px;
+        width: 100%;
+        padding-top: 7px;
+        overflow: visible;
+        display:block;
+        a {
+          font-family: Arial, sans-serif;
+          font-weight:bold;
+          color:#d1457c;
+        }
       }
     }
     #final_info {
@@ -479,23 +498,18 @@ section#payment {
       font-size: 14px;
       text-align:center;
     }
-    .step_number {
-      font-weight:bold;
-      font-size: 16px;
-      font-style: italic;
+    span {
       background: url('/assets/cart/number_background.png') no-repeat;
+      font-family: "Times New Roman", Times, sans-serif;
+      font-size: 16px;
+      font-weight:bold;
+      font-style: italic;
+      line-height: 30px;
       text-align: center;
-      padding-top: 6px;
       width: 30px;
-      height:30px;
+      display: block;
       margin-right: 10px;
-      float:left;
-    }
-    .step_description {
-      font-family:"Arial";
-      font-size: 14px;
-      color:#666666;
-      padding-top: 7px;
+      float: left;
     }
   }
   form.cpf {
