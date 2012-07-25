@@ -15,15 +15,15 @@ describe InCartMailer do
 
     let!(:mail) { InCartMailer.send_in_cart_mail(subject, subject.line_items) }
 
-    xit "sets 'from' attribute to olook <avisos@olook.com.br>" do
+    it "sets 'from' attribute to olook <avisos@olook.com.br>" do
       mail.from.should include("avisos@olook.com.br")
     end
 
-    xit "sets 'to' attribute to passed member's email" do
+    it "sets 'to' attribute to passed member's email" do
       mail.to.should include(user.email)
     end
 
-    xit "sets 'subject' attribute to inform there are products without checkout" do
+    it "sets 'subject' attribute to inform there are products without checkout" do
       mail.subject.should == "#{user.first_name}, os seus produtos ainda estão disponíveis."
     end
 
