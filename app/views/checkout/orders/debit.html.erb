@@ -30,12 +30,10 @@
 <% end %>
 
 <% content_for :footer do %>
-<<<<<<< HEAD
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @cart } %>
-=======
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
   <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
->>>>>>> Adding new pixel for netaffiliation
+  <%= render "shared/metrics/zanox/order_and_register", :user_id => current_user.id, :order_number => @order.number, :order_total => number_to_currency(@order.total_with_freight) %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/boobox/buy" %>
 <% end %>
