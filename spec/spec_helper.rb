@@ -43,7 +43,7 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   HTTPI.log = false
-  Savon.log = false
+  # Savon.log = false
 
   RSpec.configure do |config|
     # == Mock Framework
