@@ -17,7 +17,7 @@ You are receiving this email because your are registered on the <%= @alert['type
       <tr style="padding: 9px 8px 0px 8px;">
         <td><%= @order.user.name %></td>
         <td><%= link_to("http://www.olook.com.br/admin/users/#{@order.user.id}") %></td>
-        <td><%= @order.payment.telephone %></td>
+        <td><%= @order.freight.address.telephone %></td>
         <td><%= @order.user.email %></td>
       </tr>
     </table>
