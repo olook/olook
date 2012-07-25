@@ -36,9 +36,11 @@
         <li>
           <%= image_tag @lookbook.images[image].image.try(:url), :alt => "Imagem #{image}" %>
           <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
+            <% if lim.product.is_a? Product %>
             <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
-              <p class="spy"><%= link_to lim.product.try(:name), product_path(lim.product.id), data: { params: { gift: false, shoe_size: nil } }, rel: "#{lim.product.id}", remote: true %></p>
+              <p class="spy"><%= link_to lim.product.try(:name), product_path(lim.product.try(:id)), data: { params: { gift: false, shoe_size: nil } }, rel: "#{lim.product.try(:id)}", remote: true %></p>
             </div>
+            <% end %>
           <% end %>
         </li>
       <% end %>
