@@ -11,7 +11,7 @@ li.product {
     position: absolute;
     background: none;
     width: 100%;
-    top: 75px;
+    top: 145px;
     left: 0;
     display: none;
     z-index: 10;
@@ -20,20 +20,47 @@ li.product {
       padding: 0 !important;
       li {
         text-align: center;
-        margin: 0 0 20px 0;
+        margin: 0;
         a {
-          @include border-radius(3px);
-          background: #e05789;
-          color: #FFF;
-          font-family: "Open Sans", sans-serif;
-          font-size: 10px;
+          background: url('/assets/common/bg-spy.png') repeat-x;
+          color: #999;
+          font-size: 13px;
+          font-style: italic;
+          font-weight: bold;
+          line-height: 25px;
           text-decoration: none;
           text-transform: uppercase;
-          font-weight: 600;
-          padding: 5px 10px;
+          height: 25px;
+          margin: 0 auto;
+          display: block;
+          span {
+            background: url('/assets/common/icon-spy-off.png') left center no-repeat;
+            line-height: 16px;
+            display: inline-block;
+            padding: 0 0 0 19px;
+          }
+          &:hover {
+            span {
+              background: url('/assets/common/icon-spy-on.png') left center no-repeat;
+              color: #dc5d8d;
+            }
+          }
         }
         &.add {
           display: none;
+          a {
+            @include border-radius(3px);
+            background: #e05789;
+            color: #FFF;
+            font-family: "Open Sans", sans-serif;
+            font-size: 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            width: 120px;
+            margin: -120px auto 0;
+            padding: 0 10px;
+          }
         }
       }
     }
@@ -46,39 +73,47 @@ li.product {
       p.warn {
         position: absolute;
         color: #FFF;
-        font-family: "Open Sans", sans-serif;
-        font-size: 10px;
-        font-weight: normal;
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        font-style: italic;
+        font-weight: bold;
         text-align: center;
         text-transform: uppercase;
-        line-height: 10px;
-        width: 50px;
-        height: 50px;
+        line-height: 24px;
         display: none;
         &.sold_out {
           background: url("/assets/common/sold_out.png") no-repeat;
-          font-size: 14px;
-          line-height: 15px;
-          height: 40px;
-          padding-top: 10px;
+          color: #999;
+          width: 72px;
+          height: 30px;
         }
-        &.quantity, &.percentage {
+        &.quantity {
           background: url("/assets/common/quantity.png") no-repeat;
-          height: 45px;
-          padding-top: 5px;
-          span {
-            font-size: 22px;
-            line-height: 21px;
-            font-weight: 600;
-          }
+          word-spacing: -1px;
+          width: 62px;
+          height: 30px;
+        }
+        &.shoe_size {
+          background: url("/assets/common/number.png") no-repeat;
+          word-spacing: -1px;
+          width: 51px;
+          height: 30px;
         }
         &.percentage {
+          background: url("/assets/common/percentage.png") no-repeat;
+          font-family: "Open Sans", sans-serif;
           font-size: 13px;
+          font-weight: normal;
+          font-style: normal;
+          line-height: 10px;
+          width: 50px;
           height: 40px;
           padding-top: 10px;
           display: block;
           span {
             font-size: 20px;
+            line-height: 21px;
+            font-weight: 600;
           }
         }
       }
@@ -180,6 +215,11 @@ li.product {
         top: 2px;
         left: 2px;
         display: block;
+        & + p.shoe_size {
+          background: url('/assets/common/number-sold-out.png') no-repeat;
+          left: 61px !important;
+          display: block;
+        }
       }
     }
     &.stock_down {
@@ -187,6 +227,10 @@ li.product {
         top: 2px;
         left: 2px;
         display: block;
+        & + p.shoe_size {
+          left: 53px !important;
+          display: block;
+        }
       }
     }
   }
@@ -226,11 +270,20 @@ li.product {
   li.product {
     width: 175px;
     height: 275px;
+    div.hover_suggestive {
+      ul {
+        li.spy {
+          a {
+            width: 170px;
+          }
+        }
+      }
+    }
     .box_product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: 2px;
+          left: -9px;
         }
         img {
           width: 170px;
@@ -245,11 +298,21 @@ li.product {
   }
 }
 #product {
+  div.hover_suggestive {
+    top: 235px;
+    ul {
+      li.spy {
+        a {
+          width: 260px;
+        }
+      }
+    }
+  }
   .box_product {
     a.product_link {
       p.warn {
         top: 2px;
-        left: 2px;
+        left: -9px;
       }
       img {
         width: 260px;
@@ -266,11 +329,21 @@ li.product {
   li.product {
     width: 160px;
     height: 253px;
+    div.hover_suggestive {
+      top: 125px;
+      ul {
+        li.spy {
+          a {
+            width: 150px;
+          }
+        }
+      }
+    }
     .box_product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: 2px;
+          left: -9px;
         }
         img {
           width: 150px;
@@ -289,11 +362,24 @@ li.product {
   li.product {
     width: 160px;
     height: 225px;
+    div.hover_suggestive {
+      top: 125px;
+      ul {
+        li.spy {
+          a {
+            width: 150px;
+          }
+        }
+      }
+    }
     .box_product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: 2px;
+          left: -9px;
+          &.percentage {
+            left: 2px;
+          }
         }
         img {
           width: 150px;
@@ -317,11 +403,20 @@ li.product {
   li.product {
     width: 175px;
     height: 275px;
+    div.hover_suggestive {
+      ul {
+        li.spy {
+          a {
+            width: 170px;
+          }
+        }
+      }
+    }
     .box_product {
       a.product_link {
         p.warn {
           top: 2px;
-          left: 2px;
+          left: -9px;
         }
         img {
           width: 170px;

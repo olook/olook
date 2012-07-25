@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require "ruby-debug"
 describe Admin::AdminsController do
   
   render_views

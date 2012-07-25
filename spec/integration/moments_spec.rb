@@ -6,11 +6,11 @@ feature "Navigating by moments", %q{
   In order to simulate a user experience
   I want to be able to see the correct product related to each moment
   } do
-    
-  let!(:user) { FactoryGirl.create(:user) }
+
+  let!(:user) { FactoryGirl.create(:user, :user_info => UserInfo.new) }
   let!(:day_moment) { FactoryGirl.create(:moment) }
   let!(:work_moment) { FactoryGirl.create(:moment, { :name => "work", :slug => "work" }) }
-  
+
   let(:basic_bag) do
     product = (FactoryGirl.create :bag_subcategory_name).product
     product.master_variant.price = 100.00
@@ -34,22 +34,22 @@ feature "Navigating by moments", %q{
 
     product
   end
-    
+
   describe "Already user" do
     background do
       do_login!(user)
     end
-    
+
     scenario "visiting the moment page/home" do
       visit moments_path
       within(".moments") do
           page.should have_xpath("//a[@class='selected']")
       end
     end
-    
+
     describe "checking products at the related moment" do
-      
-      before :each do 
+
+      before :each do
         CatalogProductService.new(day_moment.catalog, basic_bag).save!
         CatalogProductService.new(work_moment.catalog, basic_shoes).save!
         visit moments_path
@@ -64,7 +64,7 @@ feature "Navigating by moments", %q{
         page.should have_content( basic_shoes.name )
       end
 
-    end  
-  
+    end
+
   end
 end
