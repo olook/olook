@@ -50,8 +50,16 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'ruby-debug19'
-  gem 'debugger', :require => 'ruby-debug'
+  if RUBY_VERSION <= "1.9.2"
+    gem "ruby-debug19", :require => "ruby-debug", :platform => :ruby_19
+  end
+  if RUBY_PLATFORM =~ /darwin/i
+    gem "growl"
+    gem 'rb-fsevent', :require => false
+  elsif RUBY_PLATFORM =~ /linux/i
+    gem "libnotify"
+    gem "rb-inotify"
+  end
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.10.1'
