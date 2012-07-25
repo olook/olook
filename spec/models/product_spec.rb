@@ -69,15 +69,6 @@ describe Product do
     end
 
     context "for_xml" do
-      it "does not return a product with price equal to zero" do
-        shoe.master_variant.update_attribute(:price, 0.0)
-        described_class.for_xml.should_not include(shoe)
-      end
-
-      it "returns a product with price greater than 0.0" do
-        shoe.master_variant.update_attribute(:price, 1.0)
-        described_class.for_xml.should include(shoe)
-      end
 
       it "valid_for_xml" do
           shoe_for_xml.master_variant.update_attribute(:price, 1.0)
@@ -90,15 +81,6 @@ describe Product do
           shoe.master_variant.update_attribute(:price, 1.0)
         end
 
-        it "gets product black list from CRITEO_CONFIG" do
-          CRITEO_CONFIG.should_receive(:[]).with('products_blacklist')
-          described_class.for_xml
-        end
-
-        it "does not include a blacklisted product" do
-          CRITEO_CONFIG.stub(:[]).with('products_blacklist').and_return([shoe.id])
-          described_class.for_xml.should_not include(shoe)
-        end
       end
     end
   end
