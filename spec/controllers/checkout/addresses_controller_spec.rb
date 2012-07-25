@@ -4,34 +4,32 @@ require 'spec_helper'
 describe Checkout::AddressesController do
 
   let(:user) { FactoryGirl.create :user }
+  let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :city => 'São Paulo', :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
-  let(:order) { FactoryGirl.create(:order, :user => user).id }
+  let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
 
   before :each do
-    user.update_attributes(:cpf => "19762003691")
-    FactoryGirl.create(:line_item, :order => Order.find(order))
-    session[:order] = order
+    session[:cart_id] = cart.id
     request.env['devise.mapping'] = Devise.mappings[:user]
     sign_in user
-    @address = FactoryGirl.create(:address, :user => user)
   end
 
-  pending "GET index" do
-    it "should assign @cart" do
-      # CartPresenter.should_receive(:new).with(Order.find(order))
-      get :index
-    end
+  # before_filter :authenticate_user!
+  # before_filter :check_order
+  # before_filter :erase_freight
 
+
+  pending "GET index" do
     it "should assign @address" do
+      address.user.should eq(user)
       get :index
-      assigns(:addresses).should eq(user.addresses)
+      assigns(:addresses).should eq([address])
     end
 
     it "should redirect to new if the user dont have an address" do
-      user.addresses.destroy_all
       get :index
-      response.should redirect_to(new_address_path)
+      response.should redirect_to(new_cart_checkout_address_path)
     end
   end
 
