@@ -10,7 +10,11 @@ describe InCartMailer do
     describe "#send_in_cart_mail" do
     
     before :each do
-      subject.add_variant(basic_shoe_35)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_35.id,
+        :quantity => 2, 
+        :price => basic_shoe_35.price,
+        :retail_price => basic_shoe_35.retail_price)
     end
 
     let!(:mail) { InCartMailer.send_in_cart_mail(subject, subject.line_items) }
