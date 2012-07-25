@@ -55,6 +55,16 @@ FactoryGirl.define do
       inventory 5
     end
 
+
+    factory :basic_shoe_size_39 do
+      number '39A'
+      description '39'
+      display_reference 'size-39'
+      price 125.45
+      retail_price 125.45
+      inventory 5
+    end
+
     factory :basic_shoe_size_40 do
       number '40A'
       description '40'

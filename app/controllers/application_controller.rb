@@ -10,15 +10,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
-  #rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-  #rescue_from ActionController::UnknownController, :with => :render_404
-  #rescue_from ::AbstractController::ActionNotFound, :with => :render_404
   rescue_from CanCan::AccessDenied do  |exception|
       flash[:error] = "Access Denied! You don't have permission to execute this action.
                               Contact the system administrator"
       redirect_to admin_url
   end
-  #rescue_from Exception, :with => :render_500
 
   helper_method :current_liquidation
   def current_liquidation
