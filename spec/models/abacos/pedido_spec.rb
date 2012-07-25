@@ -19,7 +19,8 @@ describe Abacos::Pedido do
       :freight => freight, 
       :created_at => Date.civil(2011, 12, 01),
       :amount_discount => 11,
-      :amount => 70
+      :amount => 70,
+      :amount_paid => 81
     )
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_a, :quantity => 2, :price => 20.0, :retail_price => 20.0)
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_b, :quantity => 1, :price => 30.0, :retail_price => 30.0)
@@ -71,11 +72,11 @@ describe Abacos::Pedido do
         subject.valor_pedido.should == '70.00'
       end
 
-      xit '#valor_desconto' do
+      it '#valor_desconto' do
         subject.valor_desconto.should == "11.00"
       end
 
-      xit '#valor_frete' do
+      it '#valor_frete' do
         subject.valor_frete.should == '22.00'
       end
 
@@ -140,7 +141,7 @@ describe Abacos::Pedido do
       describe 'pagamento' do
         let(:pagamento) { subject.pagamento }
 
-        xit '#valor' do
+        it '#valor' do
           pagamento.valor.should == '81.00'
         end
       end
@@ -206,7 +207,7 @@ describe Abacos::Pedido do
               }
       }
 
-      xit 'should be a hash with the proper keys and values for export' do
+      it 'should be a hash with the proper keys and values for export' do
         subject.parsed_data.should == expected_parsed_data
       end
     end

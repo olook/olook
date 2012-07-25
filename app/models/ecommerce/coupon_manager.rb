@@ -15,7 +15,6 @@ class CouponManager
       else
         order.create_used_coupon(:coupon => coupon)
       end
-      # order.update_credits! #Since applying a coupon can reduce the credit limit, we should check if the limit is exceeded.
       msg = "Cupom atualizado com sucesso"
     else
       order.used_coupon.try(:destroy)

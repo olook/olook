@@ -194,7 +194,7 @@ describe ProductPresenter do
     it "should render the price when no discount" do
     end
 
-    xit "should render the price with markdown when for first time buyers" do
+    it "should render the price with markdown when for first time buyers" do
       member.stub(:first_time_buyer?).and_return(true)
       subject.render_price.should include("de:")
       subject.render_price.should include("por:")
@@ -209,14 +209,12 @@ describe ProductPresenter do
       subject.render_price.should_not include("em sua primeira compra")
     end
 
-    xit "should show 30% off for guests" do
-      #subject.stub(:retail_price).and_return(49.99)
-      #member = nil
-      #subject.render_price.should include("de:")
-      #subject.render_price.should include("por:")
-      #subject.render_price.should include("em sua primeira compra")
+    it "should show 30% off for guests" do
+      subject.stub(:retail_price).and_return(49.99)
+      member = nil
+      subject.render_price.should include("de:")
+      subject.render_price.should include("por:")
+      subject.render_price.should include("em sua primeira compra")
     end
-
-    it "should show the 30% off discounted price added to the retail price"
   end
 end

@@ -104,11 +104,6 @@ describe InviteBonus do
           described_class.already_used(member).should == 26.79
         end
 
-        it "should return the sum of credits used in the orders that dont have a payment but have a current order" do
-          pending "transfer to cart "
-          described_class.already_used(member, cart).should == 39.69
-        end
-
         it "should return the sum of credits used in the orders and not count a canceled order" do
           order_2.canceled
           described_class.already_used(member).to_f.should == 23.56
