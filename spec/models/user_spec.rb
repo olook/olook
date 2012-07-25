@@ -807,7 +807,7 @@ describe User do
       end
 
       it "returns the value of this order" do
-        Order.any_instance.should_receive(:total).and_return(BigDecimal.new("100"))
+        Order.any_instance.should_receive(:subtotal).and_return(BigDecimal.new("100"))
         subject.total_revenue.to_s.should == "100.0"
       end
     end
@@ -829,7 +829,7 @@ describe User do
       end
 
       it "returns the total sum of the orders" do
-        Order.any_instance.stub(:total).and_return(BigDecimal.new("53.34"))
+        Order.any_instance.stub(:subtotal).and_return(BigDecimal.new("53.34"))
         subject.total_revenue.to_s.should == "106.68"
       end
     end

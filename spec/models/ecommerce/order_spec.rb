@@ -71,7 +71,7 @@ describe Order do
     end
   end
 
-  pending "destroying an Order" do
+  context "destroying an Order" do
     before :each do
       # subject.add_variant(basic_shoe_35)
       # subject.add_variant(basic_shoe_40)
@@ -90,7 +90,7 @@ describe Order do
     end
   end
 
-  pending 'in a order with items' do
+  context 'in a order with items' do
     let(:price) { 123.45 }
     let(:items_total) {123.45 + (123.45 * quantity)}
     before :each do
@@ -188,7 +188,7 @@ describe Order do
     
   end
 
-  pending "in an order without items" do
+  context "in an order without items" do
     it "#line_items_total should be zero" do
       subject.line_items_total.should == 0
     end
@@ -210,7 +210,7 @@ describe Order do
   end
 
 
-  pending "when the inventory is not available" do
+  context "when the inventory is not available" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
     end
@@ -226,7 +226,7 @@ describe Order do
     end
   end
 
-  pending "when the inventory is available" do
+  context "when the inventory is available" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
       basic_shoe_40.update_attributes(:inventory => 10)
@@ -247,7 +247,7 @@ describe Order do
     end
   end
 
-  pending "items availables in the order" do
+  context "items availables in the order" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
       subject.add_variant(basic_shoe_35, 2)
@@ -281,7 +281,7 @@ describe Order do
     end
   end
 
-  pending "inventory update" do
+  context "inventory update" do
     it "should decrement the inventory for each item" do
       basic_shoe_35_inventory = basic_shoe_35.inventory
       basic_shoe_40_inventory = basic_shoe_40.inventory
@@ -320,7 +320,7 @@ describe Order do
     end
   end
 
-  pending "ERP(abacos) integration" do
+  context "ERP(abacos) integration" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
