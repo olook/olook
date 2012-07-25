@@ -5,7 +5,7 @@ class Credit < ActiveRecord::Base
   belongs_to :order
   validates :value, :presence => true
 
-  LIMIT_FOR_EACH_USER = BigDecimal.new("300.00")
+  LIMIT_FOR_EACH_USER = BigDecimal.new("400.00")
 
   INVITE_BONUS = BigDecimal.new("10.00")
 
