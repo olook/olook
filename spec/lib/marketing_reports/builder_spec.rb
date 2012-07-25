@@ -243,7 +243,7 @@ describe MarketingReports::Builder do
         line_item = order.line_items.first
         variant = line_item.variant
         product = variant.product
-        user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},#{order.total},#{order.state},#{order.updated_at},#{variant.number},#{product.id},#{line_item.price},"
+        user_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},30.0,10.0,#{order.id},#{order.subtotal},#{order.state},#{order.updated_at},#{variant.number},#{product.id},#{line_item.price},"
         subject.generate_userbase_orders
         subject.csv.should match(/^#{header}#{user_data}/)
       end
@@ -360,7 +360,7 @@ describe MarketingReports::Builder do
         order_c.payment.authorized
         order_d.payment.billet_printed
         order_d.payment.authorized
-        Order.any_instance.stub(:total).and_return(BigDecimal.new("100"))
+        Order.any_instance.stub(:subtotal).and_return(BigDecimal.new("100"))
         Order.any_instance.stub(:amount).and_return(BigDecimal.new("50"))
       end
 

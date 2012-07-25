@@ -13,11 +13,11 @@ class Tracking < ActiveRecord::Base
     self.where('trackings.created_at BETWEEN :day AND :next_day',:day => day, :next_day => day + 1.day)
   end
 
-  def total_revenue(day, total = :total)
+  def total_revenue(day, total = :subtotal)
     related_with_complete_payment(day).inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
   end
 
-  def total_revenue_for_google(day, total = :total)
+  def total_revenue_for_google(day, total = :subtotal)
     related_with_complete_payment_for_google(day).inject(0) { |sum, campaign| sum += campaign.user.total_revenue(total) }
   end
 

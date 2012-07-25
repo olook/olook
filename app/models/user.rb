@@ -223,7 +223,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def total_revenue(total_method = :total)
+  def total_revenue(total_method = :subtotal)
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
         .inject(0) { |sum,order| sum += order.send(total_method) }
@@ -237,7 +237,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def total_revenue(total_method = :total)
+  def total_revenue(total_method = :subtotal)
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
         .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }

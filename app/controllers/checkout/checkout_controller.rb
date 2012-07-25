@@ -28,7 +28,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def new
-    
+    #TODO: RENDER CREDIT CARD IF HAS CPF
   end
 
   def new_debit
