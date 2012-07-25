@@ -13,7 +13,14 @@ describe Abacos::Pedido do
   let(:variant_b) { FactoryGirl.create :basic_shoe_size_40, :retail_price => 30.0 }
 
   let(:order) {
-    order = (FactoryGirl.create :clean_order, :user => member, :payment => payment, :freight => freight, :created_at => Date.civil(2011, 12, 01))
+    order = (FactoryGirl.create :clean_order, 
+      :user => member, 
+      :payment => payment, 
+      :freight => freight, 
+      :created_at => Date.civil(2011, 12, 01),
+      :amount_discount => 11,
+      :amount => 70
+    )
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_a, :quantity => 2, :price => 20.0, :retail_price => 20.0)
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_b, :quantity => 1, :price => 30.0, :retail_price => 30.0)
     variant_a.stub_chain(:product, :retail_price).and_return(20.0)
@@ -24,15 +31,6 @@ describe Abacos::Pedido do
     order.save
     order
   }
-
-  context "when the order discount(coupom or credits) is greater then order total" do
-    it "it should decrement the discount" do
-     order.stub(:amount).and_return BigDecimal.new("129.90")
-     order.stub(:amount_discount).and_return BigDecimal.new("130.0")
-     pedido = described_class.new order
-     pedido.valor_desconto.should == "124.90"
-    end
-  end
 
   context "when the order discount(coupom or credits) is not greater then order total" do
 

@@ -31,14 +31,12 @@ FactoryGirl.define do
   factory :order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
+    subtotal BigDecimal.new("100")
+    amount BigDecimal.new("100")
+    
     after_build do |order|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)
-    end
-
-    after_create do |order|
-      order.stub(:total).and_return(BigDecimal.new("100"))
-      order.stub(:reload)
     end
   end
 
@@ -46,14 +44,12 @@ FactoryGirl.define do
     association :payment, :factory => :credit_card_with_response
     association :freight, :factory => :freight
     state "authorized"
+    subtotal BigDecimal.new("100")
+    amount BigDecimal.new("100")
+
     after_build do |order|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)
-    end
-
-    after_create do |order|
-      order.stub(:total).and_return(BigDecimal.new("100"))
-      order.stub(:reload)
     end
   end
 
@@ -62,10 +58,7 @@ FactoryGirl.define do
     association :freight, :factory => :freight
     association :user
     state "delivered"
-
-    after_create do |order|
-      order.stub(:total).and_return(BigDecimal.new("99.90"))
-      order.stub(:reload)
-    end
+    subtotal BigDecimal.new("99.90")
+    amount BigDecimal.new("99.90")
   end
 end

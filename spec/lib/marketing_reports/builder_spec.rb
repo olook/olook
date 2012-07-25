@@ -251,11 +251,10 @@ describe MarketingReports::Builder do
 
     context "and user has an order with line items" do
       let!(:user) { FactoryGirl.create(:member) }
-      let!(:order) { FactoryGirl.create(:order, :user => user) }
+      let!(:order) { FactoryGirl.create(:order, :user => user, :subtotal => 359.80) }
       let!(:line_item) { FactoryGirl.create(:line_item, :order => order) }
 
       it "lists a user data with order details (order total value, products ids, prices and variant numbers)" do
-        pending "Neet Order Total Correct From Price Modificator or In Order Sum"
         user_order_data = "#{user.id},#{user.email},#{user.first_name},#{user.last_name},0.0,0.0," +
         "#{order.id},359.8,#{order.state},#{order.updated_at},#{line_item.variant.number}," +
         "#{line_item.variant.product_id},#{line_item.price},#{line_item.gift}\n"
@@ -323,8 +322,8 @@ describe MarketingReports::Builder do
     context "and there is tracking data from google (with gclid and placement)" do
       let!(:user_a) { FactoryGirl.create(:member) }
       let!(:user_b) { FactoryGirl.create(:member) }
-      let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a) }
-      let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b) }
+      let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a, :subtotal => 100, :amount => 50) }
+      let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b, :subtotal => 100, :amount => 50) }
       let!(:tracking_a) { FactoryGirl.create(:google_tracking, :user => user_a, :created_at => date) }
       let!(:tracking_b) { FactoryGirl.create(:google_tracking, :user => user_b, :created_at => date) }
 
@@ -333,8 +332,6 @@ describe MarketingReports::Builder do
         order_a.payment.authorized
         order_b.payment.billet_printed
         order_b.payment.authorized
-        Order.any_instance.stub(:total).and_return(BigDecimal.new("100"))
-        Order.any_instance.stub(:amount).and_return(BigDecimal.new("50"))
       end
 
       let :tracking_data do
