@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def quantity_status(product, user)
-    if product.sold_out?
+    if product.sold_out? || ( product.shoe? && product.quantity(user.user_info.shoes_size) == 0 )
       'sold_out'
     else
       unless user.user_info.nil?

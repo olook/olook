@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <span style='margin-left:50px;font-size:12px'>
+You are receiving this email because your are registered on the <%= @alert['type'] %> mail group.To unsubscribe from this list, please contact the system administrator
+</span>
+    <h3 style='margin-left:50px;'>Cliente<h3>
+    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;">
+      <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
+        <th>Nome</th>
+        <th>Visualizar cliente no admin</th>
+        <th>Telefone</th>
+        <th>E-mail</th>
+      </tr>
+      <tr style="padding: 9px 8px 0px 8px;">
+        <td><%= @order.user.name %></td>
+        <td><%= link_to("http://www.olook.com.br/admin/users/#{@order.user.id}") %></td>
+        <td><%= @order.payment.telephone %></td>
+        <td><%= @order.user.email %></td>
+      </tr>
+    </table>
+    <h3 style='margin-left:50px;'>Pedido<h3>
+    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;">
+      <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
+        <th>Numero</th>
+        <th>Total s/ descontos</th>
+        <th>Descontos</th>
+        <th>Total</th>
+      </tr>
+      <tr style="padding: 9px 8px 0px 8px;">
+        <td><%= @order.number %></td>
+        <td><%= number_to_currency(@order.line_items_total)%></td>
+        <td style='color:#FF0000'><%= number_to_currency(@order.total_discount)%></td>
+        <td><%= number_to_currency(@order.total) %></td>
+      </tr>
+    </table>
+    <% @order.line_items.each do |ln| %>        
+     <table width="500" align="left" cellpadding="0" cellspacing="0" border="0" style="margin-left:50px;">      
+       <tr>
+        <td>
+         <%= image_tag ln.variant.showroom_picture, :size =>"100x100" %>
+        </td>
+        <td valign="top" style="padding:15px 0 0 15px">
+         <p style="font-style:italic; font-weight:lighter; letter-spacing:-2px; font-family:'Times New Roman', Times, serif; font-size:24px; line-height:25px;"><%= ln.variant.name %><br>
+         <span style="font-size:25px; color:#df5a8a;"><%= number_to_currency(ln.variant.price) %></span><br>
+         <span style="font-family:Arial, Helvetica, sans-serif; font-style:normal; letter-spacing:0; line-height:15px; font-size:12px; color:#505050;"><%= ln.variant.product.description %></span></p>
+        </td>
+      </tr>
+    </table>
+    <% end %>
+    <div style='clear:both'></div>
+    <br />
+    <br />
+    <br />
+    <%= render :partial => 'footer', :locals => {:settings => @alert['settings'], :triggers => @alert['triggers'], :subscribers => @alert['subscribers']} %>
+</body>
+</html>

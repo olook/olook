@@ -55,6 +55,7 @@ class Order < ActiveRecord::Base
     after_transition :in_the_cart => :waiting_payment, :do => :insert_order
     after_transition :in_the_cart => :waiting_payment, :do => :send_notification_order_requested
     after_transition :in_the_cart => :waiting_payment, :do => :update_user_credit
+    after_transition :in_the_cart => :waiting_payment, :do => :notify_sac_for_fraud_analysis
 
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
@@ -107,6 +108,11 @@ class Order < ActiveRecord::Base
     event :not_delivered do
       transition :delivering => :not_delivered
     end
+  end
+
+  def notify_sac_for_fraud_analysis
+    SAC::Notifier.notify(SAC::Notification.new(:fraud_analysis, 
+    "Análise de Fraude | Pedido : #{self.number}", self))
   end
 
   def send_notification_payment_refused
