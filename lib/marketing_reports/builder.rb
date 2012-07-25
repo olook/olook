@@ -64,7 +64,7 @@ module MarketingReports
           .select(selected_fields)
           .order("id, order_id")
           .find_each do |u|
-        order_total = Order.where(:id => u.order_id).first.try(:total)
+        order_total = Order.where(:id => u.order_id).first.try(:subtotal)
         data  << [ u.id, u.email, u.first_name, u.last_name, u.invite_bonus, u.used_invite_bonus,
                  u.order_id, order_total, u.order_state, u.updated_at , u.variant_number, u.product_id, u.item_price, u.gift ]
       end
