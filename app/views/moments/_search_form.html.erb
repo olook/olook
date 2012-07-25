@@ -3,6 +3,7 @@
       <%= hidden_field_tag('id', @moment ? @moment.id : nil) %>
       <%= hidden_field_tag('sort_filter') %>
 
+      <%= moment_presenter.display_color_filters %>
       <%= moment_presenter.display_shoe_filters %>
       <%= moment_presenter.display_shoe_size_filters %>
       <%= moment_presenter.display_heel_filters %>
