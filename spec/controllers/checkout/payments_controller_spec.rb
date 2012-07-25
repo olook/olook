@@ -20,9 +20,7 @@ describe Checkout::PaymentsController do
     FactoryGirl.create(:line_item, :order => Order.find(order))
   end
 
- 
-
-  pending "POST create" do
+  context "POST create" do
     context "with valids params" do
       it "should return 200" do
         post :create, params
