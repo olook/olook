@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <products>
-<% for product in @products %>
+<% @products.each do |product| %>
 <product id="<%= product.id %>">
 <name><%= product.name %></name>
 <smallimage><%= product.thumb_picture %></smallimage>
