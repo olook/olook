@@ -4,7 +4,7 @@ settings:
   beginning_working_hour: "08:00:00"
   end_working_hour: "19:00:00"
   purchase_amount_threshold: 69.9
-  total_discount_threshold_percent: 50
+  total_discount_threshold_percent: 60
 billet:
   triggers:   
     business_hours: true
