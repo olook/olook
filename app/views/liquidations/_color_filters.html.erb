@@ -1,0 +1,36 @@
+<div class="filter main">
+  <h1>Cores</h1>
+  <ol class="color_filter">
+    <li>
+      <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
+      <%= label_tag "select_all_colors", "Todos as cores" %>
+    </li>
+
+    <li class='neutras'>
+      <%= check_box_tag '' %>
+      <%= label_tag 'Neutras' %>
+    </li>
+    <li class='metalizadas'>
+      <%= check_box_tag '' %>
+      <%= label_tag 'Metalizadas' %>
+    </li>
+    <li class='tons_pastel'>
+      <%= check_box_tag '' %>
+      <%= label_tag 'Tons Pastel' %>
+    </li>
+    <li class='vivas'>
+      <%= check_box_tag '' %>
+      <%= label_tag 'Vivas' %>
+    </li>
+  <%# liquidation_presenter.liquidation.shoes.each do |shoe, label| %>
+      <!--li>
+        <%#= check_box_tag('shoe_subcategories[]', shoe, params[:shoe_subcategories] && params[:shoe_subcategories].include?(shoe), :id => shoe) %>
+        <%#= label_tag(label, nil, :for => shoe) %>
+      </li-->
+  <%# end %>
+  </ol>
+</div>
+
+
+
+
