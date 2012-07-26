@@ -36,10 +36,6 @@ describe Checkout::AddressesController do
     session[:freight] = nil
   end
 
-  # before_filter :authenticate_user!
-  # before_filter :check_order
-  # before_filter :erase_freight
-
   it "should redirect user to login when is offline" do
     get :index
     response.should redirect_to(new_user_session_path)
@@ -257,51 +253,31 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "POST assign_address" do
+  context "GET assign_address" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+      FreightCalculator.stub(:freight_for_zip).and_return(freight)
+    end
+
     context "with a valid address" do
-      before :each do
-        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id}
-        FreightCalculator.stub(:freight_for_zip).and_return(freight)
+      it "should redirect to cart checkout" do
+        get :assign_address, :address_id => address.id
+        response.should redirect_to(new_cart_checkout_path)
       end
 
-      context "when the order already have a freight" do
-        it "should update the freight" do
-          expect {
-            post :assign_address, :delivery_address_id => @address.id
-          }.to change(Freight, :count).by(0)
-        end
-      end
-
-      context "when the order dont have a freight" do
-        it "should create a feight" do
-          Order.find(order).freight.destroy
-          expect{
-            post :assign_address, :delivery_address_id => @address.id
-          }.to change(Freight, :count).by(1)
-        end
-      end
-
-      context "when the user already have a cpf" do
-        it "should redirect to new_credit_card_path" do
-          post :create, :address => attributes
-          response.should redirect_to(new_credit_card_path)
-        end
-      end
-
-      context "when the user dont have a cpf" do
-        it "should redirect to payments_path" do
-          user.update_attributes(:cpf => nil)
-          post :create, :address => attributes
-          response.should redirect_to(payments_path)
-        end
+      it "should set a feight in session" do
+        session[:freight] = nil
+        get :assign_address, :address_id => address.id
+        session[:freight].should eq(freight.merge!(:address_id => address.id))
       end
     end
 
     context "without a valid address" do
       it "should redirect to address_path" do
-        fake_address_id = "99999"
-        post :assign_address, :delivery_address_id => fake_address_id
-        response.should redirect_to(addresses_path)
+        get :assign_address, :address_id => "12345"
+        response.should redirect_to(cart_checkout_addresses_path)
+        flash[:notice].should eq("Por favor, selecione um endereço")
       end
     end
   end
