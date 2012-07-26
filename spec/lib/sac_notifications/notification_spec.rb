@@ -66,16 +66,14 @@ describe SAC::Notification do
 
   context "when validating discount" do
     it "should return true if total discount is equal or higher than threshold percentage" do
-      subject.order.should_receive(:line_items_total).and_return(100)
-      subject.order.should_receive(:discount_from_coupon).and_return(subject.settings['total_discount_threshold_percent'])
-      subject.order.should_receive(:credits)
+      subject.order.stub_chain(:line_items, :collect, :inject).and_return(100)
+      subject.order.should_receive(:total).and_return(subject.settings['total_discount_threshold_percent'])
       subject.validate_discount.should == true
     end
 
     it "should return false if total discount is below the threshold percentage" do
-      subject.order.should_receive(:line_items_total).and_return(100)
-      subject.order.should_receive(:discount_from_coupon).and_return(subject.settings['total_discount_threshold_percent'] - 1)
-      subject.order.should_receive(:credits)
+      subject.order.stub_chain(:line_items, :collect, :inject).and_return(100)
+      subject.order.should_receive(:total).and_return(subject.settings['total_discount_threshold_percent'] - 1)
       subject.validate_discount.should == false
     end
   end
