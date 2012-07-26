@@ -69,7 +69,7 @@ GEM
     business_time (0.6.1)
       activesupport (>= 3.1.0)
       tzinfo (~> 0.3.31)
-    cancan (1.6.8)
+    cancan (1.6.7)
     capistrano (2.12.0)
       highline
       net-scp (>= 1.0.0)
@@ -167,7 +167,7 @@ GEM
     libv8 (3.3.10.4)
     libwebsocket (0.1.4)
       addressable
-    linecache19 (0.5.11)
+    linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     listen (0.4.7)
       rb-fchange (~> 0.0.5)

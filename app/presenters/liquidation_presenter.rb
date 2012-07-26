@@ -5,6 +5,10 @@ class LiquidationPresenter < BasePresenter
     h.render :partial => 'liquidations/search_form', :locals => {:liquidation_presenter => self}
   end
 
+  def display_color_filters
+    h.render :partial => 'liquidations/color_filters', :locals => {:liquidation_presenter => self}
+  end
+
   def display_shoe_filters
     h.render :partial => 'liquidations/shoe_filters', :locals => {:liquidation_presenter => self}
   end
