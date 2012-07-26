@@ -46,6 +46,19 @@ $(document).ready(function() {
     }
   });
 
+  $("div.facebook.connected ul").carouFredSel({
+    height: 40,
+    width: 540,
+    align: 'left',
+    auto: false,
+    prev : {
+      button : ".carousel-prev-fb",
+    },
+    next : {
+      button : ".carousel-next-fb",
+    }
+  });
+
   $("div#mask_carousel_showroom ul").carouFredSel({
     height: 186,
     auto : {

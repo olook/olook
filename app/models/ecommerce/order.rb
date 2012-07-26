@@ -113,6 +113,11 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def notify_sac_for_fraud_analysis
+    SAC::Notifier.notify(SAC::Notification.new(:fraud_analysis, 
+    "Análise de Fraude | Pedido : #{self.number}", self))
+  end
+
   def send_notification_payment_refused
     Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
   end
@@ -246,6 +251,7 @@ class Order < ActiveRecord::Base
     self.insert_order
     self.send_notification_order_requested
     self.update_user_credit
+    self.notify_sac_for_fraud_analysis
   end
 
   def generate_number

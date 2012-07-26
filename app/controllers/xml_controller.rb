@@ -17,7 +17,7 @@ class XmlController < ApplicationController
   private
 
   def load_products
-    @products = Product.for_xml
+    @products = Product.valid_for_xml
   end
 
 end
