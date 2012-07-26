@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
   $("div#container_picture .product-map").draggable({
     cancel: 'p',
     containment: "parent",
@@ -28,18 +28,20 @@ $(function() {
 
   $('#product_result').hide();
 
-  $("#product_name").autocomplete({
-    source: '/admin/product_autocomplete',
-    minLength: 2,
-    select: function(event, ui) {
-      $(this).value = ui.item.name;
-      $('#lookbook_image_map_product_id').val(ui.item.id);
-      $('#product_result img').attr('src', ui.item.image);
-      $('#product_result span').text(ui.item.name);
-      $('#product_result').show();
+  if ($(".ui-widget #product_name").length > 0){
+    $("#product_name").autocomplete({
+      source: '/admin/product_autocomplete',
+      minLength: 2,
+      select: function(event, ui) {
+        $(this).value = ui.item.name;
+        $('#lookbook_image_map_product_id').val(ui.item.id);
+        $('#product_result img').attr('src', ui.item.image);
+        $('#product_result span').text(ui.item.name);
+        $('#product_result').show();
+      }
+    }).data( "autocomplete" )._renderItem = function(ul, item) {
+      return $("<li></li>").data("item.autocomplete", item).append( "<a id='prod_" + item.id + "'><img src='" + item.image + "' width='50' height='50'/> " + item.name + "</a>").appendTo(ul);
     }
-  }).data( "autocomplete" )._renderItem = function(ul, item) {
-    return $("<li></li>").data("item.autocomplete", item).append( "<a id='prod_" + item.id + "'><img src='" + item.image + "' width='50' height='50'/> " + item.name + "</a>").appendTo(ul);
   }
 
   $(document).on('ajax:success', '.delete-map', function() {

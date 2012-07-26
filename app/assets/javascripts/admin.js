@@ -9,5 +9,5 @@
 //= require jquery-ui
 //= require_tree ./plugins
 //= require_tree ./common
-//= require_tree ./admin
 //= require_tree ./ui
+//= require_tree ./admin
