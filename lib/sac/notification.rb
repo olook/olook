@@ -36,10 +36,12 @@ module SAC
       order.total_with_freight.to_f >= SETTINGS['purchase_amount_threshold'] ? true : false
     end
 
+    # TODO: When ready, may be more interesting to use 
+    # total and total without discount methods from order instead of calculating here
     def validate_discount
-      order_total = order.line_items_total.to_f
-      total_discount = order.discount_from_coupon + order.credits.to_f
-      (total_discount/order_total)*100 >= SETTINGS['total_discount_threshold_percent'] ? true : false
+      total_line_items = order.line_items.collect {|p| p.price}.inject(:+)
+      total_paid  = order.total
+      (total_paid.to_f/total_line_items.to_f)*100 >= SETTINGS['total_discount_threshold_percent'] ? true : false
     end
 
     private
