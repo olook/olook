@@ -34,7 +34,7 @@ class Checkout::AddressesController < Checkout::BaseController
     @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
       set_freight_in_the_order(@address)
-      redirect_to(cart_checkout_addresses_path)
+      redirect_to new_cart_checkout_path
     else
       respond_with(@address)
     end
