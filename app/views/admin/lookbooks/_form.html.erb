@@ -21,7 +21,8 @@
   </div>
   <div class="field">
     <%= f.label :thumb_image %><br />
-    <%= f.file_field :thumb_image %>
+    <%= image_tag(@lookbook.thumb_image.try(:url)) + raw('<br />') if !@lookbook.thumb_image.blank? %>
+    <%= f.file_field :thumb_image %><br />
   </div>
 
   <%= fields_for :video do |v| %>
@@ -37,20 +38,22 @@
 
   <div class="field">
     <%= f.label :icon %><br />
-    <%= f.file_field :icon %>
+    <%= f.file_field :icon %><br />
+    <%= image_tag(@lookbook.icon.try(:url)) if !@lookbook.icon.blank? %>
   </div>
   <div class="field">
     <%= f.label :icon_over %><br />
-    <%= f.file_field :icon_over %>
+    <%= f.file_field :icon_over %><br />
+    <%= image_tag(@lookbook.icon_over.try(:url)) + raw('<br />') if !@lookbook.icon_over.blank? %>
   </div>
 
   <div class="field">
     <%= f.label :fg_color %><br />
-    <%= f.text_field :fg_color, class: 'color-picker miniColors', size: 6, maxlength: 7, autocomplete: 'off' %>
+    <%= f.text_field :fg_color, class: 'color-picker miniColors', size: 6, maxlength: 7, autocomplete: 'off', value: @lookbook.fg_color || '#FFFFFF' %>
   </div>
   <div class="field">
     <%= f.label :bg_color %><br />
-    <%= f.text_field :bg_color, class: 'color-picker miniColors', size: 6, maxlength: 7, autocomplete: 'off' %>
+    <%= f.text_field :bg_color, class: 'color-picker miniColors', size: 6, maxlength: 7, autocomplete: 'off', value: @lookbook.bg_color || '#000000' %>
   </div>
 
   <div class="actions">
