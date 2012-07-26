@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-<% for product in @products %>
+<% @products.each do |product| %>
 <% unless product.sold_out? %>
 <produto>
 <id_produto><![CDATA[<%= product.id %>]]></id_produto>
@@ -14,10 +14,15 @@
 <preco_por><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2) %>]]></preco_por>
 <parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
 <imagens>
-<% for picture in product.pictures %>
+<% product.pictures.each do |picture| %>
 <imagem><![CDATA[<%= picture.image %>]]></imagem>
 <% end %>
 </imagens>
+<num_tams>
+<% product.variants.each do |variant| %>
+        <num_tam><![CDATA[<%= variant.description %>]]></num_tam>
+<% end %>
+</num_tams>
 </produto>
 <% end %>
 <% end %>
