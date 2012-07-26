@@ -20,7 +20,7 @@ class Checkout::AddressesController < Checkout::BaseController
   end
 
   def create
-    params[:address][:country] = 'BRA'
+    params[:address][:country] = 'BRA' if params[:address]
     @address = @user.addresses.build(params[:address])
     if @address.save
       set_freight_in_the_order(@address)
@@ -61,6 +61,6 @@ class Checkout::AddressesController < Checkout::BaseController
   def set_freight_in_the_order(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @cart.total)
     freight.merge!(:address_id => address.id)
-    session[:freight] = Freight.new(freight)
+    session[:freight] = freight
   end
 end
