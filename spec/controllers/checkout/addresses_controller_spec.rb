@@ -234,18 +234,29 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "DELETE destroy" do
+  context "DELETE destroy" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+      #invoke address for create before any action
+      address
+    end
+    
     it "should delete an address"do
       expect {
-        delete :destroy, :id => @address.id
+        delete :destroy, :id => address.id
       }.to change(Address, :count).by(-1)
     end
 
-    it "should delete a order freight if it has the destroyed address"do
-      Order.find(order).freight.update_attributes(:address_id => @address.id)
-      expect {
-        delete :destroy, :id => @address.id
-      }.to change(Freight, :count).by(-1)
+    it "should remove freight form session" do
+      session[:freight] = mock
+      delete :destroy, :id => address.id
+      session[:freight].should be_nil
+    end
+    
+    it "should redirect to addresses" do
+      delete :destroy, :id => address.id
+      response.should redirect_to(cart_checkout_addresses_path)
     end
   end
 
