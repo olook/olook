@@ -21,7 +21,6 @@ describe Checkout::CartController do
   end
   
   it "should erase freight when call any action" do
-    session[:cart_id] = cart.id
     session[:freight] = mock
     get :show
     assigns(:cart).freight.should be_nil

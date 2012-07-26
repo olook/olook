@@ -17,23 +17,24 @@ class Checkout::BaseController < ApplicationController
   end
   
   def check_order
-    msg = "Sua sacola está vazia"
-    if @cart
-      @cart.remove_unavailable_items
-      @cart.reload
-      redirect_to(cart_path, :notice => msg) if @cart.items.empty?
-      coupon = @cart.used_coupon.try(:coupon)
-      if coupon.try(:expired?) || @cart.used_coupon && !coupon.try(:available?)
-        @cart.used_coupon.try(:destroy)
-        redirect_to cart_path, :notice => "Cupom expirado. Informe outro por favor"
-      end
-      if @cart.user.current_credit < @cart.credits
-        @cart.credits = 0
-        @cart.save
-        redirect_to cart_path, :notice => "Você não tem créditos suficientes"
-      end
-    else
-      redirect_to(cart_path, :notice => msg)
+    return redirect_to cart_path, :notice => "Sua sacola está vazia" if @cart.nil?
+
+    @cart.remove_unavailable_items
+    @cart.reload
+    
+    return redirect_to cart_path, :notice => "Sua sacola está vazia" if @cart.items.empty?
+    
+    coupon = @cart.used_coupon
+    if coupon && (coupon.try(:expired?) || !coupon.try(:available?))
+      session[:session_coupon] = nil
+      return redirect_to cart_path, :notice => "Cupom expirado. Informe outro por favor"
+    end
+    
+    credits = @cart.credits
+    credits ||= 0
+    if credits > 0 && !@cart.user.can_use_credit?(credits)
+      session[:credits] = nil
+      return redirect_to cart_path, :notice => "Você não tem créditos suficientes"
     end
   end
   
