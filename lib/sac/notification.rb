@@ -41,7 +41,7 @@ module SAC
     def validate_discount
       total_line_items = order.line_items.collect {|p| p.price}.inject(:+)
       total_paid  = order.total
-      (total_paid.to_f/total_line_items.to_f)*100 >= SETTINGS['total_discount_threshold_percent'] ? true : false
+      (1 - (total_paid.to_f/total_line_items.to_f))*100 >= SETTINGS['total_discount_threshold_percent'] ? true : false
     end
 
     private
