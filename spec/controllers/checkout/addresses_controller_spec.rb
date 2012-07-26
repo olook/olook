@@ -7,18 +7,120 @@ describe Checkout::AddressesController do
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :city => 'São Paulo', :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
+  let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
+  let(:coupon_expired) do
+    coupon = double(Coupon)
+    coupon.stub(:expired?).and_return(true)
+    coupon.stub(:available?).and_return(false)
+    coupon
+  end
+  let(:coupon_not_more_available) do
+    coupon = double(Coupon)
+    coupon.stub(:expired?).and_return(false)
+    coupon.stub(:available?).and_return(false)
+    coupon
+  end
 
   before :each do
-    session[:cart_id] = cart.id
     request.env['devise.mapping'] = Devise.mappings[:user]
-    sign_in user
+  end
+  
+  after :each do
+    session[:cart_id] = nil
+    session[:gift_wrap] = nil
+    session[:session_coupon] = nil
+    session[:credits] = nil
+    session[:freight] = nil
   end
 
   # before_filter :authenticate_user!
   # before_filter :check_order
   # before_filter :erase_freight
 
+  it "should redirect user to login when is offline" do
+    get :index
+    response.should redirect_to(new_user_session_path)
+  end
+
+  context "checking" do
+    before :each do
+      sign_in user
+    end
+    
+    it "should redirect to cart_path when cart is empty" do
+      session[:cart_id] = nil
+      get :index
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Sua sacola está vazia")
+    end
+    
+    it "should remove unavailabe items" do
+      session[:cart_id] = cart.id
+      Cart.any_instance.should_receive(:remove_unavailable_items).and_return(true)
+      get :index
+    end
+    
+    it "should redirect to cart_path when cart items is empty" do
+      session[:cart_id] = cart_without_items.id
+      get :index
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Sua sacola está vazia")
+    end
+
+    it "should remove coupon from session when coupon is expired" do
+      session[:cart_id] = cart.id
+      session[:session_coupon] = coupon_expired
+      get :index
+      session[:session_coupon].should be_nil
+    end
+
+    it "should redirect to cart_path when coupon is expired" do
+      session[:cart_id] = cart.id
+      session[:session_coupon] = coupon_expired
+      get :index
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Cupom expirado. Informe outro por favor")
+    end
+        
+    it "should remove coupon from session when coupon is not more avialbe" do
+      session[:cart_id] = cart.id
+      session[:session_coupon] = coupon_not_more_available
+      get :index
+      session[:session_coupon].should be_nil
+    end
+    
+    it "should redirect to cart_path when coupon is not more availabe" do
+      session[:cart_id] = cart.id
+      session[:session_coupon] = coupon_not_more_available
+      get :index
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Cupom expirado. Informe outro por favor")
+    end
+    
+    it "should remove credits from session when user not has more credit" do
+      session[:cart_id] = cart.id
+      session[:credits] = 1000
+      get :index
+      session[:credits].should be_nil
+    end
+
+    it "should redirect to cart_path when user not has more credit" do
+      session[:cart_id] = cart.id
+      session[:credits] = 1000
+      get :index
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Você não tem créditos suficientes")
+    end
+  end
+
+  it "should erase freight when call any action" do
+    sign_in user
+    session[:cart_id] = cart.id
+    session[:freight] = mock
+    get :index
+    assigns(:cart).freight.should be_nil
+  end
 
   pending "GET index" do
     it "should assign @address" do
