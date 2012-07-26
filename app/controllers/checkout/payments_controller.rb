@@ -8,8 +8,7 @@ class Checkout::PaymentsController < ApplicationController
                         :cod_moip => params["cod_moip"],
                         :tipo_pagamento => params["tipo_pagamento"],
                         :status_pagamento => params["status_pagamento"],
-                        :id_transacao => params["id_transacao"],
-                        :classificacao => params["classificacao"])
+                        :id_transacao => params["id_transacao"])
     if order
       if update_order(order)
         render :nothing => true, :status => 200
@@ -37,8 +36,7 @@ class Checkout::PaymentsController < ApplicationController
     if order.payment
       order.payment.update_attributes(:gateway_code   => params["cod_moip"],
                                       :gateway_type   => params["tipo_pagamento"],
-                                      :gateway_status => params["status_pagamento"],
-                                      :gateway_status_reason => params["classificacao"])
+                                      :gateway_status => params["status_pagamento"])
       order.payment.set_state(params["status_pagamento"])
     end
   end
