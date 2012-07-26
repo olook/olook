@@ -122,7 +122,12 @@ describe Checkout::AddressesController do
     assigns(:cart).freight.should be_nil
   end
 
-  pending "GET index" do
+  context "GET index" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+    end
+
     it "should assign @address" do
       address.user.should eq(user)
       get :index
@@ -135,15 +140,25 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "GET new" do
+  context "GET new" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+    end
+    
     it "should assigns @address" do
       get 'new'
       assigns(:address).should be_a_new(Address)
     end
 
-    it "should assign @cart" do
-      # CartPresenter.should_receive(:new).with(Order.find(order))
+    it "should set first name" do
       get 'new'
+      assigns(:address).first_name.should eq user.first_name
+    end
+
+    it "should set last name" do
+      get 'new'
+      assigns(:address).last_name.should eq user.last_name
     end
   end
 
@@ -199,10 +214,15 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "GET edit" do
+  context "GET edit" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+    end
+    
     it "should assigns @address" do
-      get 'edit', :id => @address.id
-      assigns(:address).should eq(@address)
+      get 'edit', :id => address.id
+      assigns(:address).should eq(address)
     end
   end
 
