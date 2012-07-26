@@ -234,7 +234,9 @@ Olook::Application.routes.draw do
 
   #MOIP-CALLBACK
   post '/pagamento', :to => 'checkout/payments#create', :as => :payment
-  
+
+  #ZIPCODE
+  get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
