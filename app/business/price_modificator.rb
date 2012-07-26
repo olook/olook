@@ -90,8 +90,8 @@ class PriceModificator
   end
 
   def freight_price
-    if cart.freight && cart.freight.price
-      cart.freight.price
+    if cart.freight && cart.freight[:price]
+      cart.freight[:price]
     else
       0
     end

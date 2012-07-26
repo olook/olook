@@ -116,7 +116,7 @@ class Cart < ActiveRecord::Base
                     :retail_price => item.retail_price, :gift => item.gift)
     end
 
-    order.freight = Freight.create(freight.attributes)
+    order.freight = Freight.create(freight)
 
     # Creates UsedPromotion
     PromotionService.new(user, order).apply_promotion if promotion_discount > 0
