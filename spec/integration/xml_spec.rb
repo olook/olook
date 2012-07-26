@@ -4,7 +4,7 @@ require 'integration/helpers'
 
 feature "Show products on xml format" do
   let!(:bag) { FactoryGirl.create :basic_bag }
-  let!(:product) { FactoryGirl.create :basic_shoe }
+  let!(:product) { FactoryGirl.create :blue_sliper_with_variants }
 
   background do
     product.master_variant.update_attribute(:price, "99.90")
@@ -111,7 +111,7 @@ feature "Show products on xml format" do
 
 
   context "in the adroll xml page" do
-    scenario "I want to see products of criteo" do
+    scenario "I want to see products of adroll" do
       visit adroll_path
       page.source.should == <<-END.gsub(/^ {6}/, '')
       <?xml version="1.0" encoding="UTF-8"?>
