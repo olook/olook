@@ -21,6 +21,8 @@ describe Checkout::AddressesController do
     coupon.stub(:available?).and_return(false)
     coupon
   end
+  
+  let(:freight) { {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id} }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -162,10 +164,14 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "POST create" do
+  context "POST create" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+    end
+    
     context "with valid a address" do
       before :each do
-        freight = {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id}
         FreightCalculator.stub(:freight_for_zip).and_return(freight)
       end
 
@@ -175,41 +181,15 @@ describe Checkout::AddressesController do
         }.to change(Address, :count).by(1)
       end
 
-      it "should assign @cart" do
-        # CartPresenter.should_receive(:new).with(Order.find(order))
+      it "should redirect to cart checkout" do
         post :create, :address => attributes
+        response.should redirect_to(new_cart_checkout_path)
       end
 
-      context "when the user already have a cpf" do
-        it "should redirect to new_credit_card_path" do
-          post :create, :address => attributes
-          response.should redirect_to(new_credit_card_path)
-        end
-      end
-
-      context "when the user dont have a cpf" do
-        it "should redirect to payments_path" do
-          user.update_attributes(:cpf => nil)
-          post :create, :address => attributes
-          response.should redirect_to(payments_path)
-        end
-      end
-
-      context "when the order already have a freight" do
-        it "should update the freight" do
-          expect {
-            post :create, :address => attributes
-          }.to change(Freight, :count).by(0)
-        end
-      end
-
-      context "when the order dont have a freight" do
-        it "should create a feight" do
-          Order.find(order).freight.destroy
-          expect{
-            post :create, :address => attributes
-          }.to change(Freight, :count).by(1)
-        end
+      it "should set a feight in session" do
+        session[:freight] = nil
+        post :create, :address => attributes
+        session[:freight].should eq(freight.merge!(:address_id => user.addresses.last.id))
       end
     end
   end
@@ -226,11 +206,28 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "PUT update" do
+  context "PUT update" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+      FreightCalculator.stub(:freight_for_zip).and_return(freight)
+    end
+    
     it "should updates an address" do
       updated_attr = { :street => 'Rua Jones' }
-      put :update, :id => @address.id, :address => updated_attr
-      Address.find(@address.id).street.should eql('Rua Jones')
+      put :update, :id => address.id, :address => updated_attr
+      Address.find(address.id).street.should eql('Rua Jones')
+    end
+    
+    it "should redirect to cart checkout" do
+      put :update, :id => address.id, :address => { :street => 'Rua Jones' }
+      response.should redirect_to(new_cart_checkout_path)
+    end
+
+    it "should set a feight in session" do
+      session[:freight] = nil
+      put :update, :id => address.id, :address => { :zip_code => '18015-172' }
+      session[:freight].should eq(freight.merge!(:address_id => address.id))
     end
   end
 
@@ -257,19 +254,6 @@ describe Checkout::AddressesController do
     it "should redirect to addresses" do
       delete :destroy, :id => address.id
       response.should redirect_to(cart_checkout_addresses_path)
-    end
-  end
-
-  pending "GET get_price_by_zipcode" do
-    let(:freight){{:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => 10, :total => 372.14, :coupon_discount => 0, :coupon_percentage => '' }}
-
-    before :each do
-        FreightCalculator.stub(:freight_for_zip).and_return(freight)
-    end
-
-    it 'should return a preview value based on the order value' do
-      get :get_price_by_zipcode , :zipcode => '12345789'
-      response.body.should == freight.to_json
     end
   end
 
