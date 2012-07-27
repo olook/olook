@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :coupon do
+    campaign 'Flyer'
+    created_by 'John Doe'
+    updated_by 'John Doe'
     factory :standard_coupon do
       code 'FOOBAR000'
       value 50.00
