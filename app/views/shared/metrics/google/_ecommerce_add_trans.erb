@@ -1,12 +1,10 @@
-<% order.line_items.each do |item| %>
 _gaq.push(['_addTrans',
-   '<%= order.number %>',
+   '<%= cart.id %>',
    'olook',
-   '<%= order.amount_paid %>',
+   '<%= cart.total %>',
    '',
-   '<%= order.freight_price.to_s %>',
-   '<%= order.freight_city %>',
-   '<%= order.freight_state %>',
+   '<%= cart.freight_price.to_s %>',
+   '<%= cart.freight_city %>',
+   '<%= cart.freight_state %>',
    'Brasil'
  ]);
-<% end %>

@@ -2,11 +2,11 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 <% content_for :ecommerce_tracking do %>
-  <%#= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @cart } %>
-  <%#= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @cart } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart } %>
 <% end %>
 <% content_for :footer do %>
-  <%#= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart } %>
+  <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart } %>
   <%= render "shared/metrics/google/cart" %>
   <%= javascript_include_tag "carts" %>
 <% end %>
