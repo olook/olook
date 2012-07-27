@@ -91,18 +91,63 @@ class CartService
   end
   
   def item_discount_percent(item)
-    0
+    get_retail_price_for_line_item(item).fetch(:percent)
   end
   
   def get_discount_origin(item)
-    ""
+    get_retail_price_for_line_item(item).fetch(:origin)
   end
   
   def item_promotion?(item)
-    false
+    item_price(item) != item_retail_price(item)
   end
   
   def item_price(item)
-    0
+    get_retail_price_for_line_item(item).fetch(:price)
+  end
+  
+  def item_retail_price(item)
+    get_retail_price_for_line_item(item).fetch(:retail_price)
+  end
+  
+  def get_retail_price_for_line_item(item)
+    origin = ''
+    percent = 0
+    final_retail_price = item.variant.product.retail_price
+
+    if item.variant.product.price != final_retail_price
+      percent =  (1 - (final_retail_price / item.variant.product.price) )* 100
+      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
+    end
+
+    if coupon && coupon.is_percentage?
+      coupon_value = item.variant.product.price - ((coupon.value * item.variant.product.price) / 100)
+      if coupon_value < final_retail_price
+        percent = coupon.value
+        final_retail_price = coupon_value
+        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
+      end
+    end
+
+    if promotion && (!coupon || (coupon && coupon.is_percentage?))
+      promotion_value = item.variant.product.price - ((item.variant.product.price * promotion.promotion.discount_percent) / 100)
+      if promotion_value < final_retail_price
+        final_retail_price =  promotion_value
+        percent = promotion.discount_percent
+        origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
+      end
+    end
+
+    # if restricted?
+    #   final_retail_price = item.retail_price
+    #   percent =  (1 - (final_retail_price / item.price) )* 100
+    #   origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
+    # end
+    {
+      :origin       => origin, 
+      :price        => item.variant.product.price,
+      :retail_price => final_retail_price,
+      :percent      => percent
+    }
   end
 end

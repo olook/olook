@@ -22,11 +22,11 @@ Olook::Application.routes.draw do
   #LOOKBOOKS
   match "/lookbooks/:name", :to => "lookbooks#show"
   match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
-  
+
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
-  
+
   #MOMENTS
   get '/moments', to: "moments#index", as: "moments"
   get '/moments/:id', to: "moments#show", as: "moment"
@@ -48,7 +48,7 @@ Olook::Application.routes.draw do
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
-  
+
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
@@ -98,7 +98,7 @@ Olook::Application.routes.draw do
       end
     end
   end
-  
+
   #ADMIN
   devise_for :admins
 
@@ -181,9 +181,9 @@ Olook::Application.routes.draw do
     resources :gift_occasion_types
     resources :gift_recipient_relations
   end
-  
+
   #USER / SIGN IN
-  
+
   devise_for :users, :path => 'conta', :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions" } do
     get '/entrar' => 'users/sessions#new', :as => :new_user_session
     post '/entrar' => 'users/sessions#create', :as => :user_session
@@ -194,10 +194,10 @@ Olook::Application.routes.draw do
     delete '/conta/remover_facebook' => 'users/registrations#destroy_facebook_account', :as => :destroy_facebook_account
   end
 
+  get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
   namespace :users, :path => 'conta', :as => "user" do
     resources :addresses, :path => 'enderecos'
     resources :orders, :path => 'pedidos', :only => [:index]
-    get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
     resources :credits, :path => 'creditos' do
       collection do
         post 'creditos/reenviar_convite/:id' => 'credits#resubmit_invite', :as => :resubmit_invite
@@ -214,7 +214,7 @@ Olook::Application.routes.draw do
     delete "remove_credits" => "checkout/cart#remove_credits", :as => :remove_credits
     put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
     delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
-    
+
     resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
       resources :addresses, :path => 'endereco', :controller => "checkout/addresses" do
         get "assign_address", :to => "checkout/addresses#assign_address", :as => :assign_address
@@ -228,7 +228,7 @@ Olook::Application.routes.draw do
       post "debito", :to => "checkout/checkout#create_debit", :as => :debit
     end
   end
-  
+
   #FINISH
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 

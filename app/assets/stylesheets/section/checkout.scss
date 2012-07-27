@@ -1,7 +1,9 @@
 header {
-  background: none !important;
-  min-height: 93px !important;
-  overflow: auto !important;
+  &.minor {
+    background: none !important;
+    min-height: 93px !important;
+    overflow: auto !important;
+  }
   a.back {
     background: url("/assets/cart/bt-back.jpg") no-repeat;
     color: #FFF;

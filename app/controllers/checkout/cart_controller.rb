@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Checkout::CartController < Checkout::BaseController
-  # layout "site"
+  before_filter :erase_freight
+
+  layout "site"
 
   respond_to :html, :js
   before_filter :erase_freight
@@ -31,8 +33,8 @@ class Checkout::CartController < Checkout::BaseController
 
   def create
     variant_id = params[:variant][:id] if params[:variant]
-    
-    
+
+
     if @variant = Variant.find_by_id(variant_id)
       if @cart.add_item(@variant)
         respond_with do |format|
@@ -52,16 +54,16 @@ class Checkout::CartController < Checkout::BaseController
       end
     end
   end
-  
+
   def update_gift_wrap
     session[:gift_wrap] = params[:gift][:gift_wrap] if params[:gift] && params[:gift][:gift_wrap]
     render :json => true
   end
-  
+
   def update_coupon
     code = params[:coupon][:code] if params[:coupon]
     coupon = Coupon.find_by_code(code)
-    
+
     response_message = if coupon.try(:expired?)
       session[:cart_coupon] = nil
       "Cupom expirado. Informe outro por favor"
@@ -72,7 +74,7 @@ class Checkout::CartController < Checkout::BaseController
       session[:cart_coupon] = nil
       "Cupom inválido"
     end
-    
+
     redirect_to cart_path, :notice => response_message
   end
 
@@ -94,9 +96,9 @@ class Checkout::CartController < Checkout::BaseController
       params[:credits][:value].gsub!(",",".")
       BigDecimal.new(params[:credits][:value].to_s)
     end
-    
+
     credits ||= 0
-    
+
     if @user.can_use_credit?(credits)
       @cart_service.credits = credits
       session[:cart_credits] = @cart_service.credits_discount
