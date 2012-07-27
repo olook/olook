@@ -1,13 +1,12 @@
 # -*- encoding : utf-8 -*-
 class CartService
-    
+
   attr_accessor :cart
   attr_accessor :gift_wrap
-  attr_accessor :used_coupon
-  attr_accessor :used_promotion
+  attr_accessor :coupon
+  attr_accessor :promotion
   attr_accessor :freight
   attr_accessor :credits
-  
 
   def initialize(params)
     params.each_pair do |key, value|
@@ -50,12 +49,11 @@ class CartService
   end
 
   def total
-    # price_modificator.final_price
     0
   end
 
   def freight_price
-    price_modificator.increments[:freight][:value]
+    0
   end
 
   def freight_city
@@ -67,29 +65,44 @@ class CartService
   end
 
   def coupon_discount
-    #price_modificator.discounts[:coupon][:value]
     0
   end
 
+  #CALCULA O CREDITOS PARA O CART
   def credits_discount
-    # price_modificator.discounts[:credits][:value]
     0
   end
-
+  
+  #CALCULA PROMOTION
   def promotion_discount
-    #price_modificator.discounts[:promotion][:value]
     0
   end
 
-  def price_modificator
-    @modificator ||= PriceModificator.new(self)
-  end  
   def subtotal
-    price_modificator.original_price
+    0
   end
   
   def has_more_than_one_discount?
     false
   end
   
+  def is_minimum_payment?
+    false
+  end
+  
+  def item_discount_percent(item)
+    0
+  end
+  
+  def get_discount_origin(item)
+    ""
+  end
+  
+  def item_promotion?(item)
+    false
+  end
+  
+  def item_price(item)
+    0
+  end
 end

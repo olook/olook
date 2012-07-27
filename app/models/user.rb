@@ -128,6 +128,7 @@ class User < ActiveRecord::Base
   end
   
   def credits_for?(value)
+    value ||= 0
     self.current_credit - value
   end
 

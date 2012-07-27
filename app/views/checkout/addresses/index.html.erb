@@ -8,6 +8,6 @@
       <%= render "shared/address/list", :addresses => @addresses, :my_account => false %>
     </section>
     <section class="sidebar">
-      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service %>
     </section>
 </section>

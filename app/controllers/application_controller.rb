@@ -32,18 +32,18 @@ class ApplicationController < ActionController::Base
       cart.update_attribute("notified", true)
     end
     
-    #inject sessions states
-    cart.gift_wrap = session[:gift_wrap]
-    cart.used_coupon = session[:session_coupon]
+    # #inject sessions states
+    # cart.gift_wrap = session[:gift_wrap]
+    # cart.used_coupon = session[:cart_coupon]
     
     if @user
       cart.update_attribute("user_id", @user.id) if cart.user.nil?
-      cart.used_promotion = PromotionService.new(@user).detect_current_promotion
+      @promotion = PromotionService.new(@user).detect_current_promotion
     end
     
     session[:credits] = 0 unless session[:credits]
-    cart.credits = session[:credits]
-    cart.freight = session[:freight]
+    # cart.credits = session[:credits]
+    # cart.freight = session[:freight]
     
     cart
   end
