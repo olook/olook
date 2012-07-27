@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-desc "New cart model, and order consolidation"
-namespace :new_cart
+desc "New cart model"
+namespace :new_cart do
   desc "Export orders that are in_the_cart to the cart model"
   task :in_the_cart_to_cart => :environment do
-    Order.where (state: "IN_THE_CART").each do |order|
+    Order.where(state: "IN_THE_CART").each do |order|
       # ORDERS
       # t.integer  "user_id"
       # t.datetime "created_at"
@@ -28,18 +28,17 @@ namespace :new_cart
       # t.decimal  "amount_paid",                      :precision => 8, :scale => 2, :default => 0.0,   :null => false
       # t.decimal  "subtotal",                         :precision => 8, :scale => 2, :default => 0.0,   :null => false
 
-
       # CARTS
       # t.integer  "user_id"
       # t.boolean  "notified",   :default => false, :null => false
       # t.datetime "created_at",                    :null => false
       # t.datetime "updated_at",                    :null => false
       cart = Cart.create!(
-        id: order.id,
+        legacy_id: order.id,
         user_id: order.user_id,
+        notified: order.in_cart_notified,
         created_at: order.created_at,
-        updated_at: order.updated_at,
-        notified: order.in_cart_notified
+        updated_at: order.updated_at
       )
 
       # LINE ITEMS
@@ -61,6 +60,7 @@ namespace :new_cart
       # t.decimal "discount",        :precision => 8, :scale => 2, :default => 0.0,   :null => false
       # t.string  "discount_source",                                                  :null => false
       if cart
+        puts cart.inspect
         order.line_items.each do |li|
           ci = CartItem.create!(
             cart_id: cart.id,
@@ -68,19 +68,23 @@ namespace :new_cart
             quantity: li.quantity,
             price: li.price,
             retail_price: li.retail_price,
-            gift: li.gift
+            discount_source: 'legacy',
+            gift: li.gift ? true : false
           )
-          # destroy de line item
-          li.destroy if ci
+          if ci
+            puts ci.inspect
+          else
+            puts ci.errors.join("\n")
+          end
         end
 
         # destroy the order
-        order.destroy
+        # order.destroy
+      else
+        puts cart.errors.join("\n")
       end
 
+      break
     end
   end
-
-  desc "Consolidate order information"
-  task :consolidate_order => :environment
 end
