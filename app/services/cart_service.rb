@@ -16,20 +16,25 @@ class CartService
 
   def generate_order!(payment)
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
-    raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if user.nil?
+    raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
 
     order = Order.create!(
-      :cart_id => self.id,
+      :cart_id => cart.id,
       :payment => payment,
       :credits => credits_discount,
-      :user_id => user.id,
-      :restricted => has_gift_items?,
-      :gift_wrap => gift_wrap?
+      :user_id => cart.user.id,
+      :restricted => cart.has_gift_items?,
+      :gift_wrap => gift_wrap?,
+      :amount => total,
+      :amount_discount => total_discount,
+      :amount_increase => total_increase,
+      :amount_paid => total_for_paid,
+      :subtotal => subtotal
     )
 
-    order.line_items = items.map do |item|
-      LineItem.new( :variant_id => item.variant.id, :quantity => item.quantity, :price => item.price,
-                    :retail_price => item.retail_price, :gift => item.gift)
+    order.line_items = cart.items.map do |item|
+      LineItem.new( :variant_id => item.variant.id, :quantity => item.quantity, :price => item_price(item),
+                    :retail_price => item_retail_price(item), :gift => item.gift)
     end
 
     order.freight = Freight.create(freight)
@@ -47,9 +52,19 @@ class CartService
   def gift_wrap?
     gift_wrap == "1" ? true : false
   end
-
+  
   def total
-    0
+    total = subtotal 
+    total += total_increase 
+    total
+  end
+  
+  def total_increase
+    increment_from_gift + freight_price
+  end
+  
+  def total_for_paid
+    total
   end
 
   def freight_price
@@ -63,7 +78,15 @@ class CartService
   def freight_state
     ""
   end
-
+  
+  def increment_from_gift
+    gift_wrap? ? gift_wrap_price : 0
+  end
+  
+  def total_discount
+    0
+  end
+  
   def coupon_discount
     0
   end
@@ -79,7 +102,9 @@ class CartService
   end
 
   def subtotal
-    0
+    cart.items.inject(0) do |value, item|
+      value += item_retail_price(item)
+    end
   end
   
   def has_more_than_one_discount?
@@ -152,4 +177,10 @@ class CartService
       :percent      => percent
     }
   end
+  
+  private
+  def gift_wrap_price
+    YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
+  end
+  
 end

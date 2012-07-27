@@ -9,24 +9,5 @@ class CartItem < ActiveRecord::Base
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
 
-  def promotion?
-    price != retail_price
-  end
-
-  def total_price
-    price * quantity
-  end
-
-  def total_retail_price
-    retail_price * quantity
-  end
-
-  def original_price
-    variant.product.price
-  end
-
-  def original_retail_price
-    variant.product.retail_price
-  end
 
 end

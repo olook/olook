@@ -9,7 +9,7 @@ class Checkout::BaseController < ApplicationController
   end
   
   def check_freight
-    redirect_to cart_checkout_addresses_path, :notice => "Escolha seu endereço" if @cart.freight.nil?
+    redirect_to cart_checkout_addresses_path, :notice => "Escolha seu endereço" if @cart_service.freight.nil?
   end
   
   def check_cpf

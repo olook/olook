@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     session[:credits] = 0 unless session[:credits]
     
     @cart_service = CartService.new(
-      :cart => @cart,
+      :cart => cart,
       :gift_wrap => session[:gift_wrap],
       :coupon => session[:cart_coupon],
       :promotion => @promotion,

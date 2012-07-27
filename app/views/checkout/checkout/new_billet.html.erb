@@ -19,7 +19,7 @@
       <% content_for :checkout_sidebar do %>
         <%= render :partial => "shared/payments/info_address", :locals => { :cart => @cart } %>
       <% end %>
-      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service %>
       <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
     </section>
   <% end %>

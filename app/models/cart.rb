@@ -21,18 +21,12 @@ class Cart < ActiveRecord::Base
     if current_item
       current_item.update_attributes(:quantity => quantity)
     else
-      #ACCESS PRODUCT IN PRICES TO ACCESS MASTER VARIANT
-      retail_price = if gift
-        variant.gift_price(gift_position)
-      else
-        variant.product.retail_price
-      end
 
       current_item =  CartItem.new(:cart_id => id,
                                    :variant_id => variant.id,
                                    :quantity => quantity,
                                    :price => variant.product.price,
-                                   :retail_price => retail_price,
+                                   :retail_price => variant.product.retail_price,
                                    :discount_source => :legacy,
                                    :gift_position => gift_position,
                                    :gift => gift

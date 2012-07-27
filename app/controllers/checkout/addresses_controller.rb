@@ -42,7 +42,7 @@ class Checkout::AddressesController < Checkout::BaseController
 
   def destroy
     @address = @user.addresses.find(params[:id])
-    session[:freight] = nil
+    session[:cart_freight] = nil
     @address.destroy
     redirect_to(cart_checkout_addresses_path)
   end
@@ -59,8 +59,8 @@ class Checkout::AddressesController < Checkout::BaseController
   
   private
   def set_freight_in_the_order(address)
-    freight = FreightCalculator.freight_for_zip(address.zip_code, @cart.total)
+    freight = FreightCalculator.freight_for_zip(address.zip_code, @cart_service.total)
     freight.merge!(:address_id => address.id)
-    session[:freight] = freight
+    session[:cart_freight] = freight
   end
 end
