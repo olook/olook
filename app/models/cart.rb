@@ -79,6 +79,14 @@ class Cart < ActiveRecord::Base
     price_modificator.increments[:freight][:value]
   end
 
+  def freight_city
+    ""
+  end
+  
+  def freight_state
+    ""
+  end
+
   def coupon_discount
     #price_modificator.discounts[:coupon][:value]
     0
