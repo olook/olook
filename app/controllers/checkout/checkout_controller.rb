@@ -53,7 +53,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment = Debit.new(params[:debit])
 
     if @payment.valid?
-      @order = @cart.generate_order(@payment)
+      @order = @cart_service.generate_order!(@payment)
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
@@ -78,7 +78,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment = Billet.new(params[:billet])
 
     if @payment.valid?
-      @order = @cart.generate_order(@payment)
+      @order = @cart_service.generate_order!(@payment)
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 
@@ -104,7 +104,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @installments = params[:credit_card][:payments]
 
     if @payment.valid?
-      @order = @cart.generate_order(@payment)
+      @order = @cart_service.generate_order!(@payment)
       payment_builder = PaymentBuilder.new(@order, @payment)
       response = payment_builder.process!
 

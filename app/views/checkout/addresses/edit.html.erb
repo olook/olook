@@ -10,7 +10,7 @@
       <%= render "shared/address/form", :address => @address, :f => f %>
     </section>
     <section class="sidebar">
-      <%= render "shared/payments/info_sidebar", :cart => @cart %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service %>
       <%= f.submit '', :class => "save" %>
     </section>
   <% end %>

@@ -23,7 +23,7 @@
       <%= render "shared/payments/info_address", :cart => @cart %>
       <%= render "shared/metrics/yahoo/buy" %>
     <% end %>
-    <%= render "shared/payments/info_sidebar", :cart => @cart %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service %>
   </section>
 </section>
 
