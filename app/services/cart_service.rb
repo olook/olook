@@ -114,14 +114,15 @@ class CartService
     origin = ''
     percent = 0
     final_retail_price = item.variant.product.retail_price
-
-    if item.variant.product.price != final_retail_price
-      percent =  (1 - (final_retail_price / item.variant.product.price) )* 100
+    price = item.variant.product.price
+    
+    if price != final_retail_price
+      percent =  (1 - (final_retail_price / price) )* 100
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
     end
 
     if coupon && coupon.is_percentage?
-      coupon_value = item.variant.product.price - ((coupon.value * item.variant.product.price) / 100)
+      coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price
         percent = coupon.value
         final_retail_price = coupon_value
@@ -130,7 +131,7 @@ class CartService
     end
 
     if promotion && (!coupon || (coupon && coupon.is_percentage?))
-      promotion_value = item.variant.product.price - ((item.variant.product.price * promotion.discount_percent) / 100)
+      promotion_value = price - ((price * promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
         final_retail_price =  promotion_value
         percent = promotion.discount_percent
@@ -138,14 +139,15 @@ class CartService
       end
     end
 
-    # if restricted?
-    #   final_retail_price = item.retail_price
-    #   percent =  (1 - (final_retail_price / item.price) )* 100
-    #   origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
-    # end
+    if item.gift?
+      final_retail_price = item.variant.gift_price(item.gift_position)
+      percent =  (1 - (final_retail_price / price) )* 100
+      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
+    end
+
     {
       :origin       => origin, 
-      :price        => item.variant.product.price,
+      :price        => price,
       :retail_price => final_retail_price,
       :percent      => percent
     }
