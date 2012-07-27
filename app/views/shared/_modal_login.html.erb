@@ -1,5 +1,4 @@
 <div class="dialog product_login">
-  <%= link_to "X", "javascript:void(0);", :id => "close_dialog" %>
   <div id="login_modal">
     <div id="register_login">
       <div class="login">
@@ -9,6 +8,7 @@
       <div class="register">
         <h1>Faça seu cadastro</h1>
         <p>É rápido, fácil e grátis.</p>
+        <%#= render 'users/registrations/form' %>
         <%= link_to "Resonda e cadastre-se", new_half_user_session_path %>
       </div>
     </div>

@@ -1,8 +1,8 @@
-<header>
+<header class="minor">
   <div class="contact">
     <div class="content">
       <ul>
-        <li>Central de Atendimento (11) 2626-3489</li> | 
+        <li>Central de Atendimento (11) 2626-3489</li> |
         <li><%= link_to "falecom@olook.com.br", contact_path %>
       </ul>
     </div>
@@ -30,7 +30,7 @@
         <h1>Entrega</h1>
         <p>Onde quer que seu pedido seja entregue</p>
       </li>
-      <li class="<%= selected_if_current(["checkout/billets#new", "checkout/credit_cards#new", "checkout/debits#new", "checkout/payments#index"]) %>">
+      <li class="<%= selected_if_current(["checkout/checkout#new", "checkout/checkout#new_debit", "checkout/checkout#create_debit", "checkout/checkout#new_billet", "checkout/checkout#create_billet", "checkout/checkout#new_credit_card", "checkout/checkout#create_credit_card"]) %>">
         <h1>Pagamento</h1>
         <p>Como quer efetuar o pagamento? Selecione uma das opções</p>
       </li>
