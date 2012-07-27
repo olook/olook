@@ -130,7 +130,7 @@ class CartService
     end
 
     if promotion && (!coupon || (coupon && coupon.is_percentage?))
-      promotion_value = item.variant.product.price - ((item.variant.product.price * promotion.promotion.discount_percent) / 100)
+      promotion_value = item.variant.product.price - ((item.variant.product.price * promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
         final_retail_price =  promotion_value
         percent = promotion.discount_percent
