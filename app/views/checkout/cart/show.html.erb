@@ -191,7 +191,11 @@
         <% end %>
       </td>
       <td>
-        <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
+        <% if current_user %>
+          <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
+        <% else %>
+          <%= link_to "Continuar", new_half_user_session_path, :class => "continue"  %>
+        <% end %>
       </td>
     </tr>
   </tbody>

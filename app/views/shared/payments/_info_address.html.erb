@@ -1,10 +1,10 @@
 <div class="item">
   <h1>Endereço de entrega <%= link_to "alterar", cart_checkout_addresses_path unless cart.has_payment? %></h1>
-  <p><strong><%= cart.freight.address.identification %></strong></p>
-  <p><%= "#{cart.freight.address.street}, #{cart.freight.address.number}" %><%= cart.freight.address.complement? ? ", #{cart.freight.address.complement}" : "" %></p>
-  <p><%= "#{cart.freight.address.neighborhood} - #{cart.freight.address.zip_code}" %></p>
-  <p><%= "#{cart.freight.address.city}, #{cart.freight.address.state}" %></p>
+  <p><strong><%#= cart.freight.address.identification %></strong></p>
+  <p><%#= "#{cart.freight.address.street}, #{cart.freight.address.number}" %><%#= cart.freight.address.complement? ? ", #{cart.freight.address.complement}" : "" %></p>
+  <p><%#= "#{cart.freight.address.neighborhood} - #{cart.freight.address.zip_code}" %></p>
+  <p><%#= "#{cart.freight.address.city}, #{cart.freight.address.state}" %></p>
   <div class="delivery_time">
-    <p>O prazo de entrega para este endereço é de <strong><%= cart.freight.delivery_time %> dias úteis</strong></p>
+    <p>O prazo de entrega para este endereço é de <strong><%#= cart.freight.delivery_time %> dias úteis</strong></p>
   </div>
 </div>

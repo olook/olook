@@ -2,6 +2,8 @@
 class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
+  # layout "site"
+
   respond_to :html, :js
 
   def show
