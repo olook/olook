@@ -31,7 +31,7 @@ describe Checkout::AddressesController do
   after :each do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
-    session[:session_coupon] = nil
+    session[:cart_coupon] = nil
     session[:credits] = nil
     session[:freight] = nil
   end
@@ -68,14 +68,14 @@ describe Checkout::AddressesController do
 
     it "should remove coupon from session when coupon is expired" do
       session[:cart_id] = cart.id
-      session[:session_coupon] = coupon_expired
+      session[:cart_coupon] = coupon_expired
       get :index
-      session[:session_coupon].should be_nil
+      session[:cart_coupon].should be_nil
     end
 
     it "should redirect to cart_path when coupon is expired" do
       session[:cart_id] = cart.id
-      session[:session_coupon] = coupon_expired
+      session[:cart_coupon] = coupon_expired
       get :index
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")
@@ -83,14 +83,14 @@ describe Checkout::AddressesController do
         
     it "should remove coupon from session when coupon is not more avialbe" do
       session[:cart_id] = cart.id
-      session[:session_coupon] = coupon_not_more_available
+      session[:cart_coupon] = coupon_not_more_available
       get :index
-      session[:session_coupon].should be_nil
+      session[:cart_coupon].should be_nil
     end
     
     it "should redirect to cart_path when coupon is not more availabe" do
       session[:cart_id] = cart.id
-      session[:session_coupon] = coupon_not_more_available
+      session[:cart_coupon] = coupon_not_more_available
       get :index
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")

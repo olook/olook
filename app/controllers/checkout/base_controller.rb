@@ -2,12 +2,25 @@
 class Checkout::BaseController < ApplicationController
   layout "checkout"
   respond_to :html
+  before_filter :load_cart_service
+  
   
   private
-  def erase_freight
-    @cart.freight = nil
+  def load_cart_service
+    @cart_service = CartService.new(
+      :cart => @cart,
+      :gift_wrap => session[:gift_wrap],
+      :coupon => session[:cart_coupon],
+      :promotion => @promotion,
+      :freight => session[:cart_freight],
+      :credits => session[:cart_credits]
+    )
   end
-
+  
+  def erase_freight
+    @cart_service.freight = nil
+  end
+  
   def check_freight
     redirect_to cart_checkout_addresses_path, :notice => "Escolha seu endereço" if @cart.freight.nil?
   end
@@ -24,16 +37,16 @@ class Checkout::BaseController < ApplicationController
     
     return redirect_to cart_path, :notice => "Sua sacola está vazia" if @cart.items.empty?
     
-    coupon = @cart.used_coupon
+    coupon = @cart_service.coupon
     if coupon && (coupon.try(:expired?) || !coupon.try(:available?))
-      session[:session_coupon] = nil
+      session[:cart_coupon] = nil
       return redirect_to cart_path, :notice => "Cupom expirado. Informe outro por favor"
     end
     
-    credits = @cart.credits
+    credits = @cart_service.credits
     credits ||= 0
     if credits > 0 && !@cart.user.can_use_credit?(credits)
-      session[:credits] = nil
+      session[:cart_credits] = nil
       return redirect_to cart_path, :notice => "Você não tem créditos suficientes"
     end
   end
@@ -41,8 +54,8 @@ class Checkout::BaseController < ApplicationController
   def clean_cart!
     session[:cart_id] = nil
     session[:gift_wrap] = nil
-    session[:session_coupon] = nil
-    session[:credits] = nil
-    session[:freight] = nil
+    session[:cart_coupon] = nil
+    session[:cart_credits] = nil
+    session[:cart_freight] = nil
   end
 end

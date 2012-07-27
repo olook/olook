@@ -1,13 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Checkout::CartController < Checkout::BaseController
-  before_filter :erase_freight
-
   # layout "site"
 
   respond_to :html, :js
+  before_filter :erase_freight
 
   def show
-    @bonus = @user ? @user.credits_for?(@cart.credits) : 0
+    @bonus = @user ? @user.credits_for?(session[:cart_credits]) : 0
   end
 
   def destroy
@@ -64,13 +63,13 @@ class Checkout::CartController < Checkout::BaseController
     coupon = Coupon.find_by_code(code)
     
     response_message = if coupon.try(:expired?)
-      session[:session_coupon] = nil
+      session[:cart_coupon] = nil
       "Cupom expirado. Informe outro por favor"
     elsif coupon.try(:available?)
-      session[:session_coupon] = coupon
+      session[:cart_coupon] = coupon
       "Cupom atualizado com sucesso"
     else
-      session[:session_coupon] = nil
+      session[:cart_coupon] = nil
       "Cupom inválido"
     end
     
@@ -78,15 +77,15 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def remove_coupon
-    response_message = session[:session_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
-    session[:session_coupon] = nil
+    response_message = session[:cart_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
+    session[:cart_coupon] = nil
     redirect_to cart_path, :notice => response_message
   end
 
   def remove_credits
     msg = "Você não está usando nenhum crédito"
-    msg = "Créditos removidos com sucesso" if @cart.credits > 0
-    session[:credits] = nil
+    msg = "Créditos removidos com sucesso" if @cart_service.credits > 0
+    session[:cart_credits] = 0
     redirect_to cart_path, :notice => msg
   end
 
@@ -99,9 +98,9 @@ class Checkout::CartController < Checkout::BaseController
     credits ||= 0
     
     if @user.can_use_credit?(credits)
-      @cart.credits = credits
-      session[:credits] = @cart.credits_discount
-      if credits > session[:credits]
+      @cart_service.credits = credits
+      session[:cart_credits] = @cart_service.credits_discount
+      if credits > session[:cart_credits]
         msg = "Você tentou utilizar mais que o permitido para esta compra, utilizamos o máximo permitido."
       else
         msg = "Créditos atualizados com sucesso"

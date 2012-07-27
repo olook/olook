@@ -15,7 +15,7 @@ describe Checkout::CartController do
   after :each do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
-    session[:session_coupon] = nil
+    session[:cart_coupon] = nil
     session[:credits] = nil
     session[:freight] = nil
   end
@@ -58,7 +58,7 @@ describe Checkout::CartController do
       delete :destroy
       session[:cart_id].should be_nil
       session[:gift_wrap].should be_nil
-      session[:session_coupon].should be_nil
+      session[:cart_coupon].should be_nil
       session[:credits].should be_nil
       session[:freight].should be_nil
     end
@@ -278,7 +278,7 @@ describe Checkout::CartController do
       end
 
       it "should set session" do
-        session[:session_coupon].should be(coupon)
+        session[:cart_coupon].should be(coupon)
       end
     end
     
@@ -300,7 +300,7 @@ describe Checkout::CartController do
       end
       
       it "should set session" do
-        session[:session_coupon].should be_nil
+        session[:cart_coupon].should be_nil
       end
     end
 
@@ -321,7 +321,7 @@ describe Checkout::CartController do
       end
       
       it "should set session" do
-        session[:session_coupon].should be_nil
+        session[:cart_coupon].should be_nil
       end
     end
   end
@@ -333,13 +333,13 @@ describe Checkout::CartController do
     end
     
     it "should set session" do
-      session[:session_coupon] = mock
+      session[:cart_coupon] = mock
       post :remove_coupon
-      session[:session_coupon].should be_nil
+      session[:cart_coupon].should be_nil
     end
     
     it "should set flash when has valid coupon in session" do
-      session[:session_coupon] = mock
+      session[:cart_coupon] = mock
       post :remove_coupon
       flash[:notice].should eq("Cupom removido com sucesso")
     end
