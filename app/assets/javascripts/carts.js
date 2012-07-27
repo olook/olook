@@ -4,6 +4,13 @@ $("table#coupon a#show_coupon_field").live("click", function(e) {
   e.preventDefault();
 });
 
+$('section#cart a.continue.login').live('click', function(e) {
+  clone = $('.dialog.product_login').clone().addClass("clone");
+  content = clone[0].outerHTML;
+  initBase.modal(content);
+  e.preventDefault();
+});
+
 function change_value(wrap) {
   wrap_value = $("form#gift_wrap .inputs li p").text().match(/[0-9,]+/);
   wrap_value = parseFloat(wrap_value[0].replace( ",", "." ));
