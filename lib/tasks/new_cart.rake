@@ -79,7 +79,7 @@ namespace :new_cart do
         end
 
         # destroy the order
-        # order.destroy
+        order.destroy
       else
         puts cart.errors.join("\n")
       end
