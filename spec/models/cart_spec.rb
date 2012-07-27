@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Cart do
   it { should belong_to(:user) }
-  it { should have_one(:order) }
+  it { should have_many(:orders) }
   it { should have_many(:items) }
   
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
@@ -81,17 +81,17 @@ describe Cart do
   context "when remove item" do
     it "should remove when variant exists in cart" do
       cart_for_remove = cart_with_items
-      FactoryGirl.create(:cart_item, :cart_id => cart_for_remove.id, :variant_id => basic_shoe_35.id)
+      FactoryGirl.create(:cart_item, :cart_id => cart_for_remove.id, :variant_id => basic_shoe_37.id)
 
       expect {
-        cart_for_remove.remove_item basic_shoe_35
+        cart_for_remove.remove_item basic_shoe_37
       }.to change{CartItem.count}.by(-1)
     end
     
     it "should not raise error when variant not exists in cart" do
       cart_for_remove = cart_with_items
       expect {
-        cart_for_remove.remove_item basic_shoe_35
+        cart_for_remove.remove_item basic_shoe_37
       }.to_not change{CartItem.count}
     end
   end
@@ -100,16 +100,6 @@ describe Cart do
     cart_with_items.items_total.should eq(2)
   end
 
-  it "should return true for gift_wrap? when gift_wrap is nil" do
-    subject.gift_wrap?.should eq(false)
-  end
-
-  it "should return true when gift_wrap is '1'" do
-    cart = subject
-    cart.gift_wrap = '1'
-    cart.gift_wrap?.should eq(true)
-  end
-  
   it "should clear all cart items" do
     cart = cart_with_items
     expect {
@@ -123,29 +113,5 @@ describe Cart do
 
   it "should return false when no has gift item" do
     cart_with_items.has_gift_items?.should be(false)
-  end
-
-  it "should return total price" do
-    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
-    subject.total.should eq(100)
-  end
-
-  it "should return freight price" do
-    subject.freight_price.should eq(0)
-  end
-
-  it "should return coupon discount" do
-    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
-    subject.coupon_discount.should eq(25)
-  end
-
-  it "should return credits discount" do
-    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
-    subject.credits_discount.should eq(30)
-  end
-
-  it "should return promotion discount" do
-    PriceModificator.should_receive(:new).with(subject).and_return(price_mock)
-    subject.promotion_discount.should eq(40)
   end
 end
