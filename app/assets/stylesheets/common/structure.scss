@@ -86,13 +86,38 @@ body {
     width: 950px;
     height: 515px;
     display: none;
+    form {
+      fieldset {
+        ol {
+          li {
+            label {
+              display: block;
+              font-size: 11px;
+              font-weight: bold;
+              margin: 2px 0;
+            }
+
+            input {
+              background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+              border: 1px solid #BBB;
+              padding: 6px 8px;
+              width: 92%;
+
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+    }
     div#register_login {
       position: absolute;
       background: #FCFCFC;
       width: 580px;
-      height: 270px;
+      height: 470px;
       display: block;
-      top: 105px;
+      top: 20px;
       left: 340px;
       border: 1px #d2d2d2 solid;
       h1 {
@@ -102,7 +127,7 @@ body {
       }
       div.login {
         width: 259px;
-        height: 250px;
+        height: 450px;
         padding: 20px 0 0 30px;
         float: left;
         border-right: 1px #d2d2d2 solid;
@@ -115,30 +140,6 @@ body {
           margin-bottom: 15px;
           width: 225px;
           fieldset {
-            &.inputs {
-              ol {
-                li {
-                  label {
-                    display: block;
-                    font-size: 11px;
-                    font-weight: bold;
-                    margin: 2px 0;
-                  }
-
-                  input {
-                    background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
-                    border: 1px solid #BBB;
-                    padding: 6px 8px;
-                    width: 92%;
-
-                    &:focus {
-                      outline: none;
-                    }
-                  }
-                }
-              }
-            }
-
             &.buttons {
               margin-top: 7px;
               ol {
@@ -156,6 +157,13 @@ body {
                   &.remember-me, &.forgot-password {
                     float: left;
                     width: 140px;
+                    input {
+                      width: auto;
+                    }
+                    label {
+                      font-weight: normal;
+                      display: inline;
+                    }
                     a {
                       color: #0f0c0c;
                     }
@@ -198,12 +206,49 @@ body {
         p {
           margin: 0 0 20px 0;
         }
-        a {
-          background: url("/assets/common/registration.png") no-repeat;
-          text-indent: -9999px;
-          width: 126px;
-          height: 37px;
-          display: block;
+        form {
+          fieldset {
+            ol {
+              li {
+                input {
+                  width: 84%;
+                }
+                input[type='submit'] {
+                  background: url("/assets/common/registration.png") no-repeat;
+                  text-indent: -9999px;
+                  width: 126px;
+                  height: 37px;
+                  display: block;
+                  cursor: pointer;
+                  border: none;
+                }
+                &.gender {
+                  margin: 0 0 5px 0;
+                  p {
+                    font-size: 13px;
+                    font-weight: bold;
+                    line-height: 17px;
+                    margin: 0;
+                    display: block;
+                  }
+                  label {
+                    display: inline;
+                    float: none;
+                  }
+                  input {
+                    width: auto;
+                    display: inline;
+                  }
+                }
+                &.terms {
+                  font-size: 11px;
+                  a {
+                    color: #000;
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

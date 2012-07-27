@@ -8,8 +8,7 @@
       <div class="register">
         <h1>Faça seu cadastro</h1>
         <p>É rápido, fácil e grátis.</p>
-        <%#= render 'users/registrations/form' %>
-        <%= link_to "Resonda e cadastre-se", new_half_user_session_path %>
+        <%= render 'users/registrations/form_half', :resource => User.new(:half_user => true), :resource_name => :user %>
       </div>
     </div>
   </div>
