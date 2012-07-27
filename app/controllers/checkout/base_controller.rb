@@ -2,21 +2,8 @@
 class Checkout::BaseController < ApplicationController
   layout "checkout"
   respond_to :html
-  before_filter :load_cart_service
-  
   
   private
-  def load_cart_service
-    @cart_service = CartService.new(
-      :cart => @cart,
-      :gift_wrap => session[:gift_wrap],
-      :coupon => session[:cart_coupon],
-      :promotion => @promotion,
-      :freight => session[:cart_freight],
-      :credits => session[:cart_credits]
-    )
-  end
-  
   def erase_freight
     @cart_service.freight = nil
   end

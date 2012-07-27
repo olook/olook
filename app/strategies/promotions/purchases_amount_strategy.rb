@@ -9,7 +9,11 @@ module Promotions
     end
 
     def matches?
-      user.orders.purchased.size == param.to_i
+      if user
+        user.orders.purchased.size == param.to_i
+      else
+        0 == param.to_i
+      end
     end
   end
 end

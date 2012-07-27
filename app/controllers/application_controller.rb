@@ -38,10 +38,21 @@ class ApplicationController < ActionController::Base
     
     if @user
       cart.update_attribute("user_id", @user.id) if cart.user.nil?
-      @promotion = PromotionService.new(@user).detect_current_promotion
     end
+
+    @promotion = PromotionService.new(@user).detect_current_promotion
     
     session[:credits] = 0 unless session[:credits]
+    
+    @cart_service = CartService.new(
+      :cart => @cart,
+      :gift_wrap => session[:gift_wrap],
+      :coupon => session[:cart_coupon],
+      :promotion => @promotion,
+      :freight => session[:cart_freight],
+      :credits => session[:cart_credits]
+    )
+    
     # cart.credits = session[:credits]
     # cart.freight = session[:freight]
     
