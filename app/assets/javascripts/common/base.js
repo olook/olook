@@ -81,8 +81,6 @@ $(document).ready(function() {
     $("div.overlay").remove();
   });
 
-  $("header .info ul").fadeTransition();
-
   $("ol.addresses li.address_item ul.links li a.select_address").live("click", function() {
     if($(this).parents("li.address_item").hasClass("add") == false) {
       lists = $(this).parents("ol").find("li");
