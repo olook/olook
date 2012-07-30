@@ -32,7 +32,7 @@ FactoryGirl.define do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
     subtotal BigDecimal.new("100")
-    amount BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
     
     after_build do |order|
       Resque.stub(:enqueue)
@@ -45,7 +45,7 @@ FactoryGirl.define do
     association :freight, :factory => :freight
     state "authorized"
     subtotal BigDecimal.new("100")
-    amount BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
 
     after_build do |order|
       Resque.stub(:enqueue)
@@ -59,6 +59,6 @@ FactoryGirl.define do
     association :user
     state "delivered"
     subtotal BigDecimal.new("99.90")
-    amount BigDecimal.new("99.90")
+    amount_paid BigDecimal.new("99.90")
   end
 end

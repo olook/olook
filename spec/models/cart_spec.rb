@@ -13,17 +13,6 @@ describe Cart do
   let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
   let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
   
-  let(:price_mock) do
-    price = mock
-    price.stub(final_price: 100)
-    price.stub(discounts: {
-      coupon:    {value: 25},
-      credits:   {value: 30},
-      promotion: {value: 40}
-    })
-    price
-  end
-  
   context "when add item" do
     it "should return nil when has gift product in cart and is not gift" do
       cart = subject
@@ -37,6 +26,8 @@ describe Cart do
     end
     
     it "should add item" do
+      basic_shoe_35.master_variant.update_attribute('retail_price', 123.45)
+      basic_shoe_35.master_variant.update_attribute('price', 123.45)
       basic_shoe_35.should_not_receive(:gift_price)
       expect {
         item = cart.add_item(basic_shoe_35, 2)
@@ -48,14 +39,21 @@ describe Cart do
         item.retail_price.should eq(basic_shoe_35.product.retail_price)
         item.gift_position.should eq(0)
         item.gift.should eq(false)
-        item.discount_source.should eq(:legacy)
       }.to change{CartItem.count}.by(1)
     end
     
     it "should add item with gift discount" do
+      basic_shoe_35.master_variant.update_attribute('retail_price', 123.45)
+      basic_shoe_35.master_variant.update_attribute('price', 123.45)
       gift_retail_price = 100
       gift_position = 2
-      basic_shoe_35.should_receive(:gift_price).with(gift_position).and_return(gift_retail_price)
+
+      Variant.any_instance
+             .should_receive(:gift_price)
+             .with(gift_position)
+             .twice
+             .and_return(gift_retail_price)
+
       expect {
         item = cart.add_item(basic_shoe_35, 1, gift_position, true)
         item.should be_kind_of(CartItem)
@@ -66,7 +64,6 @@ describe Cart do
         item.retail_price.should eq(gift_retail_price)
         item.gift_position.should eq(gift_position)
         item.gift.should eq(true)
-        item.discount_source.should eq(:legacy)
       }.to change{CartItem.count}.by(1)
     end
 

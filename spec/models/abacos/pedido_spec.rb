@@ -19,7 +19,7 @@ describe Abacos::Pedido do
       :freight => freight, 
       :created_at => Date.civil(2011, 12, 01),
       :amount_discount => 11,
-      :amount => 70,
+      :subtotal => 70,
       :amount_paid => 81
     )
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_a, :quantity => 2, :price => 20.0, :retail_price => 20.0)

@@ -52,6 +52,10 @@ class ApplicationController < ActionController::Base
       :freight => session[:cart_freight],
       :credits => session[:cart_credits]
     )
+
+    cart.coupon = session[:cart_coupon]
+    cart.promotion = @promotion
+    
     
     # cart.credits = session[:credits]
     # cart.freight = session[:freight]
