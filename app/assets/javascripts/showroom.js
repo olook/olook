@@ -75,9 +75,9 @@ $(document).ready(function() {
   });
 
   if($('.dialog.liquidation').length == 1) {
-    initBase.openDialog();
-
-    initBase.closeDialog();
+    var clone = $('.dialog.liquidation').clone();
+    var content = clone[0].outerHTML;
+    initBase.modal(content);
   }
 
   $(".dialog.liquidation :checkbox").live("change", function() {
