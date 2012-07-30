@@ -99,7 +99,7 @@ class Checkout::CartController < Checkout::BaseController
 
     if @user.can_use_credit?(credits)
       @cart_service.credits = credits
-      session[:cart_credits] = @cart_service.credits_discount
+      session[:cart_credits] = @cart_service.total_credits_discount
       if credits > session[:cart_credits]
         msg = "Você tentou utilizar mais que o permitido para esta compra, utilizamos o máximo permitido."
       else

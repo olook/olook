@@ -16,9 +16,7 @@ class CartService
       send(key.to_s+'=',value)
     end
     
-    credits ||= 0
-    freight ||= {}
-    
+    credits ||= 0    
   end
 
   def generate_order!(payment)
@@ -60,15 +58,15 @@ class CartService
   end
   
   def freight_price
-    freight.fetch(:price, 0)
+    freight && freight.fetch(:price, 0) || 0
   end
 
   def freight_city
-    freight.fetch(:city, "")
+    freight && freight.fetch(:city, "") || ""
   end
   
   def freight_state
-    freight.fetch(:state, "")
+    freight && freight.fetch(:state, "") || ""
   end
   
   def total_increase
@@ -97,13 +95,15 @@ class CartService
   end
   
   def has_more_than_one_discount?
+    active_discounts.size > 1
+  end
+  
+  def active_discounts
     discounts = cart.items.inject([]) do |discounts, item|
-      discounts << item.discounts
+      discounts + item.discounts
     end
     
-    discounts << calculate_discounts.fetch(:discounts)
-    
-    discounts.uniq.size > 1
+    (discounts + calculate_discounts.fetch(:discounts)).uniq
   end
   
   def is_minimum_payment?
@@ -129,7 +129,7 @@ class CartService
   
   def calculate_discounts
     discounts = []
-    retail_value = self.subtotal(:retail_price) - self.minimum_value
+    retail_value = self.subtotal(:retail_price) - minimum_value
     total_discount = 0
     
     coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?
@@ -142,14 +142,15 @@ class CartService
     retail_value -= coupon_value
     
     credits_value = self.credits
+    credits_value ||= 0
     if credits_value >= retail_value
       credits_value = retail_value
     end
     
     retail_value -= credits_value
-        
+    
     discounts << :coupon if coupon_value > 0
-    discounts << :credits if credits > 0
+    discounts << :credits if credits && credits > 0
     
     { 
       :discounts          => discounts,
