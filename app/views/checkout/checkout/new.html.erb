@@ -25,8 +25,8 @@
   </section>
   <section class="sidebar">
     <% content_for :checkout_sidebar do %>
-      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @cart } %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @cart, :cart_service => @cart_service, :has_payment => false } %>
     <% end %>
-    <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service, :has_payment => false %>
   </section>
 </section>

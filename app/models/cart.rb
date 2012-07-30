@@ -50,10 +50,6 @@ class Cart < ActiveRecord::Base
   def has_gift_items?
     items.where(:gift => true).count > 0
   end
-
-  def has_payment?
-    orders.purchased.count > 1
-  end
   
   def remove_unavailable_items
     unavailable_items = []
