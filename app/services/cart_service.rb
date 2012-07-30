@@ -90,7 +90,7 @@ class CartService
   
   def subtotal(type = :retail_price)
     cart.items.inject(0) do |value, item|
-      value += item.send("#{type}_total")
+      value += self.send("item_#{type}_total", item)
     end
   end
   
@@ -100,10 +100,9 @@ class CartService
   
   def active_discounts
     discounts = cart.items.inject([]) do |discounts, item|
-      discounts + item.discounts
+      discounts + item_discounts(item)
     end
-    
-    (discounts + calculate_discounts.fetch(:discounts)).uniq
+    discounts.uniq
   end
   
   def is_minimum_payment?
@@ -117,7 +116,94 @@ class CartService
     total
   end
   
+  def item_promotion?(item)
+    item_price(item) != item_retail_price(item)
+  end
+  
+  def item_price_total(item)
+    item_price(item) * item.quantity
+  end
+
+  def item_retail_price_total(item)
+    item_retail_price(item) * item.quantity
+  end
+  
+  def item_discount_percent(item)
+    get_retail_price_for_item(item).fetch(:percent)
+  end
+  
+  def item_discount_origin(item)
+    get_retail_price_for_item(item).fetch(:origin)
+  end
+  
+  def item_price(item)
+    get_retail_price_for_item(item).fetch(:price)
+  end
+  
+  def item_retail_price(item)
+    get_retail_price_for_item(item).fetch(:retail_price)
+  end
+  
+  def item_has_more_than_one_discount?(item)
+    get_retail_price_for_item(item).fetch(:discounts).size > 1
+  end
+
+  def item_discounts(item)
+    get_retail_price_for_item(item).fetch(:discounts)
+  end
+  
   private
+  def get_retail_price_for_item(item)
+    origin = ''
+    percent = 0
+    final_retail_price = item.variant.product.retail_price
+    price = item.variant.product.price
+    discounts = []
+    
+    if price != final_retail_price
+      percent =  (1 - (final_retail_price / price) )* 100
+      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
+      discounts << :olooklet
+    end
+
+    coupon = self.coupon
+    if coupon && coupon.is_percentage?
+      coupon_value = price - ((coupon.value * price) / 100)
+      if coupon_value < final_retail_price
+        percent = coupon.value
+        final_retail_price = coupon_value
+        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
+        discounts << :coupon_percentage
+      end
+    end
+
+    promotion = self.promotion
+    if promotion
+      promotion_value = price - ((price * promotion.discount_percent) / 100)
+      if promotion_value < final_retail_price
+        final_retail_price =  promotion_value
+        percent = promotion.discount_percent
+        origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
+        discounts << :promotion
+      end
+    end
+
+    if item.gift?
+      final_retail_price = item.variant.gift_price(item.gift_position)
+      percent =  (1 - (final_retail_price / price) ) * 100
+      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
+      discounts  << :gift
+    end
+
+    {
+      :origin       => origin, 
+      :price        => price,
+      :retail_price => final_retail_price,
+      :percent      => percent,
+      :discounts    => discounts
+    }
+  end
+  
   def increment_from_gift_wrap
     gift_wrap? ? self.gift_wrap_price : 0
   end
