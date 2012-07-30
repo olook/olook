@@ -44,10 +44,10 @@ class CartService
     order.freight = Freight.create(freight)
 
     # Creates UsedPromotion
-    PromotionService.new(user, order).apply_promotion if promotion_discount > 0
+    PromotionService.new(user, order).apply_promotion if promotion
 
     # Creates UsedCoupon
-    CouponManager.new(order, price_modificator.discounts[:coupon][:code]).apply_coupon if coupon_discount > 0
+    order.create_used_coupon(:coupon => coupon) if total_coupon_discount > 0
 
     order.save
     order  
@@ -102,6 +102,7 @@ class CartService
     discounts = cart.items.inject([]) do |discounts, item|
       discounts + item_discounts(item)
     end
+    
     discounts.uniq
   end
   
@@ -113,6 +114,8 @@ class CartService
     total = subtotal(:retail_price)
     total += total_increase
     total -= total_discount
+    
+    total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
   end
   
@@ -168,23 +171,23 @@ class CartService
 
     coupon = self.coupon
     if coupon && coupon.is_percentage?
+      discounts << :coupon_percentage
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price
         percent = coupon.value
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
-        discounts << :coupon_percentage
       end
     end
-
+        
     promotion = self.promotion
     if promotion
+      discounts << :promotion
       promotion_value = price - ((price * promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
         final_retail_price =  promotion_value
         percent = promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
-        discounts << :promotion
       end
     end
 
@@ -194,7 +197,7 @@ class CartService
       origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
       discounts  << :gift
     end
-
+    
     {
       :origin       => origin, 
       :price        => price,
@@ -205,7 +208,7 @@ class CartService
   end
   
   def increment_from_gift_wrap
-    gift_wrap? ? self.gift_wrap_price : 0
+    gift_wrap? ? CartService.gift_wrap_price : 0
   end
   
   def minimum_value
@@ -216,6 +219,7 @@ class CartService
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
+    retail_value = 0 if retail_value < 0
     total_discount = 0
     
     coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?

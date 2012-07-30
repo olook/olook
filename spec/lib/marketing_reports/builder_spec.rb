@@ -322,8 +322,8 @@ describe MarketingReports::Builder do
     context "and there is tracking data from google (with gclid and placement)" do
       let!(:user_a) { FactoryGirl.create(:member) }
       let!(:user_b) { FactoryGirl.create(:member) }
-      let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a, :subtotal => 100, :amount_paid => 50) }
-      let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b, :subtotal => 100, :amount_paid => 50) }
+      let!(:order_a) { FactoryGirl.create(:clean_order, :user => user_a, :subtotal => 50, :amount_paid => 100) }
+      let!(:order_b) { FactoryGirl.create(:clean_order, :user => user_b, :subtotal => 50, :amount_paid => 100) }
       let!(:tracking_a) { FactoryGirl.create(:google_tracking, :user => user_a, :created_at => date) }
       let!(:tracking_b) { FactoryGirl.create(:google_tracking, :user => user_b, :created_at => date) }
 
@@ -357,8 +357,8 @@ describe MarketingReports::Builder do
         order_c.payment.authorized
         order_d.payment.billet_printed
         order_d.payment.authorized
-        Order.any_instance.stub(:subtotal).and_return(BigDecimal.new("100"))
-        Order.any_instance.stub(:amount_paid).and_return(BigDecimal.new("50"))
+        Order.any_instance.stub(:subtotal).and_return(BigDecimal.new("50"))
+        Order.any_instance.stub(:amount_paid).and_return(BigDecimal.new("100"))
       end
 
       let :tracking_data do
