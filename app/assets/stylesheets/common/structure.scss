@@ -47,6 +47,21 @@ body {
   div#profile_quiz {
     background: #FFF;
     display: none;
+    div.share {
+      background: #000;
+      padding: 10px 20px;
+      p {
+        color: #FFF;
+        font-family: "Times New Roman", Times, sans-serif;
+        font-size: 17px;
+        font-style: italic;
+        margin: 0 10px 0 0;
+        float: left;
+      }
+      iframe {
+        height: 20px;
+      }
+    }
     ul {
       li {
         width: 445px;
