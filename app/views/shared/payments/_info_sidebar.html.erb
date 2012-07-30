@@ -20,23 +20,17 @@
           <td class="value">+ R$ 5,00</td>
         </tr>
       <% end %>
-        <% if cart_service.credits_discount > 0 %>
+        <% if cart_service.total_credits_discount > 0 %>
         <tr>
           <td>Crédito</td>
-          <td class="value credit">- <%= number_to_currency(cart_service.credits_discount) %></td>
+          <td class="value credit">- <%= number_to_currency(cart_service.total_credits_discount) %></td>
         </tr
         <% end %>
-        <% if cart_service.coupon_discount > 0 %>
+        <% if cart_service.total_coupon_discount > 0 %>
         <tr>
           <td>Cupom desconto</td>
-          <td class="value credit">- <%= number_to_currency(cart_service.coupon_discount) %> <%= cart_service.coupon.discount_percent %></td>
+          <td class="value credit">- <%= number_to_currency(cart_service.total_coupon_discount) %> <%= cart_service.coupon.discount_percent %></td>
         </tr>
-        <% end %>
-        <% if cart_service.promotion_discount > 0 %>
-          <tr>
-            <td><%= cart_service.promotion.my_order_label %></td>
-            <td class="value credit"><%= cart_service.promotion.discount_percent %>% - (<%= number_to_currency cart_service.promotion_discount %>)</td>
-          </tr>
         <% end %>
         <% if cart_service.freight_price > 0%>
         <tr>

@@ -41,6 +41,7 @@ class Checkout::CartController < Checkout::BaseController
       else
         respond_with(@cart) do |format|
           notice_response = "Produto esgotado"
+          notice_response = "Produtos de presente não podem ser comprados com produtos da vitrine" if @cart.has_gift_items?
           format.js { render :error, locals: { notice: notice_response } }
           format.html { redirect_to(cart_path, notice: notice_response) }
         end

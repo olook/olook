@@ -26,43 +26,25 @@ describe Cart do
     end
     
     it "should add item" do
-      basic_shoe_35.master_variant.update_attribute('retail_price', 123.45)
-      basic_shoe_35.master_variant.update_attribute('price', 123.45)
-      basic_shoe_35.should_not_receive(:gift_price)
       expect {
         item = cart.add_item(basic_shoe_35, 2)
         item.should be_kind_of(CartItem)
         item.cart_id.should eq(cart.id)
         item.variant_id.should eq(basic_shoe_35.id)
         item.quantity.should eq(2)
-        item.price.should eq(basic_shoe_35.product.price)
-        item.retail_price.should eq(basic_shoe_35.product.retail_price)
         item.gift_position.should eq(0)
         item.gift.should eq(false)
       }.to change{CartItem.count}.by(1)
     end
     
     it "should add item with gift discount" do
-      basic_shoe_35.master_variant.update_attribute('retail_price', 123.45)
-      basic_shoe_35.master_variant.update_attribute('price', 123.45)
-      gift_retail_price = 100
-      gift_position = 2
-
-      Variant.any_instance
-             .should_receive(:gift_price)
-             .with(gift_position)
-             .twice
-             .and_return(gift_retail_price)
-
       expect {
-        item = cart.add_item(basic_shoe_35, 1, gift_position, true)
+        item = cart.add_item(basic_shoe_35, 1, 2, true)
         item.should be_kind_of(CartItem)
         item.cart_id.should eq(cart.id)
         item.variant_id.should eq(basic_shoe_35.id)
         item.quantity.should eq(1)
-        item.price.should eq(basic_shoe_35.product.price)
-        item.retail_price.should eq(gift_retail_price)
-        item.gift_position.should eq(gift_position)
+        item.gift_position.should eq(2)
         item.gift.should eq(true)
       }.to change{CartItem.count}.by(1)
     end
