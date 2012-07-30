@@ -8,9 +8,6 @@ class Cart < ActiveRecord::Base
   
   before_save :update_invetory
   
-  attr_accessor :coupon
-  attr_accessor :promotion
-  
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
