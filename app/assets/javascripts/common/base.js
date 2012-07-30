@@ -124,21 +124,6 @@ $(document).ready(function() {
     }
   });
 
-  if($('.dialog.first_visit').length == 1) {
-    initBase.openDialog();
-
-    $(".dialog img").animate({
-      width: 'toggle',
-      height: 'toggle'
-    });
-
-    $('body .dialog').css("left", (viewWidth - '930') / 2);
-    $('body .dialog').css("top", (viewHeight - '525') / 2);
-
-    $('.dialog img').fadeIn('slow');
-    initBase.closeDialog();
-  }
-
   $("a.open_login").live("click", function() {
     initBase.openDialog();
     $('body .dialog').show();
