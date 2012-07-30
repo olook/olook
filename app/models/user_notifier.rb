@@ -13,7 +13,7 @@ class UserNotifier
   end
 
   def self.send_in_cart ( conditions )
-     Cart.includes(:order).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
+     Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
       cart.update_attribute("notified", true)
 
       products = []

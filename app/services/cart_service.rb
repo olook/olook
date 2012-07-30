@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class CartService
-
   attr_accessor :cart
   attr_accessor :gift_wrap
   attr_accessor :coupon
@@ -8,10 +7,18 @@ class CartService
   attr_accessor :freight
   attr_accessor :credits
 
+  def self.gift_wrap_price
+    YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
+  end
+
   def initialize(params)
     params.each_pair do |key, value|
       send(key.to_s+'=',value)
     end
+    
+    credits ||= 0
+    freight ||= {}
+    
   end
 
   def generate_order!(payment)
@@ -21,14 +28,13 @@ class CartService
     order = Order.create!(
       :cart_id => cart.id,
       :payment => payment,
-      :credits => credits_discount,
+      :credits => total_credits_discount,
       :user_id => cart.user.id,
       :restricted => cart.has_gift_items?,
       :gift_wrap => gift_wrap?,
-      :amount => total,
       :amount_discount => total_discount,
       :amount_increase => total_increase,
-      :amount_paid => total_for_paid,
+      :amount_paid => total,
       :subtotal => subtotal
     )
 
@@ -53,134 +59,105 @@ class CartService
     gift_wrap == "1" ? true : false
   end
   
-  def total
-    total = subtotal 
-    total += total_increase 
-    total
-  end
-  
-  def total_increase
-    increment_from_gift + freight_price
-  end
-  
-  def total_for_paid
-    total
-  end
-
   def freight_price
-    0
+    freight.fetch(:price, 0)
   end
 
   def freight_city
-    ""
+    freight.fetch(:city, "")
   end
   
   def freight_state
-    ""
+    freight.fetch(:state, "")
   end
   
-  def increment_from_gift
-    gift_wrap? ? gift_wrap_price : 0
+  def total_increase
+    increase = 0
+    increase += increment_from_gift_wrap
+    increase += freight_price
+    increase
+  end
+
+  def total_coupon_discount
+    calculate_discounts.fetch(:total_coupon)
+  end
+  
+  def total_credits_discount
+    calculate_discounts.fetch(:total_credits)
   end
   
   def total_discount
-    0
+    calculate_discounts.fetch(:total_discount)
   end
   
-  def coupon_discount
-    0
-  end
-
-  #CALCULA O CREDITOS PARA O CART
-  def credits_discount
-    0
-  end
-  
-  #CALCULA PROMOTION
-  def promotion_discount
-    0
-  end
-
-  def subtotal
+  def subtotal(type = :retail_price)
     cart.items.inject(0) do |value, item|
-      value += item_retail_price(item)
+      value += item.send("#{type}_total")
     end
   end
   
   def has_more_than_one_discount?
-    false
+    discounts = cart.items.inject([]) do |discounts, item|
+      discounts << item.discounts
+    end
+    
+    discounts << calculate_discounts.fetch(:discounts)
+    
+    discounts.uniq.size > 1
   end
   
   def is_minimum_payment?
-    false
+    calculate_discounts.fetch(:is_minimum_payment)
   end
   
-  def item_discount_percent(item)
-    get_retail_price_for_line_item(item).fetch(:percent)
-  end
-  
-  def get_discount_origin(item)
-    get_retail_price_for_line_item(item).fetch(:origin)
-  end
-  
-  def item_promotion?(item)
-    item_price(item) != item_retail_price(item)
-  end
-  
-  def item_price(item)
-    get_retail_price_for_line_item(item).fetch(:price)
-  end
-  
-  def item_retail_price(item)
-    get_retail_price_for_line_item(item).fetch(:retail_price)
-  end
-  
-  def get_retail_price_for_line_item(item)
-    origin = ''
-    percent = 0
-    final_retail_price = item.variant.product.retail_price
-    price = item.variant.product.price
-    
-    if price != final_retail_price
-      percent =  (1 - (final_retail_price / price) )* 100
-      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
-    end
-
-    if coupon && coupon.is_percentage?
-      coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price
-        percent = coupon.value
-        final_retail_price = coupon_value
-        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
-      end
-    end
-
-    if promotion && (!coupon || (coupon && coupon.is_percentage?))
-      promotion_value = price - ((price * promotion.discount_percent) / 100)
-      if promotion_value < final_retail_price
-        final_retail_price =  promotion_value
-        percent = promotion.discount_percent
-        origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
-      end
-    end
-
-    if item.gift?
-      final_retail_price = item.variant.gift_price(item.gift_position)
-      percent =  (1 - (final_retail_price / price) )* 100
-      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
-    end
-
-    {
-      :origin       => origin, 
-      :price        => price,
-      :retail_price => final_retail_price,
-      :percent      => percent
-    }
+  def total
+    total = subtotal(:retail_price)
+    total += total_increase
+    total -= total_discount
+    total
   end
   
   private
-  def gift_wrap_price
-    YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
+  def increment_from_gift_wrap
+    gift_wrap? ? self.gift_wrap_price : 0
   end
   
+  def minimum_value
+    return 0 if freight_price > Payment::MINIMUM_VALUE
+    Payment::MINIMUM_VALUE
+  end
+  
+  def calculate_discounts
+    discounts = []
+    retail_value = self.subtotal(:retail_price) - self.minimum_value
+    total_discount = 0
+    
+    coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?
+    coupon_value ||= 0
+    
+    if coupon_value >= retail_value
+      coupon_value = retail_value
+    end
+    
+    retail_value -= coupon_value
+    
+    credits_value = self.credits
+    if credits_value >= retail_value
+      credits_value = retail_value
+    end
+    
+    retail_value -= credits_value
+        
+    discounts << :coupon if coupon_value > 0
+    discounts << :credits if credits > 0
+    
+    { 
+      :discounts          => discounts,
+      :credits_limit      => (credits_value != credits),
+      :is_minimum_payment => (retail_value <= 0),
+      :total_discount     => (coupon_value + credits_value),
+      :total_coupon       => coupon_value,
+      :total_credits      => credits_value
+    }
+  end
 end
