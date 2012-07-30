@@ -40,7 +40,7 @@
         <td class="titles" colspan="4">Código Promocional</td>
         <td class="value">
           <p>
-            <%= number_to_currency(@cart_service.coupon_discount) if !@cart_service.coupon.is_percentage? %>
+            <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
             <%= discount_percentage(@cart_service.coupon.discount_percent) %>
           </p>
           <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
@@ -55,11 +55,11 @@
         </td>
       </tr>
     <% end %>
-    <% if @cart_service.credits_discount > 0 %>
+    <% if @cart_service.total_credits_discount > 0 %>
       <tr>
         <td class="titles" colspan="3">Crédito</td>
         <td class="value">
-          <p><%= number_to_currency(@cart_service.credits_discount) %></p>
+          <p><%= number_to_currency(@cart_service.total_credits_discount) %></p>
           <%= form_for(remove_credits_cart_path, :url => remove_credits_cart_path, :method => :delete) do %>
             <fieldset class="inputs">
               <ol>
@@ -106,19 +106,19 @@
             <% end %>
           </td>
           <td class="discount">
-            <% if @cart_service.item_promotion?(item) %>
-              <%= link_to number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0), "#", :class => 'discount_percent' %>
+            <% if item.promotion? %>
+              <%= link_to number_to_percentage(item.discount_percent, :precision => 0), "#", :class => 'discount_percent' %>
               <div class='discount_origin'>
-                <p><%= @cart_service.get_discount_origin(item) %></p>
+                <p><%= item.discount_origin %></p>
               </div>
             <% end %>
           </td>
           <td class="value">
-            <% if @cart_service.item_promotion?(item) %>
-              <p class="price_retail"><strong>de: <%= number_to_currency(@cart_service.item_price(item)) %></strong></p>
-              <p><strong>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></strong></p>
+            <% if item.promotion? %>
+              <p class="price_retail"><strong>de: <%= number_to_currency(item.price) %></strong></p>
+              <p><strong>por: <%= number_to_currency(item.retail_price) %></strong></p>
             <% else %>
-              <p><strong><%= number_to_currency(@cart_service.item_price(item)) %></strong></p>
+              <p><strong><%= number_to_currency(item.price) %></strong></p>
             <% end %>
           </td>
         </tr>

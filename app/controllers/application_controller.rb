@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     @cart_service = CartService.new(
       :cart => cart,
       :gift_wrap => session[:gift_wrap],
-      :coupon => session[:cart_coupon],
+      :coupon => session[:cart_coupon].reload,
       :promotion => @promotion,
       :freight => session[:cart_freight],
       :credits => session[:cart_credits]
