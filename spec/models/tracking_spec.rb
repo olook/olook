@@ -76,7 +76,7 @@ describe Tracking do
     end
 
     it "returns the total revenue of all users with to the same tracking type" do
-      User.any_instance.stub(:total_revenue).with(:subtotal).and_return(BigDecimal.new("100"))
+      User.any_instance.stub(:total_revenue).with(:amount_paid).and_return(BigDecimal.new("100"))
       tracking_a.total_revenue(day).should == 200
     end
   end
