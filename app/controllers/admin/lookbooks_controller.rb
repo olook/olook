@@ -67,7 +67,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def get_all_products
-    @products = Product.order("collection_id desc, category, name")
+    @products = Product.joins(:collection).where("collections.start_date >= :date", date: 3.months.ago.beginning_of_month).order("collection_id desc, category, name")
   end
 
   def product
