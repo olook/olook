@@ -149,7 +149,10 @@ class User < ActiveRecord::Base
 
   def add_event(type, description = '')
     self.events.create(event_type: type, description: description.to_s)
-    self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
+    self.create_tracking(:utm_source => description.fetch(:utm_source, nil), :utm_medium => description.fetch(:utm_medium, nil),
+    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil), 
+    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil), 
+    :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
   def invitation_url(host = 'www.olook.com.br')
@@ -222,14 +225,6 @@ class User < ActiveRecord::Base
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
         .inject(0) { |sum,order| sum += order.send(total_method) }
-  end
-
-  def tracking_params(param_name)
-    first_event = events(:where => EventType::TRACKING).first
-    if first_event
-      match_data = (/\"#{param_name}\"=>\"(\w+)\"/).match(first_event.description)
-      return match_data.captures.first if match_data
-    end
   end
 
   def total_revenue(total_method = :total)
