@@ -93,6 +93,11 @@ $(document).ready(function() {
     checked = $(this).is(":checked");
     $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
   });
+
+  $(".didi.dialog :checkbox").live("change", function() {
+    checked = $(this).is(":checked");
+    $.post("/user_notifications", { 'user_notification[dont_want_to_see_again]': checked });
+  });
 });
 
 ShowroomInit = {
