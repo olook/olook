@@ -12,7 +12,7 @@
       <tbody>
         <tr>
           <td>Sub-total:</td>
-          <td class="value"><%= number_to_currency(cart_service.subtotal)  %></td>
+          <td class="value"><%= number_to_currency(cart_service.subtotal(:price))  %></td>
         </tr>
       <% if cart_service.gift_wrap? %>
         <tr>
@@ -20,19 +20,33 @@
           <td class="value">+ R$ 5,00</td>
         </tr>
       <% end %>
-        <% if cart_service.total_credits_discount > 0 %>
+        <% 
+        credits = cart_service.total_discount_by_type(:credits)
+        if credits > 0 %>
         <tr>
           <td>Crédito</td>
-          <td class="value credit">- <%= number_to_currency(cart_service.total_credits_discount) %></td>
+          <td class="value credit">- <%= number_to_currency(credits) %></td>
         </tr
         <% end %>
-        <% if cart_service.total_coupon_discount > 0 %>
+        <% 
+        promotion = cart_service.total_discount_by_type(:promotion)
+        if promotion > 0 %>
+        <tr>
+          <td>Promoção</td>
+          <td class="value credit">- <%= number_to_currency(promotion) %></td>
+        </tr
+        <% end %>
+        <% 
+        coupon = cart_service.total_discount_by_type(:coupon)
+        if coupon > 0 %>
         <tr>
           <td>Cupom desconto</td>
-          <td class="value credit">- <%= number_to_currency(cart_service.total_coupon_discount) %> <%= cart_service.coupon.discount_percent %></td>
+          <td class="value credit">- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.coupon.discount_percent) %></td>
         </tr>
         <% end %>
-        <% if cart_service.freight_price > 0%>
+        <% 
+        
+        if cart_service.freight_price > 0%>
         <tr>
           <td>Frete</td>
           <td class="value">+ <%= number_to_currency(cart_service.freight_price) %></td>
