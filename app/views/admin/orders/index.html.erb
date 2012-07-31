@@ -76,7 +76,7 @@
       <td><%= number_to_currency(order.subtotal) %></td>
       <td><%= number_to_currency(order.credits) %></td>
       <td><%= number_to_currency(order.freight_price) %></td>
-      <td><%= number_to_currency(order.order_paid) %></td>
+      <td><%= number_to_currency(order.amount_paid) %></td>
       <td><%= order.installments %>x</td>
     </tr>
   <% end %>
