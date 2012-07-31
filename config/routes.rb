@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
   root :to => "home#index"
+  get "/quiz", :to => "home#index"
   get "home/index"
   get "index/index"
 
