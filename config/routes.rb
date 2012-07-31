@@ -216,6 +216,7 @@ Olook::Application.routes.draw do
     delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
 
     resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
+      get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
       resources :addresses, :path => 'endereco', :controller => "checkout/addresses" do
         get "assign_address", :to => "checkout/addresses#assign_address", :as => :assign_address
       end
