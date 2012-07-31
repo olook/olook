@@ -44,7 +44,13 @@ class CartService
     order.freight = Freight.create(freight)
 
     # Creates UsedPromotion
-    PromotionService.new(cart.user, order).apply_promotion if promotion
+    if promotion
+      order.create_used_promotion(
+        :promotion => promotion, 
+        :discount_percent => promotion.discount_percent,
+        :discount_value => total_discount_by_type(:promotion)
+      ) 
+    end
 
     # Creates UsedCoupon
     order.create_used_coupon(:coupon => coupon) if total_coupon_discount > 0
@@ -86,6 +92,20 @@ class CartService
   
   def total_discount
     calculate_discounts.fetch(:total_discount)
+  end
+  
+  def total_discount_by_type(type)
+    total_value = 0
+    total_value += total_coupon_discount if :coupon == type
+    total_value += total_credits_discount if :credits == type
+    
+    cart.items.each do |item|
+      if item_discount_origin_type(item) == type
+        total_value += (item_price(item) - item_retail_price(item))
+      end
+    end
+    
+    total_value
   end
   
   def subtotal(type = :retail_price)
@@ -139,6 +159,10 @@ class CartService
     get_retail_price_for_item(item).fetch(:origin)
   end
   
+  def item_discount_origin_type(item)
+    get_retail_price_for_item(item).fetch(:origin_type)
+  end
+  
   def item_price(item)
     get_retail_price_for_item(item).fetch(:price)
   end
@@ -162,21 +186,24 @@ class CartService
     final_retail_price = item.variant.product.retail_price
     price = item.variant.product.price
     discounts = []
+    origin_type = ''
     
     if price != final_retail_price
       percent =  (1 - (final_retail_price / price) )* 100
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
       discounts << :olooklet
+      origin_type = :olooklet
     end
 
     coupon = self.coupon
     if coupon && coupon.is_percentage?
-      discounts << :coupon_percentage
+      discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price
         percent = coupon.value
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
+        origin_type = :coupon
       end
     end
         
@@ -188,6 +215,7 @@ class CartService
         final_retail_price =  promotion_value
         percent = promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
+        origin_type = :promotion
       end
     end
 
@@ -196,6 +224,7 @@ class CartService
       percent =  (1 - (final_retail_price / price) ) * 100
       origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
       discounts  << :gift
+      origin_type = :gift
     end
     
     {
@@ -203,7 +232,8 @@ class CartService
       :price        => price,
       :retail_price => final_retail_price,
       :percent      => percent,
-      :discounts    => discounts
+      :discounts    => discounts,
+      :origin_type  => origin_type
     }
   end
   

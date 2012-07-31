@@ -5,7 +5,8 @@
   cart:
     discounts:
       olooklet: Olooklet
-      coupon_percentage: Cupom
+      coupon: Cupom
+      credits: Créditos
       promotion: 30% na primeira compra
       gift: Pacote de presentes
   
