@@ -19,7 +19,7 @@
     <td><%= order.status  %></td>
     <td><%= order.payment.human_to_s %></td>
     <td><%= order.line_items.count %></td>
-    <td><%= number_to_currency(order.total) %></td>
+    <td><%= number_to_currency(order.subtotal) %></td>
     <td><%= number_to_currency(order.freight_price) %></td>
     <td><%= number_to_currency(order.amount_paid) %></td>
     <td><%= order.installments %>x</td>
