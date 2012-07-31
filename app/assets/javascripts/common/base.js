@@ -183,7 +183,9 @@ $(document).ready(function() {
     if (zipcode.length < 9) {
       return true;
     }
-    $.getScript("/sacola/pagamento/preview_by_zipcode?zipcode=" + zipcode);
+    if ($("#request_info").size() > 0) {
+      $.getScript("/sacola/pagamento/preview_by_zipcode?zipcode=" + zipcode);
+    }
   };
 
   $("input#address_zip_code").focusout(function(){
