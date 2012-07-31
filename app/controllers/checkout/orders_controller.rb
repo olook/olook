@@ -28,7 +28,7 @@ class Checkout::OrdersController < Checkout::BaseController
     if @payment.is_a? Billet
       return render :billet
     elsif @payment.is_a? CreditCard
-      return render :credit_card
+      return render :credit
     else
       return render :debit
     end
