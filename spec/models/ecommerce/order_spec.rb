@@ -335,7 +335,6 @@ describe Order do
 
     context "when a order has an associated credit" do
       it "removes this credit from the user" do
-        subject.stub(:line_items_total).and_return(50.00)
         subject.credits = BigDecimal.new("10.30")
         subject.save!
 
