@@ -31,6 +31,7 @@
   <div id="showroom">
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
+    <%= render 'shared/modal/didi' %>
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
     <section id="greetings">
       <%= showroom_presenter.render_identification(@friends) %>

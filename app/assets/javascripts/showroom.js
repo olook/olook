@@ -74,6 +74,15 @@ $(document).ready(function() {
     }
   });
 
+  if($('.dialog.didi').length == 1) {
+    var clone = $('.dialog.didi').clone().addClass('clone');
+    var content = clone[0].outerHTML;
+    initBase.modal(content);
+    $("html, body").animate({
+      scrollTop: 0
+    }, 'slow');
+  }
+
   if($('.dialog.liquidation').length == 1) {
     var clone = $('.dialog.liquidation').clone();
     var content = clone[0].outerHTML;
