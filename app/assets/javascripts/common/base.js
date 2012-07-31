@@ -183,21 +183,7 @@ $(document).ready(function() {
     if (zipcode.length < 9) {
       return true;
     }
-    $.ajax({
-      url: '/get_price_by_zipcode',
-      dataType: 'json',
-      data: 'zipcode=' + zipcode,
-      success: function(rs){
-        var price = parseFloat(rs['price']).toFixed(2).toString().replace( ".", "," );
-        $('.freight .value').html('+ R$ '+price);
-
-        var total = parseFloat(rs['total']).toFixed(2).toString().replace( ".", "," );
-        $('.total .value').html(' R$ '+total);
-
-        var coupon_discount = parseFloat(rs['coupon_discount']).toFixed(2).toString().replace( ".", "," );
-        $('.discount .value').html('- R$ '+coupon_discount+' '+rs['coupon_percentage']);
-      }
-    });
+    $.getScript("/sacola/pagamento/preview_by_zipcode?zipcode=" + zipcode);
   };
 
   $("input#address_zip_code").focusout(function(){
