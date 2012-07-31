@@ -25,7 +25,7 @@ class Checkout::AddressesController < Checkout::BaseController
     @address = @user.addresses.build(params[:address])
     if @address.save
       set_freight_in_the_cart(@address)
-      redirect_to new_cart_checkout_path
+      redirect_to new_credit_card_cart_checkout_path
     else
       respond_with(@address)
     end
@@ -35,7 +35,7 @@ class Checkout::AddressesController < Checkout::BaseController
     @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
       set_freight_in_the_cart(@address)
-      redirect_to new_cart_checkout_path
+      redirect_to new_credit_card_cart_checkout_path
     else
       respond_with(@address)
     end
@@ -52,7 +52,7 @@ class Checkout::AddressesController < Checkout::BaseController
     address = @user.addresses.find_by_id(params[:address_id])
     if address
       set_freight_in_the_cart(address)
-      redirect_to new_cart_checkout_path
+      redirect_to new_credit_card_cart_checkout_path
     else
       redirect_to cart_checkout_addresses_path, :notice => "Por favor, selecione um endereço"
     end
