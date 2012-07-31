@@ -47,6 +47,21 @@ body {
   div#profile_quiz {
     background: #FFF;
     display: none;
+    div.share {
+      background: #000;
+      padding: 10px 20px;
+      p {
+        color: #FFF;
+        font-family: "Times New Roman", Times, sans-serif;
+        font-size: 17px;
+        font-style: italic;
+        margin: 0 10px 0 0;
+        float: left;
+      }
+      iframe {
+        height: 20px;
+      }
+    }
     ul {
       li {
         width: 445px;
@@ -807,6 +822,13 @@ body {
       width: 260px;
       p,strong {
         color: #797979;
+      }
+      p {
+        background: url('/assets/common/frases3.gif') top center no-repeat;
+        text-indent: -99999px;
+        width: 212px;
+        height: 47px;
+        display: block;
       }
       img {
         width: 212px;
@@ -1626,45 +1648,6 @@ div.contact_fields {
   }
   .inputs {
     padding: 15px 5px !important;
-  }
-}
-
-div#modal {
-  background: #FFF;
-  padding: 0;
-  border: 5px #000 solid;
-  display: none;
-  div.video_description {
-    background: #FFF;
-    overflow: auto;
-    padding: 30px;
-    h1 {
-      font-family: "Times New Roman", sans-serif;
-      font-size: 40px;
-      font-style: italic;
-      font-weight: lighter;
-      letter-spacing: -1px;
-      float: left;
-    }
-    a {
-      color: #e0457e;
-      font-size: 20px;
-      line-height: 45px;
-      float: right;
-      &.home {
-        background: url("/assets/common/bt-lightbox-quiz.jpg") no-repeat;
-        text-indent: -9999px;
-        width: 233px;
-        height: 57px;
-        display: block;
-      }
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-  div#login_modal {
-    display: block;
   }
 }
 
