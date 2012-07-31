@@ -44,7 +44,7 @@ class CartService
     order.freight = Freight.create(freight)
 
     # Creates UsedPromotion
-    PromotionService.new(user, order).apply_promotion if promotion
+    PromotionService.new(cart.user, order).apply_promotion if promotion
 
     # Creates UsedCoupon
     order.create_used_coupon(:coupon => coupon) if total_coupon_discount > 0
