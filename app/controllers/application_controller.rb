@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :load_facebook_api
   before_filter :load_referer
   before_filter :load_tracking_parameters
-  before_filter :load_referer_parameter
   before_filter :load_referer_parameters
 
   rescue_from CanCan::AccessDenied do  |exception|
