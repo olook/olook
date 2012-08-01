@@ -66,9 +66,6 @@ namespace :new_cart do
             cart_id: cart.id,
             variant_id: li.variant_id,
             quantity: li.quantity,
-            price: li.price,
-            retail_price: li.retail_price,
-            discount_source: 'legacy',
             gift: li.gift ? true : false
           )
           if ci
