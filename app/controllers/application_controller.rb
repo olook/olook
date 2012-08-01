@@ -6,11 +6,12 @@ class ApplicationController < ActionController::Base
   before_filter :load_cart
   before_filter :load_facebook_api
   before_filter :load_referer
+  before_filter :load_tracking_parameters
 
   rescue_from CanCan::AccessDenied do  |exception|
-      flash[:error] = "Access Denied! You don't have permission to execute this action.
-                              Contact the system administrator"
-      redirect_to admin_url
+    flash[:error] = "Access Denied! You don't have permission to execute this action.
+    Contact the system administrator"
+    redirect_to admin_url
   end
 
   helper_method :current_liquidation
@@ -113,5 +114,17 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= ::Ability.new(current_admin)
   end
+  def logged_in?
+    !!current_user
+  end
+
+  def load_tracking_parameters
+    if !logged_in?
+      incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+      incoming_params[:referer] = request.referer unless request.referer.nil?
+      session[:tracking_params] ||= incoming_params
+    end
+  end
+
 end
 

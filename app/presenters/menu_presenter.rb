@@ -21,7 +21,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
   def render_default_menu
