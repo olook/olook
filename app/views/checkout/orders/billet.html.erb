@@ -45,7 +45,7 @@ destacados no exemplo abaixo:</li>
 <% end %>
 
 <% content_for :footer do %>
-  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
+  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @cart } %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/boobox/buy" %>
 <% end %>
