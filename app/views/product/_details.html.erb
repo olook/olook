@@ -7,7 +7,11 @@
           <ul class="tabs_content">
             <li class="tab_1 selected">
               <div class="picture">
-                <%= image_tag "/assets/stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>
+                <% if [7400, 7111, 7375, 7893, 7071, 7011, 7077, 6955, 6430, 7777, 7707, 6578, 7755, 7641].include? @product.id %>
+                  <%= image_tag "/assets/stylist/didi_wagner.jpg", :title => "Didi Wagner" %>
+                <% else %>
+                  <%= image_tag "/assets/stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>
+                <% end %>
               </div>
               <p><%= raw @product.details.only_how_to.first.try(:description) %></p>
             </li>

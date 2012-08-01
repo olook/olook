@@ -81,8 +81,6 @@ $(document).ready(function() {
     $("div.overlay").remove();
   });
 
-  $("header .info ul").fadeTransition();
-
   $("ol.addresses li.address_item ul.links li a.select_address").live("click", function() {
     if($(this).parents("li.address_item").hasClass("add") == false) {
       lists = $(this).parents("ol").find("li");
@@ -125,21 +123,6 @@ $(document).ready(function() {
       e.stopPropagation();
     }
   });
-
-  if($('.dialog.first_visit').length == 1) {
-    initBase.openDialog();
-
-    $(".dialog img").animate({
-      width: 'toggle',
-      height: 'toggle'
-    });
-
-    $('body .dialog').css("left", (viewWidth - '930') / 2);
-    $('body .dialog').css("top", (viewHeight - '525') / 2);
-
-    $('.dialog img').fadeIn('slow');
-    initBase.closeDialog();
-  }
 
   $("a.open_login").live("click", function() {
     initBase.openDialog();
