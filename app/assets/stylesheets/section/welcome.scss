@@ -35,6 +35,10 @@ section#welcome {
   }
   div#profile_quiz {
     display: block;
+    img {
+      margin: 0 auto;
+      display: block;
+    }
   }
   section#painel {
     position: relative;
