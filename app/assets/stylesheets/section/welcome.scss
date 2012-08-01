@@ -1,16 +1,27 @@
 @import "partials/product";
 
-header {
-  div.contact {
-    display: none;
+body {
+  header {
+    div.contact {
+      display: none;
+    }
+    div#session {
+      display: none;
+    }
   }
-  div#session {
-    display: none;
-  }
-}
 
-div#wrapper_menu {
-  display: none;
+  div#wrapper_menu {
+    display: none;
+  }
+  div#content {
+    padding: 0;
+  }
+  &.logged {
+    header {
+      background: none;
+      min-height: 85px;
+    }
+  }
 }
 
 div#promotion_banner {
