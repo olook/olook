@@ -37,6 +37,14 @@ class Cart < ActiveRecord::Base
   def remove_item(variant)
     current_item = items.select { |item| item.variant == variant }.first
     current_item.destroy if current_item
+    self.reload
+    if has_gift_items?
+      gift_position = 0
+      items.each do |item|
+        item.update_attribute(:gift_position, gift_position)
+        gift_position += 1
+      end
+    end
   end
   
   def items_total
