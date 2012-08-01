@@ -77,12 +77,11 @@ section#stylist {
         position: absolute;
         color: #000;
         text-decoration: none;
-        letter-spacing: -2px;
+        letter-spacing: -1px;
         display: block;
         p {
-          font-family: Times, "sans-serif";
-          font-size: 20px;
-          font-style: italic;
+          font-family: Verdana, "sans-serif";
+          font-size: 13px;
           &.price {
             font-style: normal;
           }
@@ -90,6 +89,7 @@ section#stylist {
       }
     }
     &#helena {
+      padding: 18px 0 0 0;
       div.description {
         background: url("/assets/stylist/helena_linhares/foto.jpg") top right no-repeat;
         h1 {
@@ -111,40 +111,41 @@ section#stylist {
           top: 290px;
           left: 130px;
         }
-        a#catu {
-          background: url("/assets/stylist/helena_linhares/catu.jpg") bottom center no-repeat;
-          text-align: right;
-          width: 75px;
-          height: 125px;
-          top: 15px;
+        a#espora {
+          background: url("/assets/stylist/helena_linhares/espora.jpg") top right no-repeat;
+          width: 98px;
+          height: 60px;
+          top: 0;
           left: 10px;
-          padding: 20px 100px 15px 0px;
+          padding: 95px 35px 0px 0px;
         }
-        a#cajati {
-          background: url("/assets/stylist/helena_linhares/cajati.jpg") center left no-repeat;
-          width: 70px;
-          height: 100px;
-          top: 15px;
-          right: 15px;
-          padding: 40px 0 35px 115px;
+        a#caribe {
+          background: url("/assets/stylist/helena_linhares/caribe.jpg") center left no-repeat;
+          text-align: center;
+          width: 123px;
+          height: 138px;
+          top: 0px;
+          left: 170px;
+          padding: 90px 0 0px 0px;
+          z-index: 10;
         }
-        a#filadelfia {
-          background: url("/assets/stylist/helena_linhares/filadelfia.jpg") bottom center no-repeat;
+        a#erva_mate {
+          background: url("/assets/stylist/helena_linhares/erva-mate.png") top right no-repeat;
           text-align: right;
-          width: 155px;
-          height: 90px;
-          top: 180px;
+          width: 69px;
+          height: 162px;
+          top: -18px;
           right: 7px;
-          padding: 0 5px 43px 0;
+          padding: 25px 140px 0px 0;
         }
-        a#barreiras {
-          background: url("/assets/stylist/helena_linhares/barreiras.png") bottom left no-repeat;
+        a#anis {
+          background: url("/assets/stylist/helena_linhares/anis.jpg") bottom right no-repeat;
           text-align: right;
-          width: 170px;
-          height: 90px;
-          bottom: 15px;
-          right: 30px;
-          padding: 20px 10px 35px 0;
+          width: 157px;
+          height: 82px;
+          top: 190px;
+          right: 20px;
+          padding: 0px 0px 35px 0;
           z-index: 2;
         }
         a#lindoia {
@@ -157,13 +158,33 @@ section#stylist {
           padding: 5px 65px 0 15px;
           z-index: 1;
         }
-        a#andorinha {
+        a#rosa_branca {
           background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
           text-align: right;
           width: 90px;
           height: 120px;
           top: 170px;
           left: 8px;
+          padding: 10px 20px 15px 40px;
+          z-index: 1;
+        }
+        a#iris {
+          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
+          text-align: right;
+          width: 90px;
+          height: 120px;
+          top: 170px;
+          left: 68px;
+          padding: 10px 20px 15px 40px;
+          z-index: 1;
+        }
+        a#gardenia {
+          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
+          text-align: right;
+          width: 90px;
+          height: 120px;
+          top: 170px;
+          left: 68px;
           padding: 10px 20px 15px 40px;
           z-index: 1;
         }
