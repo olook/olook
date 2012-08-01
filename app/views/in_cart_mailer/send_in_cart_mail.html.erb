@@ -31,7 +31,7 @@
 					<p>
 					
 					Notamos que você iniciou um pedido, mas ele não foi concluído. 
-					Para finalizar a sua compra <a href="http://www.olook.com.br/sacola?auth_token=<%= @user.authentication_token %>&order_id=<%= @order.id %>&utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=abandono_carrinho1" style="color:#E05789;">clique aqui para acessar a sua sacola</a>.					
+					Para finalizar a sua compra <a href="http://www.olook.com.br/sacola?auth_token=<%= @user.authentication_token %>&cart_id=<%= @cart.id %>&utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=abandono_carrinho1" style="color:#E05789;">clique aqui para acessar a sua sacola</a>.					
 					</p>
 				</div>
 				
@@ -75,7 +75,7 @@
 				</div>
 				
 			<center>
-				<a href="http://www.olook.com.br/sacola?auth_token=<%= @user.authentication_token %>&order_id=<%= @order.id %>&utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=abandono_carrinho1"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/btn_finalizar.gif" alt="Finalizar pagamento" border="0"></a>
+				<a href="http://www.olook.com.br/sacola?auth_token=<%= @user.authentication_token %>&cart_id=<%= @cart.id %>&utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=abandono_carrinho1"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/abandoned_cart/btn_finalizar.gif" alt="Finalizar pagamento" border="0"></a>
 			</center>
 		</div>
 		<br><br>
