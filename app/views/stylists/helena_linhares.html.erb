@@ -9,7 +9,6 @@
 <section id="stylist">
   <%= render 'shared/banners/olooklet' %>
   <div class="profile" id="helena">
-    <%= image_tag "stylist/helena_linhares/models.jpg", :class => "models" %>
     <div class="description">
       <h1>Helena <span>Linhares</span></h1>
       <p>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.</p>
@@ -42,53 +41,6 @@
       <%= link_to product_path(5777), :class => "product", :id => "andorinha" do %>
         <p>Andorinha</p>
         <p class="price">R$ 99,90</p>
-      <% end %>
-    </div>
-  </div>
-  <div class="profile" id="mica_rocha">
-    <h1 class="stylist">Stylist Convidada</h1>
-    <%= image_tag "stylist/mica_rocha/models.jpg", :class => "models" %>
-    <div class="description">
-      <h1>Mica Rocha</h1>
-      <h2>Apresentadora Band</h2>
-      <h2>Empresária We Pick</h2>
-      <p>Mica sempre amou apresentar, iniciou seus vídeos para o Blog da Lelê e logo montou o site Mica Rocha, com um conteúdo voltado para vídeos.</p>
-      <p>Em pouco tempo seu site estava entre um dos mais acessados do meio da moda e com a repercussão na
-        internet veio o convite para trabalhar na BAND, onde trabalhou no Claquete com Otávio Mesquita e hoje faz o quadro "Intimidade", no MUITO +, apresentado por Adriane Galisteu, mas isto jamais a deixaria longe dos internautas, foi aí que montou o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %> com sua amiga e sócia Lelê Saddi.</p>
-      <h3>1. Como você define seu estilo?</h3>
-      <p>Meu estilo varia bastante conforme o meu humor, acho que moda é estado de espírito. Um dia eu quero ser mais moderninha, outro mais menininha, mas digo que sempre tenho uma pegada mais rock’n roll.</p>
-      <h3>2. Qual a melhor maneira de transformar um look?</h3>
-      <p>Pelos acessórios. Durante o dia pode ser uma flat e a noite é só mudar para aquele saltão poderoso, já a bolsa tem que ser bem grande durante o dia e a noite trocar por uma clutch.</p>
-      <h3>3. Uma dica de moda?</h3>
-      <p>Só vestir o que lhe cai bem, nunca seja vítima da moda, isso é cafona.</p>
-      <h3>4. Moda é...</h3>
-      <p>Um estado de espírito.</p>
-      <h3>5. Quem é um ícone de estilo para vc?</h3>
-      <p>Sienna Miller e Kate Bosworth.</p>
-      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
-      <p>Botas no inverno, echarpes para compor os looks e no verão vestidos, muuuitos vestidos!</p>
-    </div>
-    <div class="products">
-      <h1>Minhas escolhas do mês</h1>
-      <%= link_to product_path(6202), :class => "product", :id => "pintadas" do %>
-        <p>Pintadas</p>
-        <p class="price">R$ 129,90</p>
-      <% end %>
-      <%= link_to product_path(6438), :class => "product", :id => "caribe" do %>
-        <p>Caribe</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(6264), :class => "product", :id => "nova_ibia" do %>
-        <p>Nova Ibiá</p>
-        <p class="price">R$ 129,90</p>
-      <% end %>
-      <%= link_to product_path(5506), :class => "product", :id => "pocoes" do %>
-        <p>Poções</p>
-        <p class="price">R$ 159,90</p>
-      <% end %>
-      <%= link_to product_path(6432), :class => "product", :id => "conde" do %>
-        <p>Conde</p>
-        <p class="price">R$ 69,90</p>
       <% end %>
     </div>
   </div>
