@@ -40,6 +40,12 @@ class ProfileBuilder
     profile_points = ProfileBuilder.build_profiles_points(profiles)
     SurveyAnswer.create(:answers => questions.merge(birthday), :user => user)
     ProfileBuilder.new(user).create_user_points(profile_points)
+    shoe_size = UserInfo::SHOES_SIZE[questions["question_57"]]
+    if user.user_info
+      user.user_info.update_attribute(:shoes_size, shoe_size)
+    else
+      user.create_user_info( { :shoes_size => shoe_size } )
+    end
   end
   
   # TO DO:
