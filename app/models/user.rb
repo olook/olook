@@ -153,9 +153,12 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
+    description = description.with_indifferent_access if description.is_a?(Hash)
     self.events.create(event_type: type, description: description.to_s)
-    #TODO: SPECIFY PARAMETERS OF HASH, BECAUSE SOME KEYS MAYBE PASSED AND NOT EXIST IN DATABASE
-    self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
+    self.create_tracking(:utm_source => description.fetch(:utm_source, nil), :utm_medium => description.fetch(:utm_medium, nil),
+    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil), 
+    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil), 
+    :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
   def invitation_url(host = 'www.olook.com.br')

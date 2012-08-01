@@ -45,6 +45,19 @@
     <%= f.label :active? %><br />
     <%= f.check_box :active %>
   </div>
+  <div class="field">
+    <%= f.label :campaign %><br />
+    <%= f.select :campaign, Coupon::COUPON_CONFIG['campaigns'], :prompt => "Select a campaign" %>
+  </div>
+  <div class="field">
+    <%= f.label :campaign_description %><br />
+    <%= f.text_field :campaign_description %>
+  </div>
+    <% if @coupon.new_record? %>
+      <%= f.hidden_field :created_by, :value => current_admin.name %>
+    <% else %>
+      <%= f.hidden_field :updated_by, :value => current_admin.name %>
+    <% end %>
   <br />
   <div class="actions">
     <%= f.submit %>

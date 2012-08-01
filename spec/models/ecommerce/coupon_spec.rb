@@ -12,7 +12,8 @@ describe Coupon do
     it {should validate_presence_of(:value)}
     it {should validate_presence_of(:start_date)}
     it {should validate_presence_of(:end_date)}
-    it {should validate_uniqueness_of(:code)}
+    it {should validate_presence_of(:campaign)}
+    it {should validate_presence_of(:created_by)}
     it {should validate_presence_of(:remaining_amount)}
 
     it "should be invalid if coupon if limited and dont have a remaining_amount" do

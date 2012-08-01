@@ -95,11 +95,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource_or_scope)
     unless resource_or_scope.half_user
       ProfileBuilder.factory(session[:profile_birthday], session[:profile_questions], resource_or_scope)
-      resource.create_user_info(
-        { :shoes_size => 
-            UserInfo::SHOES_SIZE[session["profile_questions"]["question_57"]]
-        }
-      )
       session[:profile_birthday] = nil
       session[:profile_questions] = nil
     end
