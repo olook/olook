@@ -21,7 +21,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom, lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [showroom_offline, lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
   def render_default_menu
@@ -45,6 +45,9 @@ class MenuPresenter < BasePresenter
   end
 
   private
+  def showroom_offline
+    render_item("Minha Vitrine", h.root_path, "showroom", ["home#index"])
+  end
 
   def showroom
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
