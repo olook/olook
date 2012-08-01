@@ -8,7 +8,8 @@ module PromotionsHelper
   ]
 
   PROMOTION_BANNER_GUEST_WHITELIST = [
-    {:controller => "product", :actions => ["show"]}
+    {:controller => "product", :actions => ["show"]},
+    {:controller => "home", :actions => ["index"]}
   ]
 
   def render_promotion_banner

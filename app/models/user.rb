@@ -230,20 +230,6 @@ class User < ActiveRecord::Base
   def total_revenue(total_method = :subtotal)
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
-        .inject(0) { |sum,order| sum += order.send(total_method) }
-  end
-
-  def tracking_params(param_name)
-    first_event = events(:where => EventType::TRACKING).first
-    if first_event
-      match_data = (/\"#{param_name}\"=>\"(\w+)\"/).match(first_event.description)
-      return match_data.captures.first if match_data
-    end
-  end
-
-  def total_revenue(total_method = :subtotal)
-    self.orders.joins(:payment)
-        .where("payments.state IN ('authorized','completed')")
         .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
   end
 
