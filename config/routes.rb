@@ -76,6 +76,7 @@ Olook::Application.routes.draw do
   get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
+  post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
 
   # GIFT
   namespace :gift do
