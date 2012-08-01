@@ -122,7 +122,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_tracking_parameters
-    if !logged_in? && session[:tracking_params].nil?
+    if !logged_in?
       incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
       incoming_params[:referer] = request.referer unless request.referer.nil?
       session[:tracking_params] ||= incoming_params
