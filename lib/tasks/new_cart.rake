@@ -3,6 +3,8 @@ desc "New cart model"
 namespace :new_cart do
   desc "Export orders that are in_the_cart to the cart model"
   task :in_the_cart_to_cart => :environment do
+    createds = 0
+    
     Order.where(state: "IN_THE_CART").each do |order|
       cart = Cart.create!(
         legacy_id: order.id,
@@ -24,8 +26,12 @@ namespace :new_cart do
 
         # destroy the order
         order.destroy
+        createds += 1
       end
     end
+    
+    puts "Cart createds: #{createds}\n"
+    
   end
   
   desc "Consolidate order value"

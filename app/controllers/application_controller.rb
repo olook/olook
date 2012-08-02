@@ -22,9 +22,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_cart
   def current_cart
     #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
-    cart_id = params[:cart_id] || session[:cart_id]
-    cart = Cart.find_by_id(cart_id)
-    # order = current_user.orders.find_by_id(order_id)
+    cart_id_session = session[:cart_id]
+    cart_id_params = params[:cart_id]
+    cart_id_legacy = params[:order_id]
+    
+    cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
+    cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
+    
+    cart ||= Cart.find_by_id(cart_id_session)
     cart ||= Cart.create(user: @user)
     
     session[:cart_id] = cart.id
