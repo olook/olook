@@ -72,6 +72,7 @@ namespace :new_cart do
     puts "Order Not founds: #{not_founds}\n"
   end
   
+  desc "Consolidate order itens"
   task :consolidate_items => :environment do |t, args|
     filename = ENV['filename']
     col_sep = ENV['col_sep']
@@ -108,5 +109,36 @@ namespace :new_cart do
     puts "Items founds: #{founds}\n"
     puts "Items updateds: #{updateds}\n"
     puts "Items Not founds: #{not_founds}\n"
+  end
+  
+  desc "consolidate orders"
+  task :consolidate_final => :environment do
+    updates = 0 
+    Order.where(subtotal: 0).each do |order|
+      price = 0
+      retail_price = 0
+      order.line_items.each do |item|
+        price += item.price * item.quantity
+        retail_price += item.retail_price * item.quantity
+      end
+      
+      price = retail_price if price = 0
+      
+      discount = price - retail_price
+      increase = 0
+      increase += 5 if order.gift_wrap?
+      increase += order.freight.price if order.freight
+      
+      order.update_attributes({
+        :subtotal => price,
+        :amount_discount => discount,
+        :amount_paid => retail_price,
+        :amount_increase => increase
+      })
+      
+      updates += 1
+    end
+    puts "Order updateds: #{updates}\n"
+    
   end
 end
