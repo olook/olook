@@ -33,7 +33,6 @@
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @cart } %>
   <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order } %>
   <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
-  <%= render "shared/metrics/zanox/order_and_register", :user_id => current_user.id, :order => @order, :payment_type => @order.payment.type, :zanpid => @zanpid %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/boobox/buy" %>
 <% end %>
