@@ -192,18 +192,26 @@ section#stylist {
     }
     &#didi_wagner {
       div.description {
-        background: url("/assets/stylist/didi_wagner/foto.jpg") top right no-repeat;
-        width: 355px;
+        background: url("/assets/stylist/didi_wagner/foto.jpg") top left no-repeat;
+        width: 380px;
+        min-height: 475px;
         margin: 0;
+        display: block;
         h1 {
-          font-size: 50px;
-          width: 235px;
-          margin: 40px 0 10px 0;
+          font-size: 46px;
+          text-align: right;
+          width: 100%;
+          margin: 15px 0 10px 0;
         }
-        h2 {
-          margin: 0 0 10px 0;
-          &+p {
-            width: 205px;
+        p {
+          text-align: justify;
+          width: 200px;
+          margin: 0;
+          float: right;
+          clear: both;
+          &.right {
+            text-align: right;
+            width: 190px;
           }
         }
       }
