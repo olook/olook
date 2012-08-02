@@ -31,7 +31,7 @@
   <div id="showroom">
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
-    <%= render 'shared/modal/didi' if current_user && UserLiquidation.where(liquidation_id: 4949, user_id: current_user.id).empty? %>
+    <%= render 'shared/modal/didi' if current_user && UserLiquidation.where(liquidation_id: 4949, user_id: current_user.id).empty? && session[:notification_didi].nil? %>
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
     <section id="greetings">
       <%= showroom_presenter.render_identification(@friends) %>
