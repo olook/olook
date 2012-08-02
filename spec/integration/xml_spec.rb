@@ -103,6 +103,10 @@ feature "Show products on xml format" do
         <parcelamento><![CDATA[3 x 33,30]]></parcelamento>
         <imagens>
         </imagens>
+        <num_tams>
+        #{product.variants.map { |variant|
+        '<num_tam><![CDATA[' + variant.description + ']]></num_tam>'}.join("\n")}
+        </num_tams>
         </produto>
         </produtos>
         END
