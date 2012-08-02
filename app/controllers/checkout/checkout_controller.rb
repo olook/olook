@@ -106,6 +106,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     if @payment.valid?
       @order = @cart_service.generate_order!(@payment)
       payment_builder = PaymentBuilder.new(@order, @payment)
+      payment_builder.credit_card_number = params[:credit_card][:credit_card_number]
       response = payment_builder.process!
 
       if response.status == Product::UNAVAILABLE_ITEMS
