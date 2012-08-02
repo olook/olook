@@ -108,8 +108,9 @@ section#stylist {
           background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
           width: 150px;
           height: 50px;
-          top: 290px;
-          left: 130px;
+          top: 190px;
+          left: 15px;
+          z-index: 10;
         }
         a#espora {
           background: url("/assets/stylist/helena_linhares/espora.jpg") top right no-repeat;
@@ -143,50 +144,49 @@ section#stylist {
           text-align: right;
           width: 157px;
           height: 82px;
-          top: 190px;
+          top: 175px;
           right: 20px;
           padding: 0px 0px 35px 0;
           z-index: 2;
         }
         a#lindoia {
-          background: url("/assets/stylist/helena_linhares/lindoia.jpg") bottom right no-repeat;
+          background: url("/assets/stylist/helena_linhares/lindoia.jpg") top right no-repeat;
           text-align: right;
-          width: 65px;
-          height: 145px;
-          bottom: 15px;
-          left: 40px;
-          padding: 5px 65px 0 15px;
+          width: 60px;
+          height: 190px;
+          bottom: 0;
+          right: 20px;
+          padding: 10px 85px 0px 0px;
           z-index: 1;
         }
         a#rosa_branca {
-          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
-          text-align: right;
-          width: 90px;
-          height: 120px;
-          top: 170px;
-          left: 8px;
-          padding: 10px 20px 15px 40px;
+          background: url("/assets/stylist/helena_linhares/rosa_branca.jpg") top center no-repeat;
+          text-align: center;
+          width: 93px;
+          height: 0;
+          bottom: 5px;
+          right: 195px;
+          padding: 127px 0px 35px 0px;
           z-index: 1;
         }
         a#iris {
-          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
-          text-align: right;
-          width: 90px;
-          height: 120px;
-          top: 170px;
-          left: 68px;
-          padding: 10px 20px 15px 40px;
+          background: url("/assets/stylist/helena_linhares/iris.jpg") bottom center no-repeat;
+          text-align: center;
+          width: 230px;
+          height: 75px;
+          top: 235px;
+          left: 100px;
+          padding: 0px 0px 10px 0px;
           z-index: 1;
         }
         a#gardenia {
-          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
+          background: url("/assets/stylist/helena_linhares/gardenia.jpg") top right no-repeat;
           text-align: right;
-          width: 90px;
-          height: 120px;
-          top: 170px;
-          left: 68px;
-          padding: 10px 20px 15px 40px;
-          z-index: 1;
+          width: 163px;
+          height: 141px;
+          bottom: 10px;
+          left: 15px;
+          padding: 35px 15px 0px 0px;
         }
       }
     }
