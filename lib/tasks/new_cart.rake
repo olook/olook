@@ -71,4 +71,42 @@ namespace :new_cart do
     puts "Order updateds: #{updateds}\n"
     puts "Order Not founds: #{not_founds}\n"
   end
+  
+  task :consolidate_items => :environment do |t, args|
+    filename = ENV['filename']
+    col_sep = ENV['col_sep']
+    founds = 0
+    not_founds = 0
+    updateds = 0
+    csv = CSV.read(filename, {:headers => true,  :header_converters => :symbol , :col_sep => col_sep, encoding: "UTF-8"})
+    csv.each do |row|
+      begin
+        order_number = row[0]
+        variant_number = row[1]
+        order = Order.find_by_number(order_number)
+        variant = Variant.find_by_number(variant_number)
+        item = order.line_items.find_by_variant_id(variant.id) if order
+        if  order.nil? ||  variant.nil? || item.nil?
+          not_founds += 1
+          next
+        end
+        
+        retail_price = BigDecimal.new(row[6], 2)
+        founds += 1
+        item_retail_price = item.read_attribute(:retail_price)
+        if (item_retail_price.nil? || item_retail_price == 0)
+          item.update_attribute(:retail_price, retail_price)
+          updateds += 1
+        end
+      rescue Exception => e
+        not_founds += 1
+        
+        puts "Items not found: #{e.message}"
+      end
+    end
+        
+    puts "Items founds: #{founds}\n"
+    puts "Items updateds: #{updateds}\n"
+    puts "Items Not founds: #{not_founds}\n"
+  end
 end
