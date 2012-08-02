@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :load_facebook_api
   before_filter :load_referer
   before_filter :load_tracking_parameters
+  before_filter :load_referer_parameters
 
   rescue_from CanCan::AccessDenied do  |exception|
     flash[:error] = "Access Denied! You don't have permission to execute this action.
@@ -25,29 +26,29 @@ class ApplicationController < ActionController::Base
     cart_id_session = session[:cart_id]
     cart_id_params = params[:cart_id]
     cart_id_legacy = params[:order_id]
-    
+
     cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
     cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
-    
+
     cart ||= Cart.find_by_id(cart_id_session)
     cart ||= Cart.create(user: @user)
-    
+
     session[:cart_id] = cart.id
     #not sending email in the case of a buy made from an admin
     if current_admin
       cart.update_attribute("notified", true)
     end
-    
+
     if @user
       cart.update_attribute("user_id", @user.id) if cart.user.nil?
     end
 
     @promotion = PromotionService.new(@user).detect_current_promotion
-    
+
     session[:credits] = 0 unless session[:credits]
     coupon = session[:cart_coupon]
     coupon.reload if coupon
-    
+
     @cart_service = CartService.new(
       :cart => cart,
       :gift_wrap => session[:gift_wrap],
@@ -56,7 +57,7 @@ class ApplicationController < ActionController::Base
       :freight => session[:cart_freight],
       :credits => session[:cart_credits]
     )
-    
+
     cart
   end
 
@@ -74,7 +75,7 @@ class ApplicationController < ActionController::Base
         render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
     end
   end
-  
+
   helper_method :current_referer
   def current_referer
     session[:return_to] = case request.referer
@@ -89,7 +90,7 @@ class ApplicationController < ActionController::Base
       else
         nil
     end
-    
+
     if @cart.has_gift_items?
       session[:return_to] ||= { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) }
     elsif @user && !@user.half_user?
@@ -103,7 +104,7 @@ class ApplicationController < ActionController::Base
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
   end
-  
+
   def load_referer
     @referer = current_referer
   end
@@ -129,6 +130,9 @@ class ApplicationController < ActionController::Base
       incoming_params[:referer] = request.referer unless request.referer.nil?
       session[:tracking_params] ||= incoming_params
     end
+  end
+  def load_referer_parameters
+    @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
   end
 
 end
