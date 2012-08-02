@@ -2,6 +2,7 @@ class StylistsController < ApplicationController
   before_filter :load_order
 
   def helena_linhares
-    @products_didi = Product.find(6391, 5591, 6463, 5894, 5627, 5777)
+    @products_helena = Product.find(7699, 6440, 7255, 7821, 7779, 7416, 7709, 7001)
+    @products_didi = Product.find(7400, 7707, 7893, 7077, 7641, 6428)
   end
 end
