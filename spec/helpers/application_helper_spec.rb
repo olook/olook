@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
-  describe "#order_total" do
+  describe "#cart_total" do
     it "returns markup for order total" do
      expected = "<span>(<div id=\"cart_items\">0</div>)</span>"
-     helper.order_total(nil).should eq(expected)
+     helper.cart_total(FactoryGirl.create(:clean_cart)).should eq(expected)
     end
   end
 

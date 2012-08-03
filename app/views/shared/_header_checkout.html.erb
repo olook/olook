@@ -1,8 +1,8 @@
-<header>
+<header class="minor">
   <div class="contact">
     <div class="content">
       <ul>
-        <li>Central de Atendimento (11) 2626-3489</li> | 
+        <li>Central de Atendimento (11) 2626-3489</li> |
         <li><%= link_to "falecom@olook.com.br", contact_path %>
       </ul>
     </div>
@@ -11,34 +11,30 @@
     <h1><%= link_to 'Olook', root_path %></h1>
     <% if user_signed_in? %>
       <h2 class="moip">Pagamento: Moip</h2>
-      <% if @order.restricted? %>
-        <%= link_to "Voltar para as sugestões", gift_recipient_suggestions_path(session[:recipient_id]), :class => "back" %>
-      <% elsif current_user.half_user? %>
-        <%= link_to "Voltar para tendências", lookbooks_path, :class => "back" %>
-      <% elsif @referer %>
-        <%= link_to @referer[:text], @referer[:url], :class => "back" %>
-      <% else %>
-        <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
-      <% end %>
+    <% end %>
+    <% if @referer %>
+      <%= link_to @referer[:text], @referer[:url], :class => "back" %>
+    <% else %>
+      <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
     <% end %>
   </div>
 </header>
 <div id="order_status">
   <div class="content">
     <ul>
-      <li class="<%= selected_if_current(["cart#show"]) %>">
+      <li class="<%= selected_if_current(["checkout/cart#show"]) %>">
         <h1>Minha Sacola</h1>
         <p>Confira os produtos do seu carrinho</p>
       </li>
-      <li class="<%= selected_if_current(["addresses#index", "addresses#new", "addresses#edit"]) %>">
+      <li class="<%= selected_if_current(["checkout/addresses#index", "checkout/addresses#new", "checkout/addresses#edit"]) %>">
         <h1>Entrega</h1>
         <p>Onde quer que seu pedido seja entregue</p>
       </li>
-      <li class="<%= selected_if_current(["billets#new", "credit_cards#new", "debits#new", "payments#index"]) %>">
+      <li class="<%= selected_if_current(["checkout/checkout#new", "checkout/checkout#new_debit", "checkout/checkout#create_debit", "checkout/checkout#new_billet", "checkout/checkout#create_billet", "checkout/checkout#new_credit_card", "checkout/checkout#create_credit_card"]) %>">
         <h1>Pagamento</h1>
         <p>Como quer efetuar o pagamento? Selecione uma das opções</p>
       </li>
-      <li class="<%= selected_if_current(["billets#show", "credit_cards#show", "debits#show"]) %> last">
+      <li class="<%= selected_if_current(["checkout/billets#show", "checkout/credit_cards#show", "checkout/debits#show"]) %> last">
         <h1>Confirmação</h1>
         <p>Confirme seus produtos, endereço de entrega e finalize sua compra</p>
       </li>

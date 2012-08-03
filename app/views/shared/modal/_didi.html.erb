@@ -1,0 +1,18 @@
+<%
+session[:notification_didi] = 'shown'
+%>
+<div class="dialog with_confirmation didi">
+  <%= link_to image_tag('/assets/stylist/lightbox_didi.jpg'), "/lookbooks/escolhas-da-didi" %>
+  <div class="check">
+    <%= form_tag "#", :remote => true do %>
+      <fieldset>
+        <ul>
+          <li>
+            <%= check_box_tag "user_notification[dont_want_to_see_again]" %>
+            <%= label_tag "user_notification_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
+          </li>
+        </ul>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

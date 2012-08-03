@@ -26,11 +26,7 @@ class ProductPresenter < BasePresenter
     if gift?
       h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
     else
-      if logged?
         h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
-      else
-        h.render :partial => 'product/offline_add_to_cart', :locals => {:product_presenter => self, :product => product}
-      end
     end
   end
 

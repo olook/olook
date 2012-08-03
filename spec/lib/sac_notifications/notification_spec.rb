@@ -1,7 +1,10 @@
+require 'spec_helper'
+
 describe SAC::Notification do 
   
+  let(:order) { mock_model(Order) }
   subject do 
-    sac_notification = SAC::Notification.new(:fraud_analysis, 'Hail to the King', 'order')
+    sac_notification = SAC::Notification.new(:fraud_analysis, 'Hail to the King', order )
   end
 
   its(:type) {should == :fraud_analysis}
@@ -10,7 +13,7 @@ describe SAC::Notification do
   its(:settings) {should == SAC::Notification::SETTINGS}
   its(:triggers) {should == SAC::Notification::CONFIG['fraud_analysis']['triggers']}
   its(:subscribers) {should == SAC::Notification::CONFIG['fraud_analysis']['subscribers']}
-  its(:order) {should == 'order'}
+  its(:order) {should == order}
 
   context "given a valid configuration file and a set of rules" do    
     it "should process or not a rule depending on its state" do
@@ -54,12 +57,12 @@ describe SAC::Notification do
 
   context "when validating the total of an order" do
     it "should return true if total is equal or higher than threshold" do
-      subject.order.stub_chain(:total_with_freight, :to_f).and_return(subject.settings['purchase_amount_threshold'])
+      subject.order.stub_chain(:subtotal, :to_f).and_return(subject.settings['purchase_amount_threshold'])
       subject.validate_purchase_amount.should == true
     end
 
     it "should return false if total is below the threshold" do
-      subject.order.stub_chain(:total_with_freight, :to_f).and_return(subject.settings['purchase_amount_threshold'] - 1)
+      subject.order.stub_chain(:subtotal, :to_f).and_return(subject.settings['purchase_amount_threshold'] - 1)
       subject.validate_purchase_amount.should == false
     end
   end
@@ -67,13 +70,13 @@ describe SAC::Notification do
   context "when validating discount" do
     it "should return true if total discount is equal or higher than threshold percentage" do
       subject.order.stub_chain(:line_items, :collect, :inject).and_return(100)
-      subject.order.should_receive(:total).and_return(subject.settings['total_discount_threshold_percent'])
+      subject.order.should_receive(:amount_paid).and_return(100 - subject.settings['total_discount_threshold_percent'])
       subject.validate_discount.should == true
     end
 
     it "should return false if total discount is below the threshold percentage" do
       subject.order.stub_chain(:line_items, :collect, :inject).and_return(100)
-      subject.order.should_receive(:total).and_return(subject.settings['total_discount_threshold_percent'] - 1)
+      subject.order.should_receive(:amount_paid).and_return(subject.settings['total_discount_threshold_percent'] - 1)
       subject.validate_discount.should == false
     end
   end

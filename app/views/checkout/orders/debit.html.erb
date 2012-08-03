@@ -1,0 +1,37 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="payment" class="checkout confirmation">
+  <section class="main">
+    <h1>Agora só falta você clicar abaixo para completar o pagamento do seu pedido</h1>
+    <div class="payment_link">
+      <%= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag Debito" %>
+      <p>Você escolheu efetuar o pagamento com débito em conta.</p>
+      <%= link_to "Clique aqui para ir ao seu banco", @payment.url, :target => "_blank" %>
+    </div>
+    <p class="description">Obrigada pela sua compra! Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados ao lado estão corretos. Se você tiver qualquer dúvida ou precisar solicitar alguma alteração nos dados do seu pedido, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.</p>
+  <%= render "shared/ebit/seal_order" %>
+  </section>
+  <section class="sidebar">
+    <% content_for :checkout_sidebar do %>
+      <%= render :partial => "shared/payments/info_payment", :locals => { :cart => @cart } %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @cart, :cart_service => @cart_service, :has_payment => true } %>
+    <% end %>
+    <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service, :has_payment => true %>
+    <%= render "shared/metrics/yahoo/buy" %>
+  </section>
+</section>
+
+<% content_for :ecommerce_tracking do %>
+<%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @cart, :cart_service => @cart_service } %>
+<%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_track_trans", :locals => {:order => @order } %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @cart } %>
+  <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
+  <%= render "shared/metrics/google/buy_done" %>
+  <%= render "shared/metrics/boobox/buy" %>
+<% end %>

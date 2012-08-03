@@ -64,7 +64,7 @@ module MarketingReports
           .select(selected_fields)
           .order("id, order_id")
           .find_each do |u|
-        order_total = Order.where(:id => u.order_id).first.try(:total)
+        order_total = Order.where(:id => u.order_id).first.try(:subtotal)
         data  << [ u.id, u.email, u.first_name, u.last_name, u.invite_bonus, u.used_invite_bonus,
                  u.order_id, order_total, u.order_state, u.updated_at , u.variant_number, u.product_id, u.item_price, u.gift ]
       end
@@ -78,7 +78,7 @@ module MarketingReports
       User.joins(:orders).joins("INNER JOIN payments on orders.id = payments.order_id").group('users.id')
           .where('payments.state IN ("authorized","completed")').each do |u|
         data << [ u.id, u.email, u.name, u.invite_bonus + u.used_invite_bonus, u.invite_bonus, u.used_invite_bonus,
-                  u.total_revenue(:total_with_freight), u.total_revenue(:freight_price) ]
+                  u.total_revenue(:amount_paid), u.total_revenue(:freight_price) ]
         end
       @csv = build_csv(data)
     end
@@ -89,12 +89,12 @@ module MarketingReports
       (from...to).each do |day|
         Tracking.from_day(day).google_campaigns.select("placement, user_id, count(user_id) as total_registrations").each do |t|
           data << [ day.to_s, "google", t.clean_placement, nil, nil, t.total_registrations, t.related_with_complete_payment_for_google(day).count,
-                    t.total_revenue_for_google(day,:line_items_total), t.total_revenue_for_google(day) ]
+                    t.total_revenue_for_google(day,:subtotal), t.total_revenue_for_google(day) ]
         end
         Tracking.from_day(day).campaigns.select('utm_source, utm_medium, utm_campaign, utm_content, user_id, count(user_id) as total_registrations').each do |t|
           data <<
           [ day.to_s, t.utm_source, t.utm_medium, t.utm_campaign, t.utm_content, t.total_registrations,
-            t.related_with_complete_payment(day).count, t.total_revenue(day,:line_items_total), t.total_revenue(day) ]
+            t.related_with_complete_payment(day).count, t.total_revenue(day,:subtotal), t.total_revenue(day) ]
         end
       end
       @csv = build_csv(data)

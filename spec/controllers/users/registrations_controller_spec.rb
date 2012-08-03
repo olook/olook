@@ -29,7 +29,9 @@ describe Users::RegistrationsController do
   end
 
   after :each do
-    session[:gift_products] = nil
+    session[:cart_id] = nil
+    session[:recipient_id] = nil
+    session[:occasion_id] = nil
     session[:profile_questions] = nil
     session[:profile_birthday] = nil
     session[:tracking_params] = nil
@@ -196,49 +198,63 @@ describe Users::RegistrationsController do
         response.should redirect_to(gift_root_path)
       end
 
-      context "with gift product in session" do
+      context "with cart for gift in session" do
+        let (:recipient) { FactoryGirl.create(:gift_recipient, :user => nil) }
+        let (:occasion) { FactoryGirl.create(:gift_occasion, :user => nil, :gift_recipient => recipient) }
+        let (:cart) { FactoryGirl.create(:cart_with_gift) }
+
         before  :each do
-          session[:gift_products] = mock
+          session[:recipient_id] = recipient.id
+          session[:occasion_id] = occasion.id
+          session[:cart_id] = cart.id
         end
         
         it "should set registered_via from gift" do
-          CartBuilder.stub(:gift).and_return(cart_path)
           post :create_half, :user => half_user_attributes
           controller.current_user.registered_via.should eq(User::RegisteredVia[:gift])
         end
         
-        it "should invoke CartBuilder to add Products" do
-          CartBuilder.should_receive(:gift).and_return(cart_path)
+        it "should update gift occassion with user" do
           post :create_half, :user => half_user_attributes
+          occasion.reload.user_id.should be(controller.current_user.id)
         end
 
-        it "should redirect to cart page" do
-          CartBuilder.stub(:gift).and_return(cart_path)
+        it "should update gift recipient with user" do
           post :create_half, :user => half_user_attributes
-          response.should redirect_to(cart_path)
+          recipient.reload.user_id.should be(controller.current_user.id)
+        end
+        
+        it "should update cart with user" do
+          post :create_half, :user => half_user_attributes
+          cart.reload.user_id.should be(controller.current_user.id)
+        end
+
+        it "should redirect to address page" do
+          post :create_half, :user => half_user_attributes
+          response.should redirect_to(cart_checkout_addresses_path)
         end
       end
 
-      context "with offline product in session" do
+      context "with cart in session" do
+        let (:cart) { FactoryGirl.create(:cart_with_items) }
+
         before  :each do
-          session[:offline_variant] = mock
+          session[:cart_id] = cart.id
         end
         
         it "should set registered_via from thin" do
-          CartBuilder.stub(:offline).and_return(cart_path)
           post :create_half, :user => half_user_attributes
           controller.current_user.registered_via.should eq(User::RegisteredVia[:thin])
         end
         
-        it "should invoke CartBuilder to add Products" do
-          CartBuilder.should_receive(:offline).and_return(cart_path)
+        it "should update cart with user" do
           post :create_half, :user => half_user_attributes
+          cart.reload.user_id.should be(controller.current_user.id)
         end
 
-        it "should redirect to cart page" do
-          CartBuilder.stub(:offline).and_return(cart_path)
+        it "should redirect to address page" do
           post :create_half, :user => half_user_attributes
-          response.should redirect_to(cart_path)
+          response.should redirect_to(cart_checkout_addresses_path)
         end
       end
     end
@@ -331,5 +347,13 @@ describe Users::RegistrationsController do
       response.should render_template ["layouts/my_account", "edit"]
     end
   end
-
+  
+  describe "DELETE destroy_facebook_account" do
+    it "should destroy the facebook account removing the user uid and facebook_token" do
+      user = FactoryGirl.create(:user)
+      sign_in user
+      User.any_instance.should_receive(:update_attributes).with(:facebook_token => nil, :uid => nil, :facebook_permissions => [])
+      delete :destroy_facebook_account
+    end
+  end
 end

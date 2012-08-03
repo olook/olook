@@ -1,10 +1,10 @@
-<% order.line_items.each do |item| %>
+<% cart.items.each do |item| %>
 _gaq.push(['_addItem',
-    '<%= order.number %>',
+    '<%= cart.id %>',
     '<%= item.variant.product_id %>',
     '<%= item.variant.product.name %>',
     '<%= item.variant.description %>',
-    '<%= item.retail_price.to_s %>',
+    '<%= cart_service.item_retail_price(item).to_s %>',
     '<%= item.quantity.to_s %>'
  ]);
 <% end %>
