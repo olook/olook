@@ -54,7 +54,7 @@
     </tr>
 
   <% @products.each do |product| %>
-    <tr>
+    <tr class="<%= 'not-visible' if !product.is_visible %>">
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
       <td><%= LiquidationProductService.new(@liquidation, product).liquidation_name %></td>
