@@ -24,7 +24,7 @@ section#stylist {
       overflow: auto;
       float: left;
       h1, h2 {
-        font-family: Times, "sans-serif";
+        font-family: Times, 'Times New Roman', "sans-serif";
         font-weight: lighter;
         letter-spacing: -2px;
         width: 215px;
@@ -47,6 +47,7 @@ section#stylist {
         }
       }
       h3 {
+        font-family: Arial, "sans-serif";
         font-size: 14px;
         font-weight: bold;
         &+p {
@@ -55,6 +56,7 @@ section#stylist {
       }
       p {
         margin: 0 0 15px 0;
+        text-align: justify;
         clear: both;
         a {
           color: #000;
@@ -192,26 +194,20 @@ section#stylist {
     }
     &#didi_wagner {
       div.description {
-        background: url("/assets/stylist/didi_wagner/foto.jpg") top left no-repeat;
-        width: 380px;
-        min-height: 475px;
+        width: 370px;
         margin: 0;
         display: block;
         h1 {
-          font-size: 46px;
-          text-align: right;
-          width: 100%;
-          margin: 15px 0 10px 0;
+          font-size: 45px;
+          width: 215px;
+          margin: 15px 0 25px 0;
+          float: left;
         }
         p {
-          text-align: justify;
-          width: 200px;
-          margin: 0;
-          float: right;
-          clear: both;
-          &.right {
-            text-align: right;
-            width: 185px;
+          clear: none;
+          img {
+            margin: 0 0 0 10px;
+            float: right;
           }
         }
       }
