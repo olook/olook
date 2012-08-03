@@ -1,7 +1,6 @@
 class FriendsController < ApplicationController
   respond_to :html, :js
   before_filter :authenticate_user!
-  before_filter :load_user
   before_filter :check_facebook_extended_permission, :only => [:home]
   before_filter :initialize_facebook_adapter
   before_filter :load_friends, :only => [:showroom, :home, :update_friends_list, :update_survey_question]

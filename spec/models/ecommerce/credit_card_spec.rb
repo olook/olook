@@ -15,7 +15,6 @@ describe CreditCard do
   before :each do
     Resque.stub(:enqueue)
     Resque.stub(:enqueue_in)
-    order.waiting_payment
   end
 
   context "attributes validation" do

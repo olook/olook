@@ -1,2 +1,0 @@
-module Gift::OccasionsHelper
-end

@@ -4,7 +4,7 @@
     <tbody>
       <tr>
         <td><%= @order.payment.human_to_s %></td>
-        <td class="value"><%= number_to_currency(@order.total_with_freight) %></td>
+        <td class="value"><%= number_to_currency(@order.amount_paid) %></td>
       </tr>
     </tbody>
   </table>

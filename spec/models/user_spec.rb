@@ -551,7 +551,7 @@ describe User do
 
     context 'when user has one order in the cart' do
       it 'returns false' do
-        FactoryGirl.create(:order_without_payment, :user => subject)
+        FactoryGirl.create(:cart_with_items, :user => subject)
         subject.has_purchases?.should be_false
       end
     end
@@ -559,7 +559,6 @@ describe User do
     context 'when user has one order not in the cart' do
       it 'returns true' do
         order = FactoryGirl.create(:order, :user => subject)
-        order.waiting_payment
         subject.has_purchases?.should be_true
       end
     end
@@ -636,14 +635,12 @@ describe User do
 
       context "when user has one order waiting payment" do
         it "returns false" do
-          order.waiting_payment
           subject.first_buy?.should be_false
         end
       end
 
       context "when user has one order authorized" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           subject.first_buy?.should be_true
         end
@@ -651,7 +648,6 @@ describe User do
 
       context "when user has one order being picked" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           order.picking
           subject.first_buy?.should be_true
@@ -660,7 +656,6 @@ describe User do
 
       context "when user has one order being delivered" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           order.picking
           order.delivering
@@ -670,7 +665,6 @@ describe User do
 
       context "when user has one order under review" do
         it "returns true" do
-          order.waiting_payment
           order.authorized
           order.under_review
           subject.first_buy?.should be_true
@@ -681,9 +675,7 @@ describe User do
         let(:second_order) { FactoryGirl.create(:order, :user => subject) }
 
         it "returns false" do
-          order.waiting_payment
           order.authorized
-          second_order.waiting_payment
           second_order.authorized
           subject.first_buy?.should be_false
         end
@@ -796,7 +788,7 @@ describe User do
 
     context "when the user has one purchase in the cart" do
       before do
-        FactoryGirl.create(:order_without_payment, :user => subject)
+        FactoryGirl.create(:cart_with_items, :user => subject)
       end
 
       it "returns 0" do
@@ -815,7 +807,7 @@ describe User do
       end
 
       it "returns the value of this order" do
-        Order.any_instance.should_receive(:total).and_return(BigDecimal.new("100"))
+        Order.any_instance.should_receive(:subtotal).and_return(BigDecimal.new("100"))
         subject.total_revenue.to_s.should == "100.0"
       end
     end
@@ -837,12 +829,12 @@ describe User do
       end
 
       it "returns the total sum of the orders" do
-        Order.any_instance.stub(:total).and_return(BigDecimal.new("53.34"))
+        Order.any_instance.stub(:subtotal).and_return(BigDecimal.new("53.34"))
         subject.total_revenue.to_s.should == "106.68"
       end
     end
 
-    context "when called with total_with_freight" do
+    context "when called with amount_paid" do
       let(:order) do
         FactoryGirl.create(:order, :user => subject)
       end
@@ -852,9 +844,9 @@ describe User do
         order.payment.authorized
       end
 
-      it "calls total_with_freight on the order" do
-        Order.any_instance.should_receive(:total_with_freight).and_return(0)
-        subject.total_revenue(:total_with_freight)
+      it "calls amount_paid on the order" do
+        Order.any_instance.should_receive(:amount_paid).and_return(0)
+        subject.total_revenue(:amount_paid)
       end
     end
   end

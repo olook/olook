@@ -13,7 +13,7 @@ describe PaymentBuilder do
   before :each do
     Airbrake.stub(:notify)
     order.stub(:total).and_return(10.50)
-    @order_total = order.total_with_freight
+    @order_total = order.amount_paid
   end
 
   it "should verify if MoIP uri was properly initialized" do
@@ -56,11 +56,6 @@ describe PaymentBuilder do
         response = subject.process!
         response.status.should == Payment::SUCCESSFUL_STATUS
         response.payment.should == credit_card
-      end
-
-      it "should set the order status to waiting_payment" do
-        subject.order.should_receive(:waiting_payment!)
-        subject.process!
       end
 
       it "should invalidate the order coupon" do

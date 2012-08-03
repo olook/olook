@@ -25,6 +25,4 @@ describe Liquidation do
   	liquidation.save.should be_false
  	  liquidation.should have(1).error_on(:starts_at)
   end
-  
-  pending ".has_product"
 end

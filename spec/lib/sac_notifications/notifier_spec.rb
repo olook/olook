@@ -1,3 +1,4 @@
+require 'spec_helper'
 describe SAC::Notifier do
   
   let(:notification) {double(SAC::Notification)}

@@ -9,6 +9,6 @@
   <div class="container">
     <h1>Compre com suas amigas</h1>
     <p>Nada melhor do que pedir a opinião das amigas para fazer comprinhas! Conecte-se, veja a vitrine delas e compartilhe a sua.</p>
-    <%= link_to "Ver a vitrine das minhas amigas", "/users/auth/facebook", :class => "facebook" %>
+    <%= link_to "Ver a vitrine das minhas amigas", user_omniauth_authorize_path(:facebook), :class => "facebook" %>
   </div>
 </section>

@@ -33,7 +33,7 @@
     </p>
     <p>
       <b>Products Total:</b>
-      <%= number_to_currency(@order.total) %>
+      <%= number_to_currency(@order.subtotal) %>
     </p>
     <p>
       <b>Used credits:</b>
@@ -41,7 +41,7 @@
     </p>
     <p>
       <b>Discount from coupon:</b>
-      <%= number_to_currency(@order.discount_from_coupon) %>
+      <%= number_to_currency(@order.amount_discount) %>
     </p>
     <p>
       <b>Freight Total:</b>
@@ -49,7 +49,7 @@
     </p>
     <p>
       <b>Total:</b>
-      <%= number_to_currency(@order.total_with_freight) %>
+      <%= number_to_currency(@order.amount_paid) %>
     </p>
     <p>
       <b>Installments:</b>

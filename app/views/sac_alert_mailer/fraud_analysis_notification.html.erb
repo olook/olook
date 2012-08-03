@@ -26,14 +26,14 @@ You are receiving this email because your are registered on the fraud analysis m
       <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
         <th>Numero</th>
         <th>Total s/ descontos</th>
-        <th>Descontos</th>
-        <th>Total</th>
+        <th>Total de Descontos</th>
+        <th>Valor Pago</th>
       </tr>
       <tr style="padding: 9px 8px 0px 8px;">
         <td><%= @order.number %></td>
-        <td><%= number_to_currency(@order.line_items_total)%></td>
-        <td style='color:#FF0000'><%= number_to_currency(@order.total_discount)%></td>
-        <td><%= number_to_currency(@order.total) %></td>
+        <td><%= number_to_currency(@order.subtotal)%></td>
+        <td style='color:#FF0000'><%= number_to_currency(@order.amount_discount)%></td>
+        <td><%= number_to_currency(@order.amount_paid) %></td>
       </tr>
     </table>
     <% @order.line_items.each do |ln| %>        

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-<% for product in @products %>
+<% @products.each do |product| %>
 <% unless product.sold_out? %>
 <produto>
 <nome><![CDATA[<%= product.name %>]]></nome>

@@ -18,7 +18,7 @@
     <%= link_to "Crie seu presente. Comece aqui!", new_gift_occasion_path, :id => "new_occasion_link" %>
     
   <% if current_user && !current_user.has_facebook_friends_birthday? %>
-    <%= link_to "Importar meus contatos do Facebook", "/users/auth/facebook", :class => "facebook" %>
+    <%= link_to "Importar meus contatos do Facebook", user_omniauth_authorize_path(:facebook), :class => "facebook" %>
   <% elsif !current_user %>
     <%= link_to "Importar meus contatos do Facebook", "javascript:void(0);", :class => "facebook disabled", :alt => "Para importar seus contatos do facebook faça seu login", :title => "Para importar seus contatos do facebook faça seu login" %>
   <% end %>

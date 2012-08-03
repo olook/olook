@@ -1,0 +1,14 @@
+<ul class="payment_methods">
+  <li class="credit_card">
+    <p>Cartão de crédito</p>
+    <%= link_to "Cartão de Crédito", new_credit_card_cart_checkout_path, :class => selected_if_current(["checkout/checkout#new_credit_card", "checkout/checkout#create_credit_card"]) %>
+  </li>
+  <li class="billet">
+    <p>Boleto</p>
+    <%= link_to "Boleto Bancário", new_billet_cart_checkout_path, :class => selected_if_current(["checkout/checkout#new_billet", "checkout/checkout#create_billet"]) %>
+  </li>
+  <li class="debit">
+    <p>Debito</p>
+    <%= link_to "Débito Bancário", new_debit_cart_checkout_path, :class => selected_if_current(["checkout/checkout#new_debit", "checkout/checkout#create_debit"]) %>
+  </li>
+</ul>

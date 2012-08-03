@@ -1,6 +1,6 @@
 <ul>
-  <li><%= link_to "Meus Pedidos", user_orders_path, :class => selected_if_current(["user/orders#index", "user/orders#show"]) %></li>
-  <li><%= link_to "Dados Pessoais", edit_user_registration_path, :class => selected_if_current(["registrations#edit"]) %></li>
-  <li><%= link_to "Endereços", user_addresses_path, :class => selected_if_current(["user/addresses#index", "user/addresses#new", "user/addresses#edit"]) %></li>
-  <li><%= link_to "Meus Créditos", user_credits_path, :class => selected_if_current(["user/credits#index"]) %></li>
+  <li><%= link_to "Meus Pedidos", user_orders_path, :class => selected_if_current(["users/orders#index", "users/orders#show"]) %></li>
+  <li><%= link_to "Dados Pessoais", edit_user_registration_path, :class => selected_if_current(["users/registrations#edit"]) %></li>
+  <li><%= link_to "Endereços", user_addresses_path, :class => selected_if_current(["users/addresses#index", "users/addresses#new", "users/addresses#edit"]) %></li>
+  <li><%= link_to "Meus Créditos", user_credits_path, :class => selected_if_current(["users/credits#index"]) %></li>
 </ul>

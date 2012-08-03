@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout :layout_by_resource
 
   before_filter :check_survey_response, :only => [:new, :create]
-  before_filter :load_order, :only => [:edit]
+  before_filter :authenticate_user!, :only => [:destroy_facebook_account, :edit, :update]
 
   def new
     resource = build_resource({:half_user => false})
@@ -49,6 +49,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render_with_scope :edit
     end
   end
+  
+  def destroy_facebook_account
+    @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
+    redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
+  end
 
   protected
   def build_resource(params = nil)
@@ -77,7 +82,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if !resource.half_user
       resource.registered_via = User::RegisteredVia[:quiz]
     else
-      if session[:gift_products]
+      if @cart.has_gift_items?
         resource.registered_via = User::RegisteredVia[:gift]
       else
         resource.registered_via = User::RegisteredVia[:thin]
@@ -90,11 +95,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(resource_or_scope)
     unless resource_or_scope.half_user
       ProfileBuilder.factory(session[:profile_birthday], session[:profile_questions], resource_or_scope)
-      resource.create_user_info(
-        { :shoes_size => 
-            UserInfo::SHOES_SIZE[session["profile_questions"]["question_57"]]
-        }
-      )
       session[:profile_birthday] = nil
       session[:profile_questions] = nil
     end
@@ -111,11 +111,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session[:tracking_params] = nil
     session["devise.facebook_data"] = nil
     session[:invite] = nil
+
+    @cart.update_attributes(:user_id => resource.id)
+
+    if @cart.has_gift_items?
+      GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
+      GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
+    end
     
-    if session[:gift_products]
-      CartBuilder.gift(self)
-    elsif session[:offline_variant]
-      CartBuilder.offline(self)    
+    if @cart.items_total > 0
+      cart_checkout_addresses_path
     elsif resource.half_user && resource.male?
       gift_root_path
     else

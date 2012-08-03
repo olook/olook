@@ -2,18 +2,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
-  before_filter :load_promotion
-  before_filter :save_referer
-  before_filter :current_referer
-  before_filter :load_order
+  before_filter :load_user
+  before_filter :load_cart
   before_filter :load_facebook_api
+  before_filter :load_referer
+  before_filter :load_tracking_parameters
+  before_filter :load_referer_parameters
 
-  rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
-  rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
   rescue_from CanCan::AccessDenied do  |exception|
-      flash[:error] = "Access Denied! You don't have permission to execute this action.
-                              Contact the system administrator"
-      redirect_to admin_url
+    flash[:error] = "Access Denied! You don't have permission to execute this action.
+    Contact the system administrator"
+    redirect_to admin_url
   end
 
   helper_method :current_liquidation
@@ -21,35 +20,50 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
-  helper_method :current_order
-  def current_order
-    order_id = params[:order_id] || session[:order]
-    order = current_user.orders.find_by_id(order_id)
-    order ||= current_user.orders.create
-    
-    session[:order] = order.id
+  helper_method :current_cart
+  def current_cart
+    #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
+    cart_id_session = session[:cart_id]
+    cart_id_params = params[:cart_id]
+    cart_id_legacy = params[:order_id]
+
+    cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
+    cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
+
+    cart ||= Cart.find_by_id(cart_id_session)
+    cart ||= Cart.create(user: @user)
+
+    session[:cart_id] = cart.id
     #not sending email in the case of a buy made from an admin
     if current_admin
-      order.update_attribute("in_cart_notified", true)
+      cart.update_attribute("notified", true)
     end
-    order
+
+    if @user
+      cart.update_attribute("user_id", @user.id) if cart.user.nil?
+    end
+
+    @promotion = PromotionService.new(@user).detect_current_promotion
+
+    session[:credits] = 0 unless session[:credits]
+    coupon = session[:cart_coupon]
+    coupon.reload if coupon
+
+    @cart_service = CartService.new(
+      :cart => cart,
+      :gift_wrap => session[:gift_wrap],
+      :coupon => coupon,
+      :promotion => @promotion,
+      :freight => session[:cart_freight],
+      :credits => session[:cart_credits]
+    )
+
+    cart
   end
 
   helper_method :current_moment
   def current_moment
     Moment.active.first
-  end
-
-  def facebook_redirect_paths
-    {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
-  end
-
-  def load_promotion
-    if current_user
-      @promotion = PromotionService.new(current_user).detect_current_promotion
-    elsif !current_user
-      @promotion = Promotion.purchases_amount
-    end
   end
 
   def render_public_exception
@@ -62,41 +76,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
-
-  def contact_authentication_failed
-    flash[:notice] = "Falha de autenticação na importação de contatos"
-    redirect_to :back
-  end
-
-  protected
-
-  # TODO: Temporarily disabling paper_trail for app analysis
-  # def user_for_paper_trail
-  #   user_signed_in? ? current_user : current_admin
-  # end
-
-  def load_facebook_api
-    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-  end
-
-  def load_user
-    @user = current_user
-  end
-
-  def load_order
-    @order = current_user.orders.find_by_id(session[:order]) if current_user
-  end
-
-  def assign_default_country
-    params[:address][:country] = 'BRA'
-  end
-
-  def current_ability
-    @current_ability ||= ::Ability.new(current_admin)
-  end
-
-  def save_referer
+  helper_method :current_referer
+  def current_referer
     session[:return_to] = case request.referer
       when /produto|sacola/ then
         session[:return_to] ? session[:return_to] : nil
@@ -109,11 +90,49 @@ class ApplicationController < ActionController::Base
       else
         nil
     end
-    session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
+
+    if @cart.has_gift_items?
+      session[:return_to] ||= { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) }
+    elsif @user && !@user.half_user?
+      session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
+    else
+      session[:return_to] ||= { text: "Voltar para tendências", url: lookbooks_path }
+    end
   end
 
-  def current_referer
-    @referer = session[:return_to]
+  private
+  def load_facebook_api
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+  end
+
+  def load_referer
+    @referer = current_referer
+  end
+
+  def load_user
+    @user = current_user
+  end
+
+  def load_cart
+    @cart = current_cart
+  end
+
+  def current_ability
+    @current_ability ||= ::Ability.new(current_admin)
+  end
+  def logged_in?
+    !!current_user
+  end
+
+  def load_tracking_parameters
+    if !logged_in?
+      incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+      incoming_params[:referer] = request.referer unless request.referer.nil?
+      session[:tracking_params] ||= incoming_params
+    end
+  end
+  def load_referer_parameters
+    @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
   end
 
 end

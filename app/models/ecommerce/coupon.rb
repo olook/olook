@@ -2,7 +2,9 @@ class Coupon < ActiveRecord::Base
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :on => [:update, :destroy]
 
-  validates_presence_of :code, :value, :start_date, :end_date
+  COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
+
+  validates_presence_of :code, :value, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
   validates_uniqueness_of :code
 
@@ -14,6 +16,10 @@ class Coupon < ActiveRecord::Base
 
   def expired?
     true unless self.start_date < Time.now && self.end_date > Time.now
+  end
+
+  def discount_percent
+    self.is_percentage? ? self.value : 0
   end
 
   private

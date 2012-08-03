@@ -70,19 +70,6 @@ describe ProductController do
         get :show, :id => product.id
         assigns(:variants).should == product.variants
       end
-
-      it "should assigns @order" do
-        get :show, :id => product.id
-        assigns(:order).should == Order.find(order)
-      end
-    end
-
-    describe "POST create_offline_session" do
-      it "should assigns params[:variant] to session[:offline_variant]" do
-        variant = { "id" => "1234" }
-        post :create_offline_session, :variant => variant
-        session[:offline_variant].should be_eql(variant)
-      end
     end
   end
 end
