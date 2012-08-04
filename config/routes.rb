@@ -127,9 +127,10 @@ Olook::Application.routes.draw do
     end
 
     resources :lookbooks do
-      collection do
-        get "product/:id", :to => "lookbooks#product"
-      end
+      get :products, :to => "lookbooks#product"
+      # collection do
+      #   get "product/:id", :to => "lookbooks#product"
+      # end
       resources :images
     end
 
