@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
     @promotion = PromotionService.new(@user).detect_current_promotion
 
-    session[:credits] = 0 unless session[:credits]
+    session[:cart_credits] = 0 unless session[:cart_credits]
     coupon = session[:cart_coupon]
     coupon.reload if coupon
 
