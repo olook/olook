@@ -32,7 +32,6 @@ class CatalogSearchService
 
     # color filters
     query_colors = params[:color_categories] ? Product.arel_table[:color_category].in(params[:color_categories]) : nil
-    
     @query_base = @query_base.and(query_colors) if query_colors
 
     #TODO: ADD in includes: master_variant, main_picture
