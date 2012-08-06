@@ -9,7 +9,6 @@
 <section id="stylist">
   <%= render 'shared/banners/olooklet' %>
   <div class="profile" id="helena">
-    <%= image_tag "stylist/helena_linhares/models.jpg", :class => "models" %>
     <div class="description">
       <h1>Helena <span>Linhares</span></h1>
       <p>Transita no universo da moda há mais de 15 anos. Paulistana de família tradicional, é formadora de opinião e sinônimo de bom gosto.</p>
@@ -19,121 +18,37 @@
     </div>
     <div class="products">
       <h1>Amo!</h1>
-      <%= link_to product_path(6391), :class => "product", :id => "catu" do %>
-        <p>Catú</p>
-        <p class="price">R$ 159,90</p>
-      <% end %>
-      <%= link_to product_path(5591), :class => "product", :id => "cajati" do %>
-        <p>Cajati</p>
-        <p class="price">R$ 179,90</p>
-      <% end %>
-      <%= link_to product_path(6463), :class => "product", :id => "filadelfia" do %>
-        <p>Filadélfia</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(5894), :class => "product", :id => "barreiras" do %>
-        <p>Barreiras</p>
-        <p class="price">R$ 179,90</p>
-      <% end %>
-      <%= link_to product_path(5627), :class => "product", :id => "lindoia" do %>
-        <p>Lindóia</p>
-        <p class="price">R$ 159,90</p>
-      <% end %>
-      <%= link_to product_path(5777), :class => "product", :id => "andorinha" do %>
-        <p>Andorinha</p>
-        <p class="price">R$ 99,90</p>
+      <% @products_helena.each do |product| %>
+        <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
+          <p><%= product.name %></p>
+          <p class="price"><%= number_to_currency product.price %></p>
+        <% end %>
       <% end %>
     </div>
   </div>
-  <div class="profile" id="mica_rocha">
+  <div class="profile" id="didi_wagner">
     <h1 class="stylist">Stylist Convidada</h1>
-    <%= image_tag "stylist/mica_rocha/models.jpg", :class => "models" %>
     <div class="description">
-      <h1>Mica Rocha</h1>
-      <h2>Apresentadora Band</h2>
-      <h2>Empresária We Pick</h2>
-      <p>Mica sempre amou apresentar, iniciou seus vídeos para o Blog da Lelê e logo montou o site Mica Rocha, com um conteúdo voltado para vídeos.</p>
-      <p>Em pouco tempo seu site estava entre um dos mais acessados do meio da moda e com a repercussão na
-        internet veio o convite para trabalhar na BAND, onde trabalhou no Claquete com Otávio Mesquita e hoje faz o quadro "Intimidade", no MUITO +, apresentado por Adriane Galisteu, mas isto jamais a deixaria longe dos internautas, foi aí que montou o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %> com sua amiga e sócia Lelê Saddi.</p>
-      <h3>1. Como você define seu estilo?</h3>
-      <p>Meu estilo varia bastante conforme o meu humor, acho que moda é estado de espírito. Um dia eu quero ser mais moderninha, outro mais menininha, mas digo que sempre tenho uma pegada mais rock’n roll.</p>
-      <h3>2. Qual a melhor maneira de transformar um look?</h3>
-      <p>Pelos acessórios. Durante o dia pode ser uma flat e a noite é só mudar para aquele saltão poderoso, já a bolsa tem que ser bem grande durante o dia e a noite trocar por uma clutch.</p>
-      <h3>3. Uma dica de moda?</h3>
-      <p>Só vestir o que lhe cai bem, nunca seja vítima da moda, isso é cafona.</p>
-      <h3>4. Moda é...</h3>
-      <p>Um estado de espírito.</p>
-      <h3>5. Quem é um ícone de estilo para vc?</h3>
-      <p>Sienna Miller e Kate Bosworth.</p>
-      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
-      <p>Botas no inverno, echarpes para compor os looks e no verão vestidos, muuuitos vestidos!</p>
+      <h1>Didi Wagner</h1>
+      <p><%= image_tag "/assets/stylist/didi_wagner/foto.jpg", :title => 'Didi Wagner' %>Didi Wagner está sempre surpreendendo com sua multifaceta profissional. Sua carreira como apresentadora começou em 2000, como VJ da MTV. Em seis anos na emissora foram inúmeros programas que mostravam toda a sua versatilidade. Em 2005 Didi assina contrato com o Multishow e logo estreia o programa "Lugar Incomum", que traz toda a personalidade de Didi ao desbravar lugares incríveis pelo mundo, Nova York, Barcelona, Londres e Roma. Ainda podemos incluir no extenso currículo de Didi a publicação do livro "Minha Nova York" (2011) e as apresentações nas transmissões televisivas de importantes festivais de música – como Rock in Rio e SWU. Didi é e sempre foi uma referência em moda. Em suas palavras "moda é arte, cultura, música e eu trago um pouco disso tudo para o jeito que eu me visto".</p>
+      <h3>Como você define seu estilo?</h3>
+      <p>Classy rock n' roll, kkkkk!</p>
+      <h3>Qual a melhor maneira de transformar um look?</h3>
+      <p>Com acessórios poderosos e muita criatividade.</p>
+      <h3>Uma dica de moda?</h3>
+      <p>Na dúvida, opte pelos looks mais básicos, mas sempre com itens atuais.</p>
+      <h3>Quem é um ícone de estilo para vc?</h3>
+      <p>As irmãs Olsen (Ashley e Mary-Kate).</h3>
+      <h3>O que não pode faltar no seu guarda roupa?</h3>
+      <p>Um espelho e bom senso, hehehe!</p>
     </div>
     <div class="products">
-      <h1>Minhas escolhas do mês</h1>
-      <%= link_to product_path(6202), :class => "product", :id => "pintadas" do %>
-        <p>Pintadas</p>
-        <p class="price">R$ 129,90</p>
-      <% end %>
-      <%= link_to product_path(6438), :class => "product", :id => "caribe" do %>
-        <p>Caribe</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(6264), :class => "product", :id => "nova_ibia" do %>
-        <p>Nova Ibiá</p>
-        <p class="price">R$ 129,90</p>
-      <% end %>
-      <%= link_to product_path(5506), :class => "product", :id => "pocoes" do %>
-        <p>Poções</p>
-        <p class="price">R$ 159,90</p>
-      <% end %>
-      <%= link_to product_path(6432), :class => "product", :id => "conde" do %>
-        <p>Conde</p>
-        <p class="price">R$ 69,90</p>
-      <% end %>
-    </div>
-  </div>
-  <div class="profile" id="lele_saddi">
-    <h1 class="stylist">Stylist Convidada</h1>
-    <%= image_tag "stylist/lele_saddi/models.jpg", :class => "models" %>
-    <div class="description">
-      <h1>Lelê Saddi</h1>
-      <h2>Empresária Hi Brand e We Pick</h2>
-      <p>Lelê Saddi foi uma das primeiras a apostar no mundo virtual e criou o BLOG da Lelê, que ficou no ar durante cinco anos. Apostou em conteúdo de qualidade com novidades daqui e do mundo afora, onde conquistou seguidores fiéis. Além do blog, abriu uma consultoria de branding, a Hi-Brand, voltada ao mercado de luxo.</p>
-      <p>Sempre antenada em novidades, viu que seu blog e o site MICA ROCHA  se completavam em conteúdo, seja escrito ou vídeo, das ideias e conhecimentos de ambas surgiu o portal <%= link_to "We Pick", "http://www.wepick.com.br", :target => "_blank" %>.</p>
-      <h3>1. Como você define seu estilo?</h3>
-      <p>Sou mais básica e gosto de misturar roupas clássicas com acessórios modernos.</p>
-      <h3>2. Qual a melhor maneira de transformar um look?</h3>
-      <p>Acessórios mudam tudo! Bolsas, sapatos, bijoux!</p>
-      <h3>3. Uma dica de moda?</h3>
-      <p>Se vista de acordo com a sua personalidade, e não de acordo com o que todo mundo usa!</p>
-      <h3>4. Moda é...</h3>
-      <p>Você transparecer sua personalidade!</p>
-      <h3>5. Quem é um ícone de estilo para você?</h3>
-      <p>Não tenho ícone de estilo...</p>
-      <h3>6. O que não pode faltar no seu guarda roupa?</h3>
-      <p>Camisas!!</p>
-    </div>
-    <div class="products">
-      <h1>Minhas escolhas do mês</h1>
-      <%= link_to product_path(6011), :class => "product", :id => "santana" do %>
-        <p>Santana</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(5957), :class => "product", :id => "xique_xique" do %>
-        <p>Xique-Xique</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(5969), :class => "product", :id => "valenca" do %>
-        <p>Valença</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(5989), :class => "product", :id => "saubara" do %>
-        <p>Saubara</p>
-        <p class="price">R$ 99,90</p>
-      <% end %>
-      <%= link_to product_path(5963), :class => "product", :id => "varzedo" do %>
-        <p>Varzedo</p>
-        <p class="price">R$ 99,90</p>
+      <h1>As escolhas da Didi...</h1>
+      <% @products_didi.each do |product| %>
+        <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
+          <p><%= product.name %></p>
+          <p class="price"><%= number_to_currency product.price %></p>
+        <% end %>
       <% end %>
     </div>
   </div>

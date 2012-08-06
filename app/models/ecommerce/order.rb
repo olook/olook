@@ -114,8 +114,7 @@ class Order < ActiveRecord::Base
   end
 
   def notify_sac_for_fraud_analysis
-    SAC::Notifier.notify(SAC::Notification.new(:fraud_analysis, 
-    "Análise de Fraude | Pedido : #{self.number}", self))
+    # SAC::Notifier.notify(SAC::Notification.new(:fraud_analysis, "Análise de Fraude | Pedido : #{self.number}", self))
   end
 
   def send_notification_payment_refused
