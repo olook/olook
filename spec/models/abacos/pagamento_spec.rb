@@ -4,7 +4,7 @@ require "spec_helper"
 describe Abacos::Pagamento do
   describe 'basic attributes' do
     let(:payment) { mock_model CreditCard, :payments => 3, :bank => 'visa' }
-    let(:order) { double :order, :payment => payment, :total_with_freight => 179.9 }
+    let(:order) { double :order, :payment => payment, :amount_paid => 179.9 }
     subject { described_class.new order }
 
     it '#valor' do
@@ -37,7 +37,7 @@ describe Abacos::Pagamento do
     context 'for boletos' do
       let!(:expiration_date) { DateTime.civil(2012, 11, 9, 10, 0, 0) }
       let!(:billet) { mock_model Billet, :payments => 1, :payment_expiration_date => expiration_date }
-      let!(:order) { double :order, :total_with_freight => 179.9, :payment => billet }
+      let!(:order) { double :order, :amount_paid => 179.9, :payment => billet }
       subject { described_class.new order }
       let(:billet_parsed_data) do
         {
@@ -57,7 +57,7 @@ describe Abacos::Pagamento do
 
     context 'for débito' do
       let(:billet) { mock_model Debit, :bank => 'itau', :payments => 1 }
-      let(:order) { double :order, :total_with_freight => 179.9, :payment => billet }
+      let(:order) { double :order, :amount_paid => 179.9, :payment => billet }
       subject { described_class.new order }
       it '#forma should be a bank name, like ITAU, BRADESCO' do
         subject.forma.should == 'ITAU'
@@ -66,7 +66,7 @@ describe Abacos::Pagamento do
 
     context 'for cartão de crédito' do
       let(:billet) { mock_model CreditCard, :bank => 'visa', :payments => 1 }
-      let(:order) { double :order, :total_with_freight => 179.9, :payment => billet }
+      let(:order) { double :order, :amount_paid => 179.9, :payment => billet }
       subject { described_class.new order }
       it '#forma should be the card operator, like VISA, MASTERCARD' do
         subject.forma.should == 'VISA'

@@ -4,7 +4,6 @@ class MomentsController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
-  before_filter :load_order, only: [:index, :show]
   before_filter :load_catalog_products
 
   def index

@@ -1,10 +1,11 @@
+<% address = Address.find(cart_service.freight[:address_id]) %>
 <div class="item">
-  <h1>Endereço de entrega <%= link_to "alterar", addresses_path if @order.payment.nil? %></h1>
-  <p><strong><%= order.freight.address.identification %></strong></p>
-  <p><%= "#{order.freight.address.street}, #{order.freight.address.number}" %><%= order.freight.address.complement? ? ", #{order.freight.address.complement}" : "" %></p>
-  <p><%= "#{order.freight.address.neighborhood} - #{order.freight.address.zip_code}" %></p>
-  <p><%= "#{order.freight.address.city}, #{order.freight.address.state}" %></p>
+  <h1>Endereço de entrega <%= link_to "alterar", cart_checkout_addresses_path unless has_payment %></h1>
+  <p><strong><%= address.identification %></strong></p>
+  <p><%= "#{address.street}, #{address.number}" %><%= address.complement? ? ", #{address.complement}" : "" %></p>
+  <p><%= "#{address.neighborhood} - #{address.zip_code}" %></p>
+  <p><%= "#{address.city}, #{address.state}" %></p>
   <div class="delivery_time">
-    <p>O prazo de entrega para este endereço é de <strong><%= order.freight.delivery_time %> dias úteis</strong></p>
+    <p>O prazo de entrega para este endereço é de <strong><%= cart_service.freight[:delivery_time] %> dias úteis</strong></p>
   </div>
 </div>

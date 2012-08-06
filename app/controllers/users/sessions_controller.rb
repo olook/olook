@@ -12,12 +12,22 @@ class Users::SessionsController < Devise::SessionsController
     current_user.add_event(EventType::SIGNOUT) if current_user
   end
 
-  def after_sign_in_path_for(resource_or_scope)
-    if session[:gift_products]
-      CartBuilder.gift(self)
-    elsif session[:offline_variant]
-      CartBuilder.offline(self)
-    elsif current_user.half_user && current_user.male?
+  def after_sign_in_path_for(resource)
+
+    @cart.update_attributes(:user_id => resource.id)
+
+    if @cart.has_gift_items?
+      GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
+      GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
+    end
+    
+    if @cart.items_total > 0
+      if resource.current_credit > 0
+        cart_path
+      else
+        cart_checkout_addresses_path
+      end
+    elsif resource.half_user && resource.male?
       gift_root_path
     else
       member_showroom_path

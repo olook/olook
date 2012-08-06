@@ -26,7 +26,7 @@ body {
     position: absolute;
     background: #E05789;
     padding: 22px 0;
-    z-index: 99;
+    z-index: 10001;
     opacity: 0.8;
     filter: alpha(opacity = 80);
     p {
@@ -47,6 +47,21 @@ body {
   div#profile_quiz {
     background: #FFF;
     display: none;
+    div.share {
+      background: #000;
+      padding: 10px 20px;
+      p {
+        color: #FFF;
+        font-family: "Times New Roman", Times, sans-serif;
+        font-size: 17px;
+        font-style: italic;
+        margin: 0 10px 0 0;
+        float: left;
+      }
+      iframe {
+        height: 20px;
+      }
+    }
     ul {
       li {
         width: 445px;
@@ -75,6 +90,185 @@ body {
     }
   }
 
+  div#content {
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  div#login_modal {
+    position: relative;
+    background: url("/assets/common/bg-modal-login.jpg") top left no-repeat;
+    width: 950px;
+    height: 515px;
+    display: block;
+    form {
+      fieldset {
+        ol {
+          li {
+            label {
+              display: block;
+              font-size: 11px;
+              font-weight: bold;
+              margin: 2px 0;
+            }
+
+            input {
+              background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+              border: 1px solid #BBB;
+              padding: 6px 8px;
+              width: 92%;
+
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    div#register_login {
+      position: absolute;
+      background: #FCFCFC;
+      width: 580px;
+      height: 470px;
+      display: block;
+      top: 20px;
+      left: 340px;
+      border: 1px #d2d2d2 solid;
+      h1 {
+        text-indent: -9999px;
+        height: 27px;
+        display: block;
+      }
+      div.login {
+        width: 259px;
+        height: 450px;
+        padding: 20px 0 0 30px;
+        float: left;
+        border-right: 1px #d2d2d2 solid;
+        h1 {
+          background: url("/assets/common/title-already-part.png") no-repeat;
+          margin: 0 0 25px 0;
+          width: 155px;
+        }
+        form {
+          margin-bottom: 15px;
+          width: 225px;
+          fieldset {
+            &.buttons {
+              margin-top: 7px;
+              ol {
+                li {
+                  font-size: 11px;
+                  input[type="submit"] {
+                    background: url("/assets/common/login.png") no-repeat;
+                    text-indent: -9999px;
+                    width: 74px;
+                    height: 31px;
+                    display: block;
+                    border: none;
+                    cursor: pointer;
+                  }
+                  &.remember-me, &.forgot-password {
+                    float: left;
+                    width: 140px;
+                    input {
+                      width: auto;
+                    }
+                    label {
+                      font-weight: normal;
+                      display: inline;
+                    }
+                    a {
+                      color: #0f0c0c;
+                    }
+                  }
+
+                  &.forgot-password {
+                    & + li {
+                      float: right;
+                      margin-top: -15px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        .login_with_facebook {
+          width: 225px;
+          padding: 10px 0 0 0;
+          border-top: 1px #cfcfcf solid;
+          a.fb-login-button {
+            background: url('/assets/common/fb-loggin-button.png') no-repeat;
+            text-indent: -9999px;
+            width: 194px;
+            height: 25px;
+            margin: 0 auto;
+            display: block;
+          }
+        }
+      }
+      div.register {
+        width: 260px;
+        padding: 20px 0 0 30px;
+        float: right;
+        h1 {
+          background: url("/assets/common/title-register.png") no-repeat;
+          margin: 0 0 15px 0;
+          width: 239px;
+        }
+        p {
+          margin: 0 0 20px 0;
+        }
+        form {
+          fieldset {
+            ol {
+              li {
+                input {
+                  width: 84%;
+                }
+                input[type='submit'] {
+                  background: url("/assets/common/registration.png") no-repeat;
+                  text-indent: -9999px;
+                  width: 126px;
+                  height: 37px;
+                  display: block;
+                  cursor: pointer;
+                  border: none;
+                }
+                &.gender {
+                  margin: 0 0 5px 0;
+                  p {
+                    font-size: 13px;
+                    font-weight: bold;
+                    line-height: 17px;
+                    margin: 0;
+                    display: block;
+                  }
+                  label {
+                    display: inline;
+                    float: none;
+                  }
+                  input {
+                    width: auto;
+                    display: inline;
+                  }
+                }
+                &.terms {
+                  font-size: 11px;
+                  a {
+                    color: #000;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   .content {
     width: 990px;
     margin: 0 auto;
@@ -89,134 +283,7 @@ body {
       display: block;
       margin: 0 auto 20px;
     }
-    div#login_modal {
-      position: relative;
-      background: url("/assets/common/bg-modal-login.jpg") top left no-repeat;
-      width: 950px;
-      height: 515px;
-      display: none;
-      div#register_login {
-        position: absolute;
-        background: #FCFCFC;
-        width: 580px;
-        height: 270px;
-        display: block;
-        top: 105px;
-        left: 340px;
-        border: 1px #d2d2d2 solid;
-        h1 {
-          text-indent: -9999px;
-          height: 27px;
-          display: block;
-        }
-        div.login {
-          width: 259px;
-          height: 250px;
-          padding: 20px 0 0 30px;
-          float: left;
-          border-right: 1px #d2d2d2 solid;
-          h1 {
-            background: url("/assets/common/title-already-part.png") no-repeat;
-            margin: 0 0 25px 0;
-            width: 155px;
-          }
-          form {
-            margin-bottom: 15px;
-            width: 225px;
-            fieldset {
-              &.inputs {
-                ol {
-                  li {
-                    label {
-                      display: block;
-                      font-size: 11px;
-                      font-weight: bold;
-                      margin: 2px 0;
-                    }
 
-                    input {
-                      background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
-                      border: 1px solid #BBB;
-                      padding: 6px 8px;
-                      width: 92%;
-
-                      &:focus {
-                        outline: none;
-                      }
-                    }
-                  }
-                }
-              }
-
-              &.buttons {
-                margin-top: 7px;
-                ol {
-                  li {
-                    font-size: 11px;
-                    input[type="submit"] {
-                      background: url("/assets/common/login.png") no-repeat;
-                      text-indent: -9999px;
-                      width: 74px;
-                      height: 31px;
-                      display: block;
-                      border: none;
-                      cursor: pointer;
-                    }
-                    &.remember-me, &.forgot-password {
-                      float: left;
-                      width: 140px;
-                      a {
-                        color: #0f0c0c;
-                      }
-                    }
-
-                    &.forgot-password {
-                      & + li {
-                        float: right;
-                        margin-top: -15px;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-          .login_with_facebook {
-            width: 225px;
-            padding: 10px 0 0 0;
-            border-top: 1px #cfcfcf solid;
-            a.fb-login-button {
-              background: url('/assets/common/fb-loggin-button.png') no-repeat;
-              text-indent: -9999px;
-              width: 194px;
-              height: 25px;
-              margin: 0 auto;
-              display: block;
-            }
-          }
-        }
-        div.register {
-          width: 260px;
-          padding: 20px 0 0 30px;
-          float: right;
-          h1 {
-            background: url("/assets/common/title-register.png") no-repeat;
-            margin: 0 0 15px 0;
-            width: 239px;
-          }
-          p {
-            margin: 0 0 20px 0;
-          }
-          a {
-            background: url("/assets/common/registration.png") no-repeat;
-            text-indent: -9999px;
-            width: 126px;
-            height: 37px;
-            display: block;
-          }
-        }
-      }
-    }
     .forms {
       background: url('/assets/home/bg-middle-home.jpg') no-repeat;
       height: 575px;
@@ -756,6 +823,13 @@ body {
       p,strong {
         color: #797979;
       }
+      p {
+        background: url('/assets/common/frases3.gif') top center no-repeat;
+        text-indent: -99999px;
+        width: 212px;
+        height: 47px;
+        display: block;
+      }
       img {
         width: 212px;
         height: 47px;
@@ -785,7 +859,7 @@ body {
 
       #session {
         position: relative;
-        z-index: 10;
+        z-index: 10000;
         @include sign-in;
         //width: 385px;
         margin-top: 10px;
@@ -1161,9 +1235,6 @@ body {
     }
     header {
       min-height: 120px;
-    }
-    div#content {
-      padding-top: 10px;
     }
   }
   div.full_container {
@@ -1580,42 +1651,6 @@ div.contact_fields {
   }
 }
 
-div#modal {
-  background: #FFF;
-  padding: 0;
-  border: 5px #000 solid;
-  display: none;
-  div.video_description {
-    background: #FFF;
-    overflow: auto;
-    padding: 30px;
-    h1 {
-      font-family: "Times New Roman", sans-serif;
-      font-size: 40px;
-      font-style: italic;
-      font-weight: lighter;
-      letter-spacing: -1px;
-      float: left;
-    }
-    a {
-      color: #e0457e;
-      font-size: 20px;
-      line-height: 45px;
-      float: right;
-      &.home {
-        background: url("/assets/common/bt-lightbox-quiz.jpg") no-repeat;
-        text-indent: -9999px;
-        width: 233px;
-        height: 57px;
-        display: block;
-      }
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-}
-
 div.contact_fields {
   padding: 0 0 0 0 !important;
 
@@ -1687,7 +1722,7 @@ header div.contact {
   left:50%;
   margin: 0 0 0 -480px;
   display:none;
-  z-index:10000;
+  z-index:100000;
 
   #close_quick_view{
     cursor: pointer;

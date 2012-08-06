@@ -8,7 +8,7 @@ module Abacos
       @quantidade           = line_item.quantity
       @preco_unitario       = "%.2f" % line_item.retail_price
       @preco_unitario_bruto = "%.2f" % line_item.price
-      @embalagem_presente   = line_item.gift_wrap?
+      @embalagem_presente   = line_item.order.gift_wrap?
     end
     
     def parsed_data

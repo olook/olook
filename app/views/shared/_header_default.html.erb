@@ -12,11 +12,7 @@
   <div class="content">
     <h1><%= link_to 'Olook', root_path %></h1>
     <div class="info">
-      <ul>
-        <li>Todos os meses uma <strong>coleção nova para você</strong></li>
-        <li>Troca ou devolução <strong>em até 30 dias</strong></li>
-        <li>Frete grátis para SP e RJ e acima <strong>de R$120,00 para outros estados</strong></li>
-      </ul>
+      <p>Todos os meses uma coleção nova para você. Troca ou devolução em até 30 dias. Frete grátis para sul e sudeste ou em compras acima de R$120,00</p>
     </div>
 
     <div id="session">
@@ -41,24 +37,21 @@
   </div>
 </header>
 
-<% if user_signed_in? %>
-  <div id="wrapper_menu">
-    <nav class="menu">
-      <div class="content">
-        <% if !current_user.half_user? %>
-        <ul class="product_anchors">
-          <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
-          <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
-          <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
-        </ul>
+<div id="wrapper_menu">
+  <nav class="menu">
+    <div class="content">
+      <% if user_signed_in? && !current_user.half_user? %>
+      <ul class="product_anchors">
+        <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
+        <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
+        <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
+      </ul>
+      <% end %>
+      <ul class="default">
+        <% present 'Menu', :user => current_user do |menu_presenter| %>
+          <%= menu_presenter.render_menu %>
         <% end %>
-        <ul class="default">
-          <% present 'Menu', :user => current_user do |menu_presenter| %>
-            <%= menu_presenter.render_menu %>
-          <% end %>
-        </ul>
-      </div>
-    </nav>
-  </div>
-<% end %>
-
+      </ul>
+    </div>
+  </nav>
+</div>

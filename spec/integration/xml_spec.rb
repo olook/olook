@@ -4,10 +4,10 @@ require 'integration/helpers'
 
 feature "Show products on xml format" do
   let!(:bag) { FactoryGirl.create :basic_bag }
-  let!(:product) { FactoryGirl.create :basic_shoe }
+  let!(:product) { FactoryGirl.create :blue_sliper_with_variants }
 
   background do
-    product.master_variant.update_attribute(:price, 99.90)
+    product.master_variant.update_attribute(:price, "99.90")
     product.master_variant.update_attribute(:inventory, 1)
   end
 
@@ -103,6 +103,10 @@ feature "Show products on xml format" do
         <parcelamento><![CDATA[3 x 33,30]]></parcelamento>
         <imagens>
         </imagens>
+        <num_tams>
+        #{product.variants.map { |variant|
+        '<num_tam><![CDATA[' + variant.description + ']]></num_tam>'}.join("\n")}
+        </num_tams>
         </produto>
         </produtos>
         END
@@ -111,7 +115,7 @@ feature "Show products on xml format" do
 
 
   context "in the adroll xml page" do
-    scenario "I want to see products of criteo" do
+    scenario "I want to see products of adroll" do
       visit adroll_path
       page.source.should == <<-END.gsub(/^ {6}/, '')
       <?xml version="1.0" encoding="UTF-8"?>

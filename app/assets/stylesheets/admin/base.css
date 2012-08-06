@@ -480,3 +480,8 @@ fieldset {border:1px solid #ddd; padding:5px 10px; margin-bottom:10px;}
 fieldset legend {font-size:140%;}
 
 #sync_products {margin: 20px;}
+
+.not-visible, .not-visible td, .not-visible td *, .not-visible td img {
+  opacity:0.7;
+  filter:alpha(opacity=70);
+}

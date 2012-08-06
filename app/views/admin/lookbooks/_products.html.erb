@@ -8,19 +8,21 @@
       <th>Profile</th>
       <th>Name</th>
       <th>Inventory</th>
+      <th>Visible?</th>
       <th>Criteo</th>
       <th></th>
       <th></th>
     </tr>
 
   <% @lookbook_products.each do |lb| %>
-    <tr>
+    <tr class="<%= 'not-visible' if !lb.product.is_visible? %>">
       <td><%= image_tag(lb.product.showroom_picture, size: '100x100') if lb.product.showroom_picture %></td>
       <td><%= lb.product.collection.name if lb.product.collection %></td>
       <td><%= lb.product.id %></td>
       <td><%= lb.product.profiles.first.name if lb.product.profiles.size > 0 %></td>
       <td><%= lb.product.name %></td>
       <td><%= lb.product.inventory %></td>
+      <td><%= lb.product.is_visible? ? "Yes" : "No" %></td>
       <td><%= lb.criteo %></td>
       <td><%= link_to 'Show', admin_product_path(lb.product) %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(lb.product) %></td>
@@ -29,7 +31,7 @@
   </table>
   <div class="action-bar wat-cf">
     <div class="actions">
-      <%= link_to 'Edit products', "product/#{lookbook.id}"%>
+      <%= link_to 'Edit products', admin_lookbook_products_path(lookbook) %>
     </div>
   </div>
 </div>

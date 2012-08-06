@@ -13,7 +13,6 @@ describe Billet do
   before :each do
     Resque.stub(:enqueue)
     Resque.stub(:enqueue_in)
-    order.waiting_payment
   end
 
   context "expiration date" do

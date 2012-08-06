@@ -42,6 +42,10 @@
       <th>Active</th>
       <th>Unlimited</th>
       <th>Expired</th>
+      <th>Campaign</th>
+      <th>Campaign Description</th>
+      <th>Created By</th>
+      <th>Updated By</th>
       <th></th>
       <th></th>
       <th></th>
@@ -58,6 +62,10 @@
       <td><%= coupon.active ? 'Yes' : 'No' %></td>
       <td><%= coupon.unlimited ? 'Yes' : 'No' %></td>
       <td><%= coupon.expired? ? 'Yes' : 'No' %></td>
+      <td><%= coupon.campaign %></td>
+      <td><%= coupon.campaign_description %></td>
+      <td><%= coupon.created_by %></td>
+      <td><%= coupon.updated_by %></td>
       <td><%= link_to 'Show', admin_coupon_path(coupon), :class => 'button' %></td>
       <td><%= link_to 'Edit', edit_admin_coupon_path(coupon), :class => 'button' %></td>
     </tr>

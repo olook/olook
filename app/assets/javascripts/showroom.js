@@ -46,6 +46,19 @@ $(document).ready(function() {
     }
   });
 
+  $("div.facebook.connected ul").carouFredSel({
+    height: 40,
+    width: 540,
+    align: 'left',
+    auto: false,
+    prev : {
+      button : ".carousel-prev-fb",
+    },
+    next : {
+      button : ".carousel-next-fb",
+    }
+  });
+
   $("div#mask_carousel_showroom ul").carouFredSel({
     height: 186,
     auto : {
@@ -61,15 +74,29 @@ $(document).ready(function() {
     }
   });
 
-  if($('.dialog.liquidation').length == 1) {
-    initBase.openDialog();
+  if($('.dialog.didi').length == 1) {
+    var clone = $('.dialog.didi').clone().addClass('clone');
+    var content = clone[0].outerHTML;
+    initBase.modal(content);
+    $("html, body").animate({
+      scrollTop: 0
+    }, 'slow');
+  }
 
-    initBase.closeDialog();
+  if($('.dialog.liquidation').length == 1) {
+    var clone = $('.dialog.liquidation').clone();
+    var content = clone[0].outerHTML;
+    initBase.modal(content);
   }
 
   $(".dialog.liquidation :checkbox").live("change", function() {
     checked = $(this).is(":checked");
     $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
+  });
+
+  $(".didi.dialog :checkbox").live("change", function() {
+    checked = $(this).is(":checked");
+    $.post("/user_notifications", { 'user_notification[dont_want_to_see_again]': checked });
   });
 });
 

@@ -99,24 +99,17 @@ describe InviteBonus do
           order
         end
         let!(:order_3) { FactoryGirl.create(:order, :user => member, :line_items => line_item) }
-        let!(:order_4) { FactoryGirl.create(:order_without_payment, :user => member, :line_items => line_item, :credits => 12.90 ) }
 
         it "should return the sum of credits used in the orders that have a payment" do
           described_class.already_used(member).should == 26.79
         end
 
-        it "should return the sum of credits used in the orders that dont have a payment but have a current order" do
-          described_class.already_used(member, order_4).should == 39.69
-        end
-
         it "should return the sum of credits used in the orders and not count a canceled order" do
-          order_2.waiting_payment
           order_2.canceled
           described_class.already_used(member).to_f.should == 23.56
         end
 
         it "should return the sum of credits used in the orders and not count a reversed order" do
-          order_2.waiting_payment
           order_2.authorized
           order_2.under_review
           order_2.reversed
@@ -124,7 +117,6 @@ describe InviteBonus do
         end
 
         it "should return the sum of credits used in the orders and not count a reversed order" do
-          order_2.waiting_payment
           order_2.authorized
           order_2.under_review
           order_2.refunded

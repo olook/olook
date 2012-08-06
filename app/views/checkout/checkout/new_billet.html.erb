@@ -1,0 +1,26 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "checkout" %>
+<% end %>
+
+<section id="payment" class="checkout">
+  <%= form_for(@payment, :url => billet_cart_checkout_path) do |f| %>
+    <section class="main">
+      <h1>Escolha uma forma de pagamento</h1>
+      <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
+      <%= render :partial => "payment_methods" %>
+      <p class="generate_billet">Você poderá imprimir seu boleto após a finalização do pedido, ou na sessão Meus Pedidos, em sua conta. <br />Também enviaremos o link de impressão para seu email.<br /><strong>Seu pedido ficará reservado por 48hrs.</strong></p>
+      <p class="generate_billet last"><span>Importante:</span> O prazo de entrega é considerado a partir da confirmação do pagamento. Lembramos que pagamentos via boleto podem levar até 48h para serem confirmados.</p>
+    </section>
+    <section class="sidebar">
+      <% content_for :checkout_sidebar do %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @cart, :cart_service => @cart_service, :has_payment => false } %>
+      <% end %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service, :has_payment => false %>
+      <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
+    </section>
+  <% end %>
+</section>

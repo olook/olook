@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'spec_helper.rb'
 
 describe MarketingReports::FileUploader do
   let(:file_content) { "This is an Example String" }

@@ -7,9 +7,9 @@ body {
 
     section.model {
       background: url('/assets/home/model.jpg') top right no-repeat;
-      width: 385px;
+      width: 380px;
       height: 565px;
-      margin: 10px 0 0 0;
+      margin: 10px 0 30px 0;
       float:left;
       div.label {
         background: url('/assets/home/label.png') no-repeat;
@@ -45,7 +45,7 @@ body {
     section.description {
       width: 515px;
       overflow: auto;
-      margin: 45px 0 0 45px;
+      margin: 45px 0 30px 45px;
       float: left;
       h1 {
         color: #58595b;
@@ -106,14 +106,13 @@ body {
     }
 
     section.like {
-      position: absolute;
-      width: 550px;
+      width: 540px;
       padding: 10px 30px 15px;
       overflow: visible;
       border: 1px #c7c7c7 solid;
       top: 505px;
       right: 15px;
-      float: left;
+      float: right;
 
       p {
         background: url('/assets/common/facebook-title.png') no-repeat;
