@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
+  def underscore_case(string)
+    string.parameterize.gsub('-', '_')
+  end
+
   def stylesheet_application
     stylesheet_link_tag  "application"
   end
@@ -34,9 +38,14 @@ module ApplicationHelper
     presenter
   end
 
-  def order_total(order)
-    total = order ? order.line_items.try(:count) : 0
-    content_tag(:span,"(#{content_tag(:div, "#{total}", :id => "cart_items")})".html_safe)
+  def cart_total(cart)
+    content_tag(:span,"(#{content_tag(:div, "#{cart.items_total}", :id => "cart_items")})".html_safe)
+  end
+
+  def discount_percentage(value)
+    if value > 0
+      "(#{number_to_percentage(value, :precision => 0)})"
+    end
   end
 
   def track_event(category, action, item = '')
@@ -52,7 +61,7 @@ module ApplicationHelper
   end
 
   def quantity_status(product, user)
-    if product.sold_out? || ( product.shoe? && product.quantity(user.user_info.shoes_size) == 0 )
+    if product.sold_out? || (user && user.full_user? && product.shoe? && product.quantity(user.user_info.shoes_size) == 0 )
       'sold_out'
     else
       unless user.user_info.nil?

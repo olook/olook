@@ -1,13 +1,5 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  factory :order_without_payment, :class => Order do
-    association :freight, :factory => :freight
-
-    after_build do |order|
-      Resque.stub(:enqueue)
-    end
-  end
-
   factory :clean_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
@@ -16,12 +8,12 @@ FactoryGirl.define do
       Resque.stub(:enqueue)
     end
   end
-  
+
   factory :restricted_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
     restricted true
-    
+
     after_build do |order|
       Resque.stub(:enqueue)
     end
@@ -39,14 +31,12 @@ FactoryGirl.define do
   factory :order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
+    subtotal BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
+    
     after_build do |order|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)
-    end
-
-    after_create do |order|
-      order.stub(:total).and_return(BigDecimal.new("100"))
-      order.stub(:reload)
     end
   end
 
@@ -54,14 +44,12 @@ FactoryGirl.define do
     association :payment, :factory => :credit_card_with_response
     association :freight, :factory => :freight
     state "authorized"
+    subtotal BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
+
     after_build do |order|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)
-    end
-
-    after_create do |order|
-      order.stub(:total).and_return(BigDecimal.new("100"))
-      order.stub(:reload)
     end
   end
 
@@ -70,10 +58,7 @@ FactoryGirl.define do
     association :freight, :factory => :freight
     association :user
     state "delivered"
-
-    after_create do |order|
-      order.stub(:line_items_total).and_return(BigDecimal.new("99.90"))
-      order.stub(:reload)
-    end
+    subtotal BigDecimal.new("99.90")
+    amount_paid BigDecimal.new("99.90")
   end
 end

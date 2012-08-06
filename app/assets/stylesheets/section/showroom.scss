@@ -30,6 +30,7 @@
         width: 245px;
         top: 57px;
         display: none;
+        z-index: 1;
         a {
           background: #000;
           color: #e0457e;
@@ -102,19 +103,51 @@
         a.conf {
           color: #df5a8b;
         }
-        ul {
-          li {
-            display: inline;
-            a {
-              margin: 0 5px 5px 0;
+        div#mask_carousel_facebook {
+          position: relative;
+          width: 640px;
+          height: 40px;
+          overflow: hidden;
+          .carousel-prev-fb, .carousel-next-fb {
+            background: url("/assets/showroom/arrows.png") no-repeat;
+            text-indent: -9999px;
+            width: 38px;
+            height: 38px;
+            display: block;
+            top: 0;
+            z-index: 100;
+          }
+          .carousel-prev-fb {
+            background-position: 0 0;
+            margin: 0 15px 0 0;
+            float: left;
+          }
+          .carousel-next-fb {
+            position: absolute;
+            background-position: -38px 0;
+            right: 0;
+          }
+          ul {
+            position: relative;
+            left: 0;
+            overflow: auto;
+            li {
+              position: relative;
+              margin: 0;
+              padding: 0;
+              display: inline;
               float: left;
-              div.mask {
-                width: 40px;
-                height: 40px;
-                overflow: hidden;
-              }
-              img {
-                height: 65px;
+              a {
+                margin: 0 5px 5px 0;
+                float: left;
+                div.mask {
+                  width: 40px;
+                  height: 40px;
+                  overflow: hidden;
+                }
+                img {
+                  height: 65px;
+                }
               }
             }
           }

@@ -15,11 +15,6 @@ describe LiquidationsController do
         response.should be_success
       end
 
-      it "returns http success" do
-        get 'show', :id => liquidation
-        assigns(:order).should == Order.find(order)
-      end
-
       it "assigns @liquidation" do
         get 'show', :id => liquidation.id
         assigns(:liquidation).should eql(liquidation)

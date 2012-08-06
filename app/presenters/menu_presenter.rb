@@ -13,7 +13,15 @@ class MenuPresenter < BasePresenter
   end
 
   def render_menu
-    user.half_user ? render_half_user_menu : render_default_menu
+    if user
+      user.half_user ? render_half_user_menu : render_default_menu
+    else
+      render_offline_menu
+    end
+  end
+
+  def render_offline_menu
+    [showroom_offline, lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
   end
 
   def render_default_menu
@@ -37,6 +45,9 @@ class MenuPresenter < BasePresenter
   end
 
   private
+  def showroom_offline
+    render_item("Minha Vitrine", h.root_path, "showroom", ["home#index"])
+  end
 
   def showroom
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
@@ -80,7 +91,7 @@ class MenuPresenter < BasePresenter
   end
 
   def cart
-    h.content_tag :li, (h.render 'shared/cart', :order => @order), :id => "cart", :class => "cart"
+    h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
   end
 
   def olook_tv

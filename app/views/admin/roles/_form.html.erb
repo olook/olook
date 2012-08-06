@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "admin/roles" %>
 <%= form_for([:admin, @role], :html => { :multipart => true }) do |f| %>
   <% if @role.errors.any? %>
     <div id="error_explanation">
@@ -20,24 +21,28 @@
   </div>
 
 <h1>Permissions</h1>
-<table cellspacing='5'>
-          <th align="left">Model</th>
-          <th align="left">Action</th>
-          <th align="left">Enable</th>
-<% @permissions.sort_by{|p| p.model_name}.each do |permission| %>
- <%= f.fields_for :permissions, permission do |permission_builder| %>
-          <tr>
-              <td><%= permission_builder.label :model_name, permission.model_name %></td>
-              <td><%= permission_builder.label :action_name, permission.action_name %></td>
-              <% if !@role.has_permission?(permission.id) %>
-              <td><%= permission_builder.check_box "enabled?", :checked => false %></td>
-              <% else %>
-              <td><%= permission_builder.check_box "enabled?", :checked => true %></td>
-              <% end %>
-          <tr>
+
+<% @permissions.group_by(&:model_name).each do |model, permissions| %>
+  <table id='roles'>
+    <th>Model</th>
+  <% permissions.each do |permission| %>
+          <%= f.fields_for :permissions, permission do |permission_builder| %>
+            <th><%= permission_builder.label :action_name, permission.action_name %></th>
+          <% end %>
   <% end %>
+    <tr>
+      <td><b><%= model %></b></td>
+      <% permissions.each do |permission| %>
+        <%= f.fields_for :permissions, permission do |permission_builder| %>
+            <% if !@role.has_permission?(permission.id) %>
+              <td><%= permission_builder.check_box "enabled?", :checked => false %></td>
+            <% else %>
+              <td><%= permission_builder.check_box "enabled?", :checked => true %></td>
+            <% end %>
+        <% end %>
+      <% end %>
+  </table>
 <% end %>
-</table>
 
   <div class="actions">
     <%= f.submit %>

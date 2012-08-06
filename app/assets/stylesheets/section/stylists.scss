@@ -1,5 +1,5 @@
 section#stylist {
-  padding-top: 15px;
+  padding-top: 35px;
 
   div.profile {
     width: 100%;
@@ -24,7 +24,7 @@ section#stylist {
       overflow: auto;
       float: left;
       h1, h2 {
-        font-family: Times, "sans-serif";
+        font-family: Times, 'Times New Roman', "sans-serif";
         font-weight: lighter;
         letter-spacing: -2px;
         width: 215px;
@@ -47,6 +47,7 @@ section#stylist {
         }
       }
       h3 {
+        font-family: Arial, "sans-serif";
         font-size: 14px;
         font-weight: bold;
         &+p {
@@ -55,6 +56,7 @@ section#stylist {
       }
       p {
         margin: 0 0 15px 0;
+        text-align: justify;
         clear: both;
         a {
           color: #000;
@@ -65,6 +67,8 @@ section#stylist {
     div.products {
       position: relative;
       overflow: visible;
+      margin-right: 30px;
+      border: 1px #bcbec0 solid;
       display: block;
       float: right;
       h1 {
@@ -77,12 +81,11 @@ section#stylist {
         position: absolute;
         color: #000;
         text-decoration: none;
-        letter-spacing: -2px;
+        letter-spacing: -1px;
         display: block;
         p {
-          font-family: Times, "sans-serif";
-          font-size: 20px;
-          font-style: italic;
+          font-family: Verdana, "sans-serif";
+          font-size: 13px;
           &.price {
             font-style: normal;
           }
@@ -90,6 +93,7 @@ section#stylist {
       }
     }
     &#helena {
+      padding: 18px 0 0 0;
       div.description {
         background: url("/assets/stylist/helena_linhares/foto.jpg") top right no-repeat;
         h1 {
@@ -100,216 +104,175 @@ section#stylist {
         }
       }
       div.products {
-        background: url("/assets/stylist/helena_linhares/box_products.jpg") no-repeat;
-        width: 392px;
-        height: 508px;
-        margin-right: 30px;
+        width: 530px;
+        height: 505px;
         h1 {
           background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
           width: 150px;
           height: 50px;
-          top: 290px;
-          left: 130px;
+          top: 190px;
+          left: 15px;
+          z-index: 10;
         }
-        a#catu {
-          background: url("/assets/stylist/helena_linhares/catu.jpg") bottom center no-repeat;
-          text-align: right;
-          width: 75px;
-          height: 125px;
-          top: 15px;
+        a#espora {
+          background: url("/assets/stylist/helena_linhares/espora.jpg") top right no-repeat;
+          width: 98px;
+          height: 60px;
+          top: 0;
           left: 10px;
-          padding: 20px 100px 15px 0px;
-        }
-        a#cajati {
-          background: url("/assets/stylist/helena_linhares/cajati.jpg") center left no-repeat;
-          width: 70px;
-          height: 100px;
-          top: 15px;
-          right: 15px;
-          padding: 40px 0 35px 115px;
-        }
-        a#filadelfia {
-          background: url("/assets/stylist/helena_linhares/filadelfia.jpg") bottom center no-repeat;
-          text-align: right;
-          width: 155px;
-          height: 90px;
-          top: 180px;
-          right: 7px;
-          padding: 0 5px 43px 0;
-        }
-        a#barreiras {
-          background: url("/assets/stylist/helena_linhares/barreiras.png") bottom left no-repeat;
-          text-align: right;
-          width: 170px;
-          height: 90px;
-          bottom: 15px;
-          right: 30px;
-          padding: 20px 10px 35px 0;
-          z-index: 2;
-        }
-        a#lindoia {
-          background: url("/assets/stylist/helena_linhares/lindoia.jpg") bottom right no-repeat;
-          text-align: right;
-          width: 65px;
-          height: 145px;
-          bottom: 15px;
-          left: 40px;
-          padding: 5px 65px 0 15px;
-          z-index: 1;
-        }
-        a#andorinha {
-          background: url("/assets/stylist/helena_linhares/andorinha.png") bottom left no-repeat;
-          text-align: right;
-          width: 90px;
-          height: 120px;
-          top: 170px;
-          left: 8px;
-          padding: 10px 20px 15px 40px;
-          z-index: 1;
-        }
-      }
-    }
-    &#mica_rocha {
-      div.description {
-        background: url("/assets/stylist/mica_rocha/foto.jpg") top right no-repeat;
-        width: 350px;
-        h1 {
-          font-size: 50px;
-          width: 235px;
-          margin: 60px 0 10px 0;
-        }
-        h2 {
-          &+p {
-            width: 205px;
-          }
-        }
-      }
-      div.products {
-        background: url("/assets/stylist/mica_rocha/box_products.jpg") top no-repeat;
-        width: 453px;
-        height: 740px;
-        h1 {
-          background: url("/assets/stylist/mica_rocha/minhas-escolhas-do-mes.jpg") no-repeat;
-          width: 166px;
-          height: 80px;
-          top: 385px;
-          left: 35px;
-        }
-        a#pintadas {
-          background: url("/assets/stylist/mica_rocha/pintadas.png") top right no-repeat;
-          width: 220px;
-          height: 200px;
-          top: -30px;
-          left: 35px;
-          padding: 50px 0 0 0;
+          padding: 95px 35px 0px 0px;
         }
         a#caribe {
-          background: url("/assets/stylist/mica_rocha/caribe.jpg") bottom center no-repeat;
-          text-align: right;
-          width: 130px;
-          height: 166px;
-          top: 10px;
-          right: 23px;
-          padding: 35px 45px 0 0;
+          background: url("/assets/stylist/helena_linhares/caribe.jpg") center left no-repeat;
+          text-align: center;
+          width: 123px;
+          height: 138px;
+          top: 0px;
+          left: 170px;
+          padding: 90px 0 0px 0px;
+          z-index: 10;
         }
-        a#nova_ibia {
-          background: url("/assets/stylist/mica_rocha/nova_ibia.jpg") top right no-repeat;
-          width: 70px;
-          height: 110px;
+        a#erva_mate {
+          background: url("/assets/stylist/helena_linhares/erva-mate.png") top right no-repeat;
+          text-align: right;
+          width: 69px;
+          height: 162px;
+          top: -18px;
+          right: 7px;
+          padding: 25px 140px 0px 0;
+        }
+        a#anis {
+          background: url("/assets/stylist/helena_linhares/anis.jpg") bottom right no-repeat;
+          text-align: right;
+          width: 157px;
+          height: 82px;
+          top: 175px;
+          right: 20px;
+          padding: 0px 0px 35px 0;
+          z-index: 2;
+        }
+        a#alamanda {
+          background: url("/assets/stylist/helena_linhares/alamanda.jpg") top right no-repeat;
+          text-align: right;
+          width: 60px;
+          height: 190px;
+          bottom: 0;
+          right: 20px;
+          padding: 10px 85px 0px 0px;
+          z-index: 1;
+        }
+        a#rosa_branca {
+          background: url("/assets/stylist/helena_linhares/rosa_branca.jpg") top center no-repeat;
+          text-align: center;
+          width: 93px;
+          height: 0;
+          bottom: 5px;
+          right: 195px;
+          padding: 127px 0px 35px 0px;
+          z-index: 1;
+        }
+        a#iris {
+          background: url("/assets/stylist/helena_linhares/iris.jpg") bottom center no-repeat;
+          text-align: center;
+          width: 230px;
+          height: 75px;
           top: 235px;
-          left: 75px;
-          padding: 20px 265px 0 0;
+          left: 100px;
+          padding: 0px 0px 10px 0px;
+          z-index: 1;
         }
-        a#pocoes {
-          background: url("/assets/stylist/mica_rocha/pocoes.jpg") top center no-repeat;
+        a#gardenia {
+          background: url("/assets/stylist/helena_linhares/gardenia.jpg") top right no-repeat;
           text-align: right;
-          width: 170px;
-          height: 45px;
-          top: 390px;
-          right: 40px;
-          padding: 205px 0 0 0;
-        }
-        a#conde {
-          background: url("/assets/stylist/mica_rocha/conde.jpg") bottom center no-repeat;
-          text-align: right;
-          width: 85px;
-          height: 130px;
-          bottom: 65px;
-          left: 25px;
-          padding: 0 110px 55px 0;
+          width: 163px;
+          height: 141px;
+          bottom: 10px;
+          left: 15px;
+          padding: 35px 15px 0px 0px;
         }
       }
     }
-    &#lele_saddi {
+    &#didi_wagner {
       div.description {
-        background: url("/assets/stylist/lele_saddi/foto.jpg") top right no-repeat;
-        width: 355px;
+        width: 370px;
         margin: 0;
+        display: block;
         h1 {
-          font-size: 50px;
-          width: 235px;
-          margin: 40px 0 10px 0;
+          font-size: 45px;
+          width: 215px;
+          margin: 15px 0 25px 0;
+          float: left;
         }
-        h2 {
-          margin: 0 0 10px 0;
-          &+p {
-            width: 205px;
+        p {
+          clear: none;
+          img {
+            margin: 0 0 0 10px;
+            float: right;
           }
         }
       }
       div.products {
-        background: url("/assets/stylist/lele_saddi/box_products.jpg") top no-repeat;
-        width: 453px;
-        height: 629px;
+        width: 530px;
+        height: 500px;
         h1 {
-          background: url("/assets/stylist/lele_saddi/minhas-escolhas-do-mes.jpg") no-repeat;
-          width: 166px;
-          height: 80px;
-          top: 240px;
-          left: 80px;
+          background: url("/assets/stylist/didi_wagner/as-escolhas-da-didi.jpg") no-repeat;
+          width: 163px;
+          height: 86px;
+          top: 40px;
+          left: 225px;
         }
-        a#santana {
-          background: url("/assets/stylist/lele_saddi/santana.jpg") top left no-repeat;
-          text-align: right;
-          width: 129px;
-          height: 120px;
-          top: 11px;
-          left: 35px;
-          padding: 90px 0 0 20px;
-        }
-        a#xique_xique {
-          background: url("/assets/stylist/lele_saddi/xique-xique.jpg") top center no-repeat;
-          text-align: center;
-          width: 120px;
-          height: 215px;
-          top: 15px;
-          right: 30px;
-          padding: 50px 0 0 0;
-        }
-        a#valenca {
-          background: url("/assets/stylist/lele_saddi/valenca.jpg") bottom left no-repeat;
-          text-align: right;
-          width: 205px;
-          height: 105px;
-          top: 310px;
-          right: 40px;
-          padding: 0 5px 40px 0;
-        }
-        a#saubara {
-          background: url("/assets/stylist/lele_saddi/saubara.png") top right no-repeat;
+        a#flor_do_dia {
+          background: url("/assets/stylist/didi_wagner/flor-do-dia.png") top right no-repeat;
           width: 195px;
-          height: 120px;
-          bottom: 5px;
-          right: 30px;
-          padding: 35px 0 0 0;
+          height: 145px;
+          top: -25px;
+          left: 20px;
+          padding: 65px 0 0;
         }
-        a#varzedo {
-          background: url("/assets/stylist/lele_saddi/varzedo.jpg") bottom right no-repeat;
-          width: 132px;
-          height: 185px;
-          bottom: 35px;
-          left: 30px;
-          padding: 0 0 45px 20px;
+        a#petunia {
+          background: url("/assets/stylist/didi_wagner/petunia.jpg") top center no-repeat;
+          text-align: center;
+          width: 123px;
+          height: 223px;
+          top: 0;
+          right: 0px;
+          padding: 20px 0 0 0;
+          z-index: 1;
+        }
+        a#central {
+          background: url("/assets/stylist/didi_wagner/central.png") bottom center no-repeat;
+          text-align: center;
+          width: 191px;
+          height: 118px;
+          bottom: 20px;
+          right: -5px;
+          padding: 0 0 40px 0px;
+        }
+        a#botao_de_ouro {
+          background: url("/assets/stylist/didi_wagner/botao-de-ouro.jpg") top center no-repeat;
+          text-align: center;
+          width: 147px;
+          height: 35px;
+          bottom: 40px;
+          left: 195px;
+          padding: 145px 0px 0px;
+        }
+        a#laranjeira {
+          background: url("/assets/stylist/didi_wagner/laranjeira.jpg") bottom right no-repeat;
+          text-align: right;
+          width: 236px;
+          height: 83px;
+          bottom: 235px;
+          left: 140px;
+          padding: 0 25px 35px 0px;
+        }
+        a#cipreste {
+          background: url("/assets/stylist/didi_wagner/cipreste.jpg") top right no-repeat;
+          width: 179px;
+          height: 239px;
+          bottom: 10px;
+          left: 10px;
+          padding: 0 10px 0 0;
         }
       }
     }

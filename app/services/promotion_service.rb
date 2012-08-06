@@ -8,6 +8,10 @@ class PromotionService
     ((100 - promotion.discount_percent) * product.price) / 100
   end
 
+  def self.apply_discount_for_price promotion, price
+    PromotionService.new.apply_discount_for(promotion, price)
+  end
+
   def self.apply_discount_for_product promotion, product
     PromotionService.new.apply_discount_for(promotion, product.retail_price)
   end
@@ -34,7 +38,7 @@ class PromotionService
   end
 
   def apply_discount promotion
-    apply_discount_for promotion, order.line_items_total
+    apply_discount_for promotion, order.subtotal
   end
 
   def apply_discount_for promotion, value

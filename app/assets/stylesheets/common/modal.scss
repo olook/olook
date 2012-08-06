@@ -53,7 +53,7 @@ html {
 					height: auto;
         	display: none;
 				}
-        &.liquidation {
+        &.with_confirmation {
           height: auto;
           display: none;
           img {
@@ -80,6 +80,110 @@ html {
           z-index: 100;
         }
       }
+    }
+  }
+}
+
+div#modal {
+  background: #FFF;
+  padding: 0;
+  border: 5px #000 solid;
+  display: none;
+  div.video_description {
+    background: #FFF;
+    overflow: auto;
+    padding: 30px;
+    h1 {
+      font-family: "Times New Roman", sans-serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: lighter;
+      letter-spacing: -1px;
+      float: left;
+    }
+    a {
+      color: #e0457e;
+      font-size: 20px;
+      line-height: 45px;
+      float: right;
+      &.home {
+        background: url("/assets/common/bt-lightbox-quiz.jpg") no-repeat;
+        text-indent: -9999px;
+        width: 233px;
+        height: 57px;
+        display: block;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .dialog {
+    left: 0;
+    top: 0;
+    height:525px;
+    z-index: 20000;
+    border:10px solid #000;
+    #first_visit {
+      width:100%;
+      position:absolute;
+      background-color: #000;
+      #fb_iframe {
+        border:none;
+        overflow:hidden;
+        width:350px;
+        height:35px;
+        position:relative;
+        top:5px;
+        left:20px;
+      }
+
+      #share_text {
+        color: white;
+        font-family: Times;
+        font-size: 22px;
+        font-style: italic;
+        letter-spacing:-1px;
+        position:relative;
+        top:-13px;
+        left:10px;
+      }
+    }
+    img {
+      display: none;
+    }
+    &.first_visit {
+      height: auto;
+      display: none;
+    }
+            &.gift_login {
+                height: auto;
+        display: none;
+            }
+    &.with_confirmation {
+      height: auto;
+      img {
+        display: block;
+      }
+      div.check {
+        background: #000;
+        padding: 10px 0 5px 10px;
+        label {
+          color: #fafafa;
+          font-family: "Open Sans", sans-serif;
+          font-size: 13px;
+        }
+      }
+    }
+    #close_dialog {
+      position: absolute;
+      background: url('/assets/common/close_dialog.png') no-repeat;
+      text-indent: -9999px;
+      width: 30px;
+      height: 30px;
+      top: -22px;
+      right: -22px;
+      z-index: 100;
     }
   }
 }

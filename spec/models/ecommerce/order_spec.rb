@@ -16,6 +16,8 @@ describe Order do
   let(:credits) { 1.89 }
 
 
+  it { should belong_to(:user) }
+  it { should belong_to(:cart) }
   it { should have_one(:used_coupon) }
 
   context "coupons" do
@@ -69,301 +71,21 @@ describe Order do
     end
   end
 
-  context "line items with gifts" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-      subject.add_variant(basic_shoe_37)
-      subject.add_variant(basic_shoe_40)
-    end
-
-    it "#has_one_item_flagged_as_gift?" do
-      subject.line_items_with_flagged_gift
-      subject.line_items.reload
-      subject.has_one_item_flagged_as_gift?.should be_true
-    end
-
-    it "#line_items_with_flagged_gift" do
-      subject.should_receive(:clear_gift_in_line_items)
-      subject.should_receive(:flag_second_line_item_as_gift)
-      subject.line_items_with_flagged_gift
-    end
-
-    it "#clear_gift_in_line_items" do
-      subject.line_items.first.update_attributes(:gift => true)
-      subject.clear_gift_in_line_items
-      subject.line_items.select{|item| item.gift?}.size.should == 0
-    end
-  end
-
-  context "destroying an Order" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-      subject.add_variant(basic_shoe_40)
-    end
-
-    it "should destroy the order" do
-      expect {
-        subject.destroy
-      }.to change(Order, :count).by(-1)
-    end
-
-    it "should destroy line items" do
-      expect {
-        subject.destroy
-      }.to change(LineItem, :count).by(-2)
-    end
-  end
-
-  context "removing a variant" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-    end
-
-    describe "with a valid variant" do
-      it "should destroy the variant line item" do
-        expect {
-          subject.remove_variant(basic_shoe_35)
-        }.to change(LineItem, :count).by(-1)
-      end
-    end
-
-    describe "with a invalid variant" do
-      it "should not destroy the variant line item" do
-        expect {
-          subject.remove_variant(basic_shoe_40)
-        }.to change(LineItem, :count).by(0)
-      end
-
-      it "should return a nil item" do
-        subject.remove_variant(basic_shoe_40).should be(nil)
-      end
-    end
-  end
-
-  context 'in a order with items' do
-    let(:price) { 123.45 }
-    let(:items_total) {123.45 + (123.45 * quantity)}
-    before :each do
-      basic_shoe_35.product.master_variant.update_attribute(:retail_price, price)
-      basic_shoe_35.product.master_variant.update_attribute(:price, price)
-      subject.line_items << (FactoryGirl.build :line_item, :variant => basic_shoe_35, :quantity => 1)
-      subject.line_items << (FactoryGirl.build :line_item, :variant => basic_shoe_40, :quantity => quantity)
-      subject.save
-    end
-
-    describe '#line_items_total' do
-      it 'should calculate the total' do
-        subject.line_items_total.should == items_total
-      end
-    end
-
-    describe "#total_discount" do
-      it "should return all discounts" do
-        subject.stub(:credits).and_return(credits = 9.09)
-        subject.stub(:discount_from_coupon).and_return(coupon = 8.36)
-        subject.total_discount.should == credits + coupon
-      end
-    end
-
-    describe "#max_credit_value" do
-      it "should return the total amount minus mininum value" do
-        subject.max_credit_value.should eq(items_total - Payment::MINIMUM_VALUE)
-      end
-      
-      it "should return the total amount minus discount_from_coupon" do
-        subject.stub(:discount_from_coupon).and_return(10)
-        subject.max_credit_value.should eq(items_total - Payment::MINIMUM_VALUE - 10)
-      end
-      
-      it "should return zero when discount from coupon is superior of items total" do
-        subject.stub(:discount_from_coupon).and_return(items_total + 10)
-        subject.max_credit_value.should eq(0)
-      end
-    end
-
-    describe "#update_credits!" do
-      it "should update the credits if a discount or promotion changed the maximal value." do
-          subject.stub!(:max_credit_value).and_return(50.00)
-          subject.credits = 100.00
-          subject.credits.should == 50.00
-          subject.stub!(:max_credit_value).and_return(30.00)
-          subject.update_credits!
-          subject.credits.should == 30.00
-      end
-    end
-
-    describe "#credits" do
-      context "when the credit is smaller than the max allowed" do
-        it "should return the credit amount asked by the user" do
-          subject.stub!(:max_credit_value).and_return(150.00)
-          subject.credits = 100.00
-          subject.credits.should == 100.00
-        end
-      end
-
-      context "when the credit is bigger than the max allowed" do
-        it "should return the max credit amount" do
-          subject.stub!(:max_credit_value).and_return(50.00)
-          subject.credits = 100.00
-          subject.credits.should == 50.00
-        end
-      end
-
-      it 'should return 0 if credits is nil' do
-        subject.credits = nil
-        subject.credits.should == 0
-      end
-    end
-
-    describe "#discount_from_coupon" do
-      context "with a used_coupon" do
-        it "should return the value in Reais" do
-          coupon = FactoryGirl.create(:standard_coupon)
-          subject.create_used_coupon(:coupon => coupon)
-          subject.discount_from_coupon.should == coupon.value
-        end
-
-        it "should return the value in Percentage" do
-          coupon = FactoryGirl.create(:percentage_coupon)
-          subject.create_used_coupon(:coupon => coupon)
-          #ALWAYS ZERO BECAUSE IS APPLIED IN LINE ITEM
-          subject.discount_from_coupon.should == 0
-        end
-      end
-
-      context "without a used_coupon" do
-        it "should return 0" do
-          subject.discount_from_coupon.should == 0
-        end
-      end
-    end
-
-    describe "#total" do
-      context "without coupon" do
-        it "should return the total discounting the credits" do
-          credits = 11.09
-          subject.stub(:credits).and_return(credits)
-          expected = items_total - credits
-          subject.total.should == expected
-        end
-
-        it "should return the total without discounting credits if it doesn't have any" do
-          expected = items_total
-          subject.total.should == expected
-        end
-      end
-
-      context "with a coupon" do
-        it "should return the total discounting the credits and coupons" do
-          credits = 11.09
-          coupon = FactoryGirl.create(:standard_coupon)
-          subject.create_used_coupon(:coupon => coupon)
-          expected = items_total - credits - coupon.value
-          subject.stub(:credits).and_return(credits)
-          subject.total.should == expected
-        end
-      end
-    end
-
-    describe '#total_with_freight' do
-      it "should return the total with freight" do
-        subject.stub(:credits).and_return(11.0)
-        subject.stub(:freight_price).and_return(22.0)
-        expected = items_total - 11.0 + 22.0
-        subject.total_with_freight.should be_within(0.001).of(expected)
-      end
-
-      it "should return the same value as #total if there's no freight" do
-        subject.stub(:credits).and_return(11.0)
-        subject.stub(:freight_price).and_return(0)
-        subject.total_with_freight.should be_within(0.001).of(items_total - 11)
-      end
-    end
-  end
-
-  context "in an order without items" do
-    it "#line_items_total should be zero" do
-      subject.line_items_total.should == 0
-    end
-
-    context 'with free freight' do
-      before(:each) do
-        subject.stub(:freight_price).and_return(0)
-      end
-      it "#total should be zero" do
-        subject.total.should == Payment::MINIMUM_VALUE
-      end
-      it "#total_with_freight should be the value of the freight" do
-        subject.total_with_freight.should == Payment::MINIMUM_VALUE
-      end
-    end
-
-    context 'without free freight' do
-      it "#total should be zero" do
-        subject.total.should == 0
-      end
-      it "#total_with_freight should be the value of the freight" do
-        subject.total_with_freight.should == subject.freight.price
-      end
-    end
-  end
-
-
-  context "when the inventory is not available" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-    end
-
-    it "should not create line items" do
-      expect {
-        subject.add_variant(basic_shoe_35, 11)
-      }.to change(LineItem, :count).by(0)
-    end
-
-    it "should return a nil line item" do
-      subject.add_variant(basic_shoe_35, 11).should == nil
-    end
-  end
-
-  context "when the inventory is available" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-      basic_shoe_40.update_attributes(:inventory => 10)
-    end
-
-    it "should set product's retail price to retail price when the item doesn't belongs to a liquidation" do
-      subject.add_variant(basic_shoe_40, 1)
-      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
-      line_item.retail_price.should == basic_shoe_40.product.retail_price
-    end
-
-    it "should always set the retail price even when the item belongs to a liquidation" do
-      basic_shoe_40.stub(:liquidation?).and_return(true)
-      basic_shoe_40.product.stub(:retail_price).and_return(retail_price = 45.90)
-      subject.add_variant(basic_shoe_40, 1)
-      line_item = subject.line_items.detect{|l| l.variant.id == basic_shoe_40.id}
-      line_item.retail_price.should == retail_price
-    end
-
-    it "should create line items" do
-      expect {
-        subject.add_variant(basic_shoe_35, 10)
-      }.to change(LineItem, :count).by(1)
-    end
-
-
-    it "should not return a nil line item" do
-      subject.add_variant(basic_shoe_35, 10).should_not == nil
-    end
-  end
-
   context "items availables in the order" do
     before :each do
       basic_shoe_35.update_attributes(:inventory => 10)
-      subject.add_variant(basic_shoe_35, 2)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_35.id,
+        :quantity => 2, 
+        :price => basic_shoe_35.price,
+        :retail_price => basic_shoe_35.retail_price)
 
       basic_shoe_40.update_attributes(:inventory => 10)
-      subject.add_variant(basic_shoe_40, 5)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_40.id,
+        :quantity => 5, 
+        :price => basic_shoe_40.price,
+        :retail_price => basic_shoe_40.retail_price)
     end
 
     context "when all variants are available" do
@@ -391,43 +113,20 @@ describe Order do
     end
   end
 
-  context "when the user try add a new variant" do
-    it "should add it in the order" do
-      expect {
-        subject.add_variant(basic_shoe_35)
-      }.to change(LineItem, :count).by(1)
-    end
-
-    it "should return a line item" do
-      subject.add_variant(basic_shoe_35).should be_a(LineItem)
-    end
-  end
-
-  context "when the variant already exists in the order" do
-    before :each do
-      subject.add_variant(basic_shoe_35)
-      @line_item = subject.line_items.first
-    end
-
-    it "should update the quantity" do
-      first_quantity = @line_item.quantity
-      subject.add_variant(basic_shoe_35, quantity)
-      @line_item.quantity.should == quantity
-    end
-
-    it "should not create line items" do
-      expect {
-        subject.add_variant(basic_shoe_35)
-      }.to change(LineItem, :count).by(0)
-    end
-  end
-
   context "inventory update" do
     it "should decrement the inventory for each item" do
       basic_shoe_35_inventory = basic_shoe_35.inventory
       basic_shoe_40_inventory = basic_shoe_40.inventory
-      subject.add_variant(basic_shoe_35, quantity)
-      subject.add_variant(basic_shoe_40, quantity)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_35.id,
+        :quantity => quantity, 
+        :price => basic_shoe_35.price,
+        :retail_price => basic_shoe_35.retail_price)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_40.id,
+        :quantity => quantity, 
+        :price => basic_shoe_40.price,
+        :retail_price => basic_shoe_40.retail_price)
       subject.decrement_inventory_for_each_item
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory - quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
@@ -438,8 +137,16 @@ describe Order do
       basic_shoe_40.increment!(:inventory, quantity)
       basic_shoe_35_inventory = basic_shoe_35.inventory
       basic_shoe_40_inventory = basic_shoe_40.inventory
-      subject.add_variant(basic_shoe_35, quantity)
-      subject.add_variant(basic_shoe_40, quantity)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_35.id,
+        :quantity => quantity, 
+        :price => basic_shoe_35.price,
+        :retail_price => basic_shoe_35.retail_price)
+      subject.line_items.create( 
+        :variant_id => basic_shoe_40.id,
+        :quantity => quantity, 
+        :price => basic_shoe_40.price,
+        :retail_price => basic_shoe_40.retail_price)
       subject.increment_inventory_for_each_item
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory + quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory + quantity
@@ -461,18 +168,18 @@ describe Order do
     end
   end
 
-  describe "ERP(abacos) integration" do
+  context "ERP(abacos) integration" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
         Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
-        subject.waiting_payment
+        subject
       end
 
       it "updates order purchased_at with the current time" do
         time = DateTime.new(2012,5,10,23,59,59)
         Time.stub(:now).and_return(time)
-        subject.should_receive(:update_attribute).with(:purchased_at, time)
-        subject.waiting_payment
+        subject.purchased_at.should eq(time)
+        subject
       end
     end
 
@@ -480,45 +187,36 @@ describe Order do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
         Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
-        subject.waiting_payment
         subject.authorized
       end
     end
 
     context "when the order is waiting payment" do
       it "updates user credit" do
-        subject.should_receive(:update_user_credit)
-        subject.waiting_payment
+        Order.any_instance.should_receive(:update_user_credit)
+        subject
       end
     end
   end
 
   describe "State machine" do
-    it "has in_the_cart as initial state" do
-      subject.in_the_cart?.should be_true
-    end
-
     it "should set authorized" do
-      subject.waiting_payment
       subject.authorized
       subject.authorized?.should be_true
     end
 
     it "should set authorized" do
-      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.under_review?.should be_true
     end
 
     it "should set canceled" do
-      subject.waiting_payment
       subject.canceled
       subject.canceled?.should be_true
     end
 
     it "should set canceled given not_delivered" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -533,7 +231,6 @@ describe Order do
     end
 
     it "should set reversed" do
-      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.reversed
@@ -541,7 +238,6 @@ describe Order do
     end
 
     it "should set refunded" do
-      subject.waiting_payment
       subject.authorized
       subject.under_review
       subject.refunded
@@ -549,14 +245,12 @@ describe Order do
     end
 
     it "should set picking" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.picking?.should be_true
     end
 
     it "should set delivering" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -564,7 +258,6 @@ describe Order do
     end
 
     it "should set delivered" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -573,7 +266,6 @@ describe Order do
     end
 
     it "should set not_delivered" do
-      subject.waiting_payment
       subject.authorized
       subject.picking
       subject.delivering
@@ -583,18 +275,16 @@ describe Order do
 
     it "should enqueue a OrderStatusWorker in any transation with a payment" do
       Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-      subject.waiting_payment
+      subject
     end
 
     it "should enqueue a OrderStatusWorker in any transation with a payment" do
       Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-      subject.waiting_payment
       subject.authorized
     end
 
     it "should use coupon when authorized" do
       subject.should_receive(:use_coupon)
-      subject.waiting_payment
       subject.authorized
     end
   end
@@ -630,7 +320,6 @@ describe Order do
 
   describe "Audit trail" do
     it "should audit the transition" do
-      subject.waiting_payment
       subject.authorized
       transition = subject.order_state_transitions.last
       transition.event.should == "authorized"
@@ -646,7 +335,6 @@ describe Order do
 
     context "when a order has an associated credit" do
       it "removes this credit from the user" do
-        subject.stub(:line_items_total).and_return(50.00)
         subject.credits = BigDecimal.new("10.30")
         subject.save!
 
@@ -678,5 +366,4 @@ describe Order do
       subject.restricted?.should be_true
     end
   end
-
 end

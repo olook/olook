@@ -8,7 +8,6 @@ describe OrderStatus do
   before :each do
     Resque.stub(:enqueue)
     Resque.stub(:enqueue_in)
-    order.waiting_payment
   end
 
   context "order.requested?" do

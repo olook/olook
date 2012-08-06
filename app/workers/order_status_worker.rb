@@ -8,7 +8,7 @@ class OrderStatusWorker
   end
 
   def self.send_email(order)
-    if order.waiting_payment?
+    if order.payment && order.waiting_payment?
       mail = OrderStatusMailer.order_requested(order)
     elsif order.authorized?
       mail = OrderStatusMailer.payment_confirmed(order)

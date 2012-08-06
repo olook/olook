@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :addresses
   has_many :orders
+  has_many :carts
   has_many :campaing_participants
   has_many :payments, :through => :orders
   has_many :credits
@@ -114,7 +115,7 @@ class User < ActiveRecord::Base
   def used_invite_bonus
     InviteBonus.already_used(self)
   end
-
+  
   def current_credit
     credits.last.try(:total) || 0
   end
@@ -125,6 +126,11 @@ class User < ActiveRecord::Base
 
   def can_use_credit?(value)
     current_credit.to_f >= value.to_f
+  end
+  
+  def credits_for?(value)
+    value ||= 0
+    self.current_credit - value
   end
 
   def profile_scores
@@ -148,8 +154,12 @@ class User < ActiveRecord::Base
   end
 
   def add_event(type, description = '')
+    description = description.with_indifferent_access if description.is_a?(Hash)
     self.events.create(event_type: type, description: description.to_s)
-    self.create_tracking(description) if type == EventType::TRACKING && description.is_a?(Hash)
+    self.create_tracking(:utm_source => description.fetch(:utm_source, nil), :utm_medium => description.fetch(:utm_medium, nil),
+    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil), 
+    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil), 
+    :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
   def invitation_url(host = 'www.olook.com.br')
@@ -203,7 +213,7 @@ class User < ActiveRecord::Base
   end
 
   def has_purchases?
-    self.orders.not_in_the_cart.count > 0
+    self.orders.count > 0
   end
 
   def first_buy?
@@ -218,21 +228,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def total_revenue(total_method = :total)
-    self.orders.joins(:payment)
-        .where("payments.state IN ('authorized','completed')")
-        .inject(0) { |sum,order| sum += order.send(total_method) }
-  end
-
-  def tracking_params(param_name)
-    first_event = events(:where => EventType::TRACKING).first
-    if first_event
-      match_data = (/\"#{param_name}\"=>\"(\w+)\"/).match(first_event.description)
-      return match_data.captures.first if match_data
-    end
-  end
-
-  def total_revenue(total_method = :total)
+  def total_revenue(total_method = :subtotal)
     self.orders.joins(:payment)
         .where("payments.state IN ('authorized','completed')")
         .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
@@ -248,6 +244,10 @@ class User < ActiveRecord::Base
 
   def female?
     self.gender == Gender[:female]
+  end
+
+  def full_user?
+    !half_user
   end
 
   def upgrade_to_full_user!

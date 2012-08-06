@@ -1,7 +1,15 @@
 # encoding: UTF-8
 # pt-BR translations for Ruby on Rails
 "pt-BR":
-
+  #Carrinho
+  cart:
+    discounts:
+      olooklet: Olooklet
+      coupon: Cupom
+      credits: Créditos
+      promotion: 30% na primeira compra
+      gift: Pacote de presentes
+  
   #traduzindo categorias de produtos
   enumerations:
     category:

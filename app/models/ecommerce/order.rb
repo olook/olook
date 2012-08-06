@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Order < ActiveRecord::Base
-  attr_accessor :freight_price_override
-  DEFAULT_QUANTITY = 1
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
@@ -19,16 +17,10 @@ class Order < ActiveRecord::Base
     "authorized" => "Pagamento autorizado"
   }
 
+  belongs_to :cart
   belongs_to :user
+
   has_many :variants, :through => :line_items
-  has_many :line_items, :dependent => :destroy
-  delegate :name, :to => :user, :prefix => true
-  delegate :email, :to => :user, :prefix => true
-  delegate :price, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :payment_response, :to => :payment, :allow_nil => true
   has_one :payment, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
@@ -36,41 +28,53 @@ class Order < ActiveRecord::Base
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
+  has_many :line_items, :dependent => :destroy
+  alias :items :line_items
+
   after_create :generate_number
   after_create :generate_identification_code
-  after_save :update_retail_price
 
-  validates :gift_message, :length => {:maximum => 140}, :allow_nil => true
+  delegate :name, :to => :user, :prefix => true
+  delegate :email, :to => :user, :prefix => true
+  delegate :price, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :city, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :state, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
+  delegate :payment_response, :to => :payment, :allow_nil => true
 
-  scope :with_payment, joins(:payment)
-  scope :purchased, where("state NOT IN ('canceled', 'reversed', 'refunded', 'in_the_cart')")
-  scope :paid, where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
-  scope :not_in_the_cart, where("state <> 'in_the_cart'")
-  scope :with_complete_payment, joins(:payment).where("payments.state IN ('authorized','completed')")
+  def self.with_payment
+    joins(:payment)
+  end
 
-  state_machine :initial => :in_the_cart do
+  def self.purchased
+    where("state NOT IN ('canceled', 'reversed', 'refunded')")
+  end
+
+  def self.paid
+     where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
+  end
+
+  def self.with_complete_payment
+    joins(:payment).where("payments.state IN ('authorized','completed')")
+  end
+
+  after_create :initialize_order
+
+  state_machine :initial => :waiting_payment do
 
     store_audit_trail
-
-    after_transition :in_the_cart => :waiting_payment, :do => :insert_order
-    after_transition :in_the_cart => :waiting_payment, :do => :send_notification_order_requested
-    after_transition :in_the_cart => :waiting_payment, :do => :update_user_credit
 
     after_transition :waiting_payment => :authorized, :do => :confirm_payment
     after_transition :waiting_payment => :authorized, :do => :use_coupon
     after_transition :waiting_payment => :authorized, :do => :send_notification_payment_confirmed
     after_transition :waiting_payment => :authorized, :do => :add_credit_to_inviter
-    
+
     after_transition :picking => :delivering, :do => :send_notification_order_shipped
     after_transition :delivering => :delivered, :do => :send_notification_order_delivered
 
     after_transition any => :canceled, :do => :send_notification_payment_refused
     after_transition any => :reversed, :do => :send_notification_payment_refused
     after_transition any => :canceled, :do => :reimburse_credit
-
-    event :waiting_payment do
-      transition :in_the_cart => :waiting_payment
-    end
 
     event :authorized do
       transition :waiting_payment => :authorized
@@ -81,7 +85,7 @@ class Order < ActiveRecord::Base
     end
 
     event :canceled do
-      transition :waiting_payment => :canceled, :not_delivered => :canceled, :in_the_cart => :canceled
+      transition :waiting_payment => :canceled, :not_delivered => :canceled
     end
 
     event :reversed do
@@ -107,6 +111,10 @@ class Order < ActiveRecord::Base
     event :not_delivered do
       transition :delivering => :not_delivered
     end
+  end
+
+  def notify_sac_for_fraud_analysis
+    # SAC::Notifier.notify(SAC::Notification.new(:fraud_analysis, "Análise de Fraude | Pedido : #{self.number}", self))
   end
 
   def send_notification_payment_refused
@@ -166,44 +174,8 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def clear_gift_in_line_items
-    reload
-    line_items.each {|item| item.update_attributes(:gift => false)}
-  end
-
-  def line_items_with_flagged_gift
-    clear_gift_in_line_items
-    flag_second_line_item_as_gift
-    reload
-    line_items.ordered_by_price
-  end
-
-  def flag_second_line_item_as_gift
-    second_item = line_items.ordered_by_price[1]
-    second_item.update_attributes(:gift => true) if second_item
-  end
-
-  def has_one_item_flagged_as_gift?
-    line_items.select {|item| item.gift?}.size == 1
-  end
-
-  # gift wrapping
-  def gift_wrap_all_line_items
-    reload
-    line_items.each {|item| item.update_attributes(:gift_wrap => true)}
-  end
-
-  def clear_line_items_gift_wrapping
-    reload
-    line_items.each {|item| item.update_attributes(:gift_wrap => false)}
-  end
-
   def status
     STATUS[state]
-  end
-
-  def freight_price
-    freight_price_override || freight.try(:price)
   end
 
   def remove_unavailable_items
@@ -215,103 +187,6 @@ class Order < ActiveRecord::Base
     size_items = unavailable_items.size
     unavailable_items.each {|item| item.destroy}
     size_items
-  end
-
-  #TODO: refactor this to include price as a parameter
-  def add_variant(variant, quantity=nil, gift_wrap=false)
-    quantity ||= Order::DEFAULT_QUANTITY.to_i
-    quantity = quantity.to_i
-    if variant.available_for_quantity?(quantity)
-      current_item = line_items.select { |item| item.variant == variant }.first
-      if current_item
-        current_item.update_attributes(:quantity => quantity)
-      else
-        current_item =  LineItem.new(:order_id => id,
-                                     :variant_id => variant.id,
-                                     :quantity => quantity,
-                                     :price => variant.price,
-                                     :retail_price => variant.product.retail_price,
-                                     :gift_wrap => gift_wrap)
-        line_items << current_item
-      end
-      current_item
-    end
-  end
-
-  def remove_variant(variant)
-    current_item = line_items.select { |item| item.variant == variant }.first
-    current_item.destroy if current_item
-  end
-
-  def total_with_freight
-    total + (freight_price || 0)
-  end
-
-  def line_items_total
-    BigDecimal.new(line_items.inject(0){|result, item| result + item.total_price}.to_s)
-  end
-
-  def max_credit_value
-    max_credit_possible = line_items_total
-    max_credit_possible -= Payment::MINIMUM_VALUE
-    max_credit_possible -= discount_from_coupon if discount_from_coupon > 0
-    # if discount_from_coupon > 0
-    # else
-    #   max_credit_possible -= discount_from_promotion
-    # end
-
-    max_credit_possible > 0 ? max_credit_possible : 0
-  end
-
-  def credits=(credits_customer_want_to_use)
-    super(credits_customer_want_to_use)
-    self.credits = max_credit_value if credits > max_credit_value
-  end
-
-  def credits
-    credits_to_use = read_attribute :credits
-    credits_to_use.nil? ? 0 : credits_to_use
-  end
-
-  def discount_from_coupon
-    if used_coupon && !used_coupon.is_percentage?
-      max_discount = line_items_total - (!freight_price.nil? && freight_price > Payment::MINIMUM_VALUE ? 0 : Payment::MINIMUM_VALUE)
-      # discount_value = used_coupon.is_percentage? ? (used_coupon.value * line_items_total) / 100 : used_coupon.value
-      discount_value = used_coupon.value
-      discount_value = max_discount if discount_value > max_discount
-      discount_value
-    else
-      0
-    end
-  end
-
-  def update_credits!
-    self.credits = read_attribute :credits
-    self.save
-  end
-
-  def discount_from_promotion
-    # if used_promotion
-    #   used_promotion.discount_value
-    # else
-    #   0
-    # end
-    0
-  end
-
-  def total
-    subtotal = line_items_total - total_discount
-    subtotal = Payment::MINIMUM_VALUE if subtotal < Payment::MINIMUM_VALUE && (freight_price.nil? || freight_price < Payment::MINIMUM_VALUE)
-    # gift wrapping price
-    subtotal += YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] if gift_wrap?
-    subtotal
-  end
-
-  def total_discount
-    credits + discount_from_coupon
-    # else
-    #   credits + discount_from_promotion
-    # end
   end
 
   def generate_identification_code
@@ -352,6 +227,11 @@ class Order < ActiveRecord::Base
     freight_delivery_time - WAREHOUSE_TIME
   end
 
+  def credits
+    credit = read_attribute :credits
+    credit.nil? ? 0 : credit
+  end
+
   def reimburse_credit
     Credit.add(credits, user, self) if credits > 0
   end
@@ -363,75 +243,18 @@ class Order < ActiveRecord::Base
   def update_user_credit
     Credit.remove(credits, user, self) if credits > 0
   end
-
-  def get_retail_price_for_line_item(item)
-    origin = ''
-    percent = 0
-    final_retail_price = item.variant.product.retail_price
-
-    if item.variant.product.price != final_retail_price
-      percent =  (1 - (final_retail_price / item.variant.product.price) )* 100
-      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
-    end
-
-    if used_coupon && used_coupon.is_percentage?
-      coupon_value = item.variant.product.price - ((used_coupon.value * item.variant.product.price) / 100)
-      if coupon_value < final_retail_price
-        percent = used_coupon.value
-        final_retail_price = coupon_value
-        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+used_coupon.code
-      end
-    end
-
-    if used_promotion && (!used_coupon || (used_coupon && used_coupon.is_percentage?))
-      promotion_value = item.variant.product.price - ((item.variant.product.price * used_promotion.promotion.discount_percent) / 100)
-      if promotion_value < final_retail_price
-        final_retail_price =  promotion_value
-        percent = used_promotion.promotion.discount_percent
-        origin = 'Desconto de '+percent.ceil.to_s+'% '+used_promotion.promotion.banner_label
-      end
-    end
-
-    if restricted?
-      final_retail_price = item.retail_price
-      percent =  (1 - (final_retail_price / item.price) )* 100
-      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
-    end
-    [origin, final_retail_price, percent]
-  end
-
-  def has_olooklet?
-    line_items.select{|line| line.variant.product.price != line.variant.product.retail_price }.any?
-  end
-
-  def has_more_than_one_discount?
-    size = active_discounts.size
-    size > 1 ? size : false
-  end
-
-  def active_discounts
-    discounts = []
-    discounts.push 'cupom' if used_coupon
-    discounts.push 'Olooklet' if has_olooklet?
-    discounts.push '30% na primeira compra' if used_promotion
-    discounts.uniq
-  end
-
-  def update_retail_price
-    if state == "in_the_cart" && !restricted?
-
-      line_items.each do |item|
-        origin, final_retail_price = get_retail_price_for_line_item(item)
-        item.update_attribute(:retail_price, final_retail_price)
-      end
-    end
-  end
-
+  
   private
+
+  def initialize_order
+    self.insert_order
+    self.send_notification_order_requested
+    self.update_user_credit
+    self.notify_sac_for_fraud_analysis
+  end
 
   def generate_number
     new_number = (id * CONSTANT_FACTOR) + CONSTANT_NUMBER
     update_attributes(:number => new_number)
   end
-
 end

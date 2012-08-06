@@ -5,16 +5,16 @@
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
       <p class="warn sold_out">ESGOTADO</p>
-      <% if product.shoe? %>
+      <% if current_user && current_user.full_user? && product.shoe? %>
         <p class="warn shoe_size">Tam. <%= "#{(current_user.user_info.nil?) ? '' : current_user.user_info.shoes_size}" %></p>
       <% end %>
-      <% if current_user && product.promotion? == false %>
+      <% if current_user && current_user.full_user? && product.promotion? == false %>
         <p class="warn quantity">Só mais <span><%= "#{(current_user.user_info.nil?) ? '' : product.quantity( current_user.user_info.shoes_size )}" %></span></p>
         <% if product.shoe? %>
           <p class="warn shoe_size">Tam. <%= current_user.user_info.shoes_size %></p>
         <% end %>
       <% end %>
-      <% unless product.sold_out? || product.discount_percent.to_i == 0 %>
+      <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
         <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
     <% end %>

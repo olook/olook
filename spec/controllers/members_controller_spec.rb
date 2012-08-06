@@ -4,8 +4,6 @@ require 'spec_helper'
 describe MembersController do
   let(:user) { FactoryGirl.create :user }
   let(:recent_user) { FactoryGirl.create :recent_user }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -76,7 +74,7 @@ describe MembersController do
       invite = double(Invite)
       invite
     end
-    member = double(User)
+    member = User.new
     member.should_receive(:invites_for).with(emails).and_return(mock_invites)
     member.should_receive(:add_event).with(EventType::SEND_INVITE, '5 invites sent')
     member.stub(:half_user).and_return(false)
@@ -143,7 +141,7 @@ describe MembersController do
         invite = double(Invite)
         invite
       end
-      member = double(User)
+      member = User.new
       member.should_receive(:invites_for).with(emails).and_return(mock_invites)
       member.should_receive(:add_event).with(EventType::SEND_IMPORTED_CONTACTS, '3 invites from imported contacts sent')
       member.stub(:half_user).and_return(false)

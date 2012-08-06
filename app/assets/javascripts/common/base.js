@@ -81,8 +81,6 @@ $(document).ready(function() {
     $("div.overlay").remove();
   });
 
-  $("header .info ul").fadeTransition();
-
   $("ol.addresses li.address_item ul.links li a.select_address").live("click", function() {
     if($(this).parents("li.address_item").hasClass("add") == false) {
       lists = $(this).parents("ol").find("li");
@@ -126,21 +124,6 @@ $(document).ready(function() {
     }
   });
 
-  if($('.dialog.first_visit').length == 1) {
-    initBase.openDialog();
-
-    $(".dialog img").animate({
-      width: 'toggle',
-      height: 'toggle'
-    });
-
-    $('body .dialog').css("left", (viewWidth - '930') / 2);
-    $('body .dialog').css("top", (viewHeight - '525') / 2);
-
-    $('.dialog img').fadeIn('slow');
-    initBase.closeDialog();
-  }
-
   $("a.open_login").live("click", function() {
     initBase.openDialog();
     $('body .dialog').show();
@@ -183,21 +166,9 @@ $(document).ready(function() {
     if (zipcode.length < 9) {
       return true;
     }
-    $.ajax({
-      url: '/get_price_by_zipcode',
-      dataType: 'json',
-      data: 'zipcode=' + zipcode,
-      success: function(rs){
-        var price = parseFloat(rs['price']).toFixed(2).toString().replace( ".", "," );
-        $('.freight .value').html('+ R$ '+price);
-
-        var total = parseFloat(rs['total']).toFixed(2).toString().replace( ".", "," );
-        $('.total .value').html(' R$ '+total);
-
-        var coupon_discount = parseFloat(rs['coupon_discount']).toFixed(2).toString().replace( ".", "," );
-        $('.discount .value').html('- R$ '+coupon_discount+' '+rs['coupon_percentage']);
-      }
-    });
+    if ($("#request_info").size() > 0) {
+      $.getScript("/sacola/pagamento/preview_by_zipcode?zipcode=" + zipcode);
+    }
   };
 
   $("input#address_zip_code").focusout(function(){
