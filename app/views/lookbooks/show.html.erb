@@ -3,7 +3,7 @@
   <style type="text/css">
     .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>) no-repeat; }
     .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>) no-repeat; }
-    .product-map p a { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
+    .product-map a p { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
   </style>
 <% end %>
 
@@ -38,7 +38,9 @@
           <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
             <% if lim.product.is_a? Product %>
             <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
-              <p class="spy"><%= link_to lim.product.try(:name), product_path(lim.product.try(:id)), data: { params: { gift: false, shoe_size: nil } }, rel: "#{lim.product.try(:id)}", remote: true %></p>
+              <%= link_to product_path(lim.product.try(:id)), data: { params: { gift: false, shoe_size: nil } }, rel: "#{lim.product.try(:id)}", remote: true  do %>
+                <p class="spy"><%= lim.product.try(:name) %></p>
+              <% end %>
             </div>
             <% end %>
           <% end %>
