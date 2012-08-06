@@ -128,12 +128,10 @@ Olook::Application.routes.draw do
     end
 
     resources :lookbooks do
-      collection do
-        get "product/:id", :to => "lookbooks#product"
-      end
       resources :images do
         resources :lookbook_image_maps
       end
+      get :products, :to => "lookbooks#product"
     end
 
     resources :moments

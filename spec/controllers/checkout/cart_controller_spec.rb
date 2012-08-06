@@ -8,7 +8,7 @@ describe Checkout::CartController do
     
   before :each do
     session[:cart_id] = cart.id
-    session[:freight] = mock
+    session[:cart_freight] = mock
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
   
@@ -16,24 +16,24 @@ describe Checkout::CartController do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
     session[:cart_coupon] = nil
-    session[:credits] = nil
-    session[:freight] = nil
+    session[:cart_credits] = nil
+    session[:cart_freight] = nil
   end
   
-  xit "should erase freight when call any action" do
-    session[:freight] = mock
+  it "should erase freight when call any action" do
+    session[:cart_freight] = mock
     get :show
-    assigns(:cart).freight.should be_nil
+    assigns(:cart_service).freight.should be_nil
   end
   
-  pending "when show" do
+  context "when show" do
     it "should assign default bonus value" do
       get :show
       assigns(:bonus).should eq(0)
     end
     
     it "should assign bonus value for user" do
-      session[:credits] = 10
+      session[:cart_credits] = 10
       User.any_instance.should_receive(:credits_for?).with(10).and_return(100)
       sign_in user
       get :show
@@ -46,7 +46,7 @@ describe Checkout::CartController do
     end
   end
   
-  pending "when destroy" do
+  context "when destroy" do
     it "should remove cart in database" do
       Cart.any_instance.should_receive(:destroy)
       delete :destroy
@@ -59,8 +59,8 @@ describe Checkout::CartController do
       session[:cart_id].should be_nil
       session[:gift_wrap].should be_nil
       session[:cart_coupon].should be_nil
-      session[:credits].should be_nil
-      session[:freight].should be_nil
+      session[:cart_credits].should be_nil
+      session[:cart_freight].should be_nil
     end
 
     it "should set flash notice" do
@@ -74,7 +74,7 @@ describe Checkout::CartController do
     end
   end
 
-  pending "when update" do
+  context "when update" do
     it "should remove item" do
       Cart.any_instance
           .should_receive(:remove_item)
@@ -146,7 +146,7 @@ describe Checkout::CartController do
     end
   end
 
-  pending "when add item" do
+  context "when add item" do
     it "should assign variant" do
       post :create, {variant: {id: basic_bag.id}}
       assigns(:variant).should eq(basic_bag)
@@ -242,7 +242,7 @@ describe Checkout::CartController do
   end
   
   
-  pending "when update gift wrap" do
+  context "when update gift wrap" do
     it "should update session" do
       post :update_gift_wrap, {gift: {gift_wrap: "true"}}
       session[:gift_wrap].should eq("true")
@@ -254,7 +254,7 @@ describe Checkout::CartController do
     end
   end
 
-  pending "when update coupon" do
+  context "when update coupon" do
     it "should redirect to cart" do
       post :update_coupon
       response.should redirect_to(cart_path)
@@ -307,6 +307,7 @@ describe Checkout::CartController do
     context "when has expired coupon" do
       let(:coupon) do
         coupon = double(Coupon)
+        coupon.stub(:reload)
         coupon.stub(:expired?).and_return(true)
         coupon
       end
@@ -326,20 +327,26 @@ describe Checkout::CartController do
     end
   end
   
-  pending "when remove coupon" do
+  context "when remove coupon" do
+    let(:coupon) do
+      coupon = double(Coupon)
+      coupon.stub(:reload)
+      coupon
+    end
+    
     it "should redirect to cart" do
       post :remove_coupon
       response.should redirect_to(cart_path)
     end
     
     it "should set session" do
-      session[:cart_coupon] = mock
+      session[:cart_coupon] = coupon
       post :remove_coupon
       session[:cart_coupon].should be_nil
     end
     
     it "should set flash when has valid coupon in session" do
-      session[:cart_coupon] = mock
+      session[:cart_coupon] = coupon
       post :remove_coupon
       flash[:notice].should eq("Cupom removido com sucesso")
     end
@@ -350,7 +357,7 @@ describe Checkout::CartController do
     end
   end
 
-  pending "when remove credits" do
+  context "when remove credits" do
     it "should redirect to cart" do
       post :remove_credits
       response.should redirect_to(cart_path)
@@ -363,19 +370,19 @@ describe Checkout::CartController do
 
     it "should set session when has credits in cart" do
       post :remove_credits
-      session[:credits].should be_nil
+      session[:cart_credits].should be(0)
     end
     
     it "should set flash when has credits in cart" do
-      Cart.any_instance.stub(:credits).and_return(100)
+      session[:cart_credits] = 100
       post :remove_credits
       flash[:notice].should eq("Créditos removidos com sucesso")
     end
   end
   
-  pending "when update credits" do
+  context "when update credits" do
     before :each do
-      Cart.any_instance.stub(:credits_discount).and_return(100)
+      Cart.any_instance.stub(:cart_credits_discount).and_return(100)
       sign_in user
     end
     
@@ -393,11 +400,12 @@ describe Checkout::CartController do
     context "and has sufficient credit" do
       before :each do
         User.any_instance.stub(:can_use_credit?).and_return(true)
+        CartService.any_instance.stub(:total_credits_discount).and_return(100)
       end
 
       it "should set session" do
         post :update_credits, {credits: {value: 100}}
-        session[:credits].should eq(100)
+        session[:cart_credits].should eq(100)
       end
       
       it "should set flash" do
