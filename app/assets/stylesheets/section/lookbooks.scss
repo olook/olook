@@ -112,19 +112,19 @@ section#lookbooks {
     .prev-pic, .next-pic {
       position: absolute;
       text-indent: -9999px;
-      width: 470px;
-      height: 551px;
+      width: 60px;
+      height: 220px;
       display: block;
-      top: 0;
+      top: 145px;
       z-index: 100;
       cursor: pointer;
     }
     .prev-pic {
-      background: url("/assets/showroom/arrow-prev.png") 10px 235px no-repeat;
+      background: url("/assets/showroom/arrow-prev.png") 10px 90px no-repeat;
       left: 0;
     }
     .next-pic {
-      background: url("/assets/showroom/arrow-next.png") 420px 235px no-repeat;
+      background: url("/assets/showroom/arrow-next.png") 10px 90px no-repeat;
       right: 0;
     }
     ul {
