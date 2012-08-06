@@ -15,7 +15,8 @@ module Abacos
     end
 
     def attributes
-      { :name           =>  self.name,
+      {
+        :name           =>  self.name,
         :description    =>  self.description,
         :category       =>  self.category,
         :model_number   =>  self.model_number,
@@ -24,7 +25,8 @@ module Abacos
         :height         =>  self.height,
         :length         =>  self.length,
         :weight         =>  self.weight,
-        :color_category => self.color_category }
+        :color_category => self.color_category
+      }
     end
 
     def integrate
@@ -41,11 +43,13 @@ module Abacos
     def find_or_initialize_product
       product = ::Product.find_by_model_number(self.model_number)
       if product.nil?
-        product = ::Product.new(:model_number => self.model_number,
-                                :name         => self.name,
-                                :category     => self.category,
-                                :description  => self.description,
-                                :is_visible   => false)
+        product = ::Product.new(
+          :model_number => self.model_number,
+          :name         => self.name,
+          :category     => self.category,
+          :description  => self.description,
+          :is_visible   => false
+        )
         product.id = self.model_number.to_i
         product.save!
       end
@@ -72,18 +76,22 @@ module Abacos
     def integrate_details(product)
       product.details.destroy_all
       self.details.each do |key, value|
-        product.details.create( :translation_token => key,
-                                :description => value,
-                                :display_on => DisplayDetailOn::SPECIFICATION )
+        product.details.create(
+          :translation_token => key,
+          :description => value,
+          :display_on => DisplayDetailOn::SPECIFICATION
+        )
       end
 
       integrate_how_to(product)
     end
 
     def integrate_how_to(product)
-      product.details.create( :translation_token => 'Como vestir',
-                              :description => self.how_to,
-                              :display_on => DisplayDetailOn::HOW_TO )
+      product.details.create(
+        :translation_token => 'Como vestir',
+        :description => self.how_to,
+        :display_on => DisplayDetailOn::HOW_TO
+      )
     end
 
     def integrate_profiles(product)
@@ -100,7 +108,8 @@ module Abacos
     end
 
     def self.parse_abacos_data(abacos_product)
-      { :integration_protocol => abacos_product[:protocolo_produto],
+      {
+        :integration_protocol => abacos_product[:protocolo_produto],
         :name                 => parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
         :description          => parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
         :model_number         => abacos_product[:codigo_produto].to_s,
@@ -115,7 +124,8 @@ module Abacos
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
         :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :color_category       => parse_color_category( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
-        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ) }
+        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] )
+      }
     end
   private
     def self.parse_moments(moments)
