@@ -1,34 +1,40 @@
 div.product-map {
   position: absolute;
   background-repeat: no-repeat;
-  width: auto;
-  padding: 5px 0px 5px 30px;
-  height: auto;
-  min-height: 20px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
   display: inline-block;
   top: 0;
   left: 0;
   z-index: 1000;
-  p {
-    margin: 0;
-    visibility: hidden;
-    a {
-      text-shadow: none;
-      text-transform: uppercase;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 5px 10px;
+  a {
+    text-shadow: none;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    float: left;
+    p {
+      margin: 0;
+      margin: 0 0 0 30px;
+      padding: 7px 10px;
+      display: none;
     }
-    a.delete-map {
-      float:right;
-      padding: 5px 10px;
-      text-align:center;
-      margin:0 0 0 2px;
-    }
+  }
+  a.delete-map {
+    float:right;
+    padding: 5px 10px;
+    text-align:center;
+    display: none;
+    float: left;
   }
   &:hover {
     p {
-      visibility: visible;
+      display: block;
+    }
+    a.delete-map {
+      margin: 0 0 0 5px;
+      display: block;
     }
   }
 }
