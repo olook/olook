@@ -16,15 +16,15 @@ module Abacos
 
     def attributes
       {
-        :name           =>  self.name,
-        :description    =>  self.description,
-        :category       =>  self.category,
-        :model_number   =>  self.model_number,
-        :color_name     =>  self.color_name,
-        :width          =>  self.width,
-        :height         =>  self.height,
-        :length         =>  self.length,
-        :weight         =>  self.weight,
+        :name           => self.name,
+        :description    => self.description,
+        :category       => self.category,
+        :model_number   => self.model_number,
+        :color_name     => self.color_name,
+        :width          => self.width,
+        :height         => self.height,
+        :length         => self.length,
+        :weight         => self.weight,
         :color_category => self.color_category
       }
     end
