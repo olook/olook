@@ -3,8 +3,8 @@
   <ol class="column">
    <% liquidation_presenter.liquidation.shoe_sizes.each do |shoe_size| %>
     <li>
-      <% if current_user && current_user.user_info %>
-        <%= check_box_tag('shoe_sizes[]', shoe_size, (shoe_size.to_s == current_user.user_info.shoes_size.to_s ? true : false) , :id => shoe_size) %>
+      <% if current_user && current_user.shoes_size %>
+        <%= check_box_tag('shoe_sizes[]', shoe_size, (shoe_size.to_s == current_user.shoes_size.to_s ? true : false) , :id => shoe_size) %>
       <% else %>
         <%= check_box_tag('shoe_sizes[]', shoe_size, false , :id => shoe_size) %>
       <% end %>
