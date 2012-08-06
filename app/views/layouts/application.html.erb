@@ -36,8 +36,8 @@
 
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
-    <%= content_for?(:content) ? yield(:content) : yield %>
     <%= render_promotion_banner unless error %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
 
     <% if user_signed_in? %>
