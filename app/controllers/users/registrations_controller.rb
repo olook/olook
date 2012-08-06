@@ -39,7 +39,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     #resource.require_cpf = true
     if resource.update_attributes(params[:user])
-      resource.user_info.update_attributes(params[:user_info]) if params[:user_info]
+      if params[:user_info] && params[:user_info][:shoes_size]
+        shoe_size = params[:user_info][:shoes_size]
+        if resource.user_info
+          resource.user_info.update_attribute(:shoes_size, shoe_size)
+        else
+          resource.create_user_info( { :shoes_size => shoe_size } )
+        end
+      end
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
       sign_in resource_name, resource, :bypass => true

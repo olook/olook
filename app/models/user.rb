@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
   before_create :generate_invite_token
   after_create :generate_auth_token
 
-  delegate :shoes_size, :to => :user_info, :allow_nil => true
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
@@ -273,6 +272,16 @@ class User < ActiveRecord::Base
   def clean_auth_token
     self.authentication_token = nil
     self.save
+  end
+  
+  def shoes_size
+    return nil unless self.full_user?
+    if user_info
+      return user_info.shoes_size
+    elsif survey_answers
+      return UserInfo::SHOES_SIZE[survey_answers.fetch(:question_57, nil)]
+    end
+    nil
   end
 
   private
