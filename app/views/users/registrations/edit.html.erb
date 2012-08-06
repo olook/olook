@@ -55,7 +55,7 @@
         <h2>Qual o tamanho do seu sapato?</h2>
           <ul class="shoes_size">
             <% @presenter.shoe_size_question.answers.each do |answer| %>
-            <li class="<%= ( answer.title == current_user.user_info.shoes_size.to_s ) ? 'selected': '' %>" >
+            <li class="<%= ( answer.title == current_user.shoes_size.to_s ) ? 'selected': '' %>" >
               <label for="user_info_shoes_size_<%= answer.title %>">
                 <%= answer.title %>
                 <%= ui.radio_button :shoes_size, answer.title %>
