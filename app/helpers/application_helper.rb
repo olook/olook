@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
+  def underscore_case(string)
+    string.parameterize.gsub('-', '_')
+  end
+
   def stylesheet_application
     stylesheet_link_tag  "application"
   end
@@ -57,13 +61,14 @@ module ApplicationHelper
   end
 
   def quantity_status(product, user)
-    if product.sold_out? || (user && user.full_user? && product.shoe? && product.quantity(user.user_info.shoes_size) == 0 )
+    if product.sold_out?
       'sold_out'
-    else
-      unless user.user_info.nil?
-        if product.quantity(user.user_info.shoes_size) > 0 && product.quantity(user.user_info.shoes_size) < 4
-          'stock_down'
-        end
+    elsif user && user.shoes_size && product.shoe?
+      quantity = product.quantity(user.shoes_size)
+      if quantity == 0
+        'sold_out'
+      elsif quantity > 0 && quantity < 4
+        'stock_down'
       end
     end
   end

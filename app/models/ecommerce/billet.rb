@@ -43,7 +43,7 @@ class Billet < Payment
   end
 
   def notify_sac
-    SAC::Notifier.notify(SAC::Notification.new(:billet, "Pedido: #{self.order.number} | Boleto", self.order)) if self.order
+    # SAC::Notifier.notify(SAC::Notification.new(:billet, "Pedido: #{self.order.number} | Boleto", self.order)) if self.order
   end
 
   def to_s

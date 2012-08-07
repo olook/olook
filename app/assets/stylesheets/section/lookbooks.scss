@@ -1,4 +1,5 @@
 @import "partials/product";
+@import "partials/product_map";
 
 section#lookbooks {
   width: 100%;
@@ -111,7 +112,7 @@ section#lookbooks {
     .prev-pic, .next-pic {
       position: absolute;
       text-indent: -9999px;
-      width: 470px;
+      width: 60px;
       height: 551px;
       display: block;
       top: 0;
@@ -119,12 +120,18 @@ section#lookbooks {
       cursor: pointer;
     }
     .prev-pic {
-      background: url("/assets/showroom/arrow-prev.png") 10px 235px no-repeat;
+      background: url("/assets/showroom/left-arrow.png") 0 0 no-repeat;
       left: 0;
+      &:hover {
+        background-position: -60px 0;
+      }
     }
     .next-pic {
-      background: url("/assets/showroom/arrow-next.png") 420px 235px no-repeat;
+      background: url("/assets/showroom/right-arrow.png") 0 0 no-repeat;
       right: 0;
+      &:hover {
+        background-position: -60px 0;
+      }
     }
     ul {
       position: relative;
@@ -132,11 +139,11 @@ section#lookbooks {
       overflow: auto;
       left: 0;
       li {
-      position: relative;
-      display: inline;
-      margin: 0;
-      padding: 0;
-      float: left;
+        position: relative;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        float: left;
         img {
           width: 970px;
           height: 549px;

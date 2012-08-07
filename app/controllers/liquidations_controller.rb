@@ -34,6 +34,6 @@ class LiquidationsController < ApplicationController
     end
     # To show just the shoes of the user size at the 
     # first time that the liquidations page is rendered
-    params[:shoe_sizes] = current_user.user_info.shoes_size if current_user && current_user.user_info
+    params[:shoe_sizes] = current_user.shoes_size.to_s if current_user && current_user.shoes_size
   end
 end

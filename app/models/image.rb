@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Image < ActiveRecord::Base
 	belongs_to :lookbook
+  has_many :lookbook_image_maps
+  
   validates :lookbook, :presence => true
   mount_uploader :image, ImageUploader
   after_update :invalidate_cdn_image

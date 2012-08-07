@@ -1,11 +1,37 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "admin/lookbook_autocomplete" %>
+  <style type="text/css">
+    .product-map { background: url(<%= @image.lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>) no-repeat; }
+    .product-map:hover { background: url(<%= @image.lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>) no-repeat; }
+    .product-map a p { background: <%= @image.lookbook.bg_color || "#000" %>; color: <%= @image.lookbook.fg_color || "#FFF" %>; }
+  </style>
+<% end %>
+
 <h2>Picture</h2>
 <div class="inner">
-  
-  <p>
-    <b>Thumb:</b>
-    <%= image_tag @image.image_url(:thumb).to_s %>
-  </p>
- 
+  <p><strong>Thumb:</strong></p>
+  <div id="container_picture">
+    <%= image_tag @image.image_url(:thumb).to_s, :class => "full_pic" %>
+    <%= render partial: @image.lookbook_image_maps %>
+  </div>
+
+  <%= form_for [:admin, @image.lookbook, @image, @lookbook_image_map], remote: true, class: 'form' do |f| %>
+    <%= f.hidden_field :lookbook_id, value: @image.lookbook.id %>
+    <%= f.hidden_field :image_id, value: @image.id %>
+    <%= f.hidden_field :product_id %>
+    <%= f.hidden_field :coord_x, value: 0 %>
+    <%= f.hidden_field :coord_y, value: 0 %>
+    <div id="product_result"><img src="" width="50" height="50" />
+      <span></span>
+      <%= f.submit 'Add product', class: 'button' %>
+    </div>
+    <div class="ui-widget">
+      <h4>Add image map</h4>
+      <%= text_field_tag :q, '', id: 'product_name', class: 'ui-autocomplete-input', placeholder: 'Product name or model number', autocomplete: 'off', 'aria-autocomplete' => 'list', 'aria-haspopup' => true, role: 'textbox' %>
+    </div>
+  <% end %>
+
+  <br />
 </div>
 
 <% content_for :secondary_navigation do %>
