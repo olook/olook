@@ -21,22 +21,22 @@ class Gift::SuggestionsController < Gift::BaseController
   end
 
   def add_to_cart
-    return redirect_to :back, :notice => 'Produtos não foram adicionados' unless params[:products]
-    
+    return redirect_to :back, :notice => 'Produtos não foram adicionados' unless params[:variants]
+
     @cart.clear
     position = 0
-    params[:products].each_pair do |k, id|
+    params[:variants].each_pair do |k, id|
       variant = Variant.find(id)
       @cart.add_item(variant, 1, position, true) if variant
       position += 1
     end
-    
+
     msg = if @cart.items.size > 0
       'Produtos adicionados com sucesso'
     else
       'Um ou mais produtos selecionados não estão disponíveis'
     end
-    
+
     redirect_to cart_path, notice: msg
   end
 end
