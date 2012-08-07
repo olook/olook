@@ -42,7 +42,7 @@ describe Address do
     end
 
     it "should validate the state format" do
-      subject.state = "mg"
+      subject.state = "MG"
       subject.should be_valid
     end
   end
