@@ -12,7 +12,7 @@
     <th>Installments</th>
   </tr>
 
-<% user.orders.with_payment.order('created_at DESC').each do |order| %>
+<% user.orders.order('created_at DESC').each do |order| %>
   <tr>
     <td><%= link_to order.number, admin_order_path(order) %></td>
     <td><%= l order.created_at, :format => :short %></td>
