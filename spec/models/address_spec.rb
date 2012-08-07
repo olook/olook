@@ -45,6 +45,11 @@ describe Address do
       subject.state = "MG"
       subject.should be_valid
     end
+
+    it "should validate the state format and not be valid" do
+      subject.state = "mg"
+      subject.should_not be_valid
+    end
   end
 
   describe "#identification" do
