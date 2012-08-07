@@ -36,8 +36,8 @@ describe Abacos::IntegrateProducts do
       Abacos::ProductPrice.should_receive(:parse_abacos_data).with(:product_price).and_return(:parsed_product_price)
       Abacos::VariantPrice.should_receive(:parse_abacos_data).with(:variant_price).and_return(:parsed_variant_price)
       
-      Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::ProductPrice", :parsed_product_price)
-      Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::VariantPrice", :parsed_variant_price)
+      Resque.should_receive(:enqueue).with(Abacos::IntegratePrice, "Abacos::ProductPrice", :parsed_product_price)
+      Resque.should_receive(:enqueue).with(Abacos::IntegratePrice, "Abacos::VariantPrice", :parsed_variant_price)
 
       described_class.process_prices
     end

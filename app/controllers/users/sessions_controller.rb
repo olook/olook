@@ -16,7 +16,7 @@ class Users::SessionsController < Devise::SessionsController
 
     @cart.update_attributes(:user_id => resource.id) if @cart
 
-    if @cart.has_gift_items?
+    if @cart && @cart.has_gift_items?
       GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
       GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
     end
