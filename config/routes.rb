@@ -1,5 +1,9 @@
+require 'resque/server'
+
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  mount Resque::Server => "/admin/resque"
+
   root :to => "home#index"
   get "/quiz", :to => "home#index"
   get "home/index"
