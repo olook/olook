@@ -70,7 +70,7 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
+  $("li.product div.hover_suggestive ul li.spy a, li div.product-map a").live("click", function() {
     if($("div#quick_view").size() == 0) {
       $("body").prepend("<div id='quick_view'></div>");
     }

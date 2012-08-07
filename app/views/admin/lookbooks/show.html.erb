@@ -1,3 +1,14 @@
+<% content_for :head do %>
+  <style type="text/css">
+    .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>); z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+    .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>); }
+    .product-map p, .product-map-example { visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
+    .product-map p, .product-map-example { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; text-shadow:none; text-transform: uppercase; font-weight: bold; padding: 5px 10px; }
+    .product-map:hover p, .product-map-example {visibility:visible;}
+    .product-map-example {width:auto; display:inline-block;}
+  </style>
+<% end %>
+
 <h2>Lookbook</h2>
 <div class="inner">
   <p id="notice"><%= notice %></p>
@@ -7,12 +18,26 @@
     <%= @lookbook.name %>
   </p>
   <p>
-    <b>Thumb:</b>
-    <%= image_tag @lookbook.thumb_image.try(:url) %>
+    <b>Thumb:</b><br/>
+    <%= image_tag @lookbook.thumb_image.try(:url) if @lookbook.thumb_image %>
+  </p>
+
+  <p>
+    <b>Icon:</b><br/>
+    <%= image_tag @lookbook.icon.try(:url) if !@lookbook.icon.blank? %>
+  </p>
+  <p>
+    <b>Icon Over:</b><br/>
+    <%= image_tag @lookbook.icon_over.try(:url) if !@lookbook.icon_over.blank? %>
+  </p>
+  <p>
+    <b>Foreground and background colors:</b>
+    <div class="product-map-example">Texto de exemplo</div>
   </p>
 
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
   <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>
+
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'Edit', edit_admin_lookbook_path(@lookbook) %></li>
   <li><%= link_to 'Back', admin_lookbooks_path %></li>

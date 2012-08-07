@@ -1,9 +1,11 @@
 class Admin::ImagesController < Admin::BaseController
-  before_filter :load_lookbook
+  before_filter :load_lookbook, except: [:autocomplete_product_name]
+  before_filter :save_image_maps, only: [:create, :update]
   respond_to :html
 
-   def show
+  def show
     @image = @lookbook.images.find(params[:id])
+    @lookbook_image_map = LookbookImageMap.new
     respond_with :admin, @image
   end
 
@@ -62,6 +64,13 @@ class Admin::ImagesController < Admin::BaseController
   private
   def load_lookbook
     @lookbook = Lookbook.find(params[:lookbook_id])
+  end
+
+  def save_image_maps
+    if params[:lookbook_image_map]
+      image_map = LookbookImageMap.new(params[:lookbook_image_map])
+      image_map.save
+    end
   end
 
 end
