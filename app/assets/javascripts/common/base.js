@@ -214,6 +214,20 @@ $(document).ready(function() {
     mask: '(99)9999-9999'
   });
 
+  $('input:text.phone').keyup(function() {
+    var value = $(this).val();
+    var size = value.length;
+    if(size == 3) {
+      if(value == '(11') {
+        $(this).setMask('(99)99999-9999');
+        return false;
+      } else {
+        $(this).setMask('(99)9999-9999');
+        return false;
+      }
+    }
+  });
+
   $("input:text.expiration_date").setMask({
     mask: '19/99'
   });
