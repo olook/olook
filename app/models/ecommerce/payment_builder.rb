@@ -109,11 +109,6 @@ class PaymentBuilder
     data
   end
 
-  def rollback_order
-    order.generate_identification_code
-    order.payment.destroy if order.payment
-  end
-
   private
 
   def billet_expiration_date
@@ -121,7 +116,6 @@ class PaymentBuilder
   end
 
   def respond_with_failure
-    rollback_order
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
 
