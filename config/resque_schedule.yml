@@ -1,0 +1,13 @@
+update_invetory:
+  cron: "* */5 * * *"
+  class: Abacos::UpdateInventory
+  queue: invetory
+  description: "Atualiza os Invetario"
+
+update_status:
+  cron: "* */5 * * *"
+  class: Abacos::UpdateOrderStatus
+  queue: order_status
+  description: "Atualiza os status do Pedido"
+
+
