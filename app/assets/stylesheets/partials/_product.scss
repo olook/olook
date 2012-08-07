@@ -324,6 +324,18 @@ li.product {
       }
     }
   }
+  div#carousel {
+    div.hover_suggestive {
+      top: 140px;
+      ul {
+        li.spy {
+          a {
+            width: 180px;
+          }
+        }
+      }
+    }
+  }
 }
 #friends {
   li.product {
