@@ -6,8 +6,6 @@ namespace :users do
 
     conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
     UserNotifier.send_in_cart( conditions.join(" AND ") )
-    conditions = UserNotifier.get_carts( 3, 1 )
-    UserNotifier.delete_old_orders( conditions.join(" AND ") )
 
   end
 

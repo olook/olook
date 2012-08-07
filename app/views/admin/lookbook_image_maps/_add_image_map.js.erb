@@ -1,0 +1,28 @@
+$('#container_picture').append('<%= j render @lookbook_image_map %>');
+
+$("div#container_picture .product-map").draggable({
+	cancel: 'p',
+	containment: "parent",
+	stop: function() {
+	  $.ajax({
+	    context: this,
+	    type: 'PUT',
+	    url: '/admin/lookbooks/' + $(this).data('lookbook_id') + '/images/' + $(this).data('image_id') + '/lookbook_image_maps/' + $(this).data('id'),
+	    data: {
+	      lookbook_image_map: {
+	        coord_y: $(this).css("top"),
+	        coord_x: $(this).css("left")
+	      }
+	    }
+	  }).done(function() {
+	    $(this).find("p:not('.confirm')").hide();
+	    $(this).append("<p class='confirm'>Salvo</p>");
+	    $(this).find("p.confirm").stop().animate({
+	      opacity: 0
+	    }, 3000, function() {
+	      $(this).remove();
+	      $(".product-map p").show();
+	    });
+	  });
+	}
+});

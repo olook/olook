@@ -1,5 +1,10 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/lookbooks" %>
+  <style type="text/css">
+    .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>) no-repeat; }
+    .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>) no-repeat; }
+    .product-map a p { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
+  </style>
 <% end %>
 
 <% content_for :footer do %>
@@ -30,6 +35,15 @@
       <% 0.upto(@lookbook.images.count - 1) do |image| %>
         <li>
           <%= image_tag @lookbook.images[image].image.try(:url), :alt => "Imagem #{image}" %>
+          <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
+            <% if lim.product.is_a? Product %>
+            <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
+              <%= link_to product_path(lim.product.try(:id)), data: { params: { gift: false, shoe_size: nil } }, rel: "#{lim.product.try(:id)}", remote: true  do %>
+                <p class="spy"><%= lim.product.try(:name) %></p>
+              <% end %>
+            </div>
+            <% end %>
+          <% end %>
         </li>
       <% end %>
     </ul>
@@ -45,5 +59,6 @@
   </div>
 </section>
 <% content_for :footer do %>
+
   <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
 <% end %>

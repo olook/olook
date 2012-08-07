@@ -107,6 +107,7 @@ Olook::Application.routes.draw do
   namespace :admin do
     match "/", :to => "index#dashboard"
 
+    get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
@@ -127,11 +128,10 @@ Olook::Application.routes.draw do
     end
 
     resources :lookbooks do
+      resources :images do
+        resources :lookbook_image_maps
+      end
       get :products, :to => "lookbooks#product"
-      # collection do
-      #   get "product/:id", :to => "lookbooks#product"
-      # end
-      resources :images
     end
 
     resources :moments
