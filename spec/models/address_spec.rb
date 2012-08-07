@@ -21,8 +21,23 @@ describe Address do
       subject.should_not be_valid
     end
 
-    it "should validate the telephone format" do
+    it "the telephone format should be valid" do
+      subject.telephone = "(34)8978-9236"
+      subject.should  be_valid
+    end
+
+    it "the telephone format should not be valid" do
       subject.telephone = "(34)89789236"
+      subject.should_not  be_valid
+    end
+
+    it "the telephone format for DDD 11 should be valid" do
+      subject.telephone = "(11)98978-9236"
+      subject.should  be_valid
+    end
+
+    it "the telephone format for DDD 11 should not be valid" do
+      subject.telephone = "(11)989789236"
       subject.should_not  be_valid
     end
 
