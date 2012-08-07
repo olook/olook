@@ -10,7 +10,7 @@ module Promotions
 
     def matches?
       if user
-        user.orders.purchased.size == param.to_i
+        user.orders.paid.size == param.to_i
       else
         0 == param.to_i
       end
