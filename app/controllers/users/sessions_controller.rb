@@ -14,14 +14,14 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
 
-    @cart.update_attributes(:user_id => resource.id)
+    @cart.update_attributes(:user_id => resource.id) if @cart
 
     if @cart.has_gift_items?
       GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
       GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
     end
     
-    if @cart.items_total > 0
+    if @cart && @cart.items_total > 0
       if resource.current_credit > 0
         cart_path
       else

@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
     if params[:share]
       @user = User.find(params[:uid])
-      @profile = @user.profile_scores.first.try(:profile).first_visit_banner
+      @profile = @user.profile_scores.first.try(:profile).try(:first_visit_banner)
       @qualities = Profile::DESCRIPTION["#{@profile}"]
       @url = request.protocol + request.host
     end

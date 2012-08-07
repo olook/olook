@@ -5,8 +5,8 @@ module ProductsHelper
       classes << "unavailable"
     else
       if shoe_size.nil? || shoe_size <= 0
-        if !current_user.nil? && !current_user.user_info.nil? &&
-          variant.description == current_user.user_info.shoes_size.to_s
+        if current_user && current_user.shoes_size &&
+          variant.description == current_user.shoes_size.to_s
             classes << "selected"
         end
       else
