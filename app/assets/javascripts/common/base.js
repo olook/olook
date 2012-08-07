@@ -70,7 +70,7 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $("li.product div.hover_suggestive ul li.spy a").live("click", function() {
+  $("li.product div.hover_suggestive ul li.spy a, li div.product-map a").live("click", function() {
     if($("div#quick_view").size() == 0) {
       $("body").prepend("<div id='quick_view'></div>");
     }
@@ -210,8 +210,37 @@ $(document).ready(function() {
     });
   });
 
-  $("input:text.phone").setMask({
-    mask: '(99)9999-9999'
+  if($("input:text.phone").size() == 1) {
+    currentPhone = $('input:text.phone').val();
+    if(currentPhone == '') {
+      $("input:text.phone").setMask({
+        mask: '(99)9999-9999'
+      });
+    } else {
+      if(currentPhone.substring(1,3) == '11') {
+        $('input:text.phone').setMask({
+          mask: '(99)99999-9999'
+        });
+      } else {
+        $('input:text.phone').setMask({
+          mask: '(99)9999-9999'
+        });
+      }
+    }
+  }
+
+  $('input:text.phone').keyup(function() {
+    var value = $(this).val();
+    var size = value.length;
+    if(size == 3) {
+      if(value == '(11') {
+        $(this).setMask('(99)99999-9999');
+        return false;
+      } else {
+        $(this).setMask('(99)9999-9999');
+        return false;
+      }
+    }
   });
 
   $("input:text.expiration_date").setMask({
