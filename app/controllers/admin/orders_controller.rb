@@ -6,7 +6,7 @@ class Admin::OrdersController < Admin::BaseController
   respond_to :html, :json
 
   def index
-    @search = Order.with_payment.search(params[:search])
+    @search = Order.search(params[:search])
     @orders = @search.relation.page(params[:page]).per_page(20).order('id DESC')
   end
 
