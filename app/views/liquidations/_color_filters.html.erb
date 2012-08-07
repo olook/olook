@@ -7,7 +7,7 @@
     </li>
   <% {'neutras' => 'Neutras', 'metalizadas' => 'Metalizadas', 'tons-pastel' => 'Tons Pastel', 'vivas' => 'Vivas'}.each do |subcategory,label| %>
     <li class="<%= subcategory %>">
-      <%= check_box_tag 'color_categories[]', subcategory, params[:color_categories] && params[:color_categories].include?(subcategory), id: subcategory %>
+      <%= check_box_tag 'colors[]', subcategory, params[:colors] && params[:colors].include?(subcategory), id: subcategory %>
       <%= label_tag label, nil, for: subcategory %>
     </li>
   <% end %>
