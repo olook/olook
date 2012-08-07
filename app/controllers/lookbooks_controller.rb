@@ -1,6 +1,7 @@
 class LookbooksController < ApplicationController
   def show
     @lookbook = params[:name] ? Lookbook.where(:slug => params[:name]).active.first : Lookbook.active.first
+    raise ActiveRecord::RecordNotFound.new("Lookbook not found #{params[:name]}") if @lookbook.nil?
     @products = []
     products = @lookbook.products
     products.each do |product|
