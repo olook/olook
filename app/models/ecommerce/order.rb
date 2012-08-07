@@ -31,8 +31,7 @@ class Order < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
   alias :items :line_items
 
-  after_create :generate_number
-  after_create :generate_identification_code
+  after_create :initialize_order
 
   delegate :name, :to => :user, :prefix => true
   delegate :email, :to => :user, :prefix => true
@@ -58,7 +57,6 @@ class Order < ActiveRecord::Base
     joins(:payment).where("payments.state IN ('authorized','completed')")
   end
 
-  after_create :initialize_order
 
   state_machine :initial => :waiting_payment do
 
@@ -247,6 +245,8 @@ class Order < ActiveRecord::Base
   private
 
   def initialize_order
+    generate_number
+    self.generate_identification_code
     self.insert_order
     self.send_notification_order_requested
     self.update_user_credit
