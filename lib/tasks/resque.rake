@@ -1,3 +1,6 @@
+require 'resque/tasks'
+require 'resque_scheduler/tasks'
+
 namespace :resque do
   desc "Clear pending tasks"
   task :clear => :environment do
@@ -19,3 +22,4 @@ namespace :resque do
   end
 end
 
+task "resque:setup" => :environment

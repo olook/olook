@@ -96,12 +96,6 @@ describe PaymentBuilder do
     end
   end
 
-  it "should rollback_order" do
-    subject.order.should_receive(:generate_identification_code)
-    subject.order.payment.should_receive(:destroy)
-    subject.rollback_order
-  end
-
   it "should creates a payment response" do
     subject.payment.stub(:build_payment_response).and_return(payment_response = mock)
     payment_response.should_receive(:build_attributes).with(subject.response)
