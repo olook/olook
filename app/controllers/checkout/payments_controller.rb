@@ -12,6 +12,7 @@ class Checkout::PaymentsController < ApplicationController
                         :id_transacao => params["id_transacao"])
     if order
       if update_order(order)
+        Resque.enqueue(Abacos::CancelOrder, order_number) if order.reload.canceled?
         render :nothing => true, :status => 200
       else
         msg = "Erro ao mudar status do pagamento"
