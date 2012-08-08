@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'iconv'
 class Checkout::PaymentsController < ApplicationController
   protect_from_forgery :except => :create
 
@@ -37,7 +38,7 @@ class Checkout::PaymentsController < ApplicationController
       order.payment.update_attributes(:gateway_code   => params["cod_moip"],
                                       :gateway_type   => params["tipo_pagamento"],
                                       :gateway_status => params["status_pagamento"],
-                                      :gateway_status_reason => params["classificacao"])
+                                      :gateway_status_reason => Iconv.conv('UTF-8//IGNORE', "US-ASCII", params["classificacao"]))
       order.payment.set_state(params["status_pagamento"])
     end
   end
