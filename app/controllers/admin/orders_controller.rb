@@ -12,7 +12,7 @@ class Admin::OrdersController < Admin::BaseController
 
   def show
     @order = Order.find(params[:id])
-    @address = @order.freight.address
+    @address = @order.freight.address if @order.freight
     respond_with :admin, @order, @address
   end
 

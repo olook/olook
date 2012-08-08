@@ -2,16 +2,16 @@
   <img src='/assets/purchase_timeline/moip.png' width='75px' />
   <ul>
     <li>
-      Envio da transação: <b><%=  event.payment_response %></b>
+      Envio da transação: <b><%=  event.payment_response if order.payment.payment_response %></b>
     </li>
     <li>
       Situação: <b><%= event.payment_transaction_status %></b>
     </li>
     <li>
-    Código Moip: <b><%= order.payment.payment_response.gateway_code %></b>
+    Código Moip: <b><%= order.payment.payment_response.gateway_code if order.payment.payment_response %></b>
    </li>
    <li>
-    Gateway Fee: <b><%= number_to_currency(order.payment.payment_response.gateway_fee) %></b>
+    Gateway Fee: <b><%= number_to_currency(order.payment.payment_response.gateway_fee) if order.payment.payment_response %></b>
    </li>
    <li>
     Código de identificação: <b><%= order.identification_code %></b>
