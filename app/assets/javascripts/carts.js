@@ -39,12 +39,12 @@ $(function() {
 
 
 function change_value(wrap) {
-  wrap_value = $("form#gift_wrap .inputs li p").text().match(/[0-9,]+/);
+  wrap_value = $("form#gift_wrap").parent("td").next('td.value').text().match(/[0-9,]+/);
   wrap_value = parseFloat(wrap_value[0].replace( ",", "." ));
 
-  actual_value = $('#cart .last .value').text().match(/[0-9,]+/);
+  actual_value = $('table#total tr.total td.value p:not(.limit)').text().match(/[0-9,]+/);
   actual_value = parseFloat(actual_value[0].replace( ",", "." ));
 
   new_value = actual_value + ((wrap) ? wrap_value : - wrap_value);
-  $('#cart .last .value').text("R$ " + new_value.toFixed(2).toString().replace( ".", "," ));
+  $('table#total tr.total td.value').html("<p>R$ "+new_value.toFixed(2).toString().replace( ".", "," )+"</p>");
 }
