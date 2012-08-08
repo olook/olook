@@ -17,7 +17,7 @@
     <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
     <p>Selecionamos o maior desconto possível para você em cada produto:
       <%  discounts = @cart_service.active_discounts
-        discounts.each do |discount| 
+        discounts.each do |discount|
           seperate = (discount != discounts.last)
         %>
       <span><%= I18n.t(discount, :scope => [:cart, :discounts]) %><%= "," if seperate %></span>
@@ -35,56 +35,6 @@
       <th class="value">Valor</th>
     </tr>
   </thead>
-  <tfoot>
-    <% if @cart_service.coupon %>
-      <tr class="first">
-        <td class="titles" colspan="4">Código Promocional</td>
-        <td class="value">
-          <p>
-            <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
-            <%= discount_percentage(@cart_service.coupon.discount_percent) %>
-          </p>
-          <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= submit_tag "Limpar" %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-    <% if @cart_service.total_credits_discount > 0 %>
-      <tr>
-        <td class="titles" colspan="3">Crédito</td>
-        <td class="value">
-          <p><%= number_to_currency(@cart_service.total_credits_discount) %></p>
-          <%= form_for(remove_credits_cart_path, :url => remove_credits_cart_path, :method => :delete) do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= submit_tag "Limpar" %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-    <tr class="last">
-      <td class="titles" colspan="1">
-        Total
-      </td>
-      <td class="value" colspan="4">
-        <p><%= number_to_currency(@cart_service.total) %></p>
-        <% if @cart_service.is_minimum_payment? %>
-          <p class="limit">R$5,00 é o valor mínimo para processamento da compra</p>
-        <% end %>
-      </td>
-    </tr>
-  </tfoot>
   <tbody>
       <% @cart.items.each do |item| %>
         <tr>
@@ -124,50 +74,99 @@
           </td>
         </tr>
       <% end %>
-      <% if @bonus > 0 %>
-        <tr class="discount">
-          <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
-          <td colspan="3">
-            <p><strong>Quanto deseja usar?</strong></p>
-            <p>Digite o valor no campo ao lado</p>
-          </td>
-          <td class="cupom">
-            <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :method => :put) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= text_field('credits', 'value') %>
-                  </li>
-                  <li>
-                    <%= submit_tag 'Atualizar' %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
+  </tbody>
+</table>
+
+<table cellpadding="0" cellspacing="0" class="items_list">
+  <tbody>
+    <% if @bonus > 0 %>
       <tr class="discount">
-        <td class="item"><h1>Embrulhar pedido para presente</h1></td>
-        <td colspan="3">
-          <p><strong>Selecione a caixa ao lado</strong></p>
-          <p>Para embrulhar seu pedido para presente</p>
+        <td class="item" colspan="2"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
+        <td colspan="2">
+          <p><strong>Quanto deseja usar?</strong></p>
+          <p>Digite o valor no campo ao lado</p>
         </td>
         <td class="cupom">
-          <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
+          <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :method => :put) do %>
             <fieldset class="inputs">
               <ol>
                 <li>
-                  <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
+                  <%= text_field('credits', 'value') %>
                 </li>
                 <li>
-                  <p>R$ 5,00</p>
+                  <%= submit_tag 'Atualizar' %>
                 </li>
               </ol>
             </fieldset>
           <% end %>
         </td>
       </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table cellpadding="0" cellspacing="0" class="check">
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
+          <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
+          <h1>Embrulhar pedido para presente</h1>
+        <% end %>
+      </td>
+      <td class="value">R$ 5,00</td>
+    </tr>
+  </tbody>
+</table>
+
+<table cellpadding="0" cellspacing="0" id="total">
+  <tbody>
+    <% if @cart_service.coupon %>
+      <tr>
+        <td colspan="4">Código Promocional</td>
+        <td class="value">
+          <p>
+            <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
+            <%= discount_percentage(@cart_service.coupon.discount_percent) %>
+          </p>
+          <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= submit_tag "Limpar" %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @cart_service.total_credits_discount > 0 %>
+      <tr>
+        <td colspan="4">Crédito</td>
+        <td class="value">
+          <p><%= number_to_currency(@cart_service.total_credits_discount) %></p>
+          <%= form_for(remove_credits_cart_path, :url => remove_credits_cart_path, :method => :delete) do %>
+            <fieldset class="inputs">
+              <ol>
+                <li>
+                  <%= submit_tag "Limpar" %>
+                </li>
+              </ol>
+            </fieldset>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <tr class="total">
+      <td colspan="4">Total</td>
+      <td class="value">
+        <p><%= number_to_currency(@cart_service.total) %></p>
+        <% if @cart_service.is_minimum_payment? %>
+          <p class="limit">R$5,00 é o valor mínimo para processamento da compra</p>
+        <% end %>
+      </td>
+    </tr>
   </tbody>
 </table>
 
