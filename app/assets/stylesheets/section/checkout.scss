@@ -227,6 +227,7 @@ section#cart {
             text-align: right;
             min-width: 290px;
             form {
+              margin: 0 30px 0 0;
               float: right;
             }
           }
@@ -380,6 +381,7 @@ section#cart {
           &.value {
             p {
               float: right;
+              margin: 0 10px 0 0;
               &.limit {
                 background: #F2F2F2;
                 width: 295px;
