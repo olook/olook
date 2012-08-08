@@ -10,7 +10,8 @@ describe Checkout::PaymentsController do
   let(:billet_printed) { "3" }
   let(:cod_moip) { "3" }
   let(:tipo_pagamento) { "CartaoDeCredito" }
-  let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento}}
+  let(:classificacao) { "TUDO CERTO" }
+  let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento, :classificacao => classificacao}}
 
   before :each do
 
@@ -37,6 +38,7 @@ describe Checkout::PaymentsController do
         order.payment.reload.gateway_code.should == cod_moip
         order.payment.reload.gateway_status.to_s.should == billet_printed
         order.payment.reload.gateway_type.should == tipo_pagamento
+        order.payment.reload.gateway_status_reason.should == classificacao
       end
 
       it "should change the order status to authorized" do

@@ -31,6 +31,9 @@ $(document).ready(function() {
           ShowroomInit.slideToProductsContainer(container_position);
           $("div.loading").remove();
           $(click).addClass("loaded");
+          try{
+            FB.XFBML.parse();
+          }catch(ex){}
         });
       } else {
         box.slideDown(1000);
