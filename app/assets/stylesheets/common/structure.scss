@@ -953,6 +953,20 @@ body {
                   font-style: italic;
                   margin: 0 0 10px;
                 }
+                h3 {
+                  font-family: Arial, sans-serif;
+                  font-size: 19px;
+                  margin: 0 0 10px 0;
+                  padding-bottom: 10px;
+                  border-bottom: 1px #CCC solid;
+                }
+                a {
+                  color: #E05789;
+                  font-family: Arial, sans-serif;
+                  font-size: 17px;
+                  width: 245px;
+                  padding: 0;
+                }
               }
             }
             &.login {
