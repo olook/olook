@@ -39,6 +39,10 @@ $(document).ready(function() {
     }
   }
 
+  $('div#session ul li.credits > a').live('click', function(e) {
+    e.preventDefault();
+  });
+
   $('div#session ul li.credits').hover(function() {
     $('div#session ul li.credits > a').addClass('hover');
     $(this).find('#credits_info').show();
