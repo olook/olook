@@ -1,5 +1,5 @@
-#load 'deploy/assets'
-require 'new_relic/recipes'
+load 'deploy/assets'
+#require 'new_relic/recipes'
 require 'capistrano/ext/multistage'
 # require "bundler/capistrano"
 

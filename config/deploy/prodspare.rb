@@ -1,4 +1,4 @@
-role :app, 'app5.olook.com.br', 'app6.olook.com.br'
+role :app, 'app4.olook.com.br', 'app5.olook.com.br', 'app6.olook.com.br'
  
 # server details
 set :rails_env, 'RAILS_ENV=production'

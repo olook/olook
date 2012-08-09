@@ -42,6 +42,7 @@ gem 'dalli', '2.0.2'
 
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
+gem 'yui-compressor'
 gem 'business_time'
 
 group :development do
