@@ -50,7 +50,7 @@ jQuery(function() {
     });
     $(filterSize).click();
   });
-  $('#moment_order_filter').change(function() {
+  $('#order_filter').change(function() {
     $("form#filter").submit();
   });
 
