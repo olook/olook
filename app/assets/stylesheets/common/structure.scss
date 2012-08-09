@@ -884,14 +884,16 @@ body {
             font-size: 12px;
             text-transform: none;
             height: auto;
-            display: inline;
-            float: none;
+            float: left;
             a {
               color: #212121;
               font-family: Arial;
               font-size: 12px;
               text-decoration: none;
-              margin: 0 30px 0 0;
+              margin: 0 10px 0 0;
+              padding: 5px 10px;
+              border: 2px #FFF solid;
+              display: block;
               &:hover {
                 color: #ff7db0;
               }
@@ -909,6 +911,42 @@ body {
                 color: #e05789;
                 text-decoration: underline;
                 margin: 0;
+              }
+            }
+            &.credits {
+              & > a {
+                position: relative;
+                background: #FFF;
+                z-index: 100;
+                p {
+                  span {
+                    background: url('/assets/gift/arrow-pink.png') center right no-repeat;
+                    padding-right: 14px;
+                    color: #e05789;
+                    font-size: 12px;
+                    width: auto;
+                    margin: 0;
+                    float: none;
+                  }
+                }
+                &:hover, &.hover {
+                  color: #212121;
+                  border-top: 2px #000 solid;
+                  border-left: 2px #000 solid;
+                  border-right: 2px #000 solid;
+                }
+              }
+              div#credits_info {
+                position: absolute;
+                background: #FFF;
+                width: 320px;
+                overflow: auto;
+                padding: 10px 10px 20px;
+                display: none;
+                top: 46px;
+                left: 0;
+                border: 2px #000 solid;
+                z-index: 99;
               }
             }
             &.login {

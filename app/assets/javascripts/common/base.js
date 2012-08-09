@@ -39,6 +39,14 @@ $(document).ready(function() {
     }
   }
 
+  $('div#session ul li.credits').hover(function() {
+    $('div#session ul li.credits > a').addClass('hover');
+    $(this).find('#credits_info').show();
+  }, function() {
+    $('div#session ul li.credits > a').removeClass('hover');
+    $(this).find('#credits_info').hide();
+  });
+
   $("div.box_invite.clone div.social ul li a").live("click", function() {
     type = $(this).parent().attr("class");
     if(type != "email") {
