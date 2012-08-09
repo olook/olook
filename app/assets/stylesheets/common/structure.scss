@@ -947,6 +947,12 @@ body {
                 left: 0;
                 border: 2px #000 solid;
                 z-index: 99;
+                h2 {
+                  font-family: Times, 'Times New Roman', sans-serif;
+                  font-size: 17px;
+                  font-style: italic;
+                  margin: 0 0 10px;
+                }
               }
             }
             &.login {

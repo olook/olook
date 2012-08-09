@@ -23,10 +23,15 @@
         <% if user_signed_in? %>
           <li class="credits">
             <%= link_to "#" do %>
-              <p>Créditos: <span><%= number_to_currency(current_user.credits_for?(session[:cart_credits])) %></span></p>
+              <p>Créditos: <span><%= number_to_currency(current_user.current_credit) %></span></p>
             <% end %>
             <div id="credits_info">
-              <h2>Créditos das suas últimas compras</h2>
+              <% if current_user.current_credit.to_i <= 0 %>
+                <h3>Você ainda não acumulou créditos</h3>
+                <%= link_to "Saiba como ganhar créditos para suas próximas compras.", "#" %>
+              <% else %>
+                <h2>Créditos das suas últimas compras</h2>
+              <% end %>
             </div>
           </li>
           <li><%= link_to "Minha conta", user_orders_path %></li>
