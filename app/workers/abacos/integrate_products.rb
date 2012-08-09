@@ -29,7 +29,7 @@ module Abacos
         begin
           parsed_class = parse_price_class(abacos_price)
           parsed_data = parsed_class.parse_abacos_data(abacos_price)
-          Resque.enqueue(Abacos::Integrate, parsed_class.to_s, parsed_data)
+          Resque.enqueue(Abacos::IntegratePrice, parsed_class.to_s, parsed_data)
         rescue Exception => e
           Airbrake.notify(
             :error_class   => "Abacos price integration",

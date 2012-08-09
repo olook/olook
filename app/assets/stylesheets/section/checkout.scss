@@ -1,3 +1,5 @@
+$border-color: #e5e5e5;
+
 header {
   &.minor {
     background: none !important;
@@ -95,13 +97,15 @@ section#cart {
       }
     }
   }
-  table.items_list {
-    $border-color: #e5e5e5;
+
+  table.items_list, table.check, table#total {
     width: 990px;
-    margin-bottom: 25px;
     table-layout: fixed;
-    thead tr th, tfoot tr td {
-      font-family: Times;
+  }
+
+  table.items_list {
+    thead tr th {
+      font-family: Times, "Times New Roman", sans-serif;
       font-style: italic;
     }
     thead tr th {
@@ -223,6 +227,7 @@ section#cart {
             text-align: right;
             min-width: 290px;
             form {
+              margin: 0 30px 0 0;
               float: right;
             }
           }
@@ -326,58 +331,78 @@ section#cart {
         }
       }
     }
-    tfoot tr {
-      td {
-        font-size: 24px;
-        padding: 2px 0 2px 0;
-        &.titles {
-          padding-left: 15px;
-          p {
-            font-size: 14px;
+  }
+
+  table.check {
+    tbody {
+      tr {
+        td {
+          padding: 20px 0;
+          border-bottom: 1px #E5E5E5 solid;
+          input[type="checkbox"] {
+            margin: 10px 17px 0;
+            float: left;
           }
-        }
-        &.value {
-          text-align: right;
-          padding-right: 30px;
-          form fieldset ol {
-            li {
-              margin-top: -5px;
-              input[type="submit"] {
-                background: none;
-                color: #df5a8a;
-                font-size: 12px;
-                text-decoration: underline;
-                padding: 0;
-                margin: 0 10px 0 0;
-                border: none;
-                cursor: pointer;
-              }
+          h1 {
+            font-style: italic;
+            font-weight: normal;
+            letter-spacing: -1px;
+            float: left;
+            & + p {
+              width: 515px;
+              margin: 0 0 0 45px;
+              clear: both;
             }
           }
-          p, form {
-            float: right;
-          }
-          p {
-            padding-top: 10px;
-          }
-          p.limit {
-            background: #f2f2f2;
-            width: 295px;
-            font-size: 12px;
-            text-align: center;
-            margin: 12px 20px 0 0;
-            padding: 5px 0;
+          &.value {
+            color: #000;
+            font-family: Times, "Times New Roman", sans-serif;
+            font-size: 22px;
+            font-style: italic;
+            font-weight: normal;
+            text-align: right;
+            letter-spacing: -1px;
+            padding: 0 32px 0 0;
           }
         }
       }
-      &.first {
+    }
+  }
+
+  table#total {
+    margin: 20px 0 10px 0;
+    tbody {
+      tr {
         td {
-          padding-top: 10px;
-        }
-      }
-      &.last {
-        padding-bottom: 10px;
-        td.value {
+          font-family: Times, "Times New Roman", sans-serif;
+          font-size: 24px;
+          font-style: italic;
+          padding: 2px 15px;
+          &.value {
+            p {
+              float: right;
+              margin: 0 10px 0 0;
+              &.limit {
+                background: #F2F2F2;
+                width: 295px;
+                font-size: 12px;
+                text-align: center;
+                margin: 12px 0 0 0;
+                padding: 5px 0;
+              }
+            }
+            input[type="submit"] {
+              background: none;
+              color: #DF5A8A;
+              font-size: 12px;
+              text-decoration: underline;
+              padding: 0;
+              margin: 5px 10px 0 0;
+              border: none;
+              cursor: pointer;
+              float: right;
+            }
+          }
         }
       }
     }
@@ -1140,48 +1165,6 @@ section.checkout {
       display: block;
       cursor: pointer;
       border: none;
-    }
-  }
-}
-
-div#container_marcos {
-  background: url("/assets/cart/bg-marcos-proenca.jpg") top center no-repeat;
-  width: 645px;
-  height: 421px;
-  padding: 25px 0 0 0;
-  clear: both;
-  p {
-    color: #231f20;
-    font-family: "Pontano Sans", sans-serif;
-    font-size: 18px;
-    text-align: center;
-    line-height: 28px;
-    width: 535px;
-    margin: 0 auto 5px;
-    label {
-      font-size: 16px;
-    }
-    a {
-      color: #043093 !important;
-      font-size: 13px;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    input[type="submit"] {
-      background: url("/assets/cart/bt-finish.jpg") no-repeat;
-      width: 154px;
-      height: 55px;
-      display: inline-block;
-      border: none;
-      cursor: pointer;
-    }
-  }
-  div#rules {
-    display: none;
-    &.clone {
-      display: block;
     }
   }
 }

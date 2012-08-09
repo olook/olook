@@ -1,6 +1,7 @@
 <% if variant.product %>
 <li class="product suggestion">
-  <%= hidden_field_tag "products[#{position}]", "#{variant.id}" %>
+  <%= hidden_field_tag "variants[#{position}]", "#{variant.id}" %>
+  <%= hidden_field_tag "products[#{position}]", "#{variant.product.id}", :class => "next_product" %>
   <%= link_to "deletar", "#", :class => "delete" %>
   <div class="box_product">
     <%= link_to variant.product, :remote => true, :class => "product_link", :data => {:params => {:only_view =>  true}} do %>
