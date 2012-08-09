@@ -24,8 +24,7 @@ module Abacos
         :width          => self.width,
         :height         => self.height,
         :length         => self.length,
-        :weight         => self.weight,
-        :color_category => self.color_category
+        :weight         => self.weight
       }
     end
 
@@ -123,7 +122,7 @@ module Abacos
         :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
         :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
-        :color_category       => parse_color_category( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        # :color_category       => parse_color_category( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] )
       }
     end
@@ -139,16 +138,16 @@ module Abacos
       moments_array.compact
     end
 
-    def self.parse_color_category(categories)
-      categories_array = if categories.kind_of?(Array)
-        categories.each.map { |item|
-          item.fetch(:codigo_categoria) if item[:codigo_categoria_pai] != 0
-        }
-      else
-        [categories.fetch(:codigo_categoria)] if item[:codigo_categoria_pai] != 0
-      end
-      categories_array.compact
-    end
+    # def self.parse_color_category(categories)
+    #   categories_array = if categories.kind_of?(Array)
+    #     categories.each.map { |item|
+    #       item.fetch(:codigo_categoria) if item[:codigo_categoria_pai] != 0
+    #     }
+    #   else
+    #     [categories.fetch(:codigo_categoria)] if item[:codigo_categoria_pai] != 0
+    #   end
+    #   categories_array.compact
+    # end
 
     def self.parse_description(data, fallback_description)
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
