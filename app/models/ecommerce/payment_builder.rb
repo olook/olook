@@ -83,7 +83,7 @@ class PaymentBuilder
       :estado => delivery_address.state,
       :pais => delivery_address.country,
       :cep => delivery_address.zip_code,
-      :tel_fixo => delivery_address.telephone,
+      :tel_fixo => remove_nine_digits_of_telphone(delivery_address.telephone),
     }
     data
   end
@@ -98,7 +98,7 @@ class PaymentBuilder
                 :instituicao => payment.bank, :numero => credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
-                :telefone => payment.telephone, :data_nascimento => payment.user_birthday,
+                :telefone => remove_nine_digits_of_telphone(payment.telephone), :data_nascimento => payment.user_birthday,
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
@@ -109,19 +109,20 @@ class PaymentBuilder
     data
   end
 
-  def rollback_order
-    order.generate_identification_code
-    order.payment.destroy if order.payment
-  end
-
   private
+  
+  def remove_nine_digits_of_telphone(telphone)
+    if(telphone =~ /\(11\)9\d{4}-\d{4}/)
+      telphone.gsub!("(11)9","(11)")
+    end
+    telphone
+  end
 
   def billet_expiration_date
     order.payment.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
   end
 
   def respond_with_failure
-    rollback_order
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
 

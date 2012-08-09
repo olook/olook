@@ -36,7 +36,7 @@ $(function() {
     }
     productContainer = $(this).parents("div.product_container");
     nextContainer = $(productContainer).next();
-    productId = $(this).parent().find("input[type='hidden']").val();
+    productId = $(this).parent().find("input[type='hidden'].next_product").val();
 
     initSuggestion.unblockProduct(productId);
     $(this).parent("li.product").fadeOut("normal", function() {
@@ -50,7 +50,7 @@ $(function() {
 initSuggestion = {
   disableDefaultProducts : function() {
     $("div.product_container").each(function() {
-      id = $(this).find("ul li input[type='hidden']").val();
+      id = $(this).find("ul li input[type='hidden'].next_product").val();
       $("a.add_suggestion_"+id).parent().hide();
     });
   },
@@ -72,7 +72,7 @@ initSuggestion = {
     $(container).find("ul").find("li.product").fadeOut("normal", function() {
       $(this).parent().html("");
 
-      productId = $(this).find("input[type='hidden']").val();
+      productId = $(this).find("input[type='hidden'].next_product").val();
       $.ajax({
         type: "GET",
         dataType: 'script',
@@ -118,7 +118,7 @@ initSuggestion = {
     productBox = $("div#quick_view").find("div#product");
     productId = $(productBox).attr("class").split("_")[1];
     $("section#products div.product_container").each(function() {
-      boxProductId = $(this).find("ul").find("li").find("input[type='hidden']").val();
+      boxProductId = $(this).find("ul").find("li").find("input[type='hidden'].next_product").val();
       if(productId == boxProductId) {
         link = $(productBox).find("a.add_product_to_suggestions");
         $(link).css('visibility','hidden');

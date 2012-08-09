@@ -6,13 +6,13 @@ class Admin::OrdersController < Admin::BaseController
   respond_to :html, :json
 
   def index
-    @search = Order.with_payment.search(params[:search])
+    @search = Order.search(params[:search])
     @orders = @search.relation.page(params[:page]).per_page(20).order('id DESC')
   end
 
   def show
     @order = Order.find(params[:id])
-    @address = @order.freight.address
+    @address = @order.freight.address if @order.freight
     respond_with :admin, @order, @address
   end
 

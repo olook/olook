@@ -65,13 +65,13 @@
   <% @orders.each do |order| %>
     <tr>
       <td><%= link_to order.number, admin_order_path(order) %></td>
-      <td><%= link_to order.user.name, admin_user_path(order.user) %></td>
-      <td><%= link_to order.user.email, admin_user_path(order.user) %></td>
+      <td><%= link_to order.user.name, admin_user_path(order.user) if order.user %></td>
+      <td><%= link_to order.user.email, admin_user_path(order.user) if order.user %></td>
       <td><%= l order.created_at, :format => :short %></td>
       <td><%= order.status %></td>
       <td><%= order.state_reason %></td>
-      <td><%= order.payment.human_to_s %></td>
-      <td><%= order.payment.gateway_status_reason.to_s %></td>
+      <td><%= order.payment ? order.payment.human_to_s : "Pagamento nao encontrado" %></td>
+      <td><%= order.payment ? order.payment.gateway_status_reason.to_s : "Pagamento nao encontrado" %></td>
       <td><%= order.line_items.count %></td>
       <td><%= number_to_currency(order.subtotal) %></td>
       <td><%= number_to_currency(order.credits) %></td>

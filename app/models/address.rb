@@ -5,7 +5,7 @@ class Address < ActiveRecord::Base
   STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
 
   ZipCodeFormat = /^[0-9]{5}-[0-9]{3}$/
-  PhoneFormat = /^\([0-9]{2}\)[0-9]{4}-[0-9]{4}$/
+  PhoneFormat = /^(?:\(11\)9|\([0-9]{2}\))[0-9]{4}-[0-9]{4}$/
   StateFormat = /^[A-Z]{2}$/
 
   validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood, :telephone

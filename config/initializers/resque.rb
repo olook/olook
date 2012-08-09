@@ -13,3 +13,13 @@ end
 
 Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Airbrake]
 Resque::Failure.backend = Resque::Failure::Multiple
+
+require "resque_scheduler"
+require 'resque_scheduler/server'
+
+Resque.schedule = YAML.load_file('config/resque_schedule.yml')
+
+require "resque/server"
+Resque::Server.use Rack::Auth::Basic do |user, pass|
+  user == "resque" && pass == "olookresque123abc"
+end

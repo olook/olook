@@ -4,11 +4,11 @@
   <div class="inner_info" style='float:left;width:20%;'>
     <p>
       <b>Client:</b>
-      <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) %>
+      <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) if @order.user %>
     </p>
     <p>
       <button style="padding:5px">
-        <b><%= link_to 'Login', "/admin/users/login/#{@order.user.id}" %><b>
+        <b><%= link_to 'Login', "/admin/users/login/#{@order.user.id}" if @order.user %><b>
       </button>
     </p>
     <p>
@@ -21,7 +21,7 @@
     </p>
     <p>
       <b>Moip ID:</b>
-      <%= @order.payment.payment_response.gateway_code %>
+      <%= @order.payment ? @order.payment.payment_response.gateway_code : "Pagamento nao encontrado" %>
     </p>
     <p>
       <b>Status:</b>
@@ -29,7 +29,11 @@
     </p>
     <p>
       <b>Payment method:</b>
-      <%= @order.payment.human_to_s %> <%= "- #{@order.payment.bank}" if @order.payment.is_a? CreditCard %>
+      <% if @order.payment %>
+        <%= @order.payment.human_to_s %> <%= "- #{@order.payment.bank}" if @order.payment.is_a? CreditCard %>
+      <% else %>
+        Pagamento nao encontrado
+      <% end %>
     </p>
     <p>
       <b>Products Total:</b>
@@ -57,14 +61,16 @@
     </p>
     <p>
       <b>Estimated delivery:</b>
-      <%= @order.freight.delivery_time %> work days
+      <%= @order.freight.delivery_time if @order.freight %> work days
     </p>
     <div>
       <h3>Endereço de entrega</h1>
-      <p><%= @address.identification %></p>
+        <% if @address %>
+      <p><%= @address.identification  %></p>
       <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
       <p><%= "#{@address.zip_code}" %></p>
       <p><%= "#{@address.city}, #{@address.state}" %></p>
+      <% end %>
     </div>
   </div>
   
