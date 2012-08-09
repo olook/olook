@@ -21,6 +21,14 @@
       <% end %>
       <ul>
         <% if user_signed_in? %>
+          <li class="credits">
+            <%= link_to "#" do %>
+              <p>Créditos: <span><%= number_to_currency(current_user.credits_for?(session[:cart_credits])) %></span></p>
+            <% end %>
+            <div id="credits_info">
+              <h2>Créditos das suas últimas compras</h2>
+            </div>
+          </li>
           <li><%= link_to "Minha conta", user_orders_path %></li>
           <li><%= link_to "Convidar amigas", member_invite_path, :class => "invite" %></li>
           <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
