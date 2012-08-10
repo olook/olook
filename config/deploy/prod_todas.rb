@@ -83,6 +83,8 @@ namespace :deploy do
 
   desc 'Restart unicorn'
   task :restart, :roles => :app do
+    run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
+    run "ps -e -o pid,command |grep unicorn |grep master"
   end
 end
