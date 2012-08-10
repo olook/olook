@@ -30,6 +30,19 @@ section#credits {
       div.social {
         margin: 0 0 40px;
       }
+      div.link_mail {
+        padding: 0;
+        ul {
+          li {
+            margin: 0 10px 0 0;
+            float: left;
+          }
+        }
+        div.box_copy {
+          top: 60px;
+          left: 270px;
+        }
+      }
     }
   }
 }
