@@ -21,7 +21,6 @@ class CartService
 
   def generate_order!(payment)
     user = cart.user
-    address = AddressPresenter.new(user.addresses.find_by_id(freight[:address_id]))
 
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if user.nil?
@@ -40,8 +39,6 @@ class CartService
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
       :user_email => user.email,
-      :user_address => address.formated_to_order_metadata,
-      :user_telephone => address.telephone,
       :user_cpf => user.cpf
     )
 
