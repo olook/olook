@@ -285,6 +285,11 @@ class User < ActiveRecord::Base
     nil
   end
 
+  def user_credits_for code
+    credit_type = CreditType.find_by_code!(code.to_s)
+    self.user_credits.find_or_create_by_credit_type_id(credit_type.id)
+  end
+
   private
 
   def generate_invite_token
