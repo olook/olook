@@ -229,7 +229,7 @@ $(document).ready(function() {
         mask: '(99)9999-9999'
       });
     } else {
-      if(currentPhone.substring(1,3) == '11') {
+      if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9') {
         $('input:text.phone').setMask({
           mask: '(99)99999-9999'
         });
@@ -244,8 +244,8 @@ $(document).ready(function() {
   $('input:text.phone').keyup(function() {
     var value = $(this).val();
     var size = value.length;
-    if(size == 3) {
-      if(value == '(11') {
+    if(size == 5) {
+      if(value == '(11)9') {
         $(this).setMask('(99)99999-9999');
         return false;
       } else {
