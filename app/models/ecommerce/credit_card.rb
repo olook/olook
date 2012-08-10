@@ -7,7 +7,7 @@ class CreditCard < Payment
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
 
-  PhoneFormat = /^(?:\(11\)9|\([0-9]{2}\))[0-9]{4}-[0-9]{4}$/
+  PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
   CreditCardNumberFormat = /^[0-9]{14,17}$/
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
