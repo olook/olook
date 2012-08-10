@@ -953,16 +953,29 @@ body {
                   padding-bottom: 10px;
                   overflow: auto;
                   border-bottom: 1px #CCC solid;
-                }
-                h2 {
-                  font-family: Times, 'Times New Roman', sans-serif;
-                  font-size: 17px;
-                  font-style: italic;
-                  margin: 0 0 10px;
-                }
-                h3 {
-                  font-family: Arial, sans-serif;
-                  font-size: 19px;
+                  h2 {
+                    font-family: Times, 'Times New Roman', sans-serif;
+                    font-size: 17px;
+                    font-style: italic;
+                    margin: 0 0 15px;
+                  }
+                  h3 {
+                    font-family: Arial, sans-serif;
+                    font-size: 19px;
+                  }
+                  p {
+                    margin: 0 0 10px;
+                    &.money {
+                      font-size: 20px;
+                      span {
+                        color: #E05789;
+                        font-size: inherit;
+                        width: auto;
+                        margin: 0;
+                        float: none;
+                      }
+                    }
+                  }
                 }
                 a {
                   color: #E05789;
