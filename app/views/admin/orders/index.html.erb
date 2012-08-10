@@ -65,8 +65,8 @@
   <% @orders.each do |order| %>
     <tr>
       <td><%= link_to order.number, admin_order_path(order) %></td>
-      <td><%= link_to order.user.name, admin_user_path(order.user) %></td>
-      <td><%= link_to order.user.email, admin_user_path(order.user) %></td>
+      <td><%= link_to order.user.name, admin_user_path(order.user) if order.user %></td>
+      <td><%= link_to order.user.email, admin_user_path(order.user) if order.user %></td>
       <td><%= l order.created_at, :format => :short %></td>
       <td><%= order.status %></td>
       <td><%= order.state_reason %></td>
