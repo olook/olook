@@ -221,5 +221,4 @@ describe Credit do
     end
   end
 
-
 end

@@ -1,0 +1,2 @@
+class InviteCreditType < CreditType
+end
