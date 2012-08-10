@@ -11,12 +11,14 @@ describe Checkout::AddressesController do
   let(:shipping_service) { FactoryGirl.create :shipping_service }
   let(:coupon_expired) do
     coupon = double(Coupon)
+    coupon.stub(:reload)
     coupon.stub(:expired?).and_return(true)
     coupon.stub(:available?).and_return(false)
     coupon
   end
   let(:coupon_not_more_available) do
     coupon = double(Coupon)
+    coupon.stub(:reload)
     coupon.stub(:expired?).and_return(false)
     coupon.stub(:available?).and_return(false)
     coupon
@@ -32,16 +34,16 @@ describe Checkout::AddressesController do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
     session[:cart_coupon] = nil
-    session[:credits] = nil
-    session[:freight] = nil
+    session[:cart_credits] = nil
+    session[:cart_freight] = nil
   end
 
-  xit "should redirect user to login when is offline" do
+  it "should redirect user to login when is offline" do
     get :index
     response.should redirect_to(new_user_session_path)
   end
 
-  pending "checking" do
+  context "checking" do
     before :each do
       sign_in user
     end
@@ -96,31 +98,31 @@ describe Checkout::AddressesController do
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")
     end
     
-    it "should remove credits from session when user not has more credit" do
+    it "should remove cart_credits from session when user not has more credit" do
       session[:cart_id] = cart.id
-      session[:credits] = 1000
+      session[:cart_credits] = 1000
       get :index
-      session[:credits].should be_nil
+      session[:cart_credits].should be_nil
     end
 
     it "should redirect to cart_path when user not has more credit" do
       session[:cart_id] = cart.id
-      session[:credits] = 1000
+      session[:cart_credits] = 1000
       get :index
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Você não tem créditos suficientes")
     end
   end
 
-  xit "should erase freight when call any action" do
+  it "should erase freight when call any action" do
     sign_in user
     session[:cart_id] = cart.id
-    session[:freight] = mock
+    session[:cart_freight] = mock
     get :index
-    assigns(:cart).freight.should be_nil
+    assigns(:cart_service).freight.should be_nil
   end
 
-  pending "GET index" do
+  context "GET index" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -138,7 +140,7 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "GET new" do
+  context "GET new" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -160,7 +162,7 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "POST create" do
+  context "POST create" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -179,18 +181,18 @@ describe Checkout::AddressesController do
 
       it "should redirect to cart checkout" do
         post :create, :address => attributes
-        response.should redirect_to(new_cart_checkout_path)
+        response.should redirect_to(new_credit_card_cart_checkout_path)
       end
 
       it "should set a feight in session" do
-        session[:freight] = nil
+        session[:cart_freight] = nil
         post :create, :address => attributes
-        session[:freight].should eq(freight.merge!(:address_id => user.addresses.last.id))
+        session[:cart_freight].should eq(freight.merge!(:address_id => user.addresses.last.id))
       end
     end
   end
 
-  pending "GET edit" do
+  context "GET edit" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -202,7 +204,7 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "PUT update" do
+  context "PUT update" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -217,17 +219,17 @@ describe Checkout::AddressesController do
     
     it "should redirect to cart checkout" do
       put :update, :id => address.id, :address => { :street => 'Rua Jones' }
-      response.should redirect_to(new_cart_checkout_path)
+      response.should redirect_to(new_credit_card_cart_checkout_path)
     end
 
     it "should set a feight in session" do
-      session[:freight] = nil
+      session[:cart_freight] = nil
       put :update, :id => address.id, :address => { :zip_code => '18015-172' }
-      session[:freight].should eq(freight.merge!(:address_id => address.id))
+      session[:cart_freight].should eq(freight.merge!(:address_id => address.id))
     end
   end
 
-  pending "DELETE destroy" do
+  context "DELETE destroy" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -242,9 +244,9 @@ describe Checkout::AddressesController do
     end
 
     it "should remove freight form session" do
-      session[:freight] = mock
+      session[:cart_freight] = mock
       delete :destroy, :id => address.id
-      session[:freight].should be_nil
+      session[:cart_freight].should be_nil
     end
     
     it "should redirect to addresses" do
@@ -253,7 +255,7 @@ describe Checkout::AddressesController do
     end
   end
 
-  pending "GET assign_address" do
+  context "GET assign_address" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -263,13 +265,13 @@ describe Checkout::AddressesController do
     context "with a valid address" do
       it "should redirect to cart checkout" do
         get :assign_address, :address_id => address.id
-        response.should redirect_to(new_cart_checkout_path)
+        response.should redirect_to(new_credit_card_cart_checkout_path)
       end
 
       it "should set a feight in session" do
-        session[:freight] = nil
+        session[:cart_freight] = nil
         get :assign_address, :address_id => address.id
-        session[:freight].should eq(freight.merge!(:address_id => address.id))
+        session[:cart_freight].should eq(freight.merge!(:address_id => address.id))
       end
     end
 
