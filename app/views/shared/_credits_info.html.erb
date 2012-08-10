@@ -1,8 +1,12 @@
 <div id="credits_info">
   <% if current_user.current_credit.to_i <= 0 %>
-    <h3>Você ainda não acumulou créditos</h3>
+    <div class='block'>
+      <h3>Você ainda não acumulou créditos</h3>
+    </div>
     <%= link_to "Saiba como ganhar créditos para suas próximas compras.", "#" %>
   <% else %>
-    <h2>Créditos das suas últimas compras</h2>
+    <div class='block'>
+      <h2>Créditos das suas últimas compras</h2>
+    </div>
   <% end %>
 </div>
