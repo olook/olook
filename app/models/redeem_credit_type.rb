@@ -1,0 +1,2 @@
+class RedeemCreditType < CreditType
+end
