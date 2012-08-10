@@ -2,7 +2,7 @@
 namespace :credit_type do
 
   desc 'Create Credit Types'
-  task :create => :environment do #|task, args|
+  task :create => :environment do
     LoyaltyProgramCreditType.create :code => "loyalty_program" 
     InviteCreditType.create :code => "invite"
     RedeemCreditType.create :code => "redeem"
@@ -20,6 +20,19 @@ namespace :credit_type do
         puts e.message
         puts "\n"
       end
+    end
+  end
+
+  desc 'Verify if user.credits.last.total = user.user_credits.first.total'
+  task :verify => :environment do
+    User.find_each do |user|
+
+      if !user.credits.empty?
+        if(user.credits.last.total.to_s != user.user_credits.first.total.to_s) 
+          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits.first.total}"
+        end
+      end
+
     end
   end
 end

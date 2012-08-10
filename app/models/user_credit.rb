@@ -3,7 +3,7 @@ class UserCredit < ActiveRecord::Base
   belongs_to :user
   has_many :credits
   
-  def total
-    credit_type.total(self)
+  def total date = DateTime.now
+    credit_type.total(self, date)
   end
 end
