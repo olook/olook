@@ -16,24 +16,33 @@ class CartService
       send(key.to_s+'=',value)
     end
     
-    credits ||= 0    
+    credits ||= 0 
   end
 
   def generate_order!(payment)
+    user = cart.user
+    address = AddressPresenter.new(user.addresses.find_by_id(freight[:address_id]))
+
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
-    raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
+    raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if user.nil?
 
     order = Order.create!(
       :cart_id => cart.id,
       :payment => payment,
       :credits => total_credits_discount,
-      :user_id => cart.user.id,
+      :user_id => user.id,
       :restricted => cart.has_gift_items?,
       :gift_wrap => gift_wrap?,
       :amount_discount => total_discount,
       :amount_increase => total_increase,
       :amount_paid => total,
-      :subtotal => subtotal
+      :subtotal => subtotal,
+      :user_first_name => user.first_name,
+      :user_last_name => user.last_name,
+      :user_email => user.email,
+      :user_address => address.formated_to_order_metadata,
+      :user_telephone => address.telephone,
+      :user_cpf => user.cpf
     )
 
     order.line_items = cart.items.map do |item|
