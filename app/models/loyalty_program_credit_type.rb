@@ -1,0 +1,2 @@
+class LoyaltyProgramCreditType < CreditType
+end

@@ -1,15 +1,19 @@
 # -*- encoding : utf-8 -*-
 # TO DO: Model should be named CreditTransaction
 class Credit < ActiveRecord::Base
+  #TO DO: remove as soon as the user_credit is working
   belongs_to :user
+  belongs_to :user_credit
   belongs_to :order
+  has_many :debits, :class_name => "Credit", :foreign_key => "original_credit_id"
   validates :value, :presence => true
-
+  
   LIMIT_FOR_EACH_USER = BigDecimal.new("400.00")
 
   INVITE_BONUS = BigDecimal.new("10.00")
 
-  # TO DO: Refactor this class and move these methods to CreditService class
+  # TODO: Refactor this class and move these methods to CreditService class
+  
 
   def self.add_for_invitee(invitee)
     if invitee.is_invited? && invitee.current_credit == 0
