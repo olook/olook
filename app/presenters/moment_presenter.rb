@@ -9,6 +9,10 @@ class MomentPresenter < BasePresenter
     h.render :partial => 'moments/color_filters', :locals => {:moment_presenter => self}
   end
 
+  def display_bag_color_filters
+    h.render :partial => 'moments/bag_color_filters', :locals => {:moment_presenter => self}
+  end
+
   def display_shoe_filters
     h.render :partial => 'moments/shoe_filters', :locals => {:moment_presenter => self}
   end
