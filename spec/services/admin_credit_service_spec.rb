@@ -20,16 +20,10 @@ describe AdminCreditService do
 
   context "when performing a credit operation" do
     
-    it "should add credit to user account" do
-      subject.add_credit(10, "Presente", @user)
-      @user.credits.last.total.should == 10
+    it "should add credit to user account without limit" do
+      subject.add_credit(100_000, "Presente", @user)
+      @user.credits.last.total.should == 100_000
     end
-
-    it "should not add credit to user account if credit limit has been reached" do
-      subject.add_credit(Credit::LIMIT_FOR_EACH_USER+1, "Presente", @user)
-      @user.credits.should be_empty
-    end
-
   end
 
   context "when performing a debit operation" do

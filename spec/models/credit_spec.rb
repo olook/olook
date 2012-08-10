@@ -121,23 +121,6 @@ describe Credit do
         end
       end
 
-      context "when the inviter credit has exceeded the maximum limit (300)" do
-        before do
-          user.stub(:first_buy?).and_return(true)
-          User.any_instance.stub(:has_not_exceeded_credit_limit?).and_return(false)
-        end
-
-        it "does not change the inviter current_credit" do
-          expect {
-              described_class.add_for_inviter(user, order)
-            }.to_not change(inviter, :current_credit)
-        end
-
-        it "returns false" do
-          described_class.add_for_inviter(user, order).should be_false
-        end
-      end
-
     end
   end
 
@@ -186,11 +169,18 @@ describe Credit do
     let!(:credit) { FactoryGirl.create(:credit, :total => 100.0, :user => user)}
     let(:order) { FactoryGirl.create(:clean_order) }
     let(:amount) { BigDecimal.new("33.33") }
+    let(:high_amount) { BigDecimal.new(100_000.to_s) }
 
     it "increases user current_credit by the received amount" do
       expect {
         described_class.add(amount, user, order)
       }.to change(user, :current_credit).by(amount)
+    end
+
+    it "is limitless" do
+        expect {
+          described_class.add(high_amount, user, order)
+        }.to_not change(user, :current_credit).by(amount)
     end
 
     describe "credit record value" do
@@ -211,13 +201,7 @@ describe Credit do
       end
     end
 
-    context "when user has earned more than 300 worth of credit" do
-      it "does not increase user current_credit" do
-        User.any_instance.stub(:has_not_exceeded_credit_limit?).and_return(false)
-        expect {
-          described_class.add(amount, user, order)
-        }.to_not change(user, :current_credit).by(amount)
-      end
+    context "when user recieve" do      
     end
   end
 
