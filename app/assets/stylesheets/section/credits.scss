@@ -12,7 +12,7 @@ section#credits {
     text-align: center;
   }
   section {
-    width: 395px;
+    width: 445px;
     overflow: auto;
     display: block;
     padding: 20px 25px 0;
@@ -23,9 +23,13 @@ section#credits {
       margin: 0 auto 40px;
     }
     &#friends_credits {
-      width: 393px;
+      width: 468px;
       min-height: 500px;
+      padding-left: 0;
       border-right: 2px #CCC solid;
+      div.social {
+        margin: 0 0 40px;
+      }
     }
   }
 }

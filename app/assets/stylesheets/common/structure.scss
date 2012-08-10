@@ -1,5 +1,6 @@
 @import 'partials/mixins';
 @import 'partials/promotion_banners';
+@import 'partials/social';
 
 body {
   #error_explanation {
@@ -1340,157 +1341,10 @@ body {
       }
     }
     div.social {
-      width: 485px;
-      overflow: auto;
       float: left;
-      ul {
-        width: 100%;
-        padding: 0 0;
-        overflow: auto;
-        li {
-          position: relative;
-          width: 105px;
-          margin: 0 15px 0 0;
-          float: left;
-          a {
-            color: #5a5a5b;
-            font-family: "Times New Roman", sans-serif;
-            font-size: 16px;
-            font-style: italic;
-            text-align: center;
-            text-decoration: none;
-            line-height: 15px;
-            outline: none;
-            width: 105px;
-            display: block;
-            margin: 0 15px 0 0;
-            padding: 105px 0 15px 0;
-            float: left;
-          }
-          &.twitter {
-            a {
-              background: url("/assets/common/bt-twitter.jpg") center 10px no-repeat;
-            }
-          }
-          &.facebook {
-            a {
-              background: url("/assets/common/bt-facebook.jpg") center 10px no-repeat;
-            }
-          }
-          &.orkut {
-            a {
-              background: url("/assets/common/bt-orkut.jpg") center 10px no-repeat;
-            }
-            img {
-              position: absolute;
-              width: 105px;
-              height: 150px;
-              left: 0;
-              opacity: 0;
-              -moz-opacity: 0;
-              filter: alpha(opacity=0);
-            }
-          }
-          &.email {
-            a {
-              background: url("/assets/common/bt-email.png") center 10px no-repeat;
-              margin: 0;
-              padding: 105px 10px 15px 10px;
-              &.selected {
-                background-color: #e4e4e4;
-              }
-            }
-          }
-        }
-      }
-      form {
-        background: #e4e4e4;
-        padding: 20px 15px;
-        clear: both;
-        display: none;
-        p {
-          color: #000;
-          font-size: 17px;
-          margin: 0 0 10px;
-        }
-        textarea {
-          background: #FFF url("/assets/common/bg-textarea-emails.jpg") bottom repeat-x;
-          width: 425px;
-          height: 100px;
-          padding: 7px 8px;
-          resize: none;
-          outline: none;
-          margin: 0 0 20px;
-          border: 1px solid #C1C1C1;
-        }
-        input[type="submit"] {
-          background: url("/assets/common/invite.png") no-repeat;
-          text-indent: -9999px;
-          width: 283px;
-          height: 52px;
-          display: block;
-          margin: 0 auto;
-          border: none;
-          cursor: pointer;
-        }
-      }
     }
     div.link_mail {
-      position: relative;
-      width: 295px;
-      height: 150px;
-      overflow: auto;
-      padding: 0 0 0 30px;
       float: right;
-      h2 {
-        font-size: 18px;
-        font-style: italic;
-        font-weight: lighter;
-        letter-spacing: -1px;
-        margin: 0 0 10px;
-      }
-      ul {
-        overflow: hidden;
-        li {
-          position: relative;
-          input[type="text"] {
-            color: #666;
-            font-size: 13px;
-            width: 265px;
-            margin: 0 0 10px 0;
-            padding: 5px 10px;
-            border: 1px #CCC solid;
-          }
-          a {
-            background: url("/assets/common/copy-link.jpg") no-repeat;
-            text-indent: -9999px;
-            width: 116px;
-            height: 32px;
-            display: block;
-          }
-          div.zclip {
-            z-index: 10000 !important;
-          }
-        }
-      }
-      div.box_copy {
-        position: absolute;
-        background: url("/assets/common/copy.png") top center no-repeat;
-        width: 166px;
-        height: 38px;
-        padding: 17px 0 0 0;
-        display: none;
-        top: 93px;
-        left: 5px;
-        p {
-          color: #666;
-          font-size: 12px;
-          text-align: center;
-          strong {
-            color: #666;
-          }
-        }
-      }
     }
     &.clone {
       display: block;
