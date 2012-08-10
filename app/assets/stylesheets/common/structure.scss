@@ -947,6 +947,13 @@ body {
                 left: 0;
                 border: 2px #000 solid;
                 z-index: 99;
+                div.block {
+                  width: 100%;
+                  margin: 0 0 10px 0;
+                  padding-bottom: 10px;
+                  overflow: auto;
+                  border-bottom: 1px #CCC solid;
+                }
                 h2 {
                   font-family: Times, 'Times New Roman', sans-serif;
                   font-size: 17px;
@@ -956,9 +963,6 @@ body {
                 h3 {
                   font-family: Arial, sans-serif;
                   font-size: 19px;
-                  margin: 0 0 10px 0;
-                  padding-bottom: 10px;
-                  border-bottom: 1px #CCC solid;
                 }
                 a {
                   color: #E05789;
