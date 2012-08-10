@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/olook/moip-ruby.git
-  revision: 43288a394fb0bace6597e7534f7116553054464a
-  branch: active_support322
+  revision: 25d55f7c507d9b42da6cded47d3b6f5dc9ee5a04
+  branch: master
   specs:
-    moip (1.0.2)
+    moip (1.0.2.1)
       activesupport (~> 3.2.2)
       httparty (~> 0.8.1)
       nokogiri (~> 1.5.0)

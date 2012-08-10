@@ -10,7 +10,7 @@ module Orders
 
     def self.send_email(order)
       if order.canceled? || order.reversed?
-        if order.payment.credit_card?
+        if order.payment.nil? || (order.payment && order.payment.credit_card?)
           mail = OrderStatusMailer.payment_refused(order)
           mail.deliver
         end

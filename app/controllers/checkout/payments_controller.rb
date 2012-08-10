@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'iconv'
 class Checkout::PaymentsController < ApplicationController
   protect_from_forgery :except => :create
 
@@ -11,6 +12,7 @@ class Checkout::PaymentsController < ApplicationController
                         :id_transacao => params["id_transacao"])
     if order
       if update_order(order)
+        Resque.enqueue(Abacos::CancelOrder, order.number) if order.reload.canceled?
         render :nothing => true, :status => 200
       else
         msg = "Erro ao mudar status do pagamento"
@@ -36,7 +38,8 @@ class Checkout::PaymentsController < ApplicationController
     if order.payment
       order.payment.update_attributes(:gateway_code   => params["cod_moip"],
                                       :gateway_type   => params["tipo_pagamento"],
-                                      :gateway_status => params["status_pagamento"])
+                                      :gateway_status => params["status_pagamento"],
+                                      :gateway_status_reason => Iconv.conv('UTF-8//IGNORE', "US-ASCII", params["classificacao"]))
       order.payment.set_state(params["status_pagamento"])
     end
   end
