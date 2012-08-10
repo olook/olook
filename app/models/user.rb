@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :payments, :through => :orders
   has_many :credits
   has_one :tracking, :dependent => :destroy
+  has_many :user_credits
 
   before_create :generate_invite_token
   after_create :generate_auth_token
@@ -282,6 +283,11 @@ class User < ActiveRecord::Base
       return UserInfo::SHOES_SIZE[survey_answers.fetch(:question_57, nil)]
     end
     nil
+  end
+
+  def user_credits_for code
+    credit_type = CreditType.find_by_code!(code.to_s)
+    self.user_credits.find_or_create_by_credit_type_id(credit_type.id)
   end
 
   private
