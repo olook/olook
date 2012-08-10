@@ -9,6 +9,10 @@ class MembersController < ApplicationController
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
 
+  def credits
+
+  end
+
   def invite
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @redirect_uri = root_path
@@ -101,15 +105,15 @@ class MembersController < ApplicationController
   end
 
   def showroom_shoes
-    
+
   end
 
   def showroom_bags
-    
+
   end
 
   def showroom_accessories
-    
+
   end
 
   def show_imported_contacts
