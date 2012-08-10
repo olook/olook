@@ -10,10 +10,16 @@ namespace :credit_type do
 
   desc 'Assign all credits as InviteCreditType'
   task :migrate => :environment do
-     Credit.all.find_each do |credit|
-     	uc = credit.user.user_credits_for(:invite)
-     	credit.update_attribute :user_credit_id => uc.id
-     end
+    Credit.find_each do |credit|
+      begin
+        uc = credit.user.user_credits_for(:invite)
+        credit.update_attribute(:user_credit_id, uc.id)
+      rescue Exception => e
+        puts "\n"
+        puts credit.id
+        puts e.message
+        puts "\n"
+      end
+    end
   end
-
 end
