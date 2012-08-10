@@ -1,9 +1,9 @@
 <div class="filter main">
-  <h1>Cores</h1>
+  <h1 class="subtitle">Cores</h1>
   <ol class="color_filter">
     <li>
       <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
-      <%= label_tag "select_all_colors", "Todos as cores" %>
+      <%= label_tag "select_all_colors", "Todas as cores" %>
     </li>
   <% {'neutras' => 'Neutras', 'metalizadas' => 'Metalizadas', 'estampadas' => 'Estampadas', 'vivas' => 'Vivas', 'animal-print' => 'Animal Print', 'tons-pastel' => 'Tons pastel'}.sort{|a,b| a[0] <=> b[0]}.each do |subcategory, label| %>
     <li class="<%= subcategory %>">
