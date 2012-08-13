@@ -66,7 +66,7 @@ $(document).ready(function() {
     }
   });
 
-  $("div.box_invite.clone div.social ul li.twitter a").live("click", function(e) {
+  $("div.box_invite.clone div.social ul li.twitter a, section#friends_credits div.social ul li.twitter a").live("click", function(e) {
     var width  = 575,
         height = 400,
         left   = ($(window).width()  - width)  / 2,
