@@ -21,26 +21,6 @@ describe Address do
       subject.should_not be_valid
     end
 
-    it "the telephone format should be valid" do
-      subject.telephone = "(34)8978-9236"
-      subject.should be_valid
-    end
-
-    it "the telephone format should not be valid" do
-      subject.telephone = "(34)89789236"
-      subject.should_not be_valid
-    end
-
-    it "the telephone format for DDD 11 should be valid" do
-      subject.telephone = "(11)98978-9236"
-      subject.should be_valid
-    end
-
-    it "the telephone format for DDD 11 should not be valid" do
-      subject.telephone = "(11)989789236"
-      subject.should_not be_valid
-    end
-
     it "should validate the state format" do
       subject.state = "MG"
       subject.should be_valid
@@ -49,6 +29,45 @@ describe Address do
     it "should validate the state format and not be valid" do
       subject.state = "mg"
       subject.should_not be_valid
+    end
+
+    describe "Telephone number format for DDD 11" do
+      it "(11)98978-9236 should be valid" do
+        subject.telephone = "(11)98978-9236"
+        subject.should be_valid
+      end
+
+      it "(11)98978923 should not be valid" do
+        subject.telephone = "(11)98978923"
+        subject.should_not be_valid
+      end
+
+      it "(11)989789236 should not be valid" do
+        subject.telephone = "(11)989789236"
+        subject.should_not be_valid
+      end
+
+      it "(11)5978-9236 should be valid" do
+        subject.telephone = "(11)5978-9236"
+        subject.should be_valid
+      end
+
+      it "(11)99789-236 should be valid" do
+        subject.telephone = "(11)99789-236"
+        subject.should be_valid
+      end
+    end
+
+    describe "Telephone number format for other DDDs" do
+      it "(34)8978-9236 should be valid" do
+        subject.telephone = "(34)8978-9236"
+        subject.should be_valid
+      end
+
+      it "(34)89789236 should not be valid" do
+        subject.telephone = "(34)89789236"
+        subject.should_not be_valid
+      end
     end
   end
 
