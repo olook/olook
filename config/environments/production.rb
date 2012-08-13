@@ -15,7 +15,7 @@ Olook::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
   config.assets.css_compressor = :yui
-  config.assets.js_compressor = :uglifier
+#  config.assets.js_compressor = :uglifier
 
   # Fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -50,7 +50,80 @@ Olook::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
-  config.assets.precompile += %w(*.js admin/*.js common/*.js gift/*.js plugins/*.js section/*.css)
+  config.assets.precompile += %w(
+    *.js
+    admin/*.js
+    admin/bootstrap.js
+    admin/credit.js
+    admin/jquery.miniColors.js
+    admin/liquidation_products.js
+    admin/lookbook_image_map.js
+    admin/coupons.js
+    admin/index.js
+    admin/jquery.validate.min.js
+    admin/lookbook_autocomplete.js
+    admin/lookbooks.js
+    common/*.js
+    common/base.js
+    common/jquery.zclip.min.js
+    common/jquery.cookie.js
+    common/product_view.js
+
+    gift/*.js
+    gift/occasions.js
+    gift/recipients.js
+    gift/suggestions.js
+    gift/survey.js
+
+    plugins/*.js
+    plugins/auto-grow-input.js
+    plugins/jcarousel.min.js
+    plugins/jquery.meio.mask.js
+    plugins/css_browser_selector.js
+    plugins/jquery.hotkeys.js
+    plugins/jquery.slideto.js
+    plugins/jail.min.js
+    plugins/jquery.jqzoom-core.js
+    plugins/styleSelect.min.js
+    plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1.js
+    plugins/jscrollpane/jquery.jscrollpane.min.js
+    plugins/jscrollpane/jquery.mousewheel.js
+
+    ui/*.js
+    ui/jquery.ui.core.min.js
+    ui/jquery.ui.position.min.js
+    ui/jquery.ui.dialog.min.js
+    ui/jquery.ui.widget.min.js
+
+    section/*.css
+    section/showroom.css
+    section/friends.css
+    section/checkout.scss
+    section/error.scss
+    section/gift_home.scss
+    section/how_to.scss
+    section/liquidations.scss
+    section/my_account.scss   
+    section/register.scss
+    section/suggestions.scss
+    section/welcome.scss
+    section/contact.scss
+    section/friends.scss
+    section/half_user.scss
+    section/invite.scss
+    section/lookbooks.scss
+    section/pages.scss
+    section/showroom.scss
+    section/survey.scss
+    section/delivery.scss
+    section/gift.scss
+    section/home.scss
+    section/landing.scss
+    section/moments.scss
+    section/product.scss
+    section/stylists.scss
+    section/valentine.scss
+  )
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
