@@ -40,7 +40,7 @@ class CatalogSearchService
       when 3 then
         @query_base.and(all_queries[0].or(all_queries[1]).or(all_queries[2]))
       else
-        @query_base
+        params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])) : @query_base
     end
     
     @query = Catalog::Product.joins(:product)
