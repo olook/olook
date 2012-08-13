@@ -55,6 +55,8 @@
           </tr>
         </tbody>
       </table>
+      <p class="current">Você compra hoje</p>
+      <p class="next">E recebe 20% do valor em créditos para usar nas coleções de <%= (l (Time.now + 1.month), :format => "%B").downcase %> ou <%= (l (Time.now + 2.month), :format => "%B").downcase %></p>
     </div>
     <div class="rules">
       <%= link_to "Confira o regulamento completo", "#" %>
