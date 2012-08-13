@@ -33,8 +33,6 @@ class Order < ActiveRecord::Base
 
   after_create :initialize_order
 
-  delegate :name, :to => :user, :prefix => true
-  delegate :email, :to => :user, :prefix => true
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   delegate :city, :to => :freight, :prefix => true, :allow_nil => true
   delegate :state, :to => :freight, :prefix => true, :allow_nil => true
@@ -240,6 +238,10 @@ class Order < ActiveRecord::Base
 
   def update_user_credit
     Credit.remove(credits, user, self) if credits > 0
+  end
+
+  def user_name
+    "#{user_first_name} #{user_last_name}".strip
   end
   
   private

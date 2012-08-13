@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Order do
@@ -365,5 +366,17 @@ describe Order do
     it "should be marked as restricted" do
       subject.restricted?.should be_true
     end
+  end
+
+  describe "order metadata" do
+    subject do 
+      FactoryGirl.create(:clean_order, 
+        :user_first_name => 'Jéssica',
+        :user_last_name => 'Gomes'
+      )
+    end
+    
+    it { subject.user_name.should == 'Jéssica Gomes'}
+    
   end
 end
