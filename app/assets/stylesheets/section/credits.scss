@@ -44,5 +44,66 @@ section#credits {
         }
       }
     }
+    &#purchase_credits {
+      div#box_months {
+        position: relative;
+        width: 100%;
+        height: 165px;
+        overflow: visible;
+        padding: 35px 0 0 0;
+        border-top: 2px #CCC solid;
+        h3 {
+          position: absolute;
+          background: #FFF;
+          color: #666;
+          font-family: Times, "Times New Roman", sans-serif;
+          font-size: 16px;
+          font-style: italic;
+          font-weight: normal;
+          display: block;
+          padding: 0 20px;
+          top: -10px;
+          left: 55px;
+        }
+        table {
+          width: 143px;
+          margin: 0 5px 10px 0;
+          border: 1px #E1E1E1 solid;
+          float: left;
+          th, td {
+            font-family: Times, "Times New Roman", sans-serif;
+            font-style: italic;
+            font-weight: normal;
+            text-align: center;
+            padding: 10px 0;
+          }
+          th {
+            background: #d95485;
+            color: #FFF;
+            font-size: 20px;
+          }
+          td {
+            color: #999;
+            font-size: 16px;
+          }
+          &.current {
+            th {
+              background: #EEE;
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+  }
+  div.rules {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 2px #EEE solid;
+    a {
+      color: #E05789;
+      font-size: 14px;
+      font-weight: bold;
+    }
   }
 }
