@@ -21,7 +21,7 @@
     </p>
     <p>
       <b>Moip ID:</b>
-      <%= @order.payment ? @order.payment.payment_response.try(:gateway_code) : "Pagamento nao encontrado" %>
+      <%= @order.payment ? @order.payment.payment_response.try(:gateway_code) : "Pagamento não encontrado" %>
     </p>
     <p>
       <b>Status:</b>
@@ -32,7 +32,7 @@
       <% if @order.payment %>
         <%= @order.payment.human_to_s %> <%= "- #{@order.payment.bank}" if @order.payment.is_a? CreditCard %>
       <% else %>
-        Pagamento nao encontrado
+        Pagamento não encontrado
       <% end %>
     </p>
     <p>
