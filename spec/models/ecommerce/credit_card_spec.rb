@@ -28,7 +28,13 @@ describe CreditCard do
     it { should validate_presence_of(:user_birthday) }
 
     it { should allow_value("(11)1111-1111").for(:telephone) }
+    it { should allow_value("(11)9111-1111").for(:telephone) }
+    it { should allow_value("(11)91111-111").for(:telephone) }
+    it { should allow_value("(11)91111-1111").for(:telephone) }
+    it { should_not allow_value("(21)91111-111").for(:telephone) }
+    it { should_not allow_value("(21)91111-1111").for(:telephone) }
     it { should_not allow_value("2222-2222").for(:telephone) }
+    it { should_not allow_value("92222-2222").for(:telephone) }
 
     describe 'credit card number length' do
       context 'number too short' do
