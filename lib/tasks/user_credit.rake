@@ -23,16 +23,23 @@ namespace :credit_type do
     end
   end
 
-  desc 'Verify if user.credits.last.total = user.user_credits.first.total'
-  task :verify => :environment do
+  desc 'Verify if user.credits.last.total = user.user_credits.first.total. If not, correct.'
+  task :verify_and_correct => :environment do
     User.find_each do |user|
 
       if !user.credits.empty?
-        if(user.credits.last.total.to_s != user.user_credits.first.total.to_s) 
-          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits.first.total}"
+        if(user.credits.last.total.to_s != user.user_credits.first.total.to_s)          
+          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits.first.total} - Correcting..."
+          new_credit = user.credits.last.dup
+          new_credit.value = ((user.user_credits.first.total * -1) + user.credits.last.total)
+          new_credit.is_debit = (new_credit.value >= 0)? 0 : 1
+          if new_credit.value < 0
+            new_credit.value *= -1
+          end
+          new_credit.save
+          puts "#{user.id} :: #{user.credits.last.total} == #{user.user_credits.first.total} - Corrected"
         end
       end
-
     end
   end
 end
