@@ -20,19 +20,18 @@ class CatalogSearchService
     query_colors = params[:shoe_colors] ? build_sub_query((query_heels || query_subcategories || query_base), Product.arel_table[:color_name].in(params[:shoe_colors])) : nil
     query_shoe_sizes = (query_colors || query_heels || query_subcategories) && params[:shoe_sizes] ? build_sub_query((query_colors || query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
 
-    queries = [query_shoe_sizes, query_colors, query_heels, query_subcategories]
-    query_shoes = queries.detect{|query| !query.nil?}
-    # query_shoes = query_shoes.and(l_products[:category_id].in(Category::SHOE)) if query_shoes
+    query_shoes = [query_shoe_sizes, query_colors, query_heels, query_subcategories].detect{|query| !query.nil?}
+    query_shoes = query_shoes.and(l_products[:category_id].in(Category::SHOE)) if query_shoes
 
     query_bags = params[:bag_subcategories] ? l_products[:subcategory_name].in(params[:bag_subcategories]) : nil
-    query_bags = build_sub_query(query_bags || query_base, Product.arel_table[:color_name].in(params[:bag_colors])) if params[:bag_colors]
+    query_bags = build_sub_query((query_bags || query_base), Product.arel_table[:color_name].in(params[:bag_colors])) if params[:bag_colors]
     query_bags = query_bags.and(l_products[:category_id].in(Category::BAG)) if query_bags
 
     query_accessories = params[:accessory_subcategories] ? l_products[:subcategory_name].in(params[:accessory_subcategories]) : nil
     query_accessories = query_accessories.and(l_products[:category_id].in(Category::ACCESSORY)) if query_accessories
-
+    
     all_queries = [query_shoes, query_bags, query_accessories].compact
-
+    
     @query_base = case all_queries.size
       when 1 then
         @query_base.and(all_queries[0])
@@ -43,7 +42,7 @@ class CatalogSearchService
       else
         @query_base
     end
-
+    
     @query = Catalog::Product.joins(:product)
     if @liquidation
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
