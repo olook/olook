@@ -3,7 +3,10 @@ FactoryGirl.define do
   factory :clean_order, :class => Order do
     association :payment, :factory => :billet
     association :freight, :factory => :freight
-
+    user_first_name 'José'
+    user_last_name 'Ernesto'
+    user_email 'jose.ernesto@dominio.com'
+    user_cpf '228.016.368-35'
     after_build do |order|
       Resque.stub(:enqueue)
     end
@@ -33,6 +36,10 @@ FactoryGirl.define do
     association :freight, :factory => :freight
     subtotal BigDecimal.new("100")
     amount_paid BigDecimal.new("100")
+    user_first_name 'José'
+    user_last_name 'Ernesto'
+    user_email 'jose.ernesto@dominio.com'
+    user_cpf '228.016.368-35'
     
     after_build do |order|
       Resque.stub(:enqueue)
