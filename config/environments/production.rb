@@ -14,8 +14,8 @@ Olook::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.css_compressor = :yui
-#  config.assets.js_compressor = :uglifier
+  # config.assets.css_compressor = :yui
+  # config.assets.js_compressor = :uglifier
 
   # Fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -63,6 +63,7 @@ Olook::Application.configure do
     admin/jquery.validate.min.js
     admin/lookbook_autocomplete.js
     admin/lookbooks.js
+
     common/*.js
     common/base.js
     common/jquery.zclip.min.js
@@ -96,33 +97,31 @@ Olook::Application.configure do
     ui/jquery.ui.widget.min.js
 
     section/*.css
-    section/showroom.css
+    section/checkout.css
+    section/error.css
+    section/gift_home.css
+    section/how_to.css
+    section/liquidations.css
+    section/my_account.css   
+    section/register.css
+    section/suggestions.css
+    section/welcome.css
+    section/contact.css
     section/friends.css
-    section/checkout.scss
-    section/error.scss
-    section/gift_home.scss
-    section/how_to.scss
-    section/liquidations.scss
-    section/my_account.scss   
-    section/register.scss
-    section/suggestions.scss
-    section/welcome.scss
-    section/contact.scss
-    section/friends.scss
-    section/half_user.scss
-    section/invite.scss
-    section/lookbooks.scss
-    section/pages.scss
-    section/showroom.scss
-    section/survey.scss
-    section/delivery.scss
-    section/gift.scss
-    section/home.scss
-    section/landing.scss
-    section/moments.scss
-    section/product.scss
-    section/stylists.scss
-    section/valentine.scss
+    section/half_user.css
+    section/invite.css
+    section/lookbooks.css
+    section/pages.css
+    section/showroom.css
+    section/survey.css
+    section/delivery.css
+    section/gift.css
+    section/home.css
+    section/landing.css
+    section/moments.css
+    section/product.css
+    section/stylists.css
+    section/valentine.css
   )
 
   # Disable delivery errors, bad email addresses will be ignored
