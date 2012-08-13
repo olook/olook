@@ -1,5 +1,6 @@
 $(function() {
   initCredits.toggleEmailBox();
+  initCredits.addTriggerToFacebook();
   initCredits.createOrkutShareButton();
 
   $("section#friends_credits div.link_mail ul li a").zclip({
@@ -35,5 +36,9 @@ initCredits = {
         return false;
       }
     });
+  },
+
+  addTriggerToFacebook : function() {
+    $("section#friends_credits div.social ul li.facebook a").attr("id", "facebook_post_wall");
   }
 }
