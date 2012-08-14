@@ -8,6 +8,12 @@
 
 <section id="credits">
   <h1>Ganhe créditos e economize muito nas suas compras</h1>
+  <% if current_user.current_credit.to_i > 0 %>
+    <div class="bubble">
+      <h1>Você tem <span><%= number_to_currency current_user.current_credit %></span> de crédito para sua próxima compra</h1>
+      <p>Eles serão aplicados automaticamente na sua sacola, antes do pagamento</p>
+    </div>
+  <% end %>
   <section id="friends_credits">
     <h1>Convide suas amigas e ganhe R$ 10 na primeira compra de cada uma delas.</h1>
     <%= render "shared/social/share", :user => current_user %>
@@ -43,7 +49,7 @@
           </tr>
         </tbody>
       </table>
-      <table cellpadding="0" cellspacing="0">
+      <table cellpadding="0" cellspacing="0" class="last">
         <thead>
           <tr>
             <th><%= l (Time.now + 2.month), :format => "%B" %></th>

@@ -11,8 +11,31 @@ section#credits {
     letter-spacing: -1px;
     text-align: center;
   }
+  div.bubble {
+    background: url('/assets/credits/bg-bubble.png') top center no-repeat;
+    width: 638px;
+    height: 71px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    h1 {
+      color: #333;
+      font-family: Arial, Verdana, Tahoma, sans-serif;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: bold;
+      margin: 10px 0 2px;
+      display: inline-block;
+      span {
+        color: #e05789;
+      }
+    }
+    p {
+      font-size: 14px;
+    }
+  }
   section {
-    width: 445px;
+    width: 443px;
     overflow: auto;
     display: block;
     padding: 20px 25px 0;
@@ -23,7 +46,7 @@ section#credits {
       margin: 0 auto 40px;
     }
     &#friends_credits {
-      width: 468px;
+      width: 470px;
       min-height: 500px;
       padding-left: 0;
       border-right: 2px #CCC solid;
@@ -67,7 +90,7 @@ section#credits {
           left: 55px;
         }
         table {
-          width: 143px;
+          width: 144px;
           margin: 0 5px 10px 0;
           border: 1px #E1E1E1 solid;
           float: left;
@@ -92,6 +115,9 @@ section#credits {
               background: #EEE;
               color: #000;
             }
+          }
+          &.last {
+            margin: 0;
           }
         }
         p {
