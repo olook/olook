@@ -14,8 +14,8 @@ Olook::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  # config.assets.css_compressor = :yui
-  # config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :yui
+  config.assets.js_compressor = :uglifier
 
   # Fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -37,7 +37,7 @@ Olook::Application.configure do
   # config.log_level = :debug
 
   # Use a different logger for distributed setups
-  config.logger = SyslogLogger.new('rails-olook-prod')
+  #config.logger = SyslogLogger.new('rails-olook-prod')
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
