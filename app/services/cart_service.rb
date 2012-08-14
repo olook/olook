@@ -20,10 +20,11 @@ class CartService
   end
 
   def generate_order!(payment)
-    user = cart.user
-
+    raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
-    raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if user.nil?
+    raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
+    
+    user = cart.user
 
     order = Order.create!(
       :cart_id => cart.id,

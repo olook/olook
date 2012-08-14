@@ -4,6 +4,14 @@ describe CartService do
 
   let(:gift_wrap_price) { 5.00 }
 
+  let(:user) { FactoryGirl.create :user }
+  let(:address) { FactoryGirl.create(:address, :user => user) }
+  let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
+  let(:shipping_service) { FactoryGirl.create :shipping_service }
+  let(:freight) { {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address => address} }
+  let(:promotion) { FactoryGirl.create :first_time_buyers }
+  let(:coupon_of_value) { FactoryGirl.create :standard_coupon}
+  
   it "should return gift wrap price" do
     CartService.gift_wrap_price.should eq(gift_wrap_price)
   end
@@ -24,11 +32,50 @@ describe CartService do
   end
   
   context "insert a order" do
-    it "should a valid freight is required"
-    it "should a valid user is required"
-    it "should create"
-    it "should create a promotion when used"
-    it "should create a coupon when used"
+    let(:cart_service) { CartService.new({
+      :cart => cart,
+      :freight => freight,
+    }) }
+    
+    it "should a valid cart is required" do
+      expect {
+        CartService.new({}).generate_order!(double(Payment))
+      }.to raise_error(ActiveRecord::RecordNotFound, 'A valid cart is required for generating an order.')
+    end
+    
+    it "should a valid freight is required" do
+      expect {
+        CartService.new({:cart => cart}).generate_order!(double(Payment))
+      }.to raise_error(ActiveRecord::RecordNotFound, 'A valid freight is required for generating an order.')
+    end
+    
+    it "should a valid user is required" do
+      expect {
+        cart.user = nil
+        CartService.new({:cart => cart, :freight => freight}).generate_order!(double(Payment))
+      }.to raise_error(ActiveRecord::RecordNotFound, 'A valid user is required for generating an order.')
+    end
+    
+    it "should create" do
+      expect {
+        cart_service = CartService.new({:cart => cart, :freight => freight})
+        order = cart_service.generate_order!(Payment.new)
+      }.to change{Order.count}.by(1)
+    end
+    
+    it "should create a promotion when used" do
+      expect {
+        cart_service = CartService.new({:cart => cart, :freight => freight, :promotion => promotion})
+        order = cart_service.generate_order!(Payment.new)
+      }.to change{Order.count}.by(1)
+    end
+    
+    it "should create a coupon when used" do
+      expect {
+        cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
+        order = cart_service.generate_order!(Payment.new)
+      }.to change{Order.count}.by(1)
+    end
   end
   
   context ".gift_wrap?" do
