@@ -18,7 +18,127 @@ class CartService
     
     self.credits ||= 0
   end
+  
+  def gift_wrap?
+    gift_wrap == "1" ? true : false
+  end
+  
+  def freight_price
+    freight && freight.fetch(:price, 0) || 0
+  end
 
+  def freight_city
+    freight && freight.fetch(:city, "") || ""
+  end
+  
+  def freight_state
+    freight && freight.fetch(:state, "") || ""
+  end
+  
+  def item_price(item)
+    get_retail_price_for_item(item).fetch(:price)
+  end
+  
+  def item_retail_price(item)
+    get_retail_price_for_item(item).fetch(:retail_price)
+  end
+    
+  def item_promotion?(item)
+    item_price(item) != item_retail_price(item)
+  end
+  
+  def item_price_total(item)
+    item_price(item) * item.quantity
+  end
+
+  def item_retail_price_total(item)
+    item_retail_price(item) * item.quantity
+  end
+  
+  def item_discount_percent(item)
+    get_retail_price_for_item(item).fetch(:percent)
+  end
+  
+  def item_discount_origin(item)
+    get_retail_price_for_item(item).fetch(:origin)
+  end
+  
+  def item_discount_origin_type(item)
+    get_retail_price_for_item(item).fetch(:origin_type)
+  end
+  
+  def item_discounts(item)
+    get_retail_price_for_item(item).fetch(:discounts)
+  end
+
+  def item_has_more_than_one_discount?(item)
+    item_discounts(item).size > 1
+  end
+
+  def subtotal(type = :retail_price)
+    cart.items.inject(0) do |value, item|
+      value += self.send("item_#{type}_total", item)
+    end
+  end
+  
+  def total_increase
+    increase = 0
+    increase += increment_from_gift_wrap
+    increase += freight_price
+    increase
+  end
+
+  def total_coupon_discount
+    calculate_discounts.fetch(:total_coupon)
+  end
+  
+  def total_credits_discount
+    calculate_discounts.fetch(:total_credits)
+  end
+  
+  def total_discount
+    calculate_discounts.fetch(:total_discount)
+  end
+  
+  def is_minimum_payment?
+    calculate_discounts.fetch(:is_minimum_payment)
+  end
+  
+  def total_discount_by_type(type)
+    total_value = 0
+    total_value += total_coupon_discount if :coupon == type
+    total_value += total_credits_discount if :credits == type
+    
+    cart.items.each do |item|
+      if item_discount_origin_type(item) == type
+        total_value += (item_price(item) - item_retail_price(item))
+      end
+    end
+    
+    total_value
+  end
+  
+  def active_discounts
+    discounts = cart.items.inject([]) do |discounts, item|
+      discounts + item_discounts(item)
+    end
+    
+    discounts.uniq
+  end
+  
+  def has_more_than_one_discount?
+    active_discounts.size > 1
+  end
+  
+  def total
+    total = subtotal(:retail_price)
+    total += total_increase
+    total -= total_discount
+    
+    total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
+    total
+  end
+  
   def generate_order!(payment)
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
@@ -64,126 +184,6 @@ class CartService
 
     order.save
     order  
-  end
-  
-  def gift_wrap?
-    gift_wrap == "1" ? true : false
-  end
-  
-  def freight_price
-    freight && freight.fetch(:price, 0) || 0
-  end
-
-  def freight_city
-    freight && freight.fetch(:city, "") || ""
-  end
-  
-  def freight_state
-    freight && freight.fetch(:state, "") || ""
-  end
-  
-  def total_increase
-    increase = 0
-    increase += increment_from_gift_wrap
-    increase += freight_price
-    increase
-  end
-
-  def total_coupon_discount
-    calculate_discounts.fetch(:total_coupon)
-  end
-  
-  def total_credits_discount
-    calculate_discounts.fetch(:total_credits)
-  end
-  
-  def total_discount
-    calculate_discounts.fetch(:total_discount)
-  end
-  
-  def total_discount_by_type(type)
-    total_value = 0
-    total_value += total_coupon_discount if :coupon == type
-    total_value += total_credits_discount if :credits == type
-    
-    cart.items.each do |item|
-      if item_discount_origin_type(item) == type
-        total_value += (item_price(item) - item_retail_price(item))
-      end
-    end
-    
-    total_value
-  end
-  
-  def subtotal(type = :retail_price)
-    cart.items.inject(0) do |value, item|
-      value += self.send("item_#{type}_total", item)
-    end
-  end
-  
-  def has_more_than_one_discount?
-    active_discounts.size > 1
-  end
-  
-  def active_discounts
-    discounts = cart.items.inject([]) do |discounts, item|
-      discounts + item_discounts(item)
-    end
-    
-    discounts.uniq
-  end
-  
-  def is_minimum_payment?
-    calculate_discounts.fetch(:is_minimum_payment)
-  end
-  
-  def total
-    total = subtotal(:retail_price)
-    total += total_increase
-    total -= total_discount
-    
-    total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
-    total
-  end
-  
-  def item_promotion?(item)
-    item_price(item) != item_retail_price(item)
-  end
-  
-  def item_price_total(item)
-    item_price(item) * item.quantity
-  end
-
-  def item_retail_price_total(item)
-    item_retail_price(item) * item.quantity
-  end
-  
-  def item_discount_percent(item)
-    get_retail_price_for_item(item).fetch(:percent)
-  end
-  
-  def item_discount_origin(item)
-    get_retail_price_for_item(item).fetch(:origin)
-  end
-  
-  def item_discount_origin_type(item)
-    get_retail_price_for_item(item).fetch(:origin_type)
-  end
-  
-  def item_price(item)
-    get_retail_price_for_item(item).fetch(:price)
-  end
-  
-  def item_retail_price(item)
-    get_retail_price_for_item(item).fetch(:retail_price)
-  end
-  
-  def item_has_more_than_one_discount?(item)
-    get_retail_price_for_item(item).fetch(:discounts).size > 1
-  end
-
-  def item_discounts(item)
-    get_retail_price_for_item(item).fetch(:discounts)
   end
   
   private
