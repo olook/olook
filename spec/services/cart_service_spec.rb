@@ -8,9 +8,11 @@ describe CartService do
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
-  let(:freight) { {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address => address} }
+  let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
   let(:promotion) { FactoryGirl.create :first_time_buyers }
   let(:coupon_of_value) { FactoryGirl.create :standard_coupon}
+  let(:payment) { FactoryGirl.create :debit }
+  
   
   it "should return gift wrap price" do
     CartService.gift_wrap_price.should eq(gift_wrap_price)
@@ -59,21 +61,69 @@ describe CartService do
     it "should create" do
       expect {
         cart_service = CartService.new({:cart => cart, :freight => freight})
-        order = cart_service.generate_order!(Payment.new)
+        cart_service.stub(:total_credits_discount => 0)
+        cart_service.stub(:total_discount => 10)
+        cart_service.stub(:total_increase => 20)
+        cart_service.stub(:total => 30)
+        cart_service.stub(:subtotal => 40)
+        cart_service.stub(:item_price => 10)
+        cart_service.stub(:item_retail_price => 20)
+        
+        order = cart_service.generate_order!(payment)
+        
+        order.cart.should eq(cart)
+        order.payment.should eq(payment)
+        order.credits.should eq(0)
+        order.user_id.should eq(user.id)
+        order.restricted.should eq(false)
+        order.gift_wrap.should eq(false)
+        order.amount_discount.should eq(10)
+        order.amount_increase.should eq(20)
+        order.amount_paid.should eq(30)
+        order.subtotal.should eq(40)
+        order.user_first_name.should eq(user.first_name)
+        order.user_last_name.should eq(user.last_name)
+        order.user_email.should eq(user.email)
+        order.user_cpf.should eq(user.cpf)
+        
+        cart.items.map do |item|
+          line_item = order.line_items.where(
+            :variant_id => item.variant.id, 
+            :quantity => item.quantity, 
+            :gift => item.gift
+          ).first
+          line_item.price.should eq(10)
+          line_item.retail_price.should eq(20)
+        end
+
+        freight.each do |key, value|
+          order.freight.send("#{key}").should eq(value)
+        end
+        
       }.to change{Order.count}.by(1)
     end
     
     it "should create a promotion when used" do
       expect {
         cart_service = CartService.new({:cart => cart, :freight => freight, :promotion => promotion})
-        order = cart_service.generate_order!(Payment.new)
+        
+        cart_service.stub(:total_discount_by_type => 20)
+        
+        order = cart_service.generate_order!(payment)
+        
+        order.used_promotion.promotion.should be(promotion)
+        order.used_promotion.discount_percent.should be(promotion.discount_percent)
+        order.used_promotion.discount_value.should eq(20)
+        
       }.to change{Order.count}.by(1)
     end
     
     it "should create a coupon when used" do
       expect {
         cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
-        order = cart_service.generate_order!(Payment.new)
+        cart_service.stub(:total_coupon_discount => 100)
+        order = cart_service.generate_order!(payment)
+        order.used_coupon.coupon.should be(coupon_of_value)
       }.to change{Order.count}.by(1)
     end
   end
