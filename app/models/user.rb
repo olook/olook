@@ -117,6 +117,7 @@ class User < ActiveRecord::Base
   end
   
   def current_credit
+    #self.user_credits.map{|uc| uc.total}.reduce(:+)
     credits.last.try(:total) || 0
   end
 

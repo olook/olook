@@ -1,6 +1,7 @@
 class LoyaltyProgramCreditType < CreditType
-
-  # def total(date = DateTime.now, user_credit)
-  # end
+  
+  def credit_sum(user_credit, date, is_debit)
+  	user_credit.credits.where("activates_at <= ? AND expires_at >= ? AND is_debit = ?", date, date, is_debit).sum(:value)
+  end
 
 end
