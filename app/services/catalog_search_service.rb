@@ -6,6 +6,7 @@ class CatalogSearchService
     @query_base = @l_products[:catalog_id].eq(params[:id])
                   .and(@l_products[:inventory].gt(0))
                   .and(Product.arel_table[:is_visible].eq(true))
+                  .and(Variant.arel_table[:inventory].gt(0))
                   
     if @liquidation = LiquidationService.active
       @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil))
@@ -18,7 +19,11 @@ class CatalogSearchService
     query_subcategories = params[:shoe_subcategories] ? l_products[:subcategory_name].in(params[:shoe_subcategories]) : nil
     query_heels =  params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
     query_colors = params[:shoe_colors] ? build_sub_query((query_heels || query_subcategories || query_base), Product.arel_table[:color_name].in(params[:shoe_colors])) : nil
-    query_shoe_sizes = (query_colors || query_heels || query_subcategories) && params[:shoe_sizes] ? build_sub_query((query_colors || query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
+    query_shoe_sizes = if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
+      build_sub_query((query_colors || query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes]).and(Variant.arel_table[:display_reference].in(params[:shoe_sizes].map{|ss| "size-#{ss}"})))
+    else
+      nil
+    end
 
     query_shoes = [query_shoe_sizes, query_colors, query_heels, query_subcategories].detect{|query| !query.nil?}
     query_shoes = query_shoes.and(l_products[:category_id].in(Category::SHOE)) if query_shoes
@@ -40,10 +45,10 @@ class CatalogSearchService
       when 3 then
         @query_base.and(all_queries[0].or(all_queries[1]).or(all_queries[2]))
       else
-        params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])) : @query_base
+        params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:display_reference].in(params[:shoe_sizes].map{|ss| "size-#{ss}"})) : @query_base
     end
     
-    @query = Catalog::Product.joins(:product)
+    @query = Catalog::Product.joins(:product).joins(:variant)
     if @liquidation
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
     end
