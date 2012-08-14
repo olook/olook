@@ -53,7 +53,7 @@ class CatalogSearchService
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
     end
     @query.where(@query_base)
-          .order(sort_filter)
+          .order(sort_filter, 'name asc')
           .group("catalog_products.product_id")
           .paginate(page: params[:page], per_page: 12)
           .includes(product: :variants)
