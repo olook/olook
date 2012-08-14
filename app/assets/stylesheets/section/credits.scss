@@ -1,5 +1,8 @@
 section#credits {
+  position: relative;
+  width: 100%;
   padding: 20px 0;
+  overflow: auto;
   & > h1 {
     font-size: 39px;
     margin: 0 0 20px;
@@ -33,6 +36,16 @@ section#credits {
     p {
       font-size: 14px;
     }
+  }
+  div.plus {
+    position: absolute;
+    background: url('/assets/credits/plus.png') no-repeat;
+    top: 190px;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0 0 0 -23px;
+    display: block;
   }
   section {
     width: 443px;
