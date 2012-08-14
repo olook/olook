@@ -163,29 +163,66 @@ describe CartService do
   end
   
   context ".item_promotion?" do
-    it "should return true if retail_price is different of price"
-    it "should return false if retail_price is equal price"
+    it "should return true if retail_price is different of price" do
+      cart_service.stub(:item_price => 10)
+      cart_service.stub(:item_retail_price => 9)
+      cart_service.item_promotion?(mock).should eq(true)
+    end
+    
+    it "should return false if retail_price is equal price" do
+      cart_service.stub(:item_price => 10)
+      cart_service.stub(:item_retail_price => 10)
+      cart_service.item_promotion?(mock).should eq(false)
+    end
   end
   
   context ".item_price_total" do
-    it "should return item_price muliply by item quantity"
+    it "should return item_price muliply by item quantity" do
+      cart_service.stub(:item_price => 10)
+      item = double(CartItem, :quantity => 5)
+      cart_service.item_price_total(item).should eq(50)
+    end
   end
   
   context ".item_retail_price_total" do
-    it "should return item_retail_price muliply by item quantity"
+    it "should return item_retail_price muliply by item quantity" do
+      cart_service.stub(:item_retail_price => 10)
+      item = double(CartItem, :quantity => 5)
+      cart_service.item_retail_price_total(item).should eq(50)
+    end
   end
   
   context ".item_discount_percent" do
-    it "should return zero percent when has no discounts"
-    
-    it "should return percent when has olooklet"
-    
-    it "should return percent when has coupon of percentage"
+    before :each do
+      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+    end
 
-    it "should return percent when has promotion"
+    it "should return zero percent when has no discounts" do
+      cart_service.item_discount_percent(cart.items.first).should eq(0)
+    end
+    
+    it "should return percent when has olooklet" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+      cart_service.item_discount_percent(cart.items.first).should eq(10)
+    end
+    
+    it "should return percent when has coupon of percentage" do
+      cart_service.coupon = coupon_of_percentage
+      cart_service.item_discount_percent(cart.items.first).should eq(coupon_of_percentage.value)
+    end
 
-    it "should return percent when item is gift"
-  end
+    it "should return percent when has promotion" do
+      cart_service.promotion = promotion
+      cart_service.item_discount_percent(cart.items.first).should eq(30)
+    end
+
+    it "should return percent when item is gift" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
+      cart.items.first.update_attribute(:gift, true)
+      Product.any_instance.stub(:gift_price => 14)
+      cart_service.item_discount_percent(cart.items.first).should eq(30)
+    end
+ end
   
   context ".item_discount_origin" do
     it "should return empty when has no discounts"
