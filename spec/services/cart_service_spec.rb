@@ -225,50 +225,133 @@ describe CartService do
  end
   
   context ".item_discount_origin" do
-    it "should return empty when has no discounts"
+    before :each do
+      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+    end
     
-    it "should return olooklet description when has olooklet"
+    it "should return empty when has no discounts" do
+      cart_service.item_discount_origin(cart.items.first).should eq("")
+    end
     
-    it "should return coupon description when has coupon of percentage"
+    it "should return olooklet description when has olooklet" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+      cart_service.item_discount_origin(cart.items.first).should eq("Olooklet: 10% de desconto")
+    end
+    
+    it "should return coupon description when has coupon of percentage" do
+      cart_service.coupon = coupon_of_percentage
+      cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 20% do cupom FOOBAR000")
+    end
 
-    it "should return promotion description when has promotion"
+    it "should return promotion description when has promotion" do
+      cart_service.promotion = promotion
+      cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 30% desconto de primeira compra")
+    end
 
-    it "should return gift description when item is gift"
+    it "should return gift description when item is gift" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
+      cart.items.first.update_attribute(:gift, true)
+      Product.any_instance.stub(:gift_price => 14)
+      cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 30% para presente.")
+    end
   end
   
   context ".item_discount_origin_type" do
-    it "should return empty when has no discounts"
+    before :each do
+      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+    end
     
-    it "should return olooklet when has olooklet"
+    it "should return empty when has no discounts" do
+      cart_service.item_discount_origin_type(cart.items.first).should eq("")
+    end
     
-    it "should return coupon when has coupon of percentage"
+    it "should return olooklet when has olooklet" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+      cart_service.item_discount_origin_type(cart.items.first).should eq(:olooklet)
+    end
+    
+    it "should return coupon when has coupon of percentage" do
+      cart_service.coupon = coupon_of_percentage
+      cart_service.item_discount_origin_type(cart.items.first).should eq(:coupon)
+    end
 
-    it "should return promotion when has promotion"
+    it "should return promotion when has promotion" do
+      cart_service.promotion = promotion
+      cart_service.item_discount_origin_type(cart.items.first).should eq(:promotion)
+    end
 
-    it "should return gift when item is gift"
+    it "should return gift when item is gift" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
+      cart.items.first.update_attribute(:gift, true)
+      Product.any_instance.stub(:gift_price => 14)
+      cart_service.item_discount_origin_type(cart.items.first).should eq(:gift)
+    end
   end
   
   context ".item_discounts" do
-    it "should return empty when has no discounts"
+    before :each do
+      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+    end
     
-    it "should return olooklet when has olooklet"
+    it "should return empty when has no discounts" do
+      cart_service.item_discounts(cart.items.first).should eq([])
+    end
     
-    it "should return coupon when has coupon of percentage"
+    it "should return olooklet when has olooklet" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+      cart_service.item_discounts(cart.items.first).should eq([:olooklet])
+    end
+    
+    it "should return coupon when has coupon of percentage" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+      cart_service.coupon = coupon_of_percentage
+      cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon])
+    end
 
-    it "should return promotion when has promotion"
+    it "should return promotion when has promotion" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+      cart_service.coupon = coupon_of_percentage
+      cart_service.promotion = promotion
+      cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion])
+    end
 
-    it "should return gift when item is gift"
+    it "should return gift when item is gift" do
+      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
+      cart.items.first.update_attribute(:gift, true)
+      Product.any_instance.stub(:gift_price => 14)
+      cart_service.coupon = coupon_of_percentage
+      cart_service.promotion = promotion
+      cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion, :gift])
+    end
   end
   
   context ".item_has_more_than_one_discount?" do
-    it "should return false when has no discount"
-    it "should return false when has one discount"
-    it "should return true when has two or more discounts"
+    it "should return false when has no discount" do
+      cart_service.stub(:item_discounts => [])
+      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
+    end
+    
+    it "should return false when has one discount" do
+      cart_service.stub(:item_discounts => [:olooklet])
+      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
+    end
+    
+    it "should return true when has two or more discounts" do
+      cart_service.stub(:item_discounts => [:olooklet, :promotion])
+      cart_service.item_has_more_than_one_discount?(mock).should eq(true)
+    end
   end
   
   context ".subtotal" do
-    it "should return sum of price_total for all items"
-    it "should return sum of retail_price_total for all items"
+    it "should return sum of price_total for all items" do
+      cart_service.stub(:item_price_total => 100)
+      cart_service.subtotal(:price).should eq(100)
+    end
+    
+    it "should return sum of retail_price_total for all items" do
+      cart_service.stub(:item_retail_price_total => 50)
+      cart_service.subtotal(:retail_price).should eq(50)
+    end
   end
   
   context ".total_increase" do
