@@ -13,10 +13,10 @@ class CartService
 
   def initialize(params)
     params.each_pair do |key, value|
-      send(key.to_s+'=',value)
+      self.send(key.to_s+'=',value)
     end
     
-    credits ||= 0 
+    self.credits ||= 0
   end
 
   def generate_order!(payment)
