@@ -371,15 +371,63 @@ describe CartService do
     end
   end
   
-  context ".total_coupon_discount"
-  context ".total_credits_discount"
-  context ".total_discount"
-  context ".is_minimum_payment?"
-  context ".total_discount_by_type"
-  context ".item_discounts"
-  context ".active_discounts"
-  context ".has_more_than_one_discount?"
-  context ".total"
+  context ".total_coupon_discount" do
+    it "should return zero when no has coupon"
+    it "should return zero when coupon is for percentage"
+    it "should return coupon value when coupon is less than maximum value"
+    it "should return retail value when coupon is greater than maximum value"
+  end
+  
+  context ".total_credits_discount" do
+    it "should return zero when no has credits"
+    it "should return credits value when credits is less than maximum value"
+    it "should return retail value when credits is greater than maximum value"
+  end
+  
+  context ".total_discount" do
+    it "should return sum of credits and coupon value"
+  end
+  
+  context ".is_minimum_payment?" do
+    it "should return false when has freight price is greter than minimum value"
+    it "should return true when has freight price is less than minimum value"
+    it "should return false when retail value is greater than zero"
+    it "should return true when retail value is equal to zero"
+  end
+  
+  context ".total_discount_by_type" do
+    it "should sum total cupon when type is coupon"
+    it "should sum total credits when type is credits"
+    it "should sum discount value when discount type match in item"
+  end
+  
+  context ".active_discounts" do
+    it "should sum discounts of items"
+  end
+  
+  context ".has_more_than_one_discount?" do
+    xit "should return false when has no discount" do
+      cart_service.stub(:item_discounts => [])
+      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
+    end
+    
+    xit "should return false when has one discount" do
+      cart_service.stub(:item_discounts => [:olooklet])
+      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
+    end
+    
+    xit "should return true when has two or more discounts" do
+      cart_service.stub(:item_discounts => [:olooklet, :promotion])
+      cart_service.item_has_more_than_one_discount?(mock).should eq(true)
+    end
+  end
+  
+  context ".total" do
+    it "should sum retail price of items"
+    it "should sum increase values"
+    it "should subtract discounts values"
+    it "should is minimum value when total is less than minimum value"
+  end
   
   context "insert a order" do
     it "should a valid cart is required" do
