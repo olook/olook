@@ -60,6 +60,7 @@ group :development, :test do
     gem "ruby-debug19", :require => "ruby-debug", :platform => :ruby_19
   end
   gem "pry"
+  gem 'delorean'
 end
 
 group :test do

@@ -4,7 +4,7 @@ class UserCredit < ActiveRecord::Base
   has_many :credits
   INVITE_BONUS = BigDecimal.new("10.00")
   
-  def total date = DateTime.now
+  def total(date = DateTime.now)
     credit_type.total(self, date)
   end
 

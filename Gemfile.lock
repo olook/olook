@@ -88,12 +88,15 @@ GEM
     childprocess (0.3.2)
       ffi (~> 1.0.6)
     choice (0.1.6)
+    chronic (0.7.0)
     coderay (1.0.7)
     columnize (0.3.6)
     crack (0.3.1)
     curb (0.8.0)
     dalli (2.0.2)
     database_cleaner (0.7.2)
+    delorean (2.0.0)
+      chronic
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -394,6 +397,7 @@ DEPENDENCIES
   curb
   dalli (= 2.0.2)
   database_cleaner
+  delorean
   devise (~> 1.5.3)
   enumerate_it
   factory_girl_rails (~> 3.2.0)
