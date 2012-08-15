@@ -4,6 +4,8 @@ module Abacos
     @queue = :order
 
     def self.perform(order_number)
+      return true unless Setting.abacos_integrate
+      
       order = parse_and_check_order order_number
       create_order_event order
       if export_client(order)
