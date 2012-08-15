@@ -20,13 +20,36 @@ describe LoyaltyProgramCreditType do
     end
 
     describe "removing credits" do
-
       context "when user has enough credits" do
-        xit "should remove credits" do
+        it "should remove credits" do
           loyalty_program_credit_type.add(amount,user_credit,order)
-          loyalty_program_credit_type.remove(amount,user_credit,order)
+          Delorean.jump 1.month
+          expect{
+            loyalty_program_credit_type.remove(amount,user_credit,order)
+          }.to change{ Credit.count }.by(1)
+          loyalty_program_credit_type.total(user_credit, DateTime.now).should == 0.0
+        end
 
-          loyalty_program_credit_type.total(user_credit, DateTime.now + 1.month).should == 0.0
+        it "should remove credits" do
+          3.times { loyalty_program_credit_type.add(amount,user_credit,order) }
+
+          Delorean.jump 1.month
+
+          expect{
+            loyalty_program_credit_type.remove(BigDecimal.new("99"),user_credit,order)
+          }.to change{ Credit.count }.by(4)
+
+          loyalty_program_credit_type.total(user_credit, DateTime.now).should == 0.99
+        end
+
+        it "should remove credits" do
+          loyalty_program_credit_type.add(amount,user_credit,order)
+          Delorean.jump 1.month
+          expect{
+            loyalty_program_credit_type.remove(BigDecimal.new("31.33"),user_credit,order)
+          }.to change{ Credit.count }.by(2)
+          
+          loyalty_program_credit_type.total(user_credit, DateTime.now).should == 2.0
         end
       end
 
