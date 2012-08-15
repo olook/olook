@@ -8,6 +8,8 @@ module Abacos
     end
 
     def self.export_client(client)
+      return true unless Setting.abacos_integrate
+      
       payload = client.parsed_data
       payload["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
       response = call_webservice(wsdl, :cadastrar_cliente, payload)
