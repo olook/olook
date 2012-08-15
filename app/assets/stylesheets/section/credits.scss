@@ -71,21 +71,6 @@ section#credits {
             padding-right: 10px;
           }
         }
-        &.full {
-          td {
-            text-align: center;
-            h4 {
-              font-size: 24px;
-              font-style: italic;
-              font-weight: lighter;
-              margin-bottom: 5px;
-            }
-            p {
-              font-size: 12px;
-              font-weight: normal;
-            }
-          }
-        }
       }
       tbody {
         tr td {
@@ -112,6 +97,28 @@ section#credits {
           font-size: 24px;
           font-style: italic;
           font-weight: lighter;
+        }
+      }
+      &.last_orders {
+        tfoot {
+          tr {
+            td {
+              border-top: 1px #EEE solid;
+            }
+          }
+        }
+        tbody {
+          tr {
+            td {
+              border: none;
+            }
+            &.total_month {
+              td {
+                font-size: 16px;
+                border-top: 1px #EEE solid;
+              }
+            }
+          }
         }
       }
     }

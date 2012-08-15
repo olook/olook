@@ -1,11 +1,43 @@
 <h1>Créditos da última compra:</h1>
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0" class="last_orders">
+  <tfoot>
+    <tr>
+      <td>Crédito disponível</td>
+      <td><%= number_to_currency user.current_credit %></td>
+    </tr>
+  </tfoot>
   <tbody>
-    <tr class="full">
-      <td>
-        <h4>20% de R$90,90 = <span>R$ 60,00</span></h4>
-        <p>Válidos até o final de agosto</p>
-      </td>
+    <tr class="total_month">
+      <td>Créditos válidos até o final de agosto:</td>
+      <td><span>R$ 180,18</span></td>
+    </tr>
+    <tr>
+      <td>Crédito acumulado - Pedido 1234 (16/06/2012)</td>
+      <td><span>R$ 100,00</span></td>
+    </tr>
+    <tr>
+      <td>Crédito acumulado - Pedido 1234 (16/06/2012)</td>
+      <td><span>R$ 100,00</span></td>
+    </tr>
+    <tr>
+      <td>Crédito utilizado - Pedido 1234 (16/06/2012)</td>
+      <td class="negative">- R$ 10,00</td>
+    </tr>
+    <tr class="total_month">
+      <td>Créditos válidos até o final de agosto:</td>
+      <td><span>R$ 180,18</span></td>
+    </tr>
+    <tr>
+      <td>Crédito acumulado - Pedido 1234 (16/06/2012)</td>
+      <td><span>R$ 100,00</span></td>
+    </tr>
+    <tr>
+      <td>Crédito acumulado - Pedido 1234 (16/06/2012)</td>
+      <td><span>R$ 100,00</span></td>
+    </tr>
+    <tr>
+      <td>Crédito utilizado - Pedido 1234 (16/06/2012)</td>
+      <td class="negative">- R$ 10,00</td>
     </tr>
   </tbody>
 </table>
