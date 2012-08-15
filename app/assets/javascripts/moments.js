@@ -91,7 +91,7 @@ jQuery(function() {
   if ($('.pagination').length) {
     $(window).scroll(function() {
       url = $('.pagination .next_page').attr('href');
-      var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 800)) && !$('.loading').is(':visible');
+      var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 1050)) && !$('.loading').is(':visible');
       if (canPaginate) {
         $('.loading').show();
         $('.pagination .next_page').remove();
