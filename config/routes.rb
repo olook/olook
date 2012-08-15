@@ -166,6 +166,11 @@ Olook::Application.routes.draw do
       get 'mark_all_products_as_visible' => 'collections#mark_all_products_as_visible', as: 'display_products'
       get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
     end
+
+    post 'integrate_orders' => "orders#integrate_orders"
+    post 'integrate_cancel' => "orders#integrate_cancel"
+    post 'integrate_payment' => "orders#integrate_payment"
+        
     resources :orders do
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
