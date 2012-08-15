@@ -20,7 +20,7 @@ class CatalogSearchService
     query_heels =  params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
     query_colors = params[:shoe_colors] ? build_sub_query((query_heels || query_subcategories || query_base), Product.arel_table[:color_name].in(params[:shoe_colors])) : nil
     query_shoe_sizes = if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
-      build_sub_query((query_colors || query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes]).and(Variant.arel_table[:display_reference].in(params[:shoe_sizes].map{|ss| "size-#{ss}"})))
+      build_sub_query((query_colors || query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes]).and(Variant.arel_table[:description].in(params[:shoe_sizes])))
     else
       nil
     end
@@ -45,7 +45,7 @@ class CatalogSearchService
       when 3 then
         @query_base.and(all_queries[0].or(all_queries[1]).or(all_queries[2]))
       else
-        params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:display_reference].in(params[:shoe_sizes].map{|ss| "size-#{ss}"})) : @query_base
+        params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes])) : @query_base
     end
     
     @query = Catalog::Product.joins(:product).joins(:variant)
