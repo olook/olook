@@ -19,5 +19,26 @@ class Admin::OrdersController < Admin::BaseController
   def generate_purchase_timeline
    @order = Order.find(params[:id])
   end
+  
+  def integrate_orders
+    Order.where(:erp_integrate_at => nil).find_each do |order|
+      Resque.enqueue(Abacos::InsertOrder, order.number)
+    end
+    redirect_to admin_orders_path, :notice => "Integrate Orders, checking Resque"
+  end
+  
+  def integrate_payment
+    Order.with_payment.where(:erp_payment_at => nil, :state => "authorized").find_each do |order|
+      Resque.enqueue(Abacos::ConfirmPayment, order.number)
+    end
+    redirect_to admin_orders_path, :notice => "Integrate Payment, checking Resque"
+  end
+
+  def integrate_cancel
+    Order.where(:erp_cancel_at => nil, :state => "canceled").find_each do |order|
+      Resque.enqueue(Abacos::CancelOrder, order.number)
+    end
+    redirect_to admin_orders_path, :notice => "Integrate Cancel Orders, checking Resque"
+  end
 
 end

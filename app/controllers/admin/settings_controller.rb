@@ -3,7 +3,7 @@ class Admin::SettingsController < Admin::BaseController
   load_and_authorize_resource
   
   def show
-    @settings = Setting.all
+    @settings = Setting.defaults.merge(Setting.all)
   end
 
   def create
