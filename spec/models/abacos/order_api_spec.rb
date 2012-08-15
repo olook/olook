@@ -5,10 +5,12 @@ describe Abacos::OrderAPI do
   it 'should have the WSDL url pointing to the service' do
     described_class.wsdl.match(/.+AbacosWSPedidos+./).should be_true
   end
+  
+  let(:order) { FactoryGirl.create :clean_order }
 
   describe '#insert_order' do
     let(:fake_data) { {:fake_data => :order} }
-    let(:fake_order) { double :order, :parsed_data => fake_data }
+    let(:fake_order) { double :order, :parsed_data => fake_data, :numero => order.number }
     let(:fake_data_with_key) do
       result = fake_data
       result["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
@@ -45,7 +47,7 @@ describe Abacos::OrderAPI do
   end
 
   describe '#confirm_payment' do
-    let(:fake_payment) { double :payment, :parsed_data => {:parsed_fake_payment => 123} }
+    let(:fake_payment) { double :payment, :parsed_data => {:parsed_fake_payment => 123}, :numero_pedido => order.number }
     let(:fake_data_with_key) do
       result = {'ListaDePagamentos' => {'DadosPgtoPedido' => {:parsed_fake_payment => 123}}}
       result["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
@@ -64,7 +66,7 @@ describe Abacos::OrderAPI do
   end
 
   describe '#cancel_order' do
-    let(:fake_cancelation) { double :cancelation, :parsed_data => {:parsed_fake_cancelation => 123} }
+    let(:fake_cancelation) { double :cancelation, :parsed_data => {:parsed_fake_cancelation => 123}, :numero_pedido => order.number }
     let(:fake_data_with_key) do
       result = {'ListaDePagamentos' => {'DadosPgtoPedido' => {:parsed_fake_cancelation => 123}}}
       result["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
