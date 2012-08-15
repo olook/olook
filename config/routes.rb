@@ -2,6 +2,10 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "settings/index"
+
+  get "settings/update"
+
   mount Resque::Server => "/admin/resque"
 
   root :to => "home#index"
@@ -188,6 +192,8 @@ Olook::Application.routes.draw do
 
     resources :gift_occasion_types
     resources :gift_recipient_relations
+    resource :settings
+    
   end
 
   #USER / SIGN IN
