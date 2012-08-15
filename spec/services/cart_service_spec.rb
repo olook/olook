@@ -343,6 +343,11 @@ describe CartService do
   end
   
   context ".subtotal" do
+    it "should return zero when no has items" do
+      cart_service = CartService.new({})
+      cart_service.subtotal(:price).should eq(0)
+    end
+
     it "should return sum of price_total for all items" do
       cart_service.stub(:item_price_total => 100)
       cart_service.subtotal(:price).should eq(100)
@@ -372,10 +377,38 @@ describe CartService do
   end
   
   context ".total_coupon_discount" do
-    it "should return zero when no has coupon"
-    it "should return zero when coupon is for percentage"
-    it "should return coupon value when coupon is less than maximum value"
-    it "should return retail value when coupon is greater than maximum value"
+    before :each do
+      master_variant = cart.items.first.variant.product.master_variant
+      master_variant.update_attribute(:price, 50)
+      master_variant.update_attribute(:retail_price, 50)
+    end
+    
+    it "should return zero when no has coupon" do
+      cart_service.total_coupon_discount.should eq(0)
+    end
+    
+    it "should return zero when coupon is for percentage" do
+      cart_service.coupon = coupon_of_percentage
+      cart_service.total_coupon_discount.should eq(0)
+    end
+    
+    it "should return correct value when coupon is less than maximum value" do
+      cart_service.coupon = coupon_of_value
+      cart_service.total_coupon_discount.should eq(50)
+    end
+
+    it "should return correct value when coupon is greater than maximum value and has freight" do
+      coupon_of_value.update_attribute(:value, 100)
+      cart_service.coupon = coupon_of_value
+      cart_service.total_coupon_discount.should eq(100)
+    end
+    
+    it "should return correct value when coupon is greater than maximum value and has no freight" do
+      coupon_of_value.update_attribute(:value, 100)
+      cart_service.freight = nil
+      cart_service.coupon = coupon_of_value
+      cart_service.total_coupon_discount.should eq(95)
+    end
   end
   
   context ".total_credits_discount" do
@@ -406,19 +439,19 @@ describe CartService do
   end
   
   context ".has_more_than_one_discount?" do
-    xit "should return false when has no discount" do
+    it "should return false when has no discount" do
       cart_service.stub(:item_discounts => [])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
+      cart_service.has_more_than_one_discount?.should eq(false)
     end
     
-    xit "should return false when has one discount" do
+    it "should return false when has one discount" do
       cart_service.stub(:item_discounts => [:olooklet])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
+      cart_service.has_more_than_one_discount?.should eq(false)
     end
     
-    xit "should return true when has two or more discounts" do
+    it "should return true when has two or more discounts" do
       cart_service.stub(:item_discounts => [:olooklet, :promotion])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(true)
+      cart_service.has_more_than_one_discount?.should eq(true)
     end
   end
   
