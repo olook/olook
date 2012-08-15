@@ -63,12 +63,29 @@ section#credits {
       overflow: auto;
       margin: 0 auto 30px;
       border-top: 1px #EEE solid;
-      tr td {
+      tr {
+        td {
           padding: 10px 0;
           &:last-child {
             text-align: right;
             padding-right: 10px;
           }
+        }
+        &.full {
+          td {
+            text-align: center;
+            h4 {
+              font-size: 24px;
+              font-style: italic;
+              font-weight: lighter;
+              margin-bottom: 5px;
+            }
+            p {
+              font-size: 12px;
+              font-weight: normal;
+            }
+          }
+        }
       }
       tbody {
         tr td {
