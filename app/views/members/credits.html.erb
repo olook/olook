@@ -16,6 +16,7 @@
     <div class="plus"></div>
   <% end %>
   <section id="friends_credits">
+    <%= render 'shared/my_account/credits_friends', :user => current_user %>
     <h1>Convide suas amigas e ganhe R$ 10 na primeira compra de cada uma delas.</h1>
     <%= render "shared/social/share", :user => current_user %>
     <div class="rules">
@@ -23,6 +24,7 @@
     </div>
   </section>
   <section id="purchase_credits">
+    <%= render 'shared/my_account/credits_last_order', :user => current_user %>
     <h1>Você sempre ganha 20% do valor das suas compras em desconto no próximo pedido</h1>
     <div id="box_months">
       <h3>O crédito é válido para as próximas 2 coleções.</h3>
