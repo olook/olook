@@ -76,6 +76,7 @@ class CartService
   end
 
   def subtotal(type = :retail_price)
+    return 0 if cart.nil? || (cart && cart.items.nil?)
     cart.items.inject(0) do |value, item|
       value += self.send("item_#{type}_total", item)
     end
