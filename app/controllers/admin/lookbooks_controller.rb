@@ -67,7 +67,7 @@ class Admin::LookbooksController < Admin::BaseController
   end
 
   def get_all_products
-    @products = Product.joins(:collection,:lookbooks_products).where("collections.start_date >= :date or (lookbooks_products.lookbook_id = :lookbook_id and lookbooks_products.product_id = products.id)", date: 3.months.ago.beginning_of_month, lookbook_id: @lookbook.id).order("collection_id desc, category, name")
+    @products = Product.joins(:collection).joins('left outer join lookbooks_products on products.id = lookbooks_products.product_id').where("collections.start_date >= :date or (lookbooks_products.lookbook_id = :lookbook_id and lookbooks_products.product_id = products.id)", date: 3.months.ago.beginning_of_month, lookbook_id: @lookbook.id).order("collection_id desc, category, name")
   end
 
   def product
