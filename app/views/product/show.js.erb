@@ -4,7 +4,7 @@ $('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_v
 
 $('#quick_view').fadeIn(300);
 
-$('#quick_view').css("top", $('body').scrollTop()  + 35);
+$('#quick_view').css("top", $(window).scrollTop()  + 35);
 var width = $(document).width();
 var height = $(document).height();
 $('body').prepend("<div class='overlay'></div>");
@@ -18,5 +18,5 @@ if (typeof initSuggestion != 'undefined') {
 initProduct.productZoom();
 
 try{
-  FB.XFBML.parse(); 
+  FB.XFBML.parse();
 }catch(ex){}
