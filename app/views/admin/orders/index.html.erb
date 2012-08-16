@@ -1,5 +1,6 @@
 <h2>Listing orders</h2>
 
+
 <% content_for :sidebar do %>
   <div class="block">
     <h3>Filters</h3>
@@ -42,6 +43,11 @@
 <% end %>
 
 <div class="inner">
+  <%= button_to "Integrate Orders",  admin_integrate_orders_path %>
+  <%= button_to "Integrate Payment", admin_integrate_payment_path %>
+  <%= button_to "Integrate Cancel", admin_integrate_cancel_path %>
+  
+  
   <table class="table">
     <tr>
       <th><%= sort_link @search, :number %></th>

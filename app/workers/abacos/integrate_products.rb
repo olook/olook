@@ -4,6 +4,8 @@ module Abacos
     @queue = :product
 
     def self.perform
+      return true unless Setting.abacos_invetory
+      
       process_products
       process_prices
     end

@@ -170,7 +170,7 @@ describe CatalogSearchService do
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
         cp4 = CatalogProductService.new(catalog, basic_bag).save!
-        params = {:id => catalog.id, :bag_accessory_subcategories => ["bolsa-azul"], :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
+        params = {:id => catalog.id, :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"], :bag_subcategories => ["bolsa-azul"]}
         products = CatalogSearchService.new(params).search_products
         products.should include(cp1)
         products.should include(cp2)
@@ -184,7 +184,7 @@ describe CatalogSearchService do
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
         cp4 = CatalogProductService.new(catalog, basic_bag).save!
         cp5 = CatalogProductService.new(catalog, basic_accessory).save!
-        params = {:id => catalog.id, :bag_accessory_subcategories => ["bolsa-azul","Colar"], :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"]}
+        params = {:id => catalog.id, :shoe_subcategories => ["Sandalia","Melissa"], :shoe_sizes => ["35","40"], :heels => ["0-5-cm","alto"], :bag_subcategories => ["bolsa-azul"], :accessory_subcategories => ["colar"]}
         products = CatalogSearchService.new(params).search_products
         products.should include(cp1)
         products.should include(cp2)

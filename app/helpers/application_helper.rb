@@ -72,4 +72,18 @@ module ApplicationHelper
       end
     end
   end
+
+  def quantity_status_moments(product, shoe_size)
+    if product.sold_out?
+      'sold_out'
+    elsif shoe_size && product.shoe?
+      quantity = product.quantity(shoe_size)
+      if quantity == 0
+        'sold_out'
+      elsif quantity > 0 && quantity < 4
+        'stock_down'
+      end
+    end
+  end
+  
 end
