@@ -15,5 +15,10 @@ class UserCredit < ActiveRecord::Base
   def remove(amount,order)
     self.credit_type.remove(amount, self, order)
   end
+  
+  def self.add_for_inviter(order)
+    #CRIAR O CREDITO MGM PARA O INVITER
+    #CRIAR O CREDITO DE FIDELIDADE
+  end
 
 end
