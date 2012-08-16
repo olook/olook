@@ -19,7 +19,7 @@ class ShowroomPresenter < BasePresenter
 
   def display_products(asked_range, category, collection = Collection.active)
     product_finder_service = ProductFinderService.new member
-    products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection)
+    products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection, description: member && category == Category::SHOE ? member.shoes_size.to_s : nil, not_allow_sold_out_products: true)
 
     range = parse_range(asked_range, products)
 
@@ -28,7 +28,7 @@ class ShowroomPresenter < BasePresenter
       if product.liquidation?
         output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
       else
-      output << h.render("shared/showroom_product_item", :showroom_presenter => self, :product => product)
+        output << h.render("shared/showroom_product_item", :showroom_presenter => self, :product => product)
       end
     end
     h.raw output
