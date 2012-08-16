@@ -23,6 +23,10 @@ class LiquidationSearchService
       @query_base = @query_base.and(query_result) if query_result
     end
 
+    # color filters
+    query_colors = params[:colors] ? Product.arel_table[:color_name].in(params[:colors]) : nil
+    @query_base = @query_base.and(query_colors) if query_colors
+
     LiquidationProduct.joins(:product).where(query_base)
                                       .order(sort_filter)
                                       .group("product_id")
