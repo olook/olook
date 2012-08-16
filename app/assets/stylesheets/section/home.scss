@@ -7,8 +7,8 @@ body {
 
     section.model {
       background: url('/assets/home/model.jpg') top right no-repeat;
-      width: 380px;
-      height: 565px;
+      width: 410px;
+      height: 602px;
       margin: 10px 0 30px 0;
       float:left;
       div.label {
@@ -45,7 +45,7 @@ body {
     section.description {
       width: 515px;
       overflow: auto;
-      margin: 45px 0 30px 45px;
+      margin: 45px 0 30px 15px;
       float: left;
       h1 {
         color: #58595b;
@@ -106,6 +106,7 @@ body {
     }
 
     section.like {
+      position: absolute;
       width: 540px;
       padding: 10px 30px 15px;
       overflow: visible;
