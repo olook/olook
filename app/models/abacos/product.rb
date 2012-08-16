@@ -5,7 +5,7 @@ module Abacos
 
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
-                :width, :height, :length, :weight,
+                :width, :height, :length, :weight, :color_category,
                 :color_name, :collection_id, :how_to, :moments, :details, :profiles
 
     def initialize(parsed_data)
@@ -15,17 +15,19 @@ module Abacos
     end
 
     def attributes
-      { :name         =>  self.name,
-        :description  =>  self.description,
-        :category     =>  self.category,
-        :model_number =>  self.model_number,
-        :color_name   =>  self.color_name,
-        :width        =>  self.width,
-        :height       =>  self.height,
-        :length       =>  self.length,
-        :weight       =>  self.weight }
+      {
+        :name           => self.name,
+        :description    => self.description,
+        :category       => self.category,
+        :model_number   => self.model_number,
+        :color_name     => self.color_name,
+        :width          => self.width,
+        :height         => self.height,
+        :length         => self.length,
+        :weight         => self.weight
+      }
     end
-    
+
     def integrate
       ::Product.transaction do
         product = find_or_initialize_product
@@ -36,15 +38,17 @@ module Abacos
         confirm_product
       end
     end
-    
+
     def find_or_initialize_product
       product = ::Product.find_by_model_number(self.model_number)
       if product.nil?
-        product = ::Product.new(:model_number => self.model_number,
-                                :name         => self.name,
-                                :category     => self.category,
-                                :description  => self.description,
-                                :is_visible   => false)
+        product = ::Product.new(
+          :model_number => self.model_number,
+          :name         => self.name,
+          :category     => self.category,
+          :description  => self.description,
+          :is_visible   => false
+        )
         product.id = self.model_number.to_i
         product.save!
       end
@@ -71,18 +75,22 @@ module Abacos
     def integrate_details(product)
       product.details.destroy_all
       self.details.each do |key, value|
-        product.details.create( :translation_token => key,
-                                :description => value,
-                                :display_on => DisplayDetailOn::SPECIFICATION )
+        product.details.create(
+          :translation_token => key,
+          :description => value,
+          :display_on => DisplayDetailOn::SPECIFICATION
+        )
       end
 
       integrate_how_to(product)
     end
-    
+
     def integrate_how_to(product)
-      product.details.create( :translation_token => 'Como vestir',
-                              :description => self.how_to,
-                              :display_on => DisplayDetailOn::HOW_TO )
+      product.details.create(
+        :translation_token => 'Como vestir',
+        :description => self.how_to,
+        :display_on => DisplayDetailOn::HOW_TO
+      )
     end
 
     def integrate_profiles(product)
@@ -99,7 +107,8 @@ module Abacos
     end
 
     def self.parse_abacos_data(abacos_product)
-      { :integration_protocol => abacos_product[:protocolo_produto],
+      {
+        :integration_protocol => abacos_product[:protocolo_produto],
         :name                 => parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
         :description          => parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
         :model_number         => abacos_product[:codigo_produto].to_s,
@@ -113,7 +122,9 @@ module Abacos
         :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
         :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
-        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ) }
+        # :color_category       => parse_color_category( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] )
+      }
     end
   private
     def self.parse_moments(moments)
@@ -126,7 +137,18 @@ module Abacos
       end
       moments_array.compact
     end
-  
+
+    # def self.parse_color_category(categories)
+    #   categories_array = if categories.kind_of?(Array)
+    #     categories.each.map { |item|
+    #       item.fetch(:codigo_categoria) if item[:codigo_categoria_pai] != 0
+    #     }
+    #   else
+    #     [categories.fetch(:codigo_categoria)] if item[:codigo_categoria_pai] != 0
+    #   end
+    #   categories_array.compact
+    # end
+
     def self.parse_description(data, fallback_description)
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
 
@@ -147,7 +169,7 @@ module Abacos
     def self.parse_color(data)
       find_in_descritor_pre_definido(data, 'COR')
     end
-    
+
     def self.parse_details(data)
       items_to_skip = ['Perfil', 'Como vestir', 'Descrição']
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
@@ -185,7 +207,7 @@ module Abacos
       end
       result.map &:strip
     end
-    
+
     def self.parse_collection(data)
       return nil if data.blank?
       reference_date = parse_collection_date(data)
@@ -198,7 +220,7 @@ module Abacos
 
       pieces = data.strip.downcase.split(/\s|\//)
       pieces = pieces.delete_if {|piece| !piece.match(filter) }
-      
+
       month_name, year = pieces
       month = month_names.index(month_name)+1
 
