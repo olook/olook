@@ -234,6 +234,7 @@ class Order < ActiveRecord::Base
 
   def add_credit_to_inviter
     Credit.add_for_inviter(user, self)
+    # UserCredit.add_for_inviter(self)
   end
 
   def update_user_credit
