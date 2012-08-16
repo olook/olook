@@ -2,6 +2,10 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "settings/index"
+
+  get "settings/update"
+
   mount Resque::Server => "/admin/resque"
 
   root :to => "home#index"
@@ -162,6 +166,11 @@ Olook::Application.routes.draw do
       get 'mark_all_products_as_visible' => 'collections#mark_all_products_as_visible', as: 'display_products'
       get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
     end
+
+    post 'integrate_orders' => "orders#integrate_orders"
+    post 'integrate_cancel' => "orders#integrate_cancel"
+    post 'integrate_payment' => "orders#integrate_payment"
+        
     resources :orders do
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
@@ -187,10 +196,13 @@ Olook::Application.routes.draw do
 
     resources :gift_occasion_types
     resources :gift_recipient_relations
+    
     resources :order_credits, :only => :index do
       get :orders_filtered_by_range
       get :orders_filtered_by_date
     end
+
+    resource :settings
   end
 
   #USER / SIGN IN
