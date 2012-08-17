@@ -132,7 +132,7 @@ class Product < ActiveRecord::Base
   end
 
   def colors
-    self.related_products.where(:category => self.category, :name => self.name)
+    self.related_products.joins(:variants).where(:category => self.category, :name => self.name).order('sum(variants.inventory) desc').group(:product_id)
   end
 
   def all_colors
