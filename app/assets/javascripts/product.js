@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  initProduct.showCarousel();
+
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
     carousel = $(this).parent().find("div#carousel");
@@ -32,19 +34,28 @@ $(document).ready(function() {
       items : 4
     }
   });
-
-  $("div#related ul.carousel").carouFredSel({
-    auto: false,
-    width: 860,
-    items: 3,
-    prev : {
-      button : ".carousel-prev",
-      items : 3
-    },
-    next : {
-      button : ".carousel-next",
-      items : 3
-    }
-  });
-
 });
+
+initProduct = {
+  checkRelatedProducts : function() {
+    return $("div#related ul.carousel").size() > 0 ? true : false;
+  },
+
+  showCarousel : function() {
+    if(initProduct.checkRelatedProducts() == true) {
+      $("div#related ul.carousel").carouFredSel({
+        auto: false,
+        width: 860,
+        items: 3,
+        prev : {
+          button : ".carousel-prev",
+          items : 3
+        },
+        next : {
+          button : ".carousel-next",
+          items : 3
+        }
+      });
+    }
+  }
+}
