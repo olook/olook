@@ -51,6 +51,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     end
     
     @payment = Debit.new(params[:debit])
+    @payment.user_identification = @user.cpf
 
     if @payment.valid?
       @order = @cart_service.generate_order!(@payment)
@@ -76,6 +77,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create_billet
     params[:billet] = {:receipt => Payment::RECEIPT}
     @payment = Billet.new(params[:billet])
+    @payment.user_identification = @user.cpf
 
     if @payment.valid?
       @order = @cart_service.generate_order!(@payment)
