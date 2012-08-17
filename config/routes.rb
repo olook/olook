@@ -196,8 +196,13 @@ Olook::Application.routes.draw do
 
     resources :gift_occasion_types
     resources :gift_recipient_relations
-    resource :settings
     
+    resources :order_credits, :only => :index do
+      get :orders_filtered_by_range
+      get :orders_filtered_by_date
+    end
+
+    resource :settings
   end
 
   #USER / SIGN IN
