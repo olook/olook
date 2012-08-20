@@ -45,6 +45,9 @@ gem 'uglifier', '~> 1.0.3'
 gem 'yui-compressor'
 gem 'business_time'
 
+gem "rails-settings-cached"
+
+
 group :development do
   gem 'faker'
 end

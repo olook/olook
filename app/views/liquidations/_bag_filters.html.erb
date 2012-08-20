@@ -8,7 +8,7 @@
 
 <% liquidation_presenter.liquidation.bags.each do |bag, label| %>
     <li>
-      <%= check_box_tag('bag_accessory_subcategories[]', bag, params[:bag_accessory_subcategories] && params[:bag_accessory_subcategories].include?(bag), :id => bag) %>
+      <%= check_box_tag('bag_subcategories[]', bag, params[:bag_subcategories] && params[:bag_subcategories].include?(bag), :id => bag) %>
       <%= label_tag(label, nil, :for => bag) %>
     </li>
 <% end %>
