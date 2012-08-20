@@ -55,11 +55,12 @@
                 <li><%= access_link("Lookbooks") %></li>
               </ul>
             </li>
-            <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles/ %>">
+            <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
               <span>Site Management</span>
               <ul>
                 <li><%= access_link("Admins") %></li>
                 <li><%= access_link("Roles") %></li>
+                <li><%= access_link("Settings") %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /gift/ %>">
