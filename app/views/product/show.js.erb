@@ -1,4 +1,4 @@
-initProduct.inQuickView = true;
+initQuickView.inQuickView = true;
 $('.content').first().append("<%= escape_javascript(render('shared/modal_login')) %>");
 $('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view})) %>");
 
@@ -15,7 +15,7 @@ $('#quick_view ol.colors li a').attr('data-remote', true);
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
 }
-initProduct.productZoom();
+initQuickView.productZoom();
 
 try{
   FB.XFBML.parse();
