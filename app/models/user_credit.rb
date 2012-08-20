@@ -20,13 +20,13 @@ class UserCredit < ActiveRecord::Base
     # TO DO: Double check to see if the credit was already given for this order
 
     # creates MGM credits for inviter
-    UserCredit.add_invite_credits(order)
+    UserCredit.add_invite_credits(order) if Setting.invite_credits_available
     # creates loyalty program credits
-    UserCredit.add_loyalty_program_credits(order)
+    UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available
   end
 
   private
-    def self.add_invite_credits(order)
+    def self.add_invite_credits(order)      
       buyer = order.user
       inviter = buyer.try(:inviter)
       inviter.user_credits_for(:invite).add(INVITE_BONUS, order) if inviter && buyer.first_buy?

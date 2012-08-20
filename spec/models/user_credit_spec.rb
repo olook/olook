@@ -35,8 +35,6 @@ describe UserCredit do
     end
 
     it "should run the process method" do
-      
-
       FactoryGirl.create(:user_credit, :user => invitee, :credit_type => loyalty_program_credit_type)
       FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type)
       invite.accept_invitation(invitee)
@@ -52,7 +50,48 @@ describe UserCredit do
 
       invitee.user_credits_for(:loyalty_program).total.should eq(20.00)
       user.user_credits_for(:invite).total.should eq(UserCredit::INVITE_BONUS)
+    end
 
+    context "when User Credit specific settings change" do
+      it "should not run the method when invite_credits_available is disabled" do
+
+        FactoryGirl.create(:user_credit, :user => invitee, :credit_type => loyalty_program_credit_type)
+        FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type)
+        
+        Setting.loyalty_program_credits_available = false
+
+        UserCredit.should_receive(:add_invite_credits)
+        UserCredit.should_not_receive(:add_loyalty_program_credits)
+
+        invite.accept_invitation(invitee)
+
+        invitee_order = FactoryGirl.create(:order, :user => invitee, :state => 'delivered')
+
+        UserCredit.process!(invitee_order)
+
+        Setting.loyalty_program_credits_available = true
+
+      end
+
+      it "should not run the add_loyalty_program_credits method when loyalty_program_credits_available is disabled" do
+
+        FactoryGirl.create(:user_credit, :user => invitee, :credit_type => loyalty_program_credit_type)
+        FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type)
+
+        Setting.invite_credits_available = false
+
+        UserCredit.should_not_receive(:add_invite_credits)
+        UserCredit.should_receive(:add_loyalty_program_credits)
+
+        invite.accept_invitation(invitee)
+
+        invitee_order = FactoryGirl.create(:order, :user => invitee, :state => 'delivered')
+
+        UserCredit.process!(invitee_order)
+
+        Setting.invite_credits_available = true
+
+      end
     end
 
   end
