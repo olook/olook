@@ -170,6 +170,29 @@
             margin-bottom: 20px;
           }
         }
+        div.warn_discount {
+          background: url('/assets/product/bg-warn-discount.jpg') top center no-repeat;
+          font-style: normal;
+          font-weight: bold;
+          text-align: center;
+          width: 390px;
+          height: 41px;
+          display: block;
+          padding: 15px 0 0 0;
+          margin: 0 auto 10px;
+          p, a {
+            font-family: Arial, Verdana, Tahoma, sans-serif;
+            font-size: 12px;
+          }
+          p {
+            color: #000;
+            letter-spacing: normal;
+            margin: 0 0 5px;
+          }
+          a {
+            color: #e05789;
+          }
+        }
       }
       div.color_size {
         width: 368px;
