@@ -35,6 +35,10 @@ $(function() {
       change_value (false);
     }
   });
+
+  $("#credits_credits_last_order").change(function() {
+    $("#credits_last_order").submit();
+  });
 });
 
 
