@@ -279,11 +279,11 @@ class CartService
     
     discounts << :coupon if coupon_value > 0
     discounts << :credits if credits && credits > 0
-    
+        
     { 
       :discounts          => discounts,
       :credits_limit      => (credits_value != credits),
-      :is_minimum_payment => (retail_value <= 0),
+      :is_minimum_payment => (minimum_value > 0 && retail_value <= 0),
       :total_discount     => (coupon_value + credits_value),
       :total_coupon       => coupon_value,
       :total_credits      => credits_value
