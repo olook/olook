@@ -21,7 +21,11 @@ describe LoyaltyProgramCreditType do
 
     describe "removing credits" do
       context "when user has enough credits" do
-        it "should remove credits" do
+        after do
+          Delorean.back_to_the_present
+        end
+
+        it "should remove credits when credits is equal to debit" do
           loyalty_program_credit_type.add(amount,user_credit,order)
           Delorean.jump 1.month
           expect{
@@ -30,7 +34,7 @@ describe LoyaltyProgramCreditType do
           loyalty_program_credit_type.total(user_credit, DateTime.now).should == 0.0
         end
 
-        it "should remove credits" do
+        it "should remove credits when there's more than 1 credit" do
           3.times { loyalty_program_credit_type.add(amount,user_credit,order) }
 
           Delorean.jump 1.month
@@ -42,7 +46,7 @@ describe LoyaltyProgramCreditType do
           loyalty_program_credit_type.total(user_credit, DateTime.now).should == 0.99
         end
 
-        it "should remove credits" do
+        it "should remove credits when credits is greater than debits" do
           loyalty_program_credit_type.add(amount,user_credit,order)
           Delorean.jump 1.month
           expect{
