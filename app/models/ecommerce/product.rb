@@ -131,8 +131,12 @@ class Product < ActiveRecord::Base
     @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
   end
 
-  def colors
-    self.related_products.joins(:variants).where(:category => self.category, :name => self.name).order('sum(variants.inventory) desc').group(:product_id)
+  def colors(size = nil)
+    if size
+      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(:category => self.category, :name => self.name, :variants => {:description => size}).order('variants.inventory desc, sum(variants.inventory) desc').group(:product_id)
+    else
+      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(:category => self.category, :name => self.name).order('sum(variants.inventory) desc').group(:product_id)
+    end
   end
 
   def all_colors
