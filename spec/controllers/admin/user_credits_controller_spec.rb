@@ -1,6 +1,6 @@
-require 'spec_heleper'
+require 'spec_helper'
 
-describe Admin::UserCredtisController do
+describe Admin::UserCreditsController do
   describe 'GET index' do
     it "should assigns users"
     it "should assigns uses ordered by amount of credit"
