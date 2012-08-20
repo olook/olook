@@ -12,6 +12,16 @@
 <% end %>
 
 <section id="cart">
+  <div class="cart_title">
+    <h1>Minha sacola</h1>
+    <% if current_user %>
+      <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
+    <% else %>
+      <%= link_to "Continuar", "#", :class => "continue login"  %>
+    <% end %>
+    <p class="credits">Você ganhará R$ 39,44 de desconto em sua próxima compra. <%= link_to "Saiba mais", member_credits_path %></p>
+  </div>
+
   <% if @cart_service.has_more_than_one_discount? %>
   <div class="banner">
     <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
@@ -194,6 +204,7 @@
         <% else %>
           <%= link_to "Continuar", "#", :class => "continue login"  %>
         <% end %>
+        <p class="credits">Você ganhará R$ 39,44 de desconto em sua próxima compra. <%= link_to "Saiba mais", member_credits_path %></p>
       </td>
     </tr>
   </tbody>

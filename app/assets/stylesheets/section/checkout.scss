@@ -73,6 +73,35 @@ div#order_status {
   }
 }
 section#cart {
+  padding: 10px 0 0 0;
+  p.credits {
+    background: #EEE;
+    font-weight: bold;
+    width: 210px;
+    margin: 4px 20px 0 0;
+    padding: 10px 15px;
+    float: right;
+    a {
+      color: #e05789;
+      float: none;
+    }
+  }
+  div.cart_title {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 20px;
+    h1 {
+      font-family: Times, "Times New Roman", sans-serif;
+      font-size: 40px;
+      font-style: italic;
+      font-weight: normal;
+      letter-spacing: -1px;
+      float: left;
+    }
+    a {
+      float: right;
+    }
+  }
   div.banner {
     background: url('/assets/cart/banner_discount.jpg') top center no-repeat;
     width: 965px;
@@ -185,6 +214,12 @@ section#cart {
             margin: 0 5px 0 0;
             strong {
               text-transform: none;
+            }
+            &.credits {
+              font-size: 12px;
+              text-align: left;
+              margin: 4px 20px 0 0;
+              display: inline-block;
             }
           }
           fieldset ol li {
