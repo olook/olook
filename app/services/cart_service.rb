@@ -53,7 +53,7 @@ class CartService
     end
 
     # Creates UsedCoupon
-    order.create_used_coupon(:coupon => coupon) if total_coupon_discount > 0
+    order.create_used_coupon(:coupon => coupon) if total_discount_by_type(:coupon) > 0
 
     order.save
     order  
