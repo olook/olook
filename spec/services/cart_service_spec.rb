@@ -412,13 +412,36 @@ describe CartService do
   end
   
   context ".total_credits_discount" do
-    it "should return zero when no has credits"
-    it "should return credits value when credits is less than maximum value"
-    it "should return retail value when credits is greater than maximum value"
+    before :each do
+      master_variant = cart.items.first.variant.product.master_variant
+      master_variant.update_attribute(:price, 50)
+      master_variant.update_attribute(:retail_price, 50)
+    end
+    
+    it "should return zero when no has credits" do
+      cart_service.total_credits_discount.should eq(0)
+    end
+    
+    it "should return correct value when credits is less than maximum value" do
+      cart_service.credits = 50
+      cart_service.total_credits_discount.should eq(50)
+    end
+
+    it "should return correct value when credits is greater than maximum value and has freight" do
+      cart_service.credits = 100
+      cart_service.total_credits_discount.should eq(100)
+    end
+    
+    it "should return correct value when credits is greater than maximum value and has no freight" do
+      cart_service.freight = nil
+      cart_service.credits = 100
+      cart_service.total_credits_discount.should eq(95)
+    end
   end
   
   context ".total_discount" do
-    it "should return sum of credits and coupon value"
+    it "should return sum of credits and coupon value" do
+    end
   end
   
   context ".is_minimum_payment?" do
