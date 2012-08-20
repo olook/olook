@@ -495,9 +495,21 @@ describe CartService do
   end
   
   context ".total_discount_by_type" do
-    it "should sum total cupon when type is coupon"
-    it "should sum total credits when type is credits"
-    it "should sum discount value when discount type match in item"
+    it "should sum total cupon when type is coupon" do
+      cart_service.stub(:total_coupon_discount).and_return(100)
+      cart_service.total_discount_by_type(:coupon).should eq(100)
+    end
+    
+    it "should sum total credits when type is credits" do
+      cart_service.stub(:total_credits_discount).and_return(100)
+      cart_service.total_discount_by_type(:credits).should eq(100)
+    end
+    
+    it "should sum discount value when discount type match in item" do
+      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+      cart_service.coupon = coupon_of_percentage
+      cart_service.total_discount_by_type(:coupon).should eq(4.0)
+    end
   end
   
   context ".active_discounts" do
