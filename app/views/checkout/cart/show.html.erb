@@ -126,6 +126,16 @@
       </td>
       <td class="value">R$ 5,00</td>
     </tr>
+    <tr>
+      <td colspan="4">
+        <%= form_for("", :url => "#", :remote=>true, :method => :put, :html => { :id => "credits_last_order" } ) do %>
+          <%= check_box('credits', 'credits_last_order', :checked => "") %>
+          <h1>Créditos de sua última compra</h1>
+          <p>Você não pode usar todos os seus créditos nesta compra porque o valor mínimo para finalizar o pedido é de R$ 5,00. Os créditos restantes estarão disponíveis em sua próxima compra.</p>
+        <% end %>
+      </td>
+      <td class="value">R$ 18,00</td>
+    </tr>
   </tbody>
 </table>
 
