@@ -5,7 +5,6 @@
 // the compiled file.
 //
 //= require jquery_ujs
-//= require_tree .
 //= require_tree ./plugins
 //= require_tree ./common
 //= require ./ui/jquery.ui.core.min
