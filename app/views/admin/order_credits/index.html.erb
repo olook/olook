@@ -1,0 +1,53 @@
+<h2>Listing Orders</h2>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to "#1" %></li>
+  <li><%= link_to "#2" %></li>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for('', :html => {:class => "form"}) do |f| %>
+        <div class="group">
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Search', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>id</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= '--' %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @orders %>
+    </div>
+  </div>
+</div>
