@@ -9,7 +9,7 @@ body {
       background: url('/assets/home/model.jpg') top right no-repeat;
       width: 410px;
       height: 602px;
-      margin: 10px 0 30px 0;
+      margin: 10px 0 0;
       float:left;
       div.label {
         background: url('/assets/home/label.png') no-repeat;
@@ -176,6 +176,9 @@ body {
         }
       }
     }
+  }
+  footer {
+    margin-top: 0;
   }
 }
 
