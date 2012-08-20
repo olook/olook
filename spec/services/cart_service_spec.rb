@@ -440,15 +440,58 @@ describe CartService do
   end
   
   context ".total_discount" do
+    before :each do
+      master_variant = cart.items.first.variant.product.master_variant
+      master_variant.update_attribute(:price, 50)
+      master_variant.update_attribute(:retail_price, 50)
+    end
+    
     it "should return sum of credits and coupon value" do
+      coupon_of_value.update_attribute(:value, 20)
+      cart_service.coupon = coupon_of_value
+      cart_service.credits = 20
+      cart_service.total_discount.should eq(40)
     end
   end
   
   context ".is_minimum_payment?" do
-    it "should return false when has freight price is greter than minimum value"
-    it "should return true when has freight price is less than minimum value"
-    it "should return false when retail value is greater than zero"
-    it "should return true when retail value is equal to zero"
+    before :each do
+      master_variant = cart.items.first.variant.product.master_variant
+      master_variant.update_attribute(:price, 50)
+      master_variant.update_attribute(:retail_price, 50)
+    end
+    
+    context "when freight price is greater than minimum value" do
+      before :each do
+        cart_service.freight = freight.merge!(:price => 10)
+      end
+      
+      it "and there are credits to the total purchase should return false" do
+        cart_service.credits = 100
+        cart_service.is_minimum_payment?.should be_false
+      end
+      
+      it "and there are no credits to the total purchase should return false" do
+        cart_service.credits = 80
+        cart_service.is_minimum_payment?.should be_false
+      end
+    end
+    
+    context "when freight price is less than minimum value" do
+      before :each do
+        cart_service.freight = freight.merge!(:price => 3)
+      end
+      
+      it "and there are credits to the total purchase should return true" do
+        cart_service.credits = 100
+        cart_service.is_minimum_payment?.should be_true
+      end
+      
+      it "and there are no credits to the total purchase should return false" do
+        cart_service.credits = 80
+        cart_service.is_minimum_payment?.should be_false
+      end
+    end
   end
   
   context ".total_discount_by_type" do
