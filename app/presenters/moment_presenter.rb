@@ -5,6 +5,10 @@ class MomentPresenter < BasePresenter
     h.render :partial => 'moments/search_form', :locals => {:moment_presenter => self}
   end
 
+  def display_color_filters
+    h.render :partial => 'moments/color_filters', :locals => {:moment_presenter => self}
+  end
+
   def display_shoe_filters
     h.render :partial => 'moments/shoe_filters', :locals => {:moment_presenter => self}
   end
@@ -19,6 +23,10 @@ class MomentPresenter < BasePresenter
 
   def display_bag_filters
     h.render :partial => 'moments/bag_filters', :locals => {:moment_presenter => self}
+  end
+
+  def display_bag_color_filters
+    h.render :partial => 'moments/bag_color_filters', :locals => {:moment_presenter => self}
   end
 
   def display_accessory_filters

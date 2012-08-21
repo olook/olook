@@ -1,10 +1,10 @@
-initProduct.inQuickView = true;
+initQuickView.inQuickView = true;
 $('.content').first().append("<%= escape_javascript(render('shared/modal_login')) %>");
 $('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view})) %>");
 
 $('#quick_view').fadeIn(300);
 
-$('#quick_view').css("top", $('body').scrollTop()  + 35);
+$('#quick_view').css("top", $(window).scrollTop()  + 35);
 var width = $(document).width();
 var height = $(document).height();
 $('body').prepend("<div class='overlay'></div>");
@@ -15,8 +15,8 @@ $('#quick_view ol.colors li a').attr('data-remote', true);
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
 }
-initProduct.productZoom();
+initQuickView.productZoom();
 
 try{
-  FB.XFBML.parse(); 
+  FB.XFBML.parse();
 }catch(ex){}

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var stringDesc = $("div#infos div.description p.description").text();
-  initProduct.sliceDesc(stringDesc);
-  initProduct.productZoom();
+  initQuickView.sliceDesc(stringDesc);
+  initQuickView.productZoom();
 
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
     el = $(this).parent();
@@ -10,7 +10,7 @@ $(document).ready(function() {
   });
 
   $("div#infos div.description p[class!='price'] a.less").live("click", function() {
-    initProduct.sliceDesc(stringDesc);
+    initQuickView.sliceDesc(stringDesc);
   });
 
   $("div#pics_suggestions ul#thumbs li a").live("click", function() {
@@ -60,9 +60,9 @@ $(document).ready(function() {
       return false;
     }
   });
-  
+
   $("#add_item").live('submit', function(event) {
-    if(initProduct.inQuickView) {
+    if(initQuickView.inQuickView) {
       $("#close_quick_view").trigger('click');
     }
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
   });
 });
 
-initProduct = {
+initQuickView = {
   inQuickView : false,
   sliceDesc : function(string) {
     if(string.length > 120) {

@@ -114,6 +114,32 @@ div#moments {
             float: left;
           }
         }
+        &.color_filter {
+          li {
+            background: url('/assets/moments/color-filter.jpg') no-repeat;
+            &.neutras {
+              background-position: 96px 2px;
+            }
+            &.metalizadas {
+              background-position: 96px -26px;
+            }
+            &.tons-pastel {
+              background-position: 96px -53px;
+            }
+            &.vivas {
+              background-position: 96px -81px;
+            }
+            &.estampadas {
+              background-position: 96px -109px;
+            }
+            &.animal-print {
+              background-position: 96px -137px;
+            }
+            &:first-child {
+              background: none;
+            }
+          }
+        }
       }
       &.shoe_size {
         display: none;

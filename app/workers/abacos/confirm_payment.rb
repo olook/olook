@@ -4,6 +4,8 @@ module Abacos
     @queue = :order
     
     def self.perform(order_number)
+      return true unless Setting.abacos_integrate
+      
       order = Order.find_by_number order_number
       if Abacos::OrderAPI.order_exists?(order_number)
         create_confirm_order_event order
