@@ -50,6 +50,7 @@ gem "rails-settings-cached"
 
 group :development do
   gem 'faker'
+  gem 'bullet'
 end
 
 group :development, :test do
