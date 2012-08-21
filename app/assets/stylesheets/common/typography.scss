@@ -2,6 +2,10 @@
 @import 'fonts';
 
 body {
+  color: #6d6e71;
+  font-family: 'avenir', arial, sans-serif;
+  font-size: 13px;
+
   #error-messages {
     p {
       font-family: 'Times New Roman', 'Times', serif;
@@ -206,7 +210,7 @@ body {
       font-style: italic;
       letter-spacing: -2px
     }
-    
+
     p {
       font-family: 'Times New Roman', Times, sans-serif;
       font-style: italic;
@@ -214,7 +218,7 @@ body {
       color: #000;
       line-height: 18px;
       letter-spacing: -1px;
-      
+
       strong {
         font-weight: bold;
       }
@@ -222,7 +226,7 @@ body {
 
     .fb-connect {
       text-indent: -10000px;
-      
+
       & + span {
         font-family: 'Times New Roman', Times, sans-serif;
         font-size: 44px;
@@ -276,7 +280,7 @@ body {
           font-weight: bold;
           text-align: center;
           font-size:38px;
-          
+
           span.amount {
             font-weight: bold;
             color: $pink;
@@ -292,7 +296,7 @@ body {
           font-style: italic;
           text-transform: uppercase;
         }
-        
+
         > h1 {
           color: #FFF;
           font-size: 18px;
@@ -375,7 +379,7 @@ body {
         }
       }
     }
-    
+
     &#share-mail {
       h1 {
         background: url('/assets/common/tit-invite-link.png') no-repeat;
@@ -446,7 +450,7 @@ body {
       font-size: 15px;
       text-transform: uppercase;
     }
-    
+
     p {
       font-family: 'Times New Roman', 'Times', serif;
       color: #FFF;
@@ -472,7 +476,7 @@ body {
           color: $pink;
         }
       }
-      
+
       & + a {
           text-align: center;
           color: $pink;
