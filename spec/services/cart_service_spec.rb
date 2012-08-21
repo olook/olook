@@ -534,10 +534,33 @@ describe CartService do
   end
   
   context ".total" do
-    it "should sum retail price of items"
-    it "should sum increase values"
-    it "should subtract discounts values"
-    it "should is minimum value when total is less than minimum value"
+    it "should sum retail price of items" do
+      cart_service.stub(:total_increase).and_return(0)
+      cart_service.stub(:total_discount).and_return(0)
+      cart_service.should_receive(:subtotal).with(:retail_price).and_return(100)
+      cart_service.total.should eq(100)
+    end
+    
+    it "should sum increase values" do
+      cart_service.stub(:total_discount).and_return(0)
+      cart_service.stub(:subtotal).and_return(0)
+      cart_service.should_receive(:total_increase).and_return(25)
+      cart_service.total.should eq(25)
+    end
+    
+    it "should subtract discounts values" do
+      cart_service.stub(:total_increase).and_return(0)
+      cart_service.stub(:subtotal).and_return(100)
+      cart_service.should_receive(:total_discount).and_return(25)
+      cart_service.total.should eq(75)
+    end
+    
+    it "should is minimum value when total is less than minimum value" do
+      cart_service.stub(:total_increase).and_return(0)
+      cart_service.stub(:subtotal).and_return(0)
+      cart_service.stub(:total_discount).and_return(0)
+      cart_service.total.should eq(Payment::MINIMUM_VALUE)
+    end
   end
   
   context "insert a order" do
