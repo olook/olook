@@ -513,7 +513,14 @@ describe CartService do
   end
   
   context ".active_discounts" do
-    it "should sum discounts of items"
+    it "should sum discounts of items" do
+      cart.items.first.dup.save
+      
+      cart_service.should_receive(:item_discounts).and_return([:olooklet, :promotion])
+      cart_service.should_receive(:item_discounts).and_return([:promotion])
+      
+      cart_service.active_discounts.should eq([:olooklet, :promotion])
+    end
   end
   
   context ".has_more_than_one_discount?" do
