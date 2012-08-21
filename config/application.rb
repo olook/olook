@@ -6,7 +6,7 @@ require 'rack/cache'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:assets => %w(development test))
+  ##Bundler.require *Rails.groups(:assets => %w(development test))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -53,7 +53,7 @@ module Olook
 
     config.action_mailer.default_url_options = { :host => 'www.olook.com.br' }
 
-    config.middleware.use "Graylog2Exceptions", { :hostname => '107.21.158.126', :port => '12201', :level => 0 }
+    #config.middleware.use "Graylog2Exceptions", { :hostname => '107.21.158.126', :port => '12201', :level => 0 }
 
     config.middleware.delete Rack::Cache
   end
