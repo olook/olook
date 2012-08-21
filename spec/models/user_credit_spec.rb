@@ -7,6 +7,10 @@ describe UserCredit do
   it { should have_many(:credits) }
 
   describe "when basic methods are being tested" do
+    after do
+      Delorean.back_to_the_present
+    end
+
     let(:user) { FactoryGirl.create(:member) }
     let(:credit_type){ mock_model(CreditType, :total => 25.03, :add => true, :remove => true) }
     let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => credit_type) }
