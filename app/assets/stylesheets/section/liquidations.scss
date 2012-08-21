@@ -151,6 +151,32 @@ div#liquidation {
             float: left;
           }
         }
+        &.color_filter_ {
+          li {
+            background: url('/assets/moments/color-filter.jpg') no-repeat;
+            &.neutras {
+              background-position: 97px 2px;
+            }
+            &.metalizadas {
+              background-position: 97px -26px;
+            }
+            &.tons-pastel {
+              background-position: 97px -53px;
+            }
+            &.vivas {
+              background-position: 97px -81px;
+            }
+            &.estampadas {
+              background-position: 97px -81px;
+            }
+            &.animal-print {
+              background-position: 97px -81px;
+            }
+            &:first-child {
+              background: none;
+            }
+          }
+        }
       }
       &.shoe_size {
         display: none;
