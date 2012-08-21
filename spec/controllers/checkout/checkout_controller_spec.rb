@@ -1,44 +1,140 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Checkout::CheckoutController do
-  let(:attributes) {{}}
-  let(:user) { FactoryGirl.create(:user) }
-  let(:address) { FactoryGirl.create(:address, :user => user) }
-  let(:order) { FactoryGirl.create(:order, :user => user).id }
-  
+describe Checkout::CheckoutController do  
+  let(:credit_card_attributes) {{"user_name"=>"Joao", "credit_card_number"=>"1111222233334444", "security_code"=>"456",
+                     "user_birthday"=>"28/01/1987", "expiration_date"=>"01/14", "user_identification"=>"067.239.146-51", 
+                     "telephone"=>"(35)7648-6749", "payments"=>"1", "bank"=>"Visa", "receipt" => "AVista" }}
+
+  let(:debit_card_attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
+
   let(:user) { FactoryGirl.create :user }
-  let(:cpf) { "06723914651" }
+  let(:address) { FactoryGirl.create(:address, :user => user) }
+  let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
+  let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
+  let(:shipping_service) { FactoryGirl.create :shipping_service }
   
-  let(:attributes) {{"user_name"=>"Joao", "credit_card_number"=>"1111222233334444", "security_code"=>"456", "user_birthday"=>"28/01/1987", "expiration_date"=>"01/14", "user_identification"=>"067.239.146-51", "telephone"=>"(35)7648-6749", "payments"=>"1", "bank"=>"Visa", "receipt" => "AVista" }}
+  let(:freight) { {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id} }
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:address) { FactoryGirl.create(:address, :user => user) }
-  let(:order) { FactoryGirl.create(:order, :user => user).id }
-
-  let(:attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
-  let(:user) { FactoryGirl.create(:user) }
-  let(:address) { FactoryGirl.create(:address, :user => user) }
-  let(:order) { FactoryGirl.create(:order, :user => user).id }
-
-  before :each do
-    user.update_attributes(:cpf => "19762003691")
-    FactoryGirl.create(:line_item, :order => Order.find(order))
-    request.env['devise.mapping'] = Devise.mappings[:user]
-    sign_in user
+  let(:coupon_expired) do
+    coupon = double(Coupon)
+    coupon.stub(:reload)
+    coupon.stub(:expired?).and_return(true)
+    coupon.stub(:available?).and_return(false)
+    coupon
   end
-
-  before :each do
-    user.update_attributes(:cpf => "19762003691")
-    FactoryGirl.create(:line_item, :order => Order.find(order))
-    request.env['devise.mapping'] = Devise.mappings[:user]
-    sign_in user
-  end
+  let(:coupon_not_more_available) do
+    coupon = double(Coupon)
+    coupon.stub(:reload)
+    coupon.stub(:expired?).and_return(false)
+    coupon.stub(:available?).and_return(false)
+    coupon
+  end  
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
-    sign_in user
   end
+  
+  after :each do
+    session[:cart_id] = nil
+    session[:gift_wrap] = nil
+    session[:cart_coupon] = nil
+    session[:cart_credits] = nil
+    session[:cart_freight] = nil
+  end
+
+  it "should redirect user to login when is offline" do
+    get :new
+    response.should redirect_to(new_user_session_path)
+  end
+
+  context "checking" do
+    before :each do
+      sign_in user
+    end
+    
+    it "should redirect to cart_path when cart is empty" do
+      session[:cart_id] = nil
+      get :new
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Sua sacola está vazia")
+    end
+    
+    it "should remove unavailabe items" do
+      session[:cart_id] = cart.id
+      Cart.any_instance.should_receive(:remove_unavailable_items).and_return(true)
+      get :new
+    end
+    
+    it "should redirect to cart_path when cart items is empty" do
+      session[:cart_id] = cart_without_items.id
+      get :new
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Sua sacola está vazia")
+    end
+
+    it "should remove coupon from session when coupon is expired" do
+      session[:cart_id] = cart.id
+      session[:cart_coupon] = coupon_expired
+      get :new
+      session[:cart_coupon].should be_nil
+    end
+
+    it "should redirect to cart_path when coupon is expired" do
+      session[:cart_id] = cart.id
+      session[:cart_coupon] = coupon_expired
+      get :new
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Cupom expirado. Informe outro por favor")
+    end
+        
+    it "should remove coupon from session when coupon is not more avialbe" do
+      session[:cart_id] = cart.id
+      session[:cart_coupon] = coupon_not_more_available
+      get :new
+      session[:cart_coupon].should be_nil
+    end
+    
+    it "should redirect to cart_path when coupon is not more availabe" do
+      session[:cart_id] = cart.id
+      session[:cart_coupon] = coupon_not_more_available
+      get :new
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Cupom expirado. Informe outro por favor")
+    end
+    
+    it "should remove cart_credits from session when user not has more credit" do
+      session[:cart_id] = cart.id
+      session[:cart_credits] = 1000
+      get :new
+      session[:cart_credits].should be_nil
+    end
+
+    it "should redirect to cart_path when user not has more credit" do
+      session[:cart_id] = cart.id
+      session[:cart_credits] = 1000
+      get :new
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Você não tem créditos suficientes")
+    end
+
+    it "should redirect to new_cart_checkout_path when user doesn't have freight data" do
+      session[:cart_id] = cart.id
+      user.update_attribute(:cpf, nil)
+      get :new_credit_card
+      response.should redirect_to(cart_checkout_addresses_path)
+      flash[:notice].should eq("Escolha seu endereço")
+    end
+
+    it "should redirect to new_cart_checkout_path when user doesn't have a CPF" do
+      session[:cart_id] = cart.id
+      session[:cart_freight] = freight
+      user.update_attribute(:cpf, nil)
+      get :new_credit_card
+      response.should redirect_to(new_cart_checkout_path)
+      flash[:notice].should eq("Informe seu CPF")
+    end
+  end  
 
   pending "PUT update" do
     it "should updates the CPF" do
@@ -51,13 +147,6 @@ describe Checkout::CheckoutController do
       User.any_instance.should_not_receive(:update_attributes).with(:cpf => cpf)
       put :update, :id => user.id, :user => {:cpf => cpf}
     end
-  end
-
-  before :each do
-    user.update_attributes(:cpf => "19762003691")
-    request.env['devise.mapping'] = Devise.mappings[:user]
-    FactoryGirl.create(:line_item, :order => Order.find(order))
-    sign_in user
   end
 
   pending "GET new" do
