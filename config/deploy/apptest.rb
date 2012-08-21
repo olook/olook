@@ -3,7 +3,7 @@ role :web, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-set :rails_env, "staging"
+#set :rails_env, "staging"
 
 trap("INT") {
   print "\n\n"
