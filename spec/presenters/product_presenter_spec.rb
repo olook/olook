@@ -213,7 +213,7 @@ describe ProductPresenter do
 
     it "should show 20% off for guests" do
       product.stub(:price).and_return(49.99)
-      product.stub(:retail_price).and_return((49.99))
+      product.stub(:retail_price).and_return((42.99))
       guest.render_price.should include("de:")
       guest.render_price.should include("por:")
       guest.render_price.should include("em sua primeira compra")
