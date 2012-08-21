@@ -3,6 +3,11 @@ development:
   aws_secret: M1d4JbTo9faMber0MKPeO2dzM6RsXNJqrOTBrsZX
   distribution: E2D5958SXOW6JD
 
+staging:
+  aws_account: AKIAJ2WH3XLYA24UTAJQ
+  aws_secret: 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
+  distribution: E2D5958SXOW6JD
+
 test:
   aws_account: AKIAJ2WH3XLYA24UTAJQ
   aws_secret: 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

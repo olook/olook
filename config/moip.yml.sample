@@ -3,6 +3,11 @@ development:
   token: "IVT7GMNEQVLIN1R2NJPWEE4ZEHJ2SVNM"
   key: "QKUXNZGBC9KSN5UWVDYXMV8EVSOHD4HDTB6E6HQ5"
 
+staging:
+  uri: "https://desenvolvedor.moip.com.br/sandbox"
+  token: "IVT7GMNEQVLIN1R2NJPWEE4ZEHJ2SVNM"
+  key: "QKUXNZGBC9KSN5UWVDYXMV8EVSOHD4HDTB6E6HQ5"
+
 test:
   uri: "https://desenvolvedor.moip.com.br/sandbox"
   token: "IVT7GMNEQVLIN1R2NJPWEE4ZEHJ2SVNM"
