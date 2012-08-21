@@ -7,21 +7,18 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :check_cpf, :except => [:new, :update]
 
   def update
-    unless Cpf.new(params[:user][:cpf]).valido?
-      flash[:notice] = "CPF inválido"
-      return render :new
+    cpf = params[:user][:cpf] if params[:user]
+    msg = "CPF inválido"
+    
+    if !@user.cpf.blank?
+      msg = "CPF já cadastrado"
+    else
+      @user.require_cpf = true
+      @user.cpf = cpf
+      msg = "CPF cadastrado com sucesso" if @user.save
     end
     
-    if @user.cpf.nil?
-      @user.require_cpf = true
-      if @user.update_attributes(:cpf => params[:user][:cpf])
-        msg = "CPF cadastrado com sucesso"
-      else
-        @user.cpf = nil
-        @user.errors.clear
-        msg = "CPF já cadastrado"
-      end
-    end
+    @user.errors.clear
     
     flash[:notice] = msg
     render :new

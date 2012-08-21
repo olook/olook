@@ -8,7 +8,9 @@ describe Checkout::CheckoutController do
 
   let(:debit_card_attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
 
-  let(:user) { FactoryGirl.create :user }
+  let(:cpf) { "600.745.487-86" }
+  let(:user) { FactoryGirl.create :user, :cpf => nil }
+  let(:user_with_cpf) { FactoryGirl.create :user, :cpf => cpf }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
@@ -120,7 +122,6 @@ describe Checkout::CheckoutController do
 
     it "should redirect to new_cart_checkout_path when user doesn't have freight data" do
       session[:cart_id] = cart.id
-      user.update_attribute(:cpf, nil)
       get :new_credit_card
       response.should redirect_to(cart_checkout_addresses_path)
       flash[:notice].should eq("Escolha seu endereço")
@@ -129,85 +130,89 @@ describe Checkout::CheckoutController do
     it "should redirect to new_cart_checkout_path when user doesn't have a CPF" do
       session[:cart_id] = cart.id
       session[:cart_freight] = freight
-      user.update_attribute(:cpf, nil)
       get :new_credit_card
       response.should redirect_to(new_cart_checkout_path)
       flash[:notice].should eq("Informe seu CPF")
     end
   end  
 
-  pending "PUT update" do
+  context "PUT update" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+      session[:cart_freight] = freight
+    end
+
+    it "should check have params" do
+      put :update
+      response.should render_template('new')
+      flash[:notice].should eq("CPF inválido")
+    end
+    
+    it "should check cpf is valid" do
+      put :update, :user => {:cpf => "BLABLA"}
+      response.should render_template('new')
+      flash[:notice].should eq("CPF inválido")
+    end
+    
     it "should updates the CPF" do
-      User.any_instance.should_receive(:update_attributes).with(:cpf => cpf)
-      put :update, :id => user.id, :user => {:cpf => cpf}
+      put :update, :user => {:cpf => cpf}
+      flash[:notice].should eq("CPF cadastrado com sucesso")
     end
 
     it "should not updates the CPF when already has one" do
       user.update_attributes(:cpf => cpf)
-      User.any_instance.should_not_receive(:update_attributes).with(:cpf => cpf)
-      put :update, :id => user.id, :user => {:cpf => cpf}
+      User.any_instance.should_not_receive(:save)
+      put :update, :user => {:cpf => cpf}
+      flash[:notice].should eq("CPF já cadastrado")
     end
   end
 
-  pending "GET new" do
+  context "GET new_billet" do
     before :each do
-     session[:order] = order
+      sign_in user_with_cpf
+      session[:cart_id] = cart.id
+      session[:cart_freight] = freight
     end
 
-    context "with a valid order" do
-      it "should assigns @payment" do
-        get 'new'
-        assigns(:payment).should be_a_new(Billet)
-      end
-
-      it "should redirect payments_path if the user dont have a cpf or is invalid" do
-        user.update_attributes(:cpf => "11111111111")
-        get :new
-        response.should redirect_to(payments_path)
-      end
-
-      it "should not redirect payments_path if the user have a cpf" do
-        get :new
-        response.should_not redirect_to(payments_path)
-      end
+    it "should assigns @payment" do
+      get 'new_billet'
+      assigns(:payment).should be_a_new(Billet)
+    end
+  end
+  
+  context "GET new_credit_card" do
+    before :each do
+      sign_in user_with_cpf
+      session[:cart_id] = cart.id
+      session[:cart_freight] = freight
     end
 
-    context "with a invalid order" do
-      it "should redirect to cart path if the order is nil" do
-        session[:order] = nil
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
-
-      it "should redirect to cart path if the order total with freight is less then 5.00" do
-        Order.any_instance.stub(:line_items).and_return([])
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
+    it "creates new credit card using user data" do
+      CreditCard.should_receive(:user_data).with(user_with_cpf)
+      get 'new_credit_card'
     end
 
-    context "with a valid freight" do
-      it "should assign @freight" do
-        get 'new'
-        assigns(:freight).should == Order.find(order).freight
-      end
-
-      it "should assign @cart" do
-        # CartPresenter.should_receive(:new).with(Order.find(order))
-        get 'new'
-      end
+    it "should assigns @payment" do
+      get 'new_credit_card'
+      assigns(:payment).should be_a_new(CreditCard)
+    end
+  end
+  
+  context "GET new_debit" do
+    before :each do
+      sign_in user_with_cpf
+      session[:cart_id] = cart.id
+      session[:cart_freight] = freight
     end
 
-    context "with a invalid freight" do
-      it "assign redirect to address_path" do
-        Order.find(order).freight.destroy
-        get 'new'
-        response.should redirect_to(addresses_path)
-      end
+   it "should assigns @payment" do
+      get 'new_debit'
+      assigns(:payment).should be_a_new(Debit)
     end
   end
 
-  pending "POST create" do
+  pending "POST create_billet" do
     before :each do
       session[:order] = order
       @order = Order.find(order)
@@ -275,77 +280,7 @@ describe Checkout::CheckoutController do
     end
   end
 
-  pending "GET new" do
-    before :each do
-      session[:order] = order
-    end
-
-    context "with a valid order" do
-      it "creates new credit card using user data" do
-        CreditCard.should_receive(:user_data).with(user)
-        get 'new'
-      end
-
-      it "should assigns @payment" do
-        get 'new'
-        assigns(:payment).should be_a_new(CreditCard)
-      end
-
-      it "should not redirect to cart_path if the total is greater then minimum" do
-        Order.any_instance.stub(:amount_paid).and_return(CreditCard::MINIMUM_PAYMENT + 1)
-        get 'new'
-        response.should_not redirect_to(cart_path)
-      end
-
-      it "should redirect payments_path if the user dont have a cpf or is invalid" do
-        user.update_attributes(:cpf => "12312312345")
-        get :new
-        response.should redirect_to(payments_path)
-      end
-
-      it "should not redirect payments_path if the user have a cpf" do
-        get :new
-        response.should_not redirect_to(payments_path)
-      end
-    end
-
-    context "with a invalid order" do
-      it "should redirect to root path if the order is nil" do
-        session[:order] = nil
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
-
-      it "should redirect to cart path if the order dont have line items" do
-        Order.any_instance.stub(:line_items).and_return([])
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
-    end
-
-    context "with a valid freight" do
-      it "should assign @freight" do
-        get 'new'
-        assigns(:freight).should == Order.find(order).freight
-      end
-
-      it "should assign @cart" do
-        session[:order] = order
-        # CartPresenter.should_receive(:new).with(Order.find(order))
-        get 'new'
-      end
-    end
-
-    context "with a invalid freight" do
-      it "assign redirect to address_path" do
-        Order.find(order).freight.destroy
-        get 'new'
-        response.should redirect_to(addresses_path)
-      end
-    end
-  end
-
-  pending "POST create" do
+  pending "POST create_credit_card" do
     before :each do
       session[:order] = order
       @order = Order.find(order)
@@ -434,66 +369,8 @@ describe Checkout::CheckoutController do
       end
     end
   end
-
-  pending "GET new" do
-    before :each do
-      session[:order] = order
-    end
-
-    context "with a valid order" do
-     it "should assigns @payment" do
-        get 'new'
-        assigns(:payment).should be_a_new(Debit)
-      end
-
-      it "should redirect payments_path if the user dont have a cpf or is invalid" do
-        user.update_attributes(:cpf => "12345678912")
-        get :new
-        response.should redirect_to(payments_path)
-      end
-
-      it "should not redirect payments_path if the user have a cpf" do
-        get :new
-        response.should_not redirect_to(payments_path)
-      end
-    end
-
-    context "with a invalid order" do
-      it "should redirect to cart path if the order is nil" do
-        session[:order] = nil
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
-
-      it "should redirect to cart path if the order dont have line items" do
-        Order.any_instance.stub(:line_items).and_return([])
-        get 'new'
-        response.should redirect_to(cart_path)
-      end
-    end
-
-    context "with a valid freight" do
-      it "should assign @freight" do
-        get 'new'
-        assigns(:freight).should == Order.find(order).freight
-      end
-
-      it "should assign @cart" do
-        # CartPresenter.should_receive(:new).with(Order.find(order))
-        get 'new'
-      end
-    end
-
-    context "with a invalid freight" do
-      it "assign redirect to address_path" do
-        Order.find(order).freight.destroy
-        get 'new'
-        response.should redirect_to(addresses_path)
-      end
-    end
-  end
-
-  pending "POST create" do
+  
+  pending "POST create_debit" do
     before :each do
       session[:order] = order
       @order = Order.find(order)
