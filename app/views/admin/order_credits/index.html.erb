@@ -1,8 +1,8 @@
 <h2>Listing Orders</h2>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to "#1" %></li>
-  <li><%= link_to "#2" %></li>
+  <li><%= link_to "Visão Orders", admin_order_credits_path %></li>
+  <li><%= link_to "Visão Users",  admin_user_credits_path %></li>
 <% end %>
 
 <% content_for :sidebar do %>
@@ -10,12 +10,30 @@
     <h3>Filters</h3>
 
     <div class="content">
-      <%= form_for('', :html => {:class => "form"}) do |f| %>
+      <%= form_for([:admin, @search], :url => admin_credits_path, :method => :get, :html => {:class => "form"}) do |f| %>
+        
         <div class="group">
+          <%= f.label(:amount_discount_gte, 'Valor minímo de crédito', :class => "label") %>
+          <%= f.text_field(:amount_discount_gte, :class => "text_field") %>
         </div>
 
         <div class="group">
-          <%= f.submit 'Search', :class => "button" %>
+          <%= f.label(:amount_discount_lte,'Valor máximo de crédito', :class => "label") %>
+          <%= f.text_field(:amount_discount_lte, :class => "text_field") %>
+        </div>
+
+        <div class="group">
+          <%= f.label(:created_at_gte,'Data inicial de Criação', :class => "label") %>
+          <%= f.date_select(:created_at_gte) %>
+        </div>
+
+        <div class="group">
+          <%= f.label(:created_at_lte, 'Data final de Criação', :class => "label") %>
+          <%= f.date_select(:created_at_lte) %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Buscar', :class => "button" %>
         </div>
       <% end %>
     </div>
@@ -26,21 +44,23 @@
   <table class="table">
     <tr>
       <th>id</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>User id</th>
+      <th>Total de desconto</th>
+      <th>Frete/Presente</th>
+      <th>Total Pago</th>
+      <th>Subtotal</th>
+      <th>Data de Criação</th>
     </tr>
 
   <% @orders.each do |order| %>
     <tr>
-      <td><%= '--' %></td>
+      <td><%= link_to order.number, admin_order_path(order) %></td>
+      <td><%= link_to order.user_id, admin_user_path(order.user) %></td>
+      <td><%= number_to_currency order.amount_discount %></td>
+      <td><%= number_to_currency order.amount_increase %></td>
+      <td><%= number_to_currency order.amount_paid %></td>
+      <td><%= number_to_currency order.subtotal      %></td>
+      <td><%= l order.created_at, :format => :short %></td>
     </tr>
   <% end %>
   </table>
