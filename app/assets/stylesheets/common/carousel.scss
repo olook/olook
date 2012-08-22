@@ -97,11 +97,11 @@ body {
                   cursor: pointer;
                 }
                 h3 {
-                  color: $pink;
+                  color: $secondary_color;
                 }
                 label {
                   div.shadow {
-                    background: $pink;
+                    background: $secondary_color;
                   }
                 }
               }
@@ -148,7 +148,7 @@ body {
                   }
                   label {
                     div.shadow {
-                      background: $pink;
+                      background: $secondary_color;
                     }
                   }
                 }
@@ -176,7 +176,7 @@ body {
               }
               &.selected {
                 label {
-                  background: $pink;
+                  background: $secondary_color;
                 }
               }
               input[type='checkbox'] {
@@ -206,15 +206,15 @@ body {
               clear: both;
 
               li {
-                border: 1px solid $pink;
-                color: $pink;
+                border: 1px solid $secondary_color;
+                color: $secondary_color;
                 margin-left: 19px;
 
                 &:first-child {
                   margin-left: 0;
                 }
                 &.selected {
-                  background: $pink;
+                  background: $secondary_color;
                   color: #FFF;
                 }
 
@@ -257,7 +257,7 @@ body {
                 padding: 10px 20px;
                 arrow-color: #ffffff;
                 scrollbar-arrow-color: #12406F;
-                color: $pink;
+                color: $secondary_color;
                 font-weight: bold;
 
                 &[name='day'], &[name='year'] {

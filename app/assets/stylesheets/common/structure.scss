@@ -625,7 +625,7 @@ body {
         > span {
           background: url('/assets/common/select-arrow-down.png') 74px no-repeat;
           display: block;
-          color: $pink;
+          color: $secondary_color;
           font-weight: bold;
           padding-left: 10px;
         }
@@ -960,14 +960,14 @@ body {
   nav {
     background: #101010;
     margin: -26px 0 0px 0;
-    border-bottom: 2px solid $pink;
+    border-bottom: 2px solid $secondary_color;
 
     a:visited{
       color:#fff;
     }
 
     a:hover,{
-      color:$pink;
+      color:$secondary_color;
     }
 
     ul {

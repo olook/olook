@@ -68,7 +68,7 @@ body {
         letter-spacing: -2px;
 
         span {
-          color: $pink;
+          color: $secondary_color;
         }
       }
     }
@@ -280,7 +280,7 @@ body {
           font-size:35px;
 
           span {
-            color: $pink;
+            color: $secondary_color;
           }
 
         }
@@ -293,14 +293,14 @@ body {
 
           span.amount {
             font-weight: bold;
-            color: $pink;
+            color: $secondary_color;
             line-height: 60px;
           }
         }
       }
       .banner {
          h1, h2, h3 {
-          color: $pink;
+          color: $secondary_color;
           text-transform: uppercase;
           font-weight: bold;
           font-style: italic;
@@ -326,7 +326,7 @@ body {
           }
         }
         a {
-          color: $pink;
+          color: $secondary_color;
           font-size: 10px;
         }
       }
@@ -377,7 +377,7 @@ body {
       form {
         input[type='text'], textarea {
           font-size: 18px;
-          color: $pink;
+          color: $secondary_color;
         }
       }
 
@@ -483,13 +483,13 @@ body {
         &:before {
           content: "";
           font-size: 30px;
-          color: $pink;
+          color: $secondary_color;
         }
       }
 
       & + a {
           text-align: center;
-          color: $pink;
+          color: $secondary_color;
           text-decoration: underline;
           font-size: 11px;
         }

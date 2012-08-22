@@ -245,14 +245,14 @@ div#my_account {
           margin: 0 0 30px 0;
           clear: both;
           li {
-            border: 1px solid $pink;
-            color: $pink;
+            border: 1px solid $secondary_color;
+            color: $secondary_color;
             display: block;
             line-height: 36px;
             margin-right: 19px;
             float: left;
             &.selected {
-              background: $pink;
+              background: $secondary_color;
               color: #FFF;
             }
             label {
@@ -572,14 +572,14 @@ div#my_account {
             margin: 0 0 30px 0;
             clear: both;
             li {
-              border: 1px solid $pink;
-              color: $pink;
+              border: 1px solid $secondary_color;
+              color: $secondary_color;
               display: block;
               line-height: 36px;
               margin-right: 19px;
               float: left;
               &.selected {
-                background: $pink;
+                background: $secondary_color;
                 color: #FFF;
               }
               label {
