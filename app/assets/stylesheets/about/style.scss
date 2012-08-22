@@ -155,10 +155,6 @@ padding:20px 20px 0;
     }
   }
 
-  a {
-    color:#E05789;
-  }
-
   .intro {
     margin: 0 0 40px;
     p {
@@ -222,6 +218,16 @@ padding:20px 20px 0;
       font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
       font-size: 15px;
       margin: 25px 0 0;
+    }
+  }
+  &.privacy {
+    div.intro {
+      p {
+        margin: 0;
+      }
+    }
+    h2 {
+      margin-top: 35px;
     }
   }
 }
