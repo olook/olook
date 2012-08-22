@@ -1112,7 +1112,7 @@ body {
                 }
               }
               &.selected, &:hover {
-                background: #df5a8b;
+                background: $secondary_color;
               }
             }
             ul.submenu {
@@ -1123,7 +1123,7 @@ body {
               top: 37px;
               right: 0;
               border: 3px #101010 solid;
-              border-top: 2px #df5a8b solid;
+              border-top: 2px $secondary_color solid;
               display: none;
               li {
                 position: relative;
