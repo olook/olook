@@ -203,10 +203,31 @@ describe Variant do
   end
 
   describe "inventory changes updates the catalog product" do
-    pending "should reflect the changes on shoe that is into a catalog" do
+    let(:catalog) do
+      moment  = FactoryGirl.create :moment
+      moment.catalog
     end
 
-    pending "should reflect all catalogs" do
+    let(:basic_bag) do
+      product = (FactoryGirl.create :bag_subcategory_name).product
+      product.master_variant.price = 100.00
+      product.master_variant.save!
+
+      FactoryGirl.create :basic_bag_simple, :product => product
+
+      product
+    end
+    
+    it "should reflect all catalogs" do
+      ct_product = CatalogProductService.new(catalog, basic_bag).save!
+      
+      basic_bag.variants.each do |variant|
+        variant.update_attribute(:inventory, variant.id+1)
+
+        Catalog::Product.where(:variant_id => variant.id).each do |ct_product|
+          ct_product.inventory.should eq(variant.id+1)
+        end
+      end
     end
   end
 
