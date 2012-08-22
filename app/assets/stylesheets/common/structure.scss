@@ -1065,7 +1065,7 @@ body {
             display: block;
             &:hover, &.selected {
               background: url("/assets/common/nav/arrow-hover.jpg") bottom center no-repeat;
-              color: #D95485;
+              color: $secondary_color;
             }
           }
           &.liquidation {
