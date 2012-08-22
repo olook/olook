@@ -806,12 +806,11 @@ body {
     h1 {
       a {
         background: url('/assets/common/logo.png') no-repeat;
-        width:140px;
-        height:54px;
-        float:left;
-        text-indent:-9999px;
-        margin:14px 0 0 11px;
-        float:left;
+        width: 213px;
+        height: 58px;
+        text-indent: -9999px;
+        margin: 10px 0 0;
+        float: left;
       }
     }
 
@@ -1234,7 +1233,7 @@ body {
       padding: 35px 0;
     }
     header {
-      min-height: 120px;
+      min-height: 130px;
     }
   }
   div.full_container {
