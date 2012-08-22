@@ -21,9 +21,9 @@
       <% end %>
       <ul>
         <% if user_signed_in? %>
-          <li><%= link_to "Minha conta", user_orders_path %></li>
+          <li class="first"><%= link_to "Minha conta", user_orders_path %></li>
           <li><%= link_to "Convidar amigas", member_invite_path, :class => "invite" %></li>
-          <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          <li class="last"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li class="login">
             <p>Já faz parte? <%= link_to "Faça seu login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %></p>
