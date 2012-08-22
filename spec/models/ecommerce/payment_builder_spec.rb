@@ -148,7 +148,7 @@ describe PaymentBuilder do
   it "should return payment data for billet" do
     subject.payment = billet
     expected_expiration_date = billet.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
-    expected = { :valor => @order_total, :id_proprio => order.identification_code,
+    expected = { :valor => @order_total, :id_proprio => billet.identification_code,
                 :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
                 :razao=> Payment::REASON, :data_vencimento => expected_expiration_date }
 
@@ -157,7 +157,7 @@ describe PaymentBuilder do
 
   it "should return payment data for debit" do
     subject.payment = debit
-    expected = { :valor => @order_total, :id_proprio => order.identification_code, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => debit.identification_code, :forma => subject.payment.to_s,
                :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
                :razao => Payment::REASON }
 
@@ -167,7 +167,7 @@ describe PaymentBuilder do
   it "should return payment data for credit card" do
     subject.payment = credit_card
     payer = subject.payer
-    expected = { :valor => @order_total, :id_proprio => order.identification_code, :forma => subject.payment.to_s,
+    expected = { :valor => @order_total, :id_proprio => credit_card.identification_code, :forma => subject.payment.to_s,
               :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
               :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
               :nome => credit_card.user_name, :identidade => credit_card.user_identification,

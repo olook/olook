@@ -65,11 +65,6 @@ describe Order do
       expected = (order.id * Order::CONSTANT_FACTOR) + Order::CONSTANT_NUMBER
       order.number.should == expected
     end
-
-    it "should generate a identification code" do
-      order = FactoryGirl.create(:order)
-      order.identification_code.should_not be_nil
-    end
   end
 
   context "items availables in the order" do

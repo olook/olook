@@ -75,15 +75,13 @@ class Payment < ActiveRecord::Base
   end
   
   private
-  def generate_identification_code
-    #TODO: PASSAR A USAR UUID
-    code = SecureRandom.hex(16)
-    while Payment.find_by_identification_code(code)
+    def generate_identification_code
+      #TODO: PASSAR A USAR UUID
       code = SecureRandom.hex(16)
+      while Payment.find_by_identification_code(code)
+        code = SecureRandom.hex(16)
+      end
+      update_attributes(:identification_code => code)
     end
-    update_attributes(:identification_code => code)
-  end
-  
-  
 end
 

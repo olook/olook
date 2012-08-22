@@ -11,7 +11,7 @@ describe Checkout::PaymentsController do
   let(:cod_moip) { "3" }
   let(:tipo_pagamento) { "CartaoDeCredito" }
   let(:classificacao) { "TUDO CERTO" }
-  let(:params) {{:status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento, :classificacao => classificacao}}
+  let(:params) {{:status_pagamento => billet_printed, :id_transacao => payment.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento, :classificacao => classificacao}}
 
   before :each do
 
@@ -43,26 +43,26 @@ describe Checkout::PaymentsController do
 
       it "should change the order status to authorized" do
         billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        post :create, :status_pagamento => billet_printed, :id_transacao => payment.identification_code, :value => total
         authorized = "1"
-        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
+        post :create, :status_pagamento => authorized, :id_transacao => payment.identification_code, :value => total
         Order.find(order.id).authorized?.should eq(true)
       end
 
       it "should change not the order status after receiving completed" do
         billet_printed = "3"
-        post :create, :status_pagamento => billet_printed, :id_transacao => order.identification_code, :value => total
+        post :create, :status_pagamento => billet_printed, :id_transacao => payment.identification_code, :value => total
         authorized = "1"
-        post :create, :status_pagamento => authorized, :id_transacao => order.identification_code, :value => total
+        post :create, :status_pagamento => authorized, :id_transacao => payment.identification_code, :value => total
         completed = "4"
-        post :create, :status_pagamento => completed, :id_transacao => order.identification_code, :value => total
+        post :create, :status_pagamento => completed, :id_transacao => payment.identification_code, :value => total
         Order.find(order.id).authorized?.should eq(true)
       end
 
       it "should create a MoipCallback" do
         expect {
         post :create, :status_pagamento => billet_printed,
-                      :id_transacao => order.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
+                      :id_transacao => payment.identification_code, :tipo_pagamento => tipo_pagamento, :cod_moip => cod_moip
         }.to change(MoipCallback, :count).by(1)
       end
 
@@ -71,7 +71,7 @@ describe Checkout::PaymentsController do
     context "with invalids params" do
       it "should return 500 with a invalid status" do
         invalid_status = "0"
-        post :create, :status_pagamento => invalid_status, :id_transacao => order.identification_code, :value => total
+        post :create, :status_pagamento => invalid_status, :id_transacao => payment.identification_code, :value => total
         response.status.should == 500
       end
     end
