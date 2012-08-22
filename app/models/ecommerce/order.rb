@@ -30,6 +30,8 @@ class Order < ActiveRecord::Base
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   alias :items :line_items
+  
+  after_create :initialize_order
 
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   delegate :city, :to => :freight, :prefix => true, :allow_nil => true
