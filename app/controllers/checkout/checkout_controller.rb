@@ -56,7 +56,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
       if response.status == Payment::SUCCESSFUL_STATUS
          clean_cart!
-         return redirect_to(order_show_path(:number => @payment.order.number), :notice => "Link de pagamento gerado com sucesso")
+         return redirect_to(order_show_path(:number => response.payment.order.number), :notice => "Link de pagamento gerado com sucesso")
        else
          @payment = Debit.new(params[:debit])
          @payment.user_identification = @user.cpf
@@ -79,7 +79,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => @payment.order.number), :notice => "Boleto gerado com sucesso")
+        return redirect_to(order_show_path(:number => response.payment.order.number), :notice => "Boleto gerado com sucesso")
       else
         @payment = Billet.new(params[:billet])
         @payment.user_identification = @user.cpf
@@ -105,7 +105,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => @payment.order.number), :notice => "Pagamento realizado com sucesso")
+        return redirect_to(order_show_path(:number => response.payment.order.number), :notice => "Pagamento realizado com sucesso")
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf

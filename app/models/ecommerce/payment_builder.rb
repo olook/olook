@@ -7,6 +7,7 @@ class PaymentBuilder
   end
 
   def process!
+    payment.save!
     ActiveRecord::Base.transaction do
       send_payment!
       create_payment_response!
