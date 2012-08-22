@@ -54,6 +54,17 @@
 }
 
 @font-face {
+    font-family: 'johnston';
+    src: url('/assets/johnston/johnston_itc_bold_0-webfont.eot');
+    src: url('/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/johnston/johnston_itc_bold_0-webfont.woff') format('woff'),
+         url('/assets/johnston/johnston_itc_bold_0-webfont.ttf') format('truetype'),
+         url('/assets/johnston/johnston_itc_bold_0-webfont.svg#johnston') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'p22_underground_gr_demiRg';
     src: url('/assets/p22/p22undergroundgr-demi-webfont.eot');
     src: url('/assets/p22/p22undergroundgr-demi-webfont.eot?#iefix') format('embedded-opentype'),
