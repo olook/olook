@@ -37,6 +37,9 @@ class Payment < ActiveRecord::Base
   belongs_to :order
   has_one :payment_response, :dependent => :destroy
 
+  after_create :generate_identification_code
+
+
   def credit_card?
     (self.type == "CreditCard") ? true : false
   end
@@ -70,5 +73,17 @@ class Payment < ActiveRecord::Base
   def authorize_order
     order.authorized
   end
+  
+  private
+  def generate_identification_code
+    #TODO: PASSAR A USAR UUID
+    code = SecureRandom.hex(16)
+    while Payment.find_by_identification_code(code)
+      code = SecureRandom.hex(16)
+    end
+    update_attributes(:identification_code => code)
+  end
+  
+  
 end
 

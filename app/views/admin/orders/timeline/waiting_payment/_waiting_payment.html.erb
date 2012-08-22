@@ -14,7 +14,7 @@
     Gateway Fee: <b><%= number_to_currency(order.payment.payment_response.gateway_fee) if order.payment.payment_response %></b>
    </li>
    <li>
-    Código de identificação: <b><%= order.identification_code %></b>
+    Código de identificação: <b><%= order.payment.identification_code %></b>
    </li>
    <li>
     Final do cartão: <b><%= order.payment.credit_card_number if order.payment.type == 'CreditCard' %></b>
