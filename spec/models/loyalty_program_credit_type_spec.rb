@@ -58,7 +58,19 @@ describe LoyaltyProgramCreditType do
       end
 
       context "when user hasn't got enough credits" do
-        xit "should not remove credits and should return false" do
+        it "should not remove credits and should return false" do
+          loyalty_program_credit_type.add(amount,user_credit,order)
+
+          loyalty_program_credit_type.add(amount,user_credit,order)
+
+          Delorean.jump 1.month
+
+          loyalty_program_credit_type.remove(amount * 2,user_credit,order)
+
+          loyalty_program_credit_type.remove(amount,user_credit,order).should == false
+
+          Delorean.back_to_the_present
+
           loyalty_program_credit_type.remove(amount,user_credit,order).should == false
 
           loyalty_program_credit_type.total(user_credit, DateTime.now + 1.month).should == 0.0
