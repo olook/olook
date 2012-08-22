@@ -3,7 +3,7 @@
 @import 'common/images';
 @import 'common/fonts';
 
-$pink: #D95485;
+$secondary_color: #b8b6b6;
 
 @mixin table {
   table#list {
@@ -23,7 +23,7 @@ $pink: #D95485;
 
           a {
             font-weight: bold;
-            color: $pink;
+            color: $secondary_color;
           }
         }
       }
@@ -74,7 +74,7 @@ $pink: #D95485;
                 border: 1px solid #BBB;
                 padding: 6px 8px;
                 width: 92%;
-                
+
                 &:focus {
                   outline: none;
                 }
@@ -93,7 +93,7 @@ $pink: #D95485;
                 float: left;
                 width: 140px;
               }
-              
+
               &.forgot-password {
                 & + li {
                   float: right;

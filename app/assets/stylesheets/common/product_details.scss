@@ -245,12 +245,12 @@
           &.size {
             margin-top: 10px;
             label {
-              color: $pink;
-              border: 1px solid $pink;
+              color: $secondary_color;
+              border: 1px solid $secondary_color;
             }
             li {
               &.selected {
-                background: $pink;
+                background: $secondary_color;
                 label {
                   color: #FFF;
                 }
