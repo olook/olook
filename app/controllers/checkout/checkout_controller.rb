@@ -88,6 +88,7 @@ class Checkout::CheckoutController < Checkout::BaseController
         return redirect_to(order_show_path(:number => @order.number), :notice => "Boleto gerado com sucesso")
       else
         @payment = Billet.new(params[:billet])
+        @payment.user_identification = @user.cpf
         @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
         @payment
       end
