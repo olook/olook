@@ -103,10 +103,17 @@ body {
       }
     }
   }
-  @for $i from 1 through 6 {
+  h1 {
+    font-family: 'johnston', arial, sans-serif;
+    font-size: 28px;
+    font-weight: lighter;
+    color: #000;
+  }
+  @for $i from 2 through 6 {
     h#{$i} {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 30px - $i * 2;
+      font-family: 'avenir', arial, sans-serif;
+      font-size: 28px - $i * 2;
+      font-weight: normal;
       color: #000;
     }
   }
