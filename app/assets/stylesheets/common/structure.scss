@@ -919,7 +919,14 @@ body {
               padding-right: 0;
             }
             &.login {
+              padding: 0;
               float: right;
+              border: none;
+              p {
+                a {
+                  color: $secondary_color;
+                }
+              }
             }
           }
         }
@@ -960,7 +967,7 @@ body {
   nav {
     background: #101010;
     margin: -26px 0 0px 0;
-    border-bottom: 2px solid $secondary_color;
+    border-bottom: 2px solid $pink;
 
     a:visited{
       color:#fff;
@@ -1065,7 +1072,7 @@ body {
             display: block;
             &:hover, &.selected {
               background: url("/assets/common/nav/arrow-hover.jpg") bottom center no-repeat;
-              color: $secondary_color;
+              color: $pink;
             }
           }
           &.liquidation {
@@ -1112,7 +1119,7 @@ body {
                 }
               }
               &.selected, &:hover {
-                background: $secondary_color;
+                background: $pink;
               }
             }
             ul.submenu {
