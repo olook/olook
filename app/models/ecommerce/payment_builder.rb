@@ -1,52 +1,44 @@
 # -*- encoding : utf-8 -*-
 class PaymentBuilder
-  attr_accessor :order, :payment, :delivery_address, :response, :credit_card_number
+  attr_accessor :cart_service, :payment, :delivery_address, :response, :credit_card_number
 
-  def initialize(order, payment)
-    @order, @payment = order, payment
-    @credit_card_number = payment.credit_card_number
+  def initialize(cart_service, payment)
+    @cart_service, @payment = cart_service, payment
   end
 
   def process!
     ActiveRecord::Base.transaction do
-      if order.remove_unavailable_items > 0
-        respond_with_unavailable_items
-      else
-        set_payment_order!
-        send_payment!
-        create_payment_response!
-        payment_response = set_payment_url!.payment_response
+      send_payment!
+      create_payment_response!
+      payment_response = set_payment_url!.payment_response
 
-        if payment_response.response_status == Payment::SUCCESSFUL_STATUS
-          if payment_response.transaction_status != Payment::CANCELED_STATUS
-            order.decrement_inventory_for_each_item
-            order.invalidate_coupon
-            respond_with_success
-          else
-            respond_with_failure
-          end
+      if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+        if payment_response.transaction_status != Payment::CANCELED_STATUS
+          
+          order = cart_service.generate_order!(payment)
+          payment.order = order
+          payment.save!
+          order.decrement_inventory_for_each_item
+          order.invalidate_coupon
+          respond_with_success
         else
           respond_with_failure
         end
+      else
+        respond_with_failure
       end
     end
 
     rescue Exception => error
-      error_message = "Moip Request #{error.message} - Order Number #{order.number} - Payment Expiration #{payment.payment_expiration_date}"
+      error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date}"
       log(error_message)
-      order.order_events.create(:message => error_message)
+      payment.order.order_events.create(:message => error_message) if payment.order
       NewRelic::Agent.add_custom_parameters({:error_msg => error_message})
       Airbrake.notify(
         :error_class   => "Moip Request",
         :error_message => error_message
       )
       respond_with_failure
-  end
-
-  def set_payment_order!
-    payment.order = order
-    payment.save!
-    payment
   end
 
   def set_payment_url!
@@ -70,10 +62,10 @@ class PaymentBuilder
   end
 
   def payer
-    delivery_address = order.freight.address
+    delivery_address = Address.find_by_id!(cart_service.freight[:address_id])
     data = {
-      :nome => order.user_name,
-      :email => order.user_email,
+      :nome => cart_service.cart.user.name,
+      :email => cart_service.cart.user.email,
       :identidade => payment.user_identification,
       :logradouro => delivery_address.street,
       :complemento => delivery_address.complement,
@@ -90,11 +82,11 @@ class PaymentBuilder
 
   def payment_data
     if payment.is_a? Billet
-    data = { :valor => order.amount_paid, :id_proprio => payment.identification_code,
+    data = { :valor => cart_service.total, :id_proprio => payment.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
     elsif payment.is_a? CreditCard
-      data = { :valor => order.amount_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
+      data = { :valor => cart_service.total, :id_proprio => payment.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
@@ -102,7 +94,7 @@ class PaymentBuilder
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
-      data = { :valor => order.amount_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
+      data = { :valor => cart_service.total, :id_proprio => payment.identification_code, :forma => payment.to_s,
                :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
     end
@@ -119,16 +111,11 @@ class PaymentBuilder
   end
 
   def billet_expiration_date
-    order.payment.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
+    payment.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
   end
 
   def respond_with_failure
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
-  end
-
-  def respond_with_unavailable_items
-    log("ERROR: UNAVAILABLE_ITEMS: ORDER_ID: #{order.id} VARIANTS: #{order.line_items.map{|li| li.variant.id}.join(",")}")
-    OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil)
   end
 
   def respond_with_success

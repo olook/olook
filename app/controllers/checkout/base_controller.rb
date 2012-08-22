@@ -22,6 +22,7 @@ class Checkout::BaseController < ApplicationController
     @cart.remove_unavailable_items
     @cart.reload
     
+    #TODO: Produtos com o baixa no estoque foram removidos de sua sacola
     return redirect_to cart_path, :notice => "Sua sacola está vazia" if @cart.items.empty?
     
     coupon = @cart_service.coupon

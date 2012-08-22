@@ -51,15 +51,12 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      @order = @cart_service.generate_order!(@payment)
-      payment_builder = PaymentBuilder.new(@order, @payment)
+      payment_builder = PaymentBuilder.new(@cart_service, @payment)
       response = payment_builder.process!
 
-       if response.status == Product::UNAVAILABLE_ITEMS
-         return redirect_to(cart_path, :notice => "Produtos com o baixa no estoque foram removidos de sua sacola")
-       elsif response.status == Payment::SUCCESSFUL_STATUS
+      if response.status == Payment::SUCCESSFUL_STATUS
          clean_cart!
-         return redirect_to(order_show_path(:number => @order.number), :notice => "Link de pagamento gerado com sucesso")
+         return redirect_to(order_show_path(:number => @payment.order.number), :notice => "Link de pagamento gerado com sucesso")
        else
          @payment = Debit.new(params[:debit])
          @payment.user_identification = @user.cpf
@@ -77,15 +74,12 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      @order = @cart_service.generate_order!(@payment)
-      payment_builder = PaymentBuilder.new(@order, @payment)
+      payment_builder = PaymentBuilder.new(@cart_service, @payment)
       response = payment_builder.process!
 
-      if response.status == Product::UNAVAILABLE_ITEMS
-        return redirect_to(cart_path, :notice => "Produtos com o baixa no estoque foram removidos de sua sacola")
-      elsif response.status == Payment::SUCCESSFUL_STATUS
+      if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => @order.number), :notice => "Boleto gerado com sucesso")
+        return redirect_to(order_show_path(:number => @payment.order.number), :notice => "Boleto gerado com sucesso")
       else
         @payment = Billet.new(params[:billet])
         @payment.user_identification = @user.cpf
@@ -105,16 +99,13 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      @order = @cart_service.generate_order!(@payment)
-      payment_builder = PaymentBuilder.new(@order, @payment)
+      payment_builder = PaymentBuilder.new(@cart_service, @payment)
       payment_builder.credit_card_number = params[:credit_card][:credit_card_number]
       response = payment_builder.process!
 
-      if response.status == Product::UNAVAILABLE_ITEMS
-        return redirect_to(cart_path, :notice => "Produtos com o baixa no estoque foram removidos de sua sacola")
-      elsif response.status == Payment::SUCCESSFUL_STATUS
+      if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => @order.number), :notice => "Pagamento realizado com sucesso")
+        return redirect_to(order_show_path(:number => @payment.order.number), :notice => "Pagamento realizado com sucesso")
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf
