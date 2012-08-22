@@ -4,8 +4,11 @@
 body {
   color: #6d6e71;
   font-family: 'avenir', arial, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 
+  p {
+    line-height: 22px;
+  }
   #error-messages {
     p {
       font-family: 'Times New Roman', 'Times', serif;
