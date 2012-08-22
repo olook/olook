@@ -62,7 +62,7 @@ class Checkout::CheckoutController < Checkout::BaseController
          return redirect_to(order_show_path(:number => @order.number), :notice => "Link de pagamento gerado com sucesso")
        else
          @payment = Debit.new(params[:debit])
-         # SAC::Notifier.notify(SAC::Alert.new("Erro no pagamento", params), SAC::ErrorNotification.new)
+         @payment.user_identification = @user.cpf
          @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
          @payment
        end
