@@ -145,17 +145,15 @@ padding:20px 20px 0;
   }
 
   p.intro, .intro {
-    border:1px solid #c1c1c1;
+    border:1px solid #e4e4e4;
     padding:30px;
     font-size:16px;
     letter-spacing:-1px;
   }
 
   p {
-    margin: 0 0 35px;
     a.arrow {
-      background: url("/assets/about/mini_arrow.png") left no-repeat;
-      padding-left: 13px;
+      color: #101010;
     }
   }
 
@@ -164,22 +162,25 @@ padding:20px 20px 0;
   }
 
   .intro {
+    margin: 0 0 40px;
     p {
+      color: #101010;
+      font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
+      font-size: 18px;
       margin: 0 0 20px;
     }
     ul {
-      margin: 0 0 0 60px;
       li {
-        color: #de5a8d;
+        color: #6d6e71;
       }
     }
   }
 
   ul.contact {
     background: #FFF;
-    width: 340px;
+    width: 345px;
     overflow: hidden;
-    margin: 0 auto 15px auto;
+    margin: 22px 0;
     padding: 2px 12px;
     border: 1px #d2d2d2 solid;
     li {
@@ -207,6 +208,21 @@ padding:20px 20px 0;
           }
         }
       }
+    }
+  }
+  &.faq {
+    p {
+      margin: 0 0 35px;
+    }
+  }
+  &.return {
+    h2 {
+      margin: 25px 0 5px;
+    }
+    h3 {
+      font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
+      font-size: 15px;
+      margin: 25px 0 0;
     }
   }
 }
