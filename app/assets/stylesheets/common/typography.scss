@@ -8,7 +8,11 @@ body {
 
   p {
     line-height: 22px;
+    a {
+      color: #101010;
+    }
   }
+
   #error-messages {
     p {
       font-family: 'Times New Roman', 'Times', serif;
