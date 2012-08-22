@@ -16,7 +16,7 @@ describe Checkout::CheckoutController do
   let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
   
-  let(:freight) { {:price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id} }
+  let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
 
   let(:coupon_expired) do
     coupon = double(Coupon)
@@ -212,70 +212,64 @@ describe Checkout::CheckoutController do
     end
   end
 
-  pending "POST create_billet" do
+  context "POST create_billet" do
     before :each do
-      session[:order] = order
-      @order = Order.find(order)
-      @processed_payment = OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Billet))
+      sign_in user_with_cpf
+      session[:cart_id] = cart.id
+      session[:cart_freight] = freight
+    end
+    
+    it "should inject cpf in payment" do
+      post :create_billet
+      assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
     end
 
-    describe "with some variant unavailable" do
-      it "redirects to cath path" do
-        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
-        post :create, :billet => attributes
-        response.should redirect_to(cart_path)
-      end
+    it "should redirects to cath path with some variant unavailable" do
+      PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
+      payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
+      post :create_billet
+      
+      response.should redirect_to(cart_path)
+      flash[:notice].should eq("Produtos com o baixa no estoque foram removidos de sua sacola")
     end
-
-    describe "with valid params" do
-      it "should process the payment" do
+    
+    context "with valid payment" do
+      before :each do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(@processed_payment)
-        post :create, :billet => attributes
+        payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Billet)))
+        post :create_billet
       end
-
-      it "should add the user for a campaing if requested" do
-        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(@processed_payment)
-        expect {
-          post :create, :billet => attributes , :campaing => {:sign_campaing => 'foobar'}
-        }.to change(user.campaing_participants, :count).by(1)
-      end
-
+      
       it "should clean the session order" do
-        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(@processed_payment)
-        post :create, :billet => attributes
-        session[:order].should be_nil
-        session[:freight].should be_nil
-        session[:delivery_address_id].should be_nil
+        session[:cart_id].should be_nil
+        session[:gift_wrap].should be_nil
+        session[:cart_coupon].should be_nil
+        session[:cart_credits].should be_nil
+        session[:cart_freight].should be_nil
       end
-
-      it "should redirect to order_billet_path" do
-        PaymentBuilder.stub(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(processed_payment = @processed_payment)
-        post :create, :billet => attributes
-        session.should redirect_to(order_billet_path(:number => @order.number))
-      end
-
-      it "should assign @cart" do
-        # CartPresenter.should_receive(:new).with(Order.find(order))
-        get 'new'
+      
+      it "should redirect to order_show_path" do
+        response.should redirect_to(order_show_path(:number => assigns(:order).number))
+        flash[:notice].should eq("Boleto gerado com sucesso")
       end
     end
-
-    describe "with invalid params" do
+      
+    context "with invalid params" do
       before :each do
         processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Billet))
         payment_builder = mock
         payment_builder.stub(:process!).and_return(processed_payment)
         PaymentBuilder.stub(:new).and_return(payment_builder)
+        post :create_billet
+      end
+
+      it "should re-inject cpf" do
+        assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
       end
 
       it "should render new template" do
-        post :create, :billet => attributes
-        response.should render_template('new')
+        response.should render_template('new_billet')
+        assigns(:payment).errors[:id].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
       end
     end
   end
