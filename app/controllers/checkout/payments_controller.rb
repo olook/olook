@@ -4,7 +4,8 @@ class Checkout::PaymentsController < ApplicationController
   protect_from_forgery :except => :create
 
   def create
-    order = Order.find_by_identification_code(params["id_transacao"])
+    payment = Payment.find_by_identification_code(params["id_transacao"])
+    order = payment.try(:order)
     MoipCallback.create(:order_id => order.try(:id),
                         :cod_moip => params["cod_moip"],
                         :tipo_pagamento => params["tipo_pagamento"],

@@ -9,25 +9,21 @@ class PaymentBuilder
 
   def process!
     ActiveRecord::Base.transaction do
-      if order.remove_unavailable_items > 0
-        respond_with_unavailable_items
-      else
-        set_payment_order!
-        send_payment!
-        create_payment_response!
-        payment_response = set_payment_url!.payment_response
+      set_payment_order!
+      send_payment!
+      create_payment_response!
+      payment_response = set_payment_url!.payment_response
 
-        if payment_response.response_status == Payment::SUCCESSFUL_STATUS
-          if payment_response.transaction_status != Payment::CANCELED_STATUS
-            order.decrement_inventory_for_each_item
-            order.invalidate_coupon
-            respond_with_success
-          else
-            respond_with_failure
-          end
+      if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+        if payment_response.transaction_status != Payment::CANCELED_STATUS
+          order.decrement_inventory_for_each_item
+          order.invalidate_coupon
+          respond_with_success
         else
           respond_with_failure
         end
+      else
+        respond_with_failure
       end
     end
 
@@ -90,11 +86,11 @@ class PaymentBuilder
 
   def payment_data
     if payment.is_a? Billet
-    data = { :valor => order.amount_paid, :id_proprio => order.identification_code,
+    data = { :valor => order.amount_paid, :id_proprio => payment.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
     elsif payment.is_a? CreditCard
-      data = { :valor => order.amount_paid, :id_proprio => order.identification_code, :forma => payment.to_s,
+      data = { :valor => order.amount_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
@@ -102,7 +98,7 @@ class PaymentBuilder
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
-      data = { :valor => order.amount_paid, :id_proprio => order.identification_code, :forma => payment.to_s,
+      data = { :valor => order.amount_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
                :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
     end
