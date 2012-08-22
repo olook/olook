@@ -98,10 +98,11 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def create_credit_card
-    params[:credit_card][:receipt] = Payment::RECEIPT
+    params[:credit_card][:receipt] = Payment::RECEIPT if params[:credit_card]
     @payment = CreditCard.new(params[:credit_card])
-    @bank = params[:credit_card][:bank]
-    @installments = params[:credit_card][:payments]
+    @bank = params[:credit_card][:bank] if params[:credit_card]
+    @installments = params[:credit_card][:payments] if params[:credit_card]
+    @payment.user_identification = @user.cpf
 
     if @payment.valid?
       @order = @cart_service.generate_order!(@payment)
@@ -116,6 +117,7 @@ class Checkout::CheckoutController < Checkout::BaseController
         return redirect_to(order_show_path(:number => @order.number), :notice => "Pagamento realizado com sucesso")
       else
         @payment = CreditCard.new(params[:credit_card])
+        @payment.user_identification = @user.cpf
         @payment.errors.add(:id, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
         @payment
       end
