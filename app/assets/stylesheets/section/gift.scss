@@ -1,3 +1,5 @@
+@import 'partials/mixins';
+
 header {
   background: none;
 }
@@ -25,7 +27,6 @@ div.full_container {
     overflow: hidden;
   }
   div.content {
-    font-family: "Open Sans", sans-serif;
     &#banner {
       background: url("/assets/gift/bg-header.jpg") top center no-repeat;
       height: 485px;
@@ -51,7 +52,6 @@ div.full_container {
       }
       a {
         color: #FFF;
-        font-family: "Open Sans", sans-serif;
         text-transform: uppercase;
         text-decoration: none;
         letter-spacing: -1px;
@@ -88,22 +88,22 @@ div.full_container {
           font-size: 45px;
         }
         div, input[type="text"], select.custom_select {
-          font-family: "Open Sans", sans-serif;
           font-size: 45px;
           font-weight: lighter;
           letter-spacing: -2px;
         }
         select.custom_select {
           font-size: 28px;
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
         div.phrase_container {
           color: #383838;
           text-align: center;
-          width: 895px;
+          width: 890px;
           margin: 0 auto 20px auto;
           p {
             position: relative;
+            line-height: normal;
             display: inline-block;
             input[type="text"] {
               font-size: 28px;
@@ -117,7 +117,7 @@ div.full_container {
             span.select {
               position: absolute;
               background: #FFF;
-              color: #e05789;
+              color: $secondary_color;
               padding: 0 20px;
               left: 0;
               border: 1px #a4a4a4 dotted;
@@ -129,7 +129,8 @@ div.full_container {
         input[type="text"] {
           background: #FFF;
           width: 280px;
-          color: #e05789;
+          color: $secondary_color;
+          font-weight: lighter;
           margin-bottom: 10px;
           padding: 0 20px;
           border: 1px #a4a4a4 dotted;
@@ -140,12 +141,8 @@ div.full_container {
         input[type="submit"] {
           background: url("/assets/gift/bt-continue.png") no-repeat;
           color: #FFF;
-          font-family: "Open Sans", sans-serif;
-          font-size: 14px;
-          width: 133px;
-          height: 41px;
-          line-height: 38px;
-          text-transform: uppercase;
+          width: 169px;
+          height: 59px;
           margin: 0 auto;
           display: block;
           border: none;
