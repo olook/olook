@@ -81,5 +81,21 @@ namespace :orders do
       end
     end 
   end
+  
+  desc "Update Moip Callbacks -> one way"
+  task :update_moip_callbacks => :environment do |task, args|
+    Payment.find_each do |payment|
+      if payment.order && payment.order.cart_id
+        payment.update_attribute(:cart_id, payment.order.cart_id)
+      end
+    end
+    
+    MoipCallback.find_each do |moip|
+      if moip.order && moip.order.payment
+        moip.update_attribute(:payment_id, moip.order.payment.id)
+      end
+    end
+  end
+  
 end
 

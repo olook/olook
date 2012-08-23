@@ -10,7 +10,8 @@ class Checkout::PaymentsController < ApplicationController
                         :cod_moip => params["cod_moip"],
                         :tipo_pagamento => params["tipo_pagamento"],
                         :status_pagamento => params["status_pagamento"],
-                        :id_transacao => params["id_transacao"])
+                        :id_transacao => params["id_transacao"],
+                        :cart_id => payment.cart_id)
     if order
       if update_order(order)
         Resque.enqueue(Abacos::CancelOrder, order.number) if order.reload.canceled?
