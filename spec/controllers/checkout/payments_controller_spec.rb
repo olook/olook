@@ -30,15 +30,15 @@ describe Checkout::PaymentsController do
 
       it "should change the payment status to billet_printed" do
         post :create, params
-        order.payment.reload.billet_printed?.should eq(true)
+        payment.reload.billet_printed?.should eq(true)
       end
 
       it "should update payment with the params" do
         post :create, params
-        order.payment.reload.gateway_code.should == cod_moip
-        order.payment.reload.gateway_status.to_s.should == billet_printed
-        order.payment.reload.gateway_type.should == tipo_pagamento
-        order.payment.reload.gateway_status_reason.should == classificacao
+        payment.reload.gateway_code.should == cod_moip
+        payment.reload.gateway_status.to_s.should == billet_printed
+        payment.reload.gateway_type.should == tipo_pagamento
+        payment.reload.gateway_status_reason.should == classificacao
       end
 
       it "should change the order status to authorized" do

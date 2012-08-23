@@ -49,11 +49,6 @@ class Payment < ActiveRecord::Base
     update_attributes(:payment_expiration_date => build_payment_expiration_date)
   end
 
-  def save_with(payment_url, order)
-    self.url, self.order = payment_url, order
-    save
-  end
-
   def set_state(status)
     event = STATUS[status]
     send(event) if event
