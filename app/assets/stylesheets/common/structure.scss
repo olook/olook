@@ -1142,7 +1142,8 @@ body {
                 }
                 p.freight {
                   color: #df5a8b;
-                  font-weight: bold;
+                  font-size: 12px;
+                  line-height: 18px;
                   text-align: center;
                   text-transform: uppercase;
                   padding-bottom: 5px;
@@ -1159,13 +1160,10 @@ body {
                 }
                 h1 {
                   color: #716d68;
-                  font-family: Arial;
-                  font-size: 12px;
                   font-weight: bold;
                   text-transform: uppercase;
                 }
                 p {
-                  font-family: Arial;
                   &.price {
                     color: #000;
                     font-size: 18px;
@@ -1197,12 +1195,11 @@ body {
                   a.close {
                     background: none;
                     color: #101010;
-                    font-family: Arial;
                     font-size: 12px;
                     text-indent: 0;
                     text-transform: uppercase;
                     text-decoration: none;
-                    margin: 10px 0 0 0;
+                    margin: 9px 0 0 0;
                     height: auto;
                     float: left;
                     &:hover {
