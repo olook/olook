@@ -23,26 +23,26 @@ li.product {
         margin: 0;
         a {
           background: url('/assets/common/bg-spy.png') repeat-x;
-          color: #999;
+          color: #101010;
+          font-family: $johnston;
           font-size: 13px;
-          font-style: italic;
-          font-weight: bold;
-          line-height: 25px;
+          font-weight: lighter;
+          line-height: 32px;
           text-decoration: none;
           text-transform: uppercase;
-          height: 25px;
+          height: 32px;
           margin: 0 auto;
           display: block;
           span {
-            background: url('/assets/common/icon-spy-off.png') left center no-repeat;
+            background: url('/assets/common/icon-spy-on.png') left center no-repeat;
+            color: #000;
             line-height: 16px;
             display: inline-block;
             padding: 0 0 0 19px;
           }
           &:hover {
             span {
-              background: url('/assets/common/icon-spy-on.png') left center no-repeat;
-              color: #dc5d8d;
+              color: $pink;
             }
           }
         }
