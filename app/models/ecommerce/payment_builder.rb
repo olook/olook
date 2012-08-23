@@ -7,6 +7,7 @@ class PaymentBuilder
   end
 
   def process!
+    payment.cart_id = @cart_service.cart.id
     payment.save!
     ActiveRecord::Base.transaction do
       send_payment!
