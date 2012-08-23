@@ -283,14 +283,14 @@
       }
       a.more {
         position: absolute;
-        background: #df5a8b;
+        background: #000 url('/assets/showroom/bg-plus.jpg') 8px 9px no-repeat;
         color: #FFF;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
+        font-family: $avenir;
+        font-size: 12px;
         text-decoration: none;
         text-transform: uppercase;
-        line-height: 34px;
-        padding: 0 20px;
+        line-height: 33px;
+        padding: 0 15px 0 30px;
         display: block;
         bottom: 0;
         right: 0;
