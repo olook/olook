@@ -18,11 +18,9 @@ class Checkout::PaymentsController < ApplicationController
                               :gateway_type   => params["tipo_pagamento"],
                               :gateway_status => params["status_pagamento"],
                               :gateway_status_reason => Iconv.conv('UTF-8//IGNORE', "US-ASCII", params["classificacao"]))
-    
-    payment.set_state(params["status_pagamento"])
 
     
-    if update_payment(payment)
+    if payment.set_state(params["status_pagamento"]) && payment.save!
       Resque.enqueue(Abacos::CancelOrder, order.number) if order && order.reload.canceled?
       render :nothing => true, :status => 200
     else
