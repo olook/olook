@@ -35,6 +35,7 @@ class Payment < ActiveRecord::Base
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
+  belongs_to :cart
   has_one :payment_response, :dependent => :destroy
 
   after_create :generate_identification_code
