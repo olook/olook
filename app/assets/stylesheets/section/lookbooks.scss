@@ -6,11 +6,10 @@ section#lookbooks {
   padding: 20px 0;
   overflow: auto;
   h1.lookbook_title {
-    font-family: Times, "Times New Roman";
+    font-family: $kepler;
     font-size: 40px;
-    font-style: italic;
-    font-weight: normal;
-    letter-spacing: -4px;
+    font-weight: lighter;
+    letter-spacing: -1px;
     margin: 0 0 15px 10px;
   }
   div#carousel_lookbooks {
@@ -63,11 +62,10 @@ section#lookbooks {
             position: absolute;
             background: url("/assets/lookbooks/bg-title.png") repeat;
             color: #FFF;
-            font-family: Times;
+            font-family: $kepler;
             font-size: 29px;
-            font-style: italic;
-            font-weight: normal;
-            letter-spacing: -2px;
+            font-weight: lighter;
+            letter-spacing: -1px;
             width: 298px;
             margin: 0;
             padding: 5px 10px;
@@ -89,8 +87,9 @@ section#lookbooks {
       position: absolute;
       background: image-url("lookbooks/label_video.jpg") no-repeat;
       color: #FFF;
-      font-family: "Pontano Sans", sans-serif;
-      font-size: 14px;
+      font-family: $johnston;
+      font-size: 13px;
+      font-weight: 100;
       line-height: 38px;
       text-decoration: none;
       text-transform: uppercase;
