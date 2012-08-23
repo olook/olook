@@ -128,7 +128,7 @@ li.product {
       float: left;
       h1 {
         background: none;
-        color: #716d68;
+        color: #000;
         font-family: Arial;
         font-size: 13px;
         text-transform: uppercase;
@@ -175,7 +175,7 @@ li.product {
             }
             &:hover, &.selected {
               img {
-                border: 2px #E05789 solid;
+                border: 2px #000 solid;
               }
             }
           }
@@ -185,8 +185,7 @@ li.product {
         float: right;
       }
       span {
-        color: #000;
-        font-family: Arial;
+        color: #343434;
         font-size: 16px;
         letter-spacing: -1px;
         margin-right: 2px;
