@@ -83,9 +83,9 @@
         }
         h3 {
           color: #101010;
-          font-weight: 600;
+          font-family: $johnston;
+          font-size: 13px;
           text-transform: uppercase;
-          letter-spacing: -1px;
           margin-bottom: 5px;
           clear: both;
         }
@@ -154,10 +154,10 @@
       width: 330px;
       float: right;
       h1.title {
-        background: url('/assets/showroom/title-tendencies.jpg') no-repeat;
-        text-indent: -9999px;
-        width: 144px;
-        height: 25px;
+        font-family: $johnston;
+        font-size: 22px;
+        line-height: 26px;
+        text-transform: uppercase;
         margin: 0 0 10px 0;
         display: block;
       }
@@ -203,8 +203,9 @@
               position: absolute;
               background: image-url("common/label-lookbook-video.jpg") no-repeat;
               color: #FFF;
-              font-family: "Pontano Sans", sans-serif;
+              font-family: $johnston;
               font-size: 12px;
+              font-weight: normal;
               line-height: 34px;
               text-decoration: none;
               text-transform: uppercase;
@@ -230,11 +231,10 @@
                 position: absolute;
                 background: url("/assets/lookbooks/bg-title.png") repeat;
                 color: #FFF;
-                font-family: Times;
+                font-family: $kepler;
                 font-size: 29px;
-                font-style: italic;
-                font-weight: normal;
-                letter-spacing: -2px;
+                font-weight: lighter;
+                letter-spacing: -1px;
                 width: 304px;
                 margin: 0;
                 padding: 5px 10px;
@@ -248,17 +248,15 @@
     }
   }
   section.container_product {
-    background: url('/assets/showroom/border-top-product.png') 170px 26px no-repeat;
+    background: url('/assets/showroom/border-top-product.png') 170px 15px no-repeat;
     width: 100%;
     margin-bottom: 20px;
     overflow: auto;
     h1.title {
       background: #FFF;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 40px;
+      font-family: $johnston;
+      font-size: 28px;
       font-weight: normal;
-      font-style: italic;
-      letter-spacing: -3px;
       text-transform: uppercase;
       padding: 0 20px 0 0;
       margin-bottom: 20px;
