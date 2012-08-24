@@ -10,4 +10,20 @@ update_status:
   queue: order_status
   description: "Atualiza o status dos Pedidos"
 
+send_in_cart_email:
+  cron: "0 20 * * *"
+  class: SendInCartEmailWorker
+  queue: send_in_cart_email
+  description: "Dispara emails para carrinhos abandonados"
 
+marketing_uploader:
+  cron: "0 2 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  description: "Cria arquivo de importação para allinemail"
+
+send_billet_reminder:
+  cron: "0 5 * * 1-5"
+  class: SendBilletReminderWorker
+  queue: send_billet_reminder
+  description: "Dispara emails de aviso p/ vencimento do boleto"
