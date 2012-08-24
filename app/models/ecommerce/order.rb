@@ -21,7 +21,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   has_many :variants, :through => :line_items
-  has_one :payment, :dependent => :destroy
+  has_many :payments, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
   has_many :order_events, :dependent => :destroy
@@ -40,7 +40,7 @@ class Order < ActiveRecord::Base
   delegate :payment_response, :to => :payment, :allow_nil => true
 
   def self.with_payment
-    joins(:payment)
+    joins(:payments)
   end
 
   def self.purchased
@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.with_complete_payment
-    joins(:payment).where("payments.state IN ('authorized','completed')")
+    joins(:payments).where("payments.state IN ('authorized','completed')")
   end
 
 
@@ -236,6 +236,16 @@ class Order < ActiveRecord::Base
   def user_name
     "#{user_first_name} #{user_last_name}".strip
   end
+
+  # TODO: THIS BLOCK MUST DIE ASAP!
+  def payment
+    self.payments.try(:last)
+  end
+
+  def payment= payment
+    self.payments << payment
+  end
+  # TODO: THIS BLOCK MUST DIE ASAP!
   
   private
 
