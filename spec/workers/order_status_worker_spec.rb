@@ -34,7 +34,7 @@ describe OrderStatusWorker do
         described_class.send_email(order)
       end
       it 'should do nothing if the order is waiting_payment and but has no associated payment' do
-        order.update_attributes(:payment => nil)
+        order.payments.delete_all
         OrderStatusMailer.should_not_receive(:order_requested).with(order)
         described_class.send_email(order)
       end
