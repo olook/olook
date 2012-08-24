@@ -1,10 +1,5 @@
 <h2>Listing Orders</h2>
 
-<% content_for :secondary_navigation do %>
-  <li><%= link_to "Visão Orders", admin_order_credits_path %></li>
-  <li><%= link_to "Visão Users",  admin_user_credits_path %></li>
-<% end %>
-
 <% content_for :sidebar do %>
   <div class="block">
     <h3>Filters</h3>
@@ -24,12 +19,12 @@
 
         <div class="group">
           <%= f.label(:created_at_gte,'Data inicial de Criação', :class => "label") %>
-          <%= f.date_select(:created_at_gte) %>
+          <%= f.date_select(:created_at_gte, :include_blank => true, :start_year => 2011) %>
         </div>
 
         <div class="group">
           <%= f.label(:created_at_lte, 'Data final de Criação', :class => "label") %>
-          <%= f.date_select(:created_at_lte) %>
+          <%= f.date_select(:created_at_lte, :include_blank => true, :start_year => 2011) %>
         </div>
 
         <div class="group">
@@ -50,6 +45,7 @@
       <th>Total Pago</th>
       <th>Subtotal</th>
       <th>Data de Criação</th>
+      <!-- <th colspan=3>Origem dos discontos</th> -->
     </tr>
 
   <% @orders.each do |order| %>
@@ -61,6 +57,9 @@
       <td><%= number_to_currency order.amount_paid %></td>
       <td><%= number_to_currency order.subtotal      %></td>
       <td><%= l order.created_at, :format => :short %></td>
+      <!-- <td><%= 'discontos...' %></td> -->
+      <!-- <td><%= 'discontos...' %></td> -->
+      <!-- <td><%= 'discontos...' %></td> -->
     </tr>
   <% end %>
   </table>

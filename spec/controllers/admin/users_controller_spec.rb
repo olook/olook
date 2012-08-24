@@ -136,24 +136,43 @@ describe Admin::UsersController do
   end
 
   describe "POST create_credit_transaction" do
-
-    let(:transaction_param) { {:id => user.id.to_s, :value => "10", :operation => "add_credit:Presente"} }
-
-    it "should create a credit transaction, given value, valid operation and reason" do
-      User.stub(:find).with(transaction_param[:id]).and_return(user)
-      operation = transaction_param[:operation].split(":")
-      AdminCreditService.should_receive(:new).with(@admin).and_return(admin_credit_service = mock)
-      CreditService.should_receive(:new).with(admin_credit_service).and_return(credit_service = mock)
-      credit_service.should_receive(:create_transaction).with(transaction_param[:value], operation[0], operation[1], user)
-      post :create_credit_transaction, transaction_param
+    let(:transaction_param)  do 
+      { :id => user.id.to_s,
+        :value => "10",
+        :operation => "redeem:order",
+        :reason => "Some reason"
+      }
     end
 
-    it "should redirect to the user" do
-      post :create_credit_transaction, transaction_param
-      response.should redirect_to(admin_user_path(user))
-    end
+    context 'add' do
+      let(:redeem_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :redeem)}
+      let!(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => redeem_credit_type)}
+      
+      it "should create a credit transaction, given value, valid operation and reason" do
 
+        post :create_credit_transaction, transaction_param.merge(:order_number => on, :method => :add)
+        assigns(:user).should eq(user)
+
+        Order.any_instance.should_receive(:find_by_number).with(on).and_return(mock(Order))
+        user.should_receive(:user_credits_for).with(:redeem).and_return(user_credit)
+
+        RedeemCreditType.any_instance.should_receive(:add).with({
+          admin_id: @admin.id,
+          amount: transaction_param[:value].to_s.to_f,
+          credit_type: 'redeem',
+          order: mock,
+          reason: transaction_param[:reason],
+          source: "#{transaction_param[:method]} by #{@admin.name}",
+          user: user
+        })
+      end
+    end
+    
+
+    # it "should redirect to the user" do
+    #   post :create_credit_transaction, transaction_param
+    #   response.should redirect_to(admin_user_path(user))
+    # end
   end
-
 end
 

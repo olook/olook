@@ -2,19 +2,18 @@ require 'spec_helper'
 
 describe InviteCreditType do
   let(:user) { FactoryGirl.create(:member) }
-
-  let(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
-  let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
 
   describe "credit operations" do
     let(:order) {FactoryGirl.create(:order, :user => user)}
     let(:amount) { BigDecimal.new("33.33") }
+    let(:credit_parmas) {{:amount =>  amount, :order => order, :user => user}}
 
     describe "adding credits" do
       context "when user creates a credit" do
         it "should add credits" do
-          invite_credit_type.add(amount,user_credit,order)
-          invite_credit_type.total(user_credit, DateTime.now).should == amount
+          user.user_credits_for(:invite).add(credit_parmas.dup)
+          user.user_credits_for(:invite).total(DateTime.now).should == amount
         end
       end
     end
@@ -23,18 +22,17 @@ describe InviteCreditType do
 
       context "when user has enough credits" do
         it "should remove credits" do
-          invite_credit_type.add(amount,user_credit,order)
-          invite_credit_type.remove(amount,user_credit,order)
+          user.user_credits_for(:invite).add(credit_parmas.dup)
+          user.user_credits_for(:invite).remove(credit_parmas)
 
-          invite_credit_type.total(user_credit, DateTime.now).should == 0.0
+          user.user_credits_for(:invite).total(DateTime.now).should == 0.0
         end
       end
 
       context "when user hasn't got enough credits" do
         it "should not remove credits and should return false" do
-          invite_credit_type.remove(amount,user_credit,order).should == false
-
-          invite_credit_type.total(user_credit, DateTime.now).should == 0.0
+          user.user_credits_for(:invite).remove(credit_parmas).should be_false
+          user.user_credits_for(:invite).total(DateTime.now).should == 0.0
         end
       end      
     end

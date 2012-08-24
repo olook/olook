@@ -1,0 +1,28 @@
+<br />
+
+<h3><%= credit_type %></h3>
+
+<table class="table">
+  <tr>
+    <th>Credit Source</th>
+    <th>Credit Reason</th>
+    <th>Value</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+  </tr>
+<% credits.each do |credit| %>
+  <tr>
+    <td><%= credit.source %></td>
+    <td><%= credit.reason %></td>
+    <%= credit.is_debit ? "<td style='color:red'>-#{number_to_currency(credit.value)}</td>".html_safe : 
+    "<td style='color:green'>#{number_to_currency(credit.value)}</td>".html_safe %>
+    <td><%= credit.created_at.to_s(:short) %></td>
+    <td><%= credit.updated_at.to_s(:short) %></td>
+  </tr>
+<% end %>
+<tr>
+  <td>Total</td>
+  <td></td>
+  <td><%= number_to_currency(credits.empty? ? 0 : credits.first.user_credit.try(:total)) %></td>
+</tr>
+</table>
