@@ -226,7 +226,7 @@ class Order < ActiveRecord::Base
   end
 
   def add_credit_to_inviter
-    UserCredit.process!(self)
+    # UserCredit.process!(self)
   end
 
   def update_user_credit
