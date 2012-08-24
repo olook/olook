@@ -19,6 +19,16 @@ describe UserCredit do
     let(:order) { FactoryGirl.create(:order, :user => user) }
     let(:invitee) { FactoryGirl.create(:user, :is_invited => true, :cpf => '298.161.997-77') }
     let(:invite) { FactoryGirl.create(:invite, :user => user) }
+    let(:amount) { BigDecimal.new('22.03')}
+    let(:credit_attrs) {{:amount => amount,:order => order, :user => user}}
+    let(:merged_credit_attrs) do
+      {
+        :order => order,
+        :user => user,
+        :user_credit => user_credit,
+        :value => amount
+      }
+    end
     
     it "should run the total method" do
       date_time = DateTime.now
@@ -28,14 +38,14 @@ describe UserCredit do
 
     it "should run the add method" do
       order = Order.new
-      user_credit.credit_type.should_receive(:add).with(22.03,user_credit,order).and_return(true)
-      user_credit.add(22.03,order).should eq(true)
+      user_credit.credit_type.should_receive(:add).with(merged_credit_attrs.merge({:total => (user_credit.total + amount)})).and_return(true)
+      user_credit.add(credit_attrs.dup).should eq(true)
     end
 
     it "should run the remove method" do
       order = Order.new
-      user_credit.credit_type.should_receive(:remove).with(22.03,user_credit,order).and_return(true)
-      user_credit.remove(22.03,order).should eq(true)
+      user_credit.credit_type.should_receive(:remove).with(merged_credit_attrs.merge(:total => 25.03 - amount)).and_return(true)
+      user_credit.remove(credit_attrs.dup).should eq(true)
     end
 
     it "should run the process method" do
