@@ -1,19 +1,20 @@
+# encoding: utf-8
 class InviteCreditType < CreditType
 
-  def remove(amount, user_credit, order)
+  def remove(opts)
+    user_credit, amount = opts.delete(:user_credit), opts[:value]
+
     if user_credit.total >= amount
-      updated_total = user_credit.total - amount
-      user_credit.credits.create!(:user => user_credit.user, :value => amount, :total => updated_total, :order => order, :source => "order_debit", 
-      :reason => "", :is_debit => true) # Order #{order.number} received
+      user_credit.credits.create!(opts.merge({
+        :is_debit => true
+      }))
     else
       false
     end
   end
 
-  def add(amount, user_credit, order)
-    updated_total = user_credit.total + amount
-    user_credit.credits.create!(:user => user_credit.user, :value => amount, :total => updated_total, :order => order, :source => "order_credit",
-    :reason => "") # Order #{order.number} canceled
+  def add(opts)
+    user_credit = opts.delete(:user_credit)
+    user_credit.credits.create!(opts)
   end
-
 end

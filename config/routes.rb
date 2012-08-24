@@ -200,7 +200,6 @@ Olook::Application.routes.draw do
     scope 'credits' do
       root :to => 'order_credits#index', :as => :credits
       resources :order_credits, :only => :index 
-      resources :user_credits, :only => :index
     end
 
     resource :settings
