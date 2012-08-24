@@ -8,11 +8,11 @@
     padding: 10px 20px 10px;
     overflow: hidden;
     a.back {
-      color: #df5a8b;
-      font-size: 12px;
-      font-weight: bold;
+      background: url('/assets/product/arrow-back.jpg') left center no-repeat;
+      color: #6d6e71;
       text-decoration: none;
       margin-top: 8px;
+      padding: 0 0 0 13px;
       float: left;
       &:hover {
         text-decoration: underline;
@@ -21,16 +21,15 @@
     a.open_carousel {
       background: url("/assets/product/bt-carousel.jpg") 0 0 no-repeat;
       color: #505050;
-      font-size: 11px;
-      font-weight: bold;
+      font-size: 13px;
       text-decoration: none;
-      line-height: 28px;
-      width: 102px;
+      line-height: 32px;
+      width: 96px;
       padding: 0 0 0 15px;
       display: block;
       float: right;
       &.open {
-        background-position: 0 -28px;
+        background-position: 0 -32px;
       }
     }
     div#carousel {
