@@ -67,48 +67,6 @@ describe Order do
     end
   end
 
-  context "items availables in the order" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-      subject.line_items.create( 
-        :variant_id => basic_shoe_35.id,
-        :quantity => 2, 
-        :price => basic_shoe_35.price,
-        :retail_price => basic_shoe_35.retail_price)
-
-      basic_shoe_40.update_attributes(:inventory => 10)
-      subject.line_items.create( 
-        :variant_id => basic_shoe_40.id,
-        :quantity => 5, 
-        :price => basic_shoe_40.price,
-        :retail_price => basic_shoe_40.retail_price)
-    end
-
-    context "when all variants are available" do
-      it "should return 0 for #remove_unavailable_items" do
-        subject.remove_unavailable_items.should == 0
-      end
-
-      it "should has 2 line items" do
-        subject.remove_unavailable_items
-        subject.line_items.count.should == 2
-      end
-    end
-
-    context "when at least one variant is unavailable" do
-      it "should return 1 for #remove_unavailable_items" do
-        basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items.should == 1
-      end
-
-      it "should has just 1 line item" do
-        basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items
-        subject.line_items.count.should == 1
-      end
-    end
-  end
-
   context "inventory update" do
     it "should decrement the inventory for each item" do
       basic_shoe_35_inventory = basic_shoe_35.inventory
