@@ -1,5 +1,6 @@
 @import 'partials/colors';
 @import 'partials/product';
+@import 'partials/mixins';
 
 #product {
   div.box_carousel {
@@ -91,7 +92,7 @@
   div.content {
     div#related {
       position: relative;
-      background: url('/assets/showroom/border-top-product.png') 170px 25px no-repeat;
+      background: url('/assets/showroom/border-top-product.png') 170px 17px no-repeat;
       width: 100%;
       overflow: auto;
       clear: both;
@@ -124,11 +125,8 @@
       }
       h1.title {
         background: #FFF;
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 40px;
-        font-weight: normal;
-        font-style: italic;
-        letter-spacing: -3px;
+        font-family: $johnston;
+        font-size: 28px;
         text-transform: uppercase;
         padding: 0 20px 0 0;
         margin-bottom: 15px;
