@@ -192,7 +192,7 @@ describe ProductPresenter do
     let(:guest) { described_class.new view, :product => product, :member => nil, :facebook_app_id => facebook_app_id }
     let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
 
-    it "should render the price when no discount" do
+    xit "should render the price when no discount" do
     end
 
     it "should render the price with markdown when for first time buyers" do
@@ -211,9 +211,9 @@ describe ProductPresenter do
       subject.render_price.should_not include("em sua primeira compra")
     end
 
-    it "should show 30% off for guests" do
+    it "should show 20% off for guests" do
       product.stub(:price).and_return(49.99)
-      product.stub(:retail_price).and_return(39.99)
+      product.stub(:retail_price).and_return((42.99))
       guest.render_price.should include("de:")
       guest.render_price.should include("por:")
       guest.render_price.should include("em sua primeira compra")
