@@ -259,10 +259,10 @@
         }
       }
       input[type="submit"].add_product, a.add_product {
-        background: url('/assets/product/bt-add-product.png') no-repeat;
+        background: url('/assets/product/bt-add-product.jpg') no-repeat;
         text-indent: -9999px;
-        width: 279px;
-        height: 58px;
+        width: 281px;
+        height: 59px;
         margin: 17px auto 30px auto;
         display: block;
         border: none;
@@ -292,18 +292,16 @@
           li {
             display: inline;
             a {
-              color: #a5a5a5;
-              font-family: Times;
+              color: #000;
               font-size: 11px;
               text-decoration: none;
               text-transform: uppercase;
-              margin-bottom: -1px;
+              font-weight: bold;
+              margin-bottom: 1px;
               padding: 5px 15px 15px 15px;
               border-bottom: 1px #dddddd solid;
               float: left;
               &.selected {
-                color: #545454;
-                font-size: 12px;
                 border-left: 1px #dddddd solid;
                 border-right: 1px #dddddd solid;
                 border-bottom: 1px #fff solid;
@@ -342,18 +340,24 @@
               width: 140px;
               height: 140px;
               overflow: hidden;
-              margin-left: 20px;
               float: right;
               img {
                 width: 140px;
               }
             }
             p {
-              color: #545454;
-              font-family: Times;
-              font-size: 16px;
-              font-style: italic;
+              font-family: $kepler;
+              font-size: 15px;
               padding: 0 20px;
+            }
+            &.tab_1 {
+              p {
+                background: url('/assets/product/bg-stylist-phrase.jpg') top center no-repeat;
+                text-align: center;
+                width: 195px;
+                padding-top: 40px;
+                float: left;
+              }
             }
             &.selected {
               display: block;
