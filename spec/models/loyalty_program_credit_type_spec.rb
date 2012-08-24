@@ -70,6 +70,22 @@ describe LoyaltyProgramCreditType do
           user.user_credits_for(:loyalty_program).total(DateTime.now).should == 2.0
         end
       end
+
+      context "when user hasn't got enough credits" do
+        it "should not remove credits and should return false" do
+          2.times { user.user_credits_for(:loyalty_program).add(credits_attrs.dup) }
+
+          Delorean.jump 1.month
+
+          user.user_credits_for(:loyalty_program).add(credits_attrs.merge(:amount => amount*2))
+          user.user_credits_for(:loyalty_program).remove(credits_attrs).should == false
+
+          Delorean.back_to_the_present
+
+          user.user_credits_for(:loyalty_program).remove(credits_attrs).should == false
+          user.user_credits_for(:loyalty_program).total(DateTime.now + 1.month).should == 0.0
+        end
+      end      
     end
   end
 end

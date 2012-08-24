@@ -35,7 +35,11 @@ class Payment < ActiveRecord::Base
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
+  belongs_to :cart
   has_one :payment_response, :dependent => :destroy
+
+  after_create :generate_identification_code
+
 
   def credit_card?
     (self.type == "CreditCard") ? true : false
@@ -43,11 +47,6 @@ class Payment < ActiveRecord::Base
 
   def set_payment_expiration_date
     update_attributes(:payment_expiration_date => build_payment_expiration_date)
-  end
-
-  def save_with(payment_url, order)
-    self.url, self.order = payment_url, order
-    save
   end
 
   def set_state(status)
@@ -70,5 +69,15 @@ class Payment < ActiveRecord::Base
   def authorize_order
     order.authorized
   end
+  
+  private
+    def generate_identification_code
+      #TODO: PASSAR A USAR UUID
+      code = SecureRandom.hex(16)
+      while Payment.find_by_identification_code(code)
+        code = SecureRandom.hex(16)
+      end
+      update_attributes(:identification_code => code)
+    end
 end
 

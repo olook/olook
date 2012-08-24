@@ -30,7 +30,7 @@ class Order < ActiveRecord::Base
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   alias :items :line_items
-
+  
   after_create :initialize_order
 
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
@@ -185,13 +185,6 @@ class Order < ActiveRecord::Base
     size_items
   end
 
-  def generate_identification_code
-    code = SecureRandom.hex(16)
-    while Order.find_by_identification_code(code)
-      code = SecureRandom.hex(16)
-    end
-    update_attributes(:identification_code => code)
-  end
 
   def decrement_inventory_for_each_item
     ActiveRecord::Base.transaction do
@@ -233,8 +226,7 @@ class Order < ActiveRecord::Base
   end
 
   def add_credit_to_inviter
-    Credit.add_for_inviter(user, self)
-    # UserCredit.add_for_inviter(self)
+    UserCredit.process!(self)
   end
 
   def update_user_credit
@@ -249,7 +241,6 @@ class Order < ActiveRecord::Base
 
   def initialize_order
     generate_number
-    self.generate_identification_code
     self.insert_order
     self.send_notification_order_requested
     self.update_user_credit
