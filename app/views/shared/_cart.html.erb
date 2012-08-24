@@ -1,6 +1,6 @@
 <%= link_to "Minha Sacola #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'selected' if @order}" %>
 <ul class="submenu" id="cart_summary">
-  <li><p class="freight">FRETE GRÁTIS PARA SP E RJ, e Acima de r$120,00 para outros estados</p></li>
+  <li><p class="freight">Frete grátis para sul e sudeste, e acima de R$120,00 para outros estados</p></li>
   <% @cart.items.each do |item| %>
     <%= render partial: 'shared/cart_line_item', locals: {item: item, hidden: false} %>
   <% end %>
