@@ -121,8 +121,6 @@
       }
       div.description {
         position: relative;
-        font-family: Times;
-        font-style: italic;
         div.fb-like {
           position: absolute;
           top: 10px;
@@ -132,18 +130,14 @@
           }
         }
         h1 {
-          font-size: 40px;
-          font-weight: lighter;
-          letter-spacing: -3px;
-          line-height: 33px;
+          font-family: $kepler;
+          font-size: 33px;
           margin-bottom: 10px;
           padding-bottom: 10px;
           border-bottom: 1px #ebebeb solid;
         }
         p {
           color: #999;
-          font-size: 16px;
-          letter-spacing: -1px;
           margin-bottom: 10px;
           a {
             color: #df5a8a;
@@ -180,9 +174,7 @@
           width: 100%;
           overflow: auto;
           p {
-            font-family: Times;
-            font-size: 16px;
-            font-style: italic;
+            font-size: 12px;
             line-height: 30px;
             text-align: right;
             width: 70px;
@@ -200,8 +192,6 @@
                 margin-left: 0;
               }
               label {
-                font-family: Arial;
-                font-size: 12px;
                 font-weight: normal;
                 line-height: 28px;
                 text-align: center;
@@ -230,7 +220,7 @@
                 img {
                   width: 29px;
                   height: 28px;
-                  border: 1px solid #D95485;
+                  border: 2px solid #000;
                 }
                 a {
                   img {
@@ -245,22 +235,23 @@
           &.size {
             margin-top: 10px;
             label {
-              color: $secondary_color;
-              border: 1px solid $secondary_color;
+              color: #6d6e71;
+              border: 1px solid #6d6e71;
             }
             li {
               &.selected {
-                background: $secondary_color;
+                background: #000;
                 label {
                   color: #FFF;
+                  border: 1px #000 solid;
                 }
               }
               &.unavailable {
                 label {
-                  color: #757575;
+                  color: #dddee1;
                   text-decoration: line-through;
                   cursor: text;
-                  border: 1px #757575 solid;
+                  border: 1px #dddee1 solid;
                 }
               }
             }
