@@ -7,99 +7,90 @@ body {
 
     section.model {
       background: url('/assets/home/model.jpg') top right no-repeat;
-      width: 410px;
-      height: 602px;
-      margin: 10px 0 0;
+      width: 321px;
+      height: 647px;
+      margin: 25px 40px 0 65px;
       float:left;
-      div.label {
-        background: url('/assets/home/label.png') no-repeat;
-        text-align: center;
-        width: 114px;
-        height: 98px;
-        margin: 25px 0 0 0;
-        padding: 16px 0 0 0;
-        display: block;
-        p {
-          color: #FFF;
-          font-family: 'QuicksandRegular', sans-serif;
-          font-size: 15px;
-          line-height: 15px;
-          letter-spacing: -2px;
-          strong {
-            color: #FFF;
-            font-family: 'Pontano Sans', sans-serif;
-            font-size: 34px;
-            line-height: 34px;
-            font-weight: normal;
-            display: block;
-          }
-          span {
-            font-size: 18px;
-            line-height: 17px;
-            display: block;
-          }
-        }
+      h1, h2 {
+        text-indent: -99999px;
       }
     }
 
     section.description {
       width: 515px;
       overflow: auto;
-      margin: 45px 0 30px 15px;
+      margin: 20px 0 30px;
       float: left;
       h1 {
-        color: #58595b;
-        font-family: "Times", "Times New Roman", serif;
-        font-size: 75px;
-        font-style: italic;
-        font-weight: normal;
-        letter-spacing: -5px;
+        background: url('/assets/home/bg-discount.jpg') center center no-repeat;
+        color: #5c5a58;
+        font-family: $kepler;
+        font-size: 26px;
+        font-weight: bold;
+        letter-spacing: -1px;
         text-align: center;
-        margin: 0 0 20px 0;
+        margin: 0 0 20px;
+        padding: 18px 0;
+        border-top: 2px #5c5a58 solid;
+        border-bottom: 2px #5c5a58 solid;
       }
       h2 {
+        color: #101010;
+        font-family: $kepler;
+        font-size: 58px;
+        font-weight: normal;
+        letter-spacing: -3px;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0 0 20px 0;
+      }
+      h3 {
         color: #797a7c;
-        font-family: 'QuicksandRegular', sans-serif;
+        font-family: $avenir;
         font-size: 21px;
         font-weight: normal;
-        letter-spacing: -2px;
+        letter-spacing: -1px;
         text-align: center;
         margin: 0 0 45px;
       }
       section.steps {
         ul {
-          width: 435px;
-          margin: 0 auto 60px;
+          width: 440px;
+          margin: 0 auto 45px;
           overflow: auto;
           li {
             color: #58595b;
-            font-family: 'QuicksandRegular', sans-serif;
-            font-size: 13px;
-            letter-spacing: -1px;
+            background: url('/assets/home/bg-step.jpg') top right no-repeat;
+            font-family: $avenir;
+            font-size: 12px;
             text-align: center;
-            text-transform: uppercase;
-            width: 115px;
+            width: 120px;
+            height: 125px;
             display: inline-block;
-            margin: 0 45px 0 0;
+            margin: 0 10px 0 0;
+            padding: 0 20px 0 0;
             float: left;
             span {
-              color: #df5a8a;
-              font-family: 'Pontano Sans', sans-serif;
-              font-size: 30px;
-              margin: 0 0 5px;
+              color: #101010;
+              font-family: $kepler;
+              font-size: 58px;
+              line-height: 50px;
+              margin: 7px 0 0;
               display: block;
             }
             &.last {
-              margin: 0;
+              background: none;
+              width: 130px;
+              padding: 0;
             }
           }
         }
       }
       .start {
-        background: url('/assets/home/btn-start-here.png') no-repeat;
+        background: url('/assets/home/btn-start-here.jpg') no-repeat;
         text-indent: -9999px;
-        width: 346px;
-        height: 62px;
+        width: 316px;
+        height: 61px;
         margin: 0 auto;
         display: block;
       }
@@ -111,7 +102,7 @@ body {
       padding: 10px 30px 15px;
       overflow: visible;
       border: 1px #c7c7c7 solid;
-      top: 505px;
+      top: 570px;
       right: 15px;
       float: right;
 
