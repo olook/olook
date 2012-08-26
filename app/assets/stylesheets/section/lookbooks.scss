@@ -132,7 +132,7 @@ section#lookbooks {
       text-indent: -9999px;
       width: 60px;
       height: 551px;
-      display: block;
+      display: none !important;
       top: 0;
       z-index: 100;
       cursor: pointer;
@@ -166,6 +166,29 @@ section#lookbooks {
           width: 970px;
           height: 549px;
           border-bottom: 2px #D05582 solid;
+        }
+      }
+    }
+    .pagination {
+      position: absolute;
+	  text-align: center;
+      width: 100%;
+      height: auto;
+      margin: 10px 0 0;
+      bottom: 20px;
+      a {
+        background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
+        width: 13px;
+        height: 13px;
+        margin: 0 10px 0 0;
+        padding: 0;
+        display: inline-block;
+        &.selected {
+          background-position: 0 0;
+          cursor: default;
+        }
+        span {
+          display: none;
         }
       }
     }
