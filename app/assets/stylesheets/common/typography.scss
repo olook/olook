@@ -225,19 +225,15 @@ body {
 
   #sign-up {
     h2 {
-      font-size: 40px;
-      font-weight: bold;
-      font-style: italic;
-      letter-spacing: -2px
+      font-size: 28px;
+      text-transform: uppercase;
     }
 
     p {
-      font-family: 'Times New Roman', Times, sans-serif;
-      font-style: italic;
+      font-family: $kepler;
       font-size: 20px;
       color: #000;
       line-height: 18px;
-      letter-spacing: -1px;
 
       strong {
         font-weight: bold;
