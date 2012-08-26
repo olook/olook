@@ -30,6 +30,10 @@ $(document).ready(function() {
     next : {
       button : ".next-pic",
       key : "right"
+    },
+    pagination : {
+      container : "div#carousel_lookbooks_product .pagination",
+      items : 1
     }
   });
 });
