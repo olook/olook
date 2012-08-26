@@ -33,7 +33,7 @@ body {
 
     .jcarousel-prev {
       position: absolute;
-      top: 190px;
+      top: 245px;
 
       &:hover {
         background: url('/assets/quiz/previous_btn.gif') -42px 0 no-repeat;
@@ -71,38 +71,41 @@ body {
               width: 738px;
             }
             li {
+              position: relative;
               width: 206px;
               height: 400px;
               margin: 0 20px;
+              div.shadow {
+                position: absolute;
+                background: #efefef;
+                width: 206px;
+                height: 320px;
+                display: block;
+                margin: 0;
+                top: 64px;
+                left: 15px;
+                z-index: 1;
+              }
               label {
                 position: relative;
+                background: #FFF;
                 width: 206px;
                 height: 314px;
+                padding: 5px;
                 display: block;
-                div.shadow {
-                  position: absolute;
-                  background: #c6c6c6;
-                  width: 206px;
-                  height: 315px;
-                  display: block;
-                  margin: 0;
-                  top: 5px;
-                  left: 5px;
-                  z-index: 0;
-                }
+                border: 1px #e5e5e5 solid;
+                z-index: 100;
               }
               &:hover, &.selected {
                 color: rgb(189, 76, 116);
                 img {
                   cursor: pointer;
                 }
-                h3 {
-                  color: $secondary_color;
+                div.shadow {
+                  background: #efefef;
                 }
                 label {
-                  div.shadow {
-                    background: $secondary_color;
-                  }
+                  border: 1px #000 solid;
                 }
               }
             }
@@ -113,7 +116,7 @@ body {
 
             ol {
               &.options {
-                width: 884px;
+                width: 895px;
                 padding-left: 50px;
                 height: 500px;
               }
@@ -121,21 +124,19 @@ body {
                 width: 201px;
                 height: 285px;
                 margin: 0 10px;
+                div.shadow {
+                  position: absolute;
+                  height: 285px;
+                  display: block;
+                  top: 61px;
+                  left: 13px;
+                  z-index: 0;
+                }
                 label {
                   position: relative;
                   width: 204px;
                   height: 276px;
                   display: block;
-                  div.shadow {
-                    position: absolute;
-                    background: #c6c6c6;
-                    width: 204px;
-                    height: 276px;
-                    display: block;
-                    top: 5px;
-                    left: 5px;
-                    z-index: 0;
-                  }
                 }
                 img {
                   border: 1px solid #E9E9E9;
@@ -468,23 +469,20 @@ body {
     display: block;
     width: 244px;
     overflow: hidden;
-    margin: -80px auto 0;
+    margin: -50px auto 0;
     clear: both;
 
     li {
-      background: url(/assets/common/tracker-bullet.png) left center no-repeat;
+      background: url(/assets/common/sprite-pagination.png) -13px 0 no-repeat;
       float: left;
       display: block;
-      margin: 2px 5px 0;
-      width: 10px;
-      height: 9px;
-      text-indent: -10000px;
+      margin: 0px 5px 0;
+      width: 13px;
+      height: 13px;
+      text-indent: -99999px;
 
       &.selected {
-        background-position: -10px 0;
-        margin-top: 0;
-        width: 12px;
-        height: 12px;
+        background-position: 0 0;
       }
     }
 
