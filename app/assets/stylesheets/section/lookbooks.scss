@@ -15,8 +15,7 @@ section#lookbooks {
   div#carousel_lookbooks {
     position: relative;
     width: 970px;
-    height: 182px;
-    margin: 0 auto 15px auto;
+    margin: 0 auto 40px auto;
     overflow: hidden;
     .prev-lookbook, .next-lookbook {
       position: absolute;
@@ -24,7 +23,7 @@ section#lookbooks {
       text-indent: -9999px;
       width: 38px;
       height: 38px;
-      display: block;
+      display: none !important;
       top: 70px;
       z-index: 1;
       cursor: pointer;
@@ -72,6 +71,26 @@ section#lookbooks {
             left: 0;
             bottom: 5px;
           }
+        }
+      }
+    }
+    .pagination {
+	  text-align: center;
+      height: auto;
+      margin: 10px 0 0;
+      a {
+        background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
+        width: 13px;
+        height: 13px;
+        margin: 0 10px 0 0;
+        padding: 0;
+        display: inline-block;
+        &.selected {
+          background-position: 0 0;
+          cursor: default;
+        }
+        span {
+          display: none;
         }
       }
     }
