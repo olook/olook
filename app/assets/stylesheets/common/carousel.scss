@@ -4,17 +4,14 @@
 
 body {
   #survey {
-    height: 550px;
-    overflow: hidden;
-
     .jcarousel-container {
       width: 990px;
-      height: 500px;
+      //height: 500px;
     }
 
     .jcarousel-clip {
       width: 990px;
-      height: 500px;
+      //height: 500px;
       overflow: hidden;
     }
 
@@ -193,6 +190,13 @@ body {
               width: 740px;
               > li {
                 width: 700px;
+                div.box {
+                  width: 465px;
+                  margin: 0 auto 20px;
+                  padding: 20px;
+                  overflow: auto;
+                  border: 1px #dcdcdc solid;
+                }
               }
             }
             h3 {
@@ -210,14 +214,6 @@ body {
                 border: 1px solid $secondary_color;
                 color: $secondary_color;
                 margin-left: 19px;
-
-                &:first-child {
-                  margin-left: 0;
-                }
-                &.selected {
-                  background: $secondary_color;
-                  color: #FFF;
-                }
 
                 label {
                   display: block;
@@ -238,8 +234,9 @@ body {
           fieldset {
             &.select {
               position: relative;
-              width: 370px;
+              width: 280px;
               height: 35px;
+              margin: 0 auto;
               span.select {
                 position: absolute;
                 bottom: 0;
@@ -314,15 +311,18 @@ body {
             }
 
             &.buttons {
-              float: right;
-              margin-top: -52px;
+              width: 100%;
+              overflow: auto;
+              clear: both;
               li {
                 background: url('/assets/common/finish.png') no-repeat;
                 text-indent: -9999px;
                 width: 217px;
                 height: 71px;
+                margin: 0 auto;
                 display: block;
                 cursor: pointer;
+                float: none;
                 &.grey-button {
                   background: url('/assets/common/finish-disabled.png') no-repeat;
                 }
@@ -469,7 +469,7 @@ body {
     display: block;
     width: 244px;
     overflow: hidden;
-    margin: -50px auto 0;
+    margin: 0 auto;
     clear: both;
 
     li {
