@@ -49,39 +49,44 @@ body {
     background: #FFF;
     display: none;
     div.share {
-      background: #000;
-      padding: 10px 20px;
+      width: 100%;
+      margin: 0 0 20px;
+      overflow: auto;
       p {
-        color: #FFF;
-        font-family: "Times New Roman", Times, sans-serif;
-        font-size: 17px;
-        font-style: italic;
+        color: #101010;
+        font-family: $avenir;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
         margin: 0 10px 0 0;
-        float: left;
+        float: right;
       }
       iframe {
+        width: 100px;
         height: 20px;
+        float: right;
       }
     }
     ul {
       li {
-        width: 445px;
+        width: 475px;
         overflow: auto;
-        margin: 20px 20px 20px 0;
+        margin: 20px 0;
         float: left;
         a {
           text-indent: -9999px;
           display: block;
           &.me {
-            background: url("/assets/common/essa-sou-eu.png") no-repeat;
-            width: 174px;
+            background: url("/assets/common/its-me.jpg") no-repeat;
+            width: 179px;
             height: 59px;
-            float: right;
+            margin: 0 0 0 20px;
           }
           &.new_survey {
-            background: url("/assets/common/quero-tentar-de-novo.png") no-repeat;
-            width: 284px;
+            background: url("/assets/common/try-again.jpg") no-repeat;
+            width: 301px;
             height: 59px;
+            float: right;
           }
         }
       }
