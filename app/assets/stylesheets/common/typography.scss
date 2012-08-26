@@ -160,21 +160,30 @@ body {
         }
 
         &.about {
+          h2 {
+            display: none;
+          }
           ol.options {
             li {
               h3 {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 16px;
-                font-style: italic;
-                text-align: left;
+                font-family: $avenir;
+                text-align: center;
                 font-size: 22px;
+                font-weight: 500;
+                margin: 0 0 15px;
               }
               .question {
                 li {
+                  color: #595959;
                   text-align: center;
                   line-height: 36px;
                   font-size: 16px;
-                  font-weight: bold;
+                  margin: 0 10px 0 0;
+                  &.selected {
+                    background: #000;
+                    color: #FFF;
+                    font-weight: 600;
+                  }
                 }
               }
             }
