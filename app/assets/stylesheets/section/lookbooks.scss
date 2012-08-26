@@ -4,7 +4,6 @@
 section#lookbooks {
   width: 100%;
   padding: 20px 0;
-  overflow: auto;
   h1.lookbook_title {
     font-family: $kepler;
     font-size: 40px;
@@ -101,23 +100,22 @@ section#lookbooks {
     width: 970px;
     height: 551px;
     margin: 0 auto 35px auto;
-    overflow: hidden;
     a.video_link {
       position: absolute;
-      background: image-url("lookbooks/label_video.jpg") no-repeat;
+      background: image-url("lookbooks/label_video.png") no-repeat;
       color: #FFF;
       font-family: $johnston;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 100;
-      line-height: 38px;
+      line-height: 26px;
       text-decoration: none;
       text-transform: uppercase;
-      width: 132px;
-      height: 38px;
-      padding: 0 0 0 43px;
+      width: 122px;
+      height: 33px;
+      padding: 0 0 0 32px;
       display: block;
-      top: 10px;
-      right: 0;
+      top: 0;
+      right: -13px;
       z-index: 1000;
     }
     div.video_description {
