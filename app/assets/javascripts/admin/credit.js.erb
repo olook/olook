@@ -8,7 +8,7 @@ $(document).ready(function(){
 			$('#ordem_number').val('')
 			$('.order_number').hide();
 		}
-	}
+	};
 
 	orderNumberController.call(window);
 
@@ -17,8 +17,7 @@ $(document).ready(function(){
 	}, "Please provide a valid money amount. For cents use two digits");
 
 	$.validator.addMethod("transaction_limit", function(value, element) {
-		max_value = $("#operation").val()=='invite' ? 10 : 150;
-    return this.optional(element) || (parseFloat(value) <= max_value);
+    return this.optional(element) || (parseFloat(value) <= 150);
 	}, "* Amount cannot exceed the max value.");
 
 	$.validator.addMethod("transaction_minimun_limit", function(value, element) {

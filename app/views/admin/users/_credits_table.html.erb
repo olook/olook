@@ -4,15 +4,15 @@
 
 <table class="table">
   <tr>
-    <th>Credit Source</th>
-    <th>Credit Reason</th>
+    <th>Source</th>
+    <th>Reason</th>
     <th>Value</th>
     <th>Created at</th>
     <th>Updated at</th>
   </tr>
 <% credits.each do |credit| %>
   <tr>
-    <td><%= credit.source %></td>
+    <td><%= credit.id %></td>
     <td><%= credit.reason %></td>
     <%= credit.is_debit ? "<td style='color:red'>-#{number_to_currency(credit.value)}</td>".html_safe : 
     "<td style='color:green'>#{number_to_currency(credit.value)}</td>".html_safe %>
