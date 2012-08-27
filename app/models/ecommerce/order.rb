@@ -131,9 +131,8 @@ class Order < ActiveRecord::Base
     "#{user_first_name} #{user_last_name}".strip
   end
 
-  
   def erp_payment
-     self.payments.try(:last)
+     payments.for_erp
   end
 
   # TODO: THIS BLOCK MUST DIE ASAP!

@@ -40,6 +40,9 @@ class Payment < ActiveRecord::Base
 
   after_create :generate_identification_code
 
+  def self.for_erp
+    where(type: ['CreditCard','Billet', 'Debit'])
+  end
 
   def credit_card?
     (self.type == "CreditCard") ? true : false
