@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :user_credits
 
   before_create :generate_invite_token
-  after_create :generate_auth_token
+  after_create :initialize_user
 
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
@@ -290,7 +290,11 @@ class User < ActiveRecord::Base
     end if self.invite_token.nil?
   end
 
-  def generate_auth_token
+  def initialize_user
+    Resque.enqueue(SignupNotificationWorker, self.id)
+    self.add_event(EventType::SIGNUP)
+    Credit.add_for_invitee(self)
+    
     self.reset_authentication_token!
   end
 end
