@@ -9,11 +9,11 @@ module Abacos
     def initialize(order)
       raise "Order number #{order.number} isn't canceled" unless order.canceled?
       @numero_pedido      = order.number
-      @data               = parse_datetime(order.payment.payment_response.created_at)
+      @data               = parse_datetime(order.erp_payment.payment_response.created_at)
       @status             = 'speRecusado'
-      @codigo_autorizacao = order.payment.payment_response.transaction_code
-      @mensagem_retorno   = order.payment.payment_response.message
-      @codigo_retorno     = order.payment.payment_response.return_code
+      @codigo_autorizacao = order.erp_payment.payment_response.transaction_code
+      @mensagem_retorno   = order.erp_payment.payment_response.message
+      @codigo_retorno     = order.erp_payment.payment_response.return_code
     end
     
     def parsed_data
