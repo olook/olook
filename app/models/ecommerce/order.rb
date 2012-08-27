@@ -24,12 +24,10 @@ class Order < ActiveRecord::Base
   has_many :payments, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
-  has_many :order_events, :dependent => :destroy
   has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
-  alias :items :line_items
   
   after_create :initialize_order
 
@@ -149,7 +147,6 @@ class Order < ActiveRecord::Base
   def initialize_order
     update_attributes(:number => (id * CONSTANT_FACTOR) + CONSTANT_NUMBER)
     self.update_attribute(:purchased_at, Time.now)
-    order_events.create(:message => "Enqueue Abacos::InsertOrder")
     Resque.enqueue(Abacos::InsertOrder, self.number)
     Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
     Credit.remove(credits, user, self) if credits > 0
@@ -166,7 +163,6 @@ class Order < ActiveRecord::Base
     Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, self.id)
     # UserCredit.process!(self)
     
-    order_events.create(:message => "Enqueue Abacos::ConfirmPayment")
     Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
     true
   end
