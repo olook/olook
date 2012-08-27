@@ -7,7 +7,6 @@ module Abacos
       return true unless Setting.abacos_integrate
       
       order = parse_and_check_order order_number
-      create_order_event order
       if export_client(order)
         if insert_order(order)
           Resque.enqueue(Abacos::CancelOrder, order_number) if order.canceled?
@@ -16,10 +15,6 @@ module Abacos
     end
 
   private
-    def self.create_order_event(order)
-      order.order_events.create(:message => "Calling Abacos::InsertOrder")
-    end
-
     def self.parse_and_check_order(order_number)
       order = Order.find_by_number order_number
       raise "Order number #{order_number} doesn't have an associated payment" unless order.payment
