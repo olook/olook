@@ -31,6 +31,5 @@ FactoryGirl.define do
   factory :credit_card_with_response, :parent => :credit_card do
     association :payment_response, :factory => :authorized_response
   end
-
 end
 
