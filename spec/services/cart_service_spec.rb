@@ -573,20 +573,20 @@ describe CartService do
   context "insert a order" do
     it "should a valid cart is required" do
       expect {
-        CartService.new({}).generate_order!(double(Payment))
+        CartService.new({}).generate_order!
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid cart is required for generating an order.')
     end
     
     it "should a valid freight is required" do
       expect {
-        CartService.new({:cart => cart}).generate_order!(double(Payment))
+        CartService.new({:cart => cart}).generate_order!
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid freight is required for generating an order.')
     end
     
     it "should a valid user is required" do
       expect {
         cart.user = nil
-        CartService.new({:cart => cart, :freight => freight}).generate_order!(double(Payment))
+        CartService.new({:cart => cart, :freight => freight}).generate_order!
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid user is required for generating an order.')
     end
     
@@ -601,10 +601,9 @@ describe CartService do
         cart_service.stub(:item_price => 10)
         cart_service.stub(:item_retail_price => 20)
         
-        order = cart_service.generate_order!(payment)
+        order = cart_service.generate_order!
         
         order.cart.should eq(cart)
-        order.payment.should eq(payment)
         order.credits.should eq(0)
         order.user_id.should eq(user.id)
         order.restricted.should eq(false)
@@ -641,7 +640,7 @@ describe CartService do
         
         cart_service.stub(:total_discount_by_type => 20)
         
-        order = cart_service.generate_order!(payment)
+        order = cart_service.generate_order!
         
         order.used_promotion.promotion.should be(promotion)
         order.used_promotion.discount_percent.should be(promotion.discount_percent)
@@ -654,7 +653,7 @@ describe CartService do
       expect {
         cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
         cart_service.stub(:total_coupon_discount => 100)
-        order = cart_service.generate_order!(payment)
+        order = cart_service.generate_order!
         order.used_coupon.coupon.should be(coupon_of_value)
       }.to change{Order.count}.by(1)
     end

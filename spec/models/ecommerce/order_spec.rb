@@ -226,7 +226,7 @@ describe Order do
     let!(:order_with_payment) { FactoryGirl.create :order }
     let!(:order_without_payment) do
       order = FactoryGirl.create :clean_order
-      order.payment.destroy
+      order.payments.destroy_all
       order
     end
 
