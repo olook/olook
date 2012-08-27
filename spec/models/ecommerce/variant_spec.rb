@@ -175,25 +175,21 @@ describe Variant do
 
   describe "inventory changes updates the liquidation product" do
     it "should reflect the changes on shoe that is into a liquidation" do
-      order = FactoryGirl.create :clean_order
       ls = LiquidationService.new(FactoryGirl.create(:liquidation))
-      line_item = FactoryGirl.build( :line_item, { :order => nil } )
-      order.line_items << line_item
-      line_item.stub_chain(:variant, :product, :retail_price).and_return(1.0)
-      line_item.stub_chain(:variant, :product, :price).and_return(1.0)
-      order.save
-      ls.add(Product.last.id.to_s, 10)
+      variant = subject
+      ls.add(variant.product.id.to_s, 10)
+      variant.inventory = 8
+      variant.save
       liquidation_product = LiquidationProduct.last
-      line_item.order.decrement_inventory_for_each_item
       liquidation_product.reload.inventory.should == 8
     end
 
     it "should reflect all liquidations" do
       ls1 = LiquidationService.new(FactoryGirl.create(:liquidation))
       ls2 = LiquidationService.new(FactoryGirl.create(:liquidation))
-      ls1.add(subject.product.id.to_s, 10)
-      ls2.add(subject.product.id.to_s, 10)
       variant = subject
+      ls1.add(variant.product.id.to_s, 10)
+      ls2.add(variant.product.id.to_s, 10)
       variant.inventory = 77
       variant.save
       variant.reload.inventory.should == 77
