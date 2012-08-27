@@ -94,6 +94,22 @@ describe User do
     it "should return true if user is old" do
       subject.is_old?.should be_true
     end
+    
+    it "should create a signup event when the user is created" do
+      user = FactoryGirl.create(:member)
+      user.events.where(:event_type => EventType::SIGNUP).any?.should be_true
+    end
+
+    it "enqueues a SignupNotificationWorker in resque" do
+      Resque.should_receive(:enqueue).with(SignupNotificationWorker, anything)
+      FactoryGirl.create(:member)
+    end
+
+    it "adds credit for the invitee" do
+      Credit.should_receive(:add_for_invitee)
+      FactoryGirl.create(:member)
+    end
+    
   end
 
   context "#facebook_data" do
