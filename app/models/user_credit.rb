@@ -34,8 +34,8 @@ class UserCredit < ActiveRecord::Base
     amount = BigDecimal.new(opts.delete(:amount).to_s)
 
     opts.merge!({
-      :user_credit => self,
       :total => (total - amount),
+      :user_credit => self,
       :value => amount
     })
 
@@ -53,15 +53,15 @@ class UserCredit < ActiveRecord::Base
 
   private
     def self.add_invite_credits(order)      
-      buyer, inviter = order.user, buyer.try(:inviter)
-      
+      buyer, inviter = order.user, order.user.try(:inviter)
+
       if inviter && buyer.first_buy?
-        inviter.user_credits_for(:invite).add(INVITE_BONUS, order) 
+        inviter.user_credits_for(:invite).add({:amount => INVITE_BONUS, :order => order, :user => inviter})
       end
     end
 
     def self.add_loyalty_program_credits(order)
-      user_credit = order.user.user_credits_for(:loyalty_program)
+      user, user_credit = order.user, order.user.user_credits_for(:loyalty_program)
       amount = order.amount_paid * LoyaltyProgramCreditType::PERCENTAGE_ON_ORDER
      
       user_credit.add({
