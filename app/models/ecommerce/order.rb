@@ -134,12 +134,6 @@ class Order < ActiveRecord::Base
   def erp_payment
      payments.for_erp.last
   end
-
-  # TODO: THIS BLOCK MUST DIE ASAP!
-  # def payment= payment
-  #   self.payments << payment
-  # end
-  # TODO: THIS BLOCK MUST DIE ASAP!
   
   private
 
