@@ -131,14 +131,15 @@ class Order < ActiveRecord::Base
     "#{user_first_name} #{user_last_name}".strip
   end
 
-  # TODO: THIS BLOCK MUST DIE ASAP!
-  def payment
-    self.payments.try(:last)
+  
+  def erp_payment
+     self.payments.try(:last)
   end
 
-  def payment= payment
-    self.payments << payment
-  end
+  # TODO: THIS BLOCK MUST DIE ASAP!
+  # def payment= payment
+  #   self.payments << payment
+  # end
   # TODO: THIS BLOCK MUST DIE ASAP!
   
   private
