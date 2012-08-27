@@ -132,7 +132,7 @@ class Order < ActiveRecord::Base
   end
 
   def erp_payment
-     payments.for_erp
+     payments.for_erp.last
   end
 
   # TODO: THIS BLOCK MUST DIE ASAP!
