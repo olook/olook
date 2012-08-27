@@ -5,6 +5,10 @@ describe Admin::UsersController do
   render_views
   let!(:user) { FactoryGirl.create(:user) }
   let!(:valid_attributes) { user.attributes }
+  let!(:redeem_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :redeem)}
+  let!(:loyalty_program_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :loyalty_program)}
+  let!(:invite_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :invite)}
+  
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -145,26 +149,15 @@ describe Admin::UsersController do
     end
 
     context 'add' do
-      let(:redeem_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :redeem)}
       let!(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => redeem_credit_type)}
-      
-      it "should create a credit transaction, given value, valid operation and reason" do
 
-        post :create_credit_transaction, transaction_param.merge(:order_number => on, :method => :add)
-        assigns(:user).should eq(user)
-
-        Order.any_instance.should_receive(:find_by_number).with(on).and_return(mock(Order))
-        user.should_receive(:user_credits_for).with(:redeem).and_return(user_credit)
-
-        RedeemCreditType.any_instance.should_receive(:add).with({
-          admin_id: @admin.id,
-          amount: transaction_param[:value].to_s.to_f,
-          credit_type: 'redeem',
-          order: mock,
-          reason: transaction_param[:reason],
-          source: "#{transaction_param[:method]} by #{@admin.name}",
-          user: user
-        })
+      it "should create a credit transaction, given value, valid operation and reason" do  
+        User.any_instance.should_receive(:user_credits_for).with('redeem').and_return(user_credit)
+        expect do
+          post :create_credit_transaction, transaction_param.merge(:order_number => "", :method => :add, :operation => :'redeem:order', :reason => 'foo')
+          assigns(:user).should eq(user)
+          assigns(:credit_type).should eq('redeem')  
+        end.to change{Credit.count}.by(1)
       end
     end
     

@@ -2,8 +2,10 @@
 class Admin::UsersController < Admin::BaseController
 
   load_and_authorize_resource
-  before_filter :check_params_for_create_credits, :only => :create_credit_transaction
+
   respond_to :html, :js, :text
+  
+  before_filter :check_params_for_create_credits, :only => :create_credit_transaction
 
   def index
     @search = User.search(params[:search])
@@ -74,33 +76,31 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def create_credit_transaction
-    @user.user_credits_for(@credit_type).send(params[:method],
-      admin_id: current_admin.id,
-      amount: @amount,
-      order: @order,
-      reason: @reason,
-      source: "#{params[:method]} by #{current_admin.name}",
-      user: @user
-    )
-
-    redirect_to(admin_user_path(@user), :notice => 'Crédito adicionado com sucesso!')
+    if @user.user_credits_for(@credit_type).send( params[:method],
+                                                  admin_id: current_admin.id,
+                                                  amount: @amount,
+                                                  order: @order,
+                                                  reason: @reason,
+                                                  user: @user)
+      redirect_to(admin_user_path(@user), :notice => "Credit #{(params[:method].to_s=='add' ? 'Added' : 'Removed')} by #{current_admin.name}")
+    else
+      redirect_with_notice('The user hasn\'t enough credtis for this operation.')
+    end
   end
 
   private
   def check_params_for_create_credits
     @user = User.find(params[:id])
-    @amount = BigDecimal.new(params[:value].to_s)
     @reason, @credit_type, @has_order = params[:reason], *params[:operation].split(":")
-     
+    @amount = BigDecimal.new(params[:value].to_s)
     @order = Order.find_by_number(params[:ordem_number])
 
     raise NoMethodError.new("Invalid method #{params[:method]}.") unless ['add','remove'].include?(params[:method])
-    return redirect_with_notice("Ordem não foi encontrada. Verifique se o número da ordem está correto.") if @has_order and @order.nil?
     return redirect_with_notice("O valor de crédito não permitido") if amount_is_valid?(@amount, @credit_type)
   end
 
   def amount_is_valid?(amount, credit_type)
-    amount <= 0.0 or (credit_type == "invite" and amount > UserCredit::INVITE_BONUS) or (amount > UserCredit::TRANSACTION_LIMIT)
+    amount <= 0.0 or (amount > UserCredit::TRANSACTION_LIMIT)
   end
 
   def redirect_with_notice(notice)

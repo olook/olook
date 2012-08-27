@@ -50,7 +50,7 @@ describe RedeemCreditType do
 
           expect{
             user.user_credits_for(:redeem).remove(attrs_for_credit.merge(:amount => BigDecimal.new('99')))
-          }.to change{ Credit.count }.by(4)
+          }.to change{ Credit.count }.by(1)
 
           subject.total(user.user_credits_for(:redeem)).should == 0.99
         end
@@ -60,7 +60,7 @@ describe RedeemCreditType do
 
           expect{
             user.user_credits_for(:redeem).remove(attrs_for_credit.merge(:amount => BigDecimal.new('31.33')))
-          }.to change{ Credit.count }.by(2)
+          }.to change{ Credit.count }.by(1)
           
           subject.total(user.user_credits_for(:redeem)).should == 2.0
         end
