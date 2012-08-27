@@ -2,15 +2,12 @@
 require "spec_helper"
 
 describe Abacos::ConfirmarPagamento do
-  let(:response) { FactoryGirl.create :authorized_payment }
-
   context 'when instantiated with a non-authorized payment' do
     let(:order) do
       result = FactoryGirl.create :clean_order
       result.stub(:'authorized?').and_return(false)
       result
     end
-    let!(:payment) { FactoryGirl.create :credit_card, :payment_response => response, :order => order }
     
     it 'should raise and error' do
       expect {
@@ -25,14 +22,15 @@ describe Abacos::ConfirmarPagamento do
       result.stub(:'authorized?').and_return(true)
       result
     end
-    
-    let(:payment) { FactoryGirl.create :credit_card, :payment_response => response, :order => order }
 
-    before :each do
-      payment.payment_response.stub(:created_at).and_return(DateTime.civil(2012, 04, 12, 10, 44, 55))
+    let(:payment) do
+      result = FactoryGirl.create :credit_card, :order => order
+      result.payment_response = FactoryGirl.create :authorized_response, :payment => result
+      result.payment_response.update_attribute('created_at', DateTime.civil(2012, 04, 12, 13, 44, 55))
+      result
     end
 
-    subject { described_class.new order }
+    subject { described_class.new payment.order }
     
     it '#numero_pedido' do
       subject.numero_pedido.should == order.number
