@@ -16,15 +16,8 @@ describe Users::RegistrationsController do
 
   render_views
 
-  before :all do
-    ActiveRecord::Base.observers.disable :all
-  end
-  
-  after :all do
-    ActiveRecord::Base.observers.enable :all
-  end
-
   before :each do
+    Resque.stub(:enqueue)
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
@@ -271,7 +264,7 @@ describe Users::RegistrationsController do
         last_event.user_id.should be(controller.current_user.id)
         last_event.event_type.should be(EventType::TRACKING)
         last_event.description.should eq("bla")
-      }.to change{Event.count}.by(1)
+      }.to change{Event.count}.by(2)
     end
 
     it "should clear tracking session" do
