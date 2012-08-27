@@ -20,8 +20,19 @@ class PaymentBuilder
           order = cart_service.generate_order!(payment)
           payment.order = order
           payment.save!
-          order.decrement_inventory_for_each_item
-          order.invalidate_coupon
+          
+          order.line_items.each do |item|
+            variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
+            variant.decrement!(:inventory, item.quantity)
+          end
+          
+          Coupon.transaction do
+            coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(order.try(:used_coupon).try(:coupon_id))
+            if coupon
+              coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
+            end
+          end
+          
           respond_with_success
         else
           respond_with_failure
