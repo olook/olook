@@ -40,10 +40,11 @@ Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number
 </p>
 <% end %>
 
-<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.payment.is_a? CreditCard %>
-<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.payment} if @order.payment.is_a? Billet %>
-<%= render :partial => 'order_status_mailer/requested_debit' if @order.payment.is_a? Debit %>
-
+<% @order.payments.each do |payment| %>
+<%= render :partial => 'order_status_mailer/requested_credit_card' if payment.is_a? CreditCard %>
+<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => payment} if payment.is_a? Billet %>
+<%= render :partial => 'order_status_mailer/requested_debit' if payment.is_a? Debit %>
+<% end %>
 <p>Em breve vamos te enviar um e-mail com o novo status da sua compra.</p>
 
 <p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789;"> falecom@olook.com.br</a> e a nossa equipe irá te responder o mais rápido possível.</p>

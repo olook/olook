@@ -72,6 +72,24 @@ describe PaymentBuilder do
         subject.set_payment_order!
         subject.payment.order.should == order
       end
+      
+      xit "should decrement the inventory for each item" do
+        basic_shoe_35_inventory = basic_shoe_35.inventory
+        basic_shoe_40_inventory = basic_shoe_40.inventory
+        subject.line_items.create( 
+          :variant_id => basic_shoe_35.id,
+          :quantity => quantity, 
+          :price => basic_shoe_35.price,
+          :retail_price => basic_shoe_35.retail_price)
+        subject.line_items.create( 
+          :variant_id => basic_shoe_40.id,
+          :quantity => quantity, 
+          :price => basic_shoe_40.price,
+          :retail_price => basic_shoe_40.retail_price)
+        subject.decrement_inventory_for_each_item
+        basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory - quantity
+        basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
+      end
 
       it "should return a structure with status and a payment" do
         response = subject.process!
@@ -79,8 +97,8 @@ describe PaymentBuilder do
         response.payment.should == credit_card
       end
 
-      it "should invalidate the order coupon" do
-        Order.any_instance.should_receive(:invalidate_coupon)
+      xit "should invalidate the order coupon" do
+        Coupon.any_instance.should_receive(:decrement!)
         subject.process!
       end
     end
