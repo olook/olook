@@ -140,7 +140,7 @@ class CartService
     total
   end
   
-  def generate_order!(payment)
+  def generate_order!
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
@@ -149,7 +149,6 @@ class CartService
 
     order = Order.create!(
       :cart_id => cart.id,
-      :payment => payment,
       :credits => total_credits_discount,
       :user_id => user.id,
       :restricted => cart.has_gift_items?,

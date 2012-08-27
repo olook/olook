@@ -17,7 +17,7 @@ class PaymentBuilder
       if payment_response.response_status == Payment::SUCCESSFUL_STATUS
         if payment_response.transaction_status != Payment::CANCELED_STATUS
           
-          order = cart_service.generate_order!(payment)
+          order = cart_service.generate_order!
           payment.order = order
           payment.save!
           
