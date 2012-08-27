@@ -114,7 +114,7 @@ class Order < ActiveRecord::Base
   end
 
   def installments
-    payment.try(:payments) || 1
+    erp_payment.try(:payments) || 1
   end
 
   def delivery_time_for_a_shipped_order
