@@ -6,6 +6,9 @@ describe User do
 
   let(:casual_profile) { FactoryGirl.create(:casual_profile) }
   let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
@@ -106,7 +109,7 @@ describe User do
     end
 
     it "adds credit for the invitee" do
-      Credit.should_receive(:add_for_invitee)
+      UserCredit.should_receive(:add_for_invitee)
       FactoryGirl.create(:member)
     end
     
@@ -314,21 +317,6 @@ describe User do
       subject.survey_answers.should == survey_answers.answers
     end
   end
-
-  describe "#invite_bonus" do
-    it "calls calculate on InviteBonus and returns the value" do
-      InviteBonus.should_receive(:calculate).with(subject).and_return(123.0)
-      subject.invite_bonus.should == 123.0
-    end
-  end
-
-  describe "#used_invite_bonus" do
-    it "calls already_used on InviteBonus and returns the value" do
-      InviteBonus.should_receive(:already_used).with(subject).and_return(13.0)
-      subject.used_invite_bonus.should == 13.0
-    end
-  end
-
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }
@@ -588,20 +576,17 @@ describe User do
     end
 
     context "when user has one credit record" do
-      let!(:credit) { FactoryGirl.create(:credit, :user => subject) }
-
       it "returns the total of the credit record" do
-        subject.current_credit.should == credit.total
+        subject.user_credits_for(:invite).add(:amount => 10.0, :user => subject)
+        subject.current_credit.should == subject.user_credits_for(:invite).total
       end
     end
 
     context "when user has more than one credit record" do
-      let!(:credit_one) { FactoryGirl.create(:credit, :total => 43, :user => subject) }
-      let!(:credit_two) { FactoryGirl.create(:credit, :total => 7, :user => subject) }
-
-
       it "returns the total of the last credit record" do
-        subject.current_credit.should == credit_two.total
+        subject.user_credits_for(:invite).add(:amount => 10.0, :user => subject)
+        subject.user_credits_for(:redeem).add(:amount => 10.0, :user => subject, :admin_id => subject.id)
+        subject.reload.current_credit.should == 20.0
       end
     end
 
@@ -609,7 +594,7 @@ describe User do
 
   describe "#can_use_credit?" do
     before do
-      FactoryGirl.create(:credit, :user => subject, :total => 23)
+      subject.user_credits_for(:invite).add(:amount => 23.0, :user => subject)
     end
 
     context "when user current credits is less then the received value" do
@@ -629,7 +614,6 @@ describe User do
         subject.can_use_credit?(21.90).should be_true
       end
     end
-
   end
 
   describe "first_buy?" do

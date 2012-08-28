@@ -2,7 +2,10 @@
 require "spec_helper"
 
 describe Abacos::PedidoPresente do
-
+  
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
   let!(:member)  { FactoryGirl.create :member,
                     :cpf => '98765432198',
                     :email => 'janedoe@test.com', :first_name => 'Jéssica', :last_name => 'Maíra'
@@ -14,7 +17,7 @@ describe Abacos::PedidoPresente do
   let!(:variant_b) { FactoryGirl.create :basic_shoe_size_40 }
   let!(:line_item_3) { FactoryGirl.create :line_item, :order => gift_order, :variant => variant_a, :quantity => 2, :price => 20.0 }
   let!(:line_item_4) { FactoryGirl.create :line_item, :order => gift_order, :variant => variant_b, :quantity => 1, :price => 30.0 }
-
+  
 
   context "creating a gift order" do
     describe "should have correct abacos gifties attributes" do
