@@ -14,6 +14,10 @@ describe Users::RegistrationsController do
   let(:facebook_data) { {"extra" => {"raw_info" => {"first_name" => "Maria", "last_name" => "Alencar", "id" => "12876556"}}, "credentials" => {"token" => "abc"}} }
   let(:inviting_member) { FactoryGirl.create(:member) }
 
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
+
   render_views
 
   before :each do

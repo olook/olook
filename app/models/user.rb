@@ -116,9 +116,9 @@ class User < ActiveRecord::Base
     InviteBonus.already_used(self)
   end
   
-  def current_credit#(date = DateTime.now)
-    #self.user_credits.map{|uc| uc.total(date)}.reduce(:+)
-    credits.last.try(:total) || 0
+  def current_credit(date = DateTime.now)
+    UserCredit::CREDIT_CODES.keys.map{|user_credit_code| user_credits_for(user_credit_code).total(date)}.sum
+    # credits.last.try(:total) || 0
   end
 
   def can_use_credit?(value)
