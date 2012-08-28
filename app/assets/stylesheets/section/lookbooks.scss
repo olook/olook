@@ -22,7 +22,6 @@ section#lookbooks {
       text-indent: -9999px;
       width: 38px;
       height: 38px;
-      display: none !important;
       top: 70px;
       z-index: 1;
       cursor: pointer;
@@ -54,21 +53,20 @@ section#lookbooks {
           img {
             width: 318px;
             height: 180px;
-            border-bottom: 2px #D05582 solid;
           }
           h1 {
             position: absolute;
             background: url("/assets/lookbooks/bg-title.png") repeat;
             color: #FFF;
             font-family: $kepler;
-            font-size: 29px;
+            font-size: 24px;
             font-weight: lighter;
             letter-spacing: -1px;
             width: 298px;
             margin: 0;
             padding: 5px 10px;
             left: 0;
-            bottom: 5px;
+            bottom: 4px;
           }
         }
       }
@@ -98,7 +96,7 @@ section#lookbooks {
   div#carousel_lookbooks_product {
     position: relative;
     width: 970px;
-    height: 551px;
+    height: 565px;
     margin: 0 auto 35px auto;
     a.video_link {
       position: absolute;
@@ -130,7 +128,6 @@ section#lookbooks {
       text-indent: -9999px;
       width: 60px;
       height: 551px;
-      display: none !important;
       top: 0;
       z-index: 100;
       cursor: pointer;
@@ -163,17 +160,14 @@ section#lookbooks {
         img {
           width: 970px;
           height: 549px;
-          border-bottom: 2px #D05582 solid;
         }
       }
     }
     .pagination {
-      position: absolute;
 	  text-align: center;
       width: 100%;
       height: auto;
       margin: 10px 0 0;
-      bottom: 20px;
       a {
         background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
         width: 13px;
