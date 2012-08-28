@@ -33,7 +33,7 @@
             <%= collection_select :recipient, :gift_recipient_relation_id, @recipient_relations, :id, :name, {:prompt => 'Escolha', :selected => @recipient_relation_id}, { :class => "custom_select relation", :title => "escolha" } %>
           </p>
         </div>
-        <%= submit_tag "" %>
+        <%= submit_tag "", id: "continuar" %>
       <% end %>
     </div>
   </div>
