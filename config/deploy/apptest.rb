@@ -3,7 +3,7 @@ role :web, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-#set :rails_env, "staging"
+set :rails_env, "staging"
 
 trap("INT") {
   print "\n\n"
@@ -90,5 +90,7 @@ namespace :deploy do
   #before 'deploy:assets:precompile', 'deploy:bundle_install'
 
   #before 'deploy:finalize_update', 'deploy:assets:symlink'
-  #after 'deploy:update_code', 'deploy:assets:precompile'
+  #after 'deploy:yml_links', 'deploy:assets:symlink'
+  after 'deploy:update_code', 'deploy:yml_links'
+  after 'deploy:yml_links', 'deploy:assets:precompile'
 end
