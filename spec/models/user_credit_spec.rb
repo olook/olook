@@ -14,8 +14,9 @@ describe UserCredit do
     let(:user) { FactoryGirl.create(:member) }
     let(:credit_type){ mock_model(CreditType, :total => 25.03, :add => true, :remove => true) }
     let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => credit_type) }
-    let(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => "loyalty_program") }
-    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => "invite") }
+    let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
     let(:order) { FactoryGirl.create(:order, :user => user) }
     let(:invitee) { FactoryGirl.create(:user, :is_invited => true, :cpf => '298.161.997-77') }
     let(:invite) { FactoryGirl.create(:invite, :user => user) }
@@ -58,12 +59,12 @@ describe UserCredit do
       UserCredit.process!(invitee_order)
 
       invitee.user_credits_for(:loyalty_program).total.should eq(0.00)
-      user.user_credits_for(:invite).total.should eq(UserCredit::INVITE_BONUS)
+      user.user_credits_for(:invite).total.should == BigDecimal.new(Setting.invite_credits_bonus_for_inviter)
 
       Delorean.jump 1.month
 
       invitee.user_credits_for(:loyalty_program).total.should eq(20.00)
-      user.user_credits_for(:invite).total.should eq(UserCredit::INVITE_BONUS)
+      user.user_credits_for(:invite).total.should == BigDecimal.new(Setting.invite_credits_bonus_for_inviter)
     end
 
     context "when User Credit specific settings change" do

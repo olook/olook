@@ -2,63 +2,12 @@
 require 'spec_helper'
 
 describe Credit do
-  it { should belong_to(:user) }
-  it { should belong_to(:order) }
-  it { should validate_presence_of(:value) }
+  xit { should belong_to(:user) }
+  xit { should belong_to(:order) }
+  xit { should validate_presence_of(:value) }
 
   let(:user) { FactoryGirl.create(:member) }
   let(:invite) { FactoryGirl.create(:invite, :user => user ) }
-
-  describe "adding invite bonus for invited user (invitee)" do
-
-    context "when user is not invited" do
-      before do
-        user.update_attribute(:is_invited,false)
-      end
-
-      it "does not change user credits" do
-        expect {
-          described_class.add_for_invitee(user)
-        }.to_not change(user, :current_credit)
-      end
-    end
-
-    context "and user is invited" do
-      before do
-        user.update_attribute(:is_invited,true)
-      end
-
-      context "when user has already some credit" do
-        before do
-          FactoryGirl.create(:credit, :user => user)
-        end
-
-        it "does not change user credits" do
-          expect {
-            described_class.add_for_invitee(user)
-          }.to_not change(user, :current_credit)
-        end
-      end
-
-      context "when user has no credits" do
-        before do
-          user.credits.destroy_all
-          inviter = FactoryGirl.create :invite
-        end
-
-        it "adds 10.00 worth of invite bonus credits to the user" do
-          expect {
-            described_class.add_for_invitee(user)
-          }.to change(user, :current_credit).by(10)
-        end
-
-        it "creates a record with invite_bonus source" do
-          described_class.add_for_invitee(user)
-          user.credits.last.source.should == "inviter_bonus"
-        end
-      end
-    end
-  end
 
   describe "adding bonus for a inviter after invitee completes an order" do
     let(:inviter) { FactoryGirl.create(:member) }
@@ -69,13 +18,13 @@ describe Credit do
         user.update_attribute(:is_invited,false)
       end
 
-      it "does not change user current_credit" do
+      xit "does not change user current_credxit" do
         expect {
-            described_class.add_for_inviter(user, order)
-          }.to_not change(inviter, :current_credit)
+          described_class.add_for_inviter(user, order)
+        }.to_not change(inviter, :current_credit)
       end
 
-      it "returns false" do
+      xit "returns false" do
         described_class.add_for_inviter(user, order).should be_false
       end
     end
@@ -93,13 +42,13 @@ describe Credit do
           user.stub(:first_buy?).and_return(true)
         end
 
-        it "updates his inviter current_credit by 10.00" do
+        xit "updates his inviter current_credit by 10.00" do
           expect {
               described_class.add_for_inviter(user, order)
             }.to change(inviter, :current_credit).by(10)
         end
 
-        it "creates a record with invitee_bonus source" do
+        xit "creates a record with invitee_bonus source" do
           described_class.add_for_inviter(user, order)
           inviter.credits.last.source.should == "invitee_bonus"
         end
@@ -110,13 +59,13 @@ describe Credit do
           user.stub(:first_buy?).and_return(false)
         end
 
-        it "does not change user current_credit" do
+        xit "does not change user current_credit" do
           expect {
               described_class.add_for_inviter(user, order)
             }.to_not change(inviter, :current_credit)
         end
 
-        it "returns false" do
+        xit "returns false" do
           described_class.add_for_inviter(user, order).should be_false
         end
       end
@@ -126,7 +75,7 @@ describe Credit do
 
   describe "removing user credit" do
     context "when the user has not enough credit" do
-      it "returns false" do
+      xit "returns false" do
         described_class.remove(123,user,anything).should be_false
       end
     end
@@ -136,7 +85,7 @@ describe Credit do
       let(:order) { FactoryGirl.create(:clean_order) }
       let(:amount) { BigDecimal.new("33.33") }
 
-      it "changes user current_credit by the received amount" do
+      xit "changes user current_credit by the received amount" do
         expect {
           described_class.remove(amount, user, order)
         }.to change(user, :current_credit).by(-amount)
@@ -147,15 +96,15 @@ describe Credit do
           described_class.remove(amount, user, order)
         end
 
-        it "has its value equal to the spent value" do
+        xit "has its value equal to the spent value" do
           described_class.last.value = amount
         end
 
-        it "has its order equal to the received order" do
+        xit "has its order equal to the received order" do
           described_class.last.order.should == order
         end
 
-        it "has its source equal to order" do
+        xit "has its source equal to order" do
           described_class.last.source.should == "order_debit"
         end
 
@@ -171,13 +120,13 @@ describe Credit do
     let(:amount) { BigDecimal.new("33.33") }
     let(:high_amount) { BigDecimal.new(100_000.to_s) }
 
-    it "increases user current_credit by the received amount" do
+    xit "increases user current_credit by the received amount" do
       expect {
         described_class.add(amount, user, order)
       }.to change(user, :current_credit).by(amount)
     end
 
-    it "is limitless" do
+    xit "is limitless" do
         expect {
           described_class.add(high_amount, user, order)
         }.to_not change(user, :current_credit).by(amount)
@@ -188,15 +137,15 @@ describe Credit do
         described_class.add(amount, user, order)
       end
 
-      it "has its value equal to the spent value" do
+      xit "has its value equal to the spent value" do
         described_class.last.value = amount
       end
 
-      it "has its order equal to the received order" do
+      xit "has its order equal to the received order" do
         described_class.last.order.should == order
       end
 
-      it "has its source equal to order" do
+      xit "has its source equal to order" do
         described_class.last.source.should == "order_credit"
       end
     end
