@@ -20,6 +20,10 @@ describe Users::SessionsController do
   let(:man_user_params) {{ :email => man_user.email, :password => man_user.password }}
   let!(:woman_user) { FactoryGirl.create(:user, :gender => User::Gender[:female], :half_user => true, :registered_via => User::RegisteredVia[:thin]) }
   let(:woman_user_params) {{ :email => woman_user.email, :password => woman_user.password }}
+
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
   
   describe "sign out" do
     it "should add event of sign out" do
@@ -49,7 +53,7 @@ describe Users::SessionsController do
       let (:occasion) { FactoryGirl.create(:gift_occasion, :user => nil, :gift_recipient => recipient) }
       let (:cart) { FactoryGirl.create(:cart_with_gift) }
 
-      before  :each do
+      before(:each) do
         session[:recipient_id] = recipient.id
         session[:occasion_id] = occasion.id
         session[:cart_id] = cart.id
@@ -71,7 +75,7 @@ describe Users::SessionsController do
       end
 
       it "should redirect to cart page when user has credits" do
-        user.credits.create!(total: 50, value: 50)
+        user.user_credits_for(:invite).add(amount: 50, :user => user)
         post :create, :user => user_params
         response.should redirect_to(cart_path)
       end
@@ -95,7 +99,7 @@ describe Users::SessionsController do
       end
       
       it "should redirect to cart page when user has credits" do
-        user.credits.create!(total: 50, value: 50)
+        user.user_credits_for(:invite).add(amount: 50, :user => user)
         post :create, :user => user_params
         response.should redirect_to(cart_path)
       end
@@ -108,6 +112,7 @@ describe Users::SessionsController do
 
     context "when is as full user" do
       it "should redirect to showroom page" do
+        user.stub(:half_user => false)
         post :create, :user => user_params
         response.should redirect_to(member_showroom_path)
       end

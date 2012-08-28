@@ -58,6 +58,10 @@ describe MarketingReports::Builder do
       "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,auth_token,current_credit\n"
     end
 
+    let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
+
     before(:each) do
       services.each do |service, response|
         MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
