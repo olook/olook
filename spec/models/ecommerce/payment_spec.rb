@@ -27,6 +27,15 @@ describe Payment do
     result
   end
   
+  let(:authorized) do
+    result = subject()
+    result.stub(:deliver_payment?).and_return(true)
+    result.stub(:authorize_order?).and_return(true)
+    result.start!
+    result.deliver!
+    result.authorize!
+    result
+  end
   
   let(:under_review) do
     result = subject()
@@ -129,5 +138,31 @@ describe Payment do
         end
       end
     end
+  
+    context "try to complete" do
+      context "when from authorized" do
+        it "should go to completed" do
+          authorized.complete!
+          authorized.completed?.should eq(true)
+        end
+      end
+      
+      context "when from under_review" do
+        it "should go to completed when authorize_order" do
+          under_review.should_receive(:authorize_order?).and_return(true)
+          under_review.complete!
+          under_review.completed?.should eq(true)
+        end
+
+        it "should raise error when not authorize_order" do
+          under_review.should_receive(:authorize_order?).and_return(false)
+          expect {
+            under_review.complete!
+          }.to raise_error
+        end
+      end
+    end
+    
+    
   end
 end
