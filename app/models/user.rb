@@ -107,18 +107,9 @@ class User < ActiveRecord::Base
   def can_access_facebook_extended_features?
     has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
-
-  def invite_bonus
-    InviteBonus.calculate(self)
-  end
-
-  def used_invite_bonus
-    InviteBonus.already_used(self)
-  end
   
   def current_credit(date = DateTime.now)
     UserCredit::CREDIT_CODES.keys.map{|user_credit_code| user_credits_for(user_credit_code).total(date)}.sum
-    # credits.last.try(:total) || 0
   end
 
   def can_use_credit?(value)
