@@ -15,10 +15,12 @@ class PaymentBuilder
       payment_response = set_payment_url!.payment_response
 
       if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+        #NAO EH A MESMA COISA !!
         if payment_response.transaction_status != Payment::CANCELED_STATUS
           
           order = cart_service.generate_order!
           payment.order = order
+          payment.deliver! if payment.kind_of?(CreditCard)
           payment.save!
           
           order.line_items.each do |item|
