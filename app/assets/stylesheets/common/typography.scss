@@ -268,16 +268,6 @@ body {
 
   section {
     &#user-info {
-      & + nav {
-        ul {
-          li {
-            a {
-              font-family: 'Futura Light';
-              font-size: 14px;
-            }
-          }
-        }
-      }
       .info {
         > h1 {
           font-weight: normal;
@@ -296,33 +286,15 @@ body {
           font-weight: bold;
           text-align: center;
           font-size:38px;
-
-          span.amount {
-            font-weight: bold;
-            color: $secondary_color;
-            line-height: 60px;
-          }
         }
       }
       .banner {
-         h1, h2, h3 {
-          color: $secondary_color;
-          text-transform: uppercase;
-          font-weight: bold;
-          font-style: italic;
-          text-transform: uppercase;
-        }
-
         > h1 {
           color: #FFF;
           font-size: 18px;
 
           & + h2 {
-            font-size: 138px;
-            letter-spacing: -20px;
-
             & + h3 {
-              font-size: 21px;
               span {
                 sup {
                   font-size: 10px;
@@ -354,17 +326,12 @@ body {
 
     &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
       hgroup {
-        h1, h2 {
-          font-size: 35px;
+        h1 {
+          font-family: $avenir;
+          font-size: 32px;
+          font-weight: lighter;
+          line-height: 38px;
           text-transform: uppercase;
-          letter-spacing: -2px;
-          line-height: 35px;
-          float: right;
-        }
-
-        h1{
-          text-indent: -9999px;
-          line-height:30px;
           display: block;
         }
 
@@ -372,11 +339,9 @@ body {
           font-size: 16px;
           text-transform: none;
           font-weight: normal;
-          font-family: Arial, sans-serif;
+          font-family: $kepler;
           line-height: normal;
-          margin-top: 16px;
-          letter-spacing:-1px;
-          text-align: right;
+          margin-top: 5px;
         }
       }
 
@@ -396,33 +361,7 @@ body {
       }
     }
 
-    &#share-mail {
-      h1 {
-        background: url('/assets/common/tit-invite-link.png') no-repeat;
-        width: 303px;
-        height: 70px;
-      }
-    }
-    &#invite-mail {
-      h1 {
-        background: url('/assets/common/tit-invite-email.png') no-repeat;
-        width: 329px;
-        height: 69px;
-      }
-    }
-    &#post-to-wall {
-      h1 {
-        background: url('/assets/common/tit-invite-facebook.png') no-repeat;
-        width: 311px;
-        height: 69px;
-      }
-    }
     &#import-contacts {
-      h1 {
-        background: url('/assets/common/tit-invite-contacts.png') no-repeat;
-        width: 330px;
-        height: 70px;
-      }
       form {
         fieldset {
           &.inputs {
