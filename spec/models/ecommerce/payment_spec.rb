@@ -37,6 +37,17 @@ describe Payment do
     result
   end
   
+  let(:completed) do
+    result = subject()
+    result.stub(:deliver_payment?).and_return(true)
+    result.stub(:authorize_order?).and_return(true)
+    result.start!
+    result.deliver!
+    result.authorize!
+    result.complete!
+    result
+  end
+  
   let(:under_review) do
     result = subject()
     result.stub(:deliver_payment?).and_return(true)
@@ -163,6 +174,115 @@ describe Payment do
       end
     end
     
+    context "try to review" do
+      context "when from waiting_payment" do
+        it "should go to under_review when review_order" do
+          waiting_payment.should_receive(:review_order?).and_return(true)
+          waiting_payment.review!
+          waiting_payment.under_review?.should eq(true)
+        end
+
+        it "should raise error when not review_order" do
+          waiting_payment.should_receive(:review_order?).and_return(false)
+          expect {
+            waiting_payment.review!
+          }.to raise_error
+        end
+      end
+    end
     
+    context "try to reverse" do
+      context "when from completed" do
+        it "should go to reversed when reverse_order" do
+          completed.should_receive(:reverse_order?).and_return(true)
+          completed.reverse!
+          completed.reversed?.should eq(true)
+        end
+
+        it "should raise error when not reverse_order" do
+          completed.should_receive(:reverse_order?).and_return(false)
+          expect {
+            completed.reverse!
+          }.to raise_error
+        end
+      end
+      
+      context "when from authorized" do
+        it "should go to reversed when reverse_order" do
+          authorized.should_receive(:reverse_order?).and_return(true)
+          authorized.reverse!
+          authorized.reversed?.should eq(true)
+        end
+
+        it "should raise error when not reverse_order" do
+          authorized.should_receive(:reverse_order?).and_return(false)
+          expect {
+            authorized.reverse!
+          }.to raise_error
+        end
+      end
+      
+      context "when from under_review" do
+        it "should go to reversed when reverse_order" do
+          under_review.should_receive(:reverse_order?).and_return(true)
+          under_review.reverse!
+          under_review.reversed?.should eq(true)
+        end
+
+        it "should raise error when not reverse_order" do
+          under_review.should_receive(:reverse_order?).and_return(false)
+          expect {
+            under_review.reverse!
+          }.to raise_error
+        end
+      end
+    end
+    
+    context "try to refund" do
+      context "when from completed" do
+        it "should go to refunded when refund_order" do
+          completed.should_receive(:refund_order?).and_return(true)
+          completed.refund!
+          completed.refunded?.should eq(true)
+        end
+
+        it "should raise error when not refund_order" do
+          completed.should_receive(:refund_order?).and_return(false)
+          expect {
+            completed.refund!
+          }.to raise_error
+        end
+      end
+      
+      context "when from authorized" do
+        it "should go to refunded when refund_order" do
+          authorized.should_receive(:refund_order?).and_return(true)
+          authorized.refund!
+          authorized.refunded?.should eq(true)
+        end
+
+        it "should raise error when not refund_order" do
+          authorized.should_receive(:refund_order?).and_return(false)
+          expect {
+            authorized.refund!
+          }.to raise_error
+        end
+      end
+      
+      context "when from under_review" do
+        it "should go to refunded when refund_order" do
+          under_review.should_receive(:refund_order?).and_return(true)
+          under_review.refund!
+          under_review.refunded?.should eq(true)
+        end
+
+        it "should raise error when not refund_order" do
+          under_review.should_receive(:refund_order?).and_return(false)
+          expect {
+            under_review.refund!
+          }.to raise_error
+        end
+      end
+    end
   end
 end
