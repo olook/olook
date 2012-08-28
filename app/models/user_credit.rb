@@ -3,7 +3,8 @@ class UserCredit < ActiveRecord::Base
   belongs_to :user
   has_many :credits
   
-  INVITE_BONUS = BigDecimal.new("10.00")
+  #INVITE_BONUS = BigDecimal.new("10.00")
+  #INVITE_BONUS_FOR_INVITEE = BigDecimal.new("10.00")
   TRANSACTION_LIMIT = 150.0
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
@@ -52,11 +53,18 @@ class UserCredit < ActiveRecord::Base
   end
 
   private
+    #NOTICE: sources estao invertidas
     def self.add_invite_credits(order)      
       buyer, inviter = order.user, order.user.try(:inviter)
 
       if inviter && buyer.first_buy?
-        inviter.user_credits_for(:invite).add({:amount => INVITE_BONUS, :order => order, :user => inviter})
+        inviter.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_inviter), :order => order, :user => inviter, :source => "invitee_bonus"})
+      end
+    end
+
+    def self.add_for_invitee(invitee)
+      if invitee.is_invited? && invitee.current_credit == 0
+        invitee.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_invitee), :user => invitee, :source => "inviter_bonus"})
       end
     end
 
