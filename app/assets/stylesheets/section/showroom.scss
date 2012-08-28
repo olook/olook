@@ -166,7 +166,6 @@
         width: 324px;
         height: 180px;
         overflow: hidden;
-        border-bottom: 2px #d05582 solid;
         .carousel-prev, .carousel-next {
           position: absolute;
           background: url("/assets/showroom/arrows.png") no-repeat;
@@ -232,7 +231,7 @@
                 background: url("/assets/lookbooks/bg-title.png") repeat;
                 color: #FFF;
                 font-family: $kepler;
-                font-size: 29px;
+                font-size: 26px;
                 font-weight: lighter;
                 letter-spacing: -1px;
                 width: 304px;
