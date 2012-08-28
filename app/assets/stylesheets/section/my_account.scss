@@ -493,38 +493,41 @@ div#my_account {
     div.invites_list {
       margin: 30px 0 0 10px;
       h1, h2 {
-        font-size: 35px;
-        font-style: italic;
+        font-family: $avenir;
+        font-size: 20px;
         font-weight: normal;
-        text-align: center;
-        letter-spacing: -2px;
+        margin: 0 0 10px;
         span {
           color: #e05789;
         }
       }
       h2 {
-        font-size: 21px;
+        font-size: 15px;
         margin: 0 0 20px 0;
         padding: 0 0 10px 0;
-        border-bottom: 1px #dcdcdc solid;
       }
       table {
-        width: 700px;
+        width: 735px;
         margin: 0 auto 30px auto;
         a {
           color: #df5a8b;
         }
         thead tr th {
+          background: image-url('my_account/bg-table-top-bottom.jpg') top repeat-x;
+          color: #000;
+          font-family: $avenir;
+          font-size: 16px;
+          font-weight: lighter;
           text-align: center;
-          padding: 0 0 15px 0;
+          padding: 13px 0px;
           &.email {
             text-align: left;
           }
         }
         tbody tr td {
           text-align: center;
-          padding: 15px 20px;
-          border: 1px #dbdbdb solid;
+          padding: 20px 0;
+          border-bottom: 1px #e5e5e5 solid;
           &.email {
             text-align: left;
           }
