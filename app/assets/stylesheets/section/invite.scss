@@ -39,6 +39,16 @@ body {
           }
         }
 
+        p.warn {
+          font-size: 17px;
+          width: 395px;
+          margin: 0 0 0 35px;
+          padding: 20px 15px;
+          border: 1px #dedede solid;
+          span {
+            color: $pink;
+          }
+        }
         #user {
           margin: 31px 0 0 20px;
         }

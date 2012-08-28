@@ -8,7 +8,11 @@
 
 <section id="user-info">
 <hgroup class='info'>
-    <% unless current_user.has_facebook? %>
+    <% if current_user.has_facebook? %>
+      <% if @user.has_fraud %>
+        <p class="warn"><span>Atenção:</span> Os créditos que estavam atrelados a convidadas com CPFs inválidos, foram inabilitados.</p>
+      <% end %>
+    <% else %>
       <div class="connect">
         <p>Conecte-se com o facebook<br /> e veja sua vitrine antes de todas</p>
         <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
