@@ -7,6 +7,7 @@ feature "User Authenticate", %q{
   As a user
   I want to authenticate using my Facebook account or a normal register
 } do
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => "invite") }
 
   # def showroom_message
   #   "Sua stylist está criando sua vitrine personalizada, ela ficará pronta em 24 horas"
