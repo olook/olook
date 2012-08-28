@@ -4,6 +4,9 @@ require 'spec_helper'
 describe Checkout::AddressesController do
 
   let(:user) { FactoryGirl.create :user }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:attributes) { {:state => 'MG', :street => 'Rua Jonas', :number => 123, :city => 'São Paulo', :zip_code => '37876-197', :neighborhood => 'Çentro', :telephone => '(35)3453-9848' } }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }

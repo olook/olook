@@ -19,6 +19,10 @@ describe Checkout::CheckoutController do
   
   let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
 
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
+
   let(:coupon_expired) do
     coupon = double(Coupon)
     coupon.stub(:reload)

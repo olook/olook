@@ -1,6 +1,5 @@
 module CreditsBuilderHelper
   private
-  attr_accessor :default_attrs
 
   def build_debits(credits, amount)
     total_of_credits    = credits.map(&:value).sum
@@ -21,7 +20,7 @@ module CreditsBuilderHelper
       credits = {}
       user_credit.credits.where(is_debit: false).order('id desc').find_each do |credit|
         credits.merge!(credit => credit.value)
-        throw(:sufficient_amount, credits.keys.sort_by{|c| c.id}) if credits.values.sum  >= amount
+        throw(:sufficient_amount, credits.keys.sort_by{|c| c.id}.reverse) if credits.values.sum  >= amount
       end
     end
   end

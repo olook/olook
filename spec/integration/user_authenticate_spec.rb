@@ -20,6 +20,10 @@ feature "User Authenticate", %q{
   
   use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
 
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
+
   before :each do
     FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
     @user = FactoryGirl.create(:user)
