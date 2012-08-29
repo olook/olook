@@ -380,7 +380,7 @@ div#my_account {
       @include order-status;
       margin: 30px 0 0 35px;
       h1, h2 {
-        font-family: Arial;
+        font-family: $avenir;
       }
       h1 {
         color: #000;
@@ -440,6 +440,9 @@ div#my_account {
               color: #6d6d6d;
               margin: 0 0 5px 0;
             }
+            strong {
+              font-weight: 500;
+            }
           }
         }
         div#details {
@@ -451,8 +454,9 @@ div#my_account {
           }
           h1 {
             color: #292929;
-            font-family: Arial;
+            font-family: $avenir;
             font-size: 14px;
+            font-weight: 500;
             text-transform: uppercase;
             margin: 0 0 5px 0;
             padding: 0;
@@ -464,15 +468,18 @@ div#my_account {
               color: #df5a8a;
             }
           }
+          strong {
+            font-weight: 500;
+          }
           p.warn {
-            font-size: 10px;
+            font-size: 11px;
           }
           table {
             width: 150px;
             margin: 0;
             thead {
               tr th {
-                font-family: Arial;
+                font-family: $avenir;
                 font-size: 14px;
                 font-weight: bold;
                 font-style: normal;
