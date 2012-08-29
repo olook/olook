@@ -95,6 +95,7 @@ class Payment < ActiveRecord::Base
 
     # "6" => :review,
     event :review do
+      transition :authorized => :under_review, :if => :review_order?
       transition :waiting_payment => :under_review, :if => :review_order?
     end
     
