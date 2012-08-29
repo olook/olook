@@ -30,10 +30,10 @@ class PaymentBuilder
           
           total_coupon = cart_service.total_discount_by_type(:coupon)
           if total_coupon > 0
-            coupon_payment = CouponPayment.new(
+            coupon_payment = CouponPayment.create!(
               :total_paid => total_coupon, 
-              :coupon_id => cart_service.coupon.id
-              :order => order).save!
+              :coupon_id => cart_service.coupon.id,
+              :order => order)
             coupon_payment.deliver!
             coupon_payment.authorize!
           end
@@ -48,10 +48,10 @@ class PaymentBuilder
 
           total_credits = cart_service.total_discount_by_type(:credits)
           if total_credits > 0
-            credit_payment = CreditPayment.new(
+            credit_payment = CreditPayment.create!(
               :credit_type_id => CreditType.find_by_code!(:invite).id, 
               :total_paid => total_credits, 
-              :order => order).save!
+              :order => order)
             credit_payment.deliver!
             credit_payment.authorize!
           end
