@@ -35,6 +35,33 @@ class PaymentBuilder
             end
           end
           
+          # coupon_payment = CouponPayment.new(
+          #             :amount_paid => cart_service.total_discount_for?(:coupon), 
+          #             :order => order).save!
+          #           coupon_payment.deliver!
+          #           coupon_payment.authorize!
+          #           
+          #           credit_payment = CreditPayment.new(
+          #             :credit_type => :loyality, 
+          #             :amount_paid => cart_service.credits_for?(:loyality), 
+          #             :order => order).save!
+          #           credit_payment.deliver!
+          #           credit_payment.authorize!
+          #           
+          #           credit_payment = CreditPayment.new(
+          #             :credit_type => :invite, 
+          #             :amount_paid => cart_service.credits_for?(:invite), 
+          #             :order => order).save!
+          #           credit_payment.deliver!
+          #           credit_payment.authorize!
+          #           
+          #           credit_payment = CreditPayment.new(
+          #             :credit_type => :reedem, 
+          #             :amount_paid => cart_service.credits_for?(:reedem), 
+          #             :order => order).save!
+          #           credit_payment.deliver!
+          #           credit_payment.authorize!
+          
           respond_with_success
         else
           respond_with_failure

@@ -47,8 +47,8 @@ namespace :orders do
     end
     
     MoipCallback.find_each do |moip|
-      if moip.order && moip.order.payment
-        moip.update_attribute(:payment_id, moip.order.payment.id)
+      if moip.order && moip.order.erp_payment
+        moip.update_attribute(:payment_id, moip.order.erp_payment.id)
       end
     end
   end

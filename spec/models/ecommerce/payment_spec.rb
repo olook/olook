@@ -189,6 +189,21 @@ describe Payment do
           }.to raise_error
         end
       end
+      
+      context "when from authorized" do
+        it "should go to under_review when review_order" do
+          authorized.should_receive(:review_order?).and_return(true)
+          authorized.review!
+          authorized.under_review?.should eq(true)
+        end
+
+        it "should raise error when not review_order" do
+          authorized.should_receive(:review_order?).and_return(false)
+          expect {
+            authorized.review!
+          }.to raise_error
+        end
+      end
     end
     
     context "try to reverse" do
