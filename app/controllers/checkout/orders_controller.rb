@@ -5,7 +5,7 @@ class Checkout::OrdersController < Checkout::BaseController
   def show
     @order = @user.orders.find_by_number!(params[:number])
     @cart = @order.cart
-    @payment = @order.payment
+    @payment = @order.erp_payment
     @payment_response = @payment.payment_response
     @promotion = @order.used_promotion.promotion if @order.used_promotion
     coupon = @order.used_coupon.coupon if @order.used_coupon

@@ -8,7 +8,7 @@ class OrderStateTransition < ActiveRecord::Base
 
   def snapshot
     #TODO: Criar snapshots para cada tipo de pagamento
-    payment = self.order.try(:payments).try(:first)
+    payment = self.order.erp_payment
     if payment && payment.payment_response
       self.payment_response = payment.payment_response.response_status
       self.payment_transaction_status = payment.payment_response.transaction_status

@@ -4,8 +4,8 @@ class MoveIdentificationCodeToPayment < ActiveRecord::Migration
     add_index "payments", ["identification_code"]
     
     Order.find_each do |order|
-      if order.payment
-        order.payment.update_attribute(:identification_code, order.identification_code)
+      if order.erp_payment
+        order.erp_payment.update_attribute(:identification_code, order.identification_code)
       end
     end
     

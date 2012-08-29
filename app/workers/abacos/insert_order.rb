@@ -17,7 +17,7 @@ module Abacos
   private
     def self.parse_and_check_order(order_number)
       order = Order.find_by_number order_number
-      raise "Order number #{order_number} doesn't have an associated payment" unless order.payment
+      raise "Order number #{order_number} doesn't have an associated payment" unless order.erp_payment
       raise "Order number #{order_number} already exist on Abacos" if Abacos::OrderAPI.order_exists?(order_number)
       order
     end
