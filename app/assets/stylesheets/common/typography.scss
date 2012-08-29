@@ -2,8 +2,9 @@
 @import 'fonts';
 
 body {
-  color: #6d6e71;
-  font-family: 'avenir', arial, sans-serif;
+  color: #5e5f61;
+  //color: #6d6e71;
+  font-family: $avenir;
   font-size: 14px;
 
   p {
