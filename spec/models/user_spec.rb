@@ -82,7 +82,6 @@ describe User do
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
-    it { should have_many :credits }
     it { should have_one :tracking }
   end
 
@@ -577,15 +576,15 @@ describe User do
 
     context "when user has one credit record" do
       it "returns the total of the credit record" do
-        subject.user_credits_for(:invite).add(:amount => 10.0, :user => subject)
+        subject.user_credits_for(:invite).add(:amount => 10.0)
         subject.current_credit.should == subject.user_credits_for(:invite).total
       end
     end
 
     context "when user has more than one credit record" do
       it "returns the total of the last credit record" do
-        subject.user_credits_for(:invite).add(:amount => 10.0, :user => subject)
-        subject.user_credits_for(:redeem).add(:amount => 10.0, :user => subject, :admin_id => subject.id)
+        subject.user_credits_for(:invite).add(:amount => 10.0)
+        subject.user_credits_for(:redeem).add(:amount => 10.0, :admin_id => subject.id)
         subject.reload.current_credit.should == 20.0
       end
     end
@@ -594,7 +593,7 @@ describe User do
 
   describe "#can_use_credit?" do
     before do
-      subject.user_credits_for(:invite).add(:amount => 23.0, :user => subject)
+      subject.user_credits_for(:invite).add(:amount => 23.0)
     end
 
     context "when user current credits is less then the received value" do

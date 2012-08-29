@@ -80,8 +80,7 @@ class Admin::UsersController < Admin::BaseController
                                                   admin_id: current_admin.id,
                                                   amount: @amount,
                                                   order: @order,
-                                                  reason: @reason,
-                                                  user: @user)
+                                                  reason: @reason)
       redirect_to(admin_user_path(@user), :notice => "Credit #{(params[:method].to_s=='add' ? 'Added' : 'Removed')} by #{current_admin.name}")
     else
       redirect_with_notice('The user hasn\'t enough credtis for this operation.')
