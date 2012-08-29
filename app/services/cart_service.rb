@@ -149,7 +149,6 @@ class CartService
 
     order = Order.create!(
       :cart_id => cart.id,
-      :credits => total_credits_discount,
       :user_id => user.id,
       :restricted => cart.has_gift_items?,
       :gift_wrap => gift_wrap?,
@@ -178,10 +177,7 @@ class CartService
         :discount_value => total_discount_by_type(:promotion)
       ) 
     end
-
-    # Creates UsedCoupon
-    order.create_used_coupon(:coupon => coupon) if total_discount_by_type(:coupon) > 0
-
+    
     order.save
     order  
   end

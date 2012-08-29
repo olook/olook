@@ -1,6 +1,7 @@
 class CreditType < ActiveRecord::Base
   attr_accessor :type
   has_many :user_credits
+  has_many :credit_payments
 
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 

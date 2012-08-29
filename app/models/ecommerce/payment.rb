@@ -31,7 +31,7 @@ class Payment < ActiveRecord::Base
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
-  belongs_to :cart
+  belongs_to :cart  
   has_one :payment_response, :dependent => :destroy
 
   after_create :generate_identification_code
@@ -150,6 +150,12 @@ class Payment < ActiveRecord::Base
   
   def reverse_order?
     order.reversed
+  end
+
+  def user
+    user = cart.try(:user)
+    user ||= order.try(:user)
+    user
   end
   
   private

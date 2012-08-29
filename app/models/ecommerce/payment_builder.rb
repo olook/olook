@@ -28,18 +28,15 @@ class PaymentBuilder
             variant.decrement!(:inventory, item.quantity)
           end
           
-          Coupon.transaction do
-            coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(order.try(:used_coupon).try(:coupon_id))
-            if coupon
-              coupon.decrement!(:remaining_amount, 1) unless coupon.unlimited?
-            end
+          total_coupon = cart_service.total_discount_by_type(:coupon)
+          if total_coupon > 0
+            coupon_payment = CouponPayment.new(
+              :total_paid => total_coupon, 
+              :coupon_id => cart_service.coupon.id
+              :order => order).save!
+            coupon_payment.deliver!
+            coupon_payment.authorize!
           end
-          
-          # coupon_payment = CouponPayment.new(
-          #             :amount_paid => cart_service.total_discount_for?(:coupon), 
-          #             :order => order).save!
-          #           coupon_payment.deliver!
-          #           coupon_payment.authorize!
           #           
           #           credit_payment = CreditPayment.new(
           #             :credit_type => :loyality, 
@@ -48,12 +45,16 @@ class PaymentBuilder
           #           credit_payment.deliver!
           #           credit_payment.authorize!
           #           
-          #           credit_payment = CreditPayment.new(
-          #             :credit_type => :invite, 
-          #             :amount_paid => cart_service.credits_for?(:invite), 
-          #             :order => order).save!
-          #           credit_payment.deliver!
-          #           credit_payment.authorize!
+
+          total_credits = cart_service.total_discount_by_type(:credits)
+          if total_credits > 0
+            credit_payment = CreditPayment.new(
+              :credit_type_id => CreditType.find_by_code!(:invite).id, 
+              :total_paid => total_credits, 
+              :order => order).save!
+            credit_payment.deliver!
+            credit_payment.authorize!
+          end
           #           
           #           credit_payment = CreditPayment.new(
           #             :credit_type => :reedem, 
