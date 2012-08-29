@@ -156,7 +156,7 @@ describe Admin::UsersController do
         expect do
           post :create_credit_transaction, transaction_param.merge(:order_number => "", :method => :add, :operation => :'redeem:order', :reason => 'foo')
           assigns(:user).should eq(user)
-          assigns(:credit_type).should eq('redeem')  
+          assigns(:credit_type).should eq('redeem')
         end.to change{Credit.count}.by(1)
       end
     end
