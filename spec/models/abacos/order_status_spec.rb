@@ -66,7 +66,7 @@ describe Abacos::OrderStatus do
   end
 
   describe '#change_order_state' do
-    let(:order) { FactoryGirl.create :clean_order }
+    let(:order) { FactoryGirl.create :order_with_payment_authorized }
     let(:default_order_state) do
       {
         :integration_protocol => 'fake_protocol',

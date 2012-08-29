@@ -16,10 +16,11 @@ describe Order do
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
+  let(:order_with_payment) { FactoryGirl.create :order_with_payment_authorized }
+
 
   it { should belong_to(:user) }
   it { should belong_to(:cart) }
-  it { should have_one(:used_coupon) }
 
   pending "coupons" do
     it "should decrement a standart coupon" do
@@ -123,8 +124,8 @@ describe Order do
     context "when the order is authorized" do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
-        subject.authorized
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, order_with_payment.number)
+        order_with_payment.authorized
       end
     end
 
@@ -138,14 +139,14 @@ describe Order do
 
   describe "State machine" do
     it "should set authorized" do
-      subject.authorized
-      subject.authorized?.should be_true
+      order_with_payment.authorized
+      order_with_payment.authorized?.should be_true
     end
 
     it "should set authorized" do
-      subject.authorized
-      subject.under_review
-      subject.under_review?.should be_true
+      order_with_payment.authorized
+      order_with_payment.under_review
+      order_with_payment.under_review?.should be_true
     end
 
     it "should set canceled" do
@@ -154,12 +155,12 @@ describe Order do
     end
 
     it "should set canceled given not_delivered" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.not_delivered
-      subject.canceled
-      subject.canceled?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.not_delivered
+      order_with_payment.canceled
+      order_with_payment.canceled?.should be_true
     end
 
     it "should set canceled given in_the_cart" do
@@ -168,51 +169,51 @@ describe Order do
     end
 
     it "should set reversed" do
-      subject.authorized
-      subject.under_review
-      subject.reversed
-      subject.reversed?.should be_true
+      order_with_payment.authorized
+      order_with_payment.under_review
+      order_with_payment.reversed
+      order_with_payment.reversed?.should be_true
     end
 
     it "should set refunded" do
-      subject.authorized
-      subject.under_review
-      subject.refunded
-      subject.refunded?.should be_true
+      order_with_payment.authorized
+      order_with_payment.under_review
+      order_with_payment.refunded
+      order_with_payment.refunded?.should be_true
     end
 
     it "should set picking" do
-      subject.authorized
-      subject.picking
-      subject.picking?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.picking?.should be_true
     end
 
     it "should set delivering" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.delivering?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.delivering?.should be_true
     end
 
     it "should set delivered" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.delivered
-      subject.delivered?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.delivered
+      order_with_payment.delivered?.should be_true
     end
 
     it "should set not_delivered" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.not_delivered
-      subject.not_delivered?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.not_delivered
+      order_with_payment.not_delivered?.should be_true
     end
 
     xit "should use coupon when authorized" do
       Coupon.any_instance.should_receive(:increment!).with(:used_amount, 1)
-      subject.authorized
+      order_with_payment.authorized
     end
   end
 
@@ -247,8 +248,8 @@ describe Order do
 
   describe "Audit trail" do
     it "should audit the transition" do
-      subject.authorized
-      transition = subject.order_state_transitions.last
+      order_with_payment.authorized
+      transition = order_with_payment.order_state_transitions.last
       transition.event.should == "authorized"
       transition.from.should == "waiting_payment"
       transition.to.should == "authorized"

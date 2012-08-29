@@ -54,6 +54,21 @@ FactoryGirl.define do
       FactoryGirl.create(:billet, :order => order)
     end    
   end
+  
+  factory :order_with_payment_authorized, :class => Order do
+    association :freight, :factory => :freight
+    state "waiting_payment"
+    subtotal BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
+
+    after_build do |order|
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
+    after_create do |order|
+      FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
+    end
+  end
 
   factory :authorized_order, :class => Order do
     association :freight, :factory => :freight

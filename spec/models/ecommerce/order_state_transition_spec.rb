@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe OrderStateTransition do
   
-  let(:order) { FactoryGirl.create(:order) }
+  let(:order) { FactoryGirl.create(:order_with_payment_authorized) }
   let(:authorized_order) {FactoryGirl.create(:authorized_order)}
 
   before do

@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe OrderStatus do
-  let(:order) {  FactoryGirl.create(:order) }
+  let(:order) {  FactoryGirl.create(:order_with_payment_authorized) }
   subject { OrderStatus.new(order) }
 
   before :each do
