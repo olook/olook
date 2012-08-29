@@ -35,7 +35,7 @@ class Order < ActiveRecord::Base
   delegate :city, :to => :freight, :prefix => true, :allow_nil => true
   delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :payment_response, :to => :payment, :allow_nil => true
+  delegate :payment_response, :to => :erp_payment, :allow_nil => true
 
   def self.with_payment
     joins(:payments)
@@ -59,9 +59,11 @@ class Order < ActiveRecord::Base
 
     event :authorized do
       transition :waiting_payment => :authorized, :if => :confirm_payment?
+      transition :under_review => :authorized, :if => :confirm_payment?
     end
 
     event :under_review do
+      transition :waiting_payment => :under_review
       transition :authorized => :under_review
     end
 

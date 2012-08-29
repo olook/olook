@@ -5,7 +5,7 @@ describe BilletMailer do
   let(:user) { FactoryGirl.create(:user) }
   let(:line_item) { FactoryGirl.create(:line_item) }
   let(:order) { FactoryGirl.create(:clean_order, :user => user, :line_items => [line_item] )}
-  let(:payment) { order.payments.last }
+  let(:payment) { order.erp_payment }
 
   subject { BilletMailer.send_reminder_mail(payment) }
 
