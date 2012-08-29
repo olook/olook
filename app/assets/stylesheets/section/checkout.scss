@@ -1,3 +1,6 @@
+@import 'partials/mixins';
+@import 'partials/address';
+
 $border-color: #e5e5e5;
 
 header {
@@ -454,18 +457,19 @@ section#address_new {
         li {
           display: inline;
           label {
-            font-weight: bold;
+            margin-right: 3px;
             float: left;
           }
           em {
-            color: #F00;
+            color: #000;
             font-size: 14px;
             float: left;
           }
           input[type="text"] {
+            color: #000;
             font-size: 14px;
-            padding: 10px;
-            border: 1px #d6d6d6 solid;
+            padding: 8px 10px;
+            border: 1px #e5e5e5 solid;
             display: block;
             clear: both;
             &.zip_code {
@@ -476,6 +480,11 @@ section#address_new {
             }
           }
         }
+      }
+    }
+    ol.addresses {
+      li.address_item {
+        height: 200px;
       }
     }
   }
@@ -778,7 +787,7 @@ section#payment {
           input[type="text"] {
             font-size: 14px;
             padding: 10px;
-            border: 1px #d6d6d6 solid;
+            border: 1px #e5e5e5 solid;
             &:focus {
               outline: none;
             }

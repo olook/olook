@@ -1,6 +1,7 @@
 @import 'partials/mixins';
 @import 'partials/colors';
 @import "partials/order_status";
+@import 'partials/address';
 
 body {
   #error_explanation {
@@ -9,7 +10,7 @@ body {
 }
 form {
   width: 645px;
-  margin: 20px 0 0 20px;
+  margin: 20px 0 0 0;
   overflow: hidden;
   fieldset {
     margin: 0 0 25px 0;
@@ -19,12 +20,11 @@ form {
         display: inline;
         float: left;
         label {
-          font-weight: bold;
-          display: block;
+          margin-right: 3px;
           float: left;
         }
         em {
-          color: #F00;
+          color: #000;
           font-size: 14px;
           float: left;
         }
@@ -37,9 +37,10 @@ form {
       ol {
         li {
           input[type="text"], input[type="email"], input[type="password"] {
+            color: #000;
             font-size: 14px;
-            padding: 10px;
-            border: 1px #d6d6d6 solid;
+            padding: 8px 10px;
+            border: 1px #e8e8e8 solid;
             display: block;
             clear: both;
             &:focus {
@@ -163,20 +164,19 @@ div#my_account {
   }
   div#data {
     width: 745px;
+    margin: 0 0 0 10px;
     overflow: auto;
     float: left;
     div.box_title {
       width: 715px;
-      padding: 5px 0 10px 30px;
+      padding: 5px 0 0;
       overflow: hidden;
-      border-bottom: 1px #dcdcdc solid;
       h1 {
-        color: #4c4c4c;
-        font-family: "Open Sans", sans-serif;
-        font-size: 34px;
-        font-weight: lighter;
+        color: #101010;
+        font-family: $avenir;
+        font-size: 22px;
+        font-weight: 400;
         text-transform: uppercase;
-        letter-spacing: -2px;
         display: block;
         float: left;
       }
@@ -206,10 +206,10 @@ div#my_account {
       }
       fieldset.buttons {
         ol li input[type="submit"] {
-          background: url("/assets/common/bt-save.png") no-repeat;
+          background: url("/assets/common/bt-save.jpg") no-repeat;
           text-indent: -9999px;
-          width: 92px;
-          height: 46px;
+          width: 125px;
+          height: 61px;
           display: block;
           border: none;
           cursor: pointer;
@@ -284,13 +284,14 @@ div#my_account {
         margin-bottom: 0;
       }
       &.buttons {
+        margin: 20px 0 0 0;
         ol {
           li {
             input[type="submit"] {
-              background: url("/assets/common/bt-save.png") no-repeat;
+              background: url("/assets/common/bt-save.jpg") no-repeat;
               text-indent: -9999px;
-              width: 92px;
-              height: 46px;
+              width: 125px;
+              height: 61px;
               display: block;
               border: none;
               cursor: pointer;
@@ -300,7 +301,6 @@ div#my_account {
       }
     }
     div.address_fields {
-      margin-bottom: 30px;
       ol {
         li {
           margin-bottom: 10px;
@@ -596,10 +596,10 @@ div#my_account {
             }
           }
           input[type="submit"] {
-            background: url("/assets/common/bt-save.png") no-repeat;
+            background: url("/assets/common/bt-save.jpg") no-repeat;
             text-indent: -9999px;
-            width: 92px;
-            height: 46px;
+            width: 125px;
+            height: 61px;
             display: block;
             border: none;
             cursor: pointer;
