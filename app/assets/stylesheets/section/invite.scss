@@ -113,11 +113,11 @@ body {
               top: 160px;
               z-index: 5;
               & > p {
-                font-size: 19px;
-                margin: 12px 0 0 16px;
+                font-size: 15px;
+                margin: 10px 0 0 16px;
                 & + p {
-                  font-size: 23px;
-                  margin: 7px 0 0 95px;
+                  font-size: 16px;
+                  margin: 7px 0 0 88px;
                 }
               }
               & + p {
@@ -129,7 +129,7 @@ body {
               }
               p {
                 color: #FFF;
-                font-size: 19px;
+                font-size: 15px;
                 font-weight: normal;
                 span {
                   font-size: 22px;
