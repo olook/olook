@@ -22,7 +22,7 @@
       <ul>
         <% if user_signed_in? %>
           <li class="first"><%= link_to "Minha conta", user_orders_path %></li>
-          <li><%= link_to "Convidar amigas", member_invite_path, :class => "invite" %></li>
+          <li><%= link_to "Ganhe <span>R$20</span> em créditos".html_safe, member_invite_path, :class => "invite" %></li>
           <li class="last"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li class="login">

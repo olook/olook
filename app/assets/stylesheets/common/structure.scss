@@ -845,7 +845,7 @@ body {
           li {
             text-transform: none;
             height: auto;
-            display: inline;
+            display: inline-block;
             padding: 0 10px;
             border-left: 1px #000 dotted;
             float: none;
@@ -863,6 +863,13 @@ body {
                 &:hover {
                   background: url('/assets/common/ico-heart-on.png') left no-repeat;
                 }
+              }
+              > span {
+                color: $pink;
+                font-size: inherit;
+                width: auto;
+                margin: 0;
+                float: none;
               }
             }
             p {
