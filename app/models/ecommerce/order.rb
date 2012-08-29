@@ -24,7 +24,7 @@ class Order < ActiveRecord::Base
   has_many :payments, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
-  has_one :used_coupon, :dependent => :destroy
+  #has_one :used_coupon, :dependent => :destroy
   has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
@@ -59,6 +59,7 @@ class Order < ActiveRecord::Base
 
     event :authorized do
       transition :waiting_payment => :authorized, :if => :confirm_payment?
+      transition :waiting_payment => :waiting_payment
       transition :under_review => :authorized, :if => :confirm_payment?
     end
 
@@ -124,10 +125,10 @@ class Order < ActiveRecord::Base
   end
 
   #FIX THIS IN MIGRATION WITH UPDATE_ALL
-  def credits
-    credit = read_attribute :credits
-    credit.nil? ? 0 : credit
-  end
+  # def credits
+  #   credit = read_attribute :credits
+  #   credit.nil? ? 0 : credit
+  # end
   
   def user_name
     "#{user_first_name} #{user_last_name}".strip
@@ -144,16 +145,14 @@ class Order < ActiveRecord::Base
     self.update_attribute(:purchased_at, Time.now)
     Resque.enqueue(Abacos::InsertOrder, self.number)
     Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
-    Credit.remove(credits, user, self) if credits > 0
   end
   
   def confirm_payment?
-    Coupon.transaction do
-      coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(used_coupon.try(:coupon_id))
-      if coupon
-        coupon.increment!(:used_amount, 1)
-      end
-    end
+    #Seleciona a lista de estados de pagamento desta order
+    payment_states = self.payments.map(&:state).uniq
+
+    #so continua se so houver um tipo de estado listado e esse tipo de estado for authorized
+    return false unless payment_states.include?("authorized") && payment_states.size == 1
 
     Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, self.id)
     # UserCredit.process!(self)
@@ -163,7 +162,6 @@ class Order < ActiveRecord::Base
   end
   
   def cancel_order?
-    Credit.add(credits, user, self) if credits > 0
     Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
     true
   end
