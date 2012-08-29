@@ -9,7 +9,7 @@ describe LoyaltyProgramCreditType do
   describe "credit operations" do
     let(:order) {FactoryGirl.create(:order, :user => user)}
     let(:amount) { BigDecimal.new("33.33") }
-    let(:credits_attrs) {{:amount => amount, :order => order, :user => user}}
+    let(:credits_attrs) {{:amount => amount, :order => order}}
 
     describe "adding credits" do
       context "when user creates a credit" do

@@ -2,7 +2,6 @@
 # TO DO: Model should be named CreditTransaction
 class Credit < ActiveRecord::Base
   #TO DO: remove as soon as the user_credit is working
-  belongs_to :user
   belongs_to :user_credit
   belongs_to :order
   has_many :debits, :class_name => "Credit", :foreign_key => "original_credit_id"

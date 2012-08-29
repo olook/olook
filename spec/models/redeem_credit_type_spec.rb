@@ -11,7 +11,6 @@ describe RedeemCreditType do
     
     let(:attrs_for_credit) do
       {amount: amount,
-      user: user,
       admin_id: user.id,
       order: order}
     end    
