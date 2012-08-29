@@ -91,6 +91,16 @@ describe PaymentBuilder do
         basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
       end
 
+      xit "should create a coupon when used" do
+        expect {
+          cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
+          cart_service.stub(:total_coupon_discount => 100)
+          order = cart_service.generate_order!
+          order.used_coupon.coupon.should be(coupon_of_value)
+        }.to change{Order.count}.by(1)
+      end
+
+
       it "should return a structure with status and a payment" do
         response = subject.process!
         response.status.should == Payment::SUCCESSFUL_STATUS

@@ -5,7 +5,7 @@ describe Checkout::PaymentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:payment) { FactoryGirl.create(:billet, :order => order) }
+  let(:payment) { order.erp_payment }
   let(:total) { 99.55 }
   let(:waiting_payment) { "3" }
   let(:cod_moip) { "3" }
@@ -46,7 +46,7 @@ describe Checkout::PaymentsController do
         post :create, :status_pagamento => waiting_payment, :id_transacao => payment.identification_code, :value => total
         authorized = "1"
         post :create, :status_pagamento => authorized, :id_transacao => payment.identification_code, :value => total
-        Order.find(order.id).authorized?.should eq(true)
+        order.reload.authorized?.should eq(true)
       end
 
       it "should change not the order status after receiving completed" do
@@ -56,7 +56,7 @@ describe Checkout::PaymentsController do
         post :create, :status_pagamento => authorized, :id_transacao => payment.identification_code, :value => total
         completed = "4"
         post :create, :status_pagamento => completed, :id_transacao => payment.identification_code, :value => total
-        Order.find(order.id).authorized?.should eq(true)
+        order.reload.authorized?.should eq(true)
       end
 
       it "should create a MoipCallback" do

@@ -648,14 +648,5 @@ describe CartService do
         
       }.to change{Order.count}.by(1)
     end
-    
-    it "should create a coupon when used" do
-      expect {
-        cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
-        cart_service.stub(:total_coupon_discount => 100)
-        order = cart_service.generate_order!
-        order.used_coupon.coupon.should be(coupon_of_value)
-      }.to change{Order.count}.by(1)
-    end
   end
 end

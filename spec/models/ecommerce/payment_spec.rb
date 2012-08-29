@@ -125,13 +125,6 @@ describe Payment do
           waiting_payment.authorize!
           waiting_payment.authorized?.should eq(true)
         end
-
-        it "should raise error when not authorize_order" do
-          waiting_payment.should_receive(:authorize_order?).and_return(false)
-          expect {
-            waiting_payment.authorize!
-          }.to raise_error
-        end
       end
       
       context "when from under_review" do
@@ -139,13 +132,6 @@ describe Payment do
           under_review.should_receive(:authorize_order?).and_return(true)
           under_review.authorize!
           under_review.authorized?.should eq(true)
-        end
-
-        it "should raise error when not authorize_order" do
-          under_review.should_receive(:authorize_order?).and_return(false)
-          expect {
-            under_review.authorize!
-          }.to raise_error
         end
       end
     end
@@ -160,16 +146,8 @@ describe Payment do
       
       context "when from under_review" do
         it "should go to completed when authorize_order" do
-          under_review.should_receive(:authorize_order?).and_return(true)
           under_review.complete!
           under_review.completed?.should eq(true)
-        end
-
-        it "should raise error when not authorize_order" do
-          under_review.should_receive(:authorize_order?).and_return(false)
-          expect {
-            under_review.complete!
-          }.to raise_error
         end
       end
     end
