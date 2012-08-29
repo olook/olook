@@ -48,7 +48,11 @@ class Payment < ActiveRecord::Base
     state :under_review
     
     #Autorizado - 1
-    state :authorized
+    state :authorized do 
+      after_save do |payment|
+        payment.authorize_order?
+      end
+    end
     
     #Iniciado - 2
     state :started
@@ -83,14 +87,14 @@ class Payment < ActiveRecord::Base
 
     # "1" => :authorize
     event :authorize do
-      transition :waiting_payment => :authorized, :if => :authorize_order?
-      transition :under_review => :authorized, :if => :authorize_order?
+      transition :waiting_payment => :authorized     
+      transition :under_review => :authorized
     end
     
     # "4" => :complete,
     event :complete do
       transition :authorized => :completed
-      transition :under_review => :completed, :if => :authorize_order?
+      transition :under_review => :completed
     end
 
     # "6" => :review,
@@ -144,8 +148,10 @@ class Payment < ActiveRecord::Base
     order.canceled
   end
 
+  #TODO: sempre responde true; Ele tem de checar se todos os outros pagamentos estao como authorized
   def authorize_order?
     order.authorized
+    true
   end
   
   def reverse_order?
