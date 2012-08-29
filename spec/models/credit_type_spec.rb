@@ -12,15 +12,15 @@ describe CreditType do
   describe "testing total" do
     context "when the user has some credit" do
       it "should show that the user has some credits" do
-        FactoryGirl.create(:credit, :user => user, :user_credit => user_credit, :value => 4.00, :is_debit => 0)
-        FactoryGirl.create(:credit, :user => user, :user_credit => user_credit, :value => 2.00, :is_debit => 1)
+        FactoryGirl.create(:credit, :user_credit => user_credit, :value => 4.00, :is_debit => 0)
+        FactoryGirl.create(:credit, :user_credit => user_credit, :value => 2.00, :is_debit => 1)
         credit_type.total(user_credit, DateTime.now).should eq(2.00)
       end
     end
     context "when the user has no credits" do
       it "should show that the user hasn't got any credits" do
-        FactoryGirl.create(:credit, :user => user, :user_credit => user_credit, :value => 4.00, :is_debit => 0)
-        FactoryGirl.create(:credit, :user => user, :user_credit => user_credit, :value => 4.00, :is_debit => 1)
+        FactoryGirl.create(:credit, :user_credit => user_credit, :value => 4.00, :is_debit => 0)
+        FactoryGirl.create(:credit, :user_credit => user_credit, :value => 4.00, :is_debit => 1)
         credit_type.total(user_credit, DateTime.now).should eq(0.00)
       end
     end

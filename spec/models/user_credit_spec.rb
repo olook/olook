@@ -21,11 +21,10 @@ describe UserCredit do
     let(:invitee) { FactoryGirl.create(:user, :is_invited => true, :cpf => '298.161.997-77') }
     let(:invite) { FactoryGirl.create(:invite, :user => user) }
     let(:amount) { BigDecimal.new('22.03')}
-    let(:credit_attrs) {{:amount => amount,:order => order, :user => user}}
+    let(:credit_attrs) {{:amount => amount,:order => order}}
     let(:merged_credit_attrs) do
       {
         :order => order,
-        :user => user,
         :user_credit => user_credit,
         :value => amount
       }
@@ -50,8 +49,8 @@ describe UserCredit do
     end
 
     it "should run the process method" do
-      FactoryGirl.create(:user_credit, :user => invitee, :credit_type => loyalty_program_credit_type)
-      FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type)
+      FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type)
+      FactoryGirl.create(:user_credit, :credit_type => invite_credit_type)
       invite.accept_invitation(invitee)
 
       invitee_order = FactoryGirl.create(:order, :user => invitee, :state => 'delivered')
@@ -70,8 +69,8 @@ describe UserCredit do
     context "when User Credit specific settings change" do
       it "should not run the method when invite_credits_available is disabled" do
 
-        FactoryGirl.create(:user_credit, :user => invitee, :credit_type => loyalty_program_credit_type)
-        FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type)
+        FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type)
+        FactoryGirl.create(:user_credit, :credit_type => invite_credit_type)
         
         Setting.loyalty_program_credits_available = false
 
@@ -90,8 +89,8 @@ describe UserCredit do
 
       it "should not run the add_loyalty_program_credits method when loyalty_program_credits_available is disabled" do
 
-        FactoryGirl.create(:user_credit, :user => invitee, :credit_type => loyalty_program_credit_type)
-        FactoryGirl.create(:user_credit, :user => user, :credit_type => invite_credit_type)
+        FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type)
+        FactoryGirl.create(:user_credit, :credit_type => invite_credit_type)
 
         Setting.invite_credits_available = false
 

@@ -13,7 +13,6 @@ class UserCredit < ActiveRecord::Base
   end
 
   def add(opts)
-    raise ArgumentError.new('User is required!') unless opts[:user].is_a?(User)
     raise ArgumentError.new('Amount is required!') if opts[:amount].nil?
     
     amount = BigDecimal.new(opts.delete(:amount).to_s)
@@ -29,7 +28,6 @@ class UserCredit < ActiveRecord::Base
 
   #Set total in the remotion.
   def remove(opts)
-    raise ArgumentError.new('User is required!') unless opts[:user].is_a?(User)
     raise ArgumentError.new('Amount is required!') if opts[:amount].nil?
     
     amount = BigDecimal.new(opts.delete(:amount).to_s)
@@ -58,13 +56,13 @@ class UserCredit < ActiveRecord::Base
       buyer, inviter = order.user, order.user.try(:inviter)
 
       if inviter && buyer.first_buy?
-        inviter.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_inviter), :order => order, :user => inviter, :source => "invitee_bonus"})
+        inviter.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_inviter), :order => order, :source => "invitee_bonus"})
       end
     end
 
     def self.add_for_invitee(invitee)
       if invitee.is_invited? && invitee.current_credit == 0
-        invitee.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_invitee), :user => invitee, :source => "inviter_bonus"})
+        invitee.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_invitee), :source => "inviter_bonus"})
       end
     end
 
@@ -73,7 +71,6 @@ class UserCredit < ActiveRecord::Base
       amount = order.amount_paid * LoyaltyProgramCreditType::PERCENTAGE_ON_ORDER
      
       user_credit.add({
-        :user => user,
         :order => order,
         :amount => amount
       })
