@@ -1,7 +1,9 @@
-<div id="request_info">
-  <%= yield :checkout_sidebar %>
+<%= yield :checkout_sidebar %>
+
+<%= link_to "alterar", (cart_path unless has_payment), :class => "change" %>
+<div class="request_info">
   <div class="item">
-    <h1>Meu Pedido <%= link_to "alterar", cart_path unless has_payment %></h1>
+    <h1>Meu Pedido </h1>
     <table cellpadding="0" cellspacing="0">
       <tfoot>
         <tr>
@@ -20,7 +22,7 @@
           <td class="value">+ R$ 5,00</td>
         </tr>
       <% end %>
-        <% 
+        <%
         credits = cart_service.total_discount_by_type(:credits)
         if credits > 0 %>
         <tr>
@@ -28,7 +30,7 @@
           <td class="value credit">- <%= number_to_currency(credits) %></td>
         </tr>
         <% end %>
-        <% 
+        <%
         promotion = cart_service.total_discount_by_type(:promotion)
         if promotion > 0 %>
         <tr>
@@ -36,7 +38,7 @@
           <td class="value credit">- <%= number_to_currency(promotion) %></td>
         </tr>
         <% end %>
-        <% 
+        <%
         gift = cart_service.total_discount_by_type(:gift)
         if gift > 0 %>
         <tr>
@@ -45,7 +47,7 @@
         </tr>
         <% end %>
 
-        <% 
+        <%
         coupon = cart_service.total_discount_by_type(:coupon)
         if coupon > 0 %>
         <tr>
@@ -53,8 +55,8 @@
           <td class="value credit">- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.coupon.discount_percent) %></td>
         </tr>
         <% end %>
-        <% 
-        
+        <%
+
         if cart_service.freight_price > 0%>
         <tr>
           <td>Frete</td>
