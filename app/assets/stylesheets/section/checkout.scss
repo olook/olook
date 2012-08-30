@@ -614,10 +614,10 @@ section#payment {
     }
   }
   form.cpf {
-    width: 755px;
+    width: 928px;
     margin: 0 auto 30px auto;
     padding: 20px 30px;
-    border: 1px #d2d2d2 solid;
+    border: 1px #e5e5e5 solid;
     fieldset.buttons {
       ol li {
         display: inline;
@@ -629,35 +629,32 @@ section#payment {
           float: left;
         }
         input[type="text"] {
-          background: url('/assets/common/bg-inputs.png') repeat-x;
-          font-size: 14px;
-          font-weight: bold;
-          width: 260px;
-          border: 1px solid #C1C1C1;
-          padding: 7px 8px;
-          margin: 4px 20px 0 0;
-          height:17px;
+          background: image-url('cart/bg-input-cpf.jpg') no-repeat;
+          color: $third-color;
+          font-family: $avenir;
+          font-weight: lighter;
+          margin: 0 30px 0 0;
+          width: 339px;
+          height: 43px;
+          padding: 0 9px 0 15px;
+          border: none;
           float: left;
           &:focus {
             outline: none;
           }
         }
         input[type="submit"] {
-          background: url("/assets/common/bt-save-small.png") top left no-repeat;
-          color: #df5a8a;
-          font-family: Arial;
-          font-size: 12px;
-          text-decoration: underline;
-          width: 76px;
-          height: 38px;
+          background: image-url('cart/bt-save-cpf.jpg') no-repeat;
+          text-indent: -99999px;
+          width: 133px;
+          height: 36px;
+          margin: 2px 0 0;
+          display: block;
           border: none;
           cursor: pointer;
         }
         p {
-          color: #808080;
-          font-family: Arial;
-          font-size: 13px;
-          font-weight: bold;
+          color: $third_color;
           width: 265px;
           margin: 0 50px 0 0;
         }
@@ -668,9 +665,9 @@ section#payment {
     ul.payment_methods {
       width: 635px;
       overflow: auto;
-      margin: 0 0 15px 0;
+      margin: 0 0 30px 0;
       padding: 20px 5px;
-      border: 1px #d6d6d6 solid;
+      border: 1px #e5e5e5 solid;
       li {
         text-align: center;
         display: inline;
@@ -830,14 +827,13 @@ section#payment {
   }
   &.payment_new {
     div.payments {
-      height: 135px;
+      height: 210px;
     }
     fieldset {
       ol {
         li {
           display: inline;
           label {
-            font-weight: bold;
             display: block;
           }
           input[type="text"] {
@@ -851,17 +847,19 @@ section#payment {
         }
       }
       &.banks {
-        width: 100%;
-        margin: 0 0 10px 0;
+        width: 605px;
+        margin: 0 0 30px 0;
+        padding: 5px 20px;
         overflow: auto;
         float: left;
+        border: 1px #e5e5e5 solid;
         ol {
           width: 100%;
           overflow: auto;
           li {
             width: 80px;
             overflow: auto;
-            margin: 0 5px 5px 0;
+            margin: 0 5px 0 0;
             float: left;
             label {
               background: url("/assets/cart/ico-payments.png") no-repeat;
@@ -909,8 +907,7 @@ section#payment {
         }
       }
       &.payments {
-        height: 70px;
-        margin: 0 0 0 20px;
+        height: 40px;
         clear: both;
         ol {
           li {
@@ -937,7 +934,7 @@ section#payment {
                 width: 359px;
                 height: 36px;
                 margin-right: 10px;
-                top: 0;
+                top: 10px;
                 left: 10px;
               }
             }
@@ -946,15 +943,12 @@ section#payment {
       }
     }
     div.credit_cart_payment {
-      margin: 0 0 30px 0;
-      padding: 20px 0 0 0;
+      padding: 40px 0 0 0;
       fieldset {
         &.inputs {
-          padding: 30px 25px;
-          border: 1px #d6d6d6 solid;
           ol {
             li {
-              margin: 0 10px 10px 0;
+              margin: 0 10px 20px 0;
               float: left;
               label {
                 display: block;
@@ -962,38 +956,41 @@ section#payment {
               &.user_name {
                 width: 100%;
                 input[type="text"] {
-                  width: 315px;
+                  width: 498px;
                 }
               }
               &.credit_card_number {
                 input[type="text"] {
-                  width: 270px;
+                  width: 219px;
                 }
               }
               &.security_code {
                 input[type="text"] {
-                  width: 80px;
+                  width: 98px;
                 }
               }
               &.expiration_date {
                 input[type="text"] {
-                  width: 120px;
+                  width: 98px;
                 }
               }
               &.user_identification {
                 float: left;
                 input[type="text"] {
-                  width: 130px;
+                  width: 219px;
                 }
               }
               &.user_birthday {
                 float: left;
                 input[type="text"] {
-                  width: 120px;
+                  width: 98px;
                 }
               }
               &.telephone {
                 float: left;
+                input[type="text"] {
+                  width: 98px;
+                }
               }
               &.divisor {
                 width: 100%;
@@ -1230,6 +1227,15 @@ section.checkout {
       cursor: pointer;
       border: none;
     }
+  }
+  input[type='submit'] {
+    background: image-url('cart/bt-finish.jpg') no-repeat;
+    text-indent: -99999px;
+    width: 160px;
+    height: 63px;
+    display: block;
+    border: none;
+    cursor: pointer;
   }
 }
 
