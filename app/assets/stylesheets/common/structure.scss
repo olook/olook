@@ -1132,20 +1132,19 @@ body {
                   float: left;
                 }
                 h1 {
-                  color: #716d68;
-                  font-weight: bold;
+                  font-family: $avenir;
+                  font-size: 16px;
+                  font-weight: 500;
                   text-transform: uppercase;
                 }
                 p {
                   &.price {
                     color: #000;
-                    font-size: 18px;
-                    text-transform: uppercase;
+                    font-size: 16px;
                   }
                   &.size {
-                    color: #df5a8b;
+                    color: $pink;
                     font-size: 14px;
-                    font-weight: bold;
                   }
                 }
                 form.delete {
