@@ -8,10 +8,10 @@
       <h1>Adicione um endereço</h1>
       <%= render :partial => "shared/errors", :locals => { :object => @address } %>
       <%= render "shared/address/form", :address => @address, :f => f %>
+      <%= f.submit '', :class => "save" %>
     </section>
     <section class="sidebar">
       <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service, :has_payment => false %>
-      <%= f.submit '', :class => "save" %>
     </section>
   <% end %>
 </section>

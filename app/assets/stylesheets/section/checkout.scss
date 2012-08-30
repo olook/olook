@@ -542,6 +542,16 @@ section#address_new {
         height: 200px;
       }
     }
+    input[type="submit"] {
+      background: image-url('cart/bt-save-continue.jpg') no-repeat;
+      text-indent: -99999px;
+      width: 267px;
+      height: 61px;
+      margin: 20px 0 0;
+      display: block;
+      border: none;
+      cursor: pointer;
+    }
   }
 }
 
@@ -668,7 +678,6 @@ section#payment {
         float: left;
         p {
           font-size: 14px;
-          font-weight: bold;
           margin: 0 0 5px 0;
         }
         a {
@@ -699,7 +708,7 @@ section#payment {
           }
         }
         &.credit_card {
-          margin-left: 120px;
+          margin-left: 80px;
           a {
             background-position: -220px 0;
             width: 247px;
