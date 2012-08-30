@@ -1150,13 +1150,15 @@ section.checkout {
           td.value {
             text-align: right;
           }
-          td.credit {
-            color: #378a20;
-          }
           tbody tr td {
             font-size: 14px;
             font-weight: 500;
             padding: 5px 0;
+          }
+          tbody tr.promotion {
+            td {
+              color: #de4c7b;
+            }
           }
           tfoot tr td {
             font-size: 14px;

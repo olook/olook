@@ -33,7 +33,7 @@
         <%
         promotion = cart_service.total_discount_by_type(:promotion)
         if promotion > 0 %>
-        <tr>
+        <tr class="promotion">
           <td>Promoção</td>
           <td class="value credit">- <%= number_to_currency(promotion) %></td>
         </tr>
