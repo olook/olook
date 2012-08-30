@@ -9,68 +9,79 @@ header {
     min-height: 93px !important;
     overflow: auto !important;
   }
-  a.back {
-    background: url("/assets/cart/bt-back.jpg") no-repeat;
-    color: #FFF;
-    font-family: "Open Sans", sans-serif;
-    font-size: 12px;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    line-height: 29px;
-    letter-spacing: -1px;
-    width: 171px;
-    height: 29px;
-    margin: 20px 10px 0 0;
-    display: block;
-    float: right;
-  }
-  h2.moip {
-    background: url('/assets/common/moip.png') no-repeat;
-    text-indent: -9999px;
-    width: 70px;
-    height: 42px;
-    display: block;
-    margin: 10px 0 0 20px;
-    float: right;
+}
+
+a.back_link {
+  background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
+  color: $third_color;
+  font-family: $avenir;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  margin: 20px 10px 10px 0;
+  padding: 0 0 0 12px;
+  display: block;
+  float: left;
+  &:hover {
+    text-decoration: underline;
   }
 }
+
+h2.moip {
+  background: url('/assets/common/moip.png') no-repeat;
+  text-indent: -9999px;
+  width: 70px;
+  height: 42px;
+  display: block;
+  margin: 10px 0 10px 20px;
+  float: right;
+}
+
 div#order_status {
-  background: url("/assets/cart/bg-order-status.png") center no-repeat;
+  background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
   width: 100%;
   height: 113px;
-  overflow:auto;
+  overflow: hidden;
   margin: 0 0 20px 0;
   clear: both;
   ul {
     width: 100%;
-    margin: 15px 0 0 0;
-    overflow: auto;
+    margin: 0;
+    overflow: hidden;
     li {
-      color: #ccc;
-      font-family: Times;
-      font-style: italic;
       text-align: center;
-      margin: 0 35px 0 0;
+      height: 113px;
+      margin: 0;
       float: left;
       &.last {
         margin-right: 0;
+        div.box_text {
+          border: none;
+        }
       }
-      h1 {
-        color: #ccc;
-        font-size: 35px;
-        font-weight: lighter;
-        letter-spacing: -2px;
-      }
-      p {
-        font-size: 14px;
-        width: 220px;
+      div.box_text {
+        width: 100%;
+        margin: 15px 0 0 0;
+        overflow: auto;
+        border-right: 1px #000 dotted;
+        h1 {
+          color: #050708;
+          font-family: $avenir;
+          font-size: 25px;
+          font-style: normal;
+          font-weight: lighter;
+          text-transform: uppercase;
+          margin: 0;
+        }
+        p {
+          color: #050708;
+          font-family: $kepler;
+          font-size: 15px;
+          width: 244px;
+        }
       }
       &.selected {
-        color: #df5a8a;
-        h1 {
-          color: #df5a8a;
-        }
+        background: image-url('cart/bg-selected.jpg') bottom center no-repeat;
       }
     }
   }
@@ -809,14 +820,6 @@ section#payment {
     }
   }
   &.payment_new {
-    h1 {
-      font-family: Times;
-      font-size: 19px;
-      font-style: italic;
-      margin-bottom: 5px;
-      padding: 0;
-      border: none;
-    }
     div.payments {
       height: 135px;
     }
@@ -1096,14 +1099,12 @@ section#payment {
 
 section.checkout {
   h1 {
-    font-family: Times;
-    font-size: 25px;
-    font-style: italic;
+    font-family: $avenir;
+    font-size: 22px;
     font-weight: lighter;
-    letter-spacing: -1px;
+    text-transform: uppercase;
     margin-bottom: 15px;
     padding-bottom: 3px;
-    border-bottom: 1px #e4e4e4 solid;
     a {
       color: #df5a8a;
       font-family: Arial;
@@ -1120,18 +1121,20 @@ section.checkout {
     width: 315px;
     float: right;
     div#request_info {
-      background: #f2f2f2;
+      background: #efefef;
       font-size: 14px;
       margin: 0 0 20px 0;
       padding: 15px 20px 10px;
+      border: 1px #d4d4d4 solid;
       div.item {
         margin-bottom: 20px;
         h1 {
-          font-size: 25px;
+          font-size: 17px;
           padding-bottom: 5px;
           border-bottom: 1px #e4e4e4 solid;
         }
         p {
+          color: $third_color;
           margin: 0 0 5px 0;
         }
         table {
@@ -1139,17 +1142,18 @@ section.checkout {
           color: #252326;
           td.value {
             text-align: right;
-            font-weight: bold;
           }
           td.credit {
             color: #378a20;
           }
           tbody tr td {
             font-size: 14px;
+            font-weight: 500;
             padding: 5px 0;
           }
           tfoot tr td {
             font-size: 14px;
+            font-weight: 500;
             width: 50%;
             padding: 5px 0 0 0;
             border-top: 1px #e4e4e4 solid;
@@ -1159,14 +1163,12 @@ section.checkout {
       div.delivery_time {
         margin: 20px auto;
         padding: 10px 12px;
-        border-top: 1px #d9d9d9 solid;
+        border-top: 1px #000 dotted;
         p {
-          background: url("/assets/common/pink-arrow.png") 0 4px no-repeat;
-          color: #e05789;
-          font-size: 13px;
-          font-style: italic;
+          color: $pink;
+          font-weight: 600;
+          text-align: center;
           margin: 0;
-          padding: 0 0 0 15px;
           strong {
             color: #e05789;
           }
