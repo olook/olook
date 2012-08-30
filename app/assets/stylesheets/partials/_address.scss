@@ -39,16 +39,14 @@ section.main {
               text-decoration: underline;
             }
             &.edit {
-              background: image-url('common/bt-use-address.jpg') no-repeat;
-              text-indent: -99999px;
-              width: 173px;
-              height: 34px;
+              color: $pink;
+              text-align: center;
               display: block;
             }
             &.select_address {
-              background: url("/assets/common/bt-address.jpg") no-repeat;
+              background: url("/assets/common/bt-use-address.jpg") no-repeat;
               text-indent: -9999px;
-              width: 159px;
+              width: 173px;
               height: 34px;
               display: block;
               margin: 0 auto;
