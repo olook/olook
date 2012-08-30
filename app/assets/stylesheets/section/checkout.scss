@@ -1121,18 +1121,24 @@ section.checkout {
   section.sidebar {
     width: 315px;
     float: right;
-    div#request_info {
+    a.change {
+      color: #de4c7b;
+      font-weight: 500;
+      margin: 0 0 5px;
+      float: right;
+    }
+    div.request_info {
       background: #efefef;
       font-size: 14px;
       margin: 0 0 20px 0;
       padding: 15px 20px 10px;
       border: 1px #d4d4d4 solid;
+      clear: both;
       div.item {
         margin-bottom: 20px;
         h1 {
-          font-size: 17px;
-          padding-bottom: 5px;
-          border-bottom: 1px #e4e4e4 solid;
+          font-size: 19px;
+          text-align: center;
         }
         p {
           color: $third_color;
@@ -1157,7 +1163,7 @@ section.checkout {
             font-weight: 500;
             width: 50%;
             padding: 5px 0 0 0;
-            border-top: 1px #e4e4e4 solid;
+            border-top: 1px #000 dotted;
           }
         }
       }
