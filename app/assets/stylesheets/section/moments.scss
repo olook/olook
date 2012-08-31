@@ -72,10 +72,10 @@ div#moments {
     div.filter {
       margin: 0 0 10px 0;
       h1 {
-        font-family: "Open Sans", sans-serif;
+        font-family: $avenir;
         font-size: 16px;
-        font-weight: 600;
-        letter-spacing: -1px;
+        font-weight: lighter;
+        text-transform: uppercase;
         margin: 0 0 20px 0;
         padding: 0 0 5px 5px;
         border-bottom: 1px #dedede solid;
@@ -110,6 +110,10 @@ div#moments {
         overflow: auto;
         li {
           margin: 0 0 10px 0;
+          label {
+            color: $third_color;
+            letter-spacing: -1px;
+          }
         }
         &.column {
           li {
@@ -159,21 +163,22 @@ div#moments {
       display: inline-block;
       float: left;
       label {
-        font-size: 12px;
-        font-weight: bold;
+        color: #101010;
+        font-size: 13px;
+        font-weight: 600;
         line-height: 38px;
         margin-right: 15px;
         float: left;
       }
       span {
-        background: url("/assets/common/pink_arrow.jpg") center right no-repeat;
+        background: url("/assets/common/black_arrow.jpg") center right no-repeat;
         text-indent: 12px;
         line-height: 32px;
         height: 32px;
         padding: 0 35px 0 0;
         bottom: 0;
         top: 2px;
-        border: 1px #BBB solid;
+        border: 1px #e7e7e7 solid;
         cursor: pointer;
         float: left;
       }
@@ -208,8 +213,9 @@ div#moments {
         ol {
           li {
             label {
-              font-size: 12px;
-              font-weight: bold;
+              color: #101010;
+              font-size: 13px;
+              font-weight: 600;
               line-height: 38px;
               margin-right: 15px;
               float: left;
