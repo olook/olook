@@ -559,17 +559,14 @@ section#payment {
   #billet_info {
     background: #f2f2f2;
     color: #000;
-    font-family: "Times New Roman", Times, sans-serif;
     margin: 0 0 20px;
     padding: 20px 30px;
 
     h1 {
       font-size: 23px;
-      font-style: italic;
       margin: 0 0 10px;
     }
     h2 {
-      font-family: "Arial";
       font-size: 14px;
       font-weight: bold;
       text-align: center;
@@ -577,7 +574,6 @@ section#payment {
     ul {
       margin: 0 0 20px 0;
       li {
-        font-family:"Arial";
         font-size: 14px;
         color:#666666;
         line-height: 30px;
@@ -587,24 +583,20 @@ section#payment {
         overflow: visible;
         display:block;
         a {
-          font-family: Arial, sans-serif;
-          font-weight:bold;
+          font-family: $avenir;
           color:#d1457c;
         }
       }
     }
     #final_info {
-      font-family: "Arial";
       font-weight:bold;
       font-size: 14px;
       text-align:center;
     }
     span {
       background: url('/assets/cart/number_background.png') no-repeat;
-      font-family: "Times New Roman", Times, sans-serif;
       font-size: 16px;
-      font-weight:bold;
-      font-style: italic;
+      font-weight: 600;
       line-height: 30px;
       text-align: center;
       width: 30px;
@@ -1002,7 +994,7 @@ section#payment {
   &.confirmation {
     section.main {
       h1 {
-        font-size: 35px;
+        font-size: 20px;
         border: none;
       }
       div.payment_link {
