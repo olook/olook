@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class MomentsController < ApplicationController
-  layout "moment"
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
@@ -26,7 +25,7 @@ class MomentsController < ApplicationController
   private
 
   def load_products_of_user_size
-    # To show just the shoes of the user size at the 
+    # To show just the shoes of the user size at the
     # first time that the liquidations page is rendered
     params[:shoe_sizes] = current_user.shoes_size.to_s if current_user && current_user.shoes_size
   end
