@@ -13,7 +13,7 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <div class="content" id="occasion">
+    <section id="occasion">
       <%= form_tag '/gift/occasions' do |f| %>
         <%= hidden_field :recipient, :facebook_uid, :value => @facebook_uid %>
         <div class="phrase_container">
@@ -35,7 +35,6 @@
         </div>
         <%= submit_tag "", id: "continuar" %>
       <% end %>
-    </div>
+    </section>
   </div>
 <% end %>
-
