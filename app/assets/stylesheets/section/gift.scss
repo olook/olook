@@ -166,6 +166,215 @@ section#quiz {
   }
 }
 
+section#profile {
+  padding: 20px 0 0;
+  h1.title_name {
+    font-family: $johnston;
+    font-size: 41px;
+    font-weight: lighter;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin: 25px 0 40px;
+  }
+  img.profile {
+    width: 930px;
+    height: 247px;
+    margin: 0 auto 20px;
+    display: block;
+  }
+  p.change_profile {
+    color: #101010;
+    font-family: $avenir;
+    font-size: 15px;
+    text-align: center;
+    margin: 0 0 0 100px;
+    float: left;
+    a {
+      color: #e05789;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  form.edit_gift_recipient {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 35px;
+    fieldset {
+      width: 392px;
+      padding: 20px;
+      float: left;
+      border: 1px $third_color solid;
+      h1 {
+        color: 101010;
+        font-family: $avenir;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 0 10px;
+      }
+      ul.shoes {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        display: block;
+        li {
+          color: $third_color;
+          line-height: 36px;
+          font-weight: 500;
+          margin: 0 7px 0 0;
+          display: inline-block;
+          border: 1px solid $third_color;
+          float: left;
+          label {
+            font-family: $avenir;
+            font-size: 13px;
+            text-align: center;
+            display: block;
+            width: 40px;
+            height: 35px;
+            cursor: pointer;
+            input {
+              display: none;
+            }
+          }
+          &.selected {
+            background: #000;
+            color: #FFF;
+            font-weight: 600;
+            border-color: #000;
+          }
+        }
+      }
+    }
+    input[type="submit"] {
+      background: url("/assets/gift/bt-recipient.png") no-repeat;
+      text-indent: -99999px;
+      width: 348px;
+      height: 61px;
+      display: inline-block;
+      margin: 0 0 25px 70px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+  form.edit_profile {
+    div.profiles {
+      width: 100%;
+      padding: 10px 0 20px 0;
+      overflow: hidden;
+      display: none;
+      h1 {
+        font-family: $johnston;
+        font-size: 37px;
+        font-weight: lighter;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        line-height: 40px;
+        margin: 25px 0 40px;
+        span {
+          color: #e05789;
+        }
+      }
+      ul {
+        margin: 0 0 0 25px;
+        li {
+          display: inline;
+          label {
+            position: relative;
+            background: url("/assets/gift/options_profile.png") no-repeat;
+            width: 292px;
+            height: 350px;
+            margin: 0 10px 10px;
+            display: block;
+            float: left;
+            cursor: pointer;
+            input[type="radio"] {
+              position: absolute;
+              display: none;
+              top: 0;
+              left: 0;
+            }
+          }
+          &.basica {
+            label {
+              background-position: -2px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -2px -350px;
+              }
+            }
+          }
+          &.fashionista {
+            label {
+              background-position: -302px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -302px -350px;
+              }
+            }
+          }
+          &.elegante {
+            label {
+              background-position: -599px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -599px -350px;
+              }
+            }
+          }
+          &.feminina {
+            label {
+              background-position: -896px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -896px -350px;
+              }
+            }
+          }
+          &.sexy {
+            label {
+              background-position: -1193px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -1193px -350px;
+              }
+            }
+          }
+          &.tradicional {
+            label {
+              background-position: -1490px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -1490px -350px;
+              }
+            }
+          }
+          &.trendy {
+            label {
+              background-position: -1787px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -1787px -350px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 div.full_container {
   background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
@@ -184,218 +393,6 @@ div.full_container {
     background: url("/assets/gift/bg.jpg") repeat;
     width: 100%;
     overflow: hidden;
-  }
-
-  div.content {
-    &#profile {
-      h1.title_name {
-        background: url("/assets/gift/line.png") bottom center no-repeat;
-        font-family: "Open Sans", sans-serif;
-        font-size: 52px;
-        font-weight: lighter;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: -5px;
-        margin: 25px 0 40px;
-        span {
-          color: #e05789;
-        }
-      }
-      img.profile {
-        width: 930px;
-        height: 247px;
-        margin: 0 auto 20px;
-        display: block;
-      }
-      p.change_profile {
-        color: #101010;
-        font-family: "Open Sans", sans-serif;
-        font-size: 15px;
-        text-align: center;
-        letter-spacing: -1px;
-        margin: 0 0 40px 0;
-        a {
-          color: #e05789;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-      form.edit_gift_recipient {
-        h1 {
-          color: #101010;
-          font-family: "Open Sans", sans-serif;
-          font-size: 22px;
-          font-weight: lighter;
-          text-align: center;
-          text-transform: lowercase;
-          margin: 0 auto 20px;
-          display: block;
-        }
-        ul.shoes {
-          width: 550px;
-          overflow: hidden;
-          margin: 0 auto 60px;
-          display: block;
-          li {
-            background: #FFF;
-            color: #D95485;
-            line-height: 36px;
-            margin-right: 10px;
-            margin-left: 10px;
-            display: inline-block;
-            border: 1px solid #D95485;
-            float: left;
-            label {
-              font-family: "Lucida Grande";
-              font-size: 14px;
-              font-weight: bold;
-              text-align: center;
-              display: block;
-              width: 46px;
-              height: 38px;
-              cursor: pointer;
-              input {
-                display: none;
-              }
-            }
-            &.selected {
-              background: #D95485;
-              color: white;
-            }
-          }
-        }
-        input[type="submit"] {
-          background: url("/assets/gift/bt-recipient.jpg") no-repeat;
-          color: #FFF;
-          font-family: "Open Sans", sans-serif;
-          font-size: 14px;
-          line-height: 39px;
-          letter-spacing: -1px;
-          text-transform: uppercase;
-          width: 233px;
-          display: block;
-          margin: 0 auto 15px;
-          border: none;
-          cursor: pointer;
-        }
-      }
-      form.edit_profile {
-        div.profiles {
-          background: url("/assets/gift/line.png") top center no-repeat;
-          width: 100%;
-          padding: 10px 0 20px 0;
-          overflow: hidden;
-          display: none;
-          h1 {
-            font-family: "Open Sans", sans-serif;
-            font-size: 45px;
-            font-weight: lighter;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 50px;
-            margin: 25px 0 40px;
-            span {
-              color: #e05789;
-            }
-          }
-          ul {
-            margin: 0 0 0 25px;
-            li {
-              display: inline;
-              label {
-                position: relative;
-                background: url("/assets/gift/options_profile.png") no-repeat;
-                width: 292px;
-                height: 350px;
-                margin: 0 10px 10px;
-                display: block;
-                float: left;
-                cursor: pointer;
-                input[type="radio"] {
-                  position: absolute;
-                  display: none;
-                  top: 0;
-                  left: 0;
-                }
-              }
-              &.basica {
-                label {
-                  background-position: -2px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -2px -350px;
-                  }
-                }
-              }
-              &.fashionista {
-                label {
-                  background-position: -302px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -302px -350px;
-                  }
-                }
-              }
-              &.elegante {
-                label {
-                  background-position: -599px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -599px -350px;
-                  }
-                }
-              }
-              &.feminina {
-                label {
-                  background-position: -896px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -896px -350px;
-                  }
-                }
-              }
-              &.sexy {
-                label {
-                  background-position: -1193px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -1193px -350px;
-                  }
-                }
-              }
-              &.tradicional {
-                label {
-                  background-position: -1490px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -1490px -350px;
-                  }
-                }
-              }
-              &.trendy {
-                label {
-                  background-position: -1787px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -1787px -350px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
