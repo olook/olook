@@ -173,7 +173,7 @@ padding:20px 20px 0;
 
   ul.contact {
     background: #FFF;
-    width: 345px;
+    width: 365px;
     overflow: hidden;
     margin: 22px 0;
     padding: 2px 12px;
@@ -212,6 +212,8 @@ padding:20px 20px 0;
   }
   &.return {
     h2 {
+      letter-spacing: 0;
+      font-weight: 500;
       margin: 35px 0 5px;
     }
     h3 {
@@ -237,4 +239,14 @@ padding:20px 20px 0;
 
 .clear {
   clear: both;
+}
+
+.ie {
+  #terms.return {
+    div.steps {
+      h2 {
+        font-weight: bold;
+      }
+    }
+  }
 }
