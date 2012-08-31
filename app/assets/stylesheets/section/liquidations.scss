@@ -115,10 +115,10 @@ div#liquidation {
     div.filter {
       margin: 0 0 10px 0;
       h1 {
-        font-family: "Open Sans", sans-serif;
+        font-family: $avenir;
         font-size: 16px;
-        font-weight: 600;
-        letter-spacing: -1px;
+        font-weight: lighter;
+        text-transform: uppercase;
         margin: 0 0 20px 0;
         padding: 0 0 5px 5px;
         border-bottom: 1px #dedede solid;
