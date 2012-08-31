@@ -19,7 +19,7 @@ class ShowroomPresenter < BasePresenter
 
   def display_products(asked_range, category, collection = Collection.active)
     product_finder_service = ProductFinderService.new member
-    products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection, description: member && category == Category::SHOE ? member.shoes_size.to_s : nil)
+    products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection)
 
     range = parse_range(asked_range, products)
 
