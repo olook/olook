@@ -59,6 +59,78 @@ section#banner {
   }
 }
 
+section#occasion {
+  form {
+    margin: 35px auto;
+    div {
+      font-size: 45px;
+    }
+    div, input[type="text"], select.custom_select {
+      font-family: $avenir;
+      font-size: 45px;
+      font-weight: lighter;
+      letter-spacing: -2px;
+    }
+    select.custom_select {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    div.phrase_container {
+      color: #383838;
+      text-align: center;
+      width: 890px;
+      margin: 0 auto 20px auto;
+      p {
+        position: relative;
+        line-height: normal;
+        display: inline-block;
+        input[type="text"] {
+          font-size: 28px;
+        }
+        select.custom_select {
+          position: relative;
+          padding: 0 18px;
+          top: 0;
+          left: 0;
+        }
+        span.select {
+          position: absolute;
+          background: #FFF;
+          color: $secondary_color;
+          padding: 0 20px;
+          left: 0;
+          border: 1px #a4a4a4 dotted;
+          z-index: 0;
+          white-space: nowrap;
+        }
+      }
+    }
+    input[type="text"] {
+      background: #FFF;
+      width: 280px;
+      color: $secondary_color;
+      font-weight: lighter;
+      margin-bottom: 10px;
+      padding: 0 20px;
+      border: 1px #a4a4a4 dotted;
+      &:focus {
+        outline: none;
+      }
+    }
+    input[type="submit"] {
+      background: url("/assets/gift/bt-continue.png") no-repeat;
+      color: #FFF;
+      width: 169px;
+      height: 59px;
+      margin: 0 auto;
+      display: block;
+      border: none;
+      cursor: pointer;
+      clear: both;
+    }
+  }
+}
+
 div.full_container {
   background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
@@ -73,77 +145,13 @@ div.full_container {
     left: 50%;
   }
 
+  div.full_bg {
+    background: url("/assets/gift/bg.jpg") repeat;
+    width: 100%;
+    overflow: hidden;
+  }
+
   div.content {
-    &#occasion {
-      form {
-        margin: 35px auto;
-        div {
-          font-size: 45px;
-        }
-        div, input[type="text"], select.custom_select {
-          font-size: 45px;
-          font-weight: lighter;
-          letter-spacing: -2px;
-        }
-        select.custom_select {
-          font-size: 28px;
-          margin-bottom: 20px;
-        }
-        div.phrase_container {
-          color: #383838;
-          text-align: center;
-          width: 890px;
-          margin: 0 auto 20px auto;
-          p {
-            position: relative;
-            line-height: normal;
-            display: inline-block;
-            input[type="text"] {
-              font-size: 28px;
-            }
-            select.custom_select {
-              position: relative;
-              padding: 0 18px;
-              top: 0;
-              left: 0;
-            }
-            span.select {
-              position: absolute;
-              background: #FFF;
-              color: $secondary_color;
-              padding: 0 20px;
-              left: 0;
-              border: 1px #a4a4a4 dotted;
-              z-index: 0;
-              white-space: nowrap;
-            }
-          }
-        }
-        input[type="text"] {
-          background: #FFF;
-          width: 280px;
-          color: $secondary_color;
-          font-weight: lighter;
-          margin-bottom: 10px;
-          padding: 0 20px;
-          border: 1px #a4a4a4 dotted;
-          &:focus {
-            outline: none;
-          }
-        }
-        input[type="submit"] {
-          background: url("/assets/gift/bt-continue.png") no-repeat;
-          color: #FFF;
-          width: 169px;
-          height: 59px;
-          margin: 0 auto;
-          display: block;
-          border: none;
-          cursor: pointer;
-          clear: both;
-        }
-      }
-    }
     &#quiz {
       #survey {
         height: 460px !important;
