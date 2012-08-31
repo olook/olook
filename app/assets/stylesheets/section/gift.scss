@@ -8,6 +8,57 @@ body #tracker + p {
   display: none;
 }
 
+section#banner {
+  background: image-url('gift/bg-header.jpg') top right no-repeat;
+  width: 100%;
+  min-height: 515px;
+  margin: 0 0 20px;
+  overflow: auto;
+  h1 {
+    color: #101010;
+    font-family: $johnston;
+    font-size: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 43px;
+    width: 405px;
+    margin: 40px 0 25px 0;
+  }
+  p {
+    color: #101010;
+    font-family: $kepler;
+    font-size: 17px;
+    line-height: 21px;
+    text-align: center;
+    width: 405px;
+    margin: 0 0 20px 0;
+  }
+  img {
+    margin: 0 0 10px 0;
+  }
+  a {
+    text-indent: -99999px;
+    display: block;
+    clear: both;
+    &#new_occasion_link {
+      background: url("/assets/gift/bt-start.jpg") no-repeat;
+      width: 405px;
+      height: 63px;
+      margin: 0 0 10px 0;
+    }
+    &.facebook {
+      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+      width: 403px;
+      height: 43px;
+      &.disabled {
+        opacity: .5;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=50);
+      }
+    }
+  }
+}
+
 div.full_container {
   background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
@@ -21,66 +72,8 @@ div.full_container {
     top: 0;
     left: 50%;
   }
-  div.full_bg {
-    background: url("/assets/gift/bg.jpg") repeat;
-    width: 100%;
-    overflow: hidden;
-  }
+
   div.content {
-    &#banner {
-      background: url("/assets/gift/bg-header.jpg") top center no-repeat;
-      height: 485px;
-      h1 {
-        font-family: "Open Sans", sans-serif;
-        font-size: 70px;
-        font-weight: 600;
-        letter-spacing: -7px;
-        line-height: 50px;
-        width: 455px;
-        margin: 40px 0 25px 0;
-      }
-      p {
-        color: #343434;
-        font-size: 14px;
-        letter-spacing: -1px;
-        line-height: 17px;
-        width: 410px;
-        margin: 0 0 20px 0;
-      }
-      img {
-        margin: 0 0 20px 0;
-      }
-      a {
-        color: #FFF;
-        text-transform: uppercase;
-        text-decoration: none;
-        letter-spacing: -1px;
-        display: block;
-        clear: both;
-        &#new_occasion_link {
-          background: url("/assets/gift/bt-start.jpg") no-repeat;
-          font-size: 20px;
-          text-align: center;
-          line-height: 43px;
-          width: 347px;
-          height: 46px;
-          margin: 0 0 10px 0;
-        }
-        &.facebook {
-          background: url("/assets/gift/bt-facebook.png") no-repeat;
-          font-size: 14px;
-          line-height: 41px;
-          width: 285px;
-          height: 41px;
-          padding: 0 0 0 50px;
-          &.disabled {
-            opacity: .5;
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-            filter: alpha(opacity=50);
-          }
-        }
-      }
-    }
     &#occasion {
       form {
         margin: 35px auto;
