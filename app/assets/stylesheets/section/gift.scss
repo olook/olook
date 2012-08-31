@@ -131,6 +131,41 @@ section#occasion {
   }
 }
 
+section#quiz {
+  padding: 10px 0 0;
+  #survey {
+    height: 460px !important;
+    h2 {
+      margin: 20px 0 0 0;
+    }
+    ol.questions {
+      h3 {
+        display: none;
+      }
+    }
+    ul.questions {
+      li.images {
+        ol {
+          li {
+            div.shadow {
+              top: 13px;
+              left: 18px;
+            }
+          }
+        }
+      }
+    }
+    .jcarousel-prev {
+      top: 205px;
+    }
+  }
+
+  ul#tracker {
+    width: 92px;
+    margin: 0 auto 30px;
+  }
+}
+
 div.full_container {
   background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
   padding: 0 0 27px 0;
@@ -152,24 +187,6 @@ div.full_container {
   }
 
   div.content {
-    &#quiz {
-      #survey {
-        height: 460px !important;
-        h2 {
-          margin: 20px 0 0 0;
-        }
-        ul.questions {
-          h3 {
-            display: none;
-          }
-        }
-      }
-
-      ul#tracker {
-        width: 84px;
-        margin: 0 auto 30px;
-      }
-    }
     &#profile {
       h1.title_name {
         background: url("/assets/gift/line.png") bottom center no-repeat;
