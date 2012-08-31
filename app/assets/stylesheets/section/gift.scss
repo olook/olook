@@ -387,8 +387,8 @@ div.content {
       display: block;
     }
     div.title {
-      margin: 0 0 35px 0;
-      border-bottom: 1px #949494 solid;
+      margin: 0 0 10px 0;
+      border-bottom: 1px #eaeaea solid;
       h1 {
         background: url("/assets/gift/subtitle-calendar.jpg") 255px 0 no-repeat;
         color: #101010;
@@ -410,8 +410,8 @@ div.content {
         width: 100%;
         overflow: hidden;
         margin: 0 0 20px 0;
-        padding: 0 0 10px 0;
-        border-bottom: 1px #c4c4c4 solid;
+        padding: 0 0 20px 5px;
+        border-bottom: 1px #eaeaea solid;
         li {
           width: 80px;
           margin: 0;
@@ -419,8 +419,9 @@ div.content {
           float: left;
           a {
             color: #878686;
-            font-family: "Open Sans", sans-serif;
+            font-family: $johnston;
             font-size: 15px;
+            font-weight: lighter;
             text-transform: uppercase;
             text-decoration: none;
             padding: 10px 5px;
@@ -442,10 +443,9 @@ div.content {
           display: block;
           float: left;
           a {
-            color: #7d7d7d;
-            font-family: "Open Sans", sans-serif;
-            font-size: 9px;
-            text-transform: uppercase;
+            color: $third_color;
+            font-family: $avenir;
+            font-size: 12px;
             text-align: center;
             text-decoration: none;
             float: left;
@@ -458,16 +458,19 @@ div.content {
                 height: 60px;
               }
             }
+            p {
+              height: 18px;
+              overflow: hidden;
+            }
           }
           div.actions {
             position: absolute;
-            background: #FFF;
-            width: 255px;
+            background: image-url('gift/bg-actions-left.png') bottom center no-repeat;
+            width: 250px;
+            height: 123px;
             overflow: visible;
-            padding: 15px;
             top: 40px;
-            left: 40px;
-            border: 1px #dcdcdc solid;
+            left: 0;
             z-index: 1000;
             display: none;
             div.triangle {
@@ -480,41 +483,32 @@ div.content {
               left: -3px;
             }
             h1 {
-              color: #343434;
-              font-family: "Open Sans", sans-serif;
-              font-size: 13px;
+              color: #101010;
+              font-family: $kepler;
+              font-size: 16px;
               font-weight: 600;
-              margin: 0 0 10px 0;
-              float: left;
+              text-align: center;
+              margin: 25px auto 7px;
+              width: 220px;
             }
             p {
-              color: #7d7d7d;
-              font-family: "Open Sans", sans-serif;
-              font-size: 11px;
-              letter-spacing: -1px;
-              float: left;
-              clear: both;
+              color: $third_color;
+              font-size: 13px;
+              line-height: normal;
+              text-align: center;
+              margin: 0 0 8px;
             }
             ul {
-              width: 155px;
-              float: right;
               li {
                 input[type="submit"] {
-                  background: url("/assets/gift/bg-birthday.png") top left no-repeat;
-                  color: #e05789;
-                  font-family: "Open Sans", sans-serif;
-                  font-size: 11px;
-                  font-weight: bold;
-                  letter-spacing: -1px;
-                  text-decoration: none;
-                  width: 113px;
-                  margin: 0 0 7px 0;
-                  padding: 0 0 0 20px;
+                  background: image-url("gift/bt-find-present.jpg") no-repeat;
+                  text-indent: -99999px;
+                  width: 169px;
+                  height: 30px;
+                  display: block;
+                  margin: 0 auto;
                   border: none;
                   cursor: pointer;
-                  &:hover {
-                    text-decoration: underline;
-                  }
                 }
               }
             }
@@ -554,16 +548,9 @@ div.content {
     }
     a#connect_facebook {
       background: url("/assets/gift/bt-facebook.jpg") no-repeat;
-      color: #FFF;
-      font-family: "Open Sans", sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -1px;
-      line-height: 41px;
-      text-decoration: none;
-      text-transform: uppercase;
-      width: 162px;
-      height: 41px;
+      text-indent: -99999px;
+      width: 403px;
+      height: 43px;
       display: block;
       margin: 0 auto;
       padding: 0 0 0 40px;
