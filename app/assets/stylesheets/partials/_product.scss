@@ -408,6 +408,53 @@ li.product {
   }
 }
 
+#moments {
+  li.product {
+    .box_product {
+      a.product_link {
+        h1 {
+          font-size: 14px;
+          width: auto !important;
+          float: left;
+        }
+        > span {
+          color: #343434;
+          font-size: 14px;
+          letter-spacing: -1px;
+          margin-right: 2px;
+          margin: 0 7px 0 0;
+          float: right;
+        }
+      }
+    }
+    &.promotion {
+      .box_product {
+        a.product_link {
+          > span {
+            color: $pink;
+            text-align: right;
+            padding: 2px 0 0;
+            display: block;
+            clear: both;
+            border-top: 1px #eee solid;
+            float: none;
+            &.old {
+              color: #818181;
+              font-size: 12px;
+              text-decoration: line-through;
+              padding: 0;
+              display: inline;
+              clear: none;
+              border: none;
+              float: right;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 #suggestion {
   li.product {
     width: 175px;
