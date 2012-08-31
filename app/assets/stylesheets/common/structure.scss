@@ -26,7 +26,7 @@ body {
     width: 100%;
     position: absolute;
     background: #E05789;
-    padding: 29px 0;
+    padding: 42px 0;
     z-index: 10001;
     opacity: 0.8;
     filter: alpha(opacity = 80);
@@ -766,7 +766,8 @@ body {
   header {
     background: url("/assets/common/bg-holder-full.png") center bottom no-repeat;
     width: 100%;
-    min-height: 105px;
+    min-height: 122px;
+    padding: 10px 0 0 0;
     overflow: visible;
     display: block;
 
@@ -777,6 +778,18 @@ body {
         height: 58px;
         text-indent: -9999px;
         margin: 10px 0 0;
+        float: left;
+      }
+    }
+
+    h2.info_logo {
+      a {
+        background: image-url('common/change-logo.jpg') no-repeat;
+        text-indent: -99999px;
+        width: 234px;
+        height: 68px;
+        margin: 10px 0 0 3px;
+        display: block;
         float: left;
       }
     }
@@ -1209,10 +1222,11 @@ body {
   }
   &.logged {
     div#error-messages {
-      padding: 41px 0;
+      padding: 53px 0;
     }
     header {
-      min-height: 130px;
+      min-height: 145px;
+      padding: 0 0 8px;
     }
   }
   div.full_container {
@@ -1446,6 +1460,7 @@ header span {
 header div.contact {
   width: 100%;
   overflow: auto;
+  margin: 0 0 10px 0;
   padding: 5px 0;
   border-bottom: 1px #efefef solid;
   div.content {
