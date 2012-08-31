@@ -57,7 +57,7 @@ div#moments {
             }
           }
         }
-        &.selected {
+        &.selected, &:hover {
           background: image-url('cart/bg-selected.jpg') bottom center no-repeat;
         }
       }
