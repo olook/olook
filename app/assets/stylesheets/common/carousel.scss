@@ -315,21 +315,21 @@ body {
               overflow: auto;
               clear: both;
               li {
-                background: url('/assets/common/finish.png') no-repeat;
+                background: url('/assets/common/finish.jpg') 0 0 no-repeat;
                 text-indent: -9999px;
-                width: 217px;
-                height: 71px;
+                width: 147px;
+                height: 61px;
                 margin: 0 auto;
                 display: block;
                 cursor: pointer;
                 float: none;
                 &.grey-button {
-                  background: url('/assets/common/finish-disabled.png') no-repeat;
+                  background-position: 0 -61px;
                 }
                 input[type=submit] {
                   background: none;
-                  width: 217px;
-                  height: 71px;
+                  width: 147px;
+                  height: 61px;
                   display: block;
                   border: none;
                   cursor: pointer;
