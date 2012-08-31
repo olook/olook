@@ -16,7 +16,8 @@ Olook::Application.routes.draw do
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
-  match "/sobre", :to => "pages#about", :as => "about"
+  match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
+  #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
   match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
@@ -170,7 +171,7 @@ Olook::Application.routes.draw do
     post 'integrate_orders' => "orders#integrate_orders"
     post 'integrate_cancel' => "orders#integrate_cancel"
     post 'integrate_payment' => "orders#integrate_payment"
-        
+
     resources :orders do
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
@@ -197,7 +198,7 @@ Olook::Application.routes.draw do
     resources :gift_occasion_types
     resources :gift_recipient_relations
     resource :settings
-    
+
   end
 
   #USER / SIGN IN
