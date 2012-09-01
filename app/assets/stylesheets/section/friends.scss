@@ -279,20 +279,25 @@ section#friends {
               margin: 0 10px 10px 0;
               float: left;
               a {
+                background: #FFF;
                 position: absolute;
                 color: #FFF;
-                font-family: 'Open Sans', sans-serif;
                 font-size: 13px;
                 line-height: 14px;
                 text-transform: uppercase;
                 text-decoration: none;
                 text-align: center;
                 top: 0;
+                left: 0;
                 width: 50px;
                 height: 50px;
                 float: left;
                 overflow: hidden;
+                opacity: .0;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                filter: alpha(opacity=0);
                 p {
+                  line-height: 16px;
                   padding: 10px 0 0 0;
                   display: none;
                 }
@@ -302,6 +307,9 @@ section#friends {
                 }
                 &:hover, &.selected {
                   background: #d25280;
+                  opacity: 1;
+                  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                  filter: alpha(opacity=100);
                   img {
                     margin: -4px;
                   }
@@ -352,12 +360,11 @@ section#friends {
         }
         h2 {
           color: #434343;
-          font-family: Times;
+          font-family: $avenir;
           font-size: 24px;
-          font-style: italic;
           font-weight: normal;
-          letter-spacing: -1px;
           margin: 0 0 15px 0;
+          clear: both;
         }
         fieldset.inputs {
           clear: both;
