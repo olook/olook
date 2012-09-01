@@ -52,12 +52,12 @@ li.product {
             @include border-radius(3px);
             background: #e05789;
             color: #FFF;
-            font-family: "Open Sans", sans-serif;
-            font-size: 10px;
+            font-family: $avenir;
+            font-size: 9px;
             text-decoration: none;
             text-transform: uppercase;
             font-weight: 600;
-            width: 120px;
+            width: 150px;
             margin: -120px auto 0;
             padding: 0 10px;
           }
