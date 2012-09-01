@@ -205,20 +205,20 @@
             }
             a.video_link {
               position: absolute;
-              background: image-url("common/label-lookbook-video.jpg") no-repeat;
+              background: image-url("common/label-lookbook-video.png") no-repeat;
               color: #FFF;
               font-family: $johnston;
               font-size: 12px;
               font-weight: normal;
-              line-height: 34px;
+              line-height: 25px;
               text-decoration: none;
               text-transform: uppercase;
-              width: 115px;
+              width: 120px;
               height: 33px;
-              padding: 0 0 0 35px;
+              padding: 0 0 0 30px;
               display: block;
-              top: 10px;
-              right: 0;
+              top: 0;
+              right: -12px;
               z-index: 100;
             }
             a.item {
