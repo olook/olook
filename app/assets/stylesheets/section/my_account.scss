@@ -1,6 +1,7 @@
 @import 'partials/mixins';
 @import 'partials/colors';
 @import "partials/order_status";
+@import 'partials/address';
 
 body {
   #error_explanation {
@@ -9,27 +10,25 @@ body {
 }
 form {
   width: 645px;
-  margin: 20px 0 0 20px;
+  margin: 20px 0 0 0;
   overflow: hidden;
   fieldset {
-    margin: 0 0 25px 0;
     ol {
       li {
-        margin: 0 10px 10px 0;
+        margin: 0 15px 15px 0;
         display: inline;
         float: left;
         label {
-          font-weight: bold;
-          display: block;
+          margin-right: 3px;
           float: left;
         }
         em {
-          color: #F00;
+          color: #000;
           font-size: 14px;
           float: left;
         }
         p.warn {
-          font-size: 9px;
+          font-size: 10px;
         }
       }
     }
@@ -37,9 +36,10 @@ form {
       ol {
         li {
           input[type="text"], input[type="email"], input[type="password"] {
+            color: #000;
             font-size: 14px;
-            padding: 10px;
-            border: 1px #d6d6d6 solid;
+            padding: 8px 10px;
+            border: 1px #e8e8e8 solid;
             display: block;
             clear: both;
             &:focus {
@@ -49,15 +49,13 @@ form {
           &.email {
             width: 100%;
             input {
-              width: 280px;
+              width: 205px;
             }
           }
         }
       }
     }
     &.cpf {
-      padding: 25px 35px;
-      border: 1px #d6d6d6 solid;
       li {
         position: relative;
         span.select {
@@ -66,7 +64,7 @@ form {
           height: 34px;
           line-height: 34px;
           cursor: default;
-          top: 17px;
+          top: 19px;
           z-index: 1;
         }
         select {
@@ -74,7 +72,7 @@ form {
             position: absolute;
             line-height: 26px;
             height: 34px;
-            top: 0;
+            top: 25px;
             &#user_birthday_3i {
               width: 74px;
               margin-right: 10px;
@@ -111,33 +109,30 @@ form {
         }
       }
     }
+    &.facebook {
+      margin: 0 0 40px 0;
+    }
   }
 }
+
 div#box_title_my_account {
-  background: url("/assets/my_account/bg-title-desc.png") repeat-x;
   width: 100%;
-  height: 62px;
-  margin: 8px 0 20px 0;
+  margin: 30px 0 20px 0;
   display: block;
   h1, h2 {
-    color: #5f5f5f;
-    font-family: "Open Sans", sans-serif;
     font-weight: lighter;
-    text-transform: uppercase;
     display: block;
-    float: left;
   }
   h1 {
-    font-size: 40px;
-    letter-spacing: -2px;
-    margin: 5px 30px 0 10px;
+    font-family: $johnston;
+    font-size: 35px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin: 0 0 5px;
   }
   h2 {
-    font-size: 14px;
-    line-height: 15px;
-    letter-spacing: -1px;
-    margin-top: 17px;
-    width: 440px;
+    font-family: $kepler;
+    font-size: 18px;
   }
 }
 
@@ -145,47 +140,43 @@ div#my_account {
   width: 100%;
   overflow: auto;
   div#box_menu {
-    width: 200px;
+    background: image-url('common/bg-divisor.jpg') top right no-repeat;
+    width: 230px;
     height: 515px;
     display: block;
     float: left;
-    border-right: 1px #dcdcdc solid;
     ul {
       margin: 20px 25px 0 0;
-      float: right;
       li {
-        text-align: right;
         margin: 0 0 15px 0;
         a {
-          background: url("/assets/my_account/arrow.png") right no-repeat;
-          color: #616161;
+          color: #101010;
           font-size: 18px;
           text-decoration: none;
+          text-transform: uppercase;
           padding: 0 17px 0 0;
           &:hover, &.selected {
-            background: url("/assets/my_account/arrow-selected.png") right no-repeat;
-            color: #df5a8b;
+            color: #e14d88;
           }
         }
       }
     }
   }
   div#data {
-    width: 775px;
+    width: 745px;
+    margin: 0 0 0 10px;
     overflow: auto;
     float: left;
     div.box_title {
-      width: 745px;
-      padding: 5px 0 10px 30px;
+      width: 715px;
+      padding: 5px 0 0;
       overflow: hidden;
-      border-bottom: 1px #dcdcdc solid;
       h1 {
-        color: #4c4c4c;
-        font-family: "Open Sans", sans-serif;
-        font-size: 34px;
-        font-weight: lighter;
+        color: #101010;
+        font-family: $avenir;
+        font-size: 22px;
+        font-weight: 400;
         text-transform: uppercase;
-        letter-spacing: -2px;
         display: block;
         float: left;
       }
@@ -209,23 +200,26 @@ div#my_account {
   &.personal_data {
     form {
       h2 {
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        margin: 0 0 20px;
+        font-family: $avenir;
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0 0 15px;
+      }
+      label {
+        float: none;
       }
       fieldset.buttons {
         ol li input[type="submit"] {
-          background: url("/assets/common/bt-save.png") no-repeat;
+          background: url("/assets/common/bt-save.jpg") no-repeat;
           text-indent: -9999px;
-          width: 92px;
-          height: 46px;
+          width: 125px;
+          height: 61px;
           display: block;
           border: none;
           cursor: pointer;
         }
       }
       fieldset.facebook {
-        margin-left: 15px;
         p {
           color: #4c4c4c;
           margin: 0 0 15px 0;
@@ -239,25 +233,25 @@ div#my_account {
         }
       }
       fieldset.shoe_size {
-        margin-left: 15px;
         ul.shoes_size {
           overflow: hidden;
           margin: 0 0 30px 0;
           clear: both;
           li {
-            border: 1px solid $pink;
-            color: $pink;
+            border: 1px solid $third_color;
+            color: $third_color;
             display: block;
-            line-height: 36px;
+            line-height: 38px;
             margin-right: 19px;
             float: left;
             &.selected {
-              background: $pink;
+              background: #101010;
               color: #FFF;
+              font-weight: 500;
+              border-color: #101010;
             }
             label {
               font-size: 16px;
-              font-weight: bold;
               text-align: center;
               display: block;
               width: 46px;
@@ -293,13 +287,14 @@ div#my_account {
         margin-bottom: 0;
       }
       &.buttons {
+        margin: 20px 0 0 0;
         ol {
           li {
             input[type="submit"] {
-              background: url("/assets/common/bt-save.png") no-repeat;
+              background: url("/assets/common/bt-save.jpg") no-repeat;
               text-indent: -9999px;
-              width: 92px;
-              height: 46px;
+              width: 125px;
+              height: 61px;
               display: block;
               border: none;
               cursor: pointer;
@@ -309,7 +304,6 @@ div#my_account {
       }
     }
     div.address_fields {
-      margin-bottom: 30px;
       ol {
         li {
           margin-bottom: 10px;
@@ -319,37 +313,33 @@ div#my_account {
   }
   &.orders {
     table {
-      width: 760px;
+      width: 735px;
       margin: 25px 0 30px 10px;
       thead {
         tr {
           th {
+            background: image-url('my_account/bg-bottom-table.jpg') bottom repeat-x;
             color: #000;
-            font-family: Times;
+            font-family: $avenir;
             font-size: 16px;
-            font-style: italic;
             font-weight: lighter;
-            text-align: left;
+            text-align: center;
             padding: 10px 0px;
-            border-bottom: 1px #e5e5e5 solid;
             &.number {
               width: 100px;
-              padding-left: 10px;
+              text-align: left;
             }
             &.date {
-              width: 120px;
+              width: 125px;
             }
             &.amount {
-              width: 50px;
-            }
-            &.value, &.freight {
               width: 75px;
             }
-            &.payment {
-              width: 90px;
+            &.value, &.freight, &.payments {
+              width: 80px;
             }
             &.status {
-              width: 120px;
+              width: 150px;
             }
           }
         }
@@ -357,6 +347,7 @@ div#my_account {
       tbody {
         tr {
           td {
+            text-align: center;
             padding: 20px 0;
             border-bottom: 1px #e5e5e5 solid;
             &.more {
@@ -371,7 +362,15 @@ div#my_account {
             }
             &.number {
               color: #df5a8b;
+              text-align: left;
               padding-left: 10px;
+              a {
+                color: #6d6e71;
+                text-decoration: none;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
             }
           }
         }
@@ -381,7 +380,7 @@ div#my_account {
       @include order-status;
       margin: 30px 0 0 35px;
       h1, h2 {
-        font-family: Arial;
+        font-family: $avenir;
       }
       h1 {
         color: #000;
@@ -399,7 +398,7 @@ div#my_account {
       }
       h2 {
         color: #7a7a7a;
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         font-weight: normal;
         margin: 0 0 30px 0;
@@ -441,6 +440,9 @@ div#my_account {
               color: #6d6d6d;
               margin: 0 0 5px 0;
             }
+            strong {
+              font-weight: 500;
+            }
           }
         }
         div#details {
@@ -452,8 +454,9 @@ div#my_account {
           }
           h1 {
             color: #292929;
-            font-family: Arial;
+            font-family: $avenir;
             font-size: 14px;
+            font-weight: 500;
             text-transform: uppercase;
             margin: 0 0 5px 0;
             padding: 0;
@@ -465,15 +468,18 @@ div#my_account {
               color: #df5a8a;
             }
           }
+          strong {
+            font-weight: 500;
+          }
           p.warn {
-            font-size: 10px;
+            font-size: 11px;
           }
           table {
             width: 150px;
             margin: 0;
             thead {
               tr th {
-                font-family: Arial;
+                font-family: $avenir;
                 font-size: 14px;
                 font-weight: bold;
                 font-style: normal;
@@ -497,38 +503,41 @@ div#my_account {
     div.invites_list {
       margin: 30px 0 0 10px;
       h1, h2 {
-        font-size: 35px;
-        font-style: italic;
+        font-family: $avenir;
+        font-size: 20px;
         font-weight: normal;
-        text-align: center;
-        letter-spacing: -2px;
+        margin: 0 0 10px;
         span {
           color: #e05789;
         }
       }
       h2 {
-        font-size: 21px;
+        font-size: 15px;
         margin: 0 0 20px 0;
         padding: 0 0 10px 0;
-        border-bottom: 1px #dcdcdc solid;
       }
       table {
-        width: 700px;
+        width: 735px;
         margin: 0 auto 30px auto;
         a {
           color: #df5a8b;
         }
         thead tr th {
+          background: image-url('my_account/bg-table-top-bottom.jpg') top repeat-x;
+          color: #000;
+          font-family: $avenir;
+          font-size: 16px;
+          font-weight: lighter;
           text-align: center;
-          padding: 0 0 15px 0;
+          padding: 13px 0px;
           &.email {
             text-align: left;
           }
         }
         tbody tr td {
           text-align: center;
-          padding: 15px 20px;
-          border: 1px #dbdbdb solid;
+          padding: 20px 0;
+          border-bottom: 1px #e5e5e5 solid;
           &.email {
             text-align: left;
           }
@@ -572,14 +581,14 @@ div#my_account {
             margin: 0 0 30px 0;
             clear: both;
             li {
-              border: 1px solid $pink;
-              color: $pink;
+              border: 1px solid $secondary_color;
+              color: $secondary_color;
               display: block;
               line-height: 36px;
               margin-right: 19px;
               float: left;
               &.selected {
-                background: $pink;
+                background: $secondary_color;
                 color: #FFF;
               }
               label {
@@ -597,10 +606,10 @@ div#my_account {
             }
           }
           input[type="submit"] {
-            background: url("/assets/common/bt-save.png") no-repeat;
+            background: url("/assets/common/bt-save.jpg") no-repeat;
             text-indent: -9999px;
-            width: 92px;
-            height: 46px;
+            width: 125px;
+            height: 61px;
             display: block;
             border: none;
             cursor: pointer;
@@ -613,7 +622,7 @@ div#my_account {
 
 .gecko, .ie {
   form fieldset.cpf li select.custom_select {
-    top: 17px !important;
+    top: 19px !important;
     &#user_birthday_3i {
       left: 0px !important;
     }
