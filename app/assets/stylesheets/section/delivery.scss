@@ -1,16 +1,18 @@
+@import 'partials/mixins';
+
 div#delivery_time {
   margin: 35px auto 0 auto;
   section#description {
-    background: url("/assets/delivery/map.png") top left no-repeat;
-    width: 715px;
+    background: url("/assets/delivery/map.png") 745px 20px no-repeat;
+    width: 705px;
     height: 270px;
     margin: 0 auto;
-    padding: 0 0 0 275px;
+    padding: 0 285px 0 0;
     h1 {
-      background: url("/assets/delivery/title-delivery.png") no-repeat;
-      text-indent: -9999px;
-      width: 665px;
-      height: 39px;
+      color: #101010;
+      font-family: $johnston;
+      font-size: 40px;
+      text-transform: uppercase;
       display: block;
       margin: 0 0 25px 0;
     }
@@ -18,22 +20,24 @@ div#delivery_time {
       font-size: 14px;
       margin: 0 0 20px 0;
       &.last {
-        color: #df5b8d;
+        font-weight: 500;
       }
     }
   }
   section#areas {
-    background: url("/assets/delivery/divisor.png") top center no-repeat;
-    width: 100%;
-    padding: 20px 0 90px 0;
+    width: 690px;
+    padding: 20px;
     overflow: hidden;
+    margin: 0 0 55px;
+    border: 1px #000 solid;
     form {
-      width: 410px;
+      width: 445px;
       margin: 0 10px 40px 0;
       overflow: auto;
       float: left;
       label {
-        font-size: 14px;
+        font-family: $kepler;
+        font-size: 21px;
       }
       ol li {
         position: relative;
@@ -61,47 +65,53 @@ div#delivery_time {
       }
     }
     p {
-      margin: 0 0 40px 0;
-      float: left;
-    }
-    table {
-      width: 750px;
-      margin: 0 auto;
+      font-weight: 500;
       clear: both;
-      thead {
-        tr {
-          th {
-            background: #333;
-            color: #FFF;
-            font-size: 16px;
-            font-weight: normal;
-            text-align: center;
-            padding: 8px 0;
-            &.first {
-              text-align: left;
-              padding-left: 15px;
-            }
+    }
+  }
+  table {
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+    thead {
+      tr {
+        th {
+          font-size: 16px;
+          font-weight: normal;
+          text-align: center;
+          padding: 8px 0;
+          border-top: 2px #000 dotted;
+          border-bottom: 2px #000 dotted;
+          &.first {
+            text-align: left;
+            padding-left: 15px;
+          }
+          &.last {
+            width: 135px;
           }
         }
       }
-      tbody {
-        tr {
+    }
+    tbody {
+      tr {
+        td {
+          color: #333;
+          text-align: center;
+          font-size: 14px;
+          padding: 8px 0;
+          &.first {
+            text-align: left;
+            vertical-align: middle;
+            padding-left: 15px;
+          }
+        }
+        &.zebra {
           td {
-            color: #333;
-            text-align: center;
-            font-size: 14px;
-            padding: 8px 0;
-            &.first {
-              text-align: left;
-              vertical-align: middle;
-              padding-left: 15px;
-            }
+            //background: #EEE;
           }
-          &.zebra {
-            td {
-              background: #EEE;
-            }
-          }
+        }
+        &.border {
+          border-bottom: 1px #c5c5c5 solid;
         }
       }
     }

@@ -24,23 +24,18 @@ body {
       }
 
       .not_connected {
-        width: 380px;
         margin: 0 auto 15px auto;
         h2, p {
           margin: 0;
         }
         h2 {
-          line-height: 30px;
+          font-family: $avenir;
+          line-height: 33px;
           margin-bottom: 15px;
-          span {
-            margin: 0 0 0 100px;
-          }
         }
         p {
-          font-size: 19px;
-          text-align: center;
-          width: 285px;
-          margin: 0 auto;
+          font-size: 17px;
+          width: 430px;
         }
       }
 
@@ -59,10 +54,11 @@ body {
         padding: 15px;
         border: 1px #dedede solid;
         p {
-          color: #696969;
-          font-size: 16px;
+          color: #6d6e71;
+          font-family: $avenir;
+          font-size: 13px;
           line-height: 13px;
-          width: 180px;
+          width: 185px;
           margin: 0;
           float: left;
         }
@@ -85,39 +81,37 @@ body {
               display: none;
             }
             li, .field_with_errors {
-              width: 450px;
-              margin-bottom: 5px;
+              width: 460px;
               overflow: auto;
 
               label {
-                color: #0f1714;
-                display: inline-block;
-                width: 140px;
-                line-height: 33px;
-                text-align: right;
-                font-weight: bold;
-                float: left;
-
+                color: #6d6e71;
+                font-size: 14px;
+                line-height: 27px;;
+                display: block;
               }
               p.hint {
                 color: #878787;
-                font-family: "Arial", sans-serif;
-                display: block;
+                font-family: $avenir;
+                font-size: 12px;
                 font-weight: normal;
                 font-style: normal;
-                font-size: 11px;
-                line-height: 5px;
+                line-height: 14px;
                 letter-spacing: normal;
-                margin: 10px 0 5px 145px;
+                width: 155px;
+                display: block;
+                margin: 0 0 0 15px;
+                float: left;
               }
 
               input[type='text'], input[type='email'], input[type='password'] {
                 background: url('/assets/common/bg-inputs.png') repeat-x;
                 width: 266px;
                 border: 1px solid #C1C1C1;
+                margin: 0 0 7px;
                 padding: 7px 8px;
-                margin-left: 5px;
-                height:17px;
+                height: 17px;
+                float: left;
               }
 
               &.cpf {
@@ -144,18 +138,19 @@ body {
               }
 
               &.terms {
+                width: 285px;
                 clear: both;
                 p {
+                  color: #6d6e71;
                   font-size: 12px;
                   text-align: center;
                   padding-top: 10px;
                   font-family: arial;
-                  font-weight: bold;
                   font-style: normal;
                   letter-spacing:0;
-
+                  margin: 0 0 20px;
                   a {
-                    color: #000;
+                    color: #6d6e71;
                   }
                 }
               }
@@ -175,17 +170,17 @@ body {
           }
 
           &.buttons {
-            width: 300px;
-            margin: 15px 120px 0;
+            width: 285px;
+            margin: 0;
 
             li {
               width: 300px;
 
               input[type='submit'] {
-                background: url('/assets/common/register.png') no-repeat;
+                background: url('/assets/common/register.jpg') no-repeat;
                 text-indent: -9999px;
-                width: 299px;
-                height: 63px;
+                width: 287px;
+                height: 61px;
                 display: block;
                 border: none;
                 cursor: pointer;

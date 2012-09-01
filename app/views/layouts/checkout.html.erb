@@ -1,6 +1,44 @@
-<% content_for :top_my_account, render(:partial => "shared/header_checkout") %>
+<% content_for :top_my_account, render(:partial => "shared/header_default") %>
 
 <% content_for :content do %>
+  <% if @referer %>
+    <%= link_to @referer[:text], @referer[:url], :class => "back_link" %>
+  <% else %>
+    <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_link" %>
+  <% end %>
+  <% if user_signed_in? %>
+    <h2 class="moip">Pagamento: Moip</h2>
+  <% end %>
+  <div id="order_status">
+    <div class="content">
+      <ul>
+        <li class="<%= selected_if_current(["checkout/cart#show"]) %>">
+          <div class="box_text">
+            <h1>Minha Sacola</h1>
+            <p>Confira os produtos<br />do seu carrinho</p>
+          </div>
+        </li>
+        <li class="<%= selected_if_current(["checkout/addresses#index", "checkout/addresses#new", "checkout/addresses#edit"]) %>">
+          <div class="box_text">
+            <h1>Entrega</h1>
+            <p>Onde você quer que seu<br />pedido seja entregue</p>
+          </div>
+        </li>
+        <li class="<%= selected_if_current(["checkout/checkout#new", "checkout/checkout#new_debit", "checkout/checkout#create_debit", "checkout/checkout#new_billet", "checkout/checkout#create_billet", "checkout/checkout#new_credit_card", "checkout/checkout#create_credit_card"]) %>">
+          <div class="box_text">
+            <h1>Pagamento</h1>
+            <p>Como quer efetuar o pagamento?<br />Selecione uma das opções</p>
+          </div>
+        </li>
+        <li class="<%= selected_if_current(["checkout/billets#show", "checkout/credit_cards#show", "checkout/debits#show"]) %> last">
+          <div class="box_text">
+            <h1>Confirmação</h1>
+            <p>Confirme seus produtos, endereço<br />e finalize sua compra</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
   <%= content_for?(:news_content) ? yield(:news_content) : yield %>
 <% end %>
 

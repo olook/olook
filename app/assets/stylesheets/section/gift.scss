@@ -1,9 +1,378 @@
+@import 'partials/mixins';
+
 header {
   background: none;
 }
 
 body #tracker + p {
   display: none;
+}
+
+section#banner {
+  background: image-url('gift/bg-header.jpg') top right no-repeat;
+  width: 100%;
+  min-height: 515px;
+  margin: 0 0 20px;
+  overflow: auto;
+  h1 {
+    color: #101010;
+    font-family: $johnston;
+    font-size: 44px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 43px;
+    width: 405px;
+    margin: 40px 0 25px 0;
+  }
+  p {
+    color: #101010;
+    font-family: $kepler;
+    font-size: 17px;
+    line-height: 21px;
+    text-align: center;
+    width: 405px;
+    margin: 0 0 20px 0;
+  }
+  img {
+    margin: 0 0 10px 0;
+  }
+  a {
+    text-indent: -99999px;
+    display: block;
+    clear: both;
+    &#new_occasion_link {
+      background: url("/assets/gift/bt-start.jpg") no-repeat;
+      width: 405px;
+      height: 63px;
+      margin: 0 0 10px 0;
+    }
+    &.facebook {
+      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+      width: 403px;
+      height: 43px;
+      &.disabled {
+        opacity: .5;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=50);
+      }
+    }
+  }
+}
+
+section#occasion {
+  form {
+    margin: 35px auto;
+    div {
+      font-size: 45px;
+    }
+    div, input[type="text"], select.custom_select {
+      font-family: $avenir;
+      font-size: 45px;
+      font-weight: lighter;
+      letter-spacing: -2px;
+    }
+    select.custom_select {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    div.phrase_container {
+      color: #383838;
+      text-align: center;
+      width: 890px;
+      margin: 0 auto 20px auto;
+      p {
+        position: relative;
+        line-height: normal;
+        display: inline-block;
+        input[type="text"] {
+          font-size: 28px;
+        }
+        select.custom_select {
+          position: relative;
+          padding: 0 18px;
+          top: 0;
+          left: 0;
+        }
+        span.select {
+          position: absolute;
+          background: #FFF;
+          color: $secondary_color;
+          padding: 0 20px;
+          left: 0;
+          border: 1px #a4a4a4 dotted;
+          z-index: 0;
+          white-space: nowrap;
+        }
+      }
+    }
+    input[type="text"] {
+      background: #FFF;
+      width: 280px;
+      color: $secondary_color;
+      font-weight: lighter;
+      margin-bottom: 10px;
+      padding: 0 20px;
+      border: 1px #a4a4a4 dotted;
+      &:focus {
+        outline: none;
+      }
+    }
+    input[type="submit"] {
+      background: url("/assets/gift/bt-continue.png") no-repeat;
+      color: #FFF;
+      width: 169px;
+      height: 59px;
+      margin: 0 auto;
+      display: block;
+      border: none;
+      cursor: pointer;
+      clear: both;
+    }
+  }
+}
+
+section#quiz {
+  padding: 10px 0 0;
+  #survey {
+    height: 460px !important;
+    h2 {
+      margin: 20px 0 0 0;
+    }
+    ol.questions {
+      h3 {
+        display: none;
+      }
+    }
+    ul.questions {
+      li.images {
+        ol {
+          li {
+            div.shadow {
+              top: 13px;
+              left: 18px;
+            }
+          }
+        }
+      }
+    }
+    .jcarousel-prev {
+      top: 205px;
+    }
+  }
+
+  ul#tracker {
+    width: 92px;
+    margin: 0 auto 30px;
+  }
+}
+
+section#profile {
+  padding: 20px 0 0;
+  h1.title_name {
+    font-family: $johnston;
+    font-size: 41px;
+    font-weight: lighter;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin: 25px 0 40px;
+  }
+  img.profile {
+    width: 930px;
+    height: 247px;
+    margin: 0 auto 20px;
+    display: block;
+  }
+  p.change_profile {
+    color: #101010;
+    font-family: $avenir;
+    font-size: 15px;
+    text-align: center;
+    margin: 0 0 0 100px;
+    float: left;
+    a {
+      color: #e05789;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  form.edit_gift_recipient {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 35px;
+    fieldset {
+      width: 392px;
+      padding: 20px;
+      float: left;
+      border: 1px $third_color solid;
+      h1 {
+        color: 101010;
+        font-family: $avenir;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 0 10px;
+      }
+      ul.shoes {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        display: block;
+        li {
+          color: $third_color;
+          line-height: 36px;
+          font-weight: 500;
+          margin: 0 7px 0 0;
+          display: inline-block;
+          border: 1px solid $third_color;
+          float: left;
+          label {
+            font-family: $avenir;
+            font-size: 13px;
+            text-align: center;
+            display: block;
+            width: 40px;
+            height: 35px;
+            cursor: pointer;
+            input {
+              display: none;
+            }
+          }
+          &.selected {
+            background: #000;
+            color: #FFF;
+            font-weight: 600;
+            border-color: #000;
+          }
+        }
+      }
+    }
+    input[type="submit"] {
+      background: url("/assets/gift/bt-recipient.png") no-repeat;
+      text-indent: -99999px;
+      width: 348px;
+      height: 61px;
+      display: inline-block;
+      margin: 0 0 25px 70px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+  form.edit_profile {
+    div.profiles {
+      width: 100%;
+      padding: 10px 0 20px 0;
+      overflow: hidden;
+      display: none;
+      h1 {
+        font-family: $johnston;
+        font-size: 37px;
+        font-weight: lighter;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        line-height: 40px;
+        margin: 25px 0 40px;
+        span {
+          color: #e05789;
+        }
+      }
+      ul {
+        margin: 0 0 0 25px;
+        li {
+          display: inline;
+          label {
+            position: relative;
+            background: url("/assets/gift/options_profile.png") no-repeat;
+            width: 292px;
+            height: 350px;
+            margin: 0 10px 10px;
+            display: block;
+            float: left;
+            cursor: pointer;
+            input[type="radio"] {
+              position: absolute;
+              display: none;
+              top: 0;
+              left: 0;
+            }
+          }
+          &.basica {
+            label {
+              background-position: -2px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -2px -350px;
+              }
+            }
+          }
+          &.fashionista {
+            label {
+              background-position: -302px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -302px -350px;
+              }
+            }
+          }
+          &.elegante {
+            label {
+              background-position: -599px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -599px -350px;
+              }
+            }
+          }
+          &.feminina {
+            label {
+              background-position: -896px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -896px -350px;
+              }
+            }
+          }
+          &.sexy {
+            label {
+              background-position: -1193px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -1193px -350px;
+              }
+            }
+          }
+          &.tradicional {
+            label {
+              background-position: -1490px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -1490px -350px;
+              }
+            }
+          }
+          &.trendy {
+            label {
+              background-position: -1787px 0px;
+            }
+            &:hover {
+              label {
+                background-position: -1787px -350px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 div.full_container {
@@ -19,368 +388,11 @@ div.full_container {
     top: 0;
     left: 50%;
   }
+
   div.full_bg {
     background: url("/assets/gift/bg.jpg") repeat;
     width: 100%;
     overflow: hidden;
-  }
-  div.content {
-    font-family: "Open Sans", sans-serif;
-    &#banner {
-      background: url("/assets/gift/bg-header.jpg") top center no-repeat;
-      height: 485px;
-      h1 {
-        font-family: "Open Sans", sans-serif;
-        font-size: 70px;
-        font-weight: 600;
-        letter-spacing: -7px;
-        line-height: 50px;
-        width: 455px;
-        margin: 40px 0 25px 0;
-      }
-      p {
-        color: #343434;
-        font-size: 14px;
-        letter-spacing: -1px;
-        line-height: 17px;
-        width: 410px;
-        margin: 0 0 20px 0;
-      }
-      img {
-        margin: 0 0 20px 0;
-      }
-      a {
-        color: #FFF;
-        font-family: "Open Sans", sans-serif;
-        text-transform: uppercase;
-        text-decoration: none;
-        letter-spacing: -1px;
-        display: block;
-        clear: both;
-        &#new_occasion_link {
-          background: url("/assets/gift/bt-start.jpg") no-repeat;
-          font-size: 20px;
-          text-align: center;
-          line-height: 43px;
-          width: 347px;
-          height: 46px;
-          margin: 0 0 10px 0;
-        }
-        &.facebook {
-          background: url("/assets/gift/bt-facebook.png") no-repeat;
-          font-size: 14px;
-          line-height: 41px;
-          width: 285px;
-          height: 41px;
-          padding: 0 0 0 50px;
-          &.disabled {
-            opacity: .5;
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-            filter: alpha(opacity=50);
-          }
-        }
-      }
-    }
-    &#occasion {
-      form {
-        margin: 35px auto;
-        div {
-          font-size: 45px;
-        }
-        div, input[type="text"], select.custom_select {
-          font-family: "Open Sans", sans-serif;
-          font-size: 45px;
-          font-weight: lighter;
-          letter-spacing: -2px;
-        }
-        select.custom_select {
-          font-size: 28px;
-          margin-bottom: 10px;
-        }
-        div.phrase_container {
-          color: #383838;
-          text-align: center;
-          width: 895px;
-          margin: 0 auto 20px auto;
-          p {
-            position: relative;
-            display: inline-block;
-            input[type="text"] {
-              font-size: 28px;
-            }
-            select.custom_select {
-              position: relative;
-              padding: 0 18px;
-              top: 0;
-              left: 0;
-            }
-            span.select {
-              position: absolute;
-              background: #FFF;
-              color: #e05789;
-              padding: 0 20px;
-              left: 0;
-              border: 1px #a4a4a4 dotted;
-              z-index: 0;
-              white-space: nowrap;
-            }
-          }
-        }
-        input[type="text"] {
-          background: #FFF;
-          width: 280px;
-          color: #e05789;
-          margin-bottom: 10px;
-          padding: 0 20px;
-          border: 1px #a4a4a4 dotted;
-          &:focus {
-            outline: none;
-          }
-        }
-        input[type="submit"] {
-          background: url("/assets/gift/bt-continue.png") no-repeat;
-          color: #FFF;
-          font-family: "Open Sans", sans-serif;
-          font-size: 14px;
-          width: 133px;
-          height: 41px;
-          line-height: 38px;
-          text-transform: uppercase;
-          margin: 0 auto;
-          display: block;
-          border: none;
-          cursor: pointer;
-          clear: both;
-        }
-      }
-    }
-    &#quiz {
-      #survey {
-        height: 460px !important;
-        h2 {
-          margin: 20px 0 0 0;
-        }
-        ul.questions {
-          h3 {
-            display: none;
-          }
-        }
-      }
-
-      ul#tracker {
-        width: 84px;
-        margin: 0 auto 30px;
-      }
-    }
-    &#profile {
-      h1.title_name {
-        background: url("/assets/gift/line.png") bottom center no-repeat;
-        font-family: "Open Sans", sans-serif;
-        font-size: 52px;
-        font-weight: lighter;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: -5px;
-        margin: 25px 0 40px;
-        span {
-          color: #e05789;
-        }
-      }
-      img.profile {
-        width: 930px;
-        height: 247px;
-        margin: 0 auto 20px;
-        display: block;
-      }
-      p.change_profile {
-        color: #101010;
-        font-family: "Open Sans", sans-serif;
-        font-size: 15px;
-        text-align: center;
-        letter-spacing: -1px;
-        margin: 0 0 40px 0;
-        a {
-          color: #e05789;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-      form.edit_gift_recipient {
-        h1 {
-          color: #101010;
-          font-family: "Open Sans", sans-serif;
-          font-size: 22px;
-          font-weight: lighter;
-          text-align: center;
-          text-transform: lowercase;
-          margin: 0 auto 20px;
-          display: block;
-        }
-        ul.shoes {
-          width: 550px;
-          overflow: hidden;
-          margin: 0 auto 60px;
-          display: block;
-          li {
-            background: #FFF;
-            color: #D95485;
-            line-height: 36px;
-            margin-right: 10px;
-            margin-left: 10px;
-            display: inline-block;
-            border: 1px solid #D95485;
-            float: left;
-            label {
-              font-family: "Lucida Grande";
-              font-size: 14px;
-              font-weight: bold;
-              text-align: center;
-              display: block;
-              width: 46px;
-              height: 38px;
-              cursor: pointer;
-              input {
-                display: none;
-              }
-            }
-            &.selected {
-              background: #D95485;
-              color: white;
-            }
-          }
-        }
-        input[type="submit"] {
-          background: url("/assets/gift/bt-recipient.jpg") no-repeat;
-          color: #FFF;
-          font-family: "Open Sans", sans-serif;
-          font-size: 14px;
-          line-height: 39px;
-          letter-spacing: -1px;
-          text-transform: uppercase;
-          width: 233px;
-          display: block;
-          margin: 0 auto 15px;
-          border: none;
-          cursor: pointer;
-        }
-      }
-      form.edit_profile {
-        div.profiles {
-          background: url("/assets/gift/line.png") top center no-repeat;
-          width: 100%;
-          padding: 10px 0 20px 0;
-          overflow: hidden;
-          display: none;
-          h1 {
-            font-family: "Open Sans", sans-serif;
-            font-size: 45px;
-            font-weight: lighter;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 50px;
-            margin: 25px 0 40px;
-            span {
-              color: #e05789;
-            }
-          }
-          ul {
-            margin: 0 0 0 25px;
-            li {
-              display: inline;
-              label {
-                position: relative;
-                background: url("/assets/gift/options_profile.png") no-repeat;
-                width: 292px;
-                height: 350px;
-                margin: 0 10px 10px;
-                display: block;
-                float: left;
-                cursor: pointer;
-                input[type="radio"] {
-                  position: absolute;
-                  display: none;
-                  top: 0;
-                  left: 0;
-                }
-              }
-              &.basica {
-                label {
-                  background-position: -2px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -2px -350px;
-                  }
-                }
-              }
-              &.fashionista {
-                label {
-                  background-position: -302px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -302px -350px;
-                  }
-                }
-              }
-              &.elegante {
-                label {
-                  background-position: -599px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -599px -350px;
-                  }
-                }
-              }
-              &.feminina {
-                label {
-                  background-position: -896px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -896px -350px;
-                  }
-                }
-              }
-              &.sexy {
-                label {
-                  background-position: -1193px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -1193px -350px;
-                  }
-                }
-              }
-              &.tradicional {
-                label {
-                  background-position: -1490px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -1490px -350px;
-                  }
-                }
-              }
-              &.trendy {
-                label {
-                  background-position: -1787px 0px;
-                }
-                &:hover {
-                  label {
-                    background-position: -1787px -350px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
@@ -397,14 +409,14 @@ div.content {
       display: block;
     }
     div.title {
-      margin: 0 0 35px 0;
-      border-bottom: 1px #949494 solid;
+      margin: 0 0 10px 0;
+      border-bottom: 1px #eaeaea solid;
       h1 {
-        background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+        background: url("/assets/gift/subtitle-calendar.jpg") 255px 0 no-repeat;
         color: #101010;
-        font-family: "Open Sans", sans-serif;
-        font-size: 30px;
-        font-weight: 600;
+        font-family: $johnston;
+        font-size: 31px;
+        font-weight: lighter;
         letter-spacing: -2px;
         line-height: 50px;
         text-transform: uppercase;
@@ -420,8 +432,8 @@ div.content {
         width: 100%;
         overflow: hidden;
         margin: 0 0 20px 0;
-        padding: 0 0 10px 0;
-        border-bottom: 1px #c4c4c4 solid;
+        padding: 0 0 20px 5px;
+        border-bottom: 1px #eaeaea solid;
         li {
           width: 80px;
           margin: 0;
@@ -429,8 +441,9 @@ div.content {
           float: left;
           a {
             color: #878686;
-            font-family: "Open Sans", sans-serif;
+            font-family: $johnston;
             font-size: 15px;
+            font-weight: lighter;
             text-transform: uppercase;
             text-decoration: none;
             padding: 10px 5px;
@@ -452,10 +465,9 @@ div.content {
           display: block;
           float: left;
           a {
-            color: #7d7d7d;
-            font-family: "Open Sans", sans-serif;
-            font-size: 9px;
-            text-transform: uppercase;
+            color: $third_color;
+            font-family: $avenir;
+            font-size: 12px;
             text-align: center;
             text-decoration: none;
             float: left;
@@ -468,16 +480,19 @@ div.content {
                 height: 60px;
               }
             }
+            p {
+              height: 18px;
+              overflow: hidden;
+            }
           }
           div.actions {
             position: absolute;
-            background: #FFF;
-            width: 255px;
+            background: image-url('gift/bg-actions-left.png') bottom center no-repeat;
+            width: 250px;
+            height: 123px;
             overflow: visible;
-            padding: 15px;
             top: 40px;
-            left: 40px;
-            border: 1px #dcdcdc solid;
+            left: 0;
             z-index: 1000;
             display: none;
             div.triangle {
@@ -490,41 +505,32 @@ div.content {
               left: -3px;
             }
             h1 {
-              color: #343434;
-              font-family: "Open Sans", sans-serif;
-              font-size: 13px;
+              color: #101010;
+              font-family: $kepler;
+              font-size: 16px;
               font-weight: 600;
-              margin: 0 0 10px 0;
-              float: left;
+              text-align: center;
+              margin: 25px auto 7px;
+              width: 220px;
             }
             p {
-              color: #7d7d7d;
-              font-family: "Open Sans", sans-serif;
-              font-size: 11px;
-              letter-spacing: -1px;
-              float: left;
-              clear: both;
+              color: $third_color;
+              font-size: 13px;
+              line-height: normal;
+              text-align: center;
+              margin: 0 0 8px;
             }
             ul {
-              width: 155px;
-              float: right;
               li {
                 input[type="submit"] {
-                  background: url("/assets/gift/bg-birthday.png") top left no-repeat;
-                  color: #e05789;
-                  font-family: "Open Sans", sans-serif;
-                  font-size: 11px;
-                  font-weight: bold;
-                  letter-spacing: -1px;
-                  text-decoration: none;
-                  width: 113px;
-                  margin: 0 0 7px 0;
-                  padding: 0 0 0 20px;
+                  background: image-url("gift/bt-find-present.jpg") no-repeat;
+                  text-indent: -99999px;
+                  width: 169px;
+                  height: 30px;
+                  display: block;
+                  margin: 0 auto;
                   border: none;
                   cursor: pointer;
-                  &:hover {
-                    text-decoration: underline;
-                  }
                 }
               }
             }
@@ -564,16 +570,9 @@ div.content {
     }
     a#connect_facebook {
       background: url("/assets/gift/bt-facebook.jpg") no-repeat;
-      color: #FFF;
-      font-family: "Open Sans", sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -1px;
-      line-height: 41px;
-      text-decoration: none;
-      text-transform: uppercase;
-      width: 162px;
-      height: 41px;
+      text-indent: -99999px;
+      width: 403px;
+      height: 43px;
       display: block;
       margin: 0 auto;
       padding: 0 0 0 40px;
