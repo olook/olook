@@ -132,11 +132,12 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil)
-    if size and self.category == Category::SHOE
-      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(:category => self.category, :name => self.name, :variants => {:description => size}).order('variants.inventory desc, sum(variants.inventory) desc').group(:product_id)
-    else
-      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(:category => self.category, :name => self.name).order('sum(variants.inventory) desc').group(:product_id)
-    end
+    # if size and self.category == Category::SHOE
+    #   self.related_products.joins('left outer join variants on products.id = variants.product_id').where(:category => self.category, :name => self.name, :variants => {:description => size}).order('variants.inventory desc, sum(variants.inventory) desc').group(:product_id)
+    # else
+    #   self.related_products.joins('left outer join variants on products.id = variants.product_id').where(:category => self.category, :name => self.name).order('sum(variants.inventory) desc').group(:product_id)
+    # end
+    self.related_products.where(:category => self.category, :name => self.name)
   end
 
   def all_colors
