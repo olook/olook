@@ -2,16 +2,17 @@
 @import 'common/fonts';
 
 #pages {
-  padding:0 20px;
+  width: 100%;
+  overflow: auto;
   h1, h2, h3 {
-    font-family: Times, "Times New Roman", Georgia, serif;
-    font-style: italic;
+    font-family: $johnston;
     font-weight:normal;
     letter-spacing:-2px;
   }
   h1 {
-    font-size: 38px;
+    font-size: 35px;
     line-height: 35px;
+    text-transform: uppercase;
     margin: 30px 0px 10px;
   }
   h2 {
@@ -25,7 +26,6 @@
   }
   p {
     color: #363636;
-    font-family: Arial, sans-serif;
     font-size: 13px;
     margin: 0 0 20px 0;
   }
@@ -42,65 +42,27 @@
       width: 100%;
       overflow: auto;
       margin: 30px 0 30px 0;
-      padding: 0 10px 10px 5px;
-      border-bottom: 1px #adadad solid;
       h1 {
         float: left;
         margin: 0;
       }
       ul.tabs {
+        margin: 0 20px 0 0;
         float: right;
         li {
           display: inline;
           a {
             color: #000;
-            font-family: Times;
+            font-family: $avenir;
             font-size: 15px;
             font-weight: normal;
             text-transform: uppercase;
             text-decoration: none;
-            margin: 0 0 0 10px;
             padding: 10px 15px;
             float: left;
             &:hover, &.selected {
               background: #000;
               color: #FFF;
-            }
-          }
-        }
-      }
-    }
-    div#press {
-      ul {
-        li {
-          width: 938px;
-          margin: 0 0 10px 0;
-          padding: 20px 15px;
-          overflow: auto;
-          border: 1px #e7e7e7 solid;
-          div.fl {
-            margin: 0 10px 0 0;
-            float: left;
-            div.image {
-              text-align: center;
-              width: 140px;
-              height: 150px;
-              display: table-cell;
-              vertical-align: middle;
-            }
-          }
-          p {
-            color: #555;
-            font-size: 14px;
-            margin: 0 0 10px 0;
-          }
-          a {
-            color: #df5b8c;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            &:hover {
-              text-decoration: underline;
             }
           }
         }
@@ -128,6 +90,46 @@
         a {
           color: #de5b8c;
           text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  div.content_tabs {
+    ul {
+      li {
+        width: 938px;
+        margin: 0 0 10px 0;
+        padding: 20px 15px;
+        overflow: auto;
+        border: 1px #e7e7e7 solid;
+        div.fl {
+          margin: 0 30px 0 0;
+          float: left;
+          div.image {
+            text-align: center;
+            width: 140px;
+            height: 150px;
+            display: table-cell;
+            vertical-align: middle;
+          }
+        }
+        p {
+          color: #555;
+          font-size: 14px;
+          width: 760px;
+          margin: 0 0 10px 0;
+          float: left;
+        }
+        a {
+          color: #df5b8c;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          margin: 0 518px 0 0;
+          float: right;
           &:hover {
             text-decoration: underline;
           }
