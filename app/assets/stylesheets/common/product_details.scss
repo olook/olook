@@ -287,16 +287,16 @@
         }
       }
       input[type="submit"].add_product_to_suggestions {
-        background: url('/assets/product/bt-add-product-to-suggestions.png') no-repeat;
+        background: url('/assets/product/bt-add-product-to-suggestions.jpg') no-repeat;
         text-indent: -9999px;
-        width: 298px;
-        height: 57px;
+        width: 305px;
+        height: 65px;
         margin: 17px auto 30px auto;
         display: block;
         border: none;
         cursor: pointer;
         &.disabled {
-          background: url("/assets/product/bt-add-product-to-suggestions-disabled.png") no-repeat;
+          background: url("/assets/product/bt-add-product-to-suggestions-disabled.jpg") no-repeat;
         }
       }
       div#box_tabs {
