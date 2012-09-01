@@ -180,7 +180,7 @@ section#stylist {
         h1 {
           margin: 0 0 8px 0;
           &+p {
-            width: 250px;
+            width: 245px;
           }
         }
       }
@@ -189,63 +189,55 @@ section#stylist {
         height: 488px;
         h1 {
           background: url("/assets/stylist/didi_wagner/as-escolhas-da-didi.jpg") no-repeat;
-          width: 163px;
-          height: 86px;
-          top: 40px;
-          left: 225px;
+          width: 259px;
+          height: 71px;
+          top: 100px;
+          right: 20px;
         }
-        a#flor_do_dia {
-          background: url("/assets/stylist/didi_wagner/flor-do-dia.png") top right no-repeat;
-          width: 195px;
-          height: 145px;
-          top: -25px;
-          left: 20px;
-          padding: 65px 0 0;
-        }
-        a#petunia {
-          background: url("/assets/stylist/didi_wagner/petunia.jpg") top center no-repeat;
+        a#araucaria {
+          background: url("/assets/stylist/didi_wagner/araucaria.png") top center no-repeat;
           text-align: center;
-          width: 123px;
-          height: 223px;
+          width: 162px;
+          height: 142px;
           top: 0;
-          right: 0px;
-          padding: 20px 0 0 0;
+          left: -12px;
+          padding: 90px 0 0;
+        }
+        a#araca {
+          background: url("/assets/stylist/didi_wagner/araca.png") top right no-repeat;
+          width: 237px;
+          height: 90px;
+          top: -25px;
+          right: 10px;
+          padding: 35px 10px 0 0;
+        }
+        a#macieira {
+          background: url("/assets/stylist/didi_wagner/macieira.png") top center no-repeat;
+          text-align: center;
+          width: 143px;
+          height: 35px;
+          top: 200px;
+          right: 130px;
+          padding: 55px 0 0;
           z-index: 1;
         }
-        a#central {
-          background: url("/assets/stylist/didi_wagner/central.png") bottom center no-repeat;
-          text-align: center;
-          width: 191px;
-          height: 118px;
-          bottom: 20px;
-          right: -5px;
-          padding: 0 0 40px 0px;
-        }
-        a#botao_de_ouro {
-          background: url("/assets/stylist/didi_wagner/botao-de-ouro.jpg") top center no-repeat;
-          text-align: center;
-          width: 147px;
-          height: 35px;
-          bottom: 40px;
-          left: 195px;
-          padding: 145px 0px 0px;
-        }
-        a#laranjeira {
-          background: url("/assets/stylist/didi_wagner/laranjeira.jpg") bottom right no-repeat;
+        a#abrico {
+          background: url("/assets/stylist/didi_wagner/abrico.jpg") bottom left no-repeat;
           text-align: right;
-          width: 236px;
-          height: 83px;
-          bottom: 235px;
-          left: 140px;
-          padding: 0 25px 35px 0px;
+          width: 209px;
+          height: 208px;
+          bottom: 0;
+          right: 5px;
+          padding: 0 0 0;
         }
-        a#cipreste {
-          background: url("/assets/stylist/didi_wagner/cipreste.jpg") top right no-repeat;
-          width: 179px;
-          height: 239px;
-          bottom: 10px;
+        a#azinheira {
+          background: url("/assets/stylist/didi_wagner/azinheira.jpg") top left no-repeat;
+          text-align: right;
+          width: 207px;
+          height: 160px;
+          bottom: 0;
           left: 10px;
-          padding: 0 10px 0 0;
+          padding: 45px 0 0;
         }
       }
     }
