@@ -183,11 +183,11 @@
         }
       }
       div.color_size {
-        clear:both;
         width: 368px;
         padding: 15px 10px;
         overflow: auto;
         border: 1px #ebebeb solid;
+        clear: both;
         div.line {
           width: 100%;
           overflow: auto;
