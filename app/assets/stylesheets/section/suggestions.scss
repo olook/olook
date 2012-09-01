@@ -154,6 +154,7 @@ div.full_container {
       }
       ul.product_actions {
         text-align: center;
+        width: 735px;
         margin: 0 auto 70px;
         overflow: hidden;
         li {
@@ -165,6 +166,7 @@ div.full_container {
             display: inline-block;
             border: none;
             cursor: pointer;
+            float: left;
           }
           a {
             background: image-url('gift/bt-choose-products.jpg') no-repeat;
