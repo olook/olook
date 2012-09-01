@@ -29,7 +29,7 @@ body {
         font-weight: bold;
         letter-spacing: -1px;
         text-align: center;
-        margin: 0 0 20px;
+        margin: 0 0 3px;
         padding: 18px 0;
         border-top: 2px #5c5a58 solid;
         border-bottom: 2px #5c5a58 solid;
@@ -47,40 +47,41 @@ body {
       h3 {
         color: #797a7c;
         font-family: $avenir;
-        font-size: 21px;
+        font-size: 17px;
         font-weight: normal;
-        letter-spacing: -1px;
         text-align: center;
-        margin: 0 0 45px;
+        margin: 0 0 25px;
       }
       section.steps {
+        width: 405px;
+        margin: 0 auto;
         ul {
-          width: 440px;
+          width: 410px;
           margin: 0 auto 45px;
           overflow: auto;
           li {
             color: #58595b;
-            background: url('/assets/home/bg-step.jpg') top right no-repeat;
+            background: url('/assets/home/bg-step.jpg') center top no-repeat;
             font-family: $avenir;
-            font-size: 12px;
+            font-size: 11px;
             text-align: center;
-            width: 120px;
-            height: 125px;
+            width: 130px;
+            height: 130px;
             display: inline-block;
             margin: 0 10px 0 0;
-            padding: 0 20px 0 0;
+            padding: 0;
             float: left;
             span {
               color: #101010;
               font-family: $kepler;
               font-size: 58px;
               line-height: 50px;
-              margin: 7px 0 0;
+              margin: 15px 0 0;
               display: block;
             }
             &.last {
-              background: none;
               width: 130px;
+              margin: 0;
               padding: 0;
             }
           }
@@ -98,26 +99,23 @@ body {
 
     section.like {
       position: absolute;
-      width: 540px;
+      width: 545px;
       padding: 10px 30px 15px;
       overflow: visible;
       border: 1px #c7c7c7 solid;
-      top: 570px;
-      right: 15px;
+      top: 550px;
+      right: 8px;
       float: right;
 
       p {
-        background: url('/assets/common/facebook-title.png') no-repeat;
+        background: url('/assets/common/facebook-title.png') top left no-repeat;
         color: #a2a2a2;
-        font-family: 'Times New Roman', Times, serif;
-        font-style: italic;
-        font-size: 16px;
+        font-size: 13px;
         line-height: 25px;
-        width: 290px;
+        width: 308px;
         float: left;
         margin-top:3px;
-        letter-spacing:-1px;
-        padding: 2px 0 0 145px
+        padding: 2px 0 0 140px
 
       }
 
