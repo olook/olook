@@ -1,7 +1,7 @@
 @import "partials/product";
 
 section#friends {
-  margin: -2px 0 0 0;
+  margin: -7px 0 0 0;
   width: 100%;
   overflow: auto;
   section#user_column {
@@ -21,32 +21,32 @@ section#friends {
       }
     }
     h1 {
-      font-family: Arial, sans-serif;
-      font-size: 20px;
-      letter-spacing: -1px;
+      color: $third_color;
+      font-family: $avenir;
+      font-size: 16px;
       text-align: center;
       margin: 0 0 50px 0;
     }
     div.friends_list {
       h2 {
-        background: url("/assets/friends/title-my-friends.jpg") top left no-repeat;
-        text-indent: -9999px;
-        width: 175px;
-        height: 37px;
+        background: url("/assets/friends/bg-title-my-friends.jpg") bottom center no-repeat;
+        font-family: $johnston;
+        font-size: 15px;
+        text-transform: uppercase;
         margin: 0 0 15px 0;
-        padding: 0 0 5px 0;
+        padding: 0 0 23px 0;
         display: block;
-        border-bottom: 1px #c3c3c3 solid;
       }
       ul {
-        margin: 0 0 10px 0;
-        border-bottom: 1px #dbdbdb solid;
+        background: image-url('friends/bg-friends-list.jpg') bottom center no-repeat;
+        margin: 0 0 15px 0;
+        padding: 0 0 20px;
         li {
           width: 100%;
           overflow: auto;
           margin: 0 0 10px 0;
           a {
-            color: #000;
+            color: $third_color;
             font-size: 14px;
             text-decoration: none;
             display: block;
@@ -73,10 +73,11 @@ section#friends {
         }
       }
       a.update {
-        background: url("/assets/cart/bg-update.png") no-repeat;
-        color: #2b2b2b;
+        background: image-url("friends/bg-refresh.jpg") center left no-repeat;
+        color: #010101;
+        font-size: 13px;
         text-decoration: none;
-        padding: 0 0 0 30px;
+        padding: 0 0 0 40px;
         float: left;
         &:hover {
           text-decoration: underline;
@@ -127,12 +128,13 @@ section#friends {
   &.home {
     background: url("/assets/friends/bg-home.jpg") top right no-repeat;
     section#friends_content {
-      h1 {
-        background: url("/assets/friends/title-add-your-friends.png") no-repeat;
-        text-indent: -9999px;
-        width: 384px;
-        height: 167px;
-        margin: 40px 0 85px 25px;
+      > h1 {
+        font-family: $johnston;
+        font-size: 30px;
+        line-height: 37px;
+        text-transform: uppercase;
+        width: 410px;
+        margin: 40px 0 95px 25px;
         display: block;
       }
       div#quiz_container, div#invite_friends, div#share_showroom {
@@ -149,20 +151,20 @@ section#friends {
           width: 535px;
           float: left;
           h1 {
-            background: url("/assets/friends/title-style-quiz.jpg") no-repeat;
-            width: 127px;
-            height: 22px;
+            font-family: $johnston;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
           }
           h2 {
-            color: #434343;
-            font-family: Times;
-            font-size: 24px;
-            font-style: italic;
+            color: $third_color;
+            font-family: $avenir;
+            font-size: 15px;
             font-weight: normal;
-            letter-spacing: -1px;
             margin: 0 0 15px 0;
             span {
-              color: #df5a8b;
+              color: #101010;
+              font-weight: 600;
             }
           }
           fieldset {
@@ -189,7 +191,7 @@ section#friends {
                   display: none;
                 }
                 &:hover, &.selected {
-                  border-color: #d25280;
+                  border-color: #101010;
                 }
               }
             }
@@ -218,23 +220,22 @@ section#friends {
                   }
                 }
                 p {
-                  color: #434343;
-                  font-weight: bold;
+                  color: $third_color;
                   margin: 0 0 20px 0;
                 }
                 a.next_friend {
-                  color: #3d3d3d;
-                  text-transform: uppercase;
-                  text-decoration: none;
-                  &:hover {
-                    text-decoration: underline;
-                  }
+                  background: image-url('friends/bt-next-friend.jpg') no-repeat;
+                  text-indent: -99999px;
+                  width: 130px;
+                  height: 32px;
+                  margin: 0 0 0 15px;
+                  display: block;
                 }
                 input[type="submit"] {
-                  background: url("/assets/friends/bt-answer-invite.jpg") 0 -29px no-repeat;
+                  background: url("/assets/friends/bt-answer-invite.jpg") 0 -34px no-repeat;
                   text-indent: -9999px;
-                  width: 153px;
-                  height: 29px;
+                  width: 173px;
+                  height: 34px;
                   display: block;
                   border: none;
                   cursor: pointer;
@@ -249,27 +250,27 @@ section#friends {
       }
       div#invite_friends {
         h1 {
-          background: url("/assets/friends/title-invite.jpg") no-repeat;
-          width: 527px;
-          height: 22px;
+          font-family: $johnston;
+          font-size: 20px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
           float: left;
         }
         a.all_friends {
-          color: #3d3d3d;
-          text-transform: uppercase;
-          text-decoration: none;
-          margin: 4px 0 0 70px;
+          background: image-url('friends/bt-all-friends.jpg') no-repeat;
+          text-indent: -99999px;
+          width: 110px;
+          height: 32px;
+          display: block;
+          margin: -5px 0 0 95px;
           float: left;
-          &:hover {
-            text-decoration: underline;
-          }
         }
         div.list_mask {
           position: relative;
           width: 660px;
           height: 180px;
           overflow: hidden;
-          margin: 30px 0 0 30px;
+          margin: 30px 0 0;
           clear: both;
           float: left;
           ul {
@@ -343,9 +344,11 @@ section#friends {
       }
       div#share_showroom {
         h1 {
-          background: url("/assets/friends/title-share-showroom.jpg") no-repeat;
-          width: 482px;
-          height: 22px;
+          font-family: $johnston;
+          font-size: 20px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          float: left;
         }
         h2 {
           color: #434343;
@@ -390,10 +393,10 @@ section#friends {
                   }
                 }
                 input[type="submit"] {
-                  background: url("/assets/friends/bg-share.jpg") 0 -29px no-repeat;
+                  background: url("/assets/friends/bg-share.jpg") 0 -34px no-repeat;
                   text-indent: -9999px;
-                  width: 124px;
-                  height: 29px;
+                  width: 139px;
+                  height: 34px;
                   display: block;
                   border: none;
                   cursor: pointer;
