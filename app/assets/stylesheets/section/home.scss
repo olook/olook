@@ -173,6 +173,11 @@ body {
 
 .ie {
   .content {
+    section.description {
+      h1 {
+        margin-bottom: 10px;
+      }
+    }
     section.like {
       margin-top: 0;
     }
