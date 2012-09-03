@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :invite_credit_type do
+    code "invite"
   end
 end
