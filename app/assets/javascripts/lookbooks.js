@@ -14,6 +14,10 @@ $(document).ready(function() {
     next : {
       button : ".next-lookbook",
       items : 1
+    },
+    pagination: {
+      container : "div#carousel_lookbooks .pagination",
+      items : 1
     }
   });
 
@@ -26,6 +30,10 @@ $(document).ready(function() {
     next : {
       button : ".next-pic",
       key : "right"
+    },
+    pagination : {
+      container : "div#carousel_lookbooks_product .pagination",
+      items : 1
     }
   });
 });

@@ -1,0 +1,94 @@
+footer {
+  background: url('../../assets/common/bg-footer.jpg') repeat-x;
+  height:300px;
+  clear:both;
+  margin-top:60px;
+  section {
+    margin:0px auto;
+    width:970px;
+    padding-top:40px;
+    p {
+      color:#767676;
+      font-size:11px;
+      line-height: 13px;
+      clear:both;
+      margin-left:20px;
+    }
+    ul {
+      float:left;
+      margin:0 25px 50px 22px;
+      li {
+        float:left;
+        clear:both;
+        margin-bottom:10px;
+        a {
+          color:#000;
+          font-size:11px;
+          text-decoration:none;
+          &:hover {
+            color:#000;
+            text-decoration:underline;
+          }
+
+          &:visited {
+            color:#000;
+            text-decoration:normal;
+          }
+        }
+        span {
+          font-size:11px;
+        }
+      }
+      &.footer-social-midia {
+        font-size: 11px;
+        color:#303030;
+        margin:0 0 0 35px;
+        overflow: hidden;
+        li {
+          width: 100%;
+          a {
+            font-weight:bold;
+            padding:4px 0 0 35px;
+            float:left;
+          }
+          &.twitter {
+            background: url('../../assets/common/ico-midias-socias.png') no-repeat 0px 0;
+            height:22px;
+            margin-bottom: 2px;
+          }
+          &.facebook {
+            background: url('../../assets/common/ico-midias-socias.png') no-repeat 0px -26px;
+            height:22px;
+          }
+          &.freight {
+            background: url('../../assets/common/free-freight.png') left no-repeat;
+            font-weight: bold;
+            line-height: 26px;
+            height:26px;
+            padding-left: 35px;
+            a {
+              padding: 0;
+            }
+          }
+          &.contact {
+            background: url('../../assets/common/ico-contact.png') top left no-repeat;
+            height: 28px;
+            margin-bottom: 15px;
+            padding: 0 0 10px 35px;
+            border-bottom: 1px #d8d8d8 solid;
+            a, p {
+              margin: 0;
+              padding: 0;
+            }
+            a {
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+      &.bandeiras {
+        float: left;
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe LoyaltyProgramCreditType do
   let(:user) { FactoryGirl.create(:member) }
 
-  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => loyalty_program_credit_type) }
 
   describe "credit operations" do
