@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe OrderStateTransition do
   
+  let(:waiting_order) { FactoryGirl.create(:clean_order) }
   let(:order) { FactoryGirl.create(:order_with_payment_authorized) }
   let(:authorized_order) {FactoryGirl.create(:authorized_order)}
 
@@ -28,7 +29,7 @@ describe OrderStateTransition do
   end
 
   it "should have nil transaction attributes with no associated payment" do
-    subject = order.order_state_transitions.last
+    subject = waiting_order .order_state_transitions.last
     subject.to.should == "waiting_payment"
     subject.payment_response.should be_nil
     subject.payment_transaction_status.should be_nil
