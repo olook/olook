@@ -1,5 +1,6 @@
 @import 'partials/colors';
 @import 'partials/product';
+@import 'partials/mixins';
 
 #product {
   div.box_carousel {
@@ -8,11 +9,11 @@
     padding: 10px 20px 10px;
     overflow: hidden;
     a.back {
-      color: #df5a8b;
-      font-size: 12px;
-      font-weight: bold;
+      background: url('/assets/product/arrow-back.jpg') left center no-repeat;
+      color: #6d6e71;
       text-decoration: none;
       margin-top: 8px;
+      padding: 0 0 0 13px;
       float: left;
       &:hover {
         text-decoration: underline;
@@ -21,16 +22,15 @@
     a.open_carousel {
       background: url("/assets/product/bt-carousel.jpg") 0 0 no-repeat;
       color: #505050;
-      font-size: 11px;
-      font-weight: bold;
+      font-size: 13px;
       text-decoration: none;
-      line-height: 28px;
-      width: 102px;
+      line-height: 32px;
+      width: 96px;
       padding: 0 0 0 15px;
       display: block;
       float: right;
       &.open {
-        background-position: 0 -28px;
+        background-position: 0 -32px;
       }
     }
     div#carousel {
@@ -92,7 +92,7 @@
   div.content {
     div#related {
       position: relative;
-      background: url('/assets/showroom/border-top-product.png') 170px 25px no-repeat;
+      background: url('/assets/showroom/border-top-product.png') 170px 17px no-repeat;
       width: 100%;
       overflow: auto;
       clear: both;
@@ -125,11 +125,8 @@
       }
       h1.title {
         background: #FFF;
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 40px;
-        font-weight: normal;
-        font-style: italic;
-        letter-spacing: -3px;
+        font-family: $johnston;
+        font-size: 28px;
         text-transform: uppercase;
         padding: 0 20px 0 0;
         margin-bottom: 15px;

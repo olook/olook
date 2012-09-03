@@ -1,12 +1,14 @@
 # encoding: UTF-8
 class Gift::OccasionsController < Gift::BaseController
+  layout 'gift'
+
   before_filter :load_params, :only => [:new, :create]
   before_filter :load_collections_for_selects, :only => [:new, :new_with_data, :create]
-  
+
   def new
     @day ||= @month ||= Date.today
   end
-  
+
   def new_with_data
     if occasion = params[:occasion]
       @name = occasion[:name]
@@ -22,25 +24,25 @@ class Gift::OccasionsController < Gift::BaseController
   def create
     @occasion = GiftOccasion.new(params[:occasion].merge(:user_id => current_user.try(:id)))
     @occasion.build_gift_recipient(params[:recipient].merge(:user_id => current_user.try(:id)))
-    
+
     if @occasion.save
       session[:occasion_id] = @occasion.id
       session[:recipient_id] = @occasion.gift_recipient.id
-      
+
       redirect_to new_gift_survey_path
     else
       flash[:notice] = "Não foi possível criar o seu presente, verifique os dados e tente novamente."
       render :new
     end
   end
-  
+
   private
-  
+
   def load_collections_for_selects
     @occasion_types = GiftOccasionType.ordered_by_name
     @recipient_relations = GiftRecipientRelation.ordered_by_name
   end
-  
+
   def load_params
     if occasion_type = params[:ot]
       occasion = GiftOccasionType.find(occasion_type)
@@ -59,7 +61,7 @@ class Gift::OccasionsController < Gift::BaseController
         @name = recipient[:name]
         @facebook_uid = recipient[:facebook_uid]
         @recipient_relation_id = recipient[:gift_recipient_relation_id]
-      end      
+      end
     end
   end
 

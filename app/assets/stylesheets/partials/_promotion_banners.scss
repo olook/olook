@@ -7,17 +7,16 @@
   padding: 0;
   overflow: auto;
   h1, p {
-    font-family: 'Open Sans', sans-serif;
+    font-family: $avenir;
     font-weight: normal;
     text-align: center;
     width: 755px;
     margin: 0 auto;
   }
   h1 {
-    font-size: 28px;
+    font-size: 27px;
     text-transform: uppercase;
     line-height: 30px;
-    letter-spacing: -2px;
     span {
       color: #D95485;
     }
@@ -25,7 +24,5 @@
   p {
     color: #000;
     font-size: 14px;
-    font-weight: bold;
-    font-size: 12px;
   }
 }

@@ -7,12 +7,18 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
       <h1><%= product.name %></h1>
+      <% if product.promotion? %>
+        <span class="old">de: <%= number_to_currency product.price %></span>
+        <span>por: <%= number_to_currency product.retail_price %></span>
+      <% else %>
+        <span><%= number_to_currency product.price %></span>
+      <% end %>
       <p class="warn sold_out">ESGOTADO</p>
 
       <% if shoe_size && product.shoe? -%>
         <p class="warn shoe_size">Tam. <%= "#{shoe_size unless shoe_size.nil?}" %></p>
       <% end -%>
-      
+
       <% if current_user && current_user.full_user? && product.promotion? == false -%>
         <p class="warn quantity">Só mais <span><%= "#{product.quantity(shoe_size) unless shoe_size.nil?}" %></span></p>
         <% if product.shoe? %>
@@ -24,13 +30,5 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
         <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
     <% end %>
-    <div class="line">
-      <% if product.promotion? %>
-        <span class="old">de: <%= number_to_currency product.price %></span>
-        <span>por: <%= number_to_currency product.retail_price %></span>
-      <% else %>
-        <span><%= number_to_currency product.price %></span>
-      <% end %>
-    </div>
   </div>
 </li>
