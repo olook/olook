@@ -2,6 +2,9 @@
 require "spec_helper"
 
 describe Abacos::OrderStatus do
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
+
   let(:downloaded_status) { load_abacos_fixture :order_status }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
   subject { described_class.new parsed_data }
