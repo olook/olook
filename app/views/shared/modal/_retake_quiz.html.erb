@@ -1,11 +1,11 @@
 <div id="profile_quiz">
   <div class="share">
-	<p>Compartilhe seu estilo com suas amigas:</p>
     <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=<%= @facebook_app_id %>" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe>
+	<p>Compartilhe seu estilo com suas amigas:</p>
   </div>
   <%= image_tag "profiles/big_#{user.profile_name.to_s}.jpg" %>
   <ul>
-    <li><%= link_to "Essa sou eu", link, :class => "#{link == '#' ? 'close' : ''} me" %></li>
     <li><%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %></li>
+    <li><%= link_to "Essa sou eu", link, :class => "#{link == '#' ? 'close' : ''} me" %></li>
   </ul>
 </div>

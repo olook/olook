@@ -15,8 +15,8 @@ div.full_container {
           position: absolute;
           border-collapse: separate;
           border-spacing: 10px;
-          top: 45px;
-          left: 80px;
+          top: 40px;
+          left: 65px;
           tbody {
             tr {
               td {
@@ -92,8 +92,8 @@ div.full_container {
             li.product {
               position: absolute;
               background: #FFF;
-              height: 300px;
-              top: 13px;
+              height: 318px;
+              top: 2px;
               left: 20px;
               div.hover_suggestive {
                 ul {
@@ -104,20 +104,24 @@ div.full_container {
               }
               .box_product {
                 a.product_link {
-                  margin-bottom: 20px;
+                  h1 {
+                    font-family: $kepler;
+                    font-size: 17px;
+                    text-align: center;
+                  }
                 }
                 .line {
                   span {
-                    font-family: "Times", sans-serif;
-                    font-size: 30px;
-                    font-style: italic;
+                    font-family: $avenir;
+                    font-size: 27px;
                     text-align: center;
                     display: block;
                     float: none;
                     &.old {
+                      color: #a9aaac;
                       font-size: 20px;
                       font-weight: normal;
-                      line-height: 9px;
+                      line-height: 16px;
                       text-decoration: line-through;
                     }
                   }
@@ -125,12 +129,12 @@ div.full_container {
               }
               a.delete {
                 position: absolute;
-                background: url("/assets/cart/delete-item.png") no-repeat;
+                background: image-url("gift/bt-delete-item.jpg") no-repeat;
                 text-indent: -9999px;
-                width: 76px;
-                height: 20px;
-                top: 295px;
-                right: 60px;
+                width: 99px;
+                height: 49px;
+                top: 279px;
+                right: 48px;
                 z-index: 1;
               }
               &:hover {
@@ -149,33 +153,28 @@ div.full_container {
         }
       }
       ul.product_actions {
-        width: 525px;
+        text-align: center;
+        width: 735px;
         margin: 0 auto 70px;
         overflow: hidden;
         li {
+          display: inline;
           a, input[type="submit"] {
-            background: url("/assets/gift/bt-action-1.jpg") no-repeat;
-            color: #FFF;
-            font-family: "Open Sans", sans-serif;
-            font-size: 13px;
-            font-weight: 600px;
-            line-height: 42px;
-            letter-spacing: -1px;
-            text-align: center;
-            text-decoration: none;
-            text-transform: uppercase;
-            width: 263px;
-            margin-right: 24px;
-            display: block;
-            float: left;
-          }
-          input[type="submit"] {
-            background: url("/assets/gift/bt-action-2.jpg") no-repeat;
-            line-height: 41px;
-            width: 238px;
-            margin: 0;
+            text-indent: -99999px;
+            width: 356px;
+            height: 64px;
+            display: inline-block;
             border: none;
             cursor: pointer;
+            float: left;
+          }
+          a {
+            background: image-url('gift/bt-choose-products.jpg') no-repeat;
+            margin-right: 10px;
+          }
+          input[type="submit"] {
+            background: image-url('gift/bt-add-products-to-cart.jpg') no-repeat;
+            margin-left: 10px;
           }
         }
       }

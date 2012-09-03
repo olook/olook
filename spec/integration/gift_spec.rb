@@ -38,7 +38,7 @@ feature "Buying Gifts", %q{
         fill_in 'recipient_name', :with => 'Jonh Doe'
         select occasion_type.name, :from => 'occasion_gift_occasion_type_id'
         select recipient_relation.name, :from => 'recipient_gift_recipient_relation_id'
-        click_button "Continuar"
+        click_button "continuar"
         page.should have_content( gift_survey.title )
       end
 
