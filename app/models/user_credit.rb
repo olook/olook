@@ -50,6 +50,12 @@ class UserCredit < ActiveRecord::Base
     UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available
   end
 
+  def self.add_for_invitee(invitee)
+    if invitee.is_invited? && invitee.current_credit == 0
+      invitee.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_invitee), :source => "inviter_bonus"})
+    end
+  end
+
   private
     #NOTICE: sources estao invertidas
     def self.add_invite_credits(order)      
@@ -57,12 +63,6 @@ class UserCredit < ActiveRecord::Base
 
       if inviter && buyer.first_buy?
         inviter.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_inviter), :order => order, :source => "invitee_bonus"})
-      end
-    end
-
-    def self.add_for_invitee(invitee)
-      if invitee.is_invited? && invitee.current_credit == 0
-        invitee.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_invitee), :source => "inviter_bonus"})
       end
     end
 

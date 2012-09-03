@@ -7,6 +7,10 @@ describe OrderStatus do
     Resque.stub(:enqueue_in)
   end
 
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
+
+
   context "order.requested?" do
     let(:order) {  FactoryGirl.create(:clean_order) }
     subject { OrderStatus.new(order) }
