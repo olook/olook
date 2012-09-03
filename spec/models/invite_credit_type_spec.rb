@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe InviteCreditType do
   let(:user) { FactoryGirl.create(:member) }
-  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
   describe "credit operations" do
     let(:order) {FactoryGirl.create(:order, :user => user)}

@@ -155,7 +155,7 @@ class Order < ActiveRecord::Base
     return false unless payment_states.include?("authorized") && payment_states.size == 1
 
     Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, self.id)
-    # UserCredit.process!(self)
+    UserCredit.process!(self)
     
     Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
     true
