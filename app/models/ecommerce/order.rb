@@ -42,11 +42,15 @@ class Order < ActiveRecord::Base
   end
 
   def self.purchased
-    where("state NOT IN ('canceled', 'reversed', 'refunded')")
+    where("orders.state NOT IN ('canceled', 'reversed', 'refunded')")
   end
 
   def self.paid
-     where("state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
+     where("orders.state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
+  end
+
+  def self.payments_with_discount
+    paid.joins('join payments on payments.order_id = orders.id and payments.type in ("CreditPayment","CouponPayment")')
   end
 
   def self.with_complete_payment
