@@ -1,7 +1,7 @@
   <h3><%= question.title %></h3>
   <ul class="question">
     <% question.answers.each do |answer| %>
-    <li class="<%= 'selected' if answer.id == checked %>">
+      <li class="<%= 'selected' if answer.id == checked %> <%= 'last' if answer == question.answers.last %>">
       <label for="<%= "questions_question_#{answer.question.id}_#{answer.id}" %>"> <%= answer.title %>
         <%= radio_button_tag("questions[question_#{answer.question.id}]", "#{answer.id}", answer.id == checked) %>
       </label>

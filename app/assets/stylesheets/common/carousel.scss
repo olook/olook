@@ -191,11 +191,23 @@ body {
               > li {
                 width: 700px;
                 div.box {
-                  width: 465px;
+                  width: 475px;
                   margin: 0 auto 20px;
                   padding: 20px;
                   overflow: auto;
                   border: 1px #dcdcdc solid;
+                  &.shoes_size {
+                    ul.question {
+                      margin: 0 0 0 11px;
+                      float: left;
+                    }
+                  }
+                  &.dress_size {
+                    ul.question {
+                      margin: 0 0 0 95px;
+                      float: left;
+                    }
+                  }
                 }
               }
             }
