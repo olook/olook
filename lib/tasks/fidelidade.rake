@@ -107,6 +107,7 @@ namespace :fidelidade do
       "delivered" => "authorized",
       "delivering" => "authorized",
       "picking" => "authorized",
+      "reversed" => "reversed",      
       "waiting_payment" => "waiting_payment"
     }
     
@@ -117,7 +118,7 @@ namespace :fidelidade do
         total_coupon =  0
         credits = order.credits
         credits ||= 0
-        promotion = order.used_promotion.try(:discount_value)
+        promotion = UsedPromotion.find_by_order_id(order.id).try(:discount_value)
         promotion ||= 0
         coupon_value = coupon.value
         
@@ -185,7 +186,39 @@ namespace :fidelidade do
         credit_payment.update_column(:state, state_hash[order.state])
         
     end
-  end  
+  end
+  
+  
+  desc "move promotion to payment"
+  task :move_promotion_to_payment => :environment do
+    puts "Starting rake that moves the promotion to payment"
+    
+    state_hash = {
+      "authorized" => "authorized",
+      "canceled" => "cancelled", 
+      "delivered" => "authorized",
+      "delivering" => "authorized",
+      "picking" => "authorized",
+      "reversed" => "reversed",      
+      "waiting_payment" => "waiting_payment"
+    }
+    UsedPromotion.find_each do |used_promotion|
+      order = used_promotion.order
+      promotion = used_promotion.promotion
+      
+      if order && promotion
+        puts "\norder: #{order.id}\tpromotion: #{promotion.id} \tvalue:#{used_promotion.discount_value}"
+        
+        promotion_payment = PromotionPayment.create!(
+          :total_paid => used_promotion.discount_value, 
+          :promotion_id => promotion.id,
+          :order => order,
+          :discount_percent => used_promotion.discount_percent)
+        
+        promotion_payment.update_column(:state, state_hash[order.state])
+      end
+    end
+  end
   
 end
 

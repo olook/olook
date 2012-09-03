@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
   #has_one :used_coupon, :dependent => :destroy
-  has_one :used_promotion, :dependent => :destroy
+  # has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   

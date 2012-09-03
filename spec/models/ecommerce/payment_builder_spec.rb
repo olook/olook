@@ -111,6 +111,21 @@ describe PaymentBuilder do
         Coupon.any_instance.should_receive(:decrement!)
         subject.process!
       end
+      
+      xit "should create a promotion when used" do
+        expect {
+          cart_service = CartService.new({:cart => cart, :freight => freight, :promotion => promotion})
+
+          cart_service.stub(:total_discount_by_type => 20)
+
+          order = cart_service.generate_order!
+
+          order.used_promotion.promotion.should be(promotion)
+          order.used_promotion.discount_percent.should be(promotion.discount_percent)
+          order.used_promotion.discount_value.should eq(20)
+
+        }.to change{Order.count}.by(1)
+      end
     end
   end
 
