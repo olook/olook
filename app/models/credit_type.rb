@@ -14,5 +14,4 @@ class CreditType < ActiveRecord::Base
   def credit_sum(user_credit, date, is_debit)
   	user_credit.credits.where("is_debit = ?", is_debit).sum(:value)
   end
-
 end
