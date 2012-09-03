@@ -173,6 +173,10 @@ Olook::Application.routes.draw do
     post 'integrate_payment' => "orders#integrate_payment"
 
     resources :orders do
+      member do
+        post 'change_state'
+      end
+
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
       end
