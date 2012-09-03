@@ -28,6 +28,11 @@
         </div>
 
         <div class="group">
+          <%= label_tag("percentage","Porcentagem de Desconto", :class => "label") %>
+          <%= text_field_tag("percentage", nil,:class => "text_field") %>
+        </div>
+
+        <div class="group">
           <%= f.submit 'Buscar', :class => "button" %>
         </div>
       <% end %>
@@ -45,7 +50,7 @@
       <th>Total Pago</th>
       <th>Subtotal</th>
       <th>Data de Criação</th>
-      <!-- <th colspan=3>Origem dos discontos</th> -->
+      <th>Origem dos discontos</th>
     </tr>
 
   <% @orders.each do |order| %>
@@ -57,9 +62,11 @@
       <td><%= number_to_currency order.amount_paid %></td>
       <td><%= number_to_currency order.subtotal      %></td>
       <td><%= l order.created_at, :format => :short %></td>
-      <!-- <td><%= 'discontos...' %></td> -->
-      <!-- <td><%= 'discontos...' %></td> -->
-      <!-- <td><%= 'discontos...' %></td> -->
+      <td>
+        <% order.payments.each do |payment| %>
+        <p><%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>: <%= number_to_currency payment.total_paid || 0 %></p>
+        <% end  %>
+      </td>
     </tr>
   <% end %>
   </table>
