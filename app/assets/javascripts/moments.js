@@ -9,7 +9,6 @@ jQuery(function() {
       $(this).fadeIn("slow");
       $(this).html("");
     });
-    initMoment.scrollToList();
   });
 
   if($("form#filter input").is(":checked")) {
@@ -102,12 +101,4 @@ jQuery(function() {
   }
 });
 
-initMoment = {
-  scrollToList : function() {
-    var topHeight = 400;
-    $("html, body").animate({
-      scrollTop: topHeight
-    }, 'slow');
-  }
-}
 
