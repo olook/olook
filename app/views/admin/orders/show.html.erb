@@ -138,6 +138,13 @@
     <b>Erp Payment Error:</b>
     <%= @order.erp_payment_error %>
   </p>
+
+  <p>
+    <b>Pagamentos</b>
+    <% @order.payments.group_by(&:type).each_pair do |payment_type,payments| %>
+    <p><b><%= payment_type %>:</b> <%= number_to_currency payments.sum(&:total_paid) %></p>
+    <% end  %>
+  </p>
   
 </div>
 
