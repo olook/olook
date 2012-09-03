@@ -32,6 +32,7 @@ class Payment < ActiveRecord::Base
 
   belongs_to :order
   belongs_to :cart  
+  belongs_to :credit_type
   has_one :payment_response, :dependent => :destroy
 
   after_create :generate_identification_code

@@ -63,8 +63,8 @@
       <td><%= number_to_currency order.subtotal      %></td>
       <td><%= l order.created_at, :format => :short %></td>
       <td>
-        <% order.payments.where("type in (?)",[:coupon_payment, :credit_payment]).group_by(&:type).each_pair do |payment_type,payments| %>
-        <p><%= payment_type %>: <%= number_to_currency payments.sum(&:total_paid) %></p>
+        <% order.payments.each do |payment| %>
+        <p><%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>: <%= number_to_currency payment.total_paid || 0 %></p>
         <% end  %>
       </td>
     </tr>
