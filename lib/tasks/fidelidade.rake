@@ -158,5 +158,34 @@ namespace :fidelidade do
       end
     end
   end
+
+  desc "move credits to payment"
+  task :move_credits_to_payment => :environment do
+    puts "Starting rake that moves the credits to payment"
+    
+    state_hash = {
+      "authorized" => "authorized",
+      "canceled" => "cancelled", 
+      "delivered" => "authorized",
+      "delivering" => "authorized",
+      "picking" => "authorized",
+      "reversed" => "reversed",      
+      "waiting_payment" => "waiting_payment"
+    }
+    credit_type_id = CreditType.find_by_code!(:invite).id
+    Order.where('credits > ? AND credits IS NOT NULL', 0).find_each do |order|
+        puts "\norder: #{order.id}\tcredits: #{order.credits}"
+        
+        credit_payment = CreditPayment.create!(
+                  :total_paid => order.credits, 
+                  :credit_type_id => credit_type_id , 
+                  :order => order)
+                                    
+        
+        credit_payment.update_column(:state, state_hash[order.state])
+        
+    end
+  end  
+  
 end
 
