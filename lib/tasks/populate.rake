@@ -65,9 +65,46 @@ namespace :db do
       GiftRecipientRelation.create :name => name
     end
   end
-  desc "Create Moments and load products to them" do
-
+  
+  desc "Bootstrap the database with demo data"
+  task :boostrap => %w(db:setup) do
+    20.times do
+      product = Product.new :name => Faker::Lorem.words(1).first, :description => Faker::Lorem.paragraph(10), :category => (1..3).to_a.sample, :model_number => rand(36**8).to_s(36)
+      if product.save!
+        puts "."
+      end
+    end
   end
+  
+  desc "generate basic moments"
+	task :generate, [:file] => :environment do |task, args|   
+		
+		Moment.new( { :name => "Ocasiões",
+									:article => "para todas as",
+									:slug => "todas",
+									:position => 5 } ).save!
+
+		Moment.new( { :name => "Passeio", 
+									:article => "Para um", 
+									:slug => "passeio",
+									:position => 4 } ).save!
+
+		Moment.new( { :name => "Noite", 
+									:article => "Para a", 
+									:slug => "noite",
+									:position => 3 } ).save!
+
+		Moment.new( { :name => "Executivo", 
+									:article => "Para o dia-a-dia", 
+									:slug => "executivo",
+									:position => 2 } ).save!
+
+		Moment.new( { :name => "Casual", 
+									:article => "Para o dia-a-dia", 
+									:slug => "casual",
+									:position => 1 } ).save!
+		
+	end
 end
 
 def create_contact_subjects
