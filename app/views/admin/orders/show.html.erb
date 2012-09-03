@@ -138,6 +138,13 @@
     <b>Erp Payment Error:</b>
     <%= @order.erp_payment_error %>
   </p>
+
+  <p>
+    <b>Pagamentos</b>
+    <% @order.payments.each do |payment| %>
+    <p><b><%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>:</b> <%= number_to_currency payment.total_paid %></p>
+    <% end  %>
+  </p>
   
 </div>
 
