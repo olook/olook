@@ -12,6 +12,8 @@ describe Checkout::PaymentsController do
   let(:tipo_pagamento) { "CartaoDeCredito" }
   let(:classificacao) { "TUDO CERTO" }
   let(:params) {{:status_pagamento => waiting_payment, :id_transacao => payment.identification_code, :value => total, :cod_moip => cod_moip, :tipo_pagamento => tipo_pagamento, :classificacao => classificacao}}
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
   before :each do
 

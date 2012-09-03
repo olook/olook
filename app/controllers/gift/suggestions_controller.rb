@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Gift::SuggestionsController < Gift::BaseController
+  layout 'gift'
+
   def index
     @gift_recipient = GiftRecipient.find(params[:recipient_id])
     session[:recipient_id] = @gift_recipient.id

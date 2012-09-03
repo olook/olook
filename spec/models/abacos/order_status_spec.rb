@@ -2,6 +2,9 @@
 require "spec_helper"
 
 describe Abacos::OrderStatus do
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
+
   let(:downloaded_status) { load_abacos_fixture :order_status }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
   subject { described_class.new parsed_data }
@@ -66,7 +69,6 @@ describe Abacos::OrderStatus do
   end
 
   describe '#change_order_state' do
-    let(:order) { FactoryGirl.create :order_with_payment_authorized }
     let(:default_order_state) do
       {
         :integration_protocol => 'fake_protocol',
@@ -81,6 +83,8 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is waiting payment' do
+      let(:order) { FactoryGirl.create :clean_order }
+      
       context "and the new state is canceled" do
         subject { described_class.new default_order_state.merge(:new_state => 'canceled') }
         it "should change the state to canceled" do
@@ -93,10 +97,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is authorized' do
-      before :each do
-        order.authorized
-        order.authorized?.should be_true
-      end
+      let(:order) { FactoryGirl.create :order_with_payment_authorized }
 
       context "and the new state is picking" do
         subject { described_class.new default_order_state.merge(:new_state => :picking) }
@@ -127,8 +128,9 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is picking' do
+      let(:order) { FactoryGirl.create :order_with_payment_authorized }
+      
       before :each do
-        order.authorized
         order.picking
         order.picking?.should be_true
       end
@@ -153,8 +155,9 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is delivering' do
+      let(:order) { FactoryGirl.create :order_with_payment_authorized }
+
       before :each do
-        order.authorized
         order.picking
         order.delivering
         order.delivering?.should be_true
