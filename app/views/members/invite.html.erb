@@ -18,7 +18,7 @@
         <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
       </div>
     <% end %>
-    <h2><%= display_member_credit(current_user) %></h2>
+    <h2 class="<%= 'no_facebook' if current_user.has_facebook? %>"><%= display_member_credit(current_user) %></h2>
   </hgroup>
 
   <div class="banner">
