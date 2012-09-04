@@ -69,20 +69,41 @@ class Order < ActiveRecord::Base
 
     state :reversed do
       after_save do |order|
-        order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each &:reverse
+        order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each do |payment|
+          events_for_payment = payment.state_events(guard: false)
+          if events_for_payment.include?(:cancel)
+            payment.cancel
+          elsif events_for_payment.include?(:reverse)
+            payment.reverse
+          end
+        end
       end
     end
     
     state :refunded do
       after_save do |order|
-        order.payments.where(Payment.arel_table[:state].not_eq('refunded')).each &:refund
+        order.payments.where(Payment.arel_table[:state].not_eq('refunded')).each do |payment|
+          events_for_payment = payment.state_events(guard: false)
+          if events_for_payment.include?(:cancel)
+            payment.cancel
+          elsif events_for_payment.include?(:refund)
+            payment.refund
+          end
+        end
       end
     end
     
     
     state :canceled do
       after_save do |order|
-        order.payments.where(Payment.arel_table[:state].not_eq('cancelled')).each &:cancel
+        order.payments.where(Payment.arel_table[:state].not_eq('cancelled')).each do |payment|
+          events_for_payment = payment.state_events(guard: false)
+          if events_for_payment.include?(:cancel)
+            payment.cancel
+          elsif events_for_payment.include?(:refund)
+            payment.refund
+          end
+        end
       end
     end
 
@@ -167,6 +188,10 @@ class Order < ActiveRecord::Base
 
   def erp_payment
      payments.for_erp.last
+  end
+  
+  def payment_rollback?
+    self.refunded? || self.canceled? || self.reversed?
   end
   
   private
