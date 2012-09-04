@@ -19,7 +19,8 @@
     <% if current_user.current_credit.to_i > 0 %>
       <%= render 'shared/my_account/credits_friends', :user => current_user %>
     <% end %>
-    <h1>Convide suas amigas e ganhe R$ 10 na primeira compra de cada uma delas.</h1>
+    <h2 class="title">Convide suas amigas:</h2>
+    <p>Você ganha R$ 20 quando elas fizerem a 1ª compra.</p>
     <%= render "shared/social/share", :user => current_user %>
     <div class="rules">
       <%= link_to "Confira o regulamento completo", "#" %>
@@ -29,7 +30,7 @@
     <% if current_user.current_credit.to_i > 0 %>
       <%= render 'shared/my_account/credits_last_order', :user => current_user %>
     <% end %>
-    <h1>Você sempre ganha 20% do valor das suas compras em desconto no próximo pedido</h1>
+    <h1 class="max">Você sempre ganha 20% do valor das suas compras em desconto no próximo pedido</h1>
     <div id="box_months">
       <h3>O crédito é válido para as próximas 2 coleções.</h3>
       <table cellpadding="0" cellspacing="0" class="current">
