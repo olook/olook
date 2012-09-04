@@ -321,7 +321,7 @@ namespace :fidelidade do
     Payment.where(:percent => nil).find_each do |payment|
       begin
         payment.calculate_percentage!
-        payment.save!
+        payment.update_column(:percent, payment.percent)
       rescue Exception => e
         puts "\npayment: #{payment.id}\tex: #{e.message}"
       end
