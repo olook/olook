@@ -302,5 +302,19 @@ namespace :fidelidade do
     end
   end
   
+  desc "populate total paid for old payments"
+  task :populate_total_paid_old_payments => :environment do
+    puts "Starting rake that total paid for old payments"
+    Payment.where(:type => ['Billet','CreditCard','Debit']).find_each do |payment|
+      pr = PaymentResponse.find_by_payment_id(payment.id)
+      total_paid = pr.try(:total_paid)
+      total_paid = payment.order.amount_paid if (payment.order && (total_paid.nil? || total_paid <= 0))
+      total_paid ||= 0
+      
+      payment.update_column(:total_paid, total_paid) if (total_paid > 0)
+      
+    end
+  end
+  
 end
 
