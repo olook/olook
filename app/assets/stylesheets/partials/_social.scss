@@ -2,7 +2,8 @@ div.social {
   width: 485px;
   overflow: auto;
   ul {
-    width: 100%;
+    width: 395px;
+    margin: 0 auto;
     padding: 0 0;
     overflow: auto;
     li {
@@ -12,9 +13,8 @@ div.social {
       float: left;
       a {
         color: #5a5a5b;
-        font-family: "Times New Roman", sans-serif;
-        font-size: 16px;
-        font-style: italic;
+        font-family: $avenir;
+        font-size: 14px;
         text-align: center;
         text-decoration: none;
         line-height: 15px;
@@ -51,7 +51,7 @@ div.social {
       }
       &.email {
         a {
-          background: url("/assets/common/bt-email.png") center 10px no-repeat;
+          background: url("/assets/common/bt-email.jpg") center 10px no-repeat;
           margin: 0;
           padding: 105px 10px 15px 10px;
           &.selected {
@@ -84,8 +84,8 @@ div.social {
     input[type="submit"] {
       background: url("/assets/common/invite.png") no-repeat;
       text-indent: -9999px;
-      width: 283px;
-      height: 52px;
+      width: 92px;
+      height: 34px;
       display: block;
       margin: 0 auto;
       border: none;
@@ -99,10 +99,9 @@ div.link_mail {
   overflow: auto;
   padding: 0 0 0 30px;
   h2 {
-    font-size: 18px;
-    font-style: italic;
+    font-family: $avenir;
+    font-size: 16px;
     font-weight: lighter;
-    letter-spacing: -1px;
     margin: 0 0 10px;
   }
   ul {
@@ -111,17 +110,17 @@ div.link_mail {
       position: relative;
       input[type="text"] {
         color: #666;
-        font-size: 13px;
+        font-size: 14px;
         width: 265px;
         margin: 0 0 10px 0;
-        padding: 5px 10px;
+        padding: 8px 10px;
         border: 1px #CCC solid;
       }
       a {
         background: url("/assets/common/copy-link.jpg") no-repeat;
         text-indent: -9999px;
-        width: 116px;
-        height: 32px;
+        width: 112px;
+        height: 34px;
         display: block;
       }
       div.zclip {
@@ -141,6 +140,7 @@ div.link_mail {
     p {
       color: #666;
       font-size: 12px;
+      line-height: 16px;
       text-align: center;
       strong {
         color: #666;

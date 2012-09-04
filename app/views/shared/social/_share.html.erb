@@ -2,21 +2,6 @@
   <ul>
     <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite: #{accept_invitation_url(:invite_token => user.invite_token)}, descubra o seu estilo e ainda ganhe R$10!&hashtags=ficaadica" %></li>
     <li class="facebook"><%= link_to "#" do %>Postar no <br />meu mural<% end %></li>
-    <li class="orkut"><%= link_to "Compartilhar no orkut", "#" %>
-      <div id="orkut_share" style="width:100%;"></div>
-      <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-      <script type="text/javascript">
-        google.load('orkut.share', '1');
-        google.setOnLoadCallback(function(){
-          new google.orkut.share.Button({
-            style:'regular',
-            title:'Olook',
-            summary:'<%= invite_message %>',
-            destination:'<%= invitation_link(user) %>'
-          }).draw('orkut_share');
-        }, true);
-      </script>
-    </li>
     <li class="email"><%= link_to "#" do %>Enviar <br />por e-mail<% end %></li>
   </ul>
   <%= form_tag member_invite_by_email_path do %>
