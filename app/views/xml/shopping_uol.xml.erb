@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<id_parceiro></id_parceiro>
+<produtos>
+<% @products.each do |product| %>
+<produto>
+<codigo><%= product.id %></codigo>
+<descricao><%= product.description %></descricao>
+<preco><%= product.price %></preco>
+<nparcela>1</nparcela>
+<vparcela></vparcela>
+<url><%= product.product_url %></url>
+<url_imagem><%= product_url.pictures.last.image %></url_imagem>
+<Frete>Sim</Frete>
+<departamento></departamento>
+</produto>
+<% end %>
+</produtos>
