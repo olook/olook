@@ -8,21 +8,25 @@
 
 <section id="user-info">
 <hgroup class='info'>
-    <% unless current_user.has_facebook? %>
+    <% if current_user.has_facebook? %>
+      <% if @user.has_fraud %>
+        <p class="warn"><span>Atenção:</span> Os créditos que estavam atrelados a convidadas com CPFs inválidos, foram inabilitados.</p>
+      <% end %>
+    <% else %>
       <div class="connect">
-        <p>Conecte-se com o facebook e veja sua vitrine antes de todas</p>
+        <p>Conecte-se com o facebook<br /> e veja sua vitrine antes de todas</p>
         <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect" %>
       </div>
     <% end %>
-    <h2><%= display_member_credit(current_user) %></h2>
+    <h2 class="<%= 'no_facebook' if current_user.has_facebook? %>"><%= display_member_credit(current_user) %></h2>
   </hgroup>
 
   <div class="banner">
     <h1>Quer ganhar</h1>
-    <h2>R$10?</h2>
+    <h2>R$20?</h2>
     <h3>
-      <p>Convide suas amigas e ganhe R$10</p>
-      <p>Quando elas fizerem a 1ª compra.</p>
+      <p>Convide suas amigas e ganhe R$20</p>
+      <p>quando elas fizerem a 1ª compra.</p>
     </h3>
     <%= link_to 'Veja o regulamento', terms_path %>
     <%= image_tag('/assets/common/model-banner.png') %>
@@ -41,7 +45,7 @@
 <section id="share-mail">
   <hgroup>
     <h1>Compartilhe seu link pessoal</h1>
-    <h2>Envie seu link pessoal <br /> pelo FaceBook, Twitter, MSN, Orkut e <br /> por onde mais você quiser</h2>
+    <h2>Envie seu link pessoal <br /> pelo FaceBook, Twitter, MSN, Orkut e <br /> por onde mais você quiser.</h2>
   </hgroup>
 
   <form>
@@ -79,7 +83,7 @@
 <section id="invite-mail">
   <hgroup>
     <h1>Convide suas amigas por email</h1>
-    <h2>Digite o email de suas amigas <br /> no campo ao lado separados <br /> por vírgula </h2>
+    <h2>Digite o email de suas amigas <br /> no campo ao lado separados por vírgula.</h2>
   </hgroup>
 
   <%= form_tag (member_invite_by_email_path) do %>
@@ -97,10 +101,11 @@
     </fieldset>
   <% end %>
 </section>
+
 <section id="post-to-wall">
   <hgroup>
-    <h1>Convide amigas do Facebook</h1>
-    <h2>Para convidar, <br /> selecione suas amigas<br />na caixa ao lado
+    <h1>Convide amigas<br /> do Facebook</h1>
+    <h2>Para convidar, selecione suas amigas<br />na caixa ao lado
     </h2>
   </hgroup>
   <%= link_to image_tag('/assets/common/bt-face-send-messages.png'), '', :id => 'facebook_invite_friends' %>
@@ -113,9 +118,9 @@
   </hgroup>
 
   <ul class="services">
-    <li><%= link_to '', member_import_contacts_path, :class => 'gmail' %></li>
+    <li><%= link_to 'Gmail', member_import_contacts_path, :class => 'gmail' %></li>
     <% if @yahoo_oauth_url %>
-      <li><%= link_to '', @yahoo_oauth_url, :class => 'yahoo' %></li>
+      <li><%= link_to 'Yahoo', @yahoo_oauth_url, :class => 'yahoo' %></li>
     <% else %>
       <li>Serviço Yahoo indisponível no momento</li>
     <% end %>

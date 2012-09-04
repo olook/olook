@@ -11,9 +11,7 @@
   <% end %>
   <div class="content">
     <h1><%= link_to 'Olook', root_path %></h1>
-    <div class="info">
-      <p>Todos os meses uma coleção nova para você. Troca ou devolução em até 30 dias. Frete grátis para sul e sudeste ou em compras acima de R$120,00</p>
-    </div>
+    <h2 class="info_logo"><%= link_to "Mudamos, quer saber por que?", our_essence_path, :title => "Mudamos, quer saber por que?" %></h2>
 
     <div id="session">
       <% if user_signed_in? %>
@@ -28,8 +26,8 @@
             <%= render 'shared/credits_info' %>
           </li>
           <li><%= link_to "Minha conta", user_orders_path %></li>
-          <li><%= link_to "Convidar amigas", member_invite_path, :class => "invite" %></li>
-          <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          <li><%= link_to "Ganhe <span>R$20</span> em créditos".html_safe, member_invite_path, :class => "invite" %></li>
+          <li class="last"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li class="login">
             <p>Já faz parte? <%= link_to "Faça seu login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %></p>

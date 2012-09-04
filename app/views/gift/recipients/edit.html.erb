@@ -8,32 +8,33 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <div class="content" id="profile">
-      <h1 class="title_name"><span><%= @gift_recipient.name %></span> é</h1>
+    <section id="profile" class="content">
+      <h1 class="title_name"><%= @gift_recipient.name %> é</h1>
       <%= image_tag "/assets/gift/panel_#{@main_profile.name.parameterize}.png", :title => "#{@main_profile.name}", :class => "profile" %>
-      <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %></p>
-      
-      <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
-        <h1>Ela calça:</h1>
 
+      <%= form_for @gift_recipient, :url => gift_recipient_path(@gift_recipient) do |f| %>
         <%= hidden_field_tag "gift_recipient[profile_id]", "#{@main_profile.id}"%>
-        <ul class="shoes">
-          <% (33..40).each do |size| %>
-            <li class="<%= 'selected' if size == @gift_recipient.shoe_size %>">
-              <%= label_tag "gift_recipient_shoe_size_#{size}" do %>
-                <%= size %>
-                <%= f.radio_button :shoe_size, size %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+        <fieldset>
+          <h1>Ela calça:</h1>
+          <ul class="shoes">
+            <% (33..40).each do |size| %>
+              <li class="<%= 'selected' if size == @gift_recipient.shoe_size %>">
+                <%= label_tag "gift_recipient_shoe_size_#{size}" do %>
+                  <%= size %>
+                  <%= f.radio_button :shoe_size, size %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </fieldset>
 
         <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
+        <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %></p>
       <% end %>
 
       <%= form_for @gift_recipient, :url => edit_gift_recipient_path(@gift_recipient), :html => { :class => "edit_profile" } do |f| %>
         <div class="profiles">
-          <h1>Quais das palavras abaixo<br /> definem melhor o estilo da <span><%= @gift_recipient.first_name %></span> ?</h1>
+          <h1>Quais das palavras abaixo definem<br />melhor o estilo da <span><%= @gift_recipient.first_name %></span> ?</h1>
           <ul>
             <% @profiles[1..3].each do |profile| %>
               <li class="<%= profile.name.parameterize %>">
@@ -45,7 +46,7 @@
           </ul>
         </div>
       <% end %>
-    </div>
+    </section>
   </div>
 <% end %>
 

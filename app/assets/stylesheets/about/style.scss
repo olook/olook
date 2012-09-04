@@ -87,7 +87,7 @@ padding:20px 20px 0;
   #function li .img_right{
     margin-bottom: 3px;
   }
-  
+
 .box {
   width: 237px;
   height: 278px;
@@ -105,7 +105,7 @@ padding:20px 20px 0;
   &#right_box_mid {
     background: url('/assets/about/box-3.png') no-repeat;
   }
-  
+
   &#right_box {
     background: url('/assets/about/box-4.png') no-repeat;
     margin-right: none !important;
@@ -128,97 +128,129 @@ padding:20px 20px 0;
   text-indent: -9999px;
 }
 
-#terms h1 {
-  font-family: Times, "Times New Roman", Georgia, serif;
-  font-style: italic;
-  font-weight:normal;
-  font-size:40px;
-  letter-spacing:-2px;
-  margin: 20px 0px 20px 20px;
-}
-
-#terms h2 {
-  color:#E05789;
-  letter-spacing:-1px;
-  font-size: 16px;
-  margin: 40px 0px -10px 0px;
-  text-transform: uppercase;
-  font-family: sans-serif;
-}
-
-#terms p.intro, #terms .intro {
-  border:1px solid #c1c1c1;
-  padding:30px;
-  font-size:16px;
-  letter-spacing:-1px;
-}
-
-#terms p {
-  margin: 13px 0 20px;
-  a.arrow {
-    background: url("/assets/about/mini_arrow.png") left no-repeat;
-    padding-left: 13px;
+#terms {
+  padding: 20px 0 0;
+  h1 {
+    font-size: 28px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin: 0 0 30px;
   }
-}
 
-#terms p.last {
-  margin-bottom:100px;
-}
-#terms a {
-  color:#E05789;
-}
+  h2 {
+    font-size: 16px;
+    margin: 0 0 13px;
+    text-transform: uppercase;
+  }
 
-#terms .intro {
+  p.intro, .intro {
+    border:1px solid #e4e4e4;
+    padding:30px;
+  }
+
   p {
-    margin: 0 0 20px;
-  }
-  ul {
-    margin: 0 0 0 60px;
-    li {
-      color: #de5a8d;
+    a.arrow {
+      color: #101010;
     }
   }
-}
 
-#terms ul.contact {
-  background: #FFF;
-  width: 340px;
-  overflow: hidden;
-  margin: 0 auto 15px auto;
-  padding: 2px 12px;
-  border: 1px #d2d2d2 solid;
-  li {
-    float: left;
-    &.phone {
-      background: url("/assets/contact/ico-phone.png") left no-repeat;
-      color: #3b3b3b;
-      font-size: 15px;
-      font-weight: bold;
-      margin: 0 15px 0 0;
-      padding: 5px 10px 5px 25px;
-      border-right: 1px #d2d2d2 solid;
+  .intro {
+    margin: 0 0 40px;
+    p {
+      color: #101010;
+      font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
+      font-size: 18px;
+      letter-spacing: -1px;
+      margin: 0 0 20px;
     }
-    &.mail {
-      padding: 5px 0 5px 0;
-      a {
-        background: url("/assets/contact/ico-mail.png") left no-repeat;
+    ul {
+      li {
+        color: #6d6e71;
+      }
+    }
+  }
+
+  ul.contact {
+    background: #FFF;
+    width: 365px;
+    overflow: hidden;
+    margin: 22px 0;
+    padding: 2px 12px;
+    border: 1px #d2d2d2 solid;
+    li {
+      float: left;
+      &.phone {
+        background: url("/assets/contact/ico-phone.png") left no-repeat;
         color: #3b3b3b;
         font-size: 15px;
         font-weight: bold;
-        text-decoration: none;
-        padding: 0 0 0 25px;
-        &:hover {
-          text-decoration: underline;
+        margin: 0 15px 0 0;
+        padding: 5px 10px 5px 25px;
+        border-right: 1px #d2d2d2 solid;
+      }
+      &.mail {
+        padding: 5px 0 5px 0;
+        a {
+          background: url("/assets/contact/ico-mail.png") left no-repeat;
+          color: #3b3b3b;
+          font-size: 15px;
+          font-weight: bold;
+          text-decoration: none;
+          padding: 0 0 0 25px;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
   }
-}
-.steps {
-  padding:0 30px;
-  margin-bottom: 35px;
+  &.faq {
+    p {
+      margin: 0 0 35px;
+    }
+  }
+  &.return {
+    h2 {
+      letter-spacing: 0;
+      font-weight: bold;
+      margin: 35px 0 5px;
+    }
+    h3 {
+      font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
+      font-size: 15px;
+      margin: 25px 0 0;
+    }
+  }
+  &.privacy, &.terms {
+    div.intro {
+      p {
+        margin: 0;
+        &.first {
+          margin: 0 0 20px;
+        }
+      }
+    }
+    h2 {
+      margin-top: 35px;
+    }
+  }
 }
 
 .clear {
   clear: both;
+}
+
+.win {
+  #terms {
+    h2 {
+      font-weight: bold;
+    }
+  }
+  #terms.return {
+    div.steps {
+      h2 {
+        font-weight: bold;
+      }
+    }
+  }
 }

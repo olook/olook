@@ -74,7 +74,7 @@ describe MarketingReports::Builder do
 
   describe "#userbase_with_auth_token" do
     let(:csv_header) do
-      "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,auth_token\n"
+      "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,auth_token,current_credit\n"
     end
 
     before(:each) do
@@ -89,7 +89,7 @@ describe MarketingReports::Builder do
 
       csv_body = [user_a, user_b, user_c].inject("") do |data, user|
         data += "#{user.id},#{user.email.chomp},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
-        data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?},#{user.authentication_token}\n"
+        data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?},#{user.authentication_token},#{user.current_credit}\n"
         data
       end
 

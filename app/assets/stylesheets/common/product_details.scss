@@ -121,8 +121,6 @@
       }
       div.description {
         position: relative;
-        font-family: Times;
-        font-style: italic;
         div.fb-like {
           position: absolute;
           top: 10px;
@@ -130,21 +128,20 @@
           .fb_edge_comment_widget {
             display: none;
           }
+          iframe {
+            height: 20px !important;
+          }
         }
         h1 {
-          font-size: 40px;
-          font-weight: lighter;
-          letter-spacing: -3px;
-          line-height: 33px;
+          font-family: $kepler;
+          font-size: 33px;
           margin-bottom: 10px;
           padding-bottom: 10px;
           border-bottom: 1px #ebebeb solid;
         }
         p {
           color: #999;
-          font-size: 16px;
-          letter-spacing: -1px;
-          margin-bottom: 10px;
+          margin-bottom: 20px;
           a {
             color: #df5a8a;
             margin: 0 0 0 5px;
@@ -153,8 +150,12 @@
             color: #e05789;
             font-size: 45px;
             line-height: 40px;
-            letter-spacing: -4px;
             text-align: center;
+            &.left {
+              font-size: 30px;
+              width: 210px;
+              clear: both;
+            }
           }
           &.price_retail {
             color: #838383;
@@ -163,11 +164,24 @@
             text-decoration: line-through;
             text-align: center;
             margin-bottom: 0;
+            &.left {
+              font-size: 20px;
+              width: 210px;
+              clear: both;
+            }
+          }
+          &.left {
+            text-align: left;
+            float: left;
           }
           &.promotion_explanation {
+            font-size: 11px;
+            font-weight: 600;
             text-align: center;
-            margin-top: -10px;
-            margin-bottom: 20px;
+            text-transform: uppercase;
+            width: 175px;
+            margin-top: 15px;
+            float: left;
           }
         }
         div.warn_discount {
@@ -199,13 +213,12 @@
         padding: 15px 10px;
         overflow: auto;
         border: 1px #ebebeb solid;
+        clear: both;
         div.line {
           width: 100%;
           overflow: auto;
           p {
-            font-family: Times;
-            font-size: 16px;
-            font-style: italic;
+            font-size: 12px;
             line-height: 30px;
             text-align: right;
             width: 70px;
@@ -223,8 +236,6 @@
                 margin-left: 0;
               }
               label {
-                font-family: Arial;
-                font-size: 12px;
                 font-weight: normal;
                 line-height: 28px;
                 text-align: center;
@@ -253,7 +264,7 @@
                 img {
                   width: 29px;
                   height: 28px;
-                  border: 1px solid #D95485;
+                  border: 2px solid #000;
                 }
                 a {
                   img {
@@ -268,22 +279,23 @@
           &.size {
             margin-top: 10px;
             label {
-              color: $pink;
-              border: 1px solid $pink;
+              color: #6d6e71;
+              border: 1px solid #6d6e71;
             }
             li {
               &.selected {
-                background: $pink;
+                background: #000;
                 label {
                   color: #FFF;
+                  border: 1px #000 solid;
                 }
               }
               &.unavailable {
                 label {
-                  color: #757575;
+                  color: #dddee1;
                   text-decoration: line-through;
                   cursor: text;
-                  border: 1px #757575 solid;
+                  border: 1px #dddee1 solid;
                 }
               }
             }
@@ -291,29 +303,29 @@
         }
       }
       input[type="submit"].add_product, a.add_product {
-        background: url('/assets/product/bt-add-product.png') no-repeat;
+        background: url('/assets/product/bt-add-product.jpg') no-repeat;
         text-indent: -9999px;
-        width: 279px;
-        height: 58px;
+        width: 281px;
+        height: 59px;
         margin: 17px auto 30px auto;
         display: block;
         border: none;
         cursor: pointer;
         &.disabled {
-          background: url("/assets/product/bt-add-product-disabled.png") no-repeat;
+          background: url("/assets/product/bt-add-product-disabled.jpg") no-repeat;
         }
       }
       input[type="submit"].add_product_to_suggestions {
-        background: url('/assets/product/bt-add-product-to-suggestions.png') no-repeat;
+        background: url('/assets/product/bt-add-product-to-suggestions.jpg') no-repeat;
         text-indent: -9999px;
-        width: 298px;
-        height: 57px;
+        width: 305px;
+        height: 65px;
         margin: 17px auto 30px auto;
         display: block;
         border: none;
         cursor: pointer;
         &.disabled {
-          background: url("/assets/product/bt-add-product-to-suggestions-disabled.png") no-repeat;
+          background: url("/assets/product/bt-add-product-to-suggestions-disabled.jpg") no-repeat;
         }
       }
       div#box_tabs {
@@ -324,18 +336,16 @@
           li {
             display: inline;
             a {
-              color: #a5a5a5;
-              font-family: Times;
-              font-size: 11px;
+              color: #000;
+              font-size: 10px;
               text-decoration: none;
               text-transform: uppercase;
-              margin-bottom: -1px;
-              padding: 5px 15px 15px 15px;
+              font-weight: bold;
+              margin-bottom: 1px;
+              padding: 5px 12px 15px 12px;
               border-bottom: 1px #dddddd solid;
               float: left;
               &.selected {
-                color: #545454;
-                font-size: 12px;
                 border-left: 1px #dddddd solid;
                 border-right: 1px #dddddd solid;
                 border-bottom: 1px #fff solid;
@@ -374,18 +384,24 @@
               width: 140px;
               height: 140px;
               overflow: hidden;
-              margin-left: 20px;
               float: right;
               img {
                 width: 140px;
               }
             }
             p {
-              color: #545454;
-              font-family: Times;
-              font-size: 16px;
-              font-style: italic;
+              font-family: $kepler;
+              font-size: 15px;
               padding: 0 20px;
+            }
+            &.tab_1 {
+              p {
+                background: url('/assets/product/bg-stylist-phrase.jpg') top center no-repeat;
+                text-align: center;
+                width: 195px;
+                padding-top: 40px;
+                float: left;
+              }
             }
             &.selected {
               display: block;

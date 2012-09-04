@@ -49,7 +49,7 @@ describe Credit do
         it "adds 10.00 worth of invite bonus credits to the user" do
           expect {
             described_class.add_for_invitee(user)
-          }.to change(user, :current_credit).by(10)
+          }.to change(user, :current_credit).by(Credit::INVITER_BONUS)
         end
 
         it "creates a record with invite_bonus source" do
@@ -96,7 +96,7 @@ describe Credit do
         it "updates his inviter current_credit by 10.00" do
           expect {
               described_class.add_for_inviter(user, order)
-            }.to change(inviter, :current_credit).by(10)
+            }.to change(inviter, :current_credit).by(Credit::INVITEE_BONUS)
         end
 
         it "creates a record with invitee_bonus source" do

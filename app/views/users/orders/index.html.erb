@@ -7,9 +7,6 @@
     <%= render "shared/my_account/menu" %>
   </div>
   <div id="data">
-    <div class="box_title">
-      <h1 class="orders">Meus Pedidos</h1>
-    </div>
     <table cellpadding="0" cellspacing="0">
       <thead>
         <tr>
@@ -20,20 +17,18 @@
           <th class="freight">Frete</th>
           <th class="payments">Parcelas</th>
           <th class="status">Status do pedido</th>
-          <th class="more"></th>
         </tr>
       </thead>
       <tbody>
         <% @orders.each do |order| %>
           <tr>
-            <td class="number"><%= order.number %></td>
+            <td class="number"><%= link_to order.number, user_order_path(order[:number]) %></td>
             <td><%= l order.created_at, :format => :short %></td>
             <td><%= order.line_items.count %></td>
             <td><%= number_to_currency(order.amount_paid) %></td>
             <td><%= number_to_currency(order.freight_price) %></td>
             <td><%= order.installments %>x</td>
             <td><%= order.status  %></td>
-            <td class="more"><%= link_to "Mais informação", user_order_path(order[:number]) %></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,27 +1,27 @@
-<section id="forget_password" class="forms">
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/forget_password" %>
+<% end %>
+
+<section id="forget_password">
   <h1>Esqueceu sua senha?</h1>
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+    <%= render :partial => "shared/errors", :locals => { :object => resource } %>
 
-  <div class="form_content">
-    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-      <%= render :partial => "shared/errors", :locals => { :object => resource } %>
-
-      <fieldset class="inputs">
-        <ol>
-          <li>
-            <%= f.label "Email" %>
-            <%= f.email_field :email %>
-          </li>
-        </ol>
-      </fieldset>
-      <fieldset class="buttons">
-        <ol>
-          <li>
-            <%= f.submit "" %>
-          </li>
-        </ol>
-      </fieldset>
-    <% end %>
-  </div>
-  <%= image_tag '/assets/common/model-sign-in.png', :class => 'model' %>
+    <fieldset class="inputs">
+      <ol>
+        <li>
+          <%= label_tag 'user_email', "Email:" %>
+          <%= f.email_field :email %>
+        </li>
+      </ol>
+    </fieldset>
+    <fieldset class="buttons">
+      <ol>
+        <li>
+          <%= f.submit "" %>
+        </li>
+      </ol>
+    </fieldset>
+  <% end %>
   <%= render :partial => "shared/social_links" %>
 </section>
