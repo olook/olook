@@ -1,73 +1,97 @@
+
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Olook</title>
-</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>olook</title>
+  </head>
+  <body>
+    <div>
+      <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+        <tr>
+          <td align="center" height="30">
+          </td>
+        </tr>
 
-<body>
-<table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
-<tr>
-<td align="center" height="30">
-</td>
-</tr>
-<tr>
-<td>
-<table cellpadding="0" cellspacing="0">
-<tr>
-<td width="189"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/logo.jpg" alt="olook" border="0" title="olook"></td>
-<td width="431" align="left"><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/frases.gif" alt="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$100 e devolu&ccedil;&atilde;o f&aacute;cil e gratuita. O cadastro &eacute; gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para voc&ecirc;." border="0" title="Todos os produtos por R$69,90 R$99,90 ou R$129,90. Frete gratuito a partir de R$120 e devolu&ccedil;&atilde;o f&aacute;cil e gratuita. O cadastro &eacute; gratuito e leva menos de 2 minutos. Todos os meses uma coleção nova para voc&ecirc;."></td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td><img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/L1-invite-copy_03.jpg" alt="" width="620" height="24" border="0">
-</td>
-</tr>
-<tr>
-<td align="center"><br>
-<div style="font-family:Arial, Helvetica, sans-serif; font-size:14px; width:540px; text-align:left">
+        <tr>
+        <td>
+          <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <!-- logo -->
+              <td>
+                <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado">
+                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/logo_barra.jpg" alt="Todos os meses uma nova coleção para você." border="0" title="Todos os meses uma nova coleção para você." style="display:block"></a>
+              </td>
+
+              <!-- instagram -->
+              <td>
+                <a href="http://statigr.am/olook">                
+                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_in.jpg" alt="Instagram" border="0" title="Instagram" style="display:block"></a>
+              </td>
+              <!-- twitter -->
+              <td>
+                <a href="https://twitter.com/olook">                
+                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_tw.jpg" alt="twitter" border="0" title="twitter" style="display:block"></a>
+              </td>
+              <!-- facebook -->
+              <td>
+                <a href="http://www.facebook.com/olook">                
+                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_fb.jpg" alt="Facebook" border="0" title="Facebook" style="display:block"></a>
+              </td>
+              <!-- blog -->
+              <td>
+                <a href="http://blog.olook.com.br">                
+                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_bg.jpg" alt="Blog" border="0" title="Blog" style="display:block"></a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>			
+			<tr>
+				<td>
+					<table cellpadding="0" cellspacing="0">
+					
+					</table>
+					</td>
+					</tr>
+					
+					<tr>
+					<td align="center"><br>
+					<div style="font-family:Verdana,Helvetica,Arial, sans-serif; font-size:14px; width:540px; text-align:left">
 
 
-<p style="font-size:16px;">Olá <%= @order.user.first_name %>,</p>
+					<p style="font-size:16px;">Olá <%= @order.user.first_name %>,</p>
 
-<p>Obrigada por comprar na olook.<br>
-Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
+					<p>Obrigada por comprar na olook.<br>
+					Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
 
-<% @order.line_items.each do |item| %>
-<p>
-  - <span style="color:#E05789"><%= item.variant.name %></span>;<br>
-</p>
-<% end %>
+					<% @order.line_items.each do |item| %>
+					<p>
+					  - <span style="color:#E05789"><%= item.variant.name %></span>;<br>
+					</p>
+					<% end %>
 
-<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.payment.is_a? CreditCard %>
-<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.payment} if @order.payment.is_a? Billet %>
-<%= render :partial => 'order_status_mailer/requested_debit' if @order.payment.is_a? Debit %>
+					<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.payment.is_a? CreditCard %>
+					<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.payment} if @order.payment.is_a? Billet %>
+					<%= render :partial => 'order_status_mailer/requested_debit' if @order.payment.is_a? Debit %>
 
-<p>Em breve vamos te enviar um e-mail com o novo status da sua compra.</p>
+					<p>Em breve enviaremos um e-mail com o novo status da sua compra.</p>
 
-<p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789;"> falecom@olook.com.br</a> e a nossa equipe irá te responder o mais rápido possível.</p>
+					<p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789;"> falecom@olook.com.br</a> e a nossa equipe te ajudará.</p>
+<center>
+              <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado" style="color:#E05789; font-size:14px"><img src="http://cdn.olook.com.br/assets/emailmkt/topo/btn_irparaolook.jpg" border="0" alt="Convide mais amigas, clique aqui"></a>
+            </center>
+					<p>Abraços,<br>
+					Equipe olook<br>
+					<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado" style="color:#E05789; font-size:14px">www.olook.com.br</a>
+					</p>
 
-<br>
-<p>Abraços,<br>
-Equipe olook<br>
-<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado" style="color:#E05789; font-size:14px">www.olook.com.br</a>
-</p>
-
-
-
-</div>
-<br><br></td>
-<tr>
-<td>
-<img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/reinvite/L1-invite-copy_09.jpg" width="620" height="34" alt="">
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-
-</body>
+					</div>
+					<br><br></td>
+					
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
 </html>
 

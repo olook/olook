@@ -4,13 +4,13 @@
 
 <div id="contact_content">
   <h1>Entre em Contato</h1>
-  <p>A olook tem canais abertos para conversar com você e tornar o nosso relacionamento ainda melhor.</p>
+  <h2>A olook tem canais abertos para conversar com você e tornar o nosso relacionamento ainda melhor.</h2>
   <p>Neste campo lateral, você pode nos contar quais são as suas solicitações, dúvidas ou sugestões. Selecione o assunto e não se esqueça de preencher o campo de e-mail para que a gente entre em contato com você.</p>
   <ul>
     <li class="phone">(11) 2626-3489</li>
     <li class="mail"><%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %></li>
   </ul>
-  <p class="time">De segunda a sexta das 9:00 as 18:00</p>
+  <p class="time">De segunda a sexta das 9:00 às 18:00</p>
 </div>
 <%= form_for(@contact_form, :url => send_contact_path, :html => { :id => "contact" }) do |f| %>
   <fieldset class="inputs">

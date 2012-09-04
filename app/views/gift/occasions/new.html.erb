@@ -13,7 +13,7 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <div class="content" id="occasion">
+    <section id="occasion">
       <%= form_tag '/gift/occasions' do |f| %>
         <%= hidden_field :recipient, :facebook_uid, :value => @facebook_uid %>
         <div class="phrase_container">
@@ -33,9 +33,8 @@
             <%= collection_select :recipient, :gift_recipient_relation_id, @recipient_relations, :id, :name, {:prompt => 'Escolha', :selected => @recipient_relation_id}, { :class => "custom_select relation", :title => "escolha" } %>
           </p>
         </div>
-        <%= submit_tag "Continuar" %>
+        <%= submit_tag "", id: "continuar" %>
       <% end %>
-    </div>
+    </section>
   </div>
 <% end %>
-

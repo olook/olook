@@ -70,7 +70,7 @@ class MenuPresenter < BasePresenter
   end
 
   def moments
-    render_item("Ocasiões", h.moments_path, "moments", ["moments#index"])
+    render_item("Coleções", h.moments_path, "moments", ["moments#index"])
   end
 
   def gift

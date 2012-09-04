@@ -2,6 +2,18 @@
 @import 'fonts';
 
 body {
+  color: #5e5f61;
+  //color: #6d6e71;
+  font-family: $avenir;
+  font-size: 14px;
+
+  p {
+    line-height: 22px;
+    a {
+      color: #101010;
+    }
+  }
+
   #error-messages {
     p {
       font-family: 'Times New Roman', 'Times', serif;
@@ -61,7 +73,7 @@ body {
         letter-spacing: -2px;
 
         span {
-          color: $pink;
+          color: $secondary_color;
         }
       }
     }
@@ -96,35 +108,39 @@ body {
       }
     }
   }
-  @for $i from 1 through 6 {
+  h1 {
+    font-family: 'johnston', arial, sans-serif;
+    font-size: 28px;
+    font-weight: lighter;
+    color: #000;
+  }
+  @for $i from 2 through 6 {
     h#{$i} {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 30px - $i * 2;
+      font-family: 'avenir', arial, sans-serif;
+      font-size: 28px - $i * 2;
+      font-weight: normal;
       color: #000;
     }
   }
   #survey {
     h2 {
-      color: #191919;
-      font-family: "Open Sans", sans-serif;
-      font-size:26px;
-      letter-spacing:-1px;
-      font-weight:normal;
-      margin: 5px 0px 0px 25px;
-      color:#191919;
-      letter-spacing:-1px;
+      color: #101010;
+      font-family: $avenir;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 25px auto 20px;
     }
 
     ul.questions {
       h3 {
-        color: #191919;
-        font-family: "Open Sans", sans-serif;
-        font-size: 16px;
+        color: #101010;
+        font-family: $kepler;
+        font-size: 17px;
         font-weight:normal;
-        letter-spacing:-1px;
-        line-height:15px;
         text-align: center;
-        height: 32px;
+        height: 35px;
         margin-bottom:20px;
       }
 
@@ -145,21 +161,33 @@ body {
         }
 
         &.about {
+          h2 {
+            display: none;
+          }
           ol.options {
             li {
               h3 {
-                font-family: 'Times New Roman', Times, serif;
-                font-size: 16px;
-                font-style: italic;
-                text-align: left;
+                font-family: $avenir;
+                text-align: center;
                 font-size: 22px;
+                font-weight: 500;
+                margin: 0 0 15px;
               }
               .question {
                 li {
+                  color: #595959;
                   text-align: center;
                   line-height: 36px;
                   font-size: 16px;
-                  font-weight: bold;
+                  margin: 0 10px 0 0;
+                  &.selected {
+                    background: #000;
+                    color: #FFF;
+                    font-weight: 600;
+                  }
+                  &.last {
+                    margin-right: 0;
+                  }
                 }
               }
             }
@@ -201,20 +229,16 @@ body {
 
   #sign-up {
     h2 {
-      font-size: 40px;
-      font-weight: bold;
-      font-style: italic;
-      letter-spacing: -2px
+      font-size: 28px;
+      text-transform: uppercase;
     }
-    
+
     p {
-      font-family: 'Times New Roman', Times, sans-serif;
-      font-style: italic;
+      font-family: $kepler;
       font-size: 20px;
       color: #000;
       line-height: 18px;
-      letter-spacing: -1px;
-      
+
       strong {
         font-weight: bold;
       }
@@ -222,7 +246,7 @@ body {
 
     .fb-connect {
       text-indent: -10000px;
-      
+
       & + span {
         font-family: 'Times New Roman', Times, sans-serif;
         font-size: 44px;
@@ -248,16 +272,6 @@ body {
 
   section {
     &#user-info {
-      & + nav {
-        ul {
-          li {
-            a {
-              font-family: 'Futura Light';
-              font-size: 14px;
-            }
-          }
-        }
-      }
       .info {
         > h1 {
           font-weight: normal;
@@ -266,7 +280,7 @@ body {
           font-size:35px;
 
           span {
-            color: $pink;
+            color: $secondary_color;
           }
 
         }
@@ -276,33 +290,15 @@ body {
           font-weight: bold;
           text-align: center;
           font-size:38px;
-          
-          span.amount {
-            font-weight: bold;
-            color: $pink;
-            line-height: 60px;
-          }
         }
       }
       .banner {
-         h1, h2, h3 {
-          color: $pink;
-          text-transform: uppercase;
-          font-weight: bold;
-          font-style: italic;
-          text-transform: uppercase;
-        }
-        
         > h1 {
           color: #FFF;
           font-size: 18px;
 
           & + h2 {
-            font-size: 138px;
-            letter-spacing: -20px;
-
             & + h3 {
-              font-size: 21px;
               span {
                 sup {
                   font-size: 10px;
@@ -312,7 +308,7 @@ body {
           }
         }
         a {
-          color: $pink;
+          color: $secondary_color;
           font-size: 10px;
         }
       }
@@ -334,17 +330,12 @@ body {
 
     &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
       hgroup {
-        h1, h2 {
-          font-size: 35px;
+        h1 {
+          font-family: $avenir;
+          font-size: 32px;
+          font-weight: lighter;
+          line-height: 38px;
           text-transform: uppercase;
-          letter-spacing: -2px;
-          line-height: 35px;
-          float: right;
-        }
-
-        h1{
-          text-indent: -9999px;
-          line-height:30px;
           display: block;
         }
 
@@ -352,18 +343,16 @@ body {
           font-size: 16px;
           text-transform: none;
           font-weight: normal;
-          font-family: Arial, sans-serif;
+          font-family: $kepler;
           line-height: normal;
-          margin-top: 16px;
-          letter-spacing:-1px;
-          text-align: right;
+          margin-top: 5px;
         }
       }
 
       form {
         input[type='text'], textarea {
           font-size: 18px;
-          color: $pink;
+          color: $secondary_color;
         }
       }
 
@@ -375,34 +364,8 @@ body {
         }
       }
     }
-    
-    &#share-mail {
-      h1 {
-        background: url('/assets/common/tit-invite-link.png') no-repeat;
-        width: 303px;
-        height: 70px;
-      }
-    }
-    &#invite-mail {
-      h1 {
-        background: url('/assets/common/tit-invite-email.png') no-repeat;
-        width: 329px;
-        height: 69px;
-      }
-    }
-    &#post-to-wall {
-      h1 {
-        background: url('/assets/common/tit-invite-facebook.png') no-repeat;
-        width: 311px;
-        height: 69px;
-      }
-    }
+
     &#import-contacts {
-      h1 {
-        background: url('/assets/common/tit-invite-contacts.png') no-repeat;
-        width: 330px;
-        height: 70px;
-      }
       form {
         fieldset {
           &.inputs {
@@ -446,7 +409,7 @@ body {
       font-size: 15px;
       text-transform: uppercase;
     }
-    
+
     p {
       font-family: 'Times New Roman', 'Times', serif;
       color: #FFF;
@@ -469,13 +432,13 @@ body {
         &:before {
           content: "";
           font-size: 30px;
-          color: $pink;
+          color: $secondary_color;
         }
       }
-      
+
       & + a {
           text-align: center;
-          color: $pink;
+          color: $secondary_color;
           text-decoration: underline;
           font-size: 11px;
         }
