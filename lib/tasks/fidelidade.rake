@@ -90,6 +90,8 @@ namespace :fidelidade do
     end
   end
   
+  #WHEN START OPEN: http://www.youtube.com/watch?v=Dyx4v1QFzhQ
+  
   desc "changes state names to the new phraseology"
   task :change_state_names => :environment do
     puts "Starting rake that changes state names to the new phraseology"
@@ -108,7 +110,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     
     UsedCoupon.find_each do |used_coupon|
@@ -171,7 +173,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     credit_type_id = CreditType.find_by_code!(:invite).id
     Order.where('credits > ? AND credits IS NOT NULL', 0).find_each do |order|
@@ -200,7 +202,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     UsedPromotion.find_each do |used_promotion|
       order = used_promotion.order
@@ -231,7 +233,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     
     Order.find_each do |order|
@@ -284,6 +286,19 @@ namespace :fidelidade do
 
         olooklet_payment.update_column(:state, state_hash[order.state])
       end
+    end
+  end
+  
+  desc "populate gross amount"
+  task :populate_gross_amount => :environment do
+    puts "Starting rake that populate gross amount"
+    gift_wrap = CartService.gift_wrap_price
+    Order.find_each do |order|
+      gross_amount = order.line_items.sum(:price)
+      gross_amount += order.freight.price if order.freight
+      gross_amount += gift_wrap if order.gift_wrap
+      
+      order.update_column(:gross_amount, gross_amount)
     end
   end
   
