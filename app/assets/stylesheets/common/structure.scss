@@ -782,7 +782,7 @@ body {
       a {
         background: image-url('common/change-logo.jpg') no-repeat;
         text-indent: -99999px;
-        width: 234px;
+        width: 245px;
         height: 68px;
         margin: 10px 0 0 3px;
         display: block;
@@ -1238,8 +1238,7 @@ body {
     overflow: auto;
     display: none;
     & > h1 {
-      font-size: 40px;
-      font-style: italic;
+      font-size: 36px;
       font-weight: lighter;
       letter-spacing: -1px;
       margin: 0 0 10px 0;
@@ -1249,6 +1248,7 @@ body {
         margin: 0 0 35px;
         strong {
           color: #666;
+          font-weight: 500;
         }
       }
     }
@@ -1267,9 +1267,8 @@ body {
           float: left;
           a {
             color: #5a5a5b;
-            font-family: "Times New Roman", sans-serif;
+            font-family: $kepler;
             font-size: 16px;
-            font-style: italic;
             text-align: center;
             text-decoration: none;
             line-height: 15px;
@@ -1356,8 +1355,7 @@ body {
       padding: 0 0 0 30px;
       float: right;
       h2 {
-        font-size: 18px;
-        font-style: italic;
+        font-size: 16px;
         font-weight: lighter;
         letter-spacing: -1px;
         margin: 0 0 10px;

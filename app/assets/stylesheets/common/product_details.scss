@@ -128,6 +128,9 @@
           .fb_edge_comment_widget {
             display: none;
           }
+          iframe {
+            height: 20px !important;
+          }
         }
         h1 {
           font-family: $kepler;
