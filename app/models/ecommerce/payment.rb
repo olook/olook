@@ -138,7 +138,7 @@ class Payment < ActiveRecord::Base
   end
 
   def refund_order?
-    order.refunded
+    order.refunded unless order.refunded?
   end
 
   def review_order?
@@ -146,7 +146,7 @@ class Payment < ActiveRecord::Base
   end
 
   def cancel_order?
-    order.canceled
+    order.canceled unless order.canceled?
   end
 
   #TODO: sempre responde true; Ele tem de checar se todos os outros pagamentos estao como authorized
@@ -156,7 +156,7 @@ class Payment < ActiveRecord::Base
   end
   
   def reverse_order?
-    order.reversed
+    order.reversed unless order.reversed?
   end
 
   def user

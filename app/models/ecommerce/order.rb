@@ -59,6 +59,33 @@ class Order < ActiveRecord::Base
 
   state_machine :initial => :waiting_payment do
 
+    state :delivered
+    state :delivering
+    state :not_delivered
+    state :picking
+    state :waiting_payment
+    state :authorized
+    state :under_review 
+
+    state :reversed do
+      after_save do |order|
+        order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each &:reverse
+      end
+    end
+    
+    state :refunded do
+      after_save do |order|
+        order.payments.where(Payment.arel_table[:state].not_eq('refunded')).each &:refund
+      end
+    end
+    
+    
+    state :canceled do
+      after_save do |order|
+        order.payments.where(Payment.arel_table[:state].not_eq('cancelled')).each &:cancel
+      end
+    end
+
     store_audit_trail
 
     event :authorized do
