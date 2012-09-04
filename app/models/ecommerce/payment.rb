@@ -165,6 +165,12 @@ class Payment < ActiveRecord::Base
     user
   end
   
+  def calculate_percentage!
+    if self.order
+      self.percent = ((100 * self.total_paid) / self.order.gross_amount)
+    end
+  end
+  
   private
     def generate_identification_code
       #TODO: PASSAR A USAR UUID

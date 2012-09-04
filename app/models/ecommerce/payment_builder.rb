@@ -8,6 +8,7 @@ class PaymentBuilder
 
   def process!
     payment.cart_id = @cart_service.cart.id
+    payment.total_paid = @cart_service.total
     payment.save!
     ActiveRecord::Base.transaction do
       send_payment!
@@ -20,6 +21,7 @@ class PaymentBuilder
           
           order = cart_service.generate_order!
           payment.order = order
+          payment.calculate_percentage!
           payment.deliver! if payment.kind_of?(CreditCard)
           payment.save!
           
@@ -28,12 +30,33 @@ class PaymentBuilder
             variant.decrement!(:inventory, item.quantity)
           end
           
+          total_olooklet = cart_service.total_discount_by_type(:olooklet)
+          if total_olooklet > 0
+            olooklet_payment = OlookletPayment.create!(
+              :total_paid => total_olooklet, 
+              :order => order)
+            olooklet_payment.calculate_percentage!
+            olooklet_payment.deliver!
+            olooklet_payment.authorize!
+          end
+          
+          total_gift = cart_service.total_discount_by_type(:gift)
+          if total_gift > 0
+            gift_payment = GiftPayment.create!(
+              :total_paid => total_gift, 
+              :order => order)
+            gift_payment.calculate_percentage!
+            gift_payment.deliver!
+            gift_payment.authorize!
+          end
+          
           total_coupon = cart_service.total_discount_by_type(:coupon)
           if total_coupon > 0
             coupon_payment = CouponPayment.create!(
               :total_paid => total_coupon, 
               :coupon_id => cart_service.coupon.id,
               :order => order)
+            coupon_payment.calculate_percentage!
             coupon_payment.deliver!
             coupon_payment.authorize!
           end
@@ -46,6 +69,7 @@ class PaymentBuilder
               :promotion_id => cart_service.promotion.id,
               :order => order,
               :discount_percent => cart_service.promotion.discount_percent)
+            promotion_payment.calculate_percentage!
             promotion_payment.deliver!
             promotion_payment.authorize!
           end
@@ -55,6 +79,7 @@ class PaymentBuilder
           #             :credit_type => :loyality, 
           #             :amount_paid => cart_service.credits_for?(:loyality), 
           #             :order => order).save!
+          #           credit_payment.calculate_percentage!
           #           credit_payment.deliver!
           #           credit_payment.authorize!
           #           
@@ -65,6 +90,7 @@ class PaymentBuilder
               :credit_type_id => CreditType.find_by_code!(:invite).id, 
               :total_paid => total_credits, 
               :order => order)
+            credit_payment.calculate_percentage!
             credit_payment.deliver!
             credit_payment.authorize!
           end
@@ -73,6 +99,7 @@ class PaymentBuilder
           #             :credit_type => :reedem, 
           #             :amount_paid => cart_service.credits_for?(:reedem), 
           #             :order => order).save!
+          #           credit_payment.calculate_percentage!
           #           credit_payment.deliver!
           #           credit_payment.authorize!
           
@@ -137,11 +164,11 @@ class PaymentBuilder
 
   def payment_data
     if payment.is_a? Billet
-    data = { :valor => cart_service.total, :id_proprio => payment.identification_code,
+    data = { :valor => payment.total_paid, :id_proprio => payment.identification_code,
                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
                 :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
     elsif payment.is_a? CreditCard
-      data = { :valor => cart_service.total, :id_proprio => payment.identification_code, :forma => payment.to_s,
+      data = { :valor => payment.total_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
                 :instituicao => payment.bank, :numero => credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
@@ -149,7 +176,7 @@ class PaymentBuilder
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
-      data = { :valor => cart_service.total, :id_proprio => payment.identification_code, :forma => payment.to_s,
+      data = { :valor => payment.total_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
                :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
                :razao => Payment::REASON }
     end
