@@ -1,0 +1,69 @@
+<h2>Listing Users</h2>
+
+<% content_for :secondary_navigation do %>
+  <%= render 'admin/shared/credits_secondary_navigation' %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+       <%= form_for([:admin, @search], :url => admin_user_credits_path, :method => :get, :html => {:class => "form"}) do |f| %>
+        
+        <div class="group">
+          <%= f.label :first_name_contains, :class => "label" %>
+          <%= f.text_field :first_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :last_name_contains, :class => "label" %>
+          <%= f.text_field :last_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :email_contains, :class => "label" %>
+          <%= f.text_field :email_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :created_at_gte, "Created at from", :class => "label"  %>
+          <%= f.date_select :created_at_gte, :include_blank => true %>
+          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.date_select :created_at_lte, :include_blank => true %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Buscar', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>id</th>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <% CreditType::CREDIT_CODES.values.each do |description| %>
+      <th><%= description %></th>
+      <% end %>
+    </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to user.id, admin_user_path(user) %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <% CreditType::CREDIT_CODES.keys.each do |code| %>
+      <td><%= user.user_credits_for(code).total %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @users %>
+    </div>
+  </div>
+</div>

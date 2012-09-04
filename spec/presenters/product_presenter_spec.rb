@@ -192,7 +192,7 @@ describe ProductPresenter do
     let(:guest) { described_class.new view, :product => product, :member => nil, :facebook_app_id => facebook_app_id }
     let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
 
-    it "should render the price when no discount" do
+    xit "should render the price when no discount" do
     end
 
     it "should render the price with markdown when for first time buyers" do

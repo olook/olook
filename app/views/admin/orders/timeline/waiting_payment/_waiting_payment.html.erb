@@ -2,25 +2,25 @@
   <img src='/assets/purchase_timeline/moip.png' width='75px' />
   <ul>
     <li>
-      Envio da transação: <b><%=  event.payment_response if order.payment.payment_response %></b>
+      Envio da transação: <b><%=  event.payment_response if order.erp_payment.payment_response %></b>
     </li>
     <li>
       Situação: <b><%= event.payment_transaction_status %></b>
     </li>
     <li>
-    Código Moip: <b><%= order.payment.payment_response.gateway_code if order.payment.payment_response %></b>
+    Código Moip: <b><%= order.erp_payment.payment_response.gateway_code if order.erp_payment.payment_response %></b>
    </li>
    <li>
-    Gateway Fee: <b><%= number_to_currency(order.payment.payment_response.gateway_fee) if order.payment.payment_response %></b>
+    Gateway Fee: <b><%= number_to_currency(order.erp_payment.payment_response.gateway_fee) if order.erp_payment.payment_response %></b>
    </li>
    <li>
-    Código de identificação: <b><%= order.identification_code %></b>
+    Código de identificação: <b><%= order.erp_payment.identification_code %></b>
    </li>
    <li>
-    Final do cartão: <b><%= order.payment.credit_card_number if order.payment.type == 'CreditCard' %></b>
+    Final do cartão: <b><%= order.erp_payment.credit_card_number if order.erp_payment.type == 'CreditCard' %></b>
    </li>
    <li>
-    Telefone do cliente: <b><%= order.payment.telephone %></b>
+    Telefone do cliente: <b><%= order.erp_payment.telephone %></b>
    </li>
    <li>
     CPF: <b><%= order.user.cpf %></b>

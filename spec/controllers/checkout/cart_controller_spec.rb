@@ -5,6 +5,9 @@ describe Checkout::CartController do
   let(:cart) { FactoryGirl.create(:clean_cart) }
   let(:user) { FactoryGirl.create(:user) }
   let(:basic_bag) { FactoryGirl.create(:basic_bag_simple) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
     
   before :each do
     session[:cart_id] = cart.id

@@ -1,0 +1,84 @@
+<h2>Listing Orders</h2>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for([:admin, @search], :url => admin_credits_path, :method => :get, :html => {:class => "form"}) do |f| %>
+        
+        <div class="group">
+          <%= f.label(:amount_discount_gte, 'Valor minímo de crédito', :class => "label") %>
+          <%= f.text_field(:amount_discount_gte, :class => "text_field") %>
+        </div>
+
+        <div class="group">
+          <%= f.label(:amount_discount_lte,'Valor máximo de crédito', :class => "label") %>
+          <%= f.text_field(:amount_discount_lte, :class => "text_field") %>
+        </div>
+
+        <div class="group">
+          <%= f.label(:created_at_gte,'Data inicial de Criação', :class => "label") %>
+          <%= f.date_select(:created_at_gte, :include_blank => true, :start_year => 2011) %>
+        </div>
+
+        <div class="group">
+          <%= f.label(:created_at_lte, 'Data final de Criação', :class => "label") %>
+          <%= f.date_select(:created_at_lte, :include_blank => true, :start_year => 2011) %>
+        </div>
+
+        <div class="group">
+          <%= label_tag("percentage","Porcentagem de Desconto", :class => "label") %>
+          <%= text_field_tag("percentage", params[:percentage], :class => "text_field") %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Buscar', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>id</th>
+      <th>User id</th>
+      <th>Total de desconto</th>
+      <th>Frete/Presente</th>
+      <th>Total Pago</th>
+      <th>Subtotal</th>
+      <th>Data de Criação</th>
+      <th>Origem dos discontos</th>
+      <th>Origem dos discontos</th>
+    </tr>
+
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= link_to order.number, admin_order_path(order) %></td>
+      <td><%= link_to order.user_id, admin_user_path(order.user) %></td>
+      <td><%= number_to_currency order.amount_discount %></td>
+      <td><%= number_to_currency order.amount_increase %></td>
+      <td><%= number_to_currency order.amount_paid %></td>
+      <td><%= number_to_currency order.subtotal      %></td>
+      <td><%= l order.created_at, :format => :short %></td>
+      <td>
+        <% order.payments.each do |payment| %>
+        <p>
+           <%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>: 
+           <%= number_to_currency payment.total_paid || 0 %> - 
+           <%= number_to_percentage payment.discount_percent, :precision => 2 %>
+        </p>
+        <% end  %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @orders %>
+    </div>
+  </div>
+</div>
