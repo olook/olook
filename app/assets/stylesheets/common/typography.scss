@@ -185,6 +185,9 @@ body {
                     color: #FFF;
                     font-weight: 600;
                   }
+                  &.last {
+                    margin-right: 0;
+                  }
                 }
               }
             }
