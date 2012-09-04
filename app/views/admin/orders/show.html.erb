@@ -145,6 +145,17 @@
     <p><b><%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>:</b> <%= number_to_currency payment.total_paid %></p>
     <% end  %>
   </p>
+
+  <p>
+    <% if @order.state_events(guard: false).many? %>
+    <%= form_tag(change_state_admin_order_path(@order)) do -%>
+      <%= select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map(&:to_s), 'to_s','humanize') %>
+      <%= submit_tag 'Change!' -%>
+    <% end %>
+    <% else %>
+    Não há estados para a alteração.
+    <% end %>
+  </p>
   
 </div>
 

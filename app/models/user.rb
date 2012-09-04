@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :payments, :through => :orders
   has_one :tracking, :dependent => :destroy
   has_many :user_credits
+  has_many :credits
 
   before_create :generate_invite_token
   after_create :initialize_user
