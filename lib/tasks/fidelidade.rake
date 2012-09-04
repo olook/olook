@@ -312,7 +312,19 @@ namespace :fidelidade do
       total_paid ||= 0
       
       payment.update_column(:total_paid, total_paid) if (total_paid > 0)
-      
+    end
+  end
+  
+  desc "calculate discount percent for old payments"
+  task :calculate_discount_percent => :environment do
+    puts "Starting rake that calculate discount percent for old payemnts"
+    Payment.where(:percent => nil).find_each do |payment|
+      begin
+        payment.calculate_percentage!
+        payment.save!
+      rescue Exception => e
+        puts "\npayment: #{payment.id}\tex: #{e.message}"
+      end
     end
   end
   
