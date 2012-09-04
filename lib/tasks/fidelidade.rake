@@ -220,5 +220,72 @@ namespace :fidelidade do
     end
   end
   
+  desc "move olooklet/gift to payment"
+  task :move_olooklet_gift_to_payment => :environment do
+    puts "Starting rake that moves the olooklet / gift to payment"
+    
+    state_hash = {
+      "authorized" => "authorized",
+      "canceled" => "cancelled", 
+      "delivered" => "authorized",
+      "delivering" => "authorized",
+      "picking" => "authorized",
+      "reversed" => "reversed",      
+      "waiting_payment" => "waiting_payment"
+    }
+    
+    Order.find_each do |order|
+      total_for_gift = 0
+      total_for_olooklet = 0
+
+      order.line_items.each do |item|
+        delta = (item.price - item.retail_price)
+        #existe desconto
+        if delta > 0
+          if item.gift
+            total_for_gift += delta
+          else
+            total_for_olooklet += delta
+          end
+        end
+      end
+      
+      #RETIRAR VALOR DO CuponPayment + PromotionPayment
+      
+      payments_for_discount = order.payments.where(:payments => {:type => ['PromotionPayment', 'CouponPayment']})
+      
+      difference = 0
+
+      payments_for_discount.each do |payment|
+        if payment.kind_of? PromotionPayment
+          difference += payment.total_paid 
+        else
+          difference += payment.total_paid if payment.coupon.is_percentage
+        end
+      end
+      
+      total_for_gift -= difference
+      total_for_olooklet -= difference
+      
+      puts "\norder: #{order.id}\ttotal_for_gift: #{total_for_gift} \ttotal_for_olooklet: #{total_for_olooklet}"
+
+      if total_for_gift > 0
+        gift_payment = GiftPayment.create!(
+                  :total_paid => total_for_gift, 
+                  :order => order)
+
+        gift_payment.update_column(:state, state_hash[order.state])
+      end
+
+      if total_for_olooklet > 0
+        olooklet_payment = OlookletPayment.create!(
+                  :total_paid => total_for_olooklet, 
+                  :order => order)
+
+        olooklet_payment.update_column(:state, state_hash[order.state])
+      end
+    end
+  end
+  
 end
 
