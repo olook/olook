@@ -58,6 +58,8 @@ Olook::Application.routes.draw do
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
+  match "/topster", :to => "xml#topster", :as => "topster", :defaults => { :format => 'xml' }
+  match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey

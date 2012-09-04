@@ -137,6 +137,66 @@ feature "Show products on xml format" do
     end
   end
 
+  context "in the topster xml page" do
+
+    context "when product is in stock" do
+      before do
+        Product.any_instance.stub(:sold_out?).and_return(false)
+      end
+
+      scenario "I want to see products of topster" do
+      visit topster_path
+      page.source.should == <<-END.gsub(/^ {8}/, '')
+<?xml version="1.0" encoding="UTF-8"?>
+<produtos>
+<produto>
+<id_produto><![CDATA[#{product.id}]]></id_produto>
+<link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=topster]]></link_produto>
+<nome_produto><![CDATA[#{product.name}]]></nome_produto>
+<marca><![CDATA[olook]]></marca>
+<categoria><![CDATA[#{Category.t(product.category)}]]></categoria>
+<cores><cor><![CDATA[#{ product.color_name}]]></cor></cores>
+<descricao><![CDATA[#{ product.description}]]></descricao>
+<preco_de><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.price, :precision => 2) }]]></preco_de>
+<preco_por><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}]]></preco_por>
+<parcelamento><![CDATA[3 x 33,30]]></parcelamento>
+<imagens>
+</imagens>
+<num_tams>
+#{product.variants.map { |variant|
+'<num_tam><![CDATA[' + variant.description + ']]></num_tam>'}.join("\n")}
+</num_tams>
+</produto>
+</produtos>
+END
+      end
+  end
+
+  context "in the netaffiliation xml page" do
+    scenario "I want to see products of netaffiliation" do
+      visit netaffiliation_path
+      page.source.should == <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <products>
+      <product id="#{product.id}">
+      <name>#{product.name}</name>
+      <smallimage></smallimage>
+      <bigimage></bigimage>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=netaffiliation</producturl>
+      <description>#{product.description}</description>
+      <price>#{product.price}</price>
+      <retailprice>#{product.retail_price}</retailprice>
+      <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
+      <recommendable>1</recommendable>
+      <instock>#{product.instock}</instock>
+      <category>#{product.category}</category>
+      </product>
+      </products>
+      END
+    end
+  end
+  end
+
     context "when product is out of stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(true)
