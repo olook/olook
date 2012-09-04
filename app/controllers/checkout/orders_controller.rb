@@ -7,7 +7,7 @@ class Checkout::OrdersController < Checkout::BaseController
     @cart = @order.cart
     @payment = @order.erp_payment
     @payment_response = @payment.payment_response
-    @promotion = @order.used_promotion.promotion if @order.used_promotion
+    @promotion = @order.payments.where(:type => "PromotionPayment").first
     coupon_pm = @order.payments.where(:type => "CouponPayment").first
     coupon = coupon_pm.coupon if coupon_pm
   

@@ -4,6 +4,8 @@ class Promotion < ActiveRecord::Base
 
   scope :active, where(:active => true)
 
+  has_many :promotion_payments
+
   def self.purchases_amount
     Promotion.find_by_strategy("purchases_amount_strategy")
   end

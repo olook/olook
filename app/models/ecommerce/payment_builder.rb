@@ -37,6 +37,19 @@ class PaymentBuilder
             coupon_payment.deliver!
             coupon_payment.authorize!
           end
+
+
+          total_promotion = cart_service.total_discount_by_type(:promotion)
+          if total_promotion > 0
+            promotion_payment = PromotionPayment.create!(
+              :total_paid => total_promotion, 
+              :promotion_id => cart_service.promotion.id,
+              :order => order,
+              :discount_percent => cart_service.promotion.discount_percent)
+            promotion_payment.deliver!
+            promotion_payment.authorize!
+          end
+
           #           
           #           credit_payment = CreditPayment.new(
           #             :credit_type => :loyality, 

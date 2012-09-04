@@ -1,5 +1,6 @@
 class CouponPayment < Payment
-    belongs_to :coupon
+  belongs_to :coupon
+  validates_presence_of :coupon_id
 
   def deliver_payment?
     Coupon.transaction do

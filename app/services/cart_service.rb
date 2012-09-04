@@ -169,15 +169,6 @@ class CartService
 
     order.freight = Freight.create(freight)
 
-    # Creates UsedPromotion
-    if promotion
-      order.create_used_promotion(
-        :promotion => promotion, 
-        :discount_percent => promotion.discount_percent,
-        :discount_value => total_discount_by_type(:promotion)
-      ) 
-    end
-    
     order.save
     order  
   end
