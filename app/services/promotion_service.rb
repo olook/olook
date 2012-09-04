@@ -45,16 +45,6 @@ class PromotionService
     (promotion.discount_percent * value) / 100
   end
 
-  def apply_promotion
-    if order.used_promotion.nil?
-      promotion = detect_current_promotion
-      order.create_used_promotion(:promotion => promotion,
-                                  :discount_percent => promotion.discount_percent,
-                                  :discount_value =>  apply_discount(promotion))
-      order.save
-    end
-  end
-
   def satisfies_criteria? promotion
     return unless promotion
     strategy = promotion.load_strategy.new(promotion.param, user)

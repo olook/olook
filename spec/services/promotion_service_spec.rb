@@ -22,14 +22,4 @@ describe PromotionService do
       PromotionService.new(order.user).detect_current_promotion.should be_nil
     end
   end
-
-  it "should apply the promotion aproperly" do
-    order = FactoryGirl.create(:delivered_order)
-    promotion = FactoryGirl.create(:first_time_buyers, :discount_percent => 50)
-    expect {
-      PromotionService.new(user, order).apply_promotion
-    }.to change(UsedPromotion, :count).by(1)
-    UsedPromotion.last.discount_value.should == 49.95
-  end
-
 end
