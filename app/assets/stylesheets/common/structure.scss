@@ -902,7 +902,7 @@ body {
                     background: url('/assets/gift/arrow-pink.png') center right no-repeat;
                     padding-right: 14px;
                     color: #e05789;
-                    font-size: 12px;
+                    font-size: 14px;
                     width: auto;
                     margin: 0;
                     float: none;
@@ -934,14 +934,16 @@ body {
                   overflow: auto;
                   border-bottom: 1px #CCC solid;
                   h2 {
-                    font-family: Times, 'Times New Roman', sans-serif;
-                    font-size: 17px;
-                    font-style: italic;
+                    font-family: $kepler;
+                    font-size: 22px;
+                    letter-spacing: 0;
+                    text-align: center;
                     margin: 0 0 15px;
                   }
                   h3 {
-                    font-family: $avenir;
-                    font-size: 19px;
+                    font-family: $kepler;
+                    font-size: 22px;
+                    text-align: center;
                   }
                   p {
                     margin: 0 0 10px;
@@ -959,9 +961,9 @@ body {
                 }
                 a {
                   color: #E05789;
-                  font-family: Arial, sans-serif;
-                  font-size: 17px;
-                  width: 245px;
+                  text-align: center;
+                  width: 205px;
+                  margin: 0 auto;
                   padding: 0;
                 }
               }
