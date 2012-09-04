@@ -11,17 +11,20 @@ FactoryGirl.define do
     telephone '(35)3456-6849'
     user_birthday '12/09/1976'
     receipt 'AVista'
+    total_paid 12.34
   end
 
   factory :debit do
     url 'www.payment.com'
     bank 'Visa'
     receipt 'AVista'
+    total_paid 12.34
   end
 
   factory :billet do
     url 'www.payment.com'
     receipt 'AVista'
+    total_paid 12.34
   end
 
   factory :payment do
@@ -29,6 +32,11 @@ FactoryGirl.define do
   end
 
   factory :credit_card_with_response, :parent => :credit_card do
+    association :payment_response, :factory => :authorized_response
+  end
+
+  factory :credit_card_with_response_authorized, :parent => :credit_card do
+    state 'authorized'
     association :payment_response, :factory => :authorized_response
   end
 

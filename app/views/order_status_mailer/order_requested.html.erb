@@ -70,9 +70,9 @@
 					</p>
 					<% end %>
 
-					<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.payment.is_a? CreditCard %>
-					<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.payment} if @order.payment.is_a? Billet %>
-					<%= render :partial => 'order_status_mailer/requested_debit' if @order.payment.is_a? Debit %>
+					<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.erp_payment.is_a? CreditCard %>
+					<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.erp_payment} if @order.erp_payment.is_a? Billet %>
+					<%= render :partial => 'order_status_mailer/requested_debit' if @order.erp_payment.is_a? Debit %>
 
 					<p>Em breve enviaremos um e-mail com o novo status da sua compra.</p>
 

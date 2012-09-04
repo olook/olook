@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Order do
@@ -5,6 +6,9 @@ describe Order do
     Resque.stub(:enqueue)
     Resque.stub(:enqueue_in)
   end
+
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
   subject { FactoryGirl.create(:clean_order)}
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
@@ -15,12 +19,13 @@ describe Order do
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
+  let(:order_with_payment) { FactoryGirl.create :order_with_payment_authorized }
+
 
   it { should belong_to(:user) }
   it { should belong_to(:cart) }
-  it { should have_one(:used_coupon) }
 
-  context "coupons" do
+  pending "coupons" do
     it "should decrement a standart coupon" do
       remaining_amount = 10
       order = FactoryGirl.create(:order)
@@ -64,74 +69,9 @@ describe Order do
       expected = (order.id * Order::CONSTANT_FACTOR) + Order::CONSTANT_NUMBER
       order.number.should == expected
     end
-
-    it "should generate a identification code" do
-      order = FactoryGirl.create(:order)
-      order.identification_code.should_not be_nil
-    end
-  end
-
-  context "items availables in the order" do
-    before :each do
-      basic_shoe_35.update_attributes(:inventory => 10)
-      subject.line_items.create( 
-        :variant_id => basic_shoe_35.id,
-        :quantity => 2, 
-        :price => basic_shoe_35.price,
-        :retail_price => basic_shoe_35.retail_price)
-
-      basic_shoe_40.update_attributes(:inventory => 10)
-      subject.line_items.create( 
-        :variant_id => basic_shoe_40.id,
-        :quantity => 5, 
-        :price => basic_shoe_40.price,
-        :retail_price => basic_shoe_40.retail_price)
-    end
-
-    context "when all variants are available" do
-      it "should return 0 for #remove_unavailable_items" do
-        subject.remove_unavailable_items.should == 0
-      end
-
-      it "should has 2 line items" do
-        subject.remove_unavailable_items
-        subject.line_items.count.should == 2
-      end
-    end
-
-    context "when at least one variant is unavailable" do
-      it "should return 1 for #remove_unavailable_items" do
-        basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items.should == 1
-      end
-
-      it "should has just 1 line item" do
-        basic_shoe_40.update_attributes(:inventory => 3)
-        subject.remove_unavailable_items
-        subject.line_items.count.should == 1
-      end
-    end
   end
 
   context "inventory update" do
-    it "should decrement the inventory for each item" do
-      basic_shoe_35_inventory = basic_shoe_35.inventory
-      basic_shoe_40_inventory = basic_shoe_40.inventory
-      subject.line_items.create( 
-        :variant_id => basic_shoe_35.id,
-        :quantity => quantity, 
-        :price => basic_shoe_35.price,
-        :retail_price => basic_shoe_35.retail_price)
-      subject.line_items.create( 
-        :variant_id => basic_shoe_40.id,
-        :quantity => quantity, 
-        :price => basic_shoe_40.price,
-        :retail_price => basic_shoe_40.retail_price)
-      subject.decrement_inventory_for_each_item
-      basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory - quantity
-      basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
-    end
-
     it "should increment the inventory for each item" do
       basic_shoe_35.increment!(:inventory, quantity)
       basic_shoe_40.increment!(:inventory, quantity)
@@ -147,6 +87,7 @@ describe Order do
         :quantity => quantity, 
         :price => basic_shoe_40.price,
         :retail_price => basic_shoe_40.retail_price)
+        
       subject.increment_inventory_for_each_item
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory + quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory + quantity
@@ -156,13 +97,13 @@ describe Order do
   describe '#installments' do
     context "when there's no payment" do
       it "should return 1" do
-        subject.stub(:payment).and_return(nil)
+        subject.stub(:erp_payment).and_return(nil)
         subject.installments.should == 1
       end
     end
     context "when there's a payment" do
       it "should return the number of installments of the payment" do
-        subject.payment.stub(:payments).and_return(3)
+        subject.stub_chain(:erp_payment, :payments).and_return(3)
         subject.installments.should == 3
       end
     end
@@ -186,29 +127,29 @@ describe Order do
     context "when the order is authorized" do
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, subject.number)
-        subject.authorized
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, order_with_payment.number)
+        order_with_payment.authorized
       end
     end
 
     context "when the order is waiting payment" do
-      it "updates user credit" do
-        Order.any_instance.should_receive(:update_user_credit)
-        subject
+      xit "updates user credit" do
+        Credit.any_instance.should_receive(:remove)
+        subject(:credits => 10)
       end
     end
   end
 
   describe "State machine" do
     it "should set authorized" do
-      subject.authorized
-      subject.authorized?.should be_true
+      order_with_payment.authorized
+      order_with_payment.authorized?.should be_true
     end
 
     it "should set authorized" do
-      subject.authorized
-      subject.under_review
-      subject.under_review?.should be_true
+      order_with_payment.authorized
+      order_with_payment.under_review
+      order_with_payment.under_review?.should be_true
     end
 
     it "should set canceled" do
@@ -217,12 +158,12 @@ describe Order do
     end
 
     it "should set canceled given not_delivered" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.not_delivered
-      subject.canceled
-      subject.canceled?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.not_delivered
+      order_with_payment.canceled
+      order_with_payment.canceled?.should be_true
     end
 
     it "should set canceled given in_the_cart" do
@@ -231,61 +172,51 @@ describe Order do
     end
 
     it "should set reversed" do
-      subject.authorized
-      subject.under_review
-      subject.reversed
-      subject.reversed?.should be_true
+      order_with_payment.authorized
+      order_with_payment.under_review
+      order_with_payment.reversed
+      order_with_payment.reversed?.should be_true
     end
 
     it "should set refunded" do
-      subject.authorized
-      subject.under_review
-      subject.refunded
-      subject.refunded?.should be_true
+      order_with_payment.authorized
+      order_with_payment.under_review
+      order_with_payment.refunded
+      order_with_payment.refunded?.should be_true
     end
 
     it "should set picking" do
-      subject.authorized
-      subject.picking
-      subject.picking?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.picking?.should be_true
     end
 
     it "should set delivering" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.delivering?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.delivering?.should be_true
     end
 
     it "should set delivered" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.delivered
-      subject.delivered?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.delivered
+      order_with_payment.delivered?.should be_true
     end
 
     it "should set not_delivered" do
-      subject.authorized
-      subject.picking
-      subject.delivering
-      subject.not_delivered
-      subject.not_delivered?.should be_true
+      order_with_payment.authorized
+      order_with_payment.picking
+      order_with_payment.delivering
+      order_with_payment.not_delivered
+      order_with_payment.not_delivered?.should be_true
     end
 
-    it "should enqueue a OrderStatusWorker in any transation with a payment" do
-      Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-      subject
-    end
-
-    it "should enqueue a OrderStatusWorker in any transation with a payment" do
-      Resque.should_receive(:enqueue).with(OrderStatusWorker, subject.id)
-      subject.authorized
-    end
-
-    it "should use coupon when authorized" do
-      subject.should_receive(:use_coupon)
-      subject.authorized
+    xit "should use coupon when authorized" do
+      Coupon.any_instance.should_receive(:increment!).with(:used_amount, 1)
+      order_with_payment.authorized
     end
   end
 
@@ -299,7 +230,7 @@ describe Order do
     let!(:order_with_payment) { FactoryGirl.create :order }
     let!(:order_without_payment) do
       order = FactoryGirl.create :clean_order
-      order.payment.destroy
+      order.payments.destroy_all
       order
     end
 
@@ -320,15 +251,15 @@ describe Order do
 
   describe "Audit trail" do
     it "should audit the transition" do
-      subject.authorized
-      transition = subject.order_state_transitions.last
+      order_with_payment.authorized
+      transition = order_with_payment.order_state_transitions.last
       transition.event.should == "authorized"
       transition.from.should == "waiting_payment"
       transition.to.should == "authorized"
     end
   end
 
-  describe "#update_user_credit" do
+  pending "#update_user_credit" do
     before do
       subject.user = FactoryGirl.create(:member)
     end
@@ -365,5 +296,17 @@ describe Order do
     it "should be marked as restricted" do
       subject.restricted?.should be_true
     end
+  end
+
+  describe "order metadata" do
+    subject do 
+      FactoryGirl.create(:clean_order, 
+        :user_first_name => 'Jéssica',
+        :user_last_name => 'Gomes'
+      )
+    end
+    
+    it { subject.user_name.should == 'Jéssica Gomes'}
+    
   end
 end

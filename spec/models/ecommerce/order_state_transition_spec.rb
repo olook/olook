@@ -2,8 +2,11 @@ require 'spec_helper'
 
 describe OrderStateTransition do
   
-  let(:order) { FactoryGirl.create(:order) }
+  let(:waiting_order) { FactoryGirl.create(:clean_order) }
+  let(:order) { FactoryGirl.create(:order_with_payment_authorized) }
   let(:authorized_order) {FactoryGirl.create(:authorized_order)}
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
   before do
     Resque.stub(:enqueue)
@@ -28,7 +31,7 @@ describe OrderStateTransition do
   end
 
   it "should have nil transaction attributes with no associated payment" do
-    subject = order.order_state_transitions.last
+    subject = waiting_order .order_state_transitions.last
     subject.to.should == "waiting_payment"
     subject.payment_response.should be_nil
     subject.payment_transaction_status.should be_nil

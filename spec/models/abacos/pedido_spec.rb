@@ -2,11 +2,7 @@
 require "spec_helper"
 
 describe Abacos::Pedido do
-  let(:member)  { FactoryGirl.create :member,
-                    :cpf => '98765432198',
-                    :email => 'janedoe@test.com', :first_name => 'Jéssica', :last_name => 'Maíra'
-                }
-  let(:payment) { FactoryGirl.create :credit_card }
+  let(:member)  { FactoryGirl.create :member }
   let(:freight) { FactoryGirl.create :freight, :price => 22.0, :cost => 18.0, :delivery_time => 5 }
 
   let(:variant_a) { FactoryGirl.create :basic_shoe_size_35, :retail_price => 20.0 }
@@ -15,12 +11,15 @@ describe Abacos::Pedido do
   let(:order) {
     order = (FactoryGirl.create :clean_order, 
       :user => member, 
-      :payment => payment, 
       :freight => freight, 
       :created_at => Date.civil(2011, 12, 01),
       :amount_discount => 11,
       :subtotal => 70,
-      :amount_paid => 81
+      :amount_paid => 81,
+      :user_cpf => '98765432198',
+      :user_email => 'janedoe@test.com', 
+      :user_first_name => 'Jéssica', 
+      :user_last_name => 'Maíra'
     )
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_a, :quantity => 2, :price => 20.0, :retail_price => 20.0)
     order.line_items << (FactoryGirl.build :line_item, :variant => variant_b, :quantity => 1, :price => 30.0, :retail_price => 30.0)
@@ -32,11 +31,12 @@ describe Abacos::Pedido do
     order.save
     order
   }
+  let(:payment) { FactoryGirl.create :credit_card, :order => order }
 
   context "when the order discount(coupom or credits) is not greater then order total" do
 
     subject do
-      described_class.new order
+      described_class.new payment.order
     end
 
     describe 'attributes' do

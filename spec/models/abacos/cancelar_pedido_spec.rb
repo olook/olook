@@ -2,12 +2,10 @@
 require "spec_helper"
 
 describe Abacos::CancelarPedido do
-  let(:response) { FactoryGirl.create :canceled_payment }
-  let(:payment) { FactoryGirl.create :credit_card, :payment_response => response }
 
-  context 'when instantiated with a non-canceld payment' do
+  context 'when instantiated with a non-canceled payment' do
     let(:order) do
-      result = FactoryGirl.create :clean_order, :payment => payment
+      result = FactoryGirl.create :clean_order
       result.stub(:'canceled?').and_return(false)
       result
     end
@@ -21,16 +19,21 @@ describe Abacos::CancelarPedido do
   
   context 'when instantiated with a canceled payment' do
     let(:order) do
-      result = FactoryGirl.create :clean_order, :payment => payment
+      result = FactoryGirl.create :clean_order
       result.stub(:'canceled?').and_return(true)
       result
     end
     
-    before :each do
-      order.payment.payment_response.stub(:created_at).and_return(DateTime.civil(2012, 04, 12, 10, 44, 55))
+    let(:payment) do
+      result = FactoryGirl.create :credit_card, :order => order
+      result.payment_response = FactoryGirl.create :canceled_payment, :payment => result
+      result.payment_response.update_attribute('created_at', DateTime.civil(2012, 04, 12, 13, 44, 55))
+      result
     end
 
-    subject { described_class.new order }
+    subject { 
+      described_class.new payment.order 
+    }
     
     it '#numero_pedido' do
       subject.numero_pedido.should == order.number

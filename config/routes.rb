@@ -174,6 +174,10 @@ Olook::Application.routes.draw do
     post 'integrate_payment' => "orders#integrate_payment"
 
     resources :orders do
+      member do
+        post 'change_state'
+      end
+
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
       end
@@ -198,6 +202,12 @@ Olook::Application.routes.draw do
 
     resources :gift_occasion_types
     resources :gift_recipient_relations
+    
+    scope 'credits' do
+      root :to => 'order_credits#index', :as => :credits
+      resources :order_credits, :only => :index 
+    end
+
     resource :settings
 
   end
