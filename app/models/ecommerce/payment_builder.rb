@@ -23,6 +23,7 @@ class PaymentBuilder
           payment.order = order
           payment.calculate_percentage!
           payment.deliver! if payment.kind_of?(CreditCard)
+          payment.deliver! if payment.kind_of?(Debit)
           payment.save!
           
           order.line_items.each do |item|
