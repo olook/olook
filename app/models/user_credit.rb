@@ -2,7 +2,7 @@ class UserCredit < ActiveRecord::Base
   belongs_to :credit_type
   belongs_to :user
   has_many :credits
-  
+
   #INVITE_BONUS = BigDecimal.new("10.00")
   #INVITE_BONUS_FOR_INVITEE = BigDecimal.new("10.00")
   TRANSACTION_LIMIT = 150.0
@@ -14,7 +14,7 @@ class UserCredit < ActiveRecord::Base
 
   def add(opts)
     raise ArgumentError.new('Amount is required!') if opts[:amount].nil?
-    
+
     amount = BigDecimal.new(opts.delete(:amount).to_s)
 
     opts.merge!({
@@ -29,7 +29,7 @@ class UserCredit < ActiveRecord::Base
   #Set total in the remotion.
   def remove(opts)
     raise ArgumentError.new('Amount is required!') if opts[:amount].nil?
-    
+
     amount = BigDecimal.new(opts.delete(:amount).to_s)
 
     opts.merge!({
@@ -40,7 +40,7 @@ class UserCredit < ActiveRecord::Base
 
     credit_type.remove(opts)
   end
-  
+
   def self.process!(order)
     # TO DO: Double check to see if the credit was already given for this order
 
@@ -58,7 +58,7 @@ class UserCredit < ActiveRecord::Base
 
   private
     #NOTICE: sources estao invertidas
-    def self.add_invite_credits(order)      
+    def self.add_invite_credits(order)
       buyer, inviter = order.user, order.user.try(:inviter)
 
       if inviter && buyer.first_buy?
@@ -68,8 +68,8 @@ class UserCredit < ActiveRecord::Base
 
     def self.add_loyalty_program_credits(order)
       user, user_credit = order.user, order.user.user_credits_for(:loyalty_program)
-      amount = order.amount_paid * BigDecimal.new(Setting.percentage_on_order)
-     
+      amount = order.amount_paid * 0.20
+
       user_credit.add({
         :order => order,
         :amount => amount
