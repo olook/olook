@@ -23,6 +23,7 @@ class PaymentBuilder
           
           order = cart_service.generate_order!
           payment.order = order
+          payment.user = order.user || cart_service.cart.user
           payment.calculate_percentage!
           payment.deliver! if payment.kind_of?(CreditCard)
           payment.deliver! if payment.kind_of?(Debit)

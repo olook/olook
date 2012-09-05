@@ -12,6 +12,9 @@ feature "Buying Gifts", %q{
   let!(:occasion_type) { FactoryGirl.create(:gift_occasion_type) }
   let!(:recipient_relation) { FactoryGirl.create(:gift_recipient_relation) }
   let!(:gift_survey) { FactoryGirl.create(:gift_question) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
     
   describe "Already user" do
     background do

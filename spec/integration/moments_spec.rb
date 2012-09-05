@@ -10,6 +10,9 @@ feature "Navigating by moments", %q{
   let!(:user) { FactoryGirl.create(:user, :user_info => UserInfo.new) }
   let!(:day_moment) { FactoryGirl.create(:moment) }
   let!(:work_moment) { FactoryGirl.create(:moment, { :name => "work", :slug => "work" }) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
   let(:basic_bag) do
     product = (FactoryGirl.create :bag_subcategory_name).product
