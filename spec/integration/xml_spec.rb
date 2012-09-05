@@ -277,6 +277,47 @@ context "in the ilove_ecommerce xml page" do
       result.should be_equivalent_to(equivalent_content)
     end
   end
+
+  context "in the google shopping" do
+    scenario "I want to see products of google shopping" do
+      visit google_shopping_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <products>
+      <product>
+      <id>#{product.id}</id>
+      <title>#{product.name}</title>
+      <description>#{product.description}</description>
+      <category>#{product.category}</category>
+      <google_product_category>Accessories &gt; Apparel</google_product_category>
+      <product_type>#{product.category_humanize}</product_type>
+      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine</link>
+      <image_link>#{product.pictures.last.try(:image)}</image_link>
+      <additional_image_link>#{product.pictures.first.try(:image)}</additional_image_link>
+      <condition>new</condition>
+      <price>#{product.price}</g:price>
+      <sale_price>#{product.retail_price}</sale_price>
+      <brand>Olook</brand>
+      <gender>female</gender>
+      <age_group>adult</age_group>
+      #{product.variants.map { |variant|
+      '<size>' + variant.display_reference + '</size>'}.join("\n")}
+      <item_group_id>#{product.id}</item_group_id>
+      <color>#{product.color_name}</color>
+      <shipping>
+      <country>BR</country>
+      <service>Standard</service>
+      <price>11.42 BRL</price>
+      </shipping>
+      </product>
+      </products>
+    END
+      equivalent_content = Nokogiri::XML(content)
+      result.should be_equivalent_to(equivalent_content)
+    end
+  end
+
   end
 
 
