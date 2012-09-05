@@ -33,7 +33,6 @@ class Payment < ActiveRecord::Base
   belongs_to :order
   belongs_to :cart  
   belongs_to :credit_type
-  has_one :payment_response, :dependent => :destroy
 
   after_create :generate_identification_code
 
@@ -144,8 +143,8 @@ class Payment < ActiveRecord::Base
     update_attributes(:payment_expiration_date => build_payment_expiration_date)
   end
 
-  def set_state(status)
-    event = STATUS[status]
+  def set_state(statuz)
+    event = STATUS[statuz]
     send(event) if event
   end
 
@@ -181,6 +180,28 @@ class Payment < ActiveRecord::Base
     if self.order
       self.percent = ((100 * self.total_paid) / self.order.gross_amount)
     end
+  end
+
+  def sucess?
+    gateway_response_status == Payment::SUCCESSFUL_STATUS
+  end
+
+  def build_response(response)
+    write_attribute(:gateway_response_id, response["ID"])
+    write_attribute(:gateway_response_status, response["Status"])
+    write_attribute(:gateway_token, response["Token"])
+    if response["RespostaPagamentoDireto"]
+      write_attribute(:gateway_fee, response["RespostaPagamentoDireto"]["TaxaMoIP"])
+      write_attribute(:gateway_origin_code, response["RespostaPagamentoDireto"]["CodigoMoIP"])
+      write_attribute(:gateway_transaction_status, response["RespostaPagamentoDireto"]["Status"])
+      write_attribute(:gateway_message, response["RespostaPagamentoDireto"]["Mensagem"])
+      write_attribute(:gateway_transaction_code, response["RespostaPagamentoDireto"]["CodigoAutorizacao"])
+      write_attribute(:gateway_return_code, response["RespostaPagamentoDireto"]["CodigoAutorizacao"])
+    end
+  end
+
+  def status
+    Payment::RESPONSE_STATUS[gateway_transaction_status]
   end
   
   private

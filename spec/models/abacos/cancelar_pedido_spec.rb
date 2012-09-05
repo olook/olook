@@ -21,25 +21,25 @@ describe Abacos::CancelarPedido do
     let(:order) do
       result = FactoryGirl.create :clean_order
       result.stub(:'canceled?').and_return(true)
-      result
-    end
-    
-    let(:payment) do
-      result = FactoryGirl.create :credit_card, :order => order
-      result.payment_response = FactoryGirl.create :canceled_payment, :payment => result
-      result.payment_response.update_attribute('created_at', DateTime.civil(2012, 04, 12, 13, 44, 55))
+      result.erp_payment.update_attributes!({
+        gateway_response_status: "Sucesso",
+        gateway_transaction_code: nil,
+        gateway_transaction_status: "Cancelado",
+        gateway_message: "Autorização negada",
+        gateway_return_code: nil
+      })
       result
     end
 
     subject { 
-      described_class.new payment.order 
+      described_class.new order 
     }
     
     it '#numero_pedido' do
       subject.numero_pedido.should == order.number
     end
     it '#data' do
-      subject.data.should == '12042012 10:44:55'
+      subject.data.should == subject.parse_datetime(order.erp_payment.created_at)
     end
     it '#status' do
       subject.status.should == 'speRecusado'
@@ -58,7 +58,7 @@ describe Abacos::CancelarPedido do
       let(:expected_data) do
         {
           'NumeroPedido'            => order.number,
-          'DataPagamento'           => '12042012 10:44:55',
+          'DataPagamento'           => subject.parse_datetime(order.erp_payment.created_at),
           'StatusPagamento'         => 'speRecusado',
           'CartaoCodigoAutorizacao' => nil,
           'CartaoMensagemRetorno'   => 'Autorização negada',

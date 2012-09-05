@@ -64,6 +64,7 @@ describe Payment do
       subject.set_state(invalid_status).should be(nil)
     end
   end
+
   
   describe "state machine" do
     it "should start the order" do
