@@ -95,6 +95,17 @@ section#cart {
     text-transform: uppercase;
     margin: 0 0 15px;
   }
+  p.credits {
+    background: #EEE;
+    width: 195px;
+    margin: 4px 20px 0 0;
+    padding: 10px 15px;
+    float: right;
+    a {
+      color: #e05789;
+      float: none;
+    }
+  }
   div.banner {
     background: url('/assets/cart/banner_discount.jpg') top center no-repeat;
     width: 965px;
