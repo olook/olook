@@ -90,13 +90,13 @@ describe Payment do
     context "try to cancel" do
       context "when from started" do
         it "should go to canceled when cancel_order" do
-          subject.should_receive(:cancel_order?).and_return(true)
+          subject.should_receive(:cancel_order?).twice.and_return(true)
           subject.cancel!
           subject.cancelled?.should eq(true)
         end
 
         it "should raise error when not cancel_order" do
-          subject.should_receive(:cancel_order?).and_return(false)
+          subject.should_receive(:cancel_order?).and_raise
           expect {
             subject.cancel!
           }.to raise_error
@@ -111,7 +111,7 @@ describe Payment do
         end
 
         it "should raise error when not cancel_order" do
-          waiting_payment.should_receive(:cancel_order?).and_return(false)
+          waiting_payment.should_receive(:cancel_order?).and_raise
           expect {
             waiting_payment.cancel!
           }.to raise_error
@@ -162,7 +162,7 @@ describe Payment do
         end
 
         it "should raise error when not review_order" do
-          waiting_payment.should_receive(:review_order?).and_return(false)
+          waiting_payment.should_receive(:review_order?).and_raise
           expect {
             waiting_payment.review!
           }.to raise_error
@@ -194,7 +194,7 @@ describe Payment do
         end
 
         it "should raise error when not reverse_order" do
-          completed.should_receive(:reverse_order?).and_return(false)
+          completed.should_receive(:reverse_order?).and_raise
           expect {
             completed.reverse!
           }.to raise_error
@@ -209,7 +209,7 @@ describe Payment do
         end
 
         it "should raise error when not reverse_order" do
-          authorized.should_receive(:reverse_order?).and_return(false)
+          authorized.should_receive(:reverse_order?).and_raise
           expect {
             authorized.reverse!
           }.to raise_error
@@ -224,7 +224,7 @@ describe Payment do
         end
 
         it "should raise error when not reverse_order" do
-          under_review.should_receive(:reverse_order?).and_return(false)
+          under_review.should_receive(:reverse_order?).and_raise
           expect {
             under_review.reverse!
           }.to raise_error
@@ -241,7 +241,7 @@ describe Payment do
         end
 
         it "should raise error when not refund_order" do
-          completed.should_receive(:refund_order?).and_return(false)
+          completed.should_receive(:refund_order?).and_raise
           expect {
             completed.refund!
           }.to raise_error
@@ -256,7 +256,7 @@ describe Payment do
         end
 
         it "should raise error when not refund_order" do
-          authorized.should_receive(:refund_order?).and_return(false)
+          authorized.should_receive(:refund_order?).and_raise
           expect {
             authorized.refund!
           }.to raise_error
@@ -271,7 +271,7 @@ describe Payment do
         end
 
         it "should raise error when not refund_order" do
-          under_review.should_receive(:refund_order?).and_return(false)
+          under_review.should_receive(:refund_order?).and_raise
           expect {
             under_review.refund!
           }.to raise_error
