@@ -37,7 +37,8 @@ class PaymentBuilder
           if total_olooklet > 0
             olooklet_payment = OlookletPayment.create!(
               :total_paid => total_olooklet, 
-              :order => order)
+              :order => order,
+              :cart_id => @cart_service.cart.id)
             olooklet_payment.calculate_percentage!
             olooklet_payment.deliver!
             olooklet_payment.authorize!
@@ -47,7 +48,8 @@ class PaymentBuilder
           if total_gift > 0
             gift_payment = GiftPayment.create!(
               :total_paid => total_gift, 
-              :order => order)
+              :order => order,
+              :cart_id => @cart_service.cart.id)
             gift_payment.calculate_percentage!
             gift_payment.deliver!
             gift_payment.authorize!
@@ -58,7 +60,8 @@ class PaymentBuilder
             coupon_payment = CouponPayment.create!(
               :total_paid => total_coupon, 
               :coupon_id => cart_service.coupon.id,
-              :order => order)
+              :order => order,
+              :cart_id => @cart_service.cart.id)
             coupon_payment.calculate_percentage!
             coupon_payment.deliver!
             coupon_payment.authorize!
@@ -71,7 +74,8 @@ class PaymentBuilder
               :total_paid => total_promotion, 
               :promotion_id => cart_service.promotion.id,
               :order => order,
-              :discount_percent => cart_service.promotion.discount_percent)
+              :discount_percent => cart_service.promotion.discount_percent,
+              :cart_id => @cart_service.cart.id)
             promotion_payment.calculate_percentage!
             promotion_payment.deliver!
             promotion_payment.authorize!
@@ -81,7 +85,8 @@ class PaymentBuilder
           #           credit_payment = CreditPayment.new(
           #             :credit_type => :loyality, 
           #             :amount_paid => cart_service.credits_for?(:loyality), 
-          #             :order => order).save!
+          #             :order => order,
+          #             :cart_id => @cart_service.cart.id).save!
           #           credit_payment.calculate_percentage!
           #           credit_payment.deliver!
           #           credit_payment.authorize!
@@ -92,7 +97,8 @@ class PaymentBuilder
             credit_payment = CreditPayment.create!(
               :credit_type_id => CreditType.find_by_code!(:invite).id, 
               :total_paid => total_credits, 
-              :order => order)
+              :order => order,
+              :cart_id => @cart_service.cart.id)
             credit_payment.calculate_percentage!
             credit_payment.deliver!
             credit_payment.authorize!
@@ -101,7 +107,8 @@ class PaymentBuilder
           #           credit_payment = CreditPayment.new(
           #             :credit_type => :reedem, 
           #             :amount_paid => cart_service.credits_for?(:reedem), 
-          #             :order => order).save!
+          #             :order => order,
+          #             :cart_id => @cart_service.cart.id).save!
           #           credit_payment.calculate_percentage!
           #           credit_payment.deliver!
           #           credit_payment.authorize!
