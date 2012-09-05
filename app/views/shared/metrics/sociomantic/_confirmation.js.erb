@@ -4,7 +4,7 @@ products: [
 { identifier: '<%= item.id %>', amount: <%= number_to_currency(item.variant.price) %>, currency: 'BRL', quantity: <%= item.quantity %> },
 <% end %>
 ],
-transaction : <%= order.number %>,
-amount: <%= number_to_currency(order.amount_paid) %>,
+transaction : '<%= order.number %>',
+amount: '<%= number_to_currency(order.amount_paid) %>'
 currency: 'BRL'
 };
