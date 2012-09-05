@@ -58,16 +58,28 @@ class Payment < ActiveRecord::Base
     state :started
     
     #Cancelado - 5
-    state :cancelled
+    state :cancelled do 
+      after_save do |payment|
+        payment.cancel_order?
+      end
+    end
     
     #BoletoImpresso - 3
     state :waiting_payment
     
     #Estornado - 7
-    state :reversed
+    state :reversed do 
+      after_save do |payment|
+        payment.reverse_order?
+      end
+    end
 
     #Reembolsado - 9
-    state :refunded
+    state :refunded do 
+      after_save do |payment|
+        payment.refund_order?
+      end
+    end
     
     # "2" => :start,
     event :start do
@@ -81,8 +93,8 @@ class Payment < ActiveRecord::Base
     
     # "5" => :cancel,
     event :cancel do
-      transition :started => :cancelled, :if => :cancel_order?
-      transition :waiting_payment => :cancelled, :if => :cancel_order?
+      transition :started => :cancelled
+      transition :waiting_payment => :cancelled
     end
 
     # "1" => :authorize
@@ -105,16 +117,16 @@ class Payment < ActiveRecord::Base
     
     # "7" => :reverse,
     event :reverse do
-      transition :completed => :reversed, :if => :reverse_order?
-      transition :authorized => :reversed, :if => :reverse_order?
-      transition :under_review => :reversed, :if => :reverse_order?
+      transition :completed => :reversed
+      transition :authorized => :reversed
+      transition :under_review => :reversed
     end
 
     # "9" => :refund
     event :refund do
-      transition :completed => :refunded, :if => :refund_order?
-      transition :authorized => :refunded, :if => :refund_order?
-      transition :under_review => :refunded, :if => :refund_order?
+      transition :completed => :refunded
+      transition :authorized => :refunded
+      transition :under_review => :refunded
     end
   end
   
@@ -137,7 +149,7 @@ class Payment < ActiveRecord::Base
   end
 
   def refund_order?
-    order.refunded
+    order.refunded unless order.payment_rollback?
   end
 
   def review_order?
@@ -145,7 +157,7 @@ class Payment < ActiveRecord::Base
   end
 
   def cancel_order?
-    order.canceled
+    order.canceled unless order.payment_rollback?
   end
 
   #TODO: sempre responde true; Ele tem de checar se todos os outros pagamentos estao como authorized
@@ -155,7 +167,7 @@ class Payment < ActiveRecord::Base
   end
   
   def reverse_order?
-    order.reversed
+    order.reversed unless order.payment_rollback?
   end
 
   def user

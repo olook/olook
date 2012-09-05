@@ -27,16 +27,16 @@ namespace :fidelidade do
     User.find_each do |user|
 
       if !user.credits.empty?
-        if(user.credits.last.total.to_s != user.user_credits.first.total.to_s)          
-          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits.first.total} - Correcting..."
+        if(user.credits.last.total.to_s != user.user_credits_for(:invite).total.to_s)          
+          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits_for(:invite).total} - Correcting..."
           new_credit = user.credits.last.dup
-          new_credit.value = ((user.user_credits.first.total * -1) + user.credits.last.total)
+          new_credit.value = ((user.user_credits_for(:invite).total * -1) + user.credits.last.total)
           new_credit.is_debit = (new_credit.value >= 0)? 0 : 1
           if new_credit.value < 0
             new_credit.value *= -1
           end
           new_credit.save
-          puts "#{user.id} :: #{user.credits.last.total} == #{user.user_credits.first.total} - Corrected"
+          puts "#{user.id} :: #{user.credits.last.total} == #{user.user_credits_for(:invite).total} - Corrected"
         end
       end
     end
@@ -79,16 +79,18 @@ namespace :fidelidade do
   task :update_moip_callbacks => :environment do |task, args|
     Payment.find_each do |payment|
       if payment.order && payment.order.cart_id
-        payment.update_attribute(:cart_id, payment.order.cart_id)
+        payment.update_column(:cart_id, payment.order.cart_id)
       end
     end
     
     MoipCallback.find_each do |moip|
       if moip.order && moip.order.erp_payment
-        moip.update_attribute(:payment_id, moip.order.erp_payment.id)
+        moip.update_column(:payment_id, moip.order.erp_payment.id)
       end
     end
   end
+  
+  #WHEN START OPEN: http://www.youtube.com/watch?v=Dyx4v1QFzhQ
   
   desc "changes state names to the new phraseology"
   task :change_state_names => :environment do
@@ -108,7 +110,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     
     UsedCoupon.find_each do |used_coupon|
@@ -171,7 +173,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     credit_type_id = CreditType.find_by_code!(:invite).id
     Order.where('credits > ? AND credits IS NOT NULL', 0).find_each do |order|
@@ -200,7 +202,7 @@ namespace :fidelidade do
       "delivering" => "authorized",
       "picking" => "authorized",
       "reversed" => "reversed",      
-      "waiting_payment" => "waiting_payment"
+      "waiting_payment" => "authorized"
     }
     UsedPromotion.find_each do |used_promotion|
       order = used_promotion.order
@@ -216,6 +218,112 @@ namespace :fidelidade do
           :discount_percent => used_promotion.discount_percent)
         
         promotion_payment.update_column(:state, state_hash[order.state])
+      end
+    end
+  end
+  
+  desc "move olooklet/gift to payment"
+  task :move_olooklet_gift_to_payment => :environment do
+    puts "Starting rake that moves the olooklet / gift to payment"
+    
+    state_hash = {
+      "authorized" => "authorized",
+      "canceled" => "cancelled", 
+      "delivered" => "authorized",
+      "delivering" => "authorized",
+      "picking" => "authorized",
+      "reversed" => "reversed",      
+      "waiting_payment" => "authorized"
+    }
+    
+    Order.find_each do |order|
+      total_for_gift = 0
+      total_for_olooklet = 0
+
+      order.line_items.each do |item|
+        delta = (item.price - item.retail_price)
+        #existe desconto
+        if delta > 0
+          if item.gift
+            total_for_gift += delta
+          else
+            total_for_olooklet += delta
+          end
+        end
+      end
+      
+      #RETIRAR VALOR DO CuponPayment + PromotionPayment
+      
+      payments_for_discount = order.payments.where(:payments => {:type => ['PromotionPayment', 'CouponPayment']})
+      
+      difference = 0
+
+      payments_for_discount.each do |payment|
+        if payment.kind_of? PromotionPayment
+          difference += payment.total_paid 
+        else
+          difference += payment.total_paid if payment.coupon.is_percentage
+        end
+      end
+      
+      total_for_gift -= difference
+      total_for_olooklet -= difference
+      
+      puts "\norder: #{order.id}\ttotal_for_gift: #{total_for_gift} \ttotal_for_olooklet: #{total_for_olooklet}"
+
+      if total_for_gift > 0
+        gift_payment = GiftPayment.create!(
+                  :total_paid => total_for_gift, 
+                  :order => order)
+
+        gift_payment.update_column(:state, state_hash[order.state])
+      end
+
+      if total_for_olooklet > 0
+        olooklet_payment = OlookletPayment.create!(
+                  :total_paid => total_for_olooklet, 
+                  :order => order)
+
+        olooklet_payment.update_column(:state, state_hash[order.state])
+      end
+    end
+  end
+  
+  desc "populate gross amount"
+  task :populate_gross_amount => :environment do
+    puts "Starting rake that populate gross amount"
+    gift_wrap = CartService.gift_wrap_price
+    Order.find_each do |order|
+      gross_amount = order.line_items.sum(:price)
+      gross_amount += order.freight.price if order.freight
+      gross_amount += gift_wrap if order.gift_wrap
+      
+      order.update_column(:gross_amount, gross_amount)
+    end
+  end
+  
+  desc "populate total paid for old payments"
+  task :populate_total_paid_old_payments => :environment do
+    puts "Starting rake that total paid for old payments"
+    Payment.where(:type => ['Billet','CreditCard','Debit']).find_each do |payment|
+      pr = PaymentResponse.find_by_payment_id(payment.id)
+      total_paid = pr.try(:total_paid)
+      total_paid = payment.order.amount_paid if (payment.order && (total_paid.nil? || total_paid <= 0))
+      total_paid ||= 0
+      
+      payment.update_column(:total_paid, total_paid) if (total_paid > 0)
+    end
+  end
+  
+  desc "calculate discount percent for old payments"
+  task :calculate_discount_percent => :environment do
+    puts "Starting rake that calculate discount percent for old payemnts"
+    Payment.where(:percent => nil).find_each do |payment|
+      begin
+        payment.calculate_percentage!
+        payment.update_column(:percent, payment.percent)
+      rescue Exception => e
+        puts "\npayment: #{payment.id}\tex: #{e.message}"
       end
     end
   end

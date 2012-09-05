@@ -68,7 +68,7 @@
         <p>
            <%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>: 
            <%= number_to_currency payment.total_paid || 0 %> - 
-           <%= number_to_percentage payment.discount_percent, :precision => 2 %>
+           <%= number_to_percentage payment.percent, :precision => 2 %>
         </p>
         <% end  %>
       </td>
