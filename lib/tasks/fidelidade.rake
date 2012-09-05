@@ -349,5 +349,16 @@ namespace :fidelidade do
     end
   end
 
+  desc "add user_id to payments"
+  task :add_user_id => :environment do
+    Payment.find_each do |payment|
+      if payment._user.nil?
+        p payment.id 
+        next
+      end
+      payment.update_column :user_id, payment._user.id
+    end
+  end
+
 end
 

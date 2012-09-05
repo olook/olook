@@ -56,6 +56,7 @@
   %>
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user } if @survey_answers  %>
+  <%= render partial: 'show_payments', locals: { user: @user }  %>
   <%= render partial: 'show_events', locals: { user: @user }  %>
 </div>
 
