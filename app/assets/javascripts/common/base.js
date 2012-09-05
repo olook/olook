@@ -3,6 +3,7 @@ $(document).ready(function() {
   initBase.loadJailImages();
   initBase.customSelect();
   initBase.showErrorMessages();
+  initBase.showInfoCredits();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -420,6 +421,16 @@ initBase = {
         $("div#modal").html("");
         $("div#modal").hide();
       }
+    });
+  },
+
+  showInfoCredits : function() {
+    $("#session ul li.credits div#credits_info a.open").live('click', function(e) {
+      clone = $("div.credits_description").clone().addClass("clone");
+      content = clone[0].outerHTML;
+      initBase.modal(content);
+      $(".ui-dialog").css("top", "30px");
+      e.preventDefault();
     });
   },
 
