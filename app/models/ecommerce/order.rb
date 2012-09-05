@@ -35,7 +35,6 @@ class Order < ActiveRecord::Base
   delegate :city, :to => :freight, :prefix => true, :allow_nil => true
   delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
-  delegate :payment_response, :to => :erp_payment, :allow_nil => true
 
   def self.with_payment
     joins(:payments)
@@ -50,7 +49,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.payments_with_discount
-    paid.joins('join payments on payments.order_id = orders.id and payments.type in ("CreditPayment","CouponPayment")')
+    paid.joins('join payments on payments.order_id = orders.id and payments.type in ("CreditPayment","CouponPayment", "OlookletPayment", "GiftPayment")')
   end
 
   def self.with_complete_payment

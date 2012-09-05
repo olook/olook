@@ -5,7 +5,7 @@
 <section id="payment" class="checkout confirmation">
   <section class="main">
     <h1>Seu pedido foi efetuado com sucesso!!</h1>
-    <% if @payment_response.success? %>
+    <% if @payment.sucess? %>
       <div class="payment_link">
         <%= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag #{@payment.bank}" %>
         <p>Estamos analisando seu pagamento junto a operadora de crédito.</p>

@@ -20,23 +20,23 @@ describe Abacos::ConfirmarPagamento do
     let(:order) do
       result = FactoryGirl.create :clean_order
       result.stub(:'authorized?').and_return(true)
+      result.erp_payment.update_attributes!({
+        gateway_response_status: "Sucesso",
+        gateway_transaction_code: "046455",
+        gateway_transaction_status: "EmAnalise",
+        gateway_message: "Transação autorizada",
+        gateway_return_code: 46455
+      })
       result
     end
 
-    let(:payment) do
-      result = FactoryGirl.create :credit_card, :order => order
-      result.payment_response = FactoryGirl.create :authorized_response, :payment => result
-      result.payment_response.update_attribute('created_at', DateTime.civil(2012, 04, 12, 13, 44, 55))
-      result
-    end
-
-    subject { described_class.new payment.order }
+    subject { described_class.new order }
     
     it '#numero_pedido' do
       subject.numero_pedido.should == order.number
     end
     it '#data' do
-      subject.data.should == '12042012 10:44:55'
+      subject.data.should == subject.parse_datetime(order.erp_payment.created_at)
     end
     it '#status' do
       subject.status.should == 'speConfirmado'
@@ -55,7 +55,7 @@ describe Abacos::ConfirmarPagamento do
       let(:expected_data) do
         {
           'NumeroPedido'            => order.number,
-          'DataPagamento'           => '12042012 10:44:55',
+          'DataPagamento'           => subject.parse_datetime(order.erp_payment.created_at),
           'StatusPagamento'         => 'speConfirmado',
           'CartaoCodigoAutorizacao' => '046455',
           'CartaoMensagemRetorno'   => 'Transação autorizada',

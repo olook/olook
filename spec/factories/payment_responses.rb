@@ -2,7 +2,6 @@
 FactoryGirl.define do
 
   factory :payment_response do
-    association :payment, :factory => :credit_card
     total_paid 100.01
     gateway_fee 1.99
     gateway_code "0000.0826.1316"
@@ -33,8 +32,5 @@ FactoryGirl.define do
     transaction_code "046455"
     return_code 46455
   end
-
-
-
 end
 
