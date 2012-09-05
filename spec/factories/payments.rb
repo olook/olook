@@ -5,6 +5,7 @@ FactoryGirl.define do
     credit_card_number '1234435678964567'
     user_name 'User name'
     bank 'Visa'
+    cart_id nil
     security_code '187'
     expiration_date '12/11'
     user_identification '197.620.036-91'
@@ -32,12 +33,20 @@ FactoryGirl.define do
   end
 
   factory :credit_card_with_response, :parent => :credit_card do
-    association :payment_response, :factory => :authorized_response
+    gateway_response_status "Sucesso"
+    gateway_transaction_status "EmAnalise"
+    gateway_message "Transação autorizada"
+    gateway_transaction_code "046455"
+    gateway_return_code 46455
   end
 
   factory :credit_card_with_response_authorized, :parent => :credit_card do
     state 'authorized'
-    association :payment_response, :factory => :authorized_response
+    gateway_response_status "Sucesso"
+    gateway_transaction_status "EmAnalise"
+    gateway_message "Transação autorizada"
+    gateway_transaction_code "046455"
+    gateway_return_code 46455
   end
 
 end
