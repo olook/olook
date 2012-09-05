@@ -1,8 +1,7 @@
-<script type="text/javascript">
 var basket = {
 products: [
-{ identifier: '6628', amount: 79.92, currency: 'BRL', quantity: 1 },
-{ identifier: '6637', amount: 79.92, currency: 'BRL', quantity: 1 }
+<%= cart.items.each do |item| %>
+{ identifier: '<%= item.id %>', amount: <%= number_to_currency(item.variant.price) %>, currency: 'BRL', quantity: <%= item.quantity %> },
+<% end %>
 ]
 };
-</script>

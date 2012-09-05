@@ -42,6 +42,7 @@ destacados no exemplo abaixo:</li>
   <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/google/ecommerce_track_trans" %>
+  <%= render :partial => "shared/metrics/sociomantic/confirmation.js.erb", :locals => {:order => @order, :cart => @cart} %>
 <% end %>
 
 <% content_for :footer do %>
