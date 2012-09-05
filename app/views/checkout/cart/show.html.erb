@@ -74,34 +74,6 @@
     </tbody>
   </table>
 
-  <table cellpadding="0" cellspacing="0" class="items_list" id="credits">
-    <tbody>
-      <% if @bonus > 0 %>
-        <tr class="discount">
-          <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
-          <td>
-            <p><strong>Quanto deseja usar?</strong></p>
-            <p>Digite o valor no campo ao lado</p>
-          </td>
-          <td class="cupom">
-            <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :method => :put) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= text_field('credits', 'value') %>
-                  </li>
-                  <li>
-                    <%= submit_tag 'Atualizar' %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
   <table cellpadding="0" cellspacing="0" class="check gift">
     <tbody>
       <tr>
@@ -126,7 +98,7 @@
             <p>Você não pode usar todos os seus créditos nesta compra porque o valor mínimo para finalizar o pedido é de R$ 5,00. Os créditos restantes estarão disponíveis em sua próxima compra.</p>
           <% end %>
         </td>
-        <td class="value">R$ 5,00</td>
+        <td class="value"><%= number_to_currency @user.user_credits_for(:loyalty_program).total %></td>
       </tr>
     </tbody>
   </table>
@@ -141,7 +113,7 @@
             <p>Toda vez que as amigas convidadas realizarem a sua primeira compra você ganha R$ 20,00 em crédito pela indicação.</p>
           <% end %>
         </td>
-        <td class="value">R$ 5,00</td>
+        <td class="value"><%= number_to_currency @user.user_credits_for(:invite).total %></td>
       </tr>
     </tbody>
   </table>
@@ -156,7 +128,7 @@
             <p>Crédito concedido devido ao cancelamento de um pedido ou devolução de um produto.</p>
           <% end %>
         </td>
-        <td class="value">R$ 5,00</td>
+        <td class="value"><%= number_to_currency @user.user_credits_for(:redeem).total %></td>
       </tr>
     </tbody>
   </table>
@@ -172,23 +144,6 @@
               <%= discount_percentage(@cart_service.coupon.discount_percent) %>
             </p>
             <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= submit_tag "Limpar" %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      <% if @cart_service.total_credits_discount > 0 %>
-        <tr>
-          <td>Crédito</td>
-          <td class="value">
-            <p><%= number_to_currency(@cart_service.total_credits_discount) %></p>
-            <%= form_for(remove_credits_cart_path, :url => remove_credits_cart_path, :method => :delete) do %>
               <fieldset class="inputs">
                 <ol>
                   <li>
