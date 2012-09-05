@@ -127,22 +127,19 @@ describe PaymentBuilder do
   context "on failure" do
     before :each do
       subject.stub(:send_payment!)
-      @payment_response = double
     end
 
     it "should return a structure with failure status and without a payment when the gateway comunication fail " do
-      @payment_response.stub(:response_status).and_return(Payment::FAILURE_STATUS)
-      subject.stub_chain(:set_payment_url!, :payment_response).and_return(@payment_response)
-      credit_card.stub(:payment_response).and_return(@payment_response)
+      subject.payment.stub(:gateway_response_status).and_return(Payment::FAILURE_STATUS)
+      subject.stub_chain(:set_payment_url!).and_return(subject.payment)
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
     end
 
     it "should return a structure with failure status and without a payment" do
-      @payment_response.stub(:response_status).and_return(Payment::SUCCESSFUL_STATUS)
-      @payment_response.stub(:transaction_status).and_return(Payment::CANCELED_STATUS)
-      subject.stub_chain(:set_payment_url!, :payment_response).and_return(@payment_response)
-      credit_card.stub(:payment_response).and_return(@payment_response)
+      subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
+      subject.payment.stub(:gateway_transaction_status).and_return(Payment::CANCELED_STATUS)
+      subject.stub_chain(:set_payment_url!).and_return(subject.payment)
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
     end

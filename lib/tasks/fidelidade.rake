@@ -327,6 +327,27 @@ namespace :fidelidade do
       end
     end
   end
-  
+
+
+  desc "move PaymentResponse data to payment" 
+  task :move_payment_response_to_payment => :environment do
+    PaymentResponse.find_each do |pr|
+      Payment.transaction do
+        if payment = pr.payment
+          puts payment.id
+          payment.update_column :gateway_response_id        , pr.response_id
+          payment.update_column :gateway_response_status    , pr.response_status
+          payment.update_column :gateway_token              , pr.token
+          payment.update_column :gateway_fee                , pr.gateway_fee
+          payment.update_column :gateway_origin_code        , pr.gateway_code
+          payment.update_column :gateway_transaction_status , pr.transaction_status
+          payment.update_column :gateway_message            , pr.message
+          payment.update_column :gateway_transaction_code   , pr.transaction_code
+          payment.update_column :gateway_return_code        , pr.return_code
+        end
+      end
+    end
+  end
+
 end
 
