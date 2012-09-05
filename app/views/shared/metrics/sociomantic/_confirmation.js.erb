@@ -1,10 +1,10 @@
 var basket = {
 products: [
 <%= cart.items.each do |item| %>
-{ identifier: '<%= item.id %>', amount: <%= number_to_currency(item.variant.price) %>, currency: 'BRL', quantity: <%= item.quantity %> },
+{ identifier: '<%= item.id %>', amount: '<%= number_to_currency(item.variant.price).delete('R$ ') %>', currency: 'BRL', quantity: '<%= item.quantity %>' }
 <% end %>
 ],
 transaction : '<%= order.number %>',
-amount: '<%= number_to_currency(order.amount_paid) %>',
+amount: '<%= number_to_currency(order.amount_paid).delete('R$ ') %>',
 currency: 'BRL'
 };
