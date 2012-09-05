@@ -60,6 +60,8 @@ Olook::Application.routes.draw do
   match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
   match "/topster", :to => "xml#topster", :as => "topster", :defaults => { :format => 'xml' }
   match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
+  match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
+  match "/shopping_uol", :to => "xml#shopping_uol", :as => "shopping_uol", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
