@@ -466,7 +466,7 @@ ul.list li .item .avatar {
   border-top-right-radius: 6px;
 }
 
-a.button, button.button {
+a.button, button.button, input.button, input[type=submit] {
   background: whiteSmoke;
   background-image: -webkit-linear-gradient(top, white, #E6E6E6);
   background-repeat: repeat-x;
@@ -493,10 +493,10 @@ a.button, button.button {
   height: 28px;
   padding: 4px 10px;
 }
-a.button:link, a.button:visited, a.button:hover, a.button:active, button.button:link, button.button:visited, button.button:hover, button.button:active {
+a.button:link, a.button:visited, a.button:hover, a.button:active, button.button:hover, button.button:active, input.button:hover, input.button:active, input[type=submit]:active {
   font-weight: normal;
 }
-a.button:active, button.button:active {
+a.button:active, button.button:active, input.button:active, input[type=submit]:active {
   outline: none;
   margin-top: 1px;
   margin-bottom: -1px;
