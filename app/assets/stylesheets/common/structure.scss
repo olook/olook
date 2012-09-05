@@ -929,6 +929,7 @@ body {
                 border: 2px #000 solid;
                 z-index: 99;
                 div.block {
+                  text-align: center;
                   width: 100%;
                   margin: 0 0 10px 0;
                   padding-bottom: 10px;
@@ -936,17 +937,18 @@ body {
                   border-bottom: 1px #CCC solid;
                   h2 {
                     font-family: $kepler;
-                    font-size: 22px;
+                    font-size: 18px;
                     letter-spacing: 0;
-                    text-align: center;
+                    text-align: inherit;
                     margin: 0 0 15px;
                   }
                   h3 {
                     font-family: $kepler;
                     font-size: 22px;
-                    text-align: center;
+                    text-align: inherit;
                   }
                   p {
+                    color: #000;
                     margin: 0 0 10px;
                     &.money {
                       font-size: 20px;
@@ -958,6 +960,14 @@ body {
                         float: none;
                       }
                     }
+                  }
+                  + p {
+                    color: #333;
+                    font-size: 14px;
+                    line-height: 15px;
+                    text-align: center;
+                    margin: 0 auto 20px;
+                    width: 310px;
                   }
                 }
                 a {
