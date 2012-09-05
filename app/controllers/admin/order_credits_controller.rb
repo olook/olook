@@ -5,8 +5,8 @@ class Admin::OrderCreditsController < Admin::BaseController
     @orders = @search.relation
                       .uniq
                       .payments_with_discount
-                      .order('amount_discount desc')
-                      .where('ifnull(payments.discount_percent,0) >= ?',params[:percentage].to_s.to_f)
+                      .order('amount_discount desc, created_at desc')
+                      .where('ifnull(payments.percent,0) >= ?',params[:percentage].to_s.to_f)
                       .page(params[:page]).per_page(15)
   end
 end
