@@ -27,16 +27,16 @@ namespace :fidelidade do
     User.find_each do |user|
 
       if !user.credits.empty?
-        if(user.credits.last.total.to_s != user.user_credits.first.total.to_s)          
-          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits.first.total} - Correcting..."
+        if(user.credits.last.total.to_s != user.user_credits_for(:invite).total.to_s)          
+          puts "#{user.id} :: #{user.credits.last.total} != #{user.user_credits_for(:invite).total} - Correcting..."
           new_credit = user.credits.last.dup
-          new_credit.value = ((user.user_credits.first.total * -1) + user.credits.last.total)
+          new_credit.value = ((user.user_credits_for(:invite).total * -1) + user.credits.last.total)
           new_credit.is_debit = (new_credit.value >= 0)? 0 : 1
           if new_credit.value < 0
             new_credit.value *= -1
           end
           new_credit.save
-          puts "#{user.id} :: #{user.credits.last.total} == #{user.user_credits.first.total} - Corrected"
+          puts "#{user.id} :: #{user.credits.last.total} == #{user.user_credits_for(:invite).total} - Corrected"
         end
       end
     end
@@ -79,13 +79,13 @@ namespace :fidelidade do
   task :update_moip_callbacks => :environment do |task, args|
     Payment.find_each do |payment|
       if payment.order && payment.order.cart_id
-        payment.update_attribute(:cart_id, payment.order.cart_id)
+        payment.update_column(:cart_id, payment.order.cart_id)
       end
     end
     
     MoipCallback.find_each do |moip|
       if moip.order && moip.order.erp_payment
-        moip.update_attribute(:payment_id, moip.order.erp_payment.id)
+        moip.update_column(:payment_id, moip.order.erp_payment.id)
       end
     end
   end
