@@ -1,7 +1,8 @@
 div.credits_description {
-  width: 600px;
+  width: 540px;
   overflow: auto;
   display: none;
+  padding: 0 30px;
   div.box_months {
     position: relative;
     width: 445px;
@@ -69,5 +70,14 @@ div.credits_description {
   }
   &.clone {
     display: block;
+  }
+  a.rules {
+    color: #e05789;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 0;
+    border-top: 1px #eee solid;
+    outline: none;
   }
 }
