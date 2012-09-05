@@ -1,1 +1,6 @@
-console.log('invite');
+$("table#total tr.total td.value p").text(<%= number_to_currency @cart_service.total %>);
+<% if @cart_service.is_minimum_payment? %>
+  $("table#total p.limit").addClass("show");
+<% else %>
+  $("table#total p.limit").removeClass("show");
+<% end %>
