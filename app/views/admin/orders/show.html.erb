@@ -21,7 +21,7 @@
     </p>
     <p>
       <b>Moip ID:</b>
-      <%= @order.erp_payment ? @order.erp_payment.try(:payment_response).try(:gateway_code) : "Pagamento não encontrado" %>
+      <%= @order.erp_payment ? @order.erp_payment.try(:gateway_code) : "Pagamento não encontrado" %>
     </p>
     <p>
       <b>Status:</b>
