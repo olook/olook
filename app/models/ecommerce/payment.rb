@@ -183,7 +183,7 @@ class Payment < ActiveRecord::Base
   end
 
   def sucess?
-    gateway_status == Payment::SUCCESSFUL_STATUS
+    gateway_response_status == Payment::SUCCESSFUL_STATUS
   end
 
   def build_response(response)
