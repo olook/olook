@@ -2,31 +2,31 @@
 <products>
 <% @products.each do |product| %>
 <product>
-<g:id>"<%= product.id %>"></g:id>
+<id><%= product.id %></id>
 <title><%= product.name %></title>
 <description><%= product.description %></description>
 <category><%= product.category %></category>
-<g:google_product_category>Accessories &gt; Apparel</g:google_product_category>
-<g:product_type><%= product.category.humanize %></g:product_type>
-<link><%= product.product.url %></link>
-<g:image_link><%= product.pictures.last.try(:image) %></g:image_link>
-<g:additional_image_link><%= product.pictures.first.try(:image) %></g:additional_image_link>
-<g:condition>new</g:condition>
-<g:price><%= product.price %></g:price>
-<g:sale_price>%= product.retail_price %></g:sale_price>
-<g:brand>Olook</g:brand>
-<g:gender>female</g:gender>
-<g:age_group>adult</g:age_group>
+<google_product_category>Accessories &gt; Apparel</google_product_category>
+<product_type><%= product.category_humanize %></product_type>
+<link><%= product.product_url %></link>
+<image_link><%= product.pictures.last.try(:image) %></image_link>
+<additional_image_link><%= product.pictures.first.try(:image) %></additional_image_link>
+<condition>new</condition>
+<price><%= product.price %></price>
+<sale_price><%= product.retail_price %></sale_price>
+<brand>Olook</brand>
+<gender>female</gender>
+<age_group>adult</age_group>
 <% product.variants.each do |variant| %>
-      <g:size><%= variant.display_reference %></g:size>
+<size><%= variant.display_reference %></size>
 <% end %>
-<g:item_group_id><%= product.id %></g:item_group_id>
-<g:color><%= product.color_name %></g:color>
-<g:shipping>
-   <g:country>BR</g:country>
-   <g:service>Standard</g:service>
-   <g:price>11.42 BRL</g:price>
-</g:shipping>
+<item_group_id><%= product.id %></item_group_id>
+<color><%= product.color_name %></color>
+<shipping>
+<country>BR</country>
+<service>Standard</service>
+<price>11.42 BRL</price>
+</shipping>
 </product>
 <% end %>
 </products>
