@@ -126,7 +126,7 @@
     <tbody>
       <tr>
         <td>
-          <%= form_tag(update_redeem_wrap_cart_path, :url => update_redeem_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "redeem" }) do %>
+          <%= form_for(update_redeem_wrap_cart_path, :url => update_redeem_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "redeem" }) do %>
             <%= check_box('redeem', 'value') %>
             <h1>Reembolso via Central de Atendimento</h1>
             <p>Crédito concedido devido ao cancelamento de um pedido ou devolução de um produto.</p>
