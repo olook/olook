@@ -16,7 +16,7 @@ describe UserCredit do
     let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => credit_type) }
     let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
     let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
-    let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
     let(:order) { FactoryGirl.create(:order, :user => user) }
     let(:invitee) { FactoryGirl.create(:user, :is_invited => true, :cpf => '298.161.997-77') }
     let(:invite) { FactoryGirl.create(:invite, :user => user) }
