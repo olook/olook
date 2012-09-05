@@ -40,19 +40,11 @@
       <%= number_to_currency(@order.subtotal) %>
     </p>
     <p>
-      <b>Used credits:</b>
-      <%= number_to_currency(@order.credits) %>
-    </p>
-    <p>
-      <b>Discount from coupon:</b>
-      <%= number_to_currency(@order.amount_discount) %>
-    </p>
-    <p>
       <b>Freight Total:</b>
       <%= number_to_currency(@order.freight_price) %>
     </p>
     <p>
-      <b>Total:</b>
+      <b>Total Pago:</b>
       <%= number_to_currency(@order.amount_paid) %>
     </p>
     <p>
@@ -140,10 +132,10 @@
   </p>
 
   <p>
-    <b>Pagamentos</b>
+    <h3>Pagamentos</h3>
     <% @order.payments.each do |payment| %>
     <p>
-      <b><%= "#{payment.type}(#{payment.credit_type.try(:code)})" %>:</b> 
+      <b><%= payment_with_origin(payment) %>:</b>
       <%= number_to_currency payment.total_paid %> -
       <%= number_to_percentage payment.percent, :precision => 2 %>
     </p>

@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :carts
   has_many :campaing_participants
-  has_many :payments, :through => :orders
+  has_many :payments
   has_one :tracking, :dependent => :destroy
   has_many :user_credits
   has_many :credits

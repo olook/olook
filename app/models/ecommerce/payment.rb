@@ -31,6 +31,7 @@ class Payment < ActiveRecord::Base
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
+  belongs_to :user
   belongs_to :cart  
   belongs_to :credit_type
 
@@ -149,7 +150,7 @@ class Payment < ActiveRecord::Base
   end
 
   def refund_order?
-    order.refunded unless order.payment_rollback?
+    order.refunded if (order && !order.payment_rollback?)
   end
 
   def review_order?
@@ -157,7 +158,7 @@ class Payment < ActiveRecord::Base
   end
 
   def cancel_order?
-    order.canceled unless order.payment_rollback?
+    order.canceled if (order && !order.payment_rollback?)
   end
 
   #TODO: sempre responde true; Ele tem de checar se todos os outros pagamentos estao como authorized
@@ -167,10 +168,10 @@ class Payment < ActiveRecord::Base
   end
   
   def reverse_order?
-    order.reversed unless order.payment_rollback?
+    order.reversed  if (order && !order.payment_rollback?)
   end
 
-  def user
+  def _user
     user = cart.try(:user)
     user ||= order.try(:user)
     user

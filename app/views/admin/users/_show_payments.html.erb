@@ -1,0 +1,25 @@
+<h2>Payments</h2>
+<table class="table">
+  <tr>
+    <th>Order</th>
+    <th>Tipo</th>
+    <th>Valor</th>
+    <th>Disconto</th>
+    <th>Classificação</th>
+    <th>Mensagem</th>
+    <th>Data</th>
+  </tr>
+
+<% user.payments.order('id desc').each do |payment| %>
+  <tr>
+    <td><%= link_to payment.order.number, admin_order_path(payment.order) if payment.order %></td>
+    <td><%= payment_with_origin(payment) %></td>
+    <td><%= number_to_currency payment.total_paid %></td>
+    <td><%= number_to_percentage payment.percent, :precision => 2 %></td>
+    <td><%= payment.gateway_status_reason %></td>
+    <td><%= payment.gateway_message %></td>
+    <td><%= payment.created_at.to_s(:short) %></td>
+  </tr>
+<% end %>
+</table>
+
