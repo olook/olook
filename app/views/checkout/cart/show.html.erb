@@ -92,8 +92,8 @@
     <tbody>
       <tr>
         <td>
-          <%= form_tag '' do %>
-            <%= check_box_tag '' %>
+          <%= form_for(update_loyalty_wrap_cart_path, :url => update_loyalty_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "loyalty_program" }) do %>
+            <%= check_box('loyalty_program', 'value') %>
             <h1>Créditos de sua última compra</h1>
             <p>Você não pode usar todos os seus créditos nesta compra porque o valor mínimo para finalizar o pedido é de R$ 5,00. Os créditos restantes estarão disponíveis em sua próxima compra.</p>
           <% end %>
@@ -107,8 +107,8 @@
     <tbody>
       <tr>
         <td>
-          <%= form_tag '' do %>
-            <%= check_box_tag '' %>
+          <%= form_for(update_invite_wrap_cart_path, :url => update_invite_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "invite" }) do %>
+            <%= check_box('invite', 'value') %>
             <h1>Créditos das amigas indicadas</h1>
             <p>Toda vez que as amigas convidadas realizarem a sua primeira compra você ganha R$ 20,00 em crédito pela indicação.</p>
           <% end %>
@@ -122,8 +122,8 @@
     <tbody>
       <tr>
         <td>
-          <%= form_tag '' do %>
-            <%= check_box_tag '' %>
+          <%= form_tag(update_redeem_wrap_cart_path, :url => update_redeem_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "redeem" }) do %>
+            <%= check_box('redeem', 'value') %>
             <h1>Reembolso via Central de Atendimento</h1>
             <p>Crédito concedido devido ao cancelamento de um pedido ou devolução de um produto.</p>
           <% end %>
