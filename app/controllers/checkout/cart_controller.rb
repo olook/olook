@@ -59,6 +59,18 @@ class Checkout::CartController < Checkout::BaseController
     render :json => true
   end
 
+  def update_loyalty_wrap
+
+  end
+
+  def update_invite_wrap
+
+  end
+
+  def update_redeem_wrap
+
+  end
+
   def update_coupon
     code = params[:coupon][:code] if params[:coupon]
     coupon = Coupon.find_by_code(code)
