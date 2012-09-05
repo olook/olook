@@ -164,9 +164,7 @@
         <td>Total</td>
         <td class="value">
           <p><%= number_to_currency(@cart_service.total) %></p>
-          <% if @cart_service.is_minimum_payment? %>
-            <p class="limit">R$5,00 é o valor mínimo para processamento da compra</p>
-          <% end %>
+          <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
         </td>
       </tr>
     </tbody>
