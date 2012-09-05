@@ -409,19 +409,30 @@ section#cart {
             text-transform: uppercase;
             float: left;
             & + p {
-              width: 515px;
+              width: 615px;
               margin: 0 0 0 48px;
               clear: both;
             }
           }
           &.value {
-            color: $third-color;
+            color: #df5a8b;
             font-family: $avenir;
             font-size: 18px;
             font-weight: normal;
             text-align: right;
             letter-spacing: -1px;
             padding: 0 67px 0 0;
+          }
+        }
+      }
+    }
+    &.gift {
+      tbody {
+        tr {
+          td {
+            &.value {
+              color: $third_color;
+            }
           }
         }
       }
