@@ -10,19 +10,22 @@ class PaymentBuilder
     payment.cart_id = @cart_service.cart.id
     payment.total_paid = @cart_service.total
     payment.save!
+    
     ActiveRecord::Base.transaction do
-      send_payment!
-      create_payment_response!
-      payment_response = set_payment_url!.payment_response
 
-      if payment_response.response_status == Payment::SUCCESSFUL_STATUS
+      send_payment!
+      payment.build_response @response
+      set_payment_url!
+
+      if payment.gateway_response_status == Payment::SUCCESSFUL_STATUS
         #NAO EH A MESMA COISA !!
-        if payment_response.transaction_status != Payment::CANCELED_STATUS
+        if payment.gateway_transaction_status != Payment::CANCELED_STATUS
           
           order = cart_service.generate_order!
           payment.order = order
           payment.calculate_percentage!
           payment.deliver! if payment.kind_of?(CreditCard)
+          payment.deliver! if payment.kind_of?(Debit)
           payment.save!
           
           order.line_items.each do |item|
@@ -120,6 +123,7 @@ class PaymentBuilder
         :error_class   => "Moip Request",
         :error_message => error_message
       )
+
       respond_with_failure
   end
 
@@ -135,12 +139,6 @@ class PaymentBuilder
 
   def payment_url
     MoIP::Client.moip_page(response["Token"])
-  end
-
-  def create_payment_response!
-    payment_response = payment.build_payment_response
-    payment_response.build_attributes response
-    payment_response.save!
   end
 
   def payer
@@ -201,7 +199,7 @@ class PaymentBuilder
   end
 
   def respond_with_success
-    OpenStruct.new(:status => payment.payment_response.response_status, :payment => payment)
+    OpenStruct.new(:status => payment.gateway_response_status, :payment => payment)
   end
 
   def log(message, logger = Rails.logger, level = :error)
