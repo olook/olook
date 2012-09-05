@@ -68,7 +68,7 @@ class UserCredit < ActiveRecord::Base
 
     def self.add_loyalty_program_credits(order)
       user, user_credit = order.user, order.user.user_credits_for(:loyalty_program)
-      amount = order.amount_paid * LoyaltyProgramCreditType::PERCENTAGE_ON_ORDER
+      amount = order.amount_paid * BigDecimal.new(Setting.percentage_on_order)
      
       user_credit.add({
         :order => order,

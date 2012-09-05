@@ -59,6 +59,54 @@ class Order < ActiveRecord::Base
 
   state_machine :initial => :waiting_payment do
 
+    state :delivered
+    state :delivering
+    state :not_delivered
+    state :picking
+    state :waiting_payment
+    state :authorized
+    state :under_review 
+
+    state :reversed do
+      after_save do |order|
+        order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each do |payment|
+          events_for_payment = payment.state_events(guard: false)
+          if events_for_payment.include?(:cancel)
+            payment.cancel
+          elsif events_for_payment.include?(:reverse)
+            payment.reverse
+          end
+        end
+      end
+    end
+    
+    state :refunded do
+      after_save do |order|
+        order.payments.where(Payment.arel_table[:state].not_eq('refunded')).each do |payment|
+          events_for_payment = payment.state_events(guard: false)
+          if events_for_payment.include?(:cancel)
+            payment.cancel
+          elsif events_for_payment.include?(:refund)
+            payment.refund
+          end
+        end
+      end
+    end
+    
+    
+    state :canceled do
+      after_save do |order|
+        order.payments.where(Payment.arel_table[:state].not_eq('cancelled')).each do |payment|
+          events_for_payment = payment.state_events(guard: false)
+          if events_for_payment.include?(:cancel)
+            payment.cancel
+          elsif events_for_payment.include?(:refund)
+            payment.refund
+          end
+        end
+      end
+    end
+
     store_audit_trail
 
     event :authorized do
@@ -140,6 +188,10 @@ class Order < ActiveRecord::Base
 
   def erp_payment
      payments.for_erp.last
+  end
+  
+  def payment_rollback?
+    self.refunded? || self.canceled? || self.reversed?
   end
   
   private
