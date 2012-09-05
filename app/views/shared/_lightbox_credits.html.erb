@@ -1,0 +1,44 @@
+<div class="credits_description">
+  <div class="box_months">
+    <h1>Você sempre ganha 20% do valor das suas compras em desconto no próximo pedido</h1>
+    <h3>O crédito é válido para as próximas 2 coleções.</h3>
+    <table cellpadding="0" cellspacing="0" class="current">
+      <thead>
+        <tr>
+          <th><%= l Time.now, :format => "%B" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>mês atual</td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th><%= l (Time.now + 1.month), :format => "%B" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+    <table cellpadding="0" cellspacing="0" class="last">
+      <thead>
+        <tr>
+          <th><%= l (Time.now + 2.month), :format => "%B" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="current">Você compra hoje</p>
+    <p class="next">E recebe 20% do valor em créditos para usar nas coleções de <%= (l (Time.now + 1.month), :format => "%B").downcase %> ou <%= (l (Time.now + 2.month), :format => "%B").downcase %></p>
+  </div>
+</div>
