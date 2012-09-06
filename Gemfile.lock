@@ -104,6 +104,8 @@ GEM
     diff-lcs (1.1.3)
     enumerate_it (0.7.14)
       activesupport (>= 2.3.2)
+    equivalent-xml (0.2.9)
+      nokogiri (>= 1.4.3)
     erubis (2.7.0)
     excon (0.9.6)
     execjs (1.3.1)
@@ -402,6 +404,7 @@ DEPENDENCIES
   delorean
   devise (~> 1.5.3)
   enumerate_it
+  equivalent-xml (~> 0.2.9)
   factory_girl_rails (~> 3.2.0)
   faker
   fastercsv
