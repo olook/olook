@@ -37,7 +37,7 @@ describe Checkout::AddressesController do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
     session[:cart_coupon] = nil
-    session[:cart_credits] = nil
+    session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
 
@@ -99,21 +99,6 @@ describe Checkout::AddressesController do
       get :index
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")
-    end
-    
-    it "should remove cart_credits from session when user not has more credit" do
-      session[:cart_id] = cart.id
-      session[:cart_credits] = 1000
-      get :index
-      session[:cart_credits].should be_nil
-    end
-
-    it "should redirect to cart_path when user not has more credit" do
-      session[:cart_id] = cart.id
-      session[:cart_credits] = 1000
-      get :index
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Você não tem créditos suficientes")
     end
   end
 

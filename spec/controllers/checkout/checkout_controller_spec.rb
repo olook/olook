@@ -46,7 +46,7 @@ describe Checkout::CheckoutController do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
     session[:cart_coupon] = nil
-    session[:cart_credits] = nil
+    session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
 
@@ -110,21 +110,6 @@ describe Checkout::CheckoutController do
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")
     end
     
-    it "should remove cart_credits from session when user not has more credit" do
-      session[:cart_id] = cart.id
-      session[:cart_credits] = 1000
-      get :new
-      session[:cart_credits].should be_nil
-    end
-
-    it "should redirect to cart_path when user not has more credit" do
-      session[:cart_id] = cart.id
-      session[:cart_credits] = 1000
-      get :new
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Você não tem créditos suficientes")
-    end
-
     it "should redirect to new_cart_checkout_path when user doesn't have freight data" do
       session[:cart_id] = cart.id
       get :new_credit_card
@@ -249,7 +234,7 @@ describe Checkout::CheckoutController do
         session[:cart_id].should be_nil
         session[:gift_wrap].should be_nil
         session[:cart_coupon].should be_nil
-        session[:cart_credits].should be_nil
+        session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
       end
       
@@ -328,7 +313,7 @@ describe Checkout::CheckoutController do
         session[:cart_id].should be_nil
         session[:gift_wrap].should be_nil
         session[:cart_coupon].should be_nil
-        session[:cart_credits].should be_nil
+        session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
       end
       
@@ -394,7 +379,7 @@ describe Checkout::CheckoutController do
         session[:cart_id].should be_nil
         session[:gift_wrap].should be_nil
         session[:cart_coupon].should be_nil
-        session[:cart_credits].should be_nil
+        session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
       end
       
