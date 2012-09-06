@@ -5,9 +5,9 @@ class InviteCreditType < CreditType
     user_credit, amount = opts.delete(:user_credit), opts[:value]
 
     if user_credit.total >= amount
-      user_credit.credits.create!(opts.merge({
+      [user_credit.credits.create!(opts.merge({
         :is_debit => true
-      }))
+      }))]
     else
       false
     end

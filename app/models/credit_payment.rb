@@ -3,7 +3,7 @@ class CreditPayment < Payment
   validates :credit_type_id, :presence => true
 
 	def deliver_payment?
-    credits = self.user.user_credits_for(credit_type.code).remove({amount: total_paid, order_id: order.try(:id)})
+    credits = self.user.user_credits_for(credit_type.code).remove({value: total_paid, order_id: order.try(:id)})
     if credits
       self.update_column(:credit_ids, credits.map{|credit| credit.id.to_s}.join(','))
       super
