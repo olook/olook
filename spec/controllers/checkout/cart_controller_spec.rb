@@ -350,6 +350,12 @@ describe Checkout::CartController do
   context "when update credits" do
     before :each do
       sign_in user
+      request.env['HTTP_ACCEPT'] = "text/javascript"
+    end
+
+    after :each do
+      sign_in user
+      request.env['HTTP_ACCEPT'] = "text/html"
     end
     
     it "should set session" do
