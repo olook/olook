@@ -352,11 +352,30 @@ namespace :fidelidade do
   desc "add user_id to payments"
   task :add_user_id => :environment do
     Payment.find_each do |payment|
-      if payment._user.nil?
+      
+      pm_user = payment.cart.try(:user).try(:id)
+      pm_user ||= payment.order.try(:user).try(:id)
+      
+      if pm_user.nil?
         p payment.id 
         next
       end
-      payment.update_column :user_id, payment._user.id
+      payment.update_column :user_id, pm_user
+    end
+  end
+
+
+  desc "populate cart id to payments"
+  task :populate_cart_to_payments => :environment do
+    Payment.where(:cart_id => nil).find_each do |payment|
+      
+      pm_cart = payment.order.try(:cart).try(:id)
+      
+      if pm_cart.nil?
+        p payment.id 
+        next
+      end
+      payment.update_column :cart_id, pm_cart
     end
   end
 
