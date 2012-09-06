@@ -26,17 +26,10 @@ $(function() {
     e.preventDefault();
   });
 
-  $('input#loyalty_program_value').change(function() {
-    $('form#loyalty_program').submit();
+  $('input#use_credit_value').change(function() {
+    $('form#use_credit_form').submit();
   });
 
-  $('input#invite_value').change(function() {
-    $('form#invite').submit();
-  });
-
-  $('input#redeem_value').change(function() {
-    $('form#redeem').submit();
-  });
 
   $( "#gift_gift_wrap" ).change(function() {
     $( "#gift_wrap" ).submit();
