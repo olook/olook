@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
+  #TODO: create CartBuilder
   helper_method :current_cart
   def current_cart
     #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
@@ -75,6 +76,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #TODO: create RefererBuilder
   helper_method :current_referer
   def current_referer
     session[:return_to] = case request.referer
