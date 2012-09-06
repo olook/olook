@@ -9,6 +9,7 @@ class PaymentBuilder
   def process!
     payment.cart_id = @cart_service.cart.id
     payment.total_paid = @cart_service.total
+    payment.user_id = cart_service.cart.user.id
     payment.save!
     
     ActiveRecord::Base.transaction do
@@ -23,7 +24,6 @@ class PaymentBuilder
           
           order = cart_service.generate_order!
           payment.order = order
-          payment.user = order.user || cart_service.cart.user
           payment.calculate_percentage!
           payment.deliver! if payment.kind_of?(CreditCard)
           payment.deliver! if payment.kind_of?(Debit)
@@ -39,6 +39,7 @@ class PaymentBuilder
             olooklet_payment = OlookletPayment.create!(
               :total_paid => total_olooklet, 
               :order => order,
+              :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
             olooklet_payment.calculate_percentage!
             olooklet_payment.deliver!
@@ -50,6 +51,7 @@ class PaymentBuilder
             gift_payment = GiftPayment.create!(
               :total_paid => total_gift, 
               :order => order,
+              :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
             gift_payment.calculate_percentage!
             gift_payment.deliver!
@@ -62,6 +64,7 @@ class PaymentBuilder
               :total_paid => total_coupon, 
               :coupon_id => cart_service.coupon.id,
               :order => order,
+              :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
             coupon_payment.calculate_percentage!
             coupon_payment.deliver!
@@ -75,6 +78,7 @@ class PaymentBuilder
               :total_paid => total_promotion, 
               :promotion_id => cart_service.promotion.id,
               :order => order,
+              :user_id => payment.user_id,
               :discount_percent => cart_service.promotion.discount_percent,
               :cart_id => @cart_service.cart.id)
             promotion_payment.calculate_percentage!
@@ -82,37 +86,21 @@ class PaymentBuilder
             promotion_payment.authorize!
           end
 
-          #           
-          #           credit_payment = CreditPayment.new(
-          #             :credit_type => :loyality, 
-          #             :amount_paid => cart_service.credits_for?(:loyality), 
-          #             :order => order,
-          #             :cart_id => @cart_service.cart.id).save!
-          #           credit_payment.calculate_percentage!
-          #           credit_payment.deliver!
-          #           credit_payment.authorize!
-          #           
 
+          #FIXME: trocar :loyalty_program por :invite
+          #TODO: colocar creditos de loyalty e invite (o mesmo tanto), e testar a compra, com o Renato
           total_credits = cart_service.total_discount_by_type(:credits)
           if total_credits > 0
             credit_payment = CreditPayment.create!(
-              :credit_type_id => CreditType.find_by_code!(:invite).id, 
+              :credit_type_id => CreditType.find_by_code!(:loyalty_program).id, 
               :total_paid => total_credits, 
               :order => order,
+              :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
             credit_payment.calculate_percentage!
             credit_payment.deliver!
             credit_payment.authorize!
           end
-          #           
-          #           credit_payment = CreditPayment.new(
-          #             :credit_type => :reedem, 
-          #             :amount_paid => cart_service.credits_for?(:reedem), 
-          #             :order => order,
-          #             :cart_id => @cart_service.cart.id).save!
-          #           credit_payment.calculate_percentage!
-          #           credit_payment.deliver!
-          #           credit_payment.authorize!
           
           respond_with_success
         else
