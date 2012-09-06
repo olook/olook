@@ -174,6 +174,12 @@ describe Order do
     context 'state to reversed' do
       it "should set reversed from under_review" do
         order_with_payment.authorized
+        order_with_payment.reversed
+        order_with_payment.reversed?.should be_true
+      end
+
+      it "should set reversed from under_review" do
+        order_with_payment.authorized
         order_with_payment.under_review
         order_with_payment.reversed
         order_with_payment.reversed?.should be_true
@@ -214,9 +220,8 @@ describe Order do
     end
 
     context 'to refunded' do
-      it "should set refunded from under_review" do
+      it "should set refunded from authorized" do
         order_with_payment.authorized
-        order_with_payment.under_review
         order_with_payment.refunded
         order_with_payment.refunded?.should be_true
       end
