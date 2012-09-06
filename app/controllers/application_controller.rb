@@ -45,7 +45,6 @@ class ApplicationController < ActionController::Base
 
     @promotion = PromotionService.new(@user).detect_current_promotion
 
-    session[:cart_credits] = 0 unless session[:cart_credits]
     coupon = session[:cart_coupon]
     coupon.reload if coupon
 
@@ -55,7 +54,7 @@ class ApplicationController < ActionController::Base
       :coupon => coupon,
       :promotion => @promotion,
       :freight => session[:cart_freight],
-      :credits => session[:cart_credits]
+      :credits => session[:cart_use_credits]
     )
 
     cart

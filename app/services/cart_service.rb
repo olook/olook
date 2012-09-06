@@ -108,7 +108,9 @@ class CartService
   def total_discount_by_type(type)
     total_value = 0
     total_value += total_coupon_discount if :coupon == type
-    total_value += total_credits_discount if :credits == type
+    total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
+    total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
+    total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
     
     cart.items.each do |item|
       if item_discount_origin_type(item) == type
@@ -260,24 +262,49 @@ class CartService
     
     retail_value -= coupon_value
     
-    credits_value = self.credits
-    credits_value ||= 0
-    if credits_value >= retail_value
-      credits_value = retail_value
+    use_credits = self.credits
+    credits_loyality = 0
+    credits_invite = 0
+    credits_redeem = 0
+    if (use_credits == true)
+      #GET FROM loyality
+      credits_loyality = self.cart.user.user_credits_for(:loyalty_program).total
+      if credits_loyality >= retail_value
+        credits_loyality = retail_value
+      end
+
+      retail_value -= credits_loyality
+      
+      #GET FROM INVITE
+      credits_invite = self.cart.user.user_credits_for(:invite).total
+      if credits_invite >= retail_value
+        credits_invite = retail_value
+      end
+
+      retail_value -= credits_invite
+      
+      #GET FROM REDEEM
+      credits_redeem = self.cart.user.user_credits_for(:redeem).total
+      if credits_redeem >= retail_value
+        credits_redeem = retail_value
+      end
+
+      retail_value -= credits_redeem
+      
     end
-    
-    retail_value -= credits_value
+    total_credits = credits_loyality + credits_invite + credits_redeem
     
     discounts << :coupon if coupon_value > 0
-    discounts << :credits if credits && credits > 0
         
     { 
-      :discounts          => discounts,
-      :credits_limit      => (credits_value != credits),
-      :is_minimum_payment => (minimum_value > 0 && retail_value <= 0),
-      :total_discount     => (coupon_value + credits_value),
-      :total_coupon       => coupon_value,
-      :total_credits      => credits_value
+      :discounts                         => discounts,
+      :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
+      :total_discount                    => (coupon_value + total_credits),
+      :total_coupon                      => coupon_value,
+      :total_credits_by_loyalty_program  => credits_loyality,
+      :total_credits_by_invite           => credits_invite,
+      :total_credits_by_redeem           => credits_redeem,
+      :total_credits                     => total_credits
     }
   end
 end
