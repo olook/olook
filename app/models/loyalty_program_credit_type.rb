@@ -21,8 +21,7 @@ class LoyaltyProgramCreditType < CreditType
   end
 
   def add(opts)
-    user_credit = opts.delete(:user_credit)
-    user_credit.credits.create!(opts.merge({
+    super(opts.merge({
       :activates_at => period_start, 
       :expires_at => period_end,
     }))

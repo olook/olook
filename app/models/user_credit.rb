@@ -29,16 +29,13 @@ class UserCredit < ActiveRecord::Base
   #Set total in the remotion.
   def remove(opts)
     raise ArgumentError.new('Amount is required!') if opts[:amount].nil?
-
+    
     amount = BigDecimal.new(opts.delete(:amount).to_s)
 
-    opts.merge!({
-      :total => (total - amount),
+    credit_type.remove(opts.merge!({
       :user_credit => self,
       :value => amount
-    })
-
-    credit_type.remove(opts)
+    }))
   end
 
   def self.process!(order)
