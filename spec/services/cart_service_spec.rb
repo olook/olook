@@ -411,7 +411,7 @@ describe CartService do
     end
   end
   
-  context ".total_credits_discount" do
+  pending ".total_credits_discount" do
     before :each do
       master_variant = cart.items.first.variant.product.master_variant
       master_variant.update_attribute(:price, 50)
@@ -439,7 +439,7 @@ describe CartService do
     end
   end
   
-  context ".total_discount" do
+  pending ".total_discount" do
     before :each do
       master_variant = cart.items.first.variant.product.master_variant
       master_variant.update_attribute(:price, 50)
@@ -482,7 +482,7 @@ describe CartService do
         cart_service.freight = freight.merge!(:price => 3)
       end
       
-      it "and there are credits to the total purchase should return true" do
+      pending "and there are credits to the total purchase should return true" do
         cart_service.credits = 100
         cart_service.is_minimum_payment?.should be_true
       end
@@ -500,7 +500,7 @@ describe CartService do
       cart_service.total_discount_by_type(:coupon).should eq(100)
     end
     
-    it "should sum total credits when type is credits" do
+    pending "should sum total credits when type is credits" do
       cart_service.stub(:total_credits_discount).and_return(100)
       cart_service.total_discount_by_type(:credits).should eq(100)
     end

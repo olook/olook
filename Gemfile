@@ -45,6 +45,7 @@ gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 
 gem "rails-settings-cached"
+gem "equivalent-xml", " ~> 0.2.9"
 
 
 group :development do

@@ -19,7 +19,7 @@ describe Checkout::CartController do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
     session[:cart_coupon] = nil
-    session[:cart_credits] = nil
+    session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
   
@@ -30,19 +30,6 @@ describe Checkout::CartController do
   end
   
   context "when show" do
-    it "should assign default bonus value" do
-      get :show
-      assigns(:bonus).should eq(0)
-    end
-    
-    it "should assign bonus value for user" do
-      session[:cart_credits] = 10
-      User.any_instance.should_receive(:credits_for?).with(10).and_return(100)
-      sign_in user
-      get :show
-      assigns(:bonus).should eq(100)
-    end
-
     it "should render show view" do
       get :show
       response.should render_template ["layouts/site", "show"]
@@ -62,7 +49,7 @@ describe Checkout::CartController do
       session[:cart_id].should be_nil
       session[:gift_wrap].should be_nil
       session[:cart_coupon].should be_nil
-      session[:cart_credits].should be_nil
+      session[:cart_use_credits].should be_nil
       session[:cart_freight].should be_nil
     end
 
@@ -360,66 +347,25 @@ describe Checkout::CartController do
     end
   end
 
-  context "when remove credits" do
-    it "should redirect to cart" do
-      post :remove_credits
-      response.should redirect_to(cart_path)
-    end
-
-    it "should set flash when has invalid credits in cart" do
-      post :remove_credits
-      flash[:notice].should eq("Você não está usando nenhum crédito")
-    end
-
-    it "should set session when has credits in cart" do
-      post :remove_credits
-      session[:cart_credits].should be(0)
-    end
-    
-    it "should set flash when has credits in cart" do
-      session[:cart_credits] = 100
-      post :remove_credits
-      flash[:notice].should eq("Créditos removidos com sucesso")
-    end
-  end
-  
   context "when update credits" do
     before :each do
-      Cart.any_instance.stub(:cart_credits_discount).and_return(100)
       sign_in user
+      request.env['HTTP_ACCEPT'] = "text/javascript"
     end
-    
-    it "should redirect to cart" do
-      post :update_credits
-      response.should redirect_to(cart_path)
-    end
-    
-    it "should set flash when user no has sufficient credit" do
-      User.any_instance.stub(:can_use_credit?).and_return(false)
-      post :update_credits, {credits: {value: 100}}
-      flash[:notice].should eq("Você não tem créditos suficientes")
-    end
-    
-    context "and has sufficient credit" do
-      before :each do
-        User.any_instance.stub(:can_use_credit?).and_return(true)
-        CartService.any_instance.stub(:total_credits_discount).and_return(100)
-      end
 
-      it "should set session" do
-        post :update_credits, {credits: {value: 100}}
-        session[:cart_credits].should eq(100)
-      end
-      
-      it "should set flash" do
-        post :update_credits, {credits: {value: 100}}
-        flash[:notice].should eq("Créditos atualizados com sucesso")
-      end
-      
-      it "should set flash for max value" do
-        post :update_credits, {credits: {value: 110}}
-        flash[:notice].should eq("Você tentou utilizar mais que o permitido para esta compra, utilizamos o máximo permitido.")
-      end
+    after :each do
+      sign_in user
+      request.env['HTTP_ACCEPT'] = "text/html"
+    end
+    
+    it "should set session" do
+      post :update_credits, {use_credit: {value: 1}}
+      session[:cart_use_credits].should eq(true)
+    end
+
+    it "should set cart_service" do
+      CartService.any_instance.should_receive(:credits).and_return("1")
+      post :update_credits, {use_credit: {value: 1}}
     end
   end
 end

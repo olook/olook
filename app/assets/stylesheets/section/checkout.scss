@@ -419,11 +419,15 @@ section#cart {
             font-weight: normal;
             text-transform: uppercase;
             float: left;
-            & + p {
-              width: 615px;
-              margin: 0 0 0 48px;
-              clear: both;
-            }
+          }
+          p {
+            width: 665px;
+            margin: 0 0 0 48px;
+            clear: both;
+          }
+          a {
+            color: #e05789;
+            margin: 5px 0 0 48px;
           }
           &.value {
             color: #df5a8b;
