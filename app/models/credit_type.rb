@@ -14,4 +14,23 @@ class CreditType < ActiveRecord::Base
   def credit_sum(user_credit, date, is_debit)
   	user_credit.credits.where("is_debit = ?", is_debit).sum(:value)
   end
+  
+  
+  def add(opts={})
+    user_credit = opts.delete(:user_credit)
+    user_credit.credits.create!(opts)
+  end
+
+  def remove(opts={})
+    user_credit, amount = opts.delete(:user_credit), opts[:value]
+    
+    if user_credit.total >= amount
+      [user_credit.credits.create!(opts.merge({
+        :is_debit => true
+      }))]
+    else
+      false
+    end
+  end
+  
 end

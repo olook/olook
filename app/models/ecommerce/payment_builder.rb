@@ -13,6 +13,13 @@ class PaymentBuilder
     payment.save!
     
     ActiveRecord::Base.transaction do
+      total_olooklet = cart_service.total_discount_by_type(:olooklet)
+      total_gift = cart_service.total_discount_by_type(:gift)
+      total_coupon = cart_service.total_discount_by_type(:coupon)
+      total_promotion = cart_service.total_discount_by_type(:promotion)
+      total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
+      total_credits_invite = cart_service.total_discount_by_type(:credits_by_invite)
+      total_credits_redeem = cart_service.total_discount_by_type(:credits_by_redeem)
 
       send_payment!
       payment.build_response @response
@@ -34,7 +41,6 @@ class PaymentBuilder
             variant.decrement!(:inventory, item.quantity)
           end
           
-          total_olooklet = cart_service.total_discount_by_type(:olooklet)
           if total_olooklet > 0
             olooklet_payment = OlookletPayment.create!(
               :total_paid => total_olooklet, 
@@ -46,7 +52,6 @@ class PaymentBuilder
             olooklet_payment.authorize!
           end
           
-          total_gift = cart_service.total_discount_by_type(:gift)
           if total_gift > 0
             gift_payment = GiftPayment.create!(
               :total_paid => total_gift, 
@@ -58,7 +63,7 @@ class PaymentBuilder
             gift_payment.authorize!
           end
           
-          total_coupon = cart_service.total_discount_by_type(:coupon)
+
           if total_coupon > 0
             coupon_payment = CouponPayment.create!(
               :total_paid => total_coupon, 
@@ -72,7 +77,6 @@ class PaymentBuilder
           end
 
 
-          total_promotion = cart_service.total_discount_by_type(:promotion)
           if total_promotion > 0
             promotion_payment = PromotionPayment.create!(
               :total_paid => total_promotion, 
@@ -86,10 +90,6 @@ class PaymentBuilder
             promotion_payment.authorize!
           end
 
-
-          #FIXME: trocar :loyalty_program por :invite
-          #TODO: colocar creditos de loyalty e invite (o mesmo tanto), e testar a compra, com o Renato
-          total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
           if total_credits > 0
             credit_payment = CreditPayment.create!(
               :credit_type_id => CreditType.find_by_code!(:loyalty_program).id, 
@@ -102,30 +102,28 @@ class PaymentBuilder
             credit_payment.authorize!
           end
 
-          total_credits = cart_service.total_discount_by_type(:credits_by_invite)
-          if total_credits > 0
-            credit_payment = CreditPayment.create!(
+          if total_credits_invite > 0
+            credit_payment_invite = CreditPayment.create!(
               :credit_type_id => CreditType.find_by_code!(:invite).id, 
-              :total_paid => total_credits, 
+              :total_paid => total_credits_invite, 
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
-            credit_payment.calculate_percentage!
-            credit_payment.deliver!
-            credit_payment.authorize!
+            credit_payment_invite.calculate_percentage!
+            credit_payment_invite.deliver!
+            credit_payment_invite.authorize!
           end
 
-          total_credits = cart_service.total_discount_by_type(:credits_by_redeem)
-          if total_credits > 0
-            credit_payment = CreditPayment.create!(
+          if total_credits_redeem > 0
+            credit_payment_redeem = CreditPayment.create!(
               :credit_type_id => CreditType.find_by_code!(:redeem).id, 
-              :total_paid => total_credits, 
+              :total_paid => total_credits_redeem, 
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
-            credit_payment.calculate_percentage!
-            credit_payment.deliver!
-            credit_payment.authorize!
+            credit_payment_redeem.calculate_percentage!
+            credit_payment_redeem.deliver!
+            credit_payment_redeem.authorize!
           end          
           
           respond_with_success
