@@ -138,7 +138,7 @@ class PaymentBuilder
     end
 
     rescue Exception => error
-      binding.pry
+      #binding.pry
       error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date}"
       log(error_message)
       NewRelic::Agent.add_custom_parameters({:error_msg => error_message})
