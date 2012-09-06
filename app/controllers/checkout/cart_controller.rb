@@ -6,7 +6,6 @@ class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
   def show
-    @bonus = @user ? @user.credits_for?(session[:cart_credits]) : 0
   end
 
   def destroy
@@ -84,13 +83,8 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update_credits
-    if params[:use_credit][:value] == "1"
-      @cart_service.credits = @user.current_credit
-      session[:cart_credits] = @cart_service.total_credits_discount
-    else
-      @cart_service.credits = 0
-      session[:cart_credits] = 0
-    end
+    session[:cart_use_credits] = params[:use_credit] && params[:use_credit][:value] == "1"
+    @cart_service.credits = session[:cart_use_credits]
   end
 end
 
