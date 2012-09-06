@@ -850,6 +850,13 @@ body {
             margin: 0;
             float: none;
           }
+          a {
+            color: #000;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
         }
         ul {
           margin: 5px 0 0;
@@ -992,6 +999,12 @@ body {
                 a {
                   color: $secondary_color;
                 }
+              }
+            }
+            &.first {
+              border-left: none;
+              a {
+                color: #E05789;
               }
             }
             &.last {
