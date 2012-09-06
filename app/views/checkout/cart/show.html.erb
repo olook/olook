@@ -93,7 +93,7 @@
       <tr>
         <td>
           <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
-            <%= check_box('use_credit', 'value', :checked => (@cart_service.credits > 0) ) %>
+            <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
             <h1>Créditos de sua última compra</h1>
             <p>Você não pode usar todos os seus créditos nesta compra porque o valor mínimo para finalizar o pedido é de R$ 5,00. Os créditos restantes estarão disponíveis em sua próxima compra.</p>
           <% end %>
