@@ -92,51 +92,18 @@
     <tbody>
       <tr>
         <td>
-          <%= form_for(update_loyalty_wrap_cart_path, :url => update_loyalty_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "loyalty_program" }) do %>
-            <%= check_box('loyalty_program', 'value') %>
+          <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
+            <%= check_box('use_credit', 'value', :checked => (@cart_service.credits > 0) ) %>
             <h1>Créditos de sua última compra</h1>
             <p>Você não pode usar todos os seus créditos nesta compra porque o valor mínimo para finalizar o pedido é de R$ 5,00. Os créditos restantes estarão disponíveis em sua próxima compra.</p>
           <% end %>
         </td>
-        <td class="value"><%= number_to_currency @user.user_credits_for(:loyalty_program).total %></td>
+        <td class="value"><%= number_to_currency @user.current_credit %></td>
       </tr>
     </tbody>
   </table>
   <% end %>
 
-  <% if @user %>
-  <table cellpadding="0" cellspacing="0" class="check">
-    <tbody>
-      <tr>
-        <td>
-          <%= form_for(update_invite_wrap_cart_path, :url => update_invite_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "invite" }) do %>
-            <%= check_box('invite', 'value') %>
-            <h1>Créditos das amigas indicadas</h1>
-            <p>Toda vez que as amigas convidadas realizarem a sua primeira compra você ganha R$ 20,00 em crédito pela indicação.</p>
-          <% end %>
-        </td>
-        <td class="value"><%= number_to_currency @user.user_credits_for(:invite).total %></td>
-      </tr>
-    </tbody>
-  </table>
-  <% end %>
-
-  <% if @user %>
-  <table cellpadding="0" cellspacing="0" class="check">
-    <tbody>
-      <tr>
-        <td>
-          <%= form_for(update_redeem_wrap_cart_path, :url => update_redeem_wrap_cart_path, :remote => true, :method => :put, :html => { :id => "redeem" }) do %>
-            <%= check_box('redeem', 'value') %>
-            <h1>Reembolso via Central de Atendimento</h1>
-            <p>Crédito concedido devido ao cancelamento de um pedido ou devolução de um produto.</p>
-          <% end %>
-        </td>
-        <td class="value"><%= number_to_currency @user.user_credits_for(:redeem).total %></td>
-      </tr>
-    </tbody>
-  </table>
-  <% end %>
 
   <table cellpadding="0" cellspacing="0" id="total">
     <tbody>
