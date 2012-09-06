@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
   def can_access_facebook_extended_features?
     has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
-  
+
   def current_credit(date = DateTime.now)
     UserCredit::CREDIT_CODES.keys.map{|user_credit_code| user_credits_for(user_credit_code).total(date)}.sum
   end
@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
   def can_use_credit?(value)
     current_credit.to_f >= value.to_f
   end
-  
+
   def credits_for?(value)
     value ||= 0
     self.current_credit - value
@@ -145,8 +145,8 @@ class User < ActiveRecord::Base
     description = description.with_indifferent_access if description.is_a?(Hash)
     self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(:utm_source => description.fetch(:utm_source, nil), :utm_medium => description.fetch(:utm_medium, nil),
-    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil), 
-    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil), 
+    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil),
+    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil),
     :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
@@ -256,7 +256,7 @@ class User < ActiveRecord::Base
     self.authentication_token = nil
     self.save
   end
-  
+
   def shoes_size
     return nil unless self.full_user?
     if user_info
@@ -270,6 +270,10 @@ class User < ActiveRecord::Base
   def user_credits_for code
     credit_type = CreditType.find_by_code!(code.to_s)
     self.user_credits.find_or_create_by_credit_type_id(credit_type.id)
+  end
+
+  def has_credit?
+    self.current_credit > 0
   end
 
   private
