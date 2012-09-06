@@ -171,11 +171,88 @@ describe Order do
       subject.canceled?.should be_true
     end
 
-    it "should set reversed" do
-      order_with_payment.authorized
-      order_with_payment.under_review
-      order_with_payment.reversed
-      order_with_payment.reversed?.should be_true
+    context 'state to reversed' do
+      it "should set reversed from under_review" do
+        order_with_payment.authorized
+        order_with_payment.under_review
+        order_with_payment.reversed
+        order_with_payment.reversed?.should be_true
+      end
+
+      it "should set reversed from picking" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.reversed
+        order_with_payment.reversed?.should be_true
+      end
+
+      it "should set reversed from delivering" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.delivering
+        order_with_payment.reversed
+        order_with_payment.reversed?.should be_true
+      end
+
+      it "should set reversed from delivered" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.delivering
+        order_with_payment.delivered
+        order_with_payment.reversed
+        order_with_payment.reversed?.should be_true
+      end
+
+      it "should set reversed from not_delivered" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.delivering
+        order_with_payment.not_delivered
+        order_with_payment.reversed
+        order_with_payment.reversed?.should be_true
+      end
+    end
+
+    context 'to refunded' do
+      it "should set refunded from under_review" do
+        order_with_payment.authorized
+        order_with_payment.under_review
+        order_with_payment.refunded
+        order_with_payment.refunded?.should be_true
+      end
+
+      it "should set refunded from picking" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.refunded
+        order_with_payment.refunded?.should be_true
+      end
+
+      it "should set refunded from delivering" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.delivering
+        order_with_payment.refunded
+        order_with_payment.refunded?.should be_true
+      end
+
+      it "should set refunded from delivered" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.delivering
+        order_with_payment.delivered
+        order_with_payment.refunded
+        order_with_payment.refunded?.should be_true
+      end
+
+      it "should set refunded from not_delivered" do
+        order_with_payment.authorized
+        order_with_payment.picking
+        order_with_payment.delivering
+        order_with_payment.not_delivered
+        order_with_payment.refunded
+        order_with_payment.refunded?.should be_true
+      end
     end
 
     it "should set refunded" do

@@ -126,10 +126,18 @@ class Order < ActiveRecord::Base
 
     event :reversed do
       transition :under_review => :reversed, :if => :refused_order?
+      transition :picking => :reversed, :if => :refused_order?
+      transition :delivering => :reversed, :if => :refused_order?
+      transition :not_delivered => :reversed, :if => :refused_order?
+      transition :delivered => :reversed, :if => :refused_order?
     end
 
     event :refunded do
       transition :under_review => :refunded, :if => :refused_order?
+      transition :picking => :refunded, :if => :refused_order?
+      transition :delivering => :refunded, :if => :refused_order?
+      transition :not_delivered => :refunded, :if => :refused_order?
+      transition :delivered=> :refunded, :if => :refused_order?
     end
 
     event :picking do
