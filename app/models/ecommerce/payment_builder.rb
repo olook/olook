@@ -89,7 +89,7 @@ class PaymentBuilder
 
           #FIXME: trocar :loyalty_program por :invite
           #TODO: colocar creditos de loyalty e invite (o mesmo tanto), e testar a compra, com o Renato
-          total_credits = cart_service.total_discount_by_type(:credits)
+          total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
           if total_credits > 0
             credit_payment = CreditPayment.create!(
               :credit_type_id => CreditType.find_by_code!(:loyalty_program).id, 
@@ -101,6 +101,32 @@ class PaymentBuilder
             credit_payment.deliver!
             credit_payment.authorize!
           end
+
+          total_credits = cart_service.total_discount_by_type(:credits_by_invite)
+          if total_credits > 0
+            credit_payment = CreditPayment.create!(
+              :credit_type_id => CreditType.find_by_code!(:invite).id, 
+              :total_paid => total_credits, 
+              :order => order,
+              :user_id => payment.user_id,
+              :cart_id => @cart_service.cart.id)
+            credit_payment.calculate_percentage!
+            credit_payment.deliver!
+            credit_payment.authorize!
+          end
+
+          total_credits = cart_service.total_discount_by_type(:credits_by_redeem)
+          if total_credits > 0
+            credit_payment = CreditPayment.create!(
+              :credit_type_id => CreditType.find_by_code!(:redeem).id, 
+              :total_paid => total_credits, 
+              :order => order,
+              :user_id => payment.user_id,
+              :cart_id => @cart_service.cart.id)
+            credit_payment.calculate_percentage!
+            credit_payment.deliver!
+            credit_payment.authorize!
+          end          
           
           respond_with_success
         else
