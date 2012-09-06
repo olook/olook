@@ -170,12 +170,6 @@ class Payment < ActiveRecord::Base
   def reverse_order?
     order.reversed  if (order && !order.payment_rollback?)
   end
-
-  def _user
-    user = cart.try(:user)
-    user ||= order.try(:user)
-    user
-  end
   
   def calculate_percentage!
     if self.order
