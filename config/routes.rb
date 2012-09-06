@@ -240,11 +240,7 @@ Olook::Application.routes.draw do
   resource :cart, :path => 'sacola', :controller => "checkout/cart" do
     get "update_status" => "checkout/cart#update_status", :as => :update_status
     put "update_gift_wrap" => "checkout/cart#update_gift_wrap", :as => :update_gift_wrap
-    put "update_loyalty_wrap" => "checkout/cart#update_loyalty_wrap", :as => :update_loyalty_wrap
-    put "update_invite_wrap" => "checkout/cart#update_invite_wrap", :as => :update_invite_wrap
-    put "update_redeem_wrap" => "checkout/cart#update_redeem_wrap", :as => :update_redeem_wrap
     put "update_credits" => "checkout/cart#update_credits", :as => :update_credits
-    delete "remove_credits" => "checkout/cart#remove_credits", :as => :remove_credits
     put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
     delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
 
