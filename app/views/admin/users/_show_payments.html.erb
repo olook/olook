@@ -6,6 +6,7 @@
     <th>Valor</th>
     <th>Porcentagem</th>
     <th>Classificação</th>
+    <th>Estado</th>    
     <th>Mensagem</th>
     <th>Data</th>
   </tr>
@@ -17,6 +18,7 @@
     <td><%= number_to_currency payment.total_paid %></td>
     <td><%= number_to_percentage payment.percent, :precision => 2 %></td>
     <td><%= payment.gateway_status_reason %></td>
+    <td><%= payment.state %></td>
     <td><%= payment.gateway_message %></td>
     <td><%= payment.created_at.to_s(:short) %></td>
   </tr>

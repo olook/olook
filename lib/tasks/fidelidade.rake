@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 namespace :fidelidade do
+  #WHEN STARTS: http://grooveshark.com/#!/s/Vamonos+Muchachos/4wc1Qh?src=5
+  
   desc 'Create Credit Types'
   task :create => :environment do
     LoyaltyProgramCreditType.create :code => "loyalty_program" 
