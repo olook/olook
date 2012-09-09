@@ -1295,6 +1295,52 @@ div#modal {
   }
 }
 
+div.credit_details {
+  width: 460px;
+  padding: 10px 20px;
+  display: none;
+  > a {
+    color: $pink;
+    outline: none;
+    padding-bottom: 10px;
+  }
+  table {
+    width: 100%;
+    margin: 0 0 5px;
+    border-bottom: 1px $border-color solid;
+    thead {
+      tr {
+        th {
+          font-family: $kepler;
+          font-size: 20px;
+          text-align: left;
+          padding: 5px 0;
+          &.value {
+            color: #e05789;
+            font-family: $avenir;
+            text-transform: uppercase;
+            text-align: right;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          padding: 5px 0;
+          span {
+            color: $pink;
+          }
+        }
+      }
+    }
+  }
+  &.clone {
+    display: block;
+  }
+}
+
 .mac.gecko {
   section#cart table.items_list tbody tr td.delete_item form input[type="submit"] {
     top: 10px;
