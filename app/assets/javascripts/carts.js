@@ -44,6 +44,13 @@ $(function() {
   $("#credits_credits_last_order").change(function() {
     $("#credits_last_order").submit();
   });
+
+  $("table.check tbody tr td a").live("click", function(e) {
+    clone = $('div.credit_details').clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
+    e.preventDefault();
+  });
 });
 
 
