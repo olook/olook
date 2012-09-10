@@ -44,9 +44,9 @@ Olook::Application.configure do
   config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 15.minutes, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  #config.action_controller.asset_host = Proc.new do |source, request|
-  #  request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
-  #end
+  config.action_controller.asset_host = Proc.new do |source, request|
+    request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
+  end
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
