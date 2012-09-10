@@ -123,7 +123,7 @@ describe MarketingReports::Builder do
         MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
       end
       subject.generate_userbase_with_auth_token
-      subject.csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,,,\n"
+      subject.csv.should match ",0000ref000.olook@000.monitor1.returnpath.net,,,,,,seed list,,,,,,\n"
     end
 
     it "includes delivery whatch seed email" do
@@ -132,7 +132,7 @@ describe MarketingReports::Builder do
         MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
       end
       subject.generate_userbase_with_auth_token
-      subject.csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,,,\n"
+      subject.csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,,,,\n"
     end
   end
 
