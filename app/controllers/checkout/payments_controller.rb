@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'iconv'
-class Checkout::PaymentsController < ApplicationController
+class Checkout::PaymentsController < ActionController::Base
   protect_from_forgery :except => :create
 
   def create

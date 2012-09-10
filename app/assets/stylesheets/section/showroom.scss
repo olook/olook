@@ -8,15 +8,15 @@
     overflow: auto;
     div.facebook {
       position: relative;
-      width: 640px;
+      width: 635px;
       float: left;
       h1, h2 {
-        font-family: Arial, sans-serif;
         font-size: 26px;
-        font-weight: normal;
-        letter-spacing: -2px;
+        letter-spacing: -1px;
       }
       h1 {
+        font-family: $kepler;
+        margin-bottom: 10px;
         a {
           color: #e0457e;
         }
@@ -44,8 +44,6 @@
         }
       }
       p {
-        font-family: Arial, sans-serif;
-        font-size: 14px;
         margin-bottom: 25px;
         &.connect {
           width: 600px;
@@ -69,7 +67,7 @@
           width: 120px;
           min-height: 60px;
           max-height: 120px;
-          margin: 0 18px 15px 0;
+          margin: 0 13px 15px 0;
           overflow: hidden;
           float: left;
           border-bottom: 5px #101010 solid;
@@ -85,11 +83,9 @@
         }
         h3 {
           color: #101010;
-          font-family: "Open Sans", sans-serif;
+          font-family: $johnston;
           font-size: 13px;
-          font-weight: 600;
           text-transform: uppercase;
-          letter-spacing: -1px;
           margin-bottom: 5px;
           clear: both;
         }
@@ -153,24 +149,28 @@
           }
         }
       }
+      > a {
+        color: #000;
+        margin: 5px 0 0 0;
+        display: inline-block;
+      }
     }
     div.lookbook {
-      width: 330px;
+      width: 355px;
       float: right;
       h1.title {
-        background: url('/assets/showroom/title-tendencies.jpg') no-repeat;
-        text-indent: -9999px;
-        width: 144px;
-        height: 25px;
-        margin: 0 0 10px 0;
+        font-family: $johnston;
+        font-size: 22px;
+        line-height: 26px;
+        text-transform: uppercase;
+        margin: 0 0 10px 15px;
         display: block;
       }
       div#mask_carousel_showroom {
         position: relative;
-        width: 324px;
+        width: 355px;
         height: 180px;
         overflow: hidden;
-        border-bottom: 2px #d05582 solid;
         .carousel-prev, .carousel-next {
           position: absolute;
           background: url("/assets/showroom/arrows.png") no-repeat;
@@ -183,11 +183,11 @@
         }
         .carousel-prev {
           background-position: 0 0;
-          left: 10px;
+          left: 20px;
         }
         .carousel-next {
           background-position: -38px 0;
-          right: 10px;
+          right: 20px;
         }
         ul {
           position: relative;
@@ -205,19 +205,20 @@
             }
             a.video_link {
               position: absolute;
-              background: image-url("common/label-lookbook-video.jpg") no-repeat;
+              background: image-url("common/label-lookbook-video.png") no-repeat;
               color: #FFF;
-              font-family: "Pontano Sans", sans-serif;
+              font-family: $johnston;
               font-size: 12px;
-              line-height: 34px;
+              font-weight: normal;
+              line-height: 26px;
               text-decoration: none;
               text-transform: uppercase;
-              width: 115px;
+              width: 123px;
               height: 33px;
-              padding: 0 0 0 35px;
+              padding: 0 0 0 32px;
               display: block;
-              top: 10px;
-              right: 0;
+              top: 0;
+              right: -15px;
               z-index: 100;
             }
             a.item {
@@ -234,11 +235,10 @@
                 position: absolute;
                 background: url("/assets/lookbooks/bg-title.png") repeat;
                 color: #FFF;
-                font-family: Times;
-                font-size: 29px;
-                font-style: italic;
-                font-weight: normal;
-                letter-spacing: -2px;
+                font-family: $kepler;
+                font-size: 24px;
+                font-weight: lighter;
+                letter-spacing: -1px;
                 width: 304px;
                 margin: 0;
                 padding: 5px 10px;
@@ -252,17 +252,15 @@
     }
   }
   section.container_product {
-    background: url('/assets/showroom/border-top-product.png') 170px 26px no-repeat;
+    background: url('/assets/showroom/border-top-product.png') 170px 15px no-repeat;
     width: 100%;
     margin-bottom: 20px;
     overflow: auto;
     h1.title {
       background: #FFF;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 40px;
+      font-family: $johnston;
+      font-size: 28px;
       font-weight: normal;
-      font-style: italic;
-      letter-spacing: -3px;
       text-transform: uppercase;
       padding: 0 20px 0 0;
       margin-bottom: 20px;
@@ -289,14 +287,14 @@
       }
       a.more {
         position: absolute;
-        background: #df5a8b;
+        background: #000 url('/assets/showroom/bg-plus.jpg') 8px 9px no-repeat;
         color: #FFF;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
+        font-family: $avenir;
+        font-size: 12px;
         text-decoration: none;
         text-transform: uppercase;
-        line-height: 34px;
-        padding: 0 20px;
+        line-height: 33px;
+        padding: 0 15px 0 30px;
         display: block;
         bottom: 0;
         right: 0;

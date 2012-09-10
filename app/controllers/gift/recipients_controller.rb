@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Gift::RecipientsController < Gift::BaseController
+  layout 'gift'
+
   before_filter :load_recipient
 
   def edit

@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Gift::SurveyController < Gift::BaseController
+  layout 'gift'
+
   before_filter :load_recipient
-  
+
   def new
     if @gift_recipient
       @questions = Question.from_gift_survey
@@ -20,9 +22,9 @@ class Gift::SurveyController < Gift::BaseController
       redirect_to new_gift_survey_path
     end
   end
-  
+
   private
-  
+
   def load_recipient
     @gift_recipient = GiftRecipient.find(session[:recipient_id]) if session[:recipient_id].present?
   end

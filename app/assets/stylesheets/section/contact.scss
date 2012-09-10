@@ -1,32 +1,33 @@
 body {
-  background: url("/assets/contact/bg-content.jpg") top center no-repeat;
   #error_explanation {
     width: 460px;
   }
   div#contact_content {
-    width: 370px;
+    width: 405px;
     height: 455px;
     margin: 25px 20px 0 0;
     float: left;
     h1 {
-      background: url("/assets/contact/title-get-in-touch.png") no-repeat;
-      text-indent: -9999px;
-      width: 264px;
-      height: 24px;
+      font-family: "johnston", Arial, sans-serif;
+      font-weight: lighter;
+      text-transform: uppercase;
       margin: 0 0 15px 0;
       display: block;
     }
+    h2 {
+      font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
+      font-size: 16px;
+      margin: 0 0 27px 0;
+    }
     p {
-      font-size: 13px;
       margin: 0 0 20px 0;
       &.time {
-        font-weight: bold;
-        text-align: center;
+        color: #101010;
       }
     }
     ul {
       background: #FFF;
-      width: 340px;
+      width: 365px;
       overflow: hidden;
       margin: 0 0 10px 0;
       padding: 2px 12px;
@@ -96,8 +97,6 @@ body {
             z-index: 0;
           }
           label {
-            font-size: 13px;
-            font-weight: bold;
             text-align: right;
             line-height: 35px;
             width: 80px;
@@ -128,10 +127,10 @@ body {
       }
       &.buttons {
         input[type="submit"] {
-          background: url("/assets/contact/bt-send-message.png") no-repeat;
+          background: url("/assets/contact/bt-send-message.jpg") no-repeat;
           text-indent: -9999px;
-          width: 196px;
-          height: 43px;
+          width: 206px;
+          height: 49px;
           display: block;
           border: none;
           cursor: pointer;

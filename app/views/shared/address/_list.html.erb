@@ -2,12 +2,12 @@
 <% if addresses.any? %>
   <% addresses.each do |address| %>
     <li class="address_item">
-      <p><strong><%= address.identification %></strong></p>
+      <p><span><%= address.identification %></span></p>
       <p><%= "#{address.street}, #{address.number}" %><%= address.complement? ? ", #{address.complement}" : "" %></p>
       <p><%= "#{address.neighborhood} - #{address.zip_code}" %></p>
       <p><%= "#{address.city}, #{address.state}" %></p>
       <ul class="links">
-        <li><%= link_to "Editar endereço", my_account == true ? edit_user_address_path(address) : edit_cart_checkout_address_path(address) %></li>
+        <li><%= link_to "Editar endereço", (my_account == true ? edit_user_address_path(address) : edit_cart_checkout_address_path(address)), :class => 'edit' %></li>
         <% unless my_account == true %>
         <li class="address"><%= link_to "Escolher este endereço", cart_checkout_address_assign_address_path(address), :class => "select_address" %></li>
         <% end %>
@@ -16,6 +16,6 @@
   <% end %>
 <% end %>
 <li class="address_item add">
-  <%= link_to "Clique aqui para adicionar um novo endereço", my_account == true ? new_user_address_path : new_cart_checkout_address_path %>
+  <%= link_to "Clique aqui para adicionar<br /> um novo endereço".html_safe, my_account == true ? new_user_address_path : new_cart_checkout_address_path %>
 </li>
 </ol>

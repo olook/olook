@@ -9,6 +9,8 @@
               <div class="picture">
                 <% if [7400, 7111, 7375, 7893, 7071, 7011, 7077, 6955, 6430, 7777, 7707, 6578, 7755, 7641].include? @product.id %>
                   <%= image_tag "/assets/stylist/didi_wagner.jpg", :title => "Didi Wagner" %>
+                <% elsif [8312, 8303, 7803, 6592, 6610].include? @product.id %>
+                  <%= image_tag "/assets/stylist/andre_lima.jpg", :title => "André Lima" %>
                 <% else %>
                   <%= image_tag "/assets/stylist/helena_linhares/foto.jpg", :title => "Helena Linhares" %>
                 <% end %>

@@ -8,7 +8,7 @@
 
   <% moment_presenter.moment.catalog.subcategories(Category::SHOE).each do |subcategory,label| %>
     <li>
-      <%= check_box_tag('shoe_subcategories[]', subcategory, params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory), :id => subcategory) %>
+      <%= check_box_tag('shoe_subcategories[]', subcategory, params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory) || params[:select_all_shoes], :id => subcategory) %>
       <%= label_tag(label, nil, :for => subcategory) %>
     </li>
   <% end %>
