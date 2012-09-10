@@ -96,7 +96,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price
-    if (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.7))
+    if (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8))
       price_markdown(:promotion_price) + promotion_explanation
     elsif product.promotion? #discount
       price_markdown(:retail_price)
@@ -108,8 +108,8 @@ class ProductPresenter < BasePresenter
   private
 
   def price_markdown discount_method
-    price_markup(product.price, "price_retail", "de: ") +
-    price_markup(product.send(discount_method), "price", "por: ")
+    price_markup(product.price, "price_retail left", "de: ") +
+    price_markup(product.send(discount_method), "price left", "por: ")
   end
 
   def price_markup price, css_class, prefix=nil

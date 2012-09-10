@@ -1,0 +1,50 @@
+@import 'partials/mixins';
+
+section#our_essence {
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+  h1 {
+    font-family: $johnston;
+    font-size: 26px;
+    text-transform: uppercase;
+    margin: 0 0 40px;
+  }
+  div.description {
+    width: 565px;
+    margin: 0 90px 0 0;
+    float: left;
+    p {
+      color: $third_color;
+      font-size: 18px;
+      font-weight: lighter;
+      text-align: justify;
+      margin: 0 0 37px;
+      span {
+        font-family: $kepler;
+        font-size: 19px;
+      }
+    }
+  }
+  div.logo_definition {
+    background: image-url('common/heart.jpg') bottom center no-repeat;
+    color: #000;
+    width: 290px;
+    text-align: center;
+    padding: 0 0 55px;
+    float: left;
+    h2 {
+      font-family: $kepler;
+      font-size: 26px;
+      margin: 0 0 20px;
+    }
+    img {
+      margin: 0 0 40px;
+    }
+    p {
+      font-family: $kepler;
+      font-size: 16px;
+      margin: 0 0 35px;
+    }
+  }
+}

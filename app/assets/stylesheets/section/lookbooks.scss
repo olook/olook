@@ -4,20 +4,17 @@
 section#lookbooks {
   width: 100%;
   padding: 20px 0;
-  overflow: auto;
   h1.lookbook_title {
-    font-family: Times, "Times New Roman";
+    font-family: $kepler;
     font-size: 40px;
-    font-style: italic;
-    font-weight: normal;
-    letter-spacing: -4px;
+    font-weight: lighter;
+    letter-spacing: -1px;
     margin: 0 0 15px 10px;
   }
   div#carousel_lookbooks {
     position: relative;
     width: 970px;
-    height: 182px;
-    margin: 0 auto 15px auto;
+    margin: 0 0 40px;
     overflow: hidden;
     .prev-lookbook, .next-lookbook {
       position: absolute;
@@ -25,7 +22,6 @@ section#lookbooks {
       text-indent: -9999px;
       width: 38px;
       height: 38px;
-      display: block;
       top: 70px;
       z-index: 1;
       cursor: pointer;
@@ -57,23 +53,41 @@ section#lookbooks {
           img {
             width: 318px;
             height: 180px;
-            border-bottom: 2px #D05582 solid;
           }
           h1 {
             position: absolute;
             background: url("/assets/lookbooks/bg-title.png") repeat;
             color: #FFF;
-            font-family: Times;
-            font-size: 29px;
-            font-style: italic;
-            font-weight: normal;
-            letter-spacing: -2px;
+            font-family: $kepler;
+            font-size: 24px;
+            font-weight: lighter;
+            letter-spacing: -1px;
             width: 298px;
             margin: 0;
             padding: 5px 10px;
             left: 0;
-            bottom: 5px;
+            bottom: 4px;
           }
+        }
+      }
+    }
+    .pagination {
+	  text-align: center;
+      height: auto;
+      margin: 10px 0 0;
+      a {
+        background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
+        width: 13px;
+        height: 13px;
+        margin: 0 10px 0 0;
+        padding: 0;
+        display: inline-block;
+        &.selected {
+          background-position: 0 0;
+          cursor: default;
+        }
+        span {
+          display: none;
         }
       }
     }
@@ -82,24 +96,24 @@ section#lookbooks {
   div#carousel_lookbooks_product {
     position: relative;
     width: 970px;
-    height: 551px;
-    margin: 0 auto 35px auto;
-    overflow: hidden;
+    height: 565px;
+    margin: 0 0 35px;
     a.video_link {
       position: absolute;
-      background: image-url("lookbooks/label_video.jpg") no-repeat;
+      background: image-url("lookbooks/label_video.png") no-repeat;
       color: #FFF;
-      font-family: "Pontano Sans", sans-serif;
-      font-size: 14px;
-      line-height: 38px;
+      font-family: $johnston;
+      font-size: 12px;
+      font-weight: 100;
+      line-height: 26px;
       text-decoration: none;
       text-transform: uppercase;
-      width: 132px;
-      height: 38px;
-      padding: 0 0 0 43px;
+      width: 122px;
+      height: 33px;
+      padding: 0 0 0 32px;
       display: block;
-      top: 10px;
-      right: 0;
+      top: 0;
+      right: -13px;
       z-index: 1000;
     }
     div.video_description {
@@ -114,7 +128,6 @@ section#lookbooks {
       text-indent: -9999px;
       width: 60px;
       height: 551px;
-      display: block;
       top: 0;
       z-index: 100;
       cursor: pointer;
@@ -147,7 +160,27 @@ section#lookbooks {
         img {
           width: 970px;
           height: 549px;
-          border-bottom: 2px #D05582 solid;
+        }
+      }
+    }
+    .pagination {
+	  text-align: center;
+      width: 100%;
+      height: auto;
+      margin: 10px 0 0;
+      a {
+        background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
+        width: 13px;
+        height: 13px;
+        margin: 0 10px 0 0;
+        padding: 0;
+        display: inline-block;
+        &.selected {
+          background-position: 0 0;
+          cursor: default;
+        }
+        span {
+          display: none;
         }
       }
     }

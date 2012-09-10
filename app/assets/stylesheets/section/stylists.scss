@@ -1,3 +1,5 @@
+@import 'partials/mixins';
+
 section#stylist {
   padding-top: 35px;
 
@@ -9,8 +11,8 @@ section#stylist {
       background: url("/assets/stylist/stylist.jpg") top center no-repeat;
       text-indent: -9999px;
       width: 990px;
-      height: 75px;
-      margin: 0 0 40px 0;
+      height: 49px;
+      margin: 0 0 95px 0;
       display: block;
     }
     img.models {
@@ -19,24 +21,29 @@ section#stylist {
     }
     div.description {
       font-size: 14px;
-      width: 380px;
+      width: 420px;
       margin: 0 20px 0 0;
       overflow: auto;
       float: left;
       h1, h2 {
-        font-family: Times, 'Times New Roman', "sans-serif";
+        font-family: $johnston;
         font-weight: lighter;
         letter-spacing: -2px;
+        text-transform: uppercase;
         width: 215px;
         float: left;
       }
       h1 {
-        font-size: 52px;
-        line-height: 45px;
+        font-size: 50px;
+        line-height: 37px;
         margin: 50px 0 10px 0;
+        &+p {
+          font-family: $kepler;
+          font-size: 15px;
+        }
         span {
-          font-size: 65px;
-          font-style: italic;
+          font-family: $avenir;
+          font-size: 42px;
         }
       }
       h2 {
@@ -47,12 +54,8 @@ section#stylist {
         }
       }
       h3 {
-        font-family: Arial, "sans-serif";
-        font-size: 14px;
-        font-weight: bold;
-        &+p {
-          font-style: italic;
-        }
+        font-family: $kepler;
+        font-size: 17px;
       }
       p {
         margin: 0 0 15px 0;
@@ -68,7 +71,7 @@ section#stylist {
       position: relative;
       overflow: visible;
       margin-right: 30px;
-      border: 1px #bcbec0 solid;
+      border: 1px #ddd solid;
       display: block;
       float: right;
       h1 {
@@ -84,8 +87,11 @@ section#stylist {
         letter-spacing: -1px;
         display: block;
         p {
-          font-family: Verdana, "sans-serif";
+          font-family: $avenir;
           font-size: 13px;
+          line-height: normal;
+          letter-spacing: 0;
+          text-transform: uppercase;
           &.price {
             font-style: normal;
           }
@@ -93,186 +99,145 @@ section#stylist {
       }
     }
     &#helena {
-      padding: 18px 0 0 0;
+      padding: 18px 0 20px 0;
       div.description {
         background: url("/assets/stylist/helena_linhares/foto.jpg") top right no-repeat;
         h1 {
-          margin: 60px 0 20px 0;
+          margin: 0 0 8px 0;
           &+p {
-            width: 215px;
+            width: 250px;
           }
         }
       }
       div.products {
-        width: 530px;
-        height: 505px;
+        width: 463px;
+        height: 528px;
         h1 {
           background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
-          width: 150px;
-          height: 50px;
-          top: 190px;
-          left: 15px;
-          z-index: 10;
-        }
-        a#espora {
-          background: url("/assets/stylist/helena_linhares/espora.jpg") top right no-repeat;
-          width: 98px;
-          height: 60px;
-          top: 0;
-          left: 10px;
-          padding: 95px 35px 0px 0px;
-        }
-        a#caribe {
-          background: url("/assets/stylist/helena_linhares/caribe.jpg") center left no-repeat;
-          text-align: center;
-          width: 123px;
-          height: 138px;
-          top: 0px;
-          left: 170px;
-          padding: 90px 0 0px 0px;
-          z-index: 10;
-        }
-        a#erva_mate {
-          background: url("/assets/stylist/helena_linhares/erva-mate.png") top right no-repeat;
-          text-align: right;
-          width: 69px;
-          height: 162px;
-          top: -18px;
-          right: 7px;
-          padding: 25px 140px 0px 0;
-        }
-        a#anis {
-          background: url("/assets/stylist/helena_linhares/anis.jpg") bottom right no-repeat;
-          text-align: right;
-          width: 157px;
-          height: 82px;
+          width: 185px;
+          height: 56px;
           top: 175px;
-          right: 20px;
-          padding: 0px 0px 35px 0;
+          right: 15px;
+          z-index: 10;
+        }
+        a#bilimbi {
+          background: url("/assets/stylist/helena_linhares/bilimbi.jpg") top center no-repeat;
+          text-align: center;
+          width: 139px;
+          height: 160px;
+          padding: 20px 0 0 0;
+          top: 0;
+          left: 20px;
+        }
+        a#albizia {
+          background: url("/assets/stylist/helena_linhares/albizia.png") top right no-repeat;
+          width: 224px;
+          height: 125px;
+          padding: 45px 0 0 20px;
+          top: -18px;
+          right: 0;
+        }
+        a#flamboyant {
+          background: url("/assets/stylist/helena_linhares/flamboyant.jpg") bottom left no-repeat;
+          text-align: right;
+          width: 230px;
+          height: 81px;
+          padding: 0 0 22px 5px;
+          top: 180px;
+          left: 10px;
           z-index: 2;
         }
-        a#alamanda {
-          background: url("/assets/stylist/helena_linhares/alamanda.jpg") top right no-repeat;
-          text-align: right;
-          width: 60px;
-          height: 190px;
-          bottom: 0;
-          right: 20px;
-          padding: 10px 85px 0px 0px;
+        a#cipreste {
+          background: url("/assets/stylist/helena_linhares/cipreste.jpg") top right no-repeat;
+          width: 160px;
+          height: 102px;
+          padding: 60px 20px 0 0;
+          top: 260px;
+          left: 170px;
           z-index: 1;
         }
-        a#rosa_branca {
-          background: url("/assets/stylist/helena_linhares/rosa_branca.jpg") top center no-repeat;
-          text-align: center;
-          width: 93px;
-          height: 0;
-          bottom: 5px;
-          right: 195px;
-          padding: 127px 0px 35px 0px;
-          z-index: 1;
-        }
-        a#iris {
-          background: url("/assets/stylist/helena_linhares/iris.jpg") bottom center no-repeat;
-          text-align: center;
-          width: 230px;
+        a#pequi {
+          background: url("/assets/stylist/helena_linhares/pequi.jpg") top left no-repeat;
+          width: 205px;
           height: 75px;
-          top: 235px;
-          left: 100px;
-          padding: 0px 0px 10px 0px;
-          z-index: 1;
+          padding: 110px 0 0 20px;
+          bottom: 0px;
+          left: 0px;
         }
-        a#gardenia {
-          background: url("/assets/stylist/helena_linhares/gardenia.jpg") top right no-repeat;
-          text-align: right;
-          width: 163px;
-          height: 141px;
-          bottom: 10px;
-          left: 15px;
-          padding: 35px 15px 0px 0px;
+        a#juazeiro {
+          background: url("/assets/stylist/helena_linhares/juazeiro.png") top right no-repeat;
+          width: 179px;
+          height: 101px;
+          padding: 140px 60px 0 0;
+          bottom: -20px;
+          right: -25px;
         }
       }
     }
     &#didi_wagner {
       div.description {
-        width: 370px;
-        margin: 0;
-        display: block;
+        background: url("/assets/stylist/didi_wagner/foto.jpg") top right no-repeat;
         h1 {
-          font-size: 45px;
-          width: 215px;
-          margin: 15px 0 25px 0;
-          float: left;
-        }
-        p {
-          clear: none;
-          img {
-            margin: 0 0 0 10px;
-            float: right;
+          margin: 0 0 8px 0;
+          &+p {
+            width: 245px;
           }
         }
       }
       div.products {
-        width: 530px;
-        height: 500px;
+        width: 463px;
+        height: 488px;
         h1 {
           background: url("/assets/stylist/didi_wagner/as-escolhas-da-didi.jpg") no-repeat;
-          width: 163px;
-          height: 86px;
-          top: 40px;
-          left: 225px;
+          width: 259px;
+          height: 71px;
+          top: 100px;
+          right: 20px;
         }
-        a#flor_do_dia {
-          background: url("/assets/stylist/didi_wagner/flor-do-dia.png") top right no-repeat;
-          width: 195px;
-          height: 145px;
-          top: -25px;
-          left: 20px;
-          padding: 65px 0 0;
-        }
-        a#petunia {
-          background: url("/assets/stylist/didi_wagner/petunia.jpg") top center no-repeat;
+        a#araucaria {
+          background: url("/assets/stylist/didi_wagner/araucaria.png") top center no-repeat;
           text-align: center;
-          width: 123px;
-          height: 223px;
+          width: 162px;
+          height: 142px;
           top: 0;
-          right: 0px;
-          padding: 20px 0 0 0;
+          left: -12px;
+          padding: 90px 0 0;
+        }
+        a#araca {
+          background: url("/assets/stylist/didi_wagner/araca.png") top right no-repeat;
+          width: 237px;
+          height: 90px;
+          top: -25px;
+          right: 10px;
+          padding: 35px 10px 0 0;
+        }
+        a#macieira {
+          background: url("/assets/stylist/didi_wagner/macieira.png") top center no-repeat;
+          text-align: center;
+          width: 143px;
+          height: 35px;
+          top: 200px;
+          right: 130px;
+          padding: 55px 0 0;
           z-index: 1;
         }
-        a#central {
-          background: url("/assets/stylist/didi_wagner/central.png") bottom center no-repeat;
-          text-align: center;
-          width: 191px;
-          height: 118px;
-          bottom: 20px;
-          right: -5px;
-          padding: 0 0 40px 0px;
-        }
-        a#botao_de_ouro {
-          background: url("/assets/stylist/didi_wagner/botao-de-ouro.jpg") top center no-repeat;
-          text-align: center;
-          width: 147px;
-          height: 35px;
-          bottom: 40px;
-          left: 195px;
-          padding: 145px 0px 0px;
-        }
-        a#laranjeira {
-          background: url("/assets/stylist/didi_wagner/laranjeira.jpg") bottom right no-repeat;
+        a#abrico {
+          background: url("/assets/stylist/didi_wagner/abrico.jpg") bottom left no-repeat;
           text-align: right;
-          width: 236px;
-          height: 83px;
-          bottom: 235px;
-          left: 140px;
-          padding: 0 25px 35px 0px;
+          width: 209px;
+          height: 208px;
+          bottom: 0;
+          right: 5px;
+          padding: 0 0 0;
         }
-        a#cipreste {
-          background: url("/assets/stylist/didi_wagner/cipreste.jpg") top right no-repeat;
-          width: 179px;
-          height: 239px;
-          bottom: 10px;
+        a#azinheira {
+          background: url("/assets/stylist/didi_wagner/azinheira.jpg") top left no-repeat;
+          text-align: right;
+          width: 207px;
+          height: 160px;
+          bottom: 0;
           left: 10px;
-          padding: 0 10px 0 0;
+          padding: 45px 0 0;
         }
       }
     }

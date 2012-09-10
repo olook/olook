@@ -4,17 +4,14 @@
 
 body {
   #survey {
-    height: 550px;
-    overflow: hidden;
-
     .jcarousel-container {
       width: 990px;
-      height: 500px;
+      //height: 500px;
     }
 
     .jcarousel-clip {
       width: 990px;
-      height: 500px;
+      //height: 500px;
       overflow: hidden;
     }
 
@@ -33,7 +30,7 @@ body {
 
     .jcarousel-prev {
       position: absolute;
-      top: 190px;
+      top: 245px;
 
       &:hover {
         background: url('/assets/quiz/previous_btn.gif') -42px 0 no-repeat;
@@ -71,38 +68,41 @@ body {
               width: 738px;
             }
             li {
+              position: relative;
               width: 206px;
               height: 400px;
               margin: 0 20px;
+              div.shadow {
+                position: absolute;
+                background: #efefef;
+                width: 206px;
+                height: 320px;
+                display: block;
+                margin: 0;
+                top: 64px;
+                left: 15px;
+                z-index: 1;
+              }
               label {
                 position: relative;
+                background: #FFF;
                 width: 206px;
                 height: 314px;
+                padding: 5px;
                 display: block;
-                div.shadow {
-                  position: absolute;
-                  background: #c6c6c6;
-                  width: 206px;
-                  height: 315px;
-                  display: block;
-                  margin: 0;
-                  top: 5px;
-                  left: 5px;
-                  z-index: 0;
-                }
+                border: 1px #e5e5e5 solid;
+                z-index: 100;
               }
               &:hover, &.selected {
                 color: rgb(189, 76, 116);
                 img {
                   cursor: pointer;
                 }
-                h3 {
-                  color: $pink;
+                div.shadow {
+                  background: #efefef;
                 }
                 label {
-                  div.shadow {
-                    background: $pink;
-                  }
+                  border: 1px #000 solid;
                 }
               }
             }
@@ -113,7 +113,7 @@ body {
 
             ol {
               &.options {
-                width: 884px;
+                width: 895px;
                 padding-left: 50px;
                 height: 500px;
               }
@@ -121,21 +121,19 @@ body {
                 width: 201px;
                 height: 285px;
                 margin: 0 10px;
+                div.shadow {
+                  position: absolute;
+                  height: 285px;
+                  display: block;
+                  top: 61px;
+                  left: 13px;
+                  z-index: 0;
+                }
                 label {
                   position: relative;
                   width: 204px;
                   height: 276px;
                   display: block;
-                  div.shadow {
-                    position: absolute;
-                    background: #c6c6c6;
-                    width: 204px;
-                    height: 276px;
-                    display: block;
-                    top: 5px;
-                    left: 5px;
-                    z-index: 0;
-                  }
                 }
                 img {
                   border: 1px solid #E9E9E9;
@@ -148,7 +146,7 @@ body {
                   }
                   label {
                     div.shadow {
-                      background: $pink;
+                      background: $secondary_color;
                     }
                   }
                 }
@@ -176,7 +174,7 @@ body {
               }
               &.selected {
                 label {
-                  background: $pink;
+                  background: $secondary_color;
                 }
               }
               input[type='checkbox'] {
@@ -192,6 +190,25 @@ body {
               width: 740px;
               > li {
                 width: 700px;
+                div.box {
+                  width: 475px;
+                  margin: 0 auto 20px;
+                  padding: 20px;
+                  overflow: auto;
+                  border: 1px #dcdcdc solid;
+                  &.shoes_size {
+                    ul.question {
+                      margin: 0 0 0 11px;
+                      float: left;
+                    }
+                  }
+                  &.dress_size {
+                    ul.question {
+                      margin: 0 0 0 95px;
+                      float: left;
+                    }
+                  }
+                }
               }
             }
             h3 {
@@ -206,17 +223,9 @@ body {
               clear: both;
 
               li {
-                border: 1px solid $pink;
-                color: $pink;
+                border: 1px solid $secondary_color;
+                color: $secondary_color;
                 margin-left: 19px;
-
-                &:first-child {
-                  margin-left: 0;
-                }
-                &.selected {
-                  background: $pink;
-                  color: #FFF;
-                }
 
                 label {
                   display: block;
@@ -237,8 +246,9 @@ body {
           fieldset {
             &.select {
               position: relative;
-              width: 370px;
+              width: 280px;
               height: 35px;
+              margin: 0 auto;
               span.select {
                 position: absolute;
                 bottom: 0;
@@ -257,7 +267,7 @@ body {
                 padding: 10px 20px;
                 arrow-color: #ffffff;
                 scrollbar-arrow-color: #12406F;
-                color: $pink;
+                color: $secondary_color;
                 font-weight: bold;
 
                 &[name='day'], &[name='year'] {
@@ -313,22 +323,25 @@ body {
             }
 
             &.buttons {
-              float: right;
-              margin-top: -52px;
+              width: 100%;
+              overflow: auto;
+              clear: both;
               li {
-                background: url('/assets/common/finish.png') no-repeat;
+                background: url('/assets/common/finish.jpg') 0 0 no-repeat;
                 text-indent: -9999px;
-                width: 217px;
-                height: 71px;
+                width: 147px;
+                height: 61px;
+                margin: 0 auto;
                 display: block;
                 cursor: pointer;
+                float: none;
                 &.grey-button {
-                  background: url('/assets/common/finish-disabled.png') no-repeat;
+                  background-position: 0 -61px;
                 }
                 input[type=submit] {
                   background: none;
-                  width: 217px;
-                  height: 71px;
+                  width: 147px;
+                  height: 61px;
                   display: block;
                   border: none;
                   cursor: pointer;
@@ -468,23 +481,20 @@ body {
     display: block;
     width: 244px;
     overflow: hidden;
-    margin: -80px auto 0;
+    margin: 0 auto;
     clear: both;
 
     li {
-      background: url(/assets/common/tracker-bullet.png) left center no-repeat;
+      background: url(/assets/common/sprite-pagination.png) -13px 0 no-repeat;
       float: left;
       display: block;
-      margin: 2px 5px 0;
-      width: 10px;
-      height: 9px;
-      text-indent: -10000px;
+      margin: 0px 5px 0;
+      width: 13px;
+      height: 13px;
+      text-indent: -99999px;
 
       &.selected {
-        background-position: -10px 0;
-        margin-top: 0;
-        width: 12px;
-        height: 12px;
+        background-position: 0 0;
       }
     }
 

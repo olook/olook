@@ -7,22 +7,23 @@ class Credit < ActiveRecord::Base
 
   LIMIT_FOR_EACH_USER = BigDecimal.new("400.00")
 
-  INVITE_BONUS = BigDecimal.new("10.00")
+  INVITER_BONUS = BigDecimal.new("10.00")
+  INVITEE_BONUS = BigDecimal.new("20.00")
 
   # TO DO: Refactor this class and move these methods to CreditService class
 
   def self.add_for_invitee(invitee)
     if invitee.is_invited? && invitee.current_credit == 0
-      invitee.credits.create!(:value => INVITE_BONUS, :total => INVITE_BONUS, :source => "inviter_bonus")
+      invitee.credits.create!(:value => INVITER_BONUS, :total => INVITER_BONUS, :source => "inviter_bonus")
     end
   end
 
   def self.add_for_inviter(buyer, order)
     # TO DO: Double check to see if the credit was already gave for this order
     inviter = buyer.try(:inviter)
-    if inviter && buyer.first_buy? && inviter.has_not_exceeded_credit_limit?(INVITE_BONUS)
-      updated_total = inviter.current_credit + INVITE_BONUS
-      inviter.credits.create!(:value => INVITE_BONUS, :total => updated_total, :order => order, :source => "invitee_bonus", :reason => "#{buyer.name} first buy")
+    if inviter && buyer.first_buy? && inviter.has_not_exceeded_credit_limit?(INVITEE_BONUS)
+      updated_total = inviter.current_credit + INVITEE_BONUS
+      inviter.credits.create!(:value => INVITEE_BONUS, :total => updated_total, :order => order, :source => "invitee_bonus", :reason => "#{buyer.name} first buy")
     else
       false
     end
@@ -39,7 +40,7 @@ class Credit < ActiveRecord::Base
   end
 
   def self.add(amount, user, order)
-    if user.has_not_exceeded_credit_limit?(INVITE_BONUS)
+    if user.has_not_exceeded_credit_limit?(amount)
       updated_total = user.current_credit + amount
       user.credits.create!(:value => amount, :total => updated_total, :order => order, :source => "order_credit",
       :reason => "Order #{order.number} canceled")
