@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+<product>
+<id><%= product.id %></id>
+<title><%= product.name %></title>
+<description><%= product.description %></description>
+<category><%= product.category %></category>
+<google_product_category>Accessories &gt; Apparel</google_product_category>
+<product_type><%= product.category_humanize %></product_type>
+<link><%= product.product_url %></link>
+<image_link><%= product.pictures.last.try(:image) %></image_link>
+<additional_image_link><%= product.pictures.first.try(:image) %></additional_image_link>
+<condition>new</condition>
+<price><%= product.price %></price>
+<sale_price><%= product.retail_price %></sale_price>
+<brand>Olook</brand>
+<gender>female</gender>
+<age_group>adult</age_group>
+<% product.variants.each do |variant| %>
+<size><%= variant.display_reference %></size>
+<% end %>
+<item_group_id><%= product.id %></item_group_id>
+<color><%= product.color_name %></color>
+<shipping>
+<country>BR</country>
+<service>Standard</service>
+<price>11.42 BRL</price>
+</shipping>
+</product>
+<% end %>
+</products>
