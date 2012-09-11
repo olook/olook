@@ -840,26 +840,56 @@ body {
         margin-right: 10px;
         overflow: visible;
         float: right;
-        h2 {
-          font-size: 15px;
-          text-align: right;
-          letter-spacing: -1px;
-          span {
-            color: #6d6e71;
-            width: auto;
-            margin: 0;
-            float: none;
-          }
-          a {
-            color: #000;
-            text-decoration: none;
-            &:hover {
-              text-decoration: underline;
+        div.user {
+          float: right;
+          ul {
+            > li {
+              position: relative;
+              font-size: 15px;
+              text-align: right;
+              letter-spacing: -1px;
+              display: inline-block;
+              float: none;
+              a {
+                color: #000;
+                text-decoration: none;
+                &#info_user {
+                  background: image-url('common/arrow-down-black.jpg') center right no-repeat;
+                  color: #6d6e71;
+                  width: auto;
+                  margin: 0 5px 0 0;
+                  padding: 0 17px 0 0;
+                  float: none;
+                }
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+              div.my_account {
+                position: absolute;
+                background: #FFF;
+                padding: 5px;
+                display: none;
+                z-index: 1000;
+                ul {
+                  li {
+                    text-align: left;
+                    display: block;
+                  }
+                }
+              }
+              &:hover {
+                div.my_account {
+                  display: block;
+                }
+              }
             }
           }
         }
-        ul {
+        > ul {
           margin: 5px 0 0;
+          float: right;
+          clear: both;
           li {
             text-transform: none;
             height: auto;
