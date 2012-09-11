@@ -6,7 +6,7 @@ class Users::OrdersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @orders = @user.orders.with_payment.order('created_at DESC').page(params[:page]).per_page(8)
+    @orders = @user.orders.with_payment.uniq.order('created_at DESC').page(params[:page]).per_page(8)
   end
 
   def show
