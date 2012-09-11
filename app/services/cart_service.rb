@@ -180,6 +180,10 @@ class CartService
     order  
   end
   
+  def amount_for_loyalty_program
+    LoyaltyProgramCreditType.apply_percentage(total + total_discount_by_type(:credits_by_redeem))
+  end
+
   private
   def get_retail_price_for_item(item)
     origin = ''
