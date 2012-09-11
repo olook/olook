@@ -7,28 +7,31 @@
     <%= render "shared/my_account/menu" %>
   </div>
   <div id="data">
-    <div class="invites_list">
-      <h1><span><%= @user.invites.accepted.count %></span> amigas já se registraram. Você tem <span><%= number_to_currency(@user.current_credit) %></span> em créditos!</h1>
-      <h2>Na primeira compra de suas convidadas, você ganha mais R$10.</h2>
+    <div class="credits">
+      <h1>Resumo dos seus créditos. Você tem:
+      <h2><span><%= number_to_currency current_user.current_credit %></span> disponíveis para uso</h2>
+      <h2>R$18,36 ainda não liberados para uso</h2>
+      <p>Os créditos acumulados por compras realizadas são liberados nos 2 meses seguintes após a confirmação do pedido</p>
       <table cellpadding="0" cellspacing="0">
-        <thead>
+        <tfoot>
           <tr>
-            <th class="email">Email</th>
-            <th>Convidado em</th>
-            <th>Registrado</th>
+            <td>
+              <h1>Total de créditos</h1>
+              <p>Soma dos créditos acumulados</p>
+            </td>
+            <td class="value">R$38,36</td>
           </tr>
-        </thead>
-        <tbody>
-          <% @invites.each do |invite| %>
-            <tr>
-              <td class="email"><%= invite.email %></td>
-              <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
-              <td><%= Invite.status_for_user_invite(@user.id, invite) %></td>
-            </tr>
-          <% end %>
-        </tbody>
+          <tr>
+            <td>Créditos ainda não liberados</td>
+            <td>R$18,36</td>
+          </tr>
+          <tr>
+            <td><h1>Créditos disponíveis para uso agora</h1></td>
+            <td><span><%= number_to_currency current_user.current_credit %></span></td>
+          </tr>
+        </tfoot>
       </table>
-      <%= will_paginate @invites %>
+      <p>*A cada compra realizada, você ganha 20% em créditos (em relação ao valor do pedido) para usar nos 2 próximos meses.</p>
     </div>
   </div>
 </div>
