@@ -1,0 +1,101 @@
+@import "partials/mixins";
+
+section#loyalty {
+  padding: 20px 0 0;
+  > h1 {
+    font-family: $johnston;
+    font-size: 37px;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    &+h2 {
+      font-family: $kepler;
+      font-size: 38px;
+      margin: 0 0 15px;
+    }
+  }
+  div#left {
+    width: 465px;
+    overflow: auto;
+    float: left;
+    ul.steps {
+      margin: 0 0 40px 30px;
+      overflow: auto;
+      li {
+        font-size: 13px;
+        text-align: center;
+        width: 130px;
+        margin: 0 20px 0 0;
+        padding: 135px 0 0 0;
+        display: inline-block;
+        float: left;
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+    > h1 {
+      font-family: $avenir;
+      font-size: 24px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0 0 20px 2px;
+    }
+    ul.products {
+      margin: 0 0 0 30px;
+      li {
+        margin: 0 30px 0 0;
+        float: left;
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+  div#right {
+    width: 460px;
+    overflow: auto;
+    float: right;
+    div#credits {
+      overflow: auto;
+      margin: 0 0 60px;
+      padding: 10px 20px;
+      border: 1px #888 solid;
+      p {
+        font-size: 18px;
+        text-align: center;
+        margin: 15px auto 10px;
+      }
+      h1 {
+        font-family: $johnston;
+        font-size: 22px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      h2 {
+        color: $pink;
+        font-family: $avenir;
+        font-size: 36px;
+        text-align: center;
+        margin: 10px 0 0;
+        &+p {
+          font-size: 14px;
+        }
+      }
+      a {
+        color: #e9588a;
+        text-align: center;
+        display: block;
+      }
+    }
+    div#showroom {
+      a {
+        background: image-url('loyalty/bt-showroom.jpg') no-repeat;
+        text-indent: -99999px;
+        width: 402px;
+        height: 61px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}
