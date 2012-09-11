@@ -1,7 +1,13 @@
 # encoding: utf-8
 class LoyaltyProgramCreditType < CreditType
 
-  PERCENTAGE_ON_ORDER = 0.20
+  def self.percentage_for_order 
+    BigDecimal.new(Setting.percentage_on_order)
+  end
+
+  def self.apply_percentage(amount)
+    amount * self.percentage_for_order
+  end
   
   def credit_sum(user_credit, date, is_debit)
   	user_credits(user_credit, date, is_debit).sum(:value)
