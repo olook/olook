@@ -15,7 +15,23 @@
 
     <div id="session">
       <% if user_signed_in? %>
-        <h2>Olá, <span id="info_user"><%= current_user.name %></span>. <%= link_to "Sair", destroy_user_session_path, :method => :delete %></h2>
+        <div class="user">
+          <ul>
+            <li>Olá,</li>
+            <li class="submenu">
+              <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
+              <div class="my_account">
+                <ul>
+                  <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                  <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                  <li><%= link_to "Endereços", user_addresses_path %></li>
+                  <li><%= link_to "Meus créditos", user_credits_path %></li>
+                </ul>
+              </div>
+            </li>
+            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          </ul>
+        </div>
       <% end %>
       <ul>
         <% if user_signed_in? %>
