@@ -214,15 +214,6 @@ describe Checkout::CheckoutController do
       assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
     end
 
-    xit "should redirects to cath path with some variant unavailable" do
-      PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-      payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
-      post :create_billet
-      
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Produtos com o baixa no estoque foram removidos de sua sacola")
-    end
-    
     context "with valid payment" do
       before :each do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
@@ -291,16 +282,6 @@ describe Checkout::CheckoutController do
       assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
     end
 
-    xit "should redirects to cath path with some variant unavailable" do
-      PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
-      payment_builder.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
-      payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
-      post :create_credit_card, {:credit_card => credit_card_attributes}
-      
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Produtos com o baixa no estoque foram removidos de sua sacola")
-    end
-    
     context "with valid payment" do
       before :each do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
@@ -359,15 +340,6 @@ describe Checkout::CheckoutController do
       assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
     end
 
-    xit "should redirects to cath path with some variant unavailable" do
-      PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
-      payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Product::UNAVAILABLE_ITEMS, :payment => nil))
-      post :create_debit, {:debit => debit_attributes}
-      
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Produtos com o baixa no estoque foram removidos de sua sacola")
-    end
-    
     context "with valid payment" do
       before :each do
         PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
