@@ -24,8 +24,6 @@ class Order < ActiveRecord::Base
   has_many :payments, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
-  #has_one :used_coupon, :dependent => :destroy
-  # has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   
@@ -57,6 +55,7 @@ class Order < ActiveRecord::Base
   end
 
   state_machine :initial => :waiting_payment do
+    store_audit_trail
 
     state :delivered
     state :delivering
@@ -105,8 +104,6 @@ class Order < ActiveRecord::Base
         end
       end
     end
-
-    store_audit_trail
 
     event :authorized do
       transition :waiting_payment => :authorized, :if => :confirm_payment?
