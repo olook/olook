@@ -519,8 +519,52 @@ div#my_account {
           color: #6d6e71;
           margin: 0 0 40px;
         }
+        &+p {
+          margin: 0 0 15px;
+        }
       }
-      table {}
+      table {
+        width: 100%;
+        margin: 0 0 45px;
+        thead tr th, tfoot tr td {
+          color: #000;
+          font-family: $avenir;
+          font-size: 18px;
+          font-weight: normal;
+          text-align: left;
+        }
+        tfoot tr td {
+          color: $third_color;
+          padding-top: 20px;
+          &.value {
+            color: #e14d88;
+            font-size: 16px;
+            text-align: right;
+          }
+        }
+        tbody tr td {
+          font-size: 16px;
+          font-weight: lighter;
+          padding: 0 0 5px;
+          &.value {
+            text-align: right;
+          }
+        }
+        &.border {
+          background: image-url('common/border-table-top.jpg') top repeat-x;
+          thead tr th {
+            padding-top: 10px;
+          }
+        }
+        &+p {
+          font-size: 13px;
+          text-align: center;
+          display: block;
+          margin: 10px 0 0;
+          padding: 10px 0 0;
+          border-top: 1px #c5c5c6 solid;
+        }
+      }
     }
   }
   &.facebook {
