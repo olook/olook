@@ -135,6 +135,9 @@ class MembersController < ApplicationController
     @invites = @user.invites.page(params[:page]).per_page(15)
   end
 
+  def loyalty
+  end
+
   private
 
   def first_visit_for_member?(member)
