@@ -46,35 +46,30 @@ namespace :fidelidade do
   
   desc "Update related users and address informations"
   task :update_metadata => :environment do |task, args|
-    ActiveRecord::Base.transaction do
-      
-     Order.find_each do |order|
-       p "#{order.id}"
+    
+    Order.find_each do |order|
+      Order.transaction do
+        if order.user
+          order.update_column :user_first_name  , order.user.first_name
+          order.update_column :user_last_name   , order.user.last_name
+          order.update_column :user_email       , order.user.email
+          order.update_column :user_cpf         , order.user.cpf
+        end
 
-      if order.user
-        order.update_attributes!({
-          :user_first_name  => order.user.first_name,
-          :user_last_name   => order.user.last_name,
-          :user_email       => order.user.email,
-          :user_cpf         => order.user.cpf
-        })
-      end
-
-      if order.freight && order.freight.address
-        order.freight.update_attributes!({
-          :country      => order.freight.address.try(:country),
-          :city         => order.freight.address.try(:city),
-          :state        => order.freight.address.try(:state),
-          :complement   => order.freight.address.try(:complement),
-          :street       => order.freight.address.try(:street),
-          :number       => order.freight.address.try(:number),
-          :neighborhood => order.freight.address.try(:neighborhood),
-          :zip_code     => order.freight.address.try(:zip_code),
-          :telephone    => order.freight.address.try(:telephone)
-          })
+        if order.freight && order.freight.address
+          order.update_column :country     , order.freight.address.try(:country)
+          order.update_column :city        , order.freight.address.try(:city)
+          order.update_column :state       , order.freight.address.try(:state)
+          order.update_column :complement  , order.freight.address.try(:complement)
+          order.update_column :street      , order.freight.address.try(:street)
+          order.update_column :number      , order.freight.address.try(:number)
+          order.update_column :neighborhood, order.freight.address.try(:neighborhood)
+          order.update_column :zip_code    , order.freight.address.try(:zip_code)
+          order.update_column :telephone   , order.freight.address.try(:telephone)
         end
       end
-    end 
+    end
+    
   end
   
   desc "Update Moip Callbacks -> one way"
