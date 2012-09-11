@@ -841,6 +841,7 @@ body {
         overflow: visible;
         float: right;
         div.user {
+          margin: 0 0 10px;
           float: right;
           ul {
             > li {
@@ -901,7 +902,6 @@ body {
               text-decoration: none;
               margin: 0;
               padding: 5px 10px;
-              border: 2px #FFF solid;
               display: block;
               &:hover {
                 text-decoration: underline;
@@ -929,98 +929,6 @@ body {
                 margin: 0;
               }
             }
-            &.credits {
-              border-left: none;
-              & > a {
-                position: relative;
-                background: #FFF;
-                z-index: 100;
-                p {
-                  span {
-                    background: url('/assets/gift/arrow-pink.png') center right no-repeat;
-                    padding-right: 14px;
-                    color: #e05789;
-                    font-size: 14px;
-                    width: auto;
-                    margin: 0;
-                    float: none;
-                  }
-                }
-                &:hover, &.hover {
-                  color: #212121;
-                  text-decoration: none;
-                  border-top: 2px #000 solid;
-                  border-left: 2px #000 solid;
-                  border-right: 2px #000 solid;
-                }
-              }
-              div#credits_info {
-                position: absolute;
-                background: #FFF;
-                width: 320px;
-                overflow: auto;
-                padding: 10px 10px 20px;
-                display: none;
-                top: 58px;
-                left: 0;
-                border: 2px #000 solid;
-                z-index: 99;
-                div.block {
-                  text-align: center;
-                  width: 100%;
-                  margin: 0 0 10px 0;
-                  padding-bottom: 10px;
-                  overflow: auto;
-                  border-bottom: 1px #CCC solid;
-                  h2 {
-                    font-family: $kepler;
-                    font-size: 18px;
-                    letter-spacing: 0;
-                    text-align: inherit;
-                    margin: 0 0 15px;
-                  }
-                  h3 {
-                    font-family: $kepler;
-                    font-size: 22px;
-                    text-align: inherit;
-                  }
-                  p {
-                    color: #000;
-                    margin: 0 0 10px;
-                    &.money {
-                      font-size: 20px;
-                      span {
-                        color: #E05789;
-                        font-size: inherit;
-                        width: auto;
-                        margin: 0;
-                        float: none;
-                      }
-                    }
-                  }
-                  + p {
-                    color: #333;
-                    font-size: 14px;
-                    line-height: 15px;
-                    text-align: center;
-                    margin: 0 auto 20px;
-                    width: 310px;
-                  }
-                }
-                a {
-                  color: #E05789;
-                  text-align: center;
-                  width: 205px;
-                  margin: 0 auto;
-                  padding: 0;
-                }
-              }
-              &:hover {
-                div#credits_info {
-                  display: block;
-                }
-              }
-            }
             &.login {
               padding: 0;
               float: right;
@@ -1033,12 +941,10 @@ body {
             }
             &.first {
               border-left: none;
-              a {
-                color: #E05789;
-              }
             }
             &.last {
               a {
+                color: #E05789;
                 margin-right: 0;
                 padding-right: 0;
               }

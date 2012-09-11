@@ -161,7 +161,6 @@ class Payment < ActiveRecord::Base
     order.canceled if (order && !order.payment_rollback?)
   end
 
-  #TODO: sempre responde true; Ele tem de checar se todos os outros pagamentos estao como authorized
   def authorize_order?
     order.authorized
     true
