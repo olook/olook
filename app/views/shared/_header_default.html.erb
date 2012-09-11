@@ -35,17 +35,8 @@
       <% end %>
       <ul>
         <% if user_signed_in? %>
-          <% if current_user.has_credit? %>
-            <li class="credits">
-              <%= link_to "#" do %>
-                <p>Créditos: <span><%= number_to_currency(current_user.current_credit) %></span></p>
-              <% end %>
-              <%= render 'shared/credits_info' %>
-            </li>
-          <% else %>
-            <li class="first"><%= link_to "Ganhe créditos!", member_invite_path, :class => "invite" %></li>
-          <% end %>
-          <li><%= link_to "Minha conta", user_orders_path %></li>
+          <li class="first"><%= link_to "Fidelidade Olook", member_loyalty_path %></li>
+          <li class="last"><%= link_to "Ganhe créditos!", member_invite_path, :class => "invite" %></li>
         <% else %>
           <li class="login">
             <p>Já faz parte? <%= link_to "Faça seu login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %></p>
