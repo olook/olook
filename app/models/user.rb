@@ -288,7 +288,6 @@ class User < ActiveRecord::Base
   def initialize_user
     Resque.enqueue(SignupNotificationWorker, self.id)
     self.add_event(EventType::SIGNUP)
-    #Credit.add_for_invitee(self)
     UserCredit.add_for_invitee(self)
     self.reset_authentication_token!
   end
