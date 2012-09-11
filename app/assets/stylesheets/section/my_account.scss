@@ -500,49 +500,27 @@ div#my_account {
     }
   }
   &.my_credits {
-    div.invites_list {
+    div.credits {
       margin: 30px 0 0 10px;
-      h1, h2 {
-        font-family: $avenir;
-        font-size: 20px;
-        font-weight: normal;
+      h1 {
+        font-family: $johnston;
+        font-size: 22px;
+        text-transform: uppercase;
         margin: 0 0 10px;
-        span {
-          color: #e05789;
-        }
       }
       h2 {
-        font-size: 15px;
-        margin: 0 0 20px 0;
-        padding: 0 0 10px 0;
-      }
-      table {
-        width: 735px;
-        margin: 0 auto 30px auto;
-        a {
-          color: #df5a8b;
+        font-family: $avenir;
+        font-size: 22px;
+        font-weight: lighter;
+        span {
+          color: #e95789;
         }
-        thead tr th {
-          background: image-url('my_account/bg-table-top-bottom.jpg') top repeat-x;
-          color: #000;
-          font-family: $avenir;
-          font-size: 16px;
-          font-weight: lighter;
-          text-align: center;
-          padding: 13px 0px;
-          &.email {
-            text-align: left;
-          }
-        }
-        tbody tr td {
-          text-align: center;
-          padding: 20px 0;
-          border-bottom: 1px #e5e5e5 solid;
-          &.email {
-            text-align: left;
-          }
+        &+h2 {
+          color: #6d6e71;
+          margin: 0 0 40px;
         }
       }
+      table {}
     }
   }
   &.facebook {
