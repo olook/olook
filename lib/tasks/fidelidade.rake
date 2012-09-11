@@ -57,15 +57,15 @@ namespace :fidelidade do
         end
 
         if order.freight && order.freight.address
-          order.update_column :country     , order.freight.address.try(:country)
-          order.update_column :city        , order.freight.address.try(:city)
-          order.update_column :state       , order.freight.address.try(:state)
-          order.update_column :complement  , order.freight.address.try(:complement)
-          order.update_column :street      , order.freight.address.try(:street)
-          order.update_column :number      , order.freight.address.try(:number)
-          order.update_column :neighborhood, order.freight.address.try(:neighborhood)
-          order.update_column :zip_code    , order.freight.address.try(:zip_code)
-          order.update_column :telephone   , order.freight.address.try(:telephone)
+          order.freight.update_column :country     , order.freight.address.try(:country)
+          order.freight.update_column :city        , order.freight.address.try(:city)
+          order.freight.update_column :state       , order.freight.address.try(:state)
+          order.freight.update_column :complement  , order.freight.address.try(:complement)
+          order.freight.update_column :street      , order.freight.address.try(:street)
+          order.freight.update_column :number      , order.freight.address.try(:number)
+          order.freight.update_column :neighborhood, order.freight.address.try(:neighborhood)
+          order.freight.update_column :zip_code    , order.freight.address.try(:zip_code)
+          order.freight.update_column :telephone   , order.freight.address.try(:telephone)
         end
       end
     end
