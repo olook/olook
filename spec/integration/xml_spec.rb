@@ -201,7 +201,7 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=netaffiliation</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=net_affiliation</producturl>
       <description>#{product.description}</description>
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
@@ -227,7 +227,7 @@ context "in the ilove_ecommerce xml page" do
       <produto>
       <codigo>#{product.id}</codigo>
       <categoria>#{product.category}</categoria>
-      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine</link>
+      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=ilove_ecommerce</link>
       <imagem></imagem>
       <nome_titulo></nome_titulo>
       <descricao>#{product.description}</descricao>
@@ -266,7 +266,7 @@ context "in the ilove_ecommerce xml page" do
       <preco>#{product.price}</preco>
       <nparcela>1</nparcela>
       <vparcela></vparcela>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine</url>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>
       <url_imagem></url_imagem>
       <Frete>Sim</Frete>
       <departamento></departamento>
@@ -292,7 +292,7 @@ context "in the ilove_ecommerce xml page" do
       <category>#{product.category}</category>
       <google_product_category>Accessories &gt; Apparel</google_product_category>
       <product_type>#{product.category_humanize}</product_type>
-      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine</link>
+      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=google_shopping</link>
       <image_link>#{product.pictures.last.try(:image)}</image_link>
       <additional_image_link>#{product.pictures.first.try(:image)}</additional_image_link>
       <condition>new</condition>
@@ -306,9 +306,9 @@ context "in the ilove_ecommerce xml page" do
       <item_group_id>#{product.id}</item_group_id>
       <color>#{product.color_name}</color>
       <shipping>
-      <country>BR</country>
-      <service>Standard</service>
-      <price>11.42 BRL</price>
+      <country></country>
+      <service></service>
+      <price></price>
       </shipping>
       </product>
       </products>
