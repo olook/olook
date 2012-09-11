@@ -26,11 +26,13 @@ class CreditPayment < Payment
   end
 
   private
-    def delete_credits
-      # super if self.user.user_credits_for(credit_type.code).add({amount: total_paid, order_id: order.try(:id)})    
+  def delete_credits
+    # super if self.user.user_credits_for(credit_type.code).add({amount: total_paid, order_id: order.try(:id)})    
+    if self.credit_ids
       self.credit_ids.split(',').each do |credit_id|
         Credit.find(credit_id).try(:delete)
       end
       self.update_column(:credit_ids, '')
     end
+  end
 end
