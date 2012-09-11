@@ -20,8 +20,9 @@
   <div id="right">
     <div id="credits">
       <h1>Créditos para o próximo mês</h1>
-      <% if current_user.has_credit? %>
-        <h2><%= number_to_currency current_user.current_credit((Time.now + 1.month).at_beginning_of_month)  %></h2>
+      <% next_month = (Time.now + 1.month).at_beginning_of_month
+      if current_user.has_credit?(next_month) %>
+        <h2><%= number_to_currency current_user.current_credit(next_month)  %></h2>
         <p>Válidos para compras em <%= l (Time.now + 1.month), :format => "%B" %> ou <%= l (Time.now + 2.month), :format => "%B" %></p>
       <% else %>
         <p>Você ainda não acumulou créditos em<br />compras para o próximo mês :(</p>

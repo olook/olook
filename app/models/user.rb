@@ -272,8 +272,8 @@ class User < ActiveRecord::Base
     self.user_credits.find_or_create_by_credit_type_id(credit_type.id)
   end
 
-  def has_credit?
-    self.current_credit > 0
+  def has_credit?(date = DateTime.now)
+    self.current_credit(date) > 0
   end
 
   private
