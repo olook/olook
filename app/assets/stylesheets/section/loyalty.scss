@@ -21,14 +21,20 @@ section#loyalty {
       margin: 0 0 40px 30px;
       overflow: auto;
       li {
+        background: image-url('loyalty/icons.jpg') no-repeat;
+        background-position: -149px 0;
         font-size: 13px;
         text-align: center;
         width: 130px;
         margin: 0 20px 0 0;
-        padding: 135px 0 0 0;
+        padding: 170px 0 0 0;
         display: inline-block;
         float: left;
+        &:first-child {
+          background-position: 4px 0;
+        }
         &:last-child {
+          background-position: -301px 0;
           margin: 0;
         }
       }

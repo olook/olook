@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+  # -*- encoding : utf-8 -*-
 class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
@@ -24,8 +24,6 @@ class Order < ActiveRecord::Base
   has_many :payments, :dependent => :destroy
   has_one :freight, :dependent => :destroy
   has_many :order_state_transitions, :dependent => :destroy
-  #has_one :used_coupon, :dependent => :destroy
-  # has_one :used_promotion, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   
@@ -37,7 +35,7 @@ class Order < ActiveRecord::Base
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
 
   def self.with_payment
-    joins(:payments)
+    joins(:payments).uniq
   end
 
   def self.purchased
@@ -49,14 +47,15 @@ class Order < ActiveRecord::Base
   end
 
   def self.payments_with_discount
-    paid.joins('join payments on payments.order_id = orders.id and payments.type in ("CreditPayment","CouponPayment", "OlookletPayment", "GiftPayment")')
+    paid.joins('join payments on payments.order_id = orders.id and payments.type in ("CreditPayment","CouponPayment", "OlookletPayment", "GiftPayment")').uniq
   end
 
   def self.with_complete_payment
-    joins(:payments).where("payments.state IN ('authorized','completed')")
+    joins(:payments).uniq.where("payments.state IN ('authorized','completed')")
   end
 
   state_machine :initial => :waiting_payment do
+    store_audit_trail
 
     state :delivered
     state :delivering
@@ -105,8 +104,6 @@ class Order < ActiveRecord::Base
         end
       end
     end
-
-    store_audit_trail
 
     event :authorized do
       transition :waiting_payment => :authorized, :if => :confirm_payment?

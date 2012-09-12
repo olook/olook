@@ -48,7 +48,8 @@ describe PaymentBuilder do
   end
 
   context "on success" do
-    xit "should process the payment" do
+    it "should process the payment" do
+      pending "REVIEW THIS"
       subject.should_receive(:send_payment!)
       payment = double(Payment)
       subject.should_receive(:set_payment_url!).and_return(payment)
@@ -64,12 +65,14 @@ describe PaymentBuilder do
         subject.stub(:set_payment_url!).and_return(subject.payment)
       end
       
-      xit "should set payment order" do
+      it "should set payment order" do
+        pending "REVIEW THIS"
         subject.set_payment_order!
         subject.payment.order.should == order
       end
       
-      xit "should decrement the inventory for each item" do
+      it "should decrement the inventory for each item" do
+        pending "REVIEW THIS"
         basic_shoe_35_inventory = basic_shoe_35.inventory
         basic_shoe_40_inventory = basic_shoe_40.inventory
         subject.line_items.create( 
@@ -87,7 +90,8 @@ describe PaymentBuilder do
         basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
       end
 
-      xit "should create a coupon when used" do
+      it "should create a coupon when used" do
+        pending "REVIEW THIS"
         expect {
           cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
           cart_service.stub(:total_coupon_discount => 100)
@@ -102,12 +106,14 @@ describe PaymentBuilder do
         response.payment.should == credit_card
       end
 
-      xit "should invalidate the order coupon" do
+      it "should invalidate the order coupon" do
+        pending "REVIEW THIS"
         Coupon.any_instance.should_receive(:decrement!)
         subject.process!
       end
       
-      xit "should create a promotion when used" do
+      it "should create a promotion when used" do
+        pending "REVIEW THIS"
         expect {
           cart_service = CartService.new({:cart => cart, :freight => freight, :promotion => promotion})
 

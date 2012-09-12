@@ -4,7 +4,7 @@
   <p class="description"><%= @product.description %></p>
   <%= product_presenter.render_price %>
   <div class="warn_discount">
-    <p>E você ganha até R$ 18,18 de desconto na próxima compra.</p>
+    <p>E você ganha até <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> de desconto na próxima compra.</p>
     <%= link_to "Saiba mais", member_credits_path %>
   </div>
 </div>
