@@ -275,6 +275,16 @@ class User < ActiveRecord::Base
   def has_credit?(date = DateTime.now)
     self.current_credit(date) > 0
   end
+  
+  def first_visit_for_member?
+    if self.first_visit?
+      self.record_first_visit
+      true
+    else
+      false
+    end
+  end
+  
 
   private
 
