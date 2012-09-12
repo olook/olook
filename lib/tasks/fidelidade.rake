@@ -47,29 +47,31 @@ namespace :fidelidade do
   desc "Update related users and address informations"
   task :update_metadata => :environment do |task, args|
     
-    Order.find_each do |order|
-      Order.transaction do
-        if order.user
-          order.update_column :user_first_name  , order.user.first_name
-          order.update_column :user_last_name   , order.user.last_name
-          order.update_column :user_email       , order.user.email
-          order.update_column :user_cpf         , order.user.cpf
-        end
-
-        if order.freight && order.freight.address
-          order.freight.update_column :country     , order.freight.address.try(:country)
-          order.freight.update_column :city        , order.freight.address.try(:city)
-          order.freight.update_column :state       , order.freight.address.try(:state)
-          order.freight.update_column :complement  , order.freight.address.try(:complement)
-          order.freight.update_column :street      , order.freight.address.try(:street)
-          order.freight.update_column :number      , order.freight.address.try(:number)
-          order.freight.update_column :neighborhood, order.freight.address.try(:neighborhood)
-          order.freight.update_column :zip_code    , order.freight.address.try(:zip_code)
-          order.freight.update_column :telephone   , order.freight.address.try(:telephone)
-        end
-      end
-    end
-    
+    ActiveRecord::Base.connection.execute "
+                            UPDATE orders 
+                            inner join users on users.id = orders.user_id
+                            SET 
+                            orders.user_first_name=users.first_name, 
+                            orders.user_last_name=users.last_name, 
+                            orders.user_email=users.email,
+                            orders.user_cpf=users.cpf;
+                            "
+                            
+    ActiveRecord::Base.connection.execute "
+                            UPDATE freights 
+                            inner join orders on freights.order_id = orders.id
+                            inner join addresses on addresses.id = freights.address_id
+                            SET
+                            freights.country=addresses.country      , 
+                            freights.city=addresses.city            ,    
+                            freights.state=addresses.state          ,   
+                            freights.complement=addresses.complement,  
+                            freights.street=addresses.street        , 
+                            freights.number=addresses.number        ,
+                            freights.neighborhood=addresses.neighborhood,
+                            freights.zip_code=addresses.zip_code,
+                            freights.telephone=addresses.telephone;
+                            "
   end
   
   desc "Update Moip Callbacks -> one way"

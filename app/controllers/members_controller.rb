@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :check_url, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories]
   before_filter :authenticate_user!, :except => [:accept_invitation]
+  before_filter :load_facebook_adapter
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
 
@@ -19,7 +20,7 @@ class MembersController < ApplicationController
   def accept_invitation
     valid_format = User::InviteTokenFormat.match params[:invite_token]
     @inviting_member = User.find_by_invite_token(params[:invite_token]) if valid_format
-    redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
+    return redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
     
     
     session[:invite] = {:invite_token => params[:invite_token], :invited_by => @inviting_member.name}
@@ -124,6 +125,12 @@ class MembersController < ApplicationController
   def check_url
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
+  end
+
+  def load_facebook_adapter
+    if @user && @user.has_facebook?
+      @facebook_adapter = FacebookAdapter.new @user.facebook_token
+    end    
   end
 end
 
