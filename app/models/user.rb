@@ -108,8 +108,8 @@ class User < ActiveRecord::Base
     has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
 
-  def current_credit(date = DateTime.now)
-    UserCredit::CREDIT_CODES.keys.map{|user_credit_code| user_credits_for(user_credit_code).total(date)}.sum
+  def current_credit(date = DateTime.now, type = :available)
+    UserCredit::CREDIT_CODES.keys.map{|user_credit_code| user_credits_for(user_credit_code).total(date, type)}.sum
   end
 
   def can_use_credit?(value)

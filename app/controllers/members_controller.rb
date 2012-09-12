@@ -21,8 +21,6 @@ class MembersController < ApplicationController
     valid_format = User::InviteTokenFormat.match params[:invite_token]
     @inviting_member = User.find_by_invite_token(params[:invite_token]) if valid_format
     return redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
-    
-    
     session[:invite] = {:invite_token => params[:invite_token], :invited_by => @inviting_member.name}
     incoming_params = params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
     redirect_to root_path(incoming_params)
@@ -57,7 +55,7 @@ class MembersController < ApplicationController
       redirect_to(member_invite_path, :notice => "Seus contatos não puderam ser importados agora. Por favor tente novamente mais tarde.")
     end
   end
-  
+
   def show_imported_contacts
     email_provider = params[:email_provider]
     login = params[:login]
@@ -108,10 +106,13 @@ class MembersController < ApplicationController
 
   def loyalty
   end
-  
+
+  def earn_credits
+  end
+
   def credits
   end
-  
+
   def invite_list
     @invites = @user.invites.page(params[:page]).per_page(15)
   end
@@ -130,7 +131,7 @@ class MembersController < ApplicationController
   def load_facebook_adapter
     if @user && @user.has_facebook?
       @facebook_adapter = FacebookAdapter.new @user.facebook_token
-    end    
+    end
   end
 end
 
