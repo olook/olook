@@ -5,16 +5,19 @@ class CreditType < ActiveRecord::Base
 
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
-  def total(user_credit, date = DateTime.now)
-    positive = credit_sum(user_credit, date, 0)
-    negative = credit_sum(user_credit, date, 1)
-    positive - negative
+  def total(user_credit, date = DateTime.now, kind = :available)
+    positive = credit_sum(user_credit, date, 0, kind)
+    negative = credit_sum(user_credit, date, 1, kind)
+    total = (positive - negative)
   end
 
-  def credit_sum(user_credit, date, is_debit)
-  	user_credit.credits.where("is_debit = ?", is_debit).sum(:value)
+  def credit_sum(user_credit, date, is_debit, kind)
+    if (kind == :holding)
+      0
+    else
+      user_credit.credits.where("is_debit = ?", is_debit).sum(:value)
+    end
   end
-  
   
   def add(opts={})
     user_credit = opts.delete(:user_credit)
@@ -32,5 +35,4 @@ class CreditType < ActiveRecord::Base
       false
     end
   end
-  
 end

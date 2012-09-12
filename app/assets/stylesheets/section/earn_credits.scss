@@ -1,0 +1,98 @@
+@import 'partials/mixins';
+
+section#earn_credits {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  overflow: auto;
+  h1 {
+    font-family: $johnston;
+    font-family: 26px;
+    text-transform: uppercase;
+  }
+  section {
+    width: 443px;
+    overflow: auto;
+    display: block;
+    padding: 20px 25px 0 40px;
+    float: left;
+    h2, h3 {
+      font-family: $kepler;
+    }
+    h2 {
+      font-size: 26px;
+    }
+    h3 {
+      font-size: 20px;
+      margin: 0 0 20px;
+    }
+    &#left {
+      width: 455px;
+      min-height: 390px;
+      padding-left: 0;
+      border-right: 2px #CCC solid;
+      ul.steps {
+        margin: 0 auto 20px;
+        overflow: auto;
+        li {
+          background: image-url('loyalty/icons.jpg') no-repeat;
+          background-position: -149px 0;
+          font-size: 13px;
+          text-align: center;
+          width: 130px;
+          margin: 0 20px 0 0;
+          padding: 170px 0 0 0;
+          display: inline-block;
+          float: left;
+          &:first-child {
+            background-position: 4px 0;
+          }
+          &:last-child {
+            background-position: -301px 0;
+            margin: 0;
+          }
+        }
+      }
+      a {
+        background: image-url('earn_credits/bt-showroom.jpg') no-repeat;
+        text-indent: -99999px;
+        width: 251px;
+        height: 39px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+    &#right {
+      h3 {
+        margin-bottom: 35px;
+      }
+      div.social {
+        width: 443px;
+        form {
+          margin: 0 0 15px;
+          textarea {
+            width: 395px;
+          }
+        }
+      }
+      div.link_mail {
+        padding: 0;
+        h2 {
+          color: #666;
+          font-family: $avenir;
+          font-size: 15px;
+        }
+        ul {
+          li {
+            margin: 0 10px 0 0;
+            float: left;
+          }
+        }
+        div.box_copy {
+          top: 60px;
+          left: 270px;
+        }
+      }
+    }
+  }
+}

@@ -8,8 +8,8 @@ class UserCredit < ActiveRecord::Base
   TRANSACTION_LIMIT = 150.0
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
-  def total(date = DateTime.now)
-    credit_type.total(self, date)
+  def total(date = DateTime.now, kind = :available)
+    credit_type.total(self, date, kind)
   end
 
   def add(opts)
@@ -71,7 +71,8 @@ class UserCredit < ActiveRecord::Base
 
       user_credit.add({
         :order => order,
-        :amount => amount
+        :amount => amount,
+        :source => "loyalty_program_credit"
       })
     end
 end
