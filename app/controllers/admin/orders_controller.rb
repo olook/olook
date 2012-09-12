@@ -23,7 +23,7 @@ class Admin::OrdersController < Admin::BaseController
       @order.public_send(params[:event])
       flash[:notice] = 'O estado da ordem foi atualizado com sucesso!'
     else
-      flash[:notice] = 'Não foi possível alterar o estado!'
+      flash[:error] = 'Não foi possível alterar o estado!'
     end
 
     respond_with :admin, @order
