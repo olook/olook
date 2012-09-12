@@ -17,6 +17,7 @@ class Users::CreditsController < ApplicationController
                            .where(:is_debit => false, :source => ["invitee_bonus", "inviter_bonus"])
                            .includes(:order)
                            .order("id")
+    
     credit_source = Credit.arel_table[:source]
     @redeem_credits = Credit.joins(:user_credit => :credit_type)
                             .where(:is_debit => false)
