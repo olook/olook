@@ -104,6 +104,9 @@ class ApplicationController < ActionController::Base
   private
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    if @user && @user.has_facebook?
+      @facebook_adapter = FacebookAdapter.new @user.facebook_token
+    end
   end
 
   def load_referer

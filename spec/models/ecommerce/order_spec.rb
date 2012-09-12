@@ -25,44 +25,6 @@ describe Order do
   it { should belong_to(:user) }
   it { should belong_to(:cart) }
 
-  pending "coupons" do
-    it "should decrement a standart coupon" do
-      remaining_amount = 10
-      order = FactoryGirl.create(:order)
-      coupon = FactoryGirl.create(:standard_coupon, :remaining_amount => remaining_amount)
-      order.create_used_coupon(:coupon => coupon)
-      order.invalidate_coupon
-      coupon.reload.remaining_amount.should == remaining_amount - 1
-    end
-
-    it "should increment a standart coupon" do
-      remaining_amount = 10
-      order = FactoryGirl.create(:order)
-      coupon = FactoryGirl.create(:standard_coupon, :remaining_amount => remaining_amount)
-      order.create_used_coupon(:coupon => coupon)
-      order.use_coupon
-      coupon.reload.used_amount.should == 1
-    end
-
-    it "should not decrement a unlimited coupon" do
-      order = FactoryGirl.create(:order)
-      coupon = FactoryGirl.create(:unlimited_coupon)
-      order.create_used_coupon(:coupon => coupon)
-      remaining_amount = coupon.remaining_amount
-      order.invalidate_coupon
-      coupon.reload.remaining_amount.should == remaining_amount
-    end
-
-    it "should increment a unlimited coupon" do
-      order = FactoryGirl.create(:order)
-      coupon = FactoryGirl.create(:unlimited_coupon)
-      order.create_used_coupon(:coupon => coupon)
-      remaining_amount = coupon.remaining_amount
-      order.use_coupon
-      coupon.reload.used_amount.should == 1
-    end
-  end
-
   context "creating a Order" do
     it "should generate a number" do
       order = FactoryGirl.create(:order)
@@ -129,13 +91,6 @@ describe Order do
         Resque.stub(:enqueue)
         Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, order_with_payment.number)
         order_with_payment.authorized
-      end
-    end
-
-    context "when the order is waiting payment" do
-      xit "updates user credit" do
-        Credit.any_instance.should_receive(:remove)
-        subject(:credits => 10)
       end
     end
   end
@@ -295,11 +250,6 @@ describe Order do
       order_with_payment.not_delivered
       order_with_payment.not_delivered?.should be_true
     end
-
-    xit "should use coupon when authorized" do
-      Coupon.any_instance.should_receive(:increment!).with(:used_amount, 1)
-      order_with_payment.authorized
-    end
   end
 
   describe "Order#status" do
@@ -338,45 +288,6 @@ describe Order do
       transition.event.should == "authorized"
       transition.from.should == "waiting_payment"
       transition.to.should == "authorized"
-    end
-  end
-
-  pending "#update_user_credit" do
-    before do
-      subject.user = FactoryGirl.create(:member)
-    end
-
-    context "when a order has an associated credit" do
-      it "removes this credit from the user" do
-        subject.credits = BigDecimal.new("10.30")
-        subject.save!
-
-        Credit.should_receive(:remove).with(subject.credits, subject.user, subject)
-        subject.update_user_credit
-      end
-    end
-
-    context "when the order has no credit" do
-      it "does not remove this credit from the user" do
-        Credit.should_not_receive(:remove)
-        subject.update_user_credit
-      end
-    end
-  end
-
-  describe "unrestricted order should accept products from vitrine" do
-    subject { FactoryGirl.create(:clean_order)}
-
-    it "should return true to add gift and normal products to the same cart" do
-      subject.restricted?.should be_false
-    end
-  end
-
-  describe "restricted order should accept products from vitrine" do
-    subject { FactoryGirl.create(:restricted_order)}
-
-    it "should be marked as restricted" do
-      subject.restricted?.should be_true
     end
   end
 
