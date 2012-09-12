@@ -65,6 +65,15 @@ class Order < ActiveRecord::Base
     state :authorized
     state :under_review 
 
+    state :authorized do
+      after_save do |order|
+        Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, order.id)
+        UserCredit.process!(order)
+
+        Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, order.number)
+      end
+    end
+
     state :reversed do
       after_save do |order|
         order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each do |payment|
@@ -215,11 +224,6 @@ class Order < ActiveRecord::Base
 
     #so continua se so houver um tipo de estado listado e esse tipo de estado for authorized
     return false unless payment_states.include?("authorized") && payment_states.size == 1
-
-    Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, self.id)
-    UserCredit.process!(self)
-    
-    Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
     true
   end
   
