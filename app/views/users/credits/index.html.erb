@@ -94,7 +94,7 @@
         <tbody>
           <tr>
             <td>Soma dos créditos acumulados</td>
-            <td class="value">R$38,36</td>
+            <td class="value"><%= number_to_currency @holding_credits + @available_credits %></td>
           </tr>
           <tr>
             <td>Créditos ainda não liberados</td>
