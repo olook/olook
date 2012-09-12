@@ -272,8 +272,8 @@ class User < ActiveRecord::Base
     self.user_credits.find_or_create_by_credit_type_id(credit_type.id)
   end
 
-  def has_credit?
-    self.current_credit > 0
+  def has_credit?(date = DateTime.now)
+    self.current_credit(date) > 0
   end
 
   private
@@ -288,7 +288,6 @@ class User < ActiveRecord::Base
   def initialize_user
     Resque.enqueue(SignupNotificationWorker, self.id)
     self.add_event(EventType::SIGNUP)
-    #Credit.add_for_invitee(self)
     UserCredit.add_for_invitee(self)
     self.reset_authentication_token!
   end

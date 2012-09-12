@@ -7,28 +7,97 @@
     <%= render "shared/my_account/menu" %>
   </div>
   <div id="data">
-    <div class="invites_list">
-      <h1><span><%= @user.invites.accepted.count %></span> amigas já se registraram. Você tem <span><%= number_to_currency(@user.current_credit) %></span> em créditos!</h1>
-      <h2>Na primeira compra de suas convidadas, você ganha mais R$10.</h2>
-      <table cellpadding="0" cellspacing="0">
+    <div class="credits">
+      <h1>Resumo dos seus créditos. Você tem:
+      <h2><span><%= number_to_currency current_user.current_credit %></span> disponíveis para uso</h2>
+      <h2>R$18,36 ainda não liberados para uso</h2>
+      <p>Os créditos acumulados por compras realizadas são liberados nos 2 meses seguintes após a confirmação do pedido</p>
+
+      <table cellpadding="0" cellspacing="0" class="border">
         <thead>
           <tr>
-            <th class="email">Email</th>
-            <th>Convidado em</th>
-            <th>Registrado</th>
+            <th colspan="2">Créditos por compras realizadas*</th>
           </tr>
         </thead>
         <tbody>
-          <% @invites.each do |invite| %>
-            <tr>
-              <td class="email"><%= invite.email %></td>
-              <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
-              <td><%= Invite.status_for_user_invite(@user.id, invite) %></td>
-            </tr>
-          <% end %>
+          <tr>
+            <td>Compra realizada em 25/09. Crédito disponível entre outubro e novembro de 2012</td>
+            <td class="value">R$18,36</td>
+          </tr>
         </tbody>
       </table>
-      <%= will_paginate @invites %>
+
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="2">Créditos por indicação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>andressavieira@gmail.com (compra realizada em 16/04/2012)</td>
+            <td class="value">R$20,00</td>
+          </tr>
+          <tr>
+            <td>peter@olook.com.br (compra realizada em 16/04/2012)</td>
+            <td class="value">R$20,00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="2">Reembolso via Central de Atendimento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Compra realizada em 20/09</td>
+            <td class="value">R$100,00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="2">Créditos utilizados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Compra realizada em 30/09</td>
+            <td class="value">- R$100,00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table cellpadding="0" cellspacing="0" class="border">
+        <thead>
+          <tr>
+            <th colspan="2">Total de créditos</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td>Créditos disponíveis para uso agora</td>
+            <td class="value"><%= number_to_currency current_user.current_credit %></td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr>
+            <td>Soma dos créditos acumulados</td>
+            <td class="value">R$38,36</td>
+          </tr>
+          <tr>
+            <td>Créditos ainda não liberados</td>
+            <td class="value">R$18,36</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>*A cada compra realizada, você ganha 20% em créditos (em relação ao valor do pedido) para usar nos 2 próximos meses.</p>
     </div>
   </div>
 </div>
