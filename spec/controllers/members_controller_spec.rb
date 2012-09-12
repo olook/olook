@@ -168,4 +168,11 @@ describe MembersController do
       assigns(:invites).all.should == user.invites[0..14]
     end
   end
+
+  describe "GET earn_credits" do
+    it "should return 200" do
+      get :earn_credits
+      response.status.should eq(200)
+    end
+  end
 end
