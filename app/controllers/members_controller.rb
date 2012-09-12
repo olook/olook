@@ -91,7 +91,7 @@ class MembersController < ApplicationController
     session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
-    if user_has_facebook_account?
+    if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
   end

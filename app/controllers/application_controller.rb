@@ -101,14 +101,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def user_has_facebook_account?
-    @user && @user.has_facebook?
-  end
-
   private
   def load_facebook_api
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    if user_has_facebook_account?
+    if @user && @user.has_facebook?
       @facebook_adapter = FacebookAdapter.new @user.facebook_token
     end
   end
