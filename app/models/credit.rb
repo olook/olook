@@ -27,10 +27,6 @@ class Credit < ActiveRecord::Base
       "Ganho por se cadastrar via convite"
     elsif (source == "invitee_bonus")
       "Amiga se cadastrou e fez compra #{order.number}"
-    elsif order
-      "Acerto via SAC com pedido #{order.id}"
-    else
-      "Acerto via SAC"
     end
   end
   
