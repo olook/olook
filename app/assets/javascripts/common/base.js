@@ -4,6 +4,7 @@ $(document).ready(function() {
   initBase.customSelect();
   initBase.showErrorMessages();
   initBase.showInfoCredits();
+  initBase.fixBorderOnMyAccountDropDown();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -536,6 +537,14 @@ initBase = {
       $('.dialog, .overlay').fadeOut('slow', function(){
         $('.dialog, .overlay').hide();
       });
+    });
+  },
+
+  fixBorderOnMyAccountDropDown : function() {
+    $('#session div.user ul li.submenu').hover(function() {
+      $(this).find('a#info_user').addClass('hover');
+    }, function() {
+      $(this).find('a#info_user').removeClass('hover');
     });
   }
 }

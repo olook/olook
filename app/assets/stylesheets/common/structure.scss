@@ -846,21 +846,28 @@ body {
           ul {
             > li {
               position: relative;
+              color: #282828;
               font-size: 15px;
               text-align: right;
               letter-spacing: -1px;
+              margin: 0 0 0 3px;
               display: inline-block;
-              float: none;
+              float: left;
               a {
-                color: #000;
+                color: #282828;
                 text-decoration: none;
                 &#info_user {
-                  background: image-url('common/arrow-down-black.jpg') center right no-repeat;
+                  background: image-url('common/arrow-down-pink.jpg') center right no-repeat;
                   color: #6d6e71;
                   width: auto;
-                  margin: 0 5px 0 0;
-                  padding: 0 17px 0 0;
+                  margin: 0;
+                  padding: 5px 25px 5px 8px;
+                  border: 2px #FFF solid;
                   float: none;
+                  &:hover, &.hover {
+                    text-decoration: none;
+                    border-color: #888;
+                  }
                 }
                 &:hover {
                   text-decoration: underline;
@@ -872,10 +879,24 @@ body {
                 padding: 5px;
                 display: none;
                 z-index: 1000;
+                border-left: 2px #888 solid;
+                border-right: 2px #888 solid;
+                border-bottom: 2px #888 solid;
                 ul {
                   li {
                     text-align: left;
                     display: block;
+                    a {
+                      color: #6d6e71;
+                      letter-spacing: 0;
+                      margin: 0 0 8px;
+                      display: block;
+                    }
+                    &:last-child {
+                      a {
+                        margin: 0;
+                      }
+                    }
                   }
                 }
               }
@@ -898,7 +919,7 @@ body {
             border-left: 1px #000 dotted;
             float: none;
             a {
-              color: #212121;
+              color: #282828;
               text-decoration: none;
               margin: 0;
               padding: 5px 10px;
@@ -1105,13 +1126,6 @@ body {
               -webkit-border-radius: 3px;
               -moz-border-radius: 3px;
               border-radius: 3px;
-            }
-          }
-          &.valentine_invite {
-            a {
-              background: url("/assets/common/bg-link-valentine.png") left no-repeat;
-              padding-left: 15px;
-              margin-left: 25px;
             }
           }
           &.showroom {
