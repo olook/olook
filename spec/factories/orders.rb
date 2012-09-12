@@ -73,6 +73,7 @@ FactoryGirl.define do
 
   factory :authorized_order, :class => Order do
     association :freight, :factory => :freight
+    association :user, :factory => :member
     state "authorized"
     subtotal BigDecimal.new("100")
     amount_paid BigDecimal.new("100")
