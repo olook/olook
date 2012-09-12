@@ -5,6 +5,6 @@
   <%= product_presenter.render_price %>
   <div class="warn_discount">
     <p>E você ganha até <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> de desconto na próxima compra.</p>
-    <%= link_to "Saiba mais", member_credits_path %>
+    <%= link_to "Saiba mais", member_loyalty_path %>
   </div>
 </div>

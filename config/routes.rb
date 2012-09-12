@@ -87,7 +87,8 @@ Olook::Application.routes.draw do
   get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/fidelidade", :to => "members#loyalty", :as => "member_loyalty"
-  get "membro/creditos", :to => "members#credits", :as => "member_credits"
+  get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
+  #get "membro/creditos", :to => "members#credits", :as => "member_credits"
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
   post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
 
