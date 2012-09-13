@@ -74,7 +74,7 @@ describe Order do
   context "ERP(abacos) integration" do
     context "when the order is waiting payment" do
       it "should enqueue a job to insert a order" do
-        Resque.should_receive(:enqueue).with(Abacos::InsertOrder, subject.number)
+        Resque.should_receive(:enqueue_in).with(Abacos::InsertOrder, subject.number)
         subject
       end
 

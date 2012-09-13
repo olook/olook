@@ -8,6 +8,7 @@ FactoryGirl.define do
     user_cpf '228.016.368-35'
     after_build do |order|
       Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
     end
     after_create do |order|
       FactoryGirl.create(:billet, :order => order)
@@ -20,6 +21,7 @@ FactoryGirl.define do
 
     after_build do |order|
       Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
     end
     after_create do |order|
       FactoryGirl.create(:billet, :order => order)
@@ -31,6 +33,7 @@ FactoryGirl.define do
 
     after_build do |order|
       Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
     end
     after_create do |order|
       FactoryGirl.create(:credit_card, :order => order)
@@ -93,6 +96,11 @@ FactoryGirl.define do
     state "delivered"
     subtotal BigDecimal.new("99.90")
     amount_paid BigDecimal.new("99.90")
+    after_build do |order|
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
+    
     after_create do |order|
       FactoryGirl.create(:billet, :order => order)
     end    
