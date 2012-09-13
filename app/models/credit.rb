@@ -21,6 +21,10 @@ class Credit < ActiveRecord::Base
     end
   end
   
+  def amount_available?
+    self.value - debits.sum(:value)
+  end
+  
   private
   def description_for_invite
     if (source == "inviter_bonus")

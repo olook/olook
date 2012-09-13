@@ -53,7 +53,7 @@ describe LoyaltyProgramCreditType do
 
           expect{
             user.user_credits_for(:loyalty_program).remove(credits_attrs.merge(:amount => BigDecimal.new("99")))
-          }.to change{ Credit.count }.by(4)
+          }.to change{ Credit.count }.by(3)
 
           user.user_credits_for(:loyalty_program).total(DateTime.now).should == 0.99
         end
@@ -65,7 +65,7 @@ describe LoyaltyProgramCreditType do
 
           expect{
             user.user_credits_for(:loyalty_program).remove(credits_attrs.merge(:amount => BigDecimal.new("31.33")))
-          }.to change{ Credit.count }.by(2)
+          }.to change{ Credit.count }.by(1)
           
           user.user_credits_for(:loyalty_program).total(DateTime.now).should == 2.0
         end
