@@ -518,7 +518,7 @@ initBase = {
   },
 
   openMakingOfVideo : function() {
-    $("section.making_of a.open_making_of, #how_to div#making_of a").live("click", function(e) {
+    $("section.making_of a.open_making_of, div#making_of a").live("click", function(e) {
       var url = $(this).attr("rel");
       var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
       var youtube_id = initBase.youtubeParser(url);
