@@ -204,6 +204,10 @@ class Order < ActiveRecord::Base
   def erp_payment
      payments.for_erp.last
   end
+
+  def loyalty_payment
+    payments.for_loyalty.last
+  end
   
   def payment_rollback?
     self.refunded? || self.canceled? || self.reversed?

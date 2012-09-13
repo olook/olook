@@ -50,6 +50,7 @@ class UserCredit < ActiveRecord::Base
   def self.add_for_invitee(invitee)
     if invitee.is_invited? && invitee.current_credit == 0
       invitee.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_invitee), :source => "inviter_bonus"})
+      Resque.enqueue(MailRegisteredInviteeWorker, invitee.id)
       #invitee.try(:inviter) <= manda e-mail para ela
     end
   end
@@ -61,6 +62,7 @@ class UserCredit < ActiveRecord::Base
 
       if inviter && buyer.first_buy?
         inviter.user_credits_for(:invite).add({:amount => BigDecimal.new(Setting.invite_credits_bonus_for_inviter), :order => order, :source => "invitee_bonus"})
+        Resque.enqueue(MailProductPurchasedByInviteeWorker, buyer.id)
         #inviter <= manda e-mail para ela
       end
     end
