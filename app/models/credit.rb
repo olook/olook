@@ -46,7 +46,7 @@ class Credit < ActiveRecord::Base
     if order
       "Compra realizada em #{l self.created_at}"
     else
-      "Créditos concedidos pela Central de Atendimento"
+      "Crédito concedido pela Central de Atendimento"
     end
   end
   
