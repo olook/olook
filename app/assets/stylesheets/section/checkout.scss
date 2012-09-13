@@ -132,6 +132,8 @@ section#cart {
   }
 
   ul#titles {
+    width: 100%;
+    overflow: auto;
     li {
       color: #101010;
       font-family: $avenir;
@@ -140,6 +142,7 @@ section#cart {
       text-transform: uppercase;
       padding: 5px 0;
       display: inline-block;
+      float: left;
       &.item {
         width: 425px;
       }
@@ -1383,6 +1386,11 @@ div.credit_details {
   }
 }
 .gecko, .ie7 {
+  section#cart {
+    ul#titles {
+      margin: 0 0 20px;
+    }
+  }
   section#payment.payment_new {
     fieldset.payments {
       ol {

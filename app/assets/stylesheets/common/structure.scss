@@ -841,7 +841,7 @@ body {
         overflow: visible;
         float: right;
         div.user {
-          margin: 0 0 10px;
+          margin: 0 0 3px;
           float: right;
           ul {
             > li {
@@ -851,6 +851,7 @@ body {
               text-align: right;
               letter-spacing: -1px;
               margin: 0 0 0 3px;
+              padding: 7px 0 0;
               display: inline-block;
               float: left;
               a {
@@ -860,6 +861,7 @@ body {
                   background: image-url('common/arrow-down-pink.jpg') center right no-repeat;
                   color: #6d6e71;
                   width: auto;
+                  height: 23px;
                   margin: 0;
                   padding: 5px 25px 5px 8px;
                   border: 2px #FFF solid;
@@ -876,23 +878,29 @@ body {
               div.my_account {
                 position: absolute;
                 background: #FFF;
-                padding: 5px;
+                padding: 5px 0;
                 display: none;
+                top: 22px;
+                left: 0;
                 z-index: 1000;
                 border-left: 2px #888 solid;
                 border-right: 2px #888 solid;
                 border-bottom: 2px #888 solid;
                 ul {
+                  margin: 0 0 0 5px;
                   li {
                     text-align: left;
+                    width: 100%;
                     display: block;
+                    clear: both;
                     a {
                       color: #6d6e71;
                       letter-spacing: 0;
                       margin: 0 0 8px;
                       display: block;
+                      clear: both;
                     }
-                    &:last-child {
+                    &:last-child, &.last {
                       a {
                         margin: 0;
                       }
@@ -917,7 +925,7 @@ body {
             height: auto;
             display: inline-block;
             border-left: 1px #000 dotted;
-            float: none;
+            float: left;
             a {
               color: #282828;
               text-decoration: none;
