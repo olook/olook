@@ -6,7 +6,7 @@
   <% if @user %>
     <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
       <p>E você ganha até <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> de desconto na próxima compra.</p>
-      <%= link_to "Saiba mais", member_loyalty_path %>
+      <%= link_to "Saiba mais", loyalty_path %>
     </div>
   <% end %>
 </div>

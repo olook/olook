@@ -35,7 +35,7 @@
       <% end %>
       <ul>
         <% if user_signed_in? %>
-          <li class="first"><%= link_to "Fidelidade Olook", member_loyalty_path %></li>
+          <li class="first"><%= link_to "Fidelidade Olook", loyalty_path %></li>
           <li class="last"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></li>
         <% else %>
           <li class="login">
