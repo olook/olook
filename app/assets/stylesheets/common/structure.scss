@@ -114,7 +114,6 @@ body {
             label {
               display: block;
               font-size: 11px;
-              font-weight: bold;
               margin: 2px 0;
             }
 
@@ -142,8 +141,9 @@ body {
       left: 340px;
       border: 1px #d2d2d2 solid;
       h1 {
-        text-indent: -9999px;
-        height: 27px;
+        font-family: $avenir;
+        font-size: 20px;
+        text-transform: uppercase;
         display: block;
       }
       div.login {
@@ -153,9 +153,7 @@ body {
         float: left;
         border-right: 1px #d2d2d2 solid;
         h1 {
-          background: url("/assets/common/title-already-part.png") no-repeat;
-          margin: 0 0 25px 0;
-          width: 155px;
+          margin: 0 0 20px 0;
         }
         form {
           margin-bottom: 15px;
@@ -220,12 +218,11 @@ body {
         padding: 20px 0 0 30px;
         float: right;
         h1 {
-          background: url("/assets/common/title-register.png") no-repeat;
-          margin: 0 0 15px 0;
+          margin: 0 0 10px 0;
           width: 239px;
         }
         p {
-          margin: 0 0 20px 0;
+          margin: 0 0 10px 0;
         }
         form {
           fieldset {
@@ -247,7 +244,6 @@ body {
                   margin: 0 0 5px 0;
                   p {
                     font-size: 13px;
-                    font-weight: bold;
                     line-height: 17px;
                     margin: 0;
                     display: block;
@@ -321,6 +317,7 @@ body {
     overflow: hidden;
     z-index: 1;
     .dialog.product_login {
+      height: 515px !important;
       display: none;
       height: auto !important;
     }
@@ -343,9 +340,8 @@ body {
 
 
       h1 {
-        font-family: 'Times New Roman', Times, serif;
+        font-family: $johnston;
         font-size: 40px;
-        font-style: italic;
         letter-spacing: -2px;
         font-weight: normal;
         margin: 0 0 25px 0;
@@ -417,9 +413,8 @@ body {
       @include sign-in(relative);
 
       h1 {
-        font-family: 'Times New Roman', Times, serif;
+        font-family: $johnston;
         font-size: 40px;
-        font-style: italic;
         letter-spacing: -2px;
         font-weight: normal;
       }
@@ -497,6 +492,7 @@ body {
                     float: left;
                     line-height: 34px;
                     font-size: 12px;
+                    font-weight: normal;
                     margin-right: 10px;
                   }
 
@@ -786,7 +782,7 @@ body {
       a {
         background: image-url('common/change-logo.jpg') no-repeat;
         text-indent: -99999px;
-        width: 234px;
+        width: 245px;
         height: 68px;
         margin: 10px 0 0 3px;
         display: block;
@@ -1242,8 +1238,7 @@ body {
     overflow: auto;
     display: none;
     & > h1 {
-      font-size: 40px;
-      font-style: italic;
+      font-size: 36px;
       font-weight: lighter;
       letter-spacing: -1px;
       margin: 0 0 10px 0;
@@ -1253,6 +1248,7 @@ body {
         margin: 0 0 35px;
         strong {
           color: #666;
+          font-weight: 500;
         }
       }
     }
@@ -1271,9 +1267,8 @@ body {
           float: left;
           a {
             color: #5a5a5b;
-            font-family: "Times New Roman", sans-serif;
+            font-family: $kepler;
             font-size: 16px;
-            font-style: italic;
             text-align: center;
             text-decoration: none;
             line-height: 15px;
@@ -1360,8 +1355,7 @@ body {
       padding: 0 0 0 30px;
       float: right;
       h2 {
-        font-size: 18px;
-        font-style: italic;
+        font-size: 16px;
         font-weight: lighter;
         letter-spacing: -1px;
         margin: 0 0 10px;

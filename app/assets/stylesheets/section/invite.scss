@@ -62,6 +62,9 @@ body {
           letter-spacing: -1px;
           line-height: 30px;
           margin: 15px auto 0;
+          &.no_facebook {
+            margin-top: 60px;
+          }
         }
       }
 
