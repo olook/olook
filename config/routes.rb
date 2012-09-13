@@ -28,6 +28,7 @@ Olook::Application.routes.draw do
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
+  match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
 
   #LOOKBOOKS
   match "/lookbooks/:name", :to => "lookbooks#show"
@@ -86,7 +87,6 @@ Olook::Application.routes.draw do
   get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
   get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
-  get "membro/fidelidade", :to => "members#loyalty", :as => "member_loyalty"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
   post "user_liquidations", :controller => "user_liquidations", :action => "update"

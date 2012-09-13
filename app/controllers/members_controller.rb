@@ -104,9 +104,6 @@ class MembersController < ApplicationController
   def showroom_accessories
   end
 
-  def loyalty
-  end
-
   def earn_credits
   end
 
