@@ -3,8 +3,8 @@ $(document).ready(function() {
   initBase.loadJailImages();
   initBase.customSelect();
   initBase.showErrorMessages();
-  initBase.showInfoCredits();
   initBase.fixBorderOnMyAccountDropDown();
+  initBase.openMakingOfVideo();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -542,9 +542,25 @@ initBase = {
 
   fixBorderOnMyAccountDropDown : function() {
     $('#session div.user ul li.submenu').hover(function() {
-      $(this).find('a#info_user').addClass('hover');
+      var link = $(this).find('a#info_user');
+      var link_width = $(link).outerWidth();
+      $(this).find('div.my_account').css('width', link_width - 4);
+      $(link).addClass('hover');
     }, function() {
-      $(this).find('a#info_user').removeClass('hover');
+      var link = $(this).find('a#info_user');
+      $(link).removeClass('hover');
+    });
+  },
+
+  openMakingOfVideo : function() {
+    $("section.making_of a.open_making_of, #how_to div#making_of a").live("click", function(e) {
+      var url = $(this).attr("rel");
+      var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
+      var youtube_id = initBase.youtubeParser(url);
+      content = initBase.youtubePlayer(youtube_id);
+      content += title;
+      initBase.modal(content);
+      e.preventDefault();
     });
   }
 }

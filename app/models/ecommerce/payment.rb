@@ -41,6 +41,14 @@ class Payment < ActiveRecord::Base
     where(type: ['CreditCard','Billet', 'Debit'])
   end
   
+  def self.for_loyalty
+    where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'loyalty_program'})
+  end
+  
+  def self.for_redeem
+    where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'redeem'})
+  end
+
   state_machine :initial => :started do
     #Concluido - 4
     state :completed

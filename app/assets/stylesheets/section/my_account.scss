@@ -520,7 +520,9 @@ div#my_account {
           margin: 0 0 40px;
         }
         &+p {
+          background: image-url('common/border-table-top.jpg') bottom repeat-x;
           margin: 0 0 15px;
+          padding: 0 0 12px;
         }
       }
       table {
