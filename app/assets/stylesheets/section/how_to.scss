@@ -33,10 +33,10 @@
     height: 241px;
     margin: 75px 0 0;
     float: right;
-    a, h1 {
+    a.label, h1 {
       position: absolute;
     }
-    a {
+    a.label {
       background: image-url("lookbooks/label_video.png") no-repeat;
       color: #FFF;
       font-family: $johnston;

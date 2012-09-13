@@ -10,8 +10,10 @@
     <p class="last">Você escolhe e compra os produtos que gostar. Caso queira devolver, não tem problema. A devolução é grátis!</p>
   </div>
   <div id="making_of">
-    <%= link_to "Assista o vídeo", "#", :rel => "http://www.youtube.com/watch?v=tky9Y5wtOck" %>
-    <%= image_tag "how_to/thumb-video.jpg", :title => "Helena e Didi" %>
+    <%= link_to "Assista o vídeo", "#", :rel => "http://www.youtube.com/watch?v=tky9Y5wtOck", :class => "label" %>
+    <%= link_to "#", :rel => "http://www.youtube.com/watch?v=tky9Y5wtOck" do %>
+      <%= image_tag "how_to/thumb-video.jpg", :title => "Helena e Didi" %>
+    <% end %>
     <div class="video_description">
       <h1>Conheça mais sobre a olook</h1>
       <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
