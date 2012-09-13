@@ -11,6 +11,7 @@ class CreditType < ActiveRecord::Base
     total = (positive - negative)
   end
 
+  #NOTICE: FOR ALL NORMAL CREDITS DOESN'T HAVE HOLDING
   def credit_sum(user_credit, date, is_debit, kind)
     if (kind == :holding)
       0
