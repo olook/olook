@@ -3,6 +3,7 @@ $(document).ready(function() {
   initBase.loadJailImages();
   initBase.customSelect();
   initBase.showErrorMessages();
+  initBase.openMakingOfVideo();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -513,6 +514,18 @@ initBase = {
       $('.dialog, .overlay').fadeOut('slow', function(){
         $('.dialog, .overlay').hide();
       });
+    });
+  },
+
+  openMakingOfVideo : function() {
+    $("section.making_of a.open_making_of, #how_to div#making_of a").live("click", function(e) {
+      var url = $(this).attr("rel");
+      var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
+      var youtube_id = initBase.youtubeParser(url);
+      content = initBase.youtubePlayer(youtube_id);
+      content += title;
+      initBase.modal(content);
+      e.preventDefault();
     });
   }
 }
