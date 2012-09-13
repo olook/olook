@@ -14,7 +14,7 @@ section#lookbooks {
   div#carousel_lookbooks {
     position: relative;
     width: 970px;
-    margin: 0 auto 40px auto;
+    margin: 0 0 40px;
     overflow: hidden;
     .prev-lookbook, .next-lookbook {
       position: absolute;
@@ -97,7 +97,7 @@ section#lookbooks {
     position: relative;
     width: 970px;
     height: 565px;
-    margin: 0 auto 35px auto;
+    margin: 0 0 35px;
     a.video_link {
       position: absolute;
       background: image-url("lookbooks/label_video.png") no-repeat;

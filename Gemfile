@@ -46,6 +46,7 @@ gem 'yui-compressor'
 gem 'business_time'
 
 gem "rails-settings-cached"
+gem "equivalent-xml", " ~> 0.2.9"
 
 
 group :development do

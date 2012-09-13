@@ -19,7 +19,7 @@ $.each(new_products, function(index, id){
 <% if @catalog_products.any? %>
   $('#products').append('<%= j render "products", :catalog_products => @catalog_products %>');
 <% else %>
-  $("#products").html("Nenhum produto encontrado");
+  $("#products").html("Nenhum produto disponível");
 <% end %>
 
 $(".loading").hide();

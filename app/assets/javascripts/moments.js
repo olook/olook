@@ -104,10 +104,9 @@ jQuery(function() {
 
 initMoment = {
   scrollToList : function() {
-    var topHeight = 400;
+    var topHeight = 0;
     $("html, body").animate({
       scrollTop: topHeight
     }, 'slow');
   }
 }
-

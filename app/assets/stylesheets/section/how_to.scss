@@ -3,6 +3,7 @@
 
 #how_to{
   background: url('/assets/how_to/background.jpg') 465px 65px no-repeat;
+  min-height: 370px;
   margin: 20px auto 50px;
   h1 {
     font-family: $johnston;
@@ -75,5 +76,11 @@
         text-indent: -9999px;
       }
     }
+  }
+}
+
+.win {
+  #steps h1 {
+    font-weight: bold;
   }
 }

@@ -3,6 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :validate_token, :only => :accept_invitation
+  before_filter :check_url, :only => [:showroom_shoes, :showroom_bags, :showroom_accessories]
   # TODO: Added for valentine invite page
   before_filter :initialize_facebook_adapter, :only => [:showroom], :if => :user_has_facebook_account?
   before_filter :load_friends, :only => [:showroom], :if => :user_has_facebook_account?
@@ -101,15 +102,15 @@ class MembersController < ApplicationController
   end
 
   def showroom_shoes
-    
+
   end
 
   def showroom_bags
-    
+
   end
 
   def showroom_accessories
-    
+
   end
 
   def show_imported_contacts
@@ -168,6 +169,9 @@ class MembersController < ApplicationController
     redirect_to :back
   end
 
-
+  def check_url
+    @url = request.protocol + request.host
+    @url += ":" + request.port.to_s if request.port != 80
+  end
 end
 
