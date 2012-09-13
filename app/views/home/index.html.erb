@@ -2,10 +2,6 @@
   <%= stylesheet_link_tag "section/home" %>
 <% end %>
 
-<% content_for :footer do %>
-  <%= javascript_include_tag "home" %>
-<% end %>
-
 <section class="model">
   <h1>Didi Wagner</h1>
   <h2>Stylist Convidada</h2>
@@ -24,15 +20,13 @@
     </ul>
   </section>
 
-  <!-- section class="making_of">
-    <%= link_to "Video", "#", :rel => "http://youtu.be/edo-jggwD-4", :class => "open_making_of" %>
+  <section class="making_of">
+    <%= link_to "Video", "#", :rel => "http://www.youtube.com/watch?v=tky9Y5wtOck", :class => "open_making_of" %>
     <div class="video_description">
-      <h1>Making of - Coleção de junho</h1>
+      <h1>Conheça mais sobre a olook</h1>
       <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
     </div>
-    <p>Coleção de junho <span>Confira o making of</span></p>
   </section>
-  -->
   <%= link_to 'Comece aqui. É grátis!', new_survey_path, :class => "start" %>
 </section>
 

@@ -3,10 +3,21 @@
 <% end %>
 
 <div id="how_to">
-  <h1>Para você, com todo o estilo que é só seu!</h1>
-  <h2>Sabe o que a gente mais quer? Entender o seu estilo!<br />Por isso o primeiro passo foi preencher nosso super quiz.</h2>
-  <p>A partir daí, todo mês, nossos stylists montam uma seleção especial de produtos com a sua cara e que seguem as principais tendências da moda. Ajudamos a montar looks incríveis: você + sua vitrine de bolsas, acessórios e sapatos. Todos incríveis e com os melhores materiais para você ficar linda, confortável e cheia de estilo. Sem contar que os preços são ótimos.</p>
-  <p class="last">Você escolhe e compra os produtos que gostar. Caso queira devolver, não tem problema. A devolução é grátis!</p>
+  <div id="description">
+    <h1>Para você, com todo o estilo que é só seu!</h1>
+    <h2>Sabe o que a gente mais quer? Entender o seu estilo!<br />Por isso o primeiro passo foi preencher nosso super quiz.</h2>
+    <p>A partir daí, todo mês, nossos stylists montam uma seleção especial de produtos com a sua cara e que seguem as principais tendências da moda. Ajudamos a montar looks incríveis: você + sua vitrine de bolsas, acessórios e sapatos. Todos incríveis e com os melhores materiais para você ficar linda, confortável e cheia de estilo. Sem contar que os preços são ótimos.</p>
+    <p class="last">Você escolhe e compra os produtos que gostar. Caso queira devolver, não tem problema. A devolução é grátis!</p>
+  </div>
+  <div id="making_of">
+    <%= link_to "Assista o vídeo", "#", :rel => "http://www.youtube.com/watch?v=tky9Y5wtOck" %>
+    <%= image_tag "how_to/thumb-video.jpg", :title => "Helena e Didi" %>
+    <div class="video_description">
+      <h1>Conheça mais sobre a olook</h1>
+      <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
+    </div>
+    <h1>Como funciona a OlOOK</h1>
+  </div>
 </div>
 
 <div id="steps">
