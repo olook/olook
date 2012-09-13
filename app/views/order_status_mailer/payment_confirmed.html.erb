@@ -74,8 +74,9 @@
     </p>
 
     <p>Prazo de entrega: <%= @order.freight.delivery_time %> dias úteis</p>
-    <% if @order.for_loyalty %>
-<p>Por esta compra, você ganhou <b><%= number_to_currency @order.for_loyalty.total_paid %></b> em créditos de Fidelidade que estarão disponíveis para serem utilizados a partir do próximo mês! 
+    <% loyalty_credits = LoyaltyProgramCreditType.amount_for_order(@order) %>
+    <% if loyalty_credits > 0 %>
+<p>Por esta compra, você ganhou <b><%= number_to_currency loyalty_credits %></b> em créditos de Fidelidade que estarão disponíveis para serem utilizados a partir do próximo mês! 
   <% end %>
       
 <center>Enquanto espera seu pedido chegar, <br>que tal convidar suas amigas para ganhar créditos?</center><p>
