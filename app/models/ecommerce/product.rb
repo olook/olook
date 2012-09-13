@@ -5,7 +5,6 @@ class Product < ActiveRecord::Base
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
-  MINIMUM_VARIANTS_FOR_XML = 3
   MINIMUM_INVENTORY_FOR_XML = 3
   has_enumeration_for :category, :with => Category, :required => true
 
@@ -42,7 +41,7 @@ class Product < ActiveRecord::Base
   mount_uploader :color_sample, ColorSampleUploader
 
   scope :only_visible , where(:is_visible => true)
-  scope :valid_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", count(id) AS \"sum_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND x.sum_variants > #{MINIMUM_VARIANTS_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"]).order("collection_id desc")}
+  scope :valid_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"]).order("collection_id desc")}
   scope :shoes        , where(:category => Category::SHOE)
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)

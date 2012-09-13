@@ -8,7 +8,7 @@
 <preco><%= product.price %></preco>
 <nparcela>1</nparcela>
 <vparcela></vparcela>
-<url><%= product.product_url %></url>
+<url><%= product.product_url(:utm_source => "shopping_uol") %></url>
 <url_imagem><%= product.pictures.last.try(:image) %></url_imagem>
 <Frete>Sim</Frete>
 <departamento></departamento>

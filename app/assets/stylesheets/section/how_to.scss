@@ -2,26 +2,71 @@
 @import 'common/fonts';
 
 #how_to{
-  background: url('/assets/how_to/background.jpg') 465px 65px no-repeat;
   min-height: 370px;
   margin: 20px auto 50px;
-  h1 {
-    font-family: $johnston;
-    font-size: 34px;
-    text-transform: uppercase;
-    width: 410px;
-    display: block;
-    margin: 0 0 20px;
+  div#description {
+    width: 480px;
+    overflow: auto;
+    float: left;
+    > h1 {
+      font-family: $johnston;
+      font-size: 34px;
+      text-transform: uppercase;
+      width: 410px;
+      display: block;
+      margin: 0 0 20px;
+    }
+    h2 {
+      font-family: $kepler;
+      font-size: 20px;
+      width: 440px;
+      margin: 0 0 25px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+
   }
-  h2 {
-    font-family: $kepler;
-    font-size: 20px;
-    width: 460px;
-    margin: 0 0 25px;
-  }
-  p {
-    width: 505px;
-    margin-bottom: 20px;
+  div#making_of {
+    position: relative;
+    width: 446px;
+    height: 241px;
+    margin: 75px 0 0;
+    float: right;
+    a, h1 {
+      position: absolute;
+    }
+    a {
+      background: image-url("lookbooks/label_video.png") no-repeat;
+      color: #FFF;
+      font-family: $johnston;
+      font-size: 12px;
+      font-weight: 100;
+      line-height: 26px;
+      text-decoration: none;
+      text-transform: uppercase;
+      width: 122px;
+      height: 33px;
+      padding: 0 0 0 32px;
+      display: block;
+      top: 10px;
+      right: 0;
+    }
+    h1 {
+      background: url("/assets/lookbooks/bg-title.png") repeat;
+      color: #FFF;
+      font-family: $kepler;
+      font-size: 22px;
+      font-weight: lighter;
+      width: 418px;
+      margin: 0;
+      padding: 7px 0 7px 15px;
+      left: 0;
+      bottom: 0;
+    }
+    div.video_description {
+      display: none;
+    }
   }
 }
 
