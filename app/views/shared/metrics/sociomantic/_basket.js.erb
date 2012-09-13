@@ -1,7 +1,7 @@
 var basket = {
-products: [
-<%= cart.items.each do |item| %>
-{ identifier: '<%= item.id %>', amount: '<%= number_to_currency(item.variant.price).delete('R$ ') %>', currency: 'BRL', quantity: '<%= item.quantity %>' }
-<% end %>
-]
+	products: [
+<%= cart.items.map { |item|
+	"{ identifier:'#{item.id}', amount:'#{number_to_currency(item.variant.price).delete('R$ ')}', currency:'BRL', quantity:'#{item.quantity}' }" 
+}.join(', ') -%>
+	]
 };
