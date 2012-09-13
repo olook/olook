@@ -5,6 +5,13 @@ class LoyaltyProgramCreditType < CreditType
     BigDecimal.new(Setting.percentage_on_order)
   end
 
+  def self.amount_for_order(order)
+    amount_for_redeem = order.redeem_payment.total_paid if order.redeem_payment
+    amount_for_redeem ||= 0
+    
+    (amount_for_redeem + order.amount_paid) * LoyaltyProgramCreditType.percentage_for_order
+  end
+
   def self.apply_percentage(amount)
     amount * self.percentage_for_order
   end
