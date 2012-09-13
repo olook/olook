@@ -76,17 +76,23 @@ namespace :fidelidade do
   
   desc "Update Moip Callbacks -> one way"
   task :update_moip_callbacks => :environment do |task, args|
-    Payment.find_each do |payment|
-      if payment.order && payment.order.cart_id
-        payment.update_column(:cart_id, payment.order.cart_id)
-      end
-    end
-    
-    MoipCallback.find_each do |moip|
-      if moip.order && moip.order.erp_payment
-        moip.update_column(:payment_id, moip.order.erp_payment.id)
-      end
-    end
+
+    ActiveRecord::Base.connection.execute "
+                            update payments
+                            inner join orders on orders.id = payments.id
+                            inner join carts on orders.id = carts.id
+                            set
+                            payments.cart_id=carts.id;
+                          "    
+    ActiveRecord::Base.connection.execute "
+                            update moip_callbacks
+                            inner join orders on orders.id = moip_callbacks.order_id
+                            inner join payments on
+                              orders.id = payments.order_id and
+                              payments.type IN ('CreditCard', 'Billet', 'Debit')
+                            set
+                              moip_callbacks.payment_id=payments.id
+                          "
   end
   
   #WHEN START OPEN: http://www.youtube.com/watch?v=Dyx4v1QFzhQ
@@ -330,22 +336,20 @@ namespace :fidelidade do
 
   desc "move PaymentResponse data to payment" 
   task :move_payment_response_to_payment => :environment do
-    PaymentResponse.find_each do |pr|
-      Payment.transaction do
-        if payment = pr.payment
-          puts payment.id
-          payment.update_column :gateway_response_id        , pr.response_id
-          payment.update_column :gateway_response_status    , pr.response_status
-          payment.update_column :gateway_token              , pr.token
-          payment.update_column :gateway_fee                , pr.gateway_fee
-          payment.update_column :gateway_origin_code        , pr.gateway_code
-          payment.update_column :gateway_transaction_status , pr.transaction_status
-          payment.update_column :gateway_message            , pr.message
-          payment.update_column :gateway_transaction_code   , pr.transaction_code
-          payment.update_column :gateway_return_code        , pr.return_code
-        end
-      end
-    end
+    ActiveRecord::Base.connection.execute "
+                            update
+                            payments p
+                            inner join payment_responses pf on p.id = pf.payment_id
+                            set
+                            p.gateway_response_id        = pf.response_id,
+                            p.gateway_response_status    = pf.response_status,
+                            p.gateway_token              = pf.token,
+                            p.gateway_fee                = pf.gateway_fee,
+                            p.gateway_origin_code        = pf.gateway_code,
+                            p.gateway_transaction_status = pf.transaction_status,
+                            p.gateway_message            = pf.message,
+                            p.gateway_transaction_code   = pf.transaction_code,
+                            p.gateway_return_code        = pf.return_code;"
   end
 
   desc "add user_id to payments"
