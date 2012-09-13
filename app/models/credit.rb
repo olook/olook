@@ -24,29 +24,33 @@ class Credit < ActiveRecord::Base
   private
   def description_for_invite
     if (source == "inviter_bonus")
-      "Ganho por se cadastrar via convite"
+      "Cadastro realizado em #{l self.created_at}"
     elsif (source == "invitee_bonus")
-      "Amiga se cadastrou e fez compra #{order.number}"
+      if order && order.user
+      "#{order.user.email} (compra realizada em #{l self.created_at})"
+      else
+        "Compra realizada em #{l self.created_at}"
+      end
     end
   end
   
   def description_for_used_credit
-   "Compra #{order.try(:id)}"
+   "Compra realizada em #{l self.created_at}"
   end
   
   def description_for_loyalty
-    if (source == "loyalty_program_credit")
-      "Ganho pela compra #{order.id}"
-    else
-      "Credito residual pela compra #{order.id}"
-    end
+    "Compra realizada em #{l self.created_at}. Crédito disponível de #{l self.activates_at} a #{l self.expires_at}"
   end
   
   def description_for_redeem
     if order
-      "Acerto via SAC com pedido #{order.id}"
+      "Compra realizada em #{l self.created_at}"
     else
-      "Acerto via SAC"
+      "Créditos concedidos pela Central de Atendimento"
     end
+  end
+  
+  def l(date)
+    I18n.localize date, :format => "%d/%m/%Y"
   end
 end
