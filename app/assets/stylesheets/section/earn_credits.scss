@@ -47,7 +47,7 @@ section#earn_credits {
           &:first-child {
             background-position: 4px 0;
           }
-          &:last-child {
+          &:last-child, &.last {
             background-position: -301px 0;
             margin: 0;
           }
