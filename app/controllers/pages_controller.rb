@@ -6,6 +6,10 @@ class PagesController < ApplicationController
     @contact_form = ContactForm.new
   end
 
+  def loyalty
+    @next_month = (Time.now + 1.month).at_beginning_of_month
+  end
+
   def send_contact
     @contact_form = ContactForm.new(params[:contact_form])
     if @contact_form.save
