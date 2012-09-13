@@ -67,7 +67,7 @@ class Order < ActiveRecord::Base
 
     state :authorized do
       after_save do |order|
-        Resque.enqueue(Orders::NotificationPaymentConfirmedWorker, order.id)
+        Resque.enqueue_in(1.minute, Orders::NotificationPaymentConfirmedWorker, order.id)
         UserCredit.process!(order)
 
         Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, order.number)
@@ -222,8 +222,8 @@ class Order < ActiveRecord::Base
   def initialize_order
     update_attributes(:number => (id * CONSTANT_FACTOR) + CONSTANT_NUMBER)
     self.update_attribute(:purchased_at, Time.now)
-    Resque.enqueue(Abacos::InsertOrder, self.number)
-    Resque.enqueue(Orders::NotificationOrderRequestedWorker, self.id)
+    Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
+    Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
   end
   
   def confirm_payment?
@@ -236,22 +236,22 @@ class Order < ActiveRecord::Base
   end
   
   def cancel_order?
-    Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
+    Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
     true
   end
   
   def refused_order?
-    Resque.enqueue(Orders::NotificationPaymentRefusedWorker, self.id)
+    Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
     true
   end
 
   def send_notification_order_delivered?
-    Resque.enqueue(Orders::NotificationOrderDeliveredWorker, self.id)
+    Resque.enqueue_in(1.minute, Orders::NotificationOrderDeliveredWorker, self.id)
     true
   end
 
   def send_notification_order_shipped?
-    Resque.enqueue(Orders::NotificationOrderShippedWorker, self.id)
+    Resque.enqueue_in(1.minute, Orders::NotificationOrderShippedWorker, self.id)
     true
   end
 end
