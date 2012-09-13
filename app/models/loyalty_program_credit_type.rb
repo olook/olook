@@ -90,6 +90,7 @@ class LoyaltyProgramCreditType < CreditType
   end
 
   def create_transaction(credit, opt_attrs=default_attrs)
+    #ORDER ERRADO, SOURCE, REASON
     debit = credit.dup
     debit.is_debit = true
     debit.original_credit_id = credit.id
