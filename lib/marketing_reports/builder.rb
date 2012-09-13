@@ -19,11 +19,10 @@ module MarketingReports
     def generate_userbase
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases }
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases}
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
-            csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at,
-                    u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases? ]
+            csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases? ]
           end
         end
         emails_seed_list.each { |email| csv << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil ] }
@@ -33,8 +32,8 @@ module MarketingReports
     def generate_userbase_with_credits
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases current_credits }
-        User.where("gender != #{User::Gender[:male]} or gender is null").limit(10).each do |u|
+        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases current_credits}
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.current_credit ]
           end
@@ -46,8 +45,8 @@ module MarketingReports
     def generate_userbase_with_auth_token
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token }
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token}
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.authentication_token ]
           end
@@ -59,8 +58,8 @@ module MarketingReports
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token current_credit }
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token current_credit}
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.authentication_token, u.current_credit ]
           end
