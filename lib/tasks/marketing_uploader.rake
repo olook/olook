@@ -15,6 +15,11 @@ namespace :marketing_uploader do
     MarketingUploaderWorker.perform
   end
 
+  desc "Uploads a CSV file with all user data (user name, email, etc) and current credits"
+  task :copy_userbase_with_credits_to_ftp => :environment do
+    MarketingReports::Builder.new(:userbase_with_credits).upload("base_atualizada_purchases_com_creditos.csv")
+  end
+
   desc "Uploads a CSV with userbase orders"
   task :copy_userbase_orders_to_ftp => :environment do
     MarketingReports::Builder.new(:userbase_orders).upload("base_pedidos_atualizada.csv")
