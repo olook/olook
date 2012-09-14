@@ -1,3 +1,4 @@
+<script type="text/javascript">
 <% cart.items.each do |item| %>
 _gaq.push(['_addItem',
     '<%= cart.id %>',
@@ -8,3 +9,4 @@ _gaq.push(['_addItem',
     '<%= item.quantity.to_s %>'
  ]);
 <% end %>
+</script>

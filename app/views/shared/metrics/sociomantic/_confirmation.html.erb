@@ -1,3 +1,4 @@
+<script type="text/javascript">
 var basket = {
 products: [
 <%= cart.items.map { |item|
@@ -8,3 +9,5 @@ transaction : '<%= order.number %>',
 amount: '<%= number_to_currency(order.amount_paid).delete('R$ ') %>',
 currency: 'BRL'
 };
+
+</script>
