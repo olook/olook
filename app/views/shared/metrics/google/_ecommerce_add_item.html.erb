@@ -1,0 +1,12 @@
+<script type="text/javascript">
+<% cart.items.each do |item| %>
+_gaq.push(['_addItem',
+    '<%= cart.id %>',
+    '<%= item.variant.product_id %>',
+    '<%= item.variant.product.name %>',
+    '<%= item.variant.description %>',
+    '<%= cart_service.item_retail_price(item).to_s %>',
+    '<%= item.quantity.to_s %>'
+ ]);
+<% end %>
+</script>

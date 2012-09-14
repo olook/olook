@@ -21,5 +21,5 @@ Resque.schedule = YAML.load_file('config/resque_schedule.yml')
 
 require "resque/server"
 Resque::Server.use Rack::Auth::Basic do |user, pass|
-  user == "resque" && pass == "olookresque123abc"
+  (user == "resque" && pass == "olookresque123abc") || (user == "homolog" && pass == "homolebe")
 end

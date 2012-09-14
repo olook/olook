@@ -1,0 +1,120 @@
+@import "partials/mixins";
+
+section#loyalty {
+  padding: 20px 0 0;
+  > h1 {
+    font-family: $johnston;
+    font-size: 37px;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+    &+h2 {
+      font-family: $kepler;
+      font-size: 38px;
+      margin: 0 0 15px;
+    }
+  }
+  div#left {
+    width: 465px;
+    overflow: auto;
+    float: left;
+    ul.steps {
+      margin: 0 0 40px 30px;
+      overflow: auto;
+      li {
+        background: image-url('loyalty/icons.jpg') no-repeat;
+        background-position: -149px 0;
+        font-size: 13px;
+        text-align: center;
+        width: 130px;
+        margin: 0 20px 0 0;
+        padding: 170px 0 0 0;
+        display: inline-block;
+        float: left;
+        &:first-child {
+          background-position: 4px 0;
+        }
+        &:last-child, &.last {
+          background-position: -301px 0;
+          margin: 0;
+        }
+      }
+    }
+    > h1 {
+      font-family: $avenir;
+      font-size: 24px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0 0 20px 2px;
+    }
+    ul.products {
+      margin: 0 0 0 30px;
+      li {
+        margin: 0 30px 0 0;
+        float: left;
+        &:last-child, &.last {
+          margin: 0;
+        }
+      }
+    }
+  }
+  div#right {
+    width: 460px;
+    overflow: auto;
+    float: right;
+    div#credits {
+      overflow: auto;
+      margin: 30px 0 60px;
+      padding: 15px 20px;
+      border: 1px #888 solid;
+      > p {
+        font-size: 23px;
+        line-height: 30px;
+        text-align: center;
+        margin: 15px auto 10px;
+      }
+      h1 {
+        font-family: $johnston;
+        font-size: 22px;
+        text-align: center;
+        text-transform: uppercase;
+        &+p {
+          font-size: 18px;
+          line-height: 25px;
+        }
+      }
+      h2 {
+        color: $pink;
+        font-family: $avenir;
+        font-size: 36px;
+        text-align: center;
+        margin: 10px 0 0;
+        &+p {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+      a {
+        color: #e9588a;
+        text-align: center;
+        display: block;
+      }
+    }
+    div#showroom {
+      a {
+        text-indent: -99999px;
+        margin: 0 auto;
+        display: block;
+        &.link_showroom {
+          background: image-url('loyalty/bt-showroom.jpg') no-repeat;
+          width: 402px;
+          height: 61px;
+        }
+        &.buy_now {
+          background: image-url('loyalty/buy-now.jpg') no-repeat;
+          width: 249px;
+          height: 59px;
+        }
+      }
+    }
+  }
+}

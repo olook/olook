@@ -11,6 +11,9 @@ feature "Liquidation", %q{
   let!(:user) { FactoryGirl.create(:user) }
   let(:basic_shoe_size_35) { FactoryGirl.create(:basic_shoe_size_35) }
   let(:liquidation) { FactoryGirl.create(:liquidation) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
   describe "Liquidation" do
     background do

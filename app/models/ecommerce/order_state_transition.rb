@@ -5,15 +5,13 @@ class OrderStateTransition < ActiveRecord::Base
   before_create :snapshot
 
   private
-
-  def snapshot
-    payment = self.order.try(:payment)
-    if payment && payment.payment_response
-      self.payment_response = payment.payment_response.response_status
-      self.payment_transaction_status = payment.payment_response.transaction_status
-      self.gateway_status_reason = payment.gateway_status_reason
+    def snapshot
+      #TODO: Criar snapshots para cada tipo de pagamento
+      payment = self.order.erp_payment
+      if payment
+        self.payment_response = payment.gateway_response_status
+        self.payment_transaction_status = payment.gateway_transaction_status
+        self.gateway_status_reason = payment.gateway_status_reason
+      end
     end
-  end
-
-
 end

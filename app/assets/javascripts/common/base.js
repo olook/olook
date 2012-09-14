@@ -3,6 +3,7 @@ $(document).ready(function() {
   initBase.loadJailImages();
   initBase.customSelect();
   initBase.showErrorMessages();
+  initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
@@ -40,6 +41,18 @@ $(document).ready(function() {
     }
   }
 
+  $('div#session ul li.credits > a').live('click', function(e) {
+    e.preventDefault();
+  });
+
+  $('div#session ul li.credits').hover(function() {
+    $('div#session ul li.credits > a').addClass('hover');
+    $(this).find('#credits_info').show();
+  }, function() {
+    $('div#session ul li.credits > a').removeClass('hover');
+    $(this).find('#credits_info').hide();
+  });
+
   $("div.box_invite.clone div.social ul li a").live("click", function() {
     type = $(this).parent().attr("class");
     if(type != "email") {
@@ -55,7 +68,7 @@ $(document).ready(function() {
     }
   });
 
-  $("div.box_invite.clone div.social ul li.twitter a").live("click", function(e) {
+  $("div.box_invite.clone div.social ul li.twitter a, div.social ul li.twitter a").live("click", function(e) {
     var width  = 575,
         height = 400,
         left   = ($(window).width()  - width)  / 2,
@@ -412,6 +425,16 @@ initBase = {
     });
   },
 
+  showInfoCredits : function() {
+    $("#session ul li.credits div#credits_info a.open").live('click', function(e) {
+      clone = $("div.credits_description").clone().addClass("clone");
+      content = clone[0].outerHTML;
+      initBase.modal(content);
+      $(".ui-dialog").css("top", "30px");
+      e.preventDefault();
+    });
+  },
+
   updateProductImage : function(box, link, img) {
     $(box).find("a.product_link img").attr("src", img);
     $(box).find("a.product_link").attr("href", link);
@@ -514,6 +537,18 @@ initBase = {
       $('.dialog, .overlay').fadeOut('slow', function(){
         $('.dialog, .overlay').hide();
       });
+    });
+  },
+
+  fixBorderOnMyAccountDropDown : function() {
+    $('#session div.user ul li.submenu').hover(function() {
+      var link = $(this).find('a#info_user');
+      var link_width = $(link).outerWidth();
+      $(this).find('div.my_account').css('width', link_width - 4);
+      $(link).addClass('hover');
+    }, function() {
+      var link = $(this).find('a#info_user');
+      $(link).removeClass('hover');
     });
   },
 

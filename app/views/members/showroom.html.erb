@@ -5,7 +5,7 @@
 
   <% content_for :footer do %>
     <%= javascript_include_tag "showroom" %>
-    <% if @is_the_first_visit %>
+    <% if @user.first_visit_for_member? %>
       <%= javascript_include_tag "first_visit" %>
       <%= render "shared/metrics/google/google_quiz_conversion" %>
       <%= render "shared/metrics/google/track_signup_page_view" %>

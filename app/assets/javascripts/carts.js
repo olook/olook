@@ -26,6 +26,11 @@ $(function() {
     e.preventDefault();
   });
 
+  $('input#use_credit_value').change(function() {
+    $('form#use_credit_form').submit();
+  });
+
+
   $( "#gift_gift_wrap" ).change(function() {
     $( "#gift_wrap" ).submit();
     if ( $(this).attr('checked') == 'checked' ) {
@@ -34,6 +39,17 @@ $(function() {
     else {
       change_value (false);
     }
+  });
+
+  $("#credits_credits_last_order").change(function() {
+    $("#credits_last_order").submit();
+  });
+
+  $("table.check tbody tr td a").live("click", function(e) {
+    clone = $('div.credit_details').clone().addClass("clone");
+    content = clone[0].outerHTML;
+    initBase.modal(content);
+    e.preventDefault();
   });
 });
 

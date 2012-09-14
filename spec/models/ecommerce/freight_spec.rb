@@ -18,4 +18,6 @@ describe Freight do
   it { should validate_presence_of(:address_id) }
   it { should validate_presence_of(:shipping_service_id) }
 
+  
+
 end

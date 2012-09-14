@@ -1,0 +1,83 @@
+div.credits_description {
+  width: 540px;
+  overflow: auto;
+  display: none;
+  padding: 0 30px;
+  div.box_months {
+    position: relative;
+    width: 445px;
+    margin: 15px auto;
+    overflow: auto;
+    h1 {
+      font-family: $kepler;
+      font-size: 26px;
+      text-align: center;
+      margin: 0 0 10px;
+    }
+    h3 {
+      color: #666;
+      font-family: $avenir;
+      font-size: 19px;
+      font-weight: normal;
+      text-align: center;
+      margin: 0 0 20px;
+    }
+    table {
+      width: 144px;
+      margin: 0 5px 10px 0;
+      border: 1px #E1E1E1 solid;
+      float: left;
+      th, td {
+        font-weight: normal;
+        text-align: center;
+        padding: 10px 0;
+      }
+      th {
+        background: #EEE;
+        font-family: $avenir;
+        color: #666;
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+      td {
+        font-family: $kepler;
+        color: #999;
+        font-size: 16px;
+      }
+      &.current {
+        th {
+          background: #000;
+          color: #FFF;
+        }
+      }
+      &.last {
+        margin: 0;
+      }
+    }
+    p {
+      text-align: center;
+      &.current {
+        width: 143px;
+        float: left;
+        clear: both;
+      }
+      &.next {
+        width: 250px;
+        margin: 0 25px 0 0;
+        float: right;
+      }
+    }
+  }
+  &.clone {
+    display: block;
+  }
+  a.rules {
+    color: #e05789;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 0;
+    border-top: 1px #eee solid;
+    outline: none;
+  }
+}

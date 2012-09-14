@@ -11,6 +11,9 @@ feature "Buying products", %q{
   let(:user) { FactoryGirl.create(:user) }
   let!(:user_info) { FactoryGirl.create(:user_info, user: user, shoes_size: nil) }
   let(:product) { FactoryGirl.create :basic_shoe }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
   context "buying products" do
     background do

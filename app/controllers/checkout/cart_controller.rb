@@ -6,7 +6,6 @@ class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
   def show
-    @bonus = @user ? @user.credits_for?(session[:cart_credits]) : 0
   end
 
   def destroy
@@ -83,34 +82,9 @@ class Checkout::CartController < Checkout::BaseController
     redirect_to cart_path, :notice => response_message
   end
 
-  def remove_credits
-    msg = "Você não está usando nenhum crédito"
-    msg = "Créditos removidos com sucesso" if @cart_service.credits > 0
-    session[:cart_credits] = 0
-    redirect_to cart_path, :notice => msg
-  end
-
   def update_credits
-    credits = if params[:credits] && params[:credits][:value]
-      params[:credits][:value].gsub!(",",".")
-      BigDecimal.new(params[:credits][:value].to_s)
-    end
-
-    credits ||= 0
-
-    if @user.can_use_credit?(credits)
-      @cart_service.credits = credits
-      session[:cart_credits] = @cart_service.total_credits_discount
-      if credits > session[:cart_credits]
-        msg = "Você tentou utilizar mais que o permitido para esta compra, utilizamos o máximo permitido."
-      else
-        msg = "Créditos atualizados com sucesso"
-      end
-    else
-      msg = "Você não tem créditos suficientes"
-    end
-
-    redirect_to cart_path, :notice => msg
+    session[:cart_use_credits] = params[:use_credit] && params[:use_credit][:value] == "1"
+    @cart_service.credits = session[:cart_use_credits]
   end
 end
 

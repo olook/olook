@@ -20,6 +20,10 @@ feature "Accessing my vitrine", "In order to see the products as a user" do
   let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe, :inventory => 1) }
   let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_37, :product => shoe, :inventory => 1) }
 
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
+
   context "My vitrine" do
     background do
       do_login!(user)

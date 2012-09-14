@@ -1,6 +1,8 @@
 @import 'partials/mixins';
 @import 'partials/promotion_banners';
+@import 'partials/social';
 @import 'partials/footer';
+@import 'partials/credits_info';
 
 body {
   #error_explanation {
@@ -838,31 +840,98 @@ body {
         margin-right: 10px;
         overflow: visible;
         float: right;
-        h2 {
-          font-size: 15px;
-          text-align: right;
-          letter-spacing: -1px;
-          span {
-            color: #6d6e71;
-            width: auto;
-            margin: 0;
-            float: none;
+        div.user {
+          margin: 0 0 3px;
+          float: right;
+          ul {
+            > li {
+              position: relative;
+              color: #282828;
+              font-size: 15px;
+              text-align: right;
+              letter-spacing: -1px;
+              margin: 0 0 0 3px;
+              padding: 7px 0 0;
+              display: inline-block;
+              float: left;
+              a {
+                color: #282828;
+                text-decoration: none;
+                &#info_user {
+                  background: image-url('common/arrow-down-pink.jpg') center right no-repeat;
+                  color: #6d6e71;
+                  width: auto;
+                  height: 23px;
+                  margin: 0;
+                  padding: 5px 25px 5px 8px;
+                  border: 2px #FFF solid;
+                  float: none;
+                  &:hover, &.hover {
+                    text-decoration: none;
+                    border-color: #888;
+                  }
+                }
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+              div.my_account {
+                position: absolute;
+                background: #FFF;
+                padding: 5px 0;
+                display: none;
+                top: 22px;
+                left: 0;
+                z-index: 1000;
+                border-left: 2px #888 solid;
+                border-right: 2px #888 solid;
+                border-bottom: 2px #888 solid;
+                ul {
+                  margin: 0 0 0 5px;
+                  li {
+                    text-align: left;
+                    width: 100%;
+                    display: block;
+                    clear: both;
+                    a {
+                      color: #6d6e71;
+                      letter-spacing: 0;
+                      margin: 0 0 8px;
+                      display: block;
+                      clear: both;
+                    }
+                    &:last-child, &.last {
+                      a {
+                        margin: 0;
+                      }
+                    }
+                  }
+                }
+              }
+              &:hover {
+                div.my_account {
+                  display: block;
+                }
+              }
+            }
           }
         }
-        ul {
-          margin: 10px 0 0;
+        > ul {
+          margin: 5px 0 0;
+          float: right;
+          clear: both;
           li {
             text-transform: none;
             height: auto;
             display: inline-block;
-            padding: 0 10px;
             border-left: 1px #000 dotted;
-            float: none;
+            float: left;
             a {
-              color: #212121;
+              color: #282828;
               text-decoration: none;
-              text-align: right;
               margin: 0;
+              padding: 5px 10px;
+              display: block;
               &:hover {
                 text-decoration: underline;
               }
@@ -889,12 +958,6 @@ body {
                 margin: 0;
               }
             }
-            &.first {
-              border: none;
-            }
-            &.last {
-              padding-right: 0;
-            }
             &.login {
               padding: 0;
               float: right;
@@ -903,6 +966,16 @@ body {
                 a {
                   color: $secondary_color;
                 }
+              }
+            }
+            &.first {
+              border-left: none;
+            }
+            &.last {
+              a {
+                color: #E05789;
+                margin-right: 0;
+                padding-right: 0;
               }
             }
           }
@@ -1061,13 +1134,6 @@ body {
               -webkit-border-radius: 3px;
               -moz-border-radius: 3px;
               border-radius: 3px;
-            }
-          }
-          &.valentine_invite {
-            a {
-              background: url("/assets/common/bg-link-valentine.png") left no-repeat;
-              padding-left: 15px;
-              margin-left: 25px;
             }
           }
           &.showroom {
@@ -1253,155 +1319,11 @@ body {
       }
     }
     div.social {
-      width: 485px;
-      overflow: auto;
       float: left;
-      ul {
-        width: 100%;
-        padding: 0 0;
-        overflow: auto;
-        li {
-          position: relative;
-          width: 105px;
-          margin: 0 15px 0 0;
-          float: left;
-          a {
-            color: #5a5a5b;
-            font-family: $kepler;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            line-height: 15px;
-            outline: none;
-            width: 105px;
-            display: block;
-            margin: 0 15px 0 0;
-            padding: 105px 0 15px 0;
-            float: left;
-          }
-          &.twitter {
-            a {
-              background: url("/assets/common/bt-twitter.jpg") center 10px no-repeat;
-            }
-          }
-          &.facebook {
-            a {
-              background: url("/assets/common/bt-facebook.jpg") center 10px no-repeat;
-            }
-          }
-          &.orkut {
-            a {
-              background: url("/assets/common/bt-orkut.jpg") center 10px no-repeat;
-            }
-            img {
-              position: absolute;
-              width: 105px;
-              height: 150px;
-              left: 0;
-              opacity: 0;
-              -moz-opacity: 0;
-              filter: alpha(opacity=0);
-            }
-          }
-          &.email {
-            a {
-              background: url("/assets/common/bt-email.png") center 10px no-repeat;
-              margin: 0;
-              padding: 105px 10px 15px 10px;
-              &.selected {
-                background-color: #e4e4e4;
-              }
-            }
-          }
-        }
-      }
-      form {
-        background: #e4e4e4;
-        padding: 20px 15px;
-        clear: both;
-        display: none;
-        p {
-          color: #000;
-          font-size: 17px;
-          margin: 0 0 10px;
-        }
-        textarea {
-          background: #FFF url("/assets/common/bg-textarea-emails.jpg") bottom repeat-x;
-          width: 425px;
-          height: 100px;
-          padding: 7px 8px;
-          resize: none;
-          outline: none;
-          margin: 0 0 20px;
-          border: 1px solid #C1C1C1;
-        }
-        input[type="submit"] {
-          background: url("/assets/common/invite.png") no-repeat;
-          text-indent: -9999px;
-          width: 283px;
-          height: 52px;
-          display: block;
-          margin: 0 auto;
-          border: none;
-          cursor: pointer;
-        }
-      }
     }
     div.link_mail {
-      position: relative;
       width: 295px;
-      height: 150px;
-      overflow: auto;
-      padding: 0 0 0 30px;
       float: right;
-      h2 {
-        font-size: 16px;
-        font-weight: lighter;
-        letter-spacing: -1px;
-        margin: 0 0 10px;
-      }
-      ul {
-        overflow: hidden;
-        li {
-          position: relative;
-          input[type="text"] {
-            color: #666;
-            font-size: 13px;
-            width: 265px;
-            margin: 0 0 10px 0;
-            padding: 5px 10px;
-            border: 1px #CCC solid;
-          }
-          a {
-            background: url("/assets/common/copy-link.jpg") no-repeat;
-            text-indent: -9999px;
-            width: 116px;
-            height: 32px;
-            display: block;
-          }
-          div.zclip {
-            z-index: 10000 !important;
-          }
-        }
-      }
-      div.box_copy {
-        position: absolute;
-        background: url("/assets/common/copy.png") top center no-repeat;
-        width: 166px;
-        height: 38px;
-        padding: 17px 0 0 0;
-        display: none;
-        top: 93px;
-        left: 5px;
-        p {
-          color: #666;
-          font-size: 12px;
-          text-align: center;
-          strong {
-            color: #666;
-          }
-        }
-      }
     }
     &.clone {
       display: block;

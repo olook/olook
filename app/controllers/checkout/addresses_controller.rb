@@ -49,9 +49,9 @@ class Checkout::AddressesController < Checkout::BaseController
   end
 
   def assign_address
-    address = @user.addresses.find_by_id(params[:address_id])
-    if address
-      set_freight_in_the_cart(address)
+    @address = @user.addresses.find_by_id(params[:address_id])
+    if @address
+      set_freight_in_the_cart(@address)
       redirect_to new_credit_card_cart_checkout_path
     else
       redirect_to cart_checkout_addresses_path, :notice => "Por favor, selecione um endereço"
