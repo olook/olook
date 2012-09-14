@@ -6,6 +6,9 @@ describe User do
 
   let(:casual_profile) { FactoryGirl.create(:casual_profile) }
   let(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
@@ -79,7 +82,6 @@ describe User do
     it { should have_one :survey_answer }
     it { should have_many :invites }
     it { should have_many :events }
-    it { should have_many :credits }
     it { should have_one :tracking }
   end
 
@@ -94,6 +96,22 @@ describe User do
     it "should return true if user is old" do
       subject.is_old?.should be_true
     end
+    
+    it "should create a signup event when the user is created" do
+      user = FactoryGirl.create(:member)
+      user.events.where(:event_type => EventType::SIGNUP).any?.should be_true
+    end
+
+    it "enqueues a SignupNotificationWorker in resque" do
+      Resque.should_receive(:enqueue).with(SignupNotificationWorker, anything)
+      FactoryGirl.create(:member)
+    end
+
+    it "adds credit for the invitee" do
+      UserCredit.should_receive(:add_for_invitee)
+      FactoryGirl.create(:member)
+    end
+    
   end
 
   context "#facebook_data" do
@@ -298,21 +316,6 @@ describe User do
       subject.survey_answers.should == survey_answers.answers
     end
   end
-
-  describe "#invite_bonus" do
-    it "calls calculate on InviteBonus and returns the value" do
-      InviteBonus.should_receive(:calculate).with(subject).and_return(123.0)
-      subject.invite_bonus.should == 123.0
-    end
-  end
-
-  describe "#used_invite_bonus" do
-    it "calls already_used on InviteBonus and returns the value" do
-      InviteBonus.should_receive(:already_used).with(subject).and_return(13.0)
-      subject.used_invite_bonus.should == 13.0
-    end
-  end
-
 
   describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }
@@ -572,20 +575,17 @@ describe User do
     end
 
     context "when user has one credit record" do
-      let!(:credit) { FactoryGirl.create(:credit, :user => subject) }
-
       it "returns the total of the credit record" do
-        subject.current_credit.should == credit.total
+        subject.user_credits_for(:invite).add(:amount => 10.0)
+        subject.current_credit.should == subject.user_credits_for(:invite).total
       end
     end
 
     context "when user has more than one credit record" do
-      let!(:credit_one) { FactoryGirl.create(:credit, :total => 43, :user => subject) }
-      let!(:credit_two) { FactoryGirl.create(:credit, :total => 7, :user => subject) }
-
-
       it "returns the total of the last credit record" do
-        subject.current_credit.should == credit_two.total
+        subject.user_credits_for(:invite).add(:amount => 10.0)
+        subject.user_credits_for(:redeem).add(:amount => 10.0, :admin_id => subject.id)
+        subject.reload.current_credit.should == 20.0
       end
     end
 
@@ -593,7 +593,7 @@ describe User do
 
   describe "#can_use_credit?" do
     before do
-      FactoryGirl.create(:credit, :user => subject, :total => 23)
+      subject.user_credits_for(:invite).add(:amount => 23.0)
     end
 
     context "when user current credits is less then the received value" do
@@ -613,7 +613,6 @@ describe User do
         subject.can_use_credit?(21.90).should be_true
       end
     end
-
   end
 
   describe "first_buy?" do
@@ -625,7 +624,7 @@ describe User do
     end
 
     context "when user has orders" do
-      let(:order) { FactoryGirl.create(:order, :user => subject) }
+      let(:order) { FactoryGirl.create(:order_with_payment_authorized, :user => subject) }
 
       context "when user has one order in the cart" do
         it "returns false" do
@@ -672,7 +671,7 @@ describe User do
       end
 
       context "when user has two orders authorized" do
-        let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+        let(:second_order) { FactoryGirl.create(:order_with_payment_authorized, :user => subject) }
 
         it "returns false" do
           order.authorized
@@ -681,46 +680,6 @@ describe User do
         end
       end
     end
-  end
-
-  describe "#has_not_exceeded_credit_limit?" do
-    let(:second_order) { FactoryGirl.create(:order, :user => subject) }
-
-    context "when user current credit plus user invited_bonus is below 300" do
-      before do
-        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("100.00"))
-        subject.should_receive(:current_credit).and_return(BigDecimal.new("100.00"))
-      end
-
-      it "returns true" do
-        subject.has_not_exceeded_credit_limit?.should be_true
-      end
-    end
-
-    context "when user current credit plus user invited_bonus is more than 300" do
-      before do
-        subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
-        subject.should_receive(:current_credit).and_return(BigDecimal.new("151.00"))
-      end
-
-      it "returns false" do
-        subject.has_not_exceeded_credit_limit?.should be_false
-      end
-    end
-
-    context "when a value is passed" do
-      context "and the sum of current credit, invited_bonus and value does not exceeds 300" do
-        before do
-          subject.should_receive(:used_invite_bonus).and_return(BigDecimal.new("150.00"))
-          subject.should_receive(:current_credit).and_return(BigDecimal.new("140.00"))
-        end
-
-        it "returns true" do
-          subject.has_not_exceeded_credit_limit?(BigDecimal.new("10.00")).should be_true
-        end
-      end
-    end
-
   end
 
   describe "#tracking_params" do
@@ -779,75 +738,4 @@ describe User do
     end
   end
 
-  describe "#total_revenue" do
-    context "when user has no purchases" do
-      it "returns 0" do
-        subject.total_revenue.should == 0
-      end
-    end
-
-    context "when the user has one purchase in the cart" do
-      before do
-        FactoryGirl.create(:cart_with_items, :user => subject)
-      end
-
-      it "returns 0" do
-        subject.total_revenue.should == 0
-      end
-    end
-
-    context "when the user has one completed order" do
-      let(:order) do
-        FactoryGirl.create(:order, :user => subject)
-      end
-
-      before do
-        order.payment.billet_printed
-        order.payment.authorized
-      end
-
-      it "returns the value of this order" do
-        Order.any_instance.should_receive(:subtotal).and_return(BigDecimal.new("100"))
-        subject.total_revenue.to_s.should == "100.0"
-      end
-    end
-
-    context "when the user has two completed order" do
-      let(:order_one) do
-        FactoryGirl.create(:order, :user => subject)
-      end
-
-      let(:order_two) do
-        FactoryGirl.create(:order, :user => subject)
-      end
-
-      before do
-        order_one.payment.billet_printed
-        order_one.payment.authorized
-        order_two.payment.billet_printed
-        order_two.payment.authorized
-      end
-
-      it "returns the total sum of the orders" do
-        Order.any_instance.stub(:subtotal).and_return(BigDecimal.new("53.34"))
-        subject.total_revenue.to_s.should == "106.68"
-      end
-    end
-
-    context "when called with amount_paid" do
-      let(:order) do
-        FactoryGirl.create(:order, :user => subject)
-      end
-
-      before do
-        order.payment.billet_printed
-        order.payment.authorized
-      end
-
-      it "calls amount_paid on the order" do
-        Order.any_instance.should_receive(:amount_paid).and_return(0)
-        subject.total_revenue(:amount_paid)
-      end
-    end
-  end
 end

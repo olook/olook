@@ -16,6 +16,19 @@ class Admin::OrdersController < Admin::BaseController
     respond_with :admin, @order, @address
   end
 
+  def change_state
+    @order = Order.find(params[:id])
+
+    if params[:event].in?(@order.state_events(guard: false).map(&:to_s))
+      @order.public_send(params[:event])
+      flash[:notice] = 'O estado da ordem foi atualizado com sucesso!'
+    else
+      flash[:error] = 'Não foi possível alterar o estado!'
+    end
+
+    respond_with :admin, @order
+  end
+
   def generate_purchase_timeline
    @order = Order.find(params[:id])
   end

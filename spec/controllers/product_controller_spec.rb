@@ -8,7 +8,10 @@ describe ProductController do
     let(:product) { variant.product }
     let!(:user_info) { FactoryGirl.create(:user_info, :user => user) }
     let(:order) { FactoryGirl.create(:order, :user => user).id }
-
+    let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
+    
     before :each do
       session[:order] = order
       FactoryGirl.create(:main_picture, :product => product)
