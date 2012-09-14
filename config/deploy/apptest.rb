@@ -3,7 +3,7 @@ role :web, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-set :rails_env, "staging"
+#set :rails_env, "staging"
 
 trap("INT") {
   print "\n\n"
@@ -18,6 +18,25 @@ namespace :log do
       puts "\033[0;33m#{stage}:\033[0m #{data}"
       break if stream == :err
     end
+  end
+end
+
+
+namespace :assets do
+  task :to_cdn do
+    # require 'aws/s3'
+    # set :cdn_user, 'AKIAJ2WH3XLYA24UTAJQ'
+    # set :cdn_api_key, 'M1d4JbTo9faMber0MKPeO2dzM6RsXNJqrOTBrsZX'
+    # set :cdn_container, "cdn-app-staging.olook.com.br"
+    # AWS::S3::Base.establish_connection!(:access_key_id => cdn_user, :secret_access_key => cdn_api_key )
+    # assets_dir = "#{shared_path}/assets"
+    # Dir.glob(assets_dir + "/**/*").each do |file|
+    #   if !File.directory?(file)
+    #     cdn_filename = file.gsub(assets_dir,"assets")
+    #     AWS::S3::S3Object.store(cdn_filename, open(file) , cdn_container)
+    #   end
+    # end
+    run "s3cmd --skip-existing --preserve --recursive sync #{shared_path}/assets s3://cdn-app-staging.olook.com.br"
   end
 end
 
@@ -91,6 +110,7 @@ namespace :deploy do
 
   #before 'deploy:finalize_update', 'deploy:assets:symlink'
   #after 'deploy:yml_links', 'deploy:assets:symlink'
-  after 'deploy:update_code', 'deploy:yml_links'
-  after 'deploy:yml_links', 'deploy:assets:precompile'
+  #after 'deploy:update_code', 'deploy:yml_links'
+  #after 'deploy:yml_links', 'deploy:assets:precompile'
+  after 'deploy:assets:precompile', 'assets:to_cdn'
 end
