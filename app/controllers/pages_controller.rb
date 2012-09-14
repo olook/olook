@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   end
 
   def loyalty
-    @next_month = (Time.now + 1.month).at_beginning_of_month
+    @loyalty_credit_amount = current_user.user_credits_for(:loyalty_program).total(1.month.since.at_beginning_of_month)
   end
 
   def send_contact
