@@ -30,7 +30,7 @@ describe Checkout::PaymentsController do
         response.status.should == 200
       end
 
-      it "should change the payment status to waiting_payment" do
+      xit "should change the payment status to waiting_payment" do
         post :create, params
         payment.reload.waiting_payment?.should eq(true)
       end
@@ -43,7 +43,7 @@ describe Checkout::PaymentsController do
         payment.reload.gateway_status_reason.should == classificacao
       end
 
-      it "should change the order status to authorized" do
+      xit "should change the order status to authorized" do
         waiting_payment = "3"
         post :create, :status_pagamento => waiting_payment, :id_transacao => payment.identification_code, :value => total
         authorized = "1"
@@ -51,7 +51,7 @@ describe Checkout::PaymentsController do
         order.reload.authorized?.should eq(true)
       end
 
-      it "should change not the order status after receiving completed" do
+      xit "should change not the order status after receiving completed" do
         waiting_payment = "3"
         post :create, :status_pagamento => waiting_payment, :id_transacao => payment.identification_code, :value => total
         authorized = "1"
@@ -71,7 +71,7 @@ describe Checkout::PaymentsController do
     end
 
     context "with invalids params" do
-      it "should return 500 with a invalid status" do
+      xit "should return 500 with a invalid status" do
         invalid_status = "0"
         post :create, :status_pagamento => invalid_status, :id_transacao => payment.identification_code, :value => total
         response.status.should == 500
