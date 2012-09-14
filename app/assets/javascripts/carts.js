@@ -1,6 +1,4 @@
 $(function() {
-  initBase.showInfoCredits();
-
   $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
     document.location = $("a.continue").attr("href");
   });

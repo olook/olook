@@ -5,6 +5,7 @@ $(document).ready(function() {
   initBase.showErrorMessages();
   initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
+  initBase.showInfoCredits();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -426,7 +427,7 @@ initBase = {
   },
 
   showInfoCredits : function() {
-    $("section#cart p.credits a").live('click', function(e) {
+    $("a.open_loyalty_lightbox").live('click', function(e) {
       clone = $("div.credits_description").clone().addClass("clone");
       content = clone[0].outerHTML;
       initBase.modal(content);
