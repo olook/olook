@@ -318,6 +318,7 @@
         display: block;
         border: none;
         cursor: pointer;
+        clear: both;
         &.disabled {
           background: url("/assets/product/bt-add-product-disabled.jpg") no-repeat;
         }
@@ -331,6 +332,7 @@
         display: block;
         border: none;
         cursor: pointer;
+        clear: both;
         &.disabled {
           background: url("/assets/product/bt-add-product-to-suggestions-disabled.jpg") no-repeat;
         }
