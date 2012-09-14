@@ -426,11 +426,10 @@ initBase = {
   },
 
   showInfoCredits : function() {
-    $("#session ul li.credits div#credits_info a.open").live('click', function(e) {
+    $("section#cart p.credits a").live('click', function(e) {
       clone = $("div.credits_description").clone().addClass("clone");
       content = clone[0].outerHTML;
       initBase.modal(content);
-      $(".ui-dialog").css("top", "30px");
       e.preventDefault();
     });
   },
