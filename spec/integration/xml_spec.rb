@@ -226,7 +226,7 @@ context "in the ilove_ecommerce xml page" do
       <produtos>
       <produto>
       <codigo>#{product.id}</codigo>
-      <categoria>#{product.category}</categoria>
+      <categoria>#{product.category_humanize}</categoria>
       <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=ilove_ecommerce</link>
       <imagem></imagem>
       <nome_titulo></nome_titulo>
