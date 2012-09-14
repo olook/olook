@@ -2,11 +2,13 @@ $(document).ready(function(){
 	var orderNumberController = function(element){
 		element = element || $("#operation");
 
-		if($(element).val().match(/:order/)){
-			$('.order_number').show();
-		}else{
-			$('#ordem_number').val('')
-			$('.order_number').hide();
+		if($(element).size() > 0){
+			if($(element).val().match(/:order/)){
+				$('.order_number').show();
+			}else{
+				$('#ordem_number').val('')
+				$('.order_number').hide();
+			}
 		}
 	};
 
