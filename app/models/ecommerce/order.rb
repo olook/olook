@@ -65,7 +65,7 @@ class Order < ActiveRecord::Base
     state :authorized
     state :under_review 
 
-    after_transition :any => :authorized, :do => :transition_to_authorized
+    after_transition any => :authorized, :do => :transition_to_authorized
     
     state :reversed do
       after_save do |order|
