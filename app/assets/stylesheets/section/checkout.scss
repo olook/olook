@@ -95,6 +95,17 @@ section#cart {
     text-transform: uppercase;
     margin: 0 0 15px;
   }
+  p.credits {
+    background: #EEE;
+    width: 195px;
+    margin: 4px 20px 0 0;
+    padding: 10px 15px;
+    float: right;
+    a {
+      color: #e05789;
+      float: none;
+    }
+  }
   div.banner {
     background: url('/assets/cart/banner_discount.jpg') top center no-repeat;
     width: 965px;
@@ -121,6 +132,8 @@ section#cart {
   }
 
   ul#titles {
+    width: 100%;
+    overflow: auto;
     li {
       color: #101010;
       font-family: $avenir;
@@ -129,6 +142,7 @@ section#cart {
       text-transform: uppercase;
       padding: 5px 0;
       display: inline-block;
+      float: left;
       &.item {
         width: 425px;
       }
@@ -201,6 +215,12 @@ section#cart {
             margin: 0 5px 0 0;
             strong {
               text-transform: none;
+            }
+            &.credits {
+              font-size: 12px;
+              text-align: left;
+              margin: 4px 20px 0 0;
+              display: inline-block;
             }
           }
           fieldset ol li {
@@ -384,6 +404,7 @@ section#cart {
   }
 
   table.check {
+    margin: 0 0 20px;
     border: 1px $border-color solid;
     tbody {
       tr {
@@ -401,20 +422,35 @@ section#cart {
             font-weight: normal;
             text-transform: uppercase;
             float: left;
-            & + p {
-              width: 515px;
-              margin: 0 0 0 48px;
-              clear: both;
-            }
+          }
+          p {
+            width: 665px;
+            margin: 0 0 0 48px;
+            clear: both;
+          }
+          a {
+            color: #e05789;
+            margin: 5px 0 0 48px;
           }
           &.value {
-            color: $third-color;
+            color: #df5a8b;
             font-family: $avenir;
             font-size: 18px;
             font-weight: normal;
             text-align: right;
             letter-spacing: -1px;
             padding: 0 67px 0 0;
+          }
+        }
+      }
+    }
+    &.gift {
+      tbody {
+        tr {
+          td {
+            &.value {
+              color: $third_color;
+            }
           }
         }
       }
@@ -442,6 +478,10 @@ section#cart {
                 font-size: 12px;
                 margin: 12px 0 0 0;
                 padding: 5px 0;
+                display: none;
+                &.show {
+                  display: block;
+                }
               }
             }
             input[type="submit"] {
@@ -1258,6 +1298,52 @@ div#modal {
   }
 }
 
+div.credit_details {
+  width: 460px;
+  padding: 10px 20px;
+  display: none;
+  > a {
+    color: $pink;
+    outline: none;
+    padding-bottom: 10px;
+  }
+  table {
+    width: 100%;
+    margin: 0 0 5px;
+    border-bottom: 1px $border-color solid;
+    thead {
+      tr {
+        th {
+          font-family: $kepler;
+          font-size: 20px;
+          text-align: left;
+          padding: 5px 0;
+          &.value {
+            color: #e05789;
+            font-family: $avenir;
+            text-transform: uppercase;
+            text-align: right;
+            font-weight: normal;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          padding: 5px 0;
+          span {
+            color: $pink;
+          }
+        }
+      }
+    }
+  }
+  &.clone {
+    display: block;
+  }
+}
+
 .mac.gecko {
   section#cart table.items_list tbody tr td.delete_item form input[type="submit"] {
     top: 10px;
@@ -1300,6 +1386,11 @@ div#modal {
   }
 }
 .gecko, .ie7 {
+  section#cart {
+    ul#titles {
+      margin: 0 0 20px;
+    }
+  }
   section#payment.payment_new {
     fieldset.payments {
       ol {

@@ -2,10 +2,20 @@
 require "spec_helper"
 
 describe Abacos::Pagamento do
+  
+  let(:expiration_date) { DateTime.civil(2012, 11, 9, 10, 0, 0) }
+  let(:order)  { FactoryGirl.create :clean_order, :amount_paid => 179.90 }
+  let(:payment_credit_card) { FactoryGirl.create :credit_card, :order => order, :payments => 3, :bank => 'visa' }
+  let(:payment_billet) do
+    result = FactoryGirl.create :billet, :order => order, :payments => 1 
+    result.update_attribute(:payment_expiration_date, expiration_date)
+    result
+  end
+  let(:payment_debit) { FactoryGirl.create :debit, :order => order, :payments => 1, :bank => 'itau' }
+
+  
   describe 'basic attributes' do
-    let(:payment) { mock_model CreditCard, :payments => 3, :bank => 'visa' }
-    let(:order) { double :order, :payment => payment, :amount_paid => 179.9 }
-    subject { described_class.new order }
+    subject { described_class.new payment_credit_card.order }
 
     it '#valor' do
       subject.valor.should == '179.90'
@@ -35,10 +45,8 @@ describe Abacos::Pagamento do
 
   describe 'diferent payments' do
     context 'for boletos' do
-      let!(:expiration_date) { DateTime.civil(2012, 11, 9, 10, 0, 0) }
-      let!(:billet) { mock_model Billet, :payments => 1, :payment_expiration_date => expiration_date }
-      let!(:order) { double :order, :amount_paid => 179.9, :payment => billet }
-      subject { described_class.new order }
+      subject { described_class.new payment_billet.order }
+  
       let(:billet_parsed_data) do
         {
          'DadosPedidosFormaPgto' => {
@@ -56,18 +64,16 @@ describe Abacos::Pagamento do
     end
 
     context 'for débito' do
-      let(:billet) { mock_model Debit, :bank => 'itau', :payments => 1 }
-      let(:order) { double :order, :amount_paid => 179.9, :payment => billet }
-      subject { described_class.new order }
+      subject { described_class.new payment_debit.order }
+      
       it '#forma should be a bank name, like ITAU, BRADESCO' do
         subject.forma.should == 'ITAU'
       end
     end
 
     context 'for cartão de crédito' do
-      let(:billet) { mock_model CreditCard, :bank => 'visa', :payments => 1 }
-      let(:order) { double :order, :amount_paid => 179.9, :payment => billet }
-      subject { described_class.new order }
+      subject { described_class.new payment_credit_card.order }
+
       it '#forma should be the card operator, like VISA, MASTERCARD' do
         subject.forma.should == 'VISA'
       end

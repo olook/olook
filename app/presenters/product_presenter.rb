@@ -105,6 +105,10 @@ class ProductPresenter < BasePresenter
     end
   end
 
+  def is_promotion?
+    (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8)) || product.promotion?
+  end
+
   private
 
   def price_markdown discount_method

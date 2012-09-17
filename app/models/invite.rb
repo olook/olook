@@ -17,6 +17,8 @@ class Invite < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => 'member'
   delegate :invite_token, :to => :user, :prefix => 'member'
 
+  after_create :send_invite_mail
+
   def accept_invitation(invitee)
     self.tap do |invite|
       invite.invited_member = invitee
@@ -39,5 +41,9 @@ class Invite < ActiveRecord::Base
 
   def self.find_inviter(invitee)
     self.find_by_invited_member_id(invitee.id).try(:user)
+  end
+
+  def send_invite_mail
+    Resque.enqueue(MailInviteWorker, self.id) if self.sent_at.nil?
   end
 end

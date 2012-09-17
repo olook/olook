@@ -31,7 +31,7 @@
         </div>
         <div class="group">
           <%= f.label :state, "Payment Method", :class => "label" %>
-          <%= f.select :payment_type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard"} , {:include_blank => true} %>
+          <%= f.select :payments_type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit"} , {:include_blank => true} %>
         </div>
 
         <div class="group">
@@ -76,8 +76,8 @@
       <td><%= l order.created_at, :format => :short %></td>
       <td><%= order.status %></td>
       <td><%= order.state_reason %></td>
-      <td><%= order.payment ? order.payment.human_to_s : "Pagamento nao encontrado" %></td>
-      <td><%= order.payment ? order.payment.gateway_status_reason.to_s : "Pagamento nao encontrado" %></td>
+      <td><%= order.erp_payment ? order.erp_payment.human_to_s : "Pagamento nao encontrado" %></td>
+      <td><%= order.erp_payment ? order.erp_payment.gateway_status_reason.to_s : "Pagamento nao encontrado" %></td>
       <td><%= order.line_items.count %></td>
       <td><%= number_to_currency(order.subtotal) %></td>
       <td><%= number_to_currency(order.credits) %></td>

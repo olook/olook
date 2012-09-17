@@ -4,12 +4,15 @@ module PromotionsHelper
       {:controller => "lookbooks"},
       {:controller => "stylists"},
       {:controller => "friends", :actions => ["showroom"]},
-      {:controller => "product", :actions => ["show"]}
+      {:controller => "product", :actions => ["show"]},
+      {:controller => "home"},
+      {:controller => "moments"}
   ]
 
   PROMOTION_BANNER_GUEST_WHITELIST = [
     {:controller => "product", :actions => ["show"]},
-    {:controller => "home", :actions => ["index"]}
+    {:controller => "home", :actions => ["index"]},
+    {:controller => "moments"}
   ]
 
   def render_promotion_banner

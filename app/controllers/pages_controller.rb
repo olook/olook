@@ -6,6 +6,10 @@ class PagesController < ApplicationController
     @contact_form = ContactForm.new
   end
 
+  def loyalty
+    @loyalty_credit_amount = @user.user_credits_for(:loyalty_program).total(1.month.since.at_beginning_of_month) if @user
+  end
+
   def send_contact
     @contact_form = ContactForm.new(params[:contact_form])
     if @contact_form.save

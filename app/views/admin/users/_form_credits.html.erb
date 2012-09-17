@@ -1,9 +1,38 @@
 <%= javascript_include_tag "admin/credit", "admin/jquery.validate.min" %>
+
 <%= form_tag 'create_credit_transaction', :id => 'create_credit_transaction' do %>
+  
   <%= hidden_field_tag "id", user.id %>
-  <%= text_field_tag "value", '0.00' %>
-  <%= select_tag "operation", grouped_options_for_select({"Adicionar Créditos" => CreditService::CREDIT_CONFIG['admin_credit_service']['credit_reason'], "Remover Créditos" => CreditService::CREDIT_CONFIG['admin_credit_service']['debit_reason']}) %>
-  <%= submit_tag "Create Credit Transaction" %>
+  
+  <div class="field">
+    <%= label_tag "operation", "*Tipo de crédito" %><br />
+    <%= select_tag "operation",
+      options_for_select(CreditType::CREDIT_CODES.map{|k,v|[v,(k==:redeem ? 'redeem:order' : k)] if k!=:loyalty_program}.compact.unshift(''),
+      params[:operation])
+    %>
+  </div>
+
+  <div class="field">
+    <%= label_tag "value", "*Valor" %><br />
+    <%= text_field_tag "value", params[:value] || '0.00' %>
+  </div>
+  
+  <div class="field order_number">
+    <%= label_tag "ordem_number", "*Ordem" %><br />
+    <%= select_tag "ordem_number", options_for_select(([''] << user.orders.map{|order| order.number}),params[:order_number].to_s) %>
+  </div>
+
+  <div class="field">
+    <%= label_tag "method", "*Tipo de Transação" %><br />
+    <%= select_tag "method", options_for_select([['Adicionar',:add],['Remover',:remove]],params[:method].to_s) %>
+  </div>
+
+  <div class="field">
+    <%= label_tag "reason", "Motivo" %><br />
+    <%= text_area_tag "reason", params[:reason], :rows => 6, :cols => 25 %>
+  </div>
+
+  <div class="field"><%= submit_tag "Create Credit Transaction" %></div>
 <% end %>
 
 

@@ -7,7 +7,7 @@
 <% end %>
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
-  <%= render :partial => "shared/metrics/sociomantic/basket.js.erb", :locals => {:cart => @cart, :cart_service => @cart_service } %>
+  <%= render :partial => "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render "shared/metrics/google/cart" %>
   <%= javascript_include_tag "carts" %>
 <% end %>
@@ -75,35 +75,7 @@
     </tbody>
   </table>
 
-  <table cellpadding="0" cellspacing="0" class="items_list" id="credits">
-    <tbody>
-      <% if @bonus > 0 %>
-        <tr class="discount">
-          <td class="item"><h1>Você possui <span><%= number_to_currency(@bonus) %></span> em crédito</h1></td>
-          <td>
-            <p><strong>Quanto deseja usar?</strong></p>
-            <p>Digite o valor no campo ao lado</p>
-          </td>
-          <td class="cupom">
-            <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :method => :put) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= text_field('credits', 'value') %>
-                  </li>
-                  <li>
-                    <%= submit_tag 'Atualizar' %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <table cellpadding="0" cellspacing="0" class="check">
+  <table cellpadding="0" cellspacing="0" class="check gift">
     <tbody>
       <tr>
         <td>
@@ -116,6 +88,31 @@
       </tr>
     </tbody>
   </table>
+  <% if @user && @user.current_credit > 0 %>
+  <table cellpadding="0" cellspacing="0" class="check">
+    <tbody>
+      <tr>
+        <td>
+          <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
+            <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
+            <h1>Quero usar meus créditos</h1>
+            <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
+            <% if @cart_service.total > @user.current_credit %>
+              <p>O valor do seu pedido é superior ao seu saldo e você receberá a diferença em créditos</p>
+            <% elsif @cart_service.total == @user.current_credit %>
+              <p>O valor do seu pedido é o mesmo que o seu saldo e você pagará apenas o custo de envio</p>
+            <% else %>
+              <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
+            <% end %>
+            <%#= link_to "Saiba mais sobre seus créditos", "#" %>
+          <% end %>
+        </td>
+        <td class="value"><%= number_to_currency @user.current_credit %></td>
+      </tr>
+    </tbody>
+  </table>
+  <% end %>
+
 
   <table cellpadding="0" cellspacing="0" id="total">
     <tbody>
@@ -139,30 +136,11 @@
           </td>
         </tr>
       <% end %>
-      <% if @cart_service.total_credits_discount > 0 %>
-        <tr>
-          <td>Crédito</td>
-          <td class="value">
-            <p><%= number_to_currency(@cart_service.total_credits_discount) %></p>
-            <%= form_for(remove_credits_cart_path, :url => remove_credits_cart_path, :method => :delete) do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= submit_tag "Limpar" %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
       <tr class="total">
         <td>Total</td>
         <td class="value">
           <p><%= number_to_currency(@cart_service.total) %></p>
-          <% if @cart_service.is_minimum_payment? %>
-            <p class="limit">R$5,00 é o valor mínimo para processamento da compra</p>
-          <% end %>
+          <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
         </td>
       </tr>
     </tbody>
@@ -192,9 +170,11 @@
           <% else %>
             <%= link_to "Continuar", "#", :class => "continue login"  %>
           <% end %>
+          <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
         </td>
       </tr>
     </tbody>
   </table>
   <%= render "shared/modal_login" %>
+  <%= render "credit_details" %>
 </section>

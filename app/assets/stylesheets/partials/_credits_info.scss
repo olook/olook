@@ -1,0 +1,60 @@
+div.credits_description {
+  width: 555px;
+  overflow: auto;
+  display: none;
+  padding: 0 45px;
+  div.box_months {
+    position: relative;
+    width: 460px;
+    margin: 15px auto;
+    overflow: auto;
+    h1 {
+      font-family: $kepler;
+      font-size: 26px;
+      text-align: center;
+      margin: 0 0 30px;
+    }
+    h3 {
+      color: #666;
+      font-family: $avenir;
+      font-size: 19px;
+      font-weight: normal;
+      text-align: center;
+      margin: 0 0 20px;
+    }
+    ul.steps {
+      margin: 0 0 0 30px;
+      overflow: auto;
+      li {
+        background: image-url('loyalty/icons.jpg') no-repeat;
+        background-position: -149px 0;
+        font-size: 13px;
+        text-align: center;
+        width: 130px;
+        margin: 0 20px 0 0;
+        padding: 170px 0 0 0;
+        display: inline-block;
+        float: left;
+        &:first-child {
+          background-position: 4px 0;
+        }
+        &:last-child, &.last {
+          background-position: -301px 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+  &.clone {
+    display: block;
+  }
+  a.rules {
+    color: #e05789;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 0;
+    border-top: 1px #eee solid;
+    outline: none;
+  }
+}

@@ -5,12 +5,6 @@ describe CreditCard do
 
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.build(:credit_card, :order => order) }
-  let(:canceled) { "5" }
-  let(:authorized) { "1" }
-  let(:completed) { "4" }
-  let(:under_review) { "8" }
-  let(:reversed) { "7" }
-  let(:under_analysis) { "6" }
 
   before :each do
     Resque.stub(:enqueue)
@@ -111,111 +105,6 @@ describe CreditCard do
     end
   end
 
-  context "status" do
-    it "should return nil with a invalid status" do
-      invalid_status = '0'
-      subject.set_state(invalid_status).should be(nil)
-    end
-  end
-
-  describe "order state machine" do
-    it "should set canceled for order" do
-      subject.canceled
-      subject.order.canceled?.should eq(true)
-    end
-
-    it "should set canceled for order given under_analysis" do
-      subject.under_analysis
-      subject.canceled
-      subject.order.canceled?.should eq(true)
-    end
-
-    it "should set authorized for order" do
-      subject.authorized
-      subject.order.authorized?.should eq(true)
-    end
-
-    it "should not change the order status from authorized when the payment is completed" do
-      subject.authorized
-      subject.completed
-      subject.order.authorized?.should eq(true)
-    end
-
-    it "should not change the order status from under review when the payment is completed after under review" do
-      subject.authorized
-      subject.under_review
-      subject.completed
-      subject.order.under_review?.should eq(true)
-    end
-
-    it "should set under_review for order" do
-      subject.authorized
-      subject.under_review
-      subject.order.under_review?.should eq(true)
-    end
-
-   it "should set reversed for order" do
-      subject.authorized
-      subject.under_review
-      subject.reversed
-      subject.order.reversed?.should eq(true)
-    end
-  end
-
-  describe "state machine" do
-    it "should set canceled" do
-      subject.set_state(canceled)
-      subject.canceled?.should eq(true)
-    end
-
-   it "should set canceled given under_analysis" do
-      subject.set_state(under_analysis)
-      subject.set_state(canceled)
-      subject.canceled?.should eq(true)
-    end
-
-    it "should set authorized" do
-      subject.set_state(authorized)
-      subject.authorized?.should eq(true)
-    end
-
-    it "should set authorized given under_analysis" do
-      subject.set_state(under_analysis)
-      subject.set_state(authorized)
-      subject.authorized?.should eq(true)
-    end
-
-    it "should set completed" do
-      subject.set_state(authorized)
-      subject.set_state(completed)
-      subject.completed?.should eq(true)
-    end
-
-    it "should set completed given under_review" do
-      subject.set_state(authorized)
-      subject.set_state(under_review)
-      subject.set_state(completed)
-      subject.completed?.should eq(true)
-    end
-
-    it "should set under_review" do
-      subject.set_state(authorized)
-      subject.set_state(under_review)
-      subject.under_review?.should eq(true)
-    end
-
-    it "should set under_analysis" do
-      subject.set_state(under_analysis)
-      subject.under_analysis?.should eq(true)
-    end
-
-    it "should set reversed" do
-      subject.set_state(authorized)
-      subject.set_state(under_review)
-      subject.set_state(reversed)
-      subject.reversed?.should eq(true)
-    end
-  end
 
   context "attributes validation" do
     it { should be_valid }
@@ -261,5 +150,4 @@ describe CreditCard do
       CreditCard.user_data(user).should == data
     end
   end
-
 end

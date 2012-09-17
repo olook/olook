@@ -28,6 +28,7 @@ Olook::Application.routes.draw do
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
+  match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
 
   #LOOKBOOKS
   match "/lookbooks/:name", :to => "lookbooks#show"
@@ -74,11 +75,7 @@ Olook::Application.routes.draw do
 
   #VITRINE / INVITE
   get "membro/convite" => "members#invite", :as => 'member_invite'
-  # TODO: Remove later namorado
-  get "membro/convite_namorado" => "members#valentine_invite", :as => 'member_valentine_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
-  # TODO: Remove later namorado
-  post "membro/convite_namorado_por_email" => 'members#valentine_invite_by_email', :as => 'member_valentine_invite_by_email'
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
   get "membro/importar_contatos" => "members#import_contacts", :as => 'member_import_contacts'
@@ -90,6 +87,8 @@ Olook::Application.routes.draw do
   get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
   get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
+  get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
+  #get "membro/creditos", :to => "members#credits", :as => "member_credits"
   post "user_liquidations", :controller => "user_liquidations", :action => "update"
   post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
 
@@ -179,6 +178,10 @@ Olook::Application.routes.draw do
     post 'integrate_payment' => "orders#integrate_payment"
 
     resources :orders do
+      member do
+        post 'change_state'
+      end
+
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
       end
@@ -203,6 +206,12 @@ Olook::Application.routes.draw do
 
     resources :gift_occasion_types
     resources :gift_recipient_relations
+
+    scope 'credits' do
+      root :to => 'order_credits#index', :as => :credits
+      resources :order_credits, :only => :index
+    end
+
     resource :settings
 
   end
@@ -236,7 +245,6 @@ Olook::Application.routes.draw do
     get "update_status" => "checkout/cart#update_status", :as => :update_status
     put "update_gift_wrap" => "checkout/cart#update_gift_wrap", :as => :update_gift_wrap
     put "update_credits" => "checkout/cart#update_credits", :as => :update_credits
-    delete "remove_credits" => "checkout/cart#remove_credits", :as => :remove_credits
     put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
     delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
 
