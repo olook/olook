@@ -3,7 +3,8 @@ role :web, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-#set :rails_env, "staging"
+set :rails_env, "staging"
+set :env, 'staging'
 
 trap("INT") {
   print "\n\n"
@@ -24,16 +25,16 @@ end
 
 namespace :assets do
   task :to_cdn do
-    set :cdn_container, "cdn-app-staging.olook.com.br"
-    AWS::S3::Base.establish_connection!(:access_key_id => cdn_user, :secret_access_key => cdn_api_key )
-    assets_dir = "#{shared_path}/assets"
-    Dir.glob(assets_dir + "/**/*").each do |file|
-      if !File.directory?(file)
-        cdn_filename = file.gsub(assets_dir,"assets")
-        AWS::S3::S3Object.store(cdn_filename, open(file) , cdn_container)
-      end
-    end
-    #run "s3cmd --skip-existing --preserve --recursive sync #{shared_path}/assets s3://cdn-app-staging.olook.com.br"
+    # set :cdn_container, "cdn-app-staging.olook.com.br"
+    # AWS::S3::Base.establish_connection!(:access_key_id => cdn_user, :secret_access_key => cdn_api_key )
+    # assets_dir = "#{shared_path}/assets"
+    # Dir.glob(assets_dir + "/**/*").each do |file|
+    #   if !File.directory?(file)
+    #     cdn_filename = file.gsub(assets_dir,"assets")
+    #     AWS::S3::S3Object.store(cdn_filename, open(file) , cdn_container)
+    #   end
+    # end
+    run "s3cmd --skip-existing --preserve --recursive sync #{shared_path}/assets s3://cdn-app-staging.olook.com.br"
   end
 end
 
