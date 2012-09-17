@@ -1,6 +1,7 @@
 $(document).ready(function() {
   initProduct.showCarousel();
   initProduct.twitProduct();
+  initProduct.shareProductOnFacebook();
   initProduct.pinProduct();
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
@@ -77,6 +78,13 @@ initProduct = {
       window.open(url, 'twitter', opts);
       e.preventDefault();
     });
+  },
+
+  shareProductOnFacebook : function() {
+    $("ul.social li.facebook a").live("click", function(e) {
+      postProductToFacebookFeed();
+      e.preventDefault;
+    })
   },
 
   pinProduct : function() {
