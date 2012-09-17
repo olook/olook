@@ -1,0 +1,54 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+<% end %>
+
+<section id="payment" class="checkout confirmation">
+  <section class="main">
+    <%= if @payment.is_a? Billet
+      render :partial => "billet", :locals => { :payment => @payment }
+    elsif @payment.is_a? CreditCard
+      render :partial => "debit", :locals => { :payment => @payment }
+    else
+      render :partial => "credit", :locals => { :payment => @payment }
+    end %>
+    <%= render "shared/ebit/seal_order" %>
+    <%= render "shared/metrics/yahoo/buy" %>
+    
+  </section>
+  <section class="sidebar">
+  <% content_for :checkout_sidebar do %>
+    <div class="request_info">
+      <div class="item">
+        <h1>Pagamento</h1>
+        <table cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td><%= @order.erp_payment.human_to_s %></td>
+              <td class="value"><%= number_to_currency(@order.erp_payment.total_paid) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
+  <% end %>
+    
+    <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, :order => @order %>
+    
+  </section>
+</section>
+
+<% content_for :ecommerce_tracking do %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :order => @order } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order } %>
+  <%= render :partial => "shared/metrics/google/ecommerce_track_trans" %>
+  <%= render :partial => "shared/metrics/sociomantic/confirmation", :locals => {:order => @order, :cart => @order.cart} %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @order.cart } %>
+  <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
+  <%= render "shared/metrics/zanox/order", :user_id => @user.id, :order => @order, :zanpid => @zanpid %>
+  <%= render "shared/metrics/google/buy_done" %>
+  <%= render "shared/metrics/boobox/buy" %>
+<% end %>
