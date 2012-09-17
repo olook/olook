@@ -1,5 +1,6 @@
 $(document).ready(function() {
   initProduct.showCarousel();
+  initProduct.pinProduct();
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
@@ -57,5 +58,23 @@ initProduct = {
         }
       });
     }
+  },
+
+  pinProduct : function() {
+    $("ul.social li.pinterest a").live("click", function(e) {
+      var width  = 710,
+          height = 545,
+          left   = ($(window).width()  - width)  / 2,
+          top    = ($(window).height() - height) / 2,
+          url    = this.href,
+          opts   = 'status=1' +
+                   ',width='  + width  +
+                   ',height=' + height +
+                   ',top='    + top    +
+                   ',left='   + left;
+
+      window.open(url, 'pinterest', opts);
+      e.preventDefault();
+    });
   }
 }

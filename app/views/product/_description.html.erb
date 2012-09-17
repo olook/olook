@@ -8,7 +8,9 @@
       <li class="first">compartilhe:</li>
       <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Teste&hashtags=ficaadica" %></li>
       <li class="facebook"><%= link_to "Facebook", "#" %></li>
-      <li class="pinterest"><%= link_to "Pinterest", "#" %></li>
+      <li class="pinterest">
+        <%= link_to "Pinterest", "http://pinterest.com/pin/create/button/?url=http://#{request.host}/produto/#{@product.id}&media=#{@product.pictures.first.image_url(:main).to_s}&description=#{@product.description}", :class => "pin-it-button", :"count-layout" => "none" %>
+      </li>
       <li class="email last"><%= link_to "Email", "#" %></li>
     </ul>
   </div>
