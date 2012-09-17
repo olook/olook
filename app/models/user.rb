@@ -15,12 +15,13 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :carts
   has_many :campaing_participants
-  has_many :payments, :through => :orders
-  has_many :credits
+  has_many :payments
   has_one :tracking, :dependent => :destroy
+  has_many :user_credits
+  has_many :credits
 
   before_create :generate_invite_token
-  after_create :generate_auth_token
+  after_create :initialize_user
 
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
@@ -107,26 +108,14 @@ class User < ActiveRecord::Base
     has_facebook? && self.facebook_permissions.include?(FACEBOOK_PUBLISH_STREAM)
   end
 
-  def invite_bonus
-    InviteBonus.calculate(self)
-  end
-
-  def used_invite_bonus
-    InviteBonus.already_used(self)
-  end
-  
-  def current_credit
-    credits.last.try(:total) || 0
-  end
-
-  def has_not_exceeded_credit_limit?(value = 0)
-    (used_invite_bonus + current_credit + value) <= InviteBonus::LIMIT_FOR_EACH_USER
+  def current_credit(date = DateTime.now, type = :available)
+    UserCredit::CREDIT_CODES.keys.map{|user_credit_code| user_credits_for(user_credit_code).total(date, type)}.sum
   end
 
   def can_use_credit?(value)
     current_credit.to_f >= value.to_f
   end
-  
+
   def credits_for?(value)
     value ||= 0
     self.current_credit - value
@@ -156,8 +145,8 @@ class User < ActiveRecord::Base
     description = description.with_indifferent_access if description.is_a?(Hash)
     self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(:utm_source => description.fetch(:utm_source, nil), :utm_medium => description.fetch(:utm_medium, nil),
-    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil), 
-    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil), 
+    :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil),
+    :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil),
     :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
   end
 
@@ -227,12 +216,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def total_revenue(total_method = :subtotal)
-    self.orders.joins(:payment)
-        .where("payments.state IN ('authorized','completed')")
-        .inject(0) { |sum,order| sum += (order.send(total_method) || 0) }
-  end
-
   def first_time_buyer?
     PromotionService.user_applies_for_this_promotion?(self, Promotion.purchases_amount)
   end
@@ -273,7 +256,7 @@ class User < ActiveRecord::Base
     self.authentication_token = nil
     self.save
   end
-  
+
   def shoes_size
     return nil unless self.full_user?
     if user_info
@@ -284,6 +267,25 @@ class User < ActiveRecord::Base
     nil
   end
 
+  def user_credits_for code
+    credit_type = CreditType.find_by_code!(code.to_s)
+    self.user_credits.find_or_create_by_credit_type_id(credit_type.id)
+  end
+
+  def has_credit?(date = DateTime.now)
+    self.current_credit(date) > 0
+  end
+  
+  def first_visit_for_member?
+    if self.first_visit?
+      self.record_first_visit
+      true
+    else
+      false
+    end
+  end
+  
+
   private
 
   def generate_invite_token
@@ -293,7 +295,10 @@ class User < ActiveRecord::Base
     end if self.invite_token.nil?
   end
 
-  def generate_auth_token
+  def initialize_user
+    Resque.enqueue(SignupNotificationWorker, self.id)
+    self.add_event(EventType::SIGNUP)
+    UserCredit.add_for_invitee(self)
     self.reset_authentication_token!
   end
 end

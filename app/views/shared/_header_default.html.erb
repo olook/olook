@@ -15,13 +15,28 @@
 
     <div id="session">
       <% if user_signed_in? %>
-        <h2>Olá, <span id="info_user"><%= current_user.name %></span></h2>
+        <div class="user">
+          <ul>
+            <li>Olá,</li>
+            <li class="submenu">
+              <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
+              <div class="my_account">
+                <ul>
+                  <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                  <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                  <li><%= link_to "Endereços", user_addresses_path %></li>
+                  <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+                </ul>
+              </div>
+            </li>
+            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          </ul>
+        </div>
       <% end %>
       <ul>
         <% if user_signed_in? %>
-          <li class="first"><%= link_to "Minha conta", user_orders_path %></li>
-          <li><%= link_to "Ganhe <span>R$20</span> em créditos".html_safe, member_invite_path, :class => "invite" %></li>
-          <li class="last"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          <li class="first"><%= link_to "Fidelidade Olook", loyalty_path %></li>
+          <li class="last"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></li>
         <% else %>
           <li class="login">
             <p>Já faz parte? <%= link_to "Faça seu login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %></p>

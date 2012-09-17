@@ -1,0 +1,7 @@
+$("table#total tr.total td.value p:not('.limit')").text("<%= number_to_currency @cart_service.total %>");
+$("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
+<% if @cart_service.is_minimum_payment? %>
+  $("table#total p.limit").addClass("show");
+<% else %>
+  $("table#total p.limit").removeClass("show");
+<% end %>

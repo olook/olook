@@ -7,28 +7,109 @@
     <%= render "shared/my_account/menu" %>
   </div>
   <div id="data">
-    <div class="invites_list">
-      <h1><span><%= @user.invites.accepted.count %></span> amigas já se registraram. Você tem <span><%= number_to_currency(@user.current_credit) %></span> em créditos!</h1>
-      <h2>Na primeira compra de suas convidadas, você ganha mais R$10.</h2>
+    <div class="credits">
+      <h1>Resumo dos seus créditos. Você tem:</h1>
+      <h2><span><%= number_to_currency @available_credits %></span> disponíveis para uso</h2>
+      <h2><%= number_to_currency @holding_credits %> ainda não liberados para uso</h2>
+      <p>Os créditos acumulados por compras realizadas são liberados nos 2 meses seguintes após a confirmação do pedido</p>
+      <% if @loyalty_credits.count > 0 %>
       <table cellpadding="0" cellspacing="0">
         <thead>
           <tr>
-            <th class="email">Email</th>
-            <th>Convidado em</th>
-            <th>Registrado</th>
+            <th colspan="2">Créditos por compras realizadas*</th>
           </tr>
         </thead>
         <tbody>
-          <% @invites.each do |invite| %>
-            <tr>
-              <td class="email"><%= invite.email %></td>
-              <td><%= invite.updated_at.strftime("%d/%m/%Y") %></td>
-              <td><%= Invite.status_for_user_invite(@user.id, invite) %></td>
-            </tr>
+          <% @loyalty_credits.each do |loyalty_credit| %>
+          <tr>
+            <td><%= loyalty_credit.description_for(:loyalty) %></td>
+            <td class="value"><%= number_to_currency loyalty_credit.value %></td>
+          </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+      <% end %>
+      <% if @invite_credits.count > 0 %>
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="2">Créditos por indicação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @invite_credits.each do |invite_credit| %>
+          <tr>
+            <td><%= invite_credit.description_for(:invite) %></td>
+            <td class="value"><%= number_to_currency invite_credit.value %></td>
+          </tr>
           <% end %>
         </tbody>
       </table>
-      <%= will_paginate @invites %>
+      <% end %>
+
+      <% if @redeem_credits.count > 0 %>
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="2">Reembolso via Central de Atendimento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @redeem_credits.each do |redeem_credit| %>
+          <tr>
+            <td><%= redeem_credit.description_for(:redeem) %></td>
+            <td class="value"><%= number_to_currency redeem_credit.value %></td>
+          </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+      <% end %>
+      <% if @used_credits.count > 0 %>
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="2">Créditos utilizados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @used_credits.each do |used_credit| %>
+          <tr>
+            <td><%= used_credit.description_for(:used_credit) %></td>
+            <td class="value">- <%= number_to_currency used_credit.value %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% end %>
+
+      <table cellpadding="0" cellspacing="0" class="border">
+        <thead>
+          <tr>
+            <th colspan="2">Total de créditos</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td>Créditos disponíveis para uso agora</td>
+            <td class="value"><%= number_to_currency @available_credits %></td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr>
+            <td>Soma dos créditos acumulados</td>
+            <td class="value"><%= number_to_currency @holding_credits + @available_credits %></td>
+          </tr>
+          <tr>
+            <td>Créditos ainda não liberados</td>
+            <td class="value"><%= number_to_currency @holding_credits %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% if @loyalty_credits.count > 0 %>
+      <p>*A cada compra realizada, você ganha 20% em créditos (em relação ao valor do pedido) para usar nos 2 próximos meses.</p>
+      <% end %>
     </div>
   </div>
 </div>

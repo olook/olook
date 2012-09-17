@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>olook</title>
+    <%= favicon_link_tag 'olook_favicon.ico' %>
     <% error = nil unless error %>
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
@@ -46,6 +47,7 @@
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
     <% end %>
   <%= yield :site_footer %>
+  <%= render "shared/lightbox_credits" %>
   <%= render "shared/metrics/adroll/adroll" %>
   <%= javascript_include_tag "application" %>
   <%= render_google_remessaging_scripts %>

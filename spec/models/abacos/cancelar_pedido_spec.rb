@@ -2,12 +2,10 @@
 require "spec_helper"
 
 describe Abacos::CancelarPedido do
-  let(:response) { FactoryGirl.create :canceled_payment }
-  let(:payment) { FactoryGirl.create :credit_card, :payment_response => response }
 
-  context 'when instantiated with a non-canceld payment' do
+  context 'when instantiated with a non-canceled payment' do
     let(:order) do
-      result = FactoryGirl.create :clean_order, :payment => payment
+      result = FactoryGirl.create :clean_order
       result.stub(:'canceled?').and_return(false)
       result
     end
@@ -21,22 +19,27 @@ describe Abacos::CancelarPedido do
   
   context 'when instantiated with a canceled payment' do
     let(:order) do
-      result = FactoryGirl.create :clean_order, :payment => payment
+      result = FactoryGirl.create :clean_order
       result.stub(:'canceled?').and_return(true)
+      result.erp_payment.update_attributes!({
+        gateway_response_status: "Sucesso",
+        gateway_transaction_code: nil,
+        gateway_transaction_status: "Cancelado",
+        gateway_message: "Autorização negada",
+        gateway_return_code: nil
+      })
       result
     end
-    
-    before :each do
-      order.payment.payment_response.stub(:created_at).and_return(DateTime.civil(2012, 04, 12, 10, 44, 55))
-    end
 
-    subject { described_class.new order }
+    subject { 
+      described_class.new order 
+    }
     
     it '#numero_pedido' do
       subject.numero_pedido.should == order.number
     end
     it '#data' do
-      subject.data.should == '12042012 10:44:55'
+      subject.data.should == subject.parse_datetime(order.erp_payment.created_at)
     end
     it '#status' do
       subject.status.should == 'speRecusado'
@@ -55,7 +58,7 @@ describe Abacos::CancelarPedido do
       let(:expected_data) do
         {
           'NumeroPedido'            => order.number,
-          'DataPagamento'           => '12042012 10:44:55',
+          'DataPagamento'           => subject.parse_datetime(order.erp_payment.created_at),
           'StatusPagamento'         => 'speRecusado',
           'CartaoCodigoAutorizacao' => nil,
           'CartaoMensagemRetorno'   => 'Autorização negada',

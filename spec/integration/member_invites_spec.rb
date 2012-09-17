@@ -11,6 +11,9 @@ feature "Member can send invites", %q{
   use_vcr_cassette('yahoo', :match_requests_on => [:host, :path])
 
   let(:user) { FactoryGirl.create(:user) }
+  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
   context "When a member" do
     background do

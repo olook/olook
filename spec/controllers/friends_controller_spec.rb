@@ -3,6 +3,9 @@ require 'spec_helper'
 describe FriendsController do
   with_a_logged_user do
     render_views
+    let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
     let(:message) { "my message" }
     let(:facebook_scopes) { "friends_birthday,publish_stream" }
     let(:attachment) do

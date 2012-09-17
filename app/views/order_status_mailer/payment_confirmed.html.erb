@@ -1,18 +1,17 @@
-
 <html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Olook</title>
-	</head>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>olook</title>
+  </head>
 
-	<body>
-	<table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
-		<tr>
-		<td align="center" height="30">
-		</td>
-		</tr>
-		
-		<tr>
+  <body>
+  <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+    <tr>
+    <td align="center" height="30">
+    </td>
+    </tr>
+    
+    <tr>
         <td>
           <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
@@ -46,55 +45,67 @@
         </td>
         </tr>
 
-		<tr>
-		<td align="center"><br>
-		<div style="font-family:Verdana,Helvetica,Arial, sans-serif; width:540px; font-size:14px; text-align:left">
+    <tr>
+    <td align="center"><br>
+    <div style="font-family:Verdana,Helvetica,Arial, sans-serif; width:540px; font-size:14px; text-align:left">
 
-		<p style="font-size:14px;">Olá <%= @order.user.first_name %>,</p>
+    <p style="font-size:14px;">Olá <%= @order.user.first_name %>,</p>
 
-		<p>Muito obrigada por comprar na olook. Seu pagamento já foi aprovado e a partir de agora daremos andamento ao processo de envio do seu pedido.</p>
+    <p>Muito obrigada por comprar na olook. Seu pagamento já foi aprovado e a partir de agora daremos andamento ao processo de envio do seu pedido.</p>
 
-		<p>A previsão de entrega é de <%= @order.freight.delivery_time %> dias.</p>
+    <p>A previsão de entrega é de <%= @order.freight.delivery_time %> dias.</p>
 
-		<p>Por favor, confira o pedido e endereço de entrega abaixo:</p>
+    <p>Por favor, confira o pedido e endereço de entrega abaixo:</p>
 
-		<% @order.line_items.each do |item| %>
-		<p>
-		  - <span style="color:#E05789"><%= item.variant.product.name %></span>;<br>
-		</p>
-		<% end %>
+    <% @order.line_items.each do |item| %>
+    <p>
+      - <span style="color:#E05789"><%= item.variant.product.name %></span>;<br>
+    </p>
+    <% end %>
 
-		<% @address = @order.freight.address %>
-		<p>Endereço de Entrega:<br>
-		  <span style="color:#E05789">
-		    <p><strong><%= @address.identification %></strong></p>
-		    <p><%= "#{@address.street}, #{@address.number}" %><%= @address.complement? ? ", #{@address.complement}" : '' %></p>
-		    <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
-		    <p><%= "#{@address.city}, #{@address.state}" %></p>
-		  </span>
-		</p>
+    <% @address = @order.freight.address %>
+    <p>Endereço de Entrega:<br>
+      <span style="color:#E05789">
+        <p><strong><%= @address.identification %></strong></p>
+        <p><%= "#{@address.street}, #{@address.number}" %><%= @address.complement? ? ", #{@address.complement}" : '' %></p>
+        <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
+        <p><%= "#{@address.city}, #{@address.state}" %></p>
+      </span>
+    </p>
 
-		<p>Prazo de entrega: <%= @order.freight.delivery_time %> dias úteis</p>
-
-		<p>Se você tiver qualquer dúvida, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789">falecom@olook.com.br</a> e a nossa equipe te ajudará.</p>
+    <p>Prazo de entrega: <%= @order.freight.delivery_time %> dias úteis</p>
+    <% loyalty_credits = LoyaltyProgramCreditType.amount_for_order(@order) %>
+    <% if loyalty_credits > 0 %>
+<p>Por esta compra, você ganhou <b><%= number_to_currency loyalty_credits %></b> em créditos de Fidelidade que estarão disponíveis para serem utilizados a partir do próximo mês! 
+  <% end %>
+      
+<center>Enquanto espera seu pedido chegar, <br>que tal convidar suas amigas para ganhar créditos?</center><p>
+        <!-- botao PRINCIPAL -->
+                  <table width="220" align="center">
+            <tr>
+              <td height="30" bgcolor="E05789" align="center">
+              <center>
+                   <a href="http://www.olook.com.br/membro/convite/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t6_pagamento_confirmado" style="color:#ffffff; font-size:14px;text-decoration:none;">CONVIDAR MINHAS AMIGAS</a>
+              </center>
+              </td>
+            </tr>
+          </table>
+                    <!-- fim botao PRINCIPAL -->
  
- <center>
-              <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=ordershipped" style="color:#E05789; font-size:14px"><img src="http://cdn.olook.com.br/assets/emailmkt/topo/btn_irparaolook.jpg" border="0" alt="Convide mais amigas, clique aqui"></a>
-            </center>
-		<p>Abraços,<br>
-		Equipe olook<br>
-		<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t6_pagamento_confirmado" style="color:#E05789; font-size:14px">www.olook.com.br</a>
-		</p>
+    <p>Abraços,<br>
+    Equipe olook<br>
+    <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t6_pagamento_confirmado" style="color:#E05789; font-size:14px">www.olook.com.br</a>
+    </p>
 
 
-		</div>
-		<br><br></td>
-		
-		</table>
-		</td>
-		</tr>
-	</table>
+    </div>
+    <br><br></td>
+    
+    </table>
+    </td>
+    </tr>
+  </table>
 
-	</body>
+  </body>
 </html>
 
