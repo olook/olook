@@ -205,7 +205,7 @@ class Order < ActiveRecord::Base
   def redeem_payment
     payments.for_redeem.last
   end
-  
+
   def payment_rollback?
     self.refunded? || self.canceled? || self.reversed?
   end
