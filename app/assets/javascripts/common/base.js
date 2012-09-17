@@ -543,7 +543,12 @@ initBase = {
   fixBorderOnMyAccountDropDown : function() {
     $('#session div.user ul li.submenu').hover(function() {
       var link = $(this).find('a#info_user');
-      var link_width = $(link).outerWidth();
+      if($(link).outerWidth() >= '125') {
+        var link_width = $(link).outerWidth();
+      } else {
+        var link_width = 125;
+      }
+      console.log(link_width);
       $(this).find('div.my_account').css('width', link_width - 4);
       $(link).addClass('hover');
     }, function() {
