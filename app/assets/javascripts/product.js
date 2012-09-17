@@ -81,9 +81,9 @@ initProduct = {
   },
 
   shareProductOnFacebook : function() {
-    $("ul.social li.facebook a").live("click", function(e) {
+    $("ul.social li.facebook a").live("click", function() {
       postProductToFacebookFeed();
-      e.preventDefault;
+      return false;
     })
   },
 
