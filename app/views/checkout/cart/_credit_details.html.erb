@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th>Créditos das suas últimas compras</th>
-        <th class="value">R$18,18</th>
+        <th class="value"><%= number_to_currency @amount_of_loyalty_credits %></th>
       </tr>
     </thead>
   </table>
@@ -11,21 +11,21 @@
     <thead>
       <tr>
         <th>Créditos por indicação</th>
-        <th class="value">R$18,18</th>
+        <th class="value"><%= number_to_currency @amount_of_invitee_bonus_credits %></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Convidados que já compraram: <span>6</span></td>
-        <td>R$60,00</td>
+        <td>Convidados que já compraram: <span><%= @quantity_of_inviter_bonus_credits %></span></td>
+        <td><%= number_to_currency @amount_of_inviter_bonus_credits %></td>
       </tr>
       <tr>
         <td>Crédito utilizado</td>
-        <td>- R$10,00</td>
+        <td>- <%= number_to_currency @used_credits %></td>
       </tr>
       <tr>
         <td>Crédito disponível</td>
-        <td>R$50,00</td>
+        <td><%= number_to_currency current_user.current_credit %></td>
       </tr>
     </tbody>
   </table>
@@ -33,7 +33,7 @@
     <thead>
       <tr>
         <th>Reembolso via Central de Atendimento</th>
-        <th class="value">R$18,18</th>
+        <th class="value"><%= number_to_currency current_user.user_credits_for(:redeem).total %></th>
       </tr>
     </thead>
   </table>

@@ -104,7 +104,7 @@
             <% else %>
               <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
             <% end %>
-            <%#= link_to "Saiba mais sobre seus créditos", "#" %>
+            <%= link_to "Saiba mais sobre seus créditos", "#" %>
           <% end %>
         </td>
         <td class="value"><%= number_to_currency @user.current_credit %></td>
