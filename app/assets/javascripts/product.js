@@ -1,5 +1,6 @@
 $(document).ready(function() {
   initProduct.showCarousel();
+  initProduct.twitProduct();
   initProduct.pinProduct();
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
@@ -58,6 +59,24 @@ initProduct = {
         }
       });
     }
+  },
+
+  twitProduct : function() {
+    $("ul.social li.twitter a").live("click", function(e) {
+      var width  = 575,
+          height = 400,
+          left   = ($(window).width()  - width)  / 2,
+          top    = ($(window).height() - height) / 2,
+          url    = this.href,
+          opts   = 'status=1' +
+                   ',width='  + width  +
+                   ',height=' + height +
+                   ',top='    + top    +
+                   ',left='   + left;
+
+      window.open(url, 'twitter', opts);
+      e.preventDefault();
+    });
   },
 
   pinProduct : function() {
