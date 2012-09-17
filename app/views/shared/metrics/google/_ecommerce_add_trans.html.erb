@@ -1,12 +1,12 @@
 <script type="text/javascript">
 _gaq.push(['_addTrans',
-   '<%= cart.id %>',
+   '<%= order.cart.id %>',
    'olook',
-   '<%= cart_service.total %>',
+   '<%= order.amount_paid %>',
    '',
-   '<%= cart_service.freight_price.to_s %>',
-   '<%= cart_service.freight_city %>',
-   '<%= cart_service.freight_state %>',
+   '<%= order.freight_price.to_s %>',
+   '<%= order.freight_city %>',
+   '<%= order.freight_state %>',
    'Brasil'
  ]);
 </script>
