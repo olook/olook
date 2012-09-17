@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'integration/helpers'
+include ActionView::Helpers::NumberHelper
 
 feature "Show products on xml format" do
   let!(:bag) { FactoryGirl.create :basic_bag }
@@ -263,7 +264,7 @@ context "in the ilove_ecommerce xml page" do
       <produto>
       <codigo>#{product.id}</codigo>
       <descricao>#{product.description}</descricao>
-      <preco>#{product.price.to_s.sub(".",",")}</preco>
+      <preco>#{number_to_currency(product.price).delete("R$ ")}</preco>
       <nparcela>1</nparcela>
       <vparcela></vparcela>
       <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>

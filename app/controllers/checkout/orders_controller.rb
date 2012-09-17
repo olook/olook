@@ -4,18 +4,17 @@ class Checkout::OrdersController < Checkout::BaseController
 
   def show
     @order = @user.orders.find_by_number!(params[:number])
-    @cart = @order.cart
     @payment = @order.erp_payment
-    @promotion = @order.payments.where(:type => "PromotionPayment").first.try(:promotion)
+    promotion = @order.payments.where(:type => "PromotionPayment").first.try(:promotion)
     coupon_pm = @order.payments.where(:type => "CouponPayment").first
     coupon = coupon_pm.coupon if coupon_pm
   
     
-    @cart_service = CartService.new(
-      :cart => @cart,
+    @cart_service_for_order = CartService.new(
+      :cart => @order.cart,
       :gift_wrap => @order.gift_wrap ? "1" : "0",
       :coupon => coupon,
-      :promotion => @promotion,
+      :promotion => promotion,
       :freight => { :price  => @order.freight.price,
         :cost           => @order.freight.cost,
         :delivery_time  => @order.freight.delivery_time,
@@ -24,14 +23,8 @@ class Checkout::OrdersController < Checkout::BaseController
       },
       :credits => @order.payments.where(:type => "CreditPayment").sum(:total_paid)
     )
+
+    @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
     
-    
-    if @payment.is_a? Billet
-      return render :billet
-    elsif @payment.is_a? CreditCard
-      return render :credit
-    else
-      return render :debit
-    end
   end
 end
