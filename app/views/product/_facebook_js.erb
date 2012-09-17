@@ -1,0 +1,26 @@
+<script type="text/javascript">
+$(function(){
+  FB.init({
+    appId: '<%= facebook_app_id %>',
+    status: true,
+    cookie: true,
+    oauth: true
+  });
+
+  try {
+    FB.XFBML.parse();
+  } catch(ex){}
+});
+
+function postProductToFacebookFeed() {
+  var obj = {
+    method: 'feed',
+    caption: 'www.olook.com.br',
+    link: '<%= request.host_with_port %>/produto/<%= product.id %>',
+    picture: '<%= product.suggestion_picture.to_s %>',
+    description: '<%= product.description %>'
+  };
+
+  FB.ui(obj);
+}
+</script>
