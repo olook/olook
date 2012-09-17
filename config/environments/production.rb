@@ -51,81 +51,81 @@ Olook::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
 
-  config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
+  # config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
 
-  # config.assets.precompile += %w(
-  #   *.js
-  #   admin/*.js
-  #   # admin/bootstrap.js
-  #   # admin/credit.js
-  #   # admin/jquery.miniColors.js
-  #   # admin/liquidation_products.js
-  #   # admin/lookbook_image_map.js
-  #   # admin/coupons.js
-  #   # admin/index.js
-  #   # admin/jquery.validate.min.js
-  #   # admin/lookbook_autocomplete.js
-  #   # admin/lookbooks.js
+  config.assets.precompile += %w(
+    *.js
+    admin/*.js
+    # admin/bootstrap.js
+    # admin/credit.js
+    # admin/jquery.miniColors.js
+    # admin/liquidation_products.js
+    # admin/lookbook_image_map.js
+    # admin/coupons.js
+    # admin/index.js
+    # admin/jquery.validate.min.js
+    # admin/lookbook_autocomplete.js
+    # admin/lookbooks.js
 
-  #   common/*.js
-  #   # common/base.js
-  #   # common/jquery.zclip.min.js
-  #   # common/jquery.cookie.js
-  #   # common/product_view.js
+    common/*.js
+    # common/base.js
+    # common/jquery.zclip.min.js
+    # common/jquery.cookie.js
+    # common/product_view.js
 
-  #   gift/*.js
-  #   # gift/occasions.js
-  #   # gift/recipients.js
-  #   # gift/suggestions.js
-  #   # gift/survey.js
+    gift/*.js
+    # gift/occasions.js
+    # gift/recipients.js
+    # gift/suggestions.js
+    # gift/survey.js
 
-  #   plugins/*.js
-  #   # plugins/auto-grow-input.js
-  #   # plugins/jcarousel.min.js
-  #   # plugins/jquery.meio.mask.js
-  #   # plugins/css_browser_selector.js
-  #   # plugins/jquery.hotkeys.js
-  #   # plugins/jquery.slideto.js
-  #   # plugins/jail.min.js
-  #   # plugins/jquery.jqzoom-core.js
-  #   # plugins/styleSelect.min.js
-  #   # plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1.js
-  #   # plugins/jscrollpane/jquery.jscrollpane.min.js
-  #   # plugins/jscrollpane/jquery.mousewheel.js
+    plugins/*.js
+    # plugins/auto-grow-input.js
+    # plugins/jcarousel.min.js
+    # plugins/jquery.meio.mask.js
+    # plugins/css_browser_selector.js
+    # plugins/jquery.hotkeys.js
+    # plugins/jquery.slideto.js
+    # plugins/jail.min.js
+    # plugins/jquery.jqzoom-core.js
+    # plugins/styleSelect.min.js
+    # plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1.js
+    # plugins/jscrollpane/jquery.jscrollpane.min.js
+    # plugins/jscrollpane/jquery.mousewheel.js
 
-  #   ui/*.js
-  #   # ui/jquery.ui.core.min.js
-  #   # ui/jquery.ui.position.min.js
-  #   # ui/jquery.ui.dialog.min.js
-  #   # ui/jquery.ui.widget.min.js
+    ui/*.js
+    # ui/jquery.ui.core.min.js
+    # ui/jquery.ui.position.min.js
+    # ui/jquery.ui.dialog.min.js
+    # ui/jquery.ui.widget.min.js
 
-  #   section/*.css
-  #   # section/checkout.css
-  #   # section/error.css
-  #   # section/gift_home.css
-  #   # section/how_to.css
-  #   # section/liquidations.css
-  #   # section/my_account.css   
-  #   # section/register.css
-  #   # section/suggestions.css
-  #   # section/welcome.css
-  #   # section/contact.css
-  #   # section/friends.css
-  #   # section/half_user.css
-  #   # section/invite.css
-  #   # section/lookbooks.css
-  #   # section/pages.css
-  #   # section/showroom.css
-  #   # section/survey.css
-  #   # section/delivery.css
-  #   # section/gift.css
-  #   # section/home.css
-  #   # section/landing.css
-  #   # section/moments.css
-  #   # section/product.css
-  #   # section/stylists.css
-  #   # section/valentine.css
-  # )
+    section/*.css
+    # section/checkout.css
+    # section/error.css
+    # section/gift_home.css
+    # section/how_to.css
+    # section/liquidations.css
+    # section/my_account.css   
+    # section/register.css
+    # section/suggestions.css
+    # section/welcome.css
+    # section/contact.css
+    # section/friends.css
+    # section/half_user.css
+    # section/invite.css
+    # section/lookbooks.css
+    # section/pages.css
+    # section/showroom.css
+    # section/survey.css
+    # section/delivery.css
+    # section/gift.css
+    # section/home.css
+    # section/landing.css
+    # section/moments.css
+    # section/product.css
+    # section/stylists.css
+    # section/valentine.css
+  )
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
