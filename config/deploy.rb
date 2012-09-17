@@ -1,9 +1,10 @@
-#require 'airbrake/capistrano'
+require 'airbrake/capistrano'
+require 'new_relic/recipes'
 require 'capistrano/ext/multistage'
+require 'aws/s3'
 
 load 'deploy/assets'
 require 'bundler/capistrano'
-#require 'new_relic/recipes'
 
 set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_prod prod_todas hmg dev resque showroom new_machine apptest)
 
@@ -29,6 +30,10 @@ set :env, 'production'
 set :scm, :git
 set :repository, 'git@github.com:olook/olook.git'
 set :git_enable_submodules, 1
+
+# s3 details
+set :cdn_user, 'AKIAJ2WH3XLYA24UTAJQ'
+set :cdn_api_key, 'M1d4JbTo9faMber0MKPeO2dzM6RsXNJqrOTBrsZX'
 
 default_run_options[:pty] = true
 ssh_options[:port] = 13630
