@@ -11,7 +11,7 @@
       <li class="pinterest">
         <%= link_to "Pinterest", "http://pinterest.com/pin/create/button/?url=http://#{request.host_with_port}/produto/#{@product.id}&media=#{@product.pictures.first.image_url(:main).to_s}&description=#{@product.description}", :class => "pin-it-button", :"count-layout" => "none" %>
       </li>
-      <li class="email last"><%= link_to "Email", "#" %></li>
+      <!--li class="email last"><%= link_to "Email", "#" %></li-->
     </ul>
   </div>
   <p class="description"><%= @product.description %></p>
