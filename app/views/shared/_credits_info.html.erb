@@ -1,0 +1,20 @@
+<div id="credits_info">
+  <% if current_user.current_credit.to_i <= 0 %>
+    <div class='block'>
+      <h3>Você ainda não acumulou créditos</h3>
+    </div>
+    <%= link_to "Saiba como ganhar créditos para suas próximas compras.", "#", :class => "open" %>
+  <% else %>
+    <div class='block'>
+      <h2>Créditos das suas últimas compras:</h2>
+      <p class="money">20% de R$90,90 = <span>R$18,18</span></p>
+      <p>Válidos até o final de agosto</p>
+    </div>
+    <div class='block'>
+      <h2>Amigas convidadas que já compraram:</h2>
+      <p class="money">R$ 10 x 5 = <span>R$50,00</span></p>
+    </div>
+    <p>Seus créditos serão aplicados automaticamente na sacola, antes do pagamento</p>
+    <%= link_to "Saiba mais sobre seus créditos", user_credits_path %>
+  <% end %>
+</div>

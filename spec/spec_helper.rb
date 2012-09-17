@@ -8,14 +8,11 @@ Spork.prefork do
   # need to restart spork for it take effect.
 
   require 'simplecov'
-  SimpleCov.start do
-    add_group "App", "app"
-    add_group "Models", "app/models"
-    add_group "Controllers", "app/controllers"
-    add_group "Lib", "lib"
+  SimpleCov.start 'rails' do
     add_group "Long files" do |src_file|
       src_file.lines.count > 100
     end
+    add_filter "/vendor/"
   end
 
   # This file is copied to spec/ when you run 'rails generate rspec:install'

@@ -1,0 +1,2 @@
+class OlookletPayment < Payment
+end

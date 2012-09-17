@@ -23,7 +23,7 @@
         </tr>
       <% end %>
         <%
-        credits = cart_service.total_discount_by_type(:credits)
+        credits = cart_service.total_credits_discount
         if credits > 0 %>
         <tr>
           <td>Crédito</td>

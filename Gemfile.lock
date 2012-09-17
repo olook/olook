@@ -91,12 +91,16 @@ GEM
       activesupport (>= 3.2.0)
     childprocess (0.3.2)
       ffi (~> 1.0.6)
+    choice (0.1.6)
+    chronic (0.7.0)
     coderay (1.0.7)
     columnize (0.3.6)
     crack (0.3.1)
     curb (0.8.0)
     dalli (2.0.2)
     database_cleaner (0.7.2)
+    delorean (2.0.0)
+      chronic
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -251,6 +255,11 @@ GEM
       activesupport (= 3.2.2)
       bundler (~> 1.0)
       railties (= 3.2.2)
+    rails-erd (1.0.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     rails-settings-cached (0.2.2)
       rails (>= 3.0.0)
     railties (3.2.2)
@@ -300,6 +309,7 @@ GEM
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
+    ruby-graphviz (1.0.8)
     ruby-hmac (0.4.0)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
@@ -398,6 +408,7 @@ DEPENDENCIES
   curb
   dalli (= 2.0.2)
   database_cleaner
+  delorean
   devise (~> 1.5.3)
   enumerate_it
   equivalent-xml (~> 0.2.9)
@@ -425,6 +436,7 @@ DEPENDENCIES
   paper_trail (~> 2)
   pry
   rails (= 3.2.2)
+  rails-erd
   rails-settings-cached
   rake (= 0.9.2)
   resque (~> 1.20.0)

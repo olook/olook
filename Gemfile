@@ -60,10 +60,12 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.10.1'
   gem 'watchr'
   gem 'awesome_print'
+  gem 'rails-erd'
   if RUBY_VERSION <= "1.9.2"
     gem "ruby-debug19", :require => "ruby-debug", :platform => :ruby_19
   end
   gem "pry"
+  gem 'delorean'
 end
 
 group :test do

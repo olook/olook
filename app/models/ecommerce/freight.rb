@@ -10,7 +10,18 @@ class Freight < ActiveRecord::Base
   validates :cost, :presence => true, :numericality => { :greater_than_or_equal_to => 0.0 }
   validates :delivery_time, :presence => true, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
 
-  delegate :city, :to => :address, :prefix => false, :allow_nil => true
-  delegate :state, :to => :address, :prefix => false, :allow_nil => true
+  before_create :set_address_fields
 
+  private
+  def set_address_fields
+    self.country     = address.country
+    self.city        = address.city
+    self.state       = address.state
+    self.complement  = address.complement
+    self.street      = address.street
+    self.number       = address.number
+    self.neighborhood = address.neighborhood
+    self.zip_code     = address.zip_code
+    self.telephone    = address.telephone
+  end
 end
