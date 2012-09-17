@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :load_facebook_api
   before_filter :load_referer
   before_filter :load_tracking_parameters
-  before_filter :load_referer_parameters
 
   rescue_from CanCan::AccessDenied do  |exception|
     flash[:error] = "Access Denied! You don't have permission to execute this action.
@@ -20,6 +19,7 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
+  #TODO: create CartBuilder
   helper_method :current_cart
   def current_cart
     #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
@@ -45,7 +45,6 @@ class ApplicationController < ActionController::Base
 
     @promotion = PromotionService.new(@user).detect_current_promotion
 
-    session[:cart_credits] = 0 unless session[:cart_credits]
     coupon = session[:cart_coupon]
     coupon.reload if coupon
 
@@ -55,7 +54,7 @@ class ApplicationController < ActionController::Base
       :coupon => coupon,
       :promotion => @promotion,
       :freight => session[:cart_freight],
-      :credits => session[:cart_credits]
+      :credits => session[:cart_use_credits]
     )
 
     cart
@@ -76,6 +75,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #TODO: create RefererBuilder
   helper_method :current_referer
   def current_referer
     session[:return_to] = case request.referer
@@ -130,9 +130,6 @@ class ApplicationController < ActionController::Base
       incoming_params[:referer] = request.referer unless request.referer.nil?
       session[:tracking_params] ||= incoming_params
     end
-  end
-  def load_referer_parameters
-    @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
   end
 
 end

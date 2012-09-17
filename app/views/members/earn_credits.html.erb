@@ -1,0 +1,26 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'section/earn_credits' %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "earn_credits" %>
+<% end %>
+
+<section id="earn_credits">
+  <h1>Ganhe créditos</h1>
+  <section id="left">
+    <h2>Fidelidade Olook</h2>
+    <h3>Fique na moda todos os meses gastando muito menos</h3>
+    <ul class="steps">
+      <li>Toda vez que você<br />comprar na OLOOK</li>
+      <li>Você ganhará 20% do<br />valor do seu pedido<br />em créditos</li>
+      <li class="last">E poderá utilizar este<br />valor em compras nos<br />próximos 2 meses</li>
+    </ul>
+    <%= link_to "Visite sua vitrine e aproveite", member_showroom_path %>
+  </section>
+  <section id="right">
+    <h2>Convide suas amigas</h2>
+    <h3>E ganhe R$ 20 na primeira compra de cada uma delas</h3>
+    <%= render "shared/social/share", :user => current_user %>
+  </section>
+</section>

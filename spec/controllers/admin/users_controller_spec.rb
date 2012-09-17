@@ -5,6 +5,10 @@ describe Admin::UsersController do
   render_views
   let!(:user) { FactoryGirl.create(:user) }
   let!(:valid_attributes) { user.attributes }
+  let!(:redeem_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :redeem)}
+  let!(:loyalty_program_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :loyalty_program)}
+  let!(:invite_credit_type) {FactoryGirl.create(:redeem_credit_type, :code => :invite)}
+  
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -136,24 +140,32 @@ describe Admin::UsersController do
   end
 
   describe "POST create_credit_transaction" do
-
-    let(:transaction_param) { {:id => user.id.to_s, :value => "10", :operation => "add_credit:Presente"} }
-
-    it "should create a credit transaction, given value, valid operation and reason" do
-      User.stub(:find).with(transaction_param[:id]).and_return(user)
-      operation = transaction_param[:operation].split(":")
-      AdminCreditService.should_receive(:new).with(@admin).and_return(admin_credit_service = mock)
-      CreditService.should_receive(:new).with(admin_credit_service).and_return(credit_service = mock)
-      credit_service.should_receive(:create_transaction).with(transaction_param[:value], operation[0], operation[1], user)
-      post :create_credit_transaction, transaction_param
+    let(:transaction_param)  do 
+      { :id => user.id.to_s,
+        :value => "10",
+        :operation => "redeem:order",
+        :reason => "Some reason"
+      }
     end
 
-    it "should redirect to the user" do
-      post :create_credit_transaction, transaction_param
-      response.should redirect_to(admin_user_path(user))
-    end
+    context 'add' do
+      let!(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => redeem_credit_type)}
 
+      it "should create a credit transaction, given value, valid operation and reason" do  
+        User.any_instance.should_receive(:user_credits_for).with('redeem').and_return(user_credit)
+        expect do
+          post :create_credit_transaction, transaction_param.merge(:order_number => "", :method => :add, :operation => :'redeem:order', :reason => 'foo')
+          assigns(:user).should eq(user)
+          assigns(:credit_type).should eq('redeem')
+        end.to change{Credit.count}.by(1)
+      end
+    end
+    
+
+    # it "should redirect to the user" do
+    #   post :create_credit_transaction, transaction_param
+    #   response.should redirect_to(admin_user_path(user))
+    # end
   end
-
 end
 

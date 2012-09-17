@@ -1,0 +1,234 @@
+@import 'partials/mixins';
+
+section#credits {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  overflow: auto;
+  > h1 {
+    font-size: 39px;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+  }
+  h2.title {
+    font-family: $avenir;
+    font-size: 22px;
+    font-weight: normal;
+    text-align: center;
+    + p {
+      text-align: center;
+      margin: 0 0 15px;
+    }
+  }
+  h1 {
+    font-family: $johnston;
+    font-size: 32px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    text-align: center;
+    &.max {
+      font-size: 26px;
+      width: 440px;
+    }
+  }
+  div.bubble {
+    background: url('/assets/credits/bg-bubble.png') top center no-repeat;
+    width: 638px;
+    height: 71px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    h1 {
+      color: #333;
+      font-family: $avenir;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: normal;
+      margin: 8px 0 2px;
+      display: inline-block;
+      span {
+        color: #e05789;
+      }
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+  div.plus {
+    position: absolute;
+    background: url('/assets/credits/plus.png') no-repeat;
+    top: 190px;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0 0 0 -23px;
+    display: block;
+  }
+  section {
+    width: 443px;
+    overflow: auto;
+    display: block;
+    padding: 20px 25px 0;
+    float: left;
+    & > h1 {
+      font-family: $kepler;
+      font-size: 24px;
+      font-weight: normal;
+      width: 365px;
+      margin: 0 auto 40px;
+    }
+    table {
+      width: 440px;
+      overflow: auto;
+      margin: 0 auto 30px;
+      border-top: 1px #EEE solid;
+      tr {
+        td {
+          padding: 10px 0;
+          &.value {
+            text-align: right;
+            padding-right: 10px;
+          }
+        }
+      }
+      tbody {
+        tr td {
+          font-size: 14px;
+          padding-left: 10px;
+          border-bottom: 1px #EEE solid;
+          span {
+            color: #e05789;
+            &.negative {
+              color: #999;
+            }
+          }
+          &.value {
+            padding-left: 0;
+          }
+        }
+      }
+      tfoot {
+        tr td {
+          color: #e05789;
+          font-family: $avenir;
+          font-size: 24px;
+          font-weight: lighter;
+          text-transform: uppercase;
+        }
+      }
+      &.last_orders {
+        tfoot {
+          tr {
+            td {
+              border-top: 1px #EEE solid;
+            }
+          }
+        }
+        tbody {
+          tr {
+            td {
+              border: none;
+            }
+            &.total_month {
+              td {
+                font-size: 16px;
+                border-top: 1px #EEE solid;
+              }
+            }
+          }
+        }
+      }
+    }
+    &#friends_credits {
+      width: 470px;
+      min-height: 500px;
+      padding-left: 0;
+      border-right: 2px #CCC solid;
+      div.social {
+        margin: 0 auto 40px;
+      }
+      div.link_mail {
+        padding: 0;
+        ul {
+          li {
+            margin: 0 10px 0 0;
+            float: left;
+          }
+        }
+        div.box_copy {
+          top: 60px;
+          left: 270px;
+        }
+      }
+    }
+    &#purchase_credits {
+      div#box_months {
+        position: relative;
+        width: 100%;
+        overflow: auto;
+        h3 {
+          color: #666;
+          font-family: $avenir;
+          font-size: 19px;
+          font-weight: normal;
+          text-align: center;
+          margin: 0 0 20px;
+        }
+        table {
+          width: 144px;
+          margin: 0 5px 10px 0;
+          border: 1px #E1E1E1 solid;
+          float: left;
+          th, td {
+            font-weight: normal;
+            text-align: center;
+            padding: 10px 0;
+          }
+          th {
+            background: #EEE;
+            font-family: $avenir;
+            color: #666;
+            font-size: 16px;
+            text-transform: uppercase;
+          }
+          td {
+            font-family: $kepler;
+            color: #999;
+            font-size: 16px;
+          }
+          &.current {
+            th {
+              background: #000;
+              color: #FFF;
+            }
+          }
+          &.last {
+            margin: 0;
+          }
+        }
+        p {
+          text-align: center;
+          &.current {
+            width: 143px;
+            float: left;
+            clear: both;
+          }
+          &.next {
+            width: 250px;
+            margin: 0 25px 0 0;
+            float: right;
+          }
+        }
+      }
+    }
+  }
+  div.rules {
+    text-align: center;
+    padding: 20px 0;
+    border-top: 2px #EEE solid;
+    a {
+      color: #666;
+      font-size: 15px;
+    }
+  }
+}

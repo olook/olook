@@ -1,0 +1,2 @@
+class GiftPayment < Payment
+end

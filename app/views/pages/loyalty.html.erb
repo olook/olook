@@ -1,0 +1,45 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/loyalty" %>
+<% end %>
+
+<section id="loyalty">
+  <h1>Fidelidade Olook</h1>
+  <h2>Fique na moda todos os meses gastando muito menos</h2>
+  <div id="left">
+    <div class="arrow"></div>
+    <ul class="steps">
+      <li>Toda vez que você<br />comprar na OLOOK</li>
+      <li>Você ganhará 20% do<br />valor do seu pedido<br />em créditos</li>
+      <li class="last">E poderá utilizar este<br />valor em compras nos<br />próximos 2 meses</li>
+    </ul>
+    <h1>Veja como é fácil:</h1>
+    <ul class="products">
+      <li><%= image_tag "loyalty/product-1.jpg" %></li>
+      <li class="last"><%= image_tag "loyalty/product-2.jpg" %></li>
+    </ul>
+  </div>
+  <div id="right">
+    <div id="credits">
+      <% if @user %>
+        <h1>CRÉDITOS PARA O PRÓXIMO MÊS</h1>
+        <% if @loyalty_credit_amount >  0 %>
+          <h2><%= number_to_currency @loyalty_credit_amount  %></h2>
+          <p>Válidos para compras em <%= l 1.month.since, :format => "%B" %> ou <%= l 2.month.since, :format => "%B" %></p>
+        <% else %>
+          <p>Você ainda não acumulou créditos em<br />compras para o próximo mês :(</p>
+        <% end %>
+        <%= link_to "Acompanhe seus créditos", user_credits_path %>
+      <% else %>
+        <p>Agora você tem mais um motivo<br />para continuar comprando na olook.</p>
+      <% end %>
+    </div>
+    <div id="showroom">
+      <%= image_tag "loyalty/products.jpg", :title => "Produtos" %>
+      <% if @user %>
+        <%= link_to "Visite sua vitrine e aproveite", member_showroom_path, :class => "link_showroom" %>
+      <% else %>
+        <%= link_to "Comprar agora", moments_path, :class => "buy_now" %>
+      <% end %>
+    </div>
+  </div>
+</section>

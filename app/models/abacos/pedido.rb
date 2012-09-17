@@ -11,11 +11,11 @@ module Abacos
       @numero           = order.number
 
       @codigo_cliente   = "F#{order.user.id}"
-      @cpf              = parse_cpf(order.user.cpf)
-      @nome             = order.user.name
-      @email            = order.user.email
+      @cpf              = parse_cpf(order.user_cpf)
+      @nome             = order.user_name
+      @email            = order.user_email
 
-      @telefone         = parse_telefone(order.freight.address.telephone)
+      @telefone         = parse_telefone(order.freight.telephone)
 
       @data_venda       = parse_data(order.created_at)
       
@@ -27,7 +27,7 @@ module Abacos
       @tempo_entrega    = order.freight.delivery_time
       @data_entrega     = parse_data_entrega(order.freight.delivery_time)
 
-      @endereco         = parse_endereco(order.freight.address)
+      @endereco         = parse_endereco(order.freight)
       @itens            = parse_itens(order.line_items)
       @pagamento        = parse_pagamento(order)
     end

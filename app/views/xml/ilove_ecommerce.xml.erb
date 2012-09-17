@@ -3,7 +3,7 @@
 <% @products.each do |product| %>
 <produto>
 <codigo><%= product.id %></codigo>
-<categoria><%= product.category %></categoria>
+<categoria><%= product.category_humanize %></categoria>
 <link><%= product.product_url(:utm_source => "ilove_ecommerce") %></link>
 <imagem><%= product.pictures.last.try(:image) %></imagem>
 <nome_titulo></nome_titulo>

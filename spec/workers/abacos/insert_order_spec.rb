@@ -45,7 +45,7 @@ describe Abacos::InsertOrder do
   end
 
   describe '#parse_and_check_order' do
-    let(:mock_order) { mock_model Order, :payment => nil }
+    let(:mock_order) { mock_model Order, :erp_payment => nil }
     before :each do
       Order.stub(:find_by_number).with(123).and_return(mock_order)
     end
@@ -56,7 +56,7 @@ describe Abacos::InsertOrder do
       }.to raise_error "Order number 123 doesn't have an associated payment"
     end
     it "should raise an error if the order already exists on Abacos" do
-      mock_order.stub(:payment).and_return(:some_payment)
+      mock_order.stub(:erp_payment).and_return(:some_payment)
       Abacos::OrderAPI.should_receive(:'order_exists?').with(123).and_return(true)
       expect {
         described_class.send(:parse_and_check_order, 123)

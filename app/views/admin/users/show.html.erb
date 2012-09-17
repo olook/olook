@@ -27,7 +27,7 @@
   </p>
   <p>
     <b>Created At:</b>
-    <%= @user.created_at %>
+      <%= @user.created_at %>
   </p>
   <p>
     <b>Current credits:</b>
@@ -48,9 +48,15 @@
     </button>
   </p>
   <%= render partial: 'show_orders', locals: { user: @user }  %>
-  <%= render partial: 'show_credits', locals: {user: @user } %>
+  <%= render partial: 'show_credits', locals: { user: @user,
+                                                redeem_credits: @redeem_credits,
+                                                loyalty_program_credits: @loyalty_program_credits,
+                                                invite_credits: @invite_credits
+                                              } 
+  %>
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user } if @survey_answers  %>
+  <%= render partial: 'show_payments', locals: { user: @user }  %>
   <%= render partial: 'show_events', locals: { user: @user }  %>
 </div>
 
