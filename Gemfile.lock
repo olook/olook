@@ -387,7 +387,7 @@ PLATFORMS
 DEPENDENCIES
   SyslogLogger
   airbrake
-  asset_sync (= 0.1.10)
+  asset_sync
   awesome_print
   brcpfcnpj (= 3.0.4)
   business_time
