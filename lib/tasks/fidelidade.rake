@@ -382,5 +382,15 @@ namespace :fidelidade do
     end
   end
 
+  desc "give credits to users that sucessfully purchased products from september 1st to september 13th"
+  task :retroactively_give_loyalty_credits => :environment do
+    Order.with_complete_payment
+         .where("orders.state in ('authorized','delivering','delivered','picking')")
+         .where("orders.created_at between '2012-09-01' and '2012-09-13'").each do |order|
+
+      UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available
+      
+    end
+  end
 end
 
