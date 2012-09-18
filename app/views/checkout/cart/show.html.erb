@@ -2,7 +2,19 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 <% content_for :ecommerce_tracking do %>
-  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @cart, :cart_service => @cart_service } %>
+<script type="text/javascript">
+_gaq.push(['_addTrans',
+   '<%= @cart.id %>',
+   'olook',
+   '<%= @cart_service.total %>',
+   '',
+   '<%= @cart_service.freight_price.to_s %>',
+   '<%= @cart_service.freight_city %>',
+   '<%= @cart_service.freight_state %>',
+   'Brasil'
+ ]);
+</script>
+
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
 <% end %>
 <% content_for :footer do %>
@@ -95,16 +107,16 @@
         <td>
           <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
             <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
-            <h1>Créditos de sua última compra</h1>
+            <h1>Quero usar meus créditos</h1>
             <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
             <% if @cart_service.total > @user.current_credit %>
-              <p>Se o valor do seu pedido for superior ao seu saldo, você receberá a diferença em créditos.</p>
+              <p>O valor do seu pedido é superior ao seu saldo e você receberá a diferença em créditos</p>
             <% elsif @cart_service.total == @user.current_credit %>
-              <p>Se o valor do seu pedido for o mesmo que o seu saldo, você pagará apenas o custo de envio.</p>
+              <p>O valor do seu pedido é o mesmo que o seu saldo e você pagará apenas o custo de envio</p>
             <% else %>
-              <p>Se o valor do seu pedido for inferior ao seu saldo, você receberá a diferença em créditos.</p>
+              <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
             <% end %>
-            <%= link_to "Saiba mais sobre seus créditos", "#" %>
+            <%#= link_to "Saiba mais sobre seus créditos", "#" %>
           <% end %>
         </td>
         <td class="value"><%= number_to_currency @user.current_credit %></td>
@@ -170,7 +182,7 @@
           <% else %>
             <%= link_to "Continuar", "#", :class => "continue login"  %>
           <% end %>
-          <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", loyalty_path %></p>
+          <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
         </td>
       </tr>
     </tbody>

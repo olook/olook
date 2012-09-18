@@ -65,15 +65,8 @@ class Order < ActiveRecord::Base
     state :authorized
     state :under_review 
 
-    state :authorized do
-      after_save do |order|
-        Resque.enqueue_in(1.minute, Orders::NotificationPaymentConfirmedWorker, order.id)
-        UserCredit.process!(order)
-
-        Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, order.number)
-      end
-    end
-
+    after_transition any => :authorized, :do => :transition_to_authorized
+    
     state :reversed do
       after_save do |order|
         order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each do |payment|
@@ -212,10 +205,18 @@ class Order < ActiveRecord::Base
   def redeem_payment
     payments.for_redeem.last
   end
-  
+
   def payment_rollback?
     self.refunded? || self.canceled? || self.reversed?
   end
+  
+  def transition_to_authorized
+    Resque.enqueue_in(1.minute, Orders::NotificationPaymentConfirmedWorker, self.id)
+    UserCredit.process!(self)
+
+    Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
+  end
+  
   
   private
 

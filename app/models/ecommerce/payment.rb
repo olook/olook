@@ -49,6 +49,27 @@ class Payment < ActiveRecord::Base
     where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'redeem'})
   end
 
+  def self.for_credits
+    where(type: 'CreditPayment')
+  end
+
+  def self.for_promotion
+    where(type: 'PromotionPayment')
+  end
+
+  def self.for_olooklet
+    where(type: 'OlookletPayment')
+  end
+
+  def self.for_gift
+    where(type: 'GiftPayment')
+  end
+
+  def self.for_coupon
+    where(type: 'CouponPayment')
+  end
+
+
   state_machine :initial => :started do
     #Concluido - 4
     state :completed
