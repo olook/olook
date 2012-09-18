@@ -232,8 +232,8 @@ context "in the ilove_ecommerce xml page" do
       <imagem></imagem>
       <nome_titulo></nome_titulo>
       <descricao>#{product.description}</descricao>
-      <preco_real>#{product.price}</preco_real>
-      <preco_desconto>#{product.retail_price}</preco_desconto>
+      <preco_real>#{number_to_currency(product.price).delete("R$ ")}</preco_real>
+      <preco_desconto>#{number_to_currency(product.retail_price).delete("R$ ")}</preco_desconto>
       <specific>
       <marca>Olook</marca>
       <cor></cor>
