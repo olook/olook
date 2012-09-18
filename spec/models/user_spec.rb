@@ -107,9 +107,10 @@ describe User do
       FactoryGirl.create(:member)
     end
 
-    it "adds credit for the invitee" do
-      UserCredit.should_receive(:add_for_invitee)
-      FactoryGirl.create(:member)
+    it "adds credit for the invitee" do      
+      Resque.should_receive(:enqueue_in).with(1.minute, MailRegisteredInviteeWorker, anything)
+
+      FactoryGirl.create(:member, :is_invited => true, :cpf => "19762003691")
     end
     
   end
