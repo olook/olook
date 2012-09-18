@@ -36,4 +36,20 @@ describe UserNotifier do
       UserNotifier.send_in_cart( validators.join(" AND ") )
     end
   end
+
+  describe ".send_enabled_credits_notification" do
+    # criar 2 users. Um com créditos disponíveis no começo desse mês e um com créditos disponíveis mês que vem.
+    # Fazer o teste no mês atual, testar com DeLorean no mês seguinte e testar com DeLorean 3 meses para trás.
+  end
+
+  describe ".send_expiration_warning" do
+    # criar 2 users. Um com créditos que expiram no final desse mês e um com créditos que expiram no mês que vem.
+    # Fazer o teste no mês atual, testar com DeLorean no mês seguinte e testar com DeLorean 3 meses para trás.
+    context "on the 23rd" do
+    end
+
+    context "on the last day of the month" do
+    end
+  end
+
 end
