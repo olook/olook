@@ -46,7 +46,7 @@ module MarketingReports
       bounces = bounced_list
       header = %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token}
 
-      @file_name = "base_atualizada_purchases_auth_token_#{Time.now.strftime("%Y-%m-%d")}.csv"
+      @file_name = "#{Time.now.strftime("%Y-%m-%d")}_base_atualizada_purchases_auth_token.csv"
       
       if Rails.env.development?
         file = File.new(@file_name, "w+")
