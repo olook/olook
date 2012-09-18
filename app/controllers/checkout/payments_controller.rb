@@ -25,3 +25,4 @@ class Checkout::PaymentsController < ActionController::Base
     render :nothing => true, :status => 200
   end
 end
+
