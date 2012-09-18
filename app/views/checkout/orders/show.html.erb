@@ -39,7 +39,18 @@
 </section>
 
 <% content_for :ecommerce_tracking do %>
-  <%= render :partial => "shared/metrics/google/ecommerce_add_trans", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :order => @order } %>
+<script type="text/javascript">
+_gaq.push(['_addTrans',
+   '<%= @order.cart.id %>',
+   'olook',
+   '<%= @order.amount_paid %>',
+   '',
+   '<%= @order.freight_price.to_s %>',
+   '<%= @order.freight_city %>',
+   '<%= @order.freight_state %>',
+   'Brasil'
+ ]);
+</script>
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order } %>
   <%= render :partial => "shared/metrics/google/ecommerce_track_trans" %>
   <%= render :partial => "shared/metrics/sociomantic/confirmation", :locals => {:order => @order, :cart => @order.cart} %>
