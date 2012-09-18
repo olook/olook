@@ -37,6 +37,8 @@ FactoryGirl.define do
       end
       first_name "First Name"
       last_name "Last Name"
+      is_invited nil
+      cpf nil
 
       after_build do |user|
         Resque.stub(:enqueue_in)
@@ -47,6 +49,7 @@ FactoryGirl.define do
         member.save!
       end
     end
+
   end
 
 end
