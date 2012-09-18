@@ -34,7 +34,7 @@ namespace :assets do
     #     AWS::S3::S3Object.store(cdn_filename, open(file) , cdn_container)
     #   end
     # end
-    run "s3cmd --skip-existing --preserve --recursive sync #{shared_path}/assets s3://cdn-app-staging.olook.com.br"
+    #run "s3cmd --skip-existing --preserve --recursive sync #{shared_path}/assets s3://cdn-app-staging.olook.com.br"
   end
 end
 
@@ -59,15 +59,15 @@ namespace :deploy do
 
   desc 'Install gems'
   task :bundle_install, :roles => :web do
-    #run "cd #{path_app} && #{bundle} --without development test install"
+    run "cd #{path_app} && #{bundle} --without development test install"
   end
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :web do
     run "cd #{path_app} && bundle exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    #run "cd #{path_app} && bundle exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    #run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && bundle exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
+    # run "cd #{path_app} && bundle exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
+    # run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
+    # run "cd #{path_app} && bundle exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'

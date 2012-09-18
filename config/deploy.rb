@@ -1,5 +1,5 @@
-require 'airbrake/capistrano'
-require 'new_relic/recipes'
+#require 'airbrake/capistrano'
+#require 'new_relic/recipes'
 require 'capistrano/ext/multistage'
 #require 'aws/s3'
 
@@ -23,8 +23,8 @@ set :rake, '/usr/local/ruby/bin/rake'
 
 set :path_log, '/mnt/debug'
 # set :rails_env, "RAILS_ENV=production"
-#set :rails_env, "production"
-#set :env, 'production'
+# set :rails_env, "production"
+# set :env, 'production'
 
 # repo details
 set :scm, :git
