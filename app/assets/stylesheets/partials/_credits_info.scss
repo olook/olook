@@ -1,18 +1,18 @@
 div.credits_description {
-  width: 540px;
+  width: 555px;
   overflow: auto;
   display: none;
-  padding: 0 30px;
+  padding: 0 45px;
   div.box_months {
     position: relative;
-    width: 445px;
+    width: 460px;
     margin: 15px auto;
     overflow: auto;
     h1 {
       font-family: $kepler;
       font-size: 26px;
       text-align: center;
-      margin: 0 0 10px;
+      margin: 0 0 30px;
     }
     h3 {
       color: #666;
@@ -22,49 +22,26 @@ div.credits_description {
       text-align: center;
       margin: 0 0 20px;
     }
-    table {
-      width: 144px;
-      margin: 0 5px 10px 0;
-      border: 1px #E1E1E1 solid;
-      float: left;
-      th, td {
-        font-weight: normal;
+    ul.steps {
+      margin: 0 0 0 30px;
+      overflow: auto;
+      li {
+        background: image-url('loyalty/icons.jpg') no-repeat;
+        background-position: -149px 0;
+        font-size: 13px;
         text-align: center;
-        padding: 10px 0;
-      }
-      th {
-        background: #EEE;
-        font-family: $avenir;
-        color: #666;
-        font-size: 16px;
-        text-transform: uppercase;
-      }
-      td {
-        font-family: $kepler;
-        color: #999;
-        font-size: 16px;
-      }
-      &.current {
-        th {
-          background: #000;
-          color: #FFF;
-        }
-      }
-      &.last {
-        margin: 0;
-      }
-    }
-    p {
-      text-align: center;
-      &.current {
-        width: 143px;
+        width: 130px;
+        margin: 0 20px 0 0;
+        padding: 170px 0 0 0;
+        display: inline-block;
         float: left;
-        clear: both;
-      }
-      &.next {
-        width: 250px;
-        margin: 0 25px 0 0;
-        float: right;
+        &:first-child {
+          background-position: 4px 0;
+        }
+        &:last-child, &.last {
+          background-position: -301px 0;
+          margin: 0;
+        }
       }
     }
   }

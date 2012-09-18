@@ -87,7 +87,7 @@ initQuickView = {
 
   productZoom : function() {
     $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
-      zoomType: 'standard',
+      zoomType: 'innerzoom',
       zoomWidth: 415,
       zoomHeight: 500,
       imageOpacity: 0.4,

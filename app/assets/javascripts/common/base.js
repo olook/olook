@@ -5,6 +5,7 @@ $(document).ready(function() {
   initBase.showErrorMessages();
   initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
+  initBase.showInfoCredits();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -426,11 +427,10 @@ initBase = {
   },
 
   showInfoCredits : function() {
-    $("#session ul li.credits div#credits_info a.open").live('click', function(e) {
+    $("a.open_loyalty_lightbox").live('click', function(e) {
       clone = $("div.credits_description").clone().addClass("clone");
       content = clone[0].outerHTML;
       initBase.modal(content);
-      $(".ui-dialog").css("top", "30px");
       e.preventDefault();
     });
   },
@@ -543,7 +543,12 @@ initBase = {
   fixBorderOnMyAccountDropDown : function() {
     $('#session div.user ul li.submenu').hover(function() {
       var link = $(this).find('a#info_user');
-      var link_width = $(link).outerWidth();
+      if($(link).outerWidth() >= '125') {
+        var link_width = $(link).outerWidth();
+      } else {
+        var link_width = 125;
+      }
+      console.log(link_width);
       $(this).find('div.my_account').css('width', link_width - 4);
       $(link).addClass('hover');
     }, function() {

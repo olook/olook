@@ -14,9 +14,19 @@ section#loyalty {
     }
   }
   div#left {
+    position: relative;
     width: 465px;
     overflow: auto;
     float: left;
+    div.arrow {
+      position: absolute;
+      background: image-url('loyalty/arrow.png') no-repeat;
+      width: 67px;
+      height: 48px;
+      bottom: 145px;
+      left: 213px;
+      display: block;
+    }
     ul.steps {
       margin: 0 0 40px 30px;
       overflow: auto;

@@ -6,6 +6,7 @@
   <h1>Fidelidade Olook</h1>
   <h2>Fique na moda todos os meses gastando muito menos</h2>
   <div id="left">
+    <div class="arrow"></div>
     <ul class="steps">
       <li>Toda vez que você<br />comprar na OLOOK</li>
       <li>Você ganhará 20% do<br />valor do seu pedido<br />em créditos</li>
@@ -20,10 +21,10 @@
   <div id="right">
     <div id="credits">
       <% if @user %>
-        <h1>Créditos para o próximo mês</h1>
-        <% if current_user.has_credit?(@next_month) %>
-          <h2><%= number_to_currency current_user.current_credit(@next_month)  %></h2>
-          <p>Válidos para compras em <%= l (Time.now + 1.month), :format => "%B" %> ou <%= l (Time.now + 2.month), :format => "%B" %></p>
+        <h1>CRÉDITOS PARA O PRÓXIMO MÊS</h1>
+        <% if @loyalty_credit_amount >  0 %>
+          <h2><%= number_to_currency @loyalty_credit_amount  %></h2>
+          <p>Válidos para compras em <%= l 1.month.since, :format => "%B" %> ou <%= l 2.month.since, :format => "%B" %></p>
         <% else %>
           <p>Você ainda não acumulou créditos em<br />compras para o próximo mês :(</p>
         <% end %>
