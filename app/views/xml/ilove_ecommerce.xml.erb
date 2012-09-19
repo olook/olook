@@ -5,7 +5,7 @@
 		<codigo>
 			<%= product.id %></codigo>
 		<categoria>
-			<%= to_ilove_category product.category %></categoria>
+			<%= get_ilove_category_for product %></categoria>
 		<link>
 		<%= product.product_url(:utm_source =>"ilove_ecommerce") %></link>
 	<imagem>
