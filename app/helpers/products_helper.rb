@@ -17,7 +17,7 @@ module ProductsHelper
     classes.join(" ")
   end
 
-  def twit_description(product)
+  def share_description(product)
     if product.category == 1 #shoes
       "Vi o sapato #{product.name} no site da olook e amei! <3 http://www.olook.com.br/produto/#{product.id}"
     elsif product.category == 2 #purse

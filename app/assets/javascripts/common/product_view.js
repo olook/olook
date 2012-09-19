@@ -4,6 +4,7 @@ $(document).ready(function() {
   initQuickView.productZoom();
   initQuickView.twitProduct();
   initQuickView.pinProduct();
+  initQuickView.shareProductOnFacebook();
 
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
     el = $(this).parent();
@@ -133,5 +134,12 @@ initQuickView = {
       window.open(url, 'pinterest', opts);
       e.preventDefault();
     });
+  },
+
+  shareProductOnFacebook : function() {
+    $("ul.social li.facebook a").live("click", function() {
+      postProductToFacebookFeed();
+      return false;
+    })
   }
 };
