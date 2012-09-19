@@ -19,8 +19,8 @@ pt-BR:
       inactive: 'Sua conta ainda não foi ativada.'
       already_authenticated: 'Você já está autenticado!'
     sessions:
-      signed_in: ''
-      signed_out: ''
+      signed_in: 'Login realizado com sucesso.'
+      signed_out: 'Logout realizado com sucesso.'
     passwords:
       send_instructions: 'Dentro de minutos, receberá um email com as instruções de reinicialização da senha.'
       updated: 'Sua senha foi alterada com sucesso.'
