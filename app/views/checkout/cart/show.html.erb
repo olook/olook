@@ -112,7 +112,7 @@ _gaq.push(['_addTrans',
             <% if @cart_service.total > @user.current_credit %>
               <p>O valor do seu pedido é superior ao seu saldo e você receberá a diferença em créditos</p>
             <% elsif @cart_service.total == @user.current_credit %>
-              <p>O valor do seu pedido é o mesmo que o seu saldo e você pagará apenas o custo de envio</p>
+              <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
             <% else %>
               <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
             <% end %>
