@@ -967,7 +967,10 @@ body {
               border: none;
               p {
                 a {
-                  color: $secondary_color;
+                  color: $pink;
+                  display: inline;
+                  margin: 0;
+                  padding: 0;
                 }
               }
             }
