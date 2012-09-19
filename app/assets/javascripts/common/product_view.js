@@ -2,6 +2,8 @@ $(document).ready(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   initQuickView.sliceDesc(stringDesc);
   initQuickView.productZoom();
+  initQuickView.twitProduct();
+  initQuickView.pinProduct();
 
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
     el = $(this).parent();
@@ -94,6 +96,42 @@ initQuickView = {
       title: false,
       preloadImages: false,
       fadeoutSpeed: 'fast'
+    });
+  },
+
+  twitProduct : function() {
+    $("ul.social li.twitter a").live("click", function(e) {
+      var width  = 575,
+          height = 400,
+          left   = ($(window).width()  - width)  / 2,
+          top    = ($(window).height() - height) / 2,
+          url    = this.href,
+          opts   = 'status=1' +
+                   ',width='  + width  +
+                   ',height=' + height +
+                   ',top='    + top    +
+                   ',left='   + left;
+
+      window.open(url, 'twitter', opts);
+      e.preventDefault();
+    });
+  },
+
+  pinProduct : function() {
+    $("ul.social li.pinterest a").live("click", function(e) {
+      var width  = 710,
+          height = 545,
+          left   = ($(window).width()  - width)  / 2,
+          top    = ($(window).height() - height) / 2,
+          url    = this.href,
+          opts   = 'status=1' +
+                   ',width='  + width  +
+                   ',height=' + height +
+                   ',top='    + top    +
+                   ',left='   + left;
+
+      window.open(url, 'pinterest', opts);
+      e.preventDefault();
     });
   }
 };
