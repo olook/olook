@@ -1,6 +1,5 @@
 $(document).ready(function() {
   initProduct.showCarousel();
-  initProduct.shareProductOnFacebook();
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
@@ -58,12 +57,5 @@ initProduct = {
         }
       });
     }
-  },
-
-  shareProductOnFacebook : function() {
-    $("ul.social li.facebook a").live("click", function() {
-      postProductToFacebookFeed();
-      return false;
-    })
   }
 }
