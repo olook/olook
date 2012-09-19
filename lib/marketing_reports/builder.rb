@@ -45,12 +45,12 @@ module MarketingReports
     def generate_userbase_with_auth_token
       bounces = bounced_list
 
-      @file_name = "#{Time.now.strftime("%Y-%m-%d")}_base_atualizada_purchases_auth_token.csv"
+      @file_name = "base_atualizada_purchases_auth_token_#{Time.now.strftime("%Y-%m-%d")}.csv"
 
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token}
         
-        User.joins("left outer join orders on orders.user_id = users.id").select("users.*, count(orders.id) has_purchases").group('orders.id')
+        # User.joins("left outer join orders on orders.user_id = users.id").select("users.*, count(orders.id) has_purchases").group('orders.id').where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
         User.includes(:orders).where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
           purchases = !!(u.orders.inject(0) do |sum, order|
             sum += 1
@@ -76,7 +76,7 @@ module MarketingReports
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token current_credit}
+        csv << %w{id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token current_credit}
         User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.authentication_token, u.current_credit ]
