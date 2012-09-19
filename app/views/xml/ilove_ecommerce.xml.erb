@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-<% @products.each do |product| %>
-<produto>
-<codigo><%= product.id %></codigo>
-<categoria><%= product.category_humanize %></categoria>
-<link><%= product.product_url(:utm_source => "ilove_ecommerce") %></link>
-<imagem><%= product.pictures.last.try(:image) %></imagem>
-<nome_titulo></nome_titulo>
-<descricao><%= product.description %></descricao>
-<preco_real><%= product.price %></preco_real>
-<preco_desconto><%= product.retail_price %></preco_desconto>
-<specific>
-<marca>Olook</marca>
-<cor></cor>
-<tamanho></tamanho>
-<autor></autor>
-<artista></artista>
-<editora></editora>
-<ritmo></ritmo>
-<distribuidora></distribuidora>
-<sinopse></sinopse>
-<loja>Olook</loja>
-</specific>
+	<% @products.each do |product| %>
+	<produto>
+		<codigo>
+			<%= product.id %></codigo>
+		<categoria>
+			<%= to_ilove_category product.category %></categoria>
+		<link>
+		<%= product.product_url(:utm_source =>"ilove_ecommerce") %></link>
+	<imagem>
+		<%= first_image_of product %></imagem>
+	<nome_titulo></nome_titulo>
+	<descricao>
+		<%= product.description %></descricao>
+	<preco_real>
+		<%= product.price %></preco_real>
+	<preco_desconto>
+		<%= product.retail_price %></preco_desconto>
+	<specific>
+		<marca>Olook</marca>
+		<cor></cor>
+		<tamanho></tamanho>
+		<autor></autor>
+		<artista></artista>
+		<editora></editora>
+		<ritmo></ritmo>
+		<distribuidora></distribuidora>
+		<sinopse></sinopse>
+		<loja>Olook</loja>
+	</specific>
 </produto>
-<% end %>
-</produtos>
+<% end %></produtos>
