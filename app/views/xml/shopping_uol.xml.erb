@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <produtos>
-<% @products.each do |product| %>
-<% unless product.sold_out? %>
-<produto>
-<codigo><%= product.id %></codigo>
-<descricao><%= product.description %></descricao>
-<preco><%= product.price.to_s.sub(".",",") %></preco>
-<nparcela>1</nparcela>
-<vparcela></vparcela>
-<url><%= product.product_url(:utm_source => "shopping_uol") %></url>
-<url_imagem><%= product.pictures.last.try(:image) %></url_imagem>
-<Frete>Sim</Frete>
-<departamento></departamento>
-</produto>
-<% end %>
-<% end %>
-</produtos>
+	<% @products.each do |product| %>
+	<% unless product.sold_out? %>
+	<produto>
+		<codigo>
+			<%= product.id %></codigo>
+		<descricao>
+			<%= product.description %></descricao>
+		<preco>
+			<%= product.price.to_s.sub(".",",") %></preco>
+		<nparcela>1</nparcela>
+		<vparcela></vparcela>
+		<url>
+			<%= product.product_url(:utm_source =>"shopping_uol") %></url>
+		<url_imagem>
+			<%= first_image_of product %></url_imagem>
+		<Frete>Sim</Frete>
+		<departamento></departamento>
+	</produto>
+	<% end %>
+	<% end %></produtos>

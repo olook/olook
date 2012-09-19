@@ -244,6 +244,11 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def picture_at_position(position)
+    self.pictures.where(:display_on => position).first
+  end
+
+
 private
 
   def create_master_variant
