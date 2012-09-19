@@ -184,12 +184,6 @@ class Order < ActiveRecord::Base
     freight_delivery_time - WAREHOUSE_TIME
   end
 
-  #FIX THIS IN MIGRATION WITH UPDATE_ALL
-  # def credits
-  #   credit = read_attribute :credits
-  #   credit.nil? ? 0 : credit
-  # end
-  
   def user_name
     "#{user_first_name} #{user_last_name}".strip
   end
