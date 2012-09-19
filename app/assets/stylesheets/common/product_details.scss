@@ -121,24 +121,69 @@
       }
       div.description {
         position: relative;
-        div.fb-like {
-          position: absolute;
-          width: 90px;
-          top: 10px;
-          right: 0;
-          .fb_edge_comment_widget {
-            display: none;
-          }
-          iframe {
-            height: 20px !important;
-          }
-        }
-        h1 {
-          font-family: $kepler;
-          font-size: 33px;
-          margin-bottom: 10px;
+        div.line {
+          width: 100%;
+          overflow: auto;
+          margin: 0 0 10px;
           padding-bottom: 10px;
-          border-bottom: 1px #ebebeb solid;
+          border-bottom: 1px #EBEBEB solid;
+          h1 {
+            font-family: $kepler;
+            font-size: 33px;
+          }
+          div.fb-like {
+            width: 90px;
+            margin: 3px 0 0;
+            float: left;
+            .fb_edge_comment_widget {
+              display: none;
+            }
+            iframe {
+              height: 20px !important;
+            }
+          }
+          ul.social {
+            float: right;
+            li {
+              line-height: 27px;
+              margin-right: 3px;
+              display: inline;
+              float: left;
+              a {
+                background: image-url('product/bt-social.jpg') no-repeat;
+                text-indent: -99999px;
+                width: 27px;
+                height: 27px;
+                display: block;
+              }
+              &.first {
+                margin-right: 5px;
+              }
+              &.twitter {
+                a {
+                  background-position: 0 0;
+                }
+              }
+              &.facebook {
+                a {
+                  background-position: -30px 0;
+                }
+              }
+              &.pinterest {
+                a {
+                  background-position: -60px 0;
+                }
+              }
+              &.email {
+                a {
+                  background-position: -90px 0;
+                }
+              }
+              &.last {
+                margin: 0;
+              }
+            }
+          }
         }
         p {
           color: #999;

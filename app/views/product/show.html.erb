@@ -15,7 +15,7 @@
     <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
     <meta property="og:site_name" content="Olook" />
     <meta property="og:type" content="website" />
-
+    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     <%= stylesheet_link_tag "section/product" %>
   <% end %>
 
@@ -49,4 +49,5 @@
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render "shared/metrics/google/product" %>
+  <%= render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product %>
 <% end %>
