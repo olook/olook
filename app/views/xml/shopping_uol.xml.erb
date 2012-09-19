@@ -14,7 +14,7 @@
 		<url>
 			<%= product.product_url(:utm_source =>"shopping_uol") %></url>
 		<url_imagem>
-			<%= product.picture_at_position(DisplayPictureOn::GALLERY_1).try(:image) %></url_imagem>
+			<%= first_image_of product %></url_imagem>
 		<Frete>Sim</Frete>
 		<departamento></departamento>
 	</produto>

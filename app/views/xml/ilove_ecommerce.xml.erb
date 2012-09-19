@@ -9,7 +9,7 @@
 		<link>
 		<%= product.product_url(:utm_source =>"ilove_ecommerce") %></link>
 	<imagem>
-		<%= product.picture_at_position(DisplayPictureOn::GALLERY_1).try(:image) %></imagem>
+		<%= first_image_of product %></imagem>
 	<nome_titulo></nome_titulo>
 	<descricao>
 		<%= product.description %></descricao>
