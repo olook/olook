@@ -22,16 +22,21 @@ module MarketingReports
       # file = File.new("#{Time.now.strftime("%Y-%m-%d")}_#{filename}", "w")
       # file.write(@file_content)
       # file.close
+      tries = 0
+      begin
+        ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
+        ftp.passive = true
 
-      ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
-      ftp.passive = true
-
-      # ftp.puttextfile(file.path, filename)
-      Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
-        file.write @file_content
-        ftp.puttextfile(file.path, filename)
+        # ftp.puttextfile(file.path, filename)
+        Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
+          file.write @file_content
+          ftp.puttextfile(file.path, filename)
+        end
+        ftp.close
+      rescue Exception => e
+        retry unless tries > 5
+        tries += 1
       end
-      ftp.close
     end
 
   end
