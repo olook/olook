@@ -38,17 +38,52 @@ describe UserNotifier do
   end
 
   describe ".send_enabled_credits_notification" do
+    let(:user) { FactoryGirl.create(:member) }
     # criar 2 users. Um com créditos disponíveis no começo desse mês e um com créditos disponíveis mês que vem.
     # Fazer o teste no mês atual, testar com DeLorean no mês seguinte e testar com DeLorean 3 meses para trás.
+    it "should blablabla" do
+
+    end
   end
 
   describe ".send_expiration_warning" do
+    let(:user) { FactoryGirl.create(:member) }
+    let(:other_user) { FactoryGirl.create(:member) }
+    let(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+    let(:user_credit) { FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type, :user => user) }
+    let(:other_user_credit) { FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type, :user => other_user) }
     # criar 2 users. Um com créditos que expiram no final desse mês e um com créditos que expiram no mês que vem.
     # Fazer o teste no mês atual, testar com DeLorean no mês seguinte e testar com DeLorean 3 meses para trás.
     context "on the 23rd" do
+      it "should send the 23rd day warning to the user who has credits expiring in the end of the month" do
+        other_user_credit.add({amount: 20})
+        other_user_credit.credits.last.update_attribute('expires_at', DateTime.now + 1.year)
+
+        user_credit.add({amount: 20})
+        expiration_warning_date = (user_credit.credits.last.expires_at - 7.days)
+        Delorean.time_travel_to(DateTime.new(expiration_warning_date.year, expiration_warning_date.month, 23))
+        LoyaltyProgramMailer.should_receive(:send_expiration_warning).with(user,false).once
+        LoyaltyProgramMailer.should_not_receive(:send_expiration_warning).with(other_user,false)
+
+        UserNotifier.send_expiration_warning
+        Delorean.back_to_the_present
+      end
     end
 
     context "on the last day of the month" do
+      it "should send the last day warning to the user who has credits expiring in the end of the month" do
+        other_user_credit.add({amount: 20})
+        other_user_credit.credits.last.update_attribute('expires_at', DateTime.now + 1.year)
+
+        user_credit.add({amount: 20})
+        expiration_warning_date = (user_credit.credits.last.expires_at - 1.days).end_of_month.beginning_of_day
+        Delorean.time_travel_to(expiration_warning_date)
+        LoyaltyProgramMailer.should_receive(:send_expiration_warning).with(user,true).once
+        LoyaltyProgramMailer.should_not_receive(:send_expiration_warning).with(other_user,true)
+
+        UserNotifier.send_expiration_warning true
+        Delorean.back_to_the_present
+      end
     end
   end
 
