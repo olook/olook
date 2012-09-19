@@ -19,11 +19,11 @@ module ProductsHelper
 
   def share_description(product)
     if product.category == 1 #shoes
-      "Vi o sapato #{product.name} no site da olook e amei! <3 http://www.olook.com.br/produto/#{product.id}"
+      "Vi o sapato #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
     elsif product.category == 2 #purse
-      "Vi a bolsa #{product.name} no site da olook e amei! <3 http://www.olook.com.br/produto/#{product.id}"
+      "Vi a bolsa #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
     else #accessory
-      "Vi o acessório #{product.name} no site da olook e amei! <3 http://www.olook.com.br/produto/#{product.id}"
+      "Vi o acessório #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
     end
   end
 end
