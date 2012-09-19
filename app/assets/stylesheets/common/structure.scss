@@ -1398,6 +1398,10 @@ header div.contact {
   }
 }
 
+.fb_dialog {
+  z-index: 100001 !important;
+}
+
 #quick_view {
   background-color: #fff;
   border: 10px solid #000;
