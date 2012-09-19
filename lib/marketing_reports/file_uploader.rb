@@ -19,9 +19,13 @@ module MarketingReports
     end
 
     def copy_to_ftp(filename = "untitled.txt", encoding = "ISO-8859-1")
-      # file = File.new("#{Time.now.strftime("%Y-%m-%d")}_#{filename}", "w")
-      # file.write(@file_content)
-      # file.close
+
+      if Rails.env.development?
+        file = File.new("#{Time.now.strftime("%Y-%m-%d-%H-%M")}_#{filename}", "w")
+        file.write(@file_content)
+        file.close
+      end
+
       tries = 0
       begin
         ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
