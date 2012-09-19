@@ -12,8 +12,9 @@ module XmlHelper
 		product.subcategory.present? ? "#{category} - #{product.subcategory}" : category
 	end
 
-	def to_ilove_category(category)
-		ilove_categories[category]
+	def get_ilove_category_for product
+		subcategory_in_downcase = product.subcategory_name.nil? ? nil : product.subcategory_name.downcase
+		ilove_categories[product.category][subcategory_in_downcase]
 	end
 
 	def to_google_shopping_category(category)
@@ -21,29 +22,42 @@ module XmlHelper
 	end
 
 
-  ## We send ALWAYS the image at Position 1 to our partners
-  def first_image_of product
-  	image_at_position(product, DisplayPictureOn::GALLERY_1)
-  end
+	## We send ALWAYS the image at Position 1 to our partners
+	def first_image_of product
+		image_at_position(product, DisplayPictureOn::GALLERY_1)
+	end
 
-  def image_at_position(product, position)
-  	product.picture_at_position(position).try(:image)
-  end
+	def image_at_position(product, position)
+		product.picture_at_position(position).try(:image)
+	end
 
-  private
-  	def ilove_categories
-  		@ilove_categories ||= { 
-	  		Category::SHOE       => 12,
-	  		Category::BAG        => 18,
-	  		Category::ACCESSORY  => 17 
-  		}
-  	end
+	private
+		def ilove_categories()
 
-  	def google_shopping_categories
-  		@google_shopping_categories ||= { 	
-  			Category::SHOE => 'Vestuário e acessórios > Sapatos',
-  			Category::BAG => 'Vestuário e acessórios > Bolsas',
-  			Category::ACCESSORY => 'Vestuário e acessórios > Acessórios'
-  		}
-  		end
-  	end
+			shoe_subcategories = {
+		  		'sandália' => 14,
+		  		'bota' => 13
+		  	}
+		  	shoe_subcategories.default=12
+
+		  	bag_subcategories={}
+		  	bag_subcategories.default=18
+
+		  	accessory_subcategories={}
+		  	accessory_subcategories.default=17
+
+			@ilove_categories ||= { 
+		  		Category::SHOE       => shoe_subcategories,
+		  		Category::BAG        => bag_subcategories,
+		  		Category::ACCESSORY  => accessory_subcategories
+			}
+		end
+
+		def google_shopping_categories()
+			@google_shopping_categories ||= { 	
+				Category::SHOE => 'Vestuário e acessórios > Sapatos',
+				Category::BAG => 'Vestuário e acessórios > Bolsas',
+				Category::ACCESSORY => 'Vestuário e acessórios > Acessórios'
+			}
+		end
+end
