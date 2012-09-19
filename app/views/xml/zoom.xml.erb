@@ -5,14 +5,14 @@
 <codigo><%= product.id %></codigo>
 <nome><%= product.name %></nome>
 <descricao><%= product.description %></descricao>
-<preco_de><%= product.price %></preco_de>
-<preco><%= product.retail_price %></preco>
+<preco_de><%= number_to_currency(product.price).delete("R$ ") %></preco_de>
+<preco><%= number_to_currency(product.retail_price).delete("R$ ") %></preco>
 <nparcela>1</nparcela>
 <vparcela></vparcela>
 <url><%= product.product_url(:utm_source => "zoom") %></url>
-<url_imagem><%= product.pictures.last.image %></url_imagem>
-<departamento></departamento>
-<subdepartamento>Computadores</subdepartamento>
+<url_imagem><%= product.pictures.last.try(:image) %></url_imagem>
+<departamento><%= product.category_humanize %></departamento>
+<subdepartamento></subdepartamento>
 <isbn/>
 <editora/>
 <autor/>
