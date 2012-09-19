@@ -20,7 +20,7 @@ module MarketingReports
       bounces = bounced_list
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases}
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases? ]
           end
@@ -33,7 +33,7 @@ module MarketingReports
       bounces = bounced_list
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases current_credits}
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.current_credit ]
           end
@@ -44,37 +44,30 @@ module MarketingReports
 
     def generate_userbase_with_auth_token
       bounces = bounced_list
-      header = %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token}
 
-      @file_name = "#{Time.now.strftime("%Y-%m-%d")}_base_atualizada_purchases_auth_token.csv"
-      
-      if Rails.env.development?
-        file = File.new(@file_name, "w+")
-        file.write(header.join(',') + "\n") if file.size == 0
-      end
+      @file_name = "base_atualizada_purchases_auth_token_#{Time.now.strftime("%Y-%m-%d")}.csv"
 
       @csv = CSV.generate do |csv|
-        csv << header
+        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token}
         
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        # User.joins("left outer join orders on orders.user_id = users.id").select("users.*, count(orders.id) has_purchases").group('orders.id').where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
+        User.includes(:orders).where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
+          purchases = !!(u.orders.inject(0) do |sum, order|
+            sum += 1
+          end)
+
           unless bounces.include?(u.email)
-            line = [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.authentication_token ]
-            csv << line
-            file.write(line.join(',') + "\n") if Rails.env.development?
+            csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, purchases, u.authentication_token ]
           end
         end
 
         emails_seed_list.each { |email|
-          line = [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil, nil ]
-          csv << line
-          file.write(line.join(',') + "\n") if Rails.env.development?
+          csv << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil, nil ]
         }
       end
 
       if Rails.env.development?
-        file.close
-
-        file = File.new("#{Time.now.strftime("%Y-%m-%d-%H-%M")}_base_atualizada_purchases_auth_token.csv", "w")
+        file = File.new("base_atualizada_purchases_auth_token_#{Time.now.strftime("%Y-%m-%d-%H-%M")}.csv", "w")
         file.write(@csv)
         file.close
       end
@@ -83,8 +76,8 @@ module MarketingReports
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token current_credit}
-        User.where("gender != #{User::Gender[:male]} or gender is null").each do |u|
+        csv << %w{id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token current_credit}
+        User.where("gender != #{User::Gender[:male]} or gender is null").find_each do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, u.has_purchases?, u.authentication_token, u.current_credit ]
           end
