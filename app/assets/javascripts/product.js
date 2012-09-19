@@ -1,8 +1,6 @@
 $(document).ready(function() {
   initProduct.showCarousel();
-  initProduct.twitProduct();
   initProduct.shareProductOnFacebook();
-  initProduct.pinProduct();
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
@@ -62,46 +60,10 @@ initProduct = {
     }
   },
 
-  twitProduct : function() {
-    $("ul.social li.twitter a").live("click", function(e) {
-      var width  = 575,
-          height = 400,
-          left   = ($(window).width()  - width)  / 2,
-          top    = ($(window).height() - height) / 2,
-          url    = this.href,
-          opts   = 'status=1' +
-                   ',width='  + width  +
-                   ',height=' + height +
-                   ',top='    + top    +
-                   ',left='   + left;
-
-      window.open(url, 'twitter', opts);
-      e.preventDefault();
-    });
-  },
-
   shareProductOnFacebook : function() {
     $("ul.social li.facebook a").live("click", function() {
       postProductToFacebookFeed();
       return false;
     })
-  },
-
-  pinProduct : function() {
-    $("ul.social li.pinterest a").live("click", function(e) {
-      var width  = 710,
-          height = 545,
-          left   = ($(window).width()  - width)  / 2,
-          top    = ($(window).height() - height) / 2,
-          url    = this.href,
-          opts   = 'status=1' +
-                   ',width='  + width  +
-                   ',height=' + height +
-                   ',top='    + top    +
-                   ',left='   + left;
-
-      window.open(url, 'pinterest', opts);
-      e.preventDefault();
-    });
   }
 }
