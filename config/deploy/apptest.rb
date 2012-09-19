@@ -3,7 +3,7 @@ role :web, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-set :env, 'staging'
+set :rails_env, 'staging'
 
 namespace :assets do
   task :to_cdn do
@@ -47,14 +47,14 @@ namespace :deploy do
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Run assets clean and precompile'
   task :assets_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -81,13 +81,13 @@ namespace :deploy do
 
   desc 'Start unicorn'
   task :start_unicorn, :roles => :web do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
   end
 
   desc 'Restart unicorn'
   task :restart, :roles => :web do
     run "ps -e -o pid,command |grep unicorn |grep master"
-    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
   end
 
   #after 'deploy:update', 'deploy:bundle_install' # keep only the last 5 releases
