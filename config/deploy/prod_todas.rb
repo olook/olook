@@ -1,40 +1,22 @@
 role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br', 'app4.olook.com.br', 'app5.olook.com.br', 'app6.olook.com.br'
 role :db, 'app1.olook.com.br'
+role :web, 'app1.olook.com.br'
  
 # server details
-#set :rails_env, 'RAILS_ENV=production'
 set :env, 'production'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-
-trap("INT") {
-  print "\n\n"
-  exit 42
-}
-
-namespace :log do
-  desc "Tail all application log files"
-  task :tail, :roles => :web do
-
-    run "tail -f #{path_log}" do |channel, stream, data|
-      puts "\033[0;33m#{stage}:\033[0m #{data}"
-      break if stream == :err
-    end
-  end
-end
 
 # tasks
 namespace :deploy do
   task :default, :role => [:app, :db] do
     update #capistrano internal default task
     yml_links
-    bundle_install
-    rake_tasks
-    assets_tasks
+    #bundle_install
+    #rake_tasks
+    #assets_tasks
     restart
-  # end
-  # task :default, :role => :rake do
   end
 
   desc 'Install gems'
@@ -49,9 +31,9 @@ namespace :deploy do
   end
 
   desc 'Run assets precompile'
-  task :assets_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{env}"
+  task :assets_tasks, :role => :web do
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{env}", :roles => :web
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{env}", :roles => :web
   end
 
   desc 'Create symlinks'

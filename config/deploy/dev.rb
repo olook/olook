@@ -1,21 +1,19 @@
 role :app, "development.olook.com.br"
-
-
-# current_path : /srv/olook/current/
+ 
+# server details
+set :env, 'staging'
 
 # repo details
 set :branch, fetch(:branch, 'development')
-# if not variables.include?(:branch)
-#   set :branch, 'master'
-# end
 
 # tasks
 namespace :deploy do
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
-    bundle_install
-    rake_tasks
+    #bundle_install
+    #rake_tasks
+    #assets_tasks
     restart
   end
 
@@ -24,12 +22,16 @@ namespace :deploy do
     run "cd #{path_app} && #{bundle} --without development test install"
   end
 
-  desc 'Run migrations, clean assets and assets precompile'
+  desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{env}"
+  end
+
+  desc 'Run assets clean and precompile'
+  task :assets_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{env}"
   end
 
   desc 'Create symlinks'
