@@ -3,25 +3,7 @@ role :web, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-set :rails_env, "staging"
 set :env, 'staging'
-
-trap("INT") {
-  print "\n\n"
-  exit 42
-}
-
-namespace :log do
-  desc "Tail all application log files"
-  task :tail, :roles => :web do
-
-    run "tail -f #{path_log}" do |channel, stream, data|
-      puts "\033[0;33m#{stage}:\033[0m #{data}"
-      break if stream == :err
-    end
-  end
-end
-
 
 namespace :assets do
   task :to_cdn do
@@ -44,8 +26,9 @@ namespace :deploy do
     #configuring_server
     update #capistrano internal default task
     #bundle_install
+    #rake_tasks
+    #assets_tasks
     yml_links
-    rake_tasks
     restart
   end
 
@@ -63,11 +46,15 @@ namespace :deploy do
   end
 
   desc 'Run migrations, clean assets'
-  task :rake_tasks, :role => :web do
-    run "cd #{path_app} && bundle exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    # run "cd #{path_app} && bundle exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    # run "cd #{path_app} && bundle exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
-    # run "cd #{path_app} && bundle exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
+  task :rake_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{env}"
+  end
+
+  desc 'Run assets clean and precompile'
+  task :assets_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{env}"
   end
 
   desc 'Create symlinks'
@@ -94,13 +81,13 @@ namespace :deploy do
 
   desc 'Start unicorn'
   task :start_unicorn, :roles => :web do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D"
   end
 
   desc 'Restart unicorn'
   task :restart, :roles => :web do
     run "ps -e -o pid,command |grep unicorn |grep master"
-    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{env} -D; fi"
   end
 
   #after 'deploy:update', 'deploy:bundle_install' # keep only the last 5 releases
@@ -110,5 +97,5 @@ namespace :deploy do
   #after 'deploy:yml_links', 'deploy:assets:symlink'
   #after 'deploy:update_code', 'deploy:yml_links'
   #after 'deploy:yml_links', 'deploy:assets:precompile'
-  after 'deploy:assets:precompile', 'assets:to_cdn'
+  #after 'deploy:assets:precompile', 'assets:to_cdn'
 end

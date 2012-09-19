@@ -1,35 +1,19 @@
 role :app, 'app4.olook.com.br'
 
 # server details
-set :rails_env, 'RAILS_ENV=production'
 set :env, 'production'
 
 # repo details
 set :branch, fetch(:branch, 'master')
-
-trap("INT") {
-  print "\n\n"
-  exit 42
-}
-
-namespace :log do
-  desc "Tail all application log files"
-  task :tail, :roles => :web do
-
-    run "tail -f #{path_log}" do |channel, stream, data|
-      puts "\033[0;33m#{stage}:\033[0m #{data}"
-      break if stream == :err
-    end
-  end
-end
 
 # tasks
 namespace :deploy do
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
-    bundle_install
-    rake_tasks
+    #bundle_install
+    #rake_tasks
+    #assets_tasks
     restart
   end
 
@@ -40,10 +24,14 @@ namespace :deploy do
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{env}"
+  end
+
+  desc 'Run assets clean and precompile'
+  task :assets_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{env}"
   end
 
   desc 'Create symlinks'
