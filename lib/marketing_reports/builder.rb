@@ -52,7 +52,7 @@ from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code
 ) as tmp where tmp.user_id = users.id
-) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases,  users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
+) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 10000) do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.credit_balance ]
           end
@@ -64,12 +64,10 @@ group by uc.user_id, ct.code
     def generate_userbase_with_auth_token
       bounces = bounced_list
 
-      @file_name = "base_atualizada_purchases_auth_token_#{Time.now.strftime("%Y-%m-%d")}.csv"
-
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token}
 
-        User.includes(:orders).where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
+        User.includes(:orders).where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 10000) do |u|
           purchases = !!(u.orders.inject(0) do |sum, order|
             sum += 1
           end)
@@ -108,7 +106,7 @@ from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code
 ) as tmp where tmp.user_id = users.id
-) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases,  users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 25000) do |u|
+) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 10000) do |u|
           unless bounces.include?(u.email)
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.authentication_token, u.credit_balance ]
           end
