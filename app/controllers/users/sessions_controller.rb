@@ -3,6 +3,15 @@ class Users::SessionsController < Devise::SessionsController
   after_filter :create_sign_in_event, :only => :create
   before_filter :create_sign_out_event, :only => :destroy
 
+  def new
+    resource = build_resource({})
+    unless flash[:alert].nil?
+      flash[:alert] = nil
+      resource.errors.add(" ", I18n.t('devise.failure.invalid'))
+    end
+    respond_with resource
+  end
+
   protected
   def create_sign_in_event
     current_user.add_event(EventType::SIGNIN)
@@ -20,7 +29,7 @@ class Users::SessionsController < Devise::SessionsController
       GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
       GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
     end
-    
+
     if @cart && @cart.items_total > 0
       if resource.current_credit > 0
         cart_path
