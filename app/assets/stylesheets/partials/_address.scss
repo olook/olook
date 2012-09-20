@@ -28,11 +28,11 @@ section.main {
           &.address {
             width: 100%;
             clear: both;
-            margin-top: 10px;
+            margin-bottom: 10px;
           }
           a {
             color: #e46d99;
-            font-size: 12px;
+            font-size: 14px;
             text-decoration: none;
             margin: 0 auto;
             &:hover {
@@ -46,8 +46,8 @@ section.main {
             &.select_address {
               background: url("/assets/common/bt-use-address.jpg") no-repeat;
               text-indent: -9999px;
-              width: 173px;
-              height: 34px;
+              width: 158px;
+              height: 39px;
               display: block;
               margin: 0 auto;
             }
