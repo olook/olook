@@ -38,33 +38,5 @@ describe InviteCreditType do
       end      
     end
   end
-
-  describe "::amount_of_inviter_bonus_credits" do
-    let(:credit_parmas) {{:amount =>  amount, :order => order, :source => :invitee_bonus}}
-
-    it "should return the amount of inviter" do
-      user.user_credits_for(:invite).add(credit_parmas.dup)
-      user.user_credits_for(:invite).remove(credit_parmas.merge(:amount => 3.33))
-      described_class.amount_of_inviter_bonus_credits(user.user_credits_for(:invite)).should eq(30.0)
-    end
-  end
-
-  describe "::amount_of_invitee_bonus_credits" do
-    let(:credit_parmas) {{:amount =>  amount, :order => order, :source => :inviter_bonus}}
-
-    it "should return the amount of invitee" do
-      user.user_credits_for(:invite).add(credit_parmas.dup)
-      user.user_credits_for(:invite).remove(credit_parmas.merge(:amount => 3.33))
-      described_class.amount_of_invitee_bonus_credits(user.user_credits_for(:invite)).should eq(30.0)
-    end
-  end
-
-  describe "::quantity_of_inviter_bonus_credits" do
-    let(:credit_parmas) {{:amount =>  amount, :order => order, :source => :invitee_bonus}}
-
-    it "should return the quantity of converted invites" do
-      4.times{user.user_credits_for(:invite).add(credit_parmas.dup)}
-      described_class.quantity_of_inviter_bonus_credits(user.user_credits_for(:invite)).should eq(4)
-    end
-  end
+  
 end

@@ -32,7 +32,7 @@ describe UserCredit do
     
     it "should run the total method" do
       date_time = DateTime.now
-      user_credit.credit_type.should_receive(:total).with(user_credit, date_time, :available).and_return(25.03)
+      user_credit.credit_type.should_receive(:total).with(user_credit, date_time, :available, anything).and_return(25.03)
       user_credit.total(date_time).should eq(25.03)
     end
 
