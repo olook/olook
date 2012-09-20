@@ -1,6 +1,6 @@
 <div class="social">
   <ul>
-    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite: #{accept_invitation_url(:invite_token => user.invite_token)}, descubra o seu estilo e ainda ganhe R$10!&hashtags=ficaadica" %></li>
+    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica" %></li>
     <li class="facebook"><%= link_to "#" do %>Postar no <br />meu mural<% end %></li>
     <li class="email"><%= link_to "#" do %>Enviar <br />por e-mail<% end %></li>
   </ul>
