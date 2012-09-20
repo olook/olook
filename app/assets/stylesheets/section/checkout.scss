@@ -14,10 +14,10 @@ a.back_link {
   background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
   color: $third_color;
   font-family: $avenir;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  margin: 20px 10px 10px 0;
+  margin: 23px 10px 0 0;
   padding: 0 0 0 12px;
   display: block;
   float: left;
@@ -89,6 +89,22 @@ div#order_status {
 body div#content {
   margin-top: 0;
   padding-top: 0;
+
+  ul.links_moip {
+    width: 100%;
+    overflow: auto;
+    li.link {
+      float: left;
+    }
+    li.moip {
+      background: url('/assets/common/moip.png') no-repeat;
+      text-indent: -9999px;
+      width: 70px;
+      height: 42px;
+      display: block;
+      float: right;
+    }
+  }
 }
 
 section#cart {
@@ -1160,15 +1176,6 @@ section.checkout {
       color: #de4c7b;
       font-weight: 500;
       margin: 0 0 5px;
-      float: right;
-    }
-    p.moip {
-      background: url('/assets/common/moip.png') no-repeat;
-      text-indent: -9999px;
-      width: 70px;
-      height: 42px;
-      display: block;
-      margin: 0 0 10px 20px;
       float: right;
     }
     div.request_info {
