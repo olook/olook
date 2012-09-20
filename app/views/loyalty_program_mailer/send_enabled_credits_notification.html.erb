@@ -60,7 +60,7 @@
 
 
           <p style="font-size:16px">Olá <span style="color:#e05789"><%= @user.first_name %></span>,</p>
-<p>Você tem <b><%= number_to_currency(@user.user_credits_for(:loyalty_program).total) %></b> em créditos disponíveis para você comprar o que mais ama na olook. </p>
+<p>Você recebeu <b><%= number_to_currency(@user.user_credits_for(:loyalty_program).total) %></b> em créditos por compra realizada e eles estão disponíveis para você usar agora. Aproveite e escolha o que mais ama na olook.  </p>
           
         
         
@@ -69,13 +69,17 @@
             <tr>
               <td height="30" bgcolor="E05789" align="center">
               <center>
-                   <a href="http://www.olook.com.br/membro/convite/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_disponiveis" style="color:#ffffff;font-size:14px;text-decoration:none" target="_blank">UTILIZAR MEUS CRÉDITOS</a>
+                   <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional_fidelidade&utm_content=f_creditos_disponiveis" style="color:#ffffff;font-size:14px;text-decoration:none" target="_blank">UTILIZAR MEUS CRÉDITOS</a>
               </center>
               </td>
             </tr>
           </table>
                     
-          <br><a href="http://www.olook.com.br/membro/convite/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_disponiveis" style="color:#333333;font-size:14px" target="_blank">Confira seu saldo de créditos aqui</a>
+          <br>Esses créditos fazem parte do programa de fidelidade.
+
+          <a href="http://www.olook.com.br/fidelidade?utm_source=olook&utm_medium=email&utm_campaign=transacional_fidelidade&utm_content=f_creditos_disponiveis" style="color:#333333;font-size:14px" target="_blank">Entenda mais</a> e
+          
+          <a href="http://www.olook.com.br/conta/creditos?utm_source=olook&utm_medium=email&utm_campaign=transacional_fidelidade&utm_content=f_creditos_disponiveis" style="color:#333333;font-size:14px" target="_blank">Confira seu saldo de créditos</a>
           <p>Abraços,
           <br>Equipe olook
           <a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_disponiveis" style="color:#e05789;font-size:14px" target="_blank">www.olook.com.br</a>

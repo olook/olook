@@ -39,10 +39,24 @@ describe UserNotifier do
 
   describe ".send_enabled_credits_notification" do
     let(:user) { FactoryGirl.create(:member) }
-    # criar 2 users. Um com créditos disponíveis no começo desse mês e um com créditos disponíveis mês que vem.
+    let(:other_user) { FactoryGirl.create(:member) }
+    let(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
+    let(:user_credit) { FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type, :user => user) }
+    let(:other_user_credit) { FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type, :user => other_user) }    # criar 2 users. Um com créditos disponíveis no começo desse mês e um com créditos disponíveis mês que vem.
     # Fazer o teste no mês atual, testar com DeLorean no mês seguinte e testar com DeLorean 3 meses para trás.
-    it "should blablabla" do
+    it "should send the 'credits enabled' notification" do
+        other_user_credit.add({amount: 20})
+        other_user_credit.credits.last.update_attribute('activates_at', DateTime.now + 1.year)
+        other_user_credit.credits.last.update_attribute('expires_at', DateTime.now + 1.year + 1.month)
 
+        user_credit.add({amount: 20})
+        activation_date = (user_credit.credits.last.activates_at)
+        Delorean.time_travel_to(DateTime.new(activation_date.year, activation_date.month, 1))
+        LoyaltyProgramMailer.should_receive(:send_enabled_credits_notification).with(user).once
+        LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification).with(other_user)
+
+        UserNotifier.send_enabled_credits_notification
+        Delorean.back_to_the_present
     end
   end
 
