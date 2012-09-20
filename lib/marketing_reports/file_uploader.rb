@@ -19,13 +19,28 @@ module MarketingReports
     end
 
     def copy_to_ftp(filename = "untitled.txt", encoding = "ISO-8859-1")
-      ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
-      ftp.passive = true
-      Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
-        file.write @file_content
-        ftp.puttextfile(file.path,filename)
+
+      if Rails.env.development?
+        file = File.new("#{Time.now.strftime("%Y-%m-%d-%H-%M")}_#{filename}", "w")
+        file.write(@file_content)
+        file.close
       end
-      ftp.close
+
+      tries = 0
+      begin
+        ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
+        ftp.passive = true
+
+        # ftp.puttextfile(file.path, filename)
+        Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
+          file.write @file_content
+          ftp.puttextfile(file.path, filename)
+        end
+        ftp.close
+      rescue Exception => e
+        retry unless tries > 5
+        tries += 1
+      end
     end
 
   end

@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :load_facebook_api
   before_filter :load_referer
   before_filter :load_tracking_parameters
-  before_filter :load_referer_parameters
 
   rescue_from CanCan::AccessDenied do  |exception|
     flash[:error] = "Access Denied! You don't have permission to execute this action.
@@ -131,9 +130,6 @@ class ApplicationController < ActionController::Base
       incoming_params[:referer] = request.referer unless request.referer.nil?
       session[:tracking_params] ||= incoming_params
     end
-  end
-  def load_referer_parameters
-    @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
   end
 
 end
