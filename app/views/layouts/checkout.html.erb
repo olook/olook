@@ -1,14 +1,6 @@
-<% content_for :top_my_account, render(:partial => "shared/header_default") %>
+<% content_for :top_my_account, render(:partial => "shared/header_checkout") %>
 
 <% content_for :content do %>
-  <% if @referer %>
-    <%= link_to @referer[:text], @referer[:url], :class => "back_link" %>
-  <% else %>
-    <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_link" %>
-  <% end %>
-  <% if user_signed_in? %>
-    <h2 class="moip">Pagamento: Moip</h2>
-  <% end %>
   <div id="order_status">
     <div class="content">
       <ul>
