@@ -1,4 +1,4 @@
-<%= form_for([:admin, @picture.product, @picture]) do |f| %>
+<%= form_for([:admin, @picture.product, @picture], html: {multipart: true}) do |f| %>
   <% if @picture.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
@@ -14,7 +14,9 @@
   <div class="field">
     <%= f.label :image %><br />
     <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
   </div>
+  
   <div class="field">
     <%= f.label :display_on %><br />
     <%= f.select :display_on, DisplayPictureOn.to_a %>
