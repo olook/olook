@@ -16,7 +16,7 @@ class LoyaltyProgramCreditType < CreditType
     amount * self.percentage_for_order
   end
   
-  def credit_sum(user_credit, date, is_debit, kind)
+  def credit_sum(user_credit, date, is_debit, kind, source=nil)
     select_credits(user_credit, date, is_debit, kind).sum(:value)
   end
 

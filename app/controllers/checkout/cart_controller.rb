@@ -6,14 +6,12 @@ class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
   def show
-    @amount_of_loyalty_credits = @user.user_credits_for(:loyalty_program).total
-    @amount_of_invitee_bonus_credits = InviteCreditType.amount_of_invitee_bonus_credits(@user.user_credits_for(:invite))
-    @amount_of_inviter_bonus_credits = InviteCreditType.amount_of_inviter_bonus_credits(@user.user_credits_for(:invite))
-    @quantity_of_inviter_bonus_credits =  InviteCreditType.quantity_of_inviter_bonus_credits(@user.user_credits_for(:invite))
-    @used_credits = Credit.joins(:user_credit)
-                          .where(:user_credits => {:user_id => @user}, :is_debit => true)
-                          .includes(:order => :user)
-                          .order("id").sum(:value)
+    report  = CreditReportService.new(@user)
+    @amount_of_loyalty_credits = report.amount_of_loyalty_credits
+    @amount_of_invitee_bonus_credits = report.amount_of_inviter_bonus_credits
+    @amount_of_inviter_bonus_credits = report.amount_of_invitee_bonus_credits
+    @quantity_of_inviter_bonus_credits =  report.quantity_of_inviter_bonus_credits
+    @used_credits = report.amount_of_used_credits
   end
 
   def destroy

@@ -26,11 +26,11 @@ describe Checkout::CartController do
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
 
-    assigns(:user).stub_chain(:user_credits_for, :total => 10)
-    InviteCreditType.should_receive(:amount_of_invitee_bonus_credits).and_return(11)
-    InviteCreditType.should_receive(:amount_of_inviter_bonus_credits).and_return(12)
-    InviteCreditType.should_receive(:quantity_of_inviter_bonus_credits).and_return(3)
-    Credit.stub_chain(:joins, :where, :includes, :order, :sum).and_return(33)
+    CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
+    CreditReportService.any_instance.should_receive(:amount_of_inviter_bonus_credits).and_return(11)
+    CreditReportService.any_instance.should_receive(:amount_of_invitee_bonus_credits).and_return(12)
+    CreditReportService.any_instance.should_receive(:quantity_of_inviter_bonus_credits).and_return(3)
+    CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(33)
 
     get :show
     assigns(:cart_service).freight.should be_nil
@@ -43,11 +43,11 @@ describe Checkout::CartController do
   
   context "when show" do
     it "should render show view" do
-      assigns(:user).stub_chain(:user_credits_for, :total => 10)
-      InviteCreditType.should_receive(:amount_of_invitee_bonus_credits).and_return(11)
-      InviteCreditType.should_receive(:amount_of_inviter_bonus_credits).and_return(12)
-      InviteCreditType.should_receive(:quantity_of_inviter_bonus_credits).and_return(3)
-      Credit.stub_chain(:joins, :where, :includes, :order, :sum).and_return(33)
+      CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
+      CreditReportService.any_instance.should_receive(:amount_of_inviter_bonus_credits).and_return(11)
+      CreditReportService.any_instance.should_receive(:amount_of_invitee_bonus_credits).and_return(12)
+      CreditReportService.any_instance.should_receive(:quantity_of_inviter_bonus_credits).and_return(3)
+      CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(33)
       
       get :show
       response.should render_template ["layouts/site", "show"]
