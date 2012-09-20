@@ -23,17 +23,18 @@ class LoyaltyProgramMailer < ActionMailer::Base
   def send_expiration_warning (user, expires_tomorrow = false)
     @user = user
 
-    product_finder_service = ProductFinderService.new(user)
+    # product_finder_service = ProductFinderService.new(user)
 
     # Gets the showroom products that aren't sold out (#2)
-    products = product_finder_service.showroom_products(:not_allow_sold_out_products => true)
+    # products = product_finder_service.showroom_products(:not_allow_sold_out_products => true)
 
     # Gets the products variants bought by the given user (#1)
-    bought_variants = LineItem.where(:order_id => user.orders).map(&:variant).map(&:product)
+    # bought_variants = LineItem.where(:order_id => user.orders).map(&:variant).map(&:product)
 
     # Excludes #1 from #2 and selects the first product
-    products = products - bought_variants
-    @product = products.first
+    # products = products - bought_variants
+    @product = nil
+    # @product = products.first unless (!products || products.empty?)
 
     # Calculates available credits
     user_credit = user.user_credits_for(:loyalty_program)
