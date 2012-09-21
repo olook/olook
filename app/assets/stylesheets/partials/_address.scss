@@ -9,7 +9,7 @@ section.main {
       width: 215px;
       height: 190px;
       overflow: hidden;
-      margin: 0 25px 25px 0;
+      margin: 0 60px 25px 0;
       padding: 15px 30px;
       display: table;
       border: 2px #eee solid;
@@ -64,6 +64,9 @@ section.main {
       }
       input[type="radio"] {
         display: none;
+      }
+      &.no_margin {
+        margin-right: 0;
       }
       &.add {
         a {
