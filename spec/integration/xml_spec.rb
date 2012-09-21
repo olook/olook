@@ -209,10 +209,11 @@ feature "Show products on xml format" do
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       </product>
       </products>
       END
+      puts product.category_humanize
       equivalent_content = Nokogiri::XML(content)
       result.should be_equivalent_to(equivalent_content)
     end
@@ -227,13 +228,13 @@ context "in the ilove_ecommerce xml page" do
       <produtos>
       <produto>
       <codigo>#{product.id}</codigo>
-      <categoria>#{product.category_humanize}</categoria>
+      <categoria>12</categoria>
       <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=ilove_ecommerce</link>
       <imagem></imagem>
       <nome_titulo></nome_titulo>
       <descricao>#{product.description}</descricao>
-      <preco_real>#{number_to_currency(product.price).delete("R$ ")}</preco_real>
-      <preco_desconto>#{number_to_currency(product.retail_price).delete("R$ ")}</preco_desconto>
+      <preco_real>99.9</preco_real>
+      <preco_desconto>99.9</preco_desconto>
       <specific>
       <marca>Olook</marca>
       <cor></cor>
@@ -264,7 +265,7 @@ context "in the ilove_ecommerce xml page" do
       <produto>
       <codigo>#{product.id}</codigo>
       <descricao>#{product.description}</descricao>
-      <preco>#{number_to_currency(product.price).delete("R$ ")}</preco>
+      <preco>99,9</preco>
       <nparcela>1</nparcela>
       <vparcela></vparcela>
       <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>
@@ -290,8 +291,8 @@ context "in the ilove_ecommerce xml page" do
       <id>#{product.id}</id>
       <title>#{product.name}</title>
       <description>#{product.description}</description>
-      <category>#{product.category}</category>
-      <google_product_category>Accessories &gt; Apparel</google_product_category>
+      <category>Vestuário e acessórios &gt; Sapatos</category>
+      <google_product_category>Vestuário e acessórios &gt; Sapatos</google_product_category>
       <product_type>#{product.category_humanize}</product_type>
       <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=google_shopping</link>
       <image_link>#{product.pictures.last.try(:image)}</image_link>
