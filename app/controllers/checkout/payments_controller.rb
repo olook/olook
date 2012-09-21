@@ -6,7 +6,7 @@ class Checkout::PaymentsController < ActionController::Base
   def create
     payment = Payment.find_by_identification_code(params["id_transacao"])
     order = payment.try(:order)
-    
+
     MoipCallback.create(:order_id => order.try(:id),
                         :cod_moip => params["cod_moip"],
                         :tipo_pagamento => params["tipo_pagamento"],
@@ -25,3 +25,4 @@ class Checkout::PaymentsController < ActionController::Base
     render :nothing => true, :status => 200
   end
 end
+

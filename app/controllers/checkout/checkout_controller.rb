@@ -9,7 +9,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def update
     cpf = params[:user][:cpf] if params[:user]
     msg = "CPF inválido"
-    
+
     if !@user.cpf.blank?
       msg = "CPF já cadastrado"
     else
@@ -17,9 +17,9 @@ class Checkout::CheckoutController < Checkout::BaseController
       @user.cpf = cpf
       msg = "CPF cadastrado com sucesso" if @user.save
     end
-    
+
     @user.errors.clear
-    
+
     flash[:notice] = msg
     render :new
   end
@@ -31,11 +31,11 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new_debit
     @payment = Debit.new
   end
-  
+
   def new_billet
     @payment = Billet.new
   end
-  
+
   def new_credit_card
     @payment = CreditCard.new(CreditCard.user_data(@user))
   end
@@ -46,7 +46,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     else
       params.merge!(:debit => {:receipt => Payment::RECEIPT})
     end
-    
+
     @payment = Debit.new(params[:debit])
     @payment.user_identification = @user.cpf
 
@@ -64,7 +64,7 @@ class Checkout::CheckoutController < Checkout::BaseController
          @payment
        end
     end
-    
+
     render :new_debit
   end
 
@@ -79,7 +79,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => response.payment.order.number), :notice => "Boleto gerado com sucesso")
+        return redirect_to(order_show_path(:number => response.payment.order.number))
       else
         @payment = Billet.new(params[:billet])
         @payment.user_identification = @user.cpf
@@ -113,7 +113,7 @@ class Checkout::CheckoutController < Checkout::BaseController
         @payment
       end
     end
-    
+
     render :new_credit_card
   end
 end

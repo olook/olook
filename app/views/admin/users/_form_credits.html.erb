@@ -1,9 +1,9 @@
 <%= javascript_include_tag "admin/credit", "admin/jquery.validate.min" %>
 
 <%= form_tag 'create_credit_transaction', :id => 'create_credit_transaction' do %>
-  
+
   <%= hidden_field_tag "id", user.id %>
-  
+
   <div class="field">
     <%= label_tag "operation", "*Tipo de crédito" %><br />
     <%= select_tag "operation",
@@ -16,10 +16,10 @@
     <%= label_tag "value", "*Valor" %><br />
     <%= text_field_tag "value", params[:value] || '0.00' %>
   </div>
-  
+
   <div class="field order_number">
     <%= label_tag "ordem_number", "*Ordem" %><br />
-    <%= select_tag "ordem_number", options_for_select(([''] << user.orders.map{|order| order.number}),params[:order_number].to_s) %>
+    <%= select_tag "ordem_number", options_for_select((([''] << user.orders.all.collect {|order| order.number}).flatten), params[:order_number].to_s) %>
   </div>
 
   <div class="field">
