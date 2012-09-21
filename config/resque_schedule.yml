@@ -34,8 +34,9 @@ send_enabled_credits_notification:
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
 
+# TODO: CHANGE BACK TO 23 AFTER 23/09/2012
 send_seven_days_to_expiration_warning:
-  cron: "0 0 23 * *"
+  cron: "0 0 25 * *"
   class: SendExpirationWarningWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
