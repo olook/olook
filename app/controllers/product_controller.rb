@@ -5,8 +5,8 @@ class ProductController < ApplicationController
   def show
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @url = request.protocol + request.host
-    
-    @product = if current_admin
+
+    @product = if session[:product_view_mode] == "admin" || (current_admin && session[:product_view_mode].nil?)
       Product.find(params[:id])
     else
       Product.only_visible.find(params[:id])
