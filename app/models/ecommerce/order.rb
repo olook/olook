@@ -46,8 +46,13 @@ class Order < ActiveRecord::Base
      where("orders.state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
   end
 
-  def self.payments_with_discount
-    paid.joins('join payments on payments.order_id = orders.id and payments.type in ("CreditPayment","CouponPayment", "OlookletPayment", "GiftPayment")').uniq
+  def self.payments_with_discount(percent=0)
+    paid
+    .select("orders.*, sum(p.percent) as amount_of_percent")
+    .joins('join payments p on p.order_id = orders.id and p.type in ("CreditPayment","CouponPayment", "OlookletPayment", "GiftPayment","PromotionPayment")')
+    .group("orders.id")
+    .having("amount_of_percent >= #{percent}")
+    .uniq
   end
 
   def self.with_complete_payment
