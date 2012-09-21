@@ -9,7 +9,7 @@
       <th></th>
     </tr>
 
-  <% product.pictures.each do |picture| %>
+  <% product.pictures.order(:display_on).each do |picture| %>
     <tr>
       <td><%= picture.display_on_humanize %></td>
       <td><%= image_tag picture.image_url(:showroom).to_s, :size => '100x100' %></td>
