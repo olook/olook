@@ -209,6 +209,7 @@ $(document).ready(function() {
         $(".main div.preloader").remove();
       },
       success: function(rs){
+        $('form input#address_number, form input#address_complement').val('');
         if(rs['result_type'] >= 1){
           $('form input#address_city').val(rs['city']);
           $('form select#address_state').val(rs['state']);
