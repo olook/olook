@@ -83,7 +83,6 @@ jQuery(function() {
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
     }
-    // $(".loading").show();
     $(this).parent().submit();
     $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
   });
