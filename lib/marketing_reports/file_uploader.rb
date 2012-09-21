@@ -26,19 +26,19 @@ module MarketingReports
         file.close
       end
 
-      tries = 0
+      tries = 1
       begin
         ftp = Net::FTP.new(FTP_SERVER[:host], FTP_SERVER[:username], FTP_SERVER[:password])
         ftp.passive = true
 
-        # ftp.puttextfile(file.path, filename)
         Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
-          file.write @file_content
+          file.write(@file_content)
           ftp.puttextfile(file.path, filename)
         end
+
         ftp.close
       rescue Exception => e
-        retry unless tries > 5
+        retry unless tries > 3
         tries += 1
       end
     end
