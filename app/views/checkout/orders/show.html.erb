@@ -7,13 +7,13 @@
     <%= if @payment.is_a? Billet
       render :partial => "billet", :locals => { :payment => @payment }
     elsif @payment.is_a? CreditCard
-      render :partial => "debit", :locals => { :payment => @payment }
-    else
       render :partial => "credit", :locals => { :payment => @payment }
+    else
+      render :partial => "debit", :locals => { :payment => @payment }
     end %>
     <%= render "shared/ebit/seal_order" %>
     <%= render "shared/metrics/yahoo/buy" %>
-    
+
   </section>
   <section class="sidebar">
   <% content_for :checkout_sidebar do %>
@@ -32,9 +32,9 @@
     </div>
     <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
   <% end %>
-    
+
     <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, :order => @order %>
-    
+
   </section>
 </section>
 

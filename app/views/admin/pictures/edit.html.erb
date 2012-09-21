@@ -1,6 +1,13 @@
 <h2>Editing picture</h2>
 
 <div class="inner">
+<% [:main].each do |picture_size| %>
+  <p>
+    <b><%= picture_size.capitalize %>:</b><br />
+    <%= image_tag @picture.image_url(picture_size).to_s %>
+  </p>
+<% end %>
+
   <%= render 'form' %>
 </div>
 
