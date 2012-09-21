@@ -7,7 +7,7 @@ $("#products li").each(function(index, element){
 var new_products = [];
 
 <% @catalog_products.each do |cp| %>
-new_products.push(<%= cp.product_id %>);
+  new_products.push(<%= cp.product_id %>);
 <% end %>
 
 $.each(new_products, function(index, id){
@@ -17,7 +17,7 @@ $.each(new_products, function(index, id){
 });
 
 <% if @catalog_products.any? %>
-  $('#products').append('<%= j render "products", :catalog_products => @catalog_products %>');
+  $('#products').append('<%= j render "products", catalog_products: @catalog_products %>');
 <% else %>
   $("#products").html("Nenhum produto disponível");
 <% end %>
@@ -26,7 +26,7 @@ $(".loading").hide();
 $('#filter').find("input[type='checkbox']").removeAttr("disabled");
 
 <% if @catalog_products.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate(@catalog_products) %>');
+  $('.pagination').replaceWith('<%= j will_paginate(@catalog_products) -%>');
 <% else %>
   $('.pagination').html("");
 <% end %>
