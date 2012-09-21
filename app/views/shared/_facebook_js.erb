@@ -19,7 +19,7 @@ function sendFacebookMessage() {
     method: 'send',
     caption: 'www.olook.com.br',
     link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg'
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg'
   });
 }
 
@@ -28,8 +28,8 @@ function postToFacebookFeed() {
     method: 'feed',
     caption: 'www.olook.com.br',
     link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg',
-    description: 'Responda o quiz, a olook descobre o seu estilo e os stylists montam uma vitrine nova para você a cada mês! Por este convite <%= accept_invitation_url(:invite_token => member.invite_token) %>, você se cadastra e ainda ganha R$10 na primeira compra! #ficaadica'
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+    description: 'Cadastre-se na olook pelo meu convite, responda o quiz, descubra o seu estilo e ainda ganhe R$10. Ao responder o Style Quiz, a olook descobre o seu estilo e os stylists montarão uma vitrine nova para você a cada mês! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
   };
 
   FB.ui(obj);

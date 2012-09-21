@@ -12,14 +12,16 @@ class Checkout::PaymentsController < ActionController::Base
                         :tipo_pagamento => params["tipo_pagamento"],
                         :status_pagamento => params["status_pagamento"],
                         :id_transacao => params["id_transacao"],
-                        :payment_id => payment.id)
-                        
-    payment.update_attributes!(:gateway_code   => params["cod_moip"],
+                        :classificacao => Iconv.conv('UTF-8//IGNORE', "US-ASCII", params["classificacao"]),
+                        :payment_id => payment.try(:id))
+    if payment
+      payment.update_attributes!(:gateway_code   => params["cod_moip"],
                               :gateway_type   => params["tipo_pagamento"],
                               :gateway_status => params["status_pagamento"],
                               :gateway_status_reason => Iconv.conv('UTF-8//IGNORE', "US-ASCII", params["classificacao"]))
 
-    Resque.enqueue_in(1.minute, SetPaymentStatusWorker, payment.id, params["status_pagamento"])
+       Resque.enqueue_in(1.minute, SetPaymentStatusWorker, payment.id, params["status_pagamento"])
+    end
     render :nothing => true, :status => 200
   end
 end

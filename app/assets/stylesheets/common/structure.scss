@@ -6,19 +6,14 @@
 
 body {
   #error_explanation {
-    margin: 10px 0 15px 0;
+    margin: 0 0 15px;
     width: 100%;
-    border: 1px solid #DEDEDE;
     ul {
-      background: url("/assets/common/error.png") top left no-repeat;
-      padding: 0 0 0 30px;
-      margin: 20px;
       li {
         color: #e50000;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: bold;
         text-align: left;
-        padding-bottom: 5px;
       }
     }
   }
@@ -899,7 +894,7 @@ body {
                     a {
                       color: #6d6e71;
                       letter-spacing: 0;
-                      margin: 0 0 8px;
+                      margin: 0;
                       display: block;
                       clear: both;
                     }
@@ -967,7 +962,10 @@ body {
               border: none;
               p {
                 a {
-                  color: $secondary_color;
+                  color: $pink;
+                  display: inline;
+                  margin: 0;
+                  padding: 0;
                 }
               }
             }
@@ -1396,6 +1394,10 @@ header div.contact {
       }
     }
   }
+}
+
+.fb_dialog {
+  z-index: 100001 !important;
 }
 
 #quick_view {
