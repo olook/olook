@@ -173,6 +173,8 @@ Olook::Application.routes.draw do
       get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
     end
 
+    get 'switch_mode' => 'toggle#switch_mode', :as => 'toggle_switch_mode'
+
     post 'integrate_orders' => "orders#integrate_orders"
     post 'integrate_cancel' => "orders#integrate_cancel"
     post 'integrate_payment' => "orders#integrate_payment"
