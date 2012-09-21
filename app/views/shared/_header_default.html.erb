@@ -11,7 +11,6 @@
   <% end %>
   <div class="content">
     <h1><%= link_to 'Olook', root_path %></h1>
-    <h2 class="info_logo"><%= link_to "Mudamos, quer saber por que?", our_essence_path, :title => "Mudamos, quer saber por que?" %></h2>
 
     <div id="session">
       <% if user_signed_in? %>
@@ -39,7 +38,7 @@
           <li class="last"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></li>
         <% else %>
           <li class="login">
-            <p>Já faz parte? <%= link_to "Faça seu login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %></p>
+            <p>Já faz parte? <%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Cadastre-se", new_survey_path %></p>
           </li>
         <% end %>
       </ul>

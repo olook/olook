@@ -543,6 +543,11 @@ div.content {
               top: 10px;
               right: 10px;
             }
+            &.left {
+              background: image-url('gift/bg-actions.png') bottom center no-repeat;
+              right: 0;
+              left: auto;
+            }
           }
           &:hover > div.actions {
             display: block;
