@@ -4,10 +4,9 @@
 $border-color: #e5e5e5;
 
 header {
-  &.minor {
+  &.checkout {
     background: none !important;
-    min-height: 93px !important;
-    overflow: auto !important;
+    min-height: 120px !important;
   }
 }
 
@@ -15,10 +14,10 @@ a.back_link {
   background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
   color: $third_color;
   font-family: $avenir;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  margin: 20px 10px 10px 0;
+  margin: 23px 10px 0 0;
   padding: 0 0 0 12px;
   display: block;
   float: left;
@@ -87,6 +86,27 @@ div#order_status {
   }
 }
 
+body div#content {
+  margin-top: 0;
+  padding-top: 0;
+
+  ul.links_moip {
+    width: 100%;
+    overflow: auto;
+    li.link {
+      float: left;
+    }
+    li.moip {
+      background: url('/assets/common/moip.png') no-repeat;
+      text-indent: -9999px;
+      width: 70px;
+      height: 42px;
+      display: block;
+      float: right;
+    }
+  }
+}
+
 section#cart {
   padding: 20px 0 0;
   > h1 {
@@ -98,7 +118,7 @@ section#cart {
   p.credits {
     background: #EEE;
     width: 195px;
-    margin: 4px 20px 0 0;
+    margin: 0 20px 0 0;
     padding: 10px 15px;
     float: right;
     a {
@@ -219,7 +239,7 @@ section#cart {
             &.credits {
               font-size: 12px;
               text-align: left;
-              margin: 4px 20px 0 0;
+              margin: 0 20px 0 0;
               display: inline-block;
             }
           }
@@ -1150,6 +1170,7 @@ section.checkout {
   }
   section.sidebar {
     width: 315px;
+    padding: 24px 0 0 0;
     float: right;
     a.change {
       color: #de4c7b;

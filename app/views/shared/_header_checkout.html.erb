@@ -1,4 +1,4 @@
-<header class="minor">
+<header class="checkout">
   <div class="contact">
     <div class="content">
       <ul>
@@ -9,35 +9,30 @@
   </div>
   <div class="content">
     <h1><%= link_to 'Olook', root_path %></h1>
-    <% if user_signed_in? %>
-      <h2 class="moip">Pagamento: Moip</h2>
-    <% end %>
-    <% if @referer %>
-      <%= link_to @referer[:text], @referer[:url], :class => "back" %>
-    <% else %>
-      <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back" %>
-    <% end %>
+    <h2 class="info_logo"><%= link_to "Mudamos, quer saber por que?", our_essence_path, :title => "Mudamos, quer saber por que?" %></h2>
+    <div id="session">
+      <% if user_signed_in? %>
+        <div class="user">
+          <ul>
+            <li>Olá,</li>
+            <li class="submenu">
+              <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
+              <div class="my_account">
+                <ul>
+                  <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                  <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                  <li><%= link_to "Endereços", user_addresses_path %></li>
+                  <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+                </ul>
+              </div>
+            </li>
+            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          </ul>
+        </div>
+      <% end %>
+      <div class="sign-in-dropdown close">
+        <%= render "users/sessions/form_user" %>
+      </div>
+    </div>
   </div>
 </header>
-<div id="order_status">
-  <div class="content">
-    <ul>
-      <li class="<%= selected_if_current(["checkout/cart#show"]) %>">
-        <h1>Minha Sacola</h1>
-        <p>Confira os produtos do seu carrinho</p>
-      </li>
-      <li class="<%= selected_if_current(["checkout/addresses#index", "checkout/addresses#new", "checkout/addresses#edit"]) %>">
-        <h1>Entrega</h1>
-        <p>Onde quer que seu pedido seja entregue</p>
-      </li>
-      <li class="<%= selected_if_current(["checkout/checkout#new", "checkout/checkout#new_debit", "checkout/checkout#create_debit", "checkout/checkout#new_billet", "checkout/checkout#create_billet", "checkout/checkout#new_credit_card", "checkout/checkout#create_credit_card"]) %>">
-        <h1>Pagamento</h1>
-        <p>Como quer efetuar o pagamento? Selecione uma das opções</p>
-      </li>
-      <li class="<%= selected_if_current(["checkout/billets#show", "checkout/credit_cards#show", "checkout/debits#show"]) %> last">
-        <h1>Confirmação</h1>
-        <p>Confirme seus produtos, endereço de entrega e finalize sua compra</p>
-      </li>
-    </ul>
-  </div>
-</div>
