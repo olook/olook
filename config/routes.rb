@@ -39,8 +39,8 @@ Olook::Application.routes.draw do
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
-  get '/moments', to: "moments#index", as: "moments"
-  get '/moments/:id', to: "moments#show", as: "moment"
+  get '/colecoes', to: "moments#index", as: "moments"
+  get '/colecoes/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
 
   #FRIENDS
