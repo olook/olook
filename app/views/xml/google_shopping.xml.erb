@@ -2,48 +2,26 @@
 <products>
 	<% @products.each do |product| %>
 	<product>
-		<id>
-			<%= product.id %></id>
+		<id><%= product.id %></id>
 		<title><%= product.name %></title>
-		<description>
-			<%= product.description %></description>
-		<category>
-			<%= to_google_shopping_category product.category %>
-		</category>
-		<google_product_category>
-			<%= to_google_shopping_category product.category %> 
-		</google_product_category>
-		<product_type>
-			<%= product.category_humanize %></product_type>
-		<link>
-			<%= product.product_url(:utm_source =>"google_shopping") %>
-		</link>
-		<image_link>
-			<%= first_image_of product %>
-		</image_link>
-		<additional_image_link>
-			<%= image_at_position(product, DisplayPictureOn::GALLERY_2) %>
-		</additional_image_link>
+		<description><%= product.description %></description>
+		<category><%= to_google_shopping_category product.category %></category>
+		<google_product_category><%= to_google_shopping_category product.category %></google_product_category>
+		<product_type><%= product.category_humanize %></product_type>
+		<link><%= product.product_url(:utm_source =>"google_shopping") %></link>
+		<image_link><%= first_image_of product %></image_link>
+		<additional_image_link><%= image_at_position(product, DisplayPictureOn::GALLERY_2) %></additional_image_link>
 		<condition>new</condition>
-		<price>
-			<%= product.price %>
-		</price>
-		<sale_price>
-			<%= product.retail_price %>
-		</sale_price>
+		<price><%= product.price %></price>
+		<sale_price><%= product.retail_price %></sale_price>
 		<brand>Olook</brand>
 		<gender>female</gender>
 		<age_group>adult</age_group>
 		<% product.variants.each do |variant| %>
-			<size>
-				<%= variant.display_reference %>
-			</size>
+			<size><%= variant.display_reference %></size>
 		<% end %>
-		<item_group_id>
-			<%= product.id %></item_group_id>
-		<color>
-			<%= product.color_name %>
-		</color>
+		<item_group_id><%= product.id %></item_group_id>
+		<color><%= product.color_name %></color>
 		<shipping>
 			<country></country>
 			<service></service>
