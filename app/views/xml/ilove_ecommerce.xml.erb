@@ -5,7 +5,7 @@
 <codigo><%= product.id %></codigo>
 <categoria><%= product.category_humanize %></categoria>
 <link><%= product.product_url(:utm_source => "ilove_ecommerce") %></link>
-<imagem><%= product.pictures.last.try(:image) %></imagem>
+<imagem><%= product.pictures.order(:position).last.try(:image) %></imagem>
 <nome_titulo></nome_titulo>
 <descricao><%= product.description %></descricao>
 <preco_real><%= number_to_currency(product.price).delete("R$ ") %></preco_real>
