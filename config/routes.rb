@@ -93,7 +93,7 @@ Olook::Application.routes.draw do
   post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
 
   # GIFT
-  namespace :gift do
+  namespace :gift, :path => "presentes" do
     root :to => "home#index"
     get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
