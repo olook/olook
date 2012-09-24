@@ -27,27 +27,24 @@ describe Checkout::CartController do
     session[:cart_freight] = mock
 
     CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
-    CreditReportService.any_instance.should_receive(:amount_of_inviter_bonus_credits).and_return(11)
-    CreditReportService.any_instance.should_receive(:amount_of_invitee_bonus_credits).and_return(12)
-    CreditReportService.any_instance.should_receive(:quantity_of_inviter_bonus_credits).and_return(3)
-    CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(33)
+    CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
+    CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
+    CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
 
     get :show
     assigns(:cart_service).freight.should be_nil
-    assigns(:amount_of_loyalty_credits).should eq(10)
-    assigns(:amount_of_invitee_bonus_credits).should eq(11)
-    assigns(:amount_of_inviter_bonus_credits).should eq(12)
-    assigns(:quantity_of_inviter_bonus_credits).should eq(3)
-    assigns(:used_credits).should eq(33)
+    assigns(:amount_of_loyalty_credits).should == 10
+    assigns(:amount_of_invite_credits).should == 10
+    assigns(:redeem_credits).should == 10
+    assigns(:used_credits).should eq(30)
   end
   
   context "when show" do
     it "should render show view" do
       CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
-      CreditReportService.any_instance.should_receive(:amount_of_inviter_bonus_credits).and_return(11)
-      CreditReportService.any_instance.should_receive(:amount_of_invitee_bonus_credits).and_return(12)
-      CreditReportService.any_instance.should_receive(:quantity_of_inviter_bonus_credits).and_return(3)
-      CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(33)
+      CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
+      CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
+      CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
       
       get :show
       response.should render_template ["layouts/site", "show"]

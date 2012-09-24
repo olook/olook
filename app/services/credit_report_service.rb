@@ -10,6 +10,10 @@ class CreditReportService
         .includes(:order => :user)
         .order("id")
   end
+  
+  def amount_of_invite_credits
+    @user.user_credits_for(:invite).total
+  end
 
   def invite_credits
     @user.user_credits_for(:invite)
@@ -20,11 +24,11 @@ class CreditReportService
   end
   
   def redeem_credits
-    scope_for_redeems.where(:is_debit => false)
+    @user.user_credits_for(:redeem).credits.where(is_debit:0)
   end
 
   def amount_of_redeem_credits
-    scope_for_redeems.where(:is_debit => false).sum(:value) - scope_for_redeems.where(:is_debit => true).sum(:value)
+    @user.user_credits_for(:redeem).total
   end
 
   def used_credits

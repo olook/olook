@@ -12,7 +12,7 @@
     <thead>
       <tr>
         <th>Créditos por indicação</th>
-        <th class="value"><%= number_to_currency @amount_of_invitee_bonus_credits + @amount_of_inviter_bonus_credits %></th>
+        <th class="value"><%= number_to_currency @amount_of_invite_credits %></th>
       </tr>
     </thead>
   </table>
@@ -21,7 +21,7 @@
     <thead>
       <tr>
         <th>Reembolso via Central de Atendimento</th>
-        <th class="value"><%= number_to_currency current_user.user_credits_for(:redeem).total %></th>
+        <th class="value"><%= number_to_currency @redeem_credits %></th>
       </tr>
     </thead>
   </table>
@@ -29,7 +29,7 @@
   <table cellspacing="0" cellpadding="0">
     <thead>
       <tr>
-        <th>Crédito disponível</th>
+        <th>Total de créditos disponíveis</th>
         <th class="value"><%= number_to_currency current_user.current_credit %></th>
       </tr>
     </thead>
