@@ -57,6 +57,13 @@ class LoyaltyProgramCreditType < CreditType
     }))
   end
 
+  def self.credit_amount_to_expire(user_credit, date=DateTime.now.end_of_month)
+    expires_at = Credit.arel_table[:expires_at] 
+    credits = user_credit.credits.where(expires_at.lteq(date +1.day)).where(expires_at.gteq(date -1.day )).where(is_debit: 0)
+
+    credits.inject(0){|v,c| v+=(c.value - c.debits.sum(:value))}
+  end  
+
   private
   
   def select_credits(user_credit, date, is_debit, kind = :available)
@@ -92,6 +99,5 @@ class LoyaltyProgramCreditType < CreditType
     date += 2.months
     date.at_end_of_month
   end
-
 
 end

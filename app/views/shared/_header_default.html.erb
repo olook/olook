@@ -11,7 +11,6 @@
   <% end %>
   <div class="content">
     <h1><%= link_to 'Olook', root_path %></h1>
-    <h2 class="info_logo"><%= link_to "Mudamos, quer saber por que?", our_essence_path, :title => "Mudamos, quer saber por que?" %></h2>
 
     <div id="session">
       <% if user_signed_in? %>
@@ -49,22 +48,3 @@
     </div>
   </div>
 </header>
-
-<div id="wrapper_menu">
-  <nav class="menu">
-    <div class="content">
-      <% if user_signed_in? && !current_user.half_user? %>
-      <ul class="product_anchors">
-        <li class="shoes"><%= link_to "Sapatos", member_showroom_path(:anchor => "shoes")  %></li>
-        <li class="purse"><%= link_to "Bolsas", member_showroom_path(:anchor => "purse") %></li>
-        <li class="accessories"><%= link_to "Acessórios", member_showroom_path(:anchor => "accessories") %></li>
-      </ul>
-      <% end %>
-      <ul class="default">
-        <% present 'Menu', :user => current_user do |menu_presenter| %>
-          <%= menu_presenter.render_menu %>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
-</div>

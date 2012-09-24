@@ -209,6 +209,7 @@ $(document).ready(function() {
         $(".main div.preloader").remove();
       },
       success: function(rs){
+        $('form input#address_number, form input#address_complement').val('');
         if(rs['result_type'] >= 1){
           $('form input#address_city').val(rs['city']);
           $('form select#address_state').val(rs['state']);
@@ -277,6 +278,20 @@ $(document).ready(function() {
   $("input:text.credit_card").setMask({
     mask: '9999999999999999'
   });
+
+  $("fieldset.banks ol li input[type='radio']").change(function() {
+    var flag = $(this).val();
+    if(flag == "Hipercard") {
+      $("input:text.credit_card").setMask({
+        mask: '9999999999999999999'
+      });
+    } else {
+      $("input:text.credit_card").setMask({
+        mask: '9999999999999999'
+      });
+    }
+  });
+
 
   $("input:text.security_code").setMask({
     mask: '9999'

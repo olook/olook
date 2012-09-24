@@ -52,7 +52,7 @@ class Checkout::CartController < Checkout::BaseController
       end
     else
       respond_with do |format|
-        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
+        format.js { render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }}
         format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     end
