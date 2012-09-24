@@ -2,13 +2,15 @@
 require "spec_helper"
 
 describe SAC::AlertWorker do
-  let(:alert) { double :alert }
-  let(:mock_mail) { double :mail }
-
-  it "should process a notification alert" do
-    mock_mail.should_receive(:deliver)
-    SACAlertMailer.should_receive(:send_notification).with(alert).and_return(mock_mail)  
-    described_class.perform(alert)
+  it "should perform alert for billet" do
+    AlertForFraud.stub(:perform)
+    AlertForBillet.should_receive(:perform).with("XPTO")
+    described_class.perform(:order, "XPTO")
   end
-  
+
+  it "should perform alert for fraud" do
+    AlertForBillet.stub(:perform)
+    AlertForFraud.should_receive(:perform).with("XPTO")
+    described_class.perform(:order, "XPTO")
+  end
 end
