@@ -84,6 +84,13 @@ class MembersController < ApplicationController
         return redirect_to lookbooks_path, :alert => flash[:notice]
       end
     end
+    
+    @collection = nil
+    if current_admin && params[:collection_id]
+      @collection = Collection.find(params[:collection_id])
+    else
+      @collection = Collection.active
+    end
 
     session[:facebook_redirect_paths] = "showroom"
     @is_retake = session[:profile_retake] ? true : false
