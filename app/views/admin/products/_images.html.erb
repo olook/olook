@@ -2,7 +2,7 @@
 <div class="inner">
   <table class="table" id="sortable_images" data-product-id="<%= product.id %>">
     <tr>
-      <th>Position</th>
+      <th>Change position?</th>
       <th>Display On</th>
       <th>Image</th>
       <th></th>
@@ -10,7 +10,7 @@
 
   <% product.pictures.order(:position).each do |picture| %>
     <tr id="picture_<%= picture.id %>">
-      <td class="handle"><%= picture.position %></td>
+      <td class="handle">[Click to drag]</td>
       <td><%= picture.display_on_humanize %></td>
       <td><%= image_tag picture.image_url(:showroom).to_s, :size => '100x100' %></td>
       <td>
