@@ -29,7 +29,7 @@
   </head>
   <body class="<%= user_signed_in? ? 'logged' : '' %>">
     <% if current_admin %>
-      <p style="text-align:center;background-color:red;color:yellow;font-size:18;font-weigth:bold;position:fixed;top:0;left:0;z-index:99999;width:100%;">Você está logado com Admin / Clique <%= link_to "aqui #{session[:product_view_mode]}", admin_toggle_switch_mode_path %></p>
+      <p style="text-align:center;background-color:red;color:yellow;font-size:18;font-weigth:bold;position:fixed;top:0;left:0;z-index:99999;width:100%;">Você está logado com Admin</p>
 
     <% end %>
     <div id="modal"></div>
