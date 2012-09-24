@@ -1,7 +1,7 @@
 role :app, "q1.olook.com.br", "q2.olook.com.br"
 
 # server details
-set :rails_env, "RAILS_ENV=production"
+set :rails_env, "production"
 
 # repo details
 set :branch, fetch(:branch, 'master')
@@ -24,10 +24,10 @@ namespace :deploy do
 
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile #{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions #{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'

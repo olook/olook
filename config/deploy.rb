@@ -1,5 +1,6 @@
 #load 'deploy/assets'
 require 'new_relic/recipes'
+require 'airbrake/capistrano'
 require 'capistrano/ext/multistage'
 # require "bundler/capistrano"
 
@@ -17,10 +18,10 @@ set :use_sudo, false
 set :version_path, '/srv/olook/current'
 set :bundle, '/usr/local/ruby/bin/bundle'
 set :rake, '/usr/local/ruby/bin/rake'
+set :rails_env, 'production'
 
 set :path_log, '/mnt/debug'
-set :rails_env, "RAILS_ENV=production"
-set :env, 'production'
+set :rails_env, "production"
 
 # repo details
 set :scm, :git
@@ -31,5 +32,5 @@ default_run_options[:pty] = true
 ssh_options[:port] = 13630
 ssh_options[:forward_agent] = true
 
-#after 'deploy:update', 'newrelic:notice_deployment'
+after 'deploy:update', 'newrelic:notice_deployment'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
