@@ -1,21 +1,23 @@
 <h2>Pictures</h2>
 <div class="inner">
-  <table class="table">
+  <table class="table" id="sortable_images" data-product-id="<%= product.id %>">
     <tr>
+      <th>Position</th>
       <th>Display On</th>
       <th>Image</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
 
-  <% product.pictures.order(:display_on).each do |picture| %>
-    <tr>
+  <% product.pictures.order(:position).each do |picture| %>
+    <tr id="picture_<%= picture.id %>">
+      <td class="handle"><%= picture.position %></td>
       <td><%= picture.display_on_humanize %></td>
       <td><%= image_tag picture.image_url(:showroom).to_s, :size => '100x100' %></td>
-      <td><%= link_to 'Show', admin_product_picture_path(picture.product, picture) %></td>
-      <td><%= link_to 'Edit', edit_admin_product_picture_path(picture.product, picture) %></td>
-      <td><%= link_to 'Destroy', admin_product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete %></td>
+      <td>
+        <%= link_to 'Show', admin_product_picture_path(picture.product, picture), class: 'button' %>
+        <%= link_to 'Edit', edit_admin_product_picture_path(picture.product, picture), class: 'button' %>
+        <%= link_to 'Destroy', admin_product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete, class: 'button danger' %>
+      </td>
     </tr>
   <% end %>
   </table>
