@@ -14,10 +14,13 @@ class SACAlertMailer < ActionMailer::Base
     }
   end
 
-  def send_notification(alert)
-    @order, @alert = Order.find(alert['order']['id']), alert
-    mail(:to => alert['subscribers'].first, :cc => alert['subscribers'] - [alert['subscribers'].first], 
-    :subject => alert['subject'], :template_name => "#{alert['type']}_notification")
+  def billet_notification(order, to)
+    @order = order
+    mail(:to => to, :subject => "Pedido: #{order.number} | Boleto")
   end
-
+  
+  def fraud_analysis_notification(order, to)
+    @order = order
+    mail(:to => to, :subject => "Análise de Fraude | Pedido : #{order.number}")
+  end
 end
