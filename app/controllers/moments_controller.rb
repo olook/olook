@@ -11,7 +11,7 @@ class MomentsController < ApplicationController
 
   def show
     if current_moment.catalog.products.nil?
-      flash[:notice] = "O momento não possui produtos"
+      flash[:notice] = "A coleção não possui produtos disponíveis"
       redirect_to member_showroom_path
     else
       respond_with @catalog_products

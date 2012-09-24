@@ -81,9 +81,9 @@ $(document).ready(function() {
 initQuickView = {
   inQuickView : false,
   sliceDesc : function(string) {
-    if(string.length > 120) {
+    if(string.length > 190) {
       el = $("div#infos div.description p.description");
-      descSliced = el.text(string.slice(0,120)+"...");
+      descSliced = el.text(string.slice(0,190)+"...");
       el.append("<a href='javascript:void(0);' class='more'>Ler tudo</a>");
     }
   },

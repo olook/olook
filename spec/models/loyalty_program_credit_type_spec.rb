@@ -87,5 +87,68 @@ describe LoyaltyProgramCreditType do
         end
       end      
     end
+
+    describe "credits to be expired" do
+
+      after do
+        Delorean.back_to_the_present
+      end
+
+      context "before they get activated" do
+        it "should not have any credits to expire" do
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+          user.user_credits_for(:loyalty_program).add({amount: 52.3, order: order})
+          LoyaltyProgramCreditType.credit_amount_to_expire(user.user_credits_for(:loyalty_program)).should == 0
+        end
+      end
+
+      context "when they're active but not about to expire" do
+        it "should not have any credits to expire" do
+  
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+          user.user_credits_for(:loyalty_program).add({amount: 52.3, order: order})
+
+          Delorean.time_travel_to((DateTime.now + 1.month).beginning_of_month + 5.days)
+
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)        
+
+          LoyaltyProgramCreditType.credit_amount_to_expire(user.user_credits_for(:loyalty_program)).should == 0
+        end
+      end
+
+      context "when the first ones are about to expire" do
+        it "should have the first two credits about to expire" do
+
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+          user.user_credits_for(:loyalty_program).add({amount: 52.3, order: order})
+
+          Delorean.time_travel_to((DateTime.now + 1.month).beginning_of_month + 5.days)
+
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)        
+
+          Delorean.time_travel_to((DateTime.now + 1.month).beginning_of_month + 20.days)          
+
+          LoyaltyProgramCreditType.credit_amount_to_expire(user.user_credits_for(:loyalty_program)).should == amount + 52.3
+        end
+      end      
+
+      context "when the third one is about to expire" do
+        it "should have the third credit about to expire" do
+
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+          user.user_credits_for(:loyalty_program).add({amount: 52.3, order: order})
+
+          Delorean.time_travel_to((DateTime.now + 1.month).beginning_of_month + 5.days)
+
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)        
+
+          Delorean.time_travel_to((DateTime.now + 2.months).beginning_of_month + 20.days)
+
+          LoyaltyProgramCreditType.credit_amount_to_expire(user.user_credits_for(:loyalty_program)).should == amount
+        end
+      end            
+
+    end
+
   end
 end
