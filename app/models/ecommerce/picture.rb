@@ -12,4 +12,3 @@ class Picture < ActiveRecord::Base
     CloudfrontInvalidator.new.invalidate(self.image.url.slice(23..150)) unless self.image.url.nil?
   end
 end
-
