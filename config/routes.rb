@@ -126,8 +126,10 @@ Olook::Application.routes.draw do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
       end
-
+      post 'sort_pictures' => 'pictures#sort', as: 'sort_pictures'
+      
       resources :pictures do
+
         collection do
           get  'multiple_pictures' => 'pictures#new_multiple_pictures', :as => 'new_multiple_pictures'
           post 'multiple_pictures' => 'pictures#create_multiple_pictures', :as => 'create_multiple_pictures'
