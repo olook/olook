@@ -47,11 +47,12 @@ class Admin::PicturesController < Admin::BaseController
   end
 
   def sort
-    @pictures = Picture.where(product_id: params[:product_id])
-    @pictures.each do |picture|
-      picture.position = params[:picture].index(picture.id.to_s) + 1
-      picture.save
-    end
+    # @pictures = Picture.where(product_id: params[:product_id])
+    Picture.sort_positions!(params[:picture])
+    # @pictures.each do |picture|
+    #   picture.position = params[:picture].index(picture.id.to_s) + 1
+    #   picture.save
+    # end
     render :nothing => true
   end
 
