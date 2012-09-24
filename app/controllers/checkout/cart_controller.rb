@@ -8,9 +8,8 @@ class Checkout::CartController < Checkout::BaseController
   def show
     report  = CreditReportService.new(@user)
     @amount_of_loyalty_credits = report.amount_of_loyalty_credits
-    @amount_of_invitee_bonus_credits = report.amount_of_inviter_bonus_credits
-    @amount_of_inviter_bonus_credits = report.amount_of_invitee_bonus_credits
-    @quantity_of_inviter_bonus_credits =  report.quantity_of_inviter_bonus_credits
+    @amount_of_invite_credits = report.amount_of_invite_credits
+    @redeem_credits  = report.amount_of_redeem_credits
     @used_credits = report.amount_of_used_credits
   end
 
