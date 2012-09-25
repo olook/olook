@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<% @products.each do |product| %>
+      <produto>
+        <descricao><%= product.name %></descricao>
+        <preco><%= number_to_currency(product.price).delete("R$ ") %></preco>
+        <id_produto><%= product.id %></id_produto>
+        <codigo_barra>Codigo de Barra</codigo_barra>
+        <isbn>Codigo do ISBN</isbn>
+        <link_prod><%= product.product_url(:utm_source => "adroll", :utm_medium => "banner", :utm_campaign => "remessaging") %></link_prod>
+        <imagem><%= product.main_picture.try(:image) %></imagem>
+        <categ><%= product.category_humanize %></categ>
+        <parcelamento>1</parcelamento>
+        <detalhes><%= product.description %></detalhes>
+      </produto>
+<% end %>
