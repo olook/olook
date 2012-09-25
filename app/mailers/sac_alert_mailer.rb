@@ -21,6 +21,6 @@ class SACAlertMailer < ActionMailer::Base
   
   def fraud_analysis_notification(order, to)
     @order = order
-    mail(:to => to, :subject => "Análise de Fraude | Pedido : #{order.number}")
+    mail(:to => to, :subject => "Pedido: #{order.number} | Análise de Fraude")
   end
 end
