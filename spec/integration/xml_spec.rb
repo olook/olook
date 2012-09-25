@@ -35,7 +35,7 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
     end
   end
 
@@ -64,7 +64,7 @@ feature "Show products on xml format" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
       end
     end
 
@@ -82,7 +82,7 @@ feature "Show products on xml format" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
       end
     end
 
@@ -122,7 +122,7 @@ feature "Show products on xml format" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
       end
     end
 
@@ -149,7 +149,7 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
     end
   end
 
@@ -187,7 +187,7 @@ feature "Show products on xml format" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
       end
   end
 
@@ -214,7 +214,7 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
     end
   end
 
@@ -250,7 +250,7 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
     end
   end
 
@@ -275,7 +275,7 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
     end
   end
 
@@ -315,7 +315,34 @@ context "in the ilove_ecommerce xml page" do
       </products>
     END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
+    end
+  end
+
+  context "in the buscape page " do
+    scenario "I want to see products of buscape " do
+      visit buscape_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="iso-8859-1" ?>
+      <produtos>
+      <produto>
+        <descricao>#{ product.name }</descricao>
+        <preco>#{ number_to_currency(product.price).delete("R$ ") }</preco>
+        <id_produto>#{ product.id }</id_produto>
+        <codigo_barra></codigo_barra>
+        <isbn></isbn>
+        <link_prod>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=buscape</link_prod>
+        <imagem>#{ product.main_picture.try(:image) }</imagem>
+        <categ><#{ product.category_humanize }</categ>
+        <parcelamento>1</parcelamento>
+        <detalhes><#{ product.description }</detalhes>
+      </produto>
+      </produtos>
+      END
+      equivalent_content = Nokogiri::XML(content)
+      #result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
     end
   end
 
@@ -336,7 +363,7 @@ context "in the ilove_ecommerce xml page" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true })
       end
     end
 
