@@ -25,7 +25,7 @@
     </p>
     <p>
       <b>URL de Pagamento:</b>
-      <%= @order.erp_payment ? link_to @order.erp_payment.url : "" %>
+      <%= @order.erp_payment ? link_to("Clique aqui para abrir a url de pagamento", @order.erp_payment.url) : "" %>
     </p>
     <p>
       <b>Status:</b>
