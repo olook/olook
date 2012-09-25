@@ -8,10 +8,10 @@
             <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{lookbook.video.url}", :title => "#{lookbook.video.title}" %>
             <div class="video_description">
               <h1><%= lookbook.video.title %></h1>
-              <%= link_to "Saiba tudo sobre essa tendência", "/lookbooks/#{lookbook.slug}" %>
+              <%= link_to "Saiba tudo sobre essa tendência", lookbook_path(lookbook.slug) %>
             </div>
           <% end %>
-          <%= link_to "/lookbooks/#{lookbook.slug}", :class => "item" do %>
+          <%= link_to lookbook_path(lookbook.slug), :class => "item" do %>
             <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
             <h1><%= lookbook.name %></h1>
           <% end %>
