@@ -24,6 +24,10 @@
       <%= @order.erp_payment ? @order.erp_payment.try(:gateway_code) : "Pagamento não encontrado" %>
     </p>
     <p>
+      <b>URL de Pagamento:</b>
+      <%= @order.erp_payment ? link_to @order.erp_payment.url : "" %>
+    </p>
+    <p>
       <b>Status:</b>
       <%= @order.status %>
     </p>
