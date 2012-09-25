@@ -5,7 +5,7 @@
   
     <%= label_tag "c", "Coleções" %><br />
     <%= select_tag "c",
-      options_for_select(Collection.all.map{|collection| ["#{collection.name} - #{collection.start_date.year}",collection.id] }, params[:c]),
+      options_for_select(Collection.all.map{|collection| ["#{collection.name} - #{collection.start_date.year}",collection.id] }, params[:c]||Collection.active.id),
       :onchange => "$('#formc').submit()"
     %>
 
