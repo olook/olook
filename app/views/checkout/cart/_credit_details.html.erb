@@ -3,39 +3,37 @@
     <thead>
       <tr>
         <th>Créditos das suas últimas compras</th>
-        <th class="value">R$18,18</th>
+        <th class="value"><%= number_to_currency @amount_of_loyalty_credits %></th>
       </tr>
     </thead>
   </table>
+
   <table cellspacing="0" cellpadding="0">
     <thead>
       <tr>
         <th>Créditos por indicação</th>
-        <th class="value">R$18,18</th>
+        <th class="value"><%= number_to_currency @amount_of_invite_credits %></th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>Convidados que já compraram: <span>6</span></td>
-        <td>R$60,00</td>
-      </tr>
-      <tr>
-        <td>Crédito utilizado</td>
-        <td>- R$10,00</td>
-      </tr>
-      <tr>
-        <td>Crédito disponível</td>
-        <td>R$50,00</td>
-      </tr>
-    </tbody>
   </table>
+
   <table cellspacing="0" cellpadding="0">
     <thead>
       <tr>
         <th>Reembolso via Central de Atendimento</th>
-        <th class="value">R$18,18</th>
+        <th class="value"><%= number_to_currency @redeem_credits %></th>
       </tr>
     </thead>
   </table>
+
+  <table cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        <th>Total de créditos disponíveis</th>
+        <th class="value"><%= number_to_currency current_user.current_credit %></th>
+      </tr>
+    </thead>
+  </table>
+  
   <%= link_to "Saiba mais sobre seus créditos", user_credits_path %>
 </div>

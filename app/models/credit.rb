@@ -43,7 +43,7 @@ class Credit < ActiveRecord::Base
   end
   
   def description_for_loyalty
-    "Compra realizada em #{l self.created_at}. Crédito disponível de #{l self.activates_at} a #{l self.expires_at}"
+    "Compra realizada em #{l order.created_at}. Crédito disponível de #{l self.activates_at} a #{l self.expires_at}"
   end
   
   def description_for_redeem
