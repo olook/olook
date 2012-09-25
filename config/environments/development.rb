@@ -33,4 +33,7 @@ Olook::Application.configure do
   config.assets.debug = false
 
   config.cache_store = :dalli_store
+
+  # If you are running on a Ubuntu in development mode, you'll need this for connecting on ssl sites
+  Excon.defaults[:ssl_ca_path] = '/etc/ssl/certs' if `uname -v`.upcase.index 'UBUNTU'
 end
