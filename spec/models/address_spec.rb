@@ -31,41 +31,58 @@ describe Address do
       subject.should_not be_valid
     end
 
-    describe "Telephone number format for DDD 11" do
+    describe "Mobile number format for DDD 11" do
       it "(11)98978-9236 should be valid" do
-        subject.telephone = "(11)98978-9236"
+        subject.mobile = "(11)98978-9236"
         subject.should be_valid
       end
 
       it "(11)98978923 should not be valid" do
-        subject.telephone = "(11)98978923"
+        subject.mobile = "(11)98978923"
         subject.should_not be_valid
       end
 
       it "(11)989789236 should not be valid" do
-        subject.telephone = "(11)989789236"
+        subject.mobile = "(11)989789236"
         subject.should_not be_valid
       end
+    end
 
+    describe "Mobile number format for other DDDs" do
+      it "(34)8978-9236 should be valid" do
+        subject.mobile = "(34)8978-9236"
+        subject.should be_valid
+      end
+
+      it "(34)89789236 should not be valid" do
+        subject.mobile = "(34)89789236"
+        subject.should_not be_valid
+      end
+    end
+
+    describe "Telephone number format" do
       it "(11)5978-9236 should be valid" do
         subject.telephone = "(11)5978-9236"
         subject.should be_valid
       end
 
-      it "(11)99789-236 should be valid" do
-        subject.telephone = "(11)99789-236"
-        subject.should be_valid
+      it "(21)98988631 should not be valid" do
+        subject.telephone = "(21)98988631"
+        subject.should_not be_valid
       end
-    end
 
-    describe "Telephone number format for other DDDs" do
-      it "(34)8978-9236 should be valid" do
-        subject.telephone = "(34)8978-9236"
+      it "(11)98978-9236 should be valid" do
+        subject.mobile = "(11)98978-9236"
         subject.should be_valid
       end
 
-      it "(34)89789236 should not be valid" do
-        subject.telephone = "(34)89789236"
+      it "(11)98978923 should not be valid" do
+        subject.mobile = "(11)98978923"
+        subject.should_not be_valid
+      end
+
+      it "(11)989789236 should not be valid" do
+        subject.mobile = "(11)989789236"
         subject.should_not be_valid
       end
     end

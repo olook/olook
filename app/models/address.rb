@@ -12,6 +12,7 @@ class Address < ActiveRecord::Base
   validates :number, :numericality => true, :presence => true
   validates :zip_code, :format => {:with => ZipCodeFormat}
   validates :telephone, :format => {:with => PhoneFormat}
+  validates :mobile, :format => { :with => PhoneFormat }
   validates :state, :format => {:with => StateFormat}
 
   def identification
