@@ -20,18 +20,23 @@
   </div>
   <div id="right">
     <div id="credits">
-      <% if @user %>
-        <h1>CRÉDITOS PARA O PRÓXIMO MÊS</h1>
-        <% if @loyalty_credit_amount >  0 %>
-          <h2><%= number_to_currency @loyalty_credit_amount  %></h2>
-          <p>Válidos para compras em <%= l 1.month.since, :format => "%B" %> ou <%= l 2.month.since, :format => "%B" %></p>
-        <% else %>
-          <p>Você ainda não acumulou créditos em<br />compras para o próximo mês :(</p>
-        <% end %>
-        <%= link_to "Acompanhe seus créditos", user_credits_path %>
+      <% if @presenter.has_loyalty_credits_for_current_month? %>
+          <h1>CRÉDITOS DISPONÍVEIS PARA USO</h1>
+          <h2><%= number_to_currency @presenter.loyalty_credits_for_current_month  %></h2>
+          
+      <% elsif @presenter.has_loyalty_credits_for_next_month? %>
+
+          <h1>CRÉDITOS PARA O PRÓXIMO MÊS</h1>
+          <h2><%= number_to_currency @presenter.loyalty_credits_for_next_month  %></h2>
+          
       <% else %>
-        <p>Agora você tem mais um motivo<br />para continuar comprando na olook.</p>
+          <p>Você ainda não acumulou créditos em<br />compras para o próximo mês :(</p>
+          <h2></h2>
       <% end %>
+        
+      <p>*Os créditos acima são referentes ao programa de fidelidade.</p>
+      <%= link_to "Consulte todos os seus créditos", user_credits_path %>
+
     </div>
     <div id="showroom">
       <%= image_tag "loyalty/products.jpg", :title => "Produtos" %>

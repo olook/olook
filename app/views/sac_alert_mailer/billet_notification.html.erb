@@ -3,9 +3,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <span style='margin-left:50px;font-size:12px'>
-You are receiving this email because your are registered on the <%= @alert['type'] %> mail group.To unsubscribe from this list, please contact the system administrator
-</span>
     <h3 style='margin-left:50px;'>Cliente<h3>
     <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;">
       <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
@@ -15,10 +12,10 @@ You are receiving this email because your are registered on the <%= @alert['type
         <th>E-mail</th>
       </tr>
       <tr style="padding: 9px 8px 0px 8px;">
-        <td><%= @order.user.name %></td>
-        <td><%= link_to("http://www.olook.com.br/admin/users/#{@order.user.id}") %></td>
-        <td><%= @order.freight.address.telephone %></td>
-        <td><%= @order.user.email %></td>
+        <td><%= @order.user_name %></td>
+        <td><%= link_to("http://www.olook.com.br/admin/users/#{@order.user_id}") %></td>
+        <td><%= @order.freight.telephone %></td>
+        <td><%= @order.user_email %></td>
       </tr>
     </table>
     <h3 style='margin-left:50px;'>Pedido<h3>
@@ -30,9 +27,9 @@ You are receiving this email because your are registered on the <%= @alert['type
         <th>Valor Pago</th>
       </tr>
       <tr style="padding: 9px 8px 0px 8px;">
-        <td><%= @order.number %></td>
-        <td><%= number_to_currency(@order.subtotal)%></td>
-        <td style='color:#FF0000'><%= number_to_currency(@order.amount_discount)%></td>
+        <td><%= link_to(@order.number, "http://www.olook.com.br/admin/orders/#{@order.id}") %></td>
+        <td><%= number_to_currency(@order.gross_amount)%></td>
+        <td style='color:#FF0000'><%= number_to_currency(@order.payments.with_discount.sum(:total_paid))%></td>
         <td><%= number_to_currency(@order.amount_paid) %></td>
       </tr>
     </table>
@@ -52,8 +49,5 @@ You are receiving this email because your are registered on the <%= @alert['type
     <% end %>
     <div style='clear:both'></div>
     <br />
-    <br />
-    <br />
-    <%= render :partial => 'footer', :locals => {:settings => @alert['settings'], :triggers => @alert['triggers'], :subscribers => @alert['subscribers']} %>
 </body>
 </html>
