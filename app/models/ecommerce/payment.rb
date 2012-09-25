@@ -176,7 +176,7 @@ class Payment < ActiveRecord::Base
   end
 
   def set_state(statuz)
-    event = STATUS[statuz]
+    event = STATUS[statuz.to_s]
     send(event) if event
   end
 
@@ -227,6 +227,27 @@ class Payment < ActiveRecord::Base
 
   def status
     Payment::RESPONSE_STATUS[gateway_transaction_status]
+  end
+  
+  def set_state_moip(moip_callback)
+    ActiveRecord::Base.transaction do
+      self.update_attributes!(
+         :gateway_code => moip_callback.cod_moip,
+         :gateway_type   => moip_callback.tipo_pagamento,
+         :gateway_status => moip_callback.status_pagamento,
+         :gateway_status_reason => moip_callback.classificacao
+      )
+
+      if self.set_state(moip_callback.status_pagamento) && self.save!
+        moip_callback.update_attribute(:processed, true)
+        Resque.enqueue(Abacos::CancelOrder, order.number) if order && order.reload.canceled?
+      else
+        moip_callback.update_attributes(
+          :retry => (moip_callback.retry + 1),
+          :error => self.errors.full_messages.to_s
+        )
+      end
+    end
   end
   
   private

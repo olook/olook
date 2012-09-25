@@ -10,6 +10,12 @@ update_status:
   queue: order_status
   description: "Atualiza o status dos Pedidos"
 
+update_status:
+  cron: "*/15 * * * *"
+  class: SetPaymentStatusWorker
+  queue: order_status
+  description: "Processa callbacks de Pagamento"
+
 send_in_cart_email:
   cron: "0 20 * * *"
   class: SendInCartEmailWorker
