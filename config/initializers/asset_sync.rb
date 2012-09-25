@@ -7,7 +7,7 @@ AssetSync.configure do |config|
   #config.fog_directory = ENV['FOG_DIRECTORY']
   if Rails.env.production?
     bucket = 'cdn-app'
-  elsif Rails.env.staging?
+  else
     bucket = 'cdn-app-staging'
   end
 
@@ -24,7 +24,7 @@ AssetSync.configure do |config|
   #
   # Use the Rails generated 'manifest.yml' file to produce the list of files to 
   # upload instead of searching the assets directory.
-  # config.manifest = true
+  config.manifest = true
   #
   # Fail silently.  Useful for environments such as Heroku
   # config.fail_silently = true
