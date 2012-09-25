@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Users::AddressesController do
 
   let(:user) { FactoryGirl.create :user }
-  let(:attributes) { {:state => 'SP', :street => 'Rua Junes', :number => 123, :city => 'São Paulo', :zip_code => '37876-197', :neighborhood => 'Centro', :telephone => '(35)3453-9848' } }
+  let(:attributes) { {:state => 'SP', :street => 'Rua Junes', :number => 123, :city => 'São Paulo', :zip_code => '37876-197', :neighborhood => 'Centro', :telephone => '(35)3453-9848', :mobile => '(11)99877-8712'} }
   let(:address) { FactoryGirl.create(:address, :user => user)}
 
   before :each do
