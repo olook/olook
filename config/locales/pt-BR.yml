@@ -9,7 +9,7 @@
       credits: Créditos
       promotion: 20% na primeira compra
       gift: Pacote de presentes
-  
+
   #traduzindo categorias de produtos
   enumerations:
     category:
@@ -260,6 +260,7 @@
         state: Estado
         street: "Rua, Av., Praça"
         telephone: Telefone
+        mobile: Celular
         zip_code: CEP
       credit_card:
         credit_card_number: "Número do cartão"
