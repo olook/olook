@@ -31,16 +31,16 @@ Olook::Application.routes.draw do
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
 
   #LOOKBOOKS
-  match "/lookbooks/:name", :to => "lookbooks#show"
-  match "/lookbooks", :to => "lookbooks#show", :as => "lookbooks"
+  match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
+  match "/tendencias", :to => "lookbooks#show", :as => "lookbooks"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
-  get '/moments', to: "moments#index", as: "moments"
-  get '/moments/:id', to: "moments#show", as: "moment"
+  get '/colecoes', to: "moments#index", as: "moments"
+  get '/colecoes/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
 
   #FRIENDS
@@ -93,7 +93,7 @@ Olook::Application.routes.draw do
   post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
 
   # GIFT
-  namespace :gift do
+  namespace :gift, :path => "presentes" do
     root :to => "home#index"
     get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
