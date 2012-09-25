@@ -14,7 +14,7 @@
 <% content_for :full do %>
   <div class="full_bg">
     <section id="occasion">
-      <%= form_tag '/gift/occasions' do |f| %>
+      <%= form_tag '/presentes/occasions' do |f| %>
         <%= hidden_field :recipient, :facebook_uid, :value => @facebook_uid %>
         <div class="phrase_container">
           Estou escolhendo um presente de
