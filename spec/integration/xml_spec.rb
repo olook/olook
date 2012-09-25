@@ -213,7 +213,6 @@ feature "Show products on xml format" do
       </product>
       </products>
       END
-      puts product.category_humanize
       equivalent_content = Nokogiri::XML(content)
       result.should be_equivalent_to(equivalent_content)
     end
