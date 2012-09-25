@@ -1,13 +1,19 @@
 class ProductFinderService
   attr_reader :user
 
-  def initialize(user)
+  def initialize(user, admin=nil, collection=nil)
     @user = user
+    @admin = admin
+    @collection = collection
+  end
+
+  def current_collection
+    @collection || Collection.active
   end
 
   def showroom_products(*args)
     options = args.extract_options!
-    options[:collection] = Collection.active unless options[:collection]
+    options[:collection] = current_collection unless options[:collection]
 
     categories = options[:category].nil? ? Category.list_of_all_categories : [options[:category]]
     results = []
@@ -24,7 +30,7 @@ class ProductFinderService
 
   def products_from_all_profiles(*args)
     options = args.extract_options!
-    options[:collection] = Collection.active unless options[:collection]
+    options[:collection] = current_collection unless options[:collection]
 
     result = []
     user.profile_scores.each do |profile_score|
@@ -39,9 +45,14 @@ class ProductFinderService
 
   def profile_products(*args)
     options = args.extract_options!
-    options[:collection] = Collection.active unless options[:collection]
+    options[:collection] = current_collection unless options[:collection]
 
-    scope = options[:profile].products.joins(:variants).group("id").only_visible.where(:collection_id => options[:collection]).order("id")
+    scope =  if @admin
+      options[:profile].products.joins(:variants).group("id").where(:collection_id => options[:collection]).order("id")
+    else
+      options[:profile].products.joins(:variants).group("id").only_visible.where(:collection_id => options[:collection]).order("id")
+    end
+
     scope = scope.where(:category => options[:category]) if options[:category]
 
     vt = Variant.arel_table

@@ -1,0 +1,13 @@
+<p style="text-align:center;background-color:red;color:yellow;font-size:18;font-weigth:bold;position:fixed;top:0;left:0;z-index:99999;width:100%;">
+  Você está logado com Admin.
+
+  <%= form_tag('/membro/vitrine', id:"formc", method:'get') do %>
+  
+    <%= label_tag "c", "Coleções" %><br />
+    <%= select_tag "c",
+      options_for_select(Collection.all.map{|collection| ["#{collection.name} - #{collection.start_date.year}",collection.id] }, params[:c]),
+      :onchange => "$('#formc').submit()"
+    %>
+
+  <% end  %>
+</p>
