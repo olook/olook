@@ -194,13 +194,13 @@ section.main {
                 z-index: 0;
               }
             }
-            &.phone, &.mandatory {
-              margin-right: 10px;
+            &.phone &.mandatory {
+              margin-right: 13px;
               padding-top: 15px;
               border-top: 0;
               float: left;
               input {
-                width: 210px;
+                width: 192px;
               }
             }
             &.mandatory {
