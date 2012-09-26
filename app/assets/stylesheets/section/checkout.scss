@@ -1,5 +1,6 @@
 @import 'partials/mixins';
 @import 'partials/address';
+@import 'partials/product';
 
 $border-color: #e5e5e5;
 
@@ -114,6 +115,10 @@ section#cart {
     font-size: 28px;
     text-transform: uppercase;
     margin: 0 0 15px;
+    &+h2, &+h2+h2 {
+      font-family: $kepler;
+      font-size: 22px;
+    }
   }
   p.credits {
     background: #EEE;
@@ -567,6 +572,73 @@ section#cart {
     height: 63px;
     display: block;
     float: right;
+  }
+
+  section {
+    margin: 40px 0 0;
+    > h1 {
+      font-family: $johnston;
+      font-size: 28px;
+      text-transform: uppercase;
+      margin: 0 0 15px;
+    }
+    &#shoes {
+      width: 100%;
+      overflow: hidden;
+      div#carousel {
+        position: relative;
+        width: 100%;
+        display: block;
+        clear: both;
+        margin: 10px 0 0 0;
+        float: left;
+        overflow: hidden;
+        ul.products_list {
+          position: relative;
+          left: 0px;
+          overflow: hidden;
+          li.product {
+            width: 170px;
+            height: 265px;
+            div.box_product {
+              a.product_link img {
+                width: 165px;
+                height: 165px;
+              }
+              h1 {
+                width: 165px;
+              }
+            }
+          }
+        }
+        div.caroufredsel_wrapper {
+          margin: 20px auto 0 auto !important;
+        }
+        a.arrow {
+          position: absolute;
+          background: url("/assets/product/arrows.jpg") 0 no-repeat;
+          text-indent: -9999px;
+          width: 42px;
+          height: 235px;
+          top: 0;
+          display: block;
+          &.product-prev {
+            background-position: 0;
+            left: 0;
+            &:hover {
+              background-position: -42px;
+            }
+          }
+          &.product-next {
+            background-position: -126px;
+            right: 0;
+            &:hover {
+              background-position: -84px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

@@ -11,6 +11,8 @@ class Checkout::CartController < Checkout::BaseController
     @amount_of_invite_credits = report.amount_of_invite_credits
     @redeem_credits  = report.amount_of_redeem_credits
     @used_credits = report.amount_of_used_credits
+    @url = request.protocol + request.host
+    @url += ":" + request.port.to_s if request.port != 80
   end
 
   def destroy
