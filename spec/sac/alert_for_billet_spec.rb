@@ -57,7 +57,7 @@ describe AlertForBillet do
   
   it "should validate purchase amount is greater than minimium" do
     minimum_value = (BigDecimal.new(Setting.sac_purchase_amount_threshold.to_s) - 5)
-    order_with_billet.should_receive(:total_paid).and_return(minimum_value)
+    order_with_billet.should_receive(:amount_paid).and_return(minimum_value)
     Time.stub(:now => time)
     Date.stub_chain(:today).and_return(today)
     Order.stub(:find_by_number => order_with_billet)
@@ -66,7 +66,7 @@ describe AlertForBillet do
   end
   
   it "should send mail" do
-    order_with_billet.stub(:total_paid).and_return(value)
+    order_with_billet.stub(:amount_paid).and_return(value)
     Time.stub(:now => time)
     Date.stub_chain(:today).and_return(today)
     Order.stub(:find_by_number => order_with_billet)
