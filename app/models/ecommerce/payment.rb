@@ -238,9 +238,11 @@ class Payment < ActiveRecord::Base
          :gateway_status_reason => moip_callback.classificacao
       )
 
-      if self.set_state(moip_callback.status_pagamento) && self.save!
+      if self.set_state(moip_callback.status_pagamento)
         moip_callback.update_attribute(:processed, true)
-        Resque.enqueue(Abacos::CancelOrder, order.number) if order && order.reload.canceled?
+        if order && order.reload.canceled?
+          Resque.enqueue(Abacos::CancelOrder, order.number)
+        end
       else
         moip_callback.update_attributes(
           :retry => (moip_callback.retry + 1),
