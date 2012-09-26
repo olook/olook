@@ -167,10 +167,10 @@ section#cart {
         width: 415px;
       }
       &.amount {
-        width: 395px;
+        width: 400px;
       }
       &.value {
-        width: 160px;
+        width: 155px;
       }
     }
   }
@@ -320,8 +320,8 @@ section#cart {
           }
         }
         &.item {
-          width: 290px;
-          padding-left: 15px;
+          width: 255px;
+          padding-left: 50px;
           border-left: 1px $border-color solid;
           img {
             width: 70px;
@@ -436,7 +436,7 @@ section#cart {
           vertical-align: middle;
           padding: 20px 0;
           input[type="checkbox"] {
-            margin: 5px 17px 0;
+            margin: 5px 17px 0 55px;
             float: left;
           }
           h1 {
@@ -449,21 +449,22 @@ section#cart {
           }
           p {
             width: 665px;
-            margin: 0 0 0 48px;
+            margin: 0 0 0 85px;
             clear: both;
           }
           a {
             color: #e05789;
-            margin: 5px 0 0 48px;
+            margin: 5px 0 0 85px;
           }
           &.value {
             color: #df5a8b;
             font-family: $avenir;
             font-size: 18px;
             font-weight: normal;
-            text-align: right;
+            text-align: left;
             letter-spacing: -1px;
-            padding: 0 67px 0 0;
+            width: 175px;
+            padding: 0;
           }
         }
       }
@@ -492,15 +493,16 @@ section#cart {
           font-size: 18px;
           text-transform: uppercase;
           vertical-align: middle;
-          padding: 5px 0 5px 50px;
+          padding: 5px 0 5px 85px;
           &.value {
             p {
               float: right;
-              margin: 0 40px 0 0;
+              width: 175px;
+              margin: 0;
               &.limit {
                 width: 407px;
                 font-size: 12px;
-                margin: 12px 0 0 0;
+                margin: 12px 70px 0 0;
                 padding: 5px 0;
                 display: none;
                 &.show {
