@@ -36,6 +36,7 @@ class MomentsController < ApplicationController
 
     if @moment
       @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
+      @products_id = @catalog_products.map{|item| item.product_id }.compact
     else
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
