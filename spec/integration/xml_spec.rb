@@ -2,6 +2,7 @@
 require 'spec_helper'
 require 'integration/helpers'
 include ActionView::Helpers::NumberHelper
+include XmlHelper
 
 feature "Show products on xml format" do
   let!(:bag) { FactoryGirl.create :basic_bag }
@@ -335,7 +336,7 @@ context "in the ilove_ecommerce xml page" do
         <link_prod>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=buscape</link_prod>
         <imagem>#{ product.main_picture.try(:image) }</imagem>
         <categ>#{ product.category_humanize }</categ>
-        <parcelamento>1</parcelamento>
+        <parcelamento>#{ build_installment_text(product.retail_price) }</parcelamento>
         <detalhes>#{ product.description }</detalhes>
       </produto>
       </produtos>

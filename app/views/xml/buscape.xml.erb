@@ -10,7 +10,7 @@
   <link_prod><%= product.product_url(:utm_source => "buscape", :utm_medium => "vitrine", :utm_campaign => "produtos") %></link_prod>
   <imagem><%= product.main_picture.try(:image) %></imagem>
   <categ><%= product.category_humanize %></categ>
-  <parcelamento></parcelamento>
+  <parcelamento><%= build_installment_text(product.retail_price) %></parcelamento>
   <detalhes><%= product.description %></detalhes>
 </produto>
 <% end %>
