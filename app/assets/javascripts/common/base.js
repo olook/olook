@@ -226,23 +226,26 @@ $(document).ready(function() {
     });
   });
 
-  if($("input:text.phone").size() == 1) {
-    currentPhone = $('input:text.phone').val();
-    if(currentPhone == '') {
-      $("input:text.phone").setMask({
-        mask: '(99)9999-9999'
-      });
-    } else {
-      if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9') {
-        $('input:text.phone').setMask({
-          mask: '(99)99999-9999'
-        });
-      } else {
-        $('input:text.phone').setMask({
+  if($("input:text.phone").size() == 2) {
+    $("input:text.phone").each(function(index) {
+      currentObjPhone = $('input:text.phone')[index];
+      currentPhone = $(currentObjPhone).val();
+      if(currentPhone == '') {
+        $(currentObjPhone).setMask({
           mask: '(99)9999-9999'
         });
+      } else {
+        if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9') {
+          $(currentObjPhone).setMask({
+            mask: '(99)99999-9999'
+          });
+        } else {
+          $(currentObjPhone).setMask({
+            mask: '(99)9999-9999'
+          });
+        }
       }
-    }
+    });
   }
 
   $('input:text.phone').keyup(function() {
