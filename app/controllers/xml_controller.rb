@@ -2,6 +2,10 @@ class XmlController < ApplicationController
   respond_to :xml
   before_filter :load_products
 
+  def sociomantic
+    respond_with(@products)
+  end
+
   def criteo
     respond_with(@products)
   end
