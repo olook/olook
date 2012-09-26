@@ -61,10 +61,6 @@ _gaq.push(['_addTrans',
               <%= hidden_field('variant','id', :value => item.variant.id) %>
               <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
             <%# end %>
-            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
-              <%= hidden_field('variant','id', :value => item.variant.id) %>
-              <%= submit_tag('')  %>
-            <% end %>
           </td>
           <td class="discount">
             <% if @cart_service.item_promotion?(item) %>
@@ -80,6 +76,10 @@ _gaq.push(['_addTrans',
               <p>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
             <% else %>
               <p><%= number_to_currency(@cart_service.item_price(item)) %></p>
+            <% end %>
+            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
+              <%= hidden_field('variant','id', :value => item.variant.id) %>
+              <%= submit_tag('')  %>
             <% end %>
           </td>
         </tr>
