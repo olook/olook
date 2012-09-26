@@ -67,6 +67,24 @@ $(function() {
       items : 4
     }
   });
+
+  $("div#carousel_lookbooks ul").carouFredSel({
+    auto: false,
+    width: 970,
+    items: 3,
+    prev : {
+      button : ".prev-lookbook",
+      items : 1
+    },
+    next : {
+      button : ".next-lookbook",
+      items : 1
+    },
+    pagination: {
+      container : "div#carousel_lookbooks .pagination",
+      items : 1
+    }
+  });
 });
 
 
