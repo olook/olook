@@ -27,11 +27,11 @@ class Checkout::CartController < Checkout::BaseController
 
     respond_with do |format|
       if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path, notice: "Produto removido com sucesso" }
+        format.html { redirect_to cart_path, notice: "Produto exluído com sucesso" }
         format.js { head :ok }
       else
         format.js { head :not_found }
-        format.html { redirect_to cart_path, notice: "Este produto não está na sua sacola" }
+        format.html { redirect_to cart_path, notice: "Produto exluído com sucesso" }
       end
     end
   end
