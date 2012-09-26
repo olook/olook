@@ -9,7 +9,7 @@
 <description><%= product.description %></description>
 <price><%= product.price %></price>
 <retailprice><%= product.retail_price %></retailprice>
-<recommendable>1</recommendable>
+<recommendable><%= build_installment_text(product.retail_price) %></recommendable>
 <instock><%= product.instock %></instock>
 <category><%= product.category %></category>
 </product>
