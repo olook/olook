@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<products>
+<products xmlns="http://data-vocabular.org/product/">
+<% @products.each do |product| %>
+<product>
+<identifier><%= product.id %></identifier>
+<fn><%= product.name %></fn>
+<description><%= product.description %></description>
+<category><%= product.category %></category>
+<brand>Olook</brand>
+<price><%= product.retail_price %></price>
+<amount><%= product.price %></amount>
+<currency>BRL</currency>
+<url><%= product.product_url(:utm_source => "sociomantic", :utm_medium => "banner", :utm_campaign => "produtos") %></url>
+<photo><%= product.main_picture.try(:image) %></photo>
+</product>
+<% end %>
 </products>
 
