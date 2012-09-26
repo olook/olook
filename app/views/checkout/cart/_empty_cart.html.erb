@@ -1,0 +1,18 @@
+<h2>Sua sacola ainda está vazia :(</h2>
+<h2>Conheça nossa coleção e mude isso já!</h2>
+<% if @user %>
+  <section id="shoes">
+    <h1>Já viu sua vitrine de <%= I18n.l(Date.today, :format => '%B') %>?</h1>
+    <div id="carousel">
+      <ul class="products_list">
+        <% @user.main_profile_showroom.each do |product| %>
+          <%= render "shared/showroom_product_item", :product => product %>
+        <% end %>
+      </ul>
+      <%= link_to "Anterior", "javascript:void(0);", :class => "arrow product-prev" %>
+      <%= link_to "Próximo", "javascript:void(0);", :class => "arrow product-next" %>
+    </div>
+  </section>
+<% end %>
+<section id="lookbooks">
+</section>

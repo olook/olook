@@ -51,6 +51,22 @@ $(function() {
     initBase.modal(content);
     e.preventDefault();
   });
+
+  $("div#carousel ul.products_list").carouFredSel({
+    auto: false,
+    width: 760,
+    items: {
+      visible: 4
+      },
+    prev : {
+      button : ".product-prev",
+      items : 4
+    },
+    next : {
+      button : ".product-next",
+      items : 4
+    }
+  });
 });
 
 
