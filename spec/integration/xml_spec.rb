@@ -29,7 +29,7 @@ feature "Show products on xml format" do
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <recommendable>1</recommendable>
+      <recommendable><#{ build_installment_text(product.retail_price)}</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category}</category>
       </product>
@@ -143,7 +143,7 @@ feature "Show products on xml format" do
       <description>#{product.description}</description>
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
-      <recommendable>1</recommendable>
+      <recommendable>#{ build_installment_text(product.retail_price) }</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category}</category>
       </product>
@@ -208,7 +208,7 @@ feature "Show products on xml format" do
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <recommendable>1</recommendable>
+      <recommendable>#{build_installment_text(product.retail_price)}</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category_humanize}</category>
       </product>
@@ -266,8 +266,8 @@ context "in the ilove_ecommerce xml page" do
       <codigo>#{product.id}</codigo>
       <descricao>#{product.description}</descricao>
       <preco>99,9</preco>
-      <nparcela>1</nparcela>
-      <vparcela></vparcela>
+      <nparcela>#{ build_installment_text(product.retail_price).chars.first }</nparcela>
+      <vparcela>#{ build_installment_text(product.retail_price).split("x").last }</vparcela>
       <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>
       <url_imagem></url_imagem>
       <Frete>Sim</Frete>

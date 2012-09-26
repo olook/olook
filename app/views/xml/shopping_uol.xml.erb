@@ -6,8 +6,8 @@
 		<codigo><%= product.id %></codigo>
 		<descricao><%= product.description %></descricao>
 		<preco><%= product.price.to_s.sub(".",",") %></preco>
-		<nparcela>1</nparcela>
-		<vparcela></vparcela>
+		<nparcela><%= build_installment_text(product.retail_price).chars.first %></nparcela>
+		<vparcela><%= build_installment_text(product.retail_price).split("x").last %></vparcela>
 		<url><%= product.product_url(:utm_source =>"shopping_uol") %></url>
 		<url_imagem><%= first_image_of product %></url_imagem>
 		<Frete>Sim</Frete>
