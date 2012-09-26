@@ -10,9 +10,9 @@ class CreditReportService
         .includes(:order => :user)
         .order("id")
   end
-  
+
   def amount_of_invite_credits
-    @user.user_credits_for(:invite).total
+    @user.user_credits_for(:invite).total if @user
   end
 
   def invite_credits
@@ -22,13 +22,13 @@ class CreditReportService
          .includes(:order => :user)
          .order("id")
   end
-  
+
   def redeem_credits
     @user.user_credits_for(:redeem).credits.where(is_debit:0)
   end
 
   def amount_of_redeem_credits
-    @user.user_credits_for(:redeem).total
+    @user.user_credits_for(:redeem).total if @user
   end
 
   def used_credits
@@ -43,7 +43,7 @@ class CreditReportService
   end
 
   def amount_of_loyalty_credits
-    @user.user_credits_for(:loyalty_program).total
+    @user.user_credits_for(:loyalty_program).total if @user
   end
 
   def amount_of_inviter_bonus_credits
@@ -74,6 +74,6 @@ class CreditReportService
           .where(:user_credits => { :user_id => @user, :credit_types => { :code => ["invite", "redeem"] }})
           .where(credit_source.not_in(["invitee_bonus", "inviter_bonus"]).or(credit_source.eq(nil)))
           .includes(:order => :user)
-          .order("id") 
+          .order("id")
   end
 end

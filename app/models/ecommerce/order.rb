@@ -224,6 +224,7 @@ class Order < ActiveRecord::Base
     self.update_attribute(:purchased_at, Time.now)
     Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
     Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
+    Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
   end
   
   def confirm_payment?

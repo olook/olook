@@ -68,7 +68,10 @@ class Payment < ActiveRecord::Base
   def self.for_coupon
     where(type: 'CouponPayment')
   end
-
+  
+  def self.with_discount
+    where(type: ['CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
+  end
 
   state_machine :initial => :started do
     #Concluido - 4
@@ -161,7 +164,6 @@ class Payment < ActiveRecord::Base
   end
   
   def deliver_payment?
-    # SAC::Notifier.notify(SAC::Notification.new(:billet, "Pedido: #{self.order.number} | Boleto", self.order)) if self.order
     true
   end
 
