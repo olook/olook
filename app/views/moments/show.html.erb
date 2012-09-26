@@ -5,7 +5,8 @@
 
   <% content_for :footer do %>
     <%= javascript_include_tag "moments" %>
-  <% end %>
+    <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
+    <% end %>
 
 
   <div id="moments" class="content">
