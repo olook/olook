@@ -259,7 +259,7 @@
         number: Número
         state: Estado
         street: "Rua, Av., Praça"
-        telephone: Telefone
+        telephone: "Telefone fixo"
         mobile: Celular
         zip_code: CEP
       credit_card:
