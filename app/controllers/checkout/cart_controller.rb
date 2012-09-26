@@ -13,6 +13,7 @@ class Checkout::CartController < Checkout::BaseController
     @used_credits = report.amount_of_used_credits
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
+    @lookbooks = Lookbook.active.all
   end
 
   def destroy
