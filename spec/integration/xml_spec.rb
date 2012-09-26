@@ -14,6 +14,37 @@ feature "Show products on xml format" do
   end
 
   context "in the criteo xml page" do
+
+
+    scenario "I  dont want to see products of criteo if has less variants" do
+      product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
+      product2.master_variant.update_attribute(:price, "99.90")
+      product2.master_variant.update_attribute(:inventory, 1)
+      visit criteo_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <products>
+      <product id="#{product.id}">
+      <name>#{product.name}</name>
+      <smallimage></smallimage>
+      <bigimage></bigimage>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
+      <description>#{product.description}</description>
+      <price>#{product.price}</price>
+      <retailprice>#{product.retail_price}</retailprice>
+      <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
+      <recommendable>1</recommendable>
+      <instock>#{product.instock}</instock>
+      <category>#{product.category}</category>
+      </product>
+      </products>
+      END
+      equivalent_content = Nokogiri::XML(content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+    end
+
+
     scenario "I want to see products of criteo" do
       visit criteo_path
       result = Nokogiri::XML(page.source)
