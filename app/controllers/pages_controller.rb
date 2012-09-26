@@ -7,7 +7,8 @@ class PagesController < ApplicationController
   end
 
   def loyalty
-    @presenter = LoyaltyPresenter.new(@user, @user.user_credits_for(:loyalty_program))
+    user_credits = @user.nil? ? nil : @user.user_credits_for(:loyalty_program)
+    @presenter = LoyaltyPresenter.new(@user, user_credits)
   end
 
   def send_contact
