@@ -31,6 +31,26 @@ describe SendExpirationWarningWorker do
 
   end
 
+  it "should not send the send credit expiration warning to people who has 0 credits to expire" do
+    user_credit.add({amount: 20})
+    user_credit.add({amount: 20})
+    user_credit.add({amount: 20})
+
+    user_credit.remove({amount: 20})
+    user_credit.remove({amount: 20})
+    user_credit.remove({amount: 20})
+
+
+    expiration_warning_date = (user_credit.credits.last.expires_at - 7.days)
+    Delorean.time_travel_to(DateTime.new(expiration_warning_date.year, expiration_warning_date.month, 23))
+
+    LoyaltyProgramMailer.should_receive(:send_expiration_warning).once.and_return(nil)
+
+    described_class.perform    
+    Delorean.back_to_the_present
+
+  end    
+
   it "should send the send credit expiration warning to the first user only" do
     user_credit.add({amount: 20})
     user_credit.add({amount: 20})

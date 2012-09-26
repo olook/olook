@@ -18,10 +18,7 @@ describe SendEnabledCreditsNotificationWorker do
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
-
     Delorean.time_travel_to(user_credit.credits.last.activates_at)
-
-  
     mock_mail.should_receive(:deliver).twice
     LoyaltyProgramMailer.should_receive(:send_enabled_credits_notification).twice.and_return(mock_mail)
 
@@ -35,14 +32,14 @@ describe SendEnabledCreditsNotificationWorker do
     user_credit.add({amount: 20})
     user_credit.add({amount: 20})
     
-    Delorean.time_travel_to(DateTime.now + 1.month)
+    Delorean.time_travel_to(user_credit.credits.first.activates_at)
    
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
 
-    Delorean.time_travel_to(user_credit.credits.first.activates_at)
+    Delorean.time_travel_to(another_user_credit.credits.first.activates_at)
 
   
     mock_mail.should_receive(:deliver).once
