@@ -53,7 +53,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "equivalent-xml", " ~> 0.2.9"
   gem 'sqlite3'
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 3.2.0'
@@ -69,6 +68,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '~> 1.1.1'
   gem 'database_cleaner'
   gem 'rspec', '~> 2.10.0'
