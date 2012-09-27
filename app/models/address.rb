@@ -13,8 +13,14 @@ class Address < ActiveRecord::Base
   validates :zip_code, :format => {:with => ZipCodeFormat}
   validates :telephone, :format => {:with => PhoneFormat}
   validates :state, :format => {:with => StateFormat}
+  before_validation :normalize_street
 
   def identification
     "#{first_name} #{last_name}"
+  end
+
+  private
+  def normalize_street
+    self.street = "Rua #{ self.street }" if (self.street && self.street.lenght == 1)
   end
 end
