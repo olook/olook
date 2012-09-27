@@ -2,6 +2,10 @@ class XmlController < ApplicationController
   respond_to :xml
   before_filter :load_products, except: [:criteo]
 
+  def sociomantic
+    respond_with(@products)
+  end
+
   def criteo
     @products = Product.valid_criteo_for_xml
     respond_with(@products)
