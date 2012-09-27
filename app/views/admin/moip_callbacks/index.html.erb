@@ -34,21 +34,21 @@
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Transaction ID</th>
+      <th>ID</th>
+      <th>Transaction</th>
       <th><%= sort_link @search, :processed %></th>
       <th>Retries</th>
       <th>Status</th>
-      <th>Payment ID</th>
       <th><%= sort_link @search, :created_at %></th>
     </tr>
 
   <% @moip_callbacks.each do |moip_callback| %>
     <tr>
+      <td><%= moip_callback.id %></td>
       <td><%= moip_callback.id_transacao %></td>
       <td><%= moip_callback.processed %></td>
       <td><%= moip_callback.retry %></td>
       <td><%= payment_status(moip_callback.status_pagamento) %></td>
-      <td><%= moip_callback.payment_id %></td>
       <td><%= moip_callback.created_at.to_s(:long) %></td>
     </tr>
   <% end %>

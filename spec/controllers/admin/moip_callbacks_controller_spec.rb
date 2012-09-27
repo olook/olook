@@ -17,7 +17,8 @@ describe Admin::MoipCallbacksController do
 
   	it "should find all moip callbacks using no parameter" do
   		get :index
-  		assigns(:moip_callbacks).should eq([moip_callback, clean_moip_callback])
+  		assigns(:moip_callbacks).should include(moip_callback)
+      assigns(:moip_callbacks).should include(clean_moip_callback)
   	end
 
   	it "should find only processed using the search parameter" do

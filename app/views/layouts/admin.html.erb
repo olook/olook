@@ -31,12 +31,13 @@
                 <li><%= access_link("Credits") %></li>
               </ul>
             </li>
-            <li class="submenu<%= ' active' if params[:controller] =~ /orders|shipping|moip_callbacks/ %>">
+            <li class="submenu<%= ' active' if params[:controller] =~ /orders|shipping|moip_callbacks|payments/ %>">
               <span>Sales</span>
               <ul>
                 <li><%= access_link("Orders") %></li>
                 <li><%= access_link("Shipping Services") %></li>
                 <li><%= access_link("Moip Callbacks") %></li>
+                <li><%= access_link("Payments") %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /collections|moments|products/ %>">
