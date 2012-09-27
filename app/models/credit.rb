@@ -71,8 +71,9 @@ class Credit < ActiveRecord::Base
     # => inside the dst period, all expires_at date created, will be 1 hour in the future, so the final date 
     # => (desconsidering the time) will be 1 day in the future
     #
+    # TO REMOVE THIS WE MUST BE SURE TO DISABLE ALL DST STUFF FROM MYSQL
     def activates_at_with_dst_correction
-      self.activates_at + 1.hour
+      self.activates_at + 4.hour
     end
 
     def expires_at_with_dst_correction
