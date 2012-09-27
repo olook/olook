@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class MembersController < ApplicationController
 
+  before_filter :set_collection, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories]
   before_filter :check_url, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories]
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :load_facebook_adapter
@@ -118,6 +119,14 @@ class MembersController < ApplicationController
   def contact_authentication_failed
     flash[:notice] = "Falha de autenticação na importação de contatos"
     redirect_to :back
+  end
+
+  def set_collection
+    if current_admin && params[:c]
+      @collection = Collection.find_by_id(params[:c].to_s.to_i)
+    else
+      @collection = Collection.active
+    end
   end
 
   def check_url
