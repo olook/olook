@@ -12,6 +12,9 @@
       <h2><span><%= number_to_currency @available_credits %></span> disponíveis para uso</h2>
       <h2><%= number_to_currency @holding_credits %> ainda não liberados para uso</h2>
       <p>Os créditos acumulados por compras realizadas são liberados nos 2 meses seguintes após a confirmação do pedido</p>
+      <% if @available_credits <= 0.0 %>
+        <p class="earn_credits">Você ainda não acumulou créditos. <%= link_to "Saiba como ganhar créditos.", member_earn_credits_path %></p>
+      <% end %>
       <% if @loyalty_credits.count > 0 %>
       <table cellpadding="0" cellspacing="0">
         <thead>

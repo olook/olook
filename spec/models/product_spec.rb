@@ -305,6 +305,23 @@ describe Product do
         subject.suggestion_picture.should be_nil
       end
     end
+
+    describe '#image_at_position' do
+      let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
+      let!(:main_picture)      { FactoryGirl.create(:main_picture) }
+      it 'should return the image at asked position' do
+        shoe.pictures << main_picture
+
+        picture = shoe.picture_at_position 1
+        picture.should eq main_picture
+      end
+
+      it 'should return nil if there is no picture at desired position' do
+        picture = shoe.picture_at_position 1
+        picture.should be nil
+      end
+
+    end
   end
 
   describe '#variants.sorted_by_description' do

@@ -7,7 +7,8 @@ class PagesController < ApplicationController
   end
 
   def loyalty
-    @loyalty_credit_amount = @user.user_credits_for(:loyalty_program).total(1.month.since.at_beginning_of_month) if @user
+    user_credits = @user.nil? ? nil : @user.user_credits_for(:loyalty_program)
+    @presenter = LoyaltyPresenter.new(@user, user_credits)
   end
 
   def send_contact
