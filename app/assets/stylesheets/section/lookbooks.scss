@@ -1,5 +1,6 @@
 @import "partials/product";
 @import "partials/product_map";
+@import "partials/carousel_lookbooks";
 
 section#lookbooks {
   width: 100%;
@@ -10,87 +11,6 @@ section#lookbooks {
     font-weight: lighter;
     letter-spacing: -1px;
     margin: 0 0 15px 10px;
-  }
-  div#carousel_lookbooks {
-    position: relative;
-    width: 970px;
-    margin: 0 0 40px;
-    overflow: hidden;
-    .prev-lookbook, .next-lookbook {
-      position: absolute;
-      background: url("/assets/showroom/arrows.png") no-repeat;
-      text-indent: -9999px;
-      width: 38px;
-      height: 38px;
-      top: 70px;
-      z-index: 1;
-      cursor: pointer;
-    }
-    .prev-lookbook {
-      background-position: 0 0;
-      left: 10px;
-    }
-    .next-lookbook {
-      background-position: -38px 0;
-      right: 10px;
-    }
-    ul {
-      position: relative;
-      width: 1500px;
-      overflow: auto;
-      left: 0;
-      li {
-        display: inline;
-        margin: 0 8px 0 0;
-        padding: 0;
-        float: left;
-        a {
-          position: relative;
-          text-decoration: none;
-          margin: 0;
-          padding: 0;
-          float: left;
-          img {
-            width: 318px;
-            height: 180px;
-          }
-          h1 {
-            position: absolute;
-            background: url("/assets/lookbooks/bg-title.png") repeat;
-            color: #FFF;
-            font-family: $kepler;
-            font-size: 24px;
-            font-weight: lighter;
-            letter-spacing: -1px;
-            width: 298px;
-            margin: 0;
-            padding: 5px 10px;
-            left: 0;
-            bottom: 4px;
-          }
-        }
-      }
-    }
-    .pagination {
-	  text-align: center;
-      height: auto;
-      margin: 10px 0 0;
-      a {
-        background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
-        width: 13px;
-        height: 13px;
-        margin: 0 10px 0 0;
-        padding: 0;
-        display: inline-block;
-        &.selected {
-          background-position: 0 0;
-          cursor: default;
-        }
-        span {
-          display: none;
-        }
-      }
-    }
   }
 
   div#carousel_lookbooks_product {

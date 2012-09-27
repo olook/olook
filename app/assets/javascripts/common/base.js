@@ -563,7 +563,6 @@ initBase = {
       } else {
         var link_width = 125;
       }
-      console.log(link_width);
       $(this).find('div.my_account').css('width', link_width - 4);
       $(link).addClass('hover');
     }, function() {
