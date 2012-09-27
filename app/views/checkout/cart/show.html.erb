@@ -18,6 +18,7 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
 <% end %>
 <% content_for :footer do %>
+  <%= render :partial => "shared/metrics/ve_interactive/get_user" %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render "shared/metrics/google/cart" %>
