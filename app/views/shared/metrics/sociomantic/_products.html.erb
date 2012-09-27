@@ -6,5 +6,12 @@
               }.join(', ') -%>
             ]
   };
+  var categories = {
+    category: [
+                <%= categories_id.map{ |id|
+                  "{ COLEÇÃO: '#{moment_url(id)}'}"
+                }.join(',') -%>
+              ]
+  };
 </script>
 

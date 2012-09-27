@@ -39,5 +39,5 @@
       <%= will_paginate @catalog_products %>
     </div>
   </div>
-  <%= render "shared/metrics/sociomantic/products", :products => @catalog_products %>
+  <%= render "shared/metrics/sociomantic/products", :products => @catalog_products,:categories_id => @categories_id %>
 <% end %>
