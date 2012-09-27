@@ -1,5 +1,5 @@
 <ul id="thumbs">
-  <% @product.pictures.order(:display_on).each do |picture| %>
+  <% @product.pictures.order(:position).each do |picture| %>
     <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
   <% end %>
 </ul>
@@ -12,7 +12,7 @@
     <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
   <% end %>
   <ul>
-    <% @product.pictures.each do |picture| %>
+    <% @product.pictures.order(:position).each do |picture| %>
       <li class=<%= "'product_#{picture.id}'" %>><%= link_to(image_tag("#{picture.image_url(:main).to_s}", :class => "full"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
     <% end %>
   </ul>

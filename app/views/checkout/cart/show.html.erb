@@ -18,6 +18,7 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
 <% end %>
 <% content_for :footer do %>
+  <%= render :partial => "shared/metrics/ve_interactive/get_user" %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render "shared/metrics/google/cart" %>
@@ -40,155 +41,159 @@ _gaq.push(['_addTrans',
     </div>
   <% end %>
 
-  <ul id="titles">
-    <li class="item">Item</li>
-    <li class="amount">Quantidade</li>
-    <li class="value">Valor</li>
-  </ul>
+  <% if @cart.items.count > 0 %>
+    <ul id="titles">
+      <li class="item">Item</li>
+      <li class="amount">Quantidade</li>
+      <li class="value">Valor</li>
+    </ul>
 
-  <table cellpadding="0" cellspacing="0" class="items_list" id="products">
-    <tbody>
-      <% @cart.items.each do |item| %>
+    <table cellpadding="0" cellspacing="0" class="items_list" id="products">
+      <tbody>
+        <% @cart.items.each do |item| %>
+          <tr>
+            <td class="item">
+              <%= image_tag item.variant.thumb_picture %>
+              <p><span><%= item.variant.name %></span></p>
+              <p>Tamanho: <%= item.variant.description %></p>
+              <p>Cor/Material: <%= item.variant.color_name %></p>
+            </td>
+            <td class="amount">
+              <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
+                <%= hidden_field('variant','id', :value => item.variant.id) %>
+                <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
+              <%# end %>
+            </td>
+            <td class="discount">
+              <% if @cart_service.item_promotion?(item) %>
+                <%= link_to number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0), "#", :class => 'discount_percent' %>
+                <div class='discount_origin'>
+                  <p><%= @cart_service.item_discount_origin(item) %></p>
+                </div>
+              <% end %>
+            </td>
+            <td class="value">
+              <% if @cart_service.item_promotion?(item) %>
+                <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price(item)) %></p>
+                <p>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
+              <% else %>
+                <p><%= number_to_currency(@cart_service.item_price(item)) %></p>
+              <% end %>
+              <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
+                <%= hidden_field('variant','id', :value => item.variant.id) %>
+                <%= submit_tag('')  %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" class="check gift">
+      <tbody>
         <tr>
-          <td class="item">
-            <%= image_tag item.variant.thumb_picture %>
-            <p><span><%= item.variant.name %></span></p>
-            <p>Tamanho: <%= item.variant.description %></p>
-            <p>Cor/Material: <%= item.variant.color_name %></p>
-          </td>
-          <td class="amount">
-            <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
-              <%= hidden_field('variant','id', :value => item.variant.id) %>
-              <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
-            <%# end %>
-            <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
-              <%= hidden_field('variant','id', :value => item.variant.id) %>
-              <%= submit_tag('')  %>
+          <td>
+            <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
+              <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
+              <h1>Embrulhar pedido para presente</h1>
             <% end %>
           </td>
-          <td class="discount">
-            <% if @cart_service.item_promotion?(item) %>
-              <%= link_to number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0), "#", :class => 'discount_percent' %>
-              <div class='discount_origin'>
-                <p><%= @cart_service.item_discount_origin(item) %></p>
-              </div>
+          <td class="value">R$ 5,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <% if @user && @user.current_credit > 0 %>
+    <table cellpadding="0" cellspacing="0" class="check">
+      <tbody>
+        <tr>
+          <td>
+            <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
+              <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
+              <h1>Quero usar meus créditos</h1>
+              <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
+              <% if @cart_service.total > @user.current_credit %>
+                <p>O valor do seu pedido é superior ao seu saldo e você receberá a diferença em créditos</p>
+              <% elsif @cart_service.total == @user.current_credit %>
+                <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
+              <% else %>
+                <% if @cart.items.count > 0 %>
+                  <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
+                <% end %>
+              <% end %>
+              <%= link_to "Saiba mais sobre seus créditos", "#" %>
             <% end %>
           </td>
+          <td class="value"><%= number_to_currency @user.current_credit %></td>
+        </tr>
+      </tbody>
+    </table>
+    <% end %>
+
+
+    <table cellpadding="0" cellspacing="0" id="total">
+      <tbody>
+        <% if @cart_service.coupon %>
+          <tr>
+            <td>Código Promocional</td>
+            <td class="value">
+              <p>
+                <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
+                <%= discount_percentage(@cart_service.coupon.discount_percent) %>
+              </p>
+              <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+                <fieldset class="inputs">
+                  <ol>
+                    <li>
+                      <%= submit_tag "Limpar" %>
+                    </li>
+                  </ol>
+                </fieldset>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        <tr class="total">
+          <td>Total</td>
           <td class="value">
-            <% if @cart_service.item_promotion?(item) %>
-              <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price(item)) %></p>
-              <p>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
-            <% else %>
-              <p><%= number_to_currency(@cart_service.item_price(item)) %></p>
-            <% end %>
+            <p><%= number_to_currency(@cart_service.total) %></p>
+            <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
           </td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
-  <table cellpadding="0" cellspacing="0" class="check gift">
-    <tbody>
-      <tr>
-        <td>
-          <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
-            <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
-            <h1>Embrulhar pedido para presente</h1>
-          <% end %>
-        </td>
-        <td class="value">R$ 5,00</td>
-      </tr>
-    </tbody>
-  </table>
-  <% if @user && @user.current_credit > 0 %>
-  <table cellpadding="0" cellspacing="0" class="check">
-    <tbody>
-      <tr>
-        <td>
-          <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
-            <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
-            <h1>Quero usar meus créditos</h1>
-            <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
-            <% if @cart_service.total > @user.current_credit %>
-              <p>O valor do seu pedido é superior ao seu saldo e você receberá a diferença em créditos</p>
-            <% elsif @cart_service.total == @user.current_credit %>
-              <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
-            <% else %>
-              <% if @cart.items.count > 0 %>
-                <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
-              <% end %>
-            <% end %>
-            <%= link_to "Saiba mais sobre seus créditos", "#" %>
-          <% end %>
-        </td>
-        <td class="value"><%= number_to_currency @user.current_credit %></td>
-      </tr>
-    </tbody>
-  </table>
-  <% end %>
-
-
-  <table cellpadding="0" cellspacing="0" id="total">
-    <tbody>
-      <% if @cart_service.coupon %>
-        <tr>
-          <td>Código Promocional</td>
-          <td class="value">
-            <p>
-              <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
-              <%= discount_percentage(@cart_service.coupon.discount_percent) %>
-            </p>
-            <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+    <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
+      <tbody>
+        <tr class="discount">
+          <td>
+            <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
+            <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
               <fieldset class="inputs">
                 <ol>
                   <li>
-                    <%= submit_tag "Limpar" %>
+                    <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                  </li>
+                  <li class="cupom">
+                    <%= submit_tag '' %>
                   </li>
                 </ol>
               </fieldset>
             <% end %>
           </td>
+          <td class="buttons">
+            <% if current_user %>
+              <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
+            <% else %>
+              <%= link_to "Continuar", "#", :class => "continue login"  %>
+            <% end %>
+            <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
+          </td>
         </tr>
-      <% end %>
-      <tr class="total">
-        <td>Total</td>
-        <td class="value">
-          <p><%= number_to_currency(@cart_service.total) %></p>
-          <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
-    <tbody>
-      <tr class="discount">
-        <td>
-          <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-          <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
-            <fieldset class="inputs">
-              <ol>
-                <li>
-                  <%= text_field 'coupon', 'code', :value => @coupon_code %>
-                </li>
-                <li class="cupom">
-                  <%= submit_tag '' %>
-                </li>
-              </ol>
-            </fieldset>
-          <% end %>
-        </td>
-        <td class="buttons">
-          <% if current_user %>
-            <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
-          <% else %>
-            <%= link_to "Continuar", "#", :class => "continue login"  %>
-          <% end %>
-          <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% else %>
+    <%= render 'empty_cart' %>
+  <% end %>
   <%= render "shared/modal_login" %>
   <%= render "credit_details" if @user %>
 </section>

@@ -8,13 +8,13 @@ describe Checkout::CartController do
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
-    
+
   before :each do
     session[:cart_id] = cart.id
     session[:cart_freight] = mock
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
-  
+
   after :each do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
@@ -22,7 +22,7 @@ describe Checkout::CartController do
     session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
-  
+
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
 
@@ -38,19 +38,19 @@ describe Checkout::CartController do
     assigns(:redeem_credits).should == 10
     assigns(:used_credits).should eq(30)
   end
-  
+
   context "when show" do
     it "should render show view" do
       CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
       CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
       CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
       CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
-      
+
       get :show
       response.should render_template ["layouts/site", "show"]
     end
   end
-  
+
   context "when destroy" do
     it "should remove cart in database" do
       Cart.any_instance.should_receive(:destroy)
@@ -58,7 +58,7 @@ describe Checkout::CartController do
       response.should redirect_to(cart_path)
       flash[:notice].should eql("Sua sacola está vazia")
     end
-    
+
     it "should reset session params" do
       delete :destroy
       session[:cart_id].should be_nil
@@ -72,7 +72,7 @@ describe Checkout::CartController do
       delete :destroy
       flash[:notice].should eql("Sua sacola está vazia")
     end
-    
+
     it "should redirect to cart" do
       delete :destroy
       response.should redirect_to(cart_path)
@@ -87,7 +87,7 @@ describe Checkout::CartController do
           .and_return(true)
       post :update, {variant: {id: basic_bag.id}}
     end
-    
+
     context "when item removed and respond for html" do
       before :each do
         Cart.any_instance
@@ -100,19 +100,19 @@ describe Checkout::CartController do
         post :update, {variant: {id: basic_bag.id}}
         response.should redirect_to(cart_path)
       end
-  
+
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto removido com sucesso")
+        flash[:notice].should eql("Produto excluído com sucesso")
       end
     end
-    
+
     it "should head is ok when item removed and respond for js" do
       Cart.any_instance
           .stub(:remove_item)
           .with(basic_bag)
           .and_return(true)
-      
+
       request.env['HTTP_ACCEPT'] = "text/javascript"
       post :update, {variant: {id: basic_bag.id}}, :format=> :js
       response.code.should eq("200")
@@ -131,10 +131,10 @@ describe Checkout::CartController do
         post :update, {variant: {id: basic_bag.id}}
         response.should redirect_to(cart_path)
       end
-  
+
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Este produto não está na sua sacola")
+        flash[:notice].should eql("Produto excluído com sucesso")
       end
     end
 
@@ -156,7 +156,7 @@ describe Checkout::CartController do
       post :create, {variant: {id: basic_bag.id}}
       assigns(:variant).should eq(basic_bag)
     end
-    
+
     context "when no has valid variant" do
       it "should render error in response for js" do
         request.env['HTTP_ACCEPT'] = "text/javascript"
@@ -175,7 +175,7 @@ describe Checkout::CartController do
         flash[:notice].should eql("Produto não disponível para esta quantidade ou inexistente")
       end
     end
-    
+
     context "when has valid variant" do
       it "should add item" do
         Cart.any_instance
@@ -192,12 +192,12 @@ describe Checkout::CartController do
               .with(basic_bag)
               .and_return(true)
         end
-        
+
         it "should redirect to cart" do
           post :create, {variant: {id: basic_bag.id}}
           response.should redirect_to(cart_path)
         end
-        
+
         it "should set flash notice" do
           post :create, {variant: {id: basic_bag.id}}
           flash[:notice].should eql("Produto adicionado com sucesso")
@@ -245,14 +245,14 @@ describe Checkout::CartController do
       end
     end
   end
-  
-  
+
+
   context "when update gift wrap" do
     it "should update session" do
       post :update_gift_wrap, {gift: {gift_wrap: "true"}}
       session[:gift_wrap].should eq("true")
     end
-    
+
     it "should response true for json" do
       post :update_gift_wrap, {gift: {gift_wrap: "true"}}
       response.body.should eq("true")
@@ -264,7 +264,7 @@ describe Checkout::CartController do
       post :update_coupon
       response.should redirect_to(cart_path)
     end
-    
+
     context "when has valid coupon" do
       let(:coupon) do
         coupon = double(Coupon)
@@ -272,12 +272,12 @@ describe Checkout::CartController do
         coupon.stub(:available?).and_return(true)
         coupon
       end
-      
+
       before :each do
         Coupon.should_receive(:find_by_code).with("CODE").and_return(coupon)
         post :update_coupon, {coupon: {code: "CODE"}}
       end
-      
+
       it "should set flash" do
         flash[:notice].should eql("Cupom atualizado com sucesso")
       end
@@ -286,7 +286,7 @@ describe Checkout::CartController do
         session[:cart_coupon].should be(coupon)
       end
     end
-    
+
     context "when has invalid coupon" do
       let(:coupon) do
         coupon = double(Coupon)
@@ -294,16 +294,16 @@ describe Checkout::CartController do
         coupon.stub(:available?).and_return(false)
         coupon
       end
-      
+
       before :each do
         Coupon.should_receive(:find_by_code).with("CODE").and_return(coupon)
         post :update_coupon, {coupon: {code: "CODE"}}
       end
-      
+
       it "should set flash" do
         flash[:notice].should eql("Cupom inválido")
       end
-      
+
       it "should set session" do
         session[:cart_coupon].should be_nil
       end
@@ -316,46 +316,46 @@ describe Checkout::CartController do
         coupon.stub(:expired?).and_return(true)
         coupon
       end
-      
+
       before :each do
         Coupon.should_receive(:find_by_code).with("CODE").and_return(coupon)
         post :update_coupon, {coupon: {code: "CODE"}}
       end
-      
+
       it "should set flash" do
         flash[:notice].should eql("Cupom expirado. Informe outro por favor")
       end
-      
+
       it "should set session" do
         session[:cart_coupon].should be_nil
       end
     end
   end
-  
+
   context "when remove coupon" do
     let(:coupon) do
       coupon = double(Coupon)
       coupon.stub(:reload)
       coupon
     end
-    
+
     it "should redirect to cart" do
       post :remove_coupon
       response.should redirect_to(cart_path)
     end
-    
+
     it "should set session" do
       session[:cart_coupon] = coupon
       post :remove_coupon
       session[:cart_coupon].should be_nil
     end
-    
+
     it "should set flash when has valid coupon in session" do
       session[:cart_coupon] = coupon
       post :remove_coupon
       flash[:notice].should eq("Cupom removido com sucesso")
     end
-    
+
     it "should set flash when has invalid coupon in session" do
       post :remove_coupon
       flash[:notice].should eq("Você não está usando cupom")
@@ -372,7 +372,7 @@ describe Checkout::CartController do
       sign_in user
       request.env['HTTP_ACCEPT'] = "text/html"
     end
-    
+
     it "should set session" do
       post :update_credits, {use_credit: {value: 1}}
       session[:cart_use_credits].should eq(true)
