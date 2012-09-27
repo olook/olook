@@ -21,6 +21,6 @@ class Address < ActiveRecord::Base
 
   private
   def normalize_street
-    self.street = "Rua #{ self.street }" if (self.street && self.street.lenght == 1)
+    self.street = "Rua #{ self.street }" if (self.street && self.street.length == 1)
   end
 end
