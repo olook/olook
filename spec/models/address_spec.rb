@@ -14,7 +14,26 @@ describe Address do
     it { should validate_presence_of(:city) }
     it { should validate_presence_of(:zip_code) }
     it { should validate_presence_of(:neighborhood) }
-    it { should validate_presence_of(:telephone) }
+
+    it "should require mobile phone if there is no telephone" do
+      subject.mobile = "(11)9897-8923"
+      subject.telephone = nil
+      # subject.save!
+      subject.should be_valid
+    end
+
+    it "should require telephone if there is no mobile" do
+      subject.mobile = nil
+      subject.telephone = "(11)3856-8987"
+      # subject.save!
+      subject.should be_valid
+    end
+
+    it "should require at least one telephone" do
+      subject.mobile = nil
+      subject.telephone = nil
+      subject.should_not be_valid
+    end
 
     it "should validate the Zip Format" do
       subject.zip_code = "12345-09"
@@ -85,7 +104,9 @@ describe Address do
         subject.mobile = "(11)989789236"
         subject.should_not be_valid
       end
+
     end
+
   end
 
   describe "#identification" do
