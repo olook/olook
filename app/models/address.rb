@@ -8,14 +8,19 @@ class Address < ActiveRecord::Base
   PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
   StateFormat = /^[A-Z]{2}$/
 
-  validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood, :telephone
+  validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood
+
+  validates :mobile, :presence => true, :unless => :telephone?
+  validates :telephone, :presence => true, :unless => :mobile?
+
   validates :number, :numericality => true, :presence => true
   validates :zip_code, :format => {:with => ZipCodeFormat}
-  validates :telephone, :format => {:with => PhoneFormat}
-  validates :mobile, :format => { :with => PhoneFormat }
+  validates :telephone, :format => {:with => PhoneFormat}, :if => :telephone?
+  validates :mobile, :format => { :with => PhoneFormat }, :if => :mobile?
   validates :state, :format => {:with => StateFormat}
 
   def identification
     "#{first_name} #{last_name}"
   end
+
 end
