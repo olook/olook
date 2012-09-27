@@ -11,6 +11,9 @@ class Checkout::CartController < Checkout::BaseController
     @amount_of_invite_credits = report.amount_of_invite_credits
     @redeem_credits  = report.amount_of_redeem_credits
     @used_credits = report.amount_of_used_credits
+    @url = request.protocol + request.host
+    @url += ":" + request.port.to_s if request.port != 80
+    @lookbooks = Lookbook.active.all
   end
 
   def destroy
@@ -24,11 +27,11 @@ class Checkout::CartController < Checkout::BaseController
 
     respond_with do |format|
       if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path, notice: "Produto removido com sucesso" }
+        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
         format.js { head :ok }
       else
         format.js { head :not_found }
-        format.html { redirect_to cart_path, notice: "Este produto não está na sua sacola" }
+        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
       end
     end
   end
