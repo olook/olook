@@ -214,6 +214,8 @@ Olook::Application.routes.draw do
 
     resource :settings
 
+    resources :moip_callbacks, :only => :index
+
   end
 
   #USER / SIGN IN

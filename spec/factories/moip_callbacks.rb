@@ -5,6 +5,7 @@ FactoryGirl.define do
     cod_moip "3"
     tipo_pagamento "Boleto"
     classificacao "Tudo Certo"
+    processed false
   end
 
   factory :moip_callback, :parent => :clean_moip_callback do
