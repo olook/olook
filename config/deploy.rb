@@ -1,8 +1,8 @@
-require 'airbrake/capistrano'
+load 'deploy/assets'
 require 'new_relic/recipes'
+require 'airbrake/capistrano'
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
-load 'deploy/assets'
 
 set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_prod prod_todas hmg dev resque showroom new_machine apptest)
 
@@ -46,4 +46,4 @@ namespace :log do
 end
 
 after 'deploy:update', 'newrelic:notice_deployment'
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
+after 'deploy', 'deploy:cleanup' # keep only the last 5 releases

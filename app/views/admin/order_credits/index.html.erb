@@ -45,23 +45,21 @@
     <tr>
       <th>id</th>
       <th>User id</th>
-      <th>Total de desconto</th>
       <th>Frete/Presente</th>
       <th>Total Pago</th>
       <th>Subtotal</th>
       <th>Data de Criação</th>
       <th>Origem dos descontos</th>
-      <th>Origem dos descontos</th>
+      <th>Total de desonto</th>
     </tr>
 
   <% @orders.each do |order| %>
     <tr>
       <td><%= link_to order.number, admin_order_path(order) %></td>
       <td><%= link_to order.user_id, admin_user_path(order.user) %></td>
-      <td><%= number_to_currency order.amount_discount %></td>
       <td><%= number_to_currency order.amount_increase %></td>
-      <td><%= number_to_currency order.amount_paid %></td>
-      <td><%= number_to_currency order.subtotal      %></td>
+      <td><%= number_to_currency order.amount_paid  %></td>
+      <td><%= number_to_currency order.gross_amount %></td>
       <td><%= l order.created_at, :format => :short %></td>
       <td>
         <% order.payments.each do |payment| %>
@@ -72,6 +70,7 @@
         </p>
         <% end  %>
       </td>
+      <td><%= number_to_percentage order.amount_of_percent, :precision => 2 %></td>
     </tr>
   <% end %>
   </table>

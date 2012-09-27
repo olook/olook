@@ -27,3 +27,23 @@ send_billet_reminder:
   class: SendBilletReminderWorker
   queue: send_billet_reminder
   description: "Dispara emails de aviso p/ vencimento do boleto"
+
+send_enabled_credits_notification:
+  cron: "0 0 1 * *"
+  class: SendEnabledCreditsNotificationWorker
+  queue: notification_sender
+  description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
+
+# TODO: CHANGE BACK TO 23 AFTER 23/09/2012
+send_seven_days_to_expiration_warning:
+  cron: "40 14 26 * *"
+  class: SendExpirationWarningWorker
+  queue: notification_sender
+  description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
+
+send_one_day_to_expiration_warning:
+  cron: "1 0 L * *"
+  class: SendExpirationTomorrowWarningWorker
+  queue: notification_sender
+  description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
+

@@ -13,4 +13,3 @@ class ProductController < ApplicationController
     respond_to :html, :js
   end
 end
-

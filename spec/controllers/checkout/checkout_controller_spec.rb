@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Checkout::CheckoutController do  
+describe Checkout::CheckoutController do
   let(:credit_card_attributes) {{"user_name"=>"Joao", "credit_card_number"=>"1111222233334444", "security_code"=>"456",
-                     "user_birthday"=>"28/01/1987", "expiration_date"=>"01/14", "user_identification"=>"067.239.146-51", 
+                     "user_birthday"=>"28/01/1987", "expiration_date"=>"01/14", "user_identification"=>"067.239.146-51",
                      "telephone"=>"(35)7648-6749", "payments"=>"1", "bank"=>"Visa", "receipt" => "AVista" }}
 
   let(:debit_attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
@@ -16,7 +16,7 @@ describe Checkout::CheckoutController do
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
-  
+
   let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
 
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
@@ -36,12 +36,12 @@ describe Checkout::CheckoutController do
     coupon.stub(:expired?).and_return(false)
     coupon.stub(:available?).and_return(false)
     coupon
-  end  
+  end
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
-  
+
   after :each do
     session[:cart_id] = nil
     session[:gift_wrap] = nil
@@ -59,20 +59,20 @@ describe Checkout::CheckoutController do
     before :each do
       sign_in user
     end
-    
+
     it "should redirect to cart_path when cart is empty" do
       session[:cart_id] = nil
       get :new
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Sua sacola está vazia")
     end
-    
+
     it "should remove unavailabe items" do
       session[:cart_id] = cart.id
       Cart.any_instance.should_receive(:remove_unavailable_items).and_return(true)
       get :new
     end
-    
+
     it "should redirect to cart_path when cart items is empty" do
       session[:cart_id] = cart_without_items.id
       get :new
@@ -94,14 +94,14 @@ describe Checkout::CheckoutController do
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")
     end
-        
+
     it "should remove coupon from session when coupon is not more avialbe" do
       session[:cart_id] = cart.id
       session[:cart_coupon] = coupon_not_more_available
       get :new
       session[:cart_coupon].should be_nil
     end
-    
+
     it "should redirect to cart_path when coupon is not more availabe" do
       session[:cart_id] = cart.id
       session[:cart_coupon] = coupon_not_more_available
@@ -109,7 +109,7 @@ describe Checkout::CheckoutController do
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Cupom expirado. Informe outro por favor")
     end
-    
+
     it "should redirect to new_cart_checkout_path when user doesn't have freight data" do
       session[:cart_id] = cart.id
       get :new_credit_card
@@ -124,7 +124,7 @@ describe Checkout::CheckoutController do
       response.should redirect_to(new_cart_checkout_path)
       flash[:notice].should eq("Informe seu CPF")
     end
-  end  
+  end
 
   context "PUT update" do
     before :each do
@@ -138,13 +138,13 @@ describe Checkout::CheckoutController do
       response.should render_template('new')
       flash[:notice].should eq("CPF inválido")
     end
-    
+
     it "should check cpf is valid" do
       put :update, :user => {:cpf => "BLABLA"}
       response.should render_template('new')
       flash[:notice].should eq("CPF inválido")
     end
-    
+
     it "should updates the CPF" do
       put :update, :user => {:cpf => cpf}
       flash[:notice].should eq("CPF cadastrado com sucesso")
@@ -170,7 +170,7 @@ describe Checkout::CheckoutController do
       assigns(:payment).should be_a_new(Billet)
     end
   end
-  
+
   context "GET new_credit_card" do
     before :each do
       sign_in user_with_cpf
@@ -188,7 +188,7 @@ describe Checkout::CheckoutController do
       assigns(:payment).should be_a_new(CreditCard)
     end
   end
-  
+
   context "GET new_debit" do
     before :each do
       sign_in user_with_cpf
@@ -208,7 +208,7 @@ describe Checkout::CheckoutController do
       session[:cart_id] = cart.id
       session[:cart_freight] = freight
     end
-    
+
     it "should inject cpf in payment" do
       post :create_billet
       assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
@@ -220,7 +220,7 @@ describe Checkout::CheckoutController do
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Billet, :order => order)))
         post :create_billet
       end
-      
+
       it "should clean the session order" do
         session[:cart_id].should be_nil
         session[:gift_wrap].should be_nil
@@ -228,13 +228,12 @@ describe Checkout::CheckoutController do
         session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
       end
-      
+
       it "should redirect to order_show_path" do
         response.should redirect_to(order_show_path(:number => order.number))
-        flash[:notice].should eq("Boleto gerado com sucesso")
       end
     end
-      
+
     context "with invalid params" do
       before :each do
         processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Billet))
@@ -261,7 +260,7 @@ describe Checkout::CheckoutController do
       session[:cart_id] = cart.id
       session[:cart_freight] = freight
     end
-    
+
     it "should render new_credit_card when has no params" do
       post :create_credit_card
       response.should render_template('new_credit_card')
@@ -276,7 +275,7 @@ describe Checkout::CheckoutController do
       post :create_credit_card, {:credit_card => credit_card_attributes}
       assigns(:installments).should eq(credit_card_attributes["payments"])
     end
-    
+
     it "should inject cpf in payment" do
       post :create_credit_card, {:credit_card => credit_card_attributes}
       assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
@@ -289,7 +288,7 @@ describe Checkout::CheckoutController do
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard, :order => order)))
         post :create_credit_card, {:credit_card => credit_card_attributes}
       end
-      
+
       it "should clean the session order" do
         session[:cart_id].should be_nil
         session[:gift_wrap].should be_nil
@@ -297,13 +296,13 @@ describe Checkout::CheckoutController do
         session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
       end
-      
+
       it "should redirect to order_show_path" do
         response.should redirect_to(order_show_path(:number => order.number))
         flash[:notice].should eq("Pagamento realizado com sucesso")
       end
     end
-      
+
     context "with invalid params" do
       before :each do
         PaymentBuilder.stub(:new).and_return(payment_builder = double(PaymentBuilder))
@@ -322,14 +321,14 @@ describe Checkout::CheckoutController do
       end
     end
   end
-  
+
   context "POST create_debit" do
     before :each do
       sign_in user_with_cpf
       session[:cart_id] = cart.id
       session[:cart_freight] = freight
     end
-    
+
     it "should render new_debit when has no params" do
       post :create_debit
       response.should render_template('new_debit')
@@ -346,7 +345,7 @@ describe Checkout::CheckoutController do
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Debit, :order => order)))
         post :create_debit, {:debit => debit_attributes}
       end
-      
+
       it "should clean the session order" do
         session[:cart_id].should be_nil
         session[:gift_wrap].should be_nil
@@ -354,13 +353,13 @@ describe Checkout::CheckoutController do
         session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
       end
-      
+
       it "should redirect to order_show_path" do
         response.should redirect_to(order_show_path(:number => order.number))
         flash[:notice].should eq("Link de pagamento gerado com sucesso")
       end
     end
-      
+
     context "with invalid params" do
       before :each do
         PaymentBuilder.stub(:new).and_return(payment_builder = double(PaymentBuilder))

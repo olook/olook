@@ -43,7 +43,8 @@ class Credit < ActiveRecord::Base
   end
   
   def description_for_loyalty
-    "Compra realizada em #{l self.created_at}. Crédito disponível de #{l self.activates_at} a #{l self.expires_at}"
+    # the "- 1.hour" is needed, because of DST (Daylight saving time). Ask Rafael for more information
+    "Compra realizada em #{l order.created_at}. Crédito disponível de #{l activates_at_with_dst_correction} a #{l expires_at_with_dst_correction}"
   end
   
   def description_for_redeem
@@ -57,4 +58,25 @@ class Credit < ActiveRecord::Base
   def l(date)
     I18n.localize date, :format => "%d/%m/%Y"
   end
+
+  private 
+
+    #
+    # These two methods are needed in order to avoid problems with Daylight Savin Time (dst - Horario de Verao).
+    # for activates_at:
+    # => inside the dst period, all activates_at created will be 1 hour past, so, the date 
+    # => (desconsidering the time) will be 1 day in the past
+    #
+    # for expires_at:
+    # => inside the dst period, all expires_at date created, will be 1 hour in the future, so the final date 
+    # => (desconsidering the time) will be 1 day in the future
+    #
+    # TO REMOVE THIS WE MUST BE SURE TO DISABLE ALL DST STUFF FROM MYSQL
+    def activates_at_with_dst_correction
+      self.activates_at + 4.hour
+    end
+
+    def expires_at_with_dst_correction
+      self.expires_at - 1.hour
+    end
 end

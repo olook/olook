@@ -6,6 +6,11 @@ class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
   def show
+    report  = CreditReportService.new(@user)
+    @amount_of_loyalty_credits = report.amount_of_loyalty_credits
+    @amount_of_invite_credits = report.amount_of_invite_credits
+    @redeem_credits  = report.amount_of_redeem_credits
+    @used_credits = report.amount_of_used_credits
   end
 
   def destroy
@@ -47,7 +52,7 @@ class Checkout::CartController < Checkout::BaseController
       end
     else
       respond_with do |format|
-        format.js { render :error, :locals => { :notice => "Por favor, selecione os atributos do produto." }}
+        format.js { render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }}
         format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     end
