@@ -47,20 +47,17 @@ class ProductFinderService
     options = args.extract_options!
     options[:collection] = current_collection unless options[:collection]
 
-    scope =  if @admin
-      options[:profile].products.joins(:variants).group("id").where(:collection_id => options[:collection]).order("id")
-    else
-      options[:profile].products.joins(:variants).group("id").only_visible.where(:collection_id => options[:collection]).order("id")
-    end
+    scope = (@admin ? Product : options[:profile].products.only_visible)
+    
+    scope = scope.joins('left outer join variants on products.id = variants.product_id')
+                .select("products.*, if(sum(distinct variants.inventory) > 0, 1, 0) as available_inventory, variants.inventory")
+                .where(collection_id: options[:collection])
+                .order('available_inventory desc, products.category asc')
+                .group('products.id').having(options[:not_allow_sold_out_products] ? "available_inventory = 1" : "")
 
     scope = scope.where(:category => options[:category]) if options[:category]
 
-    vt = Variant.arel_table
-
-    query = vt[:inventory].gt(0) if options[:not_allow_sold_out_products]
-    query = vt[:inventory].gt(0).and(vt[:description].eq(options[:description])) if options[:description]
-
-    scope = scope.where(query)
+    scope = scope.where(variants: {description: options[:description]}) if options[:description] and options[:category] == Category::SHOE
     scope.all
   end
 
