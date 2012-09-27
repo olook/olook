@@ -76,4 +76,18 @@ describe Address do
       FactoryGirl.build(:address, :first_name => "My", :last_name => "Home").identification.should eql("My Home")
     end
   end
+
+  describe "normalize street" do
+    it "should dont change the value of street when is greated one character" do
+      address = Address.new(:street => "ab")
+      address.valid?
+      address.street.should eq("ab")
+    end
+
+    it "should add suffix in the value of street when is one character" do
+      address = Address.new(:street => "a")
+      address.valid?
+      address.street.should eq("Rua a")
+    end
+  end
 end
