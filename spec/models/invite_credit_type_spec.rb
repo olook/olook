@@ -3,10 +3,11 @@ require 'spec_helper'
 describe InviteCreditType do
   let(:user) { FactoryGirl.create(:member) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
+  let(:order) {FactoryGirl.create(:order, :user => user)}
+  let(:amount) { BigDecimal.new("33.33") }
 
   describe "credit operations" do
-    let(:order) {FactoryGirl.create(:order, :user => user)}
-    let(:amount) { BigDecimal.new("33.33") }
+    
     let(:credit_parmas) {{:amount =>  amount, :order => order}}
 
     describe "adding credits" do
@@ -36,7 +37,6 @@ describe InviteCreditType do
         end
       end      
     end
-
   end
-
+  
 end

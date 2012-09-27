@@ -25,12 +25,27 @@ describe Checkout::CartController do
   
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
+
+    CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
+    CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
+    CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
+    CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
+
     get :show
     assigns(:cart_service).freight.should be_nil
+    assigns(:amount_of_loyalty_credits).should == 10
+    assigns(:amount_of_invite_credits).should == 10
+    assigns(:redeem_credits).should == 10
+    assigns(:used_credits).should eq(30)
   end
   
   context "when show" do
     it "should render show view" do
+      CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
+      CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
+      CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
+      CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
+      
       get :show
       response.should render_template ["layouts/site", "show"]
     end

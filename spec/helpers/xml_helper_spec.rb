@@ -52,6 +52,23 @@ describe XmlHelper do
         helper.full_category(product).should == "Sapato - peep toe"
       end
     end
+  end
 
+  describe "Categories for ilove_ecommerce" do
+    let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+
+    it "should return 12 for a basic_shoe" do
+      helper.get_ilove_category_for(basic_shoe).should == 12
+    end
+
+    it "should return 13 for a boot" do
+      basic_shoe.stub(:subcategory_name => "Bota")
+      helper.get_ilove_category_for(basic_shoe).should == 13
+    end
+
+    it "should return 14 for a sandal" do
+      basic_shoe.stub(:subcategory_name => "Sandália")
+      helper.get_ilove_category_for(basic_shoe).should == 14
+    end
   end
 end
