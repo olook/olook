@@ -46,7 +46,7 @@ gem 'yui-compressor'
 gem 'business_time'
 
 gem "rails-settings-cached"
-gem "equivalent-xml", " ~> 0.2.9"
+
 
 
 group :development do
@@ -55,6 +55,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "equivalent-xml", " ~> 0.2.9"
   gem 'sqlite3'
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 3.2.0'

@@ -11,27 +11,7 @@ namespace :deploy do
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
-    #bundle_install
-    #rake_tasks
-    #assets_tasks
     restart
-  end
-
-  desc 'Install gems'
-  task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without development test install"    
-  end
-
-  desc 'Run migrations, clean assets'
-  task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
-  end
-
-  desc 'Run assets clean and precompile'
-  task :assets_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -63,6 +43,8 @@ namespace :deploy do
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
+    run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
+    run "ps -e -o pid,command |grep unicorn |grep master"
   end
 end

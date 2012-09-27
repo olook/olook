@@ -525,6 +525,16 @@ div#my_account {
           padding: 0 0 12px;
         }
       }
+      p.earn_credits {
+        margin: 0 0 10px;
+        a {
+          color: $pink;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
       table {
         width: 100%;
         margin: 0 0 45px;

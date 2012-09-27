@@ -1,8 +1,11 @@
 role :app, "showroom.olook.com.br"
  
+<<<<<<< HEAD
 # server details
 set :rails_env, 'production'
 
+=======
+>>>>>>> 9d088b0ed204898068c095db2b8a71e04d1a584e
 # repo details
 set :branch, fetch(:branch, 'master')
 
@@ -25,6 +28,7 @@ namespace :deploy do
   desc 'Run migrations, clean assets'
   task :rake_tasks, :role => :app do
     run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
+<<<<<<< HEAD
     run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
@@ -32,6 +36,11 @@ namespace :deploy do
   task :assets_tasks, :role => :app do
     run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
     run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
+=======
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
+>>>>>>> 9d088b0ed204898068c095db2b8a71e04d1a584e
   end
 
   desc 'Create symlinks'

@@ -1,10 +1,10 @@
-role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br', 'app4.olook.com.br', 'app5.olook.com.br', 'app6.olook.com.br'
+role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
 role :db, 'app1.olook.com.br'
 role :web, 'app1.olook.com.br'
  
 # server details
 set :rails_env, 'production'
-
+#
 # repo details
 set :branch, fetch(:branch, 'master')
 
@@ -13,27 +13,7 @@ namespace :deploy do
   task :default, :role => [:app, :db] do
     update #capistrano internal default task
     yml_links
-    #bundle_install
-    #rake_tasks
-    #assets_tasks
     restart
-  end
-
-  desc 'Install gems'
-  task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without development test install"    
-  end
-
-  desc 'Run migrations'
-  task :rake_tasks, :role => :db do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}", :roles => :db
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
-  end
-
-  desc 'Run assets precompile'
-  task :assets_tasks, :role => :web do
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}", :roles => :web
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}", :roles => :web
   end
 
   desc 'Create symlinks'
@@ -65,6 +45,8 @@ namespace :deploy do
 
   desc 'Restart unicorn'
   task :restart, :roles => :app do
+    run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
+    run "ps -e -o pid,command |grep unicorn |grep master"
   end
 end

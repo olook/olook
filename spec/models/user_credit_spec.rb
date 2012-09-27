@@ -32,7 +32,7 @@ describe UserCredit do
     
     it "should run the total method" do
       date_time = DateTime.now
-      user_credit.credit_type.should_receive(:total).with(user_credit, date_time, :available).and_return(25.03)
+      user_credit.credit_type.should_receive(:total).with(user_credit, date_time, :available, anything).and_return(25.03)
       user_credit.total(date_time).should eq(25.03)
     end
 
@@ -75,7 +75,8 @@ describe UserCredit do
         
         Setting.loyalty_program_credits_available = false
 
-        UserCredit.should_receive(:add_invite_credits)
+        # UserCredit.should_receive(:add_invite_credits)
+        Resque.should_receive(:enqueue_in).with(1.minute, MailProductPurchasedByInviteeWorker, anything)
         UserCredit.should_not_receive(:add_loyalty_program_credits)
 
         invite.accept_invitation(invitee)

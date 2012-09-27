@@ -114,9 +114,11 @@ _gaq.push(['_addTrans',
             <% elsif @cart_service.total == @user.current_credit %>
               <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
             <% else %>
-              <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
+              <% if @cart.items.count > 0 %>
+                <p>O valor do seu pedido é inferior ao seu saldo e você receberá a diferença em créditos</p>
+              <% end %>
             <% end %>
-            <%#= link_to "Saiba mais sobre seus créditos", "#" %>
+            <%= link_to "Saiba mais sobre seus créditos", "#" %>
           <% end %>
         </td>
         <td class="value"><%= number_to_currency @user.current_credit %></td>
@@ -188,5 +190,5 @@ _gaq.push(['_addTrans',
     </tbody>
   </table>
   <%= render "shared/modal_login" %>
-  <%= render "credit_details" %>
+  <%= render "credit_details" if @user %>
 </section>

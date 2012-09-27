@@ -5,18 +5,22 @@ class CreditType < ActiveRecord::Base
 
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
-  def total(user_credit, date = DateTime.now, kind = :available)
-    positive = credit_sum(user_credit, date, 0, kind)
-    negative = credit_sum(user_credit, date, 1, kind)
+  def total(user_credit, date = DateTime.now, kind = :available, source=nil)
+    positive = credit_sum(user_credit, date, 0, kind, source)
+    negative = credit_sum(user_credit, date, 1, kind, source)
     total = (positive - negative)
   end
 
   #NOTICE: FOR ALL NORMAL CREDITS DOESN'T HAVE HOLDING
-  def credit_sum(user_credit, date, is_debit, kind)
+  def credit_sum(user_credit, date, is_debit, kind, source=nil)
     if (kind == :holding)
       0
     else
-      user_credit.credits.where("is_debit = ?", is_debit).sum(:value)
+      if source.nil?
+        user_credit.credits.where("is_debit = ?", is_debit).sum(:value)
+      else
+        user_credit.credits.where("is_debit = ? and source = ?", is_debit, source).sum(:value)
+      end
     end
   end
   
