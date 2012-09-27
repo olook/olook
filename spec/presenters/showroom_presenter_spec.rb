@@ -42,6 +42,7 @@ describe ShowroomPresenter do
     let(:fake_products) { Array.new(10, one_product) }
 
     before :each do
+      ProductFinderService.any_instance.stub(:admin)
       ProductFinderService.any_instance.stub(:products_from_all_profiles).and_return(fake_products)
     end
 
