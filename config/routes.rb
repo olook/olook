@@ -214,7 +214,8 @@ Olook::Application.routes.draw do
 
     resource :settings
 
-    resources :moip_callbacks, :only => :index
+    resources :moip_callbacks, :only => [:index, :show]
+    resources :payments, :only => [:index, :show]
 
   end
 
