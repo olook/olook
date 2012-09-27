@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  var moments_products = {
+  products: [
+              <%= products.map{ |item|
+                "{identifier: '#{item.id}'}"
+              }.join(', ') -%>
+            ]
+  };
+</script>
+
