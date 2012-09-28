@@ -29,6 +29,10 @@
     }(document, 'script', 'facebook-jssdk'));</script>
   <% end %>
 
+  <% content_for :top_my_account do %>
+    <%= link_to "Ir para o topo", "#", :id => "go_top" %>
+  <% end %>
+
   <div id="showroom">
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
