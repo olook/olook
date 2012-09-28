@@ -21,7 +21,10 @@ $(document).ready(function() {
     click = $(this);
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
-    var url = $(this).data('url');
+    c_id = "?" + (location.href.match(/c=\d+/)||"")
+
+    var url = $(this).data('url') + c_id;
+
     if(box.is(":visible") == false) {
       $("<div class='loading'></div>").insertBefore($(this));
       if ($(this).hasClass("loaded") == false) {

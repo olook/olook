@@ -40,7 +40,8 @@ class UserNotifier
     date = DateTime.now.end_of_month
     arr = []
     users_selected_by(:expires_at, date).find_each do |user|
-      arr << LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
+      response = LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
+      arr << response unless response.nil?
     end
     arr
   end

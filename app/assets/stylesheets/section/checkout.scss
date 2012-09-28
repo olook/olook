@@ -1,5 +1,7 @@
 @import 'partials/mixins';
 @import 'partials/address';
+@import 'partials/product';
+@import "partials/carousel_lookbooks";
 
 $border-color: #e5e5e5;
 
@@ -113,7 +115,11 @@ section#cart {
     font-family: $johnston;
     font-size: 28px;
     text-transform: uppercase;
-    margin: 0 0 15px;
+    margin: 10px 0 15px 0;
+    &+h2, &+h2+h2 {
+      font-family: $kepler;
+      font-size: 22px;
+    }
   }
   p.credits {
     background: #EEE;
@@ -164,13 +170,13 @@ section#cart {
       display: inline-block;
       float: left;
       &.item {
-        width: 425px;
+        width: 415px;
       }
       &.amount {
-        width: 405px;
+        width: 395px;
       }
       &.value {
-        width: 150px;
+        width: 155px;
       }
     }
   }
@@ -320,8 +326,8 @@ section#cart {
           }
         }
         &.item {
-          width: 290px;
-          padding-left: 15px;
+          width: 255px;
+          padding-left: 50px;
           border-left: 1px $border-color solid;
           img {
             width: 70px;
@@ -336,15 +342,6 @@ section#cart {
           select {
             width: 55px;
             margin-bottom: 10px;
-          }
-          input[type="submit"] {
-            background: image-url('cart/delete-item.jpg') no-repeat;
-            width: 62px;
-            height: 29px;
-            margin: 0 auto;
-            display: block;
-            border: none;
-            cursor: pointer;
           }
         }
         &.discount {
@@ -362,6 +359,7 @@ section#cart {
               text-align: center;
               display: table-cell;
               vertical-align: middle;
+              line-height: 15px;
               padding:0 12px 0 6px;
             }
           }
@@ -397,7 +395,8 @@ section#cart {
           }
         }
         &.value {
-          width: 105px;
+          position: relative;
+          width: 130px;
           padding-left: 25px;
           border-right: 1px $border-color solid;
           p {
@@ -407,6 +406,18 @@ section#cart {
             &.price_retail {
               font-size: 14px;
             }
+          }
+          input[type="submit"] {
+            position: absolute;
+            background: image-url('cart/delete-item.jpg') no-repeat;
+            width: 26px;
+            height: 26px;
+            margin: 0 auto;
+            display: block;
+            top: 10px;
+            right: 10px;
+            border: none;
+            cursor: pointer;
           }
         }
       }
@@ -432,7 +443,7 @@ section#cart {
           vertical-align: middle;
           padding: 20px 0;
           input[type="checkbox"] {
-            margin: 5px 17px 0;
+            margin: 5px 17px 0 55px;
             float: left;
           }
           h1 {
@@ -445,21 +456,22 @@ section#cart {
           }
           p {
             width: 665px;
-            margin: 0 0 0 48px;
+            margin: 0 0 0 85px;
             clear: both;
           }
           a {
             color: #e05789;
-            margin: 5px 0 0 48px;
+            margin: 5px 0 0 85px;
           }
           &.value {
             color: #df5a8b;
             font-family: $avenir;
             font-size: 18px;
             font-weight: normal;
-            text-align: right;
+            text-align: left;
             letter-spacing: -1px;
-            padding: 0 67px 0 0;
+            width: 178px;
+            padding: 0;
           }
         }
       }
@@ -488,15 +500,16 @@ section#cart {
           font-size: 18px;
           text-transform: uppercase;
           vertical-align: middle;
-          padding: 5px 0 5px 50px;
+          padding: 5px 0 5px 85px;
           &.value {
             p {
               float: right;
-              margin: 0 40px 0 0;
+              width: 178px;
+              margin: 0;
               &.limit {
                 width: 407px;
                 font-size: 12px;
-                margin: 12px 0 0 0;
+                margin: 12px 77px 0 0;
                 padding: 5px 0;
                 display: none;
                 &.show {
@@ -560,6 +573,73 @@ section#cart {
     height: 63px;
     display: block;
     float: right;
+  }
+
+  section {
+    margin: 40px 0 0;
+    > h1 {
+      font-family: $johnston;
+      font-size: 28px;
+      text-transform: uppercase;
+      margin: 0 0 15px;
+    }
+    &#shoes {
+      width: 100%;
+      overflow: hidden;
+      div#carousel {
+        position: relative;
+        width: 100%;
+        display: block;
+        clear: both;
+        margin: 10px 0 0 0;
+        float: left;
+        overflow: hidden;
+        ul.products_list {
+          position: relative;
+          left: 0px;
+          overflow: hidden;
+          li.product {
+            width: 170px;
+            height: 265px;
+            div.box_product {
+              a.product_link img {
+                width: 165px;
+                height: 165px;
+              }
+              h1 {
+                width: 165px;
+              }
+            }
+          }
+        }
+        div.caroufredsel_wrapper {
+          margin: 20px auto 0 auto !important;
+        }
+        a.arrow {
+          position: absolute;
+          background: url("/assets/product/arrows.jpg") 0 no-repeat;
+          text-indent: -9999px;
+          width: 42px;
+          height: 235px;
+          top: 0;
+          display: block;
+          &.product-prev {
+            background-position: 0;
+            left: 0;
+            &:hover {
+              background-position: -42px;
+            }
+          }
+          &.product-next {
+            background-position: -126px;
+            right: 0;
+            &:hover {
+              background-position: -84px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
