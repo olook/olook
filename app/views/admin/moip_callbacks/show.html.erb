@@ -61,6 +61,18 @@
   	<%= @moip_callback.error %>
   </p>
 
+  <p>
+    <% if @moip_callback.processed? %>
+      <%= form_tag(change_to_not_processed_admin_moip_callback_path(@moip_callback)) do -%>
+        <%= submit_tag 'Reprocess' -%>
+      <% end %>
+    <% else %>
+      <%= form_tag(change_to_processed_admin_moip_callback_path(@moip_callback)) do -%>
+        <%= submit_tag 'Mark as processed' -%>
+      <% end %>
+    <% end %>
+  </p>
+
 </div>
 
 <% content_for :secondary_navigation do %>
