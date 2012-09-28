@@ -71,5 +71,20 @@ FactoryGirl.define do
         product.variants << FactoryGirl.create(:basic_shoe_size_40)
       end
     end
+
+
+    factory :blue_sliper_with_two_variants do
+      name "Sliper"
+      description "Elegant black high-heeled shoe for executives"
+      category Category::SHOE
+      is_visible true
+      sequence :model_number do |n|
+        "CSH02A#{n}"
+      end
+      after_create do |product|
+        product.variants << FactoryGirl.create(:basic_shoe_size_35, number: '35AB')
+        product.variants << FactoryGirl.create(:basic_shoe_size_37, number: '37AB')
+      end
+    end
   end
 end
