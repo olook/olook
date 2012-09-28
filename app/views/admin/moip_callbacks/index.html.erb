@@ -37,15 +37,17 @@
       <th>ID</th>
       <th>Transaction</th>
       <th><%= sort_link @search, :processed %></th>
-      <th>Retries</th>
+      <th><%= sort_link @search, :retry %></th>
       <th>Status</th>
       <th><%= sort_link @search, :created_at %></th>
     </tr>
 
   <% @moip_callbacks.each do |moip_callback| %>
+    <% payment = Payment.find_by_identification_code(moip_callback.id_transacao) %>
     <tr>
-      <td><%= moip_callback.id %></td>
-      <td><%= moip_callback.id_transacao %></td>
+      <td><%= link_to moip_callback.id, admin_moip_callback_path(moip_callback) %></td>
+      <td><%= link_to moip_callback.id_transacao, admin_payment_path(payment) if payment %>
+          <%= moip_callback.id_transacao unless payment %></td>
       <td><%= moip_callback.processed %></td>
       <td><%= moip_callback.retry %></td>
       <td><%= payment_status(moip_callback.status_pagamento) %></td>

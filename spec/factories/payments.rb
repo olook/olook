@@ -26,6 +26,7 @@ FactoryGirl.define do
     url 'www.payment.com'
     receipt 'AVista'
     total_paid 12.34
+    identification_code 'abcd1234'
   end
 
   factory :payment do
