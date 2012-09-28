@@ -15,4 +15,12 @@ FactoryGirl.define do
       moip_callback.update_attribute(:id_transacao, moip_callback.payment.identification_code) 
     end    
   end
+
+  factory :processed_moip_callback, :parent => :clean_moip_callback do
+    processed true
+  end
+
+  factory :not_processed_moip_callback, :parent => :clean_moip_callback do
+    processed false
+  end
 end
