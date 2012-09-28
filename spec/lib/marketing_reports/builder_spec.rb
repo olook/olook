@@ -43,13 +43,13 @@ describe MarketingReports::Builder do
 
     it "calls FileUploader passing the csv" do
       MarketingReports::FileUploader.should_receive(:new).with(csv).and_return(mock.as_null_object)
-      subject.upload(filename)
+      subject.save_file(filename)
     end
 
-    it "calls copy_to_ftp on the file uploader with the passed filename and encoding" do
+    it "calls save_to_disk on the file uploader with the passed filename and encoding" do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:copy_to_ftp).with(filename,encoding)
-      subject.upload(filename,encoding)
+      uploader.should_receive(:save_to_disk).with(filename, encoding)
+      subject.save_file(filename, encoding)
     end
   end
 
