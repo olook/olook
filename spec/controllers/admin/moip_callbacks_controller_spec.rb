@@ -27,5 +27,12 @@ describe Admin::MoipCallbacksController do
   	end
   end
 
+  describe "GET show" do
 
+    it "should assign the requested moip_callback as @moip_callbacks" do
+      get :show, :id => moip_callback.id.to_s
+      assigns(:moip_callback).should eq(moip_callback)
+      assigns(:payment).should eq(moip_callback.payment)
+    end
+  end
 end
