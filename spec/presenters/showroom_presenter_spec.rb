@@ -42,6 +42,7 @@ describe ShowroomPresenter do
     let(:fake_products) { Array.new(10, one_product) }
 
     before :each do
+      ShowroomPresenter.any_instance.stub(:admin)
       ProductFinderService.any_instance.stub(:products_from_all_profiles).and_return(fake_products)
     end
 
@@ -67,15 +68,15 @@ describe ShowroomPresenter do
     describe 'specific methods' do
       let(:range) { (1..10) }
       it "#display_shoes" do
-        subject.should_receive(:display_products).with(range, Category::SHOE)
+        subject.should_receive(:display_products).with(range, Category::SHOE, anything)
         subject.display_shoes(range)
       end
       it "#display_bags" do
-        subject.should_receive(:display_products).with(range, Category::BAG)
+        subject.should_receive(:display_products).with(range, Category::BAG, anything)
         subject.display_bags(range)
       end
       it "#display_accessories" do
-        subject.should_receive(:display_products).with(range, Category::ACCESSORY)
+        subject.should_receive(:display_products).with(range, Category::ACCESSORY, anything)
         subject.display_accessories(range)
       end
     end
