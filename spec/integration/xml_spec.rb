@@ -34,9 +34,9 @@ feature "Show products on xml format" do
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <recommendable>3 x 33,30</recommendable>
+      <recommendable>3 x 33.30</recommendable>
       <instock>#{product.instock}</instock>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       </product>
       </products>
       END
@@ -62,7 +62,7 @@ feature "Show products on xml format" do
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable><#{ build_installment_text(product.retail_price)}</recommendable>
       <instock>#{product.instock}</instock>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       </product>
       </products>
       END
@@ -143,7 +143,7 @@ feature "Show products on xml format" do
         <descricao><![CDATA[#{ product.description}]]></descricao>
         <preco_de><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.price, :precision => 2) }]]></preco_de>
         <preco_por><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}]]></preco_por>
-        <parcelamento><![CDATA[3 x 33,30]]></parcelamento>
+        <parcelamento><![CDATA[3 x 33.30]]></parcelamento>
         <imagens>
         </imagens>
         <num_tams>
@@ -157,33 +157,6 @@ feature "Show products on xml format" do
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
-
-
-  context "in the adroll xml page" do
-    scenario "I want to see products of adroll" do
-      visit adroll_path
-      result = Nokogiri::XML(page.source)
-      content= <<-END.gsub(/^ {6}/, '')
-      <?xml version="1.0" encoding="UTF-8"?>
-      <products>
-      <product id="#{product.id}">
-      <name>#{product.name}</name>
-      <smallimage></smallimage>
-      <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=adroll</producturl>
-      <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
-      <recommendable>#{ build_installment_text(product.retail_price) }</recommendable>
-      <instock>#{product.instock}</instock>
-      <category>#{product.category}</category>
-      </product>
-      </products>
-      END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
-    end
-  end
 
   context "in the topster xml page" do
 
@@ -208,7 +181,7 @@ feature "Show products on xml format" do
       <descricao><![CDATA[#{ product.description}]]></descricao>
       <preco_de><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.price, :precision => 2) }]]></preco_de>
       <preco_por><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}]]></preco_por>
-      <parcelamento><![CDATA[3 x 33,30]]></parcelamento>
+      <parcelamento><![CDATA[3 x 33.30]]></parcelamento>
       <imagens>
       </imagens>
       <num_tams>
@@ -234,18 +207,21 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=net_affiliation</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=compradores&amp;utm_content=6691&amp;utm_medium=vitrine&amp;utm_source=net_affiliation</producturl>
       <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
+      <price>#{number_with_precision(product.retail_price, precision: 2, separator: ",")}</price>
+      <retailprice>#{number_with_precision(product.price, precision: 2, separator: ",")}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <recommendable>#{build_installment_text(product.retail_price)}</recommendable>
+      <recommendable>#{build_installment_text(product.retail_price, separator: ",")}</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category_humanize}</category>
       </product>
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
+      puts result
+      puts "+++++++++++"
+      puts equivalent_content
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
