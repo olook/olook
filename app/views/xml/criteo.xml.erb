@@ -12,7 +12,7 @@
 <discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
 <recommendable><%= build_installment_text(product.retail_price) %></recommendable>
 <instock><%= product.instock %></instock>
-<category><%= product.category %></category>
+<category><%= product.category_humanize %></category>
 </product>
 <% end %>
 </products>
