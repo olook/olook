@@ -8,7 +8,7 @@ describe OrderHelper do
   end
 
   it "should return the tracking code link for TEX" do
-    expected = "http://tracking.totalexpress.com.br/poupup_track.php?reid=1537&pedido=#{subject.number}&nfiscal=#{subject.invoice_number}"
+    expected = "http://tracking.totalexpress.com.br/poupup_track.php?reid=1767&pedido=#{subject.number}&nfiscal=#{subject.invoice_number}"
     helper.link_to_tracking_code(subject).should == expected
   end
 

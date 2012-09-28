@@ -13,14 +13,13 @@ class ShowroomPresenter < BasePresenter
     end
   end
 
-  def collection_name
-   Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
+  def collection_name(collection = Collection.active)
+    collection.try(:name) || I18n.l(Date.today, :format => '%B')
   end
 
   def display_products(asked_range, category, collection = Collection.active)
-    product_finder_service = ProductFinderService.new member
+    product_finder_service = ProductFinderService.new member, admin, collection
     products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection)
-
     range = parse_range(asked_range, products)
 
     output = ''
@@ -34,16 +33,16 @@ class ShowroomPresenter < BasePresenter
     h.raw output
   end
 
-  def display_shoes(asked_range)
-    display_products(asked_range, Category::SHOE)
+  def display_shoes(asked_range, collection = Collection.active)
+    display_products(asked_range, Category::SHOE, collection)
   end
 
-  def display_bags(asked_range)
-    display_products(asked_range, Category::BAG)
+  def display_bags(asked_range, collection = Collection.active)
+    display_products(asked_range, Category::BAG, collection)
   end
 
-  def display_accessories(asked_range)
-    display_products(asked_range, Category::ACCESSORY)
+  def display_accessories(asked_range, collection = Collection.active)
+    display_products(asked_range, Category::ACCESSORY, collection)
   end
 
   def welcome_message(time = Time.now.hour)

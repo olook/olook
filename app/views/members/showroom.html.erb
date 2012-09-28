@@ -1,4 +1,5 @@
-<% present 'Showroom', :member => @user  do |showroom_presenter| %>
+<% present 'Showroom', :member => @user, :admin => current_admin, :collection => @collection  do |showroom_presenter| %>
+
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/showroom" %>
   <% end %>
@@ -38,9 +39,9 @@
       <%= render "members/showroom_lookbooks", :lookbooks => @lookbooks %>
     </section>
 
-    <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter} %>
-    <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter} %>
-    <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter} %>
+    <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter, :collection => @collection} %>
+    <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter, :collection => @collection} %>
+    <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter, :collection => @collection} %>
     <%= render "shared/metrics/boobox/members" %>
   </div>
   <% if user_signed_in? %>

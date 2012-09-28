@@ -24,10 +24,11 @@
       <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
       <td><%= product.model_number %></td>
       <td><%= number_to_currency product.price %></td>
-      <td><%= product.is_visible? ? 'Yes' : 'No' %></td> 
+      <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= product.category_humanize %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
+      <td><%= link_to "Preview", product_path(product), :target => "_blank" %></td>
       <td><%= link_to 'Show', admin_product_path(product), :class => 'button' %></td>
       <td><%= link_to 'Edit', edit_admin_product_path(product), :class => 'button' %></td>
     </tr>
