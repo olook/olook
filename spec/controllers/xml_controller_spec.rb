@@ -6,7 +6,7 @@ describe XmlController do
     let!(:product_with_variant) { FactoryGirl.create :blue_sliper_with_variants }
 
     it "gets only products for xml" do
-      Product.should_receive(:valid_for_xml)
+      Product.should_receive(:valid_criteo_for_xml)
       get :criteo
     end
 
