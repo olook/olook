@@ -28,6 +28,9 @@
 
   </head>
   <body class="<%= user_signed_in? ? 'logged' : '' %>">
+    
+    <%= render 'shared/admin_label' if current_admin %>
+
     <div id="modal"></div>
     <div id="error-messages">
       <p class="notice"><%= notice %></p>

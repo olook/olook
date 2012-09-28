@@ -1,13 +1,19 @@
 class ProductFinderService
   attr_reader :user
 
-  def initialize(user)
+  def initialize(user, admin=nil, collection=nil)
     @user = user
+    @admin = admin
+    @collection = collection
+  end
+
+  def current_collection
+    @collection || Collection.active
   end
 
   def showroom_products(*args)
     options = args.extract_options!
-    options[:collection] = Collection.active unless options[:collection]
+    options[:collection] = current_collection unless options[:collection]
 
     categories = options[:category].nil? ? Category.list_of_all_categories : [options[:category]]
     results = []
@@ -24,7 +30,7 @@ class ProductFinderService
 
   def products_from_all_profiles(*args)
     options = args.extract_options!
-    options[:collection] = Collection.active unless options[:collection]
+    options[:collection] = current_collection unless options[:collection]
 
     result = []
     user.profile_scores.each do |profile_score|
@@ -39,17 +45,19 @@ class ProductFinderService
 
   def profile_products(*args)
     options = args.extract_options!
-    options[:collection] = Collection.active unless options[:collection]
+    options[:collection] = current_collection unless options[:collection]
 
-    scope = options[:profile].products.joins(:variants).group("id").only_visible.where(:collection_id => options[:collection]).order("id")
+    scope = (@admin ? Product : options[:profile].products.only_visible)
+    
+    scope = scope.joins('left outer join variants on products.id = variants.product_id')
+                .select("products.*, if(sum(distinct variants.inventory) > 0, 1, 0) as available_inventory, variants.inventory")
+                .where(collection_id: options[:collection])
+                .order('available_inventory desc, products.category asc')
+                .group('products.id').having(options[:not_allow_sold_out_products] ? "available_inventory = 1" : "")
+
     scope = scope.where(:category => options[:category]) if options[:category]
 
-    vt = Variant.arel_table
-
-    query = vt[:inventory].gt(0) if options[:not_allow_sold_out_products]
-    query = vt[:inventory].gt(0).and(vt[:description].eq(options[:description])) if options[:description]
-
-    scope = scope.where(query)
+    scope = scope.where(variants: {description: options[:description]}) if options[:description] and options[:category] == Category::SHOE
     scope.all
   end
 

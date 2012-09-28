@@ -130,13 +130,18 @@ class Product < ActiveRecord::Base
     @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
   end
 
-  def colors(size = nil)
-    if size and self.category == Category::SHOE
-      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(is_visible: true, category: self.category, name: self.name, variants: {description: size}).order('variants.inventory desc, sum(variants.inventory) desc').group(:product_id)
-    else
-      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(is_visible: true, category: self.category, name: self.name).order('sum(variants.inventory) desc').group(:product_id)
-    end
+  def colors(size = nil, admin = false)
+    is_visible = (admin ? [0,1] : true)
+    conditions = {is_visible: is_visible, category: self.category, name: self.name}
+    conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+    Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
+          .joins('left outer join variants on products.id = variants.product_id')
+          .where(conditions)
+          .where("products.id != ?", self.id)
+          .group('products.id')
+          .order('variants.inventory desc, available_inventory desc')
   end
+
 
   def all_colors
     ([self] + self.colors).sort_by {|product| product.id }
