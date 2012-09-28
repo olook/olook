@@ -1,23 +1,24 @@
 # -*- encoding : utf-8 -*-
 class FacebookDataService
+  include Celluloid
 
-  def generate_facebook_friends_birthdays_csv_list
-    #fb_tokens = facebook_tokens
-    birthdays = friends_birthdays(facebook_users)
-    format_to_csv(birthdays)
-  end
-
-  private
+  # def generate_facebook_friends_birthdays_csv_list(user)
+  #   #fb_tokens = facebook_tokens
+  #   # users.find_each do |user|
+  #   birthdays = friends_birthdays(user)
+  #   format_to_csv(birthdays) unless birthdays.empty?
+  #   # end
+  # end
   # Retrieves all facebook tokens present in the database
-  def facebook_users
+  def self.facebook_users
     User.where("facebook_token IS NOT NULL")
   end
 
   # Retrieves all facebook friends' birthdays of the given users
-  def friends_birthdays users    
+  def friends_birthdays users
     birthdays = []
-    users.find_each do |user|
-      puts user.facebook_token
+    users.each do |user|
+      puts "processing #{user.name}"
       begin
         friends = FacebookAdapter.new(user.facebook_token).facebook_friends_with_birthday(DateTime.now.month)
         friends.each do |friend|
@@ -27,14 +28,15 @@ class FacebookDataService
           friend_hash["friend_email"] = user.email
           birthdays << friend_hash
         end
-      rescue Koala::Facebook::APIError
-        p "expired token!"
+      rescue => e
+        puts "#{user.email} - #{e.message}"
       end
     end
+
     birthdays
   end
 
-  def format_to_csv hashes
+  def self.format_to_csv hashes
     fields = hashes.first.keys
 
     # mounts header
