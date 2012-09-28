@@ -59,7 +59,6 @@ Olook::Application.routes.draw do
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
-  match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
   match "/topster", :to => "xml#topster", :as => "topster", :defaults => { :format => 'xml' }
   match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
   match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
