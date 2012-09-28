@@ -6,25 +6,25 @@ describe XmlHelper do
 
     context "when the product price is equal to 24.90" do
       it "returns the number of installments and the value of each installment" do
-         helper.build_installment_text(BigDecimal.new("24.90")).should == "1 x 24,90"
+         helper.build_installment_text(BigDecimal.new("24.90")).should == "1 x 24.90"
       end
     end
 
     context "when product price is equal to 69.90" do
       it "returns the number of installments and the value of each installment" do
-         helper.build_installment_text(BigDecimal.new("69.90")).should == "2 x 34,95"
+         helper.build_installment_text(BigDecimal.new("69.90")).should == "2 x 34.95"
       end
     end
 
     context "when product price is equal to 99.90" do
       it "returns the number of installments and the value of each installment" do
-         helper.build_installment_text(BigDecimal.new("99.90")).should == "3 x 33,30"
+         helper.build_installment_text(BigDecimal.new("99.90")).should == "3 x 33.30"
       end
     end
 
     context "when product price is equal to 129.90" do
       it "returns the number of installments and the value of each installment" do
-        helper.build_installment_text(BigDecimal.new("129.90")).should == "4 x 32,48"
+        helper.build_installment_text(BigDecimal.new("129.90")).should == "4 x 32.48"
       end
     end
 
