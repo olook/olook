@@ -219,9 +219,6 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-      puts result
-      puts "+++++++++++"
-      puts equivalent_content
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
@@ -272,9 +269,9 @@ context "in the ilove_ecommerce xml page" do
       <produto>
       <codigo>#{product.id}</codigo>
       <descricao>#{product.description}</descricao>
-      <preco>99,9</preco>
+      <preco>99,90</preco>
       <nparcela>#{ build_installment_text(product.retail_price).chars.first }</nparcela>
-      <vparcela>#{ build_installment_text(product.retail_price).split("x").last }</vparcela>
+      <vparcela>#{ build_installment_text(product.retail_price, separator: ",").split("x").last }</vparcela>
       <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>
       <url_imagem></url_imagem>
       <Frete>Sim</Frete>
