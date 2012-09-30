@@ -1,5 +1,7 @@
 $(document).ready(function() {
   ShowroomInit.slideProductAnchor();
+  ShowroomInit.showSlideToTop();
+  ShowroomInit.slideToTop();
 
   $("section#greetings div.facebook h1 a").live("click", function(e) {
     e.preventDefault();
@@ -53,15 +55,15 @@ $(document).ready(function() {
   });
 
   $("div.facebook.connected ul").carouFredSel({
+    auto: false,
     height: 40,
     width: 540,
     align: 'left',
-    auto: false,
     prev : {
-      button : ".carousel-prev-fb",
+      button : ".carousel-prev-fb"
     },
     next : {
-      button : ".carousel-next-fb",
+      button : ".carousel-next-fb"
     }
   });
 
