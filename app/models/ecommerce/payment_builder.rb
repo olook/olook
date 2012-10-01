@@ -176,7 +176,8 @@ class PaymentBuilder
       :estado => delivery_address.state,
       :pais => delivery_address.country,
       :cep => delivery_address.zip_code,
-      :tel_fixo => remove_nine_digits_of_telphone(delivery_address.telephone),
+      :tel_fixo => remove_nine_digits_of_telphone(delivery_address.telephone) || remove_nine_digits_of_telphone(delivery_address.mobile),
+      :tel_cel => delivery_address.mobile
     }
     data
   end
@@ -204,11 +205,11 @@ class PaymentBuilder
 
   private
   
-  def remove_nine_digits_of_telphone(telphone)
-    if(telphone =~ /\(11\)9\d{4}-\d{4}/)
-      telphone.gsub!("(11)9","(11)")
+  def remove_nine_digits_of_telphone(telephone)
+    if(telephone =~ /\(11\)9\d{4}-\d{3,4}/)
+      telephone.gsub!("(11)9","(11)")
     end
-    telphone
+    telephone
   end
 
   def billet_expiration_date
