@@ -206,7 +206,7 @@ class PaymentBuilder
   private
   
   def remove_nine_digits_of_telphone(telephone)
-    if(telephone =~ /\(11\)9\d{4}-\d{3,4}/)
+    if(telephone =~ /^\(11\)9\d{4}-\d{4}$/)
       telephone.gsub!("(11)9","(11)")
     end
     telephone
