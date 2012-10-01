@@ -2,25 +2,25 @@ $(function() {
   initEarnCredits.toggleEmailBox();
   initEarnCredits.addTriggerToFacebook();
 
-  $("section#right div.link_mail ul li a").zclip({
+  $("section#left div.link_mail ul li a").zclip({
     path: "/assets/ZeroClipboard.swf",
-    copy: function() { return $("section#right div.link_mail ul li input").val(); },
+    copy: function() { return $("section#left div.link_mail ul li input").val(); },
     afterCopy: function(){
-      $("section#right div.link_mail div.box_copy").fadeIn().delay(2000).fadeOut();
+      $("section#left div.link_mail div.box_copy").fadeIn().delay(2000).fadeOut();
     }
   });
 });
 
 initEarnCredits = {
   toggleEmailBox : function() {
-    $("section#right div.social ul li a").live("click", function() {
+    $("section#left div.social ul li a").live("click", function() {
       type = $(this).parent().attr("class");
       if(type != "email") {
-        $("section#right div.social ul li a").removeClass("selected");
-        $("section#right div.social form").slideUp();
+        $("section#left div.social ul li a").removeClass("selected");
+        $("section#left div.social form").slideUp();
       } else {
         $(this).addClass("selected");
-        $("section#right div.social form").slideDown();
+        $("section#left div.social form").slideDown();
         $("html, body").animate({
           scrollTop: "200px"
         }, 'slow');
@@ -30,6 +30,6 @@ initEarnCredits = {
   },
 
   addTriggerToFacebook : function() {
-    $("section#right div.social ul li.facebook a").attr("id", "facebook_post_wall");
+    $("section#left div.social ul li.facebook a").attr("id", "facebook_post_wall");
   }
 }
