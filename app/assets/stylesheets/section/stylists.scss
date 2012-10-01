@@ -116,61 +116,52 @@ section#stylist {
           background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
           width: 185px;
           height: 56px;
-          top: 175px;
+          top: 135px;
           right: 15px;
           z-index: 10;
         }
-        a#bilimbi {
-          background: url("/assets/stylist/helena_linhares/bilimbi.jpg") top center no-repeat;
+        a#xavante {
+          background: url("/assets/stylist/helena_linhares/xavante.jpg") top center no-repeat;
           text-align: center;
-          width: 139px;
-          height: 160px;
-          padding: 20px 0 0 0;
+          width: 152px;
+          height: 143px;
           top: 0;
           left: 20px;
+          padding: 35px 0 0 0;
         }
-        a#albizia {
-          background: url("/assets/stylist/helena_linhares/albizia.png") top right no-repeat;
-          width: 224px;
-          height: 125px;
-          padding: 45px 0 0 20px;
-          top: -18px;
-          right: 0;
+        a#carijo {
+          background: url("/assets/stylist/helena_linhares/carijo.png") top right no-repeat;
+          width: 235px;
+          height: 30px;
+          top: -15px;
+          right: -20px;
+          padding: 100px 15px 0 0;
         }
-        a#flamboyant {
-          background: url("/assets/stylist/helena_linhares/flamboyant.jpg") bottom left no-repeat;
+        a#katukina {
+          background: url("/assets/stylist/helena_linhares/katukina.jpg") top left no-repeat;
           text-align: right;
-          width: 230px;
-          height: 81px;
-          padding: 0 0 22px 5px;
-          top: 180px;
-          left: 10px;
-          z-index: 2;
+          width: 95px;
+          height: 110px;
+          top: 210px;
+          right: 65px;
+          padding: 35px 0 0 60px;
         }
-        a#cipreste {
-          background: url("/assets/stylist/helena_linhares/cipreste.jpg") top right no-repeat;
-          width: 160px;
-          height: 102px;
-          padding: 60px 20px 0 0;
-          top: 260px;
-          left: 170px;
-          z-index: 1;
-        }
-        a#pequi {
-          background: url("/assets/stylist/helena_linhares/pequi.jpg") top left no-repeat;
-          width: 205px;
-          height: 75px;
-          padding: 110px 0 0 20px;
-          bottom: 0px;
-          left: 0px;
-        }
-        a#juazeiro {
-          background: url("/assets/stylist/helena_linhares/juazeiro.png") top right no-repeat;
-          width: 179px;
-          height: 101px;
-          padding: 140px 60px 0 0;
-          bottom: -20px;
+        a#pareci {
+          background: url("/assets/stylist/helena_linhares/pareci.png") bottom right no-repeat;
+          text-align: right;
+          width: 200px;
+          height: 142px;
+          bottom: 0;
           right: -25px;
+          padding: 0 40px 35px 0;
+        }
+        a#atikum {
+          background: url("/assets/stylist/helena_linhares/atikum.jpg") top right no-repeat;
+          width: 206px;
+          height: 267px;
+          bottom: 0;
+          left: 20px;
+          padding: 10px 0 0 0;
         }
       }
     }
