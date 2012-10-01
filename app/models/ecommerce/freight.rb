@@ -24,7 +24,5 @@ class Freight < ActiveRecord::Base
     self.zip_code     = address.zip_code
     self.telephone    = address.telephone
     self.mobile       = address.mobile
-
-    self.telephone = mobile.gsub('(11)9','(11)') if telephone.blank? and mobile =~ /^(?:\(11\)9\d{4}-\d{4})$/
   end
 end
