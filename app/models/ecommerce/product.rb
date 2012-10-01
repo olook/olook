@@ -145,8 +145,8 @@ class Product < ActiveRecord::Base
   end
 
 
-  def all_colors
-    ([self] + self.colors).sort_by {|product| product.id }
+  def all_colors(size = nil, admin = false)
+    ([self] | colors(size, admin)).sort_by {|product| product.id }
   end
 
   def easy_to_find_description

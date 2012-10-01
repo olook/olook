@@ -53,15 +53,15 @@ $(document).ready(function() {
   });
 
   $("div.facebook.connected ul").carouFredSel({
+    auto: false,
     height: 40,
     width: 540,
     align: 'left',
-    auto: false,
     prev : {
-      button : ".carousel-prev-fb",
+      button : ".carousel-prev-fb"
     },
     next : {
-      button : ".carousel-next-fb",
+      button : ".carousel-next-fb"
     }
   });
 
