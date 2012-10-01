@@ -1,14 +1,11 @@
 AssetSync.configure do |config|
   config.fog_provider = 'AWS'
-  #config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
   config.aws_access_key_id = 'AKIAJ2WH3XLYA24UTAJQ'
-  #config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
   config.aws_secret_access_key = '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'
-  #config.fog_directory = ENV['FOG_DIRECTORY']
-  if Rails.env.production?
-    bucket = 'cdn-app'
+  if Rails.env.staging?
+    bucket = 'cdn-app-staging.olook.com.br'
   else
-    bucket = 'cdn-app-staging'
+    bucket = 'cdn-app.olook.com.br'
   end
 
   config.fog_directory = bucket 

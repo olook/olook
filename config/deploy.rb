@@ -37,7 +37,6 @@ trap("INT") {
 namespace :log do
   desc "Tail all application log files"
   task :tail, :roles => :web do
-
     run "tail -f #{path_log}" do |channel, stream, data|
       puts "\033[0;33m#{stage}:\033[0m #{data}"
       break if stream == :err
@@ -45,5 +44,16 @@ namespace :log do
   end
 end
 
+namespace :unicorn do
+  desc "Shows the pid of unicorn master process"
+  task :pidof, :roles => [:app,:web] do
+    run "ps fax |grep -v grep |grep 'unicorn_rails master' |awk '{print $1}'" do |x, y, pid|
+      puts "\033[0;33m#{stage}:\33[0m \033[0;31m#{pid}\33[0m"
+    end
+  end
+end
+
 after 'deploy:update', 'newrelic:notice_deployment'
+before 'deploy:restart', 'unicorn:pidof'
+after 'deploy:restart', 'unicorn:pidof'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
