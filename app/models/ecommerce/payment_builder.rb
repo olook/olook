@@ -205,9 +205,9 @@ class PaymentBuilder
 
   private
   
-  def remove_nine_digits_of_telephone(telephone)
-    telephone.gsub!("(11)9","(11)") if telephone =~ /^\(11\)9\d{4}-\d{4}$/
-    telephone
+  def remove_nine_digits_of_telephone(phone_number)
+    phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
+    phone_number
   end
 
   def billet_expiration_date
