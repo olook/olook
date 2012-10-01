@@ -51,6 +51,44 @@ $(function() {
     initBase.modal(content);
     e.preventDefault();
   });
+
+  if($("div#carousel").size() > 0) {
+    $("div#carousel ul.products_list").carouFredSel({
+      auto: false,
+      width: 760,
+      items: {
+        visible: 4
+        },
+      prev : {
+        button : ".product-prev",
+        items : 4
+      },
+      next : {
+        button : ".product-next",
+        items : 4
+      }
+    });
+  }
+
+  if($("div#carousel_lookbooks").size() > 0) {
+    $("div#carousel_lookbooks ul").carouFredSel({
+      auto: false,
+      width: 970,
+      items: 3,
+      prev : {
+        button : ".prev-lookbook",
+        items : 1
+      },
+      next : {
+        button : ".next-lookbook",
+        items : 1
+      },
+      pagination: {
+        container : "div#carousel_lookbooks .pagination",
+        items : 1
+      }
+    });
+  }
 });
 
 
