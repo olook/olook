@@ -6,6 +6,8 @@ $(document).ready(function() {
   initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
   initBase.showInfoCredits();
+  initBase.showSlideToTop();
+  initBase.slideToTop();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -563,7 +565,6 @@ initBase = {
       } else {
         var link_width = 125;
       }
-      console.log(link_width);
       $(this).find('div.my_account').css('width', link_width - 4);
       $(link).addClass('hover');
     }, function() {
@@ -580,6 +581,25 @@ initBase = {
       content = initBase.youtubePlayer(youtube_id);
       content += title;
       initBase.modal(content);
+      e.preventDefault();
+    });
+  },
+
+  showSlideToTop : function() {
+    $(window).scroll(function() {
+      if($(window).scrollTop() > 440) {
+        $('a#go_top').fadeIn();
+      } else {
+        $('a#go_top').fadeOut();
+      }
+    });
+  },
+
+  slideToTop :function() {
+    $('a#go_top').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 'fast');
       e.preventDefault();
     });
   }

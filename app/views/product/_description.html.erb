@@ -9,7 +9,7 @@
       <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
       <li class="facebook"><%= link_to "Facebook", "#" %></li>
       <li class="pinterest">
-        <%= link_to "Pinterest", "http://pinterest.com/pin/create/button/?url=http://#{request.host_with_port}/produto/#{@product.id}&media=#{@product.pictures.first.image_url(:main).to_s}&description=#{share_description(@product)}", :class => "pin-it-button", :"count-layout" => "none" %>
+        <%= link_to "Pinterest", product_presenter.display_main_picture, :class => "pin-it-button", :"count-layout" => "none" %>
       </li>
       <!--li class="email last"><%= link_to "Email", "#" %></li-->
     </ul>
