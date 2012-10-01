@@ -11,7 +11,7 @@ class PaymentBuilder
     payment.total_paid = @cart_service.total
     payment.user_id = cart_service.cart.user.id
     payment.save!
-    
+
     ActiveRecord::Base.transaction do
       total_olooklet = cart_service.total_discount_by_type(:olooklet)
       total_gift = cart_service.total_discount_by_type(:gift)
@@ -28,22 +28,22 @@ class PaymentBuilder
       if payment.gateway_response_status == Payment::SUCCESSFUL_STATUS
         #NAO EH A MESMA COISA !!
         if payment.gateway_transaction_status != Payment::CANCELED_STATUS
-          
+
           order = cart_service.generate_order!
           payment.order = order
           payment.calculate_percentage!
           payment.deliver! if payment.kind_of?(CreditCard)
           payment.deliver! if payment.kind_of?(Debit)
           payment.save!
-          
+
           order.line_items.each do |item|
             variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
             variant.decrement!(:inventory, item.quantity)
           end
-          
+
           if total_olooklet > 0
             olooklet_payment = OlookletPayment.create!(
-              :total_paid => total_olooklet, 
+              :total_paid => total_olooklet,
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
@@ -51,10 +51,10 @@ class PaymentBuilder
             olooklet_payment.deliver!
             olooklet_payment.authorize!
           end
-          
+
           if total_gift > 0
             gift_payment = GiftPayment.create!(
-              :total_paid => total_gift, 
+              :total_paid => total_gift,
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
@@ -62,11 +62,11 @@ class PaymentBuilder
             gift_payment.deliver!
             gift_payment.authorize!
           end
-          
+
 
           if total_coupon > 0
             coupon_payment = CouponPayment.create!(
-              :total_paid => total_coupon, 
+              :total_paid => total_coupon,
               :coupon_id => cart_service.coupon.id,
               :order => order,
               :user_id => payment.user_id,
@@ -79,7 +79,7 @@ class PaymentBuilder
 
           if total_promotion > 0
             promotion_payment = PromotionPayment.create!(
-              :total_paid => total_promotion, 
+              :total_paid => total_promotion,
               :promotion_id => cart_service.promotion.id,
               :order => order,
               :user_id => payment.user_id,
@@ -92,8 +92,8 @@ class PaymentBuilder
 
           if total_credits > 0
             credit_payment = CreditPayment.create!(
-              :credit_type_id => CreditType.find_by_code!(:loyalty_program).id, 
-              :total_paid => total_credits, 
+              :credit_type_id => CreditType.find_by_code!(:loyalty_program).id,
+              :total_paid => total_credits,
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
@@ -104,8 +104,8 @@ class PaymentBuilder
 
           if total_credits_invite > 0
             credit_payment_invite = CreditPayment.create!(
-              :credit_type_id => CreditType.find_by_code!(:invite).id, 
-              :total_paid => total_credits_invite, 
+              :credit_type_id => CreditType.find_by_code!(:invite).id,
+              :total_paid => total_credits_invite,
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
@@ -116,16 +116,16 @@ class PaymentBuilder
 
           if total_credits_redeem > 0
             credit_payment_redeem = CreditPayment.create!(
-              :credit_type_id => CreditType.find_by_code!(:redeem).id, 
-              :total_paid => total_credits_redeem, 
+              :credit_type_id => CreditType.find_by_code!(:redeem).id,
+              :total_paid => total_credits_redeem,
               :order => order,
               :user_id => payment.user_id,
               :cart_id => @cart_service.cart.id)
             credit_payment_redeem.calculate_percentage!
             credit_payment_redeem.deliver!
             credit_payment_redeem.authorize!
-          end          
-          
+          end
+
           respond_with_success
         else
           respond_with_failure
@@ -204,8 +204,9 @@ class PaymentBuilder
   end
 
   private
-  
+
   def remove_nine_digits_of_telephone(phone_number)
+    return false if phone_number.blank?
     phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
     phone_number
   end
