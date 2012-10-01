@@ -182,53 +182,53 @@ section#stylist {
           background: url("/assets/stylist/didi_wagner/as-escolhas-da-didi.jpg") no-repeat;
           width: 259px;
           height: 71px;
-          top: 100px;
+          top: 130px;
           right: 20px;
         }
-        a#araucaria {
-          background: url("/assets/stylist/didi_wagner/araucaria.png") top center no-repeat;
+        a#loureiro {
+          background: url("/assets/stylist/didi_wagner/loureiro.png") top center no-repeat;
           text-align: center;
-          width: 162px;
-          height: 142px;
+          width: 163px;
+          height: 238px;
           top: 0;
-          left: -12px;
-          padding: 90px 0 0;
+          left: -20px;
+          padding: 10px 0 0 0;
         }
-        a#araca {
-          background: url("/assets/stylist/didi_wagner/araca.png") top right no-repeat;
-          width: 237px;
-          height: 90px;
-          top: -25px;
-          right: 10px;
-          padding: 35px 10px 0 0;
+        a#guamirim {
+          background: url("/assets/stylist/didi_wagner/guamirim.png") top right no-repeat;
+          width: 110px;
+          height: 100px;
+          top: 0;
+          right: -10px;
+          padding: 15px 170px 0 0;
         }
-        a#macieira {
-          background: url("/assets/stylist/didi_wagner/macieira.png") top center no-repeat;
+        a#marmeleiro {
+          background: url("/assets/stylist/didi_wagner/marmeleiro.jpg") top left no-repeat;
+          text-align: right;
+          width: 195px;
+          height: 265px;
+          bottom: 0;
+          right: 15px;
+          padding: 10px 0 0 10px;
+        }
+        a#sobreiro {
+          background: url("/assets/stylist/didi_wagner/sobreiro.jpg") top center no-repeat;
           text-align: center;
-          width: 143px;
+          width: 149px;
           height: 35px;
-          top: 200px;
-          right: 130px;
-          padding: 55px 0 0;
+          bottom: 145px;
+          left: 140px;
+          padding: 115px 0 0 0;
           z-index: 1;
         }
-        a#abrico {
-          background: url("/assets/stylist/didi_wagner/abrico.jpg") bottom left no-repeat;
+        a#copuacu {
+          background: url("/assets/stylist/didi_wagner/copuacu.jpg") top left no-repeat;
           text-align: right;
-          width: 209px;
-          height: 208px;
-          bottom: 0;
-          right: 5px;
-          padding: 0 0 0;
-        }
-        a#azinheira {
-          background: url("/assets/stylist/didi_wagner/azinheira.jpg") top left no-repeat;
-          text-align: right;
-          width: 207px;
-          height: 160px;
-          bottom: 0;
+          width: 179px;
+          height: 135px;
+          bottom: 0px;
           left: 10px;
-          padding: 45px 0 0;
+          padding: 90px 0 0 0;
         }
       }
     }
