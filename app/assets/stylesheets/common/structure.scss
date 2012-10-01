@@ -93,6 +93,18 @@ body {
     }
   }
 
+  a#go_top {
+    position: fixed;
+    background: image-url('common/arrow-go-top.png') no-repeat;
+    text-indent: -99999px;
+    width: 40px;
+    height: 40px;
+    right: 40px;
+    bottom: 45%;
+    z-index: 5;
+    display: none;
+  }
+
   div#content {
     padding-top: 10px;
     margin-top: 10px;
