@@ -16,4 +16,10 @@ class LineItem < ActiveRecord::Base
   def total_price
     retail_price * quantity
   end
+
+  def calculate_loyalty_credit_amount
+    # buscar amount_paid da order
+    # calcular retail_price/amount_paid para saber a porcentagem do produto na quantia paga.
+    # buscar crédito gerado pela order
+  end
 end
