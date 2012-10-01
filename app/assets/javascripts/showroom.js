@@ -1,7 +1,5 @@
 $(document).ready(function() {
   ShowroomInit.slideProductAnchor();
-  ShowroomInit.showSlideToTop();
-  ShowroomInit.slideToTop();
 
   $("section#greetings div.facebook h1 a").live("click", function(e) {
     e.preventDefault();
