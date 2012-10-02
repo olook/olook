@@ -42,9 +42,14 @@ class Credit < ActiveRecord::Base
    "Compra realizada em #{l self.created_at}"
   end
   
+  ##
+  ## This method shouldn't be here. We must avoid coupling business with presentation
+  ##
   def description_for_loyalty
-    # the "- 1.hour" is needed, because of DST (Daylight saving time). Ask Rafael for more information
-    "Compra realizada em #{l order.created_at}. Crédito disponível de #{l activates_at_with_dst_correction} a #{l expires_at_with_dst_correction}"
+    description = ""
+    description = "Compra realizada em #{l order.created_at}. " if order
+    description += "Crédito disponível de #{l activates_at_with_dst_correction} a #{l expires_at_with_dst_correction}" 
+    description
   end
   
   def description_for_redeem
