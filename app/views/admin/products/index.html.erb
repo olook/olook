@@ -21,7 +21,7 @@
   <%= hidden_field_tag :s, params[:s] %>
   <%= hidden_field_tag :d, params[:d] %>
   <%= search_field_tag :q, params[:q], {placeholder: 'Name or Model number'} %>
-  <%= select_tag :col, options_from_collection_for_select(@collections, "id", "name", params[:col]), {prompt: 'Collection'} %>
+  <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {prompt: 'Collection'} %>
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
   <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
   <%= button_tag 'Search', name: nil, type: 'submit', :class => 'button' %>
@@ -49,8 +49,6 @@
       <th style="width:100px">Picture</th>
       <th>Sample</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
 
   <% @products.each do |product| %>
@@ -64,12 +62,14 @@
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
-      <td><%= product.collection.try(:name) %></td>
-      <td><%= image_tag(product.showroom_picture, :size => '100x100') if product.showroom_picture %></td>
+      <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).year}" %></td>
+      <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
-      <td><%= link_to "Preview", product_path(product), :target => "_blank" %></td>
-      <td><%= link_to 'Show', admin_product_path(product), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_product_path(product), :class => 'button' %></td>
+      <td>
+        <%= link_to "Preview", product_path(product), class: 'button info', target: "_blank" %>
+        <%= link_to 'Show', admin_product_path(product), class: 'button' %>
+        <%= link_to 'Edit', edit_admin_product_path(product), class: 'button' %>
+      </td>
     </tr>
   <% end %>
   </table>
