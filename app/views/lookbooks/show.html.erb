@@ -22,7 +22,7 @@
 
 <section id="lookbooks">
   <%= render 'shared/banners/olooklet' %>
-  <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
+  <h1>Tendências</h1>
   <div id="carousel_lookbooks_product">
     <% if @lookbook.has_video? %>
       <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{@lookbook.video.url}", :title => "#{@lookbook.video.title}" %>
@@ -35,6 +35,7 @@
       <% 0.upto(@lookbook.images.count - 1) do |image| %>
         <li>
           <%= image_tag @lookbook.images[image].image.try(:url), :alt => "Imagem #{image}" %>
+          <%= link_to "X", lookbooks_path, :class => "close" %>
           <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
             <% if lim.product.is_a? Product %>
             <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
@@ -58,6 +59,7 @@
       <% end %>
     </ul>
   </div>
+  <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
 </section>
 <% content_for :footer do %>
 
