@@ -7,11 +7,15 @@ class Admin::ProductsController < Admin::BaseController
   def index
     @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
-    # search params
-    @collections = Collection.order(:name)
-    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
-    @profiles = Profile.all
 
+    # search params
+    @collections = {}
+    Collection.order(:start_date).all.each do |collection|
+      @collections[collection.start_date.year] ||= []
+      @collections[collection.start_date.year] << [collection.name, collection.id]
+    end
+    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
+    @profiles = Profile.order(:name).all
     @products = Product.includes(:profiles).includes(:collection)
                        .search(params[:q])
                        .in_category(params[:cat])
