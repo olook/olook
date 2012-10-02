@@ -69,7 +69,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <%= render :partial => 'purchase_timeline', :locals => {:order => @order} %>
 
   <table class="table">
@@ -80,6 +80,7 @@
       <th>Quantity</th>
       <th>Unit Price</th>
       <th>Total</th>
+      <th>Quantia a descontar em caso de estorno (Créditos de fidelidade)</th>
     </tr>
 
   <% @order.line_items.each do |line_item| %>
@@ -90,10 +91,14 @@
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
+      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %></td>
     </tr>
   <% end %>
   </table>
-  
+
+  <h3>Total de Creditos de fidelidade</h3>
+  <p><%= number_to_currency(Credit.where(source: "loyalty_program_credit", order_id: @order.id).sum(&:value)) %></p>
+
   <h3>Abacos</h3>
   <p>
     <b>Erp Integrate At:</b>
@@ -156,7 +161,7 @@
     Não há estados para a alteração.
     <% end %>
   </p>
-  
+
 </div>
 
 
