@@ -9,21 +9,17 @@ CarrierWave.configure do |config|
 
   if Rails.env.test?
     config.fog_directory = 'testcdn.olook.com.br'
-    host = 'testcdn.olook.com.br'
-    config.fog_host = "http://#{host}"
+    config.fog_host = 'http://testcdn.olook.com.br'
   elsif Rails.env.staging?
     config.fog_directory = 'cdn-staging.olook.com.br'
-    host = proc do |file|
-      "cdn-staging-#{rand(3)}.olook.com.br"
+    config.fog_host = proc do |file|
+      "http://cdn-staging-#{rand(3)}.olook.com.br"
     end
-    config.fog_host = "http://#{host}"
   else
     config.fog_directory = 'cdn.olook.com.br'
-    host = proc do |file|
-      "cdn-#{rand(3)}.olook.com.br"
+    config.fog_host = proc do |file|
+      "http://cdn-#{rand(3)}.olook.com.br"
     end
-    # config.fog_directory = "cdn.olook.com.br"
-    config.fog_host = "http://#{host}"
   end
   
   config.fog_attributes = { 'Cache-Control' => 'max-age=315576000',
