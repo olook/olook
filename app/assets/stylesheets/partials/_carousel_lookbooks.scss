@@ -5,21 +5,20 @@ div#carousel_lookbooks {
   overflow: hidden;
   .prev-lookbook, .next-lookbook {
     position: absolute;
-    background: url("/assets/showroom/arrows.png") no-repeat;
     text-indent: -9999px;
     width: 38px;
-    height: 38px;
+    height: 44px;
     top: 70px;
     z-index: 1;
     cursor: pointer;
   }
   .prev-lookbook {
-    background-position: 0 0;
-    left: 10px;
+    background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
+    left: 0px;
   }
   .next-lookbook {
-    background-position: -38px 0;
-    right: 10px;
+    background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
+    right: 0px;
   }
   ul {
     position: relative;
