@@ -28,7 +28,7 @@ class LineItem < ActiveRecord::Base
     percentage = retail_price/line_item_sum
     
     # buscar crédito gerado pela order
-    total_credit_amount = Credit.where(source: "loyalty_program_credit", order_id: self.order.id).sum(&:value)
+    total_credit_amount = Credit.where(source: "loyalty_program_credit", order_id: self.order.id, is_debit: false).first.value
     
     # devolver quantia através da porcentagem calculada anteriormente
     (total_credit_amount*percentage).round(2)
