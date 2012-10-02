@@ -63,7 +63,12 @@
     <div>
       <h3>Cupons</h3>
       <% @order.payments.each do |payment| %>
-        <p><%= payment.coupon.code if payment.coupon_id? %></p>
+        <p>
+          <% if payment.coupon_id? %>
+            <b><%= payment.coupon.code %></b>
+            <b><%= number_to_currency(payment.coupon.value) %></b>
+          <% end %>
+        </p>
       <% end %>
     </div>
 
