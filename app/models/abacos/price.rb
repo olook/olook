@@ -11,7 +11,14 @@ module Abacos
     
     def integrate
       variant = ::Variant.find_by_number(self.number)
-      raise RuntimeError.new "Price is related with Variant number #{self.number}, but it doesn't exist" if variant.nil?
+      if variant.nil?
+        Airbrake.notify(
+          :error_class   => "Price",
+          :error_message => "Price is related with Variant number #{self.number}, but it doesn't exist"
+        )
+        # raise RuntimeError.new "Price is related with Variant number #{self.number}, but it doesn't exist" if variant.nil?
+        return nil
+      end
       
       variant.price = self.price
       variant.retail_price = self.retail_price

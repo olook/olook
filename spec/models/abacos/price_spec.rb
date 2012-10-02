@@ -8,10 +8,12 @@ describe Abacos::Price do
   
   describe '#integrate' do
     it "should raise and error if the related Variant doesn't exist" do
-      expect {
-        ::Variant.should_receive(:find_by_number).with(subject.number).and_return(nil)
-        subject.integrate
-      }.to raise_error "Price is related with Variant number #{subject.number}, but it doesn't exist"
+      Airbrake.should_receive(:notify).with({
+        :error_class   => "Price",
+        :error_message => "Price is related with Variant number #{subject.number}, but it doesn't exist"
+      })
+      ::Variant.should_receive(:find_by_number).with(subject.number).and_return(nil)
+      subject.integrate.should eq(nil)
     end
 
     it 'should update the variant price and integrate it' do

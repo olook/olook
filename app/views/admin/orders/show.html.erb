@@ -136,10 +136,10 @@
   </p>
 
   <p>
-    <h3>Pagamentos</h3>
+    <h3><%= link_to 'Pagamentos', admin_payments_path(:search => {:order_id_eq => @order.id}) %></h3>
     <% @order.payments.each do |payment| %>
     <p>
-      <b><%= payment_with_origin(payment) %>:</b>
+      <b><%= link_to payment_with_origin(payment), admin_payment_path(payment) %>:</b>
       <%= number_to_currency payment.total_paid %> -
       <%= number_to_percentage payment.percent, :precision => 2 %>
     </p>

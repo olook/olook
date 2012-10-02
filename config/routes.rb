@@ -217,6 +217,15 @@ Olook::Application.routes.draw do
 
     resource :settings
 
+    resources :moip_callbacks do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+    
+    resources :payments, :only => [:index, :show]
+
   end
 
   #USER / SIGN IN
