@@ -81,4 +81,25 @@ describe LineItem do
     line_item.calculate_loyalty_credit_amount.should eq(loyalty_program_credits.value/5)
   end
 
+  it "should return refund value for several credit activities" do
+   order.line_items.create(
+        :variant_id => basic_shoe_35.id,
+        :quantity => 1,
+        :price => 100.00,
+        :retail_price => 100.00)
+    line_item = order.line_items.first
+
+    user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+
+    loyalty_program_credits = user.user_credits_for(:loyalty_program).credits.first
+    line_item.calculate_loyalty_credit_amount.should eq(loyalty_program_credits.value)
+
+    user.user_credits_for(:loyalty_program).remove(credits_attrs.dup)
+    line_item.calculate_loyalty_credit_amount.should eq(loyalty_program_credits.value)
+
+    user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+    line_item.calculate_loyalty_credit_amount.should eq(loyalty_program_credits.value)
+
+  end
+
 end
