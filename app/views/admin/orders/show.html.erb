@@ -59,8 +59,21 @@
       <b>Estimated delivery:</b>
       <%= @order.freight.delivery_time if @order.freight %> work days
     </p>
+
     <div>
-      <h3>Endereço de entrega</h1>
+      <h3>Cupons</h3>
+      <% @order.payments.each do |payment| %>
+        <p>
+          <% if payment.coupon_id? %>
+            <b><%= payment.coupon.code %></b>
+            <b><%= number_to_currency(payment.coupon.value) %></b>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+
+    <div>
+      <h3>Endereço de entrega</h3>
         <% if @address %>
       <p><%= @address.identification  %></p>
       <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
@@ -69,7 +82,7 @@
       <% end %>
     </div>
   </div>
-  
+
   <%= render :partial => 'purchase_timeline', :locals => {:order => @order} %>
 
   <table class="table">
@@ -93,7 +106,7 @@
     </tr>
   <% end %>
   </table>
-  
+
   <h3>Abacos</h3>
   <p>
     <b>Erp Integrate At:</b>
@@ -156,7 +169,7 @@
     Não há estados para a alteração.
     <% end %>
   </p>
-  
+
 </div>
 
 
