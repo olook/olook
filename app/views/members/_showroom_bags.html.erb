@@ -1,9 +1,9 @@
 <section class="container_product" id="purse_container">
-  <h1 class="title">Suas bolsas de <%= showroom_presenter.collection_name %></h1>
+  <h1 class="title">Suas bolsas de <%= showroom_presenter.collection_name(collection) %></h1>
   <div class="type_list">
     <div class="products_list best">
       <ul>
-        <%= showroom_presenter.display_bags (0..4) %>
+        <%= showroom_presenter.display_bags((0..4), collection) %>
       </ul>
       <%= link_to "Clique e veja mais bolsas", "javascript:void(0);", :class => "more purses",:onclick => track_event("Showroom", "SeeAlmost", "Bags"), :rel => "almost", :data => {:url => member_showroom_bags_path } %>
     </div>

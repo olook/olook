@@ -46,7 +46,7 @@ class LoyaltyProgramMailer < ActionMailer::Base
     subject = expires_tomorrow ? "Corra #{user.first_name}, seus R$ #{('%.2f' % @credit_amount).gsub('.',',')} em créditos expiram amanhã!" : "#{user.first_name}, seus R$ #{('%.2f' % @credit_amount).gsub('.',',')} em créditos vão expirar!"
 
     @user = user
-    mail(:to => @user.email, :subject => subject)
+    mail(:to => @user.email, :subject => subject) if @credit_amount > 0
   end  
 
 end

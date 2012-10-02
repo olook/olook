@@ -9,6 +9,7 @@ coverage
 *.swo
 *.swp
 *~
+*.swm
 rerun.txt
 .bundle
 public/uploads
