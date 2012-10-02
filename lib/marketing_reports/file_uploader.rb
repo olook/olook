@@ -7,7 +7,7 @@ require 'fileutils'
 module MarketingReports
   class FileUploader
 
-    REPORT_PATH = '/home/allinmail'
+    REPORT_PATH = Rails.env.production? ? '/home/allinmail' : Rails.root
     TEMP_PATH = '/tmp/'
 
     def initialize(file_content)
