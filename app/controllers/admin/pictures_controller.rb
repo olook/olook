@@ -46,6 +46,16 @@ class Admin::PicturesController < Admin::BaseController
     respond_with [:admin, @product]
   end
 
+  def sort
+    # @pictures = Picture.where(product_id: params[:product_id])
+    Picture.sort_positions!(params[:picture])
+    # @pictures.each do |picture|
+    #   picture.position = params[:picture].index(picture.id.to_s) + 1
+    #   picture.save
+    # end
+    render :nothing => true
+  end
+
   def new_multiple_pictures
     return redirect_to [:admin, @product], :notice => 'Product already has pictures' unless @product.pictures.empty?
     DisplayPictureOn.list.each do |display_on|

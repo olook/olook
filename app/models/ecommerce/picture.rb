@@ -6,8 +6,13 @@ class Picture < ActiveRecord::Base
   mount_uploader :image, PictureUploader
   after_update :invalidate_cdn_image
 
-  private
+  def self.sort_positions!(ids)
+    ids.each_with_index do |id, index|
+      update_all({ position: index + 1 }, { id: id })
+    end
+  end
 
+  private
   def invalidate_cdn_image
     CloudfrontInvalidator.new.invalidate(self.image.url.slice(23..150)) unless self.image.url.nil?
   end
