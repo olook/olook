@@ -4,7 +4,7 @@
   #Carrinho
   cart:
     discounts:
-      olooklet: Olooklet
+      olooklet: Desconto promocional
       coupon: Cupom
       credits: Créditos
       promotion: 20% na primeira compra
