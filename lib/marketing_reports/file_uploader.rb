@@ -7,7 +7,7 @@ require 'fileutils'
 module MarketingReports
   class FileUploader
 
-    REPORT_PATH = '/home/allinmail'
+    REPORT_PATH = Dir.exists?('/home/allinmail') ? '/home/allinmail' : '.'
     TEMP_PATH = '/tmp/'
 
     def initialize(file_content)
@@ -17,7 +17,13 @@ module MarketingReports
     def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1")
       Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
         file.write(@file_content)
-        FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
+        if File.exists?(file.path)
+          FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}")
+        else
+          new_file = File.open("#{REPORT_PATH}/#{filename}", "w")
+          new_file.write(@file_content)
+          new_file.close
+        end
       end
     end
 
