@@ -25,7 +25,7 @@ gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'asset_sync'#, '=0.1.10'
+gem 'asset_sync', '=0.1.10'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
@@ -35,14 +35,13 @@ gem 'httpi'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
-#gem 'graylog2_exceptions'
+gem 'graylog2_exceptions'
 gem 'SyslogLogger', :require => 'syslog_logger'
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
-gem 'yui-compressor'
 gem 'business_time'
 
 gem "rails-settings-cached"
@@ -51,7 +50,6 @@ gem "rails-settings-cached"
 
 group :development do
   gem 'faker'
-  gem 'bullet'
 end
 
 group :development, :test do
