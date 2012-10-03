@@ -31,19 +31,14 @@ section#lookbooks {
     a.video_link {
       position: absolute;
       background: image-url("lookbooks/label_video.png") no-repeat;
-      color: #FFF;
-      font-family: $johnston;
-      font-size: 12px;
-      font-weight: 100;
-      line-height: 26px;
       text-decoration: none;
-      text-transform: uppercase;
-      width: 122px;
-      height: 33px;
+      text-indent: -99999px;
+      width: 165px;
+      height: 114px;
       padding: 0 0 0 32px;
       display: block;
-      top: 0;
-      right: -13px;
+      bottom: 130px;
+      left: 225px;
       z-index: 1000;
     }
     div.video_description {
