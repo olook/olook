@@ -20,6 +20,7 @@
   <h1>Tendências</h1>
   <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
   <div class="products_list">
+    <h1>Confira os produtos deste editorial</h1>
     <ul>
       <% @products.each do |product| %>
         <%= get_partial(product) %>

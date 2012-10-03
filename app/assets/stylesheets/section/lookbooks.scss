@@ -16,7 +16,7 @@ section#lookbooks {
     position: relative;
     width: 970px;
     height: 565px;
-    margin: 0 0 35px;
+    margin: 0 0 40px;
     a.close {
       position: absolute;
       background: image-url("lookbooks/close.png") no-repeat;
@@ -39,7 +39,7 @@ section#lookbooks {
       display: block;
       bottom: 130px;
       left: 225px;
-      z-index: 1000;
+      z-index: 100;
     }
     div.video_description {
       display: none;
@@ -108,5 +108,14 @@ section#lookbooks {
     width: 100%;
     overflow: auto;
     margin: 0 0 30px;
+    > h1 {
+      color: #888;
+      font-family: $avenir;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      margin: 0 0 15px;
+    }
   }
 }
