@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 if defined?(AssetSync)
   AssetSync.configure do |config|
+    config.enabled = true
     config.fog_provider = 'AWS'
     config.aws_access_key = 'AKIAJ2WH3XLYA24UTAJQ'
     config.aws_access_secret = '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'
