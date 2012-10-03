@@ -215,7 +215,13 @@ class Order < ActiveRecord::Base
 
     Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
-  
+
+  def remove_order_credits
+    # busca o credito original (dado no momento da entrega da compra)
+    first_credit = Credit.where(source: "loyalty_program_credit", order_id: self.id, is_debit: false).first 
+    user_credit = self.user.user_credits_for(:loyalty_program)
+    user_credit.remove({amount: first_credit.amount, original_credit_id: first_credit.id})
+  end  
   
   private
 
