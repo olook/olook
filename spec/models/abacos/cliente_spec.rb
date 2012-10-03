@@ -8,36 +8,36 @@ describe Abacos::Cliente do
                 }
   let(:address) { FactoryGirl.create :address }
   subject { described_class.new member, address }
-  
+
   describe 'attributes' do
     it '#codigo' do
       subject.codigo.should == "F#{member.id}"
     end
-    
+
     it '#tipo_pessoa' do
       subject.tipo_pessoa.should == 'tpeFisica'
     end
-    
+
     it '#sexo' do
       subject.sexo.should == 'tseFeminino'
     end
-    
+
     it '#cpf' do
       subject.cpf.should == '98765432198'
     end
-    
+
     it '#email' do
       subject.email.should == 'janedoe@test.com'
     end
-    
+
     it '#nome' do
       subject.nome.should == 'Jéssica Maíra'
     end
-    
+
     it '#data_nascimento' do
       subject.data_nascimento.should == '15051980'
     end
-    
+
     it '#telefone' do
       subject.telefone.should == '(35)3712-3457'
     end
@@ -45,7 +45,7 @@ describe Abacos::Cliente do
     it '#data_cadastro' do
       subject.data_cadastro.should == member.created_at.strftime("%d%m%Y")
     end
-    
+
     describe '#endereco' do
       it '#logradouro' do
         subject.endereco.logradouro.should == 'Rua Exemplo Teste'
@@ -75,7 +75,7 @@ describe Abacos::Cliente do
         subject.endereco.pais.should == 'Brasil'
       end
     end
-    
+
     it '#endereco_cobranca should be the same as #endereco' do
       subject.endereco_cobranca.should == subject.endereco
     end
@@ -83,7 +83,7 @@ describe Abacos::Cliente do
       subject.endereco_entrega.should == subject.endereco
     end
   end
-  
+
   describe '#parsed_data' do
     let(:expected_parsed_data) {
             {
@@ -97,6 +97,7 @@ describe Abacos::Cliente do
                   'Nome' => 'Jéssica Maíra',
                   'DataNascimento' => '15051980',
                   'Telefone' => '(35)3712-3457',
+                  'Celular' => '(21)9876-2737',
                   'DataCadastro' => member.created_at.strftime("%d%m%Y"),
                   'Endereco' => {
                         'Logradouro' => 'Rua Exemplo Teste',
