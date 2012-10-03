@@ -14,11 +14,9 @@ Olook::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.css_compressor = :yui
-  config.assets.js_compressor = :uglifier
 
-  # Fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -37,26 +35,19 @@ Olook::Application.configure do
   # config.log_level = :debug
 
   # Use a different logger for distributed setups
-  #config.logger = SyslogLogger.new('rails-olook-prod')
+  config.logger = SyslogLogger.new('rails-olook-prod')
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
+  config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 15.minutes, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = proc do |x| 
-    "//cdn-app-#{rand(3)}.olook.com.br"
-  end
-  # config.action_controller.asset_host = Proc.new do |source, request|
-  #   request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
-  # end
+  #config.action_controller.asset_host = Proc.new do |source, request|
+  #  request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
+  #end
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
-
-  # config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
-
-  config.assets.precompile += %w(*.js admin/*.js common/*.js gift/*.js plugins/*.js ui/*.js section/*.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true

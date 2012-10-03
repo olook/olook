@@ -55,5 +55,5 @@ end
 
 after 'deploy:update', 'newrelic:notice_deployment'
 before 'deploy:restart', 'unicorn:pidof'
-after 'deploy:restart', 'unicorn:pidof'
+after 'deploy', 'unicorn:pidof'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
