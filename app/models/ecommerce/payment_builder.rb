@@ -192,7 +192,7 @@ class PaymentBuilder
                 :instituicao => payment.bank, :numero => credit_card_number,
                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
                 :nome => payment.user_name, :identidade => payment.user_identification,
-                :telefone => remove_nine_digits_of_telphone(payment.telephone), :data_nascimento => payment.user_birthday,
+                :telefone => remove_nine_digits_of_telephone(payment.telephone), :data_nascimento => payment.user_birthday,
                 :parcelas => payment.payments, :recebimento => payment.receipt,
                 :pagador => payer, :razao => Payment::REASON }
     else
