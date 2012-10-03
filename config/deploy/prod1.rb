@@ -31,16 +31,6 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
-  desc 'Stop webserver'
-  task :stop_unicorn, :roles => :app do
-    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -TERM $pid; fi"
-  end 
-
-  desc 'Start webserver'
-  task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
-  end 
-
   desc 'Restart webserver'
   task :restart, :roles => :app do
     run "ps -e -o pid,command |grep unicorn |grep master"
