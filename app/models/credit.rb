@@ -7,7 +7,7 @@ class Credit < ActiveRecord::Base
   belongs_to :user
 
   INVITE_BONUS = BigDecimal.new("10.00")
-  
+
   def description_for(kind)
     case kind
     when :invite
@@ -57,9 +57,7 @@ class Credit < ActiveRecord::Base
   
   def l(date)
     I18n.localize date, :format => "%d/%m/%Y"
-  end
-
-  private 
+  end 
 
     #
     # These two methods are needed in order to avoid problems with Daylight Savin Time (dst - Horario de Verao).

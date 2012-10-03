@@ -188,6 +188,8 @@ Olook::Application.routes.draw do
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
       end
+
+      get 'cancel_loyalty_credits' => "orders#cancel_loyalty_credits"
     end
     resources :coupons, :except => [:destroy]
     resources :landing_pages

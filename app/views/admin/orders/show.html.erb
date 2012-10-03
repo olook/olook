@@ -83,6 +83,9 @@
       <th>Quantia a descontar em caso de estorno (Créditos de fidelidade)</th>
     </tr>
 
+  <% credits = Credit.find_all_by_source_and_order_id("loyalty_program_credit",@order.id) 
+  %>
+  
   <% @order.line_items.each do |line_item| %>
     <tr>
       <td><%= image_tag(line_item.variant.thumb_picture) if line_item.variant.thumb_picture %></td>
@@ -91,13 +94,18 @@
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
-      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %></td>
+      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> 
+        <%= "(utilizado ou estornado)" if (credits.first) && !credits.first.debits.empty? %>
+      </td>   
     </tr>
   <% end %>
   </table>
 
-  <h3>Total de Creditos de fidelidade</h3>
-  <p><%= number_to_currency(Credit.where(source: "loyalty_program_credit", order_id: @order.id).sum(&:value)) %></p>
+  <h3>Total de Créditos de fidelidade</h3>
+  <p><%= number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount)) %>  
+     <%= link_to 'Remover créditos de fidelidade', admin_order_cancel_loyalty_credits_path(@order) if (credits.first) && credits.first.debits.empty?%>
+     <%= "(Já utilizados ou estornados)" if (credits.first) && !credits.first.debits.empty? %>
+  </p>
 
   <h3>Abacos</h3>
   <p>
