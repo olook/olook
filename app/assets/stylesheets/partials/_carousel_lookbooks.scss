@@ -26,11 +26,12 @@ div#carousel_lookbooks {
     overflow: auto;
     left: 5px;
     li {
+      position: relative;
       display: inline;
       margin: 0 12px 0 0;
       padding: 0;
       float: left;
-      a {
+      a.link_lookbook {
         position: relative;
         text-decoration: none;
         margin: 0;
@@ -54,6 +55,18 @@ div#carousel_lookbooks {
           left: 0;
           bottom: 4px;
         }
+      }
+      a.label_video {
+        position: absolute;
+        background: image-url("lookbooks/thumb_label_video.png") no-repeat;
+        text-indent: -99999px;
+        text-decoration: none;
+        width: 75px;
+        height: 52px;
+        display: block;
+        bottom: 70px;
+        right: 20px;
+        z-index: 1;
       }
     }
   }
