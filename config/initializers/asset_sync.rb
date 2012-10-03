@@ -1,19 +1,17 @@
 # -*- encoding : utf-8 -*-
 if defined?(AssetSync)
   AssetSync.configure do |config|
-    config.fog_provider = 'AWS'
-    config.aws_access_key_id = 'AKIAJ2WH3XLYA24UTAJQ'
-    config.aws_secret_access_key = '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'
+    ##config.fog_provider = 'AWS'
+    config.aws_access_key = 'AKIAJ2WH3XLYA24UTAJQ'
+    config.aws_access_secret = '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'
     if Rails.env.staging?
-      bucket = 'cdn-app-staging'
+      config.aws_bucket = 'cdn-app-staging'
     else
-      bucket = 'cdn-app'
+      config.aws_bucket = 'cdn-app'
     end
 
-    config.fog_directory = bucket 
-    
     # Increase upload performance by configuring your region
-    config.fog_region = 'us-east-1'
+    config.aws_region = 'us-east-1'
     #
     # Don't delete files from the store
     config.existing_remote_files = "delete"
@@ -29,3 +27,4 @@ if defined?(AssetSync)
     # config.fail_silently = true
   end
 end
+

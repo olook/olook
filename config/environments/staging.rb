@@ -15,7 +15,7 @@ Olook::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
   config.assets.css_compressor = :yui
-  config.assets.js_compressor = :uglifier  #:yui
+  config.assets.js_compressor = :uglifier
 
   # Fallback to assets pipeline if a precompiled asset is missed?
   config.assets.compile = false
@@ -41,7 +41,7 @@ Olook::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store, 'development.olook.com.br',{ :namespace => 'olook', :expires_in => 5.minutes , :compress => true }
+  config.cache_store = :dalli_store, 'localhost',{ :namespace => 'olook', :expires_in => 5.minutes , :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"

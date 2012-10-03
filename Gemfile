@@ -27,7 +27,7 @@ gem 'will_paginate'
 gem 'airbrake'
 
 group :production, :staging do
-  gem 'asset_sync'#, '=0.1.10'
+  gem 'asset_sync' #, '=0.1.10'
   gem 'yui-compressor'
 end
 
