@@ -51,6 +51,16 @@ namespace :unicorn do
       puts "\033[0;33m#{stage}:\33[0m \033[0;31m#{pid}\33[0m"
     end
   end
+
+  desc 'Stop unicorn'
+  task :stop, :roles => :app do
+    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -TERM $pid; fi"
+  end
+
+  desc 'Start unicorn'
+  task :start, :roles => :app do
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+  end
 end
 
 after 'deploy:update', 'newrelic:notice_deployment'

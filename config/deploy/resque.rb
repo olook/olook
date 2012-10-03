@@ -31,13 +31,13 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
-  desc 'Restart webserver'
+  desc 'Restart workers'
   task :restart, :roles => :app do
     # run '/etc/init.d/workers_todos.sh restart'
   end
 
   desc 'Task to restart resque'
   task :resque_restart, :app => :app do
-    run '/etc/init.d/worker_todos.sh restart'
+    run '/etc/init.d/worker_queues_and_scheduler.sh restart'
   end
 end
