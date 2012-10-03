@@ -3,7 +3,7 @@ class SetPaymentStatusWorker
   @queue = :order_status
 
   def self.perform
-    MoipCallback.where(:processed => false).find_each do |moip_callback|
+    MoipCallback.where(:processed => false).order(:id).find_each do |moip_callback|
       payment = moip_callback.payment
       if payment
         payment.set_state_moip(moip_callback)

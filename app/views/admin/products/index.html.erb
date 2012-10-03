@@ -58,8 +58,8 @@
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
       <td><%= product.color_name %></td>
-      <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
-      <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).year}" %></td>
+      <td><%= product.profiles.map(&:name).join(", ") %></td>
+      <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).try(:year)}" %></td>
       <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
       <td>
