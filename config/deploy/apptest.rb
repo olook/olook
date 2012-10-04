@@ -1,5 +1,6 @@
 role :app, 'apptest.olook.com.br'
 role :web, 'apptest.olook.com.br'
+role :db, 'apptest.olook.com.br'
 
 # repo details
 set :branch, fetch(:branch, 'master')
@@ -41,9 +42,9 @@ namespace :deploy do
   end
 
   de  desc 'Run migrations'
-  task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
+  task :rake_tasks, :role => :db do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
   end
 
 sc 'Restart unicorn'
