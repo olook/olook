@@ -58,7 +58,7 @@ div#carousel_lookbooks {
       }
       a.label_video {
         position: absolute;
-        background: image-url("lookbooks/thumb_label_video.png") no-repeat;
+        background-repeat: none;
         text-indent: -99999px;
         text-decoration: none;
         width: 75px;

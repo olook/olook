@@ -30,12 +30,11 @@ section#lookbooks {
     }
     a.video_link {
       position: absolute;
-      background: image-url("lookbooks/label_video.png") no-repeat;
+      background-repeat: none;
       text-decoration: none;
       text-indent: -99999px;
       width: 165px;
       height: 114px;
-      padding: 0 0 0 32px;
       display: block;
       bottom: 130px;
       left: 225px;
