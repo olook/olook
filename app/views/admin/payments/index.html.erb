@@ -1,0 +1,76 @@
+<h2>Listing payments</h2>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
+        <div class="group">
+          <%= f.label :created_at_gte, "Created at from", :class => "label"  %>
+          <%= f.date_select :created_at_gte, :include_blank => true %>
+          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.date_select :created_at_lte, :include_blank => true %>
+        </div>
+
+        <div class="group">
+          <%= f.label :state, "State", :class => "label" %>
+          <%= f.collection_select :state_eq, Payment.state_machine.states.keys, :to_s, :to_s, {:include_blank => true} %>
+        </div>
+
+        <div class="group">
+          <%= f.label :type, "Type", :class => "label" %>
+          <%= f.select :type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit"} , {:include_blank => true} %>
+        </div>
+
+        <div class="group">
+          <%= f.label :order, "Order", :class => "label" %>
+          <%= f.text_field :order_number_eq, :class => "text_field" %>
+        </div>
+
+        <div class="group">
+          <%= f.label :user_first_name_contains, :class => "label" %>
+          <%= f.text_field :user_first_name_contains, :class => "text_field" %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Search', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Transaction</th>
+      <th><%= sort_link @search, :user_first_name, "Client" %></th>
+      <th>Order</th>
+      <th>Type</th>
+      <th>State</th>
+      <th>Percent</th>
+      <th><%= sort_link @search, :created_at %></th>
+      <th></th>
+    </tr>
+
+  <% @payments.each do |payment| %>
+    <tr>
+      <td><%= link_to payment.identification_code, admin_payment_path(payment) %></td>
+      <td><%= link_to payment.user.name, admin_user_path(payment.user) if payment.user %></td>
+      <td><%= link_to payment.order.number, admin_order_path(payment.order) if payment.order %></td>
+      <td><%= payment_with_origin(payment) %></td>
+      <td><%= payment.state %></td>
+      <td><%= payment.percent %></td>
+      <td><%= payment.created_at.to_s(:long) %></td>
+      <td><%= link_to 'Show Moip callbacks', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @payments %>
+    </div>
+  </div>
+</div>
