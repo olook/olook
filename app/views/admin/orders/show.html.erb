@@ -59,8 +59,21 @@
       <b>Estimated delivery:</b>
       <%= @order.freight.delivery_time if @order.freight %> work days
     </p>
+
     <div>
-      <h3>Endereço de entrega</h1>
+      <h3>Cupons</h3>
+      <% @order.payments.each do |payment| %>
+        <p>
+          <% if payment.coupon_id? %>
+            <b><%= payment.coupon.code %></b>
+            <b><%= number_to_currency(payment.coupon.value) %></b>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+
+    <div>
+      <h3>Endereço de entrega</h3>
         <% if @address %>
       <p><%= @address.identification  %></p>
       <p><%= "#{@address.street}, #{@address.number} - #{@address.neighborhood}" %></p>
@@ -149,10 +162,10 @@
   </p>
 
   <p>
-    <h3>Pagamentos</h3>
+    <h3><%= link_to 'Pagamentos', admin_payments_path(:search => {:order_id_eq => @order.id}) %></h3>
     <% @order.payments.each do |payment| %>
     <p>
-      <b><%= payment_with_origin(payment) %>:</b>
+      <b><%= link_to payment_with_origin(payment), admin_payment_path(payment) %>:</b>
       <%= number_to_currency payment.total_paid %> -
       <%= number_to_percentage payment.percent, :precision => 2 %>
     </p>

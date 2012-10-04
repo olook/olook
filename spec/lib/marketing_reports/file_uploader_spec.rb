@@ -25,20 +25,21 @@ describe MarketingReports::FileUploader do
 
     context "copying the file" do
       let(:filename) { "file.csv" }
+      let(:report_path) { Rails.root }
 
       it "uses untitled.txt as filename when no name is passed" do
-        FileUtils.should_receive(:copy).with(anything, "/home/allinmail/untitled.txt")
+        FileUtils.should_receive(:copy).with(anything, "#{report_path}/untitled.txt")
         subject.save_to_disk
       end
 
       it "uses received name as filename" do
-        FileUtils.should_receive(:copy).with(anything, "/home/allinmail/#{filename}")
+        FileUtils.should_receive(:copy).with(anything, "#{report_path}/#{filename}")
         subject.save_to_disk(filename)
       end
 
       it "puts the created temp file in the network directory" do
         Tempfile.stub(:open).and_yield(file)
-        FileUtils.should_receive(:copy).with(file.path, "/home/allinmail/#{filename}").at_most(:once)
+        FileUtils.should_receive(:copy).with(file.path, "#{report_path}/#{filename}").at_most(:once)
         subject.save_to_disk(filename)
       end
     end

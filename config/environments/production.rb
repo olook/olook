@@ -14,9 +14,11 @@ Olook::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
+  config.assets.css_compressor = :yui
+  config.assets.js_compressor = :uglifier
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  # Fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -35,19 +37,103 @@ Olook::Application.configure do
   # config.log_level = :debug
 
   # Use a different logger for distributed setups
-  config.logger = SyslogLogger.new('rails-olook-prod')
+  #config.logger = SyslogLogger.new('rails-olook-prod')
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 15.minutes, :compress => true }
+  config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  #config.action_controller.asset_host = Proc.new do |source, request|
-  #  request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
-  #end
+  config.action_controller.asset_host = proc do |x| 
+    "//cdn-app-#{rand(3)}.olook.com.br"
+  end
+  # config.action_controller.asset_host = Proc.new do |source, request|
+  #   request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
+  # end
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
+
+  # config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
+
+  config.assets.precompile += %w(
+    *.js
+    admin/*.js
+    admin/bootstrap.js
+    admin/credit.js
+    admin/jquery.miniColors.js
+    admin/liquidation_products.js
+    admin/lookbook_image_map.js
+    admin/coupons.js
+    admin/index.js
+    admin/jquery.validate.min.js
+    admin/lookbook_autocomplete.js
+    admin/lookbooks.js
+
+    common/*.js
+    common/base.js
+    common/jquery.zclip.min.js
+    common/jquery.cookie.js
+    common/product_view.js
+
+    gift/*.js
+    gift/occasions.js
+    gift/recipients.js
+    gift/suggestions.js
+    gift/survey.js
+
+    plugins/*.js
+    plugins/auto-grow-input.js
+    plugins/jcarousel.min.js
+    plugins/jquery.meio.mask.js
+    plugins/css_browser_selector.js
+    plugins/jquery.hotkeys.js
+    plugins/jquery.slideto.js
+    plugins/jail.min.js
+    plugins/jquery.jqzoom-core.js
+    plugins/styleSelect.min.js
+    plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1.js
+    plugins/jscrollpane/jquery.jscrollpane.min.js
+    plugins/jscrollpane/jquery.mousewheel.js
+
+    ui/*.js
+    ui/jquery.ui.core.min.js
+    ui/jquery.ui.position.min.js
+    ui/jquery.ui.dialog.min.js
+    ui/jquery.ui.widget.min.js
+
+    admin/*.css
+    section/*.css
+    section/checkout.css
+    section/contact.css
+    section/credits.css
+    section/delivery.css
+    section/earn_credits.css
+    section/error.css
+    section/forget_password.css
+    section/friends.css
+    section/gift.css
+    section/gift_home.css
+    section/half_user.css
+    section/home.css
+    section/how_to.css
+    section/invite.css
+    section/landing.css
+    section/liquidations.css
+    section/lookbooks.css
+    section/loyalty.css
+    section/moments.css
+    section/my_account.css
+    section/our_essence.css
+    section/pages.css
+    section/product.css
+    section/register.css
+    section/showroom.css
+    section/stylists.css
+    section/suggestions.css
+    section/survey.css
+    section/welcome.css
+  ) 
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true

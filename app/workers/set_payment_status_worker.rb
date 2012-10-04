@@ -2,15 +2,17 @@
 class SetPaymentStatusWorker
   @queue = :order_status
 
-  def self.perform(payment_id, state)
-    payment = Payment.find(payment_id.to_s)
-    if payment.set_state(state.to_s) && payment.save!
-      order = payment.order
-      Resque.enqueue(Abacos::CancelOrder, order.number) if order && order.reload.canceled?
-    else
-      msg = "Erro ao mudar status do pagamento"
-      Airbrake.notify(:error_class => "Payment", :error_message => msg, :parameters => {:payment_id => payment_id, :state => state})
-      raise msg
+  def self.perform
+    MoipCallback.where(:processed => false).order(:id).find_each do |moip_callback|
+      payment = moip_callback.payment
+      if payment
+        payment.set_state_moip(moip_callback)
+      else
+        moip_callback.update_attributes(
+          processed: true,
+          error: "Pagamento não identificado."
+        )
+      end
     end
   end
 end
