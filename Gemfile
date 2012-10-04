@@ -26,10 +26,10 @@ gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
 
-#group :production, :staging do
+group :production, :staging do
   gem 'asset_sync', '~> 0.5.0'
   gem 'yui-compressor'
-#end
+end
 
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'curb'
