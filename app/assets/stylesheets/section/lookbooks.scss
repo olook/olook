@@ -5,11 +5,10 @@
 section#lookbooks {
   width: 100%;
   padding: 20px 0;
-  h1.lookbook_title {
-    font-family: $kepler;
-    font-size: 40px;
-    font-weight: lighter;
-    letter-spacing: -1px;
+  > h1 {
+    font-family: $johnston;
+    font-size: 60px;
+    text-transform: uppercase;
     margin: 0 0 15px 10px;
   }
 
@@ -17,24 +16,29 @@ section#lookbooks {
     position: relative;
     width: 970px;
     height: 565px;
-    margin: 0 0 35px;
+    margin: 0 0 40px;
+    a.close {
+      position: absolute;
+      background: image-url("lookbooks/close.png") no-repeat;
+      text-indent: -99999px;
+      top: 0;
+      right: 0;
+      width: 38px;
+      height: 40px;
+      display: block;
+      z-index: 101;
+    }
     a.video_link {
       position: absolute;
-      background: image-url("lookbooks/label_video.png") no-repeat;
-      color: #FFF;
-      font-family: $johnston;
-      font-size: 12px;
-      font-weight: 100;
-      line-height: 26px;
+      background-repeat: none;
       text-decoration: none;
-      text-transform: uppercase;
-      width: 122px;
-      height: 33px;
-      padding: 0 0 0 32px;
+      text-indent: -99999px;
+      width: 165px;
+      height: 114px;
       display: block;
-      top: 0;
-      right: -13px;
-      z-index: 1000;
+      bottom: 130px;
+      left: 225px;
+      z-index: 100;
     }
     div.video_description {
       display: none;
@@ -46,25 +50,19 @@ section#lookbooks {
     .prev-pic, .next-pic {
       position: absolute;
       text-indent: -9999px;
-      width: 60px;
+      width: 38px;
       height: 551px;
       top: 0;
       z-index: 100;
       cursor: pointer;
     }
     .prev-pic {
-      background: url("/assets/showroom/left-arrow.png") 0 0 no-repeat;
+      background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
       left: 0;
-      &:hover {
-        background-position: -60px 0;
-      }
     }
     .next-pic {
-      background: url("/assets/showroom/right-arrow.png") 0 0 no-repeat;
+      background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
       right: 0;
-      &:hover {
-        background-position: -60px 0;
-      }
     }
     ul {
       position: relative;
@@ -103,6 +101,20 @@ section#lookbooks {
           display: none;
         }
       }
+    }
+  }
+  div.products_list {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 30px;
+    > h1 {
+      color: #888;
+      font-family: $avenir;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      margin: 0 0 15px;
     }
   }
 }
