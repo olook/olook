@@ -13,6 +13,7 @@ namespace :deploy do
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
+    rake_tasks
     restart
   end
 
@@ -33,7 +34,13 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
-  desc 'Restart unicorn'
+  de  desc 'Run migrations'
+  task :rake_tasks, :role => :db do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
+  end
+
+sc 'Restart unicorn'
   task :restart, :roles => :app do
     run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"

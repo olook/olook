@@ -11,6 +11,7 @@ namespace :deploy do
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
+    rake_tasks
     restart
   end
 
@@ -34,6 +35,12 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/facebook.yml #{version_path}/config/facebook.yml"
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
+  end
+
+  desc 'Run migrations'
+  task :rake_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Stop unicorn'
