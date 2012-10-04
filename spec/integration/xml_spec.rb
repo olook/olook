@@ -31,8 +31,9 @@ feature "Show products on xml format" do
       <bigimage></bigimage>
       <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
+      <price>#{number_with_precision(product.price, :precision => 2)}</price>
+      <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
+      <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>3 x 33.30</recommendable>
       <instock>#{product.instock}</instock>
@@ -57,8 +58,9 @@ feature "Show products on xml format" do
       <bigimage></bigimage>
       <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
+      <price>#{number_with_precision(product.price, :precision => 2)}</price>
+      <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
+      <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable><#{ build_installment_text(product.retail_price)}</recommendable>
       <instock>#{product.instock}</instock>
