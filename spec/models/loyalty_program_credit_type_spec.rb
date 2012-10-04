@@ -20,6 +20,41 @@ describe LoyaltyProgramCreditType do
       end
     end
 
+    describe "refunded credits" do
+      
+        after do
+          Delorean.back_to_the_present
+        end
+
+        it "should refund credits" do
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+
+          Delorean.jump 1.month
+
+          credit = user.user_credits_for(:loyalty_program).credits.last
+
+          LoyaltyProgramCreditType.refund_credit(credit)
+
+          credit.refunded?.should eq(true)
+          
+        end
+
+        it "should not consider refunded credits" do
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+          user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+
+          Delorean.jump 1.month
+
+          user.user_credits_for(:loyalty_program).total.should eq(amount * 2)
+          credit = user.user_credits_for(:loyalty_program).credits.last
+
+          LoyaltyProgramCreditType.refund_credit(credit)
+
+          user.user_credits_for(:loyalty_program).total.should eq(amount)
+          
+        end        
+    end 
+
     describe "removing credits" do
       
       context "when user hasn't enough credits" do

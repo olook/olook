@@ -64,14 +64,18 @@ class LoyaltyProgramCreditType < CreditType
     credits.inject(0){|v,c| v+=(c.value - c.debits.sum(:value))}
   end  
 
+  def self.refund_credit(credit)
+    credit.update_attribute(:refunded, true)
+  end
+
   private
   
   def select_credits(user_credit, date, is_debit, kind = :available)
     if (kind == :available)
-      user_credit.credits.where("activates_at <= ? AND expires_at >= ? AND is_debit = ?", 
+      user_credit.credits.where("refunded = false and activates_at <= ? AND expires_at >= ? AND is_debit = ?", 
                                 date, date, is_debit)
     else
-      user_credit.credits.where("activates_at > ? AND is_debit = ?", 
+      user_credit.credits.where("refunded = false and activates_at > ? AND is_debit = ?", 
                                 date, is_debit)
     end
   end
