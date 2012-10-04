@@ -33,6 +33,7 @@ feature "Show products on xml format" do
       <description>#{product.description}</description>
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
+      <promo>#{ (product.price-product.price*0.2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>3 x 33.30</recommendable>
       <instock>#{product.instock}</instock>
@@ -59,6 +60,7 @@ feature "Show products on xml format" do
       <description>#{product.description}</description>
       <price>#{product.price}</price>
       <retailprice>#{product.retail_price}</retailprice>
+      <promo>#{ (product.price-product.price*0.2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable><#{ build_installment_text(product.retail_price)}</recommendable>
       <instock>#{product.instock}</instock>
