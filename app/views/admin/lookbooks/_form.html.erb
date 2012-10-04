@@ -37,6 +37,12 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :movie_image, 'Video thumbnail' %><br />
+    <%= f.file_field :movie_image %><br />
+    <%= image_tag @lookbook.movie_image_url(:movie_thumb) if @lookbook.movie_image? %>
+  </div>
+
+  <div class="field">
     <%= f.label :icon %><br />
     <%= f.file_field :icon %><br />
     <%= image_tag(@lookbook.icon.try(:url)) if !@lookbook.icon.blank? %>
