@@ -205,7 +205,7 @@
             }
             a.video_link {
               position: absolute;
-              background: image-url("common/thumb_label_video.png") no-repeat;
+              background-repeat: none;
               text-indent: -99999px;
               text-decoration: none;
               width: 75px;
