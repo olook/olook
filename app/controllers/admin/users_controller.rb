@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::BaseController
     # survey_answers_parser = SurveyAnswerParser.new(@user.survey_answers)
     # @survey_answers = survey_answers_parser.build_survey_answers
     @redeem_credits = @user.user_credits_for(:redeem).credits
-    @loyalty_program_credits = @user.user_credits_for(:loyalty_program).credits
+    @loyalty_program_credits = @user.user_credits_for(:loyalty_program).credits.where(:refunded => false)
     @invite_credits = @user.user_credits_for(:invite).credits
     respond_with :admin, @user
   end

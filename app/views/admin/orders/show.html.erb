@@ -108,7 +108,7 @@
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
       <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> 
-        <%= "(utilizado ou estornado)" if (credits.first) && !credits.first.debits.empty? %>
+        <%= "(utilizado ou estornado)" if (credits.first) && (!credits.first.debits.empty? || credits.first.refunded?) %>
       </td>   
     </tr>
   <% end %>
@@ -116,8 +116,8 @@
 
   <h3>Total de Créditos de fidelidade</h3>
   <p><%= number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount)) %>  
-     <%= link_to 'Remover créditos de fidelidade', admin_order_cancel_loyalty_credits_path(@order) if (credits.first) && credits.first.debits.empty?%>
-     <%= "(Já utilizados ou estornados)" if (credits.first) && !credits.first.debits.empty? %>
+     <%= link_to 'Remover créditos de fidelidade', admin_order_cancel_loyalty_credits_path(@order) if (credits.first) && credits.first.debits.empty? && !credits.first.refunded? %>
+     <%= "(Já utilizados ou estornados)" if (credits.first) && (!credits.first.debits.empty? || credits.first.refunded?) %>
   </p>
 
   <h3>Abacos</h3>
