@@ -56,7 +56,7 @@ Olook::Application.configure do
 
   # config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
 
-  config.assets.precompile += %w(*.js admin/*.js common/*.js gift/*.js plugins/*.js ui/*.js section/*.css)
+  config.assets.precompile += %w(*.js admin/*.js common/*.js gift/*.js plugins/*.js ui/*.js section/*.css admin/*.css )
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
