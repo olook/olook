@@ -1,6 +1,6 @@
-role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
-role :web, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
-role :db, 'app1.olook.com.br'
+role :app, 'app2.olook.com.br', 'app3.olook.com.br'
+role :web, 'app2.olook.com.br'
+role :db,  'app2.olook.com.br'
  
 # server details
 set :rails_env, 'production'
@@ -36,8 +36,8 @@ namespace :deploy do
 
   desc 'Run migrations'
   task :rake_tasks, :role => :db do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}", :roles => :db
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && bundle exec rake olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
   end
 
   desc 'Restart unicorn'
