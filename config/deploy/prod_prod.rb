@@ -14,7 +14,7 @@ namespace :deploy do
     update #capistrano internal default task
     yml_links
     #bundle_install
-    #rake_tasks
+    rake_tasks
     #assets_tasks
     restart
   end
