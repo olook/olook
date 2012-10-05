@@ -19,18 +19,6 @@ module ApplicationHelper
     end
   end
 
-  def render_google_remessaging_scripts
-    if user_signed_in?
-      if controller.controller_name == "orders"
-        render "shared/metrics/google/google_sale_conversion"
-      else
-        render "shared/metrics/google/google_remessaging_member"
-      end
-    else
-      render "shared/metrics/google/google_remessaging_visitor"
-    end
-  end
-
   def present(presenter_class, objects)
     klass ||= "#{presenter_class}Presenter".constantize
     presenter = klass.new(self, objects)
@@ -85,5 +73,5 @@ module ApplicationHelper
       end
     end
   end
-  
+
 end
