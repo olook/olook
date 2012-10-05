@@ -1,4 +1,5 @@
 role :app, "development.olook.com.br"
+role :web, "development.olook.com.br"
 
 # server details
 set :rails_env, 'staging'

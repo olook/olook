@@ -32,14 +32,14 @@ class Admin::OrdersController < Admin::BaseController
   def generate_purchase_timeline
    @order = Order.find(params[:id])
   end
-  
+
   def integrate_orders
     Order.where(:erp_integrate_at => nil).find_each do |order|
       Resque.enqueue(Abacos::InsertOrder, order.number)
     end
     redirect_to admin_orders_path, :notice => "Integrate Orders, checking Resque"
   end
-  
+
   def integrate_payment
     Order.with_payment.where(:erp_payment_at => nil, :state => "authorized").find_each do |order|
       Resque.enqueue(Abacos::ConfirmPayment, order.number)
@@ -52,6 +52,11 @@ class Admin::OrdersController < Admin::BaseController
       Resque.enqueue(Abacos::CancelOrder, order.number)
     end
     redirect_to admin_orders_path, :notice => "Integrate Cancel Orders, checking Resque"
+  end
+
+  def cancel_loyalty_credits
+    @order = Order.find(params[:order_id])
+    redirect_to admin_order_path(@order), :notice => @order.remove_order_credits ? "Credits Cancelled for order #{@order.number}" : "Credits not Cancelled for order #{@order.number}"
   end
 
 end

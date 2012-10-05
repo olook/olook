@@ -16,4 +16,20 @@ class LineItem < ActiveRecord::Base
   def total_price
     retail_price * quantity
   end
+
+  def calculate_loyalty_credit_amount
+    # buscar soma dos valores dos line_items
+    line_item_sum = self.order.line_items.sum(&:retail_price)
+
+    # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
+    percentage = retail_price/line_item_sum
+    
+    # buscar crédito gerado pela order
+    total_credit_amount = Credit.where(source: "loyalty_program_credit", order_id: self.order.id, is_debit: false).first.try(:value)
+    
+    total_credit_amount ||= 0
+
+    # devolver quantia através da porcentagem calculada anteriormente
+    (total_credit_amount*percentage).round(2)
+  end
 end

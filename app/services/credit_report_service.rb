@@ -6,7 +6,7 @@ class CreditReportService
   def loyalty_credits
     @user.user_credits_for(:loyalty_program)
         .credits
-        .where(:is_debit => false, :source => "loyalty_program_credit")
+        .where(:is_debit => false, :source => "loyalty_program_credit", :refunded => false)
         .includes(:order => :user)
         .order("id")
   end
@@ -33,7 +33,7 @@ class CreditReportService
 
   def used_credits
     Credit.joins(:user_credit)
-          .where(:user_credits => {:user_id => @user}, :is_debit => true)
+          .where(:user_credits => {:user_id => @user}, :is_debit => true, :refunded => false)
           .includes(:order => :user)
           .order("id")
   end
