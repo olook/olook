@@ -1,6 +1,6 @@
 role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
-role :web, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
-role :db, 'app1.olook.com.br'
+role :web, 'app2.olook.com.br'
+role :db,  'app2.olook.com.br'
  
 # server details
 set :rails_env, 'production'
@@ -14,6 +14,7 @@ namespace :deploy do
     update #capistrano internal default task
     yml_links
     rake_tasks
+    sync_task
     restart
   end
 
@@ -32,12 +33,19 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/facebook.yml #{version_path}/config/facebook.yml"
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
+    run "ln -nfs #{deploy_to}/shared/assets #{version_path}/public/assets"
+  end
+
+  desc 'Sync assets from app2 to others'
+  task :sync_task, :role => :web do
+    run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app3.olook.com.br:#{deploy_to}/shared/", :roles => :web
+    run "cd #{deploy_to}/shared && scp -P13630 -r assets app1.olook.com.br:#{deploy_to}/shared/", :roles => :web
   end
 
   desc 'Run migrations'
   task :rake_tasks, :role => :db do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}", :roles => :db
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && bundle exec rake olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
   end
 
   desc 'Restart unicorn'
