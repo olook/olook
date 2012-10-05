@@ -16,26 +16,6 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#render_google_remessaging_scripts" do
-    context "for a logged in member" do
-      it "renders the member script" do
-        helper.stub(:'user_signed_in?').and_return(true)
-        helper.should_receive(:render).with('shared/metrics/google/google_remessaging_member')
-
-        helper.render_google_remessaging_scripts
-      end
-    end
-
-    context 'for a visitor' do
-      it 'renders the visitor script' do
-        helper.stub(:'user_signed_in?').and_return(false)
-        helper.should_receive(:render).with('shared/metrics/google/google_remessaging_visitor')
-
-        helper.render_google_remessaging_scripts
-      end
-    end
-  end
-
   describe "#track_event" do
     it "returns a track event string with category, action and item" do
       helper.track_event('category','action','item').should == "_gaq.push(['_trackEvent', 'category', 'action', 'item']);"
