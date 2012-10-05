@@ -4,8 +4,24 @@ CarrierWave.configure do |config|
   config.fog_credentials = {
     :provider => 'AWS'
   }
-  config.fog_directory = Rails.env.test? ? 'testcdn.olook.com.br' : 'cdn.olook.com.br'
-  config.fog_host = "http://#{config.fog_directory}"
+  # config.fog_directory = Rails.env.test? ? 'testcdn.olook.com.br' : 'cdn.olook.com.br'
+  # config.fog_host = "http://#{config.fog_directory}"
+
+  if Rails.env.test?
+    config.fog_directory = 'testcdn.olook.com.br'
+    config.fog_host = 'http://testcdn.olook.com.br'
+  elsif Rails.env.staging?
+    config.fog_directory = 'cdn-staging.olook.com.br'
+    config.fog_host = proc do |file|
+      "http://cdn-staging-#{rand(3)}.olook.com.br"
+    end
+  else
+    config.fog_directory = 'cdn.olook.com.br'
+    config.fog_host = proc do |file|
+      "http://cdn-#{rand(3)}.olook.com.br"
+    end
+  end
+  
   config.fog_attributes = { 'Cache-Control' => 'max-age=315576000',
                             'Expires' => 1.year.from_now.httpdate }
 end

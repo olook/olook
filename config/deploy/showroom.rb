@@ -1,5 +1,8 @@
 role :app, "showroom.olook.com.br"
  
+# server details
+set :rails_env, 'production'
+
 # repo details
 set :branch, fetch(:branch, 'master')
 
@@ -8,7 +11,6 @@ namespace :deploy do
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
-    bundle_install
     rake_tasks
     restart
   end
@@ -16,14 +18,6 @@ namespace :deploy do
   desc 'Install gems'
   task :bundle_install, :roles => :app do
     run "cd #{path_app} && #{bundle} --without development test install"    
-  end
-
-  desc 'Run migrations, clean assets'
-  task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -41,6 +35,12 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/facebook.yml #{version_path}/config/facebook.yml"
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
+  end
+
+  desc 'Run migrations'
+  task :rake_tasks, :role => :app do
+    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Stop unicorn'
