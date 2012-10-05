@@ -1,5 +1,6 @@
 role :app, "homolog.olook.com.br"
- 
+role :web, "homolog.olook.com.br"
+
 # server details
 set :rails_env, 'staging'
 
@@ -67,7 +68,7 @@ namespace :deploy do
   #   Capistrano.configuration(:must_exist)
 
   # configuration.load do
-  #   namespace :deploy do    
+  #   namespace :deploy do
   #     namespace :rollback do
   #       desc <<-DESC
   #                         Rolls back the migration to the version found in schema.rb file of the previous release path.\\
