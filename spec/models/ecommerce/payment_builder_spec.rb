@@ -7,7 +7,7 @@ describe PaymentBuilder do
   let(:credit_card) { FactoryGirl.create(:credit_card, :order => order) }
   let(:billet) { FactoryGirl.create(:billet, :order => order) }
   let(:debit) { FactoryGirl.create(:debit, :order => order) }
-  
+
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
@@ -16,11 +16,11 @@ describe PaymentBuilder do
     :cart => cart,
     :freight => freight,
   }) }
-  
-  subject { 
-    pb = PaymentBuilder.new(cart_service, credit_card) 
+
+  subject {
+    pb = PaymentBuilder.new(cart_service, credit_card)
     pb.credit_card_number = credit_card.credit_card_number
-    pb 
+    pb
   }
   let(:payer) { subject.payer }
 
@@ -64,25 +64,25 @@ describe PaymentBuilder do
         subject.payment.stub(:gateway_transaction_status).and_return(:success)
         subject.stub(:set_payment_url!).and_return(subject.payment)
       end
-      
+
       it "should set payment order" do
         pending "REVIEW THIS"
         subject.set_payment_order!
         subject.payment.order.should == order
       end
-      
+
       it "should decrement the inventory for each item" do
         pending "REVIEW THIS"
         basic_shoe_35_inventory = basic_shoe_35.inventory
         basic_shoe_40_inventory = basic_shoe_40.inventory
-        subject.line_items.create( 
+        subject.line_items.create(
           :variant_id => basic_shoe_35.id,
-          :quantity => quantity, 
+          :quantity => quantity,
           :price => basic_shoe_35.price,
           :retail_price => basic_shoe_35.retail_price)
-        subject.line_items.create( 
+        subject.line_items.create(
           :variant_id => basic_shoe_40.id,
-          :quantity => quantity, 
+          :quantity => quantity,
           :price => basic_shoe_40.price,
           :retail_price => basic_shoe_40.retail_price)
         subject.decrement_inventory_for_each_item
@@ -111,7 +111,7 @@ describe PaymentBuilder do
         Coupon.any_instance.should_receive(:decrement!)
         subject.process!
       end
-      
+
       it "should create a promotion when used" do
         pending "REVIEW THIS"
         expect {
@@ -188,7 +188,8 @@ describe PaymentBuilder do
       :estado => delivery_address.state,
       :pais => delivery_address.country,
       :cep => delivery_address.zip_code,
-      :tel_fixo => delivery_address.telephone
+      :tel_fixo => delivery_address.telephone,
+      :tel_cel => delivery_address.mobile
     }
 
     subject.payer.should == expected
