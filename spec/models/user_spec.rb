@@ -184,6 +184,8 @@ describe User do
   context "survey" do
 
     it "should find for facebook auth" do
+      User.delete_all
+      subject { FactoryGirl.build(:user) }
       access_token =  {"uid" => subject.uid}
       User.find_for_facebook_oauth(access_token).should == subject
     end

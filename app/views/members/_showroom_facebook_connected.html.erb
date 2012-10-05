@@ -7,7 +7,7 @@
     <h3>Últimas amigas que se registraram:</h3>
     <div id="mask_carousel_facebook">
       <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb" %>
-      <ul>
+      <ul class="<%= 'carousel' if @friends.count > 12 %>">
         <% @friends.each do |friend| %>
           <li>
             <%= link_to friend_showroom_path(:friend_id => friend.id) do %>

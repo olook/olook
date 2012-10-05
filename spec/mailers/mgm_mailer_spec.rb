@@ -21,6 +21,10 @@ describe MGMMailer do
     it "sets 'title' attribute welcoming the new member" do
       mail.subject.should == "#{member.first_name} se cadastrou pelo seu convite!"
     end
+
+    it "should mention correctly the inviter as well as the invitee" do
+      mail.body.to_s["#{member.first_name}</span> comprar pela primeira vez na olook, você ganhará <b>R$ 20</b> em créditos."].should_not be_nil
+    end
   end
 
   describe "invitee bought for the first time e-mail" do

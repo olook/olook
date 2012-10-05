@@ -1,0 +1,15 @@
+<%
+grouped_options = {}
+Collection.all.each do |collection|
+	grouped_options[collection.start_date.year] ||= []
+	grouped_options[collection.start_date.year] << [collection.name, collection.id]
+end
+-%>
+<p style="text-align:center;background-color:red;color:yellow;font-size:18;font-weigth:bold;position:fixed;top:0;left:0;z-index:99999;width:100%;">
+  Você está logado com Admin.
+
+  <%= form_tag('/membro/vitrine', id: "formc", method: 'get') do %>
+    <%= label_tag "c", "Coleções" %><br />
+    <%= select_tag "c", grouped_options_for_select(grouped_options, params[:c] || Collection.active.id), onchange: "$('#formc').submit()" %>
+  <% end %>
+</p>
