@@ -65,6 +65,7 @@ describe Admin::PicturesController do
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Picture.any_instance.stub(:save).and_return(false)
+        # binding.pry
         post :create, :picture => {}, :product_id => product.id
         flash[:notice].should be_blank
         #response.should render_template("new")

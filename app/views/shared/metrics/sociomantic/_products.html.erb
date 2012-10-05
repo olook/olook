@@ -1,0 +1,17 @@
+<script type="text/javascript">
+  var moments_products = {
+  products: [
+              <%= products.map{ |item|
+                "{identifier: '#{item.id}'}"
+              }.join(', ') -%>
+            ]
+  };
+  var categories = {
+    category: [
+                <%= categories_id.map{ |id|
+                  "{ COLEÇÃO: '#{moment_url(id)}'}"
+                }.join(',') -%>
+              ]
+  };
+</script>
+

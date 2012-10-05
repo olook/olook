@@ -10,15 +10,6 @@ describe Payment do
     end
   end
   
-  # let(:completed) { "4" }
-  # let(:under_review) { "6" }
-  # let(:authorized) { "1" }
-  # let(:started) { "2" }
-  # let(:cancelled) { "5" }
-  # let(:waiting_payment) { "3" }
-  # let(:reversed) { "7" }
-  # let(:refunded) { "9" }
-  
   let(:waiting_payment) do
     result = subject()
     result.stub(:deliver_payment?).and_return(true)
@@ -276,6 +267,57 @@ describe Payment do
             under_review.refund!
           }.to raise_error
         end
+      end
+    end
+  end
+  
+  
+  context "#set_state_moip" do
+    let(:moip_callback) { FactoryGirl.create(:moip_callback) }
+    
+    it "should update payment gateway status" do
+      payment = subject()
+      payment.set_state_moip(moip_callback)
+      payment.reload.gateway_code.to_s.should eq(moip_callback.cod_moip.to_s)
+      payment.gateway_type.to_s.should eq(moip_callback.tipo_pagamento.to_s)
+      payment.gateway_status.to_s.should eq(moip_callback.status_pagamento.to_s)
+      payment.gateway_status_reason.to_s.should eq(moip_callback.classificacao.to_s)
+    end
+    
+    it "should update payment state" do
+      payment = subject()
+      payment.should_receive(:set_state)
+             .with(moip_callback.status_pagamento)
+             .and_return(true)
+      payment.set_state_moip(moip_callback)
+    end
+    
+    it "should update moip callback" do
+      payment = subject()
+      payment.stub(:set_state).and_return(true)
+      payment.set_state_moip(moip_callback)
+      moip_callback.reload.processed.should eq(true)
+    end
+    
+    context "when order is cancelled" do
+      it "should enqueue cancel order" do
+        payment = subject()
+        payment.order = mock_model(Order, :canceled? => true, :number => "XPTO")
+        payment.order.stub(:reload => payment.order)
+        payment.stub(:set_state).and_return(true)
+        Resque.should_receive(:enqueue).with(Abacos::CancelOrder, payment.order.number)
+        payment.set_state_moip(moip_callback)
+      end
+    end
+    
+    context "when can't update payment" do
+      it "should update retry and error in moip callback" do
+        payment = subject()
+        payment.stub(:set_state).and_return(false)
+        payment.errors.stub(:full_messages).and_return(["ERRO XPTO"])
+        payment.set_state_moip(moip_callback)
+        moip_callback.reload.retry.should eq(1)
+        moip_callback.error.should eq("[\"ERRO XPTO\"]")
       end
     end
   end

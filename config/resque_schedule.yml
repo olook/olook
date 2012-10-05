@@ -10,6 +10,12 @@ update_status:
   queue: order_status
   description: "Atualiza o status dos Pedidos"
 
+update_status:
+  cron: "*/15 * * * *"
+  class: SetPaymentStatusWorker
+  queue: order_status
+  description: "Processa callbacks de Pagamento"
+
 send_in_cart_email:
   cron: "0 20 * * *"
   class: SendInCartEmailWorker
@@ -36,7 +42,7 @@ send_enabled_credits_notification:
 
 # TODO: CHANGE BACK TO 23 AFTER 23/09/2012
 send_seven_days_to_expiration_warning:
-  cron: "1 0 26 * *"
+  cron: "40 14 26 * *"
   class: SendExpirationWarningWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"

@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :image do
     image {"PIC_#{Random.rand 1000}"}
-    association :lookbook, :factory => :basic_lookbook
+    association :lookbook, :factory => :basic_lookbook, :name => "image_lookbook", :slug => "image_lookbook"
 
     after_build do |image|
       CloudfrontInvalidator.stub_chain(:new, :invalidate)

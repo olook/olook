@@ -1,0 +1,80 @@
+<h2>Moip Callback</h2>
+<div class="inner">
+   <p>
+    <b>ID:</b>
+    <%= @moip_callback.id %>
+  </p>
+
+  <p>
+    <b>Transaction:</b>
+    <%= link_to @moip_callback.id_transacao, admin_payment_path(@payment) if @payment %>
+    <%= @moip_callback.id_transacao unless @payment %>
+  </p>
+
+  <p>
+    <b>Order:</b>
+    <%= link_to @moip_callback.order.number, admin_order_path(@moip_callback.order) if @moip_callback.order %>
+  </p>
+
+  <p>
+    <b>Moip code:</b>
+    <%= @moip_callback.cod_moip %>
+  </p>
+
+  <p>
+    <b>Payment type:</b>
+    <%= @moip_callback.tipo_pagamento %>
+  </p>
+
+  <p>
+  	<b>Status:</b>
+  	<%= payment_status(@moip_callback.status_pagamento) %>
+  </p>
+
+  <p>
+    <b>Created at:</b>
+    <%= l @moip_callback.created_at %>
+  </p>
+
+  <p>
+    <b>Updated at:</b>
+    <%= l @moip_callback.updated_at %>
+  </p>
+
+  <p>
+    <b>Classification:</b>
+    <%= @moip_callback.classificacao %>
+  </p>
+
+  <p>
+  	<b>Processed:</b>
+  	<%= @moip_callback.processed %>
+  </p>
+
+  <p>
+  	<b>Retries:</b>
+  	<%= @moip_callback.retry %>
+  </p>
+
+  <p>
+  	<b>Error:</b>
+  	<%= @moip_callback.error %>
+  </p>
+
+  <p>
+    <% if @moip_callback.processed? %>
+      <%= form_tag(change_to_not_processed_admin_moip_callback_path(@moip_callback)) do -%>
+        <%= submit_tag 'Reprocess' -%>
+      <% end %>
+    <% else %>
+      <%= form_tag(change_to_processed_admin_moip_callback_path(@moip_callback)) do -%>
+        <%= submit_tag 'Mark as processed' -%>
+      <% end %>
+    <% end %>
+  </p>
+
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_moip_callbacks_path %></li>
+<% end %>

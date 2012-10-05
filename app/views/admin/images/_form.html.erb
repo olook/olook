@@ -13,7 +13,7 @@
 
   <p>
     <b>Current image:</b><br />
-    <%= image_tag @image.image.to_s %>
+    <%= image_tag @image.image.to_s if @image.image_url %>
   </p>
 
   <div class="field">

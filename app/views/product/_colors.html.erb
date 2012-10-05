@@ -1,9 +1,9 @@
             <div class="line color">
               <p>Cor:</p>
               <ol class="colors">
-                <% product.all_colors.each do |related_product| %>
+                <% product.all_colors((shoe_size ||= nil), current_admin).each do |related_product| %>
                   <li>
-                    <%= link_to_unless_current image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product, :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} %>
+                    <%= link_to_unless_current image_tag(related_product.color_sample.url || 'fake/no-color.png', title: related_product.name), related_product, data: {params: {gift: (gift ||= false), shoe_size: shoe_size}} %>
                   </li>
                 <% end %>
               </ol>

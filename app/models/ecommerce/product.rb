@@ -42,6 +42,8 @@ class Product < ActiveRecord::Base
 
   scope :only_visible , where(:is_visible => true)
   scope :valid_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"]).order("collection_id desc")}
+  # scope logic for criteo xml
+  scope :valid_criteo_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", COUNT(id) as \"count_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"]).where("(products.category <> 1 or x.count_variants > 3)").order("collection_id desc")}
   scope :shoes        , where(:category => Category::SHOE)
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
@@ -130,16 +132,21 @@ class Product < ActiveRecord::Base
     @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
   end
 
-  def colors(size = nil)
-    if size and self.category == Category::SHOE
-      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(is_visible: true, category: self.category, name: self.name, variants: {description: size}).order('variants.inventory desc, sum(variants.inventory) desc').group(:product_id)
-    else
-      self.related_products.joins('left outer join variants on products.id = variants.product_id').where(is_visible: true, category: self.category, name: self.name).order('sum(variants.inventory) desc').group(:product_id)
-    end
+  def colors(size = nil, admin = false)
+    is_visible = (admin ? [0,1] : true)
+    conditions = {is_visible: is_visible, category: self.category, name: self.name}
+    conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+    Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
+          .joins('left outer join variants on products.id = variants.product_id')
+          .where(conditions)
+          .where("products.id != ?", self.id)
+          .group('products.id')
+          .order('variants.inventory desc, available_inventory desc')
   end
 
-  def all_colors
-    ([self] + self.colors).sort_by {|product| product.id }
+
+  def all_colors(size = nil, admin = false)
+    ([self] | colors(size, admin)).sort_by {|product| product.id }
   end
 
   def easy_to_find_description

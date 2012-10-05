@@ -43,13 +43,13 @@ describe MarketingReports::Builder do
 
     it "calls FileUploader passing the csv" do
       MarketingReports::FileUploader.should_receive(:new).with(csv).and_return(mock.as_null_object)
-      subject.upload(filename)
+      subject.save_file(filename)
     end
 
-    it "calls copy_to_ftp on the file uploader with the passed filename and encoding" do
+    it "calls save_to_disk on the file uploader with the passed filename and encoding" do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:copy_to_ftp).with(filename,encoding)
-      subject.upload(filename,encoding)
+      uploader.should_receive(:save_to_disk).with(filename, encoding)
+      subject.save_file(filename, encoding)
     end
   end
 
@@ -120,5 +120,65 @@ describe MarketingReports::Builder do
       subject.csv.should match ",dwatch20@hotmail.com,,,,,,seed list,,,,,\n"
     end
   end
+
+  describe "#generate_userbase_with_auth_token_and_credits" do
+    let(:csv_header) do
+      "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,auth_token,credit_balance\n"
+    end
+
+    let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
+
+    before(:each) do
+      services.each do |service, response|
+        MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+        MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+      end
+      MarketingReports::SendgridClient.stub(:new).with(:bounces, :type => "hard", :username => "olook2").and_return(bounce_response)
+    end
+
+    it "builds a csv file containing all user data" do
+
+      csv_body = [user_a].inject("") do |data, user|
+        data += "#{user.id},#{user.email.chomp},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
+        data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?},#{user.authentication_token},0.0\n"
+        data
+      end
+
+      subject.generate_userbase_with_auth_token_and_credits
+      subject.csv.should match /^#{csv_header}#{csv_body}/
+    end
+  end
+
+   describe "#generate_userbase_with_credits" do
+    let(:csv_header) do
+      "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,credit_balance\n"
+    end
+
+    let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
+    let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
+    let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
+
+    before(:each) do
+      services.each do |service, response|
+        MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+        MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+      end
+      MarketingReports::SendgridClient.stub(:new).with(:bounces, :type => "hard", :username => "olook2").and_return(bounce_response)
+    end
+
+    it "builds a csv file containing all user data" do
+
+      csv_body = [user_a].inject("") do |data, user|
+        data += "#{user.id},#{user.email.chomp},#{user.created_at},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
+        data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?},0.0\n"
+        data
+      end
+
+      subject.generate_userbase_with_credits
+      subject.csv.should match /^#{csv_header}#{csv_body}/
+    end
+  end 
 
 end
