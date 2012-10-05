@@ -48,10 +48,11 @@ namespace :deploy do
 
       puts "Compiling NGINX"
       cd /usr/src
-      wget http://nginx.org/download/nginx-1.1.6.tar.gz
-      tar -zxvf nginx-1.1.6.tar.gz
-      cd nginx-1.1.6/
-      ./configure --with-http_ssl_module --prefix=/usr/local/nginx --with-http_gzip_static_module
+      wget http://nginx.org/download/nginx-1.2.2.tar.gz
+      tar -zxvf nginx-1.2.2.tar.gz
+      cd nginx-1.2.2/
+      #./configure --with-http_ssl_module --prefix=/usr/local/nginx --with-http_gzip_static_module
+      ./configure --lock-path=/var/lock/nginx.lock --pid-path=/var/run/nginx.pid --with-debug --with-http_addition_module --with-http_gzip_static_module --with-http_realip_module --with-http_stub_status_module --with-http_ssl_module --with-http_sub_module --with-sha1=/usr/include/openssl --with-md5=/usr/include/openssl
       make && make install
 
       puts "Configurando upstart do Nginx e Unicorn"

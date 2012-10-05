@@ -24,6 +24,11 @@ development:
   monitor_mode: false
   developer_mode: true
 
+staging:
+  <<: *default_settings
+  monitor_mode: false
+  developer_mode: true
+
 test:
   <<: *default_settings
   monitor_mode: false
