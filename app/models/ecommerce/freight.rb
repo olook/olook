@@ -14,14 +14,15 @@ class Freight < ActiveRecord::Base
 
   private
   def set_address_fields
-    self.country     = address.country
-    self.city        = address.city
-    self.state       = address.state
-    self.complement  = address.complement
-    self.street      = address.street
+    self.country      = address.country
+    self.city         = address.city
+    self.state        = address.state
+    self.complement   = address.complement
+    self.street       = address.street
     self.number       = address.number
     self.neighborhood = address.neighborhood
     self.zip_code     = address.zip_code
     self.telephone    = address.telephone
+    self.mobile       = address.mobile
   end
 end
