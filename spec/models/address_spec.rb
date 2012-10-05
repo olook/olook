@@ -15,13 +15,6 @@ describe Address do
     it { should validate_presence_of(:zip_code) }
     it { should validate_presence_of(:neighborhood) }
 
-    it "should require mobile phone if there is no telephone" do
-      subject.mobile = "(11)9897-8923"
-      subject.telephone = nil
-      # subject.save!
-      subject.should be_valid
-    end
-
     it "should require telephone if there is no mobile" do
       subject.mobile = nil
       subject.telephone = "(11)3856-8987"
