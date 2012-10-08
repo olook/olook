@@ -194,24 +194,24 @@ section.main {
                 z-index: 0;
               }
             }
+            &.warn_phone {
+              width: 100%;
+              margin: 19px 0 5px !important;
+            }
             &.phone, &.mandatory {
-              margin-right: 10px;
-              padding-top: 15px;
+              margin-right: 13px;
+              padding-top: 10px;
               border-top: 0;
-              float: left;
+              clear: both;
               input {
-                width: 210px;
+                width: 200px;
               }
             }
             &.mandatory {
-              margin-top: 10px;
               em {
                 color: #000;
                 float: none;
                 margin-right:5px;
-              }
-              p {
-                margin:20px 0 0 0;
               }
             }
           }
