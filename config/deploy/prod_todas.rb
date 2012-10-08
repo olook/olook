@@ -1,4 +1,6 @@
-role :app, 'app2.olook.com.br', 'app3.olook.com.br'
+require 'airbrake/capistrano'
+
+role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
 role :web, 'app2.olook.com.br'
 role :db,  'app2.olook.com.br'
  
@@ -39,7 +41,7 @@ namespace :deploy do
   desc 'Sync assets from app2 to others'
   task :sync_task, :role => :web do
     run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app3.olook.com.br:#{deploy_to}/shared/", :roles => :web
-    # run "cd #{deploy_to}/shared && scp -P13630 -r assets app1.olook.com.br:#{deploy_to}/shared/"
+    run "cd #{deploy_to}/shared && scp -P13630 -r assets app1.olook.com.br:#{deploy_to}/shared/", :roles => :web
   end
 
   desc 'Run migrations'
