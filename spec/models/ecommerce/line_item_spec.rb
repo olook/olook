@@ -102,7 +102,7 @@ describe LineItem do
 
   end
 
-  it "should calculate debit amount" do
+  it "should calculate debit amount for one debit" do
     order.line_items.create(
         :variant_id => basic_shoe_35.id,
         :quantity => 1,
@@ -115,6 +115,37 @@ describe LineItem do
         :total => 3.0)
 
     line_item.calculate_debit_amount.should eq(3.0)
-  end 
+  end
+
+  it "should calculate debit amount for many debits" do
+    order.line_items.create(
+        :variant_id => basic_shoe_35.id,
+        :quantity => 1,
+        :price => 100.00,
+        :retail_price => 100.00)
+    line_item = order.line_items.first
+
+    line_item.debits.create(:value => 3.0, :total => 3.0)
+    line_item.debits.create(:value => 4.0, :total => 4.0)
+    line_item.debits.create(:value => 5.0, :total => 5.0)
+
+    line_item.calculate_debit_amount.should eq(12.0)
+  end  
+
+  it "should calculate available credits" do
+   order.line_items.create(
+        :variant_id => basic_shoe_35.id,
+        :quantity => 1,
+        :price => 100.00,
+        :retail_price => 100.00)
+    line_item = order.line_items.first
+
+    user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
+    loyalty_program_credits = user.user_credits_for(:loyalty_program).credits.first
+
+    line_item.debits.create(:value => 3.0, :total => 3.0)
+
+    line_item.calculate_available_credits.should eq(loyalty_program_credits.value - 3.0)
+  end
 
 end
