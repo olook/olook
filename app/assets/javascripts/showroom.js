@@ -66,8 +66,8 @@ $(document).ready(function() {
   });
 
   $("div#mask_carousel_showroom ul").carouFredSel({
-    width: 356,
-    height: 186,
+    width: 326,
+    height: 171,
     auto : {
       pauseDuration : 15000
     },

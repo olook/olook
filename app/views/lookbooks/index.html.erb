@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/lookbooks" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "lookbooks" %>
+<% end %>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<section id="lookbooks">
+  <%= render 'shared/banners/olooklet' %>
+  <h1>Tendências</h1>
+  <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
+  <div class="products_list">
+    <h1>Confira os produtos: <%= @lookbooks.first.name %></h1>
+    <ul>
+      <% @products.each do |product| %>
+        <%= get_partial(product) %>
+      <% end %>
+    </ul>
+  </div>
+</section>
+<% content_for :footer do %>
+
+  <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
+<% end %>
+
