@@ -1,6 +1,6 @@
 load 'deploy/assets'
 require 'new_relic/recipes'
-require 'airbrake/capistrano'
+# require 'airbrake/capistrano'
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
