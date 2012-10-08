@@ -32,7 +32,7 @@ Olook::Application.routes.draw do
 
   #LOOKBOOKS
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
-  match "/tendencias", :to => "lookbooks#show", :as => "lookbooks"
+  match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
@@ -128,7 +128,7 @@ Olook::Application.routes.draw do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
       end
       post 'sort_pictures' => 'pictures#sort', as: 'sort_pictures'
-      
+
       resources :pictures do
 
         collection do
@@ -224,7 +224,7 @@ Olook::Application.routes.draw do
         post 'change_to_not_processed'
       end
     end
-    
+
     resources :payments, :only => [:index, :show]
 
   end

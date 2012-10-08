@@ -16,6 +16,8 @@ class Lookbook < ActiveRecord::Base
   mount_uploader :icon, ImageUploader
   mount_uploader :icon_over, ImageUploader
 
+  mount_uploader :movie_image, LookbookPictureUploader
+
   attr_accessor :product_list
   attr_accessor :product_criteo
   after_save :update_products

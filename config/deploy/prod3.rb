@@ -33,13 +33,13 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
-  de  desc 'Run migrations'
+  desc 'Run migrations'
   task :rake_tasks, :role => :app do
     run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
     run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
-sc 'Restart unicorn'
+  desc 'Restart unicorn'
   task :restart, :roles => :app do
     run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
