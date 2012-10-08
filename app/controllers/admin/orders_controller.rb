@@ -54,11 +54,4 @@ class Admin::OrdersController < Admin::BaseController
     redirect_to admin_orders_path, :notice => "Integrate Cancel Orders, checking Resque"
   end
 
-  def cancel_loyalty_credits
-    # busca a order selecionada
-    @order = Order.find(params[:order_id])
-    # vai para a listagem de orders
-    redirect_to admin_orders_path, :notice => @order.remove_order_credits ? "Credits Cancelled for order #{@order.number}" : "Credits not Cancelled for order #{@order.number}" 
-  end
-
 end

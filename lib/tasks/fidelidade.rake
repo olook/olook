@@ -7,7 +7,7 @@ namespace :fidelidade do
          .where("orders.created_at between '2012-09-01' and '2012-09-14'").each do |order|
       credits_for_order = order.user
                                .user_credits_for(:loyalty_program)
-                               .credits.where(:order_id => order, :source => "loyalty_program_credit", :refunded => false)
+                               .credits.where(:order_id => order, :source => "loyalty_program_credit")
                                .count
       UserCredit.add_loyalty_program_credits(order) if credits_for_order == 0
     end
