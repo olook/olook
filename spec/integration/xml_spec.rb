@@ -282,7 +282,6 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      binding.pry
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
