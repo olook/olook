@@ -33,4 +33,12 @@ class LineItem < ActiveRecord::Base
     # devolver quantia através da porcentagem calculada anteriormente
     (total_credit_amount*percentage).round(2)
   end
+
+  def calculate_debit_amount
+    (line_item.debits.sum(:amount)).round(2)
+  end
+
+  def calculate_available_credits
+    calculate_loyalty_credit_amount - calculate_debit_amount
+  end
 end
