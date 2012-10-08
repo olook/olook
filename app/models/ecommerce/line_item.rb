@@ -35,7 +35,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def calculate_debit_amount
-    (line_item.debits.sum(:amount)).round(2)
+    (debits.sum(:value)).round(2)
   end
 
   def calculate_available_credits

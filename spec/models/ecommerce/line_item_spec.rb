@@ -102,4 +102,19 @@ describe LineItem do
 
   end
 
+  it "should calculate debit amount" do
+    order.line_items.create(
+        :variant_id => basic_shoe_35.id,
+        :quantity => 1,
+        :price => 100.00,
+        :retail_price => 100.00)
+    line_item = order.line_items.first
+
+    line_item.debits.create(
+        :value => 3.0,
+        :total => 3.0)
+
+    line_item.calculate_debit_amount.should eq(3.0)
+  end 
+
 end
