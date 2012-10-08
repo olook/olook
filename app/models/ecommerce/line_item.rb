@@ -1,4 +1,5 @@
 class LineItem < ActiveRecord::Base
+  has_many :debits, :class_name => "Credit", :foreign_key => "line_item_id"
   belongs_to :variant
   belongs_to :order
   validates_presence_of :variant_id
