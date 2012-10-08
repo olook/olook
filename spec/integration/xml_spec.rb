@@ -5,8 +5,8 @@ include ActionView::Helpers::NumberHelper
 include XmlHelper
 
 feature "Show products on xml format" do
-  let!(:bag) { FactoryGirl.create :basic_bag }
-  let!(:product) { FactoryGirl.create :blue_sliper_with_variants }
+  let(:bag) { FactoryGirl.create :basic_bag }
+  let(:product) { FactoryGirl.create :blue_sliper_with_variants }
 
   background do
     product.master_variant.update_attribute(:price, "99.90")
@@ -282,6 +282,7 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
+      binding.pry
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
