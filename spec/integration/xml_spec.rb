@@ -5,8 +5,8 @@ include ActionView::Helpers::NumberHelper
 include XmlHelper
 
 feature "Show products on xml format" do
-  let!(:bag) { FactoryGirl.create :basic_bag }
-  let!(:product) { FactoryGirl.create :blue_sliper_with_variants }
+  let(:bag) { FactoryGirl.create :basic_bag }
+  let(:product) { FactoryGirl.create :blue_sliper_with_variants }
 
   background do
     product.master_variant.update_attribute(:price, "99.90")
@@ -35,7 +35,7 @@ feature "Show products on xml format" do
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
       <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <recommendable>3 x 33.30</recommendable>
+      <recommendable>3 x 33,30</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category_humanize}</category>
       </product>
@@ -62,7 +62,7 @@ feature "Show products on xml format" do
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
       <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <recommendable><#{ build_installment_text(product.retail_price)}</recommendable>
+      <recommendable><#{ build_installment_text(product.retail_price, separator: ",")}</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category_humanize}</category>
       </product>
@@ -282,6 +282,7 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
+      binding.pry
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end

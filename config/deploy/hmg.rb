@@ -1,5 +1,5 @@
 role :app, "homolog.olook.com.br"
- 
+role :web, "homolog.olook.com.br"
 # server details
 set :rails_env, 'staging'
 
@@ -8,6 +8,13 @@ set :branch, fetch(:branch, 'homolog')
 
 # tasks
 namespace :deploy do
+
+  namespace :assets do
+    task :precompile, :roles => :web do
+      run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
+    end
+  end
+
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
@@ -34,8 +41,8 @@ namespace :deploy do
 
   desc 'Run migrations'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && bundle exec rake olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Restart webserver'
@@ -67,7 +74,7 @@ namespace :deploy do
   #   Capistrano.configuration(:must_exist)
 
   # configuration.load do
-  #   namespace :deploy do    
+  #   namespace :deploy do
   #     namespace :rollback do
   #       desc <<-DESC
   #                         Rolls back the migration to the version found in schema.rb file of the previous release path.\\
