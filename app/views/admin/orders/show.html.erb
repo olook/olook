@@ -93,11 +93,10 @@
       <th>Quantity</th>
       <th>Unit Price</th>
       <th>Total</th>
-      <th>Quantia a descontar em caso de estorno (Créditos de fidelidade)</th>
+      <th>Créditos de Fidelidade</th>
+      <th>Créditos a serem descontados<br/>(em caso de estorno)</th>
+      <th></th>
     </tr>
-
-  <% credits = Credit.find_all_by_source_and_order_id_and_is_debit("loyalty_program_credit",@order.id, false) 
-  %>
   
   <% @order.line_items.each do |line_item| %>
     <tr>
@@ -107,16 +106,20 @@
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
-      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> 
-        <%= "(utilizado ou estornado)" if (credits.first) && (!credits.first.debits.empty?) %>
-      </td>   
+      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>   
+      <td><%= number_to_currency(line_item.calculate_available_credits) %></td>
+      <td><% if line_item.debits.empty? %>
+        <%= form_tag(remove_loyalty_credits_admin_order_path(@order)) do -%>
+          <%= hidden_field_tag 'line_item_id', line_item.id %>
+          <%= submit_tag 'Remover créditos de fidelidade' -%>
+        <% end %>
+      <% end %></td>
     </tr>
   <% end %>
   </table>
 
   <h3>Total de Créditos de fidelidade</h3>
   <p><%= number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount)) %>  
-     <%= "(Já utilizados ou estornados)" if (credits.first) && (!credits.first.debits.empty?) %>
   </p>
 
   <h3>Abacos</h3>

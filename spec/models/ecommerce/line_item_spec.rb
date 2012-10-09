@@ -148,4 +148,26 @@ describe LineItem do
     line_item.calculate_available_credits.should eq(loyalty_program_credits.value - 3.0)
   end
 
+  describe "when order has a loyalty credit" do
+    let!(:credit) {FactoryGirl.create(:credit, :source => "loyalty_program_credit", 
+                                            :is_debit => false, 
+                                            :value => 20.00, 
+                                            :order_id => order.id)}
+
+    it "should create a debit with full value when amount is available" do
+      order.line_items.create(
+          :variant_id => basic_shoe_35.id,
+          :quantity => 1,
+          :price => 100.00,
+          :retail_price => 100.00)
+      line_item = order.line_items.first
+
+      expect {
+        line_item.remove_loyalty_credits
+      }.to change{Credit.count}.by(1)
+
+      line_item.calculate_available_credits.should eq(0)
+    end
+  end
+
 end
