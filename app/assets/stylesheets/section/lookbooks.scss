@@ -27,9 +27,9 @@ section#lookbooks {
       height: 40px;
       display: block;
       z-index: 101;
-		&:hover{
-			background: url("lookbooks/close-hover.png") no-repeat;
-		}
+	  &:hover{
+		background: image-url("lookbooks/close-hover.png") no-repeat;
+	  }
     }
     a.video_link {
       position: absolute;
