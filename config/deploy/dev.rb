@@ -11,12 +11,6 @@ set :branch, fetch(:branch, 'development')
 # tasks
 namespace :deploy do
 
-  namespace :assets do
-    task :precompile, :roles => :web do
-      run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
-    end
-  end
-
 
   task :default, :role => :app do
     update #capistrano internal default task
