@@ -36,6 +36,9 @@ class MomentsController < ApplicationController
 
     if @moment
       @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
+      @products_id = @catalog_products.map{|item| item.product_id }.compact
+      # params[:id] is into array for pixel iterator
+      @categories_id = params[:id] ? [params[:id]] : @moments.map(&:id).compact.uniq
     else
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."

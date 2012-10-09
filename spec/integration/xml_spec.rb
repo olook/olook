@@ -2,10 +2,11 @@
 require 'spec_helper'
 require 'integration/helpers'
 include ActionView::Helpers::NumberHelper
+include XmlHelper
 
 feature "Show products on xml format" do
-  let!(:bag) { FactoryGirl.create :basic_bag }
-  let!(:product) { FactoryGirl.create :blue_sliper_with_variants }
+  let(:bag) { FactoryGirl.create :basic_bag }
+  let(:product) { FactoryGirl.create :blue_sliper_with_variants }
 
   background do
     product.master_variant.update_attribute(:price, "99.90")
@@ -13,6 +14,38 @@ feature "Show products on xml format" do
   end
 
   context "in the criteo xml page" do
+
+
+    scenario "I  dont want to see products of criteo if has less variants" do
+      product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
+      product2.master_variant.update_attribute(:price, "99.90")
+      product2.master_variant.update_attribute(:inventory, 1)
+      visit criteo_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <products>
+      <product id="#{product.id}">
+      <name>#{product.name}</name>
+      <smallimage></smallimage>
+      <bigimage></bigimage>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
+      <description>#{product.description}</description>
+      <price>#{number_with_precision(product.price, :precision => 2)}</price>
+      <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
+      <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
+      <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
+      <recommendable>1</recommendable>
+      <instock>#{product.instock}</instock>
+      <category>#{product.category_humanize}</category>
+      </product>
+      </products>
+      END
+      equivalent_content = Nokogiri::XML(content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+    end
+
+
     scenario "I want to see products of criteo" do
       visit criteo_path
       result = Nokogiri::XML(page.source)
@@ -25,17 +58,18 @@ feature "Show products on xml format" do
       <bigimage></bigimage>
       <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
+      <price>#{number_with_precision(product.price, :precision => 2)}</price>
+      <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
+      <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       </product>
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 
@@ -64,7 +98,7 @@ feature "Show products on xml format" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
 
@@ -82,7 +116,7 @@ feature "Show products on xml format" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
 
@@ -111,7 +145,7 @@ feature "Show products on xml format" do
         <descricao><![CDATA[#{ product.description}]]></descricao>
         <preco_de><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.price, :precision => 2) }]]></preco_de>
         <preco_por><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}]]></preco_por>
-        <parcelamento><![CDATA[3 x 33,30]]></parcelamento>
+        <parcelamento><![CDATA[3 x 33.30]]></parcelamento>
         <imagens>
         </imagens>
         <num_tams>
@@ -122,36 +156,9 @@ feature "Show products on xml format" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
-
-
-  context "in the adroll xml page" do
-    scenario "I want to see products of adroll" do
-      visit adroll_path
-      result = Nokogiri::XML(page.source)
-      content= <<-END.gsub(/^ {6}/, '')
-      <?xml version="1.0" encoding="UTF-8"?>
-      <products>
-      <product id="#{product.id}">
-      <name>#{product.name}</name>
-      <smallimage></smallimage>
-      <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=adroll</producturl>
-      <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
-      <recommendable>1</recommendable>
-      <instock>#{product.instock}</instock>
-      <category>#{product.category}</category>
-      </product>
-      </products>
-      END
-      equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
-    end
-  end
 
   context "in the topster xml page" do
 
@@ -176,7 +183,7 @@ feature "Show products on xml format" do
       <descricao><![CDATA[#{ product.description}]]></descricao>
       <preco_de><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.price, :precision => 2) }]]></preco_de>
       <preco_por><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}]]></preco_por>
-      <parcelamento><![CDATA[3 x 33,30]]></parcelamento>
+      <parcelamento><![CDATA[3 x 33.30]]></parcelamento>
       <imagens>
       </imagens>
       <num_tams>
@@ -187,7 +194,7 @@ feature "Show products on xml format" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
   end
 
@@ -202,10 +209,10 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=net_affiliation</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=compradores&amp;utm_content=6691&amp;utm_medium=vitrine&amp;utm_source=net_affiliation</producturl>
       <description>#{product.description}</description>
-      <price>#{product.price}</price>
-      <retailprice>#{product.retail_price}</retailprice>
+      <price>#{number_with_precision(product.retail_price, precision: 2, separator: ",")}</price>
+      <retailprice>#{number_with_precision(product.price, precision: 2, separator: ",")}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
@@ -214,7 +221,7 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 
@@ -250,7 +257,7 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 
@@ -264,9 +271,9 @@ context "in the ilove_ecommerce xml page" do
       <produto>
       <codigo>#{product.id}</codigo>
       <descricao>#{product.description}</descricao>
-      <preco>99,9</preco>
-      <nparcela>1</nparcela>
-      <vparcela></vparcela>
+      <preco>99,90</preco>
+      <nparcela>#{ build_installment_text(product.retail_price).chars.first }</nparcela>
+      <vparcela>#{ build_installment_text(product.retail_price, separator: ",").split("x").last }</vparcela>
       <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>
       <url_imagem></url_imagem>
       <Frete>Sim</Frete>
@@ -275,7 +282,7 @@ context "in the ilove_ecommerce xml page" do
       </produtos>
       END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 
@@ -315,6 +322,58 @@ context "in the ilove_ecommerce xml page" do
       </products>
     END
       equivalent_content = Nokogiri::XML(content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+    end
+  end
+
+  context "in the buscape page " do
+    scenario "I want to see products of buscape " do
+      visit buscape_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="iso-8859-1" ?>
+      <produtos>
+      <produto>
+        <descricao>#{ product.name }</descricao>
+        <preco>#{ number_to_currency(product.price).delete("R$ ") }</preco>
+        <id_produto>#{ product.id }</id_produto>
+        <codigo_barra></codigo_barra>
+        <isbn></isbn>
+        <link_prod>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=buscape</link_prod>
+        <imagem>#{ product.main_picture.try(:image) }</imagem>
+        <categ>#{ product.category_humanize }</categ>
+        <parcelamento>#{ build_installment_text(product.retail_price) }</parcelamento>
+        <detalhes>#{ product.description }</detalhes>
+      </produto>
+      </produtos>
+      END
+      equivalent_content = Nokogiri::XML(content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+    end
+  end
+
+  context "in the sociomantic page " do
+    scenario "I want to see products of sociomantic" do
+      visit sociomantic_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8" ?>
+      <products xmlns="http://data-vocabular.org/product/">
+      <product>
+      <identifier>#{product.id}</identifier>
+      <fn>#{product.name}</fn>
+      <description>#{product.description}</description>
+      <category>#{product.category}</category>
+      <brand>Olook</brand>
+      <price>#{product.retail_price}</price>
+      <amount>#{product.price}</amount>
+      <currency>BRL</currency>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=sociomantic</url>
+      <photo>#{product.pictures.last.try(:image)}</photo>
+      </product>
+      </products>
+      END
+      equivalent_content = Nokogiri::XML(content)
       result.should be_equivalent_to(equivalent_content)
     end
   end
@@ -336,7 +395,7 @@ context "in the ilove_ecommerce xml page" do
         </produtos>
         END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
 

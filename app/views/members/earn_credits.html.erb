@@ -9,6 +9,11 @@
 <section id="earn_credits">
   <h1>Ganhe créditos</h1>
   <section id="left">
+    <h2>Convide suas amigas</h2>
+    <h3>E ganhe R$ 20 na primeira compra de cada uma delas</h3>
+    <%= render "shared/social/share", :user => current_user %>
+  </section>
+  <section id="right">
     <h2>Fidelidade Olook</h2>
     <h3>Fique na moda todos os meses gastando muito menos</h3>
     <ul class="steps">
@@ -17,10 +22,5 @@
       <li class="last">E poderá utilizar este<br />valor em compras nos<br />próximos 2 meses</li>
     </ul>
     <%= link_to "Visite sua vitrine e aproveite", member_showroom_path %>
-  </section>
-  <section id="right">
-    <h2>Convide suas amigas</h2>
-    <h3>E ganhe R$ 20 na primeira compra de cada uma delas</h3>
-    <%= render "shared/social/share", :user => current_user %>
   </section>
 </section>

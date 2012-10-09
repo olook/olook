@@ -31,38 +31,6 @@ section#earn_credits {
       min-height: 390px;
       padding-left: 0;
       border-right: 2px #CCC solid;
-      ul.steps {
-        margin: 0 auto 20px;
-        overflow: auto;
-        li {
-          background: image-url('loyalty/icons.jpg') no-repeat;
-          background-position: -149px 0;
-          font-size: 13px;
-          text-align: center;
-          width: 130px;
-          margin: 0 20px 0 0;
-          padding: 170px 0 0 0;
-          display: inline-block;
-          float: left;
-          &:first-child {
-            background-position: 4px 0;
-          }
-          &:last-child, &.last {
-            background-position: -301px 0;
-            margin: 0;
-          }
-        }
-      }
-      a {
-        background: image-url('earn_credits/bt-showroom.jpg') no-repeat;
-        text-indent: -99999px;
-        width: 251px;
-        height: 39px;
-        margin: 0 auto;
-        display: block;
-      }
-    }
-    &#right {
       h3 {
         margin-bottom: 35px;
       }
@@ -92,6 +60,38 @@ section#earn_credits {
           top: 60px;
           left: 270px;
         }
+      }
+    }
+    &#right {
+      ul.steps {
+        margin: 0 auto 20px;
+        overflow: auto;
+        li {
+          background: image-url('loyalty/icons.jpg') no-repeat;
+          background-position: -149px 0;
+          font-size: 13px;
+          text-align: center;
+          width: 130px;
+          margin: 0 20px 0 0;
+          padding: 170px 0 0 0;
+          display: inline-block;
+          float: left;
+          &:first-child {
+            background-position: 4px 0;
+          }
+          &:last-child, &.last {
+            background-position: -301px 0;
+            margin: 0;
+          }
+        }
+      }
+      a {
+        background: image-url('earn_credits/bt-showroom.jpg') no-repeat;
+        text-indent: -99999px;
+        width: 251px;
+        height: 39px;
+        margin: 0 auto;
+        display: block;
       }
     }
   }

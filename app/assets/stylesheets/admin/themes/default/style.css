@@ -501,6 +501,20 @@ a.button:active, button.button:active, input.button:active, input[type=submit]:a
   margin-top: 1px;
   margin-bottom: -1px;
 }
+a.button.info, .button.info {
+  background: #006DCC;
+  color:white;
+  background-image: -ms-linear-gradient(top, #FBB450, #F89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBB450), to(#F89406));
+  background-image: -webkit-linear-gradient(top, #08C, #04C);
+  background-image: -o-linear-gradient(top, #FBB450, #F89406);
+  background-image: -moz-linear-gradient(top, #FBB450, #F89406);
+  background-image: linear-gradient(top, #FBB450, #F89406);
+  border-color: #F89406 #F89406 #AD6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#08C', endColorstr='#04C', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
 a.button.warn, .button.warn {
   background: #FAA732;
   color:white;

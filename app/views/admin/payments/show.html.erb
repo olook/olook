@@ -1,0 +1,204 @@
+<h2>Payment</h2>
+<div class="inner">
+  <p>
+    <b>ID:</b>
+    <%= @payment.identification_code %>
+  </p>
+
+  <p>
+    <b>Order:</b>
+    <%= @payment.order.number if @payment.order %>
+  </p>
+
+  <p>
+    <b>URL:</b>
+    <%= link_to 'Clique aqui para abrir o link', @payment.url, :target => "_blank" %>
+  </p>
+
+  <p>
+    <b>Created at:</b>
+    <%= l @payment.created_at %>
+  </p>
+
+  <p>
+    <b>Updated at:</b>
+    <%= l @payment.updated_at %>
+  </p>
+
+  <p>
+    <b>Type:</b>
+    <%= payment_with_origin(@payment) %>
+  </p>
+
+  <p>
+    <b>State:</b>
+    <%= @payment.state %>
+  </p>
+
+  <p>
+    <b>User:</b>
+    <%= link_to @payment.user.name, admin_user_path(@payment.user) if @payment.user %>
+  </p>  
+
+  <p>
+    <b>Credit card number:</b>
+    <%= @payment.credit_card_number %>
+  </p>
+
+  <p>
+    <b>Bank:</b>
+    <%= @payment.bank %>
+  </p>
+
+  <p>
+    <b>Expiration date:</b>
+    <%= @payment.expiration_date %>
+  </p>
+
+  <p>
+    <b>Telephone:</b>
+    <%= @payment.telephone %>
+  </p>
+
+  <p>
+    <b>User birthday:</b>
+    <%= @payment.user_birthday %>
+  </p>
+
+  <p>
+    <b>Payments:</b>
+    <%= @payment.payments %>
+  </p>
+  
+  <p>
+    <b>Gateway status:</b>
+    <%= @payment.gateway_status %>
+  </p>
+
+  <p>
+    <b>Gateway code:</b>
+    <%= @payment.gateway_code %>
+  </p>
+
+  <p>
+    <b>Gateway type:</b>
+    <%= @payment.gateway_type %>
+  </p>
+
+  <p>
+    <b>Payment expiration date:</b>
+    <%= l @payment.payment_expiration_date if @payment.payment_expiration_date %>
+  </p>
+
+  <p>
+    <b>Reminder sent:</b>
+    <%= @payment.reminder_sent %>
+  </p>
+
+  <p>
+    <b>Gateway status reason:</b>
+    <%= @payment.gateway_status_reason %>
+  </p>
+
+  <p>
+    <b>Cart:</b>
+    <%= @payment.cart_id %>
+  </p>    
+
+  <% if @credits %>
+    <p>
+      <b>Debits used for payment credits:</b>
+    </p>
+    <table border="1">
+      <thead>
+        <th>Value</th>
+        <th>Date</th>
+      </thead>
+      <% @credits.each do |credit| %>
+        <tr>
+          <td><%= number_to_currency credit.value %></td>
+          <td><%= l credit.created_at %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+
+  <% if @payment.respond_to?(:coupon) %>
+    <p>
+      <b>Coupon:</b>
+      <%= link_to @payment.coupon.code, admin_coupon_path(@payment.coupon) if @payment.coupon %>
+    </p> 
+  <% end %>
+
+  <p>
+    <b>Total paid:</b>
+    <%= number_to_currency @payment.total_paid %>
+  </p>
+
+  <% if @payment.respond_to?(:promotion) %>
+    <p>
+      <b>Promotion:</b>
+      <%= link_to @payment.promotion.name, admin_promotion_path(@payment.promotion) if @payment.promotion %>
+    </p> 
+
+    <p>
+      <b>Discount percent</b>
+      <%= number_to_percentage @payment.discount_percent %>
+    </p>
+  <% end %>
+
+  <p>
+    <b>Percent</b>
+    <%= number_to_percentage @payment.percent %>
+  </p>
+
+  <p>
+    <b>Gateway response ID</b>
+    <%= @payment.gateway_response_id %>
+  </p>
+
+  <p>
+    <b>Gateway response status</b>
+    <%= @payment.gateway_response_status %>
+  </p>
+
+  <p>
+    <b>Gateway token</b>
+    <%= @payment.gateway_token %>
+  </p>
+
+  <p>
+    <b>Gateway fee</b>
+    <%= number_to_currency @payment.gateway_fee %>
+  </p>
+
+  <p>
+    <b>Gateway origin code</b>
+    <%= @payment.gateway_origin_code %>
+  </p>
+
+  <p>
+    <b>Gateway transaction status</b>
+    <%= @payment.gateway_transaction_status %>
+  </p>
+
+  <p>
+    <b>Gateway message</b>
+    <%= @payment.gateway_message %>
+  </p>
+
+  <p>
+    <b>Gateway transaction code</b>
+    <%= @payment.gateway_transaction_code %>
+  </p>
+
+  <p>
+    <b>Gateway return code</b>
+    <%= @payment.gateway_return_code %>
+  </p>
+  
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_payments_path %></li>
+<% end %>

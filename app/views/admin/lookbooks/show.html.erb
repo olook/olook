@@ -34,6 +34,10 @@
     <b>Foreground and background colors:</b>
     <div class="product-map-example">Texto de exemplo</div>
   </p>
+  <p>
+    <b>Video thumbnail:</b><br/>
+    <%= image_tag @lookbook.movie_image_url(:movie_thumb) if @lookbook.movie_image? %>
+  </p>
 
   <%= render :partial => 'images', :locals => {:lookbook => @lookbook} %>
   <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>

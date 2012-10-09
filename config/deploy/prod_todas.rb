@@ -1,53 +1,23 @@
-role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'#, 'app4.olook.com.br', 'app5.olook.com.br', 'app6.olook.com.br'
-role :db, 'app1.olook.com.br'
+require 'airbrake/capistrano'
+
+role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
+role :web, 'app2.olook.com.br'
+role :db,  'app2.olook.com.br'
  
+# server details
+set :rails_env, 'production'
+#
 # repo details
 set :branch, fetch(:branch, 'master')
-
-trap("INT") {
-  print "\n\n"
-  exit 42
-}
-
-namespace :log do
-  desc "Tail all application log files"
-  task :tail, :roles => :web do
-
-    run "tail -f #{path_log}" do |channel, stream, data|
-      puts "\033[0;33m#{stage}:\033[0m #{data}"
-      break if stream == :err
-    end
-  end
-end
 
 # tasks
 namespace :deploy do
   task :default, :role => [:app, :db] do
     update #capistrano internal default task
     yml_links
-    bundle_install
     rake_tasks
-    assets_tasks
+    sync_task
     restart
-  # end
-  # task :default, :role => :rake do
-  end
-
-  desc 'Install gems'
-  task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without development test install"    
-  end
-
-  desc 'Run migrations'
-  task :rake_tasks, :role => :db do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}", :roles => :db
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
-  end
-
-  desc 'Run assets precompile'
-  task :assets_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -65,20 +35,25 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/facebook.yml #{version_path}/config/facebook.yml"
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
+    run "ln -nfs #{deploy_to}/shared/assets #{version_path}/public/assets"
   end
 
-  desc 'Stop unicorn'
-  task :stop_unicorn, :roles => :app do
-    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -TERM $pid; fi"
+  desc 'Sync assets from app2 to others'
+  task :sync_task, :role => :web do
+    run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app3.olook.com.br:#{deploy_to}/shared/", :roles => :web
+    run "cd #{deploy_to}/shared && scp -P13630 -r assets app1.olook.com.br:#{deploy_to}/shared/", :roles => :web
   end
 
-  desc 'Start unicorn'
-  task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+  desc 'Run migrations'
+  task :rake_tasks, :role => :db do
+    run "cd #{path_app} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}", :roles => :db
+    run "cd #{path_app} && bundle exec rake olook:create_permissions RAILS_ENV=#{rails_env}", :roles => :db
   end
 
   desc 'Restart unicorn'
   task :restart, :roles => :app do
+    run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
+    run "ps -e -o pid,command |grep unicorn |grep master"
   end
 end

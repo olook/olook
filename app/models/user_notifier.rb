@@ -29,16 +29,21 @@ class UserNotifier
   end
 
   def self.send_enabled_credits_notification
+    arr = []
     users_selected_by(:activates_at).find_each do |user|
-      LoyaltyProgramMailer.send_enabled_credits_notification(user)
+      arr << LoyaltyProgramMailer.send_enabled_credits_notification(user)
     end
+    arr
   end
 
   def self.send_expiration_warning(expires_tomorrow = false)
     date = DateTime.now.end_of_month
+    arr = []
     users_selected_by(:expires_at, date).find_each do |user|
-      LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
+      response = LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
+      arr << response unless response.nil?
     end
+    arr
   end
 
   # private
@@ -52,7 +57,8 @@ class UserNotifier
     User.joins(user_credits: [:credit_type, :credits])
         .where(credit_types: {code: :loyalty_program})
         .where(condition.lteq(date +1.day))
-        .where(condition.gteq(date -1.day))    
+        .where(condition.gteq(date -1.day))  
+        .uniq  
   end
 
 end
