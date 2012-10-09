@@ -27,6 +27,9 @@ section#lookbooks {
       height: 40px;
       display: block;
       z-index: 101;
+		&:hover{
+			background: url("lookbooks/close-hover.png") no-repeat;
+		}
     }
     a.video_link {
       position: absolute;
@@ -64,6 +67,9 @@ section#lookbooks {
       background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
       right: 0;
     }
+	.next-pic:hover{background:url("/assets/lookbooks/arrow-next-hover.png") no-repeat 0 center}
+	.prev-pic:hover{background:url("/assets/lookbooks/arrow-prev-hover.png") no-repeat 0 center}
+
     ul {
       position: relative;
       width: 3000px;
@@ -108,10 +114,10 @@ section#lookbooks {
     overflow: auto;
     margin: 0 0 30px;
     > h1 {
-      color: #888;
-      font-family: $avenir;
-      font-size: 30px;
-      font-weight: 600;
+
+      font-family: $johnston;
+      font-size: 28px;
+      font-weight: lighter;
       letter-spacing: -1px;
       text-transform: uppercase;
       margin: 0 0 15px;

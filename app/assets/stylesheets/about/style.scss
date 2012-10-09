@@ -141,6 +141,7 @@ padding:20px 20px 0;
     font-size: 16px;
     margin: 0 0 13px;
     text-transform: uppercase;
+	font-weight:bold;
   }
 
   p.intro, .intro {
@@ -158,8 +159,8 @@ padding:20px 20px 0;
     margin: 0 0 40px;
     p {
       color: #101010;
-      font-family: "Kepler Std Italic", Times, "Times New Roman", sans-serif;
-      font-size: 18px;
+      font-family: "avenir", Times, "Times New Roman", sans-serif;
+      font-size: 16px;
       letter-spacing: -1px;
       margin: 0 0 20px;
     }
@@ -244,13 +245,6 @@ padding:20px 20px 0;
   #terms {
     h2 {
       font-weight: bold;
-    }
-  }
-  #terms.return {
-    div.steps {
-      h2 {
-        font-weight: bold;
-      }
     }
   }
 }

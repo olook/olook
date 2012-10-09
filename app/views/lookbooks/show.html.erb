@@ -22,7 +22,7 @@
 
 <section id="lookbooks">
   <%= render 'shared/banners/olooklet' %>
-  <h1>Tendências</h1>
+  <!--h1>Tendências</h1-->
   <div id="carousel_lookbooks_product">
     <% if @lookbook.has_video? %>
       <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{@lookbook.video.url}", :title => "#{@lookbook.video.title}", :style => "background-image: url('#{@lookbook.movie_image_url(:movie_thumb)}');" %>
