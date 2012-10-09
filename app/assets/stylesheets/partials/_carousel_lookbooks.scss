@@ -20,6 +20,8 @@ div#carousel_lookbooks {
     background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
     right: 0px;
   }
+  .next-lookbook:hover{background:url("/assets/lookbooks/arrow-next-hover.png") no-repeat 0 center}
+  .prev-lookbook:hover{background:url("/assets/lookbooks/arrow-prev-hover.png") no-repeat 0 center}
   ul {
     position: relative;
     width: 1500px;
@@ -65,7 +67,7 @@ div#carousel_lookbooks {
         height: 52px;
         display: block;
         bottom: 70px;
-        right: 20px;
+        left: 20px;
         z-index: 1;
       }
     }
