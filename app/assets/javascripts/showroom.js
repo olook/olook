@@ -21,7 +21,10 @@ $(document).ready(function() {
     click = $(this);
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
-    var url = $(this).data('url');
+    c_id = "?" + (location.href.match(/c=\d+/)||"")
+
+    var url = $(this).data('url') + c_id;
+
     if(box.is(":visible") == false) {
       $("<div class='loading'></div>").insertBefore($(this));
       if ($(this).hasClass("loaded") == false) {
@@ -50,21 +53,21 @@ $(document).ready(function() {
   });
 
   $("div.facebook.connected ul").carouFredSel({
+    auto: false,
     height: 40,
     width: 540,
     align: 'left',
-    auto: false,
     prev : {
-      button : ".carousel-prev-fb",
+      button : ".carousel-prev-fb"
     },
     next : {
-      button : ".carousel-next-fb",
+      button : ".carousel-next-fb"
     }
   });
 
   $("div#mask_carousel_showroom ul").carouFredSel({
-    width: 356,
-    height: 186,
+    width: 326,
+    height: 171,
     auto : {
       pauseDuration : 15000
     },

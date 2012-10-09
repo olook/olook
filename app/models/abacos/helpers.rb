@@ -73,7 +73,11 @@ module Abacos
     end
 
     def parse_telefone(telephone)
-      telephone[0..14]
+      telephone[0..14] if telephone
+    end
+
+    def parse_celular(mobile)
+      mobile[0..14] if mobile
     end
 
     def parse_price(price)

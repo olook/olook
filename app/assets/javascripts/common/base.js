@@ -6,6 +6,8 @@ $(document).ready(function() {
   initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
   initBase.showInfoCredits();
+  initBase.showSlideToTop();
+  initBase.slideToTop();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('nav.menu').length == 1) {
@@ -226,23 +228,26 @@ $(document).ready(function() {
     });
   });
 
-  if($("input:text.phone").size() == 1) {
-    currentPhone = $('input:text.phone').val();
-    if(currentPhone == '') {
-      $("input:text.phone").setMask({
-        mask: '(99)9999-9999'
-      });
-    } else {
-      if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9') {
-        $('input:text.phone').setMask({
-          mask: '(99)99999-9999'
-        });
-      } else {
-        $('input:text.phone').setMask({
+  if($("input:text.phone").size() == 2) {
+    $("input:text.phone").each(function(index) {
+      currentObjPhone = $('input:text.phone')[index];
+      currentPhone = $(currentObjPhone).val();
+      if(currentPhone == '') {
+        $(currentObjPhone).setMask({
           mask: '(99)9999-9999'
         });
+      } else {
+        if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9') {
+          $(currentObjPhone).setMask({
+            mask: '(99)99999-9999'
+          });
+        } else {
+          $(currentObjPhone).setMask({
+            mask: '(99)9999-9999'
+          });
+        }
       }
-    }
+    });
   }
 
   $('input:text.phone').keyup(function() {
@@ -563,7 +568,6 @@ initBase = {
       } else {
         var link_width = 125;
       }
-      console.log(link_width);
       $(this).find('div.my_account').css('width', link_width - 4);
       $(link).addClass('hover');
     }, function() {
@@ -580,6 +584,25 @@ initBase = {
       content = initBase.youtubePlayer(youtube_id);
       content += title;
       initBase.modal(content);
+      e.preventDefault();
+    });
+  },
+
+  showSlideToTop : function() {
+    $(window).scroll(function() {
+      if($(window).scrollTop() > 440) {
+        $('a#go_top').fadeIn();
+      } else {
+        $('a#go_top').fadeOut();
+      }
+    });
+  },
+
+  slideToTop :function() {
+    $('a#go_top').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 'fast');
       e.preventDefault();
     });
   }

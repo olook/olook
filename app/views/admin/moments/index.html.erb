@@ -15,7 +15,6 @@
         </div>
       <% end %>
     </div>
-
   </div>
 <% end %>
 
@@ -26,8 +25,6 @@
       <th>Active</th>
       <th>Position</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
 
   <% @moments.each do |moment| %>
@@ -35,9 +32,11 @@
       <td><%= moment.name %></td>
       <td><%= moment.active %></td>
       <td><%= moment.position %></td>
-      <td><%= link_to 'Show', admin_moment_path(moment), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_moment_path(moment), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_moment_path(moment), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td>
+        <%= link_to 'Show', admin_moment_path(moment), :class => 'button' %>
+        <%= link_to 'Edit', edit_admin_moment_path(moment), :class => 'button' %>
+        <%= link_to 'Destroy', admin_moment_path(moment), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %>
+      </td>
     </tr>
   <% end %>
   </table>

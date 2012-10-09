@@ -1,32 +1,26 @@
 role :app, "homolog.olook.com.br"
+role :web, "homolog.olook.com.br"
  
+# server details
+set :rails_env, 'staging'
+
 # repo details
 set :branch, fetch(:branch, 'homolog')
-#if not variables.include?(:branch)
-#  set :branch, 'master'
-#end
 
 # tasks
 namespace :deploy do
+
+  namespace :assets do
+    task :precompile, :roles => :web do
+      run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
+    end
+  end
+
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
-    bundle_install
     rake_tasks
     restart
-  end
-
-  desc 'Install gems'
-  task :bundle_install, :roles => :app do
-    run "cd #{path_app} && #{bundle} --without development test install"
-  end
-
-  desc 'Run migrations, clean assets'
-  task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:clean RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} assets:precompile RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Create symlinks'
@@ -46,19 +40,17 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
-  desc 'Stop webserver'
-  task :stop_unicorn, :roles => :app do
-    run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -TERM $pid; fi"
-  end
-
-  desc 'Start webserver'
-  task :start_unicorn, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+  desc 'Run migrations'
+  task :rake_tasks, :role => :app do
+    run "cd #{path_app} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && bundle exec rake olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Restart webserver'
   task :restart, :roles => :app do
+    run "ps -e -o pid,command |grep unicorn |grep master"
     run "if [ -f /var/run/olook-unicorn.pid ]; then pid=`cat /var/run/olook-unicorn.pid` && kill -USR2 $pid; else cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D; fi"
+    run "ps -e -o pid,command |grep unicorn |grep master"
   end
 
 # desc "Make sure local git is in sync with remote."

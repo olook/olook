@@ -35,7 +35,7 @@ class AlertForBillet
   end
 
   def self.validate_purchase_amount
-    if (@order.total_paid <= BigDecimal.new(Setting.sac_purchase_amount_threshold.to_s))
+    if (@order.amount_paid <= BigDecimal.new(Setting.sac_purchase_amount_threshold.to_s))
       throw :stop_alert
     end
   end

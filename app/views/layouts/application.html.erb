@@ -24,16 +24,26 @@
     <%= render "shared/metrics/google/google_analytics" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
     <%= render "shared/metrics/vwo/tracking_code" %>
-    <script src="https://connect.facebook.net/en_US/all.js"></script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
   </head>
   <body class="<%= user_signed_in? ? 'logged' : '' %>">
+
+    <%= render 'shared/admin_label' if current_admin %>
+
     <div id="modal"></div>
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
       <%= yield :errors %>
     </div>
+    <%= link_to "Ir para o topo", "#", :id => "go_top" %>
 
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
@@ -48,12 +58,11 @@
     <% end %>
   <%= yield :site_footer %>
   <%= render "shared/lightbox_credits" %>
-  <%= render "shared/metrics/adroll/adroll" %>
   <%= javascript_include_tag "application" %>
   <%= render_google_remessaging_scripts %>
   <% if content_for? :footer %>
     <%= yield :footer %>
   <% end %>
-
+  <%= render :partial => "shared/metrics/sociomantic/homepage" %>
 </body>
 </html>

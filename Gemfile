@@ -25,7 +25,12 @@ gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'asset_sync', '=0.1.10'
+
+group :production, :staging do
+  gem 'asset_sync', '~> 0.5.0'
+  gem 'yui-compressor'
+end
+
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
@@ -35,7 +40,7 @@ gem 'httpi'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
-gem 'graylog2_exceptions'
+# gem 'graylog2_exceptions'
 gem 'SyslogLogger', :require => 'syslog_logger'
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
@@ -50,10 +55,10 @@ gem "celluloid"
 
 group :development do
   gem 'faker'
+  gem 'bullet'
 end
 
 group :development, :test do
-  gem "equivalent-xml", " ~> 0.2.9"
   gem 'sqlite3'
   gem 'capistrano'
   gem 'factory_girl_rails', '~> 3.2.0'
@@ -69,6 +74,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '~> 1.1.1'
   gem 'database_cleaner'
   gem 'rspec', '~> 2.10.0'

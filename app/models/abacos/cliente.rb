@@ -4,7 +4,7 @@ module Abacos
     include ::Abacos::Helpers
     
     attr_reader :codigo, :tipo_pessoa, :sexo, :cpf, :email,
-                :nome, :data_nascimento, :telefone, :data_cadastro,
+                :nome, :data_nascimento, :telefone, :celular, :data_cadastro,
                 :endereco, :endereco_cobranca, :endereco_entrega
 
     def initialize(member, address)
@@ -16,6 +16,7 @@ module Abacos
       @nome               = "#{member.first_name} #{member.last_name}"
       @data_nascimento    = parse_data(member.birthday)
       @telefone           = parse_telefone(address.telephone)
+      @celular            = parse_celular(address.mobile)
       @data_cadastro      = parse_data(member.created_at)
       @endereco           = parse_endereco(address)
       @endereco_entrega   = @endereco
@@ -34,6 +35,7 @@ module Abacos
             'Nome'            => self.nome,
             'DataNascimento'  => self.data_nascimento,
             'Telefone'        => self.telefone,
+            'Celular'         => self.celular,
             'DataCadastro'    => self.data_cadastro,
             'Endereco'        => self.endereco.parsed_data
           }
