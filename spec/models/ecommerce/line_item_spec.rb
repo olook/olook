@@ -154,7 +154,7 @@ describe LineItem do
                                             :value => 20.00, 
                                             :order_id => order.id)}
 
-    it "should create a debit with full value when amount is available" do
+    it "should remove credits creating a debit with full value when amount is available" do
       order.line_items.create(
           :variant_id => basic_shoe_35.id,
           :quantity => 1,
@@ -167,6 +167,26 @@ describe LineItem do
       }.to change{Credit.count}.by(1)
 
       line_item.calculate_available_credits.should eq(0)
+    end
+
+    it "should not create a debit with value 0 when amount is not available" do
+      order.line_items.create(
+          :variant_id => basic_shoe_35.id,
+          :quantity => 1,
+          :price => 100.00,
+          :retail_price => 100.00)
+      line_item = order.line_items.first
+
+      credit.debits.create!({
+        :source => "loyalty_program_debit",
+        :is_debit => true,
+        :value => 20,
+        :order_id => order.id
+      })
+
+      expect {
+        line_item.remove_loyalty_credits
+      }.to change{Credit.count}.by(0)
     end
   end
 
