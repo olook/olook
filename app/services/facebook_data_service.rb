@@ -56,7 +56,7 @@ class FacebookDataService
   end
 
   def save_file(csv, name)
-    File.open("#{DESTINATION_FOLDER}#{name}.csv", 'w') do |file|
+    File.open("#{DESTINATION_FOLDER}#{name}", 'w') do |file|
       file.puts csv
     end
   end
