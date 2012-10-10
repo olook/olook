@@ -1,6 +1,5 @@
 role :app, "homolog.olook.com.br"
 role :web, "homolog.olook.com.br"
- 
 # server details
 set :rails_env, 'staging'
 
@@ -9,12 +8,6 @@ set :branch, fetch(:branch, 'homolog')
 
 # tasks
 namespace :deploy do
-
-  namespace :assets do
-    task :precompile, :roles => :web do
-      run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
-    end
-  end
 
   task :default, :role => :app do
     update #capistrano internal default task
@@ -53,36 +46,4 @@ namespace :deploy do
     run "ps -e -o pid,command |grep unicorn |grep master"
   end
 
-# desc "Make sure local git is in sync with remote."
-# task :check_revision, roles: :web do
-#   unless `git rev-parse HEAD` == `git rev-parse origin/master`
-#     puts "WARNING: HEAD is not the same as origin/master"
-#     puts "Run `git push` to sync changes."
-#     exit
-#   end
-# end
-#
-# before "deploy", "deploy:check_revision"
-
-#Ao utilizar o callback after dessa forma, o Unicorn será reiniciado 2x, 1X pela task default do deploy e 1x pelo callback
-  #after 'deploy', 'deploy:yml_links'
-  #after 'deploy:yml_links', 'deploy:bundle_install'
-  #after 'deploy:bundle_install', 'deploy:restart'
-
-#ROLL BACK de migration
-  # configuration = Capistrano::Configuration.respond_to?(:instance) ?
-  #   Capistrano::Configuration.instance(:must_exist) :
-  #   Capistrano.configuration(:must_exist)
-
-  # configuration.load do
-  #   namespace :deploy do    
-  #     namespace :rollback do
-  #       desc <<-DESC
-  #                         Rolls back the migration to the version found in schema.rb file of the previous release path.\\
-  #                               Uses sed command to read the version from schema.rb file.
-  #       DESC
-  #       task :migrations do
-  #         run "cd #{current_release};  rake db:migrate RAILS_ENV=#{rails_env} VERSION=`grep \\":version =>\\" #{previous_release}/db/schema.rb | sed -e 's/[a-z A-Z = \\> \\: \\. \\( \\)]//g'`"
-  #       end
-  #       after "deploy:rollback","deploy:rollback:migrations"
 end

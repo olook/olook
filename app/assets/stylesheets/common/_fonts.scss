@@ -1,7 +1,8 @@
 @font-face {
     font-family: 'QuicksandBold';
     src: url('/assets/quicksand/quicksand-bold-webfont.eot');
-    src: url('/assets/quicksand/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('QuicksandBold'),
+		 url('/assets/quicksand/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
          url('/assets/quicksand/quicksand-bold-webfont.woff') format('woff'),
          url('/assets/quicksand/quicksand-bold-webfont.ttf') format('truetype'),
          url('/assets/quicksand/quicksand-bold-webfont.svg#QuicksandBold') format('svg');
@@ -12,7 +13,8 @@
 @font-face {
     font-family: 'QuicksandLight';
     src: url('/assets/quicksand/quicksand-light-webfont.eot');
-    src: url('/assets/quicksand/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('QuicksandLight'),
+		 url('/assets/quicksand/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
          url('/assets/quicksand/quicksand-light-webfont.woff') format('woff'),
          url('/assets/quicksand/quicksand-light-webfont.ttf') format('truetype'),
          url('/assets/quicksand/quicksand-light-webfont.svg#QuicksandLight') format('svg');
@@ -23,7 +25,8 @@
 @font-face {
     font-family: 'QuicksandRegular';
     src: url('/assets/quicksand/quicksand-regular-webfont.eot');
-    src: url('/assets/quicksand/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('QuicksandRegular'),
+		 url('/assets/quicksand/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
          url('/assets/quicksand/quicksand-regular-webfont.woff') format('woff'),
          url('/assets/quicksand/quicksand-regular-webfont.ttf') format('truetype'),
          url('/assets/quicksand/quicksand-regular-webfont.svg#QuicksandRegular') format('svg');
@@ -34,7 +37,8 @@
 @font-face {
     font-family: 'Kepler Std Italic';
     src: url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot');
-    src: url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('Kepler Std Italic'),
+		 url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
          url('/assets/kepler/adobe_-_keplerstd-italic-webfont.woff') format('woff'),
          url('/assets/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype'),
          url('/assets/kepler/adobe_-_keplerstd-italic-webfont.svg#Kepler Std Italic') format('svg');
@@ -45,7 +49,8 @@
 @font-face {
     font-family: 'avenir';
     src: url('/assets/avenir/avenir-book-webfont.eot');
-    src: url('/assets/avenir/avenir-book-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('avenir'),
+		 url('/assets/avenir/avenir-book-webfont.eot?#iefix') format('embedded-opentype'),
          url('/assets/avenir/avenir-book-webfont.woff') format('woff'),
          url('/assets/avenir/avenir-book-webfont.ttf') format('truetype'),
          url('/assets/avenir/avenir-book-webfont.svg#avenir') format('svg');
@@ -56,7 +61,8 @@
 @font-face {
     font-family: 'johnston';
     src: url('/assets/johnston/johnston_itc_bold_0-webfont.eot');
-    src: url('/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
+    src: local('johnston'),
+		 url('/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
          url('/assets/johnston/johnston_itc_bold_0-webfont.woff') format('woff'),
          url('/assets/johnston/johnston_itc_bold_0-webfont.ttf') format('truetype'),
          url('/assets/johnston/johnston_itc_bold_0-webfont.svg#johnston') format('svg');
@@ -67,7 +73,8 @@
 @font-face {
     font-family: 'avenir_medium';
     src: url('/assets/avenir_medium/avenir-medium.eot');
-    src: url('/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype'),
+    src: local('avenir_medium'),
+         url('/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype'),
          url('/assets/avenir_medium/avenir-medium.otf') format('opentype'),
          url('/assets/avenir_medium/avenir-medium.woff') format('woff'),
          url('/assets/avenir_medium/avenir-medium.ttf') format('truetype'),
