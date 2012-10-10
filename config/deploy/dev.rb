@@ -1,5 +1,5 @@
-role :app, "development.olook.com.br"
 role :web, "development.olook.com.br"
+role :app, "development.olook.com.br"
 
 # server details
 set :rails_env, 'staging'
@@ -10,7 +10,6 @@ set :branch, fetch(:branch, 'development')
 
 # tasks
 namespace :deploy do
-
 
   task :default, :role => :app do
     update #capistrano internal default task
@@ -35,6 +34,11 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/abacos.yml #{version_path}/config/abacos.yml"
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
+
+  # desc 'Force assets precompilation'
+  # task :force_assets_precompilation, :role => :app do
+  #   run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
+  # end
 
   desc 'Run migrations'
   task :rake_tasks, :role => :app do
