@@ -8,6 +8,7 @@ namespace :facebook do
     starting_point = ENV['STARTING_POINT']? ENV['STARTING_POINT']:0
 
     FacebookDataService.clean_destination_folder
+    date = DateTime.now # change it if you want to setup a custom date
 
     batches = []
     puts "finding users with facebook authentication token"
@@ -17,7 +18,7 @@ namespace :facebook do
     
     batches.each do |users|
       puts "processing" 
-      pool.friends_birthdays(users)
+      pool.friends_birthdays(users, date)
     end
 
     # puts "creating csv file"
