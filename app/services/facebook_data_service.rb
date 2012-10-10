@@ -20,12 +20,12 @@ class FacebookDataService
   end
 
   # Retrieves all facebook friends' birthdays of the given users
-  def friends_birthdays users
+  def friends_birthdays users, date = DateTime.now
     birthdays = []
     users.each do |user|
       # puts "processing #{user.name}"
       adapter = FacebookAdapter.new(user.facebook_token)
-      friends = adapter.facebook_friends_with_birthday(DateTime.now.month)
+      friends = adapter.facebook_friends_with_birthday(date.month)
       friends.each do |friend|
         birthday_arr = friend.birthday.split("/")
         friend.birthday = "#{birthday_arr[1]}/#{birthday_arr[0]}"
