@@ -3,7 +3,9 @@
   <% lookbooks.each do |lookbook| %>
     <li>
       <% if lookbook.has_video? %>
-        <%= link_to "Assita o vídeo", lookbook_path(lookbook.slug), :class => "label_video", :style => "background-image: url('#{lookbook.movie_image_url(:movie_thumb_mini)}');" %>
+        <%# link_to "Assita o vídeo", lookbook.video.url, :class => "label_video", :style => "background: url('#{lookbook.movie_image_url(:movie_thumb_mini)}') no-repeat;" %>
+	      <%= link_to "Assista ao vídeo", "#", :class => "video_link label_video", :rel => "#{lookbook.video.url}", :title => "#{lookbook.video.title}", :style => "background: url('#{lookbook.movie_image_url(:movie_thumb_mini)}') no-repeat;" %>
+
       <% end %>
       <%= link_to lookbook_path(lookbook.slug), :class => "link_lookbook" do %>
         <%= image_tag lookbook.thumb_image.try(:url), :alt => "#{lookbook.name}" %>
