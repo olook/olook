@@ -1,6 +1,5 @@
 <%= yield :checkout_sidebar %>
 
-<%= link_to "alterar", (cart_path unless has_payment), :class => "change" %>
 <div class="request_info">
   <div class="item">
     <h1>Meu Pedido </h1>
@@ -8,7 +7,7 @@
       <tfoot>
         <tr>
           <td>Total:</td>
-          <% 
+          <%
           total_paid = @order.amount_paid if has_payment
           total_paid ||= cart_service.total
           %>
@@ -18,14 +17,14 @@
       <tbody>
         <tr>
           <td>Sub-total:</td>
-          <% 
+          <%
           gross_amount = @order.gross_amount if has_payment
-          gross_amount ||=  cart_service.subtotal(:price) 
+          gross_amount ||=  cart_service.subtotal(:price)
           %>
           <td class="value"><%= number_to_currency(gross_amount)  %></td>
         </tr>
-        <% 
-        gift_wrap = @order.gift_wrap if has_payment 
+        <%
+        gift_wrap = @order.gift_wrap if has_payment
         gift_wrap ||= cart_service.gift_wrap?
         if gift_wrap %>
         <tr>
@@ -33,7 +32,7 @@
           <td class="value">+ R$ 5,00</td>
         </tr>
         <% end
-        credits = @order.payments.for_credits.sum(:total_paid) if has_payment 
+        credits = @order.payments.for_credits.sum(:total_paid) if has_payment
         credits ||= cart_service.total_credits_discount
         if credits > 0 %>
         <tr>
@@ -49,7 +48,7 @@
           <td>Olooklet</td>
           <td class="value credit">- <%= number_to_currency(olooklet) %></td>
         </tr>
-        <% end 
+        <% end
         promotion = @order.payments.for_promotion.sum(:total_paid) if has_payment
         promotion ||= cart_service.total_discount_by_type(:promotion)
         if promotion > 0 %>
@@ -57,7 +56,7 @@
           <td>Promoção</td>
           <td class="value credit">- <%= number_to_currency(promotion) %></td>
         </tr>
-        <% end 
+        <% end
         gift = @order.payments.for_gift.sum(:total_paid) if has_payment
         gift ||= cart_service.total_discount_by_type(:gift)
         if gift > 0 %>
@@ -65,7 +64,7 @@
           <td>Presente</td>
           <td class="value credit">- <%= number_to_currency(gift) %></td>
         </tr>
-        <% end 
+        <% end
         coupon = @order.payments.for_coupon.sum(:total_paid) if has_payment
         coupon ||= cart_service.total_discount_by_type(:coupon)
         if coupon > 0 %>
