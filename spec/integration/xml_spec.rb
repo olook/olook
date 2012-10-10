@@ -62,11 +62,7 @@ feature "Show products on xml format" do
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
       <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-<<<<<<< HEAD
-      <recommendable><#{ build_installment_text(product.retail_price, separator: ",")}</recommendable>
-=======
       <recommendable>1</recommendable>
->>>>>>> master
       <instock>#{product.instock}</instock>
       <category>#{product.category_humanize}</category>
       </product>
