@@ -106,10 +106,10 @@ from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code
 ) as tmp where tmp.user_id = users.id
-) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 10000) do |u|
+) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 50000) do |u|
           unless bounces.include?(u.email)
             credit_balance = u.credit_balance.nil? ? BigDecimal.new("0.0") : u.credit_balance
-            csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.authentication_token, credit_balance ]
+            csv << [ u.id, u.email.chomp, u.created_at.strftime("%d-%m-%Y"), u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.authentication_token, credit_balance ]
           end
         end
         emails_seed_list.each { |email| csv << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil, nil, nil ] }
