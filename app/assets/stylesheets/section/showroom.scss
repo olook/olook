@@ -184,10 +184,12 @@
         .carousel-prev {
           background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
           left: 0px;
+		  &:hover{background: url("/assets/lookbooks/arrow-prev-hover.png") 0 center no-repeat;}
         }
         .carousel-next {
           background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
           right: 0;
+		  &:hover{background: url("/assets/lookbooks/arrow-next-hover.png") 0 center no-repeat;}
         }
         ul {
           position: relative;

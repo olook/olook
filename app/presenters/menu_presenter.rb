@@ -54,7 +54,7 @@ class MenuPresenter < BasePresenter
   end
 
   def lookbooks
-    render_item("Tendências", h.lookbooks_path, "lookbooks", ["lookbooks#show"])
+    render_item("Tendências", h.lookbooks_path, "lookbooks", ["lookbooks#index","lookbooks#show"])
   end
 
   def stylist
