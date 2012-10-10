@@ -369,7 +369,7 @@ $(document).ready(function() {
     $(percentageBox).find("span").text(percentage);
   });
 
-  $("div#mask_carousel_showroom ul li a.video_link, div#carousel_lookbooks_product a.video_link").live("click", function(e) {
+  $("div#mask_carousel_showroom ul li a.video_link, div#carousel_lookbooks_product a.video_link, div#carousel_lookbooks a.video_link").live("click", function(e) {
     var url = $(this).attr("rel");
     var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
     var youtube_id = initBase.youtubeParser(url);
