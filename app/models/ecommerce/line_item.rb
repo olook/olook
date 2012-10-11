@@ -46,24 +46,18 @@ class LineItem < ActiveRecord::Base
     total_amount = calculate_available_credits
     original_credit = find_original_loyalty_credit
     if original_credit
-      amount_to_remove = total_amount
-      if (amount_to_remove >= original_credit.amount_available?)
-        amount_to_remove = original_credit.amount_available?
-      end
-      create_debit(original_credit, amount_to_remove)
-      total_amount -= amount_to_remove
+      total_amount -= create_debit(original_credit, total_amount)
     end
 
-    # if total_amount > 0
-    #   find_credits_to_expire.each do |credit|
-    #     amount_to_remove = total_amount
-    #     if (amount_to_remove >= credit.amount_available?)
-    #       amount_to_remove = credit.amount_available?
-    #     end
-    #     debits << create_debit(credit, amount_to_remove)
-    #     total_amount -= amount_to_remove
-    #   end
-    # end
+    if total_amount > 0
+      find_credits_to_expire.each do |credit|
+        total_amount -= create_debit(credit, total_amount)
+        if (total_amount <= 0)
+          break
+        end
+      end
+    end
+    debits
   end
 
   private
@@ -76,14 +70,18 @@ class LineItem < ActiveRecord::Base
     Credit.loyalty_credits_to_expire.joins(" JOIN orders o on credits.order_id = o.id").where("o.user_id = ?", order.user_id).order(:expires_at)
   end
 
-  def create_debit(credit, amount)
-    if (amount > 0)
+  def create_debit(credit, total_amount)
+    amount_to_remove = total_amount
+    if (amount_to_remove >= credit.amount_available?)
+      amount_to_remove = credit.amount_available?
+    end
+    if (amount_to_remove > 0)
       user = order.user
       user_credit = user.user_credits_for(:loyalty_program)
       debits << credit.debits.create!({
           :source => "loyalty_program_refund_debit",
           :is_debit => true,
-          :value => amount,
+          :value => amount_to_remove,
           :expires_at => credit.expires_at,
           :activates_at => credit.activates_at,
           :user_id => user.id,
@@ -92,5 +90,6 @@ class LineItem < ActiveRecord::Base
           :line_item_id => id
         })
     end
+    amount_to_remove
   end
 end
