@@ -32,7 +32,7 @@
 		        <h1><%= @lookbook.video.title %></h1>
 		        <%= link_to "Saiba mais", "#" %>
 		      </div>
-		    <% end %>		
+		    <% end %>
           <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
             <% if lim.product.is_a? Product %>
             <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
@@ -58,8 +58,8 @@
     </ul>
   </div>
 </section>
+<img height="1" width="1" src="http://view.atdmt.com/action/mmn_olook_tendencias"/>
 <% content_for :footer do %>
-
   <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
 <% end %>
 
