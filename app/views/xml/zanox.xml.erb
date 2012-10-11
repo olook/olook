@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <productos>
 <% @products.each do |product| %>
-  <producto>
+<producto>
 <PROD_NUMBER><%= product.id %></PROD_NUMBER>
 <PROD_NAME><%= product.name %></PROD_NAME>
 <PROD_PRICE><%= product.retail_price %></PROD_PRICE>
@@ -9,7 +9,7 @@
 <CURRENCY_SIMBOL>BRL</CURRENCY_SIMBOL>
 <PROD_DESCRIPTION><%= product.description[0..512] %></PROD_DESCRIPTION>
 <PROD_DESCRIPTION_LONG><%= product.description %></PROD_DESCRIPTION_LONG>
-<PROD_URL><%= product.product_url(:utm_source => "zanox", :utm_medium => "banner", :utm_campaign => "remessaging") %></PROD_URL>
+<PROD_URL><%= product.product_url(:utm_source => "zanox", :utm_medium => "xml", :utm_campaign => "produtos") %></PROD_URL>
 <CATEGORY><%= product.category_humanize %></CATEGORY>
 <FOTO_URL><%= product.main_picture.try(:image) %></FOTO_URL>
 </producto>
