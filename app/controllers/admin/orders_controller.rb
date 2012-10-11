@@ -57,7 +57,12 @@ class Admin::OrdersController < Admin::BaseController
   def remove_loyalty_credits
     @order = Order.find(params[:id])
     line_item = LineItem.find(params[:line_item_id])
-    line_item.remove_loyalty_credits
+    debits = line_item.remove_loyalty_credits
+    if debits.try(:empty?)
+      flash[:error] = "Não foi possível remover os créditos de fidelidade."
+    else 
+      flash[:notice] = "Creditos removidos com sucesso!"
+    end
     respond_with :admin, @order
   end
 
