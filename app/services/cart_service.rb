@@ -18,7 +18,7 @@ class CartService
     
     self.credits ||= 0
   end
-  
+
   def gift_wrap?
     gift_wrap == "1" ? true : false
   end
@@ -200,6 +200,9 @@ class CartService
       origin_type = :olooklet
     end
 
+    #
+    # Highly duplicated code. Lets refactor it
+    #
     coupon = self.coupon
     if coupon && coupon.is_percentage?
       discounts << :coupon
@@ -209,6 +212,16 @@ class CartService
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
         origin_type = :coupon
+      end
+    end
+
+    if coupon && !coupon.is_percentage?
+      discounts << :coupon_of_value
+      coupon_value = coupon.value
+      if coupon_value < final_retail_price
+        final_retail_price -= coupon_value
+        origin = 'Desconto de R$ '+coupon.value.to_s+' do cupom '+coupon.code
+        origin_type = :coupon_of_value
       end
     end
         
@@ -231,7 +244,7 @@ class CartService
       discounts  << :gift
       origin_type = :gift
     end
-    
+
     {
       :origin       => origin, 
       :price        => price,
@@ -299,7 +312,7 @@ class CartService
     total_credits = credits_loyality + credits_invite + credits_redeem
     
     discounts << :coupon if coupon_value > 0
-        
+
     { 
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),

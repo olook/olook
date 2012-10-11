@@ -144,12 +144,37 @@ describe CartService do
         cart_service.item_retail_price(cart.items.first).should eq(10)
       end
       
-      it "should return discount price if discount price is greater than current" do
+      it "should return discount price if discount price is greater than current", :focus => true do
         cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
+
         cart_service.coupon = coupon_of_percentage
         cart_service.promotion = promotion
         cart_service.item_retail_price(cart.items.first).should eq(14)
       end
+
+      context "and coupon of value" do
+        it "should use coupon instead of promotion (coupon gives more discount) " , :focus => true do
+          cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 80)
+          cart.items.first.variant.product.master_variant.update_attribute(:price, 80)
+
+          cart_service.coupon = coupon_of_value
+          cart_service.promotion = promotion
+
+          cart_service.item_discounts(cart.items.first).should eq([:coupon_of_value, :promotion])
+          cart_service.item_retail_price(cart.items.first).should == 30
+        end 
+
+        it "should use promotion instead of coupon (promotion gives more discount) " , :focus => true do
+          cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 1000)
+          cart.items.first.variant.product.master_variant.update_attribute(:price, 1000)
+
+          cart_service.coupon = coupon_of_value
+          cart_service.promotion = promotion
+
+          cart_service.item_discounts(cart.items.first).should eq([:coupon_of_value, :promotion])
+          cart_service.item_retail_price(cart.items.first).should == 700
+        end        
+      end     
     end
     
     context "when item is gift" do
@@ -323,6 +348,7 @@ describe CartService do
       cart_service.promotion = promotion
       cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion, :gift])
     end
+
   end
   
   context ".item_has_more_than_one_discount?" do
