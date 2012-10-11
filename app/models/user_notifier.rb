@@ -3,7 +3,7 @@ class UserNotifier
 
   def self.get_carts ( how_long, range, validators=[] )
 
-    time = Time.now.beginning_of_day
+    time = Time.now
     from = time - days_to_s( how_long + range )
     to = time - days_to_s( how_long )
 
@@ -53,12 +53,12 @@ class UserNotifier
   end
 
   def self.users_selected_by(arel_field, date = DateTime.now)
-    condition = Credit.arel_table[arel_field] 
+    condition = Credit.arel_table[arel_field]
     User.joins(user_credits: [:credit_type, :credits])
         .where(credit_types: {code: :loyalty_program})
         .where(condition.lteq(date +1.day))
-        .where(condition.gteq(date -1.day))  
-        .uniq  
+        .where(condition.gteq(date -1.day))
+        .uniq
   end
 
 end
