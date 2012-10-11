@@ -3,6 +3,8 @@ class FacebookDataService
   include Celluloid
 
   DESTINATION_FOLDER = "/tmp/fb_csv/"
+  CONSOLIDATED_FILE_FOLDER = "/tmp/fb_consolidated_file/"
+  CONSOLIDATED_FILE_NAME = "consolidated.csv"
 
   def initialize
   end
@@ -63,7 +65,41 @@ class FacebookDataService
 
   def self.clean_destination_folder
     FileUtils.rm_rf(DESTINATION_FOLDER)
-    FileUtils.mkdir_p(DESTINATION_FOLDER)
+    FileUtils.mkdir_p(DESTINATION_FOLDER)    
+  end
+
+  def self.clean_consolidated_file_folder
+    FileUtils.rm_rf(CONSOLIDATED_FILE_FOLDER)
+    FileUtils.mkdir_p(CONSOLIDATED_FILE_FOLDER)    
+  end
+
+  def self.consolidate_csv_files
+    FacebookDataService.clean_consolidated_file_folder
+
+    File.open(CONSOLIDATED_FILE_FOLDER + CONSOLIDATED_FILE_NAME, "w") do |consolidated_file|
+      header = nil
+
+      Dir.glob(DESTINATION_FOLDER + "**").each do |file_name|
+        puts file_name
+        file = File.open(file_name)
+
+        if header == nil
+          header = file.readline
+          consolidated_file << header
+        else
+          file.readline
+        end
+
+        consolidated_file << file.read
+
+      end
+    end
+  end
+
+  def self.remove_non_consolidated_files
+    Dir.glob(DESTINATION_FOLDER + "**").each do |file_name|
+      FileUtils.rm_rf(file_name) unless file_name == DESTINATION_FOLDER+CONSOLIDATED_FILE_NAME
+    end
   end
 
 end
