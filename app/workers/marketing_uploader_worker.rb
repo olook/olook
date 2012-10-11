@@ -2,7 +2,8 @@
 class MarketingUploaderWorker
   @queue = :marketing_uploader
 
-  def self.perform
-    MarketingReports::Builder.new(:userbase_with_auth_token_and_credits).save_file("base_atualizada_purchases_auth_token_and_credits.csv")
+  def self.perform(method_called, file, ftp = nil)
+    MarketingReports::Builder.new(method_called).save_file(file, ftp)
   end
 end
+

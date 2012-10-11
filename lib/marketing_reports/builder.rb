@@ -11,8 +11,8 @@ module MarketingReports
       self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def save_file(filename, encoding = "ISO-8859-1")
-      FileUploader.new(@csv).save_to_disk(filename, encoding)
+    def save_file(filename, encoding = "ISO-8859-1", ftp)
+      FileUploader.new(@csv).save_to_disk(filename, encoding, ftp)
     end
 
     def generate_userbase
@@ -33,25 +33,25 @@ module MarketingReports
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases credit_balance}
         User.select("(select sum(total_agora) from (
- select 
+ select
   uc.user_id,
   (CASE ct.code
    WHEN 'invite' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    WHEN 'redeem' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    ELSE
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -  
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
    END
-  ) total_agora 
+  ) total_agora
 from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code
 ) as tmp where tmp.user_id = users.id
-) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 10000) do |u|
+) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").limit(100) do |u|
           unless bounces.include?(u.email)
             credit_balance = u.credit_balance.nil? ? BigDecimal.new("0.0") : u.credit_balance
             csv << [ u.id, u.email.chomp, u.created_at, u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), credit_balance ]
@@ -88,20 +88,20 @@ group by uc.user_id, ct.code
       @csv = CSV.generate do |csv|
         csv << %w{id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token credit_balance}
         User.select("(select sum(total_agora) from (
- select 
+ select
   uc.user_id,
   (CASE ct.code
    WHEN 'invite' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    WHEN 'redeem' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    ELSE
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -  
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
    END
-  ) total_agora 
+  ) total_agora
 from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code
