@@ -17,8 +17,38 @@
 
 <section id="lookbooks">
   <%= render 'shared/banners/olooklet' %>
-  <h1>Tendências</h1>
+  <!-- <h1>Tendências</h1> -->
   <%= render "carousel_lookbooks", :lookbooks => @lookbooks %>
+  <div id="carousel_lookbooks_product">
+
+    <ul>
+      <% 0.upto(@lookbook.images.count - 1) do |image| %>
+        <li>
+          <%= image_tag @lookbook.images[image].image.try(:url), :alt => "Imagem #{image}" %>
+          <%= link_to "X", lookbooks_path, :class => "close" %>
+          	<% if image == 0 && @lookbook.has_video? %>
+		      <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{@lookbook.video.url}", :title => "#{@lookbook.video.title}", :style => "background-image: url('#{@lookbook.movie_image_url(:movie_thumb)}');" %>
+		      <div class="video_description">
+		        <h1><%= @lookbook.video.title %></h1>
+		        <%= link_to "Saiba tudo sobre essa tendência", "#" %>
+		      </div>
+		    <% end %>		
+          <% @lookbook.images[image].lookbook_image_maps.each do |lim| %>
+            <% if lim.product.is_a? Product %>
+            <div class="product-map" id="pm<%= lim.id %>" style="top:<%= lim.coord_y %>px; left:<%= lim.coord_x %>px;">
+              <%= link_to product_path(lim.product.try(:id)), data: { params: { gift: false, shoe_size: nil } }, rel: "#{lim.product.try(:id)}", remote: true  do %>
+                <p class="spy"><%= lim.product.try(:name) %></p>
+              <% end %>
+            </div>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "Anterior", "javascript:void(0);", :class => "prev-pic" %>
+    <%= link_to "Próximo", "javascript:void(0);", :class => "next-pic" %>
+    <div class="pagination"></div>
+  </div>
   <div class="products_list">
     <h1>Confira os produtos: <%= @lookbooks.first.name %></h1>
     <ul>

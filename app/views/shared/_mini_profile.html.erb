@@ -1,5 +1,7 @@
 <div class="profile">
-  <%= link_to "#" do %>
-    <%= image_tag "profiles/mini_#{user.profile_name.to_s}.jpg" %>
+  <% if !user.profile_name.nil? %>
+    <%= link_to "#" do %>
+      <%= image_tag "profiles/mini_#{user.profile_name.to_s}.jpg" %>
+    <% end %>
   <% end %>
 </div>
