@@ -6,7 +6,7 @@ class FacebookAdapter
     @access_token, @adapter = access_token, adapter.new(access_token)
   end
 
-  def facebook_friends fields="name, gender, birthday, first_name"
+  def facebook_friends(fields = "name, gender, birthday, first_name")
     Rails.cache.fetch(access_token, :expires_in => 15.minutes) do
       friends = adapter.get_connections("me", "friends", :fields => fields)
       filter_female_friends(friends).map do |friend|
@@ -27,21 +27,36 @@ class FacebookAdapter
     facebook_friends.map(&:uid)
   end
 
+  def facebook_friends_without_cache_fetch(fields = "name, gender, birthday, first_name")
+    friends = adapter.get_connections("me", "friends", :fields => fields)
+    filter_female_friends(friends).map do |friend|
+      OpenStruct.new(:uid => friend["id"],
+       :name => friend["name"],
+       :first_name => friend["first_name"],
+       :birthday => friend["birthday"]
+      )
+    end    
+  end
+
   def facebook_friends_with_birthday month
     friends = []
-    facebook_friends.select{|friend| friend.birthday }.each do |friend|
-      begin
-        if Date.strptime(friend.birthday, "%m/%d").month.to_s == month.to_s
-          friends << friend
+    begin
+      self.facebook_friends_without_cache_fetch.select{|friend| friend.birthday }.compact.each do |friend|
+        begin
+          if Date.strptime(friend.birthday, "%m/%d").month.to_s == month.to_s
+            friends << friend
+          end
+        rescue
         end
-      rescue
       end
+      if friends.empty?
+        friends
+      else
+        friends.sort_by{|f| f.birthday}
+      end
+    rescue => e
     end
-    if friends.empty?
-      friends
-    else
-      friends.sort_by{|f| f.birthday}
-    end
+    friends
   end
 
   def facebook_friends_registered_at_olook

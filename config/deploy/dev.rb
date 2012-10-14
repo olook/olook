@@ -1,3 +1,4 @@
+role :web, "development.olook.com.br"
 role :app, "development.olook.com.br"
 role :web, "development.olook.com.br"
 
@@ -7,8 +8,10 @@ set :rails_env, 'staging'
 # repo details
 set :branch, fetch(:branch, 'development')
 
+
 # tasks
 namespace :deploy do
+
   task :default, :role => :app do
     update #capistrano internal default task
     yml_links
@@ -33,10 +36,15 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/unicorn.conf.rb #{version_path}/config/unicorn.conf.rb"
   end
 
+  # desc 'Force assets precompilation'
+  # task :force_assets_precompilation, :role => :app do
+  #   run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
+  # end
+
   desc 'Run migrations'
   task :rake_tasks, :role => :app do
-    run "cd #{path_app} && #{bundle} exec #{rake} db:migrate RAILS_ENV=#{rails_env}"
-    run "cd #{path_app} && #{bundle} exec #{rake} olook:create_permissions RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}"
+    run "cd #{path_app} && bundle exec rake olook:create_permissions RAILS_ENV=#{rails_env}"
   end
 
   desc 'Restart webserver'
@@ -46,19 +54,4 @@ namespace :deploy do
     run "ps -e -o pid,command |grep unicorn |grep master"
   end
 
-  # configuration = Capistrano::Configuration.respond_to?(:instance) ?
-  #   Capistrano::Configuration.instance(:must_exist) :
-  #   Capistrano.configuration(:must_exist)
-
-  # configuration.load do
-  #   namespace :deploy do    
-  #     namespace :rollback do
-  #       desc <<-DESC
-  #                         Rolls back the migration to the version found in schema.rb file of the previous release path.\\
-  #                               Uses sed command to read the version from schema.rb file.
-  #       DESC
-  #       task :migrations do
-  #         run "cd #{current_release};  rake db:migrate RAILS_ENV=#{rails_env} VERSION=`grep \\":version =>\\" #{previous_release}/db/schema.rb | sed -e 's/[a-z A-Z = \\> \\: \\. \\( \\)]//g'`"
-  #       end
-  #       after "deploy:rollback","deploy:rollback:migrations"
 end
