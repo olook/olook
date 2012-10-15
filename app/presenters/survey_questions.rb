@@ -10,6 +10,11 @@ class SurveyQuestions
     questions[0..14]
   end
 
+  def questions_for_my_friends_quiz
+    # 0 - 11 are the questions we need for "amigas" page (and we have pictures for all the answers)
+    questions[0..11]
+  end
+
   def heel_height_question
     questions[15]
   end
