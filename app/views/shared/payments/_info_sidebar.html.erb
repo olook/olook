@@ -1,5 +1,6 @@
 <%= yield :checkout_sidebar %>
 
+<%= link_to "alterar", (cart_path unless has_payment), :class => "change" unless @order %>
 <div class="request_info">
   <div class="item">
     <h1>Meu Pedido </h1>
