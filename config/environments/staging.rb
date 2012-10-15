@@ -13,7 +13,7 @@ Olook::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
   config.assets.css_compressor = :yui
   config.assets.js_compressor = :uglifier
 
@@ -34,7 +34,7 @@ Olook::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   #config.logger = SyslogLogger.new('rails-olook-staging')
@@ -45,8 +45,8 @@ Olook::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
-  config.action_controller.asset_host = proc do |x| 
-    "//cdn-app-staging-#{rand(3)}.olook.com.br"
+  config.action_controller.asset_host = proc do |x|
+    "//cdn-app-staging-0.olook.com.br"
   end
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app-staging.olook.com.br.s3.amazonaws.com" : "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"

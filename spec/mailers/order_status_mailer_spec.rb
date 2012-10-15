@@ -25,7 +25,7 @@ describe OrderStatusMailer do
     end
 
     it "sets 'subject' attribute telling the user that we received her order" do
-      mail.subject.should == "#{user.first_name}, recebemos seu pedido."
+      mail.subject.should == "User First Name, recebemos seu pedido."
     end
 
   end

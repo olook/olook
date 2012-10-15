@@ -292,37 +292,37 @@ context "in the ilove_ecommerce xml page" do
       result = Nokogiri::XML(page.source)
       content = <<-END.gsub(/^ {6}/, '')
       <?xml version="1.0" encoding="UTF-8"?>
-      <products>
-      <product>
-      <id>#{product.id}</id>
+      <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+      <item>
+      <g:id>#{product.id}</g:id>
       <title>#{product.name}</title>
       <description>#{product.description}</description>
-      <category>Vestuário e acessórios &gt; Sapatos</category>
-      <google_product_category>Vestuário e acessórios &gt; Sapatos</google_product_category>
-      <product_type>#{product.category_humanize}</product_type>
-      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=google_shopping</link>
-      <image_link>#{product.pictures.last.try(:image)}</image_link>
-      <additional_image_link>#{product.pictures.first.try(:image)}</additional_image_link>
-      <condition>new</condition>
-      <price>#{product.price}</g:price>
-      <sale_price>#{product.retail_price}</sale_price>
-      <brand>Olook</brand>
-      <gender>female</gender>
-      <age_group>adult</age_group>
+      <g:google_product_category>Vestuário e acessórios &gt; Sapatos</g:google_product_category>
+      <g:product_type>#{product.category_humanize}</g:product_type>
+      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=merchant&amp;utm_source=google</link>
+      <g:image_link/>
+      <g:additional_image_link/>
+      <g:condition>new</g:condition>
+      <g:price>#{number_with_precision(product.price, precision: 2, separator: ".")}</g:price>
+      <g:sale_price>#{number_with_precision(product.retail_price, precision: 2, separator: ".")}</g:sale_price>
+      <g:brand>Olook</g:brand>
+      <g:gender>female</g:gender>
+      <g:age_group>adult</g:age_group>
       #{product.variants.map { |variant|
-      '<size>' + variant.display_reference + '</size>'}.join("\n")}
-      <item_group_id>#{product.id}</item_group_id>
-      <color>#{product.color_name}</color>
-      <shipping>
-      <country></country>
-      <service></service>
-      <price></price>
-      </shipping>
-      </product>
-      </products>
+      '<g:size>' + variant.display_reference + '</g:size>'}.join("\n")}
+      <g:item_group_id>#{product.id}</g:item_group_id>
+      <g:color/>
+      <g:shipping>
+      <g:country>BR</g:country>
+      <g:service/>
+      <g:price/>
+      </g:shipping>
+      </item>
+      </rss>
     END
       equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+      result.should be_equivalent_to(content)
+      #EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 
@@ -363,7 +363,7 @@ context "in the ilove_ecommerce xml page" do
       <identifier>#{product.id}</identifier>
       <fn>#{product.name}</fn>
       <description>#{product.description}</description>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       <brand>Olook</brand>
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>
