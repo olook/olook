@@ -32,6 +32,14 @@ class CreditReportService
   end
 
   def used_credits
+    debits.where("source <> ?", "loyalty_program_refund_debit")
+  end
+
+  def refunded_credits
+    debits.where("source = ?", "loyalty_program_refund_debit")
+  end
+
+  def debits
     Credit.joins(:user_credit)
           .where(:user_credits => {:user_id => @user}, :is_debit => true)
           .includes(:order => :user)
