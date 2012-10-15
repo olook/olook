@@ -216,7 +216,6 @@ class Order < ActiveRecord::Base
     Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
   
-  
   private
 
   def initialize_order

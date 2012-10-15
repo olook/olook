@@ -407,6 +407,7 @@ section#cart {
               font-size: 14px;
             }
           }
+		  form{position:relative;}
           input[type="submit"] {
             position: absolute;
             background: image-url('cart/delete-item.jpg') no-repeat;
@@ -414,7 +415,7 @@ section#cart {
             height: 26px;
             margin: 0 auto;
             display: block;
-            top: 10px;
+            top: -78px;
             right: 10px;
             border: none;
             cursor: pointer;
@@ -427,6 +428,7 @@ section#cart {
       margin: -20px 0 0;
       border-collapse: separate;
       border-spacing: 0 20px;
+		tr{position:relative;}
     }
     &#credits {
       width: 989px;

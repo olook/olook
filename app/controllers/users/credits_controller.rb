@@ -11,6 +11,7 @@ class Users::CreditsController < ApplicationController
     @invite_credits  = report.invite_credits
     @redeem_credits  = report.redeem_credits
     @used_credits    = report.used_credits
+    @refunded_credits = report.refunded_credits
     @available_credits = report.available_credits
     @holding_credits = report.holding_credits
   end
