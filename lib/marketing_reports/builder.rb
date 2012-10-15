@@ -11,8 +11,8 @@ module MarketingReports
       self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def save_file(filename, encoding = "ISO-8859-1")
-      FileUploader.new(@csv).save_to_disk(filename, encoding)
+    def save_file(filename, info_ftp = nil, encoding = "ISO-8859-1")
+      FileUploader.new(@csv).save_to_disk(filename, info_ftp, encoding )
     end
 
     def generate_userbase
@@ -33,20 +33,20 @@ module MarketingReports
       @csv = CSV.generate do |csv|
         csv << %w{ id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases credit_balance}
         User.select("(select sum(total_agora) from (
- select 
+ select
   uc.user_id,
   (CASE ct.code
    WHEN 'invite' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    WHEN 'redeem' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    ELSE
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -  
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
    END
-  ) total_agora 
+  ) total_agora
 from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code
@@ -88,20 +88,20 @@ group by uc.user_id, ct.code
       @csv = CSV.generate do |csv|
         csv << %w{id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token credit_balance}
         User.select("(select sum(total_agora) from (
- select 
+ select
   uc.user_id,
   (CASE ct.code
    WHEN 'invite' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    WHEN 'redeem' THEN
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  - 
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1),0)
    ELSE
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -  
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
    END
-  ) total_agora 
+  ) total_agora
 from user_credits uc
 inner join credit_types ct on ct.id = uc.credit_type_id
 group by uc.user_id, ct.code

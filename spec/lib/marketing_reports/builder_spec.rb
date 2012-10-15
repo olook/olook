@@ -35,6 +35,7 @@ describe MarketingReports::Builder do
     let(:csv) { "a,b,c" }
     let(:filename) { "filename.csv" }
     let(:encoding) { "utf-8" }
+    let(:info_ftp) { "exact_target.xml" }
     let(:uploader) { double(:uploder) }
 
     before do
@@ -43,13 +44,13 @@ describe MarketingReports::Builder do
 
     it "calls FileUploader passing the csv" do
       MarketingReports::FileUploader.should_receive(:new).with(csv).and_return(mock.as_null_object)
-      subject.save_file(filename)
+      subject.save_file(filename, info_ftp)
     end
 
     it "calls save_to_disk on the file uploader with the passed filename and encoding" do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:save_to_disk).with(filename, encoding)
-      subject.save_file(filename, encoding)
+      uploader.should_receive(:save_to_disk).with(filename, info_ftp, encoding)
+      subject.save_file(filename, info_ftp, encoding)
     end
   end
 
@@ -179,6 +180,6 @@ describe MarketingReports::Builder do
       subject.generate_userbase_with_credits
       subject.csv.should match /^#{csv_header}#{csv_body}/
     end
-  end 
+  end
 
 end
