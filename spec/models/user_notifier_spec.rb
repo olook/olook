@@ -31,9 +31,8 @@ describe UserNotifier do
 
     it "should send the order email" do
       validators = UserNotifier.get_carts( 0, 1, [ "notified = 0" ] )
-      InCartMailer.should_receive(:send_in_cart_mail).with(subject, subject.items).and_return(mailer)
-      mailer.should_receive(:deliver)
-      UserNotifier.send_in_cart( validators.join(" AND ") )
+      response = ["email%nome%produtos%relacionados", "person1@example.com%User First Name%|Chanelle|123,45|35%"]
+      UserNotifier.send_in_cart( validators.join(" AND ") ).should eq(response)
     end
   end
 

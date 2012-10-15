@@ -81,8 +81,7 @@ class UserNotifier
         .uniq
   end
 
-  private
-  def format_cart_items cart_items
+  def self.format_cart_items cart_items
     cart_item_lines = []
     cart_items.each do |cart_item|
       cart_item_line = []
@@ -95,7 +94,7 @@ class UserNotifier
     cart_item_lines.join("#")
   end
 
-  def format_related_products related_products
+  def self.format_related_products related_products
     related_product_lines = []
     related_products.each do |product|
       related_product_line = []
