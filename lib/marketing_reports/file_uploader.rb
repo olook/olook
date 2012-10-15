@@ -16,7 +16,7 @@ module MarketingReports
     end
 
     def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1", info_ftp )
-      if info_file
+      if info_ftp
         self.upload_to_ftp(filename, encoding, info_ftp)
       else
         self.save_local_file(filename, encoding)
@@ -41,7 +41,7 @@ module MarketingReports
       self.ftp_information(info_ftp)
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
-        ftp.puttextfile(@file)
+        ftp.puttextfile(@csv)
         ftp.close
       end
     end
