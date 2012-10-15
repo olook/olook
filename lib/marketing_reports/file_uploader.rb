@@ -15,15 +15,15 @@ module MarketingReports
       @file_content = file_content
     end
 
-    def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1", info_file )
+    def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1", info_ftp )
       if info_file
-        upload_to_ftp(filename, encoding, info_file)
+        self.upload_to_ftp(filename, encoding, info_ftp)
       else
-        save_local_file(filename, encoding)
+        self.save_local_file(filename, encoding)
       end
     end
 
-    private
+    #private
 
     def save_local_file(filename, enconding)
      Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
@@ -37,8 +37,8 @@ module MarketingReports
     puts "save local"
     end
 
-    def upload_to_ftp(filename, enconding, info_file)
-      ftp_information(info_file)
+    def upload_to_ftp(filename, enconding, info_ftp)
+      self.ftp_information(info_ftp)
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
         ftp.puttextfile(@file)
@@ -51,7 +51,6 @@ module MarketingReports
       @ftp_address = config["in_cart"]["ftp"]["address"]
       @username = config["in_cart"]["ftp"]["user"]
       @password = config["in_cart"]["ftp"]["password"]
-      @file = config["in_cart"]["ftp"]["file"]
     end
   end
 end

@@ -2,8 +2,8 @@
 class MarketingUploaderWorker
   @queue = :marketing_uploader
 
-  def self.perform(method_called, file, info_file = nil)
-    MarketingReports::Builder.new(method_called).save_file(file, info_file)
+  def self.perform(method_called, file, info_ftp)
+    MarketingReports::Builder.new(method_called).save_file(file, info_ftp)
   end
 end
 
