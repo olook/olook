@@ -179,15 +179,17 @@ Olook::Application.routes.draw do
     post 'integrate_orders' => "orders#integrate_orders"
     post 'integrate_cancel' => "orders#integrate_cancel"
     post 'integrate_payment' => "orders#integrate_payment"
-
+    
     resources :orders do
       member do
         post 'change_state'
+        post 'remove_loyalty_credits'
       end
 
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
       end
+
     end
     resources :coupons, :except => [:destroy]
     resources :landing_pages

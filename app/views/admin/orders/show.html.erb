@@ -93,8 +93,11 @@
       <th>Quantity</th>
       <th>Unit Price</th>
       <th>Total</th>
+      <th>Créditos de Fidelidade</th>
+      <th>Créditos a serem descontados<br/>(em caso de estorno)</th>
+      <th></th>
     </tr>
-
+  
   <% @order.line_items.each do |line_item| %>
     <tr>
       <td><%= image_tag(line_item.variant.thumb_picture) if line_item.variant.thumb_picture %></td>
@@ -103,9 +106,21 @@
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
+      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>   
+      <td><%= number_to_currency(line_item.calculate_available_credits) %></td>
+      <td><% if line_item.debits.empty? %>
+        <%= form_tag(remove_loyalty_credits_admin_order_path(@order)) do -%>
+          <%= hidden_field_tag 'line_item_id', line_item.id %>
+          <%= submit_tag 'Remover créditos de fidelidade' -%>
+        <% end %>
+      <% end %></td>
     </tr>
   <% end %>
   </table>
+
+  <h3>Total de Créditos de fidelidade</h3>
+  <p><%= number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount)) %>  
+  </p>
 
   <h3>Abacos</h3>
   <p>
