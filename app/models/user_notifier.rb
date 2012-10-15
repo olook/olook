@@ -13,19 +13,41 @@ class UserNotifier
   end
 
   def self.send_in_cart ( conditions )
-     Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
-      cart.update_attribute("notified", true)
+     file_lines = []
+     # header
+     file_lines << "email%nome%produtos%relacionados"
 
+     Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
+      # cart.update_attribute("notified", true)
       products = []
+      related_products = []
+
       cart.items.each do |product|
+        p = product.variant.product
         if product.variant.inventory != 0
           products << product
+          related_products |= p.related_products
         end
       end
 
-      InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
-    end
+      products = products.sample(3)
+      related_products = related_products.sample(3)
+      user = cart.user
 
+      line = []
+      line << user.email
+      line << user.first_name
+
+      line << format_cart_items(products)
+
+      line << format_related_products(related_products)
+
+      file_lines << line.join("%") unless products.empty?
+
+      # Salvar .csv
+      # InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
+    end
+    file_lines
   end
 
   def self.send_enabled_credits_notification
@@ -46,8 +68,6 @@ class UserNotifier
     arr
   end
 
-  # private
-
   def self.days_to_s ( days )
     seconds = days * 24 * 60 * 60
   end
@@ -59,6 +79,33 @@ class UserNotifier
         .where(condition.lteq(date +1.day))
         .where(condition.gteq(date -1.day))  
         .uniq  
+  end
+
+  private
+  def format_cart_items cart_items
+    cart_item_lines = []
+    cart_items.each do |cart_item|
+      cart_item_line = []
+      cart_item_line << cart_item.variant.showroom_picture
+      cart_item_line << cart_item.name
+      cart_item_line << "#{('%.2f' % cart_item.variant.price).gsub('.',',')}"
+      cart_item_line << cart_item.description
+      cart_item_lines << cart_item_line.join("|")
+    end
+    cart_item_lines.join("#")
+  end
+
+  def format_related_products related_products
+    related_product_lines = []
+    related_products.each do |product|
+      related_product_line = []
+      related_product_line << product.master_variant.showroom_picture
+      related_product_line << product.name
+      related_product_line << "#{('%.2f' % product.master_variant.price).gsub('.',',')}"
+      related_product_line << product.description
+      related_product_lines << related_product_line.join("|")
+    end
+    related_product_lines.join("#")
   end
 
 end
