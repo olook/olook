@@ -3,6 +3,7 @@
 require 'net/ftp'
 require 'tempfile'
 require 'fileutils'
+require 'yaml'
 
 module MarketingReports
   class FileUploader
@@ -14,9 +15,9 @@ module MarketingReports
       @file_content = file_content
     end
 
-    def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1", ftp)
-      if ftp
-        upload_to_ftp(filename, encoding, ftp)
+    def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1", info_file )
+      if info_file
+        upload_to_ftp(filename, encoding, info_file)
       else
         save_local_file(filename, encoding)
       end
@@ -25,7 +26,6 @@ module MarketingReports
     private
 
     def save_local_file(filename, enconding)
-=begin
      Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
         file.write(@file_content)
         FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
@@ -34,22 +34,24 @@ module MarketingReports
         new_file.write(@file_content)
         new_file.close
       end
-=end
     puts "save local"
     end
 
-    def upload_to_ftp(filename, enconding, ftp)
-      # some code
-=begin
-      ftp = Net::FTP.new('ftp.domain.com')
-      ftp.passive = true
-      ftp.login
-      ftp.chdir('/your/folder/name/here')
-      ftp.putbinaryfile('local_file')
-      ftp.close
-=end
-      puts "update to ftp"
+    def upload_to_ftp(filename, enconding, info_file)
+      ftp_information(info_file)
+      Net::FTP.open(@ftp_address) do |ftp|
+        ftp.login(@username, @password)
+        ftp.puttextfile(@file)
+        ftp.close
+      end
     end
 
+    def ftp_information(info_file)
+      config = YAML::load(File.open(info_file))
+      @ftp_address = config["in_cart"]["ftp"]["address"]
+      @username = config["in_cart"]["ftp"]["user"]
+      @password = config["in_cart"]["ftp"]["password"]
+      @file = config["in_cart"]["ftp"]["file"]
+    end
   end
 end
