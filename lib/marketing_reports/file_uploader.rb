@@ -15,17 +15,12 @@ module MarketingReports
       @file_content = file_content
     end
 
-    def save_to_disk(filename = "untitled.txt", encoding = "ISO-8859-1", info_ftp )
-      if info_ftp
-        self.upload_to_ftp(filename, encoding, info_ftp)
-      else
-        self.save_local_file(filename, encoding)
-      end
+    def save_to_disk(filename = "untitled.txt", info_ftp = nil, encoding = "ISO-8859-1"  )
+      self.save_local_file(filename, encoding)
+      self.upload_to_ftp(filename, info_ftp) if info_ftp
     end
 
-    #private
-
-    def save_local_file(filename, enconding)
+    def save_local_file(filename, encoding)
      Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
         file.write(@file_content)
         FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
@@ -34,20 +29,19 @@ module MarketingReports
         new_file.write(@file_content)
         new_file.close
       end
-    puts "save local"
     end
 
-    def upload_to_ftp(filename, enconding, info_ftp)
+    def upload_to_ftp(filename, info_ftp)
       self.ftp_information(info_ftp)
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
-        ftp.puttextfile(@csv)
+        ftp.puttextfile(filename)
         ftp.close
       end
     end
 
-    def ftp_information(info_file)
-      config = YAML::load(File.open(info_file))
+    def ftp_information(info_ftp)
+      config = YAML::load(File.open(info_ftp))
       @ftp_address = config["in_cart"]["ftp"]["address"]
       @username = config["in_cart"]["ftp"]["user"]
       @password = config["in_cart"]["ftp"]["password"]
