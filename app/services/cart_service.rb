@@ -184,7 +184,26 @@ class CartService
     LoyaltyProgramCreditType.apply_percentage(total + total_discount_by_type(:credits_by_redeem))
   end
 
+  def should_apply_promotion_discount?
+    if has_promotion_and_coupon_of_value?
+      total_promotion_discount = get_total_retail_price_without_discounts * promotion.discount_percent / 100
+      return total_promotion_discount > coupon.value
+    end
+
+    return true unless promotion.nil?
+  end
+
   private
+    def has_promotion_and_coupon_of_value?
+      promotion && coupon && !coupon.is_percentage?
+    end
+
+    def get_total_retail_price_without_discounts
+      cart.items.inject(0) do |sum, item| 
+        sum += (item.variant.product.retail_price * item.quantity)
+      end
+    end
+
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
@@ -217,12 +236,12 @@ class CartService
 
     if coupon && !coupon.is_percentage?
       discounts << :coupon_of_value
-      coupon_value = coupon.value
-      if coupon_value < final_retail_price
-        final_retail_price -= coupon_value
-        origin = 'Desconto de R$ '+coupon.value.to_s+' do cupom '+coupon.code
-        origin_type = :coupon_of_value
-      end
+      # coupon_value = coupon.value
+      # if coupon_value < final_retail_price
+      #   final_retail_price -= coupon_value
+      #   origin = 'Desconto de R$ '+coupon.value.to_s+' do cupom '+coupon.code
+      #   origin_type = :coupon_of_value
+      # end
     end
         
     promotion = self.promotion
@@ -230,7 +249,7 @@ class CartService
       discounts << :promotion
       promotion_value = price - ((price * promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
-        final_retail_price =  promotion_value
+        final_retail_price = promotion_value if should_apply_promotion_discount?
         percent = promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
         origin_type = :promotion
