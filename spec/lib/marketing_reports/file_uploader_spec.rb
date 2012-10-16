@@ -3,6 +3,8 @@ require 'spec_helper.rb'
 
 describe MarketingReports::FileUploader do
   let(:file_content) { "This is an Example String" }
+  let(:info_ftp) { "exact_target.yml" }
+  let(:filename) { "SimpleName" }
 
   subject { described_class.new(file_content) }
 
@@ -20,6 +22,11 @@ describe MarketingReports::FileUploader do
         Tempfile.stub(:open).and_yield(file)
         file.should_receive(:write).with(file_content)
         subject.save_to_disk
+      end
+
+      it "uploading file to ftp" do
+        subject.should_receive(:upload_to_ftp)
+        subject.save_to_disk(filename, info_ftp)
       end
     end
 
