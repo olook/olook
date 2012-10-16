@@ -17,6 +17,7 @@ $(document).ready(function() {
     $("section#greetings div.facebook div.profile").hide();
   });
 
+
   $("#showroom div.products_list a.more").live("click", function() {
     click = $(this);
     el = $(this).attr('rel');
@@ -25,31 +26,42 @@ $(document).ready(function() {
 
     var url = $(this).data('url') + c_id;
 
-    if(box.is(":visible") == false) {
-      $("<div class='loading'></div>").insertBefore($(this));
+	if(box.is(":visible") == false) {
+    	$("<div class='loading'></div>").insertBefore($(this));
       if ($(this).hasClass("loaded") == false) {
-        $.getScript(url).done(function() {
-          box.slideDown(1000);
-          container_position = $(box).position().top;
-          ShowroomInit.slideToProductsContainer(container_position);
-          $("div.loading").remove();
-          $(click).addClass("loaded");
-          try{
-            FB.XFBML.parse();
-          }catch(ex){}
-        });
-      } else {
+      	$.getScript(url).done(function() {
+         	box.slideDown(1000);
+          	container_position = $(box).position().top;
+          	ShowroomInit.slideToProductsContainer(container_position);
+          	$("div.loading").remove();
+          	$(click).addClass("loaded").html("Ocultar").addClass("minus");
+				console.log($(click).html())
+          	try{
+            	FB.XFBML.parse();
+          	}catch(ex){}
+      	});
+      }else {
         box.slideDown(1000);
         container_position = $(box).position().top;
         ShowroomInit.slideToProductsContainer(container_position);
+		  click.addClass("minus");	
         $("div.loading").remove();
       }
-  } else {
+   }else {
       box.slideUp(1000);
       topBox = $(this).parent(".products_list");
       container_position = $(topBox).position().top;
+		if(click.is(".shoes, .minus")){
+			$(click).html("CLIQUE E VEJA MAIS SAPATOS")
+		}else if(click.is(".purses, .minus")){
+			$(click).html("CLIQUE E VEJA MAIS BOLSAS")
+		}
+		else if(click.is(".accessories, .minus")){
+			$(click).html("CLIQUE E VEJA MAIS BOLSAS")
+		}
+		$(click).removeClass("minus");
       ShowroomInit.slideToProductsContainer(container_position);
-    }
+   }
   });
 
   $("div.facebook.connected ul").carouFredSel({
@@ -121,7 +133,7 @@ ShowroomInit = {
   },
 
   slideToProductsContainer : function(container_position) {
-    position = container_position - 100;
+    position = container_position + 100;
     $("html, body").animate({
       scrollTop: position
     }, 'fast');
