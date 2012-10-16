@@ -22,11 +22,24 @@ send_in_cart_email:
   queue: send_in_cart_email
   description: "Dispara emails para carrinhos abandonados"
 
-marketing_uploader:
+userbase_with_auth_token_and_credits:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
+  args:
+    - userbase_with_auth_token_and_credits
+    - base_atualizada_purchases_auth_token_and_credits.csv
   description: "Cria arquivo de importação para allinemail"
+
+in_cart_mail:
+  cron: "0 2 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - in_cart_mail
+    - abandono_file_test.csv
+    - exact_target.yml
+  description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
 
 send_billet_reminder:
   cron: "0 5 * * 1-5"

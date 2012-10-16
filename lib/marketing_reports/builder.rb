@@ -11,8 +11,8 @@ module MarketingReports
       self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def save_file(filename, info_ftp = nil, encoding = "ISO-8859-1")
-      FileUploader.new(@csv).save_to_disk(filename, info_ftp, encoding )
+    def save_file(filename, info_ftp = nil)
+      FileUploader.new(@csv).save_to_disk(filename, info_ftp)
     end
 
     def generate_userbase
