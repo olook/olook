@@ -18,7 +18,7 @@ class UserNotifier
      file_lines << "email%nome%cart_id%user_authentication_token%produtos%relacionados"
 
      Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
-      # cart.update_attribute("notified", true)
+      cart.update_attribute("notified", true)
       products = []
       related_products = []
 
@@ -36,7 +36,7 @@ class UserNotifier
 
       line = []
       line << user.email
-      line << user.first_name
+      line << user.first_name.capitalize
       line << cart.id
       line << user.authentication_token
 
@@ -90,7 +90,7 @@ class UserNotifier
       cart_item_line << cart_item.variant.showroom_picture
       cart_item_line << cart_item.name
       cart_item_line << "#{('%.2f' % cart_item.variant.price).gsub('.',',')}"
-      cart_item_line << cart_item.description
+      cart_item_line << cart_item.variant.product.description
       cart_item_lines << cart_item_line.join("|")
     end
     cart_item_lines.join("#")
@@ -101,9 +101,8 @@ class UserNotifier
     related_products.each do |product|
       related_product_line = []
       related_product_line << product.master_variant.showroom_picture
+      related_product_line << "http://www.olook.com.br/produto/#{product.id}"
       related_product_line << product.name
-      related_product_line << "#{('%.2f' % product.master_variant.price).gsub('.',',')}"
-      related_product_line << product.description
       related_product_lines << related_product_line.join("|")
     end
     related_product_lines.join("#")
