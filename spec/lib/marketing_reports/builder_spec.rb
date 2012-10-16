@@ -34,7 +34,7 @@ describe MarketingReports::Builder do
   describe "#upload" do
     let(:csv) { "a,b,c" }
     let(:filename) { "filename.csv" }
-    let(:encoding) { "utf-8" }
+    #let(:encoding) { "utf-8" }
     let(:info_ftp) { "exact_target.xml" }
     let(:uploader) { double(:uploder) }
 
@@ -49,8 +49,8 @@ describe MarketingReports::Builder do
 
     it "calls save_to_disk on the file uploader with the passed filename and encoding" do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:save_to_disk).with(filename, info_ftp, encoding)
-      subject.save_file(filename, info_ftp, encoding)
+      uploader.should_receive(:save_to_disk).with(filename, info_ftp)
+      subject.save_file(filename, info_ftp)
     end
   end
 
