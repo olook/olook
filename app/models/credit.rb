@@ -4,10 +4,13 @@ class Credit < ActiveRecord::Base
   belongs_to :order
   has_many :debits, :class_name => "Credit", :foreign_key => "original_credit_id"
   validates :value, :presence => true
+  belongs_to :line_item
   belongs_to :user
 
   INVITE_BONUS = BigDecimal.new("10.00")
-  
+
+  scope :loyalty_credits_to_expire, where("expires_at >= ? AND is_debit = ? AND source = ?", DateTime.now, false, "loyalty_program_credit")
+
   def description_for(kind)
     case kind
     when :invite
@@ -18,6 +21,8 @@ class Credit < ActiveRecord::Base
       description_for_loyalty
     when :redeem
       description_for_redeem
+    when :refunded_credit
+      description_for_refunded_credit
     end
   end
   
@@ -41,6 +46,10 @@ class Credit < ActiveRecord::Base
   def description_for_used_credit
    "Compra realizada em #{l self.created_at}"
   end
+
+  def description_for_refunded_credit
+    "Devolução do produto #{self.line_item.variant.product.name} realizada em #{l self.created_at}"
+  end
   
   ##
   ## This method shouldn't be here. We must avoid coupling business with presentation
@@ -62,9 +71,7 @@ class Credit < ActiveRecord::Base
   
   def l(date)
     I18n.localize date, :format => "%d/%m/%Y"
-  end
-
-  private 
+  end 
 
     #
     # These two methods are needed in order to avoid problems with Daylight Savin Time (dst - Horario de Verao).

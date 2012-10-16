@@ -35,6 +35,7 @@ module MarketingReports
       self.ftp_information(info_ftp)
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
+        ftp.chdir(@path) unless @path.nil? || @path.strip.chomp == ""
         ftp.puttextfile(filename)
         ftp.close
       end
@@ -42,9 +43,10 @@ module MarketingReports
 
     def ftp_information(info_ftp)
       config = YAML::load(File.open(info_ftp))
-      @ftp_address = config["in_cart"]["ftp"]["address"]
-      @username = config["in_cart"]["ftp"]["user"]
-      @password = config["in_cart"]["ftp"]["password"]
+      @ftp_address = config["ftp"]["address"]
+      @username = config["ftp"]["user"]
+      @password = config["ftp"]["password"]
+      @path = config["ftp"]["path"]
     end
   end
 end

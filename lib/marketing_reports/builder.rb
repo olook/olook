@@ -2,7 +2,7 @@
 module MarketingReports
   class Builder
 
-    ACTIONS = [:userbase, :userbase_with_auth_token, :userbase_with_credits, :userbase_with_auth_token_and_credits]
+    ACTIONS = [:userbase, :userbase_with_auth_token, :userbase_with_credits, :userbase_with_auth_token_and_credits, :in_cart_mail]
 
     attr_accessor :csv
 
@@ -114,6 +114,12 @@ group by uc.user_id, ct.code
         end
         emails_seed_list.each { |email| csv << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil, nil, nil ] }
       end
+    end
+
+    def generate_in_cart_mail
+      conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
+      file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
+      @csv = file_lines.join("\n")
     end
 
     private
