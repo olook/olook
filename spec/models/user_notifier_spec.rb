@@ -31,7 +31,7 @@ describe UserNotifier do
 
     it "should send the order email" do
       validators = UserNotifier.get_carts( 0, 1, [ "notified = 0" ] )
-      response = ["email%nome%produtos%relacionados", "person1@example.com%User First Name%|Chanelle|123,45|35%"]
+      response = ["email%nome%produtos%relacionados", "#{user.email}%User First Name%|Chanelle|123,45|35%"]
       UserNotifier.send_in_cart( validators.join(" AND ") ).should eq(response)
     end
   end

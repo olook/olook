@@ -18,7 +18,7 @@ class UserNotifier
      file_lines << "email%nome%produtos%relacionados"
 
      Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
-      # cart.update_attribute("notified", true)
+      cart.update_attribute("notified", true)
       products = []
       related_products = []
 
