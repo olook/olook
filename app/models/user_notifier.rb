@@ -15,10 +15,10 @@ class UserNotifier
   def self.send_in_cart ( conditions )
      file_lines = []
      # header
-     file_lines << "email%nome%produtos%relacionados"
+     file_lines << "email%nome%cart_id%user_authentication_token%produtos%relacionados"
 
      Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
-      cart.update_attribute("notified", true)
+      # cart.update_attribute("notified", true)
       products = []
       related_products = []
 
@@ -37,6 +37,8 @@ class UserNotifier
       line = []
       line << user.email
       line << user.first_name
+      line << cart.id
+      line << user.authentication_token
 
       line << format_cart_items(products)
 

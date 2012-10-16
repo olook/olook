@@ -10,6 +10,7 @@ module MarketingReports
 
     REPORT_PATH = Rails.env.production? ? '/home/allinmail' : Rails.root
     TEMP_PATH = '/tmp/'
+    CONFIG_DIR = "#{Rails.root}/config/"
 
     def initialize(file_content)
       @file_content = file_content
@@ -42,7 +43,7 @@ module MarketingReports
     end
 
     def ftp_information(info_ftp)
-      config = YAML::load(File.open(info_ftp))
+      config = YAML::load(File.open(CONFIG_DIR+info_ftp))
       @ftp_address = config["ftp"]["address"]
       @username = config["ftp"]["user"]
       @password = config["ftp"]["password"]
