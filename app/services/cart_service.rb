@@ -193,7 +193,7 @@ class CartService
     return true unless promotion.nil?
   end
 
-  private
+  # private
     def has_promotion_and_coupon_of_value?
       promotion && coupon && !coupon.is_percentage?
     end
@@ -214,6 +214,7 @@ class CartService
     
     if price != final_retail_price
       percent =  (1 - (final_retail_price / price) )* 100
+      puts "Porcento #{percent}"
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
       discounts << :olooklet
       origin_type = :olooklet
@@ -290,6 +291,7 @@ class CartService
     total_discount = 0
     
     coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?
+    coupon_value = 0 if should_apply_promotion_discount? 
     coupon_value ||= 0
     
     if coupon_value >= retail_value
@@ -330,7 +332,7 @@ class CartService
     end
     total_credits = credits_loyality + credits_invite + credits_redeem
     
-    discounts << :coupon if coupon_value > 0
+    discounts << :coupon unless coupon_value < 0
 
     { 
       :discounts                         => discounts,
