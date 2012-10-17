@@ -9,7 +9,7 @@ module MarketingReports
   class FileUploader
 
     REPORT_PATH = Rails.env.production? ? '/home/allinmail' : Rails.root
-    TEMP_PATH = '/tmp/'
+    TEMP_PATH = "#{Rails.root}/tmp/"
     CONFIG_DIR = "#{Rails.root}/config/"
 
     def initialize(file_content)
@@ -22,7 +22,7 @@ module MarketingReports
     end
 
     def save_local_file(filename, encoding)
-     Tempfile.open(TEMP_PATH, 'w', :encoding => encoding) do |file|
+     File.open("#{TEMP_PATH}/#{filename}", 'w', :encoding => encoding) do |file|
         file.write(@file_content)
         FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
 
@@ -37,7 +37,7 @@ module MarketingReports
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
         ftp.chdir(@path) unless @path.nil? || @path.strip.chomp == ""
-        ftp.puttextfile(filename)
+        ftp.puttextfile("#{TEMP_PATH}/#{filename}")
         ftp.close
       end
     end
