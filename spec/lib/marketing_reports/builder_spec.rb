@@ -34,7 +34,7 @@ describe MarketingReports::Builder do
   describe "#upload" do
     let(:csv) { "a,b,c" }
     let(:filename) { "filename.csv" }
-    #let(:encoding) { "utf-8" }
+
     let(:info_ftp) { "exact_target.xml" }
     let(:uploader) { double(:uploder) }
 

@@ -10,7 +10,7 @@
         <% @question.answers.each do |answer| %>
         <li>
           <%= f.radio_button 'question', answer.id %>
-          <%= image_tag "/assets/quiz/#{answer.question.id - 29}_#{answer_number += 1}.jpg"  %>
+          <%= image_tag "/assets/quiz/#{answer.question.title[0]}_#{answer_number += 1}.jpg"  %>
         </li>
         <% end %>
       </ul>
