@@ -1467,7 +1467,7 @@ div.credit_details {
 }
 
 .ie8 {
-  section#cart table-layout tbody {
+  section#cart table.items_list tbody {
     tr td.delete_item form input[type="submit"] {
       top: 10px;
     }
