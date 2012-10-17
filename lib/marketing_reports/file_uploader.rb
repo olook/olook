@@ -22,13 +22,9 @@ module MarketingReports
     end
 
     def save_local_file(filename, encoding)
-     File.open("#{TEMP_PATH}/#{filename}", 'w', :encoding => encoding) do |file|
+     File.open(TEMP_PATH+filename, 'w', :encoding => encoding) do |file|
         file.write(@file_content)
         FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
-
-        new_file = File.open("backup_#{filename}", "w")
-        new_file.write(@file_content)
-        new_file.close
       end
     end
 
