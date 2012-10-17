@@ -9,12 +9,12 @@ describe MarketingReports::FileUploader do
   subject { described_class.new(file_content) }
 
   describe "#save_to_disk" do
-    let(:file) { double(:file, :path => "tmp/temp_name.csv", :write => "") }
+    let(:file) { double(:file, :path => "#{Rails.root}/tmp/temp_name.csv", :write => "") }
 
     context "creating the file" do
       it "creates a new temporary file in the tmp dir" do
         file.stub(:write)
-        File.should_receive(:open).with('/tmp/', 'w', :encoding => "ISO-8859-1").and_yield(file)
+        File.should_receive(:open).with("#{Rails.root}/tmp/untitled.txt", 'w', :encoding => "ISO-8859-1").and_yield(file)
         subject.save_to_disk
       end
 
@@ -33,6 +33,7 @@ describe MarketingReports::FileUploader do
     context "copying the file" do
       let(:filename) { "file.csv" }
       let(:report_path) { Rails.root }
+      let(:temp_path) { "#{Rails.root}/tmp/" }
 
       it "uses untitled.txt as filename when no name is passed" do
         FileUtils.should_receive(:copy).with(anything, "#{report_path}/untitled.txt")
@@ -46,7 +47,7 @@ describe MarketingReports::FileUploader do
 
       it "puts the created temp file in the network directory" do
         Tempfile.stub(:open).and_yield(file)
-        FileUtils.should_receive(:copy).with(file.path, "#{report_path}/#{filename}").at_most(:once)
+        FileUtils.should_receive(:copy).with(temp_path+filename, "#{report_path}/#{filename}").at_most(:once)
         subject.save_to_disk(filename)
       end
     end
