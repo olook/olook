@@ -43,7 +43,7 @@ describe FriendsController do
         FacebookAdapter.stub(:new).with(user.facebook_token).and_return(fb_adapter = stub)
         fb_adapter.stub(:friends_structure).and_return(friends_structure = [[], [], ])
         SurveyQuestions.stub(:new).with([question]).and_return(survey_questions = mock)
-        survey_questions.stub(:common_questions).and_return([question])
+        survey_questions.stub(:questions_for_my_friends_quiz).and_return([question])
         User.any_instance.stub(:can_access_facebook_extended_features?).and_return(true)
         session[:facebook_scopes] = nil
       end
