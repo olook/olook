@@ -23,7 +23,8 @@ $(document).ready(function() {
     el = $(this).attr('rel');
     box = $(this).parents('.type_list').find("."+el);
     c_id = "?" + (location.href.match(/c=\d+/)||"")
-
+	console.log(box);
+	console.info($(box).offset().top)
     var url = $(this).data('url') + c_id;
 
 	if(box.is(":visible") == false) {
@@ -31,33 +32,34 @@ $(document).ready(function() {
       if ($(this).hasClass("loaded") == false) {
       	$.getScript(url).done(function() {
          	box.slideDown(1000);
-          	container_position = $(box).position().top;
+          	container_position = $(box).offset().top;
           	ShowroomInit.slideToProductsContainer(container_position);
           	$("div.loading").remove();
           	$(click).addClass("loaded").html("Ocultar").addClass("minus");
-				console.log($(click).html())
+				console.log(container_position)
           	try{
             	FB.XFBML.parse();
           	}catch(ex){}
       	});
       }else {
         box.slideDown(1000);
-        container_position = $(box).position().top;
+        container_position = $(box).offset().top;
+			console.log(container_position)
         ShowroomInit.slideToProductsContainer(container_position);
-		  click.addClass("minus");	
+		  click.addClass("minus").html("Ocultar");	
         $("div.loading").remove();
       }
    }else {
       box.slideUp(1000);
       topBox = $(this).parent(".products_list");
       container_position = $(topBox).position().top;
-		if(click.is(".shoes, .minus")){
+		if(click.is(".shoes")){
 			$(click).html("CLIQUE E VEJA MAIS SAPATOS")
-		}else if(click.is(".purses, .minus")){
+		}else if(click.is(".purses")){
 			$(click).html("CLIQUE E VEJA MAIS BOLSAS")
 		}
-		else if(click.is(".accessories, .minus")){
-			$(click).html("CLIQUE E VEJA MAIS BOLSAS")
+		else if(click.is(".accessories")){
+			$(click).html("CLIQUE E VEJA MAIS ACESSÓRIOS")
 		}
 		$(click).removeClass("minus");
       ShowroomInit.slideToProductsContainer(container_position);
@@ -133,7 +135,8 @@ ShowroomInit = {
   },
 
   slideToProductsContainer : function(container_position) {
-    position = container_position + 100;
+    position = container_position -40;
+	console.info("position "+position)
     $("html, body").animate({
       scrollTop: position
     }, 'fast');
