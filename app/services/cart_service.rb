@@ -214,7 +214,6 @@ class CartService
     
     if price != final_retail_price
       percent =  (1 - (final_retail_price / price) )* 100
-      puts "Porcento #{percent}"
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
       discounts << :olooklet
       origin_type = :olooklet
