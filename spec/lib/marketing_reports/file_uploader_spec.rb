@@ -14,12 +14,12 @@ describe MarketingReports::FileUploader do
     context "creating the file" do
       it "creates a new temporary file in the tmp dir" do
         file.stub(:write)
-        Tempfile.should_receive(:open).with('/tmp/', 'w', :encoding => "ISO-8859-1").and_yield(file)
+        File.should_receive(:open).with('/tmp/', 'w', :encoding => "ISO-8859-1").and_yield(file)
         subject.save_to_disk
       end
 
       it "writes the received string to the tempfile" do
-        Tempfile.stub(:open).and_yield(file)
+        File.stub(:open).and_yield(file)
         file.should_receive(:write).with(file_content)
         subject.save_to_disk
       end
