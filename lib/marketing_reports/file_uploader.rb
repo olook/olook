@@ -25,7 +25,6 @@ module MarketingReports
      File.open("#{TEMP_PATH}/#{filename}", 'w', :encoding => encoding) do |file|
         file.write(@file_content)
         FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
-        puts filename
 
         new_file = File.open("backup_#{filename}", "w")
         new_file.write(@file_content)
@@ -38,7 +37,7 @@ module MarketingReports
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
         ftp.chdir(@path) unless @path.nil? || @path.strip.chomp == ""
-        ftp.puttextfile(filename)
+        ftp.puttextfile("#{TEMP_PATH}/#{filename}")
         ftp.close
       end
     end
