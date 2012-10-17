@@ -8,6 +8,10 @@ describe MarketingReports::FileUploader do
 
   subject { described_class.new(file_content) }
 
+  after(:all) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/SimpleName"])
+  end
+
   describe "#save_to_disk" do
     let(:file) { double(:file, :path => "#{Rails.root}/tmp/temp_name.csv", :write => "") }
 
