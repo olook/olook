@@ -2,7 +2,7 @@
 module MarketingReports
   class Builder
 
-    ACTIONS = [:userbase, :userbase_with_auth_token, :userbase_with_credits, :userbase_with_auth_token_and_credits, :in_cart_mail]
+    ACTIONS = [:userbase, :userbase_with_auth_token, :userbase_with_credits, :userbase_with_auth_token_and_credits, :in_cart_mail, :line_items_report]
 
     attr_accessor :csv
 
@@ -120,6 +120,15 @@ group by uc.user_id, ct.code
       conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
       file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
       @csv = file_lines.join("\n")
+    end
+
+    def generate_line_items_report
+      @csv = CSV.generate do |csv|
+        csv << %w{state product_category email first_name }
+        LineItem.joins(:order).where("orders.state = 'delivered'").limit(100).each do |ln|
+          csv << [ ln.order.state, ln.variant.product.category_humanize, ln.order.user.email, ln.order.user.first_name ]
+        end
+      end
     end
 
     private
