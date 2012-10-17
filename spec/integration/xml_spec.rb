@@ -363,7 +363,7 @@ context "in the ilove_ecommerce xml page" do
       <identifier>#{product.id}</identifier>
       <fn>#{product.name}</fn>
       <description>#{product.description}</description>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       <brand>Olook</brand>
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>

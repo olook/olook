@@ -71,7 +71,7 @@ class FriendsController < ApplicationController
   def load_question
     questions = Question.from_registration_survey
     survey_questions = SurveyQuestions.new(questions)
-    @question = survey_questions.common_questions.shuffle.first
+    @question = survey_questions.questions_for_my_friends_quiz.shuffle.first
   end
 
   def load_friends
