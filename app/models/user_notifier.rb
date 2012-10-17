@@ -18,34 +18,36 @@ class UserNotifier
      file_lines << "email%nome%cart_id%user_authentication_token%produtos%relacionados"
 
      Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
-      cart.update_attribute("notified", true)
-      products = []
-      related_products = []
+      
+      if !Setting.whitelisted_emails_only || cart.user.email.match(/(olook\.com\.br$)/)
+        cart.update_attribute("notified", true) if Setting.mark_notified_users
+        products = []
+        related_products = []
 
-      cart.items.each do |product|
-        p = product.variant.product
-        if product.variant.inventory != 0
-          products << product
-          related_products |= p.related_products
+        cart.items.each do |product|
+          p = product.variant.product
+          if product.variant.inventory != 0
+            products << product
+            related_products |= p.related_products
+          end
         end
+
+        products = products.sample(3)
+        related_products = related_products.sample(3)
+        user = cart.user
+
+        line = []
+        line << user.email
+        line << user.first_name.capitalize
+        line << cart.id
+        line << user.authentication_token
+
+        line << format_cart_items(products)
+
+        line << format_related_products(related_products)
+
+        file_lines << line.join("%") unless products.empty?
       end
-
-      products = products.sample(3)
-      related_products = related_products.sample(3)
-      user = cart.user
-
-      line = []
-      line << user.email
-      line << user.first_name.capitalize
-      line << cart.id
-      line << user.authentication_token
-
-      line << format_cart_items(products)
-
-      line << format_related_products(related_products)
-
-      file_lines << line.join("%") unless products.empty?
-
       # Salvar .csv
       # InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
     end
