@@ -415,7 +415,7 @@ section#cart {
             height: 26px;
             margin: 0 auto;
             display: block;
-            top: -78px;
+            top: -65px;
             right: 10px;
             border: none;
             cursor: pointer;
@@ -1467,7 +1467,7 @@ div.credit_details {
 }
 
 .ie8 {
-  section#cart table.items_list tbody {
+  section#cart table-layout tbody {
     tr td.delete_item form input[type="submit"] {
       top: 10px;
     }
