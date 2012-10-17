@@ -1,0 +1,8 @@
+# LAyout
+#--------
+# coupon_code: product1, product2, product3
+
+
+development:
+  COUPON1: 9640, 7896
+
