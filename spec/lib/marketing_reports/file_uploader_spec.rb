@@ -18,7 +18,7 @@ describe MarketingReports::FileUploader do
     context "creating the file" do
       it "creates a new temporary file in the tmp dir" do
         file.stub(:write)
-        File.should_receive(:open).with("#{Rails.root}/tmp/untitled.txt", 'w', :encoding => "ISO-8859-1").and_yield(file)
+        File.should_receive(:open).with("#{Rails.root}/tmp/untitled.txt", 'w', :encoding => "UTF-8").and_yield(file)
         subject.save_to_disk
       end
 
