@@ -18,12 +18,13 @@ module MarketingReports
 
     def save_to_disk(filename = "untitled.txt", info_ftp = nil, encoding = "ISO-8859-1"  )
       self.save_local_file(filename, encoding)
-      self.upload_to_ftp(filename, info_ftp) if info_ftp && Rails.env.production?
+      self.upload_to_ftp(filename, info_ftp) if info_ftp && self.is_production?
     end
 
     def save_local_file(filename, encoding)
      File.open(TEMP_PATH+filename, 'w', :encoding => encoding) do |file|
         file.write(@file_content)
+        file.close
         FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
       end
     end
@@ -45,5 +46,10 @@ module MarketingReports
       @password = config["ftp"]["password"]
       @path = config["ftp"]["path"]
     end
+
+    def is_production?
+      Rails.env.production?
+    end
+
   end
 end
