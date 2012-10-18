@@ -132,11 +132,13 @@ class Payment < ActiveRecord::Base
     event :cancel do
       transition :started => :cancelled
       transition :waiting_payment => :cancelled
+      transition :under_review => :cancelled
     end
 
     # "1" => :authorize
     event :authorize do
-      transition :waiting_payment => :authorized     
+      transition :started => :authorized
+      transition :waiting_payment => :authorized
       transition :under_review => :authorized
     end
     
