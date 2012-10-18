@@ -11,8 +11,9 @@ module MarketingReports
       self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def save_file(filename, info_ftp = nil)
-      FileUploader.new(filename, @csv).save_to_disk(info_ftp)
+    def save_file(filename = "untitled.csv", info_ftp = nil)
+      FileUploader.new(filename, @csv).save_to_disk
+      FtpUploader.new(filename, info_ftp).upload_to_ftp if Rails.env.development? && info_ftp
     end
 
     def generate_userbase
@@ -120,7 +121,7 @@ group by uc.user_id, ct.code
       #conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
       #file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
       #@csv = file_lines.join("\n")
-      @csv = "some string"
+      @csv = "some string kkk"
     end
 
     def generate_line_items_report
