@@ -4,4 +4,10 @@ FactoryGirl.define do
     association :variant, factory: :basic_shoe_size_35, inventory: 10
     quantity 2
   end
+
+  factory :cart_item_2, :class => CartItem do
+    association :variant, factory: :basic_shoe_size_37, inventory: 5
+    quantity 3
+  end
+  
 end
