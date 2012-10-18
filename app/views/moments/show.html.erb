@@ -19,14 +19,16 @@
         <div class="sizes">
           <ul>
             <% moment_presenter.moment.catalog.shoe_sizes.each do |key, value| %>
-              <li>
-                <% if current_user && current_user.shoes_size %>
-                  <%= check_box_tag('shoe_sizes_filter[]', key, (key.to_s == current_user.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
-                <% else %>
-                  <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
-                <% end %>
-                <%= label_tag(key, nil, :for => "size_#{key}") %>
-              </li>
+              <% unless key.zero? %>
+                <li>
+                  <% if current_user && current_user.shoes_size %>
+                    <%= check_box_tag('shoe_sizes_filter[]', key, (key.to_s == current_user.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
+                  <% else %>
+                    <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
+                  <% end %>
+                  <%= label_tag(key, nil, :for => "size_#{key}") %>
+                </li>
+              <% end %>
             <% end %>
           </ul>
         </div>

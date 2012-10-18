@@ -1,6 +1,8 @@
 @font-face {
     font-family: 'QuicksandBold';
-    src: url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTWBuA/YAAAEcAAAAHEdERUYBBQAkAAABOAAAAChPUy8yZLXNYAAAAWAA
+	 src:url('/assets/quicksand/quicksand-bold-webfont.eot');
+    src:url('/assets/quicksand/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTWBuA/YAAAEcAAAAHEdERUYBBQAkAAABOAAAAChPUy8yZLXNYAAAAWAA
 	AABWY21hcOlmIskAAAG4AAACEmN2dCAOegoKAAADzAAAACJmcGdtU7QvpwAAA/AAAAJlZ2FzcAAA
 	ABAAAAZYAAAACGdseWZswNBbAAAGYAAAkSBoZWFkAB6HWQAAl4AAAAA2aGhlYRAzCbgAAJe4AAAA
 	JGhtdHjKY24mAACX3AAAA1hsb2NhvoeZngAAmzQAAAGubWF4cAHzAYkAAJzkAAAAIG5hbWUyME0Z
@@ -731,11 +733,15 @@
 	BYwCK7ADK0SwBiBFsgOvAiuwAytEAbAHIEWwAytEsAggRbIH0wIrsQNGditEsAkgRbIIcQIrsQNG
 	ditEsAogRbIJeAIrsQNGditEsAsgRbIKRAIrsQNGditEsAwgRbILRQIrsQNGditEsA0gRbIMRAIr
 	sQNGditEsA4gRbINBwIrsQNGditEWbAUKwAAAVAEbYIAAA==");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
     font-family: 'QuicksandLight';
-    src: url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTWBuA/cAAAEcAAAAHEdERUYA/wAkAAABOAAAAChPUy8yYvfICAAAAWAA
+	 src:	url('/assets/quicksand/quicksand-light-webfont.eot');
+    src:	url('/assets/quicksand/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
+    url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTWBuA/cAAAEcAAAAHEdERUYA/wAkAAABOAAAAChPUy8yYvfICAAAAWAA
 	AABWY21hcBzuZ10AAAG4AAACGmN2dCAHuwW1AAAD1AAAACpmcGdtU7QvpwAABAAAAAJlZ2FzcAAA
 	ABAAAAZoAAAACGdseWZsLgONAAAGcAAAgOxoZWFkAGeG7gAAh1wAAAA2aGhlYRBFCmIAAIeUAAAA
 	JGhtdHiu+mmNAACHuAAAA0Bsb2NhakdJigAAivgAAAGibWF4cAHtAXkAAIycAAAAIG5hbWUzWU32
@@ -1394,11 +1400,15 @@
 	sAMrRLAKIEWyCSkCK7ADK0QBsAsgRbADK0SwDCBFsguLAiuxA0Z2K0SwDSBFsgylAiuxA0Z2K0Sw
 	DiBFugANAj4AAiuxA0Z2K0SwDyBFsg7FAiuxA0Z2K0SwECBFsg/BAiuxA0Z2K0SwESBFshC+Aiux
 	A0Z2K0SwEiBFshG6AiuxA0Z2K0SwEyBFshL8AiuxA0Z2K0RZsBQrAAAAAAFQBG2CAAA=");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
     font-family: 'QuicksandRegular';
-    src: url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTWBuA/cAAAEcAAAAHEdERUYBCQAkAAABOAAAAChPUy8yY6zKSAAAAWAA
+ 	 src:url('/assets/quicksand/quicksand-regular-webfont.eot');
+    src:url('/assets/quicksand/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTWBuA/cAAAEcAAAAHEdERUYBCQAkAAABOAAAAChPUy8yY6zKSAAAAWAA
 	AABWY21hcKPHb1UAAAG4AAACEmN2dCAIwQfpAAADzAAAAChmcGdtU7QvpwAAA/QAAAJlZ2FzcAAA
 	ABAAAAZcAAAACGdseWauR7PDAAAGZAAAjjxoZWFkAEKHAQAAlKAAAAA2aGhlYRAgCmgAAJTYAAAA
 	JGhtdHjVlG/eAACU/AAAA2hsb2Nhr3WKeAAAmGQAAAG2bWF4cAH3AZcAAJocAAAAIG5hbWU1UU+6
@@ -2118,11 +2128,14 @@
 	IEW6AAgBZgACK7EDRnYrRLAKIEWyCYUCK7EDRnYrRLALIEW6AAoBMQACK7EDRnYrRLAMIEWyC5YC
 	K7EDRnYrRLANIEWyDJQCK7EDRnYrRLAOIEWyDZMCK7EDRnYrRLAPIEWyDpECK7EDRnYrRLAQIEWy
 	D44CK7EDRnYrRLARIEWyEI0CK7EDRnYrRLASIEWyEXECK7EDRnYrRFmwFCsAAAFQBG2CAAA=");
+	font-weight: normal;
 }
 
 @font-face {
     font-family: 'Kepler Std Italic';
-    src: url("data:font/opentype;base64,AAEAAAAUAQAABABAQkFTRYptk3kAAAFMAAAAUEZGVE1fkYAxAAABnAAAABxHREVGAwsB9QAAAbgA
+	 src: url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot');
+    src:url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
+	 url("data:font/opentype;base64,AAEAAAAUAQAABABAQkFTRYptk3kAAAFMAAAAUEZGVE1fkYAxAAABnAAAABxHREVGAwsB9QAAAbgA
 	AAAyR1BPU6WAmr8AAAHsAAAAjkdTVUL+4PBpAAACfAAAARRPUy8yZoiCcQAAA5AAAABgY21hcJ/Q
 	QioAAAPwAAAB4mN2dCAT6BJYAAAF1AAAAIBmcGdtU7QvpwAABlQAAAJlZ2FzcAAAABAAAAi8AAAA
 	CGdseWZIlCAYAAAIxAAA+ORoZWFk/jDmxAABAagAAAA2aGhlYQ0vBYcAAQHgAAAAJGhtdHhlZDLA
@@ -3345,11 +3358,14 @@
 	K7EDRnYrRLAMIEWyCzACK7EDRnYrRLANIEWyDC4CK7EDRnYrRLAOIEWyDS0CK7EDRnYrRLAPIEWy
 	DiwCK7EDRnYrRLAQIEWyD5cCK7EDRnYrRLARIEWyECkCK7EDRnYrRLASIEWyESkCK7EDRnYrRFmw
 	FCsAAVAylMgAAA==");
+	font-weight: normal;
 }
 
 @font-face {
     font-family: 'avenir';
-    src: url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTVdEb44AAAEcAAAAHEdERUYBFAAEAAABOAAAACBPUy8yI540JgAAAVgA
+    src:url('/assets/avenir/avenir-book-webfont.eot');
+    src:url('/assets/avenir/avenir-book-webfont.eot?#iefix') format('embedded-opentype'),
+    url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTVdEb44AAAEcAAAAHEdERUYBFAAEAAABOAAAACBPUy8yI540JgAAAVgA
 	AABgY21hcNQt6UEAAAG4AAAB2mN2dCALPg4xAAADlAAAADBmcGdtU7QvpwAAA8QAAAJlZ2FzcAAA
 	ABAAAAYsAAAACGdseWb1MkI4AAAGNAAAiJRoZWFk/43UfwAAjsgAAAA2aGhlYQ8JBhoAAI8AAAAA
 	JGhtdHjLcVIPAACPJAAAA5psb2NhiKGr+AAAksAAAAHQbWF4cAIEAaEAAJSQAAAAIG5hbWU4ZVCU
@@ -4046,11 +4062,15 @@
 	IEWyCicCK7EDRnYrRLAMIEWyC0cCK7EDRnYrRLANIEWyDDgCK7EDRnYrRLAOIEW6AA0CUwACK7ED
 	RnYrRLAPIEWyDjcCK7EDRnYrRLAQIEWyDycCK7EDRnYrRLARIEW6ABACQAACK7EDRnYrRLASIEWy
 	EX0CK7EDRnYrRLATIEWyEj4CK7EDRnYrRFmwFCsAAAAAAVAylLoAAA==");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
     font-family: 'johnston'; 
- 	src: url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTVDyexQAAAEcAAAAHEdERUYBEwAEAAABOAAAACBPUy8yqf4ZYwAAAVgA
+ 	src:url('/assets/johnston/johnston_itc_bold_0-webfont.eot');
+   src:url('/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
+   url("data:font/opentype;base64,AAEAAAARAQAABAAQRkZUTVDyexQAAAEcAAAAHEdERUYBEwAEAAABOAAAACBPUy8yqf4ZYwAAAVgA
 	AABgY21hcIWFDngAAAG4AAAB4mN2dCAPKxLsAAADnAAAADBmcGdtU7QvpwAAA8wAAAJlZ2FzcAAA
 	ABAAAAY0AAAACGdseWYj7IYoAAAGPAAAe/xoZWFk//SBugAAgjgAAAA2aGhlYQ+NBJ8AAIJwAAAA
 	JGhtdHjm2UvsAACClAAAA5hsb2NhNu4YyAAAhiwAAAHObWF4cAIDAgkAAIf8AAAAIG5hbWUtZUxA
@@ -4686,11 +4706,15 @@
 	dW5pRkIwMrgB/4WwAY0AS7AIUFixAQGOWbFGBitYIbAQWUuwFFJYIbCAWR2wBitcWACwAyBFsAMr
 	RLAHIEWyA4kCK7ADK0SwBiBFsgcpAiuwAytEsAUgRbIGGgIrsAMrRLAEIEWyBRMCK7ADK0QBsAgg
 	RbADK0SwDSBFsghsAiuxA0Z2K0SwDCBFsg1FAiuxA0Z2K0SwCyBFugAMAZwAAiuxA0Z2K0SwCiBFsgs4AiuxA0Z2K0SwCSBFsgokAiuxA0Z2K0SwDiBFugAIf/8AAiuxA0Z2K0RZsBQrAAFQNN5fAAA=");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
     font-family: 'avenir_medium';
-    src: url("data:font/opentype;base64,AAEAAAAQAQAABAAAQkFTRT9iT7oAAHSoAAAANEZGVE1FFo5eAAB03AAAABxHREVGBDcE3AAAamwA
+    src:url('/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype');
+    src:url('/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype'),
+    url("data:font/opentype;base64,AAEAAAAQAQAABAAAQkFTRT9iT7oAAHSoAAAANEZGVE1FFo5eAAB03AAAABxHREVGBDcE3AAAamwA
 	AABIR1BPU/4rFocAAG50AAAGNEdTVUJdo2j4AABqtAAAA75PUy8yhqIcJwAAAYgAAABgY21hcHbS
 	lU0AAAXkAAACgmdhc3D//wADAABqZAAAAAhnbHlmoHs0UwAACmgAAEogaGVhZPtM7VAAAAEMAAAA
 	NmhoZWEHJQOFAAABRAAAACRobXR4Ezcl5QAAAegAAAP6bG9jYcsc3fAAAAhoAAACAG1heHABSABF
@@ -5216,4 +5240,6 @@
 	KQAvADMANQA3ADkAOgA8AEkAVQBZAFoAXACCAIMAhACFAIYAhwCfAL8AwQDDAMkA3AD9AP4AAQAA
 	AAgAAAAEAA4AAmlkZW9yb21uAAFsYXRuAAgABgAAAAAAAQACAAgADAAB/1YAAQAAAAAAAQAAAADE
 	PovuAAAAAMBsBQYAAAAAwGv9aQ==");
+	font-weight: normal;
+	font-style: normal;
 }
