@@ -18,7 +18,9 @@ class UserNotifier
      file_lines << "email%nome%cart_id%user_authentication_token%produtos%relacionados"
 
      Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
-      
+
+      next unless cart.user
+
       if !Setting.whitelisted_emails_only || cart.user.email.match(/(olook\.com\.br$)/)
         cart.update_attribute("notified", true) if Setting.mark_notified_users
         products = []
