@@ -37,7 +37,7 @@ in_cart_mail:
   queue: marketing_uploader
   args:
     - in_cart_mail
-    - abandono_file_test.csv
+    - abandono.csv
     - exact_target.yml
   description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
 
