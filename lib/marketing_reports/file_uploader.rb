@@ -18,7 +18,7 @@ module MarketingReports
 
     def save_to_disk(filename = "untitled.txt", info_ftp = nil, encoding = "ISO-8859-1"  )
       self.save_local_file(filename, encoding)
-      self.upload_to_ftp(filename, info_ftp) if info_ftp
+      self.upload_to_ftp(filename, info_ftp) if info_ftp && Rails.env.production?
     end
 
     def save_local_file(filename, encoding)
