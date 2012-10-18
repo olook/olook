@@ -124,9 +124,9 @@ group by uc.user_id, ct.code
 
     def generate_line_items_report
       @csv = CSV.generate do |csv|
-        csv << %w{state product_category email first_name }
+        csv << %w{state product_category product_detail email first_name }
         LineItem.joins(:order).where("orders.state = 'delivered'").limit(100).each do |ln|
-          csv << [ ln.order.state, ln.variant.product.category_humanize, ln.order.user.email, ln.order.user.first_name ]
+          csv << [ ln.order.state, ln.variant.product.category_humanize, ln.variant.product.details.first.description, ln.order.user.email, ln.order.user.first_name ]
         end
       end
     end
