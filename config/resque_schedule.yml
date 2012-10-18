@@ -32,7 +32,7 @@
 #   description: "Cria arquivo de importação para allinemail"
 
 in_cart_mail:
-  cron: "*/3 * * * *"
+  cron: "2 * * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
