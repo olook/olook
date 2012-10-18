@@ -159,6 +159,7 @@ class Payment < ActiveRecord::Base
       transition :completed => :reversed
       transition :authorized => :reversed
       transition :under_review => :reversed
+      transition :reversed => :reversed
     end
 
     # "9" => :refund
