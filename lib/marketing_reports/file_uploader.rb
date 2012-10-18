@@ -16,7 +16,7 @@ module MarketingReports
       @file_content = file_content
     end
 
-    def save_to_disk(filename = "untitled.txt", info_ftp = nil, encoding = "ISO-8859-1"  )
+    def save_to_disk(filename = "untitled.txt", info_ftp = nil, encoding = "UTF-8"  )
       self.save_local_file(filename, encoding)
       self.upload_to_ftp(filename, info_ftp) if info_ftp
     end
