@@ -50,4 +50,18 @@ describe Coupon do
       limited_coupon.unlimited.should be_false
     end
   end
+
+  context "#apply_discount_to?" do
+
+    let(:product_coupon) { FactoryGirl.create(:product_coupon) }
+
+    it "should be true for product 9640" do
+      product_coupon.apply_discount_to?(9640).should be_true
+    end
+
+    it "should be false for product 9641" do
+      product_coupon.apply_discount_to?(9641).should be_false
+    end
+
+  end
 end

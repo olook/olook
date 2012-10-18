@@ -3,6 +3,7 @@ class Coupon < ActiveRecord::Base
   #has_paper_trail :on => [:update, :destroy]
 
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
+  PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
 
   validates_presence_of :code, :value, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
@@ -23,23 +24,29 @@ class Coupon < ActiveRecord::Base
     self.is_percentage? ? self.value : 0
   end
 
+  def apply_discount_to? product_id
+    products_related = PRODUCT_COUPONS_CONFIG[self.code]
+    is_the_product_related = products_related.nil? || products_related.split(",").include?(product_id.to_s)
+  end
+  
   private
 
-  def active_and_not_expired?
-    if self.active? && !expired?
-      (ensures_regardless_status) ? true : false
+    def active_and_not_expired?
+      if self.active? && !expired?
+        (ensures_regardless_status) ? true : false
+      end
     end
-  end
 
-  def set_limited_or_unlimited
-    if self.remaining_amount.nil?
-      self.unlimited = true
-    else
-      self.unlimited = nil
+    def set_limited_or_unlimited
+      if self.remaining_amount.nil?
+        self.unlimited = true
+      else
+        self.unlimited = nil
+      end
     end
-  end
 
-  def ensures_regardless_status
-    true if self.unlimited? || self.remaining_amount > 0
-  end
+    def ensures_regardless_status
+      true if self.unlimited? || self.remaining_amount > 0
+    end
+
 end

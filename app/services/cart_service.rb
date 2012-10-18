@@ -223,7 +223,8 @@ class CartService
     # Highly duplicated code. Lets refactor it
     #
     coupon = self.coupon
-    if coupon && coupon.is_percentage?
+
+    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id)
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price

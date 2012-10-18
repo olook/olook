@@ -4,5 +4,7 @@
 
 
 development:
-  COUPON1: 9640, 7896
+  COUPON1: "9640, 7896"
 
+test:
+  PRODUCT_COUPON1: "9640, 7896"
