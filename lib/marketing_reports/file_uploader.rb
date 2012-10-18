@@ -8,33 +8,38 @@ require 'yaml'
 module MarketingReports
   class FileUploader
 
-    REPORT_PATH = Rails.env.production? ? '/home/allinmail' : Rails.root
     TEMP_PATH = "#{Rails.root}/tmp/"
     CONFIG_DIR = "#{Rails.root}/config/"
 
-    def initialize(file_content)
+    def initialize(filename = "untitled.txt", file_content)
+      @filename = filename
       @file_content = file_content
+      @encoding = "ISO-8859-1"
     end
 
-    def save_to_disk(filename = "untitled.txt", info_ftp = nil, encoding = "ISO-8859-1"  )
-      self.save_local_file(filename, encoding)
-      self.upload_to_ftp(filename, info_ftp) if info_ftp && self.is_production?
+    def save_to_disk(info_ftp = nil)
+      self.save_local_file
+      self.copy_file
+      #self.upload_to_ftp(info_ftp) if info_ftp && self.is_production?
     end
 
-    def save_local_file(filename, encoding)
-     File.open(TEMP_PATH+filename, 'w', :encoding => encoding) do |file|
+    def save_local_file
+     File.open(TEMP_PATH+@filename, 'w', :encoding => @encoding) do |file|
         file.write(@file_content)
-        file.close
-        FileUtils.copy(file.path, "#{REPORT_PATH}/#{filename}") if File.exists?(file.path)
       end
     end
 
-    def upload_to_ftp(filename, info_ftp)
+    def copy_file
+      report_path = self.is_production? ? '/home/allinmail' : Rails.rooT
+      FileUtils.copy(TEMP_PATH+@filename, "#{report_path}/#{@filename}")
+    end
+
+    def upload_to_ftp(info_ftp)
       self.ftp_information(info_ftp)
       Net::FTP.open(@ftp_address) do |ftp|
         ftp.login(@username, @password)
         ftp.chdir(@path) unless @path.nil? || @path.strip.chomp == ""
-        ftp.puttextfile("#{TEMP_PATH}/#{filename}")
+        ftp.puttextfile(TEMP_PATH+@filename)
         ftp.close
       end
     end

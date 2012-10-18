@@ -12,7 +12,7 @@ module MarketingReports
     end
 
     def save_file(filename, info_ftp = nil)
-      FileUploader.new(@csv).save_to_disk(filename, info_ftp)
+      FileUploader.new(filename, @csv).save_to_disk(info_ftp)
     end
 
     def generate_userbase
@@ -117,9 +117,10 @@ group by uc.user_id, ct.code
     end
 
     def generate_in_cart_mail
-      conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
-      file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
-      @csv = file_lines.join("\n")
+      #conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
+      #file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
+      #@csv = file_lines.join("\n")
+      @csv = "some string"
     end
 
     def generate_line_items_report

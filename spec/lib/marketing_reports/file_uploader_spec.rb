@@ -17,8 +17,9 @@ describe MarketingReports::FileUploader do
 
     context "creating the file" do
       it "creates a new temporary file in the tmp dir" do
+        subject.stub(:is_production?) { true }
         file.stub(:write)
-        File.should_receive(:open).with("#{Rails.root}/tmp/untitled.txt", 'w', :encoding => "ISO-8859-1").and_yield(file)
+        FileUtils.should_receive(:copy).with("#{Rails.root}/tmp/untitled.txt", "#{Rails.root}/untitled.txt")
         subject.save_to_disk
       end
 
@@ -28,9 +29,16 @@ describe MarketingReports::FileUploader do
         subject.save_to_disk
       end
 
-      it "uploading file to ftp" do
-        subject.should_receive(:upload_to_ftp)
-        subject.save_to_disk(filename, info_ftp)
+      it "upload file to ftp" do
+          subject.stub(:is_production?) { true }
+          subject.should_receive(:upload_to_ftp)
+          subject.save_to_disk(filename, info_ftp)
+      end
+
+      it "only save local" do
+          subject.stub(:is_production?) { false }
+          subject.should_receive(:save_local_file)
+          subject.save_to_disk(filename, info_ftp)
       end
     end
 
