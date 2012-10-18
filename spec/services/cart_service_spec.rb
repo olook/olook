@@ -117,7 +117,7 @@ describe CartService do
     before :each do
       cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
     end
-    
+
     it "should return retail price from master variant" do
       cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
       cart_service.item_retail_price(cart.items.first).should eq(18)
@@ -144,6 +144,27 @@ describe CartService do
         cart.items.first.update_attribute(:gift, true)
         Product.any_instance.stub(:gift_price => 14)
         cart_service.item_retail_price(cart.items.first).should eq(14)
+      end
+    end
+
+    context "when there is a coupon product" do
+
+      let(:product_coupon) { FactoryGirl.create(:product_coupon)}
+
+      before do
+        cart.items.first.variant.product.master_variant.update_attribute(:price, 100)
+        cart_service.stub(:freight_price).and_return(0.0)
+        cart_service.coupon = product_coupon
+      end
+
+      it "should apply 30% discount" do
+        product_coupon.stub(:apply_discount_to?, 9640).and_return(true)
+        cart_service.item_retail_price(cart.items.first).should == 80
+      end
+
+      it "should not apply discount" do
+        product_coupon.stub(:apply_discount_to?, 9640).and_return(false)
+        cart_service.item_retail_price(cart.items.first).should == 100
       end
     end
   end
