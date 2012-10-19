@@ -119,10 +119,9 @@ group by uc.user_id, ct.code
     end
 
     def generate_in_cart_mail
-      #conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
-      #file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
-      #@csv = file_lines.join("\n")
-      @csv = "some string kkk"
+      conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
+      file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
+      @csv = file_lines.join("\n")
     end
 
     def generate_line_items_report
