@@ -16,9 +16,6 @@ class Payment < ActiveRecord::Base
     "7" => :reverse,
     "9" => :refund
   }
-  GATEWAY = {
-    :moip => 1
-  }
 
   RESPONSE_STATUS = {
     "Autorizado" => "Autorizado",
