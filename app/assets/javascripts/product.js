@@ -16,8 +16,8 @@ $(document).ready(function() {
       }, 'fast');
       $(this).addClass("open");
       $(word).text("Fechar");
-
          _gaq.push(['_trackEvent', 'product_show','open_showroom' ]);
+
     }
   });
 
