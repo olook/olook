@@ -157,7 +157,6 @@ class PaymentBuilder
     @response = MoIP::Client.checkout(payment_data)
   end
 
-
   private
 
   def respond_with_failure
