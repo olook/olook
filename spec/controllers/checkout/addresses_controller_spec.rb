@@ -252,7 +252,6 @@ describe Checkout::AddressesController do
 
     context "with a valid address" do
       it "should redirect to cart checkout" do
-        # passing address telephone to credit card form
         get :assign_address, :address_id => address.id
         response.should redirect_to(new_credit_card_cart_checkout_path)
       end
