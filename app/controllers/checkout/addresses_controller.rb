@@ -24,7 +24,7 @@ class Checkout::AddressesController < Checkout::BaseController
     params[:address][:country] = 'BRA' if params[:address]
     @address = @user.addresses.build(params[:address])
     if @address.save
-      session[:user_telephone_number] = @address.telephone
+      set_telephone_user(@address.telephone)
       set_freight_in_the_cart(@address)
       redirect_to new_credit_card_cart_checkout_path
     else
@@ -52,7 +52,7 @@ class Checkout::AddressesController < Checkout::BaseController
   def assign_address
     @address = @user.addresses.find_by_id(params[:address_id])
     if @address
-      session[:user_telephone_number] = @address.telephone
+      set_telephone_user(@address.telephone)
       set_freight_in_the_cart(@address)
       redirect_to new_credit_card_cart_checkout_path
     else
@@ -73,6 +73,10 @@ class Checkout::AddressesController < Checkout::BaseController
   def calculate_freight_to_cart(address)
     freight = FreightCalculator.freight_for_zip(address.zip_code, @cart_service.total)
     freight.merge!(:address_id => address.id)
+  end
+
+  def set_telephone_user(telephone)
+    session[:user_telephone_number] = telephone
   end
 
 end
