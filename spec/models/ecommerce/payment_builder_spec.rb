@@ -5,6 +5,7 @@ describe PaymentBuilder do
   let(:user) { FactoryGirl.create(:user) }
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:credit_card) { FactoryGirl.create(:credit_card, :order => order) }
+  let(:credit_card_with_response) { FactoryGirl.create(:credit_card_with_response) }
   let(:billet) { FactoryGirl.create(:billet, :order => order) }
   let(:debit) { FactoryGirl.create(:debit, :order => order) }
 
@@ -16,13 +17,12 @@ describe PaymentBuilder do
     :cart => cart,
     :freight => freight,
   }) }
+  let(:moip_sender_strategy) {double(MoipSenderStrategy)}
 
   subject {
-    pb = PaymentBuilder.new(cart_service, credit_card)
-    pb.credit_card_number = credit_card.credit_card_number
+    pb = PaymentBuilder.new(cart_service, credit_card, moip_sender_strategy)
     pb
   }
-  let(:payer) { subject.payer }
 
   let(:order_total) { 12.34 }
 
@@ -101,6 +101,7 @@ describe PaymentBuilder do
       end
 
       it "should return a structure with status and a payment" do
+        moip_sender_strategy.should_receive(:send_to_gateway).and_return(credit_card_with_response)
         response = subject.process!
         response.status.should == Payment::SUCCESSFUL_STATUS
         response.payment.should == credit_card
@@ -157,74 +158,75 @@ describe PaymentBuilder do
     end
   end
 
-  it "should set payment url" do
-    subject.stub(:payment_url).and_return('www.fake.com')
-    subject.set_payment_url!
-    subject.payment.url.should == 'www.fake.com'
-  end
+  # PARA CLASSE MOIP
+  #it "should set payment url" do
+  #  subject.stub(:payment_url).and_return('www.fake.com')
+  #  subject.set_payment_url!
+  #  subject.payment.url.should == 'www.fake.com'
+  #end
 
-  it "should send payments" do
-    MoIP::Client.should_receive(:checkout).with(subject.payment_data)
-    subject.send_payment!
-  end
+  #it "should send payments" do
+  #  MoIP::Client.should_receive(:checkout).with(subject.payment_data)
+  #  subject.send_payment!
+  #end
 
-  it "should get the payment_url" do
-    subject.response = {"Token" => "XCV"}
-    MoIP::Client.should_receive(:moip_page).with(subject.response["Token"])
-    subject.payment_url
-  end
+  #it "should get the payment_url" do
+  #  subject.response = {"Token" => "XCV"}
+  #  MoIP::Client.should_receive(:moip_page).with(subject.response["Token"])
+  #  subject.payment_url
+  #end
 
-  it "should return the payer" do
-    delivery_address = order.freight.address
-    expected = {
-      :nome => user.name,
-      :email => user.email,
-      :identidade => credit_card.user_identification,
-      :logradouro => delivery_address.street,
-      :complemento => delivery_address.complement,
-      :numero => delivery_address.number,
-      :bairro => delivery_address.neighborhood,
-      :cidade => delivery_address.city,
-      :estado => delivery_address.state,
-      :pais => delivery_address.country,
-      :cep => delivery_address.zip_code,
-      :tel_fixo => delivery_address.telephone,
-      :tel_cel => delivery_address.mobile
-    }
+  #it "should return the payer" do
+  #  delivery_address = order.freight.address
+  #  expected = {
+  #    :nome => user.name,
+  #    :email => user.email,
+  #    :identidade => credit_card.user_identification,
+  #    :logradouro => delivery_address.street,
+  #    :complemento => delivery_address.complement,
+  #    :numero => delivery_address.number,
+  #    :bairro => delivery_address.neighborhood,
+  #    :cidade => delivery_address.city,
+  #    :estado => delivery_address.state,
+  #    :pais => delivery_address.country,
+  #    :cep => delivery_address.zip_code,
+  #    :tel_fixo => delivery_address.telephone,
+  #    :tel_cel => delivery_address.mobile
+  #  }
+  #
+  #  subject.payer.should == expected
+  #end
 
-    subject.payer.should == expected
-  end
+  #it "should return payment data for billet" do
+  #  subject.payment = billet
+  #  expected_expiration_date = billet.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
+  #  expected = { :valor => order_total, :id_proprio => billet.identification_code,
+  #              :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
+  #              :razao=> Payment::REASON, :data_vencimento => expected_expiration_date }
+#
+ #   subject.payment_data.should == expected
+ # end
 
-  it "should return payment data for billet" do
-    subject.payment = billet
-    expected_expiration_date = billet.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
-    expected = { :valor => order_total, :id_proprio => billet.identification_code,
-                :forma => subject.payment.to_s, :recebimento => billet.receipt, :pagador => payer,
-                :razao=> Payment::REASON, :data_vencimento => expected_expiration_date }
+  #it "should return payment data for debit" do
+  #  subject.payment = debit
+  #  expected = { :valor => order_total, :id_proprio => debit.identification_code, :forma => subject.payment.to_s,
+  #             :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
+  #             :razao => Payment::REASON }
+#
+ #   subject.payment_data.should == expected
+ # end
 
-    subject.payment_data.should == expected
-  end
-
-  it "should return payment data for debit" do
-    subject.payment = debit
-    expected = { :valor => order_total, :id_proprio => debit.identification_code, :forma => subject.payment.to_s,
-               :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => payer,
-               :razao => Payment::REASON }
-
-    subject.payment_data.should == expected
-  end
-
-  it "should return payment data for credit card" do
-    subject.payment = credit_card
-    payer = subject.payer
-    expected = { :valor => order_total, :id_proprio => credit_card.identification_code, :forma => subject.payment.to_s,
-              :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
-              :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
-              :nome => credit_card.user_name, :identidade => credit_card.user_identification,
-              :telefone => credit_card.telephone, :data_nascimento => credit_card.user_birthday,
-              :parcelas => credit_card.payments, :recebimento => credit_card.receipt,
-              :pagador => payer, :razao => Payment::REASON }
-
-    subject.payment_data.should == expected
-  end
+  #it "should return payment data for credit card" do
+  #  subject.payment = credit_card
+  #  payer = subject.payer
+  #  expected = { :valor => order_total, :id_proprio => credit_card.identification_code, :forma => subject.payment.to_s,
+  #            :instituicao => credit_card.bank, :numero => credit_card.credit_card_number,
+  #            :expiracao => credit_card.expiration_date, :codigo_seguranca => credit_card.security_code,
+  #            :nome => credit_card.user_name, :identidade => credit_card.user_identification,
+  #            :telefone => credit_card.telephone, :data_nascimento => credit_card.user_birthday,
+  #            :parcelas => credit_card.payments, :recebimento => credit_card.receipt,
+  #            :pagador => payer, :razao => Payment::REASON }
+#
+#    subject.payment_data.should == expected
+#  end
  end
