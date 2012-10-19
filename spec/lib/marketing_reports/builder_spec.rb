@@ -43,15 +43,23 @@ describe MarketingReports::Builder do
     end
 
     it "calls FileUploader passing the csv" do
-      MarketingReports::FileUploader.should_receive(:new).with(csv).and_return(mock.as_null_object)
+      MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(mock.as_null_object)
       subject.save_file(filename, info_ftp)
     end
 
-    it "calls save_to_disk on the file uploader with the passed filename and encoding" do
+    it "calls save_local_file on the file uploader with the passed filename" do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:save_to_disk).with(filename, info_ftp)
+      uploader.should_receive(:save_local_file)
+      subject.save_file(filename)
+    end
+
+    it "calls save_local_file on the file uploader with the passed filename and info for ftp" do
+      Rails.env.stub(:production) { true }
+      MarketingReports::FileUploader.stub(:new).and_return(uploader)
+      uploader.should_receive(:save_local_file)
       subject.save_file(filename, info_ftp)
     end
+
   end
 
   describe "#userbase_with_auth_token" do
