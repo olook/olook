@@ -38,6 +38,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def new_credit_card
     @payment = CreditCard.new(CreditCard.user_data(@user))
+    @payment.telephone = session[:user_telephone_number] if session[:user_telephone_number]
   end
 
   def create_debit

@@ -146,15 +146,24 @@ section#stylist {
           right: 65px;
           padding: 35px 0 0 60px;
         }
-        a#pareci {
-          background: url("/assets/stylist/helena_linhares/pareci.png") bottom right no-repeat;
-          text-align: right;
-          width: 200px;
-          height: 142px;
-          bottom: 0;
-          right: -25px;
-          padding: 0 40px 35px 0;
-        }
+        /*a#pareci {
+                  background: url("/assets/stylist/helena_linhares/pareci.png") bottom right no-repeat;
+                  text-align: right;
+                  width: 200px;
+                  height: 142px;
+                  bottom: 0;
+                  right: -25px;
+                  padding: 0 40px 35px 0;
+                }*/
+		  a#caete{
+			  background: url("/assets/stylist/helena_linhares/caete.jpg") right 23px no-repeat;
+           text-indent: 140px;
+           width: 240px;
+           height: 130px;
+           bottom: 0;
+           right: 0px;
+           padding: 0 40px 35px 0;
+		}			
         a#atikum {
           background: url("/assets/stylist/helena_linhares/atikum.jpg") top right no-repeat;
           width: 206px;
