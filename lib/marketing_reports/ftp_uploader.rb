@@ -17,6 +17,7 @@ module MarketingReports
     def upload_to_ftp
       self.ftp_information(@info_ftp)
       Net::FTP.open(@ftp_address) do |ftp|
+        ftp.passive = true
         ftp.login(@username, @password)
         ftp.chdir(@path) unless @path.nil? || @path.strip.chomp == ""
         ftp.puttextfile(TEMP_PATH+@filename)
