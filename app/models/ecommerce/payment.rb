@@ -125,17 +125,20 @@ class Payment < ActiveRecord::Base
     # "3" => :deliver,
     event :deliver do
       transition :started => :waiting_payment, :if => :deliver_payment?
+      transition :waiting_payment => :waiting_payment, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "deliver", :current_state => "waiting_payment" }) }
     end
     
     # "5" => :cancel,
     event :cancel do
       transition :started => :cancelled
       transition :waiting_payment => :cancelled
+      transition :under_review => :cancelled
     end
 
     # "1" => :authorize
     event :authorize do
-      transition :waiting_payment => :authorized     
+      transition :started => :authorized
+      transition :waiting_payment => :authorized
       transition :under_review => :authorized
     end
     
@@ -156,6 +159,7 @@ class Payment < ActiveRecord::Base
       transition :completed => :reversed
       transition :authorized => :reversed
       transition :under_review => :reversed
+      transition :reversed => :reversed
     end
 
     # "9" => :refund
