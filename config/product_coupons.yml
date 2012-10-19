@@ -1,0 +1,17 @@
+# LAyout
+#--------
+# coupon_code: product1, product2, product3
+
+
+development:
+  COUPON1: "9740,9734"
+
+test:
+  PRODUCT_COUPON1: "9640,7896"
+
+staging:
+  JESSIKA_25: "5533,3060,3589"
+  JESSIKA_30: "4999,6472,5008,6481"
+  JESSIKA_35: "4999,6472,5008,6481"
+  JESSIKA_40: "4673,3607"
+  JESSIKA_50: "3733"
