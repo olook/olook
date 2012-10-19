@@ -12,7 +12,8 @@ module MarketingReports
     end
 
     def save_file(filename = "untitled.csv", info_ftp = nil)
-      FileUploader.new(filename, @csv).save_to_disk
+      FileUploader.new(filename, @csv).save_local_file
+      FileUploader.copy_file(filename)
       FtpUploader.new(filename, info_ftp).upload_to_ftp if Rails.env.development? && info_ftp
     end
 
