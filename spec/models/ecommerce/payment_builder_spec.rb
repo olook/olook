@@ -49,10 +49,8 @@ describe PaymentBuilder do
 
   context "on success" do
     it "should process the payment" do
-      pending "REVIEW THIS"
-      subject.should_receive(:send_payment!)
       payment = double(Payment)
-      subject.should_receive(:set_payment_url!).and_return(payment)
+      moip_sender_strategy.should_receive(:send_to_gateway).and_return(payment)
       subject.process!
     end
 
