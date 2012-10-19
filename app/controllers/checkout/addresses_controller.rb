@@ -24,6 +24,7 @@ class Checkout::AddressesController < Checkout::BaseController
     params[:address][:country] = 'BRA' if params[:address]
     @address = @user.addresses.build(params[:address])
     if @address.save
+      session[:user_telephone_number] = @address.telephone
       set_freight_in_the_cart(@address)
       redirect_to new_credit_card_cart_checkout_path
     else
