@@ -8,6 +8,11 @@ describe Payment do
       payment = FactoryGirl.create(:payment)
       payment.identification_code.should_not be_nil
     end
+
+    it "should have MOIP as default gateway" do
+      payment = FactoryGirl.create(:payment)
+      payment.gateway.should eq(Payment::GATEWAYS[:moip])
+    end
   end
   
   let(:waiting_payment) do
