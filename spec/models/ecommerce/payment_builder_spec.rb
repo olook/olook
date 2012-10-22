@@ -49,29 +49,25 @@ describe PaymentBuilder do
 
   context "on success" do
     it "should process the payment" do
-      pending "REVIEW THIS"
-      subject.should_receive(:send_payment!)
       payment = double(Payment)
-      subject.should_receive(:set_payment_url!).and_return(payment)
+      moip_sender_strategy.should_receive(:send_to_gateway).and_return(payment)
       subject.process!
     end
 
     context "success actions" do
       before :each do
-        subject.stub(:send_payment!)
-        subject.payment.stub(:build_response)
         subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
         subject.payment.stub(:gateway_transaction_status).and_return(:success)
-        subject.stub(:set_payment_url!).and_return(subject.payment)
+        moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
       end
 
       it "should set payment order" do
-        pending "REVIEW THIS"
-        subject.set_payment_order!
+        cart_service.should_receive(:generate_order!).and_return(order)
+        subject.process!
         subject.payment.order.should == order
       end
 
-      it "should decrement the inventory for each item" do
+      xit "should decrement the inventory for each item" do
         pending "REVIEW THIS"
         basic_shoe_35_inventory = basic_shoe_35.inventory
         basic_shoe_40_inventory = basic_shoe_40.inventory
@@ -85,12 +81,12 @@ describe PaymentBuilder do
           :quantity => quantity,
           :price => basic_shoe_40.price,
           :retail_price => basic_shoe_40.retail_price)
-        subject.decrement_inventory_for_each_item
+        subject.process!
         basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory - quantity
         basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory - quantity
       end
 
-      it "should create a coupon when used" do
+      xit "should create a coupon when used" do
         pending "REVIEW THIS"
         expect {
           cart_service = CartService.new({:cart => cart, :freight => freight, :coupon => coupon_of_value})
@@ -101,19 +97,18 @@ describe PaymentBuilder do
       end
 
       it "should return a structure with status and a payment" do
-        moip_sender_strategy.should_receive(:send_to_gateway).and_return(credit_card_with_response)
         response = subject.process!
         response.status.should == Payment::SUCCESSFUL_STATUS
         response.payment.should == credit_card
       end
 
-      it "should invalidate the order coupon" do
+      xit "should invalidate the order coupon" do
         pending "REVIEW THIS"
         Coupon.any_instance.should_receive(:decrement!)
         subject.process!
       end
 
-      it "should create a promotion when used" do
+      xit "should create a promotion when used" do
         pending "REVIEW THIS"
         expect {
           cart_service = CartService.new({:cart => cart, :freight => freight, :promotion => promotion})
