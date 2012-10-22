@@ -7,7 +7,7 @@ class ProcessPaymentsCallbacksWorker
       payment = Payment.find_by_identification_code(moip_callback.id_transacao)
       if payment
         #payment.set_state_moip(moip_callback)
-        moip_callback.process(payment)
+        moip_callback.update_payment_status(payment)
       els
         moip_callback.update_attributes(
           processed: true,
