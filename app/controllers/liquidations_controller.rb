@@ -27,8 +27,7 @@ class LiquidationsController < ApplicationController
   private
 
   def load_liquidation_products
-      liquidation_id = params[:id]
-      @liquidation = Liquidation.find(liquidation_id)
+      @liquidation = Liquidation.find(params[:id])
       @liquidation_products = LiquidationSearchService.new(params).search_products
   end
 
@@ -41,7 +40,7 @@ class LiquidationsController < ApplicationController
       # To show just the shoes of the user size at the 
       # first time that the liquidations page is rendered
       params[:shoe_sizes] = current_user.shoes_size.to_s if current_user && current_user.shoes_size
-      params[:id] = current_liquidation.id
+      params[:id] = current_liquidation.id.to_s
     end
   end
 end
