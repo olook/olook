@@ -14,3 +14,4 @@ Setting.defaults[:sac_billet_subscribers] = "diogo.silva@olook.com.br,claudia.sa
 Setting.defaults[:sac_fraud_subscribers] = "diogo.silva@olook.com.br,marcelo.azevedo@olook.com.br"
 Setting.defaults[:whitelisted_emails_only] = true
 Setting.defaults[:mark_notified_users] = true
+Setting.defaults[:send_in_cart_mail_locally] = true
