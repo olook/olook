@@ -184,7 +184,7 @@ class Payment < ActiveRecord::Base
       current_state = opts[:current_state]
       error_message = "Unexpected transition event. Payment: #{id} -> Event: #{event_name} - Current State: #{current_state}"
       Airbrake.notify(
-        :error_class   => "Moip Request",
+        :error_class   => "Gateway Request",
         :error_message => error_message
       )
       true
@@ -250,29 +250,6 @@ class Payment < ActiveRecord::Base
 
   def status
     Payment::RESPONSE_STATUS[gateway_transaction_status]
-  end
-
-  def set_state_moip(moip_callback)
-    ActiveRecord::Base.transaction do
-      self.update_attributes!(
-         :gateway_code => moip_callback.cod_moip,
-         :gateway_type   => moip_callback.tipo_pagamento,
-         :gateway_status => moip_callback.status_pagamento,
-         :gateway_status_reason => moip_callback.classificacao
-      )
-
-      if self.set_state(moip_callback.status_pagamento)
-        moip_callback.update_attribute(:processed, true)
-        if order && order.reload.canceled?
-          Resque.enqueue(Abacos::CancelOrder, order.number)
-        end
-      else
-        moip_callback.update_attributes(
-          :retry => (moip_callback.retry + 1),
-          :error => self.errors.full_messages.to_s
-        )
-      end
-    end
   end
 
   private
