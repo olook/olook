@@ -97,7 +97,6 @@ describe PaymentBuilder do
       end
 
       it "should return a structure with status and a payment" do
-        moip_sender_strategy.should_receive(:send_to_gateway).and_return(credit_card_with_response)
         response = subject.process!
         response.status.should == Payment::SUCCESSFUL_STATUS
         response.payment.should == credit_card
