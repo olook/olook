@@ -117,22 +117,28 @@ class Payment < ActiveRecord::Base
     # "2" => :start,
     event :start do
       transition :started => :started
+      transition :authorized => :authorized, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "start", :current_state => "authorized" }) }
+      transition :completed => :completed, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "start", :current_state => "completed" }) }
+      transition :waiting_payment => :waiting_payment, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "start", :current_state => "waiting_payment" }) }
     end
 
     # "3" => :deliver,
     event :deliver do
       transition :started => :waiting_payment, :if => :deliver_payment?
+      transition :waiting_payment => :waiting_payment, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "deliver", :current_state => "waiting_payment" }) }
     end
     
     # "5" => :cancel,
     event :cancel do
       transition :started => :cancelled
       transition :waiting_payment => :cancelled
+      transition :under_review => :cancelled
     end
 
     # "1" => :authorize
     event :authorize do
-      transition :waiting_payment => :authorized     
+      transition :started => :authorized
+      transition :waiting_payment => :authorized
       transition :under_review => :authorized
     end
     
@@ -153,6 +159,7 @@ class Payment < ActiveRecord::Base
       transition :completed => :reversed
       transition :authorized => :reversed
       transition :under_review => :reversed
+      transition :reversed => :reversed
     end
 
     # "9" => :refund
@@ -165,6 +172,17 @@ class Payment < ActiveRecord::Base
   
   def deliver_payment?
     true
+  end
+
+  def notify_unexpected_transition(opts = {})
+      event_name = opts[:event_name]
+      current_state = opts[:current_state]
+      error_message = "Unexpected transition event. Payment: #{id} -> Event: #{event_name} - Current State: #{current_state}"
+      Airbrake.notify(
+        :error_class   => "Moip Request",
+        :error_message => error_message
+      )
+      true
   end
 
   def credit_card?

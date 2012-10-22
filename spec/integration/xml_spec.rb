@@ -293,6 +293,7 @@ context "in the ilove_ecommerce xml page" do
       content = <<-END.gsub(/^ {6}/, '')
       <?xml version="1.0" encoding="UTF-8"?>
       <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+      <channel>
       <item>
       <g:id>#{product.id}</g:id>
       <title>#{product.name}</title>
@@ -318,6 +319,7 @@ context "in the ilove_ecommerce xml page" do
       <g:price/>
       </g:shipping>
       </item>
+      </channel>
       </rss>
     END
       equivalent_content = Nokogiri::XML(content)

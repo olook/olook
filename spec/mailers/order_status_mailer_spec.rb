@@ -24,9 +24,26 @@ describe OrderStatusMailer do
       mail.to.should include(user.email)
     end
 
-    it "sets 'subject' attribute telling the user that we received her order" do
-      mail.subject.should == "User First Name, recebemos seu pedido."
+    context " for CreditCard " do
+
+      let(:credit_card) {FactoryGirl.create(:clean_order_credit_card, :user => user)}
+      let(:mail_for_billet) { OrderStatusMailer.order_requested(credit_card) }
+
+      it "sets 'subject' attribute telling the user that we received her order" do
+        mail_for_billet.subject.should == "User First Name, recebemos seu pedido."
+      end
     end
+
+    context " for Billet " do
+
+      expiration_date =  BilletExpirationDate.expiration_for_two_business_day.strftime("%d/%m/%Y")
+
+      it "sets 'subject' attribute telling the expiration date" do
+
+        mail.subject.should == "Lembrete: seu boleto expira em: #{expiration_date}. Garanta seu pedido!"
+      end
+    end
+
 
   end
 
