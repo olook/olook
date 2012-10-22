@@ -1,6 +1,5 @@
 class MoipSenderStrategy
 
-  attr_accessor :cart_service, :payment, :credit_card_number
   attr_accessor :cart_service, :payment, :credit_card_number, :response
 
   def initialize(cart_service, payment)
@@ -10,9 +9,13 @@ class MoipSenderStrategy
   def send_to_gateway
     response = MoIP::Client.checkout(payment_data)
     payment.build_response response
+    save_payment_url!
+    payment
+  end
+
+  def save_payment_url!
     payment.url = payment_url
     payment.save!
-    payment
   end
 
 
