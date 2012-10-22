@@ -160,14 +160,6 @@ class PaymentBuilder
 
   private
 
-  def remove_nine_digits_of_telephone(phone_number)
-    return false if phone_number.blank?
-    phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
-    phone_number
-  end
-
-
-
   def respond_with_failure
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
   end
