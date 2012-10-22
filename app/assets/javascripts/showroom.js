@@ -36,7 +36,6 @@ $(document).ready(function() {
           	ShowroomInit.slideToProductsContainer(container_position);
           	$("div.loading").remove();
           	$(click).addClass("loaded").html("Ocultar").addClass("minus");
-				console.log(container_position)
           	try{
             	FB.XFBML.parse();
           	}catch(ex){}
@@ -44,7 +43,6 @@ $(document).ready(function() {
       }else {
         box.slideDown(1000);
         container_position = $(box).offset().top;
-			console.log(container_position)
         ShowroomInit.slideToProductsContainer(container_position);
 		  click.addClass("minus").html("Ocultar");	
         $("div.loading").remove();
@@ -136,7 +134,6 @@ ShowroomInit = {
 
   slideToProductsContainer : function(container_position) {
     position = container_position -40;
-	console.info("position "+position)
     $("html, body").animate({
       scrollTop: position
     }, 'fast');

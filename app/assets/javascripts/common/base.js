@@ -250,8 +250,9 @@ $(document).ready(function() {
     });
   }
 
-  $('input:text#address_mobile.phone').keyup(function() {
+  $('input:text#address_mobile.phone,#credit_card_telephone').keyup(function() {
     var value = $(this).val();
+
     var size = value.length;
     if(size == 5) {
       if(value == '(11)9') {
