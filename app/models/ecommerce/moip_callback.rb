@@ -11,11 +11,10 @@ class MoipCallback < ActiveRecord::Base
         :gateway_status => self.status_pagamento,
         :gateway_status_reason => self.classificacao
       )
-
       if payment.set_state(self.status_pagamento)
         self.update_attribute(:processed, true)
-        if order && order.reload.canceled?
-          Resque.enqueue(Abacos::CancelOrder, order.number)
+        if payment.order && payment.order.reload.canceled?
+          Resque.enqueue(Abacos::CancelOrder, payment.order.number)
         end
       else
         self.update_attributes(
