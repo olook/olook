@@ -73,4 +73,5 @@ class MoipSenderStrategy
     phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
     phone_number
   end
+  
 end
