@@ -16,9 +16,6 @@ class Payment < ActiveRecord::Base
     "7" => :reverse,
     "9" => :refund
   }
-  GATEWAY = {
-    :moip => 1
-  }
 
   RESPONSE_STATUS = {
     "Autorizado" => "Autorizado",
@@ -31,6 +28,10 @@ class Payment < ActiveRecord::Base
     "Reembolsado" => "Reembolsado"
   }
 
+  GATEWAYS = {
+    :moip => 1
+  }
+
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
@@ -39,6 +40,7 @@ class Payment < ActiveRecord::Base
   belongs_to :credit_type
 
   after_create :generate_identification_code
+  after_initialize :set_default_gateway
 
   def self.for_erp
     where(type: ['CreditCard','Billet', 'Debit'])
@@ -282,5 +284,10 @@ class Payment < ActiveRecord::Base
       end
       update_attributes(:identification_code => code)
     end
+
+  def set_default_gateway
+    self.gateway = GATEWAYS[:moip]
+  end
+
 end
 
