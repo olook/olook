@@ -253,14 +253,15 @@ class Payment < ActiveRecord::Base
   end
 
   private
-    def generate_identification_code
-      #TODO: PASSAR A USAR UUID
-      code = SecureRandom.uuid.delete("-")
-      while Payment.find_by_identification_code(code)
-        code = SecureRandom.uuid
-      end
-      update_attributes(:identification_code => code)
+  
+  def generate_identification_code
+    #TODO: PASSAR A USAR UUID
+    code = SecureRandom.uuid.delete("-")
+    while Payment.find_by_identification_code(code)
+      code = SecureRandom.uuid
     end
+    update_attributes(:identification_code => code)
+  end
 
   def set_default_gateway
     self.gateway = GATEWAYS[:moip]
