@@ -45,7 +45,9 @@ _gaq.push(['_addTrans',
         <% @cart.items.each do |item| %>
           <tr>
             <td class="item">
-              <%= image_tag item.variant.thumb_picture %>
+              <% unless item.thumb_picture.nil? %>
+                <%= image_tag item.variant.thumb_picture %>
+              <% end %>
               <p><span><%= item.variant.name %></span></p>
               <p>Tamanho: <%= item.variant.description %></p>
               <p>Cor/Material: <%= item.variant.color_name %></p>
