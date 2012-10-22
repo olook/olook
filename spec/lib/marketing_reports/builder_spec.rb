@@ -43,13 +43,17 @@ describe MarketingReports::Builder do
     end
 
     it "calls FileUploader passing the csv" do
+      Rails.env.stub(:production) { true }
       MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(mock.as_null_object)
+      MarketingReports::FileUploader.should_receive(:copy_file) {nil}
       subject.save_file(filename, info_ftp)
     end
 
     it "calls save_local_file on the file uploader with the passed filename" do
-      MarketingReports::FileUploader.stub(:new).and_return(uploader)
+      Rails.env.stub(:production) { true }
+      MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(uploader)
       uploader.should_receive(:save_local_file)
+      MarketingReports::FileUploader.should_receive(:copy_file) {nil}
       subject.save_file(filename)
     end
 
@@ -57,6 +61,7 @@ describe MarketingReports::Builder do
       Rails.env.stub(:production) { true }
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
       uploader.should_receive(:save_local_file)
+      MarketingReports::FileUploader.should_receive(:copy_file) {nil}
       subject.save_file(filename, info_ftp)
     end
 

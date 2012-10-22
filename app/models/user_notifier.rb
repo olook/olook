@@ -50,8 +50,9 @@ class UserNotifier
 
         file_lines << line.join("%") unless products.empty?
       end
-      # Salvar .csv
-      # InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
+      if Setting.send_in_cart_mail_locally
+        InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
+      end
     end
     file_lines
   end
