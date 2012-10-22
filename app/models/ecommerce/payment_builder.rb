@@ -23,8 +23,6 @@ class PaymentBuilder
 
 
       payment = @gateway_strategy.send_to_gateway
-      #payment.build_response @response
-      #set_payment_url!
 
       if payment.gateway_response_status == Payment::SUCCESSFUL_STATUS
         #NAO EH A MESMA COISA !!
