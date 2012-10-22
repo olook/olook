@@ -108,6 +108,7 @@ describe MoipSenderStrategy do
 
       subject.payment_data.should == expected
     end
+
   end
 
 end
