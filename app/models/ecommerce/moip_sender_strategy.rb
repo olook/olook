@@ -15,7 +15,7 @@ class MoipSenderStrategy
     payment
   end
 
-  private
+
   def payment_data
     if payment.is_a? Billet
       data = { :valor => payment.total_paid, :id_proprio => payment.identification_code,
