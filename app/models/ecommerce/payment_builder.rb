@@ -137,7 +137,7 @@ class PaymentBuilder
 
     rescue Exception => error
       #binding.pry
-      error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date}"
+      error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date} - User ID #{payment.try(:user_id)}"
       log(error_message)
       NewRelic::Agent.add_custom_parameters({:error_msg => error_message})
       Airbrake.notify(
