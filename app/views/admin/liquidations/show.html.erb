@@ -22,7 +22,9 @@
 
   <p>
     <b>Teaser:</b>
-    <%= image_tag @liquidation.teaser_banner_url %>
+    <% if @liquidation.teaser_banner_url %>
+      <%= image_tag @liquidation.teaser_banner_url %>
+    <% end %>
   </p>
 
   <p>
@@ -39,12 +41,16 @@
 
   <p>
     <b>Lightbox banner:</b>
-    <%= image_tag @liquidation.lightbox_banner_url %>
+    <% if @liquidation.lightbox_banner_url %>
+      <%= image_tag @liquidation.lightbox_banner_url %>
+    <% end %>
   </p>
 
   <p>
     <b>Welcome banner:</b>
-    <%= image_tag @liquidation.welcome_banner_url %>
+    <% if @liquidation.welcome_banner_url %>
+      <%= image_tag @liquidation.welcome_banner_url %>
+    <% end %>
   </p>
 
 
