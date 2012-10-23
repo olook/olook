@@ -1,3 +1,5 @@
+load 'deploy/assets'
+
 role :app, "homolog.olook.com.br"
 role :web, "homolog.olook.com.br"
 # server details
