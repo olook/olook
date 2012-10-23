@@ -11,11 +11,9 @@ describe ProcessPaymentCallbacksWorker do
 
   it "should set state for payment" do
     moip_callback = (FactoryGirl.create(:moip_callback, :processed => false))
-    #payment = moip_callback.payment
-    #moip_callback.should_receive(:update_payment_status).with(payment)
-    #Payment.stub(:find_by_identification_code).and_return payment
-    #payment.should_receive(:set_state).with(moip_callback.status_pagamento).and_return(true)
-    moip_callback.should_receive(:update_payment_status)
+    payment = moip_callback.payment
+    Payment.stub(:find_by_identification_code).and_return payment
+    MoipCallback.any_instance.should_receive(:update_payment_status).with(payment)
     ProcessPaymentCallbacksWorker.perform
   end
 
