@@ -12,6 +12,6 @@ Setting.defaults[:sac_purchase_amount_threshold] = "69.9"
 Setting.defaults[:sac_total_discount_threshold_percent] = "60"
 Setting.defaults[:sac_billet_subscribers] = "diogo.silva@olook.com.br,claudia.sardano@olook.com.br"
 Setting.defaults[:sac_fraud_subscribers] = "diogo.silva@olook.com.br,marcelo.azevedo@olook.com.br"
-Setting.defaults[:whitelisted_emails_only] = true
+Setting.defaults[:whitelisted_emails_only] = false
 Setting.defaults[:mark_notified_users] = true
 Setting.defaults[:send_in_cart_mail_locally] = true
