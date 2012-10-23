@@ -6,20 +6,23 @@ describe ProcessPaymentCallbacksWorker do
     payment = (FactoryGirl.create(:moip_callback, :processed => true)).payment
     payment.should_not_receive(:set_state_moip)
     MoipCallback.any_instance.stub(:payment).and_return(payment)
-    SetPaymentStatusWorker.perform
+    ProcessPaymentCallbacksWorker.perform
   end
 
   it "should set state for payment" do
-    payment = (FactoryGirl.create(:moip_callback, :processed => false)).payment
-    Payment.stub(:find_by_identification_code).and_return payment
-    payment.should_receive(:set_state_moip)
-    SetPaymentStatusWorker.perform
+    moip_callback = (FactoryGirl.create(:moip_callback, :processed => false))
+    #payment = moip_callback.payment
+    #moip_callback.should_receive(:update_payment_status).with(payment)
+    #Payment.stub(:find_by_identification_code).and_return payment
+    #payment.should_receive(:set_state).with(moip_callback.status_pagamento).and_return(true)
+    moip_callback.should_receive(:update_payment_status)
+    ProcessPaymentCallbacksWorker.perform
   end
 
   context "when no has payment associated" do
     it "should set error and remove from queue" do
       moip_callback = FactoryGirl.create(:clean_moip_callback, :processed => false)
-      SetPaymentStatusWorker.perform
+      ProcessPaymentCallbacksWorker.perform
       moip_callback.reload.processed.should eq(true)
       moip_callback.error.should eq("Pagamento não identificado.")
     end
