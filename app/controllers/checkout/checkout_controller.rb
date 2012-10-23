@@ -106,7 +106,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => response.payment.order.number), :notice => "Pagamento realizado com sucesso")
+        return redirect_to(order_show_path(:number => response.payment.order.number))
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf
