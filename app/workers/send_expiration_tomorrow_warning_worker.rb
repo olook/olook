@@ -4,7 +4,14 @@ class SendExpirationTomorrowWarningWorker
 
   def self.perform
     UserNotifier.send_expiration_warning(true).each do | reminder |
-      reminder.deliver
+      begin
+      	reminder.deliver
+      rescue => e
+        Airbrake.notify(
+          :error_class   => "NotificationSender",
+          :error_message => "SendExpirationTomorrowWarning: the following error occurred: e.message"
+        )      	
+      end
     end
   end
 end
