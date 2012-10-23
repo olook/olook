@@ -10,7 +10,6 @@ class MoipSenderStrategy
     self.response = MoIP::Client.checkout(payment_data)
     payment.build_response self.response
     save_payment_url!
-    binding.pry
     payment
   end
 
