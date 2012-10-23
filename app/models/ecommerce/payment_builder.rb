@@ -23,8 +23,6 @@ class PaymentBuilder
 
 
       payment = @gateway_strategy.send_to_gateway
-      #payment.build_response @response
-      #set_payment_url!
 
       if payment.gateway_response_status == Payment::SUCCESSFUL_STATUS
         #NAO EH A MESMA COISA !!
@@ -138,7 +136,7 @@ class PaymentBuilder
 
     rescue Exception => error
       #binding.pry
-      error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date}"
+      error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date} - User ID #{payment.try(:user_id)}"
       log(error_message)
       NewRelic::Agent.add_custom_parameters({:error_msg => error_message})
       Airbrake.notify(
@@ -161,14 +159,6 @@ class PaymentBuilder
 
 
   private
-
-  def remove_nine_digits_of_telephone(phone_number)
-    return false if phone_number.blank?
-    phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
-    phone_number
-  end
-
-
 
   def respond_with_failure
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)

@@ -216,8 +216,8 @@ class Payment < ActiveRecord::Base
   end
 
   def authorize_order?
-    order.authorized
-    true
+    order.authorized if order
+    !order.nil?
   end
 
   def reverse_order?

@@ -6,6 +6,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def zanox
+    respond_with(@products)
+  end
+
   def criteo
     @products = Product.valid_criteo_for_xml
     respond_with(@products)

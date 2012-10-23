@@ -1,6 +1,6 @@
 class MoipSenderStrategy
 
-  attr_accessor :cart_service, :payment, :credit_card_number
+  attr_accessor :cart_service, :payment, :credit_card_number, :response
 
   def initialize(cart_service, payment)
     @cart_service, @payment = cart_service, payment
@@ -9,12 +9,16 @@ class MoipSenderStrategy
   def send_to_gateway
     response = MoIP::Client.checkout(payment_data)
     payment.build_response response
-    payment.url = payment_url
-    payment.save!
+    save_payment_url!
     payment
   end
 
-  private
+  def save_payment_url!
+    payment.url = payment_url
+    payment.save!
+  end
+
+
   def payment_data
     if payment.is_a? Billet
       data = { :valor => payment.total_paid, :id_proprio => payment.identification_code,
@@ -62,6 +66,12 @@ class MoipSenderStrategy
 
   def payment_url
     MoIP::Client.moip_page(response["Token"])
+  end
+
+  def remove_nine_digits_of_telephone(phone_number)
+    return false if phone_number.blank?
+    phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
+    phone_number
   end
 
 end

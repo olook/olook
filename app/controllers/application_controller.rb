@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
     session[:return_to] = case request.referer
       when /produto|sacola/ then
         session[:return_to] ? session[:return_to] : nil
-      when /moments/ then
+      when /colecoes/ then
         { text: "Voltar para coleções", url: moments_path }
       when /suggestions/ then
         session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil
