@@ -60,7 +60,9 @@ class UserNotifier
   def self.send_enabled_credits_notification
     arr = []
     users_selected_by(:activates_at).find_each do |user|
-      arr << LoyaltyProgramMailer.send_enabled_credits_notification(user)
+      if !Setting.whitelisted_emails_only || user.email.match(/(olook\.com\.br$)/)
+        arr << LoyaltyProgramMailer.send_enabled_credits_notification(user)
+      end
     end
     arr
   end
@@ -69,8 +71,10 @@ class UserNotifier
     date = DateTime.now.end_of_month
     arr = []
     users_selected_by(:expires_at, date).find_each do |user|
-      response = LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
-      arr << response unless response.nil?
+      if !Setting.whitelisted_emails_only || user.email.match(/(olook\.com\.br$)/)
+        response = LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
+        arr << response unless response.nil?
+      end
     end
     arr
   end
