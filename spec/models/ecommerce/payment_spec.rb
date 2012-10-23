@@ -69,7 +69,6 @@ describe Payment do
     end
   end
 
-
   describe "state machine" do
     it "should start the order" do
       subject.start
