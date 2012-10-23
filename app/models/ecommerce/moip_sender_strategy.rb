@@ -39,10 +39,6 @@ class MoipSenderStrategy
       end
     data
   end
-<<<<<<< HEAD
-  
-=======
->>>>>>> c9ccca2434ca943d69c64bd5703a60b3fa0eebdb
 
   def payer
     delivery_address = Address.find_by_id!(cart_service.freight[:address_id])
