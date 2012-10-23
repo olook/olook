@@ -68,17 +68,30 @@ describe ShowroomPresenter do
     describe 'specific methods' do
       let(:range) { (1..10) }
       it "#display_shoes" do
-        subject.should_receive(:display_products).with(range, Category::SHOE, anything)
-        subject.display_shoes(range)
+        subject.should_receive(:display_products).with(range, Category::SHOE, anything, nil)
+        subject.display_shoes(range, nil)
       end
       it "#display_bags" do
-        subject.should_receive(:display_products).with(range, Category::BAG, anything)
-        subject.display_bags(range)
+        subject.should_receive(:display_products).with(range, Category::BAG, anything, nil)
+        subject.display_bags(range, nil)
       end
       it "#display_accessories" do
-        subject.should_receive(:display_products).with(range, Category::ACCESSORY, anything)
-        subject.display_accessories(range)
+        subject.should_receive(:display_products).with(range, Category::ACCESSORY, anything, nil)
+        subject.display_accessories(range, nil)
       end
+    end
+  end
+
+  describe '#change_order_using_inventory' do
+    let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
+    let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
+    let(:black_bag) { FactoryGirl.create(:basic_bag) }
+
+    it "should order products using inventory" do
+      black_shoe.variants << FactoryGirl.build(:variant, :inventory => 1)
+      red_shoe.variants << FactoryGirl.build(:variant, :inventory => 10)
+      black_shoe.should_receive(:colors).and_return(red_shoe)
+      subject.change_order_using_inventory(black_shoe).should eq(red_shoe)
     end
   end
 
