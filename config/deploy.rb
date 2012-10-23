@@ -1,4 +1,4 @@
-load 'deploy/assets'
+# load 'deploy/assets'
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
@@ -63,4 +63,3 @@ end
 
 before 'deploy:restart', 'unicorn:pidof'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
-after 'deploy:cleanup', 'newrelic:notice_deployment'
