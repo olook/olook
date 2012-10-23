@@ -1,8 +1,11 @@
+load 'deploy/assets'
 require 'airbrake/capistrano'
+require 'new_relic/recipes'
 
 role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
 role :web, 'app2.olook.com.br'
 role :db,  'app2.olook.com.br'
+
  
 # server details
 set :rails_env, 'production'
@@ -57,3 +60,6 @@ namespace :deploy do
     run "ps -e -o pid,command |grep unicorn |grep master"
   end
 end
+
+after 'newrelic:notice_deployment', 'unicorn:pidof'
+after 'deploy:cleanup', 'newrelic:notice_deployment'

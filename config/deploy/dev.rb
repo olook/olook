@@ -1,3 +1,5 @@
+load 'deploy/assets'
+
 role :web, "development.olook.com.br"
 role :app, "development.olook.com.br"
 
