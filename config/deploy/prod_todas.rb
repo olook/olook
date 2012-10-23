@@ -1,4 +1,5 @@
 require 'airbrake/capistrano'
+require 'new_relic/recipes'
 
 role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
 role :web, 'app2.olook.com.br'
@@ -57,3 +58,5 @@ namespace :deploy do
     run "ps -e -o pid,command |grep unicorn |grep master"
   end
 end
+
+after 'newrelic:notice_deployment', 'unicorn:pidof'
