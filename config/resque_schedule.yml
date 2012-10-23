@@ -57,7 +57,7 @@ send_one_day_to_expiration_warning:
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 in_cart_mail:
-  cron: "0 12 * * *"
+  cron: "0 14 * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
