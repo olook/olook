@@ -61,6 +61,13 @@ describe Payment do
     end
   end
 
+  context "authorize_order?" do
+    it "should return false if order is nil" do
+      payment = FactoryGirl.create(:payment)
+      payment.order = nil
+      payment.authorize_order?.should eq(false)
+    end
+  end
 
   describe "state machine" do
     it "should start the order" do
