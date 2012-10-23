@@ -1,9 +1,13 @@
+load 'deploy/assets'
 require 'airbrake/capistrano'
 require 'new_relic/recipes'
 
-role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
-role :web, 'app2.olook.com.br'
-role :db,  'app2.olook.com.br'
+# role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
+# role :web, 'app2.olook.com.br'
+# role :db,  'app2.olook.com.br'
+role :app, 'app3.olook.com.br'#, 'app2.olook.com.br', 'app3.olook.com.br'
+role :web, 'app3.olook.com.br'
+role :db,  'app3.olook.com.br'
  
 # server details
 set :rails_env, 'production'
@@ -17,7 +21,7 @@ namespace :deploy do
     update #capistrano internal default task
     yml_links
     rake_tasks
-    sync_task
+    # sync_task
     restart
   end
 
@@ -60,3 +64,4 @@ namespace :deploy do
 end
 
 after 'newrelic:notice_deployment', 'unicorn:pidof'
+after 'deploy:cleanup', 'newrelic:notice_deployment'
