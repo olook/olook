@@ -30,6 +30,7 @@ describe UserNotifier do
     end
 
     it "should send the order email" do
+      Setting.stub(:send_in_cart_mail_locally) { true }
       validators = UserNotifier.get_carts( 0, 1, [ "notified = 0" ] )
       user.update_attribute :email, "teste@olook.com.br"
       response = ["email%nome%cart_id%user_authentication_token%produtos%relacionados", "#{user.email}%#{user.first_name.capitalize}%#{subject.id}%#{user.authentication_token}%|Chanelle|123,45|Elegant black high-heeled shoe for executives%"]
