@@ -82,6 +82,19 @@ describe ShowroomPresenter do
     end
   end
 
+  describe '#change_order_using_inventory' do
+    let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
+    let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
+    let(:black_bag) { FactoryGirl.create(:basic_bag) }
+
+    it "should order products using inventory" do
+      black_shoe.variants << FactoryGirl.build(:variant, :inventory => 1)
+      red_shoe.variants << FactoryGirl.build(:variant, :inventory => 10)
+      black_shoe.should_receive(:colors).and_return(red_shoe)
+      subject.change_order_using_inventory(black_shoe).should eq(red_shoe)
+    end
+  end
+
   describe '#parse_range' do
     let(:array) { Array.new(10, :item) }
     it "should return the asked range if it's withing limits" do
