@@ -290,4 +290,5 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
+  get "/xpto", :to => "landing_pages#avc_campaign", as: 'xpto'  
 end
