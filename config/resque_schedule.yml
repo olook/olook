@@ -12,7 +12,7 @@ update_status:
 
 update_status:
   cron: "*/15 * * * *"
-  class: SetPaymentStatusWorker
+  class: ProcessPaymentCallbacksWorker
   queue: order_status
   description: "Processa callbacks de Pagamento"
 

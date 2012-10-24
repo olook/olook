@@ -36,6 +36,7 @@ Olook::Application.routes.draw do
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
+  get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
@@ -180,7 +181,7 @@ Olook::Application.routes.draw do
     post 'integrate_orders' => "orders#integrate_orders"
     post 'integrate_cancel' => "orders#integrate_cancel"
     post 'integrate_payment' => "orders#integrate_payment"
-    
+
     resources :orders do
       member do
         post 'change_state'
@@ -282,7 +283,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/payments#create', :as => :payment
+  post '/pagamento', :to => 'checkout/moip_payments#create', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"

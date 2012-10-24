@@ -8,8 +8,13 @@ describe Payment do
       payment = FactoryGirl.create(:payment)
       payment.identification_code.should_not be_nil
     end
+
+    it "should have MOIP as default gateway" do
+      payment = FactoryGirl.create(:payment)
+      payment.gateway.should eq(Payment::GATEWAYS[:moip])
+    end
   end
-  
+
   let(:waiting_payment) do
     result = subject()
     result.stub(:deliver_payment?).and_return(true)
@@ -17,7 +22,7 @@ describe Payment do
     result.deliver!
     result
   end
-  
+
   let(:authorized) do
     result = subject()
     result.stub(:deliver_payment?).and_return(true)
@@ -27,7 +32,7 @@ describe Payment do
     result.authorize!
     result
   end
-  
+
   let(:completed) do
     result = subject()
     result.stub(:deliver_payment?).and_return(true)
@@ -38,7 +43,7 @@ describe Payment do
     result.complete!
     result
   end
-  
+
   let(:under_review) do
     result = subject()
     result.stub(:deliver_payment?).and_return(true)
@@ -48,7 +53,7 @@ describe Payment do
     result.review!
     result
   end
-  
+
   context "status" do
     it "should return nil with a invalid status" do
       invalid_status = '0'
@@ -64,7 +69,6 @@ describe Payment do
     end
   end
 
-  
   describe "state machine" do
     it "should start the order" do
       subject.start
@@ -101,7 +105,7 @@ describe Payment do
           }.to raise_error
         end
       end
-      
+
       context "when from waiting_payment" do
         it "should go to canceled when cancel_order" do
           waiting_payment.should_receive(:cancel_order?).and_return(true)
@@ -117,7 +121,7 @@ describe Payment do
         end
       end
     end
-    
+
     context "try to authorize" do
       context "when from waiting_payment" do
         it "should go to authorized when authorize_order" do
@@ -126,7 +130,7 @@ describe Payment do
           waiting_payment.authorized?.should eq(true)
         end
       end
-      
+
       context "when from under_review" do
         it "should go to authorized when authorize_order" do
           under_review.should_receive(:authorize_order?).and_return(true)
@@ -135,7 +139,7 @@ describe Payment do
         end
       end
     end
-  
+
     context "try to complete" do
       context "when from authorized" do
         it "should go to completed" do
@@ -143,7 +147,7 @@ describe Payment do
           authorized.completed?.should eq(true)
         end
       end
-      
+
       context "when from under_review" do
         it "should go to completed when authorize_order" do
           under_review.complete!
@@ -151,7 +155,7 @@ describe Payment do
         end
       end
     end
-    
+
     context "try to review" do
       context "when from waiting_payment" do
         it "should go to under_review when review_order" do
@@ -167,7 +171,7 @@ describe Payment do
           }.to raise_error
         end
       end
-      
+
       context "when from authorized" do
         it "should go to under_review when review_order" do
           authorized.should_receive(:review_order?).and_return(true)
@@ -183,7 +187,7 @@ describe Payment do
         end
       end
     end
-    
+
     context "try to reverse" do
       context "when from completed" do
         it "should go to reversed when reverse_order" do
@@ -199,7 +203,7 @@ describe Payment do
           }.to raise_error
         end
       end
-      
+
       context "when from authorized" do
         it "should go to reversed when reverse_order" do
           authorized.should_receive(:reverse_order?).and_return(true)
@@ -214,7 +218,7 @@ describe Payment do
           }.to raise_error
         end
       end
-      
+
       context "when from under_review" do
         it "should go to reversed when reverse_order" do
           under_review.should_receive(:reverse_order?).and_return(true)
@@ -230,7 +234,7 @@ describe Payment do
         end
       end
     end
-    
+
     context "try to refund" do
       context "when from completed" do
         it "should go to refunded when refund_order" do
@@ -246,7 +250,7 @@ describe Payment do
           }.to raise_error
         end
       end
-      
+
       context "when from authorized" do
         it "should go to refunded when refund_order" do
           authorized.should_receive(:refund_order?).and_return(true)
@@ -261,7 +265,7 @@ describe Payment do
           }.to raise_error
         end
       end
-      
+
       context "when from under_review" do
         it "should go to refunded when refund_order" do
           under_review.should_receive(:refund_order?).and_return(true)
@@ -275,57 +279,6 @@ describe Payment do
             under_review.refund!
           }.to raise_error
         end
-      end
-    end
-  end
-  
-  
-  context "#set_state_moip" do
-    let(:moip_callback) { FactoryGirl.create(:moip_callback) }
-    
-    it "should update payment gateway status" do
-      payment = subject()
-      payment.set_state_moip(moip_callback)
-      payment.reload.gateway_code.to_s.should eq(moip_callback.cod_moip.to_s)
-      payment.gateway_type.to_s.should eq(moip_callback.tipo_pagamento.to_s)
-      payment.gateway_status.to_s.should eq(moip_callback.status_pagamento.to_s)
-      payment.gateway_status_reason.to_s.should eq(moip_callback.classificacao.to_s)
-    end
-    
-    it "should update payment state" do
-      payment = subject()
-      payment.should_receive(:set_state)
-             .with(moip_callback.status_pagamento)
-             .and_return(true)
-      payment.set_state_moip(moip_callback)
-    end
-    
-    it "should update moip callback" do
-      payment = subject()
-      payment.stub(:set_state).and_return(true)
-      payment.set_state_moip(moip_callback)
-      moip_callback.reload.processed.should eq(true)
-    end
-    
-    context "when order is cancelled" do
-      it "should enqueue cancel order" do
-        payment = subject()
-        payment.order = mock_model(Order, :canceled? => true, :number => "XPTO")
-        payment.order.stub(:reload => payment.order)
-        payment.stub(:set_state).and_return(true)
-        Resque.should_receive(:enqueue).with(Abacos::CancelOrder, payment.order.number)
-        payment.set_state_moip(moip_callback)
-      end
-    end
-    
-    context "when can't update payment" do
-      it "should update retry and error in moip callback" do
-        payment = subject()
-        payment.stub(:set_state).and_return(false)
-        payment.errors.stub(:full_messages).and_return(["ERRO XPTO"])
-        payment.set_state_moip(moip_callback)
-        moip_callback.reload.retry.should eq(1)
-        moip_callback.error.should eq("[\"ERRO XPTO\"]")
       end
     end
   end
