@@ -87,7 +87,7 @@ class MenuPresenter < BasePresenter
   end
 
   def liquidation
-    render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.current_liquidation
+    render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.show_current_liquidation?
   end
 
   def cart
