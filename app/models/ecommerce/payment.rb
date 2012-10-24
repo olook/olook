@@ -28,23 +28,28 @@ class Payment < ActiveRecord::Base
     "Reembolsado" => "Reembolsado"
   }
 
+  GATEWAYS = {
+    :moip => 1
+  }
+
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
   belongs_to :user
-  belongs_to :cart  
+  belongs_to :cart
   belongs_to :credit_type
 
   after_create :generate_identification_code
+  after_initialize :set_default_gateway
 
   def self.for_erp
     where(type: ['CreditCard','Billet', 'Debit'])
   end
-  
+
   def self.for_loyalty
     where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'loyalty_program'})
   end
-  
+
   def self.for_redeem
     where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'redeem'})
   end
@@ -68,7 +73,7 @@ class Payment < ActiveRecord::Base
   def self.for_coupon
     where(type: 'CouponPayment')
   end
-  
+
   def self.with_discount
     where(type: ['CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
   end
@@ -76,44 +81,44 @@ class Payment < ActiveRecord::Base
   state_machine :initial => :started do
     #Concluido - 4
     state :completed
-    
+
     #EmAnalise - 6
     state :under_review
-    
+
     #Autorizado - 1
-    state :authorized do 
+    state :authorized do
       after_save do |payment|
         payment.authorize_order?
       end
     end
-    
+
     #Iniciado - 2
     state :started
-    
+
     #Cancelado - 5
-    state :cancelled do 
+    state :cancelled do
       after_save do |payment|
         payment.cancel_order?
       end
     end
-    
+
     #BoletoImpresso - 3
     state :waiting_payment
-    
+
     #Estornado - 7
-    state :reversed do 
+    state :reversed do
       after_save do |payment|
         payment.reverse_order?
       end
     end
 
     #Reembolsado - 9
-    state :refunded do 
+    state :refunded do
       after_save do |payment|
         payment.refund_order?
       end
     end
-    
+
     # "2" => :start,
     event :start do
       transition :started => :started
@@ -127,7 +132,7 @@ class Payment < ActiveRecord::Base
       transition :started => :waiting_payment, :if => :deliver_payment?
       transition :waiting_payment => :waiting_payment, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "deliver", :current_state => "waiting_payment" }) }
     end
-    
+
     # "5" => :cancel,
     event :cancel do
       transition :started => :cancelled
@@ -141,7 +146,7 @@ class Payment < ActiveRecord::Base
       transition :waiting_payment => :authorized
       transition :under_review => :authorized
     end
-    
+
     # "4" => :complete,
     event :complete do
       transition :authorized => :completed
@@ -153,7 +158,7 @@ class Payment < ActiveRecord::Base
       transition :authorized => :under_review, :if => :review_order?
       transition :waiting_payment => :under_review, :if => :review_order?
     end
-    
+
     # "7" => :reverse,
     event :reverse do
       transition :completed => :reversed
@@ -169,7 +174,7 @@ class Payment < ActiveRecord::Base
       transition :under_review => :refunded
     end
   end
-  
+
   def deliver_payment?
     true
   end
@@ -179,7 +184,7 @@ class Payment < ActiveRecord::Base
       current_state = opts[:current_state]
       error_message = "Unexpected transition event. Payment: #{id} -> Event: #{event_name} - Current State: #{current_state}"
       Airbrake.notify(
-        :error_class   => "Moip Request",
+        :error_class   => "Gateway Request",
         :error_message => error_message
       )
       true
@@ -214,11 +219,11 @@ class Payment < ActiveRecord::Base
     order.authorized if order
     !order.nil?
   end
-  
+
   def reverse_order?
     order.reversed  if (order && !order.payment_rollback?)
   end
-  
+
   def calculate_percentage!
     if self.order
       self.percent = ((100 * self.total_paid) / self.order.gross_amount)
@@ -246,38 +251,21 @@ class Payment < ActiveRecord::Base
   def status
     Payment::RESPONSE_STATUS[gateway_transaction_status]
   end
-  
-  def set_state_moip(moip_callback)
-    ActiveRecord::Base.transaction do
-      self.update_attributes!(
-         :gateway_code => moip_callback.cod_moip,
-         :gateway_type   => moip_callback.tipo_pagamento,
-         :gateway_status => moip_callback.status_pagamento,
-         :gateway_status_reason => moip_callback.classificacao
-      )
 
-      if self.set_state(moip_callback.status_pagamento)
-        moip_callback.update_attribute(:processed, true)
-        if order && order.reload.canceled?
-          Resque.enqueue(Abacos::CancelOrder, order.number)
-        end
-      else
-        moip_callback.update_attributes(
-          :retry => (moip_callback.retry + 1),
-          :error => self.errors.full_messages.to_s
-        )
-      end
-    end
-  end
-  
   private
-    def generate_identification_code
-      #TODO: PASSAR A USAR UUID
-      code = SecureRandom.hex(16)
-      while Payment.find_by_identification_code(code)
-        code = SecureRandom.hex(16)
-      end
-      update_attributes(:identification_code => code)
+  
+  def generate_identification_code
+    #TODO: PASSAR A USAR UUID
+    code = SecureRandom.uuid.delete("-")
+    while Payment.find_by_identification_code(code)
+      code = SecureRandom.uuid
     end
+    update_attributes(:identification_code => code)
+  end
+
+  def set_default_gateway
+    self.gateway = GATEWAYS[:moip]
+  end
+
 end
 
