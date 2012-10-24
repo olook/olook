@@ -259,6 +259,7 @@ describe Checkout::CheckoutController do
       sign_in user_with_cpf
       session[:cart_id] = cart.id
       session[:cart_freight] = freight
+      session[:user_telephone_number] = credit_card_attributes["telephone"]
     end
 
     it "should render new_credit_card when has no params" do
