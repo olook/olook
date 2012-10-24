@@ -10,7 +10,18 @@ class LiquidationSearchService
   def search_products
     query_subcategories = params[:shoe_subcategories] ? l_products[:subcategory_name].in(params[:shoe_subcategories]) : nil
     query_heels =  params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
-    query_shoe_sizes = (query_subcategories || query_heels) && params[:shoe_sizes] ? build_sub_query((query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
+
+    # if params[:shoe_sizes] && (query_subcategories || query_heels)
+    #   query_shoe_sizes = build_sub_query((query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes]))
+    # elsif params[:shoe_sizes]
+    #   query_shoe_sizes = l_products[:shoe_size].in(params[:shoe_sizes])
+    # else
+    #   nil
+    # end
+      
+
+    # query_shoe_sizes = (query_subcategories || query_heels) && params[:shoe_sizes] ? build_sub_query((query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
+    query_shoe_sizes = params[:shoe_sizes] ? build_sub_query((query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
     
     queries = [query_shoe_sizes, query_heels, query_subcategories]
     query_result = queries.detect{|query| !query.nil?}
