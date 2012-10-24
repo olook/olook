@@ -1,0 +1,22 @@
+@mixin logo($left, $top){
+	background: url("/assets/campaigns/logos-projetos.jpg") no-repeat $left $top;
+	font:0/0 a;
+}
+
+#avc{
+	h1{margin-bottom:30px;}
+	.txt-about{
+		font:normal 18px 'avenir', arial, sans-serif;
+		color:#6D6E71;
+		margin-bottom:25px;
+	}
+	.txt-projetos{font:16px 'johnston',arial,sans-serif;margin-bottom:40px;}
+	
+	section{
+		float:left;margin-right:30px;height:435px;
+	
+		&#tv-cinema{
+			h2{logo(0,0);width:104px;height:150px;}
+		}
+	}
+}
