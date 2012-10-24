@@ -278,6 +278,7 @@ Olook::Application.routes.draw do
       post "debito", :to => "checkout/checkout#create_debit", :as => :debit
     end
   end
+  match "/xpto" => "landing_pages#avc_campaign"
 
   #FINISH
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
@@ -290,5 +291,4 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
-  get "/xpto", :to => "landing_pages#avc_campaign", as: 'xpto'  
 end
