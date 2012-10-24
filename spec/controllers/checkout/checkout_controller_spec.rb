@@ -300,7 +300,6 @@ describe Checkout::CheckoutController do
 
       it "should redirect to order_show_path" do
         response.should redirect_to(order_show_path(:number => order.number))
-        flash[:notice].should eq("Pagamento realizado com sucesso")
       end
     end
 
