@@ -7,8 +7,4 @@ class LandingPagesController < ApplicationController
     redirect_to root_path unless @landing_page.enabled?
   end
 
-  def avc_campaign
-  end
-
-
 end

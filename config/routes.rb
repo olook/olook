@@ -17,6 +17,7 @@ Olook::Application.routes.draw do
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
+  match "/avc" => "pages#avc_campaign"
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
@@ -278,7 +279,6 @@ Olook::Application.routes.draw do
       post "debito", :to => "checkout/checkout#create_debit", :as => :debit
     end
   end
-  match "/xpto" => "landing_pages#avc_campaign"
 
   #FINISH
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
