@@ -103,7 +103,7 @@ body {
       padding: 10px 30px 15px;
       overflow: visible;
       border: 1px #e8e8e8 solid;
-      top: 550px;
+      top: 600px;
       left: 315px;
       float: right;
 
@@ -129,7 +129,7 @@ body {
     .making_of {
       position: absolute;
       overflow: auto;
-      top: 550px;
+      top: 600px;
       right: 20px;
       div.video_description {
         display: none;
@@ -189,4 +189,11 @@ body {
       }
     }
   }
+}
+
+
+/***** AVC CAMPAIGN ***/
+.banner{
+	margin-top:-7px;
+	a{display:block;border-bottom:solid 1px #D9DDDC;height:70px;}
 }
