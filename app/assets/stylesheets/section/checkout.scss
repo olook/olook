@@ -325,6 +325,34 @@ section#cart {
             text-transform: uppercase;
           }
         }
+			/********** CAMPANHA DO AVC ****************/
+		  &.avc-foto{
+			padding-left:35px;
+			width:130px;
+			border-left:1px solid #E5E5E5;
+			 img{
+				width:99px;
+				height:93px;
+			 }	
+		  }
+		  &.avc-desc{
+			width:503px;
+			padding-right:100px;
+			p{font-size:13px;}
+		  }	
+		  &.avc-button{
+				border-right:1px solid #E5E5E5;
+				p{font-size: 18px;font-weight: lighter;margin: 0;text-align:center;}
+		  		input[type="submit"]{
+					background: url('/assets/campaigns/bt-add.png') no-repeat;
+					width:165px;
+					height:37px;
+					border:0;
+					margin-left:28px;
+					cursor:pointer;
+				}
+		  }
+		/********** FIM CAMPANHA DO AVC ****************/
         &.item {
           width: 255px;
           padding-left: 50px;
@@ -1519,3 +1547,5 @@ div.credit_details {
     }
   }
 }
+/********** CAMPANHA DO AVC ****************/
+.txt-recomenda{font:18px avenir,arial,sans-serif;text-transform:uppercase;color:#000;margin-bottom:23px;}

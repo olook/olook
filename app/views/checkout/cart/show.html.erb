@@ -84,20 +84,26 @@ _gaq.push(['_addTrans',
     </table>
 
     <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) %>
-    <table cellpadding="0" cellspacing="0" class="items_list" id="products">
+    <p class="txt-recomenda">Olook Recomenda</p>
+	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
       <tbody>
           <tr>
-            <td class="item suggested">
+            <td class="avc-foto">
               <% unless @suggested_product.master_variant.thumb_picture.nil? %>
                 <%= image_tag @suggested_product.master_variant.thumb_picture %>
               <% end %>
             </td>
-            <td>
+            <td class="avc-desc">
               <p><span><%= @suggested_product.name %></span></p>
               <p><%= @suggested_product.description %></p>
             </td>
-            <td class="value">
+            <td class="avc-button">
               <p><%= number_to_currency(@suggested_product.retail_price) %></p>
+			  <%= form_tag(cart_path, onsubmit: track_event("Shopping", "AddToCart", @suggested_product.id), id: "product_add_to_cart", remote: false) do %>
+				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
+				<%= submit_tag "", id: "add_product", class: "add_product" %>
+			  <% end %>
+			
             </td>
           </tr>
       </tbody>
