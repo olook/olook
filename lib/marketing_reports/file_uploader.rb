@@ -16,7 +16,7 @@ module MarketingReports
 
     def save_local_file
      File.open(TEMP_PATH+@filename, 'w', :encoding => @encoding) do |file|
-        file.write(@file_content)
+        file.write(@file_content.encode(@encoding).force_encoding(@encoding))
       end
     end
 
