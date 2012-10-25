@@ -14,6 +14,7 @@ class Checkout::CartController < Checkout::BaseController
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
+    @suggested_product = Product.find(Setting.checkout_suggested_product_id.to_i)
   end
 
   def destroy
