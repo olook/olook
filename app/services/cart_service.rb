@@ -224,7 +224,7 @@ class CartService
     #
     coupon = self.coupon
 
-    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id)
+    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item_supports_discount?(item)
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price
@@ -237,16 +237,10 @@ class CartService
 
     if coupon && !coupon.is_percentage?
       discounts << :coupon_of_value
-      # coupon_value = coupon.value
-      # if coupon_value < final_retail_price
-      #   final_retail_price -= coupon_value
-      #   origin = 'Desconto de R$ '+coupon.value.to_s+' do cupom '+coupon.code
-      #   origin_type = :coupon_of_value
-      # end
     end
         
     promotion = self.promotion
-    if promotion
+    if promotion && item_supports_discount?(item)
       discounts << :promotion
       promotion_value = price - ((price * promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
@@ -344,5 +338,9 @@ class CartService
       :total_credits_by_redeem           => credits_redeem,
       :total_credits                     => total_credits
     }
+  end
+
+  def item_supports_discount? item
+    Setting.checkout_suggested_product_id.to_i != item.product.id
   end
 end
