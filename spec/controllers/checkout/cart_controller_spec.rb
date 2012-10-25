@@ -31,6 +31,8 @@ describe Checkout::CartController do
     CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
     CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
 
+    Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
+
     get :show
     assigns(:cart_service).freight.should be_nil
     assigns(:amount_of_loyalty_credits).should == 10
@@ -45,6 +47,8 @@ describe Checkout::CartController do
       CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
       CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
       CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
+
+      Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
 
       get :show
       response.should render_template ["layouts/site", "show"]

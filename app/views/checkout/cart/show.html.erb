@@ -83,7 +83,7 @@ _gaq.push(['_addTrans',
       </tbody>
     </table>
 
-    <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) %>
+    <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
     <p class="txt-recomenda">Olook Recomenda</p>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
       <tbody>
