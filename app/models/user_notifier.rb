@@ -61,7 +61,8 @@ class UserNotifier
     arr = []
     users_selected_by(:activates_at).find_each do |user|
       if !Setting.whitelisted_emails_only || user.email.match(/(olook\.com\.br$)/)
-        arr << LoyaltyProgramMailer.send_enabled_credits_notification(user)
+        response = LoyaltyProgramMailer.send_enabled_credits_notification(user)
+        arr << response unless response.nil? || response.try(:from).nil?
       end
     end
     arr
@@ -73,7 +74,7 @@ class UserNotifier
     users_selected_by(:expires_at, date).find_each do |user|
       if !Setting.whitelisted_emails_only || user.email.match(/(olook\.com\.br$)/)
         response = LoyaltyProgramMailer.send_expiration_warning(user, expires_tomorrow)
-        arr << response unless response.nil?
+        arr << response unless response.nil? # || response.try(:from).nil?
       end
     end
     arr

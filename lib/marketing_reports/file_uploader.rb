@@ -11,7 +11,7 @@ module MarketingReports
     def initialize(filename = "untitled.txt", file_content)
       @filename = filename
       @file_content = file_content
-      @encoding = "UTF-8"
+      @encoding = "ISO-8859-1" #"UTF-8"
     end
 
     def save_local_file

@@ -97,6 +97,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create_credit_card
     params[:credit_card][:receipt] = Payment::RECEIPT if params[:credit_card]
     @payment = CreditCard.new(params[:credit_card])
+    @payment.telephone = session[:user_telephone_number]
     @bank = params[:credit_card][:bank] if params[:credit_card]
     @installments = params[:credit_card][:payments] if params[:credit_card]
     @payment.user_identification = @user.cpf
