@@ -23,7 +23,7 @@ class LiquidationSearchService
     if query_bags_and_accessories
       # @query_base = query_result ? @query_base.and(query_result.or(query_bags_and_accessories)) : @query_base.and(query_bags_and_accessories)
       @query_base = @query_base.and(query_bags_and_accessories)
-    else
+  else
       @query_base = @query_base.and(query_result) if query_result
     end
 
