@@ -17,7 +17,7 @@ Olook::Application.routes.draw do
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
-  match "/responsabilidade-social" => "pages#avc_campaign"
+  match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
