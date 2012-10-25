@@ -14,7 +14,7 @@ class Checkout::CartController < Checkout::BaseController
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
-    @suggested_product = Product.find(Setting.checkout_suggested_product_id.to_i)
+    @suggested_product = find_suggested_product    
   end
 
   def destroy
@@ -94,6 +94,10 @@ class Checkout::CartController < Checkout::BaseController
   def update_credits
     session[:cart_use_credits] = params[:use_credit] && params[:use_credit][:value] == "1"
     @cart_service.credits = session[:cart_use_credits]
+  end
+
+  def find_suggested_product
+    Product.find(Setting.checkout_suggested_product_id.to_i) if Setting.checkout_suggested_product_id
   end
 end
 
