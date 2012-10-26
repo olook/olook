@@ -56,6 +56,7 @@ gem "celluloid"
 group :development do
   gem 'faker'
   gem 'bullet'
+  gem 'thin'
 end
 
 group :development, :test do
