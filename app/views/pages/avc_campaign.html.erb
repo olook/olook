@@ -45,7 +45,10 @@
 
 			<p>Compre a pulseira da campanha <b>"AVC: Eu me importo!"</b> e ajude a Rede Brasil AVC nesta causa.</p>
 			
-			<p><a href="#" class="btn-colabore">Colabore com a campanha</a></p>
+			<p>
+				<%= link_to "Colabora com a campanha", product_path(Setting.checkout_suggested_product_id.to_i), :class => "btn-colabore" %>
+			</p>
+				
 		</div>		
 		<%=image_tag("campaigns/regina-volpato.png") %>
 		<p class="txt-foto">Regina Volpato, apresentadora do programa Manhã Maior da Rede TV apóia a campanha “AVC: Eu me importo!”</p>
