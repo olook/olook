@@ -33,15 +33,15 @@ class ShowroomPresenter < BasePresenter
     h.raw output
   end
 
-  def display_shoes(asked_range, collection = Collection.active, user)
+  def display_shoes(asked_range, collection = Collection.active, user=nil)
     display_products(asked_range, Category::SHOE, collection, user)
   end
 
-  def display_bags(asked_range, collection = Collection.active, user)
+  def display_bags(asked_range, collection = Collection.active, user=nil)
     display_products(asked_range, Category::BAG, collection, user)
   end
 
-  def display_accessories(asked_range, collection = Collection.active, user)
+  def display_accessories(asked_range, collection = Collection.active, user=nil)
     display_products(asked_range, Category::ACCESSORY, collection, user)
   end
 
