@@ -15,3 +15,4 @@ Setting.defaults[:sac_fraud_subscribers] = "diogo.silva@olook.com.br,marcelo.aze
 Setting.defaults[:whitelisted_emails_only] = false
 Setting.defaults[:mark_notified_users] = true
 Setting.defaults[:send_in_cart_mail_locally] = false
+Setting.defaults[:checkout_suggested_product_id]= "12472"
