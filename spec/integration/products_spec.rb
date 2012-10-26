@@ -20,6 +20,9 @@ feature "Buying products", %q{
       FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
       do_login!(user)
       FactoryGirl.create(:main_picture, :product => product)
+
+          # Use a existent product id.
+          Setting.stub(:checkout_suggested_product_id).and_return(nil)
     end
 
     context "in the products page" do
@@ -46,6 +49,9 @@ feature "Buying products", %q{
         end
 
         scenario "I need to choose the variant and then add it to the cart" do
+
+          # Checkout::CartController.any_instance.stub(:find_suggested_product).and_return(nil)
+
           visit product_path(shoe)
           choose shoe_a.number
           click_button "add_product"

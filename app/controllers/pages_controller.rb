@@ -20,6 +20,10 @@ class PagesController < ApplicationController
       render :contact
     end
   end
+  
+  def avc_campaign
+    render :avc_campaign
+  end
 
 end
 
