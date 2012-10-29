@@ -1,0 +1,63 @@
+$base_font_url: "http://homolog.olook.com.br";
+
+
+@font-face {
+    font-family: 'QuicksandBold';
+	 src:url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.eot'),
+    url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'QuicksandLight';
+	 src:	url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.eot'),
+    url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
+    url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.ttf') format('embedded-opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'QuicksandRegular';
+ 	 src:url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.eot'),
+    url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.ttf') format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Kepler Std Italic';
+    src:font-url("#{$base_font_url}/kepler/adobe_-_keplerstd-italic-webfont.eot"),
+        font-url("#{$base_font_url}/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix") format('embedded-opentype'),
+        font-url("#{$base_font_url}/kepler/adobe_-_keplerstd-italic-webfont.ttf") format('truetype');
+	font-weight: normal;
+}
+
+@font-face {
+    font-family: 'avenir';
+    src:url("#{$base_font_url}/assets/avenir/avenir-book-webfont.eot"),
+        url("#{$base_font_url}/assets/avenir/avenir-book-webfont.eot?#iefix") format('embedded-opentype'),
+        url("#{$base_font_url}/assets/avenir/avenir-book-webfont.ttf") format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'johnston'; 
+ 	 src:url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.eot'),
+    url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
+    url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenir_medium';
+    src:url('#{$base_font_url}/assets/avenir_medium/avenir-medium.eot'),
+    url('#{$base_font_url}/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype'),
+    url('#{$base_font_url}/assets/avenir_medium/avenir-medium.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
