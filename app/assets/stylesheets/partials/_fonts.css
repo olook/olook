@@ -26,9 +26,9 @@
 
 @font-face {
     font-family: 'Kepler Std Italic';
-    src:url('http://www.olook.com.br/assets/kepler/adobe_-_keplerstd-italic-webfont.eot'),
-    url('http://www.olook.com.br/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('http://www.olook.com.br/assets/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype');
+    src:url('http://homolog.olook.com.br/assets/kepler/adobe_-_keplerstd-italic-webfont.eot'),
+    url('http://homolog.olook.com.br/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('http://homolog.olook.com.br/assets/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype');
 	font-weight: normal;
 }
 
