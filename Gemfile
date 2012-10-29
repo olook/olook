@@ -32,6 +32,7 @@ group :production, :staging do
 end
 
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
+gem 'obraspag', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
@@ -56,6 +57,7 @@ gem "celluloid"
 group :development do
   gem 'faker'
   gem 'bullet'
+  gem 'thin'
 end
 
 group :development, :test do
