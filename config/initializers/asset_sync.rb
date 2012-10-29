@@ -17,8 +17,9 @@ if defined?(AssetSync)
     # load variables for serving up fonts
     FONTS_CONFIG = YAML.load_file("#{Rails.root}/config/fonts.yml")[Rails.env]
     File.open("#{Rails.root}/app/assets/stylesheets/partials/variables.scss", 'w+') do |file|
-      file.write("$base_font_url: \"#{FONTS_CONFIG['domain']}\";")
+      file.write("$base_font_url: \"#{FONTS_CONFIG['domain']}\";\n")
     end
+    puts "generated #{Rails.root}/app/assets/stylesheets/partials/variables.scss"
 
     # Increase upload performance by configuring your region
     config.fog_region = 'us-east-1'
