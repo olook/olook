@@ -29,16 +29,15 @@
 
 @font-face {
     font-family: 'Kepler Std Italic';
-    src:url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot'),
-    url('/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/assets/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype');
+    src:url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.eot'),
+    url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype');
 	font-weight: normal;
 }
 
 @font-face {
     font-family: 'avenir';
-    src:
-        url("/assets/avenir/avenir-book-webfont.eot"),
+    src:url("/assets/avenir/avenir-book-webfont.eot"),
         url("/assets/avenir/avenir-book-webfont.eot?#iefix") format('embedded-opentype'),
         url("/assets/avenir/avenir-book-webfont.ttf") format('truetype');
 	font-weight: normal;
