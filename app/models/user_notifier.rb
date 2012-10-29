@@ -19,7 +19,7 @@ class UserNotifier
 
      Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
 
-      next unless cart.user
+      next unless (cart.user && !cart.items.empty?)
 
       if !Setting.whitelisted_emails_only || cart.user.email.match(/(olook\.com\.br$)/)
         cart.update_attribute("notified", true) if Setting.mark_notified_users
