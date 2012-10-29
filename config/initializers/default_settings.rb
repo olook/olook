@@ -18,6 +18,6 @@ Setting.defaults[:send_in_cart_mail_locally] = false
 Setting.defaults[:checkout_suggested_product_id]= "12472"
 
 # Settings for in_cart_mail process
-Setting.defaults[:in_cart_mail_range] = "1"
-Setting.defaults[:in_cart_mail_how_long] = "1"
-Setting.defaults[:in_cart_mail_condition] = "notified = 0"
+Setting.defaults[:in_cart_mail_range] = "6"
+Setting.defaults[:in_cart_mail_how_long] = "2"
+Setting.defaults[:in_cart_mail_condition] = "" # "notified = 0"
