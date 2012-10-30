@@ -1,5 +1,0 @@
-staging:
-  domain: "http://homolog.olook.com.br"
-
-production:
-  domain: "http://www.olook.com.br" 
