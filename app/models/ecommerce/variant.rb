@@ -30,6 +30,8 @@ class Variant < ActiveRecord::Base
   delegate :color_name, :to => :product
   delegate :main_picture, :to => :product
   delegate :thumb_picture, :to => :product
+  delegate :checkout_picture, :to => :product
+  delegate :bag_picture, :to => :product
   delegate :showroom_picture, :to => :product
   delegate :liquidation?, :to => :product
   delegate :promotion?, :to => :product
