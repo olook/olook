@@ -41,6 +41,7 @@
       <th>Visible?</th>
       <th>Price</th>
       <th>Inventory</th>
+      <th>Initial</th>
       <th>Color</th>
       <th>Profile</th>
       <th><%= sortable('collection_id', 'Collection') %></th>
@@ -57,6 +58,7 @@
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
+      <td><%= product.initial_inventory %></td>
       <td><%= product.color_name %></td>
       <td><%= product.profiles.map(&:name).join(", ") %></td>
       <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).try(:year)}" %></td>

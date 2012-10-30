@@ -18,7 +18,7 @@ class Variant < ActiveRecord::Base
   validates :display_reference, :presence => true
 
   validates :price, :presence => true, :numericality => {:greater_than_or_equal_to => 0}
-  validates :inventory, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
+  validates :inventory, :initial_inventory, :presence => true, :numericality => {:greater_than_or_equal_to => 0, :only_integer => true}
 
   validates :width , :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
   validates :height, :presence => true, :numericality => {:greater_than_or_equal_to => 0.0}
@@ -36,6 +36,12 @@ class Variant < ActiveRecord::Base
   delegate :liquidation?, :to => :product
   delegate :promotion?, :to => :product
   delegate :gift_price, :to => :product
+
+  def update_initial_inventory_if_needed
+    if (initial_inventory == 0 || inventory > initial_inventory)
+      self.initial_inventory = inventory
+    end
+  end
 
   def product_id=(param_id)
     result = super(param_id)

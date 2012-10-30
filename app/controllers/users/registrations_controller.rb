@@ -32,10 +32,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user].delete(:password_confirmation) if
       params[:user][:password_confirmation].blank?
     end
+    binding.pry
     params[:user].delete(:cpf) if params[:user][:cpf] && resource.cpf?
 
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
+
+    binding.pry
 
     #resource.require_cpf = true
     if resource.update_attributes(params[:user])
@@ -52,6 +55,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in resource_name, resource, :bypass => true
       render_with_scope :edit
     else
+      binding.pry
       clean_up_passwords(resource)
       render_with_scope :edit
     end
