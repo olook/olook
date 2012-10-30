@@ -838,7 +838,9 @@ body {
       overflow: visible;
       margin-top: 0;
       padding-top: 0;
-
+		&.relative{position:relative;}
+		.niver{position:absolute;top:-38px;left:270px;}
+		
       #session {
         position: relative;
         z-index: 10000;
@@ -1391,7 +1393,7 @@ header div.contact {
   overflow: auto;
   margin: 0 0 10px 0;
   padding: 5px 0;
-  border-bottom: 1px #efefef solid;
+  /*border-bottom: 1px #efefef solid;*/
   div.content {
     ul {
       float: right;
