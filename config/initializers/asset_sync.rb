@@ -14,12 +14,6 @@ if defined?(AssetSync)
       config.fog_directory = 'cdn-app-staging'
     end
 
-    # load variables for serving up fonts
-    FONTS_CONFIG = YAML.load_file("#{Rails.root}/config/fonts.yml")[Rails.env]
-    File.open("#{Rails.root}/app/assets/stylesheets/partials/variables.scss", 'w+') do |file|
-      file.write("$base_font_url: \"#{FONTS_CONFIG['domain']}\";")
-    end
-
     # Increase upload performance by configuring your region
     config.fog_region = 'us-east-1'
     #
