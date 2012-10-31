@@ -102,9 +102,9 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
-      moip_sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
+      sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
+      payment_builder = PaymentBuilder.new(@cart_service, @payment, sender_strategy)
       #payment_builder.credit_card_number = params[:credit_card][:credit_card_number]
       response = payment_builder.process!
 
