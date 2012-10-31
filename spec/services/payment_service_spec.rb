@@ -29,4 +29,17 @@ describe PaymentService do
 
   end
 
+  context "" do
+
+    before do
+    end
+
+    it "should select Braspag as we stub random to intentionally choose it, considering the given percentage" do
+    end
+
+    it "should select Moip as we stub random to intentionally choose it, considering the given percentage" do
+    end
+
+  end
+
 end
