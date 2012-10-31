@@ -1,6 +1,4 @@
-load 'deploy/assets'
-require 'new_relic/recipes'
-# require 'airbrake/capistrano'
+# load 'deploy/assets'
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
@@ -64,6 +62,5 @@ namespace :unicorn do
 end
 
 before 'deploy:restart', 'unicorn:pidof'
-after 'newrelic:notice_deployment', 'unicorn:pidof'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
-after 'deploy:cleanup', 'newrelic:notice_deployment'
+after 'deploy:cleanup', 'unicorn:pidof' 

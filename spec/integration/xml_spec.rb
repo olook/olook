@@ -293,6 +293,7 @@ context "in the ilove_ecommerce xml page" do
       content = <<-END.gsub(/^ {6}/, '')
       <?xml version="1.0" encoding="UTF-8"?>
       <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+      <channel>
       <item>
       <g:id>#{product.id}</g:id>
       <title>#{product.name}</title>
@@ -318,6 +319,7 @@ context "in the ilove_ecommerce xml page" do
       <g:price/>
       </g:shipping>
       </item>
+      </channel>
       </rss>
     END
       equivalent_content = Nokogiri::XML(content)
@@ -363,7 +365,7 @@ context "in the ilove_ecommerce xml page" do
       <identifier>#{product.id}</identifier>
       <fn>#{product.name}</fn>
       <description>#{product.description}</description>
-      <category>#{product.category}</category>
+      <category>#{product.category_humanize}</category>
       <brand>Olook</brand>
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>
@@ -372,6 +374,33 @@ context "in the ilove_ecommerce xml page" do
       <photo>#{product.pictures.last.try(:image)}</photo>
       </product>
       </products>
+      END
+      equivalent_content = Nokogiri::XML(content)
+      result.should be_equivalent_to(equivalent_content)
+    end
+  end
+
+
+  context "in the zanox page " do
+    scenario "I want to see products of zanox" do
+      visit zanox_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <productos>
+      <producto>
+      <PROD_NUMBER>#{product.id}</PROD_NUMBER>
+      <PROD_NAME>#{product.name}</PROD_NAME>
+      <PROD_PRICE>#{product.retail_price}</PROD_PRICE>
+      <PROD_PRICE_OLD>#{product.price}</PROD_PRICE_OLD>
+      <CURRENCY_SIMBOL>BRL</CURRENCY_SIMBOL>
+      <PROD_DESCRIPTION>#{product.description[0..512]}</PROD_DESCRIPTION>
+      <PROD_DESCRIPTION_LONG>#{product.description}</PROD_DESCRIPTION_LONG>
+      <PROD_URL>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=xml&amp;utm_source=zanox</PROD_URL>
+      <CATEGORY>#{product.category_humanize}</CATEGORY>
+      <FOTO_URL>#{product.main_picture.try(:image)}</FOTO_URL>
+      </producto>
+      </productos>
       END
       equivalent_content = Nokogiri::XML(content)
       result.should be_equivalent_to(equivalent_content)

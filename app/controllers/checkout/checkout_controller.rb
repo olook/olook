@@ -38,6 +38,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def new_credit_card
     @payment = CreditCard.new(CreditCard.user_data(@user))
+    @payment.telephone = session[:user_telephone_number] if session[:user_telephone_number]
   end
 
   def create_debit
@@ -51,7 +52,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      payment_builder = PaymentBuilder.new(@cart_service, @payment)
+      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
@@ -74,7 +76,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      payment_builder = PaymentBuilder.new(@cart_service, @payment)
+      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
@@ -94,18 +97,20 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create_credit_card
     params[:credit_card][:receipt] = Payment::RECEIPT if params[:credit_card]
     @payment = CreditCard.new(params[:credit_card])
+    @payment.telephone = session[:user_telephone_number]
     @bank = params[:credit_card][:bank] if params[:credit_card]
     @installments = params[:credit_card][:payments] if params[:credit_card]
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      payment_builder = PaymentBuilder.new(@cart_service, @payment)
-      payment_builder.credit_card_number = params[:credit_card][:credit_card_number]
+      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      moip_sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
+      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => response.payment.order.number), :notice => "Pagamento realizado com sucesso")
+        return redirect_to(order_show_path(:number => response.payment.order.number)) 
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf

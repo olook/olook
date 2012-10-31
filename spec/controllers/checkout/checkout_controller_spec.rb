@@ -259,6 +259,7 @@ describe Checkout::CheckoutController do
       sign_in user_with_cpf
       session[:cart_id] = cart.id
       session[:cart_freight] = freight
+      session[:user_telephone_number] = credit_card_attributes["telephone"]
     end
 
     it "should render new_credit_card when has no params" do
@@ -283,8 +284,9 @@ describe Checkout::CheckoutController do
 
     context "with valid payment" do
       before :each do
+        MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(MoipSenderStrategy))
+        moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
-        payment_builder.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard, :order => order)))
         post :create_credit_card, {:credit_card => credit_card_attributes}
       end
@@ -299,14 +301,14 @@ describe Checkout::CheckoutController do
 
       it "should redirect to order_show_path" do
         response.should redirect_to(order_show_path(:number => order.number))
-        flash[:notice].should eq("Pagamento realizado com sucesso")
       end
     end
 
     context "with invalid params" do
       before :each do
+        MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(MoipSenderStrategy))
+        moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         PaymentBuilder.stub(:new).and_return(payment_builder = double(PaymentBuilder))
-        payment_builder.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard)))
         post :create_credit_card, {:credit_card => credit_card_attributes}
       end

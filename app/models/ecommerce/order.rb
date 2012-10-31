@@ -215,7 +215,17 @@ class Order < ActiveRecord::Base
 
     Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
-  
+
+  def has_a_billet_payment?
+    payments.each do |payment| 
+      return true if payment.is_a?(Billet)
+    end
+    false
+  end  
+
+  def get_billet_expiration_date
+    payments.each { |payment| return payment.payment_expiration_date } if has_a_billet_payment?
+  end
   
   private
 
