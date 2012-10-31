@@ -14,8 +14,6 @@ if defined?(AssetSync)
       config.fog_directory = 'cdn-app-staging'
     end
 
-
-    
     # Increase upload performance by configuring your region
     config.fog_region = 'us-east-1'
     #
