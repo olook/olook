@@ -42,8 +42,8 @@ _gaq.push(['_addTrans',
 
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
-        <% @cart.items.each do |item| %>
-          <tr>
+        <% @cart.items.each_with_index do |item, index| %>
+          <tr id="product_<%=item.product.id%>">
             <td class="item">
               <% unless item.thumb_picture.nil? %>
                 <%= image_tag item.variant.thumb_picture %>
@@ -54,8 +54,8 @@ _gaq.push(['_addTrans',
             </td>
             <td class="amount">
               <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
-                <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
+              <%= hidden_field('variant','id', :value => item.variant.id) %>
+              <%= select_tag('variant[quantity]', options_for_select(item.product_quantity, item.quantity)) %>
               <%# end %>
             </td>
             <td class="discount">
@@ -66,7 +66,8 @@ _gaq.push(['_addTrans',
                 </div>
               <% end %>
             </td>
-            <td class="value">
+            <td class="value" >
+              <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => @cart_service.item_retail_price(item)) %>
               <% if @cart_service.item_promotion?(item) %>
                 <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price(item)) %></p>
                 <p>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
