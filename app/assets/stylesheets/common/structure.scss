@@ -1208,6 +1208,11 @@ body {
                   text-align: center;
                   text-transform: uppercase;
                   padding-bottom: 5px;
+                  span { 
+                    color: #000;
+                    font-size: 12px;
+                    text-transform: none;
+                  }
                 }
                 a {
                   line-height: normal;
