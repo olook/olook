@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
+  helper_method :show_current_liquidation?
+  def show_current_liquidation?
+    current_liquidation.try(:visible?)
+  end
+
   #TODO: create CartBuilder
   helper_method :current_cart
   def current_cart

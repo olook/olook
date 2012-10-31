@@ -7,8 +7,8 @@ class MoipSenderStrategy
   end
 
   def send_to_gateway
-    response = MoIP::Client.checkout(payment_data)
-    payment.build_response response
+    self.response = MoIP::Client.checkout(payment_data)
+    payment.build_response self.response
     save_payment_url!
     payment
   end
@@ -17,7 +17,6 @@ class MoipSenderStrategy
     payment.url = payment_url
     payment.save!
   end
-
 
   def payment_data
     if payment.is_a? Billet
@@ -65,7 +64,7 @@ class MoipSenderStrategy
   end
 
   def payment_url
-    MoIP::Client.moip_page(response["Token"])
+    MoIP::Client.moip_page(self.response["Token"])
   end
 
   def remove_nine_digits_of_telephone(phone_number)

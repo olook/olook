@@ -17,13 +17,13 @@ class ShowroomPresenter < BasePresenter
     collection.try(:name) || I18n.l(Date.today, :format => '%B')
   end
 
-  def display_products(asked_range, category, collection = Collection.active)
+  def display_products(asked_range, category, collection = Collection.active, user=nil)
     product_finder_service = ProductFinderService.new member, admin, collection
     products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection)
     range = parse_range(asked_range, products)
-
     output = ''
     (products[range] || []).each do |product|
+      product = change_order_using_inventory(product) if user
       if product.liquidation?
         output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
       else
@@ -33,16 +33,16 @@ class ShowroomPresenter < BasePresenter
     h.raw output
   end
 
-  def display_shoes(asked_range, collection = Collection.active)
-    display_products(asked_range, Category::SHOE, collection)
+  def display_shoes(asked_range, collection = Collection.active, user)
+    display_products(asked_range, Category::SHOE, collection, user)
   end
 
-  def display_bags(asked_range, collection = Collection.active)
-    display_products(asked_range, Category::BAG, collection)
+  def display_bags(asked_range, collection = Collection.active, user)
+    display_products(asked_range, Category::BAG, collection, user)
   end
 
-  def display_accessories(asked_range, collection = Collection.active)
-    display_products(asked_range, Category::ACCESSORY, collection)
+  def display_accessories(asked_range, collection = Collection.active, user)
+    display_products(asked_range, Category::ACCESSORY, collection, user)
   end
 
   def welcome_message(time = Time.now.hour)
@@ -56,6 +56,16 @@ class ShowroomPresenter < BasePresenter
   def facebook_avatar
     # Visit https://developers.facebook.com/docs/reference/api/ for more info
     h.image_tag "https://graph.facebook.com/#{member.uid}/picture?type=large", :class => 'avatar'
+  end
+
+  def change_order_using_inventory(product)
+    array = []
+    array << product
+    array << product.colors
+    array = array.flatten.compact
+    array = array.sort{|x,y| y.inventory <=> x.inventory}
+    product = array.first
+    product
   end
 
 private

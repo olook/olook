@@ -152,4 +152,5 @@ describe PaymentBuilder do
       subject.process!.payment.should be_nil
     end
   end
+
  end
