@@ -15,14 +15,14 @@ class CartService
     params.each_pair do |key, value|
       self.send(key.to_s+'=',value)
     end
-    
+
     self.credits ||= 0
   end
 
   def gift_wrap?
     gift_wrap == "1" ? true : false
   end
-  
+
   def freight_price
     freight && freight.fetch(:price, 0) || 0
   end
@@ -30,23 +30,23 @@ class CartService
   def freight_city
     freight && freight.fetch(:city, "") || ""
   end
-  
+
   def freight_state
     freight && freight.fetch(:state, "") || ""
   end
-  
+
   def item_price(item)
     get_retail_price_for_item(item).fetch(:price)
   end
-  
+
   def item_retail_price(item)
     get_retail_price_for_item(item).fetch(:retail_price)
   end
-    
+
   def item_promotion?(item)
     item_price(item) != item_retail_price(item)
   end
-  
+
   def item_price_total(item)
     item_price(item) * item.quantity
   end
@@ -54,19 +54,19 @@ class CartService
   def item_retail_price_total(item)
     item_retail_price(item) * item.quantity
   end
-  
+
   def item_discount_percent(item)
     get_retail_price_for_item(item).fetch(:percent)
   end
-  
+
   def item_discount_origin(item)
     get_retail_price_for_item(item).fetch(:origin)
   end
-  
+
   def item_discount_origin_type(item)
     get_retail_price_for_item(item).fetch(:origin_type)
   end
-  
+
   def item_discounts(item)
     get_retail_price_for_item(item).fetch(:discounts)
   end
@@ -81,7 +81,7 @@ class CartService
       value += self.send("item_#{type}_total", item)
     end
   end
-  
+
   def total_increase
     increase = 0
     increase += increment_from_gift_wrap
@@ -92,65 +92,65 @@ class CartService
   def total_coupon_discount
     calculate_discounts.fetch(:total_coupon)
   end
-  
+
   def total_credits_discount
     calculate_discounts.fetch(:total_credits)
   end
-  
+
   def total_discount
     calculate_discounts.fetch(:total_discount)
   end
-  
+
   def is_minimum_payment?
     calculate_discounts.fetch(:is_minimum_payment)
   end
-  
+
   def total_discount_by_type(type)
     total_value = 0
     total_value += total_coupon_discount if :coupon == type
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
-    
+
     cart.items.each do |item|
       if item_discount_origin_type(item) == type
         total_value += (item_price(item) - item_retail_price(item))
       end
     end
-    
+
     total_value
   end
-  
+
   def active_discounts
     discounts = cart.items.inject([]) do |discounts, item|
       discounts + item_discounts(item)
     end
-    
+
     discounts.uniq
   end
-  
+
   def has_more_than_one_discount?
     active_discounts.size > 1
   end
-  
+
   def total
     total = subtotal(:retail_price)
     total += total_increase
     total -= total_discount
-    
+
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
   end
-  
+
   def gross_amount
     self.subtotal(:price) + self.total_increase
   end
-  
+
   def generate_order!
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
-    
+
     user = cart.user
 
     order = Order.create!(
@@ -177,9 +177,9 @@ class CartService
     order.freight = Freight.create(freight)
 
     order.save
-    order  
+    order
   end
-  
+
   def amount_for_loyalty_program
     LoyaltyProgramCreditType.apply_percentage(total + total_discount_by_type(:credits_by_redeem))
   end
@@ -199,7 +199,7 @@ class CartService
     end
 
     def get_total_retail_price_without_discounts
-      cart.items.inject(0) do |sum, item| 
+      cart.items.inject(0) do |sum, item|
         sum += (item.variant.product.retail_price * item.quantity)
       end
     end
@@ -211,7 +211,7 @@ class CartService
     price = item.variant.product.price
     discounts = []
     origin_type = ''
-    
+
     if price != final_retail_price
       percent =  (1 - (final_retail_price / price) )* 100
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
@@ -224,7 +224,7 @@ class CartService
     #
     coupon = self.coupon
 
-    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id)
+    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price
@@ -237,16 +237,10 @@ class CartService
 
     if coupon && !coupon.is_percentage?
       discounts << :coupon_of_value
-      # coupon_value = coupon.value
-      # if coupon_value < final_retail_price
-      #   final_retail_price -= coupon_value
-      #   origin = 'Desconto de R$ '+coupon.value.to_s+' do cupom '+coupon.code
-      #   origin_type = :coupon_of_value
-      # end
     end
-        
+
     promotion = self.promotion
-    if promotion
+    if promotion && item.product.can_supports_discount?
       discounts << :promotion
       promotion_value = price - ((price * promotion.discount_percent) / 100)
       if promotion_value < final_retail_price
@@ -266,7 +260,7 @@ class CartService
     end
 
     {
-      :origin       => origin, 
+      :origin       => origin,
       :price        => price,
       :retail_price => final_retail_price,
       :percent      => percent,
@@ -274,32 +268,32 @@ class CartService
       :origin_type  => origin_type
     }
   end
-  
+
   def increment_from_gift_wrap
     gift_wrap? ? CartService.gift_wrap_price : 0
   end
-  
+
   def minimum_value
     return 0 if freight_price > Payment::MINIMUM_VALUE
     Payment::MINIMUM_VALUE
   end
-  
+
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0 if retail_value < 0
     total_discount = 0
-    
+
     coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?
-    coupon_value = 0 if should_apply_promotion_discount? 
+    coupon_value = 0 if should_apply_promotion_discount?
     coupon_value ||= 0
-    
+
     if coupon_value >= retail_value
       coupon_value = retail_value
     end
-    
+
     retail_value -= coupon_value
-    
+
     use_credits = self.credits
     credits_loyality = 0
     credits_invite = 0
@@ -312,7 +306,7 @@ class CartService
       end
 
       retail_value -= credits_loyality
-      
+
       #GET FROM INVITE
       credits_invite = self.cart.user.user_credits_for(:invite).total
       if credits_invite >= retail_value
@@ -320,7 +314,7 @@ class CartService
       end
 
       retail_value -= credits_invite
-      
+
       #GET FROM REDEEM
       credits_redeem = self.cart.user.user_credits_for(:redeem).total
       if credits_redeem >= retail_value
@@ -328,13 +322,13 @@ class CartService
       end
 
       retail_value -= credits_redeem
-      
+
     end
     total_credits = credits_loyality + credits_invite + credits_redeem
-    
+
     discounts << :coupon unless coupon_value < 0
 
-    { 
+    {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
       :total_discount                    => (coupon_value + total_credits),
@@ -345,4 +339,6 @@ class CartService
       :total_credits                     => total_credits
     }
   end
+
+
 end

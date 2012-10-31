@@ -11,12 +11,12 @@ module MarketingReports
     def initialize(filename = "untitled.txt", file_content)
       @filename = filename
       @file_content = file_content
-      @encoding = "UTF-8"
+      @encoding = "ISO-8859-1" #"UTF-8"
     end
 
     def save_local_file
      File.open(TEMP_PATH+@filename, 'w', :encoding => @encoding) do |file|
-        file.write(@file_content)
+        file.write(@file_content.encode(@encoding).force_encoding(@encoding))
       end
     end
 

@@ -14,11 +14,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource = build_resource({:half_user => true})
     respond_with resource
   end
-  
+
   def create_half
     self.create
   end
-  
+
   def edit
     @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
@@ -32,7 +32,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user].delete(:password_confirmation) if
       params[:user][:password_confirmation].blank?
     end
-    params[:user].delete(:cpf) if params[:user][:cpf]
+    params[:user].delete(:cpf) if params[:user][:cpf] && resource.cpf?
 
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
@@ -56,7 +56,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render_with_scope :edit
     end
   end
-  
+
   def destroy_facebook_account
     @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
     redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
@@ -65,7 +65,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
   def build_resource(params = nil)
     resource = super(params)
-    
+
     if data_face = user_data_from_facebook
       # resource.email = data_face["email"]
       resource.first_name = data_face["first_name"]
@@ -74,18 +74,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.facebook_token = session["devise.facebook_data"]["credentials"]["token"]
       @signup_with_facebook = true
     end
-    
+
     if bday = session[:profile_birthday]
       resource.birthday = Date.new(
         bday[:year].to_i,
         bday[:month].to_i,
         bday[:day].to_i)
     end
-    
+
     if session[:invite]
       resource.is_invited = true
     end
-    
+
     if !resource.half_user
       resource.registered_via = User::RegisteredVia[:quiz]
     else
@@ -95,7 +95,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.registered_via = User::RegisteredVia[:thin]
       end
     end
-    
+
     resource
   end
 
@@ -105,12 +105,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       session[:profile_birthday] = nil
       session[:profile_questions] = nil
     end
-    
+
     session[:tracking_params] ||= {}
     if session[:tracking_params].present?
       resource.add_event(EventType::TRACKING, session[:tracking_params])
     end
-    
+
     if session[:invite]
       resource.accept_invitation_with_token(session[:invite][:invite_token])
     end
@@ -125,7 +125,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
       GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
     end
-    
+
     if @cart.items_total > 0
       cart_checkout_addresses_path
     elsif resource.half_user && resource.male?
@@ -137,10 +137,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_data_from_facebook
     if session["devise.facebook_data"]
-      session["devise.facebook_data"]["extra"]["raw_info"] 
+      session["devise.facebook_data"]["extra"]["raw_info"]
     end
   end
-  
+
   def check_survey_response
     if session[:profile_questions].nil? || session[:profile_birthday].nil?
       redirect_to new_survey_path

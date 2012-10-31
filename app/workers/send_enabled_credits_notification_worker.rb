@@ -4,7 +4,14 @@ class SendEnabledCreditsNotificationWorker
 
   def self.perform
     UserNotifier.send_enabled_credits_notification.each do | reminder |
-      reminder.deliver
+      begin
+      	reminder.deliver
+      rescue => e
+        Airbrake.notify(
+          :error_class   => "NotificationSender",
+          :error_message => "SendEnabledCredits: the following error occurred: e.message"
+        )      	
+      end
     end
   end
 end
