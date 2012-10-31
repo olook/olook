@@ -63,3 +63,4 @@ end
 
 before 'deploy:restart', 'unicorn:pidof'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
+after 'deploy:cleanup', 'unicorn:pidof' 
