@@ -104,6 +104,8 @@ describe SendEnabledCreditsNotificationWorker do
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
   
+    Delorean.time_travel_to(DateTime.now.beginning_of_month + 5.days)
+
     mock_mail.should_not_receive(:deliver)
     LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification).and_return(mock_mail)
 
