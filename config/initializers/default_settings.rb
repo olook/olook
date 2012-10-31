@@ -16,3 +16,5 @@ Setting.defaults[:whitelisted_emails_only] = false
 Setting.defaults[:mark_notified_users] = true
 Setting.defaults[:send_in_cart_mail_locally] = false
 Setting.defaults[:checkout_suggested_product_id]= "12472"
+
+Setting.defaults[:quantity_for_sugested_product]= (1..5)

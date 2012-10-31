@@ -40,7 +40,6 @@ class Checkout::CartController < Checkout::BaseController
   def create
     variant_id = params[:variant][:id] if params[:variant]
 
-
     if @variant = Variant.find_by_id(variant_id)
       if @cart.add_item(@variant)
         respond_with do |format|
