@@ -4,7 +4,7 @@ update_inventory:
   queue: inventory
   description: "Atualiza o Inventario"
 
-update_status:
+update_order_status:
   cron: "*/5 * * * *"
   class: Abacos::UpdateOrderStatus
   queue: order_status
