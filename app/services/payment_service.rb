@@ -6,7 +6,6 @@ class PaymentService
     else  
       Payments::MoipSenderStrategy.new(cart_service, payment)
     end
-
   end
 
 end
