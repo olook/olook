@@ -52,7 +52,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
       payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
@@ -76,7 +76,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
       payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
