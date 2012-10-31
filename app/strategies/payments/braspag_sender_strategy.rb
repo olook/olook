@@ -9,7 +9,6 @@ module Payments
 
     def send_to_gateway
       ##TODO call braspag gem and set response
-      binding.pry
       payment
     end
     
