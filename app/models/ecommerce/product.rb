@@ -255,6 +255,9 @@ class Product < ActiveRecord::Base
     self.pictures.where(:display_on => position).first
   end
 
+  def can_supports_discount?
+    Setting.checkout_suggested_product_id.to_i != self.id
+  end
 
 private
 

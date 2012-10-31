@@ -17,6 +17,7 @@ Olook::Application.routes.draw do
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
+  match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
@@ -36,6 +37,7 @@ Olook::Application.routes.draw do
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
+  get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
@@ -55,6 +57,7 @@ Olook::Application.routes.draw do
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   #XML FOR STATISTICS
+  match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
@@ -183,11 +186,13 @@ Olook::Application.routes.draw do
     resources :orders do
       member do
         post 'change_state'
+        post 'remove_loyalty_credits'
       end
 
       collection do
         get 'timeline/:id' => 'orders#generate_purchase_timeline'
       end
+
     end
     resources :coupons, :except => [:destroy]
     resources :landing_pages
@@ -279,7 +284,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/payments#create', :as => :payment
+  post '/pagamento', :to => 'checkout/moip_payments#create', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"

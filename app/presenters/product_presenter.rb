@@ -101,7 +101,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price
-    if (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8))
+    if (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8)) && product.can_supports_discount?
       price_markdown(:promotion_price) + promotion_explanation
     elsif product.promotion? #discount
       price_markdown(:retail_price)
@@ -130,4 +130,5 @@ class ProductPresenter < BasePresenter
   def promotion_explanation
     h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation")
   end
+
 end

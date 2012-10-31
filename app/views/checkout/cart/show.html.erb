@@ -29,14 +29,7 @@ _gaq.push(['_addTrans',
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
       <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
-      <p>Selecionamos o maior desconto possível para você em cada produto (verifique abaixo):
-        <%  discounts = @cart_service.active_discounts
-          discounts.each do |discount|
-            seperate = (discount != discounts.last)
-          %>
-        <span><%= I18n.t(discount, :scope => [:cart, :discounts]) %><%= "," if seperate %></span>
-        <% end %>
-      </p>
+      <p>Selecionamos o maior desconto possível para você em cada produto (verifique abaixo):</p>
     </div>
   <% end %>
 
@@ -52,7 +45,9 @@ _gaq.push(['_addTrans',
         <% @cart.items.each do |item| %>
           <tr>
             <td class="item">
-              <%= image_tag item.variant.thumb_picture %>
+              <% unless item.thumb_picture.nil? %>
+                <%= image_tag item.variant.thumb_picture %>
+              <% end %>
               <p><span><%= item.variant.name %></span></p>
               <p>Tamanho: <%= item.variant.description %></p>
               <p>Cor/Material: <%= item.variant.color_name %></p>
@@ -87,6 +82,33 @@ _gaq.push(['_addTrans',
         <% end %>
       </tbody>
     </table>
+
+    <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
+    <p class="txt-recomenda">Olook Recomenda</p>
+	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
+      <tbody>
+          <tr>
+            <td class="avc-foto">
+              <% unless @suggested_product.master_variant.thumb_picture.nil? %>
+                <%= image_tag @suggested_product.master_variant.thumb_picture %>
+              <% end %>
+            </td>
+            <td class="avc-desc">
+              <p><span><%= @suggested_product.name %></span></p>
+              <p><%= @suggested_product.description %></p>
+            </td>
+            <td class="avc-button">
+              <p><%= number_to_currency(@suggested_product.retail_price) %></p>
+			  <%= form_tag(cart_path, onsubmit: track_event("Shopping", "AddToCart", @suggested_product.id), id: "product_add_to_cart", remote: false) do %>
+				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
+				<%= submit_tag "", id: "add_product", class: "add_product" %>
+			  <% end %>
+			
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    <% end %>
 
     <table cellpadding="0" cellspacing="0" class="check gift">
       <tbody>

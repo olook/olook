@@ -19,7 +19,9 @@
     <tr>
       <td>
         <div id="im<%= image.id %>">
-          <%= image_tag image.image_url(:thumb).to_s %>
+          <% unless image.image_url(:thumb).nil? %>
+            <%= image_tag image.image_url(:thumb).to_s %>
+          <% end %>
           <% render partial: image.lookbook_image_maps %>
         </div>
       </td>

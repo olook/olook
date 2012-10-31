@@ -12,7 +12,7 @@ class Profile < ActiveRecord::Base
   DESCRIPTION =
   {
     "casual" => 'Prática, Despojada, Independente, e adoto o lema "menos é mais"',
-    "conteporanea" => 'Antenada, Criativa, Confiante e AMO moda',
+    "contemporary" => 'Antenada, Criativa, Confiante e AMO moda',
     "elegant" => 'Chic, Bem Sucedida, Elegante e Exigente',
     "feminine" => 'Vaidosa, Romântica, Alegre e Delicada',
     "sexy" => 'Sexy, Extravagante, Segura e Vivaz',

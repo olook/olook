@@ -237,7 +237,7 @@ $(document).ready(function() {
           mask: '(99)9999-9999'
         });
       } else {
-        if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9') {
+        if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9' && currentObjPhone.is("#address_mobile")) {
           $(currentObjPhone).setMask({
             mask: '(99)99999-9999'
           });
@@ -250,8 +250,9 @@ $(document).ready(function() {
     });
   }
 
-  $('input:text.phone').keyup(function() {
+  $('input:text#address_mobile.phone,#credit_card_telephone').keyup(function() {
     var value = $(this).val();
+
     var size = value.length;
     if(size == 5) {
       if(value == '(11)9') {
