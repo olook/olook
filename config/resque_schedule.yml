@@ -51,7 +51,7 @@
 #   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 in_cart_mail:
-  cron: "25 16 * * *"
+  cron: "58 13 * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
