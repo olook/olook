@@ -1,57 +1,63 @@
-# update_inventory:
-#   cron: "*/5 * * * *"
-#   class: Abacos::UpdateInventory
-#   queue: inventory
-#   description: "Atualiza o Inventario"
+update_inventory:
+  cron: "*/5 * * * *"
+  class: Abacos::UpdateInventory
+  queue: inventory
+  description: "Atualiza o Inventario"
 
-# update_order_status:
-#   cron: "0 * * * *"
-#   class: Abacos::UpdateOrderStatus
-#   queue: order_status
-#   description: "Atualiza o status dos Pedidos"
+update_order_status:
+  cron: "*/5 * * * *"
+  class: Abacos::UpdateOrderStatus
+  queue: order_status
+  description: "Atualiza o status dos Pedidos"
 
-# update_status:
-#   cron: "*/15 * * * *"
-#   class: ProcessPaymentCallbacksWorker
-#   queue: order_status
-#   description: "Processa callbacks de Pagamento"
+update_status:
+  cron: "*/15 * * * *"
+  class: ProcessPaymentCallbacksWorker
+  queue: order_status
+  description: "Processa callbacks de Pagamento"
 
-# userbase_with_auth_token_and_credits:
-#   cron: "0 2 * * *"
-#   class: MarketingUploaderWorker
-#   queue: marketing_uploader
-#   args:
-#     - userbase_with_auth_token_and_credits
-#     - base_atualizada_purchases_auth_token_and_credits.csv
-#   description: "Cria arquivo de importação para allinemail"
+# send_in_cart_email:
+#   cron: "0 12 * * *"
+#   class: SendInCartEmailWorker
+#   queue: send_in_cart_email
+#   description: "Dispara emails para carrinhos abandonados"
 
-# send_billet_reminder:
-#   cron: "0 5 * * 1-5"
-#   class: SendBilletReminderWorker
-#   queue: send_billet_reminder
-#   description: "Dispara emails de aviso p/ vencimento do boleto"
+userbase_with_auth_token_and_credits:
+  cron: "0 2 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - userbase_with_auth_token_and_credits
+    - base_atualizada_purchases_auth_token_and_credits.csv
+  description: "Cria arquivo de importação para allinemail"
 
-# send_enabled_credits_notification:
-#   cron: "0 0 1 * *"
-#   class: SendEnabledCreditsNotificationWorker
-#   queue: notification_sender
-#   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
+send_billet_reminder:
+  cron: "0 5 * * 1-5"
+  class: SendBilletReminderWorker
+  queue: send_billet_reminder
+  description: "Dispara emails de aviso p/ vencimento do boleto"
 
-# # TODO: CHANGE BACK TO 23 AFTER 23/09/2012
-# send_seven_days_to_expiration_warning:
-#   cron: "40 14 26 * *"
-#   class: SendExpirationWarningWorker
-#   queue: notification_sender
-#   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
+send_enabled_credits_notification:
+  cron: "0 0 1 * *"
+  class: SendEnabledCreditsNotificationWorker
+  queue: notification_sender
+  description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
 
-# send_one_day_to_expiration_warning:
-#   cron: "1 0 L * *"
-#   class: SendExpirationTomorrowWarningWorker
-#   queue: notification_sender
-#   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
+# TODO: CHANGE BACK TO 23 AFTER 23/09/2012
+send_seven_days_to_expiration_warning:
+  cron: "40 14 26 * *"
+  class: SendExpirationWarningWorker
+  queue: notification_sender
+  description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
+
+send_one_day_to_expiration_warning:
+  cron: "1 0 L * *"
+  class: SendExpirationTomorrowWarningWorker
+  queue: notification_sender
+  description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 in_cart_mail:
-  cron: "58 13 * * *"
+  cron: "0 10 * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
