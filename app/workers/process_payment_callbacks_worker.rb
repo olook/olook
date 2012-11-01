@@ -4,6 +4,7 @@ class ProcessPaymentCallbacksWorker
 
   def self.perform
     moip_process
+    braspag_process
   end
 
   def moip_process
@@ -21,7 +22,18 @@ class ProcessPaymentCallbacksWorker
   end
 
   def braspag_process
+    BraspagCallback.where(:processed => false).order(:id).find_each do |braspag_callback|
+      payment = braspag_callback.payment
+      if payment
+        braspag_callback.update_payment_status
+      else
+        braspag_callback.update_attributes(
+          processed: true,
+          error_message: "Pagamento não identificado."
+        )
+      end
 
+    end
   end
 
 end
