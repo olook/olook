@@ -61,5 +61,5 @@ namespace :deploy do
   end
 end
 
-after 'newrelic:notice_deployment', 'unicorn:pidof'
+# after 'newrelic:notice_deployment', 'unicorn:pidof'
 after 'deploy:cleanup', 'newrelic:notice_deployment'
