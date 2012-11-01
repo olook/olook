@@ -10,10 +10,15 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 41f64c95c1649f1f8a26e6a9d7a9efce2313f761
+  revision: 020216b46e0bc23269e7af5930cd2b1f9f09abbc
   branch: master
   specs:
-    obraspag (0.1.0)
+    obraspag (0.0.1)
+      active_attr (>= 0.6)
+      httpi (>= 0.9.7)
+      json (>= 1.6.1)
+      nokogiri (>= 1.4.7)
+      savon (>= 0.9.9)
 
 PATH
   remote: vendor/gems
@@ -45,6 +50,9 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
+    active_attr (0.6.0)
+      activemodel (>= 3.0.2, < 4.1)
+      activesupport (>= 3.0.2, < 4.1)
     activemodel (3.2.2)
       activesupport (= 3.2.2)
       builder (~> 3.0.0)
