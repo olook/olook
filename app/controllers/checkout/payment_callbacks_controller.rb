@@ -15,4 +15,9 @@ class Checkout::PaymentCallbacksController < ActionController::Base
 
     render :nothing => true, :status => 200
   end
+
+  def create_braspag
+
+  end
+
 end
