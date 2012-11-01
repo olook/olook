@@ -18,6 +18,11 @@ class Checkout::PaymentCallbacksController < ActionController::Base
 
   def create_braspag
     payment = Payment.find_by_identification_code(params[:order_id])
+    BraspagCallback.create!(id_transacao: params[:order_id],
+                            status: params[:status],
+                            payment_method: params[:payment_method],
+                            payment_id: payment.try(:id)
+    )
     render  :text => "<status>OK</status>"
   end
 
