@@ -38,7 +38,7 @@ send_billet_reminder:
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
 send_enabled_credits_notification:
-  cron: "0 0 1 * *"
+  cron: "0 5 1 * *"
   class: SendEnabledCreditsNotificationWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
