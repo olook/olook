@@ -92,8 +92,8 @@ $base_font_url: "http://app3.olook.com.br";
 }
 @font-face {
 	font-family: 'FuturaStd-Bold';
-	src: url('futurastd-bold.eot');
-	src: url('futurastd-bold.eot?#iefix') format('embedded-opentype'),
+	src: url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.eot');
+	src: url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.eot?#iefix') format('embedded-opentype'),
 			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.woff') format('woff'),
 			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.ttf') format('truetype'),
 			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.svg#futurastd-bold') format('svg');
