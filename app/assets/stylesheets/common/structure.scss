@@ -840,8 +840,7 @@ body {
       padding-top: 0;
 		.niver-logged{margin:-30px 0 0 62px}
 		.niver{margin:-15px 0 0 62px;}
-
-      #session {
+		#session {
         position: relative;
         z-index: 10000;
         @include sign-in;
