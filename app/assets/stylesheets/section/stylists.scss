@@ -5,7 +5,9 @@ section#stylist {
 
   div.profile {
     width: 100%;
-    overflow: auto;
+    /*overflow: auto;*/
+	 float:left;
+	 clear:both;
     margin: 0 0 60px;
     h1.stylist {
       background: url("/assets/stylist/stylist.jpg") top center no-repeat;
@@ -92,7 +94,9 @@ section#stylist {
           line-height: normal;
           letter-spacing: 0;
           text-transform: uppercase;
-          &.price {
+			 position:absolute;
+			 text-align:center;
+          .price {
             font-style: normal;
           }
         }
@@ -116,62 +120,54 @@ section#stylist {
           background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
           width: 185px;
           height: 56px;
-          top: 135px;
-          right: 15px;
+          top: 198px;
+          left: 15px;
           z-index: 10;
         }
-        a#xavante {
-          background: url("/assets/stylist/helena_linhares/xavante.jpg") top center no-repeat;
+        a#albornoz{
+          background: url("/assets/stylist/helena_linhares/albornoz.png") no-repeat;
           text-align: center;
-          width: 152px;
-          height: 143px;
-          top: 0;
-          left: 20px;
-          padding: 35px 0 0 0;
+          width: 200px;
+          height: 210px;
+          top: -21px;
+          left: -9px;
+          p{top:40px;left:120px;}
         }
-        a#carijo {
-          background: url("/assets/stylist/helena_linhares/carijo.png") top right no-repeat;
-          width: 235px;
-          height: 30px;
-          top: -15px;
-          right: -20px;
-          padding: 100px 15px 0 0;
+        a#bolero{
+          background: url("/assets/stylist/helena_linhares/bolero.png") no-repeat;
+          width: 174px;
+          height: 334px;
+          top: 1px;
+          right: 80px;
+			 z-index:11;
+          p{top:200px;right:-55px;}
         }
-        a#katukina {
-          background: url("/assets/stylist/helena_linhares/katukina.jpg") top left no-repeat;
-          text-align: right;
-          width: 95px;
-          height: 110px;
-          top: 210px;
-          right: 65px;
-          padding: 35px 0 0 60px;
+        a#baju{
+          background: url("/assets/stylist/helena_linhares/baju.png") no-repeat;
+          text-align: left;
+          width: 163px;
+          height: 206px;
+          top: -52px;
+          right: 0;
+			 z-index:10;
+          p{top:80px;left:-50px;}
         }
-        /*a#pareci {
-                  background: url("/assets/stylist/helena_linhares/pareci.png") bottom right no-repeat;
-                  text-align: right;
-                  width: 200px;
-                  height: 142px;
-                  bottom: 0;
-                  right: -25px;
-                  padding: 0 40px 35px 0;
-                }*/
-		  a#caete{
-			  background: url("/assets/stylist/helena_linhares/caete.jpg") right 23px no-repeat;
-           text-indent: 140px;
-           width: 240px;
-           height: 130px;
-           bottom: 0;
-           right: 0px;
-           padding: 0 40px 35px 0;
-		}			
-        a#atikum {
-          background: url("/assets/stylist/helena_linhares/atikum.jpg") top right no-repeat;
-          width: 206px;
-          height: 267px;
+		  a#bobby{
+		   background: url("/assets/stylist/helena_linhares/bobby.png") no-repeat;
+         width: 226px;
+         height: 176px;
+         bottom: 0;
+         right: 0px;
+			p{top:30px;left:40px}
+		 }			
+       a#bicorne{
+          background: url("/assets/stylist/helena_linhares/bicorne.png") no-repeat;
+          width: 220px;
+          height: 250px;
           bottom: 0;
-          left: 20px;
-          padding: 10px 0 0 0;
-        }
+          left: 0;
+          p{top:35px;left:10px;}
+       }
       }
     }
     &#didi_wagner {
