@@ -12,8 +12,8 @@ module Payments
       payment
     end
 
-    def order_data(order)
-      Braspag::Order.new(order.number)
+    def order_data
+      Braspag::Order.new(@payment.identification_code)
     end
 
     def address_data(address)
