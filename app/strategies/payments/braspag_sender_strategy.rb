@@ -62,6 +62,7 @@ module Payments
 
   def proccess_response(authorize_response, capture_response)
 
+
   end
 
   end
