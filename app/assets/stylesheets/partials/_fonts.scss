@@ -1,5 +1,5 @@
-$base_font_url: "http://app3.olook.com.br";
-
+/*$base_font_url: "http://app3.olook.com.br";http://45a2.localtunnel.com*/
+$base_font_url: "http://45a2.localtunnel.com";
 @font-face {
     font-family: 'QuicksandBold';
     src: url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.eot');
@@ -74,6 +74,39 @@ $base_font_url: "http://app3.olook.com.br";
          url('#{$base_font_url}/assets/avenir_medium/avenir-medium.woff') format('woff'),
          url('#{$base_font_url}/assets/avenir_medium/avenir-medium.ttf') format('truetype'),
          url('#{$base_font_url}/assets/avenir_medium/avenir-medium.svg#avenir_medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*NIVER OLOOK*/
+
+@font-face {
+	font-family: 'FuturaStd-Book';
+	src: url('#{$base_font_url}/assets/futura-std-book/futurastd-book.eot');
+	src: url('#{$base_font_url}/assets/futura-std-book/futurastd-book.eot?#iefix') format('embedded-opentype'),
+			 url('#{$base_font_url}/assets/futura-std-book/futurastd-book.woff') format('woff'),
+			 url('#{$base_font_url}/assets/futura-std-book/futurastd-book.ttf') format('truetype'),
+			 url('#{$base_font_url}/assets/futura-std-book/futurastd-book.svg#futurastd-book') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'FuturaStd-Bold';
+	src: url('futurastd-bold.eot');
+	src: url('futurastd-bold.eot?#iefix') format('embedded-opentype'),
+			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.woff') format('woff'),
+			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.ttf') format('truetype'),
+			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.svg#futurastd-bold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'Futura-medium';
+    src: url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.eot');
+    src: url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.woff') format('woff'),
+         url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.ttf') format('truetype'),
+         url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.svg#Futura-medium') format('svg');
     font-weight: normal;
     font-style: normal;
 }
