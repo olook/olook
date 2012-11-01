@@ -17,7 +17,7 @@ describe PaymentBuilder do
     :cart => cart,
     :freight => freight,
   }) }
-  let(:moip_sender_strategy) {double(MoipSenderStrategy)}
+  let(:moip_sender_strategy) {double(Payments::MoipSenderStrategy)}
 
   subject {
     pb = PaymentBuilder.new(cart_service, credit_card, moip_sender_strategy)
