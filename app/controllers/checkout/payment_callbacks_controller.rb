@@ -17,7 +17,8 @@ class Checkout::PaymentCallbacksController < ActionController::Base
   end
 
   def create_braspag
-
+    payment = Payment.find_by_identification_code(params[:order_id])
+    render  :text => "<status>OK</status>"
   end
 
 end
