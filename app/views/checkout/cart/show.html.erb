@@ -55,7 +55,7 @@ _gaq.push(['_addTrans',
             <td class="amount">
               <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
               <%= hidden_field('variant','id', :value => item.variant.id) %>
-              <%= select_tag('variant[quantity]', options_for_select(item.product_quantity, item.quantity)) %>
+              <%= select_tag('variant[quantity]', options_for_select(item.product_quantity, item.quantity), :onchange => "change_quantity(#{item.product.id})") %>
               <%# end %>
             </td>
             <td class="discount">
