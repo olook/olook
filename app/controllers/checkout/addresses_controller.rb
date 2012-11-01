@@ -6,7 +6,6 @@ class Checkout::AddressesController < Checkout::BaseController
   before_filter :erase_freight
 
   def index
-    binding.pry
     redirect_to new_cart_checkout_address_path unless @user.addresses.any?
 
     @addresses = @user.addresses
@@ -51,9 +50,6 @@ class Checkout::AddressesController < Checkout::BaseController
   end
 
   def assign_address
-    puts "TESTEEEEEEEEEEEEEEE #{params}"
-    binding.pry
-
     @address = @user.addresses.find_by_id(params[:address_id])
     if @address
       set_telephone_user(@address.telephone)
