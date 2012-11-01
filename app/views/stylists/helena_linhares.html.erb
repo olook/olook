@@ -20,13 +20,12 @@
       <h1>Amo!</h1>
       <% @products_helena.each do |product| %>
         <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
-          <p><%= product.name %></p>
-          <p class="price"><%= number_to_currency product.price %></p>
+          <p><%= product.name %><br/><span class="price"><%= number_to_currency product.price %></span></p>
         <% end %>
       <% end %>
     </div>
   </div>
-  <div class="profile" id="didi_wagner">
+  <!--div class="profile" id="didi_wagner">
     <h1 class="stylist">Stylist Convidada</h1>
     <div class="description">
       <h1>Didi <span>Wagner</span></h1>
@@ -46,13 +45,13 @@
     </div>
     <div class="products">
       <h1>As escolhas da Didi...</h1>
-      <% @products_didi.each do |product| %>
-        <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
-          <p><%= product.name %></p>
-          <p class="price"><%= number_to_currency product.price %></p>
-        <% end %>
-      <% end %>
-    </div>
+      <%# @products_didi.each do |product| %>
+        <%#link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
+          <p><%# product.name %></p>
+          <p class="price"><%# number_to_currency product.price %></p>
+        <%# end %>
+      <%# end %>
+    </div-->
   </div>
 </section>
 

@@ -838,10 +838,9 @@ body {
       overflow: visible;
       margin-top: 0;
       padding-top: 0;
-
 		.niver-logged{margin:-30px 0 0 62px}
 		.niver{margin:-15px 0 0 62px;}
-      #session {
+		#session {
         position: relative;
         z-index: 10000;
         @include sign-in;
@@ -1210,6 +1209,10 @@ body {
                   text-align: center;
                   text-transform: uppercase;
                   padding-bottom: 5px;
+						span{color: #000;
+						    font-size: 12px;
+						    text-transform: none;
+					   }
                 }
                 a {
                   line-height: normal;
