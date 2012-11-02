@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Gift::HomeController < Gift::BaseController
+  layout 'gift'
+
   before_filter :check_facebook_permissions
   before_filter :load_facebook_adapter
   before_filter :load_friends
@@ -15,7 +17,7 @@ class Gift::HomeController < Gift::BaseController
   def current_month
     Time.now.month
   end
-  
+
   def check_facebook_permissions
     if @user && @user.has_facebook_friends_birthday?
       session[:facebook_scopes] = nil
