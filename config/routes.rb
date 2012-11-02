@@ -287,7 +287,6 @@ Olook::Application.routes.draw do
 
   #MOIP-CALLBACK
   post '/pagamento', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
-  post '/pagamento_braspag', to: 'checkout/payment_callbacks#create_braspag', as: :payment_braspag
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
