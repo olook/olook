@@ -1,4 +1,10 @@
 $(function () {
+  $("section#profiles ul li a").live("click", function(e) {
+    $("section#profiles ul li a").addClass("off");
+    $(this).removeClass("off");
+    e.preventDefault();
+  });
+
   $("div#calendar ul#months li a").live("click", function(event) {
     $("div#calendar ul#months li a").removeClass("selected");
     $(this).addClass("selected");
