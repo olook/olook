@@ -13,7 +13,7 @@ describe Users::RegistrationsController do
   let(:birthday_date) { Date.new(1987, 9, 27) }
   let(:facebook_data) { {"extra" => {"raw_info" => {"first_name" => "Maria", "last_name" => "Alencar", "id" => "12876556"}}, "credentials" => {"token" => "abc"}} }
   let(:inviting_member) { FactoryGirl.create(:member) }
-  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => "invite") }  
+  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => "invite") }
 
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
@@ -86,7 +86,7 @@ describe Users::RegistrationsController do
         controller.resource.facebook_token.should eq("abc")
       end
     end
-    
+
     context "when is half user" do
       it "should render new_half" do
         get :new_half
@@ -94,7 +94,7 @@ describe Users::RegistrationsController do
       end
     end
   end
-  
+
   describe "sign up" do
     context "when is full user" do
       it "should redirect if the user don't fill the Survey" do
@@ -119,7 +119,7 @@ describe Users::RegistrationsController do
           post :create, :user => user_attributes
         }.to change(User, :count).by(1)
       end
-      
+
       it "should response error when invalid attributes" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = birthday
@@ -136,7 +136,7 @@ describe Users::RegistrationsController do
         post :create, :user => user_attributes
         controller.current_user.birthday.should eq(birthday_date)
       end
-      
+
       it "should clear birthday session" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = birthday
@@ -144,7 +144,7 @@ describe Users::RegistrationsController do
         post :create, :user => user_attributes
         session[:profile_birthday].should be_nil
       end
-      
+
       it "should save questions" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = birthday
@@ -167,7 +167,7 @@ describe Users::RegistrationsController do
         post :create, :user => user_attributes
         response.should redirect_to(member_welcome_path)
       end
-      
+
       it "should set registered_via from quiz" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = birthday
@@ -176,7 +176,7 @@ describe Users::RegistrationsController do
         controller.current_user.registered_via.should eq(User::RegisteredVia[:quiz])
       end
     end
-    
+
     context "when is half user" do
       it "should save user" do
         expect {
@@ -206,12 +206,12 @@ describe Users::RegistrationsController do
           session[:occasion_id] = occasion.id
           session[:cart_id] = cart.id
         end
-        
+
         it "should set registered_via from gift" do
           post :create_half, :user => half_user_attributes
           controller.current_user.registered_via.should eq(User::RegisteredVia[:gift])
         end
-        
+
         it "should update gift occassion with user" do
           post :create_half, :user => half_user_attributes
           occasion.reload.user_id.should be(controller.current_user.id)
@@ -221,7 +221,7 @@ describe Users::RegistrationsController do
           post :create_half, :user => half_user_attributes
           recipient.reload.user_id.should be(controller.current_user.id)
         end
-        
+
         it "should update cart with user" do
           post :create_half, :user => half_user_attributes
           cart.reload.user_id.should be(controller.current_user.id)
@@ -239,12 +239,12 @@ describe Users::RegistrationsController do
         before  :each do
           session[:cart_id] = cart.id
         end
-        
+
         it "should set registered_via from thin" do
           post :create_half, :user => half_user_attributes
           controller.current_user.registered_via.should eq(User::RegisteredVia[:thin])
         end
-        
+
         it "should update cart with user" do
           post :create_half, :user => half_user_attributes
           cart.reload.user_id.should be(controller.current_user.id)
@@ -256,7 +256,7 @@ describe Users::RegistrationsController do
         end
       end
     end
-    
+
     it "should save tracking" do
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
@@ -264,7 +264,7 @@ describe Users::RegistrationsController do
       ProfileBuilder.stub(:factory)
       expect {
         post :create, :user => user_attributes
-        
+
         last_event = Event.last
         last_event.user_id.should be(controller.current_user.id)
         last_event.event_type.should be(EventType::TRACKING)
@@ -280,7 +280,7 @@ describe Users::RegistrationsController do
       post :create, :user => user_attributes
       session[:tracking_params].should be_nil
     end
-    
+
     it "should save invite" do
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
@@ -289,7 +289,7 @@ describe Users::RegistrationsController do
       post :create, :user => user_attributes.merge("cpf" => "44827455619")
       controller.current_user.is_invited.should be_true
     end
-    
+
     it "should clear invite session" do
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday
@@ -298,7 +298,7 @@ describe Users::RegistrationsController do
       post :create, :user => user_attributes.merge("cpf" => "44827455619")
       session[:invite].should be_nil
     end
-    
+
     it "should save facebook" do
       session["devise.facebook_data"] = facebook_data
       session[:profile_questions] = :some_data
@@ -310,7 +310,7 @@ describe Users::RegistrationsController do
       controller.current_user.last_name.should eq("Alencar")
       controller.current_user.facebook_token.should eq("abc")
     end
-    
+
     it "should clear facebook session" do
       session["devise.facebook_data"] = facebook_data
       session[:profile_questions] = :some_data
@@ -333,9 +333,18 @@ describe Users::RegistrationsController do
       response.should render_template ["layouts/my_account", "edit"]
     end
 
-    it "should not update the cpf" do
+    it "should not update the old cpf" do
+      @user.cpf = "42232096807"
       put :update, :id => @user.id, :user => user_attributes.merge("cpf" => "19762003691")
-      @user.reload.cpf.should be_nil
+      @user.reload.cpf.should eq(@user.cpf)
+      response.should render_template ["layouts/my_account", "edit"]
+    end
+
+    it "should update cpf if it's nil" do
+      @user.cpf = nil
+      cpf = "19762003691"
+      put :update, :id => @user.id, :user => user_attributes.merge("cpf" => "19762003691")
+      @user.reload.cpf.should eq(cpf)
       response.should render_template ["layouts/my_account", "edit"]
     end
 
@@ -345,7 +354,7 @@ describe Users::RegistrationsController do
       response.should render_template ["layouts/my_account", "edit"]
     end
   end
-  
+
   describe "DELETE destroy_facebook_account" do
     it "should destroy the facebook account removing the user uid and facebook_token" do
       user = FactoryGirl.create(:user)

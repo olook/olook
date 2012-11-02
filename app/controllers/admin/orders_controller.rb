@@ -54,9 +54,16 @@ class Admin::OrdersController < Admin::BaseController
     redirect_to admin_orders_path, :notice => "Integrate Cancel Orders, checking Resque"
   end
 
-  def cancel_loyalty_credits
-    @order = Order.find(params[:order_id])
-    redirect_to admin_order_path(@order), :notice => @order.remove_order_credits ? "Credits Cancelled for order #{@order.number}" : "Credits not Cancelled for order #{@order.number}"
+  def remove_loyalty_credits
+    @order = Order.find(params[:id])
+    line_item = LineItem.find(params[:line_item_id])
+    debits = line_item.remove_loyalty_credits
+    if debits.try(:empty?)
+      flash[:error] = "Não foi possível remover os créditos de fidelidade."
+    else 
+      flash[:notice] = "Creditos removidos com sucesso!"
+    end
+    respond_with :admin, @order
   end
 
 end

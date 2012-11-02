@@ -4,7 +4,7 @@ update_inventory:
   queue: inventory
   description: "Atualiza o Inventario"
 
-update_status:
+update_order_status:
   cron: "*/5 * * * *"
   class: Abacos::UpdateOrderStatus
   queue: order_status
@@ -12,20 +12,23 @@ update_status:
 
 update_status:
   cron: "*/15 * * * *"
-  class: SetPaymentStatusWorker
+  class: ProcessPaymentCallbacksWorker
   queue: order_status
   description: "Processa callbacks de Pagamento"
 
-send_in_cart_email:
-  cron: "0 20 * * *"
-  class: SendInCartEmailWorker
-  queue: send_in_cart_email
-  description: "Dispara emails para carrinhos abandonados"
+# send_in_cart_email:
+#   cron: "0 12 * * *"
+#   class: SendInCartEmailWorker
+#   queue: send_in_cart_email
+#   description: "Dispara emails para carrinhos abandonados"
 
-marketing_uploader:
+userbase_with_auth_token_and_credits:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
+  args:
+    - userbase_with_auth_token_and_credits
+    - base_atualizada_purchases_auth_token_and_credits.csv
   description: "Cria arquivo de importação para allinemail"
 
 send_billet_reminder:
@@ -35,7 +38,7 @@ send_billet_reminder:
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
 send_enabled_credits_notification:
-  cron: "0 0 1 * *"
+  cron: "0 5 1 * *"
   class: SendEnabledCreditsNotificationWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
@@ -53,3 +56,12 @@ send_one_day_to_expiration_warning:
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
+in_cart_mail:
+  cron: "0 10 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - in_cart_mail
+    - abandono-%Y-%m-%d.csv
+    - exact_target.yml
+  description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"

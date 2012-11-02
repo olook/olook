@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     LiquidationService.active
   end
 
+  helper_method :show_current_liquidation?
+  def show_current_liquidation?
+    current_liquidation.try(:visible?)
+  end
+
   #TODO: create CartBuilder
   helper_method :current_cart
   def current_cart
@@ -75,13 +80,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #TODO: create RefererBuilder
+  #TODO: please create RefererBuilder
   helper_method :current_referer
   def current_referer
     session[:return_to] = case request.referer
       when /produto|sacola/ then
         session[:return_to] ? session[:return_to] : nil
-      when /moments/ then
+      when /colecoes/ then
         { text: "Voltar para coleções", url: moments_path }
       when /suggestions/ then
         session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil

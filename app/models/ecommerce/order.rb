@@ -216,11 +216,16 @@ class Order < ActiveRecord::Base
     Resque.enqueue_in(20.minutes, Abacos::ConfirmPayment, self.number)
   end
 
-  def remove_order_credits
-    # busca o credito original (dado no momento da entrega da compra)
-    first_credit = Credit.where(source: "loyalty_program_credit", order_id: self.id, is_debit: false).first 
-    LoyaltyProgramCreditType.refund_credit(first_credit)
+  def has_a_billet_payment?
+    payments.each do |payment| 
+      return true if payment.is_a?(Billet)
+    end
+    false
   end  
+
+  def get_billet_expiration_date
+    payments.each { |payment| return payment.payment_expiration_date } if has_a_billet_payment?
+  end
   
   private
 
