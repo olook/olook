@@ -14,4 +14,20 @@
       <h2>Comece escolhendo <strong>como ela é:</strong></h2>
     </div>
   </section>
+  <section id="profile_products" class="sub">
+  </section>
+  <section id="suggestions">
+  </section>
+  <section id="suggestions_products" class="sub">
+  </section>
+  <section id="quiz">
+  </section>
+  <section id="calendar">
+    <% if current_user && !current_user.has_facebook_friends_birthday? %>
+      <%= link_to "Importar meus contatos do Facebook", user_omniauth_authorize_path(:facebook), :class => "facebook" %>
+    <% elsif !current_user %>
+      <%= link_to "Importar meus contatos do Facebook", "javascript:void(0);", :class => "facebook disabled", :alt => "Para importar seus contatos do facebook faça seu login", :title => "Para importar seus contatos do facebook faça seu login" %>
+    <% end %>
+    <%= render "gift/shared/calendar" %>
+  </section>
 <% end %>
