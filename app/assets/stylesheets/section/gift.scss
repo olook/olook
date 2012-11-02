@@ -38,6 +38,196 @@ body div.full_container {
         }
       }
     }
+    &#calendar {
+      div.content {
+        div#calendar_container {
+          position: relative;
+          div.opacity {
+            background: url("/assets/gift/opacity.png") repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 990px;
+            height: 100%;
+            display: block;
+          }
+          div.title {
+            margin: 0 0 10px 0;
+            border-bottom: 1px #eaeaea solid;
+            h1 {
+              background: url("/assets/gift/subtitle-calendar.jpg") 255px 0 no-repeat;
+              color: #101010;
+              font-family: $johnston;
+              font-size: 31px;
+              font-weight: lighter;
+              letter-spacing: -2px;
+              line-height: 50px;
+              text-transform: uppercase;
+              padding: 5px 0 0 0;
+            }
+          }
+          div#calendar {
+            width: 100%;
+            overflow: hidden;
+            padding: 0 0 80px 0;
+            ul#months {
+              text-align: center;
+              width: 100%;
+              overflow: hidden;
+              margin: 0 0 20px 0;
+              padding: 0 0 20px 5px;
+              border-bottom: 1px #eaeaea solid;
+              li {
+                width: 80px;
+                margin: 0;
+                padding: 10px 0;
+                float: left;
+                a {
+                  color: #878686;
+                  font-family: $johnston;
+                  font-size: 15px;
+                  font-weight: lighter;
+                  text-transform: uppercase;
+                  text-decoration: none;
+                  padding: 10px 5px;
+                }
+                &.first {
+                  margin-left: 0;
+                }
+                &.last {
+                  margin-right: 0;
+                }
+              }
+            }
+            ul.friends_list {
+              > li {
+                position: relative;
+                width: 50px;
+                overflow: visible;
+                margin: 0 5px 10px 0;
+                display: block;
+                float: left;
+                a {
+                  color: $third_color;
+                  font-family: $avenir;
+                  font-size: 12px;
+                  text-align: center;
+                  text-decoration: none;
+                  float: left;
+                  div.mask {
+                    width: 50px;
+                    height: 50px;
+                    margin: 0 0 2px 0;
+                    overflow: hidden;
+                    img {
+                      height: 60px;
+                    }
+                  }
+                  p {
+                    height: 18px;
+                    overflow: hidden;
+                  }
+                }
+                div.actions {
+                  position: absolute;
+                  background: image-url('gift/bg-actions-left.png') bottom center no-repeat;
+                  width: 250px;
+                  height: 123px;
+                  overflow: visible;
+                  top: 40px;
+                  left: 0;
+                  z-index: 1000;
+                  display: none;
+                  div.triangle {
+                    position: absolute;
+                    background: url("/assets/gift/triangle-pink.png") no-repeat;
+                    width: 13px;
+                    height: 13px;
+                    display: block;
+                    top: -3px;
+                    left: -3px;
+                  }
+                  h1 {
+                    color: #101010;
+                    font-family: $kepler;
+                    font-size: 16px;
+                    font-weight: 600;
+                    text-align: center;
+                    margin: 25px auto 7px;
+                    width: 220px;
+                  }
+                  p {
+                    color: $third_color;
+                    font-size: 13px;
+                    line-height: normal;
+                    text-align: center;
+                    margin: 0 0 8px;
+                  }
+                  ul {
+                    li {
+                      input[type="submit"] {
+                        background: image-url("gift/bt-find-present.jpg") no-repeat;
+                        text-indent: -99999px;
+                        width: 169px;
+                        height: 30px;
+                        display: block;
+                        margin: 0 auto;
+                        border: none;
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                  a.close_actions {
+                    position: absolute;
+                    color: #c1c1c1;
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 13px;
+                    font-weight: bold;
+                    top: 10px;
+                    right: 10px;
+                  }
+                  &.left {
+                    background: image-url('gift/bg-actions.png') bottom center no-repeat;
+                    right: 0;
+                    left: auto;
+                  }
+                }
+                &:hover > div.actions {
+                  display: block;
+                }
+              }
+            }
+            &.connected {
+              ul#months {
+                li {
+                  height: 32px;
+                  a {
+                    background: url("/assets/gift/arrow-pink.png") top center no-repeat;
+                    margin-top: 7px;
+                    display: block;
+                    &:hover, &.selected {
+                      background: url("/assets/gift/arrow-black.png") top center no-repeat;
+                      color: #080808;
+                      font-size: 23px;
+                      margin-top: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          a#connect_facebook {
+            background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+            text-indent: -99999px;
+            width: 403px;
+            height: 43px;
+            display: block;
+            margin: 0 auto;
+            padding: 0 0 0 40px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -426,194 +616,6 @@ div.full_container {
   }
 }
 
-div.content {
-  div#calendar_container {
-    position: relative;
-    div.opacity {
-      background: url("/assets/gift/opacity.png") repeat;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 990px;
-      height: 100%;
-      display: block;
-    }
-    div.title {
-      margin: 0 0 10px 0;
-      border-bottom: 1px #eaeaea solid;
-      h1 {
-        background: url("/assets/gift/subtitle-calendar.jpg") 255px 0 no-repeat;
-        color: #101010;
-        font-family: $johnston;
-        font-size: 31px;
-        font-weight: lighter;
-        letter-spacing: -2px;
-        line-height: 50px;
-        text-transform: uppercase;
-        padding: 5px 0 0 0;
-      }
-    }
-    div#calendar {
-      width: 100%;
-      overflow: hidden;
-      padding: 0 0 80px 0;
-      ul#months {
-        text-align: center;
-        width: 100%;
-        overflow: hidden;
-        margin: 0 0 20px 0;
-        padding: 0 0 20px 5px;
-        border-bottom: 1px #eaeaea solid;
-        li {
-          width: 80px;
-          margin: 0;
-          padding: 10px 0;
-          float: left;
-          a {
-            color: #878686;
-            font-family: $johnston;
-            font-size: 15px;
-            font-weight: lighter;
-            text-transform: uppercase;
-            text-decoration: none;
-            padding: 10px 5px;
-          }
-          &.first {
-            margin-left: 0;
-          }
-          &.last {
-            margin-right: 0;
-          }
-        }
-      }
-      ul.friends_list {
-        > li {
-          position: relative;
-          width: 50px;
-          overflow: visible;
-          margin: 0 5px 10px 0;
-          display: block;
-          float: left;
-          a {
-            color: $third_color;
-            font-family: $avenir;
-            font-size: 12px;
-            text-align: center;
-            text-decoration: none;
-            float: left;
-            div.mask {
-              width: 50px;
-              height: 50px;
-              margin: 0 0 2px 0;
-              overflow: hidden;
-              img {
-                height: 60px;
-              }
-            }
-            p {
-              height: 18px;
-              overflow: hidden;
-            }
-          }
-          div.actions {
-            position: absolute;
-            background: image-url('gift/bg-actions-left.png') bottom center no-repeat;
-            width: 250px;
-            height: 123px;
-            overflow: visible;
-            top: 40px;
-            left: 0;
-            z-index: 1000;
-            display: none;
-            div.triangle {
-              position: absolute;
-              background: url("/assets/gift/triangle-pink.png") no-repeat;
-              width: 13px;
-              height: 13px;
-              display: block;
-              top: -3px;
-              left: -3px;
-            }
-            h1 {
-              color: #101010;
-              font-family: $kepler;
-              font-size: 16px;
-              font-weight: 600;
-              text-align: center;
-              margin: 25px auto 7px;
-              width: 220px;
-            }
-            p {
-              color: $third_color;
-              font-size: 13px;
-              line-height: normal;
-              text-align: center;
-              margin: 0 0 8px;
-            }
-            ul {
-              li {
-                input[type="submit"] {
-                  background: image-url("gift/bt-find-present.jpg") no-repeat;
-                  text-indent: -99999px;
-                  width: 169px;
-                  height: 30px;
-                  display: block;
-                  margin: 0 auto;
-                  border: none;
-                  cursor: pointer;
-                }
-              }
-            }
-            a.close_actions {
-              position: absolute;
-              color: #c1c1c1;
-              font-family: "Open Sans", sans-serif;
-              font-size: 13px;
-              font-weight: bold;
-              top: 10px;
-              right: 10px;
-            }
-            &.left {
-              background: image-url('gift/bg-actions.png') bottom center no-repeat;
-              right: 0;
-              left: auto;
-            }
-          }
-          &:hover > div.actions {
-            display: block;
-          }
-        }
-      }
-      &.connected {
-        ul#months {
-          li {
-            height: 32px;
-            a {
-              background: url("/assets/gift/arrow-pink.png") top center no-repeat;
-              margin-top: 7px;
-              display: block;
-              &:hover, &.selected {
-                background: url("/assets/gift/arrow-black.png") top center no-repeat;
-                color: #080808;
-                font-size: 23px;
-                margin-top: 0;
-              }
-            }
-          }
-        }
-      }
-    }
-    a#connect_facebook {
-      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
-      text-indent: -99999px;
-      width: 403px;
-      height: 43px;
-      display: block;
-      margin: 0 auto;
-      padding: 0 0 0 40px;
-    }
-  }
-}
 
 div#calendar_container {
   div.title {
