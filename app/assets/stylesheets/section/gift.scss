@@ -16,14 +16,14 @@ body div.full_container {
       div.content {
         background: image-url('gift/bg-shadow.jpg') bottom center no-repeat;
         min-height: 725px;
-      }
-      h1 {
-        font-size: 40px;
-        text-transform: uppercase;
-        margin: 15px 0 5px;
-        &+p {
-          font-size: 14px;
-          margin: 0 0 40px;
+        >h1 {
+          font-size: 40px;
+          text-transform: uppercase;
+          margin: 15px 0 5px;
+          &+p {
+            font-size: 14px;
+            margin: 0 0 40px;
+          }
         }
       }
       h2 {
@@ -32,9 +32,38 @@ body div.full_container {
         font-size: 16px;
         text-transform: uppercase;
         display: inline-block;
+        margin: 0 0 10px;
         padding: 0 55px 20px 0;
         strong {
           font-weight: 600;
+        }
+      }
+      ul {
+        width: 890px;
+        overflow: auto;
+        margin: 0 auto;
+        li {
+          a {
+            text-decoration: none;
+            margin: 0 40px 0 0;
+            float: left;
+            h1 {
+              background: image-url('gift/bg-profiles-title.jpg') top center no-repeat;
+              font-family: $avenir;
+              font-size: 26px;
+              font-weight: lighter;
+              text-transform: uppercase;
+              text-align: center;
+              height: 48px;
+              margin: 0 0 5px;
+              padding: 6px 0 0;
+            }
+          }
+          &:last-child {
+            a {
+              margin: 0;
+            }
+          }
         }
       }
     }
