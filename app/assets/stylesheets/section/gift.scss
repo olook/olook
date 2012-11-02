@@ -11,6 +11,7 @@ body #tracker + p {
 body div.full_container {
   section {
     background: image-url('gift/border-sections.jpg') bottom repeat-x;
+    margin: 0 0 30px;
     &#profiles {
       min-height: 740px;
       div.content {
@@ -262,6 +263,12 @@ body div.full_container {
         }
       }
     }
+    &.sub {
+      display: none;
+    }
+    &:last-child {
+      background: none;
+    }
   }
 }
 
@@ -387,7 +394,7 @@ section#occasion {
   }
 }
 
-section#quiz {
+section#squiz {
   padding: 10px 0 0;
   #survey {
     height: 460px !important;
