@@ -39,11 +39,13 @@ class Checkout::CartController < Checkout::BaseController
 
   def create
     variant_id = params[:variant][:id] if params[:variant]
+    variant_quantity = params[:variant][:quantity] if  params[:variant]
 
     if @variant = Variant.find_by_id(variant_id)
-      if @cart.add_item(@variant)
+      if @cart.add_item(@variant, variant_quantity)
         respond_with do |format|
-          format.html { redirect_to(cart_path, notice: "Produto adicionado com sucesso") }
+          message = variant_quantity.nil? ? "Produto adicionado com sucesso" : "Carrinho atualizado com sucesso" 
+          format.html { redirect_to(cart_path, notice: message) }
         end
       else
         respond_with(@cart) do |format|
