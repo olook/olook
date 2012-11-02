@@ -8,6 +8,39 @@ body #tracker + p {
   display: none;
 }
 
+body div.full_container {
+  section {
+    background: image-url('gift/border-sections.jpg') bottom repeat-x;
+    &#profiles {
+      min-height: 740px;
+      div.content {
+        background: image-url('gift/bg-shadow.jpg') bottom center no-repeat;
+        min-height: 725px;
+      }
+      h1 {
+        font-size: 40px;
+        text-transform: uppercase;
+        margin: 15px 0 5px;
+        &+p {
+          font-size: 14px;
+          margin: 0 0 40px;
+        }
+      }
+      h2 {
+        background: image-url('gift/arrow-title.jpg') top right no-repeat;
+        font-family: $avenir;
+        font-size: 16px;
+        text-transform: uppercase;
+        display: inline-block;
+        padding: 0 55px 20px 0;
+        strong {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
 section#banner {
   background: image-url('gift/bg-header.jpg') top right no-repeat;
   min-height: 515px;
