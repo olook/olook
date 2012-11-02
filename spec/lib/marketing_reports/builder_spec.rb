@@ -34,7 +34,8 @@ describe MarketingReports::Builder do
   describe "#upload" do
     let(:csv) { "a,b,c" }
     let(:filename) { "filename.csv" }
-    let(:encoding) { "utf-8" }
+
+    let(:info_ftp) { "exact_target.xml" }
     let(:uploader) { double(:uploder) }
 
     before do
@@ -42,15 +43,28 @@ describe MarketingReports::Builder do
     end
 
     it "calls FileUploader passing the csv" do
-      MarketingReports::FileUploader.should_receive(:new).with(csv).and_return(mock.as_null_object)
+      Rails.env.stub(:production) { true }
+      MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(mock.as_null_object)
+      MarketingReports::FileUploader.should_receive(:copy_file) {nil}
+      subject.save_file(filename, info_ftp)
+    end
+
+    it "calls save_local_file on the file uploader with the passed filename" do
+      Rails.env.stub(:production) { true }
+      MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(uploader)
+      uploader.should_receive(:save_local_file)
+      MarketingReports::FileUploader.should_receive(:copy_file) {nil}
       subject.save_file(filename)
     end
 
-    it "calls save_to_disk on the file uploader with the passed filename and encoding" do
+    it "calls save_local_file on the file uploader with the passed filename and info for ftp" do
+      Rails.env.stub(:production) { true }
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
-      uploader.should_receive(:save_to_disk).with(filename, encoding)
-      subject.save_file(filename, encoding)
+      uploader.should_receive(:save_local_file)
+      MarketingReports::FileUploader.should_receive(:copy_file) {nil}
+      subject.save_file(filename, info_ftp)
     end
+
   end
 
   describe "#userbase_with_auth_token" do
@@ -179,6 +193,6 @@ describe MarketingReports::Builder do
       subject.generate_userbase_with_credits
       subject.csv.should match /^#{csv_header}#{csv_body}/
     end
-  end 
+  end
 
 end

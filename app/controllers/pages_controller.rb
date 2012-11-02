@@ -20,7 +20,14 @@ class PagesController < ApplicationController
       render :contact
     end
   end
+  
+  def avc_campaign
+    render :avc_campaign
+  end
 
+  def umanomuito
+    render :um_ano_muito
+  end
 end
 
 private

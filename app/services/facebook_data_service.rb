@@ -9,13 +9,6 @@ class FacebookDataService
   def initialize
   end
 
-  # def generate_facebook_friends_birthdays_csv_list(user)
-  #   #fb_tokens = facebook_tokens
-  #   # users.find_each do |user|
-  #   birthdays = friends_birthdays(user)
-  #   format_to_csv(birthdays) unless birthdays.empty?
-  #   # end
-  # end
   # Retrieves all facebook tokens present in the database
   def self.facebook_users
     User.where("facebook_token IS NOT NULL")
@@ -32,7 +25,9 @@ class FacebookDataService
         birthday_arr = friend.birthday.split("/")
         friend.birthday = "#{birthday_arr[1]}/#{birthday_arr[0]}"
         friend_hash = JSON.parse(friend.to_json)["table"]
+        friend_hash["picture"] = "https://graph.facebook.com/#{friend_hash['uid']}/picture"
         friend_hash["friend_email"] = user.email
+        friend_hash["friend_first_name"] = user.first_name
         birthdays << friend_hash
       end
       puts "(#{user.id}) #{user.name} => success! #{friends.size} friends!"

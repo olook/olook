@@ -6,6 +6,7 @@
     discounts:
       olooklet: Desconto promocional
       coupon: Cupom
+      coupon_of_value: Cupom de valor
       credits: Créditos
       promotion: 20% na primeira compra
       gift: Pacote de presentes

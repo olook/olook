@@ -119,7 +119,11 @@ class Product < ActiveRecord::Base
   def bag_picture
     main_picture.try(:image_url, :bag) # 70x70
   end
-
+  
+  def checkout_picture
+    main_picture.try(:image_url, :checkout) # 90x90
+  end
+  
   def showroom_picture
     main_picture.try(:image_url, :showroom) # 170x170
   end
@@ -155,6 +159,10 @@ class Product < ActiveRecord::Base
 
   def inventory
     self.variants.sum(:inventory)
+  end
+
+  def initial_inventory
+    self.variants.sum(:initial_inventory)
   end
 
   def sold_out?
@@ -255,6 +263,9 @@ class Product < ActiveRecord::Base
     self.pictures.where(:display_on => position).first
   end
 
+  def can_supports_discount?
+    Setting.checkout_suggested_product_id.to_i != self.id
+  end
 
 private
 

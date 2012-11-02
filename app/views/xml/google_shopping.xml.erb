@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
 <% @products.each do |product| %>
 <item>
 <g:id><%= product.id %></g:id>
@@ -21,11 +22,7 @@
 <% end %>
 <g:item_group_id><%= product.id %></g:item_group_id>
 <g:color><%= product.color_name %></g:color>
-<g:shipping>
-<g:country>BR</g:country>
-<g:service></g:service>
-<g:price></g:price>
-</g:shipping>
 </item>
 <% end %>
+</channel>
 </rss>
