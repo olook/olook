@@ -10,9 +10,8 @@ body #tracker + p {
 
 section#banner {
   background: image-url('gift/bg-header.jpg') top right no-repeat;
-  width: 100%;
   min-height: 515px;
-  margin: 0 0 20px;
+  margin-bottom: 20px;
   overflow: auto;
   h1 {
     color: #101010;
@@ -376,8 +375,6 @@ section#profile {
 }
 
 div.full_container {
-  background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
-  padding: 0 0 27px 0;
   div.shadow {
     position: absolute;
     background: url("/assets/gift/shadow-signed-out.png") top center no-repeat;
