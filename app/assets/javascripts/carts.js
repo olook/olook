@@ -1,7 +1,5 @@
 $(function() {
 
-  // $('select#variant_quantity').change(change_quantity);
-
   $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
     document.location = $("a.continue").attr("href");
   });
@@ -104,20 +102,4 @@ function change_value(wrap) {
 
   new_value = actual_value + ((wrap) ? wrap_value : - wrap_value);
   $('table#total tr.total td.value').html("<p>R$ "+new_value.toFixed(2).toString().replace( ".", "," )+"</p>");
-}
-
-function change_quantity(product_id) {
-  // product_id = $(this).val();
-
-  name = "variant[unit_value_"+product_id+"]";
-  variant_unit_value = $('input[name$="'+name+'"]')[0].value;
-  variant_quantity = $('tr#product_'+product_id+' td.amount select')[0].value;
-
-  current_subtotal_value = $('tr#product_'+product_id+' td.value p').text().match(/[0-9,]+/).toString().replace( ",", "." );
-  new_subtotal_value = variant_unit_value * variant_quantity;
-  $('tr#product_'+product_id+' td.value p').html("<p>R$ "+ new_subtotal_value.toFixed(2).toString().replace( ".", "," ) +" </p>")
-
-  current_total_value = $('table#total tr.total td.value p').text().match(/[0-9,]+/).toString().replace( ",", "." );
-  new_total_value = current_total_value - current_subtotal_value + new_subtotal_value
-  $('table#total tr.total td.value').html("<p>R$ "+new_total_value.toFixed(2).toString().replace( ".", "," )+"</p>");
 }
