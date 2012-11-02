@@ -58,6 +58,11 @@ body div.full_container {
               margin: 0 0 5px;
               padding: 6px 0 0;
             }
+            &.off {
+              opacity: 0.4;
+              -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+              filter: alpha(opacity=40);
+            }
           }
           &:last-child {
             a {
