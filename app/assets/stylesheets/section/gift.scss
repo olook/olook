@@ -108,6 +108,112 @@ body div.full_container {
         }
       }
     }
+    &#suggestions {
+      padding: 30px 0 0;
+      div.content {
+        height: 403px;
+        overflow: visible;
+        > h1 {
+          font-family: $avenir;
+          font-size: 17px;
+          font-weight: lighter;
+          text-align: center;
+          text-transform: uppercase;
+          margin: 0 0 30px;
+          strong {
+            font-weight: 500;
+          }
+        }
+        ul {
+          width: 990px;
+          overflow: auto;
+          li {
+            a {
+              text-align: center;
+              text-decoration: none;
+              min-height: 290px;
+              width: 330px;
+              float: left;
+              h1 {
+                color: #101010;
+                font-family: $avenir;
+                font-size: 35px;
+                font-weight: lighter;
+                text-transform: uppercase;
+                margin: 0 0 5px;
+              }
+              img {
+                margin: 0 0 5px;
+              }
+              p {
+                color: $third_color;
+                font-family: $kepler;
+                font-size: 15px;
+                width: 205px;
+                margin: 0 auto;
+              }
+              span {
+                background: image-url('gift/bg-right-pink-arrow.png') top right no-repeat;
+                color: #101010;
+                font-size: 13px;
+                font-weight: 500;
+                text-transform: uppercase;
+                padding-right: 15px;
+              }
+            }
+            &#helena {
+              a {
+                width: 329px;
+                border-right: 1px #e8e8e8 solid;
+              }
+              p {
+                background: image-url('gift/bg-phrase-helena.png') bottom center no-repeat;
+                line-height: 20px;
+                margin-bottom: 15px;
+                padding-bottom: 50px;
+              }
+            }
+            &#bestsellers {
+              a {
+                width: 329px;
+                border-right: 1px #e8e8e8 solid;
+              }
+            }
+            &#face {
+              a {
+                width: 330px;
+              }
+            }
+            &.no_border {
+              a {
+                border: none !important;
+              }
+            }
+            &.selected {
+              a {
+                background: image-url('gift/bg-suggestion-selected.jpg') bottom center no-repeat;
+                height: 350px;
+                border: none !important;
+              }
+              span {
+                background: image-url('gift/bg-bottom-pink-arrow.png') top right no-repeat;
+                padding-right: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+    &#suggestions_products {
+      padding: 30px 0;
+      div.content {
+        ul.products {
+          width: 100%;
+          margin: 0 0 15px;
+          overflow: auto;
+        }
+      }
+    }
     &#calendar {
       div.content {
         div#calendar_container {
