@@ -1,7 +1,8 @@
 $(function () {
   $("section#profiles ul li a").live("click", function(e) {
-    $("section#profiles ul li a").addClass("off");
-    $(this).removeClass("off");
+    $("section#profiles ul li a").addClass("off").removeClass();
+    $(this).removeClass("off").addClass('selected');
+    $("section#profile_products").slideDown();
     e.preventDefault();
   });
 
