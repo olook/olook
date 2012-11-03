@@ -1,0 +1,10 @@
+<section id="profile_products" class="sub">
+  <div class="content">
+    <h1>Algumas <strong>sugestões</strong> de presentas para ela:</h1>
+    <ul class="products">
+      <% products.each do |product| %>
+        <%= render "shared/showroom_product_item", product: product %>
+      <% end %>
+    </ul>
+  </div>
+</section>

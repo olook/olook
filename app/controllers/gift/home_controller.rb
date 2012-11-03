@@ -8,6 +8,7 @@ class Gift::HomeController < Gift::BaseController
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def index
+    @profile_products = Product.find(10621, 10770, 10675, 11636, 11961)
   end
 
   def update_birthdays_by_month
