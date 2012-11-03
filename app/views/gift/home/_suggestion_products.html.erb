@@ -1,0 +1,12 @@
+<section id="suggestions_products" class="sub">
+  <div class="content">
+    <ul class="products">
+      <% products.each do |product| %>
+        <li>
+          <%= link_to product_path(product) do %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>

@@ -8,6 +8,20 @@ $(function () {
     e.preventDefault();
   });
 
+  $("section#suggestions div.content ul li a").live("click", function(e) {
+    var index = $(this).parent().index();
+    $("section#suggestions div.content ul li").removeClass();
+    $(this).parent().addClass("selected");
+    console.log(index);
+    if(index != 0) {
+      var parent = $("section#suggestions div.content ul li")[index - 1];
+      $(parent).addClass("no_border");
+    } else {
+      $("section#suggestions div.content ul li").removeClass("no_border");
+    }
+    e.preventDefault();
+  });
+
   $("div#calendar ul#months li a").live("click", function(event) {
     $("div#calendar ul#months li a").removeClass("selected");
     $(this).addClass("selected");
