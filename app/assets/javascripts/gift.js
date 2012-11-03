@@ -1,8 +1,10 @@
 $(function () {
   $("section#profiles ul li a").live("click", function(e) {
-    $("section#profiles ul li a").addClass("off").removeClass();
+    $("section#profiles ul li a").removeClass().addClass("off");
     $(this).removeClass("off").addClass('selected');
     $("section#profile_products").slideDown();
+    var container_position = $("section#profile_products").offset().top - 40;
+    InitGift.slideTo(container_position);
     e.preventDefault();
   });
 
@@ -45,5 +47,12 @@ InitGift = {
   friendsPreloader : function() {
     $("div#birthdays_list ul.friends_list").remove();
     $("div#birthdays_list").html("<div class='preloader'></div>");
+  },
+
+  slideTo : function(container_position) {
+    position = container_position -40;
+    $("html, body").animate({
+      scrollTop: position
+    }, 'normal');
   }
 }
