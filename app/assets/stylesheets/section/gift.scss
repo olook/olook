@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'partials/product';
 
 header {
   background: none;
@@ -75,6 +76,22 @@ body div.full_container {
             a {
               margin: 0;
             }
+          }
+        }
+      }
+    }
+    &#profile_products {
+      display: block;
+      div.content {
+        > h1 {
+          font-family: $avenir;
+          font-size: 17px;
+          font-weight: lighter;
+          text-align: center;
+          text-transform: uppercase;
+          margin: 0 0 30px;
+          strong {
+            font-weight: 500;
           }
         }
       }
