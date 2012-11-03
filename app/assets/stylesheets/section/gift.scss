@@ -81,7 +81,6 @@ body div.full_container {
       }
     }
     &#profile_products {
-      display: block;
       div.content {
         > h1 {
           font-family: $avenir;
@@ -92,6 +91,19 @@ body div.full_container {
           margin: 0 0 30px;
           strong {
             font-weight: 500;
+          }
+        }
+        ul.products {
+          width: 100%;
+          margin: 0 0 15px;
+          overflow: auto;
+          &+a {
+            background: image-url('gift/bt-more-suggestions.jpg') no-repeat;
+            text-indent: -99999px;
+            width: 210px;
+            height: 34px;
+            display: block;
+            margin: 0 auto;
           }
         }
       }
