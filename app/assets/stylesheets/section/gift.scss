@@ -111,7 +111,7 @@ body div.full_container {
     &#suggestions {
       padding: 30px 0 0;
       div.content {
-        height: 403px;
+        height: 401px;
         overflow: visible;
         > h1 {
           font-family: $avenir;
@@ -215,6 +215,33 @@ body div.full_container {
           width: 100%;
           margin: 0 0 15px;
           overflow: auto;
+          li.product {
+            width: 170px;
+            a {
+              color: #101010;
+              text-decoration: none;
+              img {
+                margin: 0 0 10px;
+              }
+              p {
+                font-size: 30px;
+                margin: 5px 10px 0 0;
+                float: left;
+              }
+              div.name_price {
+                text-align: center;
+                margin: 5px 0 0 0;
+                float: left;
+                h1 {
+                  font-family: $avenir;
+                  font-size: 18px;
+                  line-height: 18px;
+                  text-transform: uppercase;
+                  border-bottom: 1px #000 solid;
+                }
+              }
+            }
+          }
         }
       }
     }
