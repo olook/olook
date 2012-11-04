@@ -1,0 +1,10 @@
+<ul>
+  <% %w[moderna casual chic sexy].each do |profile| %>
+    <li>
+      <%= link_to "#" do %>
+        <h1><%= profile %></h1>
+        <%= image_tag "gift/profile-#{profile}.png" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
