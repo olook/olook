@@ -15,6 +15,7 @@ body div.full_container {
     &#profiles {
       min-height: 740px;
       div.content {
+        position: relative;
         background: image-url('gift/bg-shadow.jpg') bottom center no-repeat;
         height: 725px;
         overflow: visible;
@@ -25,6 +26,47 @@ body div.full_container {
           &+p {
             font-size: 14px;
             margin: 0 0 40px;
+          }
+        }
+        div#help {
+          position: absolute;
+          background: image-url('gift/bg-help-box.png') no-repeat;
+          text-align: center;
+          width: 247px;
+          height: 136px;
+          padding: 20px 0 0 0;
+          display: block;
+          top: 0;
+          right: 0;
+          h1 {
+            font-family: $avenir;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0 0 5px;
+          }
+          p {
+            font-size: 12px;
+            line-height: 17px;
+            margin: 0 auto 8px;
+            &+a {
+              background: image-url('gift/bt-answer-quiz.png') no-repeat;
+              text-indent: -99999px;
+              width: 137px;
+              height: 34px;
+              margin: 0 auto;
+              display: block;
+            }
+          }
+          a.close {
+            position: absolute;
+            background: image-url('gift/bt-close-help.png') no-repeat;
+            text-indent: -99999px;
+            width: 18px;
+            height: 18px;
+            display: block;
+            top: 8px;
+            right: 13px;
           }
         }
       }
@@ -974,3 +1016,4 @@ div#calendar_container {
     }
   }
 }
+
