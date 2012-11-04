@@ -19,6 +19,9 @@ $(function () {
     } else {
       $("section#suggestions div.content ul li").removeClass("no_border");
     }
+    $("section#suggestions_products").slideDown();
+    var container_position = $("section#suggestions_products").offset().top - 40;
+    InitGift.slideTo(container_position);
     e.preventDefault();
   });
 

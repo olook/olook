@@ -1,9 +1,15 @@
 <section id="suggestions_products" class="sub">
   <div class="content">
     <ul class="products">
-      <% products.each do |product| %>
-        <li>
+      <% products.each_with_index do |product, index| %>
+        <li class="product">
           <%= link_to product_path(product) do %>
+            <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
+            <p><%= index + 1 %>.</p>
+            <div class="name_price">
+              <h1><%= product.name %></h1>
+              <span><%= number_to_currency product.price %></span>
+            </div>
           <% end %>
         </li>
       <% end %>
