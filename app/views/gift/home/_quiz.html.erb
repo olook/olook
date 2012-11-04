@@ -1,0 +1,18 @@
+<section id="quiz">
+  <div class="content">
+    <h1>Precisa de ajuda?</h1>
+    <p>Responda a um rápido QUIZ. Nós entederemos o perfil<br />dela e você receberá recomendações de presentes.</p>
+    <%= form_tag "" do %>
+      <div class="box">
+        <%= label_tag "name", "Qual o nome dela? <em>*</em>".html_safe %>
+        <%= text_field_tag "name", nil, :placeholder => "digite aqui" %>
+      </div>
+      <div class="box">
+        <%= label_tag "relation", "Ela é sua? <em>*</em>".html_safe %>
+        <div class="styled_select">
+          <%= select_tag "relation", "<option>selecione</option>".html_safe %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
