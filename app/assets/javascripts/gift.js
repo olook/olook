@@ -25,6 +25,12 @@ $(function () {
     e.preventDefault();
   });
 
+  $("div.box.shoes ul li label").on("click", function(e) {
+    $("div.box.shoes ul li").removeClass();
+    $(this).parent().addClass("selected");
+    e.preventDefault();
+  });
+
   $("div#calendar ul#months li a").live("click", function(event) {
     $("div#calendar ul#months li a").removeClass("selected");
     $(this).addClass("selected");
