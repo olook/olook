@@ -13,14 +13,5 @@
   <%= render "suggestions" %>
   <%= render "suggestion_products", products: @suggestion_products %>
   <%= render "quiz" %>
-  <section id="calendar">
-    <div class="content">
-      <% if current_user && !current_user.has_facebook_friends_birthday? %>
-        <%= link_to "Importar meus contatos do Facebook", user_omniauth_authorize_path(:facebook), :class => "facebook" %>
-      <% elsif !current_user %>
-        <%= link_to "Importar meus contatos do Facebook", "javascript:void(0);", :class => "facebook disabled", :alt => "Para importar seus contatos do facebook faça seu login", :title => "Para importar seus contatos do facebook faça seu login" %>
-      <% end %>
-      <%= render "gift/shared/calendar" %>
-    </div>
-  </section>
+  <%= render "calendar" %>
 <% end %>

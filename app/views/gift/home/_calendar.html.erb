@@ -1,0 +1,21 @@
+<section id="calendar">
+  <div class="content">
+    <% unless user_signed_in? %>
+      <div class="opacity"></div>
+    <% end %>
+    <% if current_user && !current_user.has_facebook_friends_birthday? %>
+      <h1>Monte seu calendário</h1>
+      <p>Monte seu calendário com datas especiais. É simples<br />e rápido, basta importar seus contatos do Facebook.</p>
+    <% else %>
+      <h1>Meu calendário</h1>
+      <p>Confira as aniversariantes de cada mês, ou a data de aniversário de uma amiga.</p>
+    <% end %>
+
+    <% if current_user && !current_user.has_facebook_friends_birthday? %>
+      <%= link_to "Importar meus contatos do Facebook", user_omniauth_authorize_path(:facebook), :class => "facebook" %>
+    <% elsif !current_user %>
+      <%= link_to "Importar meus contatos do Facebook", "javascript:void(0);", :class => "facebook disabled", :alt => "Para importar seus contatos do facebook faça seu login", :title => "Para importar seus contatos do facebook faça seu login" %>
+    <% end %>
+    <%= render "gift/shared/calendar" if current_user && current_user.has_facebook_friends_birthday? %>
+  </div>
+</section>
