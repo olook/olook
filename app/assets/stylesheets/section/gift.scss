@@ -367,32 +367,38 @@ body div.full_container {
     }
     &#calendar {
       div.content {
-        div#calendar_container {
-          position: relative;
-          div.opacity {
-            background: url("/assets/gift/opacity.png") repeat;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 990px;
-            height: 100%;
-            display: block;
-          }
-          div.title {
-            margin: 0 0 10px 0;
-            border-bottom: 1px #eaeaea solid;
-            h1 {
-              background: url("/assets/gift/subtitle-calendar.jpg") 255px 0 no-repeat;
-              color: #101010;
-              font-family: $johnston;
-              font-size: 31px;
-              font-weight: lighter;
-              letter-spacing: -2px;
-              line-height: 50px;
-              text-transform: uppercase;
-              padding: 5px 0 0 0;
+        position: relative;
+        padding: 55px 0 0;
+        > h1 {
+          font-family: $avenir;
+          font-size: 35px;
+          text-align: center;
+          text-transform: uppercase;
+          font-weight: lighter;
+          &+p {
+            text-align: center;
+            margin: 0 0 30px;
+            &+a.facebook {
+              background: image-url('gift/bt-fb.jpg') no-repeat;
+              text-indent: -99999px;
+              width: 282px;
+              height: 38px;
+              margin: 0 auto;
+              display: block;
             }
           }
+        }
+        div.opacity {
+          background: url("/assets/gift/opacity.png") repeat;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 990px;
+          height: 100%;
+          display: block;
+        }
+        div#calendar_container {
+          position: relative;
           div#calendar {
             width: 100%;
             overflow: hidden;
