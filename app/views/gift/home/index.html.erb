@@ -12,8 +12,7 @@
   <%= render "profile_products", products: @profile_products %>
   <%= render "suggestions" %>
   <%= render "suggestion_products", products: @suggestion_products %>
-  <section id="quiz">
-  </section>
+  <%= render "quiz" %>
   <section id="calendar">
     <div class="content">
       <% if current_user && !current_user.has_facebook_friends_birthday? %>

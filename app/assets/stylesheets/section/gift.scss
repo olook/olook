@@ -245,6 +245,69 @@ body div.full_container {
         }
       }
     }
+    &#quiz {
+      div.content {
+        text-align: center;
+        padding: 55px 0;
+        > h1 {
+          font-family: $avenir;
+          font-size: 35px;
+          text-transform: uppercase;
+          font-weight: lighter;
+          &+p {
+            margin: 0 0 20px;
+          }
+        }
+        div.box {
+          width: 290px;
+          margin: 0 auto 15px;
+          padding: 15px 45px;
+          border: 1px #e1e0e0 solid;
+          label {
+            color: #101010;
+            font-family: $avenir;
+            font-size: 16px;
+            margin: 0 0 10px;
+            display: block;
+            em {
+              color: #807f7f;
+            }
+          }
+          input[type="text"], select {
+            &:focus {
+              outline: none;
+            }
+          }
+          input[type="text"] {
+            font-family: $avenir;
+            font-size: 13px;
+            font-style: italic;
+            text-align: center;
+            width: 173px;
+            padding: 4px 10px;
+            border: 1px $third_color solid;
+          }
+          div.styled_select {
+            background: image-url('gift/styled-select.jpg') no-repeat;
+            width: 195px;
+            height: 28px;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto;
+            select {
+              background: transparent;
+              font-size: 12px;
+              width: 190px;
+              height: 26px;
+              margin: 1px 0 0;
+              padding: 5px;
+              border: 1px #fff solid;
+              -webkit-appearance: none;
+            }
+          }
+        }
+      }
+    }
     &#calendar {
       div.content {
         div#calendar_container {
