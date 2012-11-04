@@ -31,6 +31,17 @@ $(function () {
     e.preventDefault();
   });
 
+  $("div#help p+a").on("click", function(e) {
+    var container_position = $("section#quiz").offset().top;
+    InitGift.slideTo(container_position);
+    e.preventDefault();
+  });
+
+  $("div#help a.close").on("click", function(e) {
+    $(this).parent().fadeOut();
+    e.preventDefault();
+  });
+
   $("div#calendar ul#months li a").live("click", function(event) {
     $("div#calendar ul#months li a").removeClass("selected");
     $(this).addClass("selected");
