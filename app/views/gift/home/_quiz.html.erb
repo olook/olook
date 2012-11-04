@@ -13,6 +13,19 @@
           <%= select_tag "relation", "<option>selecione</option>".html_safe %>
         </div>
       </div>
+      <div class="box shoes">
+        <p>Que número ela calça?</p>
+        <ul>
+          <% (33..40).to_a.each do |size| %>
+            <li>
+              <%= label_tag "size_#{size}", size %>
+              <%= radio_button_tag "size", size %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <em>* preenchimento obrigatório</em>
+      <%= submit_tag "" %>
     <% end %>
   </div>
 </section>
