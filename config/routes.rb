@@ -18,9 +18,9 @@ Olook::Application.routes.draw do
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
-  
+
   match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
-  
+
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
@@ -250,6 +250,7 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
   namespace :users, :path => 'conta', :as => "user" do
+    get "/presentes", to: 'gifts#index', as: "gifts"
     resources :addresses, :path => 'enderecos'
     resources :orders, :path => 'pedidos', :only => [:index]
     resources :credits, :path => 'creditos' do
