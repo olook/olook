@@ -753,6 +753,136 @@ div#my_account {
   }
 }
 
+div.dialog.gifted {
+  width: 495px;
+  height: 350px !important;
+  display: none;
+  padding: 40px 50px;
+  h1 {
+    font-size: 20px;
+    font-weight: lighter;
+    text-transform: uppercase;
+  }
+  form {
+    width: 540px;
+    label, p {
+      color: $third_color;
+      font-size: 14px;
+      margin: 0 0 5px;
+      display: block;
+    }
+    ul {
+      width: 100%;
+      overflow: auto;
+      margin: 0 0 10px;
+      li {
+        float: left;
+      }
+      &.name_relation {
+        li {
+          margin: 0 30px 0 0;
+          input[type="text"] {
+            font-family: $avenir;
+            font-size: 14px;
+            width: 208px;
+            padding: 8px 12px;
+            border: 1px $third_color solid;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+      &.date {
+        li {
+          background: image-url('my_account/arrow-select.jpg') top right no-repeat;
+          height: 33px;
+          margin: 0 25px 0 0;
+          padding: 0 22px 0 10px;
+          display: block;
+          overflow: hidden;
+          border: 1px $third_color solid;
+          select {
+            background: transparent;
+            font-size: 14px;
+            height: 31px;
+            margin: 1px 0 0;
+            border: 1px #fff solid;
+            -webkit-appearance: none;
+            &:focus {
+              outline: none;
+            }
+          }
+          &.day {
+            width: 45px;
+            select {
+              width: 40px;
+            }
+          }
+          &.month {
+            width: 88px;
+            select {
+              width: 83px;
+            }
+          }
+          &.year {
+            width: 53px;
+            select {
+              width: 48px;
+            }
+          }
+        }
+      }
+    }
+    ul.shoes_size {
+      margin-bottom: 35px;
+      li {
+        position: relative;
+        color: #7e7f82;
+        text-align: center;
+        margin: 0 7px 0 0;
+        float: left;
+        border: 1px #7e7f82 solid;
+        label {
+          font-size: 13px;
+          line-height: 34px;
+          width: 36px;
+          margin: 0;
+          cursor: pointer;
+        }
+        input[type="radio"] {
+          position: absolute;
+          top: 0;
+          left: 0;
+          visibility: hidden;
+        }
+        &.selected {
+          background: #000;
+          border-color: #000;
+          label {
+            color: #FFF;
+          }
+        }
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+    input[type="submit"] {
+      background: image-url('my_account/bt-save-gifted.jpg') no-repeat;
+      text-indent: -99999px;
+      width: 127px;
+      height: 63px;
+      display: block;
+      cursor: pointer;
+      border: none;
+    }
+  }
+  &.clone {
+    display: block;
+  }
+}
+
 .gecko, .ie {
   form fieldset.cpf li select.custom_select {
     top: 19px !important;

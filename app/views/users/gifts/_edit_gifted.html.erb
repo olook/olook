@@ -1,0 +1,37 @@
+<div class="dialog gifted">
+  <h1>Editar presenteada</h1>
+  <%= form_tag "" do %>
+    <ul class="name_relation">
+      <li>
+        <%= label_tag "name", "Presenteada" %>
+        <%= text_field_tag "name", nil %>
+      </li>
+      <li>
+        <%= label_tag "relation", "Relacionamento" %>
+        <%= text_field_tag "relation", nil %>
+      </li>
+    </ul>
+    <p>Nascimento</p>
+    <ul class="date">
+      <li class="day">
+        <%= select_tag "day", "<option>24</option>".html_safe %>
+      </li>
+      <li class="month">
+        <%= select_tag "month", "<option>Outubro</option>".html_safe %>
+      </li>
+      <li class="year">
+        <%= select_tag "year", "<option>1961</option>".html_safe %>
+      </li>
+    </ul>
+    <p>Qual número ela calça?</p>
+    <ul class="shoes_size">
+      <% (33..40).to_a.each do |size| %>
+        <li>
+          <%= label_tag "size_#{size}", size %>
+          <%= radio_button_tag "size", size %>
+        </li>
+      <% end %>
+    </ul>
+    <%= submit_tag "" %>
+  <% end %>
+</div>
