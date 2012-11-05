@@ -6,7 +6,12 @@ module Payments
 
     def initialize(cart_service, payment)
       @cart_service, @payment = cart_service, payment
-      self.web_service_data
+    end
+
+    def send_to_gateway
+      ##TODO call braspag gem and set response
+      web_service_data.authorize_transaction(authorize_transaction_data)
+      payment
     end
 
     def web_service_data
@@ -15,10 +20,11 @@ module Payments
       Braspag::Webservice.new(:env)
     end
 
-    def send_to_gateway(request)
-      ##TODO call braspag gem and set response
-      authorize_transaction(request)
-      payment
+    def authorize_transaction_data
+      id_code = SecureRandom.uuid
+      Braspag::AuthorizeTransactionRequestBuilder.new
+      .with_request_id(id_code)
+      .for_order(order_data).for_customer(customer_data).with_payment_request(payment_data).build
     end
 
     def order_data
@@ -61,13 +67,6 @@ module Payments
       .with_security_code(payment.security_code)
       .with_expiration_month(payment.expiration_date[0,2])
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
-    end
-
-    def authorize_transaction(payment_request, order, customer)
-      id_code = SecureRandom.uuid
-      Braspag::AuthorizeTransactionRequestBuilder.new
-      .with_request_id(id_code)
-      .for_order(order).for_customer(customer).with_payment_request(payment_request).build
     end
 
   def proccess_response(authorize_response, capture_response)
