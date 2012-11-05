@@ -6,6 +6,7 @@ module Payments
 
     def initialize(cart_service, payment)
       @cart_service, @payment = cart_service, payment
+      self.web_service_data
     end
 
     def web_service_data
@@ -16,7 +17,7 @@ module Payments
 
     def send_to_gateway(request)
       ##TODO call braspag gem and set response
-      self.authorize_transaction(request)
+      authorize_transaction(request)
       payment
     end
 
