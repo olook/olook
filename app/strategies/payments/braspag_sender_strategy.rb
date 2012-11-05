@@ -78,9 +78,20 @@ module Payments
 
     def proccess_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
+      
+      if success_result?(authorize_transaction_result)
+        create_success_authorize_response(authorize_transaction_result)
+      else
+        create_failure_authorize_response(authorize_transaction_result)
+      end
+    end
 
-      if authorize_transaction_result[:success].upcase == "TRUE"
-        authorization_response = AuthorizeResponse.new(
+    def success_result?(transaction_result)
+      transaction_result[:success].upcase == "TRUE"
+    end
+
+    def create_success_authorize_response(authorize_transaction_result)
+      authorization_response = AuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => true,
           :order_id => authorize_transaction_result[:order_data][:order_id],
@@ -94,14 +105,17 @@ module Payments
           :return_message => authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message],
           :transaction_status => authorize_transaction_result[:payment_data_collection][:payment_data_response][:status],
           :credit_card_token => authorize_transaction_result[:payment_data_collection][:payment_data_response][:credit_card_token]})
-          authorization_response.save
-      else
-        authorization_response = AuthorizeResponse.new(
+      authorization_response.save
+      authorization_response
+    end
+
+    def create_failure_authorize_response(authorize_transaction_result)
+      authorization_response = AuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => false,
           :error_message => authorize_transaction_result[:error_report_data_collection].to_s})
-        authorization_response.save
-      end
+      authorization_response.save
+      authorization_response
     end
   end
 
