@@ -61,10 +61,34 @@ module Payments
       .for_order(order).for_customer(customer).with_payment_request(payment_request).build
     end
 
-  def proccess_response(authorize_response, capture_response)
-
+    def proccess_response(authorize_response, capture_response)
+      authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
+      
+      if authorize_transaction_result[:success].upcase == "TRUE"
+        authorization_response = AuthorizeResponse.new(
+          {:correlation_id => authorize_transaction_result[:correlation_id],
+          :success => true,
+          :order_id => authorize_transaction_result[:order_data][:order_id],
+          :braspag_order_id => authorize_transaction_result[:order_data][:braspag_order_id],
+          :braspag_transaction_id => authorize_transaction_result[:payment_data_collection][:payment_data_response][:braspag_transaction_id],
+          :amount => authorize_transaction_result[:payment_data_collection][:payment_data_response][:amount],
+          :payment_method => authorize_transaction_result[:payment_data_collection][:payment_data_response][:payment_method],
+          :acquirer_transaction_id => authorize_transaction_result[:payment_data_collection][:payment_data_response][:acquirer_transaction_id],
+          :authorization_code => authorize_transaction_result[:payment_data_collection][:payment_data_response][:authorization_code],
+          :return_code => authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_code],
+          :return_message => authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message],
+          :transaction_status => authorize_transaction_result[:payment_data_collection][:payment_data_response][:status],
+          :credit_card_token => authorize_transaction_result[:payment_data_collection][:payment_data_response][:credit_card_token]})
+          authorization_response.save
+      else
+        authorization_response = AuthorizeResponse.new(
+          {:correlation_id => authorize_transaction_result[:correlation_id],
+          :success => false,
+          :error_message => authorize_transaction_result[:error_report_data_collection].to_s})
+        authorization_response.save
+      end
+    end
 
   end
 
-  end
 end
