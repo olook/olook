@@ -40,7 +40,7 @@ module Payments
     def payment_data
       Braspag::CreditCardBuilder.new
       .with_payment_method(Braspag::PAYMENT_METHOD[:braspag])
-      .with_amount(payment.last.total_paid.to_s)
+      .with_amount(payment.total_paid.to_s)
       .with_transaction_type("1")
       .with_currency("BRL")
       .with_country("BRA")
@@ -54,9 +54,10 @@ module Payments
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
     end
 
-    def authorize_transaction(payment_request)
+    def authorize_transaction(payment_request, order, customer)
+      id_code = SecureRandom.uuid
       Braspag::AuthorizeTransactionRequestBuilder.new
-      .with_request_id(@payment.identification_code)
+      .with_request_id(id_code)
       .for_order(order).for_customer(customer).with_payment_request(payment_request).build
     end
 
