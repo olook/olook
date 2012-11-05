@@ -31,25 +31,25 @@ module Payments
       Braspag::Order.new(@payment.identification_code)
     end
 
-    def address_data(address)
+    def address_data
       Braspag::AddressBuilder.new
-      .with_street(address.street)
-      .with_number(address.number)
-      .with_complement(address.complement)
-      .with_district(address.neighborhood)
-      .with_zip_code(address.zip_code)
-      .with_city(address.city)
-      .with_state(address.state)
-      .with_country(address.country).build
+      .with_street(@payment.order.freight.address.street)
+      .with_number(@payment.order.freight.address.number)
+      .with_complement(@payment.order.freight.address.complement)
+      .with_district(@payment.order.freight.address.neighborhood)
+      .with_zip_code(@payment.order.freight.address.zip_code)
+      .with_city(@payment.order.freight.address.city)
+      .with_state(@payment.order.freight.address.state)
+      .with_country(@payment.order.freight.address.country).build
     end
 
-    def customer_data(user, address)
+    def customer_data
       Braspag::CustomerBuilder.new
-      .with_customer_id(user.id)
-      .with_customer_name("#{ user.first_name } #{ user.last_name }")
-      .with_customer_email(user.email)
-      .with_customer_address(address_data(address))
-      .with_delivery_address(address_data(address)).build
+      .with_customer_id(@payment.user.id)
+      .with_customer_name("#{ @payment.user.first_name } #{ @payment.user.last_name }")
+      .with_customer_email(@payment.user.email)
+      .with_customer_address(address_data)
+      .with_delivery_address(address_data).build
     end
 
     def payment_data
