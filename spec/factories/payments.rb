@@ -13,7 +13,7 @@ FactoryGirl.define do
     user_birthday '12/09/1976'
     receipt 'AVista'
     total_paid 12.34
-    payment 1
+    payments 1
   end
 
   factory :debit do
