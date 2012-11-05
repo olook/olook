@@ -1,0 +1,8 @@
+development:
+  environment: homolog
+
+test:
+  environment: homolog
+
+production:
+  environment: homolog
