@@ -1,0 +1,2 @@
+module Users::GiftsHelper
+end
