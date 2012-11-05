@@ -67,5 +67,18 @@ describe Payments::BraspagSenderStrategy do
 
   end
 
+  context "processing response" do
+    subject {Payments::BraspagSenderStrategy.new(cart_service, payment)}
+
+    it "should validate if the result is success" do
+      subject.success_result?({:success => "true"}).should eq(true)
+    end
+
+    it "should validate if the result is not success" do
+      subject.success_result?({:success => "false"}).should eq(false)
+    end
+
+  end
+
 end
 
