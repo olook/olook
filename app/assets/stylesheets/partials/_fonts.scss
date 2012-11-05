@@ -110,3 +110,18 @@ $base_font_url: "http://www.olook.com.br";
     font-weight: normal;
     font-style: normal;
 }
+<<<<<<< HEAD
+=======
+
+@font-face {
+    font-family: 'bodoni_stdbold';
+    src: url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.eot');
+    src: url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.woff') format('woff'),
+         url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.ttf') format('truetype'),
+         url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.svg#bodoni_stdbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+>>>>>>> niver olook parte 2
