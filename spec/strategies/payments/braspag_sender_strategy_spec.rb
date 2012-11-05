@@ -78,6 +78,21 @@ describe Payments::BraspagSenderStrategy do
       subject.success_result?({:success => "false"}).should eq(false)
     end
 
+    it "should create a correct failure response" do
+      authorize_transaction_result = {:correlation_id => "1234567890", :error_report_data_collection => ["error_report_1", "error_report_2"]}
+      authorization_response = subject.create_failure_authorize_response(authorize_transaction_result)
+      authorization_response.correlation_id.should eq("1234567890")
+      authorization_response.error_message.should eq("[\"error_report_1\", \"error_report_2\"]")
+      authorization_response.success.should eq(false)
+    end
+
+    it "should create a failure AuthorizeResponse on database" do
+      authorize_transaction_result = {:correlation_id => "1234567890", :error_report_data_collection => ["error_report_1", "error_report_2"]}
+      expect {
+        subject.create_failure_authorize_response(authorize_transaction_result)
+      }.to change(AuthorizeResponse, :count).by(1)
+    end
+
   end
 
 end
