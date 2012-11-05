@@ -1,5 +1,6 @@
 module Payments
   class BraspagSenderStrategy
+    FILE_DIR = "#{Rails.root}/config/braspag_env.yml"
 
     attr_accessor :cart_service, :payment, :credit_card_number, :response
 
@@ -7,8 +8,15 @@ module Payments
       @cart_service, @payment = cart_service, payment
     end
 
-    def send_to_gateway
+    def web_service_data
+      config = YAML::load(File.open(FILE_DIR))
+      env = config[Rails.env]["environment"]
+      Braspag::Webservice.new(:env)
+    end
+
+    def send_to_gateway(request)
       ##TODO call braspag gem and set response
+      self.authorize_transaction(request)
       payment
     end
 

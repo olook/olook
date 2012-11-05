@@ -24,6 +24,22 @@ describe Payments::BraspagSenderStrategy do
   context "with a valid class" do
     subject {Payments::BraspagSenderStrategy.new(cart_service, payment)}
 
+    payment_data = mock("payment_data",
+      :payment_method => Braspag::PAYMENT_METHOD[:braspag],
+      :amount => 100.00,
+      :transaction_type => "1",
+      :currency => "BRL",
+      :country => "BRA",
+      :number_of_payments => 1,
+      :payment_plan => "0",
+      :transaction_type => "1",
+      :holder_name => "John Doe",
+      :card_number => "0000000000000001",
+      :security_code => "123",
+      :expiration_month => "05",
+      :expiration_year => "2018"
+      )
+
     it "should create an order" do
       subject.order_data.should be_true
     end
@@ -38,17 +54,16 @@ describe Payments::BraspagSenderStrategy do
 
     it "should create a payment" do
       subject.payment = credit_card
-      subject.payment.payments = 1
       subject.payment_data.should be_true
     end
 
     it "should create authorize transaction" do
-      subject.payment = credit_card
-      subject.payment.payments = 1
+      #subject.payment = credit_card
+      #subject.payment.payments = 1
       order = subject.order_data
-      payment = subject.payment_data
+      #payment = subject.payment_data
       customer = subject.customer_data(user, address)
-      subject.authorize_transaction(payment, order, customer).should be_true
+      subject.authorize_transaction(payment_data, order, customer).should be_true
     end
 
   end
