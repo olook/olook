@@ -69,9 +69,6 @@ module Payments
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
     end
 
-  def proccess_response(authorize_response, capture_response)
-
-  end
     def authorize_transaction(payment_request, order, customer)
       id_code = SecureRandom.uuid
       Braspag::AuthorizeTransactionRequestBuilder.new
