@@ -16,8 +16,111 @@
 	</div>		
 </section>	
 <section id="infografico">
-	<%=image_tag("campaigns/niver/infografico.jpg") %>
+	<%#image_tag("campaigns/niver/infografico.jpg") %>
+	<ul>
+		<li class="um">
+			<p class="only-number">	
+				<span class="numero">17</span>
+				<span class="titulo">produtos por ano</span>
+				<span class="frase">As 100 TOP <br/>clientes são <br/>loucas pela olook</span>
+			</p>
+		</li>
+		<li class="dois">
+			<p class="only-number">
+				<span class="numero">mais de 3.000</span>
+				<span class="titulo">produtos olook</span>
+				<span class="frase">uma coleção<br/>nova todo mês</span>
+			</p>
+		</li>
+		<li class="tres">
+			<p class="only-number">
+				<span class="numero">381</span>
+				<span class="titulo">voltas No mundo</span>
+				<span class="frase">É o que rodamos<br/>entregando <br/>Brasil afora</span>
+			</p>
+		</li>
+		<li class="quatro">
+			<p class="only-number">
+				<span class="numero">12</span>
+				<span class="titulo">produtos em 1 mês</span>
+				<span class="frase">recorde entre<br/>funcionárias</span>
+			</p>
+		</li>
+	</ul>
+	<ul>	
+		<li class="cinco">
+			<p class="only-number">
+				<span class="numero">2 milhões</span>
+				<span class="titulo">Interações na página do</span>
+				<span class="frase">Facebook</span>
+			</p>
+		</li>
+		<li class="seis">
+			<p class="only-number">
+				<span class="numero">500</span>
+				<span class="titulo">horas em estúdio</span>
+				<span class="frase">haja produção<br/>de moda</span>
+			</p>
+		</li>
+		<li class="sete">
+			<p class="only-number">
+				<span class="numero">19.844</span>
+				<span class="titulo">fotos clicadas</span>
+				<span class="frase">editoriais<br />lookbooks<br />e produtos</span>
+			</p>	
+		</li>
+		<li class="oito">
+			<p class="only-number">
+				<span class="numero">60</span>
+				<span class="titulo">anos</span>
+				<span class="frase">Soma de horas<br/>de navegação<br/>no site</span>
+			</p>	
+		</li>
+	</ul>
+	<ul>	
+		<li class="nove">
+			<p class="only-number">	
+				<span class="numero">muitas</span>
+				<span class="titulo">clientes</span>
+				<span class="frase">satisfeitas por<br />todo o país</span>
+				<a href="#">veja os depoimentos</a>
+			</p>	
+		</li>
+		<li class="dez">
+			<p class="only-number">	
+				<span class="numero">1.104</span>
+				<span class="titulo">PUBLICAÇÕES</span>
+				<span class="frase">revistas, <br />sites e blogs</span>
+			</p>	
+		</li>
+		<li class="onze">
+			<p class="only-number">	
+				<span class="numero">14.692</span>
+				<span class="titulo">xícaras</span>
+				<span class="frase">de café<br />bem forte</span>
+			</p>
+		</li>
+		<li class="doze">
+			<p class="only-number">	
+				<span class="numero">3</span>
+				<span class="titulo">dog days</span>
+				<span class="frase">labradores, poodles<br />e vira-latas com os<br /> donos no escritório</span>
+			</p>
+		</li>
+	</ul>	
 </section>
+<script>
+	$("#infografico ul li").each(function(){
+	    $(this).mouseover(function(){
+	        $("p", this).removeClass("only-number");
+	        $(".titulo, .frase", this).css("display", "block");
+	    }).mouseout(function(){
+	        $("p", this).addClass("only-number");
+	        $(".titulo, .frase", this).css("display", "none");
+	    })
+
+	})
+</script>
 <section id="banner">
 	<%=link_to image_tag("campaigns/niver/banner.jpg"), "http://olook.com.br/tendencias/time-olook" %>
 </section>
