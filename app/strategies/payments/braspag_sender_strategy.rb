@@ -1,5 +1,6 @@
 module Payments
   class BraspagSenderStrategy
+    FILE_DIR = "#{Rails.root}/config/braspag_env.yml"
 
     attr_accessor :cart_service, :payment, :credit_card_number, :response
 
@@ -9,7 +10,21 @@ module Payments
 
     def send_to_gateway
       ##TODO call braspag gem and set response
+      web_service_data.authorize_transaction(authorize_transaction_data)
       payment
+    end
+
+    def web_service_data
+      config = YAML::load(File.open(FILE_DIR))
+      env = config[Rails.env]["environment"]
+      Braspag::Webservice.new(:env)
+    end
+
+    def authorize_transaction_data
+      id_code = SecureRandom.uuid
+      Braspag::AuthorizeTransactionRequestBuilder.new
+      .with_request_id(id_code)
+      .for_order(order_data).for_customer(customer_data).with_payment_request(payment_data).build
     end
 
     def order_data
@@ -54,6 +69,9 @@ module Payments
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
     end
 
+  def proccess_response(authorize_response, capture_response)
+
+  end
     def authorize_transaction(payment_request, order, customer)
       id_code = SecureRandom.uuid
       Braspag::AuthorizeTransactionRequestBuilder.new
@@ -102,7 +120,6 @@ module Payments
       authorization_response.save
       authorization_response
     end
-
   end
 
 end
