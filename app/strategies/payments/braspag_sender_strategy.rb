@@ -64,11 +64,15 @@ module Payments
     def proccess_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       
-      if authorize_transaction_result[:success].upcase == "TRUE"
+      if success_result?(authorize_transaction_result)
         create_success_authorize_response(authorize_transaction_result)
       else
         create_failure_authorize_response(authorize_transaction_result)
       end
+    end
+
+    def success_result?(transaction_result)
+      transaction_result[:success].upcase == "TRUE"
     end
 
     def create_success_authorize_response(authorize_transaction_result)
