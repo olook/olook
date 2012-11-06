@@ -56,8 +56,8 @@ describe PaymentBuilder do
 
     context "success actions" do
       before :each do
-        subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
-        subject.payment.stub(:gateway_transaction_status).and_return(:success)
+        subject.payment.stub(:successful_status?).and_return(Payment::SUCCESSFUL_STATUS)
+        subject.payment.stub(:payment_successful?).and_return(:success)
         moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
       end
 

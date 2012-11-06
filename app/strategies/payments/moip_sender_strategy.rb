@@ -14,6 +14,14 @@ module Payments
       payment
     end
 
+    def payment_successful?
+        gateway_transaction_status != Payment::CANCELED_STATUS if successful_status?
+    end
+
+    def successful_status?
+      gateway_response_status == Payment::SUCCESSFUL_STATUS
+    end
+
     def save_payment_url!
       payment.url = payment_url
       payment.save!
