@@ -9,8 +9,8 @@ module Payments
     end
 
     def send_to_gateway
-      ##TODO call braspag gem and set response
-      web_service_data.authorize_transaction(authorize_transaction_data)
+      gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
+      process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
       set_payment_gateway
       payment
     end
