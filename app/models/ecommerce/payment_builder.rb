@@ -24,10 +24,7 @@ class PaymentBuilder
 
       payment = @gateway_strategy.send_to_gateway
 
-      if payment.gateway_response_status == Payment::SUCCESSFUL_STATUS
-        #NAO EH A MESMA COISA !!
-        if payment.gateway_transaction_status != Payment::CANCELED_STATUS
-
+      if payment.payment_successful?
           order = cart_service.generate_order!
           payment.order = order
           payment.calculate_percentage!
@@ -124,18 +121,13 @@ class PaymentBuilder
             credit_payment_redeem.deliver!
             credit_payment_redeem.authorize!
           end
-
           respond_with_success
         else
           respond_with_failure
         end
-      else
-        respond_with_failure
-      end
     end
 
     rescue Exception => error
-      #binding.pry
       error_message = "Moip Request #{error.message} - Order Number #{payment.try(:order).try(:number)} - Payment Expiration #{payment.payment_expiration_date} - User ID #{payment.try(:user_id)}"
       log(error_message)
       NewRelic::Agent.add_custom_parameters({:error_msg => error_message})
@@ -164,7 +156,7 @@ class PaymentBuilder
   end
 
   def respond_with_success
-    OpenStruct.new(:status => payment.gateway_response_status, :payment => payment)
+    OpenStruct.new(:status => payment.successful_status?, :payment => payment)
   end
 
   def log(message, logger = Rails.logger, level = :error)
