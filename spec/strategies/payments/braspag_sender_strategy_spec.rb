@@ -41,13 +41,24 @@ describe Payments::BraspagSenderStrategy do
       subject.authorize_transaction_data.should be_true
     end
 
+    it "should set gateway" do
+      subject.set_payment_gateway
+      subject.payment.gateway.should eq(2)
+    end
+
     it "should call send_to_gateway" do
       subject.stub(:send_to_gateway).and_return(true)
       subject.send_to_gateway.should be_true
     end
 
-    it "should always be payment_successful" do
+    it "should return payment successful when gateway status is TRUE" do
+      subject.payment.gateway_response_status = "TRUE"
       subject.payment_successful?.should eq(true)
+    end
+
+    it "should return payment successful when gateway status is FALSE" do
+      subject.payment.gateway_response_status = "FALSE"
+      subject.payment_successful?.should eq(false)
     end
 
   end
@@ -56,11 +67,11 @@ describe Payments::BraspagSenderStrategy do
     subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
 
     it "should validate if the result is success" do
-      subject.success_result?({:success => "true"}).should eq(true)
+      subject.success_result?("true").should eq(true)
     end
 
     it "should validate if the result is not success" do
-      subject.success_result?({:success => "false"}).should eq(false)
+      subject.success_result?("false").should eq(false)
     end
 
     it "should create a correct failure response" do
