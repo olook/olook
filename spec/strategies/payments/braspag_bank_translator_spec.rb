@@ -1,10 +1,15 @@
 # -*- encoding : utf-8 -*-
+require 'spec_helper'
+
 describe Payments::BraspagBankTranslator do 
 
   context "using Redecard acquirer" do
 
     before :each do
       Setting.stub(:acquirer).and_return("redecard")
+      Payments::BraspagBankTranslator.stub(:load_config).and_return({
+        redecard: {visa: :redecard_visa, mastercard: :redecard_mastercard, americanexpress: :amex_2p, diners: :redecard_diners, hipercard: :sitef_hipercard, aura: :sitef_aura}
+      })
     end
 
     it "should return right value for visa" do
@@ -37,6 +42,9 @@ describe Payments::BraspagBankTranslator do
   context "using Cielo acquirer" do
     before :each do
       Setting.stub(:acquirer).and_return("cielo")
+      Payments::BraspagBankTranslator.stub(:load_config).and_return({
+        cielo: {visa: :cielo_visa, mastercard: :cielo_mastercard, americanexpress: :cielo_amex, diners: :cielo_diners, hipercard: :sitef_hipercard, aura: :sitef_aura}
+      })
     end
 
     it "should return right value for visa" do
