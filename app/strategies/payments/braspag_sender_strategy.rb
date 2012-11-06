@@ -91,7 +91,7 @@ module Payments
     end
 
     def create_success_authorize_response(authorize_transaction_result)
-      authorization_response = AuthorizeResponse.new(
+      authorization_response = BraspagAuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => true,
           :order_id => authorize_transaction_result[:order_data][:order_id],
@@ -110,7 +110,7 @@ module Payments
     end
 
     def create_failure_authorize_response(authorize_transaction_result)
-      authorization_response = AuthorizeResponse.new(
+      authorization_response = BraspagAuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => false,
           :error_message => authorize_transaction_result[:error_report_data_collection].to_s})

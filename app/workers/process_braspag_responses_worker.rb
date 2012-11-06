@@ -8,7 +8,7 @@ class ProcessBraspagResponsesWorker
   end
 
   def self.process_authorize_responses
-    AuthorizeResponse.to_process.find_each do |authorize_response|
+    BraspagAuthorizeResponse.to_process.find_each do |authorize_response|
     end
   end
 
