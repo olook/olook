@@ -28,10 +28,6 @@ describe Payments::MoipSenderStrategy do
 
     subject {Payments::MoipSenderStrategy.new(cart_service, payment)}
 
-    before :each do
-
-    end
-
     it "should set url on payment" do
       subject.stub(:payment_url).and_return('www.fake.com')
       subject.save_payment_url!
@@ -109,6 +105,30 @@ describe Payments::MoipSenderStrategy do
       subject.payment_data.should == expected
     end
 
+  end
+
+  context "#payment_successful" do
+    subject {Payments::MoipSenderStrategy.new(cart_service, payment)}
+
+    it "should return false when response status is not successful" do
+      credit_card.gateway_response_status = Payment::CANCELED_STATUS
+      subject.payment = credit_card
+      subject.payment_successful?.should eq(false)
+    end
+
+    it "should return false when transaction status is canceled" do
+      credit_card.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      credit_card.gateway_transaction_status = Payment::CANCELED_STATUS
+      subject.payment = credit_card
+      subject.payment_successful?.should eq(false)
+    end
+
+    it "should return false when transaction status is canceled" do
+      credit_card.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      credit_card.gateway_transaction_status = Payment::SUCCESSFUL_STATUS
+      subject.payment = credit_card
+      subject.payment_successful?.should eq(true)
+    end
   end
 
 end
