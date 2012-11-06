@@ -41,6 +41,11 @@ describe Payments::BraspagSenderStrategy do
       subject.authorize_transaction_data.should be_true
     end
 
+    it "should set gateway" do
+      subject.set_payment_gateway
+      subject.payment.gateway.should eq(2)
+    end
+
     it "should call send_to_gateway" do
       subject.stub(:send_to_gateway).and_return(true)
       subject.send_to_gateway.should be_true
