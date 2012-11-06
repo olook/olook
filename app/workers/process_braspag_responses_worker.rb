@@ -14,7 +14,7 @@ class ProcessBraspagResponsesWorker
   end
 
   def self.process_capture_responses
-    CaptureResponse.to_process.find_each do |capture_response|
+    BraspagCaptureResponse.to_process.find_each do |capture_response|
       process_braspag_response(capture_response)
     end
   end

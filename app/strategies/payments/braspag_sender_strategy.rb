@@ -82,7 +82,7 @@ module Payments
       .for_order(order).for_customer(customer).with_payment_request(payment_request).build
     end
 
-    def proccess_response(authorize_response, capture_response)
+    def process_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       
       if success_result?(authorize_transaction_result)
@@ -109,7 +109,7 @@ module Payments
           :authorization_code => authorize_transaction_result[:payment_data_collection][:payment_data_response][:authorization_code],
           :return_code => authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_code],
           :return_message => authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message],
-          :transaction_status => authorize_transaction_result[:payment_data_collection][:payment_data_response][:status],
+          :status => authorize_transaction_result[:payment_data_collection][:payment_data_response][:status],
           :credit_card_token => authorize_transaction_result[:payment_data_collection][:payment_data_response][:credit_card_token]})
       authorization_response.save
       authorization_response
