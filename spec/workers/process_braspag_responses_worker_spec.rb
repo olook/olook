@@ -26,12 +26,12 @@ describe ProcessBraspagResponsesWorker do
     let!(:capture_response) { FactoryGirl.create(:capture_response, :order_id => payment.identification_code ) }
 
     it "should call update_payment_status on authorize_response" do
-      AuthorizeResponse.any_instance.should_receive(:update_payment_status).with(payment)
+      BraspagAuthorizeResponse.any_instance.should_receive(:update_payment_status).with(payment)
       ProcessBraspagResponsesWorker.perform
     end
 
     it "should call update_payment_status on capture_response" do
-      CaptureResponse.any_instance.should_receive(:update_payment_status).with(payment)
+      BraspagCaptureResponse.any_instance.should_receive(:update_payment_status).with(payment)
       ProcessBraspagResponsesWorker.perform
     end
 
