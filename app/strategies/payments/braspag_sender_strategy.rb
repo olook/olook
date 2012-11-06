@@ -89,6 +89,7 @@ module Payments
 
     def process_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
+      capture_transaction_result = authorize_response[:capture_transaction_response][:capture_credit_card_transaction_result]
       
       if success_result?(authorize_transaction_result[:success])
         create_success_authorize_response(authorize_transaction_result)
