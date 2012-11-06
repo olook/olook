@@ -11,11 +11,16 @@ module Payments
     def send_to_gateway
       ##TODO call braspag gem and set response
       web_service_data.authorize_transaction(authorize_transaction_data)
+      set_payment_gateway
       payment
     end
 
     def payment_successful?
       success_result?(payment.gateway_response_status)
+    end
+
+    def set_payment_gateway
+      payment.gateway = Payment::GATEWAYS.fetch(:braspag)
     end
 
     def web_service_data
