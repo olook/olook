@@ -1,6 +1,6 @@
 module Payments
   class BraspagSenderStrategy
-    FILE_DIR = "#{Rails.root}/config/braspag_env.yml"
+    FILE_DIR = "#{Rails.root}/config/braspag_env.yml"    
 
     attr_accessor :cart_service, :payment, :credit_card_number, :response
 
@@ -12,6 +12,10 @@ module Payments
       ##TODO call braspag gem and set response
       web_service_data.authorize_transaction(authorize_transaction_data)
       payment
+    end
+
+    def payment_successful?
+      true
     end
 
     def web_service_data
@@ -53,8 +57,10 @@ module Payments
     end
 
     def payment_data
+      payment_method = BraspagBankTranslator.payment_method_for @payment.bank
+
       Braspag::CreditCardBuilder.new
-      .with_payment_method(Braspag::PAYMENT_METHOD[:braspag])
+      .with_payment_method(payment_method)
       .with_amount(payment.total_paid.to_s)
       .with_transaction_type("1")
       .with_currency("BRL")
