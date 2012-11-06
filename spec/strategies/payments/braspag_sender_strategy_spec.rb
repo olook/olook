@@ -46,6 +46,10 @@ describe Payments::BraspagSenderStrategy do
       subject.send_to_gateway.should be_true
     end
 
+    it "should always be payment_successful" do
+      subject.payment_successful?.should eq(true)
+    end
+
   end
 
   context "processing response" do
