@@ -11,6 +11,7 @@ module Payments
       self.response = MoIP::Client.checkout(payment_data)
       payment.build_response self.response
       save_payment_url!
+      set_payment_gateway
       payment
     end
 
@@ -21,6 +22,10 @@ module Payments
     def save_payment_url!
       payment.url = payment_url
       payment.save!
+    end
+
+    def set_payment_gateway
+      payment.gateway = Payment::GATEWAYS.fetch(:moip)
     end
 
     def payment_data
