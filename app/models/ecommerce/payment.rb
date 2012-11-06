@@ -29,7 +29,8 @@ class Payment < ActiveRecord::Base
   }
 
   GATEWAYS = {
-    :moip => 1
+    :moip => 1,
+    :braspag => 2
   }
 
   attr_accessor :receipt, :user_identification
@@ -40,7 +41,6 @@ class Payment < ActiveRecord::Base
   belongs_to :credit_type
 
   after_create :generate_identification_code
-  after_initialize :set_default_gateway
 
   def self.for_erp
     where(type: ['CreditCard','Billet', 'Debit'])
@@ -253,7 +253,7 @@ class Payment < ActiveRecord::Base
   end
 
   private
-  
+
   def generate_identification_code
     #TODO: PASSAR A USAR UUID
     code = SecureRandom.uuid.delete("-")
@@ -261,10 +261,6 @@ class Payment < ActiveRecord::Base
       code = SecureRandom.uuid
     end
     update_attributes(:identification_code => code)
-  end
-
-  def set_default_gateway
-    self.gateway = GATEWAYS[:moip]
   end
 
 end
