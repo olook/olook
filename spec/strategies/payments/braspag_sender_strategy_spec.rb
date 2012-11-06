@@ -46,8 +46,14 @@ describe Payments::BraspagSenderStrategy do
       subject.send_to_gateway.should be_true
     end
 
-    it "should always be payment_successful" do
+    it "should return payment successful when gateway status is TRUE" do
+      subject.payment.gateway_response_status = "TRUE"
       subject.payment_successful?.should eq(true)
+    end
+
+    it "should return payment successful when gateway status is FALSE" do
+      subject.payment.gateway_response_status = "FALSE"
+      subject.payment_successful?.should eq(false)
     end
 
   end

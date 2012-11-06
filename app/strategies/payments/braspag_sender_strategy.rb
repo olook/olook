@@ -15,7 +15,7 @@ module Payments
     end
 
     def payment_successful?
-      true
+      success_result?(payment.gateway_response_status)
     end
 
     def web_service_data
@@ -85,15 +85,17 @@ module Payments
     def proccess_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       
-      if success_result?(authorize_transaction_result)
+      if success_result?(authorize_transaction_result[:success])
         create_success_authorize_response(authorize_transaction_result)
+        update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
+        update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:error_report_data_collection].to_s)
       end
     end
 
-    def success_result?(transaction_result)
-      transaction_result[:success].upcase == "TRUE"
+    def success_result?(gateway_response_status)
+      gateway_response_status.upcase == "TRUE"
     end
 
     def create_success_authorize_response(authorize_transaction_result)
@@ -122,6 +124,13 @@ module Payments
           :error_message => authorize_transaction_result[:error_report_data_collection].to_s})
       authorization_response.save
       authorization_response
+    end
+
+    def update_payment_response(response_status, message)
+      payment.update_attributes(
+          gateway_response_status: response_status,
+          gateway_message: message
+        )
     end
   end
 
