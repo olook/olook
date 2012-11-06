@@ -139,16 +139,6 @@ class PaymentBuilder
       respond_with_failure
   end
 
-  def set_payment_url!
-    payment.url = payment_url
-    payment.save!
-    payment
-  end
-
-  def send_payment!
-    @response = MoIP::Client.checkout(payment_data)
-  end
-
   private
 
   def respond_with_failure
