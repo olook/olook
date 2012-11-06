@@ -22,15 +22,16 @@ class ProcessBraspagResponsesWorker
   private
 
   def self.process_braspag_response(braspag_response)
+    puts braspag_response.inspect
     payment = Payment.find_by_identification_code(braspag_response.order_id)
-      if payment
-        braspag_response.update_payment_status(payment)
-      else
-        braspag_response.update_attributes(
-          processed: true,
-          error_message: "Pagamento não identificado."
-        )
-      end
+    if payment
+      braspag_response.update_payment_status(payment)
+    else
+      braspag_response.update_attributes(
+        processed: true,
+        error_message: "Pagamento não identificado."
+      )
+    end
   end
 
 end
