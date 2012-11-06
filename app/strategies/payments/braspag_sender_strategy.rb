@@ -14,6 +14,10 @@ module Payments
       payment
     end
 
+    def payment_successful?
+      true
+    end
+
     def web_service_data
       config = YAML::load(File.open(FILE_DIR))
       env = config[Rails.env]["environment"]
