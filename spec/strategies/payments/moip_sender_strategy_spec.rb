@@ -43,6 +43,11 @@ describe Payments::MoipSenderStrategy do
       subject.send_to_gateway
     end
 
+    it "should set payment gateway" do
+      subject.set_payment_gateway
+      subject.payment.gateway.should eq(1)
+    end
+
     it "should get the payment_url" do
       subject.response = {"Token" => "XCV"}
       MoIP::Client.should_receive(:moip_page).with(subject.response["Token"])
