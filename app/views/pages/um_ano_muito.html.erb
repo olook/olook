@@ -1,7 +1,9 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag  "section/niver-olook" %>
 <% end %>
-	
+<% content_for :footer do %>
+ <%= javascript_include_tag "niver_olook" %>
+<% end %>	
 <section id="niver-top">
 	<div class="niver-left">
 		<h2>A olook acaba de completar <span>1 ano...</span></h2>
@@ -83,7 +85,7 @@
 				<span class="numero">muitas</span>
 				<span class="titulo">clientes</span>
 				<span class="frase">satisfeitas por<br />todo o país</span>
-				<a href="#">veja os depoimentos</a>
+				<a href="#mapa">veja os depoimentos</a>
 			</p>	
 		</li>
 		<li class="dez">
@@ -109,18 +111,39 @@
 		</li>
 	</ul>	
 </section>
-<script>
-	$("#infografico ul li").each(function(){
-	    $(this).mouseover(function(){
-	        $("p", this).removeClass("only-number");
-	        $(".titulo, .frase", this).css("display", "block");
-	    }).mouseout(function(){
-	        $("p", this).addClass("only-number");
-	        $(".titulo, .frase", this).css("display", "none");
-	    })
+<section id="mapa">
+	<div>
+		<hr class="separador" />
+		<p class="chamada">MUITOS CLIENTES <br /><span>SATISFEITOS</span> POR<br />TODO BRASIL</p>
+		<hr class="separador" />
+		<p class="chamada2">VEJA OS DEPOIMENTOS <br />DE CADA REGIÃO</p>
+	</div>
+	<ul id="brasil">
+		<li id="norte"></li>
+		<li id="nordeste"></li>
+		<li id="sudeste" class="hover"></li>
+		<li id="centro"></li>
+		<li id="sul"></li>
+	</ul>
+	<ul id="frases">
+		<li class="norte dn">
+			<p>A olook tem muito bom gosto nos<br/> produtos de moda feminina,<br/> calçados e acessórios. Gostei muito!<br /><span class="autor">Aline, Pará</span></p>
+		</li>
+		<li class="nordeste dn">
+			<p>Facilidade na busca dos produtos, <br />preço bom e prazo de entrega<br /> muito bom. A montagem do look<br /> (Stylist) é fantástica: o meu caiu perfeitamente.<br /><span class="autor">Daci, Pernambuco</span></p>
+		</li>	
+		<li class="sudeste">
+			<p>Fiz minha primeira compra no site e<br /> estou muito satisfeita, não somente<br /> pelo produto, mas também pelo<br /> <span class="bolder">atendimento</span> e a navegabilidade<br /> do site. A vitrine do mês é genial! E<br /> o portal é clean e super intuitivo.<br /><span class="autor">Maria Cristina, São Paulo</span></p>
+		</li>
+		<li class="centro dn">
+			<p>Amei a forma como a olook trabalha: facilidade de compra e preços acessíveis! <br /><span class="autor">Rosana, Distrito Federal</span></p>
+		</li>
+		<li class="sul dn">
+			<p>Adoro as sugestões de looks. Também achei maravilhosa a avaliação de estilo [Style Quiz], fechou exatamento com <br />meu estilo: adorei!<br /><span class="autor">Beatriz, Rio Grande do Sul</span></p>
+		</li>
+	</ul>	
+</section>	
 
-	})
-</script>
 <section id="banner">
 	<%=link_to image_tag("campaigns/niver/banner.jpg"), "http://olook.com.br/tendencias/time-olook" %>
 </section>

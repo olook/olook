@@ -131,3 +131,49 @@ $bodoni:bodoni_stdbold,Helvetica Neue,arial,sans-serif;
 	}
 	
 } 
+
+#mapa{
+	width:935px;height:520px;background:url("/assets/campaigns/niver/bg-mapa.png") no-repeat;clear:both;float:left;position:relative;
+	div{
+		width:330px;position:absolute;top:60px;left:0;
+		.chamada{
+			font-size:29px;font-family:$futura_book;color:#282828;line-height:37px;margin:20px 0 30px;
+			span{color:#DC5386;}
+		}
+		.chamada2{font-size:18px;font-family:$futura_book;color:#282828;margin-top:30px;}
+	}
+	.separador{border:0;height:11px;background: url("/assets/campaigns/niver/separadores.png") -492px 0 no-repeat;}
+	#brasil{
+		position:relative;width:415px;height:418px;background: url("/assets/campaigns/niver/mapa-brasil.png") no-repeat;float:left;margin:30px 0 0 244px;
+		li{position:absolute;
+			&.hover{background: url("/assets/campaigns/niver/mapa-brasil.png") no-repeat;} 
+			&#norte{width:269px;height:209px;top:0px;left:2px;
+				&.hover{background-position:0px -409px;}
+			}
+			&#nordeste{width:128px;height:169px;top:85px;left:243px;
+				&.hover{background-position:-285px -451px;}
+			}
+			&#sudeste{width:123px;height:123px;top:200px;left:205px;
+				&.hover{background-position:-172px -644px;z-index:2;}
+			}
+			&#centro{width:150px;height:160px;top:151px;left:115px;
+				&.hover{background-position:1px -637px;}
+			}
+			&#sul{width:90px;height:115px;top:295px;left:160px;
+				&.hover{background-position:-326px -656px;}
+			}				
+		}
+	}
+	
+	#frases{
+		width:306px;height:262px;background: url("/assets/campaigns/niver/mapa-brasil.png") 0 -840px no-repeat;float:left;margin:60px 0 0 -30px;position:relative;
+		.dn{display:none;}
+		li{margin:56px 0 0 32px;font-size:15px;font-family:$futura;color:#FFF;position:absolute;top:0;left:0;
+			.bolder{font-family:$futura_bold;color:#BB3164;}
+			.autor{color:#000;font-weight:bold;}
+		}
+		
+	}
+}
+
+#banner{clear:both;float:left;margin-top:20px;}
