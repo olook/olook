@@ -62,11 +62,11 @@ describe Payments::BraspagSenderStrategy do
       authorization_response.success.should eq(false)
     end
 
-    it "should create a failure AuthorizeResponse on database" do
+    it "should create a failure BraspagAuthorizeResponse on database" do
       authorize_transaction_result = {:correlation_id => "1234567890", :error_report_data_collection => ["error_report_1", "error_report_2"]}
       expect {
         subject.create_failure_authorize_response(authorize_transaction_result)
-      }.to change(AuthorizeResponse, :count).by(1)
+      }.to change(BraspagAuthorizeResponse, :count).by(1)
     end
 
     it "should create a correct success response" do
@@ -93,7 +93,7 @@ describe Payments::BraspagSenderStrategy do
       authorization_response.credit_card_token.should eq("444555666") 
     end
 
-    it "should create a failure AuthorizeResponse on database" do
+    it "should create a failure BraspagAuthorizeResponse on database" do
       authorize_transaction_result =  {
         :correlation_id => "1234567890",
         :order_data => {:order_id => "123", :braspag_order_id => "456"},
@@ -104,7 +104,7 @@ describe Payments::BraspagSenderStrategy do
         :credit_card_token => "444555666"} }}   
       expect {
         subject.create_success_authorize_response(authorize_transaction_result)
-      }.to change(AuthorizeResponse, :count).by(1)
+      }.to change(BraspagAuthorizeResponse, :count).by(1)
     end
 
   end
