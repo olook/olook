@@ -1,9 +1,9 @@
 <ul>
-  <% %w[moderna casual chic sexy].each do |profile| %>
+  <% %w[modern casual chic sexy].each do |profile| %>
     <li>
       <%= link_to "#" do %>
         <h1><%= profile %></h1>
-        <%= image_tag "gift/profile-#{profile}.png" %>
+        <%= image_tag "gift/profile-#{profile}.png", :id => profile %>
       <% end %>
     </li>
   <% end %>

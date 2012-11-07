@@ -9,7 +9,11 @@
 <% content_for :full do %>
   <div id="fb-root"></div>
   <%= render "profiles" %>
-  <%= render "profile_products", products: @profile_products %>
+    <% %w[modern casual chic sexy].each do |profile| %>
+    	<section id="profile_products_<%= profile %>" class="sub">
+  		<%= render "profile_products", products: @profiles_products[profile.to_sym] %>
+  		</section>
+	<% end %>
   <%= render "suggestions" %>
   <%= render "suggestion_products", products: @suggestion_products %>
   <%= render "quiz" %>
