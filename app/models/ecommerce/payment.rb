@@ -6,16 +6,6 @@ class Payment < ActiveRecord::Base
   CANCELED_STATUS = 'Cancelado'
   REASON = 'Pagamento'
   RECEIPT = 'AVista'
-  STATUS = {
-    "1" => :authorize,
-    "2" => :start,
-    "3" => :deliver,
-    "4" => :complete,
-    "5" => :cancel,
-    "6" => :review,
-    "7" => :reverse,
-    "9" => :refund
-  }
 
   RESPONSE_STATUS = {
     "Autorizado" => "Autorizado",
@@ -203,8 +193,7 @@ class Payment < ActiveRecord::Base
     update_attributes(:payment_expiration_date => build_payment_expiration_date)
   end
 
-  def set_state(statuz)
-    event = STATUS[statuz.to_s]
+  def set_state(event)
     send(event) if event
   end
 
