@@ -7,8 +7,8 @@ describe Payments::BraspagBankTranslator do
 
     before :each do
       Setting.stub(:acquirer).and_return("redecard")
-      Payments::BraspagBankTranslator.stub(:load_config).and_return({
-        redecard: {visa: :redecard_visa, mastercard: :redecard_mastercard, americanexpress: :amex_2p, diners: :redecard_diners, hipercard: :sitef_hipercard, aura: :sitef_aura}
+      Payments::BraspagBankTranslator.stub(:configs).and_return({
+        "redecard" => {"visa" => :redecard_visa, "mastercard" => :redecard_mastercard, "americanexpress" => :amex_2p, "diners" => :redecard_diners, "hipercard" => :sitef_hipercard, "aura" => :sitef_aura}
       })
     end
 
@@ -42,8 +42,8 @@ describe Payments::BraspagBankTranslator do
   context "using Cielo acquirer" do
     before :each do
       Setting.stub(:acquirer).and_return("cielo")
-      Payments::BraspagBankTranslator.stub(:load_config).and_return({
-        cielo: {visa: :cielo_visa, mastercard: :cielo_mastercard, americanexpress: :cielo_amex, diners: :cielo_diners, hipercard: :sitef_hipercard, aura: :sitef_aura}
+      Payments::BraspagBankTranslator.stub(:configs).and_return({
+        "cielo" => {"visa" => :cielo_visa, "mastercard" => :cielo_mastercard, "americanexpress" => :cielo_amex, "diners" => :cielo_diners, "hipercard" => :sitef_hipercard, "aura" => :sitef_aura}
       })
     end
 

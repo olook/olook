@@ -64,10 +64,9 @@ module Payments
 
     def payment_data
       payment_method = BraspagBankTranslator.payment_method_for @payment.bank
-
       Braspag::CreditCardBuilder.new
-      .with_payment_method(payment_method)
-      .with_amount(payment.total_paid.to_s)
+      .with_payment_method(Braspag::PAYMENT_METHOD[payment_method])
+      .with_amount(format_amount(payment.total_paid))
       .with_transaction_type("1")
       .with_currency("BRL")
       .with_country("BRA")
@@ -75,10 +74,14 @@ module Payments
       .with_payment_plan("0")
       .with_transaction_type("1")
       .with_holder_name(payment.user_name)
-      .with_card_number(payment.credit_card_number)
+      .with_card_number(credit_card_number)
       .with_security_code(payment.security_code)
       .with_expiration_month(payment.expiration_date[0,2])
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
+    end
+
+    def format_amount(amount)
+      amount.to_s.gsub(',', '').gsub('.', '')
     end
 
     def authorize_transaction(payment_request, order, customer)
@@ -93,11 +96,15 @@ module Payments
       capture_transaction_result = authorize_response[:capture_transaction_response][:capture_credit_card_transaction_result]
       if success_result?(authorize_transaction_result[:success])
         create_success_authorize_response(authorize_transaction_result)
-        create_success_capture_response(capture_transaction_result,authorize_transaction_result[:order_data][:order_id])
+        if success_result?(capture_transaction_result[:success])
+          create_success_capture_response(capture_transaction_result,authorize_transaction_result[:order_data][:order_id])
+        else
+          create_failure_capture_response(capture_transaction_result,authorize_transaction_result[:order_data][:order_id])
+        end
+        
         update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
-        create_failure_capture_response(capture_transaction_result,authorize_transaction_result[:order_data][:order_id])
         update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:error_report_data_collection].to_s)
       end
     end
@@ -151,7 +158,7 @@ module Payments
     end
 
     def create_failure_capture_response(capture_transaction_result)
-      capture_response = BraspagAuthorizeResponse.new(
+      capture_response = BraspagCaptureResponse.new(
           {:correlation_id => capture_transaction_result[:correlation_id],
           :success => false,
           :error_message => capture_transaction_result[:error_report_data_collection].to_s})
