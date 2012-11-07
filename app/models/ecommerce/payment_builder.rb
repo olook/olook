@@ -21,7 +21,6 @@ class PaymentBuilder
       total_credits_invite = cart_service.total_discount_by_type(:credits_by_invite)
       total_credits_redeem = cart_service.total_discount_by_type(:credits_by_redeem)
 
-
       payment = @gateway_strategy.send_to_gateway
 
       if @gateway_strategy.payment_successful?
