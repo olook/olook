@@ -64,10 +64,9 @@ module Payments
 
     def payment_data
       payment_method = BraspagBankTranslator.payment_method_for @payment.bank
-
       Braspag::CreditCardBuilder.new
-      .with_payment_method(payment_method)
-      .with_amount(payment.total_paid.to_s)
+      .with_payment_method(Braspag::PAYMENT_METHOD[payment_method])
+      .with_amount(format_amount(payment.total_paid))
       .with_transaction_type("1")
       .with_currency("BRL")
       .with_country("BRA")
@@ -75,10 +74,14 @@ module Payments
       .with_payment_plan("0")
       .with_transaction_type("1")
       .with_holder_name(payment.user_name)
-      .with_card_number(payment.credit_card_number)
+      .with_card_number(credit_card_number)
       .with_security_code(payment.security_code)
       .with_expiration_month(payment.expiration_date[0,2])
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
+    end
+
+    def format_amount(amount)
+      amount.to_s.gsub(',', '').gsub('.', '')
     end
 
     def authorize_transaction(payment_request, order, customer)
