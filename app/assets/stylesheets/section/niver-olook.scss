@@ -18,7 +18,7 @@
 		}
 		&.niver-logo{
 			width:318px;
-			h1{font-size:0;line-height:0;font-family:a;width:300px;height:285px;background: url("/assets/campaigns/niver/niver-logo.png") no-repeat;margin-top:-80px !important}
+			h1{font-size:0;line-height:0;font-family:a;width:300px;height:285px;background: image-url("/assets/campaigns/niver/niver-logo.png") no-repeat;margin-top:-80px !important}
 		}
 		&.niver-right{
 			width:300px;
@@ -29,9 +29,151 @@
 		}
 	}
 }
+
+$futura:Futura-medium,Helvetica Neue,arial,sans-serif;
+$futura_book:FuturaStd-Book,Helvetica Neue,arial,sans-serif;
+$futura_bold:FuturaStd-Bold,Helvetica Neue,arial,sans-serif;
+$bodoni:bodoni_stdbold,Helvetica Neue,arial,sans-serif;
+
 #infografico{
 	clear:both;
 	float:left;
 	margin-top:70px;
+	ul{
+		float:left;
+		width:317px;
+		li{
+			position:relative;margin-bottom:15px;background: image-url("campaigns/niver/infografico2.jpg") no-repeat;color:#FFF;text-align:center;
+			&:hover{background: image-url("campaigns/niver/infografico_over.jpg") no-repeat;}
+			p{
+				position:absolute;bottom:10px;left:36px;width:228px;text-transform:uppercase;
+				span{
+					display:block;
+					&.numero{font-size:0;line-height:0;font-family:a;background: image-url("/assets/campaigns/niver/sprite-numeros.png") no-repeat;margin:0 0 17px 62px;}
+					&.titulo{display:none;min-height:16px;font-size:20px;font-family: $bodoni;background: image-url("/assets/campaigns/niver/separadores.png") -256px bottom no-repeat;padding-bottom:16px;}
+					&.frase{display:none;min-height:8px;font-size:24px;font-family:$futura_book;line-height:28px;text-transform:uppercase;background: image-url("/assets/campaigns/niver/separadores.png") 0 bottom no-repeat;padding-bottom:18px;}
+				}
+				a{display:none;}
+			}
+			
+			
+				
+			&.um{width:300px;height:400px;background-position:0 0;
+				.only-number{bottom:130px;}
+				.numero{background-position:0 0;width:102px;height:102px;}
+				.frase{font-size:20px;}
+			}
+			
+			&.dois{width:300px;height:300px;background-position:0 -417px;
+				.only-number{bottom:78px;}
+				.numero{background-position:0 -108px;width:102px;height:102px;}
+			}
+			
+			&.tres{width:300px;height:226px;background-position:0 -734px;
+				.only-number{bottom:71px;}
+				.numero{background-position:0 -266px;width:78px;height:78px;margin-bottom:5px;}
+				.frase{font-size:20px;line-height:23px;}
+			}
+			
+			&.quatro{width:300px;height:400px;background-position:0 -977px;
+				.only-number{bottom:137px;}
+				.numero{background-position:0 -378px;width:102px;height:102px;}
+			}
+			
+			&.cinco{width:300px;height:300px;background-position:-316px 0px;
+				.only-number{bottom:81px;}
+				.numero{background-position:-112px 0;width:102px;height:102px;}
+				.titulo{font-size:16px;}
+				.frase{font-size:40px}
+			}
+			
+			&.seis{width:300px;height:300px;background-position:-316px -317px;
+				.only-number{bottom:98px;}
+				.numero{background-position:-110px -108px;width:102px;height:102px;}
+			}
+
+			&.sete{width:300px;height:400px;background-position:-316px -634px;
+				.only-number{bottom:150px;}
+				.numero{background-position:-109px -215px;width:130px;height:130px;margin:0 0 20px 50px;}
+			}
+			
+			&.oito{width:300px;height:325px;background-position:-316px -1051px;
+				.only-number{bottom:87px;}
+				.numero{background-position:-242px 0;width:102px;height:102px;}
+			}
+			
+			&.nove{width:300px;height:226px;background-position:-631px 0px;
+				.only-number{bottom:77px;}
+				.numero{background-position:-242px -126px;width:81px;height:81px;margin-bottom:2px;}
+				a{font-size:12px;font-family:$futura_bold;color:#FFF;text-decoration:none;
+					&:hover{text-decoration:underline}
+				}
+			}
+			
+			&.dez{width:300px;height:400px;background-position:-631px -242px;
+				.only-number{bottom:151px;}
+				.numero{background-position:-243px -242px;width:100px;height:100px;}
+			}
+			
+			&.onze{width:300px;height:300px;background-position:-631px -660px;
+				.only-number{bottom:72px;}
+				.numero{background-position:-109px -355px;width:123px;height:123px;}
+			}
+			
+			&.doze{width:300px;height:400px;background-position:-631px -976px;
+				.only-number{bottom:141px;}
+				p{width:234px;}
+				.numero{background-position:-242px -377px;width:100px;height:100px;}
+				.titulo{font-size:32px;}
+				.frase{font-size:20px;}
+			}
+		}
+	}
 	
 } 
+
+#mapa{
+	width:935px;height:520px;background:url("/assets/campaigns/niver/bg-mapa.png") no-repeat;clear:both;float:left;position:relative;
+	div{
+		width:330px;position:absolute;top:60px;left:0;
+		.chamada{
+			font-size:29px;font-family:$futura_book;color:#282828;line-height:37px;margin:20px 0 30px;
+			span{color:#DC5386;}
+		}
+		.chamada2{font-size:18px;font-family:$futura_book;color:#282828;margin-top:30px;}
+	}
+	.separador{border:0;height:11px;background: image-url("/assets/campaigns/niver/separadores.png") -492px 0 no-repeat;}
+	#brasil{
+		position:relative;width:415px;height:418px;background: image-url("/assets/campaigns/niver/mapa-brasil.png") no-repeat;float:left;margin:30px 0 0 244px;
+		li{position:absolute;
+			&.hover{background: image-url("/assets/campaigns/niver/mapa-brasil.png") no-repeat;} 
+			&#norte{width:269px;height:209px;top:0px;left:2px;
+				&.hover{background-position:0px -409px;}
+			}
+			&#nordeste{width:128px;height:169px;top:85px;left:243px;
+				&.hover{background-position:-285px -451px;}
+			}
+			&#sudeste{width:123px;height:123px;top:200px;left:205px;
+				&.hover{background-position:-172px -644px;z-index:2;}
+			}
+			&#centro{width:150px;height:160px;top:151px;left:115px;
+				&.hover{background-position:1px -637px;}
+			}
+			&#sul{width:90px;height:115px;top:295px;left:160px;
+				&.hover{background-position:-326px -656px;}
+			}				
+		}
+	}
+	
+	#frases{
+		width:306px;height:262px;background: image-url("/assets/campaigns/niver/mapa-brasil.png") 0 -840px no-repeat;float:left;margin:60px 0 0 -30px;position:relative;
+		.dn{display:none;}
+		li{margin:56px 0 0 32px;font-size:15px;font-family:$futura;color:#FFF;position:absolute;top:0;left:0;
+			.bolder{font-family:$futura_bold;color:#BB3164;}
+			.autor{color:#000;font-weight:bold;float:left;margin-top:6px;}
+		}
+		
+	}
+}
+
+#banner{clear:both;float:left;margin-top:20px;}
