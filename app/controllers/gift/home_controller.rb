@@ -8,8 +8,8 @@ class Gift::HomeController < Gift::BaseController
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def index
-    @profile_products = Product.find(10621, 10770, 10675, 11636, 11961)
-    @suggestion_products = Product.find(10621, 10770, 10675, 11636, 11961)
+    @profiles_products = fetch_profiles_products
+    @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
   end
 
   def update_birthdays_by_month
@@ -40,11 +40,25 @@ class Gift::HomeController < Gift::BaseController
 
   private
 
-  def facebook_api_error
-    current_user.remove_facebook_permissions!
-    respond_to do |format|
-      format.html { redirect_to(gift_root_path, :alert => I18n.t("facebook.connect_failure")) }
-      format.js { head :error }
+    def facebook_api_error
+      current_user.remove_facebook_permissions!
+      respond_to do |format|
+        format.html { redirect_to(gift_root_path, :alert => I18n.t("facebook.connect_failure")) }
+        format.js { head :error }
+      end
     end
-  end
+
+    def fetch_profiles_products
+      profiles_products = {}
+      [:modern, :casual, :chic, :sexy].each do |profile|
+        profiles_products[profile] = fetch_product_for_profile profile
+      end
+      profiles_products
+    end
+
+    def fetch_product_for_profile profile
+      product_ids_to_find = Setting.send("profile_#{profile}_product_ids").split(",").map{|id| id.to_i}
+      Product.find_all_by_id product_ids_to_find
+    end
+
 end
