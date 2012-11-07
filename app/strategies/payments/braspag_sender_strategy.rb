@@ -1,6 +1,6 @@
 module Payments
   class BraspagSenderStrategy
-    FILE_DIR = "#{Rails.root}/config/braspag_env.yml"    
+    FILE_DIR = "#{Rails.root}/config/braspag.yml"
 
     attr_accessor :cart_service, :payment, :credit_card_number, :response
 
@@ -89,7 +89,7 @@ module Payments
 
     def process_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
-      
+
       if success_result?(authorize_transaction_result[:success])
         create_success_authorize_response(authorize_transaction_result)
         update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
