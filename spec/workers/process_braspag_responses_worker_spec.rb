@@ -9,13 +9,14 @@ describe ProcessBraspagResponsesWorker do
     let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :order_id => "invalid") }
 
     it "should update authorize_response to processed with error" do
-      BraspagAuthorizeResponse.stub_chain(:to_process, :find_each).and_return([authorize_response])
+      BraspagAuthorizeResponse.stub_chain(:to_process).and_return([authorize_response])
       ProcessBraspagResponsesWorker.perform
       authorize_response.reload.processed.should eq(true)
       authorize_response.error_message.should eq("Pagamento não identificado.")
     end
 
     it "should update capture_response to processed with error" do
+      BraspagAuthorizeResponse.stub_chain(:to_process).and_return([capture_response])
       ProcessBraspagResponsesWorker.perform
       capture_response.reload.processed.should eq(true)
       capture_response.error_message.should eq("Pagamento não identificado.")
@@ -32,7 +33,7 @@ describe ProcessBraspagResponsesWorker do
     it "should call update_payment_status on authorize_response" do
       payment.identification_code =  authorize_response.order_id
       Payment.stub(:find_by_identification_code).with(authorize_response.order_id).and_return(payment)
-      BraspagAuthorizeResponse.stub_chain(:to_process, :find_each).and_return([authorize_response])
+      BraspagAuthorizeResponse.stub_chain(:to_process).and_return([authorize_response])
       authorize_response.should_receive(:update_payment_status).with(payment)
       ProcessBraspagResponsesWorker.perform
     end
@@ -40,7 +41,7 @@ describe ProcessBraspagResponsesWorker do
     it "should call update_payment_status on capture_response" do
       payment.identification_code =  capture_response.order_id
       Payment.stub(:find_by_identification_code).with(capture_response.order_id).and_return(payment)      
-      BraspagCaptureResponse.stub_chain(:to_process, :find_each).and_return([capture_response])
+      BraspagAuthorizeResponse.stub_chain(:to_process).and_return([capture_response])
       capture_response.should_receive(:update_payment_status).with(payment)
       ProcessBraspagResponsesWorker.perform
     end

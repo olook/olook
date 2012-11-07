@@ -8,13 +8,13 @@ class ProcessBraspagResponsesWorker
   end
 
   def self.process_authorize_responses
-    BraspagAuthorizeResponse.to_process.find_each do |authorize_response|
+    BraspagAuthorizeResponse.to_process.each do |authorize_response|      
       process_braspag_response(authorize_response)
     end
   end
 
   def self.process_capture_responses
-    BraspagCaptureResponse.to_process.find_each do |capture_response|
+    BraspagCaptureResponse.to_process.each do |capture_response|
       process_braspag_response(capture_response)
     end
   end
@@ -22,7 +22,6 @@ class ProcessBraspagResponsesWorker
   private
 
   def self.process_braspag_response(braspag_response)
-    puts braspag_response.inspect
     payment = Payment.find_by_identification_code(braspag_response.order_id)
     if payment
       braspag_response.update_payment_status(payment)
