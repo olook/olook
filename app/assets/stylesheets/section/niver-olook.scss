@@ -44,7 +44,8 @@ $bodoni:bodoni_stdbold,Helvetica Neue,arial,sans-serif;
 		width:317px;
 		li{
 			position:relative;margin-bottom:15px;background: image-url("campaigns/niver/infografico2.jpg") no-repeat;color:#FFF;text-align:center;
-			&:hover{background: image-url("/assets/campaigns/niver/infografico_over.jpg") no-repeat;}
+			&:hover{background: image-url("campaigns/niver/infografico_over.jpg") no-repeat;}
+
 			p{
 				position:absolute;bottom:10px;left:36px;width:228px;text-transform:uppercase;
 				span{
