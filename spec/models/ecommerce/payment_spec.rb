@@ -50,13 +50,6 @@ describe Payment do
     result
   end
 
-  context "status" do
-    it "should return nil with a invalid status" do
-      invalid_status = '0'
-      subject.set_state(invalid_status).should be(nil)
-    end
-  end
-
   context "authorize_order?" do
     it "should return false if order is nil" do
       payment = FactoryGirl.create(:payment)
