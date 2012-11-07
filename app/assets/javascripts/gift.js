@@ -1,9 +1,12 @@
 $(function () {
   $("section#profiles ul li a").live("click", function(e) {
+
+    var profile = e.target.id;
+
     $("section#profiles ul li a").removeClass().addClass("off");
     $(this).removeClass("off").addClass('selected');
-    $("section#profile_products").slideDown();
-    var container_position = $("section#profile_products").offset().top - 40;
+    $("section#profile_products_" + profile).slideDown();
+    var container_position = $("section#profile_products_" + profile).offset().top - 40;
     InitGift.slideTo(container_position);
     e.preventDefault();
   });
