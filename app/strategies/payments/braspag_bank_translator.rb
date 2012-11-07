@@ -3,8 +3,7 @@ module Payments
   class BraspagBankTranslator
 
     def self.payment_method_for bank 
-      @@acquirers_config ||= load_config
-      @@acquirers_config[current_acquirer][sanitize(bank)]
+      configs[current_acquirer][sanitize(bank)]
     end
 
     private
@@ -17,8 +16,9 @@ module Payments
         Setting.acquirer
       end
 
-      def self.load_config
-        YAML.load_file "#{Rails.root}/config/acquirers.yml"
+      def self.configs
+        @@acquirers_config ||= YAML.load_file "#{Rails.root}/config/acquirers.yml"
+        @@acquirers_config
       end
   end
 end

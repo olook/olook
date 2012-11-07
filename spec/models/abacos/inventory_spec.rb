@@ -19,6 +19,7 @@ describe Abacos::Inventory do
     it 'should update the variant inventory and integrate it' do
       mock_variant = mock_model(::Variant)
       mock_variant.should_receive(:'inventory=').with(subject.inventory)
+      mock_variant.should_receive(:'update_initial_inventory_if_needed')
       mock_variant.should_receive(:'save!')
       ::Variant.should_receive(:find_by_number).with(subject.number).and_return(mock_variant)
 
