@@ -294,4 +294,11 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
+
+  #TESTE A/B
+  get "/remember", :to => "test_ab#modal_remember"
+
 end
+
+
+
