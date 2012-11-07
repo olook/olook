@@ -13,13 +13,13 @@ Olook::Application.routes.draw do
   get "home/index"
   get "index/index"
 
-  match "/1anomuito" => redirect("/tendencias/time-olook")
-
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
+  match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
+
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
