@@ -34,10 +34,12 @@ describe Payments::BraspagSenderStrategy do
     end
 
     it "should create a payment" do
+      subject.credit_card_number = credit_card.credit_card_number
       subject.payment_data.should be_true
     end
 
     it "should create authorize transaction" do
+      subject.credit_card_number = credit_card.credit_card_number
       subject.authorize_transaction_data.should be_true
     end
 
