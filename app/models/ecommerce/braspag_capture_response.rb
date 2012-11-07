@@ -8,7 +8,6 @@ class BraspagCaptureResponse < ActiveRecord::Base
 
   def update_payment_status(payment)
     event = STATUS[status] || :cancel
-    binding.pry
     if payment.set_state(event)
       self.update_attribute(:processed, true)
       if payment.order && payment.order.reload.canceled?

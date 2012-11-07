@@ -4,7 +4,7 @@ module Admin::ApplicationHelper
   end
 
   def payment_status(status)
-  	Payment::STATUS[status.to_s]
+  	MoipCallback::STATUS[status.to_s]
   end
 end
 
