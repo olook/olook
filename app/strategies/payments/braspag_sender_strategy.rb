@@ -95,12 +95,7 @@ module Payments
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
         create_success_authorize_response(authorize_transaction_result)
-        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result]
-        if capture_transaction_result[:success]
-          create_success_capture_response(capture_transaction_result,authorize_transaction_result[:order_data][:order_id])
-        else
-          create_failure_capture_response(capture_transaction_result)
-        end        
+        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response    
         update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
@@ -134,6 +129,15 @@ module Payments
           :error_message => authorize_transaction_result[:error_report_data_collection].to_s})
       authorization_response.save
       authorization_response
+    end
+
+    def create_capture_response(gateway_capture_response, order_id)
+      capture_transaction_result = gateway_capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result]
+      if capture_transaction_result[:success]
+        create_success_capture_response(capture_transaction_result, order_id)
+      else
+        create_failure_capture_response(capture_transaction_result)
+      end    
     end
 
     def create_success_capture_response(capture_transaction_result, order_id)
