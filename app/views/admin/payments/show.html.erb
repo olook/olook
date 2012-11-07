@@ -11,6 +11,11 @@
   </p>
 
   <p>
+    <b>Gateway de Pagamento:</b>
+    <%= @payment.humanize_gateway %>
+  </p>
+
+  <p>
     <b>URL:</b>
     <%= link_to 'Clique aqui para abrir o link', @payment.url, :target => "_blank" %>
   </p>
@@ -38,7 +43,7 @@
   <p>
     <b>User:</b>
     <%= link_to @payment.user.name, admin_user_path(@payment.user) if @payment.user %>
-  </p>  
+  </p>
 
   <p>
     <b>Credit card number:</b>
@@ -69,7 +74,7 @@
     <b>Payments:</b>
     <%= @payment.payments %>
   </p>
-  
+
   <p>
     <b>Gateway status:</b>
     <%= @payment.gateway_status %>
@@ -103,7 +108,7 @@
   <p>
     <b>Cart:</b>
     <%= @payment.cart_id %>
-  </p>    
+  </p>
 
   <% if @credits %>
     <p>
@@ -127,7 +132,7 @@
     <p>
       <b>Coupon:</b>
       <%= link_to @payment.coupon.code, admin_coupon_path(@payment.coupon) if @payment.coupon %>
-    </p> 
+    </p>
   <% end %>
 
   <p>
@@ -139,7 +144,7 @@
     <p>
       <b>Promotion:</b>
       <%= link_to @payment.promotion.name, admin_promotion_path(@payment.promotion) if @payment.promotion %>
-    </p> 
+    </p>
 
     <p>
       <b>Discount percent</b>
@@ -196,7 +201,7 @@
     <b>Gateway return code</b>
     <%= @payment.gateway_return_code %>
   </p>
-  
+
 </div>
 
 <% content_for :secondary_navigation do %>

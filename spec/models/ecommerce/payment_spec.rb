@@ -58,6 +58,28 @@ describe Payment do
     end
   end
 
+  context "should humanize the gateway" do
+        payment = FactoryGirl.create(:payment)
+        it "when gateway is moip" do
+          payment.gateway = 1
+          payment.humanize_gateway
+          payment.humanize_gateway.should eq("Moip")
+        end
+
+        it "when gateway is braspag" do
+          payment.gateway = 2
+          payment.humanize_gateway
+          payment.humanize_gateway.should eq("Braspag")
+        end
+
+        it "when gateway is nil" do
+          payment.gateway = nil
+          payment.humanize_gateway
+          payment.humanize_gateway.should eq(nil)
+        end
+
+  end
+
   describe "state machine" do
     it "should start the order" do
       subject.start
@@ -269,6 +291,7 @@ describe Payment do
           }.to raise_error
         end
       end
+
     end
   end
 end
