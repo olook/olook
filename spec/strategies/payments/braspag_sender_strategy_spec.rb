@@ -89,6 +89,13 @@ describe Payments::BraspagSenderStrategy do
       }.to change(BraspagAuthorizeResponse, :count).by(1)
     end
 
+    it "should create a failure BraspagCaptureResponse on database" do
+      capture_transaction_result = {:correlation_id => "1234567890", :error_report_data_collection => ["error_report_1", "error_report_2"]}
+      expect {
+        subject.create_failure_capture_response(capture_transaction_result)
+      }.to change(BraspagCaptureResponse, :count).by(1)
+    end
+
     it "should create a correct success response" do
       authorize_transaction_result =  {
         :correlation_id => "1234567890",
@@ -109,7 +116,7 @@ describe Payments::BraspagSenderStrategy do
       authorization_response.authorization_code.should eq("987")
       authorization_response.return_code.should eq("1")
       authorization_response.return_message.should eq("Success")
-      authorization_response.transaction_status.should eq(0)
+      authorization_response.status.should eq(0)
       authorization_response.credit_card_token.should eq("444555666") 
     end
 
@@ -125,6 +132,21 @@ describe Payments::BraspagSenderStrategy do
       expect {
         subject.create_success_authorize_response(authorize_transaction_result)
       }.to change(BraspagAuthorizeResponse, :count).by(1)
+    end
+
+    it "should create a failure BraspagCaptureResponse on database" do
+      capture_transaction_result = {:correlation_id => "123456",
+          :payment_data_collection => {:payment_data_response => {:braspag_transaction_id =>"12314341",
+          :acquirer_transaction_id => "12331321",
+          :amount => "500",
+          :authorization_code => "123",
+          :return_code => "1",
+          :return_message => "Success",
+          :status => "0"}} }
+
+      expect {
+        subject.create_success_capture_response(capture_transaction_result, "123312")
+      }.to change(BraspagCaptureResponse, :count).by(1)
     end
 
   end

@@ -17,9 +17,9 @@ class UserNotifier
      # header
      file_lines << "email%nome%cart_id%user_authentication_token%produtos%relacionados"
 
-     Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
+    Cart.includes(:orders).where(:orders => {:id => nil}).find_each(:conditions => conditions) do |cart|
 
-      next unless cart.user
+      next unless (cart.user && !cart.items.empty?)
 
       if !Setting.whitelisted_emails_only || cart.user.email.match(/(olook\.com\.br$)/)
         cart.update_attribute("notified", true) if Setting.mark_notified_users
@@ -50,6 +50,7 @@ class UserNotifier
 
         file_lines << line.join("%") unless products.empty?
       end
+
       if Setting.send_in_cart_mail_locally
         InCartMailer.send_in_cart_mail( cart, products ).deliver unless products.empty?
       end
