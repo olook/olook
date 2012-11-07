@@ -20,7 +20,7 @@ module MarketingReports
         ftp.passive = true
         ftp.login(@username, @password)
         ftp.chdir(@path) unless @path.nil? || @path.strip.chomp == ""
-        ftp.puttextfile(TEMP_PATH+@filename)
+        ftp.puttextfile(TEMP_PATH+DateTime.now.strftime(@filename))
         ftp.close
       end
     end

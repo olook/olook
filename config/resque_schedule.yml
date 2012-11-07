@@ -38,7 +38,7 @@ send_billet_reminder:
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
 send_enabled_credits_notification:
-  cron: "0 0 1 * *"
+  cron: "0 5 1 * *"
   class: SendEnabledCreditsNotificationWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
@@ -57,11 +57,11 @@ send_one_day_to_expiration_warning:
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 in_cart_mail:
-  cron: "0 14 * * *"
+  cron: "0 10 * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
     - in_cart_mail
-    - abandono.csv
+    - abandono-%Y-%m-%d.csv
     - exact_target.yml
   description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"

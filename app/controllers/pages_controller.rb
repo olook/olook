@@ -25,6 +25,9 @@ class PagesController < ApplicationController
     render :avc_campaign
   end
 
+  def umanomuito
+    render :um_ano_muito
+  end
 end
 
 private

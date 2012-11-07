@@ -106,12 +106,11 @@ class Checkout::CheckoutController < Checkout::BaseController
       sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
       sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
       payment_builder = PaymentBuilder.new(@cart_service, @payment, sender_strategy)
-
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => response.payment.order.number)) 
+        return redirect_to(order_show_path(:number => response.payment.order.number))
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf
