@@ -184,7 +184,7 @@ describe Checkout::CartController do
       it "should add item" do
         Cart.any_instance
             .should_receive(:add_item)
-            .with(basic_bag)
+            .with(basic_bag, nil)
             .and_return(true)
         post :create, {variant: {id: basic_bag.id}}
       end
@@ -193,7 +193,7 @@ describe Checkout::CartController do
         before :each do
           Cart.any_instance
               .stub(:add_item)
-              .with(basic_bag)
+              .with(basic_bag, nil)
               .and_return(true)
         end
 
@@ -218,7 +218,7 @@ describe Checkout::CartController do
         before :each do
           Cart.any_instance
               .stub(:add_item)
-              .with(basic_bag)
+              .with(basic_bag, nil)
               .and_return(false)
         end
 
@@ -237,7 +237,7 @@ describe Checkout::CartController do
         before :each do
           Cart.any_instance
               .stub(:add_item)
-              .with(basic_bag)
+              .with(basic_bag, nil)
               .and_return(false)
           request.env['HTTP_ACCEPT'] = "text/javascript"
         end

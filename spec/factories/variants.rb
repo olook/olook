@@ -15,6 +15,7 @@ FactoryGirl.define do
     price 0.0
     retail_price 0.0
     inventory 0
+    initial_inventory 0
 
     factory :basic_bag_simple do
       description 'bag'

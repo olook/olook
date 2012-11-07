@@ -22,6 +22,7 @@ module Abacos
       
       
       variant.inventory = self.inventory
+      variant.update_initial_inventory_if_needed
       variant.save!
 
       confirm_inventory

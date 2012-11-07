@@ -17,6 +17,9 @@ describe Variant do
     it { should validate_presence_of(:inventory) }
     it { should validate_numericality_of(:inventory) }
 
+    it { should validate_presence_of(:initial_inventory) }
+    it { should validate_numericality_of(:initial_inventory) }
+
     it { should validate_presence_of(:width) }
     it { should validate_numericality_of(:width) }
 
@@ -32,6 +35,38 @@ describe Variant do
 
   let(:product) { FactoryGirl.create(:basic_shoe) }
   subject { FactoryGirl.create(:basic_shoe_size_35, :product => product) }
+
+  describe "#update_initial_inventory_if_needed" do
+
+    let(:variant) { FactoryGirl.create(:variant) }
+
+    it "should increase initial_inventory because initial_inventory is 0" do
+      variant.inventory = 80
+      variant.update_initial_inventory_if_needed
+      variant.initial_inventory.should == 80
+    end
+
+    it "should not increase initial_inventory because initial_inventory is not 0" do
+      variant.inventory = 80
+      variant.update_initial_inventory_if_needed
+      variant.initial_inventory.should == 80
+
+      variant.inventory = 50
+      variant.update_initial_inventory_if_needed
+      variant.initial_inventory.should == 80
+    end
+
+    it "should increase initial_inventory because inventory is greater than initial_inventory" do
+      variant.inventory = 80
+      variant.update_initial_inventory_if_needed
+      variant.initial_inventory.should == 80
+
+      variant.inventory = 150
+      variant.update_initial_inventory_if_needed
+      variant.initial_inventory.should == 150
+    end
+
+  end
 
   describe "#sku" do
     it "should be the combination of product.model_number and the variant number" do
@@ -213,10 +248,10 @@ describe Variant do
 
       product
     end
-    
+
     it "should reflect all catalogs" do
       ct_product = CatalogProductService.new(catalog, basic_bag).save!
-      
+
       basic_bag.variants.each do |variant|
         variant.update_attribute(:inventory, variant.id+1)
 

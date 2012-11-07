@@ -42,11 +42,11 @@ _gaq.push(['_addTrans',
 
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
-        <% @cart.items.each do |item| %>
-          <tr>
+        <% @cart.items.each_with_index do |item, index| %>
+          <tr id="product_<%=item.product.id%>">
             <td class="item">
               <% unless item.thumb_picture.nil? %>
-                <%= image_tag item.variant.thumb_picture %>
+                <%= image_tag item.variant.bag_picture %>
               <% end %>
               <p><span><%= item.variant.name %></span></p>
               <p>Tamanho: <%= item.variant.description %></p>
@@ -54,9 +54,12 @@ _gaq.push(['_addTrans',
             </td>
             <td class="amount">
               <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
+        
+              <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
+
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
-              <%# end %>
+                <%= select_tag('variant[quantity]', options_for_select(item.product_quantity, item.quantity), :onchange => "submit();") %>
+              <% end %>
             </td>
             <td class="discount">
               <% if @cart_service.item_promotion?(item) %>
@@ -66,12 +69,13 @@ _gaq.push(['_addTrans',
                 </div>
               <% end %>
             </td>
-            <td class="value">
+            <td class="value" >
+              <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => @cart_service.item_retail_price(item)) %>
               <% if @cart_service.item_promotion?(item) %>
-                <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price(item)) %></p>
-                <p>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
+                <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price_total(item)) %></p>
+                <p>por: <%= number_to_currency(@cart_service.item_retail_price_total(item)) %></p>
               <% else %>
-                <p><%= number_to_currency(@cart_service.item_price(item)) %></p>
+                <p><%= number_to_currency(@cart_service.item_price_total(item)) %></p>
               <% end %>
               <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
                 <%= hidden_field('variant','id', :value => item.variant.id) %>

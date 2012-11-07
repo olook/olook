@@ -313,11 +313,6 @@ context "in the ilove_ecommerce xml page" do
       '<g:size>' + variant.display_reference + '</g:size>'}.join("\n")}
       <g:item_group_id>#{product.id}</g:item_group_id>
       <g:color/>
-      <g:shipping>
-      <g:country>BR</g:country>
-      <g:service/>
-      <g:price/>
-      </g:shipping>
       </item>
       </channel>
       </rss>

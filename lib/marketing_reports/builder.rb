@@ -119,9 +119,13 @@ group by uc.user_id, ct.code
     end
 
     def generate_in_cart_mail
-      conditions = UserNotifier.get_carts( 1, 1, [ "notified = 0" ] )
+      conditions = UserNotifier.get_carts( 
+        Setting.in_cart_mail_how_long.to_i, 
+        Setting.in_cart_mail_range.to_i, 
+        [Setting.in_cart_mail_condition])
+
       file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
-      @csv = file_lines.join("\n")
+      @csv = convert_to_iso(file_lines).join("\n")
     end
 
     def generate_line_items_report
@@ -135,6 +139,17 @@ group by uc.user_id, ct.code
 
     private
 
+    def convert_to_iso(file_lines=[])
+      file_lines.map do | line |  
+        begin
+          line.force_encoding("ISO-8859-1").encode("ISO-8859-1")
+        rescue 
+          Rails.logger.info("Conversion error #{line}")
+          ""
+        end
+      end
+    end
+      
     def emails(data)
       data.map { |item| item["email"] }
     end
