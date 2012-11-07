@@ -260,8 +260,8 @@
         number: Número
         state: Estado
         street: "Rua, Av., Praça"
-        telephone: "Telefone fixo"
-        mobile: Celular
+        telephone: "Telefone de contato 1"
+        mobile: "Telefone de contato 2"
         zip_code: CEP
       credit_card:
         credit_card_number: "Número do cartão"

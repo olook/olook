@@ -15,14 +15,17 @@ module MarketingReports
     end
 
     def save_local_file
-     File.open(TEMP_PATH+@filename, 'w', :encoding => @encoding) do |file|
-        file.write(@file_content.encode(@encoding).force_encoding(@encoding))
+      file_path = TEMP_PATH+DateTime.now.strftime(@filename)
+      File.open(file_path, 'w', :encoding => @encoding) do |file|
+        file.write(@file_content) #.encode(@encoding).force_encoding(@encoding))
       end
+      # Nasty workaround to solve the encoding issue
+      `iconv -c --from-code=utf-8 --to-code=#{@encoding}//IGNORE #{file_path} > #{file_path}.iso;mv #{file_path}.iso #{file_path}`
     end
 
     def self.copy_file(filename)
       report_path = Rails.env.production? ? '/home/allinmail' : Rails.root
-      FileUtils.copy(TEMP_PATH+filename, "#{report_path}/#{filename}")
+      FileUtils.copy(TEMP_PATH+DateTime.now.strftime(filename), "#{report_path}/#{filename}")
     end
   end
 end
