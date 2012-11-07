@@ -9,6 +9,7 @@ describe ProcessBraspagResponsesWorker do
     let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :order_id => "invalid") }
 
     it "should update authorize_response to processed with error" do
+      BraspagAuthorizeResponse.stub_chain(:to_process, :find_each).and_return([authorize_response])
       ProcessBraspagResponsesWorker.perform
       authorize_response.reload.processed.should eq(true)
       authorize_response.error_message.should eq("Pagamento não identificado.")
