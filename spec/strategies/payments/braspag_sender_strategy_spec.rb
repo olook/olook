@@ -68,14 +68,6 @@ describe Payments::BraspagSenderStrategy do
   context "processing response" do
     subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
 
-    it "should validate if the result is success" do
-      subject.success_result?("true").should eq(true)
-    end
-
-    it "should validate if the result is not success" do
-      subject.success_result?("false").should eq(false)
-    end
-
     it "should create a correct failure response" do
       authorize_transaction_result = {:correlation_id => "1234567890", :error_report_data_collection => ["error_report_1", "error_report_2"]}
       authorization_response = subject.create_failure_authorize_response(authorize_transaction_result)
@@ -138,7 +130,7 @@ describe Payments::BraspagSenderStrategy do
 
     it "should create a failure BraspagCaptureResponse on database" do
       capture_transaction_result = {:correlation_id => "123456",
-          :payment_data_collection => {:payment_data_response => {:braspag_transaction_id =>"12314341",
+          :transaction_data_collection => {:transaction_data_response => {:braspag_transaction_id =>"12314341",
           :acquirer_transaction_id => "12331321",
           :amount => "500",
           :authorization_code => "123",
