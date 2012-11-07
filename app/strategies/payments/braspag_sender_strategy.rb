@@ -41,15 +41,16 @@ module Payments
     end
 
     def address_data
+      delivery_address = Address.find_by_id!(@cart_service.freight[:address_id])
       Braspag::AddressBuilder.new
-      .with_street(@payment.order.freight.address.street)
-      .with_number(@payment.order.freight.address.number)
-      .with_complement(@payment.order.freight.address.complement)
-      .with_district(@payment.order.freight.address.neighborhood)
-      .with_zip_code(@payment.order.freight.address.zip_code)
-      .with_city(@payment.order.freight.address.city)
-      .with_state(@payment.order.freight.address.state)
-      .with_country(@payment.order.freight.address.country).build
+      .with_street(delivery_address.street)
+      .with_number(delivery_address.number)
+      .with_complement(delivery_address.complement)
+      .with_district(delivery_address.neighborhood)
+      .with_zip_code(delivery_address.zip_code)
+      .with_city(delivery_address.city)
+      .with_state(delivery_address.state)
+      .with_country(delivery_address.country).build
     end
 
     def customer_data
