@@ -229,11 +229,13 @@ $(document).ready(function() {
   });
 
   // For now both fone field will acept nine digits
-  $("input:text.phone").setMask('(99)99999-9999');
+  if($("input:text.phone").val().length == 13) {
+    $("input:text.phone").setMask('(99)9999-9999');
+  }else{
+    $("input:text.phone").setMask('(99)99999-9999');
+  }
 
   $("input:text.phone").change(function(){
-   // $("input:text.phone").unsetMask();
-   // $("input:text.phone").setMask('(99)99999-9999');
     if ($("input:text.phone").val().length == 13) {
       $("input:text.phone").setMask('(99)9999-9999');
     }
@@ -243,42 +245,6 @@ $(document).ready(function() {
     $("input:text.phone").unsetMask();
     $("input:text.phone").setMask('(99)99999-9999');
   });
-  //if($("input:text.phone").size() == 2) {
-  //  $("input:text.phone").each(function(index) {
-  //    currentObjPhone = $('input:text.phone')[index];
-  //    currentPhone = $(currentObjPhone).val();
-  //    if(currentPhone == '') {
-  //      $(currentObjPhone).setMask({
-  //        mask: '(99)9999-9999'
-  //      });
-  //    } else {
-  //      if(currentPhone.substring(1,3) == '11' && currentPhone.substring(4,5) == '9' && currentObjPhone.is("#address_mobile")) {
-  //        $(currentObjPhone).setMask({
-  //          mask: '(99)99999-9999'
-  //        });
-  //      } else {
-  //        $(currentObjPhone).setMask({
-  //          mask: '(99)99999-9999'
-  //        });
-  //      }
-  //    }
-  //  });
-  //}
-
-  //$('input:text#address_mobile.phone,#credit_card_telephone').keyup(function() {
-  //  var value = $(this).val();
-
-  //  var size = value.length;
-  //  if(size == 5) {
-  //    if(value == '(11)9') {
-  //      $(this).setMask('(99)99999-9999');
-  //      return false;
-  //    } else {
-  //      $(this).setMask('(99)9999-9999');
-  //      return false;
-  //    }
-  //  }
-  //});
 
   $("input:text.expiration_date").setMask({
     mask: '19/99'
