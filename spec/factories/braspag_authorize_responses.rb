@@ -14,7 +14,7 @@ FactoryGirl.define do
     authorization_code "MyString"
     return_code "MyString"
     return_message "MyString"
-    transaction_status 1
+    status 1
     credit_card_token "MyString"
     processed false
   end
