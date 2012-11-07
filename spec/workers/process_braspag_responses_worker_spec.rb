@@ -4,6 +4,7 @@ require 'spec_helper'
 describe ProcessBraspagResponsesWorker do
 
   context "when payment does not exist" do
+
     let(:authorize_response) { FactoryGirl.create(:braspag_authorize_response, :order_id => "invalid") }
     let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :order_id => "invalid") }
 
