@@ -16,7 +16,7 @@ module Payments
     end
 
     def payment_successful?
-      success_result?(payment.gateway_response_status)
+      payment.sucess?
     end
 
     def set_payment_gateway
@@ -93,24 +93,19 @@ module Payments
 
     def process_response(authorize_response, capture_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
-      capture_transaction_result = capture_response[:capture_transaction_response][:capture_credit_card_transaction_result]
-      if success_result?(authorize_transaction_result[:success])
+      if authorize_transaction_result[:success]
         create_success_authorize_response(authorize_transaction_result)
-        if success_result?(capture_transaction_result[:success])
+        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result]
+        if capture_transaction_result[:success]
           create_success_capture_response(capture_transaction_result,authorize_transaction_result[:order_data][:order_id])
         else
           create_failure_capture_response(capture_transaction_result)
-        end
-        
-        update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
+        end        
+        update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
-        update_payment_response(authorize_transaction_result[:success], authorize_transaction_result[:error_report_data_collection].to_s)
+        update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
       end
-    end
-
-    def success_result?(gateway_response_status)
-      gateway_response_status.upcase == "TRUE"
     end
 
     def create_success_authorize_response(authorize_transaction_result)
@@ -146,13 +141,13 @@ module Payments
           {:correlation_id => capture_transaction_result[:correlation_id],
           :success => true,
           :order_id => order_id,
-          :braspag_transaction_id => capture_transaction_result[:payment_data_collection][:payment_data_response][:braspag_transaction_id],
-          :acquirer_transaction_id => capture_transaction_result[:payment_data_collection][:payment_data_response][:acquirer_transaction_id],
-          :amount => capture_transaction_result[:payment_data_collection][:payment_data_response][:amount],
-          :authorization_code => capture_transaction_result[:payment_data_collection][:payment_data_response][:authorization_code],
-          :return_code => capture_transaction_result[:payment_data_collection][:payment_data_response][:return_code],
-          :return_message => capture_transaction_result[:payment_data_collection][:payment_data_response][:return_message],
-          :status => capture_transaction_result[:payment_data_collection][:payment_data_response][:status]})
+          :braspag_transaction_id => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:braspag_transaction_id],
+          :acquirer_transaction_id => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:acquirer_transaction_id],
+          :amount => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:amount],
+          :authorization_code => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:authorization_code],
+          :return_code => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_code],
+          :return_message => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_message],
+          :status => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:status]})
       capture_response.save
       capture_response
     end
