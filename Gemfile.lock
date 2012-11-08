@@ -10,10 +10,10 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 79d5f044911bc27cabea1d2a79bd912eafc28787
+  revision: 4f4e350f2538a56f0c8ca856d4794acc4cca53a5
   branch: master
   specs:
-    obraspag (0.0.6)
+    obraspag (0.0.8)
       active_attr (>= 0.6)
       httpi (>= 0.9.7)
       json (>= 1.6.1)
