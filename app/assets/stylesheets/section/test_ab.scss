@@ -1,0 +1,12 @@
+.box-remember{
+	width:500px;height:345px;border:solid 5px #000;text-align:center;
+	
+	h3{font-family:$johnston;font-size:29px;}
+	p{font-family:$avenir;font-size:13px;}
+	
+	form{
+		border:solid 1px #E8E8E8;padding:18px 57px;width:349;height:150px;
+		label{font-size:15px;color:#6D6E71;}
+		input{width:282px;height:31px;border:solid 1px #C1C1C1;background: image-url("test_ab/sprite.png") -269px -52px repeat-x;}
+	}
+}
