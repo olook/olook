@@ -1,10 +1,9 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag  "section/test_ab" %>
-<% end %>
+- content_for :head do 
+  = stylesheet_link_tag  "section/test_ab"
 
 .box-remember
   %h3 LEMBRAMOS DE VOCÊ!
-  %p Se você já tem cadastro, não precisa fazer outro, basta informar sua senha abaixo para entrar. ;)
+  %p Se você já tem cadastro, não precisa fazer outro, basta informar<br> sua senha abaixo para entrar. ;)
   %form{ :action => "/", :method => "post" }
     %fieldset
       %label{:for => "email"} E-mail:
@@ -12,12 +11,21 @@
     %fieldset
       %label{:for => "senha"} Senha:
       %input{:type => "password", :name => "senha"}
-    %fieldset
-      %input{:type => "checkbox", :name => "remember"}
-      %label{:for => "remember"} Lembrar de mim
-      %p 
-        %a{:href => "#"} Esqueci minha senha
+    %fieldset.botoes
+      %div
+        %input{:type => "checkbox", :name => "remember"}
+        %label{:for => "remember"} Lembrar de mim
+        %p 
+          %a{:href => "#"} Esqueci minha senha
       %input{type:"submit", :value => "ENTRAR"}
-  %p
+  %p.facebook
     %a{:href => "#"}Entrar com Facebook
-  %button{:type => "button"}.close Fechar  
+  %button{:type => "button", :class => "close"} Fechar  
+  
+.box-remember
+  %div.msg
+    %p Cadastro realizado com sucesso! 
+  %p.f14  Você já ganhou 20% de desconto* para usar em sua primeira compra. <br> Aproveite e escolha o que mais ama na olook. 
+  %p.desconto * O desconto será automaticamente calculado em sua sacola de compras 
+
+  %button{:type => "button", :class => "close"} Fechar  
