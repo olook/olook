@@ -1,12 +1,39 @@
+@import 'partials/_mixins';
 .box-remember{
-	width:500px;height:345px;border:solid 5px #000;text-align:center;
+	position:relative;width:500px;/*height:315px;*/border:solid 5px #000;text-align:center;padding:15px 0;
 	
 	h3{font-family:$johnston;font-size:29px;}
 	p{font-family:$avenir;font-size:13px;}
 	
 	form{
-		border:solid 1px #E8E8E8;padding:18px 57px;width:349;height:150px;
-		label{font-size:15px;color:#6D6E71;}
-		input{width:282px;height:31px;border:solid 1px #C1C1C1;background: image-url("test_ab/sprite.png") -269px -52px repeat-x;}
+		border:solid 1px #E8E8E8;padding:18px 50px;width:356px;height:150px;margin:0 auto;
+		fieldset{
+			margin-bottom:15px;
+			&.botoes{
+				text-align:left;
+				div{float:left;width:150px;margin-left:55px;
+					label{font-size:15px;color:#6D6E71;width:60px;display:inline-block;text-align:left;
+						&[for="remember"]{width:100px;font-size:12px;}
+					}
+					p{float:left;
+						a{text-decoration:none;color:#6D6E71;
+							&:hover{text-decoration:underline;}
+						}
+					}
+				}
+				input[type="submit"]{float:left;cursor:pointer;font-size:20px;font-family:$avenir;text-shadow:0px 1px 2px #000000;color:#FFF;width:120px;height:50px;background: image-url("test_ab/sprite.png") -36px -1px no-repeat;border:0}
+			}
+			
+		}
+
+		input[type="text"], input[type="password"]{width:282px;height:31px;border:solid 1px #C1C1C1;background: image-url("test_ab/bg_input.png") 0 2px repeat-x;}
 	}
+	.facebook a{display:inline-block;width:261px;height:40px;background: image-url("test_ab/sprite.png") 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
+	.close{width:29px;height:29px;border:0;background:image-url("test_ab/sprite.png") 0px 0px no-repeat;position:absolute;top:-10px;right:-13px;font-size:0;font-family:a;cursor:pointer;}
+	
+	.msg{background:#F0FDDF;border:solid 1px #CBD7BC;width:455px;height:32px;margin:15px 0 5px 17px;
+		p{height:21px;background: image-url("test_ab/sprite.png") -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;}
+	}
+	.f14{font-size:14px;}
+	.desconto{font-size:11px;}
 }
