@@ -1,0 +1,60 @@
+<h2>Listing Braspag Authorize Responses</h2>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+
+    <div class="content">
+      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
+        <div class="group">
+          <%= f.label :created_at_gte, "Created at from", :class => "label"  %>
+          <%= f.date_select :created_at_gte, :include_blank => true %>
+          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.date_select :created_at_lte, :include_blank => true %>
+        </div>
+
+        <div class="group">
+          <%= f.label :processed, "Processed", :class => "label" %>
+          <%= f.select :processed_eq, {"Yes" => true, "No" => false} , {:include_blank => true} %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Search', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Transaction</th>
+      <th><%= sort_link @search, :processed %></th>
+      <th><%= sort_link @search, :retry %></th>
+      <th>Status</th>
+      <th><%= sort_link @search, :created_at %></th>
+    </tr>
+
+  <% @responses.each do |response| %>
+   <% payment = Payment.find_by_authorization_code(response.authorization_code) %>
+    <tr>
+      <td><%= link_to response.id, admin_response_path(response) %></td>
+      <td><%= link_to response.authorization_code, admin_payment_path(payment) if payment %>
+          <%= response.authorization_code unless payment %></td>
+      <td><%= response.processed %></td>
+      <td><%= response.retry %></td>
+      <td><%= payment_status(response.status_pagamento) %></td>
+      <td><%= response.created_at.to_s(:long) %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @responses %>
+    </div>
+  </div>
+</div>
+

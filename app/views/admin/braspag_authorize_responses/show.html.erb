@@ -1,0 +1,59 @@
+<h2>Braspag Authorization Response</h2>
+<div class="inner">
+   <p>
+    <b>ID:</b>
+    <%= @response.id %>
+  </p>
+
+  <p>
+    <b>Transaction:</b>
+    <%= link_to @response.order_id, admin_payment_path(@payment) if @payment %>
+    <%= @response.order_id unless @payment %>
+  </p>
+
+  <p>
+    <b>Order:</b>
+    <%= link_to @response.order.number, admin_order_path(@response.order) if @response.order %>
+  </p>
+
+  <p>
+    <b>Braspag code:</b>
+    <%= @response.braspag_transaction_id %>
+  </p>
+
+  <p>
+    <b>Payment type:</b>
+    <%= @response.payment_method%>
+  </p>
+
+  <p>
+  	<b>Status:</b>
+  	<%= payment_status(@response.status) %>
+  </p>
+
+  <p>
+    <b>Created at:</b>
+    <%= l @response.created_at %>
+  </p>
+
+  <p>
+    <b>Updated at:</b>
+    <%= l @response.updated_at %>
+  </p>
+
+  <p>
+    <b>Classification:</b>
+    <%= @response.classificacao %>
+  </p>
+
+  <p>
+  	<b>Error:</b>
+  	<%= @response.error %>
+  </p>
+
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_braspag_authorize_responses_path %></li>
+<% end %>
+
