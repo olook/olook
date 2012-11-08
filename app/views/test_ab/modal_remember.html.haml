@@ -1,0 +1,23 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag  "section/test_ab" %>
+<% end %>
+
+.box-remember
+  %h3 LEMBRAMOS DE VOCÊ!
+  %p Se você já tem cadastro, não precisa fazer outro, basta informar sua senha abaixo para entrar. ;)
+  %form{ :action => "/", :method => "post" }
+    %fieldset
+      %label{:for => "email"} E-mail:
+      %input{:type => "text", :name => "email"}
+    %fieldset
+      %label{:for => "senha"} Senha:
+      %input{:type => "password", :name => "senha"}
+    %fieldset
+      %input{:type => "checkbox", :name => "remember"}
+      %label{:for => "remember"} Lembrar de mim
+      %p 
+        %a{:href => "#"} Esqueci minha senha
+      %input{type:"submit", :value => "ENTRAR"}
+  %p
+    %a{:href => "#"}Entrar com Facebook
+  %button{:type => "button"}.close Fechar  

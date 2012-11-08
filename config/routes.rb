@@ -260,6 +260,9 @@ Olook::Application.routes.draw do
     end
   end
 
+  #TESTE A/B
+  get "/remember", :to => "test_ab#modal_remember"
+
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "checkout/cart" do
     get "update_status" => "checkout/cart#update_status", :as => :update_status
@@ -294,9 +297,6 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
-
-  #TESTE A/B
-  get "/remember", :to => "test_ab#modal_remember"
 
 end
 
