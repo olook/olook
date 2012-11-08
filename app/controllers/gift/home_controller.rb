@@ -7,7 +7,12 @@ class Gift::HomeController < Gift::BaseController
   before_filter :load_friends
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
+  def profiles
+    %w[moderna casual chic sexy]
+  end
+
   def index
+    @profiles = profiles
     @profiles_products = fetch_profiles_products
     @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
   end
@@ -50,8 +55,8 @@ class Gift::HomeController < Gift::BaseController
 
     def fetch_profiles_products
       profiles_products = {}
-      [:modern, :casual, :chic, :sexy].each do |profile|
-        profiles_products[profile] = fetch_product_for_profile profile
+      profiles.each do |profile|
+        profiles_products[profile.to_sym] = fetch_product_for_profile profile
       end
       profiles_products
     end
