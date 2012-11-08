@@ -231,7 +231,7 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :braspag_response
+    resources :braspag_authorize_responses
 
     resources :payments, :only => [:index, :show]
 
