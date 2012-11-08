@@ -30,7 +30,7 @@ Setting.defaults[:quantity_for_sugested_product]= (1..5)
 
 # Gifts page
 # Setting.defaults[:profile_modern_ids] = "14"
-Setting.defaults[:profile_modern_product_ids] = "4999,5759,3515,4352,7759"
+Setting.defaults[:profile_moderna_product_ids] = "4999,5759,3515,4352,7759"
 # Setting.defaults[:profile_casual_ids] = "14"
 Setting.defaults[:profile_casual_product_ids] = "9950,7434,7425,7001,6023"
 # Setting.defaults[:profile_chic_ids] = "14"

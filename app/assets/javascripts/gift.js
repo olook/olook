@@ -3,10 +3,13 @@ $(function () {
 
     var profile = e.target.id;
 
+    $("section#profile_products").hide();
+
     $("section#profiles ul li a").removeClass().addClass("off");
     $(this).removeClass("off").addClass('selected');
-    $("section#profile_products_" + profile).slideDown();
-    var container_position = $("section#profile_products_" + profile).offset().top - 40;
+    
+    $("section#profile_products." + profile).slideDown();
+    var container_position = $("section#profile_products." + profile).offset().top - 40;
     InitGift.slideTo(container_position);
     e.preventDefault();
   });
