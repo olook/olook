@@ -7,8 +7,8 @@
 
   <p>
     <b>Transaction:</b>
-    <%= link_to @response.order_id, admin_payment_path(@payment) if @payment %>
-    <%= @response.order_id unless @payment %>
+    <%= link_to @response.identification_code, admin_payment_path(@payment) if @payment %>
+    <%= @response.identification_code unless @payment %>
   </p>
 
   <p>

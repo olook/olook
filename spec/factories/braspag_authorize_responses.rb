@@ -5,7 +5,6 @@ FactoryGirl.define do
     correlation_id "1"
     success false
     error_message "MyString"
-    braspag_order_id "MyString"
     braspag_transaction_id "MyString"
     amount "12.00"
     payment_method 1
@@ -15,11 +14,10 @@ FactoryGirl.define do
     return_message "MyString"
     status 1
     credit_card_token "MyString"
-    processed false
 
     factory :braspag_authorize_response, :parent => :clean_braspag_authorize_response do
       after_create do |braspag_authorize_response|
-        braspag_authorize_response.update_attribute(:order_id, "ee0d8edb-12db-455c-a1fa-d0000fc4368d")
+        braspag_authorize_response.update_attribute(:identification_code, "ee0d8edb-12db-455c-a1fa-d0000fc4368d")
       end
     end
 

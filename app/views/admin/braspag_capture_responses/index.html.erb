@@ -14,8 +14,8 @@
         </div>
 
         <div class-"group">
-          <%= f.label :order_id, "Transaction ID", :class => "label" %>
-          <%= f.text_field :order_id_eq, :class => "text_field" %>
+          <%= f.label :identification_code, "Transaction ID", :class => "label" %>
+          <%= f.text_field :identification_code_eq, :class => "text_field" %>
         </div>
 
         <div class="group">
@@ -43,11 +43,11 @@
     </tr>
 
   <% @responses.each do |response| %>
-   <% payment = Payment.find_by_identification_code(response.order_id) %>
+   <% payment = Payment.find_by_identification_code(response.identification_code) %>
     <tr>
       <td><%= link_to response.id, admin_braspag_authorize_responses_path(response) %></td>
-      <td><%= link_to response.order_id, admin_payment_path(payment) if payment %>
-          <%= response.order_id unless payment %></td>
+      <td><%= link_to response.identification_code, admin_payment_path(payment) if payment %>
+          <%= response.identification_code unless payment %></td>
       <td><%= response.processed %></td>
       <td><%= payment_status(response.status) %></td>
       <td><%= response.created_at.to_s(:long) %></td>
