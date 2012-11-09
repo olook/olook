@@ -1,0 +1,20 @@
+.box-remember
+  %h3 LEMBRAMOS DE VOCÊ!
+  %p Se você já tem cadastro, não precisa fazer outro, basta informar<br> sua senha abaixo para entrar. ;)
+  =form_for @user, url: session_path(@user), method: 'post' do |f|
+    %fieldset
+      =f.label :email, "E-mail:"
+      =f.text_field :email
+    %fieldset
+      =f.label :password, "Senha:"
+      =f.password_field :password
+    %fieldset.botoes
+      %div
+        =f.check_box :remember_me, :checked => true
+        =f.label :remember_me, "Lembrar de mim"
+        %p 
+          %a{:href => "#"} Esqueci minha senha
+      =f.submit :value => "ENTRAR"
+  %p.facebook
+    %a{:href => "#"}Entrar com Facebook
+  %button{:type => "button", :class => "close"} Fechar   
