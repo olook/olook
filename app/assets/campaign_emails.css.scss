@@ -1,6 +1,6 @@
 @import 'partials/_mixins';
 
-input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-family:$avenir;text-shadow:0px 1px 2px #000;color:#FFF;background: image-url("test_ab/sprite.png") no-repeat;}
+input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-family:$avenir;text-shadow:0px 1px 2px #000;color:#FFF;background: image-url("campaign_emails/sprite.png") no-repeat;}
 .box-remember{
 	position:relative;width:500px;/*height:315px;*/border:solid 5px #000;text-align:center;padding:15px 0;margin-bottom:20px;
 	
@@ -28,13 +28,13 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 			
 		}
 
-		input[type="text"], input[type="password"]{width:282px;height:31px;border:solid 1px #C1C1C1;background: image-url("test_ab/bg_input.png") 0 2px repeat-x;}
+		input[type="text"], input[type="password"]{width:282px;height:31px;border:solid 1px #C1C1C1;background: image-url("campaign_emails/bg_input.png") 0 2px repeat-x;}
 	}
-	.facebook a{display:inline-block;width:261px;height:40px;background: image-url("test_ab/sprite.png") 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
-	.close{width:29px;height:29px;border:0;background:image-url("test_ab/sprite.png") 0px 0px no-repeat;position:absolute;top:-10px;right:-13px;font-size:0;font-family:a;cursor:pointer;}
+	.facebook a{display:inline-block;width:261px;height:40px;background: image-url("campaign_emails/sprite.png") 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
+	.close{width:29px;height:29px;border:0;background:image-url("campaign_emails/sprite.png") 0px 0px no-repeat;position:absolute;top:-10px;right:-13px;font-size:0;font-family:a;cursor:pointer;}
 	
 	.msg{background:#F0FDDF;border:solid 1px #CBD7BC;width:455px;height:32px;margin:15px 0 5px 17px;
-		p{height:21px;background: image-url("test_ab/sprite.png") -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;}
+		p{height:21px;background: image-url("campaign_emails/sprite.png") -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;}
 	}
 	.f14{font-size:14px;}
 	.desconto{font-size:11px;}
@@ -58,6 +58,6 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	small{clear:both;display:block;font-family:$avenir;font-size:11px;text-align:center;margin-top:20px;float:left;}
 	
 	.error{width:400px;height:32px;border:solid 1px #F37C8F;background:#FDADB6;padding:0;margin:5px 0;
-		p{min-height:22px;background: image-url("test_ab/sprite.png") -333px 0 no-repeat;font-size:14px;padding:0 0 0 25px;color:#000;margin-top:4px;line-height:24px;}
+		p{min-height:22px;background: image-url("campaign_emails/sprite.png") -333px 0 no-repeat;font-size:14px;padding:0 0 0 25px;color:#000;margin-top:4px;line-height:24px;}
 	}
 }

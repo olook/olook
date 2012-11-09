@@ -1,37 +1,5 @@
-- content_for :head do 
-  = stylesheet_link_tag  "section/test_ab"
-
-.box-remember
-  %h3 LEMBRAMOS DE VOCÊ!
-  %p Se você já tem cadastro, não precisa fazer outro, basta informar<br> sua senha abaixo para entrar. ;)
-  %form{:action => "/", :method => "post" }
-    %fieldset
-      %label{:for => "email"} E-mail:
-      %input{:type => "text", :name => "email"}
-    %fieldset
-      %label{:for => "senha"} Senha:
-      %input{:type => "password", :name => "senha"}
-    %fieldset.botoes
-      %div
-        %input{:type => "checkbox", :name => "remember"}
-        %label{:for => "remember"} Lembrar de mim
-        %p 
-          %a{:href => "#"} Esqueci minha senha
-      %input{type:"submit", :value => "ENTRAR"}
-  %p.facebook
-    %a{:href => "#"}Entrar com Facebook
-  %button{:type => "button", :class => "close"} Fechar  
-  
-.box-remember
-  %div.msg
-    %p Cadastro realizado com sucesso! 
-  %p.f14  Você já ganhou 20% de desconto* para usar em sua primeira compra. <br> Aproveite e escolha o que mais ama na olook. 
-  %p.desconto * O desconto será automaticamente calculado em sua sacola de compras 
-
-  %button{:type => "button", :class => "close"} Fechar  
-  
 .box-cadastro
-  =image_tag("/assets/test_ab/img_cadastro.jpg")
+  =image_tag("/campaign_emails/img_cadastro.jpg")
   %div
     %p.titulo 20% de desconto <span><br>na sua primeira compra*</span>
     %p.cadastre cadastre-se E receba por e-mail novidades sobre<br> moda, tendências e promoções exclusivas
@@ -39,9 +7,10 @@
     %div.error 
       %p O e-mail informado não parece correto. Que tal conferir?
       
-    %form{:action => "/", :method => "post" }
-      %input{:type => "text", :name => "email", :value => "seunome@email.com.br"}
-      %input{type:"submit", :value => "CADASTRAR"}
+    =form_for @campaign_email do |f|
+      =f.text_field :email, :value => "seunome@email.com.br"
+      =f.submit :value => "CADASTRAR"
     %p.texto Aceito os <a href="#">termos de uso</a> e a <a href="#">política de privacidade</a>
     
     %small * O desconto será automaticamente calculado em sua sacola de compras
+  

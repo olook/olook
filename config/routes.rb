@@ -2,7 +2,6 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-  resources :campaign_emails
 
   get "settings/index"
 
@@ -263,7 +262,11 @@ Olook::Application.routes.draw do
   end
 
   #TESTE A/B
-  get "/remember", :to => "test_ab#modal_remember"
+  resources :campaign_emails do
+    member do
+      get 'login'
+    end
+  end
 
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "checkout/cart" do
