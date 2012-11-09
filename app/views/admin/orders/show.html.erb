@@ -17,7 +17,7 @@
     </p>
     <p>
       <b>Gateway de Pagamento:</b>
-      <%= @order.payments.last.humanize_gateway %>
+      <%= humanize_gateway @order.gateway %>
     </p>
     <p>
       <b>Identification Code:</b>
