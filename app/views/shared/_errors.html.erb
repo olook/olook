@@ -2,7 +2,6 @@
   <div id="error_explanation">
     <ul>
     <% object.errors.full_messages.each do |msg| %>
-      <% msg = msg.gsub("Id", "") if msg.match("Id") %>
       <li><%= msg %></li>
     <% end %>
     </ul>
