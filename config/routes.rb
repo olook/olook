@@ -233,6 +233,8 @@ Olook::Application.routes.draw do
 
     resources :braspag_authorize_responses
 
+    resources :braspag_capture_responses
+
     resources :payments, :only => [:index, :show]
 
   end
