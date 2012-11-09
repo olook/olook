@@ -1,0 +1,2 @@
+class CampaignEmailsController < ApplicationController
+end
