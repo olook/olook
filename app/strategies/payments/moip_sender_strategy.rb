@@ -8,7 +8,6 @@ module Payments
     end
 
     def send_to_gateway
-      #debugger
       begin
         self.response = MoIP::Client.checkout(payment_data)
         payment.build_response self.response
@@ -16,7 +15,7 @@ module Payments
         set_payment_gateway
         payment
       rescue Exception => error
-        ErrorNotifier(self, error)
+        ErrorNotifier.send("Moip", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
       end
     end
