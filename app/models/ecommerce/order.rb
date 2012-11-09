@@ -262,7 +262,7 @@ class Order < ActiveRecord::Base
   end
 
   def send_notification_order_shipped?
-    Resque.enqueue_in(1.minute, Orders::NotificationOrderShippedWorker, self.id)
+    Resque.enqueue_in(12.hour, Orders::NotificationOrderShippedWorker, self.id)
     true
   end
 end
