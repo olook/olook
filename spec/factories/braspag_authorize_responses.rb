@@ -5,7 +5,7 @@ FactoryGirl.define do
     correlation_id 1
     success false
     error_message "MyString"
-    order_id "MyString"
+    identification_code "MyString"
     braspag_order_id "MyString"
     braspag_transaction_id "MyString"
     amount "MyString"
