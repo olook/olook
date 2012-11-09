@@ -45,7 +45,7 @@
   <% @responses.each do |response| %>
    <% payment = Payment.find_by_identification_code(response.identification_code) %>
     <tr>
-      <td><%= link_to response.id, admin_braspag_authorize_responses_path(response) %></td>
+      <td><%= link_to response.id, admin_braspag_capture_response_path(response) %></td>
       <td><%= link_to response.identification_code, admin_payment_path(payment) if payment %>
           <%= response.identification_code unless payment %></td>
       <td><%= response.processed %></td>
