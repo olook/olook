@@ -249,7 +249,7 @@ describe Checkout::CheckoutController do
 
       it "should render new template" do
         response.should render_template('new_billet')
-        assigns(:payment).errors[:id].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
+        assigns(:payment).errors[:base].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
       end
     end
   end
@@ -319,7 +319,7 @@ describe Checkout::CheckoutController do
 
       it "should render new template" do
         response.should render_template('new_credit_card')
-        assigns(:payment).errors[:id].should include("Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+        assigns(:payment).errors[:base].should include("Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
       end
     end
   end
@@ -375,7 +375,7 @@ describe Checkout::CheckoutController do
 
       it "should render new template" do
         response.should render_template('new_debit')
-        assigns(:payment).errors[:id].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
+        assigns(:payment).errors[:base].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
       end
     end
   end
