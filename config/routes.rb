@@ -2,6 +2,8 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  resources :campaign_emails
+
   get "settings/index"
 
   get "settings/update"
