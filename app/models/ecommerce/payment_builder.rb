@@ -24,7 +24,7 @@ class PaymentBuilder
       payment = @gateway_strategy.send_to_gateway
 
       if @gateway_strategy.payment_successful?
-        order = cart_service.generate_order!
+        order = cart_service.generate_order!(payment.gateway)
         payment.order = order
         payment.calculate_percentage!
         payment.deliver! if payment.kind_of?(CreditCard)
