@@ -10,7 +10,7 @@ class Admin::BraspagAuthorizeResponsesController < Admin::BaseController
 
   def show
   	@response = BraspagAuthorizeResponse.find(params[:id])
-  	@payment = Payment.find_by_identification_code(@response.id_transacao)
+  	@payment = Payment.find_by_identification_code(@response.order_id)
   	respond_with :admin, @response, @payment
   end
 

@@ -13,7 +13,7 @@
 
   <p>
     <b>Order:</b>
-    <%= link_to @response.order.number, admin_order_path(@response.order) if @response.order %>
+    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment && @payment.order %>
   </p>
 
   <p>
@@ -42,13 +42,8 @@
   </p>
 
   <p>
-    <b>Classification:</b>
-    <%= @response.classificacao %>
-  </p>
-
-  <p>
   	<b>Error:</b>
-  	<%= @response.error %>
+  	<%= @response.error_message %>
   </p>
 
 </div>
