@@ -107,7 +107,7 @@ module Payments
       authorization_response = BraspagAuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => true,
-          :order_id => authorize_transaction_result[:order_data][:order_id],
+          :identification_code => authorize_transaction_result[:order_data][:order_id],
           :braspag_order_id => authorize_transaction_result[:order_data][:braspag_order_id],
           :braspag_transaction_id => authorize_transaction_result[:payment_data_collection][:payment_data_response][:braspag_transaction_id],
           :amount => authorize_transaction_result[:payment_data_collection][:payment_data_response][:amount],
@@ -144,7 +144,7 @@ module Payments
       capture_response = BraspagCaptureResponse.new(
           {:correlation_id => capture_transaction_result[:correlation_id],
           :success => true,
-          :order_id => order_id,
+          :identification_code => order_id,
           :braspag_transaction_id => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:braspag_transaction_id],
           :acquirer_transaction_id => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:acquirer_transaction_id],
           :amount => capture_transaction_result[:transaction_data_collection][:transaction_data_response][:amount],

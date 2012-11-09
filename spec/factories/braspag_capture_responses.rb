@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :clean_braspag_capture_response, :class => BraspagCaptureResponse do
     correlation_id "1"
     success false
+    processed false
     error_message "MyString"
     braspag_transaction_id "MyString"
     amount "12.00"

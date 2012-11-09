@@ -22,7 +22,7 @@ class ProcessBraspagResponsesWorker
   private
 
   def self.process_braspag_response(braspag_response)
-    payment = Payment.find_by_identification_code(braspag_response.order_id)
+    payment = Payment.find_by_identification_code(braspag_response.identification_code)
     if payment
       braspag_response.update_payment_status(payment)
     else
