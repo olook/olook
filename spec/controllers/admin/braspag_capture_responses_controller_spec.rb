@@ -14,7 +14,7 @@ describe Admin::BraspagCaptureResponsesController do
   end
 
   describe "GET index" do
-    let(:search_param) { {"order_id_eq" => braspag_capture_response.order_id} }
+    let(:search_param) { {"identification_code_eq" => braspag_capture_response.identification_code} }
 
     it "should find all braspag capture responses using no parameter" do
       get :index

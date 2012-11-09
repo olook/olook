@@ -10,7 +10,7 @@ class Admin::BraspagCaptureResponsesController < Admin::BaseController
 
   def show
   	@response = BraspagCaptureResponse.find(params[:id])
-  	@payment = Payment.find_by_identification_code(@response.order_id)
+  	@payment = Payment.find_by_identification_code(@response.identification_code)
   	respond_with :admin, @response, @payment
   end
 
