@@ -13,6 +13,11 @@
           <%= f.date_select :created_at_lte, :include_blank => true %>
         </div>
 
+        <div class-"group">
+          <%= f.label :order_id, "Transaction ID", :class => "label" %>
+          <%= f.text_field :order_id_eq, :class => "text_field" %>
+        </div>
+
         <div class="group">
           <%= f.label :processed, "Processed", :class => "label" %>
           <%= f.select :processed_eq, {"Yes" => true, "No" => false} , {:include_blank => true} %>
@@ -38,14 +43,14 @@
     </tr>
 
   <% @responses.each do |response| %>
-   <% payment = Payment.find_by_authorization_code(response.authorization_code) %>
+   <% payment = Payment.find_by_identification_code(response.order_id) %>
     <tr>
-      <td><%= link_to response.id, admin_response_path(response) %></td>
-      <td><%= link_to response.authorization_code, admin_payment_path(payment) if payment %>
-          <%= response.authorization_code unless payment %></td>
+      <td><%= link_to response.id, admin_braspag_authorize_responses_path(response) %></td>
+      <td><%= link_to response.order_id, admin_payment_path(payment) if payment %>
+          <%= response.order_id unless payment %></td>
       <td><%= response.processed %></td>
-      <td><%= response.retry %></td>
-      <td><%= payment_status(response.status_pagamento) %></td>
+      <td><%= response.retries %></td>
+      <td><%= payment_status(response.status) %></td>
       <td><%= response.created_at.to_s(:long) %></td>
     </tr>
   <% end %>
