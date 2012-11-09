@@ -43,10 +43,15 @@ module Abacos
     
   private
     def self.parse_product_class(abacos_product)
-      abacos_product[:codigo_produto_pai].nil? ? Abacos::Product : Abacos::Variant
+      is_product?(abacos_product) ? Abacos::Product : Abacos::Variant
     end
+
     def self.parse_price_class(abacos_product)
-      abacos_product[:codigo_produto_pai].nil? ? Abacos::ProductPrice : Abacos::VariantPrice
+      is_product?(abacos_product) ? Abacos::ProductPrice : Abacos::VariantPrice
+    end
+
+    def self.is_product?(abacos_product)
+      abacos_product[:codigo_produto_pai].nil? || abacos_product[:codigo_produto_pai] == abacos_product[:codigo_produto]
     end
   end
 end

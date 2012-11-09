@@ -25,7 +25,7 @@ module MarketingReports
 
     def self.copy_file(filename)
       report_path = Rails.env.production? ? '/home/allinmail' : Rails.root
-      FileUtils.copy(TEMP_PATH+DateTime.now.strftime(filename), "#{report_path}/#{filename}")
+      FileUtils.copy(TEMP_PATH+DateTime.now.strftime(filename), "#{report_path}/#{DateTime.now.strftime(filename)}")
     end
   end
 end
