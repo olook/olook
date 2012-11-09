@@ -12,13 +12,13 @@
   </p>
 
   <p>
-    <b>Order:</b>
-    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment && @payment.order %>
+    <b>Braspag Order Id:</b>
+    <%= @response.braspag_order_id %>
   </p>
 
   <p>
-    <b>Braspag code:</b>
-    <%= @response.braspag_transaction_id %>
+    <b>Order:</b>
+    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment && @payment.order %>
   </p>
 
   <p>
@@ -27,8 +27,63 @@
   </p>
 
   <p>
+    <b>Amount:</b>
+    <%= @response.amount %>
+  </p>
+
+  <p>
+  	<b>Credit Card Token:</b>
+  	<%= @response.credit_card_token %>
+  </p>
+
+  <p>
+    <b>Authorization Code:</b>
+    <%= @response.authorization_code %>
+  </p>
+
+  <p>
+    <b>Braspag code:</b>
+    <%= @response.braspag_transaction_id %>
+  </p>
+
+  <p>
+    <b>Processed:</b>
+    <%= @response.processed %>
+  </p>
+
+  <p>
+    <b>Correlation Id:</b>
+    <%= @response.correlation_id %>
+  </p>
+
+  <p>
+  	<b>Acquirer Transaction id:</b>
+  	<%= @response.acquirer_transaction_id %>
+  </p>
+
+  <p>
+    <b>Success:</b>
+    <%= @response.success %>
+  </p>
+
+  <p>
+  	<b>Return Code:</b>
+  	<%= @response.return_code %>
+  </p>
+
+  <p>
+  	<b>Return Message:</b>
+  	<%= @response.return_message %>
+  </p>
+
+  <p>
   	<b>Status:</b>
   	<%= payment_status(@response.status) %>
+  </p>
+
+  <p>
+    <b>Retries:</b>
+    <%= @response.retries %>
   </p>
 
   <p>
