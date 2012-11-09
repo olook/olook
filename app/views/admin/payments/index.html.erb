@@ -61,7 +61,7 @@
       <td><%= link_to payment.user.name, admin_user_path(payment.user) if payment.user %></td>
       <td><%= link_to payment.order.number, admin_order_path(payment.order) if payment.order %></td>
       <td><%= payment_with_origin(payment) %></td>
-      <td><%= payment.humanize_gateway %>
+      <td><%= humanize_gateway payment.gateway %>
       <td><%= payment.state %></td>
       <td><%= payment.percent %></td>
       <td><%= payment.created_at.to_s(:long) %></td>
