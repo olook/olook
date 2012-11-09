@@ -15,7 +15,7 @@ class BraspagCaptureResponse < ActiveRecord::Base
       end
     else
       self.update_attributes(
-        :retry => (self.retry + 1),
+        :retries => (self.retries + 1),
         :error_message => payment.errors.full_messages.to_s
       )
     end
