@@ -60,10 +60,8 @@ class Cart < ActiveRecord::Base
   def remove_unavailable_items
     unavailable_items = []
     items.each do |li|
-      # item = CartItem.lock("FOR UPDATE").find(li.id)
       variant = Variant.lock("FOR UPDATE").find(li.variant.id)
       unavailable_items << li unless variant.available_for_quantity? li.quantity
-      binding.pry unless unavailable_items.empty?
     end
     size_items = unavailable_items.size
     unavailable_items.each {|item| item.destroy}
