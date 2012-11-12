@@ -18,6 +18,8 @@ module Braspag
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+      ensure
+        
       end
     end
 
