@@ -15,7 +15,7 @@ module Payments
         set_payment_gateway
         payment
       rescue Exception => error
-        ErrorNotifier.send("Moip", error, payment)
+        ErrorNotifier.send_notifier("Moip", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
       end
     end
