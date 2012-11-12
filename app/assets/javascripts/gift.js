@@ -32,6 +32,10 @@ $(function () {
   });
 
   $("div.box.shoes ul li label").on("click", function(e) {
+
+    // mark the checkbox next to this label, as checked
+    $(this).next().attr("checked",true);
+
     $("div.box.shoes ul li").removeClass();
     $(this).parent().addClass("selected");
     e.preventDefault();
