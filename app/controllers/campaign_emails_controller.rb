@@ -1,5 +1,5 @@
 class CampaignEmailsController < ApplicationController
-	layout false
+
 
 	def new
 		@campaign_email = CampaignEmail.new
