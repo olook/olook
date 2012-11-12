@@ -101,6 +101,18 @@
   	<%= @response.error_message %>
   </p>
 
+  <p>
+    <% if @response.processed? %>
+      <%= form_tag(change_to_not_processed_admin_braspag_authorize_response_path(@response)) do -%>
+        <%= submit_tag 'Reprocess' -%>
+      <% end %>
+    <% else %>
+      <%= form_tag(change_to_processed_admin_braspag_authorize_response_path(@response)) do -%>
+        <%= submit_tag 'Mark as processed' -%>
+      <% end %>
+    <% end %>
+  </p>
+
 </div>
 
 <% content_for :secondary_navigation do %>
