@@ -15,6 +15,7 @@ class Gift::HomeController < Gift::BaseController
     @profiles = profiles
     @profiles_products = fetch_profiles_products
     @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
+    @recipient_relations = GiftRecipientRelation.ordered_by_name
   end
 
   def update_birthdays_by_month
