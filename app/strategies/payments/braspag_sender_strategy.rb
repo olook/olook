@@ -2,40 +2,45 @@ module Payments
   class BraspagSenderStrategy
     FILE_DIR = "#{Rails.root}/config/braspag.yml"
 
-    attr_accessor :cart_service, :payment, :credit_card_number, :response
+    attr_accessor :cart_service, :payment, :credit_card_number
 
     def initialize(cart_service, payment)
       @cart_service, @payment = cart_service, payment
+      @payment_successful = false
     end
 
     def send_to_gateway  
       begin
-        set_payment_gateway
-        Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)      
+        update_gateway_info
+        Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)
+        @payment_successful = true
         payment
       rescue Exception => error
+        binding.pry
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
-        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
       end
     end
 
     def payment_successful?
-      true
+      @payment_successful
     end
 
-    def set_payment_gateway
+    def update_gateway_info
       payment.gateway = Payment::GATEWAYS.fetch(:braspag)
+      payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
     end    
 
     def process_enqueued_request
       begin
+        payment.encrypt_credit_card
         gateway_response = web_service_data.checkout(authorize_transaction_data)
         process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
-        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
       ensure
-
+        payment.save!
       end
     end
 
