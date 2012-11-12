@@ -61,8 +61,10 @@ class CreditCard < Payment
   private
 
   def encrypt_credit_card
-    number = self.credit_card_number
-    last_digits = 4
-    self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
+    if gateway != Payment::GATEWAYS[:braspag]
+      number = self.credit_card_number
+      last_digits = 4
+      self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
+    end
   end
 end

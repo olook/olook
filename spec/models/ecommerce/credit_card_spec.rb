@@ -86,8 +86,14 @@ describe CreditCard do
   context "creating a credit_card" do
     it "should crypt the credt card number" do
       credit_card_number = "1234123412341234"
-      credit_card = FactoryGirl.create(:credit_card, :credit_card_number => credit_card_number)
+      credit_card = FactoryGirl.create(:credit_card, :gateway => Payment::GATEWAYS[:moip], :credit_card_number => credit_card_number)
       credit_card.credit_card_number.should == "XXXXXXXXXXXX1234"
+    end
+
+    it "should not crypt the credt card number when gateway is Braspag" do
+      credit_card_number = "1234123412341234"
+      credit_card = FactoryGirl.create(:credit_card, :gateway => Payment::GATEWAYS[:braspag], :credit_card_number => credit_card_number)
+      credit_card.credit_card_number.should == "1234123412341234"
     end
   end
 
