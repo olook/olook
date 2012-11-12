@@ -127,7 +127,7 @@ class PaymentBuilder
     end
 
     rescue Exception => error
-      ErrorNotifier.send(@gateway_strategy.class, error, payment)
+      ErrorNotifier.send_notifier(@gateway_strategy.class, error.message, payment)
       respond_with_failure
   end
 
