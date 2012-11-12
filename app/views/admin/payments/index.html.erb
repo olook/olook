@@ -65,7 +65,12 @@
       <td><%= payment.state %></td>
       <td><%= payment.percent %></td>
       <td><%= payment.created_at.to_s(:long) %></td>
-      <td><%= link_to 'Show Moip callbacks', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
+      <% if payment.gateway == 1 %>
+        <td><%= link_to 'Show Moip callbacks', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
+      <% else %>
+        <td><%= link_to 'Show Braspag authorize', admin_braspag_authorize_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
+        <td><%= link_to 'Show Braspag capture', admin_braspag_capture_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
+      <% end %>
     </tr>
   <% end %>
   </table>
