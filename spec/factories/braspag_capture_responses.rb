@@ -1,18 +1,32 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+# -*- encoding : utf-8 -*-
 
 FactoryGirl.define do
-  factory :braspag_capture_response do
-    correlation_id 1
+  factory :clean_braspag_capture_response, :class => BraspagCaptureResponse do
+    correlation_id "1"
     success false
     processed false
-    order_id "MyString"
     error_message "MyString"
     braspag_transaction_id "MyString"
+    amount "12.00"
     acquirer_transaction_id "MyString"
-    amount "MyString"
     authorization_code "MyString"
     return_code "MyString"
     return_message "MyString"
     status 1
+
+    factory :braspag_capture_response, :parent => :clean_braspag_capture_response do
+      after_create do |braspag_capture_response|
+        braspag_capture_response.update_attribute(:identification_code, "ee0d8edb-12db-455c-a1fa-d0000fc4368d")
+      end
+    end
+
+    factory :processed_braspag_capture_response, :parent => :clean_braspag_capture_response do
+      processed true
+    end
+
+    factory :not_processed_braspag_capture_response, :parent => :clean_braspag_capture_response do
+      processed false
+    end
   end
 end
+

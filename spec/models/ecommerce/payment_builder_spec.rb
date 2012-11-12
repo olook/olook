@@ -17,12 +17,13 @@ describe PaymentBuilder do
     :cart => cart,
     :freight => freight,
   }) }
-  let(:moip_sender_strategy) {double(Payments::MoipSenderStrategy)}
-
-  subject {
-    pb = PaymentBuilder.new(cart_service, credit_card, moip_sender_strategy)
-    pb
+  let(:moip_sender_strategy) {
+    mock = double(Payments::MoipSenderStrategy)
+    mock.stub(:payment_successful?).and_return(true)
+    mock
   }
+
+  subject { PaymentBuilder.new(cart_service, credit_card, moip_sender_strategy) }
 
   let(:order_total) { 12.34 }
 

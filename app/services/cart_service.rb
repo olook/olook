@@ -146,7 +146,7 @@ class CartService
     self.subtotal(:price) + self.total_increase
   end
 
-  def generate_order!
+  def generate_order!(gateway)
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
@@ -166,7 +166,8 @@ class CartService
       :user_last_name => user.last_name,
       :user_email => user.email,
       :user_cpf => user.cpf,
-      :gross_amount => self.gross_amount
+      :gross_amount => self.gross_amount,
+      :gateway => gateway
     )
 
     order.line_items = cart.items.map do |item|

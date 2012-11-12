@@ -1,0 +1,109 @@
+<h2>Braspag Authorization Response</h2>
+<div class="inner">
+   <p>
+    <b>ID:</b>
+    <%= @response.id %>
+  </p>
+
+  <p>
+    <b>Transaction:</b>
+    <%= link_to @response.identification_code, admin_payment_path(@payment) if @payment %>
+    <%= @response.identification_code unless @payment %>
+  </p>
+
+  <p>
+    <b>Braspag Order Id:</b>
+    <%= @response.braspag_order_id %>
+  </p>
+
+  <p>
+    <b>Order:</b>
+    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment && @payment.order %>
+  </p>
+
+  <p>
+    <b>Payment type:</b>
+    <%= @response.payment_method%>
+  </p>
+
+  <p>
+    <b>Amount:</b>
+    <%= @response.amount %>
+  </p>
+
+  <p>
+  	<b>Credit Card Token:</b>
+  	<%= @response.credit_card_token %>
+  </p>
+
+  <p>
+    <b>Authorization Code:</b>
+    <%= @response.authorization_code %>
+  </p>
+
+  <p>
+    <b>Braspag code:</b>
+    <%= @response.braspag_transaction_id %>
+  </p>
+
+  <p>
+    <b>Processed:</b>
+    <%= @response.processed %>
+  </p>
+
+  <p>
+    <b>Correlation Id:</b>
+    <%= @response.correlation_id %>
+  </p>
+
+  <p>
+  	<b>Acquirer Transaction id:</b>
+  	<%= @response.acquirer_transaction_id %>
+  </p>
+
+  <p>
+    <b>Success:</b>
+    <%= @response.success %>
+  </p>
+
+  <p>
+  	<b>Return Code:</b>
+  	<%= @response.return_code %>
+  </p>
+
+  <p>
+  	<b>Return Message:</b>
+  	<%= @response.return_message %>
+  </p>
+
+  <p>
+  	<b>Status:</b>
+  	<%= payment_status(@response.status) %>
+  </p>
+
+  <p>
+    <b>Retries:</b>
+    <%= @response.retries %>
+  </p>
+
+  <p>
+    <b>Created at:</b>
+    <%= l @response.created_at %>
+  </p>
+
+  <p>
+    <b>Updated at:</b>
+    <%= l @response.updated_at %>
+  </p>
+
+  <p>
+  	<b>Error:</b>
+  	<%= @response.error_message %>
+  </p>
+
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_braspag_authorize_responses_path %></li>
+<% end %>
+

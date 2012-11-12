@@ -62,7 +62,7 @@ class Checkout::CheckoutController < Checkout::BaseController
        else
          @payment = Debit.new(params[:debit])
          @payment.user_identification = @user.cpf
-         @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
+         @payment.errors.add(:base, "Não foi possível realizar o pagamento. Tente novamente por favor.")
          @payment
        end
     end
@@ -86,7 +86,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       else
         @payment = Billet.new(params[:billet])
         @payment.user_identification = @user.cpf
-        @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
+        @payment.errors.add(:base, "Não foi possível realizar o pagamento. Tente novamente por favor.")
         @payment
       end
     end
@@ -114,7 +114,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf
-        @payment.errors.add(:id, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+        @payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
         @payment
       end
     end

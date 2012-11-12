@@ -96,7 +96,7 @@ describe Payments::BraspagSenderStrategy do
         :credit_card_token => "444555666"} }}   
       authorization_response = subject.create_success_authorize_response(authorize_transaction_result)
       authorization_response.correlation_id.should eq("1234567890")
-      authorization_response.order_id.should eq("123")
+      authorization_response.identification_code.should eq("123")
       authorization_response.braspag_order_id.should eq("456")
       authorization_response.braspag_transaction_id.should eq("555888")
       authorization_response.amount.should eq("500")

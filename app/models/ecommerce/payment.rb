@@ -23,11 +23,6 @@ class Payment < ActiveRecord::Base
     :braspag => 2
   }
 
-  HUMANIZED_GATEWAYS = {
-    1 => "Moip",
-    2 => "Braspag"
-  }
-
   attr_accessor :receipt, :user_identification
 
   belongs_to :order
@@ -245,11 +240,6 @@ class Payment < ActiveRecord::Base
   def status
     Payment::RESPONSE_STATUS[gateway_transaction_status]
   end
-
-  def humanize_gateway
-    HUMANIZED_GATEWAYS[gateway]
-  end
-
 
   private
 
