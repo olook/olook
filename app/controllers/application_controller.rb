@@ -126,15 +126,13 @@ class ApplicationController < ActionController::Base
     @current_ability ||= ::Ability.new(current_admin)
   end
   def logged_in?
-    !!current_user
+    current_user
   end
 
   def load_tracking_parameters
-    if !logged_in?
-      incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
-      incoming_params[:referer] = request.referer unless request.referer.nil?
-      session[:tracking_params] ||= incoming_params
-    end
+    incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+    incoming_params[:referer] = request.referer unless request.referer.nil?
+    session[:tracking_params] = incoming_params if session[:tracking_params].nil? || session[:tracking_params].empty?
   end
 
 end
