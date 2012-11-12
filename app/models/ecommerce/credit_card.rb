@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class CreditCard < Payment
-  attr_accessor :security_code
 
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
   PAYMENT_QUANTITY = 6
@@ -61,6 +60,7 @@ class CreditCard < Payment
       number = self.credit_card_number
       last_digits = 4
       self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
+      self.security_code = nil
   end
 
 end
