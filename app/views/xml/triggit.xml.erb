@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+<product>
+<id><%= product.id %></id>
+<name><%= product.name %></name>
+<image><%= product.main_picture.try(:image) %></image>
+<url>
+  <%= product.product_url(:utm_source => "triggit", :utm_medium => "vitrine", :utm_campaign => "compradores", :utm_content => 6691) %>
+</url>
+<price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
+</product>
+<% end %>
+</products>
