@@ -5,8 +5,8 @@ describe ProcessBraspagResponsesWorker do
 
   context "when payment does not exist" do
 
-    let(:authorize_response) { FactoryGirl.create(:braspag_authorize_response, :order_id => "invalid") }
-    let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :order_id => "invalid") }
+    let(:authorize_response) { FactoryGirl.create(:braspag_authorize_response, :identification_code => "invalid") }
+    let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :identification_code => "invalid") }
 
     it "should update authorize_response to processed with error" do
       BraspagAuthorizeResponse.stub_chain(:to_process).and_return([authorize_response])
@@ -26,21 +26,21 @@ describe ProcessBraspagResponsesWorker do
   context "when payment exists" do
     let(:payment) { FactoryGirl.create(:credit_card) }
     let(:authorize_response) { 
-      FactoryGirl.create(:braspag_authorize_response, :order_id => payment.identification_code) }
+      FactoryGirl.create(:braspag_authorize_response, :identification_code => payment.identification_code) }
     let(:capture_response) { 
-      FactoryGirl.create(:braspag_capture_response, :order_id => payment.identification_code) }
+      FactoryGirl.create(:braspag_capture_response, :identification_code => payment.identification_code) }
 
     it "should call update_payment_status on authorize_response" do
-      payment.identification_code =  authorize_response.order_id
-      Payment.stub(:find_by_identification_code).with(authorize_response.order_id).and_return(payment)
+      payment.identification_code =  authorize_response.identification_code
+      Payment.stub(:find_by_identification_code).with(authorize_response.identification_code).and_return(payment)
       BraspagAuthorizeResponse.stub_chain(:to_process).and_return([authorize_response])
       authorize_response.should_receive(:update_payment_status).with(payment)
       ProcessBraspagResponsesWorker.perform
     end
 
     it "should call update_payment_status on capture_response" do
-      payment.identification_code =  capture_response.order_id
-      Payment.stub(:find_by_identification_code).with(capture_response.order_id).and_return(payment)      
+      payment.identification_code =  capture_response.identification_code
+      Payment.stub(:find_by_identification_code).with(capture_response.identification_code).and_return(payment)      
       BraspagAuthorizeResponse.stub_chain(:to_process).and_return([capture_response])
       capture_response.should_receive(:update_payment_status).with(payment)
       ProcessBraspagResponsesWorker.perform

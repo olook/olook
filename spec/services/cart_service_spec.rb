@@ -581,20 +581,20 @@ describe CartService do
   context "insert a order" do
     it "should a valid cart is required" do
       expect {
-        CartService.new({}).generate_order!
+        CartService.new({}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid cart is required for generating an order.')
     end
     
     it "should a valid freight is required" do
       expect {
-        CartService.new({:cart => cart}).generate_order!
+        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid freight is required for generating an order.')
     end
     
     it "should a valid user is required" do
       expect {
         cart.user = nil
-        CartService.new({:cart => cart, :freight => freight}).generate_order!
+        CartService.new({:cart => cart, :freight => freight}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid user is required for generating an order.')
     end
     
@@ -609,7 +609,7 @@ describe CartService do
         cart_service.stub(:item_price => 10)
         cart_service.stub(:item_retail_price => 20)
         
-        order = cart_service.generate_order!
+        order = cart_service.generate_order!(Payment::GATEWAYS[:moip])
         
         order.cart.should eq(cart)
         order.credits.should eq(0)
