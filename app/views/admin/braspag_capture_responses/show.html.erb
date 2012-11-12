@@ -13,7 +13,7 @@
 
   <p>
     <b>Order:</b>
-    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment && @payment.order %>
+    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment %>
   </p>
 
   <p>
