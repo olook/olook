@@ -4,7 +4,6 @@ module Braspag
     @queue = :order_status
 
     def self.perform(payment_id)
-      binding.pry
       payment = ::CreditCard.find(payment_id)
       strategy = Payments::BraspagSenderStrategy.new(nil, payment)
       strategy.credit_card_number = payment.credit_card_number
