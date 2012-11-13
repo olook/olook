@@ -71,96 +71,60 @@ describe Admin::CampaignsController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved campaign as @campaign" do
-        # Trigger the behavior that occurs when invalid params are submitted
         Campaign.any_instance.stub(:save).and_return(false)
         post :create, :campaign => {}
         assigns(:campaign).should be_a_new(Campaign)
       end
 
       it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Admin.any_instance.stub(:save).and_return(false)
+        Campaign.any_instance.stub(:save).and_return(false)
         post :create, :campaign => {}
-        #response.should render_template("new")
       end
     end
   end
-=begin
-
   describe "PUT update" do
     describe "with valid params and password" do
-      it "updates the requested Admin" do
-        # Assuming there are no other Admins in the database, this
-        # specifies that the Admin created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Admin.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => admin.id, :admin => {'these' => 'params'}
+      it "updates the requested Campaign" do
+        Campaign.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => campaign.id, :campaign => {'these' => 'params'}
       end
 
-      it "assigns the requested admin as @admin" do
-        put :update, :id => admin.id, :admin => valid_attributes_with_password
-        assigns(:admin).should eq(admin)
+      it "assigns the requested campaign as @campaign" do
+        put :update, :id => campaign.id
+        assigns(:campaign).should eq(campaign)
       end
 
-      it "redirects to the admin" do
-        put :update, :id => admin.id, :admin => valid_attributes_with_password
-        response.should redirect_to(admin_admin_path(admin))
+      it "redirects to the campaign" do
+        put :update, :id => campaign.id
+        response.should redirect_to(admin_campaign_path(campaign))
       end
     end
-
-    describe "with valid params and without password" do
-      it "updates the requested Admin" do
-        # Assuming there are no other Admins in the database, this
-        # specifies that the Admin created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Admin.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => admin.id, :admin => {'these' => 'params'}
-      end
-
-      it "assigns the requested admin as @admin" do
-        put :update, :id => admin.id, :admin => valid_attributes_without_password
-        assigns(:admin).should eq(admin)
-      end
-
-      it "redirects to the admin" do
-        put :update, :id => admin.id, :admin => valid_attributes_without_password
-        response.should redirect_to(admin_admin_path(admin))
-      end
-    end
-
-
 
     describe "with invalid params" do
-      it "assigns the Admin as @Admin" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Admin.any_instance.stub(:save).and_return(false)
-        put :update, :id => admin.id.to_s, :admin => {}
-        assigns(:admin).should eq(admin)
+      it "assigns the Campaign as @Campaign" do
+        Campaign.any_instance.stub(:save).and_return(false)
+        put :update, :id => campaign.id.to_s, :campaign => {}
+        assigns(:campaign).should eq(campaign)
       end
 
       it "re-renders the 'edit' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Admin.any_instance.stub(:save).and_return(false)
-        put :update, :id => admin.id.to_s, :admin => {}
-        #response.should render_template("edit")
+        Campaign.any_instance.stub(:save).and_return(false)
+        put :update, :id => campaign.id.to_s, :campaign => {}
       end
     end
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested Admin" do
+    it "destroys the requested Campaign" do
       expect {
-        delete :destroy, :id => admin.id.to_s
-      }.to change(Admin, :count).by(-1)
+        delete :destroy, :id => campaign.id.to_s
+      }.to change(Campaign, :count).by(-1)
     end
 
     it "redirects to the Admins list" do
-      delete :destroy, :id => admin.id.to_s
-      response.should redirect_to(admin_admins_url)
+      delete :destroy, :id => campaign.id.to_s
+      response.should redirect_to(admin_campaigns_url)
     end
   end
-=end
 
 end
