@@ -2,14 +2,6 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-  get "campaigns/index"
-
-  get "campaigns/new"
-
-  get "campaigns/show"
-
-  get "campaigns/edit"
-
   get "settings/index"
 
   get "settings/update"
@@ -26,9 +18,8 @@ Olook::Application.routes.draw do
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
-  
   match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
-  
+
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
@@ -231,9 +222,25 @@ Olook::Application.routes.draw do
       resources :order_credits, :only => :index
     end
 
+    resources :campaigns
+
     resource :settings
 
     resources :moip_callbacks do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+
+    resources :braspag_authorize_responses do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+
+    resources :braspag_capture_responses do
       member do
         post 'change_to_processed'
         post 'change_to_not_processed'
@@ -295,7 +302,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/moip_payments#create', :as => :payment
+  post '/pagamento', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
