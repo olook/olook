@@ -54,6 +54,7 @@
       <td><%= campaign.updated_at %></td>
       <td><%= link_to 'Show', admin_campaign_path(campaign), :class => 'button' %></td>
       <td><%= link_to 'Edit', edit_admin_campaign_path(campaign), :class => 'button' %></td>
+      <td><%= link_to 'Destroy', admin_campaign_path(campaign), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
