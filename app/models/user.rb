@@ -21,8 +21,7 @@ class User < ActiveRecord::Base
   has_many :credits
 
   before_create :generate_invite_token
-  after_create :initialize_user
-
+  after_create :initialize_user, :destroy_campaign_email_if_present
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
@@ -285,6 +284,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def destroy_campaign_email_if_present
+    CampaignEmail.find_by_email(self.email).try(:destroy)
+  end
 
   private
 
