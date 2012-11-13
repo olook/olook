@@ -31,6 +31,15 @@ userbase_with_auth_token_and_credits:
     - base_atualizada_purchases_auth_token_and_credits.csv
   description: "Cria arquivo de importação para allinemail"
 
+campaign_emails:
+  cron: "0 2 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - campaign_emails
+    - base_atualizada_emails_promocoes.csv
+  description: "Cria arquivo de importação de emails do lightbox para allinemail"
+
 send_billet_reminder:
   cron: "0 5 * * 1-5"
   class: SendBilletReminderWorker
