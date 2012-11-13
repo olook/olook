@@ -2,6 +2,14 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "campaigns/index"
+
+  get "campaigns/new"
+
+  get "campaigns/show"
+
+  get "campaigns/edit"
+
   get "settings/index"
 
   get "settings/update"
