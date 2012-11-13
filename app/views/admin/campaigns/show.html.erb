@@ -1,2 +1,38 @@
-<h1>Admin::Campaigns#show</h1>
-<p>Find me in app/views/admin/campaigns/show.html.erb</p>
+<h2>Campaign</h2>
+<div class="inner">
+  <p>
+    <b>ID:</b>
+    <%= @campaign.id %>
+  </p>
+  <b>Title:</b>
+    <%= @campaign.title %>
+  </p>
+  <p>
+    <b>Backgound</b>
+    <%= @campaign.background %>
+  </p>
+   <p>
+    <b>Banner</b>
+    <%= image_tag @campaign.banner %>
+  </p>
+  <b>Start At:</b>
+    <%= @campaign.start_at %>
+  </p>
+  <p>
+    <b>End At</b>
+    <%= @campaign.end_at %>
+  </p>
+  <p>
+    <b>description</b>
+    <%= @campaign.description %>
+  </p>
+  <p>
+    <b>Created At</b>
+    <%= @campaign.created_at %>
+  </p>
+  <p>
+    <b>Updated At</b>
+    <%= @campaign.updated_at %>
+  </p>
+</div>
+
