@@ -1,10 +1,13 @@
-function checkEmail() {
-	var email = $('#campaign_email_email');
+function checkEmail(e) {
+	var email = $('#campaign_email_email').val();
 	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	if (!filter.test(email.value) || email.value == "seunome@email.com.br" ) {
+	if (!filter.test(email) || email === 'seunome@email.com.br'){
+		e.preventDefault();
 		$('.error').fadeIn();
 		email.focus;
-		return false;
+	}else{
+		$('.error').fadeOut('fast');
+		$("#campaign_email").submit();
 	}
 }
 
@@ -17,7 +20,30 @@ $(function(){
 			$(this).val('seunome@email.com.br')
 	});
 	
-	$('.bt-enviar').click(function(){
-	//	checkEmail();	
+	$('.bt-enviar').bind("click", function(e){
+			checkEmail(e);
 	})
+	
+	$(".close").bind("click", function(){
+		parent.top.$("#modal-campaign,#overlay-campaign").hide();
+	})
+	
+	if($(".box-remember.success").length > 0){
+		w = 520, h = 175, ml = -(w/2), mt = -(h/2);
+		parent.top.$("#modal-campaign").css({
+			"width"  : w+"px",
+			"height" : h+"px",
+			"margin-top" : mt+"px",
+			"margin-left" : ml+"px"
+		})
+	}	
+	else if($(".box-cadastro").length > 0){
+		w = 910, h = 405, ml = -(w/2), mt = -(h/2);
+		parent.top.$("#modal-campaign").css({
+			"width"  : w+"px",
+			"height" : h+"px",
+			"margin-top" : mt+"px",
+			"margin-left" : ml+"px"
+		})
+	}	
 });
