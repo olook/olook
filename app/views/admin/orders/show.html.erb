@@ -181,7 +181,7 @@
   <p>
     <% if @order.state_events(guard: false).many? %>
     <%= form_tag(change_state_admin_order_path(@order)) do -%>
-      <%= select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map{|a| [a,I18n.t("activerecord.state_machines.order.state.events.#{a}")]}, 'first',"last") %>
+      <%= select_tag "event",options_from_collection_for_select(@order.state_events(guard: false).map(&:to_s), 'to_s','humanize')%>
       <%= submit_tag 'Change!' -%>
     <% end %>
     <% else %>
