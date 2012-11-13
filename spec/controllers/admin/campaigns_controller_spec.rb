@@ -2,17 +2,35 @@ require 'spec_helper'
 
 describe Admin::CampaignsController do
 
-  describe "GET 'index'" do
-    it "returns http success" do
-      get 'index'
-      response.should be_success
-    end
+  render_views
+
+  before :each do
+    request.env['devise.mapping'] = Devise.mappings[:admin]
+    @admin = FactoryGirl.create(:admin_superadministrator)
+    sign_in @admin
+  end
+
+  let!(:campaign) { FactoryGirl.create(:campaign) }
+  let!(:second_campaign) { FactoryGirl.create(:second_campaign) }
+  describe "GET index" do
+  	let (:search_param) { {"title_contains" => campaign.title} }
+
+  	it "should find all campaigns using no parameter" do
+  		get :index
+  		assigns(:campaigns).should include(campaign)
+      assigns(:campaigns).should include(second_campaign)
+  	end
+
+  	it "should find only one campaign using the search parameter" do
+  		get :index, :search => search_param
+  		assigns(:campaigns).should eq([campaign])
+  	end
   end
 
   describe "GET 'new'" do
-    it "returns http success" do
-      get 'new'
-      response.should be_success
+    it "assigns a new campaign as @campaign" do
+      get :new
+      assigns(:campaign).should be_a_new(Campaign)
     end
   end
 
