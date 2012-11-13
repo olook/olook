@@ -2,7 +2,13 @@
 module MarketingReports
   class Builder
 
-    ACTIONS = [:userbase, :userbase_with_auth_token, :userbase_with_credits, :userbase_with_auth_token_and_credits, :in_cart_mail, :line_items_report]
+    ACTIONS = [:userbase, 
+               :userbase_with_auth_token, 
+               :userbase_with_credits, 
+               :userbase_with_auth_token_and_credits, 
+               :in_cart_mail, 
+               :line_items_report,
+               :campaign_emails]
 
     attr_accessor :csv
 
@@ -137,6 +143,25 @@ group by uc.user_id, ct.code
       end
     end
 
+    def generate_campaign_emails
+      @csv = CSV.generate do |csv|
+        csv << [ 'email' ]
+        CampaignEmail.find_each do |c|
+          unless bounced_list.include?(c.email) 
+            csv << [ c.email ]
+          end
+        end
+      end
+    end
+
+    def bounced_list
+      responses = [:invalid_emails, :spam_reports, :unsubscribes, :blocks].inject([]) do |sum, service|
+        sum += sendgrid_accounts_response(service)
+      end
+      responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook2").parsed_response
+      emails(responses)
+    end
+
     private
 
     def convert_to_iso(file_lines=[])
@@ -152,14 +177,6 @@ group by uc.user_id, ct.code
       
     def emails(data)
       data.map { |item| item["email"] }
-    end
-
-    def bounced_list
-      responses = [:invalid_emails, :spam_reports, :unsubscribes, :blocks].inject([]) do |sum, service|
-        sum += sendgrid_accounts_response(service)
-      end
-      responses += SendgridClient.new(:bounces, :type => "hard", :username => "olook2").parsed_response
-      emails(responses)
     end
 
     def sendgrid_accounts_response(service)
