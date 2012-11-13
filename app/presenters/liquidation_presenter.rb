@@ -5,7 +5,7 @@ class LiquidationPresenter < BasePresenter
     if (liquidation.big_banner?)
       h.render :partial => 'liquidations/top_big_banner', :locals => {:image => liquidation.big_banner}
     else
-      h.render :partial => 'liquidations/carousel_big_banner', :locals => {:liquidation => liquidation} 
+      h.render :partial => 'liquidations/top_carousel', :locals => {:liquidation => liquidation} 
     end
   end
 
