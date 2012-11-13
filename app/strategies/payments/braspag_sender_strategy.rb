@@ -9,7 +9,7 @@ module Payments
       @payment_successful = false
     end
 
-    def send_to_gateway  
+    def send_to_gateway
       begin
         update_gateway_info
         Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)
@@ -28,19 +28,13 @@ module Payments
     def update_gateway_info
       payment.gateway = Payment::GATEWAYS.fetch(:braspag)
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
-    end    
+    end
 
     def process_enqueued_request
-      begin
-        gateway_response = web_service_data.checkout(authorize_transaction_data)
-        process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
-      rescue Exception => error
-        ErrorNotifier.send_notifier("Braspag", error.message, payment)
-        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
-      ensure
-        payment.encrypt_credit_card
-        payment.save!
-      end
+      gateway_response = web_service_data.checkout(authorize_transaction_data)
+      process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
+      payment.encrypt_credit_card
+      payment.save!
     end
 
     def web_service_data
@@ -115,7 +109,7 @@ module Payments
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
         create_success_authorize_response(authorize_transaction_result)
-        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response    
+        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response
         update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
@@ -157,7 +151,7 @@ module Payments
         create_success_capture_response(capture_transaction_result, order_id)
       else
         create_failure_capture_response(capture_transaction_result)
-      end    
+      end
     end
 
     def create_success_capture_response(capture_transaction_result, order_id)
