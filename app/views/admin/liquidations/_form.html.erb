@@ -27,9 +27,20 @@
   </div>
 
   <div class="field">
+    <%= f.label :show_advertise, "Exibe propaganda padrao?" %><br />
+    <%= f.check_box :show_advertise %>
+  </div>
+
+  <div class="field">
     <%= f.label :teaser_banner %><br />
     <%= f.file_field :teaser_banner %>
   </div>
+
+  <div class="field">
+    <%= f.label :big_banner %>*<br />
+    <%= f.file_field :big_banner %>
+  </div>
+  * Big banner tem prioridade sobre teaser_banner + carrossel
 
   <div class="field">
     <%= f.label :starts_at %><br />
