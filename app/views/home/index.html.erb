@@ -1,6 +1,9 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/home" %>
 <% end %>
+<% content_for :footer do %>
+  <%= javascript_include_tag "home" %>
+<% end %>
 <section class="banner">
 	<a href="/responsabilidade-social#campanha"><%=image_tag("campaigns/banner-avc.jpg") %></a>
 
@@ -35,3 +38,4 @@
 
 <%= render 'shared/facebook_like_button' %>
 <%= render :partial => 'shared/metrics/criteo/home' %>
+
