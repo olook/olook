@@ -2,13 +2,16 @@
 class PaymentBuilder
   attr_accessor :cart_service, :payment, :delivery_address, :response, :gateway_strategy
 
-  def initialize(cart_service, payment, gateway_strategy)
-    @cart_service, @payment, @gateway_strategy = cart_service, payment, gateway_strategy
+  def initialize(opts = { })
+    @cart_service = opts[:cart_service]
+    @payment = opts[:payment]
+    @gateway_strategy = opts[:gateway_strategy]
+    @tracking_params = opts[:tracking_params]
   end
 
   def process!
-    payment.cart_id = @cart_service.cart.id
-    payment.total_paid = @cart_service.total
+    payment.cart_id = cart_service.cart.id
+    payment.total_paid = cart_service.total
     payment.user_id = cart_service.cart.user.id
     payment.save!
 
@@ -24,7 +27,8 @@ class PaymentBuilder
       payment = @gateway_strategy.send_to_gateway
 
       if @gateway_strategy.payment_successful?
-        order = cart_service.generate_order!(payment.gateway)
+        tracking_order = payment.user.add_event(EventType::TRACKING, @tracking_params) if @tracking_params
+        order = cart_service.generate_order!(payment.gateway, tracking_order)
         payment.order = order
         payment.calculate_percentage!
         payment.deliver! if payment.kind_of?(CreditCard)
@@ -152,3 +156,4 @@ class PaymentBuilder
     logger.send(level, message)
   end
 end
+
