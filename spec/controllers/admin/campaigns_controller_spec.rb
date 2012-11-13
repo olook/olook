@@ -35,16 +35,16 @@ describe Admin::CampaignsController do
   end
 
   describe "GET 'show'" do
-    it "returns http success" do
-      get 'show'
-      response.should be_success
+    it "assigns the requested campaign as @campaign" do
+      get :show, :id => campaign.id.to_s
+      assigns(:campaign).should eq(campaign)
     end
   end
 
   describe "GET 'edit'" do
-    it "returns http success" do
-      get 'edit'
-      response.should be_success
+    it "assigns the requested Campaign as @campaign" do
+      get :edit, :id => campaign.id.to_s
+      assigns(:campaign).should eq(campaign)
     end
   end
 
