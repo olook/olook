@@ -7,6 +7,8 @@ class Admin::CampaignsController < Admin::BaseController
   end
 
   def show
+    @campaign = Campaign.find(params[:id])
+    respond_with :campaign, @campaign
   end
 
   def new
@@ -15,5 +17,7 @@ class Admin::CampaignsController < Admin::BaseController
   end
 
   def edit
+    @campaign = Campaign.find(params[:id])
+    respond_with :campaign, @campaign
   end
 end
