@@ -2,7 +2,6 @@
 class LiquidationPresenter < BasePresenter
 
   def render_top
-    binding.pry
     if (liquidation.big_banner?)
       h.render :partial => 'liquidations/top_big_banner', :locals => {:image => liquidation.big_banner}
     else
