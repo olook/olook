@@ -582,20 +582,20 @@ describe CartService do
     let(:tracking) { FactoryGirl.create :tracking }
     it "should a valid cart is required" do
       expect {
-        CartService.new({}).generate_order!(Payment::GATEWAYS[:moip], tracking)
+        CartService.new({}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid cart is required for generating an order.')
     end
 
     it "should a valid freight is required" do
       expect {
-        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip], tracking)
+        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid freight is required for generating an order.')
     end
 
     it "should a valid user is required" do
       expect {
         cart.user = nil
-        CartService.new({:cart => cart, :freight => freight}).generate_order!(Payment::GATEWAYS[:moip], tracking)
+        CartService.new({:cart => cart, :freight => freight}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid user is required for generating an order.')
     end
 

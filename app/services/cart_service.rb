@@ -146,7 +146,7 @@ class CartService
     self.subtotal(:price) + self.total_increase
   end
 
-  def generate_order!(gateway, tracking)
+  def generate_order!(gateway, tracking = nil)
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
