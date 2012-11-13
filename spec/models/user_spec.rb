@@ -18,7 +18,6 @@ describe User do
       CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
       CampaignEmail.count.should == 1 
       FactoryGirl.create(:user, email: email)
-      # User.create!(email: email, password: '123123', password_confirmation: '123123', first_name: 'Oliver', last_name: 'Barnes')
       CampaignEmail.count.should == 0  
     end
   end

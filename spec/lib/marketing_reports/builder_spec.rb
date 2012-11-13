@@ -67,7 +67,7 @@ describe MarketingReports::Builder do
 
   end
 
-  describe "#userbase_with_auth_token" do
+  describe "#generate_userbase_with_auth_token" do
     let(:csv_header) do
       "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,auth_token\n"
     end
@@ -194,5 +194,40 @@ describe MarketingReports::Builder do
       subject.csv.should match /^#{csv_header}#{csv_body}/
     end
   end
+
+  describe "#generate_campaign_emails" do
+    let(:csv_header) { "email\n" }
+    let(:campaign_email) { FactoryGirl.create(:campaign_email) }
+
+    before(:each) do
+      services.each do |service, response|
+        MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook").and_return(response)
+        MarketingReports::SendgridClient.stub(:new).with(service, :username => "olook2").and_return(response)
+      end
+      MarketingReports::SendgridClient.stub(:new).with(:bounces, :type => "hard", :username => "olook2").and_return(bounce_response)
+    end
+
+    it "builds a csv file containing all email data from campaign_emails table" do
+      csv_body = [campaign_email].inject("") do |data, campaign_email|
+        data += "#{campaign_email.email.chomp}\n"
+        data
+      end 
+      subject.generate_campaign_emails
+      subject.csv.should match /^#{csv_header}#{csv_body}/
+    end
+
+    it "doesn't include bounced emails" do
+      csv_body = [campaign_email].inject("") do |data, campaign_email|
+        data += "#{campaign_email.email.chomp}\n"
+        data
+      end 
+      subject.stub(:bounced_list).and_return([campaign_email.email])
+      subject.generate_campaign_emails
+      subject.csv.should_not match /^#{csv_header}#{csv_body}/
+      subject.csv.should match /^#{csv_header}/
+    end
+
+  end
+
 
 end
