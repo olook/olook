@@ -25,7 +25,7 @@ gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'i18n', '~> 0.6.1'
+gem 'i18n', '~> 0.6.0'
 
 group :production, :staging do
   gem 'asset_sync', '~> 0.5.0'
