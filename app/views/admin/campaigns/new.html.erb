@@ -1,2 +1,10 @@
-<h1>Admin::Campaigns#new</h1>
-<p>Find me in app/views/admin/campaigns/new.html.erb</p>
+<h2>New Campaign</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_campaigns_path %></li>
+<% end %>
+
