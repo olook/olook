@@ -34,9 +34,6 @@ module Payments
       begin
         gateway_response = web_service_data.checkout(authorize_transaction_data)
         process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
-      rescue Exception => error
-        ErrorNotifier.send_notifier("Braspag", error.message, payment)
-        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
       ensure
         payment.encrypt_credit_card
         payment.save!
