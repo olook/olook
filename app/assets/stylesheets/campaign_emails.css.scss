@@ -19,12 +19,13 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	form{
 		border:solid 1px #E8E8E8;padding:18px 50px;width:356px;height:150px;margin:0 auto;
 		fieldset{
-			margin-bottom:15px;
+			label{font-family:$avenir;font-size:15px;}
+			margin-bottom:15px;border:0;
 			&.botoes{
 				text-align:left;
 				div{float:left;width:150px;margin-left:55px;
-					label{font-size:15px;color:#6D6E71;width:60px;display:inline-block;text-align:left;
-						&[for="remember"]{width:100px;font-size:12px;}
+					label{font-size:15px;color:#6D6E71;width:60px;display:inline-block;text-align:left;font-family:$avenir;
+						&[for="user_remember_me"]{width:100px;font-size:12px;}
 					}
 					p{float:left;
 						a{text-decoration:none;color:#6D6E71;
