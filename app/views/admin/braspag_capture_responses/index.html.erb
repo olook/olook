@@ -50,7 +50,7 @@
           <%= response.identification_code unless payment %></td>
       <td><%= response.processed %></td>
       <td><%= response.retries %></td>
-      <td><%= payment_status(response.status) %></td>
+      <td><%= braspag_capture_status(response.status) %></td>
       <td><%= response.created_at.to_s(:long) %></td>
     </tr>
   <% end %>
