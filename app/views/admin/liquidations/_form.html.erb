@@ -33,13 +33,28 @@
 
   <div class="field">
     <%= f.label :teaser_banner %><br />
+    <% if @liquidation.teaser_banner? %>
+      <%= image_tag(@liquidation.teaser_banner_url)  %><br />
+      <p>
+        <%= f.check_box :remove_teaser_banner %>
+        Remover
+      </p>
+    <% end %>
     <%= f.file_field :teaser_banner %>
   </div>
 
   <div class="field">
     <%= f.label :big_banner %>*<br />
+    <% if @liquidation.big_banner? %>
+      <%= image_tag(@liquidation.big_banner_url)  %><br />
+      <p>
+        <%= f.check_box :remove_big_banner %>
+        Remover
+      </p>
+    <% end %>
     <%= f.file_field :big_banner %>
   </div>
+
   * Big banner tem prioridade sobre teaser_banner + carrossel
 
   <div class="field">
@@ -55,11 +70,25 @@
   <div class="field">
     <%= f.label :lightbox_banner %><br />
     <%= f.file_field :lightbox_banner %>
+    <% if @liquidation.lightbox_banner? %>
+      <%= image_tag(@liquidation.lightbox_banner_url)  %><br />
+      <p>
+        <%= f.check_box :remove_lightbox_banner %>
+        Remover
+      </p>
+    <% end %>
   </div>
 
   <div class="field">
     <%= f.label :welcome_banner %><br />
     <%= f.file_field :welcome_banner %>
+    <% if @liquidation.welcome_banner?%>
+      <%= image_tag(@liquidation.welcome_banner_url)  %><br />
+      <p>
+        <%= f.check_box :remove_welcome_banner %>
+        Remover
+      </p>
+    <% end %>
   </div>
 
   <div class="actions">
