@@ -49,6 +49,7 @@
       <td><%= link_to response.identification_code, admin_payment_path(payment) if payment %>
           <%= response.identification_code unless payment %></td>
       <td><%= response.processed %></td>
+      <td><%= response.retries %></td>
       <td><%= braspag_capture_status(response.status) %></td>
       <td><%= response.created_at.to_s(:long) %></td>
     </tr>
