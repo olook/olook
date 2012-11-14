@@ -41,6 +41,8 @@ Olook::Application.routes.draw do
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
+  get "/promo1anomuito" , :to => "liquidations#index", :as => "promo1anomuito"
+  get "/blackfriday" , :to => "liquidations#index", :as => "blackfriday"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
