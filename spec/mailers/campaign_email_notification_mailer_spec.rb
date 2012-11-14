@@ -4,17 +4,6 @@ require 'spec_helper'
 describe CampaignEmailNotificationMailer do
   let(:campaign_email) { FactoryGirl.create(:campaign_email) }
 
-  context ".smtp_settings" do
-
-    it "should use sendgrid" do
-    	CampaignEmailNotificationMailer.smtp_settings[:address].should == "smtp.sendgrid.net"
-    end
-
-    it "should use the domain my.olookmail.com.br" do
-      CampaignEmailNotificationMailer.smtp_settings[:domain].should == "my.olookmail.com.br"
-    end
-  end
-
   describe "#welcome_email" do
     let(:mail) { CampaignEmailNotificationMailer.welcome_email(campaign_email.email) }
 
