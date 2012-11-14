@@ -18,7 +18,7 @@ gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'cancan', '~> 1.6.7'
-gem 'enumerate_it'
+ gem 'enumerate_it', '~> 0.7.14'
 gem 'fog', '~> 1.1.1'
 gem 'carrierwave', '~> 0.6.0'
 gem 'mini_magick', '= 3.3'
@@ -26,6 +26,7 @@ gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
 gem 'i18n', '= 0.6.1'
+gem 'clearsale', :github => 'Baby-com-br/clearsale'
 
 
 group :production, :staging do
@@ -44,7 +45,7 @@ gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
 # gem 'graylog2_exceptions'
-gem 'SyslogLogger', :require => 'syslog_logger'
+gem 'SyslogLogger', "~> 1.4.1"
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 
