@@ -5,7 +5,7 @@ class CampaignEmailNotificationMailer < ActionMailer::Base
     {
       :user_name => "olook2",
       :password => "olook123abc",
-      :domain => "my.olookmail.com",
+      :domain => "my.olookmail.com.br",
       :address => "smtp.sendgrid.net",
       :port => 587,
       :authentication => :plain,
