@@ -15,7 +15,7 @@ describe PaymentService do
       cart.user = non_olook_user
       cart_service = CartService.new({:cart => cart})
       sender = PaymentService.create_sender_strategy(cart_service, payment)
-      sender.class.should eq(Payments::BraspagSenderStrategy)      
+      sender.class.should eq(Payments::BraspagSenderStrategy)
     end
 
     it "should redirect olook users to braspag sender strategy" do
