@@ -7,6 +7,9 @@
   <b>Title:</b>
     <%= @campaign.title %>
   </p>
+  <b>Valid?</b>
+    <%= @campaign.is_active? %>
+  </p>
   <p>
     <b>Backgound</b>
     <%= @campaign.background %>
