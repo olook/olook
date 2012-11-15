@@ -34,6 +34,7 @@
   <table class="table">
     <tr>
       <th>Title</th>
+      <th>Valid?</th>
       <th>Start At</th>
       <th>End At</th>
       <th>Campaign Description</th>
@@ -47,6 +48,7 @@
   <% @campaigns.each do |campaign| %>
     <tr>
       <td><%= campaign.title %></td>
+      <td><%= campaign.is_active? %></td>
       <td><%= l(campaign.start_at, :format => :short) %></td>
       <td><%= l(campaign.end_at, :format => :short) %></td>
       <td><%= campaign.description %></td>
