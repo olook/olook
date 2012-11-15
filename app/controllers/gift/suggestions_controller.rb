@@ -10,6 +10,8 @@ class Gift::SuggestionsController < Gift::BaseController
     product_finder_service = ProductFinderService.new(@gift_recipient)
     @suggested_variants = product_finder_service.suggested_variants_for(@gift_recipient.profile, @gift_recipient.shoe_size)
     @products = product_finder_service.showroom_products(:description => @gift_recipient.shoe_size, :not_allow_sold_out_products => true)
+    @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
+    @recipient_relations = GiftRecipientRelation.ordered_by_name
   end
 
   def select_gift
