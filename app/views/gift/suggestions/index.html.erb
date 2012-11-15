@@ -20,36 +20,41 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <div class="content" id="suggestion">
-      <ul>
-        <li><%= link_to "Voltar para presentes", gift_root_path %></li>
-      </ul>
-      <div id="profile">
-        <%= image_tag "gift/profile-#{@profile.name.parameterize}.png" %>
-        <div>
-          <h2>Ela é:</h2>
-          <h1><%= @profile.name %></h1>
-          <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo.", gift_root_path %></p>
+    <section id="suggestion">
+      <div class="content">
+        <ul>
+          <li><%= link_to "Voltar para presentes", gift_root_path %></li>
+        </ul>
+        <div id="profile">
+          <%= image_tag "gift/profile-#{@profile.name.parameterize}.png" %>
+          <div>
+            <h2>Ela é:</h2>
+            <h1><%= @profile.name %></h1>
+            <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo.", gift_root_path %></p>
+          </div>
         </div>
-      </div>
-      <section id="suggestions_container">
-        <h2>Confira:</h2>
-        <h1>Sugestões de presentes para ela</h1>
-        <%= render 'shoe_filter' %>
-        <% @products.each_slice(5).with_index do |products_array, index| %>
-          <ul>
-            <% products_array.each do |product| %>
-              <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
+        <section id="suggestions_container">
+          <h2>Confira:</h2>
+          <h1>Sugestões de presentes para ela</h1>
+          <%= render 'shoe_filter' %>
+          <% @products.each_slice(5).with_index do |products_array, index| %>
+            <ul>
+              <% products_array.each do |product| %>
+                <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
+              <% end %>
+            </ul>
+            <% if index == 0 %>
+              <h1 class="discount"><strong>20% de desconto</strong> no segundo presente e <strong>40% de desconto</strong> no terceiro: aproveite!</h1>
+            <% elsif index == 1 %>
+              <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste</h1>
             <% end %>
-          </ul>
-          <% if index == 0 %>
-            <h1 class="discount"><strong>20% de desconto</strong> no segundo presente e <strong>40% de desconto</strong> no terceiro: aproveite!</h1>
-          <% elsif index == 1 %>
-            <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste</h1>
           <% end %>
-        <% end %>
-      </section>
-    </div>
+        </section>
+      </div>
+    </section>
+    <%= render "gift/home/suggestions" %>
+    <%= render "gift/home/suggestion_products", products: @suggestion_products %>
+    <%= render "gift/home/quiz" %>
   </div>
 <% end %>
 
