@@ -8,6 +8,3 @@ $(function() {
     $("div#shoe_size_filter div.sizes").hide();
   });
 });
-
-initSuggestion = {
-}

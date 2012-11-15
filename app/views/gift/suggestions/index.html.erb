@@ -36,11 +36,23 @@
         <h2>Confira:</h2>
         <h1>Sugestões de presentes para ela</h1>
         <%= render 'shoe_filter' %>
-        <ul>
+        <% @products.each_slice(5).with_index do |products_array, index| %>
+          <ul>
+            <% products_array.each do |product| %>
+              <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
+            <% end %>
+          </ul>
+          <% if index == 0 %>
+            <h1 class="discount"><strong>20% de desconto</strong> no segundo presente e <strong>40% de desconto</strong> no terceiro: aproveite!</h1>
+          <% elsif index == 1 %>
+            <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste</h1>
+          <% end %>
+        <% end %>
+        <!--ul>
           <% @products.each do |product| %>
             <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
           <% end %>
-        </ul>
+        </ul-->
       </section>
     </div>
   </div>
