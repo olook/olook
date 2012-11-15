@@ -43,7 +43,14 @@ Spork.prefork do
   Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
 
   HTTPI.log = false
-  Savon.log = false
+  
+  Savon.configure do |config|
+
+    # By default, Savon logs each SOAP request and response to $stdout.
+    # Here's how you can disable logging:
+    config.log = false
+    
+  end
 
   RSpec.configure do |config|
     # == Mock Framework
