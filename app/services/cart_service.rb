@@ -278,6 +278,14 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
+  def there_is_olooklet_item
+    given_discounts = cart.items.map do |item|
+      discounts = get_retail_price_for_item(item).fetch(:discounts)
+    end
+    
+    given_discounts.flatten.include?(:olooklet)    
+  end
+
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
@@ -300,12 +308,18 @@ class CartService
     credits_redeem = 0
     if (use_credits == true)
       #GET FROM loyality
-      credits_loyality = self.cart.user.user_credits_for(:loyalty_program).total
+
+
+      # Use loyalty only if there is no product with olooklet discount in the cart       
+      credits_loyality = there_is_olooklet_item ? 0 : self.cart.user.user_credits_for(:loyalty_program).total
       if credits_loyality >= retail_value
         credits_loyality = retail_value
       end
 
-      retail_value -= credits_loyality
+      puts there_is_olooklet_item
+      puts credits_loyality.to_s
+
+      retail_value -= credits_loyality 
 
       #GET FROM INVITE
       credits_invite = self.cart.user.user_credits_for(:invite).total
