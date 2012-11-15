@@ -6,7 +6,7 @@ role :web, "homolog.olook.com.br"
 set :rails_env, 'staging'
 
 # repo details
-set :branch, fetch(:branch, 'homolog')
+set :branch, fetch(:branch, 'master')
 
 # tasks
 namespace :deploy do
