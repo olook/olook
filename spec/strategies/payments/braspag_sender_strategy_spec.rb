@@ -39,7 +39,7 @@ describe Payments::BraspagSenderStrategy do
 
     it "should create authorize transaction" do
       subject.authorize_transaction_data.should be_true
-    end    
+    end
 
     it "should be initialize with success" do
       Payments::BraspagSenderStrategy.new(cart_service, credit_card).should be_true
@@ -63,17 +63,18 @@ describe Payments::BraspagSenderStrategy do
       subject.send_to_gateway
     end
 
-  end
+    context "process enqueue request" do
 
-  context "process enqueue request" do
-
-    it "should encrypt the credit card data for the given payment even if an exception is raised" do
-      subject.stub(:web_service_data).and_raise(Exception)
-      subject.process_enqueued_request
-      Payment.any_instance.should_receive(:encrypt_credit_card)
+      it "should encrypt the credit card data for the given payment even if an exception is raised" do
+        subject.stub(:web_service_data).and_raise(Exception)
+        CreditCard.any_instance.should_receive(:encrypt_credit_card)
+        expect {subject.process_enqueued_request}.to raise_error{Exception}
+      end
     end
 
   end
+
+
 
   context "processing response" do
     subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
@@ -112,7 +113,7 @@ describe Payments::BraspagSenderStrategy do
         :braspag_transaction_id => "555888", :amount => "500", :payment_method =>
         "997", :acquirer_transaction_id => "999888", :authorization_code => "987",
         :return_code => "1", :return_message => "Success", :status => "0",
-        :credit_card_token => "444555666"} }}   
+        :credit_card_token => "444555666"} }}
       authorization_response = subject.create_success_authorize_response(authorize_transaction_result)
       authorization_response.correlation_id.should eq("1234567890")
       authorization_response.identification_code.should eq("123")
@@ -125,7 +126,7 @@ describe Payments::BraspagSenderStrategy do
       authorization_response.return_code.should eq("1")
       authorization_response.return_message.should eq("Success")
       authorization_response.status.should eq(0)
-      authorization_response.credit_card_token.should eq("444555666") 
+      authorization_response.credit_card_token.should eq("444555666")
     end
 
     it "should create a failure BraspagAuthorizeResponse on database" do
@@ -136,7 +137,7 @@ describe Payments::BraspagSenderStrategy do
         :braspag_transaction_id => "555888", :amount => "500", :payment_method =>
         "997", :acquirer_transaction_id => "999888", :authorization_code => "987",
         :return_code => "1", :return_message => "Success", :status => "0",
-        :credit_card_token => "444555666"} }}   
+        :credit_card_token => "444555666"} }}
       expect {
         subject.create_success_authorize_response(authorize_transaction_result)
       }.to change(BraspagAuthorizeResponse, :count).by(1)
@@ -157,7 +158,7 @@ describe Payments::BraspagSenderStrategy do
       }.to change(BraspagCaptureResponse, :count).by(1)
     end
 
-  end  
+  end
 
 end
 
