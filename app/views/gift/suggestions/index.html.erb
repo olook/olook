@@ -21,9 +21,9 @@
 <% content_for :full do %>
   <div class="full_bg">
     <div class="content" id="suggestion">
-      <div id="card">
-        <%= render "card" %>
-      </div>
+      <ul>
+        <li><%= link_to "Voltar para presentes", gift_root_path %></li>
+      </ul>
       <div id="profile">
         <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
         <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %>
