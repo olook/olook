@@ -9,7 +9,7 @@ module Payments
 
     def send_to_gateway
       begin
-        payment.encrypt_credit_card
+        payment.encrypt_credit_card if payment.is_a? CreditCard
         self.response = MoIP::Client.checkout(payment_data)
         payment.build_response self.response
         save_payment_url!
