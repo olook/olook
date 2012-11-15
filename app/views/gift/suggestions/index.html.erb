@@ -25,8 +25,12 @@
         <li><%= link_to "Voltar para presentes", gift_root_path %></li>
       </ul>
       <div id="profile">
-        <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
-        <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %>
+        <%= image_tag "gift/profile-#{@profile.name.parameterize}.png" %>
+        <div>
+          <h2>Ela é:</h2>
+          <h1><%= @profile.name %></h1>
+          <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo.", gift_root_path %></p>
+        </div>
       </div>
       <%= form_tag gift_recipient_add_suggestions_to_cart_path(@gift_recipient.id) do %>
         <section id="products">
@@ -58,7 +62,7 @@
         <h1>Sugestões de presentes para ela</h1>
         <ul>
           <% @products.each do |product| %>
-            <%= render "shared/showroom_product_item", :product => product, :gift => true, :shoe_size => @gift_recipient.shoe_size %>
+            <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
           <% end %>
         </ul>
       </section>
