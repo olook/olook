@@ -18,14 +18,13 @@ gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'cancan', '~> 1.6.7'
-gem 'enumerate_it', '~> 0.7.14'
+gem 'enumerate_it'
 gem 'fog', '~> 1.1.1'
 gem 'carrierwave', '~> 0.6.0'
 gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'i18n', '~> 0.6.1'
 
 group :production, :staging do
   gem 'asset_sync', '~> 0.5.0'
@@ -42,8 +41,7 @@ gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
 # gem 'graylog2_exceptions'
-# gem "syslogger", 
-gem 'SyslogLogger', "~> 1.4.1"
+gem 'SyslogLogger', :require => 'syslog_logger'
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 
@@ -96,4 +94,3 @@ end
 group :production do
   gem 'unicorn', '~> 4.1.1'
 end
-
