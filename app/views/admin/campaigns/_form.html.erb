@@ -32,8 +32,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :background %><br />
-    <%= f.text_field :background %>
+    <%= f.label :header %><br />
+    <%= f.collection_select :background, [['topo_BF']], :first, :last, {:include_blank => true} %>
   </div>
 
   <div class="field">
