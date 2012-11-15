@@ -80,4 +80,21 @@ describe Campaign do
     end
   end
 
+  describe "on .activated_campaign" do
+    context "should return the activated campaign" do
+      let(:valid_campaign) { FactoryGirl.create(:campaign) }
+      it "A campaign active today" do
+        valid_campaign.start_at = Date.today
+        Campaign.activated_campaign.should eq(valid_campaign)
+      end
+    end
+
+    context "should return nil" do
+      it "A campaign active today" do
+        Campaign.activated_campaign.should eq(nil)
+      end
+    end
+
+  end
+
 end
