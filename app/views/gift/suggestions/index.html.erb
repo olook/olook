@@ -54,7 +54,8 @@
         </uL>
       <% end %>
       <section id="suggestions_container">
-        <h1>Outras sugestões</h1>
+        <h2>Confira:</h2>
+        <h1>Sugestões de presentes para ela</h1>
         <ul>
           <% @products.each do |product| %>
             <%= render "shared/showroom_product_item", :product => product, :gift => true, :shoe_size => @gift_recipient.shoe_size %>
