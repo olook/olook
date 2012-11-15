@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-class CampaignBannerHelper
+class CampaignBannerHelper do
 
-  
+
 
 end
