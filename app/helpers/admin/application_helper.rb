@@ -13,6 +13,14 @@ module Admin::ApplicationHelper
   	MoipCallback::STATUS[status.to_s]
   end
 
+  def braspag_authorize_status(status)
+    BraspagAuthorizeResponse::STATUS[status]
+  end
+
+  def braspag_capture_status(status)
+    BraspagCaptureResponse::STATUS[status]
+  end
+
   def humanize_gateway(gateway)
     HUMANIZED_GATEWAYS[gateway]
   end

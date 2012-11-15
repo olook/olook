@@ -83,14 +83,6 @@ describe CreditCard do
     subject.human_to_s.should == "Cartão de Crédito"
   end
 
-  context "creating a credit_card" do
-    it "should crypt the credt card number" do
-      credit_card_number = "1234123412341234"
-      credit_card = FactoryGirl.create(:credit_card, :credit_card_number => credit_card_number)
-      credit_card.credit_card_number.should == "XXXXXXXXXXXX1234"
-    end
-  end
-
   context "installments" do
     it "should return 2 installments" do
       CreditCard.installments_number_for(89.89).should == 2
