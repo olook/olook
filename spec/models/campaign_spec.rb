@@ -90,7 +90,7 @@ describe Campaign do
     end
 
     context "should return nil" do
-      it "A campaign active today" do
+      it "No campaign active today" do
         Campaign.activated_campaign.should eq(nil)
       end
     end
