@@ -20,7 +20,7 @@ describe Credit do
       credit.stub(:expires_at).and_return(expires_at)
       
       description = credit.description_for(:loyalty)
-      description.should == "Crédito disponível de 01/10/2012 --- 30/11/2012"
+      description.should == "Crédito disponível de 01/10/2012 a 30/11/2012"
 
     end
 
