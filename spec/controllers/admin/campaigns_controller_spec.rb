@@ -11,8 +11,8 @@ describe Admin::CampaignsController do
   end
 
   let!(:campaign) { FactoryGirl.create(:campaign) }
-  let!(:second_campaign) { FactoryGirl.create(:second_campaign) }
   describe "GET index" do
+    let!(:second_campaign) { FactoryGirl.create(:second_campaign) }
   	let (:search_param) { {"title_contains" => campaign.title} }
 
   	it "should find all campaigns using no parameter" do
