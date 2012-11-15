@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :campaign do
-    id "123"
+    #id "123"
     title "First Campaign"
     start_at "2012-11-10"
     end_at "2012-11-15"
@@ -11,8 +11,10 @@ FactoryGirl.define do
     description "some description"
 
     factory :second_campaign do
-      id "456"
+      #id "456"
       title "Another Campaign"
+      start_at "2012-11-20"
+      end_at "2012-11-30"
     end
   end
 end
