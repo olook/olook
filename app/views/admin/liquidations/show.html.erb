@@ -18,12 +18,23 @@
     <b>Visível ?: <%= @liquidation.visible? %></b>
 
   </p>
+
+  <p>
+    <b>Exibe propaganda pradao ?: <%= @liquidation.show_advertise? %></b>
+  </p>
  
 
   <p>
     <b>Teaser:</b>
     <% if @liquidation.teaser_banner_url %>
       <%= image_tag @liquidation.teaser_banner_url %>
+    <% end %>
+  </p>
+
+  <p>
+    <b>Big Banner:</b>
+    <% if @liquidation.big_banner_url %>
+      <%= image_tag @liquidation.big_banner_url %>
     <% end %>
   </p>
 

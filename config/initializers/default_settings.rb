@@ -17,7 +17,7 @@ Setting.defaults[:mark_notified_users] = true
 Setting.defaults[:send_in_cart_mail_locally] = false
 Setting.defaults[:checkout_suggested_product_id]= "12472"
 Setting.defaults[:braspag_whitelisted_only] = true
-Setting.defaults[:braspag_percentage] = 10
+Setting.defaults[:braspag_percentage] = 0
 
 Setting.defaults[:acquirer] = "redecard"
 # Settings for in_cart_mail process
