@@ -21,7 +21,7 @@ module PromotionsHelper
         render(:partial => "promotions/banners/#{promotion.strategy}", :locals => {:promotion => promotion})
       elsif !current_user && page_included_in_whitelist?(PROMOTION_BANNER_GUEST_WHITELIST) && Promotion.purchases_amount
         render(:partial => "promotions/banners/#{Promotion.purchases_amount.strategy}", :locals => {:promotion => Promotion.purchases_amount})
-      elsif Campaign.activeted_campaign
+      elsif Campaign.activated_campaign
         render(:partial => "campaigns/campaign_active")
       end
   end
