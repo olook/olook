@@ -1,10 +1,11 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/home" %>
 <% end %>
-<section class="banner">
-	<a href="/responsabilidade-social#campanha"><%=image_tag("campaigns/banner-avc.jpg") %></a>
-
-</section>	
+<% if Campaign.activated_campaign %>
+  <%= render :partial => "campaigns/campaign_active" %>
+<% else %>
+  <%= render :partial => "campaigns/avc_banner" %>
+<% end %>
 <section class="model">
   <h1>Didi Wagner</h1>
   <h2>Stylist Convidada</h2>
