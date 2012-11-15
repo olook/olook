@@ -5,7 +5,7 @@ if($(".box-remember.success").length > 0){
 		"height" 	  : h +"px",
 		"margin-top"  : mt+"px",
 		"margin-left" : ml+"px"
-	}).delay(100).fadeIn();
+	}).delay(200).fadeIn();
 }	
 else if($(".box-cadastro").length > 0){
 	w = 910, h = 405, ml = -(w/2), mt = -(h/2);
@@ -14,7 +14,7 @@ else if($(".box-cadastro").length > 0){
 		"height" 	  : h +"px",
 		"margin-top"  : mt+"px",
 		"margin-left" : ml+"px"
-	}).delay(100).fadeIn();
+	}).delay(200).fadeIn();
 }else{
 	w = 530, h = 385, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
@@ -22,7 +22,7 @@ else if($(".box-cadastro").length > 0){
 		"height" 	  : h +"px",
 		"margin-top"  : mt+"px",
 		"margin-left" : ml+"px"
-	}).delay(100).fadeIn();
+	}).delay(200).fadeIn();
 }
 
 function checkEmail(e) {
@@ -53,5 +53,9 @@ $(function(){
 	
 	$(".close").bind("click", function(){
 		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
+	})
+	
+	$("input[type=submit]").click(function(){
+		parent.top.$("#modal-campaign").fadeOut();
 	})
 });
