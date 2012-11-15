@@ -1452,3 +1452,10 @@ header div.contact {
     height: 95px;
   }
 }
+
+/*****  CAMPAINGS - Black Friday & 1 ano muito*****/
+.topo_BF{
+	header{background:#000;
+		h1 a{width:223px !important;height:74px !important;background: image-url('campaigns/black_friday/logo_BF.jpg') no-repeat !important;}
+		.img-niver{display:none;}
+}
