@@ -1,5 +1,5 @@
 <div class="description">
-  <% if liquidation.teaser_banner %>
+  <% if liquidation.teaser_banner? %>
     <%= image_tag liquidation.teaser_banner, :alt => liquidation.name %>
   <% end %>
   <p><%= liquidation.description %></p>
