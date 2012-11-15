@@ -36,7 +36,7 @@ GEM
       Platform (>= 0.4.0)
       open4
     Platform (0.4.0)
-    SyslogLogger (2.0)
+    SyslogLogger (1.4.1)
     actionmailer (3.2.2)
       actionpack (= 3.2.2)
       mail (~> 2.4.0)
@@ -129,7 +129,7 @@ GEM
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
     diff-lcs (1.1.3)
-    enumerate_it (1.0.1)
+    enumerate_it (0.7.17)
       activesupport (>= 3.0.0)
     equivalent-xml (0.2.9)
       nokogiri (>= 1.4.3)
@@ -322,7 +322,7 @@ GEM
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
       rspec-mocks (~> 2.10.0)
-    rspec-core (2.10.0)
+    rspec-core (2.10.1)
     rspec-expectations (2.10.0)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.10.1)
@@ -436,7 +436,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  SyslogLogger
+  SyslogLogger (~> 1.4.1)
   airbrake
   asset_sync (~> 0.5.0)
   awesome_print
@@ -453,7 +453,7 @@ DEPENDENCIES
   database_cleaner
   delorean
   devise (~> 1.5.3)
-  enumerate_it
+  enumerate_it (~> 0.7.14)
   equivalent-xml (~> 0.2.9)
   factory_girl_rails (~> 3.2.0)
   faker
@@ -464,7 +464,7 @@ DEPENDENCIES
   guard-spork
   hpricot
   httpi
-  i18n (= 0.6.1)
+  i18n (~> 0.6.1)
   jquery-rails (~> 1.0.14)
   koala (~> 1.3.0)
   launchy
