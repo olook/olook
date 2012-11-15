@@ -10,11 +10,11 @@
   <div id="fb-root"></div>
   <%= render "profiles" %>
 
-    <% @profiles.each do |profile| %>
-    	<section id="profile_products" class="sub <%= profile %>">
-  		<%= render "profile_products", products: @profiles_products	[profile.to_sym] %>
-  		</section>
-	<% end %>
+  <% @profiles.each do |profile| %>
+    <section id="profile_products" class="sub <%= profile %>">
+      <%= render "profile_products", products: @profiles_products	[profile.to_sym] %>
+    </section>
+  <% end %>
 
   <%= render "suggestions" %>
   <%= render "suggestion_products", products: @suggestion_products %>
