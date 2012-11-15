@@ -13,11 +13,6 @@ describe Braspag::GatewaySenderWorker do
       Braspag::GatewaySenderWorker.perform(credit_card.id)
     end
 
-    it "should encrypt the credit card data for the given payment" do
-      CreditCard.any_instance.should_receive(:force_encrypt_credit_card).once
-      Braspag::GatewaySenderWorker.perform(credit_card.id)
-    end
-
   end
 
 end
