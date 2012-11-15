@@ -32,34 +32,10 @@
           <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo.", gift_root_path %></p>
         </div>
       </div>
-      <%= form_tag gift_recipient_add_suggestions_to_cart_path(@gift_recipient.id) do %>
-        <section id="products">
-          <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
-          <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
-          <div class="product_container first">
-            <ul>
-              <%= render "shared/suggestive_product", :position => 0, :variant => @suggested_variants[0] %>
-            </ul>
-          </div>
-          <div class="product_container second">
-            <ul>
-              <%= render "shared/suggestive_product", :position => 1, :variant => @suggested_variants[1] %>
-            </ul>
-          </div>
-          <div class="product_container third">
-            <ul>
-              <%= render "shared/suggestive_product", :position => 2, :variant => @suggested_variants[2] %>
-            </ul>
-          </div>
-        </section>
-        <ul class="product_actions">
-          <li><%= link_to "Quero escolher outros produtos", "#", :class => "more_suggestions" %></li>
-          <li><%= submit_tag "" %></li>
-        </uL>
-      <% end %>
       <section id="suggestions_container">
         <h2>Confira:</h2>
         <h1>Sugestões de presentes para ela</h1>
+        <%= render 'shoe_filter' %>
         <ul>
           <% @products.each do |product| %>
             <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
