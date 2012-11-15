@@ -132,7 +132,7 @@ div.full_container {
         & > ul {
           width: 975px;
           overflow: hidden;
-          margin: 0 auto;
+          margin: 0 auto 30px;
           li.product {
             .box_product {
               a.product_link {
@@ -145,6 +145,24 @@ div.full_container {
                   height: 170px;
                 }
               }
+            }
+          }
+          &+h1 {
+            background: image-url('gift/bg-products-title.jpg') top left repeat-x;
+            font-family: $avenir;
+            font-size: 14px;
+            line-height: 38px;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 auto 30px;
+            strong {
+              font-weight: 600;
+            }
+            &.discount {
+              width: 725px;
+            }
+            &.freight {
+              width: 355px;
             }
           }
         }
