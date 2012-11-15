@@ -24,7 +24,7 @@ else if($(".box-cadastro").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(200).fadeIn();
 }
-
+var flag;
 function checkEmail(e) {
 	var email = $('#campaign_email_email').val();
 	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -32,6 +32,7 @@ function checkEmail(e) {
 		e.preventDefault();
 		$('.error').fadeIn();
 		email.focus;
+		return flag=false;
 	}else{
 		$('.error').fadeOut('fast');
 		$("#campaign_email").submit();
@@ -56,6 +57,7 @@ $(function(){
 	})
 	
 	$("input[type=submit]").click(function(){
-		parent.top.$("#modal-campaign").fadeOut();
+		if(flag)
+			parent.top.$("#modal-campaign").fadeOut();
 	})
 });
