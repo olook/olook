@@ -8,11 +8,19 @@ module Payments
     end
 
     def send_to_gateway
-      self.response = MoIP::Client.checkout(payment_data)
-      payment.build_response self.response
-      save_payment_url!
-      set_payment_gateway
-      payment
+      begin
+        payment.encrypt_credit_card if payment.is_a? CreditCard
+        self.response = MoIP::Client.checkout(payment_data)
+        payment.build_response self.response
+        save_payment_url!
+        set_payment_gateway
+        payment
+      rescue Exception => error
+        ErrorNotifier.send_notifier("Moip", error.message, payment)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
+      ensure
+        payment.save!
+      end
     end
 
     def payment_successful?
@@ -21,7 +29,6 @@ module Payments
 
     def save_payment_url!
       payment.url = payment_url
-      payment.save!
     end
 
     def set_payment_gateway

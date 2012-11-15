@@ -40,6 +40,8 @@ Olook::Application.routes.draw do
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
+  get "/promo1anomuito" , :to => "liquidations#index", :as => "promo1anomuito"
+  get "/blackfriday" , :to => "liquidations#index", :as => "blackfriday"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
@@ -231,9 +233,19 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :braspag_authorize_responses
+    resources :braspag_authorize_responses do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
 
-    resources :braspag_capture_responses
+    resources :braspag_capture_responses do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
 
     resources :payments, :only => [:index, :show]
 

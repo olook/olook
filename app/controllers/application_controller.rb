@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     current_liquidation.try(:visible?)
   end
 
+  helper_method :show_current_liquidation_advertise?
+  def show_current_liquidation_advertise?
+    current_liquidation.try(:show_advertise?)
+  end
+
   #TODO: create CartBuilder
   helper_method :current_cart
   def current_cart

@@ -42,13 +42,13 @@ Spork.prefork do
   #Requires libs. Check why I need to do it later
   Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
 
-Savon.configure do |config|
+  Savon.configure do |config|
 
-  # By default, Savon logs each SOAP request and response to $stdout.
-  # Here's how you can disable logging:
-  config.log = false
-  
-end
+    # By default, Savon logs each SOAP request and response to $stdout.
+    # Here's how you can disable logging:
+    config.log = false
+    
+  end
 
   HTTPI.log = false
 

@@ -2,25 +2,46 @@ module Payments
   class BraspagSenderStrategy
     FILE_DIR = "#{Rails.root}/config/braspag.yml"
 
-    attr_accessor :cart_service, :payment, :credit_card_number, :response
+    attr_accessor :cart_service, :payment, :credit_card_number
 
     def initialize(cart_service, payment)
       @cart_service, @payment = cart_service, payment
+      @payment_successful = false
     end
 
     def send_to_gateway
-      gateway_response = web_service_data.checkout(authorize_transaction_data)
-      process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
-      set_payment_gateway
-      payment
+      begin
+        update_gateway_info
+        Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)
+        @payment_successful = true
+        payment
+      rescue Exception => error
+        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
+      end
     end
 
     def payment_successful?
-      payment.sucess?
+      @payment_successful
     end
 
-    def set_payment_gateway
+    def update_gateway_info
       payment.gateway = Payment::GATEWAYS.fetch(:braspag)
+      payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
+    end
+
+    def process_enqueued_request
+      begin
+        gateway_response = web_service_data.checkout(authorize_transaction_data)
+        process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
+      rescue Exception => error
+        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
+        raise error
+      ensure
+        payment.encrypt_credit_card
+        payment.save!
+      end
     end
 
     def web_service_data
@@ -37,11 +58,11 @@ module Payments
     end
 
     def order_data
-      Braspag::Order.new(@payment.identification_code)
+      Braspag::Order.new(payment.identification_code)
     end
 
     def address_data
-      delivery_address = Address.find_by_id!(@cart_service.freight[:address_id])
+      delivery_address = self.payment.order.freight.address
       Braspag::AddressBuilder.new
       .with_street(delivery_address.street)
       .with_number(delivery_address.number)
@@ -55,15 +76,15 @@ module Payments
 
     def customer_data
       Braspag::CustomerBuilder.new
-      .with_customer_id(@payment.user.id)
-      .with_customer_name("#{ @payment.user.first_name } #{ @payment.user.last_name }")
-      .with_customer_email(@payment.user.email)
+      .with_customer_id(payment.user.id)
+      .with_customer_name("#{ payment.user.first_name } #{ payment.user.last_name }")
+      .with_customer_email(payment.user.email)
       .with_customer_address(address_data)
       .with_delivery_address(address_data).build
     end
 
     def payment_data
-      payment_method = BraspagBankTranslator.payment_method_for @payment.bank
+      payment_method = Payments::BraspagBankTranslator.payment_method_for payment.bank
       Braspag::CreditCardBuilder.new
       .with_payment_method(Braspag::PAYMENT_METHOD[payment_method])
       .with_amount(format_amount(payment.total_paid))
@@ -74,7 +95,7 @@ module Payments
       .with_payment_plan("0")
       .with_transaction_type("1")
       .with_holder_name(payment.user_name)
-      .with_card_number(credit_card_number)
+      .with_card_number(self.credit_card_number)
       .with_security_code(payment.security_code)
       .with_expiration_month(payment.expiration_date[0,2])
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
@@ -95,7 +116,7 @@ module Payments
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
         create_success_authorize_response(authorize_transaction_result)
-        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response    
+        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response
         update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
@@ -137,7 +158,7 @@ module Payments
         create_success_capture_response(capture_transaction_result, order_id)
       else
         create_failure_capture_response(capture_transaction_result)
-      end    
+      end
     end
 
     def create_success_capture_response(capture_transaction_result, order_id)
@@ -171,6 +192,7 @@ module Payments
           gateway_message: message
         )
     end
-  end
 
+
+  end
 end
