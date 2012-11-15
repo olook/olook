@@ -4,43 +4,17 @@ div.full_container {
   div.full_bg {
     background: #FFF;
     div#suggestion {
-      div#card {
-        position: relative;
-        background: url("/assets/gift/bg-card.png") top left no-repeat;
-        width: 515px;
-        height: 202px;
-        display: block;
-        float: left;
-        table {
-          position: absolute;
-          border-collapse: separate;
-          border-spacing: 10px;
-          top: 40px;
-          left: 65px;
-          tbody {
-            tr {
-              td {
-                padding: 0 10px;
-                h1, p {
-                  font-family: "Open Sans", sans-serif;
-                  font-size: 12px;
-                  font-weight: 600;
-                }
-                h1 {
-                  color: #8b8b8b;
-                }
-                .occasion, .relation {
-                  text-transform: capitalize;
-                }
-                p {
-                  color: #383838;
-                  a {
-                    color: #df5b8c;
-                    font-size: 10px;
-                    margin: 0 0 0 10px;
-                  }
-                }
-              }
+      & > ul {
+        margin: 30px 0 0;
+        li {
+          a {
+            background: image-url('product/arrow-back.jpg') center left no-repeat;
+            color: $third_color;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0 0 0 15px;
+            &:hover {
+              text-decoration: underline;
             }
           }
         }
