@@ -866,7 +866,7 @@ body {
                 color: #282828;
                 text-decoration: none;
                 &#info_user {
-                  background: image-url('common/arrow-down-pink.jpg') center right no-repeat;
+                  background: image-url('common/arrow-down-pink.png') center right no-repeat;
                   color: #D95485;
                   text-align: left;
                   width: auto;
@@ -1458,6 +1458,31 @@ header div.contact {
 	header{background:#111;
 		h1 a{width:223px !important;height:74px !important;background: image-url('campaigns/black_friday/logo_BF.jpg') no-repeat !important;}
 		.img-niver{display:none;}
-		#session .login p {color:#CCC !important;}
+		#session {
+			.login p {color:#CCC !important;
+				a{color:#D95485 !important;}
+			}
+			ul li{color:#CCC !important;
+					#info_user{color:#D95485 !important;border:solid 2px #111 !important;
+						&:hover,&.hover{border-color:#464243 !important;}
+					}
+				a{color:#CCC !important;}
+				&.last{border-left:dotted 1px #FFF !important;
+					a{color:#E05789 !important;}
+				}
+				&.submenu .my_account .last{border:0 !important;
+					a{color:#CCC !important;}
+				}	
+			}
+			.my_account{
+				background:#111 !important;
+				border-bottom: 2px solid #464243 !important;
+		      border-left: 2px solid #464243 !important;
+		      border-right: 2px solid #464243 !important;
+			}
+		}
+		.contact{border-bottom: 1px solid #202020;}
 	}
+	
+	#wrapper_menu .menu{border-top:solid 1px #464243;}
 }
