@@ -50,7 +50,8 @@ describe Admin::CampaignsController do
 
 
   describe "POST create" do
-    describe "with valid params" do
+    let!(:campaign) { FactoryGirl.build(:campaign) }
+    context "with valid params" do
       it "creates a new Campaign" do
         expect {
           post :create, :campaign => campaign.attributes
@@ -69,7 +70,7 @@ describe Admin::CampaignsController do
       end
     end
 
-    describe "with invalid params" do
+    context "with invalid params" do
       it "assigns a newly created but unsaved campaign as @campaign" do
         Campaign.any_instance.stub(:save).and_return(false)
         post :create, :campaign => {}
@@ -83,7 +84,7 @@ describe Admin::CampaignsController do
     end
   end
   describe "PUT update" do
-    describe "with valid params and password" do
+    context "with valid params and password" do
       it "updates the requested Campaign" do
         Campaign.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => campaign.id, :campaign => {'these' => 'params'}
@@ -100,7 +101,7 @@ describe Admin::CampaignsController do
       end
     end
 
-    describe "with invalid params" do
+    context "with invalid params" do
       it "assigns the Campaign as @Campaign" do
         Campaign.any_instance.stub(:save).and_return(false)
         put :update, :id => campaign.id.to_s, :campaign => {}
