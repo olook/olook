@@ -85,14 +85,12 @@ describe Campaign do
       let(:valid_campaign) { FactoryGirl.create(:campaign) }
       it "A campaign active today" do
         valid_campaign.start_at = Date.today
-        binding.pry
         Campaign.activated_campaign.should eq(valid_campaign)
       end
     end
 
     context "should return nil" do
       it "A campaign active today" do
-        binding.pry
         Campaign.activated_campaign.should eq(nil)
       end
     end
