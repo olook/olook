@@ -13,7 +13,7 @@
         =f.check_box :remember_me, :checked => true
         =f.label :remember_me, "Lembrar de mim"
         %p 
-          %a{:href => "#"} Esqueci minha senha
+          %a{:href => "/conta/password/new", :target => "_blank"} Esqueci minha senha
       =f.submit :value => "ENTRAR", :class => "bt-enter"
   %p.facebook
     %a{:href => "/conta/auth/facebook", :target => "_top"}Entrar com Facebook
