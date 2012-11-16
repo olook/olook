@@ -25,8 +25,11 @@ gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
-gem 'haml'
-gem 'haml-rails'
+
+group :production, :staging, :development, :test do
+  gem 'haml'
+  gem 'haml-rails'
+end
 
 group :production, :staging do
   gem 'asset_sync', '~> 0.5.0'
