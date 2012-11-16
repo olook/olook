@@ -27,7 +27,7 @@ gem 'will_paginate'
 gem 'airbrake'
 
 group :production, :staging, :development, :test do
-  gem 'haml'
+  # gem 'haml'
   gem 'haml-rails'
 end
 
