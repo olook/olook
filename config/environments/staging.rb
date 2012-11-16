@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require "haml"
+require "haml-rails"
 Olook::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
