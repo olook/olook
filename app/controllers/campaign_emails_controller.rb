@@ -1,4 +1,3 @@
-require 'haml-rails'
 class CampaignEmailsController < ApplicationController
 	layout "campaign_emails"
 
