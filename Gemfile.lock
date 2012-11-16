@@ -435,7 +435,6 @@ DEPENDENCIES
   glennfu-contacts (= 1.2.6)!
   guard-rspec
   guard-spork
-  haml
   haml-rails
   hpricot
   httpi
