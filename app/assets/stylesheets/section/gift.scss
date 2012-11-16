@@ -68,6 +68,10 @@ body div.full_container {
             top: 8px;
             right: 13px;
           }
+          &.fixed {
+            position: fixed;
+            top: 55px;
+          }
         }
       }
       h2 {

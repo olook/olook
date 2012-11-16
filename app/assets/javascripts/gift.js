@@ -1,4 +1,17 @@
 $(function () {
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  if(!msie6 && $('#help').length == 1) {
+    var helpLeft = $('#help').offset().left;
+    $(window).scroll(function(event) {
+      var y = $(this).scrollTop();
+      if(y >= 128) {
+        $('#help').addClass('fixed').css('left', helpLeft);
+      } else {
+        $('#help').removeClass('fixed').css('left','');
+      }
+    });
+  }
+
   $("section#profiles ul li a").live("click", function(e) {
 
     var profile = e.target.id;
@@ -7,7 +20,7 @@ $(function () {
 
     $("section#profiles ul li a").removeClass().addClass("off");
     $(this).removeClass("off").addClass('selected');
-    
+
     $("section#profile_products." + profile).slideDown();
     var container_position = $("section#profile_products." + profile).offset().top - 40;
     InitGift.slideTo(container_position);
