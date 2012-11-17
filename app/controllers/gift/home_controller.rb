@@ -14,7 +14,6 @@ class Gift::HomeController < Gift::BaseController
   def index
     @profiles = profiles
     @profiles_products = fetch_profiles_products
-    @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
     @recipient_relations = GiftRecipientRelation.ordered_by_name
   end
 
@@ -42,6 +41,18 @@ class Gift::HomeController < Gift::BaseController
 
   def load_friends
     @friends = @facebook_adapter.facebook_friends_with_birthday(current_month) if @facebook_adapter
+  end
+
+  def helena_tips
+    @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
+  end
+
+  def top_five
+    @suggestion_products = Product.find(10262, 11259, 10621, 11716, 12023)
+  end
+
+  def hot_on_facebook
+    @suggestion_products = Product.find(10549, 10612, 11642, 12063, 11953)
   end
 
   private
