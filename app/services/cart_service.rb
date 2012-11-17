@@ -279,11 +279,17 @@ class CartService
   end
 
   def there_is_olooklet_item
-    given_discounts = cart.items.map do |item|
-      discounts = get_retail_price_for_item(item).fetch(:discounts)
-    end
+    # name should be "there_is_no_full_price_item"
+
+    items_with_full_price = CartItemsChecker.new(cart.items).items_with_full_price
+
+    items_with_full_price.empty?
+
+    # given_discounts = cart.items.map do |item|
+    #   discounts = get_retail_price_for_item(item).fetch(:discounts)
+    # end
     
-    given_discounts.flatten.include?(:olooklet)    
+    # given_discounts.flatten.include?(:olooklet)    
   end
 
   def calculate_discounts
