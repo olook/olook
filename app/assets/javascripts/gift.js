@@ -40,6 +40,7 @@ $(function () {
     $("section#suggestions_products").slideDown();
     var container_position = $("section#suggestions_products").offset().top - 40;
     InitGift.slideTo(container_position);
+    InitGift.createLoader($("section#suggestions_products div.content"));
     e.preventDefault();
   });
 
@@ -110,5 +111,9 @@ InitGift = {
     $("html, body").animate({
       scrollTop: position
     }, 'normal');
+  },
+
+  createLoader : function(container) {
+    $(container).html("<p class='loading'></p>");
   }
 }
