@@ -257,6 +257,10 @@ body div.full_container {
     &#suggestions_products {
       padding: 30px 0;
       div.content {
+        p.loading {
+          background: image-url('common/ajax-loader.gif') center center no-repeat;
+          height: 25px;
+        }
         ul.products {
           width: 100%;
           margin: 0 0 15px;
