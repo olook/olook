@@ -844,7 +844,7 @@ body {
 		.niver{margin:-15px 0 0 62px;}
 		#session {
         position: relative;
-        z-index: 10000;
+        z-index: 995;
         @include sign-in;
         margin-top: 10px;
         margin-right: 10px;
@@ -1061,13 +1061,13 @@ body {
     position: relative;
     margin-top: -26px;
     padding-top: 26px;
- /*   z-index: 1000;*/
+    z-index: 990;
     nav.menu {
       position: absolute;
       width: 100%;
       margin: 0;
       top: 0;
-      z-index: 1000;
+      z-index: 991;
       div.content {
         width: 1110px;
         padding-right: 115px;
@@ -1160,6 +1160,37 @@ body {
           &.cart {
             position: relative;
             float: right;
+            div.warn {
+              position: absolute;
+              background: image-url('common/bg-menu-warn.png') top left no-repeat;
+              width: 218px;
+              height: 100px;
+              top: -33px;
+              left: -198px;
+              display: block;
+              overflow: hidden;
+              z-index: 1000;
+              a.close {
+                position: absolute;
+                background: image-url('gift/bt-close-help.png') no-repeat;
+                text-indent: -99999px;
+                width: 18px;
+                height: 18px;
+                top: 5px;
+                right: -2px;
+                display: block;
+              }
+              p {
+                color: #939292;
+                font-size: 12px;
+                text-align: center;
+                width: 190px;
+                margin: 17px 0 0 10px;
+                span {
+                  color: #e2458f;
+                }
+              }
+            }
             a.cart {
               position: relative;
               color: #FFF;
