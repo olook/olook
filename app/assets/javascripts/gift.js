@@ -31,7 +31,6 @@ $(function () {
     var index = $(this).parent().index();
     $("section#suggestions div.content ul li").removeClass();
     $(this).parent().addClass("selected");
-    console.log(index);
     if(index != 0) {
       var parent = $("section#suggestions div.content ul li")[index - 1];
       $(parent).addClass("no_border");
