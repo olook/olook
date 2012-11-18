@@ -146,6 +146,29 @@ _gaq.push(['_addTrans',
                   <p>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença</p>
                 <% end %>
               <% end %>
+
+              <p>SOBRE OS SEUS CRÉDITOS</p><br>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Créditos por compras realizadas:</th>
+                    <th class='value'><%= number_to_currency @amount_of_loyalty_credits %>
+                      <% unless allow_credit_payment? %>
+                      (não podem ser utilizados em pedidos com desconto)
+                      <% end %>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>Créditos por indicação:</th>
+                    <th class='value'><%= number_to_currency @amount_of_invite_credits %></th>
+                  </tr>
+                  <tr>
+                    <th>Reembolso via Central de Atendimento:</th>
+                    <th class='value'><%= number_to_currency @redeem_credits %></th>
+                  </tr>
+                </thead>
+              </table>
+
               <%= link_to "Saiba mais sobre seus créditos", "#" %>
             <% end %>
           </td>
