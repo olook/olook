@@ -16,6 +16,14 @@ class CartItem < ActiveRecord::Base
     is_suggested_product? ? suggested_product_quantity : deafult_quantity
   end  
 
+  def price 
+    variant.product.price
+  end
+
+  def retail_price
+    variant.product.retail_price
+  end
+
   private 
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
