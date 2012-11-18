@@ -207,8 +207,8 @@ class CartService
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.variant.product.retail_price
-    price = item.variant.product.price
+    final_retail_price = item.retail_price #item.variant.product.retail_price
+    price = item.price #item.variant.product.price
     discounts = []
     origin_type = ''
 

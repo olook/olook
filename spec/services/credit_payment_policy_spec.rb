@@ -8,61 +8,61 @@ describe CreditPaymentPolicy do
     end
 
     it "should throw exception for no parameters" do
-      lambda {CreditPaymentPolicy.new}. should raise_error
+      lambda {CreditPaymentPolicy.new}.should raise_error
     end
   end
 
   describe "#allow?" do
     let(:cart) { FactoryGirl.create(:cart_with_items) }
+    # Demeter's law ?!?!
+    let(:master_variant) { cart.items.first.variant.product.master_variant }
     let(:coupon_policy) { CreditPaymentPolicy.new cart }
 
-    context "cart with 1 item without any discount" do
+    before do
+      master_variant.price = 100
+      master_variant.retail_price = 0
+      master_variant.save!
+    end
+
+    context "when cart has 1 item without any discount" do
       it "should allow credit payment" do
         coupon_policy.allow?.should be_true
       end
     end
 
-    context "cart with 1 item with olooklet discount" do
+    context "when cart has 1 item with olooklet discount" do
       it "should not allow credit payment" do
 
-        cart.items.first.variant.product.price = 100
-        cart.items.first.variant.product.retail_price = 70
+        master_variant.retail_price = 80
+        master_variant.save
+
         coupon_policy = CreditPaymentPolicy.new cart
-        
-
-        binding.pry
-
         coupon_policy.allow?.should be_false
       end
     end
 
+    context "when cart has 2 items, but one is at full price" do
+        
+      let(:fullprice_cart_item) {FactoryGirl.create(:cart_item_2, :cart => cart)}
+      let(:fullprice_master_variant) { fullprice_cart_item.variant.product.master_variant }
 
-  end
-
-  context ".items_with_full_price" do
-    let(:cart_item_with_full_price) {double(:item_price => 100, :item_retail_price => 100)}
-    let(:cart_item_with_more_discount) {double(:item_price => 100, :item_retail_price => 80)}
-    let(:cart_item_with_less_discount) {double(:item_price => 100, :item_retail_price => 90)}
-
-    describe "2 items with discount and 1 item with full price" do
-
-      let(:cart_items) {[cart_item_with_full_price, cart_item_with_less_discount, cart_item_with_more_discount]}
-
-      it "should return the item with full price" do
-        cart_items_checker = CreditPaymentPolicy.new cart_items
-        cart_items_checker.items_with_full_price.should have(1).item
-        cart_items_checker.items_with_full_price.should include(cart_item_with_full_price) 
+      before do
+        fullprice_master_variant.price = 100
+        fullprice_master_variant.retail_price = 0
+        fullprice_master_variant.save
       end
-    end
 
-    describe "2 items with discount and no item with full price" do
+      it "should allow credit payment" do
 
-      let(:cart_items) {[cart_item_with_less_discount, cart_item_with_more_discount]}
+        cart.should have(2).items
 
-      it "should return an empty array" do
-        cart_items_checker = CreditPaymentPolicy.new cart_items
-        cart_items_checker.items_with_full_price.should be_empty
+        master_variant.price = 100
+        master_variant.retail_price = 80
+        master_variant.save
 
+
+        coupon_policy = CreditPaymentPolicy.new cart
+        coupon_policy.allow?.should be_true
       end
     end
   end
