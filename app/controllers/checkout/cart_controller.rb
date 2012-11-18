@@ -5,6 +5,11 @@ class Checkout::CartController < Checkout::BaseController
   respond_to :html, :js
   before_filter :erase_freight
 
+  helper_method :allow_credit_payment?
+  def allow_credit_payment?
+    false
+  end
+
   def show
     report  = CreditReportService.new(@user)
     @amount_of_loyalty_credits = report.amount_of_loyalty_credits
