@@ -50,17 +50,25 @@ describe CreditPaymentPolicy do
         fullprice_master_variant.price = 100
         fullprice_master_variant.retail_price = 0
         fullprice_master_variant.save
-      end
-
-      it "should allow credit payment" do
-
-        cart.should have(2).items
 
         master_variant.price = 100
         master_variant.retail_price = 80
         master_variant.save
+      end
 
+      it "should have 2 items" do
+        cart.should have(2).items
+      end
 
+      it "first item must be full price" do
+        fullprice_master_variant.price.should == fullprice_master_variant.retail_price
+      end
+
+      it "second item must have discount" do
+        master_variant.price.should > master_variant.retail_price
+      end
+
+      it "should allow credit payment" do
         coupon_policy = CreditPaymentPolicy.new cart
         coupon_policy.allow?.should be_true
       end
