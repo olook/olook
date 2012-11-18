@@ -1,6 +1,5 @@
 class CreditPaymentPolicy
 
-
   def initialize(cart)
     @cart = cart
   end
