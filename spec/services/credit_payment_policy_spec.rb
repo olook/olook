@@ -41,6 +41,7 @@ describe CreditPaymentPolicy do
       end
     end
 
+
     context "when cart has 2 items, but one is at full price" do
         
       let(:fullprice_cart_item) {FactoryGirl.create(:cart_item_2, :cart => cart)}
@@ -72,6 +73,29 @@ describe CreditPaymentPolicy do
         coupon_policy = CreditPaymentPolicy.new cart
         coupon_policy.allow?.should be_true
       end
+    end
+
+    context "when there is a suggested product and a olooklet item" do
+
+      let(:suggested_product) {FactoryGirl.create(:cart_item_2, :cart => cart)}
+
+      before do
+        Setting.stub(:checkout_suggested_product_id).and_return(suggested_product.product.id)
+        
+        master_variant.price = 100
+        master_variant.retail_price = 80
+        master_variant.save
+      end
+
+      it "cart should have 2 items" do
+        cart.should have(2).items
+      end
+
+      it "should not allow credit payment" do
+        coupon_policy = CreditPaymentPolicy.new cart
+        coupon_policy.allow?.should be_false
+      end
+
     end
   end
 
