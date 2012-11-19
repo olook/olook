@@ -48,6 +48,12 @@
         <%= f.label :user_birthday %>
         <%= f.text_field :user_birthday, :class => "date" %>
       </li>
+      <% if @payment.telephone.blank? %>
+        <li class="phone">
+          <%= f.label :telephone %><em>*</em>
+          <%= f.text_field :telephone, :class => "phone", :placeholder => '(  )' %>
+        </li>
+      <% end %>
     </ol>
   </fieldset>
 </div>
