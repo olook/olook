@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Checkout::MoipPaymentsController do
+describe Checkout::PaymentCallbacksController do
   let(:payment) { FactoryGirl.create(:billet) }
   let(:status_pagamento) { "3" }
   let(:cod_moip) { "3" }
@@ -17,7 +17,7 @@ describe Checkout::MoipPaymentsController do
   }
 
   it "should create moip callback with invalid payment" do
-    post :create, params.merge(id_transacao: "XPTO")
+    post :create_moip, params.merge(id_transacao: "XPTO")
     moip_callback = MoipCallback.last
     moip_callback.cod_moip.should eq(cod_moip)
     moip_callback.tipo_pagamento.should eq(tipo_pagamento)
@@ -28,7 +28,7 @@ describe Checkout::MoipPaymentsController do
   end
 
   it "should create moip callback with valid payment" do
-    post :create, params.merge(id_transacao: payment.identification_code)
+    post :create_moip, params.merge(id_transacao: payment.identification_code)
     moip_callback = MoipCallback.last
     moip_callback.cod_moip.should eq(cod_moip)
     moip_callback.tipo_pagamento.should eq(tipo_pagamento)
@@ -39,7 +39,7 @@ describe Checkout::MoipPaymentsController do
   end
 
   it "should response 200 when ok" do
-    post :create, params
+    post :create_moip, params
     response.success?.should eq(true)
   end
 end

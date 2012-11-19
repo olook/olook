@@ -1,0 +1,121 @@
+<h2>Braspag Authorization Response</h2>
+<div class="inner">
+   <p>
+    <b>ID:</b>
+    <%= @response.id %>
+  </p>
+
+  <p>
+    <b>Transacão:</b>
+    <%= link_to @response.identification_code, admin_payment_path(@payment) if @payment %>
+    <%= @response.identification_code unless @payment %>
+  </p>
+
+  <p>
+    <b>Braspag Ordem Id:</b>
+    <%= @response.braspag_order_id %>
+  </p>
+
+  <p>
+    <b>Ordem:</b>
+    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment  %>
+  </p>
+
+  <p>
+    <b>Payment type:</b>
+    <%= @response.payment_method%>
+  </p>
+
+  <p>
+    <b>Quantidade:</b>
+    <%= string_to_currency(@response.amount) %>
+  </p>
+
+  <p>
+	<b>Token do cartão de crédito:</b>
+  	<%= @response.credit_card_token %>
+  </p>
+
+  <p>
+    <b> Código de Autorização:</b>
+    <%= @response.authorization_code %>
+  </p>
+
+  <p>
+    <b>Código Braspag:</b>
+    <%= @response.braspag_transaction_id %>
+  </p>
+
+  <p>
+    <b>Processado:</b>
+    <%= @response.processed %>
+  </p>
+
+  <p>
+    <b>Id de correlação:</b>
+    <%= @response.correlation_id %>
+  </p>
+
+  <p>
+	<b>Id de transação do Adquirente:</b>
+  	<%= @response.acquirer_transaction_id %>
+  </p>
+
+  <p>
+    <b>Sucesso:</b>
+    <%= @response.success ? "Sim" : "Não" %>
+  </p>
+
+  <p>
+	<b>Código de retorno:</b>
+  	<%= @response.return_code %>
+  </p>
+
+  <p>
+	<b>Mensagem de retorno:</b>
+  	<%= @response.return_message %>
+  </p>
+
+  <p>
+  	<b>Status:</b>
+  	<%= braspag_authorize_status(@response.status) %>
+  </p>
+
+  <p>
+    <b>Tentativas:</b>
+    <%= @response.retries %>
+  </p>
+
+  <p>
+    <b>Criado em:</b>
+    <%= l @response.created_at %>
+  </p>
+
+  <p>
+    <b>Atualizado em:</b>
+    <%= l @response.updated_at %>
+  </p>
+
+  <p>
+	<b>Erro:</b>
+  	<%= @response.error_message %>
+  </p>
+
+  <p>
+    <% if @response.processed? %>
+      <%= form_tag(change_to_not_processed_admin_braspag_authorize_response_path(@response)) do -%>
+        <%= submit_tag 'Reprocessar' -%>
+      <% end %>
+    <% else %>
+      <%= form_tag(change_to_processed_admin_braspag_authorize_response_path(@response)) do -%>
+        <%= submit_tag 'Marcar como processado' -%>
+      <% end %>
+    <% end %>
+  </p>
+
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_braspag_authorize_responses_path %></li>
+<% end %>
+
