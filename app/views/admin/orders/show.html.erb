@@ -1,9 +1,9 @@
-<h2>Order <b><%= @order.number %></b></h2>
+<h2>Ordem: <b><%= @order.number %></b></h2>
 
 <div class="inner">
   <div class="inner_info" style='float:left;width:20%;'>
     <p>
-      <b>Client:</b>
+      <b>Cliente:</b>
       <%= link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) if @order.user %>
     </p>
     <p>
@@ -12,11 +12,15 @@
       </button>
     </p>
     <p>
-      <b>Date:</b>
+      <b>Data:</b>
       <%= l @order.created_at, :format => :short %>
     </p>
     <p>
-      <b>Identification Code:</b>
+      <b>Gateway de Pagamento:</b>
+      <%= humanize_gateway @order.gateway %>
+    </p>
+    <p>
+      <b>Cógido de identificação:</b>
       <%= @order.erp_payment ? @order.erp_payment.identification_code : "" %>
     </p>
     <p>
@@ -32,7 +36,7 @@
       <%= @order.status %>
     </p>
     <p>
-      <b>Payment method:</b>
+      <b>Método de pagamento:</b>
       <% if @order.erp_payment %>
         <%= @order.erp_payment.human_to_s %> <%= "- #{@order.erp_payment.bank}" if @order.erp_payment.is_a? CreditCard %>
       <% else %>
@@ -40,11 +44,11 @@
       <% end %>
     </p>
     <p>
-      <b>Products Total:</b>
+      <b>Produtos Total:</b>
       <%= number_to_currency(@order.subtotal) %>
     </p>
     <p>
-      <b>Freight Total:</b>
+      <b>Frete Total:</b>
       <%= number_to_currency(@order.freight_price) %>
     </p>
     <p>
@@ -52,12 +56,12 @@
       <%= number_to_currency(@order.amount_paid) %>
     </p>
     <p>
-      <b>Installments:</b>
+      <b>Parcelas:</b>
       <%= @order.installments %>x
     </p>
     <p>
-      <b>Estimated delivery:</b>
-      <%= @order.freight.delivery_time if @order.freight %> work days
+      <b>Estimativa de Entrega:</b>
+      <%= @order.freight.delivery_time if @order.freight %> dias úteis
     </p>
 
     <div>
@@ -97,7 +101,7 @@
       <th>Créditos a serem descontados<br/>(em caso de estorno)</th>
       <th></th>
     </tr>
-  
+
   <% @order.line_items.each do |line_item| %>
     <tr>
       <td><%= image_tag(line_item.variant.thumb_picture) if line_item.variant.thumb_picture %></td>
@@ -106,7 +110,7 @@
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
-      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>   
+      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>
       <td><%= number_to_currency(line_item.calculate_available_credits) %></td>
       <td><% if line_item.debits.empty? %>
         <%= form_tag(remove_loyalty_credits_admin_order_path(@order)) do -%>
@@ -119,7 +123,7 @@
   </table>
 
   <h3>Total de Créditos de fidelidade</h3>
-  <p><%= number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount)) %>  
+  <p><%= number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount)) %>
   </p>
 
   <h3>Abacos</h3>
@@ -177,7 +181,7 @@
   <p>
     <% if @order.state_events(guard: false).many? %>
     <%= form_tag(change_state_admin_order_path(@order)) do -%>
-      <%= select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map(&:to_s), 'to_s','humanize') %>
+      <%= select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map{|a| [a,I18n.t("activerecord.state_machines.order.state.events.#{a}")]}, 'first',"last") %>
       <%= submit_tag 'Change!' -%>
     <% end %>
     <% else %>

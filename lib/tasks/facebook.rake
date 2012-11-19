@@ -8,6 +8,7 @@ namespace :facebook do
 
     FacebookDataService.clean_destination_folder
     date = DateTime.now # change it if you want to setup a custom date
+    date+=1.month
 
     batches = []
     puts "finding users with facebook authentication token"

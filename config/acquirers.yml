@@ -1,0 +1,15 @@
+cielo:
+  visa: :braspag
+  mastercard: :braspag
+  americanexpress: :braspag
+  diners: :braspag
+  hipercard: :braspag
+  aura: :braspag
+
+redecard:
+  visa: :braspag
+  mastercard: :braspag
+  americanexpress: :braspag
+  diners: :braspag
+  hipercard: :braspag
+  aura: :braspag
