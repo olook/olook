@@ -172,10 +172,11 @@ _gaq.push(['_addTrans',
                 </ul>
 
               </section>
-              <p><%= link_to "Saiba mais sobre seus créditos", "#" %></p>
             <% end %>
           </td>
-          <td class="value"><%= number_to_currency @user.current_credit %></td>
+          <td class="value">
+            <%= number_to_currency(@cart.allow_credit_payment? ? @user.current_credit : @user.user_credits_for(:redeem).total) %>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -247,5 +248,4 @@ _gaq.push(['_addTrans',
     <%= render 'empty_cart' %>
   <% end %>
   <%= render "shared/modal_login" %>
-  <%= render "credit_details" if @user %>
 </section>
