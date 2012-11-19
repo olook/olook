@@ -5,9 +5,10 @@ class Checkout::CartController < Checkout::BaseController
   respond_to :html, :js
   before_filter :erase_freight
 
-  helper_method :allow_credit_payment?
-  def allow_credit_payment?
-    false
+  # This should go to a presenter
+  helper_method :print_credit_message
+  def print_credit_message
+    "(não podem ser utilizados em pedidos com desconto)" unless @cart.allow_credit_payment?
   end
 
   def show

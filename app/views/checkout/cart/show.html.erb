@@ -147,29 +147,32 @@ _gaq.push(['_addTrans',
                 <% end %>
               <% end %>
 
-              <p>SOBRE OS SEUS CRÉDITOS</p><br>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Créditos por compras realizadas:</th>
-                    <th class='value'><%= number_to_currency @amount_of_loyalty_credits %>
-                      <% unless allow_credit_payment? %>
-                      (não podem ser utilizados em pedidos com desconto)
-                      <% end %>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>Créditos por indicação:</th>
-                    <th class='value'><%= number_to_currency @amount_of_invite_credits %></th>
-                  </tr>
-                  <tr>
-                    <th>Reembolso via Central de Atendimento:</th>
-                    <th class='value'><%= number_to_currency @redeem_credits %></th>
-                  </tr>
-                </thead>
-              </table>
+              <section id="credits_explanation">
+                <p>SOBRE OS SEUS CRÉDITOS</p>
+                <% style = @cart.allow_credit_payment? ? 'normal' : 'prohibited' %>
 
-              <%= link_to "Saiba mais sobre seus créditos", "#" %>
+                <ul>
+                  <li>
+                    <div class="description">Créditos por compras realizadas:</div>
+                    <div class="value <%= style %>"><%= number_to_currency @amount_of_loyalty_credits %></div>
+                    <div class="message"><%= print_credit_message %></div>
+                  </li>
+
+                 <li>
+                    <div class="description">Créditos por indicação:</div>
+                    <div class="value <%= style %>"><%= number_to_currency @amount_of_invite_credits %></div>
+                    <div class="message"><%= print_credit_message %></div>
+                  </li>
+
+                 <li>
+                    <div class="description">Reembolso via Central de Atendimento:</div>
+                    <div class="value"><%= number_to_currency @redeem_credits %></div>
+                    <div class="message">&nbsp;</div>
+                  </li>
+                </ul>
+
+              </section>
+              <p><%= link_to "Saiba mais sobre seus créditos", "#" %></p>
             <% end %>
           </td>
           <td class="value"><%= number_to_currency @user.current_credit %></td>

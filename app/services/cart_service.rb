@@ -7,6 +7,8 @@ class CartService
   attr_accessor :freight
   attr_accessor :credits
 
+  delegate :allow_credit_payment?, :to => :cart
+
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
   end
@@ -278,20 +280,6 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
-  def there_is_olooklet_item
-    # name should be "there_is_no_full_price_item"
-
-    items_with_full_price = CartItemsChecker.new(cart.items).items_with_full_price
-
-    items_with_full_price.empty?
-
-    # given_discounts = cart.items.map do |item|
-    #   discounts = get_retail_price_for_item(item).fetch(:discounts)
-    # end
-    
-    # given_discounts.flatten.include?(:olooklet)    
-  end
-
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
@@ -315,20 +303,16 @@ class CartService
     if (use_credits == true)
       #GET FROM loyality
 
-
       # Use loyalty only if there is no product with olooklet discount in the cart       
-      credits_loyality = there_is_olooklet_item ? 0 : self.cart.user.user_credits_for(:loyalty_program).total
+      credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
       if credits_loyality >= retail_value
         credits_loyality = retail_value
       end
 
-      puts there_is_olooklet_item
-      puts credits_loyality.to_s
-
       retail_value -= credits_loyality 
 
       #GET FROM INVITE
-      credits_invite = self.cart.user.user_credits_for(:invite).total
+      credits_invite = allow_credit_payment? ? self.cart.user.user_credits_for(:invite).total : 0
       if credits_invite >= retail_value
         credits_invite = retail_value
       end
