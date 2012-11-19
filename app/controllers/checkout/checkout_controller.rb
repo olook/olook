@@ -52,7 +52,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
       payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
@@ -62,7 +62,7 @@ class Checkout::CheckoutController < Checkout::BaseController
        else
          @payment = Debit.new(params[:debit])
          @payment.user_identification = @user.cpf
-         @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
+         @payment.errors.add(:base, "Não foi possível realizar o pagamento. Tente novamente por favor.")
          @payment
        end
     end
@@ -76,7 +76,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
+      moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
       payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
       response = payment_builder.process!
 
@@ -86,7 +86,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       else
         @payment = Billet.new(params[:billet])
         @payment.user_identification = @user.cpf
-        @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
+        @payment.errors.add(:base, "Não foi possível realizar o pagamento. Tente novamente por favor.")
         @payment
       end
     end
@@ -103,18 +103,18 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
-      moip_sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
+      sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
+      payment_builder = PaymentBuilder.new(@cart_service, @payment, sender_strategy)
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => response.payment.order.number)) 
+        return redirect_to(order_show_path(:number => response.payment.order.number))
       else
         @payment = CreditCard.new(params[:credit_card])
         @payment.user_identification = @user.cpf
-        @payment.errors.add(:id, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+        @payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
         @payment
       end
     end

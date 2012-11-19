@@ -14,12 +14,12 @@ describe MoipCallback do
     end
 
     it "should update payment state" do
-      payment.should_receive(:set_state).with(moip_callback.status_pagamento).and_return(true)
+      payment.should_receive(:set_state).with(:deliver).and_return(true)
       moip_callback.update_payment_status(payment)
     end
 
     it "should update moip callback" do
-      payment.stub(:set_state).with(moip_callback.status_pagamento).and_return(true)
+      payment.stub(:set_state).with(:deliver).and_return(true)
       moip_callback.update_payment_status(payment)
       moip_callback.reload.processed.should eq(true)
     end
@@ -42,6 +42,15 @@ describe MoipCallback do
         moip_callback.update_payment_status(payment)
         moip_callback.reload.retry.should eq(1)
         moip_callback.error.should eq("[\"ERRO XPTO\"]")
+      end
+    end
+
+    context "status" do
+      it "should mark as processed when status is invalid" do
+        moip_callback.status_pagamento = '0'
+        moip_callback.update_payment_status(payment)
+        moip_callback.reload.processed.should eq(true)
+        moip_callback.error.should eq("Invalid status")
       end
     end
 

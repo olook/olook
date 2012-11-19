@@ -32,11 +32,12 @@ group :production, :staging do
 end
 
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
+gem 'obraspag', '>= 0.0.19', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
-gem 'savon'
-gem 'httpi'
+gem 'savon', '= 0.9.9'
+gem 'httpi', '= 0.9.7'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'

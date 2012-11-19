@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'iconv'
-class Checkout::MoipPaymentsController < ActionController::Base
+class Checkout::PaymentCallbacksController < ActionController::Base
   protect_from_forgery :except => :create
 
-  def create
+  def create_moip
     payment = Payment.find_by_identification_code(params["id_transacao"])
 
     MoipCallback.create!(:cod_moip => params["cod_moip"],
@@ -15,5 +15,5 @@ class Checkout::MoipPaymentsController < ActionController::Base
 
     render :nothing => true, :status => 200
   end
-end
 
+end

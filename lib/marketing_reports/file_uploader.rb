@@ -15,7 +15,7 @@ module MarketingReports
     end
 
     def save_local_file
-      file_path = TEMP_PATH+DateTime.now.strftime(@filename) 
+      file_path = TEMP_PATH+DateTime.now.strftime(@filename)
       File.open(file_path, 'w', :encoding => @encoding) do |file|
         file.write(@file_content) #.encode(@encoding).force_encoding(@encoding))
       end

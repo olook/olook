@@ -249,7 +249,7 @@ describe Checkout::CheckoutController do
 
       it "should render new template" do
         response.should render_template('new_billet')
-        assigns(:payment).errors[:id].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
+        assigns(:payment).errors[:base].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
       end
     end
   end
@@ -284,7 +284,7 @@ describe Checkout::CheckoutController do
 
     context "with valid payment" do
       before :each do
-        MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(MoipSenderStrategy))
+        Payments::MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(Payments::MoipSenderStrategy))
         moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard, :order => order)))
@@ -306,7 +306,7 @@ describe Checkout::CheckoutController do
 
     context "with invalid params" do
       before :each do
-        MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(MoipSenderStrategy))
+        Payments::MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(Payments::MoipSenderStrategy))
         moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         PaymentBuilder.stub(:new).and_return(payment_builder = double(PaymentBuilder))
         payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard)))
@@ -319,7 +319,7 @@ describe Checkout::CheckoutController do
 
       it "should render new template" do
         response.should render_template('new_credit_card')
-        assigns(:payment).errors[:id].should include("Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+        assigns(:payment).errors[:base].should include("Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
       end
     end
   end
@@ -375,7 +375,7 @@ describe Checkout::CheckoutController do
 
       it "should render new template" do
         response.should render_template('new_debit')
-        assigns(:payment).errors[:id].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
+        assigns(:payment).errors[:base].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
       end
     end
   end

@@ -1,0 +1,17 @@
+development:
+  environment: "homologation"
+  merchant_id: "540BA6EE-39D7-3DC1-D87D-7F82C49A3598"
+
+test:
+  environment: "homologation"
+  merchant_id: "540BA6EE-39D7-3DC1-D87D-7F82C49A3598"
+
+staging:
+  environment: "homologation"
+  merchant_id: "540BA6EE-39D7-3DC1-D87D-7F82C49A3598"
+
+production:
+  environment: "production"
+  merchant_id: "540BA6EE-39D7-3DC1-D87D-7F82C49A3598"
+
+braspag:
