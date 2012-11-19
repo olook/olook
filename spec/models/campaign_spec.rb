@@ -11,8 +11,15 @@ describe Campaign do
   end
 
   describe "on #create" do
-    let!(:valid_campaign) { FactoryGirl.create(:campaign) }
+    let(:valid_campaign) { FactoryGirl.create(:campaign) }
     let(:invalid_campaign) { FactoryGirl.build(:second_campaign) }
+
+    # before do
+    #   valid_campaign.start_at = "2012-11-10" #1.months.ago
+    #   valid_campaign.end_at = "2012-11-15" #10.days.since
+    #   valid_campaign.save
+    # end
+
     context "should not create a campaign" do
       it "the date is in range of a valid campaign already created" do
         invalid_campaign.start_at = "2012-11-13"
@@ -42,12 +49,20 @@ describe Campaign do
   end
 
   describe ".any_campaign_active_today?" do
-    let!(:valid_campaign) { FactoryGirl.create(:campaign) }
+    let(:valid_campaign) { FactoryGirl.create(:campaign) }
     let(:new_campaign) { FactoryGirl.build(:second_campaign) }
     context "should return true" do
+    
+      before do
+        valid_campaign.start_at = 1.months.ago
+        valid_campaign.end_at = 10.days.since
+        valid_campaign.save
+      end
+
       it "for active campaign because already exists a campaign" do
-        new_campaign.start_at = "2012-12-10"
-        new_campaign.end_at = "2012-12-10"
+        new_campaign.start_at = Date.today
+        new_campaign.end_at = 1.days.since
+
         Campaign.any_campaign_active_today?(new_campaign).should eq(true)
       end
     end
@@ -85,6 +100,9 @@ describe Campaign do
       let(:valid_campaign) { FactoryGirl.create(:campaign) }
       it "A campaign active today" do
         valid_campaign.start_at = Date.today
+        valid_campaign.end_at = 2.days.since
+        valid_campaign.save!
+
         Campaign.activated_campaign.should eq(valid_campaign)
       end
     end

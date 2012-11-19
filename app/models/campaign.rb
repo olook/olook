@@ -22,8 +22,8 @@ class Campaign < ActiveRecord::Base
     campaign_exists?(campaign) ? check_range_excluding_campaign(campaign) : check_range_campaign(campaign)
   end
 
-  def self.activated_campaign
-    where("start_at <= '#{Date.today}' AND end_at >= '#{Date.today}'").first if any_campaign_active_today?
+  def self.activated_campaign(date=Date.today)
+    where("start_at <= '#{date}' AND end_at >= '#{date}'").first if any_campaign_active_today?
   end
 
   private
@@ -46,6 +46,11 @@ class Campaign < ActiveRecord::Base
 
   def self.check_range_campaign(campaign)
     !where("start_at <= '#{ campaign.start_at }' AND end_at >= '#{ campaign.start_at }'").empty? || !where("start_at <= '#{ campaign.end_at }' AND end_at >= '#{ campaign.end_at }'").empty?
+  end
+
+  def self.validate
+    campaigns = self.find :all, :order_by => :start_at
+
   end
 
 end
