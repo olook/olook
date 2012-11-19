@@ -19,6 +19,13 @@ describe CartService do
   }) }
   
   
+  context "#allow_credit_payment?" do
+    it "should delegate to cart" do
+      cart.should_receive(:allow_credit_payment?)
+      cart_service.allow_credit_payment?
+    end
+  end
+
   it "should return gift wrap price" do
     CartService.gift_wrap_price.should eq(gift_wrap_price)
   end
