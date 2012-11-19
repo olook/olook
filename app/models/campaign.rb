@@ -2,7 +2,7 @@ class Campaign < ActiveRecord::Base
   validates :title, :presence => true
   validates :start_at, :presence => true
   validates :end_at, :presence => true
-  validates :background, :presence => true
+  # validates :background, :presence => true
   validate :only_one_activated?
   mount_uploader :banner, ImageUploader
 
