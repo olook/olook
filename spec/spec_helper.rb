@@ -42,8 +42,6 @@ Spork.prefork do
   #Requires libs. Check why I need to do it later
   Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
 
-  HTTPI.log = false
-  
   Savon.configure do |config|
 
     # By default, Savon logs each SOAP request and response to $stdout.
@@ -51,6 +49,8 @@ Spork.prefork do
     config.log = false
     
   end
+
+  HTTPI.log = false
 
   RSpec.configure do |config|
     # == Mock Framework
