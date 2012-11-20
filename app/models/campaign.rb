@@ -6,7 +6,6 @@ class Campaign < ActiveRecord::Base
   validate :only_one_activated?
   mount_uploader :banner, ImageUploader
 
-
   def is_active?
     start_at <= Date.today && end_at >= Date.today
   end

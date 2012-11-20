@@ -137,7 +137,6 @@ describe Campaign do
         valid_campaign.start_at = Date.today
         valid_campaign.end_at = 2.days.since
         valid_campaign.save!
-
         Campaign.activated_campaign.should eq(valid_campaign)
       end
     end

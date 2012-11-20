@@ -18,16 +18,6 @@ module PromotionsHelper
   def render_promotion_banner
       promotion = PromotionService.new(@user).detect_current_promotion if @user
 
-      # if !promotion && Campaign.activated_campaign
-
-      #   if (current_user && page_included_in_whitelist?(PROMOTION_BANNER_WHITELIST)) || (!current_user && page_included_in_whitelist?(PROMOTION_BANNER_GUEST_WHITELIST))
-      #     render(:partial => "campaigns/campaign_active")
-      #   end
-
-      # else
-
-      # end
-
       if promotion && @user && page_included_in_whitelist?(PROMOTION_BANNER_WHITELIST)
         render(:partial => "promotions/banners/#{promotion.strategy}", :locals => {:promotion => promotion})
       elsif !current_user && page_included_in_whitelist?(PROMOTION_BANNER_GUEST_WHITELIST) && Promotion.purchases_amount
