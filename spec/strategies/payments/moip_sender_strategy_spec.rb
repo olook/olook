@@ -136,4 +136,17 @@ describe Payments::MoipSenderStrategy do
     end
   end
 
+  context "formatting the telephone number" do
+    subject {Payments::MoipSenderStrategy.new(cart_service, payment)}
+
+    it "should remove the ninth digit of the telephone" do
+      subject.format_telephone("(11)99123-4567").should eq("(11)9123-4567")
+    end
+
+    it "should correct a wrong mask" do
+      subject.format_telephone("(11)91234-567").should eq("(11)9123-4567")
+    end
+
+  end
+
 end
