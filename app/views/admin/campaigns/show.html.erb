@@ -38,4 +38,8 @@
     <%= @campaign.updated_at %>
   </p>
 </div>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_campaign_path(@campaign) %></li>
+  <li><%= link_to 'Back', admin_campaign_path %></li>
+<% end %>
 
