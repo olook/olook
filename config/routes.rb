@@ -61,6 +61,7 @@ Olook::Application.routes.draw do
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   #XML FOR STATISTICS
+  match "/triggit", :to => "xml#triggit", :as => "triggit", :defaults => { :format => 'xml' }
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }

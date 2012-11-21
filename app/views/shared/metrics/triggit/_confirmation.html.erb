@@ -1,0 +1,1 @@
+<%= image_tag "https://a.triggit.com/px?u=CL&rtv=olookthanks&ct=e7b3721ea3c773fa&ctva1=purchase&ctval2=#{@order.amount_paid.to_s},&ctval3=#{@order.id}&ctval4=#{@order.user.try(:first_buy?) ? "1" : "0"}", size: "1x1", alt: "" %>
