@@ -1,4 +1,6 @@
 jQuery(function() {
+  var submit_moments_form;
+  var url;
 
   $('form#filter').submit(function() {
     $('.loading').show();
@@ -67,31 +69,35 @@ jQuery(function() {
     }
   });
 
-  $('#order_filter form').change(function() {
+  $('#order_filter').change(function() {
     $("form#filter").submit();
   });
 
-  $("form#filter").find("input[type='checkbox'].select_all").live("click", function() {
-      $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
-      var topHeight = 400;
-      $("html, body").animate({
-          scrollTop: topHeight
-      }, 'slow');
-      setTimeout(function() {
-        $("form#filter").submit();
-      }, 2500);
+  $("#filter").find("input[type='checkbox'].select_all").live("click", function() {
+    checkbox = this
+    $('div.content nav li a').each(function(i,nav){
+      href = $(nav).attr('href');
+      if(checkbox.checked){
+        href += (!href.match(/\?/)) ? '?' : '&';
+        if(!href.match(/checkbox.name/ig)){
+          href += checkbox.name + '=1';
+        }
+      } else {
+        href = href.replace(checkbox.name+'=1', '').replace(/&+/g,'&');
+      }
+      $(nav).attr('href', href.replace(/(?:&|\?)$/,''));
+    });
+    $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
+    clearTimeout(submit_moments_form);
+    $("form#filter").submit();
   });
 
-  $('form#filter').find("input[type='checkbox']").not(".select_all").click(function() {
+  $('#filter').find("input[type='checkbox']").not(".select_all").click(function() {
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
     }
     $(this).parent().submit();
     $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
-    var topHeight = 400;
-    $("html, body").animate({
-      scrollTop: topHeight
-    }, 'slow');
   });
 
   if ($('.pagination').length) {
