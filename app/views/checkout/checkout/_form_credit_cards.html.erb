@@ -50,7 +50,7 @@
       </li>
       <% if @payment.telephone.blank? %>
         <li class="phone">
-          <%= f.label :telephone %><em>*</em>
+          <%= f.label :telephone %>
           <%= f.text_field :telephone, :class => "phone", :placeholder => '(  )' %>
         </li>
       <% end %>
