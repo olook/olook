@@ -1,8 +1,17 @@
 jQuery(function() {
+
+  $('form#filter').submit(function() {
+    $('.loading').show();
+    $('#sort_filter').val($("#order_filter").find("option:selected").val());
+    $("#products").fadeOut("slow", function() {
+      $(this).fadeIn("slow");
+      $(this).html("");
+    });
+    initLiquidation.scrollToList();
+  });
+
   if($("form#filter input").is(":checked")) {
-    setTimeout(function() {
-      $("form#filter").submit();
-    }, 4000);
+    $("form#filter").submit();
   }
 
   $("html").live("click", function() {
@@ -73,15 +82,6 @@ jQuery(function() {
       }, 2500);
   });
 
-  $('form#filter').submit(function() {
-    $('#sort_filter').val($("#order_filter").find("option:selected").val());
-    $("#products").fadeOut("slow", function() {
-      $(".loading").show();
-      $(this).fadeIn("slow");
-      $(this).html("");
-    });
-  });
-
   $('form#filter').find("input[type='checkbox']").not(".select_all").click(function() {
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
@@ -98,4 +98,11 @@ jQuery(function() {
     InfititeScroll(window, document)
   }
 });
-
+initLiquidation = {
+  scrollToList : function() {
+    var topHeight = 0;
+    $("html, body").animate({
+      scrollTop: topHeight
+    }, 'slow');
+  }
+}
