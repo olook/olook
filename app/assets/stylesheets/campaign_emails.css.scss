@@ -46,7 +46,15 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 		p{height:21px;background: image-url("/assets/campaign_emails/sprite.png") -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;line-height:21px;}
 	}
 	.f14{font-size:14px;}
-	.desconto{font-size:11px;}
+	.desconto{font-size:11px;margin-top:15px;}
+}
+
+.box-continue{
+	position:relative;text-align:center;border:solid 5px #000;background:#FFF;width:540px;margin-top:10px;
+	h3{font-family:$johnston;font-size:29px;}
+	p{font-family:$avenir;font-size:14px;}
+	.desconto{font-size:11px;margin:10px 0;}
+	.btn-continue{border:0;cursor:pointer;font-size:0;font-family:a;width:195px;height:35px;background:image-url("/assets/campaign_emails/sprite.png") -1px -96px no-repeat;margin-top:10px;}
 }
 
 .box-cadastro{
