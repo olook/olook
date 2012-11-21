@@ -1,0 +1,10 @@
+<ul>
+  <% @profiles.each do |profile| %>
+    <li>
+      <%= link_to "#" do %>
+        <h1><%= profile %></h1>
+        <%= image_tag "gift/profile-#{profile}.png", :id => profile %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

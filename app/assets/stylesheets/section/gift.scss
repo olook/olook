@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'partials/product';
 
 header {
   background: none;
@@ -8,11 +9,624 @@ body #tracker + p {
   display: none;
 }
 
+body div.full_container {
+  section {
+    background: image-url('gift/border-sections.jpg') bottom repeat-x;
+    &#profiles {
+      min-height: 740px;
+      div.content {
+        position: relative;
+        background: image-url('gift/bg-shadow.jpg') bottom center no-repeat;
+        height: 725px;
+        overflow: visible;
+        >h1 {
+          font-size: 40px;
+          text-transform: uppercase;
+          margin: 15px 0 5px;
+          &+p {
+            font-size: 14px;
+            margin: 0 0 40px;
+          }
+        }
+        div#help {
+          position: absolute;
+          background: image-url('gift/bg-help-box.png') no-repeat;
+          text-align: center;
+          width: 247px;
+          height: 136px;
+          padding: 20px 0 0 0;
+          display: block;
+          top: 0;
+          right: 0;
+          h1 {
+            font-family: $avenir;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0 0 5px;
+          }
+          p {
+            font-size: 12px;
+            line-height: 17px;
+            margin: 0 auto 8px;
+            &+a {
+              background: image-url('gift/bt-answer-quiz.png') no-repeat;
+              text-indent: -99999px;
+              width: 137px;
+              height: 34px;
+              margin: 0 auto;
+              display: block;
+            }
+          }
+          a.close {
+            position: absolute;
+            background: image-url('gift/bt-close-help.png') no-repeat;
+            text-indent: -99999px;
+            width: 18px;
+            height: 18px;
+            display: block;
+            top: 8px;
+            right: 13px;
+          }
+          &.fixed {
+            position: fixed;
+            top: 55px;
+          }
+        }
+      }
+      h2 {
+        background: image-url('gift/arrow-title.jpg') top right no-repeat;
+        font-family: $avenir;
+        font-size: 16px;
+        text-transform: uppercase;
+        display: inline-block;
+        margin: 0 0 10px;
+        padding: 0 55px 20px 0;
+        strong {
+          font-weight: 600;
+        }
+      }
+      ul {
+        width: 975px;
+        overflow: auto;
+        margin: 0 auto;
+        li {
+          a {
+            text-decoration: none;
+            text-align: center;
+            min-width: 220px;
+            min-height: 572px;
+            margin: 0 20px 0 0;
+            float: left;
+            h1 {
+              background: image-url('gift/bg-profiles-title.jpg') top center no-repeat;
+              font-family: $avenir;
+              font-size: 26px;
+              font-weight: lighter;
+              text-transform: uppercase;
+              text-align: center;
+              height: 48px;
+              margin: 0 0 5px;
+              padding: 6px 0 0;
+            }
+            &.selected {
+              background: image-url('gift/bg-profile-selected.jpg') bottom center no-repeat;
+            }
+            &.off {
+              opacity: 0.4;
+              -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+              filter: alpha(opacity=40);
+            }
+          }
+          &:last-child {
+            a {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+    &#profile_products {
+      div.content {
+        > h1 {
+          font-family: $avenir;
+          font-size: 17px;
+          font-weight: lighter;
+          text-align: center;
+          text-transform: uppercase;
+          margin: 0 0 30px;
+          strong {
+            font-weight: 500;
+          }
+        }
+        ul.products {
+          width: 100%;
+          margin: 0 0 15px;
+          overflow: auto;
+          &+a {
+            background: image-url('gift/bt-more-suggestions.jpg') no-repeat;
+            text-indent: -99999px;
+            width: 210px;
+            height: 34px;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+    &#suggestions {
+      padding: 30px 0 0;
+      div.content {
+        height: 401px;
+        overflow: visible;
+        > h1 {
+          font-family: $avenir;
+          font-size: 17px;
+          font-weight: lighter;
+          text-align: center;
+          text-transform: uppercase;
+          margin: 0 0 30px;
+          strong {
+            font-weight: 500;
+          }
+        }
+        ul {
+          width: 990px;
+          overflow: auto;
+          li {
+            a {
+              text-align: center;
+              text-decoration: none;
+              min-height: 290px;
+              width: 330px;
+              float: left;
+              h1 {
+                color: #101010;
+                font-family: $avenir;
+                font-size: 35px;
+                font-weight: lighter;
+                text-transform: uppercase;
+                margin: 0 0 5px;
+              }
+              img {
+                margin: 0 0 5px;
+              }
+              p {
+                color: $third_color;
+                font-family: $kepler;
+                font-size: 15px;
+                width: 205px;
+                margin: 0 auto;
+              }
+              span {
+                background: image-url('gift/bg-right-pink-arrow.png') top right no-repeat;
+                color: #101010;
+                font-size: 13px;
+                font-weight: 500;
+                text-transform: uppercase;
+                display: inline-block;
+                padding-right: 15px;
+              }
+            }
+            &#helena {
+              a {
+                width: 329px;
+                border-right: 1px #e8e8e8 solid;
+              }
+              p {
+                background: image-url('gift/bg-phrase-helena.png') bottom center no-repeat;
+                line-height: 20px;
+                margin-bottom: 15px;
+                padding-bottom: 50px;
+              }
+            }
+            &#bestsellers {
+              a {
+                width: 329px;
+                border-right: 1px #e8e8e8 solid;
+              }
+              img {
+                margin-bottom: 10px;
+              }
+            }
+            &#face {
+              a {
+                width: 330px;
+              }
+            }
+            &.no_border {
+              a {
+                border: none !important;
+              }
+            }
+            &.selected {
+              a {
+                background: image-url('gift/bg-suggestion-selected.jpg') bottom center no-repeat;
+                height: 350px;
+                border: none !important;
+              }
+              span {
+                background: image-url('gift/bg-bottom-pink-arrow.png') top right no-repeat;
+                padding-right: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+    &#suggestions_products {
+      padding: 30px 0;
+      div.content {
+        p.loading {
+          background: image-url('common/ajax-loader.gif') center center no-repeat;
+          height: 25px;
+        }
+        ul.products {
+          width: 100%;
+          margin: 0 0 15px;
+          overflow: auto;
+          li.product {
+            width: 170px;
+            a {
+              color: #101010;
+              text-decoration: none;
+              img {
+                margin: 0 0 10px;
+              }
+              p {
+                font-size: 30px;
+                margin: 5px 10px 0 0;
+                float: left;
+              }
+              div.name_price {
+                text-align: center;
+                margin: 5px 0 0 0;
+                float: left;
+                h1 {
+                  font-family: $avenir;
+                  font-size: 18px;
+                  line-height: 18px;
+                  text-transform: uppercase;
+                  width: 135px;
+                  border-bottom: 1px #000 solid;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &#quiz {
+      div.content {
+        text-align: center;
+        padding: 55px 0;
+        > h1 {
+          font-family: $avenir;
+          font-size: 35px;
+          text-transform: uppercase;
+          font-weight: lighter;
+          &+p {
+            margin: 0 0 20px;
+          }
+        }
+        div.box {
+          width: 290px;
+          overflow: auto;
+          margin: 0 auto 15px;
+          padding: 15px 45px;
+          border: 1px #e1e0e0 solid;
+          label, p {
+            color: #101010;
+            font-family: $avenir;
+            font-size: 16px;
+            margin: 0 0 10px;
+            display: block;
+            em {
+              color: #807f7f;
+            }
+          }
+          input[type="text"], select {
+            &:focus {
+              outline: none;
+            }
+          }
+          input[type="text"] {
+            font-family: $avenir;
+            font-size: 13px;
+            font-style: italic;
+            text-align: center;
+            width: 173px;
+            padding: 4px 10px;
+            border: 1px $third_color solid;
+          }
+          div.styled_select {
+            background: image-url('gift/styled-select.jpg') no-repeat;
+            width: 195px;
+            height: 28px;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto;
+            select {
+              background: transparent;
+              font-size: 12px;
+              width: 190px;
+              height: 26px;
+              margin: 1px 0 0;
+              padding: 5px;
+              border: 1px #fff solid;
+              -webkit-appearance: none;
+            }
+          }
+          ul {
+            li {
+              position: relative;
+              color: #7e7f82;
+              text-align: center;
+              margin: 0 7px 0 0;
+              float: left;
+              border: 1px #7e7f82 solid;
+              label {
+                font-size: 13px;
+                line-height: 34px;
+                width: 36px;
+                margin: 0;
+                cursor: pointer;
+              }
+              input[type="radio"] {
+                position: absolute;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+              }
+              &.selected {
+                background: #000;
+                border-color: #000;
+                label {
+                  color: #FFF;
+                }
+              }
+              &:last-child {
+                margin: 0;
+              }
+            }
+          }
+          &.shoes {
+            width: 355px;
+            margin-bottom: 2px;
+            padding: 15px 13px;
+            &+em {
+              color: #6d6e71;
+              font-size: 11px;
+              margin: 0 0 20px 305px;
+              float: left;
+              clear: both;
+            }
+          }
+        }
+        input[type="submit"] {
+          background: image-url('gift/bt-quiz.jpg') no-repeat;
+          text-indent: -99999px;
+          width: 257px;
+          height: 63px;
+          margin: 0 auto;
+          display: block;
+          clear: both;
+          cursor: pointer;
+          border: none;
+        }
+      }
+    }
+    &#calendar {
+      div.content {
+        position: relative;
+        padding: 55px 0 0;
+        > h1 {
+          font-family: $avenir;
+          font-size: 35px;
+          text-align: center;
+          text-transform: uppercase;
+          font-weight: lighter;
+          &+p {
+            text-align: center;
+            margin: 0 0 30px;
+            &+a.facebook {
+              background: image-url('gift/bt-fb.jpg') no-repeat;
+              text-indent: -99999px;
+              width: 282px;
+              height: 38px;
+              margin: 0 auto;
+              display: block;
+            }
+          }
+        }
+        div.opacity {
+          background: url("/assets/gift/opacity.png") repeat;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 990px;
+          height: 100%;
+          display: block;
+        }
+        div#calendar_container {
+          position: relative;
+          div#calendar {
+            width: 100%;
+            overflow: hidden;
+            padding: 0 0 80px 0;
+            ul#months {
+              text-align: center;
+              width: 100%;
+              overflow: hidden;
+              margin: 0 0 20px 0;
+              padding: 0 0 20px 5px;
+              border-bottom: 1px #eaeaea solid;
+              li {
+                width: 80px;
+                margin: 0;
+                padding: 10px 0;
+                float: left;
+                a {
+                  color: #878686;
+                  font-family: $johnston;
+                  font-size: 15px;
+                  font-weight: lighter;
+                  text-transform: uppercase;
+                  text-decoration: none;
+                  padding: 10px 5px;
+                }
+                &.first {
+                  margin-left: 0;
+                }
+                &.last {
+                  margin-right: 0;
+                }
+              }
+            }
+            ul.friends_list {
+              > li {
+                position: relative;
+                width: 50px;
+                overflow: visible;
+                margin: 0 5px 10px 0;
+                display: block;
+                float: left;
+                a {
+                  color: $third_color;
+                  font-family: $avenir;
+                  font-size: 12px;
+                  text-align: center;
+                  text-decoration: none;
+                  float: left;
+                  div.mask {
+                    width: 50px;
+                    height: 50px;
+                    margin: 0 0 2px 0;
+                    overflow: hidden;
+                    img {
+                      height: 60px;
+                    }
+                  }
+                  p {
+                    height: 18px;
+                    overflow: hidden;
+                  }
+                }
+                div.actions {
+                  position: absolute;
+                  background: image-url('gift/bg-actions-left.png') bottom center no-repeat;
+                  width: 250px;
+                  height: 123px;
+                  overflow: visible;
+                  top: 40px;
+                  left: 0;
+                  z-index: 1000;
+                  display: none;
+                  div.triangle {
+                    position: absolute;
+                    background: url("/assets/gift/triangle-pink.png") no-repeat;
+                    width: 13px;
+                    height: 13px;
+                    display: block;
+                    top: -3px;
+                    left: -3px;
+                  }
+                  h1 {
+                    color: #101010;
+                    font-family: $kepler;
+                    font-size: 16px;
+                    font-weight: 600;
+                    text-align: center;
+                    margin: 25px auto 7px;
+                    width: 220px;
+                  }
+                  p {
+                    color: $third_color;
+                    font-size: 13px;
+                    line-height: normal;
+                    text-align: center;
+                    margin: 0 0 8px;
+                  }
+                  ul {
+                    li {
+                      input[type="submit"] {
+                        background: image-url("gift/bt-find-present.jpg") no-repeat;
+                        text-indent: -99999px;
+                        width: 169px;
+                        height: 30px;
+                        display: block;
+                        margin: 0 auto;
+                        border: none;
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                  a.close_actions {
+                    position: absolute;
+                    color: #c1c1c1;
+                    font-family: "Open Sans", sans-serif;
+                    font-size: 13px;
+                    font-weight: bold;
+                    top: 10px;
+                    right: 10px;
+                  }
+                  &.left {
+                    background: image-url('gift/bg-actions.png') bottom center no-repeat;
+                    right: 0;
+                    left: auto;
+                  }
+                }
+                &:hover > div.actions {
+                  display: block;
+                }
+              }
+            }
+            &.connected {
+              ul#months {
+                li {
+                  height: 32px;
+                  a {
+                    background: url("/assets/gift/arrow-pink.png") top center no-repeat;
+                    margin-top: 7px;
+                    display: block;
+                    &:hover, &.selected {
+                      background: url("/assets/gift/arrow-black.png") top center no-repeat;
+                      color: #080808;
+                      font-size: 23px;
+                      margin-top: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          a#connect_facebook {
+            background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+            text-indent: -99999px;
+            width: 403px;
+            height: 43px;
+            display: block;
+            margin: 0 auto;
+            padding: 0 0 0 40px;
+          }
+        }
+      }
+    }
+    &.sub {
+      background-color: #f9f9f9;
+      padding: 30px 0;
+      display: none;
+    }
+    &:last-child {
+      background: none;
+    }
+  }
+}
+
 section#banner {
   background: image-url('gift/bg-header.jpg') top right no-repeat;
-  width: 100%;
   min-height: 515px;
-  margin: 0 0 20px;
+  margin-bottom: 20px;
   overflow: auto;
   h1 {
     color: #101010;
@@ -131,7 +745,7 @@ section#occasion {
   }
 }
 
-section#quiz {
+section#squiz {
   padding: 10px 0 0;
   #survey {
     height: 460px !important;
@@ -376,8 +990,6 @@ section#profile {
 }
 
 div.full_container {
-  background: url("/assets/gift/shadow-header.jpg") bottom repeat-x;
-  padding: 0 0 27px 0;
   div.shadow {
     position: absolute;
     background: url("/assets/gift/shadow-signed-out.png") top center no-repeat;
@@ -396,194 +1008,6 @@ div.full_container {
   }
 }
 
-div.content {
-  div#calendar_container {
-    position: relative;
-    div.opacity {
-      background: url("/assets/gift/opacity.png") repeat;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 990px;
-      height: 100%;
-      display: block;
-    }
-    div.title {
-      margin: 0 0 10px 0;
-      border-bottom: 1px #eaeaea solid;
-      h1 {
-        background: url("/assets/gift/subtitle-calendar.jpg") 255px 0 no-repeat;
-        color: #101010;
-        font-family: $johnston;
-        font-size: 31px;
-        font-weight: lighter;
-        letter-spacing: -2px;
-        line-height: 50px;
-        text-transform: uppercase;
-        padding: 5px 0 0 0;
-      }
-    }
-    div#calendar {
-      width: 100%;
-      overflow: hidden;
-      padding: 0 0 80px 0;
-      ul#months {
-        text-align: center;
-        width: 100%;
-        overflow: hidden;
-        margin: 0 0 20px 0;
-        padding: 0 0 20px 5px;
-        border-bottom: 1px #eaeaea solid;
-        li {
-          width: 80px;
-          margin: 0;
-          padding: 10px 0;
-          float: left;
-          a {
-            color: #878686;
-            font-family: $johnston;
-            font-size: 15px;
-            font-weight: lighter;
-            text-transform: uppercase;
-            text-decoration: none;
-            padding: 10px 5px;
-          }
-          &.first {
-            margin-left: 0;
-          }
-          &.last {
-            margin-right: 0;
-          }
-        }
-      }
-      ul.friends_list {
-        > li {
-          position: relative;
-          width: 50px;
-          overflow: visible;
-          margin: 0 5px 10px 0;
-          display: block;
-          float: left;
-          a {
-            color: $third_color;
-            font-family: $avenir;
-            font-size: 12px;
-            text-align: center;
-            text-decoration: none;
-            float: left;
-            div.mask {
-              width: 50px;
-              height: 50px;
-              margin: 0 0 2px 0;
-              overflow: hidden;
-              img {
-                height: 60px;
-              }
-            }
-            p {
-              height: 18px;
-              overflow: hidden;
-            }
-          }
-          div.actions {
-            position: absolute;
-            background: image-url('gift/bg-actions-left.png') bottom center no-repeat;
-            width: 250px;
-            height: 123px;
-            overflow: visible;
-            top: 40px;
-            left: 0;
-            z-index: 1000;
-            display: none;
-            div.triangle {
-              position: absolute;
-              background: url("/assets/gift/triangle-pink.png") no-repeat;
-              width: 13px;
-              height: 13px;
-              display: block;
-              top: -3px;
-              left: -3px;
-            }
-            h1 {
-              color: #101010;
-              font-family: $kepler;
-              font-size: 16px;
-              font-weight: 600;
-              text-align: center;
-              margin: 25px auto 7px;
-              width: 220px;
-            }
-            p {
-              color: $third_color;
-              font-size: 13px;
-              line-height: normal;
-              text-align: center;
-              margin: 0 0 8px;
-            }
-            ul {
-              li {
-                input[type="submit"] {
-                  background: image-url("gift/bt-find-present.jpg") no-repeat;
-                  text-indent: -99999px;
-                  width: 169px;
-                  height: 30px;
-                  display: block;
-                  margin: 0 auto;
-                  border: none;
-                  cursor: pointer;
-                }
-              }
-            }
-            a.close_actions {
-              position: absolute;
-              color: #c1c1c1;
-              font-family: "Open Sans", sans-serif;
-              font-size: 13px;
-              font-weight: bold;
-              top: 10px;
-              right: 10px;
-            }
-            &.left {
-              background: image-url('gift/bg-actions.png') bottom center no-repeat;
-              right: 0;
-              left: auto;
-            }
-          }
-          &:hover > div.actions {
-            display: block;
-          }
-        }
-      }
-      &.connected {
-        ul#months {
-          li {
-            height: 32px;
-            a {
-              background: url("/assets/gift/arrow-pink.png") top center no-repeat;
-              margin-top: 7px;
-              display: block;
-              &:hover, &.selected {
-                background: url("/assets/gift/arrow-black.png") top center no-repeat;
-                color: #080808;
-                font-size: 23px;
-                margin-top: 0;
-              }
-            }
-          }
-        }
-      }
-    }
-    a#connect_facebook {
-      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
-      text-indent: -99999px;
-      width: 403px;
-      height: 43px;
-      display: block;
-      margin: 0 auto;
-      padding: 0 0 0 40px;
-    }
-  }
-}
 
 div#calendar_container {
   div.title {
@@ -601,3 +1025,4 @@ div#calendar_container {
     }
   }
 }
+

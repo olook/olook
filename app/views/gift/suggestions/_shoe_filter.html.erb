@@ -1,0 +1,20 @@
+<div id="shoe_size_filter">
+  <%= label_tag "Mostrar números:" %>
+  <span><%= current_user.shoes_size if current_user && current_user.shoes_size %></span>
+  <div class="sizes">
+    <ul>
+      <% (33..40).to_a.each do |key| %>
+        <% unless key.zero? %>
+          <li>
+            <% if current_user && current_user.shoes_size %>
+              <%= check_box_tag('shoe_sizes_filter[]', key, (key.to_s == current_user.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
+            <% else %>
+              <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
+            <% end %>
+            <%= label_tag(key, nil, :for => "size_#{key}") %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

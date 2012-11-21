@@ -20,48 +20,41 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <div class="content" id="suggestion">
-      <div id="card">
-        <%= render "card" %>
-      </div>
-      <div id="profile">
-        <%= image_tag "/assets/gift/suggestions/#{@profile.name.parameterize}.jpg", :title => "#{@profile.name}", :class => "profile" %>
-        <%= link_to "Alterar", edit_gift_recipient_path(@gift_recipient) %>
-      </div>
-      <%= form_tag gift_recipient_add_suggestions_to_cart_path(@gift_recipient.id) do %>
-        <section id="products">
-          <p class="discount off20">Ganhe 20% de desconto no segundo presente</p>
-          <p class="discount off40">Ganhe 40% de desconto no terceiro presente</p>
-          <div class="product_container first">
-            <ul>
-              <%= render "shared/suggestive_product", :position => 0, :variant => @suggested_variants[0] %>
-            </ul>
-          </div>
-          <div class="product_container second">
-            <ul>
-              <%= render "shared/suggestive_product", :position => 1, :variant => @suggested_variants[1] %>
-            </ul>
-          </div>
-          <div class="product_container third">
-            <ul>
-              <%= render "shared/suggestive_product", :position => 2, :variant => @suggested_variants[2] %>
-            </ul>
-          </div>
-        </section>
-        <ul class="product_actions">
-          <li><%= link_to "Quero escolher outros produtos", "#", :class => "more_suggestions" %></li>
-          <li><%= submit_tag "" %></li>
-        </uL>
-      <% end %>
-      <section id="suggestions_container">
-        <h1>Outras sugestões</h1>
+    <section id="suggestion">
+      <div class="content">
         <ul>
-          <% @products.each do |product| %>
-            <%= render "shared/showroom_product_item", :product => product, :gift => true, :shoe_size => @gift_recipient.shoe_size %>
-          <% end %>
+          <li><%= link_to "Voltar para presentes", gift_root_path %></li>
         </ul>
-      </section>
-    </div>
+        <div id="profile">
+          <%= image_tag "gift/profile-#{@profile.name.parameterize}.png" %>
+          <div>
+            <h2>Ela é:</h2>
+            <h1><%= @profile.name %></h1>
+            <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo.", gift_root_path %></p>
+          </div>
+        </div>
+        <section id="suggestions_container">
+          <h2>Confira:</h2>
+          <h1>Sugestões de presentes para ela</h1>
+          <%= render 'shoe_filter' %>
+          <% @products.each_slice(5).with_index do |products_array, index| %>
+            <ul>
+              <% products_array.each do |product| %>
+                <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
+              <% end %>
+            </ul>
+            <% if index == 0 %>
+              <h1 class="discount"><strong>20% de desconto</strong> no segundo presente e <strong>40% de desconto</strong> no terceiro: aproveite!</h1>
+            <% elsif index == 1 %>
+              <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste (em compras a partir de R$60)</h1>
+            <% end %>
+          <% end %>
+        </section>
+      </div>
+    </section>
+    <%= render "gift/home/suggestions" %>
+    <%= render "gift/home/suggestion_products", products: @suggestion_products %>
+    <%= render "gift/home/quiz" %>
   </div>
 <% end %>
 

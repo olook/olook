@@ -23,5 +23,12 @@ Setting.defaults[:in_cart_mail_range] = "1"
 Setting.defaults[:in_cart_mail_how_long] = "1"
 Setting.defaults[:in_cart_mail_condition] = "notified=0"
 
+
 Setting.defaults[:quantity_for_sugested_product]= (1..5)
+
+# Gifts page
+Setting.defaults[:profile_moderna_product_ids] = "4999,5759,3515,4352,7759"
+Setting.defaults[:profile_casual_product_ids] = "9950,7434,7425,7001,6023"
+Setting.defaults[:profile_chic_product_ids] = "6727,4963,5008,9896,9081"
+Setting.defaults[:profile_sexy_product_ids] = "5044,5017,10022,4350,9406"
 
