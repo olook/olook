@@ -26,6 +26,7 @@ gem 'zipruby'
 gem 'will_paginate'
 gem 'airbrake'
 gem 'i18n', '= 0.6.1'
+gem 'clearsale', :github => 'Baby-com-br/clearsale'
 
 
 group :production, :staging do
