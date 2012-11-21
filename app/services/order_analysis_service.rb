@@ -8,7 +8,13 @@ class OrderAnalysisService
     self.credit_card_number = credit_card_number
   end
 
-  def should_send_to_analysis?
+  def self.check_results(order)
+    response = Clearsale::Analysis.get_order_status(order.id)
+    order_status = response.status
+  end
+
+
+  def self.approved_status?(order_status)
     #TODO insert logic here
     true
   end
@@ -17,10 +23,15 @@ class OrderAnalysisService
     Clearsale::Analysis.send_order(adapt_order, adapt_payment, adapt_user) if should_send_to_analysis?
   end
 
+  def should_send_to_analysis?
+    #TODO insert logic here
+    true
+  end
+
   def adapt_order
     {
       :id => self.order.id,
-      :paid_at => Time.current, # ? => BraspagAuthorizeResponse.find_by_identification_code(payment.identification_code).created_at,
+      :paid_at => self.paid_at,
       :billing_address => adapt_address,
       :shipping_address => adapt_address,
       :installments => self.payment.installments,
@@ -81,20 +92,9 @@ class OrderAnalysisService
       :full_name => self.user.name,
       :birthdate => self.user.birthday,
       :phone     => self.payment.telephone,
-      :gender    => self.user.gender? self.user.gender : 'f',
-      :last_sign_in_ip => self.user.last_sign_in_ip,
+      :gender    => (self.user.gender ? self.user.gender : 'f'),
+      :last_sign_in_ip => self.user.last_sign_in_ip
     }    
-  end
-
-  def self.check_results(order)
-    response = Clearsale::Analysis.get_order_status(order.id)
-    order_status = response.status
-  end
-
-
-  def self.approved_status?(order_status)
-    #TODO insert logic here
-    true
   end
 
 end

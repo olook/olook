@@ -34,7 +34,8 @@ module Payments
       begin
         gateway_response = web_service_data.checkout(authorize_transaction_data)
         process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
-        order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number)
+        order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
+        order_analysis_service.send_to_analysis
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)

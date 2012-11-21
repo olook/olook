@@ -5,6 +5,11 @@ class Cart < ActiveRecord::Base
   belongs_to :user
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
+
+  def allow_credit_payment?
+    policy = CreditPaymentPolicy.new self
+    policy.allow?
+  end
   
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
