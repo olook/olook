@@ -178,11 +178,6 @@ describe Checkout::CheckoutController do
       session[:cart_freight] = freight
     end
 
-    it "creates new credit card using user data" do
-      CreditCard.should_receive(:user_data).with(user_with_cpf)
-      get 'new_credit_card'
-    end
-
     it "should assigns @payment" do
       get 'new_credit_card'
       assigns(:payment).should be_a_new(CreditCard)
