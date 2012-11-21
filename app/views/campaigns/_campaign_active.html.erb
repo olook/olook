@@ -1,0 +1,7 @@
+<section class="banner">
+  <% if Campaign.activated_campaign.link  %>
+    <a href=<%= Campaign.activated_campaign.link %>><%=image_tag(Campaign.activated_campaign.banner) %></a>
+  <% else %>
+    <%= image_tag(Campaign.activated_campaign.banner) %>
+  <% end %>
+</section>

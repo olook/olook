@@ -225,6 +225,8 @@ Olook::Application.routes.draw do
       resources :order_credits, :only => :index
     end
 
+    resources :campaigns
+
     resource :settings
 
     resources :moip_callbacks do
