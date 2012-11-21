@@ -138,6 +138,12 @@ class ApplicationController < ActionController::Base
     incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
     incoming_params[:referer] = request.referer unless request.referer.nil?
     session[:tracking_params] = incoming_params if session[:tracking_params].nil? || session[:tracking_params].empty?
+    session[:order_tracking_params] = incoming_params if external_referer?(request.referer)
+  end
+
+  def external_referer?(referer)
+    return false if referer.nil?
+    !(referer =~ /olook\.com\.br/)
   end
 
 end
