@@ -1,0 +1,29 @@
+<section id="suggestions">
+  <div class="content">
+    <h1>Não deixe de <strong>conferir</strong> também:</h1>
+    <ul>
+      <li id="helena">
+        <%= link_to gift_helena_tips_path, :remote => true do %>
+          <h1>Dica da Helena</h1>
+          <%= image_tag "gift/photo-helena.png", :title => "Helena Linhares" %>
+          <p>O mocassim é peça básica do guarda-roupa. Este de camurça e franjas ficou super atual, aposte!</p>
+          <span>Veja as dicas da Helena</span>
+        <% end %>
+      </li>
+      <li id="bestsellers">
+        <%= link_to gift_top_five_path, :remote => true do %>
+          <h1>Top 5</h1>
+          <%= image_tag "gift/top-5.png", :title => "TOP 5" %>
+          <span>Conheça os 5 mais vendidos</span>
+        <% end %>
+      </li>
+      <li id="face">
+        <%= link_to gift_hot_on_facebook_path, :remote => true do %>
+          <h1>Hot no Face</h1>
+          <%= image_tag "gift/product-face.png", :title => "Hot no Face" %>
+          <span>Veja o que é sucesso no facebook</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</section>

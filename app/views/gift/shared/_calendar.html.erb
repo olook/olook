@@ -1,10 +1,4 @@
 <div id="calendar_container">
-  <% unless user_signed_in? %>
-    <div class="opacity"></div>
-  <% end %>
-  <div class="title">
-    <h1>Meu Calendário</h1>
-  </div>
   <div id="calendar" class="connected">
     <ul id="months">
       <% ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"].each_with_index do |month, index| %>
