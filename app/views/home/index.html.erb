@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag "section/home" %>
 <% end %>
 <% content_for :footer do %>
-  <%= javascript_include_tag "home" %>
+  <%= javascript_include_tag "home" if ["development", "test"].include? Rails.env %>
 <% end %>
 <section class="banner">
 	<a href="/responsabilidade-social#campanha"><%=image_tag("campaigns/banner-avc.jpg") %></a>
