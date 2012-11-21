@@ -14,26 +14,12 @@ describe StubApplicationController do
       session[:order_tracking_params] = {:utm_source => "utm_source"}
     end
 
-    it "should not change if referer is nil" do
-      request.stub(:referer).and_return nil
-      get :index, :utm_source => "Test"
+    it "should not change if utm_source is nil" do
+      get :index
       session[:order_tracking_params][:utm_source].should eq("utm_source")
     end
 
-    it "should not change if referer is www.olook.com.br" do
-      request.stub(:referer).and_return "www.olook.com.br"
-      get :index, :utm_source => "Test"
-      session[:order_tracking_params][:utm_source].should eq("utm_source")
-    end
-
-    it "should not change if referer is app1.olook.com.br" do
-      request.stub(:referer).and_return "app1.olook.com.br"
-      get :index, :utm_source => "Test"
-      session[:order_tracking_params][:utm_source].should eq("utm_source")
-    end
-
-    it "should change if referer is external" do
-      request.stub(:referer).and_return "www.google.com.br"
+    it "should change if utm_source is present" do
       get :index, :utm_source => "Test"
       session[:order_tracking_params][:utm_source].should eq("Test")
     end
