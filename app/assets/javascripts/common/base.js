@@ -1,3 +1,18 @@
+function InfititeScroll(window, document){
+  var url;
+  $(window).scroll(function() {
+    url = $('.pagination .next_page').attr('href');
+    var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 1750)) && !$('.loading').is(':visible');
+    if (canPaginate) {
+      $('.loading').show();
+      $('.pagination .next_page').remove();
+      $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
+      return $.getScript(url);
+    }
+  });
+}
+
+
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();

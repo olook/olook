@@ -6,7 +6,7 @@ jQuery(function() {
   }
 
   $("html").live("click", function() {
-    $("div#products_container div#shoe_size_filter div.sizes").hide();
+    $("div#products_container div#s)oe_size_filter div.sizes").hide();
   });
 
   $("div#products_container div#shoe_size_filter span").live("click", function(e) {
@@ -95,23 +95,7 @@ jQuery(function() {
   });
 
   if ($('.pagination').length) {
-    $(window).scroll(function() {
-      var url;
-      url = $('.pagination .next_page').attr('href');
-      var bottomHeight = 580;
-      var canPaginate =  url && ($(window).scrollTop() > $(document).height() - $(window).height() - 1750) && !$('.loading').is(':visible');
-      if (canPaginate) {
-        $('.pagination .next_page').remove();
-        $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
-        $('.loading').show();
-
-        return $.getScript(url).done(function() {
-          $('form#filter').find("input[type='checkbox']").removeAttr("disabled");
-          $(".loading").hide();
-        });
-      }
-    });
-    return $(window).scroll();
+    InfititeScroll(window, document)
   }
 });
 
