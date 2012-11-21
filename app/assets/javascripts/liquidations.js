@@ -17,7 +17,7 @@ jQuery(function() {
   }
 
   $("html").live("click", function() {
-    $("div#products_container div#s)oe_size_filter div.sizes").hide();
+    $("div#products_container div#shoe_size_filter div.sizes").hide();
   });
 
   $("div#products_container div#shoe_size_filter span").live("click", function(e) {
@@ -104,6 +104,7 @@ jQuery(function() {
     InfititeScroll(window, document)
   }
 });
+
 initLiquidation = {
   scrollToList : function() {
     var topHeight = 0;
