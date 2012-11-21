@@ -23,7 +23,9 @@ describe PaymentBuilder do
     mock
   }
 
-  subject { PaymentBuilder.new(cart_service, credit_card, moip_sender_strategy) }
+  session_params = {"referer"=>"http://localhost:3000/registrar"}
+
+  subject { PaymentBuilder.new(:cart_service => cart_service, :payment => credit_card, :gateway_strategy => moip_sender_strategy, :tracking_params => session_params) }
 
   let(:order_total) { 12.34 }
 
