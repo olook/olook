@@ -40,7 +40,8 @@ describe CampaignEmailsController do
 
 			before(:each) do
 				User.should_receive(:find_by_email).with(email).and_return(nil)
-				CampaignEmail.should_receive(:find_or_create_by_email).with(email).and_return(campaign_email)
+				CampaignEmail.should_receive(:find_by_email).with(email).and_return(nil)
+				CampaignEmail.should_receive(:create!).with(email: email).and_return(campaign_email)
 				post :create, :campaign_email => { email: email }
 			end
 
@@ -50,6 +51,22 @@ describe CampaignEmailsController do
 
 			it "redirects to successful email registration page" do				
 				response.should redirect_to("/campaign_emails/#{campaign_email.id}")
+			end
+
+			context "when email is already registered" do
+				before(:each) do
+					User.should_receive(:find_by_email).with(email).and_return(nil)
+					CampaignEmail.should_receive(:find_by_email).with(email).and_return(campaign_email)
+					post :create, :campaign_email => { email: email }
+				end
+
+				it "finds a campaign email to pass to the redirect" do
+					assigns(:campaign_email).should eq(campaign_email)
+				end
+
+				it "should redirect to the 'we remember you' page" do
+					response.should redirect_to("/campaign_emails/#{campaign_email.id}/remembered")
+				end
 			end
 		end
 	end

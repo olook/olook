@@ -265,6 +265,7 @@ Olook::Application.routes.draw do
   resources :campaign_emails do
     member do
       get 'login'
+      get 'remembered'
     end
   end
 
