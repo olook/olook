@@ -112,6 +112,7 @@ class Checkout::CheckoutController < Checkout::BaseController
         return redirect_to(order_show_path(:number => response.payment.order.number))
       else
         @payment = CreditCard.new(params[:credit_card])
+        @payment.telephone = session[:user_telephone_number].nil? ? params[:credit_card][:telephone] : session[:user_telephone_number]
         @payment.user_identification = @user.cpf
         @payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
         @payment
