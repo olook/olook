@@ -22,6 +22,7 @@ jQuery(function() {
   $('.clean_filters').click(function(e) {
     $(':checkbox').attr('checked', false);
     $(this).parent().submit();
+    $('.clean_filters').hide();    
   });
 
   $(':checkbox').click(function(e) {
