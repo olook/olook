@@ -292,6 +292,9 @@
         name: nome
       gift_recipient_relation:
         name: nome
+      gift_box:
+        name: Nome
+        active: Ativo 
 
     errors:
       template:
