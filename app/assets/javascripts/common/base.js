@@ -229,7 +229,7 @@ $(document).ready(function() {
   });
 
   // For now both fone field will acept nine digits
-  if(($("input:text.phone").length == 1) && ($("input:text.phone").val().length == 13)) {
+  if(($("input:text.phone").length >= 1) && ($("input:text.phone").val().length == 13)) {
     $("input:text.phone").setMask('(99)9999-9999');
   }else{
     $("input:text.phone").setMask('(99)99999-9999');
