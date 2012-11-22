@@ -4,7 +4,6 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "settings/index"
-
   get "settings/update"
 
   mount Resque::Server => "/admin/resque"
@@ -256,6 +255,7 @@ Olook::Application.routes.draw do
     end
 
     resources :payments, :only => [:index, :show]
+    resources :gift_boxes
 
   end
 
