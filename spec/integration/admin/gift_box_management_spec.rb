@@ -13,15 +13,12 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     Collection.stub_chain(:active, :id)
   end
 
-  scenario "As a sac_operator I should not be allowed to destroy a collection" do
+  scenario "As a business1 user I should be allowed to see a list of gift boxes" do
   	do_admin_login!(@admin)
     visit "/admin/gift_boxes"
-    page.should have_content "Listando Gift Boxes"
-    page.should have_content "Nome"  
-    page.should have_content "Top 5"
+    page.should have_content "Listando Gift Boxes Types"
+    page.should have_content "Nome"
     page.should have_content "Ativo"
-    page.should have_content "Sim"
-  end 
-
+  end
 end
 
