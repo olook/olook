@@ -54,6 +54,7 @@
       <th><%= sort_link @search, :user_first_name, "Client" %></th>
       <th><%= sort_link @search, :user_email, "E-mail" %></th>
       <th><%= sort_link @search, :created_at, "Date" %></th>
+      <th><%= sort_link @search, :gateway, "Gateway" %></th>
       <th><%= sort_link @search, :state, "Status" %></th>
       <th>Status Reason</th>
       <th><%= sort_link @search, :payment_type, "Payment Method" %></th>
@@ -74,6 +75,7 @@
       <td><%= link_to order.user.name, admin_user_path(order.user) if order.user %></td>
       <td><%= link_to order.user.email, admin_user_path(order.user) if order.user %></td>
       <td><%= l order.created_at, :format => :short %></td>
+      <td><%= humanize_gateway order.gateway %>
       <td><%= order.status %></td>
       <td><%= order.state_reason %></td>
       <td><%= order.erp_payment ? order.erp_payment.human_to_s : "Pagamento nao encontrado" %></td>
