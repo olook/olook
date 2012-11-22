@@ -96,6 +96,7 @@ describe Users::RegistrationsController do
   end
 
   describe "sign up" do
+
     context "when is full user" do
       it "should redirect if the user don't fill the Survey" do
         session[:profile_questions] = nil
