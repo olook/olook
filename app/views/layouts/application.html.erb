@@ -22,7 +22,7 @@
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
-    <%= render "shared/metrics/vwo/tracking_code" %>
+
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -31,9 +31,13 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
-  </head>
-  <body class="<%= user_signed_in? ? 'logged' : '' %>">
+    <% unless ["development", "test"].include? Rails.env %>
+      <%= render "shared/metrics/vwo/tracking_code" %>
+    <% end %>
 
+  </head>
+
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal"></div>
