@@ -9,22 +9,28 @@ class OrderAnalysisService
   end
 
   def self.check_results(order)
-    response = Clearsale::Analysis.get_order_status(order.id)
-    order_status = response.status
+    response = nil
+    clearsale_response = Clearsale::Analysis.get_order_status(order.id)
+    clearsale_response.status
+    order.clearsale_order_responses.each{|r| r.update_attribute("processed", true)}
+    response = ClearsaleOrderResponses.new(clearsale_response.order_id, clearsale_response.status, clearsale_response.score)
+    response.save
+    response
   end
 
-
-  def self.approved_status?(order_status)
-    #TODO insert logic here
-    true
+  def self.clearsale_response_accepted?(clearsale_response)
+    !ClearsaleOrderResponse.STATES_TO_BE_PROCESSED.include?(clearsale_response.status.to_sym)
   end
 
   def send_to_analysis
-    Clearsale::Analysis.send_order(adapt_order, adapt_payment, adapt_user) if should_send_to_analysis?
+    response = nil
+    clearsale_response = Clearsale::Analysis.send_order(adapt_order, adapt_payment, adapt_user)
+    response = ClearsaleOrderResponses.new(clearsale_response.order_id, clearsale_response.status, clearsale_response.score)
+    response.save
+    response
   end
-
+ 
   def should_send_to_analysis?
-    #TODO insert logic here
     true
   end
 
@@ -35,8 +41,8 @@ class OrderAnalysisService
       :billing_address => adapt_address,
       :shipping_address => adapt_address,
       :installments => self.payment.installments,
-      :total_items => self.order.cart.items.sum{|item| item.variant.product.retail_price}, # total item price sum
-      :total_order => self.payment.total_paid, # total_items + freight
+      :total_items => self.order.cart.items.sum{|item| item.variant.product.retail_price},
+      :total_order => self.payment.total_paid,
       :items_count => self.order.cart.items.count,
       :created_at => Time.current,
       :order_items => adapt_order_items
@@ -48,14 +54,17 @@ class OrderAnalysisService
 
     self.order.cart.items.each do |item|
       hash = {
-                :product => {
-                 :id => item.variant.number,
-                 :name => item.variant.name,
-                 :category => { :id => item.variant.product.category, :name => item.variant.product.category_humanize }
-                 },
-               :price => item.variant.product.retail_price,
-               :quantity => item.quantity,
-             }
+        :product => {
+          :id => item.variant.number,
+          :name => item.variant.name,
+          :category => {
+            :id => item.variant.product.category,
+            :name => item.variant.product.category_humanize 
+          }
+        },
+       :price => item.variant.product.retail_price,
+       :quantity => item.quantity,
+      }
       response << hash
     end
   end

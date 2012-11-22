@@ -32,10 +32,22 @@ module Payments
 
     def process_enqueued_request
       begin
-        gateway_response = web_service_data.checkout(authorize_transaction_data)
-        process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
+        authorize(authorize_transaction_data)
         order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
-        order_analysis_service.send_to_analysis
+        order_analysis_service.should_send_to_analysis? ? order_analysis_service.send_to_analysis : capture(authorize_transaction_data)
+      rescue Exception => error
+        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
+        raise error
+      ensure
+        payment.encrypt_credit_card
+        payment.save!
+      end
+    end
+
+    def process_capture_request
+      begin
+        capture(authorize_transaction_data)
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
@@ -50,6 +62,16 @@ module Payments
       config = YAML::load(File.open(FILE_DIR))
       env = config[Rails.env]["environment"]
       Braspag::Webservice.new(:env)
+    end
+
+    def authorize
+      gateway_response = web_service_data.authorize(authorize_transaction_data)
+      process_authorize_response(gateway_response)      
+    end
+
+    def capture
+      capture_response = web_service_data.capture(authorize_transaction_data)
+      process_capture_response(capture_response)
     end
 
     def authorize_transaction_data
@@ -114,17 +136,30 @@ module Payments
       .for_order(order).for_customer(customer).with_payment_request(payment_request).build
     end
 
-    def process_response(authorize_response, capture_response)
+    def process_authorize_response(authorize_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
         create_success_authorize_response(authorize_transaction_result)
-        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response
         update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
       else
         create_failure_authorize_response(authorize_transaction_result)
         update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
       end
     end
+
+    def process_capture_response(capture_response)
+      if capture_response 
+        capture_transaction_result = capture_response[:capture_transaction_response][:capture_transaction_result]
+        if capture_transaction_result[:success]
+          create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) 
+          update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
+        else
+          update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
+        end
+      else
+        update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
+      end
+    end    
 
     def create_success_authorize_response(authorize_transaction_result)
       authorization_response = BraspagAuthorizeResponse.new(
@@ -194,7 +229,6 @@ module Payments
           gateway_message: message
         )
     end
-
 
   end
 end

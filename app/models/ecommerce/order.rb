@@ -26,6 +26,7 @@ class Order < ActiveRecord::Base
   has_many :order_state_transitions, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
+  has_many :clearsale_order_responses
   
   after_create :initialize_order
 

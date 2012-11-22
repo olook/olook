@@ -63,8 +63,7 @@ describe Payments::BraspagSenderStrategy do
       subject.send_to_gateway
     end
 
-    context "process enqueue request" do
-
+    context "process enqueued request" do
       it "should encrypt the credit card data for the given payment even if an exception is raised" do
         subject.stub(:web_service_data).and_raise(Exception)
         CreditCard.any_instance.should_receive(:encrypt_credit_card)
