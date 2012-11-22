@@ -363,6 +363,11 @@ $(document).ready(function() {
 
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
     initBase.showProfileLightbox();
+
+    container = $('div#profile_quiz.clone img');
+    profile = container.attr('class');
+    container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');
+    
     e.preventDefault();
   });
 

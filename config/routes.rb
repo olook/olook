@@ -2,6 +2,7 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+
   get "settings/index"
 
   get "settings/update"
@@ -225,6 +226,8 @@ Olook::Application.routes.draw do
       resources :order_credits, :only => :index
     end
 
+    resources :campaigns
+
     resource :settings
 
     resources :moip_callbacks do
@@ -276,6 +279,14 @@ Olook::Application.routes.draw do
     end
   end
 
+  #TESTE A/B
+  resources :campaign_emails do
+    member do
+      get 'login'
+      get 'remembered'
+    end
+  end
+
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "checkout/cart" do
     get "update_status" => "checkout/cart#update_status", :as => :update_status
@@ -310,4 +321,8 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
+
 end
+
+
+

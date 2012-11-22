@@ -45,6 +45,7 @@ $bodoni:bodoni_stdbold,Helvetica Neue,arial,sans-serif;
 		li{
 			position:relative;margin-bottom:15px;background: image-url("campaigns/niver/infografico2.jpg") no-repeat;color:#FFF;text-align:center;
 			&:hover{background: image-url("campaigns/niver/infografico_over.jpg") no-repeat;}
+
 			p{
 				position:absolute;bottom:10px;left:36px;width:228px;text-transform:uppercase;
 				span{
@@ -176,4 +177,6 @@ $bodoni:bodoni_stdbold,Helvetica Neue,arial,sans-serif;
 	}
 }
 
-#banner{clear:both;float:left;margin-top:20px;}
+#banner{clear:both;float:left;margin-top:20px;
+	.mr18{margin-right:17px;}
+}
