@@ -21,11 +21,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [showroom_offline, lookbooks, moments, gift, stylist, liquidation, blog, cart].join.html_safe
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   def render_half_user_menu
@@ -41,7 +41,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   private
@@ -92,10 +92,6 @@ class MenuPresenter < BasePresenter
 
   def cart
     h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
-  end
-
-  def olook_tv
-    h.content_tag :li, h.link_to("olook TV", "http://blog.olook.com.br/category/olook-tv/", :target => "_blank"), :class => "olooktv"
   end
 
   def blog

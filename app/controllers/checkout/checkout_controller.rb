@@ -53,7 +53,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     if @payment.valid?
       moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => moip_sender_strategy, :tracking_params => session[:order_tracking_params] } )
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
@@ -77,7 +77,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     if @payment.valid?
       moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => moip_sender_strategy, :tracking_params => session[:order_tracking_params] } )
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
@@ -104,7 +104,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     if @payment.valid?
       sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
       sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, sender_strategy)
+      payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
