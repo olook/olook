@@ -3,7 +3,10 @@ class LiquidationSearchService
 
   def initialize(params)
     @l_products = LiquidationProduct.arel_table
-    @query_base = @l_products[:liquidation_id].eq(params[:id]).and(@l_products[:inventory].gt(0)).and(Product.arel_table[:is_visible].eq(true))
+    @query_base = @l_products[:liquidation_id].eq(params[:id])
+                  .and(@l_products[:inventory].gt(0))
+                  .and(Product.arel_table[:is_visible].eq(true))
+
     @params = params
   end
 
@@ -12,13 +15,13 @@ class LiquidationSearchService
     query_heels =  params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
 
     query_shoe_sizes = params[:shoe_sizes] ? build_sub_query((query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes])) : nil
-    
+
     queries = [query_shoe_sizes, query_heels, query_subcategories]
     query_result = queries.detect{|query| !query.nil?}
 
     query_bags = params[:bag_subcategories] ? l_products[:subcategory_name].in(params[:bag_subcategories]) : nil
     query_accessories = params[:accessory_subcategories] ? l_products[:subcategory_name].in(params[:accessory_subcategories]) : nil
-    query_bags_and_accessories = query_bags && query_accessories ? query_bags.or(query_accessories) : (query_bags || query_accessories) 
+    query_bags_and_accessories = query_bags && query_accessories ? query_bags.or(query_accessories) : (query_bags || query_accessories)
 
     if query_bags_and_accessories
       # @query_base = query_result ? @query_base.and(query_result.or(query_bags_and_accessories)) : @query_base.and(query_bags_and_accessories)
@@ -32,7 +35,7 @@ class LiquidationSearchService
     @query_base = @query_base.and(query_colors) if query_colors
 
     LiquidationProduct.joins(:product).where(query_base)
-                                      .order(sort_filter)
+                                      .order(sort_filter, 'name asc')
                                       .group("product_id")
                                       .paginate(page: params[:page], per_page: 12)
   end
