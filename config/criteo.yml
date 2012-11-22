@@ -5,6 +5,15 @@ defaults: &defaults
     - 778
     - 823
     - 1174
+  collections_blacklist:
+    - 1
+    - 2
+    - 4
+    - 6
+    - 8
+    - 9
+    - 10
+    - 11
 
 development:
   <<: *defaults
