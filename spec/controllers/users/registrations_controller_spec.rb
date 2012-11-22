@@ -273,15 +273,6 @@ describe Users::RegistrationsController do
       }.to change{Event.count}.by(2)
     end
 
-    it "should clear tracking session" do
-      session[:profile_questions] = :some_data
-      session[:profile_birthday] = birthday
-      session[:tracking_params] = mock
-      ProfileBuilder.stub(:factory)
-      post :create, :user => user_attributes
-      session[:tracking_params].should be_nil
-    end
-
     it "should save invite" do
       session[:profile_questions] = :some_data
       session[:profile_birthday] = birthday

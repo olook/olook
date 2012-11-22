@@ -24,6 +24,11 @@ class ApplicationController < ActionController::Base
     current_liquidation.try(:visible?)
   end
 
+  helper_method :show_current_liquidation_advertise?
+  def show_current_liquidation_advertise?
+    current_liquidation.try(:show_advertise?)
+  end
+
   #TODO: create CartBuilder
   helper_method :current_cart
   def current_cart
@@ -126,15 +131,19 @@ class ApplicationController < ActionController::Base
     @current_ability ||= ::Ability.new(current_admin)
   end
   def logged_in?
-    !!current_user
+    current_user
   end
 
   def load_tracking_parameters
-    if !logged_in?
-      incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
-      incoming_params[:referer] = request.referer unless request.referer.nil?
-      session[:tracking_params] ||= incoming_params
-    end
+    incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+    incoming_params[:referer] = request.referer unless request.referer.nil?
+    session[:tracking_params] = incoming_params if session[:tracking_params].nil? || session[:tracking_params].empty?
+    session[:order_tracking_params] = incoming_params if incoming_params.has_key?("utm_source") || external_referer?(request.referer)
+  end
+
+  def external_referer?(referer)
+    return false if referer.nil?
+    !(referer =~ /olook\.com\.br/)
   end
 
 end

@@ -35,6 +35,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def triggit
+    respond_with(@products)
+  end
+
   private
 
   def load_products

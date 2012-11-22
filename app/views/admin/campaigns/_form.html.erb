@@ -1,0 +1,57 @@
+<%= form_for([:admin, @campaign], :html => { :multipart => true }) do |f| %>
+  <% if @campaign.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
+
+      <ul>
+      <% @campaign.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_at %><br />
+    <%= f.date_select :start_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_at %><br />
+    <%= f.date_select :end_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :link %><br />
+    <%= f.text_field :link %>
+  </div>
+
+  <div class="field">
+    <%= f.label :banner %> <br />
+    <%= f.file_field :banner %>
+
+    <% if @campaign.banner? %>
+      <%= image_tag @campaign.banner_url %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :header %><br />
+    <%= f.collection_select :background, {'topo_BF' => "BlackFriday"}, :first, :last, {:include_blank => true} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
