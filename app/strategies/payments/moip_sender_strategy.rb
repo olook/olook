@@ -17,8 +17,8 @@ module Payments
         ErrorNotifier.send_notifier("Moip", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
       ensure
-        payment.encrypt_credit_card if payment.is_a? CreditCard
         set_payment_gateway
+        payment.encrypt_credit_card if payment.is_a? CreditCard
         payment.save!
       end
     end
