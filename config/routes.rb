@@ -2,6 +2,17 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+  get "gift_boxes/index"
+
+  get "gift_boxes/new"
+
+  get "gift_boxes/create"
+
+  get "gift_boxes/update"
+
+  get "gift_boxes/edit"
+
+  get "gift_boxes/destroy"
 
   get "settings/index"
 
@@ -256,6 +267,7 @@ Olook::Application.routes.draw do
     end
 
     resources :payments, :only => [:index, :show]
+    resources :gift_boxes
 
   end
 
