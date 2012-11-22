@@ -1,0 +1,18 @@
+<h2>Listing Gift Boxes Types</h2>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>Ativo</th>
+    </tr>
+	<% @gift_boxes.each do |gift_box| %>
+    <tr>
+      <td><%= gift_box.name %></td>
+      <td><%= link_to 'Mostrar', admin_gift_boxes_path(gift_box), :class => 'button' %></td>
+      <td><%= link_to 'Editar', edit_admin_gift_boxes_path(gift_box), :class => 'button' %></td>
+      <td><%= link_to 'Deletar', admin_gift_boxes_path(gift_box), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
+    </tr>
+  <% end %>
+  </table>
+ </div>
