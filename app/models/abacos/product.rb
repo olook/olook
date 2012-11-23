@@ -6,7 +6,8 @@ module Abacos
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
-                :color_name, :collection_id, :how_to, :moments, :details, :profiles
+                :color_name, :collection_id, :how_to, :moments, :details, :profiles,
+                :is_kit
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -24,7 +25,8 @@ module Abacos
         :width          => self.width,
         :height         => self.height,
         :length         => self.length,
-        :weight         => self.weight
+        :weight         => self.weight,
+        :is_kit         => self.is_kit
       }
     end
 
@@ -47,7 +49,8 @@ module Abacos
           :name         => self.name,
           :category     => self.category,
           :description  => self.description,
-          :is_visible   => false
+          :is_visible   => false,
+          :is_kit       => self.is_kit
         )
         product.id = self.model_number.to_i
         product.save!
@@ -123,7 +126,8 @@ module Abacos
         :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
         :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         # :color_category       => parse_color_category( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
-        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] )
+        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ),
+        :is_kit               => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false
       }
     end
   private
