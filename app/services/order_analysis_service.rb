@@ -11,7 +11,6 @@ class OrderAnalysisService
   def self.check_results(order)
     response = nil
     clearsale_response = Clearsale::Analysis.get_order_status(order.id)
-    clearsale_response.status
     order.clearsale_order_responses.each{|r| r.update_attribute("processed", true)}
     response = ClearsaleOrderResponses.new(clearsale_response.order_id, clearsale_response.status, clearsale_response.score)
     response.save
@@ -25,7 +24,7 @@ class OrderAnalysisService
   def send_to_analysis
     response = nil
     clearsale_response = Clearsale::Analysis.send_order(adapt_order, adapt_payment, adapt_user)
-    response = ClearsaleOrderResponses.new(clearsale_response.order_id, clearsale_response.status, clearsale_response.score)
+    response = ClearsaleOrderResponse.new(clearsale_response.order_id, clearsale_response.status, clearsale_response.score)
     response.save
     response
   end
@@ -36,14 +35,14 @@ class OrderAnalysisService
 
   def adapt_order
     {
-      :id => self.order.id,
+      :id => self.payment.order.id,
       :paid_at => self.paid_at,
       :billing_address => adapt_address,
       :shipping_address => adapt_address,
-      :installments => self.payment.installments,
-      :total_items => self.order.cart.items.sum{|item| item.variant.product.retail_price},
+      :installments => self.payment.order.installments,
+      :total_items => self.payment.order.cart.items.sum{|item| item.variant.product.retail_price},
       :total_order => self.payment.total_paid,
-      :items_count => self.order.cart.items.count,
+      :items_count => self.payment.order.cart.items.count,
       :created_at => Time.current,
       :order_items => adapt_order_items
     }    
@@ -52,7 +51,7 @@ class OrderAnalysisService
   def adapt_order_items
     response = []
 
-    self.order.cart.items.each do |item|
+    self.payment.order.cart.items.each do |item|
       hash = {
         :product => {
           :id => item.variant.number,
@@ -67,6 +66,8 @@ class OrderAnalysisService
       }
       response << hash
     end
+
+    response
   end
 
   def adapt_address
@@ -95,14 +96,14 @@ class OrderAnalysisService
 
   def adapt_user
     {
-      :email     => self.user.email,
-      :id        => self.user.id,
-      :cpf       => self.user.cpf,
-      :full_name => self.user.name,
-      :birthdate => self.user.birthday,
+      :email     => self.payment.user.email,
+      :id        => self.payment.user.id,
+      :cpf       => self.payment.user.cpf,
+      :full_name => self.payment.user.name,
+      :birthdate => self.payment.user.birthday,
       :phone     => self.payment.telephone,
-      :gender    => (self.user.gender ? self.user.gender : 'f'),
-      :last_sign_in_ip => self.user.last_sign_in_ip
+      :gender    => (self.payment.user.gender ? self.payment.user.gender : 'f'),
+      :last_sign_in_ip => self.payment.user.last_sign_in_ip
     }    
   end
 

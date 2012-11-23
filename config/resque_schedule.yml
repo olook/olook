@@ -81,7 +81,7 @@ in_cart_mail:
     - exact_target.yml
   description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
 
-update_inventory:
+force_clearsale_callback:
   cron: "*/5 * * * *"
   class: Clearsale::CallbackWorker
   queue: order_status
