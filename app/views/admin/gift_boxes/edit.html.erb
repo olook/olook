@@ -1,2 +1,10 @@
-<h1>Admin::GiftBoxes#edit</h1>
-<p>Find me in app/views/admin/gift_boxes/edit.html.erb</p>
+<h2>Editar Gift Box Type</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Voltar', admin_gift_boxes_path %><li>
+<% end %>
+</div>
+
