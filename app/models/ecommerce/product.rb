@@ -28,6 +28,8 @@ class Product < ActiveRecord::Base
 
   has_many :lookbooks_products, :dependent => :destroy
   has_many :lookbooks, :through => :lookbooks_products
+  has_many :gift_boxes_product, :dependent => :destroy
+  has_many :gift_boxes, :through => :gift_boxes_product
   has_many :lookbook_image_maps, :dependent => :destroy
   has_many :liquidation_products
   has_many :liquidations, :through => :liquidation_products
@@ -119,11 +121,11 @@ class Product < ActiveRecord::Base
   def bag_picture
     main_picture.try(:image_url, :bag) # 70x70
   end
-  
+
   def checkout_picture
     main_picture.try(:image_url, :checkout) # 90x90
   end
-  
+
   def showroom_picture
     main_picture.try(:image_url, :showroom) # 170x170
   end
