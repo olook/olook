@@ -100,7 +100,7 @@ class UserNotifier
       cart_item_line = []
       cart_item_line << cart_item.variant.showroom_picture
       cart_item_line << cart_item.name
-      cart_item_line << "#{('%.2f' % cart_item.variant.price).gsub('.',',')}"
+      cart_item_line << "#{('%.2f' % cart_item.variant.retail_price).gsub('.',',')}"
       cart_item_line << cart_item.variant.product.description
       cart_item_lines << cart_item_line.join("|")
     end

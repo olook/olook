@@ -9,10 +9,6 @@ describe Payment do
       payment.identification_code.should_not be_nil
     end
 
-    it "should have MOIP as default gateway" do
-      payment = FactoryGirl.create(:payment)
-      payment.gateway.should eq(Payment::GATEWAYS[:moip])
-    end
   end
 
   let(:waiting_payment) do
@@ -52,13 +48,6 @@ describe Payment do
     result.deliver!
     result.review!
     result
-  end
-
-  context "status" do
-    it "should return nil with a invalid status" do
-      invalid_status = '0'
-      subject.set_state(invalid_status).should be(nil)
-    end
   end
 
   context "authorize_order?" do
@@ -280,6 +269,7 @@ describe Payment do
           }.to raise_error
         end
       end
+
     end
   end
 end

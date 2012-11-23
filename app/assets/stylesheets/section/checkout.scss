@@ -109,6 +109,32 @@ body div#content {
   }
 }
 
+section#credits_explanation{
+
+  ul li div {
+    float: left;
+    display: block;
+    text-align: left;
+    margin-left: 0;
+  }
+
+  ul li div.description {
+    width: 300px;
+    font-family: $avenir;
+    margin-left: 6em;
+  }
+
+  ul li div.value {
+    width: 70px;
+  } 
+
+  .prohibited {
+    text-decoration: line-through;
+    color: #A8A8A8;
+  } 
+
+}
+
 section#cart {
   padding: 20px 0 0;
   > h1 {
@@ -132,6 +158,7 @@ section#cart {
       float: none;
     }
   }
+
   div.banner {
     background: url('/assets/cart/banner_discount.jpg') top center no-repeat;
     width: 965px;
@@ -336,7 +363,7 @@ section#cart {
 			width:503px;
 			padding-right:100px;
 			p{font-size:13px;}
-		  }	
+		  }
 		  &.avc-button{
 				border-right:1px solid #E5E5E5;
 				p{font-size: 18px;font-weight: lighter;margin: 0;text-align:center;}

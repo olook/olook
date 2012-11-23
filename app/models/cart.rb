@@ -5,6 +5,11 @@ class Cart < ActiveRecord::Base
   belongs_to :user
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
+
+  def allow_credit_payment?
+    policy = CreditPaymentPolicy.new self
+    policy.allow?
+  end
   
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
@@ -60,8 +65,8 @@ class Cart < ActiveRecord::Base
   def remove_unavailable_items
     unavailable_items = []
     items.each do |li|
-      item = CartItem.lock("FOR UPDATE").find(li.id)
-      unavailable_items << item unless item.variant.available_for_quantity? item.quantity
+      variant = Variant.lock("FOR UPDATE").find(li.variant.id)
+      unavailable_items << li unless variant.available_for_quantity? li.quantity
     end
     size_items = unavailable_items.size
     unavailable_items.each {|item| item.destroy}

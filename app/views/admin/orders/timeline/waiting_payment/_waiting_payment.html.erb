@@ -1,5 +1,5 @@
 <div id='timeline_content_column1'>
-  <img src='/assets/purchase_timeline/moip.png' width='75px' />
+  <%= render :partial => 'admin/orders/timeline/gateway_logo', :locals => { :order => order } %>
   <ul>
     <li>
       Envio da transação: <b><%=  order.erp_payment.gateway_response_status if order.erp_payment %></b>

@@ -10,6 +10,18 @@ describe User do
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
 
+  context "when user has a registered campaign email" do
+    let(:email) { "test@test.com"}
+    let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }    
+
+    it "deletes the campaign_email from the db" do
+      CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
+      CampaignEmail.count.should == 1 
+      FactoryGirl.create(:user, email: email)
+      CampaignEmail.count.should == 0  
+    end
+  end
+
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
     it { should_not allow_value("@b.com").for(:email) }

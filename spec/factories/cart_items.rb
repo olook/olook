@@ -10,4 +10,10 @@ FactoryGirl.define do
     quantity 3
   end
   
+  factory :cart_item_that_belongs_to_a_cart, :class => CartItem do
+    association :variant, factory: :basic_shoe_size_37, inventory: 5
+    association :cart, factory: :clean_cart 
+    quantity 3
+  end
+  
 end
