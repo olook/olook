@@ -1,0 +1,48 @@
+<%= form_for([:admin,@gift_box]) do |f| %>
+  <% if @gift_box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift_box.errors.count, "error") %> prohibited this landing page from being saved:</h2>
+
+      <ul>
+      <% @gift_box.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :name %>
+  </div>
+ 	<table class="table">
+    <tr>
+      <th style="width:100px">Product</th>
+      <th>Collection</th>
+      <th>ID</th>
+      <th>Profile</th>
+      <th style="width:125px">Name</th>
+      <th>Inventory</th>
+      <th>Visible?</th>
+      <th>Select</th>
+    </tr>
+<%
+@products.each do |product|
+  related = !product.gift_boxes_product.empty? && product.gift_boxes_product[0].gift_box_id == @gift_box.id
+-%>
+    <tr class="<%= 'not-visible' if !product.is_visible? %>">
+      <td><%= image_tag(product.showroom_picture, :size => '100x100') if product.showroom_picture %></td>
+      <td><%= product.collection.name if product.collection %></td>
+      <td><%= product.id %></td>
+      <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
+      <td><%= product.name %></td>
+      <td><%= product.inventory %></td>
+      <td><%= product.is_visible? ? "Yes" : "No" %></td>
+      <td><%= check_box_tag "gift_box[product_list][#{product.id}]", "1", @gift_box.products.detect{ |d| d == product } %></td>
+    </tr>
+<% end %>
+  </table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
