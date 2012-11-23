@@ -41,9 +41,16 @@ class Product < ActiveRecord::Base
   mount_uploader :color_sample, ColorSampleUploader
 
   scope :only_visible , where(:is_visible => true)
-  scope :valid_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => CRITEO_CONFIG["products_blacklist"], :collections_blacklist => CRITEO_CONFIG["collections_blacklist"]).order("collection_id desc")}
+  scope :valid_for_xml, lambda { |products_blacklist, collections_blacklist| only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => products_blacklist , :collections_blacklist => collections_blacklist).order("collection_id desc")}
+  def self.products_blacklist
+    CRITEO_CONFIG["products_blacklist"]
+  end
+
+  def self.collections_blacklist
+    CRITEO_CONFIG["collections_blacklist"]
+  end
   # scope logic for criteo xml
-  scope :valid_criteo_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", COUNT(id) as \"count_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => CRITEO_CONFIG["products_blacklist"], :collections_blacklist => CRITEO_CONFIG["collections_blacklist"]).where("(products.category <> 1 or x.count_variants > 3)").order("collection_id desc")}
+  scope :valid_criteo_for_xml, lambda { |products_blacklist, collections_blacklist| only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", COUNT(id) as \"count_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => products_blacklist , :collections_blacklist => collections_blacklist ).where("(products.category <> 1 or x.count_variants > 3)").order("collection_id desc")}
   scope :shoes        , where(:category => Category::SHOE)
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
