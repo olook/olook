@@ -1,6 +1,14 @@
 # -*- encoding : utf-8 -*-
 class LiquidationPresenter < BasePresenter
 
+  def render_top
+    if (liquidation.big_banner?)
+      h.render :partial => 'liquidations/top_big_banner', :locals => {:image => liquidation.big_banner}
+    else
+      h.render :partial => 'liquidations/top_carousel', :locals => {:liquidation => liquidation} 
+    end
+  end
+
   def render_search_form
     h.render :partial => 'liquidations/search_form', :locals => {:liquidation_presenter => self}
   end

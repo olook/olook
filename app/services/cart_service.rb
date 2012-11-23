@@ -7,6 +7,8 @@ class CartService
   attr_accessor :freight
   attr_accessor :credits
 
+  delegate :allow_credit_payment?, :to => :cart
+
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
   end
@@ -146,7 +148,7 @@ class CartService
     self.subtotal(:price) + self.total_increase
   end
 
-  def generate_order!
+  def generate_order!(gateway, tracking = nil)
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
@@ -166,7 +168,9 @@ class CartService
       :user_last_name => user.last_name,
       :user_email => user.email,
       :user_cpf => user.cpf,
-      :gross_amount => self.gross_amount
+      :gross_amount => self.gross_amount,
+      :gateway => gateway,
+      :tracking => tracking
     )
 
     order.line_items = cart.items.map do |item|
@@ -207,8 +211,8 @@ class CartService
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.variant.product.retail_price
-    price = item.variant.product.price
+    final_retail_price = item.retail_price #item.variant.product.retail_price
+    price = item.price #item.variant.product.price
     discounts = []
     origin_type = ''
 
@@ -300,15 +304,17 @@ class CartService
     credits_redeem = 0
     if (use_credits == true)
       #GET FROM loyality
-      credits_loyality = self.cart.user.user_credits_for(:loyalty_program).total
+
+      # Use loyalty only if there is no product with olooklet discount in the cart       
+      credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
       if credits_loyality >= retail_value
         credits_loyality = retail_value
       end
 
-      retail_value -= credits_loyality
+      retail_value -= credits_loyality 
 
       #GET FROM INVITE
-      credits_invite = self.cart.user.user_credits_for(:invite).total
+      credits_invite = allow_credit_payment? ? self.cart.user.user_credits_for(:invite).total : 0
       if credits_invite >= retail_value
         credits_invite = retail_value
       end

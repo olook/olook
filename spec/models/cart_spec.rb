@@ -12,6 +12,17 @@ describe Cart do
   let(:cart) { FactoryGirl.create(:clean_cart) }
   let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
   let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
+
+  context "#allow_credit_policy?" do
+
+    it "should delegate to CreditPaymentPolicy" do
+      CreditPaymentPolicy.any_instance.stub(:allow?).and_return(true)
+      cart.allow_credit_payment?.should be_true
+
+    end
+
+
+  end
   
   context "when add item" do
     it "should return nil when has gift product in cart and is not gift" do

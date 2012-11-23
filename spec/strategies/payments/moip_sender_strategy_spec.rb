@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe MoipSenderStrategy do
+describe Payments::MoipSenderStrategy do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:payment) {FactoryGirl.create(:payment)}
@@ -21,16 +21,12 @@ describe MoipSenderStrategy do
 
 
   it "should be initialize with success" do
-    MoipSenderStrategy.new(cart_service, payment).should be_true
+    Payments::MoipSenderStrategy.new(cart_service, payment).should be_true
   end
 
   context "with a valid class" do
 
-    subject {MoipSenderStrategy.new(cart_service, payment)}
-
-    before :each do
-
-    end
+    subject {Payments::MoipSenderStrategy.new(cart_service, payment)}
 
     it "should set url on payment" do
       subject.stub(:payment_url).and_return('www.fake.com')
@@ -45,6 +41,11 @@ describe MoipSenderStrategy do
       payment.stub(:gateway_transaction_status).and_return(:success)
       subject.stub(:payment_url).and_return('www.fake.com')
       subject.send_to_gateway
+    end
+
+    it "should set payment gateway" do
+      subject.set_payment_gateway
+      subject.payment.gateway.should eq(1)
     end
 
     it "should get the payment_url" do
@@ -107,6 +108,43 @@ describe MoipSenderStrategy do
                 :pagador => payer, :razao => Payment::REASON }
 
       subject.payment_data.should == expected
+    end
+
+  end
+
+  context "#payment_successful" do
+    subject {Payments::MoipSenderStrategy.new(cart_service, payment)}
+
+    it "should return false when response status is not successful" do
+      credit_card.gateway_response_status = Payment::CANCELED_STATUS
+      subject.payment = credit_card
+      subject.payment_successful?.should eq(false)
+    end
+
+    it "should return false when transaction status is canceled" do
+      credit_card.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      credit_card.gateway_transaction_status = Payment::CANCELED_STATUS
+      subject.payment = credit_card
+      subject.payment_successful?.should eq(false)
+    end
+
+    it "should return false when transaction status is canceled" do
+      credit_card.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      credit_card.gateway_transaction_status = Payment::SUCCESSFUL_STATUS
+      subject.payment = credit_card
+      subject.payment_successful?.should eq(true)
+    end
+  end
+
+  context "formatting the telephone number" do
+    subject {Payments::MoipSenderStrategy.new(cart_service, payment)}
+
+    it "should remove the ninth digit of the telephone" do
+      subject.format_telephone("(11)99123-4567").should eq("(11)9123-4567")
+    end
+
+    it "should correct a wrong mask" do
+      subject.format_telephone("(11)91234-567").should eq("(11)9123-4567")
     end
 
   end

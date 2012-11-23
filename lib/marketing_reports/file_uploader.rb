@@ -15,7 +15,7 @@ module MarketingReports
     end
 
     def save_local_file
-      file_path = TEMP_PATH+DateTime.now.strftime(@filename) 
+      file_path = TEMP_PATH+DateTime.now.strftime(@filename)
       File.open(file_path, 'w', :encoding => @encoding) do |file|
         file.write(@file_content) #.encode(@encoding).force_encoding(@encoding))
       end
@@ -25,7 +25,7 @@ module MarketingReports
 
     def self.copy_file(filename)
       report_path = Rails.env.production? ? '/home/allinmail' : Rails.root
-      FileUtils.copy(TEMP_PATH+DateTime.now.strftime(filename), "#{report_path}/#{filename}")
+      FileUtils.copy(TEMP_PATH+DateTime.now.strftime(filename), "#{report_path}/#{DateTime.now.strftime(filename)}")
     end
   end
 end

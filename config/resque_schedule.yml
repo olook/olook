@@ -14,7 +14,13 @@ update_status:
   cron: "*/15 * * * *"
   class: ProcessPaymentCallbacksWorker
   queue: order_status
-  description: "Processa callbacks de Pagamento"
+  description: "Processa callbacks de Pagamento Moip"
+
+update_braspag_responses:
+  cron: "*/15 * * * *"
+  class: ProcessBraspagResponsesWorker
+  queue: order_status
+  description: "Processa respostas de pagamento Braspag"
 
 # send_in_cart_email:
 #   cron: "0 12 * * *"
@@ -30,6 +36,15 @@ userbase_with_auth_token_and_credits:
     - userbase_with_auth_token_and_credits
     - base_atualizada_purchases_auth_token_and_credits.csv
   description: "Cria arquivo de importação para allinemail"
+
+campaign_emails:
+  cron: "0 2 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - campaign_emails
+    - base_atualizada_emails_promocoes.csv
+  description: "Cria arquivo de importação de emails do lightbox para allinemail"
 
 send_billet_reminder:
   cron: "0 5 * * 1-5"

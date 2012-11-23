@@ -20,5 +20,28 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Nome"
     page.should have_content "Ativo"
   end
+
+  scenario "As a business1 user I should be denied to create a gift box if the form is not correct" do
+  	do_admin_login!(@admin)
+    visit "/admin/gift_boxes/new"
+    page.should have_content "Novo Gift Box Type"
+    page.should have_content "Nome"
+    page.should have_content "Ativo"
+    click_button('Criar Gift box')
+    page.should have_content "3 errors prohibited this landing page from being saved:"
+  end
+
+  scenario "As a business1 user I should be allowed to create a gift box if the form is correct" do
+  	do_admin_login!(@admin)
+    visit "/admin/gift_boxes/new"
+    page.should have_content "Novo Gift Box Type"
+    page.should have_content "Nome"
+    page.should have_content "Ativo"
+    fill_in 'gift_box[name]', :with => 'Gift Box Test'
+    check('gift_box[active]')
+    attach_file('gift_box[thumb_image]', 'image.jpg')
+    click_button('Criar Gift box')
+    page.should have_content "Gift Box Type criada com sucesso."
+  end
 end
 

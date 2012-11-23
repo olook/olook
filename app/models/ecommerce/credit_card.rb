@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class CreditCard < Payment
-  attr_accessor :security_code
 
   BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
   PAYMENT_QUANTITY = 6
@@ -21,7 +20,6 @@ class CreditCard < Payment
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
 
-  before_create :encrypt_credit_card
   after_create :set_payment_expiration_date
 
   def to_s
@@ -50,19 +48,11 @@ class CreditCard < Payment
     (number == 0) ? 1 : number
   end
 
-  def self.user_data(user)
-    {
-      :user_name => user.name,
-      :user_identification => user.cpf,
-      :user_birthday => user.birthdate
-    }
-  end
-
-  private
-
   def encrypt_credit_card
-    number = self.credit_card_number
-    last_digits = 4
-    self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
+      number = self.credit_card_number
+      last_digits = 4
+      self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
+      self.security_code = nil
   end
+
 end

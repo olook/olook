@@ -8,6 +8,18 @@ GIT
       httparty (~> 0.8.1)
       nokogiri (~> 1.5.0)
 
+GIT
+  remote: git@github.com:olook/obraspag.git
+  revision: 26f5077bd08ef9d5e50fec76eebd0d218e567403
+  branch: master
+  specs:
+    obraspag (0.0.21)
+      active_attr (>= 0.6)
+      httpi (>= 0.9.7)
+      json (>= 1.6.1)
+      nokogiri (>= 1.4.7)
+      savon (= 0.9.9)
+
 PATH
   remote: vendor/gems
   specs:
@@ -38,6 +50,9 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
+    active_attr (0.6.0)
+      activemodel (>= 3.0.2, < 4.1)
+      activesupport (>= 3.0.2, < 4.1)
     activemodel (3.2.2)
       activesupport (= 3.2.2)
       builder (~> 3.0.0)
@@ -56,8 +71,9 @@ GEM
     airbrake (3.0.9)
       activesupport
       builder
-    akami (1.0.0)
+    akami (1.2.0)
       gyoku (>= 0.4.0)
+      nokogiri (>= 1.4.0)
     archive-tar-minitar (0.5.2)
     arel (3.0.2)
     asset_sync (0.5.0)
@@ -153,8 +169,14 @@ GEM
     guard-spork (0.7.1)
       guard (>= 0.10.0)
       spork (>= 0.8.4)
-    gyoku (0.4.4)
+    gyoku (0.4.6)
       builder (>= 2.1.2)
+    haml (3.1.7)
+    haml-rails (0.3.5)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (~> 3.1)
+      railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     highline (1.6.11)
     hike (1.2.1)
@@ -207,7 +229,7 @@ GEM
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.3.4.1)
     nokogiri (1.5.2)
-    nori (1.1.0)
+    nori (1.1.3)
     oa-core (0.3.0)
     oa-oauth (0.3.0)
       faraday (~> 0.7.3)
@@ -384,7 +406,7 @@ GEM
       rack (>= 1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
-    wasabi (2.1.0)
+    wasabi (2.3.0)
       nokogiri (>= 1.4.0)
     watchr (0.7)
     webmock (1.7.0)
@@ -429,8 +451,10 @@ DEPENDENCIES
   glennfu-contacts (= 1.2.6)!
   guard-rspec
   guard-spork
+  haml
+  haml-rails
   hpricot
-  httpi
+  httpi (= 0.9.7)
   jquery-rails (~> 1.0.14)
   koala (~> 1.3.0)
   launchy
@@ -440,6 +464,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   oa-oauth (~> 0.3.0)
+  obraspag (>= 0.0.21)!
   omniauth (= 1.0.3)
   omniauth-facebook
   paper_trail (~> 2)
@@ -455,7 +480,7 @@ DEPENDENCIES
   rspec-rails (~> 2.10.1)
   ruby-debug19
   sass-rails (~> 3.2.3)
-  savon
+  savon (= 0.9.9)
   selenium-webdriver (= 2.21.1)
   shoulda-matchers
   simplecov (~> 0.5.3)

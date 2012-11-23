@@ -53,6 +53,8 @@ Olook::Application.routes.draw do
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
+  get "/promo1anomuito" , :to => "liquidations#index", :as => "promo1anomuito"
+  get "/blackfriday" , :to => "liquidations#index", :as => "blackfriday"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
@@ -72,6 +74,7 @@ Olook::Application.routes.draw do
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   #XML FOR STATISTICS
+  match "/triggit", :to => "xml#triggit", :as => "triggit", :defaults => { :format => 'xml' }
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
@@ -238,9 +241,25 @@ Olook::Application.routes.draw do
       resources :order_credits, :only => :index
     end
 
+    resources :campaigns
+
     resource :settings
 
     resources :moip_callbacks do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+
+    resources :braspag_authorize_responses do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+
+    resources :braspag_capture_responses do
       member do
         post 'change_to_processed'
         post 'change_to_not_processed'
@@ -277,6 +296,14 @@ Olook::Application.routes.draw do
     end
   end
 
+  #TESTE A/B
+  resources :campaign_emails do
+    member do
+      get 'login'
+      get 'remembered'
+    end
+  end
+
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "checkout/cart" do
     get "update_status" => "checkout/cart#update_status", :as => :update_status
@@ -304,11 +331,15 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/moip_payments#create', :as => :payment
+  post '/pagamento', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
+
 end
+
+
+

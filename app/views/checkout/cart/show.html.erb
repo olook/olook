@@ -21,6 +21,7 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/ve_interactive/get_user" %>
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
+  <%= render :partial => "shared/metrics/triggit/cart" %>
   <%= javascript_include_tag "carts" %>
 <% end %>
 
@@ -42,8 +43,8 @@ _gaq.push(['_addTrans',
 
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
-        <% @cart.items.each do |item| %>
-          <tr>
+        <% @cart.items.each_with_index do |item, index| %>
+          <tr id="product_<%=item.product.id%>">
             <td class="item">
               <% unless item.thumb_picture.nil? %>
                 <%= image_tag item.variant.bag_picture %>
@@ -54,9 +55,12 @@ _gaq.push(['_addTrans',
             </td>
             <td class="amount">
               <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
+        
+              <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
+
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= select_tag('variant[quantity]', options_for_select({1 => 1}, item.quantity)) %>
-              <%# end %>
+                <%= select_tag('variant[quantity]', options_for_select(item.product_quantity, item.quantity), :onchange => "submit();") %>
+              <% end %>
             </td>
             <td class="discount">
               <% if @cart_service.item_promotion?(item) %>
@@ -66,12 +70,13 @@ _gaq.push(['_addTrans',
                 </div>
               <% end %>
             </td>
-            <td class="value">
+            <td class="value" >
+              <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => @cart_service.item_retail_price(item)) %>
               <% if @cart_service.item_promotion?(item) %>
-                <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price(item)) %></p>
-                <p>por: <%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
+                <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price_total(item)) %></p>
+                <p>por: <%= number_to_currency(@cart_service.item_retail_price_total(item)) %></p>
               <% else %>
-                <p><%= number_to_currency(@cart_service.item_price(item)) %></p>
+                <p><%= number_to_currency(@cart_service.item_price_total(item)) %></p>
               <% end %>
               <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
@@ -132,19 +137,46 @@ _gaq.push(['_addTrans',
               <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
               <h1>Quero usar meus créditos</h1>
               <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
-              <% if @user.current_credit > @cart_service.total %>
+              <% if total_user_credits > @cart_service.total %>
                 <p>O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos</p>
-              <% elsif @cart_service.total == @user.current_credit %>
+              <% elsif @cart_service.total == total_user_credits %>
                 <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
               <% else %>
                 <% if @cart.items.count > 0 %>
                   <p>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença</p>
                 <% end %>
               <% end %>
-              <%= link_to "Saiba mais sobre seus créditos", "#" %>
+
+              <section id="credits_explanation">
+                <p>SOBRE OS SEUS CRÉDITOS</p>
+                <% style = @cart.allow_credit_payment? ? 'normal' : 'prohibited' %>
+
+                <ul>
+                  <li>
+                    <div class="description">Créditos por compras realizadas:</div>
+                    <div class="value <%= style %>"><%= number_to_currency @amount_of_loyalty_credits %></div>
+                    <div class="message"><%= print_credit_message %></div>
+                  </li>
+
+                 <li>
+                    <div class="description">Créditos por indicação:</div>
+                    <div class="value <%= style %>"><%= number_to_currency @amount_of_invite_credits %></div>
+                    <div class="message"><%= print_credit_message %></div>
+                  </li>
+
+                 <li>
+                    <div class="description">Reembolso via Central de Atendimento:</div>
+                    <div class="value"><%= number_to_currency @redeem_credits %></div>
+                    <div class="message">&nbsp;</div>
+                  </li>
+                </ul>
+
+              </section>
             <% end %>
           </td>
-          <td class="value"><%= number_to_currency @user.current_credit %></td>
+          <td class="value">
+            <%= number_to_currency(total_user_credits) %>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -216,5 +248,4 @@ _gaq.push(['_addTrans',
     <%= render 'empty_cart' %>
   <% end %>
   <%= render "shared/modal_login" %>
-  <%= render "credit_details" if @user %>
 </section>

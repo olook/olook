@@ -63,6 +63,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
   def build_resource(params = nil)
     resource = super(params)
 
