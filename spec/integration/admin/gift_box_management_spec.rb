@@ -28,7 +28,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Nome"
     page.should have_content "Ativo"
     click_button('Criar Gift box')
-    page.should have_content "errors prohibited this landing page from being saved:"
+    page.should have_content "error prohibited this landing page from being saved:"
   end
 
   scenario "As a business1 user I should be allowed to create a gift box if the form is correct" do
@@ -50,9 +50,8 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Nome"
     page.should have_content "Ativo"
     fill_in 'gift_box[name]', :with => ""
-    uncheck('gift_box[active]')
     click_button('Atualizar Gift box')
-    page.should have_content "errors prohibited this landing page from being saved:"
+    page.should have_content "error prohibited this landing page from being saved:"
   end
 
   scenario "As a business1 user I should be allowed to update a gift box if the form is correct" do
@@ -67,6 +66,5 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Gift Box Type atualizada com sucesso."
     page.should have_content "Gift Box Test Updated"
   end
-
 end
 
