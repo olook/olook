@@ -1,0 +1,24 @@
+<h2>Gift Box Type</h2>
+<div class="inner">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <b>Nome:</b>
+    <%= @gift_box.name %>
+  </p>
+
+  <p>
+    <b>Ativo?</b>
+    <%= @gift_box.active ? 'Sim' : 'Não' %>
+  </p>
+
+  <p>
+    <b>Thumb:</b><br/>
+    <%= image_tag @gift_box.thumb_image.try(:url) if @gift_box.thumb_image %>
+  </p>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Editar', edit_admin_gift_box_path(@gift_box) %></li>
+  <li><%= link_to 'Voltar', admin_gift_boxes_path %></li>
+<% end %>
+</div>
