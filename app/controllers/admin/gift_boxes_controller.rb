@@ -29,5 +29,8 @@ class Admin::GiftBoxesController < Admin::BaseController
   end
 
   def destroy
+    @gift_box = GiftBox.find(params[:id])
+    flash[:notice] = 'Gift Box Type deletada com sucesso.' if @gift_box.destroy
+    respond_with :admin, @gift_box
   end
 end
