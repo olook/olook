@@ -44,15 +44,15 @@ class Gift::HomeController < Gift::BaseController
   end
 
   def helena_tips
-    @suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
+    @suggestion_products = GiftBox.find_by_name("Dica da Helena").products.limit(5)
   end
 
   def top_five
-    @suggestion_products = Product.find(10262, 11259, 10621, 11716, 12023)
+    @suggestion_products = GiftBox.find_by_name("Top Five").products.limit(5)
   end
 
   def hot_on_facebook
-    @suggestion_products = Product.find(10549, 10612, 11642, 12063, 11953)
+    @suggestion_products = GiftBox.find_by_name("Hot on Facebook").products.limit(5)
   end
 
   private

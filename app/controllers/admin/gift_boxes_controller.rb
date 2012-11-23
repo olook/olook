@@ -39,7 +39,7 @@ class Admin::GiftBoxesController < Admin::BaseController
 
   def get_all_products
     #@products = Product.joins(:collection).joins('left outer join gift_boxes_products on products.id = gift_boxes_products.product_id').where("collections.start_date >= :date or (gift_boxes_products.gift_box_id = :gift_box_id and gift_boxes_products.product_id = products.id)", date: 3.months.ago.beginning_of_month, gift_box_id: @gift_box.id).order("collection_id desc, category, name").uniq
-    @products = Collection.active.products.limit(11)
+    @products = Collection.active.products
   end
 
   def product
