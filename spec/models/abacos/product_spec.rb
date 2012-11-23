@@ -16,7 +16,8 @@ describe Abacos::Product do
                                     width:        subject.width,
                                     height:       subject.height,
                                     length:       subject.length,
-                                    weight:       subject.weight }
+                                    weight:       subject.weight,
+                                    is_kit:       subject.is_kit }
   end
 
   describe '#integrate' do
