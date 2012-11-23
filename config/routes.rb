@@ -255,7 +255,10 @@ Olook::Application.routes.draw do
     end
 
     resources :payments, :only => [:index, :show]
-    resources :gift_boxes
+
+    resources :gift_boxes do
+      get :products, :to => "gift_boxes#product"
+    end
 
   end
 
