@@ -66,5 +66,16 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Gift Box Type atualizada com sucesso."
     page.should have_content "Gift Box Test Updated"
   end
+
+  scenario "As a business1 user I should be allowed to destroy a gift box" do
+  	do_admin_login!(@admin)
+    gift_box
+    visit "/admin/gift_boxes"
+    page.should have_content "Listando Gift Boxes Types"
+    page.should have_content "Nome"
+    page.should have_content "Ativo"
+    click_link "Deletar"
+    page.should have_content "Gift Box Type deletada com sucesso."
+  end
 end
 
