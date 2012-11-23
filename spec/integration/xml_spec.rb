@@ -4,6 +4,11 @@ require 'integration/helpers'
 include ActionView::Helpers::NumberHelper
 include XmlHelper
 
+  def stub_scope_params
+    Product.should_receive(:load_criteo_config).with("products_blacklist").and_return([0])
+    Product.should_receive(:load_criteo_config).with("collections_blacklist").and_return([0])
+  end
+
 feature "Show products on xml format" do
   let!(:bag) { FactoryGirl.create :basic_bag }
   let!(:product) { FactoryGirl.create :blue_sliper_with_variants }
@@ -11,10 +16,10 @@ feature "Show products on xml format" do
   background do
     product.master_variant.update_attribute(:price, "99.90")
     product.master_variant.update_attribute(:inventory, 1)
+    stub_scope_params
   end
 
   context "in the criteo xml page" do
-
 
     scenario "I  dont want to see products of criteo if has less variants" do
       product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
@@ -42,6 +47,7 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
+
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
 
