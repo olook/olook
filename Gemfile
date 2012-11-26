@@ -80,6 +80,7 @@ end
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '~> 1.1.1'
+  gem "capybara-webkit", "~> 0.13.0"
   gem 'database_cleaner'
   gem 'rspec', '~> 2.10.0'
   gem 'shoulda-matchers'
