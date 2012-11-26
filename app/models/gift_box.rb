@@ -6,6 +6,10 @@ class GiftBox < ActiveRecord::Base
   attr_accessor :product_list
   after_save :update_products
 
+  def suggestion_products
+    products.limit(5).sort_by{|p| p.inventory}.reverse
+  end
+
   private
 
   def update_products
