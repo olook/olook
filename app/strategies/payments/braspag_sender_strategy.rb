@@ -37,22 +37,28 @@ module Payments
 
         if authorize_response.success
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
-          order_analysis_service.should_send_to_analysis? ? order_analysis_service.send_to_analysis : capture(authorize_response)
+          if order_analysis_service.should_send_to_analysis? 
+            order_analysis_service.send_to_analysis 
+          else 
+            capture(authorize_response)
+            payment.encrypt_credit_card
+            payment.save!
+          end
         end
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
-        raise error
-      ensure
         payment.encrypt_credit_card
         payment.save!
+        raise error
+      ensure
       end
     end
 
     def process_capture_request
       begin
         authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
-        capture(authorize_response)
+        capture(authorize_response)    
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
