@@ -7,7 +7,7 @@ class GiftBox < ActiveRecord::Base
   after_save :update_products
 
   def suggestion_products
-    products.limit(5).sort_by{|p| p.inventory}.reverse
+    products.sort_by{|p| p.inventory}.reverse.first(5)
   end
 
   private
