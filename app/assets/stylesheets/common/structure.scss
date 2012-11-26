@@ -844,7 +844,7 @@ body {
 		.niver{margin:-15px 0 0 62px;}
 		#session {
         position: relative;
-        z-index: 995;
+        /*z-index: 995;*/
         @include sign-in;
         margin-top: 10px;
         margin-right: 10px;
