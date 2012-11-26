@@ -1,4 +1,4 @@
-<h2>Listando Gift Boxes Types</h2>
+<h2>Listando Gift Boxes</h2>
 
 <div class="inner">
   <table class="table">
@@ -20,3 +20,7 @@
   <% end %>
   </table>
  </div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'New Gift Box', new_admin_gift_box_path %></li>
+<% end %>
