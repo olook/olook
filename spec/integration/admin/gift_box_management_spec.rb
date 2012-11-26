@@ -13,17 +13,25 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     Collection.stub_chain(:active, :id)
   end
 
+  # Leaving js testing for later, same issues as with turnip (vcr/webmock conflicts)
+  # scenario "As a business1 user I should be allowed to see a list of gift boxes", :js => true do
   scenario "As a business1 user I should be allowed to see a list of gift boxes" do
   	do_admin_login!(@admin)
+    gift_box
+    # page.find('Gift Project').trigger(:mouseover)
     visit "/admin/gift_boxes"
-    page.should have_content "Listando Gift Boxes Types"
+    page.should have_content "Listando Gift Boxes"
     page.should have_content "Nome"
+    page.should have_content "Top 5"
     page.should have_content "Ativo"
+    page.should have_content "Sim"
+    page.should have_link "New Gift Box"
   end
 
   scenario "As a business1 user I should be denied to create a gift box if the form is not correct" do
   	do_admin_login!(@admin)
-    visit "/admin/gift_boxes/new"
+    visit "/admin/gift_boxes"
+    click_link "New Gift Box"
     page.should have_content "Novo Gift Box Type"
     page.should have_content "Nome"
     page.should have_content "Ativo"
@@ -33,7 +41,8 @@ feature "Admin user with business 1 role manages gift boxes", %q{
 
   scenario "As a business1 user I should be allowed to create a gift box if the form is correct" do
   	do_admin_login!(@admin)
-    visit "/admin/gift_boxes/new"
+    visit "/admin/gift_boxes"
+    click_link "New Gift Box"
     page.should have_content "Novo Gift Box Type"
     page.should have_content "Nome"
     page.should have_content "Ativo"
@@ -71,7 +80,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   	do_admin_login!(@admin)
     gift_box
     visit "/admin/gift_boxes"
-    page.should have_content "Listando Gift Boxes Types"
+    page.should have_content "Listando Gift Boxes"
     page.should have_content "Nome"
     page.should have_content "Ativo"
     click_link "Deletar"
