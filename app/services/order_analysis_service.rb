@@ -11,15 +11,25 @@ class OrderAnalysisService
   def self.check_results(order)
     response = nil
     clearsale_response = Clearsale::Analysis.get_order_status(order.id)
-    order.clearsale_order_responses.each{|r| r.update_attribute("processed", true)}
-    response = ClearsaleOrderResponse.new(clearsale_response.order_id, clearsale_response.status, clearsale_response.score)
-    response.save
+    response = ClearsaleOrderResponse.new
+    response.order = Order.find(clearsale_response.order_id)
+    response.status = clearsale_response.status
+    response.score = clearsale_response.score
+    response.save unless OrderAnalysisService.process_clearsale_response?(clearsale_response)
     response
   end
 
-  def self.clearsale_response_accepted?(clearsale_response)
-    ClearsaleOrderResponse.AUTHORIZED_STATUS.include?(clearsale_response.status.to_sym)
+  def self.process_clearsale_response?(clearsale_response)
+    ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.include?(clearsale_response.status.to_sym)
   end
+
+  def self.clearsale_response_accepted?(clearsale_response)
+    ClearsaleOrderResponse::AUTHORIZED_STATUS.include?(clearsale_response.status.to_sym)
+  end
+
+  def self.clearsale_response_rejected?(clearsale_response)
+    ClearsaleOrderResponse::REJECTED_STATUS.include?(clearsale_response.status.to_sym)
+  end  
 
   def send_to_analysis
     response = nil
