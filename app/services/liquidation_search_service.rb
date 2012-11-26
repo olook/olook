@@ -24,7 +24,6 @@ class LiquidationSearchService
     query_bags_and_accessories = query_bags && query_accessories ? query_bags.or(query_accessories) : (query_bags || query_accessories)
 
     if query_bags_and_accessories
-      # @query_base = query_result ? @query_base.and(query_result.or(query_bags_and_accessories)) : @query_base.and(query_bags_and_accessories)
       @query_base = @query_base.and(query_bags_and_accessories)
     else
       @query_base = @query_base.and(query_result) if query_result
@@ -46,9 +45,10 @@ class LiquidationSearchService
 
   def sort_filter
     case params[:sort_filter]
+      when "0" then "category_id asc"
       when "1" then "retail_price asc"
       when "2" then "retail_price desc"
-      else "category_id asc"
+      else "retail_price asc"
     end
   end
 end
