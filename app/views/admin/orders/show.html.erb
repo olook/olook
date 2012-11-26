@@ -128,7 +128,7 @@
 
   <h3>Abacos</h3>
   <p>
-    <b>Erp Integrate At:</b>
+    <b>Erp Integrado em:</b>
     <% if @order.erp_integrate_at %>
       <%= l @order.erp_integrate_at, :format => :short %>
     <% else %>
@@ -137,7 +137,7 @@
   </p>
 
   <p>
-    <b>Erp Cancel At:</b>
+    <b>Erp Cancelado em:</b>
     <% if @order.erp_cancel_at %>
     <%= l @order.erp_cancel_at, :format => :short %>
     <% else %>
@@ -146,7 +146,7 @@
   </p>
 
   <p>
-    <b>Erp Payment At:</b>
+    <b>Erp Pagamento em:</b>
     <% if @order.erp_payment_at %>
     <%= l @order.erp_payment_at, :format => :short %>
     <% else %>
@@ -155,15 +155,15 @@
   </p>
 
   <p>
-    <b>Erp Integrate Error:</b>
+    <b>Erro de integração do Erp:</b>
     <%= @order.erp_integrate_error %>
   </p>
   <p>
-    <b>Erp Cancel Error:</b>
+    <b>Erro de cancelamento do Erp:</b>
     <%= @order.erp_cancel_error %>
   </p>
   <p>
-    <b>Erp Payment Error:</b>
+    <b>Erro do pagamento do Erp:</b>
     <%= @order.erp_payment_error %>
   </p>
 
@@ -182,7 +182,7 @@
     <% if @order.state_events(guard: false).many? %>
     <%= form_tag(change_state_admin_order_path(@order)) do -%>
       <%= select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map{|a| [a,I18n.t("activerecord.state_machines.order.state.events.#{a}")]}, 'first',"last") %>
-      <%= submit_tag 'Change!' -%>
+      <%= submit_tag 'Mudar!' -%>
     <% end %>
     <% else %>
     Não há estados para a alteração.
