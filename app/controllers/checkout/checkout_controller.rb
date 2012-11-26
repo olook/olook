@@ -100,7 +100,6 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.telephone = session[:user_telephone_number] || current_user.addresses.first.telephone
     @bank = params[:credit_card][:bank] if params[:credit_card]
     @installments = params[:credit_card][:payments] if params[:credit_card]
-
     if @payment.valid?
       sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
       sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
