@@ -7,14 +7,16 @@ module Clearsale
       responses = ClearsaleOrderResponse.to_be_processed
       responses.each do |response|
         clearsale_response = OrderAnalysisService.check_results(response.order)
-        if OrderAnalysisService.clearsale_response_accepted?(response)
+        if OrderAnalysisService.clearsale_response_accepted?(clearsale_response)
           response.order.payments.each do |payment|
             strategy = Payments::BraspagSenderStrategy.new(nil, payment)
             strategy.credit_card_number = payment.credit_card_number
             strategy.process_capture_request
           end
           response.update_attribute("processed", true)
-        end
+        elsif OrderAnalysisService.clearsale_response_rejected?(clearsale_response)
+          response.update_attribute("processed", true)
+        end          
       end
     end
 
