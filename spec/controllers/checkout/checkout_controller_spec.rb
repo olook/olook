@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Checkout::CheckoutController do
+
   let(:credit_card_attributes) {{"user_name"=>"Joao", "credit_card_number"=>"1111222233334444", "security_code"=>"456",
                      "user_birthday"=>"28/01/1987", "expiration_date"=>"01/14", "user_identification"=>"067.239.146-51",
                      "telephone"=>"(35)7648-6749", "payments"=>"1", "bank"=>"Visa", "receipt" => "AVista" }}
@@ -283,7 +284,6 @@ describe Checkout::CheckoutController do
         moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard, :order => order)))
-        #session[:user_telephone_number] = nil
         post :create_credit_card, {:credit_card => credit_card_attributes}
       end
 
@@ -313,10 +313,13 @@ describe Checkout::CheckoutController do
         assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
       end
 
-      context "test" do
-        #TODO Refazer esse teste de uma maneira melhor
-        around :each  do
-          controller.stub!(:current_user).and_return(user)
+      context "with nil user telephone session" do
+        #TODO Eventualmente refazer esse teste de uma maneira melhor
+        before :each do
+          sign_in user
+          session[:user_telephone_number] = nil
+        end
+        around :each do
         end
         it "should re-inject telephone" do
           assigns(:payment).telephone.should eq(address.telephone)
