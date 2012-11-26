@@ -90,9 +90,10 @@ group :test do
   gem 'guard-spork'
   gem 'launchy'
   gem 'vcr', '1.11.3'
-  gem 'webmock', '1.7.0'
+  #gem 'webmock', '1.7.0'
+  gem 'fakeweb'
   gem 'selenium-webdriver', '2.21.1'
-  gem 'webmock-disabler'
+  #gem 'webmock-disabler'
 end
 
 group :production do
