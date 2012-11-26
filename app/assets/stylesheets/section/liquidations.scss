@@ -53,6 +53,7 @@ div.full_container {
         clear: both;
       }
     }
+
     div#carousel_container {
       position: relative;
       width: 480px;
@@ -138,6 +139,17 @@ div#liquidation {
           font-size: 14px;
         }
       }
+
+      div.clean_filters {
+        margin-top: -44px;
+        float: right;
+        a {
+          color: #E05789;
+          text-decoration: none;
+        }
+      }
+
+
       ol {
         width: 160px;
         margin: 0 0 20px 10px;

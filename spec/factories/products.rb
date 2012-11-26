@@ -7,6 +7,7 @@ FactoryGirl.define do
       name "Chanelle"
       description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
+      collection_id 1
       sequence :model_number do |n|
         "CSH01#{n}"
       end
@@ -44,6 +45,7 @@ FactoryGirl.define do
       name "Silver Slipper"
       description "Silver Slipper with Glitter"
       category Category::SHOE
+      collection_id 1
       model_number 'SL-SL'
     end
 
@@ -51,6 +53,7 @@ FactoryGirl.define do
       name "Red Slipper"
       description "Red Slipper with Glitter"
       category Category::SHOE
+      collection_id 1
       sequence :model_number do |n|
         "CSH01#{n}"
       end
@@ -61,6 +64,7 @@ FactoryGirl.define do
       description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
       is_visible true
+      collection_id 1
       sequence :model_number do |n|
         "CSH02#{n}"
       end
@@ -78,6 +82,7 @@ FactoryGirl.define do
       description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
       is_visible true
+      collection_id 1
       sequence :model_number do |n|
         "CSH02A#{n}"
       end
