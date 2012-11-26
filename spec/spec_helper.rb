@@ -27,6 +27,8 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
 
+  Capybara.javascript_driver = :webkit
+
   OmniAuth.config.test_mode = true
 
   OmniAuth.config.mock_auth[:facebook] = {
