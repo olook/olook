@@ -283,6 +283,7 @@ describe Checkout::CheckoutController do
         moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
         PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
         payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard, :order => order)))
+        #session[:user_telephone_number] = nil
         post :create_credit_card, {:credit_card => credit_card_attributes}
       end
 
@@ -312,10 +313,14 @@ describe Checkout::CheckoutController do
         assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
       end
 
-      it "should re-inject thelephone" do
-        session[:user_telephone_number] = nil
-        debugger
-        assigns(:payment).telephone.should eq("123")
+      context "test" do
+        #TODO Refazer esse teste de uma maneira melhor
+        around :each  do
+          controller.stub!(:current_user).and_return(user)
+        end
+        it "should re-inject telephone" do
+          assigns(:payment).telephone.should eq(address.telephone)
+        end
       end
 
       it "should render new template" do
