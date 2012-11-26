@@ -312,6 +312,12 @@ describe Checkout::CheckoutController do
         assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
       end
 
+      it "should re-inject thelephone" do
+        session[:user_telephone_number] = nil
+        debugger
+        assigns(:payment).telephone.should eq("123")
+      end
+
       it "should render new template" do
         response.should render_template('new_credit_card')
         assigns(:payment).errors[:base].should include("Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
