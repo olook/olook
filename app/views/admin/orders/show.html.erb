@@ -177,10 +177,36 @@
     </p>
     <% end  %>
   </p>
+  <% unless @order.gateway == 1  %>
+    <h3>Informações sobre Clear Sale</h3>
+    <% if @order.clearsale_order_responses.empty? %>
+      Não existem transações
+    <% else %>
+      <div id="order_clear_sale">
+        <table class=table>
+          <tr>
+           <th>ID</th>
+           <th>Score</th>
+           <th>Status</th>
+          </tr>
+          <tr>
+            <% @order.clearsale_order_responses.each do |response| %>
+              <td><%= response.id %></td>
+              <td><%= response.score %></td>
+              <td><%= response.status %></td>
+            <% end %>
+          </tr>
+        </table>
+        <p>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+
 
   <p>
     <% if @order.state_events(guard: false).many? %>
-    <%= form_tag(change_state_admin_order_path(@order)) do -%>
+      <%= form_tag(change_state_admin_order_path(@order), :class => "cb") do -%>
       <%= select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map{|a| [a,I18n.t("activerecord.state_machines.order.state.events.#{a}")]}, 'first',"last") %>
       <%= submit_tag 'Mudar!' -%>
     <% end %>
