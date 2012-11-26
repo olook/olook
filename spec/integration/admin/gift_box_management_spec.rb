@@ -30,7 +30,8 @@ feature "Admin user with business 1 role manages gift boxes", %q{
 
   scenario "As a business1 user I should be denied to create a gift box if the form is not correct" do
   	do_admin_login!(@admin)
-    visit "/admin/gift_boxes/new"
+    visit "/admin/gift_boxes"
+    click_link "New Gift Box"
     page.should have_content "Novo Gift Box Type"
     page.should have_content "Nome"
     page.should have_content "Ativo"
@@ -40,7 +41,8 @@ feature "Admin user with business 1 role manages gift boxes", %q{
 
   scenario "As a business1 user I should be allowed to create a gift box if the form is correct" do
   	do_admin_login!(@admin)
-    visit "/admin/gift_boxes/new"
+    visit "/admin/gift_boxes"
+    click_link "New Gift Box"
     page.should have_content "Novo Gift Box Type"
     page.should have_content "Nome"
     page.should have_content "Ativo"
