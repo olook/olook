@@ -6,9 +6,13 @@ class CreditCard < Payment
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
 
+  # Credit Card Number formats
+  SixToNineCreditCardNumberFormat = /^[0-9]{16,19}$/
+  FourToSevenCreditCardNumberFormat = /^[0-9]{14,17}$/
+  OneToFiveCreditCardNumberFormat = /^[0-9]{11,15}$/
+
+
   PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
-  CreditCardNumberFormat = /^[0-9]{14,17}$/
-  HipercardCreditCardNumberFormat = /^[0-9]{16,19}$/
 
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
@@ -59,9 +63,11 @@ class CreditCard < Payment
   def apply_bank_number_of_digits
     case
     when bank.match("Hipercard")
-      validate_bank_credit_card_number HipercardCreditCardNumberFormat
+      validate_bank_credit_card_number SixToNineCreditCardNumberFormat
+    when bank.match("Diners")
+      validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
     else
-      validate_bank_credit_card_number CreditCardNumberFormat
+      validate_bank_credit_card_number FourToSevenCreditCardNumberFormat
     end
   end
 
@@ -69,7 +75,7 @@ class CreditCard < Payment
 
   def validate_bank_credit_card_number bank_credit_card_number
     unless credit_card_number.match bank_credit_card_number
-      errors.add :credit_card_number, "Número de cartão inválido"
+      errors.add :credit_card_number, "Quantidade de números do cartão inválida"
     end
   end
 
