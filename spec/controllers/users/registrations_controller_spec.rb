@@ -96,6 +96,7 @@ describe Users::RegistrationsController do
   end
 
   describe "sign up" do
+
     context "when is full user" do
       it "should redirect if the user don't fill the Survey" do
         session[:profile_questions] = nil
@@ -270,15 +271,6 @@ describe Users::RegistrationsController do
         last_event.event_type.should be(EventType::TRACKING)
         last_event.description.should eq("bla")
       }.to change{Event.count}.by(2)
-    end
-
-    it "should clear tracking session" do
-      session[:profile_questions] = :some_data
-      session[:profile_birthday] = birthday
-      session[:tracking_params] = mock
-      ProfileBuilder.stub(:factory)
-      post :create, :user => user_attributes
-      session[:tracking_params].should be_nil
     end
 
     it "should save invite" do

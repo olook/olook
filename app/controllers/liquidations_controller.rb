@@ -14,7 +14,7 @@ class LiquidationsController < ApplicationController
     @teaser_banner = current_liquidation.teaser_banner_url if current_liquidation
     if current_liquidation.resume.nil?
       flash[:notice] = "A liquidação não possui produtos"
-      redirect_to member_showroom_path 
+      redirect_to member_showroom_path
     else
       respond_with @liquidation_products
     end
@@ -37,7 +37,7 @@ class LiquidationsController < ApplicationController
       flash[:notice] = "A liquidação não está ativa"
       redirect_to member_showroom_path
     else
-      # To show just the shoes of the user size at the 
+      # To show just the shoes of the user size at the
       # first time that the liquidations page is rendered
       params[:shoe_sizes] = current_user.shoes_size.to_s if current_user && current_user.shoes_size
       params[:id] = current_liquidation.id.to_s

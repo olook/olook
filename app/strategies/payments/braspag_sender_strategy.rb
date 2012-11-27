@@ -11,13 +11,14 @@ module Payments
 
     def send_to_gateway
       begin
-        update_gateway_info
         Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)
         @payment_successful = true
         payment
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
+      ensure
+        update_gateway_info
       end
     end
 

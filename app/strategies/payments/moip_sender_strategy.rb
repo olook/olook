@@ -12,12 +12,12 @@ module Payments
         self.response = MoIP::Client.checkout(payment_data)
         payment.build_response self.response
         save_payment_url!
-        set_payment_gateway
         payment
       rescue Exception => error
         ErrorNotifier.send_notifier("Moip", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
       ensure
+        set_payment_gateway
         payment.encrypt_credit_card if payment.is_a? CreditCard
         payment.save!
       end

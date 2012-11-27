@@ -1,11 +1,15 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/home" %>
 <% end %>
+
 <% if Campaign.activated_campaign %>
   <%= render :partial => "campaigns/campaign_active" %>
-<% else %>
-  <%= render :partial => "campaigns/avc_banner" %>
 <% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "home" if ["development", "test"].include? Rails.env %>
+<% end %>
+
 <section class="model">
   <h1>Didi Wagner</h1>
   <h2>Stylist Convidada</h2>
@@ -37,3 +41,4 @@
 <%= render 'shared/facebook_like_button' %>
 <%= render :partial => 'shared/metrics/criteo/home' %>
 <%= render :partial => 'shared/metrics/triggit/home' %>
+

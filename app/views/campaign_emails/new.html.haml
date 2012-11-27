@@ -1,0 +1,18 @@
+.box-cadastro
+  =image_tag("/assets/campaign_emails/img_cadastro.jpg")
+  %div.content
+    %p.titulo 20% de desconto <span><br>na sua primeira compra*</span>
+    %p.cadastre cadastre-se E receba por e-mail novidades sobre<br> moda, tendências e promoções exclusivas
+    %div.place-holder
+      %div.error 
+        %p O e-mail informado não parece correto. Que tal conferir?
+      
+    =form_for @campaign_email do |f|
+      =f.text_field :email, :value => "seunome@email.com.br"
+      =f.submit :value => "CADASTRAR", :class => "bt-enviar"
+        
+    %p.texto Aceito os <a href="http://olook.com.br/termos" target="_blank">termos de uso</a> e a <a href="http://olook.com.br/privacidade" target="_blank">política de privacidade</a>
+    
+    %small * O desconto será automaticamente calculado em sua sacola de compras
+
+  %button{:type => "button", :class => "close"} Fechar 
