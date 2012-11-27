@@ -1,4 +1,4 @@
-<% present 'Moment', :moment => @moment do |moment_presenter| %>
+<% present 'Moment', {:moment => @moment, :moments => @moments, :category_id => @category_id} do |moment_presenter| %>
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/moments" %>
   <% end %>
@@ -10,7 +10,7 @@
 
 
   <div id="moments" class="content">
-    <%= render "nav", :moments => @moments %>
+    <%= moment_presenter.display_nav_bar %>
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
       <div id="shoe_size_filter">
