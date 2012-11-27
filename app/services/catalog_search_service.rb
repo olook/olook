@@ -36,7 +36,7 @@ class CatalogSearchService
     query_accessories = query_accessories.and(l_products[:category_id].in(Category::ACCESSORY)) if query_accessories
     
     all_queries = [query_shoes, query_bags, query_accessories].compact
-    
+
     @query_base = case all_queries.size
       when 1 then
         @query_base.and(all_queries[0])
@@ -52,6 +52,7 @@ class CatalogSearchService
     if @liquidation
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
     end
+
     @query.where(@query_base)
           .order(sort_filter, 'name asc')
           .group("catalog_products.product_id")
@@ -65,9 +66,10 @@ class CatalogSearchService
 
   def sort_filter
     case params[:sort_filter]
+      when "0" then "category_id asc"
       when "1" then "retail_price asc"
       when "2" then "retail_price desc"
-      else "category_id asc"
+      else "retail_price asc"
     end
   end
 end
