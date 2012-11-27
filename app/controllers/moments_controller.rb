@@ -3,8 +3,8 @@ class MomentsController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
-  before_filter :load_catalog_products
   before_filter :filter_products_by_category, :if => lambda{ params[:category_id] }
+  before_filter :load_catalog_products
 
   def index
     render :show, id: @moment.id
@@ -48,6 +48,7 @@ class MomentsController < ApplicationController
 
   def filter_products_by_category
     @category_id = params[:category_id]
+    params.delete (:shoe_sizes) if @category_id.to_i != Category::SHOE
   end
 
 end
