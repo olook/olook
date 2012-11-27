@@ -229,7 +229,7 @@ $(document).ready(function() {
   });
 
   // For now both fone field will acept nine digits
-  if(($("input:text.phone").length == 1) && ($("input:text.phone").val().length == 13)) {
+  if(($("input:text.phone").length >= 1) && ($("input:text.phone").val().length == 13)) {
     $("input:text.phone").setMask('(99)9999-9999');
   }else{
     $("input:text.phone").setMask('(99)99999-9999');
@@ -296,10 +296,6 @@ $(document).ready(function() {
     $("body").removeClass('cart_submenu_opened');
   });
 
-  // $("div#wrapper_menu nav.menu ul li.cart ul.submenu li a.delete").live("click", function() {
-  //   $(this).parent("li").remove();
-  // });
-
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
     var items = parseInt($("#cart_items").text());
@@ -312,18 +308,6 @@ $(document).ready(function() {
       $("nav.menu ul li.cart a.cart.selected").removeClass("selected");
     }
   });
-
-  // $("#product_add_to_cart").bind("ajax:success", function(evt, xhr, settings){
-  //   $("#cart_summary").show();
-  //   $("#cart_summary li.last").before(xhr.responseText);
-  //   $("#cart_summary li.product_item:last").fadeIn('slow');
-  //
-  //   $("nav.menu ul li.cart a.cart").addClass("selected");
-  //   $("#cart_items").text(parseInt($("#cart_summary li.product_item").length))
-  //   setTimeout(function(){
-  //     $("#cart_summary").fadeOut('slow');
-  //   }, 2000);
-  // });
 
   $("div.box_product div.line ol li a.product_color").live("mouseenter", function() {
     $(this).parents("ol").find("li a").removeClass("selected");
@@ -363,6 +347,11 @@ $(document).ready(function() {
 
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
     initBase.showProfileLightbox();
+
+    container = $('div#profile_quiz.clone img');
+    profile = container.attr('class');
+    container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');
+    
     e.preventDefault();
   });
 

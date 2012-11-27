@@ -23,7 +23,6 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}/shared/database.yml #{version_path}/config/database.yml"
     run "ln -nfs #{deploy_to}/shared/analytics.yml #{version_path}/config/analytics.yml"
     run "ln -nfs #{deploy_to}/shared/aws.yml #{version_path}/config/aws.yml"
-    run "ln -nfs #{deploy_to}/shared/criteo.yml #{version_path}/config/criteo.yml"
     run "ln -nfs #{deploy_to}/shared/fog_credentials.yml #{version_path}/config/fog_credentials.yml"
     run "ln -nfs #{deploy_to}/shared/moip.yml #{version_path}/config/moip.yml"
     run "ln -nfs #{deploy_to}/shared/newrelic.yml #{version_path}/config/newrelic.yml"

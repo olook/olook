@@ -10,8 +10,9 @@
     </div>
   <% end %>
   <div class="content relative">
-    <h1><%= link_to 'Olook', root_path %></h1>     
-	<%= link_to image_tag("campaigns/niver/1ano-muito.png",  :class => user_signed_in? ? "niver-logged" : "niver"), "/1anomuito", :class => "img-niver" %>
+    <h1><%= link_to 'Olook', root_path %></h1>
+    <%= image_tag("campaigns/christmas/santa_claus.png", :class => "christmas") %>     
+	  <%= link_to image_tag("campaigns/logo-avc.jpg"), "/responsabilidade-social#campanha", :class => "img-avc" %>
     <div id="session">
       <% if user_signed_in? %>
         <div class="user">
