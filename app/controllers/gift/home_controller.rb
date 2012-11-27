@@ -15,6 +15,9 @@ class Gift::HomeController < Gift::BaseController
     @profiles = profiles
     @profiles_products = fetch_profiles_products
     @recipient_relations = GiftRecipientRelation.ordered_by_name
+    @helena_tips = GiftBox.find_by_name("Dica da Helena")
+    @top_five = GiftBox.find_by_name("Top Five")
+    @hot_on_facebook = GiftBox.find_by_name("Hot on Facebook")
   end
 
   def update_birthdays_by_month
