@@ -8,14 +8,15 @@ class CreditCard < Payment
 
   PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
   CreditCardNumberFormat = /^[0-9]{14,17}$/
+  HipercardCreditCardNumberFormat = /^[0-9]{16,19}$/
+
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
   validates :user_name, :bank, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
-
+  validate :apply_bank_number_of_digits
   validates_format_of :telephone, :with => PhoneFormat, :on => :create
-  validates_format_of :credit_card_number, :with => CreditCardNumberFormat, :on => :create
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
@@ -53,6 +54,23 @@ class CreditCard < Payment
       last_digits = 4
       self.credit_card_number = "XXXXXXXXXXXX#{number[(number.size - last_digits)..number.size]}"
       self.security_code = nil
+  end
+
+  def apply_bank_number_of_digits
+    case
+    when bank.match("Hipercard")
+      validate_bank_credit_card_number HipercardCreditCardNumberFormat
+    else
+      validate_bank_credit_card_number CreditCardNumberFormat
+    end
+  end
+
+  private
+
+  def validate_bank_credit_card_number bank_credit_card_number
+    unless credit_card_number.match bank_credit_card_number
+      errors.add :credit_card_number, "Número de cartão inválido"
+    end
   end
 
 end
