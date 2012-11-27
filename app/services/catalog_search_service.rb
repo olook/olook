@@ -37,8 +37,6 @@ class CatalogSearchService
     
     all_queries = [query_shoes, query_bags, query_accessories].compact
 
-    # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
-    all_queries << l_products[:category_id].in(params[:category_id]) if params[:category_id]
     
     @query_base = case all_queries.size
       when 1 then
@@ -49,6 +47,11 @@ class CatalogSearchService
         @query_base.and(all_queries[0].or(all_queries[1]).or(all_queries[2]))
       else
         params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes])) : @query_base
+    end
+    
+    # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
+    if params[:category_id]
+      @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) 
     end
     
     @query = Catalog::Product.joins(:product).joins(:variant)
