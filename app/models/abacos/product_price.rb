@@ -19,11 +19,26 @@ module Abacos
         CatalogService.save_product product, :update_price => true
       end
 
-      confirm_price
+      if product.is_kit
+        update_kit_variant_price
+      else
+        confirm_price
+      end
+
     end
     
     def confirm_price
       Resque.enqueue(Abacos::ConfirmPrice, self.integration_protocol)
+    end
+
+    def update_kit_variant_price
+      parsed_data = { integration_protocol: self.integration_protocol,
+        number:               self.model_number,
+        price:                self.price,
+        retail_price:         self.retail_price
+      }
+
+      Resque.enqueue(Abacos::IntegratePrice, Abacos::VariantPrice.to_s, parsed_data)
     end
 
     def self.parse_abacos_data(abacos_product)
