@@ -14,7 +14,6 @@ module ApplicationHelper
 
   def selected_if_current(controller_action)
     controller_action.each do |item|
-      # binding.pry
       subs = item.split("#")
       category = subs[2]
       return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_i==params[:category_id])

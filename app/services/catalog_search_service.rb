@@ -55,6 +55,7 @@ class CatalogSearchService
     if @liquidation
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
     end
+
     @query.where(@query_base)
           .order(sort_filter, 'name asc')
           .group("catalog_products.product_id")
@@ -68,9 +69,10 @@ class CatalogSearchService
 
   def sort_filter
     case params[:sort_filter]
-      when "1" then "retail_price asc"
-      when "2" then "retail_price desc"
-      else "category_id asc"
+      when "0" then "category_id asc"
+      when "1" then "price asc"
+      when "2" then "price desc"
+      else "price asc"
     end
   end
 end
