@@ -7,7 +7,7 @@ module Abacos
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
                 :color_name, :collection_id, :how_to, :moments, :details, :profiles,
-                :is_kit
+                :is_kit, :pre_defined_descriptor, :class_description
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -114,30 +114,41 @@ module Abacos
     end
 
     def create_kit_variant
+      parsed_data = Abacos::Variant.parse_abacos_data ({
+        :descritor_pre_definido   => keys_to_symbol(self.pre_defined_descriptor),
+        :descricao_classe         => keys_to_symbol(self.class_description),
+        :protocolo_produto        => self.integration_protocol,
+        :codigo_produto_pai       => self.model_number,
+        :codigo_produto       => self.model_number
+        })
+
+      Resque.enqueue(Abacos::Integrate, Abacos::Variant.to_s, parsed_data)
     end
 
     def self.parse_abacos_data(abacos_product)
       {
-        :integration_protocol => abacos_product[:protocolo_produto],
-        :name                 => parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
-        :description          => parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
-        :model_number         => abacos_product[:codigo_produto].to_s,
-        :category             => parse_category(abacos_product[:descricao_classe]),
-        :width                => abacos_product[:largura].to_f,
-        :height               => abacos_product[:espessura].to_f,
-        :length               => abacos_product[:comprimento].to_f,
-        :weight               => abacos_product[:peso].to_f,
-        :color_name           => parse_color( abacos_product[:descritor_pre_definido] ),
-        :collection_id        => parse_collection(abacos_product[:descricao_grupo]),
-        :details              => parse_details( abacos_product[:caracteristicas_complementares] ),
-        :how_to               => parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        :moments              => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
-        # :color_category       => parse_color_category( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
-        :profiles             => parse_profiles( abacos_product[:caracteristicas_complementares] ),
-        :is_kit               => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false
+        :integration_protocol   => abacos_product[:protocolo_produto],
+        :name                   => parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
+        :description            => parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
+        :model_number           => abacos_product[:codigo_produto].to_s,
+        :category               => parse_category(abacos_product[:descricao_classe]),
+        :width                  => abacos_product[:largura].to_f,
+        :height                 => abacos_product[:espessura].to_f,
+        :length                 => abacos_product[:comprimento].to_f,
+        :weight                 => abacos_product[:peso].to_f,
+        :color_name             => parse_color( abacos_product[:descritor_pre_definido] ),
+        :collection_id          => parse_collection(abacos_product[:descricao_grupo]),
+        :details                => parse_details( abacos_product[:caracteristicas_complementares] ),
+        :how_to                 => parse_how_to( abacos_product[:caracteristicas_complementares] ),
+        :moments                => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        :profiles               => parse_profiles( abacos_product[:caracteristicas_complementares] ),
+        :is_kit                 => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false,
+        :pre_defined_descriptor => abacos_product[:descritor_pre_definido],
+        :class_description      => abacos_product[:descricao_classe]
       }
     end
   private
+
     def self.parse_moments(moments)
       moments_array = if moments.kind_of?(Array)
         moments.each.map { |item|
@@ -239,5 +250,17 @@ module Abacos
     rescue
       raise RuntimeError.new "Invalid collection '#{data}'"
     end
+
+    def keys_to_symbol(params)
+      case params.class.to_s
+        when "Hash"
+          Hash[params.map { |k,v| [k.to_sym, keys_to_symbol(v)] } ]
+        when "Array"
+          params.map { |v| keys_to_symbol(v) }
+        else
+          params
+      end
+    end
+    
   end
 end
