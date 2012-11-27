@@ -21,11 +21,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, lookbooks, moments, gift, stylist, liquidation, blog, cart].join.html_safe
+    [showroom_offline, lookbooks, moments, categories, gift, stylist, liquidation, cart].join.html_safe
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
+    [showroom, lookbooks, moments, categories, gift, my_friends, stylist, liquidation, cart].join.html_safe
   end
 
   def render_half_user_menu
@@ -71,6 +71,22 @@ class MenuPresenter < BasePresenter
 
   def moments
     render_item("Coleções", h.moments_path, "moments", ["moments#index"])
+  end
+
+  def categories
+    [shoes, bags, accessories]
+  end
+
+  def shoes
+    render_item("Sapatos", h.shoes_path, "categories", ["moments#show#1"])
+  end
+
+  def bags
+    render_item("Bolsas", h.bags_path, "categories", ["moments#show#2"])
+  end
+
+  def accessories
+    render_item("Acessórios", h.accessories_path, "categories", ["moments#show#3"])
   end
 
   def gift

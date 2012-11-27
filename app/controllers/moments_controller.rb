@@ -4,6 +4,7 @@ class MomentsController < ApplicationController
 
   before_filter :load_products_of_user_size, only: [:show]
   before_filter :load_catalog_products
+  before_filter :filter_products_by_category, :if => lambda{ params[:category_id] }
 
   def index
     render :show, id: @moment.id
@@ -43,6 +44,10 @@ class MomentsController < ApplicationController
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
     end
+  end
+
+  def filter_products_by_category
+    @category_id = params[:category_id]
   end
 
 end
