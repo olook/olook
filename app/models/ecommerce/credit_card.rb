@@ -75,7 +75,7 @@ class CreditCard < Payment
 
   def validate_bank_credit_card_number bank_credit_card_number
     unless credit_card_number.match bank_credit_card_number
-      errors.add :credit_card_number, "Quantidade de números do cartão inválida"
+      errors.add :credit_card_number, "possui uma quantidade inválida"
     end
   end
 
