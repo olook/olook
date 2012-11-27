@@ -12,7 +12,7 @@
 
   <% @profiles.each do |profile| %>
     <section id="profile_products" class="sub <%= profile %>">
-      <%= render "profile_products", products: @profiles_products	[profile.to_sym] %>
+      <%= render "profile_products", products: @profiles_products	[profile.to_sym], profile: profile %>
     </section>
   <% end %>
 
