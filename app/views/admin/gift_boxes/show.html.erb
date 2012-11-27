@@ -12,7 +12,7 @@
     <%= @gift_box.active ? 'Sim' : 'Não' %>
   </p>
 
-  <%= if @gift_box.thumb_image? %>
+  <% if @gift_box.thumb_image? %>
     <p>
       <b>Thumb:</b><br/>
       <%= image_tag @gift_box.thumb_image.try(:url) %>
