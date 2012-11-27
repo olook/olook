@@ -36,6 +36,9 @@ class CatalogSearchService
     query_accessories = query_accessories.and(l_products[:category_id].in(Category::ACCESSORY)) if query_accessories
     
     all_queries = [query_shoes, query_bags, query_accessories].compact
+
+    # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
+    all_queries << l_products[:category_id].in(params[:category_id]) if params[:category_id]
     
     @query_base = case all_queries.size
       when 1 then
