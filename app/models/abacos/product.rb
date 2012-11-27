@@ -114,15 +114,18 @@ module Abacos
     end
 
     def create_kit_variant
-      parsed_data = Abacos::Variant.parse_abacos_data ({
+      parsed_data = create_abacos_kit_variant_data
+      Resque.enqueue(Abacos::Integrate, Abacos::Variant.to_s, parsed_data)
+    end
+
+    def create_abacos_kit_variant_data
+      Abacos::Variant.parse_abacos_data ({
         :descritor_pre_definido   => keys_to_symbol(self.pre_defined_descriptor),
         :descricao_classe         => keys_to_symbol(self.class_description),
         :protocolo_produto        => self.integration_protocol,
         :codigo_produto_pai       => self.model_number,
         :codigo_produto       => self.model_number
         })
-
-      Resque.enqueue(Abacos::Integrate, Abacos::Variant.to_s, parsed_data)
     end
 
     def self.parse_abacos_data(abacos_product)
