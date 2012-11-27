@@ -37,7 +37,11 @@ module Abacos
         integrate_details(product)
         integrate_profiles(product)
         integrate_catalogs(product)
-        confirm_product
+        if product.is_kit
+          create_kit_variant
+        else
+          confirm_product
+        end
       end
     end
 
@@ -107,6 +111,9 @@ module Abacos
 
     def confirm_product
       Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol)
+    end
+
+    def create_kit_variant
     end
 
     def self.parse_abacos_data(abacos_product)
