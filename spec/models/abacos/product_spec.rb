@@ -47,7 +47,7 @@ describe Abacos::Product do
       subject.integrate
     end
 
-    it 'should call the merging methods on the product' do
+    it 'should call the merging methods on the product and confirm it' do
       mock_product = mock_model(::Product)
       subject.should_receive(:find_or_initialize_product).and_return(mock_product)
       subject.should_receive(:integrate_attributes).with(mock_product)
@@ -57,6 +57,20 @@ describe Abacos::Product do
       subject.should_receive(:confirm_product)
 
       subject.integrate
+    end
+
+    describe "a product that is a kit" do
+      it 'should call the merging methods on the product and create kit variant it' do
+        mock_product = mock_model(::Product)
+        mock_product.stub(:is_kit).and_return true
+        subject.should_receive(:find_or_initialize_product).and_return(mock_product)
+        subject.should_receive(:integrate_attributes).with(mock_product)
+        subject.should_receive(:integrate_details).with(mock_product)
+        subject.should_receive(:integrate_profiles).with(mock_product)
+        subject.should_receive(:integrate_catalogs).with(mock_product)
+        subject.should_receive(:create_kit_variant)
+        subject.integrate
+      end
     end
 
     describe "helper methods" do
@@ -142,6 +156,15 @@ describe Abacos::Product do
           subject.stub(:integration_protocol).and_return(fake_protocol)
           Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol)
           subject.confirm_product
+        end
+      end
+
+      describe "#create_kit_variant" do
+        let(:fake_data) { {:key => 'value'} }
+        it 'should add a task on the queue to integrate' do
+          subject.stub(:create_abacos_kit_variant_data).and_return(fake_data)
+          Resque.should_receive(:enqueue).with(Abacos::Integrate, Abacos::Variant.to_s, fake_data)
+          subject.create_kit_variant
         end
       end
     end
@@ -303,6 +326,22 @@ describe Abacos::Product do
           described_class.parse_collection_date('Coleção')
         }.to raise_error(RuntimeError, "Invalid collection 'Coleção'")
       end
+    end
+
+    describe "#keys_to_symbol" do
+
+      it "should change string key to symbol" do
+        params = {"string_key" => "value"}
+        result = subject.send :keys_to_symbol, params
+        result.should eq({:string_key => "value"})
+      end
+
+      it "should change sub-hashes keys to symbol" do
+        params = {:key => {"string_key" => "value"}}
+        result = subject.send :keys_to_symbol, params 
+        result.should eq({:key => {:string_key => "value"}})
+      end
+
     end
   end
 
