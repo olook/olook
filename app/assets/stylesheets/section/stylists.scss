@@ -10,11 +10,11 @@ section#stylist {
 	 clear:both;
     margin: 0 0 60px;
     h1.stylist {
-      background: url("/assets/stylist/stylist.jpg") top center no-repeat;
+      background: url("/assets/stylist/stylists_convidadas.png") top center no-repeat;
       text-indent: -9999px;
       width: 990px;
-      height: 49px;
-      margin: 0 0 95px 0;
+      height: 58px;
+      margin: 0 0 42px 0;
       display: block;
     }
     img.models {
@@ -38,7 +38,7 @@ section#stylist {
       h1 {
         font-size: 50px;
         line-height: 37px;
-        margin: 50px 0 10px 0;
+        margin: 0px 0 10px 0;
         &+p {
           font-family: $kepler;
           font-size: 15px;
@@ -72,7 +72,7 @@ section#stylist {
     div.products {
       position: relative;
       overflow: visible;
-      margin-right: 30px;
+      margin-right: 45px;
       border: 1px #ddd solid;
       display: block;
       float: right;
