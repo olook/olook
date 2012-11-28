@@ -28,7 +28,7 @@
           </ul>
         </fieldset>
 
-        <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
+        <%# submit_tag("Ver sugestão de presentes", :id => "finish") %>
         <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %></p>
       <% end %>
 
@@ -48,5 +48,8 @@
       <% end %>
     </section>
   </div>
+  <section id="profile_products">
+    <%= render "gift/home/profile_products", products: @products %>
+  </section>
 <% end %>
 

@@ -8,6 +8,8 @@ class Gift::RecipientsController < Gift::BaseController
     profile_id = params[:gift_recipient][:profile_id] if params.include?(:gift_recipient)
     @profiles = @gift_recipient.ranked_profiles(profile_id)
     @main_profile = profile_id ? @profiles.first : (@gift_recipient.try(:profile) || @profiles.first)
+    product_finder_service = ProductFinderService.new(@gift_recipient)
+    @products = product_finder_service.showroom_products(:description => @gift_recipient.shoe_size, :not_allow_sold_out_products => true)
   end
 
   def update
