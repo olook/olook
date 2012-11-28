@@ -47,8 +47,12 @@ class MomentsController < ApplicationController
   end
 
   def filter_products_by_category
-    @category_id = params[:category_id]
-    params.delete (:shoe_sizes) if @category_id.to_i != Category::SHOE
+    if (params[:category_id].nil? || params[:category_id] == "")
+      params.delete :category_id
+    else
+      @category_id = params[:category_id].to_i
+    end
+    params.delete (:shoe_sizes) if @category_id != Category::SHOE
   end
 
 end
