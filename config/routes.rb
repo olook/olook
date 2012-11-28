@@ -33,6 +33,7 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
+  match "/natal", :to => "moments#show", :as => "natal", :defaults => {:id => 8}
 
   #LOOKBOOKS
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
@@ -40,15 +41,15 @@ Olook::Application.routes.draw do
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
-  get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
-  get "/promo1anomuito" , :to => "liquidations#index", :as => "promo1anomuito"
-  get "/blackfriday" , :to => "liquidations#index", :as => "blackfriday"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
   get '/colecoes', to: "moments#index", as: "moments"
   get '/colecoes/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
+  match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
+  match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
+  match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
