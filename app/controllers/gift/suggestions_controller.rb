@@ -34,7 +34,8 @@ class Gift::SuggestionsController < Gift::BaseController
     position = 0
     params[:variants].each_pair do |k, id|
       variant = Variant.find(id)
-      @cart.add_item(variant, 1, position, true) if variant
+      # @cart.add_item(variant, 1, position, true) if variant
+      @cart.add_item(variant, 1, position) if variant
       position += 1
     end
 

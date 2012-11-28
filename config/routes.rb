@@ -126,6 +126,7 @@ Olook::Application.routes.draw do
         post "new_with_data" => "occasions#new_with_data"
       end
     end
+    get "profiles/:name" => "profiles#show"
   end
 
   #ADMIN
