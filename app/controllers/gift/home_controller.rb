@@ -8,7 +8,7 @@ class Gift::HomeController < Gift::BaseController
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def profiles
-    %w[moderna casual chic sexy]
+    %w[moderna casual chic sexy]    
   end
 
   def index

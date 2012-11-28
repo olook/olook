@@ -38,6 +38,14 @@ body div.full_container {
           display: block;
           top: 0;
           right: 0;
+			 &.reminder{
+				height:146px !important;padding-top:10px !important;
+				p{text-transform:uppercase;font-family:$avenir_medium;font-size:11px !important;color:#000;
+					&.name{font-size:15px !important;width:162px;height:31px;line-height:31px;border:solid 1px #DEDEDE;text-align:center;}
+				}
+				a.bt-recomendation{display:block;width:170px;height:35px;font-size:0;font-family:a;background: image-url("gift/bt-recomendations.png") no-repeat !important;}
+				a.my-gifts{font-size:11px;color:#DE4F7F;}
+			}
           h1 {
             font-family: $avenir;
             font-size: 14px;
@@ -108,6 +116,7 @@ body div.full_container {
               height: 48px;
               margin: 0 0 5px;
               padding: 6px 0 0;
+				  &.chic{width:150px;}
             }
             &.selected {
               background: image-url('gift/bg-profile-selected.jpg') bottom center no-repeat;
