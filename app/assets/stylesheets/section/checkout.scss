@@ -127,12 +127,12 @@ section#credits_explanation{
 
   ul li div.value {
     width: 70px;
-  } 
+  }
 
   .prohibited {
     text-decoration: line-through;
     color: #A8A8A8;
-  } 
+  }
 
 }
 
@@ -1074,11 +1074,6 @@ section#payment {
                 background-position: -389px 0;
               }
             }
-            &.Aura {
-              label {
-                background-position: -433px 0;
-              }
-            }
             input[type="radio"] {
               margin: 10px 5px 0 5px;
               float: left;
@@ -1253,9 +1248,6 @@ section#payment {
           }
           &.Hipercard {
             background-position: -392px -5px;
-          }
-          &.Aura {
-            background-position: -434px -5px;
           }
         }
       }
