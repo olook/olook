@@ -1,0 +1,62 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/gift" %>
+  <%= stylesheet_link_tag "section/suggestions" %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "gift/suggestions" %>
+  <%= render "shared/metrics/metaffiliation/action", :email => current_user ? current_user.email : 1 %>
+  <%= render "shared/metrics/adlead/adlead_gift", :email => current_user ? current_user.email : 1%>
+<% end %>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<% content_for :full do %>
+  <div class="full_bg">
+    <section id="suggestion">
+      <div class="content">
+        <ul>
+          <li><%= link_to "Voltar para presentes", gift_root_path %></li>
+        </ul>
+        <div id="profile">
+          <%= image_tag "gift/profile-#{@profile.alternative_name.parameterize}.png" %>
+          <div>
+            <h2>Ela é:</h2>
+            <h1><%= @profile.alternative_name.capitalize %></h1>
+            <p>Não faz o estilo dela? <%= link_to "Escolha outro estilo.", gift_root_path %></p>
+          </div>
+        </div>
+        <section id="suggestions_container">
+          <h2>Confira:</h2>
+          <h1>Sugestões de presentes para ela</h1>
+          <%= render 'gift/suggestions/shoe_filter' %>
+          <% @products.each_slice(5).with_index do |products_array, index| %>
+            <ul>
+              <% products_array.each do |product| %>
+                <%= render "shared/showroom_product_item", :product => product %>
+              <% end %>
+            </ul>
+            <% if index == 0 %>
+              <h1 class="discount"><strong>20% de desconto</strong> no segundo presente e <strong>40% de desconto</strong> no terceiro: aproveite!</h1>
+            <% elsif index == 1 %>
+              <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste (em compras a partir de R$60)</h1>
+            <% end %>
+          <% end %>
+        </section>
+      </div>
+    </section>
+    <%= render "gift/home/suggestions" %>
+    <%#= render "gift/home/suggestion_products", products: @suggestion_products %>
+    <%#= render "gift/home/quiz" %>
+  </div>
+<% end %>
+
+<div id="quick_view">
+</div>

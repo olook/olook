@@ -24,6 +24,9 @@ $(function () {
     $("section#profile_products." + profile).slideDown();
     var container_position = $("section#profile_products." + profile).offset().top - 40;
     InitGift.slideTo(container_position);
+
+    $("section#profile_products." + profile + " div.content a#see_more")[0].href = "/presentes/profiles/" + profile
+
     e.preventDefault();
   });
 
