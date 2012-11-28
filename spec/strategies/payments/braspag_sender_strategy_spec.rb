@@ -74,8 +74,6 @@ describe Payments::BraspagSenderStrategy do
 
   end
 
-
-
   context "processing response" do
     subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
 

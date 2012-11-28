@@ -82,7 +82,7 @@ module Payments
 
     def capture(authorize_response)
       capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
-      process_capture_response(capture_response)
+      process_capture_response(capture_response,authorize_response)
     end
 
     def authorize_transaction_data
@@ -158,17 +158,17 @@ module Payments
       end    
     end
 
-    def process_capture_response(capture_response)
+    def process_capture_response(capture_response, authorize_response)
       if capture_response 
-        capture_transaction_result = capture_response[:capture_transaction_response][:capture_transaction_result]
+        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result] 
         if capture_transaction_result[:success]
-          create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) 
-          update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
+          create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id]) 
+          update_payment_response(Payment::SUCCESSFUL_STATUS, capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_message])
         else
-          update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
+          update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
         end
       else
-        update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
+        update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
       end
     end    
 
