@@ -1,11 +1,17 @@
 # -*- encoding : utf-8 -*-
-superadmin = Role.create!(:name => "superadministrator", :description => "Manages the whole system")
+superadmin = Role.where(:name => "superadministrator").first_or_create(:description => "Manages the whole system")
 
-admin = Admin.new(:email => "admin@olook.com",
-                  :password =>"DifficultPassword123",
-                  :first_name => "administrator",
-                  :last_name => "olook")
-admin.role = superadmin
-admin.save!
+Admin.where(:email => "admin@olook.com").first_or_create( :password =>"DifficultPassword123",
+																										    :first_name => "administrator",
+																										    :last_name => "olook",
+																										    :role => superadmin)
 
-survey = SurveyBuilder.new(SURVEY_DATA, "Registration Survey").build
+SurveyBuilder.new( SURVEY_DATA, "Registration Survey" ).build
+
+{ "Sexy" => "sexy", 
+	"Elegante" => "chic", 
+	"Básica" => "casual", 
+	"Fashionista" => "moderna" }.each do |key, value|
+		Profile.find_by_name(key).update_attribute(:alternative_name, value)
+end
+
