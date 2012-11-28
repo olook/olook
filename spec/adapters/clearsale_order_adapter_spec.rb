@@ -12,14 +12,16 @@ describe ClearsaleOrderAdapter do
 
     it "should adapt the user data" do
       expected_user_data = {:email=>"teste@teste.com",
-                            :id=>1,
+                            :id=>nil,
                             :cpf=>"600.745.487-86",
                             :full_name=>"User First Name User Last Name",
                             :birthdate=>"12/09/1976",
                             :phone=>"(35)3456-6849",
                             :gender=>"f",
                             :last_sign_in_ip=>"127.0.0.1"}
-      adapter.adapt_user.should eq expected_user_data
+      result = adapter.adapt_user
+      expected_user_data[:id] = result[:id]
+      result.should eq expected_user_data
     end
 
     it "should adapt the payment data" do
@@ -34,7 +36,7 @@ describe ClearsaleOrderAdapter do
     end    
 
     it "should adapt the order data" do
-      expected_order_data = {:id=>3,
+      expected_order_data = {:id=>nil,
                              :paid_at=>adapter.paid_at,
                              :billing_address=>
                               {:street_name=>"Rua Exemplo Teste",
@@ -62,8 +64,10 @@ describe ClearsaleOrderAdapter do
                                  {:id=>"35", :name=>"Chanelle", :category=>{:id=>1, :name=>"Sapato"}},
                                 :price=> 0.0,
                                 :quantity=>2}]}
+      result = adapter.adapt_order
+      expected_order_data[:id] = result[:id]
 
-      adapter.adapt_order.should eq expected_order_data
+      result.should eq expected_order_data
     end        
 
   end
