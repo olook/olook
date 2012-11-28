@@ -18,8 +18,8 @@ class CreditCard < Payment
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
-  validates :user_name, :bank, :credit_card_number, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
   validate :apply_bank_number_of_digits
+  validates :user_name, :bank, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
   validates_format_of :telephone, :with => PhoneFormat, :on => :create
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
@@ -61,20 +61,20 @@ class CreditCard < Payment
   end
 
   def apply_bank_number_of_digits
-    case
-    when bank.match("Hipercard")
-      validate_bank_credit_card_number SixToNineCreditCardNumberFormat
-    when bank.match("Diners") || bank.match("AmericanExpress")
-      validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
-    else
-      validate_bank_credit_card_number FourToSevenCreditCardNumberFormat
-    end
+      case bank
+      when /Hipercard/
+        validate_bank_credit_card_number SixToNineCreditCardNumberFormat
+      when /Diners/ || /AmericanExpress/
+        validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
+      else
+        validate_bank_credit_card_number FourToSevenCreditCardNumberFormat
+      end unless bank.blank?
   end
 
   private
 
   def validate_bank_credit_card_number bank_credit_card_number
-    unless credit_card_number.match bank_credit_card_number
+    unless credit_card_number.match(bank_credit_card_number)
       errors.add :credit_card_number, "possui uma quantidade inválida"
     end
   end
