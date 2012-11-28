@@ -44,7 +44,7 @@
               <% end %>
             </ul>
             <% if index == 0 %>
-              <h1 class="discount"><strong>20% de desconto</strong> no segundo presente e <strong>40% de desconto</strong> no terceiro: aproveite!</h1>
+              <h1 class="discount"><strong>TROCA GRÁTIS</strong> EM ATÉ 30 DIAS. <strong>DEVOLUÇÃO E DINHEIRO DE VOLTA</strong></h1>
             <% elsif index == 1 %>
               <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste (em compras a partir de R$60)</h1>
             <% end %>
@@ -53,7 +53,7 @@
       </div>
     </section>
     <%= render "gift/home/suggestions" %>
-    <%#= render "gift/home/suggestion_products", products: @suggestion_products %>
+    <%= render "gift/home/suggestion_products", products: @suggestion_products %>
     <%#= render "gift/home/quiz" %>
   </div>
 <% end %>
