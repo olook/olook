@@ -43,6 +43,19 @@ class ProductFinderService
     remove_color_variations result
   end
 
+  def products_for_specific_profile(*args)
+    options = args.extract_options!
+
+    categories = Category.list_of_all_categories
+    results = []
+    categories.each do |category|    
+      results << profile_products(profile: options[:profile],
+                                  category: category)[0..4]
+    end
+
+    results.flatten
+  end
+
   def profile_products(*args)
     options = args.extract_options!
     options[:collection] = current_collection unless options[:collection]
