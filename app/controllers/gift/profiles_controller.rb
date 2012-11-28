@@ -6,7 +6,8 @@ class Gift::ProfilesController < Gift::BaseController
   	@profile 	= Profile.find_by_alternative_name( params[:name] )
 
   	finder = ProductFinderService.new(nil)
-  	@products = finder.profile_products( profile: @profile )
+    # @products = finder.profile_products( profile: @profile )
+  	@products = finder.products_for_specific_profile( profile: @profile )
     
     @helena_tips = GiftBox.find_by_name("Dica da Helena")
     @top_five = GiftBox.find_by_name("Top Five")
