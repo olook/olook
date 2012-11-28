@@ -13,4 +13,16 @@ class Gift::ProfilesController < Gift::BaseController
     @hot_on_facebook = GiftBox.find_by_name("Hot on Facebook")
   end
 
+  def helena_tips
+    @suggestion_products = GiftBox.find_by_name("Dica da Helena").suggestion_products
+  end
+
+  def top_five
+    @suggestion_products = GiftBox.find_by_name("Top Five").suggestion_products
+  end
+
+  def hot_on_facebook
+    @suggestion_products = GiftBox.find_by_name("Hot on Facebook").suggestion_products
+  end
+
 end
