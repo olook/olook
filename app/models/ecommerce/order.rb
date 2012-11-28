@@ -4,6 +4,14 @@ class Order < ActiveRecord::Base
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
 
+  AUTHORIZED_STATES = [
+    "delivered",
+    "authorized",
+    "delivered",
+    "delivering",
+    "picking"
+  ]
+
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
     "under_review" => "Em revisão",
