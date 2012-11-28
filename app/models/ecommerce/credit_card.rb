@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CreditCard < Payment
 
-  BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard", "Aura"]
+  BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard"]
   PAYMENT_QUANTITY = 6
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
