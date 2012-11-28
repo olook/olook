@@ -4,8 +4,6 @@
 
 <% if Campaign.activated_campaign %>
   <%= render :partial => "campaigns/campaign_active" %>
-<% else %>
-  <%= render :partial => "campaigns/avc_banner" %>
 <% end %>
 
 <% content_for :footer do %>
