@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :clearsale_order_response do
-    order nil
-    status "MyString"
+    association :order, :factory => :clean_order
     score "9.99"
+    processed false
   end
 end

@@ -20,6 +20,20 @@ class ClearsaleOrderResponse < ActiveRecord::Base
   ]
 
   def self.to_be_processed
-    where("processed = false AND status IN (#{STATES_TO_BE_PROCESSED.map{|state| "\'"+state.to_s+"\'"}.join(',')})")
+    where(:processed => false, :status => ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.map{|s| s.to_s})
   end
+
+  def has_to_be_processed?
+    ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.include?(self.status.to_sym)
+  end
+
+  def has_an_accepted_status?
+    ClearsaleOrderResponse::AUTHORIZED_STATUS.include?(self.status.to_sym)
+  end
+
+  def has_a_rejected_status?
+    ClearsaleOrderResponse::REJECTED_STATUS.include?(self.status.to_sym)
+  end  
+
+
 end

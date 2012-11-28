@@ -19,6 +19,7 @@ describe Payments::BraspagSenderStrategy do
 
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
+      OrderAnalysisService.any_instance.stub(:should_send_to_analysis?) {false}
     end
 
     it "should create an order" do
@@ -80,6 +81,7 @@ describe Payments::BraspagSenderStrategy do
 
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
+      OrderAnalysisService.any_instance.stub(:should_send_to_analysis?) {false}
     end
 
     it "should create a correct failure response" do
