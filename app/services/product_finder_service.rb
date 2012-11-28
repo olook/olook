@@ -47,10 +47,10 @@ class ProductFinderService
     options = args.extract_options!
 
     categories = Category.list_of_all_categories
-    results = []
-    categories.each do |category|    
-      results << profile_products(profile: options[:profile],
-                                  category: category)[0..4]
+    # results = []
+    results = categories.map do |category|    
+      products = profile_products(profile: options[:profile], category: category)
+      remove_color_variations(products)[0..4]
     end
 
     results.flatten
