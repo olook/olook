@@ -157,6 +157,7 @@ div#moments {
     width: 770px;
     overflow: visible;
     float: right;
+    margin-right: 8px;
     div#shoe_size_filter {
       position: relative;
       width: 380px;
@@ -207,6 +208,8 @@ div#moments {
       width: 380px;
       height: 45px;
       display: inline-block;
+      margin-right: 8px;
+      float: right;
       form {
         width: 215px;
         float: right;
@@ -253,6 +256,9 @@ div#moments {
           }
         }
       }
+    }
+    ul#products {
+      clear:both;
     }
     div.loading {
       background: url("/assets/common/ajax-loader.gif") center no-repeat;

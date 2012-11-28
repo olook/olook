@@ -36,7 +36,7 @@ class CatalogSearchService
     query_accessories = query_accessories.and(l_products[:category_id].in(Category::ACCESSORY)) if query_accessories
     
     all_queries = [query_shoes, query_bags, query_accessories].compact
-    
+
     @query_base = case all_queries.size
       when 1 then
         @query_base.and(all_queries[0])
@@ -48,10 +48,16 @@ class CatalogSearchService
         params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes])) : @query_base
     end
     
+    # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
+    if params[:category_id]
+      @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) 
+    end
+    
     @query = Catalog::Product.joins(:product).joins(:variant)
     if @liquidation
       @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id')
     end
+
     @query.where(@query_base)
           .order(sort_filter, 'name asc')
           .group("catalog_products.product_id")
@@ -65,9 +71,10 @@ class CatalogSearchService
 
   def sort_filter
     case params[:sort_filter]
-      when "1" then "retail_price asc"
-      when "2" then "retail_price desc"
-      else "category_id asc"
+      when "0" then "category_id asc"
+      when "1" then "price asc"
+      when "2" then "price desc"
+      else "price asc"
     end
   end
 end
