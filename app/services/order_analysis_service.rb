@@ -33,8 +33,20 @@ class OrderAnalysisService
   end
  
   def should_send_to_analysis?
-    # payment.user.orders.where(:state => Order::AUTHORIZED_STATES).empty?
-    true && Setting.send_to_clearsale
+    return false unless Setting.send_to_clearsale
+    return true if payment.user.nil?
+
+    return previous_credit_card_payments.empty?
   end
+
+  private
+
+    def previous_credit_card_payments
+      user_payments = []
+      payment.user.orders.each do |order| 
+        user_payments << order.payments.select { |pmts| pmts.id != payment.id && payment.type == "CreditCard"}
+      end
+      user_payments.flatten
+    end
 
 end
