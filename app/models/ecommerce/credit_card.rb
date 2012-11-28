@@ -64,7 +64,7 @@ class CreditCard < Payment
     case
     when bank.match("Hipercard")
       validate_bank_credit_card_number SixToNineCreditCardNumberFormat
-    when bank.match("Diners")
+    when bank.match("Diners") || bank.match("AmericanExpress")
       validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
     else
       validate_bank_credit_card_number FourToSevenCreditCardNumberFormat
