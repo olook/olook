@@ -1,4 +1,5 @@
 class CreateGiftBoxes < ActiveRecord::Migration
+=begin
   def change
     create_table :gift_boxes do |t|
       t.string :name
@@ -8,4 +9,5 @@ class CreateGiftBoxes < ActiveRecord::Migration
       t.timestamps
     end
   end
+=end
 end
