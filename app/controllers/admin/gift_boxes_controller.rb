@@ -1,5 +1,4 @@
 class Admin::GiftBoxesController < Admin::BaseController
-
   respond_to :html
   def index
     @gift_boxes = GiftBox.all

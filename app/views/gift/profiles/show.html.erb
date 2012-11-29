@@ -16,7 +16,8 @@
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
   fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));</script>
+
 
 <% content_for :full do %>
   <div class="full_bg">

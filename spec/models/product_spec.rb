@@ -72,14 +72,14 @@ describe Product do
 
       it "valid_for_xml" do
           shoe_for_xml.master_variant.update_attribute(:price, 1.0)
-          described_class.valid_for_xml.should include(shoe_for_xml)
-          described_class.valid_for_xml.should_not include(shoe)
+          described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
+          described_class.valid_for_xml([0],[0]).should_not include(shoe)
       end
 
       it "should be valid for criteo xml" do
         products = [shoe, bag, accessory, shoe_for_xml]
         shoe_for_xml.master_variant.update_attribute(:price, 1.0)
-        (described_class.valid_criteo_for_xml & products).should == [shoe_for_xml]
+        (described_class.valid_criteo_for_xml([0],[0]) & products).should == [shoe_for_xml]
       end
 
       describe "blacklisted products" do

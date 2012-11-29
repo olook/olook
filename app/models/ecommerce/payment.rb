@@ -128,6 +128,7 @@ class Payment < ActiveRecord::Base
       transition :started => :cancelled
       transition :waiting_payment => :cancelled
       transition :under_review => :cancelled
+      transition :cancelled => :cancelled, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "cancel", :current_state => "cancelled" }) }
     end
 
     # "1" => :authorize
@@ -135,6 +136,7 @@ class Payment < ActiveRecord::Base
       transition :started => :authorized
       transition :waiting_payment => :authorized
       transition :under_review => :authorized
+      transition :authorized => :authorized, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "authorize", :current_state => "authorized" }) }
     end
 
     # "4" => :complete,
