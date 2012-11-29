@@ -12,6 +12,7 @@ body #tracker + p {
 body div.full_container {
   section {
     background: image-url('gift/border-sections.jpg') bottom repeat-x;
+	 &.bn{background: none !important;}
     &#profiles {
       min-height: 740px;
       div.content {
