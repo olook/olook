@@ -46,11 +46,10 @@
       <p>Sapatilhas, lenços e rímel.</p>
     </div>
     <div class="products">
-      <h1>As escolhas da Didi...</h1>
-      <% @products_didi.each do |product| %>
+      <h1>As escolhas de Paola Orleans...</h1>
+      <% @products_paola.each do |product| %>
         <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
-          <p><%= product.name %></p>
-          <p class="price"><%= number_to_currency product.price %></p>
+          <p><%= product.name %><br/><span class="price"><%= number_to_currency product.price %></span></p>
         <% end %>
       <% end %>
     </div>
@@ -78,8 +77,7 @@
       <h1>As escolhas da Didi...</h1>
       <% @products_didi.each do |product| %>
         <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
-          <p><%= product.name %></p>
-          <p class="price"><%= number_to_currency product.price %></p>
+          <p><%= product.name %><br/><span class="price"><%= number_to_currency product.price %></span></p>
         <% end %>
       <% end %>
     </div>
