@@ -324,18 +324,20 @@ body {
     width: 990px;
     margin: 0 auto;
     overflow: hidden;
-    z-index: 1;
+    /*z-index: 1;*/
     .dialog.product_login {
       height: 515px !important;
       display: none;
       height: auto !important;
     }
+	 &.relative{position:relative;}
     a.liquidation_banner {
       width: 970px;
       display: block;
       margin: 0 auto 20px;
     }
-
+	/***** LOGO CHRISTMAS *****/
+	 .christmas{position: absolute;left: 56px;top: 11px;}
     .forms {
       background: url('/assets/home/bg-middle-home.jpg') no-repeat;
       height: 575px;
@@ -1518,3 +1520,7 @@ header div.contact {
 	#wrapper_menu .menu{border-top:solid 1px #464243;}
 
 }
+
+
+/****** LOGO AVC ****/
+.img-avc{display:block;float:left;width:201px;height:82px;margin-left:162px;}
