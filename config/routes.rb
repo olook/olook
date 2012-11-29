@@ -2,9 +2,6 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-  get "settings/index"
-
-  get "settings/update"
 
   mount Resque::Server => "/admin/resque"
 
