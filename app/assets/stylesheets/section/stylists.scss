@@ -90,7 +90,7 @@ section#stylist {
         display: block;
         p {
           font-family: $avenir;
-          font-size: 13px;
+          font-size: 11px;
           line-height: normal;
           letter-spacing: 0;
           text-transform: uppercase;
@@ -117,57 +117,65 @@ section#stylist {
         width: 463px;
         height: 528px;
         h1 {
-          background: url("/assets/stylist/helena_linhares/amo.jpg") no-repeat;
-          width: 185px;
-          height: 56px;
-          top: 198px;
+          background: url("/assets/stylist/helena_linhares/amo2.png") no-repeat;
+          width: 155px;
+          height: 100px;
+          top: 126px;
           left: 15px;
           z-index: 10;
         }
-        a#albornoz{
-          background: url("/assets/stylist/helena_linhares/albornoz.png") no-repeat;
+        a#jandal{
+          background: url("/assets/stylist/helena_linhares/jandal.png") no-repeat;
           text-align: center;
-          width: 200px;
-          height: 210px;
-          top: -21px;
+          width: 188px;
+          height: 217px;
+          top: -39px;
           left: -9px;
-          p{top:40px;left:120px;}
+          p{top:71px;left:129px;}
         }
-        a#bolero{
-          background: url("/assets/stylist/helena_linhares/bolero.png") no-repeat;
-          width: 174px;
-          height: 334px;
-          top: 1px;
-          right: 80px;
+        a#tanquini{
+          background: url("/assets/stylist/helena_linhares/tanquini.png") no-repeat;
+          width: 147px;
+          height: 215px;
+          top: -50px;
+          right: 20px;
 			 z-index:9;
-          p{top:200px;right:-55px;}
+          p{top:110px;left:-55px;}
         }
-        a#baju{
-          background: url("/assets/stylist/helena_linhares/baju.png") no-repeat;
+        a#loden{
+          background: url("/assets/stylist/helena_linhares/loden.png") no-repeat;
           text-align: left;
-          width: 163px;
-          height: 206px;
-          top: -52px;
-          right: 0;
+          width: 147px;
+          height: 164px;
+          top: 182px;
+          right: -14px;
 			 z-index:10;
-          p{top:57px;left:-19px;}
+          p{top:-5px;left:50px;}
         }
-		  a#bobby{
-		   background: url("/assets/stylist/helena_linhares/bobby.png") no-repeat;
-         width: 226px;
-         height: 176px;
-         bottom: 0;
-         right: 0px;
-			p{top:30px;left:40px}
+		  a#kurta{
+		   background: url("/assets/stylist/helena_linhares/kurta.png") no-repeat;
+         width: 121px;
+         height: 65px;
+         top: 235px;
+         right: 152px;
+			p{top:65px;left:40px}
 		 }			
-       a#bicorne{
-          background: url("/assets/stylist/helena_linhares/bicorne.png") no-repeat;
-          width: 220px;
-          height: 250px;
+       a#serge{
+          background: url("/assets/stylist/helena_linhares/serge.png") no-repeat;
+          width: 240px;
+          height: 136px;
           bottom: 0;
-          left: 0;
+          right: 0;
           p{top:35px;left:10px;}
        }
+		 a#saddle{
+          background: url("/assets/stylist/helena_linhares/saddle.jpg") no-repeat;
+          width: 172px;
+          height: 304px;
+          bottom: 0;
+          left: 10px;
+          p{top:35px;left:-10px;}
+	    }
       }
     }
     &#didi_wagner {
