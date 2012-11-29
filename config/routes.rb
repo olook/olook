@@ -274,7 +274,7 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
   namespace :users, :path => 'conta', :as => "user" do
-    get "/presentes", to: 'gifts#index', as: "gifts"
+    #get "/presentes", to: 'gifts#index', as: "gifts"
     resources :addresses, :path => 'enderecos'
     resources :orders, :path => 'pedidos', :only => [:index]
     resources :credits, :path => 'creditos' do
