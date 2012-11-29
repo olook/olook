@@ -11,7 +11,7 @@
   <% end %>
   <div class="content relative">
 
-    <h1><%= link_to 'Olook', root_path %></h1>     
+    <h1><%= link_to 'Olook', root_path %></h1>
 	<%#= link_to image_tag("campaigns/niver/1ano-muito.png",  :class => user_signed_in? ? "niver-logged" : "niver"), "/1anomuito", :class => "img-niver" %>
 
     <div id="session">
@@ -24,7 +24,7 @@
               <div class="my_account">
                 <ul>
                   <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                  <li><%= link_to "Meus presentes", user_gifts_path %></li>
+                  <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> -->
                   <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
                   <li><%= link_to "Endereços", user_addresses_path %></li>
                   <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
