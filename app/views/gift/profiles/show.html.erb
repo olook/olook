@@ -18,6 +18,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+
 <% content_for :full do %>
   <div class="full_bg">
     <section id="suggestion">
@@ -37,18 +38,7 @@
           <h2>Confira:</h2>
           <h1>Sugestões de presentes para ela</h1>
           <%= render 'gift/suggestions/shoe_filter' %>
-          <% @products.each_slice(5).with_index do |products_array, index| %>
-            <ul>
-              <% products_array.each do |product| %>
-                <%= render "shared/showroom_product_item", :product => product %>
-              <% end %>
-            </ul>
-            <% if index == 0 %>
-              <h1 class="discount"><strong>TROCA GRÁTIS</strong> EM ATÉ 30 DIAS. <strong>DEVOLUÇÃO E DINHEIRO DE VOLTA</strong></h1>
-            <% elsif index == 1 %>
-              <h1 class="freight"><strong>Frete grátis</strong> para São Paulo e sudeste (em compras a partir de R$60)</h1>
-            <% end %>
-          <% end %>
+          <%= render 'products' %>
         </section>
       </div>
     </section>

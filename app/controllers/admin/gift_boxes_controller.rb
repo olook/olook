@@ -1,9 +1,12 @@
 class Admin::GiftBoxesController < Admin::BaseController
+  respond_to :html
   def index
     @gift_boxes = GiftBox.all
   end
 
   def new
+    @gift_box = GiftBox.new
+    respond_with :admin, @gift_box
   end
 
   def create
