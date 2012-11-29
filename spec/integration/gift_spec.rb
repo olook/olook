@@ -30,7 +30,6 @@ feature "Buying Gifts", %q{
     end
 
     describe "going through all gift process" do
-
       before :each do
         pending
         visit gift_root_path
