@@ -9,12 +9,14 @@ class OrderAnalysisService
   end
 
   def self.check_results(order)
-    clearsale_response = Clearsale::Analysis.get_order_status(order.id)
     response = ClearsaleOrderResponse.new
     response.order = order
+
+    clearsale_response = Setting.use_clearsale_server ? Clearsale::Analysis.get_order_status(order.id) : OrderAnalysisService.generate_sample_response
     response.status = clearsale_response.status
     response.score = clearsale_response.score
     response.save unless response.has_to_be_processed?
+
     response
   end
 
@@ -23,20 +25,29 @@ class OrderAnalysisService
 
     adapted_order, adapted_payment, adapted_user = adapter.adapt
 
-    clearsale_response = Clearsale::Analysis.send_order(adapted_order, adapted_payment, adapted_user)
     response = ClearsaleOrderResponse.new
     response.order =  payment.order
+
+    clearsale_response = Setting.use_clearsale_server ? Clearsale::Analysis.send_order(adapted_order, adapted_payment, adapted_user) : OrderAnalysisService.generate_sample_response
     response.status = clearsale_response.status
     response.score = clearsale_response.score
     response.save
+
     response
   end
  
   def should_send_to_analysis?
+    return true if Setting.force_send_to_clearsale
     return false unless Setting.send_to_clearsale
     return true if payment.user.nil?
 
     return previous_credit_card_payments.empty?
+  end
+
+  def self.generate_sample_response
+    sample_struct = OpenStruct.new(:status => (ClearsaleOrderResponse::STATES_TO_BE_PROCESSED | ClearsaleOrderResponse::AUTHORIZED_STATUS | ClearsaleOrderResponse::REJECTED_STATUS).sample , :score => (0..40).to_a.sample.to_f)
+    Rails.logger.debug("sample response => #{sample_struct.inspect}")
+    sample_struct
   end
 
   private

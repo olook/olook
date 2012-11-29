@@ -27,3 +27,5 @@ Setting.defaults[:in_cart_mail_condition] = "notified=0"
 
 Setting.defaults[:quantity_for_sugested_product]= (1..5)
 Setting.defaults[:send_to_clearsale] = false
+Setting.defaults[:force_send_to_clearsale] = false
+Setting.defaults[:use_clearsale_server] = false
