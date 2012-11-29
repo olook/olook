@@ -38,7 +38,11 @@ module Payments
         if authorize_response.success
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
           if order_analysis_service.should_send_to_analysis? 
-            order_analysis_service.send_to_analysis 
+            clearsale_order_response = order_analysis_service.send_to_analysis
+            if !ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.include?(clearsale_order_response.status)
+              payment.encrypt_credit_card
+              payment.save!              
+            end 
           else 
             capture(authorize_response)
             payment.encrypt_credit_card
@@ -170,7 +174,7 @@ module Payments
       else
         update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
       end
-    end    
+    end
 
     def create_capture_credit_card_request(authorize_response)
       braspag_transaction_id = authorize_response.braspag_transaction_id

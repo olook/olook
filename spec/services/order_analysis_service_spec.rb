@@ -15,6 +15,7 @@ describe OrderAnalysisService do
 
     before do
       Setting.stub(:send_to_clearsale).and_return(true)
+      Setting.stub(:force_send_to_clearsale).and_return(false)
     end
 
     context "configured to skip clearsale" do
@@ -22,6 +23,12 @@ describe OrderAnalysisService do
       it "should not send to analisys" do
         Setting.stub(:send_to_clearsale).and_return(false)
         service.should_send_to_analysis?.should be_false
+      end
+
+      it "should be forced to send to analisys" do
+        Setting.stub(:force_send_to_clearsale).and_return(true)
+        Setting.stub(:send_to_clearsale).and_return(false)
+        service.should_send_to_analysis?.should be_true
       end
 
     end
@@ -66,6 +73,8 @@ describe OrderAnalysisService do
     let(:order_analysis_service) { OrderAnalysisService.new(order.payments.first,"0000000000000002", Time.current) }
     
     it "should send the given order for further analysis on clearsale" do
+      Setting.stub(:use_clearsale_server) {true}
+      Setting.stub(:force_send_to_clearsale) {true}
       Clearsale::Analysis.stub(:send_order) {Clearsale::OrderResponse.new(:order_id => order.id, :score => 22.22)}
       Clearsale::OrderResponse.any_instance.stub(:status){:automatic_approval}
       Clearsale::Analysis.should_receive(:send_order)
@@ -76,6 +85,8 @@ describe OrderAnalysisService do
 
   context "testing check_order" do
     it "should check the given order on clearsale and the order is approved or rejected" do
+      Setting.stub(:use_clearsale_server) {true}
+      Setting.stub(:force_send_to_clearsale) {true}
       Clearsale::OrderResponse.any_instance.stub(:status){:manual_approval}
       Clearsale::Analysis.stub(:get_order_status) {Clearsale::OrderResponse.new(:order_id => order.id, :score => 22.22)}
       Clearsale::Analysis.should_receive(:get_order_status)
@@ -84,6 +95,8 @@ describe OrderAnalysisService do
     end
 
     it "should check the given order on clearsale and the order has to be processed" do
+      Setting.stub(:use_clearsale_server) {true}
+      Setting.stub(:force_send_to_clearsale) {true}
       Clearsale::OrderResponse.any_instance.stub(:status){:manual_analysis}
       Clearsale::Analysis.stub(:get_order_status) {Clearsale::OrderResponse.new(:order_id => order.id, :score => 22.22)}
       Clearsale::Analysis.should_receive(:get_order_status)
