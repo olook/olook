@@ -79,6 +79,7 @@ body div.full_container {
           &.fixed {
             position: fixed;
             top: 55px;
+            z-index: 10;
           }
         }
       }
