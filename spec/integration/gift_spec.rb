@@ -29,7 +29,6 @@ feature "Buying Gifts", %q{
     describe "going through all gift process" do
       
       before :each do 
-        save_and_open_page
         visit gift_root_path
         click_link "new_occasion_link"
       end
