@@ -87,11 +87,15 @@
                 <div style="float:left;width:140px">
                   <p align="left" style="color:#888888!important">
                     <br>
-                    #Valor 1#
+                    <%= number_to_currency(@user.user_credits_for(:loyalty_program).total) %>
                     <br>
                     #Valor 2#
                     <br>
-                    #Valor 3#
+                    <% if @refunded_credits.empty? %>
+                      <%= number_to_currency("0,00") %>
+                    <% else %>
+                      <%= number_to_currency(@refunded_credits) %>
+                    <% end %>
                   </p>
                   <p align="left" style="color:#e05789!important;font-size:13pt">
                     #Valor total#
