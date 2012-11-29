@@ -14,7 +14,6 @@ describe CreditCard do
   context "attributes validation" do
     it { should validate_presence_of(:bank) }
     it { should validate_presence_of(:user_name) }
-    it { should validate_presence_of(:credit_card_number) }
     it { should validate_presence_of(:security_code) }
     it { should validate_presence_of(:expiration_date) }
     it { should validate_presence_of(:user_identification) }
