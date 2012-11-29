@@ -16,7 +16,9 @@ class LoyaltyProgramMailer < ActionMailer::Base
 
   def send_enabled_credits_notification user
     @user = user
-    #TODO: calcular créditos disponíveis
+    report  = CreditReportService.new(@user)
+    @refunded_credits = report.refunded_credits
+
     mail(:to => @user.email, :subject => "#{user.first_name}, você tem R$ #{('%.2f' % user.user_credits_for(:loyalty_program).total).gsub('.',',')} em créditos disponíveis para uso.")
   end
 
@@ -47,6 +49,6 @@ class LoyaltyProgramMailer < ActionMailer::Base
 
     @user = user
     mail(:to => @user.email, :subject => subject) if @credit_amount > 0
-  end  
+  end
 
 end
