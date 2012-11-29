@@ -48,8 +48,11 @@
       <% end %>
     </section>
   </div>
-  <section id="profile_products">
-    <%= render "profile_products", products: @products %>
+
+  <section id="suggestions_container">
+    <h2>Confira:</h2>
+    <h1>Sugestões de presentes para ela</h1>
+    <%= render "gift/profiles/products", products: @products %>
   </section>
 <% end %>
 
