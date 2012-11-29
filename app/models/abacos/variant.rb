@@ -57,4 +57,5 @@ module Abacos
       category == Category::SHOE ? "size-#{description}" : 'single-size'
     end
   end
+
 end
