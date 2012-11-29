@@ -19,10 +19,10 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   scenario "As a business1 user I should be allowed to see a list of gift boxes", :js => true do
   #scenario "As a business1 user I should be allowed to see a list of gift boxes" do
   	do_admin_login!(@admin)
-    gift_box 
+    gift_box
     # save_and_open_page
-    page.find('li', text: "Gift Project").trigger(:mouseover)
-    # visit "/admin/gift_boxes"
+    # page.find('li', text: "Gift Project").trigger(:mouseover)
+    visit "/admin/gift_boxes"
     click_link "Gift boxes"
     page.should have_content "Listando Gift Boxes"
     page.should have_content "Nome"
@@ -40,12 +40,13 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Nome"
     page.should have_content "Ativo"
     click_button('Criar Gift box')
-    page.should have_content "error prohibited this landing page from being saved:"
+    page.should have_content "error prohibited this gift_box from being saved:"
   end
 
   scenario "As a business1 user I should be allowed to create a gift box if the form is correct" do
   	do_admin_login!(@admin)
     visit "/admin/gift_boxes"
+
     click_link "New Gift Box"
     page.should have_content "Novo Gift Box Type"
     page.should have_content "Nome"
@@ -64,7 +65,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Ativo"
     fill_in 'gift_box[name]', :with => ""
     click_button('Atualizar Gift box')
-    page.should have_content "error prohibited this landing page from being saved:"
+    page.should have_content "error prohibited this gift_box from being saved:"
   end
 
   scenario "As a business1 user I should be allowed to update a gift box if the form is correct" do
