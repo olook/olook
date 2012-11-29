@@ -32,7 +32,7 @@ section#stylist {
         font-weight: lighter;
         letter-spacing: -2px;
         text-transform: uppercase;
-        width: 215px;
+        width: 241px;
         float: left;
       }
       h1 {
@@ -237,5 +237,19 @@ section#stylist {
         }
       }
     }
+	 &#paola_orleans{
+		div.description {
+        background: url("/assets/stylist/paola_orleans/foto.jpg") top right no-repeat;
+		  h1{
+			margin-top:10px;line-height:25px;
+		  	span{font-size:22px;}
+			 &+p {width: 245px;}
+		  }
+		}
+		div.products {
+        width: 463px;
+        height: 490px;
+		}
+	 }
   }
 }
