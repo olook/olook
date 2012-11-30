@@ -16,7 +16,6 @@ class LoyaltyProgramMailer < ActionMailer::Base
 
   def send_enabled_credits_notification user
     @user = user
-    debugger
     report  = CreditReportService.new(@user)
     @loyalty_credits = report.amount_of_loyalty_credits
     @redeem_credits  = report.amount_of_redeem_credits
