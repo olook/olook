@@ -75,6 +75,7 @@
     </div>
     <div class="products">
       <h1>As escolhas da Didi...</h1>
+
       <% @products_didi.each do |product| %>
         <%= link_to product_path(product.id), :class => "product", :id => "#{underscore_case(product.name)}" do %>
           <p><%= product.name %><br/><span class="price"><%= number_to_currency product.price %></span></p>

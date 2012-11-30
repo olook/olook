@@ -87,5 +87,6 @@ module Abacos
     def parse_endereco(address)
       Abacos::Endereco.new(address)
     end
+
   end
 end

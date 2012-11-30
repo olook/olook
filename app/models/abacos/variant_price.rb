@@ -27,7 +27,8 @@ module Abacos
     end
 
     def self.parse_abacos_data(abacos_product)
-      { integration_protocol: abacos_product[:protocolo_preco],
+      { 
+        integration_protocol: abacos_product[:protocolo_preco],
         number:               abacos_product[:codigo_produto],
         price:                abacos_product[:preco_tabela].to_f,
         retail_price:         abacos_product[:preco_promocional].to_f
