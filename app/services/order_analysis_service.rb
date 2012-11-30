@@ -33,6 +33,9 @@ class OrderAnalysisService
     response.score = clearsale_response.score
     response.save
 
+    payment.set_state(:review)
+    payment.save!
+
     response
   end
  
@@ -55,7 +58,7 @@ class OrderAnalysisService
     def previous_credit_card_payments
       user_payments = []
       payment.user.orders.each do |order| 
-        user_payments << order.payments.select { |pmts| pmts.id != payment.id && payment.is_a?(CreditCard)}
+        user_payments << order.payments.select { |pmts| pmts.id != payment.id && pmts.is_a?(CreditCard)}
       end
       user_payments.flatten
     end

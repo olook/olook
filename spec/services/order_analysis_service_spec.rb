@@ -70,7 +70,8 @@ describe OrderAnalysisService do
   end
 
   context "testing send_to_analysis" do
-    let(:order_analysis_service) { OrderAnalysisService.new(order.payments.first,"0000000000000002", Time.current) }
+    let(:payment) { order.payments.first }
+    let(:order_analysis_service) { OrderAnalysisService.new(payment,"0000000000000002", Time.current) }
     
     it "should send the given order for further analysis on clearsale" do
       Setting.stub(:use_clearsale_server) {true}
@@ -78,6 +79,9 @@ describe OrderAnalysisService do
       Clearsale::Analysis.stub(:send_order) {Clearsale::OrderResponse.new(:order_id => order.id, :score => 22.22)}
       Clearsale::OrderResponse.any_instance.stub(:status){:automatic_approval}
       Clearsale::Analysis.should_receive(:send_order)
+      payment.should_receive(:set_state).with(:review)
+      payment.should_receive(:save!)
+
       order_analysis_service.send_to_analysis
       ClearsaleOrderResponse.all.size.should eq 1
     end
