@@ -12,7 +12,7 @@ module Clearsale
             response.order.payments.each do |payment|
               strategy = Payments::BraspagSenderStrategy.new(nil, payment)
               strategy.credit_card_number = payment.credit_card_number
-              strategy.process_capture_request
+              strategy.process_capture_request if payment.is_a?(CreditCard)
             end
             response.update_attribute("processed", true)
           elsif clearsale_response.has_a_rejected_status?
