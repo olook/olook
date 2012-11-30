@@ -93,7 +93,6 @@ jQuery(function() {
         $("div#shoe_size_filter span").text(textSize);
       }
     });
-    $(filterSize).click();
 
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
