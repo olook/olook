@@ -79,7 +79,7 @@ describe OrderAnalysisService do
       Clearsale::Analysis.stub(:send_order) {Clearsale::OrderResponse.new(:order_id => order.id, :score => 22.22)}
       Clearsale::OrderResponse.any_instance.stub(:status){:automatic_approval}
       Clearsale::Analysis.should_receive(:send_order)
-      payment.should_receive(:set_state).with(:review)
+      payment.should_receive(:set_state).with(:review).and_return(true)
       payment.should_receive(:save!)
 
       order_analysis_service.send_to_analysis
