@@ -16,7 +16,13 @@ class LoyaltyProgramMailer < ActionMailer::Base
 
   def send_enabled_credits_notification user
     @user = user
-    #TODO: calcular créditos disponíveis
+    debugger
+    report  = CreditReportService.new(@user)
+    @loyalty_credits = report.amount_of_loyalty_credits
+    @redeem_credits  = report.amount_of_redeem_credits
+    @invite_credits  = report.amount_of_inviter_bonus_credits
+    @available_credits = report.available_credits
+
     mail(:to => @user.email, :subject => "#{user.first_name}, você tem R$ #{('%.2f' % user.user_credits_for(:loyalty_program).total).gsub('.',',')} em créditos disponíveis para uso.")
   end
 
@@ -47,6 +53,6 @@ class LoyaltyProgramMailer < ActionMailer::Base
 
     @user = user
     mail(:to => @user.email, :subject => subject) if @credit_amount > 0
-  end  
+  end
 
 end
