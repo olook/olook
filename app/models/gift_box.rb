@@ -1,4 +1,6 @@
 class GiftBox < ActiveRecord::Base
+  include ProductFinder
+
   validates :name, :presence => true
   mount_uploader :thumb_image, ImageUploader
   has_many :gift_boxes_product, :dependent => :destroy
@@ -7,7 +9,8 @@ class GiftBox < ActiveRecord::Base
   after_save :update_products
 
   def suggestion_products
-    products.sort_by{|p| p.inventory}.reverse.first(5)
+    products_to_show = remove_color_variations(products)
+    products_to_show.sort_by{|p| p.inventory}.reverse.first(5)
   end
 
   private
