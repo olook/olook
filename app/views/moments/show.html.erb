@@ -12,7 +12,6 @@
     <%= moment_presenter.display_nav_bar %>
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
-      <%= moment_presenter.display_shoe_size_filters %>
       <%= render "shared/filters/order" %>
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
