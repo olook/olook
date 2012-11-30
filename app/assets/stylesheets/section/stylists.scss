@@ -8,7 +8,7 @@ section#stylist {
     /*overflow: auto;*/
 	 float:left;
 	 clear:both;
-    margin: 0 0 60px;
+    margin: 0 0 10px;
     h1.stylist {
       background: url("/assets/stylist/stylists_convidadas.png") top center no-repeat;
       text-indent: -9999px;
@@ -179,6 +179,7 @@ section#stylist {
       }
     }
     &#didi_wagner {
+		&.profile{margin-bottom:40px;}
       div.description {
         background: url("/assets/stylist/didi_wagner/foto.jpg") top right no-repeat;
         h1 {
@@ -246,6 +247,7 @@ section#stylist {
       }
     }
 	 &#paola_orleans{
+		&.profile{margin-bottom:40px;}
 		div.description {
         background: url("/assets/stylist/paola_orleans/foto.jpg") top right no-repeat;
 		  h1{
