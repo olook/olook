@@ -25,7 +25,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, categories, gift, my_friends, stylist, liquidation, cart].join.html_safe
+    [showroom, lookbooks, moments, categories, gift, stylist, liquidation, cart].join.html_safe
   end
 
   def render_half_user_menu
@@ -74,7 +74,7 @@ class MenuPresenter < BasePresenter
   end
 
   def categories
-    [shoes, bags, accessories]
+    [shoes, bags, accessories, glasses]
   end
 
   def shoes
@@ -87,6 +87,10 @@ class MenuPresenter < BasePresenter
 
   def accessories
     render_item("Acessórios", h.accessories_path, "categories", ["moments#show#3"])
+  end
+
+  def glasses
+    render_item("Óculos", h.glasses_path, "categories", ["moments#glasses"])
   end
 
   def gift
