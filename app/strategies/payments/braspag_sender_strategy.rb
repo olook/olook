@@ -39,23 +39,17 @@ module Payments
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
           if order_analysis_service.should_send_to_analysis? 
             clearsale_order_response = order_analysis_service.send_to_analysis
-            unless clearsale_order_response.has_to_be_processed?
-              payment.encrypt_credit_card
-              payment.save!              
-            end 
           else 
             capture(authorize_response)
-            payment.encrypt_credit_card
-            payment.save!
           end
         end
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
-        payment.encrypt_credit_card
-        payment.save!
         raise error
       ensure
+        payment.encrypt_credit_card
+        payment.save!
       end
     end
 
