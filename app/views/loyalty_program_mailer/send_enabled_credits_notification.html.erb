@@ -56,7 +56,7 @@
                   Oba! Sua vitrine deste mês ficou pronta.
                 </p>
                 <p>
-                  E a melhor notícia? Você tem <b><%= number_to_currency(@user.user_credits_for(:loyalty_program).total) %></b> em créditos disponíveis para comprar seus produtos favoritos na nova coleção.
+                  E a melhor notícia? Você tem <b><%= number_to_currency(@available_credits) %></b> em créditos disponíveis para comprar seus produtos favoritos na nova coleção.
                 </p>
                 <br>
                 <table width="220" align="center">
@@ -87,26 +87,18 @@
                 <div style="float:left;width:140px">
                   <p align="left" style="color:#888888!important">
                     <br>
-                    <%= number_to_currency(@user.user_credits_for(:loyalty_program).total) %>
+                    <%= number_to_currency(@loyalty_credits) %>
                     <br>
-                    #Valor 2#
+                      <%= number_to_currency(@invite_credits) %>
                     <br>
-                    <% if @refunded_credits.empty? %>
-                      <%= number_to_currency("0,00") %>
-                    <% else %>
                       <%= number_to_currency(@refunded_credits) %>
-                    <% end %>
                   </p>
                   <p align="left" style="color:#e05789!important;font-size:13pt">
-                    #Valor total#
+                    <%= number_to_currency(@available_credits) %>
                   </p>
                 </div>
                 <p align="right">
-                  <a href="#0.1_" style="color:#e05789!important;font-size:9pt">
-                    Confira seu extrato completo aqui
-                  <a>
-                  </a>
-                  </a>
+                    <a href="http://www.olook.com.br/conta/creditos?utm_source=olook&utm_medium=email&utm_campaign=transacional_fidelidade&utm_content=f_creditos_disponiveis" style="color:#e05789!important;font-size:9pt" target="_blank">Confira seu saldo de créditos</a>
                 </p>
 				<div style="float:left;width:620px">
                   <p>Abraços,
