@@ -33,8 +33,9 @@ class OrderAnalysisService
     response.score = clearsale_response.score
     response.save
 
-    payment.set_state(:review)
-    payment.save!
+    if payment.set_state(:review)
+      payment.save!
+    end
 
     response
   end
