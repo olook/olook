@@ -39,7 +39,7 @@ module Payments
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
           if order_analysis_service.should_send_to_analysis? 
             clearsale_order_response = order_analysis_service.send_to_analysis
-            if !ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.include?(clearsale_order_response.status)
+            unless clearsale_order_response.has_to_be_processed?
               payment.encrypt_credit_card
               payment.save!              
             end 

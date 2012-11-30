@@ -55,7 +55,7 @@ class OrderAnalysisService
     def previous_credit_card_payments
       user_payments = []
       payment.user.orders.each do |order| 
-        user_payments << order.payments.select { |pmts| pmts.id != payment.id && payment.type == "CreditCard"}
+        user_payments << order.payments.select { |pmts| pmts.id != payment.id && payment.is_a?(CreditCard)}
       end
       user_payments.flatten
     end
