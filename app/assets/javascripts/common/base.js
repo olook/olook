@@ -359,6 +359,11 @@ $(document).ready(function() {
     $("div#modal").dialog("close");
     e.preventDefault();
   });
+
+  $("li.cart div.warn a.close").on("click", function(e) {
+    $(this).parent().fadeOut();
+    e.preventDefault();
+  });
 });
 
 initBase = {

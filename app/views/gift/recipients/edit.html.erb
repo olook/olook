@@ -1,5 +1,6 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/gift" %>
+    <%= stylesheet_link_tag "section/suggestions" %>
 <% end %>
 
 <% content_for :footer do %>
@@ -8,7 +9,8 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-    <section id="profile" class="content">
+
+    <section id="profile" class="content bn">
       <h1 class="title_name"><%= @gift_recipient.name %> é</h1>
       <%= image_tag "/assets/gift/panel_#{@main_profile.name.parameterize}.png", :title => "#{@main_profile.name}", :class => "profile" %>
 
@@ -28,7 +30,7 @@
           </ul>
         </fieldset>
 
-        <%= submit_tag("Ver sugestão de presentes", :id => "finish") %>
+        <%# submit_tag("Ver sugestão de presentes", :id => "finish") %>
         <p class="change_profile">Não faz o estilo dela? <%= link_to "Escolha outro estilo", "#", :class => "select_profile" %></p>
       <% end %>
 
@@ -46,6 +48,14 @@
           </ul>
         </div>
       <% end %>
+    </section>
+
+    <section id="suggestion">
+      <section id="suggestions_container">
+        <h2>Confira:</h2>
+        <h1>Sugestões de presentes para ela</h1>
+        <%= render "gift/profiles/products", products: @products %>
+      </section>
     </section>
   </div>
 <% end %>
