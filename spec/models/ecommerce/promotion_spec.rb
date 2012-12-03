@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: promotions
-#
-#  id               :integer          not null, primary key
-#  name             :string(255)
-#  description      :string(255)
-#  strategy         :string(255)
-#  priority         :integer
-#  discount_percent :integer
-#  active           :boolean
-#  created_at       :datetime
-#  updated_at       :datetime
-#  param            :string(255)
-#  my_order_label   :string(255)
-#  cart_label       :string(255)
-#  banner_label     :string(255)
-#
-
 require 'spec_helper'
 
 describe Promotion do

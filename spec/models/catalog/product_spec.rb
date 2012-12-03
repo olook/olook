@@ -1,26 +1,3 @@
-# == Schema Information
-#
-# Table name: catalog_products
-#
-#  id                     :integer          not null, primary key
-#  catalog_id             :integer
-#  product_id             :integer
-#  category_id            :integer
-#  subcategory_name       :string(255)
-#  subcategory_name_label :string(255)
-#  shoe_size              :integer
-#  shoe_size_label        :string(255)
-#  heel                   :string(255)
-#  heel_label             :string(255)
-#  original_price         :decimal(10, 2)
-#  retail_price           :decimal(10, 2)
-#  discount_percent       :float
-#  variant_id             :integer
-#  inventory              :integer
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#
-
 require 'spec_helper'
 
 describe Catalog::Product do

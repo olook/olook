@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: synchronization_events
-#
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 

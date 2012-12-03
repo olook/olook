@@ -1,26 +1,3 @@
-# == Schema Information
-#
-# Table name: variants
-#
-#  id                :integer          not null, primary key
-#  product_id        :integer
-#  number            :string(255)
-#  description       :string(255)
-#  display_reference :string(255)
-#  price             :decimal(10, 2)
-#  inventory         :integer
-#  created_at        :datetime
-#  updated_at        :datetime
-#  is_master         :boolean
-#  width             :decimal(8, 2)
-#  height            :decimal(8, 2)
-#  length            :decimal(8, 2)
-#  weight            :decimal(8, 2)
-#  retail_price      :decimal(10, 2)
-#  discount_percent  :integer
-#  initial_inventory :integer          default(0)
-#
-
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
