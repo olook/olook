@@ -78,6 +78,7 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    @google_path_pixel_information = "Home"
     if @user.half_user
       if @user.female?
         return render "/home/index"

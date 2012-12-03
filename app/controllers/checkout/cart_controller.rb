@@ -6,6 +6,7 @@ class Checkout::CartController < Checkout::BaseController
   before_filter :erase_freight
 
   def show
+    @google_path_pixel_information = "Carrinho"
     report  = CreditReportService.new(@user)
     @amount_of_loyalty_credits = report.amount_of_loyalty_credits
     @amount_of_invite_credits = report.amount_of_invite_credits
@@ -14,7 +15,7 @@ class Checkout::CartController < Checkout::BaseController
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
-    @suggested_product = find_suggested_product    
+    @suggested_product = find_suggested_product
   end
 
   def destroy
@@ -44,7 +45,7 @@ class Checkout::CartController < Checkout::BaseController
     if @variant = Variant.find_by_id(variant_id)
       if @cart.add_item(@variant, variant_quantity)
         respond_with do |format|
-          message = variant_quantity.nil? ? "Produto adicionado com sucesso" : "Carrinho atualizado com sucesso" 
+          message = variant_quantity.nil? ? "Produto adicionado com sucesso" : "Carrinho atualizado com sucesso"
           format.html { redirect_to(cart_path, notice: message) }
         end
       else
