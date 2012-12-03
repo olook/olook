@@ -39,7 +39,31 @@ jQuery(function() {
     e.stopPropagation();
   });
 
+  $("div#shoe_size_filter div.sizes input").click(function(e) {
+    checked = $(this).is(":checked");
+    val = $(this).val();
+    filterSize = $("form#filter div.filter #"+val);
+    textSize = "";
+    if(checked == true) {
+      $(filterSize).attr("checked", true);
+    } else {
+      $(filterSize).attr("checked", false);
+    }
+    checkedSize = $("div#shoe_size_filter div.sizes input:checked").size();
+    $("div#shoe_size_filter div.sizes input:checked").each(function(index) {
+      if(checkedSize == 1) {
+        $("div#shoe_size_filter span").text($(this).val());
+      } else {
+        if(index == 0) {
+          textSize = $(this).val();
+        } else {
+          textSize = textSize + ", " + $(this).val();
+        }
 
+        $("div#shoe_size_filter span").text(textSize);
+      }
+    });
+  });
   $('#order_filter').change(function() {
     $("form#filter").submit();
   });
@@ -70,30 +94,6 @@ jQuery(function() {
   });
 
   $('#filter').find("input[type='checkbox']").not(".select_all").click(function() {
-	checked = $(this).is(":checked");
-    val = $(this).val();
-    filterSize = $("form#filter div.filter #"+val);
-    textSize = "";
-    if(checked == true) {
-      $(filterSize).attr("checked", true);
-    } else {
-      $(filterSize).attr("checked", false);
-    }
-    checkedSize = $("div#shoe_size_filter div.sizes input:checked").size();
-    $("div#shoe_size_filter div.sizes input:checked").each(function(index) {
-      if(checkedSize == 1) {
-        $("div#shoe_size_filter span").text($(this).val());
-      } else {
-        if(index == 0) {
-          textSize = $(this).val();
-        } else {
-          textSize = textSize + ", " + $(this).val();
-        }
-
-        $("div#shoe_size_filter span").text(textSize);
-      }
-    });
-
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
     }
