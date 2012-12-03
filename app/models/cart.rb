@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: carts
-#
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  notified   :boolean          default(FALSE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  legacy_id  :integer
-#
-
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
   DEFAULT_QUANTITY = 1

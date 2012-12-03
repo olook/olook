@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: line_items
-#
-#  id           :integer          not null, primary key
-#  variant_id   :integer
-#  order_id     :integer
-#  quantity     :integer
-#  price        :decimal(8, 3)
-#  gift         :boolean
-#  retail_price :decimal(8, 3)
-#
-
 class LineItem < ActiveRecord::Base
   has_many :debits, :class_name => "Credit", :foreign_key => "line_item_id"
   belongs_to :variant

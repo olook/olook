@@ -57,7 +57,6 @@ gem "celluloid"
 
 
 group :development do
-  gem 'annotate', '~> 2.5.0'
   gem 'faker'
   gem 'bullet'
   gem 'thin'

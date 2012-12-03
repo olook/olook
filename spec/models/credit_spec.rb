@@ -1,26 +1,3 @@
-# == Schema Information
-#
-# Table name: credits
-#
-#  id                 :integer          not null, primary key
-#  source             :string(255)
-#  value              :decimal(10, 2)
-#  multiplier         :integer
-#  total              :decimal(10, 2)
-#  user_id            :integer
-#  order_id           :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  reason             :string(255)
-#  is_debit           :boolean          default(FALSE)
-#  activates_at       :datetime
-#  expires_at         :datetime
-#  original_credit_id :integer
-#  user_credit_id     :integer
-#  admin_id           :integer
-#  line_item_id       :integer
-#
-
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
