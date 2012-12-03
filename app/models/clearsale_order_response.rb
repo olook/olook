@@ -1,7 +1,7 @@
 class ClearsaleOrderResponse < ActiveRecord::Base
   belongs_to :order
 
-  STATES_TO_BE_PROCESSED = [
+  PENDING_STATUS = [
     :manual_analysis,
     :waiting
   ]
@@ -20,11 +20,11 @@ class ClearsaleOrderResponse < ActiveRecord::Base
   ]
 
   def self.to_be_processed
-    where(:processed => false, :status => ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.map{|s| s.to_s})
+    where(:processed => false)
   end
 
-  def has_to_be_processed?
-    ClearsaleOrderResponse::STATES_TO_BE_PROCESSED.include?(self.status.to_sym)
+  def has_pending_status?
+    ClearsaleOrderResponse::PENDING_STATUS.include?(self.status.to_sym)
   end
 
   def has_an_accepted_status?

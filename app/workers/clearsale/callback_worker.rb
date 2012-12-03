@@ -7,17 +7,28 @@ module Clearsale
       if Setting.send_to_clearsale || Setting.force_send_to_clearsale
         responses = ClearsaleOrderResponse.to_be_processed
         responses.each do |response|
-          clearsale_response = OrderAnalysisService.check_results(response.order)
-
-          if clearsale_response.has_an_accepted_status?
-           capture_transaction(response.order.payments)
-           response.update_attribute("processed", true)
-          elsif clearsale_response.has_a_rejected_status?
-            cancel_transaction(response.order.payments)
-            response.update_attribute("processed", true)
-          end       
+          
+          if response.has_pending_status?
+            new_response = OrderAnalysisService.check_results(response.order)
+            unless new_response.has_pending_status?
+              process_response new_response
+              response.update_attribute("processed", true)
+            end
+          else
+            process_response response
+          end
 
         end
+      end
+    end
+
+    def process_response(clearsale_response)
+      if clearsale_response.has_an_accepted_status?
+       capture_transaction(clearsale_response.order.payments)
+       clearsale_response.update_attribute("processed", true)
+      elsif clearsale_response.has_a_rejected_status?
+        cancel_transaction(clearsale_response.order.payments)
+        clearsale_response.update_attribute("processed", true)
       end
     end
 
