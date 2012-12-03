@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: shipping_services
+#
+#  id                   :integer          not null, primary key
+#  name                 :string(255)
+#  erp_code             :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  cubic_weight_factor  :integer
+#  priority             :integer
+#  erp_delivery_service :string(255)
+#
+
 # -*- encoding : utf-8 -*-
 class ShippingService < ActiveRecord::Base
   DEFAULT_CUBIC_WEIGHT_FACTOR = 167

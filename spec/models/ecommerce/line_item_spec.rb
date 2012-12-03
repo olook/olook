@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: line_items
+#
+#  id           :integer          not null, primary key
+#  variant_id   :integer
+#  order_id     :integer
+#  quantity     :integer
+#  price        :decimal(8, 3)
+#  gift         :boolean
+#  retail_price :decimal(8, 3)
+#
+
 require 'spec_helper'
 
 describe LineItem do
