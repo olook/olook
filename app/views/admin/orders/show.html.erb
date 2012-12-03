@@ -188,12 +188,14 @@
            <th>ID</th>
            <th>Score</th>
            <th>Status</th>
+           <th>Processado</th>
           </tr>
           <tr>
             <% @order.clearsale_order_responses.each do |response| %>
               <td><%= response.id %></td>
               <td><%= response.score %></td>
               <td><%= response.status %></td>
+              <td><%= response.processed %></td>
             <% end %>
           </tr>
         </table>
