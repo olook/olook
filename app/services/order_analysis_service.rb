@@ -49,7 +49,7 @@ class OrderAnalysisService
   end
 
   def self.generate_sample_response
-    sample_struct = OpenStruct.new(:status => (ClearsaleOrderResponse::STATES_TO_BE_PROCESSED | ClearsaleOrderResponse::AUTHORIZED_STATUS | ClearsaleOrderResponse::REJECTED_STATUS).sample , :score => (0..40).to_a.sample.to_f)
+    sample_struct = OpenStruct.new(:status => (ClearsaleOrderResponse::PENDING_STATUS | ClearsaleOrderResponse::AUTHORIZED_STATUS | ClearsaleOrderResponse::REJECTED_STATUS).sample , :score => (0..40).to_a.sample.to_f)
     Rails.logger.debug("sample response => #{sample_struct.inspect}")
     sample_struct
   end

@@ -22,7 +22,7 @@ module Clearsale
       end
     end
 
-    def process_response(clearsale_response)
+    def self.process_response(clearsale_response)
       if clearsale_response.has_an_accepted_status?
        capture_transaction(clearsale_response.order.payments)
        clearsale_response.update_attribute("processed", true)
@@ -32,7 +32,7 @@ module Clearsale
       end
     end
 
-    def capture_transaction(payments)
+    def self.capture_transaction(payments)
        payments.each do |payment|
         if payment.is_a?(CreditCard)
           strategy = Payments::BraspagSenderStrategy.new(nil, payment)
@@ -42,7 +42,7 @@ module Clearsale
       end
     end
 
-    def cancel_transaction(payments)
+    def self.cancel_transaction(payments)
       payments.each do |payment|
         if payment.is_a?(CreditCard)
           payment.set_state(:cancel)
