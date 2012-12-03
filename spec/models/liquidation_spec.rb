@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: liquidations
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  description     :string(255)
+#  teaser          :string(255)
+#  starts_at       :datetime
+#  ends_at         :datetime
+#  welcome_banner  :string(255)
+#  lightbox_banner :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  resume          :text
+#  teaser_banner   :string(255)
+#  visible         :boolean          default(TRUE)
+#  show_advertise  :boolean          default(TRUE)
+#  big_banner      :string(255)
+#
+
 require 'spec_helper'
 
 describe Liquidation do

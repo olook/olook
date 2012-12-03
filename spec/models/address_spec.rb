@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  country      :string(255)
+#  city         :string(255)
+#  state        :string(255)
+#  complement   :string(255)
+#  street       :string(255)
+#  number       :integer
+#  neighborhood :string(255)
+#  zip_code     :string(255)
+#  telephone    :string(255)
+#  first_name   :string(255)
+#  last_name    :string(255)
+#  mobile       :string(255)
+#
+
 require "spec_helper"
 
 describe Address do

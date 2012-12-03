@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: gift_boxes
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  active      :boolean
+#  thumb_image :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class GiftBox < ActiveRecord::Base
   include ProductFinder
 

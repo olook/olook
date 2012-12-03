@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: lookbooks
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  thumb_image :string(255)
+#  active      :boolean          default(TRUE)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  slug        :string(255)
+#  icon        :string(255)
+#  icon_over   :string(255)
+#  fg_color    :string(255)
+#  bg_color    :string(255)
+#  movie_image :string(255)
+#
+
 class Lookbook < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   has_many :images, :dependent => :destroy

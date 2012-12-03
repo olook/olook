@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: invites
+#
+#  id                :integer          not null, primary key
+#  user_id           :integer
+#  email             :string(255)
+#  accepted_at       :datetime
+#  invited_member_id :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  sent_at           :datetime
+#  resubmitted       :boolean
+#
+
 # -*- encoding : utf-8 -*-
 class Invite < ActiveRecord::Base
   STATUS = {:yes => "Sim", :no => "Não", :accepted => "Sim, mas por outro convite! ):"}

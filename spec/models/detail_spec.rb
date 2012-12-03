@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: details
+#
+#  id                :integer          not null, primary key
+#  product_id        :integer
+#  translation_token :string(255)
+#  description       :text
+#  display_on        :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 

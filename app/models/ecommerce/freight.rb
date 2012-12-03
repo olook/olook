@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: freights
+#
+#  id                  :integer          not null, primary key
+#  price               :decimal(8, 2)
+#  cost                :decimal(8, 2)
+#  delivery_time       :integer
+#  order_id            :integer
+#  address_id          :integer
+#  shipping_service_id :integer          default(1)
+#  tracking_code       :string(255)
+#  country             :string(255)
+#  city                :string(255)
+#  state               :string(255)
+#  complement          :string(255)
+#  street              :string(255)
+#  number              :string(255)
+#  neighborhood        :string(255)
+#  zip_code            :string(255)
+#  telephone           :string(255)
+#  mobile              :string(255)
+#
+
 class Freight < ActiveRecord::Base
   belongs_to :order
   belongs_to :address

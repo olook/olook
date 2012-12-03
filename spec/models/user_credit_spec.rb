@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: user_credits
+#
+#  id             :integer          not null, primary key
+#  credit_type_id :integer
+#  user_id        :integer
+#  total          :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
