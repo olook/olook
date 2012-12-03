@@ -137,6 +137,7 @@ class Order < ActiveRecord::Base
     event :canceled do
       transition :waiting_payment => :canceled, :if => :cancel_order?
       transition :not_delivered => :canceled, :if => :cancel_order?
+      transition :under_review => :canceled, :if => :cancel_order?
     end
 
     event :reversed do
