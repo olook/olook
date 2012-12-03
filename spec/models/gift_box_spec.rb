@@ -29,6 +29,8 @@ describe GiftBox do
   end
 
   describe "#suggestion_products" do
+
+
     it "should return 5 products ordering by inventory" do
       product_1 = mock_model("Product", id: 25, inventory: 1)
       product_2 = mock_model("Product", id: 26, inventory: 2)
@@ -39,6 +41,9 @@ describe GiftBox do
       products_array = [ product_1, product_2, product_3, product_4, product_5, product_6 ]
       subject.products = []
       subject.products = products_array
+
+      subject.should_receive(:remove_color_variations).and_return(products_array)
+      
       products_array.shift
       subject.suggestion_products.should eq(products_array.reverse)
     end

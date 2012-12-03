@@ -9,7 +9,7 @@ class SendEnabledCreditsNotificationWorker
       rescue => e
         Airbrake.notify(
           :error_class   => "NotificationSender",
-          :error_message => "SendEnabledCredits: the following error occurred: e.message"
+          :error_message => "SendEnabledCredits: the following error occurred: #{e.message}"
         )      	
       end
     end
