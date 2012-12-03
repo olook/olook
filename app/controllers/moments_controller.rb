@@ -23,6 +23,14 @@ class MomentsController < ApplicationController
     respond_with @catalog_products
   end
 
+  #
+  # This method exists for the only purpose to achieve the
+  # "hover" effect on the 'Oculos' link in the menu bar
+  #
+  def glasses
+    render :show
+  end
+
   private
 
   def load_products_of_user_size
@@ -54,5 +62,6 @@ class MomentsController < ApplicationController
     end
     params.delete (:shoe_sizes) if @category_id != Category::SHOE
   end
+
 
 end
