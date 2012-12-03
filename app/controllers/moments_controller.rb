@@ -3,7 +3,7 @@ class MomentsController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
-  before_filter :filter_products_by_category, :if => lambda{ params[:category_id] }
+  before_filter :filter_products_by_category, :unless => lambda{ params[:category_id].nil? }
   before_filter :load_catalog_products
 
   def index
