@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: coupons
+#
+#  id                   :integer          not null, primary key
+#  code                 :string(255)
+#  value                :decimal(8, 2)
+#  remaining_amount     :integer
+#  unlimited            :boolean
+#  active               :boolean
+#  start_date           :datetime
+#  end_date             :datetime
+#  created_at           :datetime
+#  updated_at           :datetime
+#  is_percentage        :boolean
+#  used_amount          :integer          default(0)
+#  campaign             :string(255)
+#  campaign_description :string(255)
+#  created_by           :string(255)
+#  updated_by           :string(255)
+#
+
 require 'spec_helper'
 
 describe Coupon do

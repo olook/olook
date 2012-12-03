@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: moip_callbacks
+#
+#  id               :integer          not null, primary key
+#  order_id         :integer
+#  id_transacao     :string(255)
+#  cod_moip         :string(255)
+#  tipo_pagamento   :string(255)
+#  status_pagamento :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  classificacao    :string(255)
+#  payment_id       :integer
+#  processed        :boolean          default(FALSE)
+#  retry            :integer          default(0)
+#  error            :text
+#
+
 require 'spec_helper'
 
 describe MoipCallback do

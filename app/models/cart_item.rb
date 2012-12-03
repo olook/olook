@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: cart_items
+#
+#  id            :integer          not null, primary key
+#  variant_id    :integer          not null
+#  cart_id       :integer          not null
+#  quantity      :integer          default(1), not null
+#  gift_position :integer          default(0), not null
+#  gift          :boolean          default(FALSE), not null
+#
+
 # -*- encoding : utf-8 -*-
 class CartItem < ActiveRecord::Base
   belongs_to :cart

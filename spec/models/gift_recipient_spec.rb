@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: gift_recipients
+#
+#  id                         :integer          not null, primary key
+#  user_id                    :integer
+#  facebook_uid               :string(255)
+#  name                       :string(255)
+#  shoe_size                  :integer
+#  gift_recipient_relation_id :integer
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  profile_id                 :integer
+#  ranked_profile_ids         :text
+#
+
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 

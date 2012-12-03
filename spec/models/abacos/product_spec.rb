@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  description    :text
+#  category       :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  model_number   :string(255)
+#  color_name     :string(255)
+#  color_sample   :string(255)
+#  collection_id  :integer
+#  is_visible     :boolean
+#  color_category :string(255)
+#
+
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 

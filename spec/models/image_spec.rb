@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id          :integer          not null, primary key
+#  image       :string(255)
+#  lookbook_id :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 require 'spec_helper'
 
 describe Image do

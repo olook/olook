@@ -45,6 +45,16 @@ Installing MySQL 5.5.28 on mac os 10.7
 Download the package dmg and install
 - http://dev.mysql.com/downloads/mirror.php?id=409829
 
+Installing capybara-webkit on Ubuntu
+============
+- sudo apt-get install qt4-dev-tools libqt4-dev libqt4-core libqt4-gui
+- bundle
+
+Installing capybara-webkit on a Mac
+============
+- brew install qt
+- bundle
+
 Deploy with Capistrano
 ============
 
