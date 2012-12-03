@@ -121,6 +121,7 @@ class Payment < ActiveRecord::Base
     event :deliver do
       transition :started => :waiting_payment, :if => :deliver_payment?
       transition :waiting_payment => :waiting_payment, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "deliver", :current_state => "waiting_payment" }) }
+      transition :under_review => :under_review
     end
 
     # "5" => :cancel,
