@@ -15,7 +15,7 @@ class OrderAnalysisService
     clearsale_response = Setting.use_clearsale_server ? Clearsale::Analysis.get_order_status(order.id) : OrderAnalysisService.generate_sample_response
     response.status = clearsale_response.status
     response.score = clearsale_response.score
-    response.save unless response.has_to_be_processed?
+    response.save unless response.has_pending_status?
 
     response
   end
