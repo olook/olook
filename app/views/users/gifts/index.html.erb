@@ -1,0 +1,68 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/my_account" %>
+<% end %>
+
+<div id="my_account" class="my_gifts">
+  <div id="box_menu">
+    <%= render "shared/my_account/menu" %>
+  </div>
+  <div id="data">
+    <div class="gifts">
+      <h1>Enviados</h1>
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th class="number">Pedido</th>
+            <th class="date">Data do pedido</th>
+            <th class="amount">Qtde.</th>
+            <th class="value">Valor</th>
+            <th class="freight">Frete</th>
+            <th class="payments">Parcelas</th>
+            <th class="status">Status do pedido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%# @gifts.each do |gift| %>
+            <tr>
+              <td class="number"><%= link_to "2096233", "#" %></td>
+              <td>24/09/2012 13:18</td>
+              <td>1</td>
+              <td>R$ 79,90</td>
+              <td>R$ 0,00</td>
+              <td>1x</td>
+              <td>enviado</td>
+            </tr>
+            <tr class="message">
+              <td colspan="7">Presente enviado para Maria, sua mãe</td>
+            </tr>
+          <%# end %>
+        </tbody>
+      </table>
+      <h1>Não Finalizados</h1>
+      <table cellpadding="0" cellspacing="0" class="unfinished">
+        <thead>
+          <tr>
+            <th class="gifted">Presenteada</th>
+            <th class="">Sua</th>
+            <th class="">Sapato</th>
+            <th class="">Aniversário</th>
+            <th colspan="2">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%# @gifts.each do |gift| %>
+            <tr>
+              <td class="gifted">Maria</td>
+              <td>Amiga</td>
+              <td>35</td>
+              <td>-</td>
+              <td class="edit"><%= link_to "Editar", "#" %></td>
+              <td class="recommendations"><%= link_to "Ver recomendações", "#" %></td>
+            </tr>
+          <%# end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%= render "edit_gifted" %>
+</div>

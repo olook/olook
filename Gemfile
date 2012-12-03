@@ -82,6 +82,7 @@ end
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '~> 1.1.1'
+  gem "capybara-webkit", "~> 0.13.0"
   gem 'database_cleaner'
   gem 'rspec', '~> 2.10.0'
   gem 'shoulda-matchers'
@@ -91,9 +92,10 @@ group :test do
   gem 'guard-spork'
   gem 'launchy'
   gem 'vcr', '1.11.3'
-  gem 'webmock', '1.7.0'
+  #gem 'webmock', '1.7.0'
+  gem 'fakeweb'
   gem 'selenium-webdriver', '2.21.1'
-  gem 'webmock-disabler'
+  #gem 'webmock-disabler'
 end
 
 group :production do

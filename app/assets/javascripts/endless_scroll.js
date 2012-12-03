@@ -31,15 +31,15 @@ jQuery(function() {
   }
 
   $("html").live("click", function() {
-    $("div#products_container div#shoe_size_filter div.sizes").hide();
+    $("div#shoe_size_filter div.sizes").hide();
   });
 
-  $("div#products_container div#shoe_size_filter span").live("click", function(e) {
+  $("div#shoe_size_filter span").live("click", function(e) {
     $(this).siblings(".sizes").toggle();
     e.stopPropagation();
   });
 
-  $("div#products_container div#shoe_size_filter div.sizes input").change(function(e) {
+  $("div#shoe_size_filter div.sizes input").click(function(e) {
     checked = $(this).is(":checked");
     val = $(this).val();
     filterSize = $("form#filter div.filter #"+val);
@@ -52,17 +52,17 @@ jQuery(function() {
     checkedSize = $("div#shoe_size_filter div.sizes input:checked").size();
     $("div#shoe_size_filter div.sizes input:checked").each(function(index) {
       if(checkedSize == 1) {
-        $("div#products_container div#shoe_size_filter span").text($(this).val());
+        $("div#shoe_size_filter span").text($(this).val());
       } else {
         if(index == 0) {
           textSize = $(this).val();
         } else {
           textSize = textSize + ", " + $(this).val();
         }
-        $("div#products_container div#shoe_size_filter span").text(textSize);
+
+        $("div#shoe_size_filter span").text(textSize);
       }
     });
-    $(filterSize).click();
   });
   $('#order_filter').change(function() {
     $("form#filter").submit();

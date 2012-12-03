@@ -10,6 +10,11 @@ class Gift::SuggestionsController < Gift::BaseController
     product_finder_service = ProductFinderService.new(@gift_recipient)
     @suggested_variants = product_finder_service.suggested_variants_for(@gift_recipient.profile, @gift_recipient.shoe_size)
     @products = product_finder_service.showroom_products(:description => @gift_recipient.shoe_size, :not_allow_sold_out_products => true)
+    #@suggestion_products = Product.find(12472, 10770, 10675, 11636, 11961)
+    @recipient_relations = GiftRecipientRelation.ordered_by_name
+    @helena_tips = GiftBox.find_by_name("Dica da Helena")
+    @top_five = GiftBox.find_by_name("Top Five")
+    @hot_on_facebook = GiftBox.find_by_name("Hot on Facebook")
   end
 
   def select_gift
@@ -29,7 +34,8 @@ class Gift::SuggestionsController < Gift::BaseController
     position = 0
     params[:variants].each_pair do |k, id|
       variant = Variant.find(id)
-      @cart.add_item(variant, 1, position, true) if variant
+      # @cart.add_item(variant, 1, position, true) if variant
+      @cart.add_item(variant, 1, position) if variant
       position += 1
     end
 

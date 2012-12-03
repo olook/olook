@@ -3,10 +3,6 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "settings/index"
-
-  get "settings/update"
-
   mount Resque::Server => "/admin/resque"
 
   root :to => "home#index"
@@ -19,6 +15,7 @@ Olook::Application.routes.draw do
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
+
   match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
 
   #match "/sobre", :to => "pages#about", :as => "about"
@@ -50,6 +47,7 @@ Olook::Application.routes.draw do
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
+  match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -107,6 +105,9 @@ Olook::Application.routes.draw do
   namespace :gift, :path => "presentes" do
     root :to => "home#index"
     get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
+    get "helena_tips" => "home#helena_tips"
+    get "top_five" => "home#top_five"
+    get "hot_on_facebook" => "home#hot_on_facebook"
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
       resources :suggestions, :only => [:index]
@@ -124,6 +125,7 @@ Olook::Application.routes.draw do
         post "new_with_data" => "occasions#new_with_data"
       end
     end
+    get "profiles/:name" => "profiles#show"
   end
 
   #ADMIN
@@ -254,6 +256,10 @@ Olook::Application.routes.draw do
 
     resources :payments, :only => [:index, :show]
 
+    resources :gift_boxes do
+      get :products, :to => "gift_boxes#product"
+    end
+
   end
 
   #USER / SIGN IN
@@ -270,6 +276,8 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
   namespace :users, :path => 'conta', :as => "user" do
+    #get "/presentes", to: 'gifts#index', as: "gifts"
+
     resources :addresses, :path => 'enderecos'
     resources :orders, :path => 'pedidos', :only => [:index]
     resources :credits, :path => 'creditos' do
