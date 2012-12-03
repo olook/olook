@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  friend_title :string(255)
+#  survey_id    :integer
+#
+
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 

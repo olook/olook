@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: freight_prices
+#
+#  id                  :integer          not null, primary key
+#  shipping_service_id :integer
+#  zip_start           :integer
+#  zip_end             :integer
+#  order_value_start   :decimal(8, 3)
+#  order_value_end     :decimal(8, 3)
+#  delivery_time       :integer
+#  price               :decimal(8, 2)
+#  cost                :decimal(8, 2)
+#  description         :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 

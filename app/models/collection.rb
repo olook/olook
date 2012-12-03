@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: collections
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  start_date :date
+#  end_date   :date
+#  created_at :datetime
+#  updated_at :datetime
+#  is_active  :boolean          default(FALSE)
+#
+
 # -*- encoding : utf-8 -*-
 class Collection < ActiveRecord::Base
   has_many :products

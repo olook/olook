@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: gift_occasions
+#
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  gift_recipient_id     :integer
+#  gift_occasion_type_id :integer
+#  day                   :integer
+#  month                 :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 

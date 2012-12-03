@@ -1,4 +1,44 @@
 # encoding: utf-8
+# == Schema Information
+#
+# Table name: orders
+#
+#  id                  :integer          not null, primary key
+#  user_id             :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#  credits             :decimal(8, 2)    default(0.0)
+#  state               :string(255)
+#  number              :integer
+#  invoice_number      :string(255)
+#  invoice_serie       :string(255)
+#  in_cart_notified    :integer          default(0)
+#  disable             :boolean          default(FALSE)
+#  gift_wrap           :boolean          default(FALSE)
+#  gift_message        :string(255)
+#  restricted          :boolean          default(FALSE), not null
+#  purchased_at        :datetime
+#  state_reason        :string(255)
+#  cart_id             :integer
+#  amount_discount     :decimal(8, 2)    default(0.0), not null
+#  amount_increase     :decimal(8, 2)    default(0.0), not null
+#  amount_paid         :decimal(8, 2)    default(0.0), not null
+#  subtotal            :decimal(8, 2)    default(0.0), not null
+#  erp_integrate_at    :datetime
+#  erp_cancel_at       :datetime
+#  erp_payment_at      :datetime
+#  erp_integrate_error :text
+#  erp_cancel_error    :text
+#  erp_payment_error   :text
+#  user_first_name     :string(255)
+#  user_last_name      :string(255)
+#  user_email          :string(255)
+#  user_cpf            :string(255)
+#  gross_amount        :decimal(8, 2)
+#  gateway             :integer
+#  tracking_id         :integer
+#
+
 require 'spec_helper'
 
 describe Order do

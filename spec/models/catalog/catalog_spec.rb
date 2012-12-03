@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: catalogs
+#
+#  id             :integer          not null, primary key
+#  type           :string(255)
+#  association_id :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 require 'spec_helper'
 
 describe Catalog::Catalog do
