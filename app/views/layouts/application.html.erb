@@ -64,10 +64,9 @@
   <%= javascript_include_tag "application" %>
   <% if content_for? :footer %>
     <%= yield :footer %>
-    <%= javascript_include_tag "campaign_emails_modal" if ["development", "test"].include? Rails.env %>
-
   <% end %>
   <%= render :partial => "shared/metrics/master_tags" %>
+  <%= javascript_include_tag "campaign_emails_modal" if ["development", "test"].include? Rails.env %>
   
 
 </body>
