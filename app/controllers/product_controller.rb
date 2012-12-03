@@ -7,6 +7,7 @@ class ProductController < ApplicationController
   end
 
   def show
+    @google_path_pixel_information = "Produto"
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @url = request.protocol + request.host
 
