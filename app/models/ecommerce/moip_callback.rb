@@ -3,6 +3,17 @@ class MoipCallback < ActiveRecord::Base
   belongs_to :order
   belongs_to :payment
 
+  STATUS = {
+    "1" => :authorize,
+    "2" => :start,
+    "3" => :deliver,
+    "4" => :complete,
+    "5" => :cancel,
+    "6" => :review,
+    "7" => :reverse,
+    "9" => :refund
+  }
+
   def update_payment_status(payment)
     ActiveRecord::Base.transaction do
       payment.update_attributes!(
@@ -11,7 +22,10 @@ class MoipCallback < ActiveRecord::Base
         :gateway_status => self.status_pagamento,
         :gateway_status_reason => self.classificacao
       )
-      if payment.set_state(self.status_pagamento)
+      event = STATUS[self.status_pagamento.to_s]
+      if event.nil?
+        self.update_attributes(:processed => true, :error => "Invalid status")
+      elsif payment.set_state(event)
         self.update_attribute(:processed, true)
         if payment.order && payment.order.reload.canceled?
           Resque.enqueue(Abacos::CancelOrder, payment.order.number)

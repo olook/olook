@@ -241,6 +241,30 @@
       invalid_date: "a data informada é inválida"
 
   activerecord:
+    state_machines:
+      order:
+        state:
+          states:
+            authorized: Autorizado
+            delivered: Entregue
+            delivering: Entregando
+            not_delivered: "Não Entregue"
+            picking: Pegando
+            waiting_payment: "Esperando pagamento"
+            under_review: "Em revisão"
+            canceled: "Cancelado"
+            refunded: "Estornado"
+          events:
+            authorized: Autorizado
+            under_review: "Em revisão"
+            canceled: Cancelado
+            reversed: Revertido
+            refunded: Estornado
+            picking: Buscando
+            delivering: Entregando
+            delivered: Entregue
+            not_delivered: "Não entregue"
+
     models:
       address: Endereço
       credit_card: Cartão de crédito
@@ -260,8 +284,8 @@
         number: Número
         state: Estado
         street: "Rua, Av., Praça"
-        telephone: "Telefone fixo"
-        mobile: Celular
+        telephone: "Telefone de contato 1"
+        mobile: "Telefone de contato 2"
         zip_code: CEP
       credit_card:
         credit_card_number: "Número do cartão"
@@ -292,6 +316,9 @@
         name: nome
       gift_recipient_relation:
         name: nome
+      gift_box:
+        name: Nome
+        active: Ativo 
 
     errors:
       template:

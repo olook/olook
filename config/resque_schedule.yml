@@ -14,7 +14,13 @@ update_status:
   cron: "*/15 * * * *"
   class: ProcessPaymentCallbacksWorker
   queue: order_status
-  description: "Processa callbacks de Pagamento"
+  description: "Processa callbacks de Pagamento Moip"
+
+update_braspag_responses:
+  cron: "*/15 * * * *"
+  class: ProcessBraspagResponsesWorker
+  queue: order_status
+  description: "Processa respostas de pagamento Braspag"
 
 # send_in_cart_email:
 #   cron: "0 12 * * *"
@@ -54,13 +60,13 @@ send_enabled_credits_notification:
 
 # TODO: CHANGE BACK TO 23 AFTER 23/09/2012
 send_seven_days_to_expiration_warning:
-  cron: "40 14 26 * *"
+  cron: "40 4 23 * *"
   class: SendExpirationWarningWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
 
 send_one_day_to_expiration_warning:
-  cron: "1 0 L * *"
+  cron: "15 3 27 * *"
   class: SendExpirationTomorrowWarningWorker
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"

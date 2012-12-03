@@ -5,7 +5,9 @@
 :codigo_produto: !str
   str: '66'
   attributes: {}
-:codigo_produto_pai: !!null 
+:codigo_produto_pai: !str
+  str: '66'
+  attributes: {}
 :nome_lista: !str
   str: LISTA DE PREÇO
   attributes: {}

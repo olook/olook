@@ -6,16 +6,6 @@ class Payment < ActiveRecord::Base
   CANCELED_STATUS = 'Cancelado'
   REASON = 'Pagamento'
   RECEIPT = 'AVista'
-  STATUS = {
-    "1" => :authorize,
-    "2" => :start,
-    "3" => :deliver,
-    "4" => :complete,
-    "5" => :cancel,
-    "6" => :review,
-    "7" => :reverse,
-    "9" => :refund
-  }
 
   RESPONSE_STATUS = {
     "Autorizado" => "Autorizado",
@@ -29,7 +19,8 @@ class Payment < ActiveRecord::Base
   }
 
   GATEWAYS = {
-    :moip => 1
+    :moip => 1,
+    :braspag => 2
   }
 
   attr_accessor :receipt, :user_identification
@@ -40,7 +31,6 @@ class Payment < ActiveRecord::Base
   belongs_to :credit_type
 
   after_create :generate_identification_code
-  after_initialize :set_default_gateway
 
   def self.for_erp
     where(type: ['CreditCard','Billet', 'Debit'])
@@ -138,6 +128,7 @@ class Payment < ActiveRecord::Base
       transition :started => :cancelled
       transition :waiting_payment => :cancelled
       transition :under_review => :cancelled
+      transition :cancelled => :cancelled, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "cancel", :current_state => "cancelled" }) }
     end
 
     # "1" => :authorize
@@ -145,6 +136,7 @@ class Payment < ActiveRecord::Base
       transition :started => :authorized
       transition :waiting_payment => :authorized
       transition :under_review => :authorized
+      transition :authorized => :authorized, :if => lambda {|payment| payment.notify_unexpected_transition({ :event_name => "authorize", :current_state => "authorized" }) }
     end
 
     # "4" => :complete,
@@ -198,8 +190,7 @@ class Payment < ActiveRecord::Base
     update_attributes(:payment_expiration_date => build_payment_expiration_date)
   end
 
-  def set_state(statuz)
-    event = STATUS[statuz.to_s]
+  def set_state(event)
     send(event) if event
   end
 
@@ -253,7 +244,7 @@ class Payment < ActiveRecord::Base
   end
 
   private
-  
+
   def generate_identification_code
     #TODO: PASSAR A USAR UUID
     code = SecureRandom.uuid.delete("-")
@@ -261,10 +252,6 @@ class Payment < ActiveRecord::Base
       code = SecureRandom.uuid
     end
     update_attributes(:identification_code => code)
-  end
-
-  def set_default_gateway
-    self.gateway = GATEWAYS[:moip]
   end
 
 end

@@ -3,6 +3,7 @@ class MomentsController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
+  before_filter :filter_products_by_category, :if => lambda{ params[:category_id] }
   before_filter :load_catalog_products
 
   def index
@@ -20,6 +21,14 @@ class MomentsController < ApplicationController
 
   def update
     respond_with @catalog_products
+  end
+
+  #
+  # This method exists for the only purpose to achieve the
+  # "hover" effect on the 'Oculos' link in the menu bar
+  #
+  def glasses
+    render :show
   end
 
   private
@@ -44,5 +53,15 @@ class MomentsController < ApplicationController
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
     end
   end
+
+  def filter_products_by_category
+    if (params[:category_id].nil? || params[:category_id] == "")
+      params.delete :category_id
+    else
+      @category_id = params[:category_id].to_i
+    end
+    params.delete (:shoe_sizes) if @category_id != Category::SHOE
+  end
+
 
 end

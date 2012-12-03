@@ -11,7 +11,9 @@
 :codigo_produto: !str
   str: '1'
   attributes: {}
-:codigo_produto_pai: !!null 
+:codigo_produto_pai: !str
+  str: '1'
+  attributes: {}
 :codigo_barras: !str
   str: '1120108101132'
   attributes: {}

@@ -27,6 +27,8 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
 
+  Capybara.javascript_driver = :webkit
+
   OmniAuth.config.test_mode = true
 
   OmniAuth.config.mock_auth[:facebook] = {
@@ -42,8 +44,15 @@ Spork.prefork do
   #Requires libs. Check why I need to do it later
   Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
 
+  Savon.configure do |config|
+
+    # By default, Savon logs each SOAP request and response to $stdout.
+    # Here's how you can disable logging:
+    config.log = false
+    
+  end
+
   HTTPI.log = false
-  Savon.log = false
 
   RSpec.configure do |config|
     

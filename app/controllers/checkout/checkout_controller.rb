@@ -37,7 +37,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def new_credit_card
-    @payment = CreditCard.new(CreditCard.user_data(@user))
+    @payment = CreditCard.new
     @payment.telephone = session[:user_telephone_number] if session[:user_telephone_number]
   end
 
@@ -52,8 +52,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
+      payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => moip_sender_strategy, :tracking_params => session[:order_tracking_params] } )
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
@@ -62,7 +62,7 @@ class Checkout::CheckoutController < Checkout::BaseController
        else
          @payment = Debit.new(params[:debit])
          @payment.user_identification = @user.cpf
-         @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
+         @payment.errors.add(:base, "Não foi possível realizar o pagamento. Tente novamente por favor.")
          @payment
        end
     end
@@ -76,8 +76,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     @payment.user_identification = @user.cpf
 
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      moip_sender_strategy = Payments::MoipSenderStrategy.new(@cart_service, @payment)
+      payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => moip_sender_strategy, :tracking_params => session[:order_tracking_params] } )
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
@@ -86,7 +86,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       else
         @payment = Billet.new(params[:billet])
         @payment.user_identification = @user.cpf
-        @payment.errors.add(:id, "Não foi possível realizar o pagamento. Tente novamente por favor.")
+        @payment.errors.add(:base, "Não foi possível realizar o pagamento. Tente novamente por favor.")
         @payment
       end
     end
@@ -97,24 +97,23 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create_credit_card
     params[:credit_card][:receipt] = Payment::RECEIPT if params[:credit_card]
     @payment = CreditCard.new(params[:credit_card])
-    @payment.telephone = session[:user_telephone_number]
+    @payment.telephone = session[:user_telephone_number] || current_user.addresses.first.telephone
     @bank = params[:credit_card][:bank] if params[:credit_card]
     @installments = params[:credit_card][:payments] if params[:credit_card]
-    @payment.user_identification = @user.cpf
-
     if @payment.valid?
-      moip_sender_strategy = MoipSenderStrategy.new(@cart_service, @payment)
-      moip_sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
-      payment_builder = PaymentBuilder.new(@cart_service, @payment, moip_sender_strategy)
+      sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
+      sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
+      payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
       response = payment_builder.process!
 
       if response.status == Payment::SUCCESSFUL_STATUS
         clean_cart!
-        return redirect_to(order_show_path(:number => response.payment.order.number)) 
+        return redirect_to(order_show_path(:number => response.payment.order.number))
       else
         @payment = CreditCard.new(params[:credit_card])
+        @payment.telephone = session[:user_telephone_number] || current_user.addresses.first.telephone
         @payment.user_identification = @user.cpf
-        @payment.errors.add(:id, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+        @payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
         @payment
       end
     end

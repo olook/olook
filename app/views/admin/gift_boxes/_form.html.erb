@@ -1,0 +1,34 @@
+<%= form_for([:admin, @gift_box]) do |f| %>
+  <% if @gift_box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gift_box.errors.count, "error") %> prohibited this gift_box from being saved:</h2>
+
+      <ul>
+      <% @gift_box.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </div>
+
+  <div class="field">
+    <%= f.label :thumb_image %><br />
+    <%= image_tag(@gift_box.thumb_image.try(:url)) + raw('<br />') if !@gift_box.thumb_image.blank? %>
+    <%= f.file_field :thumb_image %><br />
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

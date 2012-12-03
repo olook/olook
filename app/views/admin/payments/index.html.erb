@@ -48,6 +48,7 @@
       <th><%= sort_link @search, :user_first_name, "Client" %></th>
       <th>Order</th>
       <th>Type</th>
+      <th>Gateway</th>
       <th>State</th>
       <th>Percent</th>
       <th><%= sort_link @search, :created_at %></th>
@@ -60,10 +61,16 @@
       <td><%= link_to payment.user.name, admin_user_path(payment.user) if payment.user %></td>
       <td><%= link_to payment.order.number, admin_order_path(payment.order) if payment.order %></td>
       <td><%= payment_with_origin(payment) %></td>
+      <td><%= humanize_gateway payment.gateway %>
       <td><%= payment.state %></td>
       <td><%= payment.percent %></td>
       <td><%= payment.created_at.to_s(:long) %></td>
-      <td><%= link_to 'Show Moip callbacks', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
+      <% if payment.gateway == 1 %>
+        <td><%= link_to 'Show Moip callbacks', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
+      <% else %>
+        <td><%= link_to 'Show Braspag authorize', admin_braspag_authorize_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
+        <td><%= link_to 'Show Braspag capture', admin_braspag_capture_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
+      <% end %>
     </tr>
   <% end %>
   </table>

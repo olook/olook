@@ -21,11 +21,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, lookbooks, moments, gift, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [showroom_offline, lookbooks, moments, categories, gift, stylist, liquidation, cart].join.html_safe
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [showroom, lookbooks, moments, categories, gift, stylist, liquidation, cart].join.html_safe
   end
 
   def render_half_user_menu
@@ -41,7 +41,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, olook_tv, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
   end
 
   private
@@ -73,6 +73,26 @@ class MenuPresenter < BasePresenter
     render_item("Coleções", h.moments_path, "moments", ["moments#index"])
   end
 
+  def categories
+    [shoes, bags, accessories, glasses]
+  end
+
+  def shoes
+    render_item("Sapatos", h.shoes_path, "categories", ["moments#show#1"])
+  end
+
+  def bags
+    render_item("Bolsas", h.bags_path, "categories", ["moments#show#2"])
+  end
+
+  def accessories
+    render_item("Acessórios", h.accessories_path, "categories", ["moments#show#3"])
+  end
+
+  def glasses
+    render_item("Óculos", h.glasses_path, "categories", ["moments#glasses"])
+  end
+
   def gift
     render_item("Presentes", h.gift_root_path, "gift",
      [
@@ -92,10 +112,6 @@ class MenuPresenter < BasePresenter
 
   def cart
     h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
-  end
-
-  def olook_tv
-    h.content_tag :li, h.link_to("olook TV", "http://blog.olook.com.br/category/olook-tv/", :target => "_blank"), :class => "olooktv"
   end
 
   def blog

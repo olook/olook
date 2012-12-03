@@ -5,17 +5,12 @@
 
   <% content_for :footer do %>
     <%= javascript_include_tag "liquidations" %>
+    <%= javascript_include_tag "endless_scroll" %>
   <% end %>
 
   <% content_for :full do %>
     <div class="content">
-      <div class="description">
-        <% if @liquidation.teaser_banner %>
-          <%= image_tag @liquidation.teaser_banner, :alt => @liquidation.name %>
-        <% end %>
-        <p><%= @liquidation.description %></p>
-      </div>
-      <%= render "carousel",  :params => { :carousels => @liquidation.liquidation_carousels } %>
+      <%= liquidation_presenter.render_top %>
     </div>
   <% end %>
 
