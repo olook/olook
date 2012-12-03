@@ -31,11 +31,11 @@ var google_conversion_label = "yMonCLmp2wMQn-uR5QM";
 var google_custom_params = window.google_tag_params;
 var google_remarketing_only = true;
 var google_tag_params = {
-      prodid:'',
-      pagetype:'',
-      pname:'',
-      pcat:'',
-      value:''
+      prodid:"<%= @product.id if @product%>",
+      pagetype:"<%= @google_path_pixel_information if @google_path_pixel_information%>",
+      pname:"<%= @product.name if @product%>",
+      pcat:"<%= @product.category_humanize if @product%>",
+      value:"<%= @product.retail_price if @product%>"
 };
 /* ]]> */
 </script>
