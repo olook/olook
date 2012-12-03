@@ -1,38 +1,17 @@
-<% present 'Moment', :moment => @moment do |moment_presenter| %>
+<% present 'Moment', {:moment => @moment, :moments => @moments, :category_id => @category_id} do |moment_presenter| %>
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/moments" %>
   <% end %>
 
   <% content_for :footer do %>
-    <%= javascript_include_tag "moments" %>
+    <%= javascript_include_tag "endless_scroll" %>
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
     <% end %>
 
-
   <div id="moments" class="content">
-    <%= render "nav", :moments => @moments %>
+    <%= moment_presenter.display_nav_bar %>
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
-      <div id="shoe_size_filter">
-        <%= label_tag "Mostrar números:" %>
-        <span><%= current_user.shoes_size if current_user && current_user.shoes_size %></span>
-        <div class="sizes">
-          <ul>
-            <% moment_presenter.moment.catalog.shoe_sizes.each do |key, value| %>
-              <% unless key.zero? %>
-                <li>
-                  <% if current_user && current_user.shoes_size %>
-                    <%= check_box_tag('shoe_sizes_filter[]', key, (key.to_s == current_user.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
-                  <% else %>
-                    <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
-                  <% end %>
-                  <%= label_tag(key, nil, :for => "size_#{key}") %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
       <%= render "shared/filters/order" %>
       <ul id="products">
         <%= render "products", :products => @catalog_products %>

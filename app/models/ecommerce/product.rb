@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
+
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
@@ -28,6 +29,8 @@ class Product < ActiveRecord::Base
 
   has_many :lookbooks_products, :dependent => :destroy
   has_many :lookbooks, :through => :lookbooks_products
+  has_many :gift_boxes_product, :dependent => :destroy
+  has_many :gift_boxes, :through => :gift_boxes_product
   has_many :lookbook_image_maps, :dependent => :destroy
   has_many :liquidation_products
   has_many :liquidations, :through => :liquidation_products
@@ -41,9 +44,10 @@ class Product < ActiveRecord::Base
   mount_uploader :color_sample, ColorSampleUploader
 
   scope :only_visible , where(:is_visible => true)
-  scope :valid_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"]).order("collection_id desc")}
+  scope :valid_for_xml, lambda { |products_blacklist, collections_blacklist| only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => products_blacklist , :collections_blacklist => collections_blacklist).order("collection_id desc")}
+
   # scope logic for criteo xml
-  scope :valid_criteo_for_xml, lambda { only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", COUNT(id) as \"count_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:blacklist)", :blacklist => CRITEO_CONFIG["products_blacklist"]).where("(products.category <> 1 or x.count_variants > 3)").order("collection_id desc")}
+  scope :valid_criteo_for_xml, lambda { |products_blacklist, collections_blacklist| only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", COUNT(id) as \"count_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => products_blacklist , :collections_blacklist => collections_blacklist ).where("(products.category <> 1 or x.count_variants > 3)").order("collection_id desc")}
   scope :shoes        , where(:category => Category::SHOE)
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
@@ -119,11 +123,11 @@ class Product < ActiveRecord::Base
   def bag_picture
     main_picture.try(:image_url, :bag) # 70x70
   end
-  
+
   def checkout_picture
     main_picture.try(:image_url, :checkout) # 90x90
   end
-  
+
   def showroom_picture
     main_picture.try(:image_url, :showroom) # 170x170
   end
@@ -265,6 +269,10 @@ class Product < ActiveRecord::Base
 
   def can_supports_discount?
     Setting.checkout_suggested_product_id.to_i != self.id
+  end
+
+  def self.load_criteo_config(key)
+    CRITEO_CONFIG[key]
   end
 
 private

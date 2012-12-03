@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :redeem_credit_type do
+    type ""
+    code "redeem"
   end
 end

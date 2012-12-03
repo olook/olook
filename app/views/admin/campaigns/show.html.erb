@@ -1,0 +1,47 @@
+<h2>Campaign</h2>
+<div class="inner">
+  <p>
+    <b>ID:</b>
+    <%= @campaign.id %>
+  </p>
+  <b>Title:</b>
+    <%= @campaign.title %>
+  </p>
+  <b>Active?</b>
+    <%= @campaign.is_active? %>
+  </p>
+  <p>
+    <b>Backgound</b>
+    <%= @campaign.background %>
+  </p>
+   <p>
+    <b>Banner</b>
+    <% if @campaign.banner? %>
+      <%= image_tag @campaign.banner %>
+    <% end %>
+  </p>
+  <b>Start At:</b>
+    <%= @campaign.start_at %>
+  </p>
+  <p>
+    <b>End At</b>
+    <%= @campaign.end_at %>
+  </p>
+  <p>
+    <b>description</b>
+    <%= @campaign.description %>
+  </p>
+  <p>
+    <b>Created At</b>
+    <%= @campaign.created_at %>
+  </p>
+  <p>
+    <b>Updated At</b>
+    <%= @campaign.updated_at %>
+  </p>
+</div>
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_campaign_path(@campaign) %></li>
+  <li><%= link_to 'Back', admin_campaigns_path %></li>
+<% end %>
+

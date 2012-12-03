@@ -14,7 +14,6 @@ describe CreditCard do
   context "attributes validation" do
     it { should validate_presence_of(:bank) }
     it { should validate_presence_of(:user_name) }
-    it { should validate_presence_of(:credit_card_number) }
     it { should validate_presence_of(:security_code) }
     it { should validate_presence_of(:expiration_date) }
     it { should validate_presence_of(:user_identification) }
@@ -83,14 +82,6 @@ describe CreditCard do
     subject.human_to_s.should == "Cartão de Crédito"
   end
 
-  context "creating a credit_card" do
-    it "should crypt the credt card number" do
-      credit_card_number = "1234123412341234"
-      credit_card = FactoryGirl.create(:credit_card, :credit_card_number => credit_card_number)
-      credit_card.credit_card_number.should == "XXXXXXXXXXXX1234"
-    end
-  end
-
   context "installments" do
     it "should return 2 installments" do
       CreditCard.installments_number_for(89.89).should == 2
@@ -139,15 +130,6 @@ describe CreditCard do
         subject.telephone = nil
         subject.valid?.should_not eq(true)
       end
-    end
-  end
-
-  describe ".user_data" do
-    let(:user) { FactoryGirl.create(:user, :birthday => Date.new(1983,12,21)) }
-
-    it "returns a hash with user data used to fill in credit card" do
-      data = { :user_name => user.name, :user_identification => user.cpf, :user_birthday => "21/12/1983" }
-      CreditCard.user_data(user).should == data
     end
   end
 end

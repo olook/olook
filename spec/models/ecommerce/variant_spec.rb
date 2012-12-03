@@ -37,15 +37,12 @@ describe Variant do
   subject { FactoryGirl.create(:basic_shoe_size_35, :product => product) }
 
   describe "#update_initial_inventory_if_needed" do
-    
+
     let(:variant) { FactoryGirl.create(:variant) }
 
     it "should increase initial_inventory because initial_inventory is 0" do
       variant.inventory = 80
       variant.update_initial_inventory_if_needed
-
-      puts "variante estoq = #{variant.initial_inventory}"
-
       variant.initial_inventory.should == 80
     end
 
@@ -57,7 +54,7 @@ describe Variant do
       variant.inventory = 50
       variant.update_initial_inventory_if_needed
       variant.initial_inventory.should == 80
-    end    
+    end
 
     it "should increase initial_inventory because inventory is greater than initial_inventory" do
       variant.inventory = 80
@@ -67,7 +64,7 @@ describe Variant do
       variant.inventory = 150
       variant.update_initial_inventory_if_needed
       variant.initial_inventory.should == 150
-    end        
+    end
 
   end
 
@@ -251,10 +248,10 @@ describe Variant do
 
       product
     end
-    
+
     it "should reflect all catalogs" do
       ct_product = CatalogProductService.new(catalog, basic_bag).save!
-      
+
       basic_bag.variants.each do |variant|
         variant.update_attribute(:inventory, variant.id+1)
 

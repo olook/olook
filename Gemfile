@@ -34,11 +34,12 @@ group :production, :staging do
 end
 
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
+gem 'obraspag', '>= 0.0.21', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
-gem 'savon'
-gem 'httpi'
+gem 'savon', '= 0.9.9'
+gem 'httpi', '= 0.9.7'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
@@ -79,6 +80,7 @@ end
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '~> 1.1.1'
+  gem "capybara-webkit", "~> 0.13.0"
   gem 'database_cleaner'
   gem 'rspec', '~> 2.10.0'
   gem 'shoulda-matchers'
@@ -88,12 +90,12 @@ group :test do
   gem 'guard-spork'
   gem 'launchy'
   gem 'vcr', '1.11.3'
-  gem 'webmock', '1.7.0'
+  #gem 'webmock', '1.7.0'
+  gem 'fakeweb'
   gem 'selenium-webdriver', '2.21.1'
-  gem 'webmock-disabler'
+  #gem 'webmock-disabler'
 end
 
 group :production do
   gem 'unicorn', '~> 4.1.1'
 end
-

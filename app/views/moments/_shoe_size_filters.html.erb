@@ -1,17 +1,21 @@
-<div class="filter sub shoe_size">
-  <h1 class="subtitle">Numeração</h1>
-  <ol class="column">
- <% moment_presenter.moment.catalog.shoe_sizes.each do |shoe_size| %>
-    <li>
-    	<% if current_user && current_user.shoes_size %>
-      	<%= check_box_tag('shoe_sizes[]', shoe_size, (shoe_size.to_s == current_user.shoes_size.to_s ? true : false) , :id => shoe_size) %>
-      <% else %>
-      	<%= check_box_tag('shoe_sizes[]', shoe_size, false , :id => shoe_size) %>
+<div id="shoe_size_filter">
+  <%= label_tag "Mostrar números:" %>
+  <span><%= current_user.shoes_size if current_user && current_user.shoes_size %></span>
+  <div class="sizes">
+    <ul>
+      <% moment_presenter.moment.catalog.shoe_sizes.each do |key, value| %>
+        <% unless key.zero? %>
+          <li>
+            <% if current_user && current_user.shoes_size %>
+              <%= check_box_tag('shoe_sizes_filter[]', key, (key.to_s == current_user.shoes_size.to_s ? true : false), :id => "size_#{key}") %>
+            <% else %>
+              <%= check_box_tag('shoe_sizes_filter[]', key, false, :id => "size_#{key}") %>
+            <% end %>
+            <%= label_tag(key, nil, :for => "size_#{key}") %>
+          </li>
+        <% end %>
       <% end %>
-      <%= label_tag(shoe_size, nil, :for => shoe_size) %>
-    </li>
-  <% end %>
-  </ol>
+    </ul>
+  </div>
 </div>
-
 

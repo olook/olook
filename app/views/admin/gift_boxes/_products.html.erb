@@ -1,0 +1,36 @@
+<h2>Products</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th style="width:100px">Product</th>
+      <th>Collection</th>
+      <th>ID</th>
+      <th>Profile</th>
+      <th>Name</th>
+      <th>Inventory</th>
+      <th>Visible?</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @gift_box_products.each do |gp| %>
+    <tr class="<%= gp.product.is_visible? ? 'Visivel' : 'Invisivel' %>">
+      <td><%= image_tag(gp.product.showroom_picture, size: '100x100') if gp.product.showroom_picture %></td>
+      <td><%= gp.product.collection.name if gp.product.collection %></td>
+      <td><%= gp.product.id %></td>
+      <td><%= gp.product.profiles.first.name if gp.product.profiles.size > 0 %></td>
+      <td><%= gp.product.name %></td>
+      <td><%= gp.product.inventory %></td>
+      <td><%= gp.product.is_visible? ? "Yes" : "No" %></td>
+      <td><%= link_to 'Mostrar', admin_product_path(gp.product) %></td>
+      <td><%= link_to 'Editar', edit_admin_product_path(gp.product) %></td>
+    </tr>
+  <% end %>
+  </table>
+  <div class="action-bar wat-cf">
+    <div class="actions">
+      <%= link_to 'Editar products', admin_gift_box_products_path(gift_box) %>
+    </div>
+  </div>
+</div>
+

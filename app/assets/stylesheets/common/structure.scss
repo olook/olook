@@ -324,18 +324,20 @@ body {
     width: 990px;
     margin: 0 auto;
     overflow: hidden;
-    z-index: 1;
+    /*z-index: 1;*/
     .dialog.product_login {
       height: 515px !important;
       display: none;
       height: auto !important;
     }
+	 &.relative{position:relative;}
     a.liquidation_banner {
       width: 970px;
       display: block;
       margin: 0 auto 20px;
     }
-
+	/***** LOGO CHRISTMAS *****/
+	 .christmas{position: absolute;left: 56px;top: 11px;}
     .forms {
       background: url('/assets/home/bg-middle-home.jpg') no-repeat;
       height: 575px;
@@ -842,7 +844,7 @@ body {
 		.niver{margin:-15px 0 0 62px;}
 		#session {
         position: relative;
-        z-index: 10000;
+        /*z-index: 995;*/
         @include sign-in;
         margin-top: 10px;
         margin-right: 10px;
@@ -866,8 +868,8 @@ body {
                 color: #282828;
                 text-decoration: none;
                 &#info_user {
-                  background: image-url('common/arrow-down-pink.jpg') center right no-repeat;
-                  color: #6d6e71;
+                  background: image-url('common/arrow-down-pink.png') center right no-repeat;
+                  color: #D95485;
                   text-align: left;
                   width: auto;
                   min-width: 88px;
@@ -1059,13 +1061,13 @@ body {
     position: relative;
     margin-top: -26px;
     padding-top: 26px;
-    z-index: 1000;
+    z-index: 999;
     nav.menu {
       position: absolute;
       width: 100%;
       margin: 0;
       top: 0;
-      z-index: 1000;
+      z-index: 991;
       div.content {
         width: 1110px;
         padding-right: 115px;
@@ -1141,7 +1143,7 @@ body {
           }
           &.liquidation {
             a {
-              background: #ff7a00;
+              background: #D95485;
               color: #FFF;
               padding: 5px 15px;
               display: inline;
@@ -1158,6 +1160,37 @@ body {
           &.cart {
             position: relative;
             float: right;
+            div.warn {
+              position: absolute;
+              background: image-url('common/bg-menu-warn.png') top left no-repeat;
+              width: 218px;
+              height: 100px;
+              top: -33px;
+              left: -198px;
+              display: block;
+              overflow: hidden;
+              z-index: 1000;
+              a.close {
+                position: absolute;
+                background: image-url('gift/bt-close-help.png') no-repeat;
+                text-indent: -99999px;
+                width: 18px;
+                height: 18px;
+                top: 5px;
+                right: -2px;
+                display: block;
+              }
+              p {
+                color: #939292;
+                font-size: 12px;
+                text-align: center;
+                width: 190px;
+                margin: 17px 0 0 10px;
+                span {
+                  color: #e2458f;
+                }
+              }
+            }
             a.cart {
               position: relative;
               color: #FFF;
@@ -1453,7 +1486,54 @@ header div.contact {
   }
 }
 
+<<<<<<< HEAD
+/*****  CAMPAINGS - Black Friday & 1 ano muito*****/
+.topo_BF{
+	header{background:#111;
+		h1 a{width:223px !important;height:74px !important;background: image-url('campaigns/black_friday/logo_BF.jpg') no-repeat !important;}
+		.img-niver{display:none;}
+		#session {
+			.login p {color:#CCC !important;
+				a{color:#D95485 !important;}
+			}
+			ul li{color:#CCC !important;
+					#info_user{color:#D95485 !important;border:solid 2px #111 !important;
+						&:hover,&.hover{border-color:#464243 !important;}
+					}
+				a{color:#CCC !important;}
+				&.last{border-left:dotted 1px #FFF !important;
+					a{color:#E05789 !important;}
+				}
+				&.submenu .my_account .last{border:0 !important;
+					a{color:#CCC !important;}
+				}	
+			}
+			.my_account{
+				background:#111 !important;
+				border-bottom: 2px solid #464243 !important;
+		      border-left: 2px solid #464243 !important;
+		      border-right: 2px solid #464243 !important;
+			}
+		}
+		.contact{border-bottom: 1px solid #202020;}
+	}
+	
+	#wrapper_menu .menu{border-top:solid 1px #464243;}
+
+}
+
+
+/****** LOGO AVC ****/
+.img-avc{display:block;float:left;width:201px;height:82px;margin-left:162px;}
+
 /**** CAMPAIGNS EMAILS ****/
 #modal-campaign,#overlay-campaign{display:none;position:absolute;}
 #overlay-campaign{width:100%;height:1215px;background:#FFF;opacity:0.75;filter:alpha(opacity=75);top:0;left:0;z-index:10000;}
 #modal-campaign{float:left;z-index:10001;background:transparent;top:50%;left:50%;}
+
+=======
+/**** CAMPAIGNS EMAILS ****/
+#modal-campaign,#overlay-campaign{display:none;position:absolute;}
+#overlay-campaign{width:100%;height:1215px;background:#FFF;opacity:0.75;filter:alpha(opacity=75);top:0;left:0;z-index:10000;}
+#modal-campaign{float:left;z-index:10001;background:transparent;top:50%;left:50%;}
+>>>>>>> 6358b89cc3094f7a696bac122adc62e6d3bf0752

@@ -13,9 +13,13 @@ FactoryGirl.define do
 
    factory :admin_superadministrator, :parent => :admin do
       association :role, :factory => :superadministrator
-   end  
+   end
 
    factory :admin_sac_operator, :parent => :admin do
      association :role, :factory => :sac_operator
+   end
+
+   factory :admin_business1, :parent => :admin do
+     association :role, :factory => :business1
    end
 end

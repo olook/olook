@@ -3,10 +3,6 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "settings/index"
-
-  get "settings/update"
-
   mount Resque::Server => "/admin/resque"
 
   root :to => "home#index"
@@ -19,9 +15,9 @@ Olook::Application.routes.draw do
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
-  
+
   match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
-  
+
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/faq", :to => "pages#faq", :as => "faq"
@@ -34,6 +30,7 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
+  match "/natal", :to => "moments#show", :as => "natal", :defaults => {:id => 8}
 
   #LOOKBOOKS
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
@@ -41,13 +38,16 @@ Olook::Application.routes.draw do
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
-  get "/bazar-vip" , :to => "liquidations#index", :as => "bazarvip"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
 
   #MOMENTS
   get '/colecoes', to: "moments#index", as: "moments"
   get '/colecoes/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
+  match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
+  match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
+  match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
+  match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -61,6 +61,7 @@ Olook::Application.routes.draw do
   post "/postar-convite", :to => "friends#post_invite", :as => "post_invite"
 
   #XML FOR STATISTICS
+  match "/triggit", :to => "xml#triggit", :as => "triggit", :defaults => { :format => 'xml' }
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
@@ -104,6 +105,9 @@ Olook::Application.routes.draw do
   namespace :gift, :path => "presentes" do
     root :to => "home#index"
     get "update_birthdays_by_month/:month" => "home#update_birthdays_by_month"
+    get "helena_tips" => "home#helena_tips"
+    get "top_five" => "home#top_five"
+    get "hot_on_facebook" => "home#hot_on_facebook"
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
       resources :suggestions, :only => [:index]
@@ -121,6 +125,7 @@ Olook::Application.routes.draw do
         post "new_with_data" => "occasions#new_with_data"
       end
     end
+    get "profiles/:name" => "profiles#show"
   end
 
   #ADMIN
@@ -224,6 +229,8 @@ Olook::Application.routes.draw do
       resources :order_credits, :only => :index
     end
 
+    resources :campaigns
+
     resource :settings
 
     resources :moip_callbacks do
@@ -233,7 +240,25 @@ Olook::Application.routes.draw do
       end
     end
 
+    resources :braspag_authorize_responses do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+
+    resources :braspag_capture_responses do
+      member do
+        post 'change_to_processed'
+        post 'change_to_not_processed'
+      end
+    end
+
     resources :payments, :only => [:index, :show]
+
+    resources :gift_boxes do
+      get :products, :to => "gift_boxes#product"
+    end
 
   end
 
@@ -251,6 +276,8 @@ Olook::Application.routes.draw do
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
   namespace :users, :path => 'conta', :as => "user" do
+    #get "/presentes", to: 'gifts#index', as: "gifts"
+
     resources :addresses, :path => 'enderecos'
     resources :orders, :path => 'pedidos', :only => [:index]
     resources :credits, :path => 'creditos' do
@@ -296,7 +323,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/moip_payments#create', :as => :payment
+  post '/pagamento', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"

@@ -26,7 +26,8 @@ class Order < ActiveRecord::Base
   has_many :order_state_transitions, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
-  
+  belongs_to :tracking, :dependent => :destroy
+
   after_create :initialize_order
 
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
@@ -68,10 +69,10 @@ class Order < ActiveRecord::Base
     state :picking
     state :waiting_payment
     state :authorized
-    state :under_review 
+    state :under_review
 
     after_transition any => :authorized, :do => :transition_to_authorized
-    
+
     state :reversed do
       after_save do |order|
         order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each do |payment|
@@ -84,7 +85,7 @@ class Order < ActiveRecord::Base
         end
       end
     end
-    
+
     state :refunded do
       after_save do |order|
         order.payments.where(Payment.arel_table[:state].not_eq('refunded')).each do |payment|
@@ -97,8 +98,8 @@ class Order < ActiveRecord::Base
         end
       end
     end
-    
-    
+
+
     state :canceled do
       after_save do |order|
         order.payments.where(Payment.arel_table[:state].not_eq('cancelled')).each do |payment|
@@ -208,7 +209,7 @@ class Order < ActiveRecord::Base
   def payment_rollback?
     self.refunded? || self.canceled? || self.reversed?
   end
-  
+
   def transition_to_authorized
     Resque.enqueue_in(1.minute, Orders::NotificationPaymentConfirmedWorker, self.id)
     UserCredit.process!(self)
@@ -217,16 +218,16 @@ class Order < ActiveRecord::Base
   end
 
   def has_a_billet_payment?
-    payments.each do |payment| 
+    payments.each do |payment|
       return true if payment.is_a?(Billet)
     end
     false
-  end  
+  end
 
   def get_billet_expiration_date
     payments.each { |payment| return payment.payment_expiration_date } if has_a_billet_payment?
   end
-  
+
   private
 
   def initialize_order
@@ -236,7 +237,7 @@ class Order < ActiveRecord::Base
     Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
     Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
   end
-  
+
   def confirm_payment?
     #Seleciona a lista de estados de pagamento desta order
     payment_states = self.payments.map(&:state).uniq
@@ -245,12 +246,12 @@ class Order < ActiveRecord::Base
     return false unless payment_states.include?("authorized") && payment_states.size == 1
     true
   end
-  
+
   def cancel_order?
     Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
     true
   end
-  
+
   def refused_order?
     Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
     true
@@ -262,7 +263,7 @@ class Order < ActiveRecord::Base
   end
 
   def send_notification_order_shipped?
-    Resque.enqueue_in(1.minute, Orders::NotificationOrderShippedWorker, self.id)
+    Resque.enqueue_in(12.hour, Orders::NotificationOrderShippedWorker, self.id)
     true
   end
 end

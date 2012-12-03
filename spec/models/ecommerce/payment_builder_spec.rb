@@ -17,12 +17,15 @@ describe PaymentBuilder do
     :cart => cart,
     :freight => freight,
   }) }
-  let(:moip_sender_strategy) {double(MoipSenderStrategy)}
-
-  subject {
-    pb = PaymentBuilder.new(cart_service, credit_card, moip_sender_strategy)
-    pb
+  let(:moip_sender_strategy) {
+    mock = double(Payments::MoipSenderStrategy)
+    mock.stub(:payment_successful?).and_return(true)
+    mock
   }
+
+  session_params = {"referer"=>"http://localhost:3000/registrar"}
+
+  subject { PaymentBuilder.new(:cart_service => cart_service, :payment => credit_card, :gateway_strategy => moip_sender_strategy, :tracking_params => session_params) }
 
   let(:order_total) { 12.34 }
 
@@ -56,8 +59,7 @@ describe PaymentBuilder do
 
     context "success actions" do
       before :each do
-        subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
-        subject.payment.stub(:gateway_transaction_status).and_return(:success)
+        subject.gateway_strategy.stub(:payment_successful?).and_return(true)
         moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
       end
 
