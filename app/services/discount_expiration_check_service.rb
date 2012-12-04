@@ -7,8 +7,8 @@ class DiscountExpirationCheckService
 			sign_up_date(user).to_date <= 7.days.ago.to_date
 		end
 
-		def discount_expires_in_48_hours?
-
+		def discount_expires_in_48_hours?(user)
+			sign_up_date(user).to_date == 5.days.ago.to_date
 		end
 
 		private
