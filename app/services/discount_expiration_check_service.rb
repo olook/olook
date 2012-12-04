@@ -16,7 +16,6 @@ class DiscountExpirationCheckService
 			def sign_up_date(user)
 				user.converted_at? ? user.converted_at : user.created_at
 			end
-
 	end
 
 end
