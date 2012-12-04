@@ -28,7 +28,7 @@ gem 'airbrake'
 gem 'haml'
 gem 'haml-rails'
 gem 'i18n', '= 0.6.1'
-gem 'clearsale', :github => 'Baby-com-br/clearsale'
+gem 'clearsale', :git => 'git://github.com/olook/clearsale.git', :branch => 'master'
 
 group :production, :staging do
   gem 'asset_sync', '~> 0.5.0'
