@@ -2,24 +2,27 @@ require 'spec_helper'
 
 describe Promotions::PurchasesAmountStrategy do
 	context "#matches?" do
-	  it "should return true if user doesn't have any purchases" do
-	    promo = FactoryGirl.create(:first_time_buyers)
-	    Promotions::PurchasesAmountStrategy.new(promo.param, FactoryGirl.create(:user)).matches?.should be_true
-	  end
 
-	  it "should return false if the user has any purchases" do
-	    promo = FactoryGirl.create(:first_time_buyers)
-	    Promotions::PurchasesAmountStrategy.new(promo.param, FactoryGirl.create(:delivered_order).user).matches?.should be_false
-	  end
-
-	  context "promotion expiration" do
-		  it "should return true if the promotion is still active" do
-		  	
+		context "user doesn't have any purchases and discount is still active" do
+		  it "returns true" do
+		  	pending("check for discount")
+		    promo = FactoryGirl.create(:first_time_buyers)
+		    Promotions::PurchasesAmountStrategy.new(promo.param, FactoryGirl.create(:user)).matches?.should be_true
 		  end
+		end
 
-		  it "should return false if promotion has expired" do
+		context "user doesn't have any purchases but discount is expired" do
+			it "returns false" do
+				pending("to implement")
+			end
+		end
 
+		context "user has a purchase" do
+		  it "returns false" do
+		    promo = FactoryGirl.create(:first_time_buyers)
+		    Promotions::PurchasesAmountStrategy.new(promo.param, FactoryGirl.create(:delivered_order).user).matches?.should be_false
 		  end
-	  end
+		end 
+
 	end
 end
