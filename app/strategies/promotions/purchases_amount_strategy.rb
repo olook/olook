@@ -9,11 +9,9 @@ module Promotions
     end
 
     def matches?
-      if user
-        user.orders.purchased.size == param.to_i
-      else
-        0 == param.to_i
-      end
+      return false if DiscountExpirationCheckService.discount_expired?(user)
+
+      user ? user.orders.purchased.size == param.to_i : 0 == param.to_i
     end
   end
 end
