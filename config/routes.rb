@@ -138,6 +138,7 @@ Olook::Application.routes.draw do
     resources :products do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
+        post "mark_specific_products_as_visible" => "products#mark_specific_products_as_visible", :as => "mark_specific_products_as_visible"
       end
       post 'sort_pictures' => 'pictures#sort', as: 'sort_pictures'
 
