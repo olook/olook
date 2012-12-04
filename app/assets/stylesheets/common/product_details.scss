@@ -229,7 +229,15 @@
             width: 175px;
             margin-top: 15px;
             float: left;
+						color:#E05789;
           }
+					&.validate{
+						clear:both;
+						float:right;
+						margin:-20px 13px 0 0;
+						font-style:italic;
+						font-size:12px;
+					}
         }
         div.warn_discount {
           background: url('/assets/product/bg-warn-discount.jpg') top center no-repeat;
