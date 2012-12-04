@@ -18,10 +18,10 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 26f5077bd08ef9d5e50fec76eebd0d218e567403
+  revision: 7b8192926bfd38325904ef4e081ccfb6672e6fad
   branch: master
   specs:
-    obraspag (0.0.21)
+    obraspag (0.0.22)
       active_attr (>= 0.6)
       httpi (>= 0.9.7)
       json (>= 1.6.1)
@@ -474,7 +474,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   oa-oauth (~> 0.3.0)
-  obraspag (>= 0.0.21)!
+  obraspag (>= 0.0.22)!
   omniauth (= 1.0.3)
   omniauth-facebook
   paper_trail (~> 2)

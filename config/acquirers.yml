@@ -1,15 +1,15 @@
 cielo:
-  visa: :braspag
-  mastercard: :braspag
-  americanexpress: :braspag
-  diners: :braspag
-  hipercard: :braspag
-  aura: :braspag
+  visa: :cielo_visa
+  mastercard: :cielo_mastercard
+  americanexpress: :cielo_amex
+  diners: :cielo_diners
+  hipercard: :sitef_hipercard
+  aura: :sitef_aura
 
 redecard:
-  visa: :braspag
-  mastercard: :braspag
-  americanexpress: :braspag
-  diners: :braspag
-  hipercard: :braspag
-  aura: :braspag
+  visa: :redecard_visa
+  mastercard: :redecard_mastercard
+  americanexpress: :sitef_amex
+  diners: :redecard_diners
+  hipercard: :sitef_hipercard
+  aura: :sitef_aura
