@@ -135,7 +135,7 @@ module Payments
     end
 
     def format_amount(amount)
-      amount.to_s.gsub(',', '').gsub('.', '')
+      format("%.2f", amount).gsub(',', '').gsub('.', '')
     end
 
     def authorize_transaction(payment_request, order, customer)
