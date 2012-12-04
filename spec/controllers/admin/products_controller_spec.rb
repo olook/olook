@@ -161,18 +161,16 @@ describe Admin::ProductsController do
 
   describe "POST mark_specific_products_as_visible" do
     let(:collection) { FactoryGirl.create(:active_collection) }
-    it "All products.is_visible shoud be false" do
+    it "product.is_visible shoud be false" do
       post :mark_specific_products_as_visible, :collection_id => collection.id
       product.reload
       product.is_visible.should eq(false)
     end
 
-    it "All products.is_visible shoud be true" do
+    it "product.is_visible shoud be true" do
       product.is_visible = false
       product.save
-      binding.pry
       post :mark_specific_products_as_visible, collection_id: collection.id, visible_products: [product.id]
-      binding.pry
       product.reload
       product.is_visible.should eq(true)
     end
