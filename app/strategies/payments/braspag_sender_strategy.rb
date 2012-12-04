@@ -205,7 +205,8 @@ module Payments
       authorization_response = BraspagAuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => false,
-          :error_message => authorize_transaction_result[:error_report_data_collection].to_s})
+          :error_message => authorize_transaction_result[:error_report_data_collection].to_s,
+          :identification_code => payment.identification_code})
       authorization_response.save
       authorization_response
     end
@@ -239,7 +240,8 @@ module Payments
       capture_response = BraspagCaptureResponse.new(
           {:correlation_id => capture_transaction_result[:correlation_id],
           :success => false,
-          :error_message => capture_transaction_result[:error_report_data_collection].to_s})
+          :error_message => capture_transaction_result[:error_report_data_collection].to_s,
+          :identification_code => payment.identification_code})
       capture_response.save
       capture_response
     end
