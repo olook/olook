@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: profiles
-#
-#  id                 :integer          not null, primary key
-#  name               :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  first_visit_banner :string(255)
-#  alternative_name   :string(255)
-#
-
 # -*- encoding : utf-8 -*-
 class Profile < ActiveRecord::Base
   has_many :points

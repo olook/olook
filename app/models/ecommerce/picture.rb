@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: pictures
-#
-#  id         :integer          not null, primary key
-#  image      :string(255)
-#  display_on :integer
-#  product_id :integer
-#  created_at :datetime
-#  updated_at :datetime
-#  position   :integer          default(100)
-#
-
 # -*- encoding : utf-8 -*-
 class Picture < ActiveRecord::Base
   belongs_to :product

@@ -7,7 +7,7 @@ class CatalogSearchService
                   .and(@l_products[:inventory].gt(0))
                   .and(Product.arel_table[:is_visible].eq(true))
                   .and(Variant.arel_table[:inventory].gt(0))
-                  
+
     if @liquidation = LiquidationService.active
       @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil))
     end
@@ -15,12 +15,16 @@ class CatalogSearchService
     @params = params
   end
 
+  def filter_by_shoe_size
+    @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes]))
+  end
+
   def search_products
     query_subcategories = params[:shoe_subcategories] ? l_products[:subcategory_name].in(params[:shoe_subcategories]) : nil
     query_heels =  params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
     query_colors = params[:shoe_colors] ? build_sub_query((query_heels || query_subcategories || query_base), Product.arel_table[:color_name].in(params[:shoe_colors])) : nil
     query_shoe_sizes = if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
-      build_sub_query((query_colors || query_heels || query_subcategories || query_base), l_products[:shoe_size].in(params[:shoe_sizes]).and(Variant.arel_table[:description].in(params[:shoe_sizes])))
+      build_sub_query((query_colors || query_heels || query_subcategories || query_base), filter_by_shoe_size)
     else
       nil
     end
@@ -45,9 +49,9 @@ class CatalogSearchService
       when 3 then
         @query_base.and(all_queries[0].or(all_queries[1]).or(all_queries[2]))
       else
-        params[:shoe_sizes] ? @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes])) : @query_base
+        params[:shoe_sizes] ? filter_by_shoe_size : @query_base
     end
-    
+
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
     if params[:category_id]
       @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) 
@@ -59,10 +63,10 @@ class CatalogSearchService
     end
 
     @query.where(@query_base)
-          .order(sort_filter, 'name asc')
-          .group("catalog_products.product_id")
-          .paginate(page: params[:page], per_page: 12)
-          .includes(product: :variants)
+      .order(sort_filter, 'name asc')
+      .group("catalog_products.product_id")
+      .paginate(page: params[:page], per_page: 12)
+      .includes(product: :variants)
   end
 
   def build_sub_query(current_query, sub_query)
