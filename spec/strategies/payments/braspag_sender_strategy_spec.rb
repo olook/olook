@@ -159,5 +159,63 @@ describe Payments::BraspagSenderStrategy do
 
   end
 
+  context "#format_amount" do
+    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+
+    it "returns 799 when value is 7,99" do
+      subject.format_amount(7.99).should eq("799")
+    end
+
+    it "returns 7990 when value is 79,90" do
+      subject.format_amount(79.90).should eq("7990")
+    end
+
+    it "returns 790 when value is 7,90" do
+      subject.format_amount(7.90).should eq("790")
+    end
+
+    it "returns 10000 when value is 100" do
+      subject.format_amount(100).should eq("10000")
+    end
+
+    it "returns 10000 when value is 100" do
+      subject.format_amount(1000).should eq("100000")
+    end
+
+  end
+
+  context "#authorized_and_pending_capture?" do
+    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+
+    it "returns true when response is success and status is 1" do
+      response = mock()
+      response.stub(:success).and_return(true)
+      response.stub(:status).and_return(1)
+      subject.authorized_and_pending_capture?(response).should eq(true)
+    end
+
+    it "returns true when response is not success and status is 1" do
+      response = mock()
+      response.stub(:success).and_return(false)
+      response.stub(:status).and_return(1)
+      subject.authorized_and_pending_capture?(response).should eq(false)
+    end
+
+    it "returns true when response is success and status is not 1" do
+      response = mock()
+      response.stub(:success).and_return(true)
+      response.stub(:status).and_return(2)
+      subject.authorized_and_pending_capture?(response).should eq(false)
+    end
+
+    it "returns true when response is not success and status is not 1" do
+      response = mock()
+      response.stub(:success).and_return(false)
+      response.stub(:status).and_return(2)
+      subject.authorized_and_pending_capture?(response).should eq(false)
+    end
+
+  end
+
 end
 
