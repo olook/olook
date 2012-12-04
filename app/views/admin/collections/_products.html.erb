@@ -1,18 +1,18 @@
-<h2>Products</h2>
+<h2>Produtos</h2>
 <div class="inner">
   <table class="table">
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th style="width:100px">Picture</th>
-      <th>Profile</th>
-      <th>Model #</th>
-      <th>Price</th>
-      <th>Is Visible?</th>
-      <th>Category</th>
-      <th>Initial</th>
-      <th>Inventory</th>
-      <th>Color</th>
+      <th>Nome</th>
+      <th style="width:100px">Imagem</th>
+      <th>Perfil</th>
+      <th># Modelo</th>
+      <th>Preço</th>
+      <th>Está visível?</th>
+      <th>Categoria</th>
+      <th>Estoque Inicial</th>
+      <th>Estoque Atual</th>
+      <th>Cor</th>
       <th></th>
     </tr>
 
@@ -33,12 +33,12 @@
           <td><%= product.color_name %></td>
           <td>
             <%= link_to "Preview", product_path(product), class: 'button info', target: "_blank" %>
-            <%= link_to 'Show', admin_product_path(product), class: 'button' %>
-            <%= link_to 'Edit', edit_admin_product_path(product), class: 'button' %>
+            <%= link_to 'Exibir', admin_product_path(product), class: 'button' %>
+            <%= link_to 'Editar', edit_admin_product_path(product), class: 'button' %>
           </td>
         </tr>
       <% end %>
-      <%= submit_tag "Mark selected products as visible" %>
+      <%= submit_tag "Alterar a visibilidade dos produtos" %>
     <% end %>
   </table>
 </div>
