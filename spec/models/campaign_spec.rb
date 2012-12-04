@@ -1,19 +1,3 @@
-# == Schema Information
-#
-# Table name: campaigns
-#
-#  id          :integer          not null, primary key
-#  start_at    :date
-#  end_at      :date
-#  banner      :string(255)
-#  background  :string(255)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  description :text
-#  title       :string(255)
-#  link        :string(255)
-#
-
 require 'spec_helper'
 
 describe Campaign do

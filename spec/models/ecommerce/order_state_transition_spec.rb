@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: order_state_transitions
-#
-#  id                         :integer          not null, primary key
-#  order_id                   :integer
-#  event                      :string(255)
-#  from                       :string(255)
-#  to                         :string(255)
-#  created_at                 :datetime
-#  payment_response           :string(255)
-#  payment_transaction_status :string(255)
-#  gateway_status_reason      :string(255)
-#
-
 require 'spec_helper'
 
 describe OrderStateTransition do
