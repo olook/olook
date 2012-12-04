@@ -16,11 +16,46 @@ describe User do
 
     it "deletes the campaign_email from the db" do
       CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
-      CampaignEmail.count.should == 1 
+      CampaignEmail.count.should == 1
       FactoryGirl.create(:user, email: email)
-      CampaignEmail.count.should == 0  
+      CampaignEmail.count.should == 0
+    end
+
+    context "#converted_at" do
+      it "gets populated by CampaignEmail's created_at field" do
+        CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
+        user = FactoryGirl.create(:user, email: email)
+        user.converted_at.should eq(campaign_email.created_at)
+      end
+    end
+
+    context "#came_from_campaign_email?" do
+      it "indicates that the user came from a campaign email" do      
+        CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
+        user = FactoryGirl.create(:user, email: email)
+        user.converted_from_campaign_email?.should be_true
+      end
     end
   end
+
+  context "when user doesn't have a registered campaign email" do
+    let(:email) { "test@test.com"}
+    let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }    
+
+    context "#converted_at" do
+      it "returns nil" do
+        user = FactoryGirl.create(:user, email: "email@test.com")
+        user.converted_at.should be_nil
+      end
+    end
+
+    context "#converted_from_campaign_email?" do
+      it "returns false" do      
+        user = FactoryGirl.create(:user, email: "email@test.com")
+        user.converted_from_campaign_email?.should be_false
+      end    
+    end
+  end  
 
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
