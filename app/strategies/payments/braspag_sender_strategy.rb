@@ -35,7 +35,7 @@ module Payments
       begin
         authorize_response = authorize
 
-        if authorize_response.success
+        if authorized_and_pending_capture?(authorize_response)
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
           if order_analysis_service.should_send_to_analysis? 
             clearsale_order_response = order_analysis_service.send_to_analysis
@@ -51,6 +51,10 @@ module Payments
         payment.encrypt_credit_card
         payment.save!
       end
+    end
+
+    def authorized_and_pending_capture?(authorize_response)
+      authorize_response.success && authorize_response.status == 1
     end
 
     def process_capture_request
@@ -135,7 +139,7 @@ module Payments
     end
 
     def format_amount(amount)
-      amount.to_s.gsub(',', '').gsub('.', '')
+      format("%.2f", amount).gsub(',', '').gsub('.', '')
     end
 
     def authorize_transaction(payment_request, order, customer)
