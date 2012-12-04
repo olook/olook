@@ -53,6 +53,7 @@
     <% unless (params[:controller] == 'home' and params[:action] == 'index') || (params[:controller] == 'members' and params[:action] == 'showroom' and @user.half_user?) %>
       <%= render_promotion_banner unless error %>
     <% end %>
+
     <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
 
