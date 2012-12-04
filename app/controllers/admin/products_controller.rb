@@ -121,9 +121,11 @@ class Admin::ProductsController < Admin::BaseController
 
   def mark_specific_products_as_visible
     @collection = Collection.find(params[:collection_id])
-    visible_products = params[:visible_products].collect { |i| i.to_i } if params[:visible_products]
+    visible_products = params[:visible_products] ? params[:visible_products].collect { |i| i.to_i } : []
     invisible_products = @collection.products.collect { |p| p.id } - visible_products
-    if update_products_as_visible(visible_products) && update_products_as_invisible(invisible_products)
+    visible_products
+
+    if update_all_products(visible_products, true) && update_all_products(invisible_products, false)
       flash[:notice] = "Marked selected products as visible."
     else
       flash[:error] = "Could not execute your request!"
@@ -141,19 +143,11 @@ class Admin::ProductsController < Admin::BaseController
     %w[asc desc].include?(params[:d]) ? params[:d] : "desc"
   end
 
-  def update_products_as_visible(product_list)
+  def update_all_products(product_list, visibility)
     products = Product.find(product_list)
     products.each do |p|
-      p.update_attribute(:is_visible, true) unless p.is_visible
+      p.update_attribute(:is_visible, visibility) unless p.is_visible == visibility
     end
   end
-
-  def update_products_as_invisible(product_list)
-    products = Product.find(product_list)
-    products.each do |p|
-      p.update_attribute(:is_visible, false) if p.is_visible
-    end
-  end
-
 end
 
