@@ -1,5 +1,5 @@
 if($(".box-remember.success").length > 0){
-	w = 520, h = 175, ml = -(w/2), mt = -(h/2);
+	w = 525, h = 175, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
@@ -7,7 +7,7 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(250).fadeIn();
 }else if($(".box-cadastro").length > 0){
-	w = 910, h = 405, ml = -(w/2), mt = -(h/2);
+	w = 915, h = 405, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
@@ -15,7 +15,7 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(250).fadeIn();
 }else if($(".box-continue").length > 0){
-	w = 595, h = 185, ml = -(w/2), mt = -(h/2);
+	w = 600, h = 185, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
@@ -23,7 +23,7 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(200).fadeIn();
 }else{
-	w = 530, h = 385, ml = -(w/2), mt = -(h/2);
+	w = 535, h = 385, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
