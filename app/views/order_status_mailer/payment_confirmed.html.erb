@@ -62,6 +62,7 @@
       - <span style="color:#E05789"><%= item.variant.product.name %></span>;<br>
     </p>
     <% end %>
+
     <% if Promotions::PurchasesAmountStrategy.new("1", @order.user).matches? %>
        <p>Você utilizou seu desconto de 20% neste pedido.</p>
     <% end %>
