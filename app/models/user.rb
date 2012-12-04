@@ -285,7 +285,15 @@ class User < ActiveRecord::Base
   end
 
   def destroy_campaign_email_if_present
-    CampaignEmail.find_by_email(self.email).try(:destroy)
+    campaign_email = CampaignEmail.find_by_email(self.email)
+    if campaign_email
+      update_attribute(:converted_at, campaign_email.created_at)
+      campaign_email.destroy
+    end
+  end
+
+  def converted_from_campaign_email?
+    !self.converted_at.nil?
   end
 
   private
