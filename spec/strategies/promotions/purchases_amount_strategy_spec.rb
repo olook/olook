@@ -2,25 +2,40 @@ require 'spec_helper'
 
 describe Promotions::PurchasesAmountStrategy do
 	context "#matches?" do
+		let(:promo) { FactoryGirl.create(:first_time_buyers) }
 
 		context "user doesn't have any purchases and discount is still active" do
-		  it "returns true" do
-		  	pending("check for discount")
-		    promo = FactoryGirl.create(:first_time_buyers)
-		    Promotions::PurchasesAmountStrategy.new(promo.param, FactoryGirl.create(:user)).matches?.should be_true
+			let(:user) { FactoryGirl.create(:user) }
+
+		  it "returns true" do		  	
+		    Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_true		    
 		  end
 		end
 
-		context "user doesn't have any purchases but discount is expired" do
-			it "returns false" do
-				pending("to implement")
+		context "user doesn't have any purchases but discount is expired" do				
+			
+			context "regular user" do
+				let(:user) { FactoryGirl.create(:user, created_at: 7.days.ago) }
+			
+				it "returns false" do
+					Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_false
+				end
+			end				
+			
+			context "converted user" do
+				let(:user) { FactoryGirl.create(:user, converted_at: 7.days.ago) }
+			
+				it "returns false" do
+					Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_false
+				end
 			end
 		end
 
 		context "user has a purchase" do
+			let(:user_with_a_purchase) { FactoryGirl.create(:delivered_order).user }
+
 		  it "returns false" do
-		    promo = FactoryGirl.create(:first_time_buyers)
-		    Promotions::PurchasesAmountStrategy.new(promo.param, FactoryGirl.create(:delivered_order).user).matches?.should be_false
+		    Promotions::PurchasesAmountStrategy.new(promo.param, user_with_a_purchase).matches?.should be_false
 		  end
 		end 
 
