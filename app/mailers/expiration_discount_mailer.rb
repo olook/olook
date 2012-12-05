@@ -1,4 +1,4 @@
-# -*- encoding  utf-8 -*-
+# encoding: utf-8
 class ExpirationDiscountMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
   default from: "olook <avisos@olook.com.br>"
@@ -15,6 +15,6 @@ class ExpirationDiscountMailer < ActionMailer::Base
   end
 
    def send_expiration_email(user)
-      mail(to: user.email, subject: "KKK")
+      mail(to: user.email, subject: "Seus créditos irão expirar em 48 horas")
    end
 end
