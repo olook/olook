@@ -311,4 +311,8 @@ class User < ActiveRecord::Base
     UserCredit.add_for_invitee(self)
     self.reset_authentication_token!
   end
+
+  def self.with_discount_about_to_expire_in_48_hours
+    where(created_at: (Date.today - 5.days).beginning_of_day..(Date.today - 5.days).end_of_day, campaign_email_created_at: nil) || User.where(campaign_email_created_at: (Date.today - 5.days).beginning_of_day..(Date.today - 5.days).end_of_day)
+  end
 end
