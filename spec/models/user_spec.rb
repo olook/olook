@@ -21,7 +21,7 @@ describe User do
       CampaignEmail.count.should == 0
     end
 
-    context "#converted_at" do
+    context "#campaign_email_created_at" do
       it "gets populated by CampaignEmail's created_at field" do
         CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
         user = FactoryGirl.create(:user, email: email)
@@ -42,7 +42,7 @@ describe User do
     let(:email) { "test@test.com"}
     let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }    
 
-    context "#converted_at" do
+    context "#campaign_email_created_at" do
       it "returns nil" do
         user = FactoryGirl.create(:user, email: "email@test.com")
         user.campaign_email_created_at.should be_nil
