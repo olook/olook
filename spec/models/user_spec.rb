@@ -788,4 +788,7 @@ describe User do
     end
   end
 
+  describe "."
+  end
+
 end
