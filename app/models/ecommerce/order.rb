@@ -4,6 +4,14 @@ class Order < ActiveRecord::Base
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
 
+  AUTHORIZED_STATES = [
+    "delivered",
+    "authorized",
+    "delivered",
+    "delivering",
+    "picking"
+  ]
+
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
     "under_review" => "Em revisão",
@@ -26,6 +34,8 @@ class Order < ActiveRecord::Base
   has_many :order_state_transitions, :dependent => :destroy
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
+  has_many :clearsale_order_responses
+  
   belongs_to :tracking, :dependent => :destroy
 
   after_create :initialize_order
@@ -127,6 +137,7 @@ class Order < ActiveRecord::Base
     event :canceled do
       transition :waiting_payment => :canceled, :if => :cancel_order?
       transition :not_delivered => :canceled, :if => :cancel_order?
+      transition :under_review => :canceled, :if => :cancel_order?
     end
 
     event :reversed do

@@ -119,4 +119,10 @@ class UserNotifier
     related_product_lines.join("#")
   end
 
+  def self.reminder_expiration_discount
+    User.with_discount_about_to_expire_in_48_hours.map do |user|
+      ExpirationDiscountMailer.send_expiration_email(user)
+    end
+  end
+
 end

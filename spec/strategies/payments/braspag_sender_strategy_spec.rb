@@ -19,6 +19,7 @@ describe Payments::BraspagSenderStrategy do
 
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
+      OrderAnalysisService.any_instance.stub(:should_send_to_analysis?) {false}
     end
 
     it "should create an order" do
@@ -63,8 +64,7 @@ describe Payments::BraspagSenderStrategy do
       subject.send_to_gateway
     end
 
-    context "process enqueue request" do
-
+    context "process enqueued request" do
       it "should encrypt the credit card data for the given payment even if an exception is raised" do
         subject.stub(:web_service_data).and_raise(Exception)
         CreditCard.any_instance.should_receive(:encrypt_credit_card)
@@ -74,13 +74,12 @@ describe Payments::BraspagSenderStrategy do
 
   end
 
-
-
   context "processing response" do
     subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
 
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
+      OrderAnalysisService.any_instance.stub(:should_send_to_analysis?) {false}
     end
 
     it "should create a correct failure response" do
@@ -156,6 +155,64 @@ describe Payments::BraspagSenderStrategy do
       expect {
         subject.create_success_capture_response(capture_transaction_result, "123312")
       }.to change(BraspagCaptureResponse, :count).by(1)
+    end
+
+  end
+
+  context "#format_amount" do
+    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+
+    it "returns 799 when value is 7,99" do
+      subject.format_amount(7.99).should eq("799")
+    end
+
+    it "returns 7990 when value is 79,90" do
+      subject.format_amount(79.90).should eq("7990")
+    end
+
+    it "returns 790 when value is 7,90" do
+      subject.format_amount(7.90).should eq("790")
+    end
+
+    it "returns 10000 when value is 100" do
+      subject.format_amount(100).should eq("10000")
+    end
+
+    it "returns 10000 when value is 100" do
+      subject.format_amount(1000).should eq("100000")
+    end
+
+  end
+
+  context "#authorized_and_pending_capture?" do
+    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+
+    it "returns true when response is success and status is 1" do
+      response = mock()
+      response.stub(:success).and_return(true)
+      response.stub(:status).and_return(1)
+      subject.authorized_and_pending_capture?(response).should eq(true)
+    end
+
+    it "returns true when response is not success and status is 1" do
+      response = mock()
+      response.stub(:success).and_return(false)
+      response.stub(:status).and_return(1)
+      subject.authorized_and_pending_capture?(response).should eq(false)
+    end
+
+    it "returns true when response is success and status is not 1" do
+      response = mock()
+      response.stub(:success).and_return(true)
+      response.stub(:status).and_return(2)
+      subject.authorized_and_pending_capture?(response).should eq(false)
+    end
+
+    it "returns true when response is not success and status is not 1" do
+      response = mock()
+      response.stub(:success).and_return(false)
+      response.stub(:status).and_return(2)
+      subject.authorized_and_pending_capture?(response).should eq(false)
     end
 
   end
