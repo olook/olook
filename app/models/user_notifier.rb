@@ -120,8 +120,7 @@ class UserNotifier
   end
 
   def self.reminder_expiration_discount
-    users = [ User.find_by_email("vinicius.monteiro@olook.com.br") ]
-    users.map do |user|
+    User.with_discount_about_to_expire_in_48_hours.map do |user|
       ExpirationDiscountMailer.send_expiration_email(user)
     end
   end

@@ -104,8 +104,10 @@ describe UserNotifier do
 
   describe ".reminder_expiration_discount" do
     context "when there's user to be sent" do
+      let!(:user) { FactoryGirl.create(:user, created_at: DateTime.now - 5.days ) }
+      let!(:user_from_campaing_email) { FactoryGirl.create(:user,created_at: DateTime.now, campaign_email_created_at: DateTime.now - 5.days ) }
       before :each do
-        ExpirationDiscountMailer.should_receive(:send_expiration_email)
+        ExpirationDiscountMailer.should_receive(:send_expiration_email).twice
       end
 
       it 'should return a list of objects responding to deliver' do
