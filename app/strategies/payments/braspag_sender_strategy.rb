@@ -74,7 +74,7 @@ module Payments
     def web_service_data
       config = YAML::load(File.open(FILE_DIR))
       env = config[Rails.env]["environment"]
-      Braspag::Webservice.new(:env)
+      Braspag::Webservice.new(env.to_sym)
     end
 
     def authorize
