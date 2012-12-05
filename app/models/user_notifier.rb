@@ -119,4 +119,11 @@ class UserNotifier
     related_product_lines.join("#")
   end
 
+  def self.reminder_expiration_discount
+    users = [ User.find_by_email("vinicius.monteiro@olook.com.br") ]
+    users.map do |user|
+      ExpirationDiscountMailer.send_expiration_email(user)
+    end
+  end
+
 end
