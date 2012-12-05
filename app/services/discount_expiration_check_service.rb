@@ -7,14 +7,14 @@ class DiscountExpirationCheckService
 			sign_up_date(user).to_date <= 7.days.ago.to_date
 		end
 
-		def discount_expires_in_48_hours?(user)
-			sign_up_date(user).to_date == 5.days.ago.to_date
+		def discount_expires_in_48_hours?(user_or_campaign_email)
+			sign_up_date(user_or_campaign_email).to_date == 5.days.ago.to_date
 		end
 
 		private
 
-			def sign_up_date(user)
-				(user.respond_to?(:converted_at) && user.converted_at) ? user.converted_at : user.created_at
+			def sign_up_date(user_or_campaign_email)
+				(user_or_campaign_email.respond_to?(:converted_at) && user_or_campaign_email.converted_at) ? user_or_campaign_email.converted_at : user_or_campaign_email.created_at
 			end
 	end
 
