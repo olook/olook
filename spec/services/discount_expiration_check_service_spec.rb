@@ -69,5 +69,31 @@ describe DiscountExpirationCheckService do
         end
       end
     end    
+
+    context "campaign email" do
+
+      context "before 48hs warning" do
+        let(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - 4.days) }
+        it "returns false" do
+          DiscountExpirationCheckService.discount_expires_in_48_hours?(campaign_email).should be_false
+        end
+      end
+
+      context "after 48hs warning" do
+        let(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - 6.days) }
+        it "returns false" do
+          DiscountExpirationCheckService.discount_expires_in_48_hours?(campaign_email).should be_false
+        end
+      end
+
+      context "within 48hs warning" do
+        let(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - 5.days) }
+
+        it "returns true" do
+          DiscountExpirationCheckService.discount_expires_in_48_hours?(campaign_email).should be_true
+        end
+      end
+    end    
+
 	end
 end
