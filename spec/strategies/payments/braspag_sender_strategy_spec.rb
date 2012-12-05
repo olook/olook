@@ -217,5 +217,15 @@ describe Payments::BraspagSenderStrategy do
 
   end
 
+  context "#web_service_data" do
+    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+
+    it "initializes webservice with a symbol" do
+      Braspag::Webservice.should_receive(:new).with(:homologation)
+      subject.web_service_data
+    end
+
+  end
+
 end
 
