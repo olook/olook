@@ -25,7 +25,7 @@ describe User do
       it "gets populated by CampaignEmail's created_at field" do
         CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
         user = FactoryGirl.create(:user, email: email)
-        user.converted_at.should eq(campaign_email.created_at)
+        user.campaign_email_created_at.should eq(campaign_email.created_at)
       end
     end
 
@@ -45,7 +45,7 @@ describe User do
     context "#converted_at" do
       it "returns nil" do
         user = FactoryGirl.create(:user, email: "email@test.com")
-        user.converted_at.should be_nil
+        user.campaign_email_created_at.should be_nil
       end
     end
 
@@ -786,9 +786,6 @@ describe User do
         subject.tracking_params("utm_source").should be_nil
       end
     end
-  end
-
-  describe "."
   end
 
 end
