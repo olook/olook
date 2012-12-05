@@ -16,7 +16,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   end
 
   # Leaving js testing for later, same issues as with turnip (vcr/webmock conflicts)
-  scenario "As a business1 user I should be allowed to see a list of gift boxes", :js => true do
+  pending scenario "As a business1 user I should be allowed to see a list of gift boxes", :js => true do
   #scenario "As a business1 user I should be allowed to see a list of gift boxes" do
   	do_admin_login!(@admin)
     gift_box

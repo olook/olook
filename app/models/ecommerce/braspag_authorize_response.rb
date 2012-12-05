@@ -24,5 +24,5 @@ class BraspagAuthorizeResponse < ActiveRecord::Base
       )
     end
   end
-  
+
 end

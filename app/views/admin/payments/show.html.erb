@@ -7,7 +7,7 @@
 
   <p>
     <b>Order:</b>
-    <%= @payment.order.number if @payment.order %>
+    <%= link_to @payment.order.number, admin_order_path(@payment.order) if @payment.order %>
   </p>
 
   <p>

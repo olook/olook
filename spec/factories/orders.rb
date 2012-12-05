@@ -40,6 +40,15 @@ FactoryGirl.define do
     end
   end
 
+  factory :order_without_payment, :class => Order do
+    association :freight, :factory => :freight
+
+    after_build do |order|
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
+  end
+
   factory :order do
     association :freight, :factory => :freight
     subtotal BigDecimal.new("100")

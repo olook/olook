@@ -1,0 +1,16 @@
+default: &default
+  entity_code: "2524D4FD-80FF-44B6-BF1E-9423A8E6BA69"
+  environment: "homolog"
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  entity_code: "FFF0C924-F4D2-445B-8FB1-44C1AE202485"
+  environment: "production"
