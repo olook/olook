@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/olook/clearsale.git
+  revision: 753e9e24103859f7a10e242caa05fb18ff7c6c38
+  branch: master
+  specs:
+    clearsale (0.1.3)
+      builder
+      savon
+
+GIT
   remote: git://github.com/olook/moip-ruby.git
   revision: 25d55f7c507d9b42da6cded47d3b6f5dc9ee5a04
   branch: master
@@ -10,10 +19,10 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 26f5077bd08ef9d5e50fec76eebd0d218e567403
+  revision: 7b8192926bfd38325904ef4e081ccfb6672e6fad
   branch: master
   specs:
-    obraspag (0.0.21)
+    obraspag (0.0.22)
       active_attr (>= 0.6)
       httpi (>= 0.9.7)
       json (>= 1.6.1)
@@ -189,7 +198,7 @@ GEM
       multi_xml
     httpi (0.9.7)
       rack
-    i18n (0.6.0)
+    i18n (0.6.1)
     journey (1.0.3)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -423,7 +432,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  SyslogLogger
+  SyslogLogger (~> 1.4.1)
   airbrake
   asset_sync (~> 0.5.0)
   awesome_print
@@ -436,12 +445,13 @@ DEPENDENCIES
   capybara-webkit (~> 0.13.0)
   carrierwave (~> 0.6.0)
   celluloid
+  clearsale!
   curb
   dalli (= 2.0.2)
   database_cleaner
   delorean
   devise (~> 1.5.3)
-  enumerate_it
+  enumerate_it (~> 0.7.14)
   equivalent-xml (~> 0.2.9)
   factory_girl_rails (~> 3.2.0)
   faker
@@ -455,6 +465,7 @@ DEPENDENCIES
   haml-rails
   hpricot
   httpi (= 0.9.7)
+  i18n (= 0.6.1)
   jquery-rails (~> 1.0.14)
   koala (~> 1.3.0)
   launchy
@@ -464,7 +475,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   oa-oauth (~> 0.3.0)
-  obraspag (>= 0.0.21)!
+  obraspag (>= 0.0.22)!
   omniauth (= 1.0.3)
   omniauth-facebook
   paper_trail (~> 2)

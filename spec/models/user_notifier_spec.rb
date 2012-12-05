@@ -102,4 +102,16 @@ describe UserNotifier do
     end
   end
 
+  describe ".reminder_expiration_discount" do
+    context "when there's user to be sent" do
+      before :each do
+        ExpirationDiscountMailer.should_receive(:send_expiration_email)
+      end
+
+      it 'should return a list of objects responding to deliver' do
+        described_class.reminder_expiration_discount.first.respond_to?(:deliver)
+      end
+    end
+  end
+
 end
