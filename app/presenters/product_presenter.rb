@@ -128,7 +128,15 @@ class ProductPresenter < BasePresenter
   end
 
   def promotion_explanation
-    h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation")
+    if show_promotion_explanation?
+      first_buy = h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation") 
+      discount_validity = h.content_tag(:p, "Válido por 7 dias a partir do cadastro", :class=> "validate")
+      first_buy + discount_validity
+    end
+  end
+
+  def show_promotion_explanation?
+    @user.nil? || PromotionService.new(@user).satisfies_criteria?(@promotion)
   end
 
 end
