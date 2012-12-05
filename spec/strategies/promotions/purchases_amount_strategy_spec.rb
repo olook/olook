@@ -20,15 +20,15 @@ describe Promotions::PurchasesAmountStrategy do
 				it "returns false" do
 					Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_false
 				end
-			end
-
-			context ".to_aconverted user" do
+			end				
+			
+			context "converted user" do
 				let(:user) { FactoryGirl.create(:user, campaign_email_created_at: 7.days.ago) }
-
+			
 				it "returns false" do
 					Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_false
 				end
-			end
+			end 
 		end
 
 		context "user has a purchase" do
