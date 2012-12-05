@@ -48,14 +48,14 @@ describe DiscountExpirationCheckService do
     context "user converted from campaign email" do
 
       context "before 48hs warning" do
-        let(:user) { FactoryGirl.create(:user, created_at: DateTime.now - 4.days) }
+        let(:user) { FactoryGirl.create(:user, converted_at: DateTime.now - 4.days) }
         it "returns false" do
           DiscountExpirationCheckService.discount_expires_in_48_hours?(user).should be_false
         end
       end
 
       context "after 48hs warning" do
-        let(:user) { FactoryGirl.create(:user, created_at: DateTime.now - 6.days) }
+        let(:user) { FactoryGirl.create(:user, converted_at: DateTime.now - 6.days) }
         it "returns false" do
           DiscountExpirationCheckService.discount_expires_in_48_hours?(user).should be_false
         end
@@ -67,7 +67,7 @@ describe DiscountExpirationCheckService do
         it "returns true" do
           DiscountExpirationCheckService.discount_expires_in_48_hours?(user).should be_true
         end
-      end
+      end      
     end    
 
     context "campaign email" do
