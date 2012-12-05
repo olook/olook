@@ -12,7 +12,7 @@ class DiscountExpirationCheckService
 		end
 
 		def discount_expires_at(user_or_campaign_email)
-			sign_up_date(user_or_campaign_email).to_date + 7.days.to_date
+			(sign_up_date(user_or_campaign_email) + 7.days).to_date
 		end
 
 		private
