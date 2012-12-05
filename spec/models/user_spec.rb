@@ -12,7 +12,7 @@ describe User do
 
   context "when user has a registered campaign email" do
     let(:email) { "test@test.com"}
-    let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }    
+    let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }
 
     it "deletes the campaign_email from the db" do
       CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
@@ -21,16 +21,16 @@ describe User do
       CampaignEmail.count.should == 0
     end
 
-    context "#converted_at" do
+    context "#campaign_email_created_at" do
       it "gets populated by CampaignEmail's created_at field" do
         CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
         user = FactoryGirl.create(:user, email: email)
-        user.converted_at.should eq(campaign_email.created_at)
+        user.campaign_email_created_at.should eq(campaign_email.created_at)
       end
     end
 
     context "#came_from_campaign_email?" do
-      it "indicates that the user came from a campaign email" do      
+      it "indicates that the user came from a campaign email" do
         CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
         user = FactoryGirl.create(:user, email: email)
         user.converted_from_campaign_email?.should be_true
@@ -40,22 +40,22 @@ describe User do
 
   context "when user doesn't have a registered campaign email" do
     let(:email) { "test@test.com"}
-    let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }    
+    let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }
 
-    context "#converted_at" do
+    context "#campaign_email_created_at" do
       it "returns nil" do
         user = FactoryGirl.create(:user, email: "email@test.com")
-        user.converted_at.should be_nil
+        user.campaign_email_created_at.should be_nil
       end
     end
 
     context "#converted_from_campaign_email?" do
-      it "returns false" do      
+      it "returns false" do
         user = FactoryGirl.create(:user, email: "email@test.com")
         user.converted_from_campaign_email?.should be_false
-      end    
+      end
     end
-  end  
+  end
 
   context "attributes validation" do
     it { should allow_value("a@b.com").for(:email) }
@@ -143,7 +143,7 @@ describe User do
     it "should return true if user is old" do
       subject.is_old?.should be_true
     end
-    
+
     it "should create a signup event when the user is created" do
       user = FactoryGirl.create(:member)
       user.events.where(:event_type => EventType::SIGNUP).any?.should be_true
@@ -154,12 +154,12 @@ describe User do
       FactoryGirl.create(:member)
     end
 
-    it "adds credit for the invitee" do      
+    it "adds credit for the invitee" do
       Resque.should_receive(:enqueue_in).with(1.minute, MailRegisteredInviteeWorker, anything)
 
       FactoryGirl.create(:member, :is_invited => true, :cpf => "19762003691")
     end
-    
+
   end
 
   context "#facebook_data" do
@@ -381,7 +381,7 @@ describe User do
     end
   end
 
-  describe "#first_visit? and #record_first_visit" do
+  describe "#first_visit?discount_expiration and #record_first_visit" do
     it "should return true if there's no FIRST_VISIT event on the user event list" do
       subject.first_visit?.should be_true
     end
@@ -788,7 +788,26 @@ describe User do
     end
   end
 
-  describe "."
+  describe ".with_discount_about_to_expire_in_48_hours" do
+    context "searching for users that have discount" do
+      let!(:user) { FactoryGirl.create(:user, created_at: DateTime.now - 5.days ) }
+      let!(:user_from_campaing_email) { FactoryGirl.create(:user,created_at: DateTime.now, campaign_email_created_at: DateTime.now - 5.days ) }
+      let!(:another_user_from_campaing_email) { FactoryGirl.create(:user,created_at: DateTime.now, campaign_email_created_at: DateTime.now - 10.days ) }
+
+       it "returns users" do
+          described_class.with_discount_about_to_expire_in_48_hours.should eq([user, user_from_campaing_email])
+       end
+
+        it "shouldn't return users" do
+          user.created_at = DateTime.now - 10.days
+          user.save
+
+          user_from_campaing_email.campaign_email_created_at = DateTime.now - 1.days
+          user_from_campaing_email.save
+
+          described_class.with_discount_about_to_expire_in_48_hours.should eq([])
+       end
+    end
   end
 
 end
