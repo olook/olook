@@ -114,6 +114,14 @@ class ProductPresenter < BasePresenter
     (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8)) || product.promotion?
   end
 
+  def user_expiration_month(user)
+    "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).month.to_s
+  end
+
+  def user_expiration_day(user)
+    "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).day.to_s
+  end  
+
   private
 
   def price_markdown discount_method
