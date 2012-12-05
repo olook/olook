@@ -296,6 +296,12 @@ class User < ActiveRecord::Base
     !self.campaign_email_created_at.nil?
   end
 
+  def self.with_discount_about_to_expire_in_48_hours
+    users = where(created_at: (Date.today - 5.days).beginning_of_day..(Date.today - 5.days).end_of_day, campaign_email_created_at: nil)
+    users << where(campaign_email_created_at: (Date.today - 5.days).beginning_of_day..(Date.today - 5.days).end_of_day)
+    users.flatten
+  end
+
   private
 
   def generate_invite_token
@@ -310,9 +316,5 @@ class User < ActiveRecord::Base
     self.add_event(EventType::SIGNUP)
     UserCredit.add_for_invitee(self)
     self.reset_authentication_token!
-  end
-
-  def self.with_discount_about_to_expire_in_48_hours
-    where(created_at: (Date.today - 5.days).beginning_of_day..(Date.today - 5.days).end_of_day, campaign_email_created_at: nil) || User.where(campaign_email_created_at: (Date.today - 5.days).beginning_of_day..(Date.today - 5.days).end_of_day)
   end
 end
