@@ -11,6 +11,10 @@ class DiscountExpirationCheckService
 			sign_up_date(user_or_campaign_email).to_date == 5.days.ago.to_date
 		end
 
+		def discount_expires_at(user_or_campaign_email)
+			sign_up_date(user_or_campaign_email).to_date + 7.days.to_date
+		end
+
 		private
 
 			def sign_up_date(user_or_campaign_email)
