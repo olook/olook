@@ -14,7 +14,7 @@ class DiscountExpirationCheckService
 		private
 
 			def sign_up_date(user_or_campaign_email)
-				(user_or_campaign_email.respond_to?(:converted_at) && user_or_campaign_email.converted_at) ? user_or_campaign_email.converted_at : user_or_campaign_email.created_at
+				(user_or_campaign_email.respond_to?(:campaign_email_created_at) && user_or_campaign_email.campaign_email_created_at) ? user_or_campaign_email.campaign_email_created_at : user_or_campaign_email.created_at
 			end
 	end
 
