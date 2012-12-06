@@ -1,6 +1,6 @@
 class ShippingsController < ApplicationController
   DEFAULT_VALUE = 50.0
-  respond_to :js
+  respond_to :json
 
   def show
     zip_code = params[:id]

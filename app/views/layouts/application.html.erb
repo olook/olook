@@ -71,6 +71,8 @@
     <%= yield :footer %>
   <% end %>
   
+  <%= javascript_include_tag "home" %>  
+  
   <%= render :partial => "shared/metrics/master_tags" %>
 
 </body>
