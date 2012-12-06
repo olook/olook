@@ -3,6 +3,7 @@ class DiscountExpirationCheckService
   class << self
     def discount_expired?(user)
       raise ArgumentError.new('a user is required!') unless user
+
 			sign_up_date(user).to_date <= Setting.discount_period_in_days.days.ago.to_date
 		end
 
