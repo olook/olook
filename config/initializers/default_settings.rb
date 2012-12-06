@@ -41,3 +41,7 @@ Setting.defaults[:use_clearsale_server] = false
 
 # General configs
 Setting.defaults[:show_campaign_email_modal] = true
+
+# First Purchase Discount Dates
+Setting.defaults[:discount_period_in_days] = 7
+Setting.defaults[:discount_period_expiration_warning_in_days] = 2
