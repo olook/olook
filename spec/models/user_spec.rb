@@ -796,7 +796,7 @@ describe User do
       let!(:another_user_from_campaing_email) { FactoryGirl.create(:user, created_at: DateTime.now - 5.days, campaign_email_created_at: DateTime.now - 6.days ) }
 
        it "returns users" do
-          described_class.with_discount_about_to_expire_in_48_hours.should eq([user, user_from_campaing_email])
+          described_class.with_discount_about_to_expire_in_48_hours.should eq([user.email, user_from_campaing_email.email])
        end
 
         it "shouldn't return users" do
