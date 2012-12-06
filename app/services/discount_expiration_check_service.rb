@@ -21,6 +21,23 @@ class DiscountExpirationCheckService
       user_list.flatten
     end
 
+    def find_all_discounts
+      initial_date = DateTime.now - 1.month
+      period = 1.month
+      discount_period = Setting.discount_period_in_days.days
+              
+      users = User.where({created_at: ((initial_date).beginning_of_day..(initial_date + period).end_of_day)}).map do |user|
+                start_date = user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at
+                OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: (user.orders.purchased.size > 0))
+              end
+
+      campaign_emails = CampaignEmail.where({created_at: ((initial_date).beginning_of_day..(initial_date + period).end_of_day)}).map do |campaign_email|                
+                OpenStruct.new(email: campaign_email.email, name: nil, discount_start: campaign_email.created_at.beginning_of_day, discount_end: (campaign_email.created_at + discount_period).end_of_day, used_discount: false)
+              end
+
+      users + campaign_emails
+    end
+
     private
 
     def sign_up_date(user_or_campaign_email)

@@ -126,4 +126,14 @@ describe DiscountExpirationCheckService do
 
     end
   end
+
+  # context ".find_all_discounts" do
+  #   let(:now) { DateTime.now }
+  #   let(:user) { FactoryGirl.create(:user, created_at: now) }
+
+  #   it "returns the expiration date for a given user" do
+  #     DiscountExpirationCheckService.find_all_discounts.should eq((now + Setting.discount_period_in_days.days).to_date)
+  #   end
+  # end
+
 end
