@@ -10,11 +10,7 @@ module Promotions
 
     def matches?
       return false unless user && user.created_at
-<<<<<<< HEAD
 
-=======
-      
->>>>>>> user checking in purchases_amount_strategy
       return false if DiscountExpirationCheckService.discount_expired?(user)
 
       user ? user.orders.purchased.size == param.to_i : 0 == param.to_i
