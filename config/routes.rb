@@ -261,6 +261,8 @@ Olook::Application.routes.draw do
       get :products, :to => "gift_boxes#product"
     end
 
+    get '/discounts' => 'discounts#index', as: :discounts
+
   end
 
   #USER / SIGN IN
@@ -293,7 +295,7 @@ Olook::Application.routes.draw do
   resources :campaign_emails do
     member do
       get 'login'
-      get 'remembered'      
+      get 'remembered'
     end
   end
 
