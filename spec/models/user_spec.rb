@@ -789,10 +789,11 @@ describe User do
   end
 
   describe ".with_discount_about_to_expire_in_48_hours" do
-    context "searching for users that have discount" do
+    context "searching for users that have discount and should receive email of 48 hours" do
       let!(:user) { FactoryGirl.create(:user, created_at: DateTime.now - 5.days ) }
+      let!(:another_user) { FactoryGirl.create(:user, created_at: DateTime.now - 4.days ) }
       let!(:user_from_campaing_email) { FactoryGirl.create(:user,created_at: DateTime.now, campaign_email_created_at: DateTime.now - 5.days ) }
-      let!(:another_user_from_campaing_email) { FactoryGirl.create(:user,created_at: DateTime.now, campaign_email_created_at: DateTime.now - 6.days ) }
+      let!(:another_user_from_campaing_email) { FactoryGirl.create(:user, created_at: DateTime.now - 5.days, campaign_email_created_at: DateTime.now - 6.days ) }
 
        it "returns users" do
           described_class.with_discount_about_to_expire_in_48_hours.should eq([user, user_from_campaing_email])
