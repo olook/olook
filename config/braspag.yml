@@ -12,6 +12,6 @@ staging:
 
 production:
   environment: "production"
-  merchant_id: "540BA6EE-39D7-3DC1-D87D-7F82C49A3598"
+  merchant_id: "17828632-FC5E-FF48-8BF4-2109A4FDFE69"
 
 braspag:

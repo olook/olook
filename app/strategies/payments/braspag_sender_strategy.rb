@@ -33,8 +33,34 @@ module Payments
 
     def process_enqueued_request
       begin
-        gateway_response = web_service_data.checkout(authorize_transaction_data)
-        process_response(gateway_response[:authorize_response], gateway_response[:capture_response])
+        authorize_response = authorize
+
+        if authorized_and_pending_capture?(authorize_response)
+          order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
+          if order_analysis_service.should_send_to_analysis? 
+            clearsale_order_response = order_analysis_service.send_to_analysis
+          else 
+            capture(authorize_response)
+          end
+        end
+      rescue Exception => error
+        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
+        raise error
+      ensure
+        payment.encrypt_credit_card
+        payment.save!
+      end
+    end
+
+    def authorized_and_pending_capture?(authorize_response)
+      authorize_response.success && authorize_response.status == 1
+    end
+
+    def process_capture_request
+      begin
+        authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
+        capture(authorize_response)    
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
@@ -48,7 +74,17 @@ module Payments
     def web_service_data
       config = YAML::load(File.open(FILE_DIR))
       env = config[Rails.env]["environment"]
-      Braspag::Webservice.new(:env)
+      Braspag::Webservice.new(env.to_sym)
+    end
+
+    def authorize
+      gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
+      process_authorize_response(gateway_response)      
+    end
+
+    def capture(authorize_response)
+      capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
+      process_capture_response(capture_response,authorize_response)
     end
 
     def authorize_transaction_data
@@ -103,7 +139,7 @@ module Payments
     end
 
     def format_amount(amount)
-      amount.to_s.gsub(',', '').gsub('.', '')
+      format("%.2f", amount).gsub(',', '').gsub('.', '')
     end
 
     def authorize_transaction(payment_request, order, customer)
@@ -113,16 +149,37 @@ module Payments
       .for_order(order).for_customer(customer).with_payment_request(payment_request).build
     end
 
-    def process_response(authorize_response, capture_response)
+    def process_authorize_response(authorize_response)
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
-        create_success_authorize_response(authorize_transaction_result)
-        create_capture_response(capture_response, authorize_transaction_result[:order_data][:order_id]) if capture_response
         update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
+        create_success_authorize_response(authorize_transaction_result)
       else
-        create_failure_authorize_response(authorize_transaction_result)
         update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
+        create_failure_authorize_response(authorize_transaction_result)
+      end    
+    end
+
+    def process_capture_response(capture_response, authorize_response)
+      if capture_response 
+        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result] 
+        if capture_transaction_result[:success]
+          create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id]) 
+          update_payment_response(Payment::SUCCESSFUL_STATUS, capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_message])
+        else
+          update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
+        end
+      else
+        update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
       end
+    end
+
+    def create_capture_credit_card_request(authorize_response)
+      braspag_transaction_id = authorize_response.braspag_transaction_id
+      amount = authorize_response.amount
+      request_id = authorize_response.correlation_id
+      transaction_request = Braspag::TransactionRequest.new(braspag_transaction_id, amount)
+      Braspag::CreditCardTransactionRequestBuilder.new.with_request_id(request_id).with_transaction_request(transaction_request).build
     end
 
     def create_success_authorize_response(authorize_transaction_result)
@@ -148,7 +205,8 @@ module Payments
       authorization_response = BraspagAuthorizeResponse.new(
           {:correlation_id => authorize_transaction_result[:correlation_id],
           :success => false,
-          :error_message => authorize_transaction_result[:error_report_data_collection].to_s})
+          :error_message => authorize_transaction_result[:error_report_data_collection].to_s,
+          :identification_code => payment.identification_code})
       authorization_response.save
       authorization_response
     end
@@ -182,7 +240,8 @@ module Payments
       capture_response = BraspagCaptureResponse.new(
           {:correlation_id => capture_transaction_result[:correlation_id],
           :success => false,
-          :error_message => capture_transaction_result[:error_report_data_collection].to_s})
+          :error_message => capture_transaction_result[:error_report_data_collection].to_s,
+          :identification_code => payment.identification_code})
       capture_response.save
       capture_response
     end

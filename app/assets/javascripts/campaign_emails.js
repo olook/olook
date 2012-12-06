@@ -68,4 +68,7 @@ $(function(){
 		if(flag==true)
 			parent.top.$("#modal-campaign").fadeOut();
 	})
+	
+	
+	
 });

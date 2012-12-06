@@ -1,10 +1,11 @@
-/* 
+/*
  * This css will include all web-app-theme css you need
  *
  *= require admin/base
  *= require admin/themes/default/style.css
  *= require admin/liquidation_products.css
  *= require admin/lookbooks.css
+ *= require admin/orders.css.scss
  *= require common/jquery.ui.autocomplete.css
  *= require_self
  */
