@@ -20,7 +20,7 @@ class Admin::ProductsController < Admin::BaseController
 
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
     @profiles = Profile.order(:name)
-    
+
     @products = Product.includes(:profiles).includes(:collection)
                        .search(params[:q])
                        .in_category(params[:cat])
@@ -119,14 +119,35 @@ class Admin::ProductsController < Admin::BaseController
     }
   end
 
+  def mark_specific_products_as_visible
+    @collection = Collection.find(params[:collection_id])
+    visible_products = params[:visible_products] ? params[:visible_products].collect { |i| i.to_i } : []
+    invisible_products = @collection.products.collect { |p| p.id } - visible_products
+    visible_products
+
+    if update_all_products(visible_products, true) && update_all_products(invisible_products, false)
+      flash[:notice] = "Marked selected products as visible."
+    else
+      flash[:error] = "Could not execute your request!"
+    end
+    respond_with :admin, @collection
+  end
+
   private
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :update_products_as_visible, :update_products_as_invisible
   def sort_column
     Product.column_names.include?(params[:s]) ? params[:s] : "collection_id"
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:d]) ? params[:d] : "desc"
+  end
+
+  def update_all_products(product_list, visibility)
+    products = Product.find(product_list)
+    products.each do |p|
+      p.update_attribute(:is_visible, visibility) unless p.is_visible == visibility
+    end
   end
 end
 
