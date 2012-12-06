@@ -1,12 +1,11 @@
 function criaCookie(chave, value) { 
-	var expira = new Date(); 
-	expira.setTime(expira.getTime() + 87600000); //expira dentro de 24h 
-	document.cookie = chave + '=' + value + ';expira=' + expira.toString(); 
+	$.cookie(chave, value, { expires: 1, path: '/' });
 } 
+
 function lerCookie(chave) { 
-	var ChaveValor = document.cookie.match('(^|;) ?' + chave + '=([^;]*)(;|$)'); 
-	return ChaveValor ? ChaveValor[2] : null; 
+  return $.cookie(chave);
 }
+
 $(function(){
 	if(lerCookie("modalShow") == null){
 		$("#overlay-campaign").delay(100).fadeIn();

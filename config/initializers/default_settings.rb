@@ -38,3 +38,6 @@ Setting.defaults[:profile_sexy_product_ids] = "5044,5017,10022,4350,9406"
 Setting.defaults[:send_to_clearsale] = false
 Setting.defaults[:force_send_to_clearsale] = false
 Setting.defaults[:use_clearsale_server] = false
+
+# General configs
+Setting.defaults[:show_campaign_email_modal] = true
