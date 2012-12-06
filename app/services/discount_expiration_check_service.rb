@@ -16,27 +16,29 @@ class DiscountExpirationCheckService
 		end
 
     def discount_expiration_48_hours_emails_list
-      user_list = User.with_discount_about_to_expire_in_48_hours + CampaignEmail.with_discount_about_to_expire_in_48_hours
+      user_list = User.with_discount_about_to_expire_in_48_hours
+      user_list << CampaignEmail.with_discount_about_to_expire_in_48_hours
+      user_list.flatten
     end
 
     def find_all_discounts
-      initial_date = DateTime.now - 1.month
-      period = 1.month
-      discount_period = Setting.discount_period_in_days.days
-              
-      users = User.where({created_at: ((initial_date).beginning_of_day..(initial_date + period).end_of_day)}).map do |user|
-                start_date = user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at
-                OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: (user.orders.purchased.size > 0))
-              end
-
-      campaign_emails = CampaignEmail.where({created_at: ((initial_date).beginning_of_day..(initial_date + period).end_of_day)}).map do |campaign_email|                
-                OpenStruct.new(email: campaign_email.email, name: nil, discount_start: campaign_email.created_at.beginning_of_day, discount_end: (campaign_email.created_at + discount_period).end_of_day, used_discount: false)
-              end
-
-      users + campaign_emails
+      find_users_with_discount(Setting.discount_period_in_days.days) + find_campaign_emails_with_discount(Setting.discount_period_in_days.days)
     end
 
     private
+
+    def find_campaign_emails_with_discount(discount_period)      
+      CampaignEmail.where({created_at: ((DateTime.now - 1.month).beginning_of_day..(DateTime.now).end_of_day)}).map do |campaign_email|                
+        OpenStruct.new(email: campaign_email.email, name: nil, discount_start: campaign_email.created_at.beginning_of_day, discount_end: (campaign_email.created_at + discount_period).end_of_day, used_discount: false)
+      end
+    end
+
+    def find_users_with_discount(discount_period)      
+      User.where({created_at: ((DateTime.now - 1.month).beginning_of_day..(DateTime.now).end_of_day)}).map do |user|
+        start_date = user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at
+        OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: (user.orders.purchased.size > 0))
+      end      
+    end
 
     def sign_up_date(user_or_campaign_email)
       (user_or_campaign_email.respond_to?(:campaign_email_created_at) && user_or_campaign_email.campaign_email_created_at) ? user_or_campaign_email.campaign_email_created_at : user_or_campaign_email.created_at
