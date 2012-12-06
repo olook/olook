@@ -120,8 +120,8 @@ class UserNotifier
   end
 
   def self.reminder_expiration_discount
-    User.with_discount_about_to_expire_in_48_hours.map do |user|
-      ExpirationDiscountMailer.send_expiration_email(user)
+    DiscountExpirationCheckService.discount_expiration_48_hours_emails_list.map do |email|
+      ExpirationDiscountMailer.send_expiration_email(email)
     end
   end
 

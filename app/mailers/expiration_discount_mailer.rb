@@ -14,7 +14,7 @@ class ExpirationDiscountMailer < ActionMailer::Base
     }
   end
 
-   def send_expiration_email(user)
-      mail(to: user.email, subject: "Seus créditos irão expirar em 48 horas")
+   def send_expiration_email(email)
+      mail(to: email, subject: "Seus créditos irão expirar em 48 horas")
    end
 end
