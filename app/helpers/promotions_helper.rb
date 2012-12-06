@@ -10,13 +10,13 @@ module PromotionsHelper
   ]
 
   PROMOTION_BANNER_GUEST_WHITELIST = [
+    {:controller => "lookbooks"}, 
     {:controller => "product", :actions => ["show"]},
     {:controller => "home", :actions => ["index"]},
     {:controller => "moments"}
   ]
 
   def render_promotion_banner
-
 
       # Campaign has precedence over Promotion (at least for now =p)
       if Campaign.activated_campaign && ((current_user && page_included_in_whitelist?(PROMOTION_BANNER_WHITELIST)) || (!current_user && page_included_in_whitelist?(PROMOTION_BANNER_GUEST_WHITELIST)))
@@ -36,7 +36,7 @@ module PromotionsHelper
   def page_included_in_whitelist? list
     result = false
     list.each do|whitelist|
-      if whitelist[:controller] == controller_name
+      if whitelist[:controller] == controller_path
         if whitelist[:actions]
           result = whitelist[:actions].include? action_name
         else
