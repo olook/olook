@@ -9,7 +9,7 @@ class BraspagAuthorizeResponse < ActiveRecord::Base
   }
 
   def update_payment_status(payment)
-    event = STATUS[status]
+    event = STATUS[status] || :cancel
     if event.nil?
       self.update_attributes(:processed => true, :error_message => "Invalid status")
     elsif payment.set_state(event)
@@ -24,5 +24,5 @@ class BraspagAuthorizeResponse < ActiveRecord::Base
       )
     end
   end
-  
+
 end

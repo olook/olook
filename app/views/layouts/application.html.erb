@@ -50,23 +50,29 @@
 
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
-    <%# unless content_for? :top_my_account %>
-      <% unless (params[:controller] == 'home' and params[:action] == 'index') || (params[:controller] == 'members' and params[:action] == 'showroom' and @user.half_user?) %>
-        <%= render_promotion_banner unless error %>
-      <% end %>
-    <%# end %>
+
+    <% unless (params[:controller] == 'home' and params[:action] == 'index') || (params[:controller] == 'members' and params[:action] == 'showroom' and @user.half_user?) %>
+      <%= render_promotion_banner unless error %>
+    <% end %>
+
     <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
 
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+    <% else %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal %>
     <% end %>
+    
+
   <%= yield :site_footer %>
   <%= render "shared/lightbox_credits" %>
   <%= javascript_include_tag "application" %>
   <% if content_for? :footer %>
     <%= yield :footer %>
   <% end %>
+  
   <%= render :partial => "shared/metrics/master_tags" %>
+
 </body>
 </html>
