@@ -16,9 +16,7 @@ class DiscountExpirationCheckService
 		end
 
     def discount_expiration_48_hours_emails_list
-      user_list = User.with_discount_about_to_expire_in_48_hours
-      user_list << CampaignEmail.with_discount_about_to_expire_in_48_hours
-      user_list.flatten
+      user_list = User.with_discount_about_to_expire_in_48_hours + CampaignEmail.with_discount_about_to_expire_in_48_hours
     end
 
     private
