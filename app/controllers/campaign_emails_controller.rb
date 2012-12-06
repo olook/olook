@@ -24,4 +24,9 @@ class CampaignEmailsController < ApplicationController
 	def show; end
 
 	def remembered; end
+
+	def contains
+		render :text => (!CampaignEmail.find_by_email(params[:campaign_email]).nil?).to_s
+	end
+
 end
