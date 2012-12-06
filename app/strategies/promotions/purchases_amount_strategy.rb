@@ -9,6 +9,7 @@ module Promotions
     end
 
     def matches?
+
       return false unless user && user.created_at
       return false if DiscountExpirationCheckService.discount_expired?(user)
 
