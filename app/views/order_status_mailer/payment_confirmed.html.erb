@@ -63,10 +63,10 @@
     </p>
     <% end %>
 
+
     <% if Promotions::PurchasesAmountStrategy.new("1", @order.user).matches? %>
        <p>Você utilizou seu desconto de 20% neste pedido.</p>
     <% end %>
-
 
     <% @address = @order.freight.address %>
     <p>Endereço de Entrega:<br>
