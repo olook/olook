@@ -15,7 +15,7 @@ describe Promotions::PurchasesAmountStrategy do
 		context "user doesn't have any purchases but discount is expired" do
 
 			context "regular user" do
-				let(:user) { FactoryGirl.create(:user, created_at: 7.days.ago) }
+				let(:user) { FactoryGirl.create(:user, created_at: Setting.discount_period_in_days.days.ago) }
 
 				it "returns false" do
 					Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_false
@@ -23,7 +23,7 @@ describe Promotions::PurchasesAmountStrategy do
 			end				
 			
 			context "converted user" do
-				let(:user) { FactoryGirl.create(:user, campaign_email_created_at: 7.days.ago) }
+				let(:user) { FactoryGirl.create(:user, campaign_email_created_at: Setting.discount_period_in_days.days.ago) }
 			
 				it "returns false" do
 					Promotions::PurchasesAmountStrategy.new(promo.param, user).matches?.should be_false
