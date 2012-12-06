@@ -9,11 +9,21 @@
       <th>Final do Desconto</th>
       <th>Desconto Utilizado?</th>
     </tr>
+
+    <% @user_discounts.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+      <td><%= user.discount_start %></td>
+      <td><%= user.discount_end %></td>
+      <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
+    </tr>
+  <% end %>
   </table>
 
   <div class="actions-bar wat-cf">
     <div class="pagination">
-      <%# will_paginate @users %>
+      <%# will_paginate @user_discounts %>
     </div>
   </div>
 </div>
