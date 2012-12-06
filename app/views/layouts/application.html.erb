@@ -59,9 +59,10 @@
 
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+    <% else %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal %>
     <% end %>
     
-    <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal %>
 
   <%= yield :site_footer %>
   <%= render "shared/lightbox_credits" %>
