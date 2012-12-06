@@ -2,6 +2,7 @@ class Admin::DiscountsController < Admin::BaseController
 
   respond_to :html
   def index
-    @user_discounts = DiscountExpirationCheckService.find_all_discounts
+    @search = User.search(params[:search])
+    @user_discounts = @search.relation.page(params[:page]).per_page(15).order('created_at desc')
   end
 end
