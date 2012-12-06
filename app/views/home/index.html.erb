@@ -33,9 +33,11 @@
     </div>
   </section>
   <%= link_to 'Comece aqui. É grátis!', new_survey_path, :class => "start" %>
-  CEP: <input type="text" value="" class="cep" name="cep" id="cep" />
+
+  CEP: <input type="cep" value="" class="cep" name="cep" id="cep" />
   <button type="button" class="enviar">Enviar</button>
   <p id="msg">&nbsp;</p>
+
 </section>
 
 <%= render 'shared/facebook_like_button' %>

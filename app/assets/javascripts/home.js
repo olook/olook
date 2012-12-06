@@ -1,6 +1,7 @@
 function shipping(cep){
 	$.ajax({
 		url:"shippings/"+cep,
+		type: "POST",
 		success: function(data){
 			$("#msg").text(data.message)
 		}
