@@ -30,8 +30,7 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
-  match "/natal", :to => "moments#show", :as => "natal", :defaults => {:id => 8}
-  match "/festas", :to => "moments#show", :as => "festas", :defaults => {:id => 8}
+  match "/festas", :to => "moments#show", :as => "festas", :defaults => {:id => 4}
 
   #LOOKBOOKS
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
@@ -139,6 +138,7 @@ Olook::Application.routes.draw do
     resources :products do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
+        post "mark_specific_products_as_visible" => "products#mark_specific_products_as_visible", :as => "mark_specific_products_as_visible"
       end
       post 'sort_pictures' => 'pictures#sort', as: 'sort_pictures'
 

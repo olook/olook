@@ -4,7 +4,6 @@ cielo:
   americanexpress: :cielo_amex
   diners: :cielo_diners
   hipercard: :sitef_hipercard
-  aura: :sitef_aura
 
 redecard:
   visa: :redecard_visa
@@ -12,4 +11,3 @@ redecard:
   americanexpress: :sitef_amex
   diners: :redecard_diners
   hipercard: :sitef_hipercard
-  aura: :sitef_aura
