@@ -12,7 +12,7 @@ describe CampaignEmail do
     context "searching for emails that have discount" do
       let!(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - 5.days ) }
       it "returns emails" do
-        described_class.with_discount_about_to_expire_in_48_hours.should eq([campaign_email])
+        described_class.with_discount_about_to_expire_in_48_hours.should eq([campaign_email.email])
       end
 
       it "shouldn't return emails" do
