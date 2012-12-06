@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Promotions::PurchasesAmountStrategy do
-	context "#matches?" do
+	context "#matches?" do  
 		let(:promo) { FactoryGirl.create(:first_time_buyers) }
 
 		context "user doesn't have any purchases and discount is still active" do

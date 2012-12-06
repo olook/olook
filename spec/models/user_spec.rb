@@ -810,5 +810,8 @@ describe User do
        end
     end
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8271b3f625f474a1ea887a7ae80ecc9756bb0f1f
 end
