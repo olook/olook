@@ -289,8 +289,6 @@ Olook::Application.routes.draw do
     end
   end
 
-  post '/campaign_emails/contains' => 'campaign_emails#contains'
-
   #TESTE A/B
   resources :campaign_emails do
     member do
