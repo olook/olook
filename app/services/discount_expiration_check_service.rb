@@ -34,9 +34,10 @@ class DiscountExpirationCheckService
     end
 
     def find_users_with_discount(discount_period)      
-      User.where({created_at: ((DateTime.now - 1.month).beginning_of_day..(DateTime.now).end_of_day)}).map do |user|
+      User.where({created_at: ((DateTime.now - 1.month).beginning_of_day..(DateTime.now).end_of_day)}).includes(:orders).map do |user|
         start_date = user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at
-        OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: (user.orders.purchased.size > 0))
+        used_discount = user.orders.purchased.empty? ? false : user.orders.purchased.first.created_at < (start_date + discount_period) 
+        OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: used_discount)
       end      
     end
 
