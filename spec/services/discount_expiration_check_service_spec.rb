@@ -15,7 +15,7 @@ describe DiscountExpirationCheckService do
 			end
 
 			context "within 7 days of expiration date" do
-				let(:converted_user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - Setting.discount_period_in_days.days) }
+				let(:converted_user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - (Setting.discount_period_in_days - Setting.discount_period_expiration_warning_in_days).days) }
 
 				it "returns false" do
 					DiscountExpirationCheckService.discount_expired?(converted_user).should be_false
