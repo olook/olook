@@ -5,7 +5,7 @@ class ShippingsController < ApplicationController
   def show
     zip_code = params[:id]
     freight = FreightCalculator.freight_for_zip zip_code, DEFAULT_VALUE
-    days_to_deliver = freight[:delivery_time]
+    @days_to_deliver = freight[:delivery_time]
   end
 
 
