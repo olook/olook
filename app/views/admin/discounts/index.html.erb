@@ -18,6 +18,7 @@
   </div>
 <% end %>
 
+
 <div class="inner">
   <table class="table">
     <tr>
@@ -27,7 +28,6 @@
       <th>Final do Desconto</th>
       <th>Desconto Utilizado?</th>
     </tr>
-
     <% @user_discounts.each do |user| %>
     <tr>
       <td><%= user.email %></td>
@@ -36,7 +36,7 @@
       <td><%= user.discount_end %></td>
       <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
     </tr>
-  <% end %>
+    <% end %>    
   </table>
 
   <div class="actions-bar wat-cf">
