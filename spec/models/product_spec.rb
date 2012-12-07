@@ -59,7 +59,7 @@ describe Product do
 
     context "visible" do
       it "returns visible products" do
-        visible_products = [shoe, bag, accessory]
+        visible_products = [bag, accessory, shoe]
         (described_class.only_visible & visible_products).should == visible_products
       end
 
