@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class OrderStatusMailer < ActionMailer::Base
+  add_template_helper(Mailers::OrderStatusMailerHelper)
   default_url_options[:host] = "www.olook.com.br"
   default :from => "olook <avisos@olook.com.br>"
 
