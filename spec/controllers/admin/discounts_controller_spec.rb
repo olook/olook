@@ -11,14 +11,19 @@ describe Admin::DiscountsController do
   describe "GET index" do
     let(:searched_user) { FactoryGirl.create(:user, :email => 'test@email.com') }
     let(:user) { FactoryGirl.create(:user) }
-    let(:search_param) { {"email_contains" => searched_user.email} }
+    let(:search) { {"search" => searched_user.email} }
 
     it "should search for a user using the search parameter" do
-      get :index, :search => search_param
+      discount_start = (searched_user.campaign_email_created_at ? searched_user.campaign_email_created_at : searched_user.created_at)
+      discount_period = Setting.discount_period_in_days.days
 
+      searched_user_response = OpenStruct.new(email: searched_user.email, name: searched_user.name, discount_start: searched_user.created_at.beginning_of_day, discount_end: (searched_user.created_at + discount_period).end_of_day, used_discount:false)
+
+      get :index, :email => search
       assigns(:user_discounts).should_not include(user)
-      assigns(:user_discounts).should include(searched_user)
+      assigns(:user_discounts).should include(searched_user_response)
     end
+
   end
 
 end
