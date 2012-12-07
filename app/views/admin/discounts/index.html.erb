@@ -4,12 +4,13 @@
   <div class="block">
     <h3>Filters</h3>
     <div class="content">
-      <%= form_tag admin_discounts_path, :method => 'get' do %>
-          <div class="group">
-        <%= text_field_tag :email %>
+      <%= form_tag admin_discounts_path, method: 'get' do %>
+        <div class="group">
+          <%= label_tag :email %><br />
+          <%= text_field_tag :email %>
         </div>
         <div class="group">
-        <%= submit_tag "Search", class: "button" %>
+          <%= submit_tag "Search", class: "button" %>
         </div>
       <% end %>
     </div>
@@ -26,13 +27,13 @@
       <th>Desconto Utilizado?</th>
     </tr>
     <% @user_discounts.each do |user| %>
-    <tr>
-      <td><%= user.email %></td>
-      <td><%= user.name %></td>
-      <td><%= user.discount_start.to_s(:short) %></td>
-      <td><%= user.discount_end.to_s(:short) %></td>
-      <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
-    </tr>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.discount_start.to_s(:short) %></td>
+        <td><%= user.discount_end.to_s(:short) %></td>
+        <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
+      </tr>
     <% end %>
   </table>
 
