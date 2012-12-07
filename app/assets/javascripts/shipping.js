@@ -15,8 +15,8 @@ function search_delivery_time(cep){
     type: "GET",
     dataType: "json",
     success: function(data){
-      $("#msg").text(data.message).removeClass("error");
-			$("#box-ship form label").text("Pesquise outro CEP:")
+      $("#msg").html(data.message).removeClass("error");
+      $("#box-ship form label").text("Pesquise outro CEP:")
     },
     error: function(data){
       $("#msg").text("Ops, não encontramos este CEP...").addClass("error");
