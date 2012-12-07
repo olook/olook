@@ -11,7 +11,7 @@ describe Admin::DiscountsController do
   describe "GET index" do
     let(:searched_user) { FactoryGirl.create(:user, :email => 'test@email.com') }
     let(:user) { FactoryGirl.create(:user) }
-    let(:search) { {"search" => searched_user.email} }
+    let(:search) { searched_user.email }
 
     it "should search for a user using the search parameter" do
       discount_start = (searched_user.campaign_email_created_at ? searched_user.campaign_email_created_at : searched_user.created_at)
