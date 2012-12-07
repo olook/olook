@@ -129,13 +129,21 @@ module Payments
       .with_currency("BRL")
       .with_country("BRA")
       .with_number_of_payments(payment.payments)
-      .with_payment_plan("0")
+      .with_payment_plan(payment_plan(payment.payments))
       .with_transaction_type("1")
       .with_holder_name(payment.user_name)
       .with_card_number(self.credit_card_number)
       .with_security_code(payment.security_code)
       .with_expiration_month(payment.expiration_date[0,2])
       .with_expiration_year("20#{payment.expiration_date[3,2]}").build
+    end
+
+    def payment_plan(number_of_payments)
+      if number_of_payments > 1
+        "1"
+      else
+        "0"
+      end
     end
 
     def format_amount(amount)
