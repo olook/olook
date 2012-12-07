@@ -27,16 +27,16 @@ function search_delivery_time(cep){
 
 
 if(lerCookie("boxShip") == null){
-		$("#box-ship").fadeIn();
-		$("#cep").setMask({
-	    mask: '99999-999'
-	  });
-	  $(".buscar").click(function(){
-      cep = $("#cep").val().replace("-","");
-      search_delivery_time(cep);
-	  })
-	}
-  $(".close").click(function(){
+	$("#box-ship").fadeIn();
+	$("#cep").setMask({
+	   mask: '99999-999'
+	 });
+	 $(".buscar").click(function(){
+	    cep = $("#cep").val().replace("-","");
+	    search_delivery_time(cep);
+	 })
+}
+$(".close-ship").click(function(){
 		$("#box-ship").fadeOut();
 		criaCookie("boxShip","sim");
 })		
