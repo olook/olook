@@ -20,8 +20,9 @@ module Promotions
       matches? && order_have_promotion_id?
     end
 
+    private
     def order_have_promotion_id?(id=1)
-      @order.payments.map(&:promotion_id).include?(id)
+      @order.payments.map(&:promotion_id).include?(id) if !@order.payments.empty?
     end
   end
 end
