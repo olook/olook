@@ -11,7 +11,7 @@ function lerCookie(chave) {
 
 function search_delivery_time(cep){
   $.ajax({
-    url:"shippings/"+cep,
+    url:"/shippings/"+cep,
     type: "GET",
     dataType: "json",
     success: function(data){
