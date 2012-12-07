@@ -1532,14 +1532,16 @@ header div.contact {
 
 /***** SHIPPING ******/
 #box-ship{
-	position:fixed;bottom:10px;width:939px;height:63px;background:#000;color:#FFF;border-radius:4px;padding:15px 14px 8px 20px;z-index:8888;font-size:13px;display:none;
+	position:fixed;bottom:0px;width:939px;height:63px;background:#000;color:#FFF;border-radius:4px;padding:15px 14px 8px 20px;z-index:8888;font-size:13px;display:none;
 	.fl{float:left;}
-	.fr{float:right;padding-top:26px;position:relative;}
+	.fr{float:right;padding-top:28px;position:relative;}
 	.title{font-family:$johnston;font-size:22px;margin-bottom:11px;}
-  .relacao-completa{display:inline-block;font-size:13px}
+  .relacao-completa{display:inline-block;font-size:13px;padding-top:4px;}
   form{display:inline-block;
-		#cep{width:113px;height:28px;font-size:13px;}
-		.buscar{background: image-url("shipping/buttons.png") 0 -1px no-repeat;font-size:0;line-height:0;font-family:a;border:0;width:79px;height:30px;margin-left:10px}
+		fieldset{float:left;border:0;
+			#cep{width:113px;height:22px;font-size:13px;}
+			.buscar{float:left;background: image-url("shipping/buttons.png") 0 -1px no-repeat;font-size:0;line-height:0;font-family:a;border:0;width:79px;height:30px;margin:0 5px 0 10px}
+		}
 	}
 	.close{width:20px;height:18px;background: image-url("shipping/buttons.png") -102px 0px no-repeat;font-size:0;line-height:0;font-family:a;border:0;position:absolute;top:-7px;right:-7px;cursor:pointer;}
 	.error, #msg span{color:#E05384;}
