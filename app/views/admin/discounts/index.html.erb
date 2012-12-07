@@ -5,19 +5,19 @@
     <h3>Filters</h3>
 
     <div class="content">
-      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
-        <div class="group">
-          <%= f.label :email_contains, :class => "label" %>
-          <%= f.text_field :email_contains, :class => "text_field" %>
+
+      <%= form_tag admin_discounts_path, :method => 'get' do %>
+          <div class="group">
+        <%= text_field_tag :search, params[:search] %>
         </div>
         <div class="group">
-          <%= f.submit 'Search', :class => "button" %>
+        <%= submit_tag "Search", class: "button" %>
         </div>
       <% end %>
+      
     </div>
   </div>
 <% end %>
-
 
 <div class="inner">
   <table class="table">
@@ -32,8 +32,8 @@
     <tr>
       <td><%= user.email %></td>
       <td><%= user.name %></td>
-      <td><%= user.discount_start %></td>
-      <td><%= user.discount_end %></td>
+      <td><%= user.discount_start.to_s(:short) %></td>
+      <td><%= user.discount_end.to_s(:short) %></td>
       <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
     </tr>
     <% end %>    
