@@ -227,5 +227,21 @@ describe Payments::BraspagSenderStrategy do
 
   end
 
+  context "#payment_plan" do
+    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+
+    it "returns '0' when number of payments is = 1" do
+      subject.payment_plan(1).should eq("0")
+    end
+
+    it "returns '1' when number of payments is > 1" do
+      subject.payment_plan(2).should eq("1")
+      subject.payment_plan(3).should eq("1")
+      subject.payment_plan(4).should eq("1")
+      subject.payment_plan(50).should eq("1")
+    end
+
+  end
+
 end
 
