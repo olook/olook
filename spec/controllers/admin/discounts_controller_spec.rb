@@ -24,15 +24,9 @@ describe Admin::DiscountsController do
       assigns(:user_discounts).should include(searched_user_response)
     end
 
-    it "returns all results when theresn't parameters " do
-      discount_start = (searched_user.campaign_email_created_at ? searched_user.campaign_email_created_at : searched_user.created_at)
-      discount_period = Setting.discount_period_in_days.days
-
-      searched_user_response = OpenStruct.new(email: searched_user.email, name: searched_user.name, discount_start: searched_user.created_at.beginning_of_day, discount_end: (searched_user.created_at + discount_period).end_of_day, used_discount:false)
-
-      user_response = OpenStruct.new(email: user.email, name: user.name, discount_start: user.created_at.beginning_of_day, discount_end: (user.created_at + discount_period).end_of_day, used_discount:false)
+    it "returns an empty array " do
       get :index
-      assigns(:user_discounts).should include(searched_user_response, user_response)
+      assigns(:user_discounts).should eq([])
     end
 
   end
