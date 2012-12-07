@@ -25,8 +25,8 @@ function search_delivery_time(cep){
   })
 }
 
-$(function(){
-	if(lerCookie("boxShip") == null){
+
+if(lerCookie("boxShip") == null){
 		$("#box-ship").fadeIn();
 		$("#cep").setMask({
 	    mask: '99999-999'
@@ -39,6 +39,6 @@ $(function(){
   $(".close").click(function(){
 		$("#box-ship").fadeOut();
 		criaCookie("boxShip","sim");
-	})		
-})
+})		
+
 
