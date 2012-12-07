@@ -8,13 +8,13 @@
 
       <%= form_tag admin_discounts_path, :method => 'get' do %>
           <div class="group">
-        <%= text_field_tag :search, params[:search] %>
+        <%= text_field_tag :email, params[:email] %>
         </div>
         <div class="group">
         <%= submit_tag "Search", class: "button" %>
         </div>
       <% end %>
-      
+
     </div>
   </div>
 <% end %>
@@ -36,7 +36,7 @@
       <td><%= user.discount_end.to_s(:short) %></td>
       <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
     </tr>
-    <% end %>    
+    <% end %>
   </table>
 
   <div class="actions-bar wat-cf">
