@@ -5,11 +5,16 @@
   </div>
   <div class="fr">
     <form>
-      <label for="cep">Pesquisar CEP:</label> 
-      <input type="cep" value="" class="cep" name="cep" id="cep" />
-      <button type="button" class="buscar">Buscar</button>
+      <fieldset>
+        <label for="cep">Pesquisar CEP:</label> 
+        <input type="cep" value="" class="cep" name="cep" id="cep" />
+      </fieldset>
+      <fieldset>
+        <button type="button" class="buscar">Buscar</button>
+        <p class="relacao-completa">ou <%= link_to "consulte a relação completa", "/prazo-de-entrega" %></p>
+      </fieldset>
       <button type="button" class="close">Fechar</button>
     </form>
-    <p class="relacao-completa">ou <%= link_to "consulte a relação completa", "/prazo-de-entrega" %></p>
+
   </div>  
 </div>

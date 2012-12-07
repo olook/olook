@@ -32,9 +32,8 @@ $(function(){
 	    mask: '99999-999'
 	  });
 	  $(".buscar").click(function(){
-      cep = $("#cep");
-      search_delivery_time(cep.val().replace("-",""));
-			cep.val('').focus();
+      cep = $("#cep").val().replace("-","");
+      search_delivery_time(cep);
 	  })
 	}
   $(".close").click(function(){
