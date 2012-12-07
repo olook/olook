@@ -145,7 +145,7 @@ describe DiscountExpirationCheckService do
             user.save
             discount_start = (user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at)
             discount_period = Setting.discount_period_in_days.days
-            DiscountExpirationCheckService.find_all_discounts.first.to_json.should eq(OpenStruct.new(email: "member1@example.com", name: "First Name Last Name", discount_start: discount_start.beginning_of_day, discount_end: (discount_start + discount_period).end_of_day, used_discount:false).to_json)
+            DiscountExpirationCheckService.find_all_discounts.first.to_json.should eq(OpenStruct.new(email: user.email, name: "First Name Last Name", discount_start: discount_start.beginning_of_day, discount_end: (discount_start + discount_period).end_of_day, used_discount:false).to_json)
             user.destroy
           end
 
@@ -179,7 +179,7 @@ describe DiscountExpirationCheckService do
             user = order.user
             discount_start = (user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at)
             discount_period = Setting.discount_period_in_days.days
-            DiscountExpirationCheckService.find_all_discounts.first.to_json.should eq(OpenStruct.new(email: "person11@example.com", name: "User First Name User Last Name", discount_start: discount_start.beginning_of_day, discount_end: (discount_start + discount_period).end_of_day, used_discount:true).to_json)
+            DiscountExpirationCheckService.find_all_discounts.first.to_json.should eq(OpenStruct.new(email: user.email, name: "User First Name User Last Name", discount_start: discount_start.beginning_of_day, discount_end: (discount_start + discount_period).end_of_day, used_discount:true).to_json)
           end
         end
       end
