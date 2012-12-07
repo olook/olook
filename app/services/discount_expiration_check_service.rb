@@ -24,11 +24,7 @@ class DiscountExpirationCheckService
     end
 
     def search(email)
-      if email && email.size > 0
-        find_list_by_email(email)
-      else
-        find_all_discounts.first(50)
-      end
+      format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%"))
     end
 
     private
@@ -57,10 +53,6 @@ class DiscountExpirationCheckService
         used_discount = user.orders.purchased.empty? ? false : user.orders.purchased.first.created_at < (start_date + discount_period)
         OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: used_discount)
       end
-    end
-
-    def find_list_by_email(email)
-      format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%"))
     end
   end
 end
