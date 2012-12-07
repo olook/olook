@@ -26,7 +26,7 @@ class DiscountExpirationCheckService
     end
 
     def search(email)
-      email.size > 0 ? format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%")) : find_all_discounts.first(50)
+      (email && email.size > 0) ? format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%")) : find_all_discounts.first(50)
     end
 
     private
