@@ -477,6 +477,7 @@ body {
         position: relative;
         margin: 44px 0 0 83px;
         float: left;
+				z-index:10;
 
         .fb-login-button {
           background: url('/assets/common/fb-loggin-button.png') no-repeat;
