@@ -4,20 +4,28 @@ function search_delivery_time(cep){
     type: "GET",
     dataType: "json",
     success: function(data){
-      $("#msg").text(data.message);
+      $("#msg").text(data.message).removeClass("error");
+			$("#box-ship form label").text("Pesquise outro CEP:")
     },
     error: function(data){
-      $("#msg").text("Nao achamos o seu CEP. Tente de novo");
+      $("#msg").text("Ops, não encontramos este CEP...").addClass("error");
+			$("#box-ship form label").text("Vamos tentar mais uma vez? CEP:")
     }
   })
 }
 
 $(function(){
-  $(".enviar").click(
-    function(){
-      cep = $(".cep").val();
-      search_delivery_time(cep);
-    }
-  )
+	$("#cep").setMask({
+    mask: '99999-999'
+  });
+
+  $(".buscar").click(function(){
+      cep = $("#cep");
+      search_delivery_time(cep.val().replace("-",""));
+			cep.val('').focus();
+    })
+  $(".close").click(function(){
+		$("#box-ship").fadeOut();
+	})		
 })
 
