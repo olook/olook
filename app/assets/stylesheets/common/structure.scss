@@ -1532,7 +1532,7 @@ header div.contact {
 
 /***** SHIPPING ******/
 #box-ship{
-	position:fixed;bottom:10px;width:939px;height:63px;background:#000;color:#FFF;border-radius:4px;padding:15px 14px 8px 20px;z-index:8888;font-size:13px;
+	position:fixed;bottom:10px;width:939px;height:63px;background:#000;color:#FFF;border-radius:4px;padding:15px 14px 8px 20px;z-index:8888;font-size:13px;display:none;
 	.fl{float:left;}
 	.fr{float:right;padding-top:26px;position:relative;}
 	.title{font-family:$johnston;font-size:22px;margin-bottom:11px;}
