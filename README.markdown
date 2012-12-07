@@ -115,3 +115,32 @@ Optional config files
   ```
   The parameter color will color the output, format 'documentation' shows the tests description instead of dots and
   drb will try to use spork if available.
+
+- .git/hooks/pre-commit
+  - create a file named .git/hooks/pre-commit inside project directory with the following content:
+  - after creating it, execute the command 'chmod +x .git/hooks/pre-commit'
+
+```
+#!/bin/bash
+## START PRECOMMIT HOOK
+  
+files_modified=`git status --porcelain | egrep "^(A |M |R ).*" | awk ' { if ($3 == "->") print $4; else print $2 } '`
+  
+for f in $files_modified; do
+    echo "Checking ${f}..."
+
+    if [[ $f == *.rb ]]; then
+        if grep --color -n "binding.pry" $f; then
+            echo "File ${f} failed - found 'binding.pry'"
+            exit 1
+        fi
+
+        if grep --color -n "debugger" $f; then
+            echo "File ${f} failed - found 'debugger'"
+            exit 1
+        fi
+    fi
+done
+exit
+## END PRECOMMIT HOOK
+```

@@ -6,6 +6,7 @@ describe Admin::ProductsController do
 
   before :all do
     Product.destroy_all
+    Collection.destroy_all
   end
 
   let!(:product) { FactoryGirl.create(:basic_shoe) }
@@ -159,9 +160,11 @@ describe Admin::ProductsController do
     end
   end
 
+
   describe "POST mark_specific_products_as_visible" do
     let(:collection) { FactoryGirl.create(:active_collection) }
     it "product.is_visible shoud be false" do
+      collection.products << product
       post :mark_specific_products_as_visible, :collection_id => collection.id
       product.reload
       product.is_visible.should eq(false)
