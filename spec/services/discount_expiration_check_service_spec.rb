@@ -1,6 +1,10 @@
 require "spec_helper"
 
 describe DiscountExpirationCheckService do
+  before :each do
+    User.destroy_all
+    CampaignEmail.destroy_all
+  end
 
 	# Used in purchases_amount_strategy, in cart_service
 	context ".discount_expired?" do
