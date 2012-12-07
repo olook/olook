@@ -15,5 +15,13 @@ module Promotions
         0 == param.to_i
       end
     end
+
+    def matches_20_percent_promotion?
+      matches? && order_have_promotion_id?
+    end
+
+    def order_have_promotion_id?(id=1)
+      @order.payments.map(&:promotion_id).include?(id)
+    end
   end
 end
