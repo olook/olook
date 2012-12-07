@@ -16,4 +16,12 @@ $(function(){
 		},500)
 
 	}
+	$(document).bind("click", function(){
+		$("#modal-campaign,#overlay-campaign").fadeOut();
+	})
+	$(document).keyup(function(e) {
+	  if (e.keyCode == 27) { //ESC 
+	   $("#modal-campaign,#overlay-campaign").fadeOut();
+	  }  
+	});
 })

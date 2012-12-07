@@ -64,11 +64,10 @@ $(function(){
 		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
 	})
 	
+		
 	$("input[type=submit]").click(function(){
 		if(flag==true)
 			parent.top.$("#modal-campaign").fadeOut();
 	})
-	
-	
 	
 });
