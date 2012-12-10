@@ -71,7 +71,7 @@ namespace :deploy do
       reason = ENV['REASON']
       deadline = ENV['UNTIL']
 
-      template = File.read("./app/views/layouts/maintenance.html.erb")
+      template = File.read("./app/views/errors/503.html.erb")
       result = ERB.new(template).result(binding)
 
       put result, "#{shared_path}/system/maintenance.html", :mode => 0644
