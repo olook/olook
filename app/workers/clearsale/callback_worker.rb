@@ -35,9 +35,7 @@ module Clearsale
     def self.capture_transaction(payments)
        payments.each do |payment|
         if payment.is_a?(CreditCard)
-          strategy = Payments::BraspagSenderStrategy.new(nil, payment)
-          strategy.credit_card_number = payment.credit_card_number
-          strategy.process_capture_request 
+          Resque.enqueue(Braspag::GatewayCaptureWorker.class, payment.id)
         end
       end
     end

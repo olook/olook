@@ -10,7 +10,7 @@ class PaymentService
       if Setting.braspag_whitelisted_only && !cart_service.cart.user.email.match(/(olook\.com\.br$)/)
         Payments::MoipSenderStrategy.new(cart_service, payment)
       else
-        Payments::BraspagSenderStrategy.new(cart_service, payment)        
+        Payments::BraspagSenderStrategy.new(payment)        
       end
     else
       Payments::MoipSenderStrategy.new(cart_service, payment)
