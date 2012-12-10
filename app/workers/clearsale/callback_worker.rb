@@ -35,7 +35,7 @@ module Clearsale
     def self.capture_transaction(payments)
        payments.each do |payment|
         if payment.is_a?(CreditCard)
-          Resque.enqueue(Braspag::GatewayCaptureWorker.class, payment.id)
+          Resque.enqueue(Braspag::GatewayCaptureWorker, payment.id)
         end
       end
     end
