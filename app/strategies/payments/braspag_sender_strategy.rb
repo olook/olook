@@ -4,8 +4,8 @@ module Payments
 
     attr_accessor :cart_service, :payment, :credit_card_number
 
-    def initialize(cart_service, payment)
-      @cart_service, @payment = cart_service, payment
+    def initialize(payment)
+      @payment = payment
       @payment_successful = false
     end
 
@@ -279,7 +279,7 @@ module Payments
       end
 
       def log text
-        logger.info("[#{@payment.id}] - #{text}")
+        logger.info("#{Time.now} - [#{@payment.id}] - #{text}")
       end
   end
 end

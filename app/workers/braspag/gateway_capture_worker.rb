@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Braspag
-  class GatewaySenderWorker
+  class GatewayCaptureWorker
     @queue = :order_status
 
     def self.perform(payment_id)
@@ -8,10 +8,10 @@ module Braspag
       strategy = Payments::BraspagSenderStrategy.new(payment)
       strategy.credit_card_number = payment.credit_card_number
       begin
-        strategy.process_enqueued_request
+        strategy.process_capture_request
       rescue Exception => e
         puts "Error: #{e.message}"
-        Resque.enqueue_in(15.minutes, GatewaySenderWorker, payment_id) 
+        Resque.enqueue_in(15.minutes, GatewayCaptureWorker, payment_id)
       end
     end
 
