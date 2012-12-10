@@ -32,7 +32,7 @@
         <td><%= user.name %></td>
         <td><%= user.discount_start.to_s(:short) %></td>
         <td><%= user.discount_end.to_s(:short) %></td>
-        <td><%= user.user_discount ? user.user_discount : "Não utilizado" %></td>
+        <td><%= user.used_discount ? "Utilizado" : "Não utilizado" %></td>
       </tr>
     <% end %>
   </table>
