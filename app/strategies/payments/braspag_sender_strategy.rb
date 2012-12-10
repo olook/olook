@@ -274,7 +274,7 @@ module Payments
 
     private 
       def logger
-        @@logger ||= Logger.new("#{Rails.root}/log/obraspag.log")
+        @@logger ||= Logger.new("#{Rails.root}/log/braspag-sender.log")
         @@logger
       end
 
