@@ -7,12 +7,7 @@ module Braspag
       payment = ::CreditCard.find(payment_id)
       strategy = Payments::BraspagSenderStrategy.new(payment)
       strategy.credit_card_number = payment.credit_card_number
-      begin
-        strategy.process_enqueued_request
-      rescue Exception => e
-        puts "Error: #{e.message}"
-        Resque.enqueue_in(15.minutes, GatewaySenderWorker, payment_id) 
-      end
+      strategy.process_enqueued_request
     end
 
   end

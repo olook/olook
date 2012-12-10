@@ -10,8 +10,7 @@ module Braspag
       begin
         strategy.process_capture_request
       rescue Exception => e
-        puts "Error: #{e.message}"
-        Resque.enqueue_in(15.minutes, GatewayCaptureWorker, payment_id)
+        Resque.enqueue_in(15.minutes, Braspag::GatewayCaptureWorker, payment_id)
       end
     end
 
