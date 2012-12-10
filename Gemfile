@@ -67,6 +67,7 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'capistrano'
+  gem 'capistrano-maintenance'
   gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.10.1'
   gem 'watchr'
