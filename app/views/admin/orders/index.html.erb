@@ -35,6 +35,11 @@
         </div>
 
         <div class="group">
+          <%= f.label :state, "Gateway", :class => "label" %>
+          <%= f.select :gateway_eq, {"Moip" => "1", "Braspag" => "2"} , {:include_blank => true} %>
+        </div>
+
+        <div class="group">
           <%= f.submit 'Search', :class => "button" %>
         </div>
       <% end %>
