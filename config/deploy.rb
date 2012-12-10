@@ -1,6 +1,7 @@
 # load 'deploy/assets'
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
+require 'capistrano/maintenance'
 
 set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_prod prod_todas hmg dev resque showroom new_machine apptest)
 
@@ -58,6 +59,23 @@ namespace :unicorn do
   desc 'Start unicorn'
   task :start, :roles => :app do
     run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+  end
+end
+
+namespace :deploy do
+  namespace :web do
+    task :disable, :roles => :web, :except => { :no_release => true } do
+      require 'erb'
+      on_rollback { run "rm #{shared_path}/system/maintenance.html" }
+
+      reason = ENV['REASON']
+      deadline = ENV['UNTIL']
+
+      template = File.read("./app/views/layouts/maintenance.html.erb")
+      result = ERB.new(template).result(binding)
+
+      put result, "#{shared_path}/system/maintenance.html", :mode => 0644
+    end
   end
 end
 
