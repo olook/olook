@@ -9,6 +9,10 @@ function lerCookie(chave) {
   return $.cookie(chave);
 }
 
+function delCookie(name){
+	$.cookie(name, "", { expires: -1, path: '/' });
+}
+
 function search_delivery_time(cep){
   $.ajax({
     url:"/shippings/"+cep,
@@ -25,8 +29,27 @@ function search_delivery_time(cep){
   })
 }
 
+function maxShippingBox(){
+	$("a.maximize").click(function(){
+		$("#box-ship").animate({bottom: '0px'});
+		delCookie("boxShip");
+		$(this).remove();
+	})
+}
 
-if(lerCookie("boxShip") == null){
+function animateBox(){
+	$("#box-ship")
+	.animate({bottom:'-44px'})
+	.append('<a href="javascript:void(0);" class="maximize">Maximizar</a>');
+	maxShippingBox();
+}
+
+$(function(){
+	
+	if(lerCookie("boxShip") == "sim"){
+		animateBox();
+	}
+	
 	$("#box-ship").fadeIn();
 	$("#cep").setMask({
 	   mask: '99999-999'
@@ -35,10 +58,11 @@ if(lerCookie("boxShip") == null){
 	    cep = $("#cep").val().replace("-","");
 	    search_delivery_time(cep);
 	 })
-}
-$(".close-ship").click(function(){
-		$("#box-ship").fadeOut();
-		criaCookie("boxShip","sim");
-})		
 
+	$(".close-ship").click(function(){
+		animateBox();
+		if(lerCookie("boxShip") == null)
+			criaCookie("boxShip","sim");
+	})		
+})
 
