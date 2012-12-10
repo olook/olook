@@ -19,6 +19,6 @@ class ExpirationDiscountMailer < ActionMailer::Base
     @product = @user ? @user.main_profile_showroom.first : Product.where(is_visible: true, collection_id: Collection.active.id).first
     @expiration_date = (Date.today + 2.days).strftime("%d/%m/%Y")
 
-    mail(to: email, subject: "Seus créditos irão expirar em 48 horas")
+    mail(to: email, subject: "Seu desconto irá expirar em 48 horas")
   end
 end
