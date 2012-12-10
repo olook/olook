@@ -4,7 +4,7 @@ describe PaymentService do
 
   let(:olook_user) { FactoryGirl.create :user, {:email => "teste@olook.com.br"} }
   let(:non_olook_user) { FactoryGirl.create :user, {:email => "teste@teste.com"} }
-  let(:payment) { FactoryGirl.create :credit_card}
+  let(:payment) { FactoryGirl.create :credit_card, {:user => olook_user} }
   let(:cart) { FactoryGirl.create :clean_cart}
 
   context "when the braspag_whitelisted_only is false" do
@@ -14,6 +14,7 @@ describe PaymentService do
       Setting.stub(:braspag_percentage) { 100 }
       cart.user = non_olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::BraspagSenderStrategy)
     end
@@ -23,6 +24,7 @@ describe PaymentService do
       Setting.stub(:braspag_percentage) { 100 }
       cart.user = olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::BraspagSenderStrategy)      
     end
@@ -32,6 +34,7 @@ describe PaymentService do
       Setting.stub(:braspag_percentage) { 0 }
       cart.user = olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::MoipSenderStrategy)      
     end
@@ -41,6 +44,7 @@ describe PaymentService do
       Setting.stub(:braspag_percentage) { 0 }
       cart.user = non_olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::MoipSenderStrategy)      
     end
@@ -56,6 +60,7 @@ describe PaymentService do
         Random.stub(:rand) { 30 }
         cart.user = non_olook_user
         cart_service = CartService.new({:cart => cart})
+        PaymentService.stub(:first_credit_card_payment?).and_return(false)
         sender = PaymentService.create_sender_strategy(cart_service, payment)
         sender.class.should eq(Payments::BraspagSenderStrategy)        
       end
@@ -64,6 +69,7 @@ describe PaymentService do
         Random.stub(:rand) { 30 }
         cart.user = olook_user
         cart_service = CartService.new({:cart => cart})
+        PaymentService.stub(:first_credit_card_payment?).and_return(false)
         sender = PaymentService.create_sender_strategy(cart_service, payment)
         sender.class.should eq(Payments::BraspagSenderStrategy)        
       end
@@ -72,6 +78,7 @@ describe PaymentService do
         Random.stub(:rand) { 60 }
         cart.user = non_olook_user
         cart_service = CartService.new({:cart => cart})
+        PaymentService.stub(:first_credit_card_payment?).and_return(false)
         sender = PaymentService.create_sender_strategy(cart_service, payment)
         sender.class.should eq(Payments::MoipSenderStrategy)
       end
@@ -80,6 +87,7 @@ describe PaymentService do
         Random.stub(:rand) { 60 }
         cart.user = olook_user
         cart_service = CartService.new({:cart => cart})
+        PaymentService.stub(:first_credit_card_payment?).and_return(false)
         sender = PaymentService.create_sender_strategy(cart_service, payment)
         sender.class.should eq(Payments::MoipSenderStrategy)
       end
@@ -99,6 +107,7 @@ describe PaymentService do
       Random.stub(:rand) { 50 }
       cart.user = olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::BraspagSenderStrategy)
     end
@@ -107,6 +116,7 @@ describe PaymentService do
       Random.stub(:rand) { 70 }
       cart.user = olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::MoipSenderStrategy)
     end
@@ -114,6 +124,7 @@ describe PaymentService do
     it "should redirect non olook users to moip sender strategy" do
       cart.user = non_olook_user
       cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(false)
       sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::MoipSenderStrategy)
     end
@@ -128,6 +139,7 @@ describe PaymentService do
         Random.stub(:rand) { 30 }
         cart.user = olook_user
         cart_service = CartService.new({:cart => cart})
+        PaymentService.stub(:first_credit_card_payment?).and_return(false)
         sender = PaymentService.create_sender_strategy(cart_service, payment)
         sender.class.should eq(Payments::BraspagSenderStrategy)        
       end
@@ -136,6 +148,7 @@ describe PaymentService do
         Random.stub(:rand) { 60 }
         cart.user = olook_user
         cart_service = CartService.new({:cart => cart})
+        PaymentService.stub(:first_credit_card_payment?).and_return(false)
         sender = PaymentService.create_sender_strategy(cart_service, payment)
         sender.class.should eq(Payments::MoipSenderStrategy)
       end
@@ -156,6 +169,16 @@ describe PaymentService do
 
     it "should select Moip if bank is AmericanExpress" do
       sender = PaymentService.create_sender_strategy(cart_service, payment_amex)
+      sender.class.should eq(Payments::MoipSenderStrategy)
+    end
+  end
+
+  context "first payment" do
+    it "selects Moip strategy" do
+      cart.user = olook_user
+      cart_service = CartService.new({:cart => cart})
+      PaymentService.stub(:first_credit_card_payment?).and_return(true)
+      sender = PaymentService.create_sender_strategy(cart_service, payment)
       sender.class.should eq(Payments::MoipSenderStrategy)
     end
   end
