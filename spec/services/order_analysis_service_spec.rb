@@ -50,8 +50,10 @@ describe OrderAnalysisService do
 
     context "user's second buy" do
 
-      let!(:existing_order) {FactoryGirl.create(:order_without_payment, :user => user )}
-      let!(:existing_payment) {FactoryGirl.create(:credit_card, :user => user, :order => existing_order)}
+      before do
+        Order.any_instance.stub(:transition_to_authorized)
+        FactoryGirl.create(:clean_order_credit_card_authorized, :user => user )
+      end
 
       it "should have two orders" do
         user.should have(2).orders
