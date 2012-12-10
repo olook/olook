@@ -40,6 +40,18 @@ FactoryGirl.define do
     end
   end
 
+  factory :clean_order_credit_card_authorized, :class => Order do
+    association :freight, :factory => :freight
+
+    after_build do |order|
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
+    after_create do |order|
+      FactoryGirl.create(:authorized_credit_card, :order => order, :user => order.user)
+    end
+  end
+
   factory :order_without_payment, :class => Order do
     association :freight, :factory => :freight
 
