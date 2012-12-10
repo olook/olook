@@ -15,5 +15,14 @@ module Promotions
 
       user ? user.orders.purchased.size == param.to_i : 0 == param.to_i
     end
+
+    def matches_20_percent_promotion?
+      matches? && order_have_promotion_id?
+    end
+
+    private
+    def order_have_promotion_id?(id=1)
+      @order.payments.map(&:promotion_id).include?(id) if !@order.payments.empty?
+    end
   end
 end

@@ -8,7 +8,7 @@ function lerCookie(chave) {
 
 $(function(){
 	if(lerCookie("modalShow") == null){
-		$("#overlay-campaign").delay(100).fadeIn();
+		$("#overlay-campaign").delay(100).show();
 		$("#modal-campaign").append('<iframe src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
 		window.setTimeout(function(){
 				if($("#overlay-campaign").is(":visible"))
@@ -16,4 +16,12 @@ $(function(){
 		},500)
 
 	}
+	$(document).bind("click", function(){
+		$("#modal-campaign,#overlay-campaign").fadeOut();
+	})
+	$(document).keyup(function(e) {
+	  if (e.keyCode == 27) { //ESC 
+	   $("#modal-campaign,#overlay-campaign").fadeOut();
+	  }  
+	});
 })
