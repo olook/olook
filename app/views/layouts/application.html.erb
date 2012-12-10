@@ -56,6 +56,8 @@
     <% end %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
+    
+    <%= render :partial => "shippings/shipping" %>
     </div>
 
     <% if user_signed_in? %>
@@ -72,7 +74,10 @@
     <%= yield :footer %>
   <% end %>
   
+  <%= javascript_include_tag "shipping" %>  
+  
   <%= render :partial => "shared/metrics/master_tags" %>
+
 
 </body>
 </html>

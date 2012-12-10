@@ -128,6 +128,8 @@ Olook::Application.routes.draw do
     get "profiles/:name" => "profiles#show"
   end
 
+  resources :shippings, :only => [:show]
+  
   #ADMIN
   devise_for :admins
 
