@@ -44,6 +44,7 @@ function animateBox(){
 	$("#box-ship")
 	.animate({bottom:'-44px'})
 	.append('<a href="javascript:void(0);" class="maximize">Maximizar</a>');
+	$("#box-ship .buttons").addClass("max-ship");
 	maxShippingBox();
 }
 
