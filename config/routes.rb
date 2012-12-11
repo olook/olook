@@ -20,7 +20,7 @@ Olook::Application.routes.draw do
 
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
-  match "/faq", :to => "pages#faq", :as => "faq"
+  match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
   match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"

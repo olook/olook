@@ -81,4 +81,10 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 			p{min-height:22px;background: image-url("campaign_emails/sprite.png") -333px 0 no-repeat;font-size:14px;padding:0 0 0 25px;color:#000;margin-top:4px;line-height:24px;font-family:$avenir;font-size:14px;}
 		}
 	}	
+	
+	.nao-exibir{
+		clear:both;background:#000;height:20px;padding:5px;color:#FFF;
+		input{float:left;margin:4px 5px 0 0}
+		label{font-family:$avenir;}
+	}
 }	

@@ -1,9 +1,10 @@
 <div id="box-ship">
-  <div class="fl">
-    <p class="title">PRAZO DE ENTREGA OLOOK</p>
-    <p id="msg">Consulte nosso prazo de entrega para a localidade desejada.</p>
+  <div class="box-frase">
+    <p class="title">ENTREGA GARANTIDA OLOOK</p>
+    <p class="frase">Entregaremos até o dia 21/12/12 para algumas localidades. <span>Consulte o prazo para sua região</span></p>
   </div>
-  <div class="fr">
+  <div class="consulta-cep">
+    <p id="msg"></p>
     <form>
       <fieldset>
         <label for="cep">Pesquisar CEP:</label> 
@@ -13,8 +14,7 @@
         <button type="button" class="buscar">Buscar</button>
         <p class="relacao-completa">ou <%= link_to "consulte a relação completa", "/prazo-de-entrega" %></p>
       </fieldset>
-      <button type="button" class="close-ship">Fechar</button>
     </form>
-
   </div>  
+  <button type="button" class="buttons close-ship">Fechar</button>
 </div>
