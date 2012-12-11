@@ -87,6 +87,7 @@ module Payments
     end
 
     def capture(authorize_response)
+      log("Sending to capture")
       capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
       log("Transaction capture response: #{authorize_response}")
       process_capture_response(capture_response,authorize_response)
