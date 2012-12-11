@@ -24,4 +24,5 @@ class CampaignEmailsController < ApplicationController
 	def show; end
 
 	def remembered; end
+
 end

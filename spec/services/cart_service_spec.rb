@@ -210,6 +210,7 @@ describe CartService do
       cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
     end
 
+    # Test that hits #get_retail_price_for_item
     it "should return zero percent when has no discounts" do
       cart_service.item_discount_percent(cart.items.first).should eq(0)
     end
@@ -734,6 +735,7 @@ describe CartService do
         cart_service.total.should == 30.0
 
       end
+
 
 
       it "should use promotion instead of coupon (promotion gives more discount) " , :focus => true do

@@ -4,15 +4,15 @@ module Payments
 
     attr_accessor :cart_service, :payment, :credit_card_number
 
-    def initialize(cart_service, payment)
-      @cart_service, @payment = cart_service, payment
+    def initialize(payment)
+      @payment = payment
       @payment_successful = false
     end
 
     def send_to_gateway
       log("Sending transaction to gateway")
       begin
-        Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)
+        Resque.enqueue_in(1.minutes, Braspag::GatewaySenderWorker, payment.id)
         @payment_successful = true
         payment
       rescue Exception => error
@@ -87,6 +87,7 @@ module Payments
     end
 
     def capture(authorize_response)
+      log("Sending to capture")
       capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
       log("Transaction capture response: #{authorize_response}")
       process_capture_response(capture_response,authorize_response)
@@ -279,7 +280,7 @@ module Payments
       end
 
       def log text
-        logger.info("[#{@payment.id}] - #{text}")
+        logger.info("#{Time.now} - [#{@payment.id}] - #{text}")
       end
   end
 end

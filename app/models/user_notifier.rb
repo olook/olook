@@ -119,4 +119,10 @@ class UserNotifier
     related_product_lines.join("#")
   end
 
+  def self.reminder_expiration_discount
+    DiscountExpirationCheckService.discount_expiration_48_hours_emails_list.map do |email|
+      ExpirationDiscountMailer.send_expiration_email(email)
+    end
+  end
+
 end

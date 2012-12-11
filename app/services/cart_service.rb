@@ -208,6 +208,7 @@ class CartService
       end
     end
 
+  #TODO: add expiration logic
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
@@ -282,6 +283,7 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
+  #TODO
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value

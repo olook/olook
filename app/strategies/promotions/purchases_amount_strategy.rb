@@ -9,11 +9,11 @@ module Promotions
     end
 
     def matches?
-      if user
-        user.orders.purchased.size == param.to_i
-      else
-        0 == param.to_i
-      end
+      return false unless user && user.created_at
+
+      return false if DiscountExpirationCheckService.discount_expired?(user)
+
+      user ? user.orders.purchased.size == param.to_i : 0 == param.to_i
     end
 
     def matches_20_percent_promotion?
