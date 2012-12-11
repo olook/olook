@@ -74,6 +74,10 @@ class ClearsaleOrderAdapter
   end
 
   def adapt_user
+
+    gender = @payment.order.user.gender
+    adapted_gender = (gender.nil? || gender == 0) ? 'f' : 'm' 
+
     {
       :email     => @payment.order.user.email,
       :id        => @payment.order.user.id,
@@ -81,7 +85,7 @@ class ClearsaleOrderAdapter
       :full_name => @payment.order.user.name,
       :birthdate => @payment.order.user.birthdate,
       :phone     => @payment.telephone,
-      :gender    => (@payment.order.user.gender ? @payment.order.user.gender : 'f'),
+      :gender    => adapted_gender,
       :last_sign_in_ip => @payment.order.user.last_sign_in_ip
     }    
   end
