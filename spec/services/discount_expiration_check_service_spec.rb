@@ -10,9 +10,9 @@ describe DiscountExpirationCheckService do
 	context ".discount_expired?" do
 
 		context "user converted from campaign email" do
-			let(:converted_user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - Setting.discount_period_in_days.days) }
+			let(:converted_user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - Setting.discount_period_in_days.days - 1) }
 
-			context "7 days after original campaign email's creation date" do
+			context "8 days after original campaign email's creation date" do
 				it "returns true" do
           DiscountExpirationCheckService.stub(:lower_limit_expiration_date) {DateTime.parse("2007-12-12").to_date}
 					DiscountExpirationCheckService.discount_expired?(converted_user).should be_true
@@ -26,12 +26,21 @@ describe DiscountExpirationCheckService do
 					DiscountExpirationCheckService.discount_expired?(converted_user).should be_false
 				end
 			end
+
+      context "within the expiration date (due to the lower_limit_expiration_date)" do
+        let(:converted_user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - 1.year) }
+
+        it "returns false" do
+          DiscountExpirationCheckService.stub(:lower_limit_expiration_date) {(DateTime.now + 3.days).to_date}
+          DiscountExpirationCheckService.discount_expired?(converted_user).should be_false
+        end
+      end
 		end
 
 		context "user not created from a campaign email" do
-			let(:user) { FactoryGirl.create(:user, created_at: DateTime.now - Setting.discount_period_in_days.days) }
+			let(:user) { FactoryGirl.create(:user, created_at: DateTime.now - Setting.discount_period_in_days.days - 1) }
 
-			context "7 days after original campaign email's creation date" do
+			context "8 days after original campaign email's creation date" do
 				it "returns true" do
           DiscountExpirationCheckService.stub(:lower_limit_expiration_date) {DateTime.parse("2007-12-12").to_date}
 					DiscountExpirationCheckService.discount_expired?(user).should be_true
@@ -113,8 +122,8 @@ describe DiscountExpirationCheckService do
 
   describe ".discount_expiration_48_hours_emails_list" do
     context "returns a list of emails with expiration discount" do
-      let!(:user) { FactoryGirl.create(:user, created_at: DateTime.now - 5.days ) }
-      let!(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - 5.days ) }
+      let!(:user) { FactoryGirl.create(:user, created_at: DateTime.now - DiscountExpirationCheckService.days_until_warning.days ) }
+      let!(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - DiscountExpirationCheckService.days_until_warning.days ) }
       it "returns a list of emails" do
         described_class.discount_expiration_48_hours_emails_list.should eq([user.email, campaign_email.email])
       end

@@ -297,7 +297,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_discount_about_to_expire_in_48_hours
-    where("created_at >= ? AND created_at <= ? AND campaign_email_created_at is NULL OR campaign_email_created_at >= ? AND campaign_email_created_at <= ?", (Date.today - 5.days).beginning_of_day, (Date.today - 5.days).end_of_day,(Date.today - 5.days).beginning_of_day, (Date.today - 5.days).end_of_day).collect(&:email)
+    where("created_at >= ? AND created_at <= ? AND campaign_email_created_at is NULL OR campaign_email_created_at >= ? AND campaign_email_created_at <= ?", (Date.today - DiscountExpirationCheckService.days_until_warning.days).beginning_of_day, (Date.today - DiscountExpirationCheckService.days_until_warning.days).end_of_day,(Date.today - DiscountExpirationCheckService.days_until_warning.days).beginning_of_day, (Date.today - DiscountExpirationCheckService.days_until_warning.days).end_of_day).collect(&:email)
   end
 
   private
