@@ -29,6 +29,7 @@
               <ul>
                 <li><%= access_link("Users") %></li>
                 <li><%= access_link("Credits") %></li>
+                <li><%= link_to "Discounts", admin_discounts_path %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /orders|shipping|moip_callbacks|payments/ %>">

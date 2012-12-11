@@ -1,0 +1,46 @@
+<h2>Listing Discounts</h2>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filters</h3>
+    <div class="content">
+      <%= form_tag admin_discounts_path, method: 'get' do %>
+        <div class="group">
+          <%= label_tag :email %><br />
+          <%= text_field_tag :email %>
+        </div>
+        <div class="group">
+          <%= submit_tag "Search", class: "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Email</th>
+      <th>Nome</th>
+      <th>Início do Desconto</th>
+      <th>Final do Desconto</th>
+      <th>Desconto Utilizado?</th>
+    </tr>
+    <% @user_discounts.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.discount_start.to_s(:short) %></td>
+        <td><%= user.discount_end.to_s(:short) %></td>
+        <td><%= user.used_discount ? "Utilizado" : "Não utilizado" %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%# will_paginate @user_discounts %>
+    </div>
+  </div>
+</div>
+

@@ -263,6 +263,8 @@ Olook::Application.routes.draw do
       get :products, :to => "gift_boxes#product"
     end
 
+    get '/discounts' => 'discounts#index', as: :discounts
+
   end
 
   #USER / SIGN IN

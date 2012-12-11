@@ -114,6 +114,14 @@ class ProductPresenter < BasePresenter
     (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8)) || product.promotion?
   end
 
+  def user_expiration_month(user)
+    "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).month.to_s
+  end
+
+  def user_expiration_day(user)
+    "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).day.to_s
+  end  
+
   private
 
   def price_markdown discount_method
@@ -130,7 +138,7 @@ class ProductPresenter < BasePresenter
   def promotion_explanation
     if show_promotion_explanation?
       first_buy = h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation") 
-      discount_validity = h.content_tag(:p, "Válido por 7 dias a partir do cadastro", :class=> "validate")
+      discount_validity = member ? h.content_tag(:p, "Aproveite! Seu desconto vencerá em #{user_expiration_day(member)}/#{user_expiration_month(member)}", :class=> "validate") : h.content_tag(:p, "Válido por 7 dias a partir do cadastro", :class=> "validate")
       first_buy + discount_validity
     end
   end

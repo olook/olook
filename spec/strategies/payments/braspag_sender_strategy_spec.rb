@@ -15,7 +15,7 @@ describe Payments::BraspagSenderStrategy do
   let(:order_total) { 12.34 }
 
   context "with a valid class" do
-    subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
+    subject {Payments::BraspagSenderStrategy.new(credit_card)}
 
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
@@ -43,7 +43,7 @@ describe Payments::BraspagSenderStrategy do
     end
 
     it "should be initialize with success" do
-      Payments::BraspagSenderStrategy.new(cart_service, credit_card).should be_true
+      Payments::BraspagSenderStrategy.new(credit_card).should be_true
     end
 
     it "should set gateway" do
@@ -52,14 +52,14 @@ describe Payments::BraspagSenderStrategy do
     end
 
     it "should return payment successful as TRUE" do
-      Resque.should_receive(:enqueue_in).with(2.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
+      Resque.should_receive(:enqueue_in).with(1.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
       subject.stub(:set_payment_gateway){nil}
       subject.send_to_gateway
       subject.payment_successful?.should eq(true)
     end
 
     it "should enqueue request on resque" do
-      Resque.should_receive(:enqueue_in).with(2.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
+      Resque.should_receive(:enqueue_in).with(1.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
       subject.stub(:set_payment_gateway){nil}
       subject.send_to_gateway
     end
@@ -75,7 +75,7 @@ describe Payments::BraspagSenderStrategy do
   end
 
   context "processing response" do
-    subject {Payments::BraspagSenderStrategy.new(cart_service, credit_card)}
+    subject {Payments::BraspagSenderStrategy.new(credit_card)}
 
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
@@ -160,7 +160,7 @@ describe Payments::BraspagSenderStrategy do
   end
 
   context "#format_amount" do
-    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+    subject { Payments::BraspagSenderStrategy.new(credit_card) }
 
     it "returns 799 when value is 7,99" do
       subject.format_amount(7.99).should eq("799")
@@ -185,7 +185,7 @@ describe Payments::BraspagSenderStrategy do
   end
 
   context "#authorized_and_pending_capture?" do
-    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+    subject { Payments::BraspagSenderStrategy.new(credit_card) }
 
     it "returns true when response is success and status is 1" do
       response = mock()
@@ -218,7 +218,7 @@ describe Payments::BraspagSenderStrategy do
   end
 
   context "#web_service_data" do
-    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+    subject { Payments::BraspagSenderStrategy.new(credit_card) }
 
     it "initializes webservice with a symbol" do
       Braspag::Webservice.should_receive(:new).with(:homologation)
@@ -228,7 +228,7 @@ describe Payments::BraspagSenderStrategy do
   end
 
   context "#payment_plan" do
-    subject { Payments::BraspagSenderStrategy.new(cart_service, credit_card) }
+    subject { Payments::BraspagSenderStrategy.new(credit_card) }
 
     it "returns '0' when number of payments is = 1" do
       subject.payment_plan(1).should eq("0")

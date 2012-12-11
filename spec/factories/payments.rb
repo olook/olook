@@ -17,6 +17,24 @@ FactoryGirl.define do
     payments 1
   end
 
+  factory :authorized_credit_card, :class => 'CreditCard' do
+    url 'www.payment.com'
+    credit_card_number '1234435678964567'
+    user_name 'User name'
+    bank 'Visa'
+    cart_id nil
+    security_code '187'
+    expiration_date '12/11'
+    user_identification '197.620.036-91'
+    telephone '(35)3456-6849'
+    user_birthday '12/09/1976'
+    receipt 'AVista'
+    total_paid 12.34
+    identification_code 'abc123'
+    payments 1
+    state 'authorized'
+  end
+
   factory :debit do
     url 'www.payment.com'
     bank 'Visa'

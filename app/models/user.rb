@@ -285,7 +285,19 @@ class User < ActiveRecord::Base
   end
 
   def destroy_campaign_email_if_present
-    CampaignEmail.find_by_email(self.email).try(:destroy)
+    campaign_email = CampaignEmail.find_by_email(self.email)
+    if campaign_email
+      update_attribute(:campaign_email_created_at, campaign_email.created_at)
+      campaign_email.destroy
+    end
+  end
+
+  def converted_from_campaign_email?
+    !self.campaign_email_created_at.nil?
+  end
+
+  def self.with_discount_about_to_expire_in_48_hours
+    where("created_at >= ? AND created_at <= ? AND campaign_email_created_at is NULL OR campaign_email_created_at >= ? AND campaign_email_created_at <= ?", (Date.today - DiscountExpirationCheckService.days_until_warning.days).beginning_of_day, (Date.today - DiscountExpirationCheckService.days_until_warning.days).end_of_day,(Date.today - DiscountExpirationCheckService.days_until_warning.days).beginning_of_day, (Date.today - DiscountExpirationCheckService.days_until_warning.days).end_of_day).collect(&:email)
   end
 
   private

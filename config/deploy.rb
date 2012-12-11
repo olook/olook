@@ -62,6 +62,23 @@ namespace :unicorn do
   end
 end
 
+namespace :deploy do
+  namespace :web do
+    task :disable, :roles => :web, :except => { :no_release => true } do
+      require 'erb'
+      on_rollback { run "rm #{shared_path}/system/maintenance.html" }
+
+      reason = ENV['REASON']
+      deadline = ENV['UNTIL']
+
+      template = File.read("./app/views/errors/503.html.erb")
+      result = ERB.new(template).result(binding)
+
+      put result, "#{shared_path}/system/maintenance.html", :mode => 0644
+    end
+  end
+end
+
 before 'deploy:restart', 'unicorn:pidof'
 after 'deploy', 'deploy:cleanup' # keep only the last 5 releases
 after 'deploy:cleanup', 'unicorn:pidof' 
