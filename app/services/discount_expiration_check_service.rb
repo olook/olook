@@ -7,11 +7,11 @@ class DiscountExpirationCheckService
 		end
 
 		def discount_expires_in_48_hours?(user_or_campaign_email)
-			sign_up_date(user_or_campaign_email).to_date == (Setting.discount_period_in_days - Setting.discount_period_expiration_warning_in_days).days.ago.to_date
+			sign_up_date(user_or_campaign_email).to_date == (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i).days.ago.to_date
 		end
 
 		def discount_expiration_date_for(user_or_campaign_email)
-      expiration_date = (sign_up_date(user_or_campaign_email) + Setting.discount_period_in_days.days).to_date
+      expiration_date = (sign_up_date(user_or_campaign_email) + Setting.discount_period_in_days.to_i.days).to_date
 			expiration_date >= lower_limit_expiration_date ? expiration_date : lower_limit_expiration_date
 		end
 
@@ -24,7 +24,7 @@ class DiscountExpirationCheckService
     end
 
     def days_until_warning
-      Setting.discount_period_in_days - Setting.discount_period_expiration_warning_in_days
+      Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i
     end
 
     private
@@ -34,12 +34,12 @@ class DiscountExpirationCheckService
     end
 
     def format_campaign_email_list(list)
-      discount_period = Setting.discount_period_in_days.days
+      discount_period = Setting.discount_period_in_days.to_i.days
       list.map{|campaign_email| OpenStruct.new(email: campaign_email.email, name: nil, discount_start: campaign_email.created_at.beginning_of_day, discount_end: (campaign_email.created_at + discount_period).end_of_day, used_discount: false)}
     end
 
     def format_user_list(list)
-      discount_period = Setting.discount_period_in_days.days
+      discount_period = Setting.discount_period_in_days.to_i.days
       list.map do |user|
         start_date = user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at
         used_discount = user.orders.purchased.empty? ? false : user.orders.purchased.first.created_at < (start_date + discount_period)
