@@ -42,7 +42,8 @@ class DiscountExpirationCheckService
       discount_period = Setting.discount_period_in_days.to_i.days
       list.map do |user|
         start_date = user.campaign_email_created_at ? user.campaign_email_created_at : user.created_at
-        used_discount = user.orders.purchased.empty? ? false : user.orders.purchased.first.created_at < (start_date + discount_period)
+        first_purchased_order_date = user.orders.purchased.first.created_at < (start_date + discount_period) || user.orders.purchased.first.created_at < lower_limit_expiration_date if user.orders.purchased.size > 0
+        used_discount = user.orders.purchased.empty? ? false : first_purchased_order_date
         OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: used_discount)
       end
     end
