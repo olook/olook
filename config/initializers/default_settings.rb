@@ -45,3 +45,4 @@ Setting.defaults[:show_campaign_email_modal] = true
 # First Purchase Discount Dates
 Setting.defaults[:discount_period_in_days] = 7
 Setting.defaults[:discount_period_expiration_warning_in_days] = 2
+Setting.defaults[:lower_limit_expiration_date] = "2012-12-12"

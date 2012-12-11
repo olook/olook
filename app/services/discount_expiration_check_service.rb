@@ -3,8 +3,7 @@ class DiscountExpirationCheckService
   class << self
     def discount_expired?(user)
       raise ArgumentError.new('a user is required!') unless user
-
-			sign_up_date(user).to_date <= Setting.discount_period_in_days.days.ago.to_date
+			discount_expiration_date_for(user) < Date.today
 		end
 
 		def discount_expires_in_48_hours?(user_or_campaign_email)
@@ -12,7 +11,8 @@ class DiscountExpirationCheckService
 		end
 
 		def discount_expiration_date_for(user_or_campaign_email)
-			(sign_up_date(user_or_campaign_email) + Setting.discount_period_in_days.days).to_date
+      expiration_date = (sign_up_date(user_or_campaign_email) + Setting.discount_period_in_days.days).to_date
+			expiration_date >= lower_limit_expiration_date ? expiration_date : lower_limit_expiration_date
 		end
 
     def discount_expiration_48_hours_emails_list
@@ -21,6 +21,10 @@ class DiscountExpirationCheckService
 
     def search(email)
       format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%"))
+    end
+
+    def days_until_warning
+      Setting.discount_period_in_days - Setting.discount_period_expiration_warning_in_days
     end
 
     private
@@ -41,6 +45,11 @@ class DiscountExpirationCheckService
         used_discount = user.orders.purchased.empty? ? false : user.orders.purchased.first.created_at < (start_date + discount_period)
         OpenStruct.new(email: user.email, name: user.name, discount_start: start_date.beginning_of_day, discount_end: (start_date + discount_period).end_of_day, used_discount: used_discount)
       end
+    end
+
+    # TODO: Take this of after Dec 12th
+    def lower_limit_expiration_date
+      DateTime.parse(Setting.lower_limit_expiration_date).to_date
     end
   end
 end
