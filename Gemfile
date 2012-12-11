@@ -36,7 +36,7 @@ group :production, :staging do
 end
 
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
-gem 'obraspag', '>= 0.0.25', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
+gem 'obraspag', '>= 0.0.30', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
@@ -67,6 +67,7 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'capistrano'
+  gem 'capistrano-maintenance'
   gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.10.1'
   gem 'watchr'
