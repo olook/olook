@@ -3,7 +3,7 @@ class DiscountExpirationCheckService
   class << self
     def discount_expired?(user)
       raise ArgumentError.new('a user is required!') unless user
-			discount_expiration_date_for(user) <= Date.today
+			discount_expiration_date_for(user) < Date.today
 		end
 
 		def discount_expires_in_48_hours?(user_or_campaign_email)
@@ -21,6 +21,10 @@ class DiscountExpirationCheckService
 
     def search(email)
       format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%"))
+    end
+
+    def days_until_warning
+      Setting.discount_period_in_days - Setting.discount_period_expiration_warning_in_days
     end
 
     private
@@ -45,7 +49,7 @@ class DiscountExpirationCheckService
 
     # TODO: Take this of after Dec 12th
     def lower_limit_expiration_date
-      DateTime.parse("2012-12-12").to_date
+      DateTime.parse(Setting.lower_limit_expiration_date).to_date
     end
   end
 end
