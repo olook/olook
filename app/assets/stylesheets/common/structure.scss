@@ -1531,23 +1531,35 @@ header div.contact {
 #overlay-campaign{top:0;left:0;z-index:10000;width:100%;height:1242px;background:#FFF;zoom:1;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; opacity:0.75;}
 #modal-campaign{float:left;z-index:10001;background:transparent;top:50%;left:50%;}
 
-/***** SHIPPING ******/
+/***** SHIPPING BOX ******/
 #box-ship{
 	position:fixed;bottom:0px;width:939px;height:63px;background:#000;color:#FFF;border-radius:4px;padding:15px 14px 8px 20px;z-index:8888;font-size:13px;display:none;
-	.fl{float:left;}
-	.fr{float:right;padding-top:28px;position:relative;}
-	.title{font-family:$johnston;font-size:22px;margin-bottom:11px;}
-  .relacao-completa{display:inline-block;font-size:13px;padding-top:4px;}
-  form{display:inline-block;margin:0 !important;width:100%;
-		fieldset{float:left;border:0;
-			#cep{width:113px;height:22px;font-size:13px;line-height:22px;}
-			.buscar{float:left;background: image-url("shipping/buttons.png") 0 -1px no-repeat;font-size:0;line-height:0;font-family:a;border:0;width:79px;height:30px;margin:0 5px 0 10px}
+	.box-frase{
+		.title{font-family:$avenir;font-size:22px;margin-bottom:11px;color:#D95485;float:left;}
+		.frase{font-family:$avenir;font-size:13px;color:#FFF;margin:-1px 0 0 18px;float:left;
+			span{color:#D95485;}
 		}
 	}
-	.close-ship{width:20px;height:18px;background: image-url("shipping/buttons.png") -102px 0px no-repeat;font-size:0;line-height:0;font-family:a;border:0;position:absolute;top:-7px;right:-7px;cursor:pointer;}
-	.error, #msg span{color:#E05384;}
-	#msg span{padding:0 5px}
-	a{color:#FFF;}
+	.consulta-cep{clear:both;
+		form{display:inline-block;margin:0;width:600px;
+			fieldset{float:left;border:0;
+				#cep{width:113px;height:22px;font-size:13px;line-height:22px;}
+				.buscar{float:left;background: image-url("shipping/buttons.png") 0 -1px no-repeat;font-size:0;line-height:0;font-family:a;border:0;width:79px;height:30px;margin:0 5px 0 10px}
+			}
+		}
+		#msg{float:left;margin-top:5px;}
+		.error, #msg span{color:#E05384;}
+		#msg span{padding:0 5px;}
+		.relacao-completa {float:left;display:inline-block;font-size:13px;padding-top:4px;
+			a{color:#FFF;}
+		}
+	}
+	.fr{float:right !important;margin-right:22px !important;}  
+	.buttons{width:15px;height:15px;background: image-url("shipping/buttons.png") no-repeat;font-size:0;line-height:0;font-family:a;border:0;position:absolute;top:10px;right:10px;cursor:pointer;
+		&.close-ship{background-position:-85px -25px;}
+		&.max-ship{background-position:-84px 0px !important;}
+	}
+	
+	.maximize{display:block;width:974px;height:42px;position:absolute;top:0;left:0;text-decoration:none;font-size:0;}
 }
-
 

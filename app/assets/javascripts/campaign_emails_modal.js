@@ -1,9 +1,18 @@
-function criaCookie(chave, value) { 
-	$.cookie(chave, value, { expires: 1, path: '/' });
+function criaCookieAB(chave, value, time) { 
+	$.cookie(chave, value, { expires: time, path: '/' });
 } 
 
 function lerCookie(chave) { 
   return $.cookie(chave);
+}
+
+function stopProp(e) {
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+}
+function dontShow(){
+	criaCookieAB("modalShow", "sim", 30);
 }
 
 $(function(){
@@ -12,16 +21,27 @@ $(function(){
 		$("#modal-campaign").append('<iframe src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
 		window.setTimeout(function(){
 				if($("#overlay-campaign").is(":visible"))
-					criaCookie("modalShow","sim");
+					criaCookieAB("modalShow","sim", 1);
 		},500)
 
 	}
-	$(document).bind("click", function(){
-		$("#modal-campaign,#overlay-campaign").fadeOut();
+	$(document).one({
+		click: function(e){
+			$("#modal-campaign,#overlay-campaign").fadeOut();
+			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
+				dontShow();
+			}	
+			stopProp(e);
+		}, 
+		keyup: function(e) {
+			if (e.keyCode == 27) { //ESC 
+	   		$("#modal-campaign,#overlay-campaign").fadeOut();
+			}
+			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
+				dontShow();
+			}
+			stopProp(e);
+		}		
 	})
-	$(document).keyup(function(e) {
-	  if (e.keyCode == 27) { //ESC 
-	   $("#modal-campaign,#overlay-campaign").fadeOut();
-	  }  
-	});
+	
 })
