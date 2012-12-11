@@ -15,7 +15,7 @@ describe Admin::DiscountsController do
 
     it "should search for a user using the search parameter" do
       discount_start = (searched_user.campaign_email_created_at ? searched_user.campaign_email_created_at : searched_user.created_at)
-      discount_period = Setting.discount_period_in_days.days
+      discount_period = Setting.discount_period_in_days.to_i.days
 
       searched_user_response = OpenStruct.new(email: searched_user.email, name: searched_user.name, discount_start: searched_user.created_at.beginning_of_day, discount_end: (searched_user.created_at + discount_period).end_of_day, used_discount:false)
 
