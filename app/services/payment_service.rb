@@ -6,24 +6,16 @@ class PaymentService
       return Payments::MoipSenderStrategy.new(cart_service, payment)
     end
 
-    if (first_credit_card_payment?(cart_service.cart.user))
-      return Payments::MoipSenderStrategy.new(cart_service, payment)
-    end
-
     if ((Random.rand(100)+1) <= Setting.braspag_percentage.to_i)
       if Setting.braspag_whitelisted_only && !cart_service.cart.user.email.match(/(olook\.com\.br$)/)
         Payments::MoipSenderStrategy.new(cart_service, payment)
       else
-        Payments::BraspagSenderStrategy.new(cart_service, payment)        
+        Payments::BraspagSenderStrategy.new(payment)        
       end
     else
       Payments::MoipSenderStrategy.new(cart_service, payment)
     end
 
-  end
-
-  def self.first_credit_card_payment?(user)
-    CreditCard.where(user_id: user.id, state: ['authorized','completed']).empty?
   end
 
 end
