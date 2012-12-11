@@ -19,10 +19,12 @@ function search_delivery_time(cep){
     type: "GET",
     dataType: "json",
     success: function(data){
+			$("#box-ship .consulta-cep form").addClass("fr").fadeIn();
       $("#msg").html(data.message).removeClass("error");
       $("#box-ship form label").text("Pesquise outro CEP:")
     },
     error: function(data){
+			$("#box-ship .consulta-cep form").addClass("fr").fadeIn();
       $("#msg").text("Ops, não encontramos este CEP...").addClass("error");
 			$("#box-ship form label").text("Vamos tentar mais uma vez? CEP:")
     }
@@ -32,6 +34,7 @@ function search_delivery_time(cep){
 function maxShippingBox(){
 	$("a.maximize").click(function(){
 		$("#box-ship").animate({bottom: '0px'});
+		$(".close-ship").removeClass("max-ship");
 		delCookie("boxShip");
 		$(this).remove();
 	})
@@ -56,11 +59,14 @@ $(function(){
 	 });
 	 $(".buscar").click(function(){
 	    cep = $("#cep").val().replace("-","");
-	    search_delivery_time(cep);
+			form = $(this).parents("form");
+			form.fadeOut().before('<p id="msg"></p>');
+	   setTimeout('search_delivery_time(cep)', 500);
 	 })
 
 	$(".close-ship").click(function(){
 		animateBox();
+		$(this).addClass("max-ship");
 		if(lerCookie("boxShip") == null)
 			criaCookie("boxShip","sim");
 	})		
