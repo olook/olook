@@ -7,7 +7,7 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(250).fadeIn();
 }else if($(".box-cadastro").length > 0){
-	w = 915, h = 405, ml = -(w/2), mt = -(h/2);
+	w = 915, h = 420, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
@@ -62,12 +62,18 @@ $(function(){
 	
 	$(".close, .btn-continue").bind("click", function(){
 		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
+		if($(".dont_show").is(":checked")){
+			parent.top.dontShow();
+		}
 	})
 	
 		
 	$("input[type=submit]").click(function(){
 		if(flag==true)
 			parent.top.$("#modal-campaign").fadeOut();
+		if($(".dont_show").is(":checked")){
+			parent.top.dontShow();
+		}	
 	})
 	
 });

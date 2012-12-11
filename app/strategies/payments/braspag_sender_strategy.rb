@@ -10,6 +10,7 @@ module Payments
     end
 
     def send_to_gateway
+      log("Sending transaction to gateway")
       begin
         Resque.enqueue_in(2.minutes, Braspag::GatewaySenderWorker, payment.id)
         @payment_successful = true
@@ -38,8 +39,10 @@ module Payments
         if authorized_and_pending_capture?(authorize_response)
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
           if order_analysis_service.should_send_to_analysis? 
+            log("Sending to analysis")
             clearsale_order_response = order_analysis_service.send_to_analysis
           else 
+            log("Capturing transaction")
             capture(authorize_response)
           end
         end
@@ -78,12 +81,14 @@ module Payments
     end
 
     def authorize
+      log("Sending transaction for authorization")
       gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
       process_authorize_response(gateway_response)      
     end
 
     def capture(authorize_response)
       capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
+      log("Transaction capture response: #{authorize_response}")
       process_capture_response(capture_response,authorize_response)
     end
 
@@ -169,16 +174,22 @@ module Payments
     end
 
     def process_capture_response(capture_response, authorize_response)
+      
+      log("Processing capture response #{capture_response}")
+
       if capture_response 
         capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result] 
         if capture_transaction_result[:success]
           create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id]) 
           update_payment_response(Payment::SUCCESSFUL_STATUS, capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_message])
+          log("Created capture response on database, and payment status updated to SUCCESS")
         else
           update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
+          log("Payment status updated to FAILURE")
         end
       else
         update_payment_response(Payment::FAILURE_STATUS, capture_transaction_result[:error_report_data_collection].to_s)
+          log("Payment status updated to FAILURE")
       end
     end
 
@@ -261,6 +272,14 @@ module Payments
         )
     end
 
+    private 
+      def logger
+        @@logger ||= Logger.new("#{Rails.root}/log/braspag-sender.log")
+        @@logger
+      end
 
+      def log text
+        logger.info("[#{@payment.id}] - #{text}")
+      end
   end
 end
