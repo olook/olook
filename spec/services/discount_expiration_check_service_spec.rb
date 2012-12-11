@@ -14,6 +14,7 @@ describe DiscountExpirationCheckService do
 
 			context "7 days after original campaign email's creation date" do
 				it "returns true" do
+          DiscountExpirationCheckService.stub(:lower_limit_expiration_date) {DateTime.parse("2007-12-12").to_date}
 					DiscountExpirationCheckService.discount_expired?(converted_user).should be_true
 				end
 			end
@@ -32,6 +33,7 @@ describe DiscountExpirationCheckService do
 
 			context "7 days after original campaign email's creation date" do
 				it "returns true" do
+          DiscountExpirationCheckService.stub(:lower_limit_expiration_date) {DateTime.parse("2007-12-12").to_date}
 					DiscountExpirationCheckService.discount_expired?(user).should be_true
 				end
 			end
