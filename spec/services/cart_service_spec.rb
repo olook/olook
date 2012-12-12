@@ -651,6 +651,22 @@ describe CartService do
       }.to change{Order.count}.by(1)
     end
 
+    context "when variant hash freebies" do
+
+      before do
+        freebie = FactoryGirl.create(:basic_bag_simple)
+        FactoryGirl.create(:freebie_variant, :variant => cart.items.first.variant, :freebie => freebie)
+        cart_service = CartService.new({:cart => cart, :freight => freight})
+      end
+
+      it "creates freebies line items" do
+        order = Order.new
+        cart_service.create_freebies_line_items(order, cart.items.first.variant)
+        order.line_item.size.should eq(1)
+      end
+
+    end
+
   end
 
   context "when has promotion" do
