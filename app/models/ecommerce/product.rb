@@ -36,7 +36,6 @@ class Product < ActiveRecord::Base
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
-  has_many :freebie_variants
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -274,6 +273,13 @@ class Product < ActiveRecord::Base
 
   def self.load_criteo_config(key)
     CRITEO_CONFIG[key]
+  end
+
+  def add_freebie product
+    variant_for_freebie = product.variants.first
+    variants.each do |variant| 
+      FreebieVariant.create!({:variant => variant, :freebie => variant_for_freebie})
+    end
   end
 
 private

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Variant < ActiveRecord::Base
 
+  has_many :freebie_variants
+
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail
 
