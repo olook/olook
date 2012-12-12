@@ -74,6 +74,7 @@ Olook::Application.routes.draw do
   match "/shopping_uol", :to => "xml#shopping_uol", :as => "shopping_uol", :defaults => { :format => 'xml' }
   match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
+  match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -129,7 +130,7 @@ Olook::Application.routes.draw do
   end
 
   resources :shippings, :only => [:show]
-  
+
   #ADMIN
   devise_for :admins
 
