@@ -190,7 +190,7 @@ class CartService
   end
 
   def create_freebies_line_items(order, item)
-    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.id, 
+    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.freebie.id, 
               :quantity => item.quantity, :price => 0.1, :retail_price => 0.1, :gift => item.gift, :is_freebie => true) }
     order.line_items << freebies
     order.amount_discount += (freebies.size * 0.1)
