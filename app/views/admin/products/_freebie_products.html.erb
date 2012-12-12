@@ -10,25 +10,26 @@
       <th></th>
     </tr>
 
-  <% product.freebie_products.each do |freebie| %>
+  <% product.variants.first.freebie_variants.each do |freebie_variant| %>
+    <% freebie = freebie_variant.freebie.product %>
     <tr>
       <td><%= freebie.model_number %></td>
       <td><%= freebie.name %></td>
       <td><%= image_tag(freebie.showroom_picture, :size => '100x100') if freebie.showroom_picture %></td>
       <td><%= freebie.color_name %></td>
       <td><%= freebie.category_humanize %></td>
-      <td><%= link_to 'Apagar', remove_freebie_admin_product_path(product, freebie), confirm: 'Tem certeza?', method: :delete %></td>
+      <td><%#= link_to 'Apagar', remove_freebie_admin_product_path(product, freebie), confirm: 'Tem certeza?', method: :delete %></td>
     </tr>
   <% end %>
   </table>
 
-  <%= form_for product, :url => add_freebie_admin_product_path, :method => :post, :as => :freebie, :html => {:class => 'form'} do |f| %>
+  <%#= form_for product, :url => add_freebie_admin_product_path, :method => :post, :as => :freebie, :html => {:class => 'form'} do |f| %>
     <div class="group">
-      <%= f.label :freebie %><br />
-      <%= f.select :id, options_from_collection_for_select(product.unfreebies, :id, :easy_to_find_description) %>
+      <%#= f.label :freebie %><br />
+      <%#= f.select :id, options_from_collection_for_select(product.unfreebies, :id, :easy_to_find_description) %>
     </div>
     <div class="group navform wat-cf">
-      <%= f.submit 'Adicionar' %>
+      <%#= f.submit 'Adicionar' %>
     </div>
-  <% end %>
+  <%# end %>
 </div>
