@@ -61,7 +61,6 @@ $(function(){
 	 $(".buscar").click(function(){
 	    cep = $("#cep").val().replace("-","");
 			form = $(this).parents("form");
-			form.fadeOut().before('<p id="msg"></p>');
 	   setTimeout('search_delivery_time(cep)', 500);
 	 })
 
