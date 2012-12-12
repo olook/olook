@@ -6,6 +6,10 @@ class PaymentService
       return Payments::MoipSenderStrategy.new(cart_service, payment)
     end
 
+    if is_a_rebuyer?(cart_service.cart.user)
+      return Payments::BraspagSenderStrategy.new(payment)        
+    end
+
     if ((Random.rand(100)+1) <= Setting.braspag_percentage.to_i)
       if Setting.braspag_whitelisted_only && !cart_service.cart.user.email.match(/(olook\.com\.br$)/)
         Payments::MoipSenderStrategy.new(cart_service, payment)
@@ -15,7 +19,10 @@ class PaymentService
     else
       Payments::MoipSenderStrategy.new(cart_service, payment)
     end
-
   end
 
+  private
+    def self.is_a_rebuyer?(user)
+      Setting.braspag_rebuyers && CreditCard.where(user_id: user.id, state: ['authorized','completed']).any?
+    end
 end

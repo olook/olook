@@ -19,6 +19,11 @@
         </div>
 
         <div class="group">
+          <%= f.label :gateway, "Gateway", :class => "label" %>
+          <%= f.select :gateway_eq, {"Moip" => 1, "Braspag" => 2}, {:include_blank => true} %>
+        </div>
+
+        <div class="group">
           <%= f.label :type, "Type", :class => "label" %>
           <%= f.select :type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit"} , {:include_blank => true} %>
         </div>
