@@ -28,14 +28,16 @@
       <div id="description">
         <ul id="items">
           <% @current_order.line_items.each do |item| %>
-            <li>
-              <%= image_tag item.variant.showroom_picture %>
-              <h1><%= item.variant.name %></h1>
-              <p><strong>Cor:</strong> <%= item.variant.color_name %></p>
-              <p><strong>Quantidade:</strong> <%= item.quantity %></p>
-              <p><strong>Preço:</strong> <%= number_to_currency(item.price) %></p>
-              <p><strong>Total:</strong> <%= number_to_currency(item.total_price) %></p>
-            </li>
+            <% unless item.is_freebie %>
+              <li>
+                <%= image_tag item.variant.showroom_picture %>
+                <h1><%= item.variant.name %></h1>
+                <p><strong>Cor:</strong> <%= item.variant.color_name %></p>
+                <p><strong>Quantidade:</strong> <%= item.quantity %></p>
+                <p><strong>Preço:</strong> <%= number_to_currency(item.price) %></p>
+                <p><strong>Total:</strong> <%= number_to_currency(item.total_price) %></p>
+              </li>
+              <% end %>
           <% end %>
         </ul>
         <div id="details">
@@ -56,7 +58,7 @@
           </div>
           <div>
             <h1>Quantidade de Produtos</h1>
-            <p><%= @current_order.line_items.count %></p>
+            <p><%= @current_order.items_quantity %></p>
           </div>
           <div>
             <table cellspacing="0" cellpadding="0">
