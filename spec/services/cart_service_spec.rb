@@ -661,8 +661,8 @@ describe CartService do
 
       it "creates freebies line items" do
         order = Order.new
-        cart_service.create_freebies_line_items(order, cart.items.first.variant)
-        order.line_item.size.should eq(1)
+        cart_service.create_freebies_line_items(order, cart.items.first)
+        order.line_items.size.should eq(1)
       end
 
     end
