@@ -49,6 +49,7 @@
 <%= render :partial => 'details', :locals => {:product => @product} %>
 <%= render :partial => 'variants', :locals => {:product => @product} %>
 <%= render :partial => 'related_products', :locals => {:product => @product} %>
+<%= render :partial => 'freebie_products', :locals => {:product => @product} %>
 
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'Edit', edit_admin_product_path(@product) %></li>
