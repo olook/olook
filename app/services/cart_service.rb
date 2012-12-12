@@ -178,12 +178,22 @@ class CartService
     cart.items.each do |item|
       order.line_items << LineItem.new( :variant_id => item.variant.id, :quantity => item.quantity, :price => item_price(item),
                     :retail_price => item_retail_price(item), :gift => item.gift)
+
+      create_freebies_line_items(order, item)
+      
     end
 
     order.freight = Freight.create(freight)
 
     order.save
     order
+  end
+
+  def create_freebies_line_items(order, item)
+    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.id, 
+              :quantity => item.quantity, :price => 0.1, :retail_price => 0.1, :gift => item.gift, :is_freebie => true) }
+    order.line_items << freebies
+    order.amount_discount += (freebies.size * 0.1)
   end
 
   def amount_for_loyalty_program
