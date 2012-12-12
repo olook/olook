@@ -85,6 +85,22 @@ class Admin::ProductsController < Admin::BaseController
     end
   end
 
+  def add_freebie
+    @product = Product.find(params[:id])
+    freebie = Product.find(params[:freebie_id])
+
+    @product.add_freebie freebie
+    redirect_to admin_product_path(@product)    
+  end
+
+  def remove_freebie
+    @product = Product.find(params[:id])
+    freebie = Product.find(params[:freebie_id])
+
+    @product.remove_freebie(freebie)
+    redirect_to admin_product_path(@product)
+  end
+
   def add_related
     @product =  Product.find(params[:id])
     product_to_relate = Product.find(params[:related_product][:id])
