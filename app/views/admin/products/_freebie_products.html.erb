@@ -10,16 +10,18 @@
       <th></th>
     </tr>
 
-  <% product.variants.first.freebie_variants.each do |freebie_variant| %>
-    <% freebie = freebie_variant.freebie.product %>
-    <tr>
-      <td><%= freebie.model_number %></td>
-      <td><%= freebie.name %></td>
-      <td><%= image_tag(freebie.showroom_picture, :size => '100x100') if freebie.showroom_picture %></td>
-      <td><%= freebie.color_name %></td>
-      <td><%= freebie.category_humanize %></td>
-      <td><%= link_to 'Apagar', remove_freebie_admin_product_path(product, freebie), confirm: 'Tem certeza?', method: :delete %></td>
-    </tr>
+  <% if product.variants.any? %>
+    <% product.variants.first.freebie_variants.each do |freebie_variant| %>
+      <% freebie = freebie_variant.freebie.product %>
+      <tr>
+        <td><%= freebie.model_number %></td>
+        <td><%= freebie.name %></td>
+        <td><%= image_tag(freebie.showroom_picture, :size => '100x100') if freebie.showroom_picture %></td>
+        <td><%= freebie.color_name %></td>
+        <td><%= freebie.category_humanize %></td>
+        <td><%= link_to 'Apagar', remove_freebie_admin_product_path(product, freebie), confirm: 'Tem certeza?', method: :delete %></td>
+      </tr>
+    <% end %>
   <% end %>
   </table>
 
