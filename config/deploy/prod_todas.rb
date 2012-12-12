@@ -2,9 +2,12 @@ load 'deploy/assets'
 require 'airbrake/capistrano'
 require 'new_relic/recipes'
 
-role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
-role :web, 'app2.olook.com.br'
-role :db,  'app2.olook.com.br'
+# role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br', 'app4.olook.com.br'
+# role :web, 'app2.olook.com.br'
+# role :db,  'app2.olook.com.br'
+role :app, 'app4.olook.com.br'
+role :web, 'app4.olook.com.br'
+role :db,  'app4.olook.com.br'
 
 
 # server details
@@ -19,7 +22,7 @@ namespace :deploy do
     update #capistrano internal default task
     yml_links
     rake_tasks
-    sync_task
+    # sync_task
     restart
   end
 
