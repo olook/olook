@@ -7,17 +7,25 @@ class BraspagCaptureResponse < ActiveRecord::Base
   }
 
   def update_payment_status(payment)
-    event = STATUS[status] || :cancel
-    if payment.set_state(event)
-      self.update_attribute(:processed, true)
-      if payment.order && payment.order.reload.canceled?
-        Resque.enqueue(Abacos::CancelOrder, payment.order.number)
-      end
-    else
-      self.update_attributes(
-        :retries => (self.retries + 1),
-        :error_message => payment.errors.full_messages.to_s
+    ActiveRecord::Base.transaction do
+      payment.update_attributes!(
+        :gateway_code => self.acquirer_transaction_id,
+        :gateway_transaction_code   => self.authorization_code,
+        :gateway_message => self.return_message,
+        :gateway_return_code => self.return_code
       )
+      event = STATUS[status] || :cancel
+      if payment.set_state(event)
+        self.update_attribute(:processed, true)
+        if payment.order && payment.order.reload.canceled?
+          Resque.enqueue(Abacos::CancelOrder, payment.order.number)
+        end
+      else
+        self.update_attributes(
+          :retries => (self.retries + 1),
+          :error_message => payment.errors.full_messages.to_s
+        )
+      end
     end
   end
 
