@@ -616,6 +616,7 @@ describe CartService do
         cart_service.stub(:subtotal => 40)
         cart_service.stub(:item_price => 10)
         cart_service.stub(:item_retail_price => 20)
+        cart_service.should_receive(:create_freebies_line_items)
 
         order = cart_service.generate_order!(Payment::GATEWAYS[:moip], tracking)
 
@@ -649,6 +650,7 @@ describe CartService do
 
       }.to change{Order.count}.by(1)
     end
+
   end
 
   context "when has promotion" do
