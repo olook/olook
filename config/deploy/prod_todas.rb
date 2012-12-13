@@ -19,7 +19,7 @@ namespace :deploy do
     update #capistrano internal default task
     yml_links
     rake_tasks
-    # sync_task
+    sync_task
     restart
   end
 
