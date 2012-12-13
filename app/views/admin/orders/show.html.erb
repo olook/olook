@@ -191,6 +191,7 @@
            <th>Score</th>
            <th>Status</th>
            <th>Processado</th>
+           <th>Última tentativa</th>
           </tr>
           <% @order.clearsale_order_responses.each do |response| %>
             <tr>
@@ -198,6 +199,7 @@
               <td><%= response.score %></td>
               <td><%= response.status %></td>
               <td><%= response.processed %></td>
+              <td><%= response.last_attempt %></td>
             </tr>
           <% end %>
         </table>
