@@ -1,0 +1,38 @@
+<h2 class="title">Brindes</h2>
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>Modelo #</th>
+      <th>Nome</th>
+      <th>Foto</th>
+      <th>Cor</th>
+      <th>Categoria</th>
+      <th></th>
+    </tr>
+
+  <% if product.variants.any? %>
+    <% product.variants.first.freebie_variants.each do |freebie_variant| %>
+      <% freebie = freebie_variant.freebie.product %>
+      <tr>
+        <td><%= freebie.model_number %></td>
+        <td><%= freebie.name %></td>
+        <td><%= image_tag(freebie.showroom_picture, :size => '100x100') if freebie.showroom_picture %></td>
+        <td><%= freebie.color_name %></td>
+        <td><%= freebie.category_humanize %></td>
+        <td><%= link_to 'Apagar', remove_freebie_admin_product_path(product, freebie), confirm: 'Tem certeza?', method: :delete %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+
+  <%= form_for product, :url => add_freebie_admin_product_path, :method => :post, :html => {:class => 'form'} do |f| %>
+    <div class="group">
+      <%= label_tag "Codigo do produto para ser adicionado como brinde*" %><br />
+      <%= text_field_tag :freebie_id %>
+    </div>
+    <p>*Nao pode ser sapato</p>
+    <div class="group navform wat-cf">
+      <%= f.submit 'Adicionar' %>
+    </div>
+  <% end %>
+</div>
