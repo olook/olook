@@ -19,8 +19,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def calculate_loyalty_credit_amount
-    # buscar soma dos valores dos line_items
-    line_item_sum = self.order.line_items.sum(&:retail_price)
+    return 0 if is_freebie
 
     # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
     percentage = retail_price/line_item_sum
@@ -39,6 +38,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def calculate_available_credits
+    return 0 if is_freebie
     calculate_loyalty_credit_amount - calculate_debit_amount
   end
 
@@ -62,34 +62,40 @@ class LineItem < ActiveRecord::Base
 
   private
 
-  def find_original_loyalty_credit
-    Credit.where(source: "loyalty_program_credit", order_id: self.order.id, is_debit: false).first
-  end
-
-  def find_credits_to_expire
-    Credit.loyalty_credits_to_expire.joins(" JOIN orders o on credits.order_id = o.id").where("o.user_id = ?", order.user_id).order(:expires_at)
-  end
-
-  def create_debit(credit, total_amount)
-    amount_to_remove = total_amount
-    if (amount_to_remove >= credit.amount_available?)
-      amount_to_remove = credit.amount_available?
+    def line_item_sum
+      total = self.order.line_items.inject(0) do | sum, line_item | 
+        sum += (line_item.is_freebie ? 0 : line_item.retail_price)
+      end
     end
-    if (amount_to_remove > 0)
-      user = order.user
-      user_credit = user.user_credits_for(:loyalty_program)
-      debits << credit.debits.create!({
-          :source => "loyalty_program_refund_debit",
-          :is_debit => true,
-          :value => amount_to_remove,
-          :expires_at => credit.expires_at,
-          :activates_at => credit.activates_at,
-          :user_id => user.id,
-          :order_id => order.id,
-          :user_credit_id => user_credit.id,
-          :line_item_id => id
-        })
+
+    def find_original_loyalty_credit
+      Credit.where(source: "loyalty_program_credit", order_id: self.order.id, is_debit: false).first
     end
-    amount_to_remove
-  end
+
+    def find_credits_to_expire
+      Credit.loyalty_credits_to_expire.joins(" JOIN orders o on credits.order_id = o.id").where("o.user_id = ?", order.user_id).order(:expires_at)
+    end
+
+    def create_debit(credit, total_amount)
+      amount_to_remove = total_amount
+      if (amount_to_remove >= credit.amount_available?)
+        amount_to_remove = credit.amount_available?
+      end
+      if (amount_to_remove > 0)
+        user = order.user
+        user_credit = user.user_credits_for(:loyalty_program)
+        debits << credit.debits.create!({
+            :source => "loyalty_program_refund_debit",
+            :is_debit => true,
+            :value => amount_to_remove,
+            :expires_at => credit.expires_at,
+            :activates_at => credit.activates_at,
+            :user_id => user.id,
+            :order_id => order.id,
+            :user_credit_id => user_credit.id,
+            :line_item_id => id
+          })
+      end
+      amount_to_remove
+    end
 end
