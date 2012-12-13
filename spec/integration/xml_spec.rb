@@ -410,7 +410,6 @@ context "in the ilove_ecommerce xml page" do
 
   end
 
-
     context "when product is out of stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(true)
@@ -424,10 +423,43 @@ context "in the ilove_ecommerce xml page" do
         <produtos>
         </produtos>
         END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+        equivalent_content = Nokogiri::XML(content)
+        EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
 
-  end
+    context "in the topster xml page" do
+
+      context "when product is in stock" do
+        before do
+          Product.any_instance.stub(:sold_out?).and_return(false)
+        end
+
+        scenario "I want to see products of kelboo" do
+          visit kelkoo_path
+          result = Nokogiri::XML(page.source)
+          content = <<-END.gsub(/^ {6}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <products>
+      <product>
+      <title>#{product.name}</title>
+      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=merchant&amp;utm_source=kelkoo</link>
+      <price>#{ ActionController::Base.helpers.number_with_precision(product.retail_price, precision: 2, separator: ".")}</price>
+      <brand>Olook</brand>
+      <description>#{ product.description }</description>
+      <image-url/>
+      <ean/>
+      <merchant-category>#{ product.category_humanize  }</merchant-category>
+      <availability>#{product.inventory}</availability>
+      <mpn>#{ product.id}</mpn>
+      </product>
+      </products>
+          END
+          equivalent_content = Nokogiri::XML(content)
+          EquivalentXml.equivalent?(result, equivalent_content, opts = { element_order: false, normalize_whitespace: true }).should be_true
+        end
+      end
+    end
+
+    end
 end
