@@ -28,9 +28,11 @@ feature "Buying products using the new checkout", %q{
       end
 
       context "billet purchase" do
-        scenario "must have the billet printing link" do
+        scenario "must have the billet printing link", js: true do
           click_link "Boleto Bancário"
-          find("input.finish").click
+          within("section.main") do
+            find("input").click
+          end
           save_and_open_page
         end
       end
