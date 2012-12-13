@@ -45,6 +45,10 @@ Olook::Application.routes.draw do
   get '/colecoes/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
+  match '/sneaker', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sneaker"]}
+  match '/rasteira', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["rasteira"]}
+
+
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
@@ -74,6 +78,7 @@ Olook::Application.routes.draw do
   match "/shopping_uol", :to => "xml#shopping_uol", :as => "shopping_uol", :defaults => { :format => 'xml' }
   match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
+  match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -129,7 +134,7 @@ Olook::Application.routes.draw do
   end
 
   resources :shippings, :only => [:show]
-  
+
   #ADMIN
   devise_for :admins
 
@@ -155,7 +160,9 @@ Olook::Application.routes.draw do
       resources :variants
       member do
         post 'add_related' => "products#add_related", :as => "add_related"
+        post 'add_freebie' => "products#add_freebie", :as => "add_freebie"
         delete 'remove_related/:related_product_id' => "products#remove_related", :as => "remove_related"
+        delete 'remove_freebie/:freebie_id' => "products#remove_freebie", :as => "remove_freebie"
       end
     end
 

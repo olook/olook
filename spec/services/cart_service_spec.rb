@@ -616,6 +616,7 @@ describe CartService do
         cart_service.stub(:subtotal => 40)
         cart_service.stub(:item_price => 10)
         cart_service.stub(:item_retail_price => 20)
+        cart_service.should_receive(:create_freebies_line_items)
 
         order = cart_service.generate_order!(Payment::GATEWAYS[:moip], tracking)
 
@@ -649,6 +650,36 @@ describe CartService do
 
       }.to change{Order.count}.by(1)
     end
+
+    context "when variant hash freebies" do
+
+      let(:freebie) { FactoryGirl.create(:basic_bag_simple) }
+
+      before do
+        FactoryGirl.create(:freebie_variant, :variant => cart.items.first.variant, :freebie => freebie)
+        cart_service = CartService.new({:cart => cart, :freight => freight})
+      end
+
+      it "creates freebies line items" do
+        order = Order.new
+        item = cart.items.first
+        cart_service.create_freebies_line_items(order, item)
+        order.line_items.size.should eq(1)
+        order.line_items.first.variant.id.should eq(freebie.id)
+        order.line_items.first.is_freebie.should eq(true)
+        order.line_items.first.price.should eq(0.1)
+        order.line_items.first.retail_price.should eq(0.1)
+        order.line_items.first.quantity.should eq(item.quantity)
+      end
+
+      it "increments amount_discount for each freebie added" do
+        order = Order.new
+        cart_service.create_freebies_line_items(order, cart.items.first)
+        order.amount_discount.should eq(0.1)
+      end
+
+    end
+
   end
 
   context "when has promotion" do
