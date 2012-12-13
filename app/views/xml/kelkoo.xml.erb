@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+<product>
+<title><%= product.name %></title>
+<link><%= product.product_url(utm_source: "kelkoo", utm_medium: "merchant") %></link>
+<price><%= number_with_precision(product.price, precision: 2, separator: ".") %></price>
+<brand>Olook</brand>
+<description><%= product.description %></description>
+<image-url><%= first_image_of product %></image-url>
+<ean></ean>
+<merchant-category><%= product.category_humanize %></merchant-category>
+<availability><%= product.inventory %></availability>
+<mpn><%= product.id %></mpn>
+</product>
+<% end %>
+</products>
