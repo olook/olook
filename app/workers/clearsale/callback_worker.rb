@@ -10,7 +10,9 @@ module Clearsale
           
           if response.has_pending_status?
             new_response = OrderAnalysisService.check_results(response.order)
-            unless new_response.has_pending_status?
+            if new_response.has_pending_status?
+              response.update_attribute("last_attempt", Time.now)
+            else 
               process_response new_response
               response.update_attribute("processed", true)
             end
