@@ -18,6 +18,7 @@ FactoryGirl.define do
     initial_inventory 0
 
     factory :basic_bag_simple do
+      association :product, :factory => :basic_bag
       description 'bag'
       price 123.45
       retail_price 123.45
