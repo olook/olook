@@ -9,7 +9,7 @@ $johnston: johnston, arial, sans-serif;
 
 
 input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-family:$avenir;text-shadow:0px 1px 2px #000;color:#FFF;background: image-url("/assets/campaign_emails/sprite.png") no-repeat;}
-.close{width:44px;height:44px;border:0;background:image-url("/assets/campaign_emails/sprite.png") -311px -87px no-repeat;position:absolute;top:-10px;right:-13px;font-size:0;font-family:a;cursor:pointer;}
+.close{width:44px;height:44px;border:0;background:image-url("campaign_emails/sprite.png") -311px -87px no-repeat;position:absolute;top:-10px;right:-13px;font-size:0;font-family:a;cursor:pointer;}
 .box-remember{
 	position:relative;width:500px;/*height:315px;*/border:solid 5px #000;text-align:center;padding:15px 0;margin:10px 0 0;background:#FFF;
 	
