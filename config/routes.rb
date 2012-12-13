@@ -160,7 +160,9 @@ Olook::Application.routes.draw do
       resources :variants
       member do
         post 'add_related' => "products#add_related", :as => "add_related"
+        post 'add_freebie' => "products#add_freebie", :as => "add_freebie"
         delete 'remove_related/:related_product_id' => "products#remove_related", :as => "remove_related"
+        delete 'remove_freebie/:freebie_id' => "products#remove_freebie", :as => "remove_freebie"
       end
     end
 

@@ -18,7 +18,7 @@
     <td><%= l order.created_at, :format => :short %></td>
     <td><%= order.status  %></td>
     <td><%= order.erp_payment ? order.erp_payment.human_to_s : "Pagamento nao encontrado" %></td>
-    <td><%= order.line_items.count %></td>
+    <td><%= order.items_quantity %></td>
     <td><%= number_to_currency(order.subtotal) %></td>
     <td><%= number_to_currency(order.freight_price) %></td>
     <td><%= number_to_currency(order.amount_paid) %></td>
