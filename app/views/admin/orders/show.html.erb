@@ -91,10 +91,10 @@
 
   <table class="table">
     <tr>
+      <th>Brinde?</th>
       <th></th>
       <th>SKU</th>
       <th>Produto</th>
-      <th>Brinde?</th>
       <th>Quantidade</th>
       <th>Preço unitário</th>
       <th>Total</th>
@@ -105,16 +105,16 @@
 
   <% @order.line_items.each do |line_item| %>
     <tr>
+      <td><%= "Brinde" if line_item.is_freebie %></td>
       <td><%= image_tag(line_item.variant.thumb_picture) if line_item.variant.thumb_picture %></td>
       <td><%= link_to line_item.variant.sku, admin_product_path(line_item.variant.product) %></td>
       <td><%= link_to line_item.variant.name, admin_product_path(line_item.variant.product) %></td>
-      <td><%= line_item.is_freebie %></td>
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
       <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>
       <td><%= number_to_currency(line_item.calculate_available_credits) %></td>
-      <td><% if line_item.debits.empty? %>
+      <td><% if line_item.debits.empty? && !line_item.is_freebie %>
         <%= form_tag(remove_loyalty_credits_admin_order_path(@order)) do -%>
           <%= hidden_field_tag 'line_item_id', line_item.id %>
           <%= submit_tag 'Remover créditos de fidelidade' -%>
