@@ -4,6 +4,12 @@
 
 <section id="payment" class="checkout confirmation">
   <section class="main">
+
+    <h2>Produtos</h2>
+    <% @line_items.each do |line_item|%>
+      <%= line_item.variant.name %>
+    <% end %>
+
     <%= if @payment.is_a? Billet
       render :partial => "billet", :locals => { :payment => @payment }
     elsif @payment.is_a? CreditCard
