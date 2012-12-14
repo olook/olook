@@ -11,6 +11,7 @@ class MomentsController < ApplicationController
   end
 
   def show
+    @pixel_information = params[:category_id]
     if current_moment.catalog.products.nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
       redirect_to member_showroom_path
