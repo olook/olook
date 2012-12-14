@@ -75,4 +75,17 @@ module ApplicationHelper
     end
   end
 
+  def section_name section
+    case
+    when section == 1
+      "home/Sapatos"
+    when section == 2
+      "home/Bolsas"
+    when section == 3
+      'home/Acessórios'
+    else
+      'home/Coleções'
+    end
+  end
+
 end
