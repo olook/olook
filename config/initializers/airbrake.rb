@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 Airbrake.configure do |config|
   #config.api_key = 'd9f3202f17e4c86562838ccf29beaeeb'
-  config.api_key = '7d489c216b28c67d36d16be815ae48b1'
+  # config.api_key = '7d489c216b28c67d36d16be815ae48b1'
+  config.api_key = '9c4326692c62e3a6a562306c1010519587fa9436'
   config.host = 'collect.airbrake.io'
 end
