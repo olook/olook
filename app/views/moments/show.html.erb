@@ -1,6 +1,8 @@
 <% present 'Moment', {:moment => @moment, :moments => @moments, :category_id => @category_id} do |moment_presenter| %>
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/moments" %>
+    <meta name="chaordic:source" content= <%= section_name @pixel_information%> >
+    <meta name="chaordic:user" content= <%= chaordic_user %>>
   <% end %>
 
   <% content_for :footer do %>
