@@ -1,5 +1,8 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
+  <meta name="chaordic:source" content="product/cart">
+  <meta name="chaordic:cart" content= <%= @chaordic_cart %>>
+  <meta name="chaordic:add-to-cart" content= <%= @chaordic_cart_new_item %>>
 <% end %>
 <% content_for :ecommerce_tracking do %>
 <script type="text/javascript">
@@ -55,7 +58,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="amount">
               <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
-        
+
               <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
 
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
@@ -108,7 +111,7 @@ _gaq.push(['_addTrans',
 				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
 				<%= submit_tag "", id: "add_product", class: "add_product" %>
 			  <% end %>
-			
+
             </td>
           </tr>
       </tbody>
