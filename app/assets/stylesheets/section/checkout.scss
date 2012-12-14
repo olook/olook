@@ -1200,8 +1200,9 @@ section#payment {
 					font-size:20px;
 					font-family:$avenir;
 					margin:20px 0 30px;
+					text-transform:uppercase;
 					span{
-						font-size:14px;color:#5E5F61;margin-top:20px;
+						font-size:14px;color:#5E5F61;margin-top:20px;text-transform:capitalize;
 					}
 				}
 				
@@ -1209,7 +1210,7 @@ section#payment {
        	.btn_pay{display:block;font-size:0;font-family:a;width:290px;height:65px;@include sprite_checkout(-90px,3px);float:left;margin-top:14px;}
       }
 			
-			.thanks{font-size:25px;margin:35px 0 22px;color:#000;}
+			.thanks{font-size:25px;margin:35px 0 22px;color:#000;text-transform:uppercase;}
 				
 			.msg{
 				width:460px;
@@ -1226,6 +1227,15 @@ section#payment {
 					@include sprite_checkout(-379px, 3px);
 					height:27px;
 					padding-left:20px;
+				}
+			}
+			.order{
+				clear:both;margin-top:40px;
+				.box-order{
+						width:472px;
+						float:left;
+						border:solid 1px #DEDEDE;
+						h2{text-transform:uppercase;height:40px;border-bottom:solid 1px #D9D8D8;line-height:40px;}
 				}
 			}
       p.description {

@@ -5,11 +5,6 @@
 <section id="payment" class="checkout confirmation">
   <section class="main">
 
-    <h2>Produtos</h2>
-    <% @line_items.each do |line_item|%>
-      <%= line_item.variant.name %>
-    <% end %>
-
     <%= if @payment.is_a? Billet
       render :partial => "billet", :locals => { :payment => @payment }
     elsif @payment.is_a? CreditCard
@@ -19,25 +14,43 @@
     end %>
     <%= render "shared/ebit/seal_order" %>
     <%= render "shared/metrics/yahoo/buy" %>
+    
+    <section class="order">
+      <div class="box-order">
+        <h2>Seu Pedido</h2>
+        <ul class="produto">
+          <% @line_items.each do |line_item|%>
+            <li>
+            <%= image_tag (line_item.variant.product.thumb_picture) %>
+            <p class="nome-produto"><%= line_item.variant.name %></p>
+            <p class="qte">Quantidade: <%= line_item.quantity %></p>
+            <p class="tamanho">Tamanho: <%= line_item.variant.description %></p>
+            <p class="preco"><%= line_item.variant.retail_price %></p>
 
-    <div class="request_info">
-      <div class="item">
-        <h1>Pagamento</h1>
-        <table cellpadding="0" cellspacing="0">
-          <tbody>
-            <tr>
-              <td><%= @order.erp_payment.human_to_s %></td>
-              <td class="value"><%= number_to_currency(@order.erp_payment.total_paid) %></td>
-            </tr>
-          </tbody>
-        </table>
+            </li>
+          <% end %>
+        </ul>
+        creditos <%= @order.credits %>
+        frete <%= @order.freight.price %>
+      </div>  
+      <div class="request_info">
+        <div class="item">
+          <h1>Pagamento</h1>
+          <table cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                <td><%= @order.erp_payment.human_to_s %></td>
+                <td class="value"><%= number_to_currency(@order.erp_payment.total_paid) %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
+      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
     
 
-    <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, :order => @order %>
-
+      <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, :order => @order %>
+    </section>
   </section>
 </section>
 
