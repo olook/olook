@@ -80,7 +80,7 @@
   <% end %>
 
   <% unless ["checkout/addresses","checkout/checkout"].include?(params[:controller]) %>  
-  <%= javascript_include_tag "shipping" %>  
+  <%#= javascript_include_tag "shipping" %>  
   <% end %>
   
   <%= render :partial => "shared/metrics/master_tags" %>

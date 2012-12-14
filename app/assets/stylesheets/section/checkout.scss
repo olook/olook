@@ -748,6 +748,7 @@ section#address_new {
   }
 }
 
+
 section#payment {
   #billet_info {
     background: #f2f2f2;
@@ -1187,70 +1188,46 @@ section#payment {
       }
       div.payment_link {
         position: relative;
-        width: 600px;
-        margin: 0 0 20px 0;
-        padding: 8px 15px;
+        width: 970px;
+				height:235px;
         overflow: auto;
-        border: 1px #d6d6d6 solid;
-        p, a {
-          margin: 0 0 0 55px;
-        }
-        p {
-          margin-bottom: 5px;
-        }
-        a {
-          color: #c64d79;
-          font-size: 18px;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-        a.bank_flag {
-          position: absolute;
-          background: url("/assets/cart/ico-payments.png") left no-repeat;
-          text-indent: -9999px;
-          width: 38px;
-          height: 25px;
-          display: block;
-          margin: 0;
-          top: 14px;
-          left: 15px;
-          &.Debito {
-            background: url("/assets/cart/ico-debit.png");
-          }
-          &.Boleto {
-            background-position: -5px -5px;
-          }
-          &.BancoDoBrasil {
-            background-position: -53px -5px;
-          }
-          &.Bradesco {
-            background-position: -94px -5px;
-          }
-          &.Itau {
-            background-position: -136px -5px;
-          }
-          &.Banrisul {
-            background-position: -177px -5px;
-          }
-          &.Visa {
-            background-position: -225px -5px;
-          }
-          &.Mastercard {
-            background-position: -266px -5px;
-          }
-          &.AmericanExpress {
-            background-position: -309px -5px;
-          }
-          &.Diners {
-            background-position: -350px -5px;
-          }
-          &.Hipercard {
-            background-position: -392px -5px;
-          }
-        }
+        border: 1px #D9D8D8 solid;
+			  -moz-box-shadow: -3px 3px 3px -2px #CCCCCC;
+			  -webkit-box-shadow: -3px 3px 3px -2px #CCCCCC;
+				box-shadow: -3px 3px 3px -2px #CCCCCC;
+				color:#000;
+				.txt_payment_link{
+					font-size:20px;
+					font-family:$avenir;
+					margin:20px 0 30px;
+					span{
+						font-size:14px;color:#5E5F61;margin-top:20px;
+					}
+				}
+				
+				.logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
+       	.btn_pay{display:block;font-size:0;font-family:a;width:290px;height:65px;@include sprite_checkout(-90px,3px);float:left;margin-top:14px;}
       }
+			
+			.thanks{font-size:25px;margin:35px 0 22px;color:#000;}
+				
+			.msg{
+				width:460px;
+				height:32px;
+				border: 1px #D9D8D8 solid;
+				margin:25px auto;
+				background:#F0FDDF;
+				padding:0 10px;
+				p{
+					font-size:14px;
+					font-family:$avenir_medium;
+					line-height:32px;
+					color:#000;
+					@include sprite_checkout(-379px, 3px);
+					height:27px;
+					padding-left:20px;
+				}
+			}
       p.description {
         margin: 0 0 20px 0;
       }
@@ -1292,122 +1269,9 @@ section.checkout {
     }
   }
   section.main {
-    width: 645px;
-    float: left;
-  }
-  section.sidebar {
-    width: 315px;
-    padding: 24px 0 0 0;
-    float: right;
-    a.change {
-      color: #de4c7b;
-      font-weight: 500;
-      margin: 0 0 5px;
-      float: right;
-    }
-    div.request_info {
-      background: #efefef;
-      font-size: 14px;
-      margin: 0 0 20px 0;
-      padding: 15px 20px 10px;
-      border: 1px #d4d4d4 solid;
-      clear: both;
-      div.item {
-        margin-bottom: 20px;
-        h1 {
-          font-size: 19px;
-          text-align: center;
-        }
-        p {
-          color: $third_color;
-          margin: 0 0 5px 0;
-        }
-        table {
-          width: 100%;
-          color: #252326;
-          td.value {
-            text-align: right;
-          }
-          tbody tr td {
-            font-size: 14px;
-            font-weight: 500;
-            padding: 5px 0;
-          }
-          tbody tr.promotion {
-            td {
-              color: #de4c7b;
-            }
-          }
-          tfoot tr td {
-            font-size: 14px;
-            font-weight: 500;
-            width: 50%;
-            padding: 5px 0 0 0;
-            border-top: 1px #000 dotted;
-          }
-        }
-      }
-      div.delivery_time {
-        margin: 20px auto;
-        padding: 10px 12px;
-        border-top: 1px #000 dotted;
-        p {
-          color: $pink;
-          font-weight: 600;
-          text-align: center;
-          margin: 0;
-          strong {
-            color: #e05789;
-          }
-        }
-      }
-    }
-    input[type="submit"].continue {
-      background: url('/assets/cart/continue.jpg') no-repeat;
-      text-indent: -9999px;
-      width: 183px;
-      height: 63px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-    }
-    input[type="submit"].finish, a.finish {
-      background: url('/assets/cart/finish.png') 0 0 no-repeat;
-      text-indent: -9999px;
-      width: 116px;
-      height: 46px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-      &.disabled {
-        background-position: -116px 0;
-      }
-    }
-    input[type="submit"].save {
-      background: url('/assets/cart/save-continue.png') 0 0 no-repeat;
-      text-indent: -9999px;
-      width: 202px;
-      height: 46px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-      &.disabled {
-        background-position: -202px 0;
-      }
-    }
-    input[type="submit"].disabled.continue {
-      background: url('/assets/cart/continue-disabled.png') 0 0 no-repeat;
-      text-indent: -9999px;
-      width: 139px;
-      height: 46px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-    }
+    width: 975px;
+		text-align:center;
+		margin:0 auto;
   }
   input[type='submit'] {
     background: image-url('cart/bt-finish.jpg') no-repeat;
