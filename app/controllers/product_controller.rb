@@ -16,6 +16,8 @@ class ProductController < ApplicationController
     else
       Product.only_visible.find(params[:id])
     end
+    @chaordic_user = ChaordicInfo.user current_user
+    @chaordic_product = ChaordicInfo.product @product
     @variants = @product.variants
     @gift = (params[:gift] == "true")
     @only_view = (params[:only_view] == "true")
