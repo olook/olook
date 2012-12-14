@@ -1,5 +1,4 @@
 class ChaordicInfo
-  require 'chaordic-packr'
 
   def self.user user
     return 'CS_ANONYMOUSUSER' if user.nil?
