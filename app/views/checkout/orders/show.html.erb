@@ -20,9 +20,6 @@
     <%= render "shared/ebit/seal_order" %>
     <%= render "shared/metrics/yahoo/buy" %>
 
-  </section>
-  <section class="sidebar">
-  <% content_for :checkout_sidebar do %>
     <div class="request_info">
       <div class="item">
         <h1>Pagamento</h1>
@@ -37,7 +34,7 @@
       </div>
     </div>
     <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
-  <% end %>
+    
 
     <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, :order => @order %>
 
