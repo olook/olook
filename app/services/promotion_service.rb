@@ -48,6 +48,6 @@ class PromotionService
   def satisfies_criteria? promotion
     return unless promotion
     strategy = promotion.load_strategy.new(promotion.param, user)
-    strategy.matches?
+    strategy.matches? 
   end
 end
