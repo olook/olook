@@ -11,6 +11,11 @@ class Promotion < ActiveRecord::Base
   end
 
   def load_strategy
-    "Promotions::#{self.strategy.to_s.camelize}".constantize
+    case self.strategy
+    when "purchases_amount_strategy"
+      Promotions::PurchasesAmountStrategy 
+    else
+      raise "Undefined strategy"
+    end
   end
 end
