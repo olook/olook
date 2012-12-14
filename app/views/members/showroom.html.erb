@@ -2,6 +2,8 @@
 
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/showroom" %>
+    <meta name="chaordic:source" content="home">
+    <meta name="chaordic:user" content= <%= @chaordic_user %>>
   <% end %>
 
   <% content_for :footer do %>
@@ -31,7 +33,7 @@
   <div id="showroom">
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
-    
+
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
     <section id="greetings">
       <%= showroom_presenter.render_identification(@friends) %>
