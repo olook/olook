@@ -1,12 +1,14 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/home" %>
+  <meta name="chaordic:source" content="home">
+  <meta name="chaordic:user" content= <%=ChaordicInfo.user current_user%>>
 <% end %>
 
 <% if Campaign.activated_campaign %>
   <%= render :partial => "campaigns/campaign_active" %>
 <% end %>
 
-  
+
 <section class="model">
   <h1>Didi Wagner</h1>
   <h2>Stylist Convidada</h2>
