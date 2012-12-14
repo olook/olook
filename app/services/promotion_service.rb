@@ -8,18 +8,6 @@ class PromotionService
     ((100 - promotion.discount_percent) * product.price) / 100
   end
 
-  def self.apply_discount_for_price promotion, price
-    PromotionService.new.apply_discount_for(promotion, price)
-  end
-
-  def self.apply_discount_for_product promotion, product
-    PromotionService.new.apply_discount_for(promotion, product.retail_price)
-  end
-
-  def self.user_applies_for_this_promotion? user, promotion
-    PromotionService.new(user).satisfies_criteria? promotion
-  end
-
   def initialize(user=nil, order=nil)
     @user = user
     @promotions = ::Promotion.active.order(:priority)
