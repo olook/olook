@@ -18,6 +18,13 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git@github.com:olook/chaordic-packr.git
+  revision: 568baf36fe8765eff7d3b58f15617a3840e50712
+  branch: master
+  specs:
+    chaordic-packr (4.0.0)
+
+GIT
   remote: git@github.com:olook/obraspag.git
   revision: 732c6b8f99c5aee02441950350cdb91b91dd3b4a
   branch: master
@@ -260,6 +267,7 @@ GEM
     oauth2 (0.5.2)
       faraday (~> 0.7)
       multi_json (~> 1.0)
+    oj (1.4.7)
     omniauth (1.0.3)
       hashie (~> 1.2)
       rack
@@ -455,6 +463,7 @@ DEPENDENCIES
   capybara-webkit (~> 0.13.0)
   carrierwave (~> 0.6.0)
   celluloid
+  chaordic-packr (= 4.0.0)!
   clearsale!
   curb
   dalli (= 2.0.2)
@@ -486,6 +495,7 @@ DEPENDENCIES
   newrelic_rpm (>= 3.5.3.25)
   oa-oauth (~> 0.3.0)
   obraspag (>= 0.0.31)!
+  oj
   omniauth (= 1.0.3)
   omniauth-facebook
   paper_trail (~> 2)
