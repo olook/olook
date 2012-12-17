@@ -14,8 +14,9 @@ class PromotionService
     @order = order
   end
 
-  def detect_current_promotion
+  def detect_current_promotion(cart=nil)
     promo = nil
+    @cart = cart
     promotions.each do |promotion|
       if satisfies_criteria? promotion
         promo = promotion
@@ -25,17 +26,9 @@ class PromotionService
     promo
   end
 
-  def apply_discount promotion
-    apply_discount_for promotion, order.subtotal
-  end
-
-  def apply_discount_for promotion, value
-    (promotion.discount_percent * value) / 100
-  end
-
-  def satisfies_criteria? promotion
+  def satisfies_criteria?(promotion)
     return unless promotion
     strategy = promotion.load_strategy(promotion, user)
-    strategy.matches? 
+    strategy.matches?(@cart)
   end
 end

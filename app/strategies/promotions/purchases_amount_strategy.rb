@@ -8,7 +8,7 @@ module Promotions
       @order = order
     end
 
-    def matches?
+    def matches?(cart)
       return false unless user && user.created_at
       return false if DiscountExpirationCheckService.discount_expired?(user)
 
