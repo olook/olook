@@ -252,7 +252,8 @@ class CartService
     promotion = self.promotion
     if promotion && item.product.can_supports_discount?
       discounts << :promotion
-      promotion_value = price - ((price * promotion.discount_percent) / 100)
+      strategy = promotion.load_strategy(promotion, cart.user)
+      promotion_value = strategy.calculate_value(price)
       if promotion_value < final_retail_price
         final_retail_price = promotion_value if should_apply_promotion_discount?
         percent = promotion.discount_percent
