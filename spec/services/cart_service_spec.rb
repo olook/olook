@@ -340,23 +340,6 @@ describe CartService do
 
   end
 
-  context ".item_has_more_than_one_discount?" do
-    it "should return false when has no discount" do
-      cart_service.stub(:item_discounts => [])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
-    end
-
-    it "should return false when has one discount" do
-      cart_service.stub(:item_discounts => [:olooklet])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
-    end
-
-    it "should return true when has two or more discounts" do
-      cart_service.stub(:item_discounts => [:olooklet, :promotion])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(true)
-    end
-  end
-
   context ".subtotal" do
     it "should return zero when no has items" do
       cart_service = CartService.new({})
