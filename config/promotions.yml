@@ -1,3 +1,4 @@
 strategies:
   - "purchases_amount_strategy"
+  - "free_item_strategy"
 
