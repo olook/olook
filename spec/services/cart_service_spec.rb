@@ -144,15 +144,6 @@ describe CartService do
       end
     end
 
-    context "when item is gift" do
-      it "should return gift price for gift position" do
-        cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-        cart.items.first.update_attribute(:gift, true)
-        Product.any_instance.stub(:gift_price => 14)
-        cart_service.item_retail_price(cart.items.first).should eq(14)
-      end
-    end
-
     context "when there is a coupon product" do
 
       let(:product_coupon) { FactoryGirl.create(:product_coupon)}
@@ -230,12 +221,6 @@ describe CartService do
       cart_service.item_discount_percent(cart.items.first).should eq(30)
     end
 
-    it "should return percent when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.item_discount_percent(cart.items.first).should eq(30)
-    end
  end
 
   context ".item_discount_origin" do
@@ -262,12 +247,6 @@ describe CartService do
       cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 30% desconto de primeira compra")
     end
 
-    it "should return gift description when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 30% para presente.")
-    end
   end
 
   context ".item_discount_origin_type" do
@@ -294,12 +273,6 @@ describe CartService do
       cart_service.item_discount_origin_type(cart.items.first).should eq(:promotion)
     end
 
-    it "should return gift when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.item_discount_origin_type(cart.items.first).should eq(:gift)
-    end
   end
 
   context ".item_discounts" do
@@ -327,15 +300,6 @@ describe CartService do
       cart_service.coupon = coupon_of_percentage
       cart_service.promotion = promotion
       cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion])
-    end
-
-    it "should return gift when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.coupon = coupon_of_percentage
-      cart_service.promotion = promotion
-      cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion, :gift])
     end
 
   end
