@@ -616,7 +616,7 @@ describe CartService do
         cart_service.stub(:subtotal => 40)
         cart_service.stub(:item_price => 10)
         cart_service.stub(:item_retail_price => 20)
-        cart_service.should_receive(:create_freebies_line_items)
+        cart_service.should_receive(:create_freebies_line_items_and_update_subtotal)
 
         order = cart_service.generate_order!(Payment::GATEWAYS[:moip], tracking)
 
@@ -663,7 +663,7 @@ describe CartService do
       it "creates freebies line items" do
         order = Order.new
         item = cart.items.first
-        cart_service.create_freebies_line_items(order, item)
+        cart_service.create_freebies_line_items_and_update_subtotal(order, item)
         order.line_items.size.should eq(1)
         order.line_items.first.variant.id.should eq(freebie.id)
         order.line_items.first.is_freebie.should eq(true)
@@ -674,7 +674,7 @@ describe CartService do
 
       it "increments amount_discount for each freebie added" do
         order = Order.new
-        cart_service.create_freebies_line_items(order, cart.items.first)
+        cart_service.create_freebies_line_items_and_update_subtotal(order, cart.items.first)
         order.amount_discount.should eq(0.1)
       end
 
@@ -766,8 +766,6 @@ describe CartService do
         cart_service.total.should == 30.0
 
       end
-
-
 
       it "should use promotion instead of coupon (promotion gives more discount) " , :focus => true do
         cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 1000)
