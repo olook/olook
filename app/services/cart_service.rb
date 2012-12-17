@@ -73,10 +73,6 @@ class CartService
     get_retail_price_for_item(item).fetch(:discounts)
   end
 
-  def item_has_more_than_one_discount?(item)
-    item_discounts(item).size > 1
-  end
-
   def subtotal(type = :retail_price)
     return 0 if cart.nil? || (cart && cart.items.nil?)
     cart.items.inject(0) do |value, item|
@@ -224,8 +220,8 @@ class CartService
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.retail_price #item.variant.product.retail_price
-    price = item.price #item.variant.product.price
+    final_retail_price = item.retail_price
+    price = item.price
     discounts = []
     origin_type = ''
 
@@ -236,10 +232,11 @@ class CartService
       origin_type = :olooklet
     end
 
-    #
-    # Highly duplicated code. Lets refactor it
-    #
     coupon = self.coupon
+
+    if coupon && !coupon.is_percentage?
+      discounts << :coupon_of_value
+    end
 
     if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
@@ -252,10 +249,6 @@ class CartService
       end
     end
 
-    if coupon && !coupon.is_percentage?
-      discounts << :coupon_of_value
-    end
-
     promotion = self.promotion
     if promotion && item.product.can_supports_discount?
       discounts << :promotion
@@ -266,14 +259,6 @@ class CartService
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
         origin_type = :promotion
       end
-    end
-
-    if item.gift?
-      final_retail_price = item.variant.gift_price(item.gift_position)
-      percent =  (1 - (final_retail_price / price) ) * 100
-      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
-      discounts  << :gift
-      origin_type = :gift
     end
 
     {
