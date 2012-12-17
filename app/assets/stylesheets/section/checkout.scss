@@ -1229,14 +1229,50 @@ section#payment {
 					padding-left:20px;
 				}
 			}
-			.order{
+			.order-details{
 				clear:both;margin-top:40px;
 				.box-order{
 						width:472px;
-						float:left;
+					/*	float:left;*/
+					  text-align:left;
+						margin-bottom:30px;
 						border:solid 1px #DEDEDE;
-						h2{text-transform:uppercase;height:40px;border-bottom:solid 1px #D9D8D8;line-height:40px;}
+						.txt-black{color:#000;}
+						.txt-pink{color:#E15789;}
+						h2{text-transform:uppercase;height:40px;border-bottom:solid 1px #D9D8D8;line-height:40px;font-size:20px;text-align:center}
+						.produto{
+							li{text-align:left;clear:both;overflow:hidden;border-top:solid 1px #EAE9E9;
+								.img{float:left;width:101px;height:77px;text-align:center;margin-top:15px;}
+								.nome,.qte,.tamanho,.preco{font-size:12px;}
+								.nome{width:100%;margin-top:15px;text-transform:uppercase;color:#000;}
+								.qte,.tamanho,.preco{float:left;}
+								.qte{width:110px;}
+								.tamanho{width:108px;}
+							}
+						}
+						.sub-total {border-top:solid 1px #DEDEDE;padding:15px 0;
+							li{text-align:left;
+								p{margin-left:210px;font-size:13px;
+									span{width:110px;display:inline-block;}
+								}
+							}
+						}
+						.total{border-top:solid 1px #DEDEDE;padding:20px 0;font-size:17px;overflow:hidden;
+							li{float:left;text-align:left;}
+							.delivery_time{font-size:12px;width:184px;padding-left:25px;}
+							span{width:110px;display:inline-block;}
+						}
+						&.payment-type{
+
+							div{height:65px;border-top:solid 1px #E5E4E4;
+								&.no-border{border:none;}
+								p{padding:20px 0 0 28px;height:40px;
+									&.debit{ @include sprite_checkout(405px, -314px);}
+								}
+							}
+						}
 				}
+				
 			}
       p.description {
         margin: 0 0 20px 0;

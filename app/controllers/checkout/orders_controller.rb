@@ -6,7 +6,6 @@ class Checkout::OrdersController < Checkout::BaseController
     @google_path_pixel_information = "Purshase"
     @order = @user.orders.find_by_number!(params[:number])
     @payment = @order.erp_payment
-    @line_items = @order.line_items
     promotion = @order.payments.where(:type => "PromotionPayment").first.try(:promotion)
     coupon_pm = @order.payments.where(:type => "CouponPayment").first
     coupon = coupon_pm.coupon if coupon_pm
