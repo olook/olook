@@ -10,12 +10,13 @@ class Promotion < ActiveRecord::Base
     Promotion.find_by_strategy("purchases_amount_strategy")
   end
 
-  def load_strategy
+  def load_strategy(promotion, user)
     case self.strategy
     when "purchases_amount_strategy"
-      Promotions::PurchasesAmountStrategy 
+      Promotions::PurchasesAmountStrategy.new(promotion, user)
     else
       raise "Undefined strategy"
     end
   end
+
 end
