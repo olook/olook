@@ -15,7 +15,7 @@
     <%= render "shared/ebit/seal_order" %>
     <%= render "shared/metrics/yahoo/buy" %>
     <section class="order-details">
-     <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, line_items: @order.line_items %>
+     <%= render "shared/payments/info_order", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, line_items: @order.line_items %>
       
      <div class="payment-type box-order">
         <h2>Pagamento</h2>
@@ -23,7 +23,7 @@
           <p class="debit"><span class="txt-black">Forma de pagamento: </span><span>Boleto Bancário</span></p>
         </div>
         <div>
-          <p><span class="txt-black">Status:</span>Aguardando a confirmação do seu pagamento.<br />Seu pedido ficará reservado por 48h.</p>
+          <p><span class="txt-black">Status: </span>Aguardando a confirmação do seu pagamento.<br />Seu pedido ficará reservado por 48h.</p>
         </div>  
      </div>
       <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
