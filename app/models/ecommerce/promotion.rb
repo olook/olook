@@ -14,6 +14,8 @@ class Promotion < ActiveRecord::Base
     case self.strategy
     when "purchases_amount_strategy"
       Promotions::PurchasesAmountStrategy.new(promotion, user)
+    when "free_item_strategy"
+      Promotions::FreeItemStrategy.new(promotion, user)
     else
       raise "Undefined strategy"
     end
