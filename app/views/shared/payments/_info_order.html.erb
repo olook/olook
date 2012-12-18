@@ -18,7 +18,7 @@
     gift_wrap ||= cart_service.gift_wrap?
     if gift_wrap %>
     <li>
-      <p><span class="txt-black">EMBALAGEM DE PRESENTE:</span><span>+ R$5,00</span></p>
+      <p><span class="txt-black">EMBALAGEM (PRESENTE):</span><span>+ R$5,00</span></p>
     </li> 
     <% end %>
 
@@ -54,7 +54,7 @@
     promotion ||= cart_service.total_discount_by_type(:promotion)
     if promotion > 0 %>
     <li>
-      <p><span class="txt-black">PROMOÇÃO:</span><span>- <%= number_to_currency(promotion) %></span></p>
+      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(promotion) %></span></p>
     </li>  
     <% end
     gift = @order.payments.for_gift.sum(:total_paid) if has_payment
