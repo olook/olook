@@ -64,7 +64,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="discount">
               <% if @cart_service.item_promotion?(item) %>
-                <%= link_to number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0), "#", :class => 'discount_percent' %>
+                  <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
                 <div class='discount_origin'>
                   <p><%= @cart_service.item_discount_origin(item) %></p>
                 </div>
