@@ -20,7 +20,7 @@ module Promotions
     end
 
     def matches_20_percent_promotion?
-      matches? && order_have_promotion_id?
+      matches?(nil) && order_have_promotion_id?
     end
 
     private
