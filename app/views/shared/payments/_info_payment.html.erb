@@ -1,0 +1,22 @@
+<div class="payment-type box-order">
+    <h2>Pagamento</h2>
+    <div class="no-border">
+      <% if @payment.is_a? Billet %>
+        <p class="boleto"><span class="txt-black">Forma de pagamento: </span><span>Boleto Bancário</span></p>
+      <% elsif @payment.is_a? CreditCard %>
+        <p class="cartao <%= @payment.bank %>"><span class="txt-black">Forma de pagamento: </span><span>Cartão de Crédito</span></p>
+      <% else %>
+        <p class="debit"><span class="txt-black">Forma de pagamento: </span><span>Débito Online</span></p>
+      <% end %>
+    </div>
+    <div>
+      <% if @payment.is_a? CreditCard %>
+        <p><span class="txt-black">Status: </span>Analisando seu pagamento junto à operadora de crédito.</p>
+      <% else %>
+        <p><span class="txt-black">Status: </span>Aguardando a confirmação do seu pagamento.<br />Seu pedido ficará reservado por 48h.</p>
+      <% end %>
+    </div>  
+ </div>
+
+
+
