@@ -58,9 +58,17 @@
 
             <p>Seus itens estão reservados em sua sacola, basta você realizar novamente o pedido utilizando outro meio de pagamento.</p>
 
-            <center>
-              <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t7_pedido_cancelado1" style="color:#E05789; font-size:14px"><img src="http://cdn.olook.com.br/assets/emailmkt/topo/btn_irparaolook.jpg" border="0" alt="Ir para a olook"></a>
-            </center>
+
+            <!-- botao PRINCIPAL -->
+            <table width="220" align="center">
+              <tr>
+                <td height="30" bgcolor="E05789" align="center">
+                  <center>
+                    <a href="http://www.olook.com.br/sacola?auth_token=<%= @order.user.authentication_token %>&cart_id=<%= @order.cart.id %>&utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t7_pedido_cancelado1" style="color:#ffffff; font-size:14px;text-decoration:none;">REALIZAR NOVO PEDIDO</a>
+                  </center>
+                </td>
+              </tr>
+            </table>
 
             <p>Você tembém pode entrar em contato com a nossa equipe para entender o motivo do cancelamento, ou tirar qualquer dúvida: <a href="mailto:falecom@olook.com.br" style="color:#E05789">falecom@olook.com.br</a>.</p>
 
