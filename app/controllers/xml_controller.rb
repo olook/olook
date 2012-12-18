@@ -40,6 +40,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def google_shopping
+    respond_with(@products)
+  end
+
   private
 
   def load_products
