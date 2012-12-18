@@ -345,48 +345,47 @@ section#cart {
         position: relative;
         vertical-align: middle;
         padding: 20px 0;
-        border-top: 1px #E5E5E5 solid;
-        border-bottom: 1px $border-color solid;
+        border-top: 1px #000 dotted;
+
         p {
           margin-bottom: 5px;
           span {
             text-transform: uppercase;
           }
         }
-			/********** CAMPANHA DO AVC ****************/
-		  &.avc-foto{
-			padding-left:35px;
-			width:130px;
-			border-left:1px solid #E5E5E5;
-			img{width:70px;height:70px;}
-		  }
-		  &.avc-desc{
-			width:503px;
-			padding-right:100px;
-			p{font-size:13px;}
-		  }
-		  &.avc-button{
-				border-right:1px solid #E5E5E5;
-				p{font-size: 18px;font-weight: lighter;margin: 0;text-align:center;}
-		  		input[type="submit"]{
-					background: url('/assets/campaigns/bt-add.png') no-repeat;
-					width:165px;
-					height:37px;
-					border:0;
-					margin-left:28px;
-					cursor:pointer;
-				}
-		  }
-		/********** FIM CAMPANHA DO AVC ****************/
+				/********** CAMPANHA DO AVC ****************/
+		  	&.avc-foto{
+				padding-left:35px;
+				width:130px;
+				border-left:1px solid #E5E5E5;
+				img{width:70px;height:70px;}
+			  }
+			  &.avc-desc{
+				width:503px;
+				padding-right:100px;
+				p{font-size:13px;}
+			  }
+			  &.avc-button{
+					border-right:1px solid #E5E5E5;
+					p{font-size: 18px;font-weight: lighter;margin: 0;text-align:center;}
+			  		input[type="submit"]{
+						background: url('/assets/campaigns/bt-add.png') no-repeat;
+						width:165px;
+						height:37px;
+						border:0;
+						margin-left:28px;
+						cursor:pointer;
+					}
+			  }
+				/********** FIM CAMPANHA DO AVC ****************/
         &.item {
           width: 255px;
-          padding-left: 50px;
-          border-left: 1px $border-color solid;
+          
           img {
             margin-right: 20px;
             float: left;
-				width:90px;
-				height:90px;
+						width:90px;
+						height:90px;
           }
         }
         &.amount {
@@ -416,6 +415,7 @@ section#cart {
               padding:0 12px 0 6px;
             }
           }
+					
           a.discount_percent {
             background: url('/assets/cart/label_discount.jpg') top center no-repeat;
             color: #FFF;
@@ -431,6 +431,21 @@ section#cart {
             float: right;
           }
         }
+				&.delete-item{
+					form{position:relative;}
+          input[type="submit"] {
+           /* position: absolute;*/
+            background: image-url('cart/delete-item.jpg') no-repeat;
+            width: 26px;
+            height: 26px;
+            margin: 0 auto;
+            display: block;
+            /*top: -70px;*/
+            /*right: 10px;*/
+            border: none;
+            cursor: pointer;
+          }
+				}
         &.delete_item {
           form {
             position: relative;
@@ -451,27 +466,14 @@ section#cart {
           position: relative;
           width: 130px;
           padding-left: 25px;
-          border-right: 1px $border-color solid;
           p {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: lighter;
             margin: 0;
+						color:#000;
             &.price_retail {
               font-size: 14px;
             }
-          }
-		  form{position:relative;}
-          input[type="submit"] {
-            position: absolute;
-            background: image-url('cart/delete-item.jpg') no-repeat;
-            width: 26px;
-            height: 26px;
-            margin: 0 auto;
-            display: block;
-            top: -70px;
-            right: 10px;
-            border: none;
-            cursor: pointer;
           }
         }
       }
@@ -481,7 +483,7 @@ section#cart {
       margin: -20px 0 0;
       border-collapse: separate;
       border-spacing: 0 20px;
-		tr{position:relative;}
+		tr{position:relative;font-size:13px !important;}
     }
     &#credits {
       width: 989px;
@@ -1179,11 +1181,10 @@ section#payment {
       }
     }
   }
+	/******  NEW CONCLUSION PAGE *****/
   &.confirmation {
     section.main {
 			width:975px;text-align:center;
-			.txt-black{color:#000;}
-			.txt-pink{color:#E15789;}
       h1 {
         font-size: 20px;
         border: none;
@@ -1309,6 +1310,7 @@ section#payment {
 					h2{font-size:20px}
 				}		
 			}
+/****** END NEW CONCLUSION PAGE *****/			
       div.payment_link {
         position: relative;
         width: 600px;
@@ -1398,6 +1400,9 @@ section#payment {
     }
   }
 }
+
+.txt-black{color:#000;}
+.txt-pink{color:#E15789;}
 
 section.checkout {
   h1 {
