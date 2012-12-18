@@ -10,11 +10,11 @@ module Promotions
     end
 
     def matches?(cart)
-      cart.items.count >= promotion.param.to_i if cart
+      cart.items.size >= promotion.param.to_i if cart
     end
 
     def calculate_value(cart_items, item)
-      number_of_items = cart_items.count / promotion.param.to_i
+      number_of_items = cart_items.size / promotion.param.to_i
       free_items = sort_cart_items(cart_items).first(number_of_items)
       free_items.include?(item) ? 0 : item.price
     end
