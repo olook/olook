@@ -1,0 +1,6 @@
+<% remain_items = promotion.param.to_i - cart.items.size % promotion.param.to_i  %>
+<% if remain_items == 1%>
+  <h1>QUE TAL ADICIONAR MAIS 1 ITEM NA SUA SACOLA E GANHA-LO DE GRAÇA? (:</h1>
+<% elsif remain_items > 0 && remain_items != promotion.param.to_i %>
+  <h1>QUE TAL ADICIONAR MAIS <%= remain_items %> ITENS NA SUA SACOLA E GANHAR 1 DELES DE GRAÇA? (:</h1>
+<% end %>
