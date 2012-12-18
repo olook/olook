@@ -71,8 +71,8 @@ describe OrderStatusMailer do
   end
 
   describe "#payment_refused" do
-
-    let!(:order) { FactoryGirl.create(:clean_order_credit_card, :user => user)}
+    let(:cart) {FactoryGirl.create(:clean_cart)}
+    let!(:order) { FactoryGirl.create(:clean_order_credit_card, :user => user, :cart => cart)}
 
     before do
       order.state = "canceled"
