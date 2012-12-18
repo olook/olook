@@ -1,5 +1,7 @@
 module Promotions
   class FreeItemStrategy
+    FIRST_ITEM = -1
+    SECOND_ITEM = 1
     attr_reader :user, :promotion
 
     def initialize promotion, user
@@ -20,11 +22,11 @@ module Promotions
     def sort_cart_items(cart_items)
       cart_items.sort { |a,b|
         if a.price < b.price
-          -1
+          FIRST_ITEM
         elsif a.price > b.price
-          1
+          SECOND_ITEM
         else
-          a.id > b.id ? -1 : 1
+          a.id > b.id ? FIRST_ITEM : SECOND_ITEM
         end
       }
     end
