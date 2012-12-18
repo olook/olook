@@ -6,18 +6,10 @@ class DiscountExpirationCheckService
 			discount_expiration_date_for(user) < Date.today
 		end
 
-		def discount_expires_in_48_hours?(user_or_campaign_email)
-			sign_up_date(user_or_campaign_email).to_date == (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i).days.ago.to_date
-		end
-
 		def discount_expiration_date_for(user_or_campaign_email)
       expiration_date = (sign_up_date(user_or_campaign_email) + Setting.discount_period_in_days.to_i.days).to_date
 			expiration_date >= lower_limit_expiration_date ? expiration_date : lower_limit_expiration_date
 		end
-
-    def discount_expiration_48_hours_emails_list
-      user_list = User.with_discount_about_to_expire_in_48_hours + CampaignEmail.with_discount_about_to_expire_in_48_hours
-    end
 
     def search(email)
       format_user_list(User.where("email like ? " ,"%#{email}%")) + format_campaign_email_list(CampaignEmail.where("email like ? " ,"%#{email}%"))
