@@ -1,8 +1,8 @@
 <div class="social">
   <ul>
-    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica" %></li>
-    <li class="facebook"><%= link_to "#" do %>Postar no <br />meu mural<% end %></li>
-    <li class="email"><%= link_to "#" do %>Enviar <br />por e-mail<% end %></li>
+    <li class="facebook"><%= link_to "#" do %>Postar no meu mural<% end %></li>
+    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$20! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica" %></li>
+    <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
   </ul>
   <%= form_tag member_invite_by_email_path do %>
     <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
@@ -11,10 +11,12 @@
   <% end %>
 </div>
 <div class="link_mail">
-  <h2>Envie o link abaixo por e-mail ou MSN:</h2>
+  <p class="txt-copie">Copie o link abaixo e envie por email, MSN ou GTalk:</p>
   <ul>
-    <li><%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
-    <li><%= link_to "Copiar link", "#" %></li>
+    <li>
+      <%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
+      <%= link_to "Copiar link", "#" %>
+    </li>
   </ul>
   <div class="box_copy">
     <p><strong>Link copiado</strong></p>
