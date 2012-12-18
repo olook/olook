@@ -8,7 +8,7 @@ FactoryGirl.define do
       description "High heel"
       translation_token 'heel'
     end
-    
+
     factory :invisible_detail do
       display_on DisplayDetailOn::INVISIBLE
       description "Meta data used for data mining"
@@ -25,19 +25,19 @@ FactoryGirl.define do
       translation_token 'Categoria'
       description "Sandalia"
     end
-    
+
     factory :shoe_heel do
       display_on DisplayDetailOn::SPECIFICATION
       translation_token 'Salto/Tamanho'
       description "0,5 cm"
     end
-    
+
     factory :shoe_with_metal do
       display_on DisplayDetailOn::SPECIFICATION
       translation_token 'Metal'
       description "Ouro light"
     end
-    
+
     factory :shoe_with_leather do
       display_on DisplayDetailOn::SPECIFICATION
       translation_token 'Material externo'
