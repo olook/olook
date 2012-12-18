@@ -1,7 +1,6 @@
 class ChaordicInfo
 
   def self.user user
-    return 'CS_ANONYMOUSUSER' if user.nil?
     user_pack user
   end
 
@@ -25,9 +24,13 @@ class ChaordicInfo
 
   # USER
   def self.user_pack user
-    chaordic_user_info = set_user user
-    chaordic_user_info.add_info('name', user.name)
-    chaordic_user_info.add_info('email', user.email)
+    if user.kind_of? User
+      chaordic_user_info = set_user user.id
+      chaordic_user_info.add_info('name', user.name)
+      chaordic_user_info.add_info('email', user.email)
+    else
+      chaordic_user_info = set_user "CS_ANONYMOUSUSER"
+    end
     create_chaordic_object.pack(chaordic_user_info)
   end
 
@@ -65,9 +68,9 @@ class ChaordicInfo
     chaordic_order
   end
 
-  def self.set_user user
+  def self.set_user user_id
     chaordic_user = Chaordic::Packr::User.new
-    chaordic_user.uid = user.id
+    chaordic_user.uid = user_id
     chaordic_user
   end
 
