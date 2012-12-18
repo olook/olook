@@ -11,12 +11,12 @@ module Promotions
 
     def matches?(cart)
       items = items_for_discount(cart.items)
-      items.count >= promotion.param.to_i if cart
+      items.size >= promotion.param.to_i if cart
     end
 
     def calculate_value(cart_items, item)
       items = items_for_discount(cart_items)
-      number_of_items = items.count / promotion.param.to_i
+      number_of_items = items.size / promotion.param.to_i
       free_items = sort_cart_items(items).first(number_of_items)
       free_items.include?(item) ? 0 : item.price
     end
