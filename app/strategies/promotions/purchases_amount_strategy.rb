@@ -15,8 +15,8 @@ module Promotions
       user ? user.orders.purchased.size == promotion.param.to_i : 0 == promotion.param.to_i
     end
 
-    def calculate_value(item_price)
-      item_price - ((item_price * promotion.discount_percent) / 100)
+    def calculate_value(cart_items, item)
+      item.price - ((item.price * promotion.discount_percent) / 100)
     end
 
     def matches_20_percent_promotion?
