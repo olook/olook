@@ -10,4 +10,12 @@ module CartHelper
     @user.user_credits_for(:redeem).total
   end
 
+  def promotion_discount(item)
+    if @cart_service.item_retail_price_total(item) == 0
+      "Este é grátis"
+    else
+      number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0)
+    end
+  end
+
 end
