@@ -217,7 +217,7 @@ class User < ActiveRecord::Base
 
   def first_time_buyer?
     promotion_service = PromotionService.new(self)
-    promotion_service.satisfies_criteria? Promotion.purchases_amount
+    promotion_service.satisfies_criteria?({promotion: Promotion.purchases_amount})
   end
 
   def male?
