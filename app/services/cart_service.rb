@@ -172,8 +172,9 @@ class CartService
     order.line_items = []
 
     cart.items.each do |item|
-      order.line_items << LineItem.new( :variant_id => item.variant.id, :quantity => item.quantity, :price => item_price(item),
-                    :retail_price => item_retail_price(item), :gift => item.gift)
+
+      order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
+                    retail_price: normalize_retail_price(order, item), gift: item.gift)
 
       create_freebies_line_items_and_update_subtotal(order, item)
     end
@@ -184,9 +185,19 @@ class CartService
     order
   end
 
+  def normalize_retail_price(order, cart_item)
+    retail_price = item_retail_price(cart_item)
+    if retail_price == 0
+      retail_price = 0.1
+      order.amount_discount = order.amount_discount + retail_price
+      order.subtotal = order.subtotal + retail_price
+    end
+    retail_price
+  end
+
   def create_freebies_line_items_and_update_subtotal(order, item)
-    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.freebie.id,
-              :quantity => item.quantity, :price => 0.1, :retail_price => 0.1, :gift => item.gift, :is_freebie => true) }
+    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( variant_id: freebie_variant.freebie.id,
+              quantity: item.quantity, price: 0.1, retail_price: 0.1, gift: item.gift, is_freebie: true) }
     order.line_items << freebies
     order.amount_discount += (freebies.size * 0.1)
     order.subtotal += (freebies.size * 0.1)
