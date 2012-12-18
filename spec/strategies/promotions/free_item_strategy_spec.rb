@@ -1,46 +1,120 @@
 require 'spec_helper'
 
 describe Promotions::FreeItemStrategy do
+  let(:user) { double(:user) }
+  let(:promotion) { double(:promotion, param: "3") }
+  let(:cart) {FactoryGirl.create(:cart_with_items)}
+  subject {  described_class.new(promotion, user) }
 
-  context ".initialize" do
-
+  describe ".initialize" do
     it "receive :promotion and :user" do
-      promotion = double(:promotion)
-      user = double(:user)
-
-      strategy = Promotions::FreeItemStrategy.new(promotion, user)
-
-      strategy.promotion.should eq(promotion)
-      strategy.user.should eq(user)
+      subject.promotion.should eq(promotion)
+      subject.user.should eq(user)
     end
-
   end
 
-  context "#matches?" do 
-
+  describe "#matches?" do
     context "when cart has only 1 item" do
-
-      let(:cart) {FactoryGirl.create(:cart_with_items)}
-
-
       it "does not match" do
+        subject.matches?(cart).should be_false
+      end
+    end
+  end
 
-        # What if, the strategy receives only the param, instead of Promotion Object ?
-        # it would be more decoupled and easier to test =p
+  describe "#calculate_value" do
+    let(:cart_item) { mock_model(CartItem, price: 100.00, id: 1) }
+    let(:second_cart_item) { mock_model(CartItem, price: 200.00, id: 2) }
 
-        promotion = double(:promotion, :param => "3")
-        user = double(:user)
+    context "when the cart has 1 item" do
+      it "returns full price of cart_item" do
+        subject.calculate_value([cart_item], cart_item).should eq(cart_item.price)
+      end
+    end
 
-        strategy = Promotions::FreeItemStrategy.new(promotion, user)
-        strategy.matches?(cart).should be_false
+    context "when the cart has 2 item" do
+      let(:cart_items) { [cart_item, second_cart_item] }
+      it "returns full price of the first cart_items" do
+        subject.calculate_value(cart_items, cart_item).should eq(cart_item.price)
+      end
+      it "returns full price of the second cart_items" do
+        subject.calculate_value(cart_items, second_cart_item).should eq(second_cart_item.price)
+      end
+    end
 
+    context "when the cart has 3 item with equal values" do
+      let(:third_cart_item) { mock_model(CartItem, price: 100.00, id: 3) }
+      let(:cart_items) { [cart_item, second_cart_item, third_cart_item] }
+      it "returns full price of the first cart_items" do
+        subject.calculate_value(cart_items, cart_item).should eq(cart_item.price)
+      end
+      it "returns full price of the second cart_items" do
+        subject.calculate_value(cart_items, second_cart_item).should eq(second_cart_item.price)
+      end
+      it "returns 0 for the cart_item with lower price and greater id" do
+        subject.calculate_value(cart_items, third_cart_item).should eq(0)
+      end
+    end
 
+    context "when the cart has 3 item with different values" do
+      let(:third_cart_item) { mock_model(CartItem, price: 50.00, id: 3) }
+      let(:cart_items) { [cart_item, second_cart_item, third_cart_item] }
+      it "returns 0 for the cart_item with lower price" do
+        subject.calculate_value(cart_items, third_cart_item).should eq(0)
+      end
+    end
 
+    context "when the cart has 4 item with equal values" do
+      let(:third_cart_item) { mock_model(CartItem, price: 100.00, id: 3) }
+      let(:fourth_cart_item) { mock_model(CartItem, price: 50.00, id: 4) }
+      let(:cart_items) { [cart_item, second_cart_item, third_cart_item, fourth_cart_item] }
+      it "returns full price of the first cart_items" do
+        subject.calculate_value(cart_items, cart_item).should eq(cart_item.price)
       end
 
+      it "returns full price of the second cart_items" do
+        subject.calculate_value(cart_items, second_cart_item).should eq(second_cart_item.price)
+      end
 
+      it "returns full price of the third cart_items" do
+        subject.calculate_value(cart_items, third_cart_item).should eq(third_cart_item.price)
+      end
+
+      it "returns 0 for the cart_item with lower price" do
+        subject.calculate_value(cart_items, fourth_cart_item).should eq(0)
+      end
+    end
+
+    context "when the cart has 6 item with equal values" do
+      let(:third_cart_item) { mock_model(CartItem, price: 100.00, id: 3) }
+      let(:fourth_cart_item) { mock_model(CartItem, price: 50.00, id: 4) }
+      let(:fifth_cart_item) { mock_model(CartItem, price: 30.00, id: 5) }
+      let(:sixth_cart_item) { mock_model(CartItem, price: 50.00, id: 6) }
+      let(:cart_items) { [cart_item, second_cart_item, third_cart_item, fourth_cart_item, fifth_cart_item, sixth_cart_item] }
+
+      it "returns full price of the first cart_items" do
+        subject.calculate_value(cart_items, cart_item).should eq(cart_item.price)
+      end
+
+      it "returns full price of the second cart_items" do
+        subject.calculate_value(cart_items, second_cart_item).should eq(second_cart_item.price)
+      end
+
+      it "returns full price of the third cart_items" do
+        subject.calculate_value(cart_items, third_cart_item).should eq(third_cart_item.price)
+      end
+
+      it "returns full price of the fourth cart_items" do
+        subject.calculate_value(cart_items, fourth_cart_item).should eq(fourth_cart_item.price)
+      end
+
+      it "returns 0 for the cart_item with lower price" do
+        subject.calculate_value(cart_items, fifth_cart_item).should eq(0)
+      end
+
+      it "returns 0 for the second cart_item with lower price" do
+        subject.calculate_value(cart_items, sixth_cart_item).should eq(0)
+      end
     end
 
   end
-
 end

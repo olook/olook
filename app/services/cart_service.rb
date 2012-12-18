@@ -185,7 +185,7 @@ class CartService
   end
 
   def create_freebies_line_items_and_update_subtotal(order, item)
-    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.freebie.id, 
+    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.freebie.id,
               :quantity => item.quantity, :price => 0.1, :retail_price => 0.1, :gift => item.gift, :is_freebie => true) }
     order.line_items << freebies
     order.amount_discount += (freebies.size * 0.1)
@@ -253,7 +253,7 @@ class CartService
     if promotion && item.product.can_supports_discount?
       discounts << :promotion
       strategy = promotion.load_strategy(promotion, cart.user)
-      promotion_value = strategy.calculate_value(price)
+      promotion_value = strategy.calculate_value(cart.items, item)
       if promotion_value < final_retail_price
         final_retail_price = promotion_value if should_apply_promotion_discount?
         percent = promotion.discount_percent
@@ -305,13 +305,13 @@ class CartService
     if (use_credits == true)
       #GET FROM loyality
 
-      # Use loyalty only if there is no product with olooklet discount in the cart       
+      # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
       if credits_loyality >= retail_value
         credits_loyality = retail_value
       end
 
-      retail_value -= credits_loyality 
+      retail_value -= credits_loyality
 
       #GET FROM INVITE
       credits_invite = allow_credit_payment? ? self.cart.user.user_credits_for(:invite).total : 0
