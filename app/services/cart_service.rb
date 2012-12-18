@@ -189,8 +189,8 @@ class CartService
     retail_price = item_retail_price(cart_item)
     if retail_price == 0
       retail_price = 0.1
-      order.amount_discount = order.amount_discount + retail_price
-      order.subtotal = order.subtotal + retail_price
+      order.amount_discount += retail_price
+      order.subtotal += retail_price
     end
     retail_price
   end
