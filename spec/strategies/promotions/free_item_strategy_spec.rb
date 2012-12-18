@@ -42,17 +42,17 @@ describe Promotions::FreeItemStrategy do
       end
     end
 
-    context "when the cart has 3 item with equal values" do
+    context "when the cart has 3 items with equal values" do
       let(:third_cart_item) { mock_model(CartItem, price: 100.00, id: 3, product: product) }
       let(:cart_items) { [cart_item, second_cart_item, third_cart_item] }
-      it "returns full price of the first cart_items" do
-        subject.calculate_value(cart_items, cart_item).should eq(cart_item.price)
+      it "returns 0 for the cart_item with lower price and lower id" do
+        subject.calculate_value(cart_items, cart_item).should eq(0)
       end
       it "returns full price of the second cart_items" do
-        subject.calculate_value(cart_items, second_cart_item).should eq(second_cart_item.price)
+        subject.calculate_value(cart_items, second_cart_item).should eq(200)
       end
-      it "returns 0 for the cart_item with lower price and greater id" do
-        subject.calculate_value(cart_items, third_cart_item).should eq(0)
+      it "returns full price for the cart_item with lower price and greater id" do
+        subject.calculate_value(cart_items, third_cart_item).should eq(100)
       end
     end
 
@@ -85,11 +85,11 @@ describe Promotions::FreeItemStrategy do
       end
     end
 
-    context "when the cart has 6 item with equal values" do
+    context "when the cart has 6 items" do
       let(:third_cart_item) { mock_model(CartItem, price: 100.00, id: 3, product: product) }
       let(:fourth_cart_item) { mock_model(CartItem, price: 50.00, id: 4, product: product) }
       let(:fifth_cart_item) { mock_model(CartItem, price: 30.00, id: 5, product: product) }
-      let(:sixth_cart_item) { mock_model(CartItem, price: 50.00, id: 6, product: product) }
+      let(:sixth_cart_item) { mock_model(CartItem, price: 60.00, id: 6, product: product) }
       let(:cart_items) { [cart_item, second_cart_item, third_cart_item, fourth_cart_item, fifth_cart_item, sixth_cart_item] }
 
       it "returns full price of the first cart_items" do
@@ -104,16 +104,16 @@ describe Promotions::FreeItemStrategy do
         subject.calculate_value(cart_items, third_cart_item).should eq(third_cart_item.price)
       end
 
-      it "returns full price of the fourth cart_items" do
-        subject.calculate_value(cart_items, fourth_cart_item).should eq(fourth_cart_item.price)
+      it "returns 0 for the second cart_item with lower price" do
+        subject.calculate_value(cart_items, fourth_cart_item).should eq(0)
       end
 
       it "returns 0 for the cart_item with lower price" do
         subject.calculate_value(cart_items, fifth_cart_item).should eq(0)
       end
 
-      it "returns 0 for the second cart_item with lower price" do
-        subject.calculate_value(cart_items, sixth_cart_item).should eq(0)
+      it "returns full price of the sixth cart_items" do
+        subject.calculate_value(cart_items, sixth_cart_item).should eq(60)
       end
     end
 

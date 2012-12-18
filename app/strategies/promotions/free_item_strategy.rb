@@ -24,15 +24,7 @@ module Promotions
     private
 
     def sort_cart_items(cart_items)
-      cart_items.sort { |a,b|
-        if a.price < b.price
-          FIRST_ITEM
-        elsif a.price > b.price
-          SECOND_ITEM
-        else
-          a.id > b.id ? FIRST_ITEM : SECOND_ITEM
-        end
-      }
+      cart_items.sort_by { |item| [item.price, item.id]}
     end
 
     def items_for_discount(cart_items)
