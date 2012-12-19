@@ -58,59 +58,6 @@ describe DiscountExpirationCheckService do
 
 	end
 
-	# Used in notification worker every day
-	context ".discount_expires_in_48_hours?" do
-    context "user converted from campaign email" do
-
-      context "before 48hs warning" do
-        let(:user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i - 1).days) }
-        it "returns false" do
-          DiscountExpirationCheckService.discount_expires_in_48_hours?(user).should be_false
-        end
-      end
-
-      context "after 48hs warning" do
-        let(:user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i + 1).days) }
-        it "returns false" do
-          DiscountExpirationCheckService.discount_expires_in_48_hours?(user).should be_false
-        end
-      end
-
-      context "within 48hs warning" do
-        let(:user) { FactoryGirl.create(:user, campaign_email_created_at: DateTime.now - (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i).days) }
-
-        it "returns true" do
-          DiscountExpirationCheckService.discount_expires_in_48_hours?(user).should be_true
-        end
-      end
-    end
-
-    context "campaign email" do
-
-      context "before 48hs warning" do
-        let(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i - 1).days) }
-        it "returns false" do
-          DiscountExpirationCheckService.discount_expires_in_48_hours?(campaign_email).should be_false
-        end
-      end
-
-      context "after 48hs warning" do
-        let(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i + 1).days) }
-        it "returns false" do
-          DiscountExpirationCheckService.discount_expires_in_48_hours?(campaign_email).should be_false
-        end
-      end
-
-      context "within 48hs warning" do
-        let(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - (Setting.discount_period_in_days.to_i - Setting.discount_period_expiration_warning_in_days.to_i).days) }
-
-        it "returns true" do
-          DiscountExpirationCheckService.discount_expires_in_48_hours?(campaign_email).should be_true
-        end
-      end
-    end
-	end
-
   context ".discount_expires_at" do
     let(:now) { DateTime.now }
     let(:user) { FactoryGirl.create(:user, created_at: now) }
@@ -120,25 +67,4 @@ describe DiscountExpirationCheckService do
     end
   end
 
-  describe ".discount_expiration_48_hours_emails_list" do
-    context "returns a list of emails with expiration discount" do
-      let!(:user) { FactoryGirl.create(:user, created_at: DateTime.now - DiscountExpirationCheckService.days_until_warning.days ) }
-      let!(:campaign_email) { FactoryGirl.create(:campaign_email, created_at: DateTime.now - DiscountExpirationCheckService.days_until_warning.days ) }
-      it "returns a list of emails" do
-        described_class.discount_expiration_48_hours_emails_list.should eq([user.email, campaign_email.email])
-      end
-
-      it "returns a empty list" do
-        user.created_at = DateTime.now - 6.days
-        user.save
-
-        campaign_email.created_at = DateTime.now
-        campaign_email.save
-
-        described_class.discount_expiration_48_hours_emails_list.should eq([])
-      end
-
-
-    end
-  end
 end

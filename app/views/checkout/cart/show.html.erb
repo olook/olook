@@ -28,11 +28,15 @@ _gaq.push(['_addTrans',
 <section id="cart">
   <p class="buying-continue">Continuar comprando</p>
   <h1>Minha sacola</h1>
-   <% if current_user %>
+
+  <% if current_user %>
       <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
-    <% else %>
+  <% else %>
       <%= link_to "Continuar", "#", :class => "continue login"  %>
-    <% end %>
+  <% end %>
+
+  <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
+
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
       <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
@@ -76,7 +80,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="discount">
               <% if @cart_service.item_promotion?(item) %>
-                <%= link_to number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0), "#", :class => 'discount_percent' %>
+                  <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
                 <div class='discount_origin'>
                   <p><%= @cart_service.item_discount_origin(item) %></p>
                 </div>
@@ -156,7 +160,7 @@ _gaq.push(['_addTrans',
 
               <section id="credits_explanation">
                 <p>SOBRE OS SEUS CRÉDITOS</p>
-                <% style = @cart.allow_credit_payment? ? 'normal' : 'prohibited' %>
+                <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
 
                 <ul>
                   <li>
