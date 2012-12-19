@@ -19,7 +19,12 @@ describe CartService do
   }) }
   
   context "#allow_credit_payment?" do
-    it "should delegate to cart" do
+    it "dont allow credit_payment when a promotion exists" do
+      cart_service = CartService.new({ cart: cart, freight: freight, promotion: promotion })
+      cart_service.allow_credit_payment?.should eq(false)
+    end
+
+    it "should delegate to cart when no promotion exists" do
       cart.should_receive(:allow_credit_payment?)
       cart_service.allow_credit_payment?
     end
