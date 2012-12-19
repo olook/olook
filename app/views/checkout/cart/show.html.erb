@@ -160,13 +160,13 @@ _gaq.push(['_addTrans',
 
                  <li>
                     <div class="description">Créditos por indicação:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @amount_of_invite_credits %></div>
+                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></div>
                     <div class="message"><%= print_credit_message %></div>
                   </li>
 
                  <li>
                     <div class="description">Reembolso via Central de Atendimento:</div>
-                    <div class="value"><%= number_to_currency @redeem_credits %></div>
+                    <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
                     <div class="message">&nbsp;</div>
                   </li>
                 </ul>
