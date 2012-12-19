@@ -70,6 +70,7 @@ class Product < ActiveRecord::Base
                                                   order("collection_id desc")
 
     products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
+
   end
 
   def self.in_profile profile
@@ -337,6 +338,7 @@ class Product < ActiveRecord::Base
       query = " INNER JOIN("
       query += "SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id"
       query += ") AS x ON products.id = x.product_id"
+
     end
 
     #TODO: find a more descriptive name
