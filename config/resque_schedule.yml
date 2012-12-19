@@ -22,12 +22,6 @@ update_braspag_responses:
   queue: order_status
   description: "Processa respostas de pagamento Braspag"
 
-# send_in_cart_email:
-#   cron: "0 12 * * *"
-#   class: SendInCartEmailWorker
-#   queue: send_in_cart_email
-#   description: "Dispara emails para carrinhos abandonados"
-
 userbase_with_auth_token_and_credits:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
@@ -58,7 +52,6 @@ send_enabled_credits_notification:
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
 
-# TODO: CHANGE BACK TO 23 AFTER 23/09/2012
 send_seven_days_to_expiration_warning:
   cron: "40 4 23 * *"
   class: SendExpirationWarningWorker
@@ -86,9 +79,3 @@ force_clearsale_callback:
   class: Clearsale::CallbackWorker
   queue: order_status
   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
-
-send_one_day_to_discount_expiration_warning:
-  cron: "0 4 * * *"
-  class: SendExpirationDiscountWorker
-  queue: expiration_discount
-  description: "Dispara emails avisando que os descontos de primeira compra irão expirar daqui 48 horas"

@@ -65,9 +65,11 @@
 					Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
 
 					<% @order.line_items.each do |item| %>
-					<p>
-					  - <span style="color:#E05789"><%= item.variant.name %></span>;<br>
-					</p>
+            <% unless item.is_freebie %>
+    					<p>
+    					  - <span style="color:#E05789"><%= item.variant.name %></span>;<br>
+    					</p>
+            <% end %>
 					<% end %>
 
 					<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.erp_payment.is_a? CreditCard %>

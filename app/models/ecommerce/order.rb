@@ -239,6 +239,10 @@ class Order < ActiveRecord::Base
     payments.each { |payment| return payment.payment_expiration_date } if has_a_billet_payment?
   end
 
+  def items_quantity
+    line_items.inject(0) { |quantity, item| item.is_freebie ? quantity : quantity + 1 }
+  end
+
   private
 
   def initialize_order

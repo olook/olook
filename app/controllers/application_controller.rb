@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
       cart.update_attribute("user_id", @user.id) if cart.user.nil?
     end
 
-    @promotion = PromotionService.new(@user).detect_current_promotion
+    @promotion = PromotionService.new(@user).detect_current_promotion(cart)
 
     coupon = session[:cart_coupon]
     coupon.reload if coupon

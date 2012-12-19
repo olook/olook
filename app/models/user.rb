@@ -216,7 +216,8 @@ class User < ActiveRecord::Base
   end
 
   def first_time_buyer?
-    PromotionService.user_applies_for_this_promotion?(self, Promotion.purchases_amount)
+    promotion_service = PromotionService.new(self)
+    promotion_service.satisfies_criteria?({promotion: Promotion.purchases_amount})
   end
 
   def male?
@@ -294,10 +295,6 @@ class User < ActiveRecord::Base
 
   def converted_from_campaign_email?
     !self.campaign_email_created_at.nil?
-  end
-
-  def self.with_discount_about_to_expire_in_48_hours
-    where("created_at >= ? AND created_at <= ? AND campaign_email_created_at is NULL OR campaign_email_created_at >= ? AND campaign_email_created_at <= ?", (Date.today - DiscountExpirationCheckService.days_until_warning.days).beginning_of_day, (Date.today - DiscountExpirationCheckService.days_until_warning.days).end_of_day,(Date.today - DiscountExpirationCheckService.days_until_warning.days).beginning_of_day, (Date.today - DiscountExpirationCheckService.days_until_warning.days).end_of_day).collect(&:email)
   end
 
   private
