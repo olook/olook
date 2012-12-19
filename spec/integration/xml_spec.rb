@@ -21,7 +21,7 @@ feature "Show products on xml format" do
 
   context "in the criteo xml page" do
 
-    scenario "I  dont want to see products of criteo if has less variants" do
+    scenario "I dont want to see products of criteo if has less variants" do
       product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
       product2.master_variant.update_attribute(:price, "99.90")
       product2.master_variant.update_attribute(:inventory, 1)
