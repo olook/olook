@@ -35,11 +35,6 @@ describe Checkout::CartController do
 
   context "when show" do
     it "should render show view" do
-      CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
-      CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
-      CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
-      CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
-
       Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
 
       get :show
