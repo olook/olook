@@ -49,6 +49,7 @@
 <div class="inner">
   <table class="table">
     <tr>
+      <th>Obs:</th>
       <th>Transaction</th>
       <th><%= sort_link @search, :user_first_name, "Client" %></th>
       <th>Order</th>
@@ -62,6 +63,7 @@
 
   <% @payments.each do |payment| %>
     <tr>
+      <td><%= payment.type == 'CreditCard' && payment.cancelled_at_authorization? ? "Problemas com o cartao" : "-" %></td>
       <td><%= link_to payment.identification_code, admin_payment_path(payment) %></td>
       <td><%= link_to payment.user.name, admin_user_path(payment.user) if payment.user %></td>
       <td><%= link_to payment.order.number, admin_order_path(payment.order) if payment.order %></td>
