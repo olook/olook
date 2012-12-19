@@ -60,8 +60,9 @@
 
     <%= content_for?(:content) ? yield(:content) : yield %>
     
-    <% unless ["checkout/addresses","checkout/checkout"].include?(params[:controller]) %>
-    <%= render :partial => "shippings/shipping" %>
+    <% if ["moments", "members"].include?(params[:controller]) %>
+      <%= render :partial => "shippings/shipping" %>
+      <%= javascript_include_tag "shipping" %>  
     <% end %>
     </div>
 
@@ -79,12 +80,6 @@
     <%= yield :footer %>
   <% end %>
 
-  <% unless ["checkout/addresses","checkout/checkout"].include?(params[:controller]) %>  
-  <%= javascript_include_tag "shipping" %>  
-  <% end %>
-  
   <%= render :partial => "shared/metrics/master_tags" %>
-
-
 </body>
 </html>
