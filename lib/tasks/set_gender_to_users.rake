@@ -4,4 +4,3 @@ namespace :gender do
     User.update_all("gender = 0", "half_user = 1 AND gender is null")
   end
 end
-
