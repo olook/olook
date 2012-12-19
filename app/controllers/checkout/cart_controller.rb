@@ -8,7 +8,6 @@ class Checkout::CartController < Checkout::BaseController
   def show
     @google_path_pixel_information = "Carrinho"
     @report  = CreditReportService.new(@user)
-    @redeem_credits  = report.amount_of_redeem_credits
     @used_credits = report.amount_of_used_credits
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
