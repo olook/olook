@@ -88,8 +88,12 @@ class ChaordicInfo
     chaordic_product.description = product.description
     chaordic_product.installment_count = 1
     chaordic_product.installment_price = product.retail_price
-    product.variants.each do |v|
-      chaordic_product.add_variant v.name, v.sku
+    if product.category == 1
+      product.variants.each do |v|
+        size = v.description
+        sku = product.inventory > 1 ? v.sku : ""
+        chaordic_product.add_variant size, sku
+      end
     end
     chaordic_product.status = product.inventory > 1 ? "AVAILABLE" : "UNAVAILABLE"
     chaordic_product.sub_category = product.subcategory
