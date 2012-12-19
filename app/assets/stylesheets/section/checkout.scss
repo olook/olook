@@ -111,7 +111,8 @@ body div#content {
 }
 
 section#credits_explanation{
-
+	ul li{clear:both;overflow:hidden;}
+	
   ul li div {
     float: left;
     display: block;
@@ -122,7 +123,8 @@ section#credits_explanation{
   ul li div.description {
     width: 300px;
     font-family: $avenir;
-    margin-left: 6em;
+    margin-left: 35px;
+		font-size:13px;
   }
 
   ul li div.value {
@@ -143,17 +145,21 @@ section#cart {
     font-size: 28px;
     text-transform: uppercase;
     margin: 10px 0 15px 0;
+		float:left;
     &+h2, &+h2+h2 {
       font-family: $kepler;
       font-size: 22px;
     }
   }
+	.buying-continue{
+		margin:20px 0 50px;
+	}
   p.credits {
     background: #EEE;
     width: 195px;
     margin: 0 20px 0 0;
     padding: 10px 15px;
-    float: right;
+    float: left;
     a {
       color: #e05789;
       float: none;
@@ -167,6 +173,7 @@ section#cart {
     margin: 0 auto 30px;
     padding: 35px 0 0;
     display: block;
+		clear:both;
     h1 {
       color: #df5787;
       font-family: Times, 'Times New Roman', sans-serif;
@@ -188,6 +195,8 @@ section#cart {
   ul#titles {
     width: 100%;
     overflow: auto;
+		float:left;
+		margin-top:40px !important;
     li {
       color: #101010;
       font-family: $avenir;
@@ -198,13 +207,13 @@ section#cart {
       display: inline-block;
       float: left;
       &.item {
-        width: 415px;
+        width: 557px;
       }
       &.amount {
-        width: 395px;
+        width: 305px;
       }
       &.value {
-        width: 155px;
+        width: 105px;
       }
     }
   }
@@ -215,6 +224,9 @@ section#cart {
   }
 
   table.items_list {
+		&.avc-pulseira{
+			td{padding:10px 0 !important;}
+		}
     tbody tr {
       &.hidden_row {
         display:none;
@@ -252,6 +264,7 @@ section#cart {
       }
       &.discount {
         td {
+					padding:0 !important;
           h1 {
             font-family: $avenir;
             font-size: 18px;
@@ -355,31 +368,28 @@ section#cart {
         }
 				/********** CAMPANHA DO AVC ****************/
 		  	&.avc-foto{
-				padding-left:35px;
 				width:130px;
-				border-left:1px solid #E5E5E5;
 				img{width:70px;height:70px;}
 			  }
 			  &.avc-desc{
-				width:503px;
-				padding-right:100px;
+				width:530px;
+				padding-right:150px !important;
 				p{font-size:13px;}
 			  }
 			  &.avc-button{
-					border-right:1px solid #E5E5E5;
-					p{font-size: 18px;font-weight: lighter;margin: 0;text-align:center;}
-			  		input[type="submit"]{
-						background: url('/assets/campaigns/bt-add.png') no-repeat;
-						width:165px;
-						height:37px;
+					p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
+					form{text-align:center}
+			  	input[type="submit"]{
+						@include sprite_checkout(-92px,-200px);
+						width:115px;
+						height:38px;
 						border:0;
-						margin-left:28px;
 						cursor:pointer;
 					}
 			  }
 				/********** FIM CAMPANHA DO AVC ****************/
         &.item {
-          width: 255px;
+          width: 355px;
           
           img {
             margin-right: 20px;
@@ -389,15 +399,15 @@ section#cart {
           }
         }
         &.amount {
-          width: 100px;
-          text-align: center;
+          width: 137px;
+          
           select {
             width: 55px;
             margin-bottom: 10px;
           }
         }
         &.discount {
-          width: 200px;
+          width: 116px;
           div.discount_origin {
             position: absolute;
             background: url('/assets/cart/tooltip-discount.png') top center no-repeat;
@@ -432,18 +442,18 @@ section#cart {
           }
         }
 				&.delete-item{
+					width:227px;
 					form{position:relative;}
           input[type="submit"] {
-           /* position: absolute;*/
-            background: image-url('cart/delete-item.jpg') no-repeat;
-            width: 26px;
-            height: 26px;
-            margin: 0 auto;
+            @include sprite_checkout(-381px,-83px);
+            width: 60px;
+            height: 26px;        
+						padding-left:30px;
             display: block;
-            /*top: -70px;*/
-            /*right: 10px;*/
             border: none;
             cursor: pointer;
+						color:#E15687;
+						text-decoration:underline;
           }
 				}
         &.delete_item {
@@ -465,7 +475,7 @@ section#cart {
         &.value {
           position: relative;
           width: 130px;
-          padding-left: 25px;
+          padding-left: 35px;
           p {
             font-size: 17px;
             font-weight: lighter;
@@ -480,9 +490,9 @@ section#cart {
     }
     &#products {
       width: 989px;
-      margin: -20px 0 0;
+      /*margin: -20px 0 0;*/
       border-collapse: separate;
-      border-spacing: 0 20px;
+      /*border-spacing: 0 20px;*/
 		tr{position:relative;font-size:13px !important;}
     }
     &#credits {
@@ -492,43 +502,45 @@ section#cart {
   }
 
   table.check {
-    margin: 0 0 20px;
-    border: 1px $border-color solid;
+    
+    border-top: 1px #000 dotted;
     tbody {
       tr {
         td {
+					&.check_column{width:870px}
           vertical-align: middle;
           padding: 20px 0;
           input[type="checkbox"] {
-            margin: 5px 17px 0 55px;
+            margin: 0 17px 0 5px;
             float: left;
           }
           h1 {
-            color: $third_color;
+            color: #000;
             font-family: $avenir;
-            font-size: 18px;
+            font-size: 13px;
             font-weight: normal;
             text-transform: uppercase;
             float: left;
           }
           p {
-            width: 665px;
-            margin: 0 0 0 85px;
+            width: 819px;
+            margin: 0 0 0 35px;
             clear: both;
+						font-size:13px;
           }
           a {
             color: #e05789;
             margin: 5px 0 0 85px;
           }
           &.value {
-            color: #df5a8b;
+            color: #000;
             font-family: $avenir;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: normal;
             text-align: left;
             letter-spacing: -1px;
-            width: 178px;
-            padding: 0;
+            width: 120px;
+            vertical-align:top;
           }
         }
       }
@@ -538,7 +550,7 @@ section#cart {
         tr {
           td {
             &.value {
-              color: $third_color;
+              color: #000;
             }
           }
         }
@@ -547,26 +559,27 @@ section#cart {
   }
 
   table#total {
-    background: #323232;
-    margin: 20px 0 50px 0;
+		border-top:dotted 1px #000;
+    margin: 20px 0 0 0;
+		width:990px;
     tbody {
       tr {
         td {
-          color: #FFF;
+          color: #000;
           font-family: $avenir;
           font-size: 18px;
-          text-transform: uppercase;
           vertical-align: middle;
-          padding: 5px 0 5px 85px;
           &.value {
             p {
               float: right;
-              width: 178px;
-              margin: 0;
+              margin-right: 40px;
+							font-size:22px;
+							text-transform:uppercase;
+							span{
+								color:#E15687;
+							}
               &.limit {
-                width: 407px;
                 font-size: 12px;
-                margin: 12px 77px 0 0;
                 padding: 5px 0;
                 display: none;
                 &.show {
@@ -594,11 +607,11 @@ section#cart {
   table#coupon {
     tr {
       td {
-        width: 510px;
+       
         border: none;
         a#show_coupon_field {
-          color: #7c7c7d;
-          font-size: 16px;
+          color: #E15687;
+          font-size: 12px;
           line-height: 55px;
         }
         form {
@@ -616,24 +629,26 @@ section#cart {
             border: none;
           }
         }
+				&.buy-link{width:300px;}
         &.buttons {
-          width: 480px;
+          width: 580px;
+					float:right;
         }
       }
     }
   }
 
   a.continue {
-    background: url("/assets/cart/continue.jpg") no-repeat;
+    @include sprite_checkout(-91px, -133px);
     text-indent: -9999px;
-    width: 183px;
+    width: 268px;
     height: 63px;
     display: block;
     float: right;
   }
 
   section {
-    margin: 40px 0 0;
+    margin: 20px 0 0;
     > h1 {
       font-family: $johnston;
       font-size: 28px;
