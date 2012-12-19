@@ -26,19 +26,11 @@ describe Checkout::CartController do
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
 
-    CreditReportService.any_instance.should_receive(:amount_of_loyalty_credits).and_return(10)
-    CreditReportService.any_instance.should_receive(:amount_of_invite_credits).and_return(10)
-    CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
-    CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
-
     Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
 
     get :show
     assigns(:cart_service).freight.should be_nil
-    assigns(:amount_of_loyalty_credits).should == 10
-    assigns(:amount_of_invite_credits).should == 10
-    assigns(:redeem_credits).should == 10
-    assigns(:used_credits).should eq(30)
+    assigns(:report).should_not be_nil
   end
 
   context "when show" do
