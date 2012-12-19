@@ -140,6 +140,9 @@ section#credits_explanation{
 
 section#cart {
   padding: 20px 0 0;
+	.txt-add{clear:both;font-size:13px;line-height:18px;
+		small{font-size:11px;}
+	}
   > h1 {
     font-family: $johnston;
     font-size: 28px;
@@ -1678,11 +1681,11 @@ div.credit_details {
   }
 }
 .gecko, .ie7 {
-  section#cart {
+  /*section#cart {
     ul#titles {
       margin: 0 0 20px;
     }
-  }
+  }*/
   section#payment.payment_new {
     fieldset.payments {
       ol {
