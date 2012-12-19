@@ -88,7 +88,9 @@ class ChaordicInfo
     chaordic_product.description = product.description
     chaordic_product.installment_count = 1
     chaordic_product.installment_price = product.retail_price
-    chaordic_product.variant = product.variants.map{|v| "#{v.description}:#{v.sku}"}
+    product.variants.each do |v|
+      chaordic_product.add_variant v.name, v.sku
+    end
     chaordic_product.status = product.inventory > 1 ? "AVAILABLE" : "UNAVAILABLE"
     chaordic_product.sub_category = product.subcategory
     create_chaordic_object.pack(chaordic_product)
