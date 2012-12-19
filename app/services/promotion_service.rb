@@ -16,9 +16,8 @@ class PromotionService
 
   def detect_current_promotion(cart=nil)
     promo = nil
-    @cart = cart
     promotions.each do |promotion|
-      if satisfies_criteria? promotion
+      if satisfies_criteria?({cart: cart, promotion: promotion})
         promo = promotion
         break
       end
@@ -26,9 +25,13 @@ class PromotionService
     promo
   end
 
-  def satisfies_criteria?(promotion)
+  def satisfies_criteria?(opts={})
+    cart = opts[:cart]
+    promotion = opts[:promotion]
+
     return unless promotion
+
     strategy = promotion.load_strategy(promotion, user)
-    strategy.matches?(@cart)
+    strategy.matches?(cart)
   end
 end
