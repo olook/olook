@@ -26,8 +26,17 @@ _gaq.push(['_addTrans',
 <% end %>
 
 <section id="cart">
+  <p class="buying-continue">Continuar comprando</p>
   <h1>Minha sacola</h1>
+
   <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
+
+   <% if current_user %>
+      <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
+    <% else %>
+      <%= link_to "Continuar", "#", :class => "continue login"  %>
+    <% end %>
+
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
       <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
@@ -57,7 +66,7 @@ _gaq.push(['_addTrans',
             <td class="delete-item">
               <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= submit_tag('')  %>
+                <%= submit_tag('excluir')  %>
               <% end %>
             </td>  
             <td class="amount">
@@ -91,8 +100,7 @@ _gaq.push(['_addTrans',
       </tbody>
     </table>
 
-    <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
-    <p class="txt-recomenda">Olook Recomenda</p>
+  <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
       <tbody>
           <tr>
@@ -102,7 +110,7 @@ _gaq.push(['_addTrans',
               <% end %>
             </td>
             <td class="avc-desc">
-              <p><span><%= @suggested_product.name %></span></p>
+              <p><span><b><%= @suggested_product.name %></b></span></p>
               <p><%= @suggested_product.description %></p>
             </td>
             <td class="avc-button">
@@ -121,7 +129,7 @@ _gaq.push(['_addTrans',
     <table cellpadding="0" cellspacing="0" class="check gift">
       <tbody>
         <tr>
-          <td>
+          <td class="check_column">
             <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
               <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
               <h1>Embrulhar pedido para presente</h1>
@@ -135,7 +143,7 @@ _gaq.push(['_addTrans',
     <table cellpadding="0" cellspacing="0" class="check">
       <tbody>
         <tr>
-          <td>
+          <td class="check_column">
             <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
               <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
               <h1>Quero usar meus créditos</h1>
@@ -209,9 +217,31 @@ _gaq.push(['_addTrans',
           </tr>
         <% end %>
         <tr class="total">
-          <td>Total</td>
+          <td>
+              <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
+                <tbody>
+                  <tr class="discount">
+                    <td>
+                      <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
+                      <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
+                        <fieldset class="inputs">
+                          <ol>
+                            <li>
+                              <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                            </li>
+                            <li class="cupom">
+                              <%= submit_tag '' %>
+                            </li>
+                          </ol>
+                        </fieldset>
+                      <% end %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>  
+          </td>
           <td class="value">
-            <p><%= number_to_currency(@cart_service.total) %></p>
+            <p>Total: <span><%= number_to_currency(@cart_service.total) %></span></p>
             <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
           </td>
         </tr>
@@ -220,29 +250,18 @@ _gaq.push(['_addTrans',
 
     <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
       <tbody>
-        <tr class="discount">
-          <td>
-            <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-            <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
-              <fieldset class="inputs">
-                <ol>
-                  <li>
-                    <%= text_field 'coupon', 'code', :value => @coupon_code %>
-                  </li>
-                  <li class="cupom">
-                    <%= submit_tag '' %>
-                  </li>
-                </ol>
-              </fieldset>
-            <% end %>
+        <tr>
+          <td class="buy-link">
+            &nbsp;
           </td>
           <td class="buttons">
+            <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
             <% if current_user %>
               <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
             <% else %>
               <%= link_to "Continuar", "#", :class => "continue login"  %>
             <% end %>
-            <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
+            
           </td>
         </tr>
       </tbody>
