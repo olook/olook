@@ -8,6 +8,10 @@ class BraspagAuthorizeResponse < ActiveRecord::Base
     3 => :cancel
   }
 
+  def problems_with_credit_card_validation?
+    return return_code == '58'
+  end
+
   def update_payment_status(payment)
     event = STATUS[status] || :cancel
     if event.nil?
