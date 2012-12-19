@@ -7,7 +7,9 @@ class CartService
   attr_accessor :freight
   attr_accessor :credits
 
-  delegate :allow_credit_payment?, :to => :cart
+  def allow_credit_payment?
+    promotion.nil? && cart.allow_credit_payment? 
+  end
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
