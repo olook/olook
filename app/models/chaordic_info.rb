@@ -58,7 +58,7 @@ class ChaordicInfo
 
   def self.set_last_item_cart cart
     chaordic_cart = Chaordic::Packr::Cart.new
-    chaordic_cart.add_product cart.items.last.product.id, cart.items.last.product.retail_price
+    chaordic_cart.add_product cart.items.last.product.id, cart.items.last.product.retail_price unless cart.items.empty?
     chaordic_cart
   end
 
