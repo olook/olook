@@ -140,7 +140,7 @@ section#credits_explanation{
 
 section#cart {
   padding: 20px 0 0;
-	.txt-add{clear:both;font-size:13px;line-height:18px;
+	.txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
 		small{font-size:11px;}
 	}
   > h1 {
@@ -177,6 +177,9 @@ section#cart {
 		font-size:12px;
 		@include sprite_checkout(-390px,-161px);
 		padding-left:10px;
+		a{color:#5E5F61;text-decoration:none;
+			&:hover{text-decoration:underline};
+		}	
 	}
   p.credits {
     background: #EEE;
@@ -250,6 +253,10 @@ section#cart {
 
   table.items_list {
 		&.avc-pulseira{
+				border-left:dotted 1px #000;
+				border-right:dotted 1px #000;
+				border-top:dotted 1px #000;
+				margin:25px 0;
 			td{padding:10px 0 !important;}
 		}
     tbody tr {
@@ -370,7 +377,7 @@ section#cart {
         position: relative;
         vertical-align: middle;
         padding: 20px 0;
-        border-top: 1px #000 dotted;
+        border-bottom: 1px #000 dotted;
 
         p {
           margin-bottom: 5px;
@@ -439,9 +446,9 @@ section#cart {
           }
 					
           a.discount_percent {
-            background: url('/assets/cart/label_discount.jpg') top center no-repeat;
+            background: image-url('/assets/cart/label_discount2.jpg') center center no-repeat;
             color: #FFF;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             text-align: center;
             text-decoration: none;
@@ -458,7 +465,7 @@ section#cart {
 					form{position:relative;}
           input[type="submit"] {
             @include sprite_checkout(-381px,-83px);
-            width: 60px;
+            width: 65px;
             height: 26px;        
 						padding-left:30px;
             display: block;
