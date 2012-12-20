@@ -37,7 +37,7 @@ class ChaordicInfo
 
   # BUY_ORDER
   def self.order_pack order
-    order_user = set_user order.user
+    order_user = set_user order.user.id
     order_cart = set_cart order.cart
     order_cart.user = order_user
     chaordic_order = set_order order.id, order_cart
