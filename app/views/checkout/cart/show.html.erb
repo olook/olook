@@ -29,7 +29,6 @@ _gaq.push(['_addTrans',
   <p class="buying-continue">Continuar comprando</p>
   <h1>Minha sacola</h1>
 
-  <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
   <% if @promotion_free_item %>
     <div class="promo-leve3">
       <p>Promo leve 3, pague 2<br />
@@ -82,12 +81,10 @@ _gaq.push(['_addTrans',
               <% end %>
             </td>  
             <td class="amount">
-              <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
-
               <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
 
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= select_tag('variant[quantity]', options_for_select((1..1).to_a, item.quantity), :onchange => "submit();") %>
+                <%= select_tag('variant[quantity]', options_for_select(item.product_quantity, item.quantity), :onchange => "submit();") %>
               <% end %>
             </td>
             <td class="discount">
