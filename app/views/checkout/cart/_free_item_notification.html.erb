@@ -1,10 +1,11 @@
-<% remain_items = promotion.param.to_i - cart.items.size % promotion.param.to_i  %>
-<% if remain_items == 1%>
+<% remaining_items = remaining_items(cart, promotion)  %>
+
+<% if remaining_items == 1%>
   <p class="txt-add">Que tal adicionar mais <span class="txt-pink">1</span> item na sua sacola e ganhá-lo de graça? :)<br />
     <small>*As promoções não são acumulativas, ao optar pelo terceiro item grátis você não poderá usar descontos.</small>
   </p>
-<% elsif remain_items > 0 && remain_items != promotion.param.to_i %>
-  <p class="txt-add">Que tal adicionar mais <span class="txt-pink"><%= remain_items %></span> itens na sua sacola e ganhar <span class="txt-pink">1</span> deles de graça? :) <br />
+<% elsif remaining_items > 0 && remaining_items != promotion.param.to_i %>
+  <p class="txt-add">Que tal adicionar mais <span class="txt-pink"><%= remaining_items %></span> itens na sua sacola e ganhar <span class="txt-pink">1</span> deles de graça? :) <br />
     <small>*As promoções não são acumulativas, ao optar pelo terceiro item grátis você não poderá usar descontos.</small>
   </p>
 <% end %>
