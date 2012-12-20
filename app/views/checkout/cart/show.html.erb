@@ -111,6 +111,9 @@ _gaq.push(['_addTrans',
 
   <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
+	    <thead>
+	      <tr><td>OLOOK RECOMENDA</td></tr>
+	    </thead>   
       <tbody>
           <tr>
             <td class="avc-foto">
