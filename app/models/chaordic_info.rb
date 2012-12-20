@@ -102,14 +102,14 @@ class ChaordicInfo
 
 
   def self.cart_pack cart, user
-    add_to_card_user = set_user user
+    add_to_card_user = set_user user.nil? ? "CS_ANONYMOUSUSER" : user.id
     add_to_card_cart = set_cart cart
     add_to_card_cart.user = add_to_card_user
     create_chaordic_object.pack(add_to_card_cart)
   end
 
   def self.add_to_cart_pack cart, user
-    add_to_card_user = set_user user
+    add_to_card_user = set_user user.nil? ? "CS_ANONYMOUSUSER" : user.id
     add_to_card_cart = set_last_item_cart cart
     add_to_card_cart.user = add_to_card_user
     create_chaordic_object.pack(add_to_card_cart)
