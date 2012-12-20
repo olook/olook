@@ -324,6 +324,8 @@ Olook::Application.routes.draw do
     put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
     delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
 
+    resources :items, :to => 'cart/items'
+
     resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
       get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
       resources :addresses, :path => 'endereco', :controller => "checkout/addresses" do
