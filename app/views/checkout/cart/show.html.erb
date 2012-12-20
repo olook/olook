@@ -29,7 +29,7 @@ _gaq.push(['_addTrans',
   <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
   <h1>Minha sacola</h1>
 
-  <% if @promotion_free_item %>
+  <% if free_item_promotion_is_active? %>
     <div class="promo-leve3">
       <p>Promo leve 3, pague 2<br />
         <span>Na compra de 2 itens, o 3° item de menor valor é grátis</span>
