@@ -23,4 +23,9 @@ module CartHelper
     promotion.param.to_i - cart_items.size % promotion.param.to_i
   end
 
+  def free_item_promotion_is_active?
+    promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
+    promotion_free_item && promotion_free_item.active?
+  end
+
 end
