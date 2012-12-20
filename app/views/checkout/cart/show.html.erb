@@ -29,6 +29,14 @@ _gaq.push(['_addTrans',
   <p class="buying-continue">Continuar comprando</p>
   <h1>Minha sacola</h1>
 
+  <% if @promotion_free_item %>
+    <div class="promo-leve3">
+      <p>Promo leve 3, pague 2<br />
+        <span>Na compra de 2 itens, o 3° item de menor valor é grátis</span>
+      </p>
+    </div>  
+  <%end%>
+
   <% if current_user %>
       <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
   <% else %>
@@ -50,6 +58,7 @@ _gaq.push(['_addTrans',
     </ul>
     
     <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
+
     
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
@@ -252,7 +261,7 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="buy-link">
-            &nbsp;
+            <p class="buying-continue">Continuar comprando</p>
           </td>
           <td class="buttons">
             <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
