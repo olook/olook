@@ -250,10 +250,10 @@ class CartService
       discounts << :coupon_of_value
     end
 
-    if coupon && !should_apply_promotion_discount? && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
+    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price
+      if coupon_value < final_retail_price && !should_apply_promotion_discount?
         percent = coupon.value
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
