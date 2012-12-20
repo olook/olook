@@ -267,8 +267,9 @@ class CartService
       discounts << :promotion
       strategy = promotion.load_strategy(promotion, cart.user)
       promotion_value = strategy.calculate_value(cart.items, item)
-      if promotion_value < final_retail_price
-        final_retail_price = promotion_value if should_apply_promotion_discount?
+      # Do not allow Promotion discount if the user enters a coupon code
+      if promotion_value < final_retail_price && !discounts.include?(:coupon)
+        final_retail_price = promotion_value if should_apply_promotion_discount? 
         percent = promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
         origin_type = :promotion

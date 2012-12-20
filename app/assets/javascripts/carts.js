@@ -8,12 +8,6 @@ $(function() {
     $("form#gift_message").submit();
   })
 
-  $("td.discount a.discount_percent").hover(function() {
-    $(this).siblings('.discount_origin').css('display', 'table');
-  }, function() {
-    $(this).siblings('.discount_origin').hide();
-  });
-
   $("#coupon a#show_coupon_field").live("click", function(e) {
     $(this).hide();
     $(this).siblings("form").show();
