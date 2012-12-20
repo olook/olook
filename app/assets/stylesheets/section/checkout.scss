@@ -149,10 +149,14 @@ section#cart {
     text-transform: uppercase;
     margin: 10px 0 15px 0;
 		float:left;
-    &+h2, &+h2+h2 {
-      font-family: $kepler;
-      font-size: 22px;
-    }
+    
+  }
+	h2 {
+    font-family: $kepler;
+    font-size: 22px;
+		clear:both;
+		float:left;
+		margin:10px 0 15px;
   }
 	.promo-leve3{
 		float:left;
