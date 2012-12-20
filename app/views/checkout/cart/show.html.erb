@@ -85,7 +85,7 @@ _gaq.push(['_addTrans',
               <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
 
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= select_tag('variant[quantity]', options_for_select((1..item.variant.inventory).to_a, item.quantity), :onchange => "submit();") %>
+                <%= select_tag('variant[quantity]', options_for_select((1..1).to_a, item.quantity), :onchange => "submit();") %>
               <% end %>
             </td>
             <td class="discount">
