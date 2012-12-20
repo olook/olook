@@ -59,14 +59,8 @@ describe Product do
 
     context ".visible" do
       it "returns visible products" do
-<<<<<<< HEAD
         visible_products = [shoe, bag, accessory]
         (described_class.only_visible & visible_products).should == visible_products
-=======
-        visible_products = [bag, accessory, shoe]
-        # sorting ensures the arrays are in the same order
-        (described_class.only_visible & visible_products).sort.should == visible_products.sort
->>>>>>> new biz rule for fetching shoes in xmls - minimum of 3 sizes with 3 products in inventory
       end
 
       it "does not return a invisible product" do
