@@ -173,19 +173,19 @@ section#cart {
 		}
 	}
 	.buying-continue{
-		margin:20px 0 50px;
+		margin:20px 0 30px;
 		font-size:12px;
 		@include sprite_checkout(-390px,-161px);
-		padding-left:10px;
+		padding-left:13px;
 		a{color:#5E5F61;text-decoration:none;
 			&:hover{text-decoration:underline};
 		}	
 	}
   p.credits {
     background: #EEE;
-    width: 195px;
+    width: 235px;
     margin: 0 20px 0 0;
-    padding: 10px 15px;
+    padding: 10px 15px 5px;
     float: left;
     a {
       color: #e05789;
@@ -194,26 +194,26 @@ section#cart {
   }
 
   div.banner {
-    background: url('/assets/cart/banner_discount.jpg') top center no-repeat;
-    width: 965px;
-    height: 85px;
-    margin: 10px auto 0;
-    padding: 35px 0 0;
+    
+		border:dotted 1px #000;
+    width: 984px;
+    height: 100px;
+    margin: 30px auto 0;
     display: block;
 		clear:both;
 		float:left;
+		.img-alert{float:left;}
     h1 {
       color: #df5787;
-      font-family: Times, 'Times New Roman', sans-serif;
-      font-size: 21px;
+      font-family: $avenir;
+      font-size: 20px;
       font-weight: normal;
-      font-style: italic;
-      margin: 0 0 5px 180px;
+      margin: 30px 0 5px 120px;
     }
     p {
       color: #716d68;
-      font-size: 12px;
-      margin: 0 0 0 180px;
+      font-size: 15px;
+      margin: 0 0 0 120px;
       span {
         color: #df5787;
       }
@@ -257,7 +257,11 @@ section#cart {
 				border-right:dotted 1px #000;
 				border-top:dotted 1px #000;
 				margin:25px 0;
-			td{padding:10px 0 !important;}
+				padding-top:40px;
+				position:relative;
+			td{padding:10px 0 20px !important;
+				.txt-recomenda{position:absolute;font-size:18px;color:#000;top:10px;left:10px;}
+			}
 		}
     tbody tr {
       &.hidden_row {
@@ -632,7 +636,7 @@ section#cart {
         border: none;
         a#show_coupon_field {
           color: #E15687;
-          font-size: 12px;
+          font-size: 14px;
           line-height: 55px;
         }
         form {
