@@ -36,6 +36,7 @@ _gaq.push(['_addTrans',
       </p>
     </div>  
   <%end%>
+
   <%  if @cart.items.count > 0 %>
     <% if current_user %>
         <%= link_to "Continuar", cart_checkout_addresses_path, :class => "continue"  %>
@@ -80,8 +81,6 @@ _gaq.push(['_addTrans',
               <% end %>
             </td>  
             <td class="amount">
-              <%#= form_for(update_quantity_product_cart_path, :url => update_quantity_product_cart_path, :method => :put, :html => {:class => "form_amount"}, :remote => true) do %>
-
               <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
 
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
