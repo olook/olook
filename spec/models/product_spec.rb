@@ -58,7 +58,6 @@ describe Product do
     end
 
     context ".visible" do
-
       it "returns visible products" do
         visible_products = [bag, accessory, shoe]
         # sorting ensures the arrays are in the same order
