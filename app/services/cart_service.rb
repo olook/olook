@@ -210,23 +210,22 @@ class CartService
   end
 
   def should_apply_promotion_discount?
-    if has_promotion_and_coupon_of_value?
-      total_promotion_discount = get_total_retail_price_without_discounts * promotion.discount_percent / 100
-      return total_promotion_discount > coupon.value
+    if has_promotion_and_coupon?
+      strategy = promotion.load_strategy(promotion, cart.user)
+      promotion_discount = strategy.calculate_promotion_discount(cart.items)
+      if coupon.is_percentage?
+        return promotion_discount[:percent] > coupon.value
+      else
+        return promotion_discount[:value] > coupon.value
+      end
     end
 
-    return true unless promotion.nil?
+    return true if promotion
   end
 
   # private
-    def has_promotion_and_coupon_of_value?
-      promotion && coupon && !coupon.is_percentage?
-    end
-
-    def get_total_retail_price_without_discounts
-      cart.items.inject(0) do |sum, item|
-        sum += (item.variant.product.retail_price * item.quantity)
-      end
+    def has_promotion_and_coupon?
+      promotion && coupon
     end
 
   #TODO: add expiration logic
@@ -251,7 +250,7 @@ class CartService
       discounts << :coupon_of_value
     end
 
-    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
+    if coupon && !should_apply_promotion_discount? && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price
@@ -268,8 +267,8 @@ class CartService
       strategy = promotion.load_strategy(promotion, cart.user)
       promotion_value = strategy.calculate_value(cart.items, item)
       # Do not allow Promotion discount if the user enters a coupon code
-      if promotion_value < final_retail_price && !discounts.include?(:coupon)
-        final_retail_price = promotion_value if should_apply_promotion_discount? 
+      if promotion_value < final_retail_price && should_apply_promotion_discount?
+        final_retail_price = promotion_value 
         percent = promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
         origin_type = :promotion

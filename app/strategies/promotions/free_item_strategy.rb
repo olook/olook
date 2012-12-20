@@ -21,6 +21,14 @@ module Promotions
       free_items.include?(item) ? 0 : item.price
     end
 
+    def calculate_promotion_discount(cart_items)
+      total_retail_price_without_discount = get_total_retail_price_without_discounts(cart_items)
+      total_retail_price_with_discount = get_total_retail_price_with_discounts(cart_items)
+      total_promotion_discount = total_retail_price_without_discount - total_retail_price_with_discount
+      total_promotion_discount_percent = (1 - (total_retail_price_with_discount / total_retail_price_without_discount)) * 100
+      {value: total_promotion_discount, percent: total_promotion_discount_percent}
+    end
+
     private
 
     def sort_cart_items(cart_items)
@@ -30,5 +38,18 @@ module Promotions
     def items_for_discount(cart_items)
       cart_items.map { |item| item.product.can_supports_discount? ? item : nil }.compact
     end
+
+    def get_total_retail_price_without_discounts(cart_items)
+      cart_items.inject(0) do |sum, item|
+        sum += (item.variant.product.retail_price * item.quantity)
+      end
+    end
+
+    def get_total_retail_price_with_discounts(cart_items)
+      cart_items.inject(0) do |sum, item|
+        sum += calculate_value(cart_items, item)
+      end
+    end
+
   end
 end
