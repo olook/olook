@@ -71,6 +71,15 @@ class CreditCard < Payment
       end unless bank.blank?
   end
 
+  def cancelled_at_authorization?
+    if gateway == 2
+      braspag_responses = BraspagAuthorizeResponse.where("identification_code = ?", identification_code)
+      last_response = braspag_responses.last
+      return true if last_response.problems_with_credit_card_validation?
+    end
+    false
+  end
+
   private
 
   def validate_bank_credit_card_number bank_credit_card_number
