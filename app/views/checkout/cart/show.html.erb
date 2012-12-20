@@ -47,7 +47,8 @@ _gaq.push(['_addTrans',
   
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
-      <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto.</h1>
+      <%= image_tag("/assets/cart/banner_discount2.jpg", :class => "img-alert") %>
+      <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto</h1>
       <p>Selecionamos o maior desconto possível para você em cada produto (verifique abaixo):</p>
     </div>
   <% end %>
@@ -111,12 +112,10 @@ _gaq.push(['_addTrans',
 
   <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
-	    <thead>
-	      <tr><td>OLOOK RECOMENDA</td></tr>
-	    </thead>   
       <tbody>
           <tr>
             <td class="avc-foto">
+              <p class="txt-recomenda">OLOOK RECOMENDA</p>
               <% unless @suggested_product.master_variant.thumb_picture.nil? %>
                 <%= image_tag @suggested_product.master_variant.thumb_picture %>
               <% end %>
