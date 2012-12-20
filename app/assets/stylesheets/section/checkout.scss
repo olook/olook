@@ -154,8 +154,25 @@ section#cart {
       font-size: 22px;
     }
   }
+	.promo-leve3{
+		float:left;
+		border-top:dotted 1px #000;
+		border-bottom:dotted 1px #000;
+		text-align:center;
+		width:410px;
+		height:50px;
+		padding-top:10px;
+		margin-left:45px;
+		text-transform:uppercase;
+		p{color:#DD4A78;font-size:17px;
+			span{color:#000;font-size:13px;}
+		}
+	}
 	.buying-continue{
 		margin:20px 0 50px;
+		font-size:12px;
+		@include sprite_checkout(-390px,-161px);
+		padding-left:10px;
 	}
   p.credits {
     background: #EEE;
@@ -1306,9 +1323,13 @@ section#payment {
 							div{height:65px;border-top:solid 1px #E5E4E4;
 								&.no-border{border:none;}
 								p{padding:20px 0 0 28px;height:40px;
-									&.debit{ @include sprite_checkout(405px, -314px);}
-									&.boleto{ @include sprite_checkout(388px, -376px);}
+									&.debit{ @include sprite_checkout(405px, -414px);}
+									&.boleto{ @include sprite_checkout(388px, -477px);}
 									&.Visa{ @include sprite_checkout(381px, -111px);}
+									&.Mastercard{@include sprite_checkout(381px, -230px);}
+									&.Diners{@include sprite_checkout(381px, -170px);}
+									&.Hipercard{@include sprite_checkout(381px, -348px);}
+									&.AmericanExpress {@include sprite_checkout(381px, -289px);}
 								}
 							}
 						}
