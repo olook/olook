@@ -20,6 +20,12 @@
       <%= image_tag @campaign.banner %>
     <% end %>
   </p>
+  <p>
+    <b>Imagem do Lightbox</b>
+    <% if @campaign.lightbox? %>
+      <%= image_tag @campaign.lightbox %>
+    <% end %>
+  </p>
   <b>Start At:</b>
     <%= @campaign.start_at %>
   </p>
