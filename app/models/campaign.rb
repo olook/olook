@@ -4,6 +4,7 @@ class Campaign < ActiveRecord::Base
   validates :end_at, :presence => true
   validate :only_one_activated?
   mount_uploader :banner, ImageUploader
+  mount_uploader :lightbox, ImageUploader
 
   def is_active?
     start_at <= Date.today && end_at >= Date.today
