@@ -5,11 +5,14 @@
     .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>) no-repeat; }
     .product-map a p { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
   </style>
-  
+
 <% end %>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "lookbooks" %>
+  <meta name="chaordic:source" content= <%= "home/tendencias"%> >
+  <meta name="chaordic:user" content= <%= @chaordic_user %>>
+  <meta name="chaordic:category" content="Tendencias" >
 <% end %>
 
 <div id="fb-root"></div>
