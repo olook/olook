@@ -8,7 +8,7 @@ class Gift::HomeController < Gift::BaseController
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def profiles
-    %w[moderna casual chic sexy]    
+    %w[moderna casual chic sexy]
   end
 
   def index
@@ -18,6 +18,7 @@ class Gift::HomeController < Gift::BaseController
     @helena_tips = GiftBox.find_by_name("Dica da Helena")
     @top_five = GiftBox.find_by_name("Top Five")
     @hot_on_facebook = GiftBox.find_by_name("Hot on Facebook")
+    @chaordic_user = ChaordicInfo.user current_user
   end
 
   def update_birthdays_by_month
