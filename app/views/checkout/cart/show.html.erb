@@ -26,7 +26,10 @@ _gaq.push(['_addTrans',
 <% end %>
 
 <section id="cart">
+  <%  if @cart.items.count > 0 %>
   <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
+  <% end %>
+
   <h1>Minha sacola</h1>
 
   <% if free_item_promotion_is_active? %>
