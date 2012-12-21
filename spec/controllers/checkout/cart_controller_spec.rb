@@ -31,7 +31,8 @@ describe Checkout::CartController do
     CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
     CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
 
-    Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
+    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+    Product.stub(:find).with(ids).and_return(nil)
 
     get :show
     assigns(:cart_service).freight.should be_nil
@@ -48,7 +49,8 @@ describe Checkout::CartController do
       CreditReportService.any_instance.should_receive(:amount_of_redeem_credits).and_return(10)
       CreditReportService.any_instance.should_receive(:amount_of_used_credits).and_return(30)
 
-      Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
+      ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+      Product.stub(:find).with(ids).and_return(nil)
 
       get :show
       response.should render_template ["layouts/site", "show"]

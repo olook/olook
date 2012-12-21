@@ -102,7 +102,7 @@ class Checkout::CartController < Checkout::BaseController
   def find_suggested_product
     ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
     products = Product.find ids
-    products.shuffle.first
+    products.shuffle.first if products
   end
 end
 
