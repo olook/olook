@@ -16,10 +16,6 @@ class ChaordicInfo
     cart_pack cart, user
   end
 
-  def self.add_to_cart cart, user
-    add_to_cart_pack cart, user
-  end
-
   private
 
     def self.user_pack user
@@ -64,24 +60,11 @@ class ChaordicInfo
       create_chaordic_object.pack(add_to_card_cart)
     end
 
-    def self.add_to_cart_pack cart, user
-      add_to_card_user = set_user user
-      add_to_card_cart = set_last_item_cart cart
-      add_to_card_cart.user = add_to_card_user
-      create_chaordic_object.pack(add_to_card_cart)
-    end
-
     def self.set_cart cart
       chaordic_cart = Chaordic::Packr::Cart.new
       cart.items.each do |item|
         chaordic_cart.add_product item.product.id, item.product.retail_price.round(2).to_s
       end
-      chaordic_cart
-    end
-
-    def self.set_last_item_cart cart
-      chaordic_cart = Chaordic::Packr::Cart.new
-      chaordic_cart.add_product cart.items.last.product.id, cart.items.last.product.retail_price.round(2).to_s unless cart.items.empty?
       chaordic_cart
     end
 
