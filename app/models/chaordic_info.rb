@@ -29,8 +29,6 @@ class ChaordicInfo
 
     def self.order_pack order
       order_user = set_user order.user
-      #order_cart = set_cart order.cart
-      #order_cart.user = order_user
       chaordic_order = set_order order, order_user
       create_chaordic_object.pack(chaordic_order)
     end
