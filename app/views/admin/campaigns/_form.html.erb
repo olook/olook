@@ -38,6 +38,12 @@
     <% if @campaign.banner? %>
       <%= image_tag @campaign.banner_url %>
     <% end %>
+
+    <p>
+      <%= f.check_box :remove_banner %>
+      Remover
+    </p>
+
   </div>
 
   <div class="field">
@@ -47,6 +53,11 @@
     <% if @campaign.lightbox? %>
       <%= image_tag @campaign.lightbox_url %>
     <% end %>
+
+    <p>
+      <%= f.check_box :remove_lightbox %>
+      Remover
+    </p>
   </div>
 
   <div class="field">
