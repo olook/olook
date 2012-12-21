@@ -30,11 +30,11 @@ class Checkout::CartController < Checkout::BaseController
 
     respond_with do |format|
       if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
+        format.html { redirect_to cart_path }
         format.js { head :ok }
       else
         format.js { head :not_found }
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
+        format.html { redirect_to cart_path }
       end
     end
   end
@@ -46,8 +46,7 @@ class Checkout::CartController < Checkout::BaseController
     if @variant = Variant.find_by_id(variant_id)
       if @cart.add_item(@variant, variant_quantity)
         respond_with do |format|
-          message = variant_quantity.nil? ? "Produto adicionado com sucesso" : "Carrinho atualizado com sucesso"
-          format.html { redirect_to(cart_path, notice: message) }
+          format.html { redirect_to(cart_path) }
         end
       else
         respond_with(@cart) do |format|
