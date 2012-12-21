@@ -22,7 +22,7 @@ feature "Buying products", %q{
       FactoryGirl.create(:main_picture, :product => product)
 
           # Use a existent product id.
-          Setting.stub(:checkout_suggested_product_id).and_return(nil)
+          Setting.stub(:recommended_products).and_return(nil)
     end
 
     context "in the products page" do
