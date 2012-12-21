@@ -16,7 +16,7 @@ $(function() {
 
   $('section#cart a.continue.login').live('click', function(e) {
     clone = $('.dialog.product_login').clone().addClass("clone");
-    content = clone[0].outerHTML;
+    content = clone[0].innerHTML;
     initBase.modal(content);
     e.preventDefault();
   });
