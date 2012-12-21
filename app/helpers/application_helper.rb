@@ -78,13 +78,13 @@ module ApplicationHelper
   def section_name section
     case
     when section == 1
-      "home/Sapatos"
+      'Sapatos'
     when section == 2
-      "home/Bolsas"
+      'Bolsas'
     when section == 3
-      'home/Acessórios'
+      'Acessórios'
     else
-      'home/Coleções'
+      'Coleções'
     end
   end
 
