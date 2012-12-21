@@ -41,6 +41,15 @@
   </div>
 
   <div class="field">
+    <%= f.label :lightbox %> <br />
+    <%= f.file_field :lightbox %>
+
+    <% if @campaign.lightbox? %>
+      <%= image_tag @campaign.lightbox_url %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= f.label :header %><br />
     <%= f.collection_select :background, {'topo_BF' => "BlackFriday"}, :first, :last, {:include_blank => true} %>
   </div>
