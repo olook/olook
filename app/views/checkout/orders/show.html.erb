@@ -4,6 +4,7 @@
 
 <section id="payment" class="checkout confirmation">
   <section class="main">
+
     <%= if @payment.is_a? Billet
       render :partial => "billet", :locals => { :payment => @payment }
     elsif @payment.is_a? CreditCard
@@ -11,32 +12,32 @@
     else
       render :partial => "debit", :locals => { :payment => @payment }
     end %>
-    <%= render "shared/ebit/seal_order" %>
-    <%= render "shared/metrics/yahoo/buy" %>
+    <section class="order-details">
+     <%= render "shared/payments/info_order", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, line_items: @order.line_items %>
+     
+     <%= render "shared/payments/info_payment", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, line_items: @order.line_items, :payment => @payment %>
+     
+     <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
+    </section>
 
-  </section>
-  <section class="sidebar">
-  <% content_for :checkout_sidebar do %>
-    <div class="request_info">
-      <div class="item">
-        <h1>Pagamento</h1>
-        <table cellpadding="0" cellspacing="0">
-          <tbody>
-            <tr>
-              <td><%= @order.erp_payment.human_to_s %></td>
-              <td class="value"><%= number_to_currency(@order.erp_payment.total_paid) %></td>
-            </tr>
-          </tbody>
-        </table>
+    <section class="invite">
+      <div class="invite-box">
+        <h2>CONVIDE SUAS AMIGAS</h2>
+        <p class="txt-black">E ganhe <span class="txt-pink">R$20,00</span> na primeira compra de cada uma delas.</p>
+        <%= render "shared/social/share", :user => current_user %>
       </div>
-    </div>
-    <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
-  <% end %>
 
-    <%= render "shared/payments/info_sidebar", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, :order => @order %>
-
+      <%= render "shared/ebit/seal_order" %>
+      <%= render "shared/metrics/yahoo/buy" %>
+    </section>  
   </section>
 </section>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'section/earn_credits' %>
+<% end %>
+<% content_for :footer do %>
+  <%= javascript_include_tag "earn_credits" %>
+<% end %>
 
 <% content_for :ecommerce_tracking do %>
 <script type="text/javascript">

@@ -24,12 +24,13 @@ class CartItem < ActiveRecord::Base
     variant.product.retail_price
   end
 
+  def is_suggested_product? 
+    product.id == Setting.checkout_suggested_product_id.to_i      
+  end
+  
   private 
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
     end
 
-    def is_suggested_product? 
-      product.id == Setting.checkout_suggested_product_id.to_i      
-    end
 end
