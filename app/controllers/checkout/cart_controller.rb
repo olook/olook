@@ -17,7 +17,6 @@ class Checkout::CartController < Checkout::BaseController
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
     @chaordic_cart = ChaordicInfo.cart @cart, current_user
-    @chaordic_cart_new_item = ChaordicInfo.add_to_cart @cart, current_user
   end
 
   def destroy
