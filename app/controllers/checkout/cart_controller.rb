@@ -18,7 +18,6 @@ class Checkout::CartController < Checkout::BaseController
     @suggested_product = find_suggested_product
     @promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
     @chaordic_cart = ChaordicInfo.cart @cart, current_user
-    @chaordic_cart_new_item = ChaordicInfo.add_to_cart @cart, current_user
   end
 
   def destroy
