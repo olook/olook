@@ -109,7 +109,7 @@ describe Checkout::CartController do
 
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto excluído com sucesso")
+        flash[:notice].should be_nil
       end
     end
 
@@ -140,7 +140,7 @@ describe Checkout::CartController do
 
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto excluído com sucesso")
+        flash[:notice].should be_nil
       end
     end
 
@@ -206,7 +206,7 @@ describe Checkout::CartController do
 
         it "should set flash notice" do
           post :create, {variant: {id: basic_bag.id}}
-          flash[:notice].should eql("Produto adicionado com sucesso")
+          flash[:notice].should be_nil
         end
       end
 
