@@ -1,38 +1,40 @@
 div.social {
-  width: 485px;
+  width: 471px;
   overflow: auto;
+	margin-bottom:20px;
   ul {
-    width: 395px;
-    margin: 0 auto;
+    width: 360px;
+    margin: 30px auto 0;
     padding: 0 0;
     overflow: auto;
     li {
       position: relative;
-      width: 105px;
-      margin: 0 15px 0 0;
+      width: 115px;
+      margin: 0 5px 0 0;
       float: left;
       a {
         color: #5a5a5b;
         font-family: $avenir;
-        font-size: 14px;
+        font-size: 12px;
         text-align: center;
         text-decoration: none;
         line-height: 15px;
         outline: none;
-        width: 105px;
+        width: 114px;
+				height:20px;
         display: block;
         margin: 0 15px 0 0;
-        padding: 105px 0 15px 0;
         float: left;
+				padding-top:80px;
       }
       &.twitter {
         a {
-          background: url("/assets/common/bt-twitter.jpg") center 10px no-repeat;
+   				@include sprite_checkout(-195px, -285px);
         }
       }
       &.facebook {
         a {
-          background: url("/assets/common/bt-facebook.jpg") center 10px no-repeat;
+          @include sprite_checkout(-88px, -285px);
         }
       }
       &.orkut {
@@ -51,9 +53,9 @@ div.social {
       }
       &.email {
         a {
-          background: url("/assets/common/bt-email.jpg") center 10px no-repeat;
+          @include sprite_checkout(-310px, -285px);
           margin: 0;
-          padding: 105px 10px 15px 10px;
+          
           &.selected {
             background-color: #e4e4e4;
           }
@@ -95,15 +97,18 @@ div.social {
 }
 div.link_mail {
   position: relative;
-  height: 150px;
   overflow: auto;
-  padding: 0 0 0 30px;
+  padding: 20px 0 10px 30px;
+	border-top:solid 1px #DEDEDE;
+	text-align:left;
+	height:127px;
   h2 {
     font-family: $avenir;
     font-size: 16px;
     font-weight: lighter;
     margin: 0 0 10px;
   }
+	p.txt-copie{color:#000;margin-bottom:15px;}
   ul {
     overflow: hidden;
     li {
@@ -112,16 +117,18 @@ div.link_mail {
         color: #666;
         font-size: 14px;
         width: 265px;
-        margin: 0 0 10px 0;
+        margin: 0 10px 10px 0;
         padding: 8px 10px;
         border: 1px #CCC solid;
+				float:left;
       }
       a {
-        background: url("/assets/common/copy-link.jpg") no-repeat;
+				@include sprite_checkout(-211px, -200px);
         text-indent: -9999px;
-        width: 112px;
+        width: 98px;
         height: 34px;
         display: block;
+				float:left;
       }
       div.zclip {
         z-index: 10000 !important;
@@ -135,8 +142,8 @@ div.link_mail {
     height: 38px;
     padding: 17px 0 0 0;
     display: none;
-    top: 93px;
-    left: 5px;
+    top: 95px;
+    left:35px;
     p {
       color: #666;
       font-size: 12px;

@@ -1,7 +1,16 @@
-    <h1>Agora só falta você clicar abaixo para completar o pagamento do seu pedido</h1>
-    <div class="payment_link">
-      <%= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag Debito" %>
-      <p>Você escolheu efetuar o pagamento com débito em conta.</p>
-      <%= link_to "Clique aqui para ir ao seu banco", @payment.url, :target => "_blank" %>
+    <div class="msg">
+      <p class="success">Parece que deu tudo certo. Já recebemos o seu pedido de compra!</p>
     </div>
-    <p class="description">Obrigada pela sua compra! Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados ao lado estão corretos. Se você tiver qualquer dúvida ou precisar solicitar alguma alteração nos dados do seu pedido, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.</p>
+    <div class="new_payment_link">
+      <p class="txt_payment_link">Ainda não acabou... Você precisa realizar o pagamento.<br />
+        <span>Você precisa acessar o seu internet banking através do botão abaixo para realizar o pagamento do seu pedido.</span>
+      </p>
+      <%#= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag Debito" %>
+      <p class="logo_itau">Logo Banco Itaú</p>
+      <%= link_to "Realizar Pagamento", @payment.url, :target => "_blank", :class => "btn_pay" %>
+    </div>
+    <p class="thanks">Obrigada pela sua compra</p>
+    <p class="description">
+      Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados abaixo estão corretos.<br />
+      E se você tiver qualquer dúvida ou precisar solicitar alguma alteração, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.
+    </p>
