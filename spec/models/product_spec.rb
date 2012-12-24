@@ -60,7 +60,7 @@ describe Product do
     context "visible" do
       it "returns visible products" do
         visible_products = [shoe, bag, accessory]
-        (described_class.only_visible & visible_products).should == visible_products
+        (described_class.only_visible & visible_products).sort.should == visible_products.sort
       end
 
       it "does not return a invisible product" do
