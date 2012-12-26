@@ -1,6 +1,0 @@
-<%= default_lang %>:
-  enumerations:
-    <%= singular_name %>:
-    <%- locale_fields.each do |name| -%>
-      <%= name %>: "<%= name.capitalize %>"
-    <%- end -%>
