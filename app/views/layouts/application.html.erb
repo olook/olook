@@ -54,12 +54,16 @@
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
-      <% unless (params[:controller] == 'home' and params[:action] == 'index') || (params[:controller] == 'members' and params[:action] == 'showroom' and @user.half_user?) %>
-        <%= render_promotion_banner unless error %>
-      <% end %>
+    <% unless (params[:controller] == 'home' and params[:action] == 'index') || (params[:controller] == 'members' and params[:action] == 'showroom' and @user.half_user?) %>
+      <%= render_promotion_banner unless error %>
+    <% end %>
 
-      <%= content_for?(:content) ? yield(:content) : yield %>
-     
+    <%= content_for?(:content) ? yield(:content) : yield %>
+    
+    <% if ["product"].include?(params[:controller]) %>
+      <%= render :partial => "shippings/shipping" %>
+      <%= javascript_include_tag "shipping" %>  
+    <% end %>
     </div>
 
     <% if user_signed_in? %>
