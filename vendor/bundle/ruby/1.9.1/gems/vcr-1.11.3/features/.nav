@@ -1,0 +1,36 @@
+- getting_started.md (Getting Started)
+- CHANGELOG.md (Changelog)
+- about_these_examples.md (About These Examples)
+- LICENSE.md (License)
+- cassettes:
+  - format.feature
+  - naming.feature
+  - no_cassette.feature
+  - request_matching.feature
+  - dynamic_erb.feature
+  - automatic_re_recording.feature
+  - update_content_length_header.feature
+- record_modes:
+  - once.feature
+  - new_episodes.feature
+  - none.feature
+  - all.feature
+- configuration:
+  - cassette_library_dir.feature
+  - stub_with.feature
+  - default_cassette_options.feature
+  - ignore_hosts.feature
+  - ignore_localhost.feature
+  - hooks.feature
+  - allow_http_connections_when_no_cassette.feature
+- test_frameworks:
+  - test_unit.feature
+  - shoulda.feature
+  - rspec.feature
+  - cucumber.feature
+- middleware:
+  - rack.feature
+  - faraday.feature
+- http_libraries:
+  - net_http.feature
+  - em_http_request.feature

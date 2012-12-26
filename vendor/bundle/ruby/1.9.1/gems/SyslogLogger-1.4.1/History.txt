@@ -1,0 +1,13 @@
+== 1.4.1
+
+* Bug fixes
+  * Messages for syslog() are no longer cleaned twice.  Pull Request #3 by
+    Lourens Naudé
+
+== 1.4.0 / 2007-05-08
+
+* Split from rails_analyzer_tools.
+* Added eh methods for compatibility with Logger.
+* Added syslog-ng instructions.  Patch by Tom Lianza.
+* Fixed require in documentation.  Reported by Gianni Jacklone.
+
