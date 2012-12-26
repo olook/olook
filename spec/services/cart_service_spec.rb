@@ -44,23 +44,6 @@ describe CartService do
     end
   end
 
-  context ".gift_wrap?" do
-    it "should return true when gift_wrap is '1'" do
-      cart_service = CartService.new({:gift_wrap => '1'})
-      cart_service.gift_wrap?.should eq(true)
-    end
-
-    it "should return false when gift_wrap has any value" do
-      cart_service = CartService.new({:gift_wrap => 'anything'})
-      cart_service.gift_wrap?.should eq(false)
-    end
-
-    it "should return false when gift_wrap is nil" do
-      cart_service = CartService.new({})
-      cart_service.gift_wrap?.should eq(false)
-    end
-  end
-
   context ".freight_price" do
     it "should return zero when freight is not available" do
       cart_service = CartService.new({})

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :gift_wrap
   attr_accessor :coupon
   attr_accessor :promotion
   attr_accessor :freight
@@ -19,10 +18,6 @@ class CartService
     end
 
     self.credits ||= 0
-  end
-
-  def gift_wrap?
-    gift_wrap == "1" ? true : false
   end
 
   def freight_price
@@ -159,7 +154,7 @@ class CartService
       :cart_id => cart.id,
       :user_id => user.id,
       :restricted => cart.has_gift_items?,
-      :gift_wrap => gift_wrap?,
+      :gift_wrap => cart.gift_wrap,
       :amount_discount => total_discount,
       :amount_increase => total_increase,
       :amount_paid => total,
@@ -287,7 +282,7 @@ class CartService
   end
 
   def increment_from_gift_wrap
-    gift_wrap? ? CartService.gift_wrap_price : 0
+    cart.gift_wrap ? CartService.gift_wrap_price : 0
   end
 
   def minimum_value
