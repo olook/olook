@@ -22,7 +22,8 @@ class Checkout::CartController < Checkout::BaseController
 
   def update
     if params[:gift] && params[:gift][:gift_wrap]
-      session[:gift_wrap] = params[:gift][:gift_wrap]
+      @cart.gift_wrap = params[:gift][:gift_wrap]
+      @cart.save
       render :json => true
       return
     end
