@@ -24,7 +24,7 @@
 <g:color><%= product.color_name %></g:color>
 <% product.details.each do |detail| %>
   <% if ["Metal", "Material externo"].include?(detail.translation_token) %>
-  <g:material><%= detail.description %></g:material>
+  	<% unless detail.description == '_' %><g:material><%= detail.description %></g:material> <% end %>
   <% end %>
 <% end %>
 </item>
