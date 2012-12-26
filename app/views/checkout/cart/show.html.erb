@@ -119,7 +119,7 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td>
-            <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
+            <%= form_for(cart_path, remote: true, method: :put, html: { :id => "gift_wrap" } ) do %>
               <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
               <h1>Embrulhar pedido para presente</h1>
             <% end %>
