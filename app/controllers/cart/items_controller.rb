@@ -15,10 +15,9 @@ class Cart::ItemsController < ApplicationController
     respond_with { |format| format.js {} }
   end
 
-  private
+  protected
 
   	def load_cart
-
   		@cart ||= Cart.find(session[:cart_id])
   	end
 
