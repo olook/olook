@@ -15,3 +15,11 @@ SurveyBuilder.new( SURVEY_DATA, "Registration Survey" ).build
 		Profile.find_by_name(key).update_attribute(:alternative_name, value)
 end
 
+[ {:controller_name => 'moments', :description => 'Coleções e Catálogos'},
+  {:controller_name => 'lookbooks', :description => 'Tendências'},
+  {:controller_name => 'home', :description => 'Home não logada'},
+  {:controller_name => 'members', :description => 'Minha vitrine'}
+].each do |page_attributes|
+  Page.where("controller_name = ?", page_attributes[:controller_name]).first_or_create(page_attributes)
+end
+
