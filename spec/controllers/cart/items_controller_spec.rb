@@ -3,15 +3,17 @@ require 'spec_helper'
 
 describe Cart::ItemsController do 
 
+	let!(:cart) { FactoryGirl.create(:clean_cart) }
+	
+	before do  
+		session[:cart_id] = cart.id
+		controller.stub!(:current_referer)
+		# binding.pry
+	end
+	
 	describe "#create" do 		
-		let!(:cart) { FactoryGirl.create(:clean_cart) }
 
-		before(:each) do
-			session[:cart_id] = cart.id
-			controller.stub!(:current_referer)
-		end
-
-		context "with valid variant params" do
+		context "with valid variant params" do 
 			let(:basic_bag) { FactoryGirl.create(:basic_bag_simple) }
 			let(:params) { {variant: { id: basic_bag.id }} }
 
