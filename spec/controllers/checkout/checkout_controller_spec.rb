@@ -45,7 +45,6 @@ describe Checkout::CheckoutController do
 
   after :each do
     session[:cart_id] = nil
-    session[:gift_wrap] = nil
     session[:cart_coupon] = nil
     session[:cart_use_credits] = nil
     session[:cart_freight] = nil
@@ -219,7 +218,6 @@ describe Checkout::CheckoutController do
 
       it "should clean the session order" do
         session[:cart_id].should be_nil
-        session[:gift_wrap].should be_nil
         session[:cart_coupon].should be_nil
         session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil
@@ -359,7 +357,6 @@ describe Checkout::CheckoutController do
 
       it "should clean the session order" do
         session[:cart_id].should be_nil
-        session[:gift_wrap].should be_nil
         session[:cart_coupon].should be_nil
         session[:cart_use_credits].should be_nil
         session[:cart_freight].should be_nil

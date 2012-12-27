@@ -17,7 +17,6 @@ describe Checkout::CartController do
 
   after :each do
     session[:cart_id] = nil
-    session[:gift_wrap] = nil
     session[:cart_coupon] = nil
     session[:cart_use_credits] = nil
     session[:cart_freight] = nil
@@ -53,7 +52,6 @@ describe Checkout::CartController do
     it "should reset session params" do
       delete :destroy
       session[:cart_id].should be_nil
-      session[:gift_wrap].should be_nil
       session[:cart_coupon].should be_nil
       session[:cart_use_credits].should be_nil
       session[:cart_freight].should be_nil
@@ -239,13 +237,13 @@ describe Checkout::CartController do
 
 
   context "when update gift wrap" do
-    it "should update session" do
-      post :update_gift_wrap, {gift: {gift_wrap: "true"}}
-      session[:gift_wrap].should eq("true")
+    it "should update cart" do
+      put :update, {gift: {gift_wrap: "true"}}
+      cart.reload.gift_wrap.should eq(true)
     end
 
     it "should response true for json" do
-      post :update_gift_wrap, {gift: {gift_wrap: "true"}}
+      put :update, {gift: {gift_wrap: "true"}}
       response.body.should eq("true")
     end
   end
