@@ -13,7 +13,6 @@ class Checkout::OrdersController < Checkout::BaseController
 
     @cart_service_for_order = CartService.new(
       :cart => @order.cart,
-      :gift_wrap => @order.gift_wrap ? "1" : "0",
       :coupon => coupon,
       :promotion => promotion,
       :freight => { :price  => @order.freight.price,
