@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Cart::ItemsController < ApplicationController
-	before_filter :load_cart
 	respond_to :js
 
   def create
@@ -14,11 +13,5 @@ class Cart::ItemsController < ApplicationController
 
     respond_with { |format| format.js {} }
   end
-
-  protected
-
-  	def load_cart
-  		@cart ||= Cart.find(session[:cart_id])
-  	end
 
 end
