@@ -239,7 +239,7 @@ describe Checkout::CartController do
   context "when update gift wrap" do
     it "should update cart" do
       put :update, {gift: {gift_wrap: "true"}}
-      Cart.any_instance.should_receive(:gift_wrap=).with(true)
+      cart.reload.gift_wrap.should eq(true)
     end
 
     it "should response true for json" do
