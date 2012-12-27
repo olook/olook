@@ -22,6 +22,13 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
+    if params[:gift] && params[:gift][:gift_wrap]
+      @cart.gift_wrap = params[:gift][:gift_wrap]
+      @cart.save
+      render :json => true
+      return
+    end
+
     variant_id = params[:variant][:id] if params[:variant]
 
     respond_with do |format|
@@ -59,11 +66,6 @@ class Checkout::CartController < Checkout::BaseController
         format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     end
-  end
-
-  def update_gift_wrap
-    session[:gift_wrap] = params[:gift][:gift_wrap] if params[:gift] && params[:gift][:gift_wrap]
-    render :json => true
   end
 
   def update_coupon
