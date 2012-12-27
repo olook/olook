@@ -25,7 +25,7 @@ feature "Handling cart items", %q{
     within('li#cart') do
       find('a.cart').text.should == 'MINHA SACOLA (1)'
     end
-  end
+  end 
 
   scenario "Removing an item from the cart" do
   end

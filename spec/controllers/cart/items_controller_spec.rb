@@ -23,5 +23,13 @@ describe Cart::ItemsController do
         response.should render_template ["create"]
       end
 		end
+
+		context "with invalid params" do
+      it "should render error in response for js" do
+        request.env['HTTP_ACCEPT'] = "text/javascript"
+        post :create, :format=> :js
+        response.should render_template ["error"]
+      end
+    end
 	end
 end
