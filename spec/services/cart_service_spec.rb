@@ -35,7 +35,7 @@ describe CartService do
       cart_service.credits.should eq(0)
     end
 
-    [:cart, :gift_wrap, :coupon, :promotion, :freight, :credits].each do |attribute|
+    [:cart, :coupon, :promotion, :freight, :credits].each do |attribute|
       it "should set #{attribute}" do
         value = mock
         cart_service = CartService.new({attribute => value})
@@ -359,17 +359,19 @@ describe CartService do
 
   context ".total_increase" do
     it "should return zero when no has freight and gift wrap" do
-      cart_service = CartService.new({})
+      cart.gift_wrap = false;
+      cart_service = CartService.new({:cart => cart})
       cart_service.total_increase.should eq(0)
     end
 
     it "should sum gift wrap" do
-      cart_service = CartService.new({:gift_wrap => '1'})
+      cart.gift_wrap = true;
+      cart_service = CartService.new({:cart => cart})
       cart_service.total_increase.should eq(gift_wrap_price)
     end
 
     it "should sum freight price" do
-      cart_service = CartService.new({:freight => {:price => 10.0}})
+      cart_service = CartService.new({:cart => cart, :freight => {:price => 10.0}})
       cart_service.total_increase.should eq(10.0)
     end
   end

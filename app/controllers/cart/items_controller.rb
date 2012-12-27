@@ -18,7 +18,6 @@ class Cart::ItemsController < ApplicationController
   private
 
   	def load_cart
-			binding.pry
 
   		@cart ||= Cart.find(session[:cart_id])
   	end
