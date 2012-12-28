@@ -12,7 +12,6 @@ class Checkout::CartController < Checkout::BaseController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
-    # binding.pry
   end
 
   def destroy
@@ -22,24 +21,12 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
-    if params[:gift] && params[:gift][:gift_wrap]
-      @cart.gift_wrap = params[:gift][:gift_wrap]
-      @cart.save
+    if @cart.update_attributes(params[:cart])
       render :json => true
-      return
+    else
+      render :json => true, :status => :unprocessable_entity
     end
 
-    variant_id = params[:variant][:id] if params[:variant]
-
-    respond_with do |format|
-      if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
-        format.js { head :ok }
-      else
-        format.js { head :not_found }
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
-      end
-    end
   end
 
   def create
