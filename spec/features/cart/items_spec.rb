@@ -30,8 +30,8 @@ feature "Handling cart items", %q{
   #   end
   # end 
 
-  scenario "Removing an item from the cart" do
-    cart = FactoryGirl.create(:cart_with_items) 
+  scenario "Removing an item from the cart" do 
+    cart = FactoryGirl.create(:cart_with_one_item) 
     #CartController#find_suggested_product was breaking the test
     Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
     
@@ -43,7 +43,7 @@ feature "Handling cart items", %q{
     # save_and_open_page
     
     within('li#cart') do
-      find('a.cart').text.should == 'MINHA SACOLA (1)'
+      find('a.cart').text.should == 'Minha Sacola (1)'
     end
 
     within('form#remove_item_form') do
@@ -55,7 +55,7 @@ feature "Handling cart items", %q{
     page.content.should contain('Produto excluído com sucesso')
 
     within('li#cart') do
-      find('a.cart').text.should == 'MINHA SACOLA (0)' 
+      find('a.cart').text.should == 'Minha Sacola (0)' 
     end
   end
 
