@@ -78,11 +78,10 @@ _gaq.push(['_addTrans',
               <% else %>
                 <p><%= number_to_currency(@cart_service.item_price_total(item)) %></p>
               <% end %>
-              <%= form_for(cart_path, :method => :put, 
-                                      :html => { 
-                                        :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
-                                        :id => 'remove_item_form' }) do %>
-                <%= hidden_field('variant','id', :value => item.variant.id) %>
+              <%= form_for(item, :html => {
+                                  :method => :delete, 
+                                  :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
+                                  :id => 'remove_item_form' }) do %>
                 <%= submit_tag('')  %>
               <% end %>
             </td>
