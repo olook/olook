@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Facebook Permissions", %q{
   In order to be connected to my friends
