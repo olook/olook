@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Half user", %q{
   In order to buy products for a special person

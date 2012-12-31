@@ -34,5 +34,3 @@ def build_survey
   survey = SurveyBuilder.new(SURVEY_DATA, "Registration Survey")
   survey.build
 end
-
-private
