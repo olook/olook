@@ -121,8 +121,8 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td>
-            <%= form_for(cart_path, remote: true, method: :put, html: { :id => "gift_wrap" } ) do %>
-              <%= check_box('cart', 'gift_wrap', :checked => @cart.gift_wrap) %>
+            <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
+              <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
               <h1>Embrulhar pedido para presente</h1>
             <% end %>
           </td>
@@ -222,11 +222,11 @@ _gaq.push(['_addTrans',
         <tr class="discount">
           <td>
             <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-            <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
+            <%= form_for cart_path, :method => :put, :html => {:id => "coupon"}, :remote => true do %>
               <fieldset class="inputs">
                 <ol>
                   <li>
-                    <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                    <%= text_field 'cart', 'coupon', :value => @coupon_code %>
                   </li>
                   <li class="cupom">
                     <%= submit_tag '' %>
