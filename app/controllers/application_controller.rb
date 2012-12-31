@@ -35,7 +35,35 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
+  # making this method public so it can be stubbed in tests
+  # TODO: find a way to stub without this ugly hack
+  def current_cart
+    #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
+    cart_id_session = session[:cart_id]
+    cart_id_params = params[:cart_id]
+    cart_id_legacy = params[:order_id]
+
+    cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
+    cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
+
+    cart ||= Cart.find_by_id(cart_id_session)
+    cart ||= Cart.create(user: @user)
+
+    session[:cart_id] = cart.id
+
+    #not sending email in the case of a buy made from an admin
+    if current_admin
+      cart.update_attribute("notified", true)
+    end
+
+    if @user
+      cart.update_attribute("user_id", @user.id) if cart.user.nil?
+    end
+
+    cart
+  end
+
+  protected
 
     def current_liquidation
       LiquidationService.active
@@ -47,32 +75,6 @@ class ApplicationController < ActionController::Base
 
     def show_current_liquidation_advertise?
       current_liquidation.try(:show_advertise?)
-    end
-
-    def current_cart
-      #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
-      cart_id_session = session[:cart_id]
-      cart_id_params = params[:cart_id]
-      cart_id_legacy = params[:order_id]
-
-      cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
-      cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
-
-      cart ||= Cart.find_by_id(cart_id_session)
-      cart ||= Cart.create(user: @user)
-
-      session[:cart_id] = cart.id
-
-      #not sending email in the case of a buy made from an admin
-      if current_admin
-        cart.update_attribute("notified", true)
-      end
-
-      if @user
-        cart.update_attribute("user_id", @user.id) if cart.user.nil?
-      end
-
-      cart
     end
 
     def current_moment
@@ -104,7 +106,7 @@ class ApplicationController < ActionController::Base
 
     def load_coupon
       @coupon = session[:cart_coupon]
-      @coupon.reload if coupon
+      @coupon.reload if @coupon
     end
 
     def load_cart_service
