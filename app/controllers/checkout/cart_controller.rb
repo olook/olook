@@ -21,6 +21,7 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
+
     if @cart.update_attributes(params[:cart])
       render :json => true
     else
@@ -55,10 +56,12 @@ class Checkout::CartController < Checkout::BaseController
     end
   end
 
+
+  # TODO maybe put this logic inside Cart model !?! And them return this message...
+  # Any more thoughts ?
   def update_coupon
     code = params[:coupon][:code] if params[:coupon]
     coupon = Coupon.find_by_code(code)
-
     response_message = if coupon.try(:expired?)
       session[:cart_coupon] = nil
       "Cupom expirado. Informe outro por favor"

@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
     @promotion = PromotionService.new(@user).detect_current_promotion
 
-    coupon = session[:cart_coupon]
+    coupon = Coupon.find_by_code cart.coupon
     coupon.reload if coupon
 
     @cart_service = CartService.new(
