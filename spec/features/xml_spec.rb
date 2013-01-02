@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'features/helpers'
 include ActionView::Helpers::NumberHelper
 include XmlHelper
-
+ 
   def stub_scope_params
     Product.should_receive(:load_criteo_config).with("products_blacklist").and_return([0])
     Product.should_receive(:load_criteo_config).with("collections_blacklist").and_return([0])
@@ -21,7 +21,7 @@ feature "Show products on xml format" do
 
   context "in the criteo xml page" do
 
-    scenario "I  dont want to see products of criteo if has less variants" do
+    scenario "I dont want to see products of criteo if has less variants" do
       product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
       product2.master_variant.update_attribute(:price, "99.90")
       product2.master_variant.update_attribute(:inventory, 1)
@@ -248,7 +248,7 @@ context "in the ilove_ecommerce xml page" do
       <preco_real>99.9</preco_real>
       <preco_desconto>99.9</preco_desconto>
       <specific>
-      <marca>Olook</marca>
+      <marca>olook</marca>
       <cor></cor>
       <tamanho></tamanho>
       <autor></autor>
@@ -257,7 +257,7 @@ context "in the ilove_ecommerce xml page" do
       <ritmo></ritmo>
       <distribuidora></distribuidora>
       <sinopse></sinopse>
-      <loja>Olook</loja>
+      <loja>olook</loja>
       </specific>
       </produto>
       </produtos>
@@ -293,6 +293,11 @@ context "in the ilove_ecommerce xml page" do
   end
 
   context "in the google shopping" do
+    before do
+      product.details << FactoryGirl.create(:shoe_with_metal)
+      product.details << FactoryGirl.create(:shoe_with_leather)
+    end
+
     scenario "I want to see products of google shopping" do
       visit google_shopping_path
       result = Nokogiri::XML(page.source)
@@ -302,7 +307,7 @@ context "in the ilove_ecommerce xml page" do
       <channel>
       <item>
       <g:id>#{product.id}</g:id>
-      <title>#{product.name}</title>
+      <title>#{product.subcategory} #{product.name}</title>
       <description>#{product.description}</description>
       <g:google_product_category>Vestuário e acessórios &gt; Sapatos</g:google_product_category>
       <g:product_type>#{product.category_humanize}</g:product_type>
@@ -312,13 +317,15 @@ context "in the ilove_ecommerce xml page" do
       <g:condition>new</g:condition>
       <g:price>#{number_with_precision(product.price, precision: 2, separator: ".")}</g:price>
       <g:sale_price>#{number_with_precision(product.retail_price, precision: 2, separator: ".")}</g:sale_price>
-      <g:brand>Olook</g:brand>
+      <g:brand>olook</g:brand>
       <g:gender>female</g:gender>
       <g:age_group>adult</g:age_group>
       #{product.variants.map { |variant|
       '<g:size>' + variant.display_reference + '</g:size>'}.join("\n")}
       <g:item_group_id>#{product.id}</g:item_group_id>
       <g:color/>
+      <g:material>#{ product.details.first.description }</g:material>
+      <g:material>#{ product.details.last.description }</g:material>
       </item>
       </channel>
       </rss>
@@ -330,6 +337,11 @@ context "in the ilove_ecommerce xml page" do
   end
 
   context "in the buscape page " do
+    before do
+      product.details << FactoryGirl.create(:shoe_with_metal)
+      product.details << FactoryGirl.create(:shoe_with_leather)
+    end
+
     scenario "I want to see products of buscape " do
       visit buscape_path
       result = Nokogiri::XML(page.source)
@@ -337,7 +349,7 @@ context "in the ilove_ecommerce xml page" do
       <?xml version="1.0" encoding="iso-8859-1" ?>
       <produtos>
       <produto>
-        <descricao>#{ product.name }</descricao>
+        <descricao>#{product.subcategory} #{product.name}</descricao>
         <preco>#{ number_to_currency(product.price).delete("R$ ") }</preco>
         <id_produto>#{ product.id }</id_produto>
         <codigo_barra></codigo_barra>
@@ -347,6 +359,8 @@ context "in the ilove_ecommerce xml page" do
         <categ>#{ product.category_humanize }</categ>
         <parcelamento>#{ build_installment_text(product.retail_price) }</parcelamento>
         <detalhes>#{ product.description }</detalhes>
+        <material>#{ product.details.first.description }</material>
+        <material>#{ product.details.last.description }</material>
       </produto>
       </produtos>
       END
@@ -367,7 +381,7 @@ context "in the ilove_ecommerce xml page" do
       <fn>#{product.name}</fn>
       <description>#{product.description}</description>
       <category>#{product.category_humanize}</category>
-      <brand>Olook</brand>
+      <brand>olook</brand>
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>
       <currency>BRL</currency>
@@ -445,7 +459,7 @@ context "in the ilove_ecommerce xml page" do
       <title>#{product.name}</title>
       <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=merchant&amp;utm_source=kelkoo</link>
       <price>#{ ActionController::Base.helpers.number_with_precision(product.retail_price, precision: 2, separator: ".")}</price>
-      <brand>Olook</brand>
+      <brand>olook</brand>
       <description>#{ product.description }</description>
       <image-url/>
       <ean/>

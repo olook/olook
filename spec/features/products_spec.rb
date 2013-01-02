@@ -20,9 +20,6 @@ feature "Buying products", %q{
       FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
       do_login!(user)
       FactoryGirl.create(:main_picture, :product => product)
-
-          # Use a existent product id.
-          Setting.stub(:checkout_suggested_product_id).and_return(nil)
     end
 
     context "in the products page" do
@@ -49,14 +46,17 @@ feature "Buying products", %q{
         end
 
         scenario "I need to choose the variant and then add it to the cart" do
-
+          pending
           # Checkout::CartController.any_instance.stub(:find_suggested_product).and_return(nil)
+          ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+          Product.stub(:find).with(ids).and_return(nil)
 
           visit product_path(shoe)
           choose shoe_a.number
           click_button "add_product"
           page.should have_content("Produto adicionado com sucesso")
         end
+
         scenario "If I don't choose a variant and try to add it to the cart, it should tell me I need to pick a size" do
           visit product_path(shoe)
           click_button "add_product"
@@ -74,6 +74,10 @@ feature "Buying products", %q{
         end
 
         scenario "just need to click 'add to the cart'" do
+          pending
+          ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+          Product.stub(:find).with(ids).and_return(nil)
+
           visit product_path(bag)
           click_button "add_product"
           page.should have_content("Produto adicionado com sucesso")
@@ -89,6 +93,10 @@ feature "Buying products", %q{
         end
 
         scenario "just need to click 'add to the cart'" do
+          pending
+          ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+          Product.stub(:find).with(ids).and_return(nil)
+          
           visit product_path(accessory)
           click_button "add_product"
           page.should have_content("Produto adicionado com sucesso")

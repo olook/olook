@@ -24,9 +24,7 @@ describe Checkout::CartController do
 
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
-
     Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
-
     get :show
     assigns(:cart_service).freight.should be_nil
     assigns(:report).should_not be_nil
@@ -35,7 +33,6 @@ describe Checkout::CartController do
   context "when show" do
     it "should render show view" do
       Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
-
       get :show
       response.should render_template ["layouts/site", "show"]
     end
@@ -92,7 +89,7 @@ describe Checkout::CartController do
 
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto excluído com sucesso")
+        flash[:notice].should be_nil
       end
     end
 
@@ -123,7 +120,7 @@ describe Checkout::CartController do
 
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto excluído com sucesso")
+        flash[:notice].should be_nil
       end
     end
 
@@ -189,7 +186,7 @@ describe Checkout::CartController do
 
         it "should set flash notice" do
           post :create, {variant: {id: basic_bag.id}}
-          flash[:notice].should eql("Produto adicionado com sucesso")
+          flash[:notice].should be_nil
         end
       end
 

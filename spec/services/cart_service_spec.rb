@@ -19,7 +19,12 @@ describe CartService do
   }) }
   
   context "#allow_credit_payment?" do
-    it "should delegate to cart" do
+    it "dont allow credit_payment when a promotion exists" do
+      cart_service = CartService.new({ cart: cart, freight: freight, promotion: promotion })
+      cart_service.allow_credit_payment?.should eq(false)
+    end
+
+    it "should delegate to cart when no promotion exists" do
       cart.should_receive(:allow_credit_payment?)
       cart_service.allow_credit_payment?
     end
@@ -127,15 +132,6 @@ describe CartService do
       end
     end
 
-    context "when item is gift" do
-      it "should return gift price for gift position" do
-        cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-        cart.items.first.update_attribute(:gift, true)
-        Product.any_instance.stub(:gift_price => 14)
-        cart_service.item_retail_price(cart.items.first).should eq(14)
-      end
-    end
-
     context "when there is a coupon product" do
 
       let(:product_coupon) { FactoryGirl.create(:product_coupon)}
@@ -213,12 +209,6 @@ describe CartService do
       cart_service.item_discount_percent(cart.items.first).should eq(30)
     end
 
-    it "should return percent when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.item_discount_percent(cart.items.first).should eq(30)
-    end
  end
 
   context ".item_discount_origin" do
@@ -245,12 +235,6 @@ describe CartService do
       cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 30% desconto de primeira compra")
     end
 
-    it "should return gift description when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.item_discount_origin(cart.items.first).should eq("Desconto de 30% para presente.")
-    end
   end
 
   context ".item_discount_origin_type" do
@@ -277,12 +261,6 @@ describe CartService do
       cart_service.item_discount_origin_type(cart.items.first).should eq(:promotion)
     end
 
-    it "should return gift when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.item_discount_origin_type(cart.items.first).should eq(:gift)
-    end
   end
 
   context ".item_discounts" do
@@ -312,32 +290,6 @@ describe CartService do
       cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion])
     end
 
-    it "should return gift when item is gift" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.update_attribute(:gift, true)
-      Product.any_instance.stub(:gift_price => 14)
-      cart_service.coupon = coupon_of_percentage
-      cart_service.promotion = promotion
-      cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon, :promotion, :gift])
-    end
-
-  end
-
-  context ".item_has_more_than_one_discount?" do
-    it "should return false when has no discount" do
-      cart_service.stub(:item_discounts => [])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
-    end
-
-    it "should return false when has one discount" do
-      cart_service.stub(:item_discounts => [:olooklet])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(false)
-    end
-
-    it "should return true when has two or more discounts" do
-      cart_service.stub(:item_discounts => [:olooklet, :promotion])
-      cart_service.item_has_more_than_one_discount?(mock).should eq(true)
-    end
   end
 
   context ".subtotal" do
@@ -600,8 +552,9 @@ describe CartService do
         cart_service.stub(:total => 30)
         cart_service.stub(:subtotal => 40)
         cart_service.stub(:item_price => 10)
-        cart_service.stub(:item_retail_price => 20)
+        cart_service.stub(:normalize_retail_price => 20)
         cart_service.should_receive(:create_freebies_line_items_and_update_subtotal)
+        cart_service.should_receive(:normalize_retail_price)
 
         order = cart_service.generate_order!(Payment::GATEWAYS[:moip], tracking)
 
@@ -762,6 +715,45 @@ describe CartService do
         cart_service.item_discounts(cart.items.first).should eq([:coupon_of_value, :promotion])
         cart_service.item_retail_price(cart.items.first).should == 700
       end
+    end
+  end
+
+  describe "#normalize_retail_price" do
+
+    context "when retail price is not 0" do
+
+      it "should return the retail price" do
+        order = Order.new({amount_discount: 0, subtotal: 0})
+        cart_service.should_receive(:item_retail_price).and_return(100)
+        cart_service.normalize_retail_price(order, cart.items.first).should eq(100)
+      end
+
+      it "should not affect order" do
+        order = Order.new({amount_discount: 0, subtotal: 0})
+        cart_service.should_receive(:item_retail_price).and_return(100)
+        cart_service.normalize_retail_price(order, cart.items.first)
+        order.amount_discount.should eq(0)
+        order.subtotal.should eq(0)
+      end
+
+    end
+
+    context "when retail price is 0" do
+
+      it "should return the retail price = 0.1" do
+        order = Order.new({amount_discount: 0, subtotal: 0})
+        cart_service.should_receive(:item_retail_price).and_return(0)
+        cart_service.normalize_retail_price(order, cart.items.first).should eq(0.1)
+      end
+
+      it "should affect order discount and subtotal" do
+        order = Order.new({amount_discount: 0, subtotal: 0})
+        cart_service.should_receive(:item_retail_price).and_return(0)
+        cart_service.normalize_retail_price(order, cart.items.first)
+        order.amount_discount.should eq(0.1)
+        order.subtotal.should eq(0.1)
+      end
+      
     end
   end
 end

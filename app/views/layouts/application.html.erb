@@ -54,13 +54,12 @@
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
-    <% unless (params[:controller] == 'home' and params[:action] == 'index') || (params[:controller] == 'members' and params[:action] == 'showroom' and @user.half_user?) %>
-      <%= render_promotion_banner unless error %>
-    <% end %>
+    <%# Banner from campaigns %>
+    <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
     
-    <% if ["moments", "members"].include?(params[:controller]) %>
+    <% if ["product"].include?(params[:controller]) %>
       <%= render :partial => "shippings/shipping" %>
       <%= javascript_include_tag "shipping" %>  
     <% end %>

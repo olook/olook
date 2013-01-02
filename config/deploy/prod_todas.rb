@@ -2,7 +2,7 @@ load 'deploy/assets'
 require 'airbrake/capistrano'
 require 'new_relic/recipes'
 
-role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br', 'app4.olook.com.br'
+role :app, 'app1.olook.com.br', 'app2.olook.com.br', 'app3.olook.com.br'
 role :web, 'app2.olook.com.br'
 role :db,  'app2.olook.com.br'
 
@@ -44,7 +44,6 @@ namespace :deploy do
   task :sync_task, :role => :web do
     run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app3.olook.com.br:#{deploy_to}/shared/", :roles => :web
     run "cd #{deploy_to}/shared && scp -P13630 -r assets app1.olook.com.br:#{deploy_to}/shared/", :roles => :web
-    run "cd #{deploy_to}/shared && scp -P13630 -r assets app4.olook.com.br:#{deploy_to}/shared/", :roles => :web
   end
 
   desc 'Run migrations'
