@@ -87,6 +87,7 @@ _gaq.push(['_addTrans',
               <% end %>
             </td>  
             <td class="amount">
+
               <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
 
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
@@ -152,8 +153,8 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="check_column">
-            <%= form_for(cart_path, remote: true, method: :put, html: { :id => "gift_wrap" } ) do %>
-              <%= check_box('gift', 'gift_wrap', :checked => @cart.gift_wrap) %>
+            <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
+              <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
               <h1>Embrulhar pedido para presente</h1>
             <% end %>
           </td>

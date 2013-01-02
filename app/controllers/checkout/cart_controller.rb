@@ -22,31 +22,21 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
-    if params[:gift] && params[:gift][:gift_wrap]
-      @cart.gift_wrap = params[:gift][:gift_wrap]
-      @cart.save
+
+    if @cart.update_attributes(params[:cart])
       render :json => true
-      return
+    else
+      render :json => true, :status => :unprocessable_entity
     end
 
-    variant_id = params[:variant][:id] if params[:variant]
-
-    respond_with do |format|
-      if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path }
-        format.js { head :ok }
-      else
-        format.js { head :not_found }
-        format.html { redirect_to cart_path }
-
-      end
-    end
   end
 
+
+  # TODO maybe put this logic inside Cart model !?! And them return this message...
+  # Any more thoughts ?
   def update_coupon
     code = params[:coupon][:code] if params[:coupon]
     coupon = Coupon.find_by_code(code)
-
     response_message = if coupon.try(:expired?)
       session[:cart_coupon] = nil
       "Cupom expirado. Informe outro por favor"
