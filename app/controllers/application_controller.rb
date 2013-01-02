@@ -60,8 +60,6 @@ class ApplicationController < ActionController::Base
       cart.update_attribute("user_id", @user.id) if cart.user.nil?
     end
 
-    @promotion = PromotionService.new(@user).detect_current_promotion(cart)
-
     cart
   end
 
@@ -122,7 +120,7 @@ class ApplicationController < ActionController::Base
     end
 
     def load_promotion
-      @promotion = PromotionService.new(@user).detect_current_promotion
+      @promotion = PromotionService.new(@user).detect_current_promotion(@cart)
     end
 
     def load_facebook_api
