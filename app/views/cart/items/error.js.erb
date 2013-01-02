@@ -1,0 +1,7 @@
+$(document).ready(function() {
+    $('.notice').text('<%= notice %>');
+    $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
+    initBase.showErrorMessages();
+});

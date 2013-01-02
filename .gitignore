@@ -36,3 +36,4 @@ order_ids.yaml
 config/abacos.yml
 *.csv
 *.swn
+vendor/bundle

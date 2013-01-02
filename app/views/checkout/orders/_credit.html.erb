@@ -1,11 +1,15 @@
-    <% if !@payment.sucess? %>
+<% if !@payment.sucess? %>
+  <div class="msg error">
     <p>Houve um problema com seu pagamento, por favor refaça seu pedido.</p>
-    <% else %>
-      <h1>Seu pedido foi efetuado com sucesso!!</h1>
-      <div class="payment_link">
-        <%= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag #{@payment.bank}" %>
-        <p>Estamos analisando seu pagamento junto a operadora de crédito.</p>
-        <%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "link" %>
-      </div>
-      <p class="description">Obrigada pela sua compra! Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados ao lado estão corretos. Se você tiver qualquer dúvida ou precisar solicitar alguma alteração nos dados do seu pedido, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.</p>
-    <% end %>
+  </div>  
+<% else %>
+  <div class="msg">
+    <p class="success">Parece que deu tudo certo. Já recebemos o seu pedido de compra!</p>
+  </div>  
+
+  <p class="thanks">Obrigada pela sua compra</p>
+  <p class="description">
+    Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados abaixo estão corretos.<br />
+    E se você tiver qualquer dúvida ou precisar solicitar alguma alteração, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.
+  </p>
+<% end %>  

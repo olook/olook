@@ -1,30 +1,67 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Cart::ItemsController do
+describe Cart::ItemsController do 
+	
+	describe "POST #create", js: true do 		
+		context "with valid variant params" do 
+			let(:basic_bag) { FactoryGirl.create(:basic_bag_simple) }
+			let(:params) { {variant: { id: basic_bag.id }} }
 
-  let(:cart) {mock_model(Cart, id: 1)}
-  let(:product) { FactoryGirl.create(:basic_shoe) }
-  context "#create" do
-    context "adding a new item to the users cart" do
-      it "adds an item with quantity = 1" do
-        session[:cart_id] = cart.id
-        post :create, variant_id: 1
+	    it "finds a variant" do
+	      post :create, params, :format => :js
+	      assigns(:variant).should eq(basic_bag)
+	    end
+
+			it "adds an item to the cart instance" do
+        post :create, params, :format => :js
+        controller.current_cart.items.first.variant.should eq(basic_bag)
+      end
+
+      it "renders create when item added and respond for js" do
+        post :create, params, :format => :js
+        response.should render_template ["create"]
+      end
+		end
+
+		context "with invalid params" do  
+      it "should render error in response for js" do
+        post :create, :format=> :js
+        response.should render_template ["error"]
       end
     end
+	end  
 
-    context "adding an existing item to the users cart" do
-      it "increases the item quantity" do
-        pending
+	describe "DELETE #destroy", js: true do
+		context "with valid params" do
+			let(:cart) { FactoryGirl.create(:clean_cart) }
+			let(:item) { FactoryGirl.build(:cart_item) }
+			
+			before(:each) do 
+				Cart::ItemsController.any_instance.stub(:current_cart).and_return(cart) 
+				cart.items << item
+			end
+			
+			it "removes the cart item from the cart" do				
+				Cart.first.items.count.should == 1
+				expect {
+					delete :destroy, { :id => item.id.to_s }, :format=> :js
+				}.to change(Cart.first.items, :count).by(-1)
+			end
+
+			it "destroys the cart item itself" do
+				CartItem.count.should == 1
+				expect {
+					delete :destroy, { :id => item.id.to_s }, :format=> :js
+				}.to change(CartItem, :count).by(-1)
+			end
+		end
+
+		context "with invalid params" do
+      it "should render error in response for js" do
+        delete :destroy, { :id => '' }, :format=> :js
+        response.should render_template ["error"]
       end
     end
-
-  end
-
-  context "#destroy" do
-    it "removes a given item from the users cart" do
-      pending
-    end
-  end
-
+	end
 end

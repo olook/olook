@@ -12,7 +12,7 @@ describe Product do
     it { should have_many(:catalog_products) }
     it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
-
+ 
     it { should have_and_belong_to_many(:profiles) }
   end
 
@@ -23,7 +23,7 @@ describe Product do
     let!(:accessory) { FactoryGirl.create(:basic_accessory) }
     let!(:invisible_shoe) { FactoryGirl.create(:basic_shoe, :is_visible => false) }
 
-    context "shoes" do
+    context ".shoes" do
       it "includes all shoes" do
         shoes = [shoe, invisible_shoe]
         (described_class.shoes & shoes).should == shoes
@@ -35,18 +35,18 @@ describe Product do
       end
     end
 
-    context "bags" do
+    context ".bags" do
       it "includes a bag" do
         described_class.bags.should include bag
       end
-
+ 
       it "does not include other kinds of items" do
         other = [shoe, invisible_shoe, accessory]
         (described_class.bags & other).should be_empty
       end
     end
 
-    context "acessories" do
+    context ".acessories" do
       it "includes an accessory" do
         described_class.accessories.should include accessory
       end
@@ -57,10 +57,10 @@ describe Product do
       end
     end
 
-    context "visible" do
+    context ".visible" do
       it "returns visible products" do
         visible_products = [shoe, bag, accessory]
-        (described_class.only_visible & visible_products).should == visible_products
+        (described_class.only_visible & visible_products) =~ visible_products
       end
 
       it "does not return a invisible product" do
@@ -68,25 +68,59 @@ describe Product do
       end
     end
 
-    context "for_xml" do
+    context "xml ouput" do 
 
-      it "valid_for_xml" do
+      describe ".valid_for_xml" do
+        it "returns shoes with variants and doesn't return shoes without variants" do
           shoe_for_xml.master_variant.update_attribute(:price, 1.0)
+          #about the factories: shoe_for_xml includes variants, shoe doesn't
           described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
           described_class.valid_for_xml([0],[0]).should_not include(shoe)
+        end
+
+        it "doesn't return shoes with less than 3 variants with 3 inventory each" do
+          # leave only 3 variants on factory
+          shoe_for_xml.variants.first.destroy
+          # set inventory to less than 3 on each variant
+          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 2)}
+          described_class.valid_for_xml([0],[0]).should_not include(shoe_for_xml)
+        end
+
+        it "returns shoes with 3 or more variants with 3 or more inventory each" do
+          # leave only 3 variants on factory
+          shoe_for_xml.variants.first.destroy
+          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 4)}
+          described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
+        end
       end
 
-      it "should be valid for criteo xml" do
-        products = [shoe, bag, accessory, shoe_for_xml]
-        shoe_for_xml.master_variant.update_attribute(:price, 1.0)
-        (described_class.valid_criteo_for_xml([0],[0]) & products).should == [shoe_for_xml]
+      describe ".valid_criteo_for_xml" do
+        it "returns products valid for criteo" do
+          products = [shoe, bag, accessory, shoe_for_xml] 
+          shoe_for_xml.master_variant.update_attribute(:price, 1.0)
+          (described_class.valid_criteo_for_xml([0],[0]) & products).should == [shoe_for_xml]
+        end
+
+        it "doesn't return shoes with less than 3 variants with 3 inventory each" do
+          # leave only 3 variants on factory
+          shoe_for_xml.variants.first.destroy
+          # set inventory to less than 3 on each variant
+          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 2)}
+          described_class.valid_for_xml([0],[0]).should_not include(shoe_for_xml)
+        end
+
+        it "returns shoes with 3 or more variants with 3 or more inventory each" do
+          # leave only 3 variants on factory
+          shoe_for_xml.variants.first.destroy
+          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 4)}
+          described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
+        end
       end
 
       describe "blacklisted products" do
         before do
           shoe.master_variant.update_attribute(:price, 1.0)
         end
-
       end
     end
   end
@@ -105,7 +139,6 @@ describe Product do
       related_product = FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject)
       subject.unrelated_products.should include unrelated_product
       subject.unrelated_products.should_not include related_product
-
     end
 
     describe "#is_related_to?" do
@@ -457,4 +490,32 @@ describe Product do
     end
   end
 
+  describe "#shoe_inventory_has_less_than_minimum?" do
+    let(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
+
+    context "shoe with less than 3 variants" do
+      it "returns true" do
+        # leave only 2 variants on factory
+        shoe_for_xml.variants.first(2).each {|v| v.destroy}
+        shoe_for_xml.shoe_inventory_has_less_than_minimum?.should be_true
+      end
+    end
+
+    context "shoe with 3 or more  variants" do
+
+      context "but with less than 3 inventory in any of them" do
+        it "returns true" do
+          # set inventory to less than 3 on each variant
+          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 2)}
+          shoe_for_xml.shoe_inventory_has_less_than_minimum?.should be_true
+        end
+      end
+
+      context "with 3 or more inventory each" do
+        it "returns false" do
+          shoe_for_xml.shoe_inventory_has_less_than_minimum?.should be_false
+        end
+      end
+    end
+  end
 end
