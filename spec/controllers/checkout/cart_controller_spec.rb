@@ -66,13 +66,6 @@ describe Checkout::CartController do
   end
 
   context "when update" do
-    it "should remove item" do
-      Cart.any_instance
-          .should_receive(:remove_item)
-          .with(basic_bag)
-          .and_return(true)
-      post :update, {variant: {id: basic_bag.id}}
-    end
 
     context "when item removed and respond for html" do
       before :each do
@@ -81,28 +74,6 @@ describe Checkout::CartController do
             .with(basic_bag)
             .and_return(true)
       end
-
-      it "should redirect to cart" do
-        post :update, {variant: {id: basic_bag.id}}
-        response.should redirect_to(cart_path)
-      end
-
-      it "should set flash notice" do
-        post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should be_nil
-      end
-    end
-
-    it "should head is ok when item removed and respond for js" do
-      Cart.any_instance
-          .stub(:remove_item)
-          .with(basic_bag)
-          .and_return(true)
-
-      request.env['HTTP_ACCEPT'] = "text/javascript"
-      post :update, {variant: {id: basic_bag.id}}, :format=> :js
-      response.code.should eq("200")
-      response.body.should be_blank
     end
 
     context "when item is not removed and respond for html" do
@@ -112,28 +83,6 @@ describe Checkout::CartController do
             .with(basic_bag)
             .and_return(false)
       end
-
-      it "should redirect to cart" do
-        post :update, {variant: {id: basic_bag.id}}
-        response.should redirect_to(cart_path)
-      end
-
-      it "should set flash notice" do
-        post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should be_nil
-      end
-    end
-
-    it "should head is not when item is not removed and respond for js" do
-      Cart.any_instance
-          .stub(:remove_item)
-          .with(basic_bag)
-          .and_return(false)
-
-      request.env['HTTP_ACCEPT'] = "text/javascript"
-      post :update, {variant: {id: basic_bag.id}}, :format=> :js
-      response.code.should eq("404")
-      response.body.should be_blank
     end
   end
 
@@ -235,7 +184,7 @@ describe Checkout::CartController do
 
   context "when update gift wrap" do
     it "should update cart" do
-      put :update, {gift: {gift_wrap: "true"}}
+      put :update, {cart: {gift_wrap: "true"}}
       cart.reload.gift_wrap.should eq(true)
     end
 

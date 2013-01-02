@@ -26,7 +26,7 @@ $(function() {
   });
 
 
-  $( "#gift_gift_wrap" ).change(function() {
+  $( "#cart_gift_wrap" ).change(function() {
     $( "#gift_wrap" ).submit();
     if ( $(this).attr('checked') == 'checked' ) {
       change_value (true);
