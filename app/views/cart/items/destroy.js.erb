@@ -1,0 +1,7 @@
+<% if @cart.items_total == 0 %>
+$('ul#titles').remove();
+<% end %>
+
+$('tr#product_<%= @product_id %>').fadeOut();
+
+console.log('product_<%= @product_id %>')
