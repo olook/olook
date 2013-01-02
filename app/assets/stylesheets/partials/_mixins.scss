@@ -132,3 +132,7 @@ $johnston: johnston, arial, sans-serif;
   border-radius: $size;
 }
 
+@mixin sprite_checkout($left, $top){
+	background:image-url("/assets/new_checkout/sprite.png") no-repeat $left $top;
+}
+

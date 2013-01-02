@@ -144,7 +144,7 @@ class ProductPresenter < BasePresenter
   end
 
   def show_promotion_explanation?
-    @user.nil? || PromotionService.new(@user).satisfies_criteria?(@promotion)
+    @user.nil? || PromotionService.new(@user).satisfies_criteria?({promotion: @promotion})
   end
 
 end

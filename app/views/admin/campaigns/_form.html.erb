@@ -38,6 +38,26 @@
     <% if @campaign.banner? %>
       <%= image_tag @campaign.banner_url %>
     <% end %>
+
+    <p>
+      <%= f.check_box :remove_banner %>
+      Remover
+    </p>
+
+  </div>
+
+  <div class="field">
+    <%= f.label :lightbox %> <br />
+    <%= f.file_field :lightbox %>
+
+    <% if @campaign.lightbox? %>
+      <%= image_tag @campaign.lightbox_url %>
+    <% end %>
+
+    <p>
+      <%= f.check_box :remove_lightbox %>
+      Remover
+    </p>
   </div>
 
   <div class="field">
@@ -49,6 +69,17 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
+
+  <div class="field">
+    <%= f.label :pages, "Paginas para exibir o banner" %><br />
+    <%= hidden_field_tag "campaign[page_ids][]", nil %> 
+    <% Page.all.each do |page| %>
+      <%= check_box_tag "campaign[page_ids][]", page.id, @campaign.page_ids.include?(page.id), :id => dom_id(page) %>
+      <%= label_tag dom_id(page), page.description %>
+    <% end %>
+  </div>
+
+
 
   <div class="actions">
     <%= f.submit %>

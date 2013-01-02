@@ -1,14 +1,22 @@
 <% address = Address.find(cart_service.freight[:address_id]) %>
 <%= link_to "alterar", (cart_checkout_addresses_path unless has_payment), :class => "change" unless @order %>
-<div class="request_info">
-  <div class="item">
-    <h1>Endereço de entrega</h1>
-    <p><%= address.identification %></p>
-    <p><%= "#{address.street}, #{address.number}" %><%= address.complement? ? ", #{address.complement}" : "" %></p>
-    <p><%= "#{address.neighborhood} - #{address.zip_code}" %></p>
-    <p><%= "#{address.city}, #{address.state}" %></p>
-    <div class="delivery_time">
-      <p>O prazo de entrega para este endereço é de <%= cart_service.freight[:delivery_time] %> dias úteis</p>
-    </div>
+<div class="box-order">
+  <div class="item destinatario">
+    <h2>ENTREGA</h2>
+    <p>
+      <span class="txt-black">Nome do destinatário: </span><%= address.identification %><br/>
+      <span class="txt-black">Endereço: </span><%= "#{address.street}, #{address.number}" %><%= address.complement? ? ", #{address.complement}" : "" %><br />
+      <%= "#{address.neighborhood} - #{address.city}/#{address.state}" %><br />
+      <%= "#{address.zip_code}" %>
+    </p>
+    
   </div>
+  <% 
+  gift_wrap = @order.gift_wrap if has_payment
+  gift_wrap ||= cart_service.gift_wrap?
+  if gift_wrap %>
+  <div class="gift-box">
+    <p>Este pedido será embrulhado para presente</p>
+  </div>
+  <% end %>
 </div>

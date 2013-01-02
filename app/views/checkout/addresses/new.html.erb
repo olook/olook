@@ -11,7 +11,7 @@
       <%= f.submit '', :class => "save" %>
     </section>
     <section class="sidebar">
-      <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service, :has_payment => false %>
+      <%= render "shared/payments/info_sidebar", :cart => @cart, :cart_service => @cart_service, :has_payment => false, line_items: @cart.items %>
     </section>
   <% end %>
 </section>
