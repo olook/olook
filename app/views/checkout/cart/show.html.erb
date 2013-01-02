@@ -59,12 +59,16 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
-    <ul id="titles">
+    <ul id="titles" class=<%= !@promotion_free_item ? "border" : "" %>>
       <li class="item">Item</li>
       <li class="amount">Quantidade</li>
       <li class="value">Subtotal</li>
     </ul>
-    <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
+
+    <% if free_item_promotion_is_active? %>
+      <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
+    <% end %>
+
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
         <% @cart.items.each_with_index do |item, index| %>

@@ -227,6 +227,7 @@ section#cart {
     overflow: auto;
 		float:left;
 		margin-top:40px !important;
+		&.border{border-bottom:dotted 1px #000;}
     li {
       color: #101010;
       font-family: $avenir;
