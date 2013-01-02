@@ -1,7 +1,9 @@
 <% if @cart.items_total == 0 %>
-$('ul#titles').remove();
+$('section#cart').fadeOut(100).empty().append('<h1>Minha sacola</h1><h2>Sua sacola ainda está vazia :( <br />Conheça nossa coleção e mude isso já!</h2>').delay(200).fadeIn();
+$(".menu li#cart a.cart").removeClass("selected");
 <% end %>
 
+$("#cart_items").hide().delay(300).text('<%= @cart.items_total %>').delay(150).fadeIn();
 $('tr#product_<%= @product_id %>').fadeOut();
+$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
 
-console.log('product_<%= @product_id %>')

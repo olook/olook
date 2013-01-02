@@ -57,7 +57,7 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
-    <ul id="titles" class=<%= !@promotion_free_item ? "border" : "" %>>
+    <ul id="titles" class=<%= !@promotion_free_item ? "border" : "border" %>>
       <li class="item">Item</li>
       <li class="amount">Quantidade</li>
       <li class="value">Subtotal</li>
@@ -113,12 +113,6 @@ _gaq.push(['_addTrans',
                 <p>por: <%= number_to_currency(@cart_service.item_retail_price_total(item)) %></p>
               <% else %>
                 <p><%= number_to_currency(@cart_service.item_price_total(item)) %></p>
-              <% end %>
-              <%= form_for(item, :html => {
-                                  :method => :delete, 
-                                  :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
-                                  :id => 'remove_item_form' }) do %>
-                <%= submit_tag('')  %>
               <% end %>
             </td>
           </tr>
