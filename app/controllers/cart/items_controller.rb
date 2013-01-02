@@ -10,8 +10,10 @@ class Cart::ItemsController < ApplicationController
   end
 
   def destroy
-    if @cart.items.find(params[:id]).destroy
-      respond_with { |format| format.js { head :ok } }
+  	cart_item = @cart.items.find(params[:id])
+  	@product_id = cart_item.product.id
+    if cart_item.destroy
+      respond_with { |format| format.js { } }
     else
       render :error, :locals => { :notice => "Houve um problema ao deletar o item do cart" }
     end
