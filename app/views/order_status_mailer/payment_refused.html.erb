@@ -52,12 +52,11 @@
 
             <p style="font-size:16px;">Olá <%= @order.user.first_name %>,</p>
 
-            <p>Infelizmente por algum motivo seu pagamento não foi concluído com sucesso e o seu pedido nº <span style="color:#E05789"><%= @order.number %></span> teve que ser automaticamente cancelado.</p>
+            <p>Infelizmente seu pagamento não foi aprovado pela administradora do seu cartão de crédito.</p>
 
             <p>Mas não se preocupe, temos uma boa notícia! :)</p>
 
-            <p>Seus itens estão reservados em sua sacola, basta você realizar novamente o pedido utilizando outro meio de pagamento.</p>
-
+            <p>Os itens do seu pedido nº <span style="color:#E05789"><%= @order.number %></span> ainda estão disponíveis em sua sacola, basta você realizar novamente o pedido utilizando outro meio de pagamento.</p>
 
             <!-- botao PRINCIPAL -->
             <table width="220" align="center">

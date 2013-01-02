@@ -4,6 +4,10 @@ class Campaign < ActiveRecord::Base
   validates :end_at, :presence => true
   validate :only_one_activated?
   mount_uploader :banner, ImageUploader
+  mount_uploader :lightbox, ImageUploader
+
+  has_many :campaign_pages
+  has_many :pages, :through => :campaign_pages
 
   def is_active?
     start_at <= Date.today && end_at >= Date.today
@@ -21,6 +25,11 @@ class Campaign < ActiveRecord::Base
 
   def overlaps? another_campaign
     start_at.between?(another_campaign.start_at, another_campaign.end_at) || end_at.between?(another_campaign.start_at, another_campaign.end_at)
+  end
+
+  def show_banner_for?(controller_name)
+    matched = pages.select {|page| page.controller_name.downcase == controller_name.downcase}
+    matched.any?
   end
 end
 

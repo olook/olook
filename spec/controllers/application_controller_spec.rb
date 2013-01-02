@@ -6,6 +6,8 @@ class StubApplicationController < ApplicationController
   end
 end
 
+Olook::Application.routes.draw { get "stub_application/index" }
+
 describe StubApplicationController do
 
   context "order tracking_parameters" do
