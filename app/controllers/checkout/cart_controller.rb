@@ -12,7 +12,6 @@ class Checkout::CartController < Checkout::BaseController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
-    # binding.pry
   end
 
   def destroy
@@ -38,32 +37,6 @@ class Checkout::CartController < Checkout::BaseController
       else
         format.js { head :not_found }
         format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
-      end
-    end
-  end
-
-  def create
-    variant_id = params[:variant][:id] if params[:variant]
-    variant_quantity = params[:variant][:quantity] if  params[:variant]
-
-    if @variant = Variant.find_by_id(variant_id)
-      if @cart.add_item(@variant, variant_quantity)
-        respond_with do |format|
-          message = variant_quantity.nil? ? "Produto adicionado com sucesso" : "Carrinho atualizado com sucesso"
-          format.html { redirect_to(cart_path, notice: message) }
-        end
-      else
-        respond_with(@cart) do |format|
-          notice_response = "Produto esgotado"
-          notice_response = "Produtos de presente não podem ser comprados com produtos da vitrine" if @cart.has_gift_items?
-          format.js { render :error, locals: { notice: notice_response } }
-          format.html { redirect_to(cart_path, notice: notice_response) }
-        end
-      end
-    else
-      respond_with do |format|
-        format.js { render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }}
-        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
       end
     end
   end

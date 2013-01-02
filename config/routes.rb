@@ -317,7 +317,7 @@ Olook::Application.routes.draw do
   end
 
   #CHECKOUT
-  resource :cart, :path => 'sacola', :controller => "checkout/cart" do
+  resource :cart, :path => 'sacola', :controller => "checkout/cart", :except => [:create] do
     get "update_status" => "checkout/cart#update_status", :as => :update_status
     put "update_credits" => "checkout/cart#update_credits", :as => :update_credits
     put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
