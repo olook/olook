@@ -1,13 +1,13 @@
-<h2>Campaign</h2>
+<h2>Campanha</h2>
 <div class="inner">
   <p>
-    <b>ID:</b>
+    <b>Id</b>
     <%= @campaign.id %>
   </p>
-  <b>Title:</b>
+  <b>Título da campanha</b>
     <%= @campaign.title %>
   </p>
-  <b>Active?</b>
+  <b>Está ativo?</b>
     <%= @campaign.is_active? %>
   </p>
   <p>
@@ -15,33 +15,51 @@
     <%= @campaign.background %>
   </p>
    <p>
-    <b>Banner</b>
+    <b>Imagem do banner</b>
     <% if @campaign.banner? %>
       <%= image_tag @campaign.banner %>
     <% end %>
   </p>
-  <b>Start At:</b>
+  <p>
+    <b>Imagem do Lightbox</b>
+    <% if @campaign.lightbox? %>
+      <%= image_tag @campaign.lightbox %>
+    <% end %>
+  </p>
+  <b>Inicia em</b>
     <%= @campaign.start_at %>
   </p>
   <p>
-    <b>End At</b>
+    <b>Termina em</b>
     <%= @campaign.end_at %>
   </p>
   <p>
-    <b>description</b>
+    <b>Descrição</b>
     <%= @campaign.description %>
   </p>
   <p>
-    <b>Created At</b>
+    <b>Banner será exibido nas páginas</b>
+    <ul>
+      <% @campaign.pages.each do |page| %>
+        <li><%= page.description %></li>
+      <% end %>
+    </ul>
+  </p>
+  <p>
+    <b>Criado em</b>
     <%= @campaign.created_at %>
   </p>
   <p>
-    <b>Updated At</b>
+    <b>Atualizado em</b>
     <%= @campaign.updated_at %>
   </p>
+
+
 </div>
+
+
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'Show', admin_campaign_path(@campaign) %></li>
-  <li><%= link_to 'Back', admin_campaigns_path %></li>
+  <li><%= link_to 'Editar', edit_admin_campaign_path(@campaign) %></li>
+  <li><%= link_to 'Voltar', admin_campaigns_path %></li>
 <% end %>
 

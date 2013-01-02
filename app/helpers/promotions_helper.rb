@@ -26,8 +26,9 @@ module PromotionsHelper
     # elsif Campaign.activated_campaign && ((current_user && page_included_in_whitelist?(PROMOTION_BANNER_WHITELIST)) || (!current_user && page_included_in_whitelist?(PROMOTION_BANNER_GUEST_WHITELIST)))
     #   render(:partial => "campaigns/campaign_active")
     # end
-
-    if Campaign.activated_campaign && ((current_user && page_included_in_whitelist?(PROMOTION_BANNER_WHITELIST)) || (!current_user && page_included_in_whitelist?(PROMOTION_BANNER_GUEST_WHITELIST)))    
+    campaign = Campaign.activated_campaign
+    # binding.pry
+    if campaign && campaign.show_banner_for?(params[:controller])
       render(:partial => "campaigns/campaign_active")
     end
 

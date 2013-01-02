@@ -2,7 +2,7 @@
 <produtos>
 <% @products.each do |product| %>
 <produto>
-  <descricao><%= product.name %></descricao>
+  <descricao><%= product.subcategory %> <%= product.name %></descricao>
   <preco><%= number_to_currency(product.price).delete("R$ ") %></preco>
   <id_produto><%= product.id %></id_produto>
   <codigo_barra></codigo_barra>
@@ -12,6 +12,11 @@
   <categ><%= product.category_humanize %></categ>
   <parcelamento><%= build_installment_text(product.retail_price) %></parcelamento>
   <detalhes><%= product.description %></detalhes>
+  <% product.details.each do |detail| %>
+    <% if ["Metal", "Material externo"].include?(detail.translation_token) %>
+    <material><%= detail.description %></material>
+    <% end %>
+  <% end %>
 </produto>
 <% end %>
 </produtos>

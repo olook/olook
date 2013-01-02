@@ -12,6 +12,7 @@ class Checkout::CartController < Checkout::BaseController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
+    @promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
   end
 
   def destroy
@@ -32,11 +33,12 @@ class Checkout::CartController < Checkout::BaseController
 
     respond_with do |format|
       if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
+        format.html { redirect_to cart_path }
         format.js { head :ok }
       else
         format.js { head :not_found }
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
+        format.html { redirect_to cart_path }
+
       end
     end
   end
@@ -71,7 +73,9 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def find_suggested_product
-    Product.find(Setting.checkout_suggested_product_id.to_i) if Setting.checkout_suggested_product_id
+    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+    products = Product.find ids
+    products.shuffle.first if products
   end
 end
 

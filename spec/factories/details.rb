@@ -31,6 +31,19 @@ FactoryGirl.define do
       translation_token 'Salto/Tamanho'
       description "0,5 cm"
     end
+    
+    factory :shoe_with_metal do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Metal'
+      description "Ouro light"
+    end
+    
+    factory :shoe_with_leather do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Material externo'
+      description "Couro"
+    end
+
   end
 
   factory :bag_detail, :class => Detail do

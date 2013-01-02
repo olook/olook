@@ -19,5 +19,15 @@ FactoryGirl.define do
     param '0'
     active true
   end
+
+  factory :compre_3_pague_2, :class => Promotion do
+    name "compre_3_pague_2"
+    strategy "free_item_strategy"
+    banner_label "compre_3_pague_2"
+    priority 0
+    discount_percent 0
+    param '3'
+    active true
+  end
 end
 
