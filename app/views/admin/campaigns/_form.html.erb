@@ -70,6 +70,17 @@
     <%= f.text_field :description %>
   </div>
 
+  <div class="field">
+    <%= f.label :pages, "Paginas para exibir o banner" %><br />
+    <%= hidden_field_tag "campaign[page_ids][]", nil %> 
+    <% Page.all.each do |page| %>
+      <%= check_box_tag "campaign[page_ids][]", page.id, @campaign.page_ids.include?(page.id), :id => dom_id(page) %>
+      <%= label_tag dom_id(page), page.description %>
+    <% end %>
+  </div>
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

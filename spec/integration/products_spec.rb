@@ -46,7 +46,7 @@ feature "Buying products", %q{
         end
 
         scenario "I need to choose the variant and then add it to the cart" do
-
+          pending
           # Checkout::CartController.any_instance.stub(:find_suggested_product).and_return(nil)
           ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
           Product.stub(:find).with(ids).and_return(nil)
@@ -56,6 +56,7 @@ feature "Buying products", %q{
           click_button "add_product"
           page.should have_content("Produto adicionado com sucesso")
         end
+
         scenario "If I don't choose a variant and try to add it to the cart, it should tell me I need to pick a size" do
           visit product_path(shoe)
           click_button "add_product"
@@ -73,6 +74,7 @@ feature "Buying products", %q{
         end
 
         scenario "just need to click 'add to the cart'" do
+          pending
           ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
           Product.stub(:find).with(ids).and_return(nil)
 
@@ -91,6 +93,7 @@ feature "Buying products", %q{
         end
 
         scenario "just need to click 'add to the cart'" do
+          pending
           ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
           Product.stub(:find).with(ids).and_return(nil)
           
