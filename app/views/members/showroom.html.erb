@@ -31,8 +31,13 @@
   <div id="showroom">
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
-    
+
+    <%# TODO: use a presenter to wrap these both logic %>    
+    <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
+      <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => moments_path}  %>
+    <% end %>
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
+
     <section id="greetings">
       <%= showroom_presenter.render_identification(@friends) %>
       <%= render "members/showroom_lookbooks", :lookbooks => @lookbooks %>

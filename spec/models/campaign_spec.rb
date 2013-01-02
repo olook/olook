@@ -7,6 +7,8 @@ describe Campaign do
       it { should validate_presence_of :title }
       it { should validate_presence_of :start_at }
       it { should validate_presence_of :end_at }
+      it { should have_many :campaign_pages }
+      it { should have_many(:pages).through(:campaign_pages) }
     end
   end
 
@@ -98,6 +100,41 @@ describe Campaign do
     context "should return nil" do
       it "No campaign active today" do
         Campaign.activated_campaign.should eq(nil)
+      end
+    end
+  end
+
+  describe "#show_banner_for?" do
+    let(:campaign) {Campaign.new}
+    let(:page) {Page.new({controller_name: "moments"})}
+
+    context "when campaign has the page" do
+      before do
+        campaign.pages << page
+      end
+
+      it "show the banner" do
+        campaign.show_banner_for?("moments").should be_true
+      end
+
+      it "show the banner ignoring the case" do
+        campaign.show_banner_for?("MoMents").should be_true
+      end
+    end
+
+    context "when the campaign has no pages" do
+      it "don't show the banner" do
+        campaign.show_banner_for?("MoMents").should be_false
+      end
+    end
+
+    context "when the campaign has a different page" do
+      before do
+        campaign.pages << page
+      end
+
+      it "don't show the banner" do
+        campaign.show_banner_for?("stylists").should be_false
       end
     end
 

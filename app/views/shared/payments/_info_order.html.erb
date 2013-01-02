@@ -1,0 +1,84 @@
+<%= link_to "alterar", (cart_path unless has_payment), :class => "change" unless @order %>
+<div class="box-order">
+  <h2>Seu Pedido</h2>
+  <ul class="produto">
+    <% line_items.each do |line_item|%>
+      <li>
+      <p class="img"><%= image_tag (line_item.variant.product.thumb_picture) %></p>
+      <p class="nome"><%= line_item.variant.name %></p>
+      <p class="qte">Quantidade: <%= line_item.quantity %></p>
+      <p class="tamanho">Tamanho: <%= line_item.variant.description %></p>
+      <p class="preco"><%= number_to_currency(line_item.variant.retail_price) %></p>
+      </li>
+    <% end %>
+  </ul>
+  <ul class="sub-total">
+    <%
+    gift_wrap = @order.gift_wrap if has_payment
+    gift_wrap ||= cart_service.gift_wrap?
+    if gift_wrap %>
+    <li>
+      <p><span class="txt-black">EMBALAGEM (PRESENTE):</span><span>+ R$5,00</span></p>
+    </li> 
+    <% end %>
+
+    <li>
+      <%
+      gross_amount = @order.gross_amount if has_payment
+      gross_amount ||=  cart_service.subtotal(:price)
+      %>
+      <p><span class="txt-black">SUBTOTAL:</span><span class="txt-pink"><%= number_to_currency(gross_amount)  %></span></p>
+    </li>
+    
+    <% 
+    if cart_service.freight_price > 0 %>
+    <li>
+      <p><span class="txt-black">FRETE:</span><span><%= number_to_currency(@order.freight.price) %></span></p>
+    </li>
+    <% end 
+    credits = @order.payments.for_credits.sum(:total_paid) if has_payment
+    credits ||= cart_service.total_credits_discount
+    if credits > 0 %>
+    <li>
+      <p><span class="txt-black">CRÉDITOS:</span><span>- <%= number_to_currency(credits) %></span></p>
+    </li>
+    <% end
+    olooklet = @order.payments.for_olooklet.sum(:total_paid) if has_payment
+    olooklet ||= cart_service.total_discount_by_type(:olooklet)
+    if olooklet > 0 %>
+    <li>
+      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(credits) %></span></p>
+    </li>  
+    <% end
+    promotion = @order.payments.for_promotion.sum(:total_paid) if has_payment
+    promotion ||= cart_service.total_discount_by_type(:promotion)
+    if promotion > 0 %>
+    <li>
+      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(promotion) %></span></p>
+    </li>  
+    <% end
+    gift = @order.payments.for_gift.sum(:total_paid) if has_payment
+    gift ||= cart_service.total_discount_by_type(:gift)
+    if gift > 0 %>
+    <li>
+      <p><span class="txt-black">PRESENTE:</span><span>- <%= number_to_currency(gift) %></span></p>
+    </li>  
+    <% end
+    coupon = @order.payments.for_coupon.sum(:total_paid) if has_payment
+    coupon ||= cart_service.total_discount_by_type(:coupon)
+    if coupon > 0 %>
+    <li>
+      <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.coupon.discount_percent)%></span></p>
+    </li>  
+    <% end %>
+  </ul>  
+  <ul class="total">
+    <li class="delivery_time"><p>(entrega em <%= cart_service.freight[:delivery_time] if cart_service.freight %> dias úteis)</p></li>
+    <%
+    total_paid = @order.amount_paid if has_payment
+    total_paid ||= cart_service.total
+    %>
+    <li><span class="txt-black">TOTAL:</span><span class="txt-pink"><%= number_to_currency(total_paid) %></span></li>
+  </ul>  
+</div>
+

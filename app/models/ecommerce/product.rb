@@ -44,10 +44,7 @@ class Product < ActiveRecord::Base
   mount_uploader :color_sample, ColorSampleUploader
 
   scope :only_visible , where(:is_visible => true)
-  scope :valid_for_xml, lambda { |products_blacklist, collections_blacklist| only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => products_blacklist , :collections_blacklist => collections_blacklist).order("collection_id desc")}
 
-  # scope logic for criteo xml
-  scope :valid_criteo_for_xml, lambda { |products_blacklist, collections_blacklist| only_visible.joins(" INNER JOIN(SELECT product_id, SUM(inventory) AS \"sum_inventory\", COUNT(id) as \"count_variants\" from variants WHERE variants.price > 0.0 GROUP BY product_id) AS x ON products.id = x.product_id").where("x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)", :products_blacklist => products_blacklist , :collections_blacklist => collections_blacklist ).where("(products.category <> 1 or x.count_variants > 3)").order("collection_id desc")}
   scope :shoes        , where(:category => Category::SHOE)
   scope :bags         , where(:category => Category::BAG)
   scope :accessories  , where(:category => Category::ACCESSORY)
@@ -55,6 +52,25 @@ class Product < ActiveRecord::Base
   scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+
+  def self.valid_for_xml(products_blacklist, collections_blacklist)
+    products = only_visible.joins(valid_for_xml_join_query).where(valid_for_xml_where_query,
+                                                                  :products_blacklist => products_blacklist , 
+                                                                  :collections_blacklist => collections_blacklist).
+                                                                 order("collection_id desc") 
+
+    products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }                                                 
+  end
+
+  def self.valid_criteo_for_xml(products_blacklist, collections_blacklist)
+    products = only_visible.joins(criteo_join_query).where(criteo_where_query, 
+                                                    :products_blacklist => products_blacklist , 
+                                                    :collections_blacklist => collections_blacklist ).
+                                                  where("(products.category <> 1 or x.count_variants > 3)").
+                                                  order("collection_id desc")
+
+    products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }                                                   
+  end
 
   def self.in_profile profile
     !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
@@ -275,42 +291,57 @@ class Product < ActiveRecord::Base
     CRITEO_CONFIG[key]
   end
 
-  def add_freebie product
-    variant_for_freebie = product.variants.first
-    variants.each do |variant| 
-      FreebieVariant.create!({:variant => variant, :freebie => variant_for_freebie})
+  def shoe_inventory_has_less_than_minimum?
+    !(self.shoe? && self.variants.where("inventory >=  3").count >= 3)
+  end
+
+  private
+
+    def create_master_variant
+      @master_variant = Variant.new(:is_master => true,
+                                    :product => self,
+                                    :number => "master#{self.model_number}",
+                                    :description => 'master',
+                                    :price => 0.0, :inventory => 0,
+                                    :width => 0, :height => 0, :length => 0,
+                                    :display_reference => 'master',
+                                    :weight => 0.0 )
+      @master_variant.save!
     end
-  end
 
-  def remove_freebie freebie
-    variant_for_freebie = freebie.variants.first
-    variants.each do |variant| 
-      freebie_variants_to_destroy = variant.freebie_variants.where(:freebie_id => variant_for_freebie.id) 
-      freebie_variants_to_destroy.each { |v| v.destroy }
+    def update_master_variant
+      master_variant.save!
     end
-  end
 
-private
+    def detail_by_token token
+      detail = self.details.where(:translation_token => token).last
+      detail.description if detail
+    end
 
-  def create_master_variant
-    @master_variant = Variant.new(:is_master => true,
-                                  :product => self,
-                                  :number => "master#{self.model_number}",
-                                  :description => 'master',
-                                  :price => 0.0, :inventory => 0,
-                                  :width => 0, :height => 0, :length => 0,
-                                  :display_reference => 'master',
-                                  :weight => 0.0 )
-    @master_variant.save!
-  end
+    #TODO: find a more descriptive name
+    def self.criteo_join_query
+      query = "INNER JOIN( "
+      query += "SELECT product_id, SUM(inventory) AS \"sum_inventory\",  COUNT(id) as \"count_variants\" "
+      query += "FROM variants WHERE variants.price > 0.0  GROUP BY product_id"
+      query += ") AS x ON products.id = x.product_id"
+    end
 
-  def update_master_variant
-    master_variant.save!
-  end
+    #TODO: find a more descriptive name
+    def self.criteo_where_query 
+      query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) "
+      query += "AND products.collection_id NOT IN (:collections_blacklist)"
+    end
 
-  def detail_by_token token
-    detail = self.details.where(:translation_token => token).last
-    detail.description if detail
-  end
+    #TODO: find a more descriptive name
+    def self.valid_for_xml_join_query
+      query = " INNER JOIN("
+      query += "SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id" 
+      query += ") AS x ON products.id = x.product_id" 
+    end
 
+    #TODO: find a more descriptive name
+    def self.valid_for_xml_where_query
+      query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id "
+      query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
+    end
 end

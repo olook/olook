@@ -1,13 +1,14 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :gift_wrap
   attr_accessor :coupon
   attr_accessor :promotion
   attr_accessor :freight
   attr_accessor :credits
 
-  delegate :allow_credit_payment?, :to => :cart
+  def allow_credit_payment?
+    promotion.nil? && cart.allow_credit_payment? 
+  end
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -19,10 +20,6 @@ class CartService
     end
 
     self.credits ||= 0
-  end
-
-  def gift_wrap?
-    gift_wrap == "1" ? true : false
   end
 
   def freight_price
@@ -71,10 +68,6 @@ class CartService
 
   def item_discounts(item)
     get_retail_price_for_item(item).fetch(:discounts)
-  end
-
-  def item_has_more_than_one_discount?(item)
-    item_discounts(item).size > 1
   end
 
   def subtotal(type = :retail_price)
@@ -159,7 +152,7 @@ class CartService
       :cart_id => cart.id,
       :user_id => user.id,
       :restricted => cart.has_gift_items?,
-      :gift_wrap => gift_wrap?,
+      :gift_wrap => cart.gift_wrap,
       :amount_discount => total_discount,
       :amount_increase => total_increase,
       :amount_paid => total,
@@ -176,8 +169,9 @@ class CartService
     order.line_items = []
 
     cart.items.each do |item|
-      order.line_items << LineItem.new( :variant_id => item.variant.id, :quantity => item.quantity, :price => item_price(item),
-                    :retail_price => item_retail_price(item), :gift => item.gift)
+
+      order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
+                    retail_price: normalize_retail_price(order, item), gift: item.gift)
 
       create_freebies_line_items_and_update_subtotal(order, item)
     end
@@ -188,9 +182,19 @@ class CartService
     order
   end
 
+  def normalize_retail_price(order, cart_item)
+    retail_price = item_retail_price(cart_item)
+    if retail_price == 0
+      retail_price = 0.1
+      order.amount_discount += retail_price
+      order.subtotal += retail_price
+    end
+    retail_price
+  end
+
   def create_freebies_line_items_and_update_subtotal(order, item)
-    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( :variant_id => freebie_variant.freebie.id, 
-              :quantity => item.quantity, :price => 0.1, :retail_price => 0.1, :gift => item.gift, :is_freebie => true) }
+    freebies = FreebieVariant.where(variant_id: item.variant.id).map { |freebie_variant| LineItem.new( variant_id: freebie_variant.freebie.id,
+              quantity: item.quantity, price: 0.1, retail_price: 0.1, gift: item.gift, is_freebie: true) }
     order.line_items << freebies
     order.amount_discount += (freebies.size * 0.1)
     order.subtotal += (freebies.size * 0.1)
@@ -201,31 +205,30 @@ class CartService
   end
 
   def should_apply_promotion_discount?
-    if has_promotion_and_coupon_of_value?
-      total_promotion_discount = get_total_retail_price_without_discounts * promotion.discount_percent / 100
-      return total_promotion_discount > coupon.value
+    if has_promotion_and_coupon?
+      strategy = promotion.load_strategy(promotion, cart.user)
+      promotion_discount = strategy.calculate_promotion_discount(cart.items)
+      if coupon.is_percentage?
+        return promotion_discount[:percent] > coupon.value
+      else
+        return promotion_discount[:value] > coupon.value
+      end
     end
 
-    return true unless promotion.nil?
+    return true if promotion
   end
 
   # private
-    def has_promotion_and_coupon_of_value?
-      promotion && coupon && !coupon.is_percentage?
-    end
-
-    def get_total_retail_price_without_discounts
-      cart.items.inject(0) do |sum, item|
-        sum += (item.variant.product.retail_price * item.quantity)
-      end
+    def has_promotion_and_coupon?
+      promotion && coupon
     end
 
   #TODO: add expiration logic
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.retail_price #item.variant.product.retail_price
-    price = item.price #item.variant.product.price
+    final_retail_price = item.retail_price
+    price = item.price
     discounts = []
     origin_type = ''
 
@@ -236,15 +239,16 @@ class CartService
       origin_type = :olooklet
     end
 
-    #
-    # Highly duplicated code. Lets refactor it
-    #
     coupon = self.coupon
+
+    if coupon && !coupon.is_percentage?
+      discounts << :coupon_of_value
+    end
 
     if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price
+      if coupon_value < final_retail_price && !should_apply_promotion_discount?
         percent = coupon.value
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
@@ -252,28 +256,18 @@ class CartService
       end
     end
 
-    if coupon && !coupon.is_percentage?
-      discounts << :coupon_of_value
-    end
-
     promotion = self.promotion
     if promotion && item.product.can_supports_discount?
       discounts << :promotion
-      promotion_value = price - ((price * promotion.discount_percent) / 100)
-      if promotion_value < final_retail_price
-        final_retail_price = promotion_value if should_apply_promotion_discount?
+      strategy = promotion.load_strategy(promotion, cart.user)
+      promotion_value = strategy.calculate_value(cart.items, item)
+      # Do not allow Promotion discount if the user enters a coupon code
+      if promotion_value < final_retail_price && should_apply_promotion_discount?
+        final_retail_price = promotion_value 
         percent = promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
         origin_type = :promotion
       end
-    end
-
-    if item.gift?
-      final_retail_price = item.variant.gift_price(item.gift_position)
-      percent =  (1 - (final_retail_price / price) ) * 100
-      origin = 'Desconto de '+percent.ceil.to_s+'% para presente.'
-      discounts  << :gift
-      origin_type = :gift
     end
 
     {
@@ -287,7 +281,7 @@ class CartService
   end
 
   def increment_from_gift_wrap
-    gift_wrap? ? CartService.gift_wrap_price : 0
+    cart.gift_wrap ? CartService.gift_wrap_price : 0
   end
 
   def minimum_value
@@ -319,13 +313,13 @@ class CartService
     if (use_credits == true)
       #GET FROM loyality
 
-      # Use loyalty only if there is no product with olooklet discount in the cart       
+      # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
       if credits_loyality >= retail_value
         credits_loyality = retail_value
       end
 
-      retail_value -= credits_loyality 
+      retail_value -= credits_loyality
 
       #GET FROM INVITE
       credits_invite = allow_credit_payment? ? self.cart.user.user_credits_for(:invite).total : 0

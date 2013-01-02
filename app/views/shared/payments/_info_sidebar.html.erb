@@ -26,7 +26,7 @@
         </tr>
         <%
         gift_wrap = @order.gift_wrap if has_payment
-        gift_wrap ||= cart_service.gift_wrap?
+        gift_wrap ||= cart.gift_wrap
         if gift_wrap %>
         <tr>
           <td>Embalagem de presente</td>
@@ -85,3 +85,5 @@
     </table>
   </div>
 </div>
+
+

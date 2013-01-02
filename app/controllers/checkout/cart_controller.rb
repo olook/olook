@@ -12,6 +12,7 @@ class Checkout::CartController < Checkout::BaseController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
+    @promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
   end
 
   def destroy
@@ -21,48 +22,25 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
+    if params[:gift] && params[:gift][:gift_wrap]
+      @cart.gift_wrap = params[:gift][:gift_wrap]
+      @cart.save
+      render :json => true
+      return
+    end
+
     variant_id = params[:variant][:id] if params[:variant]
 
     respond_with do |format|
       if @cart.remove_item(Variant.find_by_id(variant_id))
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
+        format.html { redirect_to cart_path }
         format.js { head :ok }
       else
         format.js { head :not_found }
-        format.html { redirect_to cart_path, notice: "Produto excluído com sucesso" }
+        format.html { redirect_to cart_path }
+
       end
     end
-  end
-
-  def create
-    variant_id = params[:variant][:id] if params[:variant]
-    variant_quantity = params[:variant][:quantity] if  params[:variant]
-
-    if @variant = Variant.find_by_id(variant_id)
-      if @cart.add_item(@variant, variant_quantity)
-        respond_with do |format|
-          message = variant_quantity.nil? ? "Produto adicionado com sucesso" : "Carrinho atualizado com sucesso"
-          format.html { redirect_to(cart_path, notice: message) }
-        end
-      else
-        respond_with(@cart) do |format|
-          notice_response = "Produto esgotado"
-          notice_response = "Produtos de presente não podem ser comprados com produtos da vitrine" if @cart.has_gift_items?
-          format.js { render :error, locals: { notice: notice_response } }
-          format.html { redirect_to(cart_path, notice: notice_response) }
-        end
-      end
-    else
-      respond_with do |format|
-        format.js { render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }}
-        format.html { redirect_to(:back, :notice => "Produto não disponível para esta quantidade ou inexistente") }
-      end
-    end
-  end
-
-  def update_gift_wrap
-    session[:gift_wrap] = params[:gift][:gift_wrap] if params[:gift] && params[:gift][:gift_wrap]
-    render :json => true
   end
 
   def update_coupon
@@ -95,7 +73,9 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def find_suggested_product
-    Product.find(Setting.checkout_suggested_product_id.to_i) if Setting.checkout_suggested_product_id
+    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+    products = Product.find ids
+    products.shuffle.first if products
   end
 end
 

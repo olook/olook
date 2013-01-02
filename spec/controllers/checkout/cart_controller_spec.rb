@@ -17,7 +17,6 @@ describe Checkout::CartController do
 
   after :each do
     session[:cart_id] = nil
-    session[:gift_wrap] = nil
     session[:cart_coupon] = nil
     session[:cart_use_credits] = nil
     session[:cart_freight] = nil
@@ -25,9 +24,7 @@ describe Checkout::CartController do
 
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
-
     Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
-
     get :show
     assigns(:cart_service).freight.should be_nil
     assigns(:report).should_not be_nil
@@ -36,7 +33,6 @@ describe Checkout::CartController do
   context "when show" do
     it "should render show view" do
       Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)
-
       get :show
       response.should render_template ["layouts/site", "show"]
     end
@@ -53,7 +49,6 @@ describe Checkout::CartController do
     it "should reset session params" do
       delete :destroy
       session[:cart_id].should be_nil
-      session[:gift_wrap].should be_nil
       session[:cart_coupon].should be_nil
       session[:cart_use_credits].should be_nil
       session[:cart_freight].should be_nil
@@ -94,7 +89,7 @@ describe Checkout::CartController do
 
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto excluído com sucesso")
+        flash[:notice].should be_nil
       end
     end
 
@@ -125,7 +120,7 @@ describe Checkout::CartController do
 
       it "should set flash notice" do
         post :update, {variant: {id: basic_bag.id}}
-        flash[:notice].should eql("Produto excluído com sucesso")
+        flash[:notice].should be_nil
       end
     end
 
@@ -191,7 +186,7 @@ describe Checkout::CartController do
 
         it "should set flash notice" do
           post :create, {variant: {id: basic_bag.id}}
-          flash[:notice].should eql("Produto adicionado com sucesso")
+          flash[:notice].should be_nil
         end
       end
 
@@ -239,13 +234,13 @@ describe Checkout::CartController do
 
 
   context "when update gift wrap" do
-    it "should update session" do
-      post :update_gift_wrap, {gift: {gift_wrap: "true"}}
-      session[:gift_wrap].should eq("true")
+    it "should update cart" do
+      put :update, {gift: {gift_wrap: "true"}}
+      cart.reload.gift_wrap.should eq(true)
     end
 
     it "should response true for json" do
-      post :update_gift_wrap, {gift: {gift_wrap: "true"}}
+      put :update, {gift: {gift_wrap: "true"}}
       response.body.should eq("true")
     end
   end
