@@ -114,8 +114,7 @@ class ApplicationController < ActionController::Base
         :cart => @cart,
         :coupon => @coupon,
         :promotion => @promotion,
-        :freight => session[:cart_freight],
-        :credits => session[:cart_use_credits]
+        :freight => session[:cart_freight]
       )
     end
 

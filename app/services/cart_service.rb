@@ -4,8 +4,7 @@ class CartService
   attr_accessor :coupon
   attr_accessor :promotion
   attr_accessor :freight
-  attr_accessor :credits
-
+  
   def allow_credit_payment?
     promotion.nil? && cart.allow_credit_payment? 
   end
@@ -18,8 +17,6 @@ class CartService
     params.each_pair do |key, value|
       self.send(key.to_s+'=',value)
     end
-
-    self.credits ||= 0
   end
 
   def freight_price
@@ -306,7 +303,7 @@ class CartService
 
     retail_value -= coupon_value
 
-    use_credits = self.credits
+    use_credits = self.cart.use_credits
     credits_loyality = 0
     credits_invite = 0
     credits_redeem = 0
