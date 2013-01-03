@@ -222,7 +222,7 @@ _gaq.push(['_addTrans',
             <td>Código Promocional</td>
             <td class="value">
               <p>
-                <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
+                <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %>
                 <%= discount_percentage(@cart_service.coupon.discount_percent) %>
               </p>
               <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
@@ -244,14 +244,14 @@ _gaq.push(['_addTrans',
                   <tr class="discount">
                     <td>
                       <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-                      <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
+                      <%= form_for(@cart, :remote => true, html: { :id => "coupon" }) do |f| %>
                         <fieldset class="inputs">
                           <ol>
                             <li>
-                              <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                              <%= f.text_field('coupon_code', :value => @cart.coupon.code) %>
                             </li>
                             <li class="cupom">
-                              <%= submit_tag '' %>
+                              <%= f.submit '' %>
                             </li>
                           </ol>
                         </fieldset>
