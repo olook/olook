@@ -3,6 +3,7 @@ class Cart < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
 
   belongs_to :user
+  belongs_to :coupon
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
 

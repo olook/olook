@@ -23,34 +23,9 @@ class Checkout::CartController < Checkout::BaseController
 
   def update
     unless @cart.update_attributes(params[:cart])
-      notice_message = c.errors.messages.values.flatten.first
+      notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
-  end
-
-  # TODO maybe put this logic inside Cart model !?! And them return this message...
-  # Any more thoughts ?
-  def update_coupon
-    code = params[:coupon][:code] if params[:coupon]
-    coupon = Coupon.find_by_code(code)
-    response_message = if coupon.try(:expired?)
-      session[:cart_coupon] = nil
-      "Cupom expirado. Informe outro por favor"
-    elsif coupon.try(:available?)
-      session[:cart_coupon] = coupon
-      "Cupom atualizado com sucesso"
-    else
-      session[:cart_coupon] = nil
-      "Cupom inválido"
-    end
-
-    redirect_to cart_path, :notice => response_message
-  end
-
-  def remove_coupon
-    response_message = session[:cart_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
-    session[:cart_coupon] = nil
-    redirect_to cart_path, :notice => response_message
   end
 
   def find_suggested_product
