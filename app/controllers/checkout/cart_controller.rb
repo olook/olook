@@ -23,10 +23,10 @@ class Checkout::CartController < Checkout::BaseController
 
   def update
     unless @cart.update_attributes(params[:cart])
-      render :json => true, :status => :unprocessable_entity
+      notice_message = c.errors.messages.values.flatten.first
+      render :error, :locals => { :notice => notice_message }
     end
   end
-
 
   # TODO maybe put this logic inside Cart model !?! And them return this message...
   # Any more thoughts ?
@@ -59,4 +59,3 @@ class Checkout::CartController < Checkout::BaseController
     products.shuffle.first if products
   end
 end
-
