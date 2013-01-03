@@ -40,8 +40,9 @@ class Checkout::BaseController < ApplicationController
     session[:cart_freight] = nil
   end
 
-  def fire_event
-    #TODO call notification to verify what's the better promotion
-    #ActiveSupport::Notifications.instrument()
+  def fire_event(message = "HELLO WORLD")
+    ActiveSupport::Notifications.instrument(message) do
+      puts message
+    end
   end
 end
