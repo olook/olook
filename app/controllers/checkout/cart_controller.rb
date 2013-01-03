@@ -22,7 +22,9 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
-    @cart.update_attributes(params[:cart])
+    unless @cart.update_attributes(params[:cart])
+      render :json => true, :status => :unprocessable_entity
+    end
   end
 
 
