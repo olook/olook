@@ -35,12 +35,7 @@ describe CartService do
   end
 
   context "when initialize" do
-    it "should set credits to zero when is not supplied" do
-      cart_service = CartService.new({})
-      cart_service.credits.should eq(0)
-    end
-
-    [:cart, :coupon, :promotion, :freight, :credits].each do |attribute|
+    [:cart, :coupon, :promotion, :freight].each do |attribute|
       it "should set #{attribute}" do
         value = mock
         cart_service = CartService.new({attribute => value})
@@ -411,6 +406,7 @@ describe CartService do
       master_variant = cart.items.first.variant.product.master_variant
       master_variant.update_attribute(:price, 50)
       master_variant.update_attribute(:retail_price, 50)
+      cart.update_attribute(:use_credits, true)
     end
 
     context "when freight price is greater than minimum value" do
@@ -419,12 +415,10 @@ describe CartService do
       end
 
       it "and there are credits to the total purchase should return false" do
-        cart_service.credits = 100
         cart_service.is_minimum_payment?.should be_false
       end
 
       it "and there are no credits to the total purchase should return false" do
-        cart_service.credits = 80
         cart_service.is_minimum_payment?.should be_false
       end
     end
@@ -440,7 +434,6 @@ describe CartService do
       end
 
       it "and there are no credits to the total purchase should return false" do
-        cart_service.credits = 80
         cart_service.is_minimum_payment?.should be_false
       end
     end

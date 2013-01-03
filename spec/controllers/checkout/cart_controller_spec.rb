@@ -18,7 +18,6 @@ describe Checkout::CartController do
   after :each do
     session[:cart_id] = nil
     session[:cart_coupon] = nil
-    session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
 
@@ -50,7 +49,6 @@ describe Checkout::CartController do
       delete :destroy
       session[:cart_id].should be_nil
       session[:cart_coupon].should be_nil
-      session[:cart_use_credits].should be_nil
       session[:cart_freight].should be_nil
     end
 
@@ -297,26 +295,5 @@ describe Checkout::CartController do
     end
   end
 
-  context "when update credits" do
-    before :each do
-      sign_in user
-      request.env['HTTP_ACCEPT'] = "text/javascript"
-    end
-
-    after :each do
-      sign_in user
-      request.env['HTTP_ACCEPT'] = "text/html"
-    end
-
-    it "should set session" do
-      post :update_credits, {use_credit: {value: 1}}
-      session[:cart_use_credits].should eq(true)
-    end
-
-    it "should set cart_service" do
-      CartService.any_instance.should_receive(:credits).and_return("1")
-      post :update_credits, {use_credit: {value: 1}}
-    end
-  end
 end
 

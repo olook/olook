@@ -167,8 +167,8 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="check_column">
-            <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
-              <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
+            <%= form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f| %>
+              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
               <h1>Quero usar meus créditos</h1>
               <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
               <% if total_user_credits > @cart_service.total %>
@@ -208,7 +208,7 @@ _gaq.push(['_addTrans',
               </section>
             <% end %>
           </td>
-          <td class="value">
+          <td class="value" id="total_user_credits">
             <%= number_to_currency(total_user_credits) %>
           </td>
         </tr>
@@ -264,7 +264,7 @@ _gaq.push(['_addTrans',
               </table>  
           </td>
           <td class="value">
-            <p>Total: <span><%= number_to_currency(@cart_service.total) %></span></p>
+            <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>
             <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
           </td>
         </tr>

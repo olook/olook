@@ -36,7 +36,6 @@ describe Checkout::AddressesController do
   after :each do
     session[:cart_id] = nil
     session[:cart_coupon] = nil
-    session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
 

@@ -22,13 +22,7 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
-
-    if @cart.update_attributes(params[:cart])
-      render :json => true
-    else
-      render :json => true, :status => :unprocessable_entity
-    end
-
+    @cart.update_attributes(params[:cart])
   end
 
 
@@ -55,11 +49,6 @@ class Checkout::CartController < Checkout::BaseController
     response_message = session[:cart_coupon] ? "Cupom removido com sucesso" : "Você não está usando cupom"
     session[:cart_coupon] = nil
     redirect_to cart_path, :notice => response_message
-  end
-
-  def update_credits
-    session[:cart_use_credits] = params[:use_credit] && params[:use_credit][:value] == "1"
-    @cart_service.credits = session[:cart_use_credits]
   end
 
   def find_suggested_product
