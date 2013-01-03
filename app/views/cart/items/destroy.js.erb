@@ -9,7 +9,8 @@ $(".menu li#cart a.cart").removeClass("selected");
   $("table#total p.limit").removeClass("show");
 <% end %>
 
-$("#cart_items").hide().delay(300).text('<%= @cart.items_total %>').delay(150).fadeIn();
+$("#cart_items").hide().delay(200).text('<%= @cart.items_total %>').fadeIn();
+$("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
 $('tr#product_<%= @product_id %>').fadeOut();
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
 
