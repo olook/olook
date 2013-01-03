@@ -3,6 +3,12 @@ $('section#cart').fadeOut(100).empty().append('<h1>Minha sacola</h1><h2>Sua saco
 $(".menu li#cart a.cart").removeClass("selected");
 <% end %>
 
+<% if @cart_service.is_minimum_payment? %>
+  $("table#total p.limit").addClass("show");
+<% else %>
+  $("table#total p.limit").removeClass("show");
+<% end %>
+
 $("#cart_items").hide().delay(300).text('<%= @cart.items_total %>').delay(150).fadeIn();
 $('tr#product_<%= @product_id %>').fadeOut();
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
