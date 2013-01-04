@@ -29,6 +29,10 @@ class CartItem < ActiveRecord::Base
     product.id == Setting.checkout_suggested_product_id.to_i
   end
 
+  def adjustment
+    cart_item_adjustment
+  end
+
   private
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
