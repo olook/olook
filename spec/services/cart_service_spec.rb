@@ -413,15 +413,11 @@ describe CartService do
         cart_service.freight = freight.merge!(:price => 10)
       end
 
-      it "and there are credits to the total purchase should return false" do
-        cart_service.cart.use_credits = true
-        cart_service.is_minimum_payment?.should be_false
-      end
-
       it "and there are no credits to the total purchase should return false" do
-        cart_service.cart.use_credits = true
+        cart_service.cart.use_credits = false
         cart_service.is_minimum_payment?.should be_false
       end
+      
     end
 
     context "when freight price is less than minimum value" do
@@ -429,13 +425,8 @@ describe CartService do
         cart_service.freight = freight.merge!(:price => 3)
       end
 
-      pending "and there are credits to the total purchase should return true" do
-        cart_service.cart.use_credits = true
-        cart_service.is_minimum_payment?.should be_true
-      end
-
       it "and there are no credits to the total purchase should return false" do
-        cart_service.cart.use_credits = true
+        cart_service.cart.use_credits = false
         cart_service.is_minimum_payment?.should be_false
       end
     end
