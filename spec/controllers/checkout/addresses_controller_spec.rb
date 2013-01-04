@@ -68,35 +68,6 @@ describe Checkout::AddressesController do
       flash[:notice].should eq("Sua sacola está vazia")
     end
 
-    it "should remove coupon from session when coupon is expired" do
-      session[:cart_id] = cart.id
-      session[:cart_coupon] = coupon_expired
-      get :index
-      session[:cart_coupon].should be_nil
-    end
-
-    it "should redirect to cart_path when coupon is expired" do
-      session[:cart_id] = cart.id
-      session[:cart_coupon] = coupon_expired
-      get :index
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Cupom expirado. Informe outro por favor")
-    end
-
-    it "should remove coupon from session when coupon is not more avialbe" do
-      session[:cart_id] = cart.id
-      session[:cart_coupon] = coupon_not_more_available
-      get :index
-      session[:cart_coupon].should be_nil
-    end
-
-    it "should redirect to cart_path when coupon is not more availabe" do
-      session[:cart_id] = cart.id
-      session[:cart_coupon] = coupon_not_more_available
-      get :index
-      response.should redirect_to(cart_path)
-      flash[:notice].should eq("Cupom expirado. Informe outro por favor")
-    end
   end
 
   it "should erase freight when call any action" do
