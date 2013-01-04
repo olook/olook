@@ -6,7 +6,8 @@ class Promotion < ActiveRecord::Base
   has_many :promotion_payments
 
   def self.purchases_amount
-    Promotion.find_by_strategy("purchases_amount_strategy")
+    #Promotion.find_by_strategy("purchases_amount_strategy")
+    first
   end
 
   def load_strategy(promotion, user)
