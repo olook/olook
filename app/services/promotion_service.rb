@@ -10,7 +10,7 @@ class PromotionService
 
   def initialize(user=nil, order=nil)
     @user = user
-    @promotions = ::Promotion.active.order(:priority)
+    @promotions = ::Promotion.active #.order(:priority)
     @order = order
   end
 
