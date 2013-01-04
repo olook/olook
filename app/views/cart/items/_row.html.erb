@@ -1,0 +1,48 @@
+<tr id="product_<%= item.product.id %>">
+  <td class="item">
+    <% unless item.thumb_picture.nil? %>
+      <%= image_tag item.variant.bag_picture %>
+    <% end %>
+    <p class="txt-black"><span><%= item.variant.name %></span></p>
+    <p>Tamanho: <%= item.variant.description %></p>
+    <p>Cor/Material: <%= item.variant.color_name %></p>
+  </td>
+  <td class="delete-item">
+    <%= form_for(item, :method => :delete,
+                       :remote => :true, 
+                                  :html => { 
+                                    :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
+                                    :id => 'remove_item_form' }) do %>
+      <%= hidden_field('variant','id', :value => item.variant.id) %>
+      <%= submit_tag('excluir')  %>
+    <% end %>
+  </td>  
+  <td class="amount">
+
+    <%= form_tag(item, :method => :post, 
+                        onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), 
+                        id: "change_amount", 
+                        remote: true) do %>
+
+      <%= hidden_field('variant','id', :value => item.variant.id) %>
+      <%= select_tag('variant[quantity]', options_for_select((1..5).to_a, item.quantity), :onchange => "submit();") %>
+    <% end %>
+  </td>
+  <td class="discount">
+    <% if cart_service.item_promotion?(item) %>
+        <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
+      <div class='discount_origin'>
+        <p><%= cart_service.item_discount_origin(item) %></p>
+      </div>
+    <% end %>
+  </td>
+  <td class="value" >
+    <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => cart_service.item_retail_price(item)) %>
+    <% if cart_service.item_promotion?(item) %>
+      <p class="price_retail">de: <%= number_to_currency(cart_service.item_price_total(item)) %></p>
+      <p>por: <%= number_to_currency(cart_service.item_retail_price_total(item)) %></p>
+    <% else %>
+      <p><%= number_to_currency(cart_service.item_price_total(item)) %></p>
+    <% end %>
+  </td>
+</tr>
