@@ -13,7 +13,7 @@
   </div>
   <% 
   gift_wrap = @order.gift_wrap if has_payment
-  gift_wrap ||= cart_service.gift_wrap?
+  gift_wrap ||= cart_service.cart.gift_wrap
   if gift_wrap %>
   <div class="gift-box">
     <p>Este pedido será embrulhado para presente</p>

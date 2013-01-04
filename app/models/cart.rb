@@ -3,8 +3,16 @@ class Cart < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
 
   belongs_to :user
+  belongs_to :coupon
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
+
+  attr_accessor :coupon_code
+
+  validates_with CouponValidator, :attributes => [:coupon_code]
+
+  after_validation :update_coupon
+  after_find :update_coupon_code
 
   def allow_credit_payment?
     policy = CreditPaymentPolicy.new self
@@ -71,5 +79,16 @@ class Cart < ActiveRecord::Base
     size_items = unavailable_items.size
     unavailable_items.each {|item| item.destroy}
     size_items
+  end
+
+  private
+
+  def update_coupon
+    coupon = Coupon.find_by_code(self.coupon_code)
+    self.coupon = coupon
+  end
+
+  def update_coupon_code
+    self.coupon_code = self.coupon.code if self.coupon
   end
 end

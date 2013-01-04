@@ -105,14 +105,13 @@ class ApplicationController < ActionController::Base
     end
 
     def load_coupon
-      @coupon = session[:cart_coupon]
+      @coupon = @cart.coupon
       @coupon.reload if @coupon
     end
 
     def load_cart_service
       @cart_service = CartService.new(
         :cart => @cart,
-        :coupon => @coupon,
         :promotion => @promotion,
         :freight => session[:cart_freight]
       )
