@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe CartItemAdjustment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#validations" do
+    context "should validates" do
+      it { should validate_presence_of :value }
+      it { should validate_presence_of :cart_item_id }
+    end
+  end
 end
