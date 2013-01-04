@@ -207,6 +207,10 @@ class User < ActiveRecord::Base
     self.orders.paid.count == 1
   end
 
+  def has_purchased_orders?
+    self.orders.purchased.size > 0
+  end  
+
   def tracking_params(param_name)
     first_event = events(:where => EventType::TRACKING).first
     if first_event
