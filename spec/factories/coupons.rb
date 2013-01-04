@@ -37,8 +37,8 @@ FactoryGirl.define do
       value 50.00
       remaining_amount 1
       start_date 6.days.ago
-      end_date 2.days.ago
-      active true
+      end_date 2.days.from_now
+      active false
     end
 
     factory :unlimited_coupon do
