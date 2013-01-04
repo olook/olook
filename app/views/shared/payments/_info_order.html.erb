@@ -15,7 +15,7 @@
   <ul class="sub-total">
     <%
     gift_wrap = @order.gift_wrap if has_payment
-    gift_wrap ||= cart_service.gift_wrap?
+    gift_wrap ||= cart_service.cart.gift_wrap
     if gift_wrap %>
     <li>
       <p><span class="txt-black">EMBALAGEM (PRESENTE):</span><span>+ R$5,00</span></p>

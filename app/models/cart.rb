@@ -12,6 +12,7 @@ class Cart < ActiveRecord::Base
   validates_with CouponValidator, :attributes => [:coupon_code]
 
   after_validation :update_coupon
+  after_find :update_coupon_code
 
   def allow_credit_payment?
     policy = CreditPaymentPolicy.new self
@@ -85,5 +86,9 @@ class Cart < ActiveRecord::Base
   def update_coupon
     coupon = Coupon.find_by_code(self.coupon_code)
     self.coupon = coupon
+  end
+
+  def update_coupon_code
+    self.coupon_code = self.coupon.code if self.coupon
   end
 end
