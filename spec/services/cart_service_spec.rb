@@ -357,49 +357,6 @@ describe CartService do
     end
   end
 
-  pending ".total_credits_discount" do
-    before :each do
-      master_variant = cart.items.first.variant.product.master_variant
-      master_variant.update_attribute(:price, 50)
-      master_variant.update_attribute(:retail_price, 50)
-    end
-
-    it "should return zero when no has credits" do
-      cart_service.total_credits_discount.should eq(0)
-    end
-
-    it "should return correct value when credits is less than maximum value" do
-      cart_service.credits = 50
-      cart_service.total_credits_discount.should eq(50)
-    end
-
-    it "should return correct value when credits is greater than maximum value and has freight" do
-      cart_service.credits = 100
-      cart_service.total_credits_discount.should eq(100)
-    end
-
-    it "should return correct value when credits is greater than maximum value and has no freight" do
-      cart_service.freight = nil
-      cart_service.credits = 100
-      cart_service.total_credits_discount.should eq(95)
-    end
-  end
-
-  pending ".total_discount" do
-    before :each do
-      master_variant = cart.items.first.variant.product.master_variant
-      master_variant.update_attribute(:price, 50)
-      master_variant.update_attribute(:retail_price, 50)
-    end
-
-    it "should return sum of credits and coupon value" do
-      coupon_of_value.update_attribute(:value, 20)
-      cart_service.cart.coupon = coupon_of_value
-      cart_service.credits = 20
-      cart_service.total_discount.should eq(40)
-    end
-  end
-
   context ".is_minimum_payment?" do
     before :each do
       master_variant = cart.items.first.variant.product.master_variant
@@ -417,7 +374,7 @@ describe CartService do
         cart_service.cart.use_credits = false
         cart_service.is_minimum_payment?.should be_false
       end
-      
+
     end
 
     context "when freight price is less than minimum value" do
@@ -436,11 +393,6 @@ describe CartService do
     it "should sum total cupon when type is coupon" do
       cart_service.stub(:total_coupon_discount).and_return(100)
       cart_service.total_discount_by_type(:coupon).should eq(100)
-    end
-
-    pending "should sum total credits when type is credits" do
-      cart_service.stub(:total_credits_discount).and_return(100)
-      cart_service.total_discount_by_type(:credits).should eq(100)
     end
 
     it "should sum discount value when discount type match in item" do
