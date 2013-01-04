@@ -1,10 +1,22 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Nome</b>
+  <%= @promotion.name %>
+</p>
 
-<p><%= @promotion.name %> </p>
-<p><%= @promotion.discount_percent %> </p>
-<p><%= @promotion.active %> </p>
+<p>
+  <b>Ativa?</b>
+  <%= @promotion.active %>
+</p>
+<p>
+  <b>Inicia em</b>
+  <%= @promotion.starts_at %>
+</p>
+<p>
+  <b>Termina em</b>
+  <%= @promotion.ends_at %>
+</p>
 
-
-<%= link_to 'Edit', edit_admin_promotion_path(@promotion) %> |
-<%= link_to 'Back', admin_promotions_path %>
+<%= link_to 'Editar', edit_admin_promotion_path(@promotion) %> |
+<%= link_to 'Voltar', admin_promotions_path %>

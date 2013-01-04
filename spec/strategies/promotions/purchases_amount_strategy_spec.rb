@@ -26,7 +26,7 @@ describe Promotions::PurchasesAmountStrategy do
     it "returns promotion discount percent as percent" do
       Product.any_instance.should_receive(:retail_price).and_return(100)
       promotion_discount = subject.calculate_promotion_discount(cart_with_items.items)
-      promotion_discount[:percent].should eq(promo.discount_percent)
+      promotion_discount[:percent].should eq(20)
     end
 
     it "returns discount value" do

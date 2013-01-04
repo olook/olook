@@ -5,12 +5,12 @@ class PromotionService
 
   def self.by_product product
     promotion = Promotion.purchases_amount
-    ((100 - promotion.discount_percent) * product.price) / 100
+    ((100 - 20) * product.price) / 100
   end
 
   def initialize(user=nil, order=nil)
     @user = user
-    @promotions = ::Promotion.active.order(:priority)
+    @promotions = ::Promotion.active #.order(:priority)
     @order = order
   end
 

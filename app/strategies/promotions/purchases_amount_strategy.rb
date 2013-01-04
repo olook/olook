@@ -12,16 +12,21 @@ module Promotions
       return false unless user && user.created_at
       return false if DiscountExpirationCheckService.discount_expired?(user)
 
-      user ? user.orders.purchased.size == promotion.param.to_i : 0 == promotion.param.to_i
+      if user
+        user.orders.purchased.size == 0
+      else
+        true
+      end
+
     end
 
     def calculate_value(cart_items, item)
-      item.price - ((item.price * promotion.discount_percent) / 100)
+      item.price - ((item.price * 20) / 100)
     end
 
     def calculate_promotion_discount(cart_items)
-      total_promotion_discount = get_total_retail_price_without_discounts(cart_items) * @promotion.discount_percent / 100
-      {value: total_promotion_discount, percent: @promotion.discount_percent}
+      total_promotion_discount = get_total_retail_price_without_discounts(cart_items) * 20 / 100
+      {value: total_promotion_discount, percent: 20 }
     end
 
     def matches_20_percent_promotion?
