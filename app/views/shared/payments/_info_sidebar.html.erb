@@ -71,7 +71,7 @@
         if coupon > 0 %>
         <tr>
           <td>Cupom desconto</td>
-          <td class="value credit">- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.coupon.discount_percent) %></td>
+          <td class="value credit">- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.cart.coupon.discount_percent) %></td>
         </tr>
         <% end %>
         <%

@@ -8,6 +8,7 @@ describe CartHelper do
       @user = User.new
       @cart = Cart.new
       @cart.stub(:allow_credit_payment?).and_return(false)
+      @cart_service = CartService.new({cart: @cart})
       helper.print_credit_message.should eq("(não podem ser utilizados em pedidos com desconto)")
     end
 
@@ -15,6 +16,7 @@ describe CartHelper do
       @user = User.new
       @cart = Cart.new
       @cart.stub(:allow_credit_payment?).and_return(true)
+      @cart_service = CartService.new({cart: @cart})
       helper.print_credit_message.should eq(nil)
     end
   end
@@ -25,6 +27,7 @@ describe CartHelper do
       @cart = Cart.new
       @user.stub(:current_credit).and_return("10.00")
       @cart.stub(:allow_credit_payment?).and_return(true)
+      @cart_service = CartService.new({cart: @cart})
       helper.total_user_credits.should eq(@user.current_credit)
     end
 
@@ -35,6 +38,7 @@ describe CartHelper do
       @user.stub(:current_credit).and_return("10.00")
       @user.stub(:user_credits_for,:redeem).and_return(true)
       @user.user_credits_for(:redeem).stub(:total).and_return("20.00")
+      @cart_service = CartService.new({cart: @cart})
       helper.total_user_credits.should eq("20.00")
     end
   end

@@ -177,26 +177,27 @@ _gaq.push(['_addTrans',
 
     <table cellpadding="0" cellspacing="0" id="total">
       <tbody>
-        <% if @cart_service.coupon %>
-          <tr>
+          <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
             <td>Código Promocional</td>
             <td class="value">
-              <p>
-                <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
-                <%= discount_percentage(@cart_service.coupon.discount_percent) %>
+              <p id="coupon_discount">
+                <% if @cart.coupon %>
+                  <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %>
+                  <%= discount_percentage(@cart.coupon.discount_percent) %>
+                <% end %>
               </p>
-              <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+              <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
                 <fieldset class="inputs">
                   <ol>
                     <li>
-                      <%= submit_tag "Limpar" %>
+                      <%= f.hidden_field('coupon_code', :value => nil) %>
+                      <%= f.submit "Limpar" %>
                     </li>
                   </ol>
                 </fieldset>
               <% end %>
             </td>
           </tr>
-        <% end %>
         <tr class="total">
           <td>
               <table id="coupon" cellpadding="0" cellspacing="0">
@@ -204,14 +205,14 @@ _gaq.push(['_addTrans',
                   <tr class="discount">
                     <td>
                       <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-                      <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
+                      <%= form_for(@cart, :remote => true, html: { :id => "coupon" }) do |f| %>
                         <fieldset class="inputs">
                           <ol>
                             <li>
-                              <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                              <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
                             </li>
                             <li class="cupom">
-                              <%= submit_tag '' %>
+                              <%= f.submit '' %>
                             </li>
                           </ol>
                         </fieldset>

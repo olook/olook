@@ -1,1 +1,12 @@
 $("#total_value").html("<%= number_to_currency(@cart_service.total) %>");
+
+<% if @cart.coupon %>
+  $("#coupon_discount").html("<%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %><%= discount_percentage(@cart.coupon.discount_percent) %>");
+  $("#coupon_info").show();
+<% else %>
+  $("#coupon_discount").html("");
+  $("#coupon_info").hide();
+<% end %>
+
+$("#coupon a#show_coupon_field").show();
+$("#coupon a#show_coupon_field").siblings("form").hide();

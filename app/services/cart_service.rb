@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :coupon
   attr_accessor :promotion
   attr_accessor :freight
   
@@ -205,10 +204,10 @@ class CartService
     if has_promotion_and_coupon?
       strategy = promotion.load_strategy(promotion, cart.user)
       promotion_discount = strategy.calculate_promotion_discount(cart.items)
-      if coupon.is_percentage?
-        return promotion_discount[:percent] > coupon.value
+      if cart.coupon.is_percentage?
+        return promotion_discount[:percent] > cart.coupon.value
       else
-        return promotion_discount[:value] > coupon.value
+        return promotion_discount[:value] > cart.coupon.value
       end
     end
 
@@ -217,7 +216,7 @@ class CartService
 
   # private
     def has_promotion_and_coupon?
-      promotion && coupon
+      promotion && cart.coupon
     end
 
   #TODO: add expiration logic
@@ -236,7 +235,7 @@ class CartService
       origin_type = :olooklet
     end
 
-    coupon = self.coupon
+    coupon = cart.coupon
 
     if coupon && !coupon.is_percentage?
       discounts << :coupon_of_value
@@ -293,7 +292,7 @@ class CartService
     retail_value = 0 if retail_value < 0
     total_discount = 0
 
-    coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?
+    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if should_apply_promotion_discount?
     coupon_value ||= 0
 
