@@ -14,3 +14,5 @@ $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amou
 $('tr#product_<%= @product_id %>').fadeOut();
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
 
+//Tira produto da mini sacola
+$("li[data-id=<%= @variant_id %>]").first().remove();

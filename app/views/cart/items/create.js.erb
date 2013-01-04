@@ -1,13 +1,26 @@
+<% if params['from_sacola'] %>
 
-  $('div.overlay').hide();
-  $('#quick_view').hide();
+	$("table#products tbody").first().append("<%= escape_javascript( render partial: 'cart/items/row', 
+																							locals: { 
+																								cart_service: @cart_service, 
+																								item: @cart.items.last 
+																							} ) %>");
+	$("table#products").last().fadeOut('slow');
 
+<% else %>
+  
   $("#cart_summary").show();
+
+<% end %>
+
   if ($("#cart_summary li.product_item[data-id=<%= @variant.id %>]").length == 0) {
     $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @cart.items.last, hidden: true}) %>"); 
     $("#cart_summary li.product_item:last").fadeIn('slow');
   }
   
+  $('div.overlay').hide();
+  $('#quick_view').hide();
+
   $("#cart_items").text(<%= @cart.items_total %>);
   $("nav.menu ul li.cart a.cart").addClass("selected");
 
