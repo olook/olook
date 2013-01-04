@@ -10,7 +10,7 @@ class CartItem < ActiveRecord::Base
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
 
-
+  after_create :create_adjustment
 
   def product_quantity
     deafult_quantity = [1]
@@ -36,6 +36,10 @@ class CartItem < ActiveRecord::Base
   private
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
+    end
+
+    def create_adjustment
+      CartItemAdjustment.create(value: 0, cart_item: self, source: "")
     end
 
 end
