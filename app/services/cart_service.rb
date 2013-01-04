@@ -8,7 +8,7 @@ class CartService
   attr_accessor :credits
 
   def allow_credit_payment?
-    promotion.nil? && cart.allow_credit_payment? 
+    promotion.nil? && cart.allow_credit_payment?
   end
 
   def self.gift_wrap_price
@@ -268,8 +268,8 @@ class CartService
       promotion_value = strategy.calculate_value(cart.items, item)
       # Do not allow Promotion discount if the user enters a coupon code
       if promotion_value < final_retail_price && should_apply_promotion_discount?
-        final_retail_price = promotion_value 
-        percent = promotion.discount_percent
+        final_retail_price = promotion_value
+        percent = 20 #promotion.discount_percent
         origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
         origin_type = :promotion
       end
