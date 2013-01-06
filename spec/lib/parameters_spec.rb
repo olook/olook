@@ -4,7 +4,6 @@ require 'spec_helper.rb'
 describe Parameters do
   class Dummy
     include Parameters
-    extend Parameters::ClassMethods
 
   end
 
@@ -30,7 +29,33 @@ describe Parameters do
       d.field_name.should eq "field_value"
     end
 
-    context "when parameter is BigDecimal" do
+    context "when parameter type is integer" do
+      class DummyInteger
+        include Parameters
+
+        parameter :field_name_integer, :integer
+      end
+
+      before do
+        @d = DummyInteger.new
+        @d.params = {:field_name_integer => {:value => "80", :type => :integer}}
+      end
+
+      it "should respond_to 'field_name_integer' method" do
+        @d.should respond_to :field_name_integer
+      end  
+
+      it "should respond_to 'field_name_integer=' method" do
+        @d.should respond_to :field_name_integer=
+      end  
+
+       it "should return an integer" do
+        @d.field_name_integer.class.should eq Fixnum
+      end     
+
+    end
+
+    context "when parameter type is BigDecimal" do
       class Dummy
         parameter :field_name_decimal, :decimal
       end
@@ -45,7 +70,7 @@ describe Parameters do
       end
 
       it "should respond_to 'field_name_decimal=' method" do
-        @d.should respond_to :field_name_decimal
+        @d.should respond_to :field_name_decimal=
       end
 
       it "should return a big decimal" do
