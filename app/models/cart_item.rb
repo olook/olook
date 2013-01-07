@@ -22,11 +22,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def retail_price
-    variant.product.price -  adjustment.value
-  end
-
-  def retail_price
-    variant.product.retail_price
+    price - adjustment.value
   end
 
   def is_suggested_product?
