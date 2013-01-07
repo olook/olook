@@ -39,10 +39,4 @@ class Checkout::BaseController < ApplicationController
     session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
-
-  def fire_event(message = "HELLO WORLD")
-    ActiveSupport::Notifications.instrument(message) do
-      puts message
-    end
-  end
 end
