@@ -14,13 +14,13 @@ describe CartService do
   let(:coupon_of_percentage) { FactoryGirl.create :percentage_coupon}
   let(:payment) { FactoryGirl.create :debit }
   let(:cart_service) { CartService.new({
-    :cart => cart,
-    :freight => freight
+    :cart => cart
   }) }
   
   context "#allow_credit_payment?" do
     it "dont allow credit_payment when a promotion exists" do
-      cart_service = CartService.new({ cart: cart, freight: freight, promotion: promotion })
+      cart_service = CartService.new({ cart: cart, promotion: promotion })
+      cart_service.stub(:freight).and_return(freight)
       cart_service.allow_credit_payment?.should eq(false)
     end
 
@@ -35,7 +35,7 @@ describe CartService do
   end
 
   context "when initialize" do
-    [:cart, :promotion, :freight].each do |attribute|
+    [:cart, :promotion].each do |attribute|
       it "should set #{attribute}" do
         value = mock
         cart_service = CartService.new({attribute => value})
@@ -47,16 +47,13 @@ describe CartService do
   context ".freight_price" do
     it "should return zero when freight is not available" do
       cart_service = CartService.new({})
-      cart_service.freight_price.should eq(0)
-    end
-
-    it "should return zero when price is not available" do
-      cart_service = CartService.new({:freight => {}})
+      cart_service.stub(:freight).and_return({})
       cart_service.freight_price.should eq(0)
     end
 
     it "should return price" do
-      cart_service = CartService.new({:freight => {:price => 10.0}})
+      cart_service = CartService.new({})
+      cart_service.stub(:freight).and_return({:price => 10.0})
       cart_service.freight_price.should eq(10.0)
     end
   end
@@ -64,16 +61,13 @@ describe CartService do
   context ".freight_city" do
     it "should return empty when freight is not available" do
       cart_service = CartService.new({})
-      cart_service.freight_city.should eq("")
-    end
-
-    it "should return empty when city is not available" do
-      cart_service = CartService.new({:freight => {}})
+      cart_service.stub(:freight).and_return({})
       cart_service.freight_city.should eq("")
     end
 
     it "should return city" do
-      cart_service = CartService.new({:freight => {:city => "XPTO2.0"}})
+      cart_service = CartService.new({})
+      cart_service.stub(:freight).and_return({:city => "XPTO2.0"})
       cart_service.freight_city.should eq("XPTO2.0")
     end
   end
@@ -81,16 +75,13 @@ describe CartService do
   context ".freight_state" do
     it "should return empty when freight is not available" do
       cart_service = CartService.new({})
-      cart_service.freight_state.should eq("")
-    end
-
-    it "should return empty when state is not available" do
-      cart_service = CartService.new({:freight => {}})
+      cart_service.stub(:freight).and_return({})
       cart_service.freight_state.should eq("")
     end
 
     it "should return state" do
-      cart_service = CartService.new({:freight => {:state => "XPTO"}})
+      cart_service = CartService.new({})
+      cart_service.stub(:freight).and_return({:state => "XPTO"})
       cart_service.freight_state.should eq("XPTO")
     end
   end
@@ -317,7 +308,8 @@ describe CartService do
     end
 
     it "should sum freight price" do
-      cart_service = CartService.new({:cart => cart, :freight => {:price => 10.0}})
+      cart_service = CartService.new({:cart => cart})
+      cart_service.stub(:freight).and_return({:price => 10.0})
       cart_service.total_increase.should eq(10.0)
     end
   end
@@ -344,14 +336,15 @@ describe CartService do
     end
 
     it "should return correct value when coupon is greater than maximum value and has freight" do
+      cart_service.stub(:freight).and_return(freight)
       coupon_of_value.update_attribute(:value, 100)
       cart_service.cart.coupon = coupon_of_value
       cart_service.total_coupon_discount.should eq(100)
     end
 
     it "should return correct value when coupon is greater than maximum value and has no freight" do
+      cart_service.stub(:freight).and_return(nil)
       coupon_of_value.update_attribute(:value, 100)
-      cart_service.freight = nil
       cart_service.cart.coupon = coupon_of_value
       cart_service.total_coupon_discount.should eq(95)
     end
@@ -367,7 +360,7 @@ describe CartService do
 
     context "when freight price is greater than minimum value" do
       before :each do
-        cart_service.freight = freight.merge!(:price => 10)
+        cart_service.stub(:freight).and_return(freight.merge!(:price => 10))
       end
 
       it "and there are no credits to the total purchase should return false" do
@@ -379,7 +372,7 @@ describe CartService do
 
     context "when freight price is less than minimum value" do
       before :each do
-        cart_service.freight = freight.merge!(:price => 3)
+        cart_service.stub(:freight).and_return(freight.merge!(:price => 3))
       end
 
       it "and there are no credits to the total purchase should return false" do
@@ -468,22 +461,17 @@ describe CartService do
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid cart is required for generating an order.')
     end
 
-    it "should a valid freight is required" do
-      expect {
-        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip])
-      }.to raise_error(ActiveRecord::RecordNotFound, 'A valid freight is required for generating an order.')
-    end
-
     it "should a valid user is required" do
       expect {
         cart.user = nil
-        CartService.new({:cart => cart, :freight => freight}).generate_order!(Payment::GATEWAYS[:moip])
+        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid user is required for generating an order.')
     end
 
     it "should create" do
       expect {
-        cart_service = CartService.new({:cart => cart, :freight => freight})
+        cart_service = CartService.new({:cart => cart})
+        cart_service.stub(:freight).and_return(freight)
         cart_service.stub(:total_credits_discount => 0)
         cart_service.stub(:total_discount => 10)
         cart_service.stub(:total_increase => 20)
@@ -533,7 +521,8 @@ describe CartService do
 
       before do
         FactoryGirl.create(:freebie_variant, :variant => cart.items.first.variant, :freebie => freebie)
-        cart_service = CartService.new({:cart => cart, :freight => freight})
+        cart_service = CartService.new({:cart => cart})
+        cart_service.stub(:freight).and_return(freight)
       end
 
       it "creates freebies line items" do
