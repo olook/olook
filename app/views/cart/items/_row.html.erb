@@ -19,13 +19,14 @@
   </td>  
   <td class="amount">
 
-    <%= form_tag(item, :method => :post, 
-                        onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), 
-                        id: "change_amount", 
-                        remote: true) do %>
+    <%= form_for(item, :method => :put, 
+                        remote: true, 
+                        :html => { 
+                          onsubmit: track_event("Shopping", "ChangeAmount", item.product.id), 
+                          id: "change_amount_#{item.id}"
+                        }) do %>
 
-      <%= hidden_field('variant','id', :value => item.variant.id) %>
-      <%= select_tag('variant[quantity]', options_for_select((1..5).to_a, item.quantity), :onchange => "submit();") %>
+      <%= select_tag('quantity', options_for_select((1..5).to_a, item.quantity), onchange: "changeCartItemQty('#{item.id}')") %>
     <% end %>
   </td>
   <td class="discount">
