@@ -25,10 +25,6 @@ class CartItem < ActiveRecord::Base
     variant.product.price -  adjustment.value
   end
 
-  def retail_price
-    variant.product.retail_price
-  end
-
   def is_suggested_product?
     product.id == Setting.checkout_suggested_product_id.to_i
   end
