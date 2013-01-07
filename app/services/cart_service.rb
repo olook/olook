@@ -2,7 +2,6 @@
 class CartService
   attr_accessor :cart
   attr_accessor :promotion
-  attr_accessor :freight
   
   def allow_credit_payment?
     promotion.nil? && cart.allow_credit_payment? 
@@ -16,6 +15,10 @@ class CartService
     params.each_pair do |key, value|
       self.send(key.to_s+'=',value)
     end
+  end
+
+  def freight
+    cart.address ? FreightCalculator.freight_for_zip(cart.address.zip_code, subtotal) : {}
   end
 
   def freight_price

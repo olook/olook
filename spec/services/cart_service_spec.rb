@@ -15,7 +15,7 @@ describe CartService do
   let(:payment) { FactoryGirl.create :debit }
   let(:cart_service) { CartService.new({
     :cart => cart,
-    :freight => freight,
+    :freight => freight
   }) }
   
   context "#allow_credit_payment?" do

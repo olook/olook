@@ -6,7 +6,6 @@ class Checkout::AddressesController < Checkout::BaseController
 
   def index
     redirect_to new_cart_checkout_address_path unless @user.addresses.any?
-
     @addresses = @user.addresses
   end
 
@@ -45,11 +44,6 @@ class Checkout::AddressesController < Checkout::BaseController
 
   def preview
     address = Address.new(:zip_code => params[:zipcode])
-  end
-
-  def calculate_freight
-    zip_code = params[:zip_code]
-    freight = FreightCalculator.freight_for_zip(zip_code, @cart_service.subtotal)
   end
 
 end
