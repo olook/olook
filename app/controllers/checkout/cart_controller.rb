@@ -3,7 +3,6 @@ class Checkout::CartController < Checkout::BaseController
   layout "site"
 
   respond_to :html, :js
-  before_filter :erase_freight
 
   def show
     @google_path_pixel_information = "Carrinho"
