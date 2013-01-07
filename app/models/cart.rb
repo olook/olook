@@ -1,10 +1,16 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
+  after_initialize :init_observers
+
   DEFAULT_QUANTITY = 1
 
   belongs_to :user
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
+
+  def init_observers
+    @observer = PromotionListener.new
+  end
 
   def allow_credit_payment?
     policy = CreditPaymentPolicy.new self
@@ -24,7 +30,6 @@ class Cart < ActiveRecord::Base
     if current_item
       current_item.update_attributes(:quantity => quantity)
     else
-
       current_item =  CartItem.new(:cart_id => id,
                                    :variant_id => variant.id,
                                    :quantity => quantity,
@@ -33,6 +38,8 @@ class Cart < ActiveRecord::Base
                                    )
       items << current_item
     end
+
+    notify
 
     current_item
   end
@@ -48,6 +55,8 @@ class Cart < ActiveRecord::Base
         gift_position += 1
       end
     end
+
+    notify
   end
   
   def items_total
@@ -72,4 +81,10 @@ class Cart < ActiveRecord::Base
     unavailable_items.each {|item| item.destroy}
     size_items
   end
+
+  private
+
+    def notify
+      @observer.update({:user => user, :cart => self})
+    end
 end
