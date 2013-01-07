@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Admin user with business 1 role manages gift boxes", %q{
   As a business 1 I can create, edit and delete gift boxes

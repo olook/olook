@@ -1,0 +1,18 @@
+<% if @cart.items_total == 0 %>
+$('section#cart').fadeOut(500,"linear").empty().append('<h1>Minha sacola</h1><h2>Sua sacola ainda está vazia :( <br />Conheça nossa coleção e mude isso já!</h2>').delay(300).fadeIn();
+$(".menu li#cart a.cart").removeClass("selected");
+<% end %>
+
+<% if @cart_service.is_minimum_payment? %>
+  $("table#total p.limit").addClass("show");
+<% else %>
+  $("table#total p.limit").removeClass("show");
+<% end %>
+
+$("#cart_items").hide().delay(200).text('<%= @cart.items_total %>').fadeIn();
+$("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
+$('tr#product_<%= @product_id %>').fadeOut();
+$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
+
+//Tira produto da mini sacola
+$("li[data-id=<%= @variant_id %>]").first().remove();
