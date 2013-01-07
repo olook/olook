@@ -18,7 +18,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def price
-    variant.product.price
+    variant.product.price -  adjustment.value
   end
 
   def retail_price
@@ -33,11 +33,6 @@ class CartItem < ActiveRecord::Base
     cart_item_adjustment
   end
 
-
-  def adjusted_price
-    price - adjustment.value
-  end
-
   private
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
@@ -48,3 +43,4 @@ class CartItem < ActiveRecord::Base
     end
 
 end
+
