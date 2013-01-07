@@ -7,6 +7,8 @@
 																							} ) %>");
 	$("table#products").last().fadeOut('slow');
 
+  $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
+
 <% else %>
   
   $("#cart_summary").show();
