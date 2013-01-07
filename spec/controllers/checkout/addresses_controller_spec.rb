@@ -211,38 +211,4 @@ describe Checkout::AddressesController do
     end
   end
 
-  context "GET assign_address" do
-    before :each do
-      sign_in user
-      session[:cart_id] = cart.id
-      FreightCalculator.stub(:freight_for_zip).and_return(freight)
-    end
-
-    context "with a valid address" do
-      it "should redirect to cart checkout" do
-        get :assign_address, :address_id => address.id
-        response.should redirect_to(new_credit_card_cart_checkout_path)
-      end
-
-      it "should set telephone on session" do
-        # passing address telephone to credit card form
-        get :assign_address, :address_id => address.id
-        session[:user_telephone_number].should eq(address.telephone)
-      end
-
-      it "should set a feight in session" do
-        session[:cart_freight] = nil
-        get :assign_address, :address_id => address.id
-        session[:cart_freight].should eq(freight.merge!(:address_id => address.id))
-      end
-    end
-
-    context "without a valid address" do
-      it "should redirect to address_path" do
-        get :assign_address, :address_id => "12345"
-        response.should redirect_to(cart_checkout_addresses_path)
-        flash[:notice].should eq("Por favor, selecione um endereço")
-      end
-    end
-  end
 end
