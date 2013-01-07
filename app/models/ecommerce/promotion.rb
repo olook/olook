@@ -5,6 +5,11 @@ class Promotion < ActiveRecord::Base
 
   has_many :promotion_payments
 
+  has_many :rules_parameters
+  has_many :promotion_rules, :through => :rules_parameters
+
+  accepts_nested_attributes_for :promotion_rules
+
   def self.purchases_amount
     #Promotion.find_by_strategy("purchases_amount_strategy")
     first
