@@ -22,20 +22,21 @@ describe CartItem do
     end
   end
 
-  describe "#adjusted_price" do
+  describe "#price" do
     let(:adjustment) { FactoryGirl.create(:cart_item_adjustment, cart_item: cart_item) }
 
     context "cart_item with adjustment" do
-      it "returns value calculated" do
-        cart_item.stub(:adjustment).and_return(adjustment)
-        cart_item.stub(:price).and_return(BigDecimal("59.99"))
-        cart_item.adjusted_price.to_s.should eq("50.0")
-      end
 
       it "returns full price" do
-        cart_item.adjusted_price.should eq(cart_item.price)
+        cart_item.variant.product.stub(:price).and_return(BigDecimal("100.00"))
+        cart_item.price.to_s.should eq("100.0")
       end
 
+      it "returns value calculated" do
+        cart_item.variant.product.stub(:price).and_return(BigDecimal("59.99"))
+        cart_item.stub(:adjustment).and_return(adjustment)
+        cart_item.price.to_s.should eq("50.0")
+      end
     end
   end
 end
