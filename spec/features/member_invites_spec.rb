@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Member can send invites", %q{
   In order to show my showroom for my girlfriends

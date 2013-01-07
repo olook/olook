@@ -14,7 +14,6 @@ _gaq.push(['_addTrans',
    'Brasil'
  ]);
 </script>
-
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
 <% end %>
 <% content_for :footer do %>
@@ -24,6 +23,8 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/triggit/cart" %>
   <%= javascript_include_tag "carts" %>
 <% end %>
+
+
 
 <section id="cart">
   <%  if @cart.items.count > 0 %>
@@ -57,7 +58,7 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
-    <ul id="titles" class=<%= !@promotion_free_item ? "border" : "" %>>
+    <ul id="titles" class=<%= "border" if @promotion_free_item %>>
       <li class="item">Item</li>
       <li class="amount">Quantidade</li>
       <li class="value">Subtotal</li>
@@ -70,50 +71,8 @@ _gaq.push(['_addTrans',
     
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
-        <% @cart.items.each_with_index do |item, index| %>
-          <tr id="product_<%=item.product.id%>">
-            <td class="item">
-              <% unless item.thumb_picture.nil? %>
-                <%= image_tag item.variant.bag_picture %>
-              <% end %>
-              <p class="txt-black"><span><%= item.variant.name %></span></p>
-              <p>Tamanho: <%= item.variant.description %></p>
-              <p>Cor/Material: <%= item.variant.color_name %></p>
-            </td>
-            <td class="delete-item">
-              <%= form_for(cart_path, :method => :put, :html => { :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s) }) do %>
-                <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= submit_tag('excluir')  %>
-              <% end %>
-            </td>  
-            <td class="amount">
-              <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
-
-                <%= hidden_field('variant','id', :value => item.variant.id) %>
-                <%= select_tag('variant[quantity]', options_for_select((1..1).to_a, item.quantity), :onchange => "submit();") %>
-              <% end %>
-            </td>
-            <td class="discount">
-              <% if @cart_service.item_promotion?(item) %>
-                  <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
-                <div class='discount_origin'>
-                  <p><%= @cart_service.item_discount_origin(item) %></p>
-                </div>
-              <% end %>
-            </td>
-            <td class="value" >
-
-              <b><%= item.price %><b>
-
-              <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => @cart_service.item_retail_price(item)) %>
-              <% if @cart_service.item_promotion?(item) %>
-                <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price_total(item)) %></p>
-                <p>por: <%= number_to_currency(@cart_service.item_retail_price_total(item)) %></p>
-              <% else %>
-                <p><%= number_to_currency(@cart_service.item_price_total(item)) %></p>
-              <% end %>
-            </td>
-          </tr>
+        <% @cart.items.each do |item| %>
+          <%= render partial: 'cart/items/row', locals: { cart_service: @cart_service, item: item } if item %>
         <% end %>
       </tbody>
     </table>
@@ -134,7 +93,10 @@ _gaq.push(['_addTrans',
             </td>
             <td class="avc-button">
               <p><%= number_to_currency(@suggested_product.retail_price) %></p>
-			  <%= form_tag(cart_path, onsubmit: track_event("Shopping", "AddToCart", @suggested_product.id), id: "product_add_to_cart", remote: false) do %>
+			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCart", @suggested_product.id), 
+                                      id: "product_add_to_cart", 
+                                      remote: true) do %>
+        <input name="from_sacola" type="hidden" value="true" %>
 				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
 				<%= submit_tag "", id: "add_product", class: "add_product" %>
 			  <% end %>
@@ -149,8 +111,8 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="check_column">
-            <%= form_for(update_gift_wrap_cart_path, :url => update_gift_wrap_cart_path, :remote=>true, :method => :put, :html => { :id => "gift_wrap" } ) do %>
-              <%= check_box('gift', 'gift_wrap', :checked => @cart_service.gift_wrap?) %>
+            <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
+              <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
               <h1>Embrulhar pedido para presente</h1>
             <% end %>
           </td>
@@ -163,8 +125,8 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="check_column">
-            <%= form_for(update_credits_cart_path, :url => update_credits_cart_path, :remote => true, :method => :put, :html => { :id => "use_credit_form" }) do %>
-              <%= check_box('use_credit', 'value', :checked => (@cart_service.credits) ) %>
+            <%= form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f| %>
+              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
               <h1>Quero usar meus créditos</h1>
               <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
               <% if total_user_credits > @cart_service.total %>
@@ -184,19 +146,19 @@ _gaq.push(['_addTrans',
                 <ul>
                   <li>
                     <div class="description">Créditos por compras realizadas:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @amount_of_loyalty_credits %></div>
+                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
                     <div class="message"><%= print_credit_message %></div>
                   </li>
 
                  <li>
                     <div class="description">Créditos por indicação:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @amount_of_invite_credits %></div>
+                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></div>
                     <div class="message"><%= print_credit_message %></div>
                   </li>
 
                  <li>
                     <div class="description">Reembolso via Central de Atendimento:</div>
-                    <div class="value"><%= number_to_currency @redeem_credits %></div>
+                    <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
                     <div class="message">&nbsp;</div>
                   </li>
                 </ul>
@@ -204,7 +166,7 @@ _gaq.push(['_addTrans',
               </section>
             <% end %>
           </td>
-          <td class="value">
+          <td class="value" id="total_user_credits">
             <%= number_to_currency(total_user_credits) %>
           </td>
         </tr>
@@ -215,26 +177,27 @@ _gaq.push(['_addTrans',
 
     <table cellpadding="0" cellspacing="0" id="total">
       <tbody>
-        <% if @cart_service.coupon %>
-          <tr>
+          <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
             <td>Código Promocional</td>
             <td class="value">
-              <p>
-                <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart_service.coupon.is_percentage? %>
-                <%= discount_percentage(@cart_service.coupon.discount_percent) %>
+              <p id="coupon_discount">
+                <% if @cart.coupon %>
+                  <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %>
+                  <%= discount_percentage(@cart.coupon.discount_percent) %>
+                <% end %>
               </p>
-              <%= form_for(remove_coupon_cart_path, :url => remove_coupon_cart_path, :method => :delete) do %>
+              <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
                 <fieldset class="inputs">
                   <ol>
                     <li>
-                      <%= submit_tag "Limpar" %>
+                      <%= f.hidden_field('coupon_code', :value => nil) %>
+                      <%= f.submit "Limpar" %>
                     </li>
                   </ol>
                 </fieldset>
               <% end %>
             </td>
           </tr>
-        <% end %>
         <tr class="total">
           <td>
               <table id="coupon" cellpadding="0" cellspacing="0">
@@ -242,14 +205,14 @@ _gaq.push(['_addTrans',
                   <tr class="discount">
                     <td>
                       <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-                      <%= form_for update_coupon_cart_path, :url => update_coupon_cart_path, :method => :put, :html => {:id => "coupon"} do %>
+                      <%= form_for(@cart, :remote => true, html: { :id => "coupon" }) do |f| %>
                         <fieldset class="inputs">
                           <ol>
                             <li>
-                              <%= text_field 'coupon', 'code', :value => @coupon_code %>
+                              <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
                             </li>
                             <li class="cupom">
-                              <%= submit_tag '' %>
+                              <%= f.submit '' %>
                             </li>
                           </ol>
                         </fieldset>
@@ -260,7 +223,7 @@ _gaq.push(['_addTrans',
               </table>  
           </td>
           <td class="value">
-            <p>Total: <span><%= number_to_currency(@cart_service.total) %></span></p>
+            <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>
             <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
           </td>
         </tr>

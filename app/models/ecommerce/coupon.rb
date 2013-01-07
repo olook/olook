@@ -9,6 +9,7 @@ class Coupon < ActiveRecord::Base
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
   validates_uniqueness_of :code
   has_many :coupon_payments
+  has_many :carts
 
   before_save :set_limited_or_unlimited
 
