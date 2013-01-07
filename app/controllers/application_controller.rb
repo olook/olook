@@ -112,8 +112,7 @@ class ApplicationController < ActionController::Base
     def load_cart_service
       @cart_service = CartService.new(
         :cart => @cart,
-        :promotion => @promotion,
-        :freight => session[:cart_freight]
+        :promotion => @promotion
       )
     end
 

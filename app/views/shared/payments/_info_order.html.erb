@@ -73,7 +73,7 @@
     <% end %>
   </ul>  
   <ul class="total">
-    <li class="delivery_time"><p>(entrega em <%= cart_service.freight[:delivery_time] if cart_service.freight %> dias úteis)</p></li>
+    <li class="delivery_time"><p>(entrega em <%= cart_service.cart.freight[:delivery_time] if cart_service.cart.freight %> dias úteis)</p></li>
     <%
     total_paid = @order.amount_paid if has_payment
     total_paid ||= cart_service.total

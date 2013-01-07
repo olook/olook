@@ -35,7 +35,6 @@ describe Checkout::AddressesController do
 
   after :each do
     session[:cart_id] = nil
-    session[:cart_freight] = nil
   end
 
   it "should redirect user to login when is offline" do
@@ -68,14 +67,6 @@ describe Checkout::AddressesController do
       flash[:notice].should eq("Sua sacola está vazia")
     end
 
-  end
-
-  it "should erase freight when call any action" do
-    sign_in user
-    session[:cart_id] = cart.id
-    session[:cart_freight] = mock
-    get :index
-    assigns(:cart_service).freight.should be_nil
   end
 
   context "GET index" do
@@ -125,10 +116,6 @@ describe Checkout::AddressesController do
     end
 
     context "with valid a address" do
-      before :each do
-        FreightCalculator.stub(:freight_for_zip).and_return(freight)
-      end
-
       it "should create a address" do
         expect {
           post :create, :address => attributes
@@ -140,11 +127,6 @@ describe Checkout::AddressesController do
         response.should redirect_to(new_credit_card_cart_checkout_path)
       end
 
-      it "should set a feight in session" do
-        session[:cart_freight] = nil
-        post :create, :address => attributes
-        session[:cart_freight].should eq(freight.merge!(:address_id => user.addresses.last.id))
-      end
     end
   end
 
@@ -164,7 +146,6 @@ describe Checkout::AddressesController do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
-      FreightCalculator.stub(:freight_for_zip).and_return(freight)
     end
 
     it "should updates an address" do
@@ -178,11 +159,6 @@ describe Checkout::AddressesController do
       response.should redirect_to(new_credit_card_cart_checkout_path)
     end
 
-    it "should set a feight in session" do
-      session[:cart_freight] = nil
-      put :update, :id => address.id, :address => { :zip_code => '18015-172' }
-      session[:cart_freight].should eq(freight.merge!(:address_id => address.id))
-    end
   end
 
   context "DELETE destroy" do
@@ -197,12 +173,6 @@ describe Checkout::AddressesController do
       expect {
         delete :destroy, :id => address.id
       }.to change(Address, :count).by(-1)
-    end
-
-    it "should remove freight form session" do
-      session[:cart_freight] = mock
-      delete :destroy, :id => address.id
-      session[:cart_freight].should be_nil
     end
 
     it "should redirect to addresses" do
