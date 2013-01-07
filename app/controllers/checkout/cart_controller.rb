@@ -46,7 +46,6 @@ class Checkout::CartController < Checkout::BaseController
 
     if @variant = Variant.find_by_id(variant_id)
       if @cart.add_item(@variant, variant_quantity)
-        fire_event("ADDING A PRODUCT")
         respond_with do |format|
           format.html { redirect_to(cart_path) }
         end
