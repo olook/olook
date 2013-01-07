@@ -53,6 +53,18 @@
     <%= f.check_box :active %>
   </div>
 
+  <div id="rules">
+
+    <h2>Critérios para a promoção</h2>
+
+      <div class="field">
+        <%= label_tag :rule, "Regra do tipo" %><br />
+        <%= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
+      </div>
+
+
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
