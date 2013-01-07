@@ -1223,6 +1223,8 @@ body {
               border: 3px #101010 solid;
               border-top: 2px $secondary_color solid;
               display: none;
+							max-height:388px;
+							overflow-y:auto;
               li {
                 position: relative;
                 width: 100%;
