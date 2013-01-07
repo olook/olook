@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     session[:cart_id] = cart.id
     #not sending email in the case of a buy made from an admin
     if current_admin
-      cart.update_attribute("notified", true)
+      # cart.update_attribute("notified", true)
     end
 
     if @user
