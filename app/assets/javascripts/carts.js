@@ -82,3 +82,4 @@ $(function() {
 function changeCartItemQty(cart_item_id) {
   $('form#change_amount_' + cart_item_id).submit();
 }
+

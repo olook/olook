@@ -12,9 +12,9 @@ class Cart::ItemsController < ApplicationController
   end
 
   def update
-    cart_item = @cart.items.find(params[:id])
+    @item = @cart.items.find(params[:id])
     
-    if cart_item.update_attribute(:quantity, params[:quantity])
+    if @item.update_attribute(:quantity, params[:quantity])
       respond_with { |format| format.js {  } }
     else
       render :error, :locals => { :notice => "Houve um problema ao atualizar a quantidade do item do cart" }
