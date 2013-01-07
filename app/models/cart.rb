@@ -1,16 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
-  after_initialize :init_observers
-
   DEFAULT_QUANTITY = 1
 
   belongs_to :user
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
-
-  def init_observers
-    @observer = PromotionListener.new
-  end
 
   def allow_credit_payment?
     policy = CreditPaymentPolicy.new self
@@ -85,6 +79,6 @@ class Cart < ActiveRecord::Base
   private
 
     def notify
-      @observer.update({:user => user, :cart => self})
+      PromotionListener.update({:user => user, :cart => self})
     end
 end

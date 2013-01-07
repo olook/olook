@@ -18,6 +18,10 @@ class CartItem < ActiveRecord::Base
   end
 
   def price
+    variant.product.price
+  end
+
+  def retail_price
     variant.product.price -  adjustment.value
   end
 

@@ -3,7 +3,7 @@ class FirstBuy < PromotionRule
 
   def matches? attributes={}
     user = attributes[:user]
-    return false if user.nil?
+    return true if user.nil?
 
     return ! user.has_purchased_orders?
   end

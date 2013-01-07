@@ -11,11 +11,13 @@ module CartHelper
   end
 
   def promotion_discount(item)
-    if @cart_service.item_retail_price_total(item) == 0
-      "Grátis"
-    else
-      number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0)
-    end
+    # TODO remove this hardcoding
+    number_to_percentage(20, :precision => 0)
+    # if @cart_service.item_retail_price_total(item) == 0
+    #   "Grátis"
+    # else
+    #   number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0)
+    # end
   end
 
   def remaining_items cart, promotion

@@ -102,6 +102,9 @@ _gaq.push(['_addTrans',
               <% end %>
             </td>
             <td class="value" >
+
+              <b><%= item.price %><b>
+
               <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => @cart_service.item_retail_price(item)) %>
               <% if @cart_service.item_promotion?(item) %>
                 <p class="price_retail">de: <%= number_to_currency(@cart_service.item_price_total(item)) %></p>
