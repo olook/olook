@@ -15,7 +15,7 @@ describe Payments::MoipSenderStrategy do
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_service) { CartService.new({
     :cart => cart,
-    :freight => freight,
+    :freight => freight
   }) }
   let(:order_total) { 12.34 }
 
