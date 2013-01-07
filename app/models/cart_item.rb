@@ -34,7 +34,7 @@ class CartItem < ActiveRecord::Base
   end
 
 
-  def calculate_adjustment
+  def adjusted_price
     price - adjustment.value
   end
 
