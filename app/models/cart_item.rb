@@ -33,6 +33,11 @@ class CartItem < ActiveRecord::Base
     cart_item_adjustment
   end
 
+
+  def calculate_adjustment
+    price - adjustment.value
+  end
+
   private
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
