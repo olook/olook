@@ -1,6 +1,6 @@
  # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Navigating by moments", %q{
   In order to simulate a user experience

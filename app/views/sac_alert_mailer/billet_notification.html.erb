@@ -13,7 +13,7 @@
       </tr>
       <tr style="padding: 9px 8px 0px 8px;">
         <td><%= @order.user_name %></td>
-        <td><%= link_to("http://www.olook.com.br/admin/users/#{@order.user_id}") %></td>
+        <td><a href="http://www.olook.com.br/admin/users/<%= @order.user_id.to_s %>">http://www.olook.com.br/admin/users/<%= @order.user_id.to_s %></a></td>
         <td><%= @order.freight.telephone %></td>
         <td><%= @order.user_email %></td>
       </tr>

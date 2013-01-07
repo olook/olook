@@ -1,6 +1,6 @@
  # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Accessing my vitrine", "In order to see the products as a user" do
   include CarrierWave::Test::Matchers
