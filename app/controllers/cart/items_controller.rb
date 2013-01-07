@@ -1,12 +1,24 @@
 # -*- encoding : utf-8 -*-
 class Cart::ItemsController < ApplicationController
 	respond_to :js
-	before_filter :ensure_params!, :ensure_a_variant_is_found!
+	before_filter :ensure_params!
 
   def create  
+    ensure_a_variant_is_found!
+
     add_item_or_show_errors
  
   	update_cart_summary_on_view
+  end
+
+  def update
+    @item = @cart.items.find(params[:id])
+    
+    if @item.update_attribute(:quantity, params[:quantity])
+      respond_with { |format| format.js {  } }
+    else
+      render :error, :locals => { :notice => "Houve um problema ao atualizar a quantidade do item do cart" }
+    end
   end
 
   def destroy
@@ -38,12 +50,11 @@ class Cart::ItemsController < ApplicationController
 		end
 
   	def ensure_a_variant_is_found!
-      return if removing_a_cart_item?
     	respond_with do |format|
         format.js do 
         	render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }
         end
-      end unless a_variant_is_found
+      end unless adding_a_cart_item? && a_variant_is_found
   	end
 
     def a_variant_is_found
@@ -51,13 +62,20 @@ class Cart::ItemsController < ApplicationController
     end
 
   	def ensure_params!
-      if post_to_create?
+      if adding_a_cart_item?
     		respond_with do |format|
           format.js do 
           	render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }
           end	        
         end unless (params[:variant] && params[:variant][:id])
+      elsif updating_a_cart_item_qty?
+        respond_with do |format|
+          format.js do 
+            render :error, :locals => { :notice => "Não foram enviados os parâmetros para atualizar a quantidade do item" }
+          end         
+        end unless (params[:id] && params[:quantity])
       else 
+        #DELETE to destroy
         respond_with do |format|
           format.js do 
             render :error, :locals => { :notice => "Houve um problema ao deletar o item do carrinho" }
@@ -66,8 +84,12 @@ class Cart::ItemsController < ApplicationController
       end
   	end
 
-    def post_to_create?
-      request.method == 'POST'
+    def adding_a_cart_item?
+      request.method == 'POST' && params[:action] == 'create'
+    end
+
+    def updating_a_cart_item_qty?
+      request.method == 'PUT'
     end
 
     def removing_a_cart_item?
@@ -75,7 +97,7 @@ class Cart::ItemsController < ApplicationController
     end
 
   	def variant_id
-  		params[:variant][:id]
+  		params[:variant][:id] if params[:variant]
   	end
 
   	def variant_qty

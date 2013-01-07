@@ -1,0 +1,9 @@
+
+$('p#item_subtotal_' + <%= @item.id %>).text('<%= number_to_currency(@cart_service.item_price_total(@item)) %>');
+
+
+$("#cart_items").text(<%= @cart.items_total %>);
+
+
+
+$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
