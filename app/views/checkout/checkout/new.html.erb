@@ -3,7 +3,7 @@
 <% end %>
 
 <section id="payment" class="checkout">
-  
+
     <%= form_for(Address.new, :url => "#", :remote => true) do |f| %>
     
       <p>ENDEREÇO DE ENTREGA</p>
@@ -46,7 +46,5 @@
    
       
       <%= f.submit '', :class => "save" %>
-      
-    <% end %>
   
 </section>
