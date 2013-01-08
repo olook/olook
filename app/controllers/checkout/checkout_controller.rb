@@ -24,7 +24,8 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def new
-    address = Address.new
+    @addresses = @user.addresses
+    address = @addresses.empty? ? Address.new : @addresses.first
     @checkout = Checkout.new(address: address)
   end
 
