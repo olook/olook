@@ -18,7 +18,7 @@ class Cart < ActiveRecord::Base
     policy = CreditPaymentPolicy.new self
     policy.allow?
   end
-  
+
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
@@ -60,7 +60,7 @@ class Cart < ActiveRecord::Base
 
     notify
   end
-  
+
   def items_total
    items.sum(:quantity)
   end
@@ -72,7 +72,7 @@ class Cart < ActiveRecord::Base
   def has_gift_items?
     items.where(:gift => true).count > 0
   end
-  
+
   def remove_unavailable_items
     unavailable_items = []
     items.each do |li|
@@ -88,7 +88,7 @@ class Cart < ActiveRecord::Base
 
 
     def notify
-      PromotionListener.update({:user => user, :cart => self})
+      PromotionListener.update({cart: self})
     end
 
     def update_coupon
