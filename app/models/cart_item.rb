@@ -9,6 +9,7 @@ class CartItem < ActiveRecord::Base
   delegate :description, :to => :variant, :prefix => false
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
+  delegate :value, :to => :cart_item_adjustment, :prefix => :adjustment
 
   after_create :create_adjustment, :notify
   after_update :notify
@@ -24,6 +25,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def retail_price
+    return variant.product.retail_price unless has_adjustment?
     price - adjustment.value
   end
 
@@ -35,6 +37,10 @@ class CartItem < ActiveRecord::Base
     cart_item_adjustment
   end
 
+  def has_adjustment?
+    adjustment.value > 0
+  end
+  
   private
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
