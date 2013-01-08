@@ -15,8 +15,12 @@ class Cart < ActiveRecord::Base
   after_find :update_coupon_code
 
   def allow_credit_payment?
-    policy = CreditPaymentPolicy.new self
-    policy.allow?
+    adjustments = items.select { |item| item.has_adjustment? }
+    adjustments.empty?
+  end
+
+  def total_discount
+    items.inject(0) { |total, item| total += item.adjustment_value }    
   end
 
   def add_item(variant, quantity=nil, gift_position=0, gift=false)

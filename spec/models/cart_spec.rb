@@ -10,18 +10,36 @@ describe Cart do
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
 
   let(:cart) { FactoryGirl.create(:clean_cart) }
+  let(:cart_with_one_item) { FactoryGirl.create(:cart_with_one_item) }
   let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
   let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
 
-  context "#allow_credit_policy?" do
+  describe "#total_discount" do
+    pending " TODO more specs "
 
+    context "cart has no items" do
+      it "should return 0" do
+        cart.total_discount.should == 0
+      end
+    end
+
+    context "cart has 1 item" do
+
+      before do
+        cart_with_one_item.items.first.adjustment.update_attribute(:value, 10)
+      end
+
+      it "should return item value" do
+        cart_with_one_item.total_discount.should == 10
+      end
+    end
+  end
+
+  context "#allow_credit_policy?" do
     it "should delegate to CreditPaymentPolicy" do
       CreditPaymentPolicy.any_instance.stub(:allow?).and_return(true)
       cart.allow_credit_payment?.should be_true
-
     end
-
-
   end
   
   context "when add item" do

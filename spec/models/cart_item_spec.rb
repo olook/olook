@@ -34,12 +34,14 @@ describe CartItem do
   describe "#retail_price" do
     let(:adjustment) { FactoryGirl.create(:cart_item_adjustment, cart_item: cart_item) }
 
-    context "cart_item with adjustment" do
+    context "cart_item without adjustment" do
       it "returns full price" do
-        cart_item.stub(:price).and_return(BigDecimal("100.00"))
+        cart_item.variant.product.master_variant.update_attribute(:retail_price, "100.00")
         cart_item.retail_price.to_s.should eq("100.0")
       end
+    end
 
+    context "cart_item with adjustment" do
       it "returns value calculated" do
         cart_item.variant.product.stub(:price).and_return(BigDecimal("59.99"))
         cart_item.stub(:adjustment).and_return(adjustment)
@@ -47,6 +49,18 @@ describe CartItem do
       end
     end
 
+    context " retail price for olooklet" do
+      pending " TODO "
+    end
+
+    context " retail price for not olooklet" do
+      pending " TODO "
+    end
+
+  end
+
+  describe "#adjustment_value" do
+    it {should respond_to :adjustment_value}
   end
 
 end

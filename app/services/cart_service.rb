@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :promotion
+  # attr_accessor :promotion
   attr_accessor :freight
-  
-  def allow_credit_payment?
-    promotion.nil? && cart.allow_credit_payment?
-  end
+
+  delegate :allow_credit_payment?, :to => :cart   
+  delegate :total_discount, :to => :cart, :prefix => :cart
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -39,7 +38,7 @@ class CartService
   end
 
   def item_promotion?(item)
-    item_price(item) != item_retail_price(item)
+    item.has_adjustment?
   end
 
   def item_price_total(item)
@@ -63,7 +62,11 @@ class CartService
   end
 
   def item_discounts(item)
-    get_retail_price_for_item(item).fetch(:discounts)
+    discounts = get_retail_price_for_item(item).fetch(:discounts)
+    # For compatibility reason
+    discounts << :promotion if item.has_adjustment?
+
+    discounts
   end
 
   def subtotal(type = :retail_price)
@@ -200,26 +203,10 @@ class CartService
     LoyaltyProgramCreditType.apply_percentage(total + total_discount_by_type(:credits_by_redeem))
   end
 
-  def should_apply_promotion_discount?
-    if has_promotion_and_coupon?
-      strategy = promotion.load_strategy(promotion, cart.user)
-      promotion_discount = strategy.calculate_promotion_discount(cart.items)
-      if cart.coupon.is_percentage?
-        return promotion_discount[:percent] > cart.coupon.value
-      else
-        return promotion_discount[:value] > cart.coupon.value
-      end
-    end
-
-    return true if promotion
+  def should_override_promotion_discount?
+    cart.coupon.nil? ? true : cart.coupon.value > cart_total_discount
   end
 
-  # private
-    def has_promotion_and_coupon?
-      promotion && cart.coupon
-    end
-
-  #TODO: add expiration logic
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
@@ -244,28 +231,14 @@ class CartService
     if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price && !should_apply_promotion_discount?
+      if coupon_value < final_retail_price && should_override_promotion_discount?
         percent = coupon.value
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
         origin_type = :coupon
       end
     end
-
-    promotion = self.promotion
-    if promotion && item.product.can_supports_discount?
-      discounts << :promotion
-      strategy = promotion.load_strategy(promotion, cart.user)
-      promotion_value = strategy.calculate_value(cart.items, item)
-      # Do not allow Promotion discount if the user enters a coupon code
-      if promotion_value < final_retail_price && should_apply_promotion_discount?
-        final_retail_price = promotion_value
-        percent = 20 #promotion.discount_percent
-        origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
-        origin_type = :promotion
-      end
-    end
-
+    
     {
       :origin       => origin,
       :price        => price,
@@ -285,7 +258,6 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
-  #TODO
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
@@ -293,7 +265,7 @@ class CartService
     total_discount = 0
 
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0 if should_apply_promotion_discount?
+    coupon_value = 0 unless should_override_promotion_discount?
     coupon_value ||= 0
 
     if coupon_value >= retail_value
@@ -307,7 +279,6 @@ class CartService
     credits_invite = 0
     credits_redeem = 0
     if (use_credits == true)
-      #GET FROM loyality
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
