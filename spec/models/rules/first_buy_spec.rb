@@ -12,10 +12,27 @@ describe FirstBuy do
         subject.matches?({}).should be_false
       end
     end
-    
+
+    context "user discount isn't expired" do
+      let(:user) {FactoryGirl.create(:user)}
+
+      it "should match" do
+        subject.matches?({user: user}).should be_true
+      end
+    end
+
+    context "user discount is expired" do
+      let(:user) {FactoryGirl.create(:user)}
+
+      it "should not match" do
+        user.created_at = user.created_at - 10.days
+        subject.matches?({user: user}).should be_false
+      end
+    end
+
     context "user has no orders" do
       let(:user) {FactoryGirl.create(:user)}
-      
+
       it "should match" do
         subject.matches?({user: user}).should be_true
       end
@@ -40,7 +57,7 @@ describe FirstBuy do
       before do
         user.orders << FactoryGirl.create(:clean_order)
         user.orders << FactoryGirl.create(:clean_order)
-      end        
+      end
 
       it "should not match" do
         subject.matches?({user: user}).should be_false
