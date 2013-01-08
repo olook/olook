@@ -4,47 +4,46 @@
 
 <section id="payment" class="checkout">
 
-    <%= form_for(Address.new, :url => "#", :remote => true) do |f| %>
+    <%= form_for(@checkout, :url => { :action => "create" }) do |checkout_form| %>
     
-      <p>ENDEREÇO DE ENTREGA</p>
-      <%= f.label :nome %>:
-      <%= f.text_field :nome, :value => "", :class => "nome" %>
-      
-      <%= f.label :sobrenome %>:
-      <%= f.text_field :sobrenome, :value => "", :class => "sobrenome" %> <br/>
-      
-      <%= f.label "Endereço"%>:
-      <%= f.text_field :endereco, :value => "", :class => "endereco" %>
-      
-      <%= f.label :numero %>:
-      <%= f.text_field :num, :value => "", :class => "numero" %><br/>
-      
-      <%= f.label :compl %>:
-      <%= f.text_field :compl, :value => "opcional", :class => "compl" %>
-      <%= f.label :compl %>:
-      <%= f.text_field :bairro, :value => "", :class => "bairro" %><br/>
-      
-      <%= f.label :cidade %>:
-      <%= f.text_field :cidade, :value => "", :class => "cidade" %>
-      
-      <%= f.label "UF" %>:
-      <%= f.text_field :uf, :value => "", :class => "uf" %><br/>
-      
-      <br/><p>DESTINATÁRIO</p>
-      <%= f.label "Nome" %>:
-      <%= f.text_field :nome_dest, :value => "", :class => "nome_dest" %>
-      <%= f.label "Sobrenome" %>:
-      <%= f.text_field :sobrenome_dest, :value => "", :class => "sobrenome_dest" %>
-      
-      <br/><br/><p>CONTATO NO LOCAL</p>
-      <%= f.label "Telefone de contato 1" %>:
-      <%= f.text_field :tel_contato1, :value => "", :class => "tel_contato1" %><br />
+      <%= checkout_form.fields_for @checkout.address do |address_form| %>
+        <p>ENDEREÇO DE ENTREGA</p>
+        <%= address_form.label :zip_code %><em>*</em>
+        <%= address_form.text_field :zip_code, :class => "zip_code" %>
+        
+        <%= address_form.label "Endereço"%>:
+        <%= address_form.text_field :street, :value => "", :class => "endereco" %>
+        
+        <%= address_form.label :numero %>:
+        <%= address_form.text_field :number, :value => "", :class => "numero" %><br/>
+        
+        <%= address_form.label :compl %>:
+        <%= address_form.text_field :complement, :value => "opcional", :class => "compl" %>
+        <%= address_form.label :bairro %>:
+        <%= address_form.text_field :neighborhood, :value => "", :class => "bairro" %><br/>
+        
+        <%= address_form.label :cidade %>:
+        <%= address_form.text_field :city, :value => "", :class => "cidade" %>
+        
+        <%= address_form.label "UF" %>:
+        <%= address_form.text_field :state, :value => "", :class => "uf" %><br/>
+        
+        <br/><p>DESTINATÁRIO</p>
+        <%= address_form.label "Nome" %>:
+        <%= address_form.text_field :first_name, :value => "", :class => "nome_dest" %>
+        <%= address_form.label "Sobrenome" %>:
+        <%= address_form.text_field :last_name, :value => "", :class => "sobrenome_dest" %>
+        
+        <br/><br/><p>CONTATO NO LOCAL</p>
+        <%= address_form.label "Telefone de contato 1" %>:
+        <%= address_form.text_field :telephone, :value => "", :class => "tel_contato1" %><br />
 
-      <%= f.label "Telefone de contato 2" %>:
-      <%= f.text_field :tel_contato2, :value => "", :class => "tel_contato2" %>
-      
-   
-      
-      <%= f.submit '', :class => "save" %>
+        <%= address_form.label "Telefone de contato 2" %>:
+        <%= address_form.text_field :mobile, :value => "", :class => "tel_contato2" %>
+        
+      <% end %>
+
+      <%= checkout_form.submit '', :class => "save" %>
+    <% end %>
   
 </section>

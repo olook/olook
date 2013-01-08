@@ -24,7 +24,8 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def new
-    #TODO: RENDER CREDIT CARD IF HAS CPF
+    address = Address.new
+    @checkout = Checkout.new(address: address)
   end
 
   def new_debit
@@ -38,6 +39,9 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new_credit_card
     @payment = CreditCard.new
     @payment.telephone = session[:user_telephone_number] if session[:user_telephone_number]
+  end
+
+  def create
   end
 
   def create_debit
