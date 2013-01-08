@@ -41,8 +41,6 @@ class Cart < ActiveRecord::Base
       items << current_item
     end
 
-    notify
-
     current_item
   end
 
@@ -57,8 +55,6 @@ class Cart < ActiveRecord::Base
         gift_position += 1
       end
     end
-
-    notify
   end
 
   def items_total
@@ -85,11 +81,6 @@ class Cart < ActiveRecord::Base
   end
 
   private
-
-
-    def notify
-      PromotionListener.update({cart: self})
-    end
 
     def update_coupon
       coupon = Coupon.find_by_code(self.coupon_code)
