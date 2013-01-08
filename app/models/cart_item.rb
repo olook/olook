@@ -10,7 +10,9 @@ class CartItem < ActiveRecord::Base
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
 
-  after_create :create_adjustment
+  after_create :create_adjustment, :notify
+  after_update :notify
+  after_destroy :notify
 
   def product_quantity
     deafult_quantity = [1]
@@ -42,5 +44,8 @@ class CartItem < ActiveRecord::Base
       CartItemAdjustment.create(value: 0, cart_item: self, source: "")
     end
 
+    def notify
+      PromotionListener.update({cart: self.cart})
+    end
 end
 
