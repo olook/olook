@@ -3,7 +3,6 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   before_filter :authenticate_user!
   before_filter :check_order
-  before_filter :check_freight
   before_filter :check_cpf, :except => [:new, :update]
 
   def update
