@@ -1,5 +1,5 @@
 <% if @cart.items_total == 0 %>
-$('section#cart').fadeOut(500,"linear").empty().append('<h1>Minha sacola</h1><h2>Sua sacola ainda está vazia :( <br />Conheça nossa coleção e mude isso já!</h2>').delay(300).fadeIn();
+$('section#cart').hide().empty().delay(300).append('<%= escape_javascript( render partial: "checkout/cart/empty_cart") %>').delay(300).fadeIn();
 $(".menu li#cart a.cart").removeClass("selected");
 <% end %>
 
