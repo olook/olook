@@ -1,0 +1,36 @@
+<%= checkout_form.fields_for @checkout.address do |address_form| %>
+  <p>ENDEREÇO DE ENTREGA</p>
+  <%= address_form.label :zip_code %><em>*</em>
+  <%= address_form.text_field :zip_code, class: "zip_code" %>
+  
+  <%= address_form.label "Endereço"%>:
+  <%= address_form.text_field :street, value: "", class: "endereco" %>
+  
+  <%= address_form.label :numero %>:
+  <%= address_form.text_field :number, value: "", class: "numero" %><br/>
+  
+  <%= address_form.label :compl %>:
+  <%= address_form.text_field :complement, value: "opcional", class: "compl" %>
+  <%= address_form.label :bairro %>:
+  <%= address_form.text_field :neighborhood, value: "", class: "bairro" %><br/>
+  
+  <%= address_form.label :cidade %>:
+  <%= address_form.text_field :city, value: "", class: "cidade" %>
+  
+  <%= address_form.label "UF" %>:
+  <%= address_form.text_field :state, value:"", :class: "uf" %><br/>
+  
+  <br/><p>DESTINATÁRIO</p>
+  <%= address_form.label "Nome" %>:
+  <%= address_form.text_field :first_name, value: "", class: "nome_dest" %>
+  <%= address_form.label "Sobrenome" %>:
+  <%= address_form.text_field :last_name, value: "", class: "sobrenome_dest" %>
+  
+  <br/><br/><p>CONTATO NO LOCAL</p>
+  <%= address_form.label "Telefone de contato 1" %>:
+  <%= address_form.text_field :telephone, value: "", class: "tel_contato1" %><br />
+
+  <%= address_form.label "Telefone de contato 2" %>:
+  <%= address_form.text_field :mobile, value: "", class: "tel_contato2" %>
+  
+<% end %>  
