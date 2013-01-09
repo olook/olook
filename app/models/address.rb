@@ -12,7 +12,7 @@ class Address < ActiveRecord::Base
 
   validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood, :telephone
 
-  validates :number, :numericality => true, :presence => true
+  validates :number, :numericality => true
   validates :zip_code, :format => {:with => ZipCodeFormat}
   validates :telephone, :format => {:with => PhoneFormat}, :if => :telephone?
   validates :mobile, :format => { :with => MobileFormat }, :if => :mobile?
