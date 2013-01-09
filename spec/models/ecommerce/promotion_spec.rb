@@ -6,6 +6,9 @@ describe Promotion do
 
     it { should have_many :rules_parameters }
     it { should have_many(:promotion_rules).through(:rules_parameters)}
+
+    it { should have_one :action_parameter }
+    it { should have_one(:promotion_action).through(:action_parameter)}
     # it { should have_many :promotion_actions }
 
   end
