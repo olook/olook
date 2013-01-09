@@ -9,8 +9,8 @@ class Promotion < ActiveRecord::Base
   has_many :rules_parameters
   has_many :promotion_rules, :through => :rules_parameters
 
-  has_many :action_parameters
-  has_many :promotion_actions, through: :action_parameters
+  has_one :action_parameter
+  has_one :promotion_action, through: :action_parameters
 
   accepts_nested_attributes_for :promotion_rules
 
