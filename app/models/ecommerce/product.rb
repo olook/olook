@@ -212,7 +212,8 @@ class Product < ActiveRecord::Base
   end
 
   def promotion_price
-    PromotionService.by_product(self)
+    # TODO export it to default settings
+    price * BigDecimal("0.8")
   end
 
   def gift_price(position = 0)

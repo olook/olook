@@ -377,10 +377,7 @@ describe CartService do
   context ".active_discounts" do
     it "should sum discounts of items" do
       cart.items.first.dup.save
-
       cart_service.should_receive(:item_discounts).and_return([:olooklet, :promotion])
-      cart_service.should_receive(:item_discounts).and_return([:promotion])
-
       cart_service.active_discounts.should eq([:olooklet, :promotion])
     end
   end
@@ -406,7 +403,8 @@ describe CartService do
     it "should sum retail price of items" do
       cart_service.stub(:total_increase).and_return(0)
       cart_service.stub(:total_discount).and_return(0)
-      cart_service.should_receive(:subtotal).with(:retail_price).and_return(100)
+      cart_service.cart.stub(:total_price).and_return(100)
+
       cart_service.total.should eq(100)
     end
 
@@ -419,7 +417,7 @@ describe CartService do
 
     it "should subtract discounts values" do
       cart_service.stub(:total_increase).and_return(0)
-      cart_service.stub(:subtotal).and_return(100)
+      cart_service.cart.stub(:total_price).and_return(100)
       cart_service.should_receive(:total_discount).and_return(25)
       cart_service.total.should eq(75)
     end
@@ -576,7 +574,7 @@ describe CartService do
       end
 
       context "and coupon of value" do
-        it "should use coupon instead of promotion (coupon gives more discount) " , :focus => true do
+        it "should use coupon instead of promotion (coupon gives more discount) " do
           
           @cart_item.variant.product.master_variant.update_attribute(:price, 80)
           cart_service.stub(:freight_price).and_return(0.0)
