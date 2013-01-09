@@ -13,14 +13,11 @@ class Cart < ActiveRecord::Base
 
   after_validation :update_coupon
   after_find :update_coupon_code
+  after_update :notify_promotion_listener
 
   def allow_credit_payment?
     adjustments = items.select { |item| item.has_adjustment? }
     adjustments.empty?
-  end
-
-  def total_discount
-    items.inject(0) { |total, item| total += item.adjustment_value }    
   end
 
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
@@ -84,7 +81,26 @@ class Cart < ActiveRecord::Base
     size_items
   end
 
+
+  def total_promotion_discount
+    items.inject(0) { |total, item| total += item.adjustment_value }    
+  end
+
+  def total_coupon_discount
+    return 0 if coupon.nil?
+
+    if coupon.is_percentage?
+      total_price * (coupon.value / 100.0)
+    else
+      coupon.value
+    end
+  end
+
   private
+
+    def total_price
+      items.inject(0) { |total, item| total += item.quantity * item.price }
+    end
 
     def update_coupon
       coupon = Coupon.find_by_code(self.coupon_code)
@@ -93,6 +109,10 @@ class Cart < ActiveRecord::Base
 
     def update_coupon_code
       self.coupon_code = self.coupon.code if self.coupon
+    end
+
+    def notify_promotion_listener
+      PromotionListener.update self
     end
 
 end

@@ -530,67 +530,93 @@ describe CartService do
 
   end
 
-  context "when has promotion" do
-    it "should return current retail price if discount price is less than current" do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 10)
-      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
-      # cart_service.promotion = promotion
-      cart_service.item_retail_price(cart.items.first).should eq(10)
+  context "when cart has 1 item of price 20" do
+
+    before do
+      @cart_item = cart.items.first
+      @cart_item.update_attribute(:quantity, 1)
+      @cart_item.variant.product.master_variant.update_attribute(:price, 20)
     end
 
-    it "should return discount price if discount price is greater than current", :focus => true do
-      cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
-      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+    context "when item doesnt have promotion adjustment" do
 
-      cart_service.cart.coupon = coupon_of_percentage
+      it "should return current retail price" do
+        @cart_item.variant.product.master_variant.update_attribute(:retail_price, 10)
+        cart_service.item_retail_price(@cart_item).should eq(10)
+      end
 
-      cart_service.stub(:cart_total_disctount).and_return(6)
-      # cart_service.promotion = promotion
-      cart_service.item_retail_price(cart.items.first).should eq(14)
+      pending " TODO !!! More specs "
     end
 
-    context "and coupon of value" do
-      it "should use coupon instead of promotion (coupon gives more discount) " , :focus => true do
-        cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 80)
-        cart.items.first.variant.product.master_variant.update_attribute(:price, 80)
-        cart_service.stub(:freight_price).and_return(0.0)
-        cart.items.first.update_attribute(:quantity, 1)
+    context "when item has a promotion adjustment" do
 
-        cart_service.cart.coupon = coupon_of_value
-        # cart_service.promotion = promotion
-
-        cart_service.item_discounts(cart.items.first).should eq([:coupon_of_value, :promotion])
-        cart_service.total.should == 30
+      before do
+        @cart_item.stub(:adjustment_value).and_return(2)
       end
 
-      context ".should_override_promotion_discount?" do
-        pending " TODO "
+      it "should return promotion price" do
+        @cart_item.variant.product.master_variant.update_attribute(:retail_price, 19)
+        cart_service.item_retail_price(@cart_item).should eq(18)
       end
 
-      it "should apply the greater discount for total" do
+      context "when there is a percentage coupon that gives more discount than promotion" do
+        before do
+          coupon_of_percentage.update_attribute(:value, 30.0)
+          cart_service.cart.coupon = coupon_of_percentage
+        end
 
-        cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 80)
-        cart.items.first.variant.product.master_variant.update_attribute(:price, 80)
-        cart.items.first.update_attribute(:quantity, 1)
+        it "should return coupon as discount" do
+          cart_service.item_discounts(@cart_item).should eq([:coupon])
+        end
 
-        cart_service.stub(:freight_price).and_return(0.0)
-        cart_service.cart.coupon = coupon_of_value
-        # cart_service.promotion = promotion
-
-        cart_service.total_discount.should == 50.0
-        cart_service.total_increase.should == 0.0
-        cart_service.total.should == 30.0
+        it "should return price with coupon discount" do
+          cart_service.item_retail_price(@cart_item).should eq(14)
+        end
 
       end
 
-      it "should use promotion instead of coupon (promotion gives more discount) " , :focus => true do
-        cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 1000)
-        cart.items.first.variant.product.master_variant.update_attribute(:price, 1000)
+      context "and coupon of value" do
+        it "should use coupon instead of promotion (coupon gives more discount) " , :focus => true do
+          
+          @cart_item.variant.product.master_variant.update_attribute(:price, 80)
+          cart_service.stub(:freight_price).and_return(0.0)
+          @cart_item.update_attribute(:quantity, 1)
 
-        cart_service.cart.coupon = coupon_of_value
+          cart_service.cart.coupon = coupon_of_value
 
-        cart_service.item_discounts(cart.items.first).should eq([:coupon_of_value, :promotion])
-        cart_service.item_retail_price(cart.items.first).should == 700
+          cart_service.item_discounts(@cart_item).should eq([:coupon_of_value])
+          cart_service.total.should == 30
+        end
+
+        context ".should_override_promotion_discount?" do
+          pending " TODO "
+        end
+
+        it "should apply the greater discount for total" do
+
+          cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 80)
+          cart.items.first.variant.product.master_variant.update_attribute(:price, 80)
+          cart.items.first.update_attribute(:quantity, 1)
+
+          cart_service.stub(:freight_price).and_return(0.0)
+          cart_service.cart.coupon = coupon_of_value
+
+          cart_service.total_discount.should == 50.0
+          cart_service.total_increase.should == 0.0
+          cart_service.total.should == 30.0
+
+        end
+
+        it "should use promotion instead of coupon (promotion gives more discount) " , :focus => true do
+          pending
+          cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 1000)
+          cart.items.first.variant.product.master_variant.update_attribute(:price, 1000)
+
+          cart_service.cart.coupon = coupon_of_value
+
+          cart_service.item_discounts(cart.items.first).should eq([:coupon_of_value, :promotion])
+          cart_service.item_retail_price(cart.items.first).should == 700
+        end
       end
     end
   end

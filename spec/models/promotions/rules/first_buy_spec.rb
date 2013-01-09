@@ -9,7 +9,7 @@ describe FirstBuy do
 
     context "user was not informed" do
       it "should not match" do
-        subject.matches?({}).should be_false
+        subject.matches?(nil).should be_false
       end
     end
 
@@ -17,7 +17,7 @@ describe FirstBuy do
       let(:user) {FactoryGirl.create(:user)}
 
       it "should match" do
-        subject.matches?({user: user}).should be_true
+        subject.matches?(user).should be_true
       end
     end
 
@@ -26,7 +26,7 @@ describe FirstBuy do
 
       it "should not match" do
         user.created_at = user.created_at - 10.days
-        subject.matches?({user: user}).should be_false
+        subject.matches?(user).should be_false
       end
     end
 
@@ -34,7 +34,7 @@ describe FirstBuy do
       let(:user) {FactoryGirl.create(:user)}
 
       it "should match" do
-        subject.matches?({user: user}).should be_true
+        subject.matches?(user).should be_true
       end
     end
 
@@ -47,7 +47,7 @@ describe FirstBuy do
       end
 
       it "should not match" do
-        subject.matches?({user: user}).should be_false
+        subject.matches?(user).should be_false
       end
     end
 
@@ -60,7 +60,7 @@ describe FirstBuy do
       end
 
       it "should not match" do
-        subject.matches?({user: user}).should be_false
+        subject.matches?(user).should be_false
       end
 
     end

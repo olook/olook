@@ -182,7 +182,7 @@ _gaq.push(['_addTrans',
             <td class="value">
               <p id="coupon_discount">
                 <% if @cart.coupon %>
-                  <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %>
+                  <%= number_to_currency(@cart.total_coupon_discount) unless @cart.coupon.is_percentage? %>
                   <%= discount_percentage(@cart.coupon.discount_percent) %>
                 <% end %>
               </p>
