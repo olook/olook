@@ -9,7 +9,7 @@ class PromotionListener
 
     matched_promotions = []
 
-    Promotion.active_and_not_expired(DateTime.now).each do |promotion|
+    Promotion.active_and_not_expired(Date.today).each do |promotion|
 
       # TODO is the promotion valid and active ?
       matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |

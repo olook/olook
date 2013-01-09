@@ -2,8 +2,6 @@
 
 FactoryGirl.define do
   factory :action_parameter do
-    promotion_id 1
-    promotion_action_id 1
-    param "MyString"
+    param "0.2"
   end
 end
