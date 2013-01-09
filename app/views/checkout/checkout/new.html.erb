@@ -5,8 +5,20 @@
 <section id="payment" class="checkout">
 
     <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
+      <div class="box-step-one">
+        <h2 class="step-title">
+          <span class="number">1.</span>
+          <span class="title">Entrega</span>
+          <span class="phrase">Como devemos enviar sua compra?</span>
+        </h2>
       
-      <%= render "shipping_address_form", checkout_form: checkout_form if @addresses.empty? %>
+        <% if @addresses.empty? %>
+          <%= render "shipping_address_form", checkout_form: checkout_form %>
+        <% else %>
+          <%= render "address_list", checkout_form: checkout_form %>
+        <% end %>
+
+      </div>
       
       <%= checkout_form.submit '', class: "send_it" %>
     
