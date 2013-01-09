@@ -36,7 +36,8 @@
     
     <%= field_set_tag do %>
       <%= address_form.label :street, "Rua, Avenida, Praça etc"%>
-      <%= address_form.text_field :street,  class: "endereco" %>
+      <%= address_form.text_field :street,  class: "endereco #{error_class_if_needed(@checkout.address, :street)}" %>
+      <%= errors_for(@checkout.address, :street) %>
     <% end %>  
     
     <%= field_set_tag do %>

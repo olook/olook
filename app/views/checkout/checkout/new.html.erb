@@ -6,7 +6,7 @@
 
     <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
       
-      <%= render "shipping_address_form", checkout_form: checkout_form if @addresses.empty? %>
+      <%= render "shipping_address_form", checkout_form: checkout_form if @addresses.nil? || @addresses.empty? %>
       
       <%= checkout_form.submit '', class: "send_it" %>
     
