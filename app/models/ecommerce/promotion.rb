@@ -1,5 +1,4 @@
 class Promotion < ActiveRecord::Base
-  attr_accessor :param
   validates_presence_of :name, :banner_label
 
   scope :active, where(:active => true)
@@ -13,9 +12,7 @@ class Promotion < ActiveRecord::Base
   has_one :action_parameter
   has_one :promotion_action, through: :action_parameter
 
-  accepts_nested_attributes_for :promotion_rules
-
-  after_create :update_action_parameter
+  accepts_nested_attributes_for :promotion_rules, :action_parameter
 
   def apply cart
     CreateAdjustment.apply(cart, self)
@@ -30,12 +27,4 @@ class Promotion < ActiveRecord::Base
     Promotions::PurchasesAmountStrategy.new(promotion, user)
   end
 
-  private
-    def update_action_parameter
-      if action_parameter
-        action_parameter.update_attributes(param: self.param)
-      else
-        ActionParameter.create(promotion: self, promotion_action: self.promotion_action, param: self.param)
-      end
-    end
 end
