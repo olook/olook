@@ -1,12 +1,14 @@
 <%= field_set_tag do %>
-  <%= radio_button :address, '', 'address1', class: "address_recorded", id: "" %>
-  <%= checkout_form.label :address, '', class: "address_label" %>
-  <ul class="address_data">
-    <li>John John</li>
-    <li>Rua Surubim, 159</li>
-    <li>Brooklin - 04383-010</li>
-    <li>São Paulo, SP</li>
-    <li><a href="#">Alterar endereço</a></li>
-  </ul>
+  <% @addresses.each do |address| %>
+    <%= radio_button :address, 'id', address.id, class: "address_recorded", id: "" %>
+    <%= checkout_form.label :address, '', class: "address_label" %>
+    <ul class="address_data">
+      <li><%= "#{address.first_name} #{address.last_name}" %></li>
+      <li><%= "#{address.street}, #{address.number}" %></li>
+      <li><%= "#{address.neighborhood} - #{address.zip_code}" %></li>
+      <li><%= "#{address.city}, #{address.state}" %></li>
+      <li><a href="#">Alterar endereço</a></li>
+    </ul>
+  <% end %>
   <p class="new_address"><a href="#">+ Adicionar novo endereço</a></p>
 <% end %>

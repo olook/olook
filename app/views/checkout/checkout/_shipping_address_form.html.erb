@@ -1,6 +1,3 @@
-<%= render :partial => "shared/errors", :locals => { :object => @checkout.address } %>
-
-
 <%= checkout_form.fields_for @checkout.address do |address_form| %>
   <!--<p>ENDEREÇO DE ENTREGA</p>-->
   <%= field_set_tag do %>
@@ -22,49 +19,58 @@
   
   <%= field_set_tag do %>
     <%= address_form.label :number, "Número" %>
-    <%= address_form.text_field :number,  class: "numero" %><br/>
+    <%= address_form.text_field :number,  class: "numero #{error_class_if_needed(@checkout.address, :number)}" %>
+    <%= errors_for(@checkout.address, :number) %>
   <% end %>
   
   <%= field_set_tag do %>
     <%= address_form.label :complement, "Complemento" %>
-    <%= address_form.text_field :complement,  class: "compl" %>
+    <%= address_form.text_field :complement,  class: "compl #{error_class_if_needed(@checkout.address, :complement)}" %>
+    <%= errors_for(@checkout.address, :complement) %>
   <% end %>
 
   <%= field_set_tag do %>    
     <%= address_form.label :neighborhood, "Bairro" %>
-    <%= address_form.text_field :neighborhood,  class: "bairro" %><br/>
+    <%= address_form.text_field :neighborhood,  class: "bairro #{error_class_if_needed(@checkout.address, :neighborhood)}" %>
+    <%= errors_for(@checkout.address, :neighborhood) %>
   <% end %>
   
   <%= field_set_tag do %>
     <%= address_form.label :city, "Cidade" %>
-    <%= address_form.text_field :city,  class: "cidade" %>
+    <%= address_form.text_field :city,  class: "cidade #{error_class_if_needed(@checkout.address, :city)}" %>
+    <%= errors_for(@checkout.address, :city) %>
   <% end %>
 
   <%= field_set_tag do %>    
     <%= address_form.label :state, "UF" %>
-    <%= address_form.text_field :state,  class: "uf" %><br/>
+    <%= address_form.text_field :state,  class: "uf #{error_class_if_needed(@checkout.address, :state)}" %>
+    <%= errors_for(@checkout.address, :state) %>
   <% end %>
 
   <p class="subtitle">DESTINATÁRIO</p>
   <%= field_set_tag do %>    
     <%= address_form.label :first_name, "Nome" %>
-    <%= address_form.text_field :first_name,  class: "nome_dest" %>
+    <%= address_form.text_field :first_name,  class: "nome_dest #{error_class_if_needed(@checkout.address, :first_name)}" %>
+    <%= errors_for(@checkout.address, :first_name) %>
   <% end %>
  
     <%= field_set_tag do %>    
     <%= address_form.label :last_name, "Sobrenome" %>
-    <%= address_form.text_field :last_name,  class: "sobrenome_dest" %>
+    <%= address_form.text_field :last_name,  class: "sobrenome_dest #{error_class_if_needed(@checkout.address, :last_name)}" %>
+    <%= errors_for(@checkout.address, :last_name) %>
   <% end %>
   
   <p class="subtitle">CONTATO NO LOCAL</p>
   <%= field_set_tag do %>
     <%= address_form.label :telephone, "Telefone de contato 1" %>
-    <%= address_form.text_field :telephone, class: "tel_contato1" %><br />
+    <%= address_form.text_field :telephone, class: "tel_contato1 #{error_class_if_needed(@checkout.address, :telephone)}" %>
+    <%= errors_for(@checkout.address, :telephone) %>
   <% end %>
   
   <%= field_set_tag do %>
     <%= address_form.label :mobile, "Telefone de contato 2" %>
-    <%= address_form.text_field :mobile, class: "tel_contato2" %>
+    <%= address_form.text_field :mobile, class: "tel_contato2 #{error_class_if_needed(@checkout.address, :mobile)}" %>
+    <%= errors_for(@checkout.address, :mobile) %>
   <% end %>
   
   <p class="subtitle">OPÇÕES DE FRETE</p>
