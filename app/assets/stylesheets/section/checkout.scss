@@ -1465,10 +1465,9 @@ section#payment {
 .txt-pink{color:#E15789;}
 
 section.checkout{
-	.box-step-one{width:311px;float:left;}
+	.box-step-one,.box-step-two{width:311px;float:left;}
 	
 	h2{float:left;clear:both;margin-bottom:15px;
-		
 		span{	
 			display:block;float:left;	
 			&.number{font-family:$kepler;font-size:60px;}

@@ -6,10 +6,25 @@
 
     <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
       
-      <%= render "shipping_address_form", checkout_form: checkout_form if @addresses.empty? %>
+      <%= render "shipping_address_form", checkout_form: checkout_form %>
       
-      <%= checkout_form.submit '', class: "send_it" %>
-    
+      <div class="box-step-two">
+        <h2 class="step-title">
+          <span class="number">2.</span>
+          <span class="title">PAGAMENTO</span>
+          <span class="phrase">Como devemos enviar sua compra?</span>
+        </h2>
+        <div class="credits">
+          <%= checkout_form.check_box :user_credits %>
+          <%= address_form.label :user_credits, "QUERO USAR MEUS CRÉDITOS" %>
+          <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.</p>
+        </div>  
+      </div>
+      
+      <div class="box-step-three">  
+        <%= checkout_form.submit '', class: "send_it" %>
+      </div>
+      
     <% end %>
   
 </section>
