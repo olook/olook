@@ -8,18 +8,14 @@ class Promotion < ActiveRecord::Base
 
   has_many :rules_parameters
   has_many :promotion_rules, :through => :rules_parameters
-  # has_many :promotion_actions
+
+  has_many :action_parameters
+  has_many :promotion_actions, through: :action_parameters
 
   accepts_nested_attributes_for :promotion_rules
 
   def apply cart
-    # TODO REFACTOR THIS!!!!!
-    # => export this logic to PromotionAction class
-    cart.items.each do |cart_item|
-      sub_total = cart_item.quantity * cart_item.price
-      adjust = sub_total * BigDecimal("0.20")
-      cart_item.adjustment.update_attributes(:value => adjust)
-    end
+    CreateAdjustment.apply(cart, self)
   end
 
   def self.purchases_amount
