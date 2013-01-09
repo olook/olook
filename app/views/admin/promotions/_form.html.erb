@@ -58,8 +58,23 @@
     <h2>Critérios para a promoção</h2>
 
     <div class="field">
-      <%= label_tag :rule, "Regra do tipo" %><br />
-      <%= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
+      <%#= label_tag :rule, "Regra do tipo" %><br />
+      <%#= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
+
+      <% PromotionRule.all.each do |action| %>
+      <%= f.fields_for :rules_parameters, RulesParameter.new do |builder| %>
+      <% #PromotionAction.all.each do |action| %>
+        <div class="field">
+          <%# collection_select :promotion_rule_id, PromotionRule.all, :id, :type, {include_blank: true} %>
+          <%# builder.select(:promotion_rule_id, options_for_select("FirstBuy", 1))  %>
+          <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :name) %>
+          <%# builder.label :params %>
+          <%# builder.text_field :params %>
+        </div>
+      <% end %>
+    </div>
+    <% end %>
+
     </div>
   </div>
 
@@ -67,13 +82,16 @@
 
     <h2>Critérios para action</h2>
 
-    <%= f.fields_for :action_parameter do |builder| %>
-      <div class="field">
-        <%= builder.label :param %>
-        <%= builder.text_field :param %>
-      </div>
-    <% end %>
-  </div>
+    <%#= f.fields_for :action_parameter, ActionParameter.new do |builder| %>
+      <% #PromotionAction.all.each do |action| %>
+        <div class="field">
+          <%# collection_select 'promotion', :promotion_rule_ids, PromotionAction.all, :id, :type, {include_blank: true} %>
+          <%# builder.label :param %>
+          <%# builder.text_field :param %>
+        </div>
+      <%# end %>
+    </div>
+  <%# end %>
 
   <div class="actions">
     <%= f.submit %>
