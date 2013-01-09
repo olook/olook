@@ -1464,7 +1464,57 @@ section#payment {
 .txt-black{color:#000;}
 .txt-pink{color:#E15789;}
 
-section.checkout {
+section.checkout{
+	.box-step-one{width:311px;float:left;}
+	
+	h2{float:left;clear:both;margin-bottom:15px;
+		
+		span{	
+			display:block;float:left;	
+			&.number{font-family:$kepler;font-size:60px;}
+			&.title{margin-top:8px;font-family:$avenir;font-size:25px;}
+			&.phrase{font-family:$kepler;font-size:16px;}
+		}
+	}
+	
+	form.new_checkout{
+		fieldset{float:left;margin:0 10px 17px 0;}
+		
+		label{display:block;
+			&.frete_label{display:inline;}
+		}
+		
+		input{
+			height:30px;line-height:30px;padding-left:7px;font-size:14px;
+			
+			&.zip_code{width:115px;float:left}
+			&.endereco{width:172px;}
+			&.numero{width:80px;}
+			&.compl{width:85px;color:#CCC;}
+			&.bairro{width:167px;}
+			&.cidade{width:175px;}
+			&.uf{width:77px;}
+			&.nome_dest,&.sobrenome_dest{width:125px;}
+			&.tel_contato1,&.tel_contato2{width:137px;}
+			&.frete{height:auto;}
+			
+			
+			
+			
+			
+			
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;float:left;}
+		}
+		.btn_zipcode{
+			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;
+		}
+		.subtitle{clear:both;margin-top:10px;height:40px;@include sprite_checkout(-109px, -535px);color:#000;padding-top:15px;clear:both;}
+		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
+		.freight_value{color:#E15687;}
+	}
+}
+
+/*section.checkout {
   h1 {
     font-family: $avenir;
     font-size: 22px;
@@ -1608,7 +1658,7 @@ section.checkout {
     cursor: pointer;
   }
 }
-
+*/
 div#modal {
   div#rules {
     width: 640px;
