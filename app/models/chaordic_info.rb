@@ -42,9 +42,9 @@ class ChaordicInfo
       chaordic_product.installment_count = 1
       chaordic_product.installment_price = product.retail_price.round(2).to_s
       if product.category == 1
-        product.variants.each do |v|
+        product.variants.sort{|x,y| x.description.to_i <=> y.description.to_i}.each do |v|
           size = v.description
-          sku = product.inventory > 1 ? v.sku : ""
+          sku = v.inventory >= 1 ? v.sku : ""
           chaordic_product.add_variant size, sku
         end
       end
@@ -63,7 +63,7 @@ class ChaordicInfo
     def self.set_cart cart
       chaordic_cart = Chaordic::Packr::Cart.new
       cart.items.each do |item|
-        chaordic_cart.add_product item.product.id, item.product.retail_price.round(2).to_s
+        chaordic_cart.add_product item.product.id, item.product.retail_price.round(2).to_s, item.variant.sku
       end
       chaordic_cart
     end
@@ -71,7 +71,7 @@ class ChaordicInfo
     def self.set_order order, user
       chaordic_order = Chaordic::Packr::Cart.new
       order.line_items.each do |item|
-        chaordic_order.add_product item.variant.product.id, item.retail_price.round(2).to_s
+        chaordic_order.add_product item.variant.product.id, item.retail_price.round(2).to_s, item.variant.sku
       end
       chaordic_order.user = user
       chaordic_order = Chaordic::Packr::BuyOrder.new(chaordic_order)
@@ -85,6 +85,7 @@ class ChaordicInfo
         chaordic_user.uid = user.id
         chaordic_user.add_info('Name', user.name)
         chaordic_user.add_info('Email', user.email)
+        chaordic_user.add_info('optOut', false)
       else
         chaordic_user.uid = "CS_ANONYMOUSUSER"
       end
