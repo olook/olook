@@ -31,6 +31,8 @@ class MomentsController < ApplicationController
   # "hover" effect on the 'Oculos' link in the menu bar
   #
   def glasses
+    @glasses = "Oculos"
+    @chaordic_user = ChaordicInfo.user current_user
     render :show
   end
 
