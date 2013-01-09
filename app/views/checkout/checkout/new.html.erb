@@ -6,11 +6,10 @@
 
     <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
       
+      <%= render "shipping_address_form", checkout_form: checkout_form %>
       
-        <%= render "shipping_address_form", checkout_form: checkout_form %>
+      <%= checkout_form.submit '', class: "send_it" %>
     
-      
-      <%= checkout_form.submit '', class: "save" %>
     <% end %>
   
 </section>
