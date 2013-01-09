@@ -25,8 +25,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def new
     @addresses = @user.addresses
-    address = @addresses.empty? ? Address.new : @addresses.first
-    @checkout = Checkout.new(address: address)
+    @checkout = Checkout.new(address: Address.new)
   end
 
   def new_debit
@@ -44,7 +43,6 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def create
     params[:checkout][:address][:country] = 'BRA' if params[:checkout][:address]
-
     address = params[:checkout][:address][:id].empty? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
     params[:checkout][:address].delete(:id)
     address.assign_attributes(params[:checkout][:address])      
