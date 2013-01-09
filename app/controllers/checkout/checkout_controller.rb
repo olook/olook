@@ -53,7 +53,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       redirect_to :new_cart_checkout
     else
       @checkout = Checkout.new(address: address)
-      respond_with(@checkout)
+      render :new
     end
   end
 
