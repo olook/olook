@@ -3,9 +3,9 @@
     <div id="error_explanation">
       <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this admin_promotion from being saved:</h2>
       <ul>
-      <% @promotion.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @promotion.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -64,10 +64,8 @@
 
     <div class="field">
       <%= label_tag :rule, "Regra do tipo" %><br />
-        <%= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
-      </div>
-
-
+      <%= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
+    </div>
   </div>
 
   <div class="actions">
