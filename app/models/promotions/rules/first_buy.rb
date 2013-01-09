@@ -8,5 +8,4 @@ class FirstBuy < PromotionRule
 
     return !user.has_purchased_orders? && !discount_expired
   end
-
 end
