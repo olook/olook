@@ -9,7 +9,7 @@ describe CreateAdjustment do
 
     context "when adjust should be changed" do
       it "cart item returns calculated adjustment value" do
-        promo.should_receive(:action_parameter).and_return(action_parameter)
+        promo.should_receive(:action_parameter).at_least(2).times.and_return(action_parameter)
         described_class.apply(cart, promo)
         cart.items.first.adjustment.value.should eq(cart.items.first.price * promo.action_parameter.param.to_d)
       end
