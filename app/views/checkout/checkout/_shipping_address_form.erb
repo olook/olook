@@ -5,6 +5,9 @@
     <span class="phrase">Como devemos enviar sua compra?</span>
   </h2>
 
+  <%= render :partial => "shared/errors", :locals => { :object => @checkout.address } %>
+
+
   <%= checkout_form.fields_for @checkout.address do |address_form| %>
     <!--<p>ENDEREÇO DE ENTREGA</p>-->
     
