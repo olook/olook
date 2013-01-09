@@ -58,18 +58,10 @@
     <h2>Critérios para a promoção</h2>
 
     <div class="field">
-      <%#= label_tag :rule, "Regra do tipo" %><br />
-      <%#= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
-
       <% PromotionRule.all.each do |action| %>
       <%= f.fields_for :rules_parameters, RulesParameter.new do |builder| %>
-      <% #PromotionAction.all.each do |action| %>
         <div class="field">
-          <%# collection_select :promotion_rule_id, PromotionRule.all, :id, :type, {include_blank: true} %>
-          <%# builder.select(:promotion_rule_id, options_for_select("FirstBuy", 1))  %>
           <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :name) %>
-          <%# builder.label :params %>
-          <%# builder.text_field :params %>
         </div>
       <% end %>
     </div>
