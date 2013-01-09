@@ -18,13 +18,4 @@ class Promotion < ActiveRecord::Base
     CreateAdjustment.apply(cart, self)
   end
 
-  def self.purchases_amount
-    #Promotion.find_by_strategy("purchases_amount_strategy")
-    first
-  end
-
-  def load_strategy(promotion, user)
-    Promotions::PurchasesAmountStrategy.new(promotion, user)
-  end
-
 end

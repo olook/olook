@@ -95,12 +95,12 @@ class Cart < ActiveRecord::Base
       coupon.value
     end
   end
-
+  
+  def total_price
+    items.inject(0) { |total, item| total += item.quantity * item.price }
+  end
+  
   private
-
-    def total_price
-      items.inject(0) { |total, item| total += item.quantity * item.price }
-    end
 
     def update_coupon
       coupon = Coupon.find_by_code(self.coupon_code)

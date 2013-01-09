@@ -13,12 +13,6 @@ describe Promotion do
     it { should have_one(:promotion_action).through(:action_parameter)}
   end
 
-  describe "#load_strategy" do
-    it "should apply the appropriated strategy" do
-      promo.load_strategy(nil, nil).class.should  eq(Promotions::PurchasesAmountStrategy)
-    end
-  end
-
   describe "#apply" do
     let(:cart) { FactoryGirl.create(:cart_with_items) }
     let(:action_parameter) { FactoryGirl.build(:action_parameter) }

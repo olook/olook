@@ -92,7 +92,9 @@ class CartService
   end
 
   def total_discount
-    calculate_discounts.fetch(:total_discount)
+    legacy_discount = calculate_discounts.fetch(:total_discount)
+    # check all possible discounts, and get the greater
+    [legacy_discount, cart.total_promotion_discount, cart.total_coupon_discount].max
   end
 
   def is_minimum_payment?
@@ -128,7 +130,9 @@ class CartService
   end
 
   def total
-    total = subtotal(:retail_price)
+    # total = subtotal(:retail_price)
+
+    total = cart.total_price
     total += total_increase
     total -= total_discount
 
@@ -264,7 +268,6 @@ class CartService
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0 if retail_value < 0
     total_discount = 0
-
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
