@@ -51,7 +51,7 @@ class CartItem < ActiveRecord::Base
     end
 
     def notify
-      PromotionListener.update({cart: self.cart})
+      PromotionListener.update(self.cart)
     end
 end
 
