@@ -53,13 +53,6 @@
     <%= f.check_box :active %>
   </div>
 
-  <%= f.fields_for :action_parameter do |builder| %>
-  <div class="field">
-    <%= builder.label :param %>
-    <%= builder.text_field :param %>
-  </div>
-  <% end %>
-
   <div id="rules">
 
     <h2>Critérios para a promoção</h2>
@@ -68,6 +61,18 @@
       <%= label_tag :rule, "Regra do tipo" %><br />
       <%= collection_select 'promotion', :promotion_rule_ids, PromotionRule.all, :id, :name, {:include_blank => true} %>
     </div>
+  </div>
+
+  <div id="actions">
+
+    <h2>Critérios para action</h2>
+
+    <%= f.fields_for :action_parameter do |builder| %>
+      <div class="field">
+        <%= builder.label :param %>
+        <%= builder.text_field :param %>
+      </div>
+    <% end %>
   </div>
 
   <div class="actions">
