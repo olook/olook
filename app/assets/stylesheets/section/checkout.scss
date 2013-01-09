@@ -1481,6 +1481,7 @@ section.checkout{
 		fieldset{float:left;margin:0 10px 17px 0;}
 		
 		label{display:block;
+			&.address_label{display:none;}
 			&.frete_label{display:inline;}
 		}
 		
@@ -1490,14 +1491,14 @@ section.checkout{
 			&.zip_code{width:115px;float:left}
 			&.endereco{width:172px;}
 			&.numero{width:80px;}
-			&.compl{width:85px;color:#CCC;}
+			&.compl{width:85px;}
 			&.bairro{width:167px;}
 			&.cidade{width:175px;}
 			&.uf{width:77px;}
 			&.nome_dest,&.sobrenome_dest{width:125px;}
 			&.tel_contato1,&.tel_contato2{width:137px;}
-			&.frete{height:auto;}
-			
+			&.frete, &.address_recorded{height:auto;}
+			&.address_recorded{float:left;}
 			
 			
 			
@@ -1511,6 +1512,15 @@ section.checkout{
 		.subtitle{clear:both;margin-top:10px;height:40px;@include sprite_checkout(-109px, -535px);color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
 		.freight_value{color:#E15687;}
+		
+		ul.address_data{float:left;margin:0 0 35px 5px;
+			a{color:#DD4978;}
+		}
+		
+		p.new_address{ 
+			clear:both;
+			a{font-size:16px;color:#DD4978;}
+		}
 	}
 }
 

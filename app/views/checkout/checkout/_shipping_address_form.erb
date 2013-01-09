@@ -7,6 +7,18 @@
 
   <%= checkout_form.fields_for @checkout.address do |address_form| %>
     <!--<p>ENDEREÇO DE ENTREGA</p>-->
+    <%= field_set_tag do %>
+      <%= radio_button :address, '', 'address1', class: "address_recorded", id: "" %>
+      <%= address_form.label :address, '', class: "address_label" %>
+      <ul class="address_data">
+        <li>John John</li>
+        <li>Rua Surubim, 159</li>
+        <li>Brooklin - 04383-010</li>
+        <li>São Paulo, SP</li>
+        <li><a href="#">Alterar endereço</a></li>
+      </ul>
+      <p class="new_address"><a href="#">+ Adicionar novo endereço</a></p>
+    <% end %>
     
     <%= field_set_tag do %>
       <%= address_form.label :zip_code, "CEP*" %>
@@ -24,7 +36,7 @@
     
     <%= field_set_tag do %>
       <%= address_form.label :number, "Número" %>
-      <%= address_form.text_field :number, value: "", class: "numero" %><br/>
+      <%= address_form.text_field :number, value: "", class: "numero" %>
     <% end %>
     
     <%= field_set_tag do %>
@@ -34,7 +46,7 @@
 
     <%= field_set_tag do %>    
       <%= address_form.label :neighborhood, "Bairro" %>
-      <%= address_form.text_field :neighborhood, value: "", class: "bairro" %><br/>
+      <%= address_form.text_field :neighborhood, value: "", class: "bairro" %>
     <% end %>
     
     <%= field_set_tag do %>
@@ -44,7 +56,7 @@
 
     <%= field_set_tag do %>    
       <%= address_form.label :state, "UF" %>
-      <%= address_form.text_field :state, value:"", class: "uf" %><br/>
+      <%= address_form.text_field :state, value:"", class: "uf" %>
     <% end %>
   
     <p class="subtitle">DESTINATÁRIO</p>
@@ -52,7 +64,8 @@
       <%= address_form.label :first_name, "Nome" %>
       <%= address_form.text_field :first_name, value: "", class: "nome_dest" %>
     <% end %>
-    <%= field_set_tag do %>    
+   
+      <%= field_set_tag do %>    
       <%= address_form.label :last_name, "Sobrenome" %>
       <%= address_form.text_field :last_name, value: "", class: "sobrenome_dest" %>
     <% end %>
@@ -60,11 +73,9 @@
     <p class="subtitle">CONTATO NO LOCAL</p>
     <%= field_set_tag do %>
       <%= address_form.label :telephone, "Telefone de contato 1" %>
-      <%= address_form.text_field :telephone, value: "", class: "tel_contato1" %><br />
+      <%= address_form.text_field :telephone, value: "", class: "tel_contato1" %>
     <% end %>
-    <%#= field_set_tag do %>
-      <%#= address_form.select :mobile, options_for_select(["celular", "fixo"])   %>
-    <%# end %>
+    
     <%= field_set_tag do %>
       <%= address_form.label :mobile, "Telefone de contato 2" %>
       <%= address_form.text_field :mobile, value: "", class: "tel_contato2" %>
@@ -77,10 +88,11 @@
       <span class="freight_value" id="freight_value1">R$ 5,90</span>
       <p class="freight_text">FRETE GRÁTIS PARA SUL E SUDESTE</p>
     <% end %>
+    
     <%= field_set_tag do %>
-    <%= radio_button :freight, '', 'express', class: "frete" %>
-    <%= address_form.label :freight, "Entrega expressa (1 dia útil):", class: "frete_label" %>
-    <span class="freight_value" id="freight_value2">R$ 9,90</span>
+      <%= radio_button :freight, '', 'express', class: "frete" %>
+      <%= address_form.label :freight, "Entrega expressa (1 dia útil):", class: "frete_label" %>
+      <span class="freight_value" id="freight_value2">R$ 9,90</span>
     <% end %>
   <% end %>  
 </div>  
