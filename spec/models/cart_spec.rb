@@ -14,12 +14,12 @@ describe Cart do
   let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
   let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
 
-  describe "#total_discount" do
+  describe "#total_promotion_discount" do
     pending " TODO more specs "
 
     context "cart has no items" do
       it "should return 0" do
-        cart.total_discount.should == 0
+        cart.total_promotion_discount.should == 0
       end
     end
 
@@ -30,7 +30,7 @@ describe Cart do
       end
 
       it "should return item value" do
-        cart_with_one_item.total_discount.should == 10
+        cart_with_one_item.total_promotion_discount.should == 10
       end
     end
   end

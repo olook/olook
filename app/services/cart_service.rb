@@ -1,11 +1,10 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  # attr_accessor :promotion
   attr_accessor :freight
 
   delegate :allow_credit_payment?, :to => :cart   
-  delegate :total_discount, :to => :cart, :prefix => :cart
+  delegate :total_promotion_discount, :to => :cart, :prefix => :cart
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -64,7 +63,8 @@ class CartService
   def item_discounts(item)
     discounts = get_retail_price_for_item(item).fetch(:discounts)
     # For compatibility reason
-    discounts << :promotion if item.has_adjustment?
+    # Terrible. Improve it
+    discounts << :promotion if item.has_adjustment? && cart.coupon && !should_override_promotion_discount?
 
     discounts
   end
@@ -204,8 +204,9 @@ class CartService
   end
 
   def should_override_promotion_discount?
-    cart.coupon.nil? ? true : cart.coupon.value > cart_total_discount
+    cart.total_coupon_discount > cart_total_promotion_discount
   end
+
 
   def get_retail_price_for_item(item)
     origin = ''
@@ -215,7 +216,7 @@ class CartService
     discounts = []
     origin_type = ''
 
-    if price != final_retail_price
+    if price != final_retail_price && !item.has_adjustment?
       percent =  (1 - (final_retail_price / price) )* 100
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
       discounts << :olooklet
@@ -238,7 +239,7 @@ class CartService
         origin_type = :coupon
       end
     end
-    
+
     {
       :origin       => origin,
       :price        => price,
@@ -265,7 +266,7 @@ class CartService
     total_discount = 0
 
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0 unless should_override_promotion_discount?
+    coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
 
     if coupon_value >= retail_value

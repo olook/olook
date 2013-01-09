@@ -12,7 +12,6 @@ class Checkout::CartController < Checkout::BaseController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
-    #@promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
   end
 
   def destroy

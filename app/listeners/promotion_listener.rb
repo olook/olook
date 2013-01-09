@@ -6,6 +6,7 @@ class PromotionListener
     # TODO after merge with restful_checkout, we can user cart.coupon to check if the cart
     # has coupon and avoid giving promotion discount
 
+
     matched_promotions = []
 
     Promotion.active_and_not_expired(DateTime.now).each do |promotion|
@@ -19,7 +20,15 @@ class PromotionListener
     end
 
     # TODO choose the best promotion for the user, and apply it
-    matched_promotions.each { |promotion| promotion.apply(cart) }
+    # Use a simulate instead rollbacking the transaction
+    Cart.transaction do
+      matched_promotions.each { |promotion| promotion.apply(cart) }
+
+      if cart.total_promotion_discount < cart.total_coupon_discount
+        cart.items.each { |item| item.adjustment.update_attributes(:value => 0, :source => nil) }
+      end
+
+    end
 
     Rails.logger.info "Applied promotions: #{matched_promotions} for cart [#{cart.id}]"
 

@@ -26,7 +26,7 @@ class CartItem < ActiveRecord::Base
 
   def retail_price
     return variant.product.retail_price unless has_adjustment?
-    price - adjustment.value
+    price - adjustment_value
   end
 
   def is_suggested_product?
@@ -38,7 +38,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def has_adjustment?
-    adjustment.value > 0
+    adjustment_value > 0
   end
   
   private

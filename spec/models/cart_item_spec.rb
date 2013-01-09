@@ -44,7 +44,7 @@ describe CartItem do
     context "cart_item with adjustment" do
       it "returns value calculated" do
         cart_item.variant.product.stub(:price).and_return(BigDecimal("59.99"))
-        cart_item.stub(:adjustment).and_return(adjustment)
+        cart_item.stub(:adjustment_value).and_return(BigDecimal("9.99"))
         cart_item.retail_price.to_s.should eq("50.0")
       end
     end
@@ -62,5 +62,4 @@ describe CartItem do
   describe "#adjustment_value" do
     it {should respond_to :adjustment_value}
   end
-
 end
