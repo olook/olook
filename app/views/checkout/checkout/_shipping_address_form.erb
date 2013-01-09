@@ -5,6 +5,9 @@
     <span class="phrase">Como devemos enviar sua compra?</span>
   </h2>
 
+  <%= render :partial => "shared/errors", :locals => { :object => @checkout.address } %>
+
+
   <%= checkout_form.fields_for @checkout.address do |address_form| %>
     <!--<p>ENDEREÇO DE ENTREGA</p>-->
     <%= field_set_tag do %>
@@ -28,57 +31,59 @@
       <% end %>  
 
     <% end %>
+
+    <%= address_form.hidden_field :id %>
     
     <%= field_set_tag do %>
       <%= address_form.label :street, "Rua, Avenida, Praça etc"%>
-      <%= address_form.text_field :street, value: "", class: "endereco" %>
+      <%= address_form.text_field :street,  class: "endereco" %>
     <% end %>  
     
     <%= field_set_tag do %>
       <%= address_form.label :number, "Número" %>
-      <%= address_form.text_field :number, value: "", class: "numero" %>
+      <%= address_form.text_field :number,  class: "numero" %><br/>
     <% end %>
     
     <%= field_set_tag do %>
       <%= address_form.label :complement, "Complemento" %>
-      <%= address_form.text_field :complement, value: "opcional", class: "compl" %>
+      <%= address_form.text_field :complement,  class: "compl" %>
     <% end %>
 
     <%= field_set_tag do %>    
       <%= address_form.label :neighborhood, "Bairro" %>
-      <%= address_form.text_field :neighborhood, value: "", class: "bairro" %>
+      <%= address_form.text_field :neighborhood,  class: "bairro" %><br/>
     <% end %>
     
     <%= field_set_tag do %>
       <%= address_form.label :city, "Cidade" %>
-      <%= address_form.text_field :city, value: "", class: "cidade" %>
+      <%= address_form.text_field :city,  class: "cidade" %>
     <% end %>
 
     <%= field_set_tag do %>    
       <%= address_form.label :state, "UF" %>
-      <%= address_form.text_field :state, value:"", class: "uf" %>
+      <%= address_form.text_field :state,  class: "uf" %><br/>
     <% end %>
   
     <p class="subtitle">DESTINATÁRIO</p>
     <%= field_set_tag do %>    
       <%= address_form.label :first_name, "Nome" %>
-      <%= address_form.text_field :first_name, value: "", class: "nome_dest" %>
+      <%= address_form.text_field :first_name,  class: "nome_dest" %>
     <% end %>
    
       <%= field_set_tag do %>    
       <%= address_form.label :last_name, "Sobrenome" %>
-      <%= address_form.text_field :last_name, value: "", class: "sobrenome_dest" %>
+      <%= address_form.text_field :last_name,  class: "sobrenome_dest" %>
     <% end %>
     
     <p class="subtitle">CONTATO NO LOCAL</p>
     <%= field_set_tag do %>
       <%= address_form.label :telephone, "Telefone de contato 1" %>
-      <%= address_form.text_field :telephone, value: "", class: "tel_contato1" %>
+      <%= address_form.text_field :telephone, class: "tel_contato1" %><br />
     <% end %>
     
     <%= field_set_tag do %>
       <%= address_form.label :mobile, "Telefone de contato 2" %>
-      <%= address_form.text_field :mobile, value: "", class: "tel_contato2" %>
+      <%= address_form.text_field :mobile, class: "tel_contato2" %>
     <% end %>
     
     <p class="subtitle">OPÇÕES DE FRETE</p>
