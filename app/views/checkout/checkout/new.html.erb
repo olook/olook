@@ -12,7 +12,7 @@
           <span class="phrase">Como devemos enviar sua compra?</span>
         </h2>
       
-        <% if @addresses.empty? %>
+        <% if @addresses.nil? || @addresses.empty? %>
           <%= render "shipping_address_form", checkout_form: checkout_form %>
         <% else %>
           <%= render "address_list", checkout_form: checkout_form %>
