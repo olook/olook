@@ -43,6 +43,18 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def create
+    params[:checkout][:address][:country] = 'BRA' if params[:checkout][:address]
+
+    address = params[:checkout][:address][:id].empty? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
+    params[:checkout][:address].delete(:id)
+    address.assign_attributes(params[:checkout][:address])      
+
+    if address.save
+      redirect_to :new_cart_checkout
+    else
+      @checkout = Checkout.new(address: address)
+      respond_with(@checkout)
+    end
   end
 
   def create_debit
