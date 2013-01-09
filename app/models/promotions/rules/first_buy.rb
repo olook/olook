@@ -2,7 +2,7 @@
 class FirstBuy < PromotionRule
 
   def matches? user
-    return false if user.nil?
+    return true if user.nil?
 
     discount_expired = DiscountExpirationCheckService.discount_expired?(user)
 

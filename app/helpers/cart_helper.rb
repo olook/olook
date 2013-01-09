@@ -33,7 +33,7 @@ module CartHelper
     def calculate_percentage_for item
       # for compatibility reason
 
-      if cart_has_percentage_coupon?
+      if cart_has_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
         @cart.coupon.value
       else
         item_retail_price = @cart_service.item_retail_price(item)

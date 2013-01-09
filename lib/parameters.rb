@@ -39,13 +39,13 @@ module Parameters
       name, type = validate_parameter_name_and_type parameter_name, parameter_type
 
       define_method name do
-        value = params[name][:value]
+        value = eval(params)[name][:value]
         convert_to value, type
       end
 
       define_method "#{parameter_name}=".to_sym do |value|
-        params[name][:value] = value.to_s
-        params[name][:type] = type
+        eval(params)[:value] = value.to_s
+        eval(params)[:type] = type
       end
 
     end
