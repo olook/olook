@@ -2,7 +2,7 @@ class Promotion < ActiveRecord::Base
   validates_presence_of :name, :banner_label
 
   scope :active, where(:active => true)
-  scope :active_and_not_expired, lambda {|date| active.where('starts_at < :date AND ends_at > :date', date: date)}
+  scope :active_and_not_expired, lambda {|date| active.where('starts_at <= :date AND ends_at >= :date', date: date)}
 
   has_many :promotion_payments
 
