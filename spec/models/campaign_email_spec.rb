@@ -18,7 +18,9 @@ describe CampaignEmail do
 
   describe "on user creation" do
     it "should set turned_user to true" do
+      campaign_email
       user
+      campaign_email.reload
       campaign_email.turned_user.should be_true
     end
   end
