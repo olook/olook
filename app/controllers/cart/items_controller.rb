@@ -22,10 +22,9 @@ class Cart::ItemsController < ApplicationController
   end
 
   def destroy
-  	cart_item = @cart.items.find(params[:id])
-  	@product_id = cart_item.product.id
-    @variant_id = cart_item.variant.id
-    if cart_item.destroy
+  	@item = @cart.items.find(params[:id])
+  	@product_id = @item.product.id
+    if @item.destroy
       respond_with { |format| format.js { } }
     else
       render :error, :locals => { :notice => "Houve um problema ao deletar o item do cart" }
