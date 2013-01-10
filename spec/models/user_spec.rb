@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+ #-*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe User do
@@ -9,19 +9,25 @@ describe User do
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
+  let(:user_from_campaign) {FactoryGirl.create(:user, email: email)}
 
   context "when user has a registered campaign email" do
     let(:email) { "test@test.com"}
     let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }
 
-    it "deletes the campaign_email from the db" do
+    it "find campaign_email" do
       CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
-      CampaignEmail.count.should == 1
-      FactoryGirl.create(:user, email: email)
-      CampaignEmail.count.should == 0
+      user_from_campaign
     end
 
-    context "#campaign_email_created_at" do
+    it "set campaign_email to true" do
+      campaign_email
+      user_from_campaign
+      campaign_email.reload
+      campaign_email.turned_user.should be_true
+    end
+
+    context "campaign_email_created_at" do
       it "gets populated by CampaignEmail's created_at field" do
         CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
         user = FactoryGirl.create(:user, email: email)
@@ -29,7 +35,7 @@ describe User do
       end
     end
 
-    context "#came_from_campaign_email?" do
+    context "came_from_campaign_email?" do
       it "indicates that the user came from a campaign email" do
         CampaignEmail.should_receive(:find_by_email).with( email ).and_return( campaign_email )
         user = FactoryGirl.create(:user, email: email)
@@ -42,14 +48,14 @@ describe User do
     let(:email) { "test@test.com"}
     let(:campaign_email) { FactoryGirl.create(:campaign_email, email: email) }
 
-    context "#campaign_email_created_at" do
+    context "campaign_email_created_at" do
       it "returns nil" do
         user = FactoryGirl.create(:user, email: "email@test.com")
         user.campaign_email_created_at.should be_nil
       end
     end
 
-    context "#converted_from_campaign_email?" do
+    context "converted_from_campaign_email?" do
       it "returns false" do
         user = FactoryGirl.create(:user, email: "email@test.com")
         user.converted_from_campaign_email?.should be_false
@@ -162,7 +168,7 @@ describe User do
 
   end
 
-  context "#facebook_data" do
+  context "facebook_data" do
     let(:id) {"123"}
     let(:token) {"ABC"}
     let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
@@ -266,7 +272,7 @@ describe User do
     end
   end
 
-  describe "#invite_for" do
+  describe "invite_for" do
     let(:valid_email) { "invited@test.com" }
 
     it "should create a new invite for a new and valid e-mail" do
@@ -287,7 +293,7 @@ describe User do
     end
   end
 
-  describe "#invites_for (plural)" do
+  describe "invites_for (plural)" do
     it "should create new invites with limit for new and valid e-mails" do
       emails = ["invited@test.com", "invited2@test.com", "invited2@test.com"]
       limit, expected_size = 1, 2
@@ -314,7 +320,7 @@ describe User do
     end
   end
 
-  describe "#inviter" do
+  describe "inviter" do
     context "when user is not invited by anyone" do
       before do
         subject.update_attribute(:is_invited, false)
@@ -338,7 +344,7 @@ describe User do
     end
   end
 
-  describe "#accept_invitation_with_token" do
+  describe "accept_invitation_with_token" do
     context "with a valid token" do
       let(:inviting_member) { FactoryGirl.create(:member) }
       let(:accepted_invite) { subject.accept_invitation_with_token(inviting_member.invite_token) }
@@ -360,14 +366,14 @@ describe User do
     end
   end
 
-  describe "#surver_answers" do
+  describe "surver_answers" do
     it "should return user answers" do
       survey_answers = FactoryGirl.create(:survey_answer, :user => subject)
       subject.survey_answers.should == survey_answers.answers
     end
   end
 
-  describe "#profile_scores, a user should have a list of profiles based on her survey's results" do
+  describe "profile_scores, a user should have a list of profiles based on her survey's results" do
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 30) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 10) }
 
@@ -381,7 +387,7 @@ describe User do
     end
   end
 
-  describe "#first_visit?discount_expiration and #record_first_visit" do
+  describe "first_visit?discount_expiration and record_first_visit" do
     it "should return true if there's no FIRST_VISIT event on the user event list" do
       subject.first_visit?.should be_true
     end
@@ -391,7 +397,7 @@ describe User do
     end
   end
 
-  describe "#add_event" do
+  describe "add_event" do
     it "should add an event for the user" do
       subject.add_event(EventType::SEND_INVITE, 'X invites where sent')
       subject.events.find_by_event_type(EventType::SEND_INVITE).should_not be_nil
@@ -410,7 +416,7 @@ describe User do
     end
   end
 
-  describe "#invitation_url should return a properly formated URL, used when there's no routing context" do
+  describe "invitation_url should return a properly formated URL, used when there's no routing context" do
     it "should return with olook.com.br root as default" do
       subject.invitation_url.should == "http://www.olook.com.br/convite/#{subject.invite_token}"
     end
@@ -420,7 +426,7 @@ describe User do
     end
   end
 
-  describe "#main_profile" do
+  describe "main_profile" do
     let(:mock_point_a) { mock_model Point, :profile => :first_profile }
     let(:mock_point_b) { mock_model Point, :profile => :second_profile }
 
@@ -449,7 +455,7 @@ describe User do
       Collection.stub(:current).and_return(collection)
     end
 
-    describe "#all_profiles_showroom" do
+    describe "all_profiles_showroom" do
       it "should return the products ordered by profiles without duplicate names" do
         subject.all_profiles_showroom.should == [product_c, product_d, product_b]
       end
@@ -468,7 +474,7 @@ describe User do
       end
     end
 
-    describe "#profile_showroom" do
+    describe "profile_showroom" do
       it "should return only the products for the given profile" do
         subject.profile_showroom(sporty_profile).should == [product_c, product_d]
       end
@@ -492,7 +498,7 @@ describe User do
       end
     end
 
-    describe "#main_profile_showroom" do
+    describe "main_profile_showroom" do
       it "should return the products ordered by profiles without duplicate names" do
         subject.main_profile_showroom.should == [product_d, product_b, product_c]
       end
@@ -506,7 +512,7 @@ describe User do
       end
     end
 
-    describe "#birthdate" do
+    describe "birthdate" do
       it "returns formatted birthday string" do
         subject.birthday = Date.new(1975,10,3)
         subject.save!
@@ -520,7 +526,7 @@ describe User do
       end
     end
 
-    describe "#age" do
+    describe "age" do
       context "when user birthday is not defined" do
         it "returns nil" do
           subject.stub(:age).and_return(nil)
@@ -556,13 +562,13 @@ describe User do
       end
     end
 
-    describe "#profile_name" do
+    describe "profile_name" do
       it "returns english profile symbol name" do
         subject.profile_name.should == :sporty
       end
     end
 
-    describe '#remove_color_variations' do
+    describe 'remove_color_variations' do
       let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
       let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
       let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
@@ -594,7 +600,7 @@ describe User do
     end
   end
 
-  describe '#has_purchases?' do
+  describe 'has_purchases?' do
     context 'when user has no orders' do
 
       it 'returns false' do
@@ -617,7 +623,7 @@ describe User do
     end
   end
 
-  describe "#current_credit" do
+  describe "current_credit" do
     context "when user has no credits" do
       it "returns 0" do
         subject.current_credit.should == 0
@@ -641,7 +647,7 @@ describe User do
 
   end
 
-  describe "#can_use_credit?" do
+  describe "can_use_credit?" do
     before do
       subject.user_credits_for(:invite).add(:amount => 23.0)
     end
@@ -732,7 +738,7 @@ describe User do
     end
   end
 
-  describe "#tracking_params" do
+  describe "tracking_params" do
 
     let!(:tracking_params) do
       {
