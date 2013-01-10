@@ -1,5 +1,4 @@
 $(function() {
-
   $( "#checkout_credits_use_credits" ).change(function() {
     $.ajax({
       url: '/sacola',
@@ -13,4 +12,3 @@ $(function() {
   });
 
 });
-
