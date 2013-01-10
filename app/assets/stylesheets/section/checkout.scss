@@ -1479,14 +1479,17 @@ section.checkout{
 	form.new_checkout{
 		fieldset{float:left;margin:0 10px 17px 0;}
 		
-		label{display:block;
+		label{display:block;margin-bottom:4px;
 			&.address_label{display:none;}
 			&.frete_label{display:inline;}
 		}
 		
+		span.span_error{color:#EA1E40;font-size:12px;display:block;margin-top:4px;}
+		
 		input{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;
 			
+			&.input_error{border:solid 1px #EA1E40;}
 			&.zip_code{width:115px;float:left}
 			&.endereco{width:172px;}
 			&.numero{width:80px;}
