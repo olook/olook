@@ -112,8 +112,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.add_event(EventType::TRACKING, session[:tracking_params])
     end
 
-    CampaignEmail.convert_user resource
-
     if session[:invite]
       resource.accept_invitation_with_token(session[:invite][:invite_token])
     end
