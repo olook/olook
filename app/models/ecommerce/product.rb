@@ -291,7 +291,7 @@ class Product < ActiveRecord::Base
   end
 
   def shoe_inventory_has_less_than_minimum?
-    !(self.shoe? && self.variants.where("inventory >=  3").count >= 3)
+    (self.shoe? && self.variants.where("inventory >=  3").count < 3)
   end
 
   private
