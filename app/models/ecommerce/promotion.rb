@@ -17,6 +17,4 @@ class Promotion < ActiveRecord::Base
   def apply cart
     promotion_action.apply cart, self.action_parameter.action_params
   end
-
-
 end
