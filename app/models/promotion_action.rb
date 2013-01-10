@@ -17,11 +17,4 @@ class PromotionAction < ActiveRecord::Base
     Rails.logger.info "inserting a new PromotionAction #{base.name} into database"
     where(:type => base.name).first_or_create({:type => base.name})
   end
-
-  private
-
-  def params(promotion)
-    promotion.action_parameter.action_params
-  end
-
 end
