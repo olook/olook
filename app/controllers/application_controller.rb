@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
                 :show_current_liquidation_advertise?, 
                 :current_cart, 
                 :current_moment, 
-                :current_referer
+                :current_referer,
+                :item_qty_max_option
 
   rescue_from CanCan::AccessDenied do  |exception|
     flash[:error] = "Access Denied! You don't have permission to execute this action.
@@ -155,6 +156,10 @@ class ApplicationController < ActionController::Base
     def external_referer?(referer)
       return false if referer.nil?
       !(referer =~ /olook\.com\.br/)
+    end
+
+    def item_qty_max_option(item)
+      [item.variant.inventory, Setting.default_item_quantity.to_i].min
     end
 
 end
