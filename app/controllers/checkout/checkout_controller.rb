@@ -25,7 +25,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def new
     @addresses = @user.addresses
-    @checkout = Checkout.new(address: Address.new)
+    @checkout = Checkout.new(address: Address.new, payment: CreditCard.new)
   end
 
   def create
