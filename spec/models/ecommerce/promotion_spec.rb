@@ -4,8 +4,8 @@ describe Promotion do
 
   let(:promo) { FactoryGirl.create(:first_time_buyers) }
   let(:promo_action) { FactoryGirl.create(:percentage_adjustment) }
-  describe "#validations" do
 
+  describe "#validations" do
 
     it { should have_many :rule_parameters }
     it { should have_many(:promotion_rules).through(:rule_parameters)}
