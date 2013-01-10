@@ -29,6 +29,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def create
+    binding.pry
     params[:checkout][:address][:country] = 'BRA' if params[:checkout][:address]
     address = params[:checkout][:address][:id].empty? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
     params[:checkout][:address].delete(:id)
