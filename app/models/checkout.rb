@@ -3,7 +3,7 @@ class Checkout
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :address, :payment
+  attr_accessor :address, :payment, :payment_method
 
   def initialize(attributes = {})
     attributes.each do |name, value|
