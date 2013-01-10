@@ -205,7 +205,10 @@ _gaq.push(['_addTrans',
                   <tr class="discount">
                     <td>
                       <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-                      <%= form_for(@cart, :remote => true, html: { :id => "coupon" }) do |f| %>
+                      <%= form_for(@cart, remote: true, 
+                                          html: { 
+                                            :id => "coupon" 
+                                          }) do |f| %>
                         <fieldset class="inputs">
                           <ol>
                             <li>
