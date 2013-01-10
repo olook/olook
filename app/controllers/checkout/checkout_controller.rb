@@ -30,7 +30,14 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def create
     address = shipping_address
-    return unless address && address.valid?
+    payment = create_payment(address)
+    unless address && address.valid? && payment.valid?
+      display_form(address, payment)
+      return
+    end
+
+    address.save
+    @cart.address = address
 
     redirect_to :new_cart_checkout
   end
@@ -39,13 +46,9 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def shipping_address
     if params[:checkout][:address]
-      address = populate_shipping_address
-      display_form(address, CreditCard.new) unless address.save
-      address
+      populate_shipping_address
     else
-      address = Address.find(params[:address][:id]) if params[:address]
-      display_form(Address.new, CreditCard.new) unless address
-      address
+      Address.find(params[:address][:id]) if params[:address]
     end
   end
 
@@ -62,5 +65,38 @@ class Checkout::CheckoutController < Checkout::BaseController
     @checkout = Checkout.new(address: address, payment: payment)
     render :new
   end
+
+  def create_payment(address)
+    params[:checkout][:payment][:receipt] = Payment::RECEIPT
+    params[:checkout][:payment][:telephone] = address.telephone if address
+    payment = CreditCard.new(params[:checkout][:payment] )
+  end
+
+  # def create_credit_card
+  #   params[:credit_card][:receipt] = Payment::RECEIPT if params[:credit_card]
+  #   @payment = CreditCard.new(params[:credit_card])
+  #   @payment.telephone = session[:user_telephone_number] || current_user.addresses.first.telephone
+  #   @bank = params[:credit_card][:bank] if params[:credit_card]
+  #   @installments = params[:credit_card][:payments] if params[:credit_card]
+  #   if @payment.valid?
+  #     sender_strategy = PaymentService.create_sender_strategy(@cart_service, @payment)
+  #     sender_strategy.credit_card_number =  params[:credit_card][:credit_card_number]
+  #     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => @payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
+  #     response = payment_builder.process!
+
+  #     if response.status == Payment::SUCCESSFUL_STATUS
+  #       clean_cart!
+  #       return redirect_to(order_show_path(:number => response.payment.order.number))
+  #     else
+  #       @payment = CreditCard.new(params[:credit_card])
+  #       @payment.telephone = session[:user_telephone_number] || current_user.addresses.first.telephone
+  #       @payment.user_identification = @user.cpf
+  #       @payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+  #       @payment
+  #     end
+  #   end
+
+  #   render :new_credit_card
+  # end
 
 end
