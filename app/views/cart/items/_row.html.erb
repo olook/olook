@@ -12,8 +12,7 @@
                        :remote => :true, 
                                   :html => { 
                                     :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
-                                    :id => 'remove_item_form' }) do %>
-      <%= hidden_field('variant','id', :value => item.variant.id) %>
+                                    :id => "remove_item_form_#{item.id}" }) do %>
       <%= submit_tag('excluir')  %>
     <% end %>
   </td>  
@@ -30,20 +29,9 @@
     <% end %>
   </td>
   <td class="discount">
-    <% if has_promotion?(item) %>
-        <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
-      <div class='discount_origin'>
-        <p><%= cart_service.item_discount_origin(item) %></p>
-      </div>
-    <% end %>
+    <%= render partial: 'cart/items/discount', locals: { cart_service: cart_service, item: item } %>
   </td>
   <td class="value" >
-    <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => cart_service.item_retail_price(item)) %>
-    <% if cart_service.item_promotion?(item) %>
-      <p class="price_retail" id="item_subtotal_<%= item.id %>">de: <%= number_to_currency(cart_service.item_price_total(item)) %></p>
-      <p>por: <%= number_to_currency(cart_service.item_retail_price_total(item)) %></p>
-    <% else %>
-      <p id="item_subtotal_<%= item.id %>"><%= number_to_currency(cart_service.item_price_total(item)) %></p>
-    <% end %>
+    <%= render partial: 'cart/items/subtotal', locals: { cart_service: cart_service, item: item } %>
   </td>
 </tr>
