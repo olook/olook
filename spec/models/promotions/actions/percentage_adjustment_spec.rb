@@ -8,10 +8,11 @@ describe PercentageAdjustment do
     let(:action_parameter) { mock_model(ActionParameter, param: "0.2") }
     let(:subject) { FactoryGirl.create(:percentage_adjustment) }
 
+
     context "when adjust should be changed" do
       it "cart item returns calculated adjustment value" do
         promo.should_receive(:action_parameter).at_least(2).times.and_return(action_parameter)
-        subject.apply(cart, promo)
+        subject.apply(cart, promo.action_parameter.action_params)
         cart.items.first.adjustment.value.should eq(cart.items.first.price * promo.action_parameter.param.to_d)
       end
     end
