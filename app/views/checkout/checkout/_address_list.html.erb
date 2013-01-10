@@ -1,0 +1,14 @@
+<%= field_set_tag do %>
+  <% @addresses.each do |address| %>
+    <%= radio_button :address, 'id', address.id, class: "address_recorded", id: "" %>
+    <%= checkout_form.label :address, '', class: "address_label" %>
+    <ul class="address_data">
+      <li><%= "#{address.first_name} #{address.last_name}" %></li>
+      <li><%= "#{address.street}, #{address.number}" %></li>
+      <li><%= "#{address.neighborhood} - #{address.zip_code}" %></li>
+      <li><%= "#{address.city}, #{address.state}" %></li>
+      <li><%= link_to "Alterar endereço", edit_cart_checkout_address_path(address), remote: true %></li>
+    </ul>
+  <% end %>
+  <p class="new_address"><%= link_to "+ Adicionar novo endereço", new_cart_checkout_address_path, remote: true %></p>
+<% end %>
