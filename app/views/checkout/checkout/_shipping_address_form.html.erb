@@ -68,8 +68,7 @@
   
   <%= field_set_tag do %>
     <%= address_form.label :mobile, "Telefone de contato 2" %>
-    <%= address_form.text_field :mobile, class: "tel_contato2 #{error_class_if_needed(address, :mobile)}" %>
-    <%= errors_for(address, :mobile) %>
+    <%= address_form.text_field :mobile, class: "tel_contato2" %>
   <% end %>
   
   <p class="subtitle">OPÇÕES DE FRETE</p>
