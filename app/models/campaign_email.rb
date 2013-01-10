@@ -1,5 +1,6 @@
 class CampaignEmail < ActiveRecord::Base
   after_create :enqueue_notification
+  scope :uncoverted_users , where(converted_user: false)
 
   def enqueue_notification
 	Resque.enqueue(CampaignEmailNotificationWorker, self.email)
