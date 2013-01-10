@@ -518,5 +518,14 @@ describe Product do
         end
       end
     end
+    
+    context "products that aren't shoes" do
+      let(:basic_bag_for_xml) { FactoryGirl.create(:basic_bag) }  
+      
+      it "returns false" do
+        basic_bag_for_xml.shoe_inventory_has_less_than_minimum?.should be_false
+      end
+    end
+
   end
 end
