@@ -59,7 +59,7 @@
 
     <div class="field">
       <% PromotionRule.all.each do |action| %>
-      <%= f.fields_for :rules_parameters, RulesParameter.new do |builder| %>
+      <%= f.fields_for :rules_parameters, RuleParameter.new do |builder| %>
         <div class="field">
           <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :name) %>
         </div>

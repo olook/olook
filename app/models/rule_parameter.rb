@@ -1,4 +1,4 @@
-class RulesParameter < ActiveRecord::Base
+class RuleParameter < ActiveRecord::Base
   include Parameters
 
   belongs_to :promotion

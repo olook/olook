@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RulesParameter do
+describe RuleParameter do
 
   describe "validations" do
 
