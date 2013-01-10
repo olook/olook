@@ -21,22 +21,49 @@
       </div>
 
     
-      <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
-        <div class="box-step-two">
-          <h2 class="step-title">
-            <span class="number">2.</span>
-            <span class="title">PAGAMENTO</span>
-            <span class="phrase">Como devemos enviar sua compra?</span>
-          </h2>
-          <div class="credits">
-            <%= payment_form.check_box :user_credits %>
-            <%= payment_form.label :user_credits, "QUERO USAR MEUS CRÉDITOS" %>
-            <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.
-               <a href="#">Mais sobre seus créditos</a>
-            </p>
-          </div>  
+      <div class="box-step-two">
+        <h2 class="step-title">
+          <span class="number">2.</span>
+          <span class="title">PAGAMENTO</span>
+          <span class="phrase">Como devemos enviar sua compra?</span>
+        </h2>
+      <%= fields_for "checkout[credits]", @cart do |credits_form|%>
+        <div class="credits">
+          <%= credits_form.check_box :use_credits %>
+          <%= credits_form.label :use_credits, "QUERO USAR MEUS CRÉDITOS" %>
+          <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.
+             <a href="#">Mais sobre seus créditos</a>
+          </p>
         </div>
-      <% end %>  
+      <% end %>
+
+      <div class="payment">
+        <p>SELECIONE A FORMA DE PAGAMENTO:</p>
+        <%= checkout_form.radio_button :payment_method, "credit_card" %>
+        <%= checkout_form.label :payment_method, 'Cartão de Crédito' %>
+        <%= checkout_form.radio_button :payment_method, "billet" %>
+        <%= checkout_form.label :payment_method, 'Boleto' %>
+        <%= checkout_form.radio_button :payment_method, "debit" %>
+        <%= checkout_form.label :payment_method, 'Débito' %>
+
+        <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
+            <p>SELECIONE A BANDEIRA DO CARTÃO:</p>
+            <ol>
+              <% CreditCard::BANKS_OPTIONS.each do |bank| %>
+                <li>
+                  <%= payment_form.radio_button :bank, bank %>
+                  <%= payment_form.label "credit_card_bank_#{bank}", bank %>
+                </li>
+              <% end %>
+            </ol>
+            <p>Número de parcelas:</p>
+            <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
+            <%= payment_form.select :payments, options %>
+        <% end %>
+      </div>
+
+
+      </div>
     
       <div class="box-step-three">  
         <%= checkout_form.submit '', class: "send_it" %>
