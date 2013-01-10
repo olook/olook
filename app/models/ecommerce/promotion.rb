@@ -15,9 +15,7 @@ class Promotion < ActiveRecord::Base
   accepts_nested_attributes_for :rule_parameters, :action_parameter
 
   def apply cart
-
-    promotion_action.apply cart, self
-    # CreateAdjustment.apply(cart, self)
+    promotion_action.apply cart, self.action_parameter.action_params
   end
 
 
