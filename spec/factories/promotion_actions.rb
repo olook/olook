@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :promotion_action do
-    type ""
-    description "MyString"
+    type "PercentageAdjustment"
+    description "Action for Percentage"
   end
 end
