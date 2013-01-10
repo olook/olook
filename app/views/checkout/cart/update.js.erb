@@ -15,6 +15,7 @@ $("#coupon a#show_coupon_field").siblings("form").hide();
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
 
 // update item rows discounts and subtotals
+// usually when using coupons on cart show
 <% @cart.items.each do |item| %>
 	$("table#products tbody tr#product_<%= item.product.id %> td.discount").empty();
 
