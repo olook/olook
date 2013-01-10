@@ -18,14 +18,14 @@ describe FirstBuy do
         subject.matches?(user).should be_true
       end
 
+      it "user wasn't informed" do
+        subject.matches?(nil).should be_true
+      end
+
     end
 
     context "should not match" do
       let(:order) {FactoryGirl.create(:clean_order)}
-
-      it "user wasn't informed" do
-        subject.matches?(nil).should be_false
-      end
 
       it "user's dicount is expired" do
         user.created_at = user.created_at - 10.days
