@@ -1,12 +1,11 @@
 <%= fields_for "checkout[address]", address do |address_form| %>
-  <!--<p>ENDEREÇO DE ENTREGA</p>-->
   <%= field_set_tag do %>
     <%= address_form.label :zip_code, "CEP*" %>
-    <%= address_form.text_field :zip_code, class: "zip_code" %>
+    <%= address_form.text_field :zip_code, class: "zip_code  #{error_class_if_needed(address, :zip_code)}" %>
     <%= button_tag(type: "button", class: "btn_zipcode") do %>
       <%= "Encontrar endereço" %>
     <% end %>  
-
+    <%= errors_for(address, :zip_code) %>
   <% end %>
 
   <%= address_form.hidden_field :id %>
