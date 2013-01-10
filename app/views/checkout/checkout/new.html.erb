@@ -12,15 +12,16 @@
           <span class="phrase">Como devemos enviar sua compra?</span>
         </h2>
       
-      <!-- <div id="checkout_address"> -->
+        <div id="checkout_address">
         <% if @addresses.nil? || @addresses.empty? %>
           <%= render "shipping_address_form", address: @checkout.address %>
         <% else %>
           <%= render "address_list", checkout_form: checkout_form %>
         <% end %>
-      </div>
+        </div>
 
-    
+      </div>  
+
       <div class="box-step-two">
         <h2 class="step-title">
           <span class="number">2.</span>
@@ -80,9 +81,6 @@
             <%= payment_form.text_field :user_identification,  class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}" %>
             <%= errors_for(@checkout.payment, :user_identification) %>
         <% end %>
-      </div>
-
-
       </div>
     
       <div class="box-step-three">  
