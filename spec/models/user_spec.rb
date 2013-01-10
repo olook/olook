@@ -24,7 +24,7 @@ describe User do
       campaign_email
       user_from_campaign
       campaign_email.reload
-      campaign_email.turned_user.should be_true
+      campaign_email.converted_user.should be_true
     end
 
     context "campaign_email_created_at" do
