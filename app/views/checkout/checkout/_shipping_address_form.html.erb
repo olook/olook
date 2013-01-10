@@ -1,15 +1,13 @@
+<%= javascript_include_tag "address_checkout" %>
 <%= fields_for "checkout[address]", address do |address_form| %>
   <%= field_set_tag do %>
     <%= address_form.label :zip_code, "CEP*" %>
-    <%= form_tag zipcode_lookup_address_data_path, method: :post, remote: true do %>
-
-      <%= address_form.text_field :zip_code, class: "zip_code  #{error_class_if_needed(address, :zip_code)}" %>
-      <%= submit_tag(type: "button", class: "btn_zipcode") do %>
-        <%= "Encontrar endereço" %>
-      <% end %>
-        
-      <%= errors_for(address, :zip_code) %>
+    <%= address_form.text_field :zip_code, class: "zip_code  #{error_class_if_needed(address, :zip_code)}" %>
+    <%= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn") do %>
+      <%= "Encontrar endereço" %>
     <% end %> 
+
+    <%= errors_for(address, :zip_code) %>
   <% end %>
 
   <div id="address_fields" name="address_fields" <%= 'style=display:none;' unless address.id %>>
@@ -81,7 +79,7 @@
     <%= field_set_tag do %>
       <%= radio_button :freight, '', 'normal', class: "frete" %>
       <%= address_form.label :freight, "Entrega normal (3 dias úteis):", class: "frete_label" %>
-      <span class="freight_value" id="freight_value1">R$ 5,90</span>
+      <span class="freight_value" id="freight_value1"><%= number_to_currency(freight_price) if freight_price %></span>
       <p class="freight_text">FRETE GRÁTIS PARA SUL E SUDESTE</p>
     <% end %>
     
@@ -90,5 +88,5 @@
       <%= address_form.label :freight, "Entrega expressa (1 dia útil):", class: "frete_label" %>
       <span class="freight_value" id="freight_value2">R$ 9,90</span>
     <% end %>
-  </div>
+  </div>  
 <% end %>
