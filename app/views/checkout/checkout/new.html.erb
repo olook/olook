@@ -12,31 +12,35 @@
           <span class="phrase">Como devemos enviar sua compra?</span>
         </h2>
       
-      <!-- <div id="checkout_address"> -->
+        <div id="checkout_address">
         <% if @addresses.nil? || @addresses.empty? %>
           <%= render "shipping_address_form", address: @checkout.address %>
         <% else %>
           <%= render "address_list", checkout_form: checkout_form %>
         <% end %>
-      </div>
+        </div>
+
+      </div>  
 
     
-      <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
+      <%#= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
+        <!--
         <div class="box-step-two">
-          <h2 class="step-title">
-            <span class="number">2.</span>
-            <span class="title">PAGAMENTO</span>
-            <span class="phrase">Como devemos enviar sua compra?</span>
-          </h2>
-          <div class="credits">
-            <%= payment_form.check_box :user_credits %>
-            <%= payment_form.label :user_credits, "QUERO USAR MEUS CRÉDITOS" %>
-            <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.
-               <a href="#">Mais sobre seus créditos</a>
-            </p>
-          </div>  
-        </div>
-      <% end %>  
+                  <h2 class="step-title">
+                    <span class="number">2.</span>
+                    <span class="title">PAGAMENTO</span>
+                    <span class="phrase">Como devemos enviar sua compra?</span>
+                  </h2>
+                  <div class="credits">
+                    <%#= payment_form.check_box :user_credits %>
+                    <%#= payment_form.label :user_credits, "QUERO USAR MEUS CRÉDITOS" %>
+                    <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.
+                       <a href="#">Mais sobre seus créditos</a>
+                    </p>
+                  </div>  
+                </div>-->
+        
+      <%# end %>  
     
       <div class="box-step-three">  
         <%= checkout_form.submit '', class: "send_it" %>
