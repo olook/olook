@@ -80,6 +80,10 @@
             <%= payment_form.label :user_identification, 'CPF' %>
             <%= payment_form.text_field :user_identification,  class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}" %>
             <%= errors_for(@checkout.payment, :user_identification) %>
+
+            <%= payment_form.label :user_birthday, 'Data de nascimento' %>
+            <%= payment_form.text_field :user_birthday,  class: "date #{error_class_if_needed(@checkout.payment, :user_birthday)}" %>
+            <%= errors_for(@checkout.payment, :user_birthday) %>
         <% end %>
       </div>
     
