@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class CreateAdjustment < PromotionAction
-  include Parameters
 
   parameter :percent, :integer
 
@@ -10,17 +9,6 @@ class CreateAdjustment < PromotionAction
       adjust = sub_total * BigDecimal("#{percent / 100.0}")
       cart_item.adjustment.update_attribute(:value, adjust)
     end
-  end
-
-
-  def params
-    # TODO improve this
-    action_parameters.first.param
-  end
-
-  def params= value
-    # TODO improve this
-    action_parameters.first.param = value
   end
 
 end
