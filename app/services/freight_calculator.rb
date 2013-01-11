@@ -32,9 +32,4 @@ module FreightCalculator
   def self.clean_zip(dirty_zip)
     return dirty_zip.gsub /\D/, ''
   end
-
-  def self.freight_price(zip_code, price)
-    freight = FreightCalculator.freight_for_zip(zip_code, price)    
-    freight[:price]    
-  end
 end
