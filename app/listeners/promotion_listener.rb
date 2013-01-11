@@ -26,7 +26,7 @@ class PromotionListener
       matched_promotions.each { |promotion| promotion.apply(cart) }
 
       if cart.total_promotion_discount < cart.total_coupon_discount
-        reset_adjustments
+        reset_adjustments_for(cart)
       end
 
     end
