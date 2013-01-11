@@ -45,6 +45,7 @@
         <%= checkout_form.radio_button :payment_method, "billet" %>
         <%= checkout_form.label :payment_method, 'Boleto' %>
         <%= checkout_form.radio_button :payment_method, "debit" %>
+        <%= checkout_form.label :payment_method, 'Débito' %>
         
 
         <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>

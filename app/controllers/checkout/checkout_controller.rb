@@ -5,24 +5,6 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :check_order
   before_filter :check_cpf, :except => [:new, :update]
 
-  def update
-    cpf = params[:user][:cpf] if params[:user]
-    msg = "CPF inválido"
-
-    if !@user.cpf.blank?
-      msg = "CPF já cadastrado"
-    else
-      @user.require_cpf = true
-      @user.cpf = cpf
-      msg = "CPF cadastrado com sucesso" if @user.save
-    end
-
-    @user.errors.clear
-
-    flash[:notice] = msg
-    render :new
-  end
-
   def new
     @addresses = @user.addresses
     @checkout = Checkout.new(address: Address.new, payment: CreditCard.new)
@@ -31,8 +13,9 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create
     address = shipping_address
     payment = create_payment(address)
+    payment_method = params[:checkout][:payment_method]
     unless address && address.valid? && payment.valid?
-      display_form(address, payment)
+      display_form(address, payment, payment_method)
       return
     end
 
@@ -40,7 +23,6 @@ class Checkout::CheckoutController < Checkout::BaseController
     @cart_service.cart.address = address
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
-    sender_strategy.credit_card_number = payment.credit_card_number
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
     response = payment_builder.process!
 
@@ -49,7 +31,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
-      display_form(address, payment)
+      display_form(address, payment, payment_method)
       return
     end
   end
@@ -72,16 +54,16 @@ class Checkout::CheckoutController < Checkout::BaseController
     address
   end
 
-  def display_form(address, payment)
-    @addresses = @user.addresses
-    @checkout = Checkout.new(address: address, payment: payment)
-    render :new
-  end
-
   def create_payment(address)
     params[:checkout][:payment][:receipt] = Payment::RECEIPT
     params[:checkout][:payment][:telephone] = address.telephone if address
     payment = CreditCard.new(params[:checkout][:payment] )
+  end
+
+  def display_form(address, payment, payment_method)
+    @addresses = @user.addresses
+    @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
+    render :new
   end
 
 end
