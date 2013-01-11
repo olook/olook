@@ -14,7 +14,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         user.set_facebook_data(env["omniauth.auth"])
         sign_in user
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
-        redirect_to member_showroom_path
+
+        redirect user
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
         redirect_to new_user_registration_url
@@ -32,12 +33,28 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
-  def facebook_redirect_paths
-    {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
-  end
 
-  def already_exist_a_facebook_account(omniauth)
-    id = omniauth["extra"]["user_hash"]["id"]
-    User.find_by_uid(id)
-  end
+    #
+    # Clearly this isn't the best place to put this code, but the problem is that putting this
+    # logic in ApplicationController#current_referer doesn't work because the user is not 
+    # loaded yet on that point
+    #        
+    def redirect user
+      if @cart.items.any?
+        redirect_to cart_path @cart
+      elsif !user.half_user?
+        redirect_to member_showroom_path
+      else
+        redirect_to lookbooks_path
+      end      
+    end
+
+    def facebook_redirect_paths
+      {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
+    end
+
+    def already_exist_a_facebook_account(omniauth)
+      id = omniauth["extra"]["user_hash"]["id"]
+      User.find_by_uid(id)
+    end
 end
