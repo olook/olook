@@ -6,6 +6,7 @@ describe Checkout::CheckoutController do
   let(:user) { FactoryGirl.create :user }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
+  subject { described_class.new}
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -74,6 +75,27 @@ describe Checkout::CheckoutController do
         get :new
         assigns[:addresses].should_not be_nil
         assigns[:addresses].count.should eq(1)
+      end
+    end
+  end
+
+  describe "#shipping_address" do
+    before :each do
+      sign_in user
+      session[:cart_id] = cart.id
+    end
+
+    context "when user chooses an existing address" do
+      let!(:address) { FactoryGirl.create(:address) }
+
+      it "returns the address when the id is correct" do
+        result = subject.send :shipping_address, {checkout: {}, address: {id: address.id}}
+        result.should eq(address)
+      end
+
+      it "returns nil when the id is incorrect" do
+        result = subject.send :shipping_address, {checkout: {}, address: {id: "incorrect"}}
+        result.should be_nil
       end
     end
   end
