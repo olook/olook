@@ -14,11 +14,10 @@ class PromotionListener
       matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
         match_result &&= rule.matches?(cart.user)
       end
-
       matched_promotions << promotion if matched_all_rules
     end
 
-    # set all adjustment to zero 
+    # set all adjustment to zero
     reset_adjustments_for cart
 
     # TODO choose the best promotion for the user, and apply it
@@ -37,7 +36,7 @@ class PromotionListener
   end
 
   def self.reset_adjustments_for cart
-    cart.items.each { |item| item.adjustment.update_attributes(:value => 0, :source => nil) }
+    cart.items.each { |item| item.cart_item_adjustment.update_attributes(value: 0, source: nil) }
   end
 
 end
