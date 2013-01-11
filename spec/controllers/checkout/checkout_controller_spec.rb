@@ -47,7 +47,7 @@ describe Checkout::CheckoutController do
 
   end
 
-  context "#new" do
+  describe "#new" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
@@ -65,6 +65,17 @@ describe Checkout::CheckoutController do
       assigns[:checkout].payment.should_not be_nil
     end
 
+    context "when user has address" do
+      before :all do
+        FactoryGirl.create(:address, {user: user})
+      end
+
+      it "assigns an addresses instance with user addresses" do
+        get :new
+        assigns[:addresses].should_not be_nil
+        assigns[:addresses].count.should eq(1)
+      end
+    end
   end
 
 end
