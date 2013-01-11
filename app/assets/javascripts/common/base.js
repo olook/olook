@@ -18,9 +18,11 @@ var LuhnCheck = (function()
 		if ((counter%10 == 0) === false){
 			$(".credit_card_number .span-error").text('').text('Número de cartão inválido');
 			$(".credit_card_number input").addClass("credit-error");
+			$("input.finish").attr('disabled','disabled')
 		}else{
 			$(".credit_card_number .span-error").text('');
 			$(".credit_card_number input").removeClass("credit-error");
+			$("input.finish").removeAttr('disabled')
 		}
 		
 	}
