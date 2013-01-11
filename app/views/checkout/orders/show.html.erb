@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
   <meta name="chaordic:source" content="buy-order">
-  <meta name="chaordic:buy-order" content= <%= @chaordic_confirmation %>>
+  <meta name="chaordic:buy-order" content="<%= @chaordic_confirmation %>">
 <% end %>
 
 <section id="payment" class="checkout confirmation">
@@ -16,9 +16,9 @@
     end %>
     <section class="order-details">
      <%= render "shared/payments/info_order", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, line_items: @order.line_items %>
-     
+
      <%= render "shared/payments/info_payment", :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true, line_items: @order.line_items, :payment => @payment %>
-     
+
      <%= render :partial => "shared/payments/info_address", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order, :has_payment => true } %>
     </section>
 
@@ -31,7 +31,7 @@
 
       <%= render "shared/ebit/seal_order" %>
       <%= render "shared/metrics/yahoo/buy" %>
-    </section>  
+    </section>
   </section>
 </section>
 <% content_for :head do %>
