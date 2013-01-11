@@ -34,13 +34,13 @@ class CartItem < ActiveRecord::Base
   end
 
   def adjustment
-    cart_item_adjustment
+    cart_item_adjustment ? cart_item_adjustment : create_adjustment
   end
 
   def has_adjustment?
     adjustment_value > 0
   end
-  
+
   private
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
