@@ -9,7 +9,6 @@ class CartItem < ActiveRecord::Base
   delegate :description, :to => :variant, :prefix => false
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
-  delegate :value, :to => :cart_item_adjustment, :prefix => :adjustment
 
   after_create :create_adjustment, :notify
   after_update :notify
@@ -26,15 +25,16 @@ class CartItem < ActiveRecord::Base
 
   def retail_price
     return variant.product.retail_price unless has_adjustment?
-    price - adjustment_value
+    price - adjustment_value / quantity.to_f
   end
 
   def is_suggested_product?
     product.id == Setting.checkout_suggested_product_id.to_i
   end
 
-  def adjustment
-    cart_item_adjustment ? cart_item_adjustment : create_adjustment
+  def adjustment_value
+    adjustment = cart_item_adjustment ? cart_item_adjustment : create_adjustment
+    adjustment.value
   end
 
   def has_adjustment?
