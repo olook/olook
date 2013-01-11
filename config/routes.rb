@@ -327,6 +327,8 @@ Olook::Application.routes.draw do
     resources :items, :to => 'cart/items'
 
     resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
+      match "/", :to => "checkout/checkout#new", :as => :cart_checkout
+
       get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
       resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
     end
