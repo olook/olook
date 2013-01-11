@@ -4,7 +4,7 @@ describe Cart do
   it { should belong_to(:user) }
   it { should have_many(:orders) }
   it { should have_many(:items) }
-  
+
   let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
@@ -26,7 +26,7 @@ describe Cart do
     context "cart has 1 item" do
 
       before do
-        cart_with_one_item.items.first.adjustment.update_attribute(:value, 10)
+        cart_with_one_item.items.first.cart_item_adjustment.update_attribute(:value, 10)
       end
 
       it "should return item value" do
@@ -41,19 +41,19 @@ describe Cart do
       cart.allow_credit_payment?.should be_true
     end
   end
-  
+
   context "when add item" do
     it "should return nil when has gift product in cart and is not gift" do
       cart = subject
       cart.stub(has_gift_items?: true)
       cart.add_item(basic_shoe_35).should eq(nil)
     end
-    
+
     it "should return nil when no has available for quantity" do
       basic_shoe_35.stub(available_for_quantity?: false)
       subject.add_item(basic_shoe_35).should eq(nil)
     end
-    
+
     it "should add item" do
       expect {
         item = cart.add_item(basic_shoe_35, 2)
@@ -65,7 +65,7 @@ describe Cart do
         item.gift.should eq(false)
       }.to change{CartItem.count}.by(1)
     end
-    
+
     it "should add item with gift discount" do
       expect {
         item = cart.add_item(basic_shoe_35, 1, 2, true)
@@ -85,7 +85,7 @@ describe Cart do
       variant.reload.quantity.should eq(10)
     end
   end
-  
+
   context "when remove item" do
     it "should remove when variant exists in cart" do
       cart_for_remove = cart_with_items
@@ -95,7 +95,7 @@ describe Cart do
         cart_for_remove.remove_item basic_shoe_37
       }.to change{CartItem.count}.by(-1)
     end
-    
+
     it "should not raise error when variant not exists in cart" do
       cart_for_remove = cart_with_items
       expect {
@@ -103,7 +103,7 @@ describe Cart do
       }.to_not change{CartItem.count}
     end
   end
-  
+
   it "should sum quantity of cart items" do
     cart_with_items.items_total.should eq(2)
   end
