@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
   <meta name="chaordic:source" content="cart">
-  <meta name="chaordic:cart" content= <%= @chaordic_cart %>>
+  <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
 <% end %>
 <% content_for :ecommerce_tracking do %>
 <script type="text/javascript">
