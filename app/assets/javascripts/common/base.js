@@ -1,3 +1,31 @@
+// Luhn algorithm validator, by Avraham Plotnitzky.
+var LuhnCheck = (function()
+{
+	var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+	return function(str)
+	{
+		var counter = 0;
+		var incNum;
+		var odd = false;
+		var temp = String(str).replace(/[^\d]/g, "");
+		if ( temp.length == 0)
+			return false;
+		for (var i = temp.length-1; i >= 0; --i)
+		{
+			incNum = parseInt(temp.charAt(i), 10);
+			counter += (odd = !odd)? incNum : luhnArr[incNum];
+		}
+		if ((counter%10 == 0) === false){
+			$(".credit_card_number .span-error").text('').text('Número de cartão inválido');
+			$(".credit_card_number input").addClass("credit-error");
+		}else{
+			$(".credit_card_number .span-error").text('');
+			$(".credit_card_number input").removeClass("credit-error");
+		}
+		
+	}
+})();
+
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
@@ -262,9 +290,15 @@ $(document).ready(function() {
     mask: '99/19/9999'
   });
 
-  $("input:text.credit_card").setMask({
-    mask: '9999999999999999'
-  });
+  $("input:text.credit_card")
+		.focusout(function(){
+			val = $(this).val();
+			LuhnCheck(val);
+
+		})
+		.setMask({
+    	mask: '9999999999999999'
+  	});
 
   $("fieldset.banks ol li input[type='radio']").change(function() {
     var flag = $(this).val();
