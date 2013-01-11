@@ -18,7 +18,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect user
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
-        redirect_to new_user_registration_url
+        if @cart.items.any?
+          redirect_to new_half_user_session_path
+        else
+          redirect_to new_user_registration_url
+        end
       end
     end
   end
