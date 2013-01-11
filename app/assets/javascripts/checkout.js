@@ -12,3 +12,13 @@ $(function() {
   });
 
 });
+
+function retrieve_zip_data(zip_code) {
+  $.ajax({
+    url: '/address_data',
+    type: 'POST',
+    data: {
+      zip_code: zip_code
+    }
+  });
+}
