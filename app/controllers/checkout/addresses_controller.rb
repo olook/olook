@@ -15,7 +15,6 @@ class Checkout::AddressesController < Checkout::BaseController
 
   def edit
     @address = @user.addresses.find(params[:id])
-    @freight_price = FreightCalculator.freight_price(@address.zip_code, @cart_service.subtotal)
   end
 
   def create
