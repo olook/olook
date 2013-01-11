@@ -1488,7 +1488,8 @@ section.checkout{
 		
 		input{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;
-			
+
+/*********** STEP ONE *********/
 			&.input_error{border:solid 1px #EA1E40;}
 			&.zip_code{width:115px;float:left}
 			&.endereco{width:172px;}
@@ -1522,6 +1523,19 @@ section.checkout{
 		p.new_address{ 
 			clear:both;
 			a{font-size:16px;color:#DD4978;}
+		}
+/********** END / START STEP TWO *******/
+		.credits{float:left;
+			label{color:#000;}
+			input{float:left;height:auto;}
+			p{font-size:13px; 
+				span, a{color:#E15687;}
+				a{display:block;margin:6px 0 25px;}
+			}
+		}
+		.payment{
+			li, input{float:left;}
+			label{font-size:12px;}
 		}
 	}
 }
