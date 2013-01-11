@@ -23,7 +23,7 @@ class Admin::PromotionsController < Admin::BaseController
   def edit
     @promotion = Promotion.find(params[:id])
     @action_parameter = @promotion.action_parameter ? @promotion.action_parameter : ActionParameter.new
-    @rule_parameters = @promotion.rule_parameters ? @promotion.rule_parameters : RuleParameter.new
+    @rule_parameters = @promotion.rule_parameters.any? ? @promotion.rule_parameters : RuleParameter.new
   end
 
   def create
