@@ -59,6 +59,21 @@ describe CartItem do
 
   end
 
+  describe "#adjustment" do
+    context "when cart_item has cart_item_adjustment" do
+      it "returns cart item adjustment" do
+        cart_item.adjustment.should eq(cart_item.cart_item_adjustment)
+      end
+    end
+
+    context "when cart_item has no cart_item_adjustment" do
+      it "creates cart item adjustment" do
+        cart_item.should_receive(:cart_item_adjustment).and_return(nil)
+        cart_item.adjustment.should be_true
+      end
+    end
+  end
+
   describe "#adjustment_value" do
     it {should respond_to :adjustment_value}
   end
