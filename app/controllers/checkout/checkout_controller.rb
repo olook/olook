@@ -11,7 +11,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def create
-    address = shipping_address
+    address = shipping_address(params)
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
     unless address && address.valid? && payment.valid?
@@ -38,11 +38,11 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   private
 
-  def shipping_address
+  def shipping_address(params)
     if params[:checkout][:address]
       populate_shipping_address
     else
-      Address.find(params[:address][:id]) if params[:address]
+      Address.find_by_id(params[:address][:id]) if params[:address]
     end
   end
 
