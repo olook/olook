@@ -10,7 +10,6 @@ class Checkout::OrdersController < Checkout::BaseController
 
     @cart_service_for_order = CartService.new(
       :cart => @order.cart,
-      :promotion => promotion,
       :freight => { :price  => @order.freight.price,
         :cost           => @order.freight.cost,
         :delivery_time  => @order.freight.delivery_time,
