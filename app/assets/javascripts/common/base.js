@@ -289,15 +289,25 @@ $(document).ready(function() {
   $("input:text.date").setMask({
     mask: '99/19/9999'
   });
-
+	
+	// VALIDATION EXCEPTION - HIPERCARD
+	$("#credit_card_bank_Hipercard").click(function(){
+		if($("input:text.credit_card").hasClass("credit-error")){
+			$("input:text.credit_card").removeClass("credit-error");
+			$(".credit_card_number .span-error").text('');
+		}
+	})
+	
   $("input:text.credit_card")
 		.focusout(function(){
 			val = $(this).val();
-			LuhnCheck(val);
-
+			hipercard = $("#credit_card_bank_Hipercard").is(":checked");
+			if(!hipercard){
+				LuhnCheck(val);
+			}
 		})
 		.setMask({
-    	mask: '9999999999999999'
+    	mask: '9999999999999999999'
   	});
 
   $("fieldset.banks ol li input[type='radio']").change(function() {
