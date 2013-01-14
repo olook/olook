@@ -8,7 +8,7 @@ class PercentageAdjustment < PromotionAction
   end
 
   def simulate(cart, percent)
-    cart.any? ? calculate(cart, percent) : 0
+    cart.items.any? ? calculate(cart, percent) : 0
   end
 
   private
