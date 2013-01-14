@@ -28,6 +28,7 @@
           <span class="title">PAGAMENTO</span>
           <span class="phrase">Como devemos enviar sua compra?</span>
         </h2>
+<<<<<<< HEAD
         <%= fields_for "checkout[credits]", @cart do |credits_form|%>
           <div class="credits">
             <%= credits_form.check_box :use_credits %>
@@ -37,7 +38,26 @@
             </p>
           </div>
         <% end %>
+=======
+      <%= fields_for "checkout[credits]", @cart do |credits_form|%>
+        <div class="credits">
+          <%= credits_form.check_box :use_credits %>
+          <%= credits_form.label :use_credits, "QUERO USAR MEUS CRÉDITOS" %>
+          <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.
+             <a href="#">Mais sobre seus créditos</a>
+          </p>
+        </div>
+      <% end %>
 
+      <div class="payment">
+        <p>SELECIONE A FORMA DE PAGAMENTO:</p>
+        <%= checkout_form.radio_button :payment_method, "credit_card" %>
+        <%= checkout_form.label :payment_method, 'Cartão de Crédito' %>
+        <%= checkout_form.radio_button :payment_method, "billet" %>
+        <%= checkout_form.label :payment_method, 'Boleto' %>
+        <%= checkout_form.radio_button :payment_method, "debit" %>
+        <%= checkout_form.label :payment_method, 'Débito' %>
+        
         <div class="payment">
           <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
           <ul class="payment_type">
@@ -89,10 +109,17 @@
               <%= errors_for(@checkout.payment, :expiration_date) %>
             <% end %>  
 
+
             <%= field_set_tag do %>
               <%= payment_form.label :user_identification, 'CPF' %>
               <%= payment_form.text_field :user_identification,  class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}" %>
               <%= errors_for(@checkout.payment, :user_identification) %>
+            <% end %>
+
+            <%= field_set_tag do %>
+              <%= payment_form.label :user_birthday, 'Data de nascimento' %>
+              <%= payment_form.text_field :user_birthday,  class: "date #{error_class_if_needed(@checkout.payment, :user_birthday)}" %>
+              <%= errors_for(@checkout.payment, :user_birthday) %>
             <% end %>
           </div>
           <div class="box-boleto">
@@ -116,6 +143,8 @@
           <% end %>
         </div>
         
+        <% end %>
+
       </div>
       
       <div class="box-step-three">  
