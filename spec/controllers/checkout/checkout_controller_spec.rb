@@ -231,7 +231,8 @@ describe Checkout::CheckoutController do
                               user_identification: "47952756370", 
                               user_birthday: "01/01/1980"}, 
                             payment_method: "credit_card"}, 
-                          address: {id: address.id}} }
+                          address: {id: address.id}} 
+                        }
 
       it "redirects to order show in case of success" do
         sender_strategy_mock = mock
