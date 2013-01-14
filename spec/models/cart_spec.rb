@@ -86,24 +86,6 @@ describe Cart do
     end
   end
 
-  context "when remove item" do
-    it "should remove when variant exists in cart" do
-      cart_for_remove = cart_with_items
-      FactoryGirl.create(:cart_item, :cart_id => cart_for_remove.id, :variant_id => basic_shoe_37.id)
-
-      expect {
-        cart_for_remove.remove_item basic_shoe_37
-      }.to change{CartItem.count}.by(-1)
-    end
-
-    it "should not raise error when variant not exists in cart" do
-      cart_for_remove = cart_with_items
-      expect {
-        cart_for_remove.remove_item basic_shoe_37
-      }.to_not change{CartItem.count}
-    end
-  end
-
   it "should sum quantity of cart items" do
     cart_with_items.items_total.should eq(2)
   end
