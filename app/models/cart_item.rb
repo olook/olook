@@ -24,8 +24,11 @@ class CartItem < ActiveRecord::Base
   end
 
   def retail_price
+    olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
+
+
     promotional_value = price - adjustment_value / quantity.to_f
-    olooklet_value = variant.product.retail_price
+    # olooklet_value = variant.product.retail_price
     [promotional_value, olooklet_value].min
   end
 

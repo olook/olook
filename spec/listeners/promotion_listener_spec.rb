@@ -5,9 +5,8 @@ describe PromotionListener do
     let(:cart) { FactoryGirl.build(:cart_with_items) }
     context "verifying if method exists" do
       it "returns true" do
-        described_class.update(cart).should be_true
+        described_class.should respond_to(:update).with(1).argument
       end
     end
   end
 end
-
