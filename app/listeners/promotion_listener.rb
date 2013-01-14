@@ -21,7 +21,7 @@ class PromotionListener
 
     def self.choose_best_promotion cart, promotions_to_apply
       best_promotion = calculate(promotions_to_apply, cart).sort_by { |key, value| value }.last
-      [best_promotion[:promotion], total_promotion_discount = best_promotion[:total_discount]]
+      [best_promotion[:promotion], best_promotion[:total_discount]]
     end
 
     def self.active_promotions
