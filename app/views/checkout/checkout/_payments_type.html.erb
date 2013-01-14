@@ -2,7 +2,7 @@
 <div class="credits">
   <%= credits_form.check_box :use_credits %>
   <%= credits_form.label :use_credits, "QUERO USAR MEUS CRÉDITOS" %>
-  <p>Você acumulou <span>R$80,00</span> em créditos que podem ser utilizados nesta compra.
+  <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> em créditos que podem ser utilizados nesta compra.
      <a href="#">Mais sobre seus créditos</a>
   </p>
 </div>
@@ -13,7 +13,7 @@
     <tbody>
       <tr>
         <td class="check_column">
-            <p>Você acumulou <span>R$80,00</span> créditos que podem ser utilizados nesta compra.</p>
+            <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> créditos que podem ser utilizados nesta compra.</p>
 
               <p>O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos</p>
 
@@ -25,19 +25,19 @@
               <ul>
                 <li>
                   <div class="description">Créditos por compras realizadas:</div>
-                  <div class="value">R$80,00</div>
+                  <div class="value"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
                   <div class="message"> (não podem ser utilizados em pedidos com desconto)</div>
                 </li>
 
                <li>
                   <div class="description">Créditos por indicação:</div>
-                  <div class="value">R$90,00</div>
+                  <div class="value"><%= number_to_currency @report.amount_of_invite_credits %></div>
                   <div class="message"> (não podem ser utilizados em pedidos com desconto)</div>
                 </li>
 
                <li>
                   <div class="description">Reembolso via Central de Atendimento:</div>
-                  <div class="value">R$90,00</div>
+                  <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
                   <div class="message">&nbsp;</div>
                 </li>
               </ul>

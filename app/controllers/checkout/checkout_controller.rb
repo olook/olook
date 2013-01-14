@@ -7,6 +7,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def new
     @addresses = @user.addresses
+    @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: Address.new, payment: CreditCard.new)
   end
 
@@ -71,6 +72,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def display_form(address, payment, payment_method)
     @addresses = @user.addresses
+    @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
     render :new
   end
