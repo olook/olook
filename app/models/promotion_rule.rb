@@ -11,8 +11,8 @@ class PromotionRule < ActiveRecord::Base
 
   validates :name, :type, :presence => true
 
-  has_many :rules_parameters
-  has_many :promotions, :through => :rules_parameters
+  has_many :rule_parameters
+  has_many :promotions, :through => :rule_parameters
 
   def matches? user
     raise "You should call matches? on inherited classes"
