@@ -4,13 +4,7 @@ class PromotionListener
   def self.update cart
     reset_adjustments_for cart
     promotions_to_apply = matched_promotions_for cart
-
-    if promotions_to_apply.any? && cart.items.any?
-      best_promotion, total_promotion_discount = choose_best_promotion cart, promotions_to_apply
-      best_promotion.apply cart if total_promotion_discount > cart.total_coupon_discount
-
-      Rails.logger.info "Applied promotion: #{best_promotion} for cart [#{cart.id}]"
-    end
+    apply_promotions(promotions_to_apply, cart)
   end
 
   def self.reset_adjustments_for cart
@@ -49,6 +43,15 @@ class PromotionListener
         promotions << {promotion: promotion, total_discount: promotion.simulate(cart).map {|item| item[:adjust] }.reduce(:+)}
       end
       promotions
+    end
+
+    def self.apply_promotions(promotions_to_apply = [], cart)
+      if promotions_to_apply.any? && cart.items.any?
+        best_promotion, total_promotion_discount = choose_best_promotion cart, promotions_to_apply
+        best_promotion.apply cart if total_promotion_discount > cart.total_coupon_discount
+
+        Rails.logger.info "Applied promotion: #{best_promotion} for cart [#{cart.id}]"
+      end
     end
 
 end
