@@ -12,37 +12,27 @@
                        :remote => :true, 
                                   :html => { 
                                     :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
-                                    :id => 'remove_item_form' }) do %>
-      <%= hidden_field('variant','id', :value => item.variant.id) %>
+                                    :id => "remove_item_form_#{item.id}" }) do %>
       <%= submit_tag('excluir')  %>
     <% end %>
   </td>  
   <td class="amount">
 
-    <%= form_tag(item, :method => :post, 
-                        onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), 
-                        id: "change_amount", 
-                        remote: true) do %>
+    <%= form_for(item, :method => :put, 
+                        remote: true, 
+                        :html => { 
+                          onsubmit: track_event("Shopping", "ChangeAmount", item.product.id), 
+                          id: "change_amount_#{item.id}"
+                        }) do %>
 
-      <%= hidden_field('variant','id', :value => item.variant.id) %>
-      <%= select_tag('variant[quantity]', options_for_select((1..5).to_a, item.quantity), :onchange => "submit();") %>
+      <%= item_qty_select(item) %>
+      
     <% end %>
   </td>
   <td class="discount">
-    <% if cart_service.item_promotion?(item) %>
-        <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
-      <div class='discount_origin'>
-        <p><%= cart_service.item_discount_origin(item) %></p>
-      </div>
-    <% end %>
+    <%= render partial: 'cart/items/discount', locals: { cart_service: cart_service, item: item } %>
   </td>
   <td class="value" >
-    <%= hidden_field('variant', "unit_value_#{item.product.id}", :value => cart_service.item_retail_price(item)) %>
-    <% if cart_service.item_promotion?(item) %>
-      <p class="price_retail">de: <%= number_to_currency(cart_service.item_price_total(item)) %></p>
-      <p>por: <%= number_to_currency(cart_service.item_retail_price_total(item)) %></p>
-    <% else %>
-      <p><%= number_to_currency(cart_service.item_price_total(item)) %></p>
-    <% end %>
+    <%= render partial: 'cart/items/subtotal', locals: { cart_service: cart_service, item: item } %>
   </td>
 </tr>

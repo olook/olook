@@ -93,49 +93,176 @@ describe Checkout::CheckoutController do
     end
 
     context "when user chooses inexistent address" do
+      let(:invalid_data) { {checkout: {payment: {}}, address: {id: "inexistent"}} }
 
       it "renders new template" do
-        put :create, {checkout: {payment: {}}, address: {id: "inexistent"}}
+        put :create, invalid_data
         response.should render_template("new")
       end
-
       it "returns null address" do
-        put :create, {checkout: {payment: {}}, address: {id: "inexistent"}}
+        put :create, invalid_data
         assigns[:checkout].address.should eq(nil)
       end
-
     end
 
-    context "when gives invalid address information for a new address" do
+    context "when user gives invalid address information for a new address" do
+      let(:invalid_data) { {checkout: {address: {street: "street_name", number: 123}, payment: {}}} }
 
       it "renders new template" do
-        put :create, {checkout: {address: {street: "street_name"}, payment: {}}}
+        put :create, invalid_data
         response.should render_template("new")
       end
 
       it "returns given information of the address" do
-        put :create, {checkout: {address: {street: "street_name", number: 123}, payment: {}}}
+        put :create, invalid_data
         assigns[:checkout].address.id.should eq(nil)
         assigns[:checkout].address.street.should eq("street_name")
         assigns[:checkout].address.number.should eq(123)
       end
-
     end
 
-    context "when gives invalid address information for an existing address" do
+    context "when user gives invalid address information for an existing address" do
+      let(:invalid_data) { {checkout: {address: {id: address.id, street: "street_name", number: 123}, payment: {}}} }
 
       it "renders new template" do
-        put :create, {checkout: {address: {id: address.id, street: "street_name"}, payment: {}}}
+        put :create, invalid_data
         response.should render_template("new")
       end
 
       it "returns given information of the address" do
-        put :create, {checkout: {address: {id: address.id, street: "street_name", number: 123}, payment: {}}}
+        put :create, invalid_data
         assigns[:checkout].address.id.should eq(address.id)
         assigns[:checkout].address.street.should eq("street_name")
         assigns[:checkout].address.number.should eq(123)
       end
+    end
 
+    context "when user gives invalid payment data" do
+      let(:invalid_data) { {checkout: {payment: {credit_card_number: "0000000000000001"}, payment_method: "credit_card"}, address: {id: address.id}} }
+
+      it "renders new template" do
+        put :create, invalid_data
+        response.should render_template("new")
+      end
+
+      it "returns given information of the payment" do
+        put :create, invalid_data
+        assigns[:checkout].payment.credit_card_number.should eq("0000000000000001")
+      end
+    end
+
+    context "when user gives valid debit data" do
+      let(:valid_data) { {checkout: {payment: {bank: "Itau"}, payment_method: "debit"}, address: {id: address.id}} }
+
+      it "redirects to order show in case of success" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should redirect_to(order_show_path(number: 123))
+      end
+
+      it "cleans cart id from session" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        session[:cart_id].should eq(nil)
+      end
+
+      it "renders new in case of error" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::FAILURE_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should render_template("new")
+      end
+    end
+
+    context "when user gives valid billet data" do
+      let(:valid_data) { {checkout: {payment: {}, payment_method: "billet"}, address: {id: address.id}} }
+
+      it "redirects to order show in case of success" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should redirect_to(order_show_path(number: 123))
+      end
+
+      it "cleans cart id from session" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        session[:cart_id].should eq(nil)
+      end
+
+      it "renders new in case of error" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::FAILURE_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should render_template("new")
+      end
+    end
+
+    context "when user gives valid credit_card data" do
+      let(:valid_data) { {checkout: {
+                            payment: {
+                              bank: "VISA", 
+                              payments: "1", 
+                              user_name: "Frederico", 
+                              credit_card_number: "0000000000000001", 
+                              security_code: "123", 
+                              expiration_date: "11/99", 
+                              user_identification: "47952756370", 
+                              user_birthday: "01/01/1980"}, 
+                            payment_method: "credit_card"}, 
+                          address: {id: address.id}} 
+                        }
+
+      it "redirects to order show in case of success" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should redirect_to(order_show_path(number: 123))
+      end
+
+      it "cleans cart id from session" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        session[:cart_id].should eq(nil)
+      end
+
+      it "renders new in case of error" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::FAILURE_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should render_template("new")
+      end
     end
 
   end

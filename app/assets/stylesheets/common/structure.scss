@@ -1223,6 +1223,8 @@ body {
               border: 3px #101010 solid;
               border-top: 2px $secondary_color solid;
               display: none;
+							max-height:388px;
+							overflow-y:auto;
               li {
                 position: relative;
                 width: 100%;
@@ -1265,13 +1267,18 @@ body {
                   text-transform: uppercase;
                 }
                 p {
+									line-height:18px !important;
                   &.price {
                     color: #000;
                     font-size: 16px;
                   }
+									&.qte{
+										font-size:13px;
+										color: #5E5F61;
+									}
                   &.size {
-                    color: $pink;
-                    font-size: 14px;
+                    color: #5E5F61;
+                    font-size: 13px;
                   }
                 }
                 form.delete {
