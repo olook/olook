@@ -109,27 +109,6 @@ describe Checkout::AddressesController do
     end
   end
 
-  context "POST create" do
-    before :each do
-      sign_in user
-      session[:cart_id] = cart.id
-    end
-
-    context "with valid a address" do
-      it "should create a address" do
-        expect {
-          post :create, :address => attributes
-        }.to change(Address, :count).by(1)
-      end
-
-      it "should redirect to cart checkout" do
-        post :create, :address => attributes
-        response.should redirect_to(new_credit_card_cart_checkout_path)
-      end
-
-    end
-  end
-
   context "GET edit" do
     before :each do
       sign_in user
@@ -140,25 +119,6 @@ describe Checkout::AddressesController do
       get 'edit', :id => address.id
       assigns(:address).should eq(address)
     end
-  end
-
-  context "PUT update" do
-    before :each do
-      sign_in user
-      session[:cart_id] = cart.id
-    end
-
-    it "should updates an address" do
-      updated_attr = { :street => 'Rua Jones' }
-      put :update, :id => address.id, :address => updated_attr
-      Address.find(address.id).street.should eql('Rua Jones')
-    end
-
-    it "should redirect to cart checkout" do
-      put :update, :id => address.id, :address => { :street => 'Rua Jones' }
-      response.should redirect_to(new_credit_card_cart_checkout_path)
-    end
-
   end
 
   context "DELETE destroy" do
