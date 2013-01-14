@@ -101,6 +101,10 @@ body div.full_container {
         overflow: auto;
         margin: 0 auto;
         li {
+					&.chic{float:left;margin-left:25px;
+						a{margin:0 !important}
+					}
+					&.sexy{float:left;margin-left:-20px;}
           a {
             text-decoration: none;
             text-align: center;
@@ -118,7 +122,7 @@ body div.full_container {
               height: 48px;
               margin: 0 0 5px;
               padding: 6px 0 0;
-				  &.chic{width:150px;}
+				  		&.chic{width:150px;}
             }
             &.selected {
               background: image-url('gift/bg-profile-selected.jpg') bottom center no-repeat;

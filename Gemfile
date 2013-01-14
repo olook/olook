@@ -35,6 +35,8 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
+gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
+gem 'oj'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'obraspag', '>= 0.0.31', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
@@ -84,7 +86,7 @@ end
 
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
-  gem 'capybara', '2.0.1'
+  gem 'capybara', '2.0.2'
   gem "capybara-webkit", git: 'git://github.com/thoughtbot/capybara-webkit.git'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
