@@ -14,6 +14,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     address = shipping_address
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
+
     unless address && address.valid? && payment.valid?
       display_form(address, payment, payment_method)
       return
@@ -57,7 +58,15 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create_payment(address)
     params[:checkout][:payment][:receipt] = Payment::RECEIPT
     params[:checkout][:payment][:telephone] = address.telephone if address
-    payment = CreditCard.new(params[:checkout][:payment] )
+
+    payment = case params[:checkout][:payment_method]
+    when "billet"
+      Billet.new(params[:checkout][:payment])
+    when "debit"
+      Debit.new(params[:checkout][:payment])
+    else
+      CreditCard.new(params[:checkout][:payment] )
+    end
   end
 
   def display_form(address, payment, payment_method)
