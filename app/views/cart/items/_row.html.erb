@@ -25,7 +25,8 @@
                           id: "change_amount_#{item.id}"
                         }) do %>
 
-      <%= select_tag('quantity', options_for_select((1..5).to_a, item.quantity), onchange: "changeCartItemQty('#{item.id}')") %>
+      <%= item_qty_select(item) %>
+      
     <% end %>
   </td>
   <td class="discount">

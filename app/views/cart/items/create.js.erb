@@ -15,8 +15,8 @@
 
 <% end %>
 
-  if ($("#cart_summary li.product_item[data-id=<%= @variant.id %>]").length == 0) {
-    $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @cart.items.last, hidden: true}) %>"); 
+  if ($("#cart_summary li.product_item[data-id=<%= @item.id %>]").length == 0) {
+    $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @item, hidden: true}) %>"); 
     $("#cart_summary li.product_item:last").fadeIn('slow');
   }
   

@@ -150,6 +150,5 @@ class ApplicationController < ActionController::Base
       return false if referer.nil?
       !(referer =~ /olook\.com\.br/)
     end
-
 end
 
