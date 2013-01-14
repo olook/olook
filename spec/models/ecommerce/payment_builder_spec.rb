@@ -13,10 +13,7 @@ describe PaymentBuilder do
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:shipping_service) { FactoryGirl.create :shipping_service }
   let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
-  let(:cart_service) { CartService.new({
-    :cart => cart,
-    :freight => freight,
-  }) }
+  let(:cart_service) { CartService.new({ :cart => cart }) }
   let(:moip_sender_strategy) {
     mock = double(Payments::MoipSenderStrategy)
     mock.stub(:payment_successful?).and_return(true)
@@ -99,6 +96,7 @@ describe PaymentBuilder do
       end
 
       it "should return a structure with status and a payment" do
+        CartService.any_instance.should_receive(:freight).any_number_of_times.and_return(freight)
         response = subject.process!
         response.status.should == Payment::SUCCESSFUL_STATUS
         response.payment.should == credit_card
