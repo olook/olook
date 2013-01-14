@@ -1,8 +1,9 @@
-      <li class="product_item" style="<%= 'display:none;' if hidden %>" data-id="<%= item.variant.id %>">
+      <li class="product_item" style="<%= 'display:none;' if hidden %>" data-id="<%= item.id %>">
       	<% unless item.thumb_picture.nil? %>
 	        <%= image_tag item.thumb_picture, :title => item.name %>
         <% end %>
         <h1><%= item.name %></h1>
+        <p class="size">Tamanho: <%= item.description %></p>
+        <p class="qte">Quantidade: <span><%= item.quantity %></span></p>
         <p class="price"><%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
-        <p class="size"><%= item.description %></p>
       </li>

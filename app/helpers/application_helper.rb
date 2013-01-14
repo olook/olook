@@ -75,4 +75,16 @@ module ApplicationHelper
     end
   end
 
+  def item_qty_max_option(item)
+    [item.variant.inventory, Setting.default_item_quantity.to_i].min
+  end
+
+  def item_qty_select(item)
+    if item.variant.inventory == 1
+      '1 (última peça!)'
+    else
+      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), 
+                              onchange: "changeCartItemQty('#{item.id}')")
+    end
+  end
 end
