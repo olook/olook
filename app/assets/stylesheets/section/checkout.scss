@@ -216,7 +216,7 @@ section#cart {
     font-size: 22px;
 		clear:both;
 		float:left;
-		margin:10px 0 15px;
+		margin:10px 0 25px;
   }
 	.promo-leve3{
 		float:left;
@@ -252,7 +252,15 @@ section#cart {
       float: none;
     }
   }
-
+	p.txt-suggestions{
+		clear:both;
+		color:#000;
+		font-weight:bold;
+	}
+	ul.link-suggestions{
+		margin-top:7px;
+		li a{color:#D95485;margin-bottom:6px;display:block;}
+	}
   div.banner {
     
 		border:dotted 1px #000;

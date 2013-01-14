@@ -25,7 +25,6 @@ $(function() {
     $('#use_credit_form').submit();
   });
 
-
   $( "#cart_gift_wrap" ).change(function() {
     $( "#gift_wrap" ).submit();
   });
@@ -79,3 +78,8 @@ $(function() {
     });
   }
 });
+
+function changeCartItemQty(cart_item_id) {
+  $('form#change_amount_' + cart_item_id).submit();
+}
+
