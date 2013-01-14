@@ -23,6 +23,13 @@ describe PercentageAdjustment do
         subject.simulate(cart, "20").should eq([{id: cart.items.first.id, adjust: cart.items.first.price * BigDecimal("#{20 / 100.0}")}])
       end
     end
+
+    context "when cart has no items" do
+      it "returns zero" do
+        cart.should_receive(:items).and_return([])
+        subject.simulate(cart,"20").should eq(0)
+      end
+    end
   end
 end
 
