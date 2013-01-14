@@ -20,10 +20,9 @@ class Cart::ItemsController < ApplicationController
   end
 
   def destroy
-  	cart_item = @cart.items.find(params[:id])
-  	@product_id = cart_item.product.id
-    @variant_id = cart_item.variant.id
-    if cart_item.destroy
+  	@item = @cart.items.find(params[:id])
+  	@product_id = @item.product.id
+    if @item.destroy
       respond_with { |format| format.js { } }
     else
       render :error, :locals => { :notice => "Houve um problema ao deletar o item do cart" }
@@ -38,7 +37,7 @@ class Cart::ItemsController < ApplicationController
   	end
 
   	def add_item_or_show_errors
-  		unless @cart.add_item(@variant, variant_qty)
+  		unless @item = @cart.add_item(@variant, variant_qty)
 	      respond_with(@cart) do |format|
 	        notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
 	        
