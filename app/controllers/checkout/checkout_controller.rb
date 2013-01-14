@@ -3,7 +3,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   before_filter :authenticate_user!
   before_filter :check_order
-  before_filter :check_cpf, :except => [:new, :update]
+  before_filter :check_cpf, :except => [:new]
 
   def new
     @addresses = @user.addresses
@@ -11,7 +11,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def create
-    address = shipping_address
+    address = shipping_address(params)
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
 
@@ -31,7 +31,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       clean_cart!
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
-      payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+      payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.") if payment.is_a? CreditCard
       display_form(address, payment, payment_method)
       return
     end
@@ -39,17 +39,17 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   private
 
-  def shipping_address
+  def shipping_address(params)
     if params[:checkout][:address]
       populate_shipping_address
     else
-      Address.find(params[:address][:id]) if params[:address]
+      Address.find_by_id(params[:address][:id]) if params[:address]
     end
   end
 
   def populate_shipping_address
     params[:checkout][:address][:country] = 'BRA'
-    address = params[:checkout][:address][:id].empty? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
+    address = params[:checkout][:address][:id].blank? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
     params[:checkout][:address].delete(:id)
     address.assign_attributes(params[:checkout][:address])
     address
