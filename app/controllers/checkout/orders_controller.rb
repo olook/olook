@@ -8,6 +8,10 @@ class Checkout::OrdersController < Checkout::BaseController
     @payment = @order.erp_payment
     promotion = @order.payments.where(:type => "PromotionPayment").first.try(:promotion)
 
+    coupon_pm = @order.payments.where(:type => "CouponPayment").first
+    coupon = coupon_pm.coupon if coupon_pm
+    @chaordic_confirmation = ChaordicInfo.buy_order @order
+
     @cart_service_for_order = CartService.new(
       :cart => @order.cart,
       :promotion => promotion,

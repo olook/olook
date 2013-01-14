@@ -26,10 +26,6 @@
 <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
 <script type="text/javascript">
 /* <![CDATA[ */
-var google_conversion_id = 1017410975;
-var google_conversion_label = "yMonCLmp2wMQn-uR5QM";
-var google_custom_params = window.google_tag_params;
-var google_remarketing_only = true;
 var google_tag_params = {
       prodid:"<%= @product.id if @product%>",
       pagetype:"<%= @google_path_pixel_information if @google_path_pixel_information%>",
@@ -37,6 +33,10 @@ var google_tag_params = {
       pcat:"<%= @product.category_humanize if @product%>",
       value:"<%= @product.retail_price if @product%>"
 };
+var google_conversion_id = 1017410975;
+var google_conversion_label = "yMonCLmp2wMQn-uR5QM";
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
 /* ]]> */
 </script>
 <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
@@ -79,4 +79,4 @@ var google_tag_params = {
 	</script>
 </div>
 <!-- END Zanox -->
-
+<script src="//static.chaordicsystems.com/static/loader.js" data-apikey="olook"></script>
