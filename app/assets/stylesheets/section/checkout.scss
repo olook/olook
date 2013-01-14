@@ -140,6 +140,64 @@ section#credits_explanation{
 
 section#lookbooks{clear:both;}
 
+table.check {
+   
+   border-top: 1px #000 dotted;
+   tbody {
+     tr {
+       td {
+					&.check_column{width:870px}
+         vertical-align: middle;
+         padding: 10px 0;
+         input[type="checkbox"] {
+           margin: 0 17px 0 5px;
+           float: left;
+         }
+         h1 {
+           color: #000;
+           font-family: $avenir;
+           font-size: 13px;
+           font-weight: normal;
+           text-transform: uppercase;
+           float: left;
+         }
+         p {
+           width: 819px;
+           margin: 0 0 0 35px;
+           clear: both;
+						font-size:13px;
+         }
+         a {
+           color: #e05789;
+           margin: 5px 0 0 85px;
+         }
+         &.value {
+           color: #000;
+           font-family: $avenir;
+           font-size: 17px;
+           font-weight: normal;
+           text-align: left;
+           letter-spacing: -1px;
+           width: 120px;
+           vertical-align:top;
+         }
+       }
+     }
+   }
+   &.gift {
+     tbody {
+       tr {
+         td {
+           &.value {
+             color: #000;
+           }
+         }
+       }
+     }
+   }
+ }
+
+
 section#cart {
   padding: 20px 0 0;
 	.txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
@@ -526,63 +584,7 @@ section#cart {
     }
   }
 
-  table.check {
-    
-    border-top: 1px #000 dotted;
-    tbody {
-      tr {
-        td {
-					&.check_column{width:870px}
-          vertical-align: middle;
-          padding: 10px 0;
-          input[type="checkbox"] {
-            margin: 0 17px 0 5px;
-            float: left;
-          }
-          h1 {
-            color: #000;
-            font-family: $avenir;
-            font-size: 13px;
-            font-weight: normal;
-            text-transform: uppercase;
-            float: left;
-          }
-          p {
-            width: 819px;
-            margin: 0 0 0 35px;
-            clear: both;
-						font-size:13px;
-          }
-          a {
-            color: #e05789;
-            margin: 5px 0 0 85px;
-          }
-          &.value {
-            color: #000;
-            font-family: $avenir;
-            font-size: 17px;
-            font-weight: normal;
-            text-align: left;
-            letter-spacing: -1px;
-            width: 120px;
-            vertical-align:top;
-          }
-        }
-      }
-    }
-    &.gift {
-      tbody {
-        tr {
-          td {
-            &.value {
-              color: #000;
-            }
-          }
-        }
-      }
-    }
-  }
-
+ 
   table#total {
 		border-top:dotted 1px #000;
     margin: 0;
@@ -1596,6 +1598,25 @@ section.checkout{
 				}
 				p{clear:both;}
 			}
+		}
+		#about_credits{
+			float:left;/*position:absolute;*/z-index:100;background:#FFF;width:620px;padding:20px;border:solid 5px #000;
+			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px)}
+			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
+			table.check{border:0;
+				p{margin:0;width:620px;
+					span{color:#DD4A78;}
+				}
+				#credits_explanation{
+					p{color:#000;font-size:14px;margin-top:15px;
+					}
+					div{margin:0;
+						&.message{font-size:12px;}
+						&.description{width:245px;}
+					}
+				}
+			}
+			
 		}
 	}
 }
