@@ -95,6 +95,7 @@ group :test do
   gem 'spork', '~> 0.9.2'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'rb-fsevent', '~> 0.9.1'
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'fakeweb'
