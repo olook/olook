@@ -1464,9 +1464,13 @@ section#payment {
 .txt-black{color:#000;}
 .txt-pink{color:#E15789;}
 
+/******************************/
+/******** NEW CHECKOUT ********/
+/******************************/
 section.checkout{
 	.box-step-one,.box-step-two{width:311px;float:left;}
 	
+
 	h2{float:left;clear:both;margin-bottom:15px;
 		span{	
 			display:block;float:left;	
@@ -1477,7 +1481,9 @@ section.checkout{
 	}
 	
 	form.new_checkout{
-		fieldset{float:left;margin:0 10px 17px 0;}
+		fieldset{float:left;margin:0 10px 17px 0;
+			&.fieldset_validate{float:right;margin-right:22px;}
+		}
 		
 		label{display:block;margin-bottom:4px;
 			&.address_label{display:none;}
@@ -1498,11 +1504,13 @@ section.checkout{
 			&.bairro{width:167px;}
 			&.cidade{width:175px;}
 			&.uf{width:77px;}
-			&.nome_dest,&.sobrenome_dest{width:125px;}
-			&.tel_contato1,&.tel_contato2{width:137px;}
+			&.nome_dest, &.sobrenome_dest{width:125px;}
+			&.tel_contato1, &.tel_contato2{width:137px;}
 			&.frete, &.address_recorded{height:auto;}
 			&.address_recorded{float:left;}
-			
+			&.user_name, &.credit_card_number{width:280px;}
+			&.security_code{width:120px;}
+			&.expiration_date{width:107px;}
 			
 			
 			
@@ -1512,7 +1520,7 @@ section.checkout{
 		.btn_zipcode{
 			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;
 		}
-		.subtitle{clear:both;margin-top:10px;height:40px;@include sprite_checkout(-109px, -535px);color:#000;padding-top:15px;clear:both;}
+		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
 		.freight_value{color:#E15687;}
 		
@@ -1525,17 +1533,67 @@ section.checkout{
 			a{font-size:16px;color:#DD4978;}
 		}
 /********** END / START STEP TWO *******/
+		.box-step-two{
+			.credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;}
+			label{line-height:14px;}
+			ul,ol{overflow:hidden;}
+		}
 		.credits{float:left;
 			label{color:#000;}
-			input{float:left;height:auto;}
-			p{font-size:13px; 
+			p{font-size:13px;float:left; 
 				span, a{color:#E15687;}
-				a{display:block;margin:6px 0 25px;}
+				a{display:block;margin:6px 0 15px;}
 			}
 		}
-		.payment{
-			li, input{float:left;}
-			label{font-size:12px;}
+		.payment{float:left;padding-left:5px;
+			li{float:left;height:auto
+				&.credit_card{width:120px;}
+				&.boleto{width:54px;}
+				&.debito{width:97px;}
+				label{font-size:12px;}
+			}
+			.payment_type{
+				li{margin-right:5px;padding:1px 0 0 3px;
+					label{float:left;}
+				}
+			}
+			.cards{overflow:hidden;
+				li{position:relative;width:47px;height:37px;
+					input,label{opacity:0;position:relative;z-index:1}
+					label{font-size:12px;float:left;}
+					span{position:absolute;z-index:2;display:block;width:47px;height:37px;font-size:0;font-family:a;cursor:pointer;
+						&.Visa{@include sprite_checkout(-171px, -422px);
+							&.selected{@include sprite_checkout(-168px, -459px)}
+						}
+						&.Mastercard{@include sprite_checkout(-216px, -422px);
+							&.selected{@include sprite_checkout(-214px, -459px)}
+						}
+						&.AmericanExpress{@include sprite_checkout(-262px, -422px);
+							&.selected{@include sprite_checkout(-260px, -459px)}
+						}
+						&.Diners{@include sprite_checkout(-308px, -422px);
+							&.selected{@include sprite_checkout(-307px, -459px)}
+						}
+						&.Hipercard{@include sprite_checkout(-353px, -422px);
+							&.selected{@include sprite_checkout(-353px, -459px)}
+						}
+					}
+				}
+			}
+			.box-boleto{float:left;
+				p{font-size:13px;margin-top:20px;
+					span{color:#000;}
+				}
+			}
+			
+			.box-debito{
+				float:left;position:relative;
+				input, label{opacity:0;z-index:1;position:relative;float:left;}
+				.debit_bank_Itau{position:absolute;z-index:2;top:55px;left:0;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;
+					&.selected{@include sprite_checkout(-123px, -459px)}
+				}
+				p{clear:both;}
+			}
 		}
 	}
 }
