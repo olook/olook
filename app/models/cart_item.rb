@@ -25,14 +25,11 @@ class CartItem < ActiveRecord::Base
 
   def retail_price
     olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-
-
     promotional_value = price - adjustment_value / quantity.to_f
-    # olooklet_value = variant.product.retail_price
-    [promotional_value, olooklet_value].min
+
+    min_value_excluding_zero = [promotional_value, olooklet_value].delete_if{|value| value == 0}.min
+    min_value_excluding_zero
   end
-
-
 
   def is_suggested_product?
     product.id == Setting.checkout_suggested_product_id.to_i
