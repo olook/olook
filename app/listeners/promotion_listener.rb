@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class PromotionListener
 
+  # TODO extract private method to another class
+
   def self.update cart
     reset_adjustments_for cart
     promotions_to_apply = matched_promotions_for cart
