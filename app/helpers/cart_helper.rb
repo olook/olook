@@ -25,8 +25,8 @@ module CartHelper
     false
   end
 
-  def has_promotion?(item)
-    @cart_service.item_promotion?(item) || cart_has_percentage_coupon? 
+  def has_discount?(item)
+    @cart_service.item_promotion?(item) || cart_has_percentage_coupon? || item.price != item.retail_price
   end
 
   private 
