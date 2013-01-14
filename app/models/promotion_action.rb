@@ -20,4 +20,12 @@ class PromotionAction < ActiveRecord::Base
     rescue
     end
   end
+
+  def apply(cart, param)
+    raise "You should call matches? on inherited classes"
+  end
+
+  def calculate(cart, param)
+    raise "You should call matches? on inherited classes"
+  end
 end

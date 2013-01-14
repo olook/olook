@@ -1,26 +1,27 @@
 # -*- encoding : utf-8 -*-
 class PercentageAdjustment < PromotionAction
 
-  #parameter :percent, :integer
-
-  ## TODO Refactor to remove duplications
-
   def apply(cart, percent)
-    cart.items.each do |cart_item|
-      sub_total = cart_item.quantity * cart_item.price
-      adjust = sub_total * BigDecimal("#{percent.to_i / 100.0}")
-      cart_item.cart_item_adjustment.update_attribute(:value, adjust)
+    calculate(cart, percent).each do |item|
+      cart.items.find(item[:id]).cart_item_adjustment.update_attributes(value: item[:adjust])
     end
   end
 
+  def simulate(cart, percent)
+    cart.any? ? calculate(cart, percent) : 0
+  end
+
+  private
+
   def calculate(cart, percent)
-    calculated_values = {}
+    calculated_values = []
     cart.items.each do |cart_item|
       sub_total = cart_item.quantity * cart_item.price
       adjust = sub_total * BigDecimal("#{percent.to_i / 100.0}")
-      calculated_values[cart_item.id] = adjust
+      calculated_values << { id: cart_item.id, adjust: adjust }
     end
     calculated_values
   end
 
 end
+
