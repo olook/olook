@@ -1557,25 +1557,27 @@ section.checkout{
 					label{float:left;}
 				}
 			}
-			.cards{overflow:hidden;
-				li{position:relative;width:47px;height:37px;
-					input,label{opacity:0;position:relative;z-index:1}
-					label{font-size:12px;float:left;}
-					span{position:absolute;z-index:2;display:block;width:47px;height:37px;font-size:0;font-family:a;cursor:pointer;
-						&.Visa{@include sprite_checkout(-171px, -422px);
-							&.selected{@include sprite_checkout(-168px, -459px)}
-						}
-						&.Mastercard{@include sprite_checkout(-216px, -422px);
-							&.selected{@include sprite_checkout(-214px, -459px)}
-						}
-						&.AmericanExpress{@include sprite_checkout(-262px, -422px);
-							&.selected{@include sprite_checkout(-260px, -459px)}
-						}
-						&.Diners{@include sprite_checkout(-308px, -422px);
-							&.selected{@include sprite_checkout(-307px, -459px)}
-						}
-						&.Hipercard{@include sprite_checkout(-353px, -422px);
-							&.selected{@include sprite_checkout(-353px, -459px)}
+			.box-cartao{float:left;
+				.cards{overflow:hidden;
+					li{position:relative;width:47px;height:37px;
+						input,label{opacity:0;position:relative;z-index:1}
+						label{font-size:12px;float:left;}
+						span{position:absolute;z-index:2;display:block;width:47px;height:37px;font-size:0;font-family:a;cursor:pointer;
+							&.Visa{@include sprite_checkout(-171px, -422px);
+								&.selected{@include sprite_checkout(-168px, -459px)}
+							}
+							&.Mastercard{@include sprite_checkout(-216px, -422px);
+								&.selected{@include sprite_checkout(-214px, -459px)}
+							}
+							&.AmericanExpress{@include sprite_checkout(-262px, -422px);
+								&.selected{@include sprite_checkout(-260px, -459px)}
+							}
+							&.Diners{@include sprite_checkout(-308px, -422px);
+								&.selected{@include sprite_checkout(-307px, -459px)}
+							}
+							&.Hipercard{@include sprite_checkout(-353px, -422px);
+								&.selected{@include sprite_checkout(-353px, -459px)}
+							}
 						}
 					}
 				}
