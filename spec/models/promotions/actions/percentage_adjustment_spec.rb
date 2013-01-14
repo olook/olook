@@ -2,12 +2,11 @@
 require 'spec_helper'
 
 describe PercentageAdjustment do
+  let(:subject) { FactoryGirl.create(:percentage_adjustment) }
+  let(:cart) { FactoryGirl.create(:cart_with_items) }
   describe "#apply" do
-    let(:cart) { FactoryGirl.create(:cart_with_items) }
     let(:promo) { mock_model(Promotion) }
     let(:action_parameter) { mock_model(ActionParameter, param: "0.2") }
-    let(:subject) { FactoryGirl.create(:percentage_adjustment) }
-
 
     context "when adjust should be changed" do
       it "cart item returns calculated adjustment value" do
@@ -16,7 +15,14 @@ describe PercentageAdjustment do
         cart.items.first.adjustment_value.should eq(cart.items.first.price * promo.action_parameter.param.to_d)
       end
     end
+  end
 
+  describe "#simulate" do
+    context "when cart has items" do
+      it "calculates percentage" do
+        subject.simulate(cart, "20").should eq([{id: cart.items.first.id, adjust: cart.items.first.price * BigDecimal("#{20 / 100.0}")}])
+      end
+    end
   end
 end
 
