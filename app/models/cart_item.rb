@@ -24,9 +24,12 @@ class CartItem < ActiveRecord::Base
   end
 
   def retail_price
-    return variant.product.retail_price unless has_adjustment?
-    price - adjustment_value / quantity.to_f
+    promotional_value = price - adjustment_value / quantity.to_f
+    olooklet_value = variant.product.retail_price
+    [promotional_value, olooklet_value].min
   end
+
+
 
   def is_suggested_product?
     product.id == Setting.checkout_suggested_product_id.to_i
