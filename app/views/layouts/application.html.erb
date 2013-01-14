@@ -59,10 +59,6 @@
 
     <%= content_for?(:content) ? yield(:content) : yield %>
 
-    <% if ["product"].include?(params[:controller]) %>
-      <%= render :partial => "shippings/shipping" %>
-      <%= javascript_include_tag "shipping" %>
-    <% end %>
     </div>
 
     <% if user_signed_in? %>
