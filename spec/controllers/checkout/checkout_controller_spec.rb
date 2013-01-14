@@ -3,9 +3,11 @@ require 'spec_helper'
 
 describe Checkout::CheckoutController do
 
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { FactoryGirl.create(:user, :cpf => "47952756370")}
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
+  let(:address) { FactoryGirl.create(:address, :user => user) }
+
   subject { described_class.new}
 
   before :each do
@@ -67,8 +69,13 @@ describe Checkout::CheckoutController do
     end
 
     context "when user has address" do
-      before :all do
+      before :each do
         FactoryGirl.create(:address, {user: user})
+      end
+
+      it "renders the template new" do
+        get :new
+        response.should render_template("new")
       end
 
       it "assigns an addresses instance with user addresses" do
@@ -79,25 +86,58 @@ describe Checkout::CheckoutController do
     end
   end
 
-  describe "#shipping_address" do
+  describe "PUT#create" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
     end
 
-    context "when user chooses an existing address" do
-      let!(:address) { FactoryGirl.create(:address) }
+    context "when user chooses inexistent address" do
 
-      it "returns the address when the id is correct" do
-        result = subject.send :shipping_address, {checkout: {}, address: {id: address.id}}
-        result.should eq(address)
+      it "renders new template" do
+        put :create, {checkout: {payment: {}}, address: {id: "inexistent"}}
+        response.should render_template("new")
       end
 
-      it "returns nil when the id is incorrect" do
-        result = subject.send :shipping_address, {checkout: {}, address: {id: "incorrect"}}
-        result.should be_nil
+      it "returns null address" do
+        put :create, {checkout: {payment: {}}, address: {id: "inexistent"}}
+        assigns[:checkout].address.should eq(nil)
       end
+
     end
+
+    context "when gives invalid address information for a new address" do
+
+      it "renders new template" do
+        put :create, {checkout: {address: {street: "street_name"}, payment: {}}}
+        response.should render_template("new")
+      end
+
+      it "returns given information of the address" do
+        put :create, {checkout: {address: {street: "street_name", number: 123}, payment: {}}}
+        assigns[:checkout].address.id.should eq(nil)
+        assigns[:checkout].address.street.should eq("street_name")
+        assigns[:checkout].address.number.should eq(123)
+      end
+
+    end
+
+    context "when gives invalid address information for an existing address" do
+
+      it "renders new template" do
+        put :create, {checkout: {address: {id: address.id, street: "street_name"}, payment: {}}}
+        response.should render_template("new")
+      end
+
+      it "returns given information of the address" do
+        put :create, {checkout: {address: {id: address.id, street: "street_name", number: 123}, payment: {}}}
+        assigns[:checkout].address.id.should eq(address.id)
+        assigns[:checkout].address.street.should eq("street_name")
+        assigns[:checkout].address.number.should eq(123)
+      end
+
+    end
+
   end
 
 end

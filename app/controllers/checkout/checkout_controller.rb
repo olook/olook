@@ -31,7 +31,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       clean_cart!
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
-      payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+      payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.") if payment.is_a? CreditCard
       display_form(address, payment, payment_method)
       return
     end
@@ -49,7 +49,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def populate_shipping_address
     params[:checkout][:address][:country] = 'BRA'
-    address = params[:checkout][:address][:id].empty? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
+    address = params[:checkout][:address][:id].blank? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
     params[:checkout][:address].delete(:id)
     address.assign_attributes(params[:checkout][:address])
     address
