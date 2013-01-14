@@ -207,7 +207,7 @@ GEM
       childprocess (>= 0.2.3)
       guard (>= 1.1)
       spork (>= 0.8.4)
-    gyoku (1.0.0)
+    gyoku (0.4.6)
       builder (>= 2.1.2)
     haml (3.1.7)
     haml-rails (0.3.5)
@@ -502,6 +502,7 @@ DEPENDENCIES
   glennfu-contacts (= 1.2.6)!
   guard-rspec
   guard-spork
+  gyoku (= 0.4.6)
   haml
   haml-rails
   hpricot
