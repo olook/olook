@@ -1,1 +1,5 @@
-<%= render :partial => "half_user" %>
+<% if @cart && @cart.items.any? %>
+  <%= render :partial => "form_half_with_cart" %>
+<% else %>
+  <%= render :partial => "half_user" %>
+<% end %>
