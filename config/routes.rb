@@ -323,7 +323,7 @@ Olook::Application.routes.draw do
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
-    resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
+    resources :login, :path=> "login", :controller => "checkout/login", :only => [:index, :new]
   end
 
   #FINISH

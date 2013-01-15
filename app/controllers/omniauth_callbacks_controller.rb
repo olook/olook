@@ -19,7 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
         if @cart.items.any?
-          redirect_to new_half_user_session_path
+          redirect_to new_checkout_login_path
         else
           redirect_to new_user_registration_url
         end
@@ -45,7 +45,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #        
     def redirect user
       if @cart.items.any?
-        redirect_to cart_path @cart
+        redirect_to checkout_cart_path
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
