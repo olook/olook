@@ -34,7 +34,7 @@ class ChaordicInfo
       chaordic_product.pid = product.id
       chaordic_product.category = product.category_humanize
       chaordic_product.detail_url = product.id
-      chaordic_product.image_name = product.main_picture.image.to_s.split('pictures/')[1]
+      chaordic_product.image_name = (product.main_picture && product.main_picture.image) ? product.main_picture.image.to_s.split('pictures/')[1] : ""
       chaordic_product.name = product.name
       chaordic_product.old_price = product.price.round(2).to_s
       chaordic_product.price = product.retail_price.round(2).to_s
@@ -86,6 +86,7 @@ class ChaordicInfo
         chaordic_user.add_info('Name', user.name)
         chaordic_user.add_info('Email', user.email)
         chaordic_user.add_info('optOut', false)
+        chaordic_user.add_info('AuthToken', user.authentication_token)
       else
         chaordic_user.uid = "CS_ANONYMOUSUSER"
       end
