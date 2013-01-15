@@ -1,7 +1,7 @@
 <section id="quiz">
   <div class="content">
-    <h1>Precisa de ajuda?</h1>
-    <p>Responda a um rápido QUIZ. Nós entederemos o perfil<br />dela e você receberá recomendações de presentes.</p>
+    <h1>Consultoria de Estilo</h1>
+    <p>Responda a um rápido QUIZ. <br />Nossas stylists entenderão o perfil dela e<br/> você receberá recomendações.</p>
     <%= form_tag "/presentes/occasions", :method => :post do %>
       <%= hidden_field_tag "occasion[day]", Date.current.day %>
       <%= hidden_field_tag "occasion[month]", Date.current.month %>
