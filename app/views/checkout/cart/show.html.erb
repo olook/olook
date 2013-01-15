@@ -94,7 +94,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="avc-button">
               <p><%= number_to_currency(@suggested_product.retail_price) %></p>
-			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCart", @suggested_product.id), 
+			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCartFromRecommended", @suggested_product.id), 
                                       id: "product_add_to_cart", 
                                       remote: true) do %>
         <input name="from_sacola" type="hidden" value="true" %>
