@@ -45,7 +45,7 @@ _gaq.push(['_addTrans',
     <% if current_user %>
         <%= link_to "Continuar", checkout_cart_path, :class => "continue"  %>
     <% else %>
-        <%= link_to "Continuar", "#", :class => "continue login"  %>
+        <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
     <% end %>
   <% end %>  
   
@@ -244,7 +244,7 @@ _gaq.push(['_addTrans',
             <% if current_user %>
               <%= link_to "Continuar", checkout_cart_path, :class => "continue"  %>
             <% else %>
-              <%= link_to "Continuar", "#", :class => "continue login"  %>
+              <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
             <% end %>
           </td>
         </tr>

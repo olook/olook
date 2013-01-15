@@ -128,7 +128,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     if @cart.items_total > 0
-      checkout_addresses_path
+      checkout_cart_path
     elsif resource.half_user && resource.male?
       gift_root_path
     else
