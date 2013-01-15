@@ -1,9 +1,13 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/login_register" %>
+<% end %>
+
 <div class="login">
   <p class="title-box">JÁ TENHO CADASTRO <br /><span>Então é só entrar ;)</span></p>
   <%= render "users/sessions/form_user" %>
 </div>
 
 <div class="register">
-  <p class="title-box">QUERO ME CADASTRAR</p>
-  <%= link_to "Cadastrar", new_checkout_login_path %>
+  <p class="title-box">QUERO ME CADASTRAR<br /><span>Faça aqui o seu cadastro.</span><br /><span>É rápido e simples.</span></p>
+  <%= link_to "Realizar Cadastro", new_checkout_login_path %>
 </div>  
