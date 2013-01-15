@@ -51,7 +51,7 @@
         </tr>
         <% end
         promotion = @order.payments.for_promotion.sum(:total_paid) if has_payment
-        promotion ||= cart_service.total_discount_by_type(:promotion)
+        promotion ||= cart_service.cart.total_promotion_discount
         if promotion > 0 %>
         <tr class="promotion">
           <td>Promoção</td>
