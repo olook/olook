@@ -1,5 +1,9 @@
-<% if resource.half_user %>
-  <%= render :partial => "half_user" %>
+<% if @cart && @cart.items.any? %>
+  <%= render :partial => "form_half" %>
 <% else %>
-  <%= render :partial => "full_user" %>
+  <% if resource.half_user %>
+    <%= render :partial => "half_user" %>
+  <% else %>
+    <%= render :partial => "full_user" %>
+  <% end %>
 <% end %>
