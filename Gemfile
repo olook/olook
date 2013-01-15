@@ -65,6 +65,9 @@ group :development do
   gem 'faker'
   gem 'bullet'
   gem 'thin'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
 end
 
 group :development, :test do
@@ -95,7 +98,6 @@ group :test do
   gem 'spork', '~> 0.9.2'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'rb-fsevent', '~> 0.9.1'
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'fakeweb'
