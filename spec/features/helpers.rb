@@ -1,12 +1,15 @@
 # -*- encoding : utf-8 -*-
 
+# logs-in user through js dropdown at the top of the interface
 def do_login!(user)
   FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
   VCR.use_cassette('yahoo_login', :match_requests_on => [:host, :path]) do
-    visit new_user_session_path
-    fill_in "user_email", :with => user.email
-    fill_in "user_password", :with => user.password
-    click_button "login"
+    visit '/'
+    within('div#session') do
+      fill_in "user_email", :with => user.email
+      fill_in "user_password", :with => user.password
+      click_button "login"
+    end
   end
 end
 
@@ -23,11 +26,11 @@ def answer_survey
   build_survey
   visit root_path
   click_link "Comece aqui. É grátis!"
-  choose "questions[question_#{Question.first.id}]"
+  all("input[type=radio][name='questions[question_#{Question.first.id}]']").first.set(true)
   select('10', :from => 'day')
   select('Setembro', :from => 'month')
   select('1900', :from => 'year')
-  click_button "finish"
+  find("input#finish").click
 end
 
 def build_survey

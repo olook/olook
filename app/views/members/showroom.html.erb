@@ -2,6 +2,9 @@
 
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/showroom" %>
+    <meta name="chaordic:source" content="home/vitrine">
+    <meta name="chaordic:user" content="<%= @chaordic_user %>">
+    <meta name="chaordic:category" content="Vitrine" >
   <% end %>
 
   <% content_for :footer do %>
@@ -32,7 +35,7 @@
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
 
-    <%# TODO: use a presenter to wrap these both logic %>    
+    <%# TODO: use a presenter to wrap these both logic %>
     <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
       <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => moments_path}  %>
     <% end %>

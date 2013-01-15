@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :credits
 
   before_create :generate_invite_token
-  after_create :initialize_user, :destroy_campaign_email_if_present
+  after_create :initialize_user, :update_campaign_email
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
@@ -285,11 +285,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def destroy_campaign_email_if_present
+  def update_campaign_email
     campaign_email = CampaignEmail.find_by_email(self.email)
     if campaign_email
+      campaign_email.update_attribute(:converted_user, true)
       update_attribute(:campaign_email_created_at, campaign_email.created_at)
-      campaign_email.destroy
     end
   end
 
