@@ -16,6 +16,7 @@ describe OmniauthCallbacksController do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
         user.stub(:set_facebook_data).with(omniauth)
         user.stub(:authenticatable_salt)
+        user.stub(:half_user?).and_return(false)
         get :facebook
         response.should redirect_to(member_showroom_path)
       end
@@ -24,6 +25,7 @@ describe OmniauthCallbacksController do
         User.stub(:find_for_facebook_oauth).and_return(user = mock_model(User))
         user.should_receive(:set_facebook_data).with(omniauth)
         user.stub(:authenticatable_salt)
+        user.stub(:half_user?).and_return(false)
         get :facebook
       end
 
