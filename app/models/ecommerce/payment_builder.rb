@@ -79,7 +79,6 @@ class PaymentBuilder
         if total_promotion > 0
           promotion_payment = PromotionPayment.create!(
             :total_paid => total_promotion,
-            :promotion_id => cart_service.promotion.id,
             :order => order,
             :user_id => payment.user_id,
             :discount_percent => cart_service.promotion.discount_percent,
