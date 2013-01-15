@@ -4,12 +4,13 @@
 
 <div class="form_register">
   <p class="title-box">CADASTRO OLOOK<br /><span>Queremos saber mais sobre você.</span></p>
-  <%= render 'users/registrations/form_half', :resource => @resource_user, :resource_name => :user %>
+  <% user = @user || User.new(:half_user => true) %>
+  <%= render 'users/registrations/form_half', :resource => user, :resource_name => :user %>
 </div>
 
 <div class="cart" style="height:325px;margin-bottom:36px;">
   SACOLA
 </div>
 <div class="signup">
-  <p class="title-box">JÁ TEM CADASTRO?<br/><%= link_to "Então é só entrar", new_checkout_login_path %></p>
-</div>  
+  <p class="title-box">JÁ TEM CADASTRO?<br/><%= link_to "Então é só entrar", checkout_login_index_path %></p>
+</div>
