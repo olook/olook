@@ -12,6 +12,7 @@ class Cart::CartController < ApplicationController
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
     @promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
+    @chaordic_cart = ChaordicInfo.cart @cart, current_user
   end
 
   def destroy
@@ -28,7 +29,7 @@ class Cart::CartController < ApplicationController
   end
 
   def find_suggested_product
-    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
+    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
     products = Product.find ids
     products.shuffle.first if products
   end

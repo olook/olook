@@ -16,7 +16,7 @@ describe CartService do
   let(:cart_service) { CartService.new({
     :cart => cart
   }) }
-  
+
   context "#allow_credit_payment?" do
     it "dont allow credit_payment when a promotion exists" do
       cart_service = CartService.new({ cart: cart, promotion: promotion })
@@ -680,7 +680,7 @@ describe CartService do
         order.amount_discount.should eq(0.1)
         order.subtotal.should eq(0.1)
       end
-      
+
     end
   end
 end

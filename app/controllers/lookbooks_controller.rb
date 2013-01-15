@@ -11,6 +11,7 @@ class LookbooksController < ApplicationController
     @lookbooks = Lookbook.active.all
     @url = request.protocol + request.host
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+    @chaordic_user = ChaordicInfo.user current_user
   end
 
   def show
