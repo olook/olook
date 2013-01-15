@@ -1,0 +1,48 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<fieldset class="<%= "facebook" if @signup_with_facebook %>">
+  <%= f.label :first_name, "Nome" %>
+  <%= f.text_field :first_name, class: "first_name" %>
+</fieldset>  
+<fieldset>
+  <%= f.label :last_name, "Sobrenome" %>
+  <%= f.text_field :last_name, class: "last_name" %>
+</fieldset>  
+<fieldset>
+  <%= f.label :email, "E-mail"%>
+  <%= f.email_field :email, class: "email"  %>
+</fieldset>  
+<fieldset>  
+  <%= f.label :password, "Senha" %>
+  <%= f.password_field :password, class: "pass" %>
+</fieldset>  
+<fieldset>    
+  <%= f.label :password_confirmation, "Confirmar senha" %>
+  <%= f.password_field :password_confirmation, class: "pass" %>
+</fieldset>  
+<fieldset class="gender_fields">      
+  <%= f.label :gender, "Sexo" %>
+  <%= f.select(:gender, options_for_select({"Selecione" => "", "Feminino" => "0", "Masculino" => "1"})) %>
+  <span class="custom_select">&nbsp;</span>
+</fieldset>  
+<fieldset>    
+  <%= f.label :birthday, "Data de Nascimento" %>
+  <%= f.text_field :birthday, class: "nasc" %>
+</fieldset>  
+<fieldset>
+  <%= f.label :cpf, "CPF" %>
+  <%= f.text_field :cpf, class: "cpf" %>
+  <p class="info-cpf">Para as compras é necessário<br />informar o CPF</p>
+  <p class="terms">Concluindo o cadastro você aceita os <%= link_to 'Termos e Condições', terms_path, :target => "_blank" %> e a<br />
+     nossa <%= link_to "Política de Privacidade", privacy_path, :target => "_blank" %> </p>
+</fieldset>  
+<fieldset>
+  <%= f.submit "Cadastrar", :id => "register" %>  
+</fieldset>

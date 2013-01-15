@@ -1,3 +1,29 @@
+<% if @cart && @cart.items.any? %>
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "section/login_register" %>
+  <% end %>
+
+  <div class="form_register">
+    <p class="title-box">CADASTRO OLOOK<br /><span>Queremos saber mais sobre você.</span></p>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+      <% render :partial => "form_fields", :locals => {:f => f, :resource => resource } %>
+    <% end %>
+  </div>
+
+  <div class="cart" style="height:325px;margin-bottom:36px;">
+    SACOLA
+  </div>
+  <div class="signup">
+    <p class="title-box">JÁ TEM CADASTRO?<br/><%= link_to "Então é só entrar", checkout_login_index_path %></p>
+  </div>
+<% else %>
+  <div id="box_title_my_account">
+    <div class="content">
+      <h1>Minha conta</h1>
+      <h2>Edite suas informações pessoais, altere ou adicione endereços, melhore sua vitrine e acompanhe seus pedidos</h2>
+    </div>
+  </div>
+  
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/my_account" %>
   <% end %>
@@ -78,3 +104,4 @@
       <% end %>
     </div>
   </div>
+<% end %>
