@@ -25,6 +25,7 @@ describe HomeController do
       end
 
       it "assigning @profile with visit_banner of the current @user" do
+        pending
         get 'index', sharing_params
         assigns(:profile).should eq(profile)
       end
