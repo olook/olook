@@ -83,7 +83,7 @@ describe Checkout::AddressesController do
 
     it "should redirect to new if the user dont have an address" do
       get :index
-      response.should redirect_to(new_cart_checkout_address_path)
+      response.should redirect_to(new_checkout_address_path)
     end
   end
 
@@ -137,7 +137,7 @@ describe Checkout::AddressesController do
 
     it "should redirect to addresses" do
       delete :destroy, :id => address.id
-      response.should redirect_to(cart_checkout_addresses_path)
+      response.should redirect_to(checkout_addresses_path)
     end
   end
 

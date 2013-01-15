@@ -7,8 +7,8 @@
       <li><%= "#{address.street}, #{address.number}" %></li>
       <li><%= "#{address.neighborhood} - #{address.zip_code}" %></li>
       <li><%= "#{address.city}, #{address.state}" %></li>
-      <li><%= link_to "Alterar endereço", edit_cart_checkout_address_path(address), remote: true %></li>
+      <li><%= link_to "Alterar endereço", edit_checkout_address_path(address), remote: true %></li>
     </ul>
   <% end %>
 <% end %>
-<p class="new_address"><%= link_to "+ Adicionar novo endereço", new_cart_checkout_address_path, remote: true %></p>
+<p class="new_address"><%= link_to "+ Adicionar novo endereço", new_checkout_address_path, remote: true %></p>
