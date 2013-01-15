@@ -13,7 +13,7 @@
   <fieldset>
     <ol class="<%= "facebook" if @signup_with_facebook %>">
       <li>
-        <%= f.label :first_name, "Primeiro nome" %>
+        <%= f.label :first_name, "Nome" %>
         <%= f.text_field :first_name %>
       </li>
 
@@ -22,7 +22,7 @@
         <%= f.text_field :last_name %>
       </li>
       <li>
-        <%= f.label :email, "Email" %>
+        <%= f.label :email, "E-mail" %>
         <%= f.email_field :email %>
       </li>
     </ol>
