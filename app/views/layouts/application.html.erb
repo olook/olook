@@ -27,7 +27,7 @@
     <% unless ["development", "test"].include? Rails.env %>
       <%= render "shared/metrics/vwo/tracking_code" %>
     <% end %>
-    
+
     <script>
       (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -58,11 +58,7 @@
     <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
-    
-    <% if ["product"].include?(params[:controller]) %>
-      <%= render :partial => "shippings/shipping" %>
-      <%= javascript_include_tag "shipping" %>  
-    <% end %>
+
     </div>
 
     <% if user_signed_in? %>
@@ -70,7 +66,7 @@
     <% else %>
       <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal %>
     <% end %>
-    
+
 
   <%= yield :site_footer %>
   <%= render "shared/lightbox_credits" %>
