@@ -1,0 +1,9 @@
+
+<div class="login">
+  <p>Já tenho cadastro</p>
+<%= render "users/sessions/form_user" %>
+</div>
+
+<div class="register">
+  <%= render 'users/registrations/form_half', :resource => User.new(:half_user => true), :resource_name => :user %>
+</div>  
