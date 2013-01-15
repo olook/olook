@@ -136,3 +136,6 @@ $johnston: johnston, arial, sans-serif;
 	background:image-url("/assets/new_checkout/sprite.png") no-repeat $left $top;
 }
 
+@mixin sprite_login($left, $top){
+	background:image-url("/assets/login/sprite.png") no-repeat $left $top;
+}

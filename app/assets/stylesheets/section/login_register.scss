@@ -1,0 +1,48 @@
+@import 'partials/mixins';
+
+.title-box{font-family:$avenir;font-size:18px;color:#000;line-height:18px;margin-bottom:30px;
+	span{font-size:14px;color:#6D6E71;}
+	a{font-size:14px;color:#DC4877;}
+}
+
+.login{float:left;width:347px;
+	fieldset{margin-bottom:13px;
+		label{display:block;font-size:14px;margin-bottom:3px;}
+		input.fields{width:232px;height:30px;padding-left:3px;border:solid 1px #C3C3C3;}
+		&.buttons{
+			label{display:inline;font-size:12px;}
+			a{color:#6D6E71;font-size:12px;margin-left:8px;}
+			#login{width:122px;height:47px;@include sprite_login(-208px, 0);border:0;font-size:0;font-family:a;margin-top:20px;cursor:pointer;}
+		}
+	}
+
+	.login_with_facebook{
+		margin-top:15px;border-top:solid 1px #D9D9D9;padding-top:18px;width:240px;
+		a{display:block;font-size:0;font-family:a;width:240px;height:37px;@include sprite_login(-124px, -52px)}
+	}
+}
+
+.register{float:left;width:305px;
+	a{display:block;font-size:0;font-family:a;width:206px;height:52px;@include sprite_login(0, 0)}
+}
+.form_register{float:left;width:357px;margin-right:167px;
+	fieldset{margin:0 20px 13px 0;float:left;
+		&.gender_fields{position:relative;}
+		label{display:block;font-size:14px;margin-bottom:3px;}
+		input{height:30px;padding-left:3px;border:solid 1px #C3C3C3;
+			&.first_name, &.last_name{width:152px;}
+			&.email{width:329px;}
+			&.pass{width:152px;}
+			&.nasc{width:152px;}
+			&.cpf{width:152px;float:left;}
+		}
+		select{width:151px;/*opacity:0;filter: alpha(opacity=0);position:relative;z-index:2;*/}
+		/*.custom_select{position:absolute;display:block;width:165px;height:39px;@include sprite_login(0, -102px);z-index:1;}*/
+		.info-cpf{font-size:11px;float:left;line-height:16px;margin-left:17px;}
+		.terms{clear:both;float:left;font-size:12px;margin-top:15px;
+			a{font-size:12px;color:#DC4877;}
+		}
+		#register{width:123px;height:50px;font-size:0;border:0;font-family:a;@include sprite_login(0, -52px);margin-top:10px;}
+	}
+}
+
