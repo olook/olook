@@ -28,6 +28,71 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#track_add_to_cart_event" do  
+    let(:product_id) { '1' }
+
+    it "returns a track event string with Shopping, AddToCart + referer sufix and product_id" do
+      controller.request.stub(:referer).and_return('/member/vitrine')
+      helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromVitrine', '1']);"
+    end
+
+    context 'when coming from Minha Vitrine' do
+      it "returns a track event AddToCartFromVitrine" do
+        controller.request.stub(:referer).and_return('/member/vitrine')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromVitrine', '1']);"
+      end
+    end
+
+    context 'when coming from Tendências' do
+      it "returns a track event AddToCartFromTendencias" do
+        controller.request.stub(:referer).and_return('/tendencias')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromTendencias', '1']);"
+      end
+    end
+
+    context 'when coming from Coleções' do
+      it "returns a track event AddToCartFromColecoes" do
+        controller.request.stub(:referer).and_return('/colecoes')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromColecoes', '1']);"
+      end
+    end
+
+    context 'when coming from Sapatos' do
+      it "returns a track event AddToCartFromBolsas" do
+        controller.request.stub(:referer).and_return('/bolsas')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromBolsas', '1']);"
+      end
+    end
+
+    context 'when coming from Acessórios' do
+      it "returns a track event AddToCartFromAcessorios" do
+        controller.request.stub(:referer).and_return('/acessorios')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromAcessorios', '1']);"
+      end
+    end
+
+    context 'when coming from Óculos' do
+      it "returns a track event AddToCartFromOculos" do
+        controller.request.stub(:referer).and_return('/oculos')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromOculos', '1']);"
+      end
+    end
+
+    context 'when coming from Stylists' do
+      it "returns a track event AddToCartFromStylists" do
+        controller.request.stub(:referer).and_return('/stylists')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCartFromStylists', '1']);"
+      end
+    end
+
+    context 'when no matching referer' do
+      it "returns a track event AddToCart with no suffix" do
+        controller.request.stub(:referer).and_return('/whatever')
+        helper.track_add_to_cart_event(product_id).should == "_gaq.push(['_trackEvent', 'Shopping', 'AddToCart', '1']);"
+      end
+    end
+  end
+
   describe "#user_avatar" do
     it "return the suer avatar given a type" do
       user = stub(:uid => 123)
