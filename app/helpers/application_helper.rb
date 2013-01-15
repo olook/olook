@@ -87,5 +87,18 @@ module ApplicationHelper
                               onchange: "changeCartItemQty('#{item.id}')")
     end
   end
-    
+
+  def section_name section
+    case
+    when section == 1
+      'Sapatos'
+    when section == 2
+      'Bolsas'
+    when section == 3
+      'Acessórios'
+    else
+      'Coleções'
+    end
+  end
+
 end

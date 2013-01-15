@@ -1,5 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
+  <meta name="chaordic:source" content="cart">
+  <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
 <% end %>
 <% content_for :ecommerce_tracking do %>
 <script type="text/javascript">
@@ -38,7 +40,7 @@ _gaq.push(['_addTrans',
       <p>Promo leve 3, pague 2<br />
         <span>Na compra de 2 itens, o 3° item de menor valor é grátis</span>
       </p>
-    </div>  
+    </div>
   <%end%>
 
   <%  if @cart.items.count > 0 %>
@@ -47,8 +49,8 @@ _gaq.push(['_addTrans',
     <% else %>
         <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
     <% end %>
-  <% end %>  
-  
+  <% end %>
+
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
       <%= image_tag("/assets/cart/banner_discount2.jpg", :class => "img-alert") %>
@@ -63,12 +65,11 @@ _gaq.push(['_addTrans',
       <li class="amount">Quantidade</li>
       <li class="value">Subtotal</li>
     </ul>
-    
+
     <% if free_item_promotion_is_active? %>
       <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
     <% end %>
 
-    
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
         <% @cart.items.each do |item| %>
@@ -223,7 +224,7 @@ _gaq.push(['_addTrans',
                     </td>
                   </tr>
                 </tbody>
-              </table>  
+              </table>
           </td>
           <td class="value">
             <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>

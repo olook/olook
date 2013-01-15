@@ -1,3 +1,33 @@
+// Luhn algorithm validator, by Avraham Plotnitzky.
+var LuhnCheck = (function()
+{
+	var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
+	return function(str)
+	{
+		var counter = 0;
+		var incNum;
+		var odd = false;
+		var temp = String(str).replace(/[^\d]/g, "");
+		if ( temp.length == 0)
+			return false;
+		for (var i = temp.length-1; i >= 0; --i)
+		{
+			incNum = parseInt(temp.charAt(i), 10);
+			counter += (odd = !odd)? incNum : luhnArr[incNum];
+		}
+		if ((counter%10 == 0) === false){
+			$(".credit_card_number .span-error").text('').text('Número de cartão inválido');
+			$(".credit_card_number input").addClass("credit-error");
+			$("input.finish").attr('disabled','disabled')
+		}else{
+			$(".credit_card_number .span-error").text('');
+			$(".credit_card_number input").removeClass("credit-error");
+			$("input.finish").removeAttr('disabled')
+		}
+		
+	}
+})();
+
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
@@ -261,10 +291,26 @@ $(document).ready(function() {
   $("input:text.date").setMask({
     mask: '99/19/9999'
   });
-
-  $("input:text.credit_card").setMask({
-    mask: '9999999999999999'
-  });
+	
+	// VALIDATION EXCEPTION - HIPERCARD
+	$("#credit_card_bank_Hipercard").click(function(){
+		if($("input:text.credit_card").hasClass("credit-error")){
+			$("input:text.credit_card").removeClass("credit-error");
+			$(".credit_card_number .span-error").text('');
+		}
+	})
+	
+  $("input:text.credit_card")
+		.focusout(function(){
+			val = $(this).val();
+			hipercard = $("#credit_card_bank_Hipercard").is(":checked");
+			if(!hipercard){
+				LuhnCheck(val);
+			}
+		})
+		.setMask({
+    	mask: '9999999999999999999'
+  	});
 
   $("fieldset.banks ol li input[type='radio']").change(function() {
     var flag = $(this).val();

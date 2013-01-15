@@ -2,11 +2,11 @@
 module MarketingReports
   class Builder
 
-    ACTIONS = [:userbase, 
-               :userbase_with_auth_token, 
-               :userbase_with_credits, 
-               :userbase_with_auth_token_and_credits, 
-               :in_cart_mail, 
+    ACTIONS = [:userbase,
+               :userbase_with_auth_token,
+               :userbase_with_credits,
+               :userbase_with_auth_token_and_credits,
+               :in_cart_mail,
                :line_items_report,
                :campaign_emails]
 
@@ -20,7 +20,7 @@ module MarketingReports
     def save_file(filename = "untitled.csv", info_ftp = nil)
       FileUploader.new(filename, @csv).save_local_file
       FileUploader.copy_file(filename)
-      FtpUploader.new(filename, info_ftp).upload_to_ftp if info_ftp && Rails.env.production? 
+      FtpUploader.new(filename, info_ftp).upload_to_ftp if info_ftp && Rails.env.production?
     end
 
     def generate_userbase
@@ -125,9 +125,9 @@ group by uc.user_id, ct.code
     end
 
     def generate_in_cart_mail
-      conditions = UserNotifier.get_carts( 
-        Setting.in_cart_mail_how_long.to_i, 
-        Setting.in_cart_mail_range.to_i, 
+      conditions = UserNotifier.get_carts(
+        Setting.in_cart_mail_how_long.to_i,
+        Setting.in_cart_mail_range.to_i,
         [Setting.in_cart_mail_condition])
 
       file_lines = UserNotifier.send_in_cart( conditions.join(" AND ") )
@@ -147,8 +147,8 @@ group by uc.user_id, ct.code
       bounces = bounced_list
       @csv = CSV.generate do |csv|
         csv << [ 'email' ]
-        CampaignEmail.find_each do |c|
-          unless bounces.include?(c.email) 
+        CampaignEmail.uncoverted_users.find_each do |c|
+          unless bounces.include?(c.email)
             csv << [ c.email ]
           end
         end
@@ -166,16 +166,16 @@ group by uc.user_id, ct.code
     private
 
     def convert_to_iso(file_lines=[])
-      file_lines.map do | line |  
+      file_lines.map do | line |
         begin
           line.force_encoding("ISO-8859-1").encode("ISO-8859-1")
-        rescue 
+        rescue
           Rails.logger.info("Conversion error #{line}")
           ""
         end
       end
     end
-      
+
     def emails(data)
       data.map { |item| item["email"] }
     end
