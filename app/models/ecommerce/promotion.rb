@@ -16,9 +16,39 @@ class Promotion < ActiveRecord::Base
 
   def apply cart
     promotion_action.apply cart, self.action_parameter.action_params
+    Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
   end
 
   def simulate cart
     promotion_action.simulate cart, self.action_parameter.action_params
   end
+
+  def self.matched_promotions_for cart
+    promotions = []
+    active_and_not_expired(Date.today).each do |promotion|
+      matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
+        match_result &&= rule.matches?(cart.user)
+      end
+      promotions << promotion if matched_all_rules
+    end
+    promotions
+  end
+
+  def self.best_promotion_for(cart, promotions_to_apply = [])
+    if cart.items.any? && promotions_to_apply.any?
+      best_promotion = calculate(promotions_to_apply, cart).sort_by { |key, value| value }.last
+      best_promotion[:total_discount] >= cart.total_coupon_discount ? best_promotion[:promotion] : nil
+    end
+  end
+
+  private
+
+  def self.calculate(promotions_to_apply, cart)
+    promotions = []
+    promotions_to_apply.map do |promotion|
+      promotions << {promotion: promotion, total_discount: promotion.simulate(cart).map {|item| item[:adjust] }.reduce(:+)}
+    end
+    promotions
+  end
+
 end
