@@ -7,7 +7,7 @@ class Checkout::LoginController < ApplicationController
 
   def new
     data = session["devise.facebook_data"]["extra"]["raw_info"] if session["devise.facebook_data"]
-    data ||= []
+    data ||= {}
     @resource_user = User.new({
       first_name: data["first_name"],
       last_name: data["last_name"],
