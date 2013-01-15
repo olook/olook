@@ -28,11 +28,7 @@ class ProductPresenter < BasePresenter
   def render_add_to_cart
     return '' if only_view?
 
-    if gift?
-      h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
-    else
-        h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
-    end
+    h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
   end
 
   def render_details

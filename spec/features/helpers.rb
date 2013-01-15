@@ -26,11 +26,11 @@ def answer_survey
   build_survey
   visit root_path
   click_link "Comece aqui. É grátis!"
-  choose "questions[question_#{Question.first.id}]"
+  all("input[type=radio][name='questions[question_#{Question.first.id}]']").first.set(true)
   select('10', :from => 'day')
   select('Setembro', :from => 'month')
   select('1900', :from => 'year')
-  click_button "finish"
+  find("input#finish").click
 end
 
 def build_survey
