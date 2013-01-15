@@ -87,4 +87,5 @@ module ApplicationHelper
                               onchange: "changeCartItemQty('#{item.id}')")
     end
   end
+    
 end
