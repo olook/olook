@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :action_parameter do
-    action_params "0.2"
+    action_params "20"
   end
 end
