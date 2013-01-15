@@ -1,31 +1,17 @@
 <%= form_for(:user, :as => :user, :url => session_path(:user)) do |f| %>
-  <fieldset class="inputs">
-    <ol>
-      <li>
-        <%= f.label "E-mail" %>
-        <%= f.email_field :email %>
-      </li>
-
-      <li>
-        <%= f.label "Senha" %>
-        <%= f.password_field :password %>
-      </li>
-    </ol>
+  <fieldset>
+    <%= f.label :email, "E-mail" %>
+    <%= f.email_field :email, class: "fields" %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :password, "Senha" %>
+    <%= f.password_field :password, class: "fields" %>
   </fieldset>
 
   <fieldset class='buttons'>
-    <ol>
-      <li class="remember-me">
-        <%= f.check_box :remember_me, :id => "user_remember_me_login", :checked => true %> <%= f.label :remember_me_login, "Lembrar de mim" %>
-      </li>
-
-      <li class="forgot-password">
-        <%= link_to "Esqueceu sua senha?", new_password_path(:user) %>
-      </li>
-      <li>
-        <%= f.submit "ENTRAR", :id => "login" %>
-      </li>
-    </ol>
+    <%= f.check_box :remember_me, :id => "user_remember_me_login", :checked => true %> <%= f.label :remember_me_login, "Lembrar de mim" %>
+    <%= link_to "Esqueceu sua senha?", new_password_path(:user) %>
+    <%= f.submit "ENTRAR", :id => "login" %>
   </fieldset>
 <% end %>
 <div class="login_with_facebook">
