@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class Checkout::CartController < Checkout::BaseController
+class Cart::CartController < ApplicationController
   layout "site"
 
   respond_to :html, :js
@@ -16,7 +16,7 @@ class Checkout::CartController < Checkout::BaseController
 
   def destroy
     @cart.destroy
-    clean_cart!
+    session[:cart_id] = nil
     redirect_to cart_path, notice: "Sua sacola está vazia"
   end
 

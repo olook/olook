@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Checkout::CartController do
+describe Cart::CartController do
   let(:cart) { FactoryGirl.create(:clean_cart) }
   let(:user) { FactoryGirl.create(:user) }
   let(:basic_bag) { FactoryGirl.create(:basic_bag_simple) }
