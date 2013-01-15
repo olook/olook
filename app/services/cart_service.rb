@@ -3,7 +3,7 @@ class CartService
   attr_accessor :cart
   attr_accessor :freight
 
-  delegate :allow_credit_payment?, :to => :cart   
+  delegate :allow_credit_payment?, :to => :cart
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
 
   def self.gift_wrap_price
@@ -94,7 +94,8 @@ class CartService
   def total_discount
     legacy_discount = calculate_discounts.fetch(:total_discount)
     # check all possible discounts, and get the greater
-    [legacy_discount, cart.total_promotion_discount, cart.total_coupon_discount].max
+    #[legacy_discount, cart.total_promotion_discount, cart.total_coupon_discount].max
+    [legacy_discount, cart.total_coupon_discount].max
   end
 
   def is_minimum_payment?
