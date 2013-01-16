@@ -17,7 +17,7 @@ $("#cart_items").hide().delay(200).text('<%= @cart.items_total %>').fadeIn();
 $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
 
 //remove item row
-$('tr#product_<%= @product_id %>').fadeOut();
+$('tr#item_<%= @item.id %>').fadeOut();
 
 //update total cart/order value
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
