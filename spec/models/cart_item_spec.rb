@@ -98,7 +98,7 @@ describe CartItem do
         cart_item.should_apply?(BigDecimal("10")).should be_true
       end
 
-      it "returns false if liquidation discount is not greater that adjust" do
+      it "returns false if liquidation discount is greater that adjust" do
         cart_item.should_receive(:liquidation?).twice.and_return(true)
         cart_item.should_receive(:price).and_return(BigDecimal("100"))
         cart_item.should_receive(:retail_price).and_return(BigDecimal("80"))
