@@ -9,6 +9,7 @@ class CartItem < ActiveRecord::Base
   delegate :description, :to => :variant, :prefix => false
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
+  delegate :liquidation?, :to => :product
 
   after_create :create_adjustment, :notify
   after_update :notify
@@ -20,7 +21,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def price
-    variant.product.price
+    liquidation? ? LiquidationProductService.liquidation_product(product).original_price : product.price
   end
 
   def retail_price
@@ -44,7 +45,12 @@ class CartItem < ActiveRecord::Base
     adjustment_value > 0
   end
 
+  def should_apply?(adjust)
+    without_liquidation? || is_adjust_greater?(adjust)
+  end
+
   private
+
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
     end
@@ -55,6 +61,14 @@ class CartItem < ActiveRecord::Base
 
     def notify
       PromotionListener.update(self.cart)
+    end
+
+    def without_liquidation?
+      !liquidation?
+    end
+
+    def is_adjust_greater?(adjust)
+      liquidation? && (price - retail_price) < adjust
     end
 end
 

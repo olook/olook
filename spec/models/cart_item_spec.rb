@@ -25,7 +25,7 @@ describe CartItem do
   describe "#price" do
     context "cart_item with adjustment" do
       it "returns price" do
-        cart_item.variant.product.stub(:price).and_return(BigDecimal("100.00"))
+        cart_item.product.stub(:price).and_return(BigDecimal("100.00"))
         cart_item.price.to_s.should eq("100.0")
       end
     end
@@ -40,15 +40,15 @@ describe CartItem do
 
     context "cart_item without adjustment" do
       it "returns full price" do
-        cart_item.variant.product.master_variant.update_attribute(:retail_price, "100.00")
+        cart_item.product.master_variant.update_attribute(:retail_price, "100.00")
         cart_item.retail_price.to_s.should eq("100.0")
       end
     end
 
     context "cart_item with adjustment" do
       it "returns value calculated" do
-        cart_item.variant.product.stub(:price).and_return(BigDecimal("59.99"))
-        cart_item.variant.product.stub(:retail_price).and_return(BigDecimal("0"))
+        cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
+        cart_item.product.stub(:retail_price).and_return(BigDecimal("0"))
         cart_item.stub(:adjustment_value).and_return(BigDecimal("9.99"))
         cart_item.retail_price.to_s.should eq("50.0")
       end
@@ -81,5 +81,29 @@ describe CartItem do
 
   describe "#adjustment_value" do
     it {should respond_to :adjustment_value}
+  end
+
+  describe "#should_apply?" do
+    context "when cart item has no liquidation" do
+      it "returns true" do
+        cart_item.should_apply?(BigDecimal("100")).should be_true
+      end
+    end
+
+    context "when cart item has liquidation" do
+      it "returns true if adjust is greater that liquidation discount" do
+        cart_item.should_receive(:liquidation?).twice.and_return(true)
+        cart_item.should_receive(:price).and_return(BigDecimal("100"))
+        cart_item.should_receive(:retail_price).and_return(BigDecimal("95"))
+        cart_item.should_apply?(BigDecimal("10")).should be_true
+      end
+
+      it "returns false if liquidation discount is greater that adjust" do
+        cart_item.should_receive(:liquidation?).twice.and_return(true)
+        cart_item.should_receive(:price).and_return(BigDecimal("100"))
+        cart_item.should_receive(:retail_price).and_return(BigDecimal("80"))
+        cart_item.should_apply?(BigDecimal("10")).should be_false
+      end
+    end
   end
 end
