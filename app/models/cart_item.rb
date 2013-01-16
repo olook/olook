@@ -45,7 +45,12 @@ class CartItem < ActiveRecord::Base
     adjustment_value > 0
   end
 
+  def should_apply?(adjust)
+    without_liquidation? || is_adjust_greater?(adjust)
+  end
+
   private
+
     def suggested_product_quantity
       Setting.quantity_for_sugested_product.to_a
     end
@@ -56,6 +61,14 @@ class CartItem < ActiveRecord::Base
 
     def notify
       PromotionListener.update(self.cart)
+    end
+
+    def without_liquidation?
+      !liquidation?
+    end
+
+    def is_adjust_greater?(adjust)
+      liquidation? && (price - retail_price) < adjust
     end
 end
 
