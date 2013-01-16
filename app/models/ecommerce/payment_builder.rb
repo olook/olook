@@ -81,7 +81,6 @@ class PaymentBuilder
             :total_paid => total_promotion,
             :order => order,
             :user_id => payment.user_id,
-            :discount_percent => cart_service.promotion.discount_percent,
             :cart_id => @cart_service.cart.id)
           promotion_payment.calculate_percentage!
           promotion_payment.deliver!
