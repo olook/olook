@@ -16,16 +16,13 @@ describe Cart do
 
   describe "#sub_total" do
     context "when cart is empty" do
-      it "should have no items" do
-        cart.should have(0).items
-      end
 
-      it "should be 0" do
+      it "returns 0" do
         cart.sub_total.should == 0
       end
     end
 
-    context "when cart has one item" do
+    context "when cart has one item (price = 60, retail_price = 60, quantity = 1)" do
 
       before do
         @cart_item = cart_with_one_item.items.first
@@ -34,35 +31,116 @@ describe Cart do
         @cart_item.stub(:retail_price).and_return(BigDecimal("60"))
       end
 
-      it "should have 1 item" do
-        cart_with_one_item.should have(1).items
-      end
-
-      it "should return item value as sub total" do
-        cart_with_one_item.sub_total.should == @cart_item.price
+      it "returns 60" do
+        cart_with_one_item.sub_total.should == 60
       end
 
     end
   end
 
-  describe "#total_promotion_discount" do
-    pending " TODO more specs "
+  describe "#total_liquidation_discount" do
+    context "when cart has no items" do
+      it "returns 0" do
+        cart.total_liquidation_discount.should == 0
+      end
+    end
 
-    context "cart has no items" do
-      it "should return 0" do
+
+    context "when cart has 1 item (price = 10)" do
+      let(:first_item) {cart_with_one_item.items.first}
+
+      before do
+        first_item.stub(:price => BigDecimal("10"))
+        first_item.stub(:retail_price => BigDecimal("10"))
+      end
+      
+      context "and it is NOT in a liquidation" do
+        it "returns 0" do
+          cart_with_one_item.total_liquidation_discount.should == 0
+        end
+      end
+
+      context "and it IS IN a 30% liquidation" do
+        before do
+          first_item.stub(:retail_price => BigDecimal("7"))
+        end
+
+        it "returns 3" do
+          cart_with_one_item.total_liquidation_discount.should == 3
+        end
+      end
+    end 
+
+    context "when cart has 2 items (item1.price = 100, item2.price = 80)" do
+      let(:cart_2_items) {cart_with_one_item}
+      let(:first_item) {cart_2_items.items.first}
+      let(:second_item) {FactoryGirl.create(:cart_item_2, :cart => cart_2_items)}
+
+      before do
+        cart_2_items.items << second_item
+        first_item.stub(:price => 100)
+        second_item.stub(:price => 80)
+        second_item.stub(:quantity => 1)
+      end
+
+      context "and one is in a 30% liquidation and the another has 20% promotion" do
+        before do
+          first_item.stub(:retail_price => 70)
+          second_item.stub(:adjustment_value => 16)
+        end
+
+        it "returns 30" do 
+          cart_2_items.total_liquidation_discount.should == 30
+        end
+      end
+    end
+
+  end
+
+  describe "#total_promotion_discount" do
+
+    context "when cart has no items" do
+      it "returns 0" do
         cart.total_promotion_discount.should == 0
       end
     end
 
-    context "cart has 1 item" do
+    context "when cart has 1 item with adjustment_value = 10" do
+      let(:first_item) {cart_with_one_item.items.first}
 
       before do
-        cart_with_one_item.items.first.cart_item_adjustment.update_attribute(:value, 10)
+        first_item.stub(:adjustment_value => BigDecimal("10"))
       end
 
-      it "should return item value" do
+      it "returns 10" do
         cart_with_one_item.total_promotion_discount.should == 10
       end
+
+      context "when cart has a second item with adjustment_value = 40" do
+        let(:second_item) {FactoryGirl.create(:cart_item_2, :cart => @cart)}
+
+        before do
+          @cart = cart_with_one_item
+          @cart.items << second_item
+
+          second_item.stub(:adjustment_value => BigDecimal("40"))
+        end
+
+        it "returns 50" do
+          @cart.total_promotion_discount.should == 50
+        end
+
+        context "and second item has quantity = 5 " do
+          before do
+            second_item.stub(:quantity => 5)
+          end
+
+          it "returns 50" do
+            @cart.total_promotion_discount.should == 50
+          end
+        end
+      end
+
     end
   end
 

@@ -17,13 +17,14 @@ class PaymentBuilder
 
 
     ActiveRecord::Base.transaction do
-      total_olooklet = cart_service.total_discount_by_type(:olooklet)
+      total_liquidation = cart_service.cart.total_liquidation_discount
+      total_promotion = cart_service.cart.total_promotion_discount
       total_gift = cart_service.total_discount_by_type(:gift)
       total_coupon = cart_service.total_discount_by_type(:coupon)
-      total_promotion = cart_service.cart.total_promotion_discount
       total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
       total_credits_invite = cart_service.total_discount_by_type(:credits_by_invite)
       total_credits_redeem = cart_service.total_discount_by_type(:credits_by_redeem)
+      
       payment = @gateway_strategy.send_to_gateway
 
       if @gateway_strategy.payment_successful?
@@ -40,9 +41,9 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
-        if total_olooklet > 0
+        if total_liquidation > 0
           olooklet_payment = OlookletPayment.create!(
-            :total_paid => total_olooklet,
+            :total_paid => total_liquidation,
             :order => order,
             :user_id => payment.user_id,
             :cart_id => @cart_service.cart.id)

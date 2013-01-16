@@ -43,9 +43,11 @@ module Parameters
         convert_to value, type
       end
 
-      define_method "#{parameter_name}=".to_sym do |value|
-        eval(params)[:value] = value.to_s
-        eval(params)[:type] = type
+      define_method "#{name}=".to_sym do |value|
+        hash_params = eval(params)
+        hash_params[name][:value] = value.to_s
+        hash_params[name][:type] = type
+        self.params = hash_params.to_s
       end
 
     end

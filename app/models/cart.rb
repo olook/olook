@@ -71,7 +71,15 @@ class Cart < ActiveRecord::Base
 
 
   def total_promotion_discount
-    items.inject(0) { |total, item| total += item.adjustment_value }    
+    items.inject(0) {|sum, item| sum + item.adjustment_value}
+  end
+
+  def total_liquidation_discount
+    items.inject(0) do |sum, item| 
+      # TODO => maybe this rule should be in the cart_item
+      liquidation_discount = item.adjustment_value > 0 ? 0 : item.price - item.retail_price
+      sum + liquidation_discount
+    end
   end
 
   def total_coupon_discount
@@ -88,6 +96,10 @@ class Cart < ActiveRecord::Base
     items.inject(0) { |total, item| total += item.quantity * item.price }
   end
   
+  def sub_total
+    items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
+  end
+
   private
 
     def update_coupon
