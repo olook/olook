@@ -18,10 +18,9 @@ class PercentageAdjustment < PromotionAction
     cart.items.each do |cart_item|
       sub_total = cart_item.quantity * cart_item.price
       adjust = sub_total * BigDecimal("#{percent.to_i / 100.0}")
-      calculated_values << { id: cart_item.id, adjust: adjust }
+      calculated_values << { id: cart_item.id, adjust: adjust } if cart_item.should_apply?(adjust)
     end
     calculated_values
   end
-
 end
 
