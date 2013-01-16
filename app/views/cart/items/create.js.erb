@@ -9,6 +9,9 @@
 
   $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
 
+  // remove top line from 'embrulhar pedido'
+  $('section#cart table.check.gift').css('border-top', 0);
+
 <% else %>
   
   $("#cart_summary").show();
