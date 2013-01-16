@@ -71,7 +71,7 @@ class Cart < ActiveRecord::Base
 
 
   def total_promotion_discount
-    items.inject(0) { |total, item| total += item.adjustment_value }    
+    items.inject(0) { |total, item| total += item.adjustment_value }
   end
 
   def total_coupon_discount
@@ -83,11 +83,15 @@ class Cart < ActiveRecord::Base
       coupon.value
     end
   end
-  
+
   def total_price
     items.inject(0) { |total, item| total += item.quantity * item.price }
   end
-  
+
+  def sub_total
+    items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
+  end
+
   private
 
     def update_coupon
