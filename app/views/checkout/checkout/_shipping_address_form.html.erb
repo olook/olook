@@ -86,11 +86,5 @@
       <span class="freight_value" id="freight_value2">R$ 9,90</span>
     <% end %>
    
-    <%= field_set_tag do %>    
-      <%= address_form.label :last_name, "Sobrenome" %>
-      <%= address_form.text_field :last_name,  class: "sobrenome_dest #{error_class_if_needed(address, :last_name)}" %>
-      <%= errors_for(address, :last_name) %>
-    <% end %>
-    
   </div>  
 <% end %>
