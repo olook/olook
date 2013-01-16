@@ -1,5 +1,5 @@
 <%= form_for(resource, :as => resource_name, :url => create_half_user_path) do |f| %>
 <%= f.hidden_field :half_user, :value => "true" %>
 
-  <%= render :partial => "form_fields", :locals => {:f => f, :resource => resource} %>
+  <%= render :partial => "users/registrations/form_fields", :locals => {:f => f, :resource => resource} %>
 <% end %>
