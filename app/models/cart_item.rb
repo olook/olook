@@ -21,7 +21,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def price
-    variant.product.price
+    liquidation? ? LiquidationProductService.liquidation_product(product).original_price : product.price
   end
 
   def retail_price
