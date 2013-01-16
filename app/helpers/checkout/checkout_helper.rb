@@ -6,7 +6,7 @@ module Checkout::CheckoutHelper
   end
 
   def error_class_if_needed(object, field)
-    object.errors.messages[field] ? "input_error" : ""
+    object.errors.messages[field].empty? ? "" : "input_error"
   end
 
 end
