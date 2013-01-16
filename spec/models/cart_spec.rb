@@ -14,6 +14,37 @@ describe Cart do
   let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
   let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
 
+  describe "#sub_total" do
+    context "when cart is empty" do
+      it "should have no items" do
+        cart.should have(0).items
+      end
+
+      it "should be 0" do
+        cart.sub_total.should == 0
+      end
+    end
+
+    context "when cart has one item" do
+
+      before do
+        @cart_item = cart_with_one_item.items.first
+        @cart_item.stub(:quantity => 1)
+        @cart_item.stub(:price => BigDecimal("60"))
+        @cart_item.stub(:retail_price).and_return(BigDecimal("60"))
+      end
+
+      it "should have 1 item" do
+        cart_with_one_item.should have(1).items
+      end
+
+      it "should return item value as sub total" do
+        cart_with_one_item.sub_total.should == @cart_item.price
+      end
+
+    end
+  end
+
   describe "#total_promotion_discount" do
     pending " TODO more specs "
 
