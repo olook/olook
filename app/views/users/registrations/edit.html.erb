@@ -1,4 +1,4 @@
-<% if @cart && @cart.items.any? %>
+<% if registration_for_checkout? %>
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/login_register" %>
   <% end %>
