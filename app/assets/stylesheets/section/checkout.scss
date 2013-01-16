@@ -1531,7 +1531,7 @@ section.checkout{
 			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;float:left;}
 		}
 		.btn_zipcode{
-			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;
+			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;cursor:pointer;
 		}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
@@ -1595,24 +1595,24 @@ section.checkout{
 					}
 				}
 			}
-			.box-boleto{float:left;
+			.box-boleto{float:left;display:none;
 				p{font-size:13px;margin-top:20px;
 					span{color:#000;}
 				}
 			}
 			
 			.box-debito{
-				float:left;position:relative;
+				float:left;position:relative;display:none;
 				input, label{opacity:0;z-index:1;position:relative;float:left;}
-				.debit_bank_Itau{position:absolute;z-index:2;top:55px;left:0;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;
+				.debit_bank_Itau{position:absolute;z-index:2;top:55px;left:0;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;cursor:pointer;
 					&.selected{@include sprite_checkout(-123px, -459px)}
 				}
 				p{clear:both;}
 			}
 		}
 		#about_credits{
-			float:left;/*position:absolute;*/z-index:100;background:#FFF;width:620px;padding:20px;border:solid 5px #000;
-			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px)}
+			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:-130px 0 0 -310px;
+			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px);cursor:pointer;}
 			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
 			table.check{border:0;
 				p{margin:0;width:620px;

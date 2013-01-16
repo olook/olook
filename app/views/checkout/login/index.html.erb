@@ -11,3 +11,7 @@
   <p class="title-box">QUERO ME CADASTRAR<br /><span>Faça aqui o seu cadastro.</span><br /><span>É rápido e simples.</span></p>
   <%= link_to "Realizar Cadastro", new_half_user_session_path %>
 </div>  
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "checkout" %>
+<% end %>
