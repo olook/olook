@@ -5,6 +5,7 @@ class CartService
 
   delegate :allow_credit_payment?, :to => :cart
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
+  delegate :total_coupon_discount, :to => :cart, :prefix => :cart
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -95,7 +96,7 @@ class CartService
     legacy_discount = calculate_discounts.fetch(:total_discount)
     # check all possible discounts, and get the greater
     #[legacy_discount, cart.total_promotion_discount, cart.total_coupon_discount].max
-    [legacy_discount, cart.total_coupon_discount].max
+    [legacy_discount, cart_total_coupon_discount].max
   end
 
   def is_minimum_payment?
@@ -136,6 +137,7 @@ class CartService
     total = cart.total_price
     total += total_increase
     total -= total_discount
+    total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
@@ -212,11 +214,11 @@ class CartService
     cart.total_coupon_discount > cart_total_promotion_discount
   end
 
-
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.retail_price
+    final_retail_price = item.retail_price 
+    final_retail_price ||= 0
     price = item.price
     discounts = []
     origin_type = ''

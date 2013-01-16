@@ -98,6 +98,7 @@
       <th>Quantidade</th>
       <th>Preço unitário</th>
       <th>Total</th>
+      <th>Desconto</th>
       <th>Créditos de Fidelidade</th>
       <th>Créditos a serem descontados<br/>(em caso de estorno)</th>
       <th></th>
@@ -112,6 +113,7 @@
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
       <td><%= number_to_currency(line_item.total_price) %></td>
+      <td><%= number_to_currency(line_item.price - line_item.retail_price) %></td>
       <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>
       <td><%= number_to_currency(line_item.calculate_available_credits) %></td>
       <td><% if line_item.debits.empty? && !line_item.is_freebie %>
