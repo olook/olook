@@ -15,15 +15,15 @@ class PaymentBuilder
     payment.user_id = cart_service.cart.user.id
     payment.save!
 
+
     ActiveRecord::Base.transaction do
       total_olooklet = cart_service.total_discount_by_type(:olooklet)
       total_gift = cart_service.total_discount_by_type(:gift)
       total_coupon = cart_service.total_discount_by_type(:coupon)
-      total_promotion = cart_service.total_discount_by_type(:promotion)
+      total_promotion = cart_service.cart.total_promotion_discount
       total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
       total_credits_invite = cart_service.total_discount_by_type(:credits_by_invite)
       total_credits_redeem = cart_service.total_discount_by_type(:credits_by_redeem)
-
       payment = @gateway_strategy.send_to_gateway
 
       if @gateway_strategy.payment_successful?
@@ -74,7 +74,6 @@ class PaymentBuilder
           coupon_payment.deliver!
           coupon_payment.authorize!
         end
-
 
         if total_promotion > 0
           promotion_payment = PromotionPayment.create!(
