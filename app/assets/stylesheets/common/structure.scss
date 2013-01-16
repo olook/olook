@@ -118,27 +118,21 @@ body {
     display: block;
     form {
       fieldset {
-
-
-            label {
-              display: block;
-              font-size: 11px;
-              margin: 2px 0;
-            }
-
-            input {
-              background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
-              border: 1px solid #BBB;
-              padding: 6px 8px;
-              width: 92%;
-
-              &:focus {
-                outline: none;
-              }
-            }
-          
-        
-      }
+      	label {
+        	display: block;
+          font-size: 11px;
+          margin: 2px 0;
+        }
+				input {
+        	background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+          border: 1px solid #BBB;
+          padding: 6px 8px;
+          width: 92%;
+          &:focus {
+          	outline: none;
+          }
+       }
+     }
     }
     div#register_login {
       position: absolute;
