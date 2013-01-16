@@ -6,6 +6,8 @@ class CartService
   delegate :allow_credit_payment?, :to => :cart
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
   delegate :total_coupon_discount, :to => :cart, :prefix => :cart
+  delegate :sub_total, :to => :cart, :prefix => :cart
+
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -134,10 +136,10 @@ class CartService
   def total
     # total = subtotal(:retail_price)
 
-    total = cart.total_price
+    total = cart_sub_total
     total += total_increase
     total -= total_discount
-    total -= cart_total_promotion_discount unless should_override_promotion_discount?
+    # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total

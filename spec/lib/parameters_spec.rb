@@ -4,7 +4,6 @@ require 'spec_helper.rb'
 describe Parameters do
   class Dummy
     include Parameters
-
   end
 
   context "when class does not override 'params' method" do
@@ -25,7 +24,7 @@ describe Parameters do
 
     it "should return the right value" do
       d = Dummy.new
-      d.params = {:field_name => {:value => "field_value"}}
+      d.params = "{:field_name => {:value => 'field_value'}}"
       d.field_name.should eq "field_value"
     end
 
@@ -38,7 +37,7 @@ describe Parameters do
 
       before do
         @d = DummyInteger.new
-        @d.params = {:field_name_integer => {:value => "80", :type => :integer}}
+        @d.params = "{:field_name_integer => {:value => '80', :type => :integer}}"
       end
 
       it "should respond_to 'field_name_integer' method" do
@@ -62,7 +61,7 @@ describe Parameters do
 
       before do
         @d = Dummy.new
-        @d.params = {:field_name_decimal => {:value => "80.0", :type => :decimal}}
+        @d.params = "{:field_name_decimal => {:value => \"80.0\", :type => :decimal}}"
       end
 
       it "should respond_to 'field_name_decimal' method" do
@@ -78,19 +77,12 @@ describe Parameters do
       end
 
       context "when changing the value of the field" do
-
         it "should return the updated value" do
           @d.field_name_decimal = 30.45
           @d.field_name_decimal.should eq 30.45
         end
-
       end
 
-
     end
-
-
   end
-
-
 end
