@@ -50,7 +50,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
       sign_in resource_name, resource, :bypass => true
-      render_with_scope :edit
+      after_update_path = after_update_path_for(resource)
+      if after_update_path
+        respond_with resource, :location => after_update_path_for(resource)
+      else
+        render_with_scope :edit
+      end
     else
       clean_up_passwords(resource)
       render_with_scope :edit
@@ -133,6 +138,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       gift_root_path
     else
       member_welcome_path
+    end
+  end
+
+  def after_update_path_for(resource)
+    if @cart && @cart.items_total > 0
+      checkout_cart_path
     end
   end
 
