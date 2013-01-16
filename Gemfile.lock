@@ -329,6 +329,8 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
+    rails-footnotes (3.7.9)
+      rails (>= 3.0.0)
     rails-settings-cached (0.2.4)
       rails (>= 3.0.0)
     railties (3.2.2)
@@ -530,6 +532,7 @@ DEPENDENCIES
   pry
   rails (= 3.2.2)
   rails-erd
+  rails-footnotes (>= 3.7.9)
   rails-settings-cached
   rake (= 0.9.2)
   rb-fchange
