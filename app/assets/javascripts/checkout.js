@@ -9,7 +9,13 @@ function retrieve_zip_data(zip_code) {
     type: 'POST',
     data: {
       zip_code: zip_code
-    }
+    },
+		beforeSend: function(){
+			$("#address_fields").fadeOut();
+		},
+		success: function(){
+			$("#address_fields").delay(300).fadeIn();
+		}
   });
 }
 $(function() {
@@ -49,8 +55,15 @@ $(function() {
 				stopProp(e);
 			}
 	});
-	
+
 	// SHOW PAYMENT TYPE
+	(function showPaymentType(){
+		var payment_type_checked = $(".payment_type input:checked");
+		$(".payment_type").siblings('div').hide();
+		elem=$(payment_type_checked).val();			
+    $("div."+elem).show();
+	})();
+	
 	var payment_type = $(".payment_type input");
 	$.each(payment_type,function(){
 	    $(this).click(function(){
@@ -66,7 +79,6 @@ $(function() {
 		$(this).bind('click',function(){
 			$("ol.cards li span, .box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
 			$(this).addClass("selected").siblings("input").attr('checked','checked');
-			console.log($("ol.cards li input:checked").val())
 		});
 	});
 	

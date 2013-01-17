@@ -5,12 +5,11 @@
     <%= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn", onclick:'retrieve_zip_data($("#checkout_address_zip_code").val());') do %>
       <%= "Encontrar endereço" %>
     <% end %>
+      <%= errors_for(address, :zip_code) %>
   <% end %> 
 
-  <%= errors_for(address, :zip_code) %>
 
-
-  <div id="address_fields" name="address_fields" <%= 'style=display:none;' unless address.id || address.zip_code %>>
+  <div id="address_fields" name="address_fields" <%= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);' unless address.id || address.zip_code %>>
     <%= address_form.hidden_field :id %>
     
     <%= field_set_tag do %>
@@ -75,7 +74,7 @@
   
     <p class="subtitle">OPÇÕES DE FRETE</p>
     <%= field_set_tag do %>
-      <%= radio_button :freight, '', 'normal', class: "frete" %>
+      <%= radio_button :freight, '', 'normal', class: "frete", checked: true %>
       <%= address_form.label :freight, "Entrega normal (3 dias úteis):", class: "frete_label" %>
       <span class="freight_value" id="freight_value1">R$ 5,90</span>
       <p class="freight_text">FRETE GRÁTIS PARA SUL E SUDESTE</p>
