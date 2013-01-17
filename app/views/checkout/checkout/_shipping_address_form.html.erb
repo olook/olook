@@ -1,8 +1,12 @@
+<% if @user.addresses %>
+  <p class="addresses_index"><%= link_to "<- Utilizar um endereço já cadastrado", checkout_addresses_path, remote: true %></p>
+<% end %>
+
 <%= fields_for "checkout[address]", address do |address_form| %>
   <%= field_set_tag do %>
     <%= address_form.label :zip_code, "CEP*" %>
     <%= address_form.text_field :zip_code, class: "zip_code  #{error_class_if_needed(address, :zip_code)}" %>
-    <%= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn", onclick:'retrieve_zip_data($("#checkout_address_zip_code").val());') do %>
+    <%= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn", onclick:'retrieve_zip_data($("#checkout_address_zip_code").val());retrieve_freight_price($("#checkout_address_zip_code").val(),"");') do %>
       <%= "Encontrar endereço" %>
     <% end %>
       <%= errors_for(address, :zip_code) %>
