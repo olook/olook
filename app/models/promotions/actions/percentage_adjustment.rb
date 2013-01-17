@@ -2,6 +2,7 @@
 class PercentageAdjustment < PromotionAction
 
   def apply(cart, percent)
+    cart.update_attributes(coupon_code: nil) if cart.coupon
     calculate(cart, percent).each do |item|
       cart.items.find(item[:id]).cart_item_adjustment.update_attributes(value: item[:adjust])
     end
