@@ -38,6 +38,8 @@
       
   <% end %>
 
+  <div id="freight_price"><%= freight_for(@addresses.first) if @addresses.any? %></div>
+
 </section>
 
 <% content_for :footer do %>

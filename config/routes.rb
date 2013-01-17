@@ -338,8 +338,10 @@ Olook::Application.routes.draw do
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
-
   post "/address_data", :to => "zipcode_lookup#address_data"
+
+  #FREIGHT
+  post "freight_price", :to => "freight_lookup#freight_price"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
