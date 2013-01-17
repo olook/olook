@@ -1,3 +1,6 @@
+- content_for :footer do
+  = track_event('Modal', 'RememberedPage', @campaign_email.id)
+
 .box-continue
   %h3 Lembramos de você!
   %p Você já ganhou 20% de desconto* para usar em sua primeira compra. <br/>Aproveite e escolha o que mais ama na olook.

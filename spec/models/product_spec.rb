@@ -12,7 +12,7 @@ describe Product do
     it { should have_many(:catalog_products) }
     it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
- 
+
     it { should have_and_belong_to_many(:profiles) }
   end
 
@@ -39,7 +39,7 @@ describe Product do
       it "includes a bag" do
         described_class.bags.should include bag
       end
- 
+
       it "does not include other kinds of items" do
         other = [shoe, invisible_shoe, accessory]
         (described_class.bags & other).should be_empty
@@ -68,7 +68,7 @@ describe Product do
       end
     end
 
-    context "xml ouput" do 
+    context "xml ouput" do
 
       describe ".valid_for_xml" do
         it "returns shoes with variants and doesn't return shoes without variants" do
@@ -96,7 +96,7 @@ describe Product do
 
       describe ".valid_criteo_for_xml" do
         it "returns products valid for criteo" do
-          products = [shoe, bag, accessory, shoe_for_xml] 
+          products = [shoe, bag, accessory, shoe_for_xml]
           shoe_for_xml.master_variant.update_attribute(:price, 1.0)
           (described_class.valid_criteo_for_xml([0],[0]) & products).should == [shoe_for_xml]
         end
@@ -517,5 +517,14 @@ describe Product do
         end
       end
     end
+    
+    context "products that aren't shoes" do
+      let(:basic_bag_for_xml) { FactoryGirl.create(:basic_bag) }  
+      
+      it "returns false" do
+        basic_bag_for_xml.shoe_inventory_has_less_than_minimum?.should be_false
+      end
+    end
+
   end
 end

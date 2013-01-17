@@ -31,10 +31,10 @@ function search_delivery_time(cep){
   })
 }
 
-function maxShippingBox(){
-	$("a.maximize").click(function(){
-		$("#box-ship").animate({bottom: '0px'});
-		$(".close-ship").removeClass("max-ship");
+function minShippingBox(){
+	$("a.minimize").click(function(){
+		$("#box-ship").animate({bottom: '-44px'});
+		$(".max-ship").removeClass("close-ship");
 		delCookie("boxShip");
 		$(this).remove();
 	})
@@ -42,10 +42,10 @@ function maxShippingBox(){
 
 function animateBox(){
 	$("#box-ship")
-	.animate({bottom:'-44px'})
-	.append('<a href="javascript:void(0);" class="maximize">Maximizar</a>');
-	$("#box-ship .buttons").addClass("max-ship");
-	maxShippingBox();
+	.animate({bottom:'0px'})
+	.append('<a href="javascript:void(0);" class="minimize">minimizar</a>');
+	$("#box-ship .buttons").addClass("close-ship");
+	minShippingBox();
 }
 
 $(function(){
@@ -65,9 +65,9 @@ $(function(){
 	   setTimeout('search_delivery_time(cep)', 500);
 	 })
 
-	$(".close-ship").click(function(){
+	$(".max-ship").click(function(){
 		animateBox();
-		$(this).addClass("max-ship");
+		$(this).addClass("close-ship");
 		if(lerCookie("boxShip") == null)
 			criaCookie("boxShip","sim");
 	})		
