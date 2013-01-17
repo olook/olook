@@ -1,7 +1,7 @@
-<% @addresses.each do |address| %>
+<% addresses.each do |address| %>
   <%= field_set_tag do %>
     <%= radio_button :address, 'id', address.id, class: "address_recorded", id: "", checked: (address.id == @checkout.address.id), onclick:'retrieve_freight_price("",$("input:radio[name=address[id]]:checked").val());' %>
-    <%= checkout_form.label :address, '', class: "address_label" %>
+    <%= label_tag :address, '', class: "address_label" %>
     <ul class="address_data">
       <li><%= "#{address.first_name} #{address.last_name}" %></li>
       <li><%= "#{address.street}, #{address.number}" %></li>
