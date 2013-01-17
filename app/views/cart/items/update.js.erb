@@ -8,17 +8,17 @@ $("#cart_items").text(<%= @cart.items_total %>);
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
 
 // update item rows' discounts and subtotals
-$("table#products tbody tr#product_<%= @item.product.id %> td.discount").empty();
+$("table#items tbody tr#item_<%= @item.id %> td.discount").empty();
 
-$("table#products tbody tr#product_<%= @item.product.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount', 
+$("table#items tbody tr#item_<%= @item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount', 
 																				locals: { 
 																					cart_service: @cart_service, 
 																					item: @item
 																				} ) %>");
 
-$("table#products tbody tr#product_<%= @item.product.id %> td.value").empty();
+$("table#items tbody tr#item_<%= @item.id %> td.value").empty();
 
-$("table#products tbody tr#product_<%= @item.product.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal', 
+$("table#items tbody tr#item_<%= @item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal', 
 																					locals: { 
 																						cart_service: @cart_service, 
 																						item: @item

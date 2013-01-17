@@ -31,6 +31,7 @@ $(function(){
 			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
 				dontShow();
 			}	
+			_gaq.push(['_trackEvent', 'Modal', 'Close', '']);
 			stopProp(e);
 		}, 
 		keyup: function(e) {
@@ -40,6 +41,7 @@ $(function(){
 			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
 				dontShow();
 			}
+			_gaq.push(['_trackEvent', 'Modal', 'Close', '']);
 			stopProp(e);
 		}		
 	})
