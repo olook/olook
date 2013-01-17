@@ -8,59 +8,89 @@ feature "Handling cart items", %q{
   I want to add or remove items to/from my cart
 } do 
 
-  before(:each) do
+  before(:each) do 
     FakeWeb.register_uri(:any, /facebook/, :body => "")
     FakeWeb.register_uri(:any, /olark/, :body => "")
-
-    Checkout::CartController.any_instance.stub(:find_suggested_product).and_return(nil)
+    FakeWeb.register_uri(:any, /campaign_emails/, :body => "")
   end
 
-  # scenario "Adding an item to the cart", js: true do
-  #   product = FactoryGirl.create(:blue_sliper_with_two_variants)
-  #   product.master_variant.update_attribute(:inventory, 10) 
+  scenario "Adding an item to the cart", js: true do
+    product = FactoryGirl.create(:blue_sliper_with_two_variants)
+    product.master_variant.update_attribute(:inventory, 10) 
 
-  #   visit product_path(product)
-  #   choose("variant_id_#{product.variants.last.id}")
-  #   within("form#product_add_to_cart") do
-  #     find('input[type=submit]').click
-  #   end
-
-  #   sleep(1)
-    
-  #   within('li#cart') do
-  #     find('a.cart').text.should == 'MINHA SACOLA (1)'
-  #   end
-  # end 
-
-  scenario "Removing an item from the cart" do 
-    pending " Oliver, fix the test"
-    cart = FactoryGirl.create(:cart_with_one_item) 
-    #CartController#find_suggested_product was breaking the test
-    Product.stub(:find).with(Setting.checkout_suggested_product_id.to_i).and_return(nil)  
-    
-    # Cart::ItemsController.any_instance.stub(:current_cart).and_return(cart)
-    Checkout::CartController.any_instance.stub(:current_cart).and_return(cart)
-    Checkout::CartController.any_instance.stub(:erase_freight)
-
-    visit "/sacola"
+    visit product_path(product)
     
     within('li#cart') do
-      find('a.cart').text.should == 'Minha Sacola (1)'
+      find('a.cart').text.should == 'MINHA SACOLA (0)'
     end
 
+    choose("variant_id_#{product.variants.last.id}")
+
+    within("form#product_add_to_cart") do
+      find('input[type=submit]').click
+    end
+
+    sleep(1)
+    
+    within('li#cart') do
+      find('a.cart').text.should == 'MINHA SACOLA (1)'
+    end
+  end  
+
+
+  scenario "Removing an item from the cart", js: true do 
+    pending
+    cart = FactoryGirl.create(:cart_with_one_item)  
+    
+    Checkout::CartController.any_instance.stub(:load_cart).and_return(cart)
+    Checkout::CartController.any_instance.stub(:current_cart).and_return(cart)
+    Checkout::CartController.any_instance.stub(:erase_freight)
+    Checkout::CartController.any_instance.stub(:find_suggested_product)
+    Checkout::CartController.any_instance.stub(:load_coupon)
+    Checkout::CartController.any_instance.stub(:current_referer)
+
+    visit "/sacola" 
+    
+    within('li#cart') do
+      find('a.cart').text.should == 'MINHA SACOLA (1)'
+    end
 
     within('form#remove_item_form_1') do
       find('input[type=submit]').click
     end
     # save_and_open_page
 
-    sleep(1)
-
-    page.content.should contain('Produto excluído com sucesso')
+    sleep(1)  
 
     within('li#cart') do
-      find('a.cart').text.should == 'Minha Sacola (0)' 
+      find('a.cart').text.should == 'MINHA SACOLA (0)' 
     end
+  end
+
+  scenario "Updating an item's quantity", js: true do
+    pending
+    cart = FactoryGirl.create(:cart_with_one_item) 
+    
+    Checkout::CartController.any_instance.stub(:current_cart).and_return(cart)
+    Checkout::CartController.any_instance.stub(:erase_freight)
+    Checkout::CartController.any_instance.stub(:find_suggested_product)
+
+    visit "/sacola"
+
+    within('li#cart') do
+      find('a.cart').text.should == 'MINHA SACOLA (1)'
+    end
+
+    within("form#change_amount_#{cart.items.first.id}") do
+      select('2')
+    end
+
+    sleep(1)
+
+    within('li#cart') do
+      find('a.cart').text.should == 'MINHA SACOLA (2)' 
+    end
+
   end
 
 end

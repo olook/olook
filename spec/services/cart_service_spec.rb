@@ -17,7 +17,7 @@ describe CartService do
     :cart => cart,
     :freight => freight,
   }) }
-  
+
   context "#allow_credit_payment?" do
 
     it "should delegate to cart when no promotion exists" do
@@ -609,7 +609,7 @@ describe CartService do
         order.amount_discount.should eq(0.1)
         order.subtotal.should eq(0.1)
       end
-      
+
     end
   end
 end

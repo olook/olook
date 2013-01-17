@@ -310,7 +310,7 @@ context "in the ilove_ecommerce xml page" do
       <title>#{product.subcategory} #{product.name}</title>
       <description>#{product.description}</description>
       <g:google_product_category>Vestuário e acessórios &gt; Sapatos</g:google_product_category>
-      <g:product_type>#{product.category_humanize}</g:product_type>
+      <g:product_type>#{product.subcategory}</g:product_type>
       <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=merchant&amp;utm_source=google</link>
       <g:image_link/>
       <g:additional_image_link/>
