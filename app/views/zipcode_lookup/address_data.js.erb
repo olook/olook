@@ -2,3 +2,4 @@ $("#checkout_address").html("<%= escape_javascript(
      render partial: 'checkout/checkout/shipping_address_form', 
      locals: { address: @address } ) %>");
 $("#address_fields").show();
+$("#freight_price").html("<%= @freight_price %>");
