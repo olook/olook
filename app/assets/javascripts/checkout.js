@@ -3,6 +3,38 @@ function stopProp(e) {
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 }
+function maskTel(tel){
+	ddd  = $(tel).val().substring(1, 3);
+	dig9 = $(tel).val().substring(5, 6);
+	if(ddd == "11" && dig9 == "9")
+		$(tel).setMask("(99) 99999-9999");
+  else
+    $(tel).setMask("(99) 9999-9999");	  
+	
+	
+}
+var masks = {
+	cep: function(){
+		$("input.zip_code").setMask({
+		  mask: '99999-999'
+		});
+	},
+	tel: function(tel){
+		$(tel).keyup(function(){
+			maskTel(tel);
+		}).focus(function(){
+		    $(tel).unsetMask();
+		}).focusout(function() {
+			maskTel(tel);
+		});
+	},
+	card: function(){
+		$("input.credit_card_number").setMask('9999999999999999999')
+	}	
+}
+
+
+
 function retrieve_zip_data(zip_code) {
   $.ajax({
     url: '/address_data',
@@ -15,10 +47,15 @@ function retrieve_zip_data(zip_code) {
 		},
 		success: function(){
 			$("#address_fields").delay(300).fadeIn();
+			masks.tel(".tel_contato1");
+			masks.tel(".tel_contato2");
+			masks.cep();
 		}
   });
 }
 $(function() {
+	masks.card();
+	
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $.ajax({
       url: '/sacola',
