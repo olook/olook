@@ -1,3 +1,7 @@
+<% if @user.addresses %>
+  <p class="addresses_index"><%= link_to "<- Utilizar um endereço já cadastrado", checkout_addresses_path, remote: true %></p>
+<% end %>
+
 <%= fields_for "checkout[address]", address do |address_form| %>
   <%= field_set_tag do %>
     <%= address_form.label :zip_code, "CEP*" %>
