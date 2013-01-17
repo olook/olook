@@ -1501,6 +1501,9 @@ section.checkout{
 	}
 	
 	form.new_checkout{
+		div#checkout_address{float:left;
+				div#address_fields{float:left;}
+		}
 		fieldset{float:left;margin:0 10px 17px 0;position:relative;
 			&.fieldset_validate{float:right;margin-right:22px;}
 		}
@@ -1510,7 +1513,7 @@ section.checkout{
 			&.frete_label{display:inline;}
 		}
 		
-		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:53px;left:0;}
+		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:55px;left:0;}
 		
 		input{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
@@ -1533,9 +1536,6 @@ section.checkout{
 			&.expiration_date{width:107px;}
 			
 			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;float:left;}
-		}
-		div#checkout_address{float:left;
-			#address_fields{float:left;}
 		}
 		.btn_zipcode{
 			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;cursor:pointer;
