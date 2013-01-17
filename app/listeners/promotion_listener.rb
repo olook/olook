@@ -5,7 +5,7 @@ class PromotionListener
     reset_adjustments_for cart
     promotions_to_apply = Promotion.matched_promotions_for cart
     promotion = Promotion.best_promotion_for(cart, promotions_to_apply)
-    promotion.apply(cart) if promotion
+    promotion.apply(cart) if promotion && promotion.should_apply_for?(cart)
   end
 
   def self.reset_adjustments_for cart

@@ -28,4 +28,8 @@ class PromotionAction < ActiveRecord::Base
   def calculate(cart, param)
     raise "You should call matches? on inherited classes"
   end
+
+  def is_greater_than_coupon?(cart)
+    total_discount_for(cart) > cart.coupon.value
+  end
 end

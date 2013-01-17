@@ -58,4 +58,31 @@ describe Promotion do
       end
     end
   end
+
+  describe "#should_apply_for?" do
+    let!(:promotion_action) { mock_model(PercentageAdjustment) }
+
+    context "when cart has no coupon" do
+      it "retuns true" do
+        subject.should_apply_for?(cart).should be_true
+      end
+    end
+
+
+    context "when cart has coupon" do
+      it "returns true" do
+        subject.should_receive(:promotion_action).and_return(promotion_action)
+        promotion_action.should_receive(:is_greater_than_coupon?).and_return(true)
+        cart.should_receive(:coupon).and_return(true)
+        subject.should_apply_for?(cart).should be_true
+      end
+
+      it "returns false" do
+        subject.should_receive(:promotion_action).and_return(promotion_action)
+        promotion_action.should_receive(:is_greater_than_coupon?).and_return(false)
+        cart.should_receive(:coupon).and_return(true)
+        subject.should_apply_for?(cart).should be_false
+      end
+    end
+  end
 end
