@@ -1529,6 +1529,8 @@ section.checkout {
             font-size: 14px;
             font-weight: 500;
             padding: 5px 0;
+            &:first-child{width:60%}
+
           }
           tbody tr.promotion {
             td {
