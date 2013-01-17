@@ -2,7 +2,7 @@ class CampaignEmailsController < ApplicationController
   layout "campaign_emails"
 
   def new
-      @campaign_email = CampaignEmail.new
+    @campaign_email = CampaignEmail.new
   end
 
   def create
