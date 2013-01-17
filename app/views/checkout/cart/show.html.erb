@@ -1,5 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
+  <meta name="chaordic:source" content="cart">
+  <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
 <% end %>
 <% content_for :ecommerce_tracking do %>
 <script type="text/javascript">
@@ -37,7 +39,7 @@ _gaq.push(['_addTrans',
       <p>Promo leve 3, pague 2<br />
         <span>Na compra de 2 itens, o 3° item de menor valor é grátis</span>
       </p>
-    </div>  
+    </div>
   <%end%>
 
   <%  if @cart.items.count > 0 %>
@@ -46,8 +48,8 @@ _gaq.push(['_addTrans',
     <% else %>
         <%= link_to "Continuar", "#", :class => "continue login"  %>
     <% end %>
-  <% end %>  
-  
+  <% end %>
+
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
       <%= image_tag("/assets/cart/banner_discount2.jpg", :class => "img-alert") %>
@@ -62,12 +64,11 @@ _gaq.push(['_addTrans',
       <li class="amount">Quantidade</li>
       <li class="value">Subtotal</li>
     </ul>
-    
+
     <% if free_item_promotion_is_active? %>
       <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
     <% end %>
 
-    
     <table cellpadding="0" cellspacing="0" class="items_list" id="products">
       <tbody>
         <% @cart.items.each_with_index do |item, index| %>
@@ -85,7 +86,7 @@ _gaq.push(['_addTrans',
                 <%= hidden_field('variant','id', :value => item.variant.id) %>
                 <%= submit_tag('excluir')  %>
               <% end %>
-            </td>  
+            </td>
             <td class="amount">
               <%= form_tag(cart_path, :method => :post, onsubmit: track_event("Shopping", "ChangeAvcAmount", item.product.id), id: "change_amount", remote: false) do %>
 
@@ -254,7 +255,7 @@ _gaq.push(['_addTrans',
                     </td>
                   </tr>
                 </tbody>
-              </table>  
+              </table>
           </td>
           <td class="value">
             <p>Total: <span><%= number_to_currency(@cart_service.total) %></span></p>
@@ -277,7 +278,7 @@ _gaq.push(['_addTrans',
             <% else %>
               <%= link_to "Continuar", "#", :class => "continue login"  %>
             <% end %>
-            
+
           </td>
         </tr>
       </tbody>
@@ -286,4 +287,5 @@ _gaq.push(['_addTrans',
     <%= render 'empty_cart' %>
   <% end %>
   <%= render "shared/modal_login" %>
+  <div class="chaordic shoppingcart"></div>
 </section>
