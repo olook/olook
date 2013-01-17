@@ -26,10 +26,11 @@
 	a{display:block;font-size:0;font-family:a;width:206px;height:52px;@include sprite_login(0, 0)}
 }
 .form_register{float:left;width:357px;margin-right:167px;
-	fieldset{margin:0 20px 13px 0;float:left;
-		&.gender_fields{position:relative;}
+	fieldset{margin:0 20px 13px 0;float:left;position:relative;
 		label{display:block;font-size:14px;margin-bottom:3px;}
+		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:55px;left:0;}
 		input{height:30px;padding-left:3px;border:solid 1px #C3C3C3;
+			&.input_error{border-color:#EA1E40 !important;margin-bottom:4px;}
 			&.first_name, &.last_name{width:152px;}
 			&.email{width:329px;}
 			&.pass{width:152px;}

@@ -1,38 +1,35 @@
-<% if resource.errors.any? %>
-  <div id="error_explanation">
-    <ul>
-      <% resource.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 <%= hidden_field_tag(:checkout_registration, registration_for_checkout?) %>
 <fieldset class="<%= "facebook" if @signup_with_facebook %>">
   <%= f.label :first_name, "Nome" %>
-  <%= f.text_field :first_name, class: "first_name" %>
+  <%= f.text_field :first_name, class: "first_name #{error_class_if_needed(resource, :first_name)}" %>
+  <%= errors_for(resource, :first_name) %>
 </fieldset>  
 <fieldset>
   <%= f.label :last_name, "Sobrenome" %>
-  <%= f.text_field :last_name, class: "last_name" %>
+  <%= f.text_field :last_name, class: "last_name #{error_class_if_needed(resource, :last_name)}" %>
+  <%= errors_for(resource, :last_name) %>
 </fieldset>  
 <fieldset>
   <%= f.label :email, "E-mail"%>
-  <%= f.email_field :email, class: "email"  %>
+  <%= f.email_field :email, class: "email #{error_class_if_needed(resource, :email)}" %>
+  <%= errors_for(resource, :email) %>
 </fieldset>
 <% if resource.id.nil? %>
   <fieldset>  
     <%= f.label :password, "Senha" %>
-    <%= f.password_field :password, class: "pass" %>
+    <%= f.password_field :password, class: "pass #{error_class_if_needed(resource, :password)}" %>
+    <%= errors_for(resource, :password) %>
   </fieldset>  
   <fieldset>    
     <%= f.label :password_confirmation, "Confirmar senha" %>
-    <%= f.password_field :password_confirmation, class: "pass" %>
+    <%= f.password_field :password_confirmation, class: "pass #{error_class_if_needed(resource, :password_confirmation)}" %>
+    <%= errors_for(resource, :password_confirmation) %>
   </fieldset>  
 <% end %>
 <fieldset class="gender_fields">      
   <%= f.label :gender, "Sexo" %>
-  <%= f.select(:gender, options_for_select({"Selecione" => "", "Feminino" => 0, "Masculino" => 1})) %>
+  <%= f.select(:gender, options_for_select({"Selecione" => "", "Feminino" => 0, "Masculino" => 1}), class: "#{error_class_if_needed(resource, :gender)}" ) %>
+  <%= errors_for(resource, :gender) %>
   <span class="custom_select">&nbsp;</span>
 </fieldset>  
 <fieldset>    
@@ -41,7 +38,8 @@
 </fieldset>  
 <fieldset>
   <%= f.label :cpf, "CPF" %>
-  <%= f.text_field :cpf, class: "cpf" %>
+  <%= f.text_field :cpf, class: "cpf #{error_class_if_needed(resource, :cpf)}" %>
+  <%= errors_for(resource, :cpf) %>
   <p class="info-cpf">Para as compras é necessário<br />informar o CPF</p>
   <p class="terms">Concluindo o cadastro você aceita os <%= link_to 'Termos e Condições', terms_path, :target => "_blank" %> e a<br />
      nossa <%= link_to "Política de Privacidade", privacy_path, :target => "_blank" %> </p>
