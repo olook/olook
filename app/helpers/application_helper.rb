@@ -41,6 +41,10 @@ module ApplicationHelper
     "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
   end
 
+  def track_add_to_cart_event(product_id = '')
+    track_event("Shopping", "AddToCart#{ga_event_referer}", product_id)
+  end
+
   def user_avatar(user, type = "large")
     "https://graph.facebook.com/#{user.uid}/picture?type=#{type}"
   end
@@ -87,4 +91,42 @@ module ApplicationHelper
                               onchange: "changeCartItemQty('#{item.id}')")
     end
   end
+
+  def section_name section
+    case
+    when section == 1
+      'Sapatos'
+    when section == 2
+      'Bolsas'
+    when section == 3
+      'Acessórios'
+    else
+      'Coleções'
+    end
+  end
+
+  private
+
+    def ga_event_referer
+      case request.referer
+        when /vitrine/
+          'FromVitrine'
+        when /tendencias/
+          'FromTendencias'
+        when /colecoes/
+          'FromColecoes'
+        when /sapatos/
+          'FromSapatos'
+        when /bolsas/
+          'FromBolsas'
+        when /acessorios/
+          'FromAcessorios'
+        when /oculos/
+          'FromOculos'
+        when /stylists/
+          'FromStylists'
+        else
+          ''
+        end
+    end
 end

@@ -260,6 +260,7 @@ section#cart {
   table.items_list, table.check, table#total {
     width: 990px !important;
     table-layout: fixed;
+
   }
 
   table.items_list {
@@ -401,8 +402,8 @@ section#cart {
         }
 				/********** CAMPANHA DO AVC ****************/
 		  	&.avc-foto{
-				width:130px;
-				img{width:70px;height:70px;}
+					width:130px;text-align:center;
+					img{width:70px;height:70px;}
 			  }
 			  &.avc-desc{
 				width:530px;
@@ -603,7 +604,12 @@ section#cart {
           font-size: 18px;
           vertical-align: middle;
 					padding-top:10px;
+          &.discount{float:right;margin-right:20px;
+            p#coupon_discount{float:left;width:65px;margin:0;}
+            form.edit_cart{float:left;}
+          }
           &.value {
+            
             p {
               float: right;
               margin-right: 40px;
@@ -612,6 +618,7 @@ section#cart {
 							span{
 								color:#E15687;
 							}
+              
               &.limit {
                 font-size: 12px;
                 padding: 5px 0;
@@ -1201,9 +1208,12 @@ section#payment {
                 }
               }
               &.credit_card_number {
+								position:relative;
                 input[type="text"] {
                   width: 219px;
+									&.credit-error{border:solid 1px #F00;}
                 }
+								.span-error{position:absolute;top:60px;left:0;color:#F00;}
               }
               &.security_code {
                 input[type="text"] {
