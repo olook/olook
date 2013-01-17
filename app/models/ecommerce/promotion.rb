@@ -24,7 +24,7 @@ class Promotion < ActiveRecord::Base
   end
 
   def should_apply_for?(cart)
-    cart.coupon ? promotion_action.is_greater_than_coupon?(cart) : true
+    cart.coupon ? is_greater_than_coupon?(cart) : true
   end
 
   def self.select_promotion_for(cart)
@@ -64,5 +64,9 @@ class Promotion < ActiveRecord::Base
       promotions << {promotion: promotion, total_discount: promotion.total_discount_for(cart)}
     end
     promotions
+  end
+
+  def is_greater_than_coupon?(cart)
+    total_discount_for(cart) > cart.coupon.value
   end
 end
