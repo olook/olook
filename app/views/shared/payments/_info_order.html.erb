@@ -44,14 +44,14 @@
     </li>
     <% end
     olooklet = @order.payments.for_olooklet.sum(:total_paid) if has_payment
-    olooklet ||= cart_service.total_discount_by_type(:olooklet)
+    olooklet ||= cart_service.cart.total_liquidation_discount
     if olooklet > 0 %>
     <li>
-      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(credits) %></span></p>
+      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(olooklet) %></span></p>
     </li>  
     <% end
     promotion = @order.payments.for_promotion.sum(:total_paid) if has_payment
-    promotion ||= cart_service.total_discount_by_type(:promotion)
+    promotion ||= cart_service.cart.total_promotion_discount
     if promotion > 0 %>
     <li>
       <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(promotion) %></span></p>
