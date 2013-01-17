@@ -19,18 +19,20 @@
 <fieldset>
   <%= f.label :email, "E-mail"%>
   <%= f.email_field :email, class: "email"  %>
-</fieldset>  
-<fieldset>  
-  <%= f.label :password, "Senha" %>
-  <%= f.password_field :password, class: "pass" %>
-</fieldset>  
-<fieldset>    
-  <%= f.label :password_confirmation, "Confirmar senha" %>
-  <%= f.password_field :password_confirmation, class: "pass" %>
-</fieldset>  
+</fieldset>
+<% if resource.id.nil? %>
+  <fieldset>  
+    <%= f.label :password, "Senha" %>
+    <%= f.password_field :password, class: "pass" %>
+  </fieldset>  
+  <fieldset>    
+    <%= f.label :password_confirmation, "Confirmar senha" %>
+    <%= f.password_field :password_confirmation, class: "pass" %>
+  </fieldset>  
+<% end %>
 <fieldset class="gender_fields">      
   <%= f.label :gender, "Sexo" %>
-  <%= f.select(:gender, options_for_select({"Selecione" => "", "Feminino" => "0", "Masculino" => "1"})) %>
+  <%= f.select(:gender, options_for_select({"Selecione" => "", "Feminino" => 0, "Masculino" => 1})) %>
   <span class="custom_select">&nbsp;</span>
 </fieldset>  
 <fieldset>    
