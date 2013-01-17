@@ -32,29 +32,15 @@ describe Promotion do
     end
   end
 
-  describe ".matched_promotions_for" do
-    context "when there's active promotion" do
-      it "returns first buy promotion" do
-        described_class.matched_promotions_for(cart).should eq([promo])
-      end
-    end
-    context "when there's no active promotion" do
-      it "returns an empty array" do
-        described_class.should_receive(:active_and_not_expired).twice.and_return([])
-        described_class.matched_promotions_for(cart).should eq([])
-      end
-    end
-  end
-
   describe ".best_promotion_for" do
     context "when there's promotion and cart to apply" do
       it "retuns best promotion" do
-        described_class.best_promotion_for(cart, [promo]).should eq(promo)
+        described_class.select_promotion_for(cart).should eq(promo)
       end
 
       it "returns nil if coupon is better that promotion" do
         cart.should_receive(:total_coupon_discount).and_return(100.0)
-        described_class.best_promotion_for(cart, [promo]).should be_nil
+        described_class.select_promotion_for(cart).should be_nil
       end
     end
   end
