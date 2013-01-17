@@ -8,7 +8,9 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
-    @checkout = Checkout.new(address: Address.new, payment: CreditCard.new)
+    address = @addresses.first || Address.new
+    binding.pry
+    @checkout = Checkout.new(address: address, payment: CreditCard.new)
   end
 
   def create
@@ -87,7 +89,7 @@ class Checkout::CheckoutController < Checkout::BaseController
         @checkout.errors.add(:base, "Escolha um endereço!")
       end
     end
-    
+
     render :new
   end
 
