@@ -4,6 +4,7 @@
 
 <section id="payment" class="checkout">
 
+  <%= render :partial => "shared/errors", :locals => { :object => @checkout } %>
   <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
     <div class="box-step-one">
       <h2 class="step-title">
