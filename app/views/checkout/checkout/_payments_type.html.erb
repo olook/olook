@@ -3,7 +3,7 @@
   <%= credits_form.check_box :use_credits %>
   <%= credits_form.label :use_credits, "QUERO USAR MEUS CRÉDITOS" %>
   <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> em créditos que podem ser utilizados nesta compra.
-     <a href="#">Mais sobre seus créditos</a>
+     <a href="#" class="more_credits">Mais sobre seus créditos</a>
   </p>
 </div>
 <div id="about_credits">
@@ -53,13 +53,13 @@
 <div class="payment">
   <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
   <ul class="payment_type">
-    <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card" %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
+    <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: true %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
     <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet" %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
     <li class="debito"><%= checkout_form.radio_button :payment_method, "debit" %> <%= checkout_form.label :payment_method, 'Débito Online' %></li>
   </ul>
     
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
-  <div class="box-cartao">
+  <div class="box-cartao credit_card">
     <p class="subtitle">SELECIONE A BANDEIRA DO CARTÃO:</p>
     <ol class="cards">
       <% CreditCard::BANKS_OPTIONS.each do |bank| %>
@@ -112,14 +112,14 @@
       <%= errors_for(@checkout.payment, :user_birthday) %>
     <% end %>        
   </div>
-  <div class="box-boleto">
+  <div class="box-boleto billet">
     <p>Você deverá imprimir e realizar o pagamento
     do boleto após a finalização da compra.</p>
 
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação
     do seu pagamento.</p>
   </div>
-  <div class="box-debito">
+  <div class="box-debito debit">
     <p class="subtitle">SELECIONE SEU BANCO:</p>
     <% Debit::BANKS_OPTIONS.each do |bank| %>
       <%= payment_form.radio_button :bank, bank %>
