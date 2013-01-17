@@ -101,7 +101,8 @@ describe Checkout::CheckoutController do
       end
       it "returns null address" do
         put :create, invalid_data
-        assigns[:checkout].address.should eq(nil)
+        assigns[:checkout].address.should_not be_nil
+        assigns[:checkout].address.id.should be_nil
       end
     end
 

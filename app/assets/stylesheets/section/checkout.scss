@@ -1552,6 +1552,10 @@ section.checkout{
 			clear:both;
 			a{font-size:16px;color:#DD4978;}
 		}
+    p.addresses_index{
+      clear:both;
+      a{font-size:16px;color:#DD4978;} 
+    }
 /********** END / START STEP TWO *******/
 		.box-step-two{
 			.credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;}

@@ -53,6 +53,22 @@ function retrieve_zip_data(zip_code) {
 		}
   });
 }
+function retrieve_freight_price(zip_code, address_id) {
+  $.ajax({
+    url: '/freight_price',
+    type: 'POST',
+    data: {
+      zip_code: zip_code,
+      address_id: address_id
+    },
+    beforeSend: function(){
+      $("#freight_price").fadeOut();
+    },
+    success: function(){
+      $("#freight_price").delay(300).fadeIn();
+    }
+  });
+}
 $(function() {
 	masks.card();
 	
