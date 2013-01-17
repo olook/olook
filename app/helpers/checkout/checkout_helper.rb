@@ -3,7 +3,7 @@ module Checkout::CheckoutHelper
   def errors_for(object, field)
     if object
       errors = object.errors.messages[field].first
-      %(<span class="span_error">&nbsp;#{errors}</span>).html_safe
+      %(<span class="span_error">&nbsp;#{errors}</span>).html_safe if errors
     end
   end
 

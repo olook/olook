@@ -1494,7 +1494,7 @@ section.checkout{
 	}
 	
 	form.new_checkout{
-		fieldset{float:left;margin:0 10px 17px 0;
+		fieldset{float:left;margin:0 10px 17px 0;position:relative;
 			&.fieldset_validate{float:right;margin-right:22px;}
 		}
 		
@@ -1503,13 +1503,13 @@ section.checkout{
 			&.frete_label{display:inline;}
 		}
 		
-		span.span_error{color:#EA1E40;font-size:12px;display:block;margin-top:4px;}
+		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:53px;left:0;}
 		
 		input{
-			height:30px;line-height:30px;padding-left:7px;font-size:14px;
+			height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
 /*********** STEP ONE *********/
-			&.input_error{border:solid 1px #EA1E40;}
+			&.input_error{border-color:#EA1E40 !important;}
 			&.zip_code{width:115px;float:left}
 			&.endereco{width:172px;}
 			&.numero{width:80px;}
@@ -1525,10 +1525,10 @@ section.checkout{
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
 			
-			
-			
-			
 			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;float:left;}
+		}
+		div#checkout_address{float:left;
+			#address_fields{float:left;}
 		}
 		.btn_zipcode{
 			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;cursor:pointer;
@@ -1573,7 +1573,7 @@ section.checkout{
 			.box-cartao{float:left;
 				.cards{overflow:hidden;
 					li{position:relative;width:47px;height:37px;
-						input,label{opacity:0;position:relative;z-index:1}
+						input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
 						label{font-size:12px;float:left;}
 						span{position:absolute;z-index:2;display:block;width:47px;height:37px;font-size:0;font-family:a;cursor:pointer;
 							&.Visa{@include sprite_checkout(-171px, -422px);
@@ -1596,18 +1596,20 @@ section.checkout{
 				}
 			}
 			.box-boleto{float:left;display:none;
-				p{font-size:13px;margin-top:20px;
+				p{font-size:13px;margin-top:15px;
 					span{color:#000;}
 				}
 			}
 			
 			.box-debito{
 				float:left;position:relative;display:none;
-				input, label{opacity:0;z-index:1;position:relative;float:left;}
+				input, label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";z-index:1;position:relative;float:left;}
 				.debit_bank_Itau{position:absolute;z-index:2;top:55px;left:0;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;cursor:pointer;
 					&.selected{@include sprite_checkout(-123px, -459px)}
 				}
-				p{clear:both;}
+				p{clear:both;font-size:13px;margin-top:15px;
+					span{color:#000;}
+				}
 			}
 		}
 		#about_credits{
