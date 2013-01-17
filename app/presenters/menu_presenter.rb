@@ -74,7 +74,7 @@ class MenuPresenter < BasePresenter
   end
 
   def categories
-    [shoes, bags, accessories, glasses]
+    [shoes, bags, accessories]
   end
 
   def shoes
