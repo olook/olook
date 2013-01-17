@@ -47,10 +47,6 @@ feature "Member can send invites", %q{
         visit member_invite_path
       end
 
-      scenario "copying and pasting a link to invite/*invite_token*" do
-        page.should have_content(accept_invitation_path(:invite_token => @member.invite_token))
-      end
-
       scenario "tweeting the link" do
         tweet_text = page.find('.twitter-share-button')[:"data-text"]
 
