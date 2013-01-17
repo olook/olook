@@ -9,7 +9,6 @@ class Checkout::CheckoutController < Checkout::BaseController
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     address = @addresses.first || Address.new
-    binding.pry
     @checkout = Checkout.new(address: address, payment: CreditCard.new)
   end
 
