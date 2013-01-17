@@ -1,3 +1,6 @@
+- content_for :footer do
+  = track_event('Modal', 'LoginPage', @user.id)
+
 .box-remember
   %h3 LEMBRAMOS DE VOCÊ!
   %p Se você já tem cadastro, não precisa fazer outro, basta informar<br> sua senha abaixo para entrar. ;)

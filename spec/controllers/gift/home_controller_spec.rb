@@ -25,7 +25,7 @@ describe Gift::HomeController do
   describe "GET 'update_birthdays_by_month'" do
     context "when facebook adapter is not available" do
       it "assigns nil to @frinds" do
-        xhr :get, 'update_birthdays_by_month'
+        xhr :get, 'update_birthdays_by_month', { month: '25/12/1986' }
         assigns(:friends).should be_nil
         response.should be_success
       end

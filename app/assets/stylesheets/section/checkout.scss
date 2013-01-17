@@ -318,6 +318,7 @@ section#cart {
   table.items_list, table.check, table#total {
     width: 990px !important;
     table-layout: fixed;
+
   }
 
   table.items_list {
@@ -605,7 +606,12 @@ section#cart {
           font-size: 18px;
           vertical-align: middle;
 					padding-top:10px;
+          &.discount{float:right;margin-right:20px;
+            p#coupon_discount{float:left;width:65px;margin:0;}
+            form.edit_cart{float:left;}
+          }
           &.value {
+            
             p {
               float: right;
               margin-right: 40px;
@@ -614,6 +620,7 @@ section#cart {
 							span{
 								color:#E15687;
 							}
+              
               &.limit {
                 font-size: 12px;
                 padding: 5px 0;
