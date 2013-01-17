@@ -23,7 +23,7 @@ class Cart::ItemsController < ApplicationController
 
   def destroy
   	@item = @cart.items.find(params[:id])
-  	@product_id = @item.product.id
+
     if @item.destroy
       respond_with { |format| format.js { } }
     else

@@ -60,7 +60,7 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
-    <ul id="titles" class=<%= "border" if @promotion_free_item %>>
+    <ul id="titles" class="border">
       <li class="item">Item</li>
       <li class="amount">Quantidade</li>
       <li class="value">Subtotal</li>
@@ -70,7 +70,7 @@ _gaq.push(['_addTrans',
       <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
     <% end %>
 
-    <table cellpadding="0" cellspacing="0" class="items_list" id="products">
+    <table cellpadding="0" cellspacing="0" class="items_list" id="items">
       <tbody>
         <% @cart.items.each do |item| %>
           <%= render partial: 'cart/items/row', locals: { cart_service: @cart_service, item: item } if item %>
@@ -94,7 +94,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="avc-button">
               <p><%= number_to_currency(@suggested_product.retail_price) %></p>
-			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCart", @suggested_product.id), 
+			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCartFromRecommended", @suggested_product.id), 
                                       id: "product_add_to_cart", 
                                       remote: true) do %>
         <input name="from_sacola" type="hidden" value="true" %>
@@ -180,7 +180,7 @@ _gaq.push(['_addTrans',
       <tbody>
           <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
             <td>Código Promocional</td>
-            <td class="value">
+            <td class="value discount">
               <p id="coupon_discount">
                 <% if @cart.coupon %>
                   <%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %>
@@ -192,7 +192,7 @@ _gaq.push(['_addTrans',
                   <ol>
                     <li>
                       <%= f.hidden_field('coupon_code', :value => nil) %>
-                      <%= f.submit "Limpar" %>
+                      <%= f.submit "Excluir" %>
                     </li>
                   </ol>
                 </fieldset>

@@ -124,6 +124,10 @@ Olook::Application.routes.draw do
     get "hot_on_facebook" => "home#hot_on_facebook"
     resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
     resources :recipients do
+      resources :suggestions, :only => [:index]
+      post "suggestions/add_to_cart" => "suggestions#add_to_cart", :as => :add_suggestions_to_cart
+      get "suggestions/select_gift/:product_id" => "suggestions#select_gift"
+      post "suggestions/select_gift/" => "suggestions#select_gift"
       member do
         get :edit
         put :edit
