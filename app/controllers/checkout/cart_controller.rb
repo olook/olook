@@ -21,10 +21,13 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
-    unless @cart.update_attributes(params[:cart])
+    if @cart.update_attributes(params[:cart])
+      notify_promotion_listener @cart
+    else
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
+
   end
 
   def find_suggested_product
@@ -32,4 +35,9 @@ class Checkout::CartController < Checkout::BaseController
     products = Product.find ids
     products.shuffle.first if products
   end
+
+  private 
+    def notify_promotion_listener cart
+      PromotionListener.update cart
+    end  
 end
