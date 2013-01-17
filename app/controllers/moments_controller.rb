@@ -7,10 +7,13 @@ class MomentsController < ApplicationController
   before_filter :load_catalog_products
 
   def index
+    @chaordic_user = ChaordicInfo.user current_user
     render :show, id: @moment.id
   end
 
   def show
+    @pixel_information = params[:category_id]
+    @chaordic_user = ChaordicInfo.user current_user
     if current_moment.catalog.products.nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
       redirect_to member_showroom_path
@@ -28,6 +31,8 @@ class MomentsController < ApplicationController
   # "hover" effect on the 'Oculos' link in the menu bar
   #
   def glasses
+    @glasses = "Oculos"
+    @chaordic_user = ChaordicInfo.user current_user
     render :show
   end
 

@@ -62,6 +62,7 @@ $(function(){
 	
 	$(".close, .btn-continue").bind("click", function(){
 		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
+		_gaq.push(['_trackEvent', 'Modal', 'Close', '']);
 		if($(".dont_show").is(":checked")){
 			parent.top.dontShow();
 		}

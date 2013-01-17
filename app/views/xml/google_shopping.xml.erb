@@ -7,7 +7,7 @@
 <title><%= product.subcategory %> <%= product.name %></title>
 <description><%= product.description %></description>
 <g:google_product_category><%= to_google_shopping_category product.category %></g:google_product_category>
-<g:product_type><%= product.category_humanize %></g:product_type>
+<g:product_type><%= product.subcategory %></g:product_type>
 <link><%= product.product_url(:utm_source =>"google", :utm_medium => "merchant") %></link>
 <g:image_link><%= first_image_of product %></g:image_link>
 <g:additional_image_link><%= image_at_position(product, DisplayPictureOn::GALLERY_2) %></g:additional_image_link>
@@ -24,7 +24,7 @@
 <g:color><%= product.color_name %></g:color>
 <% product.details.each do |detail| %>
   <% if ["Metal", "Material externo"].include?(detail.translation_token) %>
-  <g:material><%= detail.description %></g:material>
+  	<% unless detail.description == '_' %><g:material><%= detail.description %></g:material> <% end %>
   <% end %>
 <% end %>
 </item>

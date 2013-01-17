@@ -35,12 +35,15 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
+gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
+gem 'oj'
 gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'obraspag', '>= 0.0.31', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon', '= 0.9.9'
+gem 'gyoku', '= 0.4.6'
 gem 'httpi', '= 0.9.7'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
@@ -62,6 +65,10 @@ group :development do
   gem 'faker'
   gem 'bullet'
   gem 'thin'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
+  gem 'rails-footnotes', '>= 3.7.9'
 end
 
 group :development, :test do
@@ -84,7 +91,7 @@ end
 
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
-  gem 'capybara', '2.0.1'
+  gem 'capybara', '2.0.2'
   gem "capybara-webkit", git: 'git://github.com/thoughtbot/capybara-webkit.git'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
