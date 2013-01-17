@@ -11,4 +11,8 @@ module Checkout::CheckoutHelper
     object.errors.messages[field].empty? ? "" : "input_error" if object
   end
 
+  def freight_for(address)
+    number_to_currency(FreightCalculator.freight_for_zip(address.zip_code, @cart_service.subtotal)[:price])
+  end
+
 end
