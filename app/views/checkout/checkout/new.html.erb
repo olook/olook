@@ -38,7 +38,14 @@
       
   <% end %>
 
-  <div id="freight_price"><%= freight_for(@addresses.first) if @addresses.any? %></div>
+
+  <% 
+    
+    address = @checkout.address
+    address ||= @addresses.first if @addresses
+  %>
+
+  <%= render "cart_details", address: address %>
 
 </section>
 
