@@ -118,27 +118,21 @@ body {
     display: block;
     form {
       fieldset {
-        ol {
-          li {
-            label {
-              display: block;
-              font-size: 11px;
-              margin: 2px 0;
-            }
-
-            input {
-              background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
-              border: 1px solid #BBB;
-              padding: 6px 8px;
-              width: 92%;
-
-              &:focus {
-                outline: none;
-              }
-            }
-          }
+      	label {
+        	display: block;
+          font-size: 11px;
+          margin: 2px 0;
         }
-      }
+				input {
+        	background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+          border: 1px solid #BBB;
+          padding: 6px 8px;
+          width: 92%;
+          &:focus {
+          	outline: none;
+          }
+       }
+     }
     }
     div#register_login {
       position: absolute;
@@ -170,41 +164,24 @@ body {
           fieldset {
             &.buttons {
               margin-top: 7px;
-              ol {
-                li {
-                  font-size: 11px;
-                  input[type="submit"] {
-                    background: url("/assets/common/login.png") no-repeat;
-                    text-indent: -9999px;
-                    width: 74px;
-                    height: 31px;
-                    display: block;
-                    border: none;
-                    cursor: pointer;
-                  }
-                  &.remember-me, &.forgot-password {
-                    float: left;
-                    width: 140px;
-                    input {
-                      width: auto;
-                    }
-                    label {
-                      font-weight: normal;
-                      display: inline;
-                    }
-                    a {
-                      color: #0f0c0c;
-                    }
-                  }
-
-                  &.forgot-password {
-                    & + li {
-                      float: right;
-                      margin-top: -15px;
-                    }
-                  }
-                }
+              font-size: 11px;
+              input[type="submit"] {
+                background: url("/assets/common/login.png") no-repeat;
+                text-indent: -9999px;
+                width: 74px;
+                height: 31px;
+                display: block;
+                border: none;
+                cursor: pointer;
               }
+
+              input {width: auto;}
+              label {
+                font-weight: normal;
+                display: inline;
+              }
+              a {color: #0f0c0c;}
+              
             }
           }
         }
@@ -1001,16 +978,14 @@ body {
           form {
             margin-bottom: 15px;
             fieldset.buttons {
-              ol li {
-                input[type=submit] {
-                  background: url('/assets/common/login.png') no-repeat;
-                  text-indent: -9999px;
-                  width: 74px;
-                  height: 31px;
-                  display: block;
-                  border: none;
-                  cursor: pointer;
-                }
+              input[type=submit] {
+                background: url('/assets/common/login.png') no-repeat;
+                text-indent: -9999px;
+                width: 74px;
+                height: 31px;
+                display: block;
+                border: none;
+                cursor: pointer;
               }
             }
           }
