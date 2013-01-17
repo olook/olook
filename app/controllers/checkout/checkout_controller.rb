@@ -16,7 +16,9 @@ class Checkout::CheckoutController < Checkout::BaseController
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
 
-    unless address && address.valid? && payment.valid?
+    payment_valid = payment.valid?
+    address_valid = address && address.valid?
+    unless payment_valid & address_valid
       display_form(address, payment, payment_method)
       return
     end
@@ -32,8 +34,8 @@ class Checkout::CheckoutController < Checkout::BaseController
       clean_cart!
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
-      payment.errors.add(:base, "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.") if payment.is_a? CreditCard
       @addresses = @user.addresses
+      error_message = "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento." if payment.is_a? CreditCard
       display_form(address, payment, payment_method)
       return
     end
@@ -42,7 +44,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   private
 
   def shipping_address(params)
-    if params[:checkout][:address]
+    if using_address_form?
       populate_shipping_address
     else
       Address.find_by_id(params[:address][:id]) if params[:address]
@@ -71,10 +73,26 @@ class Checkout::CheckoutController < Checkout::BaseController
     end
   end
 
-  def display_form(address, payment, payment_method)
+  def display_form(address, payment, payment_method, error_message = nil)
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
+    if error_message
+      @checkout.errors.add(:base, error_message)
+    end
+
+    unless using_address_form?
+      @addresses = @user.addresses
+      unless address
+        @checkout.address = Address.new
+        @checkout.errors.add(:base, "Escolha um endereço!")
+      end
+    end
+    
     render :new
+  end
+
+  def using_address_form?
+    !params[:checkout][:address].nil?
   end
 
 end
