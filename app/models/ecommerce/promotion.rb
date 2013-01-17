@@ -27,6 +27,17 @@ class Promotion < ActiveRecord::Base
     cart.coupon ? promotion_action.is_greater_than_coupon?(cart) : true
   end
 
+  def self.select_promotion_for(cart)
+    promotions_to_apply = matched_promotions_for cart
+    best_promotion_for(cart, promotions_to_apply)
+  end
+
+  def total_discount_for(cart)
+    simulate(cart).map {|item| item[:adjust] }.reduce(:+)
+  end
+
+  private
+
   def self.matched_promotions_for cart
     promotions = []
     active_and_not_expired(Date.today).each do |promotion|
@@ -46,12 +57,6 @@ class Promotion < ActiveRecord::Base
       end
     end
   end
-
-  def total_discount_for(cart)
-    simulate(cart).map {|item| item[:adjust] }.reduce(:+)
-  end
-
-  private
 
   def self.calculate(promotions_to_apply, cart)
     promotions = []
