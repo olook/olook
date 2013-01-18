@@ -30,6 +30,7 @@ describe PromotionListener do
     let(:coupon) { mock_model(Coupon, value: 100)}
     let(:promotion) { mock_model(Promotion)}
     let(:cart) { mock_model Cart}
+    
     context "when coupon value is greater than promotion discount value" do
       it "returns true" do
         Promotion.should_receive(:select_promotion_for).and_return(promotion)
