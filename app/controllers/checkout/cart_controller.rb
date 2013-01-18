@@ -21,13 +21,17 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   def update
-    if @cart.update_attributes(params[:cart])
-      notify_promotion_listener @cart
-    else
-      notice_message = @cart.errors.messages.values.flatten.first
-      render :error, :locals => { :notice => notice_message }
-    end
+    coupon = Coupon.find_by_code(params[:cart][:coupon_code])
 
+    if should_apply_coupon?(@cart, coupon)
+      unless @cart.update_attributes(params[:cart])
+        notice_message = @cart.errors.messages.values.flatten.first
+        render :error, :locals => { :notice => notice_message }
+      end
+    else
+      params[:cart].delete(:coupon_code)
+      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupon" }
+    end
   end
 
   def find_suggested_product
@@ -36,8 +40,9 @@ class Checkout::CartController < Checkout::BaseController
     products.shuffle.first if products
   end
 
-  private 
-    def notify_promotion_listener cart
-      PromotionListener.update cart
-    end  
+  private
+    def should_apply_coupon? cart, coupon
+      return true if coupon.nil?
+      PromotionListener.should_apply_coupon? cart, coupon
+    end
 end

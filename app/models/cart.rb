@@ -13,6 +13,7 @@ class Cart < ActiveRecord::Base
 
   after_validation :update_coupon
   after_find :update_coupon_code
+  after_update :notify_listener
 
   def allow_credit_payment?
     adjustments = items.select { |item| item.has_adjustment? }
@@ -109,6 +110,10 @@ class Cart < ActiveRecord::Base
 
     def update_coupon_code
       self.coupon_code = self.coupon.code if self.coupon
+    end
+
+    def notify_listener
+      PromotionListener.update(self)
     end
 
 end

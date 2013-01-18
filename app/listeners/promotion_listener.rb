@@ -11,6 +11,12 @@ class PromotionListener
     cart.items.each { |item| item.cart_item_adjustment.update_attributes(value: 0, source: nil) }
   end
 
+  def self.should_apply_coupon?(cart, coupon)
+    reset_adjustments_for cart
+    best_promotion = Promotion.select_promotion_for(cart)
+
+  best_promotion ?  coupon.value > best_promotion.total_discount_for(cart) : true
+  end
   private
 
     def self.apply promotion, cart
