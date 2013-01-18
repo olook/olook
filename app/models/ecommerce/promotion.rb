@@ -17,6 +17,7 @@ class Promotion < ActiveRecord::Base
   def apply cart
     promotion_action.apply cart, self.action_parameter.action_params
     Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
+    cart.reload
   end
 
   def simulate cart
