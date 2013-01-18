@@ -6,14 +6,12 @@ class PromotionListener
     apply_best_promotion_for cart
   end
 
-  # TODO[galeto] does this method really need to reset adjustments ?
   def self.should_apply_coupon?(cart, coupon)
-    reset_adjustments_for cart
     best_promotion = Promotion.select_promotion_for(cart)
 
     best_promotion ?  coupon.value > best_promotion.total_discount_for(cart) : true
   end
-  
+
   private
 
     def self.reset_adjustments_for cart
