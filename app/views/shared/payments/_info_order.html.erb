@@ -8,7 +8,7 @@
       <p class="nome"><%= line_item.variant.name %></p>
       <p class="qte">Quantidade: <%= line_item.quantity %></p>
       <p class="tamanho">Tamanho: <%= line_item.variant.description %></p>
-      <p class="preco"><%= number_to_currency(line_item.variant.retail_price) %></p>
+      <p class="preco"><%= number_to_currency(line_item.variant.price) %></p>
       </li>
     <% end %>
   </ul>
@@ -47,14 +47,14 @@
     olooklet ||= cart_service.cart.total_liquidation_discount
     if olooklet > 0 %>
     <li>
-      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(olooklet) %></span></p>
+      <p><span class="txt-black">LIQUIDAÇÃO:</span><span>- <%= number_to_currency(olooklet) %></span></p>
     </li>  
     <% end
     promotion = @order.payments.for_promotion.sum(:total_paid) if has_payment
     promotion ||= cart_service.cart.total_promotion_discount
     if promotion > 0 %>
     <li>
-      <p><span class="txt-black">DESCONTO PROMOCIONAL:</span><span>- <%= number_to_currency(promotion) %></span></p>
+      <p><span class="txt-black">PROMOÇÃO:</span><span>- <%= number_to_currency(promotion) %></span></p>
     </li>  
     <% end
     gift = @order.payments.for_gift.sum(:total_paid) if has_payment
