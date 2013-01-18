@@ -38,10 +38,18 @@
       
   <% end %>
 
-  <div id="freight_price"><%= freight_for(@addresses.first) if @addresses.any? %></div>
+
+  <% 
+    
+    address = @checkout.address
+    address ||= @addresses.first if @addresses
+  %>
+
+  <%= render "cart_details", address: address %>
 
 </section>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "checkout" %>
+  <%= javascript_include_tag "carts" %>
 <% end %>
