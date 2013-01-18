@@ -6,21 +6,12 @@
       <% end %>
     </tbody>
   </table>
+  <ul>
+    <li><span>FRETE:<%= "frete: #{freight_for(address)}" if address && address.zip_code %></span>
+    <li><span>SUBTOTAL:</span> <%= number_to_currency(@cart_service.subtotal) %></li>
+    <li><span>TOTAL:</span> <%= number_to_currency(@cart_service.total) %></li>
+  </ul>  
 
-  <div id="total">
-    total: <%= number_to_currency(@cart_service.total) %>
-  </div>
-
-  <div id="subtotal">
-    subtotal: <%= number_to_currency(@cart_service.subtotal) %>
-  </div>    
-
-  <div id="freight_price">
-    <%= "frete: #{freight_for(address)}" if address && address.zip_code %>
-  </div>
-
-  <div id="delivery_time">
-  </div>
 
   <%= button.submit '', class: "send_it" %>
 </div>
