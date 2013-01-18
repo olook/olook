@@ -1,2 +1,5 @@
-$("#freight_price").html("<%= number_to_currency(@freight_price) %>");
+$("#freight_price").html("frete: <%= number_to_currency(@freight_price) %>");
 $("#freight_price").show();
+
+$("#delivery_time").html("(entrega em <%= @delivery_time %> dias úteis)");
+$("#delivery_time").show();
