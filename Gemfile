@@ -68,7 +68,6 @@ group :development do
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
-  gem 'rails-footnotes', '>= 3.7.9'
 end
 
 group :development, :test do
@@ -77,7 +76,7 @@ group :development, :test do
   gem 'capistrano-maintenance'
   gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.12.0'
-  #not working with current rspec 
+  #not working with current rspec
   #gem 'rspec-gc-control'
   gem 'watchr'
   gem 'awesome_print'
