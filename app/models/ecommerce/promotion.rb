@@ -15,8 +15,10 @@ class Promotion < ActiveRecord::Base
   accepts_nested_attributes_for :rule_parameters, :action_parameter
 
   def apply cart
-    promotion_action.apply cart, self.action_parameter.action_params
-    Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
+    if should_apply_for? cart
+      promotion_action.apply cart, self.action_parameter.action_params
+      Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
+    end
   end
 
   def simulate cart
@@ -38,35 +40,35 @@ class Promotion < ActiveRecord::Base
 
   private
 
-  def self.matched_promotions_for cart
-    promotions = []
-    active_and_not_expired(Date.today).each do |promotion|
-      matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
-        match_result &&= rule.matches?(cart.user)
+    def self.matched_promotions_for cart
+      promotions = []
+      active_and_not_expired(Date.today).each do |promotion|
+        matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
+          match_result &&= rule.matches?(cart.user)
+        end
+        promotions << promotion if matched_all_rules
       end
-      promotions << promotion if matched_all_rules
+      promotions
     end
-    promotions
-  end
 
-  def self.best_promotion_for(cart, promotions_to_apply = [])
-    if cart.items.any? && promotions_to_apply.any?
-      best_promotion = calculate(promotions_to_apply, cart).sort_by { |key, value| value }.last
-      if best_promotion[:total_discount] && best_promotion[:total_discount] >= cart.total_coupon_discount
-        best_promotion[:promotion]
+    def self.best_promotion_for(cart, promotions_to_apply = [])
+      if cart.items.any? && promotions_to_apply.any?
+        best_promotion = calculate(promotions_to_apply, cart).sort_by { |key, value| value }.last
+        if best_promotion[:total_discount] && best_promotion[:total_discount] >= cart.total_coupon_discount
+          best_promotion[:promotion]
+        end
       end
     end
-  end
 
-  def self.calculate(promotions_to_apply, cart)
-    promotions = []
-    promotions_to_apply.map do |promotion|
-      promotions << {promotion: promotion, total_discount: promotion.total_discount_for(cart)}
+    def self.calculate(promotions_to_apply, cart)
+      promotions = []
+      promotions_to_apply.map do |promotion|
+        promotions << {promotion: promotion, total_discount: promotion.total_discount_for(cart)}
+      end
+      promotions
     end
-    promotions
-  end
 
-  def is_greater_than_coupon?(cart)
-    total_discount_for(cart) > cart.coupon.value
-  end
+    def is_greater_than_coupon?(cart)
+      total_discount_for(cart) > cart.coupon.value
+    end
 end
