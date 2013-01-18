@@ -31,8 +31,8 @@ class Coupon < ActiveRecord::Base
   end
 
   def should_apply_to?(cart)
-    best_promotion = Promotion.select_promotion_for(cart)
-    best_promotion ? value > best_promotion.total_discount_for(cart) : true
+    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount
+    value > discounts_sum
   end
   
   private
