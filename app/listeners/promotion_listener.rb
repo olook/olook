@@ -6,12 +6,6 @@ class PromotionListener
     apply_best_promotion_for cart
   end
 
-  def self.should_apply_coupon?(cart, coupon)
-    best_promotion = Promotion.select_promotion_for(cart)
-
-    best_promotion ?  coupon.value > best_promotion.total_discount_for(cart) : true
-  end
-
   private
 
     def self.reset_adjustments_for cart

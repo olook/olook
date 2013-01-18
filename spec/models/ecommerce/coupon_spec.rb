@@ -69,25 +69,20 @@ describe Coupon do
     let(:promotion) { mock_model(Promotion)}
     let(:cart) { mock_model Cart}
     
-    context "when value is greater than promotion discount value" do
-      it "returns true" do
-        Promotion.should_receive(:select_promotion_for).and_return(promotion)
-        promotion.should_receive(:total_discount_for).and_return(50)
-        subject.should_apply_to?(cart).should be_true
-      end
-    end
-
-    context "when value is smaller than promotion discount value" do
+    context "when value is lower than sum of sale and promotion" do
       it "returns false" do
-        Promotion.should_receive(:select_promotion_for).and_return(promotion)
-        promotion.should_receive(:total_discount_for).and_return(150)
+        cart.should_receive(:total_promotion_discount).and_return(100)
+        cart.should_receive(:total_liquidation_discount).and_return(100)
+        subject.should_receive(:value).and_return(100)
         subject.should_apply_to?(cart).should be_false
       end
     end
 
-    context "when there's no promotion for cart" do
+    context "when value is greater than sum of sale and promotion" do
       it "returns true" do
-        Promotion.should_receive(:select_promotion_for).and_return(nil)
+        cart.should_receive(:total_promotion_discount).and_return(30)
+        cart.should_receive(:total_liquidation_discount).and_return(30)
+        subject.should_receive(:value).and_return(100)
         subject.should_apply_to?(cart).should be_true
       end
     end

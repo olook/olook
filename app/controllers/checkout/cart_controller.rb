@@ -23,14 +23,14 @@ class Checkout::CartController < Checkout::BaseController
   def update
     coupon = Coupon.find_by_code(params[:cart][:coupon_code])
 
-    if should_apply_coupon?(@cart, coupon)
-      unless @cart.update_attributes(params[:cart])
-        notice_message = @cart.errors.messages.values.flatten.first
-        render :error, :locals => { :notice => notice_message }
-      end
-    else
+    unless should_apply?(coupon, @cart)
       params[:cart].delete(:coupon_code)
       render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupon" }
+    end
+
+    unless @cart.update_attributes(params[:cart])
+      notice_message = @cart.errors.messages.values.flatten.first
+      render :error, :locals => { :notice => notice_message }
     end
   end
 
@@ -42,8 +42,8 @@ class Checkout::CartController < Checkout::BaseController
 
   private
 
-    def should_apply_coupon? cart, coupon
+    def should_apply?(coupon, cart)
       return true if coupon.nil?
-      PromotionListener.should_apply_coupon? cart, coupon
+      coupon.should_apply_to? cart 
     end
 end
