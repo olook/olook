@@ -1488,14 +1488,14 @@ section#payment {
 /******** NEW CHECKOUT ********/
 /******************************/
 section.checkout{
-	.box-step-one,.box-step-two{width:311px;float:left;}
-	
+	.box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
+	.box-step-three{float:left;width:325px;}
 
 	h2{float:left;clear:both;margin-bottom:15px;
 		span{	
 			display:block;float:left;	
 			&.number{font-family:$kepler;font-size:60px;}
-			&.title{margin-top:8px;font-family:$avenir;font-size:25px;}
+			&.title{margin-top:8px;font-family:$avenir;font-size:25px;width:200px;}
 			&.phrase{font-family:$kepler;font-size:16px;}
 		}
 	}
@@ -1640,7 +1640,10 @@ section.checkout{
 					}
 				}
 			}
-			
+		}
+/********** END / START STEP THREE *******/	
+		#cart-box{
+			float:left;border:solid 1px #D9D8D8;width:321px;
 		}
 	}
 }

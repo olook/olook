@@ -9,7 +9,7 @@
     <div class="box-step-one">
       <h2 class="step-title">
         <span class="number">1.</span>
-        <span class="title">Entrega</span>
+        <span class="title">ENTREGA</span>
         <span class="phrase">Como devemos enviar sua compra?</span>
       </h2>
     
@@ -32,20 +32,24 @@
       <%= render "payments_type", checkout_form: checkout_form %>
     </div>
       
-    <div class="box-step-three">  
-      <%= checkout_form.submit '', class: "send_it" %>
+    <div class="box-step-three">
+      <h2 class="step-title">
+        <span class="number">3.</span>
+        <span class="title">REVISÃO</span>
+        <span class="phrase">Revise e finalize seu pedido.</span>
+      </h2>
+      <% 
+        address = @checkout.address
+        address ||= @addresses.first if @addresses
+       %>  
+      <%= render "cart_details", address: address, button: checkout_form %>
+
     </div>
       
   <% end %>
 
 
-  <% 
-    
-    address = @checkout.address
-    address ||= @addresses.first if @addresses
-  %>
-
-  <%= render "cart_details", address: address %>
+ 
 
 </section>
 

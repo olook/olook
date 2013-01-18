@@ -20,6 +20,7 @@
 		margin-top:15px;border-top:solid 1px #D9D9D9;padding-top:18px;width:240px;
 		a{display:block;font-size:0;font-family:a;width:240px;height:37px;@include sprite_login(-124px, -52px)}
 	}
+	#error_explanation li{font-weight:normal;}
 }
 
 .register{float:left;width:305px;
@@ -28,7 +29,7 @@
 .form_register{float:left;width:357px;margin-right:167px;
 	fieldset{margin:0 20px 13px 0;float:left;position:relative;
 		label{display:block;font-size:14px;margin-bottom:3px;}
-		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:55px;left:0;}
+		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:55px;left:0;width:220px;}
 		input{height:30px;padding-left:3px;border:solid 1px #C3C3C3;
 			&.input_error{border-color:#EA1E40 !important;margin-bottom:4px;}
 			&.first_name, &.last_name{width:152px;}
@@ -37,13 +38,15 @@
 			&.nasc{width:152px;}
 			&.cpf{width:152px;float:left;}
 		}
-		select{width:151px;/*opacity:0;filter: alpha(opacity=0);position:relative;z-index:2;*/}
-		/*.custom_select{position:absolute;display:block;width:165px;height:39px;@include sprite_login(0, -102px);z-index:1;}*/
+		select{width:158px;height:34px;opacity:0;filter: alpha(opacity=0);position:relative;z-index:2;}
+		.custom_select{position:absolute;display:block;width:160px;height:39px;@include sprite_login(0px, -104px);z-index:1;top:21px;left:0;line-height:39px;padding-left:5px;
+			&.input_error{@include sprite_login(-166px, -104px);}
+		}
 		.info-cpf{font-size:11px;float:left;line-height:16px;margin-left:17px;}
 		.terms{clear:both;float:left;font-size:12px;margin-top:15px;
 			a{font-size:12px;color:#DC4877;}
 		}
-		#register{width:123px;height:50px;font-size:0;border:0;font-family:a;@include sprite_login(0, -52px);margin-top:10px;}
+		#register{width:123px;height:50px;font-size:0;border:0;font-family:a;@include sprite_login(0, -52px);margin-top:10px;cursor:pointer;}
 	}
 }
 
