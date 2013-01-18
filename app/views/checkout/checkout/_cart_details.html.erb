@@ -1,11 +1,14 @@
-    <div id="freight_price">
-      <%= freight_for(address) if address && address.zip_code %>
-    </div>
+<div id="cart-box">
+  <table cellpadding="0" cellspacing="0" class="items_list" id="items">
+    <tbody>
+      <% @cart.items.each do |item| %>
+        <%= render partial: 'cart/items/row', locals: { cart_service: @cart_service, item: item } if item %>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="freight_price">
+    <%= freight_for(address) if address && address.zip_code %>
+  </div>
 
-    <table cellpadding="0" cellspacing="0" class="items_list" id="items">
-      <tbody>
-        <% @cart.items.each do |item| %>
-          <%= render partial: 'cart/items/row', locals: { cart_service: @cart_service, item: item } if item %>
-        <% end %>
-      </tbody>
-    </table>
+  <%= button.submit '', class: "send_it" %>
+</div>
