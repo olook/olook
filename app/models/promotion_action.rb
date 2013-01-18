@@ -1,13 +1,8 @@
 class PromotionAction < ActiveRecord::Base
-  # include Parameters
-
   validates :type, presence: true
   has_many :action_parameters
   has_many :promotions, through: :action_parameters
 
-# def params= value
-#   promotion.action_parameter.action_params = value
-# end
 
   def self.inherited(base)
     begin
