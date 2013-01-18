@@ -14,7 +14,7 @@
       <%= render :partial => "payment_methods" %>
       <p class="generate_billet">Você poderá imprimir seu boleto após a finalização do pedido, ou na sessão Meus Pedidos, em sua conta. <br />Também enviaremos o link de impressão para seu email.<br /><strong>Seu pedido ficará reservado por 48hrs.</strong></p>
       <p class="generate_billet last"><span>Importante:</span> O prazo de entrega é considerado a partir da confirmação do pagamento. Lembramos que pagamentos via boleto podem levar até 48h para serem confirmados.</p>
-      <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
+      <%= f.submit '', :class => "finish", :name => "finish", :disable_with => "" %>
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>
