@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: git://github.com/olook/moip-ruby.git
-  revision: ed3d54af9a8d09ed4bb74fd5396b4809368da998
+  revision: 5532e53ecfec153ae9dce8f0e5b7d53da6b9967c
   branch: master
   specs:
-    moip (1.0.2.1)
+    moip (1.0.2.3)
       activesupport (~> 3.2.2)
       httparty (~> 0.8.1)
       nokogiri (~> 1.5.0)
@@ -518,7 +518,7 @@ DEPENDENCIES
   launchy
   meta_search
   mini_magick (= 3.3)
-  moip!
+  moip (>= 1.0.2.3)!
   mysql2
   newrelic_rpm (>= 3.5.3.25)
   oa-oauth (~> 0.3.0)
