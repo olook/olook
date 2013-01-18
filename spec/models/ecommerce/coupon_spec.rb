@@ -5,7 +5,7 @@ describe Coupon do
   let(:expired_coupon) { FactoryGirl.create(:expired_coupon) }
   let(:unlimited_coupon) { FactoryGirl.create(:unlimited_coupon) }
   let(:limited_coupon) { FactoryGirl.create(:limited_coupon) }
-  subject { FactoryGirl.create(:standard_coupon) }
+  subject { FactoryGirl.create(:standard_coupon, value: 100) }
 
   context 'validations' do
     it {should validate_presence_of(:code)}
@@ -63,5 +63,33 @@ describe Coupon do
       product_coupon.apply_discount_to?(9641).should be_false
     end
 
+  end
+
+  describe "#should_apply_to?" do
+    let(:promotion) { mock_model(Promotion)}
+    let(:cart) { mock_model Cart}
+    
+    context "when value is greater than promotion discount value" do
+      it "returns true" do
+        Promotion.should_receive(:select_promotion_for).and_return(promotion)
+        promotion.should_receive(:total_discount_for).and_return(50)
+        subject.should_apply_to?(cart).should be_true
+      end
+    end
+
+    context "when value is smaller than promotion discount value" do
+      it "returns false" do
+        Promotion.should_receive(:select_promotion_for).and_return(promotion)
+        promotion.should_receive(:total_discount_for).and_return(150)
+        subject.should_apply_to?(cart).should be_false
+      end
+    end
+
+    context "when there's no promotion for cart" do
+      it "returns true" do
+        Promotion.should_receive(:select_promotion_for).and_return(nil)
+        subject.should_apply_to?(cart).should be_true
+      end
+    end
   end
 end

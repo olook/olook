@@ -41,6 +41,7 @@ class Checkout::CartController < Checkout::BaseController
   end
 
   private
+
     def should_apply_coupon? cart, coupon
       return true if coupon.nil?
       PromotionListener.should_apply_coupon? cart, coupon

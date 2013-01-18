@@ -29,6 +29,11 @@ class Coupon < ActiveRecord::Base
     products_related = PRODUCT_COUPONS_CONFIG[self.code]
     is_the_product_related = products_related.nil? || products_related.split(",").include?(product_id.to_s)
   end
+
+  def should_apply_to?(cart)
+    best_promotion = Promotion.select_promotion_for(cart)
+    best_promotion ? value > best_promotion.total_discount_for(cart) : true
+  end
   
   private
 
