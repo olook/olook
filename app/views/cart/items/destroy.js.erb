@@ -1,6 +1,6 @@
 //deal with empty cart
 <% if @cart.items_total == 0 %>
-  <% if request.referer =~ /#{new_checkout_path}/ %>
+  <% if request.referer =~ /#{new_checkout_path}|#{checkout_cart_path}/ %>
     window.location.href='<%= "#{cart_path}" %>';
   <% else %>
     $('section#cart').hide().empty().delay(300).append('<%= escape_javascript( render partial: "checkout/cart/empty_cart") %>').delay(300).fadeIn();
