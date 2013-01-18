@@ -37,7 +37,7 @@ end
 
 gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
 gem 'oj'
-gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
+gem 'moip', '>= 1.0.2.3', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'obraspag', '>= 0.0.31', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
@@ -68,7 +68,6 @@ group :development do
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
-  gem 'rails-footnotes', '>= 3.7.9'
 end
 
 group :development, :test do
@@ -77,7 +76,7 @@ group :development, :test do
   gem 'capistrano-maintenance'
   gem 'factory_girl_rails', '~> 3.2.0'
   gem 'rspec-rails', '~> 2.12.0'
-  #not working with current rspec 
+  #not working with current rspec
   #gem 'rspec-gc-control'
   gem 'watchr'
   gem 'awesome_print'
