@@ -25,4 +25,32 @@ describe PromotionListener do
       end
     end
   end
+
+  describe ".should_apply_coupon?" do
+    let(:coupon) { mock_model(Coupon, value: 100)}
+    let(:promotion) { mock_model(Promotion)}
+    let(:cart) { mock_model Cart}
+    context "when coupon value is greater than promotion discount value" do
+      it "returns true" do
+        Promotion.should_receive(:select_promotion_for).and_return(promotion)
+        promotion.should_receive(:total_discount_for).and_return(50)
+        described_class.should_apply_coupon?(cart,coupon).should be_true
+      end
+    end
+
+    context "when coupon value is smaller than promotion discount value" do
+      it "returns false" do
+        Promotion.should_receive(:select_promotion_for).and_return(promotion)
+        promotion.should_receive(:total_discount_for).and_return(150)
+        described_class.should_apply_coupon?(cart,coupon).should be_false
+      end
+    end
+
+    context "when there's no promotion for cart" do
+      it "returns true" do
+        Promotion.should_receive(:select_promotion_for).and_return(nil)
+        described_class.should_apply_coupon?(cart,coupon).should be_true
+      end
+    end
+  end
 end
