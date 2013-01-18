@@ -10,7 +10,6 @@ describe Promotion do
 
     it { should have_many :rule_parameters }
     it { should have_many(:promotion_rules).through(:rule_parameters)}
-
     it { should have_one :action_parameter }
     it { should have_one(:promotion_action).through(:action_parameter)}
   end
@@ -47,6 +46,7 @@ describe Promotion do
 
   describe "#should_apply_for?" do
     let!(:promotion_action) { mock_model(PercentageAdjustment) }
+    let(:action_parameter) { mock_model(ActionParameter) }
 
     context "when cart has no coupon" do
       it "retuns true" do
@@ -54,18 +54,16 @@ describe Promotion do
       end
     end
 
-
     context "when cart has coupon" do
+
       it "returns true" do
-        subject.should_receive(:promotion_action).and_return(promotion_action)
-        promotion_action.should_receive(:is_greater_than_coupon?).and_return(true)
+        subject.should_receive(:is_greater_than_coupon?).and_return(true)
         cart.should_receive(:coupon).and_return(true)
         subject.should_apply_for?(cart).should be_true
       end
 
       it "returns false" do
-        subject.should_receive(:promotion_action).and_return(promotion_action)
-        promotion_action.should_receive(:is_greater_than_coupon?).and_return(false)
+        subject.should_receive(:is_greater_than_coupon?).and_return(false)
         cart.should_receive(:coupon).and_return(true)
         subject.should_apply_for?(cart).should be_false
       end
