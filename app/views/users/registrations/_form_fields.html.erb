@@ -28,9 +28,9 @@
 <% end %>
 <fieldset class="gender_fields">      
   <%= f.label :gender, "Sexo" %>
-  <%= f.select(:gender, options_for_select({"Selecione" => "", "Feminino" => 0, "Masculino" => 1}), class: "#{error_class_if_needed(resource, :gender)}" ) %>
+  <%= f.select(:gender, options_for_select({"Selecione" => "Selecione", "Feminino" => 0, "Masculino" => 1})) %>
   <%= errors_for(resource, :gender) %>
-  <span class="custom_select">&nbsp;</span>
+  <span class="custom_select <%= "#{error_class_if_needed(resource, :gender)}" %>">Selecione</span>
 </fieldset>  
 <fieldset>    
   <%= f.label :birthday, "Data de Nascimento" %>
@@ -47,3 +47,7 @@
 <fieldset>
   <%= f.submit "Cadastrar", :id => "register" %>  
 </fieldset>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "register" %>
+<% end %>
