@@ -22,8 +22,12 @@ class CampaignEmailsController < ApplicationController
       @user = User.find(params[:id])
   end
 
-  def show; end
+  def show
+    @campaign_email = CampaignEmail.find_by_email(params[:id])    
+  end
 
-  def remembered; end
+  def remembered
+    @campaign_email = CampaignEmail.find_by_email(params[:id])    
+  end
 
 end
