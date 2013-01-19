@@ -23,11 +23,11 @@ class CampaignEmailsController < ApplicationController
   end
 
   def show
-    @campaign_email = CampaignEmail.find_by_email(params[:id])    
+    @campaign_email = CampaignEmail.find(params[:id])    
   end
 
   def remembered
-    @campaign_email = CampaignEmail.find_by_email(params[:id])    
+    @campaign_email = CampaignEmail.find(params[:id])    
   end
 
 end
