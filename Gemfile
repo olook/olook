@@ -37,12 +37,13 @@ end
 
 gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
 gem 'oj'
-gem 'moip', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
+gem 'moip', '>= 1.0.2.3', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'obraspag', '>= 0.0.31', :git => 'git@github.com:olook/obraspag.git', :branch => 'master'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon', '= 0.9.9'
+gem 'gyoku', '= 0.4.6'
 gem 'httpi', '= 0.9.7'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
@@ -64,14 +65,19 @@ group :development do
   gem 'faker'
   gem 'bullet'
   gem 'thin'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
 end
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
   gem 'capistrano'
   gem 'capistrano-maintenance'
   gem 'factory_girl_rails', '~> 3.2.0'
-  gem 'rspec-rails', '~> 2.10.1'
+  gem 'rspec-rails', '~> 2.12.0'
+  #not working with current rspec
+  #gem 'rspec-gc-control'
   gem 'watchr'
   gem 'awesome_print'
   gem 'rails-erd'
@@ -84,21 +90,17 @@ end
 
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
-  gem 'capybara', '~> 1.1.1'
-  gem "capybara-webkit", "~> 0.13.0"
+  gem 'capybara', '2.0.2'
+  gem "capybara-webkit", git: 'git://github.com/thoughtbot/capybara-webkit.git'
   gem 'database_cleaner'
-  gem 'rspec', '~> 2.10.0'
   gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.5.3', :require => false
-  gem 'spork', '~> 0.9.1'
+  gem 'spork', '~> 0.9.2'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'launchy'
   gem 'vcr', '1.11.3'
-  #gem 'webmock', '1.7.0'
   gem 'fakeweb'
-  gem 'selenium-webdriver', '2.21.1'
-  #gem 'webmock-disabler'
 end
 
 group :production do

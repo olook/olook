@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Member can send invites", %q{
   In order to show my showroom for my girlfriends
@@ -45,10 +45,6 @@ feature "Member can send invites", %q{
     describe "access the invite page, they can invite people by" do
       background do
         visit member_invite_path
-      end
-
-      scenario "copying and pasting a link to invite/*invite_token*" do
-        page.should have_content(accept_invitation_path(:invite_token => @member.invite_token))
       end
 
       scenario "tweeting the link" do

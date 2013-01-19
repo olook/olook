@@ -1,6 +1,6 @@
  # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Liquidation", %q{
   In order to buy products with discounts

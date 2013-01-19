@@ -1,12 +1,12 @@
  # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 
 feature "Buying Gifts", %q{
   In order to buy a gift for a special person
   As a user
   I want to be able to choose and buy the correct product
-  } do
+  } do 
 
   let!(:user) { FactoryGirl.create(:user) }
   let!(:occasion_type) { FactoryGirl.create(:gift_occasion_type) }

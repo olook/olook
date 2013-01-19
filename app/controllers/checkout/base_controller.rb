@@ -25,18 +25,14 @@ class Checkout::BaseController < ApplicationController
     #TODO: Produtos com o baixa no estoque foram removidos de sua sacola
     return redirect_to cart_path, :notice => "Sua sacola está vazia" if @cart.items.empty?
     
-    coupon = @cart_service.coupon
+    coupon = @cart.coupon
     if coupon && (coupon.try(:expired?) || !coupon.try(:available?))
-      session[:cart_coupon] = nil
       return redirect_to cart_path, :notice => "Cupom expirado. Informe outro por favor"
     end
   end
   
   def clean_cart!
     session[:cart_id] = nil
-    session[:gift_wrap] = nil
-    session[:cart_coupon] = nil
-    session[:cart_use_credits] = nil
     session[:cart_freight] = nil
   end
 end

@@ -41,6 +41,10 @@ module ApplicationHelper
     "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
   end
 
+  def track_add_to_cart_event(product_id = '')
+    track_event("Shopping", "AddToCart#{ga_event_referer}", product_id)
+  end
+
   def user_avatar(user, type = "large")
     "https://graph.facebook.com/#{user.uid}/picture?type=#{type}"
   end
@@ -75,6 +79,19 @@ module ApplicationHelper
     end
   end
 
+  def item_qty_max_option(item)
+    [item.variant.inventory, Setting.default_item_quantity.to_i].min
+  end
+
+  def item_qty_select(item)
+    if item.variant.inventory == 1
+      '1 (última peça!)'
+    else
+      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), 
+                              onchange: "changeCartItemQty('#{item.id}')")
+    end
+  end
+
   def section_name section
     case
     when section == 1
@@ -88,4 +105,28 @@ module ApplicationHelper
     end
   end
 
+  private
+
+    def ga_event_referer
+      case request.referer
+        when /vitrine/
+          'FromVitrine'
+        when /tendencias/
+          'FromTendencias'
+        when /colecoes/
+          'FromColecoes'
+        when /sapatos/
+          'FromSapatos'
+        when /bolsas/
+          'FromBolsas'
+        when /acessorios/
+          'FromAcessorios'
+        when /oculos/
+          'FromOculos'
+        when /stylists/
+          'FromStylists'
+        else
+          ''
+        end
+    end
 end
