@@ -59,9 +59,8 @@ describe Product do
 
     context ".visible" do
       it "returns visible products" do
-        visible_products = [bag, accessory, shoe]
-        # sorting ensures the arrays are in the same order
-        (described_class.only_visible & visible_products).sort.should == visible_products.sort
+        visible_products = [shoe, bag, accessory]
+        (described_class.only_visible & visible_products) =~ visible_products
       end
 
       it "does not return a invisible product" do

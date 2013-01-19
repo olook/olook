@@ -1,0 +1,26 @@
+//deal with empty cart
+<% if @cart.items_total == 0 %>
+$('section#cart').hide().empty().delay(300).append('<%= escape_javascript( render partial: "checkout/cart/empty_cart") %>').delay(300).fadeIn();
+$(".menu li#cart a.cart").removeClass("selected");
+<% end %>
+
+<% if @cart_service.is_minimum_payment? %>
+  $("table#total p.limit").addClass("show");
+<% else %>
+  $("table#total p.limit").removeClass("show");
+<% end %>
+
+//update items total on cart summary
+$("#cart_items").hide().delay(200).text('<%= @cart.items_total %>').fadeIn();
+
+//?
+$("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
+
+//remove item row
+$('tr#item_<%= @item.id %>').fadeOut();
+
+//update total cart/order value
+$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
+
+//Remove item from cart summary pull down
+$("li[data-id=<%= @item.id %>]").first().remove();

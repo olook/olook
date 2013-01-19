@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'integration/helpers'
+require 'features/helpers'
 include ActionView::Helpers::NumberHelper
 include XmlHelper
  

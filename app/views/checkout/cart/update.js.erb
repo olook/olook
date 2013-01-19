@@ -1,0 +1,37 @@
+$("#total_value").html("<%= number_to_currency(@cart_service.total) %>");
+
+<% if @cart.coupon %>
+  $("#coupon_discount").html("<%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %><%= discount_percentage(@cart.coupon.discount_percent) %>");
+  $("#coupon_info").show();
+<% else %>
+  $("#coupon_discount").html("");
+  $("#coupon_info").hide();
+<% end %>
+
+$("#coupon a#show_coupon_field").show();
+$("#coupon a#show_coupon_field").siblings("form").hide();
+
+// update overall total
+$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
+
+// update item rows discounts and subtotals
+// usually when using coupons on cart show
+<% @cart.items.each do |item| %>
+	$("table#items tbody tr#item_<%= item.id %> td.discount").empty();
+
+	$("table#items tbody tr#item_<%= item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount', 
+																					locals: { 
+																						cart_service: @cart_service, 
+																						item: item
+																					} ) %>");
+
+	$("table#items tbody tr#item_<%= item.id %> td.value").empty();
+
+	$("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal', 
+																						locals: { 
+																							cart_service: @cart_service, 
+																							item: item
+																						} ) %>");
+
+	$('section#cart table.check.gift').css('border', '0')
+<% end %>

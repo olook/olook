@@ -1,12 +1,9 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :gift_wrap
-  attr_accessor :coupon
   attr_accessor :promotion
   attr_accessor :freight
-  attr_accessor :credits
-
+  
   def allow_credit_payment?
     promotion.nil? && cart.allow_credit_payment? 
   end
@@ -19,12 +16,6 @@ class CartService
     params.each_pair do |key, value|
       self.send(key.to_s+'=',value)
     end
-
-    self.credits ||= 0
-  end
-
-  def gift_wrap?
-    gift_wrap == "1" ? true : false
   end
 
   def freight_price
@@ -157,7 +148,7 @@ class CartService
       :cart_id => cart.id,
       :user_id => user.id,
       :restricted => cart.has_gift_items?,
-      :gift_wrap => gift_wrap?,
+      :gift_wrap => cart.gift_wrap,
       :amount_discount => total_discount,
       :amount_increase => total_increase,
       :amount_paid => total,
@@ -213,10 +204,10 @@ class CartService
     if has_promotion_and_coupon?
       strategy = promotion.load_strategy(promotion, cart.user)
       promotion_discount = strategy.calculate_promotion_discount(cart.items)
-      if coupon.is_percentage?
-        return promotion_discount[:percent] > coupon.value
+      if cart.coupon.is_percentage?
+        return promotion_discount[:percent] > cart.coupon.value
       else
-        return promotion_discount[:value] > coupon.value
+        return promotion_discount[:value] > cart.coupon.value
       end
     end
 
@@ -225,7 +216,7 @@ class CartService
 
   # private
     def has_promotion_and_coupon?
-      promotion && coupon
+      promotion && cart.coupon
     end
 
   #TODO: add expiration logic
@@ -244,7 +235,7 @@ class CartService
       origin_type = :olooklet
     end
 
-    coupon = self.coupon
+    coupon = cart.coupon
 
     if coupon && !coupon.is_percentage?
       discounts << :coupon_of_value
@@ -286,7 +277,7 @@ class CartService
   end
 
   def increment_from_gift_wrap
-    gift_wrap? ? CartService.gift_wrap_price : 0
+    cart.gift_wrap ? CartService.gift_wrap_price : 0
   end
 
   def minimum_value
@@ -301,7 +292,7 @@ class CartService
     retail_value = 0 if retail_value < 0
     total_discount = 0
 
-    coupon_value = self.coupon.value if self.coupon && !self.coupon.is_percentage?
+    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if should_apply_promotion_discount?
     coupon_value ||= 0
 
@@ -311,7 +302,7 @@ class CartService
 
     retail_value -= coupon_value
 
-    use_credits = self.credits
+    use_credits = self.cart.use_credits
     credits_loyality = 0
     credits_invite = 0
     credits_redeem = 0

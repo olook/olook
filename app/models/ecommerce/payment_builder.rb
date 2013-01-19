@@ -66,7 +66,7 @@ class PaymentBuilder
         if total_coupon > 0
           coupon_payment = CouponPayment.create!(
             :total_paid => total_coupon,
-            :coupon_id => cart_service.coupon.id,
+            :coupon_id => cart_service.cart.coupon.id,
             :order => order,
             :user_id => payment.user_id,
             :cart_id => @cart_service.cart.id)
