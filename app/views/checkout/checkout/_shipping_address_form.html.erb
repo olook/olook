@@ -1,6 +1,3 @@
-<% if @user.addresses %>
-  <p class="addresses_index"><%= link_to "<- Utilizar um endereço já cadastrado", checkout_addresses_path, remote: true %></p>
-<% end %>
 
 <%= fields_for "checkout[address]", address do |address_form| %>
   <%= field_set_tag do %>
@@ -13,7 +10,7 @@
   <% end %> 
 
 
-  <div id="address_fields" name="address_fields" <%= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);' unless address.id || address.zip_code %>>
+  <div id="address_fields" name="address_fields" <%= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);display:none;' unless address.id || address.zip_code %>>
     <%= address_form.hidden_field :id %>
     
     <%= field_set_tag do %>
@@ -77,4 +74,7 @@
     <% end %>
   
   </div>  
+<% end %>
+<% if @user.addresses %>
+  <p class="addresses_index"><%= link_to "Utilizar um endereço já cadastrado", checkout_addresses_path, remote: true %></p>
 <% end %>
