@@ -148,7 +148,7 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    match "/", :to => "index#dashboard"
+    match "/", :to => "dashboard#index"
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
