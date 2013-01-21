@@ -1,3 +1,11 @@
 $("#checkout_address").html("<%= escape_javascript( 
      render partial: 'checkout/checkout/address_list', 
      locals: { addresses: @addresses, selected_address: @addresses.first } ) %>");
+
+$("#freight_price").html("<%= number_to_currency(freight_for(@addresses.first)[:price]) %>");
+$("#freight_price").hide();
+$("#freight_price").delay(300).fadeIn();
+
+$("#delivery_time").html("(entrega em <%= freight_for(@addresses.first)[:delivery_time] %> dias úteis)");
+$("#delivery_time").hide();
+$("#delivery_time").delay(300).fadeIn();
