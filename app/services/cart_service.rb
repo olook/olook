@@ -18,7 +18,7 @@ class CartService
   end
 
   def freight
-    cart.address ? freight_for_zip_code.merge({address: cart.address}) : {}
+    cart.address ? freight_for_zip_code(cart.address.zip_code).merge({address: cart.address}) : {}
   end
 
   def freight_for_zip_code zip_code
