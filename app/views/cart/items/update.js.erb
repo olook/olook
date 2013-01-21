@@ -27,10 +27,11 @@ $("table#items tbody tr#item_<%= @item.id %> td.value").first().append("<%= esca
 //update item quantity on cart summary (pull down)
 $('ul#cart_summary li[data-id=<%= @item.id %>] p.qte span').text(<%= @item.quantity %>);
 
-if($("#cart-box").length >0){
+if($("#cart-box").length > 0){
+  console.log('foo');
   $("#total").text(<%= number_to_currency(@cart_service.total) %>);
   $("#subtotal").text(<%= number_to_currency(@cart_service.subtotal) %>);
-  $("#freight_price").text(<%= @cart_service.freight[:price] %>);
-  $("#delivery_time").text(<%= @cart_service.freight[:delivery_time] %>);
+  <% freight = @cart_service.freight %>
+  $("#freight_price").text("<%= freight[:price] %>");
+  $("#delivery_time").text("<%= freight[:delivery_time] %>");
 }
-
