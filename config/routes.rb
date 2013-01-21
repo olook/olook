@@ -341,7 +341,7 @@ Olook::Application.routes.draw do
   post "/address_data", :to => "zipcode_lookup#address_data"
 
   #FREIGHT
-  post "freight_price", :to => "freight_lookup#freight_price"
+  post "freight_price", :to => "freight_lookup#show"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"

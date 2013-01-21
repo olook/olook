@@ -14,8 +14,6 @@ class ZipcodeLookupController < ApplicationController
     @address = @user.addresses.build(:first_name => @user.first_name, :last_name => @user.last_name)
     @address.zip_code = params[:zip_code]
     @address.assign_attributes result
-
-    @cart_service.cart.address = @address
   end
 
 end
