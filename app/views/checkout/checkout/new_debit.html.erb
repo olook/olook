@@ -13,7 +13,7 @@
       <%= render :partial => "shared/errors", :locals => { :object => @payment } %>
       <%= render :partial => "payment_methods" %>
       <%= render 'form_debits' %>
-      <input type="submit" name="finish" class="finish" value="" onclick="this.form.submit(); this.disabled = 1;" />
+      <%= f.submit '', :class => "finish", :name => "finish", :disable_with => "" %>
     </section>
     <section class="sidebar">
       <% content_for :checkout_sidebar do %>
