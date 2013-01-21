@@ -7,9 +7,10 @@
     </tbody>
   </table>
   <ul>
-    <li><span>FRETE:<%= "frete: #{freight_for(address)}" if address && address.zip_code %></span>
-    <li><span>SUBTOTAL:</span> <%= number_to_currency(@cart_service.subtotal) %></li>
-    <li><span>TOTAL:</span> <%= number_to_currency(@cart_service.total) %></li>
+    <li><span id="freight_price"><%= "#{freight_for(address)}" if address && address.zip_code %></span>
+    <li><span id="subtotal"><%= number_to_currency(@cart_service.subtotal) %></span></li>
+    <li><span id="total"><%= number_to_currency(@cart_service.total) %></span></li>
+    <li><span id="delivery_time"></span></li>
   </ul>  
 
 
