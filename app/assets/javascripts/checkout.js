@@ -11,6 +11,7 @@ function maskTel(tel){
   else
    	$(tel).setMask("(99) 9999-9999");	  
 }
+
 var masks = {
 	cep: function(){
 		$("input.zip_code").setMask({
@@ -30,6 +31,22 @@ var masks = {
 		$("input.credit_card_number").setMask('9999999999999999999')
 	}	
 }
+function retrieve_freight_price(zip_code, address_id) {
+  $.ajax({
+    url: '/freight_price',
+    type: 'POST',
+    data: {
+      zip_code: zip_code,
+      address_id: address_id
+    },
+    beforeSend: function(){
+      $("#freight_price").fadeOut();
+    },
+    success: function(){
+      $("#freight_price").delay(300).fadeIn();
+    }
+  });
+}
 function retrieve_zip_data(zip_code) {
   $.ajax({
     url: '/address_data',
@@ -48,6 +65,12 @@ function retrieve_zip_data(zip_code) {
 		}
   });
 }
+
+function changeCartItemQty(cart_item_id) {
+  $('form#change_amount_' + cart_item_id).submit();
+  // $('button#zip_code_btn').click();  
+}
+
 $(function() {
 	masks.card();
 	

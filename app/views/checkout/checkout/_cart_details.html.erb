@@ -7,9 +7,9 @@
     </tbody>
   </table>
   <ul>
-    <li><span id="freight_price"><%= "#{freight_for(address)}" if address && address.zip_code %></span></li>
+    <li><span id="freight_price"><%= "#{freight_for(address)[:price]}" if address && address.zip_code %></span></li>
     <li><span id="subtotal"><%= number_to_currency(@cart_service.subtotal) %></span></li>
     <li><span id="total"><%= number_to_currency(@cart_service.total) %></span></li>
-    <li><span id="delivery_time"></span></li>
+    <li><span id="delivery_time"><%= "#{freight_for(address)[:delivery_time]}" if address && address.zip_code %></span></li>
   </ul>  
 </div>

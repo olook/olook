@@ -3,4 +3,4 @@ $("#checkout_address").html("<%= escape_javascript(
      locals: { address: @address } ) %>");
 $("#address_fields").show();
 $("#freight_price").html("<%= number_to_currency(@cart_service.freight_for_zip_code(params[:zip_code])[:price]) %>");
-$("#delivery_time").html("<%= @cart_service.freight_for_zip_code(params[:zip_code])[:delivery_time] %>");
+$("#delivery_time").html("Entrega em <%= @cart_service.freight_for_zip_code(params[:zip_code])[:delivery_time] %> dias");
