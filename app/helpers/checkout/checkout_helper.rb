@@ -12,7 +12,7 @@ module Checkout::CheckoutHelper
   end
 
   def freight_for(address)
-    number_to_currency(FreightCalculator.freight_for_zip(address.zip_code, @cart_service.subtotal)[:price])
+    FreightCalculator.freight_for_zip(address.zip_code, @cart_service.subtotal)
   end
 
 end
