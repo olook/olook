@@ -363,7 +363,7 @@
         }
       }
       input[type="submit"].add_product, a.add_product {
-        background: url('/assets/product/bt-add-product.jpg') no-repeat;
+        background: image-url('product/bt-add-product.jpg') no-repeat;
         text-indent: -9999px;
         width: 281px;
         height: 59px;
