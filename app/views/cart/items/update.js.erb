@@ -28,6 +28,9 @@ $("table#items tbody tr#item_<%= @item.id %> td.value").first().append("<%= esca
 $('ul#cart_summary li[data-id=<%= @item.id %>] p.qte span').text(<%= @item.quantity %>);
 
 if($("#cart-box").length >0){
-  //TODO calculate freight, subtotal, etc
+  $("#total").text(<%= number_to_currency(@cart_service.total) %>);
+  $("#subtotal").text(<%= number_to_currency(@cart_service.subtotal) %>);
+  $("#freight_price").text(<%= @cart_service.freight[:price] %>);
+  $("#delivery_time").text(<%= @cart_service.freight[:delivery_time] %>);
 }
 
