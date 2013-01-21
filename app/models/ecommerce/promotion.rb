@@ -17,7 +17,6 @@ class Promotion < ActiveRecord::Base
   def apply cart
     if should_apply_for? cart
       promotion_action.apply cart, self.action_parameter.action_params
-      cart.reload
       Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
     end
   end

@@ -13,6 +13,7 @@ function stopProp(e) {
 }
 function dontShow(){
 	criaCookieAB("modalShow", "sim", 30);
+	_gaq.push(['_trackEvent', 'Modal', 'Excluir', '']);
 }
 
 $(function(){

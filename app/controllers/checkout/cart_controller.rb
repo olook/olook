@@ -32,6 +32,7 @@ class Checkout::CartController < Checkout::BaseController
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
+    @cart.reload
   end
 
   def find_suggested_product
@@ -44,6 +45,6 @@ class Checkout::CartController < Checkout::BaseController
 
     def should_apply?(coupon, cart)
       return true if coupon.nil?
-      coupon.should_apply_to? cart 
+      coupon.should_apply_to? cart
     end
 end
