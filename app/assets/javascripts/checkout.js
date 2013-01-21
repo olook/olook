@@ -31,18 +31,14 @@ var masks = {
 		$("input.credit_card_number").setMask('9999999999999999999')
 	}	
 }
-function retrieve_freight_price(zip_code, address_id) {
+function retrieve_freight_price(zip_code) {
   $.ajax({
-    url: '/freight_price',
-    type: 'POST',
-    data: {
-      zip_code: zip_code,
-      address_id: address_id
-    },
+    url: '/shippings/' + zip_code,
+    type: 'GET',
     beforeSend: function(){
-      $("#freight_price").fadeOut();
-      $("#delivery_time").fadeOut();
-      $("#total").fadeOut();
+      $("#freight_price").hide();
+      $("#delivery_time").hide();
+      $("#total").hide();
     },
     success: function(){
       $("#freight_price").delay(300).fadeIn();
