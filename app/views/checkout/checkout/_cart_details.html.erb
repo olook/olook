@@ -16,6 +16,6 @@
   <p class="total">
     <span class="txt-black">TOTAL: </span>
     <span class="txt-pink" id="total"><%= number_to_currency(@cart_service.total) %></span><br />
-    <span class="frete" id="delivery_time"><%= "(entrega em #{freight_for(address)[:delivery_time]} dias úteis)" if address && address.zip_code %></span>
-  </p> 
+    <span class="frete" id="delivery_time"><%= delivery_time_message(freight_for(address)[:delivery_time]) if address && address.zip_code %></span>
+  </p>
 </div>

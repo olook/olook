@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Checkout::CheckoutHelper
 
   def errors_for(object, field)
@@ -17,6 +18,10 @@ module Checkout::CheckoutHelper
 
   def total_with_freight(freight_value)
     @cart_service.total + freight_value
+  end
+
+  def delivery_time_message(delivery_time)
+    "(entrega em #{delivery_time} dias úteis)"
   end
 
 end
