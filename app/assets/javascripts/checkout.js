@@ -41,9 +41,11 @@ function retrieve_freight_price(zip_code, address_id) {
     },
     beforeSend: function(){
       $("#freight_price").fadeOut();
+      $("#delivery_time").fadeOut();
     },
     success: function(){
       $("#freight_price").delay(300).fadeIn();
+      $("#delivery_time").delay(300).fadeIn();
     }
   });
 }
@@ -68,7 +70,6 @@ function retrieve_zip_data(zip_code) {
 
 function changeCartItemQty(cart_item_id) {
   $('form#change_amount_' + cart_item_id).submit();
-  // $('button#zip_code_btn').click();  
 }
 
 $(function() {
@@ -144,4 +145,9 @@ $(function() {
 		$("ol.cards li span").removeClass("selected");
 	});
 	
+});
+
+$("form.edit_cart_item").submit(function() {
+    retrieve_freight_price($("#checkout_address_zip_code").val(),null);  
+    return true;
 });
