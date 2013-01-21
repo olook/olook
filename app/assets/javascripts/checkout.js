@@ -42,10 +42,12 @@ function retrieve_freight_price(zip_code, address_id) {
     beforeSend: function(){
       $("#freight_price").fadeOut();
       $("#delivery_time").fadeOut();
+      $("#total").fadeOut();
     },
     success: function(){
       $("#freight_price").delay(300).fadeIn();
       $("#delivery_time").delay(300).fadeIn();
+      $("#total").delay(300).fadeIn();
     }
   });
 }
@@ -76,6 +78,8 @@ $(function() {
 	masks.card();
 	
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
+    $("#cart-box #credits_used").hide();
+    $("#cart-box #total").hide();
     $.ajax({
       url: '/sacola',
       type: 'PUT',
