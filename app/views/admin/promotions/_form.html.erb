@@ -59,7 +59,7 @@
 
     <%= f.fields_for :rule_parameters, @rule_parameters do |builder| %>
       <div class="field">
-        <%= builder.label 'Regra considerada' %>
+        <%= builder.label 'Regra aplicada' %>
         <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :name) %>
       </div>
       <div class="field">
