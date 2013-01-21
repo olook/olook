@@ -1,7 +1,7 @@
 class FreightLookupController < ApplicationController
   respond_to :js
 
-  def freight_price
+  def show
 
     zip_code = params[:zip_code].blank? ? Address.find(params[:address_id]).zip_code : params[:zip_code]
 
