@@ -33,5 +33,12 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 																							item: item
 																						} ) %>");
 
-	$('section#cart table.check.gift').css('border', '0')
+	$('section#cart table.check.gift').css('border', '0');
 <% end %>
+
+if($("#cart-box").length > 0){
+  $("#cart-box #credits_used").text('<%= number_to_currency(@cart_service.total_credits_discount) %>');
+  $("#cart-box #total").text('<%= number_to_currency(@cart_service.total) %>');
+  $("#cart-box #credits_used").delay(300).fadeIn();
+  $("#cart-box #total").delay(300).fadeIn();
+}
