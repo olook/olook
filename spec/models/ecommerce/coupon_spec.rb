@@ -68,7 +68,11 @@ describe Coupon do
   describe "#should_apply_to?" do
     let(:promotion) { mock_model(Promotion)}
     let(:cart) { mock_model Cart}
-    
+
+    before :each do
+      cart.stub(:total_price).and_return(300)
+    end
+
     context "when value is lower than sum of sale and promotion" do
       it "returns false" do
         cart.should_receive(:total_promotion_discount).and_return(100)

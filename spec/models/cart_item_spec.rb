@@ -38,19 +38,29 @@ describe CartItem do
       cart_item.update_attributes(:quantity => 1)
     end
 
-    context "cart_item without adjustment" do
-      it "returns full price" do
-        cart_item.product.master_variant.update_attribute(:retail_price, "100.00")
-        cart_item.retail_price.to_s.should eq("100.0")
+    context "when cart has no coupon" do
+      context "cart_item without adjustment" do
+        it "returns full price" do
+          cart_item.product.master_variant.update_attribute(:retail_price, "100.00")
+          cart_item.retail_price.to_s.should eq("100.0")
+        end
       end
-    end
 
-    context "cart_item with adjustment" do
-      it "returns value calculated" do
-        cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
-        cart_item.product.stub(:retail_price).and_return(BigDecimal("0"))
-        cart_item.stub(:adjustment_value).and_return(BigDecimal("9.99"))
-        cart_item.retail_price.to_s.should eq("50.0")
+      context "cart_item with adjustment" do
+        it "returns value calculated" do
+          cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
+          cart_item.product.stub(:retail_price).and_return(BigDecimal("0"))
+          cart_item.stub(:adjustment_value).and_return(BigDecimal("9.99"))
+          cart_item.retail_price.to_s.should eq("50.0")
+        end
+      end
+
+      context "when cart has coupon" do
+        it "returns full price" do
+          cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
+          cart_item.cart.stub(:coupon).and_return(true)
+          cart_item.retail_price.should eq(cart_item.product.price)
+        end
       end
     end
 
