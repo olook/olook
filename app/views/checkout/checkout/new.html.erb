@@ -31,24 +31,24 @@
 
       <%= render "payments_type", checkout_form: checkout_form %>
     </div>
-
+    <%= checkout_form.submit '', class: "send_it", disable_with: "" %>
+  <% end %>
+  
     <div class="box-step-three">
       <h2 class="step-title">
         <span class="number">3.</span>
         <span class="title">REVISÃO</span>
         <span class="phrase">Revise e finalize seu pedido.</span>
       </h2>
-    
-      <%= checkout_form.submit '', class: "send_it", disable_with: "" %>
+      <% 
+        address = @checkout.address
+        address ||= @addresses.first if @addresses
+       %>  
+      <%= render "cart_details", address: address %>
+      
+  
     </div>
-  <% end %>
 
-  <% 
-    address = @checkout.address
-    address ||= @addresses.first if @addresses
-   %>  
-  <%= render "cart_details", address: address %>
- 
 
 </section>
 
