@@ -42,7 +42,7 @@
         address = @checkout.address
         address ||= @addresses.first if @addresses
        %>  
-      <%= render "cart_details", address: address, button: checkout_form %>
+      <%= render "cart_details", address: address, checkout_form: checkout_form %>
 
     </div>
       
