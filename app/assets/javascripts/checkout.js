@@ -36,9 +36,9 @@ function retrieve_freight_price(zip_code) {
     url: '/shippings/' + zip_code,
     type: 'GET',
     beforeSend: function(){
-      $("#freight_price").fadeOut();
-      $("#delivery_time").fadeOut();
-      $("#total").fadeOut();
+      $("#freight_price").hide();
+      $("#delivery_time").hide();
+      $("#total").hide();
     },
     success: function(){
       $("#freight_price").delay(300).fadeIn();
