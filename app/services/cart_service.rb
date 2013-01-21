@@ -18,7 +18,11 @@ class CartService
   end
 
   def freight
-    cart.address ? FreightCalculator.freight_for_zip(cart.address.zip_code, subtotal).merge({address: cart.address}) : {}
+    cart.address ? freight_for_zip_code.merge({address: cart.address}) : {}
+  end
+
+  def freight_for_zip_code zip_code
+    FreightCalculator.freight_for_zip(zip_code, subtotal)
   end
 
   def freight_price

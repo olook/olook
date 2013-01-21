@@ -30,9 +30,6 @@ var masks = {
 		$("input.credit_card_number").setMask('9999999999999999999')
 	}	
 }
-
-
-
 function retrieve_zip_data(zip_code) {
   $.ajax({
     url: '/address_data',
@@ -49,22 +46,6 @@ function retrieve_zip_data(zip_code) {
 			masks.tel(".tel_contato2");
 			masks.cep();
 		}
-  });
-}
-function retrieve_freight_price(zip_code, address_id) {
-  $.ajax({
-    url: '/freight_price',
-    type: 'POST',
-    data: {
-      zip_code: zip_code,
-      address_id: address_id
-    },
-    beforeSend: function(){
-      $("#freight_price").fadeOut();
-    },
-    success: function(){
-      $("#freight_price").delay(300).fadeIn();
-    }
   });
 }
 $(function() {
