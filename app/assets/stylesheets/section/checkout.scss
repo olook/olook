@@ -1536,7 +1536,7 @@ section.checkout{
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
 			
-			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;top:400px;}
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;}
 		}
 		.btn_zipcode{
 			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;cursor:pointer;

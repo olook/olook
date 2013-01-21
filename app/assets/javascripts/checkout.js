@@ -70,8 +70,15 @@ function changeCartItemQty(cart_item_id) {
   $('form#change_amount_' + cart_item_id).submit();
 }
 
+function setButton(){
+	el = $("#cart-box").height();
+	h = el + 120;
+	$("#new_checkout .send_it").css("top", h).fadeIn();
+}
+
 $(function() {
 	masks.card();
+	setButton();
 	
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
