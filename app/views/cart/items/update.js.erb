@@ -26,3 +26,8 @@ $("table#items tbody tr#item_<%= @item.id %> td.value").first().append("<%= esca
 
 //update item quantity on cart summary (pull down)
 $('ul#cart_summary li[data-id=<%= @item.id %>] p.qte span').text(<%= @item.quantity %>);
+
+if($("#cart-box").length >0){
+  //TODO calculate freight, subtotal, etc
+}
+
