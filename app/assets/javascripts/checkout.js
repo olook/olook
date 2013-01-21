@@ -7,9 +7,9 @@ function maskTel(tel){
 	ddd  = $(tel).val().substring(1, 3);
 	dig9 = $(tel).val().substring(5, 6);
 	if(ddd == "11" && dig9 == "9")
-		$(tel).setMask("(99) 99999-9999");
+		$(tel).setMask("(99)99999-9999");
   else
-   	$(tel).setMask("(99) 9999-9999");	  
+   	$(tel).setMask("(99)9999-9999");	  
 }
 var masks = {
 	cep: function(){

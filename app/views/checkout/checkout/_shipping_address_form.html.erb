@@ -76,18 +76,5 @@
       <%= address_form.text_field :mobile, class: "tel_contato2" %>
     <% end %>
   
-    <p class="subtitle">OPÇÕES DE FRETE</p>
-    <%= field_set_tag do %>
-      <%= radio_button :freight, '', 'normal', class: "frete", checked: true %>
-      <%= address_form.label :freight, "Entrega normal (3 dias úteis):", class: "frete_label" %>
-      <span class="freight_value" id="freight_value1">R$ 5,90</span>
-      <p class="freight_text">FRETE GRÁTIS PARA SUL E SUDESTE</p>
-    <% end %>
-  
-    <%= field_set_tag do %>
-      <%= radio_button :freight, '', 'express', class: "frete" %>
-      <%= address_form.label :freight, "Entrega expressa (1 dia útil):", class: "frete_label" %>
-      <span class="freight_value" id="freight_value2">R$ 9,90</span>
-    <% end %>
   </div>  
 <% end %>
