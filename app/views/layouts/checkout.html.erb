@@ -10,7 +10,7 @@
     <% if @referer %>
       <li class="link"><%= link_to @referer[:text], @referer[:url], :class => "back_link" %></li>
     <% else %>
-      <li class="link"><%= link_to "Voltar para minha vitrine", member_showroom_path, :class => "back_link" %></li>
+      <li class="link"><%= link_to "Continuar comprando", member_showroom_path, :class => "back_link" %></li>
     <% end %>
     <% if @payment.nil? || !["Mastercard", "Visa", "Diners"].include?(@payment.bank) %>
       <li class="moip">Pagamento MoIP</li>
