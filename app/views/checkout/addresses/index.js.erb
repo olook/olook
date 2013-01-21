@@ -2,10 +2,16 @@ $("#checkout_address").html("<%= escape_javascript(
      render partial: 'checkout/checkout/address_list', 
      locals: { addresses: @addresses, selected_address: @addresses.first } ) %>");
 
-$("#freight_price").html("<%= number_to_currency(freight_for(@addresses.first)[:price]) %>");
+<% freight = freight_for(@addresses.first) %>
+
 $("#freight_price").hide();
+$("#freight_price").html("<%= number_to_currency(freight[:price]) %>");
 $("#freight_price").delay(300).fadeIn();
 
-$("#delivery_time").html("(entrega em <%= freight_for(@addresses.first)[:delivery_time] %> dias úteis)");
 $("#delivery_time").hide();
+$("#delivery_time").html("(entrega em <%= freight[:delivery_time] %> dias úteis)");
 $("#delivery_time").delay(300).fadeIn();
+
+$("#total").hide();
+$("#total").html("<%= number_to_currency(total_with_freight(freight[:price])) %>");
+$("#total").delay(300).fadeIn();

@@ -1,9 +1,16 @@
 $("#checkout_address").html("<%= escape_javascript( 
      render partial: 'checkout/checkout/shipping_address_form', 
      locals: { address: @address } ) %>");
-$("#address_fields").show();
-$("#freight_price").html("<%= number_to_currency(@cart_service.freight_for_zip_code(params[:zip_code])[:price]) %>");
-$("#freight_price").show();
 
-$("#delivery_time").html("(entrega em <%= @cart_service.freight_for_zip_code(params[:zip_code])[:delivery_time] %> dias úteis)");
-$("#delivery_time").show();
+$("#address_fields").show();
+
+<% freight = @cart_service.freight_for_zip_code(params[:zip_code]) %>
+
+$("#freight_price").html("<%= number_to_currency(freight[:price]) %>");
+$("#freight_price").delay(300).fadeIn();
+
+$("#delivery_time").html("(entrega em <%= freight[:delivery_time] %> dias úteis)");
+$("#delivery_time").delay(300).fadeIn();
+
+$("#total").html("<%= number_to_currency(total_with_freight(freight[:price])) %>");
+$("#total").delay(300).fadeIn();
