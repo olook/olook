@@ -29,9 +29,9 @@ $('ul#cart_summary li[data-id=<%= @item.id %>] p.qte span').text(<%= @item.quant
 
 
 if($("#cart-box").length > 0){
-  $("#total").text("<%= number_to_currency(@cart_service.total) %>");
-  $("#subtotal").text("<%= number_to_currency(@cart_service.subtotal) %>");
-  <% freight = @cart_service.freight %>
-  $("#freight_price").text("<%= freight[:price] %>");
-  $("#delivery_time").text("<%= freight[:delivery_time] %>");
+  $("#total").text('<%= number_to_currency(@cart_service.total) %>');
+  $("#subtotal").text('<%= number_to_currency(@cart_service.subtotal) %>');
+  <% freight = @cart_service.freight_for_zip_code("45028-100") %>
+  $("#freight_price").text('<%= number_to_currency(freight[:price]) unless freight.empty? %>');
+  $("#delivery_time").text('<%= "Entrega em #{freight[:delivery_time]} dias" unless freight.empty? %> ');
 }
