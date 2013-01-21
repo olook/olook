@@ -84,7 +84,7 @@ describe CampaignEmailsController do
 
 	describe "GET #show" do
 		before(:each) do
-			get :show, id: user.id
+			get :show, id: campaign_email.id
 		end
 
 		it "responds with success" do

@@ -42,7 +42,7 @@ feature "Show products on xml format" do
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
-      <category>#{product.category_humanize}</category>
+      <category>#{product.subcategory}</category>
       </product>
       </products>
       END
@@ -70,7 +70,7 @@ feature "Show products on xml format" do
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
-      <category>#{product.category_humanize}</category>
+      <category>#{product.subcategory}</category>
       </product>
       </products>
       END
