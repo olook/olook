@@ -7,6 +7,11 @@ pt-BR:
           blank: "campo obrigatório"
           invalid: "campo inválido"
           attributes:
+            zip_code:
+              blank: "O CEP parece estranho. Pode conferir?"
+              invalid: "Precisamos do seu CEP"
+            city:
+              blank: "Qual é o nome da cidade, mesmo?"
             state:
               blank: "obrigatório"
               invalid: "inválido"
@@ -14,3 +19,31 @@ pt-BR:
               blank: "obrigatório"
               invalid: "inválido"
               not_a_number: "inválido"
+        user:
+          attributes:
+            first_name:
+              blank: "Queremos te conhecer, qual é o seu nome? :)"
+            last_name:
+              blank: "Ah, precisamos do nome completo"
+            password:
+              blank: "Crie sua senha para acessos futuros"
+              too_short: "Ah, a senha deve ter no mínimo %{count} caracteres, tá?"
+              confirmation: "Pode repetir? Parece que não está batendo"
+            email:
+              blank: "Precisamos dele para envio de mensagens sobre o pedido"
+              invalid: "O e-mail parece estranho. Pode conferir?"
+        credit_card:
+          attributes:
+            user_identification:
+              blank: "Para compras, é necessário informar o CPF"
+              invalid: "Pode repetir? Parece que não está batendo"
+            user_birthday:
+              blank: "Queremos saber esta data especial :)"
+              invalid: "Pode repetir? Parece que não está batendo"
+            security_code:
+              blank: "É preciso informar o código (para sua própria segurança)"
+              invalid: "O código parece estranho. Pode conferir?"
+            user_name:
+              blank: "O nome deve ser igual ao impresso no cartão de crédito"
+            bank:
+              blank: "Qual é a bandeira do seu cartão, mesmo?"
