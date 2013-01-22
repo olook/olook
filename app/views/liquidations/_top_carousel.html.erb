@@ -2,6 +2,6 @@
   <% if liquidation.teaser_banner? %>
     <%= image_tag liquidation.teaser_banner, :alt => liquidation.name %>
   <% end %>
-  <p><%= liquidation.description %></p>
+  <!-- <p><%= liquidation.description %></p> -->
 </div>
 <%= render "carousel",  :params => { :carousels => liquidation.liquidation_carousels } %>

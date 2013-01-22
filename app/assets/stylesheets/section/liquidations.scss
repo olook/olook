@@ -9,7 +9,8 @@ div.full_container {
     position: relative;
     div.description {
       position: relative;
-      width: 470px;
+      width: 490px;
+      height: 310px;
       margin: 0 0 0 0;
       overflow: auto;
       float: left;
@@ -39,8 +40,8 @@ div.full_container {
         display: table;
       }
       img {
-        max-width: 470px;
-        max-height: 220px;
+        width: 480px;
+        height: 293px;
         margin: 0 auto 10px auto;
       }
       p {
