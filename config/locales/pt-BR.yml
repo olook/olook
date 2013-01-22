@@ -1,6 +1,16 @@
 # encoding: UTF-8
 # pt-BR translations for Ruby on Rails
 "pt-BR":
+
+  dashboard_report_days:
+    0: Hoje
+    1: Ontem
+    2: "2 dias atrás"
+    3: "3 dias atrás"
+    4: "4 dias atrás"
+    5: "5 dias atrás"
+    6: "6 ou mais dias atrás"
+
   #Carrinho
   cart:
     discounts:
@@ -318,7 +328,7 @@
         name: nome
       gift_box:
         name: Nome
-        active: Ativo 
+        active: Ativo
 
     errors:
       template:
