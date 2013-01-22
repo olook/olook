@@ -21,16 +21,17 @@
         <td><%= Order.with_date(Time.now - report_day_number.days).with_state("picking").size %></td>
         <td><%= Order.with_date(Time.now - report_day_number.days).with_state("delivering").size %></td>
         <td><%= Order.with_date(Time.now - report_day_number.days).with_state("delivered").size %></td>
+        <td><%= Order.with_date(Time.now - report_day_number.days).with_state(["authorized","picking","delivering","delivered"]).size %></td>
       </tr>
     <% end %>
 
 	<tr>
 		<td>TOTAL</td>
 		<td id='total_authorized'><%= Order.with_state("authorized").count %></td>
-		<td id='total_picking'></td>
-		<td id='total_delivering'></td>
-		<td id='total_delivered'></td>
-		<td id='grand_total'></td>
+		<td id='total_picking'><%= Order.with_state("picking").count %></td>
+		<td id='total_delivering'><%= Order.with_state("delivering").count %></td>
+		<td id='total_delivered'><%= Order.with_state("delivered").count %></td>
+		<td id='grand_total'><%= Order.with_state(["authorized","picking","delivering","delivered"]).count %></td>
 	</tr>
 
   </table>
