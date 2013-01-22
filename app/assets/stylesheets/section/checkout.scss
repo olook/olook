@@ -1477,7 +1477,7 @@ section#payment {
 
 .txt-black{color:#000 !important;}
 .txt-pink{color:#E15789 !important;}
-
+.fixed{position:fixed !important;}
 /******************************/
 /******** NEW CHECKOUT ********/
 /******************************/
@@ -1641,8 +1641,8 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/		
 	#cart-box{
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:285px;background:#FFF;
 		.bg-box{display:none;}
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:285px;
 		.products{max-height:152px;overflow-y:auto;}
 		#items{width:100%;
 			tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
