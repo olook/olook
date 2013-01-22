@@ -17,6 +17,8 @@ class Order < ActiveRecord::Base
     "authorized" => "Pagamento autorizado"
   }
 
+  scope :orders_with_date_and_state, lambda {|date, state| where(created_at: date.beginning_of_day..date.end_of_day).where(state: state)}
+
   belongs_to :cart
   belongs_to :user
 
@@ -27,7 +29,7 @@ class Order < ActiveRecord::Base
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   has_many :clearsale_order_responses
-  
+
   belongs_to :tracking, :dependent => :destroy
 
   after_create :initialize_order
