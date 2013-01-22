@@ -2,16 +2,10 @@
 @import 'partials/address';
 @import 'partials/product';
 @import "partials/carousel_lookbooks";
+@import "partials/header_footer_checkout";
 
 $border-color: #e5e5e5;
 
-header {
-  &.checkout {
-    background: none !important;
-    min-height: 120px !important;
-  }
-  .content{position:relative;}
-}
 
 a.back_link {
   background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
@@ -1647,6 +1641,7 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/		
 	#cart-box{
+		.bg-box{display:none;}
 		float:left;border:solid 1px #D9D8D8;width:321px;max-height:285px;
 		.products{max-height:152px;overflow-y:auto;}
 		#items{width:100%;
