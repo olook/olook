@@ -2,20 +2,29 @@
 require 'spec_helper'
 
 describe FreeItemAdjustment do
+  let!(:cart) { FactoryGirl.create(:cart_with_3_items) }
+
   describe "#simulate" do
-    let(:cart) { mock_model Cart, items: [] }
-    it "returns price of item with lower price" do
-    i = 10
-      3.times do
-        item = mock_model CartItem, id: i, price: i
-        cart.items << item
-        i += 10
+    context "when cart has items" do
+      it "returns price of item with lower price" do
+        subject.simulate(cart).should eq(cart.items.first.price)
       end
-      subject.simulate(cart).should eq(10)
+    end
+
+    context "when cart has no items" do
+      it "returns zero" do
+        cart.items.should_receive(:any?).and_return(0)
+        subject.simulate(cart).should eq(0)
+      end
     end
   end
 
   describe "#apply" do
-    #subject
+    it "set retail price as zero" do
+      cart.items.first.cart_item_adjustment.should_receive(:update_attributes)
+      subject.apply(cart)
+      cart.items.first.cart_item_adjustment.value.should eq(0)
+    end
   end
+
 end
