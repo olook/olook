@@ -38,6 +38,12 @@ class Promotion < ActiveRecord::Base
     simulate(cart).map {|item| item[:adjust] }.reduce(:+)
   end
 
+  def param_for(rule)
+    # I know this is ugly, I thiking how refactor it
+    # TODO composite key
+    rule_parameters.find_by_promotion_rule_id(rule).rules_params
+  end
+
   private
 
     def self.matched_promotions_for cart
