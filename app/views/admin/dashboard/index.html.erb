@@ -16,7 +16,7 @@
 
     <% @report_days.each do |report_day_number| %>
       <tr>
-        <td><%= t("dashboard_report_days.#{report_day_number}") %></td>
+        <td><%= I18n.t("dashboard_report_days.#{report_day_number}") %></td>
         <td><%= Order.orders_with_date_and_state(Time.now - report_day_number,"authorized").size %></td>
         <td><%= Order.orders_with_date_and_state(Time.now - report_day_number,"picking").size %></td>
         <td><%= Order.orders_with_date_and_state(Time.now - report_day_number,"delivering").size %></td>
