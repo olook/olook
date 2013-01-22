@@ -75,6 +75,6 @@
   
   </div>  
 <% end %>
-<% if @user.addresses %>
+<% if @user.addresses && @user.addresses.any? %>
   <p class="addresses_index"><%= link_to "Utilizar um endereço já cadastrado", checkout_addresses_path, remote: true %></p>
 <% end %>
