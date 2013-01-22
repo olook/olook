@@ -150,6 +150,8 @@ Olook::Application.routes.draw do
   namespace :admin do
     match "/", :to => "dashboard#index"
 
+    get "/dashboard/show/:state/:report_day_number", :controller =>'dashboard', :action => 'show'
+
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
       collection do
