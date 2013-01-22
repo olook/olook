@@ -17,10 +17,8 @@ class Order < ActiveRecord::Base
     "authorized" => "Pagamento autorizado"
   }
 
-  scope :orders_with_date_and_state, lambda { |date, status|
-                                        where(created_at: date.beginning_of_day..date.end_of_day).
-                                        where(state: status)
-                                      }
+  scope :with_status, lambda { |status| where(state: status) }
+  scope :with_date, lambda { |date| where(created_at: date.beginning_of_day..date.end_of_day) }
 
   belongs_to :cart
   belongs_to :user
