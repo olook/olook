@@ -1,5 +1,7 @@
 class Checkout::LoginController < ApplicationController
 
+  layout "checkout"
+
   before_filter :check_user_logged
   
   def index
