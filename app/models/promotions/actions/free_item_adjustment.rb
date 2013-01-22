@@ -3,7 +3,7 @@ class FreeItemAdjustment < PromotionAction
 
   def apply(cart)
     calculate(cart).each do |item|
-      item.cart_item_adjustment.update_attributes(value: item.retail_price)
+      item.cart_item_adjustment.update_attributes(value: item.price)
     end
   end
 
