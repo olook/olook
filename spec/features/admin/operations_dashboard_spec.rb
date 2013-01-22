@@ -12,14 +12,12 @@ feature "Operations dashboard", %q{
 
   background do
     ApplicationController.any_instance.stub(:load_promotion)
-    FactoryGirl.create(:order, created_at: Time.zone.now, state: "authorized")
+    FactoryGirl.create(:order, created_at: Time.now, state: "authorized")
+    do_admin_login!(admin)
+    visit '/admin'
   end
 
 	scenario "Listing the orders by their dates and statuses" do
-    do_admin_login!(admin)
-
-    visit '/admin'
-
     expect(page).to have_content("Dashboard")
     expect(page).to have_content("Operações")
 
@@ -37,10 +35,14 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("6 ou mais dias atrás")
     expect(page).to have_content("TOTAL")
 
-    save_and_open_page
-
     expect(page).to have_css('#total_authorized', text: '1')
+  end
 
+  scenario "Viewing details for a list of orders" do
+    save_and_open_page
+    within('tr#0_dias') do
+      find('td.authorized a').first.click
+    end
   end
 
 end

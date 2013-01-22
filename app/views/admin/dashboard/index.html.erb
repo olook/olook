@@ -15,13 +15,14 @@
 
 
     <% @report_days.each do |report_day_number| %>
-      <tr>
+      <tr id='<%= report_day_number %>_dias'>
         <td><%= I18n.t("dashboard_report_days.#{report_day_number}") %></td>
-        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("authorized").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("picking").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("delivering").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("delivered").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number.days).with_state(["authorized","picking","delivering","delivered"]).size %></td>
+        <% @statuses.each do |status| %>
+        <% state = status.include?(',') ? status.split(',') : status %>
+	        <td class='<%= status.include?(',') ? 'all' : status %>'>
+			<%= link_to Order.with_date(Time.now - report_day_number.days).with_state(state).size, "/dashboard/show/#{status}/#{report_day_number}" %>
+	        </td>
+        <% end %>
       </tr>
     <% end %>
 
