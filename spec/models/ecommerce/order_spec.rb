@@ -39,17 +39,17 @@ describe Order do
       basic_shoe_40.increment!(:inventory, quantity)
       basic_shoe_35_inventory = basic_shoe_35.inventory
       basic_shoe_40_inventory = basic_shoe_40.inventory
-      subject.line_items.create( 
+      subject.line_items.create(
         :variant_id => basic_shoe_35.id,
-        :quantity => quantity, 
+        :quantity => quantity,
         :price => basic_shoe_35.price,
         :retail_price => basic_shoe_35.retail_price)
-      subject.line_items.create( 
+      subject.line_items.create(
         :variant_id => basic_shoe_40.id,
-        :quantity => quantity, 
+        :quantity => quantity,
         :price => basic_shoe_40.price,
         :retail_price => basic_shoe_40.retail_price)
-        
+
       subject.increment_inventory_for_each_item
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory + quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory + quantity
@@ -292,14 +292,26 @@ describe Order do
   end
 
   describe "order metadata" do
-    subject do 
-      FactoryGirl.create(:clean_order, 
+    subject do
+      FactoryGirl.create(:clean_order,
         :user_first_name => 'Jéssica',
         :user_last_name => 'Gomes'
       )
     end
-    
+
     it { subject.user_name.should == 'Jéssica Gomes'}
-    
+
+  end
+
+  context "On scopes" do
+    it "returns orders with one state on specific date" do
+
+      order_picking = FactoryGirl.create(:order, created_at: Time.zone.now, state: "picking")
+      order_waiting = FactoryGirl.create(:order, created_at: Time.zone.now)
+      state_orders_from_db = Order.orders_with_date_and_state(Time.now,"waiting_payment").map(&:state)
+      expect(state_orders_from_db.size).to eq(1)
+      expect(state_orders_from_db).to include("waiting_payment")
+    end
+
   end
 end
