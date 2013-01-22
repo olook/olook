@@ -223,6 +223,7 @@ Olook::Application.routes.draw do
 
     end
     resources :coupons, :except => [:destroy]
+    resources :holidays
     resources :landing_pages
     resources :promotions
     resources :liquidations do
