@@ -17,16 +17,16 @@
     <% @report_days.each do |report_day_number| %>
       <tr>
         <td><%= I18n.t("dashboard_report_days.#{report_day_number}") %></td>
-        <td><%= Order.with_date(Time.now - report_day_number).with_state("authorized").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number).with_state("picking").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number).with_state("delivering").size %></td>
-        <td><%= Order.with_date(Time.now - report_day_number).with_state("delivered").size %></td>
+        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("authorized").size %></td>
+        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("picking").size %></td>
+        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("delivering").size %></td>
+        <td><%= Order.with_date(Time.now - report_day_number.days).with_state("delivered").size %></td>
       </tr>
     <% end %>
 
 	<tr>
 		<td>TOTAL</td>
-		<td id='total_authorized'><% Order.with_state("authorized").count %></td>
+		<td id='total_authorized'><%= Order.with_state("authorized").count %></td>
 		<td id='total_picking'></td>
 		<td id='total_delivering'></td>
 		<td id='total_delivered'></td>
