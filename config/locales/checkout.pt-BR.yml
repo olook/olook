@@ -1,0 +1,16 @@
+# encoding: UTF-8
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        address:
+          blank: "campo obrigatório"
+          invalid: "campo inválido"
+          attributes:
+            state:
+              blank: "obrigatório"
+              invalid: "inválido"
+            number:
+              blank: "obrigatório"
+              invalid: "inválido"
+              not_a_number: "inválido"
