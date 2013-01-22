@@ -1,12 +1,12 @@
 - content_for :footer do
-	:javascript
-	  = track_event('Modal', 'SuccessPage', @campaign_email.id)
+  :javascript
+    = track_event('Modal', 'SuccessPage', @campaign_email.id)
 
 .box-remember.success
   %div.msg
-    %p Cadastro realizado com sucesso! 
+    %p Cadastro realizado com sucesso!
   %p.f14  Você já ganhou 20% de desconto* para usar em sua primeira compra.
   %p.desconto * O desconto é aplicado em sua sacola e é válido por 7 dias a partir do cadastro
 
-  %button{:type => "button", :class => "close"} Fechar 
+  %button{:type => "button", :class => "close"} Fechar
 
