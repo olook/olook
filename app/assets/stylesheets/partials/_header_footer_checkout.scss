@@ -16,7 +16,7 @@ header.checkout{
 footer.footer_checkout{
 	background:none !important;margin-top:30px;border-top:solid 2px #DEDDDD;padding-top:30px;height:170px;
 	div{width:965px;overflow:hidden;margin:0 auto;padding-left:10px;
-		section{float:left;width:auto;padding:0;color:#000;margin-right:70px;
+		section{float:left;width:auto;padding:0;color:#000;margin-right:46px;
 			&.name-rights{clear:both;margin:30px 0 0;
 				p{clear: both;color: #767676;font-size: 11px;line-height: 13px;margin:0px;}
 			}
@@ -26,7 +26,9 @@ footer.footer_checkout{
 					li{margin:0 0 6px 15px;list-style:disc !important;}
 				}
 				&.security{
-					.comodo{float:left;margin-top:10px;} 
+					li{float:left;
+						&.comodo{margin-top:10px;} 
+					}	
 				}
 				li{font-size:11px;}
 			} 

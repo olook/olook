@@ -70,15 +70,36 @@ function changeCartItemQty(cart_item_id) {
   $('form#change_amount_' + cart_item_id).submit();
 }
 
+var helpLeft2 = 0;
 function setButton(){
 	el = $("#cart-box").height();
 	h = el + 120;
 	$("#new_checkout .send_it").css("top", h).fadeIn();
+ 	 
+	return helpLeft2 = $('input.send_it').offset().left;
 }
 
+
 $(function() {
+	
 	masks.card();
 	setButton();
+	
+	var msie6 = $.browser == 'msie' && $.browser.version < 7;
+	if(!msie6 && $('.box-step-three').length == 1) {
+		var helpLeft = $('.box-step-three').offset().left; 
+
+		$(window).scroll(function(event) {
+			var y = $(this).scrollTop();
+			if(y >= 170) {
+				$('div.box-step-three').addClass('fixed').css({'left': helpLeft, 'top' : '0'});
+				$('input.send_it').addClass('fixed').css('left', helpLeft2);
+			} else {
+				$('.box-step-three, input.send_it').removeClass('fixed').css("left", "")
+			}
+		});
+	}
+	
 	
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
