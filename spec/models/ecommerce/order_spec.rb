@@ -304,13 +304,32 @@ describe Order do
   end
 
   context "scopes" do
-    context ".orders_with_date_and_state" do
-      it "returns orders with one state on specific date" do
-        order_picking = FactoryGirl.create(:order, created_at: Time.zone.now, state: "picking")
-        order_waiting = FactoryGirl.create(:order, created_at: Time.zone.now)
-        state_orders_from_db = Order.orders_with_date_and_state(Time.now,"waiting_payment").map(&:state)
-        expect(state_orders_from_db).to have(1).item
-        expect(state_orders_from_db).to include("waiting_payment")
+    context ".with_state" do
+      before(:each) do
+        FactoryGirl.create(:order, state: "waiting_payment")
+        FactoryGirl.create(:order, state: "picking")
+      end
+
+      it "returns orders with one state" do
+        waiting = Order.with_state("waiting_payment").map(&:state)
+        expect(waiting).to have(1).item
+        expect(waiting).to include("waiting_payment")
+      end
+    end
+
+
+    context ".with_date" do
+      let!(:now) { Time.now }
+
+      before(:each) do
+        @order_now = FactoryGirl.create(:order, created_at: now)
+        FactoryGirl.create(:order, created_at: now - 1.day)
+      end
+
+      it "returns orders on a specific date" do
+        orders_today = Order.with_date(now)
+        expect(orders_today).to have(1).item
+        expect(orders_today.first).to eq(@order_now)
       end
     end
   end
