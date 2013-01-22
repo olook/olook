@@ -1,4 +1,5 @@
 <div id="cart-box">
+  <span class="bg-box">&nbsp;</span>
   <div class="products">
     <table cellpadding="0" cellspacing="0" class="items_list" id="items">
       <tbody>
@@ -10,7 +11,7 @@
   </div>
   <ul class="subtotal">
     <li><span class="txt-black">SUBTOTAL: </span><span class="txt-pink"><%= number_to_currency(@cart_service.subtotal) %></span></li>
-    <li><span class="txt-black">FRETE: </span><span id="freight_price"><% if address && address.zip_code %><%= number_to_currency(freight_for(address)[:price]) %><% end %></span></li>
+    <li class="frete"><span class="txt-black">FRETE: </span><span id="freight_price"><% if address && address.zip_code %><%= number_to_currency(freight_for(address)[:price]) %><% end %></span></li>
     <li><span class="txt-black">CRÉDITOS: </span><span id="credits_used"><%= number_to_currency(@cart_service.total_credits_discount) %></span></li>
   </ul> 
   <p class="total">
