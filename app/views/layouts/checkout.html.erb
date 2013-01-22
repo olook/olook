@@ -1,6 +1,5 @@
 <% content_for :top_my_account do %>
-  <%= render "shared/header_default" %>
-  <%= render "shared/menu" %>
+  <%= render "shared/header_checkout" %>
 <% end %>  
 
   
@@ -18,6 +17,6 @@
   </ul>
 <% end %>
 
-<%= content_for :site_footer, render(:partial => "shared/footer") %>
+<%= content_for :site_footer, render(:partial => "shared/footer_checkout") %>
 
 <%= render :template => 'layouts/application' %>

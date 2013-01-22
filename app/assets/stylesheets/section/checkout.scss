@@ -2,16 +2,10 @@
 @import 'partials/address';
 @import 'partials/product';
 @import "partials/carousel_lookbooks";
+@import "partials/header_footer_checkout";
 
 $border-color: #e5e5e5;
 
-header {
-  &.checkout {
-    background: none !important;
-    min-height: 120px !important;
-  }
-  .content{position:relative;}
-}
 
 a.back_link {
   background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
