@@ -16,22 +16,22 @@ feature "Operations dashboard", %q{
 
       visit '/admin'
 
-      page.should have_content "Dashboard"
-      page.should have_content "Operações"
+      expect(page).to have_content("Dashboard")
+      expect(page).to have_content("Operações")
 
-      page.should have_content "Prazo para despacho"
-      page.should have_content "Pago"
-      page.should have_content "Aguardando Separação"
-      page.should have_content "Despachado"
-      page.should have_content "Entregue"
-      page.should have_content "Hoje"
-      page.should have_content "Ontem"
-      page.should have_content "2 dias atrás"
-      page.should have_content "3 dias atrás"
-      page.should have_content "4 dias atrás"
-      page.should have_content "5 dias atrás"
-      page.should have_content "6 ou mais dias atrás"
-      page.should have_content "TOTAL"
+      expect(page).to have_content("Prazo para despacho")
+      expect(page).to have_content("Pago")
+      expect(page).to have_content("Aguardando Separação")
+      expect(page).to have_content("Despachado")
+      expect(page).to have_content("Entregue")
+      expect(page).to have_content("Hoje")
+      expect(page).to have_content("Ontem")
+      expect(page).to have_content("2 dias atrás")
+      expect(page).to have_content("3 dias atrás")
+      expect(page).to have_content("4 dias atrás")
+      expect(page).to have_content("5 dias atrás")
+      expect(page).to have_content("6 ou mais dias atrás")
+      expect(page).to have_content("TOTAL")
 
   end
 
