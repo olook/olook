@@ -29,9 +29,16 @@ class Checkout::CartController < Checkout::BaseController
     end
   end
 
-  def find_suggested_product
-    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
-    products = Product.find ids
-    products.shuffle.first if products
-  end
+  private
+    # TODO => Consider moving this logic to Product class
+    def find_suggested_product
+      suggested_products_with_inventory.shuffle.first
+    end
+
+    def suggested_products_with_inventory
+      ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
+      products = Product.find ids
+      products.delete_if {|product| product.inventory < 1}
+    end
+
 end
