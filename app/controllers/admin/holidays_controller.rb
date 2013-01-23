@@ -3,7 +3,7 @@ class Admin::HolidaysController < Admin::BaseController
   respond_to :html
 
   def index
-    @holidays = Holiday.all
+    @holidays = Holiday.page(params[:page]).per_page(15).order('created_at desc')
     respond_with :admin, @holiday
   end
 
