@@ -8,9 +8,11 @@
   <%= render 'users/registrations/form_half_create', :resource => user, :resource_name => :user %>
 </div>
 
-<div class="cart" style="height:325px;margin-bottom:36px;">
-  SACOLA
+<div class="cart_details">
+  <p class="title">Vamos lá. Sua sacola te espera! ;)</span></p>
+  <%= render "checkout/checkout/cart_details", address: nil %>
 </div>
+
 <div class="signup">
   <p class="title-box">JÁ TEM CADASTRO?<br/><%= link_to "Então é só entrar", checkout_login_index_path %></p>
 </div>
