@@ -17,23 +17,22 @@
     <% @report_days.each do |report_day_number| %>
       <tr id='<%= report_day_number %>_dias'>
         <td><%= I18n.t("dashboard_report_days.#{report_day_number}") %></td>
-        <% @statuses.each do |status| %>
-        <% state = status.include?(',') ? status.split(',') : status %>
-	        <td class='<%= status.include?(',') ? 'all' : status %>'>
-			<%= link_to Order.with_date(Time.now - report_day_number.days).with_state(state).size, "/dashboard/show/#{status}/#{report_day_number}" %>
-	        </td>
-        <% end %>
+        <td><%= report_days_link(report_day_number, state: "authorized") %></td>
+        <td><%= report_days_link(report_day_number, state: "picking") %></td>
+        <td><%= report_days_link(report_day_number, state: "delivering") %></td>
+        <td><%= report_days_link(report_day_number, state: "delivered") %></td>
+        <td><%= report_days_link(report_day_number) %></td>
       </tr>
     <% end %>
 
-	<tr>
-		<td>TOTAL</td>
-		<td id='total_authorized'><%= Order.with_state("authorized").count %></td>
-		<td id='total_picking'><%= Order.with_state("picking").count %></td>
-		<td id='total_delivering'><%= Order.with_state("delivering").count %></td>
-		<td id='total_delivered'><%= Order.with_state("delivered").count %></td>
-		<td id='grand_total'><%= Order.with_state(["authorized","picking","delivering","delivered"]).count %></td>
-	</tr>
+      <tr>
+        <td>TOTAL</td>
+        <td id='total_authorized'><%= Order.with_state("authorized").count %></td>
+        <td id='total_picking'><%= Order.with_state("picking").count %></td>
+        <td id='total_delivering'><%= Order.with_state("delivering").count %></td>
+        <td id='total_delivered'><%= Order.with_state("delivered").count %></td>
+        <td id='grand_total'><%= Order.with_state(["authorized","picking","delivering","delivered"]).count %></td>
+      </tr>
 
   </table>
 </div>
