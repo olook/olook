@@ -2,6 +2,10 @@
 # pt-BR translations for Ruby on Rails
 "pt-BR":
 
+  gateways:
+    "1": "Moip"
+    "2": "Braspag"
+
   dashboard_report_days:
     "0": Hoje
     "1": Ontem
