@@ -8,8 +8,7 @@
   %table.table
     %tr
       %th Data/hora cadastro pedido
-      %th Data/hora pagemento pedido
-      %th Data/hora faturamento
+      %th Data/hora pagamento pedido
       %th Data/hora despacho
       %th Data/hora entrega
       %th Data prometida de entrega
@@ -24,12 +23,11 @@
       %th Quantidade de itens
     - @orders.each do |order|
       %tr
-        %td=order.created_at
-        %td
-        %td
-        %td
-        %td
-        %td
+        %td=order.created_at.strftime('%A, %e %B %Y')
+        %td=order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y')
+        %td= (my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
+        %td= (my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
+        %td=headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time)
         %td=order.freight.shipping_service_name
         %td=I18n.t("gateways.#{order.gateway}")
         %td=order.user_name
@@ -37,7 +35,7 @@
         %td=order.freight.city
         %td=order.freight.state
         %td=order.freight.zip_code
-        %td
+        %td=order.amount_paid
         %td=order.items_quantity
 
   .actions-bar.wat-cf
