@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :event_time %><br />
-    <%= f.text_field :event_time %>
+    <%= f.label "Data do evento" %><br />
+    <%= f.date_select :event_time, :default => Time.now%>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label "Nome" %><br />
     <%= f.text_field :name %>
   </div>
   <br />
