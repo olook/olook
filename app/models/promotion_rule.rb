@@ -31,4 +31,8 @@ class PromotionRule < ActiveRecord::Base
     end
   end
 
+  def param_for(promotion)
+    rule_parameters.find_by_promotion_id(promotion)
+  end
+
 end
