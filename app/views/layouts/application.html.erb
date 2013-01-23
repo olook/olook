@@ -54,7 +54,6 @@
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
-    <%# Banner from campaigns %>
     <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
@@ -64,7 +63,7 @@
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
     <% else %>
-      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && params[:controller] != 'landing_pages' %>
     <% end %>
 
 
