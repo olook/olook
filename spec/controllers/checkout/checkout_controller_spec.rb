@@ -226,7 +226,7 @@ describe Checkout::CheckoutController do
                               bank: "VISA", 
                               payments: "1", 
                               user_name: "Frederico", 
-                              credit_card_number: "0000000000000001", 
+                              credit_card_number: "0000000000000000", 
                               security_code: "123", 
                               expiration_date: "11/99", 
                               user_identification: "47952756370", 
@@ -235,7 +235,7 @@ describe Checkout::CheckoutController do
                           address: {id: address.id}} 
                         }
 
-      xit "redirects to order show in case of success" do
+      it "redirects to order show in case of success" do
         sender_strategy_mock = mock
         payment_builder_mock = mock
         PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
@@ -245,7 +245,7 @@ describe Checkout::CheckoutController do
         response.should redirect_to(order_show_path(number: 123))
       end
 
-      xit "cleans cart id from session" do
+      it "cleans cart id from session" do
         sender_strategy_mock = mock
         payment_builder_mock = mock
         PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
@@ -255,7 +255,7 @@ describe Checkout::CheckoutController do
         session[:cart_id].should eq(nil)
       end
 
-      xit "renders new in case of error" do
+      it "renders new in case of error" do
         sender_strategy_mock = mock
         payment_builder_mock = mock
         PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
