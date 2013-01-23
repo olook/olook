@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :promotion
-  
-  def allow_credit_payment?
-    promotion.nil? && cart.allow_credit_payment? 
-  end
+
+  delegate :allow_credit_payment?, :to => :cart
+  delegate :total_promotion_discount, :to => :cart, :prefix => :cart
+  delegate :total_coupon_discount, :to => :cart, :prefix => :cart
+  delegate :sub_total, :to => :cart, :prefix => :cart
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -46,7 +46,7 @@ class CartService
   end
 
   def item_promotion?(item)
-    item_price(item) != item_retail_price(item)
+    item.has_adjustment?
   end
 
   def item_price_total(item)
@@ -70,7 +70,12 @@ class CartService
   end
 
   def item_discounts(item)
-    get_retail_price_for_item(item).fetch(:discounts)
+    discounts = get_retail_price_for_item(item).fetch(:discounts)
+    # For compatibility reason
+    # Terrible. Improve it
+    discounts << :promotion if item.has_adjustment? && cart.coupon && !should_override_promotion_discount?
+
+    discounts
   end
 
   def subtotal(type = :retail_price)
@@ -96,7 +101,10 @@ class CartService
   end
 
   def total_discount
-    calculate_discounts.fetch(:total_discount)
+    legacy_discount = calculate_discounts.fetch(:total_discount)
+    # check all possible discounts, and get the greater
+    #[legacy_discount, cart.total_promotion_discount, cart.total_coupon_discount].max
+    [legacy_discount, cart_total_coupon_discount].max
   end
 
   def is_minimum_payment?
@@ -132,9 +140,12 @@ class CartService
   end
 
   def total
-    total = subtotal(:retail_price)
+    # total = subtotal(:retail_price)
+
+    total = cart_sub_total
     total += total_increase
     total -= total_discount
+    # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
@@ -206,35 +217,20 @@ class CartService
     LoyaltyProgramCreditType.apply_percentage(total + total_discount_by_type(:credits_by_redeem))
   end
 
-  def should_apply_promotion_discount?
-    if has_promotion_and_coupon?
-      strategy = promotion.load_strategy(promotion, cart.user)
-      promotion_discount = strategy.calculate_promotion_discount(cart.items)
-      if cart.coupon.is_percentage?
-        return promotion_discount[:percent] > cart.coupon.value
-      else
-        return promotion_discount[:value] > cart.coupon.value
-      end
-    end
-
-    return true if promotion
+  def should_override_promotion_discount?
+    cart.total_coupon_discount > cart_total_promotion_discount
   end
 
-  # private
-    def has_promotion_and_coupon?
-      promotion && cart.coupon
-    end
-
-  #TODO: add expiration logic
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.retail_price
+    final_retail_price = item.retail_price 
+    final_retail_price ||= 0
     price = item.price
     discounts = []
     origin_type = ''
 
-    if price != final_retail_price
+    if price != final_retail_price && !item.has_adjustment?
       percent =  (1 - (final_retail_price / price) )* 100
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
       discounts << :olooklet
@@ -250,25 +246,11 @@ class CartService
     if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price && !should_apply_promotion_discount?
+      if coupon_value < final_retail_price && should_override_promotion_discount?
         percent = coupon.value
         final_retail_price = coupon_value
         origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
         origin_type = :coupon
-      end
-    end
-
-    promotion = self.promotion
-    if promotion && item.product.can_supports_discount?
-      discounts << :promotion
-      strategy = promotion.load_strategy(promotion, cart.user)
-      promotion_value = strategy.calculate_value(cart.items, item)
-      # Do not allow Promotion discount if the user enters a coupon code
-      if promotion_value < final_retail_price && should_apply_promotion_discount?
-        final_retail_price = promotion_value 
-        percent = promotion.discount_percent
-        origin = 'Desconto de '+percent.ceil.to_s+'% '+promotion.banner_label
-        origin_type = :promotion
       end
     end
 
@@ -291,15 +273,13 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
-  #TODO
   def calculate_discounts
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0 if retail_value < 0
     total_discount = 0
-
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0 if should_apply_promotion_discount?
+    coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
 
     if coupon_value >= retail_value
@@ -313,7 +293,6 @@ class CartService
     credits_invite = 0
     credits_redeem = 0
     if (use_credits == true)
-      #GET FROM loyality
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0

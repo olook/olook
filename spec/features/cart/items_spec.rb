@@ -37,6 +37,7 @@ feature "Handling cart items", %q{
     end
   end  
 
+
   scenario "Removing an item from the cart", js: true do 
     pending
     cart = FactoryGirl.create(:cart_with_one_item)  
@@ -54,9 +55,10 @@ feature "Handling cart items", %q{
       find('a.cart').text.should == 'MINHA SACOLA (1)'
     end
 
-    within("form#remove_item_form_#{cart.items.first.id}") do
+    within('form#remove_item_form_1') do
       find('input[type=submit]').click
     end
+    # save_and_open_page
 
     sleep(1)  
 

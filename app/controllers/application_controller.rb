@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   
   before_filter :load_user,
                 :load_cart,
-                :load_promotion,  
                 :load_coupon,
                 :load_cart_service,
                 :load_facebook_api, 
@@ -53,7 +52,7 @@ class ApplicationController < ActionController::Base
 
     #not sending email in the case of a buy made from an admin
     if current_admin
-      cart.update_attribute("notified", true)
+      # cart.update_attribute("notified", true)
     end
 
     if @user
@@ -111,13 +110,8 @@ class ApplicationController < ActionController::Base
 
     def load_cart_service
       @cart_service = CartService.new(
-        :cart => @cart,
-        :promotion => @promotion
+        :cart => @cart
       )
-    end
-
-    def load_promotion
-      @promotion = PromotionService.new(@user).detect_current_promotion(@cart)
     end
 
     def load_facebook_api

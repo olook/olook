@@ -671,7 +671,28 @@ describe User do
     end
   end
 
-  describe "first_buy?" do
+  describe "#has_purchased_orders?" do
+
+    context "when user has no orders" do
+      it "returns false" do
+        subject.has_purchased_orders?.should be_false
+      end
+    end
+
+    context "when user has orders" do
+      let(:order) { FactoryGirl.create(:order_with_payment_authorized, :user => subject) }
+
+      context "when user has 1 authorized order" do
+        it "returns true" do
+          order.authorized
+          subject.has_purchased_orders?.should be_true
+        end
+      end
+    end
+
+  end
+
+  describe "#first_buy?" do
 
     context "when user has no orders" do
       it "returns false" do
