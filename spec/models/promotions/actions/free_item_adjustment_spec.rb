@@ -23,7 +23,7 @@ describe FreeItemAdjustment do
     it "set retail price as zero" do
       cart.items.first.cart_item_adjustment.should_receive(:update_attributes)
       subject.apply(cart)
-      cart.items.first.cart_item_adjustment.value.should eq(0)
+      cart.items.first.price.should eq(0)
     end
   end
 
