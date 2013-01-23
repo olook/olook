@@ -1,0 +1,14 @@
+# -*- encoding : utf-8 -*-
+require 'spec_helper'
+
+describe PromotionRule do
+
+  describe "validations" do
+    it { should validate_presence_of :type }
+  end
+
+  describe "#matches?" do
+    it { should respond_to(:matches?).with(1).argument }
+  end
+
+end

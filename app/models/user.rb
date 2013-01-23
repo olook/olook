@@ -207,6 +207,10 @@ class User < ActiveRecord::Base
     self.orders.paid.count == 1
   end
 
+  def has_purchased_orders?
+    self.orders.purchased.size > 0
+  end  
+
   def tracking_params(param_name)
     first_event = events(:where => EventType::TRACKING).first
     if first_event
@@ -216,8 +220,7 @@ class User < ActiveRecord::Base
   end
 
   def first_time_buyer?
-    promotion_service = PromotionService.new(self)
-    promotion_service.satisfies_criteria?({promotion: Promotion.purchases_amount})
+    ! has_purchased_orders?
   end
 
   def male?
