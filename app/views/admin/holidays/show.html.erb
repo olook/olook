@@ -7,11 +7,11 @@
   <p id="notice"><%= notice %></p>
   <p>
     <b>Data:</b>
-    <%= @holiday.code %>
+    <%= @holiday.event_time.strftime("%d/%m/%Y") %>
   </p>
   <p>
     <b>Nome:</b>
-    <%= @holiday.is_percentage  ? 'Yes' : 'No' %>
+    <%= @holiday.name  %>
   </p>
 
 <% content_for :secondary_navigation do %>
