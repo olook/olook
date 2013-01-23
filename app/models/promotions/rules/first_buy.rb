@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class FirstBuy < PromotionRule
 
-  def matches? user
+  def matches? cart
+    user = cart.user
     return true if user.nil?
 
     discount_expired = DiscountExpirationCheckService.discount_expired?(user)
