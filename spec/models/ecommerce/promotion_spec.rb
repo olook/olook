@@ -69,13 +69,4 @@ describe Promotion do
       end
     end
   end
-
-  describe "#param_for" do
-    let(:free_item_promotion) { FactoryGirl.create(:compre_3_pague_2) }
-    let(:rule_parameter) { FactoryGirl.create(:rule_parameter) }
-    it "returns params of rule_params" do
-      free_item_promotion.rule_parameters << rule_parameter
-      free_item_promotion.param_for(rule_parameter.promotion_rule).should eq("3")
-    end
-  end
 end
