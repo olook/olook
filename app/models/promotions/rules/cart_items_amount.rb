@@ -2,6 +2,6 @@
 class CartItemsAmount < PromotionRule
 
   def matches?(promotion, cart)
-    cart.items.size % promotion.param_for(self) == 0
+    cart.items.size % self.param_for(promotion) == 0
   end
 end
