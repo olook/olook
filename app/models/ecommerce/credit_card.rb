@@ -75,7 +75,7 @@ class CreditCard < Payment
     if gateway == 2
       braspag_responses = BraspagAuthorizeResponse.where("identification_code = ?", identification_code)
       last_response = braspag_responses.last
-      return true if last_response.problems_with_credit_card_validation?
+      return true if last_response && last_response.problems_with_credit_card_validation?
     end
     false
   end
