@@ -9,7 +9,7 @@
 #
 class PromotionRule < ActiveRecord::Base
 
-  validates :type, :presence => true
+  validates :type, :name, :presence => true
 
   has_many :rule_parameters
   has_many :promotions, :through => :rule_parameters
@@ -32,7 +32,7 @@ class PromotionRule < ActiveRecord::Base
   end
 
   def param_for(promotion)
-    rule_parameters.find_by_promotion_id(promotion)
+    rule_parameters.find_by_promotion_id(promotion).rules_params
   end
 
 end
