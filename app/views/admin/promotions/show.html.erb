@@ -1,10 +1,37 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Nome</b>
+  <%= @promotion.name %>
+</p>
 
-<p><%= @promotion.name %> </p>
-<p><%= @promotion.discount_percent %> </p>
-<p><%= @promotion.active %> </p>
+<p>
+  <b>Ativa?</b>
+  <%= @promotion.active %>
+</p>
+<p>
+  <b>Inicia em</b>
+  <%= @promotion.starts_at %>
+</p>
+<p>
+  <b>Termina em</b>
+  <%= @promotion.ends_at %>
+</p>
+<fieldset>
+  <h2>Criterios da Promocao:</h2>
+  <% @promotion.rule_parameters.each do |rule_params| %>
+    <p><b>Regra:</b> <%= rule_params.promotion_rule.type %></p>
+    <p><b>Valor:</b> <%= rule_params.rules_params %></p>
+  <% end %>
+</fieldset>
 
+<fieldset>
+  <h2>Acao da Promocao:</h2>
+  <p><b>Acao:</b> <%= @promotion.promotion_action.type %></p>
+  <p><b>parametro:</b> <%= @promotion.action_parameter.action_params %></p>
+</fieldset>
 
-<%= link_to 'Edit', edit_admin_promotion_path(@promotion) %> |
-<%= link_to 'Back', admin_promotions_path %>
+<p>
+<%= link_to 'Editar', edit_admin_promotion_path(@promotion) %> |
+<%= link_to 'Voltar', admin_promotions_path %>
+</p>

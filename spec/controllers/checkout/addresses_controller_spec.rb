@@ -31,6 +31,7 @@ describe Checkout::AddressesController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
+    CartService.any_instance.stub(:cart_sub_total).and_return(60)
   end
 
   after :each do
