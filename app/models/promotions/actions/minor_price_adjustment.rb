@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class FreeItemAdjustment < PromotionAction
+class MinorPriceAdjustment < PromotionAction
 
   def apply(cart, parameter)
     calculate(cart).each do |item|
