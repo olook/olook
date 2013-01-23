@@ -5,6 +5,7 @@ class Checkout::LoginController < ApplicationController
   before_filter :check_user_logged
   
   def index
+    session[:facebook_redirect_paths] = "checkout"
   end
 
   private
