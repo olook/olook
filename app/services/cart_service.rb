@@ -278,8 +278,8 @@ class CartService
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
 
-    if payment && payment.is_a?(Billet)
-      billet_discount = retail_value * 0.05
+    if payment && payment.is_a?(Billet) && Setting.billet_discount_available
+      billet_discount = retail_value * Setting.billet_discount_percent.to_i / 100
       retail_value -= billet_discount
     end
 
