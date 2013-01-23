@@ -9,7 +9,7 @@ class PercentageAdjustment < PromotionAction
   end
 
   def simulate(cart, percent)
-    cart.items.any? ? calculate(cart, percent) : 0
+    cart.items.any? ? calculate(cart, percent).map {|item| item[:adjust] }.reduce(:+) : 0
   end
 
   private
