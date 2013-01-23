@@ -9,7 +9,7 @@ class SendExpirationWarningWorker
       rescue => e
         Airbrake.notify(
           :error_class   => "NotificationSender",
-          :error_message => "SendExpirationWarning: the following error occurred: e.message"
+          :error_message => "SendExpirationWarning: the following error occurred: #{e.message}"
         )      	
       end
     end
