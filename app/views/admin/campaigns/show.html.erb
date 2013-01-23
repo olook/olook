@@ -4,17 +4,19 @@
     <b>Id</b>
     <%= @campaign.id %>
   </p>
-  <b>Título da campanha</b>
+  <p>
+    <b>Título da campanha</b>
     <%= @campaign.title %>
   </p>
-  <b>Está ativo?</b>
+  <p>
+    <b>Está ativo?</b>
     <%= @campaign.is_active? %>
   </p>
   <p>
     <b>Backgound</b>
     <%= @campaign.background %>
   </p>
-   <p>
+  <p>
     <b>Imagem do banner</b>
     <% if @campaign.banner? %>
       <%= image_tag @campaign.banner %>
@@ -26,7 +28,8 @@
       <%= image_tag @campaign.lightbox %>
     <% end %>
   </p>
-  <b>Inicia em</b>
+  <p>
+    <b>Inicia em</b>
     <%= @campaign.start_at %>
   </p>
   <p>
@@ -53,7 +56,6 @@
     <b>Atualizado em</b>
     <%= @campaign.updated_at %>
   </p>
-
 
 </div>
 

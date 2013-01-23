@@ -9,7 +9,6 @@
   <table class="table">
     <tr>
       <th>Name</th>
-      <th>Discount percent</th>
       <th>Active</th>
       <th></th>
       <th></th>
@@ -19,7 +18,6 @@
   <% @promotions.each do |promotion| %>
     <tr>
       <td><%= promotion.name %></td>
-      <td><%= promotion.discount_percent %></td>
       <td><%= promotion.active %></td>
       <td><%= link_to 'Show', admin_promotion_path(promotion), :class => 'button' %></td>
       <td><%= link_to 'Edit', edit_admin_promotion_path(promotion), :class => 'button' %></td>

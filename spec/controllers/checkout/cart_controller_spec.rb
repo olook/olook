@@ -102,20 +102,88 @@ describe Checkout::CartController do
       end
     end
 
-    context "when update coupon" do
-      it "should update cart" do
-        Cart.any_instance.should_receive(:update_attributes).with({"coupon_code" => "CODE"}).and_return(true)
-        put :update, {cart: {coupon_code: "CODE"}, format: :js}
+    context "when excluding coupon" do
+
+      let(:params) { {cart: {coupon_code: ''}, format: :js} }
+
+      it "is success" do
+        put :update, params
+        response.should be_success
       end
 
-      it "should render template update" do
-        Cart.any_instance.should_receive(:update_attributes).with({"coupon_code" => "CODE"}).and_return(true)
-        put :update, {cart: {coupon_code: "CODE"}, format: :js}
+      it "should render error template" do
+        Cart.any_instance.should_receive(:update_attributes).with({"coupon_code" => ''}).and_return(true)
+        put :update, params
         response.should render_template ["update"]
       end
+    end
 
+    context "when adding a coupon" do
+      let(:coupon) { FactoryGirl.create(:standard_coupon)}
+      let(:params) { {cart: {coupon_code: coupon.code}, format: :js} }
+
+      context "that applies" do
+
+        before(:each) do
+          Coupon.should_receive(:find_by_code).at_least(3).times.with( coupon.code ).and_return coupon
+        end
+
+        it "is a success" do
+          put :update, params
+          response.should be_success
+        end
+
+        it "associates a coupon to the cart" do
+          put :update, params
+          cart.reload.coupon.code.should eq(coupon.code)
+        end
+
+        it "should render template update" do
+          put :update, params
+          response.should render_template ["update"]
+        end
+      end
+
+      context "that doesn't apply" do
+        before(:each) do
+          Cart.any_instance.stub(:total_promotion_discount).and_return(100)
+          Cart.any_instance.stub(:total_liquidation_discount).and_return(100)
+        end
+
+        context "when sum of sale and promotion is greater than coupon value" do
+          it "is a success" do
+            put :update, params
+            response.should be_success
+          end
+
+          it "doesn't associate a coupon to the cart" do
+            put :update, params
+            cart.reload.coupon.should be_nil
+          end
+
+          it "should render template update" do
+            put :update, params
+            response.should render_template ["update"]
+          end
+        end
+
+        context "when update gift wrap" do
+          before(:each) do
+            params[:cart].merge!({gift_wrap: "true"})
+          end
+
+          it "should update cart" do
+            put :update, params
+            cart.reload.gift_wrap.should eq(true)
+          end
+
+          it "should render template update" do
+            put :update, params
+            response.should render_template ["update"]
+          end
+        end
+      end
     end
   end
-
 end
 
