@@ -35,7 +35,7 @@ class Promotion < ActiveRecord::Base
   end
 
   def total_discount_for(cart)
-    simulate(cart).map {|item| item[:adjust] }.reduce(:+)
+    simulate(cart)
   end
 
   def param_for(rule)
