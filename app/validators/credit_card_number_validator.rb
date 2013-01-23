@@ -7,6 +7,8 @@ class CreditCardNumberValidator < ActiveModel::Validator
   private
   def valid_credit_card?(number)
 
+    return false if number.nil?
+
     # Hypercard
     return true if number.length > 16
 
