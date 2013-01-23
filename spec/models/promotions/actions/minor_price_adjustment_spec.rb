@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe FreeItemAdjustment do
+describe MinorPriceAdjustment do
   let!(:cart) { FactoryGirl.create(:cart_with_3_items) }
 
   describe "#simulate" do
