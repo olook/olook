@@ -24,7 +24,7 @@ describe Checkout::CartController do
   it "should erase freight when call any action" do
     session[:cart_freight] = mock
     ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
-    Product.stub(:find).with(ids).and_return(nil)
+    Product.stub(:find).with(ids).and_return([])
     get :show
     assigns(:cart_service).freight.should be_nil
     assigns(:report).should_not be_nil
@@ -33,7 +33,7 @@ describe Checkout::CartController do
   context "when show" do
     it "should render show view" do
       ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
-      Product.stub(:find).with(ids).and_return(nil)
+      Product.stub(:find).with(ids).and_return([])
       get :show
       response.should render_template ["layouts/site", "show"]
     end
