@@ -1,0 +1,45 @@
+%h1 Dashboard
+%h2 Listagem de pedidos
+
+- content_for :secondary_navigation do
+  %li= link_to 'New coupon', new_admin_coupon_path
+
+.inner
+  %table.table
+    %tr
+      %th Data/hora cadastro pedido
+      %th Data/hora pagemento pedido
+      %th Data/hora faturamento
+      %th Data/hora despacho
+      %th Data/hora entrega
+      %th Data prometida de entrega
+      %th Transportador
+      %th Gateway de pagamento
+      %th Cliente nome
+      %th Cliente email
+      %th Cidade
+      %th Estado
+      %th CEP
+      %th Valor
+      %th Quantidade de itens
+    - @orders.each do |order|
+      %tr
+        %td=order.created_at
+        %td
+        %td
+        %td
+        %td
+        %td
+        %td=order.freight.shipping_service_name
+        %td=I18n.t("gateways.#{order.gateway}")
+        %td=order.user_name
+        %td=order.user.email
+        %td=order.freight.city
+        %td=order.freight.state
+        %td=order.freight.zip_code
+        %td
+        %td=order.items_quantity
+
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @orders
