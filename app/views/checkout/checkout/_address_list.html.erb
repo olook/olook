@@ -11,4 +11,6 @@
     </ul>
   <% end %>
 <% end %>
+<% if @user.addresses && @user.addresses.select{|address| address.id }.any?  %>
 <p class="new_address"><%= link_to "+ Adicionar novo endereço", new_checkout_address_path, remote: true %></p>
+<% end %>

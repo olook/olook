@@ -31,6 +31,8 @@ var masks = {
 		$("input.credit_card_number").setMask('9999999999999999999')
 	}	
 }
+
+
 function retrieve_freight_price(zip_code) {
   $.ajax({
     url: '/shippings/' + zip_code,
@@ -75,13 +77,13 @@ function setButton(){
 	el = $("#cart-box").height();
 	h = el + 120;
 	$("#new_checkout .send_it").css("top", h).fadeIn();
- 	 
-	return helpLeft2 = $('input.send_it').offset().left;
+ 	
+	if($('input.send_it').size() > 0)
+		return helpLeft2 = $('input.send_it').offset().left;
 }
 
 
 $(function() {
-	
 	masks.card();
 	setButton();
 	

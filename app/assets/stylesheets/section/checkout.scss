@@ -1486,7 +1486,7 @@ section.checkout{
 	.box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
 	.box-step-three{float:left;width:325px;}
 
-	h2{float:left;clear:both;margin-bottom:15px;
+	h2.step-title{float:left;clear:both;margin-bottom:15px;
 		span{	
 			display:block;float:left;	
 			&.number{font-family:$kepler;font-size:60px;}
@@ -1530,7 +1530,7 @@ section.checkout{
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
 			
-			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;}
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;}
 		}
 		.btn_zipcode{
 			float:left;border:0;width:150px;height:35px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:4px 0 0 15px;cursor:pointer;
