@@ -38,11 +38,11 @@ class Promotion < ActiveRecord::Base
     simulate(cart)
   end
 
-  def param_for(rule)
-    # I know this is ugly, I thiking how refactor it
-    # TODO composite key
-    rule_parameters.find_by_promotion_rule_id(rule).rules_params
-  end
+ #def param_for(rule)
+ #  # I know this is ugly, I thiking how refactor it
+ #  # TODO composite key
+ #  rule_parameters.find_by_promotion_rule_id(rule).rules_params
+ #end
 
   private
 
