@@ -226,7 +226,7 @@ describe Checkout::CheckoutController do
                               bank: "VISA", 
                               payments: "1", 
                               user_name: "Frederico", 
-                              credit_card_number: "0000000000000001", 
+                              credit_card_number: "0000000000000000", 
                               security_code: "123", 
                               expiration_date: "11/99", 
                               user_identification: "47952756370", 
