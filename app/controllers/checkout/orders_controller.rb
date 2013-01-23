@@ -13,8 +13,7 @@ class Checkout::OrdersController < Checkout::BaseController
     @chaordic_confirmation = ChaordicInfo.buy_order @order
 
     @cart_service_for_order = CartService.new(
-      :cart => @order.cart,
-      :promotion => promotion
+      :cart => @order.cart
     )
 
     @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/

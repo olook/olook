@@ -11,8 +11,6 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
-    @promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
-    @chaordic_cart = ChaordicInfo.cart @cart, current_user
   end
 
   def destroy
@@ -22,10 +20,18 @@ class Cart::CartController < ApplicationController
   end
 
   def update
+    coupon = Coupon.find_by_code(params[:cart][:coupon_code])
+
+    unless should_apply?(coupon, @cart)
+      params[:cart].delete(:coupon_code)
+      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupon" }
+    end
+
     unless @cart.update_attributes(params[:cart])
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
+    @cart.reload
   end
 
   def find_suggested_product
@@ -33,4 +39,11 @@ class Cart::CartController < ApplicationController
     products = Product.find ids
     products.shuffle.first if products
   end
+
+  private
+
+    def should_apply?(coupon, cart)
+      return true if coupon.nil?
+      coupon.should_apply_to? cart
+    end
 end

@@ -14,12 +14,13 @@ class Cart < ActiveRecord::Base
 
   after_validation :update_coupon
   after_find :update_coupon_code
+  after_update :notify_listener
 
   def allow_credit_payment?
-    policy = CreditPaymentPolicy.new self
-    policy.allow?
+    adjustments = items.select { |item| item.has_adjustment? }
+    adjustments.empty?
   end
-  
+
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
@@ -33,7 +34,6 @@ class Cart < ActiveRecord::Base
     if current_item
       current_item.update_attributes(:quantity => quantity)
     else
-
       current_item =  CartItem.new(:cart_id => id,
                                    :variant_id => variant.id,
                                    :quantity => quantity,
@@ -46,19 +46,7 @@ class Cart < ActiveRecord::Base
     current_item
   end
 
-  def remove_item(variant)
-    current_item = items.select { |item| item.variant == variant }.first
-    current_item.destroy if current_item
-    self.reload
-    if has_gift_items?
-      gift_position = 0
-      items.each do |item|
-        item.update_attribute(:gift_position, gift_position)
-        gift_position += 1
-      end
-    end
-  end
-  
+
   def items_total
    items.sum(:quantity)
   end
@@ -70,7 +58,7 @@ class Cart < ActiveRecord::Base
   def has_gift_items?
     items.where(:gift => true).count > 0
   end
-  
+
   def remove_unavailable_items
     unavailable_items = []
     items.each do |li|
@@ -82,14 +70,51 @@ class Cart < ActiveRecord::Base
     size_items
   end
 
+
+  def total_promotion_discount
+    items.inject(0) {|sum, item| sum + item.adjustment_value}
+  end
+
+  def total_liquidation_discount
+    items.inject(0) do |sum, item|
+      # TODO => maybe this rule should be in the cart_item
+      liquidation_discount = item.adjustment_value > 0 ? 0 : item.price - item.retail_price
+      sum + liquidation_discount
+    end
+
+  end
+
+  def total_coupon_discount
+    return 0 if coupon.nil?
+
+    if coupon.is_percentage?
+      total_price * (coupon.value / 100.0)
+    else
+      coupon.value
+    end
+  end
+
+  def total_price
+    items.inject(0) { |total, item| total += item.quantity * item.price }
+  end
+
+  def sub_total
+    items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
+  end
+
   private
 
-  def update_coupon
-    coupon = Coupon.find_by_code(self.coupon_code)
-    self.coupon = coupon
-  end
+    def update_coupon
+      coupon = Coupon.find_by_code(self.coupon_code)
+      self.coupon = coupon
+    end
 
-  def update_coupon_code
-    self.coupon_code = self.coupon.code if self.coupon
-  end
+    def update_coupon_code
+      self.coupon_code = self.coupon.code if self.coupon
+    end
+
+    def notify_listener
+      PromotionListener.update(self)
+    end
+
 end
