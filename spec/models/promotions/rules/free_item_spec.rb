@@ -24,6 +24,20 @@ describe FreeItem do
         subject.matches?(promotion, cart).should be_false
       end
     end
+
+    context "when cart has the right amount of one item to give free" do
+
+      before do
+        promotion.should_receive(:param_for).and_return(3)
+
+        cart_item = cart.items.first
+        cart_item.stub(:quantity).and_return(3)
+      end
+
+      it "returns true" do
+        subject.matches?(promotion, cart).should be_true
+      end
+    end
   end
 
 
