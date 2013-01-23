@@ -44,7 +44,7 @@ class Promotion < ActiveRecord::Base
       promotions = []
       active_and_not_expired(Date.today).each do |promotion|
         matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
-          match_result &&= rule.matches?(cart.user)
+          match_result &&= rule.matches?(cart)
         end
         promotions << promotion if matched_all_rules
       end
