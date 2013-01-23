@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class FirstBuy < PromotionRule
 
-  def matches? cart
+  def matches?(cart, promotion=nil)
     user = cart.user
     return true if user.nil?
 
