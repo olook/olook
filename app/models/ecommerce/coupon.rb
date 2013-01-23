@@ -29,7 +29,12 @@ class Coupon < ActiveRecord::Base
     products_related = PRODUCT_COUPONS_CONFIG[self.code]
     is_the_product_related = products_related.nil? || products_related.split(",").include?(product_id.to_s)
   end
-  
+
+  def should_apply_to?(cart)
+    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount
+    calculated_value(cart.total_price) > discounts_sum
+  end
+
   private
 
     def active_and_not_expired?
@@ -48,6 +53,14 @@ class Coupon < ActiveRecord::Base
 
     def ensures_regardless_status
       true if self.unlimited? || self.remaining_amount > 0
+    end
+
+    def calculated_value(total_price)
+      is_percentage ? convert_percentage(total_price) : value
+    end
+
+    def convert_percentage(total_price)
+      total_price * (value / 100)
     end
 
 end

@@ -28,6 +28,9 @@ describe PaymentBuilder do
 
   before :each do
     Airbrake.stub(:notify)
+    cart_service.stub(:total => 10)
+    cart.stub(:total_liquidation_discount => 0)
+    cart.stub(:total_promotion_discount => 0)
     # order.stub(:total).and_return(10.50)
     # @order_total = order.amount_paid
   end
