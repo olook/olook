@@ -4,7 +4,6 @@ require 'spec_helper'
 describe PromotionRule do
 
   describe "validations" do
-    it { should validate_presence_of :name }
     it { should validate_presence_of :type }
   end
 
