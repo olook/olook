@@ -7,11 +7,11 @@
 .inner
   %table.table
     %tr
-      %th Data/hora cadastro pedido
-      %th Data/hora pagamento pedido
-      %th Data/hora despacho
-      %th Data/hora entrega
-      %th Data prometida de entrega
+      %th Cadastro
+      %th Pagamento
+      %th Despacho
+      %th Entrega
+      %th Data prometida de Entrega
       %th Transportador
       %th Gateway de pagamento
       %th Cliente nome
@@ -25,13 +25,13 @@
       %tr
         %td=order.created_at.strftime('%A, %e %B %Y')
         %td=order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y')
-        %td= (my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
-        %td= (my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
-        %td=headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time)
+        %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
+        %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
+        %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'authorized'}) ? headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time) : ''
         %td=order.freight.shipping_service_name
         %td=I18n.t("gateways.#{order.gateway}")
         %td=order.user_name
-        %td=order.user.email
+        %td=order.user_email
         %td=order.freight.city
         %td=order.freight.state
         %td=order.freight.zip_code
