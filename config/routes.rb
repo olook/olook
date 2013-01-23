@@ -148,7 +148,8 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    match "/", :to => "dashboard#index"
+    get "/", :to => "dashboard#index"
+    get "/report_detail", to: "dashboard#show"
 
     get "/dashboard/show/:state/:report_day_number", :controller =>'dashboard', :action => 'show'
 
