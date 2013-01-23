@@ -1,0 +1,2 @@
+class BilletDiscountPayment < Payment
+end
