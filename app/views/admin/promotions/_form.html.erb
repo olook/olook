@@ -3,9 +3,9 @@
     <div id="error_explanation">
       <h2><%= pluralize(@promotion.errors.count, "error") %> prohibited this admin_promotion from being saved:</h2>
       <ul>
-      <% @promotion.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @promotion.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -13,6 +13,16 @@
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :starts_at %><br />
+    <%= f.date_select :starts_at %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ends_at %><br />
+    <%= f.date_select :ends_at %>
   </div>
 
   <div class="field">
@@ -39,28 +49,42 @@
   </div>
 
   <div class="field">
-    <%= f.label :strategy %><br />
-    <%= f.select :strategy, YAML::load_file(Rails.root.to_s + '/config/promotions.yml')["strategies"].map{|x| [x.humanize, x]} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :param %><br />
-    <%= f.text_field :param %>
-  </div>
-
-  <div class="field">
-    <%= f.label :discount_percent %><br />
-    <%= f.text_field :discount_percent %>
-  </div>
-
-  <div class="field">
     <%= f.label :active %><br />
     <%= f.check_box :active %>
   </div>
 
-  <div class="field">
-    <%= f.label :priority %><br />
-    <%= f.number_field :priority %>
+  <div id="rules">
+
+    <h2>Critérios para a promoção</h2>
+
+    <%= f.fields_for :rule_parameters, @rule_parameters do |builder| %>
+      <div class="field">
+        <%= builder.label 'Regra aplicada' %>
+        <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :type) %>
+      </div>
+      <div class="field">
+        <%= builder.label 'Parâmetro de regra' %>
+        <%= builder.text_field :rules_params %>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div id="actions">
+
+    <h2>Critérios para action</h2>
+
+    <%= f.fields_for :action_parameter, @action_parameter  do |builder| %>
+      <div class="field">
+        <%= builder.label 'Ação aplicada' %>
+        <%= builder.collection_select(:promotion_action_id, PromotionAction.all, :id, :type) %>
+      </div>
+      <div class="field">
+        <%= builder.label 'Parâmetro de ação' %>
+        <%= builder.text_field :action_params %>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="actions">
