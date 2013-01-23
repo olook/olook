@@ -12,11 +12,8 @@ module CartHelper
   end
 
   def promotion_discount(item)
-    if @cart_service.item_retail_price_total(item) == 0
-      "Grátis"
-    else
-      number_to_percentage(@cart_service.item_discount_percent(item), :precision => 0)
-    end
+    percent = calculate_percentage_for item
+    number_to_percentage(percent, :precision => 0)
   end
 
   def remaining_items cart, promotion
@@ -25,8 +22,27 @@ module CartHelper
   end
 
   def free_item_promotion_is_active?
-    promotion_free_item = Promotion.find_by_strategy("free_item_strategy")
-    promotion_free_item && promotion_free_item.active?
+    false
   end
+
+  def has_discount?(item)
+    @cart_service.item_promotion?(item) || cart_has_percentage_coupon? || item.price != item.retail_price
+  end
+
+  private 
+    def calculate_percentage_for item
+      # for compatibility reason
+
+      if cart_has_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
+        @cart.coupon.value
+      else
+        item_retail_price = @cart_service.item_retail_price(item)
+        (item.price - item_retail_price) / item.price * BigDecimal("100.0")
+      end
+    end
+
+    def cart_has_percentage_coupon?
+      @cart.coupon && @cart.coupon.is_percentage?
+    end
 
 end

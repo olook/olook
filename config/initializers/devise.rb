@@ -211,4 +211,22 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+
+  #
+  # This hook is needed in order to update all promotions for the user's cart
+  # when she/he logs in.
+  #
+  Warden::Manager.after_authentication do |user,auth,opts|
+
+    if auth.authenticated?
+
+      cart_id = auth.session[:cart_id]
+      if cart_id
+        cart = Cart.find cart_id
+        PromotionListener.update(cart) unless cart_id.nil?
+      end
+
+    end
+
+  end  
 end
