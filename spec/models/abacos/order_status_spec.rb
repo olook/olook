@@ -97,7 +97,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is authorized' do
-      let(:order) { FactoryGirl.create :order_with_payment_authorized }
+      let(:order) { FactoryGirl.create :order_with_waiting_payment }
 
       context "and the new state is picking" do
         subject { described_class.new default_order_state.merge(:new_state => :picking) }
@@ -128,7 +128,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is picking' do
-      let(:order) { FactoryGirl.create :order_with_payment_authorized }
+      let(:order) { FactoryGirl.create :order_with_waiting_payment }
       
       before :each do
         order.picking
@@ -155,7 +155,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is delivering' do
-      let(:order) { FactoryGirl.create :order_with_payment_authorized }
+      let(:order) { FactoryGirl.create :order_with_waiting_payment }
 
       before :each do
         order.picking
