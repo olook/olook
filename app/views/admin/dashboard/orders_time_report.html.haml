@@ -1,0 +1,16 @@
+%h1 Dashboard
+
+%h2 Operações
+
+.inner
+  %table.table
+    %tr
+      %th Dias em relação à data prometida
+      %th Ordens
+      %th Despachado
+      %th Entregue
+    - @report_days.each do |report_day_number|
+      %tr{:id => "#{report_day_number}_dias"}
+        %td= I18n.t("admin_dashboard.deliver_days.#{report_day_number}")
+        %td{:id => "delivering"}= deliverd_from_today(report_day_number, state: "delivering")
+        %td{:id => "delivered"}= report_days_link(report_day_number, state: "delivered")
