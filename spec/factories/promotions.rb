@@ -15,6 +15,8 @@ FactoryGirl.define do
   end
 
   factory :compre_3_pague_2, :class => Promotion do
+    association :action_parameter, factory: :action_parameter
+    association :promotion_action, factory: :percentage_adjustment
     name "compre_3_pague_2"
     banner_label "compre_3_pague_2"
     active true
