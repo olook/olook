@@ -27,6 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @user.errors.add(:cpf, "O CPF parece estranho. Pode conferir?")
       end
     end
+
     @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
   end
