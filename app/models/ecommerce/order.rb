@@ -73,7 +73,6 @@ class Order < ActiveRecord::Base
     state :not_delivered
     state :picking
     state :waiting_payment
-    state :authorized
     state :under_review
 
     after_transition any => :authorized, :do => :transition_to_authorized
@@ -115,6 +114,13 @@ class Order < ActiveRecord::Base
             payment.refund
           end
         end
+      end
+    end
+
+    state :authorized do
+      after_save do |order|
+        delivery_date = order.freight.delivery_time.days.from_now
+        order.update_attribute(:expected_delivery_on, delivery_date)
       end
     end
 
