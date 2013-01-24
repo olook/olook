@@ -11,29 +11,29 @@ describe CartItemsAmount do
 
     context "when cart has item to give free" do
       it "returns true" do
-        promotion.should_receive(:param_for).and_return(2)
-        subject.matches?(promotion, cart).should be_true
+        CartItemsAmount.any_instance.should_receive(:param_for).and_return(2)
+        subject.matches?(cart, promotion).should be_true
       end
     end
 
     context "when cart has item to give free" do
       it "returns true" do
-        promotion.should_receive(:param_for).and_return(3)
-        subject.matches?(promotion, cart).should be_false
+        CartItemsAmount.any_instance.should_receive(:param_for).and_return(3)
+        subject.matches?(cart, promotion).should be_false
       end
     end
 
     context "when cart has the right amount of one item to give free" do
 
       before do
-        promotion.should_receive(:param_for).and_return(3)
+        CartItemsAmount.any_instance.should_receive(:param_for).and_return(3)
 
         cart_item = cart.items.first
         cart_item.stub(:quantity).and_return(3)
       end
 
       it "returns true" do
-        subject.matches?(promotion, cart).should be_true
+        subject.matches?(cart, promotion).should be_true
       end
     end
   end
