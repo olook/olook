@@ -34,7 +34,7 @@
 </fieldset>  
 <fieldset>    
   <%= f.label :birthday, "Data de Nascimento" %>
-  <%= f.text_field :birthday, class: "nasc" %>
+  <%= f.text_field :birthday, class: "nasc", value: resource.birthday ? resource.birthday.strftime("%d/%m/%Y") : '' %>
 </fieldset>  
 <fieldset>
   <%= f.label :cpf, "CPF" %>
