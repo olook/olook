@@ -216,6 +216,7 @@ div#liquidation {
       margin-right: 15px;
       float: left;
     }
+    
     span {
       background: url("/assets/common/black_arrow.jpg") center right no-repeat;
       text-indent: 12px;
@@ -239,6 +240,9 @@ div#liquidation {
       border: 1px #BBB solid;
       z-index: 10;
       display: none;
+      ol{
+        label{float:none;}
+      }
       ul {
         li {
           float: left;
@@ -259,6 +263,8 @@ div#liquidation {
       width: 380px;
       height: 45px;
       display: inline-block;
+      float:right;
+      margin-right:80px;
       form {
         width: 215px;
         float: right;
