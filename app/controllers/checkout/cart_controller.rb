@@ -12,6 +12,7 @@ class Checkout::CartController < Checkout::BaseController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
+    @chaordic_cart = ChaordicInfo.cart @cart, current_user
   end
 
   def destroy
