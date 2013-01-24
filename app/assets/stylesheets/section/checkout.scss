@@ -1498,8 +1498,10 @@ section.checkout{
 		div#checkout_address{float:left;
 				div#address_fields{float:left;}
 		}
-		fieldset{float:left;margin:0 10px 17px 0;position:relative;
-			&.fieldset_validate{float:right;margin-right:22px;}
+		fieldset{margin-bottom:14px;
+			div{float:left;margin:0 10px 3px 0;position:relative;
+				&.fieldset_validate{float:right;margin-right:22px;}
+			}	
 		}
 		
 		label{display:block;margin-bottom:4px;
@@ -1507,7 +1509,7 @@ section.checkout{
 			&.frete_label{display:inline;}
 		}
 		
-		span.span_error{color:#EA1E40;font-size:12px;position:absolute;top:55px;left:0;}
+		span.span_error{color:#EA1E40;font-size:12px;clear:both;float:left;width:300px;}
 		
 		input{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
@@ -1620,7 +1622,7 @@ section.checkout{
 			}
 		}
 		#about_credits{
-			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:0px 0 0 -310px;
+			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:-30% 0 0 -310px;
 			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px);cursor:pointer;}
 			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
 			table.check{border:0;
