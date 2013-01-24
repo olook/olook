@@ -41,11 +41,7 @@ $(document).ready(function() {
 	  popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
 	  e.stopPropagation(); return false;
 	});
-	if(window.opener && window.opener.popupValue === 'on') {
-	 delete window.opener.popupValue;
-	 window.opener.location.reload(true);
-	 window.close(); 
-	}
+
 	
   initBase.dialogLogin();
   initBase.loadJailImages();
