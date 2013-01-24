@@ -11,7 +11,7 @@
 </fieldset>  
 <fieldset>
   <%= f.label :email, "E-mail"%>
-  <%= f.email_field :email, class: "email #{error_class_if_needed(resource, :email)}" %>
+  <%= f.email_field :email, class: "email #{error_class_if_needed(resource, :email)}", value: "" %>
   <%= errors_for(resource, :email) %>
 </fieldset>
 <% if resource.id.nil? %>
@@ -28,7 +28,7 @@
 <% end %>
 <fieldset class="gender_fields">      
   <%= f.label :gender, "Sexo" %>
-  <%= f.select(:gender, options_for_select({"Selecione" => "Selecione", "Feminino" => 0, "Masculino" => 1})) %>
+  <%= f.select(:gender, options_for_select({"Você é:" => "Selecione", "Mulher" => 0, "Homem" => 1})) %>
   <%= errors_for(resource, :gender) %>
   <span class="custom_select <%= "#{error_class_if_needed(resource, :gender)}" %>">Selecione</span>
 </fieldset>  
