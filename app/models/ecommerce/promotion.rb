@@ -43,9 +43,16 @@ class Promotion < ActiveRecord::Base
     def self.matched_promotions_for cart
       promotions = []
       active_and_not_expired(Date.today).each do |promotion|
-        matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
-          match_result &&= rule.matches?(cart)
+
+        matched_all_rules = true
+
+        promotion.rule_parameters.each do |rule_param|
+          matched_all_rules &&= rule_param.matches?(cart)
         end
+
+        # matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
+        #   match_result &&= rule.matches?(cart)
+        # end
         promotions << promotion if matched_all_rules
       end
       promotions
@@ -53,7 +60,7 @@ class Promotion < ActiveRecord::Base
 
     def self.best_promotion_for(cart, promotions_to_apply = [])
       if cart.items.any? && promotions_to_apply.any?
-        best_promotion = calculate(promotions_to_apply, cart).sort_by { |key, value| value }.last
+        best_promotion = calculate(promotions_to_apply, cart).sort_by { |promotion| promotion[:total_discount] }.last
         if best_promotion[:total_discount] && best_promotion[:total_discount] >= cart.total_coupon_discount
           best_promotion[:promotion]
         end
@@ -63,7 +70,7 @@ class Promotion < ActiveRecord::Base
     def self.calculate(promotions_to_apply, cart)
       promotions = []
       promotions_to_apply.map do |promotion|
-        promotions << {promotion: promotion, total_discount: promotion.total_discount_for(cart)}
+        promotions << { promotion: promotion, total_discount: promotion.total_discount_for(cart) }
       end
       promotions
     end
