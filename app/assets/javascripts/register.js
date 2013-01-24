@@ -35,7 +35,7 @@ function changeSpan(){
 			}else if(txt == "1"){
 				$("span.custom_select").text("").text("Homem");
 			}else{
-				$("span.custom_select").text("").text("Você é:");
+				$("span.custom_select").text("").text("Selecione");
 			}
 	});
 }

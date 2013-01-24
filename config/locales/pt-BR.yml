@@ -328,7 +328,7 @@
         body: "Por favor, verifique o(s) seguinte(s) campo(s):"
 
       messages:
-        taken: "já está em uso"
+        taken: "Lembramos do e-mail. Já tem cadastro? Então entre ao lado"
         record_invalid: "A validação falhou: %{errors}"
         <<: *errors_messages
 
