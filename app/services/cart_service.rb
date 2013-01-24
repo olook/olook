@@ -95,10 +95,7 @@ class CartService
   end
 
   def total_discount
-    legacy_discount = calculate_discounts.fetch(:total_discount)
-    # check all possible discounts, and get the greater
-    #[legacy_discount, cart.total_promotion_discount, cart.total_coupon_discount].max
-    [legacy_discount, cart_total_coupon_discount].max
+    calculate_discounts.fetch(:total_discount)
   end
 
   def is_minimum_payment?
@@ -225,7 +222,8 @@ class CartService
     discounts = []
     origin_type = ''
 
-    if price != final_retail_price && !item.has_adjustment?
+    if price != final_retail_price && !item.has_adjustment? && cart.coupon.nil?
+      Rails.logger.info("[OLOOKLET] Calculating Olooklet retail price for item")
       percent =  (1 - (final_retail_price / price) )* 100
       origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
       discounts << :olooklet
