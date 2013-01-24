@@ -1500,7 +1500,7 @@ section.checkout{
 		}
 		fieldset{margin-bottom:14px;
 			div{float:left;margin:0 10px 3px 0;position:relative;
-				&.fieldset_validate{float:right;margin-right:22px;}
+				&.fieldset_validate{float:right;}
 			}	
 		}
 		
@@ -1540,13 +1540,13 @@ section.checkout{
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
 		.freight_value{color:#E15687;}
 		
-		ul.address_data{float:left;margin:0 0 35px 5px;
-			a{color:#DD4978;}
+		ul.address_data{float:left;margin:0 0 8px 5px;
+			a{color:#DD4978;font-size:13px;}
 		}
 		
 		p.new_address{ 
 			clear:both;
-			a{font-size:16px;color:#DD4978;}
+			a{font-size:14px;color:#DD4978;}
 		}
     p.addresses_index{
       clear:both;margin-bottom:10px;
@@ -1564,7 +1564,7 @@ section.checkout{
 			label{color:#000;}
 			p{font-size:13px;float:left; 
 				span, a{color:#E15687;}
-				a{display:block;margin:6px 0 15px;}
+				a{display:block;margin:6px 0 15px;font-size:13px;}
 			}
 		}
 		.payment{float:left;padding-left:5px;
@@ -1667,7 +1667,7 @@ section.checkout{
 		}
 		p.total{font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:5px;
 			span{width:109px;display:inline-block;float:left;
-				&.frete{font-size:12px;width:150px;}
+				&.frete{font-size:12px;width:150px;margin-left:109px;}
 			}
 		}
 	}
