@@ -30,7 +30,7 @@
   <%= f.label :gender, "Sexo" %>
   <%= f.select(:gender, options_for_select({"Você é:" => "Selecione", "Mulher" => 0, "Homem" => 1})) %>
   <%= errors_for(resource, :gender) %>
-  <span class="custom_select <%= "#{error_class_if_needed(resource, :gender)}" %>">Selecione</span>
+  <span class="custom_select <%= "#{error_class_if_needed(resource, :gender)}" %>">Você é:</span>
 </fieldset>  
 <fieldset>    
   <%= f.label :birthday, "Data de Nascimento" %>
