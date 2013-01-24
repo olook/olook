@@ -6,14 +6,23 @@
     "1": "Moip"
     "2": "Braspag"
 
-  dashboard_report_days:
-    "0": Hoje
-    "1": Ontem
-    "2": "2 dias atrás"
-    "3": "3 dias atrás"
-    "4": "4 dias atrás"
-    "5": "5 dias atrás"
-    "6": "6 ou mais dias atrás"
+  admin_dashboard:
+    report_days:
+      "0": Hoje
+      "1": Ontem
+      "2": "2 dias atrás"
+      "3": "3 dias atrás"
+      "4": "4 dias atrás"
+      "5": "5 dias atrás"
+      "6": "6 ou mais dias atrás"
+    deliver_days:
+      "0": "<= -3"
+      "1": "-2"
+      "2": "-1"
+      "3": "Data prometida"
+      "4": "1"
+      "5": "2"
+      "6": ">= 3"
 
   #Carrinho
   cart:
