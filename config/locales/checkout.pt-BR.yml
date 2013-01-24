@@ -4,8 +4,8 @@ pt-BR:
     errors:
       models:
         address:
-          blank: "campo obrigatório"
-          invalid: "campo inválido"
+          blank: "Campo obrigatório"
+          invalid: "Campo inválido"
           attributes:
             zip_code:
               blank: "O CEP parece estranho. Pode conferir?"
@@ -13,12 +13,12 @@ pt-BR:
             city:
               blank: "Qual é o nome da cidade, mesmo?"
             state:
-              blank: "obrigatório"
-              invalid: "inválido"
+              blank: "Obrigatório"
+              invalid: "Inválido"
             number:
-              blank: "obrigatório"
-              invalid: "inválido"
-              not_a_number: "inválido"
+              blank: "Obrigatório"
+              invalid: "Inválido"
+              not_a_number: "Inválido"
         user:
           attributes:
             first_name:

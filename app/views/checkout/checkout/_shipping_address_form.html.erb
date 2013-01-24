@@ -14,63 +14,72 @@
     <%= address_form.hidden_field :id %>
     
     <%= field_set_tag do %>
-      <%= address_form.label :street, "Rua, Avenida, Praça etc"%>
-      <%= address_form.text_field :street,  class: "endereco #{error_class_if_needed(address, :street)}" %>
-      <%= errors_for(address, :street) %>
-    <% end %>  
-    
-    <%= field_set_tag do %>
-      <%= address_form.label :number, "Número" %>
-      <%= address_form.text_field :number,  class: "numero #{error_class_if_needed(address, :number)}" %>
+      <div>
+        <%= address_form.label :street, "Rua, Avenida, Praça etc"%>
+        <%= address_form.text_field :street,  class: "endereco #{error_class_if_needed(address, :street)}" %>
+      </div>
+      <div>
+        <%= address_form.label :number, "Número" %>
+        <%= address_form.text_field :number,  class: "numero #{error_class_if_needed(address, :number)}" %>
+      </div>
+      <%= errors_for(address, :street) %>      
       <%= errors_for(address, :number) %>
     <% end %>
     
     <%= field_set_tag do %>
-      <%= address_form.label :complement, "Complemento" %>
-      <%= address_form.text_field :complement,  class: "compl #{error_class_if_needed(address, :complement)}" %>
+      <div>
+        <%= address_form.label :complement, "Complemento" %>
+        <%= address_form.text_field :complement,  class: "compl #{error_class_if_needed(address, :complement)}" %>
+      </div>
+      <div>
+        <%= address_form.label :neighborhood, "Bairro" %>
+        <%= address_form.text_field :neighborhood,  class: "bairro #{error_class_if_needed(address, :neighborhood)}" %>
+      </div>
       <%= errors_for(address, :complement) %>
-    <% end %>
-
-    <%= field_set_tag do %>    
-      <%= address_form.label :neighborhood, "Bairro" %>
-      <%= address_form.text_field :neighborhood,  class: "bairro #{error_class_if_needed(address, :neighborhood)}" %>
       <%= errors_for(address, :neighborhood) %>
     <% end %>
     
     <%= field_set_tag do %>
-      <%= address_form.label :city, "Cidade" %>
-      <%= address_form.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}" %>
-      <%= errors_for(address, :city) %>
-    <% end %>
-
-    <%= field_set_tag do %>    
-      <%= address_form.label :state, "UF" %>
-      <%= address_form.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}" %>
-      <%= errors_for(address, :state) %>
+      <div>
+        <%= address_form.label :city, "Cidade" %>
+        <%= address_form.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}" %>
+      </div>
+      <div>
+        <%= address_form.label :state, "UF" %>
+        <%= address_form.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}" %>
+      </div>
+        <%= errors_for(address, :city) %>
+        <%= errors_for(address, :state) %>
     <% end %>
 
     <p class="subtitle">DESTINATÁRIO</p>
-    <%= field_set_tag do %>    
+    <%= field_set_tag do %>
+      <div>  
       <%= address_form.label :first_name, "Nome" %>
       <%= address_form.text_field :first_name,  class: "nome_dest #{error_class_if_needed(address, :first_name)}" %>
-      <%= errors_for(address, :first_name) %>
-    <% end %>
-    <%= field_set_tag do %>  
+      </div>
+      <div>
       <%= address_form.label :last_name, "Sobrenome" %>
       <%= address_form.text_field :last_name,  class: "sobrenome_dest #{error_class_if_needed(address, :last_name)}" %>
+      </div>
+      <%= errors_for(address, :first_name) %>
       <%= errors_for(address, :last_name) %>
     <% end %>
   
     <p class="subtitle">CONTATO NO LOCAL</p>
     <%= field_set_tag do %>
+      <div>
       <%= address_form.label :telephone, "Telefone de contato 1" %>
       <%= address_form.text_field :telephone, class: "tel_contato1 #{error_class_if_needed(address, :telephone)}" %>
+      </div>
       <%= errors_for(address, :telephone) %>
     <% end %>
   
     <%= field_set_tag do %>
+      <div>
       <%= address_form.label :mobile, "Telefone de contato 2" %>
       <%= address_form.text_field :mobile, class: "tel_contato2" %>
+      </div>
     <% end %>
   
   </div>  
