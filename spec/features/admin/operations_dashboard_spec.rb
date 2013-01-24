@@ -9,15 +9,17 @@ feature "Operations dashboard", %q{
 } do
 
   let(:admin) { FactoryGirl.create(:admin_superadministrator) }
+  let!(:order) { FactoryGirl.create(:order, created_at: Time.now, state: "authorized") }
 
   background do
     ApplicationController.any_instance.stub(:load_promotion)
-    FactoryGirl.create(:order, created_at: Time.now, state: "authorized")
     do_admin_login!(admin)
     visit '/admin'
   end
 
 	scenario "Listing the orders by their dates and statuses" do
+    click_link 'Ciclo de vida'
+
     expect(page).to have_content("Dashboard")
     expect(page).to have_content("Operações")
 
@@ -42,6 +44,8 @@ feature "Operations dashboard", %q{
 
   scenario "Viewing details for a list of orders" do
 
+    click_link 'Ciclo de vida'
+
     page.find('tr#0_dias td#authorized a').click
 
     expect(page).to have_content("Cadastro")
@@ -57,8 +61,8 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("CEP")
     expect(page).to have_content("Quantidade de itens")
 
-    expect(page).to have_content("Wednesday, 23 January 2013")
-    expect(page).to have_content("Wednesday, 23 January 2013")
+    expect(page).to have_content(order.created_at.strftime('%A, %e %B %Y'))
+    expect(page).to have_content(order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y'))
     #TODO: Despacho Entrega
     #TODO: Data prometida de Entrega
     expect(page).to have_content("TEX")
@@ -70,6 +74,27 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("87656-908")
     expect(page).to have_content("100.0")
     expect(page).to have_content("0")
+  end
+
+  scenario 'Viewing delivery table' do
+    click_link 'Entrega'
+
+    6.times do |index|
+      #FactoryGirl.create(:order, expected_delivery_on: Time.now(index-4) )
+    end
+
+    expect(page).to have_content("<= -3")
+    expect(page).to have_content("-2")
+    expect(page).to have_content("-1")
+    expect(page).to have_content("Data prometida")
+    expect(page).to have_content("1")
+    expect(page).to have_content("2")
+    expect(page).to have_content(">= 3")
+
+    # testa coluna de data de entrega prometida
+    expect(page.find('tr#-3_dias td#expected_delivery_on', text: '1'))
+
+
   end
 
 end
