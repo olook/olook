@@ -109,13 +109,12 @@ describe Order do
       end
 
       it "sets #expected_delivery_on" do
-        pending
-        expect(order_with_waiting_payment.expected_delivery_on).to be_nil
+        # expect(order_with_waiting_payment.expected_delivery_on).to be_nil
         order_with_waiting_payment.authorized
         expect(order_with_waiting_payment.expected_delivery_on).to_not be_nil
 
-        # delivery_date = order.freight.delivery_time.days.from_now
-        # expect(order_with_waiting_payment.expected_delivery_on).to order_with_waiting_payment.freight.delivery_time
+        delivery_date = order_with_waiting_payment.freight.delivery_time.days.from_now
+        expect(order_with_waiting_payment.expected_delivery_on.to_s).to eq(delivery_date.to_s)
       end
     end
 

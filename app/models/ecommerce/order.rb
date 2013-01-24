@@ -74,8 +74,9 @@ class Order < ActiveRecord::Base
     state :picking
     state :waiting_payment
     state :under_review
+    state :authorized
 
-    after_transition any => :authorized, :do => :transition_to_authorized
+    after_transition any => :authorized, :do => [:transition_to_authorized, :set_delivery_date_on]
 
     state :reversed do
       after_save do |order|
@@ -114,13 +115,6 @@ class Order < ActiveRecord::Base
             payment.refund
           end
         end
-      end
-    end
-
-    state :authorized do
-      after_save do |order|
-        delivery_date = order.freight.delivery_time.days.from_now
-        order.update_attribute(:expected_delivery_on, delivery_date)
       end
     end
 
@@ -246,40 +240,48 @@ class Order < ActiveRecord::Base
 
   private
 
-  def initialize_order
-    update_attributes(:number => (id * CONSTANT_FACTOR) + CONSTANT_NUMBER)
-    self.update_attribute(:purchased_at, Time.now)
-    Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
-    Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
-    Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
-  end
+    def set_delivery_date_on
+      update_attribute(:expected_delivery_on, calculate_delivery_date) if calculate_delivery_date && authorized?
+    end
 
-  def confirm_payment?
-    #Seleciona a lista de estados de pagamento desta order
-    payment_states = self.payments.map(&:state).uniq
+    def calculate_delivery_date
+      freight.delivery_time.days.from_now if freight
+    end
 
-    #so continua se so houver um tipo de estado listado e esse tipo de estado for authorized
-    return false unless payment_states.include?("authorized") && payment_states.size == 1
-    true
-  end
+    def initialize_order
+      update_attributes(:number => (id * CONSTANT_FACTOR) + CONSTANT_NUMBER)
+      self.update_attribute(:purchased_at, Time.now)
+      Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
+      Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
+      Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
+    end
 
-  def cancel_order?
-    Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
-    true
-  end
+    def confirm_payment?
+      #Seleciona a lista de estados de pagamento desta order
+      payment_states = self.payments.map(&:state).uniq
 
-  def refused_order?
-    Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
-    true
-  end
+      #so continua se so houver um tipo de estado listado e esse tipo de estado for authorized
+      return false unless payment_states.include?("authorized") && payment_states.size == 1
+      true
+    end
 
-  def send_notification_order_delivered?
-    Resque.enqueue_in(1.minute, Orders::NotificationOrderDeliveredWorker, self.id)
-    true
-  end
+    def cancel_order?
+      Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
+      true
+    end
 
-  def send_notification_order_shipped?
-    Resque.enqueue_in(12.hour, Orders::NotificationOrderShippedWorker, self.id)
-    true
-  end
+    def refused_order?
+      Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
+      true
+    end
+
+    def send_notification_order_delivered?
+      Resque.enqueue_in(1.minute, Orders::NotificationOrderDeliveredWorker, self.id)
+      true
+    end
+
+    def send_notification_order_shipped?
+      Resque.enqueue_in(12.hour, Orders::NotificationOrderShippedWorker, self.id)
+      true
+    end
 end
