@@ -33,7 +33,7 @@ class CartItem < ActiveRecord::Base
       promotional_value = price - adjustment_value / quantity.to_f
 
       min_value_excluding_zero = [promotional_value, olooklet_value].delete_if{|value| value == 0}.min
-      min_value_excluding_zero
+      min_value_excluding_zero.nil? ? price : min_value_excluding_zero 
     end
   end
 
