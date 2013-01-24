@@ -16,8 +16,7 @@ class Cart < ActiveRecord::Base
   after_update :notify_listener
 
   def allow_credit_payment?
-    adjustments = items.select { |item| item.has_adjustment? }
-    adjustments.empty?
+    has_empty_adjustments? && has_any_full_price_item?
   end
 
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
@@ -114,6 +113,14 @@ class Cart < ActiveRecord::Base
 
     def notify_listener
       PromotionListener.update(self)
+    end
+
+    def has_any_full_price_item?
+      items.select { |item| item.price == item.retail_price }.any?
+    end
+
+    def has_empty_adjustments?
+      items.select { |item| item.has_adjustment? }.empty?
     end
 
 end
