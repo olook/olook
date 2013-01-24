@@ -31,11 +31,11 @@ function changeSpan(){
 	$("#user_gender").change(function(){
 			txt = $("option:selected").val();
 			if (txt == "0"){
-				$("span.custom_select").text("").text("Feminino");
+				$("span.custom_select").text("").text("Mulher");
 			}else if(txt == "1"){
-				$("span.custom_select").text("").text("Masculino");
+				$("span.custom_select").text("").text("Homem");
 			}else{
-				$("span.custom_select").text("").text("Selecione");
+				$("span.custom_select").text("").text("Você é:");
 			}
 	});
 }
