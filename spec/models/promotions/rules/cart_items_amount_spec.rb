@@ -12,7 +12,7 @@ describe CartItemsAmount do
     context "when cart has item to give free" do
       it "returns true" do
         promotion.should_receive(:param_for).and_return(3)
-        cart.items.should_receive(:size).and_return(3)
+        cart.items.should_receive(:sum).and_return(3)
         subject.matches?(promotion, cart).should be_true
       end
     end
@@ -20,7 +20,7 @@ describe CartItemsAmount do
     context "when cart has item to give free" do
       it "returns true" do
         promotion.should_receive(:param_for).and_return(3)
-        cart.items.should_receive(:size).and_return(2)
+        cart.items.should_receive(:sum).and_return(2)
         subject.matches?(promotion, cart).should be_false
       end
     end
