@@ -5,7 +5,7 @@ class Checkout::BaseController < ApplicationController
 
   private
   def check_cpf
-    redirect_to edit_user_registration_path(:checkout_registration => true), :notice => "Informe seu CPF" unless Cpf.new(@user.cpf).valido?
+    redirect_to edit_user_registration_path(:checkout_registration => true) unless @user.has_valid_cpf?
   end
 
   def check_order
