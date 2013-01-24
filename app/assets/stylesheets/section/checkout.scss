@@ -1549,7 +1549,7 @@ section.checkout{
 			a{font-size:16px;color:#DD4978;}
 		}
     p.addresses_index{
-      clear:both;
+      clear:both;margin-bottom:10px;
       a{font-size:16px;color:#DD4978;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
 				&:hover{text-decoration:underline;}
 			} 
