@@ -30,9 +30,4 @@ class PromotionRule < ActiveRecord::Base
       Rails.logger.error e
     end
   end
-
-  def param_for(promotion)
-    rule_parameters.find_by_promotion_id(promotion).rules_params
-  end
-
 end

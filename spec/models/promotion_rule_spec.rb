@@ -9,16 +9,6 @@ describe PromotionRule do
   end
 
   describe "#matches?" do
-    it { should respond_to(:matches?).with(1).argument }
+    it { should respond_to(:matches?).with(2).argument }
   end
-
-  describe "#param_for" do
-    let(:promotion_rule) { FactoryGirl.create(:promotion_rule) }
-
-    it "returns param of promotion rule for than promotion" do
-      promotion_rule.param_for(promotion_rule.promotions.first).should  eq(promotion_rule.rule_parameters.first.rules_params)
-    end
-
-  end
-
 end
