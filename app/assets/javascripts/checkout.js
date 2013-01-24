@@ -175,6 +175,12 @@ $(function() {
 		$("ol.cards li span").removeClass("selected");
 	});
 	
+	//SCROLLTOP WHEN NEW ADDRESS IS CLICKED
+	$('p.new_address a').click(function(e) {
+		$("html, body").animate({scrollTop: 0	}, 'fast');
+		e.preventDefault();
+	});
+	
 });
 
 $("form.edit_cart_item").submit(function() {

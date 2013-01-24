@@ -11,8 +11,7 @@ a.back_link {
   background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
   color: $third_color;
   font-family: $avenir;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
   text-decoration: none;
   margin: 23px 10px 0 0;
   padding: 0 0 0 12px;
@@ -1482,7 +1481,7 @@ section#payment {
 /******** NEW CHECKOUT ********/
 /******************************/
 section.checkout{
-	&#payment{position:relative;margin-top:40px;}
+	&#payment{position:relative;margin-top:30px;float:left;}
 	.box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
 	.box-step-three{float:left;width:325px;}
 
@@ -1621,7 +1620,7 @@ section.checkout{
 			}
 		}
 		#about_credits{
-			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:-130px 0 0 -310px;
+			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:0px 0 0 -310px;
 			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px);cursor:pointer;}
 			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
 			table.check{border:0;
