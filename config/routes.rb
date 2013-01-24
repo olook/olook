@@ -150,6 +150,8 @@ Olook::Application.routes.draw do
   namespace :admin do
     get "/", :to => "dashboard#index"
     get "/report_detail", to: "dashboard#show"
+    get "/orders_life_cicle_report", to: "dashboard#orders_life_cicle_report"
+    get "/orders_time_report", to: "dashboard#orders_time_report"
 
     get "/dashboard/show/:state/:report_day_number", :controller =>'dashboard', :action => 'show'
 
