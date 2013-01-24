@@ -1,0 +1,30 @@
+%h1 Dashboard
+
+%h2 Operações
+
+.inner
+  %table.table
+    %tr
+      %th Prazo para despacho
+      %th Pago
+      %th Aguardando Separação
+      %th Despachado
+      %th Entregue
+      %th TOTAL
+
+    - @report_days.each do |report_day_number|
+      %tr{:id => "#{report_day_number}_dias"}
+        %td= I18n.t("dashboard_report_days.#{report_day_number}")
+        %td{:id => "authorized"}= report_days_link(report_day_number, state: "authorized")
+        %td{:id => "picking"}= report_days_link(report_day_number, state: "picking")
+        %td{:id => "delivering"}= report_days_link(report_day_number, state: "delivering")
+        %td{:id => "delivered"}= report_days_link(report_day_number, state: "delivered")
+        %td{:id => "total"}= report_days_link(report_day_number)
+
+    %tr
+      %td TOTAL</td>
+      %td{:id => "total_authorized"}= Order.with_state("authorized").count
+      %td{:id => "total_picking"}= Order.with_state("picking").count
+      %td{:id => "total_delivering"}= Order.with_state("delivering").count
+      %td{:id => "total_delivered"}= Order.with_state("delivered").count
+      %td{:id => "grand_total"}= Order.with_state(["authorized","picking","delivering","delivered"]).count
