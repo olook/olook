@@ -96,159 +96,202 @@ describe Order do
   end
 
   describe "State machine" do
-    it "should set authorized" do
-      order_with_payment.authorized
-      order_with_payment.authorized?.should be_true
-    end
-
-    it "should set authorized" do
-      order_with_payment.authorized
-      order_with_payment.under_review
-      order_with_payment.under_review?.should be_true
-    end
-
-    it "should set canceled" do
-      subject.canceled
-      subject.canceled?.should be_true
-    end
-
-    it "should set canceled given not_delivered" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.not_delivered
-      order_with_payment.canceled
-      order_with_payment.canceled?.should be_true
-    end
-
-    it "should set canceled given in_the_cart" do
-      subject.canceled
-      subject.canceled?.should be_true
-    end
-
-    context 'state to reversed' do
-      it "should set reversed from under_review" do
+    context 'authorized' do
+      it "returns true" do
         order_with_payment.authorized
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
+        order_with_payment.authorized?.should be_true
+      end
+    end
+
+    context 'under_review' do
+      context 'from authorized' do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.under_review
+          order_with_payment.under_review?.should be_true
+        end
+      end
+    end
+
+    context "canceled" do
+      it "returns true" do
+        subject.canceled
+        subject.canceled?.should be_true
       end
 
-      it "should set reversed from under_review" do
+      context "from not_delivered" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.not_delivered
+          order_with_payment.canceled
+          order_with_payment.canceled?.should be_true
+        end
+      end
+    end
+
+    context 'reversed' do
+      context 'from authorized' do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.reversed
+          order_with_payment.reversed?.should be_true
+        end
+      end
+
+      context "from under_review" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.under_review
+          order_with_payment.reversed
+          order_with_payment.reversed?.should be_true
+        end
+      end
+
+      context "from picking" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.reversed
+          order_with_payment.reversed?.should be_true
+        end
+      end
+
+      context "from delivering" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.reversed
+          order_with_payment.reversed?.should be_true
+        end
+      end
+
+      context "from delivered" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.delivered
+          order_with_payment.reversed
+          order_with_payment.reversed?.should be_true
+        end
+      end
+
+      context "from not_delivered" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.not_delivered
+          order_with_payment.reversed
+          order_with_payment.reversed?.should be_true
+        end
+      end
+    end
+
+    context 'refunded' do
+      it "returns true" do
         order_with_payment.authorized
         order_with_payment.under_review
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-
-      it "should set reversed from picking" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-
-      it "should set reversed from delivering" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-
-      it "should set reversed from delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.delivered
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-
-      it "should set reversed from not_delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.not_delivered
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-    end
-
-    context 'to refunded' do
-      it "should set refunded from authorized" do
-        order_with_payment.authorized
         order_with_payment.refunded
         order_with_payment.refunded?.should be_true
       end
 
-      it "should set refunded from picking" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
+      context "from authorized" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.refunded
+          order_with_payment.refunded?.should be_true
+        end
       end
 
-      it "should set refunded from delivering" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
+      context "from picking" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.refunded
+          order_with_payment.refunded?.should be_true
+        end
       end
 
-      it "should set refunded from delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.delivered
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
+      context "from delivering" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.refunded
+          order_with_payment.refunded?.should be_true
+        end
       end
 
-      it "should set refunded from not_delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.not_delivered
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
+      context "from delivered" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.delivered
+          order_with_payment.refunded
+          order_with_payment.refunded?.should be_true
+        end
+      end
+
+      context "from not_delivered" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.not_delivered
+          order_with_payment.refunded
+          order_with_payment.refunded?.should be_true
+        end
       end
     end
 
-    it "should set refunded" do
-      order_with_payment.authorized
-      order_with_payment.under_review
-      order_with_payment.refunded
-      order_with_payment.refunded?.should be_true
+    context "picking" do
+      context "from authorized" do
+        it "should set picking" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.picking?.should be_true
+        end
+      end
     end
 
-    it "should set picking" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.picking?.should be_true
+    context "delivering" do
+      context "from picking" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.delivering?.should be_true
+        end
+      end
     end
 
-    it "should set delivering" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.delivering?.should be_true
+    context "delivered" do
+      context "from delivering" do
+        it "returns true" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.delivered
+          order_with_payment.delivered?.should be_true
+        end
+      end
     end
 
-    it "should set delivered" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.delivered
-      order_with_payment.delivered?.should be_true
-    end
-
-    it "should set not_delivered" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.not_delivered
-      order_with_payment.not_delivered?.should be_true
+    context "not delivered" do
+      context "from delivering" do
+        it "should set not_delivered" do
+          order_with_payment.authorized
+          order_with_payment.picking
+          order_with_payment.delivering
+          order_with_payment.not_delivered
+          order_with_payment.not_delivered?.should be_true
+        end
+      end
     end
   end
 
