@@ -2,7 +2,7 @@
 class MinorPriceAdjustment < PromotionAction
 
   def apply(cart, parameter)
-    calculate(cart).each do |item|
+    calculate(cart, parameter).each do |item|
       item.cart_item_adjustment.update_attributes(value: item.price)
     end
   end

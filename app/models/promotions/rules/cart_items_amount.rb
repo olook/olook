@@ -1,12 +1,9 @@
 # -*- encoding : utf-8 -*-
 class CartItemsAmount < PromotionRule
 
-  def matches?(cart, promotion)
-    quantity_of_items(cart) % self.param_for(promotion) == 0
+  def matches?(cart, parameter)
+    items_amount = cart.items.inject(0) {|total, i| total += i.quantity}
+    items_amount / parameter.to_i > 0
   end
-  
-  private
-    def quantity_of_items cart
-      cart.items.inject(0) { |amount, item| amount += item.quantity }
-    end
+
 end
