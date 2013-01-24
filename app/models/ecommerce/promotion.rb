@@ -38,19 +38,13 @@ class Promotion < ActiveRecord::Base
     simulate(cart)
   end
 
- #def param_for(rule)
- #  # I know this is ugly, I thiking how refactor it
- #  # TODO composite key
- #  rule_parameters.find_by_promotion_rule_id(rule).rules_params
- #end
-
   private
 
     def self.matched_promotions_for cart
       promotions = []
       active_and_not_expired(Date.today).each do |promotion|
         matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
-          match_result &&= rule.matches?(cart.user)
+          match_result &&= rule.matches?(cart)
         end
         promotions << promotion if matched_all_rules
       end
