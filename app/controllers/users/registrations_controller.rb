@@ -20,6 +20,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    if params[:checkout_registration] == "true"
+      if @user.cpf.blank?
+        @user.errors.add(:cpf, "Para compras, é necessário informar o CPF")
+      elsif !@user.has_valid_cpf?
+        @user.errors.add(:cpf, "O CPF parece estranho. Pode conferir?")
+      end
+    end
     @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
   end
@@ -32,7 +39,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user].delete(:password_confirmation) if
       params[:user][:password_confirmation].blank?
     end
-    params[:user].delete(:cpf) if params[:user][:cpf] && resource.cpf?
+    params[:user].delete(:cpf) if params[:user][:cpf] && resource.has_valid_cpf?
 
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
