@@ -74,43 +74,54 @@
     </ol>
     <p>Número de parcelas:</p>
     <%= field_set_tag do %>
-      <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
-      <%= payment_form.select :payments, options %>
+      <div>
+        <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
+        <%= payment_form.select :payments, options %>
+      </div>
     <% end %>  
     
     <%= field_set_tag do %>
+      <div>
       <%= payment_form.label :user_name, 'Nome (como exibido no cartão)' %>
       <%= payment_form.text_field :user_name,  class: "user_name #{error_class_if_needed(@checkout.payment, :user_name)}" %>
+      </div>
       <%= errors_for(@checkout.payment, :user_name) %>
     <% end %>  
 
     <%= field_set_tag do %>
+      <div>
       <%= payment_form.label :credit_card_number, 'Número do cartão' %>
       <%= payment_form.text_field :credit_card_number,  class: "credit_card_number #{error_class_if_needed(@checkout.payment, :credit_card_number)}" %>
+      </div>
       <%= errors_for(@checkout.payment, :credit_card_number) %>
     <% end %>  
 
     <%= field_set_tag do %>
+      <div>
       <%= payment_form.label :security_code, 'Cód. de segurança' %>
       <%= payment_form.text_field :security_code,  class: "security_code #{error_class_if_needed(@checkout.payment, :security_code)}" %>
-      <%= errors_for(@checkout.payment, :security_code) %>
-    <% end %>  
-
-    <%= field_set_tag nil, class: "fieldset_validate" do %>
+      </div>
+      <div class="fieldset_validate">
       <%= payment_form.label :expiration_date, 'Validade (mm/aa)' %>
       <%= payment_form.text_field :expiration_date,  class: "expiration_date #{error_class_if_needed(@checkout.payment, :expiration_date)}" %>
+      </div>
+      <%= errors_for(@checkout.payment, :security_code) %>
       <%= errors_for(@checkout.payment, :expiration_date) %>
     <% end %>  
 
     <%= field_set_tag do %>
+      <div>
       <%= payment_form.label :user_identification, 'CPF' %>
       <%= payment_form.text_field :user_identification,  class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}" %>
+      </div>
       <%= errors_for(@checkout.payment, :user_identification) %>
     <% end %>
 
     <%= field_set_tag do %>
+      <div>
       <%= payment_form.label :user_birthday, 'Data de nascimento' %>
       <%= payment_form.text_field :user_birthday,  class: "date #{error_class_if_needed(@checkout.payment, :user_birthday)}" %>
+      </div>
       <%= errors_for(@checkout.payment, :user_birthday) %>
     <% end %>        
   </div>
