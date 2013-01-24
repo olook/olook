@@ -34,8 +34,8 @@
 <% end %>
 <fieldset class="gender_fields">      
   <div>
-    <%= f.label :gender, "Sexo" %>
-    <%= f.select(:gender, options_for_select({"Você é:" => "Você é", "Mulher" => 0, "Homem" => 1})) %>
+    <%= f.label :gender, "Você é" %>
+    <%= f.select(:gender, options_for_select({"Selecione:" => "Selecione", "Mulher" => 0, "Homem" => 1})) %>
     <span class="custom_select <%= "#{error_class_if_needed(resource, :gender)}" %>">Você é:</span>
   </div>
   <div>  
@@ -49,8 +49,8 @@
   <%= f.text_field :cpf, class: "cpf #{error_class_if_needed(resource, :cpf)}" %>
   <%= errors_for(resource, :cpf) %>
   <!-- <p class="info-cpf">Para as compras é necessário<br />informar o CPF</p> -->
-  <p class="terms">Concluindo o cadastro você aceita os <%= link_to 'Termos e Condições', terms_path, :target => "_blank" %> e a<br />
-     nossa <%= link_to "Política de Privacidade", privacy_path, :target => "_blank" %> </p>
+  <p class="terms">Concluindo o cadastro você aceita nossos <%= link_to 'termos de uso', terms_path, :target => "_blank" %> e a<br />
+     nossa <%= link_to "política de privacidade", privacy_path, :target => "_blank" %> </p>
 </fieldset>  
 <fieldset>
   <%= f.submit "Cadastrar", :id => "register" %>  
