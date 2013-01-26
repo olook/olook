@@ -10,6 +10,10 @@ Olook::Application.routes.draw do
   get "home/index"
   get "index/index"
 
+  # Search Lab
+  get "/search/show", :to => "search#show", :as => "search_show"
+  get "/search", :to => "search#index", :as => "search_index"
+
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
