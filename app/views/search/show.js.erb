@@ -1,0 +1,4 @@
+$("#result").html("")
+<% @hits["hit"].each do |hit| %>
+  $("#result").append("<p><b><%= hit['id'] %></b>: <%= hit['data'] %></p><br/>")
+<% end %>

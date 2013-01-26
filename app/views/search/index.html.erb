@@ -1,0 +1,9 @@
+<%= form_tag(search_show_path, method: :get, remote: :true, html: {id: "search_form"}) do  %>
+
+  <%= text_field_tag "q" %>
+  <%= submit_tag "Buscar" %>
+<% end %>
+
+<div id="result">
+  Resultado.
+</div>
