@@ -11,8 +11,7 @@ class PagesController < ApplicationController
     @presenter = LoyaltyPresenter.new(@user, user_credits)
   end
 
-  def kombi
-
+  def olookmovel
   end
 
   def send_contact
