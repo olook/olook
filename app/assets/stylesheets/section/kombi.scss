@@ -25,4 +25,35 @@ section#kombi {
       margin: 0 0 30px;
     }
   }
+  div#pictures {
+    width: 395px;
+    float: right;
+    div#instagram {
+      background: #f1f2f2;
+      margin: 0 0 15px;
+      padding: 10px;
+      border: 1px #b7b7b7 solid;
+      h1 {
+        background: image-url('kombi/instagram.jpg') top left no-repeat;
+        font-family: $avenir;
+        font-size: 15px;
+        font-weight: lighter;
+        text-transform: uppercase;
+        height: 53px;
+        padding: 8px 0 0 75px;
+        strong {
+          span {
+            font-family: $kepler;
+            text-transform: lowercase;
+          }
+        }
+      }
+    }
+    p {
+      font-weight: 500;
+      span {
+        color: #d35285;
+      }
+    }
+  }
 }
