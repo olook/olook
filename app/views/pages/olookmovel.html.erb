@@ -2,6 +2,11 @@
   <%= stylesheet_link_tag "section/olookmovel" %>
 <% end %>
 
+<% content_for :footer do %>
+  <%= javascript_include_tag "plugins/jquery.instagram" %>
+  <%= javascript_include_tag "olookmovel" %>
+<% end %>
+
 <section id="kombi">
   <div id="description">
     <h1>OLOOK<span>móvel</span></h1>
@@ -13,6 +18,7 @@
   <div id="pictures">
     <div id="instagram">
       <h1>O que anda rolando<br /> no <strong>OLOOK<span>móvel</span></strong></h1>
+      <div class="instagram_pictures"></div>
     </div>
     <p>Publique sua foto do olook<em>móvel</em> no instagram!<br />Use a hashtag <span>#olookmóvel</span> e veja ela aparecer aqui :)</p>
   </div>

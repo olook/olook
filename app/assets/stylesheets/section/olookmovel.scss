@@ -26,7 +26,7 @@ section#kombi {
     }
   }
   div#pictures {
-    width: 395px;
+    width: 397px;
     float: right;
     div#instagram {
       background: #f1f2f2;
@@ -40,11 +40,34 @@ section#kombi {
         font-weight: lighter;
         text-transform: uppercase;
         height: 53px;
+        margin: 0 0 20px;
         padding: 8px 0 0 75px;
         strong {
           span {
             font-family: $kepler;
             text-transform: lowercase;
+          }
+        }
+      }
+      div.instagram_pictures {
+        width: 381px;
+        overflow: auto;
+        div.instagram-placeholder {
+          position: relative;
+          background: image-url('kombi/bg-instagram.jpg') top left no-repeat;
+          width: 122px;
+          height: 122px;
+          display: block;
+          margin: 0 5px 5px 0;
+          float: left;
+          a {
+            img {
+              position: absolute;
+              width: 106px;
+              height: 105px;
+              top: 10px;
+              left: 8px;
+            }
           }
         }
       }
