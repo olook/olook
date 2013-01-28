@@ -22,9 +22,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     if params[:checkout_registration] == "true"
       if @user.cpf.blank?
-        @user.errors.add(:cpf, "Para compras, é necessário informar o CPF")
+        @user.errors.add(:cpf, I18n.t('activerecord.errors.models.user.attributes.cpf.blank'))
       elsif !@user.has_valid_cpf?
-        @user.errors.add(:cpf, "O CPF parece estranho. Pode conferir?")
+        @user.errors.add(:cpf, I18n.t('activerecord.errors.models.user.attributes.cpf.invalid'))
       end
     end
 
