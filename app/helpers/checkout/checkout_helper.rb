@@ -28,4 +28,8 @@ module Checkout::CheckoutHelper
     Setting.billet_discount_available
   end
 
+  def billet_discount_percentage
+    Setting.billet_discount_percent
+  end
+
 end

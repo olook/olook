@@ -278,15 +278,13 @@ class CartService
 
   def calculate_discounts(payment=nil)
     discounts = []
-    retail_value = self.subtotal(:retail_price)
+    retail_value = self.subtotal(:retail_price) - minimum_value
+    retail_value = 0 if retail_value < 0
     total_discount = 0
-    billet_discount_value = 0
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
-
-    retail_value -= minimum_value
-    retail_value = 0 if retail_value < 0
+    billet_discount_value = 0
 
     if coupon_value >= retail_value
       coupon_value = retail_value
@@ -328,14 +326,17 @@ class CartService
     end
 
     if payment && payment.is_a?(Billet) && Setting.billet_discount_available
-      billet_discount_value = retail_value * Setting.billet_discount_percent.to_i / 100
-      discounts << :billet_discount
+      billet_discount_value = (retail_value + minimum_value) * Setting.billet_discount_percent.to_i / 100
+      if billet_discount_value > retail_value
+        billet_discount_value = retail_value
+      end
       retail_value -= billet_discount_value
     end
 
     total_credits = credits_loyality + credits_invite + credits_redeem
 
     discounts << :coupon if coupon_value > 0
+    discounts << :billet_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,

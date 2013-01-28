@@ -1568,6 +1568,9 @@ section.checkout{
 			}
 		}
 		.payment{float:left;padding-left:5px;
+      p{font-size:13px;margin-top:15px;
+        span{color:#000;}
+      }
 			li{float:left;height:auto
 				&.credit_card{width:120px;}
 				&.boleto{width:54px;}
