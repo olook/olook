@@ -22,6 +22,8 @@ module Olook
     config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
 
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions/*"]
+    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules/*"]
 
 
     # Only load the plugins named here, in the order given (default is alphabetical).
