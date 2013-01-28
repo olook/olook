@@ -8,7 +8,6 @@ class CartService
   delegate :total_coupon_discount, :to => :cart, :prefix => :cart
   delegate :sub_total, :to => :cart, :prefix => :cart
 
-
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
   end
@@ -316,15 +315,17 @@ class CartService
 
       retail_value -= credits_redeem
 
-      if payment && payment.is_a?(Billet) && Setting.billet_discount_available
-        billet_discount = retail_value * Setting.billet_discount_percent.to_i / 100
-        retail_value -= billet_discount
-      end
-
     end
+
+    if payment && payment.is_a?(Billet) && Setting.billet_discount_available
+      billet_discount = retail_value * Setting.billet_discount_percent.to_i / 100
+      discounts << :billet_discount
+      retail_value -= billet_discount
+    end
+
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon unless coupon_value < 0
+    discounts << :coupon if coupon_value > 0
 
     {
       :discounts                         => discounts,
