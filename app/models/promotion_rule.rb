@@ -20,7 +20,7 @@ class PromotionRule < ActiveRecord::Base
 
   def self.inherited(base)
     begin
-    super base
+      super base
       # register the inherited class (base) in the database if it is not there yet.
       # this is done in order to avoid manual insert into database whenever we create a
       # new promotion_rule
