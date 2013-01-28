@@ -386,14 +386,14 @@ describe CartService do
     it "applies billet_discount on the retail_value" do
       Setting.should_receive(:billet_discount_available).and_return(true)
       Setting.should_receive(:billet_discount_percent).and_return("5")
-      cart_service.calculate_discounts(Billet.new).fetch(:total_billet_discount).should eq(5.0)
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(5.0)
     end
 
     it "applies billet_discount on the retail_value after applying coupon of value" do
       Setting.should_receive(:billet_discount_available).and_return(true)
       Setting.should_receive(:billet_discount_percent).and_return("5")
       cart_service.cart.coupon = coupon_of_value
-      cart_service.calculate_discounts(Billet.new).fetch(:total_billet_discount).should eq(2.5)
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
     end
 
     it "applies billet_discount on the retail_value after applying loyalty_program credits" do
@@ -403,7 +403,7 @@ describe CartService do
       cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(empty_user_credit)
       cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(empty_user_credit)
       cart_service.cart.use_credits = true
-      cart_service.calculate_discounts(Billet.new).fetch(:total_billet_discount).should eq(2.5)
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
     end
 
     it "applies billet_discount on the retail_value after applying invite credits" do
@@ -413,7 +413,7 @@ describe CartService do
       cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(user_credit)
       cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(empty_user_credit)
       cart_service.cart.use_credits = true
-      cart_service.calculate_discounts(Billet.new).fetch(:total_billet_discount).should eq(2.5)
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
     end
 
     it "applies billet_discount on the retail_value after applying invite credits" do
@@ -423,7 +423,7 @@ describe CartService do
       cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(empty_user_credit)
       cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(user_credit)
       cart_service.cart.use_credits = true
-      cart_service.calculate_discounts(Billet.new).fetch(:total_billet_discount).should eq(2.5)
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
     end
   end
 
