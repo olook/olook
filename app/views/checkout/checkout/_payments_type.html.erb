@@ -59,6 +59,10 @@
     <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: @checkout.payment && @checkout.payment.is_a?(CreditCard) %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
     <li class="debito"><%= checkout_form.radio_button :payment_method, "debit" %> <%= checkout_form.label :payment_method, 'Débito Online', checked: @checkout.payment && @checkout.payment.is_a?(Debit) %></li>
   </ul>
+
+  <% if billet_discount_enabled %>
+    <p>Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto</span>. Nesta compra seu desconto será de <span id="billet_discount" class="txt-pink"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
+  <% end %>
     
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
   <div class="box-cartao credit_card">
@@ -128,10 +132,6 @@
   <div class="box-boleto billet">
     <p>Você deverá imprimir e realizar o pagamento
     do boleto após a finalização da compra.</p>
-
-    <% if billet_discount_enabled %>
-      <p>Pague com boleto e ganhe 5% de desconto. Nesta compra seu desconto será de <%= number_to_currency(@cart_service.billet_discount) %>.</p>
-    <% end %>
 
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação
     do seu pagamento.</p>

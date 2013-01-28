@@ -42,3 +42,7 @@ if($("#cart-box").length > 0){
   $("#cart-box #credits_used").delay(300).fadeIn();
   $("#cart-box #total").delay(300).fadeIn();
 }
+
+if($("#payment #billet_discount").length > 0){
+  $("#payment #billet_discount").text('<%= number_to_currency(@cart_service.billet_discount) %>');
+}
