@@ -1,8 +1,3 @@
-function stopProp(e) {
-    if (!e) var e = window.event;
-    e.cancelBubble = true;
-    if (e.stopPropagation) e.stopPropagation();
-}
 function maskTel(tel){
 	ddd  = $(tel).val().substring(1, 3);
 	dig9 = $(tel).val().substring(5, 6);
@@ -129,16 +124,14 @@ $(function() {
 	});
 
 	$("#overlay-campaign").one({
-		click: function(e){
+		click: function(){
 
 			$("#about_credits,#overlay-campaign").fadeOut();
-			stopProp(e);
 		}
 	});	 
 	$(document).keyup(function(e) {
 			if (e.keyCode == 27) { //ESC 
 	   		$("#about_credits,#overlay-campaign").fadeOut();
-				stopProp(e);
 			}
 	});
 
@@ -178,9 +171,8 @@ $(function() {
 });
 //SCROLLTOP WHEN NEW ADDRESS IS CLICKED
 $('#checkout_address a').click(function(e) {
-	console.log("asdsa");
 	$("html, body").animate({scrollTop: 0}, 'fast');
-	stopProp(e);
+  e.preventDefault();
 });
 
 $("form.edit_cart_item").submit(function() {
