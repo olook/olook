@@ -29,13 +29,13 @@ class PromotionAction < ActiveRecord::Base
     cart.items.any? ? calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) : 0
   end
 
-  protected  
-    
+  protected
+
     #
     # This method should return an Array of Hashes in the form:
     # => [{id: item.id, adjustment: item.price}]
     #
     def calculate(cart, param)
-      raise "You should call matches? on inherited classes"
+      raise "You should call calculate? on inherited classes"
     end
 end
