@@ -470,6 +470,7 @@ initBase = {
 
   showInfoCredits : function() {
     $("a.open_loyalty_lightbox").live('click', function(e) {
+      _gaq.push(['_trackEvent', 'product_show', 'show_loyalty_info', '']);
       clone = $("div.credits_description").clone().addClass("clone");
       content = clone[0].outerHTML;
       initBase.modal(content);
