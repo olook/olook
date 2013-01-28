@@ -146,10 +146,10 @@ group by uc.user_id, ct.code
     def generate_campaign_emails
       bounces = bounced_list
       @csv = CSV.generate do |csv|
-        csv << [ 'email' ]
+        csv << [ 'email','created_at' ]
         CampaignEmail.uncoverted_users.find_each do |c|
           unless bounces.include?(c.email)
-            csv << [ c.email ]
+            csv << [ c.email, c.created_at ]
           end
         end
       end
