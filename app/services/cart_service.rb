@@ -94,8 +94,8 @@ class CartService
     calculate_discounts.fetch(:total_credits)
   end
 
-  def total_discount
-    calculate_discounts.fetch(:total_discount)
+  def total_discount(payment=nil)
+    calculate_discounts(payment).fetch(:total_discount)
   end
 
   def is_minimum_payment?
