@@ -16,12 +16,12 @@
   </div>
   <p class="description"><%= @product.description %></p>
   <%= product_presenter.render_price %>
-  <% if @user && !@promotion %>
+  <%# if @user && !@promotion %>
     <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
-      <p>E você ganha até <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> de desconto na próxima compra.</p>
+      <p>Compre e ganhe até <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em compras nos próximos 2 meses</p>
       <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %>
     </div>
-  <% end %>
+  <%# end %>
 
 </div>
  
