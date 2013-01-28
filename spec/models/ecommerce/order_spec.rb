@@ -380,14 +380,26 @@ describe Order do
       let!(:now) { Time.now }
 
       before(:each) do
-        @order_now = FactoryGirl.create(:order, created_at: now)
-        FactoryGirl.create(:order, created_at: now - 1.day)
+        @order_now = FactoryGirl.create(:order)
+        order_past = FactoryGirl.create(:order)
+        order_past.update_attribute(:updated_at, now - 2.day)
       end
 
       it "returns orders on a specific date" do
         orders_today = Order.with_date(now)
         expect(orders_today).to have(1).item
         expect(orders_today.first).to eq(@order_now)
+      end
+    end
+
+    context ".with_expected_delivery_on" do
+      let(:expected_delivery_on) { 2.days.from_now }
+      let!(:order) { FactoryGirl.create(:order, expected_delivery_on: expected_delivery_on) }
+
+      it "returns orders on expected delivery date" do
+        orders = Order.with_expected_delivery_on(expected_delivery_on)
+        expect(orders).to have(1).item
+        expect(orders.first).to eq(order)
       end
     end
   end

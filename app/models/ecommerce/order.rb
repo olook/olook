@@ -18,7 +18,8 @@ class Order < ActiveRecord::Base
   }
 
   scope :with_status, lambda { |status| where(state: status) }
-  scope :with_date, lambda { |date| where(created_at: date.beginning_of_day..date.end_of_day) }
+  scope :with_date, lambda { |date| where(updated_at: date.beginning_of_day..date.end_of_day) }
+  scope :with_expected_delivery_on, lambda { |date| where(expected_delivery_on: date.beginning_of_day..date.end_of_day) }
 
   belongs_to :cart
   belongs_to :user
