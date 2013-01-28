@@ -1579,7 +1579,7 @@ section.checkout{
 					label{float:left;}
 				}
 			}
-			.box-cartao{float:left;
+			.box-cartao{float:left;display:none;
 				.cards{overflow:hidden;
 					li{position:relative;width:47px;height:37px;
 						input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
@@ -1604,7 +1604,7 @@ section.checkout{
 					}
 				}
 			}
-			.box-boleto{float:left;display:none;
+			.box-boleto{float:left;
 				p{font-size:13px;margin-top:15px;
 					span{color:#000;}
 				}
