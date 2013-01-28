@@ -100,6 +100,10 @@ class CartService
     calculate_discounts.fetch(:total_credits)
   end
 
+  def billet_discount
+    calculate_discounts(Billet.new).fetch(:billet_discount)
+  end
+
   def total_discount(payment=nil)
     calculate_discounts(payment).fetch(:total_discount)
   end
@@ -114,7 +118,7 @@ class CartService
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
-    total_value += calculate_discounts(payment).fetch(:total_billet_discount) if :total_billet_discount == type
+    total_value += calculate_discounts(payment).fetch(:billet_discount) if :billet_discount == type
 
     cart.items.each do |item|
       if item_discount_origin_type(item) == type
@@ -276,7 +280,7 @@ class CartService
     discounts = []
     retail_value = self.subtotal(:retail_price)
     total_discount = 0
-    billet_discount = 0
+    billet_discount_value = 0
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
@@ -324,9 +328,9 @@ class CartService
     end
 
     if payment && payment.is_a?(Billet) && Setting.billet_discount_available
-      billet_discount = retail_value * Setting.billet_discount_percent.to_i / 100
+      billet_discount_value = retail_value * Setting.billet_discount_percent.to_i / 100
       discounts << :billet_discount
-      retail_value -= billet_discount
+      retail_value -= billet_discount_value
     end
 
     total_credits = credits_loyality + credits_invite + credits_redeem
@@ -336,8 +340,8 @@ class CartService
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount),
-      :total_billet_discount             => billet_discount,
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value),
+      :billet_discount                   => billet_discount_value,
       :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,

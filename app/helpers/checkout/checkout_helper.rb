@@ -24,4 +24,8 @@ module Checkout::CheckoutHelper
     "(entrega em #{delivery_time} dias úteis)"
   end
 
+  def billet_discount_enabled
+    Setting.billet_discount_available
+  end
+
 end

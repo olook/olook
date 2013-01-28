@@ -129,6 +129,10 @@
     <p>Você deverá imprimir e realizar o pagamento
     do boleto após a finalização da compra.</p>
 
+    <% if billet_discount_enabled %>
+      <p>Pague com boleto e ganhe 5% de desconto. Nesta compra seu desconto será de <%= number_to_currency(@cart_service.billet_discount) %>.</p>
+    <% end %>
+
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação
     do seu pagamento.</p>
   </div>
