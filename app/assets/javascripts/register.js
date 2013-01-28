@@ -15,27 +15,27 @@ function cleanErrors(){
 	var span_error = $(".span_error");
 	var span_error_gender = $(".gender_fields .span_error").length;
 	if (span_error.length > 0){
-		$("input").keyup(function(){
+		$("input").focusin(function(){
 			$(this).removeClass("input_error");
-			$(this).next().fadeOut().delay(300).remove();
+			$(this).parents('div').siblings('.span_error').first().fadeOut().delay(300).remove();
 		});
-	}else	if(span_error_gender == 1){
-			$("#user_gender").one("change",function(){
-					$("span.custom_select").removeClass("input_error");
-					$(this).next().fadeOut().delay(300).remove();
-			});	
-	}
+	}/*else	if(span_error_gender === 1){
+			$("select#user_gender").click(function(){
+			$("span.custom_select").removeClass("input_error");
+			$(this).parents('div').siblings('.span_error').fadeOut().delay(300).remove();
+		});	
+	}*/
 }
 
 function changeSpan(){
 	$("#user_gender").change(function(){
 			txt = $("option:selected").val();
 			if (txt == "0"){
-				$("span.custom_select").text("").text("Mulher");
+				$("span.custom_select").text(" ").delay(100).text("Mulher");
 			}else if(txt == "1"){
-				$("span.custom_select").text("").text("Homem");
+				$("span.custom_select").text(" ").delay(100).text("Homem");
 			}else{
-				$("span.custom_select").text("").text("Selecione");
+				$("span.custom_select").text(" ").delay(100).text("Selecione");
 			}
 	});
 }

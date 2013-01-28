@@ -26,7 +26,7 @@
     </div>
     <div>    
     <%= f.label :password_confirmation, "Confirmar senha" %>
-    <%= f.password_field :password_confirmation, class: "pass #{error_class_if_needed(resource, :password_confirmation)}" %>
+    <%= f.password_field :password_confirmation, class: "pass #{error_class_if_needed(resource, :password)}" %>
     </div>
     <%= errors_for(resource, :password) %>
     <%= errors_for(resource, :password_confirmation) %>
@@ -35,14 +35,14 @@
 <fieldset class="gender_fields">      
   <div>
     <%= f.label :gender, "Você é" %>
-    <%= f.select(:gender, options_for_select({"Selecione:" => "Selecione", "Mulher" => 0, "Homem" => 1})) %>
-    <span class="custom_select <%= "#{error_class_if_needed(resource, :gender)}" %>">Selecione</span>
+    <%= f.select(:gender, options_for_select({"Selecione:" => "", "Mulher" => 0, "Homem" => 1})) %>
+    <span class="custom_select">Selecione</span>
   </div>
   <div>  
     <%= f.label :birthday, "Data de Nascimento" %>
     <%= f.text_field :birthday, class: "nasc", value: resource.birthday ? resource.birthday.strftime("%d/%m/%Y") : '' %>    
   </div>
-  <%= errors_for(resource, :gender) %>
+  <%#= errors_for(resource, :gender) %>
 
 </fieldset>  
 <fieldset>
