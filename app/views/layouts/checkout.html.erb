@@ -23,9 +23,9 @@
       <% else %>
         <li class="link"><%= link_to "Continuar comprando", member_showroom_path, :class => "back_link" %></li>
       <% end %>
-      <% if @payment.nil? || !["Mastercard", "Visa", "Diners"].include?(@payment.bank) %>
+      <%# if @payment.nil? || !["Mastercard", "Visa", "Diners"].include?(@payment.bank) %>
         <li class="moip">Pagamento MoIP</li>
-      <% end %>
+      <%# end %>
     </ul>
   <% end %>
 <% end %>
