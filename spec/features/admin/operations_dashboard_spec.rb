@@ -105,4 +105,14 @@ feature "Operations dashboard", %q{
     expect(page.find('tr#6_dias td#expected_delivery_on', text: '1'))
   end
 
+  scenario 'Transportation filter' do
+
+    click_link 'Entrega'
+
+    select 'Pac'
+
+    click_button 'Enviar'
+
+  end
+
 end
