@@ -20,6 +20,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    if params[:checkout_registration] == "true"
+      if @user.cpf.blank?
+        @user.errors.add(:cpf, I18n.t('activerecord.errors.models.user.attributes.cpf.blank'))
+      elsif !@user.has_valid_cpf?
+        @user.errors.add(:cpf, I18n.t('activerecord.errors.models.user.attributes.cpf.invalid'))
+      end
+    end
+
     @questions = Question.from_registration_survey
     @presenter = SurveyQuestions.new(@questions)
   end
@@ -32,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user].delete(:password_confirmation) if
       params[:user][:password_confirmation].blank?
     end
-    params[:user].delete(:cpf) if params[:user][:cpf] && resource.cpf?
+    params[:user].delete(:cpf) if params[:user][:cpf] && resource.has_valid_cpf?
 
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
@@ -50,7 +58,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, :updated
       # Line below required if using Devise >= 1.2.0
       sign_in resource_name, resource, :bypass => true
-      render_with_scope :edit
+      after_update_path = after_update_path_for(resource)
+      if after_update_path
+        respond_with resource, :location => after_update_path_for(resource)
+      else
+        render_with_scope :edit
+      end
     else
       clean_up_passwords(resource)
       render_with_scope :edit
@@ -128,11 +141,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     if @cart.items_total > 0
-      cart_checkout_addresses_path
+      checkout_cart_path
     elsif resource.half_user && resource.male?
       gift_root_path
     else
       member_welcome_path
+    end
+  end
+
+  def after_update_path_for(resource)
+    if @cart && @cart.items_total > 0
+      checkout_cart_path
     end
   end
 
@@ -151,6 +170,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def layout_by_resource
     return "my_account" if action_name == "edit"
     return "my_account" if action_name == "update"
+    return "checkout" if action_name == "new_half" && params[:checkout_registration] == "true"
     return "site"
   end
 end

@@ -7,15 +7,12 @@
       <p><%= "#{address.neighborhood} - #{address.zip_code}" %></p>
       <p><%= "#{address.city}, #{address.state}" %></p>
       <ul class="links">
-        <% unless my_account == true %>
-        <li class="address"><%= link_to "Usar este endereço", cart_checkout_address_assign_address_path(address), :class => "select_address" %></li>
-        <% end %>
-        <li><%= link_to "Alterar endereço", (my_account == true ? edit_user_address_path(address) : edit_cart_checkout_address_path(address)), :class => 'edit' %></li>
+        <li><%= link_to "Alterar endereço", edit_user_address_path(address), :class => 'edit' %></li>
       </ul>
     </li>
   <% end %>
 <% end %>
 <li class="address_item add">
-  <%= link_to "Adicionar novo endereço".html_safe, my_account == true ? new_user_address_path : new_cart_checkout_address_path %>
+  <%= link_to "Adicionar novo endereço".html_safe, new_user_address_path %>
 </li>
 </ol>

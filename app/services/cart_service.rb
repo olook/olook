@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :freight
 
   delegate :allow_credit_payment?, :to => :cart
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
@@ -16,6 +15,14 @@ class CartService
     params.each_pair do |key, value|
       self.send(key.to_s+'=',value)
     end
+  end
+
+  def freight
+    cart.address ? freight_for_zip_code(cart.address.zip_code).merge({address: cart.address}) : {}
+  end
+
+  def freight_for_zip_code zip_code
+    FreightCalculator.freight_for_zip(zip_code, subtotal)
   end
 
   def freight_price
@@ -182,7 +189,6 @@ class CartService
     end
 
     order.freight = Freight.create(freight)
-
     order.save
     order
   end
