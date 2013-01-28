@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'features/helpers'
 include ActionView::Helpers::NumberHelper
 include XmlHelper
- 
+
   def stub_scope_params
     Product.should_receive(:load_criteo_config).with("products_blacklist").and_return([0])
     Product.should_receive(:load_criteo_config).with("collections_blacklist").and_return([0])
@@ -38,7 +38,6 @@ feature "Show products on xml format" do
       <description>#{product.description}</description>
       <price>#{number_with_precision(product.price, :precision => 2)}</price>
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
-      <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
@@ -66,7 +65,6 @@ feature "Show products on xml format" do
       <description>#{product.description}</description>
       <price>#{number_with_precision(product.price, :precision => 2)}</price>
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
-      <promo>#{ number_with_precision(product.price-product.price*0.2, :precision => 2) }</promo>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>

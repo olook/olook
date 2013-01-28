@@ -11,6 +11,7 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
+    @chaordic_cart = ChaordicInfo.cart @cart, current_user
   end
 
   def destroy
@@ -34,16 +35,22 @@ class Cart::CartController < ApplicationController
     @cart.reload
   end
 
-  def find_suggested_product
-    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
-    products = Product.find ids
-    products.shuffle.first if products
-  end
-
   private
+    # TODO => Consider moving this logic to Product class
+    def find_suggested_product
+      suggested_products_with_inventory.shuffle.first
+    end
+
+    def suggested_products_with_inventory
+      ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
+      products = Product.find ids
+      products.delete_if {|product| product.inventory < 1}
+    end
+
 
     def should_apply?(coupon, cart)
       return true if coupon.nil?
       coupon.should_apply_to? cart
     end
+
 end

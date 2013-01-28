@@ -242,7 +242,7 @@ describe CartService do
     it "should return coupon when has coupon of percentage" do
       cart.items.first.variant.product.master_variant.update_attribute(:retail_price, 18)
       cart_service.cart.coupon = coupon_of_percentage
-      cart_service.item_discounts(cart.items.first).should eq([:olooklet, :coupon])
+      cart_service.item_discounts(cart.items.first).should eq([:coupon])
     end
 
   end

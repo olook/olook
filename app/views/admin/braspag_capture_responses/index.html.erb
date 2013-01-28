@@ -19,6 +19,11 @@
         </div>
 
         <div class="group">
+          <%= f.label :acquirer_transaction_id, "Acquirer transaction Id", :class => "label" %>
+          <%= f.text_field :acquirer_transaction_id_eq, :class => "text_field" %>
+        </div>
+
+        <div class="group">
           <%= f.label :processed, "Processed", :class => "label" %>
           <%= f.select :processed_eq, {"Yes" => true, "No" => false} , {:include_blank => true} %>
         </div>
