@@ -9,7 +9,7 @@
 #
 class PromotionRule < ActiveRecord::Base
 
-  validates :type, :name, :presence => true
+  validates :type, :presence => true
 
   has_many :rule_parameters
   has_many :promotions, :through => :rule_parameters
