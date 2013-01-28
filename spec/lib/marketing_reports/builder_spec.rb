@@ -209,8 +209,8 @@ describe MarketingReports::Builder do
 
     it "builds a csv file containing all email data from campaign_emails table" do
       csv_body = [campaign_email].inject("") do |data, campaign_email|
-        data += "#{campaign_email.email.chomp},#{campaign_email.created_at}\n"
-      end 
+        data += "#{campaign_email.email.chomp},#{campaign_email.created_at.strftime("%d-%m-%Y")}\n"
+      end
       subject.generate_campaign_emails
       subject.csv.should match /^#{csv_header}#{csv_body}/
     end
@@ -219,7 +219,7 @@ describe MarketingReports::Builder do
       csv_body = [campaign_email].inject("") do |data, campaign_email|
         data += "#{campaign_email.email.chomp}\n"
         data
-      end 
+      end
       subject.stub(:bounced_list).and_return([campaign_email.email])
       subject.generate_campaign_emails
       subject.csv.should_not match /^#{csv_header}#{csv_body}/
