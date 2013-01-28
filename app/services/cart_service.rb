@@ -276,11 +276,6 @@ class CartService
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
 
-    if payment && payment.is_a?(Billet) && Setting.billet_discount_available
-      billet_discount = retail_value * Setting.billet_discount_percent.to_i / 100
-      retail_value -= billet_discount
-    end
-
     retail_value -= minimum_value
     retail_value = 0 if retail_value < 0
 
@@ -295,6 +290,7 @@ class CartService
     credits_invite = 0
     credits_redeem = 0
     if (use_credits == true)
+
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
@@ -319,6 +315,11 @@ class CartService
       end
 
       retail_value -= credits_redeem
+
+      if payment && payment.is_a?(Billet) && Setting.billet_discount_available
+        billet_discount = retail_value * Setting.billet_discount_percent.to_i / 100
+        retail_value -= billet_discount
+      end
 
     end
     total_credits = credits_loyality + credits_invite + credits_redeem
