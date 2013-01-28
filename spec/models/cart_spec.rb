@@ -145,9 +145,12 @@ describe Cart do
   end
 
   context "#allow_credit_policy?" do
-    it "should delegate to CreditPaymentPolicy" do
-      CreditPaymentPolicy.any_instance.stub(:allow?).and_return(true)
-      cart.allow_credit_payment?.should be_true
+    it "should allow when cart has one item with full price" do
+      cart_with_one_item.allow_credit_payment?.should be_true
+    end
+
+    it "should not allow when no cart item has full price" do
+      cart.allow_credit_payment?.should be_false
     end
   end
 
