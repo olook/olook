@@ -32,6 +32,9 @@ pt-BR:
             email:
               blank: "Precisamos dele para envio de mensagens sobre o pedido"
               invalid: "O e-mail parece estranho. Pode conferir?"
+            cpf:
+              blank: "Para compras, é necessário informar o CPF"
+              invalid: "O CPF parece estranho. Pode conferir?"
         credit_card:
           attributes:
             user_identification:
@@ -47,3 +50,5 @@ pt-BR:
               blank: "O nome deve ser igual ao impresso no cartão de crédito"
             bank:
               blank: "Qual é a bandeira do seu cartão, mesmo?"
+            credit_card_number:
+              invalid: "O número do cartão parece estranho. Pode conferir?"

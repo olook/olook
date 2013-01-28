@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CreditCardNumberValidator < ActiveModel::Validator
   def validate(record)
-    record.errors.add(:credit_card_number, "O número do cartão parece estranho. Pode conferir?") unless valid_credit_card?(record.credit_card_number)
+    record.errors.add(:credit_card_number, I18n.t('activerecord.errors.models.credit_card.attributes.credit_card_number.invalid')) unless valid_credit_card?(record.credit_card_number)
   end
 
   private
