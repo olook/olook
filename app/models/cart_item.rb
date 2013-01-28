@@ -29,11 +29,11 @@ class CartItem < ActiveRecord::Base
     if cart.coupon
       price
     else
-    olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-    promotional_value = price - adjustment_value / quantity.to_f
+      olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
+      promotional_value = price - adjustment_value / quantity.to_f
 
-    min_value_excluding_zero = [promotional_value, olooklet_value].delete_if{|value| value == 0}.min
-    min_value_excluding_zero
+      min_value_excluding_zero = [promotional_value, olooklet_value].delete_if{|value| value == 0}.min
+      min_value_excluding_zero || 0
     end
   end
 
