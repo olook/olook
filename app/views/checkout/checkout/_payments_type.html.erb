@@ -55,8 +55,8 @@
 <div class="payment">
   <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
   <ul class="payment_type">
-    <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: true %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
-    <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet" %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
+    <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet", checked: true%> <%= checkout_form.label :payment_method, 'Boleto' %></li>
+    <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card" %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
     <li class="debito"><%= checkout_form.radio_button :payment_method, "debit" %> <%= checkout_form.label :payment_method, 'Débito Online' %></li>
   </ul>
     
