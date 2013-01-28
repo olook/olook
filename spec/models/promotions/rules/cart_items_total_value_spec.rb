@@ -5,11 +5,8 @@ describe CartItemsTotalValue do
   describe "#matches" do
     let(:cart) { FactoryGirl.create(:cart_with_items) }
 
-    it { should respond_to(:matches?).with(2).argument }
-
     before :each do
-      cart.items.first.stub(:quantity).and_return(1)
-      cart.items.first.stub(:price).and_return(BigDecimal("100"))
+      cart.should_receive(:total_price).and_return(BigDecimal("100"))
     end
 
     context "when items total value is lower than parameter" do
