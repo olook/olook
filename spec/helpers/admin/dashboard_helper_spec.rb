@@ -5,6 +5,19 @@ describe Admin::DashboardHelper do
 
 	# with_a_logged_admin do
 	context "#report_days_link" do
+      context "past" do
+
+        before(:each) do
+          f = FactoryGirl.create(:delivered_order, created_at: 1.business_days.ago)
+          f.update_attribute(:updated_at, 1.business_days.ago)
+        end
+
+        it "returns a link with orders from a past date" do
+          link = '<a href="/admin/report_detail?number=1&amp;state=delivered">1</a>'
+          expect(helper.report_days_link(1, state: "delivered")).to eq(link)
+        end
+
+      end
 
 	end
 
