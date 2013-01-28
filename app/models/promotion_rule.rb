@@ -19,13 +19,13 @@ class PromotionRule < ActiveRecord::Base
   end
 
   def self.inherited(base)
-    super base
     begin
+    super base
       # register the inherited class (base) in the database if it is not there yet.
       # this is done in order to avoid manual insert into database whenever we create a
       # new promotion_rule
-      Rails.logger.info "inserting a new PromotionRule #{base.type} into database"
-      where(:type => base.name).first_or_create({:type => base.name})
+      Rails.logger.info "inserting a new PromotionRule #{base.name} into database"
+      where(:type => base.name).first_or_create({:name => base.name})
     rescue Exception => e
       Rails.logger.error e
     end
