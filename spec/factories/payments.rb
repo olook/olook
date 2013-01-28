@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :credit_card do
     url 'www.payment.com'
-    credit_card_number '1234435678964567'
+    credit_card_number '4111111111111111'
     user_name 'User name'
     bank 'Visa'
     cart_id nil
@@ -19,7 +19,7 @@ FactoryGirl.define do
 
   factory :authorized_credit_card, :class => 'CreditCard' do
     url 'www.payment.com'
-    credit_card_number '1234435678964567'
+    credit_card_number '4111111111111111'
     user_name 'User name'
     bank 'Visa'
     cart_id nil

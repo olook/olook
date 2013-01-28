@@ -3,41 +3,12 @@ require 'spec_helper'
 
 describe Checkout::CheckoutController do
 
-  let(:credit_card_attributes) {{"user_name"=>"Joao", "credit_card_number"=>"1111222233334444", "security_code"=>"456",
-                     "user_birthday"=>"28/01/1987", "expiration_date"=>"01/14", "user_identification"=>"067.239.146-51",
-                     "telephone"=>"(35)7648-6749", "payments"=>"1", "bank"=>"Visa", "receipt" => "AVista" }}
-
-  let(:debit_attributes) {{"bank"=>"BancoDoBrasil", "receipt" => Payment::RECEIPT}}
-
-  let(:cpf) { "600.745.487-86" }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:user) { FactoryGirl.create :user, :cpf => nil }
-  let(:user_with_cpf) { FactoryGirl.create :user, :cpf => cpf }
-  let(:address) { FactoryGirl.create(:address, :user => user) }
+  let(:user) { FactoryGirl.create(:user, :cpf => "47952756370")}
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_without_items) { FactoryGirl.create(:clean_cart, :user => user) }
-  let(:shipping_service) { FactoryGirl.create :shipping_service }
+  let(:address) { FactoryGirl.create(:address, :user => user) }
 
-  let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
-
-  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
-  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
-  let!(:redeem_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :redeem) }
-
-  let(:coupon_expired) do
-    coupon = double(Coupon)
-    coupon.stub(:reload)
-    coupon.stub(:expired?).and_return(true)
-    coupon.stub(:available?).and_return(false)
-    coupon
-  end
-  let(:coupon_not_more_available) do
-    coupon = double(Coupon)
-    coupon.stub(:reload)
-    coupon.stub(:expired?).and_return(false)
-    coupon.stub(:available?).and_return(false)
-    coupon
-  end
+  subject { described_class.new}
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -45,8 +16,6 @@ describe Checkout::CheckoutController do
 
   after :each do
     session[:cart_id] = nil
-    session[:cart_coupon] = nil
-    session[:cart_freight] = nil
   end
 
   it "should redirect user to login when is offline" do
@@ -59,296 +28,244 @@ describe Checkout::CheckoutController do
       sign_in user
     end
 
-    it "should redirect to cart_path when cart is empty" do
+    it "redirects to cart_path when cart is empty" do
       session[:cart_id] = nil
       get :new
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Sua sacola está vazia")
     end
 
-    it "should remove unavailabe items" do
+    it "removes unavailabe items" do
       session[:cart_id] = cart.id
       Cart.any_instance.should_receive(:remove_unavailable_items).and_return(true)
       get :new
     end
 
-    it "should redirect to cart_path when cart items is empty" do
+    it "redirects to cart_path when cart items is empty" do
       session[:cart_id] = cart_without_items.id
       get :new
       response.should redirect_to(cart_path)
       flash[:notice].should eq("Sua sacola está vazia")
     end
 
-    it "should redirect to new_cart_checkout_path when user doesn't have freight data" do
-      session[:cart_id] = cart.id
-      get :new_credit_card
-      response.should redirect_to(cart_checkout_addresses_path)
-      flash[:notice].should eq("Escolha seu endereço")
-    end
-
-    it "should redirect to new_cart_checkout_path when user doesn't have a CPF" do
-      session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-      get :new_credit_card
-      response.should redirect_to(new_cart_checkout_path)
-      flash[:notice].should eq("Informe seu CPF")
-    end
   end
 
-  context "PUT update" do
+  describe "#new" do
     before :each do
       sign_in user
       session[:cart_id] = cart.id
-      session[:cart_freight] = freight
     end
 
-    it "should check have params" do
-      put :update
-      response.should render_template('new')
-      flash[:notice].should eq("CPF inválido")
+    it "redirects to new checkout template" do
+      get :new
+      response.should be_success
     end
 
-    it "should check cpf is valid" do
-      put :update, :user => {:cpf => "BLABLA"}
-      response.should render_template('new')
-      flash[:notice].should eq("CPF inválido")
+    it "assigns a new checkout instance with empty address and payment" do
+      get :new
+      assigns[:checkout].should_not be_nil
+      assigns[:checkout].address.should_not be_nil
+      assigns[:checkout].payment.should_not be_nil
     end
 
-    it "should updates the CPF" do
-      put :update, :user => {:cpf => cpf}
-      flash[:notice].should eq("CPF cadastrado com sucesso")
-    end
-
-    it "should not updates the CPF when already has one" do
-      user.update_attributes(:cpf => cpf)
-      User.any_instance.should_not_receive(:save)
-      put :update, :user => {:cpf => cpf}
-      flash[:notice].should eq("CPF já cadastrado")
-    end
-  end
-
-  context "GET new_billet" do
-    before :each do
-      sign_in user_with_cpf
-      session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-    end
-
-    it "should assigns @payment" do
-      get 'new_billet'
-      assigns(:payment).should be_a_new(Billet)
-    end
-  end
-
-  context "GET new_credit_card" do
-    before :each do
-      sign_in user_with_cpf
-      session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-    end
-
-    it "should assigns @payment" do
-      get 'new_credit_card'
-      assigns(:payment).should be_a_new(CreditCard)
-    end
-  end
-
-  context "GET new_debit" do
-    before :each do
-      sign_in user_with_cpf
-      session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-    end
-
-   it "should assigns @payment" do
-      get 'new_debit'
-      assigns(:payment).should be_a_new(Debit)
-    end
-  end
-
-  context "POST create_billet" do
-    before :each do
-      sign_in user_with_cpf
-      session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-    end
-
-    it "should inject cpf in payment" do
-      post :create_billet
-      assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
-    end
-
-    context "with valid payment" do
+    context "when user has address" do
       before :each do
-        PaymentBuilder.should_receive(:new).and_return(payment_builder = mock)
-        payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Billet, :order => order)))
-        post :create_billet
+        FactoryGirl.create(:address, {user: user})
       end
 
-      it "should clean the session order" do
-        session[:cart_id].should be_nil
-        session[:cart_coupon].should be_nil
-        session[:cart_freight].should be_nil
+      it "renders the template new" do
+        get :new
+        response.should render_template("new")
       end
 
-      it "should redirect to order_show_path" do
-        response.should redirect_to(order_show_path(:number => order.number))
-      end
-    end
-
-    context "with invalid params" do
-      before :each do
-        processed_payment = OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Billet))
-        payment_builder = mock
-        payment_builder.stub(:process!).and_return(processed_payment)
-        PaymentBuilder.stub(:new).and_return(payment_builder)
-        post :create_billet
-      end
-
-      it "should re-inject cpf" do
-        assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
-      end
-
-      it "should render new template" do
-        response.should render_template('new_billet')
-        assigns(:payment).errors[:base].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
+      it "assigns an addresses instance with user addresses" do
+        get :new
+        assigns[:addresses].should_not be_nil
+        assigns[:addresses].count.should eq(1)
       end
     end
   end
 
-  context "POST create_credit_card" do
+  describe "PUT#create" do
     before :each do
-      sign_in user_with_cpf
+      sign_in user
       session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-      session[:user_telephone_number] = credit_card_attributes["telephone"]
     end
 
-    it "should render new_credit_card when has no params" do
-      post :create_credit_card
-      response.should render_template('new_credit_card')
-    end
+    context "when user chooses inexistent address" do
+      let(:invalid_data) { {checkout: {payment: {}}, address: {id: "inexistent"}} }
 
-    it "should assign bank" do
-      post :create_credit_card, {:credit_card => credit_card_attributes}
-      assigns(:bank).should eq(credit_card_attributes["bank"])
-    end
-
-    it "should assign installments" do
-      post :create_credit_card, {:credit_card => credit_card_attributes}
-      assigns(:installments).should eq(credit_card_attributes["payments"])
-    end
-
-    it "should inject cpf in payment" do
-      post :create_credit_card, {:credit_card => credit_card_attributes}
-      assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
-    end
-
-    context "with valid payment" do
-      before :each do
-        Payments::MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(Payments::MoipSenderStrategy))
-        moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
-        PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
-        payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(CreditCard, :order => order)))
-        post :create_credit_card, {:credit_card => credit_card_attributes}
+      it "renders new template" do
+        put :create, invalid_data
+        response.should render_template("new")
       end
-
-      it "should clean the session order" do
-        session[:cart_id].should be_nil
-        session[:gift_wrap].should be_nil
-        session[:cart_coupon].should be_nil
-        session[:cart_freight].should be_nil
-      end
-
-      it "should redirect to order_show_path" do
-        response.should redirect_to(order_show_path(:number => order.number))
+      it "returns null address" do
+        put :create, invalid_data
+        assigns[:checkout].address.should_not be_nil
+        assigns[:checkout].address.id.should be_nil
       end
     end
 
-    context "with invalid params" do
-      before :each do
-        Payments::MoipSenderStrategy.should_receive(:new).and_return(moip_sender_strategy = double(Payments::MoipSenderStrategy))
-        moip_sender_strategy.should_receive(:credit_card_number=).with(credit_card_attributes["credit_card_number"])
-        PaymentBuilder.stub(:new).and_return(payment_builder = double(PaymentBuilder))
-        payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(CreditCard)))
-        post :create_credit_card, {:credit_card => credit_card_attributes}
+    context "when user gives invalid address information for a new address" do
+      let(:invalid_data) { {checkout: {address: {street: "street_name", number: 123}, payment: {}}} }
+
+      it "renders new template" do
+        put :create, invalid_data
+        response.should render_template("new")
       end
 
-      it "should re-inject cpf" do
-        assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
-      end
-
-      context "with nil user telephone session" do
-        #TODO Eventualmente refazer esse teste de uma maneira melhor
-        before :each do
-          sign_in user
-          session[:user_telephone_number] = nil
-        end
-        around :each do
-        end
-        it "should re-inject telephone" do
-          assigns(:payment).telephone.should eq(address.telephone)
-        end
-      end
-
-      it "should render new template" do
-        response.should render_template('new_credit_card')
-        assigns(:payment).errors[:base].should include("Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento.")
+      it "returns given information of the address" do
+        put :create, invalid_data
+        assigns[:checkout].address.id.should eq(nil)
+        assigns[:checkout].address.street.should eq("street_name")
+        assigns[:checkout].address.number.should eq(123)
       end
     end
+
+    context "when user gives invalid address information for an existing address" do
+      let(:invalid_data) { {checkout: {address: {id: address.id, street: "street_name", number: 123}, payment: {}}} }
+
+      it "renders new template" do
+        put :create, invalid_data
+        response.should render_template("new")
+      end
+
+      it "returns given information of the address" do
+        put :create, invalid_data
+        assigns[:checkout].address.id.should eq(address.id)
+        assigns[:checkout].address.street.should eq("street_name")
+        assigns[:checkout].address.number.should eq(123)
+      end
+    end
+
+    context "when user gives invalid payment data" do
+      let(:invalid_data) { {checkout: {payment: {credit_card_number: "0000000000000001"}, payment_method: "credit_card"}, address: {id: address.id}} }
+
+      it "renders new template" do
+        put :create, invalid_data
+        response.should render_template("new")
+      end
+
+      it "returns given information of the payment" do
+        put :create, invalid_data
+        assigns[:checkout].payment.credit_card_number.should eq("0000000000000001")
+      end
+    end
+
+    context "when user gives valid debit data" do
+      let(:valid_data) { {checkout: {payment: {bank: "Itau"}, payment_method: "debit"}, address: {id: address.id}} }
+
+      it "redirects to order show in case of success" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should redirect_to(order_show_path(number: 123))
+      end
+
+      it "cleans cart id from session" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        session[:cart_id].should eq(nil)
+      end
+
+      it "renders new in case of error" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::FAILURE_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should render_template("new")
+      end
+    end
+
+    context "when user gives valid billet data" do
+      let(:valid_data) { {checkout: {payment: {}, payment_method: "billet"}, address: {id: address.id}} }
+
+      it "redirects to order show in case of success" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should redirect_to(order_show_path(number: 123))
+      end
+
+      it "cleans cart id from session" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        session[:cart_id].should eq(nil)
+      end
+
+      it "renders new in case of error" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::FAILURE_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should render_template("new")
+      end
+    end
+
+    context "when user gives valid credit_card data" do
+      let(:valid_data) { {checkout: {
+                            payment: {
+                              bank: "VISA", 
+                              payments: "1", 
+                              user_name: "Frederico", 
+                              credit_card_number: "0000000000000000", 
+                              security_code: "123", 
+                              expiration_date: "11/99", 
+                              user_identification: "47952756370", 
+                              user_birthday: "01/01/1980"}, 
+                            payment_method: "credit_card"}, 
+                          address: {id: address.id}} 
+                        }
+
+      it "redirects to order show in case of success" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should redirect_to(order_show_path(number: 123))
+      end
+
+      it "cleans cart id from session" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        session[:cart_id].should eq(nil)
+      end
+
+      it "renders new in case of error" do
+        sender_strategy_mock = mock
+        payment_builder_mock = mock
+        PaymentService.should_receive(:create_sender_strategy).and_return(sender_strategy_mock)
+        PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
+        payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::FAILURE_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
+        put :create, valid_data
+        response.should render_template("new")
+      end
+    end
+
   end
 
-  context "POST create_debit" do
-    before :each do
-      sign_in user_with_cpf
-      session[:cart_id] = cart.id
-      session[:cart_freight] = freight
-    end
-
-    it "should render new_debit when has no params" do
-      post :create_debit
-      response.should render_template('new_debit')
-    end
-
-    it "should inject cpf in payment" do
-      post :create_debit, {:debit => debit_attributes}
-      assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
-    end
-
-    context "with valid payment" do
-      before :each do
-        PaymentBuilder.should_receive(:new).and_return(payment_builder = double(PaymentBuilder))
-        payment_builder.should_receive(:process!).and_return(OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => mock_model(Debit, :order => order)))
-        post :create_debit, {:debit => debit_attributes}
-      end
-
-      it "should clean the session order" do
-        session[:cart_id].should be_nil
-        session[:cart_coupon].should be_nil
-        session[:cart_freight].should be_nil
-      end
-
-      it "should redirect to order_show_path" do
-        response.should redirect_to(order_show_path(:number => order.number))
-        flash[:notice].should eq("Link de pagamento gerado com sucesso")
-      end
-    end
-
-    context "with invalid params" do
-      before :each do
-        PaymentBuilder.stub(:new).and_return(payment_builder = double(PaymentBuilder))
-        payment_builder.stub(:process!).and_return(OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => mock_model(Debit)))
-        post :create_debit, {:debit => debit_attributes}
-      end
-
-      it "should re-inject cpf" do
-        assigns(:payment).user_identification.should eq(user_with_cpf.cpf)
-      end
-
-      it "should render new template" do
-        response.should render_template('new_debit')
-        assigns(:payment).errors[:base].should include("Não foi possível realizar o pagamento. Tente novamente por favor.")
-      end
-    end
-  end
 end

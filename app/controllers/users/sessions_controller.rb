@@ -9,10 +9,17 @@ class Users::SessionsController < Devise::SessionsController
       flash[:alert] = nil
       resource.errors.add(" ", I18n.t('devise.failure.invalid'))
     end
-    respond_with resource
+
+    if params[:checkout_login] == "true" # request.referer =~ /pagamento\/login/ && resource.errors.any?
+      # respond_with resource, checkout_login_index_path
+      respond_with(resource) { |format| format.html { render "/checkout/login/index" } }
+    else
+      respond_with resource
+    end
   end
 
   protected
+
   def create_sign_in_event
     current_user.add_event(EventType::SIGNIN)
   end
@@ -22,7 +29,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-
     @cart.update_attributes(:user_id => resource.id) if @cart
 
     if @cart && @cart.has_gift_items?
@@ -34,7 +40,7 @@ class Users::SessionsController < Devise::SessionsController
       if resource.current_credit > 0
         cart_path
       else
-        cart_checkout_addresses_path
+        checkout_cart_path
       end
     elsif resource.half_user && resource.male?
       gift_root_path
