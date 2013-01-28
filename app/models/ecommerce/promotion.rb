@@ -46,6 +46,7 @@ class Promotion < ActiveRecord::Base
         matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
           match_result &&= rule.matches?(cart.user)
         end
+
         promotions << promotion if matched_all_rules
       end
       promotions
