@@ -1481,7 +1481,7 @@ section#payment {
 /******** NEW CHECKOUT ********/
 /******************************/
 section.checkout{
-	&#payment{position:relative;margin-top:30px;clear:both;float:left;}
+	&#payment{position:relative;margin-top:30px;clear:both;float:left;min-height:500px;}
 	.box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
 	.box-step-three{float:left;width:325px;}
 
@@ -1579,7 +1579,7 @@ section.checkout{
 					label{float:left;}
 				}
 			}
-			.box-cartao{float:left;
+			.box-cartao{float:left;display:none;
 				.cards{overflow:hidden;
 					li{position:relative;width:47px;height:37px;
 						input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
@@ -1604,7 +1604,7 @@ section.checkout{
 					}
 				}
 			}
-			.box-boleto{float:left;display:none;
+			.box-boleto{float:left;
 				p{font-size:13px;margin-top:15px;
 					span{color:#000;}
 				}
