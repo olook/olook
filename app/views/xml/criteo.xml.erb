@@ -9,7 +9,6 @@
 <description><%= product.description %></description>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
 <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
-<promo><%= number_with_precision(product.price-product.price*0.2, precision: 2, separator: ",") %></promo>
 <discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
