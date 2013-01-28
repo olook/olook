@@ -1526,7 +1526,7 @@ section.checkout{
 			&.nome_dest, &.sobrenome_dest{width:125px;}
 			&.tel_contato1, &.tel_contato2{width:137px;}
 			&.frete, &.address_recorded{height:auto;}
-			&.address_recorded{float:left;}
+			&.address_recorded{float:left;border:none;}
 			&.user_name, &.credit_card_number{width:280px;}
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
@@ -1556,7 +1556,7 @@ section.checkout{
     }
 /********** END / START STEP TWO *******/
 		.box-step-two{
-			.credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;}
+			.credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;padding: 0}
 			label{line-height:14px;}
 			ul,ol{overflow:hidden;}
 		}
