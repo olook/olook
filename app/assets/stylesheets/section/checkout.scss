@@ -1556,7 +1556,7 @@ section.checkout{
     }
 /********** END / START STEP TWO *******/
 		.box-step-two{
-			.credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;}
+			.credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;}
 			label{line-height:14px;}
 			ul,ol{overflow:hidden;}
 		}
