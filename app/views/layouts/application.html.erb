@@ -19,6 +19,8 @@
     <%= stylesheet_link_tag  "application" %>
     <meta property="fb:page_id" content="157293541026960" />
     <meta property="fb:admins" content="100002490760020" />
+    
+    
     <%= yield :head %>
 
     <!--[if IE]>
@@ -26,7 +28,7 @@
     <![endif]-->
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
 
-
+    
   </head>
 
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
