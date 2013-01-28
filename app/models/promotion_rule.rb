@@ -9,7 +9,7 @@
 #
 class PromotionRule < ActiveRecord::Base
 
-  validates :type, :name, :presence => true
+  validates :type, :presence => true
 
   has_many :rule_parameters
   has_many :promotions, :through => :rule_parameters
@@ -29,10 +29,6 @@ class PromotionRule < ActiveRecord::Base
     rescue Exception => e
       Rails.logger.error e
     end
-  end
-
-  def param_for(promotion)
-    rule_parameters.find_by_promotion_id(promotion).rules_params
   end
 
 end

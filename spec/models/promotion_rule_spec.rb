@@ -4,21 +4,13 @@ require 'spec_helper'
 describe PromotionRule do
 
   describe "validations" do
-    it { should validate_presence_of :name }
     it { should validate_presence_of :type }
+    it { should have_many :rule_parameters }
+    it { should have_many(:promotions).through(:rule_parameters) }
   end
 
   describe "#matches?" do
-    it { should respond_to(:matches?).with(1).argument }
-  end
-
-  describe "#param_for" do
-    let(:promotion_rule) { FactoryGirl.create(:promotion_rule) }
-
-    it "returns param of promotion rule for than promotion" do
-      promotion_rule.param_for(promotion_rule.promotions.first).should  eq(promotion_rule.rule_parameters.first.rules_params)
-    end
-
+    it { should respond_to(:matches?).with(2).arguments }
   end
 
 end
