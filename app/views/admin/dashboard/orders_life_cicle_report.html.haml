@@ -2,6 +2,18 @@
 
 %h2 Operações
 
+- content_for :sidebar do
+  .block
+  %h3 Filtros
+  .content
+    =form_tag("#") do
+      .group
+        =label_tag 'Transportador'
+        =select_tag "=transportador",  options_for_select(["Tex", "Pac"])
+      .group
+        =submit_tag "Enviar"
+
+
 .inner
   %table.table
     %tr
