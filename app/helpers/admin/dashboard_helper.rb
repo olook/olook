@@ -13,21 +13,22 @@ module Admin::DashboardHelper
       options[:state] = ["authorized","delivering","delivered"]
     end
     links_params = {number: number_day, state: options.fetch(:state)}
+
     case number_day
-    when number_day == 0
-      link_to(Order.with_date(3.business_days.before(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
-    when number_day == 1
-      link_to(Order.with_date(2.business_days.before(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
-    when number_day == 2
-      link_to(Order.with_date(1.business_days.before(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
-    when number_day == 3
-      link_to(Order.with_date(0.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
-    when number_day == 4
-      link_to(Order.with_date(1.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
-    when number_day == 5
-      link_to(Order.with_date(2.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
-    else number_day == 6
-      link_to(Order.with_date(3.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    when 0
+      link_to(Order.with_expected_delivery_on(3.business_days.before(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    when 1
+      link_to(Order.with_expected_delivery_on(2.business_days.before(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    when 2
+      link_to(Order.with_expected_delivery_on(1.business_days.before(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    when 3
+      link_to(Order.with_expected_delivery_on(0.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    when 4
+      link_to(Order.with_expected_delivery_on(1.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    when 5
+      link_to(Order.with_expected_delivery_on(2.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
+    else 6
+      link_to(Order.with_expected_delivery_on(3.business_days.after(Time.now)).with_state(options[:state]).size, admin_report_detail_path(links_params))
     end
   end
 end
