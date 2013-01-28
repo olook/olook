@@ -17,7 +17,7 @@ feature "Operations dashboard", %q{
     visit '/admin'
   end
 
-	scenario "Listing the orders by their dates and statuses" do
+  scenario "Listing the orders by their dates and statuses" do
     click_link 'Ciclo de vida'
 
     expect(page).to have_content("Dashboard")
@@ -43,7 +43,6 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Viewing details for a list of orders" do
-
     click_link 'Ciclo de vida'
 
     page.find('tr#0_dias td#authorized a').click
@@ -77,11 +76,16 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Viewing delivery table' do
-    click_link 'Entrega'
-
-    6.times do |index|
-      #FactoryGirl.create(:order, expected_delivery_on: Time.now(index-4) )
+    4.times do |index|
+      FactoryGirl.create(:delivered_order, expected_delivery_on: index.business_days.before(Time.now) )
     end
+
+    3.times do |index|
+      number = index + 1
+      FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
+    end
+
+    click_link 'Entrega'
 
     expect(page).to have_content("<= -3")
     expect(page).to have_content("-2")
@@ -92,9 +96,13 @@ feature "Operations dashboard", %q{
     expect(page).to have_content(">= 3")
 
     # testa coluna de data de entrega prometida
-    expect(page.find('tr#-3_dias td#expected_delivery_on', text: '1'))
-
-
+    expect(page.find('tr#0_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#1_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#2_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#3_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#4_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#5_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#6_dias td#expected_delivery_on', text: '1'))
   end
 
 end
