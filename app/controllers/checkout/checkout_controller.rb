@@ -9,7 +9,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     address = @addresses.first || Address.new
-    @checkout = Checkout.new(address: address, payment: CreditCard.new)
+    @checkout = Checkout.new(address: address)
   end
 
   def create

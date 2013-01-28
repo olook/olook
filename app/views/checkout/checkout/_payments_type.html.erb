@@ -66,9 +66,9 @@
     <ol class="cards">
       <% CreditCard::BANKS_OPTIONS.each do |bank| %>
         <li>
-          <%= payment_form.radio_button :bank, bank, checked: (bank == @checkout.payment.bank) %>
+          <%= payment_form.radio_button :bank, bank, checked: (@checkout.payment && (bank == @checkout.payment.bank)) %>
           <%= payment_form.label "credit_card_bank_#{bank}", bank %>
-          <span class="<%= bank == @checkout.payment.bank ? "selected #{bank}" : bank %>"><%= bank %></span>
+          <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected #{bank}" : bank %>"><%= bank %></span>
         </li>
       <% end %>
     </ol>
