@@ -39,8 +39,13 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 if($("#cart-box").length > 0){
   $("#cart-box #credits_used").text('<%= number_to_currency(@cart_service.total_credits_discount) %>');
   $("#cart-box #total").text('<%= number_to_currency(@cart_service.total) %>');
-  $("#cart-box #credits_used").delay(300).fadeIn();
-  $("#cart-box #total").delay(300).fadeIn();
+  $("#cart-box #total_billet").text('<%= number_to_currency(@cart_service.total(Billet.new)) %>');
+  $("#cart-box #credits_used").delay(200).fadeIn();
+  if($("li.boleto #checkout_payment_method_billet").is(":checked"))
+    $("#cart-box #total_billet").delay(200).fadeIn();
+  else
+    $("#cart-box #total").delay(200).fadeIn();
+
 }
 
 if($("#payment #billet_discount").length > 0){
