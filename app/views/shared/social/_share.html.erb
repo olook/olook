@@ -1,13 +1,13 @@
 <div class="social">
   <ul>
-    <li class="facebook"><%= link_to "#" do %>Postar no meu mural<% end %></li>
-    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$20! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica" %></li>
+    <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareFacebook") do %>Postar no meu mural<% end %></li>
+    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$20! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareTwitter") %></li>
     <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
   </ul>
   <%= form_tag member_invite_by_email_path do %>
     <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
     <%= text_area_tag :invite_mail_list %>
-    <%= submit_tag "" %>
+    <%= submit_tag "", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareEmail") %>
   <% end %>
 </div>
 <div class="link_mail">
@@ -15,7 +15,7 @@
   <ul>
     <li>
       <%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
-      <%= link_to "Copiar link", "#" %>
+      <%= link_to "Copiar link", "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareLink") %>
     </li>
   </ul>
   <div class="box_copy">
