@@ -230,7 +230,7 @@ describe Users::RegistrationsController do
 
         it "should redirect to address page" do
           post :create_half, :user => half_user_attributes
-          response.should redirect_to(checkout_cart_path)
+          response.should redirect_to(new_checkout_path)
         end
       end
 
@@ -253,7 +253,7 @@ describe Users::RegistrationsController do
 
         it "should redirect to address page" do
           post :create_half, :user => half_user_attributes
-          response.should redirect_to(checkout_cart_path)
+          response.should redirect_to(new_checkout_path)
         end
       end
     end

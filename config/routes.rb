@@ -320,11 +320,10 @@ Olook::Application.routes.draw do
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'
-
-    get "pagamento", :to => "checkout/checkout#new", :as => :checkout
   end
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
+    get "/", :to => "checkout/checkout#new"
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
     resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
@@ -334,7 +333,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
+  post '/moip', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
