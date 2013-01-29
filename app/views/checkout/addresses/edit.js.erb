@@ -7,12 +7,19 @@ masks.cep();
 
 $("#freight_price").hide();
 $("#freight_price").html("<%= number_to_currency(freight[:price]) %>");
-$("#freight_price").delay(300).fadeIn();
+$("#freight_price").delay(200).fadeIn();
 
 $("#delivery_time").hide();
 $("#delivery_time").html("<%= delivery_time_message(freight[:delivery_time]) %>");
-$("#delivery_time").delay(300).fadeIn();
+$("#delivery_time").delay(200).fadeIn();
 
 $("#total").hide();
 $("#total").html("<%= number_to_currency(total_with_freight(freight[:price])) %>");
-$("#total").delay(300).fadeIn();
+$("#total_billet").hide();
+$("#total_billet").html("<%= number_to_currency(total_with_freight(freight[:price], Billet.new)) %>");
+
+
+if($("#checkout_payment_method_billet").is(":checked"))
+  $("#total_billet").delay(200).fadeIn();
+else 
+  $("#total").delay(200).fadeIn();
