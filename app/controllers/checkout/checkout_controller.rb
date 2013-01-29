@@ -79,19 +79,19 @@ class Checkout::CheckoutController < Checkout::BaseController
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
     if error_message
-      @checkout.errors.add(:base, error_message)
+      @checkout.errors.add(:payment_base, error_message)
     end
 
     unless using_address_form?
       @addresses = @user.addresses
       unless address
         @checkout.address = Address.new
-        @checkout.errors.add(:base, "Escolha um endereço!")
+        @checkout.errors.add(:address_base, "Escolha um endereço!")
       end
     end
 
     unless payment
-      @checkout.errors.add(:base, "Como você pretende pagar? Escolha uma das opções")
+      @checkout.errors.add(:payment_base, "Como você pretende pagar? Escolha uma das opções")
     end
 
     render :new
