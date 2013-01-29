@@ -45,7 +45,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #        
     def redirect user
       if @cart.items.any?
-        redirect_to checkout_cart_path
+        redirect_to new_checkout_path
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
