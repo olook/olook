@@ -13,12 +13,15 @@ pt-BR:
             city:
               blank: "Qual é o nome da cidade, mesmo?"
             state:
-              blank: "Obrigatório"
-              invalid: "Inválido"
+              blank: "Também precisamos da sigla do estado (UF)"
             number:
-              blank: "Obrigatório"
-              invalid: "Inválido"
-              not_a_number: "Inválido"
+              blank: "Também precisamos do número"
+            neighborhood:
+              blank: "Qual é o seu bairro, mesmo?"
+            street:
+              blank: "Qual o seu endereço?"
+            telephone:
+              blank: "É bom termos o seu telefone. Qualquer coisa, ligamos"
         user:
           attributes:
             first_name:
@@ -44,11 +47,20 @@ pt-BR:
               blank: "Queremos saber esta data especial :)"
               invalid: "Pode repetir? Parece que não está batendo"
             security_code:
-              blank: "É preciso informar o código (para sua própria segurança)"
+              blank: "É preciso informar o código de segurança"
               invalid: "O código parece estranho. Pode conferir?"
             user_name:
-              blank: "O nome deve ser igual ao impresso no cartão de crédito"
+              blank: "O nome deve ser igualzinho ao impresso no seu cartão"
             bank:
               blank: "Qual é a bandeira do seu cartão, mesmo?"
             credit_card_number:
-              invalid: "O número do cartão parece estranho. Pode conferir?"
+              blank: "Precisamos deste número para mandar a conta :)"
+              invalid: "O número do cartão parece estranho. Pode conferir? "
+            expiration_date:
+              blank: "Até quando vale o seu cartão, mesmo?"
+            user_birthday:
+              blank: "Queremos saber esta data especial :)"
+        debit:
+          attributes:
+            bank:
+              blank: "Selecione o banco para pagamento via débito online"
