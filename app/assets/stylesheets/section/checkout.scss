@@ -1562,11 +1562,11 @@ section.checkout{
 			label{line-height:14px;}
 			ul,ol{overflow:hidden;}
 		}
-		.credits{float:left;
+		.credits{float:left;padding-left:5px;
 			label{color:#000;}
 			p{font-size:13px;float:left; 
 				span, a{color:#E15687;}
-				a{display:block;margin:6px 0 15px;font-size:13px;}
+				a{display:block;margin:6px 0 5px;font-size:13px;}
 			}
 		}
 		.payment{float:left;padding-left:5px;
