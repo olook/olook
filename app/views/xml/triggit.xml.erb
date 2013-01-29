@@ -10,6 +10,7 @@
 </url>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
 <description> <%= product.description %> </description>
+<category><%= product.subcategory %></category>
 </product>
 <% end %>
 </products>
