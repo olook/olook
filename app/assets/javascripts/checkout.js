@@ -101,6 +101,7 @@ $(function() {
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
+    $("#cart-box #total_billet").hide();
     $.ajax({
       url: '/sacola',
       type: 'PUT',
@@ -135,12 +136,24 @@ $(function() {
 			}
 	});
 
+	//SHOW TOTAL 
+	function showTotal(){
+		if($("div.billet").is(":visible")){
+			$("span#total").fadeOut('fast');
+			$("span#total_billet").delay(200).fadeIn();
+		}else{
+			$("span#total_billet").fadeOut('fast');
+			$("span#total").delay(200).fadeIn();
+		}
+	}
+
 	// SHOW PAYMENT TYPE
 	(function showPaymentType(){
 		var payment_type_checked = $(".payment_type input:checked");
 		$(".payment_type").siblings('div').hide();
 		elem=$(payment_type_checked).val();			
     $("div."+elem).show();
+		showTotal();
 	})();
 	
 	var payment_type = $(".payment_type input");
@@ -149,6 +162,7 @@ $(function() {
 	        $(".payment_type").siblings('div').hide();
 	        elem=$(this).val();			
 	        $("div."+elem).show();
+					showTotal();
 	    });
 	});
 	

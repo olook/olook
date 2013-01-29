@@ -100,20 +100,25 @@ class CartService
     calculate_discounts.fetch(:total_credits)
   end
 
-  def total_discount
-    calculate_discounts.fetch(:total_discount)
+  def billet_discount
+    calculate_discounts(Billet.new).fetch(:billet_discount)
+  end
+
+  def total_discount(payment=nil)
+    calculate_discounts(payment).fetch(:total_discount)
   end
 
   def is_minimum_payment?
     calculate_discounts.fetch(:is_minimum_payment)
   end
 
-  def total_discount_by_type(type)
+  def total_discount_by_type(type, payment=nil)
     total_value = 0
     total_value += total_coupon_discount if :coupon == type
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
+    total_value += calculate_discounts(payment).fetch(:billet_discount) if :billet_discount == type
 
     cart.items.each do |item|
       if item_discount_origin_type(item) == type
@@ -136,12 +141,12 @@ class CartService
     active_discounts.size > 1
   end
 
-  def total
+  def total(payment=nil)
     # total = subtotal(:retail_price)
 
     total = cart_sub_total
     total += total_increase
-    total -= total_discount
+    total -= total_discount(payment)
     # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
@@ -271,7 +276,7 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
-  def calculate_discounts
+  def calculate_discounts(payment=nil)
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0 if retail_value < 0
@@ -279,6 +284,7 @@ class CartService
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
+    billet_discount_value = 0
 
     if coupon_value >= retail_value
       coupon_value = retail_value
@@ -291,6 +297,7 @@ class CartService
     credits_invite = 0
     credits_redeem = 0
     if (use_credits == true)
+
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
@@ -317,14 +324,25 @@ class CartService
       retail_value -= credits_redeem
 
     end
+
+    if payment && payment.is_a?(Billet) && Setting.billet_discount_available
+      billet_discount_value = (retail_value + minimum_value) * Setting.billet_discount_percent.to_i / 100
+      if billet_discount_value > retail_value
+        billet_discount_value = retail_value
+      end
+      retail_value -= billet_discount_value
+    end
+
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon unless coupon_value < 0
+    discounts << :coupon if coupon_value > 0
+    discounts << :billet_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits),
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value),
+      :billet_discount                   => billet_discount_value,
       :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,

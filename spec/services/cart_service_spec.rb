@@ -365,6 +365,68 @@ describe CartService do
     end
   end
 
+  context ".calculate_discounts" do
+    let(:user_credit) { mock_model(UserCredit, total: 50) }
+    let(:empty_user_credit) { mock_model(UserCredit, total: 0) }
+
+    before :each do
+      master_variant = cart.items.first.variant.product.master_variant
+      master_variant.update_attribute(:price, 100)
+      master_variant.update_attribute(:retail_price, 100)
+      cart_service.cart.coupon = nil
+      cart.items.first.quantity = 1
+    end
+
+    it "returns discounts = billet_discount when payment type is billet" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.calculate_discounts(Billet.new).fetch(:discounts).should eq([:billet_discount])
+    end
+
+    it "applies billet_discount on the retail_value" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(5.0)
+    end
+
+    it "applies billet_discount on the retail_value after applying coupon of value" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.coupon = coupon_of_value
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+
+    it "applies billet_discount on the retail_value after applying loyalty_program credits" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.user.should_receive(:user_credits_for).with(:loyalty_program).and_return(user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(empty_user_credit)
+      cart_service.cart.use_credits = true
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+
+    it "applies billet_discount on the retail_value after applying invite credits" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.user.should_receive(:user_credits_for).with(:loyalty_program).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(empty_user_credit)
+      cart_service.cart.use_credits = true
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+
+    it "applies billet_discount on the retail_value after applying invite credits" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.user.should_receive(:user_credits_for).with(:loyalty_program).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(user_credit)
+      cart_service.cart.use_credits = true
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+  end
+
   context ".active_discounts" do
     it "should sum discounts of items" do
       cart.items.first.dup.save

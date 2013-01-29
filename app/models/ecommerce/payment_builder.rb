@@ -11,7 +11,7 @@ class PaymentBuilder
 
   def process!
     payment.cart_id = cart_service.cart.id
-    payment.total_paid = cart_service.total
+    payment.total_paid = cart_service.total(payment)
     payment.user_id = cart_service.cart.user.id
     payment.save!
 
@@ -19,6 +19,7 @@ class PaymentBuilder
     ActiveRecord::Base.transaction do
       total_liquidation = cart_service.cart.total_liquidation_discount
       total_promotion = cart_service.cart.total_promotion_discount
+      billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
       total_gift = cart_service.total_discount_by_type(:gift)
       total_coupon = cart_service.total_discount_by_type(:coupon)
       total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
@@ -50,6 +51,18 @@ class PaymentBuilder
           olooklet_payment.calculate_percentage!
           olooklet_payment.deliver!
           olooklet_payment.authorize!
+        end
+
+        if billet_discount > 0
+          billet_discount_payment = BilletDiscountPayment.create!(
+            :total_paid => billet_discount,
+            :order => order,
+            :user_id => payment.user_id,
+            :cart_id => @cart_service.cart.id
+          )
+          billet_discount_payment.calculate_percentage!
+          billet_discount_payment.deliver!
+          billet_discount_payment.authorize!
         end
 
         if total_gift > 0

@@ -8,8 +8,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
-    address = @addresses.first || Address.new
-    @checkout = Checkout.new(address: address)
+    @checkout = Checkout.new
   end
 
   def create
@@ -17,7 +16,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
 
-    payment_valid = payment.valid?
+    payment_valid = payment && payment.valid?
     address_valid = address && address.valid?
     unless payment_valid & address_valid
       display_form(address, payment, payment_method)
@@ -69,8 +68,10 @@ class Checkout::CheckoutController < Checkout::BaseController
       Billet.new(params[:checkout][:payment])
     when "debit"
       Debit.new(params[:checkout][:payment])
-    else
+    when "credit_card"
       CreditCard.new(params[:checkout][:payment] )
+    else
+      nil
     end
   end
 
@@ -78,15 +79,19 @@ class Checkout::CheckoutController < Checkout::BaseController
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
     if error_message
-      @checkout.errors.add(:base, error_message)
+      @checkout.errors.add(:payment_base, error_message)
     end
 
     unless using_address_form?
       @addresses = @user.addresses
       unless address
         @checkout.address = Address.new
-        @checkout.errors.add(:base, "Escolha um endereço!")
+        @checkout.errors.add(:address_base, "Escolha um endereço!")
       end
+    end
+
+    unless payment
+      @checkout.errors.add(:payment_base, "Como você pretende pagar? Escolha uma das opções")
     end
 
     render :new
