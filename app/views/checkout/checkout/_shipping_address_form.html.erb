@@ -77,7 +77,7 @@
   
     <%= field_set_tag do %>
       <div>
-      <%= address_form.label :mobile, "Telefone de contato 2" %>
+      <%= address_form.label :mobile, "Telefone de contato 2 <span>(opcional)</span>".html_safe %>
       <%= address_form.text_field :mobile, class: "tel_contato2" %>
       </div>
     <% end %>
