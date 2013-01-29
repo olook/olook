@@ -320,11 +320,10 @@ Olook::Application.routes.draw do
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'
-
-    get "pagamento", :to => "checkout/checkout#new", :as => :checkout
   end
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
+    get "/", :to => "checkout/checkout#new"
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
     resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
