@@ -33,7 +33,9 @@
 .form_register{float:left;width:352px;margin-right:167px;padding-left:5px;
 	fieldset{margin-bottom:15px;
 		div{margin:0 18px 2px 0;float:left;position:relative;}
-		label{display:block;font-size:14px;margin-bottom:3px;}
+		label{display:block;font-size:14px;margin-bottom:3px;
+			span{font-weight:italic;font-size:11px;}
+		}
 		span.span_error{color:#EA1E40;font-size:12px;clear:both;float:left;}
 		input{height:30px;padding-left:3px;border:solid 1px #C3C3C3;
 			&.input_error{border-color:#EA1E40 !important;margin-bottom:4px;}

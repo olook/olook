@@ -21,7 +21,7 @@
 <% if resource.id.nil? %>
   <fieldset>  
     <div>
-      <%= f.label :password, "Senha" %>
+      <%= f.label :password, "Senha <span>(mín. 6 caracteres)</span>".html_safe %>
       <%= f.password_field :password, class: "pass #{error_class_if_needed(resource, :password)}" %>
     </div>
     <div>    
