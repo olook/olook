@@ -2,3 +2,5 @@ $("#checkout_address").html("<%= escape_javascript(
      render partial: 'checkout/checkout/shipping_address_form', 
      locals: { address: @address, freight_price: @freight_price } ) %>");
 masks.cep();
+
+$("html, body").animate({scrollTop: 0}, 'fast');
