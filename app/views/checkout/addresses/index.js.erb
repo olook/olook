@@ -1,21 +1,17 @@
 $("#checkout_address").html("<%= escape_javascript( 
      render partial: 'checkout/checkout/address_list', 
-     locals: { addresses: @addresses, selected_address: @addresses.first } ) %>");
+     locals: { addresses: @addresses, selected_address: nil } ) %>");
 
-<% freight = freight_for(@addresses.first) %>
+$("#freight_price").html("");
+$("#freight_price").show();
 
-$("#freight_price").hide();
-$("#freight_price").html("<%= number_to_currency(freight[:price]) %>");
-$("#freight_price").delay(200).fadeIn();
-
-$("#delivery_time").hide();
-$("#delivery_time").html("<%= delivery_time_message(freight[:delivery_time]) %>");
-$("#delivery_time").delay(200).fadeIn();
+$("#delivery_time").html("");
+$("#delivery_time").show();
 
 $("#total").hide();
-$("#total").html("<%= number_to_currency(total_with_freight(freight[:price])) %>");
+$("#total").html("<%= number_to_currency(@cart_service.total) %>");
 $("#total_billet").hide();
-$("#total_billet").html("<%= number_to_currency(total_with_freight(freight[:price], Billet.new)) %>");
+$("#total_billet").html("<%= number_to_currency(@cart_service.total(Billet.new)) %>");
 
 if($("#checkout_payment_method_billet").is(":checked"))
   $("#total_billet").delay(200).fadeIn();
