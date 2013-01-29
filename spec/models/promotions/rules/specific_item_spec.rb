@@ -9,19 +9,20 @@ describe SpecificItem do
 
     context "when product of item has promotion" do
       it "returns true" do
-        subject.matches?(cart.items, [1,2,3]).should be_true
+        subject.matches?(cart, "1, 2, 3").should be_true
       end
     end
 
     context "when product of item has no promotion" do
       it "returns false" do
-        subject.matches?(cart.items, [4,5,6]).should be_false
+        subject.matches?(cart, "4, 5, 6").should be_false
       end
     end
 
     context "when cart has no items" do
       it "returns false" do
-        subject.matches?([], [1,2,3]).should be_false
+        cart.should_receive(:items).and_return([])
+        subject.matches?(cart, "1, 2, 3").should be_false
       end
     end
   end
