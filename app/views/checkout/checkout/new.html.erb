@@ -42,7 +42,6 @@
       </h2>
       <% 
         address = @checkout.address
-        address ||= @addresses.first if @addresses
        %>  
       <%= render "cart_details", address: address %>
       
