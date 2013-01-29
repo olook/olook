@@ -1,5 +1,15 @@
 <% content_for :top_my_account do %>
   <%= render "shared/header_checkout" %>
+  
+  <script type="text/javascript">  
+    if(window.opener) {
+       window.opener.top.location = window.location.href;
+       document.getElementsByTagName('body')[0].style.display='none';
+       setTimeout(function(){
+         window.close();
+       },300)
+     }
+  </script>
 <% end %>  
 
   
