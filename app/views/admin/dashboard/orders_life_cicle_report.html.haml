@@ -6,10 +6,10 @@
   .block
   %h3 Filtros
   .content
-    =form_tag("#") do
+    =form_tag(admin_orders_life_cicle_report_path) do
       .group
         =label_tag 'Transportador'
-        =select_tag "=transportador",  options_for_select(["Tex", "Pac"])
+        =select_tag "transportador",  options_for_select(["Tex", "Pac"]), include_blank: true
       .group
         =submit_tag "Enviar"
 
