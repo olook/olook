@@ -107,9 +107,9 @@ feature "Operations dashboard", %q{
 
   scenario 'Transportation filter' do
 
-    click_link 'Entrega'
+    click_link 'Ciclo de vida'
 
-    select 'Pac'
+    page.select 'Pac', :from => "transportador"
 
     click_button 'Enviar'
 
