@@ -106,6 +106,7 @@ $(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
     $("#cart-box #total_billet").hide();
+    $("#cart-box #billet_discount_cart").hide();
     $.ajax({
       url: '/sacola',
       type: 'PUT',
@@ -145,9 +146,11 @@ $(function() {
 		if($("div.billet").is(":visible")){
 			$("span#total").fadeOut('fast');
 			$("span#total_billet").delay(200).fadeIn();
+      $("#cart-box #billet_discount_cart").delay(200).fadeIn();
 		}else{
 			$("span#total_billet").fadeOut('fast');
 			$("span#total").delay(200).fadeIn();
+      $("#cart-box #billet_discount_cart").hide();
 		}
 	}
 
