@@ -61,11 +61,11 @@ describe Checkout::CheckoutController do
       response.should be_success
     end
 
-    it "assigns a new checkout instance with empty address and payment" do
+    it "assigns a new checkout instance with empty address and payment nil" do
       get :new
       assigns[:checkout].should_not be_nil
       assigns[:checkout].address.should_not be_nil
-      assigns[:checkout].payment.should_not be_nil
+      assigns[:checkout].payment.should be_nil
     end
 
     context "when user has address" do

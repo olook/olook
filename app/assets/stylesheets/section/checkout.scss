@@ -1568,6 +1568,9 @@ section.checkout{
 			}
 		}
 		.payment{float:left;padding-left:5px;
+      p{font-size:13px;margin-top:15px;
+        span{color:#000;}
+      }
 			li{float:left;height:auto
 				&.credit_card{width:120px;}
 				&.boleto{width:54px;}
@@ -1668,6 +1671,7 @@ section.checkout{
 		p.total{font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:5px;
 			span{width:109px;display:inline-block;float:left;
 				&.frete{font-size:12px;width:150px;margin-left:109px;}
+				&#total_billet{display:none;}
 			}
 		}
 	}

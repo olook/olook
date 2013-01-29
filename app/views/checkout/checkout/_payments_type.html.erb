@@ -54,11 +54,16 @@
 
 <div class="payment">
   <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
+  <%= errors_for(@checkout, :payment_base) %>
   <ul class="payment_type">
     <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet", checked: @checkout.payment && @checkout.payment.is_a?(Billet) %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
     <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: @checkout.payment && @checkout.payment.is_a?(CreditCard) %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
     <li class="debito"><%= checkout_form.radio_button :payment_method, "debit" %> <%= checkout_form.label :payment_method, 'Débito Online', checked: @checkout.payment && @checkout.payment.is_a?(Debit) %></li>
   </ul>
+
+  <% if billet_discount_enabled %>
+    <p>Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto</span>. Nesta compra seu desconto será de <span id="billet_discount" class="txt-pink"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
+  <% end %>
     
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
   <div class="box-cartao credit_card">
