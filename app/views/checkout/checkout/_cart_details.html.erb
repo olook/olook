@@ -12,7 +12,13 @@
   <ul class="subtotal">
     <li><span class="txt-black">SUBTOTAL: </span><span class="txt-pink"><%= number_to_currency(@cart_service.subtotal) %></span></li>
     <li class="frete"><span class="txt-black">FRETE: </span><span id="freight_price"><% if address && address.zip_code %><%= number_to_currency(freight_for(address)[:price]) %><% end %></span></li>
-    <li><span class="txt-black">CRÉDITOS: </span><span id="credits_used"><%= number_to_currency(@cart_service.total_credits_discount) %></span></li>
+    <li><span class="txt-black">CRÉDITOS: </span><span id="credits_used">-<%= number_to_currency(@cart_service.total_credits_discount) %></span></li>
+    <% if @cart_service.total_coupon_discount > 0 %>
+      <li><span class="txt-black">CUPOM: </span><span id="coupon_discount_value">-<%= number_to_currency(@cart_service.total_coupon_discount) %></span></li>
+    <% end %>
+    <div id="billet_discount_cart">
+      <li><span class="txt-black">BOLETO: </span><span id="billet_discount_value">-<%= number_to_currency(@cart_service.billet_discount) %></span></li>
+    </div>
   </ul> 
   <p class="total">
     <span class="txt-black">TOTAL: </span>
