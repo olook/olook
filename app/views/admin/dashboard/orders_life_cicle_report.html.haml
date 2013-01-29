@@ -31,12 +31,12 @@
         %td{:id => "picking"}= report_days_link(@picking[report_day_number],report_day_number, state: "picking")
         %td{:id => "delivering"}= report_days_link(@delivering[report_day_number],report_day_number, state: "delivering")
         %td{:id => "delivered"}= report_days_link(@delivered[report_day_number],report_day_number, state: "delivered")
-        %td{:id => "total"}= report_days_link(@total[report_day_number],report_day_number)
+        %td{:id => "total"}= report_days_link(@totals[report_day_number],report_day_number)
 
     %tr
-      %td TOTAL</td>
-      %td{:id => "total_authorized"}= Order.with_state("authorized").count
-      %td{:id => "total_picking"}= Order.with_state("picking").count
-      %td{:id => "total_delivering"}= Order.with_state("delivering").count
-      %td{:id => "total_delivered"}= Order.with_state("delivered").count
-      %td{:id => "grand_total"}= Order.with_state(["authorized","picking","delivering","delivered"]).count
+      %td TOTAL
+      %td{:id => "total_authorized"}= @authorized_total
+      %td{:id => "total_picking"}=    @picking_total
+      %td{:id => "total_delivering"}= @delivering_total
+      %td{:id => "total_delivered"}=  @delivered_total
+      %td{:id => "grand_total"}=      @grand_total
