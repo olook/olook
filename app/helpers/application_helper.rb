@@ -88,7 +88,7 @@ module ApplicationHelper
       '1 (última peça!)'
     else
       select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), 
-                              onchange: "changeCartItemQty('#{item.id}')")
+                              onchange: "#{track_event('Cart', 'changeAmount', "#{item.id}")};changeCartItemQty('#{item.id}');")
     end
   end
 
