@@ -4,7 +4,6 @@
 
 <%= link_to "Continuar comprando", @referer[:url], :class => "back_link" %>
 <section id="payment" class="checkout">
-  <%= render :partial => "shared/errors", :locals => { :object => @checkout } %>
   <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
     <div class="box-step-one">
       <h2 class="step-title">
@@ -14,11 +13,12 @@
       </h2>
     
       <div id="checkout_address">
-      <% if @addresses.nil? || @addresses.empty? %>
-        <%= render "shipping_address_form", address: @checkout.address %>
-      <% else %>
-        <%= render "address_list", addresses: @addresses, selected_address: @checkout.address %>
-      <% end %>
+        <%= errors_for(@checkout, :address_base) %>
+        <% if @addresses.nil? || @addresses.empty? %>
+          <%= render "shipping_address_form", address: @checkout.address %>
+        <% else %>
+          <%= render "address_list", addresses: @addresses, selected_address: @checkout.address %>
+        <% end %>
       </div>
     </div>  
 
