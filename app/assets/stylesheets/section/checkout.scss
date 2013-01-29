@@ -1550,7 +1550,7 @@ section.checkout{
 		}
     p.addresses_index{
       clear:both;margin-bottom:10px;
-      a{font-size:16px;color:#DD4978;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
+      a{font-size:14px;color:#DD4978;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
 				&:hover{text-decoration:underline;}
 			} 
     }
