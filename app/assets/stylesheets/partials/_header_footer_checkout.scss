@@ -1,16 +1,50 @@
 header.checkout{
 	background:none !important;min-height:100px !important;padding:30px 0 0 0 !important;border-bottom:solid 2px #DEDDDD;text-align:center;
-	div{width:975px;margin:0 auto;overflow:hidden;}
+	div.head{width:975px;margin:0 auto;position:relative;}
 	h1{float:left;
 	 a{background: url("/assets/common/logo.jpg") no-repeat;height: 68px;margin: 8px 0 0;text-indent: -9999px;width: 217px;}
 	}
 	p{
 		&.security{margin:30px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
-		&.contact{float:right;color:#6D6E71;font-size:11px;margin-top:35px;
+		&.contact{float:right;color:#6D6E71;font-size:11px;margin-top:47px;
 			span{float:left;font-size:11px;margin:0 3px 0 0;width:200px;}
 			a{color:#6D6E71;font-size:11px;margin-left:5px;}
 		}
 	}
+	#session {
+  	position: absolute;right:0;top:20px;z-index: 995;@include sign-in;overflow: visible;
+    div.user {
+      margin: 0 0 3px;float: right;
+      ul {
+        > li {position: relative;color: #282828;font-size: 15px;text-align: right;letter-spacing: -1px;margin: 0 0 0 3px;padding: 7px 0 0;display: inline-block;float: left;
+          a {
+            color: #282828;
+            text-decoration: none;
+            &#info_user {
+              background: image-url('common/arrow-down-pink.png') center right no-repeat;color: #D95485;text-align: left;width: auto;min-width: 88px;height: 17px;margin: -6px 0 0;padding: 5px 25px 5px 8px;display: inline-block;border: 2px #FFF solid;float: none;
+              &:hover, &.hover {text-decoration: none;border-color: #888;}
+            }
+            &:hover {text-decoration: underline;}
+          }
+          div.my_account {
+            position: absolute;background: #FFF;padding: 5px 0;display: none;top: 24px;left: 0;z-index: 1000;border-left: 2px #888 solid;border-right: 2px #888 solid;border-bottom: 2px #888 solid;
+            ul {margin: 0 0 0 5px;
+              li {text-align: left;width: 100%;display: block;clear: both;
+                a {color: #6d6e71;letter-spacing: 0;margin: 0;display: block;clear: both;}
+                &:last-child, &.last {
+                  a {margin: 0;}
+                }
+              }
+            }
+          }
+          &:hover {
+            div.my_account {display: block;}
+          }
+        }
+      }
+    }
+  }
+  
 }
 
 footer.footer_checkout{

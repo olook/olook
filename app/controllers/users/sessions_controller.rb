@@ -37,11 +37,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     if @cart && @cart.items_total > 0
-      if resource.current_credit > 0
-        cart_path
-      else
-        checkout_cart_path
-      end
+      new_checkout_path
     elsif resource.half_user && resource.male?
       gift_root_path
     else

@@ -60,3 +60,7 @@ pt-BR:
               blank: "Até quando vale o seu cartão, mesmo?"
             user_birthday:
               blank: "Queremos saber esta data especial :)"
+        debit:
+          attributes:
+            bank:
+              blank: "Selecione o banco para pagamento via débito online"
