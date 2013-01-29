@@ -16,12 +16,14 @@ pt-BR:
               blank: "Também precisamos da sigla do estado (UF)"
             number:
               blank: "Também precisamos do número"
+              invalid: "O número parece estranho. Pode conferir?"
             neighborhood:
               blank: "Qual é o seu bairro, mesmo?"
             street:
               blank: "Qual o seu endereço?"
             telephone:
               blank: "É bom termos o seu telefone. Qualquer coisa, ligamos"
+              invalid: "O telefone parece estranho. Pode conferir?"
         user:
           attributes:
             first_name:
@@ -42,7 +44,7 @@ pt-BR:
           attributes:
             user_identification:
               blank: "Para compras, é necessário informar o CPF"
-              invalid: "Pode repetir? Parece que não está batendo"
+              invalid: "Pode repetir o CPF? Parece que não está batendo"
             user_birthday:
               blank: "Queremos saber esta data especial :)"
               invalid: "Pode repetir? Parece que não está batendo"
