@@ -1481,7 +1481,7 @@ section#payment {
 /******** NEW CHECKOUT ********/
 /******************************/
 section.checkout{
-	&#payment{position:relative;margin-top:30px;clear:both;float:left;min-height:500px;}
+	&#payment{position:relative;margin-top:30px;clear:both;min-height:500px;}
 	.box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
 	.box-step-three{float:left;width:325px;}
 

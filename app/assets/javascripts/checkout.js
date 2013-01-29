@@ -92,7 +92,7 @@ $(function() {
 		$(window).scroll(function(event) {
 			var y = $(this).scrollTop();
 			if(y >= 170) {
-				$('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0'});
+				$('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'none'});
 				$('input.send_it').addClass('fixed').css('left', helpLeft2);
 			} else {
 				$('.box-step-three').removeClass('fixed').removeAttr('style');
@@ -187,11 +187,8 @@ $(function() {
 	});
 	
 });
-//SCROLLTOP WHEN NEW ADDRESS IS CLICKED
-$('#checkout_address a').click(function(e) {
-	$("html, body").animate({scrollTop: 0}, 'fast');
-  e.preventDefault();
-});
+
+
 
 $("form.edit_cart_item").submit(function() {
     retrieve_freight_price($("#checkout_address_zip_code").val(),null);  
