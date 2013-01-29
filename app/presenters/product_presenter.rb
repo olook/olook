@@ -101,9 +101,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price
-    if (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8)) && product.can_supports_discount?
-      price_markdown(:promotion_price) + promotion_explanation
-    elsif product.promotion? #discount
+    if product.promotion? #discount
       price_markdown(:retail_price)
     else
       price_markup(product.price, "price")
@@ -133,18 +131,6 @@ class ProductPresenter < BasePresenter
     content = h.number_to_currency(price)
     content = prefix + content if prefix
     h.content_tag(:p, content ,:class => css_class)
-  end
-
-  def promotion_explanation
-    if show_promotion_explanation?
-      first_buy = h.content_tag(:p, "em sua primeira compra", :class => "promotion_explanation") 
-      discount_validity = member ? h.content_tag(:p, "Aproveite! Seu desconto vencerá em #{user_expiration_day(member)}/#{user_expiration_month(member)}", :class=> "validate") : h.content_tag(:p, "Válido por 7 dias a partir do cadastro", :class=> "validate")
-      first_buy + discount_validity
-    end
-  end
-
-  def show_promotion_explanation?
-    @user.nil? || PromotionService.new(@user).satisfies_criteria?({promotion: @promotion})
   end
 
 end

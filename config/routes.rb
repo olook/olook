@@ -333,7 +333,7 @@ Olook::Application.routes.draw do
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 
   #MOIP-CALLBACK
-  post '/pagamento', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
+  post '/moip', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"

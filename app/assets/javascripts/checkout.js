@@ -33,11 +33,17 @@ function retrieve_freight_price(zip_code) {
       $("#freight_price").hide();
       $("#delivery_time").hide();
       $("#total").hide();
+      $("#total_billet").hide();
     },
     success: function(){
-      $("#freight_price").delay(300).fadeIn();
-      $("#delivery_time").delay(300).fadeIn();
-      $("#total").delay(300).fadeIn();
+      $("#freight_price").delay(200).fadeIn();
+      $("#delivery_time").delay(200).fadeIn();
+      if($("#checkout_payment_method_billet").is(":checked")){
+        $("#total_billet").delay(200).fadeIn();
+      } 
+      else {
+        $("#total").delay(200).fadeIn();
+      }
     }
   });
 }
